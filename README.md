@@ -1,3 +1,5 @@
+**This thing doesn't work yet, come back in a few weeks**
+
 ## Goals
 
 We want to create a private/caching npm repository server. The idea of it to be as simple as it could possibly be, which means "just download and run it". As I recall, there're no such things available now, is there?
