@@ -1,0 +1,21 @@
+{
+  "name": "npmrepod",
+  "version": "0.0.0",
+  "description": "Private npm repository server",
+  "author": {
+    "name": "Alex Kocharin",
+    "email": "alex@kocharin.ru"
+  },
+  "main": "index.js",
+  "bin": {
+    "npmrepod": "./bin/npmrepod"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "commander": "*"
+  },
+  "preferGlobal": true,
+  "license": "BSD"
+}
