@@ -50,13 +50,13 @@ Should we allow anybody to publish any package by default? Should it be configur
 
 No CouchDB. It is supposed to work with zero configuration, so filesystem would be used for storage by default.
 
-But our company would want to use MongoDB for ourselves, because we have several servers with MongoDB replication set up.
+But our company would want to use MongoDB+GridFS for ourselves, because we have several servers with MongoDB replication set up.
 
 So, we would implement some kind of plugin system. There would be at least two plugins with the package (filesystem as a default, mongodb), but if someone wants to use CouchDB or whatever he could write a plugin himself.
 
 ## Plugins
 
-- storage (filesystem, database)
+- storage (filesystem, mongo)
 - logging (bunyan interface?)
 
 ## Existing things
