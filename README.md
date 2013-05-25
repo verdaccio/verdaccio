@@ -62,8 +62,9 @@ So, we would implement some kind of plugin system. There would be at least two p
 ## Existing things
 
 - npm + git (I mean, using git+ssh:// dependencies) - most people seem to use this, but it's a terrible idea... *npm update* doesn't work, can't use git subdirectories this way, etc.
-- shadow-npm (https://github.com/dominictarr/shadow-npm, http://shadow-npm.net/) - it uses the same code as npmjs.org + service is dead
-- http://www.gemfury.com/l/npm-registry and others - those are closed-source cloud services, and I'm not in a mood to trust my private code to somebody (security through obscurity yeah!)
+- [reggie](https://github.com/mbrevoort/node-reggie) - this looks very interesting indeed... I might borrow some code there.
+- [shadow-npm](https://github.com/dominictarr/shadow-npm), [public service](http://shadow-npm.net/) - it uses the same code as npmjs.org + service is dead
+- [gemfury](http://www.gemfury.com/l/npm-registry) and others - those are closed-source cloud services, and I'm not in a mood to trust my private code to somebody (security through obscurity yeah!)
 - npm-registry-proxy, npm-delegate, npm-proxy - those are just proxies...
 
 Anything else?
