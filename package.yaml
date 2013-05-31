@@ -11,11 +11,13 @@ main: index.js
 
 bin:
   npmrepod: ./bin/npmrepod
-  
+
 dependencies:
-  express: '*'
-  commander: '*'
-  
+  express: '>= 3.2.5'
+  commander: '>= 1.1.1'
+  js-yaml: '>= 2.0.5'
+  cookies: '>= 0.3.6'
+
 preferGlobal: true
 license: BSD
 

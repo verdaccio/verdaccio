@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 
+var fs = require('fs');
+var yaml = require('js-yaml');
 var commander = require('commander');
+var pkg = yaml.safeLoad(fs.readFileSync('../package.yaml', 'utf8'));
+var server = require('../lib/index');
 
 commander
-	// re-inventing the wheel because I don't want to require package.json for every run
-	.option('-V, --version', 'output the version number')
-	.on('version', get_version)
-
-	.option('-p, --port <port>', 'port number to listen on (default: 4873)', 4873)
+	.option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)', '4873')
 	.option('-s, --storage <path>', 'path to package cache (default: "~/.npmrepod")')
 	// todo: need something to do with invalid https certificate, but we just can't use http by default
 	.option('-u, --uplink <url>', 'parent registry (default: "https://registry.npmjs.org/")')
-	.option('-c, --config <file>', 'use this configuration file')
-
+	.option('-c, --config <file.yaml>', 'use this configuration file')
+	.version(pkg.version)
 	.parse(process.argv);
 
-function get_version() {
-	console.log(require('../package.json').version);
-	process.exit(0);
+var hostport = commander.listen.split(':');
+if (hostport.length < 2) {
+	hostport = [undefined, hostport[0]];
 }
-
-console.log('This thing doesn\'t work yet! Come back in a few weeks...');
+server({}).listen(hostport[1], hostport[0]);
+console.log('Server is listening on http://%s:%s/', hostport[0] || 'localhost', hostport[1]);
 
