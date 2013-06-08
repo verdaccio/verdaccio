@@ -1,5 +1,5 @@
 
-name: npmrepod
+name: sinopia
 version: 0.0.1
 description: Private npm repository server
 
@@ -10,13 +10,15 @@ author:
 main: index.js
 
 bin:
-  npmrepod: ./bin/npmrepod
+  sinopia: ./bin/sinopia
 
 dependencies:
   express: '>= 3.2.5'
   commander: '>= 1.1.1'
   js-yaml: '>= 2.0.5'
   cookies: '>= 0.3.6'
+  async: '*'
+  semver: '*'
 
 preferGlobal: true
 license: BSD

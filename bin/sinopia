@@ -5,6 +5,7 @@ var yaml = require('js-yaml');
 var commander = require('commander');
 var pkg = yaml.safeLoad(fs.readFileSync('../package.yaml', 'utf8'));
 var server = require('../lib/index');
+var crypto = require('crypto');
 
 commander
 	.option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)', '4873')
@@ -15,10 +16,38 @@ commander
 	.version(pkg.version)
 	.parse(process.argv);
 
+if (commander.config) {
+	var config = yaml.safeLoad(fs.readFileSync(commander.config, 'utf8'));
+} else {
+	var pass = crypto.randomBytes(8).toString('base64').replace(/[=+\/]/g, '');
+	var config = {
+		users: {
+			admin: {
+				password: crypto.createHash('sha1').update(pass).digest('hex')
+			},
+		},
+		uplinks: {
+			npmjs: {
+				url: 'https://registry.npmjs.org/'
+			},
+		},
+		packages: {
+			'/.*/': {
+				publish: ['admin'],
+				access: ['all'],
+				proxy: ['npmjs'],
+			}
+		}
+	}
+	console.log('starting with default config, use user: "admin", pass: "%s" to authenticate', pass);
+}
+
+if (!config.user_agent) config.user_agent = 'Sinopia/'+pkg.version;
+
 var hostport = commander.listen.split(':');
 if (hostport.length < 2) {
 	hostport = [undefined, hostport[0]];
 }
-server({}).listen(hostport[1], hostport[0]);
+server(config).listen(hostport[1], hostport[0]);
 console.log('Server is listening on http://%s:%s/', hostport[0] || 'localhost', hostport[1]);
 

@@ -1,0 +1,20 @@
+
+users:
+  user1:
+    # require('crypto').createHash('sha1').update('test').digest('hex')
+    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+GGusers: &GG user1 user2
+
+packages:
+  /^local-/:
+    #wg1: read write
+    #npmjs: read
+    access: *GG
+    publish: *GG
+    proxy: npmjs owner all
+
