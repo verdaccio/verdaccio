@@ -1,5 +1,23 @@
 **This thing doesn't work yet, come back in a few weeks**
 
+## Installation
+
+```bash
+# installation and starting
+$ npm install -g sinopia
+$ sinopia
+
+# npm configuration
+$ npm set registry http://localhost:4387/
+
+# if you have any restricted packages (that's the point of having private
+# registry anyway), you should add this:
+$ npm set always-auth true
+
+# if you use HTTPS (you probably should), add an appropriate CA information
+$ npm set ca null
+```
+
 ## Goals
 
 We want to create a private/caching npm repository server. The idea of it to be as simple as it could possibly be, which means "just download and run it". As I recall, there're no such things available now, is there?
