@@ -17,6 +17,7 @@ dependencies:
   commander: '>= 1.1.1'
   js-yaml: '>= 2.0.5'
   cookies: '>= 0.3.6'
+  request: '*'
   async: '*'
   semver: '*'
 
