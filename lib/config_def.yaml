@@ -1,0 +1,18 @@
+# path to a directory with all packages
+storage: ./storage
+
+users:
+  admin:
+    # crypto.createHash('sha1').update(pass).digest('hex')
+    password: __PASSWORD__
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '/.*/':
+    publish: admin
+    access: all
+    proxy: npmjs
+

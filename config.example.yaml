@@ -1,4 +1,7 @@
 
+# path to a directory with all packages
+storage: ./storage
+
 users:
   user1:
     # require('crypto').createHash('sha1').update('test').digest('hex')

@@ -1,45 +1,31 @@
 #!/usr/bin/env node
 
+var pkg_file = '../package.yaml';
 var fs = require('fs');
 var yaml = require('js-yaml');
 var commander = require('commander');
-var pkg = yaml.safeLoad(fs.readFileSync('../package.yaml', 'utf8'));
 var server = require('../lib/index');
 var crypto = require('crypto');
+var pkg = require(pkg_file);
 
 commander
 	.option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)', '4873')
-	.option('-s, --storage <path>', 'path to package cache (default: "~/.npmrepod")')
-	// todo: need something to do with invalid https certificate, but we just can't use http by default
-	.option('-u, --uplink <url>', 'parent registry (default: "https://registry.npmjs.org/")')
-	.option('-c, --config <file.yaml>', 'use this configuration file')
+	.option('-c, --config <config.yaml>', 'use this configuration file (default: ./config.yaml)')
 	.version(pkg.version)
 	.parse(process.argv);
 
+var config;
 if (commander.config) {
-	var config = yaml.safeLoad(fs.readFileSync(commander.config, 'utf8'));
+	config = yaml.safeLoad(fs.readFileSync(commander.config, 'utf8'));
 } else {
-	var pass = crypto.randomBytes(8).toString('base64').replace(/[=+\/]/g, '');
-	var config = {
-		users: {
-			admin: {
-				password: crypto.createHash('sha1').update(pass).digest('hex')
-			},
-		},
-		uplinks: {
-			npmjs: {
-				url: 'https://registry.npmjs.org/'
-			},
-		},
-		packages: {
-			'/.*/': {
-				publish: ['admin'],
-				access: ['all'],
-				proxy: ['npmjs'],
-			}
-		}
+	try {
+		config = yaml.safeLoad(fs.readFileSync('./config.yaml', 'utf8'));
+	} catch(err) {
+		var created_config = require('../lib/config_gen')();
+		config = yaml.safeLoad(created_config.yaml);
+		console.log('starting with default config, use user: "%s", pass: "%s" to authenticate', created_config.user, created_config.pass);
+		fs.writeFileSync('./config.yaml', created_config.yaml);
 	}
-	console.log('starting with default config, use user: "admin", pass: "%s" to authenticate', pass);
 }
 
 if (!config.user_agent) config.user_agent = 'Sinopia/'+pkg.version;
