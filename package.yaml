@@ -6,6 +6,10 @@ description: Private npm repository server
 author:
   name: Alex Kocharin
   email: alex@kocharin.ru
+ 
+repository:
+  type: git
+  url: https://github.com/rlidwka/sinopia
 
 main: index.js
 
@@ -20,6 +24,11 @@ dependencies:
   request: '*'
   async: '*'
   semver: '*'
+
+keywords: # TODO
+  - private
+  - repository
+  - registry
 
 preferGlobal: true
 license: BSD
