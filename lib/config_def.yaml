@@ -11,7 +11,7 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
-  '/.*/':
+  '*':
     publish: admin
     access: all
     proxy: npmjs
