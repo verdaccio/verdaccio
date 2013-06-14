@@ -1,3 +1,5 @@
 node_modules
 package.json
 npm-debug.log
+bin/storage
+bin/config.yaml
