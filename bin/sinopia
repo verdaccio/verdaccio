@@ -34,6 +34,9 @@ var hostport = commander.listen.split(':');
 if (hostport.length < 2) {
 	hostport = [undefined, hostport[0]];
 }
+if (hostport[0] == null) {
+	hostport[0] = 'localhost';
+}
 server(config).listen(hostport[1], hostport[0]);
-console.log('Server is listening on http://%s:%s/', hostport[0] || 'localhost', hostport[1]);
+console.log('Server is listening on http://%s:%s/', hostport[0], hostport[1]);
 
