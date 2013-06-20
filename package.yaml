@@ -25,6 +25,7 @@ dependencies:
   async: '*'
   semver: '*'
   minimatch: '*'
+  through: '*'
 
 keywords: # TODO
   - private
