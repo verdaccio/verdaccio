@@ -1,18 +1,28 @@
 # path to a directory with all packages
 storage: ./storage
 
+# a list of users
 users:
   admin:
     # crypto.createHash('sha1').update(pass).digest('hex')
     password: __PASSWORD__
 
+# a list of other known repositories we can talk to
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 
 packages:
   '*':
-    publish: admin
-    access: all
-    proxy: npmjs
+    # allow all users to read packages ('all' is a keyword)
+    # this includes non-authenticated (anonymous) users
+    allow_access: all
 
+    # allow 'admin' to publish packages
+    allow_publish: admin
+
+    # if package is not available locally, proxy requests to 'npmjs' registry
+    proxy_access: npmjs
+
+    # when package is published locally, also push it to remote registry
+    #proxy_publish: none
