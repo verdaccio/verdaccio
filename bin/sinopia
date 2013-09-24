@@ -14,21 +14,24 @@ commander
 	.version(pkg.version)
 	.parse(process.argv);
 
-var config;
+var config, config_path;
 if (commander.config) {
-	config = yaml.safeLoad(fs.readFileSync(commander.config, 'utf8'));
+	config_path = commander.config;
+	config = yaml.safeLoad(fs.readFileSync(config_path, 'utf8'));
 } else {
+	config_path = './config.yaml';
 	try {
-		config = yaml.safeLoad(fs.readFileSync('./config.yaml', 'utf8'));
+		config = yaml.safeLoad(fs.readFileSync(config_path, 'utf8'));
 	} catch(err) {
 		var created_config = require('../lib/config_gen')();
 		config = yaml.safeLoad(created_config.yaml);
 		console.log('starting with default config, use user: "%s", pass: "%s" to authenticate', created_config.user, created_config.pass);
-		fs.writeFileSync('./config.yaml', created_config.yaml);
+		fs.writeFileSync(config_path, created_config.yaml);
 	}
 }
 
 if (!config.user_agent) config.user_agent = 'Sinopia/'+pkg.version;
+if (!config.self_path) config.self_path = config_path;
 
 var hostport = commander.listen.split(':');
 if (hostport.length < 2) {
