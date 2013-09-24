@@ -9,7 +9,7 @@ var crypto = require('crypto');
 var pkg = require(pkg_file);
 
 commander
-	.option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)', '4873')
+	.option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)')
 	.option('-c, --config <config.yaml>', 'use this configuration file (default: ./config.yaml)')
 	.version(pkg.version)
 	.parse(process.argv);
@@ -33,7 +33,8 @@ if (commander.config) {
 if (!config.user_agent) config.user_agent = 'Sinopia/'+pkg.version;
 if (!config.self_path) config.self_path = config_path;
 
-var hostport = commander.listen.split(':');
+var hostport = commander.listen || config.listen || '4873';
+hostport = hostport.split(':');
 if (hostport.length < 2) {
 	hostport = [undefined, hostport[0]];
 }

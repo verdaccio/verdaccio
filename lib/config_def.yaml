@@ -40,3 +40,6 @@ packages:
 # if you use nginx with custom path, use this to override links
 #url_prefix: https://dev.company.local/sinopia/
 
+# you can specify listen address (or simply a port)
+#listen: localhost:4873
+
