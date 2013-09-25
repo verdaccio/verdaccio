@@ -1,17 +1,14 @@
-#!/usr/local/bin/node --harmony
+#!/usr/bin/env node
 
-var galaxy = require('galaxy');
-var Auth = galaxy.star(require('./lib/auth'));
-
-var sleep = galaxy.star(function(ms, cb) {
-	setTimeout(cb, ms);
-});
+var Server = require('./lib/server');
 
 process.argv = ['node', 'sinopia', '-c', './config.yaml'];
 require('../bin/sinopia');
 
-galaxy.unstar(function*() {
-	sleep(1000);
-	yield Auth.auth('test', 'test');
-})();
+setTimeout(function() {
+	var server = new Server('http://localhost:55550/');
+	server.auth('test', 'test', function() {
+		console.log('ok');
+	});
+}, 1000);
 

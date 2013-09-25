@@ -27,9 +27,6 @@ dependencies:
   minimatch: '*'
   through: '*'
 
-devDependencies:
-  galaxy: '*' # and node 0.11.2+ for testing
-
 keywords: # TODO
   - private
   - repository
