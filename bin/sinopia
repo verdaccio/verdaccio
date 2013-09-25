@@ -14,22 +14,39 @@ commander
 	.version(pkg.version)
 	.parse(process.argv);
 
-var config, config_path;
-if (commander.config) {
-	config_path = commander.config;
-	config = yaml.safeLoad(fs.readFileSync(config_path, 'utf8'));
-} else {
-	config_path = './config.yaml';
-	try {
-		config = yaml.safeLoad(fs.readFileSync(config_path, 'utf8'));
-	} catch(err) {
-		var created_config = require('../lib/config_gen')();
-		config = yaml.safeLoad(created_config.yaml);
-		console.log('starting with default config, use user: "%s", pass: "%s" to authenticate', created_config.user, created_config.pass);
-		fs.writeFileSync(config_path, created_config.yaml);
-	}
+if (commander.args.length == 1 && !commander.config) {
+	// handling "sinopia [config]" case if "-c" is missing in commandline
+	commander.config = commander.args.pop();
 }
 
+if (commander.args.length != 0) {
+	commander.help();
+}
+
+try {
+	var config, config_path;
+	if (commander.config) {
+		config_path = commander.config;
+		config = yaml.safeLoad(fs.readFileSync(config_path, 'utf8'));
+	} else {
+		config_path = './config.yaml';
+		try {
+			config = yaml.safeLoad(fs.readFileSync(config_path, 'utf8'));
+		} catch(err) {
+			var created_config = require('../lib/config_gen')();
+			config = yaml.safeLoad(created_config.yaml);
+			console.log('starting with default config, use user: "%s", pass: "%s" to authenticate', created_config.user, created_config.pass);
+			fs.writeFileSync(config_path, created_config.yaml);
+		}
+	}
+} catch(err) {
+	if (err.code === 'ENOENT') {
+		console.error('ERROR: cannot open configuration file "'+config_path+'", file not found');
+		process.exit(1);
+	} else {
+		throw err;
+	}
+}
 if (!config.user_agent) config.user_agent = 'Sinopia/'+pkg.version;
 if (!config.self_path) config.self_path = config_path;
 
