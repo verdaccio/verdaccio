@@ -33,7 +33,9 @@ if (commander.config) {
 if (!config.user_agent) config.user_agent = 'Sinopia/'+pkg.version;
 if (!config.self_path) config.self_path = config_path;
 
-var hostport = commander.listen || config.listen || '4873';
+// command line || config file || default
+var hostport = commander.listen || String(config.listen || '') || '4873';
+
 hostport = hostport.split(':');
 if (hostport.length < 2) {
 	hostport = [undefined, hostport[0]];
