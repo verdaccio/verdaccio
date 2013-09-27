@@ -7,18 +7,25 @@ function Server(url) {
 	this.userAgent = 'node/v0.10.8 linux x64';
 }
 
+function prep(cb) {
+	return function(err, res, body) {
+		if (err) throw err;
+		cb(res, body);
+	};
+}
+
 Server.prototype.request = function(options, cb) {
 	options.headers = options.headers || {};
-
 	return request({
 		url: this.url + options.uri,
 		method: options.method || 'GET',
 		headers: {
 			accept: options.headers.accept || 'application/json',
 			'user-agent': options.headers['user-agent'] || this.userAgent,
+			'content-type': options.headers['content-type'],
 			authorization: this.auth,
 		},
-		json: options.json
+		json: options.json || true,
 	}, cb);
 }
 
@@ -30,29 +37,42 @@ Server.prototype.auth = function(user, pass, cb) {
 		json: {
 			content: "doesn't matter, 'cause sinopia uses info from Authorization header anywayz",
 		}
-	}, function(req, res, body) {
-		assert.notEqual(body.ok.indexOf('"'+user+'"'), -1);
-		cb();
-	});
+	}, prep(cb));
 }
 
 Server.prototype.get_package = function(name, cb) {
-	request({
+	this.request({
 		uri: '/'+name,
 		method: 'GET',
-	}, function(req, res, body) {
-		cb(body);
-	});
+	}, prep(cb));
 }
 
 Server.prototype.put_package = function(name, data, cb) {
-	request({
+	if (typeof(data) === 'object' && !Buffer.isBuffer(data)) data = JSON.stringify(data);
+	this.request({
 		uri: '/'+name,
 		method: 'PUT',
-		json: data,
-	}, function(req, res, body) {
-		cb(body);
-	});
+		headers: {
+			'content-type': 'application/json'
+		},
+	}, prep(cb)).end(data);
+}
+
+Server.prototype.get_tarball = function(name, filename, cb) {
+	this.request({
+		uri: '/'+name+'/-/'+filename,
+		method: 'GET',
+	}, prep(cb));
+}
+
+Server.prototype.put_tarball = function(name, filename, data, cb) {
+	this.request({
+		uri: '/'+name+'/-/'+filename+'/whatever',
+		method: 'PUT',
+		headers: {
+			'content-type': 'application/octet-stream'
+		},
+	}, prep(cb)).end(data);
 }
 
 module.exports = Server;
