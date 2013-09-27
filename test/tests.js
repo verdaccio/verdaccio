@@ -67,6 +67,12 @@ ex['downloading non-existent tarball'] = function(cb) {
 	});
 };
 
+ex['uploading incomplete tarball'] = function(cb) {
+	server.put_tarball_incomplete('testpkg', 'blahblah1', readfile('fixtures/binary'), 3000, function(res, body) {
+		cb();
+	});
+};
+
 ex['uploading new tarball'] = function(cb) {
 	server.put_tarball('testpkg', 'blahblah', readfile('fixtures/binary'), function(res, body) {
 		assert(res.statusCode === 201);

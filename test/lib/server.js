@@ -15,16 +15,14 @@ function prep(cb) {
 }
 
 Server.prototype.request = function(options, cb) {
-	options.headers = options.headers || {};
+	var headers = options.headers || {};
+	headers.accept = headers.accept || 'application/json';
+	headers['user-agent'] = headers['user-agent'] || this.userAgent;
+	headers.authorization = headers.authorization || this.auth;
 	return request({
 		url: this.url + options.uri,
 		method: options.method || 'GET',
-		headers: {
-			accept: options.headers.accept || 'application/json',
-			'user-agent': options.headers['user-agent'] || this.userAgent,
-			'content-type': options.headers['content-type'],
-			authorization: this.auth,
-		},
+		headers: headers,
 		json: options.json || true,
 	}, cb);
 }
@@ -84,6 +82,25 @@ Server.prototype.put_tarball = function(name, filename, data, cb) {
 			'content-type': 'application/octet-stream'
 		},
 	}, prep(cb)).end(data);
+}
+
+Server.prototype.put_tarball_incomplete = function(name, filename, data, size, cb) {
+	var req = this.request({
+		uri: '/'+escape(name)+'/-/'+escape(filename)+'/whatever',
+		method: 'PUT',
+		headers: {
+			'content-type': 'application/octet-stream',
+			'content-length': size,
+		},
+		timeout: 1000,
+	}, function(err) {
+		assert(err);
+		cb();
+	});
+	req.write(data);
+	setTimeout(function() {
+		req.req.abort();
+	}, 20);
 }
 
 module.exports = Server;
