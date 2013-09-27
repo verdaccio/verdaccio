@@ -27,10 +27,14 @@ dependencies:
   minimatch: '*'
   through: '*'
 
-keywords: # TODO
+keywords:
   - private
+  - package
   - repository
   - registry
+  - modules
+  - proxy
+  - server
 
 preferGlobal: true
 license: BSD
