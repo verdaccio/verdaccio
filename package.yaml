@@ -27,6 +27,10 @@ dependencies:
   minimatch: '*'
   through: '*'
 
+devDependencies:
+  rimraf: '*'
+  mocha: '*'
+
 keywords:
   - private
   - package
@@ -35,6 +39,9 @@ keywords:
   - modules
   - proxy
   - server
+
+scripts:
+  test: ./test/start.sh
 
 preferGlobal: true
 license: BSD
