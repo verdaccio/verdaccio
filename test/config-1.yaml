@@ -6,7 +6,11 @@ users:
 
 packages:
   '*':
-    allow_access: test
-    allow_publish: test
+    allow_access: test anonymous
+    allow_publish: test anonymous
+
+  # this should not matter
+  testpkg:
+    allow_access: none
 
 listen: 55551

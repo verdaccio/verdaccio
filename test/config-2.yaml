@@ -4,9 +4,18 @@ users:
   test:
     password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 
+uplinks:
+  server1:
+    url: http://localhost:55551/
+
 packages:
+  testpkg:
+    allow_access: test anonymous
+    allow_publish: test anonymous
+    proxy_access: server1
+
   '*':
-    allow_access: test
-    allow_publish: test
+    allow_access: test anonymous
+    allow_publish: test anonymous
 
 listen: 55552

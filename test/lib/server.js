@@ -50,7 +50,18 @@ Server.prototype.get_package = function(name, cb) {
 Server.prototype.put_package = function(name, data, cb) {
 	if (typeof(data) === 'object' && !Buffer.isBuffer(data)) data = JSON.stringify(data);
 	this.request({
-		uri: '/'+name,
+		uri: '/'+escape(name),
+		method: 'PUT',
+		headers: {
+			'content-type': 'application/json'
+		},
+	}, prep(cb)).end(data);
+}
+
+Server.prototype.put_version = function(name, version, data, cb) {
+	if (typeof(data) === 'object' && !Buffer.isBuffer(data)) data = JSON.stringify(data);
+	this.request({
+		uri: '/'+escape(name)+'/'+escape(version)+'/-tag/latest',
 		method: 'PUT',
 		headers: {
 			'content-type': 'application/json'
@@ -60,14 +71,14 @@ Server.prototype.put_package = function(name, data, cb) {
 
 Server.prototype.get_tarball = function(name, filename, cb) {
 	this.request({
-		uri: '/'+name+'/-/'+filename,
+		uri: '/'+escape(name)+'/-/'+escape(filename),
 		method: 'GET',
 	}, prep(cb));
 }
 
 Server.prototype.put_tarball = function(name, filename, data, cb) {
 	this.request({
-		uri: '/'+name+'/-/'+filename+'/whatever',
+		uri: '/'+escape(name)+'/-/'+escape(filename)+'/whatever',
 		method: 'PUT',
 		headers: {
 			'content-type': 'application/octet-stream'
