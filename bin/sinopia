@@ -63,3 +63,8 @@ if (hostport[0] == null) {
 server(config).listen(hostport[1], hostport[0]);
 console.log('Server is listening on http://%s:%s/', hostport[0], hostport[1]);
 
+// undocumented stuff for tests
+if (typeof(process.send) === 'function') {
+	process.send({sinopia_started: hostport});
+}
+

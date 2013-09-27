@@ -7,7 +7,7 @@ var readfile = require('fs').readFileSync;
 var binary = readfile('../fixtures/binary');
 var count = 10000;
 
-var server = new Server('http://localhost:55550/');
+var server = new Server('http://localhost:55551/');
 async.series([
 	function(cb) {
 		server.auth('test', 'test', function(res, body) {

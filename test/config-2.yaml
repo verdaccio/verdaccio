@@ -1,0 +1,12 @@
+storage: ./test-storage2
+
+users:
+  test:
+    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+
+packages:
+  '*':
+    allow_access: test
+    allow_publish: test
+
+listen: 55552
