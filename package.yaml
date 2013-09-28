@@ -1,3 +1,4 @@
+# use "yapm install ." if you're installing this from git repository
 
 name: sinopia
 version: 0.4.1
@@ -9,7 +10,7 @@ author:
  
 repository:
   type: git
-  url: https://github.com/rlidwka/sinopia
+  url: git://github.com/rlidwka/sinopia
 
 main: index.js
 
@@ -50,5 +51,3 @@ engines:
 preferGlobal: true
 license: BSD
 
-
-engines: null
