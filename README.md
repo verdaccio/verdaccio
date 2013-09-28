@@ -35,9 +35,9 @@ $ npm set ca null
 
 When you start a server, it auto-creates a config file that adds one user (password is printed to stdout only once).
 
-## Using public packages from npm.js / caching
+## Using public packages from npmjs.org
 
-If some package doesn't exist in the storage, server would forward requests to npmjs.org. If npmjs.org is down, we would serve packages from cache pretending that no other packages exist. We would download only what's needed (= requested by clients), and this information would be cached forever.
+If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Sinopia will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
 
 Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
 
