@@ -46,7 +46,7 @@ scripts:
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8
 engines:
-	node: '>=0.10'
+  node: '>=0.10'
 
 preferGlobal: true
 license: BSD
