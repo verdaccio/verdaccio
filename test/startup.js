@@ -31,7 +31,7 @@ ex['authentication to servers'] = function(cb) {
 	[server, server2].forEach(function(server) {
 		count++;
 		server.auth('test', 'test', function(res, body) {
-			assert(res.statusCode === 201);
+			assert.equal(res.statusCode, 201);
 			assert.notEqual(body.ok.indexOf('"test"'), -1);
 			if (!--count) cb();
 		});

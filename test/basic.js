@@ -7,7 +7,7 @@ var server2 = process.server2;
 ex['trying to fetch non-existent package'] = function(cb) {
 	server.get_package('testpkg', function(res, body) {
 		// shouldn't exist yet
-		assert(res.statusCode === 404);
+		assert.equal(res.statusCode, 404);
 		assert(~body.error.indexOf('no such package'));
 		cb();
 	});
@@ -15,7 +15,7 @@ ex['trying to fetch non-existent package'] = function(cb) {
 
 ex['creating new package'] = function(cb) {
 	server.put_package('testpkg', readfile('fixtures/test-package.json'), function(res, body) {
-		assert(res.statusCode === 201);
+		assert.equal(res.statusCode, 201);
 		assert(~body.ok.indexOf('created new package'));
 		cb();
 	});
@@ -23,7 +23,7 @@ ex['creating new package'] = function(cb) {
 
 ex['downloading non-existent tarball'] = function(cb) {
 	server.get_tarball('testpkg', 'blahblah', function(res, body) {
-		assert(res.statusCode === 404);
+		assert.equal(res.statusCode, 404);
 		assert(~body.error.indexOf('no such file'));
 		cb();
 	});
@@ -37,7 +37,7 @@ ex['uploading incomplete tarball'] = function(cb) {
 
 ex['uploading new tarball'] = function(cb) {
 	server.put_tarball('testpkg', 'blahblah', readfile('fixtures/binary'), function(res, body) {
-		assert(res.statusCode === 201);
+		assert.equal(res.statusCode, 201);
 		assert(body.ok);
 		cb();
 	});
@@ -53,7 +53,7 @@ ex['downloading newly created tarball'] = function(cb) {
 
 ex['uploading new package version'] = function(cb) {
 	server.put_version('testpkg', '0.0.1', readfile('fixtures/test-package.json'), function(res, body) {
-		assert(res.statusCode === 201);
+		assert.equal(res.statusCode, 201);
 		assert(~body.ok.indexOf('published'));
 		cb();
 	});
@@ -61,10 +61,10 @@ ex['uploading new package version'] = function(cb) {
 
 ex['downloading newly created package'] = function(cb) {
 	server.get_package('testpkg', function(res, body) {
-		assert(res.statusCode === 200);
-		assert(body.name === 'testpkg');
-      assert(body.versions['0.0.1'].name === 'testpkg');
-      assert(body.versions['0.0.1'].dist.tarball === 'http://localhost:55551/testpkg/-/blahblah');
+		assert.equal(res.statusCode, 200);
+		assert.equal(body.name, 'testpkg');
+      assert.equal(body.versions['0.0.1'].name, 'testpkg');
+      assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55551/testpkg/-/blahblah');
       assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
 		cb();
 	});
@@ -72,10 +72,10 @@ ex['downloading newly created package'] = function(cb) {
 
 ex['downloading package via server2'] = function(cb) {
 	server2.get_package('testpkg', function(res, body) {
-		assert(res.statusCode === 200);
-		assert(body.name === 'testpkg');
-      assert(body.versions['0.0.1'].name === 'testpkg');
-      assert(body.versions['0.0.1'].dist.tarball === 'http://localhost:55552/testpkg/-/blahblah');
+		assert.equal(res.statusCode, 200);
+		assert.equal(body.name, 'testpkg');
+      assert.equal(body.versions['0.0.1'].name, 'testpkg');
+      assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55552/testpkg/-/blahblah');
       assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
 		cb();
 	});
