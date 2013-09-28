@@ -7,12 +7,14 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 1. Use private packages. 
    
    If you want to use all benefits of npm package system in your company without sending all code to the public, and use your private packages just as easy as public ones.
+
    See [using private packages](#using-private-packages) section for details.
 
 2. Cache npmjs.org registry.
    
    If you have more than one server you want to install packages on, you might want to use this to decrease latency
    (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache).
+
    See [using public packages](#using-public-packages-from-npmjsorg) section for details.
 
 3. Override public packages.
