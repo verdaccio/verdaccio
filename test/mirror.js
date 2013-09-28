@@ -3,7 +3,7 @@ var readfile = require('fs').readFileSync;
 var ex = module.exports;
 var server = process.server;
 var server2 = process.server2;
-/*
+
 ex['creating new package'] = function(cb) {
 	server.put_package('testfwd', readfile('fixtures/fwd-package.json'), function(res, body) {
 		assert(res.statusCode === 201);
@@ -21,16 +21,16 @@ ex['uploading new package version'] = function(cb) {
 };
 
 ex['downloading package via server2'] = function(cb) {
-	server2.get_package('testpkg', function(res, body) {
-		assert(res.statusCode === 200);
-		assert(body.name === 'testfwd');
-      assert(body.versions['0.1.1'].name === 'testfwd');
-      assert(body.versions['0.1.1'].dist.tarball === 'http://localhost:55552/testpkg/-/blahblah');
+	server2.get_package('testfwd', function(res, body) {
+		assert.equal(res.statusCode, 200);
+		assert.equal(body.name, 'testfwd');
+		assert.equal(body.versions['0.1.1'].name, 'testfwd');
+		assert.equal(body.versions['0.1.1'].dist.tarball, 'http://localhost:55552/testpkg/-/blahblah');
 		cb();
 	});
 };
-*/
 
+/*
 ex['creating - srv1 (remove it)'] = function(cb) {
 	server.put_package('testfwd', readfile('fixtures/fwd-package.json'), function(res, body) {
 		assert(res.statusCode === 201);
@@ -68,4 +68,4 @@ ex['downloading tarball from server2'] = function(cb) {
 		cb();
 	});
 };
-
+*/
