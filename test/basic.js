@@ -14,7 +14,7 @@ ex['trying to fetch non-existent package'] = function(cb) {
 };
 
 ex['creating new package'] = function(cb) {
-	server.put_package('testpkg', readfile('fixtures/test-package.json'), function(res, body) {
+	server.put_package('testpkg', require('./lib/package')('testpkg'), function(res, body) {
 		assert.equal(res.statusCode, 201);
 		assert(~body.ok.indexOf('created new package'));
 		cb();
@@ -52,7 +52,7 @@ ex['downloading newly created tarball'] = function(cb) {
 };
 
 ex['uploading new package version'] = function(cb) {
-	server.put_version('testpkg', '0.0.1', readfile('fixtures/test-package.json'), function(res, body) {
+	server.put_version('testpkg', '0.0.1', require('./lib/package')('testpkg'), function(res, body) {
 		assert.equal(res.statusCode, 201);
 		assert(~body.ok.indexOf('published'));
 		cb();
@@ -63,9 +63,9 @@ ex['downloading newly created package'] = function(cb) {
 	server.get_package('testpkg', function(res, body) {
 		assert.equal(res.statusCode, 200);
 		assert.equal(body.name, 'testpkg');
-      assert.equal(body.versions['0.0.1'].name, 'testpkg');
-      assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55551/testpkg/-/blahblah');
-      assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
+		assert.equal(body.versions['0.0.1'].name, 'testpkg');
+		assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55551/testpkg/-/blahblah');
+		assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
 		cb();
 	});
 };
@@ -74,9 +74,9 @@ ex['downloading package via server2'] = function(cb) {
 	server2.get_package('testpkg', function(res, body) {
 		assert.equal(res.statusCode, 200);
 		assert.equal(body.name, 'testpkg');
-      assert.equal(body.versions['0.0.1'].name, 'testpkg');
-      assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55552/testpkg/-/blahblah');
-      assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
+		assert.equal(body.versions['0.0.1'].name, 'testpkg');
+		assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55552/testpkg/-/blahblah');
+		assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
 		cb();
 	});
 };

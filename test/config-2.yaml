@@ -12,6 +12,12 @@ packages:
   'testfwd':
     allow_access: all
     allow_publish: all
+  
+  'testloop':
+    allow_access: all
+    allow_publish: all
+    proxy_access: server1
+    proxy_publish: server1
 
   testpkg:
     allow_access: test anonymous
