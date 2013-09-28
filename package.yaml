@@ -1,6 +1,6 @@
 
 name: sinopia
-version: 0.4.0
+version: 0.4.1
 description: Private npm repository server
 
 author:
@@ -50,3 +50,5 @@ engines:
 preferGlobal: true
 license: BSD
 
+
+engines: null
