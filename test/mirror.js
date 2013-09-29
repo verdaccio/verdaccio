@@ -4,7 +4,7 @@ var ex = module.exports;
 var server = process.server;
 var server2 = process.server2;
 
-['fwd', 'loop'].forEach(function(pkg) {
+['fwd'/*, 'loop'*/].forEach(function(pkg) {
 	var prefix = pkg+': ';
 	pkg = 'test'+pkg;
 
