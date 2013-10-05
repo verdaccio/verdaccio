@@ -75,9 +75,30 @@ There's two options here:
    
    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
 
-## Features
+## Compatibility
 
-For now you can publish packages and read them. Advanced features like `npm search` don't work yet.
+Sinopia aims to support all features of a standard npm client that make sense to support in private repository. Unfortunately, it isn't always possible.
+
+Basic features:
+
+- Installing packages (npm install, npm upgrade, etc.) - supported
+- Publishing packages (npm publish) - supported
+
+Advanced package control:
+
+- Unpublishing packages (npm unpublish) - not yet supported, should be soon
+- Tagging (npm tag) - not yet supported, should be soon
+- Deprecation (npm deprecate) - not supported
+
+User management:
+
+- Registering new users (npm adduser {newuser}) - not supported, sinopia uses its own acl management system
+- Transferring ownership (npm owner add {user} {pkg}) - not supported, sinopia uses its own acl management system
+
+Misc stuff:
+
+- Searching (npm search) - not supported
+- Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 
 ## Storage
 
