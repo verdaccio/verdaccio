@@ -1,6 +1,7 @@
 node_modules
 package.json
 npm-debug.log
+sinopia-*.tgz
 
 ###
 bin/storage*
