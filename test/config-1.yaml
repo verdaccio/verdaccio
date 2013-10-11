@@ -22,8 +22,8 @@ packages:
     proxy_publish: server2
 
   '*':
-    allow_access: test anonymous
-    allow_publish: test anonymous
+    allow_access: test undefined
+    allow_publish: test undefined
 
   # this should not matter
   testpkg:
