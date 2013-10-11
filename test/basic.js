@@ -43,6 +43,14 @@ ex['uploading new tarball'] = function(cb) {
 	});
 };
 
+ex['doubleerr test'] = function(cb) {
+	server.put_tarball('testfwd2', 'blahblah', readfile('fixtures/binary'), function(res, body) {
+		assert.equal(res.statusCode, 404);
+		assert(body.error);
+		cb();
+	});
+};
+
 ex['downloading newly created tarball'] = function(cb) {
 	server.get_tarball('testpkg', 'blahblah', function(res, body) {
 		assert.equal(res.statusCode, 200);

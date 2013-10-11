@@ -9,7 +9,7 @@ uplinks:
     url: http://localhost:55552/
 
 packages:
-  'testfwd':
+  'testfwd*':
     allow_access: all
     allow_publish: all
     proxy_access: server2
