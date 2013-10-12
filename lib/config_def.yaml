@@ -51,6 +51,6 @@ packages:
 #
 # parameters for stdout and stderr: format: json | pretty
 #  {type: 'stdout', format: 'pretty', level: 'debug'},
-log:
+logs:
   - {type: stdout, format: pretty, level: http}
   #- {type: file, path: sinopia.log, level: info}
