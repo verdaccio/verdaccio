@@ -1,5 +1,5 @@
 
-current master, version 0.5.0
+12 Oct 2013, version 0.5.0
 
 - using bunyan as a log engine
 - pretty-formatting colored logs to stdout by default
