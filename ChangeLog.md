@@ -1,6 +1,7 @@
 
 ?? ??? ????, version 0.5.2
 
+- added a "maxage" option for uplinks
 - added fs-ext dependency (flock)
 - fixed a few face conditions
 
