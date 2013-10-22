@@ -5,6 +5,7 @@ function Server(url) {
 	if (!(this instanceof Server)) return new Server(url);
 	this.url = url.replace(/\/$/, '');
 	this.userAgent = 'node/v0.10.8 linux x64';
+	this.authstr = 'Basic '+(new Buffer('test:test')).toString('base64');
 }
 
 function prep(cb) {
@@ -18,7 +19,7 @@ Server.prototype.request = function(options, cb) {
 	var headers = options.headers || {};
 	headers.accept = headers.accept || 'application/json';
 	headers['user-agent'] = headers['user-agent'] || this.userAgent;
-	headers.authorization = headers.authorization || this.auth;
+	headers.authorization = headers.authorization || this.authstr;
 	return request({
 		url: this.url + options.uri,
 		method: options.method || 'GET',
@@ -28,7 +29,7 @@ Server.prototype.request = function(options, cb) {
 }
 
 Server.prototype.auth = function(user, pass, cb) {
-	this.auth = 'Basic '+(new Buffer(user+':'+pass)).toString('base64');
+	this.authstr = 'Basic '+(new Buffer(user+':'+pass)).toString('base64');
 	this.request({
 		uri: '/-/user/org.couchdb.user:'+escape(user)+'/-rev/undefined',
 		method: 'PUT',

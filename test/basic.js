@@ -59,6 +59,14 @@ ex['downloading newly created tarball'] = function(cb) {
 	});
 };
 
+ex['uploading new package version for bad pkg'] = function(cb) {
+	server.put_version('testpxg', '0.0.1', require('./lib/package')('testpxg'), function(res, body) {
+		assert.equal(res.statusCode, 404);
+		assert(~body.error.indexOf('no such package'));
+		cb();
+	});
+};
+
 ex['uploading new package version'] = function(cb) {
 	server.put_version('testpkg', '0.0.1', require('./lib/package')('testpkg'), function(res, body) {
 		assert.equal(res.statusCode, 201);

@@ -8,6 +8,9 @@ uplinks:
   server2:
     url: http://localhost:55552/
 
+logs:
+  - {type: stdout, format: pretty, level: trace}
+
 packages:
   'testfwd*':
     allow_access: all

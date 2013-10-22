@@ -27,6 +27,7 @@ dependencies:
   semver: '*'
   minimatch: '*'
   bunyan: '>= 0.16.4'
+  fs-ext: '*'
 
 devDependencies:
   rimraf: '*'

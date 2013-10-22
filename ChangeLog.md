@@ -1,4 +1,9 @@
 
+?? ??? ????, version 0.5.2
+
+- added fs-ext dependency (flock)
+- fixed a few face conditions
+
 20 Oct 2013, version 0.5.1
 
 - fixed a few errors related to logging
