@@ -1,8 +1,9 @@
-var assert = require('assert');
-var readfile = require('fs').readFileSync;
-var ex = module.exports;
-var server = process.server;
-var server2 = process.server2;
+var assert = require('assert')
+  , readfile = require('fs').readFileSync
+  , crypto = require('crypto')
+  , ex = module.exports
+  , server = process.server
+  , server2 = process.server2
 
 ex['trying to fetch non-existent package'] = function(cb) {
 	server.get_package('testpkg', function(res, body) {
@@ -67,8 +68,20 @@ ex['uploading new package version for bad pkg'] = function(cb) {
 	});
 };
 
+ex['uploading new package version (bad sha)'] = function(cb) {
+	var pkg = require('./lib/package')('testpkg')
+	pkg.dist.shasum = crypto.createHash('sha1').update('fake').digest('hex')
+	server.put_version('testpkg', '0.0.1', pkg, function(res, body) {
+		assert.equal(res.statusCode, 400);
+		assert(~body.error.indexOf('shasum error'));
+		cb();
+	});
+};
+
 ex['uploading new package version'] = function(cb) {
-	server.put_version('testpkg', '0.0.1', require('./lib/package')('testpkg'), function(res, body) {
+	var pkg = require('./lib/package')('testpkg')
+	pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex')
+	server.put_version('testpkg', '0.0.1', pkg, function(res, body) {
 		assert.equal(res.statusCode, 201);
 		assert(~body.ok.indexOf('published'));
 		cb();
