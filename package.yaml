@@ -51,5 +51,5 @@ engines:
   node: '>=0.10'
 
 preferGlobal: true
-license: BSD
+license: WTFPL
 
