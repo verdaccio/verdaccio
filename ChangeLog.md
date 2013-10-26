@@ -1,7 +1,7 @@
 
-?? ??? ????, version 0.5.2
+26 Oct 2013, version 0.5.2
 
-- added a "maxage" option for uplinks
+- server now supports unpublishing local packages
 - added fs-ext dependency (flock)
 - fixed a few face conditions
 
