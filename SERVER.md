@@ -14,6 +14,13 @@ $ cd ~
 
 The 'cd ~' command send you to the home directory of the sinopia user. Make sure you run sinopia at least once to generate the config file. Edit it according to your needs.
 
+## Listening on all addresses
+If you want to listen to every external address set the listen directive in the config to:
+```
+# you can specify listen address (or simply a port)
+listen: 0.0.0.0:4873
+```
+
 ## Keeping sinopia running forever
 We can use the node package called 'forever' to keep sinopia running all the time.
 https://github.com/nodejitsu/forever
