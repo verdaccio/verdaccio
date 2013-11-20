@@ -4,23 +4,23 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 
 ## Use cases
 
-1. Use private packages. 
-   
+1. Use private packages.
+
    If you want to use all benefits of npm package system in your company without sending all code to the public, and use your private packages just as easy as public ones.
 
    See [using private packages](#using-private-packages) section for details.
 
 2. Cache npmjs.org registry.
-   
+
    If you have more than one server you want to install packages on, you might want to use this to decrease latency
    (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache).
 
    See [using public packages](#using-public-packages-from-npmjsorg) section for details.
 
 3. Override public packages.
-   
+
    If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accepted pull request yet), you can publish your version locally under the same name.
-   
+
    See [override public packages](#override-public-packages) section for details.
 
 ## Installation
@@ -47,6 +47,19 @@ $ npm set ca null
 
 When you start a server, it auto-creates a config file that adds one user (password is printed to stdout only once).
 
+## Adding a new user
+
+There is no utility to add a new user but you can at least use node on the command-line to generate a password. You will need to edit the config and add the user manually.
+
+Start node and enter the following code replacing 'newpass' with the password you want to get the hash for.
+```bash
+$ node
+> crypto.createHash('sha1').update('newpass').digest('hex')
+'6c55803d6f1d7a177a0db3eb4b343b0d50f9c111'
+> [CTRL-D]
+```
+
+
 ## Using private packages
 
 You can add users and manage which users can access which packages.
@@ -66,13 +79,13 @@ If you want to use a modified version of some public package `foo`, you can just
 There's two options here:
 
 1. You want to create a separate fork and stop synchronizing with public version.
-   
+
    If you want to do that, you should modify your configuration file so sinopia won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy_access` list and restart the server.
-   
+
    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
 2. You want to temporarily use your version, but return to public one as soon as it's updated.
-   
+
    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
 
 ## Compatibility
