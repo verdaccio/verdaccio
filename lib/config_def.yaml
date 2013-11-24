@@ -60,3 +60,10 @@ packages:
 logs:
   - {type: stdout, format: pretty, level: http}
   #- {type: file, path: sinopia.log, level: info}
+
+# you can specify proxy used with all requests in wget-like manner here
+# (or set up ENV variables with the same name)
+#http_proxy: http://something.local/
+#https_proxy: https://something.local/
+#no_proxy: localhost,127.0.0.1
+
