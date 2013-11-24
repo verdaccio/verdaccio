@@ -1,4 +1,9 @@
 
+24 Nov 2013, version 0.5.3
+
+- added proxy support for requests to uplinks (issue #13)
+- changed license from default BSD to WTFPL
+
 26 Oct 2013, version 0.5.2
 
 - server now supports unpublishing local packages
