@@ -1,4 +1,10 @@
 
+8 Dec 2013, version 0.5.4
+
+- latest tag always shows highest version available (issue #8)
+- added a configurable timeout for requests to uplinks (issue #18)
+- users with bad authentication header are considered not logged in (issue #17)
+
 24 Nov 2013, version 0.5.3
 
 - added proxy support for requests to uplinks (issue #13)
