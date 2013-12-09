@@ -4,7 +4,15 @@ var ex = module.exports;
 var server = process.server;
 var server2 = process.server2;
 
-['fwd'/*, 'loop'*/].forEach(function(pkg) {
+ex['testing anti-loop'] = function(cb) {
+	server2.get_package('testloop', function(res, body) {
+		assert.equal(res.statusCode, 404);
+		assert(~body.error.indexOf('no such package'));
+		cb();
+	});
+};
+
+['fwd', 'loop'].forEach(function(pkg) {
 	var prefix = pkg+': ';
 	pkg = 'test'+pkg;
 
