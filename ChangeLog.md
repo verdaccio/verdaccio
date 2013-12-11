@@ -1,4 +1,8 @@
 
+11 Dec 2013, version 0.5.6
+
+- fixing a few crashes related to tags
+
 8 Dec 2013, version 0.5.4
 
 - latest tag always shows highest version available (issue #8)
