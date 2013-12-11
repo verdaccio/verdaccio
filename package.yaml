@@ -1,7 +1,7 @@
 # use "yapm install ." if you're installing this from git repository
 
 name: sinopia
-version: 0.5.4
+version: 0.5.5
 description: Private npm repository server
 
 author:
