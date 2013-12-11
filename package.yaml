@@ -24,7 +24,7 @@ dependencies:
   cookies: '>= 0.3.6'
   request: '*'
   async: '*'
-  semver: '*'
+  semver: '>= 2.0.5' # compareLoose
   minimatch: '*'
   bunyan: '>= 0.16.4'
   fs-ext: '*'
