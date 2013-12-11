@@ -1,8 +1,8 @@
 
-module.exports = function(name) {
+module.exports = function(name, version) {
 	return {
 		"name": name,
-		"version": "0.0.0",
+		"version": version || "0.0.0",
 		"dist": {
 			"shasum": "fake",
 			"tarball": "http://localhost:55551/"+escape(name)+"/-/blahblah"

@@ -1,4 +1,5 @@
 var assert = require('assert')
+  , semver_sort = require('../lib/storage')._semver_sort
   , merge = require('../lib/storage')._merge_versions
 
 //require('../lib/logger').setup()
@@ -38,6 +39,15 @@ exports['Merge'] = {
 			versions: {},
 			'dist-tags': {w:["1.1.1","2.2.2-rc2","2.2.2","3.3.3","12.2.2"]},
 		})
+	},
+
+	'semver_sort': function() {
+		assert.deepEqual(semver_sort(['1.2.3','1.2','1.2.3a','1.2.3c','1.2.3-b']),
+		[ '1.2.3a',
+		  '1.2.3-b',
+		  '1.2.3c',
+		  '1.2.3' ]
+		)
 	},
 }
 
