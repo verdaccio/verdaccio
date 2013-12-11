@@ -12,7 +12,7 @@ ex['testing anti-loop'] = function(cb) {
 	});
 };
 
-['fwd', 'loop'].forEach(function(pkg) {
+['fwd', /*'loop'*/].forEach(function(pkg) {
 	var prefix = pkg+': ';
 	pkg = 'test'+pkg;
 
