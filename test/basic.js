@@ -109,3 +109,12 @@ ex['downloading package via server2'] = function(cb) {
 		cb();
 	});
 };
+
+ex['publishing package / bad ro uplink'] = function(cb) {
+	server.put_package('baduplink', require('./lib/package')('baduplink'), function(res, body) {
+		assert.equal(res.statusCode, 503);
+		assert(~body.error.indexOf('one of the uplinks is down, refuse to publish'));
+		cb();
+	});
+}
+

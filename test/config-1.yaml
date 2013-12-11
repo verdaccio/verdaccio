@@ -9,6 +9,8 @@ uplinks:
     url: http://localhost:55550/
   server2:
     url: http://localhost:55552/
+  baduplink:
+    url: http://localhost:55666/
 
 logs:
   - {type: stdout, format: pretty, level: trace}
@@ -30,6 +32,11 @@ packages:
     allow_access: all
     allow_publish: all
     proxy_access: express
+
+  'baduplink':
+    allow_access: all
+    allow_publish: all
+    proxy_access: baduplink
 
   '*':
     allow_access: test undefined

@@ -12,7 +12,10 @@ ex['starting servers'] = function(cb) {
 	function start(dir, conf) {
 		count++;
 		rimraf(dir, function() {
-			var f = fork('../bin/sinopia', ['-c', conf], {silent: true});
+			var f = fork('../bin/sinopia'
+			          , ['-c', conf]
+			          , {silent: true}
+			);
 			forks.push(f);
 			f.on('message', function(msg) {
 				if ('sinopia_started' in msg) {
