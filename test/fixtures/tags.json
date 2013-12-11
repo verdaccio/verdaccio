@@ -1,0 +1,50 @@
+{
+	"name": "testexp_tags",
+	"versions": {
+		"0.1.0": {
+			"name": "testexp_tags",
+			"version": "0.0.0",
+			"dist": {
+				"shasum": "fake",
+				"tarball": "http://localhost:55551/testexp_tags/-/blahblah"
+			}
+		},
+		"0.1.1alpha": {
+			"name": "testexp_tags",
+			"version": "0.0.0",
+			"dist": {
+				"shasum": "fake",
+				"tarball": "http://localhost:55551/testexp_tags/-/blahblah"
+			}
+		},
+		"0.1.2": {
+			"name": "testexp_tags",
+			"version": "0.0.0",
+			"dist": {
+				"shasum": "fake",
+				"tarball": "http://localhost:55551/testexp_tags/-/blahblah"
+			}
+		},
+		"0.1.3alpha": {
+			"name": "testexp_tags",
+			"version": "0.0.0",
+			"dist": {
+				"shasum": "fake",
+				"tarball": "http://localhost:55551/testexp_tags/-/blahblah"
+			}
+		},
+		"1.1": {
+			"name": "testexp_tags",
+			"version": "0.0.0",
+			"dist": {
+				"shasum": "fake",
+				"tarball": "http://localhost:55551/testexp_tags/-/blahblah"
+			}
+		}
+	},
+	"dist-tags": {
+		"latest": "5.4.3",
+		"something": "0.1.1alpha",
+		"bad": "1.1"
+	}
+}	

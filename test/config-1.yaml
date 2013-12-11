@@ -5,6 +5,8 @@ users:
     password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 
 uplinks:
+  express:
+    url: http://localhost:55550/
   server2:
     url: http://localhost:55552/
 
@@ -23,6 +25,11 @@ packages:
     allow_publish: all
     proxy_access: server2
     proxy_publish: server2
+
+  'testexp*':
+    allow_access: all
+    allow_publish: all
+    proxy_access: express
 
   '*':
     allow_access: test undefined
