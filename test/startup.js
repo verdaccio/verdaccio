@@ -31,7 +31,7 @@ ex['starting servers'] = function(cb) {
 
 ex['authentication to servers'] = function(cb) {
 	var count = 0
-	[server, server2].forEach(function(server) {
+	;[server, server2].forEach(function(server) {
 		count++
 		server.auth('test', 'test', function(res, body) {
 			assert.equal(res.statusCode, 201)

@@ -18,6 +18,7 @@ ex['Basic:'] = require('./basic')
 ex['Mirror:'] = require('./mirror')
 ex['Race:'] = require('./race')
 ex['Tags:'] = require('./tags')
+ex['GH29:'] = require('./gh29')
 
 process.on('exit', function() {
 	if (forks[0]) forks[0].kill()
