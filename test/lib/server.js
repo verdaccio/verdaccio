@@ -16,6 +16,7 @@ function prep(cb) {
 }
 
 Server.prototype.request = function(options, cb) {
+	assert(options.uri)
 	var headers = options.headers || {};
 	headers.accept = headers.accept || 'application/json';
 	headers['user-agent'] = headers['user-agent'] || this.userAgent;

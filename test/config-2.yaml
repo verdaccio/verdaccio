@@ -22,7 +22,7 @@ packages:
     proxy_access: server1
     proxy_publish: server1
 
-  testpkg:
+  'testpkg*':
     allow_access: test anonymous
     allow_publish: test anonymous
     proxy_access: server1
