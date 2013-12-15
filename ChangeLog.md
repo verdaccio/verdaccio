@@ -1,4 +1,9 @@
 
+15 Dec 2013, version 0.5.7
+
+- try to fetch package from uplinks if user requested a tarball we don't know about (issue #29)
+- security fix: set express.js to production mode so we won't return stack traces to the user in case of errors
+
 11 Dec 2013, version 0.5.6
 
 - fixing a few crashes related to tags
