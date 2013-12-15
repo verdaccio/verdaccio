@@ -1,4 +1,4 @@
-var transaction = require('../lib/transaction')
+var transaction = require('../../lib/transaction')
 var assert = require('assert')
 
 function call_back(cb, value) {
