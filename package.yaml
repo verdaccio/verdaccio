@@ -43,7 +43,7 @@ keywords:
   - server
 
 scripts:
-  test: ./test/start.sh
+  test: mocha ./test/functional ./test/unit
 
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8

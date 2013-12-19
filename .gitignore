@@ -6,4 +6,4 @@ sinopia-*.tgz
 ###
 bin/storage*
 bin/*.yaml
-test/test-storage*
+test-storage*

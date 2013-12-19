@@ -36,39 +36,53 @@ function test(uplinks, cb) {
 	)
 }
 
-// everything is fine
-test([true, true, true, true, true], function(err, calls) {
-	assert.deepEqual(err, undefined)
-	assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3' ])
-})
+describe('Transaction', function() {
+	it('everything is fine', function(cb) {
+		test([true, true, true, true, true], function(err, calls) {
+			assert.deepEqual(err, undefined)
+			assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3' ])
+			cb()
+		})
+	})
 
-// local throws errors - don't call remotes
-test([false, true, true, true, true], function(err, calls) {
-	assert.deepEqual(err, 'l')
-	assert.deepEqual(calls, ['l'])
-})
+	it("local throws errors - don't call remotes", function(cb) {
+		test([false, true, true, true, true], function(err, calls) {
+			assert.deepEqual(err, 'l')
+			assert.deepEqual(calls, ['l'])
+			cb()
+		})
+	})
 
-// remote fails, call all rollbacks
-test([true, true, true, false, true], function(err, calls) {
-	assert.deepEqual(err, 'r2')
-	assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3', 'rb0', 'rb1', 'rb3', 'lb' ])
-})
+	it('remote fails, call all rollbacks', function(cb) {
+		test([true, true, true, false, true], function(err, calls) {
+			assert.deepEqual(err, 'r2')
+			assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3', 'rb0', 'rb1', 'rb3', 'lb' ])
+			cb()
+		})
+	})
 
-// no remotes
-test([true], function(err, calls) {
-	assert.deepEqual(err, undefined)
-	assert.deepEqual(calls, [ 'l' ])
-})
+	it('no remotes', function(cb) {
+		test([true], function(err, calls) {
+			assert.deepEqual(err, undefined)
+			assert.deepEqual(calls, [ 'l' ])
+			cb()
+		})
+	})
 
-// all remotes fail
-test([true, false, false, false, false], function(err, calls) {
-	assert.deepEqual(err, 'r0')
-	assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3', 'lb' ])
-})
+	it('all remotes fail', function(cb) {
+		test([true, false, false, false, false], function(err, calls) {
+			assert.deepEqual(err, 'r0')
+			assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3', 'lb' ])
+			cb()
+		})
+	})
 
-// mix
-test([true, true, false, true, false], function(err, calls) {
-	assert.deepEqual(err, 'r1')
-	assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3', 'rb0', 'rb2', 'lb' ])
+	it('mix', function(cb) {
+		test([true, true, false, true, false], function(err, calls) {
+			assert.deepEqual(err, 'r1')
+			assert.deepEqual(calls, [ 'l', 'r0', 'r1', 'r2', 'r3', 'rb0', 'rb2', 'lb' ])
+			cb()
+		})
+	})
 })
 
