@@ -1,4 +1,11 @@
 
+20 Dec 2013, version 0.5.8
+
+- fixed a warning from js-yaml
+- don't color multiline strings in logs output
+- better error messages in various cases
+- test format changed
+
 15 Dec 2013, version 0.5.7
 
 - try to fetch package from uplinks if user requested a tarball we don't know about (issue #29)
