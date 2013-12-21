@@ -2,7 +2,7 @@ var assert = require('assert')
   , semver_sort = require('../../lib/storage')._semver_sort
   , merge = require('../../lib/storage')._merge_versions
 
-//require('../lib/logger').setup()
+require('../../lib/logger').setup([])
 
 describe('Merge', function() {
 	it('simple', function() {
