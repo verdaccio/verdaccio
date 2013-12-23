@@ -33,6 +33,10 @@ devDependencies:
   rimraf: '*'
   mocha: '*'
 
+  # linting tools
+  eslint: '*'
+  #eslint-stylish: '*'
+
 keywords:
   - private
   - package
@@ -44,6 +48,7 @@ keywords:
 
 scripts:
   test: mocha ./test/functional ./test/unit
+  lint: eslint -c ./.eslint.js ./lib
 
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8
@@ -51,5 +56,7 @@ engines:
   node: '>=0.10'
 
 preferGlobal: true
+
+# http://www.wtfpl.net/txt/copying/
 license: WTFPL
 
