@@ -1,5 +1,5 @@
 var assert = require('assert')
-  , semver_sort = require('../../lib/storage')._semver_sort
+  , semver_sort = require('../../lib/utils').semver_sort
   , merge = require('../../lib/storage')._merge_versions
 
 require('../../lib/logger').setup([])
