@@ -1,4 +1,8 @@
 
+26 Dec 2013, version 0.5.9
+
+- fixing bug with bad Accept header (issue #32)
+
 20 Dec 2013, version 0.5.8
 
 - fixed a warning from js-yaml
