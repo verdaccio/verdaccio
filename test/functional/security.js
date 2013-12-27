@@ -5,16 +5,20 @@ var assert = require('assert')
 
 module.exports = function() {
 	describe('Security', function() {
-		server.get_package('package.json', function(res, body) {
-			assert.equal(res.statusCode, 403)
-			assert(~body.error.indexOf('invalid package'))
-			cb()
+		it('bad pkg #1', function(cb) {
+			server.get_package('package.json', function(res, body) {
+				assert.equal(res.statusCode, 403)
+				assert(~body.error.indexOf('invalid package'))
+				cb()
+			})
 		})
 
-		server.get_package('__proto__', function(res, body) {
-			assert.equal(res.statusCode, 403)
-			assert(~body.error.indexOf('invalid package'))
-			cb()
+		it('bad pkg #2', function(cb) {
+			server.get_package('__proto__', function(res, body) {
+				assert.equal(res.statusCode, 403)
+				assert(~body.error.indexOf('invalid package'))
+				cb()
+			})
 		})
 
 		it('__proto__, connect stuff', function(cb) {

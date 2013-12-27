@@ -42,16 +42,6 @@ module.exports = function() {
 
 				it(prefix+'uploading new package version', function(){})
 
-				it(prefix+'downloading package via server2', function(cb) {
-					server2.get_package(pkg, function(res, body) {
-						assert.equal(res.statusCode, 200)
-						assert.equal(body.name, pkg)
-						assert.equal(body.versions['0.1.1'].name, pkg)
-						assert.equal(body.versions['0.1.1'].dist.tarball, 'http://localhost:55552/'+pkg+'/-/blahblah')
-						cb()
-					})
-				})
-
 				it(prefix+'uploading incomplete tarball', function(cb) {
 					server.put_tarball_incomplete(pkg, pkg+'.bad', readfile('fixtures/binary'), 3000, function(res, body) {
 						cb()
@@ -71,14 +61,6 @@ module.exports = function() {
 				
 					it(prefix+'downloading tarball from server1', function(cb) {
 						server.get_tarball(pkg, pkg+'.file', function(res, body) {
-							assert.equal(res.statusCode, 200)
-							assert.deepEqual(body, readfile('fixtures/binary').toString('utf8'))
-							cb()
-						})
-					})
-
-					it(prefix+'downloading tarball from server2', function(cb) {
-						server2.get_tarball(pkg, pkg+'.file', function(res, body) {
 							assert.equal(res.statusCode, 200)
 							assert.deepEqual(body, readfile('fixtures/binary').toString('utf8'))
 							cb()
