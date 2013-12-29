@@ -7,6 +7,6 @@ module.exports = function(name, version) {
 			"shasum": "fake",
 			"tarball": "http://localhost:55551/"+escape(name)+"/-/blahblah"
 		}
-	};
+	}
 }
 

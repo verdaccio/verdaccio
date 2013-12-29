@@ -1,14 +1,15 @@
 var assert = require('assert')
   , crypto = require('crypto')
   , ex = module.exports
-  , server = process.server
-  , server2 = process.server2
 
 function readfile(x) {
 	return require('fs').readFileSync(__dirname + '/' + x)
 }
 
 module.exports = function() {
+	var server = process.server
+	var server2 = process.server2
+
 	it('downloading non-existent tarball #1 / srv2', function(cb) {
 		server2.get_tarball('testpkg-gh29', 'blahblah', function(res, body) {
 			assert.equal(res.statusCode, 404)

@@ -3,14 +3,15 @@ require('./lib/startup')
 var assert = require('assert')
   , async = require('async')
   , crypto = require('crypto')
-  , server = process.server
-  , server2 = process.server2
 
 function readfile(x) {
 	return require('fs').readFileSync(__dirname + '/' + x)
 }
 
 module.exports = function() {
+	var server = process.server
+	var server2 = process.server2
+
 	it('trying to fetch non-existent package', function(cb) {
 		server.get_package('testpkg', function(res, body) {
 			assert.equal(res.statusCode, 404)
@@ -20,13 +21,7 @@ module.exports = function() {
 	})
 
 	describe('testpkg', function() {
-		before(function(cb) {
-			server.put_package('testpkg', require('./lib/package')('testpkg'), function(res, body) {
-				assert.equal(res.statusCode, 201)
-				assert(~body.ok.indexOf('created new package'))
-				cb()
-			})
-		})
+		before(server.add_package.bind(server, 'testpkg'))
 
 		it('creating new package', function(){/* test for before() */})
 
@@ -109,8 +104,6 @@ module.exports = function() {
 				})
 			})
 		})
-
-		require('./security')()
 	})
 
 	it('uploading new package version for bad pkg', function(cb) {

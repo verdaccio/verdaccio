@@ -1,13 +1,14 @@
 var assert = require('assert')
   , ex = module.exports
-  , server = process.server
-  , server2 = process.server2
 
 function readfile(x) {
 	return require('fs').readFileSync(__dirname + '/' + x)
 }
 
 module.exports = function() {
+	var server = process.server
+	var server2 = process.server2
+
 	it('testing anti-loop', function(cb) {
 		server2.get_package('testloop', function(res, body) {
 			assert.equal(res.statusCode, 404)
@@ -58,7 +59,7 @@ module.exports = function() {
 					})
 
 					it(prefix+'uploading new tarball', function(){})
-				
+
 					it(prefix+'downloading tarball from server1', function(cb) {
 						server.get_tarball(pkg, pkg+'.file', function(res, body) {
 							assert.equal(res.statusCode, 200)

@@ -1,13 +1,14 @@
 var assert = require('assert')
   , ex = module.exports
-  , server = process.server
-  , express = process.express
 
 function readfile(x) {
 	return require('fs').readFileSync(__dirname + '/' + x)
 }
 
 module.exports = function() {
+	var server = process.server
+	var express = process.express
+
 	it('tags - testing for 404', function(cb) {
 		server.get_package('testexp_tags', function(res, body) {
 			// shouldn't exist yet

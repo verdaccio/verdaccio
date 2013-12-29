@@ -86,6 +86,16 @@ Server.prototype.put_tarball = function(name, filename, data, cb) {
 	}, prep(cb)).end(data)
 }
 
+Server.prototype.add_tag = function(name, tag, version, cb) {
+	this.request({
+		uri: '/'+encodeURIComponent(name)+'/'+encodeURIComponent(tag),
+		method: 'PUT',
+		headers: {
+			'content-type': 'application/json'
+		},
+	}, prep(cb)).end(JSON.stringify(version))
+}
+
 Server.prototype.put_tarball_incomplete = function(name, filename, data, size, cb) {
 	var req = this.request({
 		uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename)+'/whatever',
@@ -103,6 +113,14 @@ Server.prototype.put_tarball_incomplete = function(name, filename, data, size, c
 	setTimeout(function() {
 		req.req.abort()
 	}, 20)
+}
+
+Server.prototype.add_package = function(name, cb) {
+	this.put_package(name, require('./package')(name), function(res, body) {
+		assert.equal(res.statusCode, 201)
+		assert(~body.ok.indexOf('created new package'))
+		cb()
+	})
 }
 
 module.exports = Server

@@ -1,12 +1,13 @@
 var assert = require('assert')
   , readfile = require('fs').readFileSync
   , ex = module.exports
-  , server = process.server
-  , server2 = process.server2
   , async = require('async')
   , _oksum = 0
 
 module.exports = function() {
+	var server = process.server
+	var server2 = process.server2
+
 	describe('race', function() {
 		before(function(cb) {
 			server.put_package('race', require('./lib/package')('race'), function(res, body) {

@@ -4,14 +4,15 @@ var assert = require('assert')
   , async = require('async')
   , crypto = require('crypto')
   , ex = module.exports
-  , server = process.server
-  , server2 = process.server2
 
 function readfile(x) {
 	return require('fs').readFileSync(__dirname + '/' + x)
 }
 
 describe('Func', function() {
+	var server = process.server
+	var server2 = process.server2
+
 	before(function(cb) {
 		async.parallel([
 			function(cb) {
@@ -40,5 +41,7 @@ describe('Func', function() {
 	require('./tags')()
 	require('./mirror')()
 	require('./race')()
+	require('./security')()
+	require('./addtag')()
 })
 
