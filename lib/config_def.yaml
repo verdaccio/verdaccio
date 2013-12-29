@@ -38,10 +38,7 @@ packages:
     allow_publish: admin
 
     # if package is not available locally, proxy requests to 'npmjs' registry
-    proxy_access: npmjs
-
-    # when package is published locally, also push it to remote registry
-    #proxy_publish: none
+    proxy: npmjs
 
 #####################################################################
 # Advanced settings
