@@ -1,4 +1,10 @@
 
+30 Dec 2013, version 0.6.0
+
+- tag support (issue #8)
+- adding support for npm 1.3.19+ behaviour (issue #31)
+- removing all support for proxying publish requests to uplink (too complex)
+
 26 Dec 2013, version 0.5.9
 
 - fixing bug with bad Accept header (issue #32)
