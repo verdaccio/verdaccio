@@ -44,6 +44,9 @@ $ npm set always-auth true
 $ npm set ca null
 ```
 
+### Docker
+
+A Sinopia docker image [is available](https://index.docker.io/u/keyvanfatehi/docker-sinopia/)
 
 ## Configuration
 
