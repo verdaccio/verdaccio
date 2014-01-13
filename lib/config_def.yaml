@@ -23,11 +23,13 @@ uplinks:
     #maxage: 120
 
 packages:
-  # uncomment this for packages with "local-" prefix to be available 
+  # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages
   #'local-*':
   #  allow_access: admin
   #  allow_publish: admin
+  #  # you can override storage directory for a group of packages this way:
+  #  storage: 'local_storage'
 
   '*':
     # allow all users to read packages ('all' is a keyword)
