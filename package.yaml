@@ -28,6 +28,7 @@ dependencies:
   minimatch: '*'
   bunyan: '>= 0.16.4'
   fs-ext: '*'
+  mkdirp: '*'
 
 devDependencies:
   rimraf: '*'
