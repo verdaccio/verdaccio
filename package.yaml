@@ -18,24 +18,24 @@ bin:
   sinopia: ./bin/sinopia
 
 dependencies:
-  express: '>= 3.2.5'
-  commander: '>= 1.1.1'
-  js-yaml: '>= 2.0.5'
-  cookies: '>= 0.3.6'
-  request: '*'
-  async: '*'
-  semver: '>= 2.0.5' # compareLoose
-  minimatch: '*'
-  bunyan: '>= 0.16.4'
-  fs-ext: '*'
-  mkdirp: '*'
+  express: '>= 3.4.7'
+  commander: '>= 2.1.0'
+  js-yaml: '>= 3.0.1'
+  cookies: '>= 0.3.8'
+  request: '>= 2.31.0'
+  async: '>= 0.2.9'
+  semver: '>= 2.2.1'
+  minimatch: '>= 0.2.14'
+  bunyan: '>= 0.22.1'
+  fs-ext: '>= 0.3.2'
+  mkdirp: '>= 0.3.5'
 
 devDependencies:
-  rimraf: '*'
-  mocha: '*'
+  rimraf: '>= 2.2.5'
+  mocha: '>= 1.17.0'
 
   # linting tools
-  eslint: '*'
+  eslint: '~ 0.2.0'
   #eslint-stylish: '*'
 
   # for debugging memory leaks, it'll be require()'d if
