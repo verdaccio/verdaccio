@@ -1,4 +1,13 @@
 
+18 Jan 2014, version 0.6.2
+
+- adding config param to specify upload limits (issue #39)
+- making loose semver versions work (issue #38)
+
+13 Jan 2014, version 0.6.1
+
+- support setting different storage paths for different packages (issue #35)
+
 30 Dec 2013, version 0.6.0
 
 - tag support (issue #8)
