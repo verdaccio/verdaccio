@@ -70,3 +70,7 @@ logs:
 #https_proxy: https://something.local/
 #no_proxy: localhost,127.0.0.1
 
+# maximum size of uploaded json document
+# increase it if you have "request entity too large" errors
+#max_body_size: 1mb
+

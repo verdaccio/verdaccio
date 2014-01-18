@@ -21,7 +21,7 @@ packages:
     allow_publish: all
     proxy_access: server2
     proxy_publish: server2
-  
+
   'testloop':
     allow_access: all
     allow_publish: all
