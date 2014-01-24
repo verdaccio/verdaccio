@@ -48,6 +48,10 @@ $ npm set ca null
 
 A Sinopia docker image [is available](https://index.docker.io/u/keyvanfatehi/docker-sinopia/)
 
+### Puppet
+
+A Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
+
 ## Configuration
 
 When you start a server, it auto-creates a config file that adds one user (password is printed to stdout only once).
