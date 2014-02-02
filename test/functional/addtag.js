@@ -39,6 +39,14 @@ module.exports = function() {
 			})
 		})
 
+		it('add tag - bad tag', function(cb) {
+			server.add_tag('testpkg-tag', 'tag/tag/tag', '0.0.1-x', function(res, body) {
+				assert.equal(res.statusCode, 403)
+				assert(~body.error.indexOf('invalid tag'))
+				cb()
+			})
+		})
+
 		it('add tag - good', function(cb) {
 			server.add_tag('testpkg-tag', 'tagtagtag', '0.0.1', function(res, body) {
 				assert.equal(res.statusCode, 201)
