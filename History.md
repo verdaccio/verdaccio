@@ -1,4 +1,9 @@
 
+3 Feb 2014, version 0.6.3
+
+- validate tags and versions (issue #40)
+- don't crash when process.getuid doesn't exist (issue #41)
+
 18 Jan 2014, version 0.6.2
 
 - adding config param to specify upload limits (issue #39)
