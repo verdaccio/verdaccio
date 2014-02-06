@@ -35,7 +35,7 @@ devDependencies:
   mocha: '>= 1.17.0'
 
   # linting tools
-  eslint: '~ 0.2.0'
+  eslint: 'eslint/eslint'
   #eslint-stylish: '*'
 
   # for debugging memory leaks, it'll be require()'d if
@@ -53,7 +53,7 @@ keywords:
 
 scripts:
   test: mocha ./test/functional ./test/unit
-  lint: eslint -c ./.eslint.js ./lib
+  lint: eslint -c ./.eslint.yaml ./lib
 
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8
