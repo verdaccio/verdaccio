@@ -24,7 +24,7 @@ rules:
   #    name !== encodeURIComponent(name) ||
   #    name.toLowerCase() === "node_modules"
   # ) {
-  brace-style: 0
+  brace-style: 1
 
   # snake_case is more readable, what's up with you guys?
   camelcase: 0
@@ -37,7 +37,7 @@ rules:
   consistent-this: [1, 'self']
 
   # fails good code
-  curly: 0
+  curly: [0, 'multi']
 
   # fails good code, where this notation is used for consistency:
   #   something['foo-bar'] = 123
@@ -55,6 +55,7 @@ rules:
   # if some functions are complex, they are for a good reason,
   # ain't worth it
   max-depth: [0, 4]
+  max-nested-callbacks: [0, 2]
 
   # should it really throw for every long URL?
   max-len: [0, 80, 4]
@@ -69,13 +70,8 @@ rules:
   # that one makes sense
   new-cap: 2
 
-  new-parens: 1
-  no-alert: 1
-
   # I'm writing javascript, not some weird reduced version of it
   no-bitwise: 0
-
-  no-caller: 1
 
   # not working around IE bugs, sorry
   no-catch-shadow: 0
@@ -83,19 +79,11 @@ rules:
   # see above, IE is useful for downloading other browsers only
   no-comma-dangle: 0
 
-  no-cond-assign: 1
-
   # good for removing debugging code
   no-console: 2
 
-  no-control-regex: 1
-
   # good for removing debugging code
   no-debugger: 2
-
-  no-delete-var: 1
-  no-div-regex: 1
-  no-dupe-keys: 1
 
   # why would anyone need to check against that?
   no-else-return: 0
@@ -103,16 +91,9 @@ rules:
   # sometimes empty statement contains useful comment
   no-empty: 0
 
-  no-empty-class: 1
-  no-empty-label: 1
-
   # stupid rule
   # "x == null" is "x === null || x === undefined"
   no-eq-null: 0
-
-  no-eval: 1
-  no-ex-assign: 1
-  no-extend-native: 1
 
   # fails good code, when parens are used for grouping:
   #   (req && req.headers['via']) ? req.headers['via'] + ', ' : ''
@@ -123,36 +104,13 @@ rules:
   #   ;['foo', 'bar'].forEach(function(x) {})
   no-extra-semi: 0
 
-  no-fallthrough: 1
-  no-floating-decimal: 1
-  no-func-assign: 1
-  no-global-strict: 1
-  no-implied-eval: 1
-  no-invalid-regexp: 1
-  no-iterator: 1
-  no-label-var: 1
-  no-loop-func: 1
-
   # fails good code:
   #   var fs   = require('fs'),
   #     , open = fs.open
   no-mixed-requires: [0, false]
 
-  no-multi-str: 1
-  no-native-reassign: 1
-  no-negated-in-lhs: 1
-
-  no-nested-ternary: 1
-
-  no-new: 1
-
   # new Array(12) is used to pre-allocate arrays
   no-new-array: 0
-
-  no-new-func: 1
-  no-new-object: 1
-  no-new-wrappers: 1
-  no-obj-calls: 1
 
   # fails good code:
   #   fs.open('/file', 0666, function(){})
@@ -166,8 +124,6 @@ rules:
   # I'm writing javascript, not some weird reduced version of it
   no-plusplus: 0
 
-  no-proto: 1
-
   # fails good code:
   #   if (a) {
   #      var x = 'foo'
@@ -176,27 +132,17 @@ rules:
   #   }
   no-redeclare: 0
 
-  no-return-assign: 1
-  no-script-url: 1
-  no-self-compare: 1
-
   # sometimes useful, often isn't
   # probably worth enforcing
   no-shadow: 2
 
-  no-shadow-restricted-names: 1
-  no-spaced-func: 1
-
-  # can't agree more, but it's a task for code review, not for lint
-  no-sync: 0
+  no-sync: 2
 
   # I'm writing javascript, not some weird reduced version of it
   no-ternary: 0
 
   # the single most important rule in the entire ruleset
   no-undef: 2
-
-  no-undef-init: 1
 
   # it is failing our own underscores
   no-underscore-dangle: 0
@@ -210,12 +156,10 @@ rules:
 
   # fails (function(_err) {}) where named argument is used to show what
   # nth function argument means
-  no-unused-vars: 0
+  no-unused-vars: [0, 'local']
 
   # fails function hoisting
   no-use-before-define: 0
-
-  no-with: 1
 
   # fails foobar( (function(){}).bind(this) )
   # parens are added for readability
@@ -227,22 +171,17 @@ rules:
   #      var y
   one-var: 0
 
-  # the most stupid rule I ever saw
   quote-props: 0
 
   # fails situation when different quotes are used to avoid escaping
-  quotes: [0, 'single']
-
-  radix: 1
+  quotes: [2, 'single', 'avoid-escape']
 
   # http:#blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding
-  semi: 0
+  semi: [2, 'never']
 
   # fails good code where spaces are used for grouping:
   #   (x+y * y+z)
   space-infix-ops: 0
-
-  space-return-throw-case: 1
 
   # typeof(something) should have braces to look like a function
   # a matter of taste I suppose
@@ -252,12 +191,75 @@ rules:
   # can I have a check to enforce not using it?
   strict: 0
 
-  use-isnan: 1
-  wrap-iife: 1
-  wrap-regex: 1
-
+  sort-vars: 0
   no-path-concat: 0
+  func-names: 0
 
   # how can you set a return code without process.exit?
   no-process-exit: 0
 
+  # both styles are useful
+  func-style: [0, 'declaration']
+
+  # fails while(1) {...}
+  no-constant-condition: 0
+
+  consistent-return: 1
+  new-parens: 1
+  no-alert: 1
+  no-array-constructor: 1
+  no-caller: 1
+  no-cond-assign: 1
+  no-control-regex: 1
+  no-delete-var: 1
+  no-div-regex: 1
+  no-dupe-keys: 1
+  no-empty-class: 1
+  no-empty-label: 1
+  no-eval: 1
+  no-ex-assign: 1
+  no-extend-native: 1
+  no-extra-boolean-cast: 1
+  no-extra-strict: 1
+  no-fallthrough: 1
+  no-floating-decimal: 1
+  no-func-assign: 1
+  no-global-strict: 1
+  no-implied-eval: 1
+  no-invalid-regexp: 1
+  no-iterator: 1
+  no-labels: 1
+  no-label-var: 1
+  no-lone-blocks: 1
+  no-loop-func: 1
+  no-multi-str: 1
+  no-native-reassign: 1
+  no-negated-in-lhs: 1
+  no-nested-ternary: 1
+  no-new: 1
+  no-new-func: 1
+  no-new-object: 1
+  no-new-wrappers: 1
+  no-obj-calls: 1
+  no-octal: 1
+  no-proto: 1
+  no-regex-spaces: 1
+  no-return-assign: 1
+  no-script-url: 1
+  no-self-compare: 1
+  no-shadow: 1
+  no-shadow-restricted-names: 1
+  no-spaced-func: 1
+  no-sparse-arrays: 1
+  no-sync: 1
+  no-undef: 1
+  no-undef-init: 1
+  no-unreachable: 1
+  no-with: 1
+  no-yoda: 1
+  radix: 1
+  space-return-throw-case: 1
+  use-isnan: 1
+  valid-jsdoc: 1
+  wrap-iife: 1
+  wrap-regex: 1
