@@ -1,4 +1,8 @@
 
+28 Feb 2014, version 0.6.4
+
+- old SSL keys for npm are removed, solves `SELF_SIGNED_CERT_IN_CHAIN` error
+
 3 Feb 2014, version 0.6.3
 
 - validate tags and versions (issue #40)
