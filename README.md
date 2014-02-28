@@ -48,6 +48,10 @@ $ npm set ca null
 
 A Sinopia docker image [is available](https://index.docker.io/u/keyvanfatehi/docker-sinopia/)
 
+### Chef
+
+A Sinopia Chef cookbook [is available at Opscode community](http://community.opscode.com/cookbooks/sinopia) source: https://github.com/BarthV/sinopia-cookbook
+
 ### Puppet
 
 A Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
