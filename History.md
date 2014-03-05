@@ -1,4 +1,8 @@
 
+5 Mar 2014, version 0.6.7
+
+- pin down express@3 version, since sinopia doesn't yet work with express@4
+
 28 Feb 2014, version 0.6.5
 
 - old SSL keys for npm are removed, solves `SELF_SIGNED_CERT_IN_CHAIN` error
