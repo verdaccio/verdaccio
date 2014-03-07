@@ -6,7 +6,9 @@ module.exports = function() {
 	var express = process.express
 
 	describe('Racy', function() {
-		it('should not crash on error if client disconnects', function(_cb) {
+		var on_tarball
+
+		before(function() {
 			express.get('/testexp-racycrash', function(_, res) {
 				res.send({
 					"name": "testexp-racycrash",
@@ -24,6 +26,12 @@ module.exports = function() {
 			})
 
 			express.get('/testexp-racycrash/-/test.tar.gz', function(_, res) {
+				on_tarball(res)
+			})
+		})
+
+		it('should not crash on error if client disconnects', function(_cb) {
+			on_tarball = function(res) {
 				res.header('content-length', 1e6)
 				res.write('test test test\n')
 				setTimeout(function() {
@@ -31,7 +39,7 @@ module.exports = function() {
 					res.socket.destroy()
 					cb()
 				}, 200)
-			})
+			}
 
 			server.request({uri:'/testexp-racycrash/-/test.tar.gz'}, function(err, res, body) {
 				assert.equal(body, 'test test test\n')
@@ -44,6 +52,17 @@ module.exports = function() {
 					_cb()
 				})
 			}
+		})
+
+		it('should not store tarball', function(cb) {
+			on_tarball = function(res) {
+				res.socket.destroy()
+			}
+
+			server.request({uri:'/testexp-racycrash/-/test.tar.gz'}, function(err, res, body) {
+				assert.equal(body.error, 'internal server error')
+				cb()
+			})
 		})
 	})
 }

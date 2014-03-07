@@ -39,6 +39,7 @@ describe('Func', function() {
 	require('./basic')()
 	require('./gh29')()
 	require('./tags')()
+	require('./incomplete')()
 	require('./mirror')()
 	require('./race')()
 	require('./racycrash')()
