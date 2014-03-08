@@ -29,5 +29,6 @@ describe('Parse interval', function() {
 	add_test('1m 1m', null)
 	add_test('1m 1y', null)
 	add_test('1y 1M 1w 1d 1h 1m 1s 1ms', 34822861001)
+	add_test(' 5s  25ms  ', 5025)
 })
 
