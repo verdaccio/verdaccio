@@ -12,15 +12,15 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 
-    # amount of time (in milliseconds) to wait for repository to respond
+    # amount of time to wait for repository to respond
     # before giving up and use the local cached copy
-    #timeout: 30000
+    #timeout: 30s
 
-    # maximum time (in seconds) in which data is considered up to date
+    # maximum time in which data is considered up to date
     #
     # default is 2 minutes, so server won't request the same data from
     # uplink if a similar request was made less than 2 minutes ago
-    #maxage: 120
+    #maxage: 2m
 
 packages:
   # uncomment this for packages with "local-" prefix to be available
