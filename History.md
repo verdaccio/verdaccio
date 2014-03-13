@@ -1,3 +1,15 @@
+13 Mar 2014, version 0.7.0
+
+- config changes:
+  - breaking change: all time intervals are now specified in *seconds* instead of *milliseconds* for the sake of consistency. Change `timeout` if you have one!
+  - all time intervals now can be specified in [nginx notation](http://wiki.nginx.org/ConfigNotation), for example `1m 30s` will specify a 90 seconds timeout
+  - added `maxage` option to avoid asking public registry for the same data too often (issue #47)
+  - added `max_fails` and `fail_timeout` options to reduce amount of requests to public registry when it's down (issue #7)
+ 
+- bug fixes:  
+  - fix crash when headers are sent twice (issue #52)
+  - all tarballs are returned with `Content-Length`, which allows [yapm](https://github.com/rlidwka/yapm) to estimate download time
+  - when connection to public registry is interrupted when downloading a tarball, we no longer save incomplete tarball to the disk
 
 5 Mar 2014, version 0.6.7
 
