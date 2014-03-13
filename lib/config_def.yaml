@@ -22,6 +22,14 @@ uplinks:
     # uplink if a similar request was made less than 2 minutes ago
     #maxage: 2m
 
+    # if two subsequent requests fail, no further requests will be sent to
+    # this uplink for five minutes
+    #max_fails: 2
+    #fail_timeout: 5m
+
+    # timeouts are defined in the same way as nginx, see:
+    # http://wiki.nginx.org/ConfigNotation
+
 packages:
   # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages
