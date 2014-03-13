@@ -15,7 +15,8 @@ module.exports = function() {
 	it('trying to fetch non-existent package', function(cb) {
 		server.get_package('testpkg', function(res, body) {
 			assert.equal(res.statusCode, 404)
-			assert(~body.error.indexOf('no such package'))
+			assert.equal(body.error, 'not_found')
+			assert(~body.reason.indexOf('no such package'))
 			cb()
 		})
 	})
@@ -28,7 +29,8 @@ module.exports = function() {
 		it('downloading non-existent tarball', function(cb) {
 			server.get_tarball('testpkg', 'blahblah', function(res, body) {
 				assert.equal(res.statusCode, 404)
-				assert(~body.error.indexOf('no such file'))
+				assert.equal(body.error, 'not_found')
+				assert(~body.reason.indexOf('no such file'))
 				cb()
 			})
 		})
@@ -109,7 +111,8 @@ module.exports = function() {
 	it('uploading new package version for bad pkg', function(cb) {
 		server.put_version('testpxg', '0.0.1', require('./lib/package')('testpxg'), function(res, body) {
 			assert.equal(res.statusCode, 404)
-			assert(~body.error.indexOf('no such package'))
+			assert.equal(body.error, 'not_found')
+			assert(~body.reason.indexOf('no such package'))
 			cb()
 		})
 	})

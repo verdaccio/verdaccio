@@ -10,7 +10,8 @@ module.exports = function() {
 	it('add tag - 404', function(cb) {
 		server.add_tag('testpkg-tag', 'tagtagtag', '0.0.1', function(res, body) {
 			assert.equal(res.statusCode, 404)
-			assert(~body.error.indexOf('no such package'))
+			assert.equal(body.error, 'not_found')
+			assert(~body.reason.indexOf('no such package'))
 			cb()
 		})
 	})
@@ -34,7 +35,8 @@ module.exports = function() {
 		it('add tag - bad ver', function(cb) {
 			server.add_tag('testpkg-tag', 'tagtagtag', '0.0.1-x', function(res, body) {
 				assert.equal(res.statusCode, 404)
-				assert(~body.error.indexOf('version doesn\'t exist'))
+				assert.equal(body.error, 'not_found')
+				assert(~body.reason.indexOf('version doesn\'t exist'))
 				cb()
 			})
 		})
