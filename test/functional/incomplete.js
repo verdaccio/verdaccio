@@ -56,7 +56,6 @@ module.exports = function() {
 
 				function cb() {
 					server.request({uri:'/testexp-incomplete/-/'+type+'.tar.gz'}, function(err, res, body) {
-console.log(err, body)
 						assert.equal(body.error, 'internal server error')
 						_cb()
 					})
