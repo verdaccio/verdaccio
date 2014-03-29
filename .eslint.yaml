@@ -34,10 +34,10 @@ rules:
   complexity: [0, 10]
 
   # never saw it, but self is preferred
-  consistent-this: [1, 'self']
+  consistent-this: [1, self]
 
   # fails good code
-  curly: [0, 'multi']
+  curly: [0, multi]
 
   # fails good code, where this notation is used for consistency:
   #   something['foo-bar'] = 123
@@ -156,7 +156,7 @@ rules:
 
   # fails (function(_err) {}) where named argument is used to show what
   # nth function argument means
-  no-unused-vars: [0, 'local']
+  no-unused-vars: [0, local]
 
   # fails function hoisting
   no-use-before-define: 0
@@ -174,10 +174,10 @@ rules:
   quote-props: 0
 
   # fails situation when different quotes are used to avoid escaping
-  quotes: [2, 'single', 'avoid-escape']
+  quotes: [2, single, avoid-escape]
 
   # http:#blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding
-  semi: [2, 'never']
+  semi: [2, never]
 
   # fails good code where spaces are used for grouping:
   #   (x+y * y+z)
@@ -199,12 +199,20 @@ rules:
   no-process-exit: 0
 
   # both styles are useful
-  func-style: [0, 'declaration']
+  func-style: [0, declaration]
 
   # fails while(1) {...}
   no-constant-condition: 0
 
-  consistent-return: 1
+  # fails good code:
+  # https://github.com/rlidwka/jju/blob/eb52ee72e5f21d48963798f9bda8ac8d68082148/lib/parse.js#L732
+  no-ex-assign: 0
+
+  wrap-iife: [2, inside]
+
+  # doesn't always make sense
+  consistent-return: 0
+
   new-parens: 1
   no-alert: 1
   no-array-constructor: 1
@@ -217,7 +225,6 @@ rules:
   no-empty-class: 1
   no-empty-label: 1
   no-eval: 1
-  no-ex-assign: 1
   no-extend-native: 1
   no-extra-boolean-cast: 1
   no-extra-strict: 1
@@ -261,5 +268,4 @@ rules:
   space-return-throw-case: 1
   use-isnan: 1
   valid-jsdoc: 1
-  wrap-iife: 1
   wrap-regex: 1
