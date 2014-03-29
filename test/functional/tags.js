@@ -13,8 +13,7 @@ module.exports = function() {
 		server.get_package('testexp_tags', function(res, body) {
 			// shouldn't exist yet
 			assert.equal(res.statusCode, 404)
-			assert.equal(body.error, 'not_found')
-			assert(~body.reason.indexOf('no such package'))
+			assert(~body.error.indexOf('no such package'))
 			cb()
 		})
 	})

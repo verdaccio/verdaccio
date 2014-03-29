@@ -12,8 +12,7 @@ module.exports = function() {
 	it('testing anti-loop', function(cb) {
 		server2.get_package('testloop', function(res, body) {
 			assert.equal(res.statusCode, 404)
-			assert.equal(body.error, 'not_found')
-			assert(~body.reason.indexOf('no such package'))
+			assert(~body.error.indexOf('no such package'))
 			cb()
 		})
 	})

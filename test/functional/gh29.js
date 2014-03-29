@@ -13,8 +13,7 @@ module.exports = function() {
 	it('downloading non-existent tarball #1 / srv2', function(cb) {
 		server2.get_tarball('testpkg-gh29', 'blahblah', function(res, body) {
 			assert.equal(res.statusCode, 404)
-			assert.equal(body.error, 'not_found')
-			assert(~body.reason.indexOf('no such package'))
+			assert(~body.error.indexOf('no such package'))
 			cb()
 		})
 	})
@@ -33,8 +32,7 @@ module.exports = function() {
 		it('downloading non-existent tarball #2 / srv2', function(cb) {
 			server2.get_tarball('testpkg-gh29', 'blahblah', function(res, body) {
 				assert.equal(res.statusCode, 404)
-				assert.equal(body.error, 'not_found')
-				assert(~body.reason.indexOf('no such file'))
+				assert(~body.error.indexOf('no such file'))
 				cb()
 			})
 		})
