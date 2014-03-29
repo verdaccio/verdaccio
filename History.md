@@ -1,3 +1,8 @@
+29 Mar 2014, version 0.7.1
+
+- added `ignore_latest_tag` config param (issues #55, #59)
+- reverted PR #56 (see discussion in #57)
+
 13 Mar 2014, version 0.7.0
 
 - config changes:
