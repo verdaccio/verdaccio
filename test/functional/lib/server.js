@@ -25,7 +25,8 @@ Server.prototype.request = function(options, cb) {
 		url: this.url + options.uri,
 		method: options.method || 'GET',
 		headers: headers,
-		json: options.json || true,
+		encoding: options.encoding,
+		json: options.json != null ? options.json : true,
 	}, cb)
 }
 
