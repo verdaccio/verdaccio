@@ -27,8 +27,10 @@ dependencies:
   semver: '>= 2.2.1'
   minimatch: '>= 0.2.14'
   bunyan: '>= 0.22.1'
-  fs-ext: '>= 0.3.2'
   mkdirp: '>= 0.3.5'
+
+optionalDependencies:
+  fs-ext: '>= 0.3.2'
 
 devDependencies:
   rimraf: '>= 2.2.5'
