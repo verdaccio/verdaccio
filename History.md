@@ -2,6 +2,7 @@
 
 - use gzip compression whenever possible (issue #54)
 - set `ignore_latest_tag` to false, it should now be more compatible with npm registry
+- make `fs-ext` optional (issue #61)
 
 29 Mar 2014, version 0.7.1
 
