@@ -85,5 +85,5 @@ logs:
 # Workaround for countless npm bugs. Must have for npm <1.14.x, but expect
 # it to be turned off in future versions. If `true`, latest tag is ignored,
 # and the highest semver is placed instead.
-#ignore_latest_tag: true
+#ignore_latest_tag: false
 
