@@ -63,6 +63,10 @@ engines:
 
 preferGlobal: true
 
-# http://www.wtfpl.net/txt/copying/
-license: WTFPL
+publishConfig:
+  registry: https://registry.npmjs.org/
+
+license:
+  type: WTFPL
+  url: http://www.wtfpl.net/txt/copying/
 
