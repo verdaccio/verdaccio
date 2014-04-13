@@ -43,7 +43,6 @@
 		}
 	},
 	"dist-tags": {
-		"latest": "5.4.3",
 		"something": "0.1.1alpha",
 		"bad": "1.1"
 	}

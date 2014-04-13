@@ -42,6 +42,7 @@ describe('Func', function() {
 	require('./gzip')()
 	require('./incomplete')()
 	require('./mirror')()
+	require('./newnpmreg')()
 	require('./race')()
 	require('./racycrash')()
 	require('./security')()

@@ -32,7 +32,7 @@ module.exports = function() {
 				assert.equal(typeof(body.versions['1.1']), 'object')
 				assert.equal(body['dist-tags'].something, '0.1.1alpha')
 				// note: 5.4.3 is invalid tag, 0.1.3alpha is highest semver
-				assert.equal(body['dist-tags'].latest, '5.4.3')
+				assert.equal(body['dist-tags'].latest, '0.1.3alpha')
 				assert.equal(body['dist-tags'].bad, null)
 				cb()
 			})
