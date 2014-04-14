@@ -1,3 +1,8 @@
+14 Apr 2014, version 0.8.1
+
+- "latest" tag is now always present in any package (issue #63)
+- tags created with new npm versions (>= 1.3.19) can now be published correctly
+
 1 Apr 2014, version 0.8.0
 
 - use gzip compression whenever possible (issue #54)
