@@ -31,9 +31,9 @@
     "fs-ext": ">= 0.3.2"
   },
   "devDependencies": {
-    "rimraf": ">= 2.2.5",
+    "eslint": ">= 0.4.2",
     "mocha": ">= 1.17.0",
-    "eslint": ">= 0.4.2"
+    "rimraf": ">= 2.2.5"
   },
   "keywords": [
     "private",
