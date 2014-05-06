@@ -18,7 +18,7 @@ bin:
   sinopia: ./bin/sinopia
 
 dependencies:
-  express: '>= 3.4.7 < 4.0.0-0'
+  express: '3.4.x'
   commander: '>= 2.1.0'
   js-yaml: '>= 3.0.1'
   cookies: '>= 0.3.8'
