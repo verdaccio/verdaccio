@@ -5,10 +5,18 @@
 		<title>{{ name }}</title>
 	</head>
 	<body>
-		<h1>{{ name }}</h1>
+		<h1><a href='/'>{{ name }}</a></h1>
 
-		<input type='search' />
-		<button>Search</button>
+		<form>
+			<input type='search' name='q' />
+			<button>Search</button>
+		</form>
+
+		<h2>Setup:</h2>
+		<code>
+			npm set registry {{ baseUrl }}<br>
+			npm adduser --registry {{ baseUrl }}
+		</code>
 
 		{{#each locals}}
 			<article>
