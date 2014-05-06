@@ -25,7 +25,8 @@
     "minimatch": ">= 0.2.14",
     "mkdirp": ">= 0.3.5",
     "request": ">= 2.31.0",
-    "semver": ">= 2.2.1"
+    "semver": ">= 2.2.1",
+    "underscore": "^1.6.0"
   },
   "optionalDependencies": {
     "fs-ext": ">= 0.3.2"
