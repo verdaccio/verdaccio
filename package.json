@@ -15,16 +15,17 @@
     "sinopia": "./bin/sinopia"
   },
   "dependencies": {
-    "express": "3.4.x",
-    "commander": ">= 2.1.0",
-    "js-yaml": ">= 3.0.1",
-    "cookies": ">= 0.3.8",
-    "request": ">= 2.31.0",
     "async": ">= 0.2.9",
-    "semver": ">= 2.2.1",
-    "minimatch": ">= 0.2.14",
     "bunyan": ">= 0.22.1",
-    "mkdirp": ">= 0.3.5"
+    "commander": ">= 2.1.0",
+    "cookies": ">= 0.3.8",
+    "express": "3.4.x",
+    "handlebars": "^2.0.0-alpha.2",
+    "js-yaml": ">= 3.0.1",
+    "minimatch": ">= 0.2.14",
+    "mkdirp": ">= 0.3.5",
+    "request": ">= 2.31.0",
+    "semver": ">= 2.2.1"
   },
   "optionalDependencies": {
     "fs-ext": ">= 0.3.2"
