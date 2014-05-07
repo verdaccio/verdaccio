@@ -43,12 +43,39 @@ h1 {
 	}
 }
 
+/*** Search Box ***/
+#search-form {
+	float: right;
+}
+
 /*** Package Entries ***/
 .entry {
 	background: #EEE;
+	.border-radius(3px);
+	padding: 15px;
+
+	h3 {
+		font-size: 24px;
+		margin: 0 0 10px;
+	}
+
+	.version {
+		font-size: 16px;
+		color: #666;
+	}
+
+	.author {
+		font-size: 16px;
+		float: right;
+		color: #555;
+	}
+
+	p {
+		margin: 0;
+	}
 }
 
 /*** Search Results ***/
-.state-search #standard-content {
+.state-search #all-packages {
 	display: none;
 }

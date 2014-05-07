@@ -10,29 +10,31 @@
 		<div id='content'>
 			<h1><a href='/'>{{ name }}</a></h1>
 
-			<form id='search-form'>
-				<input type='text' placeholder='search' name='q' />
-				<button class='clear'>x</button>
-			</form>
+			<div class='center'>
+				<article id='setup'>
+					<code>npm set registry {{ baseUrl }}</code><br>
+					<code>npm adduser --registry {{ baseUrl }}</code>
+				</article>
+			</div>
+
+			<h2>
+				Available Packages:
+				<form id='search-form'>
+					<input type='text' placeholder='Search' name='q' />
+					<button class='clear'>x</button>
+				</form>
+			</h2>
 
 			<div id='search-results'></div>
 
-			<div id='standard-content'>
-				<div class='center'>
-					<article id='setup'>
-						<code>npm set registry {{ baseUrl }}</code><br>
-						<code>npm adduser --registry {{ baseUrl }}</code>
-					</article>
-				</div>
-
-				<h2>Available Packages:</h2>
+			<div id='all-packages'>
 				{{#each packages}}
 					{{> entry}}
 				{{/each}}
-
-				<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-				<script type='text/javascript' src='/-/static/main.js'></script>
 			</div>
 		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type='text/javascript' src='/-/static/main.js'></script>
 	</body>
 </html>
