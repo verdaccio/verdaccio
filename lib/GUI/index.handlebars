@@ -30,6 +30,13 @@
 				{{#each packages}}
 					{{> entry}}
 				{{/each}}
+
+				{{#unless items.length}}
+				    <div class='no-results'>
+				    	<big>No Results</big><br>
+				    	Use <code>npm publish</code>
+				    </div>
+				{{/unless}}
 			</div>
 		</div>
 
