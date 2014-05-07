@@ -22,6 +22,7 @@
     "express": "3.4.x",
     "handlebars": "^2.0.0-alpha.2",
     "js-yaml": ">= 3.0.1",
+    "lunr": "^0.5.2",
     "minimatch": ">= 0.2.14",
     "mkdirp": ">= 0.3.5",
     "request": ">= 2.31.0",

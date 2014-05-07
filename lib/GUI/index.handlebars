@@ -18,10 +18,11 @@
 			npm adduser --registry {{ baseUrl }}
 		</code>
 
-		{{#each locals}}
+		{{#each packages}}
 			<article>
-				<h2>{{ name }} <small>v{{ version }}</small></h2>
-				<div>By: {{ _npmUser.name }}</div>
+				<h3>{{ name }} <small>v{{ version }}</small></h3>
+				<div>User: {{ _npmUser.name }}</div>
+				<p>{{ description }}</p>
 			</article>
 		{{/each}}
 	</body>
