@@ -1,6 +1,7 @@
 @import "../../../node_modules/helpers.less/helpers.less";
 @import "./markdown.less";
 @import "./highlight.js.less";
+@import "./fontello.less";
 
 /*** Main Styles ***/
 body {
@@ -8,16 +9,20 @@ body {
 	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
 }
 
+a, a:visited {
+	text-decoration: none;
+	color: #0D5AFF;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
 h1 {
 	text-align: center;
 
 	a, a:visited {
 		color: black;
-		text-decoration: none;
-	}
-
-	a:hover {
-		text-decoration: underline;
 	}
 }
 
@@ -49,12 +54,21 @@ h1 {
 #search-form {
 	float: right;
 
+	@media (max-width: 540px) {
+		float: none;
+		margin-top: 6px;
+	}
+
 	@height: 30px;
 
 	input, button {
 		margin: 0;
 		vertical-align: top;
 		border: 1px solid #CCC;
+
+		&:focus {
+			outline: none;
+		}
 	}
 
 	input {
@@ -64,10 +78,6 @@ h1 {
 		padding: 0 5px;
 		font-size: 16px;
 		border-right: 0;
-
-		&:focus {
-			outline: none;
-		}
 	}
 
 	button {
@@ -75,7 +85,7 @@ h1 {
 		width: @height;
 		margin: 0;
 		border-left: 0;
-		background: none;
+		background: #FFF;
 		cursor: pointer;
 		font-size: 16px;
 		color: #999;
@@ -94,10 +104,26 @@ h2 {
 	background: #F3F3F3;
 	.border-radius(4px);
 	padding: 12px 15px 15px;
+	.transition(height .3s);
+	overflow: hidden;
 
 	h3 {
 		font-size: 24px;
 		margin: 0 0 10px;
+	}
+
+	.name:hover {
+		text-decoration: none;
+	}
+
+	.name:before {
+		margin: 0;
+		margin-left: -10px;
+		.transformTransition(.15s);
+	}
+
+	&.open .name:before {
+		.rotate(90deg);
 	}
 
 	.version {
