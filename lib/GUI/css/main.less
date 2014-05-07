@@ -54,6 +54,7 @@ h1 {
 	input, button {
 		margin: 0;
 		vertical-align: middle;
+		border: 1px solid #CCC;
 	}
 
 	input {
@@ -62,7 +63,6 @@ h1 {
 		.border-box;
 		padding: 0 5px;
 		font-size: 16px;
-		border: 1px solid #444;
 		border-right: 0;
 
 		&:focus {
@@ -74,7 +74,11 @@ h1 {
 		height: @height;
 		width: @height;
 		margin: 0;
-		border: 0;
+		border-left: 0;
+		background: none;
+		cursor: pointer;
+		font-size: 16px;
+		color: #999;
 	}
 }
 
