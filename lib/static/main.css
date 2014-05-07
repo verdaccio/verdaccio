@@ -1,0 +1,22 @@
+/*** Main Styles ***/
+h1 {
+  text-align: center;
+}
+h1 a,
+h1 a:visited {
+  color: black;
+  text-decoration: none;
+}
+h1 a:hover {
+  text-decoration: underline;
+}
+/*** Setup ***/
+/*** Package Entries ***/
+.entry {
+  background: #EEE;
+}
+/*** Search Results ***/
+.state-search #standard-content {
+  display: none;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22lib%2FGUI%2Fcss%2Fmain.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22%3BAAGA%3BEACC%2CkBAAA%3B%3BAADD%2CEAGC%3BAAHD%2CEAGI%2CEAAC%3BEACH%2CYAAA%3BEACA%2CqBAAA%3B%3BAALF%2CEAQC%2CEAAC%3BEACA%2C0BAAA%3B%3B%3B%3BAAQF%3BEACC%2CgBAAA%3B%3B%3BAAID%2CaAAc%3BEACb%2CaAAA%22%7D */

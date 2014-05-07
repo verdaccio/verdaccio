@@ -7,7 +7,8 @@ module.exports = function(grunt) {
                     'lib/static/main.js': ['lib/GUI/js/main.js']
                 },
                 options: {
-                    debug:     true
+                    debug: true,
+                    transform: ['browserify-handlebars']
                 }
             }
         },
@@ -22,7 +23,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: [ "lib/GUI/js/**/*", "lib/GUI/css/**/*"],
+            files: [ "lib/GUI/**/*"],
             tasks: [ 'default' ]
         }
     });
