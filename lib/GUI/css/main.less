@@ -1,6 +1,11 @@
 @import "../../../node_modules/helpers.less/helpers.less";
 
 /*** Main Styles ***/
+body {
+	margin: 0;
+	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
+
 h1 {
 	text-align: center;
 
@@ -14,8 +19,29 @@ h1 {
 	}
 }
 
-/*** Setup ***/
+.center {
+	text-align: center;
+}
 
+#content {
+	margin: 0 auto;
+	max-width: 880px;
+	padding: 20px;
+}
+
+/*** Setup ***/
+#setup {
+	background: #DB4141;
+	padding: 15px 20px;
+	display: inline-block;
+	.border-radius(4px);
+	text-align: left;
+	color: #FFF;
+	
+	code {
+		font-family: Consolas, monaco, monospace;
+	}
+}
 
 /*** Package Entries ***/
 .entry {

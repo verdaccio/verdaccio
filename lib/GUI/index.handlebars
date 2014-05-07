@@ -11,20 +11,19 @@
 			<h1><a href='/'>{{ name }}</a></h1>
 
 			<form id='search-form'>
-				<input type='search' name='q' />
-				<button>Search</button>
+				<input type='text' placeholder='search' name='q' />
+				<button class='clear'>x</button>
 			</form>
 
 			<div id='search-results'></div>
 
 			<div id='standard-content'>
-				<article id='setup'>
-					<h2>Setup:</h2>
-					<code>
-						npm set registry {{ baseUrl }}<br>
-						npm adduser --registry {{ baseUrl }}
-					</code>
-				</article>
+				<div class='center'>
+					<article id='setup'>
+						<code>npm set registry {{ baseUrl }}</code><br>
+						<code>npm adduser --registry {{ baseUrl }}</code>
+					</article>
+				</div>
 
 				<h2>Available Packages:</h2>
 				{{#each packages}}

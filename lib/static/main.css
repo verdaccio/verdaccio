@@ -1,4 +1,8 @@
 /*** Main Styles ***/
+body {
+  margin: 0;
+  font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+}
 h1 {
   text-align: center;
 }
@@ -10,7 +14,28 @@ h1 a:visited {
 h1 a:hover {
   text-decoration: underline;
 }
+.center {
+  text-align: center;
+}
+#content {
+  margin: 0 auto;
+  max-width: 880px;
+  padding: 20px;
+}
 /*** Setup ***/
+#setup {
+  background: #DB4141;
+  padding: 15px 20px;
+  display: inline-block;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  text-align: left;
+  color: #FFF;
+}
+#setup code {
+  font-family: Consolas, monaco, monospace;
+}
 /*** Package Entries ***/
 .entry {
   background: #EEE;
@@ -19,4 +44,4 @@ h1 a:hover {
 .state-search #standard-content {
   display: none;
 }
-/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22lib%2FGUI%2Fcss%2Fmain.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22%3BAAGA%3BEACC%2CkBAAA%3B%3BAADD%2CEAGC%3BAAHD%2CEAGI%2CEAAC%3BEACH%2CYAAA%3BEACA%2CqBAAA%3B%3BAALF%2CEAQC%2CEAAC%3BEACA%2C0BAAA%3B%3B%3B%3BAAQF%3BEACC%2CgBAAA%3B%3B%3BAAID%2CaAAc%3BEACb%2CaAAA%22%7D */
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22lib%2FGUI%2Fcss%2Fmain.less%22%2C%22node_modules%2Fhelpers.less%2Fhelpers.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22%3BAAGA%3BEACC%2CSAAA%3BEACA%2CaAAa%2CiBAAiB%2C8CAA9B%3B%3BAAGD%3BEACC%2CkBAAA%3B%3BAADD%2CEAGC%3BAAHD%2CEAGI%2CEAAC%3BEACH%2CYAAA%3BEACA%2CqBAAA%3B%3BAALF%2CEAQC%2CEAAC%3BEACA%2C0BAAA%3B%3BAAIF%3BEACC%2CkBAAA%3B%3BAAGD%3BEACC%2CcAAA%3BEACA%2CgBAAA%3BEACA%2CaAAA%3B%3B%3BAAID%3BEACC%2CmBAAA%3BEACA%2CkBAAA%3BEACA%2CqBAAA%3BEClBG%2C0BAAA%3BEACA%2CuBAAA%3BEACA%2CkBAAA%3BEDkBH%2CgBAAA%3BEACA%2CWAAA%3B%3BAAND%2CMAQC%3BEACC%2CwCAAA%3B%3B%3BAAKF%3BEACC%2CgBAAA%3B%3B%3BAAID%2CaAAc%3BEACb%2CaAAA%22%7D */
