@@ -1,5 +1,6 @@
 @import "../../../node_modules/helpers.less/helpers.less";
-@import "./markdown.css";
+@import "./markdown.less";
+@import "./highlight.js.less";
 
 /*** Main Styles ***/
 body {
@@ -47,13 +48,41 @@ h1 {
 /*** Search Box ***/
 #search-form {
 	float: right;
+
+	@height: 30px;
+
+	input, button {
+		margin: 0;
+		vertical-align: middle;
+	}
+
+	input {
+		width: 200px;
+		height: @height;
+		.border-box;
+		padding: 0 5px;
+		font-size: 16px;
+		border: 1px solid #444;
+		border-right: 0;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	button {
+		height: @height;
+		width: @height;
+		margin: 0;
+		border: 0;
+	}
 }
 
 /*** Package Entries ***/
 .entry {
-	background: #EEE;
+	background: #F3F3F3;
 	.border-radius(4px);
-	padding: 12px 15px;
+	padding: 12px 15px 15px;
 
 	h3 {
 		font-size: 24px;
@@ -68,11 +97,19 @@ h1 {
 	.author {
 		font-size: 16px;
 		float: right;
-		color: #555;
+		color: #666;
 	}
 
 	p {
 		margin: 0;
+	}
+
+	.readme {
+		font-size: 14px;
+		margin-top: 10px;
+		background: #FFF;
+		padding: 10px 12px;
+		.border-radius(3px);
 	}
 }
 

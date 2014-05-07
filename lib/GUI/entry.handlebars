@@ -1,4 +1,8 @@
-<article class='entry'>
-	<h3>{{ name }} <small class='version'>v{{ version }}</small><div class='author'>By: {{ _npmUser.name }}</div></h3>
+<article class='entry' data-name='{{ name }}' data-version='{{ version }}'>
+	<h3>
+		<a class='name' href='javascript:void(0)'>{{ name }}</a>
+		<small class='version'>v{{ version }}</small>
+		<div class='author'>By: {{ _npmUser.name }}</div>
+	</h3>
 	<p>{{ description }}</p>
 </article>

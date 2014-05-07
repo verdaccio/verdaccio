@@ -28,6 +28,7 @@
     "marked": "^0.3.2",
     "minimatch": ">= 0.2.14",
     "mkdirp": ">= 0.3.5",
+    "onclick": "^0.1.0",
     "request": ">= 2.31.0",
     "semver": ">= 2.2.1",
     "tar.gz": "^0.1.1",
