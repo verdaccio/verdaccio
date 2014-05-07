@@ -33,7 +33,12 @@
     "fs-ext": ">= 0.3.2"
   },
   "devDependencies": {
+    "browserify": "^3.46.0",
     "eslint": ">= 0.4.2",
+    "grunt": "^0.4.4",
+    "grunt-browserify": "^2.0.8",
+    "grunt-contrib-less": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
     "mocha": ">= 1.17.0",
     "rimraf": ">= 2.2.5"
   },
