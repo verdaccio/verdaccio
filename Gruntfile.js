@@ -4,7 +4,7 @@ module.exports = function(grunt) {
         browserify: {
             dist: {
                 files: {
-                    'static/main.js': ['lib/GUI/js/main.js']
+                    'lib/static/main.js': ['lib/GUI/js/main.js']
                 },
                 options: {
                     debug:     true
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         less: {
             dist: {
                 files: {
-                    'static/main.css': ['lib/GUI/css/main.less']
+                    'lib/static/main.css': ['lib/GUI/css/main.less']
                 },
                 options: {
                     sourceMap: true
