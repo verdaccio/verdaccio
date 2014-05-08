@@ -9,7 +9,9 @@
 	<body>
 		<header>
 			<div id='header-inner'>
-				<h1><a href='/'>{{ name }}</a></h1>
+				{{#if logo}}
+					<a href='/'><img id='logo' alt='{{ name }}' title='{{ name }}' src='/-/logo' /></a>
+				{{/if}}
 
 				<div class='center'>
 					<article id='setup'>

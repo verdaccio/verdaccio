@@ -18,14 +18,6 @@ a:hover {
 	text-decoration: underline;
 }
 
-h1 {
-	text-align: center;
-
-	a, a:visited {
-		color: black;
-	}
-}
-
 .center {
 	text-align: center;
 }
@@ -37,6 +29,7 @@ header {
 	width: 100%;
 	background: #FFF;
 	top: 0;
+	z-index: 1;
 
 	#header-inner {
 		max-width: @contentWidth + @headerPadding*2;
@@ -48,6 +41,21 @@ header {
 	max-width: @contentWidth;
 	margin: 0 auto;
 	padding: 20px;
+}
+
+#logo {
+	margin: 20px auto;
+	width: 400px;
+	height: 200px;
+	display: block;
+}
+
+h1 {
+	text-align: center;
+
+	a, a:visited {
+		color: black;
+	}
 }
 
 /*** Setup ***/
