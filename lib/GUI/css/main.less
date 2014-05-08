@@ -30,9 +30,23 @@ h1 {
 	text-align: center;
 }
 
+@contentWidth: 880px;
+@headerPadding: 10px;
+header {
+	position: fixed;
+	width: 100%;
+	background: #FFF;
+	top: 0;
+
+	#header-inner {
+		max-width: @contentWidth + @headerPadding*2;
+		margin: 0 auto;
+	}
+}
+
 #content {
+	max-width: @contentWidth;
 	margin: 0 auto;
-	max-width: 880px;
 	padding: 20px;
 }
 
@@ -95,8 +109,8 @@ h1 {
 /*** Heading ***/
 h2 {
 	border-bottom: 6px solid #424242;
-	padding-bottom: 10px;
-	margin-top: 40px;
+	margin: 40px 0 0;
+	padding: 0 @headerPadding 10px;
 }
 
 /*** Package Entries ***/

@@ -7,23 +7,27 @@
 		<link rel="stylesheet" type="text/css" href="/-/static/main.css">
 	</head>
 	<body>
-		<div id='content'>
-			<h1><a href='/'>{{ name }}</a></h1>
+		<header>
+			<div id='header-inner'>
+				<h1><a href='/'>{{ name }}</a></h1>
 
-			<div class='center'>
-				<article id='setup'>
-					<code>npm set registry {{ baseUrl }}</code><br>
-					<code>npm adduser --registry {{ baseUrl }}</code>
-				</article>
+				<div class='center'>
+					<article id='setup'>
+						<code>npm set registry {{ baseUrl }}</code><br>
+						<code>npm adduser --registry {{ baseUrl }}</code>
+					</article>
+				</div>
+
+				<h2>
+					Available Packages:
+					<form id='search-form'>
+						<input type='text' placeholder='Search' /><button class='clear icon-search'></button>
+					</form>
+				</h2>
 			</div>
+		</header>
 
-			<h2>
-				Available Packages:
-				<form id='search-form'>
-					<input type='text' placeholder='Search' /><button class='clear icon-search'></button>
-				</form>
-			</h2>
-
+		<div id='content'>
 			<div id='search-results'></div>
 
 			<div id='all-packages'>
