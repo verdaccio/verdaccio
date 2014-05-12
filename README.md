@@ -44,7 +44,7 @@ $ npm set always-auth true
 $ npm set ca null
 ```
 
-Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed can be searched.
+Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
 
 ### Docker
 
