@@ -44,6 +44,8 @@ $ npm set always-auth true
 $ npm set ca null
 ```
 
+Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed can be searched.
+
 ### Docker
 
 A Sinopia docker image [is available](https://index.docker.io/u/keyvanfatehi/docker-sinopia/)
@@ -58,20 +60,15 @@ A Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.c
 
 ## Configuration
 
-When you start a server, it auto-creates a config file that adds one user (password is printed to stdout only once).
+When you start a server, it auto-creates a config file.
 
 ## Adding a new user
 
-There is no utility to add a new user but you can at least use node on the command-line to generate a password. You will need to edit the config and add the user manually.
-
-Start node and enter the following code replacing 'newpass' with the password you want to get the hash for.
 ```bash
-$ node
-> crypto.createHash('sha1').update('newpass').digest('hex')
-'6c55803d6f1d7a177a0db3eb4b343b0d50f9c111'
-> [CTRL-D]
+npm adduser --registry http://localhost:4873/
 ```
 
+This will prompt you for user credentials which will be saved on the Sinopia server.
 
 ## Using private packages
 
@@ -112,18 +109,18 @@ Basic features:
 
 Advanced package control:
 
-- Unpublishing packages (npm unpublish) - not yet supported, should be soon
+- Unpublishing packages (npm unpublish) - supported
 - Tagging (npm tag) - not yet supported, should be soon
 - Deprecation (npm deprecate) - not supported
 
 User management:
 
-- Registering new users (npm adduser {newuser}) - not supported, sinopia uses its own acl management system
+- Registering new users (npm adduser {newuser}) - supported
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, sinopia uses its own acl management system
 
 Misc stuff:
 
-- Searching (npm search) - not supported
+- Searching (npm search) - supported in the browser client but not command line
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 
 ## Storage
