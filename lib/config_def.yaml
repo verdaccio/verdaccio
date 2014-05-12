@@ -1,11 +1,9 @@
 # path to a directory with all packages
 storage: ./storage
 
-# a list of users
-users:
-  admin:
-    # crypto.createHash('sha1').update(pass).digest('hex')
-    password: __PASSWORD__
+title: Sinopia
+# root: http://my.custom.domain.com
+# logo: logo.png
 
 # a list of other known repositories we can talk to
 uplinks:
