@@ -2,7 +2,6 @@
 storage: ./storage
 
 title: Sinopia
-# root: http://my.custom.domain.com
 # logo: logo.png
 
 # a list of other known repositories we can talk to
