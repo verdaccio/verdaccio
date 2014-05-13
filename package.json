@@ -1,0 +1,78 @@
+{
+  "name": "sinopia",
+  "version": "0.8.1",
+  "description": "Private npm repository server",
+  "author": {
+    "name": "Alex Kocharin",
+    "email": "alex@kocharin.ru"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rlidwka/sinopia"
+  },
+  "main": "index.js",
+  "bin": {
+    "sinopia": "./bin/sinopia"
+  },
+  "dependencies": {
+    "express": ">= 3.4.7 < 4.0.0-0",
+    "commander": ">= 2.1.0",
+    "js-yaml": ">= 3.0.1",
+    "cookies": ">= 0.3.8",
+    "request": ">= 2.31.0",
+    "async": ">= 0.2.9",
+    "semver": ">= 2.2.1",
+    "minimatch": ">= 0.2.14",
+    "bunyan": ">= 0.22.1",
+    "mkdirp": ">= 0.3.5",
+    "handlebars": "1.x.x",
+    "helpers.less": "git://github.com/bpeacock/helpers.less.git",
+    "highlight.js": "^8.0.0",
+    "lunr": "^0.5.2",
+    "marked": "^0.3.2",
+    "onclick": "^0.1.0",
+    "onscroll": "0.0.3",
+    "tar.gz": "^0.1.1",
+    "transition-complete": "0.0.2",
+    "underscore": "^1.6.0",
+    "unopinionate": "0.0.4"
+  },
+  "optionalDependencies": {
+    "fs-ext": ">= 0.3.2"
+  },
+  "devDependencies": {
+    "rimraf": ">= 2.2.5",
+    "mocha": ">= 1.17.0",
+    "eslint": ">= 0.4.2",
+    "browserify": "^3.46.0",
+    "browserify-handlebars": "~0.2.0",
+    "grunt": "^0.4.4",
+    "grunt-browserify": "^2.0.8",
+    "grunt-contrib-less": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "modules",
+    "proxy",
+    "server"
+  ],
+  "scripts": {
+    "test": "mocha ./test/functional ./test/unit",
+    "lint": "eslint -c ./.eslint.yaml ./lib"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "preferGlobal": true,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": {
+    "type": "WTFPL",
+    "url": "http://www.wtfpl.net/txt/copying/"
+  }
+}
