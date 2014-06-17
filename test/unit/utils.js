@@ -5,6 +5,7 @@ describe('Validate', function() {
 	it('good ones', function() {
 		assert(validate('sinopia'))
 		assert(validate('some.weird.package-zzz'))
+		assert(validate('old-package@0.1.2.tgz'))
 	})
 
 	it('uppercase', function() {
@@ -32,7 +33,6 @@ describe('Validate', function() {
 	})
 
 	it('other', function() {
-		assert(!validate('pkg@'))
 		assert(!validate('pk g'))
 		assert(!validate('pk\tg'))
 		assert(!validate('pk%20g'))
