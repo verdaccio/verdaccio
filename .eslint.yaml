@@ -212,6 +212,10 @@ rules:
 
   # doesn't always make sense
   consistent-return: 0
+  no-sequences: 0
+
+  # fails defensive semicolons
+  no-space-before-semi: 0
 
   new-parens: 1
   no-alert: 1

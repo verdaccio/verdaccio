@@ -37,7 +37,7 @@ devDependencies:
   mocha: '>= 1.17.0'
 
   # linting tools
-  eslint: '>= 0.4.2'
+  eslint: '>= 0.6'
 
   # for debugging memory leaks, it'll be require()'d if
   # installed, but I don't want it to be installed everytime
