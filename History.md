@@ -1,34 +1,34 @@
 14 Apr 2014, version 0.8.1
 
-- "latest" tag is now always present in any package (issue #63)
+- "latest" tag is now always present in any package (issue [#63](https://github.com/rlidwka/sinopia/issues/63))
 - tags created with new npm versions (>= 1.3.19) can now be published correctly
 
 1 Apr 2014, version 0.8.0
 
-- use gzip compression whenever possible (issue #54)
+- use gzip compression whenever possible (issue [#54](https://github.com/rlidwka/sinopia/issues/54))
 - set `ignore_latest_tag` to false, it should now be more compatible with npm registry
-- make `fs-ext` optional (issue #61)
+- make `fs-ext` optional (issue [#61](https://github.com/rlidwka/sinopia/issues/61))
 
 29 Mar 2014, version 0.7.1
 
-- added `ignore_latest_tag` config param (issues #55, #59)
-- reverted PR #56 (see discussion in #57)
+- added `ignore_latest_tag` config param (issues [#55](https://github.com/rlidwka/sinopia/issues/55), [#59](https://github.com/rlidwka/sinopia/issues/59))
+- reverted PR [#56](https://github.com/rlidwka/sinopia/issues/56) (see discussion in [#57](https://github.com/rlidwka/sinopia/issues/57))
 
 13 Mar 2014, version 0.7.0
 
 - config changes:
   - breaking change: all time intervals are now specified in *seconds* instead of *milliseconds* for the sake of consistency. Change `timeout` if you have one!
   - all time intervals now can be specified in [nginx notation](http://wiki.nginx.org/ConfigNotation), for example `1m 30s` will specify a 90 seconds timeout
-  - added `maxage` option to avoid asking public registry for the same data too often (issue #47)
-  - added `max_fails` and `fail_timeout` options to reduce amount of requests to public registry when it's down (issue #7)
+  - added `maxage` option to avoid asking public registry for the same data too often (issue [#47](https://github.com/rlidwka/sinopia/issues/47))
+  - added `max_fails` and `fail_timeout` options to reduce amount of requests to public registry when it's down (issue [#7](https://github.com/rlidwka/sinopia/issues/7))
 
 - bug fixes:
-  - fix crash when headers are sent twice (issue #52)
+  - fix crash when headers are sent twice (issue [#52](https://github.com/rlidwka/sinopia/issues/52))
   - all tarballs are returned with `Content-Length`, which allows [yapm](https://github.com/rlidwka/yapm) to estimate download time
   - when connection to public registry is interrupted when downloading a tarball, we no longer save incomplete tarball to the disk
 
 - other changes:
-  - 404 errors are returned in couchdb-like manner (issue #56)
+  - 404 errors are returned in couchdb-like manner (issue [#56](https://github.com/rlidwka/sinopia/issues/56))
 
 5 Mar 2014, version 0.6.7
 
@@ -40,27 +40,27 @@
 
 3 Feb 2014, version 0.6.3
 
-- validate tags and versions (issue #40)
-- don't crash when process.getuid doesn't exist (issue #41)
+- validate tags and versions (issue [#40](https://github.com/rlidwka/sinopia/issues/40))
+- don't crash when process.getuid doesn't exist (issue [#41](https://github.com/rlidwka/sinopia/issues/41))
 
 18 Jan 2014, version 0.6.2
 
-- adding config param to specify upload limits (issue #39)
-- making loose semver versions work (issue #38)
+- adding config param to specify upload limits (issue [#39](https://github.com/rlidwka/sinopia/issues/39))
+- making loose semver versions work (issue [#38](https://github.com/rlidwka/sinopia/issues/38))
 
 13 Jan 2014, version 0.6.1
 
-- support setting different storage paths for different packages (issue #35)
+- support setting different storage paths for different packages (issue [#35](https://github.com/rlidwka/sinopia/issues/35))
 
 30 Dec 2013, version 0.6.0
 
-- tag support (issue #8)
-- adding support for npm 1.3.19+ behaviour (issue #31)
+- tag support (issue [#8](https://github.com/rlidwka/sinopia/issues/8))
+- adding support for npm 1.3.19+ behaviour (issue [#31](https://github.com/rlidwka/sinopia/issues/31))
 - removing all support for proxying publish requests to uplink (too complex)
 
 26 Dec 2013, version 0.5.9
 
-- fixing bug with bad Accept header (issue #32)
+- fixing bug with bad Accept header (issue [#32](https://github.com/rlidwka/sinopia/issues/32))
 
 20 Dec 2013, version 0.5.8
 
@@ -71,7 +71,7 @@
 
 15 Dec 2013, version 0.5.7
 
-- try to fetch package from uplinks if user requested a tarball we don't know about (issue #29)
+- try to fetch package from uplinks if user requested a tarball we don't know about (issue [#29](https://github.com/rlidwka/sinopia/issues/29))
 - security fix: set express.js to production mode so we won't return stack traces to the user in case of errors
 
 11 Dec 2013, version 0.5.6
@@ -80,13 +80,13 @@
 
 8 Dec 2013, version 0.5.4
 
-- latest tag always shows highest version available (issue #8)
-- added a configurable timeout for requests to uplinks (issue #18)
-- users with bad authentication header are considered not logged in (issue #17)
+- latest tag always shows highest version available (issue [#8](https://github.com/rlidwka/sinopia/issues/8))
+- added a configurable timeout for requests to uplinks (issue [#18](https://github.com/rlidwka/sinopia/issues/18))
+- users with bad authentication header are considered not logged in (issue [#17](https://github.com/rlidwka/sinopia/issues/17))
 
 24 Nov 2013, version 0.5.3
 
-- added proxy support for requests to uplinks (issue #13)
+- added proxy support for requests to uplinks (issue [#13](https://github.com/rlidwka/sinopia/issues/13))
 - changed license from default BSD to WTFPL
 
 26 Oct 2013, version 0.5.2
