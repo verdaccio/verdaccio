@@ -1,3 +1,8 @@
+20 Jun 2014, version 0.8.2
+
+- allow '@' in package/tarball names (issue [#75](https://github.com/rlidwka/sinopia/issues/75))
+- other minor fixes (issues [#77](https://github.com/rlidwka/sinopia/issues/77), [#80](https://github.com/rlidwka/sinopia/issues/80))
+
 14 Apr 2014, version 0.8.1
 
 - "latest" tag is now always present in any package (issue [#63](https://github.com/rlidwka/sinopia/issues/63))
