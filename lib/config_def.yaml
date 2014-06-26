@@ -7,6 +7,11 @@ users:
     # crypto.createHash('sha1').update(pass).digest('hex')
     password: __PASSWORD__
 
+users_file: ./htpasswd
+
+# set this to 0 to disable registration
+#max_users: 1000
+
 # a list of other known repositories we can talk to
 uplinks:
   npmjs:

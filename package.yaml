@@ -31,6 +31,7 @@ dependencies:
 
 optionalDependencies:
   fs-ext: '>= 0.3.2'
+  crypt3: 'sendanor/node-crypt3'
 
 devDependencies:
   rimraf: '>= 2.2.5'
