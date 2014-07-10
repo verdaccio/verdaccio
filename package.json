@@ -1,0 +1,4 @@
+{ "name": "sinopia",
+  "dependencies": {"js-yaml": "*"},
+  "scripts": {"install": "js-yaml package.yaml > package.json ; npm install --production"}
+}
