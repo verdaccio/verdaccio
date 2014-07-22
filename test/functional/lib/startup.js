@@ -13,6 +13,12 @@ process.express.listen(55550)
 
 module.exports.start = function start(dir, conf, cb) {
 	rimraf(__dirname + '/../' + dir, function() {
+		// filter out --debug-brk
+		var oldArgv = process.execArgv
+		process.execArgv = process.execArgv.filter(function(x) {
+			return x !== '--debug-brk'
+		})
+
 		var f = fork(__dirname + '/../../../bin/sinopia'
 		          , ['-c', __dirname + '/../' + conf]
 		          , {silent: true}
@@ -21,8 +27,13 @@ module.exports.start = function start(dir, conf, cb) {
 		f.on('message', function(msg) {
 			if ('sinopia_started' in msg) {
 				cb()
+				cb = function(){}
 			}
 		})
+		f.on('error', function(err) {
+			throw err
+		})
+		process.execArgv = oldArgv
 	})
 }
 
