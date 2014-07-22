@@ -36,7 +36,13 @@ Server.prototype.auth = function(user, pass, cb) {
 		uri: '/-/user/org.couchdb.user:'+encodeURIComponent(user)+'/-rev/undefined',
 		method: 'PUT',
 		json: {
-			content: "doesn't matter, 'cause sinopia uses info from Authorization header anywayz",
+			name: user,
+			password: pass,
+			email: 'test@example.com',
+			_id: 'org.couchdb.user:' + user,
+			type: 'user',
+			roles: [],
+			date: new Date(),
 		}
 	}, prep(cb))
 }

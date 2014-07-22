@@ -46,6 +46,7 @@ describe('Func', function() {
 	require('./race')()
 	require('./racycrash')()
 	require('./security')()
+	require('./adduser')()
 	require('./addtag')()
 })
 

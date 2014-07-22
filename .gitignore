@@ -5,5 +5,6 @@ sinopia-*.tgz
 
 ###
 bin/storage*
+bin/htpasswd
 bin/*.yaml
 test-storage*

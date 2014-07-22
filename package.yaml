@@ -31,14 +31,14 @@ dependencies:
 
 optionalDependencies:
   fs-ext: '>= 0.3.2'
-  crypt3: 'sendanor/node-crypt3'
+  crypt3: '*'
 
 devDependencies:
   rimraf: '>= 2.2.5'
   mocha: '>= 1.17.0'
 
   # linting tools
-  eslint: '>= 0.6'
+  eslint: '~ 0.6.0'
 
   # for debugging memory leaks, it'll be require()'d if
   # installed, but I don't want it to be installed everytime
@@ -56,7 +56,7 @@ keywords:
 scripts:
   test: mocha ./test/functional ./test/unit
   lint: eslint -c ./.eslint.yaml ./lib
-  prepublish: js-yaml package.yaml > package.json
+  #prepublish: js-yaml package.yaml > package.json
 
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8
