@@ -37,7 +37,6 @@ dependencies:
   onscroll: '0.0.3'
   tar.gz: '^0.1.1'
   transition-complete: '0.0.2'
-  underscore: '^1.6.0'
   unopinionate: '0.0.4'
 
 optionalDependencies:
