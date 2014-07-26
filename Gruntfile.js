@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readYAML('package.yaml'),
         browserify: {
             dist: {
                 files: {

@@ -73,7 +73,7 @@ keywords:
 scripts:
   test: mocha ./test/functional ./test/unit
   lint: eslint -c ./.eslint.yaml ./lib
-  #prepublish: js-yaml package.yaml > package.json
+  prepublish: js-yaml package.yaml > package.json
 
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8
