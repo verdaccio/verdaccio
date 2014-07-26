@@ -4,9 +4,8 @@ npm-debug.log
 sinopia-*.tgz
 
 ###
-bin/storage*
-bin/htpasswd
-bin/*.yaml
+bin/**
+!bin/sinopia
 test-storage*
 
 /.eslint*
