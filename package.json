@@ -1,5 +1,5 @@
 { "name": "sinopia",
   "version": "0.0.0",
   "dependencies": {"js-yaml": "*"},
-  "scripts": {"postinstall": "js-yaml package.yaml > package.json ; npm install --production"}
+  "scripts": {"postinstall": "js-yaml package.yaml > package.json ; npm install --production ; git update-index --assume-unchanged package.json"}
 }
