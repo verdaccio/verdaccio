@@ -28,6 +28,17 @@ dependencies:
   minimatch: '>= 0.2.14'
   bunyan: '>= 0.22.1'
   mkdirp: '>= 0.3.5'
+  handlebars: '1.x.x'
+  helpers.less: 'git://github.com/bpeacock/helpers.less.git'
+  highlight.js: '^8.0.0'
+  lunr: '^0.5.2'
+  marked: '^0.3.2'
+  onclick: '^0.1.0'
+  onscroll: '0.0.3'
+  tar.gz: '^0.1.1'
+  transition-complete: '0.0.2'
+  underscore: '^1.6.0'
+  unopinionate: '0.0.4'
 
 optionalDependencies:
   fs-ext: '>= 0.3.2'
@@ -43,6 +54,13 @@ devDependencies:
   # for debugging memory leaks, it'll be require()'d if
   # installed, but I don't want it to be installed everytime
   #heapdump: '*'
+
+  browserify: '^3.46.0'
+  browserify-handlebars: '~0.2.0'
+  grunt: '^0.4.4'
+  grunt-browserify: '^2.0.8'
+  grunt-contrib-less: '^0.11.0'
+  grunt-contrib-watch: '^0.6.1'
 
 keywords:
   - private
@@ -71,4 +89,3 @@ publishConfig:
 license:
   type: WTFPL
   url: http://www.wtfpl.net/txt/copying/
-

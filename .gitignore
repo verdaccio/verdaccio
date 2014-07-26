@@ -1,10 +1,12 @@
 node_modules
-package.json
 npm-debug.log
 sinopia-*.tgz
+.DS_Store
 
 ###
 bin/storage*
 bin/htpasswd
 bin/*.yaml
 test-storage*
+
+example

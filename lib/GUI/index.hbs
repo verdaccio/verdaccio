@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<title>{{ name }}</title>
+
+		<link rel="icon" type="image/ico" href="/-/static/favicon.ico"/>
+
+		<link rel="stylesheet" type="text/css" href="/-/static/main.css">
+	</head>
+	<body>
+		<header>
+			<div id='header-inner'>
+				<a href='/'><img id='logo' alt='{{ name }}' title='{{ name }}' src='/-/logo' /></a>
+
+				<div class='center'>
+					<article id='setup'>
+						<code>npm set registry {{ baseUrl }}</code><br>
+						<code>npm adduser --registry {{ baseUrl }}</code>
+					</article>
+				</div>
+
+				<h2>
+					Available Packages:
+					<form id='search-form'>
+						<input type='text' placeholder='Search' /><button class='clear icon-search'></button>
+					</form>
+				</h2>
+			</div>
+		</header>
+
+		<div id='content'>
+			<div id='search-results'></div>
+
+			<div id='all-packages'>
+				{{#each packages}}
+					{{> entry}}
+				{{/each}}
+
+				{{#unless packages.length}}
+				    <div class='no-results'>
+				    	<big>No Packages</big><br>
+				    	Use <code>npm publish</code>
+				    </div>
+				{{/unless}}
+			</div>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type='text/javascript' src='/-/static/main.js'></script>
+	</body>
+</html>

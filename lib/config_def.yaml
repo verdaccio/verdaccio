@@ -9,6 +9,9 @@ users:
     # crypto.createHash('sha1').update(pass).digest('hex')
     password: __PASSWORD__
 
+title: Sinopia
+# logo: logo.png
+
 users_file: ./htpasswd
 
 # Maximum amount of users allowed to register, defaults to "+inf".
