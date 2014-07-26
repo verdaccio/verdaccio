@@ -1,3 +1,14 @@
+
+26 Jul 2014, version 0.9.0
+
+- new features:
+  - add search functionality (issue [#65](https://github.com/rlidwka/sinopia/pull/65))
+  - allow users to authenticate using .htpasswd (issue [#44](https://github.com/rlidwka/sinopia/issues/44))
+  - allow user registration with "npm adduser" (issue [#44](https://github.com/rlidwka/sinopia/issues/44))
+
+- bugfixes:
+  - avoid crashing when res.socket is null (issue [#89](https://github.com/rlidwka/sinopia/issues/89))
+
 20 Jun 2014, version 0.8.2
 
 - allow '@' in package/tarball names (issue [#75](https://github.com/rlidwka/sinopia/issues/75))
