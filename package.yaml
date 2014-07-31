@@ -18,7 +18,11 @@ bin:
   sinopia: ./bin/sinopia
 
 dependencies:
-  express: '>= 3.4.7 < 4.0.0-0'
+  # don't receive future updates to express.js until
+  # https://github.com/strongloop/express/issues/2264
+  # gets resolved:
+  express: '>= 3.4.7 <= 3.15.2'
+
   commander: '>= 2.1.0'
   js-yaml: '>= 3.0.1'
   cookies: '>= 0.3.8'
