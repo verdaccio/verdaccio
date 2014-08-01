@@ -46,7 +46,7 @@ $ npm set ca null
 
 ### Docker
 
-A Sinopia docker image [is available](https://index.docker.io/u/keyvanfatehi/docker-sinopia/)
+A Sinopia docker image [is available](https://registry.hub.docker.com/u/keyvanfatehi/sinopia/)
 
 ### Chef
 
