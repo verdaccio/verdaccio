@@ -75,7 +75,7 @@ keywords:
   - server
 
 scripts:
-  test: mocha ./test/functional ./test/unit
+  test: mocha -R dot ./test/functional ./test/unit
   lint: eslint -c ./.eslint.yaml ./lib
   prepublish: js-yaml package.yaml > package.json
 

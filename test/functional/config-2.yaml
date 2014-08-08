@@ -28,6 +28,10 @@ packages:
     allow_publish: test anonymous
     proxy_access: server1
 
+  'test-nullstorage*':
+    allow_access: all
+    allow_publish: all
+
   '*':
     allow_access: test anonymous
     allow_publish: test anonymous
