@@ -43,6 +43,7 @@ describe('Func', function() {
 	require('./incomplete')()
 	require('./mirror')()
 	require('./newnpmreg')()
+	require('./nullstorage')()
 	require('./race')()
 	require('./racycrash')()
 	require('./security')()

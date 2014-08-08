@@ -37,6 +37,12 @@ packages:
     allow_publish: all
     proxy_access: express
 
+  'test-nullstorage*':
+    allow_access: all
+    allow_publish: all
+    proxy_access: server2
+    storage: false
+
   'baduplink':
     allow_access: all
     allow_publish: all
