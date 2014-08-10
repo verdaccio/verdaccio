@@ -1,5 +1,5 @@
 
-Unreleased, branch 0.9.x (maintenance)
+11 Aug 2014, version 0.9.1
 
 - filter falsey _npmUser values (issue [#95](https://github.com/rlidwka/sinopia/pull/95))
 - option not to cache third-party files (issue [#85](https://github.com/rlidwka/sinopia/issues/85))
