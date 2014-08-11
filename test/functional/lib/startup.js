@@ -21,7 +21,7 @@ module.exports.start = function start(dir, conf, cb) {
 
 		var f = fork(__dirname + '/../../../bin/sinopia'
 		          , ['-c', __dirname + '/../' + conf]
-		          , {silent: true}
+		          , {silent: !process.env.TRAVIS}
 		)
 		forks.push(f)
 		f.on('message', function(msg) {

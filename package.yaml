@@ -103,6 +103,7 @@ keywords:
 
 scripts:
   test: mocha -R dot ./test/functional ./test/unit
+  test-travis: mocha -R spec ./test/functional ./test/unit
   lint: eslint -c ./.eslint.yaml ./lib
   prepublish: js-yaml package.yaml > package.json
 
