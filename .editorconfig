@@ -1,0 +1,21 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Tab indentation (no size specified)
+[*.js]
+indent_style = tab
+
+# 2 space indentation
+[{.,}*.y{a,}ml]
+indent_style = space
+indent_size = 2
+
+# Indentation override for Gruntfile
+[Gruntfile.js]
+indent_style = space
+indent_size = 4
