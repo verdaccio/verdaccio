@@ -37,3 +37,6 @@ packages:
     allow_publish: test anonymous
 
 listen: 55552
+
+# expose internal methods
+_debug: true
