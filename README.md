@@ -25,7 +25,7 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 
 3. Override public packages.
 
-   If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accepted pull request yet), you can publish your version locally under the same name.
+   If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name.
 
    See [override public packages](#override-public-packages) section for details.
 
