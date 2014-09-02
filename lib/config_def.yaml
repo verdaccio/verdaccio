@@ -12,11 +12,12 @@ users:
 title: Sinopia
 # logo: logo.png
 
-users_file: ./htpasswd
-
-# Maximum amount of users allowed to register, defaults to "+inf".
-# You can set this to 0 to disable registration.
-#max_users: 1000
+auth:
+  htpasswd:
+    users_file: ./htpasswd
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # You can set this to 0 to disable registration.
+    #max_users: 1000
 
 # a list of other known repositories we can talk to
 uplinks:
@@ -51,9 +52,11 @@ packages:
   #  storage: 'local_storage'
 
   '*':
-    # allow all users to read packages ('all' is a keyword)
-    # this includes non-authenticated users
-    allow_access: all
+    # allow all users to read packages (including non-authenticated users)
+    #
+    # you can specify usernames/groupnames (depending on your auth plugin)
+    # and three keywords: "@all", "@anonymous", "@authenticated"
+    allow_access: @all
 
     # allow 'admin' to publish packages
     allow_publish: admin
