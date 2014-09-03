@@ -1,4 +1,9 @@
 
+3 Sep 2014, version 0.9.2
+
+- allow "pretty" format for logging into files (issue [#88](https://github.com/rlidwka/sinopia/pull/88))
+- remove outdated user existence check (issue [#115](https://github.com/rlidwka/sinopia/pull/115))
+
 11 Aug 2014, version 0.9.1
 
 - filter falsey _npmUser values (issue [#95](https://github.com/rlidwka/sinopia/pull/95))
