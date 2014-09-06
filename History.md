@@ -1,4 +1,8 @@
 
+7 Sep 2014, version 0.9.3
+
+- fix several bugs that could cause "can't set headers" exception
+
 3 Sep 2014, version 0.9.2
 
 - allow "pretty" format for logging into files (issue [#88](https://github.com/rlidwka/sinopia/pull/88))
