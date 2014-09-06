@@ -46,6 +46,7 @@ dependencies:
   onscroll: '>=0.0.3 <1.0.0-0'
   transition-complete: '>=0.0.2 <1.0.0-0'
   helpers.less: 'git://github.com/bpeacock/helpers.less.git'
+  sinopia-htpasswd: '>= 0.2.0'
 
   # TODO: not really needed
   tar.gz: '~0.1.1'
@@ -54,9 +55,6 @@ optionalDependencies:
   # those are native modules that could fail to compile
   # and unavailable on windows
   fs-ext: '>=0.3.2 <1.0.0-0'
-
-  # bundled
-  crypt3: '>=0.1.5 <1.0.0-0'
 
 # Policy for now:
 # - small, unstable and rarely updated libraries (i.e. crypt3) get bundled
@@ -72,7 +70,7 @@ bundledDependencies:
   - transition-complete
   - helpers.less
   - tar.gz
-  - crypt3
+  - sinopia-htpasswd
 
 devDependencies:
   rimraf: '>=2.2.5 <3.0.0-0'
