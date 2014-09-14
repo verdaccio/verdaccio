@@ -63,8 +63,8 @@ packages:
     # allow all users to read packages (including non-authenticated users)
     #
     # you can specify usernames/groupnames (depending on your auth plugin)
-    # and three keywords: "@all", "@anonymous", "@authenticated"
-    allow_access: @all
+    # and three keywords: "$all", "$anonymous", "$authenticated"
+    allow_access: $all
 
     # allow 'admin' to publish packages
     allow_publish: admin
