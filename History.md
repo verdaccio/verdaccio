@@ -1,7 +1,8 @@
 
-14 Sep 2014, version 0.10.1
+14 Sep 2014, version 0.10.2
 
 - hotfix: added missing dependency - `rimraf`
+- hotfix: auth groups didn't work correctly
 
 14 Sep 2014, version 0.10.0
 
