@@ -22,7 +22,7 @@ web:
 
 auth:
   htpasswd:
-    users_file: ./htpasswd
+    file: ./htpasswd
     # Maximum amount of users allowed to register, defaults to "+inf".
     # You can set this to 0 to disable registration.
     #max_users: 1000
