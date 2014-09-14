@@ -1,4 +1,16 @@
 
+14 Sep 2014, version 0.10.0
+
+- Added auth plugins (issue [#99](https://github.com/rlidwka/sinopia/pull/99))
+
+  Now you can create your own auth plugin based on [sinopia-htpasswd](https://github.com/rlidwka/sinopia-htpasswd) package.
+
+- WIP: web interface (issue [#73](https://github.com/rlidwka/sinopia/pull/73))
+
+  It is disabled by default, and not ready for production yet. Use at your own risk. We will enable it in the next major release.
+
+- Some modules are now bundled by default, so users won't have to install stuff from git. We'll see what issues it causes, maybe all modules will be bundled in the future like in npm.
+
 7 Sep 2014, version 0.9.3
 
 - fix several bugs that could cause "can't set headers" exception
