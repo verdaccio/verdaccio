@@ -1,5 +1,4 @@
-node_modules
-package.json
+/package.json
 npm-debug.log
 sinopia-*.tgz
 .DS_Store
@@ -8,3 +7,17 @@ sinopia-*.tgz
 bin/**
 !bin/sinopia
 test-storage*
+
+# ignoring everything except bundled deps
+/node_modules/*
+!/node_modules/mkdirp
+!/node_modules/unopinionate
+!/node_modules/onclick
+!/node_modules/onscroll
+!/node_modules/transition-complete
+!/node_modules/helpers.less
+!/node_modules/tar.gz
+!/node_modules/sinopia-htpasswd
+!/node_modules/crypt3
+!/node_modules/http-errors
+

@@ -18,17 +18,13 @@ bin:
   sinopia: ./bin/sinopia
 
 dependencies:
-  # watch out for future updates to express.js until
-  # https://github.com/strongloop/express/issues/2264
-  # gets resolved:
-  express: '>=3.15.0 <=3.16.3'
+  express: '>=3.15.0 <4.0.0-0'
 
   commander: '>=2.3.0 <3.0.0-0'
   js-yaml: '>=3.0.1 <4.0.0-0'
   cookies: '>=0.5.0 <1.0.0-0'
   request: '>=2.31.0 <3.0.0-0'
   async: '>=0.9.0 <1.0.0-0'
-  http-errors: '~1.2.0' # ferver
 
   # 2.x and 3.x have the same interface
   semver: '>=2.2.1 <4.0.0-0'
@@ -48,6 +44,8 @@ dependencies:
   transition-complete: '>=0.0.2 <1.0.0-0'
   helpers.less: 'git://github.com/bpeacock/helpers.less.git'
   sinopia-htpasswd: '>= 0.2.0'
+  crypt3: 'git://github.com/sendanor/node-crypt3.git'
+  http-errors: '~1.2.0' # ferver
 
   # TODO: not really needed
   tar.gz: '~0.1.1'
@@ -72,6 +70,7 @@ bundledDependencies:
   - helpers.less
   - tar.gz
   - sinopia-htpasswd
+  - http-errors
 
 devDependencies:
   rimraf: '>=2.2.5 <3.0.0-0'
