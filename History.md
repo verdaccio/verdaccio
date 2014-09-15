@@ -1,9 +1,4 @@
 
-14 Sep 2014, version 0.10.3
-
-- hotfix: added missing dependency - `rimraf`
-- hotfix: auth groups didn't work correctly
-
 15 Sep 2014, version 0.11.0
 
 - Added auth plugins (issue [#99](https://github.com/rlidwka/sinopia/pull/99))
