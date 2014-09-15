@@ -1,4 +1,8 @@
 
+15 Sep 2014, version 0.11.1
+
+- mark crypt3 as optional (issue [#119](https://github.com/rlidwka/sinopia/issues/119))
+
 15 Sep 2014, version 0.11.0
 
 - Added auth plugins (issue [#99](https://github.com/rlidwka/sinopia/pull/99))
