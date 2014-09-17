@@ -1,6 +1,4 @@
 
-**work in progress**
-
 ## Installation
 
 ```sh

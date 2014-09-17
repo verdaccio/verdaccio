@@ -5,9 +5,6 @@ try {
   // optional, won't be available on windows
   var crypt3 = require('crypt3')
 } catch(err) {
-  crypt3 = function() {
-    return NaN
-  }
 }
 
 try {
@@ -79,8 +76,10 @@ function verify_password(user, passwd, hash) {
     return passwd === hash.substr(7)
   } else if (hash.indexOf('{SHA}') === 0) {
     return crypto.createHash('sha1').update(passwd, 'binary').digest('base64') === hash.substr(5)
-  } else {
+  } else if (crypt3) {
     return crypt3(passwd, hash) === hash
+  } else {
+    return false
   }
 }
 
@@ -91,8 +90,9 @@ function add_user_to_htpasswd(body, user, passwd) {
     throw err
   }
 
-  passwd = crypt3(passwd)
-  if (!passwd) {
+  if (crypt3) {
+    passwd = crypt3(passwd)
+  } else {
     passwd = '{SHA}' + crypto.createHash('sha1').update(passwd, 'binary').digest('base64')
   }
   var comment = 'autocreated ' + (new Date()).toJSON()
