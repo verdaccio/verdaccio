@@ -1,4 +1,8 @@
 
+18 Sep 2014, version 0.11.2
+
+- fix 500 error in adduser in sinopia-htpasswd (issue [#121](https://github.com/rlidwka/sinopia/issues/121))
+
 15 Sep 2014, version 0.11.1
 
 - mark crypt3 as optional (issue [#119](https://github.com/rlidwka/sinopia/issues/119))
