@@ -43,7 +43,7 @@ dependencies:
   onscroll: '>=0.0.3 <1.0.0-0'
   transition-complete: '>=0.0.2 <1.0.0-0'
   helpers.less: 'git://github.com/bpeacock/helpers.less.git'
-  sinopia-htpasswd: '>= 0.4.2'
+  sinopia-htpasswd: '>= 0.4.3'
   http-errors: '~1.2.0' # ferver
 
   # TODO: not really needed

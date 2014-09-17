@@ -1,7 +1,8 @@
 
-18 Sep 2014, version 0.11.2
+18 Sep 2014, version 0.11.3
 
-- fix 500 error in adduser in sinopia-htpasswd (issue [#121](https://github.com/rlidwka/sinopia/issues/121))
+- fix 500 error in adduser function in sinopia-htpasswd (issue [#121](https://github.com/rlidwka/sinopia/issues/121))
+- fix fd leak in authenticate function in sinopia-htpasswd (issue [#116](https://github.com/rlidwka/sinopia/issues/116))
 
 15 Sep 2014, version 0.11.1
 

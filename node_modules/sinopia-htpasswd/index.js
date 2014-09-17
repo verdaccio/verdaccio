@@ -115,7 +115,10 @@ HTPasswd.prototype._reload = function(callback) {
         if (err) return callback(err)
         if (bytesRead != st.size) return callback(new Error('st.size != bytesRead'))
         self._users = utils.parse_htpasswd(buffer.toString('utf8'))
-        callback()
+
+        fs.close(fd, function() {
+          callback()
+        })
       })
     })
   })
