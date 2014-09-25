@@ -1,4 +1,12 @@
 
+25 Sep 2014, version 0.12.0
+
+- set process title to `sinopia`
+
+- web interface bugfixes:
+  - save README data for each package (issue [#100](https://github.com/rlidwka/sinopia/issues/100))
+  - fix crashes related to READMEs (issue [#128](https://github.com/rlidwka/sinopia/issues/128))
+
 18 Sep 2014, version 0.11.3
 
 - fix 500 error in adduser function in sinopia-htpasswd (issue [#121](https://github.com/rlidwka/sinopia/issues/121))
