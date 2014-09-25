@@ -67,7 +67,7 @@ describe('Func', function() {
 		async.map([server, server2], function(server, cb) {
 			exec('lsof -p ' + Number(server.pid), function(err, result) {
 				assert.equal(server.fdlist, result.split('\n').filter(function(q) {
-					if (q.match(/TCP localhost:55551->localhost:\d+ \(ESTABLISHED\)/)) return false;
+					if (q.match(/TCP .*->.* \(ESTABLISHED\)/)) return false;
 					if (q.match(/\/libcrypt-[^\/]+\.so/)) return false;
 					if (q.match(/\/node_modules\/crypt3\/build\/Release/)) return false;
 					return true;
