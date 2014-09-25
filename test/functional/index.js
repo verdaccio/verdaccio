@@ -3,6 +3,7 @@ require('./lib/startup')
 var assert = require('assert')
   , async = require('async')
   , crypto = require('crypto')
+  , exec = require('child_process').exec
   , ex = module.exports
 
 function readfile(x) {
@@ -22,6 +23,18 @@ describe('Func', function() {
 				require('./lib/startup').start('./test-storage2', './config-2.yaml', cb)
 			},
 		], cb)
+	})
+
+	before(function(cb) {
+		async.map([server, server2], function(server, cb) {
+			server.debug(function(res, body) {
+				server.pid = body.pid
+				exec('lsof -p ' + Number(server.pid), function(err, result) {
+					server.fdlist = result
+					cb()
+				})
+			})
+		}, cb)
 	})
 
 	before(function auth(cb) {
@@ -49,5 +62,19 @@ describe('Func', function() {
 	require('./security')()
 	require('./adduser')()
 	require('./addtag')()
+
+	after(function(cb) {
+		async.map([server, server2], function(server, cb) {
+			exec('lsof -p ' + Number(server.pid), function(err, result) {
+				assert.equal(server.fdlist, result.split('\n').filter(function(q) {
+					if (q.match(/TCP localhost:55551->localhost:\d+ \(ESTABLISHED\)/)) return false;
+					if (q.match(/\/libcrypt-[^\/]+\.so/)) return false;
+					if (q.match(/\/node_modules\/crypt3\/build\/Release/)) return false;
+					return true;
+				}).join('\n'))
+				cb()
+			})
+		}, cb)
+	})
 })
 

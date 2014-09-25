@@ -130,5 +130,15 @@ Server.prototype.add_package = function(name, cb) {
 	})
 }
 
+Server.prototype.debug = function(cb) {
+	this.request({
+		uri: '/-/_debug',
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json'
+		},
+	}, prep(cb))
+}
+
 module.exports = Server
 
