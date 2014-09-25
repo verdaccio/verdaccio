@@ -68,5 +68,21 @@ module.exports = function() {
 				cb()
 			})
 		})
+
+		it('server1 - readme', function(cb) {
+			server.request({uri:'/-/readme/testpkg-newnpmreg'}, function(err, res, body) {
+				assert.equal(res.statusCode, 200)
+				assert.equal(body, '<p>blah blah blah</p>\n')
+				cb()
+			})
+		})
+
+		it('server2 - readme', function(cb) {
+			server2.request({uri:'/-/readme/testpkg-newnpmreg'}, function(err, res, body) {
+				assert.equal(res.statusCode, 200)
+				assert.equal(body, '<p>blah blah blah</p>\n')
+				cb()
+			})
+		})
 	})
 }

@@ -9,6 +9,9 @@ uplinks:
     url: http://localhost:55551/
     maxage: 0
 
+web:
+  enable: true
+
 logs:
   - {type: stdout, format: pretty, level: trace}
 

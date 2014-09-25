@@ -46,9 +46,6 @@ dependencies:
   sinopia-htpasswd: '>= 0.4.3'
   http-errors: '~1.2.0' # ferver
 
-  # TODO: not really needed
-  tar.gz: '~0.1.1'
-
 optionalDependencies:
   # those are native modules that could fail to compile
   # and unavailable on windows
@@ -68,7 +65,6 @@ bundledDependencies:
   - onscroll
   - transition-complete
   - helpers.less
-  - tar.gz
   - sinopia-htpasswd
   - http-errors
 

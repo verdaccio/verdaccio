@@ -7,6 +7,9 @@ users:
 users_file: ./test-storage/htpasswd
 max_users: 1
 
+web:
+  enable: true
+
 uplinks:
   express:
     url: http://localhost:55550/
