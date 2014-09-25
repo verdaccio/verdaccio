@@ -1,12 +1,10 @@
-
 # http-errors
 
-[![NPM version][npm-image]][npm-url]
-[![Build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
-[![Dependency Status][david-image]][david-url]
-[![License][license-image]][license-url]
-[![Downloads][downloads-image]][downloads-url]
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Node.js Version][node-version-image]][node-version-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 Create HTTP errors for Express, Koa, Connect, etc. with ease.
 
@@ -49,15 +47,17 @@ var err = new createError.NotFound();
 - `code` - the status code as a number
 - `name` - the name of the error as a "bumpy case", i.e. `NotFound` or `InternalServerError`.
 
-[npm-image]: https://img.shields.io/npm/v/http-errors.svg?style=flat-square
+## License
+
+[MIT](LICENSE)
+
+[npm-image]: https://img.shields.io/npm/v/http-errors.svg?style=flat
 [npm-url]: https://npmjs.org/package/http-errors
-[travis-image]: https://img.shields.io/travis/jshttp/http-errors.svg?style=flat-square
+[node-version-image]: https://img.shields.io/node/v/http-errors.svg?style=flat
+[node-version-url]: http://nodejs.org/download/
+[travis-image]: https://img.shields.io/travis/jshttp/http-errors.svg?style=flat
 [travis-url]: https://travis-ci.org/jshttp/http-errors
-[coveralls-image]: https://img.shields.io/coveralls/jshttp/http-errors.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/jshttp/http-errors?branch=master
-[david-image]: http://img.shields.io/david/jshttp/http-errors.svg?style=flat-square
-[david-url]: https://david-dm.org/jshttp/http-errors
-[license-image]: http://img.shields.io/npm/l/http-errors.svg?style=flat-square
-[license-url]: LICENSE
-[downloads-image]: http://img.shields.io/npm/dm/http-errors.svg?style=flat-square
+[coveralls-image]: https://img.shields.io/coveralls/jshttp/http-errors.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/jshttp/http-errors
+[downloads-image]: https://img.shields.io/npm/dm/http-errors.svg?style=flat
 [downloads-url]: https://npmjs.org/package/http-errors

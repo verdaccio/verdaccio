@@ -1,6 +1,6 @@
 
 var statuses = require('statuses');
-var inherits = require('util').inherits;
+var inherits = require('inherits');
 
 exports = module.exports = function () {
   // so much arity going on ~_~
