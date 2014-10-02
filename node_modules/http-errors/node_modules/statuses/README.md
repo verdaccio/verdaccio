@@ -86,6 +86,22 @@ taken from `require('http').STATUS_CODES`.
 This is saved so that codes are consistent even in older node.js versions.
 For example, `308` will be added in v0.12.
 
+## Adding Status Codes
+
+The status codes are primarily sourced from http://www.iana.org/assignments/http-status-codes/http-status-codes-1.csv.
+Additionally, custom codes are added from http://en.wikipedia.org/wiki/List_of_HTTP_status_codes.
+These are added manually in the `lib/*.json` files.
+If you would like to add a status code, add it to the appropriate JSON file.
+
+To rebuild `codes.json`, run the following:
+
+```bash
+# update src/iana.json
+npm run update
+# build codes.json
+npm run build
+```
+
 [npm-image]: https://img.shields.io/npm/v/statuses.svg?style=flat
 [npm-url]: https://npmjs.org/package/statuses
 [node-version-image]: http://img.shields.io/badge/node.js-%3E%3D_0.6-brightgreen.svg?style=flat

@@ -44,20 +44,33 @@ function open_flock(name, opmod, flmod, tries, backoff, cb) {
 
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
-function lock_and_read(name, callback) {
+function lock_and_read(name, _callback) {
   open_flock(name, 'r', 'exnb', 4, 10, function(err, fd) {
+    function callback(err) {
+      if (err && fd) {
+        fs.close(fd, function(err2) {
+          _callback(err)
+        })
+      } else {
+        _callback.apply(null, arguments)
+      }
+    }
+
     if (err) return callback(err, fd)
 
     fs.fstat(fd, function(err, st) {
       if (err) return callback(err, fd)
 
       var buffer = new Buffer(st.size)
-      fs.read(fd, buffer, 0, st.size, null, function(err, bytesRead, buffer) {
-        if (err) return callback(err)
+      if (st.size === 0) return onRead(null, 0, buffer)
+      fs.read(fd, buffer, 0, st.size, null, onRead)
+
+      function onRead(err, bytesRead, buffer) {
+        if (err) return callback(err, fd)
         if (bytesRead != st.size) return callback(new Error('st.size != bytesRead'), fd)
 
         callback(null, fd, buffer)
-      })
+      }
     })
   })
 }

@@ -1,5 +1,5 @@
 
-var codes = require('./codes');
+var codes = require('./codes.json');
 
 module.exports = status;
 
