@@ -11,6 +11,7 @@ function sha(x) {
 module.exports = function() {
 	var server = process.server
 	var server2 = process.server2
+	var express = process.express
 
 	describe('newnpmreg', function() {
 		before(function(cb) {
@@ -82,6 +83,49 @@ module.exports = function() {
 				assert.equal(res.statusCode, 200)
 				assert.equal(body, '<p>blah blah blah</p>\n')
 				cb()
+			})
+		})
+
+		describe('search', function() {
+			function check(obj) {
+				obj.testpkg.time.modified = '2014-10-02T07:07:51.000Z'
+				assert.deepEqual(obj.testpkg, {
+					"name": "testpkg",
+					"dist-tags": {
+						"latest": "0.0.1"
+					},
+					"maintainers": [],
+					"readmeFilename": "",
+					"time": {
+						"modified": "2014-10-02T07:07:51.000Z"
+					},
+					"versions": {
+						"0.0.1": "latest"
+					}
+				})
+			}
+
+			before(function(cb) {
+				express.get('/-/all', function(req, res) {
+					res.send({})
+				})
+				cb()
+			})
+
+			it('server1 - search', function(cb) {
+				server.request({uri:'/-/all'}, function(err, res, body) {
+					assert.equal(res.statusCode, 200)
+					check(body)
+					cb()
+				})
+			})
+
+			it('server2 - search', function(cb) {
+				server2.request({uri:'/-/all'}, function(err, res, body) {
+					assert.equal(res.statusCode, 200)
+					check(body)
+					cb()
+				})
 			})
 		})
 	})

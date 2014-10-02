@@ -4,7 +4,7 @@ users:
   test:
     password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 
-users_file: ./test-storage/htpasswd
+users_file: ./test-storage/.htpasswd
 max_users: 1
 
 web:
