@@ -1,4 +1,15 @@
 
+2 Oct 2014, version 0.12.1
+
+- web interface:
+  - update markdown CSS (issue [#137](https://github.com/rlidwka/sinopia/pull/137))
+  - jquery is now served locally (issue [#133](https://github.com/rlidwka/sinopia/pull/133))
+
+- bugfixes:
+  - fix "offset out of bounds" issues (issue [sinopia-htpasswd/#2](https://github.com/rlidwka/sinopia-htpasswd/issues/2))
+  - "max_users" in htpasswd plugin now work correctly (issue [sinopia-htpasswd/#3](https://github.com/rlidwka/sinopia-htpasswd/issues/3))
+  - fix `ENOTDIR, open '.sinopia-db.json'` error in npm search (issue [#122](https://github.com/rlidwka/sinopia/issues/122))
+
 25 Sep 2014, version 0.12.0
 
 - set process title to `sinopia`
