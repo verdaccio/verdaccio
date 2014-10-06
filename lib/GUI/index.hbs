@@ -5,49 +5,59 @@
 		<title>{{ name }}</title>
 
 		<link rel="icon" type="image/ico" href="/-/static/favicon.ico"/>
-
 		<link rel="stylesheet" type="text/css" href="/-/static/main.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<body>
-		<header>
-			<div class='header-container clearfix'>
-				<div class="logo-container">
-					<a href='/'><img id='logo' alt='{{ name }}' title='{{ name }}' src='/-/logo' /></a>
-				</div>
+	<body class="body">
+		<header class="main-header">
+			<nav class="navbar navbar-default red-bg white no-border no-rnd-cnr" role="navigation">
+				<div class="container">
+					<div class="npm-logo navbar-left">
+						<a href="/"></a>
+					</div>
 
-				<div class='center registry-info'>
-					<article class='setup'>
-						<code>npm set registry {{ baseUrl }}</code><br>
-						<code>npm adduser --registry {{ baseUrl }}</code>
-					</article>
+					<div class="navbar-right setup hidden-xs">
+						<code class="white no-bg">npm set registry {{ baseUrl }}</code><br>
+						<code class="white no-bg">npm adduser --registry {{ baseUrl }}</code>
+					</div>
 				</div>
-			</div>
-			<div class="header-container">
-				<h2>
-					Available Packages:
-					<form id='search-form'>
-						<input type='text' placeholder='Search' /><button class='clear icon-search'></button>
-					</form>
-				</h2>
-			</div>
+			</nav>
+			<header class="sm-registry-info light-red-bg center hidden-sm hidden-lg hidden-md">
+				<code class="white no-bg">{{ baseUrl }}</code><br>
+			</header>
+			<header class="packages-header container">
+				<div class="row">
+					<div class="col-md-5 hidden-xs hidden-sm">
+						<h2 class="title">Available Packages</h2>
+					</div>
+					<div class="col-md-4 col-md-offset-3 col-sm-12">
+						<form id='search-form'>
+							<div class="input-group input-group-lg search-container">
+								<input type="text" class="form-control" placeholder="Search for packages">
+								<span class="input-group-btn">
+									<button class="btn btn-default search-icon js-search-btn"><i class="icon-search"></i></button>
+								</span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</header>
 		</header>
 
-		<div id='content'>
-			<div id='search-results'></div>
-
-			<div id='all-packages'>
+		<section class="content container packages-container" id="all-packages">
 				{{#each packages}}
 					{{> entry}}
 				{{/each}}
 
 				{{#unless packages.length}}
-				    <div class='no-results'>
-				    	<big>No Packages</big><br>
-				    	Use <code>npm publish</code>
-				    </div>
+						<div class='no-results'>
+							<big>No Packages</big><br>
+							Use <code>npm publish</code>
+						</div>
 				{{/unless}}
-			</div>
-		</div>
+		</section>
+
+		<section class="content container pkg-search-container" id="search-results"></section>
 
 		<script src="/-/static/jquery.min.js"></script>
 		<script type='text/javascript' src='/-/static/main.js'></script>
