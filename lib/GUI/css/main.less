@@ -7,15 +7,27 @@
 body {
 	margin: 0;
 	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+
+	* {
+		box-sizing: border-box;
+	}
 }
 
-a, a:visited {
+a {
 	text-decoration: none;
-	color: #0D5AFF;
+
+	&:visited {
+		text-decoration: none;
+		color: #0D5AFF;
+	}
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
-a:hover {
-	text-decoration: underline;
+.npm-red {
+	color: #cc3d33;
 }
 
 .center {
@@ -24,35 +36,147 @@ a:hover {
 
 @contentWidth: 880px;
 @headerPadding: 10px;
+@headerHeight: 165px;
+@headerLogoSetupHeight: 80px;
+
 header {
-	position: fixed;
+	position: absolute;
+	height: @headerHeight;
 	width: 100%;
-	background: #FFF;
+	min-width: 600px;
 	top: 0;
+	left: 0;
+	right: 0;
+	background: #FFF;
 	z-index: 1;
 
-	#header-inner {
+	.header-container {
 		max-width: @contentWidth + @headerPadding*2;
 		margin: 0 auto;
+		height: @headerLogoSetupHeight;
+
+		&:first-child {
+			position: relative;
+			top: 18px;
+		}
+
+		&:last-child {
+			height: auto;
+		}
 
 		.logo-container {
-			width: 400px; // width of npm logo
+			float: left;
 			margin: 0 auto;
+
+			#logo {
+				height: @headerLogoSetupHeight;
+				display: block;
+			}
+		}
+
+		.registry-info {
+			float: right;
+
+			/*** Setup ***/
+			.setup {
+				background: #DB4141;
+				padding: 15px 20px;
+				display: inline-block;
+				.border-radius(4px);
+				text-align: left;
+				color: #FFF;
+				height: @headerLogoSetupHeight;
+				box-sizing: border-box;
+				line-height: 1.4em;
+
+				code {
+					font-family: Consolas, monaco, monospace;
+				}
+			}
+		}
+
+		@media (max-width: 540px) {
+			.registry-info,
+			.logo-container {
+				float: none;
+			}
 		}
 	}
 }
 
 #content {
-	max-width: @contentWidth;
+	position: absolute;
+	top: @headerHeight;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	max-width: @contentWidth + @headerPadding * 2;
 	margin: 0 auto;
-	padding: 20px;
-}
 
-#logo {
-	margin: 20px auto 0;
-	width: 400px;
-	height: 200px;
-	display: block;
+	overflow: hidden;
+	overflow-y: auto;
+
+	/*** Package Entries ***/
+	.entry {
+		.transition(height .3s);
+		padding: 12px 15px 15px;
+		overflow: hidden;
+		border-bottom: 1px solid #E7E7E7;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		&:nth-child( even ) {
+			background: #F3F3F3;
+		}
+
+		.title {
+			margin: 0 0 5px;
+		}
+
+		.description {
+			margin: 0 0 0 9px;
+			font-size: 13px;
+		}
+
+		.name:hover {
+			text-decoration: none;
+		}
+
+		.name:before {
+			margin: 0;
+			margin-left: -10px;
+			.transformTransition(.2s);
+		}
+
+		&.open .name:before {
+			.rotate(90deg);
+		}
+
+		.version {
+			font-size: 16px;
+			color: #666;
+		}
+
+		.author {
+			font-size: 16px;
+			float: right;
+			color: #666;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.readme {
+			font-size: 14px;
+			margin-top: 10px;
+			background: #FFF;
+			padding: 10px 12px;
+			.border-radius(3px);
+		}
+	}
 }
 
 h1 {
@@ -60,21 +184,6 @@ h1 {
 
 	a, a:visited {
 		color: black;
-	}
-}
-
-/*** Setup ***/
-#setup {
-	background: #DB4141;
-	padding: 15px 20px;
-	display: inline-block;
-	.border-radius(4px);
-	text-align: left;
-	color: #FFF;
-	margin-top: 20px;
-
-	code {
-		font-family: Consolas, monaco, monospace;
 	}
 }
 
@@ -127,58 +236,6 @@ h2 {
 	padding: 0 @headerPadding 10px;
 }
 
-/*** Package Entries ***/
-.entry {
-	background: #F3F3F3;
-	.border-radius(4px);
-	padding: 12px 15px 15px;
-	.transition(height .3s);
-	overflow: hidden;
-	margin-bottom: 12px;
-
-	h3 {
-		font-size: 24px;
-		margin: 0 0 10px;
-	}
-
-	.name:hover {
-		text-decoration: none;
-	}
-
-	.name:before {
-		margin: 0;
-		margin-left: -10px;
-		.transformTransition(.2s);
-	}
-
-	&.open .name:before {
-		.rotate(90deg);
-	}
-
-	.version {
-		font-size: 16px;
-		color: #666;
-	}
-
-	.author {
-		font-size: 16px;
-		float: right;
-		color: #666;
-	}
-
-	p {
-		margin: 0;
-	}
-
-	.readme {
-		font-size: 14px;
-		margin-top: 10px;
-		background: #FFF;
-		padding: 10px 12px;
-		.border-radius(3px);
-	}
-}
-
 /*** Search Results ***/
 .state-search #all-packages {
 	display: none;
@@ -201,5 +258,19 @@ h2 {
 
 	code {
 		font-size: 1.2em;
+	}
+}
+
+.clearfix{
+  zoom:1;
+
+	&:before,
+	&:after {
+		content:"";
+		display:table;
+	}
+
+	&:after {
+		clear: both;
 	}
 }

@@ -1,8 +1,10 @@
 <article class='entry' data-name='{{ name }}' data-version='{{ version }}'>
-	<h3>
-		<a class='name icon-angle-right' href='javascript:void(0)'>{{ name }}</a>
+	<h3 class='title'>
+		<a class='name icon-angle-right npm-red' href='javascript:void(0)'>{{ name }}</a>
 		<small class='version'>v{{ version }}</small>
-		<div class='author'>By: {{ _npmUser.name }}</div>
+		<div class='author'>
+			<small>By: {{ _npmUser.name }}</small>
+		</div>
 	</h3>
-	<p>{{ description }}</p>
+	<p class="description">{{ description }}</p>
 </article>
