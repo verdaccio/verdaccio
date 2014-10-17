@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title>{{ name }}</title>
 
-		<link rel="icon" type="image/ico" href="/-/static/favicon.ico"/>
-		<link rel="stylesheet" type="text/css" href="/-/static/main.css">
+		<link rel="icon" type="image/ico" href="{{ baseUrl }}/-/static/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/-/static/main.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body class="body">
@@ -59,7 +59,7 @@
 
 		<section class="content container pkg-search-container" id="search-results"></section>
 
-		<script src="/-/static/jquery.min.js"></script>
-		<script type='text/javascript' src='/-/static/main.js'></script>
+		<script src="{{ baseUrl }}/-/static/jquery.min.js"></script>
+		<script type='text/javascript' src='{{ baseUrl }}/-/static/main.js'></script>
 	</body>
 </html>
