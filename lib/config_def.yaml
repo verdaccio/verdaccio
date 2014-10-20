@@ -3,7 +3,7 @@ storage: ./storage
 
 # a list of users
 #
-# This could be deprecated soon, use "users_file" instead.
+# This could be deprecated soon, use auth plugins instead (see htpasswd below).
 users:
   admin:
     # crypto.createHash('sha1').update(pass).digest('hex')
