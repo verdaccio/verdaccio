@@ -1,4 +1,11 @@
 
+22 Oct 2014, version 0.13.0
+
+- web interface:
+  - web page layout improved (issue [#141](https://github.com/rlidwka/sinopia/pull/141))
+  - latest version is now displayed correctly (issues [#120](https://github.com/rlidwka/sinopia/issues/120), [#123](https://github.com/rlidwka/sinopia/issues/123), [#143](https://github.com/rlidwka/sinopia/pull/143))
+  - fixed web interface working behind reverse proxy (issues [#145](https://github.com/rlidwka/sinopia/issues/145), [#147](https://github.com/rlidwka/sinopia/issues/147))
+
 2 Oct 2014, version 0.12.1
 
 - web interface:
