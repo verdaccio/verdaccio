@@ -1,4 +1,8 @@
 
+1 Nov 2014, version 0.13.2
+
+- fix `EPERM`-related crashes on windows (issue [#67](https://github.com/rlidwka/sinopia/issues/67))
+
 22 Oct 2014, version 0.13.0
 
 - web interface:
