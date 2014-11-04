@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>{{ name }}</title>
 
-		<link rel="icon" type="image/ico" href="{{ baseUrl }}/-/static/favicon.ico"/>
+		<link rel="icon" type="image/ico" href="{{ baseUrl }}/-/static/favicon.png"/>
 		<link rel="stylesheet" type="text/css" href="{{ baseUrl }}/-/static/main.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
@@ -14,6 +14,19 @@
 				<div class="container">
 					<div class="npm-logo navbar-left">
 						<a href="{{ baseUrl }}"></a>
+					</div>
+					<div class="navbar-left login-btn">
+						{{#if username}}
+							You're {{username}}
+							<br>
+							<form action="{{ baseUrl }}/-/logout" method="post">
+								<a class="submit white no-bg" href="#">Logout</a>
+							</form>
+						{{else}}
+							&nbsp;
+							<br>
+							<a class="white no-bg" data-toggle="modal" data-target="#login-form" href="#">Login</a>
+						{{/if}}
 					</div>
 
 					<div class="navbar-right setup hidden-xs">
@@ -50,14 +63,41 @@
 				{{/each}}
 
 				{{#unless packages.length}}
-						<div class='no-results'>
-							<big>No Packages</big><br>
-							Use <code>npm publish</code>
-						</div>
+					<div class='no-results'>
+						<big>No Packages</big><br>
+						Use <code>npm publish</code>
+					</div>
 				{{/unless}}
 		</section>
 
 		<section class="content container pkg-search-container" id="search-results"></section>
+
+		<div class="modal fade" id="login-form" tabindex="-1" role="dialog" aria-labelledby="login-form-label" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h5 class="modal-title" id="login-form-label">Welcome back</h5>
+					</div>
+					<form role="form" action="{{ baseUrl }}/-/login" method="post" id="login-form" autocomplete="off">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="user" class="sr-only">Email</label>
+								<input name="user" id="user" class="form-control" placeholder="Username" type="text">
+							</div>
+							<div class="form-group">
+								<label for="pass" class="sr-only">Password</label>
+								<input name="pass" id="pass" class="form-control" placeholder="Password" type="password">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Log in</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 
 		<script src="{{ baseUrl }}/-/static/jquery.min.js"></script>
 		<script type='text/javascript' src='{{ baseUrl }}/-/static/main.js'></script>
