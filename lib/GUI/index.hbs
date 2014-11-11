@@ -12,27 +12,47 @@
 		<header class="main-header">
 			<nav class="navbar navbar-default red-bg white no-border no-rnd-cnr" role="navigation">
 				<div class="container">
-					<div class="npm-logo navbar-left">
-						<a href="{{ baseUrl }}"></a>
-					</div>
-					<div class="navbar-left login-btn">
-						{{#if username}}
-							You're {{username}}
-							<br>
-							<form action="{{ baseUrl }}/-/logout" method="post">
-								<a class="submit white no-bg" href="#">Logout</a>
-							</form>
-						{{else}}
-							&nbsp;
-							<br>
-							<a class="white no-bg" data-toggle="modal" data-target="#login-form" href="#">Login</a>
-						{{/if}}
+					<div class="navbar-header clearfix">
+						<div class="npm-logo brand">
+							<a href="{{ baseUrl }}"></a>
+						</div>
+
+						<!-- login/logout for small devices -->
+						<div class="pull-right visible-xs pad-right-10">
+							<div>
+								{{#if username}}
+								<p class="white no-bg navbar-text pad-right-10 inline-block">Hi {{username}}</p>
+								<button type="submit" class="btn btn-danger inline-block js-userLogoutBtn">Logout</button>
+								{{else}}
+								<p class="white no-bg navbar-text pad-right-10 inline-block">&nbsp;</p>
+								<button type="submit" class="btn btn-danger inline-block" data-toggle="modal" data-target="#login-form" onclick="return false">Login</button>
+								{{/if}}
+							</div>
+						</div>
 					</div>
 
-					<div class="navbar-right setup hidden-xs">
+					<div class="navbar-left hidden-xs">&nbsp;&nbsp;</div>
+
+					<div class="navbar-left setup hidden-xs">
 						<code class="white no-bg">npm set registry {{ baseUrl }}</code><br>
 						<code class="white no-bg">npm adduser --registry {{ baseUrl }}</code>
 					</div>
+
+					<!-- login/logout for large devices -->
+					<div class="navbar-collapse collapse">
+						<div class="navbar-right">
+							<form class="navbar-form navbar-right">
+								{{#if username}}
+								<p class="white no-bg pad-right-10 inline-block">Hi {{username}}</p>
+								<button type="submit" class="btn btn-danger inline-block js-userLogoutBtn">Logout</button>
+								{{else}}
+								<button type="submit" class="btn btn-danger inline-block" data-toggle="modal" data-target="#login-form" onclick="return false">Login</button>
+								{{/if}}
+							</form>
+						</div>
+					</div>
+
+
 				</div>
 			</nav>
 			<header class="sm-registry-info light-red-bg center hidden-sm hidden-lg hidden-md">
@@ -98,6 +118,8 @@
 				</div>
 			</div>
 		</div>
+
+		<form action="{{ baseUrl }}/-/logout" method="post" class="hide" id="userLogoutForm"></form>
 
 		<script src="{{ baseUrl }}/-/static/jquery.min.js"></script>
 		<script type='text/javascript' src='{{ baseUrl }}/-/static/main.js'></script>
