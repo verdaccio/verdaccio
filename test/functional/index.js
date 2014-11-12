@@ -1,3 +1,4 @@
+require('es6-shim')
 require('./lib/startup')
 
 var assert = require('assert')
