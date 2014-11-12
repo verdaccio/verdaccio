@@ -7,7 +7,7 @@ storage: ./storage
 users:
   admin:
     # crypto.createHash('sha1').update(pass).digest('hex')
-    password: __PASSWORD__
+    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 
 web:
   # web interface is disabled by default in 0.x, will be enabled soon in 1.x
