@@ -19,5 +19,6 @@ test-storage*
 !/node_modules/tar.gz
 !/node_modules/sinopia-htpasswd
 !/node_modules/crypt3
+/node_modules/crypt3/build
 !/node_modules/http-errors
 
