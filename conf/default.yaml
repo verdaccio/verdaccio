@@ -22,6 +22,11 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
+  '@*/*':
+    # scoped packages
+    allow_access: $all
+    allow_publish: $authenticated
+
   '*':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
