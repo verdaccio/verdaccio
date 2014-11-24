@@ -1,0 +1,22 @@
+#benchmarks li.is-running {
+  color: green
+}
+
+#benchmarks li.is-errored .results,
+#benchmarks li.is-running .results,
+#benchmarks li.is-pending .results {
+  display: none
+}
+
+#benchmarks li.is-complete .results {
+  display: block;
+}
+
+#benchmarks li.is-pending .idle {
+  display: block;
+}
+
+#benchmarks li.is-complete .running,
+#benchmarks li.is-pending .running {
+  display: none
+}

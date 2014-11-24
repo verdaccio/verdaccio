@@ -1,0 +1,1806 @@
+{
+    "project": {},
+    "files": {
+        "lib/document_store.js": {
+            "name": "lib/document_store.js",
+            "modules": {},
+            "classes": {
+                "Store": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/event_emitter.js": {
+            "name": "lib/event_emitter.js",
+            "modules": {},
+            "classes": {
+                "EventEmitter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/index.js": {
+            "name": "lib/index.js",
+            "modules": {},
+            "classes": {
+                "Index": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/lunr.js": {
+            "name": "lib/lunr.js",
+            "modules": {
+                "lunr": 1
+            },
+            "classes": {
+                "lunr": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/pipeline.js": {
+            "name": "lib/pipeline.js",
+            "modules": {},
+            "classes": {
+                "Pipeline": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/sorted_set.js": {
+            "name": "lib/sorted_set.js",
+            "modules": {},
+            "classes": {
+                "SortedSet": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/stemmer.js": {
+            "name": "lib/stemmer.js",
+            "modules": {},
+            "classes": {
+                "stemmer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/stop_word_filter.js": {
+            "name": "lib/stop_word_filter.js",
+            "modules": {},
+            "classes": {
+                "stopWordFilter": 1
+            },
+            "fors": {
+                "stopWordFilter": 1
+            },
+            "namespaces": {}
+        },
+        "lib/token_store.js": {
+            "name": "lib/token_store.js",
+            "modules": {},
+            "classes": {
+                "TokenStore": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/tokenizer.js": {
+            "name": "lib/tokenizer.js",
+            "modules": {},
+            "classes": {
+                "tokenizer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/utils.js": {
+            "name": "lib/utils.js",
+            "modules": {},
+            "classes": {
+                "utils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/vector.js": {
+            "name": "lib/vector.js",
+            "modules": {},
+            "classes": {
+                "Vector": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "lunr": {
+            "name": "lunr",
+            "submodules": {},
+            "classes": {
+                "Store": 1,
+                "EventEmitter": 1,
+                "Index": 1,
+                "lunr": 1,
+                "Pipeline": 1,
+                "SortedSet": 1,
+                "stemmer": 1,
+                "stopWordFilter": 1,
+                "TokenStore": 1,
+                "tokenizer": 1,
+                "utils": 1,
+                "Vector": 1
+            },
+            "fors": {
+                "stopWordFilter": 1
+            },
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/vector.js",
+            "line": 6,
+            "description": "Use the lunr function to create and configure a new search index. Indexes\ncreated using the lunr function will have a default processing pipeline\nset up including a stop word filter and a stemmer.\n\nThe passed function to `lunr` will be yielded a new instance of lunr.Index both as the first\nparameter and as the context of the function. You can add fields to the index,\nspecify the property to use as a reference in each document as well as customising\nthe index's pipeline.\n\nExample:\n\n    var idx = lunr(function () {\n      this.field('title', 10)\n      this.field('tags', 100)\n      this.field('body')\n      \n      this.ref('cid')\n      \n      this.pipeline.add(function () {\n        // some custom pipeline function\n      })\n      \n    })",
+            "type": "Function",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "A function that will be called with the new instance\nof the lunr.Index as both its context and first parameter. It can be used to\ncustomize the instance of new lunr.Index.",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Index"
+            }
+        }
+    },
+    "classes": {
+        "Store": {
+            "name": "Store",
+            "shortname": "Store",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "file": "lib/document_store.js",
+            "line": 6,
+            "description": "lunr.Store is a simple key-value store used for storing sets of tokens for\ndocuments stored in index.",
+            "is_constructor": 1
+        },
+        "EventEmitter": {
+            "name": "EventEmitter",
+            "shortname": "EventEmitter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "file": "lib/event_emitter.js",
+            "line": 6,
+            "description": "lunr.EventEmitter is an event emitter for lunr. It manages adding and removing event handlers and triggering events and their handlers.",
+            "is_constructor": 1
+        },
+        "Index": {
+            "name": "Index",
+            "shortname": "Index",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "file": "lib/index.js",
+            "line": 6,
+            "description": "lunr.Index is object that manages a search index.  It contains the indexes\nand stores all the tokens and document lookups.  It also provides the main\nuser facing API for the library.",
+            "is_constructor": 1
+        },
+        "lunr": {
+            "name": "lunr",
+            "shortname": "lunr",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/lunr.js",
+            "line": 7,
+            "description": "Use the lunr function to create and configure a new search index. Indexes\ncreated using the lunr function will have a default processing pipeline\nset up including a stop word filter and a stemmer.\n\nThe passed function to `lunr` will be yielded a new instance of lunr.Index both as the first\nparameter and as the context of the function. You can add fields to the index,\nspecify the property to use as a reference in each document as well as customising\nthe index's pipeline.\n\nExample:\n\n    var idx = lunr(function () {\n      this.field('title', 10)\n      this.field('tags', 100)\n      this.field('body')\n      \n      this.ref('cid')\n      \n      this.pipeline.add(function () {\n        // some custom pipeline function\n      })\n      \n    })"
+        },
+        "Pipeline": {
+            "name": "Pipeline",
+            "shortname": "Pipeline",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/pipeline.js",
+            "line": 6,
+            "description": "lunr.Pipelines maintain an ordered list of functions to be applied to all\ntokens in documents entering the search index and queries being ran against\nthe index.\n\nAn instance of lunr.Index created with the lunr shortcut will contain a\npipeline with a stop word filter and an English language stemmer. Extra\nfunctions can be added before or after either of these functions or these\ndefault functions can be removed.\n\nWhen run the pipeline will call each function in turn, passing a token, the\nindex of that token in the original list of all tokens and finally a list of\nall the original tokens.\n\nThe output of functions in the pipeline will be passed to the next function\nin the pipeline. To exclude a token from entering the index the function\nshould return undefined, the rest of the pipeline will not be called with\nthis token.\n\nFor serialisation of pipelines to work, all functions used in an instance of\na pipeline should be registered with lunr.Pipeline. Registered functions can\nthen be loaded. If trying to load a serialised pipeline that uses functions\nthat are not registered an error will be thrown.\n\nIf not planning on serialising the pipeline then registering pipeline functions\nis not necessary.",
+            "is_constructor": 1
+        },
+        "SortedSet": {
+            "name": "SortedSet",
+            "shortname": "SortedSet",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/sorted_set.js",
+            "line": 6,
+            "description": "lunr.SortedSets are used to maintain an array of uniq values in a sorted\norder.",
+            "is_constructor": 1
+        },
+        "stemmer": {
+            "name": "stemmer",
+            "shortname": "stemmer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/stemmer.js",
+            "line": 7,
+            "description": "lunr.stemmer is an english language stemmer, this is a JavaScript\nimplementation of the PorterStemmer taken from http://tartaurs.org/~martin",
+            "type": "Function",
+            "static": 1,
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The string to stem",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "see": [
+                "lunr.Pipeline"
+            ]
+        },
+        "stopWordFilter": {
+            "name": "stopWordFilter",
+            "shortname": "stopWordFilter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/stop_word_filter.js",
+            "line": 6,
+            "description": "lunr.stopWordFilter is an English language stop word list filter, any words\ncontained in the list will not be passed through the filter.\n\nThis is intended to be used in the Pipeline. If the token does not pass the\nfilter then undefined will be returned.",
+            "type": "Function",
+            "static": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to pass through the filter",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "see": [
+                "lunr.Pipeline"
+            ]
+        },
+        "TokenStore": {
+            "name": "TokenStore",
+            "shortname": "TokenStore",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/token_store.js",
+            "line": 7,
+            "description": "lunr.TokenStore is used for efficient storing and lookup of the reverse\nindex of token to document ref.",
+            "is_constructor": 1
+        },
+        "tokenizer": {
+            "name": "tokenizer",
+            "shortname": "tokenizer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/tokenizer.js",
+            "line": 6,
+            "description": "A function for splitting a string into tokens ready to be inserted into\nthe search index.",
+            "type": "Function",
+            "static": 1,
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The string to convert into tokens",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            }
+        },
+        "utils": {
+            "name": "utils",
+            "shortname": "utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/utils.js",
+            "line": 6,
+            "description": "A namespace containing utils for the rest of the lunr library",
+            "static": 1,
+            "access": "private",
+            "tagname": ""
+        },
+        "Vector": {
+            "name": "Vector",
+            "shortname": "Vector",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "lunr",
+            "namespace": "",
+            "file": "lib/vector.js",
+            "line": 6,
+            "description": "lunr.Vectors wrap arrays and add vector related operations for the array\nelements.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "elements",
+                    "description": "Elements that make up the vector.",
+                    "type": "Array"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "lib/document_store.js",
+            "line": 15,
+            "itemtype": "property",
+            "name": "store",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 22,
+            "description": "The number of documents stored in this store.",
+            "itemtype": "property",
+            "name": "length",
+            "type": "Number",
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 30,
+            "description": "Loads a previously serialised store",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "serialisedData",
+                    "description": "The serialised store to load.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Store"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 50,
+            "description": "Stores the given tokens in the store against the given id.",
+            "itemtype": "method",
+            "name": "set",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The key used to store the tokens against.",
+                    "type": "Object"
+                },
+                {
+                    "name": "tokens",
+                    "description": "The tokens to store against the key.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 62,
+            "description": "Retrieves the tokens from the store for a given key.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The key to lookup and retrieve from the store.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 73,
+            "description": "Checks whether the store contains a key.",
+            "itemtype": "method",
+            "name": "has",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id to look up in the store.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 84,
+            "description": "Removes the value for a key in the store.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id to remove from the store.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Store"
+        },
+        {
+            "file": "lib/document_store.js",
+            "line": 97,
+            "description": "Returns a representation of the store ready for serialisation.",
+            "itemtype": "method",
+            "name": "toJSON",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "lib/event_emitter.js",
+            "line": 13,
+            "itemtype": "property",
+            "name": "events",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "EventEmitter"
+        },
+        {
+            "file": "lib/event_emitter.js",
+            "line": 21,
+            "description": "Binds a handler function to a specific event(s).\n\nCan bind a single function to many different events in one call.",
+            "itemtype": "method",
+            "name": "addListener",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The name(s) of events to bind this function to.",
+                    "type": "String",
+                    "multiple": true
+                },
+                {
+                    "name": "handler",
+                    "description": "The function to call when an event is fired.",
+                    "type": "Function"
+                }
+            ],
+            "class": "EventEmitter"
+        },
+        {
+            "file": "lib/event_emitter.js",
+            "line": 43,
+            "description": "Removes a handler function from a specific event.",
+            "itemtype": "method",
+            "name": "removeListener",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The name of the event to remove this function from.",
+                    "type": "String"
+                },
+                {
+                    "name": "handler",
+                    "description": "The function to remove from an event.",
+                    "type": "Function"
+                }
+            ],
+            "class": "EventEmitter"
+        },
+        {
+            "file": "lib/event_emitter.js",
+            "line": 59,
+            "description": "Calls all functions bound to the given event.\n\nAdditional data can be passed to the event handler as arguments to `emit`\nafter the event name.",
+            "itemtype": "method",
+            "name": "emit",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The name of the event to emit.",
+                    "type": "String"
+                }
+            ],
+            "class": "EventEmitter"
+        },
+        {
+            "file": "lib/event_emitter.js",
+            "line": 78,
+            "description": "Checks whether a handler has ever been stored against an event.",
+            "itemtype": "method",
+            "name": "hasHandler",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The name of the event to check.",
+                    "type": "String"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "EventEmitter"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 18,
+            "itemtype": "property",
+            "name": "pipeline",
+            "type": "lunr.Pipeline",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 24,
+            "itemtype": "property",
+            "name": "documentStore",
+            "type": "lunr.Store",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 30,
+            "itemtype": "property",
+            "name": "tokenStore",
+            "type": "lunr.TokenStore",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 36,
+            "description": "All the tokens currently present in the index.",
+            "itemtype": "property",
+            "name": "corpusTokens",
+            "type": "lunr.SortedSet",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 44,
+            "itemtype": "property",
+            "name": "eventEmitter",
+            "type": "lunr.EventEmitter",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 57,
+            "description": "Bind a handler to events being emitted by the index.\n\nThe handler can be bound to many events at the same time.",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The name(s) of events to bind the function to.",
+                    "type": "String",
+                    "multiple": true
+                },
+                {
+                    "name": "handler",
+                    "description": "The serialised set to load.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 71,
+            "description": "Removes a handler from an event being emitted by the index.",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The name of events to remove the function from.",
+                    "type": "String"
+                },
+                {
+                    "name": "handler",
+                    "description": "The serialised set to load.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 82,
+            "description": "Loads a previously serialised index.\n\nIssues a warning if the index being imported was serialised\nby a different version of lunr.",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "serialisedData",
+                    "description": "The serialised set to load.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Index"
+            },
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 111,
+            "description": "Adds a field to the list of fields that will be searchable within documents\nin the index.\n\nAn optional boost param can be passed to affect how much tokens in this field\nrank in search results, by default the boost value is 1.\n\nFields should be added before any documents are added to the index, fields\nthat are added after documents are added to the index will only apply to new\ndocuments added to the index.",
+            "itemtype": "method",
+            "name": "field",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "fieldName",
+                    "description": "The name of the field within the document that\nshould be indexed",
+                    "type": "String"
+                },
+                {
+                    "name": "opts",
+                    "description": "Options for this field",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "boost",
+                            "description": "Allows more weight to be given to values in this field.",
+                            "type": "Number",
+                            "optional": true,
+                            "optdefault": "1"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Index"
+            },
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 138,
+            "description": "Sets the property used to uniquely identify documents added to the index,\nby default this property is 'id'.\n\nThis should only be changed before adding documents to the index, changing\nthe ref property without resetting the index can lead to unexpected results.",
+            "itemtype": "method",
+            "name": "ref",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "refName",
+                    "description": "The property to use to uniquely identify the\ndocuments in the index.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Index"
+            },
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 156,
+            "description": "Add a document to the index.\n\nThis is the way new documents enter the index, this function will run the\nfields from the document through the index's pipeline and then add it to\nthe index, it will then show up in search results.\n\nAn `add` event is emitted with the document that has been added and the index\nthe document has been added to. This event can be silenced by passing false\nas the second argument to add.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "doc",
+                    "description": "The document to add to the index.",
+                    "type": "Object"
+                },
+                {
+                    "name": "emitEvent=true",
+                    "description": "Whether or not to emit events.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 205,
+            "description": "Removes a document from the index.\n\nTo make sure documents no longer show up in search results they can be\nremoved from the index using this method.\n\nThe document passed only needs to have the same ref property value as the\ndocument that was added to the index, they could be completely different\nobjects.\n\nA `remove` event is emitted with the document that has been removed and the index\nthe document has been removed from. This event can be silenced by passing false\nas the second argument to remove.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "doc",
+                    "description": "The document to remove from the index.",
+                    "type": "Object"
+                },
+                {
+                    "name": "emitEvent=true",
+                    "description": "Whether to emit remove events.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 240,
+            "description": "Updates a document in the index.\n\nWhen a document contained within the index gets updated, fields changed,\nadded or removed, to make sure it correctly matched against search queries,\nit should be updated in the index.\n\nThis method is just a wrapper around `remove` and `add`\n\nAn 'update' event is emitted with the document that has been updated and the index.\nThis event can be silenced by passing false as the second argument to update. Only\nan update event will be fired, the 'add' and 'remove' events of the underlying calls\nare silenced.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "doc",
+                    "description": "The document to update in the index.",
+                    "type": "Object"
+                },
+                {
+                    "name": "emitEvent=true",
+                    "description": "Whether to emit update events.",
+                    "type": "Boolean"
+                }
+            ],
+            "see": [
+                "Index.prototype.remove",
+                "Index.prototype.add"
+            ],
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 269,
+            "description": "Calculates the inverse document frequency for a token within the index.",
+            "itemtype": "method",
+            "name": "idf",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to calculate the idf of.",
+                    "type": "String"
+                }
+            ],
+            "see": [
+                "Index.prototype.idf"
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 290,
+            "description": "Searches the index using the passed query.\n\nQueries should be a string, multiple words are allowed and will lead to an\nAND based query, e.g. `idx.search('foo bar')` will run a search for\ndocuments containing both 'foo' and 'bar'.\n\nAll query tokens are passed through the same pipeline that document tokens\nare passed through, so any language processing involved will be run on every\nquery term.\n\nEach query term is expanded, so that the term 'he' might be expanded to\n'hello' and 'help' if those terms were already included in the index.\n\nMatching documents are returned as an array of objects, each object contains\nthe matching document ref, as set for this index, and the similarity score\nfor this document against the query.",
+            "itemtype": "method",
+            "name": "search",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "The query to search the index with.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "An array containing the results of the search, a result will\nhave a ref and a score or how well it matched the search query, e.g:\n\n    [{ ref: 123, score: 0.963 }]",
+                "type": "Array"
+            },
+            "see": [
+                "Index.prototype.idf",
+                "Index.prototype.documentVector"
+            ],
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 378,
+            "description": "Generates a vector containing all the tokens in the document matching the\npassed documentRef.\n\nThe vector contains the tf-idf score for each token contained in the\ndocument with the passed documentRef.  The vector will contain an element\nfor every token in the indexes corpus, if the document does not contain that\ntoken the element will be 0.",
+            "itemtype": "method",
+            "name": "documentVector",
+            "params": [
+                {
+                    "name": "documentRef",
+                    "description": "The ref to find the document with.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Vector"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Index"
+        },
+        {
+            "file": "lib/index.js",
+            "line": 408,
+            "description": "Returns a representation of the index ready for serialisation.",
+            "itemtype": "method",
+            "name": "toJSON",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Index"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 37,
+            "itemtype": "property",
+            "name": "_stack",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 45,
+            "itemtype": "property",
+            "name": "registeredFunctions",
+            "type": "Object",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 53,
+            "description": "Register a function with the pipeline.\n\nFunctions that are used in the pipeline should be registered if the pipeline\nneeds to be serialised, or a serialised pipeline needs to be loaded.\n\nRegistering a function does not add it to a pipeline, functions must still be\nadded to instances of the pipeline for them to be used when running a pipeline.",
+            "itemtype": "method",
+            "name": "registerFunction",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function to check for.",
+                    "type": "Function"
+                },
+                {
+                    "name": "label",
+                    "description": "The label to register this function with",
+                    "type": "String"
+                }
+            ],
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 75,
+            "description": "Warns if the function is not registered as a Pipeline function.",
+            "itemtype": "method",
+            "name": "warnIfFunctionNotRegistered",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function to check for.",
+                    "type": "Function"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 90,
+            "description": "Loads a previously serialised pipeline.\n\nAll functions to be loaded must already be registered with lunr.Pipeline.\nIf any function from the serialised data has not been registered then an\nerror will be thrown.",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "serialised",
+                    "description": "The serialised pipeline to load.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.Pipeline"
+            },
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 118,
+            "description": "Adds new functions to the end of the pipeline.\n\nLogs a warning if the function has not been registered.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "functions",
+                    "description": "Any number of functions to add to the pipeline.",
+                    "type": "Function",
+                    "multiple": true
+                }
+            ],
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 135,
+            "description": "Adds a single function after a function that already exists in the\npipeline.\n\nLogs a warning if the function has not been registered.",
+            "itemtype": "method",
+            "name": "after",
+            "params": [
+                {
+                    "name": "existingFn",
+                    "description": "A function that already exists in the pipeline.",
+                    "type": "Function"
+                },
+                {
+                    "name": "newFn",
+                    "description": "The new function to add to the pipeline.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 152,
+            "description": "Adds a single function before a function that already exists in the\npipeline.\n\nLogs a warning if the function has not been registered.",
+            "itemtype": "method",
+            "name": "before",
+            "params": [
+                {
+                    "name": "existingFn",
+                    "description": "A function that already exists in the pipeline.",
+                    "type": "Function"
+                },
+                {
+                    "name": "newFn",
+                    "description": "The new function to add to the pipeline.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 169,
+            "description": "Removes a function from the pipeline.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function to remove from the pipeline.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 180,
+            "description": "Runs the current list of functions that make up the pipeline against the\npassed tokens.",
+            "itemtype": "method",
+            "name": "run",
+            "params": [
+                {
+                    "name": "tokens",
+                    "description": "The tokens to run through the pipeline.",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/pipeline.js",
+            "line": 207,
+            "description": "Returns a representation of the pipeline ready for serialisation.\n\nLogs a warning if the function has not been registered.",
+            "itemtype": "method",
+            "name": "toJSON",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Pipeline",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 14,
+            "itemtype": "property",
+            "name": "length",
+            "type": "Number",
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 20,
+            "itemtype": "property",
+            "name": "elements",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 28,
+            "description": "Loads a previously serialised sorted set.",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "serialisedData",
+                    "description": "The serialised set to load.",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.SortedSet"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 45,
+            "description": "Inserts new items into the set in the correct position to maintain the\norder.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "objects",
+                    "description": "The objects to add to this set.",
+                    "type": "Object",
+                    "multiple": true
+                }
+            ],
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 61,
+            "description": "Converts this sorted set into an array.",
+            "itemtype": "method",
+            "name": "toArray",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 71,
+            "description": "Creates a new array with the results of calling a provided function on every\nelement in this sorted set.\n\nDelegates to Array.prototype.map and has the same signature.",
+            "itemtype": "method",
+            "name": "map",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function that is called on each element of the\nset.",
+                    "type": "Function"
+                },
+                {
+                    "name": "ctx",
+                    "description": "An optional object that can be used as the context\nfor the function fn.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 88,
+            "description": "Executes a provided function once per sorted set element.\n\nDelegates to Array.prototype.forEach and has the same signature.",
+            "itemtype": "method",
+            "name": "forEach",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function that is called on each element of the\nset.",
+                    "type": "Function"
+                },
+                {
+                    "name": "ctx",
+                    "description": "An optional object that can be used as the context\nfor the function fn.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 103,
+            "description": "Returns the index at which a given element can be found in the\nsorted set, or -1 if it is not present.",
+            "itemtype": "method",
+            "name": "indexOf",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "The object to locate in the sorted set.",
+                    "type": "Object"
+                },
+                {
+                    "name": "start",
+                    "description": "An optional index at which to start searching from\nwithin the set.",
+                    "type": "Number",
+                    "optional": true
+                },
+                {
+                    "name": "end",
+                    "description": "An optional index at which to stop search from within\nthe set.",
+                    "type": "Number",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 135,
+            "description": "Returns the position within the sorted set that an element should be\ninserted at to maintain the current order of the set.\n\nThis function assumes that the element to search for does not already exist\nin the sorted set.",
+            "itemtype": "method",
+            "name": "locationFor",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "The elem to find the position for in the set",
+                    "type": "Object"
+                },
+                {
+                    "name": "start",
+                    "description": "An optional index at which to start searching from\nwithin the set.",
+                    "type": "Number",
+                    "optional": true
+                },
+                {
+                    "name": "end",
+                    "description": "An optional index at which to stop search from within\nthe set.",
+                    "type": "Number",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 167,
+            "description": "Creates a new lunr.SortedSet that contains the elements in the intersection\nof this set and the passed set.",
+            "itemtype": "method",
+            "name": "intersect",
+            "params": [
+                {
+                    "name": "otherSet",
+                    "description": "The set to intersect with this set.",
+                    "type": "lunr.SortedSet"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.SortedSet"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 204,
+            "description": "Makes a copy of this set",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "",
+                "type": "lunr.SortedSet"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 219,
+            "description": "Creates a new lunr.SortedSet that contains the elements in the union\nof this set and the passed set.",
+            "itemtype": "method",
+            "name": "union",
+            "params": [
+                {
+                    "name": "otherSet",
+                    "description": "The set to union with this set.",
+                    "type": "lunr.SortedSet"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.SortedSet"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/sorted_set.js",
+            "line": 243,
+            "description": "Returns a representation of the sorted set ready for serialisation.",
+            "itemtype": "method",
+            "name": "toJSON",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "SortedSet",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/stop_word_filter.js",
+            "line": 24,
+            "description": "The stop words to be filtered are kept in this sorted set and can be added to\nor removed from at runtime.",
+            "itemtype": "property",
+            "name": "stopWords",
+            "type": "lunr.SortedSet",
+            "class": "stopWordFilter",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 15,
+            "itemtype": "property",
+            "name": "root",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 22,
+            "itemtype": "property",
+            "name": "length",
+            "type": "Number",
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 29,
+            "description": "Loads a previously serialised token store",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "serialisedData",
+                    "description": "The serialised token store to load.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "lunr.TokenStore"
+            },
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 46,
+            "description": "Adds a new token doc pair to the store.\n\nBy default this function starts at the root of the current store, however\nit can start at any node of any token store if required.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to store the doc under",
+                    "type": "String"
+                },
+                {
+                    "name": "doc",
+                    "description": "The doc to store against the token",
+                    "type": "Object"
+                },
+                {
+                    "name": "root",
+                    "description": "An optional node at which to start looking for the\ncorrect place to enter the doc, by default the root of this lunr.TokenStore\nis used.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 75,
+            "description": "Checks whether this key is contained within this lunr.TokenStore.",
+            "itemtype": "method",
+            "name": "has",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to check for",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 96,
+            "description": "Retrieve a node from the token store for a given token.",
+            "itemtype": "method",
+            "name": "getNode",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to get the node for.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "see": [
+                "TokenStore.prototype.get"
+            ],
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 118,
+            "description": "Retrieve the documents for a node for the given token.\n\nBy default this function starts at the root of the current store, however\nit can start at any node of any token store if required.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to get the documents for.",
+                    "type": "String"
+                },
+                {
+                    "name": "root",
+                    "description": "An optional node at which to start.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 137,
+            "description": "Remove the document identified by ref from the token in the store.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to get the documents for.",
+                    "type": "String"
+                },
+                {
+                    "name": "ref",
+                    "description": "The ref of the document to remove from this token.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 157,
+            "description": "Find all the possible suffixes of the passed token using tokens\ncurrently in the store.",
+            "itemtype": "method",
+            "name": "expand",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "The token to expand.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/token_store.js",
+            "line": 182,
+            "description": "Returns a representation of the token store ready for serialisation.",
+            "itemtype": "method",
+            "name": "toJSON",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "TokenStore",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/utils.js",
+            "line": 15,
+            "description": "Print a warning message to the console.",
+            "itemtype": "method",
+            "name": "warn",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to be printed.",
+                    "type": "String"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "utils",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/utils.js",
+            "line": 30,
+            "description": "Returns a zero filled array of the length specified.",
+            "itemtype": "method",
+            "name": "zeroFillArray",
+            "params": [
+                {
+                    "name": "length",
+                    "description": "The number of zeros required.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "utils",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/vector.js",
+            "line": 16,
+            "itemtype": "property",
+            "name": "elements",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Vector",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/vector.js",
+            "line": 24,
+            "description": "Calculates the magnitude of this vector.",
+            "itemtype": "method",
+            "name": "magnitude",
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Vector",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/vector.js",
+            "line": 46,
+            "description": "Calculates the dot product of this vector and another vector.",
+            "itemtype": "method",
+            "name": "dot",
+            "params": [
+                {
+                    "name": "otherVector",
+                    "description": "The vector to compute the dot product with.",
+                    "type": "lunr.Vector"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Vector",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/vector.js",
+            "line": 66,
+            "description": "Calculates the cosine similarity between this vector and another\nvector.",
+            "itemtype": "method",
+            "name": "similarity",
+            "params": [
+                {
+                    "name": "otherVector",
+                    "description": "The other vector to calculate the\nsimilarity with.",
+                    "type": "lunr.Vector"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Vector",
+            "module": "lunr"
+        },
+        {
+            "file": "lib/vector.js",
+            "line": 79,
+            "description": "Converts this vector back into an array.",
+            "itemtype": "method",
+            "name": "toArray",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Vector",
+            "module": "lunr"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/document_store.js:30"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/document_store.js:62"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/document_store.js:73"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/document_store.js:97"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/index.js:82"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/index.js:111"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/index.js:138"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/index.js:290"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/index.js:378"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/index.js:408"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/lunr.js:7"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/pipeline.js:90"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/pipeline.js:180"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/pipeline.js:207"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:28"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:61"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:71"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:103"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:135"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:167"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:204"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:219"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/sorted_set.js:243"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/stemmer.js:7"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/stop_word_filter.js:6"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/token_store.js:29"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/token_store.js:96"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/token_store.js:118"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/token_store.js:137"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/token_store.js:157"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/token_store.js:182"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/tokenizer.js:6"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/utils.js:30"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/vector.js:24"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/vector.js:46"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/vector.js:66"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/vector.js:79"
+        }
+    ]
+}

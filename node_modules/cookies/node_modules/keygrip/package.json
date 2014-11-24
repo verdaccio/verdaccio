@@ -1,0 +1,42 @@
+{
+  "name": "keygrip",
+  "version": "1.0.1",
+  "description": "Key signing and verification for rotated credentials",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/expressjs/keygrip.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/expressjs/keygrip/issues"
+  },
+  "homepage": "https://github.com/expressjs/keygrip",
+  "_id": "keygrip@1.0.1",
+  "dist": {
+    "shasum": "b02fa4816eef21a8c4b35ca9e52921ffc89a30e9",
+    "tarball": "http://registry.npmjs.org/keygrip/-/keygrip-1.0.1.tgz"
+  },
+  "_from": "keygrip@>=1.0.0 <1.1.0",
+  "_npmVersion": "1.4.3",
+  "_npmUser": {
+    "name": "jed",
+    "email": "where@jed.is"
+  },
+  "maintainers": [
+    {
+      "name": "jed",
+      "email": "tr@nslator.jp"
+    }
+  ],
+  "directories": {},
+  "_shasum": "b02fa4816eef21a8c4b35ca9e52921ffc89a30e9",
+  "_resolved": "https://registry.npmjs.org/keygrip/-/keygrip-1.0.1.tgz",
+  "readme": "ERROR: No README data found!"
+}

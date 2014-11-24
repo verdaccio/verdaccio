@@ -19,27 +19,27 @@ try {
 
 // open and flock with exponential backoff
 function open_flock(name, opmod, flmod, tries, backoff, cb) {
-	fs.open(name, opmod, function(err, fd) {
-		if (err) return cb(err, fd)
+  fs.open(name, opmod, function(err, fd) {
+    if (err) return cb(err, fd)
 
-		fsExt.flock(fd, flmod, function(err) {
-			if (err) {
-				if (!tries) {
-					fs.close(fd, function() {
-						cb(err)
-					})
-				} else {
-					fs.close(fd, function() {
-						setTimeout(function() {
-							open_flock(name, opmod, flmod, tries-1, backoff*2, cb)
-						}, backoff)
-					})
-				}
-			} else {
-				cb(null, fd)
-			}
-		})
-	})
+    fsExt.flock(fd, flmod, function(err) {
+      if (err) {
+        if (!tries) {
+          fs.close(fd, function() {
+            cb(err)
+          })
+        } else {
+          fs.close(fd, function() {
+            setTimeout(function() {
+              open_flock(name, opmod, flmod, tries-1, backoff*2, cb)
+            }, backoff)
+          })
+        }
+      } else {
+        cb(null, fd)
+      }
+    })
+  })
 }
 
 // this function neither unlocks file nor closes it

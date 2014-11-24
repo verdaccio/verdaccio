@@ -1,0 +1,46 @@
+# use "yapm install ." if you're installing this from git repository
+
+name: express-json5
+
+version: 0.1.0
+description: json/json5 body parsing middleware
+
+author:
+  # forked from https://github.com/expressjs/body-parser
+  name: Alex Kocharin
+  email: alex@kocharin.ru
+
+repository:
+  type: git
+  url: git://github.com/rlidwka/express-json5
+
+bugs:
+  url: https://github.com/rlidwka/express-json5/issues
+
+dependencies:
+  raw-body: '1.x'
+  jju: '1.x'
+
+devDependencies:
+  connect: '*'
+  mocha: '*'
+  should: '*'
+  supertest: '*'
+
+scripts:
+  test: make test
+
+keywords:
+  - json
+  - json5
+  - express
+  - connect
+  - middleware
+  - body
+  - parser
+
+publishConfig:
+  registry: https://registry.npmjs.org/
+
+license: MIT
+

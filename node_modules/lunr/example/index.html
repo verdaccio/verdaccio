@@ -1,0 +1,81 @@
+<head>
+  <script data-main="/example/app.js" src="/example/require.js"></script>
+
+  <style type="text/css" media="screen">
+
+    body {
+      background-color: #081f28;
+      color: #708284;
+      font-family: 'Helvetica Neue';
+      font-size: 16px;
+    }
+
+    a {
+      color: #2076c7;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    input {
+      width: 200px;
+      font-size: 1.4em;
+    }
+
+    #wrap {
+      width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #question-list-container {
+      float: left;
+      width: 30%;
+    }
+
+    #question-view-container {
+      float: right;
+      width: 65%;
+    }
+
+    .loading {
+      color: #D11c24;
+      font-size: 0.9em;
+      border: 1px solid #D11c24;
+      padding: 10px;
+    }
+
+    .controls {
+      padding-top: 30px;
+      padding-bottom: 10px;
+      border-top: 3px dashed #708284;
+    }
+  </style>
+
+</head>
+<body>
+  <div id="wrap">
+    <header>
+      <h1>Lunr.js Example</h1>
+    </header>
+
+    <article>
+      <p>This demo consists of 100 questions taken from stack overflow, they are listed on the left hand side.  Clicking on the headings will display the full question on the right hand side of the page.</p>
+
+      <p>Each question contains a heading, a list of tags and the body of the question.  All three fields are in the index and you can search using any words you want.</p>
+
+    </article>
+
+    <div class="controls">
+      <input type="search" placeholder="Search..."></input>
+      <a class="all" href="#">All</a>
+    </div>
+
+    <div class="questions">
+      <div id='question-list-container'></div>
+      <div id='question-view-container'></div>
+    </div>
+  </div>
+</body>

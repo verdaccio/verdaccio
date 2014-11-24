@@ -40,6 +40,12 @@
     border-bottom-right-radius:     @radius;
 }
 
+.circle(@diameter) {
+    width: @diameter;
+    height: @diameter;
+    .border-radius(@diameter/2);
+}
+
 .no-select() {
     -moz-user-select:       none;
     -ms-user-select:        none;

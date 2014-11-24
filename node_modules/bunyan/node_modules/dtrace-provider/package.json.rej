@@ -1,0 +1,11 @@
+diff a/package.json b/package.json	(rejected hunks)
+@@ -18,5 +18,8 @@
+     "devDependencies": {
+         "tap": ">=0.2.0"
+     },
+-    "main" : "./dtrace-provider.js"
++    "main" : "./dtrace-provider.js",
++    "scripts" : {
++        "test" : "tap test/*test.js"
++    }
+ }
