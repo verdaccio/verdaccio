@@ -1,4 +1,24 @@
 
+25 Nov 2014, version 1.0.0-alpha
+
+- Config file is now created in `$XDG_CONFIG_HOME` instead of current directory. 
+
+  It is printed to stdout each time sinopia starts, so you hopefully won't have any trouble locating it.
+
+  The change is made so sinopia will pick up the same config no matter which directory it is started from.
+
+- Default config file is now a lot shorter, and it is very permissive by default. You could use sinopia without modifying it on your own computer, but definitely should change it on production.
+
+- Added auth tokens. For now, auth token is just a username+password encrypted for security reasons, so it isn't much different from basic auth, but allows to avoid "always-auth" npm setting.
+
+- Added scoped packages.
+
+  Please note that default `*` mask won't apply to them. You have to use masks like `@scope/*` to match scoped packages, or `**` to match everything.
+
+- Enabled web interface by default. Wow, it looks almost ready now!
+
+- All dependencies are bundled now, so uncompatible changes in 3rd party stuff in the future won't ruin the day.
+
 1 Nov 2014, version 0.13.2
 
 - fix `EPERM`-related crashes on windows (issue [#67](https://github.com/rlidwka/sinopia/issues/67))
