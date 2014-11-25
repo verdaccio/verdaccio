@@ -52,7 +52,7 @@ dependencies:
 optionalDependencies:
   # those are native modules that could fail to compile
   # and unavailable on windows
-  fs-ext: '>=0.3.2 <1.0.0-0'
+  fs-ext: '>=0.4.1 <1.0.0-0'
   crypt3: '>=0.1.6 <1.0.0-0' # for sinopia-htpasswd
 
 # bundling all the deps (but not devDeps)

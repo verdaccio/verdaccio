@@ -377,7 +377,7 @@ static NAN_METHOD(Fcntl) {
 
   if ( ! args[3]->IsFunction()) {
     int result = fcntl(fd, cmd, arg);
-    if (result == -1) return ThrowException(ErrnoException(errno));
+    if (result == -1) return NanThrowError(ErrnoException(errno));
     NanReturnValue(NanNew<Number>(result));
   }
 
