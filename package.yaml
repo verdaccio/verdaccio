@@ -31,10 +31,7 @@ dependencies:
   request: '>=2.31.0 <3.0.0-0'
   async: '>=0.9.0 <1.0.0-0'
   es6-shim: '0.21.x'
-
-  # 2.x and 3.x have the same interface
-  semver: '>=2.2.1 <4.0.0-0'
-
+  semver: '>=2.2.1 <5.0.0-0'
   minimatch: '>=0.2.14 <2.0.0-0'
   bunyan: '>=0.22.1 <2.0.0-0'
   handlebars: '1.x'
