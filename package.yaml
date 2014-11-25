@@ -81,7 +81,6 @@ bundledDependencies:
  - onclick
  - onscroll
  - request
- - rimraf
  - semver
  - sinopia-htpasswd
  - transition-complete
