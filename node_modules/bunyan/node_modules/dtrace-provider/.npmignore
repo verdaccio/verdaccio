@@ -1,7 +1,0 @@
-.lock-wscript
-*.node
-*~
-.#*
-*#
-build
-*.log

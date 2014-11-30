@@ -1,6 +1,0 @@
-language: node_js
-before_script: "node server.js 3000 &"
-script: "phantomjs test/env/runner.js http://localhost:3000/test"
-node_js:
-  - "0.8"
-  - "0.10"
