@@ -1,0 +1,136 @@
+//
+// copied from https://github.com/bpeacock/helpers.less
+//
+// author: Brian Peacock
+// license: MIT
+//
+
+.backface-visibility(@style) {
+  -webkit-backface-visibility:    @style;
+  -moz-backface-visibility:       @style;
+  -ms-backface-visibility:        @style;
+  -o-backface-visibility:         @style;
+  backface-visibility:            @style;
+}
+
+.perspective(@style) {
+  -webkit-perspective:    @style;
+  -moz-perspective:       @style;
+  -ms-perspective:        @style;
+  -o-perspective:         @style;
+  perspective:            @style;
+}
+
+.border-radius(@radius) {
+  -webkit-border-radius:  @radius;
+  -moz-border-radius:     @radius;
+  border-radius:          @radius;
+}
+
+.border-radius-topleft(@radius) {
+  -moz-border-radius-topleft:     @radius;
+  border-top-left-radius:         @radius;
+}
+
+.border-radius-topright(@radius) {
+  -moz-border-radius-topright:    @radius;
+  border-top-right-radius:        @radius;
+}
+
+.border-radius-bottomleft(@radius) {
+  -moz-border-radius-bottomleft:  @radius;
+  border-bottom-left-radius:      @radius;
+}
+
+.border-radius-bottomright(@radius) {
+  -moz-border-radius-bottomright: @radius;
+  border-bottom-right-radius:     @radius;
+}
+
+.circle(@diameter) {
+  width: @diameter;
+  height: @diameter;
+  .border-radius(@diameter/2);
+}
+
+.no-select() {
+  -moz-user-select:       none;
+  -ms-user-select:        none;
+  -khtml-user-select:     none;
+  -webkit-user-select:    none;
+  -o-user-select:         none;
+  user-select:            none;
+}
+
+.do-select() {
+  -moz-user-select:       text;
+  -ms-user-select:        text;
+  -khtml-user-select:     text;
+  -webkit-user-select:    text;
+  -o-user-select:         text;
+  user-select:            text;
+}
+
+.border-box() {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+.box-shadow(@value1, @value2:X, ...) {
+  @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+  -moz-box-shadow:    @value;
+  -webkit-box-shadow: @value;
+  box-shadow:         @value;
+}
+
+.transition(@value1, @value2:X, ...) {
+  @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+
+  -webkit-transition: @value;
+  -moz-transition:    @value;
+  -ms-transition:     @value;
+  -o-transition:      @value;
+  transition:         @value;
+}
+
+.transformTransition(@value1, @value2:X, ...) {
+  @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+
+  -webkit-transition: -webkit-transform   @value;
+  -moz-transition:    -moz-transform      @value;
+  -ms-transition:     -ms-transform       @value;
+  -o-transition:      -o-transform        @value;
+  transition:         transform           @value;
+}
+
+.animation(@value1, @value2:X, ...) {
+  @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+
+  -webkit-animation:  @value;
+  -moz-animation:     @value;
+  -o-animation:       @value;
+  animation:          @value;
+}
+
+.transform(@value1, @value2:X, ...) {
+  @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+
+  -webkit-transform:  @value;
+  -moz-transform:     @value;
+  -o-transform:       @value;
+  -ms-transform:      @value;
+  transform:          @value;
+}
+
+.rotate(@deg) {
+  .transform(rotate(@deg));
+}
+
+.scale(@ratio) {
+  .transform(scale(@ratio, @ratio));
+}
+
+.translate(@x, @y) {
+  .transform(translate(@x, @y));
+}

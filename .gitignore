@@ -8,5 +8,4 @@ bin/**
 !bin/sinopia
 test-storage*
 
-node_modules/crypt3/build
-node_modules/fs-ext/build
+node_modules

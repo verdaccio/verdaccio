@@ -41,11 +41,6 @@ dependencies:
   jju: '1.x'
 
   mkdirp: '>=0.3.5 <1.0.0-0'
-  unopinionate: '>=0.0.4 <1.0.0-0'
-  onclick: '>=0.1.0 <1.0.0-0'
-  onscroll: '>=0.0.3 <1.0.0-0'
-  transition-complete: '>=0.0.2 <1.0.0-0'
-  helpers.less: 'git://github.com/bpeacock/helpers.less.git'
   sinopia-htpasswd: '>= 0.4.3'
   http-errors: '>=1.2.0'
 
@@ -55,54 +50,39 @@ optionalDependencies:
   fs-ext: '>=0.4.1 <1.0.0-0'
   crypt3: '>=0.1.6 <1.0.0-0' # for sinopia-htpasswd
 
-# bundling all the deps (but not devDeps)
-bundledDependencies:
- - async
- - body-parser
- - bunyan
- - commander
- - compression
- - cookies
- - crypt3
- - es6-shim
- - express
- - express-json5
- - fs-ext
- - handlebars
- - helpers.less
- - highlight.js
- - http-errors
- - jju
- - js-yaml
- - lunr
- - marked
- - minimatch
- - mkdirp
- - onclick
- - onscroll
- - request
- - semver
- - sinopia-htpasswd
- - transition-complete
- - unopinionate
-
 devDependencies:
+  #
+  # Tools required for testing
+  #
   rimraf: '>=2.2.5 <3.0.0-0'
   mocha: '>=1.17.0 <2.0.0-0'
 
-  # linting tools
+  #
+  # Linting tools
+  #
   eslint: '~0.6.0'
 
   # for debugging memory leaks, it'll be require()'d if
   # installed, but I don't want it to be installed everytime
   #heapdump: '*'
 
+  #
+  # Tools required to build static files
+  #
   browserify: '>=3.46.0 <4.0.0-0'
   browserify-handlebars: '~0.2.0'
   grunt: '>=0.4.4 <1.0.0-0'
+  grunt-cli: '*'
   grunt-browserify: '>=2.0.8 <3.0.0-0'
   grunt-contrib-less: '>=0.11.0 <1.0.0-0'
   grunt-contrib-watch: '>=0.6.1 <1.0.0-0'
+
+  # for building static/main.js,
+  # not required in runtime
+  unopinionate: '>=0.0.4 <1.0.0-0'
+  onclick: '>=0.1.0 <1.0.0-0'
+  onscroll: '>=0.0.3 <1.0.0-0'
+  transition-complete: '>=0.0.2 <1.0.0-0'
 
 keywords:
   - private
