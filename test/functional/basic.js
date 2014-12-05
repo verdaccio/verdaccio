@@ -129,5 +129,13 @@ module.exports = function() {
       cb()
     })
   })
+
+  it('who am I?', function(cb) {
+    server.request({uri:'/-/whoami'}, function(err, res, body) {
+      assert.equal(res.statusCode, 200)
+      assert.equal(body.username, 'test')
+      cb()
+    })
+  })
 }
 
