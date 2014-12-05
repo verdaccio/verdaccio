@@ -1,4 +1,8 @@
 
+5 Dec 2014, version 1.0.0-alpha.3
+
+- Fixed an issue with scoped packages in tarballs
+
 25 Nov 2014, version 1.0.0-alpha
 
 - Config file is now created in `$XDG_CONFIG_HOME` instead of current directory. 
