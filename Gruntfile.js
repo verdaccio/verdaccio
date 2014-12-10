@@ -18,7 +18,7 @@ module.exports = function(grunt) {
           'lib/static/main.css': [ 'lib/GUI/css/main.less' ]
         },
         options: {
-          sourceMap: true
+          sourceMap: false
         }
       }
     },
