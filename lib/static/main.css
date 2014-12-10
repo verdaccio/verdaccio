@@ -7233,12 +7233,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
   padding: 0;
 }
 .body .main-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   background: #ffffff;
-  z-index: 1;
 }
 .body .main-header .navbar {
   margin-bottom: 0;
@@ -7274,7 +7269,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
   line-height: 1.7em;
 }
 .body .content {
-  padding-top: 120px;
+  padding-top: 10px;
 }
 .body .content .entry {
   -webkit-transition: height 0.3s;
