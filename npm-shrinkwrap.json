@@ -1,6 +1,6 @@
 {
   "name": "sinopia",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-beta",
   "dependencies": {
     "async": {
       "version": "0.9.0",

@@ -1,4 +1,10 @@
 
+15 Dec 2014, version 1.0.0-beta
+
+- Markdown rendering is now a lot safer (switched to remarkable+sanitizer).
+- Header in web interface is now static instead of fixed.
+- `GET /-/all?local` now returns list of all local packages (issue [#179](https://github.com/rlidwka/sinopia/pull/179))
+
 5 Dec 2014, version 1.0.0-alpha.3
 
 - Fixed an issue with scoped packages in tarballs
