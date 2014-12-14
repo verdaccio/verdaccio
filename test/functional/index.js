@@ -59,6 +59,7 @@ describe('Func', function() {
   require('./nullstorage')()
   require('./race')()
   require('./racycrash')()
+  require('./scoped')()
   require('./security')()
   require('./adduser')()
   require('./addtag')()

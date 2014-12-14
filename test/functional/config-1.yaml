@@ -23,6 +23,11 @@ logs:
   - {type: stdout, format: pretty, level: trace}
 
 packages:
+  '@test/*':
+    allow_access: all
+    allow_publish: all
+    proxy: server2
+
   'testfwd*':
     allow_access: all
     allow_publish: all

@@ -50,7 +50,7 @@ Server.prototype.auth = function(user, pass, cb) {
 
 Server.prototype.get_package = function(name, cb) {
   this.request({
-    uri: '/'+name,
+    uri: '/'+encodeURIComponent(name),
     method: 'GET',
   }, prep(cb))
 }
