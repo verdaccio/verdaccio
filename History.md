@@ -1,4 +1,9 @@
 
+22 Dec 2014, version 1.0.0-beta.2
+
+- fix windows behavior when `$HOME` isn't set (issue [#177](https://github.com/rlidwka/sinopia/issues/177))
+- fix sanitization for highlighted code blocks in readme (issue [render-readme/#1](https://github.com/rlidwka/render-readme/issues/1)
+
 15 Dec 2014, version 1.0.0-beta
 
 - Markdown rendering is now a lot safer (switched to remarkable+sanitizer).
