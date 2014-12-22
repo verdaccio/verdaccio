@@ -5,7 +5,7 @@ var rimraf  = require('rimraf')
 var sinopia = require('../../')
 
 var config = {
-  storage: './test-storage',
+  storage: __dirname + '/test-storage',
   packages: {
     '*': {
       allow_access: '$all',
