@@ -1,4 +1,9 @@
 
+26 Jan 2015, version 1.0.0
+
+- switch markdown parser from `remarkable` to `markdown-it`
+- update `npm-shrinkwrap.json`
+
 22 Dec 2014, version 1.0.0-beta.2
 
 - fix windows behavior when `$HOME` isn't set (issue [#177](https://github.com/rlidwka/sinopia/issues/177))
