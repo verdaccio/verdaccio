@@ -1,4 +1,10 @@
 
+12 Feb 2015, version 1.0.1
+
+- fixed issue with `max_users` option (issue [#184](https://github.com/rlidwka/sinopia/issues/184))
+- fixed issue with not being able to disable the web interface (issue [#195](https://github.com/rlidwka/sinopia/pull/195))
+- fixed 500 error while logging in with npm (issue [#200](https://github.com/rlidwka/sinopia/pull/200))
+
 26 Jan 2015, version 1.0.0
 
 - switch markdown parser from `remarkable` to `markdown-it`
