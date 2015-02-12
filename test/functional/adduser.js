@@ -27,7 +27,7 @@ module.exports = function() {
 
     it('should not register more users', function(cb) {
       server.auth(String(Math.random()), String(Math.random()), function(res, body) {
-        assert.equal(res.statusCode, 403)
+        assert.equal(res.statusCode, 409)
         assert(body.error.match(/maximum amount of users reached/))
         cb()
       })
