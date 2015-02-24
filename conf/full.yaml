@@ -59,6 +59,11 @@ packages:
   #  # you can override storage directory for a group of packages this way:
   #  storage: 'local_storage'
 
+  # Delegate handling package access authorization and settings to an external
+  # plugin for packages with this prefix
+  #'external-*':
+  #  plugin: my_plugin
+
   '*':
     # allow all users to read packages (including non-authenticated users)
     #
