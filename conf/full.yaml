@@ -80,6 +80,7 @@ packages:
 #url_prefix: https://dev.company.local/sinopia/
 
 # you can specify listen address (or simply a port)
+# to listen on INADDR_ANY use 0.0.0.0:4873
 #listen: localhost:4873
 
 # type: file | stdout | stderr
