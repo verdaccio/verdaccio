@@ -2,7 +2,6 @@ var assert = require('assert')
 
 module.exports = function() {
   var server  = process.server
-  var server2 = process.server2
 
   describe('Security', function() {
     before(server.add_package.bind(server, 'testpkg-sec'))
@@ -25,11 +24,14 @@ module.exports = function() {
 
     it('__proto__, connect stuff', function(cb) {
       server.request({uri:'/testpkg-sec?__proto__=1'}, function(err, res, body) {
+        assert.equal(err, null)
+
         // test for NOT outputting stack trace
         assert(!body || typeof(body) === 'object' || body.indexOf('node_modules') === -1)
 
         // test for NOT crashing
         server.request({uri:'/testpkg-sec'}, function(err, res, body) {
+          assert.equal(err, null)
           assert.equal(res.statusCode, 200)
           cb()
         })
@@ -38,6 +40,7 @@ module.exports = function() {
 
     it('do not return package.json as an attachment', function(cb) {
       server.request({uri:'/testpkg-sec/-/package.json'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 403)
         assert(body.error.match(/invalid filename/))
         cb()
@@ -46,6 +49,7 @@ module.exports = function() {
 
     it('silly things - reading #1', function(cb) {
       server.request({uri:'/testpkg-sec/-/../../../../../../../../etc/passwd'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 404)
         cb()
       })
@@ -53,6 +57,7 @@ module.exports = function() {
 
     it('silly things - reading #2', function(cb) {
       server.request({uri:'/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 403)
         assert(body.error.match(/invalid filename/))
         cb()

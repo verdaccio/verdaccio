@@ -4,11 +4,6 @@ require('./lib/startup')
 var assert = require('assert')
 var async  = require('async')
 var exec   = require('child_process').exec
-var crypto = require('crypto')
-
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x)
-}
 
 describe('Func', function() {
   var server = process.server
@@ -30,6 +25,7 @@ describe('Func', function() {
       server.debug(function(res, body) {
         server.pid = body.pid
         exec('lsof -p ' + Number(server.pid), function(err, result) {
+          assert.equal(err, null)
           server.fdlist = result
           cb()
         })
@@ -67,6 +63,7 @@ describe('Func', function() {
   after(function(cb) {
     async.map([server, server2], function(server, cb) {
       exec('lsof -p ' + Number(server.pid), function(err, result) {
+        assert.equal(err, null)
         assert.equal(server.fdlist, result.split('\n').filter(function(q) {
           if (q.match(/TCP .*->.* \(ESTABLISHED\)/)) return false
           if (q.match(/\/libcrypt-[^\/]+\.so/)) return false

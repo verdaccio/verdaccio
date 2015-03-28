@@ -5,8 +5,6 @@ module.exports = function() {
   var express = process.express
 
   describe('Incomplete', function() {
-    var on_tarball
-
     before(function() {
       express.get('/testexp-incomplete', function(_, res) {
         res.send({
@@ -49,12 +47,14 @@ module.exports = function() {
         })
 
         server.request({uri:'/testexp-incomplete/-/'+type+'.tar.gz'}, function(err, res, body) {
+          assert.equal(err, null)
           if (type !== 'chunked') assert.equal(res.headers['content-length'], 1e6)
           assert(body.match(/test test test/))
         })
 
         function cb() {
           server.request({uri:'/testexp-incomplete/-/'+type+'.tar.gz'}, function(err, res, body) {
+            assert.equal(err, null)
             assert.equal(body.error, 'internal server error')
             _cb()
           })

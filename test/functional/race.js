@@ -1,12 +1,9 @@
 var assert   = require('assert')
 var async    = require('async')
-var readfile = require('fs').readFileSync
-var ex       = module.exports
 var _oksum   = 0
 
 module.exports = function() {
   var server  = process.server
-  var server2 = process.server2
 
   describe('race', function() {
     before(function(cb) {
@@ -33,11 +30,13 @@ module.exports = function() {
 
       async.parallel(fns, function(err, res) {
         var okcount = 0
-          , failcount = 0
+        var failcount = 0
+
+        assert.equal(err, null)
 
         res.forEach(function(arr) {
           var resp = arr[0]
-            , body = arr[1]
+          var body = arr[1]
 
           if (resp.statusCode === 201 && ~body.ok.indexOf('published')) okcount++
           if (resp.statusCode === 409 && ~body.error.indexOf('already present')) failcount++
@@ -65,11 +64,12 @@ module.exports = function() {
 
       async.parallel(fns, function(err, res) {
         var okcount = 0
-          , failcount = 0
+        var failcount = 0
 
+        assert.equal(err, null)
         res.forEach(function(arr) {
           var resp = arr[0]
-            , body = arr[1]
+          var body = arr[1]
           if (resp.statusCode === 201 && ~body.ok.indexOf('published')) okcount++
           if (resp.statusCode === 409 && ~body.error.indexOf('already present')) failcount++
           if (resp.statusCode === 503 && ~body.error.indexOf('unavailable')) failcount++

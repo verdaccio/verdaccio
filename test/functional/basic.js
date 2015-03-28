@@ -1,7 +1,6 @@
 require('./lib/startup')
 
 var assert = require('assert')
-var async  = require('async')
 var crypto = require('crypto')
 
 function readfile(x) {
@@ -132,6 +131,7 @@ module.exports = function() {
 
   it('who am I?', function(cb) {
     server.request({uri:'/-/whoami'}, function(err, res, body) {
+      assert.equal(err, null)
       assert.equal(res.statusCode, 200)
       assert.equal(body.username, 'test')
       cb()

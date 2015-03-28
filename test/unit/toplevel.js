@@ -38,6 +38,7 @@ describe('toplevel', function() {
     request({
       url: 'http://localhost:' + port + '/',
     }, function(err, res, body) {
+      assert.equal(err, null)
       assert(body.match(/<title>Sinopia<\/title>/))
       done()
     })
@@ -47,6 +48,7 @@ describe('toplevel', function() {
     request({
       url: 'http://localhost:' + port + '/whatever',
     }, function(err, res, body) {
+      assert.equal(err, null)
       assert(body.match(/no such package available/))
       done()
     })

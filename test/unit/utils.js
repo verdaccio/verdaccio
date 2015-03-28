@@ -21,11 +21,11 @@ describe('Validate', function() {
     assert( !validate('some/thing') )
     assert( !validate('some\\thing') )
   })
-  
+
   it('no hidden', function() {
     assert( !validate('.bin') )
   })
-  
+
   it('no reserved', function() {
     assert( !validate('favicon.ico') )
     assert( !validate('node_modules') )

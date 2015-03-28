@@ -40,6 +40,7 @@ module.exports = function() {
     ;['0.1.1alpha', '0.1.1-alpha', '0000.00001.001-alpha'].forEach(function(ver) {
       it('fetching '+ver, function(cb) {
         server.request({uri:'/testexp_tags/'+ver}, function(err, res, body) {
+          assert.equal(err, null)
           assert.equal(res.statusCode, 200)
           assert.equal(body.version, '0.1.1alpha')
           cb()

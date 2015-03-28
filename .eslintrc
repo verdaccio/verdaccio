@@ -1,0 +1,44 @@
+# vim: syntax=yaml
+
+#
+# List of very light restrictions designed to prevent obvious errors,
+# not impose our own code style upon other contributors.
+#
+# This is supposed to be used with `eslint --reset`
+#
+# Created to work with eslint@0.18.0
+#
+
+env:
+  node: true
+
+rules:
+  # useful to have in node.js,
+  # if you're sure you don't need to handle error, rename it to "_err"
+  handle-callback-err: 2
+
+  # just to make sure we don't forget to remove them when releasing
+  no-debugger: 2
+
+  # add "falls through" for those
+  no-fallthrough: 2
+
+  # just warnings about whitespace weirdness here
+  eol-last: 1
+  no-irregular-whitespace: 1
+  no-mixed-spaces-and-tabs: [1, smart-tabs]
+  no-trailing-spaces: 1
+
+  # probably always an error, tell me if it's not
+  no-new-require: 2
+
+  # single most important rule here, without it linting won't even
+  # make any sense
+  no-undef: 2
+
+  # in practice, those are always errors
+  no-unreachable: 2
+
+  # useful for code clean-up
+  no-unused-vars: [1, {"vars": "all", "args": "none"}]
+

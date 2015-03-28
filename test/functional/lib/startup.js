@@ -1,7 +1,5 @@
-var assert   = require('assert')
 var fork     = require('child_process').fork
 var express  = require('express')
-var readfile = require('fs').readFileSync
 var rimraf   = require('rimraf')
 var Server   = require('./server')
 

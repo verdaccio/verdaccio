@@ -11,7 +11,6 @@ function sha(x) {
 module.exports = function() {
   var server = process.server
   var server2 = process.server2
-  var express = process.express
 
   describe('test-scoped', function() {
     before(function(cb) {
@@ -23,6 +22,7 @@ module.exports = function() {
         method: 'PUT',
         json: JSON.parse(readfile('fixtures/scoped.json')),
       }, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 201)
         cb()
       })
