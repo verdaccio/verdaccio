@@ -26,7 +26,7 @@ describe('Func', function() {
         server.pid = body.pid
         exec('lsof -p ' + Number(server.pid), function(err, result) {
           assert.equal(err, null)
-          server.fdlist = result
+          server.fdlist = result.replace(/ +/g, ' ')
           cb()
         })
       })
@@ -64,12 +64,14 @@ describe('Func', function() {
     async.map([server, server2], function(server, cb) {
       exec('lsof -p ' + Number(server.pid), function(err, result) {
         assert.equal(err, null)
-        assert.equal(server.fdlist, result.split('\n').filter(function(q) {
+        result = result.split('\n').filter(function(q) {
           if (q.match(/TCP .*->.* \(ESTABLISHED\)/)) return false
           if (q.match(/\/libcrypt-[^\/]+\.so/)) return false
           if (q.match(/\/node_modules\/crypt3\/build\/Release/)) return false
           return true
-        }).join('\n'))
+        }).join('\n').replace(/ +/g, ' ')
+
+        assert.equal(server.fdlist, result)
         cb()
       })
     }, cb)
