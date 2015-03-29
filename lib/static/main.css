@@ -7241,7 +7241,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .body .main-header .npm-logo {
   width: 79px;
   height: 50px;
-  background-image: url(/-/logo-sm );
+  background-image: url(../../-/logo );
   background-repeat: no-repeat;
   background-position: center center;
 }
