@@ -1,32 +1,60 @@
 {
   "name": "sinopia",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "dependencies": {
-    "async": {"version": "0.9.0"},
+    "async": {
+      "version": "0.9.0"
+    },
     "body-parser": {
       "version": "1.12.2",
       "dependencies": {
-        "bytes": {"version": "1.0.0"},
-        "content-type": {"version": "1.0.1"},
+        "bytes": {
+          "version": "1.0.0"
+        },
+        "content-type": {
+          "version": "1.0.1"
+        },
         "debug": {
           "version": "2.1.3",
-          "dependencies": {"ms": {"version": "0.7.0"}}
+          "dependencies": {
+            "ms": {
+              "version": "0.7.0"
+            }
+          }
         },
-        "depd": {"version": "1.0.0"},
-        "iconv-lite": {"version": "0.4.7"},
+        "depd": {
+          "version": "1.0.0"
+        },
+        "iconv-lite": {
+          "version": "0.4.7"
+        },
         "on-finished": {
           "version": "2.2.0",
-          "dependencies": {"ee-first": {"version": "1.1.0"}}
+          "dependencies": {
+            "ee-first": {
+              "version": "1.1.0"
+            }
+          }
         },
-        "qs": {"version": "2.4.1"},
-        "raw-body": {"version": "1.3.3"},
+        "qs": {
+          "version": "2.4.1"
+        },
+        "raw-body": {
+          "version": "1.3.3"
+        },
         "type-is": {
           "version": "1.6.1",
           "dependencies": {
-            "media-typer": {"version": "0.3.0"},
+            "media-typer": {
+              "version": "0.3.0"
+            },
             "mime-types": {
               "version": "2.0.10",
-              "dependencies": {"mime-db": {"version": "1.8.0"}}
+              "dependencies": {
+                "mime-db": {
+                  "version": "1.8.0"
+                }
+              }
             }
           }
         }
@@ -37,21 +65,35 @@
       "dependencies": {
         "dtrace-provider": {
           "version": "0.4.0",
-          "dependencies": {"nan": {"version": "1.5.3"}}
+          "dependencies": {
+            "nan": {
+              "version": "1.5.3"
+            }
+          }
         },
         "mv": {
           "version": "2.0.3",
           "dependencies": {
-            "ncp": {"version": "0.6.0"},
-            "rimraf": {"version": "2.2.8"}
+            "ncp": {
+              "version": "0.6.0"
+            },
+            "rimraf": {
+              "version": "2.2.8"
+            }
           }
         },
-        "safe-json-stringify": {"version": "1.0.1"}
+        "safe-json-stringify": {
+          "version": "1.0.1"
+        }
       }
     },
     "commander": {
       "version": "2.7.1",
-      "dependencies": {"graceful-readlink": {"version": "1.0.1"}}
+      "dependencies": {
+        "graceful-readlink": {
+          "version": "1.0.1"
+        }
+      }
     },
     "compression": {
       "version": "1.4.3",
@@ -61,33 +103,63 @@
           "dependencies": {
             "mime-types": {
               "version": "2.0.10",
-              "dependencies": {"mime-db": {"version": "1.8.0"}}
+              "dependencies": {
+                "mime-db": {
+                  "version": "1.8.0"
+                }
+              }
             },
-            "negotiator": {"version": "0.5.1"}
+            "negotiator": {
+              "version": "0.5.1"
+            }
           }
         },
-        "bytes": {"version": "1.0.0"},
+        "bytes": {
+          "version": "1.0.0"
+        },
         "compressible": {
           "version": "2.0.2",
-          "dependencies": {"mime-db": {"version": "1.8.0"}}
+          "dependencies": {
+            "mime-db": {
+              "version": "1.8.0"
+            }
+          }
         },
         "debug": {
           "version": "2.1.3",
-          "dependencies": {"ms": {"version": "0.7.0"}}
+          "dependencies": {
+            "ms": {
+              "version": "0.7.0"
+            }
+          }
         },
-        "on-headers": {"version": "1.0.0"},
-        "vary": {"version": "1.0.0"}
+        "on-headers": {
+          "version": "1.0.0"
+        },
+        "vary": {
+          "version": "1.0.0"
+        }
       }
     },
     "cookies": {
       "version": "0.5.0",
-      "dependencies": {"keygrip": {"version": "1.0.1"}}
+      "dependencies": {
+        "keygrip": {
+          "version": "1.0.1"
+        }
+      }
     },
     "crypt3": {
       "version": "0.1.7",
-      "dependencies": {"nan": {"version": "1.7.0"}}
+      "dependencies": {
+        "nan": {
+          "version": "1.7.0"
+        }
+      }
     },
-    "es6-shim": {"version": "0.21.1"},
+    "es6-shim": {
+      "version": "0.21.1"
+    },
     "express": {
       "version": "5.0.0-alpha.1",
       "dependencies": {
@@ -96,64 +168,130 @@
           "dependencies": {
             "mime-types": {
               "version": "2.0.10",
-              "dependencies": {"mime-db": {"version": "1.8.0"}}
+              "dependencies": {
+                "mime-db": {
+                  "version": "1.8.0"
+                }
+              }
             },
-            "negotiator": {"version": "0.4.9"}
+            "negotiator": {
+              "version": "0.4.9"
+            }
           }
         },
-        "content-disposition": {"version": "0.5.0"},
-        "cookie-signature": {"version": "1.0.5"},
+        "content-disposition": {
+          "version": "0.5.0"
+        },
+        "cookie-signature": {
+          "version": "1.0.5"
+        },
         "debug": {
           "version": "2.1.3",
-          "dependencies": {"ms": {"version": "0.7.0"}}
+          "dependencies": {
+            "ms": {
+              "version": "0.7.0"
+            }
+          }
         },
-        "depd": {"version": "1.0.0"},
-        "escape-html": {"version": "1.0.1"},
+        "depd": {
+          "version": "1.0.0"
+        },
+        "escape-html": {
+          "version": "1.0.1"
+        },
         "etag": {
           "version": "1.5.1",
-          "dependencies": {"crc": {"version": "3.2.1"}}
+          "dependencies": {
+            "crc": {
+              "version": "3.2.1"
+            }
+          }
         },
-        "finalhandler": {"version": "0.3.2"},
-        "fresh": {"version": "0.2.4"},
-        "media-typer": {"version": "0.3.0"},
-        "methods": {"version": "1.1.0"},
+        "finalhandler": {
+          "version": "0.3.2"
+        },
+        "fresh": {
+          "version": "0.2.4"
+        },
+        "media-typer": {
+          "version": "0.3.0"
+        },
+        "methods": {
+          "version": "1.1.0"
+        },
         "on-finished": {
           "version": "2.1.1",
-          "dependencies": {"ee-first": {"version": "1.1.0"}}
+          "dependencies": {
+            "ee-first": {
+              "version": "1.1.0"
+            }
+          }
         },
-        "parseurl": {"version": "1.3.0"},
-        "path-to-regexp": {"version": "0.1.3"},
+        "parseurl": {
+          "version": "1.3.0"
+        },
+        "path-to-regexp": {
+          "version": "0.1.3"
+        },
         "proxy-addr": {
           "version": "1.0.7",
           "dependencies": {
-            "forwarded": {"version": "0.1.0"},
-            "ipaddr.js": {"version": "0.1.9"}
+            "forwarded": {
+              "version": "0.1.0"
+            },
+            "ipaddr.js": {
+              "version": "0.1.9"
+            }
           }
         },
-        "qs": {"version": "2.3.2"},
-        "range-parser": {"version": "1.0.2"},
+        "qs": {
+          "version": "2.3.2"
+        },
+        "range-parser": {
+          "version": "1.0.2"
+        },
         "send": {
           "version": "0.10.1",
           "dependencies": {
-            "destroy": {"version": "1.0.3"},
-            "mime": {"version": "1.2.11"},
-            "ms": {"version": "0.6.2"}
+            "destroy": {
+              "version": "1.0.3"
+            },
+            "mime": {
+              "version": "1.2.11"
+            },
+            "ms": {
+              "version": "0.6.2"
+            }
           }
         },
-        "serve-static": {"version": "1.7.2"},
+        "serve-static": {
+          "version": "1.7.2"
+        },
         "type-is": {
           "version": "1.5.7",
           "dependencies": {
             "mime-types": {
               "version": "2.0.10",
-              "dependencies": {"mime-db": {"version": "1.8.0"}}
+              "dependencies": {
+                "mime-db": {
+                  "version": "1.8.0"
+                }
+              }
             }
           }
         },
-        "vary": {"version": "1.0.0"},
-        "cookie": {"version": "0.1.2"},
-        "merge-descriptors": {"version": "0.0.2"},
-        "utils-merge": {"version": "1.0.0"}
+        "vary": {
+          "version": "1.0.0"
+        },
+        "cookie": {
+          "version": "0.1.2"
+        },
+        "merge-descriptors": {
+          "version": "0.0.2"
+        },
+        "utils-merge": {
+          "version": "1.0.0"
+        }
       }
     },
     "express-json5": {
@@ -162,68 +300,110 @@
         "raw-body": {
           "version": "1.3.3",
           "dependencies": {
-            "bytes": {"version": "1.0.0"},
-            "iconv-lite": {"version": "0.4.7"}
+            "bytes": {
+              "version": "1.0.0"
+            },
+            "iconv-lite": {
+              "version": "0.4.7"
+            }
           }
         }
       }
     },
     "fs-ext": {
       "version": "0.4.4",
-      "dependencies": {"nan": {"version": "1.6.2"}}
+      "dependencies": {
+        "nan": {
+          "version": "1.6.2"
+        }
+      }
     },
     "handlebars": {
       "version": "2.0.0",
       "dependencies": {
         "optimist": {
           "version": "0.3.7",
-          "dependencies": {"wordwrap": {"version": "0.0.2"}}
+          "dependencies": {
+            "wordwrap": {
+              "version": "0.0.2"
+            }
+          }
         },
         "uglify-js": {
           "version": "2.3.6",
           "dependencies": {
-            "async": {"version": "0.2.10"},
+            "async": {
+              "version": "0.2.10"
+            },
             "source-map": {
               "version": "0.1.43",
-              "dependencies": {"amdefine": {"version": "0.1.0"}}
+              "dependencies": {
+                "amdefine": {
+                  "version": "0.1.0"
+                }
+              }
             }
           }
         }
       }
     },
-    "highlight.js": {"version": "8.4.0"},
+    "highlight.js": {
+      "version": "8.4.0"
+    },
     "http-errors": {
       "version": "1.3.1",
       "dependencies": {
-        "inherits": {"version": "2.0.1"},
-        "statuses": {"version": "1.2.1"}
+        "inherits": {
+          "version": "2.0.1"
+        },
+        "statuses": {
+          "version": "1.2.1"
+        }
       }
     },
-    "jju": {"version": "1.2.0"},
+    "jju": {
+      "version": "1.2.0"
+    },
     "js-yaml": {
       "version": "3.2.7",
       "dependencies": {
         "argparse": {
           "version": "1.0.2",
           "dependencies": {
-            "lodash": {"version": "3.6.0"},
-            "sprintf-js": {"version": "1.0.2"}
+            "lodash": {
+              "version": "3.6.0"
+            },
+            "sprintf-js": {
+              "version": "1.0.2"
+            }
           }
         },
-        "esprima": {"version": "2.0.0"}
+        "esprima": {
+          "version": "2.0.0"
+        }
       }
     },
-    "lunr": {"version": "0.5.7"},
+    "lunr": {
+      "version": "0.5.7"
+    },
     "minimatch": {
       "version": "1.0.0",
       "dependencies": {
-        "lru-cache": {"version": "2.5.0"},
-        "sigmund": {"version": "1.0.0"}
+        "lru-cache": {
+          "version": "2.5.0"
+        },
+        "sigmund": {
+          "version": "1.0.0"
+        }
       }
     },
     "mkdirp": {
       "version": "0.5.0",
-      "dependencies": {"minimist": {"version": "0.0.8"}}
+      "dependencies": {
+        "minimist": {
+          "version": "0.0.8"
+        }
+      }
     },
     "render-readme": {
       "version": "1.3.0",
@@ -234,14 +414,26 @@
             "argparse": {
               "version": "1.0.2",
               "dependencies": {
-                "lodash": {"version": "3.6.0"},
-                "sprintf-js": {"version": "1.0.2"}
+                "lodash": {
+                  "version": "3.6.0"
+                },
+                "sprintf-js": {
+                  "version": "1.0.2"
+                }
               }
             },
-            "entities": {"version": "1.1.1"},
-            "linkify-it": {"version": "1.0.0"},
-            "mdurl": {"version": "1.0.0"},
-            "uc.micro": {"version": "1.0.0"}
+            "entities": {
+              "version": "1.1.1"
+            },
+            "linkify-it": {
+              "version": "1.0.0"
+            },
+            "mdurl": {
+              "version": "1.0.0"
+            },
+            "uc.micro": {
+              "version": "1.0.0"
+            }
           }
         },
         "sanitize-html": {
@@ -250,34 +442,56 @@
             "htmlparser2": {
               "version": "3.8.2",
               "dependencies": {
-                "domhandler": {"version": "2.3.0"},
+                "domhandler": {
+                  "version": "2.3.0"
+                },
                 "domutils": {
                   "version": "1.5.1",
                   "dependencies": {
                     "dom-serializer": {
                       "version": "0.1.0",
                       "dependencies": {
-                        "domelementtype": {"version": "1.1.3"},
-                        "entities": {"version": "1.1.1"}
+                        "domelementtype": {
+                          "version": "1.1.3"
+                        },
+                        "entities": {
+                          "version": "1.1.1"
+                        }
                       }
                     }
                   }
                 },
-                "domelementtype": {"version": "1.3.0"},
+                "domelementtype": {
+                  "version": "1.3.0"
+                },
                 "readable-stream": {
                   "version": "1.1.13",
                   "dependencies": {
-                    "core-util-is": {"version": "1.0.1"},
-                    "isarray": {"version": "0.0.1"},
-                    "string_decoder": {"version": "0.10.31"},
-                    "inherits": {"version": "2.0.1"}
+                    "core-util-is": {
+                      "version": "1.0.1"
+                    },
+                    "isarray": {
+                      "version": "0.0.1"
+                    },
+                    "string_decoder": {
+                      "version": "0.10.31"
+                    },
+                    "inherits": {
+                      "version": "2.0.1"
+                    }
                   }
                 },
-                "entities": {"version": "1.0.0"}
+                "entities": {
+                  "version": "1.0.0"
+                }
               }
             },
-            "lodash": {"version": "2.4.1"},
-            "regexp-quote": {"version": "0.0.0"}
+            "lodash": {
+              "version": "2.4.1"
+            },
+            "regexp-quote": {
+              "version": "0.0.0"
+            }
           }
         }
       }
@@ -291,99 +505,191 @@
             "readable-stream": {
               "version": "1.0.33",
               "dependencies": {
-                "core-util-is": {"version": "1.0.1"},
-                "isarray": {"version": "0.0.1"},
-                "string_decoder": {"version": "0.10.31"},
-                "inherits": {"version": "2.0.1"}
+                "core-util-is": {
+                  "version": "1.0.1"
+                },
+                "isarray": {
+                  "version": "0.0.1"
+                },
+                "string_decoder": {
+                  "version": "0.10.31"
+                },
+                "inherits": {
+                  "version": "2.0.1"
+                }
               }
             }
           }
         },
-        "caseless": {"version": "0.9.0"},
-        "forever-agent": {"version": "0.6.0"},
-        "form-data": {"version": "0.2.0"},
-        "json-stringify-safe": {"version": "5.0.0"},
+        "caseless": {
+          "version": "0.9.0"
+        },
+        "forever-agent": {
+          "version": "0.6.0"
+        },
+        "form-data": {
+          "version": "0.2.0"
+        },
+        "json-stringify-safe": {
+          "version": "5.0.0"
+        },
         "mime-types": {
           "version": "2.0.10",
-          "dependencies": {"mime-db": {"version": "1.8.0"}}
+          "dependencies": {
+            "mime-db": {
+              "version": "1.8.0"
+            }
+          }
         },
-        "node-uuid": {"version": "1.4.3"},
-        "qs": {"version": "2.4.1"},
-        "tunnel-agent": {"version": "0.4.0"},
+        "node-uuid": {
+          "version": "1.4.3"
+        },
+        "qs": {
+          "version": "2.4.1"
+        },
+        "tunnel-agent": {
+          "version": "0.4.0"
+        },
         "tough-cookie": {
           "version": "0.12.1",
-          "dependencies": {"punycode": {"version": "1.3.2"}}
+          "dependencies": {
+            "punycode": {
+              "version": "1.3.2"
+            }
+          }
         },
         "http-signature": {
           "version": "0.10.1",
           "dependencies": {
-            "assert-plus": {"version": "0.1.5"},
-            "asn1": {"version": "0.1.11"},
-            "ctype": {"version": "0.5.3"}
+            "assert-plus": {
+              "version": "0.1.5"
+            },
+            "asn1": {
+              "version": "0.1.11"
+            },
+            "ctype": {
+              "version": "0.5.3"
+            }
           }
         },
-        "oauth-sign": {"version": "0.6.0"},
+        "oauth-sign": {
+          "version": "0.6.0"
+        },
         "hawk": {
           "version": "2.3.1",
           "dependencies": {
-            "hoek": {"version": "2.12.0"},
-            "boom": {"version": "2.6.1"},
-            "cryptiles": {"version": "2.0.4"},
-            "sntp": {"version": "1.0.9"}
+            "hoek": {
+              "version": "2.12.0"
+            },
+            "boom": {
+              "version": "2.6.1"
+            },
+            "cryptiles": {
+              "version": "2.0.4"
+            },
+            "sntp": {
+              "version": "1.0.9"
+            }
           }
         },
-        "aws-sign2": {"version": "0.5.0"},
-        "stringstream": {"version": "0.0.4"},
+        "aws-sign2": {
+          "version": "0.5.0"
+        },
+        "stringstream": {
+          "version": "0.0.4"
+        },
         "combined-stream": {
           "version": "0.0.7",
-          "dependencies": {"delayed-stream": {"version": "0.0.5"}}
+          "dependencies": {
+            "delayed-stream": {
+              "version": "0.0.5"
+            }
+          }
         },
-        "isstream": {"version": "0.1.2"},
+        "isstream": {
+          "version": "0.1.2"
+        },
         "har-validator": {
           "version": "1.4.0",
           "dependencies": {
-            "bluebird": {"version": "2.9.16"},
+            "bluebird": {
+              "version": "2.9.16"
+            },
             "chalk": {
               "version": "1.0.0",
               "dependencies": {
-                "ansi-styles": {"version": "2.0.1"},
-                "escape-string-regexp": {"version": "1.0.3"},
+                "ansi-styles": {
+                  "version": "2.0.1"
+                },
+                "escape-string-regexp": {
+                  "version": "1.0.3"
+                },
                 "has-ansi": {
                   "version": "1.0.3",
                   "dependencies": {
-                    "ansi-regex": {"version": "1.1.1"},
-                    "get-stdin": {"version": "4.0.1"}
+                    "ansi-regex": {
+                      "version": "1.1.1"
+                    },
+                    "get-stdin": {
+                      "version": "4.0.1"
+                    }
                   }
                 },
                 "strip-ansi": {
                   "version": "2.0.1",
-                  "dependencies": {"ansi-regex": {"version": "1.1.1"}}
+                  "dependencies": {
+                    "ansi-regex": {
+                      "version": "1.1.1"
+                    }
+                  }
                 },
-                "supports-color": {"version": "1.3.1"}
+                "supports-color": {
+                  "version": "1.3.1"
+                }
               }
             },
             "debug": {
               "version": "2.1.3",
-              "dependencies": {"ms": {"version": "0.7.0"}}
+              "dependencies": {
+                "ms": {
+                  "version": "0.7.0"
+                }
+              }
             },
             "is-my-json-valid": {
               "version": "2.10.0",
               "dependencies": {
-                "generate-function": {"version": "2.0.0"},
+                "generate-function": {
+                  "version": "2.0.0"
+                },
                 "generate-object-property": {
                   "version": "1.1.1",
-                  "dependencies": {"is-property": {"version": "1.0.2"}}
+                  "dependencies": {
+                    "is-property": {
+                      "version": "1.0.2"
+                    }
+                  }
                 },
-                "jsonpointer": {"version": "1.1.0"},
-                "xtend": {"version": "4.0.0"}
+                "jsonpointer": {
+                  "version": "1.1.0"
+                },
+                "xtend": {
+                  "version": "4.0.0"
+                }
               }
             },
-            "require-directory": {"version": "2.1.0"}
+            "require-directory": {
+              "version": "2.1.0"
+            }
           }
         }
       }
     },
-    "semver": {"version": "4.3.3"},
-    "sinopia-htpasswd": {"version": "0.4.5"}
+    "semver": {
+      "version": "4.3.3"
+    },
+    "sinopia-htpasswd": {
+      "version": "0.4.5"
+    }
   }
 }

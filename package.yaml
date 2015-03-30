@@ -112,7 +112,7 @@ scripts:
       }
       x = JSON.parse(require("fs").readFileSync("./npm-shrinkwrap.json"))
       clean(x.dependencies)
-      x = require("jju").stringify(x, {mode: "json", indent: 2})
+      x = JSON.stringify(x, null, "  ")
       require("fs").writeFileSync("./npm-shrinkwrap.json", x + "\n")
     '
 
