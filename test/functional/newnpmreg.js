@@ -23,6 +23,7 @@ module.exports = function() {
         method: 'PUT',
         json: JSON.parse(readfile('fixtures/newnpmreg.json')),
       }, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 201)
         cb()
       })
@@ -72,6 +73,7 @@ module.exports = function() {
 
     it('server1 - readme', function(cb) {
       server.request({uri:'/-/readme/testpkg-newnpmreg'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 200)
         assert.equal(body, '<p>blah blah blah</p>\n')
         cb()
@@ -80,6 +82,7 @@ module.exports = function() {
 
     it('server2 - readme', function(cb) {
       server2.request({uri:'/-/readme/testpkg-newnpmreg'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 200)
         assert.equal(body, '<p>blah blah blah</p>\n')
         cb()
@@ -114,6 +117,7 @@ module.exports = function() {
 
       it('server1 - search', function(cb) {
         server.request({uri:'/-/all'}, function(err, res, body) {
+          assert.equal(err, null)
           assert.equal(res.statusCode, 200)
           check(body)
           cb()
@@ -122,6 +126,7 @@ module.exports = function() {
 
       it('server2 - search', function(cb) {
         server2.request({uri:'/-/all'}, function(err, res, body) {
+          assert.equal(err, null)
           assert.equal(res.statusCode, 200)
           check(body)
           cb()

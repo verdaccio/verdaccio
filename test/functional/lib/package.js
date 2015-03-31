@@ -5,7 +5,7 @@ module.exports = function(name, version) {
     "version": version || "0.0.0",
     "dist": {
       "shasum": "fake",
-      "tarball": "http://localhost:55551/"+escape(name)+"/-/blahblah"
+      "tarball": "http://localhost:55551/"+encodeURIComponent(name)+"/-/blahblah"
     }
   }
 }

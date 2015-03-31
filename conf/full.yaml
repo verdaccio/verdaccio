@@ -19,6 +19,7 @@ web:
 
   title: Sinopia
   # logo: logo.png
+  # template: custom.hbs
 
 auth:
   htpasswd:
@@ -84,8 +85,22 @@ packages:
 # if you use nginx with custom path, use this to override links
 #url_prefix: https://dev.company.local/sinopia/
 
-# you can specify listen address (or simply a port)
-#listen: localhost:4873
+# You can specify listen address (or simply a port).
+# If you add multiple values, sinopia will listen on all of them.
+#
+# Examples:
+#
+#listen:
+# - localhost:4873            # default value
+# - http://localhost:4873     # same thing
+# - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
+# - https://example.org:4873  # if you want to use https
+# - [::1]:4873                # ipv6
+
+# Configure HTTPS, it is required if you use "https" protocol above.
+#https:
+#  key: path/to/server.key
+#  cert: path/to/server.crt
 
 # type: file | stdout | stderr
 # level: trace | debug | info | http (default) | warn | error | fatal

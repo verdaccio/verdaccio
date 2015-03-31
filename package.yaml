@@ -1,7 +1,7 @@
 # use "yapm install ." if you're installing this from git repository
 
 name: sinopia
-version: 1.0.1
+version: 1.1.0
 description: Private npm repository server
 
 author:
@@ -55,12 +55,14 @@ devDependencies:
   # Tools required for testing
   #
   rimraf: '>=2.2.5 <3.0.0-0'
-  mocha: '>=1.17.0 <2.0.0-0'
+
+  # https://github.com/mochajs/mocha/issues/1614
+  mocha: '<= 1.20'
 
   #
   # Linting tools
   #
-  eslint: '~0.6.0'
+  eslint: '>= 0.18'
 
   # for debugging memory leaks, it'll be require()'d if
   # installed, but I don't want it to be installed everytime
@@ -81,7 +83,6 @@ devDependencies:
   # not required in runtime
   unopinionate: '>=0.0.4 <1.0.0-0'
   onclick: '>=0.1.0 <1.0.0-0'
-  onscroll: '>=0.0.3 <1.0.0-0'
   transition-complete: '>=0.0.2 <1.0.0-0'
 
 keywords:
@@ -94,10 +95,26 @@ keywords:
   - server
 
 scripts:
-  test: mocha -R dot ./test/functional ./test/unit
-  test-travis: mocha -R spec ./test/functional ./test/unit
-  lint: eslint -c ./.eslint.yaml ./lib
+  test: eslint --reset . && mocha -R dot ./test/functional ./test/unit
+  test-travis: eslint --reset . && mocha -R spec ./test/functional ./test/unit
+  test-only: mocha -R dot ./test/functional ./test/unit
+  lint: eslint --reset .
   prepublish: js-yaml package.yaml > package.json
+  clean-shrinkwrap: |
+    node -e '
+      function clean(j) {
+        if (!j) return
+        for (var k in j) {
+          delete j[k].from
+          delete j[k].resolved
+          if (j[k].dependencies) clean(j[k].dependencies)
+        }
+      }
+      x = JSON.parse(require("fs").readFileSync("./npm-shrinkwrap.json"))
+      clean(x.dependencies)
+      x = JSON.stringify(x, null, "  ")
+      require("fs").writeFileSync("./npm-shrinkwrap.json", x + "\n")
+    '
 
 # we depend on streams2 stuff
 # it can be replaced with isaacs/readable-stream, ask if you need to use 0.8

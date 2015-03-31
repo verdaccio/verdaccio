@@ -40,9 +40,6 @@ $ sinopia
 # npm configuration
 $ npm set registry http://localhost:4873/
 
-# if you have any restricted packages, you should add this:
-$ npm set always-auth true
-
 # if you use HTTPS, add an appropriate CA information
 # ("null" means get CA list from OS)
 $ npm set ca null

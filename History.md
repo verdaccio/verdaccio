@@ -1,4 +1,14 @@
 
+29 Mar 2015, version 1.1.0
+
+- add a possibility to listen on multiple ports (issue [#172](https://github.com/rlidwka/sinopia/issues/172))
+- added https support (issues [#71](https://github.com/rlidwka/sinopia/issues/71), [#166](https://github.com/rlidwka/sinopia/issues/166))
+- added an option to use a custom template for web UI (issue [#208](https://github.com/rlidwka/sinopia/pull/208))
+- remove "from" and "resolved" fields from shrinkwrap (issue [#204](https://github.com/rlidwka/sinopia/issues/204))
+- fix hanging when rendering readme (issue [#206](https://github.com/rlidwka/sinopia/issues/206))
+- fix logger-related crash when using sinopia as a library
+- all requests to uplinks should now have proper headers
+
 12 Feb 2015, version 1.0.1
 
 - fixed issue with `max_users` option (issue [#184](https://github.com/rlidwka/sinopia/issues/184))
@@ -9,11 +19,12 @@
 
 - switch markdown parser from `remarkable` to `markdown-it`
 - update `npm-shrinkwrap.json`
+- now downloading tarballs from upstream using the same protocol as for metadata (issue [#166](https://github.com/rlidwka/sinopia/issues/166))
 
 22 Dec 2014, version 1.0.0-beta.2
 
 - fix windows behavior when `$HOME` isn't set (issue [#177](https://github.com/rlidwka/sinopia/issues/177))
-- fix sanitization for highlighted code blocks in readme (issue [render-readme/#1](https://github.com/rlidwka/render-readme/issues/1)
+- fix sanitization for highlighted code blocks in readme (issue [render-readme/#1](https://github.com/rlidwka/render-readme/issues/1))
 
 15 Dec 2014, version 1.0.0-beta
 

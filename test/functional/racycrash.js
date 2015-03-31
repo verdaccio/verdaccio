@@ -41,12 +41,14 @@ module.exports = function() {
       }
 
       server.request({uri:'/testexp-racycrash/-/test.tar.gz'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(body, 'test test test\n')
       })
 
       function cb() {
         // test for NOT crashing
         server.request({uri:'/testexp-racycrash'}, function(err, res, body) {
+          assert.equal(err, null)
           assert.equal(res.statusCode, 200)
           _cb()
         })
@@ -59,6 +61,7 @@ module.exports = function() {
       }
 
       server.request({uri:'/testexp-racycrash/-/test.tar.gz'}, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(body.error, 'internal server error')
         cb()
       })

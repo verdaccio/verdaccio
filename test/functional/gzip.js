@@ -1,8 +1,6 @@
 require('./lib/startup')
 
 var assert = require('assert')
-var async  = require('async')
-var crypto = require('crypto')
 
 function readfile(x) {
   return require('fs').readFileSync(__dirname + '/' + x)
@@ -34,7 +32,7 @@ module.exports = function() {
         x.versions['0.0.9'] = x.versions['0.0.1']
 
         require('zlib').gzip(JSON.stringify(x), function(err, buf) {
-          assert(!err)
+          assert.equal(err, null)
           assert.equal(req.headers['accept-encoding'], 'gzip')
           res.header('content-encoding', 'gzip')
           res.send(buf)
@@ -74,13 +72,14 @@ module.exports = function() {
         },
         json: false,
       }, function(err, res, body) {
+        assert.equal(err, null)
         assert.equal(res.statusCode, 200)
         assert.equal(res.headers['content-encoding'], 'gzip')
         assert.throws(function() {
           JSON.parse(body.toString('utf8'))
         })
         require('zlib').gunzip(body, function(err, buf) {
-          assert(!err)
+          assert.equal(err, null)
           body = JSON.parse(buf)
           assert.equal(body.name, 'testexp_gzip')
           assert.equal(Object.keys(body.versions).length, 9)
