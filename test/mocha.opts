@@ -1,0 +1,3 @@
+--reporter dot
+--timeout 5000
+--inline-diffs

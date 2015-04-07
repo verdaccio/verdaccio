@@ -56,8 +56,7 @@ devDependencies:
   #
   rimraf: '>=2.2.5 <3.0.0-0'
 
-  # https://github.com/mochajs/mocha/issues/1614
-  mocha: '<= 1.20'
+  mocha: '2 >=2.2.3'
 
   #
   # Linting tools
@@ -95,9 +94,9 @@ keywords:
   - server
 
 scripts:
-  test: eslint --reset . && mocha -R dot ./test/functional ./test/unit
+  test: eslint --reset . && mocha ./test/functional ./test/unit
   test-travis: eslint --reset . && mocha -R spec ./test/functional ./test/unit
-  test-only: mocha -R dot ./test/functional ./test/unit
+  test-only: mocha ./test/functional ./test/unit
   lint: eslint --reset .
   prepublish: js-yaml package.yaml > package.json
   clean-shrinkwrap: |
