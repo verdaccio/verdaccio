@@ -24,8 +24,8 @@ uplinks:
 packages:
   '@*/*':
     # scoped packages
-    allow_access: $all
-    allow_publish: $authenticated
+    access: $all
+    publish: $authenticated
 
   '*':
     # allow all users (including non-authenticated users) to read and
@@ -33,11 +33,11 @@ packages:
     #
     # you can specify usernames/groupnames (depending on your auth plugin)
     # and three keywords: "$all", "$anonymous", "$authenticated"
-    allow_access: $all
+    access: $all
 
     # allow all known users to publish packages
     # (anyone can register by default, remember?)
-    allow_publish: $authenticated
+    publish: $authenticated
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs

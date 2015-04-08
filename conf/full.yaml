@@ -55,25 +55,20 @@ packages:
   # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages
   #'local-*':
-  #  allow_access: admin
-  #  allow_publish: admin
+  #  access: admin
+  #  publish: admin
   #  # you can override storage directory for a group of packages this way:
   #  storage: 'local_storage'
-
-  # Delegate handling package access authorization to an external
-  # plugin for packages with this prefix
-  #'external-*':
-  #  plugin: my_plugin
 
   '*':
     # allow all users to read packages (including non-authenticated users)
     #
     # you can specify usernames/groupnames (depending on your auth plugin)
     # and three keywords: "$all", "$anonymous", "$authenticated"
-    allow_access: $all
+    access: $all
 
     # allow 'admin' to publish packages
-    allow_publish: admin
+    publish: admin
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
