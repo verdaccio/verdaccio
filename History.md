@@ -1,4 +1,8 @@
 
+11 Apr 2015, version 1.2.0
+
+- added more precise authorization control to auth plugins (issue [#207](https://github.com/rlidwka/sinopia/pull/207))
+
 29 Mar 2015, version 1.1.0
 
 - add a possibility to listen on multiple ports (issue [#172](https://github.com/rlidwka/sinopia/issues/172))
