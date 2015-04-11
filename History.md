@@ -1,5 +1,5 @@
 
-11 Apr 2015, version 1.2.0
+11 Apr 2015, version 1.2.1
 
 - added more precise authorization control to auth plugins (issue [#207](https://github.com/rlidwka/sinopia/pull/207))
 
