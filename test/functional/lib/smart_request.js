@@ -1,8 +1,10 @@
 
 var assert = require('assert')
 var request = require('request')
-var sym = Symbol('smart_request_data')
 var Promise = require('bluebird')
+var sym = typeof Symbol !== 'undefined'
+        ? Symbol('smart_request_data')
+        : '__why_does_node_0.10_support_suck_so_much'
 
 function smart_request(options) {
   var self = {}
