@@ -131,6 +131,14 @@ Server.prototype.add_package = function(name, cb) {
   })
 }
 
+Server.prototype.whoami = function(cb) {
+  this.request({ uri:'/-/whoami' }, function(err, res, body) {
+    assert.equal(err, null)
+    assert.equal(res.statusCode, 200)
+    cb(body.username)
+  })
+}
+
 Server.prototype.debug = function(cb) {
   this.request({
     uri: '/-/_debug',

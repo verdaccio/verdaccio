@@ -59,6 +59,7 @@ describe('Func', function() {
   require('./security')()
   require('./adduser')()
   require('./addtag')()
+  require('./plugins')()
 
   after(function(cb) {
     async.map([server, server2], function(server, cb) {

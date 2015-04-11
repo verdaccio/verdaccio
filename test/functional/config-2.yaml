@@ -3,6 +3,8 @@ storage: ./test-storage2
 users:
   test:
     password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+  authtest:
+    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 
 uplinks:
   server1:
@@ -11,6 +13,15 @@ uplinks:
 
 web:
   enable: true
+
+auth:
+  ./plugins/authenticate:
+    accept_user: authtest2
+    with_password: blahblah
+
+  ./plugins/authorize:
+    allow_user: authtest
+    to_access: test-auth-allow
 
 logs:
   - {type: stdout, format: pretty, level: trace}
@@ -39,6 +50,12 @@ packages:
   'test-nullstorage*':
     allow_access: all
     allow_publish: all
+
+  'test-auth-regular':
+    allow_access: $authenticated
+
+  'test-auth-*':
+    handled_by_auth_plugin: true
 
   '*':
     allow_access: test anonymous

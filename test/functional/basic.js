@@ -130,10 +130,8 @@ module.exports = function() {
   })
 
   it('who am I?', function(cb) {
-    server.request({uri:'/-/whoami'}, function(err, res, body) {
-      assert.equal(err, null)
-      assert.equal(res.statusCode, 200)
-      assert.equal(body.username, 'test')
+    server.whoami(function(username) {
+      assert.equal(username, 'test')
       cb()
     })
   })
