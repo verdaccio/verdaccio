@@ -1,5 +1,6 @@
 var assert  = require('assert')
-var request = require('request')
+var request = require('./smart_request')
+var Promise = require('bluebird')
 
 function Server(url) {
   var self = Object.create(Server.prototype)
@@ -9,31 +10,25 @@ function Server(url) {
   return self
 }
 
-function prep(cb) {
-  return function(err, res, body) {
-    if (err) throw err
-    cb(res, body)
-  }
-}
-
-Server.prototype.request = function(options, cb) {
+Server.prototype.request = function(options) {
   assert(options.uri)
   var headers = options.headers || {}
   headers.accept = headers.accept || 'application/json'
   headers['user-agent'] = headers['user-agent'] || this.userAgent
   headers.authorization = headers.authorization || this.authstr
+
   return request({
     url: this.url + options.uri,
     method: options.method || 'GET',
     headers: headers,
     encoding: options.encoding,
     json: options.json != null ? options.json : true,
-  }, cb)
+  })
 }
 
-Server.prototype.auth = function(user, pass, cb) {
+Server.prototype.auth = function(user, pass) {
   this.authstr = 'Basic '+(Buffer(user+':'+pass)).toString('base64')
-  this.request({
+  return this.request({
     uri: '/-/user/org.couchdb.user:'+encodeURIComponent(user)+'/-rev/undefined',
     method: 'PUT',
     json: {
@@ -45,67 +40,67 @@ Server.prototype.auth = function(user, pass, cb) {
       roles: [],
       date: new Date(),
     }
-  }, prep(cb))
+  })
 }
 
-Server.prototype.get_package = function(name, cb) {
-  this.request({
+Server.prototype.get_package = function(name) {
+  return this.request({
     uri: '/'+encodeURIComponent(name),
     method: 'GET',
-  }, prep(cb))
+  })
 }
 
-Server.prototype.put_package = function(name, data, cb) {
+Server.prototype.put_package = function(name, data) {
   if (typeof(data) === 'object' && !Buffer.isBuffer(data)) data = JSON.stringify(data)
-  this.request({
+  return this.request({
     uri: '/'+encodeURIComponent(name),
     method: 'PUT',
     headers: {
       'content-type': 'application/json'
     },
-  }, prep(cb)).end(data)
+  }).send(data)
 }
 
-Server.prototype.put_version = function(name, version, data, cb) {
+Server.prototype.put_version = function(name, version, data) {
   if (typeof(data) === 'object' && !Buffer.isBuffer(data)) data = JSON.stringify(data)
-  this.request({
+  return this.request({
     uri: '/'+encodeURIComponent(name)+'/'+encodeURIComponent(version)+'/-tag/latest',
     method: 'PUT',
     headers: {
       'content-type': 'application/json'
     },
-  }, prep(cb)).end(data)
+  }).send(data)
 }
 
-Server.prototype.get_tarball = function(name, filename, cb) {
-  this.request({
+Server.prototype.get_tarball = function(name, filename) {
+  return this.request({
     uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename),
     method: 'GET',
-  }, prep(cb))
+  })
 }
 
-Server.prototype.put_tarball = function(name, filename, data, cb) {
-  this.request({
+Server.prototype.put_tarball = function(name, filename, data) {
+  return this.request({
     uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename)+'/whatever',
     method: 'PUT',
     headers: {
       'content-type': 'application/octet-stream'
     },
-  }, prep(cb)).end(data)
+  }).send(data)
 }
 
-Server.prototype.add_tag = function(name, tag, version, cb) {
-  this.request({
+Server.prototype.add_tag = function(name, tag, version) {
+  return this.request({
     uri: '/'+encodeURIComponent(name)+'/'+encodeURIComponent(tag),
     method: 'PUT',
     headers: {
       'content-type': 'application/json'
     },
-  }, prep(cb)).end(JSON.stringify(version))
+  }).send(JSON.stringify(version))
 }
 
 Server.prototype.put_tarball_incomplete = function(name, filename, data, size, cb) {
-  var req = this.request({
+  var promise = this.request({
     uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename)+'/whatever',
     method: 'PUT',
     headers: {
@@ -113,40 +108,50 @@ Server.prototype.put_tarball_incomplete = function(name, filename, data, size, c
       'content-length': size,
     },
     timeout: 1000,
-  }, function(err) {
-    assert(err)
-    cb()
   })
-  req.write(data)
-  setTimeout(function() {
-    req.req.abort()
-  }, 20)
-}
 
-Server.prototype.add_package = function(name, cb) {
-  this.put_package(name, require('./package')(name), function(res, body) {
-    assert.equal(res.statusCode, 201)
-    assert(~body.ok.indexOf('created new package'))
-    cb()
+  promise.request(function (req) {
+    req.write(data)
+    setTimeout(function() {
+      req.req.abort()
+    }, 20)
   })
-}
 
-Server.prototype.whoami = function(cb) {
-  this.request({ uri:'/-/whoami' }, function(err, res, body) {
-    assert.equal(err, null)
-    assert.equal(res.statusCode, 200)
-    cb(body.username)
+  return new Promise(function (resolve, reject) {
+    promise
+      .then(function() {
+        reject(Error('no error'))
+      })
+      .catch(function(err) {
+        if (err.code === 'ECONNRESET') {
+          resolve()
+        } else {
+          reject(err)
+        }
+      })
   })
 }
 
-Server.prototype.debug = function(cb) {
-  this.request({
+Server.prototype.add_package = function(name) {
+  return this.put_package(name, require('./package')(name))
+           .status(201)
+           .body_ok('created new package')
+}
+
+Server.prototype.whoami = function() {
+  return this.request({ uri:'/-/whoami' })
+           .status(200)
+           .then(function(x) { return x.username })
+}
+
+Server.prototype.debug = function() {
+  return this.request({
     uri: '/-/_debug',
     method: 'GET',
     headers: {
       'content-type': 'application/json'
     },
-  }, prep(cb))
+  })
 }
 
 module.exports = Server

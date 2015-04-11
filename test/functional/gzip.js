@@ -1,6 +1,7 @@
 require('./lib/startup')
 
 var assert = require('assert')
+var Promise = require('bluebird')
 
 function readfile(x) {
   return require('fs').readFileSync(__dirname + '/' + x)
@@ -46,46 +47,50 @@ module.exports = function() {
       })
     })
 
-    it('should not fail on bad gzip', function(cb) {
-      server.get_package('testexp_baddata', function(res, body) {
-        assert.equal(res.statusCode, 404)
-        cb()
-      })
+    it('should not fail on bad gzip', function () {
+      return server.get_package('testexp_baddata')
+               .status(404)
     })
 
-    it('should understand gzipped data from uplink', function(cb) {
-      server.get_package('testexp_gzip', function(res, body) {
-        assert.equal(res.statusCode, 200)
-        assert.equal(res.headers['content-encoding'], undefined)
-        assert.equal(body.name, 'testexp_gzip')
-        assert.equal(Object.keys(body.versions).length, 9)
-        cb()
-      })
+    it('should understand gzipped data from uplink', function () {
+      return server.get_package('testexp_gzip')
+               .status(200)
+               .response(function (res) {
+                 assert.equal(res.headers['content-encoding'], undefined)
+               })
+               .then(function (body) {
+                 assert.equal(body.name, 'testexp_gzip')
+                 assert.equal(Object.keys(body.versions).length, 9)
+               })
     })
 
-    it('should serve gzipped data', function(cb) {
-      server.request({
+    it('should serve gzipped data', function () {
+      return server.request({
         uri: '/testexp_gzip',
         encoding: null,
         headers: {
           'Accept-encoding': 'gzip',
         },
         json: false,
-      }, function(err, res, body) {
-        assert.equal(err, null)
-        assert.equal(res.statusCode, 200)
-        assert.equal(res.headers['content-encoding'], 'gzip')
-        assert.throws(function() {
-          JSON.parse(body.toString('utf8'))
+      }).status(200)
+        .response(function (res) {
+          assert.equal(res.headers['content-encoding'], 'gzip')
         })
-        require('zlib').gunzip(body, function(err, buf) {
-          assert.equal(err, null)
-          body = JSON.parse(buf)
-          assert.equal(body.name, 'testexp_gzip')
-          assert.equal(Object.keys(body.versions).length, 9)
-          cb()
+        .then(function (body) {
+          assert.throws(function() {
+            JSON.parse(body.toString('utf8'))
+          })
+
+          return new Promise(function (resolve) {
+            require('zlib').gunzip(body, function(err, buf) {
+              assert.equal(err, null)
+              body = JSON.parse(buf)
+              assert.equal(body.name, 'testexp_gzip')
+              assert.equal(Object.keys(body.versions).length, 9)
+              resolve()
+            })
+          })
         })
-      })
     })
   })
 }

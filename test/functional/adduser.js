@@ -1,4 +1,3 @@
-var assert = require('assert')
 var Server = require('./lib/server')
 
 module.exports = function() {
@@ -7,30 +6,24 @@ module.exports = function() {
   describe('adduser', function() {
     var user = String(Math.random())
     var pass = String(Math.random())
-    before(function(cb) {
-      server.auth(user, pass, function(res, body) {
-        assert.equal(res.statusCode, 201)
-        assert(body.ok.match(/user .* created/))
-        cb()
-      })
+    before(function () {
+      return server.auth(user, pass)
+               .status(201)
+               .body_ok(/user .* created/)
     })
 
     it('creating new user', function(){})
 
-    it('should log in', function(cb) {
-      server.auth(user, pass, function(res, body) {
-        assert.equal(res.statusCode, 201)
-        assert(body.ok.match(/you are authenticated as/))
-        cb()
-      })
+    it('should log in', function () {
+      return server.auth(user, pass)
+               .status(201)
+               .body_ok(/you are authenticated as/)
     })
 
-    it('should not register more users', function(cb) {
-      server.auth(String(Math.random()), String(Math.random()), function(res, body) {
-        assert.equal(res.statusCode, 409)
-        assert(body.error.match(/maximum amount of users reached/))
-        cb()
-      })
+    it('should not register more users', function () {
+      return server.auth(String(Math.random()), String(Math.random()))
+               .status(409)
+               .body_error(/maximum amount of users reached/)
     })
   })
 }

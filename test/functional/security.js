@@ -4,88 +4,66 @@ module.exports = function() {
   var server  = process.server
 
   describe('Security', function() {
-    before(server.add_package.bind(server, 'testpkg-sec'))
-
-    it('bad pkg #1', function(cb) {
-      server.get_package('package.json', function(res, body) {
-        assert.equal(res.statusCode, 403)
-        assert(~body.error.indexOf('invalid package'))
-        cb()
-      })
+    before(function() {
+      return server.add_package('testpkg-sec')
     })
 
-    it('bad pkg #2', function(cb) {
-      server.get_package('__proto__', function(res, body) {
-        assert.equal(res.statusCode, 403)
-        assert(~body.error.indexOf('invalid package'))
-        cb()
-      })
+    it('bad pkg #1', function () {
+      return server.get_package('package.json')
+               .status(403)
+               .body_error(/invalid package/)
     })
 
-    it('__proto__, connect stuff', function(cb) {
-      server.request({uri:'/testpkg-sec?__proto__=1'}, function(err, res, body) {
-        assert.equal(err, null)
+    it('bad pkg #2', function () {
+      return server.get_package('__proto__')
+               .status(403)
+               .body_error(/invalid package/)
+    })
 
-        // test for NOT outputting stack trace
-        assert(!body || typeof(body) === 'object' || body.indexOf('node_modules') === -1)
+    it('__proto__, connect stuff', function () {
+      return server.request({ uri: '/testpkg-sec?__proto__=1' })
+        .then(function (body) {
+          // test for NOT outputting stack trace
+          assert(!body || typeof(body) === 'object' || body.indexOf('node_modules') === -1)
 
-        // test for NOT crashing
-        server.request({uri:'/testpkg-sec'}, function(err, res, body) {
-          assert.equal(err, null)
-          assert.equal(res.statusCode, 200)
-          cb()
+          // test for NOT crashing
+          return server.request({ uri: '/testpkg-sec' }).status(200)
         })
-      })
     })
 
-    it('do not return package.json as an attachment', function(cb) {
-      server.request({uri:'/testpkg-sec/-/package.json'}, function(err, res, body) {
-        assert.equal(err, null)
-        assert.equal(res.statusCode, 403)
-        assert(body.error.match(/invalid filename/))
-        cb()
-      })
+    it('do not return package.json as an attachment', function () {
+      return server.request({ uri: '/testpkg-sec/-/package.json' })
+               .status(403)
+               .body_error(/invalid filename/)
     })
 
-    it('silly things - reading #1', function(cb) {
-      server.request({uri:'/testpkg-sec/-/../../../../../../../../etc/passwd'}, function(err, res, body) {
-        assert.equal(err, null)
-        assert.equal(res.statusCode, 404)
-        cb()
-      })
+    it('silly things - reading #1', function () {
+      return server.request({ uri: '/testpkg-sec/-/../../../../../../../../etc/passwd' })
+               .status(404)
     })
 
-    it('silly things - reading #2', function(cb) {
-      server.request({uri:'/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'}, function(err, res, body) {
-        assert.equal(err, null)
-        assert.equal(res.statusCode, 403)
-        assert(body.error.match(/invalid filename/))
-        cb()
-      })
+    it('silly things - reading #2', function () {
+      return server.request({ uri: '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd' })
+               .status(403)
+               .body_error(/invalid filename/)
     })
 
-    it('silly things - writing #1', function(cb) {
-      server.put_tarball('testpkg-sec', 'package.json', '{}', function(res, body) {
-        assert.equal(res.statusCode, 403)
-        assert(body.error.match(/invalid filename/))
-        cb()
-      })
+    it('silly things - writing #1', function () {
+      return server.put_tarball('testpkg-sec', 'package.json', '{}')
+               .status(403)
+               .body_error(/invalid filename/)
     })
 
-    it('silly things - writing #3', function(cb) {
-      server.put_tarball('testpkg-sec', 'node_modules', '{}', function(res, body) {
-        assert.equal(res.statusCode, 403)
-        assert(body.error.match(/invalid filename/))
-        cb()
-      })
+    it('silly things - writing #3', function () {
+      return server.put_tarball('testpkg-sec', 'node_modules', '{}')
+               .status(403)
+               .body_error(/invalid filename/)
     })
 
-    it('silly things - writing #4', function(cb) {
-      server.put_tarball('testpkg-sec', '../testpkg.tgz', '{}', function(res, body) {
-        assert.equal(res.statusCode, 403)
-        assert(body.error.match(/invalid filename/))
-        cb()
-      })
+    it('silly things - writing #4', function () {
+      return server.put_tarball('testpkg-sec', '../testpkg.tgz', '{}')
+               .status(403)
+               .body_error(/invalid filename/)
     })
   })
 }

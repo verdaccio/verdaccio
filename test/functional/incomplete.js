@@ -31,7 +31,7 @@ module.exports = function() {
       })
     })
 
-    ;['content-length', 'chunked'].forEach(function(type) {
+    ;[ 'content-length', 'chunked' ].forEach(function(type) {
       it('should not store tarballs / ' + type, function(_cb) {
         var called
         express.get('/testexp-incomplete/-/'+type+'.tar.gz', function(_, res) {
@@ -46,18 +46,19 @@ module.exports = function() {
           }, 10)
         })
 
-        server.request({uri:'/testexp-incomplete/-/'+type+'.tar.gz'}, function(err, res, body) {
-          assert.equal(err, null)
-          if (type !== 'chunked') assert.equal(res.headers['content-length'], 1e6)
-          assert(body.match(/test test test/))
-        })
+        server.request({ uri: '/testexp-incomplete/-/'+type+'.tar.gz' })
+          .status(200)
+          .response(function (res) {
+            if (type !== 'chunked') assert.equal(res.headers['content-length'], 1e6)
+          })
+          .then(function (body) {
+             assert(body.match(/test test test/))
+          })
 
         function cb() {
-          server.request({uri:'/testexp-incomplete/-/'+type+'.tar.gz'}, function(err, res, body) {
-            assert.equal(err, null)
-            assert.equal(body.error, 'internal server error')
-            _cb()
-          })
+          server.request({ uri: '/testexp-incomplete/-/'+type+'.tar.gz' })
+            .body_error('internal server error')
+            .then(function () { _cb() })
         }
       })
     })

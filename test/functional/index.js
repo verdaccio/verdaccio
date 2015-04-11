@@ -1,5 +1,6 @@
-require('es6-shim')
+//require('es6-shim')
 require('./lib/startup')
+var Promise = require('bluebird')
 
 var assert = require('assert')
 var async  = require('async')
@@ -9,38 +10,37 @@ describe('Func', function() {
   var server = process.server
   var server2 = process.server2
 
-  before(function(cb) {
+  before(function (cb) {
     async.parallel([
-      function(cb) {
+      function (cb) {
         require('./lib/startup').start('./test-storage', './config-1.yaml', cb)
       },
-      function(cb) {
+      function (cb) {
         require('./lib/startup').start('./test-storage2', './config-2.yaml', cb)
       },
     ], cb)
   })
 
-  before(function(cb) {
-    async.map([server, server2], function(server, cb) {
-      server.debug(function(res, body) {
+  before(function() {
+    return Promise.all([ server, server2 ].map(function(server) {
+      return server.debug().status(200).then(function (body) {
         server.pid = body.pid
-        exec('lsof -p ' + Number(server.pid), function(err, result) {
-          assert.equal(err, null)
-          server.fdlist = result.replace(/ +/g, ' ')
-          cb()
+
+        return new Promise(function (resolve, reject) {
+          exec('lsof -p ' + Number(server.pid), function(err, result) {
+            assert.equal(err, null)
+            server.fdlist = result.replace(/ +/g, ' ')
+            resolve()
+          })
         })
       })
-    }, cb)
+    }))
   })
 
-  before(function auth(cb) {
-    async.map([server, server2], function(server, cb) {
-      server.auth('test', 'test', function(res, body) {
-        assert.equal(res.statusCode, 201)
-        assert.notEqual(body.ok.indexOf("'test'"), -1)
-        cb()
-      })
-    }, cb)
+  before(function auth() {
+    return Promise.all([ server, server2 ].map(function(server, cb) {
+      return server.auth('test', 'test').status(201).body_ok(/'test'/)
+    }))
   })
 
   it('authenticate', function(){/* test for before() */})
@@ -61,8 +61,8 @@ describe('Func', function() {
   require('./addtag')()
   require('./plugins')()
 
-  after(function(cb) {
-    async.map([server, server2], function(server, cb) {
+  after(function (cb) {
+    async.map([ server, server2 ], function(server, cb) {
       exec('lsof -p ' + Number(server.pid), function(err, result) {
         assert.equal(err, null)
         result = result.split('\n').filter(function(q) {
@@ -76,6 +76,12 @@ describe('Func', function() {
         cb()
       })
     }, cb)
+  })
+})
+
+process.on('unhandledRejection', function (err) {
+  process.nextTick(function () {
+    throw err
   })
 })
 

@@ -40,31 +40,26 @@ module.exports = function() {
         }, 200)
       }
 
-      server.request({uri:'/testexp-racycrash/-/test.tar.gz'}, function(err, res, body) {
-        assert.equal(err, null)
-        assert.equal(body, 'test test test\n')
-      })
+       server.request({ uri: '/testexp-racycrash/-/test.tar.gz' })
+         .then(function (body) {
+           assert.equal(body, 'test test test\n')
+         })
 
       function cb() {
         // test for NOT crashing
-        server.request({uri:'/testexp-racycrash'}, function(err, res, body) {
-          assert.equal(err, null)
-          assert.equal(res.statusCode, 200)
-          _cb()
-        })
+        server.request({ uri: '/testexp-racycrash' })
+          .status(200)
+          .then(function () { _cb() })
       }
     })
 
-    it('should not store tarball', function(cb) {
+    it('should not store tarball', function () {
       on_tarball = function(res) {
         res.socket.destroy()
       }
 
-      server.request({uri:'/testexp-racycrash/-/test.tar.gz'}, function(err, res, body) {
-        assert.equal(err, null)
-        assert.equal(body.error, 'internal server error')
-        cb()
-      })
+      return server.request({ uri: '/testexp-racycrash/-/test.tar.gz' })
+               .body_error('internal server error')
     })
   })
 }

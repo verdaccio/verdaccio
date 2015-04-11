@@ -8,12 +8,10 @@ module.exports = function() {
   var server = process.server
   var server2 = process.server2
 
-  it('testing anti-loop', function(cb) {
-    server2.get_package('testloop', function(res, body) {
-      assert.equal(res.statusCode, 404)
-      assert(~body.error.indexOf('no such package'))
-      cb()
-    })
+  it('testing anti-loop', function () {
+    return server2.get_package('testloop')
+             .status(404)
+             .body_error(/no such package/)
   })
 
   ;['fwd', /*'loop'*/].forEach(function(pkg) {
@@ -21,50 +19,42 @@ module.exports = function() {
     pkg = 'test' + pkg
 
     describe(pkg, function() {
-      before(function(cb) {
-        server.put_package(pkg, require('./lib/package')(pkg), function(res, body) {
-          assert.equal(res.statusCode, 201)
-          assert(~body.ok.indexOf('created new package'))
-          cb()
-        })
+      before(function () {
+        return server.put_package(pkg, require('./lib/package')(pkg))
+                 .status(201)
+                 .body_ok(/created new package/)
       })
 
       it(prefix+'creating new package', function(){})
 
       describe(pkg, function() {
-        before(function(cb) {
-          server.put_version(pkg, '0.1.1', require('./lib/package')(pkg), function(res, body) {
-            assert.equal(res.statusCode, 201)
-            assert(~body.ok.indexOf('published'))
-            cb()
-          })
+        before(function () {
+          return server.put_version(pkg, '0.1.1', require('./lib/package')(pkg))
+                   .status(201)
+                   .body_ok(/published/)
         })
 
         it(prefix+'uploading new package version', function(){})
 
-        it(prefix+'uploading incomplete tarball', function(cb) {
-          server.put_tarball_incomplete(pkg, pkg+'.bad', readfile('fixtures/binary'), 3000, function(res, body) {
-            cb()
-          })
+        it(prefix+'uploading incomplete tarball', function () {
+          return server.put_tarball_incomplete(pkg, pkg+'.bad', readfile('fixtures/binary'), 3000)
         })
 
         describe('tarball', function() {
-          before(function(cb) {
-            server.put_tarball(pkg, pkg+'.file', readfile('fixtures/binary'), function(res, body) {
-              assert.equal(res.statusCode, 201)
-              assert(body.ok)
-              cb()
-            })
+          before(function () {
+            return server.put_tarball(pkg, pkg+'.file', readfile('fixtures/binary'))
+                     .status(201)
+                     .body_ok(/.*/)
           })
 
           it(prefix+'uploading new tarball', function(){})
 
-          it(prefix+'downloading tarball from server1', function(cb) {
-            server.get_tarball(pkg, pkg+'.file', function(res, body) {
-              assert.equal(res.statusCode, 200)
-              assert.deepEqual(body, readfile('fixtures/binary').toString('utf8'))
-              cb()
-            })
+          it(prefix+'downloading tarball from server1', function () {
+            return server.get_tarball(pkg, pkg+'.file')
+                     .status(200)
+                     .then(function (body) {
+                       assert.deepEqual(body, readfile('fixtures/binary').toString('utf8'))
+                     })
           })
         })
       })

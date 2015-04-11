@@ -6,25 +6,27 @@ module.exports = function() {
   var server  = process.server
 
   describe('race', function() {
-    before(function(cb) {
-      server.put_package('race', require('./lib/package')('race'), function(res, body) {
-        assert.equal(res.statusCode, 201)
-        assert(~body.ok.indexOf('created new package'))
-        cb()
-      })
+    before(function () {
+      return server.put_package('race', require('./lib/package')('race'))
+               .status(201)
+               .body_ok(/created new package/)
     })
 
     it('creating new package', function(){})
 
-    it('uploading 10 same versions', function(cb) {
+    it('uploading 10 same versions', function (callback) {
       var fns = []
       for (var i=0; i<10; i++) {
         fns.push(function(cb_) {
           var data = require('./lib/package')('race')
           data.rand = Math.random()
-          server.put_version('race', '0.0.1', data, function(res, body) {
-            cb_(null, res, body)
-          })
+
+          var _res
+          server.put_version('race', '0.0.1', data)
+            .response(function (res) { _res = res })
+            .then(function (body) {
+              cb_(null, [ _res, body ])
+            })
         })
       }
 
@@ -46,18 +48,21 @@ module.exports = function() {
         assert.equal(okcount, 1)
         _oksum += okcount
 
-        cb()
+        callback()
       })
     })
 
-    it('uploading 10 diff versions', function(cb) {
+    it('uploading 10 diff versions', function (callback) {
       var fns = []
       for (var i=0; i<10; i++) {
         ;(function(i) {
           fns.push(function(cb_) {
-            server.put_version('race', '0.1.'+String(i), require('./lib/package')('race'), function(res, body) {
-              cb_(null, res, body)
-            })
+            var _res
+            server.put_version('race', '0.1.'+String(i), require('./lib/package')('race'))
+              .response(function (res) { _res = res })
+              .then(function (body) {
+                cb_(null, [ _res, body ])
+              })
           })
         })(i)
       }
@@ -75,19 +80,19 @@ module.exports = function() {
           if (resp.statusCode === 503 && ~body.error.indexOf('unavailable')) failcount++
         })
         assert.equal(okcount + failcount, 10)
+        assert.notEqual(okcount, 1)
         _oksum += okcount
 
-        cb()
+        callback()
       })
     })
 
-    // XXX: this should be after anything else, but we can't really ensure that with mocha
-    it('downloading package', function(cb) {
-      server.get_package('race', function(res, body) {
-        assert.equal(res.statusCode, 200)
-        assert.equal(Object.keys(body.versions).length, _oksum)
-        cb()
-      })
+    after('downloading package', function () {
+      return server.get_package('race')
+               .status(200)
+               .then(function (body) {
+                 assert.equal(Object.keys(body.versions).length, _oksum)
+               })
     })
   })
 }
