@@ -1,4 +1,9 @@
 
+22 Apr 2015, version 1.2.2
+
+- fix access control regression in `1.2.1` (issue [#238](https://github.com/rlidwka/sinopia/issues/238))
+- add a possibility to bind on unix sockets (issue [#237](https://github.com/rlidwka/sinopia/issues/237))
+
 11 Apr 2015, version 1.2.1
 
 - added more precise authorization control to auth plugins (issue [#207](https://github.com/rlidwka/sinopia/pull/207))
