@@ -56,6 +56,26 @@ packages:
     allow_publish: all
     proxy_access: baduplink
 
+  'test-access-only':
+    allow_access: $all
+    allow_publish: nobody
+    storage: false
+
+  'test-publish-only':
+    allow_access: nobody
+    allow_publish: $all
+    storage: false
+
+  'test-only-test':
+    allow_access: test
+    allow_publish: test
+    storage: false
+
+  'test-only-auth':
+    allow_access: $authenticated
+    allow_publish: $authenticated
+    storage: false
+
   '*':
     allow_access: test undefined
     allow_publish: test undefined

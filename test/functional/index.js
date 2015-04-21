@@ -45,6 +45,7 @@ describe('Func', function() {
 
   it('authenticate', function(){/* test for before() */})
 
+  require('./access')()
   require('./basic')()
   require('./gh29')()
   require('./tags')()
