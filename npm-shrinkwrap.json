@@ -6,7 +6,7 @@
       "version": "0.9.0"
     },
     "body-parser": {
-      "version": "1.12.2",
+      "version": "1.12.3",
       "dependencies": {
         "bytes": {
           "version": "1.0.0"
@@ -26,10 +26,10 @@
           "version": "1.0.1"
         },
         "iconv-lite": {
-          "version": "0.4.7"
+          "version": "0.4.8"
         },
         "on-finished": {
-          "version": "2.2.0",
+          "version": "2.2.1",
           "dependencies": {
             "ee-first": {
               "version": "1.1.0"
@@ -40,7 +40,7 @@
           "version": "2.4.1"
         },
         "raw-body": {
-          "version": "1.3.3"
+          "version": "1.3.4"
         },
         "type-is": {
           "version": "1.6.1",
@@ -49,10 +49,10 @@
               "version": "0.3.0"
             },
             "mime-types": {
-              "version": "2.0.10",
+              "version": "2.0.11",
               "dependencies": {
                 "mime-db": {
-                  "version": "1.8.0"
+                  "version": "1.9.1"
                 }
               }
             }
@@ -61,7 +61,7 @@
       }
     },
     "bunyan": {
-      "version": "1.3.4",
+      "version": "1.3.5",
       "dependencies": {
         "dtrace-provider": {
           "version": "0.4.0",
@@ -88,7 +88,7 @@
       }
     },
     "commander": {
-      "version": "2.7.1",
+      "version": "2.8.1",
       "dependencies": {
         "graceful-readlink": {
           "version": "1.0.1"
@@ -99,18 +99,18 @@
       "version": "1.4.3",
       "dependencies": {
         "accepts": {
-          "version": "1.2.5",
+          "version": "1.2.6",
           "dependencies": {
             "mime-types": {
-              "version": "2.0.10",
+              "version": "2.0.11",
               "dependencies": {
                 "mime-db": {
-                  "version": "1.8.0"
+                  "version": "1.9.1"
                 }
               }
             },
             "negotiator": {
-              "version": "0.5.1"
+              "version": "0.5.2"
             }
           }
         },
@@ -121,7 +121,7 @@
           "version": "2.0.2",
           "dependencies": {
             "mime-db": {
-              "version": "1.8.0"
+              "version": "1.9.1"
             }
           }
         },
@@ -150,10 +150,10 @@
       }
     },
     "crypt3": {
-      "version": "0.1.7",
+      "version": "0.1.8",
       "dependencies": {
         "nan": {
-          "version": "1.7.0"
+          "version": "1.8.4"
         }
       }
     },
@@ -167,10 +167,10 @@
           "version": "1.1.4",
           "dependencies": {
             "mime-types": {
-              "version": "2.0.10",
+              "version": "2.0.11",
               "dependencies": {
                 "mime-db": {
-                  "version": "1.8.0"
+                  "version": "1.9.1"
                 }
               }
             },
@@ -271,10 +271,10 @@
           "version": "1.5.7",
           "dependencies": {
             "mime-types": {
-              "version": "2.0.10",
+              "version": "2.0.11",
               "dependencies": {
                 "mime-db": {
-                  "version": "1.8.0"
+                  "version": "1.9.1"
                 }
               }
             }
@@ -298,13 +298,13 @@
       "version": "0.1.0",
       "dependencies": {
         "raw-body": {
-          "version": "1.3.3",
+          "version": "1.3.4",
           "dependencies": {
             "bytes": {
               "version": "1.0.0"
             },
             "iconv-lite": {
-              "version": "0.4.7"
+              "version": "0.4.8"
             }
           }
         }
@@ -325,7 +325,7 @@
           "version": "0.3.7",
           "dependencies": {
             "wordwrap": {
-              "version": "0.0.2"
+              "version": "0.0.3"
             }
           }
         },
@@ -365,13 +365,13 @@
       "version": "1.2.0"
     },
     "js-yaml": {
-      "version": "3.2.7",
+      "version": "3.3.0",
       "dependencies": {
         "argparse": {
           "version": "1.0.2",
           "dependencies": {
             "lodash": {
-              "version": "3.6.0"
+              "version": "3.8.0"
             },
             "sprintf-js": {
               "version": "1.0.2"
@@ -379,18 +379,18 @@
           }
         },
         "esprima": {
-          "version": "2.0.0"
+          "version": "2.2.0"
         }
       }
     },
     "lunr": {
-      "version": "0.5.8"
+      "version": "0.5.9"
     },
     "minimatch": {
       "version": "1.0.0",
       "dependencies": {
         "lru-cache": {
-          "version": "2.5.2"
+          "version": "2.6.2"
         },
         "sigmund": {
           "version": "1.0.0"
@@ -409,13 +409,13 @@
       "version": "1.3.0",
       "dependencies": {
         "markdown-it": {
-          "version": "4.1.0",
+          "version": "4.2.1",
           "dependencies": {
             "argparse": {
               "version": "1.0.2",
               "dependencies": {
                 "lodash": {
-                  "version": "3.6.0"
+                  "version": "3.8.0"
                 },
                 "sprintf-js": {
                   "version": "1.0.2"
@@ -426,7 +426,7 @@
               "version": "1.1.1"
             },
             "linkify-it": {
-              "version": "1.0.0"
+              "version": "1.1.0"
             },
             "mdurl": {
               "version": "1.0.0"
@@ -487,7 +487,7 @@
               }
             },
             "lodash": {
-              "version": "2.4.1"
+              "version": "2.4.2"
             },
             "regexp-quote": {
               "version": "0.0.0"
@@ -534,10 +534,10 @@
           "version": "5.0.0"
         },
         "mime-types": {
-          "version": "2.0.10",
+          "version": "2.0.11",
           "dependencies": {
             "mime-db": {
-              "version": "1.8.0"
+              "version": "1.9.1"
             }
           }
         },
@@ -545,18 +545,13 @@
           "version": "1.4.3"
         },
         "qs": {
-          "version": "2.4.1"
+          "version": "2.4.2"
         },
         "tunnel-agent": {
           "version": "0.4.0"
         },
         "tough-cookie": {
-          "version": "0.12.1",
-          "dependencies": {
-            "punycode": {
-              "version": "1.3.2"
-            }
-          }
+          "version": "1.1.0"
         },
         "http-signature": {
           "version": "0.10.1",
@@ -579,10 +574,10 @@
           "version": "2.3.1",
           "dependencies": {
             "hoek": {
-              "version": "2.12.0"
+              "version": "2.13.0"
             },
             "boom": {
-              "version": "2.7.0"
+              "version": "2.7.1"
             },
             "cryptiles": {
               "version": "2.0.4"
@@ -610,10 +605,10 @@
           "version": "0.1.2"
         },
         "har-validator": {
-          "version": "1.6.1",
+          "version": "1.7.0",
           "dependencies": {
             "bluebird": {
-              "version": "2.9.24"
+              "version": "2.9.25"
             },
             "chalk": {
               "version": "1.0.0",
@@ -675,7 +670,7 @@
       }
     },
     "semver": {
-      "version": "4.3.3"
+      "version": "4.3.4"
     },
     "sinopia-htpasswd": {
       "version": "0.4.5"
