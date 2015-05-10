@@ -1,4 +1,8 @@
 
+10 May 2015, version 1.3.0
+
+- add dist-tags endpoints (issue [#211](https://github.com/rlidwka/sinopia/issues/211))
+
 22 Apr 2015, version 1.2.2
 
 - fix access control regression in `1.2.1` (issue [#238](https://github.com/rlidwka/sinopia/issues/238))
