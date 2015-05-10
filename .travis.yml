@@ -3,7 +3,11 @@ node_js:
   - '0.10'
   - '0.12'
   - 'iojs-1.0'
-  - 'iojs-1.6'
+  - 'iojs-1.8'
   - 'iojs'
 sudo: false
+matrix:
+  allow_failures:
+    - node_js: 'iojs'
+  fast_finish: true
 script: npm install . && npm run test-travis
