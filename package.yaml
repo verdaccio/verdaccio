@@ -39,10 +39,14 @@ dependencies:
   lunr: '>=0.5.2 <1.0.0-0'
   render-readme: '>=0.2.1'
   jju: '1.x'
+  JSONStream: '1.x'
 
   mkdirp: '>=0.3.5 <1.0.0-0'
   sinopia-htpasswd: '>= 0.4.3'
   http-errors: '>=1.2.0'
+
+  # node 0.10 compatibility, should go away soon
+  readable-stream: '~1.1.0'
 
 optionalDependencies:
   # those are native modules that could fail to compile

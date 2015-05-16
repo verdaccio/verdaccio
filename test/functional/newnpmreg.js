@@ -89,11 +89,13 @@ module.exports = function() {
         assert.deepEqual(obj['testpkg-newnpmreg'],
           { name: 'testpkg-newnpmreg',
             description: '',
+            author: '',
+            license: 'ISC',
             'dist-tags': { latest: '0.0.0' },
             maintainers: [ { name: 'alex', email: 'alex@kocharin.ru' } ],
             readmeFilename: '',
             time: { modified: '2014-10-02T07:07:51.000Z' },
-            versions: { '0.0.0': 'latest' },
+            versions: {},
             repository: { type: 'git', url: '' } })
       }
 
