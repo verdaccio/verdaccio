@@ -1,4 +1,10 @@
 
+7 Jun 2015, version 1.4.0
+
+- avoid sending X-Forwarded-For through proxies (issues [#19](https://github.com/rlidwka/sinopia/issues/19), [#254](https://github.com/rlidwka/sinopia/issues/254))
+- fix multiple issues in search (issues [#239](https://github.com/rlidwka/sinopia/issues/239), [#253](https://github.com/rlidwka/sinopia/pull/253))
+- fix "maximum stack trace exceeded" errors in auth (issue [#258](https://github.com/rlidwka/sinopia/issues/258))
+
 10 May 2015, version 1.3.0
 
 - add dist-tags endpoints (issue [#211](https://github.com/rlidwka/sinopia/issues/211))
