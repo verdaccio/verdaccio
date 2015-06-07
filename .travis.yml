@@ -2,8 +2,8 @@ language: node_js
 node_js:
   - '0.10'
   - '0.12'
-  - 'iojs-1.0'
-  - 'iojs-1.8'
+  - '1'
+  - '2'
   - 'iojs'
 sudo: false
 matrix:
