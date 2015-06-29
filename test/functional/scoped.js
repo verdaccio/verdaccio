@@ -65,5 +65,14 @@ module.exports = function() {
                  assert.deepEqual(body['dist-tags'], {latest: '1.0.0'})
                })
     })
+
+    it('server2 - nginx workaround', function () {
+      return server2.request({ uri: '/@test/scoped/1.0.0' })
+               .status(200)
+               .then(function (body) {
+                 assert.equal(body.name, '@test/scoped')
+                 assert.equal(body.dist.tarball, 'http://localhost:55552/@test%2fscoped/-/scoped-1.0.0.tgz')
+               })
+    })
   })
 }
