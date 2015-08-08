@@ -66,7 +66,7 @@ devDependencies:
   #
   # Linting tools
   #
-  eslint: '>= 0.18'
+  eslint: '1 >=1.1.0'
 
   # for debugging memory leaks, it'll be require()'d if
   # installed, but I don't want it to be installed everytime
@@ -99,10 +99,10 @@ keywords:
   - server
 
 scripts:
-  test: eslint --reset . && mocha ./test/functional ./test/unit
-  test-travis: eslint --reset . && mocha -R spec ./test/functional ./test/unit
+  test: eslint . && mocha ./test/functional ./test/unit
+  test-travis: eslint . && mocha -R spec ./test/functional ./test/unit
   test-only: mocha ./test/functional ./test/unit
-  lint: eslint --reset .
+  lint: eslint .
   prepublish: js-yaml package.yaml > package.json
   clean-shrinkwrap: |
     node -e '
