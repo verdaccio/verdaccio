@@ -1,0 +1,9 @@
+{
+  "_id": "_design/nodepackages",
+  "_rev": "1-2b2de5ecb9afdc24a9d6d42f1c90ed06",
+  "views": {
+    "list_node_packages": {
+      "map": "function (doc){\n      var docType = doc['docType'];\n      if(docType == 'package.json'){\n        emit ( doc['package']['name'], doc.timestamp  );\n      }\n}"
+    }
+  }
+}
