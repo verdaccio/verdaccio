@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "JSONStream": "1.x",
+    "agentkeepalive": "^2.0.3",
     "async": ">=0.9.0 <1.0.0-0",
     "body-parser": ">=1.9.2 <2.0.0-0",
     "bunyan": ">=0.22.1 <2.0.0-0",
@@ -34,6 +35,7 @@
     "lunr": ">=0.5.2 <1.0.0-0",
     "minimatch": ">=0.2.14 <2.0.0-0",
     "mkdirp": ">=0.3.5 <1.0.0-0",
+    "nano": "^6.2.0",
     "readable-stream": "~1.1.0",
     "render-readme": ">=0.2.1",
     "request": ">=2.31.0 <3.0.0-0",
