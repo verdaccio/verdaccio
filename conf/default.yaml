@@ -25,7 +25,7 @@ packages:
   '@*/*':
     # scoped packages
     access: $all
-    publish: $authenticated
+    publish: $all
 
   '*':
     # allow all users (including non-authenticated users) to read and
