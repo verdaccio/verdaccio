@@ -1,6 +1,6 @@
 {
   "name": "@pi/sinopia-fork",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Private npm repository server backed with cloudant.",
   "author": {
     "name": "Alex Kocharin",
