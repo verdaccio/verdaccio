@@ -125,3 +125,7 @@ logs:
 # and the highest semver is placed instead.
 #ignore_latest_tag: false
 
+# You can specify outgoing webhook to send notifications on publish and unpublish.
+#webhook:
+#  url: https://webhool.url/
+
