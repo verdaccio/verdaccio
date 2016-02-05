@@ -39,6 +39,7 @@
     "readable-stream": "~1.1.0",
     "render-readme": ">=0.2.1",
     "request": ">=2.31.0 <3.0.0-0",
+    "sync-request": "^3.0.0",
     "semver": ">=2.2.1 <5.0.0-0",
     "sinopia-htpasswd": ">= 0.4.3"
   },
