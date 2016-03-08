@@ -1,15 +1,24 @@
 language: node_js
 node_js:
+  - 'iojs'
   - '0.10'
   - '0.12'
   - '1'
   - '2'
-  - 'iojs'
   - '4'
   - '5'
 sudo: false
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 matrix:
   allow_failures:
+    - node_js: '0.10'
     - node_js: 'iojs'
   fast_finish: true
-script: npm install . && npm run test-travis
+script: npm run test-travis
