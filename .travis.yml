@@ -21,4 +21,4 @@ matrix:
     - node_js: '0.10'
     - node_js: 'iojs'
   fast_finish: true
-script: npm run test-travis
+script: npm install . && npm run test-travis
