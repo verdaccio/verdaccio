@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>{{ name }}</title>
 
-    <link rel="icon" type="image/png" href="{{ baseUrl }}/-/static/favicon.png"/>
-    <link rel="stylesheet" type="text/css" href="{{ baseUrl }}/-/static/main.css">
+    <link rel="icon" type="image/png" href="/-/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/-/static/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body class="body">
@@ -99,7 +99,7 @@
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h5 class="modal-title" id="login-form-label">Welcome back</h5>
           </div>
-          <form role="form" action="{{ baseUrl }}/-/login" method="post" id="login-form" autocomplete="off">
+          <form role="form" action="/-/login" method="post" id="login-form" autocomplete="off">
             <div class="modal-body">
               <div class="form-group">
                 <label for="user" class="sr-only">Email</label>
@@ -119,9 +119,9 @@
       </div>
     </div>
 
-    <form action="{{ baseUrl }}/-/logout" method="post" class="hide" id="userLogoutForm"></form>
+    <form action="/-/logout" method="post" class="hide" id="userLogoutForm"></form>
 
-    <script src="{{ baseUrl }}/-/static/jquery.min.js"></script>
-    <script type='text/javascript' src='{{ baseUrl }}/-/static/main.js'></script>
+    <script src="/-/static/jquery.min.js"></script>
+    <script type='text/javascript' src='/-/static/main.js'></script>
   </body>
 </html>
