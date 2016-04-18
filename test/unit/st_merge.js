@@ -20,24 +20,12 @@ describe('Merge', function() {
   it('dist-tags - compat', function() {
     var x = {
       versions: {},
-      'dist-tags': {q:'1.1.1',w:['2.2.2']},
+      'dist-tags': {q:'1.1.1',w:'2.2.2'},
     }
     merge(x, {'dist-tags':{q:'2.2.2',w:'3.3.3',t:'4.4.4'}})
     assert.deepEqual(x, {
       versions: {},
-      'dist-tags': {q:['1.1.1','2.2.2'],w:['2.2.2','3.3.3'],t:['4.4.4']},
-    })
-  })
-
-  it('dist-tags - sort', function() {
-    var x = {
-      versions: {},
-      'dist-tags': {w:['2.2.2','1.1.1','12.2.2','2.2.2-rc2']},
-    }
-    merge(x, {'dist-tags':{w:'3.3.3'}})
-    assert.deepEqual(x, {
-      versions: {},
-      'dist-tags': {w:["1.1.1","2.2.2-rc2","2.2.2","3.3.3","12.2.2"]},
+      'dist-tags': {q:'2.2.2',w:'3.3.3',t:'4.4.4'},
     })
   })
 

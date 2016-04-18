@@ -9,3 +9,9 @@ bin/**
 test-storage*
 
 node_modules
+
+# Visual Studio Code
+.vscode/*
+.jscsrc
+.jshintrc
+jsconfig.json
