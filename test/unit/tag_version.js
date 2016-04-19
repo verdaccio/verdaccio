@@ -12,7 +12,7 @@ describe('tag_version', function() {
     assert(tag_version(x, '1.1.1', 'foo', {}))
     assert.deepEqual(x, {
       versions: {},
-      'dist-tags': {foo: ['1.1.1']},
+      'dist-tags': {foo: '1.1.1'},
     })
   })
 
@@ -21,35 +21,24 @@ describe('tag_version', function() {
       versions: {},
       'dist-tags': {foo: '1.1.0'},
     }
-    assert(tag_version(x, '1.1.1', 'foo', {}))
+    assert(tag_version(x, '1.1.1', 'foo'))
     assert.deepEqual(x, {
       versions: {},
-      'dist-tags': {foo: ['1.1.0', '1.1.1']},
+      'dist-tags': {foo: '1.1.1'},
     })
   })
 
   it('add fresh tag', function() {
     var x = {
       versions: {},
-      'dist-tags': {foo: ['1.1.0']},
+      'dist-tags': {foo: '1.1.0'},
     }
-    assert(tag_version(x, '1.1.1', 'foo', {}))
+    assert(tag_version(x, '1.1.1', 'foo'))
     assert.deepEqual(x, {
       versions: {},
-      'dist-tags': {foo: ['1.1.0', '1.1.1']},
+      'dist-tags': {foo: '1.1.1'},
     })
   })
 
-  it('add stale tag', function() {
-    var x = {
-      versions: {},
-      'dist-tags': {foo: ['1.1.2']},
-    }
-    assert(!tag_version(x, '1.1.1', 'foo', {}))
-    assert.deepEqual(x, {
-      versions: {},
-      'dist-tags': {foo: ['1.1.1', '1.1.2']},
-    })
-  })
 })
 
