@@ -125,3 +125,13 @@ logs:
 # and the highest semver is placed instead.
 #ignore_latest_tag: false
 
+
+# notify settings
+notify:
+  method: POST #or GET
+  headers: [{'Content-type': 'application/x-www-form-urlencoded'}] # Array of objects
+  endpoint: https://hooks.slack.com/... # URL of service consuming data
+  # The "content" is a text string that is manipulated by a Handlerbar interpretter.
+  # Anything with the "metadata" object are available here.
+  content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Sinopia", "icon_emoji": ":package:" }'
+
