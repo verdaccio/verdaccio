@@ -34,7 +34,6 @@ packages:
     # you can specify usernames/groupnames (depending on your auth plugin)
     # and three keywords: "$all", "$anonymous", "$authenticated"
     access: $all
-    publish: $all
 
     # allow all known users to publish packages
     # (anyone can register by default, remember?)
