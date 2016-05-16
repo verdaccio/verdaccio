@@ -49,7 +49,15 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ### Docker
 
-A Sinopia docker image [is available](https://registry.hub.docker.com/u/keyvanfatehi/sinopia/)
+`docker build -t verdaccio .`
+
+```
+docker run -it --rm --name verdaccio -p 4873:4873 \
+  -v /<path to verdaccio directory>/conf:/verdaccio/conf \
+  -v /<path to verdaccio directory>/storage:/verdaccio/storage \
+  -v /<path to verdaccio directory>/local_storage:/verdaccio/local_storage \
+  verdaccio
+```
 
 ### Chef
 
