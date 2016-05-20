@@ -119,3 +119,25 @@ logs:
 # maximum size of uploaded json document
 # increase it if you have "request entity too large" errors
 #max_body_size: 1mb
+
+# Notify Settings
+# Notify was built primarily to use with Slack's Incoming
+# webhooks, but will also deliver a simple payload to
+# any endpoint. Currently only active for publish / create
+# commands.
+notify:
+  # Choose a method. Technically this will accept any HTTP
+  # request method, but probably stick to GET or POST
+  method: POST
+  # If this endpoint requires specific headers, set them here
+  # as an array of key: value objects.
+  headers: [{'Content-type': 'application/x-www-form-urlencoded'}]
+  # set the URL endpoint for this call
+  endpoint: https://hooks.slack.com/...
+  # Finally, the content you will be sending in the body.
+  # This data will first be run through Handlebars to parse
+  # any Handlebar expressions. All data housed in the metadata object
+  # is available for use within the expressions.
+  content: ' {{ handlebar-expression }}'
+  # For Slack, follow the following format:
+  # content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Verdaccio", "icon_emoji": ":package:" }'
