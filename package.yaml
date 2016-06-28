@@ -1,7 +1,7 @@
 # # use "yapm install ." if you're installing this from git repository
 #
-# name: @pi/sinopia-fork
-# version: 2.0.0
+# name: sinopia
+# version: 1.4.0
 # description: Private npm repository server backed with cloudant.
 #
 # author:

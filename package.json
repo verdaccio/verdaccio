@@ -1,14 +1,14 @@
 {
-  "name": "@pi/sinopia-fork",
-  "version": "2.1.2",
-  "description": "Private npm repository server backed with cloudant.",
+  "name": "sinopia",
+  "version": "1.4.0",
+  "description": "Private npm repository server.",
   "author": {
     "name": "Alex Kocharin",
     "email": "alex@kocharin.ru"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.ibm.com:PresenceInsights/sinopia-fork.git"
+    "url": "git@github.com:aeweidne/sinopia.git"
   },
   "main": "index.js",
   "bin": {
@@ -82,9 +82,6 @@
     "node": ">=0.10"
   },
   "preferGlobal": true,
-  "publishConfig": {
-    "registry": "http://pi-npm.mybluemix.net/"
-  },
   "license": {
     "type": "WTFPL",
     "url": "http://www.wtfpl.net/txt/copying/"
