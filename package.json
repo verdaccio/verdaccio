@@ -12,7 +12,7 @@
   },
   "main": "index.js",
   "bin": {
-    "sinopia": "./bin/sinopia"
+    "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
     "JSONStream": "^1.1.1",
