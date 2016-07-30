@@ -76,6 +76,7 @@ Server.prototype.get_tarball = function(name, filename) {
   return this.request({
     uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename),
     method: 'GET',
+    encoding: null
   })
 }
 

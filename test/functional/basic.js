@@ -43,7 +43,7 @@ module.exports = function () {
         return server.get_tarball('testpkg', 'blahblah')
                  .status(200)
                  .then(function (body) {
-                   assert.deepEqual(body, readfile('fixtures/binary').toString('utf8'))
+                   assert.deepEqual(body, readfile('fixtures/binary'))
                  })
       })
 

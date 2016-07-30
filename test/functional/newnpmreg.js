@@ -32,7 +32,7 @@ module.exports = function() {
                .status(200)
                .then(function (body) {
                  // not real sha due to utf8 conversion
-                 assert.strictEqual(sha(body), '789ca61e3426ce55c4983451b58e62b04abceaf6')
+                 assert.strictEqual(sha(body), '8ee7331cbc641581b1a8cecd9d38d744a8feb863')
                })
     })
 
@@ -41,7 +41,7 @@ module.exports = function() {
                .status(200)
                .then(function (body) {
                  // not real sha due to utf8 conversion
-                 assert.strictEqual(sha(body), '789ca61e3426ce55c4983451b58e62b04abceaf6')
+                 assert.strictEqual(sha(body), '8ee7331cbc641581b1a8cecd9d38d744a8feb863')
                })
     })
 
