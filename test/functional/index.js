@@ -59,6 +59,7 @@ describe('Func', function() {
   require('./scoped')()
   require('./security')()
   require('./adduser')()
+  require('./logout')()
   require('./addtag')()
   require('./plugins')()
 
@@ -85,4 +86,3 @@ process.on('unhandledRejection', function (err) {
     throw err
   })
 })
-
