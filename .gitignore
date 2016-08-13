@@ -3,7 +3,6 @@ sinopia-*.tgz
 .DS_Store
 
 ###
-bin/**
 !bin/sinopia
 test-storage*
 
