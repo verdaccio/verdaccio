@@ -39,7 +39,7 @@ describe('toplevel', function() {
       url: 'http://localhost:' + port + '/',
     }, function(err, res, body) {
       assert.equal(err, null)
-      assert(body.match(/<title>Sinopia<\/title>/))
+      assert(body.match(/<title>Verdaccio<\/title>/))
       done()
     })
   })
