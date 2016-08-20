@@ -17,7 +17,7 @@ web:
   # this has a lot of issues, e.g. no auth yet, so use at your own risk
   #enable: true
 
-  title: Sinopia
+  title: Verdaccio
   # logo: logo.png
   # template: custom.hbs
 
@@ -78,10 +78,10 @@ packages:
 #####################################################################
 
 # if you use nginx with custom path, use this to override links
-#url_prefix: https://dev.company.local/sinopia/
+#url_prefix: https://dev.company.local/verdaccio/
 
 # You can specify listen address (or simply a port).
-# If you add multiple values, sinopia will listen on all of them.
+# If you add multiple values, verdaccio will listen on all of them.
 #
 # Examples:
 #
@@ -91,7 +91,7 @@ packages:
 # - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
 # - https://example.org:4873  # if you want to use https
 # - [::1]:4873                # ipv6
-# - unix:/tmp/sinopia.sock    # unix socket
+# - unix:/tmp/verdaccio.sock    # unix socket
 
 # Configure HTTPS, it is required if you use "https" protocol above.
 #https:
@@ -102,13 +102,13 @@ packages:
 # level: trace | debug | info | http (default) | warn | error | fatal
 #
 # parameters for file: name is filename
-#  {type: 'file', path: 'sinopia.log', level: 'debug'},
+#  {type: 'file', path: 'verdaccio.log', level: 'debug'},
 #
 # parameters for stdout and stderr: format: json | pretty
 #  {type: 'stdout', format: 'pretty', level: 'debug'},
 logs:
   - {type: stdout, format: pretty, level: http}
-  #- {type: file, path: sinopia.log, level: info}
+  #- {type: file, path: verdaccio.log, level: info}
 
 # you can specify proxy used with all requests in wget-like manner here
 # (or set up ENV variables with the same name)
