@@ -14,6 +14,10 @@ uplinks:
 web:
   enable: true
 
+middlewares:
+  ./plugins/middlewares:
+    message: this is a custom route
+
 auth:
   ./plugins/authenticate:
     accept_user: authtest2

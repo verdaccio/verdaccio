@@ -5,6 +5,17 @@ var assert = require('assert')
 module.exports = function() {
   var server2 = process.server2
 
+  describe('middlewares', function() {
+    it('should serve the registered route', function() {
+      return server2.request({
+        uri: '/test/route',
+        method: 'GET'
+      })
+      .status(200)
+      .body_ok('this is a custom route')
+    })
+  })
+
   describe('authentication', function() {
     var authstr
 
