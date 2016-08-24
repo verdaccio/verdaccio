@@ -4,7 +4,7 @@
 
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
 
-It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Sinopia keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
+It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
 <p align="center"><img src="https://f.cloud.github.com/assets/999113/1795553/680177b2-6a1d-11e3-82e1-02193aa4e32e.png"></p>
 
@@ -34,8 +34,8 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 ```bash
 # installation and starting (application will create default
 # config in config.yaml you can edit later)
-$ npm install -g sinopia
-$ sinopia
+$ npm install -g verdaccio
+$ verdaccio
 
 # npm configuration
 $ npm set registry http://localhost:4873/
@@ -77,7 +77,7 @@ When you start a server, it auto-creates a config file.
 npm adduser --registry http://localhost:4873/
 ```
 
-This will prompt you for user credentials which will be saved on the Sinopia server.
+This will prompt you for user credentials which will be saved on the Verdaccio server.
 
 ## Using private packages
 
@@ -87,7 +87,7 @@ It is recommended that you define a prefix for your private packages, for exampl
 
 ## Using public packages from npmjs.org
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Sinopia will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
 
 Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
 
@@ -99,7 +99,7 @@ There's two options here:
 
 1. You want to create a separate fork and stop synchronizing with public version.
 
-   If you want to do that, you should modify your configuration file so sinopia won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy_access` list and restart the server.
+   If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy_access` list and restart the server.
 
    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
@@ -109,7 +109,7 @@ There's two options here:
 
 ## Compatibility
 
-Sinopia aims to support all features of a standard npm client that make sense to support in private repository. Unfortunately, it isn't always possible.
+Verdaccio aims to support all features of a standard npm client that make sense to support in private repository. Unfortunately, it isn't always possible.
 
 Basic features:
 
@@ -125,7 +125,7 @@ Advanced package control:
 User management:
 
 - Registering new users (npm adduser {newuser}) - supported
-- Transferring ownership (npm owner add {user} {pkg}) - not supported, sinopia uses its own acl management system
+- Transferring ownership (npm owner add {user} {pkg}) - not supported, verdaccio uses its own acl management system
 
 Misc stuff:
 
