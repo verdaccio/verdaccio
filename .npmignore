@@ -1,10 +1,6 @@
 node_modules
 npm-debug.log
 sinopia-*.tgz
-
-###
-bin/**
-!bin/sinopia
+verdaccio-*.tgz
 test-storage*
-
 /.*
