@@ -43,6 +43,13 @@ Server.prototype.auth = function(user, pass) {
   })
 }
 
+Server.prototype.logout = function(token) {
+  return this.request({
+    uri: '/-/user/token/'+encodeURIComponent(token),
+    method: 'DELETE'
+  })
+}
+
 Server.prototype.get_package = function(name) {
   return this.request({
     uri: '/'+encodeURIComponent(name),
