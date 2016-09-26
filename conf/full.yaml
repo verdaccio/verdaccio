@@ -60,7 +60,7 @@ packages:
   #  # you can override storage directory for a group of packages this way:
   #  storage: 'local_storage'
 
-  '*':
+  '**':
     # allow all users to read packages (including non-authenticated users)
     #
     # you can specify usernames/groupnames (depending on your auth plugin)
