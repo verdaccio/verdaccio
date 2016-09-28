@@ -1,10 +1,7 @@
 FROM node:6.1.0-onbuild
 
-RUN adduser --disabled-password --gecos "" verdaccio && \
-  mkdir -p /verdaccio/storage /verdaccio/conf && \
-  chown -R verdaccio.verdaccio /verdaccio
+RUN mkdir -p /verdaccio/storage /verdaccio/conf
 
-USER verdaccio
 WORKDIR /verdaccio
 
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
