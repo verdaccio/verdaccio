@@ -13,4 +13,4 @@ EXPOSE 4873
 
 VOLUME ["/verdaccio/conf", "/verdaccio/storage"]
 
-CMD ["/usr/src/app/bin/sinopia", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:4873"]
+CMD ["/usr/src/app/bin/verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:4873"]
