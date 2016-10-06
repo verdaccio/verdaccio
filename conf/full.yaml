@@ -104,7 +104,7 @@ packages:
 # parameters for file: name is filename
 #  {type: 'file', path: 'verdaccio.log', level: 'debug'},
 #
-# parameters for stdout and stderr: format: json | pretty
+# parameters for stdout and stderr: format: json | pretty | pretty-timestamped
 #  {type: 'stdout', format: 'pretty', level: 'debug'},
 logs:
   - {type: stdout, format: pretty, level: http}
