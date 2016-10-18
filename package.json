@@ -1,0 +1,83 @@
+{
+  "name": "verdaccio",
+  "version": "2.1.0",
+  "description": "Private npm repository server",
+  "author": {
+    "name": "Alex Kocharin",
+    "email": "alex@kocharin.ru"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "main": "index.js",
+  "bin": {
+    "verdaccio": "./bin/verdaccio"
+  },
+  "dependencies": {
+    "JSONStream": "^1.1.1",
+    "async": "^2.0.1",
+    "body-parser": "^1.15.0",
+    "bunyan": "^1.8.0",
+    "commander": "^2.9.0",
+    "compression": "^1.6.1",
+    "cookies": "^0.6.1",
+    "es6-shim": "^0.35.0",
+    "express": "^4.13.4",
+    "handlebars": "^4.0.5",
+    "highlight.js": "^9.3.0",
+    "http-errors": "^1.4.0",
+    "jju": "^1.3.0",
+    "js-yaml": "^3.6.0",
+    "lockfile": "^1.0.1",
+    "lunr": "^0.7.0",
+    "minimatch": "^3.0.0",
+    "mkdirp": "^0.5.1",
+    "pkginfo": "^0.4.0",
+    "readable-stream": "^2.1.2",
+    "render-readme": "^1.3.1",
+    "request": "^2.72.0",
+    "semver": "^5.1.0",
+    "symbol": "^0.2.1",
+    "unix-crypt-td-js": "^1.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.5.2",
+    "bluebird": "^3.3.5",
+    "mocha": "^2.4.5",
+    "eslint": "^2.9.0",
+    "browserify": "^13.0.0",
+    "browserify-handlebars": "^1.0.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-less": "^1.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "unopinionate": "^0.0.4",
+    "onclick": "^0.1.0",
+    "transition-complete": "^0.0.2"
+  },
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "modules",
+    "proxy",
+    "server"
+  ],
+  "scripts": {
+    "test": "eslint . && mocha ./test/functional ./test/unit",
+    "test-travis": "eslint . && mocha -R spec ./test/functional ./test/unit",
+    "test-only": "mocha ./test/functional ./test/unit",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "preferGlobal": true,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "WTFPL"
+}

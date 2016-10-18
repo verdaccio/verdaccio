@@ -17,7 +17,7 @@ module.exports.start = function start(dir, conf, cb) {
       return x !== '--debug-brk'
     })
 
-    var f = fork(__dirname + '/../../../bin/sinopia'
+    var f = fork(__dirname + '/../../../bin/verdaccio'
               , ['-c', __dirname + '/../' + conf]
               , {silent: !process.env.TRAVIS}
     )

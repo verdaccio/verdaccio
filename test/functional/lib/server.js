@@ -43,6 +43,13 @@ Server.prototype.auth = function(user, pass) {
   })
 }
 
+Server.prototype.logout = function(token) {
+  return this.request({
+    uri: '/-/user/token/'+encodeURIComponent(token),
+    method: 'DELETE'
+  })
+}
+
 Server.prototype.get_package = function(name) {
   return this.request({
     uri: '/'+encodeURIComponent(name),
@@ -76,6 +83,7 @@ Server.prototype.get_tarball = function(name, filename) {
   return this.request({
     uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename),
     method: 'GET',
+    encoding: null
   })
 }
 

@@ -1,11 +1,15 @@
-/package.json
 npm-debug.log
 sinopia-*.tgz
 .DS_Store
 
 ###
-bin/**
 !bin/sinopia
 test-storage*
 
 node_modules
+
+# Visual Studio Code
+.vscode/*
+.jscsrc
+.jshintrc
+jsconfig.json

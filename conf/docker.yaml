@@ -3,15 +3,15 @@
 # so don't use it on production systems.
 #
 # Look here for more config file examples:
-# https://github.com/verdaccio/verdaccio/tree/master/conf
+# https://github.com/rlidwka/sinopia/tree/master/conf
 #
 
 # path to a directory with all packages
-storage: ./storage
+storage: /verdaccio/storage
 
 auth:
   htpasswd:
-    file: ./htpasswd
+    file: /verdaccio/config/htpasswd
     # Maximum amount of users allowed to register, defaults to "+inf".
     # You can set this to -1 to disable registration.
     #max_users: 1000
@@ -25,7 +25,7 @@ packages:
   '@*/*':
     # scoped packages
     access: $all
-    publish: $authenticated
+    publish: $all
     proxy: npmjs
 
   '**':
@@ -38,7 +38,7 @@ packages:
 
     # allow all known users to publish packages
     # (anyone can register by default, remember?)
-    publish: $authenticated
+    publish: $all
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
@@ -46,5 +46,5 @@ packages:
 # log settings
 logs:
   - {type: stdout, format: pretty, level: http}
-  #- {type: file, path: verdaccio.log, level: info}
+  #- {type: file, path: sinopia.log, level: info}
 

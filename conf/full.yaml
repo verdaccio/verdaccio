@@ -17,7 +17,7 @@ web:
   # this has a lot of issues, e.g. no auth yet, so use at your own risk
   #enable: true
 
-  title: Sinopia
+  title: Verdaccio
   # logo: logo.png
   # template: custom.hbs
 
@@ -51,6 +51,11 @@ uplinks:
     # timeouts are defined in the same way as nginx, see:
     # http://wiki.nginx.org/ConfigNotation
 
+    # add/override HTTP headers sent to the uplink server
+    # this allows for HTTP Basic auth for example:
+    #headers:
+    #  authorization: "Basic YourBase64EncodedCredentials=="
+
 packages:
   # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages
@@ -60,7 +65,7 @@ packages:
   #  # you can override storage directory for a group of packages this way:
   #  storage: 'local_storage'
 
-  '*':
+  '**':
     # allow all users to read packages (including non-authenticated users)
     #
     # you can specify usernames/groupnames (depending on your auth plugin)
@@ -78,10 +83,10 @@ packages:
 #####################################################################
 
 # if you use nginx with custom path, use this to override links
-#url_prefix: https://dev.company.local/sinopia/
+#url_prefix: https://dev.company.local/verdaccio/
 
 # You can specify listen address (or simply a port).
-# If you add multiple values, sinopia will listen on all of them.
+# If you add multiple values, verdaccio will listen on all of them.
 #
 # Examples:
 #
@@ -91,7 +96,7 @@ packages:
 # - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
 # - https://example.org:4873  # if you want to use https
 # - [::1]:4873                # ipv6
-# - unix:/tmp/sinopia.sock    # unix socket
+# - unix:/tmp/verdaccio.sock    # unix socket
 
 # Configure HTTPS, it is required if you use "https" protocol above.
 #https:
@@ -102,13 +107,13 @@ packages:
 # level: trace | debug | info | http (default) | warn | error | fatal
 #
 # parameters for file: name is filename
-#  {type: 'file', path: 'sinopia.log', level: 'debug'},
+#  {type: 'file', path: 'verdaccio.log', level: 'debug'},
 #
-# parameters for stdout and stderr: format: json | pretty
+# parameters for stdout and stderr: format: json | pretty | pretty-timestamped
 #  {type: 'stdout', format: 'pretty', level: 'debug'},
 logs:
   - {type: stdout, format: pretty, level: http}
-  #- {type: file, path: sinopia.log, level: info}
+  #- {type: file, path: verdaccio.log, level: info}
 
 # you can specify proxy used with all requests in wget-like manner here
 # (or set up ENV variables with the same name)
@@ -120,8 +125,24 @@ logs:
 # increase it if you have "request entity too large" errors
 #max_body_size: 1mb
 
-# Workaround for countless npm bugs. Must have for npm <1.14.x, but expect
-# it to be turned off in future versions. If `true`, latest tag is ignored,
-# and the highest semver is placed instead.
-#ignore_latest_tag: false
-
+# Notify Settings
+# Notify was built primarily to use with Slack's Incoming
+# webhooks, but will also deliver a simple payload to
+# any endpoint. Currently only active for publish / create
+# commands.
+notify:
+  # Choose a method. Technically this will accept any HTTP
+  # request method, but probably stick to GET or POST
+  method: POST
+  # If this endpoint requires specific headers, set them here
+  # as an array of key: value objects.
+  headers: [{'Content-type': 'application/x-www-form-urlencoded'}]
+  # set the URL endpoint for this call
+  endpoint: https://hooks.slack.com/...
+  # Finally, the content you will be sending in the body.
+  # This data will first be run through Handlebars to parse
+  # any Handlebar expressions. All data housed in the metadata object
+  # is available for use within the expressions.
+  content: ' {{ handlebar-expression }}'
+  # For Slack, follow the following format:
+  # content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Verdaccio", "icon_emoji": ":package:" }'

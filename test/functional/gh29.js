@@ -54,7 +54,7 @@ module.exports = function() {
           return server2.get_tarball('testpkg-gh29', 'blahblah')
                    .status(200)
                    .then(function (body) {
-                     assert.deepEqual(body, readfile('fixtures/binary').toString('utf8'))
+                     assert.deepEqual(body, readfile('fixtures/binary'))
                    })
         })
       })
