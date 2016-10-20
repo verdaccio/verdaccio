@@ -49,7 +49,15 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ### Docker
 
+To use the pre-built docker image:
+
+`docker pull verdaccio/verdaccio`
+
+To build your own image:
+
 `docker build -t verdaccio .`
+
+To run the docker container:
 
 ```
 docker run -it --rm --name verdaccio -p 4873:4873 \
