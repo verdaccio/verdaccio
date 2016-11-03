@@ -7,3 +7,6 @@ User=verdaccio
 WorkingDirectory=/home/verdaccio
 ExecStart=/usr/local/lib/npm/bin/verdaccio
 ExecStop=/usr/bin/bash -c "kill $(ps -ef | grep ^verdacc+ | awk {'print $2'})"
+
+[Install]
+WantedBy=multi-user.target
