@@ -1,6 +1,6 @@
 `verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
 
-`sinopia` - a private/caching npm repository server
+`verdaccio` - a private/caching npm repository server
 
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
 
@@ -69,11 +69,11 @@ docker run -it --rm --name verdaccio -p 4873:4873 \
 
 ### Chef
 
-A Sinopia Chef cookbook [is available at Opscode community](http://community.opscode.com/cookbooks/sinopia) source: https://github.com/BarthV/sinopia-cookbook
+The original Sinopia Chef cookbook [is available at Opscode community](http://community.opscode.com/cookbooks/sinopia) source: https://github.com/BarthV/sinopia-cookbook
 
 ### Puppet
 
-A Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
+The original Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
 
 ## Configuration
 
@@ -154,4 +154,3 @@ If you want to use a database instead, ask for it, we'll come up with some kind 
 - [gemfury](http://www.gemfury.com/l/npm-registry) and others - those are closed-source cloud services, and I'm not in a mood to trust my private code to somebody (security through obscurity yeah!)
 - npm-registry-proxy, npm-delegate, npm-proxy - those are just proxies...
 - Is there something else?
-
