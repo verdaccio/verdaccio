@@ -27,7 +27,7 @@ Server.prototype.request = function(options) {
 }
 
 Server.prototype.auth = function(user, pass) {
-  this.authstr = 'Basic '+(Buffer(user+':'+pass)).toString('base64')
+  this.authstr = 'Basic '+(new Buffer(user+':'+pass)).toString('base64')
   return this.request({
     uri: '/-/user/org.couchdb.user:'+encodeURIComponent(user)+'/-rev/undefined',
     method: 'PUT',
