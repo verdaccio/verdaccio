@@ -1,6 +1,6 @@
 `verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
 
-`sinopia` - a private/caching npm repository server
+`verdaccio` - a private/caching npm repository server
 
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
 
