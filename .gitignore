@@ -5,11 +5,19 @@ sinopia-*.tgz
 ###
 !bin/sinopia
 test-storage*
-
 node_modules
+
+
+# Istanbul
+coverage/
+.nyc*
 
 # Visual Studio Code
 .vscode/*
 .jscsrc
 .jshintrc
 jsconfig.json
+
+
+# Yarn
+yarn*
