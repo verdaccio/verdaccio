@@ -71,7 +71,7 @@
   "scripts": {
     "test": "eslint . && mocha ./test/functional ./test/unit",
     "test:coverage": "nyc --reporter=html --reporter=text mocha -R spec ./test/functional ./test/unit",
-    "test-travis": "eslint . && mocha -R spec ./test/functional ./test/unit",
+    "test-travis": "eslint . && npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint ."
   },
