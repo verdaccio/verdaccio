@@ -1,5 +1,6 @@
 node_modules
 npm-debug.log
+coverage/
 verdaccio-*.tgz
 test-storage*
 /.*
