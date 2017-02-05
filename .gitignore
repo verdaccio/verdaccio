@@ -5,11 +5,19 @@ verdaccio-*.tgz
 ###
 !bin/verdaccio
 test-storage*
-
 node_modules
+
+
+# Istanbul
+coverage/
+.nyc*
 
 # Visual Studio Code
 .vscode/*
 .jscsrc
 .jshintrc
 jsconfig.json
+
+
+# Yarn
+yarn*

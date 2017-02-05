@@ -107,7 +107,7 @@ There's two options here:
 
 1. You want to create a separate fork and stop synchronizing with public version.
 
-   If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy_access` list and restart the server.
+   If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
 
    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
