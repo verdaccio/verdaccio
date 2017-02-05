@@ -69,7 +69,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 \
 
 ### Chef
 
-The original Sinopia Chef cookbook [is available at Opscode community](http://community.opscode.com/cookbooks/sinopia) source: https://github.com/BarthV/sinopia-cookbook
+The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio). source: https://github.com/kgrubb/verdaccio-cookbook
 
 ### Puppet
 
