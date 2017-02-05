@@ -1,9 +1,8 @@
 language: node_js
 node_js:
-  - '0.12'
   - '4'
   - '6'
-  - 'iojs'
+  - '7'
 sudo: false
 matrix:
   allow_failures:
