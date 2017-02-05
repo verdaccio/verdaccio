@@ -1,9 +1,9 @@
 npm-debug.log
-sinopia-*.tgz
+verdaccio-*.tgz
 .DS_Store
 
 ###
-!bin/sinopia
+!bin/verdaccio
 test-storage*
 node_modules
 

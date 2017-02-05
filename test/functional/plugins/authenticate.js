@@ -8,7 +8,7 @@ function Plugin(config, stuff) {
 }
 
 // plugin is expected to be compatible with...
-Plugin.prototype.sinopia_version = '1.1.0'
+Plugin.prototype.verdaccio_version = '1.1.0'
 
 Plugin.prototype.authenticate = function(user, password, cb) {
   var self = this
@@ -23,4 +23,3 @@ Plugin.prototype.authenticate = function(user, password, cb) {
   }
   return cb(null, [ user ])
 }
-

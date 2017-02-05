@@ -2,7 +2,7 @@ var assert  = require('assert')
 var express = require('express')
 var request = require('request')
 var rimraf  = require('rimraf')
-var sinopia = require('../../')
+var verdaccio = require('../../')
 
 var config = {
   storage: __dirname + '/test-storage',
@@ -25,7 +25,7 @@ describe('toplevel', function() {
 
   before(function(done) {
     var app = express()
-    app.use(sinopia(config))
+    app.use(verdaccio(config))
 
     var server = require('http').createServer(app)
     server.listen(0, function() {
