@@ -1,3 +1,17 @@
+## 2.1.1 (February 7, 2017)
+
+- [GH-86] updated readme to point to new chef cookbook ([@kgrubb](https://github.com/kgrubb) in [#117](https://github.com/verdaccio/verdaccio/pull/117))
+- [GH-88] rename to Verdaccio instead of Sinopia ([@kgrubb](https://github.com/kgrubb) in [#93](https://github.com/verdaccio/verdaccio/pull/93))
+- Unit testing coverage ([@juanpicado](https://github.com/juanpicado) in [#116](https://github.com/verdaccio/verdaccio/issues/116))
+- Allow htpasswd-created users to log in [@imsnif](https://github.com/imsnif) in [#112](https://github.com/verdaccio/verdaccio/issues/112))
+- remove travis io.js support ([@juanpicado](https://github.com/juanpicado) in [#115](https://github.com/verdaccio/verdaccio/issues/115))
+- rename clean up ([@juanpicado](https://github.com/juanpicado) in [#114](https://github.com/verdaccio/verdaccio/issues/114))
+- _npmUser / author not showing up ([@juanpicado](https://github.com/juanpicado) in [#65](https://github.com/verdaccio/verdaccio/issues/65))
+- Docs: correct config attribute `proxy_access` ([@robertgroh](https://github.com/robertgroh) in [#96](https://github.com/verdaccio/verdaccio/pull/96))
+- Problem with docker.yaml ([@josedepaz](https://github.com/josedepaz) in [#72](https://github.com/verdaccio/verdaccio/pull/72)) 
+- Prevent logging of user and password ([@tlvince](https://github.com/tlvince) in [#94](https://github.com/verdaccio/verdaccio/pull/94))
+- Updated README.md to reflect the availability of the docker image ([@jmwilkinson](https://github.com/jmwilkinson)) in [#71](https://github.com/verdaccio/verdaccio/pull/71)) 
+
 ## 2.1.0 (October 11, 2016)
 
 - Use __dirname to resolve local plugins ([@aledbf](https://github.com/aledbf) in [#25](https://github.com/verdaccio/verdaccio/pull/25))
