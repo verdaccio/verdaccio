@@ -67,6 +67,10 @@ docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio
 ```
 
+### Ansible
+
+A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/verdaccio) source: https://github.com/030/ansible-verdaccio
+
 ### Chef
 
 The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio). source: https://github.com/kgrubb/verdaccio-cookbook
