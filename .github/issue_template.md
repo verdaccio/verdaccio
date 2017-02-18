@@ -1,17 +1,17 @@
-### My reason:
+#### My reason:
 
 <!-- 
 	a brief explanation of the issue, suggestion, feature
 -->
 
-### Steps to reproduce:
+#### Steps to reproduce:
 
 <!-- 
 	(if it applies)
 	how can I do in order to reproduce it? environment? configuration?
 -->
 	
-### Additional information:
+#### Additional information:
 
 <!--
 	provide the following information would be helpful
@@ -28,4 +28,4 @@
    - [ ] I develop / deploy using Docker.
    - [ ] I deploy to a PaaS.
 
-### Additional verbose log:
+#### Additional verbose log:
