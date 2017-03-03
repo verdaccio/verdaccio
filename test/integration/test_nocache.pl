@@ -20,7 +20,7 @@ sub quit {
 
 # run verdaccio in a child process
 if (($pid = fork()) == 0) {
-	exec "../../../bin/verdaccio ../config.yaml";
+	exec "../../../bin/verdaccio ../config_nocache.yaml";
 	die "exec failed";
 }
 
@@ -35,13 +35,8 @@ system('npm set registry http://localhost:55501') and quit('fail');
 system(q{/bin/echo -e 'test\ntest\ns@s.s\n' | npm adduser}) and quit('fail');
 
 system('npm install jju') and quit('fail');
-(`node -e 'console.log(require("jju").parse("{qwerty:123}").qwerty+456)'` =~ /579/) or quit('fail');
+system('test ! -f ./test-storage/jju/jju-*.tgz') and quit('fail');
 
-system('npm publish ../verdaccio-test-1.2.3.tgz') and quit('fail');
-system('npm dist-tag add verdaccio-test@1.2.3 meow') and quit('fail');
-system('npm install verdaccio-test@meow') and quit('fail');
-
-(`node -e 'require("verdaccio-test")'` =~ /w==w/) or quit('fail');
 
 quit("
 ==================================================================

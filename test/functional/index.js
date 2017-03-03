@@ -8,18 +8,20 @@ const exec = require('child_process').exec;
 describe('Func', function() {
   const server = process.server;
   const server2 = process.server2;
+  const server3 = process.server3;
 
   before(function(done) {
     Promise.all([
       require('./lib/startup').start('./test-storage', './config-1.yaml'),
       require('./lib/startup').start('./test-storage2', './config-2.yaml'),
+      require('./lib/startup').start('./test-storage3', './config-3.yaml'),
     ]).then(() => {
       done();
   });
   });
 
   before(function() {
-    return Promise.all([server, server2].map(function(server) {
+    return Promise.all([server, server2, server3].map(function(server) {
       return server.debug().status(200).then(function(body) {
         server.pid = body.pid;
         return new Promise(function(resolve, reject) {
@@ -34,7 +36,7 @@ describe('Func', function() {
   });
 
   before(function auth() {
-    return Promise.all([server, server2].map(function(server, cb) {
+    return Promise.all([server, server2, server3].map(function(server, cb) {
       return server.auth('test', 'test').status(201).body_ok(/'test'/);
     }));
   });
@@ -58,6 +60,8 @@ describe('Func', function() {
   require('./logout')();
   require('./addtag')();
   require('./plugins')();
+  // requires packages published to server1/server2
+  require('./gh131')();
 
   after(function(done) {
     const check = (server) => {
@@ -78,7 +82,7 @@ describe('Func', function() {
         });
       });
     };
-    Promise.all([check(server), check(server2)]).then(function() {
+    Promise.all([check(server), check(server2), check(server3)]).then(function() {
       done();
     }, (reason) => {
       assert.equal(reason, null);
