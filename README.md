@@ -57,6 +57,15 @@ To build your own image:
 
 `docker build -t verdaccio .`
 
+There is also an npm script for building the docker image, so you can also do:
+
+`npm run build-docker`
+
+If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available.
+To build the docker image for raspberry pi execute:
+
+`npm run build-docker:rpi`
+
 To run the docker container:
 
 ```
