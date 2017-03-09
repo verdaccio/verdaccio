@@ -1,3 +1,7 @@
+## 2.1.2 (March 9, 2017)
+- Contribute guidelines- ([@juanpicado](https://github.com/juanpicado) in [#133](https://github.com/verdaccio/verdaccio/pull/133))
+- fix(plugin-loader): plugins verdaccio-* overwrite by sinopia- ([@Alexandre-io](https://github.com/Alexandre-io) in [#129](https://github.com/verdaccio/verdaccio/pull/129))
+
 ## 2.1.1 (February 7, 2017)
 
 - [GH-86] updated readme to point to new chef cookbook ([@kgrubb](https://github.com/kgrubb) in [#117](https://github.com/verdaccio/verdaccio/pull/117))
