@@ -1,13 +1,23 @@
-FROM node:6.1.0-onbuild
+FROM node:alpine
+
+ENV appdir /usr/local/app
+
+RUN mkdir -p $appdir
+WORKDIR  $appdir
+COPY . $appdir
+RUN npm install
 
 RUN mkdir -p /verdaccio/storage /verdaccio/conf
-
-WORKDIR /verdaccio
-
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
+
+RUN addgroup -S verdaccio && adduser -S -g verdaccio verdaccio && \
+chown -R verdaccio:verdaccio $appdir && \
+chown -R verdaccio:verdaccio /verdaccio
+
+USER verdaccio
 
 EXPOSE 4873
 
-VOLUME ["/verdaccio/conf", "/verdaccio/storage"]
+VOLUME ["/verdaccio"]
 
-CMD ["/usr/src/app/bin/verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:4873"]
+CMD ["sh", "-c", "${appdir}/bin/verdaccio --config /verdaccio/conf/config.yaml --listen 0.0.0.0:4873"]

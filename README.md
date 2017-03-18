@@ -49,22 +49,32 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ### Docker
 
-To use the pre-built docker image:
+#### To use the pre-built docker image:
 
 `docker pull verdaccio/verdaccio`
 
-To build your own image:
+#### To use your own image:
 
-`docker build -t verdaccio .`
+1. Get the latest version of [docker-compose](https://github.com/docker/compose).
+2. Build and run the container: 
 
-To run the docker container:
-
+```bash
+$ docker-compose up --build
 ```
-docker run -it --rm --name verdaccio -p 4873:4873 \
-  -v /<path to verdaccio directory>/conf:/verdaccio/conf \
-  -v /<path to verdaccio directory>/storage:/verdaccio/storage \
-  -v /<path to verdaccio directory>/local_storage:/verdaccio/local_storage \
-  verdaccio
+
+Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+ 
+```bash
+$ docker volume inspect verdaccio_verdaccio
+[
+    {
+        "Name": "verdaccio_verdaccio",
+        "Driver": "local",
+        "Mountpoint": "/var/lib/docker/volumes/verdaccio_verdaccio/_data",
+        "Labels": null,
+        "Scope": "local"
+    }
+]
 ```
 
 ### Ansible
