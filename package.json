@@ -73,7 +73,9 @@
     "test:coverage": "nyc --reporter=html --reporter=text mocha -R spec ./test/functional ./test/unit",
     "test-travis": "eslint . && npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build-docker": "docker build -t verdaccio .",
+    "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
   "engines": {
     "node": ">=0.10"
