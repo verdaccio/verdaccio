@@ -3,6 +3,8 @@
 `verdaccio` - a private/caching npm repository server
 
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
+[![Dependency Status](https://david-dm.org/verdaccio/verdaccio.svg)](https://david-dm.org/verdaccio/verdaccio)
+[![devDependency Status](https://david-dm.org/verdaccio/verdaccio/dev-status.svg)](https://david-dm.org/verdaccio/verdaccio#info=devDependencies)
 
 It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
