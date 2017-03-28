@@ -59,6 +59,13 @@
         <code class="white no-bg">{{ baseUrl }}</code><br>
       </header>
       <header class="packages-header container">
+        {{#if tagline}}
+        <div class="row">
+          <div class="col-md-12">
+            {{{tagline}}}
+          </div>
+        </div>
+        {{/if}}
         <div class="row">
           <div class="col-md-5 hidden-xs hidden-sm">
             <h2 class="title">Available Packages</h2>
