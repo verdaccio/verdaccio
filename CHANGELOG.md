@@ -1,5 +1,11 @@
+## 2.1.3 (March 29, 2017)
+- [GH-83] create systemd service - ([@030](https://github.com/030) in [#89](https://github.com/verdaccio/verdaccio/pull/143))
+- optional scope in the readme package name. - ([@psychocode](https://github.com/psychocode) in [#136](https://github.com/verdaccio/verdaccio/pull/136))
+- Added docker image for rpi - ([@danielo515](https://github.com/danielo515) in [#137](https://github.com/verdaccio/verdaccio/pull/137))
+- Allow configuring a tagline that is displayed on the webpage between. ([@jachstet-sea](https://github.com/jachstet-sea) in [#143](https://github.com/verdaccio/verdaccio/pull/143))
+
 ## 2.1.2 (March 9, 2017)
-- Contribute guidelines- ([@juanpicado](https://github.com/juanpicado) in [#133](https://github.com/verdaccio/verdaccio/pull/133))
+- Contribute guidelines - ([@juanpicado](https://github.com/juanpicado) in [#133](https://github.com/verdaccio/verdaccio/pull/133))
 - fix(plugin-loader): plugins verdaccio-* overwrite by sinopia- ([@Alexandre-io](https://github.com/Alexandre-io) in [#129](https://github.com/verdaccio/verdaccio/pull/129))
 
 ## 2.1.1 (February 7, 2017)
