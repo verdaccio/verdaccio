@@ -1,5 +1,5 @@
 ## 2.1.3 (March 29, 2017)
-- [GH-83] create systemd service - ([@030](https://github.com/030) in [#89](https://github.com/verdaccio/verdaccio/pull/143))
+- [GH-83] create systemd service - ([@030](https://github.com/030) in [#89](https://github.com/verdaccio/verdaccio/pull/89))
 - optional scope in the readme package name. - ([@psychocode](https://github.com/psychocode) in [#136](https://github.com/verdaccio/verdaccio/pull/136))
 - Added docker image for rpi - ([@danielo515](https://github.com/danielo515) in [#137](https://github.com/verdaccio/verdaccio/pull/137))
 - Allow configuring a tagline that is displayed on the webpage between. ([@jachstet-sea](https://github.com/jachstet-sea) in [#143](https://github.com/verdaccio/verdaccio/pull/143))
