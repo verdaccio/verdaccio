@@ -168,4 +168,5 @@ If you want to use a database instead, ask for it, we'll come up with some kind 
 - [shadow-npm](https://github.com/dominictarr/shadow-npm), [public service](http://shadow-npm.net/) - it uses the same code as npmjs.org + service is dead
 - [gemfury](http://www.gemfury.com/l/npm-registry) and others - those are closed-source cloud services, and I'm not in a mood to trust my private code to somebody (security through obscurity yeah!)
 - npm-registry-proxy, npm-delegate, npm-proxy - those are just proxies...
+- [nexus-repository-oss](https://www.sonatype.com/nexus-repository-oss) - Repository manager that handles more then just NPM dependencies
 - Is there something else?
