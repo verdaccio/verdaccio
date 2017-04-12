@@ -3,10 +3,12 @@
 `verdaccio` - a private/caching npm repository server
 
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
+[![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/sinopia)
+[![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/sinopia)
 
 It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
-<p align="center"><img src="https://f.cloud.github.com/assets/999113/1795553/680177b2-6a1d-11e3-82e1-02193aa4e32e.png"></p>
+<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-8d2f3.appspot.com/o/verdaccio2-compressor.png?alt=media&token=c9b01824-26f2-4cba-bd6f-f352e08cb8ff"></p>
 
 ## Use cases
 
@@ -49,7 +51,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ### Docker
 
-To use the pre-built docker image:
+To use the pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 `docker pull verdaccio/verdaccio`
 
@@ -100,7 +102,7 @@ When you start a server, it auto-creates a config file.
 npm adduser --registry http://localhost:4873/
 ```
 
-This will prompt you for user credentials which will be saved on the Verdaccio server.
+This will prompt you for user credentials which will be saved on the `verdaccio` server.
 
 ## Using private packages
 
@@ -136,23 +138,23 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 Basic features:
 
-- Installing packages (npm install, npm upgrade, etc.) - supported
-- Publishing packages (npm publish) - supported
+- Installing packages (npm install, npm upgrade, etc.) - **supported**
+- Publishing packages (npm publish) - **supported**
 
 Advanced package control:
 
-- Unpublishing packages (npm unpublish) - supported
-- Tagging (npm tag) - not yet supported, should be soon
+- Unpublishing packages (npm unpublish) - **supported**
+- Tagging (npm tag) - supported
 - Deprecation (npm deprecate) - not supported
 
 User management:
 
-- Registering new users (npm adduser {newuser}) - supported
+- Registering new users (npm adduser {newuser}) - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, verdaccio uses its own acl management system
 
 Misc stuff:
 
-- Searching (npm search) - supported in the browser client but not command line
+- Searching (npm search) - **supported** (cli / browser)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 
 ## Storage
@@ -160,6 +162,8 @@ Misc stuff:
 No CouchDB here. This application is supposed to work with zero configuration, so filesystem is used as a storage.
 
 If you want to use a database instead, ask for it, we'll come up with some kind of a plugin system.
+
+About storage the is a running discussion [here](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Astorage).
 
 ## Similar existing things
 
