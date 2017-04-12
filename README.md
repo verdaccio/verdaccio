@@ -102,6 +102,24 @@ npm adduser --registry http://localhost:4873/
 
 This will prompt you for user credentials which will be saved on the Verdaccio server.
 
+### Pre-adding users
+
+If you want to prevent users from being able to create them selves, you may want to have the users setup on initialisation of your to be able to do this you can enter the node console and run
+
+```bash
+crypto = require('crypto')
+password = 'Put your password here'
+hash = '{SHA}' + crypto.createHash('sha1').update(password, 'binary').digest('base64')
+```
+
+The result of hash would then be added to your htpasswd file as:
+
+```
+username:password
+```
+
+This will then allow you to not allow any users to be self-created and therefore self authenticated.
+
 ## Using private packages
 
 You can add users and manage which users can access which packages.
