@@ -1,3 +1,9 @@
+## 2.1.4 (April 13, 2017)
+- Added Nexus Repository OSS as similar existing software - ([@nedelenbos030](https://github.com/nedelenbos) in [#147](https://github.com/verdaccio/verdaccio/pull/147))
+- Increase verbose on notify request - ([@juanpicado](https://github.com/juanpicado) in [#153](https://github.com/verdaccio/verdaccio/pull/153))
+- Add fallback support to previous config files - ([@juanpicado](https://github.com/juanpicado) in [#155](https://github.com/verdaccio/verdaccio/pull/155))
+- Allows retrieval of all local package contents via http://server/-/search/* - ([@Verikon](https://github.com/Verikon) in [#152](https://github.com/verdaccio/verdaccio/pull/155))
+
 ## 2.1.3 (March 29, 2017)
 - [GH-83] create systemd service - ([@030](https://github.com/030) in [#89](https://github.com/verdaccio/verdaccio/pull/89))
 - optional scope in the readme package name. - ([@psychocode](https://github.com/psychocode) in [#136](https://github.com/verdaccio/verdaccio/pull/136))
