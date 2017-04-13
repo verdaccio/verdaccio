@@ -3,18 +3,7 @@ var express = require('express')
 var request = require('request')
 var rimraf  = require('rimraf')
 var verdaccio = require('../../')
-
-var config = {
-  storage: __dirname + '/test-storage',
-  packages: {
-    '*': {
-      allow_access: '$all',
-    },
-  },
-  logs: [
-    {type: 'stdout', format: 'pretty', level: 'fatal'}
-  ],
-}
+var config = require('./partials/config');
 
 describe('toplevel', function() {
   var port
