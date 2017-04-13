@@ -3,8 +3,8 @@
 `verdaccio` - a private/caching npm repository server
 
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
-[![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/sinopia)
-[![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/sinopia)
+[![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
+[![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 
 It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
@@ -174,3 +174,4 @@ About the storage there is a running discussion [here](https://github.com/verdac
 - npm-registry-proxy, npm-delegate, npm-proxy - those are just proxies...
 - [nexus-repository-oss](https://www.sonatype.com/nexus-repository-oss) - Repository manager that handles more then just NPM dependencies
 - Is there something else?
+- [codebox-npm](https://github.com/craftship/codebox-npm) - Serverless private npm registry using
