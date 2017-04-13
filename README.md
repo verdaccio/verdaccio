@@ -163,7 +163,7 @@ No CouchDB here. This application is supposed to work with zero configuration, s
 
 If you want to use a database instead, ask for it, we'll come up with some kind of a plugin system.
 
-About storage the is a running discussion [here](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Astorage).
+About the storage there is a running discussion [here](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Astorage).
 
 ## Similar existing things
 
