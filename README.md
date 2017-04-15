@@ -12,6 +12,8 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 
 ## Use cases
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/verdaccio/verdaccio.svg)](https://greenkeeper.io/)
+
 1. Use private packages.
 
    If you want to use all benefits of npm package system in your company without sending all code to the public, and use your private packages just as easy as public ones.
