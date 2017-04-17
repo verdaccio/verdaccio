@@ -17,7 +17,3 @@ coverage/
 .jscsrc
 .jshintrc
 jsconfig.json
-
-
-# Yarn
-yarn*
