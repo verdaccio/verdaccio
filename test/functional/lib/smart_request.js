@@ -1,7 +1,6 @@
 
 var assert = require('assert')
 var request = require('request')
-var Promise = require('bluebird')
 var sym = Symbol('smart_request_data')
 
 function smart_request(options) {

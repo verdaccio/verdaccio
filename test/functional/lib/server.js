@@ -1,6 +1,5 @@
 var assert  = require('assert')
 var request = require('./smart_request')
-var Promise = require('bluebird')
 
 function Server(url) {
   var self = Object.create(Server.prototype)

@@ -1,7 +1,6 @@
 require('./lib/startup')
 
 var assert = require('assert')
-var Promise = require('bluebird')
 
 function readfile(x) {
   return require('fs').readFileSync(__dirname + '/' + x)
