@@ -75,7 +75,7 @@
     "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=4.6.1"
   },
   "preferGlobal": true,
   "publishConfig": {
