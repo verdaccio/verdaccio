@@ -1,6 +1,5 @@
 //require('es6-shim')
 require('./lib/startup')
-var Promise = require('bluebird')
 
 var assert = require('assert')
 var async  = require('async')

@@ -23,7 +23,6 @@
     "commander": "^2.9.0",
     "compression": "^1.6.1",
     "cookies": "^0.6.1",
-    "es6-shim": "^0.35.0",
     "express": "^4.13.4",
     "handlebars": "^4.0.5",
     "highlight.js": "^9.3.0",
@@ -42,7 +41,6 @@
     "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
-    "bluebird": "^3.3.5",
     "browserify": "^13.0.0",
     "browserify-handlebars": "^1.0.0",
     "eslint": "^2.9.0",
