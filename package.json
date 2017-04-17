@@ -43,7 +43,7 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "browserify-handlebars": "^1.0.0",
-    "eslint": "^2.9.0",
+    "eslint": "^3.19.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
     "grunt-cli": "^1.2.0",
