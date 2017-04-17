@@ -27,7 +27,7 @@ var packages = [
 		_npmUser: {
 			name: 'test_user',
 		}
-	}
+	},
 ]
 
 describe('search', function() {
