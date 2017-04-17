@@ -49,7 +49,7 @@
     "grunt-cli": "^1.2.0",
     "grunt-contrib-less": "^1.3.0",
     "grunt-contrib-watch": "^1.0.0",
-    "mocha": "^2.4.5",
+    "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "onclick": "^0.1.0",
     "rimraf": "^2.5.2",
