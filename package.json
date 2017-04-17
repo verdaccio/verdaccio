@@ -31,7 +31,7 @@
     "js-yaml": "^3.6.0",
     "lockfile": "^1.0.1",
     "lunr": "^0.7.0",
-    "minimatch": "^3.0.0",
+    "minimatch": "^3.0.2",
     "mkdirp": "^0.5.1",
     "pkginfo": "^0.4.0",
     "readable-stream": "^2.1.2",
