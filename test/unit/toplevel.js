@@ -2,19 +2,8 @@ var assert  = require('assert')
 var express = require('express')
 var request = require('request')
 var rimraf  = require('rimraf')
-var sinopia = require('../../')
-
-var config = {
-  storage: __dirname + '/test-storage',
-  packages: {
-    '*': {
-      allow_access: '$all',
-    },
-  },
-  logs: [
-    {type: 'stdout', format: 'pretty', level: 'fatal'}
-  ],
-}
+var verdaccio = require('../../')
+var config = require('./partials/config');
 
 describe('toplevel', function() {
   var port
@@ -25,7 +14,7 @@ describe('toplevel', function() {
 
   before(function(done) {
     var app = express()
-    app.use(sinopia(config))
+    app.use(verdaccio(config))
 
     var server = require('http').createServer(app)
     server.listen(0, function() {

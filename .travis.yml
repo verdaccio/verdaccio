@@ -3,9 +3,6 @@ node_js:
   - '4'
   - '6'
   - '7'
-  - '1'
-  - '2'
-  - 'iojs'
 sudo: false
 matrix:
   allow_failures:

@@ -1,4 +1,4 @@
-storage: ./.sinopia_test_env/test-storage
+storage: ./.verdaccio_test_env/test-storage
 
 users:
   test:
@@ -22,4 +22,3 @@ packages:
     allow_publish: all
 
 listen: 55501
-

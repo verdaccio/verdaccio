@@ -8,7 +8,7 @@ function Plugin(config, stuff) {
 }
 
 // plugin is expected to be compatible with...
-Plugin.prototype.sinopia_version = '1.1.0'
+Plugin.prototype.verdaccio_version = '1.1.0'
 
 Plugin.prototype.allow_access = function(user, package, cb) {
   var self = this
@@ -28,4 +28,3 @@ Plugin.prototype.allow_access = function(user, package, cb) {
   }
   return cb(null, true)
 }
-

@@ -23,7 +23,7 @@ module.exports.start = function start(dir, conf, cb) {
     )
     forks.push(f)
     f.on('message', function(msg) {
-      if ('sinopia_started' in msg) {
+      if ('verdaccio_started' in msg) {
         cb(), cb = function(){}
       }
     })
@@ -38,4 +38,3 @@ process.on('exit', function() {
   if (forks[0]) forks[0].kill()
   if (forks[1]) forks[1].kill()
 })
-

@@ -3,7 +3,7 @@ var validate = require('../../lib/utils').validate_name
 
 describe('Validate', function() {
   it('good ones', function() {
-    assert( validate('sinopia') )
+    assert( validate('verdaccio') )
     assert( validate('some.weird.package-zzz') )
     assert( validate('old-package@0.1.2.tgz') )
   })
