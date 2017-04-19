@@ -16,10 +16,19 @@ The 'cd ~' command send you to the home directory of the verdaccio user. Make su
 
 ## Listening on all addresses
 If you want to listen to every external address set the listen directive in the config to:
-```
+```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
+
+## Run behind reverse proxy with different domain and port
+If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`, you can resolve this by set `url_prefix`
+```yaml
+url_prefix: 'https://your-domain:8888'
+# or
+url_prefix: 'https://your-domain:8888/your-path'
+```
+> Nginx or Apache configure? Please check out Wiki ;-)
 
 ## Keeping verdaccio running forever
 We can use the node package called 'forever' to keep verdaccio running all the time.
