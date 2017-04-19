@@ -17,3 +17,5 @@ coverage/
 .jscsrc
 .jshintrc
 jsconfig.json
+
+.idea/
