@@ -1,4 +1,6 @@
-var config = {
+'use strict';
+
+let config = {
   storage: __dirname + '/test-storage',
   packages: {
     '*': {
@@ -6,8 +8,8 @@ var config = {
     },
   },
   logs: [
-    {type: 'stdout', format: 'pretty', level: 'fatal'}
+    {type: 'stdout', format: 'pretty', level: 'fatal'},
   ],
-}
+};
 
 module.exports = config;
