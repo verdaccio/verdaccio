@@ -21,8 +21,8 @@ If you want to listen to every external address set the listen directive in the 
 listen: 0.0.0.0:4873
 ```
 
-## Run behind proxy with different domain and port
-If you run verdaccio behind proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`, you can resolve this by set `url_prefix`
+## Run behind reverse proxy with different domain and port
+If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`, you can resolve this by set `url_prefix`
 ```yaml
 url_prefix: 'https://your-domain:8888'
 # or
