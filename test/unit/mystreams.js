@@ -1,17 +1,19 @@
-var ReadTarball = require('../../lib/streams').ReadTarballStream
+'use strict';
+
+let ReadTarball = require('../../lib/streams').ReadTarballStream;
 
 describe('mystreams', function() {
   it('should delay events', function(cb) {
-    var test = new ReadTarball()
-    test.abort()
+    let test = new ReadTarball();
+    test.abort();
     setTimeout(function() {
       test.abort = function() {
-        cb()
-      }
+        cb();
+      };
       test.abort = function() {
-        throw Error('fail')
-      }
-    }, 10)
-  })
-})
+        throw Error('fail');
+      };
+    }, 10);
+  });
+});
 
