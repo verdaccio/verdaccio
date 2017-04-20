@@ -7124,7 +7124,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .lasso .hljs-attribute,
 .coffeescript .hljs-property,
 .hljs-phony {
-  color: #8888ff;
+  color: #88F;
 }
 .hljs-keyword,
 .hljs-id,
@@ -7233,7 +7233,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
   padding: 0;
 }
 .body .main-header {
-  background: #ffffff;
+  background: #fff;
 }
 .body .main-header .navbar {
   margin-bottom: 0;
@@ -7284,7 +7284,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
   border-bottom: none;
 }
 .body .content .entry:nth-child( even ) {
-  background: #f3f3f3;
+  background: #F3F3F3;
 }
 .body .content .entry .title {
   margin: 0 0 5px 10px;
@@ -7321,7 +7321,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .body .content .entry .readme {
   font-size: 14px;
   margin-top: 10px;
-  background: #ffffff;
+  background: #fff;
   padding: 10px 12px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -7354,7 +7354,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
   color: #d6645c;
 }
 .white {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 .red-bg {
   background: #cc3d33;
