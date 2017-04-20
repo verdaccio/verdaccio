@@ -27,7 +27,7 @@ var packages = [
 		_npmUser: {
 			name: 'test_user',
 		}
-	},		
+	}
 ]
 
 describe('search', function() {
@@ -44,7 +44,7 @@ describe('search', function() {
 	it('search query item', function() {
 		var result = Search.query('t');
 		assert(result.length === 3);
-	})
+	});
 
 	it('search remove item', function() {
 		var item = {
@@ -60,7 +60,6 @@ describe('search', function() {
 		Search.remove(item.name);
 		var result = Search.query('test6');
 		assert(result.length === 0);
-	})
+	});
 
-})
-
+});
