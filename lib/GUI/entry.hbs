@@ -8,7 +8,10 @@
     </div>
     <div class="col-md-4 col-sm-4">
       <div class="author pull-right">
-        <small>By: {{ author.name }}</small>
+        {{!-- I can't make hbs helper work without break code style --}}
+        {{#with author}}
+            <small>By: {{{ name }}}</small>
+        {{/with}}
       </div>
     </div>
   </div>
