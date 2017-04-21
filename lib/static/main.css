@@ -7331,7 +7331,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .pkg-search-container {
   display: none;
 }
-.packages-container .search-ajax {
+.pkg-search-container .search-ajax {
   display: block;
   margin: 50px auto;
 }
