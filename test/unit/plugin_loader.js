@@ -54,6 +54,7 @@ describe('plugin loader', function() {
 
 	it('testing auth plugin no plugins', function() {
 		let _config = {
+			self_path: path.join(__dirname, './'),
 			auth: {
 				'./unit/partials/test-plugin-storage/invalid-package': {}
 			}
