@@ -18,12 +18,12 @@ Plugin.prototype.allow_access = function(user, pkg, cb) {
     return cb(null, false);
   }
   if (user.name !== self._config.allow_user) {
-    var err = Error('i don\'t know anything about you');
+    let err = Error('i don\'t know anything about you');
     err.status = 403;
     return cb(err);
   }
   if (pkg.name !== self._config.to_access) {
-    var err = Error('you\'re not allowed here');
+    let err = Error('you\'re not allowed here');
     err.status = 403;
     return cb(err);
   }

@@ -1,6 +1,6 @@
-module.exports = require('./lib')
+module.exports = require('./lib');
 
-/**package
+/** package
 { "name": "verdaccio",
   "version": "0.0.0",
   "dependencies": {"js-yaml": "*"},

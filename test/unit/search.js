@@ -56,10 +56,10 @@ describe('search', function() {
 			},
 		};
 		Search.add(item);
-		var result = Search.query('test6');
+		let result = Search.query('test6');
 		assert(result.length === 1);
 		Search.remove(item.name);
-		var result = Search.query('test6');
+		result = Search.query('test6');
 		assert(result.length === 0);
 	});
 });
