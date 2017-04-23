@@ -9,8 +9,11 @@
 # Created to work with eslint@0.18.0
 #
 
+extends: ["eslint:recommended", "google"]
+
 env:
   node: true
+  browser: true
   es6: true
 
 rules:
@@ -43,3 +46,22 @@ rules:
   # useful for code clean-up
   no-unused-vars: [1, {"vars": "all", "args": "none"}]
 
+  max-len: [1, 160]
+
+  # camelcase is standard, but this should be 1 and then 2 soon
+  camelcase: 0
+
+  # configuration that should be upgraded progresivelly
+  require-jsdoc: 1
+  valid-jsdoc: 1
+  prefer-spread: 1
+  no-constant-condition: 1
+  no-var: 1
+  no-empty: 1
+  guard-for-in: 1
+  no-invalid-this: 1
+  new-cap: 1
+  one-var: 1
+  no-redeclare: 1
+  prefer-rest-params: 1
+  no-console: [1, {"allow": ["log", "warn"]}]

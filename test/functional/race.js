@@ -59,7 +59,7 @@ module.exports = function() {
     it('uploading 10 diff versions', function(callback) {
       let fns = [];
       for (let i=0; i<10; i++) {
-        ;(function(i) {
+        (function(i) {
           fns.push(function(cb_) {
             let _res;
             server.put_version('race', '0.1.'+String(i), require('./lib/package')('race'))

@@ -22,13 +22,13 @@ describe('Use proxy', function() {
   });
 
   it('no_proxy is invalid', function() {
-    var x = setup('http://x/x', {http_proxy: '123', no_proxy: false}, {});
+    let x = setup('http://x/x', {http_proxy: '123', no_proxy: false}, {});
     assert.equal(x.proxy, '123');
-    var x = setup('http://x/x', {http_proxy: '123', no_proxy: null}, {});
+    x = setup('http://x/x', {http_proxy: '123', no_proxy: null}, {});
     assert.equal(x.proxy, '123');
-    var x = setup('http://x/x', {http_proxy: '123', no_proxy: []}, {});
+    x = setup('http://x/x', {http_proxy: '123', no_proxy: []}, {});
     assert.equal(x.proxy, '123');
-    var x = setup('http://x/x', {http_proxy: '123', no_proxy: ''}, {});
+    x = setup('http://x/x', {http_proxy: '123', no_proxy: ''}, {});
     assert.equal(x.proxy, '123');
   });
 
@@ -43,48 +43,48 @@ describe('Use proxy', function() {
   });
 
   it('no_proxy - various, single string', function() {
-    var x = setup('http://blahblah', {http_proxy: '123'}, {no_proxy: 'blah'});
+    let x = setup('http://blahblah', {http_proxy: '123'}, {no_proxy: 'blah'});
     assert.equal(x.proxy, '123');
-    var x = setup('http://blah.blah', {}, {http_proxy: '123', no_proxy: 'blah'});
+    x = setup('http://blah.blah', {}, {http_proxy: '123', no_proxy: 'blah'});
     assert.equal(x.proxy, null);
-    var x = setup('http://blahblah', {}, {http_proxy: '123', no_proxy: '.blah'});
+    x = setup('http://blahblah', {}, {http_proxy: '123', no_proxy: '.blah'});
     assert.equal(x.proxy, '123');
-    var x = setup('http://blah.blah', {http_proxy: '123', no_proxy: '.blah'}, {});
+    x = setup('http://blah.blah', {http_proxy: '123', no_proxy: '.blah'}, {});
     assert.equal(x.proxy, null);
-    var x = setup('http://blah', {http_proxy: '123', no_proxy: '.blah'}, {});
+    x = setup('http://blah', {http_proxy: '123', no_proxy: '.blah'}, {});
     assert.equal(x.proxy, null);
-    var x = setup('http://blahh', {http_proxy: '123', no_proxy: 'blah'}, {});
+    x = setup('http://blahh', {http_proxy: '123', no_proxy: 'blah'}, {});
     assert.equal(x.proxy, '123');
   });
 
   it('no_proxy - various, array', function() {
-    var x = setup('http://blahblah', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
+    let x = setup('http://blahblah', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
     assert.equal(x.proxy, '123');
-    var x = setup('http://blah.blah', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
+    x = setup('http://blah.blah', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
     assert.equal(x.proxy, null);
-    var x = setup('http://blah.foo', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
+    x = setup('http://blah.foo', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
     assert.equal(x.proxy, null);
-    var x = setup('http://foo.baz', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
+    x = setup('http://foo.baz', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
     assert.equal(x.proxy, '123');
-    var x = setup('http://blahblah', {http_proxy: '123'}, {no_proxy: ['foo', 'bar', 'blah']});
+    x = setup('http://blahblah', {http_proxy: '123'}, {no_proxy: ['foo', 'bar', 'blah']});
     assert.equal(x.proxy, '123');
-    var x = setup('http://blah.blah', {http_proxy: '123'}, {no_proxy: ['foo', 'bar', 'blah']});
+    x = setup('http://blah.blah', {http_proxy: '123'}, {no_proxy: ['foo', 'bar', 'blah']});
     assert.equal(x.proxy, null);
   });
 
   it('no_proxy - hostport', function() {
-    var x = setup('http://localhost:80', {http_proxy: '123'}, {no_proxy: 'localhost'});
+    let x = setup('http://localhost:80', {http_proxy: '123'}, {no_proxy: 'localhost'});
     assert.equal(x.proxy, null);
-    var x = setup('http://localhost:8080', {http_proxy: '123'}, {no_proxy: 'localhost'});
+    x = setup('http://localhost:8080', {http_proxy: '123'}, {no_proxy: 'localhost'});
     assert.equal(x.proxy, null);
   });
 
   it('no_proxy - secure', function() {
-    var x = setup('https://something', {http_proxy: '123'}, {});
+    let x = setup('https://something', {http_proxy: '123'}, {});
     assert.equal(x.proxy, null);
-    var x = setup('https://something', {https_proxy: '123'}, {});
+    x = setup('https://something', {https_proxy: '123'}, {});
     assert.equal(x.proxy, '123');
-    var x = setup('https://something', {http_proxy: '456', https_proxy: '123'}, {});
+    x = setup('https://something', {http_proxy: '456', https_proxy: '123'}, {});
     assert.equal(x.proxy, '123');
   });
 });
