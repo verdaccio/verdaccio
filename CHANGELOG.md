@@ -1,3 +1,8 @@
+## 2.1.5 (April 22, 2017)
+- fix upstream search - ([@Meeeeow](https://github.com/Meeeeow) in [#166](https://github.com/verdaccio/verdaccio/pull/166))
+- Fix search feature - ([@Meeeeow](https://github.com/Meeeeow) in [#163](https://github.com/verdaccio/verdaccio/pull/163))
+- add docs about run behind proxy - ([@Meeeeow](https://github.com/Meeeeow) in [#160](https://github.com/verdaccio/verdaccio/pull/160))
+
 ## 2.1.4 (April 13, 2017)
 - Added Nexus Repository OSS as similar existing software - ([@nedelenbos030](https://github.com/nedelenbos) in [#147](https://github.com/verdaccio/verdaccio/pull/147))
 - Increase verbose on notify request - ([@juanpicado](https://github.com/juanpicado) in [#153](https://github.com/verdaccio/verdaccio/pull/153))

@@ -18,6 +18,4 @@ coverage/
 .jshintrc
 jsconfig.json
 
-
-# Yarn
-yarn*
+.idea/
