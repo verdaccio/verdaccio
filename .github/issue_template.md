@@ -10,7 +10,11 @@
 	(if it applies)
 	how can I do in order to reproduce it? environment? configuration?
 -->
-	
+####  App Version:	
+<!-- 
+      Define which version the issue happens and whether previous version the behaviour is correct
+-->
+
 #### Additional information:
 
 <!--
