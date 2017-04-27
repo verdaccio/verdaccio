@@ -34,7 +34,7 @@ let packages = [
 
 describe('search', function() {
 	before(function() {
-		let config = Config(config_hash);
+		let config = new Config(config_hash);
 		this.storage = new Storage(config);
 		Search.configureStorage(this.storage);
 		packages.map(function(item) {
