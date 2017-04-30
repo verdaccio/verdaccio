@@ -146,7 +146,7 @@ Basic features:
 Advanced package control:
 
 - Unpublishing packages (npm unpublish) - **supported**
-- Tagging (npm tag) - supported
+- Tagging (npm tag) - **supported**
 - Deprecation (npm deprecate) - not supported
 
 User management:
@@ -158,6 +158,7 @@ Misc stuff:
 
 - Searching (npm search) - **supported** (cli / browser)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
+- Ping (npm ping) - **supported** 
 
 ## Storage
 
