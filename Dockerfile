@@ -1,10 +1,11 @@
 FROM node:6-alpine
+LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV APPDIR /usr/local/app
 
 RUN mkdir -p "$APPDIR"
 WORKDIR $APPDIR
-COPY . $APPDIR
+ADD . $APPDIR
 RUN npm install
 
 RUN mkdir -p /verdaccio/storage /verdaccio/conf
