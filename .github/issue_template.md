@@ -8,11 +8,16 @@
 
 <!-- 
 	(if it applies)
-	how can I do in order to reproduce it? environment? configuration?
+	how can I do in order to reproduce it? environment? 
 -->
 ####  App Version:	
 <!-- 
       Define which version the issue happens and whether previous version the behaviour is correct
+-->
+
+####  Config file:	
+<!-- 
+      Provide your config file might be really helpful. Please be aware to hide sensisive data before post.
 -->
 
 #### Additional information:
