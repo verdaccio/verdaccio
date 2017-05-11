@@ -96,7 +96,7 @@ The original Sinopia puppet module [is available at puppet forge](http://forge.p
 
 When you start a server, it auto-creates a config file.
 
-### See also: [server-side configure document](SERVER.md)
+#### See also: [server-side configure document](SERVER.md)
 
 ## Adding a new user
 
