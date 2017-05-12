@@ -1,3 +1,12 @@
+## 2.1.6 (May 12, 2017)
+- Fix https certificates safety check - ([@juanpicado]((https://github.com/juanpicado))) in [#189] (https://github.com/verdaccio/verdaccio/pull/189)
+- Fix upstream search not work with gzip - ([@Meeeeow](https://github.com/Meeeeow) in [#170](https://github.com/verdaccio/verdaccio/pull/170))
+- Add additional requirement to output message - ([@marnel ](https://github.com/marnel ) in [#184](https://github.com/verdaccio/verdaccio/pull/184))
+- Implement npm ping endpoint - ([@juanpicado]((https://github.com/juanpicado))) in [#179] (https://github.com/verdaccio/verdaccio/pull/179)
+- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue))) in [#108] (https://github.com/verdaccio/verdaccio/pull/108)
+
+
+
 ## 2.1.5 (April 22, 2017)
 - fix upstream search - ([@Meeeeow](https://github.com/Meeeeow) in [#166](https://github.com/verdaccio/verdaccio/pull/166))
 - Fix search feature - ([@Meeeeow](https://github.com/Meeeeow) in [#163](https://github.com/verdaccio/verdaccio/pull/163))
