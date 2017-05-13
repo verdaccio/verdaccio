@@ -105,6 +105,7 @@ packages:
 #https:
 #  key: path/to/server.key
 #  cert: path/to/server.crt
+#  ca: path/to/server.pem
 
 # type: file | stdout | stderr
 # level: trace | debug | info | http (default) | warn | error | fatal
