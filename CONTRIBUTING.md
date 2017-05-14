@@ -1,27 +1,42 @@
 # Contributing to Verdaccio
 
-Wanna **contribute**? Please read carefully this document. It will guide you to provide maintainers and readers valuable information to boots the process solve the issue or evaluate your proposal.
+We are happy you wish to contribute this project, for that reason we want to board you with this guide.
 
-## Before submit a new issue
+## How I contribute?
+
+
+### Ways to contribute
+
+There are many ways to contribute to the Verdaccio Project. Here’s a list of technical contributions with increasing levels of involvement and required knowledge of Verdaccio's code and operations.
+
+* [Reporting a Bug](CONTRIBUTING.md#reporting-a-bug)
+* [Request Features](CONTRIBUTING.md#request-features)
+* [Plugins](CONTRIBUTING.md#plugins)
+
+Please read carefully this document. It will guide you to provide maintainers and readers valuable information to boots the process solve the issue or evaluate your proposal.
+
+##Reporting a Bug
+
+We welcome clear bug reports. If you've found a bug in Verdaccio that isn't a security risk, please file a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues). Before you file your issue, search to see if it has already been reported. If so, up-vote (using GitHub reactions) or add additional helpful details to the existing issue to show that it's affecting multiple people.
  
-### 1. Check if there's a simple solution in the wiki.
+### Check if there's a simple solution in the wiki.
 
 Some of the most popular topics can be found in our [wiki](https://github.com/verdaccio/verdaccio/wiki), that would be the first place to look at the topic you are interested.
 
-### 2. Questions & Chat
+### Questions & Chat
 
 We have tagged questions for easy follow up under the tag [questions](https://github.com/verdaccio/verdaccio/labels/question). Additionaly, I'd recommend to deliver questions in the new chat as **#questions/#development** channels at  [slack](https://verdaccio-npm.slack.com). 
 
-### 3. Look at the past
+### Look at the past
 
-* Verdaccio is a fork of sinopia, thereforce, there is a huge [database of tickets](https://github.com/rlidwka/sinopia/issues) in the original projet. It's a good place to find answers. 
+* Verdaccio is a fork of `sinopia@1.4.0`, thereforce, there is a huge [database of tickets](https://github.com/rlidwka/sinopia/issues) in the original projet. It's a good place to find answers. 
 * Questions under the tag of [sinopia](http://stackoverflow.com/questions/tagged/sinopia) or [verdaccio](http://stackoverflow.com/search?q=verdaccio) at Starckoverflow  might be helpful.
 
-### 4. Using the issue tracker
+### Using the issue tracker
 
 The issue tracker is a channel were mostly users/developers post.
 
-#### I want to report a bug 
+#### I want to report a bug
 
 We considere a bug a feature that is not working as is described in the documentation. Before reporte a bug follow the next steps:
 
