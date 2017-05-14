@@ -1,3 +1,6 @@
+## 2.1.7 (May 14, 2017)
+- Fixed publish fail in YARN - ([@	W1U02]((https://github.com/	W1U02))) in [#183] (https://github.com/verdaccio/verdaccio/pull/183)
+
 ## 2.1.6 (May 12, 2017)
 - Fix https certificates safety check - ([@juanpicado]((https://github.com/juanpicado))) in [#189] (https://github.com/verdaccio/verdaccio/pull/189)
 - Fix upstream search not work with gzip - ([@Meeeeow](https://github.com/Meeeeow) in [#170](https://github.com/verdaccio/verdaccio/pull/170))
