@@ -51,22 +51,49 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ### Docker
 
-To use the pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+To use the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 `docker pull verdaccio/verdaccio`
 
-To build your own image:
+#### By tags
 
-`docker build -t verdaccio .`
+Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+
+For a major version:
+
+```bash
+docker pull verdaccio/verdaccio:2
+```
+For a minor version:
+
+```bash
+docker pull verdaccio/verdaccio:2.1
+```
+
+For a specific (minor) version:
+
+```bash
+docker pull verdaccio/verdaccio:2.1.7
+```
+
+#### Build your own Docker image
+
+```bash
+docker build -t verdaccio .
+```
 
 There is also an npm script for building the docker image, so you can also do:
 
-`npm run build-docker`
+```bash
+npm run build-docker
+```
 
 If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available.
 To build the docker image for raspberry pi execute:
 
-`npm run build-docker:rpi`
+```bash
+npm run build-docker:rpi
+```
 
 To run the docker container:
 
