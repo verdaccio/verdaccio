@@ -15,7 +15,7 @@ There are many ways to contribute to the Verdaccio Project. Here’s a list of t
 
 Please read carefully this document. It will guide you to provide maintainers and readers valuable information to boots the process solve the issue or evaluate your proposal.
 
-##Reporting a Bug
+## Reporting a Bug
 
 We welcome clear bug reports. If you've found a bug in Verdaccio that isn't a security risk, please file a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues). Before you file your issue, search to see if it has already been reported. If so, up-vote (using GitHub reactions) or add additional helpful details to the existing issue to show that it's affecting multiple people.
  
