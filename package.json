@@ -72,7 +72,7 @@
     "test": "npm run lint && mocha ./test/functional ./test/unit",
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
     "coveralls": "nyc report --reporter=text-lcov  | coveralls",
-    "test-travis": "npm run lint && npm run test:coverage",
+    "test-travis": "npm run lint && npm run test:coverage && npm run coveralls",
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint .",
     "build-docker": "docker build -t verdaccio .",
