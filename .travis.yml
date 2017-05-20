@@ -5,4 +5,4 @@ node_js:
   - '7'
 sudo: false
 script: npm install . && npm run test-travis
-after_success: npm run coverage:coveralls && npm run coverage:codecov && npm run coverage:codacy
+after_success: npm run coverage:codecov && npm run coverage:codacy
