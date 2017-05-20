@@ -44,6 +44,7 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "browserify-handlebars": "^1.0.0",
+    "codecov": "^2.2.0",
     "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.1",
@@ -71,8 +72,9 @@
   "scripts": {
     "test": "npm run lint && mocha ./test/functional ./test/unit",
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
-    "coveralls": "nyc report --reporter=text-lcov  | coveralls",
-    "test-travis": "npm run lint && npm run test:coverage && npm run coveralls",
+    "coverage:coveralls": "nyc report --reporter=text-lcov  | coveralls",
+    "coverage:codecov": "nyc report --reporter=lcov | codecov",
+    "test-travis": "npm run lint && npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint .",
     "build-docker": "docker build -t verdaccio .",
