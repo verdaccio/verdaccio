@@ -65,3 +65,26 @@ The locations may vary depending on your server setup. If you want to know where
 $ which forever
 $ which verdaccio
 ```
+
+## Apache reverse proxy configuration
+config.yaml
+```yaml
+url_prefix: https://npm.your.domain.com
+```
+Apache virtual server configuration
+```apacheconfig
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName npm.your.domain.com
+    SSLEngine on
+    SSLCertificateFile      /etc/letsencrypt/live/npm.your.domain.com/fullchain.pem
+    SSLCertificateKeyFile   /etc/letsencrypt/live/npm.your.domain.com/privkey.pem
+    SSLProxyEngine          On
+    ProxyRequests           Off
+    ProxyPreserveHost       On
+    AllowEncodedSlashes     NoDecode
+    ProxyPass               /       http://127.0.0.1:4873/ nocanon
+    ProxyPassReverse        /       http://127.0.0.1:4873/
+</VirtualHost>
+</IfModule>
+```
