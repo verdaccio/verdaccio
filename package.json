@@ -44,6 +44,7 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "browserify-handlebars": "^1.0.0",
+    "codacy-coverage": "^2.0.2",
     "codecov": "^2.2.0",
     "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
@@ -54,6 +55,7 @@
     "grunt-contrib-less": "^1.3.0",
     "grunt-contrib-watch": "^1.0.0",
     "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^10.1.2",
     "onclick": "^0.1.0",
     "rimraf": "^2.5.2",
@@ -74,6 +76,7 @@
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
     "coverage:coveralls": "nyc report --reporter=text-lcov  | coveralls",
     "coverage:codecov": "nyc report --reporter=lcov | codecov",
+    "coverage:codacy": "nyc report --reporter=lcov && cat coverage/lcov.info | codacy-coverage",
     "test-travis": "npm run lint && npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint .",
@@ -82,7 +85,7 @@
   },
   "engines": {
     "node": ">=4.6.1",
-    "npm" : ">=2.15.9" 
+    "npm": ">=2.15.9"
   },
   "preferGlobal": true,
   "publishConfig": {
