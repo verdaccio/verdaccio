@@ -28,6 +28,12 @@ url_prefix: 'https://your-domain:8888'
 # or
 url_prefix: 'https://your-domain:8888/your-path'
 ```
+
+If you do not know the protocol and host, you can define only subpath as `url_prefix`. Full URL will be constructed from the request.
+```yaml
+url_prefix: '/your-path'
+```
+
 > Nginx or Apache configure? Please check out Wiki ;-)
 
 ## Keeping verdaccio running forever
