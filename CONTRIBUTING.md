@@ -25,7 +25,7 @@ Some of the most popular topics can be found in our [wiki](https://github.com/ve
 
 ### Questions & Chat
 
-We have tagged questions for easy follow up under the tag [questions](https://github.com/verdaccio/verdaccio/labels/question). Additionaly, I'd recommend to deliver questions in the new chat as **#questions/#development** channels at  [slack](https://verdaccio-npm.slack.com). 
+We have tagged questions for easy follow up under the tag [questions](https://github.com/verdaccio/verdaccio/labels/question). Additionaly, I'd recommend to deliver questions in the new chat as **#questions/#development** channels at  [gitter](https://gitter.im/verdaccio/). 
 
 ### Look at the past
 
