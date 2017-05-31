@@ -109,6 +109,12 @@ docker run -it --rm --name verdaccio -p 4873:4873 \
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
 
+##### Docker Examples
+
+This repository host multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy.
+
+[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/docker-examples)
+
 ### Ansible
 
 A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/verdaccio) source: https://github.com/030/ansible-verdaccio
