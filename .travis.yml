@@ -3,6 +3,7 @@ node_js:
   - '4'
   - '6'
   - '7'
+  - '8'
 sudo: false
 script: npm install . && npm run test-travis
 after_success: npm run coverage:codecov && npm run coverage:codacy
