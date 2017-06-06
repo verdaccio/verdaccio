@@ -47,7 +47,7 @@ rules:
   no-unreachable: 2
 
   # useful for code clean-up
-  no-unused-vars: [1, {"vars": "all", "args": "none"}]
+  no-unused-vars: [2, {"vars": "all", "args": "none"}]
 
   max-len: [1, 160]
 
