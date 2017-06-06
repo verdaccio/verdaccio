@@ -72,7 +72,7 @@
     "server"
   ],
   "scripts": {
-    "test": "npm run lint && mocha ./test/functional ./test/unit",
+    "test": "npm run lint && mocha ./test/functional ./test/unit --reporter=spec",
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
     "coverage:coveralls": "nyc report --reporter=text-lcov  | coveralls",
     "coverage:codecov": "nyc report --reporter=lcov | codecov",
