@@ -59,6 +59,10 @@ uplinks:
     #headers:
     #  authorization: "Basic YourBase64EncodedCredentials=="
 
+    # set this to false to prevent tarballs from this upstream
+    # to be stored in the local storage (defaults to true)
+    #cache: false
+
 packages:
   # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages

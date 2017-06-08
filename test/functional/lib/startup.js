@@ -8,6 +8,7 @@ const Server = require('./server');
 const forks = process.forks = [];
 process.server = Server('http://localhost:55551/');
 process.server2 = Server('http://localhost:55552/');
+process.server3 = Server('http://localhost:55553/');
 process.express = express();
 process.express.listen(55550);
 
@@ -39,6 +40,13 @@ module.exports.start = function(dir, conf) {
 };
 
 process.on('exit', function() {
-  if (forks[0]) forks[0].kill();
-  if (forks[1]) forks[1].kill();
+  if (forks[0]) {
+    forks[0].kill();
+  }
+  if (forks[1]) {
+    forks[1].kill();
+  }
+  if (forks[2]) {
+    forks[2].kill();
+  }
 });

@@ -1,7 +1,12 @@
 'use strict';
 
-let config = {
+const config = {
   storage: __dirname + '/test-storage',
+  uplinks: {
+    'npmjs': {
+      'url': 'https://registry.npmjs.org/'
+    }
+  },
   packages: {
     '*': {
       allow_access: '$all',

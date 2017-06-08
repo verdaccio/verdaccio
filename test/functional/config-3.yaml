@@ -1,0 +1,36 @@
+storage: ./test-storage3
+
+users:
+  test:
+    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+
+web:
+  enable: true
+
+uplinks:
+  server1:
+    url: http://localhost:55551/
+#    cache: true
+  server2:
+    url: http://localhost:55552/
+    cache: false
+
+logs:
+  - {type: stdout, format: pretty, level: trace}
+
+packages:
+  'pkg-gh131':
+    access: $all
+    proxy: server1
+
+  'pkg-gh1312':
+    access: $all
+    proxy: server2
+
+  '*':
+    access: $all
+
+listen: 55553
+
+# expose internal methods
+_debug: true

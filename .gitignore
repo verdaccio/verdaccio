@@ -5,6 +5,7 @@ verdaccio-*.tgz
 ###
 !bin/verdaccio
 test-storage*
+.verdaccio_test_env
 node_modules
 
 
