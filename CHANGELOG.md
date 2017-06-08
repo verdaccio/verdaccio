@@ -1,3 +1,9 @@
+## 2.1.8 (June 8, 2017)
+- Allow url_prefix to be only the path - ([@BartDubois ]((https://github.com/BartDubois))) in [#197] (https://github.com/verdaccio/verdaccio/pull/197)
+- Apache reverse proxy configuration - ([@mysiar ]((https://github.com/mysiar))) in [#198] (https://github.com/verdaccio/verdaccio/pull/198)
+- don't blindly clobber local dist-tags - ([@rmg ]((https://github.com/rmg))) in [#206] (https://github.com/verdaccio/verdaccio/pull/206)
+- Adds cache option to uplinks - ([@silkentrance ]((https://github.com/silkentrance))) in [#132] (https://github.com/verdaccio/verdaccio/pull/132)
+
 ## 2.1.7 (May 14, 2017)
 - Fixed publish fail in YARN - ([@W1U02]((https://github.com/W1U02))) in [#183] (https://github.com/verdaccio/verdaccio/pull/183)
 
