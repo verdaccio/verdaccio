@@ -1,4 +1,4 @@
-## 2.1.8 (June 8, 2017)
+## 2.2.0 (June 8, 2017)
 - Allow url_prefix to be only the path - ([@BartDubois ]((https://github.com/BartDubois))) in [#197] (https://github.com/verdaccio/verdaccio/pull/197)
 - Apache reverse proxy configuration - ([@mysiar ]((https://github.com/mysiar))) in [#198] (https://github.com/verdaccio/verdaccio/pull/198)
 - don't blindly clobber local dist-tags - ([@rmg ]((https://github.com/rmg))) in [#206] (https://github.com/verdaccio/verdaccio/pull/206)
