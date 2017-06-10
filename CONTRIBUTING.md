@@ -30,7 +30,7 @@ We have tagged questions for easy follow up under the tag [questions](https://gi
 ### Look at the past
 
 * Verdaccio is a fork of `sinopia@1.4.0`, thereforce, there is a huge [database of tickets](https://github.com/rlidwka/sinopia/issues) in the original projet. It's a good place to find answers. 
-* Questions under the tag of [sinopia](http://stackoverflow.com/questions/tagged/sinopia) or [verdaccio](http://stackoverflow.com/search?q=verdaccio) at Starckoverflow  might be helpful.
+* Questions under the tag of [sinopia](http://stackoverflow.com/questions/tagged/sinopia) or [verdaccio](http://stackoverflow.com/search?q=verdaccio) at Stackoverflow  might be helpful.
 
 ### Using the issue tracker
 
