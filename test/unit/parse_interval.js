@@ -1,17 +1,17 @@
 'use strict';
 
 let assert = require('assert');
-let parse_interval = require('../../lib/config').parse_interval;
+let parseInterval = require('../../lib/utils').parseInterval;
 
 describe('Parse interval', function() {
   function add_test(str, res) {
     it('parse ' + str, function() {
       if (res === null) {
         assert.throws(function() {
-          console.log(parse_interval(str));
+          console.log(parseInterval(str));
         });
       } else {
-        assert.strictEqual(parse_interval(str), res);
+        assert.strictEqual(parseInterval(str), res);
       }
     });
   }

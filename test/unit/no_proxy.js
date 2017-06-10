@@ -1,7 +1,7 @@
 'use strict';
 
 let assert = require('assert');
-let Storage = require('../../lib/up-storage');
+let Storage = require('../../lib/storage/up-storage');
 
 require('../../lib/logger').setup([]);
 
