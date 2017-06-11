@@ -2,15 +2,18 @@
 
 // ensure that all arguments are validated
 
-let assert = require('assert');
+const assert = require('assert');
+const path = require('path');
 
 describe('index.js app', test('index.js'));
-describe('index-api.js app', test('index-api.js'));
-describe('index-web.js app', test('index-web.js'));
+describe('api.js app', test('api/api.js'));
+describe('index.js app', test('index.js'));
 
 function test(file) {
   return function() {
-    let source = require('fs').readFileSync(__dirname + '/../../lib/' + file, 'utf8');
+
+    let requirePath = path.normalize(path.join(__dirname + '/../../lib/web/', file));
+    let source = require('fs').readFileSync(requirePath, 'utf8');
 
     let very_scary_regexp = /\n\s*app\.(\w+)\s*\(\s*(("[^"]*")|('[^']*'))\s*,/g;
     let m;
