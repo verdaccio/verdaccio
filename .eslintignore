@@ -1,4 +1,7 @@
 node_modules
 lib/web/static
+lib/web/ui/
+lib/web/static
 coverage/
+
 wiki/
