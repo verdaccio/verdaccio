@@ -50,6 +50,12 @@ $ npm set ca null
 ```
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
+ 
+## Configuration
+ 
+When you start a server, it auto-creates a config file.
+ 
+**For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](SERVER.md).**
 
 ### Docker
 
@@ -126,12 +132,6 @@ The Verdaccio Chef cookbook [is available via the chef supermarket](https://supe
 ### Puppet
 
 The original Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
-
-## Configuration
-
-When you start a server, it auto-creates a config file.
-
-#### See also: [server-side configure document](SERVER.md)
 
 ## Adding a new user
 
