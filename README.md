@@ -110,7 +110,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 \
   -v /<path to verdaccio directory>/conf:/verdaccio/conf \
   -v /<path to verdaccio directory>/storage:/verdaccio/storage \
   -v /<path to verdaccio directory>/local_storage:/verdaccio/local_storage \
-  verdaccio
+  verdaccio/verdaccio
 ```
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
