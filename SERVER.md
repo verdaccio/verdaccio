@@ -22,19 +22,35 @@ listen: 0.0.0.0:4873
 ```
 
 ## Run behind reverse proxy with different domain and port
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`, you can resolve this by set `url_prefix`
-```yaml
-url_prefix: 'https://your-domain:8888'
-# or
-url_prefix: 'https://your-domain:8888/your-path'
-```
+If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
 
-If you do not know the protocol and host, you can define only subpath as `url_prefix`. Full URL will be constructed from the request.
-```yaml
-url_prefix: '/your-path'
-```
+To resolve this issue, you should send real domain and port to verdaccio with `Host` heade
 
-> Nginx or Apache configure? Please check out Wiki ;-)
+Nginx configure should look like this:
+```nginx
+location / {
+    proxy_pass http://127.0.0.1:4873/;
+    proxy_set_header Host            $host:$server_port;
+    proxy_set_header X-Forwarded-For $remote_addr;
+}
+```
+For this case, `url_prefix` should NOT set in verdaccio config
+
+---
+or a sub-directory installation:
+```nginx
+location ~ ^/verdaccio/(.*)$ {
+    proxy_pass http://127.0.0.1:4873/$1;
+    proxy_set_header Host            $host:$server_port;
+    proxy_set_header X-Forwarded-For $remote_addr;
+}
+```
+For this case, `url_prefix` should set to `/verdaccio/`
+
+> Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
+
+
+> Apache configure? Please check out Wiki ;-)
 
 ## Keeping verdaccio running forever
 We can use the node package called 'forever' to keep verdaccio running all the time.
