@@ -41,7 +41,7 @@
     "minimatch": "^3.0.2",
     "mkdirp": "^0.5.1",
     "pkginfo": "^0.4.0",
-    "prop-types": "^15.5.10",
+    "prop-types": "15.5.10",
     "request": "^2.72.0",
     "semver": "^5.1.0",
     "unix-crypt-td-js": "^1.0.0",
@@ -132,8 +132,6 @@
     "build-docker": "docker build -t verdaccio .",
     "build:webpack": "webpack --config tools/webpack.config.js",
     "prepublish": "in-publish && thing-I-dont-want-on-dev-install || not-in-publish",
-    "build:webpack": "webpack --config tools/webpack.config.js",
-    "prepublish": "in-publish && npm run build:webpack || not-in-publish",
     "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
   "jest": {
@@ -149,6 +147,5 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "license": "WTFPL",
-  "false": {}
+  "license": "WTFPL"
 }
