@@ -20,3 +20,10 @@ coverage/
 jsconfig.json
 
 .idea/
+
+
+# React
+bundle.js
+bundle.js.map
+__tests__
+__snapshots__

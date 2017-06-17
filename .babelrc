@@ -1,0 +1,20 @@
+{
+     "presets": [
+          "react",
+          ["env", {
+               "targets": {
+                    "browsers": "last 2 versions"
+               },
+               "loose": true,
+               "modules": false
+          }]
+     ],
+     "env": {
+          "test": {
+               "plugins": [
+                    "transform-es2015-modules-commonjs"
+               ]
+          }
+     }
+}
+
