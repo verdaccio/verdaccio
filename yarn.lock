@@ -1553,10 +1553,6 @@ cookies@^0.6.1:
     depd "~1.1.0"
     keygrip "~1.0.1"
 
-coolors-to-hex@^1.0.0:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/coolors-to-hex/-/coolors-to-hex-1.0.3.tgz#5945ee32e8180b0298347ecd6eb00b6d28802e0e"
-
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -3973,13 +3969,13 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
+lodash@4.17.4, lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
 lodash@^3.10.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
-
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 log-driver@1.2.5, log-driver@^1.x:
   version "1.2.5"
@@ -5006,7 +5002,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@~15.5.7:
+prop-types@15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@~15.5.7:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -5887,14 +5883,7 @@ styled-components@1.4.6:
     prop-types "^15.5.4"
     supports-color "^3.1.2"
 
-styled-theme@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/styled-theme/-/styled-theme-0.3.0.tgz#3c61d971a402b7b6d3583c4ee0b48fbdf99ae464"
-  dependencies:
-    coolors-to-hex "^1.0.0"
-    styled-tools "^0.1.1"
-
-styled-tools@0.1.2, styled-tools@^0.1.1:
+styled-tools@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/styled-tools/-/styled-tools-0.1.2.tgz#5cf7a45f4885537e9a292df9d682bd98c6917972"
   dependencies:
