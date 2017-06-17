@@ -9,12 +9,21 @@
 # Created to work with eslint@0.18.0
 #
 
-extends: ["eslint:recommended", "google"]
+plugins: ["react"]
+
+extends: ["eslint:recommended", "google", "plugin:react/recommended"]
 
 env:
   node: true
   browser: true
   es6: true
+
+parserOptions:
+    sourceType: "module"
+    ecmaVersion: 7
+    ecmaFeatures:
+      jsx: true
+
 
 rules:
   # useful to have in node.js,

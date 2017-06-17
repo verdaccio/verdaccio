@@ -1,0 +1,23 @@
+# vim: syntax=yaml
+
+
+## rules for react components
+
+extends: ["eslint:recommended", "google", "plugin:react/recommended", "plugin:flowtype/recommended", "prettier", "prettier/react"]
+
+plugins: ["flowtype", "prettier"]
+
+parser: babel-eslint
+
+env:
+  node: true
+  browser: true
+  jest: true
+
+rules:
+  # jsdoc is mandatory
+  require-jsdoc: 0
+  # jsx rules
+  react/no-danger-with-children: 0
+  react/no-string-refs: 0
+

@@ -3,132 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>{{ name }}</title>
-
     <link rel="icon" type="image/png" href="{{ baseUrl }}/-/static/favicon.png"/>
-    <link rel="stylesheet" type="text/css" href="{{ baseUrl }}/-/static/main.css">
+    <link rel="stylesheet" type="text/css" href="{{ baseUrl }}/-/static/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body class="body">
-    <header class="main-header">
-      <nav class="navbar navbar-default red-bg white no-border no-rnd-cnr" role="navigation">
-        <div class="container">
-          <div class="navbar-header clearfix">
-            <div class="npm-logo brand">
-              <a href="{{ baseUrl }}"></a>
-            </div>
-
-            <!-- login/logout for small devices -->
-            <div class="pull-right visible-xs pad-right-10">
-              <div>
-                {{#if username}}
-                <p class="white no-bg navbar-text pad-right-10 inline-block">Hi {{username}}</p>
-                <button type="submit" class="btn btn-danger inline-block js-userLogoutBtn">Logout</button>
-                {{else}}
-                <p class="white no-bg navbar-text pad-right-10 inline-block">&nbsp;</p>
-                <button type="submit" class="btn btn-danger inline-block" data-toggle="modal" data-target="#login-form" onclick="return false">Login</button>
-                {{/if}}
-              </div>
-            </div>
-          </div>
-
-          <div class="navbar-left hidden-xs">&nbsp;&nbsp;</div>
-
-          <div class="navbar-left setup hidden-xs">
-            <code class="white no-bg">npm set registry {{ baseUrl }}</code><br>
-            <code class="white no-bg">npm adduser --registry {{ baseUrl }}</code>
-          </div>
-
-          <!-- login/logout for large devices -->
-          <div class="navbar-collapse collapse">
-            <div class="navbar-right">
-              <form class="navbar-form navbar-right">
-                {{#if username}}
-                <p class="white no-bg pad-right-10 inline-block">Hi {{username}}</p>
-                <button type="submit" class="btn btn-danger inline-block js-userLogoutBtn">Logout</button>
-                {{else}}
-                <button type="submit" class="btn btn-danger inline-block" data-toggle="modal" data-target="#login-form" onclick="return false">Login</button>
-                {{/if}}
-              </form>
-            </div>
-          </div>
-
-
-        </div>
-      </nav>
-      <header class="sm-registry-info light-red-bg center hidden-sm hidden-lg hidden-md">
-        <code class="white no-bg">{{ baseUrl }}</code><br>
-      </header>
-      <header class="packages-header container">
-        {{#if tagline}}
-        <div class="row">
-          <div class="col-md-12">
-            {{{tagline}}}
-          </div>
-        </div>
-        {{/if}}
-        <div class="row">
-          <div class="col-md-5 hidden-xs hidden-sm">
-            <h2 class="title">Available Packages</h2>
-          </div>
-          <div class="col-md-4 col-md-offset-3 col-sm-12">
-            <form id='search-form'>
-              <div class="input-group input-group-lg search-container">
-                <input type="text" class="form-control" placeholder="Search for packages">
-                <span class="input-group-btn">
-                  <button class="btn btn-default search-icon js-search-btn"><i class="icon-search"></i></button>
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
-      </header>
-    </header>
-
-    <section class="content container packages-container" id="all-packages">
-        {{#each packages}}
-          {{> entry}}
-        {{/each}}
-
-        {{#unless packages.length}}
-          <div class='no-results'>
-            <big>No Packages</big><br>
-            Use <code>npm publish</code>
-          </div>
-        {{/unless}}
-    </section>
-
-    <section class="content container pkg-search-container" id="search-results"></section>
-
-    <div class="modal fade" id="login-form" tabindex="-1" role="dialog" aria-labelledby="login-form-label" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h5 class="modal-title" id="login-form-label">Welcome back</h5>
-          </div>
-          <form role="form" action="{{ baseUrl }}/-/login" method="post" id="login-form" autocomplete="off">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="user" class="sr-only">Email</label>
-                <input name="user" id="user" class="form-control" placeholder="Username" type="text">
-              </div>
-              <div class="form-group">
-                <label for="pass" class="sr-only">Password</label>
-                <input name="pass" id="pass" class="form-control" placeholder="Password" type="password">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Log in</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <form action="{{ baseUrl }}/-/logout" method="post" class="hide" id="userLogoutForm"></form>
-
-    <script src="{{ baseUrl }}/-/static/jquery.min.js"></script>
-    <script type='text/javascript' src='{{ baseUrl }}/-/static/main.js'></script>
+    <div id="root"></div>
+    <script>
+        window.__INITIAL_STATE = JSON.parse('{{{data}}}');
+    </script>
+    <script type='text/javascript' src='{{ baseUrl }}/-/static/bundle.js'></script>
   </body>
 </html>

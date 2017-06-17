@@ -1,0 +1,15 @@
+# vim: syntax=yaml
+
+
+## rules for react components
+
+env:
+  node: true
+  browser: true
+
+rules:
+  # jsdoc is mandatory
+  require-jsdoc: 0
+  comma-dangle: 0
+
+

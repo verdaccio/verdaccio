@@ -18,8 +18,11 @@ web:
   #enable: true
 
   title: Verdaccio
+
   # logo: logo.png
+
   # template: custom.hbs
+
   # tagline: "Some <b>HTML</b> enabled tagline that sits between the actual \
 #header and the list of packages. You can even add <a \
 #href=\"https://github.com\">links</a>!"
