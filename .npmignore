@@ -5,4 +5,5 @@ verdaccio-*.tgz
 test-storage*
 /.*
 scripts/
+scripts/
 wiki/
