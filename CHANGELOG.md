@@ -1,3 +1,9 @@
+## 2.2.1 (June 17, 2017)
+
+- config section moved up, some keywords added - [#211] (https://github.com/verdaccio/verdaccio/pull/211)
+- docs: update docs with behind reverse proxy - [#214] (https://github.com/verdaccio/verdaccio/pull/214)
+- Add remote ip to request log - [#216] (https://github.com/verdaccio/verdaccio/pull/216)
+
 ## 2.2.0 (June 8, 2017)
 - Allow url_prefix to be only the path - ([@BartDubois ]((https://github.com/BartDubois))) in [#197] (https://github.com/verdaccio/verdaccio/pull/197)
 - Apache reverse proxy configuration - ([@mysiar ]((https://github.com/mysiar))) in [#198] (https://github.com/verdaccio/verdaccio/pull/198)
