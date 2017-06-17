@@ -121,7 +121,7 @@
     "server"
   ],
   "scripts": {
-    "test": "npm run lint && mocha ./test/functional --reporter=spec --full-trace",
+    "test": "npm run lint && npm run test:ui:update && mocha ./test/functional  --reporter=spec --full-trace",
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
     "test:ui": "NODE_ENV=test jest",
     "test:ui:update": "NODE_ENV=test jest -u",
