@@ -102,7 +102,6 @@
     "sinon": "^2.3.4",
     "style-loader": "0.13.1",
     "styled-components": "1.4.6",
-    "styled-tools": "0.1.2",
     "superagent": "2.0.0",
     "transition-complete": "0.0.2",
     "unopinionate": "0.0.4",
@@ -131,7 +130,7 @@
     "lint": "eslint .",
     "build-docker": "docker build -t verdaccio .",
     "build:webpack": "webpack --config tools/webpack.config.js",
-    "prepublish": "in-publish && thing-I-dont-want-on-dev-install || not-in-publish",
+    "prepublish": "in-publish && npm run build:webpack || not-in-publish",
     "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
   "jest": {
@@ -147,5 +146,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "license": "WTFPL"
+  "license": "WTFPL",
+  "false": {}
 }
