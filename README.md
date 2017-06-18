@@ -102,15 +102,39 @@ To build the docker image for raspberry pi execute:
 ```bash
 npm run build-docker:rpi
 ```
-
 To run the docker container:
 
-```
+```bash
 docker run -it --rm --name verdaccio -p 4873:4873 \
   -v /<path to verdaccio directory>/conf:/verdaccio/conf \
   -v /<path to verdaccio directory>/storage:/verdaccio/storage \
-  -v /<path to verdaccio directory>/local_storage:/verdaccio/local_storage \
   verdaccio/verdaccio
+```
+Note: The build might take some minutes to build locally.
+
+#### Using docker-compose
+
+1. Get the latest version of [docker-compose](https://github.com/docker/compose).
+2. Build and run the container: 
+
+```bash
+$ docker-compose up --build
+```
+
+Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+ 
+```bash
+$ docker volume inspect verdaccio_verdaccio
+[
+    {
+        "Name": "verdaccio_verdaccio",
+        "Driver": "local",
+        "Mountpoint": "/var/lib/docker/volumes/verdaccio_verdaccio/_data",
+        "Labels": null,
+        "Scope": "local"
+    }
+]
+
 ```
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
