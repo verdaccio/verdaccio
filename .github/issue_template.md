@@ -32,9 +32,10 @@
  - Verdaccio terminal output
  - Windows, OS X/macOS, or Linux?:
  - Verdaccio configuration file, eg: `cat ~/.config/verdaccio/config.yaml`
+ <!-- Remove those does not apply for you -->
  - Container:
-   - [ ] I use local environment
-   - [ ] I develop / deploy using Docker.
-   - [ ] I deploy to a PaaS.
+   - I use local environment
+   - I develop / deploy using Docker.
+   - I deploy to a PaaS.
 
 #### Additional verbose log:
