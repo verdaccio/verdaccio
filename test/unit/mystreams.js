@@ -1,6 +1,6 @@
 'use strict';
 
-let ReadTarball = require('../../lib/streams').ReadTarballStream;
+let ReadTarball = require('../../lib/storage/streams').ReadTarball;
 
 describe('mystreams', function() {
   it('should delay events', function(cb) {

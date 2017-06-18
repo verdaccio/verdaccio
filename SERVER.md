@@ -22,13 +22,35 @@ listen: 0.0.0.0:4873
 ```
 
 ## Run behind reverse proxy with different domain and port
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`, you can resolve this by set `url_prefix`
-```yaml
-url_prefix: 'https://your-domain:8888'
-# or
-url_prefix: 'https://your-domain:8888/your-path'
+If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
+
+To resolve this issue, you should send real domain and port to verdaccio with `Host` heade
+
+Nginx configure should look like this:
+```nginx
+location / {
+    proxy_pass http://127.0.0.1:4873/;
+    proxy_set_header Host            $host:$server_port;
+    proxy_set_header X-Forwarded-For $remote_addr;
+}
 ```
-> Nginx or Apache configure? Please check out Wiki ;-)
+For this case, `url_prefix` should NOT set in verdaccio config
+
+---
+or a sub-directory installation:
+```nginx
+location ~ ^/verdaccio/(.*)$ {
+    proxy_pass http://127.0.0.1:4873/$1;
+    proxy_set_header Host            $host:$server_port;
+    proxy_set_header X-Forwarded-For $remote_addr;
+}
+```
+For this case, `url_prefix` should set to `/verdaccio/`
+
+> Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
+
+
+> Apache configure? Please check out Wiki ;-)
 
 ## Keeping verdaccio running forever
 We can use the node package called 'forever' to keep verdaccio running all the time.
@@ -64,4 +86,27 @@ The locations may vary depending on your server setup. If you want to know where
 ```bash
 $ which forever
 $ which verdaccio
+```
+
+## Apache reverse proxy configuration
+config.yaml
+```yaml
+url_prefix: https://npm.your.domain.com
+```
+Apache virtual server configuration
+```apacheconfig
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName npm.your.domain.com
+    SSLEngine on
+    SSLCertificateFile      /etc/letsencrypt/live/npm.your.domain.com/fullchain.pem
+    SSLCertificateKeyFile   /etc/letsencrypt/live/npm.your.domain.com/privkey.pem
+    SSLProxyEngine          On
+    ProxyRequests           Off
+    ProxyPreserveHost       On
+    AllowEncodedSlashes     NoDecode
+    ProxyPass               /       http://127.0.0.1:4873/ nocanon
+    ProxyPassReverse        /       http://127.0.0.1:4873/
+</VirtualHost>
+</IfModule>
 ```

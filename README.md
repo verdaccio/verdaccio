@@ -5,6 +5,8 @@
 [![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
 [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
+[![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
+[![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 
 It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
@@ -48,27 +50,70 @@ $ npm set ca null
 ```
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
+ 
+## Configuration
+ 
+When you start a server, it auto-creates a config file.
+ 
+**For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](SERVER.md).**
 
 ### Docker
 
-To use the pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+To use the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 `docker pull verdaccio/verdaccio`
 
-To build your own image:
+#### By tags
 
-`docker build -t verdaccio .`
+Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+
+For a major version:
+
+```bash
+docker pull verdaccio/verdaccio:2
+```
+For a minor version:
+
+```bash
+docker pull verdaccio/verdaccio:2.1
+```
+
+For a specific (minor) version:
+
+```bash
+docker pull verdaccio/verdaccio:2.1.7
+```
+
+#### Build your own Docker image
+
+```bash
+docker build -t verdaccio .
+```
 
 There is also an npm script for building the docker image, so you can also do:
 
-`npm run build-docker`
+```bash
+npm run build-docker
+```
 
 If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available.
 To build the docker image for raspberry pi execute:
 
-`npm run build-docker:rpi`
-
+```bash
+npm run build-docker:rpi
+```
 To run the docker container:
+
+```bash
+docker run -it --rm --name verdaccio -p 4873:4873 \
+  -v /<path to verdaccio directory>/conf:/verdaccio/conf \
+  -v /<path to verdaccio directory>/storage:/verdaccio/storage \
+  verdaccio/verdaccio
+```
+Note: The build might take some minutes to build locally.
+
+#### Using docker-compose
+
 1. Get the latest version of [docker-compose](https://github.com/docker/compose).
 2. Build and run the container: 
 
@@ -89,9 +134,16 @@ $ docker volume inspect verdaccio_verdaccio
         "Scope": "local"
     }
 ]
+
 ```
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+
+##### Docker Examples
+
+This repository host multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy.
+
+[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/docker-examples)
 
 ### Ansible
 
@@ -104,12 +156,6 @@ The Verdaccio Chef cookbook [is available via the chef supermarket](https://supe
 ### Puppet
 
 The original Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
-
-## Configuration
-
-When you start a server, it auto-creates a config file.
-
-### See also: [server-side configure document](SERVER.md)
 
 ## Adding a new user
 

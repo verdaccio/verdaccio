@@ -16,6 +16,8 @@ uplinks:
     timeout: 100ms
   server2:
     url: http://localhost:55552/
+  server3:
+    url: http://localhost:55553/
   baduplink:
     url: http://localhost:55666/
 

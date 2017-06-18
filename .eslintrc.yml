@@ -27,6 +27,9 @@ rules:
   # add "falls through" for those
   no-fallthrough: 2
 
+  # enforce use curly always
+  # curly: 1
+
   # just warnings about whitespace weirdness here
   eol-last: 1
   no-irregular-whitespace: 1
@@ -44,24 +47,39 @@ rules:
   no-unreachable: 2
 
   # useful for code clean-up
-  no-unused-vars: [1, {"vars": "all", "args": "none"}]
+  no-unused-vars: [2, {"vars": "all", "args": "none"}]
 
   max-len: [1, 160]
 
   # camelcase is standard, but this should be 1 and then 2 soon
   camelcase: 0
 
-  # configuration that should be upgraded progresivelly
-  require-jsdoc: 1
-  valid-jsdoc: 1
+  # jsdoc is mandatory
+  require-jsdoc: 2
+  valid-jsdoc: 2
+
+  # this feature is cool but not supported by Node 4, disable via comments
   prefer-spread: 1
-  no-constant-condition: 1
-  no-var: 1
-  no-empty: 1
-  guard-for-in: 1
-  no-invalid-this: 1
-  new-cap: 1
-  one-var: 1
-  no-redeclare: 1
   prefer-rest-params: 1
-  no-console: [1, {"allow": ["log", "warn"]}]
+
+  # encorage use es6
+  no-var: 2
+
+  # configuration that should be upgraded progresivelly
+  no-constant-condition: 2
+  no-empty: 2
+
+  # loop over objects http://eslint.org/docs/rules/guard-for-in
+  guard-for-in: 2
+
+  # this must be used within classes
+  no-invalid-this: 2
+
+  # All object must be uppercase
+  new-cap: 2
+
+  # readbility is important, no multiple inline declarations
+  one-var: 2
+
+  # console not allowed unless for testing
+  no-console: [2, {"allow": ["log", "warn"]}]

@@ -59,6 +59,10 @@ uplinks:
     #headers:
     #  authorization: "Basic YourBase64EncodedCredentials=="
 
+    # set this to false to prevent tarballs from this upstream
+    # to be stored in the local storage (defaults to true)
+    #cache: false
+
 packages:
   # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages
@@ -105,6 +109,7 @@ packages:
 #https:
 #  key: path/to/server.key
 #  cert: path/to/server.crt
+#  ca: path/to/server.pem
 
 # type: file | stdout | stderr
 # level: trace | debug | info | http (default) | warn | error | fatal
