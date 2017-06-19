@@ -92,6 +92,11 @@ packages:
 # Advanced settings
 #####################################################################
 
+## Special packages publish configurations
+#publish:
+## This will allow the publisher to publish packages even if any uplink is down.
+#  allow_offline: true
+
 # if you use nginx with custom path, use this to override links
 #url_prefix: https://dev.company.local/verdaccio/
 
