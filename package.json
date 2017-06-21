@@ -44,8 +44,7 @@
     "prop-types": "15.5.10",
     "request": "^2.72.0",
     "semver": "^5.1.0",
-    "unix-crypt-td-js": "^1.0.0",
-    "verdaccio": "^2.2.0"
+    "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.22.2",
