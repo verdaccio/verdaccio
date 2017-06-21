@@ -3,8 +3,8 @@
 const _ = require('lodash');
 const createError = require('http-errors');
 
-const Middleware = require('../../middleware');
-const Utils = require('../../../utils');
+const Middleware = require('../../web/middleware');
+const Utils = require('../../../lib/utils');
 
 module.exports = function(route, auth, storage, config) {
   const can = Middleware.allow(auth);

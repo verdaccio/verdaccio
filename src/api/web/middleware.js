@@ -5,8 +5,8 @@
 const crypto = require('crypto');
 const _ = require('lodash');
 const createError = require('http-errors');
-const utils = require('../utils');
-const Logger = require('../logger');
+const utils = require('../../lib/utils');
+const Logger = require('../../lib/logger');
 
 
 module.exports.match = function match(regexp) {

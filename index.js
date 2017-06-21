@@ -1,4 +1,4 @@
-module.exports = require('./lib');
+module.exports = require('./src/api/index');
 
 /** package
 { "name": "verdaccio",

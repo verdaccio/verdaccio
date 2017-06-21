@@ -1,7 +1,7 @@
 'use strict';
 
-const Middleware = require('../../middleware');
-const constant = require('../../utils/const');
+const Middleware = require('../../web/middleware');
+const constant = require('../../../webui/utils/const');
 
 const media = Middleware.media;
 const expect_json = Middleware.expect_json;

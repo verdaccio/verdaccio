@@ -5,7 +5,7 @@ const Error = require('http-errors');
 const Stream = require('stream');
 const chalk = require('chalk');
 const Utils = require('./utils');
-const pkgJSON = require('../package.json');
+const pkgJSON = require('../../package.json');
 
 /**
  * Match the level based on buyan severity scale

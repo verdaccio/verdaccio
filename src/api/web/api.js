@@ -1,20 +1,19 @@
 'use strict';
 
-const async = require('async');
 const bodyParser = require('body-parser');
 const Cookies = require('cookies');
-const escape = require('js-string-escape');
 const express = require('express');
-const fs = require('fs');
-const Handlebars = require('handlebars');
 const marked = require('marked');
-const Search = require('../search');
+const Search = require('../../lib/search');
 const Middleware = require('./middleware');
-const Utils = require('../utils');
 const match = Middleware.match;
 const validateName = Middleware.validate_name;
 const validatePkg = Middleware.validate_package;
 const securityIframe = Middleware.securityIframe;
+
+/*
+ This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
+*/
 
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
@@ -22,7 +21,6 @@ module.exports = function(config, auth, storage) {
   const app = express.Router();
   /* eslint new-cap:off */
   const can = Middleware.allow(auth);
-  let template;
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
@@ -35,77 +33,6 @@ module.exports = function(config, auth, storage) {
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(auth.cookie_middleware());
   app.use(securityIframe);
-
-  Handlebars.registerPartial('entry', fs.readFileSync(require.resolve('./ui/entry.hbs'), 'utf8'));
-
-  if (config.web && config.web.template) {
-    template = Handlebars.compile(fs.readFileSync(config.web.template, 'utf8'));
-  } else {
-    template = Handlebars.compile(fs.readFileSync(require.resolve('./ui/index.hbs'), 'utf8'));
-  }
-
-  app.get('/', function(req, res, next) {
-    let proto = req.get('X-Forwarded-Proto') || req.protocol;
-    let base = Utils.combineBaseUrl(proto, req.get('host'), config.url_prefix);
-    res.setHeader('Content-Type', 'text/html');
-
-    storage.get_local(function(err, packages) {
-      if (err) {
-        throw err;
-      } // that function shouldn't produce any
-      async.filterSeries(packages, function(pkg, cb) {
-        auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
-          setImmediate(function() {
-            if (err) {
-              cb(null, false);
-            } else {
-              cb(err, allowed);
-            }
-          });
-        });
-      }, function(err, packages) {
-        if (err) throw err;
-        packages.sort(function(p1, p2) {
-          if (p1.name < p2.name) {
-            return -1;
-          } else {
-            return 1;
-          }
-        });
-        let json = {
-          packages: packages,
-          tagline: config.web && config.web.tagline ? config.web.tagline : '',
-          baseUrl: base,
-          username: req.remote_user.name,
-        };
-        next(template({
-          name: config.web && config.web.title ? config.web.title : 'Verdaccio',
-          data: escape(JSON.stringify(json)),
-        }));
-      });
-    });
-  });
-
-  // Static
-  app.get('/-/static/:filename', function(req, res, next) {
-    let file = __dirname + '/static/' + req.params.filename;
-    res.sendFile(file, function(err) {
-      if (!err) {
-        return;
-      }
-      if (err.status === 404) {
-        next();
-      } else {
-        next(err);
-      }
-    });
-  });
-
-  app.get('/-/logo', function(req, res, next) {
-    res.sendFile( config.web && config.web.logo
-                ? config.web.logo
-                : __dirname + '/static/logo-sm.png' );
-  });
 
   app.post('/-/login', function(req, res, next) {
     auth.authenticate(req.body.user, req.body.pass, (err, user) => {

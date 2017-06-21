@@ -8,7 +8,7 @@ const jju = require('jju');
 const Error = require('http-errors');
 const Logger = require('./logger');
 const load_plugins = require('./plugin-loader').load_plugins;
-const pkgJson = require('../package.json');
+const pkgJson = require('../../package.json');
 /**
  * Handles the authentification, load auth plugins.
  */

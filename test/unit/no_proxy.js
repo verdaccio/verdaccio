@@ -1,9 +1,9 @@
 'use strict';
 
 let assert = require('assert');
-let Storage = require('../../lib/storage/up-storage');
+let Storage = require('../../src/lib/storage/up-storage');
 
-require('../../lib/logger').setup([]);
+require('../../src/lib/logger').setup([]);
 
 function setup(host, config, mainconfig) {
   config.url = host;
