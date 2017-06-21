@@ -6,13 +6,13 @@ const assert = require('assert');
 const path = require('path');
 
 describe('index.js app', test('index.js'));
-describe('api.js app', test('api/api.js'));
+describe('index.js app', test('../endpoint/index.js'));
 describe('index.js app', test('index.js'));
 
 function test(file) {
   return function() {
 
-    let requirePath = path.normalize(path.join(__dirname + '/../../lib/web/', file));
+    let requirePath = path.normalize(path.join(__dirname + '/../../src/api/web/', file));
     let source = require('fs').readFileSync(requirePath, 'utf8');
 
     let very_scary_regexp = /\n\s*app\.(\w+)\s*\(\s*(("[^"]*")|('[^']*'))\s*,/g;

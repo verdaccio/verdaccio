@@ -1,12 +1,12 @@
-const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const env = require('../src/config/env');
 
 module.exports = {
-  entry: './lib/web/ui/index.js',
+  entry: `${env.SRC_ROOT}/webui/src/index.js`,
   devtool: 'source-map',
 	output: {
-    path: path.resolve(__dirname, '../lib/web/static'),
+    path: `${env.APP_ROOT}/static/`,
     filename: 'bundle.js'
   },
   module: {

@@ -1,10 +1,10 @@
 'use strict';
 
 let assert = require('assert');
-let semver_sort = require('../../lib/utils').semver_sort;
-let merge = require('../../lib/storage')._merge_versions;
+let semver_sort = require('../../src/lib/utils').semver_sort;
+let merge = require('../../src/lib/storage')._merge_versions;
 
-require('../../lib/logger').setup([]);
+require('../../src/lib/logger').setup([]);
 
 describe('Merge', function() {
   it('simple', function() {

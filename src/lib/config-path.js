@@ -4,7 +4,7 @@ const fs = require('fs');
 const Path = require('path');
 const logger = require('./logger');
 const CONFIG_FILE = 'config.yaml';
-const pkgJson = require('../package.json');
+const pkgJson = require('../../package.json');
 /**
  * Find and get the first config file that match.
  * @return {String} the config file path
@@ -28,7 +28,7 @@ function create_config_file(config_path) {
   require('mkdirp').sync(Path.dirname(config_path.path));
   logger.logger.info({file: config_path.path}, 'Creating default config file in @{file}');
 
-  let created_config = fs.readFileSync(require.resolve('../conf/default.yaml'), 'utf8');
+  let created_config = fs.readFileSync(require.resolve('../../conf/default.yaml'), 'utf8');
 
   if (config_path.type === 'xdg') {
     // $XDG_DATA_HOME defines the base directory relative to which user specific data files should be stored,

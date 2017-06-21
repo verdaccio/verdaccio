@@ -4,10 +4,10 @@ const _ = require('lodash');
 const Path = require('path');
 const createError = require('http-errors');
 
-const Middleware = require('../../middleware');
-const Notify = require('../../../notify');
-const Utils = require('../../../utils');
-const constant = require('../../utils/const');
+const Middleware = require('../../web/middleware');
+const Notify = require('../../../lib/notify');
+const Utils = require('../../../lib/utils');
+const constant = require('../../../webui/utils/const');
 
 const media = Middleware.media;
 const expect_json = Middleware.expect_json;

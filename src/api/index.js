@@ -3,25 +3,26 @@
 const express = require('express');
 const Error = require('http-errors');
 const compression = require('compression');
-const Auth = require('./auth');
-const Logger = require('./logger');
-const Config = require('./config');
+const Auth = require('../lib/auth');
+const Logger = require('../lib/logger');
+const Config = require('../lib/config');
 const Middleware = require('./web/middleware');
-const Cats = require('./status-cats');
-const Storage = require('./storage');
+const Cats = require('../lib/status-cats');
+const Storage = require('../lib/storage');
+const _ = require('lodash');
 
 module.exports = function(config_hash) {
+  // Config
   Logger.setup(config_hash.logs);
-
   const config = new Config(config_hash);
   const storage = new Storage(config);
   const auth = new Auth(config);
   const app = express();
-
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
 
+  // Middleware
   const error_reporting_middleware = function(req, res, next) {
     res.report_error = res.report_error || function(err) {
       if (err.status && err.status >= 400 && err.status < 600) {
@@ -46,6 +47,7 @@ module.exports = function(config_hash) {
     next();
   };
 
+  // Router setup
   app.use(Middleware.log);
   app.use(error_reporting_middleware);
   app.use(function(req, res, next) {
@@ -60,7 +62,7 @@ module.exports = function(config_hash) {
     next();
   });
 
-  // hook for tests only
+  // Hook for tests only
   if (config._debug) {
     app.get('/-/_debug', function(req, res, next) {
       let do_gc = typeof(global.gc) !== 'undefined';
@@ -77,33 +79,39 @@ module.exports = function(config_hash) {
     });
   }
 
-  app.use(require('./web/api/api')(config, auth, storage));
+  // For  npm request
+  app.use(require('./endpoint')(config, auth, storage));
 
-  if (config.web && config.web.enable === false) {
-    app.get('/', function(req, res, next) {
-      next( Error[404]('web interface is disabled in the config file') );
-    });
+  // For WebUI & WebUI API
+  if (_.get(config, 'web.enable', true)) {
+    app.use('/', require('./web')(config, auth, storage));
+    app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
   } else {
-    app.use(require('./web/index')(config, auth, storage));
+    app.get('/', function(req, res, next) {
+      next(Error[404]('Web interface is disabled in the config file'));
+    });
   }
 
+  // Catch 404
   app.get('/*', function(req, res, next) {
-    next( Error[404]('file not found') );
+    next(Error[404]('File not found'));
   });
 
   app.use(function(err, req, res, next) {
-    if (Object.prototype.toString.call(err) !== '[object Error]') {
+    if (_.isError(err)) {
+      if (err.code === 'ECONNABORT' && res.statusCode === 304) {
+        return next();
+      }
+      if (typeof res.report_error !== 'function') {
+        // in case of very early error this middleware may not be loaded before error is generated
+        // fixing that
+        error_reporting_middleware(req, res, _.noop);
+      }
+      res.report_error(err);
+    } else {
+      // Fall to Middleware.final
       return next(err);
     }
-    if (err.code === 'ECONNABORT' && res.statusCode === 304) {
-      return next();
-    }
-    if (typeof(res.report_error) !== 'function') {
-      // in case of very early error this middleware may not be loaded before error is generated
-      // fixing that
-      error_reporting_middleware(req, res, function() {});
-    }
-    res.report_error(err);
   });
 
   app.use(Middleware.final);

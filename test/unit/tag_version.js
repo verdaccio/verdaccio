@@ -1,9 +1,9 @@
 'use strict';
 
 let assert = require('assert');
-let tag_version = require('../../lib/utils').tag_version;
+let tag_version = require('../../src/lib/utils').tag_version;
 
-require('../../lib/logger').setup([]);
+require('../../src/lib/logger').setup([]);
 
 describe('tag_version', function() {
   it('add new one', function() {
