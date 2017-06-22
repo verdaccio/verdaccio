@@ -1,6 +1,10 @@
 #
-# This is the default config file. It allows all users to do anything,
-# so don't use it on production systems.
+# This is the config file used for the docker images.
+# It allows all users to do anything, so don't use it on production systems.
+#
+# Do not configure host and port under `listen` in this file
+# as it will be ignored when using docker.
+# see https://github.com/verdaccio/verdaccio#docker-and-custom-port-configuration
 #
 # Look here for more config file examples:
 # https://github.com/verdaccio/verdaccio/tree/master/conf

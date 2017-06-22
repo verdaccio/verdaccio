@@ -17,8 +17,9 @@ RUN addgroup -S verdaccio && adduser -S -g verdaccio verdaccio && \
 
 USER verdaccio
 
-EXPOSE 4873
+ENV PORT 4873
+EXPOSE $PORT
 
 VOLUME ["/verdaccio"]
 
-CMD ["sh", "-c", "${APPDIR}/bin/verdaccio --config /verdaccio/conf/config.yaml --listen 0.0.0.0:4873"]
+CMD ["sh", "-c", "${APPDIR}/bin/verdaccio --config /verdaccio/conf/config.yaml --listen 0.0.0.0:${PORT}"]
