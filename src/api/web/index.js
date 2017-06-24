@@ -1,7 +1,6 @@
 'use strict';
 
 const async = require('async');
-const Cookies = require('cookies');
 const escape = require('js-string-escape');
 const express = require('express');
 const fs = require('fs');
@@ -18,9 +17,7 @@ const env = require('../../config/env');
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
 
-
-  router.use(Cookies.express());
-  router.use(auth.cookie_middleware());
+  router.use(auth.jwtMiddleware());
   router.use(securityIframe);
 
   Handlebars.registerPartial('entry', fs.readFileSync(require.resolve('../../webui/src/entry.hbs'), 'utf8'));

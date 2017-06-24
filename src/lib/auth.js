@@ -4,11 +4,11 @@
 'use strict';
 
 const Crypto = require('crypto');
-const jju = require('jju');
 const Error = require('http-errors');
 const Logger = require('./logger');
 const load_plugins = require('./plugin-loader').load_plugins;
 const pkgJson = require('../../package.json');
+const jwt = require('jsonwebtoken');
 /**
  * Handles the authentification, load auth plugins.
  */
@@ -317,98 +317,71 @@ class Auth {
   }
 
   /**
-   * Set up cookie middleware.
+   * JWT middleware for WebUI
    * @return {Function}
    */
-  cookie_middleware() {
-    let self = this;
-    return function(req, res, _next) {
+  jwtMiddleware() {
+    return (req, res, _next) => {
+      if (req.remote_user !== null && req.remote_user.name !== undefined) return _next();
+
       req.pause();
       const next = function(_err) {
         req.resume();
         return _next();
       };
 
-      if (req.remote_user != null && req.remote_user.name !== undefined)
-        return next();
-
       req.remote_user = buildAnonymousUser();
 
-      let token = req.cookies.get('token');
-      if (token == null) {
-         return next();
-      }
-      let credentials = self.aes_decrypt(new Buffer(token, 'base64')).toString('utf8');
-      if (!credentials) {
-         return next();
+      let token = (req.headers.authorization || '').replace('Bearer ', '');
+      if (!token) return next();
+
+      let decoded;
+      try {
+        decoded = this.decode_token(token);
+      } catch (err) {/**/}
+
+      if (decoded) {
+        req.remote_user = authenticatedUser(decoded.user, decoded.group);
       }
 
-      let index = credentials.indexOf(':');
-      if (index < 0) {
-        return next();
-      }
-      const user = credentials.slice(0, index);
-      const pass = credentials.slice(index + 1);
-
-      self.authenticate(user, pass, function(err, user) {
-        if (!err) {
-          req.remote_user = user;
-          next();
-        } else {
-          req.remote_user = buildAnonymousUser();
-          next(err);
-        }
-      });
+      next();
     };
   }
 
   /**
    * Generates the token.
-   * @param {*} user
-   * @return {String}
+   * @param {object} user
+   * @param {string} expire_time
+   * @return {string}
    */
-  issue_token(user) {
-    let data = jju.stringify({
-      u: user.name,
-      g: user.real_groups && user.real_groups.length ? user.real_groups : undefined,
-      t: ~~(Date.now()/1000),
-    }, {indent: false});
-
-    data = new Buffer(data, 'utf8');
-    const mac = Crypto.createHmac('sha256', this.secret).update(data).digest();
-    return Buffer.concat([data, mac]).toString('base64');
+  issue_token(user, expire_time) {
+    return jwt.sign(
+      {
+        user: user.name,
+        group: user.real_groups && user.real_groups.length ? user.real_groups : undefined,
+      },
+      this.secret,
+      {
+        notBefore: '1000', // Make sure the time will not rollback :)
+        expiresIn: expire_time || '7d',
+      }
+    );
   }
 
   /**
    * Decodes the token.
-   * @param {*} str
-   * @param {*} expire_time
+   * @param {*} token
    * @return {Object}
    */
-  decode_token(str, expire_time) {
-    const buf = new Buffer(str, 'base64');
-    if (buf.length <= 32) {
-       throw Error[401]('invalid token');
+  decode_token(token) {
+    let decoded;
+    try {
+      decoded = jwt.verify(token, this.secret);
+    } catch (err) {
+      throw Error[401](err.message);
     }
 
-    let data = buf.slice(0, buf.length - 32);
-    let their_mac = buf.slice(buf.length - 32);
-    let good_mac = Crypto.createHmac('sha256', this.secret).update(data).digest();
-
-    their_mac = Crypto.createHash('sha512').update(their_mac).digest('hex');
-    good_mac = Crypto.createHash('sha512').update(good_mac).digest('hex');
-    if (their_mac !== good_mac) throw Error[401]('bad signature');
-
-    // make token expire in 24 hours
-    // TODO: make configurable?
-    expire_time = expire_time || 24*60*60;
-
-    data = jju.parse(data.toString('utf8'));
-    if (Math.abs(data.t - ~~(Date.now()/1000)) > expire_time) {
-      throw Error[401]('token expired');
-    }
-
-    return data;
+    return decoded;
   }
 
   /**
