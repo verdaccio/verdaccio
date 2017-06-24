@@ -6,6 +6,9 @@
 
 # consider them hidden
 .*
+# you can add exceptions like in .gitignore to maintain a whitelist:
+# e.g.
+#!.babelrc
 
 # not going to run tests inside the docker container
 test/
