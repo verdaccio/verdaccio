@@ -6,12 +6,13 @@ It appeared that sinopia maintenance had stalled and the author had abandoned it
 so there was a suggestion that the sinopia-using community would benefit 
 from a fresh look at the code and the outstanding issues. So here we are 🎉🎉🎉.
 
-## Advance Configurations
+## Advanced Configurations
+
+* [SSL Certificates](ssl.md)
 
 ## Servers
 
 * [Reverse Proxy](reverse-proxy.md)
-* [SSL Certificates](ssl.md)
 
 ### Windows Configurations
 
@@ -22,6 +23,6 @@ from a fresh look at the code and the outstanding issues. So here we are 🎉�
 
 * [Ansible](ansible.md)
 
-## Add ons
+## Extends Verdaccio
 
 * [Plugins](plugins.md)
