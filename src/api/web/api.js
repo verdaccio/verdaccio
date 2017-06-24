@@ -1,7 +1,6 @@
 'use strict';
 
 const bodyParser = require('body-parser');
-const Cookies = require('cookies');
 const express = require('express');
 const marked = require('marked');
 const Search = require('../../lib/search');
@@ -12,6 +11,7 @@ const validatePkg = Middleware.validate_package;
 const securityIframe = Middleware.securityIframe;
 const route = express.Router(); // eslint-disable-line
 const async = require('async');
+const HTTPError = require('http-errors');
 
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
@@ -28,9 +28,8 @@ module.exports = function(config, auth, storage) {
   route.param('version', validateName);
   route.param('anything', match(/.*/));
 
-  route.use(Cookies.express());
   route.use(bodyParser.urlencoded({extended: false}));
-  route.use(auth.cookie_middleware());
+  route.use(auth.jwtMiddleware());
   route.use(securityIframe);
 
   // Get list of all visible package
@@ -112,29 +111,34 @@ module.exports = function(config, auth, storage) {
     }
   });
 
-  route.post('/-/login', function(req, res, next) {
+  route.post('/login', function(req, res, next) {
     auth.authenticate(req.body.user, req.body.pass, (err, user) => {
       if (!err) {
         req.remote_user = user;
 
-        let str = req.body.user + ':' + req.body.pass;
-        res.cookies.set('token', auth.aes_encrypt(str).toString('base64'));
+        next({
+          token: auth.issue_token(user, '24h'),
+        });
+      } else {
+        next(HTTPError[err.message ? 401 : 500](err.message));
       }
-
-      let base = config.url_prefix
-               ? config.url_prefix.replace(/\/$/, '')
-               : req.protocol + '://' + req.get('host');
-      res.redirect(base);
     });
   });
 
-  route.post('/-/logout', function(req, res, next) {
-    let base = config.url_prefix
-             ? config.url_prefix.replace(/\/$/, '')
-             : req.protocol + '://' + req.get('host');
-    res.cookies.set('token', '');
-    res.redirect(base);
+  route.get('/whoami', function(req, res, next) {
+    if (req.remote_user) {
+      next({
+        username: req.remote_user.name,
+      });
+    } else {
+      next('route');
+    }
   });
+
+  // What are you looking for? logout? client side will remove token when user click logout,
+  // or it will auto expire after 24 hours.
+  // This token is different with the token send to npm client.
+  // We will/may replace current token with JWT in next major release, and it will not expire at all(configurable).
 
   return route;
 };
