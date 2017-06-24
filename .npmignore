@@ -4,3 +4,4 @@ coverage/
 verdaccio-*.tgz
 test-storage*
 /.*
+wiki/
