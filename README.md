@@ -39,6 +39,9 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 # installation and starting (application will create default
 # config in config.yaml you can edit later)
 $ npm install -g verdaccio
+# or 
+$ yarn add global verdaccio
+# run in your terminal
 $ verdaccio
 
 # npm configuration
