@@ -1,10 +1,12 @@
-version: '2'
+version: '2.1'
 services:
   verdaccio:
     build: .
     container_name: verdaccio
+    environment:
+      - PORT
     ports:
-      - "4873:4873"
+      - $PORT:$PORT
     volumes:
        - verdaccio:/verdaccio
 volumes:

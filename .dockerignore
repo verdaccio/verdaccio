@@ -1,0 +1,29 @@
+# we try to aoid adding files to the docker images that change often
+# or that are not needed for running the docker image
+# tis greatly reduces the amount of times we need to rerun `npm install` when building image locally
+# https://codefresh.io/blog/not-ignore-dockerignore/
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
+# consider them hidden
+.*
+# you can add exceptions like in .gitignore to maintain a whitelist:
+# e.g.
+#!.babelrc
+
+# not going to run tests inside the docker container
+test/
+
+# do not copy over node_modules we will run `npm install` anyway
+node_modules
+
+# output from test runs and similar things
+*.log
+coverage/
+
+# IDE config files
+jsconfig.json
+*.iml
+
+# let's not get to recursive ;)
+Dockerfile*
+docker-compose*.yaml

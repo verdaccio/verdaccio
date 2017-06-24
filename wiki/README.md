@@ -24,6 +24,7 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 ## DevOps
 
 * [Ansible](ansible.md)
+* [Docker](docker.md)
 
 ## Extends Verdaccio
 

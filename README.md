@@ -62,58 +62,23 @@ When you start a server, it auto-creates a config file.
 
 ### Docker
 
-To use the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+Below are the most commony needed informations,
+every aspect of Docker and verdaccio is [documented separately](wiki/docker.md)
+
+#### Prebuilt images
+
+To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 `docker pull verdaccio/verdaccio`
 
-#### By tags
+Since version 2 images for every versions are availabel as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+#### Running verdaccio using Docker
 
-For a major version:
-
-```bash
-docker pull verdaccio/verdaccio:2
-```
-For a minor version:
-
-```bash
-docker pull verdaccio/verdaccio:2.1
-```
-
-For a specific (minor) version:
-
-```bash
-docker pull verdaccio/verdaccio:2.1.7
-```
-
-#### Build your own Docker image
-
-```bash
-docker build -t verdaccio .
-```
-
-There is also an npm script for building the docker image, so you can also do:
-
-```bash
-npm run build-docker
-```
-
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available.
-To build the docker image for raspberry pi execute:
-
-```bash
-npm run build-docker:rpi
-```
 To run the docker container:
-
 ```bash
-docker run -it --rm --name verdaccio -p 4873:4873 \
-  -v /<path to verdaccio directory>/conf:/verdaccio/conf \
-  -v /<path to verdaccio directory>/storage:/verdaccio/storage \
-  verdaccio/verdaccio
+docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
-Note: The build might take some minutes to build locally.
 
 #### Using docker-compose
 
@@ -123,30 +88,6 @@ Note: The build might take some minutes to build locally.
 ```bash
 $ docker-compose up --build
 ```
-
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
- 
-```bash
-$ docker volume inspect verdaccio_verdaccio
-[
-    {
-        "Name": "verdaccio_verdaccio",
-        "Driver": "local",
-        "Mountpoint": "/var/lib/docker/volumes/verdaccio_verdaccio/_data",
-        "Labels": null,
-        "Scope": "local"
-    }
-]
-
-```
-
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
-
-##### Docker Examples
-
-This repository host multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy.
-
-[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/docker-examples)
 
 ### Ansible
 
