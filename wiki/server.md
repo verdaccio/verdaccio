@@ -1,12 +1,16 @@
+# Server configuration
+
 This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
 
 ## Running as a separate user
 First create the verdaccio user:
+
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
 You create a shell as the verdaccio user using the following command:
+
 ```bash
 $ sudo su verdaccio
 $ cd ~
@@ -16,39 +20,11 @@ The 'cd ~' command send you to the home directory of the verdaccio user. Make su
 
 ## Listening on all addresses
 If you want to listen to every external address set the listen directive in the config to:
+
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
-
-## Run behind reverse proxy with different domain and port
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
-
-To resolve this issue, you should send real domain and port to verdaccio with `Host` heade
-
-Nginx configure should look like this:
-```nginx
-location / {
-    proxy_pass http://127.0.0.1:4873/;
-    proxy_set_header Host            $host:$server_port;
-    proxy_set_header X-Forwarded-For $remote_addr;
-}
-```
-For this case, `url_prefix` should NOT set in verdaccio config
-
----
-or a sub-directory installation:
-```nginx
-location ~ ^/verdaccio/(.*)$ {
-    proxy_pass http://127.0.0.1:4873/$1;
-    proxy_set_header Host            $host:$server_port;
-    proxy_set_header X-Forwarded-For $remote_addr;
-}
-```
-For this case, `url_prefix` should set to `/verdaccio/`
-
-> Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
-
 
 > Apache configure? Please check out Wiki ;-)
 
@@ -57,11 +33,13 @@ We can use the node package called 'forever' to keep verdaccio running all the t
 https://github.com/nodejitsu/forever
 
 First install forever globally:
+
 ```bash
 $ sudo npm install -g forever
 ```
 
 Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+
 ```bash
 $ forever start `which verdaccio`
 ```
@@ -78,35 +56,16 @@ $ crontab -e
 
 This might ask you to choose an editor. Pick your favorite and proceed.
 Add the following entry to the file:
+
 ```
 @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
 ```
 
 The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+
 ```bash
 $ which forever
 $ which verdaccio
 ```
 
-## Apache reverse proxy configuration
-config.yaml
-```yaml
-url_prefix: https://npm.your.domain.com
-```
-Apache virtual server configuration
-```apacheconfig
-<IfModule mod_ssl.c>
-<VirtualHost *:443>
-    ServerName npm.your.domain.com
-    SSLEngine on
-    SSLCertificateFile      /etc/letsencrypt/live/npm.your.domain.com/fullchain.pem
-    SSLCertificateKeyFile   /etc/letsencrypt/live/npm.your.domain.com/privkey.pem
-    SSLProxyEngine          On
-    ProxyRequests           Off
-    ProxyPreserveHost       On
-    AllowEncodedSlashes     NoDecode
-    ProxyPass               /       http://127.0.0.1:4873/ nocanon
-    ProxyPassReverse        /       http://127.0.0.1:4873/
-</VirtualHost>
-</IfModule>
-```
+

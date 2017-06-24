@@ -8,10 +8,12 @@ from a fresh look at the code and the outstanding issues. So here we are ðŸŽ‰ðŸŽ
 
 ## Advanced Configurations
 
+
 * [SSL Certificates](ssl.md)
 
 ## Servers
 
+* [Advanced Server Configuration](server.md)
 * [Reverse Proxy](reverse-proxy.md)
 
 ### Windows Configurations

@@ -55,7 +55,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
  
 When you start a server, it auto-creates a config file.
  
-**For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](SERVER.md).**
+**For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](wiki/server.md).**
 
 ### Docker
 
