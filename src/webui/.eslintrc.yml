@@ -3,9 +3,14 @@
 
 ## rules for react components
 
-extends: ["eslint:recommended", "google", "plugin:react/recommended", "plugin:flowtype/recommended", "prettier", "prettier/react"]
+extends:
+ - google
+ - eslint:recommended
+ - plugin:react/recommended
+ - plugin:flowtype/recommended
 
-plugins: ["flowtype", "prettier"]
+plugins:
+ - flowtype
 
 parser: babel-eslint
 

@@ -1,0 +1,25 @@
+{
+  "presets": [
+    "react",
+    ["env",{
+      "targets": {
+        "browsers": ["last 5 versions", "safari >= 11"],
+        "loose": true
+      }
+    }]
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-runtime",
+    "transform-object-rest-spread",
+    "transform-decorators-legacy"
+  ],
+  "env": {
+    "development": {
+      "presets": ["flow"],
+      "plugins": [
+        "flow-runtime"
+      ]
+    }
+  }
+}
