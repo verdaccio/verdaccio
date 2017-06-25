@@ -7,7 +7,7 @@ const createError = require('http-errors');
 const Middleware = require('../../web/middleware');
 const Notify = require('../../../lib/notify');
 const Utils = require('../../../lib/utils');
-const constant = require('../../../webui/utils/const');
+const mime = require('mime');
 
 const media = Middleware.media;
 const expect_json = Middleware.expect_json;
@@ -17,7 +17,7 @@ module.exports = function(router, auth, storage, config) {
   const can = Middleware.allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(constant.CONTENT_JSON), expect_json, function(req, res, next) {
+  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.lookup('json')), expect_json, function(req, res, next) {
     const name = req.params.package;
     let metadata;
     const create_tarball = function(filename, data, cb) {
@@ -170,7 +170,7 @@ module.exports = function(router, auth, storage, config) {
   });
 
   // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(constant.CONTENT_JSON), expect_json, function(req, res, next) {
+  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.lookup('json')), expect_json, function(req, res, next) {
     let name = req.params.package;
     let version = req.params.version;
     let tag = req.params.tag;

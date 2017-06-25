@@ -20,16 +20,6 @@ module.exports = function(config, auth, storage) {
   router.use(auth.jwtMiddleware());
   router.use(securityIframe);
 
-  Handlebars.registerPartial('entry', fs.readFileSync(require.resolve('../../webui/src/entry.hbs'), 'utf8'));
-
-  let template;
-
-  if (config.web && config.web.template) {
-    template = Handlebars.compile(fs.readFileSync(config.web.template, 'utf8'));
-  } else {
-    template = Handlebars.compile(fs.readFileSync(require.resolve('../../webui/src/index.hbs'), 'utf8'));
-  }
-
   // Static
   router.get('/-/static/:filename', function(req, res, next) {
     let file = `${env.APP_ROOT}/static/${req.params.filename}`;
@@ -87,10 +77,8 @@ module.exports = function(config, auth, storage) {
             baseUrl: base,
             username: req.remote_user.name,
           };
-          next(template({
-            name: config.web && config.web.title ? config.web.title : 'Verdaccio',
-            data: escape(JSON.stringify(json)),
-          }));
+
+          next(json)
         }
       );
     });

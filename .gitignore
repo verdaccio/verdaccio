@@ -27,3 +27,7 @@ bundle.js
 bundle.js.map
 __tests__
 __snapshots__
+
+# Compiled script
+static
+!static/favicon.png

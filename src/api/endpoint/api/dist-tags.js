@@ -1,7 +1,7 @@
 'use strict';
 
 const Middleware = require('../../web/middleware');
-const constant = require('../../../webui/utils/const');
+const mime = require('mime');
 
 const media = Middleware.media;
 const expect_json = Middleware.expect_json;
@@ -24,13 +24,13 @@ module.exports = function(route, auth, storage) {
 
   // tagging a package
   route.put('/:package/:tag',
-    can('publish'), media(constant.CONTENT_JSON), tag_package_version);
+    can('publish'), media(mime.lookup('json')), tag_package_version);
 
   route.post('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(constant.CONTENT_JSON), tag_package_version);
+    can('publish'), media(mime.lookup('json')), tag_package_version);
 
   route.put('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(constant.CONTENT_JSON), tag_package_version);
+    can('publish'), media(mime.lookup('json')), tag_package_version);
 
   route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req, res, next) {
     let tags = {};
@@ -54,7 +54,7 @@ module.exports = function(route, auth, storage) {
     });
   });
 
-  route.post('/-/package/:package/dist-tags', can('publish'), media(constant.CONTENT_JSON), expect_json,
+  route.post('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')), expect_json,
     function(req, res, next) {
       storage.merge_tags(req.params.package, req.body, function(err) {
         if (err) return next(err);
@@ -63,7 +63,7 @@ module.exports = function(route, auth, storage) {
       });
     });
 
-  route.put('/-/package/:package/dist-tags', can('publish'), media(constant.CONTENT_JSON), expect_json,
+  route.put('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')), expect_json,
     function(req, res, next) {
       storage.replace_tags(req.params.package, req.body, function(err) {
         if (err) return next(err);
@@ -72,7 +72,7 @@ module.exports = function(route, auth, storage) {
       });
     });
 
-  route.delete('/-/package/:package/dist-tags', can('publish'), media(constant.CONTENT_JSON),
+  route.delete('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')),
     function(req, res, next) {
       storage.replace_tags(req.params.package, {}, function(err) {
         if (err) return next(err);
