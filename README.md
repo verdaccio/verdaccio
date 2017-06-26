@@ -97,10 +97,6 @@ A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/ver
 
 The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio). source: https://github.com/kgrubb/verdaccio-cookbook
 
-### Puppet
-
-The original Sinopia puppet module [is available at puppet forge](http://forge.puppetlabs.com/saheba/sinopia) source: https://github.com/saheba/puppet-sinopia
-
 ## Adding a new user
 
 ```bash
