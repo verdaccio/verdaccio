@@ -1,5 +1,9 @@
 This is a pre release of plugins compatible with **Verdaccio**.
 
+## Plugins mount
+
+Plugins has to be stored under plugins directory, according to `config.yaml` file
+
 ## Sinopia Legacy Plugins
 
 * [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.

@@ -12,6 +12,8 @@
 
 # path to a directory with all packages
 storage: /verdaccio/storage
+# path to a directory with plugins to include
+plugins: /verdaccio/plugins
 
 auth:
   htpasswd:
