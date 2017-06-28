@@ -2,39 +2,44 @@
 
 const fork = require('child_process').fork;
 const express = require('express');
-const rimraf = require('rimraf');
+const rimRaf = require('rimraf');
 const Server = require('./server');
 
 const forks = process.forks = [];
-process.server = Server('http://localhost:55551/');
-process.server2 = Server('http://localhost:55552/');
-process.server3 = Server('http://localhost:55553/');
+process.server = new Server('http://localhost:55551/');
+process.server2 = new Server('http://localhost:55552/');
+process.server3 = new Server('http://localhost:55553/');
 process.express = express();
 process.express.listen(55550);
 
 module.exports.start = function(dir, conf) {
   return new Promise(function(resolve, reject) {
-    rimraf(__dirname + '/../' + dir, function() {
-      // filter out --debug-brk
-      let oldArgv = process.execArgv;
-      process.execArgv = process.execArgv.filter(function(x) {
-        return x !== '--debug-brk';
+    rimRaf(__dirname + '/../' + dir, function() {
+      const filteredArguments = process.execArgv = process.execArgv.filter(function(x) {
+        // filter out --debug-brk and --inspect-brk since Node7
+        return (x.indexOf('--debug-brk') === -1  && x.indexOf('--inspect-brk') === -1);
       });
 
-      const f = fork(__dirname + '/../../../bin/verdaccio'
-        , ['-c', __dirname + '/../' + conf]
-        , {silent: !process.env.TRAVIS}
+      const childFork = fork(__dirname + '/../../../bin/verdaccio',
+        ['-c', __dirname + '/../' + conf],
+        {
+          silent: !process.env.TRAVIS
+        }
       );
-      forks.push(f);
-      f.on('message', function(msg) {
+
+      forks.push(childFork);
+
+      childFork.on('message', function(msg) {
         if ('verdaccio_started' in msg) {
           resolve();
         }
       });
-      f.on('error', function(err) {
+
+      childFork.on('error', function(err) {
         reject(err);
       });
-      process.execArgv = oldArgv;
+
+      process.execArgv = filteredArguments;
     });
   });
 };
