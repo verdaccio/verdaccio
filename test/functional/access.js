@@ -16,7 +16,7 @@ module.exports = function() {
     function check_access(auth, pkg, ok) {
       it((ok ? 'allows' : 'forbids') +' access ' + auth + ' to ' + pkg, function() {
         server.authstr = auth? `Basic ${(new Buffer(auth).toString('base64'))}`: undefined;
-        let req = server.get_package(pkg);
+        let req = server.getPackage(pkg);
         if (ok) {
           return req.status(404).body_error(/no such package available/);
         } else {
@@ -28,7 +28,7 @@ module.exports = function() {
     function check_publish(auth, pkg, ok) {
       it(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, function() {
         server.authstr = auth? `Basic ${(new Buffer(auth).toString('base64'))}`: undefined;
-        let req = server.put_package(pkg, require('./lib/package')(pkg));
+        let req = server.putPackage(pkg, require('./lib/package')(pkg));
         if (ok) {
           return req.status(404).body_error(/this package cannot be added/);
         } else {

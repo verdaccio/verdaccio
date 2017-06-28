@@ -14,27 +14,27 @@ module.exports = function() {
   let server2 = process.server2;
 
   it('trying to fetch non-existent package', function() {
-    return server.get_package('testpkg').status(404).body_error(/no such package/);
+    return server.getPackage('testpkg').status(404).body_error(/no such package/);
   });
 
   describe('testpkg', function() {
     before(function() {
-      return server.add_package('testpkg');
+      return server.addPackage('testpkg');
     });
 
     it('creating new package', function() {/* test for before() */});
 
     it('downloading non-existent tarball', function() {
-      return server.get_tarball('testpkg', 'blahblah').status(404).body_error(/no such file/);
+      return server.getTarball('testpkg', 'blahblah').status(404).body_error(/no such file/);
     });
 
     it('uploading incomplete tarball', function() {
-      return server.put_tarball_incomplete('testpkg', 'blahblah1', readfile('fixtures/binary'), 3000);
+      return server.putTarballIncomplete('testpkg', 'blahblah1', readfile('fixtures/binary'), 3000);
     });
 
     describe('tarball', function() {
       before(function() {
-        return server.put_tarball('testpkg', 'blahblah', readfile('fixtures/binary'))
+        return server.putTarball('testpkg', 'blahblah', readfile('fixtures/binary'))
                  .status(201)
                  .body_ok(/.*/);
       });
@@ -42,7 +42,7 @@ module.exports = function() {
       it('uploading new tarball', function() {/* test for before() */});
 
       it('downloading newly created tarball', function() {
-        return server.get_tarball('testpkg', 'blahblah')
+        return server.getTarball('testpkg', 'blahblah')
                  .status(200)
                  .then(function(body) {
                    assert.deepEqual(body, readfile('fixtures/binary'));
@@ -53,7 +53,7 @@ module.exports = function() {
         let pkg = require('./lib/package')('testpkg');
         pkg.dist.shasum = crypto.createHash('sha1').update('fake').digest('hex');
 
-        return server.put_version('testpkg', '0.0.1', pkg)
+        return server.putVersion('testpkg', '0.0.1', pkg)
                  .status(400)
                  .body_error(/shasum error/);
       });
@@ -62,7 +62,7 @@ module.exports = function() {
         before(function() {
           let pkg = require('./lib/package')('testpkg');
           pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
-          return server.put_version('testpkg', '0.0.1', pkg)
+          return server.putVersion('testpkg', '0.0.1', pkg)
                    .status(201)
                    .body_ok(/published/);
         });
@@ -70,7 +70,7 @@ module.exports = function() {
         it('uploading new package version', function() {/* test for before() */});
 
         it('downloading newly created package', function() {
-          return server.get_package('testpkg')
+          return server.getPackage('testpkg')
                    .status(200)
                    .then(function(body) {
                      assert.equal(body.name, 'testpkg');
@@ -81,7 +81,7 @@ module.exports = function() {
         });
 
         it('downloading package via server2', function() {
-          return server2.get_package('testpkg')
+          return server2.getPackage('testpkg')
                    .status(200)
                    .then(function(body) {
                      assert.equal(body.name, 'testpkg');
@@ -95,19 +95,19 @@ module.exports = function() {
   });
 
   it('uploading new package version for bad pkg', function() {
-    return server.put_version('testpxg', '0.0.1', require('./lib/package')('testpxg'))
+    return server.putVersion('testpxg', '0.0.1', require('./lib/package')('testpxg'))
              .status(404)
              .body_error(/no such package/);
   });
 
   it('doubleerr test', function() {
-    return server.put_tarball('testfwd2', 'blahblah', readfile('fixtures/binary'))
+    return server.putTarball('testfwd2', 'blahblah', readfile('fixtures/binary'))
              .status(404)
              .body_error(/no such/);
   });
 
   it('publishing package / bad ro uplink', function() {
-    return server.put_package('baduplink', require('./lib/package')('baduplink'))
+    return server.putPackage('baduplink', require('./lib/package')('baduplink'))
              .status(503)
              .body_error(/one of the uplinks is down, refuse to publish/);
   });

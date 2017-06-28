@@ -49,12 +49,12 @@ module.exports = function() {
     });
 
     it('should not fail on bad gzip', function() {
-      return server.get_package('testexp_baddata')
+      return server.getPackage('testexp_baddata')
                .status(404);
     });
 
     it('should understand gzipped data from uplink', function() {
-      return server.get_package('testexp_gzip')
+      return server.getPackage('testexp_gzip')
                .status(200)
                .response(function(res) {
                  assert.equal(res.headers['content-encoding'], undefined);

@@ -11,7 +11,7 @@ module.exports = function() {
   let server2 = process.server2;
 
   it('testing anti-loop', function() {
-    return server2.get_package('testloop')
+    return server2.getPackage('testloop')
              .status(404)
              .body_error(/no such package/);
   })
@@ -22,7 +22,7 @@ module.exports = function() {
 
     describe(pkg, function() {
       before(function() {
-        return server.put_package(pkg, require('./lib/package')(pkg))
+        return server.putPackage(pkg, require('./lib/package')(pkg))
                  .status(201)
                  .body_ok(/created new package/);
       });
@@ -31,7 +31,7 @@ module.exports = function() {
 
       describe(pkg, function() {
         before(function() {
-          return server.put_version(pkg, '0.1.1', require('./lib/package')(pkg))
+          return server.putVersion(pkg, '0.1.1', require('./lib/package')(pkg))
                    .status(201)
                    .body_ok(/published/);
         });
@@ -39,12 +39,12 @@ module.exports = function() {
         it(prefix+'uploading new package version', function() {});
 
         it(prefix+'uploading incomplete tarball', function() {
-          return server.put_tarball_incomplete(pkg, pkg+'.bad', readfile('fixtures/binary'), 3000);
+          return server.putTarballIncomplete(pkg, pkg+'.bad', readfile('fixtures/binary'), 3000);
         });
 
         describe('tarball', function() {
           before(function() {
-            return server.put_tarball(pkg, pkg+'.file', readfile('fixtures/binary'))
+            return server.putTarball(pkg, pkg+'.file', readfile('fixtures/binary'))
                      .status(201)
                      .body_ok(/.*/);
           });
@@ -52,7 +52,7 @@ module.exports = function() {
           it(prefix+'uploading new tarball', function() {});
 
           it(prefix+'downloading tarball from server1', function() {
-            return server.get_tarball(pkg, pkg+'.file')
+            return server.getTarball(pkg, pkg+'.file')
                      .status(200)
                      .then(function(body) {
                        assert.deepEqual(body, readfile('fixtures/binary'));

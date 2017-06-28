@@ -24,11 +24,11 @@ module.exports = function() {
   const server3 = process.server3;
 
   before(function() {
-    return server.add_package(PKG_GH131);
+    return server.addPackage(PKG_GH131);
   });
 
   before(function() {
-    return server.put_tarball(PKG_GH131, TARBALL, readfile('fixtures/binary'))
+    return server.putTarball(PKG_GH131, TARBALL, readfile('fixtures/binary'))
              .status(201)
              .body_ok(/.*/);
   });
@@ -36,18 +36,18 @@ module.exports = function() {
   before(function() {
     const pkg = require('./lib/package')(PKG_GH131);
     pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
-    return server.put_version(PKG_GH131, '0.0.1', pkg)
+    return server.putVersion(PKG_GH131, '0.0.1', pkg)
              .status(201)
              .body_ok(/published/);
   });
 
   before(function() {
-    return server3.get_package(PKG_GH131)
+    return server3.getPackage(PKG_GH131)
 	    .status(200);
   });
 
   before(function() {
-    return server3.get_tarball(PKG_GH131, TARBALL)
+    return server3.getTarball(PKG_GH131, TARBALL)
             .status(200);
   });
 
@@ -56,11 +56,11 @@ module.exports = function() {
   });
 
   before(function() {
-    return server2.add_package(PKG_GH1312);
+    return server2.addPackage(PKG_GH1312);
   });
 
   before(function() {
-    return server2.put_tarball(PKG_GH1312, TARBALL, readfile('fixtures/binary'))
+    return server2.putTarball(PKG_GH1312, TARBALL, readfile('fixtures/binary'))
              .status(201)
              .body_ok(/.*/);
   });
@@ -68,18 +68,18 @@ module.exports = function() {
   before(function() {
     const pkg = require('./lib/package')(PKG_GH1312);
     pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
-    return server2.put_version(PKG_GH1312, '0.0.1', pkg)
+    return server2.putVersion(PKG_GH1312, '0.0.1', pkg)
              .status(201)
              .body_ok(/published/);
   });
 
   before(function() {
-    return server3.get_package(PKG_GH1312)
+    return server3.getPackage(PKG_GH1312)
 	    .status(200);
   });
 
   before(function() {
-    return server3.get_tarball(PKG_GH1312, TARBALL)
+    return server3.getTarball(PKG_GH1312, TARBALL)
             .status(200);
   });
 

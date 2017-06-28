@@ -70,19 +70,19 @@ module.exports = function() {
       });
 
       it('access test-auth-allow', function() {
-        return server2.get_package('test-auth-allow')
+        return server2.getPackage('test-auth-allow')
                  .status(404)
                  .body_error('no such package available');
       });
 
       it('access test-auth-deny', function() {
-        return server2.get_package('test-auth-deny')
+        return server2.getPackage('test-auth-deny')
                  .status(403)
                  .body_error('you\'re not allowed here');
       });
 
       it('access test-auth-regular', function() {
-        return server2.get_package('test-auth-regular')
+        return server2.getPackage('test-auth-regular')
                  .status(404)
                  .body_error('no such package available');
       });
@@ -96,19 +96,19 @@ module.exports = function() {
       });
 
       it('access test-auth-allow', function() {
-        return server2.get_package('test-auth-allow')
+        return server2.getPackage('test-auth-allow')
                  .status(403)
                  .body_error('i don\'t know anything about you');
       });
 
       it('access test-auth-deny', function() {
-        return server2.get_package('test-auth-deny')
+        return server2.getPackage('test-auth-deny')
                  .status(403)
                  .body_error('i don\'t know anything about you');
       });
 
       it('access test-auth-regular', function() {
-        return server2.get_package('test-auth-regular')
+        return server2.getPackage('test-auth-regular')
                  .status(404)
                  .body_error('no such package available');
       });

@@ -7,17 +7,17 @@ module.exports = function() {
 
   describe('Security', function() {
     before(function() {
-      return server.add_package('testpkg-sec');
+      return server.addPackage('testpkg-sec');
     });
 
     it('bad pkg #1', function() {
-      return server.get_package('package.json')
+      return server.getPackage('package.json')
                .status(403)
                .body_error(/invalid package/);
     });
 
     it('bad pkg #2', function() {
-      return server.get_package('__proto__')
+      return server.getPackage('__proto__')
                .status(403)
                .body_error(/invalid package/);
     });
@@ -51,19 +51,19 @@ module.exports = function() {
     });
 
     it('silly things - writing #1', function() {
-      return server.put_tarball('testpkg-sec', 'package.json', '{}')
+      return server.putTarball('testpkg-sec', 'package.json', '{}')
                .status(403)
                .body_error(/invalid filename/);
     });
 
     it('silly things - writing #3', function() {
-      return server.put_tarball('testpkg-sec', 'node_modules', '{}')
+      return server.putTarball('testpkg-sec', 'node_modules', '{}')
                .status(403)
                .body_error(/invalid filename/);
     });
 
     it('silly things - writing #4', function() {
-      return server.put_tarball('testpkg-sec', '../testpkg.tgz', '{}')
+      return server.putTarball('testpkg-sec', '../testpkg.tgz', '{}')
                .status(403)
                .body_error(/invalid filename/);
     });

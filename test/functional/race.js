@@ -9,7 +9,7 @@ module.exports = function() {
 
   describe('race', function() {
     before(function() {
-      return server.put_package('race', require('./lib/package')('race'))
+      return server.putPackage('race', require('./lib/package')('race'))
                .status(201)
                .body_ok(/created new package/);
     });
@@ -24,7 +24,7 @@ module.exports = function() {
           data.rand = Math.random();
 
           let _res;
-          server.put_version('race', '0.0.1', data)
+          server.putVersion('race', '0.0.1', data)
             .response(function(res) {
  _res = res;
 })
@@ -62,7 +62,7 @@ module.exports = function() {
         (function(i) {
           fns.push(function(cb_) {
             let _res;
-            server.put_version('race', '0.1.'+String(i), require('./lib/package')('race'))
+            server.putVersion('race', '0.1.'+String(i), require('./lib/package')('race'))
               .response(function(res) {
  _res = res;
 })
@@ -94,7 +94,7 @@ module.exports = function() {
     });
 
     after('downloading package', function() {
-      return server.get_package('race')
+      return server.getPackage('race')
                .status(200)
                .then(function(body) {
                  assert.equal(Object.keys(body.versions).length, _oksum);
