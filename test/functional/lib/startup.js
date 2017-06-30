@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const fork = require('child_process').fork;
 const express = require('express');
 const rimRaf = require('rimraf');
@@ -14,7 +15,10 @@ process.express.listen(55550);
 
 module.exports.start = function(dir, conf) {
   return new Promise(function(resolve, reject) {
-    rimRaf(__dirname + '/../' + dir, function() {
+    rimRaf(__dirname + '/../' + dir, function(err) {
+      if(_.isNil(err) === false) {
+        reject(err);
+      }
       const filteredArguments = process.execArgv = process.execArgv.filter(function(x) {
         // filter out --debug-brk and --inspect-brk since Node7
         return (x.indexOf('--debug-brk') === -1  && x.indexOf('--inspect-brk') === -1);
@@ -39,19 +43,27 @@ module.exports.start = function(dir, conf) {
         reject(err);
       });
 
+      childFork.on('disconnect', function(err) {
+        reject(err);
+      });
+
+      childFork.on('exit', function(err) {
+        reject(err);
+      });
+
       process.execArgv = filteredArguments;
     });
   });
 };
 
 process.on('exit', function() {
-  if (forks[0]) {
+  if (_.isNil(forks[0]) === false) {
     forks[0].kill();
   }
-  if (forks[1]) {
+  if (_.isNil(forks[1]) === false) {
     forks[1].kill();
   }
-  if (forks[2]) {
+  if (_.isNil(forks[2]) === false) {
     forks[2].kill();
   }
 });
