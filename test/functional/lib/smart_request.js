@@ -2,103 +2,115 @@
 
 const assert = require('assert');
 const request = require('request');
-const sym = Symbol('smart_request_data');
+const requestData = Symbol('smart_request_data');
+const _ = require('lodash');
 
-function smart_request(options) {
-  let self = {};
-  self[sym] = {};
-  self[sym].error = Error();
-  Error.captureStackTrace(self[sym].error, smart_request);
+class PromiseAssert extends Promise {
 
-  let result = new Promise(function(resolve, reject) {
-    self[sym].request = request(options, function(err, res, body) {
-      if (err) return reject(err);
-      self[sym].response = res;
+  constructor(options) {
+    super(options);
+  }
+
+  status(expected) {
+    const selfData = this[requestData];
+
+    return injectResponse(this, this.then(function(body) {
+      try {
+        assert.equal(selfData.response.statusCode, expected);
+      } catch(err) {
+        selfData.error.message = err.message;
+        throw selfData.error;
+      }
+      return body;
+    }));
+  }
+
+  body_ok(expected) {
+    const self_data = this[requestData];
+
+    return injectResponse(this, this.then(function(body) {
+      try {
+        if (_.isRegExp(expected)) {
+          assert(body.ok.match(expected), '\'' + body.ok + '\' doesn\'t match ' + expected);
+        } else {
+          assert.equal(body.ok, expected);
+        }
+        assert.equal(body.error, null);
+      } catch(err) {
+        self_data.error.message = err.message;
+        throw self_data.error;
+      }
+      return body;
+    }));
+  }
+
+
+  body_error(expected) {
+    const self_data = this[requestData];
+
+    return injectResponse(this, this.then(function(body) {
+      try {
+        if (_.isRegExp(expected)) {
+          assert(body.error.match(expected), body.error + ' doesn\'t match ' + expected);
+        } else {
+          assert.equal(body.error, expected);
+        }
+        assert.equal(body.ok, null);
+      } catch(err) {
+        self_data.error.message = err.message;
+        throw self_data.error;
+      }
+      return body;
+    }));
+  }
+
+  request(callback) {
+    callback(this[requestData].request);
+    return this;
+  }
+
+  response(cb) {
+    const selfData = this[requestData];
+
+    return injectResponse(this, this.then(function(body) {
+      cb(selfData.response);
+      return body;
+    }));
+  }
+
+  send(data) {
+    this[requestData].request.end(data);
+    return this;
+  }
+
+}
+
+function injectResponse(smartObject, promise) {
+  promise[requestData] = smartObject[requestData];
+  return promise;
+}
+
+function smartRequest(options) {
+  const smartObject = {};
+
+  smartObject[requestData] = {};
+  smartObject[requestData].error = Error();
+  Error.captureStackTrace(smartObject[requestData].error, smartRequest);
+
+  const result = new PromiseAssert(function(resolve, reject) {
+    smartObject[requestData].request = request(options, function(err, res, body) {
+      if (err) {
+        return reject(err);
+      }
+
+      // store the response on symbol
+      smartObject[requestData].response = res;
       resolve(body);
     });
   });
 
-  return extend(self, result);
+  return injectResponse(smartObject, result);
 }
 
-function extend(self, promise) {
-  promise[sym] = self[sym];
-  Object.setPrototypeOf(promise, extensions);
-  return promise;
-}
-
-var extensions = Object.create(Promise.prototype);
-
-extensions.status = function(expected) {
-  let self_data = this[sym];
-
-  return extend(this, this.then(function(body) {
-    try {
-      assert.equal(self_data.response.statusCode, expected);
-    } catch(err) {
-      self_data.error.message = err.message;
-      throw self_data.error;
-    }
-    return body;
-  }));
-};
-
-extensions.body_ok = function(expected) {
-  let self_data = this[sym];
-
-  return extend(this, this.then(function(body) {
-    try {
-      if (Object.prototype.toString.call(expected) === '[object RegExp]') {
-        assert(body.ok.match(expected), '\'' + body.ok + '\' doesn\'t match ' + expected);
-      } else {
-        assert.equal(body.ok, expected);
-      }
-      assert.equal(body.error, null);
-    } catch(err) {
-      self_data.error.message = err.message;
-      throw self_data.error;
-    }
-    return body;
-  }));
-};
-
-extensions.body_error = function(expected) {
-  let self_data = this[sym];
-
-  return extend(this, this.then(function(body) {
-    try {
-      if (Object.prototype.toString.call(expected) === '[object RegExp]') {
-        assert(body.error.match(expected), body.error + ' doesn\'t match ' + expected);
-      } else {
-        assert.equal(body.error, expected);
-      }
-      assert.equal(body.ok, null);
-    } catch(err) {
-      self_data.error.message = err.message;
-      throw self_data.error;
-    }
-    return body;
-  }));
-};
-
-extensions.request = function(cb) {
-  cb(this[sym].request);
-  return this;
-};
-
-extensions.response = function(cb) {
-  let self_data = this[sym];
-
-  return extend(this, this.then(function(body) {
-    cb(self_data.response);
-    return body;
-  }));
-};
-
-extensions.send = function(data) {
-  this[sym].request.end(data);
-  return this;
-};
-
-module.exports = smart_request;
+module.exports = smartRequest;
 

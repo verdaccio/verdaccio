@@ -2,6 +2,7 @@
 
 require('./lib/startup');
 
+const _ = require('lodash');
 const assert = require('assert');
 const exec = require('child_process').exec;
 
@@ -26,6 +27,9 @@ describe('Func', function() {
         server.pid = body.pid;
         return new Promise(function(resolve, reject) {
           exec('lsof -p ' + Number(server.pid), function(err, result) {
+            if (_.isNil(err) === false) {
+              reject(err);
+            }
             assert.equal(err, null);
             server.fdlist = result.replace(/ +/g, ' ');
             resolve();
@@ -66,14 +70,20 @@ describe('Func', function() {
   after(function(done) {
     const check = (server) => {
       return new Promise(function(resolve, reject) {
-        exec('lsof -p ' + parseInt(server.pid, 10), function(err, result) {
+        exec(`lsof -p ${parseInt(server.pid, 10)}`, function(err, result) {
           if (err) {
             reject();
           } else {
-            result = result.split('\n').filter(function(q) {
-              if (q.match(/TCP .*->.* \(ESTABLISHED\)/)) return false;
-              if (q.match(/\/libcrypt-[^\/]+\.so/)) return false;
-              if (q.match(/\/node_modules\/crypt3\/build\/Release/)) return false;
+            result = result.split('\n').filter(function(query) {
+              if (query.match(/TCP .*->.* \(ESTABLISHED\)/)) {
+                return false;
+              }
+              if (query.match(/\/libcrypt-[^\/]+\.so/)) {
+                return false;
+              }
+              if (query.match(/\/node_modules\/crypt3\/build\/Release/)) {
+                return false;
+              }
               return true;
             }).join('\n').replace(/ +/g, ' ');
             assert.equal(server.fdlist, result);

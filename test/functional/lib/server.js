@@ -12,7 +12,7 @@ class Server {
 
   constructor(url) {
     this.url = url.replace(/\/$/, '');
-    this.userAgent = 'node/v0.10.8 linux x64';
+    this.userAgent = 'node/v8.1.2 linux x64';
     this.authstr = buildAuthHeader('test', 'test');
   }
 
@@ -120,7 +120,7 @@ class Server {
 
   putTarballIncomplete(name, filename, data, size, cb) {
     let promise = this.request({
-      uri: '/'+encodeURIComponent(name)+'/-/'+encodeURIComponent(filename)+'/whatever',
+      uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
         'content-type': 'application/octet-stream',
@@ -158,10 +158,11 @@ class Server {
   }
 
   whoami() {
-    return this.request({uri: '/-/whoami'})
-      .status(200)
-      .then(function(x) {
-        return x.username;
+    return this.request({
+      uri: '/-/whoami'
+    }).status(200)
+      .then(function(body) {
+        return body.username;
       });
   }
 
