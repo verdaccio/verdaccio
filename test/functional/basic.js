@@ -5,8 +5,12 @@ require('./lib/startup');
 const assert = require('assert');
 const crypto = require('crypto');
 
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
+function readfile(folderPath) {
+  return require('fs').readFileSync(__dirname + '/' + folderPath);
+}
+
+function createHash() {
+  return crypto.createHash('sha1');
 }
 
 module.exports = function() {
@@ -18,6 +22,7 @@ module.exports = function() {
   });
 
   describe('testpkg', function() {
+
     before(function() {
       return server.addPackage('testpkg');
     });
@@ -51,7 +56,7 @@ module.exports = function() {
 
       it('uploading new package version (bad sha)', function() {
         let pkg = require('./lib/package')('testpkg');
-        pkg.dist.shasum = crypto.createHash('sha1').update('fake').digest('hex');
+        pkg.dist.shasum = createHash().update('fake').digest('hex');
 
         return server.putVersion('testpkg', '0.0.1', pkg)
                  .status(400)
@@ -60,8 +65,8 @@ module.exports = function() {
 
       describe('version', function() {
         before(function() {
-          let pkg = require('./lib/package')('testpkg');
-          pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
+          const pkg = require('./lib/package')('testpkg');
+          pkg.dist.shasum = createHash().update(readfile('fixtures/binary')).digest('hex');
           return server.putVersion('testpkg', '0.0.1', pkg)
                    .status(201)
                    .body_ok(/published/);
