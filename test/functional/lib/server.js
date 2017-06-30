@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const request = require('./smart_request');
+const request = require('./request');
 const _ = require('lodash');
 
 const buildAuthHeader = (user, pass) => {
