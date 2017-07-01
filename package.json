@@ -72,7 +72,7 @@
   "scripts": {
     "test": "npm run lint && mocha ./test/functional ./test/unit",
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
-    "coverage:html": "nyc report --reporter=text-lcov",
+    "coverage:html": "nyc report --reporter=html",
     "coverage:codecov": "nyc report --reporter=lcov | codecov",
     "test-travis": "npm run lint && npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
