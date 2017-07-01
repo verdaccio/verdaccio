@@ -6,8 +6,24 @@ It appeared that sinopia maintenance had stalled and the author had abandoned it
 so there was a suggestion that the sinopia-using community would benefit 
 from a fresh look at the code and the outstanding issues. So here we are 🎉🎉🎉.
 
-## Advanced Configurations
+## Getting Started
 
+<!---
+* [Command Line](cli.md)
+* [Understand the configuration file](config.md)
+-->
+* [Setting up *uplinks*](uplinks.md)
+<!---
+* [Packages Access](packages.md)
+* [Logs](logs.md)
+* [Configure the Web](web.md)
+* [Enable Notifications](notifications.md)
+* [Understand the storage](storage.md)
+* [Authorization and access](auth.md)
+* [Installing Plugins](plugins.md)
+-->
+
+## Advanced Configurations
 
 * [SSL Certificates](ssl.md)
 
