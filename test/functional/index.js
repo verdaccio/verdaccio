@@ -66,6 +66,7 @@ describe('Func', function() {
   require('./plugins')();
   // requires packages published to server1/server2
   require('./gh131')();
+  require('./notify')();
 
   after(function(done) {
     const check = (server) => {

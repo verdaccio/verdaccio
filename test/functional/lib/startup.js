@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const fork = require('child_process').fork;
+const bodyParser = require('body-parser');
 const express = require('express');
 const rimRaf = require('rimraf');
 const Server = require('./server');
@@ -10,7 +11,12 @@ const forks = process.forks = [];
 process.server = new Server('http://localhost:55551/');
 process.server2 = new Server('http://localhost:55552/');
 process.server3 = new Server('http://localhost:55553/');
-process.express = express();
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+process.express = app;
 process.express.listen(55550);
 
 module.exports.start = function(dir, conf) {
