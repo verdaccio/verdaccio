@@ -11,7 +11,7 @@ describe('toplevel', function() {
   let port;
 
   before(function(done) {
-    rimraf(__dirname + '/test-storage', done);
+    rimraf(__dirname + '/store/test-storage', done);
   });
 
   before(function(done) {

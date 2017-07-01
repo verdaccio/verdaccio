@@ -1,6 +1,6 @@
 module.exports = function(name, version) {
   return {
-    name,
+    name: name,
     version: version || '0.0.0',
     dist: {
       shasum: 'fake',

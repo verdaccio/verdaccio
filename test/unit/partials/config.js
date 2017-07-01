@@ -1,7 +1,7 @@
 'use strict';
 
 const config = {
-  storage: __dirname + '/test-storage',
+  storage: __dirname + '/store/test-storage',
   uplinks: {
     'npmjs': {
       'url': 'https://registry.npmjs.org/'

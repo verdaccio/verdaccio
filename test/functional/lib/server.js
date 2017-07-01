@@ -176,6 +176,15 @@ class Server {
       });
   }
 
+  ping() {
+    return this.request({
+      uri: '/-/ping'
+    }).status(200)
+      .then(function(body) {
+        return body;
+      });
+  }
+
   debug() {
     return this.request({
       uri: '/-/_debug',

@@ -5,6 +5,7 @@ const fork = require('child_process').fork;
 const bodyParser = require('body-parser');
 const express = require('express');
 const rimRaf = require('rimraf');
+const path = require('path');
 const Server = require('./server');
 
 const forks = process.forks = [];
@@ -21,7 +22,9 @@ process.express.listen(55550);
 
 module.exports.start = function(dir, conf) {
   return new Promise(function(resolve, reject) {
-    rimRaf(__dirname + '/../' + dir, function(err) {
+    const storageDir = path.join(__dirname, `/../${dir}`);
+    const configPath = path.join(__dirname, '../', conf);
+    rimRaf(storageDir, function(err) {
       if(_.isNil(err) === false) {
         reject(err);
       }
@@ -31,9 +34,10 @@ module.exports.start = function(dir, conf) {
       });
 
       const childFork = fork(__dirname + '/../../../bin/verdaccio',
-        ['-c', __dirname + '/../' + conf],
+        ['-c', configPath],
         {
           silent: !process.env.TRAVIS
+          // silent: false
         }
       );
 
