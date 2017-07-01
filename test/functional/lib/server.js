@@ -108,6 +108,16 @@ class Server {
     }).send(data);
   }
 
+  removeTarball(name) {
+    return this.request({
+      uri: `/${encodeURIComponent(name)}/-rev/whatever`,
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+      },
+    });
+  }
+
   addTag(name, tag, version) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,

@@ -9,6 +9,10 @@ function readfile(folderPath) {
   return require('fs').readFileSync(__dirname + '/' + folderPath);
 }
 
+function getPackage(name) {
+  return require('./lib/package')(name);
+}
+
 function createHash() {
   return crypto.createHash('sha1');
 }
@@ -44,7 +48,17 @@ module.exports = function() {
                  .body_ok(/.*/);
       });
 
+      after(function() {
+        return server.removeTarball('testpkg').status(201);
+      });
+
+      it('remove a tarball', function() {/* test for before() */});
+
       it('uploading new tarball', function() {/* test for before() */});
+
+      it('remove non existing tarball', function() {
+        return server.removeTarball('testpkg404').status(404);
+      });
 
       it('downloading newly created tarball', function() {
         return server.getTarball('testpkg', 'blahblah')
@@ -55,7 +69,7 @@ module.exports = function() {
       });
 
       it('uploading new package version (bad sha)', function() {
-        let pkg = require('./lib/package')('testpkg');
+        let pkg = getPackage('testpkg');
         pkg.dist.shasum = createHash().update('fake').digest('hex');
 
         return server.putVersion('testpkg', '0.0.1', pkg)
@@ -65,14 +79,17 @@ module.exports = function() {
 
       describe('version', function() {
         before(function() {
-          const pkg = require('./lib/package')('testpkg');
+          const pkg = getPackage('testpkg');
+
           pkg.dist.shasum = createHash().update(readfile('fixtures/binary')).digest('hex');
           return server.putVersion('testpkg', '0.0.1', pkg)
                    .status(201)
                    .body_ok(/published/);
         });
 
-        it('uploading new package version', function() {/* test for before() */});
+        it('uploading new package version', function() {
+          /* test for before() */
+        });
 
         it('downloading newly created package', function() {
           return server.getPackage('testpkg')
@@ -100,7 +117,7 @@ module.exports = function() {
   });
 
   it('uploading new package version for bad pkg', function() {
-    return server.putVersion('testpxg', '0.0.1', require('./lib/package')('testpxg'))
+    return server.putVersion('testpxg', '0.0.1', getPackage('testpxg'))
              .status(404)
              .body_error(/no such package/);
   });
@@ -112,7 +129,7 @@ module.exports = function() {
   });
 
   it('publishing package / bad ro uplink', function() {
-    return server.putPackage('baduplink', require('./lib/package')('baduplink'))
+    return server.putPackage('baduplink', getPackage('baduplink'))
              .status(503)
              .body_error(/one of the uplinks is down, refuse to publish/);
   });
