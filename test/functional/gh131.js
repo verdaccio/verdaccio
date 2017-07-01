@@ -68,6 +68,7 @@ module.exports = function() {
   before(function() {
     const pkg = require('./lib/package')(PKG_GH1312);
     pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
+
     return server2.putVersion(PKG_GH1312, '0.0.1', pkg)
              .status(201)
              .body_ok(/published/);
