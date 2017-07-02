@@ -1,24 +1,31 @@
+## 2.2.2 (July 2, 2017)
+
+- Improve Docker Build - [#181](https://github.com/verdaccio/verdaccio/pull/181)
+- Bugfix #73 `npm-latest` support - [#228](https://github.com/verdaccio/verdaccio/pull/228)
+- Add [documentation](https://github.com/verdaccio/verdaccio/tree/master/wiki) - [#229](https://github.com/verdaccio/verdaccio/pull/229)   
+
 ## 2.2.1 (June 17, 2017)
 
-- config section moved up, some keywords added - [#211] (https://github.com/verdaccio/verdaccio/pull/211)
-- docs: update docs with behind reverse proxy - [#214] (https://github.com/verdaccio/verdaccio/pull/214)
-- Add remote ip to request log - [#216] (https://github.com/verdaccio/verdaccio/pull/216)
+- config section moved up, some keywords added - [#211](https://github.com/verdaccio/verdaccio/pull/211)
+- docs: update docs with behind reverse proxy - [#214](https://github.com/verdaccio/verdaccio/pull/214)
+- Add remote ip to request log - [#216](https://github.com/verdaccio/verdaccio/pull/216)
 
 ## 2.2.0 (June 8, 2017)
-- Allow url_prefix to be only the path - ([@BartDubois ]((https://github.com/BartDubois))) in [#197] (https://github.com/verdaccio/verdaccio/pull/197)
-- Apache reverse proxy configuration - ([@mysiar ]((https://github.com/mysiar))) in [#198] (https://github.com/verdaccio/verdaccio/pull/198)
-- don't blindly clobber local dist-tags - ([@rmg ]((https://github.com/rmg))) in [#206] (https://github.com/verdaccio/verdaccio/pull/206)
-- Adds cache option to uplinks - ([@silkentrance ]((https://github.com/silkentrance))) in [#132] (https://github.com/verdaccio/verdaccio/pull/132)
+- Allow url_prefix to be only the path - ([@BartDubois ]((https://github.com/BartDubois))) in [#197](https://github.com/verdaccio/verdaccio/pull/197)
+- Apache reverse proxy configuration - ([@mysiar ]((https://github.com/mysiar))) in [#198](https://github.com/verdaccio/verdaccio/pull/198)
+- don't blindly clobber local dist-tags - ([@rmg ]((https://github.com/rmg))) in [#206](https://github.com/verdaccio/verdaccio/pull/206)
+- Adds cache option to uplinks - ([@silkentrance ]((https://github.com/silkentrance))) in [#132](https://github.com/verdaccio/verdaccio/pull/132)
 
 ## 2.1.7 (May 14, 2017)
-- Fixed publish fail in YARN - ([@W1U02]((https://github.com/W1U02))) in [#183] (https://github.com/verdaccio/verdaccio/pull/183)
+- Fixed publish fail in YARN - ([@W1U02]((https://github.com/W1U02)) in [#183](https://github.com/verdaccio/verdaccio/pull/183)
 
 ## 2.1.6 (May 12, 2017)
-- Fix https certificates safety check - ([@juanpicado]((https://github.com/juanpicado))) in [#189] (https://github.com/verdaccio/verdaccio/pull/189)
+- Fix https certificates safety check - ([@juanpicado]((https://github.com/juanpicado))) in [#189](https://github.com/verdaccio/verdaccio/pull/189)
 - Fix upstream search not work with gzip - ([@Meeeeow](https://github.com/Meeeeow) in [#170](https://github.com/verdaccio/verdaccio/pull/170))
-- Add additional requirement to output message - ([@marnel ](https://github.com/marnel ) in [#184](https://github.com/verdaccio/verdaccio/pull/184))
-- Implement npm ping endpoint - ([@juanpicado]((https://github.com/juanpicado))) in [#179] (https://github.com/verdaccio/verdaccio/pull/179)
-- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue))) in [#108] (https://github.com/verdaccio/verdaccio/pull/108)
+- Add additional requirement to output message - ([@marnel ](https://github.com/marnel) in [#184](https://github.com/verdaccio/verdaccio/pull/184))
+- Implement npm ping endpoint - ([@juanpicado]((https://github.com/juanpicado))) in [#179](https://github.com/verdaccio/verdaccio/pull/179)
+- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue))) 
+in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 
 
 
