@@ -13,8 +13,8 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 * [Understand the configuration file](config.md)
 -->
 * [Setting up *uplinks*](uplinks.md)
-<!---
 * [Packages Access](packages.md)
+<!---
 * [Logs](logs.md)
 * [Configure the Web](web.md)
 * [Enable Notifications](notifications.md)
