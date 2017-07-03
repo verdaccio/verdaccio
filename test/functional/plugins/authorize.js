@@ -2,7 +2,7 @@
 
 module.exports = Plugin;
 
-function Plugin(config, stuff) {
+function Plugin(config) {
   let self = Object.create(Plugin.prototype);
   self._config = config;
   return self;
@@ -12,17 +12,16 @@ function Plugin(config, stuff) {
 Plugin.prototype.verdaccio_version = '1.1.0';
 
 Plugin.prototype.allow_access = function(user, pkg, cb) {
-  let self = this;
   if (!pkg.handled_by_auth_plugin) {
     // delegate to next plugin
     return cb(null, false);
   }
-  if (user.name !== self._config.allow_user) {
+  if (user.name !== this._config.allow_user) {
     let err = Error('i don\'t know anything about you');
     err.status = 403;
     return cb(err);
   }
-  if (pkg.name !== self._config.to_access) {
+  if (pkg.name !== this._config.to_access) {
     let err = Error('you\'re not allowed here');
     err.status = 403;
     return cb(err);

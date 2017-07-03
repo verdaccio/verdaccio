@@ -1,52 +1,79 @@
 'use strict';
 
+const _ = require('lodash');
 const fork = require('child_process').fork;
+const bodyParser = require('body-parser');
 const express = require('express');
-const rimraf = require('rimraf');
+const rimRaf = require('rimraf');
+const path = require('path');
 const Server = require('./server');
 
 const forks = process.forks = [];
-process.server = Server('http://localhost:55551/');
-process.server2 = Server('http://localhost:55552/');
-process.server3 = Server('http://localhost:55553/');
-process.express = express();
+process.server = new Server('http://localhost:55551/');
+process.server2 = new Server('http://localhost:55552/');
+process.server3 = new Server('http://localhost:55553/');
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+process.express = app;
 process.express.listen(55550);
 
 module.exports.start = function(dir, conf) {
   return new Promise(function(resolve, reject) {
-    rimraf(__dirname + '/../' + dir, function() {
-      // filter out --debug-brk
-      let oldArgv = process.execArgv;
-      process.execArgv = process.execArgv.filter(function(x) {
-        return x !== '--debug-brk';
+    const storageDir = path.join(__dirname, `/../${dir}`);
+    const configPath = path.join(__dirname, '../', conf);
+    rimRaf(storageDir, function(err) {
+      if(_.isNil(err) === false) {
+        reject(err);
+      }
+      const filteredArguments = process.execArgv = process.execArgv.filter(function(x) {
+        // filter out --debug-brk and --inspect-brk since Node7
+        return (x.indexOf('--debug-brk') === -1  && x.indexOf('--inspect-brk') === -1);
       });
 
-      const f = fork(__dirname + '/../../../bin/verdaccio'
-        , ['-c', __dirname + '/../' + conf]
-        , {silent: !process.env.TRAVIS}
+      const childFork = fork(__dirname + '/../../../bin/verdaccio',
+        ['-c', configPath],
+        {
+          silent: !process.env.TRAVIS
+          // silent: false
+        }
       );
-      forks.push(f);
-      f.on('message', function(msg) {
+
+      forks.push(childFork);
+
+      childFork.on('message', function(msg) {
         if ('verdaccio_started' in msg) {
           resolve();
         }
       });
-      f.on('error', function(err) {
+
+      childFork.on('error', function(err) {
         reject(err);
       });
-      process.execArgv = oldArgv;
+
+      childFork.on('disconnect', function(err) {
+        reject(err);
+      });
+
+      childFork.on('exit', function(err) {
+        reject(err);
+      });
+
+      process.execArgv = filteredArguments;
     });
   });
 };
 
 process.on('exit', function() {
-  if (forks[0]) {
+  if (_.isNil(forks[0]) === false) {
     forks[0].kill();
   }
-  if (forks[1]) {
+  if (_.isNil(forks[1]) === false) {
     forks[1].kill();
   }
-  if (forks[2]) {
+  if (_.isNil(forks[2]) === false) {
     forks[2].kill();
   }
 });

@@ -12,14 +12,14 @@ module.exports = function() {
   let server2 = process.server2;
 
   it('downloading non-existent tarball #1 / srv2', function() {
-    return server2.get_tarball('testpkg-gh29', 'blahblah')
+    return server2.getTarball('testpkg-gh29', 'blahblah')
              .status(404)
              .body_error(/no such package/);
   });
 
   describe('pkg-gh29', function() {
     before(function() {
-      return server.put_package('testpkg-gh29', require('./lib/package')('testpkg-gh29'))
+      return server.putPackage('testpkg-gh29', require('./lib/package')('testpkg-gh29'))
                .status(201)
                .body_ok(/created new package/);
     });
@@ -27,14 +27,14 @@ module.exports = function() {
     it('creating new package / srv1', function() {});
 
     it('downloading non-existent tarball #2 / srv2', function() {
-      return server2.get_tarball('testpkg-gh29', 'blahblah')
+      return server2.getTarball('testpkg-gh29', 'blahblah')
                .status(404)
                .body_error(/no such file/);
     });
 
     describe('tarball', function() {
       before(function() {
-        return server.put_tarball('testpkg-gh29', 'blahblah', readfile('fixtures/binary'))
+        return server.putTarball('testpkg-gh29', 'blahblah', readfile('fixtures/binary'))
                  .status(201)
                  .body_ok(/.*/);
       });
@@ -45,7 +45,7 @@ module.exports = function() {
         before(function() {
           let pkg = require('./lib/package')('testpkg-gh29');
           pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
-          return server.put_version('testpkg-gh29', '0.0.1', pkg)
+          return server.putVersion('testpkg-gh29', '0.0.1', pkg)
                    .status(201)
                    .body_ok(/published/);
         });
@@ -53,7 +53,7 @@ module.exports = function() {
         it('uploading new package version / srv1', function() {});
 
         it('downloading newly created tarball / srv2', function() {
-          return server2.get_tarball('testpkg-gh29', 'blahblah')
+          return server2.getTarball('testpkg-gh29', 'blahblah')
                    .status(200)
                    .then(function(body) {
                      assert.deepEqual(body, readfile('fixtures/binary'));

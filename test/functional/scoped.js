@@ -29,7 +29,7 @@ module.exports = function() {
     it('add pkg', function() {});
 
     it('server1 - tarball', function() {
-      return server.get_tarball('@test/scoped', 'scoped-1.0.0.tgz')
+      return server.getTarball('@test/scoped', 'scoped-1.0.0.tgz')
                .status(200)
                .then(function(body) {
                  // not real sha due to utf8 conversion
@@ -38,7 +38,7 @@ module.exports = function() {
     });
 
     it('server2 - tarball', function() {
-      return server2.get_tarball('@test/scoped', 'scoped-1.0.0.tgz')
+      return server2.getTarball('@test/scoped', 'scoped-1.0.0.tgz')
                .status(200)
                .then(function(body) {
                  // not real sha due to utf8 conversion
@@ -47,7 +47,7 @@ module.exports = function() {
     });
 
     it('server1 - package', function() {
-      return server.get_package('@test/scoped')
+      return server.getPackage('@test/scoped')
                .status(200)
                .then(function(body) {
                  assert.equal(body.name, '@test/scoped');
@@ -58,7 +58,7 @@ module.exports = function() {
     });
 
     it('server2 - package', function() {
-      return server2.get_package('@test/scoped')
+      return server2.getPackage('@test/scoped')
                .status(200)
                .then(function(body) {
                  assert.equal(body.name, '@test/scoped');

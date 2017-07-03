@@ -30,7 +30,7 @@ module.exports = function() {
     it('add pkg', function() {});
 
     it('server1 - tarball', function() {
-      return server.get_tarball('testpkg-newnpmreg', 'testpkg-newnpmreg-0.0.0.tgz')
+      return server.getTarball('testpkg-newnpmreg', 'testpkg-newnpmreg-0.0.0.tgz')
                .status(200)
                .then(function(body) {
                  // not real sha due to utf8 conversion
@@ -39,7 +39,7 @@ module.exports = function() {
     });
 
     it('server2 - tarball', function() {
-      return server2.get_tarball('testpkg-newnpmreg', 'testpkg-newnpmreg-0.0.0.tgz')
+      return server2.getTarball('testpkg-newnpmreg', 'testpkg-newnpmreg-0.0.0.tgz')
                .status(200)
                .then(function(body) {
                  // not real sha due to utf8 conversion
@@ -48,7 +48,7 @@ module.exports = function() {
     });
 
     it('server1 - package', function() {
-      return server.get_package('testpkg-newnpmreg')
+      return server.getPackage('testpkg-newnpmreg')
                .status(200)
                .then(function(body) {
                  assert.equal(body.name, 'testpkg-newnpmreg');
@@ -59,7 +59,7 @@ module.exports = function() {
     });
 
     it('server2 - package', function() {
-      return server2.get_package('testpkg-newnpmreg')
+      return server2.getPackage('testpkg-newnpmreg')
                .status(200)
                .then(function(body) {
                  assert.equal(body.name, 'testpkg-newnpmreg');

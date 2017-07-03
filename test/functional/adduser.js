@@ -36,7 +36,7 @@ module.exports = function() {
     let pass = 'preexisting';
     before(function() {
       return fs.appendFileSync(
-        path.join(__dirname, 'test-storage', '.htpasswd'),
+        path.join(__dirname, 'store/test-storage', '.htpasswd'),
         'preexisting:$apr1$4YSboUa9$yVKjE7.PxIOuK3M4D7VjX.'
       );
     });

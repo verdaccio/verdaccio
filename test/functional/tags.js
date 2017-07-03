@@ -11,7 +11,7 @@ module.exports = function() {
   let express = process.express;
 
   it('tags - testing for 404', function() {
-    return server.get_package('testexp_tags')
+    return server.getPackage('testexp_tags')
              // shouldn't exist yet
              .status(404)
              .body_error(/no such package/);
@@ -26,7 +26,7 @@ module.exports = function() {
     });
 
     it('fetching package again', function() {
-      return server.get_package('testexp_tags')
+      return server.getPackage('testexp_tags')
                .status(200)
                .then(function(body) {
                  assert.equal(typeof(body.versions['1.1']), 'object');
@@ -58,7 +58,7 @@ module.exports = function() {
 
     // populate cache
     before(function() {
-      return server.get_package('testexp_tags2')
+      return server.getPackage('testexp_tags2')
                .status(200);
     });
 

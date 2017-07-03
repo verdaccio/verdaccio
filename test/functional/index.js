@@ -2,30 +2,37 @@
 
 require('./lib/startup');
 
+const _ = require('lodash');
 const assert = require('assert');
 const exec = require('child_process').exec;
 
-describe('Func', function() {
+describe('Create registry servers', function() {
   const server = process.server;
   const server2 = process.server2;
   const server3 = process.server3;
 
   before(function(done) {
     Promise.all([
-      require('./lib/startup').start('./test-storage', './config-1.yaml'),
-      require('./lib/startup').start('./test-storage2', './config-2.yaml'),
-      require('./lib/startup').start('./test-storage3', './config-3.yaml'),
+      require('./lib/startup').start('./store/test-storage', '/store/config-1.yaml'),
+      require('./lib/startup').start('./store/test-storage2', '/store/config-2.yaml'),
+      require('./lib/startup').start('./store/test-storage3', '/store/config-3.yaml'),
     ]).then(() => {
       done();
-  });
+    });
+
   });
 
   before(function() {
     return Promise.all([server, server2, server3].map(function(server) {
       return server.debug().status(200).then(function(body) {
         server.pid = body.pid;
+
         return new Promise(function(resolve, reject) {
           exec('lsof -p ' + Number(server.pid), function(err, result) {
+            if (_.isNil(err) === false) {
+              reject(err);
+            }
+
             assert.equal(err, null);
             server.fdlist = result.replace(/ +/g, ' ');
             resolve();
@@ -35,13 +42,19 @@ describe('Func', function() {
     }));
   });
 
-  before(function auth() {
-    return Promise.all([server, server2, server3].map(function(server, cb) {
-      return server.auth('test', 'test').status(201).body_ok(/'test'/);
+  before(function testBasicAuthentication() {
+    return Promise.all([server, server2, server3].map(function(server) {
+      // log in on server1
+      return server.auth('test', 'test')
+        .status(201)
+        .body_ok(/'test'/);
+
     }));
   });
 
-  it('authenticate', function() {/* test for before() */});
+  it('authenticate', function() {
+    /* test for before() */
+  });
 
   require('./access')();
   require('./basic')();
@@ -60,20 +73,27 @@ describe('Func', function() {
   require('./logout')();
   require('./addtag')();
   require('./plugins')();
+  require('./notify')();
   // requires packages published to server1/server2
-  require('./gh131')();
+  require('./uplink.cache')();
 
   after(function(done) {
     const check = (server) => {
       return new Promise(function(resolve, reject) {
-        exec('lsof -p ' + parseInt(server.pid, 10), function(err, result) {
+        exec(`lsof -p ${parseInt(server.pid, 10)}`, function(err, result) {
           if (err) {
             reject();
           } else {
-            result = result.split('\n').filter(function(q) {
-              if (q.match(/TCP .*->.* \(ESTABLISHED\)/)) return false;
-              if (q.match(/\/libcrypt-[^\/]+\.so/)) return false;
-              if (q.match(/\/node_modules\/crypt3\/build\/Release/)) return false;
+            result = result.split('\n').filter(function(query) {
+              if (query.match(/TCP .*->.* \(ESTABLISHED\)/)) {
+                return false;
+              }
+              if (query.match(/\/libcrypt-[^\/]+\.so/)) {
+                return false;
+              }
+              if (query.match(/\/node_modules\/crypt3\/build\/Release/)) {
+                return false;
+              }
               return true;
             }).join('\n').replace(/ +/g, ' ');
             assert.equal(server.fdlist, result);
@@ -82,12 +102,14 @@ describe('Func', function() {
         });
       });
     };
+
     Promise.all([check(server), check(server2), check(server3)]).then(function() {
       done();
     }, (reason) => {
       assert.equal(reason, null);
-    done();
-  });
+      done();
+    });
+
   });
 });
 

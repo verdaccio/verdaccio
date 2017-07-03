@@ -10,7 +10,6 @@ web:
 uplinks:
   server1:
     url: http://localhost:55551/
-#    cache: true
   server2:
     url: http://localhost:55552/
     cache: false

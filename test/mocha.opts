@@ -1,3 +1,4 @@
---reporter dot
---timeout 5000
---inline-diffs
+--reporter spec
+--timeout 20000
+--full-trace
+--colors

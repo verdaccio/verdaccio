@@ -1,22 +1,32 @@
 'use strict';
 
 module.exports = function() {
-  describe('access control', function() {
-    let server = process.server;
-    let oldauth;
+  describe('package access control', function() {
+
+    const server = process.server;
+    const buildToken = (auth) => {
+      return `Basic ${(new Buffer(auth).toString('base64'))}`;
+    };
+    let oldAuth;
 
     before(function() {
-      oldauth = server.authstr;
+      oldAuth = server.authstr;
     });
 
     after(function() {
-      server.authstr = oldauth;
+      server.authstr = oldAuth;
     });
 
-    function check_access(auth, pkg, ok) {
+    /**
+     * Check whether the user is allowed to fetch packages
+     * @param auth {object} disable auth
+     * @param pkg {string} package name
+     * @param ok {boolean}
+     */
+    function checkAccess(auth, pkg, ok) {
       it((ok ? 'allows' : 'forbids') +' access ' + auth + ' to ' + pkg, function() {
-        server.authstr = auth? `Basic ${(new Buffer(auth).toString('base64'))}`: undefined;
-        let req = server.get_package(pkg);
+        server.authstr = auth ? buildToken(auth) : undefined;
+        let req = server.getPackage(pkg);
         if (ok) {
           return req.status(404).body_error(/no such package available/);
         } else {
@@ -25,10 +35,16 @@ module.exports = function() {
       });
     }
 
-    function check_publish(auth, pkg, ok) {
+    /**
+     * Check whether the user is allowed to publish packages
+     * @param auth {object} disable auth
+     * @param pkg {string} package name
+     * @param ok {boolean}
+     */
+    function checkPublish(auth, pkg, ok) {
       it(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, function() {
-        server.authstr = auth? `Basic ${(new Buffer(auth).toString('base64'))}`: undefined;
-        let req = server.put_package(pkg, require('./lib/package')(pkg));
+        server.authstr = auth ? buildToken(auth) : undefined;
+        const req = server.putPackage(pkg, require('./lib/package')(pkg));
         if (ok) {
           return req.status(404).body_error(/this package cannot be added/);
         } else {
@@ -36,38 +52,48 @@ module.exports = function() {
         }
       });
     }
-    const badPass = 'test:badpass';
-    const testPass = 'test:test';
+
+    // credentials
+    const badCredentials = 'test:badpass';
+    // test user is logged by default
+    const validCredentials = 'test:test';
+
+    // defined on server1 configuration
     const testAccessOnly = 'test-access-only';
     const testPublishOnly = 'test-publish-only';
     const testOnlyTest = 'test-only-test';
     const testOnlyAuth = 'test-only-auth';
-    check_access(testPass, testAccessOnly, true);
-    check_access(undefined, testAccessOnly, true);
-    check_access(badPass, testAccessOnly, true);
-    check_publish(testPass, testAccessOnly, false);
-    check_publish(undefined, testAccessOnly, false);
-    check_publish(badPass, testAccessOnly, false);
 
-    check_access(testPass, testPublishOnly, false);
-    check_access(undefined, testPublishOnly, false);
-    check_access(badPass, testPublishOnly, false);
-    check_publish(testPass, testPublishOnly, true);
-    check_publish(undefined, testPublishOnly, true);
-    check_publish(badPass, testPublishOnly, true);
+    // all are allowed to access
+    checkAccess(validCredentials, testAccessOnly, true);
+    checkAccess(undefined, testAccessOnly, true);
+    checkAccess(badCredentials, testAccessOnly, true);
+    checkPublish(validCredentials, testAccessOnly, false);
+    checkPublish(undefined, testAccessOnly, false);
+    checkPublish(badCredentials, testAccessOnly, false);
 
-    check_access(testPass, testOnlyTest, true);
-    check_access(undefined, testOnlyTest, false);
-    check_access(badPass, testOnlyTest, false);
-    check_publish(testPass, testOnlyTest, true);
-    check_publish(undefined, testOnlyTest, false);
-    check_publish(badPass, testOnlyTest, false);
+    // all are allowed to publish
+    checkAccess(validCredentials, testPublishOnly, false);
+    checkAccess(undefined, testPublishOnly, false);
+    checkAccess(badCredentials, testPublishOnly, false);
+    checkPublish(validCredentials, testPublishOnly, true);
+    checkPublish(undefined, testPublishOnly, true);
+    checkPublish(badCredentials, testPublishOnly, true);
 
-    check_access(testPass, testOnlyAuth, true);
-    check_access(undefined, testOnlyAuth, false);
-    check_access(badPass, testOnlyAuth, false);
-    check_publish(testPass, testOnlyAuth, true);
-    check_publish(undefined, testOnlyAuth, false);
-    check_publish(badPass, testOnlyAuth, false);
+    // only user "test" is allowed to publish and access
+    checkAccess(validCredentials, testOnlyTest, true);
+    checkAccess(undefined, testOnlyTest, false);
+    checkAccess(badCredentials, testOnlyTest, false);
+    checkPublish(validCredentials, testOnlyTest, true);
+    checkPublish(undefined, testOnlyTest, false);
+    checkPublish(badCredentials, testOnlyTest, false);
+
+    // only authenticated users are allowed
+    checkAccess(validCredentials, testOnlyAuth, true);
+    checkAccess(undefined, testOnlyAuth, false);
+    checkAccess(badCredentials, testOnlyAuth, false);
+    checkPublish(validCredentials, testOnlyAuth, true);
+    checkPublish(undefined, testOnlyAuth, false);
+    checkPublish(badCredentials, testOnlyAuth, false);
   });
 };
