@@ -1,3 +1,7 @@
+## 2.2.3 (July 4, 2017)
+
+- Updated Dockerfile & added proper signal handling - [#239](https://github.com/verdaccio/verdaccio/pull/239)
+
 ## 2.2.2 (July 2, 2017)
 
 - Improve Docker Build - [#181](https://github.com/verdaccio/verdaccio/pull/181)
