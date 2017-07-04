@@ -14,10 +14,11 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 * [Command Line](cli.md)
 * [Setting up *uplinks*](uplinks.md)
 * [Packages Access](packages.md)
+* [Enable Notifications](notifications.md)
 <!---
 * [Logs](logs.md)
 * [Configure the Web](web.md)
-* [Enable Notifications](notifications.md)
+
 * [Understand the storage](storage.md)
 * [Authorization and access](auth.md)
 * [Installing Plugins](plugins.md)
