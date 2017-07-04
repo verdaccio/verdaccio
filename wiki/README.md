@@ -9,9 +9,9 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 ## Getting Started
 
 <!---
-* [Command Line](cli.md)
 * [Understand the configuration file](config.md)
 -->
+* [Command Line](cli.md)
 * [Setting up *uplinks*](uplinks.md)
 * [Packages Access](packages.md)
 <!---
