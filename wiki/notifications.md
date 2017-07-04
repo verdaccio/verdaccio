@@ -26,20 +26,20 @@ notify:
 notify:
   'example-package-1'
      method: POST
-	 headers: [{'Content-Type': 'application/json'}]
-	 endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
-	 content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+     headers: [{'Content-Type': 'application/json'}]
+     endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+     content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
   'example-package-2'
      method: POST
-	 headers: [{'Content-Type': 'application/json'}]
-	 endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
-	 content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+     headers: [{'Content-Type': 'application/json'}]
+     endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+     content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
   'example-package-3'
      method: POST
-	 headers: [{'Content-Type': 'application/json'}]
-	 endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
-	 content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
-	 
+     headers: [{'Content-Type': 'application/json'}]
+     endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+     content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+     
 
 ```
 
