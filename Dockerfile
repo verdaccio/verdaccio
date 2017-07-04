@@ -1,11 +1,17 @@
-FROM node:6-alpine
+FROM node:alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
+
+RUN apk --no-cache add openssl && \
+    wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
+    chmod +x /usr/local/bin/dumb-init && \
+    apk del openssl
 
 ENV APPDIR /usr/local/app
 
-RUN mkdir -p "$APPDIR"
 WORKDIR $APPDIR
+
 ADD . $APPDIR
+
 RUN npm install
 
 RUN mkdir -p /verdaccio/storage /verdaccio/conf
@@ -22,4 +28,6 @@ EXPOSE $PORT
 
 VOLUME ["/verdaccio"]
 
-CMD ["sh", "-c", "${APPDIR}/bin/verdaccio --config /verdaccio/conf/config.yaml --listen 0.0.0.0:${PORT}"]
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+
+CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml
