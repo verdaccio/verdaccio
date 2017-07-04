@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:8.1.2-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 RUN apk --no-cache add openssl && \
@@ -24,10 +24,12 @@ RUN addgroup -S verdaccio && adduser -S -g verdaccio verdaccio && \
 USER verdaccio
 
 ENV PORT 4873
+ENV PROTOCOL http
+
 EXPOSE $PORT
 
 VOLUME ["/verdaccio"]
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml
+CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $PROTOCOL://0.0.0.0:${PORT}
