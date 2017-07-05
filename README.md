@@ -40,7 +40,7 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 # config in config.yaml you can edit later)
 $ npm install -g verdaccio
 # or 
-$ yarn add global verdaccio
+$ yarn global add verdaccio
 # run in your terminal
 $ verdaccio
 
