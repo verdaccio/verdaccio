@@ -17,7 +17,7 @@ RUN npm install
 RUN mkdir -p /verdaccio/storage /verdaccio/conf
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
 
-RUN addgroup -S verdaccio && adduser -S -g verdaccio verdaccio && \
+RUN addgroup -S verdaccio && adduser -S -G verdaccio verdaccio && \
     chown -R verdaccio:verdaccio "$APPDIR" && \
     chown -R verdaccio:verdaccio /verdaccio
 
