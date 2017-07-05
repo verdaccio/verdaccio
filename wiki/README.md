@@ -16,12 +16,12 @@ from a fresh look at the code and the outstanding issues. So here we are ðŸŽ‰ðŸŽ
 * [Packages Access](packages.md)
 * [Enable Notifications](notifications.md)
 * [Installing Plugins](plugins.md)
+* [Authorization and access](auth.md)
 <!---
 * [Logs](logs.md)
 * [Configure the Web](web.md)
 
 * [Understand the storage](storage.md)
-* [Authorization and access](auth.md)
 -->
 
 ## Advanced Configurations
