@@ -15,13 +15,13 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 * [Setting up *uplinks*](uplinks.md)
 * [Packages Access](packages.md)
 * [Enable Notifications](notifications.md)
+* [Installing Plugins](plugins.md)
 <!---
 * [Logs](logs.md)
 * [Configure the Web](web.md)
 
 * [Understand the storage](storage.md)
 * [Authorization and access](auth.md)
-* [Installing Plugins](plugins.md)
 -->
 
 ## Advanced Configurations
@@ -42,7 +42,3 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 
 * [Ansible](ansible.md)
 * [Docker](docker.md)
-
-## Extends Verdaccio
-
-* [Plugins](plugins.md)

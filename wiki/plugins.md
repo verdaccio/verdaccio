@@ -1,4 +1,62 @@
-This is a pre release of plugins compatible with **Verdaccio**.
+# Plugins
+
+Verdaccio is an plugabble aplication. Currently supports multiple plugins only for [Auhtentification](auth.md) but there are plans to [improve the plugin system](https://github.com/verdaccio/verdaccio/issues/169). If you are intested to develop your own plugin, read the [development](development.md) section.
+
+## Usage
+
+### Installation
+
+```bash
+$> npm install --global verdaccio-activedirectory
+```
+`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+
+```
+&> npm install --global sinopia-memory
+```
+
+### Configuration
+
+Open the `config.yaml` file and update the `auth` section as follows:
+
+The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+
+```yaml
+ htpasswd:
+    file: ./htpasswd
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # You can set this to -1 to disable registration.
+    #max_users: 1000
+```    
+
+and replacing them with (in case you decide to use a `ldap` plugin.
+
+```yaml
+auth:  
+  activedirectory:
+    url: "ldap://10.0.100.1"
+    baseDN: 'dc=sample,dc=local'
+    domainSuffix: 'sample.local'
+```
+
+### Multiple Auth plugins
+
+This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
+
+```yaml
+auth:
+  htpasswd:
+    file: ./htpasswd
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # You can set this to -1 to disable registration.
+    #max_users: 1000
+  activedirectory:
+    url: "ldap://10.0.100.1"
+    baseDN: 'dc=sample,dc=local'
+    domainSuffix: 'sample.local'
+```
+
+This is a list of plugins compatible with **Verdaccio**.
 
 ## Sinopia Legacy Plugins
 
