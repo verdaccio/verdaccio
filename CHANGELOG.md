@@ -1,3 +1,8 @@
+## 2.2.4 (July 4, 2017)
+
+- Fixed adding the verdaccio user into the group - [#241](https://github.com/verdaccio/verdaccio/pull/241)
+
+
 ## 2.2.3 (July 4, 2017)
 
 - Updated Dockerfile & added proper signal handling - [#239](https://github.com/verdaccio/verdaccio/pull/239)
