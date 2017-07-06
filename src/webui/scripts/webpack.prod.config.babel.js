@@ -23,7 +23,7 @@ export default {
 
   output: {
     ...baseConfig.output,
-    publicPath: 'ToReplaceByVerdaccio'
+    publicPath: '/-/static/'
   },
 
   plugins: [
@@ -43,7 +43,7 @@ export default {
       filename: 'index.html',
       verdaccioURL: 'ToReplaceByVerdaccio',
       template: `${env.SRC_ROOT}/webui/template.html`,
-      debug: true,
+      debug: false,
       inject: true,
     }),
     new webpack.NoEmitOnErrorsPlugin()

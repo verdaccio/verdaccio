@@ -1,0 +1,21 @@
+@import '../../styles/variable';
+
+.searchBox {
+  width: 100%;
+  font-size: 18px;
+  line-height: 30px;
+  border: none;
+  border-bottom: 1px solid lightgrey;
+  outline: none;
+
+  &:focus {
+    border-bottom: 1px solid grey;
+  }
+}
+
+.listTitle {
+  font-weight: normal;
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 0;
+}

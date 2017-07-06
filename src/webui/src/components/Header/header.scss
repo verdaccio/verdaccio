@@ -1,0 +1,24 @@
+@import '../../styles/variable';
+
+.header {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  align-items: center;
+  background: $primary-color;
+}
+
+.headerWrap {
+  display: flex;
+  align-items: center;
+  @include container-size();
+}
+
+.logo {
+  height: 50px;
+}
+
+.welcome {
+  margin-left: auto;
+  color: white;
+}

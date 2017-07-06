@@ -1,0 +1,12 @@
+@import "variable";
+
+:global {
+  .container {
+    margin-top: $space-lg;
+    @include container-size();
+
+      .el-loading-spinner {
+        margin-top: 0 !important;
+      }
+  }
+}

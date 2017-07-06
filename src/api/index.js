@@ -10,6 +10,7 @@ const Middleware = require('./web/middleware');
 const Cats = require('../lib/status-cats');
 const Storage = require('../lib/storage');
 const _ = require('lodash');
+const cors = require('cors');
 
 module.exports = function(config_hash) {
   // Config
@@ -21,6 +22,7 @@ module.exports = function(config_hash) {
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
+  app.use(cors());
 
   // Middleware
   const error_reporting_middleware = function(req, res, next) {

@@ -1,24 +1,21 @@
 'use strict';
 
-const async = require('async');
-const escape = require('js-string-escape');
 const express = require('express');
-const fs = require('fs');
-const Handlebars = require('handlebars');
 const Search = require('../../lib/search');
 const Middleware = require('./middleware');
 const Utils = require('../../lib/utils');
-const securityIframe = Middleware.securityIframe;
 /* eslint new-cap:off */
 const router = express.Router();
 const _ = require('lodash');
 const env = require('../../config/env');
+const fs = require('fs');
+const template = fs.readFileSync(`${env.DIST_PATH}/index.html`).toString();
 
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
 
   router.use(auth.jwtMiddleware());
-  router.use(securityIframe);
+  router.use(Middleware.securityIframe);
 
   // Static
   router.get('/-/static/:filename', function(req, res, next) {
@@ -43,45 +40,7 @@ module.exports = function(config, auth, storage) {
   router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'text/html');
     const base = Utils.combineBaseUrl(req.protocol, req.get('host'), config.url_prefix);
-
-    storage.get_local(function(err, packages) {
-      if (err) {
-        throw err;
-      } // that function shouldn't produce any
-      async.filterSeries(
-        packages,
-        function(pkg, cb) {
-          auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
-            setImmediate(function() {
-              if (err) {
-                cb(null, false);
-              } else {
-                cb(err, allowed);
-              }
-            });
-          });
-        },
-        function(err, packages) {
-          if (err) throw err;
-
-          packages.sort(function(a, b) {
-            if (a.name < b.name) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          let json = {
-            packages: packages,
-            tagline: config.web && config.web.tagline ? config.web.tagline : '',
-            baseUrl: base,
-            username: req.remote_user.name,
-          };
-
-          next(json)
-        }
-      );
-    });
+    res.send(template.replace(/ToReplaceByVerdaccio/g, base));
   });
 
   return router;
