@@ -112,12 +112,13 @@ module.exports = function(config, auth, storage) {
   });
 
   route.post('/login', function(req, res, next) {
-    auth.authenticate(req.body.user, req.body.pass, (err, user) => {
+    auth.authenticate(req.body.username, req.body.password, (err, user) => {
       if (!err) {
         req.remote_user = user;
 
         next({
           token: auth.issue_token(user, '24h'),
+          username: req.remote_user.name,
         });
       } else {
         next(HTTPError[err.message ? 401 : 500](err.message));

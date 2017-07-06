@@ -6,7 +6,9 @@
         "browsers": ["last 5 versions", "safari >= 11"],
         "loose": true
       }
-    }]
+    }],
+    "stage-2",
+    "stage-3"
   ],
   "plugins": [
     "react-hot-loader/babel",

@@ -32,7 +32,15 @@ export default {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        use: 'file-loader?name=/[name].[ext]'
+        use: 'file-loader?name=[name].[ext]'
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 50000,
+          name: 'fonts/[hash].[ext]'
+        }
       },
       {
         test: /\.scss$/,
@@ -54,6 +62,17 @@ export default {
             options: {
               sourceMap: true
             }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
           }
         ]
       }

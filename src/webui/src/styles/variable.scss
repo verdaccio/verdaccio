@@ -1,0 +1,15 @@
+/*  Variables */
+@mixin container-size {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  min-width: 400px;
+  max-width: 960px;
+}
+
+$space-lg: 30px;
+
+/* Colors */
+$primary-color: #de4136;
+$border-color: #e4e8f1;
+$text-black: #3c3c3c;
