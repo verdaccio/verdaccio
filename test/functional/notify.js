@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const _ = require('lodash');
-const notify = require('../../lib/notify').notify;
+const notify = require('../../src/lib/notify').notify;
 
 module.exports = function() {
   const express = process.express;
