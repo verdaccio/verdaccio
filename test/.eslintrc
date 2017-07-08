@@ -7,6 +7,9 @@ env:
   mocha: true
   es6: true
 
-valid-jsdoc: 0
-no-redeclare: 1
-no-console: 1
+rules:
+  valid-jsdoc: 0
+  no-redeclare: 1
+  no-console: 1
+  no-useless-escape: 0
+

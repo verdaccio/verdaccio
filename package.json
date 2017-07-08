@@ -82,6 +82,7 @@
     "html-webpack-plugin": "^2.29.0",
     "in-publish": "2.0.0",
     "localstorage-memory": "^1.0.2",
+    "mocha": "^3.4.2",
     "mocha-lcov-reporter": "1.3.0",
     "normalize.css": "^7.0.0",
     "nyc": "^11.0.3",
@@ -111,10 +112,8 @@
     "server"
   ],
   "scripts": {
-    "test": "npm run lint && npm run test:ui:update &&mocha ./test/functional  --reporter=spec --full-trace",
+    "test": "npm run lint && mocha ./test/functional ./test/unit --reporter=spec --full-trace",
     "test:coverage": "nyc mocha -R spec ./test/functional ./test/unit",
-    "test:ui": "NODE_ENV=test jest",
-    "test:ui:update": "NODE_ENV=test jest -u",
     "coverage:html": "nyc report --reporter=html",
     "coverage:codecov": "nyc report --reporter=lcov | codecov",
     "test-travis": "npm run lint && npm run test:coverage",

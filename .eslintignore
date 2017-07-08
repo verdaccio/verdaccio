@@ -5,3 +5,4 @@ lib/web/static
 coverage/
 
 wiki/
+static/
