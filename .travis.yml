@@ -5,5 +5,5 @@ node_js:
   - '7'
   - '8'
 sudo: false
-script: npm install . && npm run test-travis
+script: npm install . && npm run build:webui && npm run test-travis
 after_success: npm run coverage:codecov
