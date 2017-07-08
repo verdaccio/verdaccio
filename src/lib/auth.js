@@ -55,8 +55,9 @@ class Auth {
       },
 
       adduser: function(user, password, cb) {
-        if (config.users && config.users[user])
-          return cb( Error[403]('this user already exists') );
+        if (config.users && config.users[user]) {
+          return cb(Error[403]('this user already exists'));
+        }
 
         return cb();
       },
@@ -301,8 +302,9 @@ class Auth {
       let scheme = parts[0];
       let token = parts[1];
 
-      if (scheme !== 'Bearer')
+      if (scheme !== 'Bearer') {
         return next();
+      }
       let user;
       try {
         user = self.decode_token(token);
