@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Dialog, Input, MessageBox} from 'element-react';
 import styled from 'styled-components';
-import API from '../../../utils/API';
+import API from '../../../utils/api';
 import storage from '../../../utils/storage';
 import _ from 'lodash';
 
