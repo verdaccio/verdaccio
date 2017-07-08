@@ -15,9 +15,6 @@ coverage/
 
 # Visual Studio Code
 .vscode/*
-.jscsrc
-.jshintrc
-jsconfig.json
 
 .idea/
 
@@ -29,5 +26,4 @@ __tests__
 __snapshots__
 
 # Compiled script
-static
-!static/favicon.png
+static/
