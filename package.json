@@ -94,7 +94,7 @@
     "react-hot-loader": "^3.0.0-beta.7",
     "react-router-dom": "^4.1.1",
     "rimraf": "^2.6.1",
-    "ruby-sass-loader": "^0.4.0",
+    "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
     "styled-components": "^2.1.1",
