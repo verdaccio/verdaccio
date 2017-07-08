@@ -1,5 +1,5 @@
 import React from 'react';
-import API from '../../../utils/API';
+import API from '../../../utils/api';
 import { Loading } from 'element-react';
 import PropTypes from 'prop-types';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Loading, MessageBox } from 'element-react';
 
-import API from '../../../utils/API';
+import API from '../../../utils/api';
 
 import PackageList from '../../components/PackageList'
 
