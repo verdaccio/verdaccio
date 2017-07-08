@@ -296,8 +296,9 @@ class ProxyStorage {
       if (data) {
         current_length += data.length;
       }
-      if (expected_length && current_length != expected_length)
+      if (expected_length && current_length != expected_length) {
         stream.emit('error', createError('content length mismatch'));
+      }
     });
     return stream;
   }

@@ -58,13 +58,15 @@ function load_plugins(config, plugin_configs, params, sanity_check) {
       throw Error('"' + p + '" plugin not found\ntry "npm install verdaccio-' + p + '"');
     }
 
-    if (typeof(plugin) !== 'function')
+    if (typeof(plugin) !== 'function') {
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
+    }
 
     plugin = plugin(plugin_configs[p], params);
 
-    if (plugin === null || !sanity_check(plugin))
+    if (plugin === null || !sanity_check(plugin)) {
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
+    }
 
     return plugin;
   });
