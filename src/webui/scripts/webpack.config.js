@@ -58,10 +58,7 @@ export default {
             }
           },
           {
-            loader: 'ruby-sass-loader',
-            options: {
-              sourceMap: true
-            }
+            loader: "sass-loader"
           }
         ]
       },
