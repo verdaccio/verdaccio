@@ -26,6 +26,11 @@ parserOptions:
 
 
 rules:
+
+  no-tabs: 0
+  keyword-spacing: 0
+  padded-blocks: 0
+
   # useful to have in node.js,
   # if you're sure you don't need to handle error, rename it to "_err"
   handle-callback-err: 2

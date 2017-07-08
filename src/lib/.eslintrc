@@ -1,0 +1,5 @@
+# vim: syntax=yaml
+
+
+rules:
+  no-useless-escape: 0
