@@ -22,8 +22,7 @@ export default {
   },
 
   output: {
-    ...baseConfig.output,
-    publicPath: '/-/static/'
+    ...baseConfig.output
   },
 
   plugins: [
