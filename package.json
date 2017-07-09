@@ -114,11 +114,11 @@
   ],
   "scripts": {
     "pretest": "npm run lint && npm run build:webui",
-    "test": "npm run pretest && mocha ./test/functional ./test/unit --reporter=spec --full-trace",
+    "test": "mocha ./test/functional ./test/unit --reporter=spec --full-trace",
     "test:coverage": "nyc npm t",
     "coverage:html": "nyc report --reporter=html",
     "coverage:codecov": "nyc report --reporter=lcov | codecov",
-    "test-travis": "npm run pretest && npm run test:coverage",
+    "test-travis": "npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint .",
     "build-docker": "docker build -t verdaccio .",
