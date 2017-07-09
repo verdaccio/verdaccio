@@ -41,7 +41,7 @@ module.exports = function(config, auth, storage) {
     const proto = req.get('X-Forwarded-Proto') || req.protocol;
     const base = Utils.combineBaseUrl(proto, req.get('host'), config.url_prefix);
     res.setHeader('Content-Type', 'text/html');
-    res.send(template.replace(/ToReplaceByVerdaccio/g, base));
+    res.send(template.replace(/ToReplaceByVerdaccio/g, base).replace(/(main.*\.js|style.*\.css)/g, `${base}/-/static/$1`));
   });
 
   return router;
