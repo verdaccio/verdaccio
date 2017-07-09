@@ -113,7 +113,7 @@
     "server"
   ],
   "scripts": {
-    "pretest": "npm run lint && npm run build:webui",
+    "pretest:ci": "npm run lint && npm run build:webui",
     "test": "mocha ./test/functional ./test/unit --reporter=spec --full-trace",
     "test:coverage": "nyc npm t",
     "coverage:html": "nyc report --reporter=html",
