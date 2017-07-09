@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, Dialog, Input, MessageBox} from 'element-react';
+import { Button, Dialog, Input, MessageBox } from 'element-react';
 import styled from 'styled-components';
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 import classes from './header.scss';
 
@@ -97,7 +98,7 @@ export default class Header extends React.Component {
   renderUserActionButton () {
     if (!this.isTokenExpire) { // TODO: Check jwt token expire
       return (
-        <div className={classes.welcome}>
+        <div className={ classes.welcome }>
           Hi, {storage.getItem('username')}
           &nbsp;
           <Button type="danger" onClick={this.handleLogout}>Logout</Button>
@@ -112,7 +113,9 @@ export default class Header extends React.Component {
     return (
       <header className={ classes.header }>
         <div className={ classes.headerWrap }>
-          <img src={ logo } className={ classes.logo } />
+          <Link to="/">
+            <img src={ logo } className={ classes.logo } />
+          </Link>
           <SetupGuide>
             npm set registry { location.origin }
             <br/>
