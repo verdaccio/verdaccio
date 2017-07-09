@@ -1,14 +1,24 @@
-`verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
+<p align="center">
+<a href="http://verdaccio.org"><img alt="Verdaccio" src=".github/verdaccio-logo-full.png" ></a>
+</p>
 
-`verdaccio` - a private/caching npm repository server
+<p align="center">
+  A private/caching npm repository server.
+</p>
 
-[![travis badge](http://img.shields.io/travis/verdaccio/verdaccio.svg)](https://travis-ci.org/verdaccio/verdaccio)
-[![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
-[![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
-[![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
-[![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
+<p align="center">
+  <a href="https://travis-ci.org/verdaccio/verdaccio"><img alt="Travis Badge" src="http://img.shields.io/travis/verdaccio/verdaccio.svg"></a>
+  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm Version Badge" src="https://img.shields.io/npm/v/verdaccio.svg"></a>
+  <a href="https://www.npmjs.org/package/verdaccio"><img alt="Downloads Badge" src="http://img.shields.io/npm/dm/verdaccio.svg"></a>
+  <a href="https://codecov.io/gh/verdaccio/verdaccio"><img alt="Codecov" src="https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg></a>
+  <a href="https://gitter.im/verdaccio/"><img alt="Gitter Chat" src="https://badges.gitter.im/verdaccio/questions.png"></a>
+</p>
 
-It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
+---
+
+Verdaccio is a fork of `sinopia`. It aims to maintain backwards compatibility with `sinopia`, while continuing to keep up with newer npm changes.
+It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database.
+Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
 <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-8d2f3.appspot.com/o/verdaccio2-compressor.png?alt=media&token=c9b01824-26f2-4cba-bd6f-f352e08cb8ff"></p>
 
@@ -39,7 +49,7 @@ It allows you to have a local npm registry with zero configuration. You don't ha
 # installation and starting (application will create default
 # config in config.yaml you can edit later)
 $ npm install -g verdaccio
-# or 
+# or
 $ yarn global add verdaccio
 # run in your terminal
 $ verdaccio
@@ -53,11 +63,11 @@ $ npm set ca null
 ```
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
- 
+
 ## Configuration
- 
+
 When you start a server, it auto-creates a config file.
- 
+
 **For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](wiki/server.md).**
 
 ### Docker
@@ -83,7 +93,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 #### Using docker-compose
 
 1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container: 
+2. Build and run the container:
 
 ```bash
 $ docker-compose up --build
@@ -157,7 +167,7 @@ Misc stuff:
 
 - Searching (npm search) - **supported** (cli / browser)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
-- Ping (npm ping) - **supported** 
+- Ping (npm ping) - **supported**
 
 ## Storage
 
