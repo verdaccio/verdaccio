@@ -28,7 +28,7 @@ export default {
     new HTMLWebpackPlugin({
       title: 'Verdaccio',
       filename: 'index.html',
-      verdaccioURL: '//localhost:4873/-/verdaccio/',
+      verdaccioURL: '//localhost:4873',
       template: `${env.SRC_ROOT}/webui/template.html`,
       debug: true,
       inject: true,
