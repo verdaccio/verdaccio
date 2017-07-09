@@ -22,9 +22,12 @@ dependencies:
 test:
   override:
     - nvm alias default 6
+    - npm rebuild node-sass --force
     - yarn run test-travis
     - nvm alias default 4
+    - npm rebuild node-sass --force
     - yarn run test-travis
     - nvm alias default 8
+    - npm rebuild node-sass --force
     - yarn run test-travis
     - yarn run coverage:codecov
