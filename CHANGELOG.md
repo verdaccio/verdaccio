@@ -1,3 +1,8 @@
+## 2.2.6 (July 13, 2017)
+
+- build: update node version due security update announcement - [#251](https://github.com/verdaccio/verdaccio/pull/251)
+
+
 ## 2.2.5 (July 4, 2017)
 
 - Fixed adding the verdaccio user into the group - [#241](https://github.com/verdaccio/verdaccio/pull/241)
