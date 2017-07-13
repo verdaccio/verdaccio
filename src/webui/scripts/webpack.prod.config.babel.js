@@ -1,24 +1,24 @@
 import webpack from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import baseConfig from './webpack.config'
-import env from '../../config/env'
-import _ from 'lodash'
+import baseConfig from './webpack.config';
+import env from '../../config/env';
+import _ from 'lodash';
 
 baseConfig.module.rules
-  .filter(loader =>
-    Array.isArray(loader.use) && loader.use.find(v => /css/.test(v.loader.split('-')[0]))
-  ).forEach(loader => {
+  .filter((loader) =>
+    Array.isArray(loader.use) && loader.use.find((v) => /css/.test(v.loader.split('-')[0]))
+  ).forEach((loader) => {
   loader.use = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: _.tail(loader.use)
-  })
-})
+  });
+});
 
 export default {
   ...baseConfig,
   entry: {
-    main: `${env.SRC_ROOT}/webui/src/index.jsx`
+    main: `${env.SRC_ROOT}/webui/src/index.js`
   },
 
   output: {
@@ -27,7 +27,7 @@ export default {
 
   plugins: [
     new webpack.DefinePlugin({
-      __DEBUG__: false,
+      '__DEBUG__': false,
       'process.env.NODE_ENV': '"production"'
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -47,4 +47,4 @@ export default {
     }),
     new webpack.NoEmitOnErrorsPlugin()
   ]
-}
+};

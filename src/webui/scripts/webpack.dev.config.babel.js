@@ -1,8 +1,8 @@
 import webpack from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
-import baseConfig from './webpack.config'
-import env from '../../config/env'
+import baseConfig from './webpack.config';
+import env from '../../config/env';
 
 export default {
   ...baseConfig,
@@ -11,7 +11,7 @@ export default {
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4872',
       'webpack/hot/only-dev-server',
-      `${env.SRC_ROOT}/webui/src/index.jsx`
+      `${env.SRC_ROOT}/webui/src/index.jss`
     ]
   },
 
@@ -22,7 +22,7 @@ export default {
 
   plugins: [
     new webpack.DefinePlugin({
-      __DEBUG__: true,
+      '__DEBUG__': true,
       'process.env.NODE_ENV': '"development"'
     }),
     new HTMLWebpackPlugin({
@@ -37,4 +37,4 @@ export default {
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin()
   ]
-}
+};

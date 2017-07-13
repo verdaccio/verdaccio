@@ -1,18 +1,18 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
-import 'normalize.css'
+import 'normalize.css';
 
-import 'element-theme-default'
-import { i18n } from 'element-react'
-import locale from 'element-react/src/locale/lang/en'
+import 'element-theme-default';
+import {i18n} from 'element-react';
+import locale from 'element-react/src/locale/lang/en';
 i18n.use(locale);
 
-import Header from './components/Header'
+import Header from './components/Header';
 import Home from './modules/home';
 import Detail from './modules/detail';
 
-import './styles/global.scss'
+import './styles/global.scss';
 
 export default class App extends React.Component {
   render() {

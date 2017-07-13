@@ -1,6 +1,6 @@
 import React from 'react';
 import API from '../../../utils/api';
-import { Loading } from 'element-react';
+import {Loading} from 'element-react';
 import PropTypes from 'prop-types';
 
 import classes from './detail.scss';
@@ -28,15 +28,15 @@ export default class Detail extends React.Component {
      }
   }
 
-  renderReadMe () {
+  renderReadMe() {
     if (this.state.readMe) {
       return (
           <div className="markdown-body" dangerouslySetInnerHTML={{__html: this.state.readMe}}/>
-      )
+      );
     } else {
       return (
           <Loading text="Loading..." />
-      )
+      );
     }
   }
 
@@ -47,6 +47,6 @@ export default class Detail extends React.Component {
           <hr/>
           {this.renderReadMe()}
         </div>
-    )
+    );
   }
 }

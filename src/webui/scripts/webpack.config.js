@@ -1,11 +1,11 @@
-import env from '../../config/env'
+import env from '../../config/env';
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development';
 
 export default {
-  entry: `${env.SRC_ROOT}/webui/src/index.jsx`,
+  entry: `${env.SRC_ROOT}/webui/src/index.js`,
 
-	output: {
+  output: {
     path: `${env.APP_ROOT}/static/`,
     filename: '[name].[hash].js'
   },
@@ -58,7 +58,7 @@ export default {
             }
           },
           {
-            loader: "sass-loader"
+            loader: 'sass-loader'
           }
         ]
       },

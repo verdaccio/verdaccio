@@ -9,4 +9,4 @@ try {
   storage = memoryStorage;
 }
 
-export default storage
+export default storage;

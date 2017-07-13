@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import {Tag} from 'element-react';
 import {Link} from 'react-router-dom';
 
-import classes from './package.scss'
+import classes from './package.scss';
 export default class Package extends React.Component {
   static propTypes = {
     package: PropTypes.object
   }
 
-  render () {
+  render() {
     let {package: pkg} = this.props;
 
     return (

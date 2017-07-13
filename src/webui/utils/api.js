@@ -1,9 +1,9 @@
 import storage from './storage';
-import axios from 'axios'
+import axios from 'axios';
 
 class API {
-  constructor () {
-    ['get', 'delete', 'post', 'put', 'patch'].map(method => {
+  constructor() {
+    ['get', 'delete', 'post', 'put', 'patch'].map((method) => {
       this[method] = (url, options = {}) => {
         if (!window.VERDACCIO_API_URL) {
           throw new Error('VERDACCIO_API_URL is not defined!');
@@ -16,7 +16,7 @@ class API {
           options.headers.authorization = token;
         }
 
-        if (!['http://', 'https://', '//'].some(prefix => url.startsWith(prefix))) {
+        if (!['http://', 'https://', '//'].some((prefix) => url.startsWith(prefix))) {
           url = window.VERDACCIO_API_URL + url;
         }
 
@@ -25,8 +25,8 @@ class API {
           url,
           ...options
         });
-      }
-    })
+      };
+    });
   }
 }
 

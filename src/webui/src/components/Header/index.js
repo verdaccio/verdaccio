@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Dialog, Input, MessageBox } from 'element-react';
+import {Button, Dialog, Input, MessageBox} from 'element-react';
 import styled from 'styled-components';
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import classes from './header.scss';
 
@@ -16,7 +16,7 @@ const SetupGuide = styled.figure`
   line-height: 18px;
   padding: 8px 0;
   color: #f9f2f4;
-`
+`;
 
 export default class Header extends React.Component {
   state = {
@@ -25,25 +25,25 @@ export default class Header extends React.Component {
     password: ''
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  toggleLoginModal () {
+  toggleLoginModal() {
     this.setState({
       showLogin: !this.state.showLogin
-    })
+    });
   }
 
-  handleInput (name, e) {
+  handleInput(name, e) {
     this.setState({
       [name]: e
-    })
+    });
   }
 
-  async handleSubmit () {
+  async handleSubmit() {
     if (this.state.username === '' || this.state.password === '') {
       return MessageBox.alert('Username or password can\'t be empty!');
     }
@@ -68,7 +68,7 @@ export default class Header extends React.Component {
     }
   }
 
-  get isTokenExpire () {
+  get isTokenExpire() {
     let token = storage.getItem('token');
     if (!_.isString(token)) return true;
     let payload = token.split('.')[1];
@@ -90,12 +90,12 @@ export default class Header extends React.Component {
     return expired;
   }
 
-  handleLogout () {
+  handleLogout() {
     storage.clear();
     location.reload();
   }
 
-  renderUserActionButton () {
+  renderUserActionButton() {
     if (!this.isTokenExpire) { // TODO: Check jwt token expire
       return (
         <div className={ classes.welcome }>
@@ -103,9 +103,9 @@ export default class Header extends React.Component {
           &nbsp;
           <Button type="danger" onClick={this.handleLogout}>Logout</Button>
         </div>
-      )
+      );
     } else {
-      return <Button type="danger" style={ {marginLeft: 'auto'} } onClick={ this.toggleLoginModal }>Login</Button>
+      return <Button type="danger" style={ {marginLeft: 'auto'} } onClick={ this.toggleLoginModal }>Login</Button>;
     }
   }
 
