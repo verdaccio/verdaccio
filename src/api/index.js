@@ -104,7 +104,7 @@ module.exports = function(config_hash) {
       if (err.code === 'ECONNABORT' && res.statusCode === 304) {
         return next();
       }
-      if (typeof res.report_error !== 'function') {
+      if (_.isFunction(res.report_error) === false) {
         // in case of very early error this middleware may not be loaded before error is generated
         // fixing that
         error_reporting_middleware(req, res, _.noop);
