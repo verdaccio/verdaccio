@@ -41,7 +41,7 @@ export default {
       title: 'Verdaccio',
       filename: 'index.html',
       verdaccioURL: 'ToReplaceByVerdaccio',
-      template: `${env.SRC_ROOT}/webui/template.html`,
+      template: `${env.SRC_ROOT}/webui/template/index.html`,
       debug: false,
       inject: true,
     }),

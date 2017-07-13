@@ -29,7 +29,7 @@ export default {
       title: 'Verdaccio',
       filename: 'index.html',
       verdaccioURL: '//localhost:4873',
-      template: `${env.SRC_ROOT}/webui/template.html`,
+      template: `${env.SRC_ROOT}/webui/template/index.html`,
       debug: true,
       inject: true,
     }),
