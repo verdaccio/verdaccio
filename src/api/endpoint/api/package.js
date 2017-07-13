@@ -16,20 +16,20 @@ module.exports = function(route, auth, storage, config) {
       }
       info = Utils.filter_tarball_urls(info, req, config);
 
-      let version = req.params.version;
-      if (_.isNil(version)) {
+      let queryVersion = req.params.version;
+      if (_.isNil(queryVersion)) {
         return next(info);
       }
 
-      let t = Utils.get_version(info, version);
+      let t = Utils.get_version(info, queryVersion);
       if (_.isNil(t) === false) {
         return next(t);
       }
 
       if (_.isNil(info['dist-tags']) === false) {
-        if (_.isNil(info['dist-tags'][version]) === false) {
-          version = info['dist-tags'][version];
-          t = Utils.get_version(info, version);
+        if (_.isNil(info['dist-tags'][queryVersion]) === false) {
+          queryVersion = info['dist-tags'][queryVersion];
+          t = Utils.get_version(info, queryVersion);
           if (_.isNil(t)) {
             return next(t);
           }
@@ -42,8 +42,8 @@ module.exports = function(route, auth, storage, config) {
 
   route.get('/:package/-/:filename', can('access'), function(req, res) {
     const stream = storage.get_tarball(req.params.package, req.params.filename);
-    stream.on('content-length', function(v) {
-      res.header('Content-Length', v);
+    stream.on('content-length', function(content) {
+      res.header('Content-Length', content);
     });
     stream.on('error', function(err) {
       return res.report_error(err);

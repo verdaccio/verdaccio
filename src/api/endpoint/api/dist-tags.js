@@ -2,6 +2,7 @@
 
 const Middleware = require('../../web/middleware');
 const mime = require('mime');
+const _ = require('lodash');
 
 const media = Middleware.media;
 const expect_json = Middleware.expect_json;
@@ -9,14 +10,16 @@ const expect_json = Middleware.expect_json;
 module.exports = function(route, auth, storage) {
   const can = Middleware.allow(auth);
   const tag_package_version = function(req, res, next) {
-    if (typeof(req.body) !== 'string') {
+    if (_.isString(req.body) === false) {
       return next('route');
     }
 
     let tags = {};
     tags[req.params.tag] = req.body;
     storage.merge_tags(req.params.package, tags, function(err) {
-      if (err) return next(err);
+      if (err) {
+        return next(err);
+      }
       res.status(201);
       return next({ok: 'package tagged'});
     });
@@ -33,7 +36,7 @@ module.exports = function(route, auth, storage) {
     can('publish'), media(mime.lookup('json')), tag_package_version);
 
   route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req, res, next) {
-    let tags = {};
+    const tags = {};
     tags[req.params.tag] = null;
     storage.merge_tags(req.params.package, tags, function(err) {
       if (err) {
@@ -48,7 +51,9 @@ module.exports = function(route, auth, storage) {
 
   route.get('/-/package/:package/dist-tags', can('access'), function(req, res, next) {
     storage.get_package(req.params.package, {req: req}, function(err, info) {
-      if (err) return next(err);
+      if (err) {
+        return next(err);
+      }
 
       next(info['dist-tags']);
     });
@@ -57,7 +62,9 @@ module.exports = function(route, auth, storage) {
   route.post('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')), expect_json,
     function(req, res, next) {
       storage.merge_tags(req.params.package, req.body, function(err) {
-        if (err) return next(err);
+        if (err) {
+          return next(err);
+        }
         res.status(201);
         return next({ok: 'tags updated'});
       });
@@ -66,7 +73,9 @@ module.exports = function(route, auth, storage) {
   route.put('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')), expect_json,
     function(req, res, next) {
       storage.replace_tags(req.params.package, req.body, function(err) {
-        if (err) return next(err);
+        if (err) {
+          return next(err);
+        }
         res.status(201);
         return next({ok: 'tags updated'});
       });
@@ -75,7 +84,9 @@ module.exports = function(route, auth, storage) {
   route.delete('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')),
     function(req, res, next) {
       storage.replace_tags(req.params.package, {}, function(err) {
-        if (err) return next(err);
+        if (err) {
+          return next(err);
+        }
         res.status(201);
         return next({ok: 'tags removed'});
       });

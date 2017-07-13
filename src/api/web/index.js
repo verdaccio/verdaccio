@@ -32,12 +32,12 @@ module.exports = function(config, auth, storage) {
     });
   });
 
-  router.get('/-/logo', function(req, res, next) {
+  router.get('/-/logo', function(req, res) {
     res.sendFile(_.get(config, 'web.logo') || `${env.APP_ROOT}/static/logo-sm.png`
     );
   });
 
-  router.get('/', function(req, res, next) {
+  router.get('/', function(req, res) {
     const proto = req.get('X-Forwarded-Proto') || req.protocol;
     const base = Utils.combineBaseUrl(proto, req.get('host'), config.url_prefix);
     res.setHeader('Content-Type', 'text/html');

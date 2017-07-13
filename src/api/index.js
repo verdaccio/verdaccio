@@ -28,7 +28,7 @@ module.exports = function(config_hash) {
   const error_reporting_middleware = function(req, res, next) {
     res.report_error = res.report_error || function(err) {
       if (err.status && err.status >= 400 && err.status < 600) {
-        if (!res.headersSent) {
+        if (_.isNil(res.headersSent) === false) {
           res.status(err.status);
           next({error: err.message || 'unknown error'});
         }
@@ -67,7 +67,7 @@ module.exports = function(config_hash) {
   // Hook for tests only
   if (config._debug) {
     app.get('/-/_debug', function(req, res, next) {
-      let do_gc = typeof(global.gc) !== 'undefined';
+      const do_gc = _.isNil(global.gc) === false;
       if (do_gc) {
         global.gc();
       }
