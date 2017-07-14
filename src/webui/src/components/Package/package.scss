@@ -12,7 +12,7 @@
     font-size: 18px;
     color: $primary-color;
 
-    :global{
+    :global {
       .el-tag {
         margin-left: 5px;
       }
@@ -39,7 +39,7 @@
       filter: blur(5px);
     }
 
-    &:before {
+    &::before {
       display: block;
       position: absolute;
       top: 0;
@@ -49,7 +49,8 @@
       background: rgba(255, 255, 255, 0.7);
       content: '';
     }
-    &:after {
+
+    &::after {
       display: block;
       position: absolute;
       top: 50%;

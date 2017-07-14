@@ -20,7 +20,7 @@ let renderApp = (Component) => {
 renderApp(App);
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
+  module.hot.accept('./app', () => {
     renderApp(App);
   });
 }

@@ -98,6 +98,8 @@
     "source-map-loader": "0.2.1",
     "style-loader": "0.18.2",
     "styled-components": "2.1.1",
+    "stylelint": "7.13.0",
+    "stylelint-config-standard": "16.0.0",
     "url-loader": "0.5.8",
     "webpack": "3.2.0",
     "webpack-dev-server": "2.5.0"
@@ -121,6 +123,7 @@
     "test-travis": "npm run test:coverage",
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint .",
+    "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
     "build-docker": "docker build -t verdaccio .",
     "build:webui": "rimraf static/* && webpack --config src/webui/scripts/webpack.prod.config.babel.js",
     "dev:webui": "babel-node src/webui/scripts/dev.server.js",

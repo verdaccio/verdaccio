@@ -11,6 +11,7 @@
 .headerWrap {
   display: flex;
   align-items: center;
+
   @include container-size();
 }
 
