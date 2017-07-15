@@ -11,19 +11,19 @@ export default {
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4872',
       'webpack/hot/only-dev-server',
-      `${env.SRC_ROOT}/webui/src/index.js`
-    ]
+      `${env.SRC_ROOT}/webui/src/index.js`,
+    ],
   },
 
   output: {
     ...baseConfig.output,
-    publicPath: '/'
+    publicPath: '/',
   },
 
   plugins: [
     new webpack.DefinePlugin({
       '__DEBUG__': true,
-      'process.env.NODE_ENV': '"development"'
+      'process.env.NODE_ENV': '"development"',
     }),
     new HTMLWebpackPlugin({
       title: 'Verdaccio',
@@ -35,6 +35,6 @@ export default {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new FriendlyErrorsPlugin()
-  ]
+    new FriendlyErrorsPlugin(),
+  ],
 };

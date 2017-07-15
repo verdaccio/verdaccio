@@ -23,7 +23,7 @@ const prodConf = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
-        warnings: false
+        warnings: false,
       },
     }),
     new ExtractTextPlugin('style.[contenthash].css'),

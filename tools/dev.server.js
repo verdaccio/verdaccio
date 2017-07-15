@@ -28,8 +28,8 @@ new WebpackDevServer(compiler, {
     hash: true,
     timings: true,
     chunks: true,
-    chunkModules: false
-  }
+    chunkModules: false,
+  },
 }).listen(4872, 'localhost', function(err) {
   if (err) {
     return console.log(err);
