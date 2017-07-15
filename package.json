@@ -125,7 +125,7 @@
     "test-only": "mocha ./test/functional ./test/unit",
     "lint": "eslint .",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
-    "build-docker": "docker build -t verdaccio .",
+    "build-docker": "docker build -t verdaccio . --no-cache",
     "build:webui": "rimraf static/* && webpack --config tools/webpack.prod.config.babel.js --debug",
     "dev:webui": "babel-node tools/dev.server.js",
     "prepublish": "in-publish && npm run build:webpack || not-in-publish",

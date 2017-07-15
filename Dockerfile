@@ -12,7 +12,16 @@ WORKDIR $APPDIR
 
 ADD . $APPDIR
 
-RUN npm install
+RUN npm config set registry http://registry.npmjs.org/
+
+RUN npm install -g -s --no-progress yarn --pure-lockfile && \
+    yarn
+
+ENV NODE_ENV=production
+
+RUN yarn run build:webui && \
+        yarn cache clean && \
+        yarn install --production --pure-lockfile
 
 RUN mkdir -p /verdaccio/storage /verdaccio/conf
 ADD conf/docker.yaml /verdaccio/conf/config.yaml

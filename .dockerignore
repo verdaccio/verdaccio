@@ -8,7 +8,10 @@
 .*
 # you can add exceptions like in .gitignore to maintain a whitelist:
 # e.g.
-#!.babelrc
+!.babelrc
+!.eslintrc
+!.eslintignore
+!.stylelintrc
 
 # not going to run tests inside the docker container
 test/
