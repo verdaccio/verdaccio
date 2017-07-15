@@ -43,7 +43,7 @@ export default class Detail extends React.Component {
   render() {
     return (
         <div>
-          <h1 className={ classes.title }>Package: { this.props.match.params.package }</h1>
+          <h1 className={ classes.title }>{ this.props.match.params.package }</h1>
           <hr/>
           {this.renderReadMe()}
         </div>

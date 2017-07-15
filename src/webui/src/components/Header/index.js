@@ -1,11 +1,13 @@
 import React from 'react';
 import {Button, Dialog, Input, MessageBox} from 'element-react';
-import API from '../../../utils/api';
-import storage from '../../../utils/storage';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
 import {Link} from 'react-router-dom';
+
+import API from '../../../utils/api';
+import storage from '../../../utils/storage';
+
 
 import classes from './header.scss';
 import logo from './logo.png';
@@ -37,7 +39,7 @@ export default class Header extends React.Component {
 
   async handleSubmit() {
     if (this.state.username === '' || this.state.password === '') {
-      return MessageBox.alert('Username or password can\'t be empty!');
+      return MessageBox.alert('Username or password can\'t be empty!', '');
     }
 
     try {
@@ -53,28 +55,40 @@ export default class Header extends React.Component {
       location.reload();
     } catch (e) {
       if (get(e, 'response.status', 0) === 401) {
-        MessageBox.alert(e.response.data.error);
+        MessageBox.alert(e.response.data.error, 'Unable to login');
       } else {
-        MessageBox.alert('Unable to login:' + e.message);
+        MessageBox.alert(e.message, 'Unable to login:');
       }
     }
   }
 
   get isTokenExpire() {
-    let token = storage.getItem('token');
-    if (!isString(token)) return true;
+    const token = storage.getItem('token');
+
+    if (!isString(token)) {
+      return true;
+    }
+
     let payload = token.split('.')[1];
-    if (!payload) return true;
+
+    if (!payload) {
+      return true;
+    }
+
     try {
       payload = JSON.parse(atob(payload));
     } catch (err) {
       console.error('Invalid token:', err, token); // eslint-disable-line
       return false;
     }
-    if (!payload.exp || !isNumber(payload.exp)) return true;
-    let jsTimestamp = (payload.exp * 1000) - 30000; // Report as expire before (real expire time - 30s)
 
-    let expired = Date.now() >= jsTimestamp;
+    if (!payload.exp || !isNumber(payload.exp)) {
+      return true;
+    }
+
+    const jsTimestamp = (payload.exp * 1000) - 30000; // Report as expire before (real expire time - 30s)
+    const expired = Date.now() >= jsTimestamp;
+
     if (expired) {
       storage.clear();
     }
@@ -111,7 +125,7 @@ export default class Header extends React.Component {
           <figure>
             npm set registry { location.origin }
             <br/>
-            npm login
+            npm adduser --registry { location.origin }
           </figure>
           {this.renderUserActionButton()}
         </div>
@@ -128,8 +142,12 @@ export default class Header extends React.Component {
             <Input type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
           </Dialog.Body>
           <Dialog.Footer className="dialog-footer">
-            <Button onClick={ () => this.toggleLoginModal() }>Cancel</Button>
-            <Button type="primary" onClick={ this.handleSubmit }>Login</Button>
+            <Button onClick={ () => this.toggleLoginModal() }>
+              Cancel
+            </Button>
+            <Button type="primary" onClick={ this.handleSubmit }>
+              Login
+            </Button>
           </Dialog.Footer>
         </Dialog>
       </header>
