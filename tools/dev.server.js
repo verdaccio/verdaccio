@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import config from './webpack.dev.config.babel';
 import ora from 'ora';
-import env from '../../config/env';
+import env from '../src/config/env';
 
 const compiler = webpack(config);
 const spinner = ora('Compiler is running...').start();

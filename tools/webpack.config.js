@@ -1,17 +1,17 @@
-import env from '../../config/env';
+const env = require('../src/config/env');
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export default {
+module.exports = {
   entry: `${env.SRC_ROOT}/webui/src/index.js`,
 
   output: {
     path: `${env.APP_ROOT}/static/`,
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
   },
 
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
 
   module: {
@@ -19,14 +19,14 @@ export default {
       /* Pre loader */
       {
         enforce: 'pre',
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         use: 'eslint-loader'
       },
 
       /* Normal loader */
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         use: 'babel-loader'
       },
@@ -78,5 +78,7 @@ export default {
 
   devtool: isDev ? 'source-map' : 'eval',
 
-  stats: {children: false}
+  stats: {
+    children: false
+  }
 };

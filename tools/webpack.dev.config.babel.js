@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import baseConfig from './webpack.config';
-import env from '../../config/env';
+import env from '../src/config/env';
 
 export default {
   ...baseConfig,

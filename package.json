@@ -45,7 +45,8 @@
     "pkginfo": "^0.4.0",
     "request": "^2.72.0",
     "semver": "^5.1.0",
-    "unix-crypt-td-js": "^1.0.0"
+    "unix-crypt-td-js": "^1.0.0",
+    "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
     "axios": "0.16.2",
@@ -125,8 +126,8 @@
     "lint": "eslint .",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
     "build-docker": "docker build -t verdaccio .",
-    "build:webui": "rimraf static/* && webpack --config src/webui/scripts/webpack.prod.config.babel.js",
-    "dev:webui": "babel-node src/webui/scripts/dev.server.js",
+    "build:webui": "rimraf static/* && webpack --config tools/webpack.prod.config.babel.js --debug",
+    "dev:webui": "babel-node tools/dev.server.js",
     "prepublish": "in-publish && npm run build:webpack || not-in-publish",
     "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
