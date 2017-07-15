@@ -3,7 +3,9 @@ import {Button, Dialog, Input, MessageBox} from 'element-react';
 import styled from 'styled-components';
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
-import _ from 'lodash';
+import isString from 'lodash/isString';
+import get from 'lodash/get';
+import isNumber from 'lodash/isNumber';
 import {Link} from 'react-router-dom';
 
 import classes from './header.scss';
@@ -60,7 +62,7 @@ export default class Header extends React.Component {
       storage.setItem('username', resp.data.username);
       location.reload();
     } catch (e) {
-      if (_.get(e, 'response.status', 0) === 401) {
+      if (get(e, 'response.status', 0) === 401) {
         MessageBox.alert(e.response.data.error);
       } else {
         MessageBox.alert('Unable to login:' + e.message);
@@ -70,7 +72,7 @@ export default class Header extends React.Component {
 
   get isTokenExpire() {
     let token = storage.getItem('token');
-    if (!_.isString(token)) return true;
+    if (!isString(token)) return true;
     let payload = token.split('.')[1];
     if (!payload) return true;
     try {
@@ -79,7 +81,7 @@ export default class Header extends React.Component {
       console.error('Invalid token:', err, token); // eslint-disable-line
       return false;
     }
-    if (!payload.exp || !_.isNumber(payload.exp)) return true;
+    if (!payload.exp || !isNumber(payload.exp)) return true;
     let jsTimestamp = (payload.exp * 1000) - 30000; // Report as expire before (real expire time - 30s)
 
     let expired = Date.now() >= jsTimestamp;
