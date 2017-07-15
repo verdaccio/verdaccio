@@ -4,13 +4,16 @@ import {Tag} from 'element-react';
 import {Link} from 'react-router-dom';
 
 import classes from './package.scss';
+
 export default class Package extends React.Component {
   static propTypes = {
     package: PropTypes.object
   }
 
   render() {
-    let {package: pkg} = this.props;
+    const {
+      package: pkg
+    } = this.props;
 
     return (
         <Link to={`detail/${pkg.name}`} className={classes.package}>

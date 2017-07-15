@@ -35,10 +35,6 @@
   }
 
   &:hover {
-    * {
-      filter: blur(5px);
-    }
-
     &::before {
       display: block;
       position: absolute;

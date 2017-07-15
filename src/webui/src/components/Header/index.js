@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Dialog, Input, MessageBox} from 'element-react';
-import styled from 'styled-components';
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
 import isString from 'lodash/isString';
@@ -9,16 +8,7 @@ import isNumber from 'lodash/isNumber';
 import {Link} from 'react-router-dom';
 
 import classes from './header.scss';
-
 import logo from './logo.png';
-
-const SetupGuide = styled.figure`
-  margin: 0 0 0 10px;
-  font-size: 14px;
-  line-height: 18px;
-  padding: 8px 0;
-  color: #f9f2f4;
-`;
 
 export default class Header extends React.Component {
   state = {
@@ -118,11 +108,11 @@ export default class Header extends React.Component {
           <Link to="/">
             <img src={ logo } className={ classes.logo } />
           </Link>
-          <SetupGuide>
+          <figure>
             npm set registry { location.origin }
             <br/>
             npm login
-          </SetupGuide>
+          </figure>
           {this.renderUserActionButton()}
         </div>
 

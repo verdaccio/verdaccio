@@ -1,0 +1,16 @@
+.pkgContainer {
+  margin: 0;
+  padding: 0;
+
+  li {
+    border-bottom: 1px solid #e4e8f1;
+    list-style: none;
+  }
+
+  li.noPkg {
+    text-align: center;
+    line-height: 3;
+    font-size: 20px;
+    color: lightgrey;
+  }
+}
