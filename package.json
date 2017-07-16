@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "2.2.6",
+  "version": "2.3.0-beta",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -126,7 +126,7 @@
     "pre:webpack": "npm run lint:css && npm run lint",
     "build:webui": "npm run pre:webpack && rimraf static/* && webpack --config tools/webpack.prod.config.babel.js --debug",
     "dev:webui": "babel-node tools/dev.server.js",
-    "prepublish": "in-publish && npm run build:webpack || not-in-publish",
+    "prepublish": "in-publish && npm run build:webui || not-in-publish",
     "build-docker": "docker build -t verdaccio . --no-cache",
     "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
