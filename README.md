@@ -8,6 +8,8 @@
 [![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
 [![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 
+[![dockeri.co](http://dockeri.co/image/verdaccio/verdaccio)](https://hub.docker.com/r/verdaccio/verdaccio/)
+
 It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
 <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-8d2f3.appspot.com/o/verdaccio2-compressor.png?alt=media&token=c9b01824-26f2-4cba-bd6f-f352e08cb8ff"></p>
