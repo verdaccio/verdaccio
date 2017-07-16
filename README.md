@@ -44,6 +44,9 @@ $ yarn global add verdaccio
 # run in your terminal
 $ verdaccio
 
+# After npm 5.2 you can use npx which install and launch verdaccio with the same command
+$ npx verdaccio
+
 # npm configuration
 $ npm set registry http://localhost:4873/
 
@@ -53,6 +56,14 @@ $ npm set ca null
 ```
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
+
+## Beta
+
+If you are an adventurous developer you can use and install the latest beta version
+
+```bash
+$ npm install -g verdaccio@beta
+```
  
 ## Configuration
  
