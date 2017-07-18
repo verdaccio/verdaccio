@@ -1,7 +1,11 @@
+## 2.2.7 (July 18, 2017)
+
+- bug: fix running behind of loadbalancer with TLS termination - [#254](https://github.com/verdaccio/verdaccio/pull/254)
+
+
 ## 2.2.6 (July 13, 2017)
 
 - build: update node version due security update announcement - [#251](https://github.com/verdaccio/verdaccio/pull/251)
-
 
 ## 2.2.5 (July 4, 2017)
 
