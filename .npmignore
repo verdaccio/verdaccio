@@ -3,5 +3,8 @@ npm-debug.log
 coverage/
 verdaccio-*.tgz
 test-storage*
-/.*
+scripts/
 wiki/
+src/webui
+tools/
+/.*

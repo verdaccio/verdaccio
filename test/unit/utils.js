@@ -1,7 +1,7 @@
 'use strict';
 
 let assert = require('assert');
-let validate = require('../../lib/utils').validate_name;
+let validate = require('../../src/lib/utils').validate_name;
 
 describe('Validate', function() {
   it('good ones', function() {

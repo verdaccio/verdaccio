@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "no-console": [
+      2,
+      {
+        "allow": [
+          "warn",
+          "log"
+        ]
+      }
+    ]
+  }
+}

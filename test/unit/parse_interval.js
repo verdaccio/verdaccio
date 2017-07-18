@@ -1,7 +1,7 @@
 'use strict';
 
 let assert = require('assert');
-let parseInterval = require('../../lib/utils').parseInterval;
+let parseInterval = require('../../src/lib/utils').parseInterval;
 
 describe('Parse interval', function() {
   function add_test(str, res) {

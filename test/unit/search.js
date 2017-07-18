@@ -1,12 +1,12 @@
 'use strict';
 
 let assert = require('assert');
-let Search = require('../../lib/search');
-let Storage = require('../../lib/storage');
+let Search = require('../../src/lib/search');
+let Storage = require('../../src/lib/storage');
 let config_hash = require('./partials/config');
-let Config = require('../../lib/config');
+let Config = require('../../src/lib/config');
 
-require('../../lib/logger').setup([]);
+require('../../src/lib/logger').setup([]);
 
 let packages = [
 	{

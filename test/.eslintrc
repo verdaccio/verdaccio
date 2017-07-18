@@ -1,12 +1,23 @@
-# vim: syntax=yaml
-
-extends: ["eslint:recommended"]
-
-env:
-  node: true
-  mocha: true
-  es6: true
-
-valid-jsdoc: 0
-no-redeclare: 1
-no-console: 1
+{
+  "extends": [
+    "eslint:recommended"
+  ],
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "valid-jsdoc": 0,
+    "no-redeclare": 1,
+    "no-console": [
+      2,
+      {
+        "allow": [
+          "log"
+        ]
+      }
+    ],
+    "no-useless-escape": 0
+  }
+}

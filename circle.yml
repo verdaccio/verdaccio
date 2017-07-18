@@ -21,6 +21,7 @@ dependencies:
     - yarn install --no-progress
 test:
   override:
+    - npm run pretest:ci
     - nvm alias default 6
     - yarn run test-travis
     - nvm alias default 4

@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const config_hash = require('./partials/config');
-const Config = require('../../lib/config');
+const Config = require('../../src/lib/config');
 
 
 describe('Config', function() {

@@ -15,8 +15,15 @@ coverage/
 
 # Visual Studio Code
 .vscode/*
-.jscsrc
-.jshintrc
-jsconfig.json
 
 .idea/
+
+
+# React
+bundle.js
+bundle.js.map
+__tests__
+__snapshots__
+
+# Compiled script
+static/
