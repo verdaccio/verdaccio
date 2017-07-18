@@ -8,6 +8,8 @@
 
 # path to a directory with all packages
 storage: ./storage
+# path to a directory with plugins to include
+plugins: ./plugins
 
 auth:
   htpasswd:

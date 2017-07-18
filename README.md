@@ -93,6 +93,17 @@ To run the docker container:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
+You can mount directories for the config, storage, local_storage and plugins, for ex:
+
+```bash
+docker run -it --rm --name verdaccio -p 4873:4873 \
+  -v /<path to verdaccio directory>/conf:/verdaccio/conf \
+  -v /<path to verdaccio directory>/storage:/verdaccio/storage \
+  -v /<path to verdaccio directory>/local_storage:/verdaccio/local_storage \
+  -v /<path to verdaccio directory>/plugins:/verdaccio/plugins \
+  verdaccio/verdaccio
+```
+
 #### Using docker-compose
 
 1. Get the latest version of [docker-compose](https://github.com/docker/compose).
@@ -171,6 +182,10 @@ Misc stuff:
 - Searching (npm search) - **supported** (cli / browser)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 - Ping (npm ping) - **supported** 
+
+## Plugins
+
+Plugins has to be stored under plugins directory, according to `config.yaml` file
 
 ## Storage
 
