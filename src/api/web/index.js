@@ -38,8 +38,7 @@ module.exports = function(config, auth, storage) {
   });
 
   router.get('/', function(req, res) {
-    const proto = req.get('X-Forwarded-Proto') || req.protocol;
-    const base = Utils.combineBaseUrl(proto, req.get('host'), config.url_prefix);
+    const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
     res.setHeader('Content-Type', 'text/html');
     res.send(template.replace(/ToReplaceByVerdaccio/g, base).replace(/(main.*\.js|style.*\.css)/g, `${base}/-/static/$1`));
   });

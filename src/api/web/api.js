@@ -12,6 +12,7 @@ const securityIframe = Middleware.securityIframe;
 const route = express.Router(); // eslint-disable-line
 const async = require('async');
 const HTTPError = require('http-errors');
+const Utils = require('../../lib/utils');
 
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
