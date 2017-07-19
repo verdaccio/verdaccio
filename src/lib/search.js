@@ -2,7 +2,8 @@
 
 'use strict';
 
-const lunr = require('lunr');
+const elasticlunr = require('elasticlunr');
+const _ = require('lodash');
 
 /**
  * Handle the search Indexer.
@@ -13,26 +14,52 @@ class Search {
    * Constructor.
    */
   constructor() {
-    this.index = lunr(function() {
-      this.field('name', {boost: 10});
-      this.field('description', {boost: 4});
-      this.field('author', {boost: 6});
-      this.field('readme');
-    });
+    try {
+      const customized_stop_words = ['@', '-', '_', '.'];
+      elasticlunr.addStopWords(customized_stop_words);
+      this.index = elasticlunr(function() {
+        this.setRef('id');
+        this.addField('name');
+        this.addField('description');
+        this.addField('author');
+        this.addField('license');
+        this.addField('keywords');
+        this.addField('version');
+        this.addField('readme');
+      });
+    } catch(err) {
+      console.error(err);
+    }
   }
 
   /**
    * Performs a query to the indexer.
    * If the keyword is a * it returns all local elements
    * otherwise performs a search
-   * @param {*} q the keyword
+   * @param {*} query the keyword
    * @return {Array} list of results.
    */
-  query(q) {
-	  return q === '*'
-      ? this.storage.localStorage.localList.get().map( function( pkg ) {
-        return {ref: pkg, score: 1};
-      }) : this.index.search(q);
+  query(query) {
+	  const results = query === '*'
+      ? this.storage.localStorage.localList.get().map( function( packageName ) {
+        return {
+          ref: packageName,
+          score: 1,
+        };
+      }) : this.index.search(query, {
+        fields: {
+          name: {boost: 2},
+          description: {boost: 1},
+          version: {boost: 1},
+          license: {boost: 1},
+          author: {boost: 0.1},
+          keywords: {boost: 2},
+        },
+        bool: 'OR',
+        expand: true,
+      });
+	  return results;
+
   }
 
   /**
@@ -40,11 +67,13 @@ class Search {
    * @param {*} pkg the package
    */
   add(pkg) {
-    this.index.add({
+    this.index.addDoc({
       id: pkg.name,
       name: pkg.name,
       description: pkg.description,
-      author: pkg._npmUser ? pkg._npmUser.name : '???',
+      version: pkg.version,
+      keywords: _.isArray(pkg.keyword) ? pkg.join(' '): '',
+      author: pkg.author ? pkg.author.name : '???',
     });
   }
 
@@ -62,7 +91,9 @@ class Search {
   reindex() {
     let self = this;
     this.storage.get_local(function(err, packages) {
-      if (err) throw err; // that function shouldn't produce any
+      if (err) {
+        throw err;
+      } // that function shouldn't produce any
       let i = packages.length;
       while (i--) {
         self.add(packages[i]);
