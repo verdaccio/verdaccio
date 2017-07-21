@@ -127,9 +127,6 @@ module.exports = function(config, auth, storage) {
       } else {
         next(HTTPError[err.message ? 401 : 500](err.message));
       }
-
-      let base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
-      res.redirect(base);
     });
   });
 
