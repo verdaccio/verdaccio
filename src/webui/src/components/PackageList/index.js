@@ -23,7 +23,18 @@ export default class PackageList extends React.Component {
           {
             this.props.packages.length ?
                 this.renderList():
-                <li className={classes.noPkg}>No Package Available</li>
+                <li className={classes.noPkg}>
+                  <h1 className={classes.noPkgTitle}>No Package Published Yet</h1>
+                  <p>
+                    To publish your first package just:
+                    <br/><br/>
+                    <strong>1. Login</strong><br/>
+                    <code>npm adduser --registry {location.origin}</code><br/>
+                    <strong>2. Publish</strong><br/>
+                    <code>npm publish --registry {location.origin}</code><br/>
+                    <strong>3. Done!</strong>
+                  </p>
+                </li>
           }
         </div>
     );
