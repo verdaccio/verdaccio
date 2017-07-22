@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading, MessageBox} from 'element-react';
-import {isEmpty} from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 import API from '../../../utils/api';
 

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import {sunburst} from 'react-syntax-highlighter/dist/styles';
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/highlight';
+import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
 
 import classes from './help.scss';
 
