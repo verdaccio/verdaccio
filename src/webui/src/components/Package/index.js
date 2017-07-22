@@ -18,9 +18,17 @@ export default class Package extends React.Component {
     return (
         <Link to={`detail/${pkg.name}`} className={classes.package}>
           <h1>{pkg.name}<Tag type="gray">v{pkg.version}</Tag></h1>
-          <span role="author" className={classes.author}>By: {pkg.author.name}</span>
+          {this.renderAuthor(pkg)}
           <p>{pkg.description}</p>
         </Link>
     );
+  }
+
+  renderAuthor(pkg) {
+    if (!pkg.author.name) {
+      return;
+    }
+
+    return <span role="author" className={classes.author}>By: {pkg.author.name}</span>;
   }
 }

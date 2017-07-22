@@ -31,7 +31,8 @@ export default class Home extends React.Component {
     this.loadPackages();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+
+  componentDidUpdate(prevProps, prevState) { // eslint-disable-line no-unused-vars
     if (prevState.query !== this.state.query) {
       if (this.req && this.req.abort) this.req.abort();
       this.setState({

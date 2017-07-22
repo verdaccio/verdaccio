@@ -8,15 +8,20 @@ const Search = (props) => {
     return (
       <input
         type="text"
-        placeholder="Type to search..."
+        placeholder={props.placeHolder}
         className={ classes.searchBox }
         onChange={ props.handleSearchInput }
       />
     );
 };
 
+Search.defaultProps = {
+  placeHolder: 'Type to search...'
+};
+
 Search.propTypes = {
-  handleSearchInput: PropTypes.func.isRequired
+  handleSearchInput: PropTypes.func.isRequired,
+  placeHolder: PropTypes.string,
 };
 
 export default Search;

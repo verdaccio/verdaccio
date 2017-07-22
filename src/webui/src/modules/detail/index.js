@@ -1,10 +1,13 @@
 import React from 'react';
-import API from '../../../utils/api';
-import {Loading} from 'element-react';
 import PropTypes from 'prop-types';
+import {Loading} from 'element-react';
+import isEmpty from 'lodash/isEmpty';
 
-import classes from './detail.scss';
-import 'github-markdown-css';
+import PackageDetail from '../../components/PackageDetail';
+import NotFound from '../../components/NotFound';
+import API from '../../../utils/api';
+
+const loadingMessage = 'Loading...';
 
 export default class Detail extends React.Component {
   static propTypes = {
@@ -12,41 +15,30 @@ export default class Detail extends React.Component {
   }
 
   state = {
-    readMe: ''
+    readMe: '',
+    notFound: false,
   }
 
   async componentDidMount() {
      try {
-       let resp = await API.get(`package/readme/${this.props.match.params.package}`);
+       const resp = await API.get(`package/readme/${this.props.match.params.package}`);
        this.setState({
          readMe: resp.data
        });
      } catch (err) {
        this.setState({
-         readMe: 'Failed to load readme...'
+         notFound: true
        });
      }
   }
 
-  renderReadMe() {
-    if (this.state.readMe) {
-      return (
-          <div className="markdown-body" dangerouslySetInnerHTML={{__html: this.state.readMe}}/>
-      );
-    } else {
-      return (
-          <Loading text="Loading..." />
-      );
-    }
-  }
-
   render() {
-    return (
-        <div>
-          <h1 className={ classes.title }>{ this.props.match.params.package }</h1>
-          <hr/>
-          {this.renderReadMe()}
-        </div>
-    );
+    if (this.state.notFound) {
+      return <NotFound
+          pkg={this.props.match.params.package}/>;
+    } else if (isEmpty(this.state.readMe)) {
+      return <Loading text={loadingMessage} />;
+    }
+    return <PackageDetail readMe={this.state.readMe} package={this.props.match.params.package}/>;
   }
 }

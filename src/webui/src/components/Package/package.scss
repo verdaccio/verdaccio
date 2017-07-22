@@ -25,7 +25,10 @@
     top: 10px;
     right: 0;
     color: lightgrey;
-    font-size: 12px;
+    font-size: inherit;
+    word-wrap: break-word;
+    width: 100px;
+    text-align: right;
   }
 
   p {
