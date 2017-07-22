@@ -21,11 +21,11 @@ dependencies:
     - yarn install --no-progress
 test:
   override:
-    - npm run pretest:ci
+    - yarn run pre:ci
     - nvm alias default 6
-    - yarn run test-travis
+    - yarn run test:ci
     - nvm alias default 4
-    - yarn run test-travis
+    - yarn run test:ci
     - nvm alias default 8
-    - yarn run test-travis
-    - yarn run coverage:codecov
+    - yarn run test:ci
+    - yarn run coverage:publish

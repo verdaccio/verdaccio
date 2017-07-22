@@ -108,7 +108,7 @@ docker build -t verdaccio .
 There is also an npm script for building the docker image, so you can also do:
 
 ```bash
-npm run build-docker
+npm run build:docker
 ```
 
 Note: The first build takes some minutes to build because it needs to run `npm install`,
@@ -118,7 +118,7 @@ If you want to use the docker image on a rpi or a compatible device there is als
 To build the docker image for raspberry pi execute:
 
 ```bash
-npm run build-docker:rpi
+npm run build:docker:rpi
 ```
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.

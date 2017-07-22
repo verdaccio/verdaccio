@@ -116,21 +116,21 @@
     "server"
   ],
   "scripts": {
-    "pretest:ci": "npm run lint && npm run build:webui",
+    "prepublish": "in-publish && npm run build:webui || not-in-publish",
     "test": "mocha ./test/functional ./test/unit --reporter=spec --full-trace",
+    "pre:ci": "npm run build:webui",
+    "test:ci": "npm run test:coverage",
+    "test:only": "mocha ./test/functional ./test/unit",
     "test:coverage": "nyc npm t",
     "coverage:html": "nyc report --reporter=html",
-    "coverage:codecov": "nyc report --reporter=lcov | codecov",
-    "test-travis": "npm run test:coverage",
-    "test-only": "mocha ./test/functional ./test/unit",
+    "coverage:publish": "nyc report --reporter=lcov | codecov",
     "lint": "eslint .",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
-    "pre:webpack": "npm run lint",
-    "build:webui": "npm run pre:webpack && rimraf static/* && webpack --config tools/webpack.prod.config.babel.js --debug",
+    "pre:webpack": "npm run lint && rimraf static/*",
     "dev:webui": "babel-node tools/dev.server.js",
-    "prepublish": "in-publish && npm run build:webui || not-in-publish",
-    "build-docker": "docker build -t verdaccio . --no-cache",
-    "build-docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
+    "build:webui": "npm run pre:webpack && webpack --config tools/webpack.prod.config.babel.js",
+    "build:docker": "docker build -t verdaccio . --no-cache",
+    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
   "jest": {
     "snapshotSerializers": [
