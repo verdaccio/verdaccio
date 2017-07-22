@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './packageList.scss';
-
 import Package from '../Package';
+import Help from '../Help';
+
+import classes from './packageList.scss';
 
 export default class PackageList extends React.Component {
 
@@ -19,24 +20,24 @@ export default class PackageList extends React.Component {
 
   render() {
     return (
+      <div>
         <div className={classes.pkgContainer}>
-          {
-            this.props.packages.length ?
-                this.renderList():
-                <li className={classes.noPkg}>
-                  <h1 className={classes.noPkgTitle}>No Package Published Yet</h1>
-                  <p>
-                    To publish your first package just:
-                    <br/><br/>
-                    <strong>1. Login</strong><br/>
-                    <code>npm adduser --registry {location.origin}</code><br/>
-                    <strong>2. Publish</strong><br/>
-                    <code>npm publish --registry {location.origin}</code><br/>
-                    <strong>3. Done!</strong>
-                  </p>
-                </li>
-          }
+          {this.renderTitle()}
+          {this.props.packages.length ? this.renderList(): <Help/>}
         </div>
+      </div>
     );
+  }
+
+  renderTitle() {
+    if (this.isTherePackages() === false) {
+      return;
+    }
+
+    return <h1 className={ classes.listTitle }>Available Packages</h1>;
+  }
+
+  isTherePackages() {
+    return this.props.packages.length > 0;
   }
 }

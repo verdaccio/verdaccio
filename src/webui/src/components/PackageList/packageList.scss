@@ -7,28 +7,10 @@
     list-style: none;
   }
 
-  li.noPkg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 0;
-    font-size: 20px;
-    color: #9f9f9f;
-
-    .noPkgTitle {
-      margin: 0;
-      padding: 0;
-      font-size: 24px;
-    }
-
-    p {
-      line-height: 1.5;
-      margin: 0 auto;
-      font-size: 14px;
-    }
-
-    code {
-      font-style: italic;
-    }
+  .listTitle {
+    font-weight: normal;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 0;
   }
 }

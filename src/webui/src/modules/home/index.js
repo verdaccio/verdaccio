@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading, MessageBox} from 'element-react';
+import {isEmpty} from 'lodash';
 
 import API from '../../../utils/api';
 
 import PackageList from '../../components/PackageList';
+import Search from '../../components/Search';
 
 import classes from './home.scss';
 
@@ -89,32 +91,32 @@ export default class Home extends React.Component {
     });
   }
 
-  renderLoading() {
-    return (
-        <Loading text="Loading..." />
-    );
-  }
-
-  renderPackageList() {
-    return (
-        <div>
-          <h1 className={ classes.listTitle }>Available Packages</h1>
-          <PackageList packages={this.state.packages} />
-        </div>
-    );
+  isTherePackages() {
+    return isEmpty(this.state.packages);
   }
 
   render() {
     return (
         <div className={ classes.container }>
-          <input
-              type="text"
-              placeholder="Type to search..."
-              className={ classes.searchBox }
-              onChange={ this.handleSearchInput }
-          />
+          { this.renderSearchBar() }
           { this.state.loading ? this.renderLoading() : this.renderPackageList() }
         </div>
     );
   }
+
+  renderSearchBar() {
+    if (this.isTherePackages()) {
+      return;
+    }
+    return <Search handleSearchInput={ this.handleSearchInput } />;
+  }
+
+  renderLoading() {
+    return <Loading text="Loading..." />;
+  }
+
+  renderPackageList() {
+    return <PackageList packages={this.state.packages} />;
+  }
+
 }
