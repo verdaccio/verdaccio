@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Tag} from 'element-react';
 import {Link} from 'react-router-dom';
+import isNil from 'lodash/isNil';
 
 import classes from './package.scss';
 
@@ -25,7 +26,7 @@ export default class Package extends React.Component {
   }
 
   renderAuthor(pkg) {
-    if (!pkg.author.name) {
+    if (isNil(pkg.author) || isNil(pkg.author.name)) {
       return;
     }
 
