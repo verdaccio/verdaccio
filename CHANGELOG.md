@@ -1,3 +1,7 @@
+## 2.3.0 (July 22, 2017)
+
+- feature: Refactor User Interface - [#220](https://github.com/verdaccio/verdaccio/pull/220)
+
 ## 2.2.7 (July 18, 2017)
 
 - bug: fix running behind of loadbalancer with TLS termination - [#254](https://github.com/verdaccio/verdaccio/pull/254)

@@ -1,6 +1,9 @@
-`verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
+# Verdaccio
 
-`verdaccio` - a private/caching npm repository server
+### A lightweight private npm proxy registry
+
+
+`verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
 
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
 [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
@@ -8,50 +11,61 @@
 [![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
 [![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 
-[![dockeri.co](http://dockeri.co/image/verdaccio/verdaccio)](https://hub.docker.com/r/verdaccio/verdaccio/)
+<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
 
-It allows you to have a local npm registry with zero configuration. You don't have to install and replicate an entire CouchDB database. Verdaccio keeps its own small database and, if a package doesn't exist there, it asks npmjs.org for it keeping only those packages you use.
 
-<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-8d2f3.appspot.com/o/verdaccio2-compressor.png?alt=media&token=c9b01824-26f2-4cba-bd6f-f352e08cb8ff"></p>
+It allows you to have a **local npm private registry with zero configuration**. You don't have to install and replicate an entire database. Verdaccio keeps its own small database and, if a package doesn't exist there, **it asks any other registry** (npmjs.org) for it keeping only those packages you use.
 
-## Use cases
+## Introduction
 
-1. Use private packages.
+### Use private packages
 
    If you want to use all benefits of npm package system in your company without sending all code to the public, and use your private packages just as easy as public ones.
 
-   See [using private packages](#using-private-packages) section for details.
-
-2. Cache npmjs.org registry.
+### Cache npmjs.org registry
 
    If you have more than one server you want to install packages on, you might want to use this to decrease latency
-   (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache).
+   (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache) or avoid issues like *[How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)*.
 
-   See [using public packages](#using-public-packages-from-npmjsorg) section for details.
 
-3. Override public packages.
+### Override public packages
 
    If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name.
 
-   See [override public packages](#override-public-packages) section for details.
+See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/tree/master/wiki/use-cases.md).
 
-## Installation
+## Get Started
+
+### Prerequisites
+
+* Node.js >= 4.6.1
+* `npm` or `yarn`
+
+Installation and starting (application will create default config in config.yaml you can edit later)
 
 ```bash
-# installation and starting (application will create default
-# config in config.yaml you can edit later)
-$ npm install -g verdaccio
-# or 
-$ yarn global add verdaccio
-# run in your terminal
-$ verdaccio
+npm install --global verdaccio
+```
 
-# After npm 5.2 you can use npx which install and launch verdaccio with the same command
-$ npx verdaccio
+Run in your terminal
 
-# npm configuration
+```bash
+verdaccio
+```
+
+<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/ezgif.com-video-to-gif%20(1).gif?alt=media&token=f3b29745-946b-4538-aff0-6bbe089a010f
+"></p>
+
+After **npm 5.2** you can use npx which install and launch verdaccio with the same command
+
+```bash
+npx verdaccio
+```
+
+You would need set some npm configuration, this is optional.
+
+```bash
 $ npm set registry http://localhost:4873/
-
 # if you use HTTPS, add an appropriate CA information
 # ("null" means get CA list from OS)
 $ npm set ca null
@@ -59,41 +73,65 @@ $ npm set ca null
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
 
-## Beta
+#### Beta
 
-If you are an adventurous developer you can use and install the latest beta version
+If you are an adventurous developer you can use and install the latest beta version, this is a non stable version, I'd recommend only use for testing purporses.
 
 ```bash
 $ npm install -g verdaccio@beta
 ```
- 
-## Configuration
- 
-When you start a server, it auto-creates a config file.
- 
-**For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](wiki/server.md).**
 
-### Docker
+## Publishing Private Packages
+
+
+
+#### Create an user and log in
+
+```bash
+npm adduser --registry http://localhost:4873
+```
+
+#### Publish your package
+
+```bash
+npm publish --registry http://localhost:4873
+```
+<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/publishNpmVerdaccio.gif?alt=media&token=a56237ae-81f3-4677-9335-ba15e1ae26d1
+"></p>
+
+
+This will prompt you for user credentials which will be saved on the `verdaccio` server.
+ 
+##### Server Side Configuration
+ 
+When you start a server, it auto-creates a config file. For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](https://github.com/verdaccio/verdaccio/tree/master/wiki/server.md).
+
+## Docker
+
+[![dockeri.co](http://dockeri.co/image/verdaccio/verdaccio)](https://hub.docker.com/r/verdaccio/verdaccio/)
 
 Below are the most commony needed informations,
-every aspect of Docker and verdaccio is [documented separately](wiki/docker.md)
+every aspect of Docker and verdaccio is [documented separately](https://github.com/verdaccio/verdaccio/tree/master/wiki/docker.md)
 
-#### Prebuilt images
+### Prebuilt images
 
 To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
-`docker pull verdaccio/verdaccio`
+```bash
+docker pull verdaccio/verdaccio
+```
 
 Since version 2 images for every versions are availabel as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-#### Running verdaccio using Docker
+### Running verdaccio using Docker
 
 To run the docker container:
+
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-#### Using docker-compose
+### Using docker-compose
 
 1. Get the latest version of [docker-compose](https://github.com/docker/compose).
 2. Build and run the container: 
@@ -101,72 +139,59 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```bash
 $ docker-compose up --build
 ```
+Docker examples are available [in this repository](https://github.com/verdaccio/docker-examples).
 
-### Ansible
+* Docker + Nginx
+* Docker + Kubernetes
+* Docker + Apache
 
-A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/verdaccio) source: https://github.com/030/ansible-verdaccio
+### Advance Infraestructure Management Tools
 
-### Chef
+#### Ansible
 
-The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio). source: https://github.com/kgrubb/verdaccio-cookbook
+A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/verdaccio) 
 
-## Adding a new user
+Source: [https://github.com/verdaccio/ansible-verdaccio](https://github.com/verdaccio/ansible-verdaccio)
 
-```bash
-npm adduser --registry http://localhost:4873/
-```
+Maintainer: [@030](https://github.com/030)
 
-This will prompt you for user credentials which will be saved on the `verdaccio` server.
+#### Chef
 
-## Using private packages
+The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio). 
 
-You can add users and manage which users can access which packages.
+Source: [https://github.com/verdaccio/verdaccio-cookbook](https://github.com/verdaccio/verdaccio-cookbook).
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+Maintainer: [@kgrubb](https://github.com/kgrubb)
 
-## Using public packages from npmjs.org
+#### Puppet
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Source: [https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio).
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Maintainer: *No asigned yet* 
 
-## Override public packages
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
-
-There's two options here:
-
-1. You want to create a separate fork and stop synchronizing with public version.
-
-   If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
-
-   When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
-
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
-
-   In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
 
 ## Compatibility
 
 Verdaccio aims to support all features of a standard npm client that make sense to support in private repository. Unfortunately, it isn't always possible.
 
-Basic features:
+### Basic features
 
 - Installing packages (npm install, npm upgrade, etc.) - **supported**
 - Publishing packages (npm publish) - **supported**
 
-Advanced package control:
+### Advanced package control
 
 - Unpublishing packages (npm unpublish) - **supported**
 - Tagging (npm tag) - **supported**
 - Deprecation (npm deprecate) - not supported
 
-User management:
+### User management
 
 - Registering new users (npm adduser {newuser}) - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, verdaccio uses its own acl management system
 
-Misc stuff:
+### Misc stuff
 
 - Searching (npm search) - **supported** (cli / browser)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
@@ -174,7 +199,7 @@ Misc stuff:
 
 ## Storage
 
-No CouchDB here. This application is supposed to work with zero configuration, so filesystem is used as a storage.
+No CouchDB here. **This application is supposed to work with zero configuration**, so filesystem is used as a storage.
 
 If you want to use a database instead, ask for it, we'll come up with some kind of a plugin system.
 
@@ -190,3 +215,12 @@ About the storage there is a running discussion [here](https://github.com/verdac
 - [nexus-repository-oss](https://www.sonatype.com/nexus-repository-oss) - Repository manager that handles more than just NPM dependencies
 - Is there something else?
 - [codebox-npm](https://github.com/craftship/codebox-npm) - Serverless private npm registry using
+
+## FAQ / Contact / Troubleshoot
+
+If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
+
+* [Most common questions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion)
+* [Reporting a bug](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
+* [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
+* [Chat Room](https://gitter.im/verdaccio/)
