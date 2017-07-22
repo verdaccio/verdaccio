@@ -53,9 +53,6 @@ Run in your terminal
 verdaccio
 ```
 
-<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/ezgif.com-video-to-gif%20(1).gif?alt=media&token=f3b29745-946b-4538-aff0-6bbe089a010f
-"></p>
-
 After **npm 5.2** you can use npx which install and launch verdaccio with the same command
 
 ```bash
@@ -96,9 +93,6 @@ npm adduser --registry http://localhost:4873
 ```bash
 npm publish --registry http://localhost:4873
 ```
-<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/publishNpmVerdaccio.gif?alt=media&token=a56237ae-81f3-4677-9335-ba15e1ae26d1
-"></p>
-
 
 This will prompt you for user credentials which will be saved on the `verdaccio` server.
  
