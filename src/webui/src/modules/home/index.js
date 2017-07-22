@@ -19,6 +19,7 @@ export default class Home extends React.Component {
 
   state = {
     loading: true,
+    fistTime: true,
     query: ''
   }
 
@@ -74,6 +75,7 @@ export default class Home extends React.Component {
      if (this.state.query === query) {
        this.setState({
          packages: this.req.data,
+         fistTime: false,
          loading: false
        });
      }
@@ -106,7 +108,7 @@ export default class Home extends React.Component {
   }
 
   renderSearchBar() {
-    if (this.isTherePackages()) {
+    if (this.isTherePackages() && this.state.fistTime) {
       return;
     }
     return <Search handleSearchInput={ this.handleSearchInput } />;
@@ -117,7 +119,7 @@ export default class Home extends React.Component {
   }
 
   renderPackageList() {
-    return <PackageList packages={this.state.packages} />;
+    return <PackageList help={this.state.fistTime} packages={this.state.packages} />;
   }
 
 }

@@ -4,13 +4,15 @@ import isEmpty from 'lodash/isEmpty';
 
 import Package from '../Package';
 import Help from '../Help';
+import NoItems from '../NoItems';
 
 import classes from './packageList.scss';
 
 export default class PackageList extends React.Component {
 
   static propTypes = {
-    packages: PropTypes.array
+    packages: PropTypes.array,
+    help: PropTypes.bool
   }
 
   render() {
@@ -18,7 +20,7 @@ export default class PackageList extends React.Component {
       <div>
         <div className={classes.pkgContainer}>
           {this.renderTitle()}
-          {this.isTherePackages() ? this.renderList(): this.renderHelp()}
+          {this.isTherePackages() ? this.renderList(): this.renderOptions()}
         </div>
       </div>
     );
@@ -38,7 +40,22 @@ export default class PackageList extends React.Component {
     ));
   }
 
+  renderOptions() {
+    if (this.isTherePackages() === false && this.props.help) {
+      return this.renderHelp();
+    } else {
+      return this.renderNoItems();
+    }
+  }
+
+  renderNoItems() {
+   return <NoItems text={'No items were found with that query'}/>;
+  }
+
   renderHelp() {
+    if (this.props.help === false) {
+      return;
+    }
     return <Help/>;
   }
 
