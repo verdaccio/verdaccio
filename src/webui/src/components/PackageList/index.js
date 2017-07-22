@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
 import Package from '../Package';
 import Help from '../Help';
@@ -12,18 +13,12 @@ export default class PackageList extends React.Component {
     packages: PropTypes.array
   }
 
-  renderList() {
-    return this.props.packages.map((pkg, i)=> (
-        <li key={i}><Package package={pkg} /></li>
-    ));
-  }
-
   render() {
     return (
       <div>
         <div className={classes.pkgContainer}>
           {this.renderTitle()}
-          {this.props.packages.length ? this.renderList(): <Help/>}
+          {this.isTherePackages() ? this.renderList(): this.renderHelp()}
         </div>
       </div>
     );
@@ -37,7 +32,17 @@ export default class PackageList extends React.Component {
     return <h1 className={ classes.listTitle }>Available Packages</h1>;
   }
 
+  renderList() {
+    return this.props.packages.map((pkg, i)=> (
+      <li key={i}><Package package={pkg} /></li>
+    ));
+  }
+
+  renderHelp() {
+    return <Help/>;
+  }
+
   isTherePackages() {
-    return this.props.packages.length > 0;
+    return isEmpty(this.props.packages) === false;
   }
 }
