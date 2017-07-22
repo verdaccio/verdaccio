@@ -15,6 +15,13 @@
         ]
       }
     ],
+    "no-unused-vars": [
+      2,
+      {
+        "vars": "all",
+        "args": "all"
+      }
+    ],
     "comma-dangle": 0,
     "semi": 1,
     "react/no-danger-with-children": 1,
