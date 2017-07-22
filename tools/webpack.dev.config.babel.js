@@ -3,6 +3,7 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import baseConfig from './webpack.config';
 import env from '../src/config/env';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 export default {
   ...baseConfig,
@@ -36,5 +37,11 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin(),
+    new StyleLintPlugin({
+      files: ['src/**/*.scss'],
+      failOnError: false,
+      emitErrors: false,
+      syntax: 'scss',
+    }),
   ],
 };

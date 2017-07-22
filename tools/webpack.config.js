@@ -1,4 +1,5 @@
 const env = require('../src/config/env');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -13,6 +14,15 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+
+  plugins: [
+    new StyleLintPlugin({
+      files: ['src/**/*.scss'],
+      failOnError: false,
+      emitErrors: true,
+      syntax: 'scss',
+    }),
+  ],
 
   module: {
     rules: [
