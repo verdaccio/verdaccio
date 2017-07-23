@@ -1,9 +1,12 @@
 
 import React from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter/dist/index';
+import SyntaxHighlighter, {registerLanguage} from 'react-syntax-highlighter/dist/light';
 import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
+import js from 'react-syntax-highlighter/dist/languages/javascript';
 
 import classes from './help.scss';
+
+registerLanguage('javascript', js);
 
 const Help = () => {
     return (
