@@ -17,6 +17,21 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
+#### Anonymous publish 
+
+`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages acces](packages).
+
+Eg:
+
+```yaml
+  'my-company-*':
+    access: $anonymous
+    publish: $anonymous
+    proxy: npmjs
+```    
+
+As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation. 
+
 ## Default htpasswd
 
 In order to simplify the setup, `verdaccio` use a build-in plugin based on `htpasswd`.
