@@ -1,6 +1,6 @@
 {
-  "_id": "testpkg-newnpmreg",
-  "name": "testpkg-newnpmreg",
+  "_id": "testpkg-preserve",
+  "name": "testpkg-preserve",
   "description": "",
   "dist-tags": {
     "foo": "0.0.0",
@@ -8,7 +8,7 @@
   },
   "versions": {
     "0.0.0": {
-      "name": "testpkg-newnpmreg",
+      "name": "testpkg-preserve",
       "version": "0.0.0",
       "description": "",
       "main": "index.js",
@@ -21,10 +21,10 @@
       },
       "author": "",
       "license": "ISC",
-      "_id": "testpkg-newnpmreg@0.0.0",
+      "_id": "testpkg-preserve@0.0.0",
       "dist": {
         "shasum": "8ee7331cbc641581b1a8cecd9d38d744a8feb863",
-        "tarball": "http:\/\/localhost:1234\/testpkg-newnpmreg\/-\/testpkg-newnpmreg-0.0.0.tgz"
+        "tarball": "http:\/\/localhost:1234\/testpkg-preserve\/-\/testpkg-preserve-0.0.0.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.1",
@@ -48,7 +48,7 @@
     }
   ],
   "_attachments": {
-    "testpkg-newnpmreg-0.0.0.tgz": {
+    "testpkg-preserve-0.0.0.tgz": {
       "content_type": "application\/octet-stream",
       "data": "H4sIAAAAAAAAA+2TsW7CMBCGM\/spTh6YKHUSIJLXqkPnrixWcIMLsS3btCDEu\/fs0Ba1SFVVVISUP8Odzqf\/zlY+K+qlaOSt7eLo2RudnVmMsel4DBjzasKOY1JZlJDlRVkU5aSspnnG8pIVOZ6fe5FTWvsgHK7yV5\/uLvARr0Q7qkUrKadB+mCXzY2Wr9q2TjZ0SF+k88poPGUj\/LAyl752yoauioVWqJgpPZcb\/Hmw0jV4ynfJEw9lvTAwo\/fOGcdBG4h18FbW6knJ+YzCYAByowLkdD+kTlrjVTBumzy2Nq7XqIDea7eKY7FJrMPCuG6Hlaql9rHr4fGO7i\/9pFcl+4X\/rWhX557xA\/9FVZ3gv+j5\/w9F+jl8g58c0OeQyCdH3HOglETsObxTTw7McwLJClt+wzz5JD45IPEcEHjMEfg0r8M9pQfaOSDs5NLP16tXr15XqzeJD6m5AAwAAA==",
       "length": 352

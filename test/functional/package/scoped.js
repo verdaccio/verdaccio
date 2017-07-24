@@ -1,14 +1,7 @@
 'use strict';
 
-let assert = require('assert');
-
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
-}
-
-function sha(x) {
-  return require('crypto').createHash('sha1', 'binary').update(x).digest('hex');
-}
+const assert = require('assert');
+const utils = require ('../lib/test.utils');
 
 module.exports = function() {
   let server = process.server;
@@ -22,7 +15,7 @@ module.exports = function() {
           'content-type': 'application/json',
         },
         method: 'PUT',
-        json: JSON.parse(readfile('fixtures/scoped.json')),
+        json: require('./scoped.json'),
       }).status(201);
     });
 
@@ -33,7 +26,7 @@ module.exports = function() {
                .status(200)
                .then(function(body) {
                  // not real sha due to utf8 conversion
-                 assert.strictEqual(sha(body), '6e67b14e2c0e450b942e2bc8086b49e90f594790');
+                 assert.strictEqual(utils.generateSha(body), '6e67b14e2c0e450b942e2bc8086b49e90f594790');
                });
     });
 
@@ -42,7 +35,7 @@ module.exports = function() {
                .status(200)
                .then(function(body) {
                  // not real sha due to utf8 conversion
-                 assert.strictEqual(sha(body), '6e67b14e2c0e450b942e2bc8086b49e90f594790');
+                 assert.strictEqual(utils.generateSha(body), '6e67b14e2c0e450b942e2bc8086b49e90f594790');
                });
     });
 

@@ -63,11 +63,12 @@ describe('Create registry servers', function() {
   require('./gzip')();
   require('./incomplete')();
   require('./mirror')();
-  require('./newnpmreg')();
+  require('./tags/preserve_tags')();
+  require('./readme/readme.spec')();
   require('./nullstorage')();
   require('./race')();
   require('./racycrash')();
-  require('./scoped')();
+  require('./package/scoped')();
   require('./security')();
   require('./adduser')();
   require('./logout')();
