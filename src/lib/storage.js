@@ -83,7 +83,9 @@ class Storage {
             // if uplink fails with a status other than 404, we report failure
             if (_.isNil(err_results[i][0]) === false) {
               if (err_results[i][0].status !== 404) {
-                if (_.isNil(this.config.publish) === false && this.config.publish.allow_offline) {
+                if (_.isNil(this.config.publish) === false &&
+                  _.isBoolean(this.config.publish.allow_offline) &&
+                  this.config.publish.allow_offline) {
                   return resolve();
                 }
                 return reject(Error[503]('one of the uplinks is down, refuse to publish'));
