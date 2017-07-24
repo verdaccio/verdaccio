@@ -105,7 +105,12 @@ module.exports.allow = function(auth) {
   return function(action) {
     return function(req, res, next) {
       req.pause();
-      auth['allow_' + action](req.params.package, req.remote_user, function(error, allowed) {
+      let packageName = req.params.package;
+      if (req.params.scope) {
+        packageName = `@${req.params.scope}/${packageName}`;
+      }
+
+      auth['allow_' + action](packageName, req.remote_user, function(error, allowed) {
         req.resume();
         if (error) {
           next(error);
