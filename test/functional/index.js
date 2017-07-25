@@ -68,10 +68,10 @@ describe('Create registry servers', function() {
   require('./nullstorage')();
   require('./race')();
   require('./racycrash')();
-  require('./package/scoped')();
+  require('./package/scoped.spec')();
   require('./security')();
   require('./adduser')();
-  require('./logout')();
+  require('./auth/logout')();
   require('./addtag')();
   require('./plugins')();
   require('./notify')();
