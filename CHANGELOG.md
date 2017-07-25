@@ -1,3 +1,9 @@
+## 2.3.1 (July 25, 2017)
+
+- bug: Detail page can't handle scoped package - [#261](https://github.com/verdaccio/verdaccio/pull/261)
+- bug: can't publish a private package to verdaccio while offline - [#223](https://github.com/verdaccio/verdaccio/pull/223)
+- refactor: use light version of syntax highlighter - [#260](https://github.com/verdaccio/verdaccio/pull/260)
+
 ## 2.3.0 (July 22, 2017)
 
 - feature: Refactor User Interface - [#220](https://github.com/verdaccio/verdaccio/pull/220)
