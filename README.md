@@ -95,9 +95,9 @@ npm publish --registry http://localhost:4873
 ```
 
 This will prompt you for user credentials which will be saved on the `verdaccio` server.
- 
+
 ## Server Side Configuration
- 
+
 When you start a server, it auto-creates a config file. For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](https://github.com/verdaccio/verdaccio/tree/master/wiki/server.md).
 
 ## Docker
@@ -128,7 +128,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ### Using docker-compose
 
 1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container: 
+2. Build and run the container:
 
 ```bash
 $ docker-compose up --build
@@ -139,11 +139,11 @@ Docker examples are available [in this repository](https://github.com/verdaccio/
 * Docker + Kubernetes
 * Docker + Apache
 
-### Advance Infraestructure Management Tools
+### Advanced Infrastructure Management Tools
 
 #### Ansible
 
-A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/verdaccio) 
+A Verdaccio playbook [is available at galaxy](https://galaxy.ansible.com/030/verdaccio)
 
 Source: [https://github.com/verdaccio/ansible-verdaccio](https://github.com/verdaccio/ansible-verdaccio)
 
@@ -151,7 +151,7 @@ Maintainer: [@030](https://github.com/030)
 
 #### Chef
 
-The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio). 
+The Verdaccio Chef cookbook [is available via the chef supermarket](https://supermarket.chef.io/cookbooks/verdaccio).
 
 Source: [https://github.com/verdaccio/verdaccio-cookbook](https://github.com/verdaccio/verdaccio-cookbook).
 
@@ -161,7 +161,7 @@ Maintainer: [@kgrubb](https://github.com/kgrubb)
 
 Source: [https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio).
 
-Maintainer: *No asigned yet* 
+Maintainer: *No asigned yet*
 
 
 
@@ -189,7 +189,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Searching (npm search) - **supported** (cli / browser)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
-- Ping (npm ping) - **supported** 
+- Ping (npm ping) - **supported**
 
 ## Storage
 
