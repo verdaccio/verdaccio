@@ -39,8 +39,15 @@ module.exports = function(config, auth, storage) {
 
   router.get('/', function(req, res) {
     const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
+    const defaultTitle = 'Verdaccio';
+    let webPage = template
+      .replace(/ToReplaceByVerdaccio/g, base)
+      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : defaultTitle)
+      .replace(/(main.*\.js|style.*\.css)/g, `${base}/-/static/$1`);
+
     res.setHeader('Content-Type', 'text/html');
-    res.send(template.replace(/ToReplaceByVerdaccio/g, base).replace(/(main.*\.js|style.*\.css)/g, `${base}/-/static/$1`));
+
+    res.send(webPage);
   });
 
   return router;
