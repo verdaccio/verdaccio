@@ -28,7 +28,7 @@ const prodConf = {
     }),
     new ExtractTextPlugin('style.[contenthash].css'),
     new HTMLWebpackPlugin({
-      title: 'Verdaccio',
+      title: 'ToReplaceByTitle',
       filename: 'index.html',
       verdaccioURL: 'ToReplaceByVerdaccio',
       template: `${env.SRC_ROOT}/webui/template/index.html`,
