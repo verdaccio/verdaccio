@@ -66,6 +66,7 @@ location / {
     proxy_pass http://127.0.0.1:4873/;
     proxy_set_header Host            $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
 For this case, `url_prefix` should NOT set in verdaccio config
@@ -78,6 +79,7 @@ location ~ ^/verdaccio/(.*)$ {
     proxy_pass http://127.0.0.1:4873/$1;
     proxy_set_header Host            $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
 For this case, `url_prefix` should set to `/verdaccio/`
