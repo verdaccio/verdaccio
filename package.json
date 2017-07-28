@@ -96,6 +96,7 @@
     "rimraf": "2.6.1",
     "sass-loader": "6.0.6",
     "source-map-loader": "0.2.1",
+    "standard-version": "4.2.0",
     "style-loader": "0.18.2",
     "stylelint": "7.13.0",
     "stylelint-config-standard": "16.0.0",
@@ -116,6 +117,7 @@
     "server"
   ],
   "scripts": {
+    "release": "standard-version -a -s",
     "prepublish": "in-publish && npm run build:webui || not-in-publish",
     "test": "mocha ./test/functional ./test/unit --reporter=spec --full-trace",
     "pre:ci": "npm run build:webui",
