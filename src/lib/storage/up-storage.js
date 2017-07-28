@@ -231,7 +231,6 @@ class ProxyStorage {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
-      headers['Accept'] = 'application/octet-stream';
     }
 
     this.request({
