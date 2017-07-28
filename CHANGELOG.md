@@ -1,3 +1,23 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/verdaccio/verdaccio/compare/v2.3.0...v2.3.2) (2017-07-28)
+
+
+### Bug Fixes
+
+* :bug: detail page can't handle scoped package ([1c9fbfc](https://github.com/verdaccio/verdaccio/commit/1c9fbfc))
+* [#268](https://github.com/verdaccio/verdaccio/issues/268) remove the accept header that avoids request with some regiestries ([e7dcf3c](https://github.com/verdaccio/verdaccio/commit/e7dcf3c))
+* [#78](https://github.com/verdaccio/verdaccio/issues/78) add new setting to allow publish when uplinks are offline ([430425c](https://github.com/verdaccio/verdaccio/commit/430425c))
+* broken link ([9fb0e14](https://github.com/verdaccio/verdaccio/commit/9fb0e14))
+* lint warning ([d0afe78](https://github.com/verdaccio/verdaccio/commit/d0afe78))
+* Param web.title from config.yaml does not work on docker image [#265](https://github.com/verdaccio/verdaccio/issues/265) ([b1a396d](https://github.com/verdaccio/verdaccio/commit/b1a396d))
+* undefined check ([ff96d2e](https://github.com/verdaccio/verdaccio/commit/ff96d2e))
+
+
+
 ## 2.3.1 (July 25, 2017)
 
 - bug: Detail page can't handle scoped package - [#261](https://github.com/verdaccio/verdaccio/pull/261)
@@ -422,4 +442,3 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 ## 22 May 2013, version 0.0.0
 
 - first commits
-
