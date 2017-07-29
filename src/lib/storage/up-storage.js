@@ -13,6 +13,9 @@ const zlib = require('zlib');
 const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
+
+const contenTypeAccept = 'application/octet-stream, application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*';
+
 /**
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
  * @param {Object} config
@@ -231,6 +234,7 @@ class ProxyStorage {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
+      headers['Accept'] = contenTypeAccept;
     }
 
     this.request({
@@ -267,7 +271,9 @@ class ProxyStorage {
     let readStream = this.request({
       uri_full: url,
       encoding: null,
-      headers: {Accept: 'application/octet-stream'},
+      headers: {
+        Accept: contenTypeAccept,
+      },
     });
 
     readStream.on('response', function(res) {
