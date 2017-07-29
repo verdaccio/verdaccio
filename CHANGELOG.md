@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.3"></a>
+## [2.3.3](https://github.com/verdaccio/verdaccio/compare/v2.3.2...v2.3.3) (2017-07-29)
+
+
+### Bug Fixes
+
+* refactor [#268](https://github.com/verdaccio/verdaccio/issues/268) in a better way, amended to elegant way ([94fb6ad](https://github.com/verdaccio/verdaccio/commit/94fb6ad))
+
+
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/verdaccio/verdaccio/compare/v2.3.0...v2.3.2) (2017-07-28)
 
