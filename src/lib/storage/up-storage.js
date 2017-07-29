@@ -14,10 +14,12 @@ const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
 
+const jsonContentType = 'application/json';
+
 const contenTypeAccept = [
   'application/octet-stream',
-  'application/vnd.npm.install-v1+json; q=1.0',
-  'application/json; q=0.8, */*',
+  // 'application/vnd.npm.install-v1+json; q=1.0',
+  `${jsonContentType} q=0.8, */*`,
 ].join(', ');
 
 /**
@@ -94,7 +96,7 @@ class ProxyStorage {
 
     let self = this;
     let headers = options.headers || {};
-    headers['Accept'] = headers['Accept'] || 'application/json';
+    headers['Accept'] = headers['Accept'] || contenTypeAccept;
     headers['Accept-Encoding'] = headers['Accept-Encoding'] || 'gzip';
     // registry.npmjs.org will only return search result if user-agent include string 'npm'
     headers['User-Agent'] = headers['User-Agent'] || `npm (${this.userAgent})`;
@@ -229,12 +231,12 @@ class ProxyStorage {
   }
 
   /**
-   * Get a remote package.
-   * @param {*} name
-   * @param {*} options
+   * Get a remote package metadata
+   * @param {*} name package name
+   * @param {*} options request options, eg: eTag.
    * @param {*} callback
    */
-  getRemotePackage(name, options, callback) {
+  getRemoteMetadata(name, options, callback) {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
@@ -263,16 +265,17 @@ class ProxyStorage {
   }
 
   /**
-   * Get an url.
+   * Fetch a tarball from the uplink.
    * @param {String} url
    * @return {Stream}
    */
-  get_url(url) {
+  fetchTarball(url) {
     const stream = new MyStreams.ReadTarball({});
-    stream.abort = function() {};
     let current_length = 0;
     let expected_length;
-    let readStream = this.request({
+
+    stream.abort = () => {};
+    const readStream = this.request({
       uri_full: url,
       encoding: null,
       headers: {

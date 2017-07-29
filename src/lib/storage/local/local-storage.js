@@ -23,6 +23,7 @@ const fileExist = 'EEXISTS';
 const noSuchFile = 'ENOENT';
 const resourceNotAvailable = 'EAGAIN';
 
+
 const generatePackageTemplate = function(name) {
   return {
     // standard things
@@ -178,19 +179,11 @@ class LocalStorage {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               };
-              // if (verdata[Symbol('_verdaccio_uplink')]) {
-              if (version._verdaccio_uplink) {
-                // if we got this information from a known registry,
-                // use the same protocol for the tarball
-                //
-                // see https://github.com/rlidwka/sinopia/issues/166
-                const tarballUrl = URL.parse(hash.url);
-                const uplinkUrl = URL.parse(this.config.uplinks[version._verdaccio_uplink].url);
-                if (uplinkUrl.host === tarballUrl.host) {
-                  tarballUrl.protocol = uplinkUrl.protocol;
-                  hash.registry = version._verdaccio_uplink;
-                  hash.url = URL.format(tarballUrl);
-                }
+
+              const upLink = version[Symbol.for('__verdaccio_uplink')];
+
+              if (_.isNil(upLink) === false) {
+                hash = this._updateUplinkToRemoteProtocol(hash, upLink);
               }
             }
           }
@@ -214,6 +207,7 @@ class LocalStorage {
           }
         }
       }
+
       if (packageInfo.readme !== packageLocalJson.readme) {
         packageLocalJson.readme = packageInfo.readme;
         change = true;
@@ -233,6 +227,27 @@ class LocalStorage {
         callback(null, packageLocalJson);
       }
     });
+  }
+
+  /**
+   * Ensure the dist file remains as the same protocol
+   * @param {Object} hash metadata
+   * @param {String} upLink registry key
+   * @private
+   */
+  _updateUplinkToRemoteProtocol(hash, upLink) {
+    // if we got this information from a known registry,
+    // use the same protocol for the tarball
+    //
+    // see https://github.com/rlidwka/sinopia/issues/166
+    const tarballUrl = URL.parse(hash.url);
+    const uplinkUrl = URL.parse(this.config.uplinks[upLink].url);
+
+    if (uplinkUrl.host === tarballUrl.host) {
+      tarballUrl.protocol = uplinkUrl.protocol;
+      hash.registry = upLink;
+      hash.url = URL.format(tarballUrl);
+    }
   }
 
   /**
@@ -441,7 +456,7 @@ class LocalStorage {
         uploadStream.emit('error', createError[409]('this tarball is already present'));
       } else if (err.code === noSuchFile) {
         // check if package exists to throw an appropriate message
-        this.getPackage(name, function(_err, res) {
+        this.getPackageMetadata(name, function(_err, res) {
           if (_err) {
             uploadStream.emit('error', _err);
           } else {
@@ -541,12 +556,12 @@ class LocalStorage {
    * @param {*} callback
    * @return {Function}
    */
-  getPackage(name, options, callback) {
+  getPackageMetadata(name, options, callback) {
     if (_.isFunction(options)) {
       callback = options || {};
     }
 
-    let storage = this.storage(name);
+    const storage = this.storage(name);
     if (!storage) {
       return callback( createError[404]('no such package available') );
     }
@@ -580,7 +595,7 @@ class LocalStorage {
           }
 
           if (stats.mtime > startKey) {
-            this.getPackage(item.name, options, function(err, data) {
+            this.getPackageMetadata(item.name, options, function(err, data) {
               if (err) {
                 return cb(err);
               }

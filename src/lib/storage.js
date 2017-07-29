@@ -14,6 +14,16 @@ const MyStreams = require('./storage/streams');
 const Proxy = require('./storage/up-storage');
 const Utils = require('./utils');
 
+const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
+const getDefaultMetadata = (name) => {
+  return {
+    'name': name,
+    'versions': {},
+    'dist-tags': {},
+    '_uplinks': {},
+  };
+};
+
 /**
  * Implements Storage interface
  * (same for storage.js, local-storage.js, up-storage.js).
@@ -51,7 +61,7 @@ class Storage {
      */
     const checkPackageLocal = () => {
       return new Promise((resolve, reject) => {
-        this.localStorage.getPackage(name, {}, (err, results) => {
+        this.localStorage.getPackageMetadata(name, {}, (err, results) => {
           if (!_.isNil(err) && err.status !== 404) {
             return reject(err);
           }
@@ -69,7 +79,7 @@ class Storage {
      */
     const checkPackageRemote = () => {
       return new Promise((resolve, reject) => {
-        self._sync_package_with_uplinks(name, null, {}, (err, results, err_results) => {
+        self._syncUplinksMetadata(name, null, {}, (err, results, err_results) => {
           // something weird
           if (err && err.status !== 404) {
             return reject(err);
@@ -248,20 +258,20 @@ class Storage {
       let err404 = err;
       rstream.abort();
       rstream = null; // gc
-      self.localStorage.getPackage(name, function(err, info) {
-        if (!err && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
+      self.localStorage.getPackageMetadata(name, (err, info) => {
+        if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
           // information about this file exists locally
-          serve_file(info._distfiles[filename]);
+          serveFile(info._distfiles[filename]);
         } else {
           // we know nothing about this file, trying to get information elsewhere
-          self._sync_package_with_uplinks(name, info, {}, function(err, info) {
-            if (err) {
+          self._syncUplinksMetadata(name, info, {}, (err, info) => {
+            if (_.isNil(err) === false) {
                return readStream.emit('error', err);
             }
-            if (!info._distfiles || _.isNil(info._distfiles[filename])) {
+            if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
               return readStream.emit('error', err404);
             }
-            serve_file(info._distfiles[filename]);
+            serveFile(info._distfiles[filename]);
           });
         }
       });
@@ -279,7 +289,7 @@ class Storage {
      * Fetch and cache local/remote packages.
      * @param {Object} file define the package shape
      */
-    function serve_file(file) {
+    function serveFile(file) {
       let uplink = null;
       for (let p in self.uplinks) {
         if (self.uplinks[p].isUplinkValid(file.url)) {
@@ -300,7 +310,7 @@ class Storage {
       let on_open = function() {
         // prevent it from being called twice
         on_open = function() {};
-        let rstream2 = uplink.get_url(file.url);
+        let rstream2 = uplink.fetchTarball(file.url);
         rstream2.on('error', function(err) {
           if (savestream) {
             savestream.abort();
@@ -357,21 +367,23 @@ class Storage {
    * @param {*} callback
    */
   get_package(name, options, callback) {
-    if (typeof(options) === 'function') {
+    if (_.isFunction(options)) {
       callback = options, options = {};
     }
 
-    this.localStorage.getPackage(name, options, (err, data) => {
+    this.localStorage.getPackageMetadata(name, options, (err, data) => {
       if (err && (!err.status || err.status >= 500)) {
         // report internal errors right away
         return callback(err);
       }
 
-      this._sync_package_with_uplinks(name, data, options, function(err, result, uplink_errors) {
-        if (err) return callback(err);
-        const whitelist = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
+      this._syncUplinksMetadata(name, data, options, function(err, result, uplink_errors) {
+        if (err) {
+          return callback(err);
+        }
+
         for (let i in result) {
-          if (whitelist.indexOf(i) === -1) {
+          if (WHITELIST.indexOf(i) === -1) {
             delete result[i];
           }
         }
@@ -454,9 +466,10 @@ class Storage {
     let packages = [];
 
     const getPackage = function(i) {
-      self.localStorage.getPackage(locals[i], function(err, info) {
-        if (!err) {
-          let latest = info['dist-tags'].latest;
+      self.localStorage.getPackageMetadata(locals[i], function(err, info) {
+        if (_.isNil(err) === false) {
+          const latest = info['dist-tags'].latest;
+
           if (latest && info.versions[latest]) {
             packages.push(info.versions[latest]);
           } else {
@@ -480,7 +493,7 @@ class Storage {
   }
 
   /**
-   * Function fetches package information from uplinks and synchronizes it with local data
+   * Function fetches package metadata from uplinks and synchronizes it with local data
      if package is available locally, it MUST be provided in pkginfo
      returns callback(err, result, uplink_errors)
    * @param {*} name
@@ -488,43 +501,44 @@ class Storage {
    * @param {*} options
    * @param {*} callback
    */
-  _sync_package_with_uplinks(name, packageInfo, options, callback) {
-    let self = this;
+  _syncUplinksMetadata(name, packageInfo, options, callback) {
     let exists = false;
-    if (!packageInfo) {
-      exists = false;
+    const self = this;
+    const upLinks = [];
 
-      packageInfo = {
-        'name': name,
-        'versions': {},
-        'dist-tags': {},
-        '_uplinks': {},
-      };
+    if (_.isNil(packageInfo)) {
+      exists = false;
+      packageInfo = getDefaultMetadata(name);
     } else {
       exists = true;
     }
 
-    let upLinks = [];
-    for (let i in self.uplinks) {
-      if (self.config.hasProxyTo(name, i)) {
-        upLinks.push(self.uplinks[i]);
+
+    for (let up in this.uplinks) {
+      if (this.config.hasProxyTo(name, up)) {
+        upLinks.push(this.uplinks[up]);
       }
     }
 
-    async.map(upLinks, function(up, cb) {
-      let _options = Object.assign({}, options);
-      if (Utils.is_object(packageInfo._uplinks[up.upname])) {
-        let fetched = packageInfo._uplinks[up.upname].fetched;
-        if (fetched && fetched > (Date.now() - up.maxage)) {
+    async.map(upLinks, (upLink, cb) => {
+
+      const _options = Object.assign({}, options);
+      let upLinkMeta = packageInfo._uplinks[upLink.upname];
+
+      if (Utils.is_object(upLinkMeta)) {
+
+        const fetched = upLinkMeta.fetched;
+
+        if (fetched && fetched > (Date.now() - upLink.maxage)) {
           return cb();
         }
 
-        _options.etag = packageInfo._uplinks[up.upname].etag;
+        _options.etag = upLinkMeta.etag;
       }
 
-      up.getRemotePackage(name, _options, function(err, upLinkResponse, etag) {
+      upLink.getRemoteMetadata(name, _options, (err, upLinkResponse, eTag) => {
         if (err && err.status === 304) {
-          packageInfo._uplinks[up.upname].fetched = Date.now();
+          upLinkMeta.fetched = Date.now();
         }
 
         if (err || !upLinkResponse) {
@@ -541,8 +555,8 @@ class Storage {
           return cb(null, [err]);
         }
 
-        packageInfo._uplinks[up.upname] = {
-          etag: etag,
+        packageInfo._uplinks[upLink.upname] = {
+          etag: eTag,
           fetched: Date.now(),
         };
 
@@ -551,18 +565,7 @@ class Storage {
           packageInfo['time'] = upLinkResponse.time;
         }
 
-        for (let i in upLinkResponse.versions) {
-           if (Object.prototype.hasOwnProperty.call(upLinkResponse.versions, i)) {
-            // this won't be serialized to json,
-            // kinda like an ES6 Symbol
-            Object.defineProperty(upLinkResponse.versions[i], '_verdaccio_uplink', {
-              value: up.upname,
-              enumerable: false,
-              configurable: false,
-              writable: true,
-            });
-          }
-        }
+        this._updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 
         try {
           Storage._merge_versions(packageInfo, upLinkResponse, self.config);
@@ -579,7 +582,7 @@ class Storage {
         exists = true;
         cb();
       });
-    }, function(err, upLinksErrors) {
+    }, (err, upLinksErrors) => {
       assert(!err && Array.isArray(upLinksErrors));
 
       if (!exists) {
@@ -595,6 +598,23 @@ class Storage {
         return callback(null, packageJsonLocal, upLinksErrors);
       });
     });
+  }
+
+  /**
+   * Set a hidden value for each version.
+   * @param {Array} versions list of version
+   * @param {String} upLink uplink name
+   * @private
+   */
+  _updateVersionsHiddenUpLink(versions, upLink) {
+    for (let i in versions) {
+      if (Object.prototype.hasOwnProperty.call(versions, i)) {
+        const version = versions[i];
+
+        // holds a "hidden" value to be used by the package storage.
+        version[Symbol.for('__verdaccio_uplink')] = upLink.upname;
+      }
+    }
   }
 
   /**
