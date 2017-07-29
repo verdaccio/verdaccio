@@ -10,6 +10,7 @@ const Logger = require('../logger');
 const MyStreams = require('./streams');
 const Utils = require('../utils');
 const zlib = require('zlib');
+
 const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
@@ -18,7 +19,7 @@ const jsonContentType = 'application/json';
 
 const contenTypeAccept = [
   'application/octet-stream',
-  // 'application/vnd.npm.install-v1+json; q=1.0',
+  'application/vnd.npm.install-v1+json; q=1.0',
   `${jsonContentType} q=0.8, */*`,
 ].join(', ');
 
@@ -27,7 +28,7 @@ const contenTypeAccept = [
  * @param {Object} config
  * @param {Object} key
  * @param {Object} def
- * @return {String}
+ * @return {Object}
  */
 const setConfig = (config, key, def) => {
   return _.isNil(config[key]) === false ? config[key] : def;
@@ -80,14 +81,17 @@ class ProxyStorage {
    */
   request(options, cb) {
     let json;
+
     if (this._statusCheck() === false) {
       let streamRead = new Stream.Readable();
+
       process.nextTick(function() {
         if (_.isFunction(cb)) {
           cb(createError('uplink is offline'));
         }
         streamRead.emit('error', createError('uplink is offline'));
       });
+
       streamRead._read = function() {};
       // preventing 'Uncaught, unspecified "error" event'
       streamRead.on('error', function() {});
@@ -95,19 +99,10 @@ class ProxyStorage {
     }
 
     let self = this;
-    let headers = options.headers || {};
-    headers['Accept'] = headers['Accept'] || contenTypeAccept;
-    headers['Accept-Encoding'] = headers['Accept-Encoding'] || 'gzip';
-    // registry.npmjs.org will only return search result if user-agent include string 'npm'
-    headers['User-Agent'] = headers['User-Agent'] || `npm (${this.userAgent})`;
-    this._addProxyHeaders(options.req, headers);
+    let headers = this._setHeaders(options);
 
-    // add/override headers specified in the config
-    for (let key in this.config.headers) {
-      if (Object.prototype.hasOwnProperty.call(this.config.headers, key)) {
-        headers[key] = this.config.headers[key];
-      }
-    }
+    this._addProxyHeaders(options.req, headers);
+    this._overrideWithUplinkConfigHeaders(headers);
 
     const method = options.method || 'GET';
     const uri = options.uri_full || (this.config.url + options.uri);
@@ -218,6 +213,53 @@ class ProxyStorage {
       }
     });
     return req;
+  }
+
+  /**
+   * Set default headers.
+   * @param {Object} options
+   * @return {Object}
+   * @private
+   */
+  _setHeaders(options) {
+    const headers = options.headers || {};
+    const accept = 'Accept';
+    const acceptEncoding = 'Accept-Encoding';
+    const userAgent = 'User-Agent';
+
+    headers[accept] = headers[accept] || contenTypeAccept;
+    headers[acceptEncoding] = headers[acceptEncoding] || 'gzip';
+    // registry.npmjs.org will only return search result if user-agent include string 'npm'
+    headers[userAgent] = headers[userAgent] || `npm (${this.userAgent})`;
+    return headers;
+  }
+
+  /**
+   * It will add or override specified headers from config file.
+   *
+   * Eg:
+   *
+   * uplinks:
+       npmjs:
+         url: https://registry.npmjs.org/
+         headers:
+           Accept: "application/vnd.npm.install-v2+json; q=1.0"
+       verdaccio-staging:
+         url: https://mycompany.com/npm
+         headers:
+           Accept: "application/json"
+           authorization: "Basic YourBase64EncodedCredentials=="
+
+   * @param {Object} headers
+   * @private
+   */
+  _overrideWithUplinkConfigHeaders(headers) {
+    // add/override headers specified in the config
+    for (let key in this.config.headers) {
+      if (Object.prototype.hasOwnProperty.call(this.config.headers, key)) {
+        headers[key] = this.config.headers[key];
+      }
+    }
   }
 
   /**
