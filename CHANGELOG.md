@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.4"></a>
+## [2.3.4](https://github.com/verdaccio/verdaccio/compare/v2.3.3...v2.3.4) (2017-07-29)
+
+
+### Bug Fixes
+
+* Docker image fails due lock file localhost references ([901a7be](https://github.com/verdaccio/verdaccio/commit/901a7be))
+
+
+
 <a name="2.3.3"></a>
 ## [2.3.3](https://github.com/verdaccio/verdaccio/compare/v2.3.2...v2.3.3) (2017-07-29)
 
