@@ -5,6 +5,10 @@
 
 `verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
 
+### Logo
+
+We are looking for a new logo, ⚡⚡⚡ [please 🙏🙏 I encorage you to contribute helping us to decide](https://github.com/verdaccio/verdaccio/issues/237) ⚡⚡⚡
+
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
 [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
