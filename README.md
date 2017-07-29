@@ -213,6 +213,7 @@ About the storage there is a running discussion [here](https://github.com/verdac
 - [nexus-repository-oss](https://www.sonatype.com/nexus-repository-oss) - Repository manager that handles more than just NPM dependencies
 - Is there something else?
 - [codebox-npm](https://github.com/craftship/codebox-npm) - Serverless private npm registry using
+- [local-npm](https://github.com/nolanlawson/local-npm) - Local and offline-first npm mirror
 
 ## FAQ / Contact / Troubleshoot
 
