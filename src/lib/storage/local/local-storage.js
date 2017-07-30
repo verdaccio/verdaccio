@@ -510,42 +510,69 @@ class LocalStorage {
    * Get a tarball.
    * @param {*} name
    * @param {*} filename
-   * @param {*} callback
-   * @return {Function}
+   * @return {ReadTarball}
    */
-  getTarball(name, filename, callback) {
+  getTarball(name, filename) {
     assert(Utils.validate_name(filename));
+
+    const storage = this.storage(name);
+
+    if (_.isNil(storage)) {
+     return this._createFailureStreamResponse();
+    }
+
+    return this._streamSuccessReadTarBall(storage, filename);
+  }
+
+  /**
+   * Return a stream that emits a read failure.
+   * @private
+   * @return {ReadTarball}
+   */
+  _createFailureStreamResponse() {
     const stream = new customStream.ReadTarball();
+
+    process.nextTick(function() {
+      stream.emit('error', createError[404]('no such file available'));
+    });
+    return stream;
+  }
+
+  /**
+   * Return a stream that emits the tarball data
+   * @param {Object} storage
+   * @param {String} filename
+   * @private
+   * @return {ReadTarball}
+   */
+  _streamSuccessReadTarBall(storage, filename) {
+    const stream = new customStream.ReadTarball();
+    const readTarballStream = storage.createReadStream(filename);
+
     stream.abort = function() {
-      if (rstream) {
-        rstream.abort();
+      if (_.isNil(readTarballStream) === false) {
+        readTarballStream.abort();
       }
     };
 
-    let storage = this.storage(name);
-    if (!storage) {
-      process.nextTick(function() {
-        stream.emit('error', createError[404]('no such file available'));
-      });
-      return stream;
-    }
-    /* eslint no-var: "off" */
-    var rstream = storage.createReadStream(filename);
-    rstream.on('error', function(err) {
+    readTarballStream.on('error', function(err) {
       if (err && err.code === noSuchFile) {
         stream.emit('error', createError(404, 'no such file available'));
       } else {
         stream.emit('error', err);
       }
     });
-    rstream.on('content-length', function(v) {
+
+    readTarballStream.on('content-length', function(v) {
       stream.emit('content-length', v);
     });
-    rstream.on('open', function() {
+
+    readTarballStream.on('open', function() {
       // re-emitting open because it's handled in storage.js
       stream.emit('open');
-      rstream.pipe(stream);
+      readTarballStream.pipe(stream);
     });
+
     return stream;
   }
 
