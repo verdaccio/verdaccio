@@ -30,6 +30,10 @@ module.exports = function() {
         return server.addPackage('testpkg');
       });
 
+      before(function() {
+        return server.addPackage('testpkg-single-tarball');
+      });
+
       it('creating new package', function() {/* test for before() */});
 
       it('downloading non-existent tarball', function() {
@@ -48,6 +52,12 @@ module.exports = function() {
                    .body_ok(/.*/);
         });
 
+        before(function() {
+          return server.putTarball('testpkg-single-tarball', 'single', readfile('fixtures/binary'))
+            .status(201)
+            .body_ok(/.*/);
+        });
+
         after(function() {
           return server.removeTarball('testpkg').status(201);
         });
@@ -63,6 +73,18 @@ module.exports = function() {
         it('remove non existing tarball', function() {
           return server.removeTarball('testpkg404').status(404);
         });
+
+        it('remove non existing single tarball', function() {
+          return server.removeSingleTarball('', 'fakeFile').status(404);
+        });
+
+        // testexp-incomplete
+
+        it('remove existing single tarball', function() {
+          return server.removeSingleTarball('testpkg-single-tarball', 'single').status(201);
+        });
+
+        // testexp-incomplete
 
         it('downloading newly created tarball', function() {
           return server.getTarball('testpkg', 'blahblah')

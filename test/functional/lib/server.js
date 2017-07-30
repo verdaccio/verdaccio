@@ -118,6 +118,17 @@ class Server {
     });
   }
 
+  removeSingleTarball(name, filename) {
+    return this.request({
+      uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+      },
+    });
+  }
+
+
   addTag(name, tag, version) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
