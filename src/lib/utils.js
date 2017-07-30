@@ -5,6 +5,7 @@ const semver = require('semver');
 const URL = require('url');
 const _ = require('lodash');
 const Logger = require('./logger');
+const createError = require('http-errors');
 
 /**
  * Validate a package.
@@ -319,6 +320,34 @@ function getWebProtocol(req) {
   return req.get('X-Forwarded-Proto') || req.protocol;
 }
 
+const getLatestVersion = function(pkgInfo) {
+  return pkgInfo['dist-tags'].latest;
+};
+
+const ErrorCode = {
+  get409: () => {
+    return createError(409, 'this package is already present');
+  },
+  get422: (customMessage) => {
+    return createError(422, customMessage || 'bad data');
+  },
+  get400: (customMessage) => {
+    return createError(400, customMessage);
+  },
+  get500: () => {
+    return createError(500);
+  },
+  get403: () => {
+    return createError(403, 'can\'t use this filename');
+  },
+  get503: () => {
+    return createError(500, 'resource temporarily unavailable');
+  },
+  get404: (customMessage) => {
+    return createError(404, customMessage || 'no such package available');
+  },
+};
+
 module.exports.parseInterval = parseInterval;
 module.exports.semver_sort = semverSort;
 module.exports.parse_address = parse_address;
@@ -332,3 +361,5 @@ module.exports.is_object = isObject;
 module.exports.validate_name = validate_name;
 module.exports.validate_package = validate_package;
 module.exports.getWebProtocol = getWebProtocol;
+module.exports.getLatestVersion = getLatestVersion;
+module.exports.ErrorCode = ErrorCode;

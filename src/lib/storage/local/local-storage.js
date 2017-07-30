@@ -9,7 +9,6 @@ const Path = require('path');
 const Stream = require('stream');
 const URL = require('url');
 const async = require('async');
-const createError = require('http-errors');
 const _ = require('lodash');
 
 const fsStorage = require('./local-fs');
@@ -79,17 +78,17 @@ class LocalStorage {
     const storage = this._getLocalStorage(name);
 
     if (!storage) {
-      return callback( createError(404, 'this package cannot be added'));
+      return callback( this.utils.ErrorCode.get404('this package cannot be added'));
     }
 
-    storage.createJSON(pkgFileName, generatePackageTemplate(name), function(err) {
+    storage.createJSON(pkgFileName, generatePackageTemplate(name), (err) => {
       if (err && err.code === fileExist) {
-        return callback( createError(409, 'this package is already present'));
+        return callback( this.utils.ErrorCode.get409());
       }
 
-      const latest = info['dist-tags'].latest;
+      const latest = this.utils.getLatestVersion(info);
 
-      if (latest && info.versions[latest]) {
+      if (_.isNil(latest) === false && info.versions[latest]) {
         return callback(null, info.versions[latest]);
       }
       return callback();
@@ -107,13 +106,13 @@ class LocalStorage {
 
     let storage = this._getLocalStorage(name);
     if (!storage) {
-      return callback( createError(404, 'no such package available'));
+      return callback( this.utils.ErrorCode.get404());
     }
 
     storage.readJSON(pkgFileName, (err, data) => {
       if (err) {
         if (err.code === noSuchFile) {
-          return callback( createError(404, 'no such package available'));
+          return callback( this.utils.ErrorCode.get404());
         } else {
           return callback(err);
         }
@@ -267,25 +266,29 @@ class LocalStorage {
       delete metadata.readme;
 
       if (data.versions[version] != null) {
-        return cb( createError[409]('this version already present') );
+        return cb( this.utils.ErrorCode.get409() );
       }
 
       // if uploaded tarball has a different shasum, it's very likely that we have some kind of error
-      if (this.utils.is_object(metadata.dist) && typeof(metadata.dist.tarball) === 'string') {
+      if (this.utils.is_object(metadata.dist) && _.isString(metadata.dist.tarball)) {
         let tarball = metadata.dist.tarball.replace(/.*\//, '');
+
         if (this.utils.is_object(data._attachments[tarball])) {
-          if (data._attachments[tarball].shasum != null && metadata.dist.shasum != null) {
+
+          if (_.isNil(data._attachments[tarball].shasum) === false && _.isNil(metadata.dist.shasum) === false) {
             if (data._attachments[tarball].shasum != metadata.dist.shasum) {
-              return cb( createError[400]('shasum error, '
-                                  + data._attachments[tarball].shasum
-                                  + ' != ' + metadata.dist.shasum) );
+              const errorMessage = `shasum error, ${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
+              return cb( this.utils.ErrorCode.get400(errorMessage) );
             }
           }
+
           let currentDate = new Date().toISOString();
           data.time['modified'] = currentDate;
+
           if (('created' in data.time) === false) {
             data.time.created = currentDate;
           }
+
           data.time[version] = currentDate;
           data._attachments[tarball].version = version;
         }
@@ -313,13 +316,30 @@ class LocalStorage {
         }
         // be careful here with == (cast)
         if (_.isNil(data.versions[tags[t]])) {
-          return cb( createError[404]('this version doesn\'t exist') );
+          return cb( this._getVersionNotFound() );
         }
 
         this.utils.tag_version(data, tags[t], t);
       }
       cb();
     }, callback);
+  }
+
+  /**
+   * Return version not found
+   * @return {String}
+   * @private
+   */
+  _getVersionNotFound() {
+    return this.utils.ErrorCode.get404('this version doesn\'t exist');
+  }
+  /**
+   * Return file no available
+   * @return {String}
+   * @private
+   */
+  _getFileNotAvailable() {
+    return this.utils.ErrorCode.get404('no such file available');
   }
 
  /**
@@ -339,7 +359,7 @@ class LocalStorage {
         }
 
         if (_.isNil(data.versions[tags[t]])) {
-          return cb( createError[404]('this version doesn\'t exist') );
+          return cb( this._getVersionNotFound() );
         }
 
         this.utils.tag_version(data, tags[t], t);
@@ -359,7 +379,7 @@ class LocalStorage {
    */
   changePackage(name, metadata, revision, callback) {
     if (!this.utils.is_object(metadata.versions) || !this.utils.is_object(metadata['dist-tags'])) {
-      return callback( createError[422]('bad data') );
+      return callback( this.utils.ErrorCode.get422());
     }
 
     this._updatePackage(name, (data, cb) => {
@@ -400,7 +420,7 @@ class LocalStorage {
         delete data._attachments[filename];
         cb();
       } else {
-        cb(createError[404]('no such file available'));
+        cb(this._getFileNotAvailable());
       }
     }, (err) => {
       if (err) {
@@ -440,14 +460,14 @@ class LocalStorage {
 
     if (name === pkgFileName || name === '__proto__') {
       process.nextTick(function() {
-        uploadStream.emit('error', createError[403]('can\'t use this filename'));
+        uploadStream.emit('error', this.utils.ErrorCode.get403());
       });
       return uploadStream;
     }
 
     if (!storage) {
-      process.nextTick(function() {
-        uploadStream.emit('error', createError[404]('can\'t upload this package'));
+      process.nextTick(() => {
+        uploadStream.emit('error', ('can\'t upload this package'));
       });
       return uploadStream;
     }
@@ -456,7 +476,7 @@ class LocalStorage {
 
     writeStream.on('error', (err) => {
       if (err.code === fileExist) {
-        uploadStream.emit('error', createError[409]('this tarball is already present'));
+        uploadStream.emit('error', this.utils.ErrorCode.get409());
       } else if (err.code === noSuchFile) {
         // check if package exists to throw an appropriate message
         this.getPackageMetadata(name, function(_err, res) {
@@ -497,7 +517,7 @@ class LocalStorage {
 
     uploadStream.done = function() {
       if (!length) {
-        uploadStream.emit('error', createError[422]('refusing to accept zero-length file'));
+        uploadStream.emit('error', this.utils.ErrorCode.get422('refusing to accept zero-length file'));
         writeStream.abort();
       } else {
         writeStream.done();
@@ -535,8 +555,8 @@ class LocalStorage {
   _createFailureStreamResponse() {
     const stream = new customStream.ReadTarball();
 
-    process.nextTick(function() {
-      stream.emit('error', createError[404]('no such file available'));
+    process.nextTick(() => {
+      stream.emit('error', this._getFileNotAvailable());
     });
     return stream;
   }
@@ -551,6 +571,7 @@ class LocalStorage {
   _streamSuccessReadTarBall(storage, filename) {
     const stream = new customStream.ReadTarball();
     const readTarballStream = storage.createReadStream(filename);
+    const e404 = this.utils.ErrorCode.get404;
 
     stream.abort = function() {
       if (_.isNil(readTarballStream) === false) {
@@ -560,7 +581,7 @@ class LocalStorage {
 
     readTarballStream.on('error', function(err) {
       if (err && err.code === noSuchFile) {
-        stream.emit('error', createError(404, 'no such file available'));
+        stream.emit('error', e404('no such file available'));
       } else {
         stream.emit('error', err);
       }
@@ -593,7 +614,7 @@ class LocalStorage {
 
     const storage = this._getLocalStorage(name);
     if (_.isNil(storage)) {
-      return callback( createError[404]('no such package available') );
+      return callback( this.utils.ErrorCode.get404() );
     }
 
     this.readJSON(storage, callback);
@@ -608,7 +629,7 @@ class LocalStorage {
     storage.readJSON(pkgFileName, (err, result) => {
       if (err) {
         if (err.code === noSuchFile) {
-          return callback( createError[404]('no such package available') );
+          return callback( this.utils.ErrorCode.get404() );
         } else {
           return callback(this._internalError(err, pkgFileName, 'error reading'));
         }
@@ -826,7 +847,7 @@ class LocalStorage {
     _internalError(err, file, message) {
       this.logger.error( {err: err, file: file},
         message + ' @{file}: @{!err.message}' );
-      return createError[500]();
+      return this.utils.ErrorCode.get500();
     }
 
     /**
@@ -846,7 +867,7 @@ class LocalStorage {
     _updatePackage(name, updateFn, _callback) {
       const storage = this._getLocalStorage(name);
       if (!storage) {
-        return _callback( createError[404]('no such package available') );
+        return _callback( this.utils.ErrorCode.get404() );
       }
       storage.lockAndReadJSON(pkgFileName, (err, json) => {
         let locked = false;
@@ -870,9 +891,9 @@ class LocalStorage {
 
         if (err) {
           if (err.code === resourceNotAvailable) {
-            return callback( createError[503]('resource temporarily unavailable') );
+            return callback( this.utils.ErrorCode.get503() );
           } else if (err.code === noSuchFile) {
-            return callback( createError[404]('no such package available') );
+            return callback( this.utils.ErrorCode.get404() );
           } else {
             return callback(err);
           }
