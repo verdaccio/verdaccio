@@ -14,15 +14,12 @@ const _ = require('lodash');
 
 const fsStorage = require('./local-fs');
 const LocalData = require('./local-data');
-const Logger = require('../../logger');
 const customStream = require('../streams');
-const Utils = require('../../utils');
 
 const pkgFileName = 'package.json';
 const fileExist = 'EEXISTS';
 const noSuchFile = 'ENOENT';
 const resourceNotAvailable = 'EAGAIN';
-
 
 const generatePackageTemplate = function(name) {
   return {
@@ -46,11 +43,14 @@ class LocalStorage {
   /**
    * Constructor
    * @param {Object} config config list of properties
+   * @param {Object} logger reference
+   * @param {Object} utils package utilities
    */
-  constructor(config) {
+  constructor(config, logger, utils) {
     this.config = config;
+    this.utils = utils;
     this.localList = new LocalData(this._buildStoragePath(this.config));
-    this.logger = Logger.logger.child({sub: 'fs'});
+    this.logger = logger.child({sub: 'fs'});
   }
 
   /**
@@ -76,7 +76,7 @@ class LocalStorage {
    * @return {Function}
    */
   addPackage(name, info, callback) {
-    const storage = this.storage(name);
+    const storage = this._getLocalStorage(name);
 
     if (!storage) {
       return callback( createError(404, 'this package cannot be added'));
@@ -86,7 +86,9 @@ class LocalStorage {
       if (err && err.code === fileExist) {
         return callback( createError(409, 'this package is already present'));
       }
+
       const latest = info['dist-tags'].latest;
+
       if (latest && info.versions[latest]) {
         return callback(null, info.versions[latest]);
       }
@@ -103,7 +105,7 @@ class LocalStorage {
   removePackage(name, callback) {
     this.logger.info( {name: name}, 'unpublishing @{name} (all)');
 
-    let storage = this.storage(name);
+    let storage = this._getLocalStorage(name);
     if (!storage) {
       return callback( createError(404, 'no such package available'));
     }
@@ -197,7 +199,7 @@ class LocalStorage {
       }
       for (let up in packageInfo._uplinks) {
         if (Object.prototype.hasOwnProperty.call(packageInfo._uplinks, up)) {
-          const need_change = !Utils.is_object(packageLocalJson._uplinks[up])
+          const need_change = !this.utils.is_object(packageLocalJson._uplinks[up])
                         || packageInfo._uplinks[up].etag !== packageLocalJson._uplinks[up].etag
                         || packageInfo._uplinks[up].fetched !== packageLocalJson._uplinks[up].fetched;
 
@@ -269,9 +271,9 @@ class LocalStorage {
       }
 
       // if uploaded tarball has a different shasum, it's very likely that we have some kind of error
-      if (Utils.is_object(metadata.dist) && typeof(metadata.dist.tarball) === 'string') {
+      if (this.utils.is_object(metadata.dist) && typeof(metadata.dist.tarball) === 'string') {
         let tarball = metadata.dist.tarball.replace(/.*\//, '');
-        if (Utils.is_object(data._attachments[tarball])) {
+        if (this.utils.is_object(data._attachments[tarball])) {
           if (data._attachments[tarball].shasum != null && metadata.dist.shasum != null) {
             if (data._attachments[tarball].shasum != metadata.dist.shasum) {
               return cb( createError[400]('shasum error, '
@@ -290,7 +292,7 @@ class LocalStorage {
       }
 
       data.versions[version] = metadata;
-      Utils.tag_version(data, version, tag);
+      this.utils.tag_version(data, version, tag);
       this.localList.add(name);
       cb();
     }, callback);
@@ -303,7 +305,7 @@ class LocalStorage {
    * @param {*} callback
    */
   mergeTags(name, tags, callback) {
-    this._updatePackage(name, function updater(data, cb) {
+    this._updatePackage(name, (data, cb) => {
       for (let t in tags) {
         if (tags[t] === null) {
           delete data['dist-tags'][t];
@@ -314,7 +316,7 @@ class LocalStorage {
           return cb( createError[404]('this version doesn\'t exist') );
         }
 
-        Utils.tag_version(data, tags[t], t);
+        this.utils.tag_version(data, tags[t], t);
       }
       cb();
     }, callback);
@@ -327,7 +329,7 @@ class LocalStorage {
    * @param {*} callback
    */
   replaceTags(name, tags, callback) {
-    this._updatePackage(name, function updater(data, cb) {
+    this._updatePackage(name, (data, cb) => {
       data['dist-tags'] = {};
 
       for (let t in tags) {
@@ -340,7 +342,7 @@ class LocalStorage {
           return cb( createError[404]('this version doesn\'t exist') );
         }
 
-        Utils.tag_version(data, tags[t], t);
+        this.utils.tag_version(data, tags[t], t);
       }
       cb();
     }, callback);
@@ -356,7 +358,7 @@ class LocalStorage {
    * @return {Function}
    */
   changePackage(name, metadata, revision, callback) {
-    if (!Utils.is_object(metadata.versions) || !Utils.is_object(metadata['dist-tags'])) {
+    if (!this.utils.is_object(metadata.versions) || !this.utils.is_object(metadata['dist-tags'])) {
       return callback( createError[422]('bad data') );
     }
 
@@ -391,7 +393,7 @@ class LocalStorage {
    * @param {*} callback
    */
   removeTarball(name, filename, revision, callback) {
-    assert(Utils.validate_name(filename));
+    assert(this.utils.validate_name(filename));
 
     this._updatePackage(name, (data, cb) => {
       if (data._attachments[filename]) {
@@ -404,7 +406,8 @@ class LocalStorage {
       if (err) {
         return callback(err);
       }
-      let storage = this.storage(name);
+      const storage = this._getLocalStorage(name);
+
       if (storage) {
         storage.unlink(filename, callback);
       }
@@ -418,13 +421,13 @@ class LocalStorage {
    * @return {Stream}
    */
   addTarball(name, filename) {
-    assert(Utils.validate_name(filename));
+    assert(this.utils.validate_name(filename));
 
     let length = 0;
     const shaOneHash = Crypto.createHash('sha1');
     const uploadStream = new customStream.UploadTarball();
     const _transform = uploadStream._transform;
-    const storage = this.storage(name);
+    const storage = this._getLocalStorage(name);
     uploadStream.abort = function() {};
     uploadStream.done = function() {};
 
@@ -513,9 +516,9 @@ class LocalStorage {
    * @return {ReadTarball}
    */
   getTarball(name, filename) {
-    assert(Utils.validate_name(filename));
+    assert(this.utils.validate_name(filename));
 
-    const storage = this.storage(name);
+    const storage = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
      return this._createFailureStreamResponse();
@@ -588,11 +591,20 @@ class LocalStorage {
       callback = options || {};
     }
 
-    const storage = this.storage(name);
-    if (!storage) {
+    const storage = this._getLocalStorage(name);
+    if (_.isNil(storage)) {
       return callback( createError[404]('no such package available') );
     }
 
+    this.readJSON(storage, callback);
+  }
+
+  /**
+   * Read a json file from storage.
+   * @param {Object} storage
+   * @param {Function} callback
+   */
+  readJSON(storage, callback) {
     storage.readJSON(pkgFileName, (err, result) => {
       if (err) {
         if (err.code === noSuchFile) {
@@ -622,12 +634,12 @@ class LocalStorage {
           }
 
           if (stats.mtime > startKey) {
-            this.getPackageMetadata(item.name, options, function(err, data) {
+            this.getPackageMetadata(item.name, options, (err, data) => {
               if (err) {
                 return cb(err);
               }
 
-              const versions = Utils.semver_sort(Object.keys(data.versions));
+              const versions = this.utils.semver_sort(Object.keys(data.versions));
               const latest = data['dist-tags'] && data['dist-tags'].latest ? data['dist-tags'].latest : versions.pop();
 
               if (data.versions[latest]) {
@@ -667,24 +679,36 @@ class LocalStorage {
 
     /**
      * Retrieve a wrapper that provide access to the package location.
-     * @param {*} pkg package name.
+     * @param {Object} packageInfo package name.
      * @return {Object}
      */
-    storage(pkg) {
-      let path = this.config.getMatchedPackagesSpec(pkg).storage;
-      if (_.isNil(path)) {
-        path = this.config.storage;
-      }
+     _getLocalStorage(packageInfo) {
+      const path = this.__getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
+
       if (_.isNil(path) || path === false) {
-        this.logger.debug( {name: pkg}, 'this package has no storage defined: @{name}' );
+        this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
         return null;
       }
+
       return new PathWrapper(
         Path.join(
           Path.resolve(Path.dirname(this.config.self_path || ''), path),
-          pkg
+          packageInfo
         )
       );
+    }
+
+  /**
+   * Verify the right local storage location.
+   * @param {String} path
+   * @return {String}
+   * @private
+   */
+    __getLocalStoragePath(path) {
+      if (_.isNil(path)) {
+        path = this.config.storage;
+      }
+      return path;
     }
 
     /**
@@ -694,6 +718,7 @@ class LocalStorage {
      */
     _eachPackage(onPackage, on_end) {
       let storages = {};
+      let utils = this.utils;
 
       storages[this.config.storage] = true;
       if (this.config.packages) {
@@ -719,8 +744,8 @@ class LocalStorage {
                   return cb(err);
                 }
 
-                async.eachSeries(files, function(file2, cb) {
-                  if (Utils.validate_name(file2)) {
+                async.eachSeries(files, (file2, cb) => {
+                  if (utils.validate_name(file2)) {
                     onPackage({
                       name: `${file}/${file2}`,
                       path: Path.resolve(base, storage, file, file2),
@@ -730,7 +755,7 @@ class LocalStorage {
                   }
                 }, cb);
               });
-            } else if (Utils.validate_name(file)) {
+            } else if (utils.validate_name(file)) {
               onPackage({
                 name: file,
                 path: Path.resolve(base, storage, file),
@@ -741,10 +766,6 @@ class LocalStorage {
           }, cb);
         });
       }, on_end);
-
-      // Object.keys(storages).reduce(() => {
-      //
-      // }, Promise.resolve());
     }
 
     /**
@@ -752,16 +773,19 @@ class LocalStorage {
      * @param {Object} pkg package reference.
      */
     _normalizePackage(pkg) {
-      ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'].forEach(function(key) {
-        if (!Utils.is_object(pkg[key])) {
+      const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
+
+      pkgProperties.forEach((key) => {
+        if (!this.utils.is_object(pkg[key])) {
           pkg[key] = {};
         }
       });
-      if (typeof(pkg._rev) !== 'string') {
+
+      if (_.isString(pkg._rev) === false) {
         pkg._rev = '0-0000000000000000';
       }
       // normalize dist-tags
-      Utils.normalize_dist_tags(pkg);
+      this.utils.normalize_dist_tags(pkg);
     }
 
     /**
@@ -771,7 +795,7 @@ class LocalStorage {
      * @return {Function}
      */
     _readCreatePackage(name, callback) {
-      const storage = this.storage(name);
+      const storage = this._getLocalStorage(name);
       if (!storage) {
         const data = generatePackageTemplate(name);
         this._normalizePackage(data);
@@ -820,7 +844,7 @@ class LocalStorage {
      * @return {Function}
      */
     _updatePackage(name, updateFn, _callback) {
-      const storage = this.storage(name);
+      const storage = this._getLocalStorage(name);
       if (!storage) {
         return _callback( createError[404]('no such package available') );
       }
@@ -879,7 +903,7 @@ class LocalStorage {
       const rev = json._rev.split('-');
       json._rev = ((+rev[0] || 0) + 1) + '-' + Crypto.pseudoRandomBytes(8).toString('hex');
 
-      let storage = this.storage(name);
+      let storage = this._getLocalStorage(name);
       if (!storage) {
         return callback();
       }

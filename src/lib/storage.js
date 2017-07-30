@@ -36,7 +36,7 @@ class Storage {
   constructor(config) {
     this.config = config;
     this._setupUpLinks(this.config);
-    this.localStorage = new LocalStorage(config);
+    this.localStorage = new LocalStorage(config, Logger.logger, Utils);
     this.localStorage.localList.data.secret = this.config.checkSecretKey(this.localStorage.localList.data.secret);
     this.localStorage.localList.sync();
     // an instance for local storage
