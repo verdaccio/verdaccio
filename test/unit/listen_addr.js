@@ -1,7 +1,7 @@
 'use strict';
 
-let assert = require('assert');
-let parse = require('../../src/lib/utils').parse_address;
+const assert = require('assert');
+const parse = require('../../src/lib/utils').parse_address;
 
 describe('Parse address', function() {
   function addTest(what, proto, host, port) {

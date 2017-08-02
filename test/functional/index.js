@@ -56,7 +56,7 @@ describe('Create registry servers', function() {
     /* test for before() */
   });
 
-  require('./access')();
+  require('./package/access')();
   require('./basic')();
   require('./gh29')();
   require('./tags')();
@@ -71,10 +71,10 @@ describe('Create registry servers', function() {
   require('./package/scoped.spec')();
   require('./security')();
   require('./adduser')();
-  require('./auth/logout')();
+  require('./adduser/logout')();
   require('./addtag')();
   require('./plugins')();
-  require('./notify')();
+  require('./notifications/notify')();
   // requires packages published to server1/server2
   require('./uplink.cache')();
 
