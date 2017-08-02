@@ -2,7 +2,9 @@
 
 const assert = require('assert');
 const semver = require('semver');
+const YAML = require('js-yaml');
 const URL = require('url');
+const fs = require('fs');
 const _ = require('lodash');
 const Logger = require('./logger');
 const createError = require('http-errors');
@@ -348,6 +350,8 @@ const ErrorCode = {
   },
 };
 
+const parseConfigFile = (config_path) => YAML.safeLoad(fs.readFileSync(config_path, 'utf8'));
+
 module.exports.parseInterval = parseInterval;
 module.exports.semver_sort = semverSort;
 module.exports.parse_address = parse_address;
@@ -363,3 +367,4 @@ module.exports.validate_package = validate_package;
 module.exports.getWebProtocol = getWebProtocol;
 module.exports.getLatestVersion = getLatestVersion;
 module.exports.ErrorCode = ErrorCode;
+module.exports.parseConfigFile = parseConfigFile;

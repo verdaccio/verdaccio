@@ -6,14 +6,24 @@ const Config = require('../../src/lib/config');
 const path = require('path');
 const _ = require('lodash');
 
-const resolveConf = (conf) => {
-  const fullConfigPath = path.join(__dirname, `../../conf/${conf}.yaml`);
-  return fullConfigPath;
+const resolveConf = (conf) =>  path.join(__dirname, `../../conf/${conf}.yaml`);
+
+const checkUplink = (config) => {
+  assert.equal(_.isObject(config.uplinks['npmjs']), true);
+  assert.equal(config.uplinks['npmjs'].url, 'https://registry.npmjs.org');
 };
 
-const validateConfigFile = (config) => {
-  assert.ok(_.isObject(config.uplinks['npmjs']));
-}
+const checkPackages = (config) => {
+  assert.equal(_.isObject(config.packages), true);
+  assert.equal(Object.keys(config.packages).join('|'), '@*/*|**');
+  assert.equal(config.packages['@*/*'].access, '$all');
+  assert.equal(config.packages['@*/*'].publish, '$authenticated');
+  assert.equal(config.packages['@*/*'].proxy, 'npmjs');
+  assert.equal(config.packages['**'].access, '$all');
+  assert.equal(config.packages['**'].publish, '$authenticated');
+  assert.equal(config.packages['**'].proxy, 'npmjs');
+  assert.equal(config.uplinks['npmjs'].url, 'https://registry.npmjs.org');
+};
 
 describe('Config file', function() {
   before(function() {
@@ -21,25 +31,29 @@ describe('Config file', function() {
     this.config = new Config(Utils.parseConfigFile(resolveConf('full')));
   });
 
-  describe('Config file', function() {
-    it('parse full.yaml', function () {
+  describe('Config file', () => {
+    it('parse full.yaml', () => {
       const config = new Config(Utils.parseConfigFile(resolveConf('full')));
-      validateConfigFile(config);
+      checkUplink(config);
+      assert.equal(config.storage, './storage');
+      assert.equal(config.web.title, 'Verdaccio');
+      checkPackages(config);
     });
 
-    it('parse docker.yaml', function () {
+    it('parse docker.yaml', () => {
       const config = new Config(Utils.parseConfigFile(resolveConf('docker')));
-      validateConfigFile(config);
+      checkUplink(config);
+      assert.equal(config.storage, '/verdaccio/storage');
+      assert.equal(config.auth.htpasswd.file, '/verdaccio/conf/htpasswd');
     });
 
-    it('parse default.yaml', function () {
+    it('parse default.yaml', () => {
       const config = new Config(Utils.parseConfigFile(resolveConf('default')));
-      validateConfigFile(config);
+      checkUplink(config);
+      assert.equal(config.storage, './storage');
+      assert.equal(config.auth.htpasswd.file, './htpasswd');
     });
   });
 
-  it('npmjs uplink should have a default cache option that is true', () => {
-    assert.equal(this.config.uplinks['npmjs'].cache, true);
-  });
 });
 
