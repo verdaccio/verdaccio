@@ -5,9 +5,16 @@
 const assert = require('assert');
 const path = require('path');
 
-describe('index.js app', test('index.js'));
-describe('index.js app', test('../endpoint/index.js'));
-describe('index.js app', test('index.js'));
+/**
+ * Validate.
+ app.param('package', validate_pkg);
+ app.param('filename', validate_name);
+ app.param('tag', validate_name);
+ app.param('version', validate_name);
+ app.param('revision', validate_name);
+ app.param('token', validate_name);
+ */
+describe('api endpoint app.param()', test('../endpoint/index.js'));
 
 function test(file) {
   return function() {
@@ -17,8 +24,9 @@ function test(file) {
 
     let very_scary_regexp = /\n\s*app\.(\w+)\s*\(\s*(("[^"]*")|('[^']*'))\s*,/g;
     let m;
-    let params = {};
+    let appParams = {};
 
+    // look up for matches in the source code
     while ((m = very_scary_regexp.exec(source)) != null) {
       if (m[1] === 'set') continue;
 
@@ -28,16 +36,16 @@ function test(file) {
       inner.split('/').forEach(function(x) {
         t = x.match(/^:([^?:]*)\??$/);
         if (m[1] === 'param') {
-          params[x] = 'ok';
+          appParams[x] = 'ok';
         } else if (t) {
-          params[t[1]] = params[t[1]] || m[0].trim();
+          appParams[t[1]] = appParams[t[1]] || m[0].trim();
         }
       });
     }
 
-    Object.keys(params).forEach(function(param) {
+    Object.keys(appParams).forEach(function(param) {
       it('should validate ":'+param+'"', function() {
-        assert.equal(params[param], 'ok');
+        assert.equal(appParams[param], 'ok');
       });
     });
   };

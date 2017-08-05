@@ -1,12 +1,13 @@
 'use strict';
 
 const assert = require('assert');
+const _ = require('lodash');
 const parse = require('../../src/lib/utils').parse_address;
 
-describe('Parse address', function() {
+describe('Parse listen address', function() {
   function addTest(what, proto, host, port) {
     it(what, function() {
-      if (proto === null) {
+      if (_.isNull(proto)) {
         assert.strictEqual(parse(what), null);
       } else if (port) {
         assert.deepEqual(parse(what), {
