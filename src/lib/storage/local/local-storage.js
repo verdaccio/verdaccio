@@ -13,7 +13,7 @@ const _ = require('lodash');
 
 const fsStorage = require('./local-fs');
 const LocalData = require('./local-data');
-const customStream = require('../streams');
+const customStream = require('@verdaccio/streams');
 
 const pkgFileName = 'package.json';
 const fileExist = 'EEXISTS';

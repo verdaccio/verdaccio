@@ -7,7 +7,7 @@ const request = require('request');
 const Stream = require('stream');
 const URL = require('url');
 const Logger = require('../logger');
-const MyStreams = require('./streams');
+const MyStreams = require('@verdaccio/streams');
 const Utils = require('../utils');
 const zlib = require('zlib');
 

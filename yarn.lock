@@ -10,6 +10,10 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
+"@verdaccio/streams@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
+
 JSONStream@^0.8.4:
   version "0.8.4"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-0.8.4.tgz#91657dfe6ff857483066132b4618b62e8f4887bd"

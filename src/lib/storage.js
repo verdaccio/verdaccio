@@ -10,7 +10,7 @@ const Stream = require('stream');
 const Search = require('./search');
 const LocalStorage = require('./storage/local/local-storage');
 const Logger = require('./logger');
-const MyStreams = require('./storage/streams');
+const MyStreams = require('@verdaccio/streams');
 const Proxy = require('./storage/up-storage');
 const Utils = require('./utils');
 
