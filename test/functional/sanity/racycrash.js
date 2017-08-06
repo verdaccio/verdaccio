@@ -1,17 +1,17 @@
 'use strict';
 
-let assert = require('assert');
+const assert = require('assert');
 
 module.exports = function() {
-  let server = process.server;
-  let express = process.express;
+  const server = process.server;
+  const express = process.express;
 
-  describe('Racy', function() {
+  describe('test for unexpected client hangs', function() {
     let on_tarball;
 
     before(function() {
-      express.get('/testexp-racycrash', function(_, res) {
-        res.send({
+      express.get('/testexp-racycrash', function(request, response) {
+        response.send({
           'name': 'testexp-racycrash',
           'versions': {
             '0.1.0': {
@@ -26,12 +26,12 @@ module.exports = function() {
         });
       });
 
-      express.get('/testexp-racycrash/-/test.tar.gz', function(_, res) {
-        on_tarball(res);
+      express.get('/testexp-racycrash/-/test.tar.gz', function(request, response) {
+        on_tarball(response);
       });
     });
 
-    it('should not crash on error if client disconnects', function(_cb) {
+    it('should not crash on error if client disconnects', function(callback) {
       on_tarball = function(res) {
         res.header('content-length', 1e6);
         res.write('test test test\n');
@@ -52,8 +52,8 @@ module.exports = function() {
         server.request({uri: '/testexp-racycrash'})
           .status(200)
           .then(function() {
- _cb();
-});
+           callback();
+          });
       }
     });
 

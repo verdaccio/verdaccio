@@ -1,17 +1,18 @@
 'use strict';
 
-require('./lib/startup');
+require('../lib/startup');
 
-let assert = require('assert');
-let crypto = require('crypto');
+const assert = require('assert');
+const crypto = require('crypto');
+const util = require('../lib/test.utils');
 
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
+function getBinary() {
+  return util.readFile('../fixtures/binary');
 }
 
 module.exports = function() {
-  let server = process.server;
-  let server2 = process.server2;
+  const server = process.server;
+  const server2 = process.server2;
 
   it('trying to fetch non-existent package / null storage', function() {
     return server.getPackage('test-nullstorage-nonexist')
@@ -34,14 +35,14 @@ module.exports = function() {
 
     describe('tarball', function() {
       before(function() {
-        return server2.putTarball('test-nullstorage2', 'blahblah', readfile('fixtures/binary'))
+        return server2.putTarball('test-nullstorage2', 'blahblah', getBinary())
                  .status(201)
                  .body_ok(/.*/);
       });
 
       before(function() {
-        let pkg = require('./lib/package')('test-nullstorage2');
-        pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
+        let pkg = require('../fixtures/package')('test-nullstorage2');
+        pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
         return server2.putVersion('test-nullstorage2', '0.0.1', pkg)
                  .status(201)
                  .body_ok(/published/);
@@ -53,7 +54,7 @@ module.exports = function() {
         return server.getTarball('test-nullstorage2', 'blahblah')
                  .status(200)
                  .then(function(body) {
-                   assert.deepEqual(body, readfile('fixtures/binary'));
+                   assert.deepEqual(body, getBinary());
                  });
       });
 

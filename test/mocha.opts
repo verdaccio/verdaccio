@@ -1,4 +1,4 @@
 --reporter spec
---timeout 20000
+--timeout 6000
 --full-trace
 --colors

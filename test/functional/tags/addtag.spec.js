@@ -1,8 +1,7 @@
 'use strict';
 
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
-}
+const util = require('../lib/test.utils');
+const readTags = () => util.readFile('../fixtures/publish.json5');
 
 module.exports = function() {
   let server = process.server;
@@ -14,7 +13,7 @@ module.exports = function() {
   describe('addtag', function() {
     before(function() {
       return server.putPackage('testpkg-tag', eval(
-        '(' + readfile('fixtures/publish.json5')
+        '(' + readTags()
           .toString('utf8')
           .replace(/__NAME__/g, 'testpkg-tag')
           .replace(/__VERSION__/g, '0.0.1')

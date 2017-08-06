@@ -1,13 +1,36 @@
 'use strict';
 
-require('./lib/startup');
+require('../lib/startup');
 
 let assert = require('assert');
 
 module.exports = function() {
-  let server2 = process.server2;
+  const server2 = process.server2;
+  const requestAuthFail = (user, pass, message) => {
+    return server2.auth(user, pass)
+      .status(409)
+      .body_error(message)
+      .then(function() {
+        return server2.whoami();
+      })
+      .then(function(username) {
+        assert.equal(username, null);
+      });
+  };
+  const requestAuthOk = (user, pass, regex) => {
+    return server2.auth(user, pass)
+      .status(201)
+      .body_ok(regex)
+      .then(function() {
+        return server2.whoami();
+      })
+      .then(function(username) {
+        assert.equal(username, user);
+      });
 
-  describe('authentication', function() {
+  };
+
+  describe('test default authentication', function() {
     let authstr;
 
     before(function() {
@@ -15,39 +38,15 @@ module.exports = function() {
     });
 
     it('should not authenticate with wrong password', function() {
-      return server2.auth('authtest', 'wrongpass')
-               .status(409)
-               .body_error('this user already exists')
-               .then(function() {
-                 return server2.whoami();
-               })
-               .then(function(username) {
-                 assert.equal(username, null);
-               });
+      return requestAuthFail('authtest', 'wrongpass', 'this user already exists');
     });
 
-    it('wrong password handled by plugin', function() {
-      return server2.auth('authtest2', 'wrongpass')
-               .status(409)
-               .body_error('registration is disabled')
-               .then(function() {
-                 return server2.whoami();
-               })
-               .then(function(username) {
-                 assert.equal(username, null);
-               });
+    it('should be wrong password handled by plugin', function() {
+      return requestAuthFail('authtest2', 'wrongpass', 'registration is disabled');
     });
 
-    it('right password handled by plugin', function() {
-      return server2.auth('authtest2', 'blahblah')
-               .status(201)
-               .body_ok(/'authtest2'/)
-               .then(function() {
-                 return server2.whoami();
-               })
-               .then(function(username) {
-                 assert.equal(username, 'authtest2');
-               });
+    it('should right password handled by plugin', function() {
+      return requestAuthOk('authtest2', 'blahblah', /'authtest2'/);
     });
 
     after(function() {
@@ -55,14 +54,14 @@ module.exports = function() {
     });
   });
 
-  describe('authorization', function() {
+  describe('test access authorization', function() {
     let authstr;
 
     before(function() {
       authstr = server2.authstr;
     });
 
-    describe('authtest', function() {
+    describe('access with user authtest', function() {
       before(function() {
         return server2.auth('authtest', 'test')
                  .status(201)
@@ -88,7 +87,7 @@ module.exports = function() {
       });
     });
 
-    describe('authtest2', function() {
+    describe('access with user authtest2', function() {
       before(function() {
         return server2.auth('authtest2', 'blahblah')
                  .status(201)

@@ -15,11 +15,11 @@ web:
   enable: true
 
 auth:
-  ../plugins/authenticate:
+  ../fixtures/plugins/authenticate:
     accept_user: authtest2
     with_password: blahblah
 
-  ../plugins/authorize:
+  ../fixtures/plugins/authorize:
     allow_user: authtest
     to_access: test-auth-allow
 

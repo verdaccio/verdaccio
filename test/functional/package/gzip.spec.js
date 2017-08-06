@@ -1,22 +1,20 @@
 'use strict';
 
-require('./lib/startup');
+require('../lib/startup');
 
-let assert = require('assert');
-
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
-}
+const assert = require('assert');
+const zlib = require('zlib');
+const utils = require('../lib/test.utils');
 
 module.exports = function() {
   let server = process.server;
   let express = process.express;
 
-  describe('testexp_gzip', function() {
+  describe('test gzip support', function() {
     before(function() {
       express.get('/testexp_gzip', function(req, res) {
-        let x = eval(
-          '(' + readfile('fixtures/publish.json5')
+        const pkg = eval(
+          '(' + utils.readFile('../fixtures/publish.json5')
             .toString('utf8')
             .replace(/__NAME__/g, 'testexp_gzip')
             .replace(/__VERSION__/g, '0.0.1')
@@ -24,16 +22,16 @@ module.exports = function() {
         );
 
         // overcoming compress threshold
-        x.versions['0.0.2'] = x.versions['0.0.1'];
-        x.versions['0.0.3'] = x.versions['0.0.1'];
-        x.versions['0.0.4'] = x.versions['0.0.1'];
-        x.versions['0.0.5'] = x.versions['0.0.1'];
-        x.versions['0.0.6'] = x.versions['0.0.1'];
-        x.versions['0.0.7'] = x.versions['0.0.1'];
-        x.versions['0.0.8'] = x.versions['0.0.1'];
-        x.versions['0.0.9'] = x.versions['0.0.1'];
+        pkg.versions['0.0.2'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.3'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.4'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.5'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.6'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.7'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.8'] = pkg.versions['0.0.1'];
+        pkg.versions['0.0.9'] = pkg.versions['0.0.1'];
 
-        require('zlib').gzip(JSON.stringify(x), function(err, buf) {
+        zlib.gzip(JSON.stringify(pkg), function(err, buf) {
           assert.equal(err, null);
           assert.equal(req.headers['accept-encoding'], 'gzip');
           res.header('content-encoding', 'gzip');
@@ -49,8 +47,7 @@ module.exports = function() {
     });
 
     it('should not fail on bad gzip', function() {
-      return server.getPackage('testexp_baddata')
-               .status(404);
+      return server.getPackage('testexp_baddata').status(404);
     });
 
     it('should understand gzipped data from uplink', function() {
@@ -83,7 +80,7 @@ module.exports = function() {
           });
 
           return new Promise(function(resolve) {
-            require('zlib').gunzip(body, function(err, buf) {
+            zlib.gunzip(body, function(err, buf) {
               assert.equal(err, null);
               body = JSON.parse(buf);
               assert.equal(body.name, 'testexp_gzip');

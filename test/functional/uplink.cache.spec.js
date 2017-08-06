@@ -5,6 +5,12 @@ const path = require('path');
 const assert = require('assert');
 const crypto = require('crypto');
 
+const util = require('./lib/test.utils');
+
+function getBinary() {
+  return util.readFile('../fixtures/binary');
+}
+
 const STORAGE = 'store/test-storage3';
 const TARBALL = 'blahblah';
 const PKG_GH131 = 'pkg-gh131';
@@ -12,10 +18,6 @@ const PKG_GH1312 = 'pkg-gh1312';
 
 function isCached(pkgName, tarballName) {
   return fs.existsSync(path.join(__dirname, STORAGE, pkgName, tarballName));
-}
-
-function readfile(x) {
-  return fs.readFileSync(path.join(__dirname, x));
 }
 
 module.exports = function() {
@@ -32,14 +34,14 @@ module.exports = function() {
     });
 
     before(function () {
-      return server.putTarball(PKG_GH131, TARBALL, readfile('fixtures/binary'))
+      return server.putTarball(PKG_GH131, TARBALL, getBinary())
         .status(201)
         .body_ok(/.*/);
     });
 
     before(function () {
-      const pkg = require('./lib/package')(PKG_GH131);
-      pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
+      const pkg = require('./fixtures/package')(PKG_GH131);
+      pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
 
       return server.putVersion(PKG_GH131, '0.0.1', pkg)
         .status(201)
@@ -65,14 +67,14 @@ module.exports = function() {
     });
 
     before(function () {
-      return server2.putTarball(PKG_GH1312, TARBALL, readfile('fixtures/binary'))
+      return server2.putTarball(PKG_GH1312, TARBALL, getBinary())
         .status(201)
         .body_ok(/.*/);
     });
 
     before(function () {
-      const pkg = require('./lib/package')(PKG_GH1312);
-      pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
+      const pkg = require('./fixtures/package')(PKG_GH1312);
+      pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
 
       return server2.putVersion(PKG_GH1312, '0.0.1', pkg)
         .status(201)

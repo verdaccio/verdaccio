@@ -173,7 +173,7 @@ class Server {
   }
 
   addPackage(name) {
-    return this.putPackage(name, require('./package')(name))
+    return this.putPackage(name, require('../fixtures/package')(name))
       .status(201)
       .body_ok('created new package');
   }

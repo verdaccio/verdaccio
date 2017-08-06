@@ -1,13 +1,13 @@
 'use strict';
 
-const Server = require('./lib/server');
+const Server = require('../lib/server');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = function() {
   const server = new Server('http://localhost:55551/');
 
-  describe('adduser', function() {
+  describe('npm adduser', function() {
     const user = String(Math.random());
     const pass = String(Math.random());
     before(function() {
@@ -16,7 +16,7 @@ module.exports = function() {
                .body_ok(/user .* created/);
     });
 
-    it('creating new user', function() {});
+    it('should create new user', function() {});
 
     it('should log in', function() {
       return server.auth(user, pass)
@@ -31,15 +31,17 @@ module.exports = function() {
     });
   });
 
-  describe('adduser created with htpasswd', function() {
-    let user = 'preexisting';
-    let pass = 'preexisting';
+  describe('should adduser created with htpasswd', function() {
+    const user = 'preexisting';
+    const pass = 'preexisting';
+
     before(function() {
       return fs.appendFileSync(
-        path.join(__dirname, 'store/test-storage', '.htpasswd'),
+        path.join(__dirname, '../store/test-storage', '.htpasswd'),
         'preexisting:$apr1$4YSboUa9$yVKjE7.PxIOuK3M4D7VjX.'
       );
     });
+
     it('should log in', function() {
       return server.auth(user, pass)
                .status(201)
