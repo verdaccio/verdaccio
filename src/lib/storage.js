@@ -467,7 +467,7 @@ class Storage {
 
     const getPackage = function(i) {
       self.localStorage.getPackageMetadata(locals[i], function(err, info) {
-        if (_.isNil(err) === false) {
+        if (_.isNil(err)) {
           const latest = info['dist-tags'].latest;
 
           if (latest && info.versions[latest]) {
