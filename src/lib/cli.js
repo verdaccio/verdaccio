@@ -26,7 +26,6 @@ const constants = require('constants');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const YAML = require('js-yaml');
 const Path = require('path');
 const URL = require('url');
 const server = require('../api/index');
@@ -58,7 +57,7 @@ try {
   } else {
     config_path = require('./config-path')();
   }
-  config = YAML.safeLoad(fs.readFileSync(config_path, 'utf8'));
+  config = Utils.parseConfigFile(config_path);
   logger.logger.warn({file: config_path}, 'config file  - @{file}');
 } catch (err) {
   logger.logger.fatal({file: config_path, err: err}, 'cannot open config file @{file}: @{!err.message}');

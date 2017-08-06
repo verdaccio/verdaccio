@@ -7,19 +7,19 @@ require('../../src/lib/logger').setup([]);
 
 describe('tag_version', function() {
   it('add new one', function() {
-    let x = {
+    let pkg = {
       'versions': {},
       'dist-tags': {},
     };
-    assert(tag_version(x, '1.1.1', 'foo', {}));
-    assert.deepEqual(x, {
+    assert(tag_version(pkg, '1.1.1', 'foo', {}));
+    assert.deepEqual(pkg, {
       'versions': {},
       'dist-tags': {foo: '1.1.1'},
     });
   });
 
   it('add (compat)', function() {
-    let x = {
+    const x = {
       'versions': {},
       'dist-tags': {foo: '1.1.0'},
     };

@@ -56,26 +56,27 @@ describe('Create registry servers', function() {
     /* test for before() */
   });
 
-  require('./access')();
+  require('./package/access')();
   require('./basic')();
   require('./gh29')();
-  require('./tags')();
-  require('./gzip')();
-  require('./incomplete')();
-  require('./mirror')();
-  require('./newnpmreg')();
-  require('./nullstorage')();
-  require('./race')();
-  require('./racycrash')();
-  require('./scoped')();
-  require('./security')();
-  require('./adduser')();
-  require('./logout')();
-  require('./addtag')();
-  require('./plugins')();
-  require('./notify')();
+  require('./tags/tags')();
+  require('./package/gzip.spec')();
+  require('./sanity/incomplete')();
+  require('./sanity/mirror')();
+  require('./tags/preserve_tags.spec')();
+  require('./readme/readme.spec')();
+  require('./sanity/nullstorage')();
+  require('./performance/race')();
+  require('./sanity/racycrash')();
+  require('./package/scoped.spec')();
+  require('./sanity/security')();
+  require('./adduser/adduser')();
+  require('./adduser/logout')();
+  require('./tags/addtag.spec')();
+  require('./plugins/auth.spec')();
+  require('./notifications/notify')();
   // requires packages published to server1/server2
-  require('./uplink.cache')();
+  require('./uplink.cache.spec')();
 
   after(function(done) {
     const check = (server) => {

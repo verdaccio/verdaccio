@@ -67,6 +67,11 @@ uplinks:
     #cache: false
 
 packages:
+  '@*/*':
+    # scoped packages
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
   # uncomment this for packages with "local-" prefix to be available
   # for admin only, it's a recommended way of handling private packages
   #'local-*':
@@ -83,7 +88,7 @@ packages:
     access: $all
 
     # allow 'admin' to publish packages
-    publish: admin
+    publish: $authenticated
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
@@ -169,7 +174,7 @@ notify:
   # content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Verdaccio", "icon_emoji": ":package:" }'
 
   # Multiple notification endpoints can be created by specifying a collection
-  'example-package-1'
+  'example-package-1':
     method: POST
     # Only run this notification if the package name matches the regular
     # expression
@@ -180,7 +185,6 @@ notify:
     # packagePatternFlags: i
     # If this endpoint requires specific headers, set them here
     # as an array of key: value objects.
-    headers: [{'Content-type': 'application/x-www-form-urlencoded'}]
     # headers supports as well a literal object
     headers: {'Content-type': 'application/x-www-form-urlencoded'}
     # set the URL endpoint for this call

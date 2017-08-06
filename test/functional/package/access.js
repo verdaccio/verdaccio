@@ -44,7 +44,7 @@ module.exports = function() {
     function checkPublish(auth, pkg, ok) {
       it(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, function() {
         server.authstr = auth ? buildToken(auth) : undefined;
-        const req = server.putPackage(pkg, require('./lib/package')(pkg));
+        const req = server.putPackage(pkg, require('../fixtures/package')(pkg));
         if (ok) {
           return req.status(404).body_error(/this package cannot be added/);
         } else {

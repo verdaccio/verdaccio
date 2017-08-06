@@ -70,9 +70,10 @@ class Config {
         assert(!arg.match(/\s/), 'CONFIG: invalid user name: ' + arg);
         assert(users[arg] == null, 'CONFIG: duplicate user/uplink name: ' + arg);
         users[arg] = true;
-      }
+      };
+
       // sanity check for strategic config properties
-    ;['users', 'uplinks', 'packages'].forEach(function(x) {
+    ['users', 'uplinks', 'packages'].forEach(function(x) {
       if (self[x] == null) self[x] = {};
       assert(Utils.is_object(self[x]), `CONFIG: bad "${x}" value (object expected)`);
     });

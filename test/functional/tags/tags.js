@@ -1,10 +1,8 @@
 'use strict';
 
 const assert = require('assert');
-
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
-}
+const util = require('../lib/test.utils');
+const readTags = () => util.readFile('../fixtures/tags.json');
 
 module.exports = function() {
   let server = process.server;
@@ -20,7 +18,7 @@ module.exports = function() {
   describe('tags', function() {
     before(function() {
       express.get('/testexp_tags', function(req, res) {
-        let f = readfile('fixtures/tags.json').toString().replace(/__NAME__/g, 'testexp_tags');
+        let f = readTags().toString().replace(/__NAME__/g, 'testexp_tags');
         res.send(JSON.parse(f));
       });
     });
@@ -35,9 +33,11 @@ module.exports = function() {
                  assert.equal(body['dist-tags'].latest, '0.1.3alpha');
                  assert.equal(body['dist-tags'].bad, null);
                });
-    })
+    });
 
-    ;['0.1.1alpha', '0.1.1-alpha', '0000.00001.001-alpha'].forEach(function(ver) {
+    const versions = ['0.1.1alpha', '0.1.1-alpha', '0000.00001.001-alpha'];
+
+    versions.forEach(function(ver) {
       it('fetching '+ver, function() {
         return server.request({uri: '/testexp_tags/'+ver})
                  .status(200)
@@ -51,7 +51,7 @@ module.exports = function() {
   describe('dist-tags methods', function() {
     before(function() {
       express.get('/testexp_tags2', function(req, res) {
-        let f = readfile('fixtures/tags.json').toString().replace(/__NAME__/g, 'testexp_tags2');
+        let f = readTags().toString().replace(/__NAME__/g, 'testexp_tags2');
         res.send(JSON.parse(f));
       });
     });

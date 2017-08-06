@@ -1,13 +1,13 @@
 'use strict';
 
-let assert = require('assert');
-let express = require('express');
-let request = require('request');
-let rimraf = require('rimraf');
-let verdaccio = require('../../');
-let config = require('./partials/config');
+const assert = require('assert');
+const express = require('express');
+const request = require('request');
+const rimraf = require('rimraf');
+const verdaccio = require('../../');
+const config = require('./partials/config');
 
-describe('toplevel', function() {
+describe('basic system test', function() {
   let port;
 
   before(function(done) {
@@ -18,14 +18,14 @@ describe('toplevel', function() {
     let app = express();
     app.use(verdaccio(config));
 
-    let server = require('http').createServer(app);
+    const server = require('http').createServer(app);
     server.listen(0, function() {
       port = server.address().port;
       done();
     });
   });
 
-  it('should respond on /', function(done) {
+  it('server should respond on /', function(done) {
     request({
       url: 'http://localhost:' + port + '/',
     }, function(err, res, body) {
@@ -35,7 +35,7 @@ describe('toplevel', function() {
     });
   });
 
-  it('should respond on /whatever', function(done) {
+  it('server should respond on /whatever', function(done) {
     request({
       url: 'http://localhost:' + port + '/whatever',
     }, function(err, res, body) {

@@ -1,7 +1,5 @@
 'use strict';
 
-module.exports = Plugin;
-
 function Plugin(config) {
   let self = Object.create(Plugin.prototype);
   self._config = config;
@@ -23,3 +21,5 @@ Plugin.prototype.authenticate = function(user, password, cb) {
   }
   return cb(null, [user]);
 };
+
+module.exports = Plugin;

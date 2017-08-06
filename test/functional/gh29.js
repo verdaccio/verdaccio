@@ -8,8 +8,8 @@ function readfile(x) {
 }
 
 module.exports = function() {
-  let server = process.server;
-  let server2 = process.server2;
+  const server = process.server;
+  const server2 = process.server2;
 
   it('downloading non-existent tarball #1 / srv2', function() {
     return server2.getTarball('testpkg-gh29', 'blahblah')
@@ -19,7 +19,7 @@ module.exports = function() {
 
   describe('pkg-gh29', function() {
     before(function() {
-      return server.putPackage('testpkg-gh29', require('./lib/package')('testpkg-gh29'))
+      return server.putPackage('testpkg-gh29', require('./fixtures/package')('testpkg-gh29'))
                .status(201)
                .body_ok(/created new package/);
     });
@@ -43,7 +43,8 @@ module.exports = function() {
 
       describe('pkg version', function() {
         before(function() {
-          let pkg = require('./lib/package')('testpkg-gh29');
+          const pkg = require('./fixtures/package')('testpkg-gh29');
+
           pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
           return server.putVersion('testpkg-gh29', '0.0.1', pkg)
                    .status(201)
