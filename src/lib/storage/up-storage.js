@@ -15,13 +15,7 @@ const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
 
-const jsonContentType = 'application/json';
-
-const contenTypeAccept = [
-  'application/octet-stream',
-  'application/vnd.npm.install-v1+json; q=1.0',
-  `${jsonContentType} q=0.8, */*`,
-].join(', ');
+const contentTypeAccept = 'application/json';
 
 /**
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
@@ -227,7 +221,7 @@ class ProxyStorage {
     const acceptEncoding = 'Accept-Encoding';
     const userAgent = 'User-Agent';
 
-    headers[accept] = headers[accept] || contenTypeAccept;
+    headers[accept] = headers[accept] || contentTypeAccept;
     headers[acceptEncoding] = headers[acceptEncoding] || 'gzip';
     // registry.npmjs.org will only return search result if user-agent include string 'npm'
     headers[userAgent] = headers[userAgent] || `npm (${this.userAgent})`;
@@ -282,7 +276,7 @@ class ProxyStorage {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
-      headers['Accept'] = contenTypeAccept;
+      headers['Accept'] = contentTypeAccept;
     }
 
     this.request({
@@ -321,7 +315,7 @@ class ProxyStorage {
       uri_full: url,
       encoding: null,
       headers: {
-        Accept: contenTypeAccept,
+        Accept: contentTypeAccept,
       },
     });
 
