@@ -34,8 +34,8 @@ Apache virtual server configuration
         ProxyRequests           Off
         ProxyPreserveHost       On
         AllowEncodedSlashes     NoDecode
-        ProxyPass               /       http://127.0.0.1:4873/ nocanon
-        ProxyPassReverse        /       http://127.0.0.1:4873/
+        ProxyPass               /       http://127.0.0.1:4873 nocanon
+        ProxyPassReverse        /       http://127.0.0.1:4873
     </VirtualHost>
     </IfModule>
 ````
