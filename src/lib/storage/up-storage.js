@@ -24,6 +24,10 @@ const acceptContentType = [
 ].join(', ');
 
 const determineContentType = (req) => {
+  if (!req || !req.headers) {
+    return acceptContentType;
+  }
+
   const npmMetadata = userAgentParser(req.headers['user-agent']);
   if (!npmMetadata) {
     return acceptContentType;
