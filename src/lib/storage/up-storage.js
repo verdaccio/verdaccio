@@ -24,7 +24,7 @@ const acceptContentType = [
 ].join(', ');
 
 const determineContentType = (req) => {
-  if (!req || !req.headers) {
+  if (_.isNil(req) || _.isNil(req.headers)) {
     return acceptContentType;
   }
 
