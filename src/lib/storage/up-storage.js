@@ -10,18 +10,36 @@ const Logger = require('../logger');
 const MyStreams = require('@verdaccio/streams');
 const Utils = require('../utils');
 const zlib = require('zlib');
+const userAgentParser = require('../utils/npm-user-agent-parser');
 
 const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
 
-const jsonContentType = 'application/json';
-
-const contenTypeAccept = [
+const legacyAcceptContentType = 'application/json';
+const acceptContentType = [
   'application/octet-stream',
   'application/vnd.npm.install-v1+json; q=1.0',
-  `${jsonContentType} q=0.8, */*`,
+  `application/json q=0.8, */*`,
 ].join(', ');
+
+const determineContentType = (req) => {
+  if (_.isNil(req) || _.isNil(req.headers)) {
+    return acceptContentType;
+  }
+
+  const npmMetadata = userAgentParser(req.headers['user-agent']);
+  if (!npmMetadata) {
+    return acceptContentType;
+  }
+ 
+  // The official registy will not provide full metadata into the package.json for NPM 3 unless you use the legacy content type.
+  if (npmMetadata.npmVersion.startsWith('3')) {
+    return legacyAcceptContentType;
+  }
+
+  return acceptContentType;
+};
 
 /**
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
@@ -227,7 +245,7 @@ class ProxyStorage {
     const acceptEncoding = 'Accept-Encoding';
     const userAgent = 'User-Agent';
 
-    headers[accept] = headers[accept] || contenTypeAccept;
+    headers[accept] = headers[accept] || determineContentType(options.req);
     headers[acceptEncoding] = headers[acceptEncoding] || 'gzip';
     // registry.npmjs.org will only return search result if user-agent include string 'npm'
     headers[userAgent] = headers[userAgent] || `npm (${this.userAgent})`;
@@ -282,7 +300,7 @@ class ProxyStorage {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
-      headers['Accept'] = contenTypeAccept;
+      headers['Accept'] = determineContentType(options.req);
     }
 
     this.request({
@@ -321,7 +339,7 @@ class ProxyStorage {
       uri_full: url,
       encoding: null,
       headers: {
-        Accept: contenTypeAccept,
+        Accept: acceptContentType, // When fetching tarballs, we're not concerned with having correct metadata on legacy NPMs
       },
     });
 
