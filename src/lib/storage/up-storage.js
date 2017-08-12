@@ -17,11 +17,7 @@ const encode = function(thing) {
 
 const jsonContentType = 'application/json';
 
-const contenTypeAccept = [
-  'application/octet-stream',
-  'application/vnd.npm.install-v1+json; q=1.0',
-  `${jsonContentType} q=0.8, */*`,
-].join(', ');
+const contenTypeAccept = `${jsonContentType} q=0.8, */*`;
 
 /**
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
