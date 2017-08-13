@@ -11,7 +11,7 @@ const Search = require('./search');
 const Logger = require('./logger');
 const LocalStorage = require('@verdaccio/local-storage').LocalStorage;
 const MyStreams = require('@verdaccio/streams');
-const Proxy = require('./storage/up-storage');
+const Proxy = require('./up-storage');
 const Utils = require('./utils');
 
 const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
