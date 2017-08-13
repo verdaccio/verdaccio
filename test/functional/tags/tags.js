@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const _ = require('lodash');
 const util = require('../lib/test.utils');
 const readTags = () => util.readFile('../fixtures/tags.json');
 
@@ -27,10 +28,9 @@ module.exports = function() {
       return server.getPackage('testexp_tags')
                .status(200)
                .then(function(body) {
-                 assert.equal(typeof(body.versions['1.1']), 'object');
-                 assert.equal(body['dist-tags'].something, '0.1.1alpha');
+                 assert(_.isObject(body.versions['1.1.0']));
                  // note: 5.4.3 is invalid tag, 0.1.3alpha is highest semver
-                 assert.equal(body['dist-tags'].latest, '0.1.3alpha');
+                 assert.equal(body['dist-tags'].latest, '1.1.0');
                  assert.equal(body['dist-tags'].bad, null);
                });
     });
@@ -49,29 +49,19 @@ module.exports = function() {
   });
 
   describe('dist-tags methods', function() {
+
     before(function() {
+
       express.get('/testexp_tags2', function(req, res) {
         let f = readTags().toString().replace(/__NAME__/g, 'testexp_tags2');
         res.send(JSON.parse(f));
       });
+
     });
 
     // populate cache
     before(function() {
-      return server.getPackage('testexp_tags2')
-               .status(200);
-    });
-
-    beforeEach(function() {
-      return server.request({
-        method: 'PUT',
-        uri: '/-/package/testexp_tags2/dist-tags',
-        json: {
-          foo: '0.1.0',
-          bar: '0.1.1alpha',
-          baz: '0.1.2',
-        },
-      }).status(201).body_ok(/tags updated/);
+      return server.getPackage('testexp_tags2').status(200);
     });
 
     it('fetching tags', function() {
@@ -79,11 +69,11 @@ module.exports = function() {
         method: 'GET',
         uri: '/-/package/testexp_tags2/dist-tags',
       }).status(200).then(function(body) {
-        assert.deepEqual(body,
-        {foo: '0.1.0',
-          bar: '0.1.1alpha',
-          baz: '0.1.2',
-          latest: '0.1.3alpha'});
+        const expected = {
+          latest: "1.1.0"
+        };
+
+        assert.deepEqual(body, expected);
       });
     });
 
@@ -100,38 +90,18 @@ module.exports = function() {
           method: 'GET',
           uri: '/-/package/testexp_tags2/dist-tags',
         }).status(200).then(function(body) {
-          assert.deepEqual(body,
-          {foo: '0.1.2',
-            bar: '0.1.1alpha',
-            baz: '0.1.2',
-            quux: '0.1.0',
-            latest: '0.1.3alpha'});
+          const expected = {
+            "latest": "1.1.0",
+            "foo": "0.1.2",
+            "quux": "0.1.0"
+          };
+
+          assert.deepEqual(body, expected);
         });
       });
     });
 
-    it('replacing tags', function() {
-      return server.request({
-        method: 'PUT',
-        uri: '/-/package/testexp_tags2/dist-tags',
-        json: {
-          foo: '0.1.2',
-          quux: '0.1.0',
-        },
-      }).status(201).body_ok(/updated/).then(function() {
-        return server.request({
-          method: 'GET',
-          uri: '/-/package/testexp_tags2/dist-tags',
-        }).status(200).then(function(body) {
-          assert.deepEqual(body,
-          {foo: '0.1.2',
-            quux: '0.1.0',
-            latest: '0.1.3alpha'});
-        });
-      });
-    });
-
-    it('adding a tag', function() {
+    it('should add a dist-tag called foo', function() {
       return server.request({
         method: 'PUT',
         uri: '/-/package/testexp_tags2/dist-tags/foo',
@@ -141,16 +111,38 @@ module.exports = function() {
           method: 'GET',
           uri: '/-/package/testexp_tags2/dist-tags',
         }).status(200).then(function(body) {
-        assert.deepEqual(body,
-          {foo: '0.1.3alpha',
-            bar: '0.1.1alpha',
-            baz: '0.1.2',
-            latest: '0.1.3alpha'});
+          const expected = {
+            foo: '0.1.3alpha',
+            quux: '0.1.0',
+            latest: '1.1.0'
+          };
+
+        assert.deepEqual(body, expected);
         });
       });
     });
 
-    it('removing a tag', function() {
+    it('should remove a dis-tag called quux', function() {
+      return server.request({
+        method: 'DELETE',
+        uri: '/-/package/testexp_tags2/dist-tags/latest',
+      }).status(201).body_ok(/removed/).then(function() {
+        return server.request({
+          method: 'GET',
+          uri: '/-/package/testexp_tags2/dist-tags',
+        }).status(200).then(function(body) {
+          const expected = {
+            latest: '1.1.0',
+            "quux": "0.1.0",
+            foo: "0.1.3alpha"
+          };
+
+          assert.deepEqual(body, expected);
+        });
+      });
+    });
+
+    it('should remove a dis-tag called foo', function() {
       return server.request({
         method: 'DELETE',
         uri: '/-/package/testexp_tags2/dist-tags/foo',
@@ -159,12 +151,15 @@ module.exports = function() {
           method: 'GET',
           uri: '/-/package/testexp_tags2/dist-tags',
         }).status(200).then(function(body) {
-        assert.deepEqual(body,
-          {bar: '0.1.1alpha',
-            baz: '0.1.2',
-            latest: '0.1.3alpha'});
+          const expected = {
+            latest: '1.1.0',
+            "quux": "0.1.0"
+          };
+
+          assert.deepEqual(body, expected);
         });
       });
     });
+
   });
 };
