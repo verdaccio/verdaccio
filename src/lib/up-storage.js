@@ -6,9 +6,9 @@ const _ = require('lodash');
 const request = require('request');
 const Stream = require('stream');
 const URL = require('url');
-const Logger = require('../logger');
+const Logger = require('./logger');
 const MyStreams = require('@verdaccio/streams');
-const Utils = require('../utils');
+const Utils = require('./utils');
 const zlib = require('zlib');
 
 const encode = function(thing) {
