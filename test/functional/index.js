@@ -6,7 +6,7 @@ const _ = require('lodash');
 const assert = require('assert');
 const exec = require('child_process').exec;
 
-describe('Create registry servers', function() {
+describe('functional test verdaccio', function() {
   const server = process.server;
   const server2 = process.server2;
   const server3 = process.server3;
