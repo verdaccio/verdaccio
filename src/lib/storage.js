@@ -171,7 +171,8 @@ class Storage {
    * @param {*} callback
    */
   replace_tags(name, tag_hash, callback) {
-    this.localStorage.replaceTags(name, tag_hash, callback);
+    this.logger.warn('method deprecated');
+    this.localStorage.mergeTags(name, tag_hash, callback);
   }
 
   /**
