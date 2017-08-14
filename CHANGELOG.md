@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.5"></a>
+## [2.3.5](https://github.com/verdaccio/verdaccio/compare/v2.3.4...v2.3.5) (2017-08-14)
+
+
+### Bug Fixes
+
+* configuration files inconsistencies, add unit test ([644c098](https://github.com/verdaccio/verdaccio/commit/644c098))
+* Remove accept header that seems cause issues [#285](https://github.com/verdaccio/verdaccio/issues/285) [#289](https://github.com/verdaccio/verdaccio/issues/289) and npm search fails ([fab8391](https://github.com/verdaccio/verdaccio/commit/fab8391))
+
+
+
 <a name="2.3.4"></a>
 ## [2.3.4](https://github.com/verdaccio/verdaccio/compare/v2.3.3...v2.3.4) (2017-07-29)
 
