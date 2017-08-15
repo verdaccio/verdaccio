@@ -66,7 +66,7 @@ class Auth {
     const allow_action = function(action) {
       return function(user, pkg, cb) {
         let ok = pkg[action].reduce(function(prev, curr) {
-          if (user.groups.indexOf(curr) !== -1) return true;
+          if (user.name === curr || user.groups.indexOf(curr) !== -1) return true;
           return prev;
         }, false);
 
