@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.6"></a>
+## [2.3.6](https://github.com/verdaccio/verdaccio/compare/v2.3.5...v2.3.6) (2017-08-17)
+
+
+### Bug Fixes
+
+* link was broken ([a9481cc](https://github.com/verdaccio/verdaccio/commit/a9481cc))
+* Correct accept header set for registry requests ([#295](https://github.com/verdaccio/verdaccio/pull/295))
+* Update SSL documentation ([#296](https://github.com/verdaccio/verdaccio/pull/296))
+* Fix auth process to check against username also and not just groups ([#293](https://github.com/verdaccio/verdaccio/pull/293))
+
+
+
 <a name="2.3.5"></a>
 ## [2.3.5](https://github.com/verdaccio/verdaccio/compare/v2.3.4...v2.3.5) (2017-08-14)
 
