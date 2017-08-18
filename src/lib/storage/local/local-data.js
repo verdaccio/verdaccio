@@ -33,11 +33,13 @@ const logger = require('../../logger');
       }
     }
 
-    try {
-      this.data = JSON.parse(dbFile);
-    } catch(err) {
-      logger.logger.error(err);
-      throw new Error(`Package database file corrupted (invalid JSON), please fix it manually.\nFile Path: ${this.path}`);
+    if (dbFile) {
+      try {
+        this.data = JSON.parse(dbFile);
+      } catch(err) {
+        logger.logger.error(err);
+        throw new Error(`Package database file corrupted (invalid JSON), please fix it manually.\nFile Path: ${this.path}`);
+      }
     }
   }
 
