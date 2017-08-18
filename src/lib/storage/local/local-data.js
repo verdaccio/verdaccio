@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const Path = require('path');
+const logger = require('../../logger');
 
 /**
  * Handle local database.
@@ -15,10 +16,30 @@ const Path = require('path');
    */
    constructor(path) {
     this.path = path;
+    let dbFile;
+
     try {
-      this.data = JSON.parse(fs.readFileSync(this.path, 'utf8'));
-    } catch(_) {
-      this.data = {list: []};
+      dbFile = fs.readFileSync(this.path, 'utf8');
+    } catch (err) {
+      if (err.code === 'ENOENT') { // Only recreate if file not found to prevent data loss
+        this.data = {list: []};
+      } else {
+        logger.logger.error(
+          'Failed to read package database file, please check the error printed below and fix it manually:\n',
+          `File Path: ${this.path}\n\n`,
+          err
+        );
+        throw new Error('Package database file unreachable');
+      }
+    }
+
+    if (dbFile) {
+      try {
+        this.data = JSON.parse(dbFile);
+      } catch(err) {
+        logger.logger.error(err);
+        throw new Error(`Package database file corrupted (invalid JSON), please fix it manually.\nFile Path: ${this.path}`);
+      }
     }
   }
 
