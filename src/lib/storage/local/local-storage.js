@@ -119,6 +119,12 @@ class LocalStorage {
       }
       this._normalizePackage(data);
 
+      let removeFailed = this.localList.remove(name);
+      if (removeFailed) {
+        // This will happen when database is locked
+        return callback(this.utils.ErrorCode.get422(removeFailed.message));
+      }
+
       storage.unlink(pkgFileName, function(err) {
         if (err) {
           return callback(err);
@@ -145,7 +151,6 @@ class LocalStorage {
         });
       });
     });
-    this.localList.remove(name);
   }
 
   /**
@@ -296,7 +301,12 @@ class LocalStorage {
 
       data.versions[version] = metadata;
       this.utils.tag_version(data, version, tag);
-      this.localList.add(name);
+
+      let addFailed = this.localList.add(name);
+      if (addFailed) {
+        return cb(this.utils.ErrorCode.get422(addFailed.message));
+      }
+
       cb();
     }, callback);
   }
