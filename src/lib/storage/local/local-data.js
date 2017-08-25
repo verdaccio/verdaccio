@@ -16,32 +16,60 @@ const logger = require('../../logger');
    */
    constructor(path) {
     this.path = path;
-    let dbFile;
+    // Prevent any write action, wait admin to check what happened during startup
+    this.locked = false;
+    this.data = this._fetchLocalPackages();
+  }
+
+  /**
+   * Fetch local packages.
+   * @private
+   * @return {Object}
+   */
+  _fetchLocalPackages() {
+    const emptyDatabase = {list: []};
 
     try {
-      dbFile = fs.readFileSync(this.path, 'utf8');
+      const dbFile = fs.readFileSync(this.path, 'utf8');
+
+      if (!dbFile) { // readFileSync is platform specific, FreeBSD might return null
+        return emptyDatabase;
+      }
+
+      const db = this._parseDatabase(dbFile);
+
+      if(!db) {
+        return emptyDatabase;
+      }
+
+      return db;
     } catch (err) {
-      if (err.code !== 'ENOENT') { // Only recreate if file not found to prevent data loss
+      // readFileSync is platform specific, macOS, Linux and Windows thrown an error
+      // Only recreate if file not found to prevent data loss
+      if (err.code !== 'ENOENT') {
+        this.locked = true;
         logger.logger.error(
           'Failed to read package database file, please check the error printed below:\n',
           `File Path: ${this.path}\n\n`,
           err
         );
-        this.locked = true; // Prevent any write action, wait admin to check what happened during startup
       }
+      return emptyDatabase;
     }
+  }
 
-    if (dbFile) {
-      try {
-        this.data = JSON.parse(dbFile);
-      } catch(err) {
-        logger.logger.error(`Package database file corrupted (invalid JSON), please check the error printed below.\nFile Path: ${this.path}`, err);
-        this.locked = true;
-      }
-    }
-
-    if (!this.data) {
-      this.data = {list: []};
+  /**
+   * Parse the local database.
+   * @param {Object} dbFile
+   * @private
+   * @return {Object}
+   */
+  _parseDatabase(dbFile) {
+    try {
+      return JSON.parse(dbFile);
+    } catch(err) {
+      logger.logger.error(`Package database file corrupted (invalid JSON), please check the error printed below.\nFile Path: ${this.path}`, err);
+      this.locked = true;
     }
   }
 
