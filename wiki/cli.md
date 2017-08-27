@@ -18,6 +18,8 @@ or if you use `yarn`
 $ yarn add global verdaccio
 ```
 
+> Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
+
 ## Commands
 
 ```bash
