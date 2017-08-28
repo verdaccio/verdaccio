@@ -3,34 +3,24 @@ storage: ./storage
 
 # a list of users
 #
-# This could be deprecated soon, use auth plugins instead (see htpasswd below).
-users:
-  admin:
+# This is deprecated, use auth plugins instead (see htpasswd below).
+# users:
+  # admin:
     # crypto.createHash('sha1').update(pass).digest('hex')
-    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+    # password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 
 web:
-  # web interface is disabled by default in 0.x, will be enabled soon in 1.x
-  # when all its issues will be fixed
-  #
-  # set this to `true` if you want to experiment with web ui now;
-  # this has a lot of issues, e.g. no auth yet, so use at your own risk
-  #enable: true
+  # WebUI is enabled as default, if you want disable it, just uncomment this line
+  #enable: false
 
   title: Verdaccio
 
   # logo: logo.png
 
-  # template: custom.hbs
-
-  # tagline: "Some <b>HTML</b> enabled tagline that sits between the actual \
-#header and the list of packages. You can even add <a \
-#href=\"https://github.com\">links</a>!"
-
 auth:
   htpasswd:
     file: ./htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
+    # Maximum amount of users allowed to register, defaults to "+infinity".
     # You can set this to -1 to disable registration.
     #max_users: 1000
 
