@@ -40,6 +40,8 @@ See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/t
 
 ## Get Started
 
+**Help? Don't miss the [documentation section](wiki/README.md)**
+
 ### Prerequisites
 
 * Node.js >= 4.6.1
@@ -221,6 +223,7 @@ About the storage there is a running discussion [here](https://github.com/verdac
 
 If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
 
+* [Documentation](wiki/README.md)
 * [Most common questions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion)
 * [Reporting a bug](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)

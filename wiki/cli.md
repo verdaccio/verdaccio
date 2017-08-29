@@ -2,24 +2,6 @@
 
 The verdaccio CLI is your go start the application. 
 
-
-## Installation
-
-Please make sure latest Node 4 LTS and NPM 3+ are installed.
-
-Then, install the CLI globally (you may need sudo):
-
-```bash
-$ npm install -g verdaccio
-```
-or if you use `yarn`
-
-```bash
-$ yarn add global verdaccio
-```
-
-> Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
-
 ## Commands
 
 ```bash
