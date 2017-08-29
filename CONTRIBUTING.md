@@ -12,6 +12,7 @@ There are many ways to contribute to the Verdaccio Project. Here’s a list of t
 * [Reporting a Bug](CONTRIBUTING.md#reporting-a-bug)
 * [Request Features](CONTRIBUTING.md#request-features)
 * [Plugins](CONTRIBUTING.md#plugins)
+* [Improve the Documentation](wiki/README.md)
 
 Please read carefully this document. It will guide you to provide maintainers and readers valuable information to boots the process solve the issue or evaluate your proposal.
 
