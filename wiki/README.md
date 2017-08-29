@@ -39,7 +39,7 @@ from a fresh look at the code and the outstanding issues. So here we are ðŸŽ‰ðŸŽ
 * [Packages Access](packages.md)
 * [Enable Notifications](notifications.md)
 * [Authorization and access](auth.md)
-* [Logs](logs.md)
+* [Logs](logger.md)
 * [Configure the Web](web.md)
 
 ## Advanced Configurations
