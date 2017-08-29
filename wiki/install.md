@@ -25,6 +25,8 @@ yarn global add verdaccio
 
 ```
 
+> Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
+
 ## Basic Usage
 
 Once has been installed you only need to execute the CLI command.
