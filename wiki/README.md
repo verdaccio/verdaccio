@@ -46,7 +46,6 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 
 * [SSL Certificates](ssl.md)
 * [Installing Plugins](plugins.md)
-* [Understand the storage](storage.md)
 
 ## Servers
 
