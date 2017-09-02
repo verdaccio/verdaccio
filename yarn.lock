@@ -10,9 +10,9 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/local-storage@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.0.3.tgz#ce1f4a2ac415129c04e17a8758daf47878143e78"
+"@verdaccio/local-storage@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.0.4.tgz#b6218fab2b24398eee58b755873c865c5cce800b"
   dependencies:
     "@verdaccio/file-locking" "^0.0.3"
     "@verdaccio/streams" "^0.0.2"
@@ -25,9 +25,9 @@
   version "0.0.2"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
-"@verdaccio/types@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.0.3.tgz#fce6d1edbb3ba0f2abb72c536bd593788b80eec9"
+"@verdaccio/types@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.0.4.tgz#08ecd29c18709677f237e6a08fde8d554a96d829"
 
 JSONStream@^0.8.4:
   version "0.8.4"
