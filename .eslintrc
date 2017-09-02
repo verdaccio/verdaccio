@@ -9,6 +9,7 @@
     "plugin:react/recommended",
     "plugin:flowtype/recommended"
   ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 7,
