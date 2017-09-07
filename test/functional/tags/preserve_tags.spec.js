@@ -84,7 +84,9 @@ module.exports = function() {
             'time': {
               modified: '2014-10-02T07:07:51.000Z'
             },
-            'versions': {},
+            'versions': {
+              "0.0.0": "latest"
+            },
             'repository': {
               type: 'git', url: ''}
           });
