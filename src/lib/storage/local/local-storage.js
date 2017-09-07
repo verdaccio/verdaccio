@@ -688,9 +688,9 @@ class LocalStorage {
                   'bugs': version.bugs,
                   'license': version.license,
                   'time': {
-                    modified: item.time ? new Date(item.time).toISOString() : undefined,
+                    modified: item.time ? new Date(item.time).toISOString() : stats.mtime,
                   },
-                  'versions': {},
+                  'versions': {[latest]: "latest"},
                  });
               }
 
