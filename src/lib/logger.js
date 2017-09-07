@@ -107,7 +107,7 @@ const levels = {
 	warn: chalk.yellow,
 	http: chalk.magenta,
 	info: chalk.cyan,
-	debug: chalk.black,
+	debug: chalk.green,
 	trace: chalk.white,
 };
 
