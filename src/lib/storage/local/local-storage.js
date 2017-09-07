@@ -690,7 +690,7 @@ class LocalStorage {
                   'time': {
                     modified: item.time ? new Date(item.time).toISOString() : stats.mtime,
                   },
-                  'versions': {[latest]: "latest"},
+                  'versions': {[latest]: 'latest'},
                  });
               }
 
