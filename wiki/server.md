@@ -25,8 +25,9 @@ If you want to listen to every external address set the listen directive in the 
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
+If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
 
-> Apache configure? Please check out Wiki ;-)
+> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
 
 ## Keeping verdaccio running forever
 We can use the node package called 'forever' to keep verdaccio running all the time.
