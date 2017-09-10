@@ -529,7 +529,7 @@ class Storage {
 
         const fetched = upLinkMeta.fetched;
 
-        if (fetched && fetched > (Date.now() - upLink.maxage)) {
+        if (fetched && (Date.now() - fetched) < upLink.maxage) {
           return cb();
         }
 
@@ -537,7 +537,7 @@ class Storage {
       }
 
       upLink.getRemoteMetadata(name, _options, (err, upLinkResponse, eTag) => {
-        if (err && err.status === 304) {
+        if (err && err.remoteStatus === 304) {
           upLinkMeta.fetched = Date.now();
         }
 
