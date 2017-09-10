@@ -81,7 +81,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both comtainer and host) by prefixing the above command with `PORT=5000 `.
+You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000 `.
 
 Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
  
