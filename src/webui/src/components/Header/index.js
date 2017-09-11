@@ -10,13 +10,14 @@ import storage from '../../../utils/storage';
 
 
 import classes from './header.scss';
-import logo from './logo.png';
+import './logo.png';
 
 export default class Header extends React.Component {
   state = {
     showLogin: false,
     username: '',
-    password: ''
+    password: '',
+    logo: ''
   }
 
   constructor(props) {
@@ -34,6 +35,16 @@ export default class Header extends React.Component {
   handleInput(name, e) {
     this.setState({
       [name]: e
+    });
+  }
+
+  componentWillMount() {
+    API.get('logo')
+    .then((response) => {
+      this.setState({logo: response.data});
+    })
+    .catch((error) => {
+      throw new Error(error);
     });
   }
 
@@ -120,7 +131,7 @@ export default class Header extends React.Component {
       <header className={ classes.header }>
         <div className={ classes.headerWrap }>
           <Link to="/">
-            <img src={ logo } className={ classes.logo } />
+            <img src={ this.state.logo } className={ classes.logo } />
           </Link>
           <figure>
             npm set registry { location.origin }

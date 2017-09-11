@@ -32,9 +32,8 @@ module.exports = function(config, auth, storage) {
     });
   });
 
-  router.get('/-/logo', function(req, res) {
-    res.sendFile(_.get(config, 'web.logo') || `${env.APP_ROOT}/static/logo-sm.png`
-    );
+  router.get('/-/verdaccio/logo', function(req, res) {
+    res.send(_.get(config, 'web.logo') || '/-/static/logo.png');
   });
 
   router.get('/', function(req, res) {
