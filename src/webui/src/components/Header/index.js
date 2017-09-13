@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Dialog, Input, MessageBox} from 'element-react';
+import {Button, Dialog, Input, Alert} from 'element-react';
 import isString from 'lodash/isString';
 import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
@@ -17,7 +17,8 @@ export default class Header extends React.Component {
     showLogin: false,
     username: '',
     password: '',
-    logo: ''
+    logo: '',
+    loginError: null
   }
 
   constructor(props) {
@@ -30,6 +31,7 @@ export default class Header extends React.Component {
     this.setState({
       showLogin: !this.state.showLogin
     });
+    this.setState({loginError: null});
   }
 
   handleInput(name, e) {
@@ -50,7 +52,11 @@ export default class Header extends React.Component {
 
   async handleSubmit() {
     if (this.state.username === '' || this.state.password === '') {
-      return MessageBox.alert('Username or password can\'t be empty!', '');
+      return this.setState({loginError: {
+        title: 'Unable to login',
+        type: 'error',
+        description: 'Username or password can\'t be empty!'
+      }});
     }
 
     try {
@@ -65,11 +71,16 @@ export default class Header extends React.Component {
       storage.setItem('username', resp.data.username);
       location.reload();
     } catch (e) {
+      const errorObj = {
+        title: 'Unable to login',
+        type: 'error'
+      };
       if (get(e, 'response.status', 0) === 401) {
-        MessageBox.alert(e.response.data.error, 'Unable to login');
+        errorObj.description = e.response.data.error;
       } else {
-        MessageBox.alert(e.message, 'Unable to login:');
+        errorObj.description = e.message;
       }
+      this.setState({loginError: errorObj});
     }
   }
 
@@ -148,6 +159,13 @@ export default class Header extends React.Component {
           onCancel={ () => this.toggleLoginModal() }
         >
           <Dialog.Body>
+            { this.state.loginError &&
+            <Alert
+              title={this.state.loginError.title} type={this.state.loginError.type}
+              description={this.state.loginError.description} showIcon={true} closable={false}>
+            </Alert>
+            }
+            <br/>
             <Input placeholder="Username" onChange={this.handleInput.bind(this, 'username')} />
             <br/><br/>
             <Input type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
