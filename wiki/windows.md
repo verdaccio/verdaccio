@@ -25,7 +25,7 @@ Startup directory and Arguments fields. Assuming an install with node in the sys
 location of c:\verdaccio the below values will work:
     * Path: `node`
     * Startup directory: `c:\verdaccio`
-    * Arguments: `c:\verdaccio\node_modules\verdaccio\lib\cli.js -c c:\verdaccio\config.yaml`
+    * Arguments: `c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml`
     
     You can adjust other service settings under other tabs as desired. When you are done, click Install service button
     
@@ -37,7 +37,7 @@ location of c:\verdaccio the below values will work:
 * Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/)
     * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
 * Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` 
-with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio\ `.
+with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio\ `.
 * Install your service
     * `cd c:\verdaccio`
     * `verdaccio-winsw.exe install`
