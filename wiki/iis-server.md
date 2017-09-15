@@ -53,7 +53,7 @@ A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml
 
 ````bash
 process.argv.push('-l', 'unix:' + process.env.PORT);
-require('./node_modules/verdaccio/lib/cli.js');
+require('./node_modules/verdaccio/src/lib/cli.js');
 ````
 
 ### web.config
