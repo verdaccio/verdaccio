@@ -45,7 +45,7 @@ module.exports = function(config, auth, storage) {
         packages,
         function(pkg, cb) {
           auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
-            async.setImmediate(function() {
+            setImmediate(function() {
               if (err) {
                 cb(null, false);
               } else {
