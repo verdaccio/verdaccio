@@ -228,37 +228,37 @@ class ProxyStorage {
     // registry.npmjs.org will only return search result if user-agent include string 'npm'
     headers[userAgent] = headers[userAgent] || `npm (${this.userAgent})`;
 
-    if (!this.config.auth) {
+    return this._setAuth(headers);
+  }
+
+  /**
+   * Validate configuration auth and assign Header authorization
+   * @param {object} headers
+   * @return {object}
+   * @private
+   */
+  _setAuth(headers) {
+
+    if (_.isUndefined(this.config.auth)) {
       return headers;
     }
-
-    // copy headers to normalize keys
-    let copyHeaders = {};
-    Object.keys(headers).map((value) => {
-      copyHeaders[value.toLowerCase()] = headers[value];
-    });
 
     // if header Authorization assigns this has precedence
-    if (copyHeaders['authorization']) {
+    if (headers['authorization']) {
       return headers;
     }
 
-    if (typeof this.config.auth !== 'object') {
+    if (!_.isObject(this.config.auth)) {
       throw new Error('Auth invalid');
     }
 
-    let token = null;
-    // define authorization token to use in the Authorization Header
+    // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
+    // or get other variable export in env
+    let token = process.env.NPM_TOKEN;
     if (this.config.auth.token) {
       token = this.config.auth.token;
     } else if (this.config.auth.token_env) {
-      // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
-      // or get other variable export in env
-      if (this.config.auth.token_env === true) {
-        token = process.env.NPM_TOKEN;
-      } else {
-        token = process.env[this.config.auth.token_env];
-      }
+      token = process.env[this.config.auth.token_env];
     }
 
     if (!token) {
@@ -267,18 +267,24 @@ class ProxyStorage {
 
     // define type Auth allow basic and bearer
     const type = this.config.auth.type;
-    switch (type.toLowerCase()) {
-      case 'basic':
-        headers['Authorization'] = `Basic ${token}`;
-        break;
-      case 'bearer':
-        headers['Authorization'] = `Bearer ${token}`;
-        break;
-      default:
-        throw new Error(`Auth type '${type}' not allowed`);
+    this._setHeaderAuthorization(headers, type, token);
+    return headers;
+  }
+
+  /**
+   * Assign Header authorization with type authentication
+   * @param {object} headers
+   * @param {string} type
+   * @param {string} token
+   * @private
+   */
+  _setHeaderAuthorization(headers, type, token) {
+    if (type !== 'bearer' && type !== 'basic') {
+      throw new Error(`Auth type '${type}' not allowed`);
     }
 
-    return headers;
+    type = _.upperFirst(type);
+    headers['authorization'] = `${type} ${token}`;
   }
 
   /**
