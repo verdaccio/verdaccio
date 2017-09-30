@@ -233,8 +233,8 @@ class ProxyStorage {
 
   /**
    * Validate configuration auth and assign Header authorization
-   * @param {object} headers
-   * @return {object}
+   * @param {Object} headers
+   * @return {Object}
    * @private
    */
   _setAuth(headers) {
@@ -261,7 +261,7 @@ class ProxyStorage {
       token = process.env[this.config.auth.token_env];
     }
 
-    if (!token) {
+    if (_.isUndefined(token) || _.isNil(token)) {
       throw new Error('Token is required');
     }
 
@@ -273,7 +273,7 @@ class ProxyStorage {
 
   /**
    * Assign Header authorization with type authentication
-   * @param {object} headers
+   * @param {Object} headers
    * @param {string} type
    * @param {string} token
    * @private
