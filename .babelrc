@@ -3,7 +3,13 @@
     "react",
     ["env",{
       "targets": {
-        "browsers": ["last 5 versions", "safari >= 11"],
+        "browsers": [
+          "last 5 versions", 
+          "FireFox >= 44",
+          "Safari >= 7",
+          "Explorer 11",
+          "last 4 Edge versions"
+        ],
         "loose": true
       }
     }],

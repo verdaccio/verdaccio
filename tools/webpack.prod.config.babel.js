@@ -8,7 +8,7 @@ const merge = require('webpack-merge');
 
 const prodConf = {
   entry: {
-    main: `${env.SRC_ROOT}/webui/src/index.js`,
+    main: ['babel-polyfill', `${env.SRC_ROOT}/webui/src/index.js`],
   },
 
   module: {
