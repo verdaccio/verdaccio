@@ -8,17 +8,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* :bug: check error code to prevent data loss ([5d73dca](https://github.com/verdaccio/verdaccio/commit/5d73dca))
-* :bug: check error code to prevent data loss ([93aae05](https://github.com/verdaccio/verdaccio/commit/93aae05))
-* :bug: Package metadata cache not work ([4d6a447](https://github.com/verdaccio/verdaccio/commit/4d6a447))
+* :bug: check error code to prevent data loss ([5d73dca](https://github.com/verdaccio/verdaccio/commit/5d73dca)) fix [#329](https://github.com/verdaccio/verdaccio/issues/329)
 * Fix  [#334](https://github.com/verdaccio/verdaccio/issues/334) UI failure on IE 11, add suppor for old browsers. ([f1f15be](https://github.com/verdaccio/verdaccio/commit/f1f15be))
 
 
 ### Features
 
 * header authorization uplink ([7baf7cb](https://github.com/verdaccio/verdaccio/commit/7baf7cb))
-* Update node alpine version to 8.4.0 ([3f96ce3](https://github.com/verdaccio/verdaccio/commit/3f96ce3))
-
 
 
 <a name="2.4.0"></a>
