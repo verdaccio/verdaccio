@@ -17,7 +17,7 @@ const encode = function(thing) {
 
 const jsonContentType = 'application/json';
 
-const contenTypeAccept = `${jsonContentType}; q=0.8, */*`;
+const contenTypeAccept = `${jsonContentType};`;
 
 /**
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
