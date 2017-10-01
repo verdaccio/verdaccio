@@ -239,17 +239,12 @@ class ProxyStorage {
    */
   _setAuth(headers) {
 
-    if (_.isUndefined(this.config.auth)) {
-      return headers;
-    }
-
-    // if header Authorization assigns this has precedence
-    if (headers['authorization']) {
+    if (_.isNil(this.config.auth) || headers['authorization']) {
       return headers;
     }
 
     if (!_.isObject(this.config.auth)) {
-      throw new Error('Auth invalid');
+      this._throwErrorAuth('Auth invalid');
     }
 
     // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
@@ -261,14 +256,24 @@ class ProxyStorage {
       token = process.env[this.config.auth.token_env];
     }
 
-    if (_.isUndefined(token) || _.isNil(token)) {
-      throw new Error('Token is required');
+    if (_.isNil(token)) {
+      this._throwErrorAuth('Token is required');
     }
 
     // define type Auth allow basic and bearer
     const type = this.config.auth.type;
     this._setHeaderAuthorization(headers, type, token);
     return headers;
+  }
+
+  /**
+   * @param {string} message
+   * @throws {Error}
+   * @private
+   */
+  _throwErrorAuth(message) {
+    this.logger.error(message);
+    throw new Error(message);
   }
 
   /**
@@ -280,7 +285,7 @@ class ProxyStorage {
    */
   _setHeaderAuthorization(headers, type, token) {
     if (type !== 'bearer' && type !== 'basic') {
-      throw new Error(`Auth type '${type}' not allowed`);
+      this._throwErrorAuth(`Auth type '${type}' not allowed`);
     }
 
     type = _.upperFirst(type);

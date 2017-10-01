@@ -24,13 +24,13 @@ module.exports = function () {
 
   describe('uplink auth test', function () {
 
-    it('if set headers empty', function () {
+    it('if set headers empty should return default headers', function () {
       const headers = setHeaders();
 
       assert.equal(Object.keys(headers).length, 3);
     });
 
-    it('invalid auth', function () {
+    it('if assigns value invalid to attribute auth', function () {
       const fnError = function () {
         setHeaders({
           auth: ''
@@ -40,15 +40,16 @@ module.exports = function () {
       assert.throws(fnError, 'Auth invalid');
     });
 
-    it('if set headers authorization', function () {
+    it('if assigns the header authorization', function () {
       const headers = setHeaders({}, {
         'authorization': 'basic Zm9vX2Jhcg=='
       });
+
       assert.equal(Object.keys(headers).length, 4);
       assert.equal(headers['authorization'], 'basic Zm9vX2Jhcg==');
     });
 
-    it('if set headers authorization precendence token', function () {
+    it('if assigns headers authorization and token the header precedes', function () {
       const headers = setHeaders({
         auth: {
           type: 'bearer',
@@ -61,29 +62,31 @@ module.exports = function () {
       assert.equal(headers['authorization'], 'basic tokenBasic');
     });
 
-    it('basic auth test', function () {
+    it('set type auth basic', function () {
       const headers = setHeaders({
         auth: {
           type: 'basic',
           token: 'Zm9vX2Jhcg=='
         }
       });
+
       assert.equal(Object.keys(headers).length, 4);
       assert.equal(headers['authorization'], 'Basic Zm9vX2Jhcg==');
     });
 
-    it('basic auth test', function () {
+    it('set type auth bearer', function () {
       const headers = setHeaders({
         auth: {
           type: 'bearer',
           token: 'Zm9vX2Jhcf==='
         }
       });
+
       assert.equal(Object.keys(headers).length, 4);
       assert.equal(headers['authorization'], 'Bearer Zm9vX2Jhcf===');
     });
 
-    it('invalid auth type test', function () {
+    it('set auth type invalid', function () {
       const fnError = function() { 
         setHeaders({
           auth: {
@@ -96,18 +99,19 @@ module.exports = function () {
       assert.throws(fnError, `Auth type 'null' not allowed`);
     });
 
-    it('get NPM_TOKEN process test', function () {
+    it('set auth with NPM_TOKEN', function () {
       process.env.NPM_TOKEN = 'myToken';
       const headers = setHeaders({
         auth: {
           type: 'bearer'
         }
       });
+
       assert.equal(headers['authorization'], 'Bearer myToken');
       delete process.env.NPM_TOKEN;
     });
 
-    it('get name variable assigns process.env test', function () {
+    it('set auth with token name and assigns in env', function () {
       process.env.NPM_TOKEN_TEST = 'myTokenTest';
       const headers = setHeaders({
         auth: {
@@ -115,12 +119,13 @@ module.exports = function () {
           token_env: 'NPM_TOKEN_TEST'
         }
       });
+
       assert.equal(headers['authorization'], 'Basic myTokenTest');
       delete process.env.NPM_TOKEN_TEST;
     });
 
 
-    it('token is required', function () {
+    it('if token not set', function () {
       const fnError = function() {
         setHeaders({
           auth: {
