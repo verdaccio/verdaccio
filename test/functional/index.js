@@ -77,6 +77,7 @@ describe('Create registry servers', function() {
   require('./notifications/notify')();
   // requires packages published to server1/server2
   require('./uplink.cache.spec')();
+  require('./uplink.auth.spec')();
 
   after(function(done) {
     const check = (server) => {

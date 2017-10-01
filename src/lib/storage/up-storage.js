@@ -227,7 +227,69 @@ class ProxyStorage {
     headers[acceptEncoding] = headers[acceptEncoding] || 'gzip';
     // registry.npmjs.org will only return search result if user-agent include string 'npm'
     headers[userAgent] = headers[userAgent] || `npm (${this.userAgent})`;
+
+    return this._setAuth(headers);
+  }
+
+  /**
+   * Validate configuration auth and assign Header authorization
+   * @param {Object} headers
+   * @return {Object}
+   * @private
+   */
+  _setAuth(headers) {
+
+    if (_.isNil(this.config.auth) || headers['authorization']) {
+      return headers;
+    }
+
+    if (!_.isObject(this.config.auth)) {
+      this._throwErrorAuth('Auth invalid');
+    }
+
+    // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
+    // or get other variable export in env
+    let token = process.env.NPM_TOKEN;
+    if (this.config.auth.token) {
+      token = this.config.auth.token;
+    } else if (this.config.auth.token_env) {
+      token = process.env[this.config.auth.token_env];
+    }
+
+    if (_.isNil(token)) {
+      this._throwErrorAuth('Token is required');
+    }
+
+    // define type Auth allow basic and bearer
+    const type = this.config.auth.type;
+    this._setHeaderAuthorization(headers, type, token);
     return headers;
+  }
+
+  /**
+   * @param {string} message
+   * @throws {Error}
+   * @private
+   */
+  _throwErrorAuth(message) {
+    this.logger.error(message);
+    throw new Error(message);
+  }
+
+  /**
+   * Assign Header authorization with type authentication
+   * @param {Object} headers
+   * @param {string} type
+   * @param {string} token
+   * @private
+   */
+  _setHeaderAuthorization(headers, type, token) {
+    if (type !== 'bearer' && type !== 'basic') {
+      this._throwErrorAuth(`Auth type '${type}' not allowed`);
+    }
+
+    type = _.upperFirst(type);
+    headers['authorization'] = `${type} ${token}`;
   }
 
   /**
