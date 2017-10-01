@@ -1,5 +1,7 @@
 # Verdaccio
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/verdaccio/verdaccio.svg)](https://greenkeeper.io/)
+
 ### A lightweight private npm proxy registry
 
 
