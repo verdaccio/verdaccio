@@ -26,8 +26,11 @@ module.exports = function () {
 
     it('if set headers empty should return default headers', function () {
       const headers = setHeaders();
+      const keys = Object.keys(headers);
+      const keysExpected = ['Accept', 'Accept-Encoding', 'User-Agent'];
 
-      assert.equal(Object.keys(headers).length, 3);
+      assert.deepEqual(keys, keysExpected);
+      assert.equal(keys.length, 3);
     });
 
     it('if assigns value invalid to attribute auth', function () {
