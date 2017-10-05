@@ -21,12 +21,12 @@ module.exports = function() {
       }).status(201);
     });
 
-    it('add pkg', function() {});
+    it('add new package', function() {});
 
     describe('should check sha integrity', () => {
 
       const matchTarBallSha = (server) => {
-        return server.getTarball('testpkg-preserve', 'testpkg-preserve-0.0.0.tgz')
+        return server.getTarball('testpkg-preserve', 'testpkg-preserve-0.0.1.tgz')
           .status(200)
           .then(function(body) {
             // not real sha due to utf8 conversion
@@ -49,9 +49,9 @@ module.exports = function() {
           .status(200)
           .then(function(body) {
             assert.equal(body.name, 'testpkg-preserve');
-            assert.equal(body.versions['0.0.0'].name, 'testpkg-preserve');
-            assert.equal(body.versions['0.0.0'].dist.tarball, `http://localhost:${port}/testpkg-preserve/-/testpkg-preserve-0.0.0.tgz`);
-            assert.deepEqual(body['dist-tags'], {foo: '0.0.0', latest: '0.0.0'});
+            assert.equal(body.versions['0.0.1'].name, 'testpkg-preserve');
+            assert.equal(body.versions['0.0.1'].dist.tarball, `http://localhost:${port}/testpkg-preserve/-/testpkg-preserve-0.0.1.tgz`);
+            assert.deepEqual(body['dist-tags'], {foo: '0.0.1', latest: '0.0.1'});
           });
       };
 
@@ -74,7 +74,7 @@ module.exports = function() {
             'author': '',
             'license': 'ISC',
             'dist-tags': {
-              latest: '0.0.0'
+              latest: '0.0.1'
             },
             'maintainers': [{
               name: 'alex',
@@ -85,7 +85,7 @@ module.exports = function() {
               modified: '2014-10-02T07:07:51.000Z'
             },
             'versions': {
-              "0.0.0": "latest"
+              "0.0.1": "latest"
             },
             'repository': {
               type: 'git', url: ''}
