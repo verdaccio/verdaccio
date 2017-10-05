@@ -1,6 +1,6 @@
 'use strict';
 
-const uplinkStorage = require('../../src/lib/storage/up-storage');
+const uplinkStorage = require('../../src/lib/up-storage');
 const assert = require('assert');
 
 function createUplink(config) {
