@@ -155,7 +155,7 @@ module.exports = function() {
             latest: '1.1.0',
             "quux": "0.1.0"
           };
-
+          
           assert.deepEqual(body, expected);
         });
       });
