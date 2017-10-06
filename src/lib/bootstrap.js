@@ -15,8 +15,8 @@ const constants = require('constants');
 /**
  * Retrieve all addresses defined in the config file.
  * Verdaccio is able to listen multiple ports
- * @param argListen
- * @param configListen
+ * @param {String} argListen
+ * @param {String} configListen
  * eg:
  *  listen:
     - localhost:5555
@@ -53,9 +53,11 @@ function get_listen_addresses(argListen, configListen) {
 
 /**
  * Trigger the server after configuration has been loaded.
- * @param config
- * @param config_path
- * @param cliArguments
+ * @param {Object} config
+ * @param {Object} cliArguments
+ * @param {String} config_path
+ * @param {String} pkgVersion
+ * @param {String} pkgName
  */
 function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName) {
   if (!config.self_path) {
