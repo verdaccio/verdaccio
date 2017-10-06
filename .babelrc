@@ -1,28 +1,38 @@
-{
-  "presets": [
-    "react",
-    ["env",{
-      "targets": {
-        "browsers": [
-          "last 5 versions", 
-          "FireFox >= 44",
-          "Safari >= 7",
-          "Explorer 11",
-          "last 4 Edge versions"
-        ],
-        "loose": true
-      }
-    }],
-    "stage-2",
-    "stage-3"
-  ],
-  "plugins": [
-    "react-hot-loader/babel",
-    "transform-runtime",
-    "transform-object-rest-spread",
-    "transform-decorators-legacy"
-  ],
+{  
   "env": {
+    "ui": {
+      "presets": [
+        "react",
+        ["env",{
+          "targets": {
+            "browsers": [
+              "last 5 versions",
+              "FireFox >= 44",
+              "Safari >= 7",
+              "Explorer 11",
+              "last 4 Edge versions"
+            ],
+            "loose": true
+          }
+        }],
+        "stage-2",
+        "stage-3"
+      ],
+      "plugins": [
+        "react-hot-loader/babel",
+        "transform-runtime",
+        "transform-object-rest-spread",
+        "transform-decorators-legacy"
+      ]
+    },
+    "registry": {
+      "presets": [
+        "es2015-node4"
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    },
     "development": {
       "presets": ["flow"],
       "plugins": [
