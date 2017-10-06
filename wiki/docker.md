@@ -24,6 +24,12 @@ For a specific (patch) version:
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
+If you want to work with the Canary version
+
+```bash
+docker pull verdaccio/verdaccio:next
+```
+
 # Running verdaccio using Docker
 
 To run the docker container:
