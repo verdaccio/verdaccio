@@ -69,26 +69,4 @@ module.exports = function(route, auth, storage) {
         return next({ok: 'tags updated'});
       });
     });
-
-  route.put('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')), expect_json,
-    function(req, res, next) {
-      storage.replace_tags(req.params.package, req.body, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.status(201);
-        return next({ok: 'tags updated'});
-      });
-    });
-
-  route.delete('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')),
-    function(req, res, next) {
-      storage.replace_tags(req.params.package, {}, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.status(201);
-        return next({ok: 'tags removed'});
-      });
-    });
 };
