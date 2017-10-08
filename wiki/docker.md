@@ -24,7 +24,13 @@ For a specific (patch) version:
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
-If you want to work with the Canary version
+For the next major release using the `beta` version.
+
+```bash
+docker pull verdaccio/verdaccio:beta
+```
+
+The Canary version (master branch) is tagged as `next`
 
 ```bash
 docker pull verdaccio/verdaccio:next
