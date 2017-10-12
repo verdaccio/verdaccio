@@ -69,11 +69,7 @@ const notify = function(metadata, config) {
       return handleNotify(metadata, config.notify);
     } else {
       // multiple notifications endpoints PR #108
-      for (const key in config.notify) {
-        if (config.notify.hasOwnProperty(key)) {
-          return handleNotify(metadata, config.notify[key]);
-        }
-      }
+      return Promise.all(_.map(config.notify, (key) => handleNotify(metadata, key)));
     }
   }
 };
