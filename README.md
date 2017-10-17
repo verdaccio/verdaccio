@@ -224,7 +224,7 @@ About the storage there is a running discussion [here](https://github.com/verdac
 If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
 
 * [Documentation](wiki/README.md)
-* [Most common questions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion)
+* [Most common questions](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
 * [Reporting a bug](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
 * [Chat Room](https://gitter.im/verdaccio/)
