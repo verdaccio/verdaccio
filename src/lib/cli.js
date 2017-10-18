@@ -146,21 +146,21 @@ function afterConfigLoad() {
       }
 
       try {
-        var httpsoptions = {
+        let httpsoptions = {
           secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
-          secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3
+          secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
         };
 
         if (config.https.pfx) {
           Object.assign(httpsoptions, {
             pfx: fs.readFileSync(config.https.pfx),
-            passphrase: config.https.passphrase || ""
+            passphrase: config.https.passphrase || '',
           });
         } else {
           Object.assign(httpsoptions, {
             key: fs.readFileSync(config.https.key),
             cert: fs.readFileSync(config.https.cert),
-            ca: fs.readFileSync(config.https.ca)
+            ca: fs.readFileSync(config.https.ca),
           });
         }
         webServer = https.createServer(httpsoptions, app);
