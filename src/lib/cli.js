@@ -124,9 +124,9 @@ function afterConfigLoad() {
         };
 
         logger.logger.fatal([
-          'You need to specify either '
-          '    "https.key", "https.cert" and "https.ca" or '
-          '    "https.pfx" and optionally "https.passphrase" '
+          'You need to specify either ',
+          '    "https.key", "https.cert" and "https.ca" or ',
+          '    "https.pfx" and optionally "https.passphrase" ',
           'to run https server',
           '',
           // commands are borrowed from node.js docs
@@ -152,15 +152,17 @@ function afterConfigLoad() {
         };
 
         if (config.https.pfx) {
-          httpsoptions.pfx = fs.readFileSync(config.https.pfx);
-          httpsoptions.passphrase = config.https.passphrase || "";
+          Object.assign(httpsoptions, {
+            pfx: fs.readFileSync(config.https.pfx),
+            passphrase: config.https.passphrase || ""
+          });
         } else {
-          httpsoptions.key = fs.readFileSync(config.https.key);
-          httpsoptions.cert = fs.readFileSync(config.https.cert);
-          httpsoptions.ca = fs.readFileSync(config.https.ca);
+          Object.assign(httpsoptions, {
+            key: fs.readFileSync(config.https.key),
+            cert: fs.readFileSync(config.https.cert),
+            ca: fs.readFileSync(config.https.ca)
+          });
         }
-
-
         webServer = https.createServer(httpsoptions, app);
       } catch (err) { // catch errors related to certificate loading
         logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
