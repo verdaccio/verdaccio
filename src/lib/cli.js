@@ -146,24 +146,24 @@ function afterConfigLoad() {
       }
 
       try {
-        let httpsoptions = {
+        const httpsOptions = {
           secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
           secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
         };
 
         if (config.https.pfx) {
-          Object.assign(httpsoptions, {
+          Object.assign(httpsOptions, {
             pfx: fs.readFileSync(config.https.pfx),
             passphrase: config.https.passphrase || '',
           });
         } else {
-          Object.assign(httpsoptions, {
+          Object.assign(httpsOptions, {
             key: fs.readFileSync(config.https.key),
             cert: fs.readFileSync(config.https.cert),
             ca: fs.readFileSync(config.https.ca),
           });
         }
-        webServer = https.createServer(httpsoptions, app);
+        webServer = https.createServer(httpsOptions, app);
       } catch (err) { // catch errors related to certificate loading
         logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
         process.exit(2);
