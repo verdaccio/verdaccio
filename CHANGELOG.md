@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.6.0"></a>
+# [2.6.0](https://github.com/verdaccio/verdaccio/compare/v2.5.1...v2.6.0) (2017-10-18)
+
+
+### Bug Fixes
+
+* plugin loader with logs ([d6ed202](https://github.com/verdaccio/verdaccio/commit/d6ed202))
+
+
+### Features
+
+* add pfx support for https ([c84d567](https://github.com/verdaccio/verdaccio/commit/c84d567))
+
+
+
 <a name="2.5.1"></a>
 ## [2.5.1](https://github.com/verdaccio/verdaccio/compare/v2.5.0...v2.5.1) (2017-10-01)
 
