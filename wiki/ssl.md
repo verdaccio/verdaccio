@@ -18,8 +18,8 @@ Once you update the listen and try to run verdaccio again will ask for certifica
  $ openssl req -new -sha256 -key ~/.config/verdaccio/verdaccio-key.pem -out ~/.config/verdaccio/verdaccio-csr.pem
  $ openssl x509 -req -in ~/.config/verdaccio/verdaccio-csr.pem -signkey ~/.config/verdaccio/verdaccio-key.pem -out ~/.config/verdaccio/verdaccio-cert.pem
  ````
- 
-* Edit your config file `~/.config/verdaccio/config.yalm` an add the following section (more info on the `key`, `cert` and `ca` arguments on the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options))
+
+* Edit your config file `~/.config/verdaccio/config.yalm` and add the following section
 
 ````
 https:
@@ -27,6 +27,16 @@ https:
   cert: ~/.config/verdaccio/server.crt
   ca: ~/.config/verdaccio/server.ca
 ````
+
+Alternatively, if you have a certificate as `server.pfx` format, you can add the following configuration section. The passphrase is optional and only needed, if your certificate is encrypted. 
+
+````
+https:
+  pfx: ~/.config/verdaccio/server.pfx
+  passphrase: 'secret'
+````
+
+More info on the `key`, `cert`, `ca`, `pfx` and `passphrase` arguments on the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
 * Run `verdaccio` in your command line.
 
