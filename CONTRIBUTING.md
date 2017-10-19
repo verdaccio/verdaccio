@@ -157,10 +157,34 @@ $ git status
 #
 #        modified:   somefile.js
 #
-$ git commit -m "Corrects some defect, fixes #12345, refs #12346"
-[t12345 0000000] Corrects some defect, fixes #12345, refs #12346
+$ git commit -m "fix: correct some defect, fixes #12345, refs #12346"
+[t12345 0000000] fix: correct some defect, fixes #12345, refs #12346
  1 file changed, 2 insertions(+), 2 deletions(-)
 ```
+
+#### Git Commit Guidelines
+
+We follow the [conventional commit messages](https://conventionalcommits.org/) convention in order to automate Changelog generation and auto semantic versioning based on commit messages. 
+
+* feat: A new feature
+* fix: A bug fix
+
+A commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in semantic versioning).
+
+eg: 
+```
+feat: xxxxxxxxxx
+````
+
+A commit of the type fix patches a bug in your codebase (this correlates with PATCH in semantic versioning).
+
+eg: 
+```
+fix: xxxxxxxxxx
+````
+
+Commits types as `docs:`,`style:`,`refactor:`,`perf:`,`test:` and `chore:` are valid but has no effect on versioning, but, it would be great if you use them.
+
 
 ### 5. Rebase and Push Changes
 
