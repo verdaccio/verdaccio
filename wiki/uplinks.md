@@ -1,6 +1,6 @@
 # Uplinks
 
-An *upnlink* is a link with an external registry that provides acccess to external packages. 
+An *uplink* is a link with an external registry that provides acccess to external packages. 
 
 ### Usage
  
