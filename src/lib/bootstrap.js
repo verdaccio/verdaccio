@@ -69,15 +69,20 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
   const app = server(config);
   get_listen_addresses(cliArguments.listen, config.listen).forEach(function(addr) {
     let webServer;
-    if (addr.proto === 'https') { // https
+    if (addr.proto === 'https') { // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
       if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
         let conf_path = function(file) {
-          if (!file) return config_path;
+          if (!file) {
+            return config_path;
+          }
           return Path.resolve(Path.dirname(config_path), file);
         };
 
         logger.logger.fatal([
-          'You need to specify "https.key", "https.cert" and "https.ca" to run https server',
+          'You need to specify either ',
+          '    "https.key", "https.cert" and "https.ca" or ',
+          '    "https.pfx" and optionally "https.passphrase" ',
+          'to run https server',
           '',
           // commands are borrowed from node.js docs
           'To quickly create self-signed certificate, use:',
@@ -96,19 +101,34 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
       }
 
       try {
-        webServer = https.createServer({
+        const httpsOptions = {
           secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
           secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
-          key: fs.readFileSync(config.https.key),
-          cert: fs.readFileSync(config.https.cert),
-          ca: fs.readFileSync(config.https.ca),
-        }, app);
+        };
+
+        if (config.https.pfx) {
+          Object.assign(httpsOptions, {
+            pfx: fs.readFileSync(config.https.pfx),
+            passphrase: config.https.passphrase || '',
+          });
+        } else {
+          Object.assign(httpsOptions, {
+            key: fs.readFileSync(config.https.key),
+            cert: fs.readFileSync(config.https.cert),
+            ca: fs.readFileSync(config.https.ca),
+          });
+        }
+        webServer = https.createServer(httpsOptions, app);
       } catch (err) { // catch errors related to certificate loading
         logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
         process.exit(2);
       }
     } else { // http
       webServer = http.createServer(app);
+    }
+
+    if (addr.path && fs.existsSync(addr.path)) {
+      fs.unlinkSync(addr.path);
     }
 
     webServer
