@@ -19,7 +19,7 @@ Once you update the listen and try to run verdaccio again will ask for certifica
  $ openssl x509 -req -in ~/.config/verdaccio/verdaccio-csr.pem -signkey ~/.config/verdaccio/verdaccio-key.pem -out ~/.config/verdaccio/verdaccio-cert.pem
  ````
 
-* Edit your config file `~/.config/verdaccio/config.yalm` and add the following section
+* Edit your config file `~/.config/verdaccio/config.yaml` and add the following section
 
 ````
 https:
