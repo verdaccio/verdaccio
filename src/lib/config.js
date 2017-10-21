@@ -211,7 +211,7 @@ class Config {
    * @return {String}
    */
   checkSecretKey(secret) {
-    if (_.isNil(secret) === false) {
+    if (_.isNil(secret) === false && secret !== '') {
       this.secret = secret;
       return secret;
     }
