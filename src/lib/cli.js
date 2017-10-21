@@ -172,7 +172,7 @@ function afterConfigLoad() {
       webServer = http.createServer(app);
     }
 
-    if (addr.path) {
+    if (addr.path && fs.existsSync(addr.path)) {
       fs.unlinkSync(addr.path);
     }
 
