@@ -172,6 +172,10 @@ function afterConfigLoad() {
       webServer = http.createServer(app);
     }
 
+    if (addr.path) {
+      fs.unlinkSync(addr.path);
+    }
+
     webServer
       .listen(addr.port || addr.path, addr.host)
       .on('error', function(err) {
