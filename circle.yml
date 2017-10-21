@@ -6,6 +6,7 @@ machine:
     version: 8
 dependencies:
   pre:
+    - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
     - |
       if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
         curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
