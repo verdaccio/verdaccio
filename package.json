@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",

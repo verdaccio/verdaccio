@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.6.2"></a>
+## [2.6.2](https://github.com/verdaccio/verdaccio/compare/v2.6.1...v2.6.2) (2017-10-21)
+
+
+### Bug Fixes
+
+* Remove unix socket before listen ([d42a41e](https://github.com/verdaccio/verdaccio/commit/d42a41e))
+
+
+
 <a name="2.6.1"></a>
 ## [2.6.1](https://github.com/verdaccio/verdaccio/compare/v2.6.0...v2.6.1) (2017-10-19)
 
