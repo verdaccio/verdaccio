@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@verdaccio/file-locking@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.5.tgz#6172dfa2f7094a1da8e4c14906bfa33836b5713d"
+  dependencies:
+    lockfile "1.0.3"
+    lodash "4.17.4"
+
 "@verdaccio/file-locking@^0.0.3":
   version "0.0.3"
   resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.3.tgz#32d3702ff5184d1d3893f0f1d47629ad33d1c113"
@@ -10,9 +17,9 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/local-storage@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.0.6.tgz#fae664f81fd71fd15c9d0c804a545b170fb9eaa0"
+"@verdaccio/local-storage@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.0.7.tgz#3d1679b894028d598562e220809d1b1651ae3746"
   dependencies:
     "@verdaccio/file-locking" "^0.0.3"
     "@verdaccio/streams" "^0.0.2"
