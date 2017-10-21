@@ -37,9 +37,6 @@ class Storage {
     this.config = config;
     this._setupUpLinks(this.config);
     this.localStorage = new LocalStorage(config, Logger.logger, Utils);
-    this.localStorage.localList.data.secret = this.config.checkSecretKey(this.localStorage.localList.data.secret);
-    this.localStorage.localList.sync();
-    // an instance for local storage
     this.logger = Logger.logger.child();
   }
 
@@ -461,9 +458,9 @@ class Storage {
    * Retrieve only private local packages
    * @param {*} callback
    */
-  get_local(callback) {
+  getLocalDatabase(callback) {
     let self = this;
-    let locals = this.localStorage.localList.get();
+    let locals = this.localStorage.localData.get();
     let packages = [];
 
     const getPackage = function(i) {
