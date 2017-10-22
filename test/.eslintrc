@@ -14,7 +14,8 @@
       2,
       {
         "allow": [
-          "log"
+          "log",
+          "error"
         ]
       }
     ],

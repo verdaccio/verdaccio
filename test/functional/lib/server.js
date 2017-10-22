@@ -1,8 +1,7 @@
-'use strict';
 
-const assert = require('assert');
-const request = require('./request');
 const _ = require('lodash');
+import assert from 'assert';
+import request from './request';
 
 const buildAuthHeader = (user, pass) => {
   return `Basic ${(new Buffer(`${user}:${pass}`)).toString('base64')}`;
@@ -207,5 +206,4 @@ class Server {
   }
 
 }
-
-module.exports = Server;
+export default Server;

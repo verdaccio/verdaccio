@@ -1,6 +1,6 @@
 'use strict';
 
-const Server = require('../lib/server');
+import Server from '../lib/server';
 const fs = require('fs');
 const path = require('path');
 
