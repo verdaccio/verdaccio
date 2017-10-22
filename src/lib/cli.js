@@ -2,9 +2,7 @@
 
 /* eslint no-sync:0 */
 /* eslint no-empty:0 */
-'use strict';
-
-const _ = require('lodash');
+import {afterConfigLoad} from './bootstrap';
 
 if (process.getuid && process.getuid() === 0) {
   global.console.error('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.');
@@ -22,13 +20,7 @@ const logger = require('./logger');
 logger.setup(); // default setup
 
 const commander = require('commander');
-const constants = require('constants');
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
-const Path = require('path');
-const URL = require('url');
-const server = require('../api/index');
+const path = require('path');
 const Utils = require('./utils');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;
@@ -45,7 +37,7 @@ if (commander.args.length == 1 && !commander.config) {
   commander.config = commander.args.pop();
 }
 
-if (commander.args.length != 0) {
+if (commander.args.length !== 0) {
   commander.help();
 }
 
@@ -53,7 +45,7 @@ let config;
 let config_path;
 try {
   if (commander.config) {
-    config_path = Path.resolve(commander.config);
+    config_path = path.resolve(commander.config);
   } else {
     config_path = require('./config-path')();
   }
@@ -64,149 +56,7 @@ try {
   process.exit(1);
 }
 
-afterConfigLoad();
-
-/**
- * Retrieve all addresses defined in the config file.
- * Verdaccio is able to listen multiple ports
- * eg:
- *  listen:
-    - localhost:5555
-    - localhost:5557
-    @return {Array}
- */
-function get_listen_addresses() {
-  // command line || config file || default
-  let addresses;
-  if (commander.listen) {
-    addresses = [commander.listen];
-  } else if (Array.isArray(config.listen)) {
-    addresses = config.listen;
-  } else if (config.listen) {
-    addresses = [config.listen];
-  } else {
-    addresses = ['4873'];
-  }
-  addresses = addresses.map(function(addr) {
-    let parsed_addr = Utils.parse_address(addr);
-
-    if (!parsed_addr) {
-      logger.logger.warn({addr: addr},
-         'invalid address - @{addr}, we expect a port (e.g. "4873"),'
-       + ' host:port (e.g. "localhost:4873") or full url'
-       + ' (e.g. "http://localhost:4873/")');
-    }
-
-    return parsed_addr;
-  }).filter(Boolean);
-
-  return addresses;
-}
-
-/**
- * Trigger the server after configuration has been loaded.
- */
-function afterConfigLoad() {
-  if (!config.self_path) {
-    config.self_path = Path.resolve(config_path);
-  }
-  if (!config.https) {
-    config.https = {enable: false};
-  }
-  const app = server(config);
-  get_listen_addresses().forEach(function(addr) {
-    let webServer;
-    if (addr.proto === 'https') { // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
-      if (!config.https || !((config.https.key && config.https.cert && config.https.ca) || config.https.pfx)) {
-        let conf_path = function(file) {
-          if (!file) return config_path;
-          return Path.resolve(Path.dirname(config_path), file);
-        };
-
-        logger.logger.fatal([
-          'You need to specify either ',
-          '    "https.key", "https.cert" and "https.ca" or ',
-          '    "https.pfx" and optionally "https.passphrase" ',
-          'to run https server',
-          '',
-          // commands are borrowed from node.js docs
-          'To quickly create self-signed certificate, use:',
-          ' $ openssl genrsa -out ' + conf_path('verdaccio-key.pem') + ' 2048',
-          ' $ openssl req -new -sha256 -key ' + conf_path('verdaccio-key.pem') + ' -out ' + conf_path('verdaccio-csr.pem'),
-          ' $ openssl x509 -req -in ' + conf_path('verdaccio-csr.pem') +
-          ' -signkey ' + conf_path('verdaccio-key.pem') + ' -out ' + conf_path('verdaccio-cert.pem'),
-          '',
-          'And then add to config file (' + conf_path() + '):',
-          '  https:',
-          '    key: verdaccio-key.pem',
-          '    cert: verdaccio-cert.pem',
-          '    ca: verdaccio-cert.pem',
-        ].join('\n'));
-        process.exit(2);
-      }
-
-      try {
-        const httpsOptions = {
-          secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
-          secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
-        };
-
-        if (config.https.pfx) {
-          Object.assign(httpsOptions, {
-            pfx: fs.readFileSync(config.https.pfx),
-            passphrase: config.https.passphrase || '',
-          });
-        } else {
-          Object.assign(httpsOptions, {
-            key: fs.readFileSync(config.https.key),
-            cert: fs.readFileSync(config.https.cert),
-            ca: fs.readFileSync(config.https.ca),
-          });
-        }
-        webServer = https.createServer(httpsOptions, app);
-      } catch (err) { // catch errors related to certificate loading
-        logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
-        process.exit(2);
-      }
-    } else { // http
-      webServer = http.createServer(app);
-    }
-
-    if (addr.path && fs.existsSync(addr.path)) {
-      fs.unlinkSync(addr.path);
-    }
-
-    webServer
-      .listen(addr.port || addr.path, addr.host)
-      .on('error', function(err) {
-        logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
-        process.exit(2);
-      });
-
-    logger.logger.warn({
-      addr: ( addr.path
-            ? URL.format({
-                protocol: 'unix',
-                pathname: addr.path,
-              })
-            : URL.format({
-                protocol: addr.proto,
-                hostname: addr.host,
-                port: addr.port,
-                pathname: '/',
-              })
-            ),
-      version: pkgName + '/' + pkgVersion,
-    }, 'http address - @{addr} - @{version}');
-  });
-
-  // undocumented stuff for tests
-  if (_.isFunction(process.send)) {
-    process.send({
-      verdaccio_started: true,
-    });
-  }
-}
+afterConfigLoad(config, commander, config_path, pkgVersion, pkgName);
 
 process.on('uncaughtException', function(err) {
   logger.logger.fatal( {
