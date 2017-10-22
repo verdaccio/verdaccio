@@ -59,7 +59,7 @@
     ],
     "camelcase": 0,
     "require-jsdoc": 0,
-    "valid-jsdoc": 2,
+    "valid-jsdoc": 0,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
     "no-var": 2,
