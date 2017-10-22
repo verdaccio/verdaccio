@@ -26,12 +26,11 @@
       ]
     },
     "registry": {
-      "presets": [
-        "es2015-node4"
-      ],
-      "plugins": [
-        "transform-object-rest-spread"
-      ]
+      "presets": [["env", {
+        "targets": {
+          "node": "4.6"
+        }
+      }], "flow"]
     },
     "development": {
       "presets": ["flow"],

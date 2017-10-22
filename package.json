@@ -15,8 +15,8 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "0.0.5",
-    "@verdaccio/local-storage": "^0.0.10",
+    "@verdaccio/file-locking": "^0.0.5",
+    "@verdaccio/local-storage": "^0.0.11",
     "@verdaccio/streams": "^0.0.2",
     "@verdaccio/types": "^0.0.7",
     "JSONStream": "^1.1.1",
@@ -68,6 +68,8 @@
     "babel-preset-stage-3": "6.24.1",
     "babel-register": "^6.26.0",
     "babel-runtime": "6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "codacy-coverage": "2.0.2",
     "codecov": "2.2.0",
     "coveralls": "2.13.1",
