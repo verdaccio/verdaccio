@@ -35,7 +35,7 @@ module.exports = function(config, auth, storage) {
 
   // Get list of all visible package
   route.get('/packages', function(req, res, next) {
-    storage.get_local(function(err, packages) {
+    storage.getLocalDatabase(function(err, packages) {
       if (err) {
         // that function shouldn't produce any
         throw err;
