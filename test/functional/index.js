@@ -18,6 +18,8 @@ describe('functional test verdaccio', function() {
       require('./lib/startup').start('./store/test-storage3', '/store/config-3.yaml'),
     ]).then(() => {
       done();
+    }).catch(function(error) {
+        console.error("error on start servers", error);
     });
 
   });
@@ -76,7 +78,7 @@ describe('functional test verdaccio', function() {
   require('./plugins/auth.spec')();
   require('./plugins/middleware.spec')();
   require('./notifications/notify')();
-  // requires packages published to server1/server2
+  // // requires packages published to server1/server2
   require('./uplink.cache.spec')();
   require('./uplink.auth.spec')();
 
