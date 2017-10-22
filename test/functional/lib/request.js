@@ -1,11 +1,9 @@
-'use strict';
-
 const assert = require('assert');
 const request = require('request');
 const requestData = Symbol('smart_request_data');
 const _ = require('lodash');
 
-class PromiseAssert extends Promise {
+export class PromiseAssert extends Promise {
 
   constructor(options) {
     super(options);
@@ -95,8 +93,7 @@ function smartRequest(options) {
 
   smartObject[requestData] = {};
   smartObject[requestData].error = Error();
-  Error.captureStackTrace(smartObject[requestData].error, smartRequest);
-
+  Error.captureStackTrace(smartObject[requestData].error, smartRequest);  
   const result = new PromiseAssert(function(resolve, reject) {
     smartObject[requestData].request = request(options, function(err, res, body) {
       if (err) {
@@ -109,8 +106,10 @@ function smartRequest(options) {
     });
   });
 
+  // console.log("--result->", result);
+
   return injectResponse(smartObject, result);
 }
 
-module.exports = smartRequest;
+export default smartRequest;
 

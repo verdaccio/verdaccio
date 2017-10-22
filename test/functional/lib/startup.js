@@ -1,12 +1,14 @@
 'use strict';
 
+import express from 'express';
+import Server from './server';
+
 const _ = require('lodash');
 const fork = require('child_process').fork;
 const bodyParser = require('body-parser');
-const express = require('express');
+
 const rimRaf = require('rimraf');
 const path = require('path');
-const Server = require('./server');
 
 const forks = process.forks = [];
 process.server = new Server('http://localhost:55551/');
@@ -24,6 +26,7 @@ module.exports.start = function(dir, conf) {
   return new Promise(function(resolve, reject) {
     const storageDir = path.join(__dirname, `/../${dir}`);
     const configPath = path.join(__dirname, '../', conf);
+
     rimRaf(storageDir, function(err) {
       if(_.isNil(err) === false) {
         reject(err);
@@ -32,12 +35,15 @@ module.exports.start = function(dir, conf) {
         // filter out --debug-brk and --inspect-brk since Node7
         return (x.indexOf('--debug-brk') === -1  && x.indexOf('--inspect-brk') === -1);
       });
-
-      const childFork = fork(__dirname + '/../../../bin/verdaccio',
+      const url = path.join(__dirname, '/../../helper/verdaccio-test');
+      const childFork = fork(url,
         ['-c', configPath],
         {
-          silent: !process.env.TRAVIS
-          // silent: false
+          silent: !process.env.TRAVIS,
+          // silent: false,
+          env: {
+            BABEL_ENV: 'registry'
+          }
         }
       );
 
