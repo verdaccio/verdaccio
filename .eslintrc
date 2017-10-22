@@ -58,7 +58,7 @@
       "always"
     ],
     "camelcase": 0,
-    "require-jsdoc": 2,
+    "require-jsdoc": 0,
     "valid-jsdoc": 2,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
