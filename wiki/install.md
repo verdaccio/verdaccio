@@ -15,7 +15,7 @@ Verdaccio is a multiplatform web application, to install you need at least some 
 Using `npm` 
 
 ```bash
-npm install -g npm
+npm install -g verdaccio
 
 ```
 or using `yarn` 
