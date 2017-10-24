@@ -74,6 +74,7 @@ describe('Create registry servers', function() {
   require('./adduser/logout')();
   require('./tags/addtag.spec')();
   require('./plugins/auth.spec')();
+  require('./plugins/middleware.spec')();
   require('./notifications/notify')();
   // requires packages published to server1/server2
   require('./uplink.cache.spec')();

@@ -11,6 +11,7 @@ const Cats = require('../lib/status-cats');
 const Storage = require('../lib/storage');
 const _ = require('lodash');
 const cors = require('cors');
+const load_plugins = require('../lib/plugin-loader').load_plugins;
 
 module.exports = function(config_hash) {
   // Config
@@ -80,6 +81,17 @@ module.exports = function(config_hash) {
       });
     });
   }
+  // register middleware plugins
+  const plugin_params = {
+    config: config,
+    logger: Logger.logger,
+  };
+  const plugins = load_plugins(config, config.middlewares, plugin_params, function(p) {
+    return p.register_middlewares;
+  });
+  plugins.forEach(function(p) {
+    p.register_middlewares(app, auth, storage);
+  });
 
   // For  npm request
   app.use(require('./endpoint')(config, auth, storage));

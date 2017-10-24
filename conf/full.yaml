@@ -186,3 +186,8 @@ notify:
     content: ' {{ handlebar-expression }}'
     # For Slack, follow the following format:
     # content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Verdaccio", "icon_emoji": ":package:" }'
+
+# Configure plugins that can register custom middlewares
+#middlewares:
+# plugin-name:
+#   setting: true
