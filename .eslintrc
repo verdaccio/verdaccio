@@ -1,13 +1,15 @@
 {
   "plugins": [
     "react",
-    "flowtype"
+    "flowtype",
+    "prettier"
   ],
   "extends": [
     "eslint:recommended",
     "google",
     "plugin:react/recommended",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "sourceType": "module",
@@ -74,6 +76,12 @@
         "allow": [
           "warn"
         ]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
       }
     ]
   }
