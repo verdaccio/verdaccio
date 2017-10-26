@@ -7,7 +7,7 @@
 
 ### Logo
 
-We are looking for a new logo, ⚡⚡⚡ [please 🙏🙏 I encorage you to contribute helping us to decide](https://github.com/verdaccio/verdaccio/issues/328) ⚡⚡⚡
+We have a new logo [thanks for your votes !!!](https://github.com/verdaccio/verdaccio/issues/328) ⚡⚡⚡
 
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
 [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
