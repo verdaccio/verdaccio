@@ -2,10 +2,6 @@
 
 `verdaccio` is a fork of **sinopia** and it's backwards compatible.
 
-🚀🚨🚨🚨🚨 **<--- Here we will have a fancy logo soon -->** 🚨🚨🚨🚨🚀
-
-You can vote 👍🏻👍🏻👍🏻 or contribute in [this thread](https://github.com/verdaccio/verdaccio/issues/237).
-
 ## Why should I use verdaccio?👌
 
 
@@ -32,36 +28,57 @@ from a fresh look at the code and the outstanding issues. So here we are 🎉�
 
 ## Getting Started
 
+### Installation
+
 * [Installation](install.md)
+
+### Usage
+
 * [Command Line](cli.md)
-* [Understand the configuration file](config.md)
+
+### Configuration
+
+* [The configuration file](config.md)
 * [Setting up *uplinks*](uplinks.md)
 * [Packages Access](packages.md)
+* [Authorization and Access](auth.md)
 * [Enable Notifications](notifications.md)
-* [Authorization and access](auth.md)
-* [Logs](logger.md)
-* [Configure the Web](web.md)
 
-## Advanced Configurations
+* [Custom Logs](logger.md)
 
-* [SSL Certificates](ssl.md)
-* [Installing Plugins](plugins.md)
+### UI Customization
 
-## Servers
+* [Configure the Web](web.md) 
+
+
+## Server Configurations
 
 * [Advanced Server Configuration](server.md)
 * [Reverse Proxy](reverse-proxy.md)
+* [SSL Certificates](ssl.md)
 
-### Windows Configurations
+### Windows Specific Settings
 
 * [Installing As a Windows Service](windows.md)
 * [Installing on IIS server](iis-server.md)
 
+## Extend Verdaccio
+* [Installing Plugins](plugins.md)
+* Create your own plugins
+
 ## DevOps
 
-* [Ansible](ansible.md)
-* [Docker](docker.md)
+* [Configure with Ansible](ansible.md)
+* [Using Docker Image](docker.md)
 
-## Recipes
+## Verdaccio Recipes
 
 * [Learn how to protect your packages](recipes/protect-your-dependencies.md)
+
+## Development
+
+* [I want to to contribute](dev/README.md)
+* [Build verdaccio](dev/build.md)
+* [Create plugins](dev/plugins.md)
+* [Repositories](dev/repositories.md)
+* [Unit Testing](dev/test.md) 
