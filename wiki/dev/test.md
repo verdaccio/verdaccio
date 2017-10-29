@@ -10,6 +10,8 @@ Unit and functional tests are executed automatically by running `npm test` from 
 
 We use `mocha` for all test.
 
+⚠️⚠️ **Functional test** do not work on Windows, but if you are willing to **fix** it we refer you to [#9](https://github.com/verdaccio/verdaccio/issues/9) ⚠️⚠️
+
 ## The npm Script
 
 To run the test script you can use either `npm` or `yarn`. 
