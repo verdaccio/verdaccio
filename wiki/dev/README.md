@@ -1,15 +1,15 @@
 # Contributing
 
-First of all 👏👏 thanks for visiting this page, for us means you are willing to contribute `verdaccio` and we are happy for that. Jumping into a unfamiliar code base is not easy but we are here to help you.
+First of all 👏👏 thanks for visiting this page, for us means you are willing contribute to `verdaccio` and we are happy for that. Jumping into an unfamiliar code base is not easy but we are here to help you.
 
 ## Comunication Channels
 
-If you are willing for asking we use two channels for discussions:
+If you are willing for asking, we use two channels for discussions:
 
 * [Public Gitter channel](https://gitter.im/verdaccio/)
 * [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in Gitter to be included)
 
-## Firts steps
+## First steps
 
 As a first glance verdaccio is a single repository, but there are many ways you might contribute and variety of technologies to practice.
 
@@ -20,6 +20,8 @@ All we have different skills, so, let's see where you might feel comfortable.
 #### I know or I want to learn Node.js 
 
 Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`. 
+
+We have a long [list of plugins](https://github.com/verdaccio/verdaccio/blob/master/wiki/plugins.md) ready to be used and improved but at the same time [you might create your own](plugin.md).
 
 #### I would prefer work in the User Interface
 
@@ -50,4 +52,5 @@ If you are thinking *"I've seen already the [repositories](repositories.md) and 
 You will need learn how to build, [we have prepared a guide just for that](build.md).
 
 Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+
 
