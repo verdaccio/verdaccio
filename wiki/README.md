@@ -64,7 +64,6 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 
 ## Extend Verdaccio
 * [Installing Plugins](plugins.md)
-* Create your own plugins
 
 ## DevOps
 

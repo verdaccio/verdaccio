@@ -10,7 +10,7 @@ Unit and functional tests are executed automatically by running `npm test` from 
 
 We use `mocha` for all test.
 
-## Script
+## The npm Script
 
 To run the test script you can use either `npm` or `yarn`. 
 
@@ -20,8 +20,7 @@ yarn run test
 
 That will trigger only two first groups of test, unit and functional.
 
-### Unit Test
-
+### Using test/unit
 The following is just an example how a unit test should looks like. Basically follow the `mocha` standard. Try to describe what exactly does the unit test in a single sentence in the header of the `it` section.
 
 ```javacript
@@ -40,7 +39,7 @@ describe('Parse interval', function() {
   });});
 ```
 
-### Functional Test
+### Using test/functional
 
 Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
 
@@ -111,6 +110,47 @@ The startup file is the responsable to create the 3 verdaccio instances and inje
 #### The lib/request.js
 
 This module holds a `PromiseAssert` which extends from `Promise` adding methods to handle all request from `lib/server.js`.
+
+### Usage
+
+Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+
+```javascript
+'use strict';
+
+module.exports = function() {
+  // you can access the 3 instance through process global variables
+  const server = process.server;
+  const server2 = process.server2;
+ 
+  describe('my-functional-group-test', function() {
+    before(function() {
+      // create a raw emtpy package
+      const pkg = require('./fixtures/package')('new-package');
+      return server.putPackage('new-package', pkg)
+        		  // check whether was uploaded correctly
+               .status(201)
+               // check whether body response is ok
+               .body_ok(/created new package/);
+    });
+	 
+	 // since before are not registred, we use emtpy it to display before putPackage was success
+    it('creating new package / srv1', function() {});
+
+    it('should do something else here ..... ', function() {
+      // this should fails since fakeVersion does not exist
+      // note we use server2 because is an uplink of server 1
+      return server2.getTarball('new-package', 'fakeVersion')
+               .status(404)
+               .body_error(/no such file/);
+    });
+  });
+};
+```
+
+### Test/integration
+
+These section never has been used, but we are looking for help to make it run properly. All new ideas are very welcome.
 
 
 
