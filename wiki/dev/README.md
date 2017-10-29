@@ -11,9 +11,11 @@ If you are willing for asking we use two channels for discussions:
 
 ## Firts steps
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and variety of techonologies to practice.
+As a first glance verdaccio is a single repository, but there are many ways you might contribute and variety of technologies to practice.
 
 ### Finding my spot
+
+All we have different skills, so, let's see where you might feel comfortable.
 
 #### I know or I want to learn Node.js 
 
