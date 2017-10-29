@@ -9,9 +9,9 @@ If you are willing for asking, we use two channels for discussions:
 * [Public Gitter channel](https://gitter.im/verdaccio/)
 * [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in Gitter to be included)
 
-## First steps
+## Getting started
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and variety of technologies to practice.
+As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
 
 ### Finding my spot
 
@@ -23,13 +23,22 @@ Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, 
 
 We have a long [list of plugins](https://github.com/verdaccio/verdaccio/blob/master/wiki/plugins.md) ready to be used and improved but at the same time [you might create your own](plugin.md).
 
-#### I would prefer work in the User Interface
+#### I would prefer to work in the User Interface
 
 Recently we have moved to modern techonologies as `React` and `element-react`.  
 
 #### I feel more confortable improving the stack
 
-Of course we will be happy to help us improving the stack, you can upgrade dependenciesas `eslint`, `stylelint`, `webpack`. Or merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+
+Here some ideas:
+
+* Create a common eslint rules to be used across all dependencies or plugins
+* Improve Flow types definitions delivery
+* Moving to Webpack 4
+* Update to React 16
+* Improve hot reload with Webpack
+* We use babel and webpack across all dependencies, why not a common preset?
 
 #### I do great Documentation
 
