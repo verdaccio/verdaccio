@@ -33,7 +33,9 @@ module.exports = function(config, auth, storage) {
   });
 
   router.get('/-/verdaccio/logo', function(req, res) {
-    res.send(_.get(config, 'web.logo') || '/-/static/logo.png');
+    const installPath = _.get(config, 'url_prefix', '');
+
+    res.send(_.get(config, 'web.logo') || `${installPath}/-/static/logo.png`);
   });
 
   router.get('/', function(req, res) {

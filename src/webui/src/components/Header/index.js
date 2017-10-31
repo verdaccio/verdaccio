@@ -138,6 +138,9 @@ export default class Header extends React.Component {
   }
 
   render() {
+    // Don't add slash if it's not a sub directory
+    const registryURL = `${location.origin}${location.pathname === '/' ? '' : location.pathname}`;
+
     return (
       <header className={ classes.header }>
         <div className={ classes.headerWrap }>
@@ -145,9 +148,9 @@ export default class Header extends React.Component {
             <img src={ this.state.logo } className={ classes.logo } />
           </Link>
           <figure>
-            npm set registry { location.origin }
+            npm set registry { registryURL }
             <br/>
-            npm adduser --registry { location.origin }
+            npm adduser --registry { registryURL }
           </figure>
           {this.renderUserActionButton()}
         </div>
