@@ -9,6 +9,9 @@ import classes from './help.scss';
 registerLanguage('javascript', js);
 
 const Help = () => {
+  // Don't add slash if it's not a sub directory
+  const registryURL = `${location.origin}${location.pathname === '/' ? '' : location.pathname}`;
+
     return (
       <div className={classes.help}>
         <li className={classes.noPkg}>
@@ -24,11 +27,11 @@ const Help = () => {
               1. Login
             </strong>
             <SyntaxHighlighter language='javascript' style={sunburst}>
-              {`npm adduser --registry  ${location.origin}`}
+              {`npm adduser --registry  ${registryURL}`}
             </SyntaxHighlighter>
             <strong>2. Publish</strong>
             <SyntaxHighlighter language='javascript' style={sunburst}>
-              {`npm publish --registry ${location.origin}`}
+              {`npm publish --registry ${registryURL}`}
             </SyntaxHighlighter>
             <strong>3. Refresh this page!</strong>
           </p>
