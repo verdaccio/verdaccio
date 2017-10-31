@@ -76,7 +76,7 @@ $ npm set ca null
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
 
-> Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
+> Warning: Verdaccio does not currently support PM2's cluster mode, running it with cluster mode may cause unknown behavior.
 
 #### Beta
 
