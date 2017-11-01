@@ -24,12 +24,11 @@ test:
   override:
     - yarn run pre:ci
     - nvm alias default 6
-    - yarn run test:ci
+    - yarn run test
     - nvm alias default 4
-    - yarn run test:ci
+    - yarn run test
     - nvm alias default 8
-    - yarn run test:ci
-    - yarn run coverage:publish
+    - yarn run test
 deployment:
   production:
     tag: /(v)?[0-9]+(\.[0-9]+)*/

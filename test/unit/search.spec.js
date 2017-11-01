@@ -32,8 +32,8 @@ let packages = [
 	},
 ];
 
-describe('search', function() {
-	before(function() {
+describe('search', () => {
+	beforeAll(function() {
 		let config = new Config(config_hash);
 		this.storage = new Storage(config);
 		Search.configureStorage(this.storage);
@@ -42,12 +42,12 @@ describe('search', function() {
 		});
 	});
 
-	it('search query item', function() {
+	test('search query item', () => {
 		let result = Search.query('t');
 		assert(result.length === 3);
 	});
 
-	it('search remove item', function() {
+	test('search remove item', () => {
 		let item = {
 			name: 'test6',
 			description: 'description',

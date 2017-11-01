@@ -25,6 +25,12 @@
         "transform-decorators-legacy"
       ]
     },
+    "test": {
+      "presets": [ "es2015-node4", "flow"],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    },
     "registry": {
       "presets": [
         "es2015-node4", "flow"
