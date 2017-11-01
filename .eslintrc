@@ -1,13 +1,15 @@
 {
   "plugins": [
     "react",
-    "flowtype"
+    "flowtype",
+    "jest"
   ],
   "extends": [
     "eslint:recommended",
     "google",
     "plugin:react/recommended",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:jest/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -21,7 +23,8 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "rules": {
     "no-tabs": 0,
