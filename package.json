@@ -53,6 +53,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.1",
+    "babel-jest": "^21.2.0",
     "babel-loader": "7.1.2",
     "babel-plugin-flow-runtime": "0.11.1",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
@@ -76,6 +77,8 @@
     "css-loader": "0.28.4",
     "element-react": "1.0.16",
     "element-theme-default": "1.3.7",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
     "eslint": "4.2.0",
     "eslint-config-google": "0.8.0",
     "eslint-loader": "1.8.0",
@@ -83,6 +86,7 @@
     "eslint-plugin-flowtype": "2.35.0",
     "eslint-plugin-import": "2.6.1",
     "eslint-plugin-react": "7.1.0",
+    "eslint-plugin-jest": "^21.2.0",
     "extract-text-webpack-plugin": "3.0.0",
     "file-loader": "0.11.2",
     "flow-bin": "0.52.0",
@@ -92,12 +96,11 @@
     "github-markdown-css": "2.8.0",
     "html-webpack-plugin": "2.29.0",
     "in-publish": "2.0.0",
+    "jest": "^21.2.1",
+    "jest-serializer-enzyme": "^1.0.0",
     "localstorage-memory": "1.0.2",
-    "mocha": "3.5.3",
-    "mocha-lcov-reporter": "1.3.0",
     "node-sass": "4.5.3",
     "normalize.css": "7.0.0",
-    "nyc": "11.0.3",
     "ora": "1.3.0",
     "prop-types": "15.5.10",
     "react": "15.6.1",
@@ -132,13 +135,10 @@
     "release": "standard-version -a -s",
     "prepublish": "in-publish && npm run build:webui || not-in-publish",
     "flow": "flow",
-    "test": "BABEL_ENV=registry mocha --require babel-register ./test/functional ./test/unit --reporter=spec --full-trace",
+    "test": "jest",
     "pre:ci": "npm run build:webui",
-    "test:ci": "npm run test:coverage",
     "test:only": "mocha ./test/functional ./test/unit",
-    "test:coverage": "nyc npm t",
-    "coverage:html": "nyc report --reporter=html",
-    "coverage:publish": "nyc report --reporter=lcov | codecov",
+    "coverage:publish": "codecov",
     "lint": "eslint .",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
     "dev:start": "BABEL_ENV=registry babel-node src/lib/cli",
@@ -149,14 +149,9 @@
     "build:docker": "docker build -t verdaccio . --no-cache",
     "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
-  "jest": {
-    "snapshotSerializers": [
-      "jest-serializer-enzyme"
-    ]
-  },
   "engines": {
     "node": ">=4.6.1",
-    "npm": ">=2.15.9"
+    "npm": ">=3"
   },
   "preferGlobal": true,
   "publishConfig": {

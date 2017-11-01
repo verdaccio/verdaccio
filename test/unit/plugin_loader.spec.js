@@ -1,12 +1,13 @@
 'use strict';
 
+require('../../src/lib/logger').setup([]);
 const assert = require('assert');
 const load_plugins = require('../../src/lib/plugin-loader').load_plugins;
 const path = require('path');
 
-describe('plugin loader', function() {
+describe('plugin loader', () => {
 
-	it('testing auth valid plugin loader', function() {
+	test('testing auth valid plugin loader', () => {
 		let _config = {
 			self_path: path.join(__dirname, './'),
 			max_users: 0,
@@ -20,7 +21,7 @@ describe('plugin loader', function() {
 		assert(p.length === 1);
 	});
 
-	it('testing auth plugin invalid plugin', function() {
+	test('testing auth plugin invalid plugin', () => {
 		let _config = {
 			self_path: path.join(__dirname, './'),
 			auth: {
@@ -36,7 +37,7 @@ describe('plugin loader', function() {
 		}
 	});
 
-	it('testing auth plugin invalid plugin sanityCheck', function() {
+	test('testing auth plugin invalid plugin sanityCheck', () => {
 		let _config = {
 			self_path: path.join(__dirname, './'),
 			auth: {
@@ -52,7 +53,7 @@ describe('plugin loader', function() {
 		}
 	});
 
-	it('testing auth plugin no plugins', function() {
+	test('testing auth plugin no plugins', () => {
 		let _config = {
 			self_path: path.join(__dirname, './'),
 			auth: {
