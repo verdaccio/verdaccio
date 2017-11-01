@@ -4,9 +4,9 @@ const assert = require('assert');
 const _ = require('lodash');
 const parse = require('../../src/lib/utils').parse_address;
 
-describe('Parse listen address', function() {
+describe('Parse listen address', () => {
   function addTest(what, proto, host, port) {
-    it(what, function() {
+    test(what, () => {
       if (_.isNull(proto)) {
         assert.strictEqual(parse(what), null);
       } else if (port) {
