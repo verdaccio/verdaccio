@@ -2,5 +2,6 @@ node_modules
 coverage/
 wiki/
 static/
+flow-typed/
 website/
 build/

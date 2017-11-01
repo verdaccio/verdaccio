@@ -6,9 +6,9 @@ let merge = require('../../src/lib/storage')._merge_versions;
 
 require('../../src/lib/logger').setup([]);
 
-describe('merge versions', function() {
+describe('merge versions', () => {
 
-  it('simple', function() {
+  test('simple', () => {
     let pkg = {
       'versions': {a: 1, b: 1, c: 1},
       'dist-tags': {},
@@ -22,7 +22,7 @@ describe('merge versions', function() {
     });
   });
 
-  it('dist-tags - compat', function() {
+  test('dist-tags - compat', () => {
     let pkg = {
       'versions': {},
       'dist-tags': {q: '1.1.1', w: '2.2.2'},
@@ -36,7 +36,7 @@ describe('merge versions', function() {
     });
   });
 
-  it('dist-tags - staging', function() {
+  test('dist-tags - staging', () => {
 
     let pkg = {
       versions: {},
@@ -57,7 +57,7 @@ describe('merge versions', function() {
 
   });
 
-  it('semver_sort', function() {
+  test('semver_sort', () => {
 
     assert.deepEqual(semver_sort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']),
     ['1.2.3a',
