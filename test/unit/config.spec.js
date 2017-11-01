@@ -25,14 +25,14 @@ const checkPackages = (config) => {
   assert.equal(config.uplinks['npmjs'].url, 'https://registry.npmjs.org');
 };
 
-describe('Config file', function() {
-  before(function() {
+describe('Config file', () => {
+  beforeAll(function() {
 
     this.config = new Config(Utils.parseConfigFile(resolveConf('full')));
   });
 
   describe('Config file', () => {
-    it('parse full.yaml', () => {
+    test('parse full.yaml', () => {
       const config = new Config(Utils.parseConfigFile(resolveConf('full')));
       checkUplink(config);
       assert.equal(config.storage, './storage');
@@ -40,14 +40,14 @@ describe('Config file', function() {
       checkPackages(config);
     });
 
-    it('parse docker.yaml', () => {
+    test('parse docker.yaml', () => {
       const config = new Config(Utils.parseConfigFile(resolveConf('docker')));
       checkUplink(config);
       assert.equal(config.storage, '/verdaccio/storage');
       assert.equal(config.auth.htpasswd.file, '/verdaccio/conf/htpasswd');
     });
 
-    it('parse default.yaml', () => {
+    test('parse default.yaml', () => {
       const config = new Config(Utils.parseConfigFile(resolveConf('default')));
       checkUplink(config);
       assert.equal(config.storage, './storage');

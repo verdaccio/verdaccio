@@ -3,9 +3,9 @@
 let assert = require('assert');
 let parseInterval = require('../../src/lib/utils').parseInterval;
 
-describe('Parse interval', function() {
+describe('Parse interval', () => {
   function add_test(str, res) {
-    it('parse ' + str, function() {
+    test('parse ' + str, () => {
       if (res === null) {
         assert.throws(function() {
           console.log(parseInterval(str));

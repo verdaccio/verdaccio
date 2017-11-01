@@ -14,9 +14,9 @@ const path = require('path');
  app.param('revision', validate_name);
  app.param('token', validate_name);
  */
-describe('api endpoint app.param()', test('../endpoint/index.js'));
+describe('api endpoint app.param()', runTest('../endpoint/index.js'));
 
-function test(file) {
+function runTest(file) {
   return function() {
 
     let requirePath = path.normalize(path.join(__dirname + '/../../src/api/web/', file));
@@ -43,11 +43,12 @@ function test(file) {
       });
     }
 
-    Object.keys(appParams).forEach(function(param) {
-      it('should validate ":'+param+'"', function() {
-        assert.equal(appParams[param], 'ok');
+
+      Object.keys(appParams).forEach(function(param) {
+        test('should validate ":'+param+'"', () => {
+            assert.equal(appParams[param], 'ok');
+          });
       });
-    });
   };
 }
 

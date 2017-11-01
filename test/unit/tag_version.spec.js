@@ -5,8 +5,8 @@ let tag_version = require('../../src/lib/utils').tag_version;
 
 require('../../src/lib/logger').setup([]);
 
-describe('tag_version', function() {
-  it('add new one', function() {
+describe('tag_version', () => {
+  test('add new one', () => {
     let pkg = {
       'versions': {},
       'dist-tags': {},
@@ -18,7 +18,7 @@ describe('tag_version', function() {
     });
   });
 
-  it('add (compat)', function() {
+  test('add (compat)', () => {
     const x = {
       'versions': {},
       'dist-tags': {foo: '1.1.0'},
@@ -30,7 +30,7 @@ describe('tag_version', function() {
     });
   });
 
-  it('add fresh tag', function() {
+  test('add fresh tag', () => {
     let x = {
       'versions': {},
       'dist-tags': {foo: '1.1.0'},
