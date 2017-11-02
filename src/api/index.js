@@ -86,11 +86,11 @@ module.exports = function(config_hash) {
     config: config,
     logger: Logger.logger,
   };
-  const plugins = load_plugins(config, config.middlewares, plugin_params, function(p) {
-    return p.register_middlewares;
+  const plugins = load_plugins(config, config.middlewares, plugin_params, function(plugin) {
+    return plugin.register_middlewares;
   });
-  plugins.forEach(function(p) {
-    p.register_middlewares(app, auth, storage);
+  plugins.forEach(function(plugin) {
+    plugin.register_middlewares(app, auth, storage);
   });
 
   // For  npm request
