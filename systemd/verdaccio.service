@@ -5,7 +5,7 @@ Description=verdaccio Service
 Type=simple
 User=verdaccio
 WorkingDirectory=/home/verdaccio
-ExecStart=/usr/local/lib/npm/bin/verdaccio
+ExecStart=/usr/bin/env verdaccio
 ExecStop=/usr/bin/bash -c "kill $(ps -ef | grep ^verdacc+ | awk {'print $2'})"
 
 [Install]
