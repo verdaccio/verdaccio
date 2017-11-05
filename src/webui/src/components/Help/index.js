@@ -18,7 +18,7 @@ const Help = () => {
           <h1 className={classes.noPkgTitle}>
             No Package Published Yet
           </h1>
-          <p>
+          <div className={classes.noPkgIntro}>
             <div>
               To publish your first package just:
             </div>
@@ -34,7 +34,7 @@ const Help = () => {
               {`npm publish --registry ${registryURL}`}
             </SyntaxHighlighter>
             <strong>3. Refresh this page!</strong>
-          </p>
+          </div>
         </li>
       </div>
     );
