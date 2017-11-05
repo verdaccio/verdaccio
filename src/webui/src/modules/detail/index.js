@@ -12,12 +12,12 @@ const loadingMessage = 'Loading...';
 export default class Detail extends React.Component {
   static propTypes = {
     match: PropTypes.object
-  }
+  };
 
   state = {
     readMe: '',
     notFound: false,
-  }
+  };
 
   async componentDidMount() {
      try {
