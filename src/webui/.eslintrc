@@ -5,6 +5,9 @@
     "jest": true,
     "es6": true
   },
+  "globals": {
+    "__DEBUG__": true
+  },
   "rules": {
     "require-jsdoc": 0,
     "no-console": [
