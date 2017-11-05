@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.6.5"></a>
+## [2.6.5](https://github.com/verdaccio/verdaccio/compare/v2.6.4...v2.6.5) (2017-11-05)
+
+
+### Bug Fixes
+
+* upgrade node to fix long standing socket timeout issue ([bcc13ac](https://github.com/verdaccio/verdaccio/commit/bcc13ac))
+
+
+
 <a name="2.6.4"></a>
 ## [2.6.4](https://github.com/verdaccio/verdaccio/compare/v2.6.3...v2.6.4) (2017-10-31)
 
