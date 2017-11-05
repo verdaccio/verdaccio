@@ -27,13 +27,13 @@ module.exports = function(route, auth, storage) {
 
   // tagging a package
   route.put('/:package/:tag',
-    can('publish'), media(mime.lookup('json')), tag_package_version);
+    can('publish'), media(mime.getType('json')), tag_package_version);
 
   route.post('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.lookup('json')), tag_package_version);
+    can('publish'), media(mime.getType('json')), tag_package_version);
 
   route.put('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.lookup('json')), tag_package_version);
+    can('publish'), media(mime.getType('json')), tag_package_version);
 
   route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req, res, next) {
     const tags = {};
@@ -59,7 +59,7 @@ module.exports = function(route, auth, storage) {
     });
   });
 
-  route.post('/-/package/:package/dist-tags', can('publish'), media(mime.lookup('json')), expect_json,
+  route.post('/-/package/:package/dist-tags', can('publish'), media(mime.getType('json')), expect_json,
     function(req, res, next) {
       storage.merge_tags(req.params.package, req.body, function(err) {
         if (err) {

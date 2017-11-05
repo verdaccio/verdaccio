@@ -29,14 +29,14 @@ module.exports = {
       /* Pre loader */
       {
         enforce: 'pre',
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'eslint-loader',
       },
 
       /* Normal loader */
       {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
