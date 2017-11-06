@@ -10,6 +10,7 @@ const _ = require('lodash');
 const env = require('../../config/env');
 const fs = require('fs');
 const template = fs.readFileSync(`${env.DIST_PATH}/index.html`).toString();
+const spliceURL = require('../../utils/string').spliceURL;
 
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
@@ -35,7 +36,7 @@ module.exports = function(config, auth, storage) {
   router.get('/-/verdaccio/logo', function(req, res) {
     const installPath = _.get(config, 'url_prefix', '');
 
-    res.send(_.get(config, 'web.logo') || `${installPath}/-/static/logo.png`);
+    res.send(_.get(config, 'web.logo') || spliceURL(installPath, '/-/static/logo.png'));
   });
 
   router.get('/', function(req, res) {
