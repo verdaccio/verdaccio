@@ -64,7 +64,7 @@ try {
   process.exit(1);
 }
 
-process.title = config.web && config.web.title || 'verdaccio'
+process.title = config.web && config.web.title || 'verdaccio';
 
 afterConfigLoad();
 
