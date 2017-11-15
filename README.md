@@ -123,7 +123,7 @@ To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/v
 docker pull verdaccio/verdaccio
 ```
 
-Since version 2 images for every versions are availabel as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+Since version 2 images for every version are available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ### Running verdaccio using Docker
 
