@@ -14,6 +14,10 @@ uplinks:
 web:
   enable: true
 
+middlewares:
+  ../fixtures/plugins/middlewares:
+    message: this is a custom route
+
 auth:
   ../fixtures/plugins/authenticate:
     accept_user: authtest2
