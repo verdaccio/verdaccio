@@ -18,8 +18,10 @@ RUN npm config set registry http://registry.npmjs.org/ && \
     npm install -g -s --no-progress yarn@0.28.4 --pure-lockfile && \
     yarn install --production=false && \
     yarn run build:webui && \
+    yarn run code:build && \
     yarn cache clean && \
-    yarn install --production=true --pure-lockfile
+    yarn install --production=true --pure-lockfile && \
+    yarn run code:build
 
 RUN mkdir -p /verdaccio/storage /verdaccio/conf
 
