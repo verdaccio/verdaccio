@@ -8,6 +8,7 @@ test-storage*
 .verdaccio_test_env
 node_modules
 package-lock.json
+build/
 
 
 # Istanbul
