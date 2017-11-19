@@ -20,12 +20,13 @@ import type {
   Config,
   MergeTags,
   Version,
-  ILocalFS,
   DistFile,
   Callback,
-  ILocalData,
   Logger,
   Utils} from '@verdaccio/types';
+  import type {
+    ILocalFS,
+    ILocalData} from '@verdaccio/local-storage';
 
 const pkgFileName = 'package.json';
 const fileExist = 'EEXISTS';
