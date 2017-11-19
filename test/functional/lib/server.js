@@ -1,28 +1,34 @@
+// @flow
 
-const _ = require('lodash');
+import _ from 'lodash';
 import assert from 'assert';
-import request from './request';
+import smartRequest from './request';
+import type {IServerBridge} from './types';
 
-const buildAuthHeader = (user, pass) => {
+const buildAuthHeader = (user, pass): string => {
   return `Basic ${(new Buffer(`${user}:${pass}`)).toString('base64')}`;
 };
 
-class Server {
+export default class Server implements IServerBridge{
+  url: string;
+  userAgent: string;
+  authstr: string;
 
-  constructor(url) {
+  constructor(url: string) {
     this.url = url.replace(/\/$/, '');
     this.userAgent = 'node/v8.1.2 linux x64';
     this.authstr = buildAuthHeader('test', 'test');
   }
 
-  request(options) {
+  request(options: any): any {
     assert(options.uri);
-    const headers = options.headers || {};
+    const headers: any = options.headers || {};
+
     headers.accept = headers.accept || 'application/json';
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
     headers.authorization = headers.authorization || this.authstr;
 
-    return request({
+    return smartRequest({
       url: this.url + options.uri,
       method: options.method || 'GET',
       headers: headers,
@@ -31,7 +37,7 @@ class Server {
     });
   }
 
-  auth(name, password) {
+  auth(name: string, password: string) {
     this.authstr = buildAuthHeader(name, password);
     return this.request({
       uri: `/-/user/org.couchdb.user:${encodeURIComponent(name)}/-rev/undefined`,
@@ -48,7 +54,7 @@ class Server {
     });
   }
 
-  logout(token) {
+  logout(token: string) {
     return this.request({
       uri: `/-/user/token/${encodeURIComponent(token)}`,
       method: 'DELETE',
@@ -56,14 +62,14 @@ class Server {
   }
 
 
-  getPackage(name) {
+  getPackage(name: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}`,
       method: 'GET',
     });
   }
 
-  putPackage(name, data) {
+  putPackage(name: string, data) {
     if (_.isObject(data) && !Buffer.isBuffer(data)) {
       data = JSON.stringify(data);
     }
@@ -76,10 +82,11 @@ class Server {
     }).send(data);
   }
 
-  putVersion(name, version, data) {
+  putVersion(name: string, version: string, data: any) {
     if (_.isObject(data) && !Buffer.isBuffer(data)) {
       data = JSON.stringify(data);
     }
+
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(version)}/-tag/latest`,
       method: 'PUT',
@@ -89,7 +96,7 @@ class Server {
     }).send(data);
   }
 
-  getTarball(name, filename) {
+  getTarball(name: string, filename: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}`,
       method: 'GET',
@@ -97,7 +104,7 @@ class Server {
     });
   }
 
-  putTarball(name, filename, data) {
+  putTarball(name: string, filename: string, data: any) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
@@ -107,7 +114,7 @@ class Server {
     }).send(data);
   }
 
-  removeTarball(name) {
+  removeTarball(name: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-rev/whatever`,
       method: 'DELETE',
@@ -117,7 +124,7 @@ class Server {
     });
   }
 
-  removeSingleTarball(name, filename) {
+  removeSingleTarball(name: string, filename: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
       method: 'DELETE',
@@ -128,7 +135,7 @@ class Server {
   }
 
 
-  addTag(name, tag, version) {
+  addTag(name: string, tag: string, version: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
       method: 'PUT',
@@ -138,7 +145,7 @@ class Server {
     }).send(JSON.stringify(version));
   }
 
-  putTarballIncomplete(name, filename, data, size, cb) {
+  putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function) {
     let promise = this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
@@ -171,7 +178,7 @@ class Server {
     });
   }
 
-  addPackage(name) {
+  addPackage(name: string) {
     return this.putPackage(name, require('../fixtures/package')(name))
       .status(201)
       .body_ok('created new package');
@@ -204,6 +211,4 @@ class Server {
       },
     })
   }
-
 }
-export default Server;
