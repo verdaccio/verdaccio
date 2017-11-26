@@ -5,7 +5,6 @@
 
 const Crypto = require('crypto');
 const Error = require('http-errors');
-const Logger = require('./logger');
 const load_plugins = require('./plugin-loader').load_plugins;
 const pkgJson = require('../../package.json');
 const jwt = require('jsonwebtoken');
@@ -19,7 +18,7 @@ class Auth {
    */
   constructor(config) {
     this.config = config;
-    this.logger = Logger.logger.child({sub: 'auth'});
+    this.logger = (require('./logger')()).child({sub: 'auth'});
     this.secret = config.secret;
 
     const plugin_params = {

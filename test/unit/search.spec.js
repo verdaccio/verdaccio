@@ -6,7 +6,7 @@ let Storage = require('../../src/lib/storage');
 let config_hash = require('./partials/config');
 let Config = require('../../src/lib/config');
 
-require('../../src/lib/logger').setup([]);
+require('../../src/lib/logger')({level: 'silent'});
 
 let packages = [
 	{

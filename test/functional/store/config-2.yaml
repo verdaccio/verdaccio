@@ -27,8 +27,8 @@ auth:
     allow_user: authtest
     to_access: test-auth-allow
 
-logs:
-  - {type: stdout, format: pretty, level: trace}
+logger:
+  enabled: false
 
 packages:
   '@test/*':

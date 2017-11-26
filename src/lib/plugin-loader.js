@@ -1,7 +1,7 @@
 'use strict';
 
 const Path = require('path');
-const logger = require('./logger');
+const logger = require('./logger')();
 
 /**
  * Requires a module.
@@ -56,22 +56,25 @@ function load_plugins(config, plugin_configs, params, sanity_check) {
     }
 
     if (plugin === null) {
-      logger.logger.error({content: p}, 'plugin not found. try npm install verdaccio-@{content}');
-      throw Error('"' + p + '" plugin not found\ntry "npm install verdaccio-' + p + '"');
+      const msg = `"${p}" plugin not found\ntry "npm install verdaccio-${p}"`;
+      logger.error(msg);
+      throw Error(msg);
     }
 
     if (typeof(plugin) !== 'function') {
-      logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
-      throw Error('"' + p + '" doesn\'t look like a valid plugin');
+      const msg = `"${p}" doesn't look like a valid plugin`;
+      logger.error(msg);
+      throw Error(msg);
     }
 
     plugin = plugin(plugin_configs[p], params);
 
     if (plugin === null || !sanity_check(plugin)) {
-      logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
-      throw Error('"' + p + '" doesn\'t look like a valid plugin');
+      const msg = `"${p}" doesn't look like a valid plugin`;
+      logger.error(msg);
+      throw Error(msg);
     }
-    logger.logger.info({content: p}, 'Plugin successfully loaded: @{content}');
+    logger.info('Plugin successfully loaded: %s', p);
     return plugin;
   });
 

@@ -8,8 +8,6 @@ const semver = require('semver');
 const Stream = require('stream');
 
 const Search = require('./search');
-const Logger = require('./logger');
-const LocalStorage = require('./local-storage');
 const MyStreams = require('@verdaccio/streams');
 const Proxy = require('./up-storage');
 const Utils = require('./utils');
@@ -34,10 +32,12 @@ class Storage {
    * @param {*} config
    */
   constructor(config) {
+    const logger = require('./logger')();
+    const LocalStorage = require('./local-storage');
     this.config = config;
     this._setupUpLinks(this.config);
-    this.localStorage = new LocalStorage(config, Logger.logger, Utils);
-    this.logger = Logger.logger.child();
+    this.localStorage = new LocalStorage(config, logger, Utils);
+    this.logger = logger.child({sub: 'storage'});
   }
 
   /**

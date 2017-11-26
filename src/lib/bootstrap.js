@@ -7,7 +7,6 @@ import https from 'https';
 
 const server = require('../api/index');
 const Utils = require('./utils');
-const logger = require('./logger');
 const constants = require('constants');
 // const pkgVersion = module.exports.version;
 // const pkgName = module.exports.name;
@@ -23,7 +22,7 @@ const constants = require('constants');
     - localhost:5557
     @return {Array}
  */
-function get_listen_addresses(argListen, configListen) {
+function get_listen_addresses(argListen, configListen, logger) {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -39,10 +38,10 @@ function get_listen_addresses(argListen, configListen) {
     let parsed_addr = Utils.parse_address(addr);
 
     if (!parsed_addr) {
-      logger.logger.warn({addr: addr},
-         'invalid address - @{addr}, we expect a port (e.g. "4873"),'
-       + ' host:port (e.g. "localhost:4873") or full url'
-       + ' (e.g. "http://localhost:4873/")');
+      const msg = 'invalid address - %s, we expect a port (e.g. "4873"' +
+        ' host:port (e.g. "localhost:4873") or a full url' +
+        ' (e.g. "http://localhost:4873/")';
+      logger.warn(msg, addr);
     }
 
     return parsed_addr;
@@ -67,7 +66,8 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
     config.https = {enable: false};
   }
   const app = server(config);
-  get_listen_addresses(cliArguments.listen, config.listen).forEach(function(addr) {
+  const logger = require('./logger')();
+  get_listen_addresses(cliArguments.listen, config.listen, logger).forEach(function(addr) {
     let webServer;
     if (addr.proto === 'https') { // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
       if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
@@ -78,7 +78,7 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
           return Path.resolve(Path.dirname(config_path), file);
         };
 
-        logger.logger.fatal([
+        logger.fatal([
           'You need to specify either ',
           '    "https.key", "https.cert" and "https.ca" or ',
           '    "https.pfx" and optionally "https.passphrase" ',
@@ -120,7 +120,7 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
         }
         webServer = https.createServer(httpsOptions, app);
       } catch (err) { // catch errors related to certificate loading
-        logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+        logger.fatal({err: err}, 'cannot create server: @{err.message}');
         process.exit(2);
       }
     } else { // http
@@ -134,25 +134,24 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
     webServer
       .listen(addr.port || addr.path, addr.host)
       .on('error', function(err) {
-        logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+        logger.fatal({err: err}, 'cannot create server');
         process.exit(2);
       });
 
-    logger.logger.warn({
-      addr: ( addr.path
-            ? URL.format({
-                protocol: 'unix',
-                pathname: addr.path,
-              })
-            : URL.format({
-                protocol: addr.proto,
-                hostname: addr.host,
-                port: addr.port,
-                pathname: '/',
-              })
-            ),
-      version: pkgName + '/' + pkgVersion,
-    }, 'http address - @{addr} - @{version}');
+    const logAddr = ( addr.path
+      ? URL.format({
+          protocol: 'unix',
+          pathname: addr.path,
+        })
+      : URL.format({
+          protocol: addr.proto,
+          hostname: addr.host,
+          port: addr.port,
+          pathname: '/',
+        })
+      );
+    const logVersion = pkgName + '/' + pkgVersion;
+    logger.warn('http address - %s - %s', logAddr, logVersion);
   });
 
   // undocumented stuff for tests

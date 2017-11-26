@@ -16,8 +16,7 @@ try {
   require('heapdump');
 } catch(err) { }
 
-const logger = require('./logger');
-logger.setup(); // default setup
+const logger = require('./logger')();
 
 const commander = require('commander');
 const path = require('path');
@@ -50,18 +49,15 @@ try {
     config_path = require('./config-path')();
   }
   config = Utils.parseConfigFile(config_path);
-  logger.logger.warn({file: config_path}, 'config file  - @{file}');
+  logger.warn('config file  - %s', config_path);
 } catch (err) {
-  logger.logger.fatal({file: config_path, err: err}, 'cannot open config file @{file}: @{!err.message}');
+  logger.fatal('cannot open config file %s: %s', config_path, err.message);
   process.exit(1);
 }
 
 afterConfigLoad(config, commander, config_path, pkgVersion, pkgName);
 
 process.on('uncaughtException', function(err) {
-  logger.logger.fatal( {
-      err: err,
-    },
-  'uncaught exception, please report this\n@{err.stack}' );
+  logger.fatal({err: err}, 'uncaught exception, please report this');
   process.exit(255);
 });

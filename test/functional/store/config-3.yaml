@@ -14,8 +14,8 @@ uplinks:
     url: http://localhost:55552/
     cache: false
 
-logs:
-  - {type: stdout, format: pretty, level: trace}
+logger:
+  enabled: false
 
 packages:
   'pkg-gh131':
