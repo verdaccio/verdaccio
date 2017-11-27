@@ -1,4 +1,4 @@
-{  
+{
   "env": {
     "ui": {
       "presets": [
@@ -28,6 +28,7 @@
     "test": {
       "presets": [ "es2015-node4", "flow"],
       "plugins": [
+        "transform-class-properties",
         "transform-object-rest-spread"
       ]
     },
