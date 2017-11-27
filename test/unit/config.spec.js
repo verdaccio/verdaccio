@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const Utils = require('../../src/lib/utils');
 const Config = require('../../src/lib/config');
