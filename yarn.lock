@@ -28,9 +28,9 @@
   version "0.0.2"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
-"@verdaccio/types@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.0.7.tgz#d9db7775eb87a288fbe4e58255431d3e1e9520f7"
+"@verdaccio/types@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.0.8.tgz#d457015e7eef2c162a4a44eef3d0233fc6c40fc2"
 
 JSONStream@^0.8.4:
   version "0.8.4"
