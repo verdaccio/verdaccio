@@ -8,6 +8,15 @@ module.exports = {
     'node_modules',
     'fixtures'
   ],
-  'testRegex': '(/test/unit.*\\.spec|test/functional.*\\.func)\\.js'
+  'testRegex': '(/test/unit.*\\.spec|test/functional.*\\.func|/test/webui/.*\\.spec)\\.js',
   // 'testRegex': '(test/functional.*\\.func)\\.js'
+  'setupFiles': [
+    './test/webui/global.js'
+  ],
+  'modulePathIgnorePatterns': [
+    'global.js'
+  ],
+  'moduleNameMapper': {
+    '\\.(scss)$': '<rootDir>/node_modules/jest-css-modules'
+  }
 };
