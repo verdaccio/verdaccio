@@ -3,6 +3,7 @@
 /* eslint no-sync:0 */
 /* eslint no-empty:0 */
 import {afterConfigLoad} from './bootstrap';
+import findConfigFile from './config-path';
 
 if (process.getuid && process.getuid() === 0) {
   global.console.error('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.');
@@ -47,7 +48,7 @@ try {
   if (commander.config) {
     config_path = path.resolve(commander.config);
   } else {
-    config_path = require('./config-path')();
+    config_path = findConfigFile();
   }
   config = Utils.parseConfigFile(config_path);
   logger.logger.warn({file: config_path}, 'config file  - @{file}');
