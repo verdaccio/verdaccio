@@ -352,6 +352,36 @@ const ErrorCode = {
 
 const parseConfigFile = (config_path) => YAML.safeLoad(fs.readFileSync(config_path, 'utf8'));
 
+/**
+ * Check whether the path already exist.
+ * @param {String} path
+ * @return {Boolean}
+ */
+function folder_exists(path) {
+  try {
+    const stat = fs.statSync(path);
+    return stat.isDirectory();
+  } catch(_) {
+    return false;
+  }
+}
+
+/**
+ * Check whether the file already exist.
+ * @param {String} path
+ * @return {Boolean}
+ */
+function file_exists(path) {
+  try {
+    const stat = fs.statSync(path);
+    return stat.isFile();
+  } catch(_) {
+    return false;
+  }
+}
+
+module.exports.folder_exists = folder_exists;
+module.exports.file_exists = file_exists;
 module.exports.parseInterval = parseInterval;
 module.exports.semver_sort = semverSort;
 module.exports.parse_address = parse_address;
