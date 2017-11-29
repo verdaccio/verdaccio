@@ -23,7 +23,7 @@ const constants = require('constants');
     - localhost:5557
     @return {Array}
  */
-function get_listen_addresses(argListen, configListen) {
+function getListListenAddresses(argListen, configListen) {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -59,15 +59,18 @@ function get_listen_addresses(argListen, configListen) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName) {
+function startVerdaccio(config, cliListen, config_path, pkgVersion, pkgName, callback) {
   if (!config.self_path) {
     config.self_path = Path.resolve(config_path);
   }
   if (!config.https) {
     config.https = {enable: false};
   }
+
   const app = server(config);
-  get_listen_addresses(cliArguments.listen, config.listen).forEach(function(addr) {
+  const addresses = getListListenAddresses(cliListen, config.listen);
+
+  addresses.forEach(function(addr) {
     let webServer;
     if (addr.proto === 'https') { // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
       if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
@@ -131,28 +134,7 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
       fs.unlinkSync(addr.path);
     }
 
-    webServer
-      .listen(addr.port || addr.path, addr.host)
-      .on('error', function(err) {
-        logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
-        process.exit(2);
-      });
-
-    logger.logger.warn({
-      addr: ( addr.path
-            ? URL.format({
-                protocol: 'unix',
-                pathname: addr.path,
-              })
-            : URL.format({
-                protocol: addr.proto,
-                hostname: addr.host,
-                port: addr.port,
-                pathname: '/',
-              })
-            ),
-      version: pkgName + '/' + pkgVersion,
-    }, 'http address - @{addr} - @{version}');
+    callback(webServer, addr, pkgName, pkgVersion);
   });
 
   // undocumented stuff for tests
@@ -163,4 +145,27 @@ function afterConfigLoad(config, cliArguments, config_path, pkgVersion, pkgName)
   }
 }
 
-export {afterConfigLoad};
+function listenDefaultCallback(webServer, addr, pkgName, pkgVersion) {
+  webServer.listen(addr.port || addr.path, addr.host).on('error', function(err) {
+    logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+    process.exit(2);
+  });
+
+  logger.logger.warn({
+    addr: ( addr.path
+          ? URL.format({
+              protocol: 'unix',
+              pathname: addr.path,
+            })
+          : URL.format({
+              protocol: addr.proto,
+              hostname: addr.host,
+              port: addr.port,
+              pathname: '/',
+            })
+          ),
+    version: pkgName + '/' + pkgVersion,
+  }, 'http address - @{addr} - @{version}');
+}
+
+export {startVerdaccio, listenDefaultCallback};
