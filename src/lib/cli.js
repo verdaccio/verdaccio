@@ -47,7 +47,7 @@ let configPathLocation;
 const cliListner = commander.listen;
 
 try {
-  configPathLocation = commander.config ?  path.resolve(commander.config) : findConfigFile();
+  configPathLocation = findConfigFile(commander.config);
   verdaccioConfiguration = Utils.parseConfigFile(configPathLocation);
 
   logger.logger.warn({file: configPathLocation}, 'config file  - @{file}');
