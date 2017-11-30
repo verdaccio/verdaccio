@@ -1,16 +1,16 @@
 import isFunction from 'lodash/isFunction';
+import assign from 'lodash/assign';
 import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
 import http from'http';
 import https from 'https';
+import constants from 'constants';
+import chalk from 'chalk';
 
 const server = require('../api/index');
 const Utils = require('./utils');
 const logger = require('./logger');
-const constants = require('constants');
-// const pkgVersion = module.exports.version;
-// const pkgName = module.exports.name;
 
 /**
  * Retrieve all addresses defined in the config file.
@@ -36,7 +36,7 @@ function getListListenAddresses(argListen, configListen) {
     addresses = ['4873'];
   }
   addresses = addresses.map(function(addr) {
-    let parsed_addr = Utils.parse_address(addr);
+    const parsed_addr = Utils.parse_address(addr);
 
     if (!parsed_addr) {
       logger.logger.warn({addr: addr},
@@ -55,13 +55,13 @@ function getListListenAddresses(argListen, configListen) {
  * Trigger the server after configuration has been loaded.
  * @param {Object} config
  * @param {Object} cliArguments
- * @param {String} config_path
+ * @param {String} configPath
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config, cliListen, config_path, pkgVersion, pkgName, callback) {
+function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, callback) {
   if (!config.self_path) {
-    config.self_path = Path.resolve(config_path);
+    config.self_path = Path.resolve(configPath);
   }
   if (!config.https) {
     config.https = {enable: false};
@@ -72,67 +72,18 @@ function startVerdaccio(config, cliListen, config_path, pkgVersion, pkgName, cal
 
   addresses.forEach(function(addr) {
     let webServer;
-    if (addr.proto === 'https') { // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
+    if (addr.proto === 'https') {
+      // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
       if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
-        let conf_path = function(file) {
-          if (!file) {
-            return config_path;
-          }
-          return Path.resolve(Path.dirname(config_path), file);
-        };
-
-        logger.logger.fatal([
-          'You need to specify either ',
-          '    "https.key", "https.cert" and "https.ca" or ',
-          '    "https.pfx" and optionally "https.passphrase" ',
-          'to run https server',
-          '',
-          // commands are borrowed from node.js docs
-          'To quickly create self-signed certificate, use:',
-          ' $ openssl genrsa -out ' + conf_path('verdaccio-key.pem') + ' 2048',
-          ' $ openssl req -new -sha256 -key ' + conf_path('verdaccio-key.pem') + ' -out ' + conf_path('verdaccio-csr.pem'),
-          ' $ openssl x509 -req -in ' + conf_path('verdaccio-csr.pem') +
-          ' -signkey ' + conf_path('verdaccio-key.pem') + ' -out ' + conf_path('verdaccio-cert.pem'),
-          '',
-          'And then add to config file (' + conf_path() + '):',
-          '  https:',
-          '    key: verdaccio-key.pem',
-          '    cert: verdaccio-cert.pem',
-          '    ca: verdaccio-cert.pem',
-        ].join('\n'));
-        process.exit(2);
+        displayHTTPSWarning(configPath);
       }
 
-      try {
-        const httpsOptions = {
-          secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
-          secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
-        };
-
-        if (config.https.pfx) {
-          Object.assign(httpsOptions, {
-            pfx: fs.readFileSync(config.https.pfx),
-            passphrase: config.https.passphrase || '',
-          });
-        } else {
-          Object.assign(httpsOptions, {
-            key: fs.readFileSync(config.https.key),
-            cert: fs.readFileSync(config.https.cert),
-            ca: fs.readFileSync(config.https.ca),
-          });
-        }
-        webServer = https.createServer(httpsOptions, app);
-      } catch (err) { // catch errors related to certificate loading
-        logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
-        process.exit(2);
-      }
+      webServer = handleHTTPS(app, configPath);
     } else { // http
       webServer = http.createServer(app);
     }
 
-    if (addr.path && fs.existsSync(addr.path)) {
-      fs.unlinkSync(addr.path);
-    }
+    unlinkAddressPath(addr);
 
     callback(webServer, addr, pkgName, pkgVersion);
   });
@@ -142,6 +93,65 @@ function startVerdaccio(config, cliListen, config_path, pkgVersion, pkgName, cal
     process.send({
       verdaccio_started: true,
     });
+  }
+}
+
+function unlinkAddressPath(addr) {
+  if (addr.path && fs.existsSync(addr.path)) {
+    fs.unlinkSync(addr.path);
+  }
+}
+
+function displayHTTPSWarning(configPath) {
+  const resolveConfigPath = function(file) {
+    return Path.resolve(Path.dirname(configPath), file);
+  };
+
+  logger.logger.fatal([
+    'You have enabled HTTPS and need to specify either ',
+    '    "https.key", "https.cert" and "https.ca" or ',
+    '    "https.pfx" and optionally "https.passphrase" ',
+    'to run https server',
+    '',
+    // commands are borrowed from node.js docs
+    'To quickly create self-signed certificate, use:',
+    ' $ openssl genrsa -out ' + resolveConfigPath('verdaccio-key.pem') + ' 2048',
+    ' $ openssl req -new -sha256 -key ' + resolveConfigPath('verdaccio-key.pem') + ' -out ' + resolveConfigPath('verdaccio-csr.pem'),
+    ' $ openssl x509 -req -in ' + resolveConfigPath('verdaccio-csr.pem') +
+    ' -signkey ' + resolveConfigPath('verdaccio-key.pem') + ' -out ' + resolveConfigPath('verdaccio-cert.pem'),
+    '',
+    'And then add to config file (' + configPath + '):',
+    '  https:',
+    '    key: verdaccio-key.pem',
+    '    cert: verdaccio-cert.pem',
+    '    ca: verdaccio-cert.pem',
+  ].join('\n'));
+  process.exit(2);
+}
+
+function handleHTTPS(app, configPath) {
+  try {
+    let httpsOptions = {
+      secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
+    };
+
+    if (config.https.pfx) {
+      httpsOptions = assign(httpsOptions, {
+        pfx: fs.readFileSync(config.https.pfx),
+        passphrase: config.https.passphrase || '',
+      });
+    } else {
+      httpsOptions = assign(httpsOptions, {
+        key: fs.readFileSync(config.https.key),
+        cert: fs.readFileSync(config.https.cert),
+        ca: fs.readFileSync(config.https.ca),
+      });
+    }
+    return https.createServer(httpsOptions, app);
+  } catch (err) { // catch errors related to certificate loading
+    logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+    process.exit(2);
   }
 }
 
