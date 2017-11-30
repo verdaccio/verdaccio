@@ -16,7 +16,11 @@ const pkgJson = require('../../package.json');
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile() {
+function findConfigFile(configPath) {
+  if (_.isNil(configPath) === false) {
+    return Path.resolve(configPath);
+  }
+
   const configPaths = getConfigPaths();
 
   if (_.isEmpty(configPaths)) {
