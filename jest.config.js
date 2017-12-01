@@ -17,6 +17,13 @@ module.exports = {
     'global.js'
   ],
   'moduleNameMapper': {
-    '\\.(scss)$': '<rootDir>/node_modules/jest-css-modules'
-  }
+    '\\.(scss)$': '<rootDir>/node_modules/identity-obj-proxy',
+    'github-markdown-css': '<rootDir>/node_modules/identity-obj-proxy',
+    '\\.(png)$': '<rootDir>/node_modules/identity-obj-proxy',
+    'api': '<rootDir>/test/webui/components/__mocks__/api.js',
+    'storage': '<rootDir>/test/webui/components/__mocks__/storage.js',
+  },
+  'transformIgnorePatterns': [
+    '<rootDir>/node_modules/(?!react-syntax-highlighter)'
+  ]
 };
