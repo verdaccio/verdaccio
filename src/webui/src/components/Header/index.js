@@ -26,6 +26,7 @@ export default class Header extends React.Component {
     super(props);
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   toggleLoginModal() {
@@ -169,9 +170,9 @@ export default class Header extends React.Component {
             </Alert>
             }
             <br/>
-            <Input placeholder="Username" onChange={this.handleInput.bind(this, 'username')} />
+            <Input name="username" placeholder="Username" onChange={this.handleInput('username')} />
             <br/><br/>
-            <Input type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
+            <Input name="password" type="password" placeholder="Type your password" onChange={this.handleInput('password')} />
           </Dialog.Body>
           <Dialog.Footer className="dialog-footer">
             <Button onClick={ () => this.toggleLoginModal() }>
