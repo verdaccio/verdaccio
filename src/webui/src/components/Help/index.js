@@ -25,11 +25,11 @@ const Help = () => {
             <strong>
               1. Login
             </strong>
-            <SyntaxHighlighter language='javascript' style={sunburst}>
+            <SyntaxHighlighter language='javascript' style={sunburst} id="adduser">
               {`npm adduser --registry  ${registryURL}`}
             </SyntaxHighlighter>
             <strong>2. Publish</strong>
-            <SyntaxHighlighter language='javascript' style={sunburst}>
+            <SyntaxHighlighter language='javascript' style={sunburst} id="publish">
               {`npm publish --registry ${registryURL}`}
             </SyntaxHighlighter>
             <strong>3. Refresh this page!</strong>
