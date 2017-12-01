@@ -4,6 +4,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PackageDetail from '../../../src/webui/src/components/PackageDetail';
+import Readme from '../../../src/webui/src/components/Readme';
 
 console.error = jest.fn();
 
@@ -19,9 +20,13 @@ describe('<PackageDetail /> component', () => {
       package: 'Verdaccio'
     };
     const wrapper = shallow(<PackageDetail {...props} />);
-    
+
     expect(wrapper.find('h1').text()).toEqual('Verdaccio');
-    
-    // here write a test to match readMe prop
+    expect(
+      wrapper
+        .find(Readme)
+        .dive()
+        .html()
+    ).toEqual('<div class="markdown-body">Test readme</div>');
   });
 });
