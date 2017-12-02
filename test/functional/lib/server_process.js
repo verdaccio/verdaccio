@@ -11,9 +11,10 @@ export default class VerdaccioProcess implements IServerProcess {
 		config: IVerdaccioConfig;
 		childFork: any;
 
-		constructor(config: IVerdaccioConfig, bridge: IServerBridge) {
+		constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence = true) {
 			this.config = config;
 			this.bridge = bridge;
+			this.silence = silence;
 		}
 
 		init(): Promise<any> {
@@ -30,7 +31,7 @@ export default class VerdaccioProcess implements IServerProcess {
 					this.childFork = fork(verdaccioRegisterWrap,
 						['-c', configPath],
 						{
-							silent: false
+							silent: this.silence
 						}
 					);
 

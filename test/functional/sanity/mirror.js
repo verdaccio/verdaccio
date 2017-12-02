@@ -1,15 +1,11 @@
-'use strict';
+import assert from 'assert';
+import {readFile} from '../lib/test.utils';
 
-const assert = require('assert');
-const util = require('../lib/test.utils');
+const getBinary = () =>  readFile('../fixtures/binary');
 
-const getBinary = () =>  util.readFile('../fixtures/binary');
+export default function (server, server2) {
 
-module.exports = function () {
-  let server = process.server;
-  let server2 = process.server2;
-
-  it('testing anti-loop', function () {
+  test('testing anti-loop', () => {
     return server2.getPackage('testloop')
       .status(404)
       .body_error(/no such package/);
@@ -19,39 +15,39 @@ module.exports = function () {
     let prefix = pkg + ': ';
     pkg = 'test' + pkg;
 
-    describe(pkg, function () {
-      before(function () {
+    describe(pkg, () => {
+      beforeAll(function () {
         return server.putPackage(pkg, require('../fixtures/package')(pkg))
           .status(201)
           .body_ok(/created new package/);
       });
 
-      it(prefix + 'creating new package', function () {});
+      test(prefix + 'creating new package', () => {});
 
-      describe(pkg, function () {
-        before(function () {
+      describe(pkg, () => {
+        beforeAll(function () {
           return server.putVersion(pkg, '0.1.1', require('../fixtures/package')(pkg))
             .status(201)
             .body_ok(/published/);
         });
 
-        it(prefix + 'uploading new package version', function () {});
+        test(prefix + 'uploading new package version', () => {});
 
-        it(prefix + 'uploading incomplete tarball', function () {
+        test(prefix + 'uploading incomplete tarball', () => {
           return server.putTarballIncomplete(pkg, pkg + '.bad', getBinary(), 3000);
         });
 
-        describe('tarball', function () {
-          before(function () {
+        describe('tarball', () => {
+          beforeAll(function () {
             return server.putTarball(pkg, pkg + '.file', getBinary())
               .status(201)
               .body_ok(/.*/);
           });
 
-          it(prefix + 'uploading new tarball', function () {
+          test(prefix + 'uploading new tarball', () => {
           });
 
-          it(prefix + 'downloading tarball from server1', function () {
+          test(prefix + 'downloading tarball from server1', () => {
             return server.getTarball(pkg, pkg + '.file')
               .status(200)
               .then(function (body) {
