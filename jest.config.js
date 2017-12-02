@@ -16,6 +16,9 @@ module.exports = {
   'modulePathIgnorePatterns': [
     'global.js'
   ],
+  'testPathIgnorePatterns': [
+    'test/webui/components/__snapshots__/'
+  ],
   'moduleNameMapper': {
     '\\.(scss)$': '<rootDir>/node_modules/identity-obj-proxy',
     'github-markdown-css': '<rootDir>/node_modules/identity-obj-proxy',
