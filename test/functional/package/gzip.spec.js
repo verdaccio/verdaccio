@@ -1,20 +1,14 @@
-'use strict';
+import assert from 'assert';
+import zlib from 'zlib';
+import {readFile} from '../lib/test.utils';
 
-require('../lib/startup');
+export default function(server, express) {
 
-const assert = require('assert');
-const zlib = require('zlib');
-const utils = require('../lib/test.utils');
-
-module.exports = function() {
-  let server = process.server;
-  let express = process.express;
-
-  describe('test gzip support', function() {
-    before(function() {
+  describe('test gzip support', () => {
+    beforeAll(function() {
       express.get('/testexp_gzip', function(req, res) {
         const pkg = eval(
-          '(' + utils.readFile('../fixtures/publish.json5')
+          '(' + readFile('../fixtures/publish.json5')
             .toString('utf8')
             .replace(/__NAME__/g, 'testexp_gzip')
             .replace(/__VERSION__/g, '0.0.1')
@@ -46,11 +40,11 @@ module.exports = function() {
       });
     });
 
-    it('should not fail on bad gzip', function() {
+    test('should not fail on bad gzip', () => {
       return server.getPackage('testexp_baddata').status(404);
     });
 
-    it('should understand gzipped data from uplink', function() {
+    test('should understand gzipped data from uplink', () => {
       return server.getPackage('testexp_gzip')
                .status(200)
                .response(function(res) {
@@ -62,7 +56,7 @@ module.exports = function() {
                });
     });
 
-    it('should serve gzipped data', function() {
+    test('should serve gzipped data', () => {
       return server.request({
         uri: '/testexp_gzip',
         encoding: null,
@@ -91,5 +85,4 @@ module.exports = function() {
         });
     });
   });
-};
-
+}
