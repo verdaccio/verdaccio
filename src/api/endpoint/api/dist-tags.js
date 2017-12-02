@@ -50,12 +50,16 @@ module.exports = function(route, auth, storage) {
   });
 
   route.get('/-/package/:package/dist-tags', can('access'), function(req, res, next) {
-    storage.get_package(req.params.package, {req: req}, function(err, info) {
-      if (err) {
-        return next(err);
-      }
+    storage.get_package({
+      name: req.params.package,
+      req,
+      callback: function(err, info) {
+        if (err) {
+          return next(err);
+        }
 
-      next(info['dist-tags']);
+        next(info['dist-tags']);
+      },
     });
   });
 

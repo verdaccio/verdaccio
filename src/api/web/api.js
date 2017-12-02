@@ -3,6 +3,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const marked = require('marked');
+const crypto = require('crypto');
+const _ = require('lodash');
 const Search = require('../../lib/search');
 const Middleware = require('./middleware');
 const match = Middleware.match;
@@ -76,12 +78,16 @@ module.exports = function(config, auth, storage) {
     if (req.params.scope) {
       packageName = `@${req.params.scope}/${packageName}`;
     }
-    storage.get_package(packageName, {req: req}, function(err, info) {
-      if (err) {
-        return next(err);
-      }
-      res.set('Content-Type', 'text/plain');
-      next(marked(info.readme || 'ERROR: No README data found!'));
+    storage.get_package({
+      name: packageName,
+      req,
+      callback: function(err, info) {
+        if (err) {
+          return next(err);
+        }
+        res.set('Content-Type', 'text/plain');
+        next(marked(info.readme || 'ERROR: No README data found!'));
+      },
     });
   });
 
@@ -91,22 +97,25 @@ module.exports = function(config, auth, storage) {
     const packages = [];
 
     const getPackageInfo = function(i) {
-      storage.get_package(results[i].ref, (err, entry) => {
-        if (!err && entry) {
-          auth.allow_access(entry.name, req.remote_user, function(err, allowed) {
-            if (err || !allowed) {
-              return;
-            }
+      storage.get_package({
+        name: results[i].ref,
+        callback: (err, entry) => {
+          if (!err && entry) {
+            auth.allow_access(entry.name, req.remote_user, function(err, allowed) {
+              if (err || !allowed) {
+                return;
+              }
 
-            packages.push(entry.versions[entry['dist-tags'].latest]);
-          });
-        }
+              packages.push(entry.versions[entry['dist-tags'].latest]);
+            });
+          }
 
-        if (i >= results.length - 1) {
-          next(packages);
-        } else {
-          getPackageInfo(i + 1);
-        }
+          if (i >= results.length - 1) {
+            next(packages);
+          } else {
+            getPackageInfo(i + 1);
+          }
+        },
       });
     };
 
@@ -138,6 +147,53 @@ module.exports = function(config, auth, storage) {
     res.redirect(base);
   });
 
+  route.get('/sidebar(/@:scope?)?/:package', function(req, res, next) {
+    storage.get_package({
+      name: req.params.package,
+      keepUpLinkData: true,
+      req,
+      callback: function(err, info) {
+        res.set('Content-Type', 'application/json');
+
+        if (!err) {
+          info.latest = info.versions[info['dist-tags'].latest];
+          let propertyToDelete = ['readme', 'versions'];
+
+          _.forEach(propertyToDelete, ((property) => {
+            delete info[property];
+          }));
+
+          let defaultGravatar = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm';
+
+          if (typeof _.get(info, 'latest.author.email') === 'string') {
+            info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
+          } else {
+            // _.get can't guarantee author property exist
+            _.set(info, 'latest.author.avatar', defaultGravatar);
+          }
+
+          if (_.get(info, 'latest.contributors.length', 0) > 0) {
+            info.latest.contributors = _.map(info.latest.contributors, (contributor) => {
+                if (typeof contributor.email === 'string') {
+                  contributor.avatar = generateGravatarUrl(contributor.email);
+                } else {
+                  contributor.avatar = defaultGravatar;
+                }
+
+                return contributor;
+              }
+            );
+          }
+
+          res.end(JSON.stringify(info));
+        } else {
+          res.status(404);
+          res.end();
+        }
+      },
+    });
+  });
+
   // What are you looking for? logout? client side will remove token when user click logout,
   // or it will auto expire after 24 hours.
   // This token is different with the token send to npm client.
@@ -145,3 +201,15 @@ module.exports = function(config, auth, storage) {
 
   return route;
 };
+
+/**
+ * Generate gravatar url from email address
+ * @param {string} email
+ * @return {string} url
+ */
+function generateGravatarUrl(email) {
+  email = email.trim().toLocaleLowerCase();
+  let emailMD5 = crypto.createHash('md5').update(email).digest('hex');
+
+  return `https://www.gravatar.com/avatar/${emailMD5}`;
+}

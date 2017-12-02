@@ -1,16 +1,15 @@
-
 import React from 'react';
 import SyntaxHighlighter, {registerLanguage} from 'react-syntax-highlighter/dist/light';
 import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
 import js from 'react-syntax-highlighter/dist/languages/javascript';
 
 import classes from './help.scss';
+import getRegistryURL from '../../../utils/getRegistryURL';
 
 registerLanguage('javascript', js);
 
 const Help = () => {
-  // Don't add slash if it's not a sub directory
-  const registryURL = `${location.origin}${location.pathname === '/' ? '' : location.pathname}`;
+  const registryURL = getRegistryURL();
 
     return (
       <div className={classes.help}>

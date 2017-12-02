@@ -2,8 +2,13 @@
 
 .pkgDetail {
   .title {
-    font-size: 28px;
-    color: $text-black;
+    font-size: 38px;
+    color: $primary-color;
+    border-bottom: 1px solid $border-color;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin: 0 0 10px;
+    padding-bottom: 5px;
   }
 
   .readme {
