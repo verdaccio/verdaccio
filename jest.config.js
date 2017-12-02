@@ -9,4 +9,5 @@ module.exports = {
     'fixtures'
   ],
   'testRegex': '(/test/unit.*\\.spec|test/functional.*\\.func)\\.js'
+  // 'testRegex': '(test/functional.*\\.func)\\.js'
 };

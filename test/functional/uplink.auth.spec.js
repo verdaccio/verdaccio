@@ -1,14 +1,12 @@
-'use strict';
-
-const uplinkStorage = require('../../src/lib/up-storage');
-const assert = require('assert');
+import assert from 'assert';
+import ProxyStorage from '../../src/lib/up-storage';
 
 function createUplink(config) {
   const defaultConfig = {
     url: 'https://registry.npmjs.org/'
   };
   let mergeConfig = Object.assign({}, defaultConfig, config);
-  return new uplinkStorage(mergeConfig, {});
+  return new ProxyStorage(mergeConfig, {});
 }
 
 function setHeaders(config, headers) {
@@ -20,11 +18,11 @@ function setHeaders(config, headers) {
   });
 }
 
-module.exports = function () {
+export default function () {
 
-  describe('uplink auth test', function () {
+  describe('uplink auth test', () => {
 
-    it('if set headers empty should return default headers', function () {
+    test('if set headers empty should return default headers', () => {
       const headers = setHeaders();
       const keys = Object.keys(headers);
       const keysExpected = ['Accept', 'Accept-Encoding', 'User-Agent'];
@@ -33,7 +31,7 @@ module.exports = function () {
       assert.equal(keys.length, 3);
     });
 
-    it('if assigns value invalid to attribute auth', function () {
+    test('if assigns value invalid to attribute auth', () => {
       const fnError = function () {
         setHeaders({
           auth: ''
@@ -43,7 +41,7 @@ module.exports = function () {
       assert.throws(fnError, 'Auth invalid');
     });
 
-    it('if assigns the header authorization', function () {
+    test('if assigns the header authorization', () => {
       const headers = setHeaders({}, {
         'authorization': 'basic Zm9vX2Jhcg=='
       });
@@ -52,20 +50,23 @@ module.exports = function () {
       assert.equal(headers['authorization'], 'basic Zm9vX2Jhcg==');
     });
 
-    it('if assigns headers authorization and token the header precedes', function () {
-      const headers = setHeaders({
-        auth: {
-          type: 'bearer',
-          token: 'tokenBearer'
-        }
-      }, {
-        'authorization': 'basic tokenBasic'
-      });
+    test(
+      'if assigns headers authorization and token the header precedes',
+      () => {
+        const headers = setHeaders({
+          auth: {
+            type: 'bearer',
+            token: 'tokenBearer'
+          }
+        }, {
+          'authorization': 'basic tokenBasic'
+        });
 
-      assert.equal(headers['authorization'], 'basic tokenBasic');
-    });
+        assert.equal(headers['authorization'], 'basic tokenBasic');
+      }
+    );
 
-    it('set type auth basic', function () {
+    test('set type auth basic', () => {
       const headers = setHeaders({
         auth: {
           type: 'basic',
@@ -77,7 +78,7 @@ module.exports = function () {
       assert.equal(headers['authorization'], 'Basic Zm9vX2Jhcg==');
     });
 
-    it('set type auth bearer', function () {
+    test('set type auth bearer', () => {
       const headers = setHeaders({
         auth: {
           type: 'bearer',
@@ -89,8 +90,8 @@ module.exports = function () {
       assert.equal(headers['authorization'], 'Bearer Zm9vX2Jhcf===');
     });
 
-    it('set auth type invalid', function () {
-      const fnError = function() { 
+    test('set auth type invalid', () => {
+      const fnError = function() {
         setHeaders({
           auth: {
             type: 'null',
@@ -98,11 +99,11 @@ module.exports = function () {
           }
         })
       };
-      
+
       assert.throws(fnError, `Auth type 'null' not allowed`);
     });
 
-    it('set auth with NPM_TOKEN', function () {
+    test('set auth with NPM_TOKEN', () => {
       process.env.NPM_TOKEN = 'myToken';
       const headers = setHeaders({
         auth: {
@@ -114,7 +115,7 @@ module.exports = function () {
       delete process.env.NPM_TOKEN;
     });
 
-    it('set auth with token name and assigns in env', function () {
+    test('set auth with token name and assigns in env', () => {
       process.env.NPM_TOKEN_TEST = 'myTokenTest';
       const headers = setHeaders({
         auth: {
@@ -128,7 +129,7 @@ module.exports = function () {
     });
 
 
-    it('if token not set', function () {
+    test('if token not set', () => {
       const fnError = function() {
         setHeaders({
           auth: {
@@ -140,5 +141,4 @@ module.exports = function () {
       assert.throws(fnError, 'Token is required');
     });
   });
-};
-
+}

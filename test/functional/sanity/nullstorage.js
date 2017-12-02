@@ -1,46 +1,40 @@
-'use strict';
-
-require('../lib/startup');
-
-const assert = require('assert');
-const crypto = require('crypto');
-const util = require('../lib/test.utils');
+import assert from 'assert';
+import crypto from 'crypto';
+import {readFile} from '../lib/test.utils';
 
 function getBinary() {
-  return util.readFile('../fixtures/binary');
+  return readFile('../fixtures/binary');
 }
 
-module.exports = function() {
-  const server = process.server;
-  const server2 = process.server2;
+export default function (server, server2) {
 
-  it('trying to fetch non-existent package / null storage', function() {
+  test('trying to fetch non-existent package / null storage', () => {
     return server.getPackage('test-nullstorage-nonexist')
              .status(404)
              .body_error(/no such package/);
   });
 
-  describe('test-nullstorage on server2', function() {
-    before(function() {
+  describe('test-nullstorage on server2', () => {
+    beforeAll(function() {
       return server2.addPackage('test-nullstorage2');
     });
 
-    it('creating new package - server2', function() {/* test for before() */});
+    test('creating new package - server2', () => {/* test for before() */});
 
-    it('downloading non-existent tarball', function() {
+    test('downloading non-existent tarball', () => {
       return server.getTarball('test-nullstorage2', 'blahblah')
                .status(404)
                .body_error(/no such file/);
     });
 
-    describe('tarball', function() {
-      before(function() {
+    describe('tarball', () => {
+      beforeAll(function() {
         return server2.putTarball('test-nullstorage2', 'blahblah', getBinary())
                  .status(201)
                  .body_ok(/.*/);
       });
 
-      before(function() {
+      beforeAll(function() {
         let pkg = require('../fixtures/package')('test-nullstorage2');
         pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
         return server2.putVersion('test-nullstorage2', '0.0.1', pkg)
@@ -48,9 +42,9 @@ module.exports = function() {
                  .body_ok(/published/);
       });
 
-      it('uploading new tarball', function() {/* test for before() */});
+      test('uploading new tarball', () => {/* test for before() */});
 
-      it('downloading newly created tarball', function() {
+      test('downloading newly created tarball', () => {
         return server.getTarball('test-nullstorage2', 'blahblah')
                  .status(200)
                  .then(function(body) {
@@ -58,7 +52,7 @@ module.exports = function() {
                  });
       });
 
-      it('downloading newly created package', function() {
+      test('downloading newly created package', () => {
         return server.getPackage('test-nullstorage2')
                  .status(200)
                  .then(function(body) {
@@ -70,5 +64,4 @@ module.exports = function() {
       });
     });
   });
-};
-
+}
