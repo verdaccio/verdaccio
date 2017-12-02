@@ -1,5 +1,7 @@
 /**
  * API mock for login endpoint
+ * @param {object}  config configuration of api call
+ * @returns {promise}
  */
 export default function(config) {
   return new Promise(function(resolve, reject) {
