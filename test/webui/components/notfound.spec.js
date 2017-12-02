@@ -8,7 +8,7 @@ import NotFound from '../../../src/webui/src/components/NotFound';
 
 console.error = jest.fn();
 
-describe('<NoItem /> component', () => {
+describe('<NotFound /> component', () => {
   it('should give error for the required fields', () => {
     shallow(<NotFound />);
     expect(console.error).toBeCalled();
