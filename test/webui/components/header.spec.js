@@ -94,7 +94,7 @@ describe('<Header /> component shallow', () => {
     const error = {
       title: 'Unable to login',
       type: 'error',
-      description: 'something went wrong'
+      description: "Username or password can't be empty!"
     };
     HeaderWrapper.setState({});
 

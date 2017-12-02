@@ -11,13 +11,6 @@ export default function(config) {
           token: 'TEST_TOKEN'
         }
       });
-    } else if (
-      config.data.username === undefined ||
-      config.data.password === undefined
-    ) {
-      reject({
-        message: 'something went wrong'
-      });
     } else {
       reject({
         response: {

@@ -170,9 +170,9 @@ export default class Header extends React.Component {
             </Alert>
             }
             <br/>
-            <Input name="username" placeholder="Username" onChange={this.handleInput('username')} />
+            <Input name="username" placeholder="Username" onChange={this.handleInput.bind(this, 'username')} />
             <br/><br/>
-            <Input name="password" type="password" placeholder="Type your password" onChange={this.handleInput('password')} />
+            <Input name="password" type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
           </Dialog.Body>
           <Dialog.Footer className="dialog-footer">
             <Button onClick={ () => this.toggleLoginModal() }>
