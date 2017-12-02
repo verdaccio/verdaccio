@@ -360,28 +360,33 @@ class Storage {
       uplink with proxy_access rights against {name} and combines results
       into one json object
     Used storages: local && uplink (proxy_access)
-   * @param {*} name
-   * @param {*} options
-   * @param {*} callback
-   */
-  get_package(name, options, callback) {
-    if (_.isFunction(options)) {
-      callback = options, options = {};
-    }
 
-    this.localStorage.getPackageMetadata(name, (err, data) => {
+   * @param {object} options
+   * @property {string} options.name Package Name
+   * @property {object}  options.req Express `req` object
+   * @property {boolean} options.keepUpLinkData keep up link info in package meta, last update, etc.
+   * @property {function} options.callback Callback for receive data
+   */
+  get_package(options) {
+    this.localStorage.getPackageMetadata(options.name, {req: options.req}, (err, data) => {
       if (err && (!err.status || err.status >= 500)) {
         // report internal errors right away
-        return callback(err);
+        return options.callback(err);
       }
 
-      this._syncUplinksMetadata(name, data, options, function(err, result, uplink_errors) {
+      this._syncUplinksMetadata(options.name, data, {req: options.req}, function(err, result, uplink_errors) {
         if (err) {
-          return callback(err);
+          return options.callback(err);
+        }
+
+        const propertyToKeep = [];
+        Array.prototype.push.apply(propertyToKeep, WHITELIST);
+        if (options.keepUpLinkData === true) {
+          propertyToKeep.push('_uplinks');
         }
 
         for (let i in result) {
-          if (WHITELIST.indexOf(i) === -1) {
+          if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
             delete result[i];
           }
         }
@@ -391,7 +396,7 @@ class Storage {
         // npm can throw if this field doesn't exist
         result._attachments = {};
 
-        callback(null, result, uplink_errors);
+        options.callback(null, result, uplink_errors);
       });
     });
   }

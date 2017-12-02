@@ -10,7 +10,7 @@ module.exports = function(route, auth, storage, config) {
   const can = Middleware.allow(auth);
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function(req, res, next) {
-    storage.get_package(req.params.package, {req: req}, function(err, info) {
+    const getPackageMetaCallback = function(err, info) {
       if (err) {
         return next(err);
       }
@@ -37,6 +37,12 @@ module.exports = function(route, auth, storage, config) {
       }
 
       return next( createError[404]('version not found: ' + req.params.version) );
+    };
+
+    storage.get_package({
+      name: req.params.package,
+      req,
+      callback: getPackageMetaCallback,
     });
   });
 
