@@ -14,13 +14,13 @@ const pkgJSON = require('../../package.json');
  */
 function getlvl(x) {
 	switch(true) {
-		case x < 15 : return 'trace';
-		case x < 25 : return 'debug';
-		case x < 35 : return 'info';
-		case x == 35 : return 'http';
-		case x < 45 : return 'warn';
-		case x < 55 : return 'error';
-		default : return 'fatal';
+		case x < 15: return 'trace';
+		case x < 25: return 'debug';
+		case x < 35: return 'info';
+		case x == 35: return 'http';
+		case x < 45: return 'warn';
+		case x < 55: return 'error';
+		default: return 'fatal';
 	}
 }
 
