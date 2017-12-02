@@ -1,30 +1,28 @@
-'use strict';
 
-const assert = require('assert');
-const _ = require('lodash');
-const util = require('../lib/test.utils');
-const readTags = () => util.readFile('../fixtures/tags.json');
+import _ from 'lodash';
+import assert from 'assert';
+import {readFile} from '../lib/test.utils';
 
-module.exports = function() {
-  let server = process.server;
-  let express = process.express;
+const readTags = () => readFile('../fixtures/tags.json');
 
-  it('tags - testing for 404', function() {
+export default function(server, express) {
+
+  test('tags - testing for 404', () => {
     return server.getPackage('testexp_tags')
              // shouldn't exist yet
              .status(404)
              .body_error(/no such package/);
   });
 
-  describe('tags', function() {
-    before(function() {
+  describe('tags', () => {
+    beforeAll(function() {
       express.get('/testexp_tags', function(req, res) {
         let f = readTags().toString().replace(/__NAME__/g, 'testexp_tags');
         res.send(JSON.parse(f));
       });
     });
 
-    it('fetching package again', function() {
+    test('fetching package again', () => {
       return server.getPackage('testexp_tags')
                .status(200)
                .then(function(body) {
@@ -38,7 +36,7 @@ module.exports = function() {
     const versions = ['0.1.1alpha', '0.1.1-alpha', '0000.00001.001-alpha'];
 
     versions.forEach(function(ver) {
-      it('fetching '+ver, function() {
+      test('fetching '+ver, () => {
         return server.request({uri: '/testexp_tags/'+ver})
                  .status(200)
                  .then(function(body) {
@@ -48,9 +46,9 @@ module.exports = function() {
     });
   });
 
-  describe('dist-tags methods', function() {
+  describe('dist-tags methods', () => {
 
-    before(function() {
+    beforeAll(function() {
 
       express.get('/testexp_tags2', function(req, res) {
         let f = readTags().toString().replace(/__NAME__/g, 'testexp_tags2');
@@ -60,11 +58,11 @@ module.exports = function() {
     });
 
     // populate cache
-    before(function() {
+    beforeAll(function() {
       return server.getPackage('testexp_tags2').status(200);
     });
 
-    it('fetching tags', function() {
+    test('fetching tags', () => {
       return server.request({
         method: 'GET',
         uri: '/-/package/testexp_tags2/dist-tags',
@@ -77,7 +75,7 @@ module.exports = function() {
       });
     });
 
-    it('merging tags', function() {
+    test('merging tags', () => {
       return server.request({
         method: 'POST',
         uri: '/-/package/testexp_tags2/dist-tags',
@@ -101,7 +99,7 @@ module.exports = function() {
       });
     });
 
-    it('should add a dist-tag called foo', function() {
+    test('should add a dist-tag called foo', () => {
       return server.request({
         method: 'PUT',
         uri: '/-/package/testexp_tags2/dist-tags/foo',
@@ -122,7 +120,7 @@ module.exports = function() {
       });
     });
 
-    it('should remove a dis-tag called quux', function() {
+    test('should remove a dis-tag called quux', () => {
       return server.request({
         method: 'DELETE',
         uri: '/-/package/testexp_tags2/dist-tags/latest',
@@ -142,7 +140,7 @@ module.exports = function() {
       });
     });
 
-    it('should remove a dis-tag called foo', function() {
+    test('should remove a dis-tag called foo', () => {
       return server.request({
         method: 'DELETE',
         uri: '/-/package/testexp_tags2/dist-tags/foo',
@@ -155,7 +153,7 @@ module.exports = function() {
             latest: '1.1.0',
             "quux": "0.1.0"
           };
-          
+
           assert.deepEqual(body, expected);
         });
       });
