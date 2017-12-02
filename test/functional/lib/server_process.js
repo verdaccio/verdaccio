@@ -10,8 +10,9 @@ export default class VerdaccioProcess implements IServerProcess {
 		bridge: IServerBridge;
 		config: IVerdaccioConfig;
 		childFork: any;
+		silence: boolean;
 
-		constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence = true) {
+		constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence: boolean = true) {
 			this.config = config;
 			this.bridge = bridge;
 			this.silence = silence;

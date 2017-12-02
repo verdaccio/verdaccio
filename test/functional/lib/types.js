@@ -19,6 +19,7 @@ export interface IServerProcess {
 	bridge: IServerBridge;
 	config: IVerdaccioConfig;
 	childFork: any;
+	silence: boolean;
 	init(): Promise<any>;
 	stop(): void;
 }
