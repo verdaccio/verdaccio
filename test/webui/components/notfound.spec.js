@@ -23,5 +23,6 @@ describe('<NotFound /> component', () => {
     expect(wrapper.find('p').text()).toEqual(
       'Oops, The package you are trying to access does not exist.'
     );
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });
