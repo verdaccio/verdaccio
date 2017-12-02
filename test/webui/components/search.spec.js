@@ -26,7 +26,6 @@ describe('<Search /> component', () => {
     expect(wrapper.find('input').prop('placeholder')).toEqual(
       'Test placeholder'
     );
-    expect(typeof wrapper.find('input').prop('onChange')).toBe('function');
   });
 
   it('should call the handleSearchInput function', () => {
