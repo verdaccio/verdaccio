@@ -1,3 +1,5 @@
+// @flow
+
 import _ from 'lodash';
 import smartRequest, {PromiseAssert} from '../../functional/lib/request';
 import type {IRequestPromise} from './../functional/types';

@@ -1,12 +1,12 @@
 import isFunction from 'lodash/isFunction';
 import assign from 'lodash/assign';
+import isObject from 'lodash/isObject';
 import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
 import http from'http';
 import https from 'https';
 import constants from 'constants';
-import chalk from 'chalk';
 
 const server = require('../api/index');
 const Utils = require('./utils');
@@ -60,6 +60,10 @@ function getListListenAddresses(argListen, configListen) {
  * @param {String} pkgName
  */
 function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, callback) {
+  if (isObject(config) === false) {
+    throw new Error('config file must be an object');
+  }
+
   if (!config.self_path) {
     config.self_path = Path.resolve(configPath);
   }
@@ -78,7 +82,7 @@ function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, call
         displayHTTPSWarning(configPath);
       }
 
-      webServer = handleHTTPS(app, configPath);
+      webServer = handleHTTPS(app, configPath, config);
     } else { // http
       webServer = http.createServer(app);
     }
@@ -87,13 +91,6 @@ function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, call
 
     callback(webServer, addr, pkgName, pkgVersion);
   });
-
-  // undocumented stuff for tests
-  if (isFunction(process.send)) {
-    process.send({
-      verdaccio_started: true,
-    });
-  }
 }
 
 function unlinkAddressPath(addr) {
@@ -129,7 +126,7 @@ function displayHTTPSWarning(configPath) {
   process.exit(2);
 }
 
-function handleHTTPS(app, configPath) {
+function handleHTTPS(app, configPath, config) {
   try {
     let httpsOptions = {
       secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
@@ -156,7 +153,14 @@ function handleHTTPS(app, configPath) {
 }
 
 function listenDefaultCallback(webServer, addr, pkgName, pkgVersion) {
-  webServer.listen(addr.port || addr.path, addr.host).on('error', function(err) {
+  webServer.listen(addr.port || addr.path, addr.host, () => {
+    // send a message for tests
+    if (isFunction(process.send)) {
+      process.send({
+        verdaccio_started: true,
+      });
+    }
+  }).on('error', function(err) {
     logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
     process.exit(2);
   });
