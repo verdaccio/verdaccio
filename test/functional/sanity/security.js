@@ -1,28 +1,25 @@
-'use strict';
+import assert from 'assert';
 
-const assert = require('assert');
+export default function(server) {
 
-module.exports = function () {
-  let server = process.server;
-
-  describe('Security', function () {
-    before(function () {
+  describe('Security', () => {
+    beforeAll(function () {
       return server.addPackage('testpkg-sec');
     });
 
-    it('bad pkg #1', function () {
+    test('bad pkg #1', () => {
       return server.getPackage('package.json')
         .status(403)
         .body_error(/invalid package/);
     });
 
-    it('bad pkg #2', function () {
+    test('bad pkg #2', () => {
       return server.getPackage('__proto__')
         .status(403)
         .body_error(/invalid package/);
     });
 
-    it('__proto__, connect stuff', function () {
+    test('__proto__, connect stuff', () => {
       return server.request({uri: '/testpkg-sec?__proto__=1'})
         .then(function (body) {
           // test for NOT outputting stack trace
@@ -33,36 +30,36 @@ module.exports = function () {
         });
     });
 
-    it('do not return package.json as an attachment', function () {
+    test('do not return package.json as an attachment', () => {
       return server.request({uri: '/testpkg-sec/-/package.json'})
         .status(403)
         .body_error(/invalid filename/);
     });
 
-    it('silly things - reading #1', function () {
+    test('silly things - reading #1', () => {
       return server.request({uri: '/testpkg-sec/-/../../../../../../../../etc/passwd'})
         .status(404);
     });
 
-    it('silly things - reading #2', function () {
+    test('silly things - reading #2', () => {
       return server.request({uri: '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'})
         .status(403)
         .body_error(/invalid filename/);
     });
 
-    it('silly things - writing #1', function () {
+    test('silly things - writing #1', () => {
       return server.putTarball('testpkg-sec', 'package.json', '{}')
         .status(403)
         .body_error(/invalid filename/);
     });
 
-    it('silly things - writing #3', function () {
+    test('silly things - writing #3', () => {
       return server.putTarball('testpkg-sec', 'node_modules', '{}')
         .status(403)
         .body_error(/invalid filename/);
     });
 
-    it('silly things - writing #4', function () {
+    test('silly things - writing #4', () => {
       return server.putTarball('testpkg-sec', '../testpkg.tgz', '{}')
         .status(403)
         .body_error(/invalid filename/);

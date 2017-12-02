@@ -1,23 +1,21 @@
-'use strict';
+import assert from 'assert';
+import async from 'async';
 
-let assert = require('assert');
-let async = require('async');
 let _oksum = 0;
 const racePkg = require('../fixtures/package');
 
-module.exports = function () {
-  let server = process.server;
+export default function(server) {
 
-  describe('race', function () {
-    before(function () {
+  describe('race', () => {
+    beforeAll(function () {
       return server.putPackage('race', racePkg('race'))
         .status(201)
         .body_ok(/created new package/);
     });
 
-    it('creating new package', function () {});
+    test('creating new package', () => {});
 
-    it('uploading 10 same versions', function (callback) {
+    test('uploading 10 same versions', callback => {
       let fns = [];
       for (let i = 0; i < 10; i++) {
         fns.push(function (cb_) {
@@ -64,7 +62,7 @@ module.exports = function () {
       });
     });
 
-    it('uploading 10 diff versions', function (callback) {
+    test('uploading 10 diff versions', callback => {
       let fns = [];
       for (let i = 0; i < 10; i++) {
         (function (i) {
@@ -107,7 +105,7 @@ module.exports = function () {
       });
     });
 
-    after('downloading package', function () {
+    afterAll(function () {
       return server.getPackage('race')
         .status(200)
         .then(function (body) {
@@ -115,5 +113,4 @@ module.exports = function () {
         });
     });
   });
-};
-
+}

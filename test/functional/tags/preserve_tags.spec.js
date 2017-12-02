@@ -1,16 +1,10 @@
-'use strict';
+import assert from 'assert';
+import {generateSha} from '../lib/test.utils';
 
-const assert = require('assert');
-const utils = require ('../lib/test.utils');
-
-module.exports = function() {
-  let server = process.server;
-  let server2 = process.server2;
-  let express = process.express;
-
+export default function(server, server2, express) {
   describe('should test preserve tags when publishing something', () => {
 
-    before(function() {
+    beforeAll(function() {
       return server.request({
         uri: '/testpkg-preserve',
         headers: {
@@ -21,7 +15,7 @@ module.exports = function() {
       }).status(201);
     });
 
-    it('add new package', function() {});
+    test('add new package', () => {});
 
     describe('should check sha integrity', () => {
 
@@ -30,15 +24,15 @@ module.exports = function() {
           .status(200)
           .then(function(body) {
             // not real sha due to utf8 conversion
-            assert.strictEqual(utils.generateSha(body), '8ee7331cbc641581b1a8cecd9d38d744a8feb863');
+            assert.strictEqual(generateSha(body), '8ee7331cbc641581b1a8cecd9d38d744a8feb863');
           });
       };
 
-      it('server1 should match with sha key from published package', () => {
+      test('server1 should match with sha key from published package', () => {
         return matchTarBallSha(server);
       });
 
-      it('server2 should match with sha key from published packagel', () => {
+      test('server2 should match with sha key from published packagel', () => {
         matchTarBallSha(server2);
       });
     });
@@ -55,16 +49,16 @@ module.exports = function() {
           });
       };
 
-      it('server1 should be able to match latest dist-tags correctly', () => {
+      test('server1 should be able to match latest dist-tags correctly', () => {
         return matchDisTags(server, '55551');
       });
 
-      it('server2 should be able to match latest dist-tags correctly', function() {
+      test('server2 should be able to match latest dist-tags correctly', () => {
         return matchDisTags(server2, '55552');
       });
     });
 
-    describe('should test search', function() {
+    describe('should test search', () => {
       const check = (obj) => {
         obj['testpkg-preserve'].time.modified = '2014-10-02T07:07:51.000Z';
         assert.deepEqual(obj['testpkg-preserve'],
@@ -92,19 +86,19 @@ module.exports = function() {
           });
       };
 
-      before(function() {
+      beforeAll(function() {
         express.get('/-/all', (req, res) => {
           res.send({});
         });
       });
 
-      it('server1 - search', () => {
+      test('server1 - search', () => {
         return server.request({uri: '/-/all'})
                  .status(200)
                  .then(check);
       });
 
-      it('server2 - search', () => {
+      test('server2 - search', () => {
         return server2.request({uri: '/-/all'})
                  .status(200)
                  .then(check);
@@ -112,4 +106,4 @@ module.exports = function() {
 
     });
   });
-};
+}
