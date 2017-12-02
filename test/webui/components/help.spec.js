@@ -29,6 +29,7 @@ describe('<Help /> component', () => {
         .dive()
         .text()
     ).toEqual('npm adduser --registry  http://example.com');
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should set html from props with someOtherPath', () => {
@@ -44,5 +45,6 @@ describe('<Help /> component', () => {
         .dive()
         .text()
     ).toEqual('npm publish --registry http://example.com/someOtherPath');
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

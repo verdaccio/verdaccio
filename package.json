@@ -98,8 +98,6 @@
     "identity-obj-proxy": "^3.0.0",
     "in-publish": "2.0.0",
     "jest": "^21.2.1",
-    "jest-css-modules": "^1.1.0",
-    "jest-serializer-enzyme": "^1.0.0",
     "localstorage-memory": "1.0.2",
     "node-sass": "4.7.2",
     "normalize.css": "7.0.0",

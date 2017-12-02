@@ -26,7 +26,6 @@ coverage/
 bundle.js
 bundle.js.map
 __tests__
-__snapshots__
 
 # Compiled script
 static/

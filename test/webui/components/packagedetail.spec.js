@@ -28,5 +28,6 @@ describe('<PackageDetail /> component', () => {
         .dive()
         .html()
     ).toEqual('<div class="markdown-body">Test readme</div>');
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });
