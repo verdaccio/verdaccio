@@ -22,22 +22,40 @@ export default class Detail extends React.Component {
     notFound: false,
   };
 
-  get packageName() {
-    let params = this.props.match.params;
+  getPackageName(props = this.props) {
+    let params = props.match.params;
     return `${(params.scope && '@' + params.scope + '/') || ''}${params.package}`;
+  }
+  get packageName() {
+    return this.getPackageName();
   }
 
   async componentDidMount() {
-     try {
-       const resp = await API.get(`package/readme/${this.packageName}`);
-       this.setState({
-         readMe: resp.data
-       });
-     } catch (err) {
-       this.setState({
-         notFound: true
-       });
-     }
+    await this.loadPackageInfo(this.packageName);
+  }
+
+  async componentWillReceiveProps(newProps) {
+    let packageName = this.getPackageName(newProps);
+    if (packageName === this.packageName) return;
+
+    await this.loadPackageInfo(packageName);
+  }
+
+  async loadPackageInfo(packageName) {
+    this.setState({
+      readMe: ''
+    });
+
+    try {
+      const resp = await API.get(`package/readme/${packageName}`);
+      this.setState({
+        readMe: resp.data
+      });
+    } catch (err) {
+      this.setState({
+        notFound: true
+      });
+    }
   }
 
   render() {
