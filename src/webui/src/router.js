@@ -13,7 +13,8 @@ const RouterApp = () => {
         <div className="container">
           <Switch>
             <Route exact path="/(search/:keyword)?" component={ Home } />
-            <Route path="/detail/:package*" component={Detail} />
+            <Route exact path="/detail/@:scope/:package" component={Detail} />
+            <Route exact path="/detail/:package" component={Detail} />
           </Switch>
         </div>
       </div>

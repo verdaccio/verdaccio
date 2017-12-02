@@ -7,7 +7,6 @@ import Readme from '../Readme';
 import classes from './packageDetail.scss';
 
 const PackageDetail = (props) => {
-
  const displayState = (readMe) => {
    if (isNil(readMe)) {
      return;

@@ -73,7 +73,7 @@ module.exports = function(config, auth, storage) {
   });
 
   // Get package readme
-  route.get('/package/readme(/@:scope?)?/:package/:version?', can('access'), function(req, res, next) {
+  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req, res, next) {
     let packageName = req.params.package;
     if (req.params.scope) {
       packageName = `@${req.params.scope}/${packageName}`;
@@ -147,9 +147,14 @@ module.exports = function(config, auth, storage) {
     res.redirect(base);
   });
 
-  route.get('/sidebar(/@:scope?)?/:package', function(req, res, next) {
+  route.get('/sidebar/(@:scope/)?:package', function(req, res, next) {
+    let packageName = req.params.package;
+    if (req.params.scope) {
+      packageName = `@${req.params.scope}/${packageName}`;
+    }
+
     storage.get_package({
-      name: req.params.package,
+      name: packageName,
       keepUpLinkData: true,
       req,
       callback: function(err, info) {
