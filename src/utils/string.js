@@ -1,5 +1,5 @@
 /* eslint prefer-rest-params:off */
 
-module.exports.spliceURL = function spliceURL() {
-  return Array.from(arguments).reduce((lastResult, current) => lastResult + current).replace(/([^:])(\/)+(.)/g, `$1/$3`);
+export const spliceURL = function spliceURL(...args) {
+  return Array.from(args).reduce((lastResult, current) => lastResult + current).replace(/([^:])(\/)+(.)/g, `$1/$3`);
 };
