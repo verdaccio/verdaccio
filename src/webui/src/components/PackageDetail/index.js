@@ -18,7 +18,6 @@ const PackageDetail = (props) => {
   return (
     <div className={classes.pkgDetail}>
       <h1 className={ classes.title }>{ props.package }</h1>
-      <hr/>
       <div className={classes.readme}>
         {displayState(props.readMe)}
       </div>

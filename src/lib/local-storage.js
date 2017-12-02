@@ -232,7 +232,7 @@ class Storage implements IStorage {
   /**
    * Ensure the dist file remains as the same protocol
    * @param {Object} hash metadata
-   * @param {String} upLink registry key
+   * @param {String} upLinkKey registry key
    * @private
    */
   _updateUplinkToRemoteProtocol(hash: DistFile, upLinkKey: string): void {
