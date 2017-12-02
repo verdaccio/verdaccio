@@ -7,6 +7,9 @@ import PackageDetail from '../../components/PackageDetail';
 import NotFound from '../../components/NotFound';
 import API from '../../../utils/api';
 
+import classes from './detail.scss';
+import PackageSidebar from '../../components/PackageSidebar/index';
+
 const loadingMessage = 'Loading...';
 
 export default class Detail extends React.Component {
@@ -39,6 +42,11 @@ export default class Detail extends React.Component {
     } else if (isEmpty(this.state.readMe)) {
       return <Loading text={loadingMessage} />;
     }
-    return <PackageDetail readMe={this.state.readMe} package={this.props.match.params.package}/>;
+    return (
+      <div className={classes.twoColumn}>
+        <PackageDetail readMe={this.state.readMe} package={this.props.match.params.package}/>
+        <PackageSidebar packageName={this.props.match.params.package} />
+      </div>
+    );
   }
 }
