@@ -5,7 +5,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Search from '../../../src/webui/src/components/Search/index';
-
 console.error = jest.fn();
 
 describe('<Search /> component', () => {
@@ -32,11 +31,16 @@ describe('<Search /> component', () => {
 
   it('should call the handleSearchInput function', () => {
     const props = {
-      handleSearchInput: jest.fn(),
-      placeHolder: 'Test placeholder'
+      handleSearchInput: jest.fn()
     };
     const wrapper = shallow(<Search {...props} />);
     wrapper.find('input').simulate('change');
     expect(props.handleSearchInput).toBeCalled();
+  });
+
+  it('should match the snapshot', () => {
+    const props = { handleSearchInput: () => {} };
+    const wrapper = shallow(<Search {...props} />);
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

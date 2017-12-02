@@ -37,5 +37,6 @@ describe('<Package /> component', () => {
         .text()
     ).toEqual('By: Sam');
     expect(wrapper.find('p').text()).toEqual('Private NPM repository');
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

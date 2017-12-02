@@ -2,7 +2,7 @@
  * Header component
  */
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Header from '../../../src/webui/src/components/Header';
 import { BrowserRouter } from 'react-router-dom';
 import storage from '../../../src/webui/utils/storage';
@@ -101,5 +101,16 @@ describe('<Header /> component shallow', () => {
     handleSubmit().then(() => {
       expect(HeaderWrapper.state('loginError')).toEqual(error);
     });
+  });
+});
+
+describe('<Header /> snapshot test', () => {
+  it('shoud match snapshot', () => {
+    const wrapper = mount(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });
