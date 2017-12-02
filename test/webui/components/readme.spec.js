@@ -22,5 +22,6 @@ describe('<Readme /> component', () => {
     expect(wrapper.html()).toEqual(
       '<div class="markdown-body"><h1>This is a test string</h1></div>'
     );
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });
