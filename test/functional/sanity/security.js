@@ -65,5 +65,4 @@ export default function(server) {
         .body_error(/invalid filename/);
     });
   });
-};
-
+}
