@@ -588,7 +588,6 @@ class Storage implements IStorage {
   /**
    * Retrieve a package by name.
    * @param {*} name
-   * @param {*} options
    * @param {*} callback
    * @return {Function}
    */
