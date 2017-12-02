@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 import smartRequest, {PromiseAssert} from '../../functional/lib/request';
-import type {IRequestPromise} from './../functional/types';
+import type {IRequestPromise} from '../../functional/lib/types';
 
 describe('Request Functional', () => {
 
@@ -17,7 +17,7 @@ describe('Request Functional', () => {
 			const requestPromise: IRequestPromise = new PromiseAssert((resolve, reject) => {
 					resolve(1);
 			});
-
+			// $FlowFixMe
 			requestPromise.then((result) => {
 				expect(result).toBe(1);
 				done();
@@ -45,7 +45,7 @@ describe('Request Functional', () => {
 					url: restTest,
 					method: 'GET'
 				};
-
+				// $FlowFixMe
 				smartRequest(options).status(200).then((result)=> {
 					expect(JSON.parse(result).name).toBe('aaa');
 					done();
@@ -57,7 +57,7 @@ describe('Request Functional', () => {
 					url: 'http://www.google.fake',
 					method: 'GET'
 				};
-
+				// $FlowFixMe
 				smartRequest(options).status(404).then((result)=> {
 					// this never is resolved
 				}, function(error) {
