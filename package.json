@@ -138,7 +138,7 @@
     "flow": "flow",
     "pretest": "npm run code:build",
     "test": "cross-env BABEL_ENV=test jest",
-    "pre:ci": "npm run build:webui",
+    "pre:ci": "npm run lint && npm run build:webui",
     "coverage:publish": "codecov",
     "lint": "npm run flow && eslint .",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
