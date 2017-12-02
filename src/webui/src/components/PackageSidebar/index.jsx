@@ -23,12 +23,12 @@ export default class PackageSidebar extends React.Component {
   }
 
   async componentDidMount() {
-    await this.loadPackageData(this.props.packageName)
+    await this.loadPackageData(this.props.packageName);
   }
 
   async componentWillReceiveProps(newProps) {
     if (newProps.packageName !== this.props.packageName) {
-      await this.loadPackageData(newProps.packageName)
+      await this.loadPackageData(newProps.packageName);
     }
   }
 
@@ -62,7 +62,7 @@ export default class PackageSidebar extends React.Component {
     recentReleases = recentReleases.slice(recentReleases.length - 3, recentReleases.length).reverse();
 
     this.setState({
-      lastUpdate: (new Date(lastUpdate)).toLocaleString(),
+      lastUpdate: lastUpdate ? (new Date(lastUpdate)).toLocaleString() : '',
       recentReleases,
       author: packageMeta.latest.author,
       contributors: packageMeta.latest.contributors,
