@@ -23,10 +23,20 @@ export default class PackageSidebar extends React.Component {
   }
 
   async componentDidMount() {
+    await this.loadPackageData(this.props.packageName)
+  }
+
+  async componentWillReceiveProps(newProps) {
+    if (newProps.packageName !== this.props.packageName) {
+      await this.loadPackageData(newProps.packageName)
+    }
+  }
+
+  async loadPackageData(packageName) {
     let packageMeta;
 
     try {
-      packageMeta = (await API.get(`sidebar/${this.props.packageName}`)).data;
+      packageMeta = (await API.get(`sidebar/${packageName}`)).data;
     } catch (err) {
       this.setState({
         failed: true
