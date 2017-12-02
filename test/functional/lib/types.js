@@ -17,11 +17,10 @@ export interface IRequestPromise {
 
 export interface IServerProcess {
 	bridge: IServerBridge;
+	config: IVerdaccioConfig;
+	childFork: any;
 	init(): Promise<any>;
-	stop(): Promise<any>;
-	getBridge(): IServerBridge;
-	notify(callback: Function): void;
-	cleanStorage(): Promise<any>;
+	stop(): void;
 }
 
 declare class verdaccio$PromiseAssert<IRequestPromise> extends Promise<any> {

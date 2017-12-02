@@ -55,7 +55,6 @@ function createConfigFolder(configLocation) {
 }
 
 function updateStorageLinks(configLocation, defaultConfig) {
-    console.log(defaultConfig);
     if (configLocation.type !== XDG) {
         return defaultConfig;
     }

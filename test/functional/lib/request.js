@@ -54,6 +54,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
+      // console.log("======>smartRequest body_error://", body);
       try {
         if (_.isRegExp(expected)) {
           assert(body.error.match(expected), body.error + ' doesn\'t match ' + expected);
@@ -116,6 +117,7 @@ function smartRequest(options: any): Promise<any> {
 
       // store the response on symbol
       smartObject[requestData].response = res;
+      // console.log("======>smartRequest RESPONSE: ", body);
       resolve(body);
     });
   });

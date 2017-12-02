@@ -8,5 +8,5 @@ module.exports = {
     'node_modules',
     'fixtures'
   ],
-  'testRegex': '(/test/unit/.*\\.spec)\\.js'
+  'testRegex': '(/test/unit.*\\.spec|test/functional.*\\.func)\\.js'
 };
