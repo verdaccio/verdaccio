@@ -22,7 +22,6 @@ const logger = require('./logger');
 logger.setup(); // default setup
 
 const commander = require('commander');
-const path = require('path');
 const Utils = require('./utils');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;

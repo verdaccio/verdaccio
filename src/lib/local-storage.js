@@ -1,6 +1,7 @@
 // @flow
 
 /* eslint prefer-rest-params: 0 */
+/* eslint spaced-comment: 0 */
 
 import assert from 'assert';
 import Crypto from 'crypto';
@@ -180,7 +181,7 @@ class Storage implements IStorage {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               };
-              // $FlowFixMe
+              //$FlowFixMe
               const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {

@@ -9,7 +9,7 @@ const buildAuthHeader = (user, pass): string => {
   return `Basic ${(new Buffer(`${user}:${pass}`)).toString('base64')}`;
 };
 
-export default class Server implements IServerBridge{
+export default class Server implements IServerBridge {
   url: string;
   userAgent: string;
   authstr: string;
@@ -21,6 +21,7 @@ export default class Server implements IServerBridge{
   }
 
   request(options: any): any {
+    // console.log("--->$$$$ REQUEST", options);
     assert(options.uri);
     const headers: any = options.headers || {};
 
