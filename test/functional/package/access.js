@@ -1,19 +1,16 @@
-'use strict';
+export default function(server) {
 
-module.exports = function() {
-  describe('package access control', function() {
-
-    const server = process.server;
+  describe('package access control', () => {
     const buildToken = (auth) => {
       return `Basic ${(new Buffer(auth).toString('base64'))}`;
     };
     let oldAuth;
 
-    before(function() {
+    beforeAll(function() {
       oldAuth = server.authstr;
     });
 
-    after(function() {
+    afterAll(function() {
       server.authstr = oldAuth;
     });
 
@@ -24,15 +21,18 @@ module.exports = function() {
      * @param ok {boolean}
      */
     function checkAccess(auth, pkg, ok) {
-      it((ok ? 'allows' : 'forbids') +' access ' + auth + ' to ' + pkg, function() {
-        server.authstr = auth ? buildToken(auth) : undefined;
-        let req = server.getPackage(pkg);
-        if (ok) {
-          return req.status(404).body_error(/no such package available/);
-        } else {
-          return req.status(403).body_error(/not allowed to access package/);
+      test(
+        (ok ? 'allows' : 'forbids') +' access ' + auth + ' to ' + pkg,
+        () => {
+          server.authstr = auth ? buildToken(auth) : undefined;
+          let req = server.getPackage(pkg);
+          if (ok) {
+            return req.status(404).body_error(/no such package available/);
+          } else {
+            return req.status(403).body_error(/not allowed to access package/);
+          }
         }
-      });
+      );
     }
 
     /**
@@ -42,7 +42,7 @@ module.exports = function() {
      * @param ok {boolean}
      */
     function checkPublish(auth, pkg, ok) {
-      it(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, function() {
+      test(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, () => {
         server.authstr = auth ? buildToken(auth) : undefined;
         const req = server.putPackage(pkg, require('../fixtures/package')(pkg));
         if (ok) {
@@ -72,7 +72,7 @@ module.exports = function() {
     checkPublish(undefined, testAccessOnly, false);
     checkPublish(badCredentials, testAccessOnly, false);
 
-    // all are allowed to publish
+    // // all are allowed to publish
     checkAccess(validCredentials, testPublishOnly, false);
     checkAccess(undefined, testPublishOnly, false);
     checkAccess(badCredentials, testPublishOnly, false);
@@ -96,4 +96,4 @@ module.exports = function() {
     checkPublish(undefined, testOnlyAuth, false);
     checkPublish(badCredentials, testOnlyAuth, false);
   });
-};
+}
