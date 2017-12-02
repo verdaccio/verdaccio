@@ -22,9 +22,14 @@ export default class Detail extends React.Component {
     notFound: false,
   };
 
+  get packageName() {
+    let params = this.props.match.params;
+    return `${(params.scope && '@' + params.scope + '/') || ''}${params.package}`;
+  }
+
   async componentDidMount() {
      try {
-       const resp = await API.get(`package/readme/${this.props.match.params.package}`);
+       const resp = await API.get(`package/readme/${this.packageName}`);
        this.setState({
          readMe: resp.data
        });
@@ -37,15 +42,14 @@ export default class Detail extends React.Component {
 
   render() {
     if (this.state.notFound) {
-      return <NotFound
-          pkg={this.props.match.params.package}/>;
+      return <NotFound pkg={this.packageName}/>;
     } else if (isEmpty(this.state.readMe)) {
       return <Loading text={loadingMessage} />;
     }
     return (
       <div className={classes.twoColumn}>
-        <PackageDetail readMe={this.state.readMe} package={this.props.match.params.package}/>
-        <PackageSidebar packageName={this.props.match.params.package} />
+        <PackageDetail readMe={this.state.readMe} package={this.packageName}/>
+        <PackageSidebar packageName={this.packageName} />
       </div>
     );
   }
