@@ -1,7 +1,6 @@
 /**
  * Help component
  */
-
 import React from 'react';
 import { shallow } from 'enzyme';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/light';
