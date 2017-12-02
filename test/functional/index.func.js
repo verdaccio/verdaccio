@@ -2,14 +2,17 @@
 import _ from 'lodash';
 
 import {VerdaccioConfig} from './lib/verdaccio-server';
-import Server from './lib/server';
 import VerdaccioProcess  from './lib/server_process';
-import packageAccess from './package/access';
+import ExpressServer  from './lib/simple_server';
+import Server from './lib/server';
 import type {IServerProcess, IServerBridge} from './lib/types';
 
-describe('functional test verdaccio', function() {
+import packageAccess from './package/access.spec';
+import packageGzip from './package/gzip.spec';
+import packageScoped from './package/scoped.spec';
 
-	const servers: IServerBridge[] = [];
+describe('functional test verdaccio', function() {
+	const EXPRESS_PORT = 55550;
 	const processRunning = [];
 	const config1 = new VerdaccioConfig(
 		'./store/test-storage',
@@ -29,7 +32,7 @@ describe('functional test verdaccio', function() {
 	const process1: IServerProcess = new VerdaccioProcess(config1, server1);
 	const process2: IServerProcess = new VerdaccioProcess(config2, server2);
 	const process3: IServerProcess = new VerdaccioProcess(config3, server3);
-	servers.push(server1, server1, server1);
+	const express: any = new ExpressServer();
 
 	beforeAll((done) => {
 		Promise.all([
@@ -39,7 +42,11 @@ describe('functional test verdaccio', function() {
 				_.map(forks, (fork) => {
 					processRunning.push(fork[0]);
 				});
-				done();
+				express.start(EXPRESS_PORT).then((app) =>{
+					done();
+				}, (err) => {
+					done(err);
+				});
 		}).catch((error) => {
 			done(error);
 		});
@@ -49,9 +56,12 @@ describe('functional test verdaccio', function() {
 		_.map(processRunning, (fork) => {
 			fork.stop();
 		});
+		express.server.close();
 	});
 
 	packageAccess(server1);
+	packageGzip(server1, express.app);
+	packageScoped(server1, server2);
 
 	test('process test', () => {
 		expect(true).toBeTruthy();

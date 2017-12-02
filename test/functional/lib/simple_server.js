@@ -2,17 +2,23 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-export class ExpressServer {
-	static start(): Promise<any> {
-		return new Promise(function(resolve, reject) {
-			const app = express();
+export default class ExpressServer {
+	app: any;
+	server: any;
 
-			app.use(bodyParser.json());
-			app.use(bodyParser.urlencoded({
+	constructor() {
+		this.app = express();
+		this.server;
+	}
+
+	start(port: number): Promise<any> {
+		return new Promise((resolve, reject) => {
+			this.app.use(bodyParser.json());
+			this.app.use(bodyParser.urlencoded({
 				extended: true
 			}));
 
-			app.listen(55550, function starExpressServer() {
+			this.server = this.app.listen(port, function starExpressServer() {
 				resolve();
 			});
 		});
