@@ -4,7 +4,7 @@ const assert = require('assert');
 
 module.exports = function(server) {
 
-    it('who am I?', function () {
+    test('who am I?', () => {
       return server.whoami().then(function (username) {
         assert.equal(username, 'test');
       });

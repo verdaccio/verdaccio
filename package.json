@@ -136,7 +136,7 @@
     "prepublish": "in-publish && npm run build:webui || not-in-publish",
     "flow": "flow",
     "pretest": "npm run code:build",
-    "test": "jest -i",
+    "test": "jest",
     "pre:ci": "npm run build:webui",
     "test:only": "mocha ./test/functional ./test/unit",
     "coverage:publish": "codecov",

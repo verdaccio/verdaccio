@@ -1,17 +1,10 @@
-/**
- * Created by jpicado on 7/24/17.
- */
-'use strict';
+import assert from 'assert';
 
-const assert = require('assert');
-
-module.exports = function() {
-  let server = process.server;
-  let server2 = process.server2;
+export default function (server, server2) {
 
   describe('should test readme', () => {
 
-    before(function() {
+    beforeAll(function() {
       return server.request({
         uri: '/readme-test',
         headers: {
@@ -22,7 +15,7 @@ module.exports = function() {
       }).status(201);
     });
 
-    it('add pkg', function() {});
+    test('add pkg', () => {});
 
     describe('should check readme file', () => {
       const matchReadme = (server) => {
@@ -33,14 +26,14 @@ module.exports = function() {
         });
       };
 
-      it('server1 - readme', function() {
+      test('server1 - readme', () => {
         return matchReadme(server);
       });
 
-      it('server2 - readme', function() {
+      test('server2 - readme', () => {
         return matchReadme(server2);
       });
 
     });
   });
-};
+}

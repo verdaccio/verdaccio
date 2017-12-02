@@ -1,17 +1,14 @@
-'use strict';
+import {readFile} from '../lib/test.utils';
 
-const util = require('../lib/test.utils');
-const readTags = () => util.readFile('../fixtures/publish.json5');
+const readTags = () => readFile('../fixtures/publish.json5');
 
-module.exports = function() {
-  let server = process.server;
-
-  it('add tag - 404', function() {
+export default function(server) {
+  test('add tag - 404', () => {
     return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1').status(404).body_error(/no such package/);
   });
 
-  describe('addtag', function() {
-    before(function() {
+  describe('addtag', () => {
+    beforeAll(function() {
       return server.putPackage('testpkg-tag', eval(
         '(' + readTags()
           .toString('utf8')
@@ -21,26 +18,26 @@ module.exports = function() {
       )).status(201);
     });
 
-    it('add testpkg-tag', function() {
+    test('add testpkg-tag', () => {
       // TODO: ?
     });
 
-    it('add tag - bad ver', function() {
+    test('add tag - bad ver', () => {
       return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1-x')
         .status(404)
         .body_error(/version doesn't exist/);
     });
 
-    it('add tag - bad tag', function() {
+    test('add tag - bad tag', () => {
       return server.addTag('testpkg-tag', 'tag/tag/tag', '0.0.1-x')
         .status(403)
         .body_error(/invalid tag/);
     });
 
-    it('add tag - good', function() {
+    test('add tag - good', () => {
       return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1')
         .status(201)
         .body_ok(/tagged/);
     });
   });
-};
+}

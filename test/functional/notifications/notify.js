@@ -1,12 +1,9 @@
-'use strict';
+import assert from 'assert';
+import _ from 'lodash';
 
-const assert = require('assert');
-const _ = require('lodash');
-const notify = require('../../../src/lib/notify').notify;
+import {notify} from '../../../src/lib/notify';
 
-module.exports = function() {
-  const express = process.express;
-
+export default function(express) {
   const config = {
     notify: {
       method: 'POST',
@@ -18,9 +15,9 @@ module.exports = function() {
     }
   };
 
-  describe('notifications', function () {
+  describe('notifications', () => {
 
-    before(function () {
+    beforeAll(function () {
       express.post('/api/notify', function (req, res) {
         res.send(req.body);
       });
@@ -30,7 +27,7 @@ module.exports = function() {
       });
     });
 
-    it('notification should be send', function (done) {
+    test('notification should be send', done => {
       const metadata = {
         name: "pkg-test"
       };
@@ -46,7 +43,7 @@ module.exports = function() {
       });
     });
 
-    it('notification should be send single header', function (done) {
+    test('notification should be send single header', done => {
       const metadata = {
         name: "pkg-test"
       };
@@ -67,36 +64,39 @@ module.exports = function() {
       });
     });
 
-    it('notification should be send multiple notifications endpoints', function (done) {
-      const metadata = {
-        name: "pkg-test"
-      };
-      // let notificationsCounter = 0;
+    test(
+      'notification should be send multiple notifications endpoints',
+      done => {
+        const metadata = {
+          name: "pkg-test"
+        };
+        // let notificationsCounter = 0;
 
-      const multipleNotificationsEndpoint = {
-        notify: []
-      };
+        const multipleNotificationsEndpoint = {
+          notify: []
+        };
 
-      for (let i = 0; i < 10; i++) {
-        const notificationSettings = _.cloneDeep(config.notify);
-        // basically we allow al notifications
-        notificationSettings.packagePattern = /^pkg-test$/;
-        // notificationSettings.packagePatternFlags = 'i';
-        multipleNotificationsEndpoint.notify.push(notificationSettings);
+        for (let i = 0; i < 10; i++) {
+          const notificationSettings = _.cloneDeep(config.notify);
+          // basically we allow al notifications
+          notificationSettings.packagePattern = /^pkg-test$/;
+          // notificationSettings.packagePatternFlags = 'i';
+          multipleNotificationsEndpoint.notify.push(notificationSettings);
+        }
+
+        notify(metadata, multipleNotificationsEndpoint).then(function (body) {
+          const jsonBody = JSON.parse(body);
+          assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
+            'Body notify message should be equal');
+          done();
+        }, function (err) {
+          assert.fail(err);
+          done();
+        });
       }
+    );
 
-      notify(metadata, multipleNotificationsEndpoint).then(function (body) {
-        const jsonBody = JSON.parse(body);
-        assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
-          'Body notify message should be equal');
-        done();
-      }, function (err) {
-        assert.fail(err);
-        done();
-      });
-    });
-
-    it('notification should fails', function (done) {
+    test('notification should fails', done => {
       const metadata = {
         name: "pkg-test"
       };
@@ -113,4 +113,4 @@ module.exports = function() {
     });
 
   });
-};
+}

@@ -1,48 +1,44 @@
-'use strict';
-
-const assert = require('assert');
-const crypto = require('crypto');
+import assert from 'assert';
+import crypto from 'crypto';
 
 function readfile(x) {
   return require('fs').readFileSync(__dirname + '/' + x);
 }
 
-module.exports = function() {
-  const server = process.server;
-  const server2 = process.server2;
+export default function (server, server2) {
 
-  it('downloading non-existent tarball #1 / srv2', function() {
+  test('downloading non-existent tarball #1 / srv2', () => {
     return server2.getTarball('testpkg-gh29', 'blahblah')
              .status(404)
              .body_error(/no such package/);
   });
 
-  describe('pkg-gh29', function() {
-    before(function() {
+  describe('pkg-gh29', () => {
+    beforeAll(function() {
       return server.putPackage('testpkg-gh29', require('./fixtures/package')('testpkg-gh29'))
                .status(201)
                .body_ok(/created new package/);
     });
 
-    it('creating new package / srv1', function() {});
+    test('creating new package / srv1', () => {});
 
-    it('downloading non-existent tarball #2 / srv2', function() {
+    test('downloading non-existent tarball #2 / srv2', () => {
       return server2.getTarball('testpkg-gh29', 'blahblah')
                .status(404)
                .body_error(/no such file/);
     });
 
-    describe('tarball', function() {
-      before(function() {
+    describe('tarball', () => {
+      beforeAll(function() {
         return server.putTarball('testpkg-gh29', 'blahblah', readfile('fixtures/binary'))
                  .status(201)
                  .body_ok(/.*/);
       });
 
-      it('uploading new tarball / srv1', function() {});
+      test('uploading new tarball / srv1', () => {});
 
-      describe('pkg version', function() {
-        before(function() {
+      describe('pkg version', () => {
+        beforeAll(function() {
           const pkg = require('./fixtures/package')('testpkg-gh29');
 
           pkg.dist.shasum = crypto.createHash('sha1').update(readfile('fixtures/binary')).digest('hex');
@@ -51,9 +47,9 @@ module.exports = function() {
                    .body_ok(/published/);
         });
 
-        it('uploading new package version / srv1', function() {});
+        test('uploading new package version / srv1', () => {});
 
-        it('downloading newly created tarball / srv2', function() {
+        test('downloading newly created tarball / srv2', () => {
           return server2.getTarball('testpkg-gh29', 'blahblah')
                    .status(200)
                    .then(function(body) {
@@ -63,5 +59,4 @@ module.exports = function() {
       });
     });
   });
-};
-
+}
