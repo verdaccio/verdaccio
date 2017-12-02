@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> component should match the snapshot 1`] = `"<input type=\\"text\\" placeholder=\\"Type to search...\\" class=\\"searchBox\\"/>"`;
