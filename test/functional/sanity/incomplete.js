@@ -1,6 +1,4 @@
-'use strict';
-
-let assert = require('assert');
+import assert from 'assert';
 
 const defaultPkg = {
   'name': 'testexp-incomplete',
@@ -24,21 +22,19 @@ const defaultPkg = {
   },
 };
 
-module.exports = function () {
-  const server = process.server;
-  const express = process.express;
+export default function (server, express) {
   const ddd = ['content-length', 'chunked'];
 
-  describe('test send incomplete packages', function () {
+  describe('test send incomplete packages', () => {
 
-    before(function () {
+    beforeAll(function () {
       express.get('/testexp-incomplete', function (_, res) {
         res.send(defaultPkg);
       });
     });
 
     ddd.forEach(function (type) {
-      it('should not store tarballs / ' + type, function (callback) {
+      test('should not store tarballs / ' + type, callback => {
         let called;
         express.get('/testexp-incomplete/-/' + type + '.tar.gz', function (_, response) {
           if (called) {
@@ -79,5 +75,4 @@ module.exports = function () {
       });
     });
   });
-};
-
+}

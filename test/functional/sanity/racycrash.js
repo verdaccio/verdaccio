@@ -1,15 +1,11 @@
-'use strict';
+import assert from 'assert';
 
-const assert = require('assert');
+export default function(server, express) {
 
-module.exports = function() {
-  const server = process.server;
-  const express = process.express;
-
-  describe('test for unexpected client hangs', function() {
+  describe('test for unexpected client hangs', () => {
     let on_tarball;
 
-    before(function() {
+    beforeAll(function() {
       express.get('/testexp-racycrash', function(request, response) {
         response.send({
           'name': 'testexp-racycrash',
@@ -31,7 +27,7 @@ module.exports = function() {
       });
     });
 
-    it('should not crash on error if client disconnects', function(callback) {
+    test('should not crash on error if client disconnects', callback => {
       on_tarball = function(res) {
         res.header('content-length', 1e6);
         res.write('test test test\n');
@@ -57,7 +53,7 @@ module.exports = function() {
       }
     });
 
-    it('should not store tarball', function() {
+    test('should not store tarball', () => {
       on_tarball = function(res) {
         res.socket.destroy();
       };

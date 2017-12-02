@@ -1,102 +1,96 @@
-'use strict';
-
-const assert = require('assert');
-const crypto = require('crypto');
-
+import assert from 'assert';
+import crypto from 'crypto';
 
 function readfile(folderPath) {
   return require('fs').readFileSync(__dirname + '/' + folderPath);
 }
 
 function getPackage(name) {
-  return require('./fixtures/package')(name);
+  return require('../fixtures/package')(name);
 }
 
 function createHash() {
   return crypto.createHash('sha1');
 }
 
-module.exports = function () {
-  let server = process.server;
-  let server2 = process.server2;
+export default function(server, server2) {
+  describe('basic test endpoints', () => {
 
-  describe('basic test endpoints', function () {
+    require('./whoIam')(server);
+    require('./ping')(server);
 
-    require('./basic/whoIam')(server);
-    require('./basic/ping')(server);
+    describe('handling packages', () => {
 
-    describe('handling packages', function () {
-
-      before(function () {
+      beforeAll(function () {
         return server.addPackage('testpkg');
       });
 
-      before(function () {
+      beforeAll(function () {
         return server.addPackage('testpkg-single-tarball');
       });
 
-      it('creating new package', function () {/* test for before() */
+      test('creating new package', () => {/* test for before() */
       });
 
-      it('downloading non-existent tarball', function () {
+      test('downloading non-existent tarball', () => {
         return server.getTarball('testpkg', 'blahblah').status(404).body_error(/no such file/);
       });
 
-      it('uploading incomplete tarball', function () {
-        return server.putTarballIncomplete('testpkg', 'blahblah1', readfile('fixtures/binary'), 3000);
+      test('uploading incomplete tarball', () => {
+        return server.putTarballIncomplete('testpkg', 'blahblah1', readfile('../fixtures/binary'), 3000);
       });
 
-      describe('publishing package', function () {
+      describe('publishing package', () => {
 
-        before(function () {
-          return server.putTarball('testpkg', 'blahblah', readfile('fixtures/binary'))
+        beforeAll(function () {
+          return server.putTarball('testpkg', 'blahblah', readfile('../fixtures/binary'))
             .status(201)
             .body_ok(/.*/);
         });
 
-        before(function () {
-          return server.putTarball('testpkg-single-tarball', 'single', readfile('fixtures/binary'))
+        beforeAll(function () {
+          return server.putTarball('testpkg-single-tarball', 'single', readfile('../fixtures/binary'))
             .status(201)
             .body_ok(/.*/);
         });
 
-        after(function () {
+        afterAll(function () {
           return server.removeTarball('testpkg').status(201);
         });
 
-        it('remove a tarball', function () {
+        test('remove a tarball', () => {
           /* test for before() */
         });
 
-        it('uploading new tarball', function () {
+        test('uploading new tarball', () => {
           /* test for after() */
         });
 
-        it('remove non existing tarball', function () {
+        test('remove non existing tarball', () => {
           return server.removeTarball('testpkg404').status(404);
         });
 
-        it('remove non existing single tarball', function () {
+        test('remove non existing single tarball', () => {
           return server.removeSingleTarball('', 'fakeFile').status(404);
         });
 
         // testexp-incomplete
 
-        it('remove existing single tarball', function () {
+        test('remove existing single tarball', () => {
           return server.removeSingleTarball('testpkg-single-tarball', 'single').status(201);
         });
 
         // testexp-incomplete
 
-        it('downloading newly created tarball', function () {
+        test('downloading newly created tarball', () => {
           return server.getTarball('testpkg', 'blahblah')
             .status(200)
             .then(function (body) {
-              assert.deepEqual(body, readfile('fixtures/binary'));
+              assert.deepEqual(body, readfile('../fixtures/binary'));
             });
         });
 
-        it('uploading new package version (bad sha)', function () {
+        test('uploading new package version (bad sha)', () => {
           let pkg = getPackage('testpkg');
           pkg.dist.shasum = createHash().update('fake').digest('hex');
 
@@ -105,22 +99,22 @@ module.exports = function () {
             .body_error(/shasum error/);
         });
 
-        describe('publishing version', function () {
+        describe('publishing version', () => {
 
-          before(function () {
+          beforeAll(function () {
             const pkg = getPackage('testpkg');
 
-            pkg.dist.shasum = createHash().update(readfile('fixtures/binary')).digest('hex');
+            pkg.dist.shasum = createHash().update(readfile('../fixtures/binary')).digest('hex');
             return server.putVersion('testpkg', '0.0.1', pkg)
               .status(201)
               .body_ok(/published/);
           });
 
-          it('uploading new package version', function () {
+          test('uploading new package version', () => {
             /* test for before() */
           });
 
-          it('downloading newly created package', function () {
+          test('downloading newly created package', () => {
             return server.getPackage('testpkg')
               .status(200)
               .then(function (body) {
@@ -133,7 +127,7 @@ module.exports = function () {
               });
           });
 
-          it('downloading package via server2', function () {
+          test('downloading package via server2', () => {
             return server2.getPackage('testpkg')
               .status(200)
               .then(function (body) {
@@ -149,26 +143,29 @@ module.exports = function () {
       });
     });
 
-    describe('handle failures on endpoints', function () {
+    describe('handle failures on endpoints', () => {
 
 
-      it('should fails trying to fetch non-existent package', function () {
+      test('should fails trying to fetch non-existent package', () => {
         return server.getPackage('testpkg').status(404).body_error(/no such package/);
       });
 
-      it('should fails on publish a version for non existing package', function () {
-        return server.putVersion('testpxg', '0.0.1', getPackage('testpxg'))
-          .status(404)
-          .body_error(/no such package/);
-      });
+      test(
+        'should fails on publish a version for non existing package',
+        () => {
+          return server.putVersion('testpxg', '0.0.1', getPackage('testpxg'))
+            .status(404)
+            .body_error(/no such package/);
+        }
+      );
 
-      it('should be a package not found', function () {
-        return server.putTarball('nonExistingPackage', 'blahblah', readfile('fixtures/binary'))
+      test('should be a package not found', () => {
+        return server.putTarball('nonExistingPackage', 'blahblah', readfile('../fixtures/binary'))
           .status(404)
           .body_error(/no such/);
       });
 
-      it('should fails on publish package in a bad uplink', function () {
+      test('should fails on publish package in a bad uplink', () => {
         return server.putPackage('baduplink', getPackage('baduplink'))
           .status(503)
           .body_error(/one of the uplinks is down, refuse to publish/);
