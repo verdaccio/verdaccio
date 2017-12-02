@@ -368,7 +368,7 @@ class Storage {
    * @property {function} options.callback Callback for receive data
    */
   get_package(options) {
-    this.localStorage.getPackageMetadata(options.name, {req: options.req}, (err, data) => {
+    this.localStorage.getPackageMetadata(options.name, (err, data) => {
       if (err && (!err.status || err.status >= 500)) {
         // report internal errors right away
         return options.callback(err);
