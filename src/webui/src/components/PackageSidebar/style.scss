@@ -1,0 +1,90 @@
+@import '../../styles/variable';
+
+.module {
+  .moduleTitle {
+    display: flex;
+    align-items: flex-end;
+    font-size: 24px;
+    color: $primary-color;
+    margin: 0 0 10px;
+    padding: 5px 0;
+    font-weight: 600;
+    border-bottom: 1px solid $border-color;
+
+    span { // description
+      font-size: 14px;
+      color: $text-grey;
+      margin-left: auto;
+      font-weight: lighter;
+    }
+  }
+}
+
+.releasesModule {
+  li {
+    display: flex;
+    font-size: 14px;
+    line-height: 2;
+    span:last-child {
+      margin-left: auto;
+    }
+  }
+}
+
+.authorsModule {
+  .maintainer {
+    $mine-height: 30px;
+    display: flex;
+    line-height: $mine-height;
+    cursor: default;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+    img {
+      width: $mine-height;
+      height: $mine-height;
+      margin-right: 10px;
+      border-radius: 100%;
+      flex-shrink: 0;
+    }
+    span {
+      font-size: 14px;
+      flex-shrink: 1;
+      white-space: nowrap;
+      word-break: break-all;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .showAllContributors {
+    cursor: pointer;
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: $primary-color;
+    text-align: center;
+    padding: 10px 0;
+  }
+}
+
+.dependenciesModule {
+  li {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1.5;
+
+    a {
+      color: $primary-color;
+    }
+  }
+}
+
+.emptyPlaceholder {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 16px;
+  color: $text-grey;
+}

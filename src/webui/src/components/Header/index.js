@@ -11,6 +11,7 @@ import storage from '../../../utils/storage';
 
 import classes from './header.scss';
 import './logo.png';
+import getRegistryURL from '../../../utils/getRegistryURL';
 
 export default class Header extends React.Component {
   state = {
@@ -138,8 +139,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    // Don't add slash if it's not a sub directory
-    const registryURL = `${location.origin}${location.pathname === '/' ? '' : location.pathname}`;
+    const registryURL = getRegistryURL();
 
     return (
       <header className={ classes.header }>
