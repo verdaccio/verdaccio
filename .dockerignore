@@ -12,9 +12,9 @@
 !.eslintrc
 !.eslintignore
 !.stylelintrc
-
-# not going to run tests inside the docker container
-test/
+!.flowconfig
+!.jest.config.js
+!.jestEnvironment.js
 
 # do not copy over node_modules we will run `npm install` anyway
 node_modules
