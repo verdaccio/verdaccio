@@ -62,5 +62,4 @@ export default function(server, express) {
                .body_error('internal server error');
     });
   });
-};
-
+}
