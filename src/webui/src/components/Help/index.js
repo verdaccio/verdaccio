@@ -4,7 +4,7 @@ import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
 import js from 'react-syntax-highlighter/dist/languages/javascript';
 
 import classes from './help.scss';
-import getRegistryURL from '../../../utils/getRegistryURL';
+import {getRegistryURL} from '../../../utils/url';
 
 registerLanguage('javascript', js);
 
