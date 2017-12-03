@@ -3,7 +3,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const marked = require('marked');
-const crypto = require('crypto');
 const _ = require('lodash');
 const Search = require('../../lib/search');
 const Middleware = require('./middleware');
@@ -15,6 +14,7 @@ const route = express.Router(); // eslint-disable-line
 const async = require('async');
 const HTTPError = require('http-errors');
 const Utils = require('../../lib/utils');
+const {generateGravatarUrl} = require('../../utils/user');
 
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
@@ -168,13 +168,12 @@ module.exports = function(config, auth, storage) {
             delete info[property];
           }));
 
-          let defaultGravatar = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm';
 
           if (typeof _.get(info, 'latest.author.email') === 'string') {
             info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
           } else {
             // _.get can't guarantee author property exist
-            _.set(info, 'latest.author.avatar', defaultGravatar);
+            _.set(info, 'latest.author.avatar', generateGravatarUrl());
           }
 
           if (_.get(info, 'latest.contributors.length', 0) > 0) {
@@ -182,7 +181,7 @@ module.exports = function(config, auth, storage) {
                 if (typeof contributor.email === 'string') {
                   contributor.avatar = generateGravatarUrl(contributor.email);
                 } else {
-                  contributor.avatar = defaultGravatar;
+                  contributor.avatar = generateGravatarUrl();
                 }
 
                 return contributor;
@@ -206,15 +205,3 @@ module.exports = function(config, auth, storage) {
 
   return route;
 };
-
-/**
- * Generate gravatar url from email address
- * @param {string} email
- * @return {string} url
- */
-function generateGravatarUrl(email) {
-  email = email.trim().toLocaleLowerCase();
-  let emailMD5 = crypto.createHash('md5').update(email).digest('hex');
-
-  return `https://www.gravatar.com/avatar/${emailMD5}`;
-}
