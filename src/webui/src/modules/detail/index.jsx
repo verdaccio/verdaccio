@@ -59,14 +59,16 @@ export default class Detail extends React.Component {
   }
 
   render() {
-    if (this.state.notFound) {
+    let {notFound, readMe} = this.state;
+
+    if (notFound) {
       return <NotFound pkg={this.packageName}/>;
-    } else if (isEmpty(this.state.readMe)) {
+    } else if (isEmpty(readMe)) {
       return <Loading text={loadingMessage} />;
     }
     return (
       <div className={classes.twoColumn}>
-        <PackageDetail readMe={this.state.readMe} package={this.packageName}/>
+        <PackageDetail readMe={readMe} package={this.packageName}/>
         <PackageSidebar packageName={this.packageName} />
       </div>
     );
