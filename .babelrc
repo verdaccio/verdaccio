@@ -1,4 +1,4 @@
-{  
+{
   "env": {
     "ui": {
       "presets": [
@@ -23,6 +23,13 @@
         "transform-runtime",
         "transform-object-rest-spread",
         "transform-decorators-legacy"
+      ]
+    },
+    "test": {
+      "presets": [ "es2015-node4", "stage-2", "stage-3", "flow", "react"],
+      "plugins": [
+        "transform-class-properties",
+        "transform-object-rest-spread"
       ]
     },
     "registry": {

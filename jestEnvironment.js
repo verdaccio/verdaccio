@@ -1,0 +1,1 @@
+require.requireActual('babel/polyfill');

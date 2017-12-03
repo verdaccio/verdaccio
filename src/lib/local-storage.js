@@ -20,12 +20,15 @@ import type {
   Config,
   MergeTags,
   Version,
-  ILocalFS,
   DistFile,
   Callback,
-  ILocalData,
   Logger,
-  Utils} from '@verdaccio/types';
+  Utils,
+} from '@verdaccio/types';
+import type {
+  ILocalFS,
+  ILocalData,
+} from '@verdaccio/local-storage';
 
 const pkgFileName = 'package.json';
 const fileExist = 'EEXISTS';
@@ -179,7 +182,8 @@ class Storage implements IStorage {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               };
-              // $FlowFixMe
+              /* eslint spaced-comment: 0 */
+              //$FlowFixMe
               const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {

@@ -1,13 +1,14 @@
 
-const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
+import crypto  from 'crypto';
+import fs from 'fs';
+import path from 'path';
 
-exports.generateSha = function generateSha(key) {
+function generateSha(key) {
   return crypto.createHash('sha1', 'binary').update(key).digest('hex');
-};
+}
 
-
-exports.readFile = function readFile(filePath) {
+function readFile(filePath) {
   return fs.readFileSync(path.join(__dirname, `/${filePath}`));
 }
+
+export { generateSha, readFile }

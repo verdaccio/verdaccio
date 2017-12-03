@@ -1,6 +1,7 @@
 npm-debug.log
 verdaccio-*.tgz
 .DS_Store
+build/
 
 ###
 !bin/verdaccio
@@ -25,7 +26,6 @@ coverage/
 bundle.js
 bundle.js.map
 __tests__
-__snapshots__
 
 # Compiled script
 static/

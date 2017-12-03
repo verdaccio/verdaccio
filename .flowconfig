@@ -1,13 +1,12 @@
 [ignore]
 .*/node_modules/.*
-lib/.*
 .*/test/**/*.json
 .*/static/.*
 .*/test/unit/partials/.*
-.*/test/functional/store/.*
 .*/.nyc_output/.*
 .*/coverage/.*
 .*/.vscode/.*
+.*/build/.*
 
 [include]
 

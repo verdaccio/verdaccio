@@ -2,7 +2,9 @@
 
 /* eslint no-sync:0 */
 /* eslint no-empty:0 */
-import {afterConfigLoad} from './bootstrap';
+
+import {startVerdaccio, listenDefaultCallback} from './bootstrap';
+import findConfigFile from './config-path';
 
 if (process.getuid && process.getuid() === 0) {
   global.console.error('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.');
@@ -20,7 +22,6 @@ const logger = require('./logger');
 logger.setup(); // default setup
 
 const commander = require('commander');
-const path = require('path');
 const Utils = require('./utils');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;
@@ -40,23 +41,21 @@ if (commander.args.length == 1 && !commander.config) {
 if (commander.args.length !== 0) {
   commander.help();
 }
+let verdaccioConfiguration;
+let configPathLocation;
+const cliListner = commander.listen;
 
-let config;
-let config_path;
 try {
-  if (commander.config) {
-    config_path = path.resolve(commander.config);
-  } else {
-    config_path = require('./config-path')();
-  }
-  config = Utils.parseConfigFile(config_path);
-  logger.logger.warn({file: config_path}, 'config file  - @{file}');
+  configPathLocation = findConfigFile(commander.config);
+  verdaccioConfiguration = Utils.parseConfigFile(configPathLocation);
+
+  logger.logger.warn({file: configPathLocation}, 'config file  - @{file}');
 } catch (err) {
-  logger.logger.fatal({file: config_path, err: err}, 'cannot open config file @{file}: @{!err.message}');
+  logger.logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
   process.exit(1);
 }
 
-afterConfigLoad(config, commander, config_path, pkgVersion, pkgName);
+startVerdaccio(verdaccioConfiguration, cliListner, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
 
 process.on('uncaughtException', function(err) {
   logger.logger.fatal( {
