@@ -23,7 +23,7 @@ export default class Server implements IServerBridge {
   request(options: any): any {
     // console.log("--->$$$$ REQUEST", options);
     assert(options.uri);
-    const headers: any = options.headers || {};
+    const headers = options.headers || {};
 
     headers.accept = headers.accept || 'application/json';
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
