@@ -1,0 +1,13 @@
+@import '../../../../styles/variable';
+
+.dependenciesModule {
+  li {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1.5;
+
+    a {
+      color: $primary-color;
+    }
+  }
+}
