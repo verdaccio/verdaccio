@@ -11,7 +11,7 @@ import storage from '../../../utils/storage';
 
 import classes from './header.scss';
 import './logo.png';
-import getRegistryURL from '../../../utils/getRegistryURL';
+import {getRegistryURL} from '../../../utils/url';
 
 export default class Header extends React.Component {
   state = {
