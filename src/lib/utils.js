@@ -371,7 +371,7 @@ function folder_exists(path) {
  * @param {String} path
  * @return {Boolean}
  */
-function file_exists(path) {
+function fileExists(path) {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
@@ -381,7 +381,7 @@ function file_exists(path) {
 }
 
 module.exports.folder_exists = folder_exists;
-module.exports.file_exists = file_exists;
+module.exports.file_exists = fileExists;
 module.exports.parseInterval = parseInterval;
 module.exports.semver_sort = semverSort;
 module.exports.parse_address = parse_address;

@@ -1,6 +1,4 @@
-import isFunction from 'lodash/isFunction';
-import assign from 'lodash/assign';
-import isObject from 'lodash/isObject';
+import {assign, isObject, isFunction} from 'lodash';
 import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
@@ -36,16 +34,16 @@ function getListListenAddresses(argListen, configListen) {
     addresses = ['4873'];
   }
   addresses = addresses.map(function(addr) {
-    const parsed_addr = Utils.parse_address(addr);
+    const parsedAddr = Utils.parse_address(addr);
 
-    if (!parsed_addr) {
+    if (!parsedAddr) {
       logger.logger.warn({addr: addr},
          'invalid address - @{addr}, we expect a port (e.g. "4873"),'
        + ' host:port (e.g. "localhost:4873") or full url'
        + ' (e.g. "http://localhost:4873/")');
     }
 
-    return parsed_addr;
+    return parsedAddr;
   }).filter(Boolean);
 
   return addresses;
