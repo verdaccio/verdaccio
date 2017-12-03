@@ -1,0 +1,14 @@
+@import '../../../../styles/variable';
+
+.maintainersModule {
+  .showAllContributors {
+    cursor: pointer;
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: $primary-color;
+    text-align: center;
+    padding: 10px 0;
+  }
+}
