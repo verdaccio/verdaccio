@@ -379,8 +379,7 @@ class Storage {
           return options.callback(err);
         }
 
-        const propertyToKeep = [];
-        Array.prototype.push.apply(propertyToKeep, WHITELIST);
+        const propertyToKeep = [...WHITELIST];
         if (options.keepUpLinkData === true) {
           propertyToKeep.push('_uplinks');
         }
