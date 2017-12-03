@@ -3,6 +3,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const marked = require('marked');
+const _ = require('lodash');
 const Search = require('../../lib/search');
 const Middleware = require('./middleware');
 const match = Middleware.match;
@@ -13,6 +14,7 @@ const route = express.Router(); // eslint-disable-line
 const async = require('async');
 const HTTPError = require('http-errors');
 const Utils = require('../../lib/utils');
+const {generateGravatarUrl} = require('../../utils/user');
 
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
@@ -71,17 +73,21 @@ module.exports = function(config, auth, storage) {
   });
 
   // Get package readme
-  route.get('/package/readme(/@:scope?)?/:package/:version?', can('access'), function(req, res, next) {
+  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req, res, next) {
     let packageName = req.params.package;
     if (req.params.scope) {
       packageName = `@${req.params.scope}/${packageName}`;
     }
-    storage.get_package(packageName, {req: req}, function(err, info) {
-      if (err) {
-        return next(err);
-      }
-      res.set('Content-Type', 'text/plain');
-      next(marked(info.readme || 'ERROR: No README data found!'));
+    storage.get_package({
+      name: packageName,
+      req,
+      callback: function(err, info) {
+        if (err) {
+          return next(err);
+        }
+        res.set('Content-Type', 'text/plain');
+        next(marked(info.readme || 'ERROR: No README data found!'));
+      },
     });
   });
 
@@ -91,22 +97,25 @@ module.exports = function(config, auth, storage) {
     const packages = [];
 
     const getPackageInfo = function(i) {
-      storage.get_package(results[i].ref, (err, entry) => {
-        if (!err && entry) {
-          auth.allow_access(entry.name, req.remote_user, function(err, allowed) {
-            if (err || !allowed) {
-              return;
-            }
+      storage.get_package({
+        name: results[i].ref,
+        callback: (err, entry) => {
+          if (!err && entry) {
+            auth.allow_access(entry.name, req.remote_user, function(err, allowed) {
+              if (err || !allowed) {
+                return;
+              }
 
-            packages.push(entry.versions[entry['dist-tags'].latest]);
-          });
-        }
+              packages.push(entry.versions[entry['dist-tags'].latest]);
+            });
+          }
 
-        if (i >= results.length - 1) {
-          next(packages);
-        } else {
-          getPackageInfo(i + 1);
-        }
+          if (i >= results.length - 1) {
+            next(packages);
+          } else {
+            getPackageInfo(i + 1);
+          }
+        },
       });
     };
 
@@ -136,6 +145,57 @@ module.exports = function(config, auth, storage) {
     let base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
     res.cookies.set('token', '');
     res.redirect(base);
+  });
+
+  route.get('/sidebar/(@:scope/)?:package', function(req, res, next) {
+    let packageName = req.params.package;
+    if (req.params.scope) {
+      packageName = `@${req.params.scope}/${packageName}`;
+    }
+
+    storage.get_package({
+      name: packageName,
+      keepUpLinkData: true,
+      req,
+      callback: function(err, info) {
+        res.set('Content-Type', 'application/json');
+
+        if (!err) {
+          info.latest = info.versions[info['dist-tags'].latest];
+          let propertyToDelete = ['readme', 'versions'];
+
+          _.forEach(propertyToDelete, ((property) => {
+            delete info[property];
+          }));
+
+
+          if (typeof _.get(info, 'latest.author.email') === 'string') {
+            info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
+          } else {
+            // _.get can't guarantee author property exist
+            _.set(info, 'latest.author.avatar', generateGravatarUrl());
+          }
+
+          if (_.get(info, 'latest.contributors.length', 0) > 0) {
+            info.latest.contributors = _.map(info.latest.contributors, (contributor) => {
+                if (typeof contributor.email === 'string') {
+                  contributor.avatar = generateGravatarUrl(contributor.email);
+                } else {
+                  contributor.avatar = generateGravatarUrl();
+                }
+
+                return contributor;
+              }
+            );
+          }
+
+          res.end(JSON.stringify(info));
+        } else {
+          res.status(404);
+          res.end();
+        }
+      },
+    });
   });
 
   // What are you looking for? logout? client side will remove token when user click logout,
