@@ -7,6 +7,11 @@ import Header from '../../../src/webui/src/components/Header';
 import { BrowserRouter } from 'react-router-dom';
 import storage from '../../../src/webui/utils/storage';
 
+jest.mock('../../../src/webui/utils/api', () => ({
+  get: require('./__mocks__/api').default.get,
+  post: require('./__mocks__/api').default.post
+}));
+
 describe('<Header /> component shallow', () => {
   let wrapper;
 
