@@ -1,6 +1,6 @@
 /**
  * Setup configuration for Jest
- * This file includes gloabl settings for the JEST environment.
+ * This file includes global settings for the JEST environment.
  */
 import 'raf/polyfill';
 import { configure } from 'enzyme';
