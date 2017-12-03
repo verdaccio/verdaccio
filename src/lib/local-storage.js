@@ -1,7 +1,6 @@
 // @flow
 
 /* eslint prefer-rest-params: 0 */
-/* eslint spaced-comment: 0 */
 
 import assert from 'assert';
 import Crypto from 'crypto';
@@ -24,10 +23,12 @@ import type {
   DistFile,
   Callback,
   Logger,
-  Utils} from '@verdaccio/types';
-  import type {
-    ILocalFS,
-    ILocalData} from '@verdaccio/local-storage';
+  Utils,
+} from '@verdaccio/types';
+import type {
+  ILocalFS,
+  ILocalData,
+} from '@verdaccio/local-storage';
 
 const pkgFileName = 'package.json';
 const fileExist = 'EEXISTS';
@@ -181,6 +182,7 @@ class Storage implements IStorage {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               };
+              /* eslint spaced-comment: 0 */
               //$FlowFixMe
               const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
