@@ -3,19 +3,20 @@
 const express = require('express');
 const Error = require('http-errors');
 const compression = require('compression');
-const Auth = require('../lib/auth');
-const Logger = require('../lib/logger');
 const Config = require('../lib/config');
 const Middleware = require('./web/middleware');
 const Cats = require('../lib/status-cats');
 const Storage = require('../lib/storage');
 const _ = require('lodash');
 const cors = require('cors');
-const load_plugins = require('../lib/plugin-loader').load_plugins;
 
 module.exports = function(config_hash) {
   // Config
-  Logger.setup(config_hash.logs);
+  const logger = require('../lib/logger')(config_hash.logger, true);
+  // auth.js and plugin-loader.js must be required after the logger has
+  // been re-initialized with the desired configuration.
+  const Auth = require('../lib/auth');
+  const load_plugins = require('../lib/plugin-loader').load_plugins;
   const config = new Config(config_hash);
   const storage = new Storage(config);
   const auth = new Auth(config);
@@ -23,6 +24,8 @@ module.exports = function(config_hash) {
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
+  // Setup logging within Express itself as the first Express middleware.
+  app.use(require('express-pino-logger')({logger: logger}));
   app.use(cors());
 
   // Middleware
@@ -34,10 +37,10 @@ module.exports = function(config_hash) {
           next({error: err.message || 'unknown error'});
         }
       } else {
-        Logger.logger.error( {err: err}
-                           , 'unexpected error: @{!err.message}\n@{err.stack}');
+        req.log.error('unexpected error: %s', err.message);
+        req.log.debug(err.stack);
         if (!res.status || !res.send) {
-          Logger.logger.error('this is an error in express.js, please report this');
+          req.log.error('this is an error in express.js, please report this');
           res.destroy();
         } else if (!res.headersSent) {
           res.status(500);
@@ -51,7 +54,6 @@ module.exports = function(config_hash) {
   };
 
   // Router setup
-  app.use(Middleware.log);
   app.use(error_reporting_middleware);
   app.use(function(req, res, next) {
     res.setHeader('X-Powered-By', config.user_agent);
@@ -84,7 +86,7 @@ module.exports = function(config_hash) {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: Logger.logger,
+    logger: logger,
   };
   const plugins = load_plugins(config, config.middlewares, plugin_params, function(plugin) {
     return plugin.register_middlewares;

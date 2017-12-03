@@ -3,7 +3,7 @@
 let assert = require('assert');
 let tag_version = require('../../src/lib/utils').tag_version;
 
-require('../../src/lib/logger').setup([]);
+require('../../src/lib/logger')({level: 'silent'});
 
 describe('tag_version', function() {
   it('add new one', function() {

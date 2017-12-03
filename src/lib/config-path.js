@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const Path = require('path');
-const logger = require('./logger');
+const logger = require('./logger')();
 const CONFIG_FILE = 'config.yaml';
 const pkgJson = require('../../package.json');
 /**
@@ -26,7 +26,7 @@ function find_config_file() {
  */
 function create_config_file(config_path) {
   require('mkdirp').sync(Path.dirname(config_path.path));
-  logger.logger.info({file: config_path.path}, 'Creating default config file in @{file}');
+  logger.info('Creating default config file in %s', config_path.path);
 
   let created_config = fs.readFileSync(require.resolve('../../conf/default.yaml'), 'utf8');
 

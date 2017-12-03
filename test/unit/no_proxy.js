@@ -3,7 +3,7 @@
 let assert = require('assert');
 let Storage = require('../../src/lib/up-storage');
 
-require('../../src/lib/logger').setup([]);
+require('../../src/lib/logger')({level: 'silent'});
 
 function setupProxy(host, config, mainconfig) {
   config.url = host;

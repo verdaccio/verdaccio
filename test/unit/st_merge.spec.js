@@ -4,8 +4,6 @@ let assert = require('assert');
 let semver_sort = require('../../src/lib/utils').semver_sort;
 let merge = require('../../src/lib/storage')._merge_versions;
 
-require('../../src/lib/logger').setup([]);
-
 describe('merge versions', function() {
 
   it('simple', function() {

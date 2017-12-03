@@ -12,9 +12,9 @@ const config = {
       allow_access: '$all',
     },
   },
-  logs: [
-    {type: 'stdout', format: 'pretty', level: 'fatal'},
-  ],
+  logger: {
+    level: 'silent'
+  }
 };
 
 module.exports = config;

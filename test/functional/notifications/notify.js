@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const _ = require('lodash');
+require('../../../src/lib/logger')({enabled: false})
 const notify = require('../../../src/lib/notify').notify;
 
 module.exports = function() {

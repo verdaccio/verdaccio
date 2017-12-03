@@ -3,7 +3,7 @@
 const Handlebars = require('handlebars');
 const request = require('request');
 const _ = require('lodash');
-const logger = require('./logger');
+const logger = require('./logger')();
 
 const handleNotify = function(metadata, notifyEntry) {
   let regex;
@@ -49,13 +49,14 @@ const handleNotify = function(metadata, notifyEntry) {
   return new Promise(( resolve, reject) => {
     request(options, function(err, response, body) {
       if (err || response.statusCode >= 400) {
-        const errorMessage = _.isNil(err) ? response.statusMessage : err;
-        logger.logger.error({err: errorMessage}, ' notify error: @{err.message}' );
-        reject(errorMessage);
+        const _err = err || Error(response.statusMessage);
+        logger.error('notify error: %s', _err.message);
+        logger.debug(_err.stack);
+        reject(_err.message);
       } else {
-        logger.logger.info({content: content}, 'A notification has been shipped: @{content}');
+        logger.info('A notification has been shipped: %s', content);
         if (body) {
-          logger.logger.debug({body: body}, ' body: @{body}' );
+          logger.debug('body: %s', body);
         }
         resolve(_.isNil(body) === false ? body : null);
       }

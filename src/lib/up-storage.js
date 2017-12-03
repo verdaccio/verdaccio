@@ -6,7 +6,6 @@ const _ = require('lodash');
 const request = require('request');
 const Stream = require('stream');
 const URL = require('url');
-const Logger = require('./logger');
 const MyStreams = require('@verdaccio/streams');
 const Utils = require('./utils');
 const zlib = require('zlib');
@@ -46,7 +45,7 @@ class ProxyStorage {
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
     this.ca = config.ca;
-    this.logger = Logger.logger.child({sub: 'out'});
+    this.logger = (require('./logger')()).child({sub: 'out'});
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);

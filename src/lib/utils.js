@@ -6,7 +6,6 @@ const YAML = require('js-yaml');
 const URL = require('url');
 const fs = require('fs');
 const _ = require('lodash');
-const Logger = require('./logger');
 const createError = require('http-errors');
 
 /**
@@ -150,8 +149,7 @@ function tag_version(data, version, tag) {
 				data['dist-tags'][tag] = version;
 				return true;
 			}
-		}
-		Logger.logger.warn({ver: version, tag: tag}, 'ignoring bad version @{ver} in @{tag}');
+    }
 		if (tag && data['dist-tags'][tag]) {
 			delete data['dist-tags'][tag];
 		}
@@ -232,7 +230,6 @@ function semverSort(array) {
 	return array
 		.filter(function(x) {
 			if (!semver.parse(x, true)) {
-				Logger.logger.warn( {ver: x}, 'ignoring bad version @{ver}' );
 				return false;
 			}
 			return true;

@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+require('../../src/lib/logger')({enabled: false}, true);
 const load_plugins = require('../../src/lib/plugin-loader').load_plugins;
 const path = require('path');
 

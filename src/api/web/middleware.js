@@ -6,8 +6,6 @@ const crypto = require('crypto');
 const _ = require('lodash');
 const createError = require('http-errors');
 const utils = require('../../lib/utils');
-const Logger = require('../../lib/logger');
-
 
 module.exports.match = function match(regexp) {
   return function(req, res, next, value) {
@@ -169,85 +167,87 @@ module.exports.final = function(body, req, res, next) {
   res.send(body);
 };
 
-module.exports.log = function(req, res, next) {
-  // logger
-  req.log = Logger.logger.child({sub: 'in'});
+// TODO (jsumners): this is being registered as the logging middleware.
+// Adapt the pino middleware to emulate it.
+// module.exports.log = function(req, res, next) {
+//   // logger
+//   req.log = Logger.logger.child({sub: 'in'});
 
-  let _auth = req.headers.authorization;
-  if (_.isNil(_auth) === false) {
-    req.headers.authorization = '<Classified>';
-  }
-  let _cookie = req.headers.cookie;
-  if (_.isNil(_cookie) === false) {
-    req.headers.cookie = '<Classified>';
-  }
+//   let _auth = req.headers.authorization;
+//   if (_.isNil(_auth) === false) {
+//     req.headers.authorization = '<Classified>';
+//   }
+//   let _cookie = req.headers.cookie;
+//   if (_.isNil(_cookie) === false) {
+//     req.headers.cookie = '<Classified>';
+//   }
 
-  req.url = req.originalUrl;
-  req.log.info( {req: req, ip: req.ip}
-    , '@{ip} requested \'@{req.method} @{req.url}\'' );
-  req.originalUrl = req.url;
+//   req.url = req.originalUrl;
+//   req.log.info( {req: req, ip: req.ip}
+//     , '@{ip} requested \'@{req.method} @{req.url}\'' );
+//   req.originalUrl = req.url;
 
-  if (_.isNil(_auth) === false) {
-    req.headers.authorization = _auth;
-  }
+//   if (_.isNil(_auth) === false) {
+//     req.headers.authorization = _auth;
+//   }
 
-  if (_.isNil(_cookie) === false) {
-    req.headers.cookie = _cookie;
-  }
+//   if (_.isNil(_cookie) === false) {
+//     req.headers.cookie = _cookie;
+//   }
 
-  let bytesin = 0;
-  req.on('data', function(chunk) {
-    bytesin += chunk.length;
-  });
+//   let bytesin = 0;
+//   req.on('data', function(chunk) {
+//     bytesin += chunk.length;
+//   });
 
-  let bytesout = 0;
-  let _write = res.write;
-  res.write = function(buf) {
-    bytesout += buf.length;
-    _write.apply(res, arguments);
-  };
+//   let bytesout = 0;
+//   let _write = res.write;
+//   res.write = function(buf) {
+//     bytesout += buf.length;
+//     _write.apply(res, arguments);
+//   };
 
-  const log = function() {
-    let forwardedFor = req.headers['x-forwarded-for'];
-    let remoteAddress = req.connection.remoteAddress;
-    let remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
-    let message = '@{status}, user: @{user}(@{remoteIP}), req: \'@{request.method} @{request.url}\'';
-    if (res._verdaccio_error) {
-      message += ', error: @{!error}';
-    } else {
-      message += ', bytes: @{bytes.in}/@{bytes.out}';
-    }
+//   const log = function() {
+//     let forwardedFor = req.headers['x-forwarded-for'];
+//     let remoteAddress = req.connection.remoteAddress;
+//     let remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
+//     let message = '@{status}, user: @{user}(@{remoteIP}), req: \'@{request.method} @{request.url}\'';
+//     if (res._verdaccio_error) {
+//       message += ', error: @{!error}';
+//     } else {
+//       message += ', bytes: @{bytes.in}/@{bytes.out}';
+//     }
 
-    req.url = req.originalUrl;
-    req.log.warn({
-      request: {
-        method: req.method,
-        url: req.url,
-      },
-      level: 35, // http
-      user: req.remote_user && req.remote_user.name,
-      remoteIP,
-      status: res.statusCode,
-      error: res._verdaccio_error,
-      bytes: {
-        in: bytesin,
-        out: bytesout,
-      },
-    }, message);
-    req.originalUrl = req.url;
-  };
+//     req.url = req.originalUrl;
+//     req.log.warn({
+//       request: {
+//         method: req.method,
+//         url: req.url,
+//       },
+//       level: 35, // http
+//       user: req.remote_user && req.remote_user.name,
+//       remoteIP,
+//       status: res.statusCode,
+//       error: res._verdaccio_error,
+//       bytes: {
+//         in: bytesin,
+//         out: bytesout,
+//       },
+//     }, message);
+//     req.originalUrl = req.url;
+//   };
 
-  req.on('close', function() {
-    log(true);
-  });
+//   req.on('close', function() {
+//     log(true);
+//   });
 
-  const _end = res.end;
-  res.end = function(buf) {
-    if (buf) {
-      bytesout += buf.length;
-    }
-    _end.apply(res, arguments);
-    log();
-  };
-  next();
-};
+//   const _end = res.end;
+//   res.end = function(buf) {
+//     if (buf) {
+//       bytesout += buf.length;
+//     }
+//     _end.apply(res, arguments);
+//     log();
+//   };
+//   next();
+// };
