@@ -56,7 +56,7 @@ We have support for **Puppet**, **Ansible** and **Cheff** and we need help in th
 
 ## I'm ready to contribute
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"*  then I have good nws for you, that's the next step.
+If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"*  then I have good news for you, that's the next step.
 
 You will need learn how to build, [we have prepared a guide just for that](build.md).
 

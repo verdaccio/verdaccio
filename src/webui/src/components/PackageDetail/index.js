@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
@@ -8,7 +7,6 @@ import Readme from '../Readme';
 import classes from './packageDetail.scss';
 
 const PackageDetail = (props) => {
-
  const displayState = (readMe) => {
    if (isNil(readMe)) {
      return;
@@ -19,7 +17,6 @@ const PackageDetail = (props) => {
   return (
     <div className={classes.pkgDetail}>
       <h1 className={ classes.title }>{ props.package }</h1>
-      <hr/>
       <div className={classes.readme}>
         {displayState(props.readMe)}
       </div>
