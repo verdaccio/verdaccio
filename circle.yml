@@ -12,6 +12,7 @@ dependencies:
         curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
       fi
     - nvm install 6
+    - nvm install 9
 
   cache_directories:
     - ~/.yarn
@@ -25,6 +26,8 @@ test:
     - nvm alias default 6
     - yarn run test
     - nvm alias default 8
+    - yarn run test
+    - nvm alias default 9
     - yarn run test
 deployment:
   production:
