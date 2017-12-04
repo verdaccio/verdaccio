@@ -50,7 +50,7 @@ The next major version is based on `babel` and `flow`. If you switch from master
 script | Description 
 --- | --- | 
 **flow** | run flow check
-**dev:start** | transpile and run `verdaccio` with `babel-node` on hot.
+**dev:start** | run `babel-node` and transpile code on memory
 **code:build** | transpile `verdaccio` with `babel` and  copy transpiled code to `build/`
 release | this script is used to generate changelog and raise up the version according the commits messages
 prepublish | it ensures before publish the new ui is being generated
@@ -61,10 +61,8 @@ test:only | run only test
 coverage:publish | publish on `codecov` the coverage (don't use it)
 lint | run the linting for javascript code.
 lint:css | run the linter for `css`
-dev:start | run `babel-node` and transpile code on memory
 dev:webui | run a `webpack` server with hot reloading enabled `http://localhost:4872/#/` it requires a `verdaccio` server running in port `4873`.
 pre:webpack | prepare the field for webpack (it a substask of `build:webui`)
-code:build | run `babel` to transpile code and copy to `build/` destination folder. (it ignores UI code)
 build:webui | create the static assets for the UI with `webpack`
 build:docker | create a local docker image with `verdaccio`
 build:rpi | create a local docker for raspberry pi image with `verdaccio` **(experimental with no support)**
