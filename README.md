@@ -44,7 +44,7 @@ See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/t
 
 ### Prerequisites
 
-* Node.js >= 4.6.1
+* Node.js >= `2.x` (4.6.1) | `3.x` (6.12.0)
 * `npm` or `yarn`
 
 Installation and starting (application will create default config in config.yaml you can edit later)
