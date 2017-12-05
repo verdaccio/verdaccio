@@ -48,14 +48,13 @@ const cliListner = commander.listen;
 try {
   configPathLocation = findConfigFile(commander.config);
   verdaccioConfiguration = Utils.parseConfigFile(configPathLocation);
+  process.title = verdaccioConfiguration.web && verdaccioConfiguration.web.title || 'verdaccio';
 
   logger.logger.warn({file: configPathLocation}, 'config file  - @{file}');
 } catch (err) {
   logger.logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
   process.exit(1);
 }
-
-process.title = config.web && config.web.title || 'verdaccio';
 
 startVerdaccio(verdaccioConfiguration, cliListner, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
 
