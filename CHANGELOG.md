@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * :bug: incorrect logo url with slash at the end of `url_prefix` ([859eccb](https://github.com/verdaccio/verdaccio/commit/859eccb))
-* :fix: Log-rotation used to require a full restart of the application. Now `SIGUSR2` can be used to ask the process to reopen the log.
+* :bug: Log-rotation used to require a full restart of the application. Now `SIGUSR2` can be used to ask the process to reopen the log.
 
 
 <a name="2.6.5"></a>
