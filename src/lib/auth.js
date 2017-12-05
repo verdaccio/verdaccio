@@ -55,10 +55,6 @@ class Auth {
       },
 
       adduser: function(user, password, cb) {
-        if (config.users && config.users[user]) {
-          return cb(Error[403]('this user already exists'));
-        }
-
         return cb();
       },
     });
