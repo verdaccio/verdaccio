@@ -23,7 +23,6 @@ RUN npm config set registry http://registry.npmjs.org/ && \
     npm install -g -s flow-bin@0.60.0 && \
     yarn install --production=false && \
     yarn run lint && \
-    yarn run test && \
     yarn run build:webui && \
     yarn cache clean && \
     yarn install --production=true --pure-lockfile
