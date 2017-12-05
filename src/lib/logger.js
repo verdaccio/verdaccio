@@ -93,6 +93,10 @@ function setup(logs) {
 		},
 	});
 
+       process.on('SIGUSR2', function () {
+               log.reopenFileStreams();
+       });
+
 	module.exports.logger = logger;
 }
 
