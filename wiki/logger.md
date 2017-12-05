@@ -10,6 +10,8 @@ logs:
   - {type: file, path: verdaccio.log, level: info}
 ```
 
+Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it.
+
 ### Configuration
 
 Property | Type | Required | Example | Support | Description 
