@@ -171,7 +171,7 @@ module.exports.final = function(body, req, res, next) {
 
 module.exports.log = function(req, res, next) {
   // logger
-  req.log = Logger.logger.child({sub: 'in'});
+  req.log = Logger.logger;
 
   let _auth = req.headers.authorization;
   if (_.isNil(_auth) === false) {

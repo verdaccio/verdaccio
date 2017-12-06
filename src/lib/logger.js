@@ -29,17 +29,21 @@ function getlvl(x) {
  * @param {*} logs list of log configuration
  */
 function setup(logs) {
+	let files = false;
+
 	let streams = [];
 	if (logs == null) {
 		logs = [{type: 'stdout', format: 'pretty', level: 'http'}];
 	}
 
 	logs.forEach(function(target) {
-		// create a stream for each log configuration
-		const stream = new Stream();
-		stream.writable = true;
+
+		if (target.level === undefined || target.level === 'http')
+			target.level = 35;
 
 		if (target.type === 'stdout' || target.type === 'stderr') {
+			const stream = new Stream();
+			stream.writable = true;
 			// destination stream
 			const dest = target.type === 'stdout' ? process.stdout : process.stderr;
 
@@ -58,31 +62,25 @@ function setup(logs) {
 					dest.write(JSON.stringify(obj, Logger.safeCycles()) + '\n');
 				};
 			}
-		} else if (target.type === 'file') {
-			const dest = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
-			dest.on('error', function(err) {
-				Logger.emit('error', err);
+			streams.push({
+				type: 'raw',
+				level: target.level,
+				stream: stream,
 			});
-			stream.write = function(obj) {
-				if (target.format === 'pretty') {
-					dest.write(print(obj.level, obj.msg, obj, false) + '\n');
-				} else {
-					dest.write(JSON.stringify(obj, Logger.safeCycles()) + '\n');
-				}
-			};
+		} else if (target.type === 'file') {
+			files = true;
+			streams.push({
+				type: 'file',
+				level: target.level,
+				path: target.path,
+			});
 		} else {
 			throw Error('wrong target type for a log');
 		}
 
-		if (target.level === 'http') target.level = 35;
-		streams.push({
-			type: 'raw',
-			level: target.level || 35,
-			stream: stream,
-		});
 	});
 
-	// buyan default configuration
+	// bunyan default configuration
 	const logger = new Logger({
 		name: pkgJSON.name,
 		streams: streams,
@@ -93,11 +91,13 @@ function setup(logs) {
 		},
 	});
 
-       process.on('SIGUSR2', function() {
-               Logger.reopenFileStreams();
-       });
-
 	module.exports.logger = logger;
+
+	if (files) {
+		process.on('SIGUSR2', function() {
+			logger.reopenFileStreams();
+		});
+	}
 }
 
 // adopted from socket.io
