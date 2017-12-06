@@ -48,7 +48,7 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 
 ### UI Customization
 
-* [Configure the Web](web.md) 
+* [Configure the Web](web.md)
 
 
 ## Server Configurations
@@ -69,6 +69,7 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 
 * [Configure with Ansible](ansible.md)
 * [Using Docker Image](docker.md)
+* [Using Kubernetes](kubernetes.md)
 
 ## Verdaccio Recipes
 
@@ -80,4 +81,4 @@ from a fresh look at the code and the outstanding issues. So here we are ğŸ‰ğŸ
 * [Build verdaccio](dev/build.md)
 * [Create plugins](dev/plugins.md)
 * [Repositories](dev/repositories.md)
-* [Unit Testing](dev/test.md) 
+* [Unit Testing](dev/test.md)
