@@ -97,7 +97,7 @@ module.exports = function(route, auth, storage) {
     });
   });
   
-  //searching packages
+  // searching packages
   // GET /-/v1/search?text=string&size=20
   route.get('/-/v1(\/search)?', function(req, res) {
     let received_end = false;
@@ -129,7 +129,7 @@ module.exports = function(route, auth, storage) {
       response_finished = true;
       res.end('],"total":'+total+',"time":"'+new Date().toString()+'"}');
     };
-    
+
     res.write('{"objects":[');
     // startkey >= mtime of module
     let stream = storage.search(req.query.startkey || 0, {req: req});
@@ -155,12 +155,18 @@ module.exports = function(route, auth, storage) {
         if (allowed) {
           let find=[]; // search in name and description and keywords
           let string = pkg.name+pkg.description;
-          for (let istr in text) if (string.indexOf(text[istr])>-1) find[text[istr]]=true
-          if (Object.keys(find).length !== text.length && pkg.keywords && pkg.keywords.length) 
-        	  for (let ikey in pkg.keywords) for (let istr in text) if (pkg.keywords[ikey].indexOf(text[istr])>-1) find[text[istr]]=true
+          for (let istr in text) {
+        	  if (string.indexOf(text[istr])>-1) find[text[istr]]=true;
+          }
+          if (Object.keys(find).length !== text.length && pkg.keywords && pkg.keywords.length) {
+        	  for (let ikey in pkg.keywords) {
+        		  for (let istr in text) {
+        			  if (pkg.keywords[ikey].indexOf(text[istr])>-1) find[text[istr]]=true;
+        		  }
+        	  }
+          }
 
-          if (Object.keys(find).length == text.length && (size == -1 || size>=1))
-          {
+          if (Object.keys(find).length == text.length && (size == -1 || size>=1)) {
 			if (size>0) size--;
 			res.write(`${firstPackage ? '{"package":' : ',{"package":'}${JSON.stringify(standardizePkg(pkg))}}`);
 			//res.write(`${firstPackage ? '{"package":' : ',{"package":'}${JSON.stringify(pkg)},"flags":{"unstable":true},"score":{"final":0.144979397377621,"detail":{"quality":0.30431600667044645,"popularity":0.0033870077459281825,"maintenance":0.1499975504726063}},"searchScore":1.5267507e-13}`);
@@ -186,12 +192,17 @@ module.exports = function(route, auth, storage) {
   });
 };
 
-function standardizePkg (data) {
+/**
+ * standardizePkg .
+ * @param {object} data json package
+ * @return {objetc] data json package
+ */
+function standardizePkg(data) {
   return {
     name: data.name,
     description: data.description,
-    maintainers: (data.maintainers || []).map(function (m) {
-      return { username: m.name, email: m.email }
+    maintainers: (data.maintainers || []).map(function(m) {
+      return {username: m.name, email: m.email};
     }),
     keywords: data.keywords || [],
     version: Object.keys(data.versions || {})[0] || [],
@@ -199,6 +210,6 @@ function standardizePkg (data) {
       data.time &&
       data.time.modified &&
       new Date(data.time.modified)
-    ) || null
-  }
+    ) || null,
+  };
 }
