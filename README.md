@@ -79,7 +79,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 If you are an adventurous developer you can use and install the latest beta version, this is a non stable version, I'd recommend only use for testing purporses.
 
 ```bash
-$ npm install -g verdaccio@beta
+$ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:beta
 ```
 
 ## Publishing Private Packages
