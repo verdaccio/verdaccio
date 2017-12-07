@@ -1,4 +1,5 @@
 
+<p align="center"><img src="https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png"></p>
 
 `verdaccio` is a fork of **sinopia** and it's backwards compatible.
 
