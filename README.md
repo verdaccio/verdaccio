@@ -1,18 +1,14 @@
-# Verdaccio
+<p align="center"><img src="https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png"></p>
 
 ### A lightweight private npm proxy registry
 
 
+
 `verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
-
-### Logo
-
-We have a new logo [thanks for your votes !!!](https://github.com/verdaccio/verdaccio/issues/328) ⚡⚡⚡
 
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
 [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
-[![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
 [![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 
 <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
@@ -228,3 +224,4 @@ If you have any issue you can try the following options, do no desist to ask or 
 * [Reporting a bug](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
 * [Chat Room](https://gitter.im/verdaccio/)
+* [Logos](https://github.com/verdaccio/verdaccio/tree/master/assets)
