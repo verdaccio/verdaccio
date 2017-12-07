@@ -38,8 +38,9 @@ function setup(logs) {
 
 	logs.forEach(function(target) {
 
-		if (target.level === undefined || target.level === 'http')
+		if (target.level === undefined || target.level === 'http') {
 			target.level = 35;
+		}
 
 		if (target.type === 'stdout' || target.type === 'stderr') {
 			const stream = new Stream();
