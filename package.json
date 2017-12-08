@@ -136,7 +136,7 @@
     "prepublish": "in-publish && npm run build:webui || not-in-publish",
     "flow": "flow",
     "pretest": "npm run code:build",
-    "test": "cross-env BABEL_ENV=test jest",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "pre:ci": "npm run lint && npm run build:webui",
     "coverage:publish": "codecov",
     "lint": "npm run flow && eslint .",
