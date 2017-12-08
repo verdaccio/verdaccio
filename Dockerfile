@@ -1,4 +1,4 @@
-FROM node:8.9.0-alpine
+FROM node:9.2.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 RUN apk --no-cache add openssl && \
@@ -23,7 +23,7 @@ RUN npm config set registry http://registry.npmjs.org/ && \
     npm install -g -s flow-bin@0.60.0 && \
     yarn install --production=false && \
     yarn run lint && \
-    yarn run test && \
+    yarn run test -- --silent true --coverage false --bail && \
     yarn run code:build && \
     yarn run build:webui && \
     yarn cache clean && \
