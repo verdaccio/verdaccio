@@ -152,29 +152,29 @@ module.exports = function(route, auth, storage) {
         }
 
         if (allowed) {
-          let find=[]; // search in name and description and keywords
-          let string = pkg.name+pkg.description;
-          for (let istr in text) {
-              if (string.indexOf(text[istr])>-1) find[text[istr]]=true;
-          }
-          if (Object.keys(find).length !== text.length && pkg.keywords && pkg.keywords.length) {
-              for (let ikey in pkg.keywords) {
-            	  const pk = pkg.keywords[ikey];
-                  for (let istr in text) {
-                      if (pk.indexOf(text[istr])>-1) find[text[istr]]=true;
-                  }
-              }
-          }
+            let find=[]; // search in name and description and keywords
+            let string = pkg.name+pkg.description;
+            for (let istr=0; istr<text.length; istr++) {
+          	  if (string.indexOf(text[istr])>-1) find[text[istr]]=true;
+            }
+            if (Object.keys(find).length !== text.length && pkg.keywords && pkg.keywords.length) {
+                for (let ikey=0; ikey<pkg.keywords.legnth; ikey++) {
+                    const pk = pkg.keywords[ikey];
+                    for (let istr=0; istr<text.length; istr++) {
+                        if (pk.indexOf(text[istr])>-1) find[text[istr]]=true;
+                    }
+                }
+            }
 
-          if (Object.keys(find).length == text.length && (size == -1 || size>=1)) {
-			if (size>0) size--;
-			res.write(`${firstPackage ? '{"package":' : ',{"package":'}${JSON.stringify(standardizePkg(pkg))}}`);
-			total++;
-			if (firstPackage) {
-			  firstPackage = false;
-			}
+            if (Object.keys(find).length == text.length && (size == -1 || size>=1)) {
+  			if (size>0) size--;
+  			res.write(`${firstPackage ? '{"package":' : ',{"package":'}${JSON.stringify(standardizePkg(pkg))}}`);
+  			total++;
+  			if (firstPackage) {
+  			  firstPackage = false;
+  			}
+            }
           }
-        }
 
         check_finish();
       });
