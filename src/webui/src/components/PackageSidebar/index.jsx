@@ -47,13 +47,13 @@ export default class PackageSidebar extends React.Component {
   render() {
     let {packageMeta} = this.state;
 
-    return (
-      <aside>
+    return packageMeta ?
+      (<aside>
         <LastSync packageMeta={packageMeta} />
         <Maintainers packageMeta={packageMeta} />
         <Dependencies packageMeta={packageMeta} />
         {/* Package management module? Help us implement it! */}
-      </aside>
-    );
+      </aside>):
+      (<aside>Loading package information...</aside>);
   }
 }
