@@ -6,12 +6,10 @@ import classes from './style.scss';
 
 export default class LastSync extends React.Component {
   static propTypes = {
-    packageMeta: PropTypes.object
+    packageMeta: PropTypes.object.isRequired
   };
 
   get lastUpdate() {
-    if (!this.props.packageMeta) return 'Loading...';
-
     let lastUpdate = 0;
     Object.keys(this.props.packageMeta._uplinks).forEach((upLinkName) => {
       const status = this.props.packageMeta._uplinks[upLinkName];
@@ -25,8 +23,6 @@ export default class LastSync extends React.Component {
   }
 
   get recentReleases() {
-    if (!this.props.packageMeta) return [];
-
     let recentReleases = Object.keys(this.props.packageMeta.time).map((version) => {
       return {
         version,
