@@ -86,9 +86,11 @@ module.exports = function() {
       }
 
       notify(metadata, multipleNotificationsEndpoint).then(function (body) {
-        const jsonBody = JSON.parse(body);
-        assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
-          'Body notify message should be equal');
+        body.forEach(function(notification) {
+          const jsonBody = JSON.parse(notification);
+          assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
+            'Body notify message should be equal');
+        });
         done();
       }, function (err) {
         assert.fail(err);
