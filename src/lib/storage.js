@@ -36,7 +36,7 @@ class Storage {
   constructor(config) {
     this.config = config;
     this._setupUpLinks(this.config);
-    this.localStorage = new LocalStorage(config, Logger.logger, Utils);
+    this.localStorage = new LocalStorage(config, Logger.logger);
     this.logger = Logger.logger.child();
   }
 
