@@ -1,0 +1,40 @@
+{
+  "docs": {
+    "Introduction": [
+      "installation",
+      "cli"
+    ],
+    "Configuration": [
+      "configuration",
+      "uplinks",
+      "packages",
+      "authentification",
+      "notifications",
+      "logger",
+      "webui"
+    ],
+    "Server": [
+      "server-configuration",
+      "reverse-proxy",
+      "ssl",
+      "windows",
+      "iss-server"
+    ],
+    "Plugins": [
+      "plugins",
+      "dev-plugins"
+    ],
+    "DevOps": [
+      "docker",
+      "kubernetes",
+      "ansible"
+    ],
+    "Development": [
+      "build",
+      "contributing",
+      "source-code",
+      "unit-testing"
+    ],
+    "Guides": ["protect-your-dependencies"]
+  }
+}

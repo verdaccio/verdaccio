@@ -4,7 +4,9 @@ coverage/
 verdaccio-*.tgz
 test-storage*
 scripts/
-wiki/
+docs/
 src/webui
 tools/
 /.*
+website/
+
