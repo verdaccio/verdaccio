@@ -1,0 +1,91 @@
+{
+	"name": "npm_test",
+	"versions": {
+		"1.0.1": {
+			"name": "npm_test",
+			"version": "1.0.1",
+			"description": "",
+			"main": "index.js",
+			"dependencies": {
+				"test": "^1.4.1"
+			},
+			"devDependencies": {},
+			"scripts": {
+				"test": "echo \"Error: no test specified\" && exit 1"
+			},
+			"keywords": [],
+			"author": "",
+			"license": "ISC",
+			"_id": "npm_test@1.0.1",
+			"_npmVersion": "5.5.1",
+			"_nodeVersion": "9.3.0",
+			"_npmUser": {},
+			"dist": {
+				"integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
+				"shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
+				"tarball": "http://localhost:4873/npm_test/-/npm_test-1.0.1.tgz"
+			}
+		},
+		"1.0.2": {
+			"name": "npm_test",
+			"version": "1.0.1",
+			"description": "",
+			"main": "index.js",
+			"dependencies": {
+				"test": "^1.4.1"
+			},
+			"devDependencies": {},
+			"scripts": {
+				"test": "echo \"Error: no test specified\" && exit 1"
+			},
+			"keywords": [],
+			"author": "",
+			"license": "ISC",
+			"_id": "npm_test@1.0.1",
+			"_npmVersion": "5.5.1",
+			"_nodeVersion": "9.3.0",
+			"_npmUser": {},
+			"dist": {
+				"integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
+				"shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
+				"tarball": "http://localhost:4873/npm_test/-/npm_test-1.0.1.tgz"
+			}
+		},
+		"1.0.3": {
+            "name": "npm_test",
+            "version": "1.0.3",
+            "description": "",
+            "main": "index.js",
+            "dependencies": {
+                "test": "^1.4.1"
+            },
+            "devDependencies": {},
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },
+            "keywords": [],
+            "author": "",
+            "license": "ISC",
+            "_id": "npm_test@1.0.1",
+            "_npmVersion": "5.5.1",
+            "_nodeVersion": "9.3.0",
+            "_npmUser": {},
+            "dist": {
+                "integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
+                "shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
+                "tarball": "http://localhost:4873/npm_test/-/npm_test-1.0.1.tgz"
+            }
+        }
+	},
+	"dist-tags": {
+		"latest": "1.0.1",
+		"beta": "1.0.2",
+		"next": "1.0.3"
+	},
+	"time": {},
+	"_distfiles": {},
+	"_attachments": {},
+	"_uplinks": {},
+	"_rev": "2-b8a00ec71cdc7323",
+	"readme": "ERROR: No README data found!"
+}
