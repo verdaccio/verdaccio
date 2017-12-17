@@ -2,8 +2,8 @@
 
 /* eslint prefer-rest-params: 0 */
 
-import assert from 'assert';
 import Crypto from 'crypto';
+import assert from 'assert';
 import fs from 'fs';
 import Path from 'path';
 import Stream from 'stream';
@@ -12,6 +12,10 @@ import _ from 'lodash';
 // $FlowFixMe
 import async from 'async';
 import * as Utils from './utils';
+import {
+  generatePackageTemplate, normalizePackage, generateRevision, cleanUpReadme,
+  fileExist, noSuchFile, resourceNotAvailable, DEFAULT_REVISION, pkgFileName,
+} from './storage-utils';
 
 import LocalDatabase from '@verdaccio/local-storage';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
@@ -30,33 +34,12 @@ import type {
   ILocalData,
 } from '@verdaccio/local-storage';
 
-const pkgFileName = 'package.json';
-const fileExist = 'EEXISTS';
-const noSuchFile = 'ENOENT';
-const resourceNotAvailable = 'EAGAIN';
-
-const generatePackageTemplate = function(name: string): Package {
-  return {
-    // standard things
-    'name': name,
-    'versions': {},
-    'dist-tags': {},
-    'time': {},
-    '_distfiles': {},
-    '_attachments': {},
-    '_uplinks': {},
-  };
-};
-
-const DEFAULT_REVISION: string = `0-0000000000000000`;
-
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
  */
-class Storage implements IStorage {
+class LocalStorage implements IStorage {
 
   config: Config;
-  utils: Utils;
   localData: ILocalData;
   logger: Logger;
 
@@ -66,7 +49,7 @@ class Storage implements IStorage {
     this.config = config;
   }
 
-  addPackage(name: string, info: Package, callback: Callback) {
+  addPackage(name: string, pkg: Package, callback: Callback) {
     const storage: ILocalFS = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
@@ -74,15 +57,15 @@ class Storage implements IStorage {
     }
 
     storage.createJSON(pkgFileName, generatePackageTemplate(name), (err) => {
-      if (err && err.code === fileExist) {
+      if (_.isNull(err) === false && err.code === fileExist) {
         return callback( Utils.ErrorCode.get409());
       }
 
-      const latest = Utils.getLatestVersion(info);
-
-      if (_.isNil(latest) === false && info.versions[latest]) {
-        return callback(null, info.versions[latest]);
+      const latest = Utils.getLatestVersion(pkg);
+      if (_.isNil(latest) === false && pkg.versions[latest]) {
+        return callback(null, pkg.versions[latest]);
       }
+
       return callback();
     });
   }
@@ -95,6 +78,7 @@ class Storage implements IStorage {
    */
   removePackage(name: string, callback: Callback) {
     let storage: ILocalFS = this._getLocalStorage(name);
+
     if (_.isNil(storage)) {
       return callback( Utils.ErrorCode.get404());
     }
@@ -107,9 +91,10 @@ class Storage implements IStorage {
           return callback(err);
         }
       }
-      this._normalizePackage(data);
 
-      let removeFailed = this.localData.remove(name);
+      data = normalizePackage(data);
+
+      const removeFailed = this.localData.remove(name);
 
       if (removeFailed) {
         // This will happen when database is locked
@@ -123,26 +108,6 @@ class Storage implements IStorage {
         const attachments = Object.keys(data._attachments);
 
         this._deleteAttachments(storage, attachments, callback);
-      });
-    });
-  }
-
-  _deleteAttachments(storage: ILocalFS, attachments: string[], callback: Callback): void {
-    const unlinkNext = function(cb) {
-      if (_.isEmpty(attachments)) {
-        return cb();
-      }
-
-      const attachment = attachments.shift();
-      storage.deleteJSON(attachment, function() {
-        unlinkNext(cb);
-      });
-    };
-
-    unlinkNext(function() {
-      // try to unlink the directory, but ignore errors because it can fail
-      storage.removePackage(function(err) {
-        callback(err);
       });
     });
   }
@@ -162,11 +127,11 @@ class Storage implements IStorage {
       let change = false;
       for (let versionId in packageInfo.versions) {
         if (_.isNil(packageLocalJson.versions[versionId])) {
-          const version = packageInfo.versions[versionId];
+          let version = packageInfo.versions[versionId];
 
           // we don't keep readmes for package versions,
           // only one readme per package
-          delete version.readme;
+          version = cleanUpReadme(version);
 
           change = true;
           packageLocalJson.versions[versionId] = version;
@@ -192,12 +157,14 @@ class Storage implements IStorage {
           }
         }
       }
+
       for (let tag in packageInfo['dist-tags']) {
         if (!packageLocalJson['dist-tags'][tag] || packageLocalJson['dist-tags'][tag] !== packageInfo['dist-tags'][tag]) {
           change = true;
           packageLocalJson['dist-tags'][tag] = packageInfo['dist-tags'][tag];
         }
       }
+
       for (let up in packageInfo._uplinks) {
         if (Object.prototype.hasOwnProperty.call(packageInfo._uplinks, up)) {
           const need_change = !Utils.is_object(packageLocalJson._uplinks[up])
@@ -233,27 +200,6 @@ class Storage implements IStorage {
   }
 
   /**
-   * Ensure the dist file remains as the same protocol
-   * @param {Object} hash metadata
-   * @param {String} upLinkKey registry key
-   * @private
-   */
-  _updateUplinkToRemoteProtocol(hash: DistFile, upLinkKey: string): void {
-    // if we got this information from a known registry,
-    // use the same protocol for the tarball
-    //
-    // see https://github.com/rlidwka/sinopia/issues/166
-    const tarballUrl: any = UrlNode.parse(hash.url);
-    const uplinkUrl: any = UrlNode.parse(this.config.uplinks[upLinkKey].url);
-
-    if (uplinkUrl.host === tarballUrl.host) {
-      tarballUrl.protocol = uplinkUrl.protocol;
-      hash.registry = upLinkKey;
-      hash.url = UrlNode.format(tarballUrl);
-    }
-  }
-
-  /**
    * Add a new version to a previous local package.
    * @param {*} name
    * @param {*} version
@@ -269,7 +215,7 @@ class Storage implements IStorage {
       data.readme = metadata.readme;
 
       // TODO: lodash remove
-      delete metadata.readme;
+      metadata = cleanUpReadme(metadata);
 
       if (data.versions[version] != null) {
         return cb( Utils.ErrorCode.get409() );
@@ -344,6 +290,7 @@ class Storage implements IStorage {
   _getVersionNotFound() {
     return Utils.ErrorCode.get404('this version doesn\'t exist');
   }
+
   /**
    * Return file no available
    * @return {String}
@@ -357,32 +304,36 @@ class Storage implements IStorage {
    * Update the package metadata, tags and attachments (tarballs).
    * Note: Currently supports unpublishing only.
    * @param {*} name
-   * @param {*} metadata
+   * @param {*} pkg
    * @param {*} revision
    * @param {*} callback
    * @return {Function}
    */
   changePackage(name: string,
-                metadata: Package,
+                pkg: Package,
                 revision?: string, callback: Callback) {
-    if (!Utils.is_object(metadata.versions) || !Utils.is_object(metadata['dist-tags'])) {
+    if (!Utils.is_object(pkg.versions) || !Utils.is_object(pkg['dist-tags'])) {
       return callback( Utils.ErrorCode.get422());
     }
 
-    this._updatePackage(name, (data, cb) => {
-      for (let ver in data.versions) {
-        if (_.isNil(metadata.versions[ver])) {
-          this.logger.info( {name: name, version: ver},
-            'unpublishing @{name}@@{version}');
-          delete data.versions[ver];
-          for (let file in data._attachments) {
-            if (data._attachments[file].version === ver) {
-              delete data._attachments[file].version;
+    this._updatePackage(name, (jsonData, cb) => {
+      for (let ver in jsonData.versions) {
+
+        if (_.isNil(pkg.versions[ver])) {
+          this.logger.info( {name: name, version: ver}, 'unpublishing @{name}@@{version}');
+
+          delete jsonData.versions[ver];
+
+          for (let file in jsonData._attachments) {
+            if (jsonData._attachments[file].version === ver) {
+              delete jsonData._attachments[file].version;
             }
           }
         }
+
       }
-      data['dist-tags'] = metadata['dist-tags'];
+
+      jsonData['dist-tags'] = pkg['dist-tags'];
       cb();
     }, function(err) {
       if (err) {
@@ -391,7 +342,6 @@ class Storage implements IStorage {
       callback();
     });
   }
-
   /**
    * Remove a tarball.
    * @param {*} name
@@ -697,8 +647,8 @@ class Storage implements IStorage {
           return callback(this._internalError(err, pkgFileName, 'error reading'));
         }
       }
-      this._normalizePackage(result);
-      callback(err, result);
+
+      callback(err, normalizePackage(result));
     });
   }
 
@@ -773,28 +723,6 @@ class Storage implements IStorage {
   }
 
   /**
-   * Normalise package properties, tags, revision id.
-   * @param {Object} pkg package reference.
-   */
-  _normalizePackage(pkg: Package) {
-    const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
-
-    pkgProperties.forEach((key) => {
-      if (_.isNil(Utils.is_object(pkg[key]))) {
-        pkg[key] = {};
-      }
-    });
-
-    if (_.isString(pkg._rev) === false) {
-      pkg._rev = DEFAULT_REVISION;
-    }
-    // normalize dist-tags
-    Utils.normalize_dist_tags(pkg);
-
-
-  }
-
-  /**
    * Retrieve either a previous created local package or a boilerplate.
    * @param {*} name
    * @param {*} callback
@@ -810,23 +738,18 @@ class Storage implements IStorage {
       // TODO: race condition
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
-          // if package doesn't exist, we create it here
           data = generatePackageTemplate(name);
         } else {
           return callback(this._internalError(err, pkgFileName, 'error reading'));
         }
       }
 
-      this._normalizePackage(data);
-      callback(null, data);
+      callback(null, normalizePackage(data));
     });
   }
 
   _createNewPackage(name: string, callback: Callback): Callback {
-    const data = generatePackageTemplate(name);
-
-    this._normalizePackage(data);
-    return callback(null, data);
+    return callback(null, normalizePackage(generatePackageTemplate(name)));
   }
 
   /**
@@ -837,8 +760,7 @@ class Storage implements IStorage {
    * @return {Object} Error instance
    */
   _internalError(err: string, file: string, message: string) {
-    this.logger.error( {err: err, file: file},
-      message + ' @{file}: @{!err.message}' );
+    this.logger.error( {err: err, file: file}, `${message}  @{file}: @{!err.message}` );
 
     return Utils.ErrorCode.get500();
   }
@@ -854,29 +776,29 @@ class Storage implements IStorage {
    6. callback(err?)
    * @param {*} name package name
    * @param {*} updateFn function(package, cb) - update function
-   * @param {*} _callback callback that gets invoked after it's all updated
+   * @param {*} callback callback that gets invoked after it's all updated
    * @return {Function}
    */
-  _updatePackage(name: string, updateFn: Callback, _callback: Callback) {
+  _updatePackage(name: string, updateFn: Callback, callback: Callback) {
     const storage: ILocalFS = this._getLocalStorage(name);
 
     if (!storage) {
-      return _callback( Utils.ErrorCode.get404() );
+      return callback( Utils.ErrorCode.get404() );
     }
 
     storage.lockAndReadJSON(pkgFileName, (err, json) => {
       let locked = false;
 
       // callback that cleans up lock first
-      const callback = function(err: Error) {
+      const lockCallback = function(err: Error) {
         let _args = arguments;
         if (locked) {
           storage.unlockJSON(pkgFileName, function() {
             // ignore any error from the unlock
-            _callback.apply(err, _args);
+            callback.apply(err, _args);
           });
         } else {
-          _callback(..._args);
+          callback(..._args);
         }
       };
 
@@ -886,20 +808,21 @@ class Storage implements IStorage {
 
       if (err) {
         if (err.code === resourceNotAvailable) {
-          return callback( Utils.ErrorCode.get503() );
+          return lockCallback( Utils.ErrorCode.get503() );
         } else if (err.code === noSuchFile) {
-          return callback( Utils.ErrorCode.get404() );
+          return lockCallback( Utils.ErrorCode.get404() );
         } else {
-          return callback(err);
+          return lockCallback(err);
         }
       }
 
-      this._normalizePackage(json);
+      json = normalizePackage(json);
+
       updateFn(json, (err) => {
         if (err) {
-          return callback(err);
+          return lockCallback(err);
         }
-        this._writePackage(name, json, callback);
+        this._writePackage(name, json, lockCallback);
       });
     });
   }
@@ -913,11 +836,11 @@ class Storage implements IStorage {
    */
   _writePackage(name: string, json: Package, callback: Callback) {
     // calculate revision a la couchdb
-    if (typeof(json._rev) !== 'string') {
+    if (_.isString(json._rev) === false) {
       json._rev = DEFAULT_REVISION;
     }
 
-    json._rev = this._generateRevision(json._rev);
+    json._rev = generateRevision(json._rev);
 
     let storage: ILocalFS = this._getLocalStorage(name);
     if (_.isNil(storage)) {
@@ -926,11 +849,46 @@ class Storage implements IStorage {
     storage.writeJSON(pkgFileName, json, callback);
   }
 
-  _generateRevision(rev: string): string {
-    const _rev = rev.split('-');
+  _deleteAttachments(storage: ILocalFS, attachments: string[], callback: Callback): void {
+    const unlinkNext = function(cb) {
+      if (_.isEmpty(attachments)) {
+        return cb();
+      }
 
-    return ((+_rev[0] || 0) + 1) + '-' + Crypto.pseudoRandomBytes(8).toString('hex');
+      const attachment = attachments.shift();
+      storage.deleteJSON(attachment, function() {
+        unlinkNext(cb);
+      });
+    };
+
+    unlinkNext(function() {
+      // try to unlink the directory, but ignore errors because it can fail
+      storage.removePackage(function(err) {
+        callback(err);
+      });
+    });
+  }
+
+  /**
+   * Ensure the dist file remains as the same protocol
+   * @param {Object} hash metadata
+   * @param {String} upLinkKey registry key
+   * @private
+   */
+  _updateUplinkToRemoteProtocol(hash: DistFile, upLinkKey: string): void {
+    // if we got this information from a known registry,
+    // use the same protocol for the tarball
+    //
+    // see https://github.com/rlidwka/sinopia/issues/166
+    const tarballUrl: any = UrlNode.parse(hash.url);
+    const uplinkUrl: any = UrlNode.parse(this.config.uplinks[upLinkKey].url);
+
+    if (uplinkUrl.host === tarballUrl.host) {
+      tarballUrl.protocol = uplinkUrl.protocol;
+      hash.registry = upLinkKey;
+      hash.url = UrlNode.format(tarballUrl);
+    }
   }
 }
 
-module.exports = Storage;
+module.exports = LocalStorage;
