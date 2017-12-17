@@ -3,6 +3,7 @@ import rimRaf from 'rimraf';
 import path from 'path';
 import LocalStorage from '../../src/lib/local-storage';
 import AppConfig from '../../src/lib/config';
+// $FlowFixMe
 import configExample from './partials/config';
 import Logger, {setup} from '../../src/lib/logger';
 import {readFile} from '../functional/lib/test.utils';
@@ -34,13 +35,14 @@ describe('LocalStorage', () => {
   describe('LocalStorage::addPackage', () => {
     test('should add a package', (done) => {
       const metadata = JSON.parse(readMetadata());
-      const pkgStoragePath: string = storage._getLocalStorage(pkgName);
+      // $FlowFixMe
+      const pkgStoragePath = storage._getLocalStorage(pkgName);
       rimRaf(pkgStoragePath.path, (err) => {
         expect(err).toBeNull();
         storage.addPackage(pkgName, metadata, (err, data) => {
           expect(data.version).toMatch(/1.0.0/);
           expect(data.dist.tarball).toMatch(/npm_test-1.0.0.tgz/);
-          expect(data.name).toMatch(pkgName);
+          expect(data.name).toEqual(pkgName);
           done();
         });
       });
@@ -48,14 +50,15 @@ describe('LocalStorage', () => {
 
     test('should add a @scope package', (done) => {
       const metadata = JSON.parse(readMetadata());
-      const pkgStoragePath: string = storage._getLocalStorage(pkgNameScoped);
+      // $FlowFixMe
+      const pkgStoragePath = storage._getLocalStorage(pkgNameScoped);
 
       rimRaf(pkgStoragePath.path, (err) => {
         expect(err).toBeNull();
         storage.addPackage(pkgNameScoped, metadata, (err, data) => {
           expect(data.version).toMatch(/1.0.0/);
           expect(data.dist.tarball).toMatch(/npm_test-1.0.0.tgz/);
-          expect(data.name).toMatch(pkgName);
+          expect(data.name).toEqual(pkgName);
           done();
         });
       });
@@ -77,7 +80,7 @@ describe('LocalStorage', () => {
     test('should add new version without tag', (done) => {
       const metadata = JSON.parse(readMetadata('metadata-add-version'));
 
-      storage.addVersion(pkgName, '1.0.1', metadata, null, (err, data) => {
+      storage.addVersion(pkgName, '1.0.1', metadata, '', (err, data) => {
         expect(err).toBeNull();
         expect(data).toBeUndefined();
         done();
@@ -87,7 +90,7 @@ describe('LocalStorage', () => {
     test('should fails on add a duplicated version without tag', (done) => {
       const metadata = JSON.parse(readMetadata('metadata-add-version'));
 
-      storage.addVersion(pkgName, '1.0.1', metadata, null, (err, data) => {
+      storage.addVersion(pkgName, '1.0.1', metadata, '', (err, data) => {
         expect(err).not.toBeNull();
         expect(err.statusCode).toEqual(409);
         expect(err.message).toMatch(/this package is already present/);
@@ -135,6 +138,7 @@ describe('LocalStorage', () => {
     test('should add a new tarball', (done) => {
       const tarballData = JSON.parse(readMetadata('addTarball'));
       const stream = storage.addTarball(pkgName, tarballName);
+
       stream.on('error', function(err) {
         expect(err).toBeNull();
         done();
