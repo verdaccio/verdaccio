@@ -143,7 +143,7 @@ function filter_tarball_urls(pkg, req, config) {
  * @return {Boolean} whether a package has been tagged
  */
 function tag_version(data, version, tag) {
-	if (tag) {
+	if (_.isEmpty(tag) === false) {
 		if (data['dist-tags'][tag] !== version) {
 			if (semver.parse(version, true)) {
 				// valid version - store

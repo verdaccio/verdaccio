@@ -18,7 +18,7 @@
     "@verdaccio/file-locking": "^0.0.5",
     "@verdaccio/local-storage": "^0.0.14",
     "@verdaccio/streams": "^0.0.2",
-    "@verdaccio/types": "^0.0.8",
+    "@verdaccio/types": "^0.0.10",
     "JSONStream": "^1.1.1",
     "apache-md5": "^1.1.2",
     "async": "^2.6.0",
