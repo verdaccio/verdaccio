@@ -1,5 +1,6 @@
 // @flow
 import rimRaf from 'rimraf';
+import path from 'path';
 import LocalStorage from '../../src/lib/local-storage';
 import AppConfig from '../../src/lib/config';
 import configExample from './partials/config';
@@ -15,9 +16,15 @@ setup([]);
 describe('LocalStorage', () => {
   let storage: IStorage;
   const pkgName: string = 'npm_test';
+  const pkgNameScoped = `@scope/${pkgName}-scope`;
+  const tarballName: string = `${pkgName}-add-tarball-1.0.4.tgz`;
+  const tarballName2: string = `${pkgName}-add-tarball-1.0.5.tgz`;
 
   beforeAll(function () {
-    storage = new LocalStorage(new AppConfig(configExample), Logger.logger);
+    const config: Config = new AppConfig(configExample);
+    config.self_path = path.join('../partials/store');
+
+    storage = new LocalStorage(config, Logger.logger);
   });
 
   test('should be defined', () => {
@@ -31,6 +38,21 @@ describe('LocalStorage', () => {
       rimRaf(pkgStoragePath.path, (err) => {
         expect(err).toBeNull();
         storage.addPackage(pkgName, metadata, (err, data) => {
+          expect(data.version).toMatch(/1.0.0/);
+          expect(data.dist.tarball).toMatch(/npm_test-1.0.0.tgz/);
+          expect(data.name).toMatch(pkgName);
+          done();
+        });
+      });
+    });
+
+    test('should add a @scope package', (done) => {
+      const metadata = JSON.parse(readMetadata());
+      const pkgStoragePath: string = storage._getLocalStorage(pkgNameScoped);
+
+      rimRaf(pkgStoragePath.path, (err) => {
+        expect(err).toBeNull();
+        storage.addPackage(pkgNameScoped, metadata, (err, data) => {
           expect(data.version).toMatch(/1.0.0/);
           expect(data.dist.tarball).toMatch(/npm_test-1.0.0.tgz/);
           expect(data.name).toMatch(pkgName);
@@ -82,7 +104,18 @@ describe('LocalStorage', () => {
         done();
       });
     });
+  });
 
+  describe('LocalStorage::updateVersions', () => {
+    test('should update versions from origin', (done) => {
+      const metadata = JSON.parse(readMetadata('metadata-update-versions-tags'));
+
+      storage.updateVersions(pkgName, metadata, (err, data) => {
+        expect(err).toBeNull();
+        expect(data.versions['1.0.3']).toBeDefined();
+        done();
+      });
+    });
   });
 
   describe('LocalStorage::changePackage', () => {
@@ -98,9 +131,10 @@ describe('LocalStorage', () => {
   });
 
   describe('LocalStorage::addTarball', () => {
+
     test('should add a new tarball', (done) => {
       const tarballData = JSON.parse(readMetadata('addTarball'));
-      const stream = storage.addTarball(pkgName, `${pkgName}-add-tarball-1.0.4.tgz`);
+      const stream = storage.addTarball(pkgName, tarballName);
       stream.on('error', function(err) {
         expect(err).toBeNull();
         done();
@@ -113,9 +147,42 @@ describe('LocalStorage', () => {
       stream.done();
     });
 
+    test('should add a new second tarball', (done) => {
+      const tarballData = JSON.parse(readMetadata('addTarball'));
+      const stream = storage.addTarball(pkgName, tarballName2);
+      stream.on('error', function(err) {
+        expect(err).toBeNull();
+        done();
+      });
+      stream.on('success', function() {
+        done();
+      });
+
+      stream.end(new Buffer(tarballData.data, 'base64'));
+      stream.done();
+    });
+
+    test('should fails on add a duplicated new tarball ', (done) => {
+      const tarballData = JSON.parse(readMetadata('addTarball'));
+      const stream = storage.addTarball(pkgName, tarballName);
+      stream.on('error', function(err) {
+        expect(err).not.toBeNull();
+        expect(err.statusCode).toEqual(409);
+        expect(err.message).toMatch(/this package is already present/);
+        done();
+      });
+
+      stream.on('success', function() {
+        done();
+      });
+
+      stream.end(new Buffer(tarballData.data, 'base64'));
+      stream.done();
+    });
+
     test('should fails on add a new tarball on missing package', (done) => {
       const tarballData = JSON.parse(readMetadata('addTarball'));
-      const stream = storage.addTarball('unexsiting-package', `${pkgName}-add-tarball-1.0.4.tgz`);
+      const stream = storage.addTarball('unexsiting-package', tarballName);
       stream.on('error', function(err) {
         expect(err).not.toBeNull();
         expect(err.statusCode).toEqual(404);
@@ -157,23 +224,102 @@ describe('LocalStorage', () => {
     });
   });
 
-  // describe('LocalStorage::removePackage', () => {
-  //   test('should remove completely package', (done) => {
-  //     storage.removePackage(pkgName, (err, data) => {
-  //       expect(err).toBeNull();
-  //       expect(data).toBeUndefined();
-  //       done();
-  //     });
-  //   });
-  //
-  //   test('should fails with package not found', (done) => {
-  //     const pkgName: string = 'npm_test_fake';
-  //     storage.removePackage(pkgName, (err, data) => {
-  //       expect(err).not.toBeNull();
-  //       expect(err.message).toMatch(/no such package available/);
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('LocalStorage::removeTarball', () => {
+
+    test('should remove a tarball', (done) => {
+      storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
+        expect(err).toBeNull();
+        expect(pkg).toBeUndefined();
+        done();
+      });
+    });
+
+    test('should remove a tarball that does not exist', (done) => {
+      storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
+        expect(err).not.toBeNull();
+        expect(err.statusCode).toEqual(404);
+        expect(err.message).toMatch(/no such file available/);
+        done();
+      });
+    });
+  });
+
+  describe('LocalStorage::getTarball', () => {
+    test('should get a existing tarball', (done) => {
+      const stream = storage.getTarball(pkgName, tarballName);
+      stream.on('content-length', function(contentLength) {
+        expect(contentLength).toBe(279);
+        done();
+      });
+      stream.on('open', function() {
+        done();
+      });
+    });
+
+    test('should fails on get a tarball that does not exist', (done) => {
+      const stream = storage.getTarball('fake', tarballName);
+      stream.on('error', function(err) {
+        expect(err).not.toBeNull();
+        expect(err.statusCode).toEqual(404);
+        expect(err.message).toMatch(/no such file available/);
+        done();
+      });
+    });
+  });
+
+  describe('LocalStorage::search', () => {
+    test('should find a tarball', (done) => {
+      const stream = storage.search('99999');
+
+      stream.on('data', function each(pkg) {
+        expect(pkg.name).toEqual(pkgName);
+      });
+
+      stream.on('error', function(err) {
+        expect(err).not.toBeNull();
+        done();
+      });
+
+      stream.on('end', function() {
+        done();
+      });
+    });
+
+  });
+
+  describe('LocalStorage::removePackage', () => {
+    test('should remove completely package', (done) => {
+      storage.removePackage(pkgName, (err, data) => {
+        expect(err).toBeNull();
+        expect(data).toBeUndefined();
+        done();
+      });
+    });
+
+    test('should remove completely @scoped package', (done) => {
+      storage.removePackage(pkgNameScoped, (err, data) => {
+        expect(err).toBeNull();
+        expect(data).toBeUndefined();
+        done();
+      });
+    });
+
+    test('should fails with package not found', (done) => {
+      const pkgName: string = 'npm_test_fake';
+      storage.removePackage(pkgName, (err, data) => {
+        expect(err).not.toBeNull();
+        expect(err.message).toMatch(/no such package available/);
+        done();
+      });
+    });
+
+    test('should fails with @scoped package not found', (done) => {
+      storage.removePackage(pkgNameScoped, (err, data) => {
+        expect(err).not.toBeNull();
+        expect(err.message).toMatch(/no such package available/);
+        done();
+      });
+    });
+  });
 
 });
