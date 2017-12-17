@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@verdaccio/file-locking": "^0.0.5",
-    "@verdaccio/local-storage": "^0.0.11",
+    "@verdaccio/local-storage": "^0.0.14",
     "@verdaccio/streams": "^0.0.2",
     "@verdaccio/types": "^0.0.8",
     "JSONStream": "^1.1.1",
