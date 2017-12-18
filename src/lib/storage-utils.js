@@ -5,7 +5,7 @@ import crypto from 'crypto';
 import * as Utils from './utils';
 
 import type {
-  Package, Version
+  Package, Version,
 } from '@verdaccio/types';
 
 const pkgFileName = 'package.json';
