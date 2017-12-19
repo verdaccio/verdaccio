@@ -1,5 +1,3 @@
-'use strict';
-
 const JSONStream = require('JSONStream');
 const createError = require('http-errors');
 const _ = require('lodash');
