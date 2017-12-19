@@ -7,6 +7,11 @@ import { mount, shallow } from 'enzyme';
 import LastSync from '../../../../src/webui/src/components/PackageSidebar/modules/LastSync';
 import { packageMeta } from '../store/packageMeta';
 
+jest.mock(
+  '../../../../src/webui/utils/datetime',
+  () => require('../__mocks__/datetime').default
+);
+
 console.error = jest.fn();
 
 describe('<PackageSidebar /> : <LastSync />', () => {

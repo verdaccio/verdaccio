@@ -1,0 +1,50 @@
+{
+  "_id": "npm_test",
+  "name": "npm_test",
+  "description": "",
+  "dist-tags": {
+    "latest": "1.0.0"
+  },
+  "versions": {
+    "1.0.0": {
+      "name": "npm_test",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "dependencies": {
+        "test": "^1.4.0"
+      },
+      "devDependencies": {
+
+      },
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [
+
+      ],
+      "author": "",
+      "license": "ISC",
+      "readme": "ERROR: No README data found!",
+      "_id": "npm_test@1.0.0",
+      "_npmVersion": "5.5.1",
+      "_nodeVersion": "9.3.0",
+      "_npmUser": {
+
+      },
+      "dist": {
+        "integrity": "sha512-tfzM1OFjWwg2d2Wke\/DV6icjeTZUVOZYLkbf8wmONRSAgMovL\/F+zyI24OhTtWyOXd1Kbj2YUMBvLpmpAjv8zg==",
+        "shasum": "3e4e6bd5097b295e520b947c9be3259a9509a673",
+        "tarball": "http:\/\/localhost:4873\/npm_test\/-\/npm_test-1.0.0.tgz"
+      }
+    }
+  },
+  "readme": "ERROR: No README data found!",
+  "_attachments": {
+    "npm_test-1.0.0.tgz": {
+      "content_type": "application\/octet-stream",
+      "data": "H4sIAAAAAAAAE+2ST08CMRDFOe+nmPTAyawt7ELCVT149ihqmu4gI9I2bUGM4bvbbhGM4eYmxmR\/l6bvtW+mf6xUK\/mMlzaP5Ys3etAxnPNJVcE5PVHV0RPjkairsZiK0YALUU+mMOBdN3KOjQ\/SxVZ+m5PPAsfxn\/BRADAt18hmwDxpY0k+BfSBXSRni86T0ckUJS95Vhv0ypENByeLa0ntjHSDu\/iPvpZajIJWhD66qRwcC6Xlj6KsYm7U94cN2+sfe7KRS34LabuMCaiWBubsxjnjZqANJAO8RUULwmbOYDgE3FEAcSqzwvc345oUd\/\/QKnITlsadzvNKCrVv7+X27ooV++Kv36qnp6enSz4B8bhKUwAIAAA=",
+      "length": 281
+    }
+  }
+}
