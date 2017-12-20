@@ -137,7 +137,7 @@
     "flow": "flow",
     "pretest": "npm run code:build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --maxWorkers 2",
-    "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test jest  --maxWorkers 2'(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js'",
+    "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js' --maxWorkers 2",
     "pre:ci": "npm run lint && npm run build:webui",
     "coverage:publish": "codecov",
     "lint": "npm run flow && eslint .",
