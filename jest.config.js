@@ -17,7 +17,7 @@ module.exports = {
     'global.js'
   ],
   'testPathIgnorePatterns': [
-    'test/webui/components/__snapshots__/'
+    '__snapshots__'
   ],
   'moduleNameMapper': {
     '\\.(scss)$': '<rootDir>/node_modules/identity-obj-proxy',
