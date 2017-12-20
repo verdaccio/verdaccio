@@ -15,6 +15,7 @@ export default class PackageSidebar extends React.Component {
 
   constructor(props) {
     super(props);
+    this.loadPackageData = this.loadPackageData.bind(this);
   }
 
   async componentDidMount() {

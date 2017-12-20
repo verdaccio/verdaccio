@@ -8,7 +8,7 @@ import MaintainerInfo from './MaintainerInfo';
 
 export default class Maintainers extends React.Component {
   static propTypes = {
-    packageMeta: PropTypes.object
+    packageMeta: PropTypes.object.isRequired
   };
 
   state = {};

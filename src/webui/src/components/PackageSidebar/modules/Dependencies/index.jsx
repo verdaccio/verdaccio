@@ -9,12 +9,10 @@ import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 export default class Dependencies extends React.Component {
   static propTypes = {
-    packageMeta: PropTypes.object
+    packageMeta: PropTypes.object.isRequired
   };
 
   get dependencies() {
-    if (!this.props.packageMeta) return {};
-
     return _.get(this, 'props.packageMeta.latest.dependencies', {});
   }
 

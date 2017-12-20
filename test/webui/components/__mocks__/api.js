@@ -3,6 +3,7 @@
  */
 import logo from '../store/logo';
 import login from '../store/login';
+import { packageMeta } from '../store/packageMeta';
 
 /**
  * Register mock api endpoints
@@ -17,6 +18,10 @@ const register = (method = 'get', endpoint, config = {}) => {
 
   if (endpoint === 'logo' && method === 'get') {
     return logo();
+  }
+
+  if (endpoint === 'sidebar/verdaccio' && method === 'get') {
+    return Promise.resolve({ data: packageMeta });
   }
 
   return Promise.reject({ status: 404, data: 'Not found' });
