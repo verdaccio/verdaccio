@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PackageSidebar /> : <LastSync /> should load the LastSync component and match snapshot 1`] = `"<div class=\\"module releasesModule\\"><h2 class=\\"moduleTitle\\">Last Sync<span>Dec 14, 2017, 3:43 PM</span></h2><div><ul><li><span>2.7.1</span><span>Dec 14, 2017, 3:43 PM</span></li><li><span>2.7.0</span><span>Dec 5, 2017, 11:25 PM</span></li><li><span>2.6.6</span><span>Nov 8, 2017, 10:47 PM</span></li></ul></div></div>"`;
