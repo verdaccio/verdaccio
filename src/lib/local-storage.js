@@ -14,7 +14,7 @@ import async from 'async';
 import * as Utils from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, cleanUpReadme,
-  fileExist, noSuchFile, resourceNotAvailable, DEFAULT_REVISION, pkgFileName,
+  fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
 
 import LocalDatabase from '@verdaccio/local-storage';
@@ -30,8 +30,8 @@ import type {
   Logger,
 } from '@verdaccio/types';
 import type {
-  ILocalFS,
   ILocalData,
+  IPackageStorage,
 } from '@verdaccio/local-storage';
 
 /**
@@ -50,13 +50,13 @@ class LocalStorage implements IStorage {
   }
 
   addPackage(name: string, pkg: Package, callback: Callback) {
-    const storage: ILocalFS = this._getLocalStorage(name);
+    const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return callback( Utils.ErrorCode.get404('this package cannot be added'));
     }
 
-    storage.createJSON(pkgFileName, generatePackageTemplate(name), (err) => {
+    storage.createPackage(pkgFileName, generatePackageTemplate(name), (err) => {
       if (_.isNull(err) === false && err.code === fileExist) {
         return callback( Utils.ErrorCode.get409());
       }
@@ -77,13 +77,13 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   removePackage(name: string, callback: Callback) {
-    let storage: ILocalFS = this._getLocalStorage(name);
+    let storage: IPackageStorage = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return callback( Utils.ErrorCode.get404());
     }
 
-    storage.readJSON(pkgFileName, (err, data) => {
+    storage.readPackage(pkgFileName, (err, data) => {
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
           return callback( Utils.ErrorCode.get404());
@@ -101,7 +101,7 @@ class LocalStorage implements IStorage {
         return callback(Utils.ErrorCode.get422(removeFailed.message));
       }
 
-      storage.deleteJSON(pkgFileName, (err) => {
+      storage.deletePackage(pkgFileName, (err) => {
         if (err) {
           return callback(err);
         }
@@ -367,7 +367,7 @@ class LocalStorage implements IStorage {
       const storage = this._getLocalStorage(name);
 
       if (storage) {
-        storage.deleteJSON(filename, callback);
+        storage.deletePackage(filename, callback);
       }
     });
   }
@@ -410,7 +410,7 @@ class LocalStorage implements IStorage {
       return uploadStream;
     }
 
-    const writeStream = storage.createWriteStream(filename);
+    const writeStream = storage.writeTarball(filename);
 
     writeStream.on('error', (err) => {
       if (err.code === fileExist) {
@@ -476,7 +476,7 @@ class LocalStorage implements IStorage {
   getTarball(name: string, filename: string) {
     assert(Utils.validate_name(filename));
 
-    const storage: ILocalFS = this._getLocalStorage(name);
+    const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return this._createFailureStreamResponse();
@@ -506,9 +506,9 @@ class LocalStorage implements IStorage {
    * @private
    * @return {ReadTarball}
    */
-  _streamSuccessReadTarBall(storage: ILocalFS, filename: string) {
+  _streamSuccessReadTarBall(storage: IPackageStorage, filename: string) {
     const stream = new ReadTarball();
-    const readTarballStream = storage.createReadStream(filename);
+    const readTarballStream = storage.readTarball(filename);
     const e404 = Utils.ErrorCode.get404;
 
     stream.abort = function() {
@@ -546,7 +546,7 @@ class LocalStorage implements IStorage {
    */
   getPackageMetadata(name: string, callback?: Callback = () => {}): void {
 
-    const storage = this._getLocalStorage(name);
+    const storage: IPackageStorage = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return callback( Utils.ErrorCode.get404() );
     }
@@ -622,12 +622,12 @@ class LocalStorage implements IStorage {
    * @param {Object} packageInfo package name.
    * @return {Object}
    */
-  _getLocalStorage(packageInfo: string): any {
-    const path = this.__getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
+  _getLocalStorage(packageInfo: string): IPackageStorage {
+    const path: string = this.__getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
 
-    if (_.isNil(path) || path === false) {
+    if (_.isString(path) === false) {
       this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
-      return null;
+      return;
     }
 
     return this.localData.getPackageStorage(packageInfo, path);
@@ -638,8 +638,8 @@ class LocalStorage implements IStorage {
    * @param {Object} storage
    * @param {Function} callback
    */
-  _readJSON(storage: ILocalFS, callback: Callback) {
-    storage.readJSON(pkgFileName, (err, result) => {
+  _readJSON(storage: IPackageStorage, callback: Callback) {
+    storage.readPackage(pkgFileName, (err, result) => {
       if (err) {
         if (err.code === noSuchFile) {
           return callback( Utils.ErrorCode.get404() );
@@ -669,9 +669,9 @@ class LocalStorage implements IStorage {
   /**
    * Walks through each package and calls `on_package` on them.
    * @param {*} onPackage
-   * @param {*} on_end
+   * @param {*} onEnd
    */
-  _eachPackage(onPackage: Callback, on_end: Callback) {
+  _eachPackage(onPackage: Callback, onEnd: Callback) {
     const storages = {};
 
     storages[this.config.storage] = true;
@@ -719,7 +719,7 @@ class LocalStorage implements IStorage {
           }
         }, cb);
       });
-    }, on_end);
+    }, onEnd);
   }
 
   /**
@@ -729,12 +729,12 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   _readCreatePackage(name: string, callback: Callback) {
-    const storage: ILocalFS = this._getLocalStorage(name);
+    const storage: IPackageStorage = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return this._createNewPackage(name, callback);
     }
 
-    storage.readJSON(pkgFileName, (err, data) => {
+    storage.readPackage(pkgFileName, (err, data) => {
       // TODO: race condition
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
@@ -766,65 +766,20 @@ class LocalStorage implements IStorage {
   }
 
   /**
-   * This function allows to update the package thread-safely
-   Algorithm:
-   1. lock package.json for writing
-   2. read package.json
-   3. updateFn(pkg, cb), and wait for cb
-   4. write package.json.tmp
-   5. move package.json.tmp package.json
-   6. callback(err?)
    * @param {*} name package name
-   * @param {*} updateFn function(package, cb) - update function
+   * @param {*} updateHandler function(package, cb) - update function
    * @param {*} callback callback that gets invoked after it's all updated
    * @return {Function}
    */
-  _updatePackage(name: string, updateFn: Callback, callback: Callback) {
-    const storage: ILocalFS = this._getLocalStorage(name);
+  _updatePackage(name: string, updateHandler: Callback, callback: Callback) {
+    const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (!storage) {
       return callback( Utils.ErrorCode.get404() );
     }
 
-    storage.lockAndReadJSON(pkgFileName, (err, json) => {
-      let locked = false;
-
-      // callback that cleans up lock first
-      const lockCallback = function(err: Error) {
-        let _args = arguments;
-        if (locked) {
-          storage.unlockJSON(pkgFileName, function() {
-            // ignore any error from the unlock
-            callback.apply(err, _args);
-          });
-        } else {
-          callback(..._args);
-        }
-      };
-
-      if (!err) {
-        locked = true;
-      }
-
-      if (err) {
-        if (err.code === resourceNotAvailable) {
-          return lockCallback( Utils.ErrorCode.get503() );
-        } else if (err.code === noSuchFile) {
-          return lockCallback( Utils.ErrorCode.get404() );
-        } else {
-          return lockCallback(err);
-        }
-      }
-
-      json = normalizePackage(json);
-
-      updateFn(json, (err) => {
-        if (err) {
-          return lockCallback(err);
-        }
-        this._writePackage(name, json, lockCallback);
-      });
-    });
+    storage.updatePackage(name, updateHandler, this._writePackage.bind(this), normalizePackage,
+      callback);
   }
 
   /**
@@ -835,6 +790,14 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   _writePackage(name: string, json: Package, callback: Callback) {
+    const storage: IPackageStorage = this._getLocalStorage(name);
+    if (_.isNil(storage)) {
+      return callback();
+    }
+    storage.savePackage(pkgFileName, this._setDefaultRevision(json), callback);
+  }
+
+  _setDefaultRevision(json: Package) {
     // calculate revision a la couchdb
     if (_.isString(json._rev) === false) {
       json._rev = DEFAULT_REVISION;
@@ -842,21 +805,17 @@ class LocalStorage implements IStorage {
 
     json._rev = generateRevision(json._rev);
 
-    let storage: ILocalFS = this._getLocalStorage(name);
-    if (_.isNil(storage)) {
-      return callback();
-    }
-    storage.writeJSON(pkgFileName, json, callback);
+    return json;
   }
 
-  _deleteAttachments(storage: ILocalFS, attachments: string[], callback: Callback): void {
+  _deleteAttachments(storage: IPackageStorage, attachments: string[], callback: Callback): void {
     const unlinkNext = function(cb) {
       if (_.isEmpty(attachments)) {
         return cb();
       }
 
       const attachment = attachments.shift();
-      storage.deleteJSON(attachment, function() {
+      storage.deletePackage(attachment, function() {
         unlinkNext(cb);
       });
     };

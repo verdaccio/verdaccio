@@ -19,7 +19,7 @@ ADD . $APPDIR
 ENV NODE_ENV=production
 
 RUN npm config set registry http://registry.npmjs.org/ && \
-    yarn global add -s flow-bin@0.60.0 && \
+    yarn global add -s flow-bin@0.52.0 && \
     yarn install --production=false && \
     yarn run lint && \
     yarn run code:build && \
