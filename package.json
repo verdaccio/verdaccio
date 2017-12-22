@@ -15,10 +15,10 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "^0.0.5",
-    "@verdaccio/local-storage": "^0.1.0",
-    "@verdaccio/streams": "^0.0.2",
-    "@verdaccio/types": "^0.1.0",
+    "@verdaccio/file-locking": "0.0.5",
+    "@verdaccio/local-storage": "0.1.0",
+    "@verdaccio/streams": "0.0.2",
+    "@verdaccio/types": "0.1.0",
     "JSONStream": "^1.1.1",
     "apache-md5": "^1.1.2",
     "async": "^2.6.0",

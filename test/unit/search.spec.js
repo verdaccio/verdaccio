@@ -1,8 +1,8 @@
-'use strict';
 
-let assert = require('assert');
-let Search = require('../../src/lib/search');
-let Storage = require('../../src/lib/storage');
+
+import assert from 'assert';
+import Search from '../../src/lib/search';
+import Storage from '../../src/lib/storage';
 let config_hash = require('./partials/config');
 let Config = require('../../src/lib/config');
 

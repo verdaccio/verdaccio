@@ -59,14 +59,14 @@
   version "8.5.1"
   resolved "https://registry.npmjs.org/@types/node/-/node-8.5.1.tgz#4ec3020bcdfe2abffeef9ba3fbf26fca097514b5"
 
-"@verdaccio/file-locking@^0.0.5":
+"@verdaccio/file-locking@0.0.5", "@verdaccio/file-locking@^0.0.5":
   version "0.0.5"
   resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.5.tgz#6172dfa2f7094a1da8e4c14906bfa33836b5713d"
   dependencies:
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/local-storage@^0.1.0":
+"@verdaccio/local-storage@0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.1.0.tgz#bab877e5d07bea926c97f251bddf2bfa9edd7026"
   dependencies:
@@ -77,11 +77,11 @@
     lodash "4.17.4"
     mkdirp "0.5.1"
 
-"@verdaccio/streams@^0.0.2":
+"@verdaccio/streams@0.0.2", "@verdaccio/streams@^0.0.2":
   version "0.0.2"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
-"@verdaccio/types@^0.1.0":
+"@verdaccio/types@0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.1.0.tgz#2a0a6066bbbb7841d29298463e761147fb1f7f00"
 

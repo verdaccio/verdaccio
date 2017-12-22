@@ -551,7 +551,7 @@ class LocalStorage implements IStorage {
       return callback( Utils.ErrorCode.get404() );
     }
 
-    this._readJSON(storage, callback);
+    this._readPackage(storage, callback);
   }
 
   /**
@@ -574,6 +574,7 @@ class LocalStorage implements IStorage {
             if (err) {
               return cb(err);
             }
+
             const listVersions: Array<string> = Object.keys(data.versions);
             const versions: Array<string> = Utils.semver_sort(listVersions);
             const latest: string = data['dist-tags'] && data['dist-tags'].latest ? data['dist-tags'].latest : versions.pop();
@@ -623,7 +624,7 @@ class LocalStorage implements IStorage {
    * @return {Object}
    */
   _getLocalStorage(packageInfo: string): IPackageStorage {
-    const path: string = this.__getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
+    const path: string = this._getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
 
     if (_.isString(path) === false) {
       this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
@@ -638,7 +639,7 @@ class LocalStorage implements IStorage {
    * @param {Object} storage
    * @param {Function} callback
    */
-  _readJSON(storage: IPackageStorage, callback: Callback) {
+  _readPackage(storage: IPackageStorage, callback: Callback) {
     storage.readPackage(pkgFileName, (err, result) => {
       if (err) {
         if (err.code === noSuchFile) {
@@ -658,7 +659,7 @@ class LocalStorage implements IStorage {
    * @return {String}
    * @private
    */
-  __getLocalStoragePath(path: string): string {
+  _getLocalStoragePath(path: string): string {
     if (_.isNil(path) === false) {
       return path;
     }
@@ -850,4 +851,4 @@ class LocalStorage implements IStorage {
   }
 }
 
-module.exports = LocalStorage;
+export default LocalStorage;

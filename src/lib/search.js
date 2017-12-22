@@ -1,7 +1,5 @@
 /* eslint no-invalid-this: "off" */
 
-'use strict';
-
 const lunr = require('lunr');
 
 /**
@@ -80,4 +78,4 @@ class Search {
   }
 }
 
-module.exports = new Search();
+export default new Search();
