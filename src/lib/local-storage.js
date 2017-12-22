@@ -16,7 +16,7 @@ import {
   generatePackageTemplate, normalizePackage, generateRevision, cleanUpReadme,
   fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
-
+import {loadPlugin} from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import type {
@@ -44,9 +44,30 @@ class LocalStorage implements IStorage {
   logger: Logger;
 
   constructor(config: Config, logger: Logger) {
-    this.localData = new LocalDatabase(config, logger);
     this.logger = logger.child({sub: 'fs'});
     this.config = config;
+    this.localData = this._loadStorage(config, logger);
+  }
+
+  _loadStorage(config: Config, logger: Logger) {
+    const Storage = this._loadStorePlugin();
+
+    if (_.isNil(Storage)) {
+      return new LocalDatabase(this.config, logger);
+    } else {
+      return new Storage(this.config, logger);
+    }
+  }
+
+  _loadStorePlugin() {
+    const plugin_params = {
+      config: this.config,
+      logger: this.logger,
+    };
+
+    return _.head(loadPlugin(this.config, this.config.store, plugin_params, function(plugin) {
+      return plugin.getPackageStorage;
+    }));
   }
 
   addPackage(name: string, pkg: Package, callback: Callback) {

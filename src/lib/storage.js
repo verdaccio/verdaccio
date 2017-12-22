@@ -12,8 +12,6 @@ import {ReadTarball} from '@verdaccio/streams';
 import ProxyStorage from './up-storage';
 import * as Utils from './utils';
 
-import {loadPlugin} from '../lib/plugin-loader';
-
 const Logger = require('../lib/logger');
 const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
 const getDefaultMetadata = (name) => {
@@ -38,28 +36,7 @@ class Storage {
     this.config = config;
     this._setupUpLinks(this.config);
     this.logger = Logger.logger.child();
-    this.localStorage = this._loadStorage();
-  }
-
-  _loadStorage() {
-    const Storage = this._loadStorePlugin();
-
-    if (_.isNil(Storage)) {
-      return new LocalStorage(this.config, Logger.logger);
-    } else {
-      return new Storage(this.config, Logger.logger);
-    }
-  }
-
-  _loadStorePlugin() {
-    const plugin_params = {
-      config: this.config,
-      logger: this.logger,
-    };
-
-    return _.head(loadPlugin(this.config, this.config.store, plugin_params, function(plugin) {
-      return plugin.getPackageStorage;
-    }));
+    this.localStorage = new LocalStorage(this.config, Logger.logger);
   }
 
   /**
