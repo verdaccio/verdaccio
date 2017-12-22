@@ -1,12 +1,10 @@
 /* eslint prefer-spread: "off" */
 /* eslint prefer-rest-params: "off" */
 
-'use strict';
-
+import {loadPlugin} from '../lib/plugin-loader';
 const Crypto = require('crypto');
 const Error = require('http-errors');
 const Logger = require('./logger');
-const load_plugins = require('./plugin-loader').load_plugins;
 const pkgJson = require('../../package.json');
 const jwt = require('jsonwebtoken');
 /**
@@ -35,7 +33,7 @@ class Auth {
       }
     }
 
-    this.plugins = load_plugins(config, config.auth, plugin_params, function(p) {
+    this.plugins = loadPlugin(config, config.auth, plugin_params, function(p) {
       return p.authenticate || p.allow_access || p.allow_publish;
     });
 

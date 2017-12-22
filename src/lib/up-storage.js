@@ -588,4 +588,4 @@ class ProxyStorage {
 
 }
 
-module.exports = ProxyStorage;
+export default ProxyStorage;

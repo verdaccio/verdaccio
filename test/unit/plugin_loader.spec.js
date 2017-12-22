@@ -1,9 +1,9 @@
-'use strict';
+
+import {loadPlugin} from '../../src/lib/plugin-loader';
+import assert from 'assert';
+import path from 'path';
 
 require('../../src/lib/logger').setup([]);
-const assert = require('assert');
-const load_plugins = require('../../src/lib/plugin-loader').load_plugins;
-const path = require('path');
 
 describe('plugin loader', () => {
 
@@ -15,10 +15,10 @@ describe('plugin loader', () => {
 				'./unit/partials/test-plugin-storage/verdaccio-plugin': {}
 			}
 		}
-		let p = load_plugins(_config, _config.auth, {}, function (p) {
+		let plugins = loadPlugin(_config, _config.auth, {}, function (p) {
 			return p.authenticate || p.allow_access || p.allow_publish;
 		});
-		assert(p.length === 1);
+		assert(plugins.length === 1);
 	});
 
 	test('testing auth plugin invalid plugin', () => {
@@ -29,7 +29,7 @@ describe('plugin loader', () => {
 			}
 		}
 		try {
-			load_plugins(_config, _config.auth, {}, function (p) {
+			loadPlugin(_config, _config.auth, {}, function (p) {
 				return p.authenticate || p.allow_access || p.allow_publish;
 			});
 		} catch(e) {
@@ -45,11 +45,11 @@ describe('plugin loader', () => {
 			}
 		}
 		try {
-			load_plugins(_config, _config.auth, {}, function (p) {
-				return p.authenticate || p.allow_access || p.allow_publish;
+			loadPlugin(_config, _config.auth, {}, function (plugin) {
+				return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
 			});
-		} catch(e) {
-			assert(e.message === '"./unit/partials/test-plugin-storage/invalid-plugin-sanity" doesn\'t look like a valid plugin');
+		} catch(err) {
+			assert(err.message === '"./unit/partials/test-plugin-storage/invalid-plugin-sanity" doesn\'t look like a valid plugin');
 		}
 	});
 
@@ -61,8 +61,8 @@ describe('plugin loader', () => {
 			}
 		}
 		try {
-			load_plugins(_config, _config.auth, {}, function (p) {
-				return p.authenticate || p.allow_access || p.allow_publish;
+			loadPlugin(_config, _config.auth, {}, function (plugin) {
+				return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
 			});
 		} catch(e) {
 			assert(e.message === `"./unit/partials/test-plugin-storage/invalid-package" plugin not found\ntry "npm install verdaccio-./unit/partials/test-plugin-storage/invalid-package"`);

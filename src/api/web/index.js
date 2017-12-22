@@ -1,14 +1,13 @@
-'use strict';
+import express from 'express';
+import _ from 'lodash';
+import fs from 'fs';
+import Search from '../../lib/search';
+import * as Utils from '../../lib/utils';
 
-const express = require('express');
-const Search = require('../../lib/search');
 const Middleware = require('./middleware');
-const Utils = require('../../lib/utils');
 /* eslint new-cap:off */
 const router = express.Router();
-const _ = require('lodash');
 const env = require('../../config/env');
-const fs = require('fs');
 const template = fs.readFileSync(`${env.DIST_PATH}/index.html`).toString();
 const spliceURL = require('../../utils/string').spliceURL;
 

@@ -1,10 +1,9 @@
-'use strict';
 
+import Search from '../../lib/search';
 const bodyParser = require('body-parser');
 const express = require('express');
 const marked = require('marked');
 const _ = require('lodash');
-const Search = require('../../lib/search');
 const Middleware = require('./middleware');
 const match = Middleware.match;
 const validateName = Middleware.validate_name;
