@@ -20,7 +20,7 @@ function tryLoad(path) {
 }
 
 function isValid(plugin) {
-  return (_.isFunction(plugin) === false || _.isFunction(plugin.default) === false);
+  return (_.isFunction(plugin) || _.isFunction(plugin.default));
 }
 
 function isES6(plugin) {
@@ -68,12 +68,14 @@ function loadPlugin(config, plugin_configs, params, sanity_check) {
       throw Error('"' + p + '" plugin not found\ntry "npm install verdaccio-' + p + '"');
     }
 
-    if (isValid(plugin) === false) {
+    if (!isValid(plugin)) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
     }
 
+    /* eslint new-cap:off */
     plugin = isES6(plugin) ? new plugin.default(plugin_configs[p], params) : plugin(plugin_configs[p], params);
+    /* eslint new-cap:off */
 
     if (plugin === null || !sanity_check(plugin)) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
