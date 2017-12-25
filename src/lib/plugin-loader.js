@@ -1,5 +1,6 @@
 
 import Path from 'path';
+import _ from 'lodash';
 import logger from './logger';
 
 /**
@@ -16,6 +17,14 @@ function tryLoad(path) {
     }
     throw err;
   }
+}
+
+function isValid(plugin) {
+  return (_.isFunction(plugin) === false || _.isFunction(plugin.default) === false);
+}
+
+function isES6(plugin) {
+  return Object.keys(plugin).includes('default');
 }
 
 /**
@@ -59,12 +68,12 @@ function loadPlugin(config, plugin_configs, params, sanity_check) {
       throw Error('"' + p + '" plugin not found\ntry "npm install verdaccio-' + p + '"');
     }
 
-    if (typeof(plugin) !== 'function') {
+    if (isValid(plugin) === false) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
     }
 
-    plugin = plugin(plugin_configs[p], params);
+    plugin = isES6(plugin) ? new plugin.default(plugin_configs[p], params) : plugin(plugin_configs[p], params);
 
     if (plugin === null || !sanity_check(plugin)) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');

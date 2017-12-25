@@ -55,7 +55,7 @@ class LocalStorage implements IStorage {
     if (_.isNil(Storage)) {
       return new LocalDatabase(this.config, logger);
     } else {
-      return new Storage(this.config, logger);
+      return Storage;
     }
   }
 
