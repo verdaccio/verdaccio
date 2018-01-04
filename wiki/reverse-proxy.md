@@ -4,11 +4,11 @@
 
 Apache and mod_proxy should not decode/encode slashes and leave them as they are:
 
-````
+````apacheconfig
 <VirtualHost *:80>
-  AllowEncodedSlashes NoDecode
-  ProxyPass /npm http://127.0.0.1:4873 nocanon
-  ProxyPassReverse /npm http://127.0.0.1:4873
+  AllowEncodedSlashes   NoDecode
+  ProxyPass             /npm http://127.0.0.1:4873 nocanon
+  ProxyPassReverse      /npm http://127.0.0.1:4873
 </VirtualHost>
 ````
 
@@ -22,8 +22,7 @@ url_prefix: https://npm.your.domain.com
     
 Apache virtual server configuration
     
-````
-    apacheconfig
+````apacheconfig
     <IfModule mod_ssl.c>
     <VirtualHost *:443>
         ServerName npm.your.domain.com
@@ -34,11 +33,13 @@ Apache virtual server configuration
         ProxyRequests           Off
         ProxyPreserveHost       On
         AllowEncodedSlashes     NoDecode
-        ProxyPass               /       http://127.0.0.1:4873 nocanon
-        ProxyPassReverse        /       http://127.0.0.1:4873
+        ProxyPass               /       http://127.0.0.1:4873/ nocanon
+        ProxyPassReverse        /       http://127.0.0.1:4873/
     </VirtualHost>
     </IfModule>
 ````
+
+> Make sure to end the hostname `http://127.0.0.1:4873/` with a trailing slash if the proxied path ends with a slash as well
 
 ## Nginx
  
@@ -57,7 +58,7 @@ server {
 
 If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
 
-To resolve this issue, you should send real domain and port to verdaccio with `Host` heade
+To resolve this issue, you should send real domain and port to verdaccio with `Host` header
 
 Nginx configure should look like this:
 
