@@ -46,7 +46,7 @@ class ProxyStorage {
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
     this.ca = config.ca;
-    this.logger = Logger.logger.child({sub: 'out'});
+    this.logger = Logger.logger;
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);

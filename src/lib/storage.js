@@ -40,7 +40,7 @@ class Storage {
     this.localStorage.localList.data.secret = this.config.checkSecretKey(this.localStorage.localList.data.secret);
     this.localStorage.localList.sync();
     // an instance for local storage
-    this.logger = Logger.logger.child();
+    this.logger = Logger.logger;
   }
 
   /**

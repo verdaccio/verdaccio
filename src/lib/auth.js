@@ -19,7 +19,7 @@ class Auth {
    */
   constructor(config) {
     this.config = config;
-    this.logger = Logger.logger.child({sub: 'auth'});
+    this.logger = Logger.logger;
     this.secret = config.secret;
 
     const plugin_params = {

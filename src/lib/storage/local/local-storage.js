@@ -49,7 +49,7 @@ class LocalStorage {
     this.config = config;
     this.utils = utils;
     this.localList = new LocalData(this._buildStoragePath(this.config));
-    this.logger = logger.child({sub: 'fs'});
+    this.logger = logger;
   }
 
   /**
