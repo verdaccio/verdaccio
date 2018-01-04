@@ -7,8 +7,8 @@ Apache and mod_proxy should not decode/encode slashes and leave them as they are
 ````
 <VirtualHost *:80>
   AllowEncodedSlashes NoDecode
-  ProxyPass /npm http://127.0.0.1:4873 nocanon
-  ProxyPassReverse /npm http://127.0.0.1:4873
+  ProxyPass /npm http://127.0.0.1:4873/ nocanon
+  ProxyPassReverse /npm http://127.0.0.1:4873/
 </VirtualHost>
 ````
 
@@ -34,8 +34,8 @@ Apache virtual server configuration
         ProxyRequests           Off
         ProxyPreserveHost       On
         AllowEncodedSlashes     NoDecode
-        ProxyPass               /       http://127.0.0.1:4873 nocanon
-        ProxyPassReverse        /       http://127.0.0.1:4873
+        ProxyPass               /       http://127.0.0.1:4873/ nocanon
+        ProxyPassReverse        /       http://127.0.0.1:4873/
     </VirtualHost>
     </IfModule>
 ````
