@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.7.2"></a>
+## [2.7.2](https://github.com/verdaccio/verdaccio/compare/v2.7.1...v2.7.2) (2018-01-05)
+
+
+### Bug Fixes
+
+* marked dependency to latest ([75bf2a8](https://github.com/verdaccio/verdaccio/commit/75bf2a8))
+
+
+
 <a name="2.7.1"></a>
 ## [2.7.1](https://github.com/verdaccio/verdaccio/compare/v2.7.0...v2.7.1) (2017-12-20)
 
