@@ -30,25 +30,25 @@ class Footer extends React.Component {
                 this.props.language +
                 '/installation.html'
               }>
-              Getting Started (or other categories)
+              Getting Started
             </a>
             <a
               href={
                 this.props.config.baseUrl +
                 'docs/' +
                 this.props.language +
-                '/doc2.html'
+                '/docker.html'
               }>
-              Guides (or other categories)
+              Docker
             </a>
             <a
               href={
                 this.props.config.baseUrl +
                 'docs/' +
                 this.props.language +
-                '/doc3.html'
+                '/configuration.html'
               }>
-              API Reference (or other categories)
+              Configuration
             </a>
           </div>
           <div>
@@ -60,11 +60,11 @@ class Footer extends React.Component {
               User Showcase
             </a>
             <a
-              href="http://stackoverflow.com/questions/tagged/"
+              href="https://stackoverflow.com/search?q=verdaccio"
               target="_blank">
               Stack Overflow
             </a>
-            <a href="https://discordapp.com/">Project Chat</a>
+            <a href="https://gitter.im/verdaccio">Project Chat</a>
             <a href="https://twitter.com/verdaccio_npm" target="_blank">
               Twitter
             </a>

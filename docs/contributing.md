@@ -56,7 +56,7 @@ We have a frontend website [http://www.verdaccio.org/](http://www.verdaccio.org/
 
 We have a widely popular Docker image [https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/) that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
-We have support for **Puppet**, **Ansible** and **Cheff** and we need help in those fields, feel free to see all repositories.
+We have support for **Kubernetes**, **Puppet**, **Ansible** and **Cheff** and we need help in those fields, feel free to see all repositories.
 
 ## I'm ready to contribute
 

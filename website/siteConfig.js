@@ -6,24 +6,17 @@
  */
 
 /* List of projects/orgs using your project for the users page */
-const users = [
-  {
-    caption: 'User1',
-    image: '/img/docusaurus.svg',
-    infoLink: 'https://www.facebook.com',
-    pinned: true,
-  },
-];
+const users = [];
 
 const siteConfig = {
   title: 'Verdaccio' /* title for your website */,
   tagline: 'A lightweight private npm proxy registry',
   url: 'http://www.verdaccio.org' /* your website url */,
+  organizationName: 'verdaccio',
   baseUrl: '/' /* base url for your project */,
   projectName: 'verdaccio',
   headerLinks: [
     {doc: 'installation', label: 'Docs'},
-    {doc: 'configuration', label: 'API'},
     {page: 'help', label: 'Help'},
     {blog: true, label: 'Blog'},
   ],
@@ -41,7 +34,7 @@ const siteConfig = {
   copyright:
     'Copyright © ' +
     new Date().getFullYear() +
-    ' Verdaccio Team',
+    ' Verdaccio community',
   // organizationName: 'deltice', // or set an env variable ORGANIZATION_NAME
   // projectName: 'test-site', // or set an env variable PROJECT_NAME
   highlight: {

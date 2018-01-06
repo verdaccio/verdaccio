@@ -100,7 +100,7 @@ publish:
   allow_offline: false
 ```
 
-Since: *v2.3.6* due [#223](https://github.com/verdaccio/verdaccio/pull/223)
+<small>Since: *v2.3.6* due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
 
 ### URL Prefix
 

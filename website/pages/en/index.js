@@ -36,9 +36,6 @@ class HomeSplash extends React.Component {
       <div className="homeContainer">
         <div className="homeSplashFade">
           <div className="wrapper homeWrapper">
-            <div className="projectLogo">
-              <img src={siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png'} />
-            </div>
             <div className="inner">
               <h2 className="projectTitle">
               <img title={siteConfig.title} src={siteConfig.baseUrl + 'img/verdaccio@2x.png'} />
@@ -54,7 +51,7 @@ class HomeSplash extends React.Component {
                         siteConfig.baseUrl +
                         'docs/' +
                         this.props.language +
-                        '/doc1.html'
+                        '/installation.html'
                       }>
                       Documentation
                     </Button>
@@ -63,7 +60,7 @@ class HomeSplash extends React.Component {
                         siteConfig.baseUrl +
                         'docs/' +
                         this.props.language +
-                        '/contribute.html'
+                        '/contributing.html'
                       }>
                       Contribute
                     </Button>
@@ -102,17 +99,19 @@ class Index extends React.Component {
               align="center"
               contents={[
                 {
-                  content: 'This is the content of my feature',
-                  image: siteConfig.baseUrl + 'img/npm.svg',
-                  imageAlign: 'top',
-                  title: 'Feature One',
+                  content: '```bash\n' +
+                  '$> npm install --global verdaccio \n' +
+                  '$> yarn global add verdaccio\n' +
+                  '```',
+                  title: 'Easy to Install',
                 },
                 {
-                  content: 'The content of my second feature',
-                  image: siteConfig.baseUrl + 'img/yarn.svg',
-                  imageAlign: 'top',
-                  title: 'Feature Two',
-                },
+                  content: '```bash\n' +
+                  '$> npm set registry http://localhost:4873 \n' +
+                  '$> npm adduser --registry http://localhost:4873\n' +
+                  '```',
+                  title: 'Easy to Set Up',
+                }
               ]}
               layout="fourColumn"
             />
@@ -121,18 +120,28 @@ class Index extends React.Component {
           <div
             className="productShowcaseSection paddingBottom"
             style={{textAlign: 'center'}}>
-            <h2>Feature Callout</h2>
-            <MarkdownBlock>These are features of this project</MarkdownBlock>
+            <h2>Easy to Use</h2>
+            <MarkdownBlock>
+              ```bash&#8232;
+                $> verdaccio &#8232;
+                warn --- config file  - /home/.config/verdaccio/config.yaml &#8232;
+                warn --- http address - http://localhost:4873/ - verdaccio/3.0.0&#8232;
+              ```
+            </MarkdownBlock>
+            <h2>
+              That’s it ! Enjoy your private package manager.
+            </h2>
           </div>
 
           <Container padding={['bottom', 'top']} background="light">
             <GridBlock
               contents={[
                 {
-                  content: 'Talk about learning how to use this',
+                  content: '**npm** and **yarn** are part of any development workflow,' +
+                  ' we try to catch up with the latest updates.',
                   image: siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png',
                   imageAlign: 'right',
-                  title: 'Learn How',
+                  title: 'The most popular npm clients are supported',
                 },
               ]}
             />
@@ -142,10 +151,17 @@ class Index extends React.Component {
             <GridBlock
               contents={[
                 {
-                  content: 'Talk about trying this out',
+                  content: 'We have an official **Docker** image ready to use &#8232;\n' +
+                  '```bash\n' +
+                  'docker pull verdaccio/verdaccio&#8232;\n' +
+                  '```' +
+                  '\n and **Kubernetes Helm** support for easy deployment \n '+
+                  '```bash\n' +
+                  'helm install --name npm stable/verdaccio\n' +
+                  '```\n',
                   image: siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png',
                   imageAlign: 'left',
-                  title: 'Try it Out',
+                  title: 'Making the DevOps work easy',
                 },
               ]}
             />
@@ -156,10 +172,11 @@ class Index extends React.Component {
               contents={[
                 {
                   content:
-                    'This is another description of how this project is useful',
+                    'Verdaccio is plugin based, authentication, middleware and storage support. ' +
+                    'Just pick one or create your custom one.',
                   image: siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png',
                   imageAlign: 'right',
-                  title: 'Description',
+                  title: 'Plugin Support',
                 },
               ]}
             />
