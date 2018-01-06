@@ -4,7 +4,7 @@ title: Build the source code
 ---
 Verdaccio relies on `yarn` instead `npm` to download depenedencies.
 
-*Note: the current build only will build with `➜ yarn --version 0.28.4` or minor. It's not compatible with `yarn 1.x`*
+*Note: the current build only will build with `➜ yarn` latest.*
 
 ```bash
   yarn install
