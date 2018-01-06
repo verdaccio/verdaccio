@@ -7,8 +7,10 @@ Verdaccio is a multiplatform web application, to install you need at least some 
 
 #### Prerequisites
 
-* Node higher than (2.x **4.6.1**) | (3.x **6.12.0)
-* npm or yarn
+1. Node higher than 
+    - For version *2.x* we support from **4.6.1**
+    - For version *3.x* we support as minimum **6.12.0**
+2. npm *>=3.x* or yarn
 
 ## Installing the CLI
 
@@ -18,14 +20,12 @@ Using `npm`
 
 ```bash
 npm install -g verdaccio
-
 ```
 
 or using `yarn`
 
 ```bash
 yarn global add verdaccio
-
 ```
 
 > Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
@@ -36,6 +36,8 @@ Once has been installed you only need to execute the CLI command.
 
 ```bash
 $> verdaccio
+warn --- config file  - /home/.config/verdaccio/config.yaml
+warn --- http address - http://localhost:5555/ - verdaccio/3.0.0
 ```
 
 ![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
