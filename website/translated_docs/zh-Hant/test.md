@@ -11,9 +11,7 @@ All tests are split in three folders:
 
 Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
 
-We use `mocha` for all test.
-
-⚠️⚠️ **Functional test** do not work on Windows, but if you are willing to **fix** it we refer you to [#9](https://github.com/verdaccio/verdaccio/issues/9) ⚠️⚠️
+We use `jest` for all test.
 
 ## The npm Script
 
