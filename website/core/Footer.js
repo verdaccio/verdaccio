@@ -66,7 +66,10 @@ class Footer extends React.Component {
             </a>
             <a href="https://gitter.im/verdaccio">Project Chat</a>
             <a href="https://twitter.com/verdaccio_npm" target="_blank">
-              Twitter
+              <img
+                alt="Follow Verdaccio on Twitter"
+                src="https://img.shields.io/twitter/follow/verdaccio_npm.svg?label=Follow+Verdaccio&style=social"
+              />
             </a>
           </div>
           <div>
@@ -84,21 +87,6 @@ class Footer extends React.Component {
               Star
             </a>
           </div>
-        </section>
-
-        <a
-          href="https://code.facebook.com/projects/"
-          target="_blank"
-          className="fbOpenSource">
-          <img
-            src={this.props.config.baseUrl + 'img/oss_logo.png'}
-            alt="Facebook Open Source"
-            width="170"
-            height="45"
-          />
-        </a>
-        <section className="copyright">
-          Copyright &copy; {currentYear} Facebook Inc.
         </section>
       </footer>
     );
