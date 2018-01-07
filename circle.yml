@@ -38,5 +38,5 @@ general:
   branches:
     ignore:
       - gh-pages # list of branches to ignore
-      - l10n_website
+      - l10n_master
       - /release\/.*/ # or ignore regexes
