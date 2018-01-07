@@ -31,7 +31,7 @@ test:
     - yarn run test
 deployment:
   production:
-    tag: /(v)?[0-9]+(\.[0-9]+)*/
+    tag: /.*?/
     commands:
       - ./scripts/publish.sh
 general:
