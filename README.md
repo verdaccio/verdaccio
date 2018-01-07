@@ -40,7 +40,7 @@ See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/t
 
 ### Prerequisites
 
-* Node.js >= 4.6.1
+* Node.js >= `2.x` (4.6.1) | `3.x` (6.12.0)
 * `npm` or `yarn`
 
 Installation and starting (application will create default config in config.yaml you can edit later)
@@ -225,3 +225,9 @@ If you have any issue you can try the following options, do no desist to ask or 
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
 * [Chat Room](https://gitter.im/verdaccio/)
 * [Logos](https://github.com/verdaccio/verdaccio/tree/master/assets)
+
+
+## License
+Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).
+
+The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /wiki and /assets folder) is [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).

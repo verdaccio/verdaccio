@@ -1,14 +1,17 @@
 {
   "plugins": [
     "react",
-    "flowtype"
+    "flowtype",
+    "jest"
   ],
   "extends": [
     "eslint:recommended",
     "google",
     "plugin:react/recommended",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:jest/recommended"
   ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 7,
@@ -20,7 +23,8 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "rules": {
     "no-tabs": 0,
@@ -57,8 +61,8 @@
       "always"
     ],
     "camelcase": 0,
-    "require-jsdoc": 2,
-    "valid-jsdoc": 2,
+    "require-jsdoc": 0,
+    "valid-jsdoc": 0,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
     "no-var": 2,

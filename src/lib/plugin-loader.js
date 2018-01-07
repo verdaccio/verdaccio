@@ -1,14 +1,14 @@
-'use strict';
 
-const Path = require('path');
-const logger = require('./logger');
+import Path from 'path';
+import _ from 'lodash';
+import logger from './logger';
 
 /**
  * Requires a module.
  * @param {*} path the module's path
  * @return {Object}
  */
-function try_load(path) {
+function tryLoad(path) {
   try {
     return require(path);
   } catch(err) {
@@ -17,6 +17,14 @@ function try_load(path) {
     }
     throw err;
   }
+}
+
+function isValid(plugin) {
+  return (_.isFunction(plugin) || _.isFunction(plugin.default));
+}
+
+function isES6(plugin) {
+  return Object.keys(plugin).includes('default');
 }
 
 /**
@@ -30,29 +38,29 @@ function try_load(path) {
  * @param {*} sanity_check callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-function load_plugins(config, plugin_configs, params, sanity_check) {
+function loadPlugin(config, plugin_configs, params, sanity_check) {
   let plugins = Object.keys(plugin_configs || {}).map(function(p) {
     let plugin;
 
     // try local plugins first
-    plugin = try_load(Path.resolve(__dirname + '/..//plugins', p));
+    plugin = tryLoad(Path.resolve(__dirname + '/..//plugins', p));
 
     // npm package
     if (plugin === null && p.match(/^[^\.\/]/)) {
-      plugin = try_load(`verdaccio-${p}`);
+      plugin = tryLoad(`verdaccio-${p}`);
       // compatibility for old sinopia plugins
       if (!plugin) {
-        plugin = try_load(`sinopia-${p}`);
+        plugin = tryLoad(`sinopia-${p}`);
       }
     }
 
     if (plugin === null) {
-      plugin = try_load(p);
+      plugin = tryLoad(p);
     }
 
     // relative to config path
     if (plugin === null && p.match(/^\.\.?($|\/)/)) {
-      plugin = try_load(Path.resolve(Path.dirname(config.self_path), p));
+      plugin = tryLoad(Path.resolve(Path.dirname(config.self_path), p));
     }
 
     if (plugin === null) {
@@ -60,12 +68,14 @@ function load_plugins(config, plugin_configs, params, sanity_check) {
       throw Error('"' + p + '" plugin not found\ntry "npm install verdaccio-' + p + '"');
     }
 
-    if (typeof(plugin) !== 'function') {
+    if (!isValid(plugin)) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
     }
 
-    plugin = plugin(plugin_configs[p], params);
+    /* eslint new-cap:off */
+    plugin = isES6(plugin) ? new plugin.default(plugin_configs[p], params) : plugin(plugin_configs[p], params);
+    /* eslint new-cap:off */
 
     if (plugin === null || !sanity_check(plugin)) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
@@ -78,4 +88,4 @@ function load_plugins(config, plugin_configs, params, sanity_check) {
   return plugins;
 }
 
-exports.load_plugins = load_plugins;
+export {loadPlugin};

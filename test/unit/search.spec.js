@@ -1,8 +1,8 @@
-'use strict';
 
-let assert = require('assert');
-let Search = require('../../src/lib/search');
-let Storage = require('../../src/lib/storage');
+
+import assert from 'assert';
+import Search from '../../src/lib/search';
+import Storage from '../../src/lib/storage';
 let config_hash = require('./partials/config');
 let Config = require('../../src/lib/config');
 
@@ -32,8 +32,8 @@ let packages = [
 	},
 ];
 
-describe('search', function() {
-	before(function() {
+describe('search', () => {
+	beforeAll(function() {
 		let config = new Config(config_hash);
 		this.storage = new Storage(config);
 		Search.configureStorage(this.storage);
@@ -42,12 +42,12 @@ describe('search', function() {
 		});
 	});
 
-	it('search query item', function() {
+	test('search query item', () => {
 		let result = Search.query('t');
 		assert(result.length === 3);
 	});
 
-	it('search remove item', function() {
+	test('search remove item', () => {
 		let item = {
 			name: 'test6',
 			description: 'description',

@@ -11,6 +11,7 @@ import storage from '../../../utils/storage';
 
 import classes from './header.scss';
 import './logo.png';
+import {getRegistryURL} from '../../../utils/url';
 
 export default class Header extends React.Component {
   state = {
@@ -25,6 +26,7 @@ export default class Header extends React.Component {
     super(props);
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   toggleLoginModal() {
@@ -138,8 +140,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    // Don't add slash if it's not a sub directory
-    const registryURL = `${location.origin}${location.pathname === '/' ? '' : location.pathname}`;
+    const registryURL = getRegistryURL();
 
     return (
       <header className={ classes.header }>
@@ -169,9 +170,9 @@ export default class Header extends React.Component {
             </Alert>
             }
             <br/>
-            <Input placeholder="Username" onChange={this.handleInput.bind(this, 'username')} />
+            <Input name="username" placeholder="Username" onChange={this.handleInput.bind(this, 'username')} />
             <br/><br/>
-            <Input type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
+            <Input name="password" type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
           </Dialog.Body>
           <Dialog.Footer className="dialog-footer">
             <Button onClick={ () => this.toggleLoginModal() }>

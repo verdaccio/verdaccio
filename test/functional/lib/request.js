@@ -1,17 +1,20 @@
-'use strict';
+// @flow
 
-const assert = require('assert');
-const request = require('request');
+import assert from 'assert';
+import request from 'request';
+import _ from 'lodash';
+import type {IRequestPromise} from './types';
+
 const requestData = Symbol('smart_request_data');
-const _ = require('lodash');
 
-class PromiseAssert extends Promise {
+export class PromiseAssert extends Promise<any> implements IRequestPromise{
 
-  constructor(options) {
+  constructor(options: any) {
     super(options);
   }
 
-  status(expected) {
+  status(expected: number) {
+    // $FlowFixMe
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
@@ -25,8 +28,9 @@ class PromiseAssert extends Promise {
     }));
   }
 
-  body_ok(expected) {
-    const self_data = this[requestData];
+  body_ok(expected: any) {
+    // $FlowFixMe
+    const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
       try {
@@ -37,18 +41,20 @@ class PromiseAssert extends Promise {
         }
         assert.equal(body.error, null);
       } catch(err) {
-        self_data.error.message = err.message;
-        throw self_data.error;
+        selfData.error.message = err.message;
+        throw selfData.error;
       }
       return body;
     }));
   }
 
 
-  body_error(expected) {
-    const self_data = this[requestData];
+  body_error(expected: any) {
+    // $FlowFixMe
+    const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
+      // console.log("======>smartRequest body_error://", body);
       try {
         if (_.isRegExp(expected)) {
           assert(body.error.match(expected), body.error + ' doesn\'t match ' + expected);
@@ -57,19 +63,21 @@ class PromiseAssert extends Promise {
         }
         assert.equal(body.ok, null);
       } catch(err) {
-        self_data.error.message = err.message;
-        throw self_data.error;
+        selfData.error.message = err.message;
+        throw selfData.error;
       }
       return body;
     }));
   }
 
-  request(callback) {
+  request(callback: any) {
+    // $FlowFixMe
     callback(this[requestData].request);
     return this;
   }
 
-  response(cb) {
+  response(cb: any) {
+    // $FlowFixMe
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
@@ -78,26 +86,30 @@ class PromiseAssert extends Promise {
     }));
   }
 
-  send(data) {
+  send(data: any) {
+    // $FlowFixMe
     this[requestData].request.end(data);
     return this;
   }
 
 }
 
-function injectResponse(smartObject, promise) {
+function injectResponse(smartObject: any, promise: Promise<any>): Promise<any> {
+  // $FlowFixMe
   promise[requestData] = smartObject[requestData];
   return promise;
 }
 
-function smartRequest(options) {
-  const smartObject = {};
+
+function smartRequest(options: any): Promise<any> {
+  const smartObject: any = {};
 
   smartObject[requestData] = {};
   smartObject[requestData].error = Error();
   Error.captureStackTrace(smartObject[requestData].error, smartRequest);
 
-  const result = new PromiseAssert(function(resolve, reject) {
+  const promiseResult: Promise<any> = new PromiseAssert(function(resolve, reject) {
+    // store request reference on symbol
     smartObject[requestData].request = request(options, function(err, res, body) {
       if (err) {
         return reject(err);
@@ -105,12 +117,13 @@ function smartRequest(options) {
 
       // store the response on symbol
       smartObject[requestData].response = res;
+      // console.log("======>smartRequest RESPONSE: ", body);
       resolve(body);
     });
   });
 
-  return injectResponse(smartObject, result);
+  return injectResponse(smartObject, promiseResult);
 }
 
-module.exports = smartRequest;
+export default smartRequest;
 

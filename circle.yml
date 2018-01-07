@@ -1,9 +1,9 @@
 machine:
   environment:
-    YARN_VERSION: 0.27.5
+    YARN_VERSION: 1.3.2
     PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
-    version: 8
+    version: 9
 dependencies:
   pre:
     - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
@@ -11,8 +11,8 @@ dependencies:
       if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
         curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
       fi
-    - nvm install 4
     - nvm install 6
+    - nvm install 8
 
   cache_directories:
     - ~/.yarn
@@ -24,12 +24,11 @@ test:
   override:
     - yarn run pre:ci
     - nvm alias default 6
-    - yarn run test:ci
-    - nvm alias default 4
-    - yarn run test:ci
+    - yarn run test
     - nvm alias default 8
-    - yarn run test:ci
-    - yarn run coverage:publish
+    - yarn run test
+    - nvm alias default 9
+    - yarn run test
 deployment:
   production:
     tag: /(v)?[0-9]+(\.[0-9]+)*/
@@ -39,4 +38,5 @@ general:
   branches:
     ignore:
       - gh-pages # list of branches to ignore
+      - l10n_website
       - /release\/.*/ # or ignore regexes

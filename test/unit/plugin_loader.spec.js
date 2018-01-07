@@ -1,71 +1,86 @@
-'use strict';
 
-const assert = require('assert');
-const load_plugins = require('../../src/lib/plugin-loader').load_plugins;
-const path = require('path');
+import {loadPlugin} from '../../src/lib/plugin-loader';
+import assert from 'assert';
+import path from 'path';
 
-describe('plugin loader', function() {
+require('../../src/lib/logger').setup([]);
 
-	it('testing auth valid plugin loader', function() {
-		let _config = {
-			self_path: path.join(__dirname, './'),
-			max_users: 0,
-			auth: {
-				'./unit/partials/test-plugin-storage/verdaccio-plugin': {}
-			}
-		}
-		let p = load_plugins(_config, _config.auth, {}, function (p) {
-			return p.authenticate || p.allow_access || p.allow_publish;
-		});
-		assert(p.length === 1);
-	});
+describe('plugin loader', () => {
 
-	it('testing auth plugin invalid plugin', function() {
-		let _config = {
-			self_path: path.join(__dirname, './'),
-			auth: {
-				'./unit/partials/test-plugin-storage/invalid-plugin': {}
-			}
-		}
-		try {
-			load_plugins(_config, _config.auth, {}, function (p) {
-				return p.authenticate || p.allow_access || p.allow_publish;
-			});
-		} catch(e) {
-			assert(e.message === '"./unit/partials/test-plugin-storage/invalid-plugin" doesn\'t look like a valid plugin');
-		}
-	});
+  test('testing auth valid plugin loader', () => {
+    let _config = {
+      self_path: path.join(__dirname, './'),
+      max_users: 0,
+      auth: {
+        './unit/partials/test-plugin-storage/verdaccio-plugin': {}
+      }
+    }
+    let plugins = loadPlugin(_config, _config.auth, {}, function (p) {
+      return p.authenticate || p.allow_access || p.allow_publish;
+    });
+    assert(plugins.length === 1);
+  });
 
-	it('testing auth plugin invalid plugin sanityCheck', function() {
-		let _config = {
-			self_path: path.join(__dirname, './'),
-			auth: {
-				'./unit/partials/test-plugin-storage/invalid-plugin-sanity': {}
-			}
-		}
-		try {
-			load_plugins(_config, _config.auth, {}, function (p) {
-				return p.authenticate || p.allow_access || p.allow_publish;
-			});
-		} catch(e) {
-			assert(e.message === '"./unit/partials/test-plugin-storage/invalid-plugin-sanity" doesn\'t look like a valid plugin');
-		}
-	});
+  test('testing storage valid plugin loader', () => {
+    let _config = {
+      self_path: path.join(__dirname, './'),
+      max_users: 0,
+      auth: {
+        './unit/partials/test-plugin-storage/verdaccio-es6-plugin': {}
+      }
+    }
+    let plugins = loadPlugin(_config, _config.auth, {}, function (p) {
+      return p.getPackageStorage;
+    });
+    assert(plugins.length === 1);
+  });
 
-	it('testing auth plugin no plugins', function() {
-		let _config = {
-			self_path: path.join(__dirname, './'),
-			auth: {
-				'./unit/partials/test-plugin-storage/invalid-package': {}
-			}
-		}
-		try {
-			load_plugins(_config, _config.auth, {}, function (p) {
-				return p.authenticate || p.allow_access || p.allow_publish;
-			});
-		} catch(e) {
-			assert(e.message === `"./unit/partials/test-plugin-storage/invalid-package" plugin not found\ntry "npm install verdaccio-./unit/partials/test-plugin-storage/invalid-package"`);
-		}
-	});
+  test('testing auth plugin invalid plugin', () => {
+    let _config = {
+      self_path: path.join(__dirname, './'),
+      auth: {
+        './unit/partials/test-plugin-storage/invalid-plugin': {}
+      }
+    }
+    try {
+      loadPlugin(_config, _config.auth, {}, function (p) {
+        return p.authenticate || p.allow_access || p.allow_publish;
+      });
+    } catch(e) {
+      assert(e.message === '"./unit/partials/test-plugin-storage/invalid-plugin" doesn\'t look like a valid plugin');
+    }
+  });
+
+  test('testing auth plugin invalid plugin sanityCheck', () => {
+    let _config = {
+      self_path: path.join(__dirname, './'),
+      auth: {
+        './unit/partials/test-plugin-storage/invalid-plugin-sanity': {}
+      }
+    }
+    try {
+      loadPlugin(_config, _config.auth, {}, function (plugin) {
+        return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
+      });
+    } catch(err) {
+      assert(err.message === '"./unit/partials/test-plugin-storage/invalid-plugin-sanity" doesn\'t look like a valid plugin');
+    }
+  });
+
+  test('testing auth plugin no plugins', () => {
+    let _config = {
+      self_path: path.join(__dirname, './'),
+      auth: {
+        './unit/partials/test-plugin-storage/invalid-package': {}
+      }
+    }
+    try {
+      loadPlugin(_config, _config.auth, {}, function (plugin) {
+        return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
+      });
+    } catch(e) {
+      assert(e.message === `"./unit/partials/test-plugin-storage/invalid-package" plugin not found\ntry "npm install verdaccio-./unit/partials/test-plugin-storage/invalid-package"`);
+    }
+  });
 
 });

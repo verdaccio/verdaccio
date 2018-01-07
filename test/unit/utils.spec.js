@@ -3,38 +3,38 @@
 let assert = require('assert');
 let validate = require('../../src/lib/utils').validate_name;
 
-describe('Validate', function() {
-  it('good ones', function() {
+describe('Validate', () => {
+  test('good ones', () => {
     assert( validate('verdaccio') );
     assert( validate('some.weird.package-zzz') );
     assert( validate('old-package@0.1.2.tgz') );
   });
 
-  it('uppercase', function() {
+  test('uppercase', () => {
     assert( validate('EVE') );
     assert( validate('JSONStream') );
   });
 
-  it('no package.json', function() {
+  test('no package.json', () => {
     assert( !validate('package.json') );
   });
 
-  it('no path seps', function() {
+  test('no path seps', () => {
     assert( !validate('some/thing') );
     assert( !validate('some\\thing') );
   });
 
-  it('no hidden', function() {
+  test('no hidden', () => {
     assert( !validate('.bin') );
   });
 
-  it('no reserved', function() {
+  test('no reserved', () => {
     assert( !validate('favicon.ico') );
     assert( !validate('node_modules') );
     assert( !validate('__proto__') );
   });
 
-  it('other', function() {
+  test('other', () => {
     assert( !validate('pk g') );
     assert( !validate('pk\tg') );
     assert( !validate('pk%20g') );

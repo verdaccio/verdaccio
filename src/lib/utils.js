@@ -143,7 +143,7 @@ function filter_tarball_urls(pkg, req, config) {
  * @return {Boolean} whether a package has been tagged
  */
 function tag_version(data, version, tag) {
-	if (tag) {
+	if (_.isEmpty(tag) === false) {
 		if (data['dist-tags'][tag] !== version) {
 			if (semver.parse(version, true)) {
 				// valid version - store
@@ -352,6 +352,36 @@ const ErrorCode = {
 
 const parseConfigFile = (config_path) => YAML.safeLoad(fs.readFileSync(config_path, 'utf8'));
 
+/**
+ * Check whether the path already exist.
+ * @param {String} path
+ * @return {Boolean}
+ */
+function folder_exists(path) {
+  try {
+    const stat = fs.statSync(path);
+    return stat.isDirectory();
+  } catch(_) {
+    return false;
+  }
+}
+
+/**
+ * Check whether the file already exist.
+ * @param {String} path
+ * @return {Boolean}
+ */
+function fileExists(path) {
+  try {
+    const stat = fs.statSync(path);
+    return stat.isFile();
+  } catch(_) {
+    return false;
+  }
+}
+
+module.exports.folder_exists = folder_exists;
+module.exports.file_exists = fileExists;
 module.exports.parseInterval = parseInterval;
 module.exports.semver_sort = semverSort;
 module.exports.parse_address = parse_address;

@@ -1,7 +1,5 @@
 /* eslint no-invalid-this: "off" */
 
-'use strict';
-
 const lunr = require('lunr');
 
 /**
@@ -61,7 +59,7 @@ class Search {
    */
   reindex() {
     let self = this;
-    this.storage.get_local(function(err, packages) {
+    this.storage.getLocalDatabase(function(err, packages) {
       if (err) throw err; // that function shouldn't produce any
       let i = packages.length;
       while (i--) {
@@ -80,4 +78,4 @@ class Search {
   }
 }
 
-module.exports = new Search();
+export default new Search();

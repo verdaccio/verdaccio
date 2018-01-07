@@ -1,22 +1,21 @@
-'use strict';
+import express from 'express';
+import Error from 'http-errors';
+import compression from 'compression';
+import _ from 'lodash';
+import cors from 'cors';
+import Storage from '../lib/storage';
+import {loadPlugin} from '../lib/plugin-loader';
 
-const express = require('express');
-const Error = require('http-errors');
-const compression = require('compression');
 const Auth = require('../lib/auth');
 const Logger = require('../lib/logger');
 const Config = require('../lib/config');
 const Middleware = require('./web/middleware');
 const Cats = require('../lib/status-cats');
-const Storage = require('../lib/storage');
-const _ = require('lodash');
-const cors = require('cors');
-const load_plugins = require('../lib/plugin-loader').load_plugins;
 
-module.exports = function(config_hash) {
+module.exports = function(configHash) {
   // Config
-  Logger.setup(config_hash.logs);
-  const config = new Config(config_hash);
+  Logger.setup(configHash.logs);
+  const config = new Config(configHash);
   const storage = new Storage(config);
   const auth = new Auth(config);
   const app = express();
@@ -86,7 +85,7 @@ module.exports = function(config_hash) {
     config: config,
     logger: Logger.logger,
   };
-  const plugins = load_plugins(config, config.middlewares, plugin_params, function(plugin) {
+  const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin) {
     return plugin.register_middlewares;
   });
   plugins.forEach(function(plugin) {
