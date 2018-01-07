@@ -154,6 +154,13 @@
     "node": ">=6.12.0",
     "npm": ">=3"
   },
+  "greenkeeper": {
+    "ignore": [
+      "lunr",
+      "flow-bin",
+      "jest"
+    ]
+  },
   "preferGlobal": true,
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
