@@ -31,9 +31,17 @@ test:
     - yarn run test
 deployment:
   production:
-    tag: /.*?/
+    tag: /(v)?[0-9]+(\.[0-9]+)*/
     commands:
       - ./scripts/publish.sh
+  alpha-release:
+      tag: /.*-alpha.*/
+      commands:
+      - ./scripts/alpha-publish.sh
+  beta-release:
+      tag: /.*-beta.*/
+      commands:
+      - ./scripts/beta-publish.sh
 general:
   branches:
     ignore:
