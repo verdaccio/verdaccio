@@ -2,6 +2,8 @@
 
 ### A lightweight private npm proxy registry
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/verdaccio/verdaccio.svg)](https://greenkeeper.io/)
+
 
 `verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
 
