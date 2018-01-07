@@ -54,12 +54,6 @@ Run in your terminal
 verdaccio
 ```
 
-After **npm 5.2** you can use npx which install and launch verdaccio with the same command
-
-```bash
-npx verdaccio
-```
-
 You would need set some npm configuration, this is optional.
 
 ```bash
@@ -73,9 +67,36 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 > Warning: Verdaccio does not currently support PM2's cluster mode, running it with cluster mode may cause unknown behavior.
 
+## Future releases
+
+If you are an adventurous developer you can use and install the latest versions available, remember it's a non stable version and I'd recommend only use for testing purporses.
+
+#### Alpha
+
+Alpha software can be unstable and could cause crashes or data loss and may not contain all of the features that are planned for the final version.
+
+Using `npm` or `yarn`
+
+```bash
+npm install -g verdaccio@alpha
+```
+
+Docker `alpha` image is also available.
+
+```bash
+$ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:alpha
+```
+
+
 #### Beta
 
-If you are an adventurous developer you can use and install the latest beta version, this is a non stable version, I'd recommend only use for testing purporses.
+At this point the development is done but there are possibilities that it could contain some bugs and performance issues
+
+```bash
+npm install -g verdaccio@beta
+```
+
+Docker `beta` image is also available.
 
 ```bash
 $ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:beta
