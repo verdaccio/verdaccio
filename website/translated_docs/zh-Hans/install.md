@@ -3,26 +3,26 @@ id: installation
 date: 2017-07-10T23:36:56.503Z
 title: Installation
 ---
-Verdaccio is a multiplatform web application, to install you need at least some prerequisites.
+Verdaccio 是一个基于 Web 技术的跨平台应用，在安装它之前你需要确保满足以下前提条件
 
-#### Prerequisites
+#### 最低要求:
 
-1. Node higher than 
-    - For version *2.x* we support from **4.6.1**
-    - For version *3.x* we support as minimum **6.12.0**
-2. npm *>=3.x* or yarn
+1. Node.js 版本 
+    - Verdaccio *2.x*: 不低于 **4.6.1**
+    - Verdaccio *3.x* 不低于 **6.12.0**
+2. npm *>=3.x* 或 yarn
 
-## Installing the CLI
+## 安装
 
-`Verdaccio` must be install globaly using any of the most modern
+`Verdaccio` 必须通过以下任一方式作为全局模块安装
 
-Using `npm`
+使用 `npm`
 
 ```bash
 npm install -g verdaccio
 ```
 
-or using `yarn`
+或使用 `yarn`
 
 ```bash
 yarn global add verdaccio
