@@ -44,7 +44,7 @@ storage: ./storage
 
 ### Authentification
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is build-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
 
 ```yaml
 auth:
