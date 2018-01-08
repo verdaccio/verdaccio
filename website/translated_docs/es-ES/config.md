@@ -1,7 +1,7 @@
 ---
 id: configuration
 date: 2017-07-10T23:36:56.503Z
-title: Configuration File
+title: Archivo de Configuración
 ---
 Este archivo es la piedra angular de verdaccio donde puedes modificar su comportamiento por defecto, activar plugins y características externas.
 
@@ -44,7 +44,7 @@ storage: ./storage
 
 ### Autentificación
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. Puedes modificar el comportamiento por defecto vía [extensiones](plugins.md). For more information about this section read the [auth page](auth.md).
+La configuración de autenticación es hecha aquí y esta basado en `htpasswd` y viene integrada por defecto. Puedes modificar el comportamiento por defecto vía [extensiones](plugins.md). Para mas información sobre esta sección lea [la página de autentificación](auth.md).
 
 ```yaml
 auth:
@@ -55,7 +55,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Esta propiedad te permite modificar diseño del interfaz de usuario. Para mas información sobre esta sección lea [la página de Web UI](web.md).
 
 ```yaml
 web:
@@ -66,7 +66,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks es la habilidad del sistema para traer paquetes de registros remotos cuando los paquetes no están disponibles localmente. Para mas información sobre esta sección lea [página de uplinks](uplinks.md).
 
 ```yaml
 uplinks:
@@ -74,9 +74,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Paquetes
 
-Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paquetes permiten al usuario como los paquetes van a ser accedido. Para mas información sobre esta sección leer [la página de paquetes](packages.md).
 
 ```yaml
 packages:
@@ -86,9 +86,9 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Configuración Avanzada
 
-### Offline Publish
+### Publicar modo sin conexión
 
 By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden set it in to *true*.
 
@@ -99,7 +99,7 @@ publish:
 
 <small>Since: <em>v2.3.6</em> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefijos URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
@@ -115,9 +115,9 @@ By default the maximum body size for a JSON document is `1mb`, if you run in err
 max_body_size: 1mb
 ```
 
-### Listen Port
+### Puertos
 
-`verdaccio` runs by default in the port `4873`. Change the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` se ejecuta por defecto en el puerto `4873`. Cambiar el puerto se puede cambiar via [cli](cli.md) o en el archivo de configuración, las siguientes opciones son válidas.
 
 ```yaml
 listen:
@@ -131,7 +131,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` enough with set your `listen` domain with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Para habilitar`https` en `verdaccio` es suficiente con definir en `listen` en su dominio el protocolo *https://*. Para mas información sobre esta sección leer [página de Ssl](ssl.md).
 
 ```yaml
 https:
@@ -140,9 +140,9 @@ https:
   ca: path/to/server.pem
 ```
 
-### Notifications
+### Notificaciones
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilitar notificaciones de herramientas a terceros es bastante fácil vía web hooks. Para mas información sobre esta sección lea [página de notificaciones](notifications.md).
 
 ```yaml
 notify:
