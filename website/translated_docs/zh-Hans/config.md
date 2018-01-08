@@ -44,7 +44,7 @@ storage: ./storage
 
 ### 认证
 
-默认的配置文件已经包含了基础的认证配置，它基于 `htpasswd` 并且已经内置于 Verdaccio 中。 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
+The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
 
 ```yaml
 auth:
