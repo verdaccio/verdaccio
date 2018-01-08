@@ -1,7 +1,7 @@
 ---
 id: installation
 date: 2017-07-10T23:36:56.503Z
-title: Installation
+title: 安装
 ---
 Verdaccio 是一个基于 Web 技术的跨平台应用，在安装它之前你需要确保满足以下前提条件
 
@@ -28,11 +28,11 @@ npm install -g verdaccio
 yarn global add verdaccio
 ```
 
-> Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
+> 警告: Verdaccio 目前不支持 PM2 的 Cluster 多进程模式，通过此方式运行可能造成未知后果
 
-## Basic Usage
+## 基本使用
 
-Once has been installed you only need to execute the CLI command.
+安装后只需要通过命令行启动即可使用
 
 ```bash
 $> verdaccio
@@ -42,8 +42,8 @@ warn --- http address - http://localhost:5555/ - verdaccio/3.0.0
 
 ![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
 
-For more information about CLI please [read the cli section](cli.md).
+阅读 [命令行文档](cli.md) 以了解更多信息。
 
-## Docker Image
+## Docker 镜像
 
-`verdaccio` has a official docker image you can use, in the most of cases is good enough just the default configuration, for more information about how to install the official image [read the docker section](docker.md).
+`Verdaccio` 提供了官方 Docker 镜像可供使用, 默认配置可以满足大多数用户的使用需求，如果希望了解更多有关于如何安装和使用 Docker 镜像的信息，请 [阅读文档中的 Docker 部分](docker.md).
