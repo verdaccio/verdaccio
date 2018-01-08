@@ -40,19 +40,19 @@
     "Plugins": "插件",
     "DevOps": "DevOps",
     "Development": "开发",
-    "Guides": "Guides"
+    "Guides": "使用指南"
   },
   "pages-strings": {
-    "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)|no description given": "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)",
-    "Browse Docs|no description given": "Browse Docs",
-    "Ask questions about the documentation and project|no description given": "Ask questions about the documentation and project",
-    "Join the community|no description given": "Join the community",
-    "Find out what's new with this project|no description given": "Find out what's new with this project",
-    "Stay up to date|no description given": "Stay up to date",
-    "Need help?|no description given": "Need help?",
+    "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)|no description given": "通过 [站内文档](/test-site/docs/en/doc1.html) 了解更多信息",
+    "Browse Docs|no description given": "浏览文档",
+    "Ask questions about the documentation and project|no description given": "询问有关于文档或项目的问题",
+    "Join the community|no description given": "加入社区",
+    "Find out what's new with this project|no description given": "了解项目中新增的内容",
+    "Stay up to date|no description given": "保持最新版本",
+    "Need help?|no description given": "需要帮助？",
     "This project is maintained by a dedicated group of people.|statement made to reader": "This project is maintained by a dedicated group of people.",
-    "Help Translate|recruit community translators for your project": "Help Translate",
-    "Edit this Doc|recruitment message asking to edit the doc source": "Edit",
-    "Translate this Doc|recruitment message asking to translate the docs": "Translate"
+    "Help Translate|recruit community translators for your project": "帮助翻译",
+    "Edit this Doc|recruitment message asking to edit the doc source": "编辑",
+    "Translate this Doc|recruitment message asking to translate the docs": "翻译"
   }
 }
