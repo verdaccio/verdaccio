@@ -66,7 +66,7 @@ web:
 
 ### Uplinks
 
-Uplinks es la habilidad del sistema para traer paquetes de registros remotos cuando los paquetes no están disponibles localmente. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks es la habilidad del sistema para traer paquetes de registros remotos cuando los paquetes no están disponibles localmente. Para mas información sobre esta sección lea [página de uplinks](uplinks.md).
 
 ```yaml
 uplinks:
@@ -74,7 +74,7 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Paquetes
 
 Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
@@ -86,9 +86,9 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Configuración Avanzada
 
-### Offline Publish
+### Publicar modo sin conexión
 
 By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden set it in to *true*.
 
@@ -99,7 +99,7 @@ publish:
 
 <small>Since: <em>v2.3.6</em> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefijos URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
@@ -115,7 +115,7 @@ By default the maximum body size for a JSON document is `1mb`, if you run in err
 max_body_size: 1mb
 ```
 
-### Listen Port
+### Puertos
 
 `verdaccio` runs by default in the port `4873`. Change the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
@@ -131,7 +131,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` enough with set your `listen` domain with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Para habilitar`https` en `verdaccio` es suficiente con definir en `listen` en su dominio el protocolo *https://*. Para mas información sobre esta sección leer [página de Ssl](ssl.md).
 
 ```yaml
 https:
@@ -140,9 +140,9 @@ https:
   ca: path/to/server.pem
 ```
 
-### Notifications
+### Notificaciones
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilitar notificaciones de herramientas a terceros es bastante fácil vía web hooks. Para mas información sobre esta sección lea [página de notificaciones](notifications.md).
 
 ```yaml
 notify:
