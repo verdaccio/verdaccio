@@ -32,19 +32,19 @@ logs:
 
 ## 模块
 
-The following sections explain what means each property and the different options.
+以下各章节解释了每一个选项的作用和可用的值
 
-### Storage
+### 存储
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+是默认的存储方式。** Verdaccio 默认使用内置本地文件模式存储 **。
 
 ```yaml
 storage: ./storage
 ```
 
-### Authentification
+### 认证
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is build-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+默认的配置文件已经包含了基础的认证配置，它基于 `htpasswd` 并且已经内置于 Verdaccio 中。 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
 
 ```yaml
 auth:
@@ -55,7 +55,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+这个选项允许你定制 Web UI 的外观. 如需了解更多信息，请阅读文档中的 [Web UI 部分](web.md).
 
 ```yaml
 web:
@@ -66,7 +66,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+通过配置 Uplinks ，Verdaccio 可以从远程的仓库中获取本地尚未缓存的包。 如需了解更多信息，请阅读文档中的 [Uplinks 部分](uplinks.md)
 
 ```yaml
 uplinks:
@@ -74,7 +74,7 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### 包
 
 Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
