@@ -55,7 +55,7 @@ auth:
 
 ### Web UI
 
-这个选项允许你定制 Web UI 的外观. 如需了解更多信息，请阅读文档中的 [Web UI 部分](web.md).
+这个选项允许你定制 Web UI 的外观. 如需了解更多信息，请阅读文档中的 ["Web UI" 部分](web.md).
 
 ```yaml
 web:
@@ -66,7 +66,7 @@ web:
 
 ### Uplinks
 
-通过配置 Uplinks ，Verdaccio 可以从远程的仓库中获取本地尚未缓存的包。 如需了解更多信息，请阅读文档中的 [Uplinks 部分](uplinks.md)
+通过配置 Uplinks ，Verdaccio 可以从远程的仓库中获取本地尚未缓存的包。 如需了解更多信息，请阅读文档中的 ["Uplinks" 部分](uplinks.md)
 
 ```yaml
 uplinks:
@@ -76,7 +76,7 @@ uplinks:
 
 ### 包
 
-Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+"包" 部分定义了用户访问仓库中的包的权限。如需了解更多信息，请阅读文档中的 [ "包" 部分](packages.md).
 
 ```yaml
 packages:
@@ -86,44 +86,44 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## 高级设置
 
-### Offline Publish
+### 离线发布
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden set it in to *true*.
+`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *ture* 来允许离线发布
 
 ```yaml
 publish:
   allow_offline: false
 ```
 
-<small>Since: <em>v2.3.6</em> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>最低版本: <em> v2.3.6 </em> 由于 <a href="https://github.com/verdaccio/verdaccio/pull/223"> #223 </a></small>
 
-### URL Prefix
+### URL 前缀
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: *v2.3.6* due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+最低版本: * v2.3.6 * 由于 [ #197 ](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### 最大 Body 尺寸
 
-By default the maximum body size for a JSON document is `1mb`, if you run in errors as `"request entity too large"` you may increase this value.
+默认的 JSON 请求 Body 尺寸为 `1MB`，如果你遇到了错误提示 `"request entity too large"` ，可以尝试zeng'j增大这个值
 
 ```yaml
 max_body_size: 1mb
 ```
 
-### Listen Port
+### 监听端口
 
-`verdaccio` runs by default in the port `4873`. Change the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`Verdaccio` 默认使用 `4873` 端口. 可以通过 [命令行传递参数](cli.md) 或修改配置文件，以下格式是有效的
 
 ```yaml
 listen:
-# - localhost:4873            # default value
-# - http://localhost:4873     # same thing
-# - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
+# - localhost:4873            # 默认
+# - http://localhost:4873     # 同上
+# - 0.0.0.0:4873              # 监听所有 IP 地址 (INADDR_ANY)
 # - https://example.org:4873  # if you want to use https
 # - [::1]:4873                # ipv6
 # - unix:/tmp/verdaccio.sock    # unix socket
