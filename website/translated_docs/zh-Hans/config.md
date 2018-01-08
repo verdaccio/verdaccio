@@ -1,15 +1,15 @@
 ---
 id: configuration
 date: 2017-07-10T23:36:56.503Z
-title: Configuration File
+title: 配置文件
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
 
-A default configuration file is created the very first time you run `verdaccio`.
+一个默认的配置文件已经在您首次运行 ` Verdaccio ` 时创建。
 
-## Default Configuration
+## 默认配置
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+默认配置支持 ** 私有(scoped) ** 包, 并允许匿名访问非私有包, 但只有 ** 已登陆用户才能发布包**。
 
 ```yaml
 storage: ./storage
@@ -30,7 +30,7 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## 模块
 
 The following sections explain what means each property and the different options.
 
