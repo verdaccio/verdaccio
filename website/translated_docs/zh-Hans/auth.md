@@ -51,6 +51,6 @@ auth:
 | 属性        | 类型     | 必填 | 示例         | 支持   | 描述                     |
 | --------- | ------ | -- | ---------- | ---- | ---------------------- |
 | file      | string | 是  | ./htpasswd | 任意路径 | 存储了加密认证信息的 htpasswd 文件 |
-| max_users | number | No | 1000       | all  | set limit of users     |
+| max_users | number | 否  | 1000       | 任意数字 | 最大的用户数量                |
 
-In case to decide do not allow user to login, you can set `max_users: -1`.
+如果需要禁止新用户注册，可将配置修改为 `max_users: -1`.
