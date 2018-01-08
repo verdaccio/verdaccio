@@ -14,7 +14,6 @@
     "docker": "Docker",
     "home": "Verdaccio 私有 npm 代理仓库",
     "iss-server": "在 IIS 上安装",
-    "index1": "文档首页",
     "installation": "安装",
     "kubernetes": "Kubernetes",
     "logger": "日志",
