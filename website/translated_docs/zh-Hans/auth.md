@@ -1,17 +1,17 @@
 ---
 id: authentification
 date: 2017-07-10T23:36:56.503Z
-title: Authentification
+title: 认证
 ---
-The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
+认证部分设置与 "Auth" [ 插件 ](plugins.md)息息相关。包的访问限制也同时通过 [ 包访问权限](packages.md) 控制。
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+客户端的认证流程由 `npm` 自行处理，在你通过以下命令登陆后：
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+`npm` 会将 Verdaccio 返回的 Token 保存在配置文件中，它存放于您的用户主目录下。 如需了解更多有关于 `npm 配置 (.npmrc)` 相关的内容，请查阅 [官方文档](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -20,7 +20,7 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### 匿名发布包
 
 `verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages acces](packages.md).
 
