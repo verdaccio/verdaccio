@@ -3,13 +3,13 @@ id: configuration
 date: 2017-07-10T23:36:56.503Z
 title: Configuration File
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Este archivo es la piedra angular de verdaccio donde puedes modificar su comportamiento por defecto, activar plugins y características externas.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Cuando ejecutas por primera vez ` verdaccio` se crea un archivo de configuración por defecto.
 
-## Default Configuration
+## Configuración por Defecto
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+La configuración por defecto tiene soporte para paquetes con **enfoque** y permite a los usuarios acceder a todos los paquetes pero solo **a los usuarios autentificados a publicarlos**.
 
 ```yaml
 storage: ./storage
@@ -30,9 +30,9 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Secciones
 
-The following sections explain what means each property and the different otpions
+Las siguientes secciones explican que significa cada propiedad y las diferentes configuraciones posibles.
 
 ### Storage
 
