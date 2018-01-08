@@ -131,7 +131,7 @@ listen:
 
 ### HTTPS
 
-可通过在 `listen` 的域名前增加 *https://* 并设置证书路径来启用 HTTPS 支持。 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
+可通过在 `listen` 的域名前增加 *https://* 并设置证书路径来启用 `Verdaccio` 的 HTTPS 支持。 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
 
 ```yaml
 https:
