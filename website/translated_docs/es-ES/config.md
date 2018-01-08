@@ -1,7 +1,7 @@
 ---
 id: configuration
 date: 2017-07-10T23:36:56.503Z
-title: Configuration File
+title: Archivo de Configuración
 ---
 Este archivo es la piedra angular de verdaccio donde puedes modificar su comportamiento por defecto, activar plugins y características externas.
 
@@ -76,7 +76,7 @@ uplinks:
 
 ### Paquetes
 
-Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paquetes permiten al usuario como los paquetes van a ser accedido. Para mas información sobre esta sección leer [la página de paquetes](packages.md).
 
 ```yaml
 packages:
@@ -117,7 +117,7 @@ max_body_size: 1mb
 
 ### Puertos
 
-`verdaccio` runs by default in the port `4873`. Change the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` se ejecuta por defecto en el puerto `4873`. Cambiar el puerto se puede cambiar via [cli](cli.md) o en el archivo de configuración, las siguientes opciones son válidas.
 
 ```yaml
 listen:
