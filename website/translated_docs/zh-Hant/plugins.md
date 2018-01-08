@@ -3,7 +3,7 @@ id: plugins
 date: 2017-07-10T23:36:56.503Z
 title: Plugins
 ---
-Verdaccio is an plugabble aplication. Currently supports multiple plugins only for [Auhtentification](auth.md) but there are plans to [improve the plugin system](https://github.com/verdaccio/verdaccio/issues/169). If you are intested to develop your own plugin, read the [development](development.md) section.
+Verdaccio is an plugabble aplication. Currently supports multiple plugins only for [Authentication](auth.md) but there are plans to [improve the plugin system](https://github.com/verdaccio/verdaccio/issues/169). If you are interested to develop your own plugin, read the [development](development.md) section.
 
 ## Usage
 
@@ -85,6 +85,7 @@ This is a list of plugins compatible with **Verdaccio**.
 * [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
+* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
 
 ## Caveats
 
