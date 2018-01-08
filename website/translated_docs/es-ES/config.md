@@ -34,17 +34,17 @@ logs:
 
 Las siguientes secciones explican que significa cada propiedad y las diferentes configuraciones posibles.
 
-### Storage
+### Almacenamiento
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Es la localización por defecto del almacenamiento. **Verdaccio esta basado por defecto en archivos locales de sistema**.
 
 ```yaml
 storage: ./storage
 ```
 
-### Authentification
+### Autentificación
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is build-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. Puedes modificar el comportamiento por defecto vía [extensiones](plugins.md). For more information about this section read the [auth page](auth.md).
 
 ```yaml
 auth:
