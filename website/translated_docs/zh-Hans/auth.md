@@ -22,9 +22,9 @@ registry=http://localhost:5555/
 
 #### 匿名发布包
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages acces](packages.md).
+`Verdaccio` 提供了匿名发布功能, 使用此功能需要正确配置 [包访问权限](packages.md).
 
-Eg:
+例如：
 
 ```yaml
   'my-company-*':
@@ -33,11 +33,11 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+如 [Issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) 所述，截至 `npm@5.3.0` 你仍然 **无法在没有 Token 的情况下发布包**。 `yarn` 没有此限制。
 
-## Default htpasswd
+## 默认 htpasswd
 
-In order to simplify the setup, `verdaccio` use a build-in plugin based on `htpasswd`.
+为了简化安装配置步骤, `Verdaccio` 提供了一个基于 `htpasswd` 的内置认证插件.
 
 ```yaml
 auth:
@@ -48,9 +48,9 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| 属性        | 类型     | 必填 | 示例         | 支持   | 描述                     |
+| --------- | ------ | -- | ---------- | ---- | ---------------------- |
+| file      | string | 是  | ./htpasswd | 任意路径 | 存储了加密认证信息的 htpasswd 文件 |
+| max_users | number | No | 1000       | all  | set limit of users     |
 
 In case to decide do not allow user to login, you can set `max_users: -1`.
