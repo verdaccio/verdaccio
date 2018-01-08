@@ -32,7 +32,7 @@ logs:
 
 ## Secciones
 
-The following sections explain what means each property and the different options.
+Las siguientes secciones explican que significa cada propiedad y las diferentes configuraciones posibles.
 
 ### Storage
 
