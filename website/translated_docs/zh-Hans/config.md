@@ -109,7 +109,7 @@ url_prefix: https://dev.company.local/verdaccio/
 
 ### 最大 Body 尺寸
 
-默认的 JSON 请求 Body 尺寸为 `1MB`，如果你遇到了错误提示 `"request entity too large"` ，可以尝试zeng'j增大这个值
+默认的 JSON 请求 Body 尺寸为 `1MB`，如果你遇到了错误提示 `"request entity too large"` ，可以尝试增大这个值
 
 ```yaml
 max_body_size: 1mb
@@ -131,7 +131,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` enough with set your `listen` domain with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+可通过在 `listen` 的域名前增加 *https://* 并设置证书路径来启用 HTTPS 支持。 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
 
 ```yaml
 https:
@@ -140,14 +140,14 @@ https:
   ca: path/to/server.pem
 ```
 
-### Notifications
+### 通知
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+可以通过启用 "通知" 功能来调用第三方工具的 Web Hooks。如需了解更多信息，请阅读文档中的 ["通知" 部分](notifications.md)
 
 ```yaml
 notify:
   method: POST
   headers: [{'Content-Type': 'application/json'}]
   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
-  content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+  content: '{"color":"green","message":"发布了新的包: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
