@@ -1,6 +1,5 @@
 ---
 id: iss-server
-date: '2017-07-10T23:36:56.503Z'
 title: "Installing on IIS server"
 ---
 

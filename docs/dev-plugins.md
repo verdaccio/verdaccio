@@ -1,6 +1,5 @@
 ---
 id: dev-plugins
-date: '2017-07-10T23:36:56.503Z'
 title: "Developing Plugins"
 ---
 
