@@ -1,7 +1,6 @@
 ---
 id: configuration
-date: 2017-07-10T23:36:56.503Z
-title: 配置文件
+title: Configuration File
 ---
 此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
 
