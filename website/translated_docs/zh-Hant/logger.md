@@ -1,6 +1,5 @@
 ---
 id: logger
-date: 2017-07-10T23:36:56.503Z
 title: Logger
 ---
 As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
