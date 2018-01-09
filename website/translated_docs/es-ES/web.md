@@ -1,7 +1,6 @@
 ---
 id: webui
-date: 2017-07-10T23:36:56.503Z
-title: Interfaz Web de Usuario
+title: Web User Interface
 ---
 Verdaccio contiene una interfaz web para mostrar paquetes privados, puede ser personalizable.
 

@@ -1,6 +1,5 @@
 ---
 id: contributing
-date: 2017-07-10T23:36:56.503Z
 title: Contributing Verdaccio
 ---
 First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
@@ -10,7 +9,7 @@ First of all Jumping into an unfamiliar code base is not easy but we are here to
 If you are willing for asking, we use two channels for discussions:
 
 * [Public Gitter channel](https://gitter.im/verdaccio/)
-* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in Gitter to be included)
+* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
 
 ## Getting started
 
@@ -28,7 +27,7 @@ We have a long [list of plugins](https://github.com/verdaccio/verdaccio/blob/mas
 
 ### I would prefer to work in the User Interface
 
-Recently we have moved to modern techonologies as `React` and `element-react`.
+Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
 
 ### I feel more confortable improving the stack
 
@@ -39,9 +38,9 @@ Here some ideas:
 * Create a common eslint rules to be used across all dependencies or plugins
 * Improve Flow types definitions delivery
 * Moving to Webpack 4
-* Update to React 16
 * Improve hot reload with Webpack
 * We use babel and webpack across all dependencies, why not a common preset?
+* Improve continous integration delivery
 
 ### I do great Documentation
 
@@ -51,11 +50,23 @@ Many contributors find typos and grammar issues, that also helps to improve the 
 
 We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
+Our website is based on [Docusaurus](https://docusaurus.io/).
+
 ### I am a DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
 We have support for **Kubernetes**, **Puppet**, **Ansible** and **Cheff** and we need help in those fields, feel free to see all repositories.
+
+### I can do translations
+
+Verdaccio aims to be multilingual, in order to achieve it we have the awesome support of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+
+![](https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png?1485948891 | width=100)
+
+We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+
+[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
 ## I'm ready to contribute
 

@@ -1,6 +1,5 @@
 ---
 id: ansible
-date: 2017-07-10T23:36:56.503Z
 title: Installing with Ansible
 ---
 We have a customised solution for `verdaccio` in our organization.

@@ -1,7 +1,6 @@
 ---
 id: authentification
-date: 2017-07-10T23:36:56.503Z
-title: 认证
+title: Authentification
 ---
 认证部分设置与 "Auth" [ 插件 ](plugins.md)息息相关。包的访问限制也同时通过 [ 包访问权限](packages.md) 控制。
 

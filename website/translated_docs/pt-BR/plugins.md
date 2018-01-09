@@ -1,6 +1,5 @@
 ---
 id: plugins
-date: 2017-07-10T23:36:56.503Z
 title: Plugins
 ---
 Verdaccio is an plugabble aplication. Currently supports multiple plugins only for [Authentication](auth.md) but there are plans to [improve the plugin system](https://github.com/verdaccio/verdaccio/issues/169). If you are interested to develop your own plugin, read the [development](development.md) section.

@@ -1,6 +1,5 @@
 ---
 id: webui
-date: 2017-07-10T23:36:56.503Z
 title: Web User Interface
 ---
 Verdaccio has a web user interface to display only the private packges and can be customisable.

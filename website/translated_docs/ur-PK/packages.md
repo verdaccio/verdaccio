@@ -1,6 +1,5 @@
 ---
 id: packages
-date: 2017-07-10T23:36:56.503Z
 title: Package Access
 ---
 It's a series of contrains that allow or restrict access to the local storage based in specific criteria.

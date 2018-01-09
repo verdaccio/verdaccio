@@ -1,7 +1,6 @@
 ---
 id: home
-date: 2017-07-10T23:36:56.503Z
-title: Verdaccio 私有 npm 代理仓库
+title: Verdaccio npm proxy private registry
 ---
 
 

@@ -1,6 +1,5 @@
 ---
 id: ssl
-date: 2017-07-10T23:36:56.503Z
 title: Set up the SSL Certificates
 ---
 Follow this instructions to configure a SSL certificate to serve NPM registry under HTTPS.
