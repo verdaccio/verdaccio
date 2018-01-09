@@ -52,6 +52,6 @@ deployment:
 general:
   branches:
     ignore:
-      - gh-pages # list of branches to ignore
+      - gh-pages
       - l10n_master
-      - /release\/.*/ # or ignore regexes
+      - /release\/.*/
