@@ -1,7 +1,6 @@
 ---
 id: configuration
-date: 2017-07-10T23:36:56.503Z
-title: Archivo de Configuración
+title: Configuration File
 ---
 Este archivo es la piedra angular de verdaccio donde puedes modificar su comportamiento por defecto, activar plugins y características externas.
 
