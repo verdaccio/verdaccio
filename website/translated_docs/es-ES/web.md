@@ -1,9 +1,9 @@
 ---
 id: webui
 date: 2017-07-10T23:36:56.503Z
-title: Web User Interface
+title: Interfaz Web de Usuario
 ---
-Verdaccio has a web user interface to display only the private packges and can be customisable.
+Verdaccio contiene una interfaz web para mostrar paquetes privados, puede ser personalizable.
 
 ```yaml
 web:
@@ -12,10 +12,10 @@ web:
   logo: logo.png
 ```
 
-### Configuration
+### Configuración
 
-| Property | Type    | Required | Example                        | Support | Description                        |
-| -------- | ------- | -------- | ------------------------------ | ------- | ---------------------------------- |
-| enable   | boolean | No       | true/false                     | all     | allow to display the web interface |
-| title    | string  | No       | $authenticated                 | all     | HTML head title description        |
-| logo     | string  | No       | http://my.logo.domain/logo.png | all     | a URI where logo is located        |
+| Propiedad | Tipo    | Requerido | Ejemplo                        | Soporte | Descripcion                          |
+| --------- | ------- | --------- | ------------------------------ | ------- | ------------------------------------ |
+| enable    | boolean | No        | true/false                     | all     | habilita la interfaz web             |
+| title     | string  | No        | $authenticated                 | all     | El título de la interfaz web         |
+| logo      | string  | No        | http://my.logo.domain/logo.png | all     | el URI donde el logo esta localizado |
