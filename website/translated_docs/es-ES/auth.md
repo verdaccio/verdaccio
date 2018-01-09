@@ -1,6 +1,5 @@
 ---
 id: authentification
-date: 2017-07-10T23:36:56.503Z
 title: Authentification
 ---
 The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
