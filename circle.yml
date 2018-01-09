@@ -48,7 +48,7 @@ deployment:
         - git config --global user.email "verdacciobot@users.noreply.github.com"
         - git config --global user.name "verdacciobot"
         - echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
-        - cd website && yarn install && GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
+        - cd website && yarn install && yarn run build && GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
 general:
   branches:
     ignore:
