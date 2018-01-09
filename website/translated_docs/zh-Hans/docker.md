@@ -1,6 +1,5 @@
 ---
 id: docker
-date: 2017-07-10T23:36:56.503Z
 title: Docker
 ---
 To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
@@ -41,7 +40,7 @@ The Canary version (master branch) is tagged as `next`
 docker pull verdaccio/verdaccio:next
 ```
 
-# Running verdaccio using Docker
+## Running verdaccio using Docker
 
 To run the docker container:
 
@@ -62,7 +61,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-## Docker and custom port configuration
+### Docker and custom port configuration
 
 Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
 
@@ -78,7 +77,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-## Using HTTPS with Docker
+### Using HTTPS with Docker
 
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
@@ -88,7 +87,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-## Using docker-compose
+### Using docker-compose
 
 1. Get the latest version of [docker-compose](https://github.com/docker/compose).
 2. Build and run the container:
@@ -114,7 +113,7 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-# Build your own Docker image
+## Build your own Docker image
 
 ```bash
 docker build -t verdaccio .
@@ -136,7 +135,7 @@ npm run build:docker:rpi
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
 
-# Docker Examples
+## Docker Examples
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
