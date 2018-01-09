@@ -13,7 +13,7 @@ const siteConfig = {
   tagline: 'A lightweight private npm proxy registry',
   url: 'http://www.verdaccio.org' /* your website url */,
   organizationName: 'verdaccio',
-  baseUrl: '/' /* base url for your project */,
+  baseUrl: '/verdaccio' /* base url for your project */,
   projectName: 'verdaccio',
   headerLinks: [
     {doc: 'installation', label: 'Docs'},
