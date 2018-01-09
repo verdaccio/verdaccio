@@ -42,9 +42,16 @@ deployment:
       tag: /.*-beta.*/
       commands:
       - ./scripts/beta-publish.sh
+  website:
+      branch: master
+      commands:
+        - git config --global user.email "verdacciobot@users.noreply.github.com"
+        - git config --global user.name "Verdaccio bot 🤖 for Deployments"
+        - echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
+        - cd website && yarn install && yarn run build && GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
 general:
   branches:
     ignore:
-      - gh-pages # list of branches to ignore
+      - gh-pages
       - l10n_master
-      - /release\/.*/ # or ignore regexes
+      - /release\/.*/
