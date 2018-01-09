@@ -1,6 +1,5 @@
 ---
 id: notifications
-date: 2017-07-10T23:36:56.503Z
 title: Notifications
 ---
 Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `publish` / `create` commands.
