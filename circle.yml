@@ -42,6 +42,13 @@ deployment:
       tag: /.*-beta.*/
       commands:
       - ./scripts/beta-publish.sh
+  website:
+      branch: test_website
+      commands:
+        - git config --global user.email "<GITHUB_USERNAME>@users.noreply.github.com"
+        - git config --global user.name "<YOUR_NAME>"
+        - echo "machine github.com login <GITHUB_USERNAME> password $GITHUB_TOKEN" > ~/.netrc
+        - cd website && npm install && GIT_USER=<GIT_USER> yarn run publish-gh-pages
 general:
   branches:
     ignore:
