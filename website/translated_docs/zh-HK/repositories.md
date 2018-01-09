@@ -1,6 +1,5 @@
 ---
 id: source-code
-date: 2017-07-10T23:36:56.503Z
 title: Source Code
 ---
 `verdaccio` is composed or multiple repositories you might contribute. Look into the **issues** tab whether there is a ticket waiting for you 
