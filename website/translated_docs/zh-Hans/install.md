@@ -1,7 +1,6 @@
 ---
 id: installation
-date: 2017-07-10T23:36:56.503Z
-title: 安装
+title: Installation
 ---
 Verdaccio 是一个基于 Web 技术的跨平台应用，在安装它之前你需要确保满足以下前提条件
 
