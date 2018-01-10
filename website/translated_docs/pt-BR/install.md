@@ -45,4 +45,4 @@ Para mais informações sobre a Linha de Comando, por favor [leia a seção sobr
 
 ## Imagem do Docker
 
-`verdaccio` já possui uma imagem do Docker oficial, na maioria dos casos a configuração padrão já é suficiente. Para mais informações sobre como instalar a imagem oficial, visite a [seção do Docker](docker.md).
+`verdaccio` já possui uma imagem para o Docker oficial, na maioria dos casos a configuração padrão já é suficiente. Para mais informações sobre como instalar a imagem oficial, visite a [seção do Docker](docker.md).
