@@ -2,11 +2,11 @@
 id: docker
 title: Docker
 ---
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+Para descargar la última [imagen de Docker](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 `docker pull verdaccio/verdaccio`
 
-## Tagged Versions
+## Versiones con Etiquetas
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
