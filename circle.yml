@@ -54,4 +54,5 @@ general:
     ignore:
       - gh-pages
       - l10n_master
+      - greenkeeper*
       - /release\/.*/
