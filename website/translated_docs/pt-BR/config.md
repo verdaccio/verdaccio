@@ -1,12 +1,12 @@
 ---
 id: configuration
-title: Configuration File
+title: Arquivo de Configuração
 ---
 This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
 
 A default configuration file is created the very first time you run `verdaccio`.
 
-## Default Configuration
+## Configuração Padrão
 
 The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
 
@@ -29,7 +29,7 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Seções
 
 The following sections explain what means each property and the different options.
 
