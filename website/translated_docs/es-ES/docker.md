@@ -50,9 +50,9 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 El último argumento define cual imagen se usará. La linea anterior descargara la ultima imagen desde dockerhub, si you no lo has echo aún.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Si has[construido la imagen localmente](#build-your-own-docker-image)usa solamente ` http://www. verdaccio. org/verdaccio/` como último argumento.
 
-You can use `-v` to mount `conf` and `storage` to the hosts filesystem:
+Puedes usar `-v` para montar ` conf` y ` storage` como volúmenes externos:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
