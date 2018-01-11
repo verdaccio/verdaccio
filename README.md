@@ -123,7 +123,7 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 
 ## Server Side Configuration
 
-When you start a server, it auto-creates a config file. For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](https://github.com/verdaccio/verdaccio/tree/master/wiki/server.md).
+When you start a server, it auto-creates a config file. For instructions on how to run Verdaccio as a service, with a nice URL or behind a proxy have a look at the [server-side configure document](https://github.com/verdaccio/verdaccio/blob/master/docs/server.md).
 
 ## Docker
 
