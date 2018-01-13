@@ -71,13 +71,13 @@ class LocalStorage implements IStorage {
   }
 
   addPackage(name: string, pkg: Package, callback: Callback) {
-    const storage: IPackageStorage = this._getLocalStorage(name);
+    const storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return callback( Utils.ErrorCode.get404('this package cannot be added'));
     }
 
-    storage.createPackage(pkgFileName, generatePackageTemplate(name), (err) => {
+    storage.createPackage(name, generatePackageTemplate(name), (err) => {
       if (_.isNull(err) === false && err.code === fileExist) {
         return callback( Utils.ErrorCode.get409());
       }
@@ -98,13 +98,13 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   removePackage(name: string, callback: Callback) {
-    let storage: IPackageStorage = this._getLocalStorage(name);
+    let storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return callback( Utils.ErrorCode.get404());
     }
 
-    storage.readPackage(pkgFileName, (err, data) => {
+    storage.readPackage(name, (err, data) => {
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
           return callback( Utils.ErrorCode.get404());
@@ -121,7 +121,6 @@ class LocalStorage implements IStorage {
         // This will happen when database is locked
         return callback(Utils.ErrorCode.get422(removeFailed.message));
       }
-
       storage.deletePackage(pkgFileName, (err) => {
         if (err) {
           return callback(err);
@@ -407,6 +406,7 @@ class LocalStorage implements IStorage {
     const uploadStream = new UploadTarball();
     const _transform = uploadStream._transform;
     const storage = this._getLocalStorage(name);
+
     uploadStream.abort = function() {};
     uploadStream.done = function() {};
 
@@ -527,7 +527,7 @@ class LocalStorage implements IStorage {
    * @private
    * @return {ReadTarball}
    */
-  _streamSuccessReadTarBall(storage: IPackageStorage, filename: string) {
+  _streamSuccessReadTarBall(storage: any, filename: string) {
     const stream = new ReadTarball();
     const readTarballStream = storage.readTarball(filename);
     const e404 = Utils.ErrorCode.get404;
@@ -572,7 +572,7 @@ class LocalStorage implements IStorage {
       return callback( Utils.ErrorCode.get404() );
     }
 
-    this._readPackage(storage, callback);
+    this._readPackage(name, storage, callback);
   }
 
   /**
@@ -645,14 +645,7 @@ class LocalStorage implements IStorage {
    * @return {Object}
    */
   _getLocalStorage(packageInfo: string): IPackageStorage {
-    const path: string = this._getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
-
-    if (_.isString(path) === false) {
-      this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
-      return;
-    }
-
-    return this.localData.getPackageStorage(packageInfo, path);
+    return this.localData.getPackageStorage(packageInfo);
   }
 
   /**
@@ -660,8 +653,8 @@ class LocalStorage implements IStorage {
    * @param {Object} storage
    * @param {Function} callback
    */
-  _readPackage(storage: IPackageStorage, callback: Callback) {
-    storage.readPackage(pkgFileName, (err, result) => {
+  _readPackage(name: string, storage: any, callback: Callback) {
+    storage.readPackage(name, (err, result) => {
       if (err) {
         if (err.code === noSuchFile) {
           return callback( Utils.ErrorCode.get404() );
@@ -672,20 +665,6 @@ class LocalStorage implements IStorage {
 
       callback(err, normalizePackage(result));
     });
-  }
-
-  /**
-   * Verify the right local storage location.
-   * @param {String} path
-   * @return {String}
-   * @private
-   */
-  _getLocalStoragePath(path: string): string {
-    if (_.isNil(path) === false) {
-      return path;
-    }
-
-    return this.config.storage;
   }
 
   /**
@@ -751,12 +730,12 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   _readCreatePackage(name: string, callback: Callback) {
-    const storage: IPackageStorage = this._getLocalStorage(name);
+    const storage: any = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return this._createNewPackage(name, callback);
     }
 
-    storage.readPackage(pkgFileName, (err, data) => {
+    storage.readPackage(name, (err, data) => {
       // TODO: race condition
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
@@ -812,11 +791,11 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   _writePackage(name: string, json: Package, callback: Callback) {
-    const storage: IPackageStorage = this._getLocalStorage(name);
+    const storage: any = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return callback();
     }
-    storage.savePackage(pkgFileName, this._setDefaultRevision(json), callback);
+    storage.savePackage(name, this._setDefaultRevision(json), callback);
   }
 
   _setDefaultRevision(json: Package) {
@@ -830,7 +809,7 @@ class LocalStorage implements IStorage {
     return json;
   }
 
-  _deleteAttachments(storage: IPackageStorage, attachments: string[], callback: Callback): void {
+  _deleteAttachments(storage: any, attachments: string[], callback: Callback): void {
     const unlinkNext = function(cb) {
       if (_.isEmpty(attachments)) {
         return cb();
