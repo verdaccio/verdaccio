@@ -85,7 +85,7 @@ function loadPlugin(config, plugin_configs, params, sanity_check) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
     }
-    logger.logger.info({content: p}, 'Plugin successfully loaded: @{content}');
+    logger.logger.warn({content: p}, 'Plugin successfully loaded: @{content}');
     return plugin;
   });
 
