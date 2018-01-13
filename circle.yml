@@ -6,6 +6,8 @@ machine:
     version: 9
 dependencies:
   pre:
+    - git config --global user.email "verdacciobot@users.noreply.github.com"
+    - git config --global user.name "Verdaccio bot 🤖 for Deployments"
     - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
     - |
       if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
@@ -29,6 +31,8 @@ test:
     - yarn run test
     - nvm alias default 9
     - yarn run test
+    - echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
+    - cd website && yarn install && GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
 deployment:
   production:
     tag: /(v)?[0-9]+(\.[0-9]+)*/
@@ -42,13 +46,6 @@ deployment:
       tag: /.*-beta.*/
       commands:
       - ./scripts/beta-publish.sh
-  website:
-      branch: master
-      commands:
-        - git config --global user.email "verdacciobot@users.noreply.github.com"
-        - git config --global user.name "Verdaccio bot 🤖 for Deployments"
-        - echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
-        - cd website && yarn install && GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
 general:
   branches:
     ignore:
