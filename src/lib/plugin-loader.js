@@ -27,6 +27,10 @@ function isES6(plugin) {
   return Object.keys(plugin).includes('default');
 }
 
+function mergeConfig(appConfig, pluginConfig) {
+  return _.merge(appConfig, pluginConfig);
+}
+
 /**
  * Load a plugin following the rules
  * - First try to load from the internal directory plugins (which will disappear soon or later).
@@ -74,7 +78,7 @@ function loadPlugin(config, plugin_configs, params, sanity_check) {
     }
 
     /* eslint new-cap:off */
-    plugin = isES6(plugin) ? new plugin.default(plugin_configs[p], params) : plugin(plugin_configs[p], params);
+    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, plugin_configs[p]), params) : plugin(plugin_configs[p], params);
     /* eslint new-cap:off */
 
     if (plugin === null || !sanity_check(plugin)) {

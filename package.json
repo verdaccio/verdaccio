@@ -16,9 +16,8 @@
   },
   "dependencies": {
     "@verdaccio/file-locking": "0.0.5",
-    "@verdaccio/local-storage": "0.1.0",
+    "@verdaccio/local-storage": "0.1.2",
     "@verdaccio/streams": "0.0.2",
-    "@verdaccio/types": "0.1.0",
     "JSONStream": "^1.1.1",
     "apache-md5": "^1.1.2",
     "async": "^2.6.0",
@@ -49,6 +48,7 @@
     "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
+    "@verdaccio/types": "0.1.1",
     "axios": "0.17.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
@@ -84,8 +84,8 @@
     "eslint-plugin-babel": "4.1.2",
     "eslint-plugin-flowtype": "2.39.1",
     "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-react": "7.5.1",
     "eslint-plugin-jest": "^21.2.0",
+    "eslint-plugin-react": "7.5.1",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
     "flow-bin": "0.52.0",
@@ -138,6 +138,7 @@
     "pretest": "npm run code:build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --maxWorkers 2",
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js' --maxWorkers 2",
+    "test:func": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/functional.*\\.func)\\.js' --maxWorkers 2",
     "pre:ci": "npm run lint && npm run build:webui",
     "coverage:publish": "codecov",
     "lint": "npm run flow && eslint .",
