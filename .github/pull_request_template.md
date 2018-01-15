@@ -3,8 +3,8 @@ https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#git-commit-gu
 -->
 
 <!-- 
-  If your Pull Request fix an issue don't forget to update the unit test and documentation in /wiki folder
-  If your Pull Request deliver a new feature, please, provide examples and why such feature should be considered, this information is    important to document the Github changelog. Also try to increase documentation and create new unit/functional test.  
+  If your Pull Request fix an issue don't forget to update the unit test and documentation in /docs folder
+  If your Pull Request delivers a new feature, please, provide examples and why such feature should be considered, this information is important to document the Github changelog. Also, try to increase documentation and create new unit/functional test.  
 -->
 
 <!-- Pick only one type, whether none apply, please suggest one, we might be included it by default -->
@@ -21,7 +21,7 @@ Our bots should ensure:
 * The PR passes CI testing
 -->
 
-<!-- If there is no issue related with this PR just remove the following section -->
+<!-- If there is no issue related to this PR just remove the following section -->
 **Description:**
 
 Resolves #???
