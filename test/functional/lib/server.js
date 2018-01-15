@@ -146,7 +146,7 @@ export default class Server implements IServerBridge {
     }).send(JSON.stringify(version));
   }
 
-  putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function) {
+  putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function): Promise<*> {
     let promise = this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
