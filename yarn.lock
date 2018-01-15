@@ -4574,7 +4574,7 @@ jest-changed-files@^22.1.0:
   dependencies:
     throat "^4.0.0"
 
-jest-cli@^22.0.6:
+jest-cli@^22.1.1:
   version "22.1.1"
   resolved "https://registry.npmjs.org/jest-cli/-/jest-cli-22.1.1.tgz#fa101866fbce926d875dfe5b3565785dc7922b1d"
   dependencies:
@@ -4816,11 +4816,11 @@ jest-worker@^22.1.0:
   dependencies:
     merge-stream "^1.0.1"
 
-jest@22.0.6:
-  version "22.0.6"
-  resolved "https://registry.npmjs.org/jest/-/jest-22.0.6.tgz#0d0d3bdc402c43cf5a3eae58a55cff6da8b6820f"
+jest@22.1.1:
+  version "22.1.1"
+  resolved "https://registry.npmjs.org/jest/-/jest-22.1.1.tgz#96bf8cc65059e2fdc84c5b4de4e4a736d799a342"
   dependencies:
-    jest-cli "^22.0.6"
+    jest-cli "^22.1.1"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.0"
