@@ -8,6 +8,7 @@ module.exports = {
     'node_modules',
     'fixtures'
   ],
+  'testEnvironment': 'jest-environment-jsdom-global',
   'testRegex': '(/test/unit.*\\.spec|test/functional.*\\.func|/test/webui/.*\\.spec)\\.js',
   // 'testRegex': '(test/functional.*\\.func)\\.js'
   'setupFiles': [

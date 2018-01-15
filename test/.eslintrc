@@ -7,6 +7,9 @@
     "mocha": true,
     "es6": true
   },
+  "globals": {
+    "jsdom": true
+  },
   "rules": {
     "valid-jsdoc": 0,
     "no-redeclare": 1,

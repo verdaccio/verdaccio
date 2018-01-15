@@ -34,6 +34,11 @@ import type {
   IPackageStorage,
 } from '@verdaccio/local-storage';
 
+import type {
+  IUploadTarball,
+  IReadTarball,
+} from '@verdaccio/streams';
+
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
  */
@@ -403,7 +408,7 @@ class LocalStorage implements IStorage {
 
     let length = 0;
     const shaOneHash = Crypto.createHash('sha1');
-    const uploadStream = new UploadTarball();
+    const uploadStream: IUploadTarball = new UploadTarball();
     const _transform = uploadStream._transform;
     const storage = this._getLocalStorage(name);
 
@@ -431,7 +436,7 @@ class LocalStorage implements IStorage {
       return uploadStream;
     }
 
-    const writeStream = storage.writeTarball(filename);
+    const writeStream: IUploadTarball = storage.writeTarball(filename);
 
     writeStream.on('error', (err) => {
       if (err.code === fileExist) {
@@ -512,7 +517,7 @@ class LocalStorage implements IStorage {
    * @return {ReadTarball}
    */
   _createFailureStreamResponse() {
-    const stream = new ReadTarball();
+    const stream: IReadTarball = new ReadTarball();
 
     process.nextTick(() => {
       stream.emit('error', this._getFileNotAvailable());
@@ -528,7 +533,7 @@ class LocalStorage implements IStorage {
    * @return {ReadTarball}
    */
   _streamSuccessReadTarBall(storage: any, filename: string) {
-    const stream = new ReadTarball();
+    const stream: IReadTarball = new ReadTarball();
     const readTarballStream = storage.readTarball(filename);
     const e404 = Utils.ErrorCode.get404;
 
