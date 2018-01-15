@@ -24,7 +24,7 @@ All we have different skills, so, let's see where you might feel comfortable.
 
 Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
-We have a long [list of plugins](https://github.com/verdaccio/verdaccio/blob/master/wiki/plugins.md) ready to be used and improved but at the same time [you might create your own](plugin.md).
+We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
 
 ### I would prefer to work in the User Interface
 
@@ -57,14 +57,13 @@ Our website is based on [Docusaurus](https://docusaurus.io/).
 
 We have a widely popular Docker image [https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/) that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Cheff** and we need help in those fields, feel free to see all repositories.
+We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
 
 ### I can do translations
 
-Verdaccio aims to be multilingual, in order to achieve it we have the awesome support of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio aims to be multilingual, in order to achieve it we have the awesome support of [Crowdin](https://crowdin.com) that is an amazing platform for translations. 
 
-![](https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png?1485948891 | width=100)
-
+<img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="100px"/>
 
 We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
