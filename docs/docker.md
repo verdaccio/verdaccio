@@ -33,10 +33,10 @@ For the next major release using the `beta` version.
 docker pull verdaccio/verdaccio:beta
 ```
 
-The Canary version (master branch) is tagged as `next`
+The Canary version (master branch) is tagged as `alpha`
 
 ```bash
-docker pull verdaccio/verdaccio:next
+docker pull verdaccio/verdaccio:alpha
 ```
 
 ## Running verdaccio using Docker
