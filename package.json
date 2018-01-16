@@ -134,7 +134,7 @@
   ],
   "scripts": {
     "release": "standard-version -a -s",
-    "prepublish": "in-publish && npm run build:webui || not-in-publish",
+    "prepublish": "in-publish && npm run build:webui && npm run code:build || not-in-publish",
     "flow": "flow",
     "pretest": "npm run code:build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --maxWorkers 2",
