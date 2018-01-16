@@ -88,6 +88,10 @@
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
+"@verdaccio/streams@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
+
 "@verdaccio/types@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@verdaccio/types/-/types-0.2.0.tgz#bd12a9d0df832b123585741c0de43f361f742a99"
