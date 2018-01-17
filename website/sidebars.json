@@ -33,7 +33,8 @@
       "build",
       "contributing",
       "source-code",
-      "unit-testing"
+      "unit-testing",
+      "node-api"
     ],
     "Guides": ["protect-your-dependencies"]
   }

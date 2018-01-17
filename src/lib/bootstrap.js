@@ -21,7 +21,7 @@ const logger = require('./logger');
     - localhost:5557
     @return {Array}
  */
-function getListListenAddresses(argListen, configListen) {
+export function getListListenAddresses(argListen, configListen) {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -62,13 +62,6 @@ function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, call
     throw new Error('config file must be an object');
   }
 
-  if (!config.self_path) {
-    config.self_path = Path.resolve(configPath);
-  }
-  if (!config.https) {
-    config.https = {enable: false};
-  }
-
   const app = server(config);
   const addresses = getListListenAddresses(cliListen, config.listen);
 
@@ -97,9 +90,9 @@ function unlinkAddressPath(addr) {
   }
 }
 
-function displayHTTPSWarning(configPath) {
+function displayHTTPSWarning(storageLocation) {
   const resolveConfigPath = function(file) {
-    return Path.resolve(Path.dirname(configPath), file);
+    return Path.resolve(Path.dirname(storageLocation), file);
   };
 
   logger.logger.fatal([
@@ -115,7 +108,7 @@ function displayHTTPSWarning(configPath) {
     ' $ openssl x509 -req -in ' + resolveConfigPath('verdaccio-csr.pem') +
     ' -signkey ' + resolveConfigPath('verdaccio-key.pem') + ' -out ' + resolveConfigPath('verdaccio-cert.pem'),
     '',
-    'And then add to config file (' + configPath + '):',
+    'And then add to config file (' + storageLocation + '):',
     '  https:',
     '    key: verdaccio-key.pem',
     '    cert: verdaccio-cert.pem',
