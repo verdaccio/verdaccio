@@ -73,9 +73,9 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/local-storage@0.1.3":
-  version "0.1.3"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.1.3.tgz#f8f5f39340b52042bc8c3c3693de1d1660cf1ac7"
+"@verdaccio/local-storage@0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.1.4.tgz#7e235d8f3e7a98bfa6214c75ae80a8e5ae1afe04"
   dependencies:
     "@verdaccio/file-locking" "0.0.5"
     "@verdaccio/streams" "0.0.2"
