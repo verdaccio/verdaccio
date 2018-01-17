@@ -4,7 +4,7 @@ const assert = require('assert');
 const express = require('express');
 const request = require('request');
 const rimraf = require('rimraf');
-const verdaccio = require('../../');
+const verdaccio = require('../../src/api/index');
 const config = require('./partials/config');
 
 const app = express();
