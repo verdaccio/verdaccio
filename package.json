@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git://github.com/verdaccio/verdaccio"
   },
-  "main": "index.js",
+  "main": "build/index.js",
   "bin": {
     "verdaccio": "./bin/verdaccio"
   },

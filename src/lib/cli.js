@@ -3,6 +3,7 @@
 /* eslint no-sync:0 */
 /* eslint no-empty:0 */
 
+import path from 'path';
 import {startVerdaccio, listenDefaultCallback} from './bootstrap';
 import findConfigFile from './config-path';
 
@@ -49,6 +50,13 @@ try {
   configPathLocation = findConfigFile(commander.config);
   verdaccioConfiguration = Utils.parseConfigFile(configPathLocation);
   process.title = verdaccioConfiguration.web && verdaccioConfiguration.web.title || 'verdaccio';
+
+  if (!verdaccioConfiguration.self_path) {
+    verdaccioConfiguration.self_path = path.resolve(configPathLocation);
+  }
+  if (!verdaccioConfiguration.https) {
+    verdaccioConfiguration.https = {enable: false};
+  }
 
   logger.logger.warn({file: configPathLocation}, 'config file  - @{file}');
 } catch (err) {
