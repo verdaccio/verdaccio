@@ -31,6 +31,7 @@ test:
     - yarn run test
     - nvm alias default 9
     - yarn run test
+    - yarn run coverage:publish
     - echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
     - cd website && yarn install && GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
 deployment:
