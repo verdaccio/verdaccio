@@ -10,7 +10,10 @@
 [![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
-[![dependencies Status](https://david-dm.org/verdaccio/verdaccio/status.svg)](https://david-dm.org/verdaccio/verdaccio)[![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
+[![dependencies Status](https://david-dm.org/verdaccio/verdaccio/status.svg)](https://david-dm.org/verdaccio/verdaccio)
+[![Known Vulnerabilities](https://snyk.io/test/github/verdaccio/verdaccio/badge.svg?targetFile=package.json)](https://snyk.io/test/github/verdaccio/verdaccio?targetFile=package.json)
+[![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
+
 
 
 <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
