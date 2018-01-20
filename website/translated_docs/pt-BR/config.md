@@ -124,7 +124,7 @@ listen:
 # - http://localhost:4873     # same thing
 # - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
 # - https://example.org:4873  # if you want to use https
-# - [::1]:4873                # ipv6
+# - "[::1]:4873"                # ipv6
 # - unix:/tmp/verdaccio.sock    # unix socket
 ```
 
