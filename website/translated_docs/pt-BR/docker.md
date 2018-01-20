@@ -4,7 +4,9 @@ title: Docker
 ---
 To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
-`docker pull verdaccio/verdaccio`
+```bash
+docker pull verdaccio/verdaccio
+```
 
 ## Tagged Versions
 
@@ -39,6 +41,8 @@ The Canary version (master branch) is tagged as `alpha`
 ```bash
 docker pull verdaccio/verdaccio:alpha
 ```
+
+> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ## Running verdaccio using Docker
 
