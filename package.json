@@ -84,7 +84,7 @@
     "eslint-plugin-babel": "4.1.2",
     "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-jest": "21.6.2",
+    "eslint-plugin-jest": "21.7.0",
     "eslint-plugin-react": "7.5.1",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.6",
