@@ -37,7 +37,7 @@
     "jsonwebtoken": "^8.1.0",
     "lockfile": "^1.0.1",
     "lodash": "4.17.4",
-    "lunr": "^0.7.0",
+    "lunr": "^2.0.0",
     "marked": "0.3.12",
     "mime": "^2.0.3",
     "minimatch": "^3.0.2",
