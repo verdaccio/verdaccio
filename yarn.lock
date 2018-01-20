@@ -6787,14 +6787,14 @@ react-dom@16.2.0, react-dom@^16.1.1:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-hot-loader@4.0.0-beta.14:
-  version "4.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.0.0-beta.14.tgz#9575065aadda9c53ef455e757b8b36c1fd14e5d6"
+react-hot-loader@4.0.0-beta.15:
+  version "4.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.0.0-beta.15.tgz#d32d23bad2f2f1f7d084e5a28bebca127066c5bc"
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^2.3.1"
-    react-stand-in "^4.0.0-beta.14"
+    react-stand-in "^4.0.0-beta.15"
     redbox-react "^1.3.6"
     source-map "^0.6.1"
 
@@ -6830,9 +6830,9 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-stand-in@^4.0.0-beta.14:
-  version "4.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/react-stand-in/-/react-stand-in-4.0.0-beta.14.tgz#0a06a94b44bc4ca1d06575414acf400585d84e35"
+react-stand-in@^4.0.0-beta.15:
+  version "4.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/react-stand-in/-/react-stand-in-4.0.0-beta.15.tgz#8c97cb1e6207c86c4deb04913fc5e23e04bdcc13"
   dependencies:
     shallowequal "^1.0.2"
 
