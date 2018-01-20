@@ -96,7 +96,7 @@ publish:
   allow_offline: false
 ```
 
-<small>Since: <em>v2.3.6</em> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
 ### Prefijos URL
 
@@ -104,7 +104,7 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: *v2.3.6* due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### Max Body Size
 
@@ -150,3 +150,5 @@ notify:
   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
+
+> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).

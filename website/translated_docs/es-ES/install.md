@@ -7,13 +7,14 @@ Verdaccio is a multiplatform web application, to install you need at least some 
 #### Prerequisites
 
 1. Node higher than 
-    - For version *2.x* we support from **4.6.1**
-    - For version *3.x* we support as minimum **6.12.0**
-2. npm *>=3.x* or yarn
+    - For version `verdaccio@2.x` we support from Node `v4.6.1`.
+    - For version `verdaccio@3.x` we support as minimum Node `6.12.0`
+2. npm `>=3.x` or `yarn`
+3. The web interface support browsers `Chrome, Firefox, Edge, and IE9`
 
 ## Installing the CLI
 
-`Verdaccio` must be install globaly using any of the most modern
+`verdaccio` must be install globaly using any of the most modern
 
 Using `npm`
 
@@ -26,8 +27,6 @@ or using `yarn`
 ```bash
 yarn global add verdaccio
 ```
-
-> Warning: Verdaccio current is not support PM2's cluster mode, run it with cluster mode may cause unknown behavior
 
 ## Basic Usage
 

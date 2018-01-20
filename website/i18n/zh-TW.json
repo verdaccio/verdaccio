@@ -17,6 +17,7 @@
     "installation": "Installation",
     "kubernetes": "Kubernetes",
     "logger": "Logger",
+    "node-api": "Node API",
     "notifications": "Notifications",
     "packages": "Package Access",
     "plugins": "Plugins",
@@ -29,6 +30,7 @@
     "uplinks": "Uplinks",
     "use-cases": "Use Cases",
     "webui": "Web User Interface",
+    "what-is-verdaccio": "What is Verdaccio?",
     "windows": "Installing As a Windows Service",
     "Docs": "Docs",
     "Help": "Help",
@@ -42,7 +44,7 @@
     "Guides": "Guides"
   },
   "pages-strings": {
-    "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)|no description given": "Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)",
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Learn more using the [documentation on this site.](/docs/en/installation.html)",
     "Browse Docs|no description given": "Browse Docs",
     "Ask questions about the documentation and project|no description given": "Ask questions about the documentation and project",
     "Join the community|no description given": "Join the community",
