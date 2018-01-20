@@ -4,31 +4,33 @@ title: Docker
 ---
 Para descargar la última [imagen de Docker](https://hub.docker.com/r/verdaccio/verdaccio/):
 
-`docker pull verdaccio/verdaccio`
+```bash
+docker pull verdaccio/verdaccio
+```
 
 ## Versiones con Etiquetas
 
-Desde la versión `v2.x` puedes descargar imágenes de Docker [por etiquetas](https://hub.docker.com/r/verdaccio/verdaccio/tags/), a como se define aquí:
+Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
-Para la versión mayor:
+For a major version:
 
 ```bash
 docker pull verdaccio/verdaccio:2
 ```
 
-Para la versión menor:
+For a minor version:
 
 ```bash
 docker pull verdaccio/verdaccio:2.1
 ```
 
-Para un (parche) especifico:
+For a specific (patch) version:
 
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-Para el próximo mayor lanzamiento usando la versión `beta`.
+For the next major release using the `beta` version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -40,19 +42,21 @@ The Canary version (master branch) is tagged as `alpha`
 docker pull verdaccio/verdaccio:alpha
 ```
 
+> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+
 ## Ejecutando verdaccio usando Docker
 
-Para ejecutar el contenedor de Docker:
+To run the docker container:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-El último argumento define cual imagen se usará. La linea anterior descargara la ultima imagen desde dockerhub, si you no lo has echo aún.
+The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
 
-Si has[construido la imagen localmente](#build-your-own-docker-image)usa solamente ` http://www. verdaccio. org/verdaccio/` como último argumento.
+If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
-Puedes usar `-v` para montar ` conf` y ` storage` como volúmenes externos:
+You can use `-v` to mount `conf` and `storage` to the hosts filesystem:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
