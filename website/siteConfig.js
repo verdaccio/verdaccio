@@ -13,7 +13,7 @@ const siteConfig = {
   tagline: 'A lightweight private npm proxy registry',
   url: 'http://www.verdaccio.org' /* your website url */,
   organizationName: 'verdaccio',
-  baseUrl: '/verdaccio/' /* base url for your project */,
+  baseUrl: '/' /* base url for your project */,
   projectName: 'verdaccio',
   headerLinks: [
     {doc: 'installation', label: 'Docs'},
@@ -24,7 +24,7 @@ const siteConfig = {
   /* path to images for header/footer */
   headerIcon: 'img/verdaccio-tiny.png',
   footerIcon: 'img/verdaccio-blackwhite.png',
-  favicon: 'img/favicon.png',
+  favicon: 'img/favicon.ico',
   /* colors for website */
   colors: {
     primaryColor: '#4B5E40',

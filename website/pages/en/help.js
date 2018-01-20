@@ -18,16 +18,18 @@ class Help extends React.Component {
     const supportLinks = [
       {
         content:
-          'Learn more using the [documentation on this site.](/test-site/docs/en/doc1.html)',
+          'Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)',
         title: 'Browse Docs',
       },
       {
-        content: 'Ask questions about the documentation and project',
-        title: 'Join the community',
+        content: 'You can follow and contact us on [Twitter](https://twitter.com/verdaccio_npm).',
+        title: 'Twitter',
       },
       {
-        content: "Find out what's new with this project",
-        title: 'Stay up to date',
+        content: "If the documentation is not enough help, you can try browsing into our " +
+        "[Question Database](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aquestion+) " +
+        "and also you can chat with the Verdaccio community in [Gitter](https://gitter.im/verdaccio/).",
+        title: 'More Help?',
       },
     ];
 
@@ -38,7 +40,7 @@ class Help extends React.Component {
             <header className="postHeader">
               <h2>Need help?</h2>
             </header>
-            <p>This project is maintained by a dedicated group of people.</p>
+            <p>This project is maintained by the Verdaccio community.</p>
             <GridBlock contents={supportLinks} layout="threeColumn" />
           </div>
         </Container>
