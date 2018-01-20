@@ -1,4 +1,4 @@
-FROM node:9.2.0-alpine@sha256:e174cb4f00bd5aacfe798ad7ee6c2985adceade4f487a9532de2ce8a067f7365
+FROM node:9.4.0-alpine@sha256:9cd67a00ed111285460a83847720132204185e9321ec35dacec0d8b9bf674adf
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 RUN apk --no-cache add openssl && \
