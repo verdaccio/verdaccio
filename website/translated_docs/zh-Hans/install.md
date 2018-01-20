@@ -7,13 +7,14 @@ Verdaccio 是一个基于 Web 技术的跨平台应用，在安装它之前你�
 #### 最低要求:
 
 1. Node.js 版本 
-    - Verdaccio *2.x*: 不低于 **4.6.1**
-    - Verdaccio *3.x* 不低于 **6.12.0**
-2. npm *>=3.x* 或 yarn
+    - For version `verdaccio@2.x` we support from Node `v4.6.1`.
+    - For version `verdaccio@3.x` we support as minimum Node `6.12.0`
+2. npm `>=3.x` or `yarn`
+3. The web interface support browsers `Chrome, Firefox, Edge, and IE9`
 
 ## 安装
 
-`Verdaccio` 必须通过以下任一方式作为全局模块安装
+`verdaccio` must be install globaly using any of the most modern
 
 使用 `npm`
 
@@ -26,8 +27,6 @@ npm install -g verdaccio
 ```bash
 yarn global add verdaccio
 ```
-
-> 警告: Verdaccio 目前不支持 PM2 的 Cluster 多进程模式，通过此方式运行可能造成未知后果
 
 ## 基本使用
 
