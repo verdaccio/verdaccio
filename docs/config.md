@@ -99,7 +99,7 @@ publish:
   allow_offline: false
 ```
 
-<small>Since: *v2.3.6* due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
+<small>Since: `verdaccio@2.3.6` due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
 
 ### URL Prefix
 
@@ -107,7 +107,7 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: *v2.3.6* due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 
 ### Max Body Size
@@ -157,8 +157,7 @@ notify:
 ```
 
 
-
-
+> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 
 

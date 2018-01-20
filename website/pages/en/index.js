@@ -137,9 +137,9 @@ class Index extends React.Component {
             <GridBlock
               contents={[
                 {
-                  content: '**npm** and **yarn** are part of any development workflow,' +
+                  content: '**npm**, **yarn** and **pnpm** are part of any development workflow,' +
                   ' we try to catch up with the latest updates.',
-                  image: siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png',
+                  image: siteConfig.baseUrl + 'img/package_managers_grey.png',
                   imageAlign: 'right',
                   title: 'The most popular npm clients are supported',
                 },
@@ -159,7 +159,7 @@ class Index extends React.Component {
                   '```bash\n' +
                   'helm install --name npm stable/verdaccio\n' +
                   '```\n',
-                  image: siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png',
+                  image: siteConfig.baseUrl + 'img/devops_support_grey.png',
                   imageAlign: 'left',
                   title: 'Making the DevOps work easy',
                 },

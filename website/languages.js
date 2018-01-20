@@ -127,7 +127,7 @@ const languages = [
     tag: 'pt-PT',
   },
   {
-    enabled: true,
+    enabled: false,
     name: 'Português (Brasil)',
     tag: 'pt-BR',
   },

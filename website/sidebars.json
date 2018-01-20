@@ -1,6 +1,7 @@
 {
   "docs": {
     "Introduction": [
+      "what-is-verdaccio",
       "installation",
       "cli"
     ],

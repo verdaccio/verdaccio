@@ -130,7 +130,8 @@
     "enterprise",
     "modules",
     "proxy",
-    "server"
+    "server",
+    "verdaccio"
   ],
   "scripts": {
     "release": "standard-version -a -s",

@@ -17,6 +17,7 @@ Repository | Usage | Stack
 [https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio) | Puppet support | Puppet
 [https://github.com/verdaccio/ansible-verdaccio](https://github.com/verdaccio/ansible-verdaccio) | Ansible support | Ansible
 [https://github.com/verdaccio/verdaccio-cookbook](https://github.com/verdaccio/verdaccio-cookbook) | Chef support | Chef
+[https://github.com/chainlink/charts/tree/master/stable/verdaccio](https://github.com/chainlink/charts/tree/master/stable/verdaccio) | Kubernetes support | Kubernetes
 
 ## Experimental Repos
 
@@ -24,7 +25,6 @@ The following repositories aims to be part of the future infraestructure of `ver
 
 Repository | Usage | Stack
 --- | ---| ---|
-[https://github.com/verdaccio/verdaccio-plugin-auth-htpasswd](https://github.com/verdaccio/verdaccio-plugin-auth-htpasswd) | Default authentification plugin based on Babel  | ES6, Babel, Flow
+[https://github.com/verdaccio/verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) | An experimental storage in memory | ES6, Babel, Flow
 [https://github.com/verdaccio/generator-verdaccio-plugin](https://github.com/verdaccio/generator-verdaccio-plugin) | Yeoman generators for future verdaccio plugins | ES6, Babel, Yeoman
-[https://github.com/verdaccio/blog](https://github.com/verdaccio/blog) | Any article related with verdaccio | Markdown
 

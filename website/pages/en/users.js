@@ -31,9 +31,9 @@ class Users extends React.Component {
               <p>This project is used by many folks</p>
             </div>
             <div className="logos">{showcase}</div>
-            <p>Are you using this project?</p>
+            <p>Are you using this project? Do not be shy and add your company/project logo.</p>
             <a
-              href="https://github.com/facebook/docusaurus/edit/master/website/siteConfig.js"
+              href="https://github.com/verdaccio/verdaccio/edit/master/website/siteConfig.js"
               className="button">
               Add your company
             </a>
