@@ -12,13 +12,13 @@ Verdaccio relies on `yarn` instead `npm` to download depenedencies.
 
 ## Scripts
 
-We have a list of scripts that you will use for diferent kind of tasks, in the following section we describe all posible task based on branches. (yes 
+We have a list of scripts that you will use for diferent kind of tasks, in the following section we describe all posible task based on branches.
 
-#### Master branch (2.x)
+### Branch (2.x)
 
-On master branch the unique part we have to build is the UI which is based on React.js, webpack and CSS Modules.
+On branch `2.x` the unique part we have to build is the UI which is based on React.js, webpack and CSS Modules.
 
-### Scripts
+#### Scripts
 
 | script           | Description                                                                                                                           |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -39,9 +39,9 @@ On master branch the unique part we have to build is the UI which is based on Re
 | build:docker     | create a local docker image with `verdaccio`                                                                                          |
 | build:rpi        | create a local docker for raspberry pi image with `verdaccio` **(experimental with no support)**                                      |
 
-#### Branch (3.x)
+#### Master branch (3.x)
 
-The next major version is based on `babel` and `flow`. If you switch from master ensure to run `yarn install` again.
+The current major version is based on `babel` and `flow`. If you switch from master ensure to run `yarn install` again.
 
 *Note: Only new scripts in bold*
 
@@ -55,10 +55,12 @@ The next major version is based on `babel` and `flow`. If you switch from master
 | release          | this script is used to generate changelog and raise up the version according the commits messages                                     |
 | prepublish       | it ensures before publish the new ui is being generated                                                                               |
 | test             | run all the test `jest`                                                                                                               |
+| test:unit        | run the unit test                                                                                                                     |
+| test:func        | run the funtional test                                                                                                                |
 | pre:ci           | specific task for CI, build the UI required for test                                                                                  |
+| pretest          | A shorcut for transpile the code                                                                                                      |
 | test:ci          | run test generating coverage                                                                                                          |
-| test:only        | run only test                                                                                                                         |
-| coverage:publish | publish on `codecov` the coverage (don't use it)                                                                                      |
+| coverage:publish | publish on `codecov` the coverage (CI task specific, do not use it)                                                                   |
 | lint             | run the linting for javascript code.                                                                                                  |
 | lint:css         | run the linter for `css`                                                                                                              |
 | dev:webui        | run a `webpack` server with hot reloading enabled `http://localhost:4872/#/` it requires a `verdaccio` server running in port `4873`. |
