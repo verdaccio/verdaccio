@@ -153,7 +153,7 @@ class Index extends React.Component {
                 {
                   content: 'We have an official **Docker** image ready to use &#8232;\n' +
                   '```bash\n' +
-                  'docker pull verdaccio/verdaccio&#8232;\n' +
+                  'docker pull verdaccio/verdaccio\n' +
                   '```' +
                   '\n and **Kubernetes Helm** support for easy deployment \n '+
                   '```bash\n' +
