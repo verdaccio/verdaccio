@@ -91,3 +91,9 @@ use:
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
 ```
+
+## Rancher Support
+
+[Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
+
+* [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)
