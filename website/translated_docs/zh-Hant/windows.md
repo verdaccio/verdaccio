@@ -45,3 +45,7 @@ ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
     * `verdaccio-winsw.exe start`
 
 Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
+
+## Repositories
+
+* [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)
