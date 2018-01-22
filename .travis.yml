@@ -6,6 +6,6 @@ node_js:
   - 'lts/*'
 script:
   - npm install
-  - echo commitlint-travis
+  - commitlint-travis
   - npm run pre:ci
   - npm run test
