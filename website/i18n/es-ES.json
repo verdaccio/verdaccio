@@ -30,7 +30,7 @@
     "uplinks": "Enlaces externos",
     "use-cases": "Casos de Uso",
     "webui": "Interfaz de Usuario Web",
-    "what-is-verdaccio": "What is Verdaccio?",
+    "what-is-verdaccio": "Qué es Verdaccio?",
     "windows": "Instalando como Servicio en Windows",
     "Docs": "Documentación",
     "Help": "Ayuda",
@@ -44,7 +44,7 @@
     "Guides": "Guías"
   },
   "pages-strings": {
-    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Learn more using the [documentation on this site.](/docs/en/installation.html)",
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Aprende mas leyendo la [documentación en este sitio.](/docs/es-Es/installation.html)",
     "Browse Docs|no description given": "Navegar Documentación",
     "Ask questions about the documentation and project|no description given": "Haz preguntas sobre la documentación y el proyecto",
     "Join the community|no description given": "Únete a la comunidad",
