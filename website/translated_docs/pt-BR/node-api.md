@@ -21,7 +21,7 @@ Verdaccio pode ser inicializado de forma customizada através de um script utili
 
 ## Outros Usos
 
-* [verdaccio-server](https://github.com/boringame/verdaccio-server) local npm registry proxy server
+* [verdaccio-server](https://github.com/boringame/verdaccio-server) um proxy local para npm
 
 ```js
 // js
