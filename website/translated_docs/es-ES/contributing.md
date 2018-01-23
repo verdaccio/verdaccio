@@ -1,10 +1,10 @@
 ---
 id: contributing
-title: Contributing Verdaccio
+title: Contribuyendo en Verdaccio
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+Primero lo primero, saltar en un código desconocido no es tarea fácil, pero estamos aquí para ayudarte.
 
-## Comunication Channels
+## Canales de Comunicación
 
 If you are willing for asking, we use two channels for discussions:
 
