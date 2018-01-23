@@ -16,9 +16,9 @@ title: O que é o Verdaccio?
 
 ## O que é um Registro
 
-* A repository for packages that implements the CommonJS Compliant Package Registry specification for reading package info
-* Salva pacotes npm
-* Oferece uma API compatível com clientes npm
+* É um repositório de pacotes compatíveis com a especificação CommonJS e possui metadados sobre seus pacotes
+* Distribui pacotes npm
+* Oferece uma API compatível para clientes npm
 * Compativel com Versionamento Semântico (semver)
 
 ```bash curl -v https://registry.npmjs.org/aaa
