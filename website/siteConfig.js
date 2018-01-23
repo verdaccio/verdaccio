@@ -6,7 +6,15 @@
  */
 
 /* List of projects/orgs using your project for the users page */
-const users = [];
+const users = [
+  {
+    caption: "Filiosoft",
+    image: "/img/filiosoft.png",
+    infoLink: "https://filiosoft.com/",
+    fbOpenSource: false,
+    pinned: false,
+  }
+];
 
 const siteConfig = {
   title: 'Verdaccio' /* title for your website */,
@@ -42,6 +50,10 @@ const siteConfig = {
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks
     theme: 'default',
+  },
+  algolia: {
+    apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
+    indexName: 'verdaccio',
   },
   gaTrackingId: 'UA-2527438-21',
   twitter: true,

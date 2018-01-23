@@ -48,6 +48,9 @@
     "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "6.0.2",
+    "@commitlint/config-conventional": "6.0.2",
+    "@commitlint/travis-cli": "6.0.2",
     "@verdaccio/types": "0.2.0",
     "axios": "0.17.1",
     "babel-cli": "6.26.0",
@@ -93,10 +96,11 @@
     "friendly-errors-webpack-plugin": "1.6.1",
     "github-markdown-css": "2.10.0",
     "html-webpack-plugin": "2.30.1",
+    "husky": "0.14.3",
     "identity-obj-proxy": "3.0.0",
     "in-publish": "2.0.0",
-    "jest": "22.1.1",
-    "jest-environment-jsdom": "22.1.0",
+    "jest": "22.1.4",
+    "jest-environment-jsdom": "22.1.4",
     "jest-environment-jsdom-global": "1.0.3",
     "localstorage-memory": "1.0.2",
     "node-sass": "4.7.2",
@@ -105,7 +109,7 @@
     "prop-types": "15.6.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "react-hot-loader": "4.0.0-beta.15",
+    "react-hot-loader": "4.0.0-beta.17",
     "react-router-dom": "4.2.2",
     "react-syntax-highlighter": "5.8.0",
     "rimraf": "2.6.2",
@@ -119,7 +123,7 @@
     "stylelint-webpack-plugin": "0.10.1",
     "url-loader": "0.6.2",
     "webpack": "3.10.0",
-    "webpack-dev-server": "2.11.0",
+    "webpack-dev-server": "2.11.1",
     "webpack-merge": "4.1.1"
   },
   "keywords": [
@@ -142,6 +146,7 @@
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js' --maxWorkers 2",
     "test:func": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/functional.*\\.func)\\.js' --maxWorkers 2",
     "pre:ci": "npm run lint && npm run build:webui",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "coverage:publish": "codecov",
     "lint": "npm run flow && eslint .",
     "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
@@ -161,5 +166,10 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
 }

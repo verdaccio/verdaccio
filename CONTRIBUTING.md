@@ -185,6 +185,7 @@ fix: xxxxxxxxxx
 
 Commits types as `docs:`,`style:`,`refactor:`,`perf:`,`test:` and `chore:` are valid but has no effect on versioning, but, it would be great if you use them.
 
+Use `npm run commitmsg` to check your commit message.
 
 ### 5. Rebase and Push Changes
 
