@@ -6,7 +6,15 @@
  */
 
 /* List of projects/orgs using your project for the users page */
-const users = [];
+const users = [
+  {
+    caption: "Filiosoft",
+    image: "/img/filiosoft.png",
+    infoLink: "https://filiosoft.com/",
+    fbOpenSource: false,
+    pinned: false,
+  }
+];
 
 const siteConfig = {
   title: 'Verdaccio' /* title for your website */,
