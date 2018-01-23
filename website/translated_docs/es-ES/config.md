@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: Configuration File
+title: Archivo de Configuración
 ---
 Este archivo es la piedra angular de verdaccio donde puedes modificar su comportamiento por defecto, activar plugins y características externas.
 
@@ -89,14 +89,14 @@ packages:
 
 ### Publicar modo sin conexión
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden set it in to *true*.
+Por defecto, `verdaccio` no permite publicar cuando el servidor esta en modo fuera de linea, este comportamiento puede ser sobrescrito cambiando el valor a *true*.
 
 ```yaml
 publish:
   allow_offline: false
 ```
 
-<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Desde: <code>verdaccio@2.3.6</code> debido a <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
 ### Prefijos URL
 
@@ -104,11 +104,11 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Desde: `verdaccio@2.3.6` debido a [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Tamaño Máximo del Cuerpo
 
-By default the maximum body size for a JSON document is `1mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Por defecto el tamaño máximo cuerpo para un documento JSON es ` 1mb`, si un problema similar a `"request entity too large"` te podrá interesar aumentar este valor.
 
 ```yaml
 max_body_size: 1mb
@@ -151,4 +151,4 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Para información detallada sobre configuración, por favor [revise el código fuente](https://github.com/verdaccio/verdaccio/tree/master/conf).

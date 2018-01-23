@@ -1,6 +1,6 @@
 ---
 id: home
-title: Verdaccio npm proxy private registry
+title: Verdaccio registro privado e proxy npm
 ---
 
 
@@ -23,7 +23,7 @@ title: Verdaccio npm proxy private registry
         </span>
         <span>
                 <a href="https://www.npmjs.org/package/verdaccio">
-                        <img src="https://img.shields.io/npm/v/verdaccio.svg" alt="npm version badge">
+                        <img src="https://img.shields.io/npm/v/verdaccio.svg" alt="badge versão npm">
                 </a>
         </span>
         <span>
@@ -34,16 +34,12 @@ title: Verdaccio npm proxy private registry
 </div>
 
 <div class="link-section">
-        <a href="https://github.com/verdaccio" title="Github verdaccio page">GitHub</a>
-        <a href="https://github.com/verdaccio/verdaccio/tree/master/wiki" title="Documentation">Documentation</a>
-</div>
+  <a href="https://github.com/verdaccio" title="Projeto Verdaccio">GitHub</a> <a href="https://github.com/verdaccio/verdaccio/tree/master/wiki" title="Documentação">Documentação</a>
+</div></div> 
 
+## Fácil de Instalar
 
-</div> 
-
-## Easy to Install
-
-One single command to install the application
+Instale seu novo registro com um único comando
 
 ```sh
 $> npm install --global verdaccio
@@ -54,9 +50,9 @@ $> yarn global add verdaccio
 
 ```
 
-## Easy to Set Up
+## Fácil de Configurar
 
-Set your verdaccio registry as default
+Configure o seu novo registro verdaccio como padrão
 
 ```sh
 <br />$> npm set registry http://localhost:4873
@@ -65,9 +61,9 @@ $> npm adduser --registry http://localhost:4873
 
 ```
 
-## Easy to Use
+## Fácil de Usar
 
-Run it in your terminal
+Use a partir do seu terminal
 
 ```sh
 <br />$> verdaccio
@@ -76,24 +72,24 @@ warn --- http address - http://localhost:5555/ - verdaccio/2.2.0
 
 ```
 
-#### That's it ! Enjoy your **private package manager**.
+#### Tudo pronto! Aproveite o seu novo **gerente de pacotes privado**.
 
-##### and all the most popular npm clients are supported.
+##### a maioria dos clientes npm é suportada.
 
 <div class="client-support">
     <div class="client">
-        <img src="css/icon/npm-logo.svg" alt="Docker Support" width="200"/>
+        <img src="css/icon/npm-logo.svg" alt="Suporte Docker" width="200"/>
     </div>
     <div class="client">
-        <img src="css/icon/yarn-logo.svg" alt="Docker Support" width="200"/>
+        <img src="css/icon/yarn-logo.svg" alt="Suporte Docker" width="200"/>
     </div>
 </div>
 
 <div class="section">
     <h1>
-        Docker Ready
+        Pronto para Docker
     </h1>
     <a href="https://github.com/verdaccio/verdaccio/blob/master/wiki/docker.md" target="_blank">
-        <img src="css/icon/docker.jpeg" alt="Docker Support" width="200"/>
+        <img src="css/icon/docker.jpeg" alt="Suporte Docker" width="200"/>
     </a>
 </div>
