@@ -2,11 +2,11 @@
 id: what-is-verdaccio
 title: What is Verdaccio?
 ---
-## In a nutshell
+## En pocas palabras
 
-* It's a web app based on Node.js
-* It's a private npm registry
-* It's a local network proxy
+* Es una aplicación web basada en Node.js
+* Es un registro de npm privado
+* Es un servidor proxy local
 * It's a Pluggable application
 * It's a fairly easy install and use
 * We offer Docker and Kubernetes support
