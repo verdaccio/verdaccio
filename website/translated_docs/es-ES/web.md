@@ -1,12 +1,12 @@
 ---
 id: webui
-title: Web User Interface
+title: Interfaz Web de Usuario
 ---
 
 
 <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
 
-Verdaccio has a web user interface to display only the private packges and can be customisable.
+Verdaccio tiene una interfaz web de usuario que solo muetra paquetes privados y puede ser personalizable.
 
 ```yaml
 web:
