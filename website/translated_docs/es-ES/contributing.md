@@ -6,28 +6,28 @@ Primero lo primero, saltar en un código desconocido no es tarea fácil, pero es
 
 ## Canales de Comunicación
 
-If you are willing for asking, we use two channels for discussions:
+Si estas deseando por hacer preguntas, nosotros tenemos dos canales para discusiones:
 
-* [Public Gitter channel](https://gitter.im/verdaccio/)
-* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
+* [Canal público en Gitter](https://gitter.im/verdaccio/)
+* [Canal Slack para Colaboradores](https://verdaccio-npm.slack.com)(desafortunadamente solo se puede entrar bajo petición por correo electrónico, si estas interesado (es en ingles) puedes preguntar en Gitter para ser incluido.
 
-## Getting started
+## Empezando
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+A primera vista verdaccio es un solo repositorio, pero hay muchas mas formas en las que podrías contribuir y una gran variedad de tecnologías en las que practicar.
 
-### Finding my spot
+### Encontrando mi lugar
 
-All we have different skills, so, let's see where you might feel comfortable.
+Todos tenemos diferentes habilidades, así que, vamos a ver donde podrías sentirte cómodo.
 
-### I know or I want to learn Node.js
+### Se o quiero aprender Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js es la base de `verdaccio`, usamos librerías como `express`, `commander`, `request` o ` async`. Verdaccio es básicamente un API REST para crear comunicación con clientes `npm` compatibles, como ` yarn`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Tenemos una larga [lista de plugins](plugins.md) que pueden ser usados y mejorados, pero al mismo tiempo [tu podrías crear el tuyo propio](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### Preferiría trabajar en el Interfaz de Usuario
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Recientemente hemos migrado a tecnologías mas modernas como `React`y `element-react`. Estamos con ganas de ver nuevas ideas como mejorar el Interfaz de Usuario.
 
 ### I feel more confortable improving the stack
 
