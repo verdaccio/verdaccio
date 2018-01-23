@@ -70,13 +70,13 @@ Tenemos configurado un sitio donde puedes elegir tu idioma favorito, si no encue
 
 ## Estoy listo para contribuir
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Si estas pensando *"Ya vi todos los [repositorios](repositories.md) y estoy deseando contribuir ahora mismo"* y tengo buenas noticias para tu, ese el siguiente paso.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Primero necesitaras aprender como construir el proyecto, [nosotros hemos preparados uan guia justo para eso](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Una vez has revisado todos los script y sabes como usarlos, estamos listos para ir al siguiente paso, ejecutar [**los test unitarios**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## La lista completa de colaboradores. Queremos ver tu cara aquí !
 
 | [<img alt="juanpicado" src="https://avatars0.githubusercontent.com/u/558752?v=4&s=117" width="117" />](https://github.com/juanpicado) | [<img alt="rlidwka" src="https://avatars0.githubusercontent.com/u/999113?v=4&s=117" width="117" />](https://github.com/rlidwka) | [<img alt="Meeeeow" src="https://avatars3.githubusercontent.com/u/19658647?v=4&s=117" width="117" />](https://github.com/Meeeeow) | [<img alt="trentearl" src="https://avatars2.githubusercontent.com/u/802857?v=4&s=117" width="117" />](https://github.com/trentearl) | [<img alt="ayusharma" src="https://avatars0.githubusercontent.com/u/6918450?v=4&s=117" width="117" />](https://github.com/ayusharma) |
 |:-------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|
