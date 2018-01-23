@@ -1,25 +1,25 @@
 ---
 id: what-is-verdaccio
-title: What is Verdaccio?
+title: Qué es Verdaccio?
 ---
 ## En pocas palabras
 
 * Es una aplicación web basada en Node.js
 * Es un registro de npm privado
 * Es un servidor proxy local
-* It's a Pluggable application
-* It's a fairly easy install and use
-* We offer Docker and Kubernetes support
-* It is 100% compatible with yarn, npm and pnpm
-* It was born based on `sinopia@1.4.0` fork and *backward compatible*
-* Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
+* Es una aplicación que se puede extender
+* Es muy fácil de usar e instalar
+* Ofrecemos soporte en Docker y Kubernetes
+* Es 100% compatible con yarn, npm y pnpm
+* Proyecto que nació basado en una bifurcación de `sinopia@1.4.0` y completamente compatible
+* Verdaccio significa **Un color verde popular en la Italia medieval para la pintura en fresco**.
 
-## What's a registry
+## Qué es un registro
 
-* A repository for packages that implements the CommonJS Compliant Package Registry specification for reading package info
-* Store npm packages
-* Provide an API compatible with npm clients
-* Semantic Versioning (semver) compatible
+* Es un repositorio para paquetes que implementan la especificación CommonJS para la lectura de información de paquetes
+* Almacena paquetes de Node
+* Provee un API compatible con clientes npm
+* Compatible con (semver) Versionado Semántico
 
 ```bash curl -v https://registry.npmjs.org/aaa
 
