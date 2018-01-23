@@ -42,25 +42,25 @@ Aquí algunas ideas:
 * Usamos babel y webpack a lo largo de todas las dependencias, porque uno un preset en común?
 * Mejorar la entrega vía integración continua
 
-### I do great Documentation
+### Soy bueno con la Documentación
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+Muchos colaboradores encuentras faltas o errores gramaticales, eso también podría ser de ayuda para mejorar la experiencia de resolución de problemas.
 
-### I am a Designer
+### Soy Diseñador
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+Tenemos un sitio web <http://www.verdaccio.org/> y estaríamos muy felices de ver tus ideas.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Nuestro sitio web esta basado en [ Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Soy DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+Tenemos una imagen muy popular en Docker <https://hub.docker.com/r/verdaccio/verdaccio/> que necesita mantenimiento y muy seguramente mejoras, necesitamos tu conocimiento para el beneficio de todos los usuarios.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+Ofrecemos soporte para ** Kubernetes**, **Puppet**, **Ansible** y **Chef** y necesitamos ayuda en esos campos, siéntete libre de ver todos los repositorios.
 
-### I can do translations
+### Puedo hacer traduciones
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio tiene como objetivo ser multilenguaje, con el fin de conseguirlo **tenemos el soporte** de [ Crowdin](https://crowdin.com) que es una plataforma increíble de traducciones.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
