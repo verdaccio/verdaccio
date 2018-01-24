@@ -139,6 +139,28 @@ https:
   ca: path/to/server.pem
 ```
 
+### Proxy
+
+Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+
+#### http_proxy and https_proxy
+
+If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+
+```yaml
+http_proxy: http://something.local/
+https_proxy: https://something.local/
+```
+
+#### no_proxy
+
+This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+
+```yaml
+http_proxy: http://something.local/
+https_proxy: https://something.local/
+```
+
 ### Notifications
 
 Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
