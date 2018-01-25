@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Middleware = require('../web/middleware');
 const match = Middleware.match;
-const validate_name = Middleware.validate_name;
-const validate_pkg = Middleware.validate_package;
+const validateName = Middleware.validate_name;
+const validatePkg = Middleware.validate_package;
 const encodeScopePackage = Middleware.encodeScopePackage;
 
 const whoami = require('./api/whoami');
@@ -21,12 +21,12 @@ module.exports = function(config, auth, storage) {
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
-  app.param('package', validate_pkg);
-  app.param('filename', validate_name);
-  app.param('tag', validate_name);
-  app.param('version', validate_name);
-  app.param('revision', validate_name);
-  app.param('token', validate_name);
+  app.param('package', validatePkg);
+  app.param('filename', validateName);
+  app.param('tag', validateName);
+  app.param('version', validateName);
+  app.param('revision', validateName);
+  app.param('token', validateName);
 
   // these can't be safely put into express url for some reason
   // TODO: For some reason? what reason?

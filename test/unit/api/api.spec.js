@@ -1,4 +1,8 @@
 import request from 'supertest';
+import _ from 'lodash';
+import path from 'path';
+import rimraf from 'rimraf';
+
 import configDefault from '../partials/config';
 import Config from '../../../src/lib/config';
 import Storage from '../../../src/lib/storage';
@@ -12,37 +16,109 @@ describe('endpoint unit test', () => {
   let storage;
   let auth;
   let app;
+  jest.setTimeout(500000);
 
-  beforeAll(function() {
-    config = new Config(configDefault);
-    storage = new Storage(config);
-    auth = new Auth(config);
-    app = indexAPI(config, auth, storage);
+  beforeAll(function(done) {
+    const store = path.join(__dirname, '../partials/store/test-storage');
+    rimraf(store, () => {
+      const configForTest = _.clone(configDefault);
+      configForTest.auth = {
+        htpasswd: {
+          file: './test-storage/htpasswd-test'
+        }
+      };
+      configForTest.self_path = store;
+      config = new Config(configForTest);
+      storage = new Storage(config);
+      auth = new Auth(config);
+      app = indexAPI(config, auth, storage);
+      done();
+    });
   });
 
-  describe('ping unit test', () => {
-    test('test /-/ping', (done) => {
+  describe('should test ping api', () => {
+    test('should test endpoint /-/ping', (done) => {
       request(app)
         .get('/-/ping')
         .expect('Content-Type', /json/)
-        .expect(200, done)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
     });
   });
 
-  describe('whoami unit test', () => {
-    test('test /-/whoami', (done) => {
+  describe('should test whoami api', () => {
+    test('should test /-/whoami endpoint', (done) => {
       request(app)
         .get('/-/whoami')
         .expect('Content-Type', /json/)
-        .expect(200, done)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
     });
 
-    test('test /whoami', (done) => {
+    test('should test /whoami endpoint', (done) => {
       request(app)
         .get('/-/whoami')
         .expect('Content-Type', /json/)
-        .expect(200, done)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
     });
+  });
+
+  describe('should test user api', () => {
+    const credentials = { name: 'Jota', password: 'secretPass' };
+
+    test('test add a new user', (done) => {
+
+
+      request(app)
+        .put('/-/user/org.couchdb.user:jota')
+        .send(credentials)
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
+          done();
+        });
+    });
+
+    test('test fails add a new user', (done) => {
+
+      request(app)
+        .put('/-/user/org.couchdb.user:jota')
+        .send(credentials)
+        .expect('Content-Type', /json/)
+        .expect(409)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error).toMatch(/this user already exists/);
+          done();
+        });
+    });
+
   });
 
 });
