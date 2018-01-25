@@ -1,5 +1,3 @@
-'use strict';
-
 const config = {
   storage: __dirname + '/store/test-storage',
   uplinks: {
