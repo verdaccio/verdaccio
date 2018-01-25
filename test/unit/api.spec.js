@@ -3,13 +3,13 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import configDefault from '../partials/config';
-import Config from '../../../src/lib/config';
-import Storage from '../../../src/lib/storage';
-import Auth from '../../../src/lib/auth';
-import indexAPI from '../../../src/api/index';
+import configDefault from './partials/config';
+import Config from '../../src/lib/config';
+import Storage from '../../src/lib/storage';
+import Auth from '../../src/lib/auth';
+import indexAPI from '../../src/api/index';
 
-require('../../../src/lib/logger').setup([]);
+require('../../src/lib/logger').setup([]);
 
 describe('endpoint unit test', () => {
   let config;
@@ -19,7 +19,7 @@ describe('endpoint unit test', () => {
   jest.setTimeout(500000);
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/test-storage');
+    const store = path.join(__dirname, './partials/store/test-storage');
     rimraf(store, () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
