@@ -135,7 +135,7 @@ When you start a server, it auto-creates a config file. For instructions on how 
 [![dockeri.co](http://dockeri.co/image/verdaccio/verdaccio)](https://hub.docker.com/r/verdaccio/verdaccio/)
 
 Below are the most commony needed informations,
-every aspect of Docker and verdaccio is [documented separately](https://github.com/verdaccio/verdaccio/tree/master/wiki/docker.md)
+every aspect of Docker and verdaccio is [documented separately](https://github.com/verdaccio/verdaccio/blob/master/docs/docker.md)
 
 ### Prebuilt images
 
