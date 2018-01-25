@@ -111,7 +111,7 @@
     "react-dom": "16.2.0",
     "react-hot-loader": "4.0.0-beta.17",
     "react-router-dom": "4.2.2",
-    "react-syntax-highlighter": "5.8.0",
+    "react-syntax-highlighter": "6.1.2",
     "rimraf": "2.6.2",
     "sass-loader": "6.0.6",
     "source-map-loader": "0.2.3",
