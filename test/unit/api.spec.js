@@ -82,7 +82,7 @@ describe('endpoint unit test', () => {
   describe('should test user api', () => {
     const credentials = { name: 'Jota', password: 'secretPass' };
 
-    test('test add a new user', (done) => {
+    test('should test add a new user', (done) => {
 
 
       request(app)
@@ -101,12 +101,78 @@ describe('endpoint unit test', () => {
         });
     });
 
-    test('test fails add a new user', (done) => {
+    test('should test fails add a new user with missing name', (done) => {
+
+      const credentialsShort = _.clone(credentials);
+      delete credentialsShort.name;
+
+      request(app)
+        .put('/-/user/org.couchdb.user:jota')
+        .send(credentialsShort)
+        .expect('Content-Type', /json/)
+        .expect(409)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error).toMatch(/username should not contain non-uri-safe characters/);
+          done();
+        });
+    });
+
+    test('should test fails add a new user with missing password', (done) => {
+
+      const credentialsShort = _.clone(credentials);
+      delete credentialsShort.password;
+
+      request(app)
+        .put('/-/user/org.couchdb.user:jota')
+        .send(credentialsShort)
+        .expect('Content-Type', /json/)
+        .expect(409)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error).toMatch(/this user already exists/);
+          done();
+        });
+    });
+
+    test('should test fails add a new user', (done) => {
 
       request(app)
         .put('/-/user/org.couchdb.user:jota')
         .send(credentials)
         .expect('Content-Type', /json/)
+        .expect(409)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error).toMatch(/this user already exists/);
+          done();
+        });
+    });
+
+    test('should test fails add a new user with wrong password', (done) => {
+
+      const credentialsShort = _.clone(credentials);
+      credentialsShort.password = 'failPassword';
+
+      request(app)
+        .put('/-/user/org.couchdb.user:jota')
+        .send(credentialsShort)
+        .expect('Content-Type', /json/)
+        //TODO: this should return 401 and will fail when issue
+        // https://github.com/verdaccio/verdaccio-htpasswd/issues/5
+        // is being fixed
         .expect(409)
         .end(function(err, res) {
           if (err) {

@@ -5,7 +5,6 @@ import {loadPlugin} from '../lib/plugin-loader';
 const Crypto = require('crypto');
 const Error = require('http-errors');
 const Logger = require('./logger');
-const pkgJson = require('../../package.json');
 const jwt = require('jsonwebtoken');
 /**
  * Handles the authentification, load auth plugins.
