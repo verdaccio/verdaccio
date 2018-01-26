@@ -116,7 +116,7 @@
     "sass-loader": "6.0.6",
     "source-map-loader": "0.2.3",
     "standard-version": "4.3.0",
-    "style-loader": "0.19.1",
+    "style-loader": "0.20.1",
     "stylelint": "8.4.0",
     "stylelint-config-recommended-scss": "3.0.0",
     "stylelint-scss": "2.2.0",
