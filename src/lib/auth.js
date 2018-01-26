@@ -37,30 +37,6 @@ class Auth {
       return p.authenticate || p.allow_access || p.allow_publish;
     });
 
-    this.plugins.unshift({
-      verdaccio_version: pkgJson.version,
-
-      authenticate: function(user, password, cb) {
-        if (config.users != null
-        && config.users[user] != null
-        && (Crypto.createHash('sha1').update(password).digest('hex')
-              === config.users[user].password)
-        ) {
-          return cb(null, [user]);
-        }
-
-        return cb();
-      },
-
-      adduser: function(user, password, cb) {
-        if (config.users && config.users[user]) {
-          return cb(Error[403]('this user already exists'));
-        }
-
-        return cb();
-      },
-    });
-
     const allow_action = function(action) {
       return function(user, pkg, cb) {
         let ok = pkg[action].reduce(function(prev, curr) {
@@ -138,6 +114,7 @@ class Auth {
       if (typeof(p[n]) !== 'function') {
         next();
       } else {
+        // p.add_user() execution
         p[n](user, password, function(err, ok) {
           if (err) return cb(err);
           if (ok) return self.authenticate(user, password, cb);
