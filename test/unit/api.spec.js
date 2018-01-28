@@ -244,6 +244,21 @@ describe('endpoint unit test', () => {
         });
     });
 
+    test('should fails on fetch jquery specific tag package from remote uplink', (done) => {
+
+      request(app)
+        .get('/jquery/never-will-exist-this-tag')
+        .set('content-type', 'application/json; charset=utf-8')
+        .expect('Content-Type', /json/)
+        .expect(404)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+
     test('should not found a unexisting remote package under scope', (done) => {
 
       request(app)
@@ -301,6 +316,108 @@ describe('endpoint unit test', () => {
             return done(err);
           }
 
+          done();
+        });
+    });
+
+  });
+
+  describe('should test dist-tag api', () => {
+    const jqueryVersion = '2.1.2';
+    const jqueryUpdatedVersion = {
+      'beta': '3.0.0',
+      'jota': '1.6.3'
+    };
+
+    test('should set a new tag on jquery', (done) => {
+
+      request(app)
+        .put('/jquery/verdaccio-tag')
+        .send(JSON.stringify(jqueryVersion))
+        .set('accept', 'gzip')
+        .set('accept-encoding', 'application/json')
+        .set('content-type', 'application/json')
+        .expect(201)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.ok).toMatch(/package tagged/);
+          done();
+        });
+    });
+
+    test('should fetch all tag for jquery', (done) => {
+
+      request(app)
+        .get('/-/package/jquery/dist-tags')
+        .set('accept-encoding', 'application/json')
+        .set('content-type', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body).toBeDefined();
+          expect(res.body['verdaccio-tag']).toMatch(jqueryVersion);
+          done();
+        });
+    });
+
+    test('should update a new tag on jquery', (done) => {
+
+      request(app)
+        .post('/-/package/jquery/dist-tags')
+        .send(JSON.stringify(jqueryUpdatedVersion))
+        .set('content-type', 'application/json')
+        .expect(201)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.ok).toMatch(/tags updated/);
+          done();
+        });
+    });
+
+    test('should fetch all tags for jquery and ccheck previous update', (done) => {
+
+      request(app)
+        .get('/-/package/jquery/dist-tags')
+        .set('accept-encoding', 'application/json')
+        .set('content-type', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body).toBeDefined();
+          expect(res.body['beta']).toMatch(jqueryUpdatedVersion['beta']);
+          done();
+        });
+    });
+
+    test('should set a remove a tag on jquery', (done) => {
+
+      request(app)
+        .del('/-/package/jquery/dist-tags/verdaccio-tag')
+        .set('accept-encoding', 'application/json')
+        .set('content-type', 'application/json')
+        //.expect('Content-Type', /json/)
+        .expect(201)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.ok).toMatch(/tag removed/);
           done();
         });
     });

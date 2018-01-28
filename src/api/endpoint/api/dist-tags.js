@@ -5,7 +5,6 @@ const mime = require('mime');
 const _ = require('lodash');
 
 const media = Middleware.media;
-const expect_json = Middleware.expect_json;
 
 module.exports = function(route, auth, storage) {
   const can = Middleware.allow(auth);
@@ -63,8 +62,7 @@ module.exports = function(route, auth, storage) {
     });
   });
 
-  route.post('/-/package/:package/dist-tags', can('publish'), media(mime.getType('json')), expect_json,
-    function(req, res, next) {
+  route.post('/-/package/:package/dist-tags', can('publish'), function(req, res, next) {
       storage.merge_tags(req.params.package, req.body, function(err) {
         if (err) {
           return next(err);

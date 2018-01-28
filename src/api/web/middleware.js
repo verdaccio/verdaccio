@@ -1,7 +1,5 @@
 /* eslint prefer-rest-params: "off" */
 
-'use strict';
-
 const crypto = require('crypto');
 const _ = require('lodash');
 const createError = require('http-errors');
