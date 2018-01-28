@@ -208,6 +208,42 @@ describe('endpoint unit test', () => {
         });
     });
 
+    test('should fetch jquery specific version package from remote uplink', (done) => {
+
+      request(app)
+        .get('/jquery/1.5.1')
+        .set('content-type', 'application/json; charset=utf-8')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body).toBeDefined();
+          expect(res.body.name).toMatch(/jquery/);
+          done();
+        });
+    });
+
+    test('should fetch jquery specific tag package from remote uplink', (done) => {
+
+      request(app)
+        .get('/jquery/latest')
+        .set('content-type', 'application/json; charset=utf-8')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body).toBeDefined();
+          expect(res.body.name).toMatch(/jquery/);
+          done();
+        });
+    });
+
     test('should not found a unexisting remote package under scope', (done) => {
 
       request(app)
