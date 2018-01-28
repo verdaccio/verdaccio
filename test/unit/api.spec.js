@@ -188,4 +188,87 @@ describe('endpoint unit test', () => {
 
   });
 
+  describe('should test package api', () => {
+
+    test('should fetch jquery package from remote uplink', (done) => {
+
+      request(app)
+        .get('/jquery')
+        .set('content-type', 'application/json; charset=utf-8')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body).toBeDefined();
+          expect(res.body.name).toMatch(/jquery/);
+          done();
+        });
+    });
+
+    test('should not found a unexisting remote package under scope', (done) => {
+
+      request(app)
+        .get('/@verdaccio/not-found')
+        .set('content-type', 'application/json; charset=utf-8')
+        .expect('Content-Type', /json/)
+        .expect(404)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+
+    test('should forbid access to remote package', (done) => {
+
+      request(app)
+        .get('/forbidden-place')
+        .set('content-type', 'application/json; charset=utf-8')
+        .expect('Content-Type', /json/)
+        .expect(403)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+
+    test('should fetch a tarball from remote uplink', (done) => {
+
+      request(app)
+        .get('/jquery/-/jquery-1.5.1.tgz')
+        .expect('Content-Type', /application\/octet-stream/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body).toBeDefined();
+          done();
+        });
+    });
+
+    test('should fails fetch a tarball from remote uplink', (done) => {
+
+      request(app)
+        .get('/jquery/-/jquery-0.0.1.tgz')
+        .expect('Content-Type', /application\/octet-stream/)
+        .expect(404)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          done();
+        });
+    });
+
+  });
+
 });

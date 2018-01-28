@@ -6,8 +6,25 @@ const config = {
     }
   },
   packages: {
+    '@*/*': {
+      allow_access: '$all',
+      allow_publish: '$all',
+      proxy: 'npmjs'
+    },
+
+    'forbidden-place': {
+      allow_access: 'nobody',
+      allow_publish: 'nobody'
+    },
+
+    'jquery': {
+      allow_access: '$all',
+      allow_publish: '$all',
+      proxy: 'npmjs'
+    },
     '*': {
       allow_access: '$all',
+      allow_publish: '$all'
     },
   },
   logs: [
