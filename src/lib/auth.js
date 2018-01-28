@@ -410,7 +410,7 @@ function buildAnonymousUser() {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
-    groups: ['$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'],
+    groups: ['$all', '$anonymous', '@all', '@anonymous'],
     real_groups: [],
   };
 }
