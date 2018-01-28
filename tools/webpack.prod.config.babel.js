@@ -5,6 +5,7 @@ const baseConfig = require('./webpack.config');
 const env = require('../src/config/env');
 const _ = require('lodash');
 const merge = require('webpack-merge');
+import getPackageVersion from './getPackageVersion';
 
 const prodConf = {
   entry: {
@@ -19,6 +20,7 @@ const prodConf = {
     new webpack.DefinePlugin({
       '__DEBUG__': false,
       'process.env.NODE_ENV': '"production"',
+      '__APP_VERSION__': `"${getPackageVersion()}"`,
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,

@@ -4,6 +4,7 @@ import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import baseConfig from './webpack.config';
 import env from '../src/config/env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
+import getPackageVersion from './getPackageVersion';
 
 export default {
   ...baseConfig,
@@ -25,6 +26,7 @@ export default {
     new webpack.DefinePlugin({
       '__DEBUG__': true,
       'process.env.NODE_ENV': '"development"',
+      '__APP_VERSION__': `"${getPackageVersion()}"`,
     }),
     new HTMLWebpackPlugin({
       title: 'Verdaccio',

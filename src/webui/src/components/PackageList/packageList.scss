@@ -5,6 +5,10 @@
   li {
     border-bottom: 1px solid #e4e8f1;
     list-style: none;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   .listTitle {
