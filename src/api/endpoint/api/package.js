@@ -30,7 +30,7 @@ module.exports = function(route, auth, storage, config) {
         if (_.isNil(info['dist-tags'][queryVersion]) === false) {
           queryVersion = info['dist-tags'][queryVersion];
           t = Utils.get_version(info, queryVersion);
-          if (_.isNil(t)) {
+          if (_.isNil(t) === false) {
             return next(t);
           }
         }
