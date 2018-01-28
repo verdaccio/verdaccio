@@ -1,7 +1,5 @@
 /* eslint prefer-rest-params: "off" */
 
-'use strict';
-
 const crypto = require('crypto');
 const _ = require('lodash');
 const createError = require('http-errors');
@@ -251,3 +249,29 @@ module.exports.log = function(req, res, next) {
   };
   next();
 };
+
+// Middleware
+module.exports.errorReportingMiddleware = function(req, res, next) {
+  res.report_error = res.report_error || function(err) {
+    if (err.status && err.status >= 400 && err.status < 600) {
+      if (_.isNil(res.headersSent) === false) {
+        res.status(err.status);
+        next({error: err.message || 'unknown error'});
+      }
+    } else {
+      Logger.logger.error( {err: err}
+        , 'unexpected error: @{!err.message}\n@{err.stack}');
+      if (!res.status || !res.send) {
+        Logger.logger.error('this is an error in express.js, please report this');
+        res.destroy();
+      } else if (!res.headersSent) {
+        res.status(500);
+        next({error: 'internal server error'});
+      } else {
+        // socket should be already closed
+      }
+    }
+  };
+  next();
+};
+

@@ -25,7 +25,7 @@ export default function (server, server2) {
     test('downloading non-existent tarball #2 / srv2', () => {
       return server2.getTarball('testpkg-gh29', 'blahblah')
                .status(404)
-               .body_error(/no such file/);
+               .body_error(/no such file available/);
     });
 
     describe('tarball', () => {
@@ -51,10 +51,10 @@ export default function (server, server2) {
 
         test('downloading newly created tarball / srv2', () => {
           return server2.getTarball('testpkg-gh29', 'blahblah')
-                   .status(200)
-                   .then(function(body) {
-                     assert.deepEqual(body, readfile('fixtures/binary'));
-                   });
+                 .status(200)
+                 .then(function(body) {
+                   assert.deepEqual(body, readfile('fixtures/binary'));
+                 });
         });
       });
     });

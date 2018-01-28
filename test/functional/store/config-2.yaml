@@ -1,11 +1,5 @@
 storage: ./test-storage2
 
-users:
-  test:
-    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
-  authtest:
-    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
-
 uplinks:
   server1:
     url: http://localhost:55551/
@@ -13,62 +7,84 @@ uplinks:
 
 web:
   enable: true
+  title: verdaccio-server-2
 
 middlewares:
   ../fixtures/plugins/middlewares:
     message: this is a custom route
 
-auth:
-  ../fixtures/plugins/authenticate:
-    accept_user: authtest2
-    with_password: blahblah
+max_users: 3
 
-  ../fixtures/plugins/authorize:
-    allow_user: authtest
-    to_access: test-auth-allow
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+      authtest2:
+        name: authtest2
+        password: blahblah
+      authtest:
+        name: authtest
+        password: blahblah
 
 logs:
   - {type: stdout, format: pretty, level: trace}
 
 packages:
   '@test/*':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy: server1
 
   'testfwd':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
 
   'testloop':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy_access: server1
     proxy_publish: server1
 
-  'testpkg*':
-    allow_access: test anonymous
-    allow_publish: test anonymous
+  # used by gh29.js
+  'testpkg-gh29':
+    allow_access: test $anonymous
+    allow_publish: test $anonymous
+    proxy_access: server1
+
+  # used by preserve_tags_spec.js
+  'testpkg-preserve':
+    allow_access: test $anonymous
+    allow_publish: test $anonymous
+    proxy_access: server1
+
+  'testpkg':
+    allow_access: test $anonymous
+    allow_publish: test $anonymous
     proxy_access: server1
 
   'readme-*':
-    allow_access: test anonymous
-    allow_publish: test anonymous
+    allow_access: test $anonymous
+    allow_publish: test $anonymous
     proxy_access: server1
 
   'test-nullstorage*':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
 
   'test-auth-regular':
     allow_access: $authenticated
 
   'test-auth-*':
-    handled_by_auth_plugin: true
+    allow_access: authtest
+
+  'test-deny':
+    allow_access: authtest2
 
   '*':
-    allow_access: test anonymous
-    allow_publish: test anonymous
+    allow_access: test $anonymous
+    allow_publish: test $anonymous
 
 listen: 55552
 
