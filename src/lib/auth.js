@@ -115,8 +115,12 @@ class Auth {
       } else {
         // p.add_user() execution
         p[n](user, password, function(err, ok) {
-          if (err) return cb(err);
-          if (ok) return self.authenticate(user, password, cb);
+          if (err) {
+            return cb(err);
+          }
+          if (ok) {
+            return self.authenticate(user, password, cb);
+          }
           next();
         });
       }
@@ -142,8 +146,15 @@ class Auth {
       }
 
       p.allow_access(user, pkg, function(err, ok) {
-        if (err) return callback(err);
-        if (ok) return callback(null, ok);
+
+        if (err) {
+          return callback(err);
+        }
+
+        if (ok) {
+          return callback(null, ok);
+        }
+
         next(); // cb(null, false) causes next plugin to roll
       });
     })();
@@ -204,7 +215,9 @@ class Auth {
       req.remote_user = buildAnonymousUser();
 
       let authorization = req.headers.authorization;
-      if (authorization == null) return next();
+      if (authorization == null) {
+        return next();
+      }
 
       let parts = authorization.split(' ');
 

@@ -18,8 +18,8 @@ export default function (server, server2) {
     test('add pkg', () => {});
 
     describe('should check readme file', () => {
-      const matchReadme = (server) => {
-        return server.request({
+      const matchReadme = (serverRef) => {
+        return serverRef.request({
           uri: '/-/verdaccio/package/readme/readme-test'
         }).status(200).then(function(body) {
           assert.equal(body, '<p>this is a readme</p>\n');

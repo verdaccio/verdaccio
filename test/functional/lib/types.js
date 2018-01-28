@@ -4,6 +4,7 @@ export interface IVerdaccioConfig {
   storagePath: string;
   configPath: string;
   domainPath: string;
+  port: number;
 }
 
 export interface IRequestPromise {

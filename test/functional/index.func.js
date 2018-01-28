@@ -34,21 +34,22 @@ import upLinkCache from './uplink.cache.spec';
 import upLinkAuth from './uplink.auth.spec';
 
 describe('functional test verdaccio', function() {
+  jest.setTimeout(20000);
   const EXPRESS_PORT = 55550;
   const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
   const processRunning = [];
   const config1 = new VerdaccioConfig(
     './store/test-storage',
     './store/config-1.yaml',
-    'http://localhost:55551/');
+    'http://localhost:55551/', 55551);
   const config2 = new VerdaccioConfig(
       './store/test-storage2',
       './store/config-2.yaml',
-      'http://localhost:55552/');
+      'http://localhost:55552/', 55552);
   const config3 = new VerdaccioConfig(
         './store/test-storage3',
         './store/config-3.yaml',
-        'http://localhost:55553/');
+        'http://localhost:55553/', 55553);
   const server1: IServerBridge = new Server(config1.domainPath);
   const server2: IServerBridge = new Server(config2.domainPath);
   const server3: IServerBridge = new Server(config3.domainPath);

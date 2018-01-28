@@ -30,7 +30,7 @@ module.exports = function(route, auth) {
             // With npm registering is the same as logging in,
             // and npm accepts only an 409 error.
             // So, changing status code here.
-            return next( createError[409](err.message) );
+            return next( createError[err.status || 409](err.message) );
           }
           return next(err);
         }

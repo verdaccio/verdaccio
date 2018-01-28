@@ -16,7 +16,6 @@ describe('endpoint unit test', () => {
   let storage;
   let auth;
   let app;
-  jest.setTimeout(500000);
 
   beforeAll(function(done) {
     const store = path.join(__dirname, './partials/store/test-storage');
@@ -131,13 +130,14 @@ describe('endpoint unit test', () => {
         .put('/-/user/org.couchdb.user:jota')
         .send(credentialsShort)
         .expect('Content-Type', /json/)
-        .expect(409)
+        .expect(403)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
 
           expect(res.body.error).toBeDefined();
+          //FIXME: message is not 100% accurate
           expect(res.body.error).toMatch(/this user already exists/);
           done();
         });
@@ -149,13 +149,14 @@ describe('endpoint unit test', () => {
         .put('/-/user/org.couchdb.user:jota')
         .send(credentials)
         .expect('Content-Type', /json/)
-        .expect(409)
+        .expect(403)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
 
           expect(res.body.error).toBeDefined();
+          //FIXME: message is not 100% accurate
           expect(res.body.error).toMatch(/this user already exists/);
           done();
         });
@@ -173,7 +174,7 @@ describe('endpoint unit test', () => {
         //TODO: this should return 401 and will fail when issue
         // https://github.com/verdaccio/verdaccio-htpasswd/issues/5
         // is being fixed
-        .expect(409)
+        .expect(403)
         .end(function(err, res) {
           if (err) {
             return done(err);
