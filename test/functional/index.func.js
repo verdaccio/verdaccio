@@ -34,7 +34,7 @@ import upLinkCache from './uplink.cache.spec';
 import upLinkAuth from './uplink.auth.spec';
 
 describe('functional test verdaccio', function() {
-  jest.setTimeout(20000);
+  jest.setTimeout(10000);
   const EXPRESS_PORT = 55550;
   const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
   const processRunning = [];
