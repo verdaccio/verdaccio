@@ -69,10 +69,12 @@ describe('functional test verdaccio', function() {
         express.start(EXPRESS_PORT).then((app) =>{
           done();
         }, (err) => {
-          done(err);
+          console.error(err);
+          done();
         });
-    }).catch((error) => {
-      done(error);
+    }).catch((err) => {
+      console.error(err);
+      done();
     });
   });
 
