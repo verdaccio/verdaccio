@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.7.4"></a>
+## [2.7.4](https://github.com/verdaccio/verdaccio/compare/v2.7.3...v2.7.4) (2018-01-28)
+
+
+### Bug Fixes
+
+* **dist-tag:** fix [#411](https://github.com/verdaccio/verdaccio/issues/411) latest tag is incorrect ([32a2ccf](https://github.com/verdaccio/verdaccio/commit/32a2ccf))
+
+
+
 <a name="2.7.3"></a>
 ## [2.7.3](https://github.com/verdaccio/verdaccio/compare/v2.7.2...v2.7.3) (2018-01-14)
 
