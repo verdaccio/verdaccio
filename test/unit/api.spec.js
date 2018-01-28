@@ -424,4 +424,26 @@ describe('endpoint unit test', () => {
 
   });
 
+  describe('should test search api', () => {
+    test('should perform a search', (done) => {
+      const now = Date.now()
+      const cacheTime = now - 6000000;
+      request(app)
+        .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
+        // .set('accept-encoding', 'application/json')
+        // .set('content-type', 'application/json')
+        //.expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          //TODO: we have to catch the stream check whether it returns something
+          // we should not spend much time on this api since is deprecated somehow.
+          done();
+        });
+    });
+
+  });
+
 });
