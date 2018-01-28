@@ -4,6 +4,7 @@ import path from 'path';
 import rimraf from 'rimraf';
 
 import configDefault from './partials/config';
+import publishMetadata from './partials/publish-api';
 import Config from '../../src/lib/config';
 import Storage from '../../src/lib/storage';
 import Auth from '../../src/lib/auth';
@@ -444,6 +445,42 @@ describe('endpoint unit test', () => {
         });
     });
 
+  });
+
+  describe('should test publish api', () => {
+    test('should publish a new package', (done) => {
+      request(app)
+        .put('/@scope%2fpk1-test')
+        .set('content-type', 'application/json')
+        .send(JSON.stringify(publishMetadata))
+        .expect(201)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.success).toBeDefined();
+          expect(res.body.success).toBeTruthy();
+          expect(res.body.ok).toMatch(/created new package/);
+          done();
+        });
+    });
+
+    test('should unpublish a new package', (done) => {
+      //FUTURE: for some reason it does not remove the scope folder
+      request(app)
+        .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
+        .set('content-type', 'application/json')
+        .expect(201)
+        .end(function(err, res) {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.ok).toMatch(/package removed/);
+          done();
+        });
+    });
   });
 
 });
