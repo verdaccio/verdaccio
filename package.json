@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "3.0.0-alpha.10",
+  "version": "3.0.0-alpha.11",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -121,7 +121,9 @@
     "stylelint-config-recommended-scss": "3.0.0",
     "stylelint-scss": "2.2.0",
     "stylelint-webpack-plugin": "0.10.1",
+    "supertest": "^3.0.0",
     "url-loader": "0.6.2",
+    "verdaccio-auth-memory": "^0.0.3",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.11.1",
     "webpack-merge": "4.1.1"

@@ -16,6 +16,12 @@ function createHash() {
 export default function(server, server2) {
   describe('basic test endpoints', () => {
 
+    beforeAll(function() {
+      return server.auth('test', 'test')
+        .status(201)
+        .body_ok(/'test'/);
+    });
+
     require('./whoIam')(server);
     require('./ping')(server);
 
@@ -114,31 +120,41 @@ export default function(server, server2) {
             /* test for before() */
           });
 
-          test('downloading newly created package', () => {
-            return server.getPackage('testpkg')
-              .status(200)
-              .then(function (body) {
-                assert.equal(body.name, 'testpkg');
-                assert.equal(body.versions['0.0.1'].name, 'testpkg');
-                assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55551/testpkg/-/blahblah');
-                assert.deepEqual(body['dist-tags'], {
-                  latest: '0.0.1'
+          describe('should download a package', () => {
+            beforeAll(function() {
+              return server.auth('test', 'test')
+                .status(201)
+                .body_ok(/'test'/);
+            });
+
+            test('should download a newly created package from server1', () => {
+              return server.getPackage('testpkg')
+                .status(200)
+                .then(function (body) {
+                  assert.equal(body.name, 'testpkg');
+                  assert.equal(body.versions['0.0.1'].name, 'testpkg');
+                  assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55551/testpkg/-/blahblah');
+                  assert.deepEqual(body['dist-tags'], {
+                    latest: '0.0.1'
+                  });
                 });
-              });
+            });
+
+            test('should downloading a package from server2', () => {
+              return server2.getPackage('testpkg')
+                .status(200)
+                .then(function (body) {
+                  assert.equal(body.name, 'testpkg');
+                  assert.equal(body.versions['0.0.1'].name, 'testpkg');
+                  assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55552/testpkg/-/blahblah');
+                  assert.deepEqual(body['dist-tags'], {
+                    latest: '0.0.1'
+                  });
+                });
+            });
+
           });
 
-          test('downloading package via server2', () => {
-            return server2.getPackage('testpkg')
-              .status(200)
-              .then(function (body) {
-                assert.equal(body.name, 'testpkg');
-                assert.equal(body.versions['0.0.1'].name, 'testpkg');
-                assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55552/testpkg/-/blahblah');
-                assert.deepEqual(body['dist-tags'], {
-                  latest: '0.0.1'
-                });
-              });
-          });
         });
       });
     });

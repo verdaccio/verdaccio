@@ -5,6 +5,7 @@ import _ from 'lodash';
 import cors from 'cors';
 import Storage from '../lib/storage';
 import {loadPlugin} from '../lib/plugin-loader';
+import hookDebug from './debug';
 
 const Auth = require('../lib/auth');
 const Logger = require('../lib/logger');
@@ -24,34 +25,9 @@ module.exports = function(configHash) {
   app.set('env', process.env.NODE_ENV || 'production');
   app.use(cors());
 
-  // Middleware
-  const error_reporting_middleware = function(req, res, next) {
-    res.report_error = res.report_error || function(err) {
-      if (err.status && err.status >= 400 && err.status < 600) {
-        if (_.isNil(res.headersSent) === false) {
-          res.status(err.status);
-          next({error: err.message || 'unknown error'});
-        }
-      } else {
-        Logger.logger.error( {err: err}
-                           , 'unexpected error: @{!err.message}\n@{err.stack}');
-        if (!res.status || !res.send) {
-          Logger.logger.error('this is an error in express.js, please report this');
-          res.destroy();
-        } else if (!res.headersSent) {
-          res.status(500);
-          next({error: 'internal server error'});
-        } else {
-          // socket should be already closed
-        }
-      }
-    };
-    next();
-  };
-
   // Router setup
   app.use(Middleware.log);
-  app.use(error_reporting_middleware);
+  app.use(Middleware.errorReportingMiddleware);
   app.use(function(req, res, next) {
     res.setHeader('X-Powered-By', config.user_agent);
     next();
@@ -66,20 +42,9 @@ module.exports = function(configHash) {
 
   // Hook for tests only
   if (config._debug) {
-    app.get('/-/_debug', function(req, res, next) {
-      const do_gc = _.isNil(global.gc) === false;
-      if (do_gc) {
-        global.gc();
-      }
-      next({
-        pid: process.pid,
-        main: process.mainModule.filename,
-        conf: config.self_path,
-        mem: process.memoryUsage(),
-        gc: do_gc,
-      });
-    });
+    hookDebug(app, config.self_path);
   }
+
   // register middleware plugins
   const plugin_params = {
     config: config,
@@ -118,7 +83,7 @@ module.exports = function(configHash) {
       if (_.isFunction(res.report_error) === false) {
         // in case of very early error this middleware may not be loaded before error is generated
         // fixing that
-        error_reporting_middleware(req, res, _.noop);
+        Middleware.errorReportingMiddleware(req, res, _.noop);
       }
       res.report_error(err);
     } else {
