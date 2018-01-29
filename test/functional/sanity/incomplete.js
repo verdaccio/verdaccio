@@ -34,7 +34,7 @@ export default function (server, express) {
     });
 
     ddd.forEach(function (type) {
-      test('should not store tarballs / ' + type, callback => {
+      test.skip('should not store tarballs / ' + type, callback => {
         let called;
         express.get('/testexp-incomplete/-/' + type + '.tar.gz', function (_, response) {
           if (called) {

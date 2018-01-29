@@ -1,9 +1,9 @@
 import assert from 'assert';
 
 export default function(server2){
-  const requestAuthFail = (user, pass, message) => {
+  const requestAuthFail = (user, pass, message, statusCode) => {
     return server2.auth(user, pass)
-      .status(409)
+      .status(statusCode)
       .body_error(message)
       .then(function() {
         return server2.whoami();
@@ -12,9 +12,9 @@ export default function(server2){
         assert.equal(username, null);
       });
   };
-  const requestAuthOk = (user, pass, regex) => {
+  const requestAuthOk = (user, pass, regex, statusCode) => {
     return server2.auth(user, pass)
-      .status(201)
+      .status(statusCode)
       .body_ok(regex)
       .then(function() {
         return server2.whoami();
@@ -26,39 +26,22 @@ export default function(server2){
   };
 
   describe('test default authentication', () => {
-    let authstr;
-
-    beforeAll(function() {
-      authstr = server2.authstr;
-    });
 
     test('should not authenticate with wrong password', () => {
-      return requestAuthFail('authtest', 'wrongpass', 'this user already exists');
-    });
-
-    test('should be wrong password handled by plugin', () => {
-      return requestAuthFail('authtest2', 'wrongpass', 'registration is disabled');
+      return requestAuthFail('authtest', 'wrongpass1', 'i don\'t like your password', 401);
     });
 
     test('should right password handled by plugin', () => {
-      return requestAuthOk('authtest2', 'blahblah', /'authtest2'/);
+      return requestAuthOk('authtest2', 'blahblah', /'authtest2'/, 201);
     });
 
-    afterAll(function() {
-      server2.authstr = authstr;
-    });
   });
 
   describe('test access authorization', () => {
-    let authstr;
 
-    beforeAll(function() {
-      authstr = server2.authstr;
-    });
-
-    describe('access with user authtest', () => {
+   describe('access with user authtest', () => {
       beforeAll(function() {
-        return server2.auth('authtest', 'test')
+        return server2.auth('authtest', 'blahblah')
                  .status(201)
                  .body_ok(/'authtest'/);
       });
@@ -69,10 +52,10 @@ export default function(server2){
                  .body_error('no such package available');
       });
 
-      test('access test-auth-deny', () => {
-        return server2.getPackage('test-auth-deny')
+      test('access test-deny', () => {
+        return server2.getPackage('test-deny')
                  .status(403)
-                 .body_error('you\'re not allowed here');
+                 .body_error('not allowed to access package');
       });
 
       test('access test-auth-regular', () => {
@@ -92,13 +75,13 @@ export default function(server2){
       test('access test-auth-allow', () => {
         return server2.getPackage('test-auth-allow')
                  .status(403)
-                 .body_error('i don\'t know anything about you');
+                 .body_error('not allowed to access package');
       });
 
       test('access test-auth-deny', () => {
         return server2.getPackage('test-auth-deny')
                  .status(403)
-                 .body_error('i don\'t know anything about you');
+                 .body_error('not allowed to access package');
       });
 
       test('access test-auth-regular', () => {
@@ -108,8 +91,5 @@ export default function(server2){
       });
     });
 
-    afterAll(function() {
-      server2.authstr = authstr;
-    });
   });
 }

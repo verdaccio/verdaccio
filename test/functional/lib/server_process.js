@@ -32,8 +32,9 @@ export default class VerdaccioProcess implements IServerProcess {
         this.childFork = fork(verdaccioRegisterWrap,
           ['-c', configPath],
           {
-            silent: this.silence
-          }
+            silent: this.silence,
+            execArgv: [`--inspect=${this.config.port + 5}`]
+          },
         );
 
         this.childFork.on('message', (msg) => {
@@ -49,16 +50,16 @@ export default class VerdaccioProcess implements IServerProcess {
           }
         });
 
-        this.childFork.on('error', function(err) {
-          reject(err);
+        this.childFork.on('error', (err) => {
+          reject([err, this]);
         });
 
-        this.childFork.on('disconnect', function(err) {
-          reject(err);
+        this.childFork.on('disconnect', (err) => {
+          reject([err, this]);
         });
 
-        this.childFork.on('exit', function(err) {
-          reject(err);
+        this.childFork.on('exit', (err) => {
+          reject([err, this]);
         });
 
       });
