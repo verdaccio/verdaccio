@@ -8705,9 +8705,9 @@ vendors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.1.tgz#37ad73c8ee417fb3d580e785312307d274847f22"
 
-verdaccio-auth-memory@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.3.tgz#6d175a8959c04a46f1441fa09370ede3517acf5b"
+verdaccio-auth-memory@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
 
 verror@1.10.0:
   version "1.10.0"
