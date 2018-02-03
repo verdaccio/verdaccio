@@ -373,28 +373,29 @@ class Storage {
         return options.callback(err);
       }
 
-      this._syncUplinksMetadata(options.name, data, {req: options.req}, function(err, result, uplink_errors) {
-        if (err) {
-          return options.callback(err);
-        }
-
-        const propertyToKeep = [...WHITELIST];
-        if (options.keepUpLinkData === true) {
-          propertyToKeep.push('_uplinks');
-        }
-
-        for (let i in result) {
-          if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
-            delete result[i];
+      this._syncUplinksMetadata(options.name, data, {req: options.req},
+        function getPackageSynUpLinksCallback(err, result, uplink_errors) {
+          if (err) {
+            return options.callback(err);
           }
-        }
 
-        Utils.normalize_dist_tags(result);
+          const propertyToKeep = [...WHITELIST];
+          if (options.keepUpLinkData === true) {
+            propertyToKeep.push('_uplinks');
+          }
 
-        // npm can throw if this field doesn't exist
-        result._attachments = {};
+          for (let i in result) {
+            if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
+              delete result[i];
+            }
+          }
 
-        options.callback(null, result, uplink_errors);
+          Utils.normalize_dist_tags(result);
+
+          // npm can throw if this field doesn't exist
+          result._attachments = {};
+
+          options.callback(null, result, uplink_errors);
       });
     });
   }
@@ -585,7 +586,7 @@ class Storage {
     }, (err, upLinksErrors) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
-        return callback( Error[404]('no such package available')
+        return callback( Utils.ErrorCode.get404('no such package available')
                       , null
                       , upLinksErrors );
       }

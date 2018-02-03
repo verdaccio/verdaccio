@@ -336,8 +336,8 @@ const ErrorCode = {
   get400: (customMessage) => {
     return createError(400, customMessage);
   },
-  get500: () => {
-    return createError(500);
+  get500: (customMessage) => {
+    return customMessage ? createError(500, customMessage) : createError(500);
   },
   get403: () => {
     return createError(403, 'can\'t use this filename');

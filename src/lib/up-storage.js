@@ -1,13 +1,14 @@
-const JSONStream = require('JSONStream');
-const createError = require('http-errors');
-const _ = require('lodash');
-const request = require('request');
-const Stream = require('stream');
-const URL = require('url');
+import zlib from 'zlib';
+import JSONStream from 'JSONStream';
+import createError from 'http-errors';
+import _ from 'lodash';
+import request from 'request';
+import Stream from 'stream';
+import URL from 'url';
+import {parseInterval, is_object, ErrorCode} from './utils';
+import {ReadTarball} from '@verdaccio/streams';
+
 const Logger = require('./logger');
-const MyStreams = require('@verdaccio/streams');
-const Utils = require('./utils');
-const zlib = require('zlib');
 
 const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
@@ -61,10 +62,10 @@ class ProxyStorage {
     }
 
     // a bunch of different configurable timers
-    this.maxage = Utils.parseInterval(setConfig(this.config, 'maxage', '2m' ));
-    this.timeout = Utils.parseInterval(setConfig(this.config, 'timeout', '30s'));
+    this.maxage = parseInterval(setConfig(this.config, 'maxage', '2m' ));
+    this.timeout = parseInterval(setConfig(this.config, 'timeout', '30s'));
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2 ));
-    this.fail_timeout = Utils.parseInterval(setConfig(this.config, 'fail_timeout', '5m' ));
+    this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m' ));
   }
 
   /**
@@ -81,7 +82,7 @@ class ProxyStorage {
 
       process.nextTick(function() {
         if (_.isFunction(cb)) {
-          cb(createError('uplink is offline'));
+          cb(ErrorCode.get500('uplink is offline'));
         }
         streamRead.emit('error', createError('uplink is offline'));
       });
@@ -107,7 +108,7 @@ class ProxyStorage {
       uri: uri,
     }, 'making request: \'@{method} @{uri}\'');
 
-    if (Utils.is_object(options.json)) {
+    if (is_object(options.json)) {
       json = JSON.stringify(options.json);
       headers['Content-Type'] = headers['Content-Type'] || 'application/json';
     }
@@ -139,7 +140,7 @@ class ProxyStorage {
           }
         }
 
-        if (!err && Utils.is_object(body)) {
+        if (!err && is_object(body)) {
           if (_.isString(body.error)) {
             error = body.error;
           }
@@ -181,7 +182,7 @@ class ProxyStorage {
 
     let statusCalled = false;
     req.on('response', function(res) {
-      if (!req._verdaccio_aborted && _.isNil(statusCalled) === false) {
+      if (!req._verdaccio_aborted && !statusCalled) {
         statusCalled = true;
         self._statusCheck(true);
       }
@@ -351,7 +352,7 @@ class ProxyStorage {
         return callback(err);
       }
       if (res.statusCode === 404) {
-        return callback( createError[404]('package doesn\'t exist on uplink') );
+        return callback( ErrorCode.get404('package doesn\'t exist on uplink'));
       }
       if (!(res.statusCode >= 200 && res.statusCode < 300)) {
         const error = createError(`bad status code: ${res.statusCode}`);
@@ -368,7 +369,7 @@ class ProxyStorage {
    * @return {Stream}
    */
   fetchTarball(url) {
-    const stream = new MyStreams.ReadTarball({});
+    const stream = new ReadTarball({});
     let current_length = 0;
     let expected_length;
 
@@ -383,7 +384,7 @@ class ProxyStorage {
 
     readStream.on('response', function(res) {
       if (res.statusCode === 404) {
-        return stream.emit('error', createError[404]('file doesn\'t exist on uplink'));
+        return stream.emit('error', ErrorCode.get404('file doesn\'t exist on uplink'));
       }
       if (!(res.statusCode >= 200 && res.statusCode < 300)) {
         return stream.emit('error', createError('bad uplink status code: ' + res.statusCode));
@@ -429,7 +430,7 @@ class ProxyStorage {
     });
 
     let parsePackage = (pkg) => {
-      if (Utils.is_object(pkg)) {
+      if (is_object(pkg)) {
         transformStream.emit('data', pkg);
       }
     };
