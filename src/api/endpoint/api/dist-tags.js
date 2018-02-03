@@ -15,7 +15,7 @@ module.exports = function(route, auth, storage) {
 
     let tags = {};
     tags[req.params.tag] = req.body;
-    storage.merge_tags(req.params.package, tags, function(err) {
+    storage.mergeTags(req.params.package, tags, function(err) {
       if (err) {
         return next(err);
       }
@@ -37,7 +37,7 @@ module.exports = function(route, auth, storage) {
   route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req, res, next) {
     const tags = {};
     tags[req.params.tag] = null;
-    storage.merge_tags(req.params.package, tags, function(err) {
+    storage.mergeTags(req.params.package, tags, function(err) {
       if (err) {
         return next(err);
       }
@@ -63,7 +63,7 @@ module.exports = function(route, auth, storage) {
   });
 
   route.post('/-/package/:package/dist-tags', can('publish'), function(req, res, next) {
-      storage.merge_tags(req.params.package, req.body, function(err) {
+      storage.mergeTags(req.params.package, req.body, function(err) {
         if (err) {
           return next(err);
         }

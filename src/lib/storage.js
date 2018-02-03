@@ -144,7 +144,7 @@ class Storage {
    * @param {*} tag
    * @param {*} callback
    */
-  add_version(name, version, metadata, tag, callback) {
+  addVersion(name, version, metadata, tag, callback) {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
@@ -155,7 +155,7 @@ class Storage {
    * @param {*} tag_hash
    * @param {*} callback
    */
-  merge_tags(name, tag_hash, callback) {
+  mergeTags(name, tag_hash, callback) {
     this.localStorage.mergeTags(name, tag_hash, callback);
   }
 
@@ -569,7 +569,7 @@ class Storage {
         this._updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 
         try {
-          Storage._merge_versions(packageInfo, upLinkResponse, self.config);
+          Storage._mergeVersions(packageInfo, upLinkResponse, self.config);
         } catch(err) {
           self.logger.error({
             sub: 'out',
@@ -643,7 +643,7 @@ class Storage {
    * @param {*} config
    * @static
    */
-  static _merge_versions(local, up, config) {
+  static _mergeVersions(local, up, config) {
     // copy new versions to a cache
     // NOTE: if a certain version was updated, we can't refresh it reliably
     for (let i in up.versions) {
