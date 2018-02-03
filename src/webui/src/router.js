@@ -4,11 +4,12 @@ import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import Header from './components/Header';
 import Home from './modules/home';
 import Detail from './modules/detail';
+import Footer from './components/Footer';
 
 const RouterApp = () => {
   return (
     <Router>
-      <div>
+      <div className="page-full-height">
         <Header/>
         <div className="container">
           <Switch>
@@ -17,6 +18,7 @@ const RouterApp = () => {
             <Route exact path="/detail/:package" component={Detail} />
           </Switch>
         </div>
+        <Footer/>
       </div>
     </Router>
   );

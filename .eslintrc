@@ -26,6 +26,9 @@
     "es6": true,
     "jest": true
   },
+  "globals": {
+    "__APP_VERSION__": true
+  },
   "rules": {
     "no-tabs": 0,
     "keyword-spacing": 0,
