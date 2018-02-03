@@ -62,19 +62,7 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@commitlint/cli@6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-6.0.2.tgz#378d37e92c4d97346e84c3a3d6677a62e9471d66"
-  dependencies:
-    "@commitlint/core" "^6.0.2"
-    babel-polyfill "6.26.0"
-    chalk "2.3.0"
-    get-stdin "5.0.1"
-    lodash.merge "4.6.0"
-    lodash.pick "4.4.0"
-    meow "3.7.0"
-
-"@commitlint/cli@^6.0.2":
+"@commitlint/cli@6.1.0", "@commitlint/cli@^6.0.2":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-6.1.0.tgz#0a545088b4e0268cca1dca7e8ccd95bd55847b88"
   dependencies:
@@ -90,7 +78,7 @@
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-6.0.2.tgz#8ef87a6facb75b3377b2760b0e91097f8ec64db4"
 
-"@commitlint/core@^6.0.2", "@commitlint/core@^6.1.0":
+"@commitlint/core@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@commitlint/core/-/core-6.1.0.tgz#41b2482044039435cb9673995598717038f2f6d0"
   dependencies:

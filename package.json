@@ -48,7 +48,7 @@
     "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "6.0.2",
+    "@commitlint/cli": "6.1.0",
     "@commitlint/config-conventional": "6.0.2",
     "@commitlint/travis-cli": "6.0.2",
     "@verdaccio/types": "0.2.0",
