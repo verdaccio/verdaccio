@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "6.0.2",
-    "@commitlint/config-conventional": "6.0.2",
+    "@commitlint/config-conventional": "6.1.0",
     "@commitlint/travis-cli": "6.0.2",
     "@verdaccio/types": "0.2.0",
     "axios": "0.17.1",
