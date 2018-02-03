@@ -49,7 +49,10 @@ export default class Footer extends React.Component {
 
           <div className={classes.right}>
             Powered by&nbsp;
-            <img className={classes.logo} src={logo} alt="Verdaccio" title="Verdaccio"/>
+            { /* Can't switch to HTTPS due it hosted on GitHub Pages */ }
+            <a href="http://www.verdaccio.org/">
+              <img className={classes.logo} src={logo} alt="Verdaccio" title="Verdaccio"/>
+            </a>
             &nbsp;/&nbsp;
             {__APP_VERSION__}
             </div>
