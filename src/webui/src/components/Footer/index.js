@@ -38,24 +38,12 @@ export default class Footer extends React.Component {
           <span>&nbsp;on</span>
           <img className={`${classes.earth} emoji`} src={earth} alt="Earth" onClick={this.handleEarthIconClick}/>
           <div className={classes.tooltip}>
-            <span title="Brazil">
-              <img src={brazilFlag} alt="" className="emoji"/>
-            </span>
-            <span title="China">
-              <img src={chinaFlag} alt="" className="emoji"/>
-            </span>
-            <span title="India">
-              <img src={indiaFlag} alt="" className="emoji"/>
-            </span>
-            <span title="Nicaragua">
-              <img src={nicaraguaFlag} alt="" className="emoji"/>
-            </span>
-            <span title="Pakistan">
-              <img src={pakistanFlag} alt="" className="emoji"/>
-            </span>
-            <span title="Spain">
-              <img src={spainFlag} alt="" className="emoji"/>
-            </span>
+            <img src={brazilFlag} alt="Brazil" title="Brazil" className="emoji"/>
+            <img src={chinaFlag} alt="China" title="China" className="emoji"/>
+            <img src={indiaFlag} alt="India" title="India" className="emoji"/>
+            <img src={nicaraguaFlag} alt="Nicaragua" title="Nicaragua" className="emoji"/>
+            <img src={pakistanFlag} alt="Pakistan" title="Pakistan" className="emoji"/>
+            <img src={spainFlag} alt="Spain" title="Spain" className="emoji"/>
           </div>
           {/* Countries are order by alphabets */}
 

@@ -20,6 +20,7 @@ footer.footer {
   }
 
   .tooltip {
+    align-items: center;
     margin-left: 5px;
     position: relative;
     margin-top: -2px;
@@ -30,6 +31,7 @@ footer.footer {
     transform: scaleX(0);
     transition: transform 0.3s cubic-bezier(.12,.76,.14,.99);
     transform-origin: left;
+
     &:before {
       position: absolute;
       top: 3px;
@@ -43,7 +45,7 @@ footer.footer {
     }
 
 
-    span:not(:first-child) {
+    img:not(:first-child) {
       margin-left: 8px;
     }
   }
@@ -51,7 +53,7 @@ footer.footer {
   // Footer Hover
   &.showAuthorsGeographic .tooltip,
   &:hover .tooltip {
-    display: block;
+    display: flex;
     transform: scaleX(1);
   }
 
