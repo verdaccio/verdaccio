@@ -2,33 +2,61 @@ import React from 'react';
 
 import classes from './footer.scss';
 import logo from './logo.svg';
+import earth from './earth.svg';
+
+// Vectors from Twitter Emoji (Open Source)
+import brazilFlag from './flags/brazil-1f1e7-1f1f7.svg';
+import chinaFlag from './flags/china-1f1e8-1f1f3.svg';
+import indiaFlag from './flags/india-1f1ee-1f1f3.svg';
+import nicaraguaFlag from './flags/nicaragua-1f1f3-1f1ee.svg';
+import pakistanFlag from './flags/pakistan-1f1f5-1f1f0.svg';
+import spainFlag from './flags/spain-1f1ea-1f1f8.svg';
 
 export default class Footer extends React.Component {
-  componentDidMount() {
-    // Scripts inserted at top of `template/index.html`
-    if (typeof window.twemoji === 'object' && typeof window.twemoji.parse === 'function') {
-      window.twemoji.parse(document.getElementById('global-footer'), {
-        // JSDeliver is the fattest open source cdn in all region, see https://www.jsdelivr.com/network
-        base: 'https://cdn.jsdelivr.net/npm/twemoji@2.5.0/2/',
-        ext: '.svg',
-        size: 'svg'
-      });
-    }
+  constructor(props) {
+    super(props);
+    this.handleEarthIconClick = this.handleEarthIconClick.bind(this);
+    this.state = {
+      showAuthorsGeographic: false
+    };
+  }
+
+  handleEarthIconClick() {
+    this.setState({
+      showAuthorsGeographic: true
+    });
   }
 
   render() {
     return (
       <div className={classes.wrap}>
-        <footer id="global-footer" className={`container ${classes.footer}`}>
+        <footer
+          className={`container ${classes.footer} ${this.state.showAuthorsGeographic && classes.showAuthorsGeographic}`}
+        >
           <span>Made with&nbsp;</span>
           <span>❤</span>
-          <span>&nbsp;in</span>
-          <span data-type="flags" title="Brazil">🇧🇷</span>
-          <span data-type="flags" title="China">🇨🇳</span>
-          <span data-type="flags" title="India">🇮🇳</span>
-          <span data-type="flags" title="Nicaragua">🇳🇮</span>
-          <span data-type="flags" title="Pakistan">🇵🇰</span>
-          <span data-type="flags" title="Spain">🇪🇸</span>
+          <span>&nbsp;on</span>
+          <img className={`${classes.earth} emoji`} src={earth} alt="Earth" onClick={this.handleEarthIconClick}/>
+          <div className={classes.tooltip}>
+            <span title="Brazil">
+              <img src={brazilFlag} alt="" className="emoji"/>
+            </span>
+            <span title="China">
+              <img src={chinaFlag} alt="" className="emoji"/>
+            </span>
+            <span title="India">
+              <img src={indiaFlag} alt="" className="emoji"/>
+            </span>
+            <span title="Nicaragua">
+              <img src={nicaraguaFlag} alt="" className="emoji"/>
+            </span>
+            <span title="Pakistan">
+              <img src={pakistanFlag} alt="" className="emoji"/>
+            </span>
+            <span title="Spain">
+              <img src={spainFlag} alt="" className="emoji"/>
+            </span>
+          </div>
           {/* Countries are order by alphabets */}
 
           <div className={classes.right}>

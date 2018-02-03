@@ -10,7 +10,6 @@ footer.footer {
   margin-top: 0;
   padding: 20px 0;
   font-size: 14px;
-  line-height: 18px;
   height: 18px;
   color: #999;
 
@@ -20,13 +19,51 @@ footer.footer {
     vertical-align: middle;
   }
 
+  .tooltip {
+    margin-left: 5px;
+    position: relative;
+    margin-top: -2px;
+    height: 20px;
+    background: #d3dddd;
+    padding: 1px 4px;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(.12,.76,.14,.99);
+    transform-origin: left;
+    &:before {
+      position: absolute;
+      top: 3px;
+      left: -7px;
+      display: block;
+      content: '';
+      width: 7px;
+      height: 15px;
+      background: #d3dddd;
+      background-image: linear-gradient(45deg, white, white 30%, transparent 30%), linear-gradient(-225deg, white, white 30%, transparent 30%);
+    }
+
+
+    span:not(:first-child) {
+      margin-left: 8px;
+    }
+  }
+
+  // Footer Hover
+  &.showAuthorsGeographic .tooltip,
+  &:hover .tooltip {
+    display: block;
+    transform: scaleX(1);
+  }
+
+  .earth {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
   :global {
     .emoji {
       width: 18px;
       height: 18px;
-    }
-    [data-type="flags"] .emoji {
-      margin-left: 8px;
     }
   }
 
