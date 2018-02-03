@@ -84,6 +84,7 @@ class Config {
       }
     }
     // sanity check for uplinks
+    /* eslint guard-for-in: 0 */
     for (let i in self.uplinks) {
       if (self.uplinks[i].cache == null) {
         self.uplinks[i].cache = true;
