@@ -1,14 +1,18 @@
 storage: ./test-storage
 
-users:
-  test:
-    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
-
-users_file: ./test-storage/.htpasswd
-max_users: 1
+max_users: 2
 
 web:
   enable: true
+  title: verdaccio-server-1
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
 
 uplinks:
   express:
@@ -26,36 +30,70 @@ logs:
 
 packages:
   '@test/*':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy: server2
 
   'testfwd*':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy_access: server2
     proxy_publish: server2
 
   'testloop':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy_access: server2
     proxy_publish: server2
 
-  'testexp*':
-    allow_access: all
-    allow_publish: all
+  'testexp':
+    allow_access: $anonymous
+
+  # used by tags.spec.js
+  'testexp_tag*':
+    allow_access: $all
+    allow_publish: $all
+    proxy_access: express
+
+  # used by gzip.spec.js
+  'testexp_gzi*':
+    allow_access: $all
+    allow_publish: $all
+    proxy_access: express
+
+  # used by gh29.js
+  'testpkg-gh29':
+    allow_access: $all
+    allow_publish: $all
+    proxy_access: express
+
+  # used by preserve_tags_spec.js
+  'testpkg-preserve':
+    allow_access: $all
+    allow_publish: $all
+    proxy_access: express
+
+  # used by racycrash.js
+  'testexp-racycrash':
+    allow_access: $all
+    allow_publish: $all
+    proxy_access: express
+
+  # used by incomplete.js
+  'testexp-incomplete':
+    allow_access: $all
+    allow_publish: $all
     proxy_access: express
 
   'test-nullstorage*':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy_access: server2
     storage: false
 
   'baduplink':
-    allow_access: all
-    allow_publish: all
+    allow_access: $all
+    allow_publish: $all
     proxy_access: baduplink
 
   'test-access-only':
@@ -79,12 +117,8 @@ packages:
     storage: false
 
   '*':
-    allow_access: test undefined
-    allow_publish: test undefined
-
-  # this should not matter
-  testpkg:
-    allow_access: none
+    allow_access: test $anonymous
+    allow_publish: test $anonymous
 
 listen: 55551
 

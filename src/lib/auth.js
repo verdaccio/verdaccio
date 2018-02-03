@@ -5,7 +5,6 @@ import {loadPlugin} from '../lib/plugin-loader';
 const Crypto = require('crypto');
 const Error = require('http-errors');
 const Logger = require('./logger');
-const pkgJson = require('../../package.json');
 const jwt = require('jsonwebtoken');
 /**
  * Handles the authentification, load auth plugins.
@@ -35,30 +34,6 @@ class Auth {
 
     this.plugins = loadPlugin(config, config.auth, plugin_params, function(p) {
       return p.authenticate || p.allow_access || p.allow_publish;
-    });
-
-    this.plugins.unshift({
-      verdaccio_version: pkgJson.version,
-
-      authenticate: function(user, password, cb) {
-        if (config.users != null
-        && config.users[user] != null
-        && (Crypto.createHash('sha1').update(password).digest('hex')
-              === config.users[user].password)
-        ) {
-          return cb(null, [user]);
-        }
-
-        return cb();
-      },
-
-      adduser: function(user, password, cb) {
-        if (config.users && config.users[user]) {
-          return cb(Error[403]('this user already exists'));
-        }
-
-        return cb();
-      },
     });
 
     const allow_action = function(action) {
@@ -138,9 +113,14 @@ class Auth {
       if (typeof(p[n]) !== 'function') {
         next();
       } else {
+        // p.add_user() execution
         p[n](user, password, function(err, ok) {
-          if (err) return cb(err);
-          if (ok) return self.authenticate(user, password, cb);
+          if (err) {
+            return cb(err);
+          }
+          if (ok) {
+            return self.authenticate(user, password, cb);
+          }
           next();
         });
       }
@@ -166,8 +146,15 @@ class Auth {
       }
 
       p.allow_access(user, pkg, function(err, ok) {
-        if (err) return callback(err);
-        if (ok) return callback(null, ok);
+
+        if (err) {
+          return callback(err);
+        }
+
+        if (ok) {
+          return callback(null, ok);
+        }
+
         next(); // cb(null, false) causes next plugin to roll
       });
     })();
@@ -228,7 +215,9 @@ class Auth {
       req.remote_user = buildAnonymousUser();
 
       let authorization = req.headers.authorization;
-      if (authorization == null) return next();
+      if (authorization == null) {
+        return next();
+      }
 
       let parts = authorization.split(' ');
 
@@ -421,7 +410,7 @@ function buildAnonymousUser() {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
-    groups: ['$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'],
+    groups: ['$all', '$anonymous', '@all', '@anonymous'],
     real_groups: [],
   };
 }
