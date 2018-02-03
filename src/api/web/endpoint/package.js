@@ -43,7 +43,7 @@ function addPackageWebApi(route, storage, auth) {
   route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req, res, next) {
     const packageName = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
-    storage.get_package({
+    storage.getPackage({
       name: packageName,
       req,
       callback: function(err, info) {
@@ -60,7 +60,7 @@ function addPackageWebApi(route, storage, auth) {
   route.get('/sidebar/(@:scope/)?:package', function(req, res, next) {
     const packageName = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
-    storage.get_package({
+    storage.getPackage({
       name: packageName,
       keepUpLinkData: true,
       req,

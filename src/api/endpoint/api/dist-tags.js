@@ -49,7 +49,7 @@ module.exports = function(route, auth, storage) {
   });
 
   route.get('/-/package/:package/dist-tags', can('access'), function(req, res, next) {
-    storage.get_package({
+    storage.getPackage({
       name: req.params.package,
       req,
       callback: function(err, info) {

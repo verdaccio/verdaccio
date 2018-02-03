@@ -366,7 +366,7 @@ class Storage {
    * @property {boolean} options.keepUpLinkData keep up link info in package meta, last update, etc.
    * @property {function} options.callback Callback for receive data
    */
-  get_package(options) {
+  getPackage(options) {
     this.localStorage.getPackageMetadata(options.name, (err, data) => {
       if (err && (!err.status || err.status >= 500)) {
         // report internal errors right away

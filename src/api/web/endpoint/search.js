@@ -7,7 +7,7 @@ function addSearchWebApi(route, storage, auth) {
     const packages = [];
 
     const getPackageInfo = function(i) {
-      storage.get_package({
+      storage.getPackage({
         name: results[i].ref,
         callback: (err, entry) => {
           if (!err && entry) {
