@@ -500,7 +500,7 @@ class LocalStorage implements IStorage {
    * @param {*} filename
    * @return {ReadTarball}
    */
-  getTarball(name: string, filename: string) {
+  getTarball(name: string, filename: string): IReadTarball {
     assert(Utils.validate_name(filename));
 
     const storage: IPackageStorage = this._getLocalStorage(name);
@@ -517,7 +517,7 @@ class LocalStorage implements IStorage {
    * @private
    * @return {ReadTarball}
    */
-  _createFailureStreamResponse() {
+  _createFailureStreamResponse(): IReadTarball {
     const stream: IReadTarball = new ReadTarball();
 
     process.nextTick(() => {

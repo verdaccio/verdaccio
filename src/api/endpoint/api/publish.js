@@ -35,11 +35,11 @@ module.exports = function(router, auth, storage, config) {
     };
 
     const create_version = function(version, data, cb) {
-      storage.add_version(name, version, data, null, cb);
+      storage.addVersion(name, version, data, null, cb);
     };
 
     const add_tags = function(tags, cb) {
-      storage.merge_tags(name, tags, cb);
+      storage.mergeTags(name, tags, cb);
     };
 
     const after_change = function(err, ok_message) {
@@ -175,7 +175,7 @@ module.exports = function(router, auth, storage, config) {
     let version = req.params.version;
     let tag = req.params.tag;
 
-    storage.add_version(name, version, req.body, tag, function(err) {
+    storage.addVersion(name, version, req.body, tag, function(err) {
       if (err) {
         return next(err);
       }

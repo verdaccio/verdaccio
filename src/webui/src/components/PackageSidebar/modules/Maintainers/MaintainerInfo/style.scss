@@ -7,6 +7,7 @@
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+
   img {
     width: $mine-height;
     height: $mine-height;
@@ -14,6 +15,7 @@
     border-radius: 100%;
     flex-shrink: 0;
   }
+
   span {
     font-size: 14px;
     flex-shrink: 1;

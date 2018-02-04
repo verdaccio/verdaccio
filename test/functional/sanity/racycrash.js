@@ -1,9 +1,7 @@
-import assert from 'assert';
-
 export default function(server, express) {
 
   describe('test for unexpected client hangs', () => {
-    let on_tarball;
+    let handleResponseTarball;
 
     beforeAll(function() {
       express.get('/testexp-racycrash', function(request, response) {
@@ -23,16 +21,17 @@ export default function(server, express) {
       });
 
       express.get('/testexp-racycrash/-/test.tar.gz', function(request, response) {
-        on_tarball(response);
+        handleResponseTarball(response);
       });
     });
 
     test('should not crash on error if client disconnects', callback => {
-      on_tarball = function(res) {
+      handleResponseTarball = function(res) {
         res.header('content-length', 1e6);
-        res.write('test test test\n');
+        res.write('test test test');
         setTimeout(function() {
-          res.write('test test test\n');
+          res.write('-');
+          // destroy the connection
           res.socket.destroy();
           cb();
         }, 200);
@@ -40,7 +39,7 @@ export default function(server, express) {
 
        server.request({uri: '/testexp-racycrash/-/test.tar.gz'})
          .then(function(body) {
-           assert.equal(body, 'test test test\n');
+           expect(body).toEqual('test test test');
          });
 
       function cb() {
@@ -54,7 +53,7 @@ export default function(server, express) {
     });
 
     test('should not store tarball', () => {
-      on_tarball = function(res) {
+      handleResponseTarball = function(res) {
         res.socket.destroy();
       };
 

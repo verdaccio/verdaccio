@@ -37,7 +37,7 @@ module.exports = function(route, auth, storage, config) {
       return next( createError[404]('version not found: ' + req.params.version) );
     };
 
-    storage.get_package({
+    storage.getPackage({
       name: req.params.package,
       req,
       callback: getPackageMetaCallback,
