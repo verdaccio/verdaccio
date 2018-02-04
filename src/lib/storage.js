@@ -2,11 +2,8 @@
 
 import _ from 'lodash';
 import assert from 'assert';
-// $FlowFixMe
 import async from 'async';
-// $FlowFixMe
 import Error from 'http-errors';
-// $FlowFixMe
 import semver from 'semver';
 import Stream from 'stream';
 
@@ -573,7 +570,7 @@ class Storage implements IStorageHandler {
         }
 
         if (err || !upLinkResponse) {
-          return cb(null, [err || Error('no data')]);
+          return cb(null, [err || Error(500, 'no data')]);
         }
 
         try {
@@ -613,7 +610,7 @@ class Storage implements IStorageHandler {
         exists = true;
         cb();
       });
-    }, (err: Error, upLinksErrors: any) => {
+    }, (err: any, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
         return callback( Utils.ErrorCode.get404('no such package available')
