@@ -13,7 +13,7 @@ describe('UpStorge', () => {
   const uplinkDefault = {
     url: 'https://registry.npmjs.org/'
   };
-  let generateProxy = (config = uplinkDefault) => {
+  let generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample);
 
     return new ProxyStorage(config, appConfig);

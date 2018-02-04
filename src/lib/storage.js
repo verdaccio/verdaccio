@@ -570,7 +570,8 @@ class Storage implements IStorageHandler {
         }
 
         if (err || !upLinkResponse) {
-          return cb(null, [err || Error(500, 'no data')]);
+          // $FlowFixMe
+          return cb(null, [err || Error('no data')]);
         }
 
         try {
@@ -597,6 +598,7 @@ class Storage implements IStorageHandler {
 
         try {
           Storage._mergeVersions(packageInfo, upLinkResponse, self.config);
+
         } catch(err) {
           self.logger.error({
             sub: 'out',
