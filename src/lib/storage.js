@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import assert from 'assert';
 import async from 'async';
-import Error from 'http-errors';
+import createError from 'http-errors';
 import semver from 'semver';
 import Stream from 'stream';
 
@@ -116,7 +116,7 @@ class Storage implements IStorageHandler {
                   this.config.publish.allow_offline) {
                   return resolve();
                 }
-                return reject(Error[503]('one of the uplinks is down, refuse to publish'));
+                return reject(createError(503, 'one of the uplinks is down, refuse to publish'));
               }
             }
           }
@@ -571,7 +571,7 @@ class Storage implements IStorageHandler {
 
         if (err || !upLinkResponse) {
           // $FlowFixMe
-          return cb(null, [err || Error('no data')]);
+          return cb(null, [err || createError(500, 'no data')]);
         }
 
         try {
@@ -612,7 +612,7 @@ class Storage implements IStorageHandler {
         exists = true;
         cb();
       });
-    }, (err: any, upLinksErrors: any) => {
+    }, (err: Error, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
         return callback( Utils.ErrorCode.get404('no such package available')
