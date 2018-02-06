@@ -48,12 +48,15 @@ export default function(server) {
     const badCredentials = 'test:badpass';
     // test user is logged by default
     const validCredentials = 'test:test';
+    // another test user just for scope testing
+    const validScopeCredentials = 'test-only-scope:foobar';
 
     // defined on server1 configuration
     const testAccessOnly = 'test-access-only';
     const testPublishOnly = 'test-publish-only';
     const testOnlyTest = 'test-only-test';
     const testOnlyAuth = 'test-only-auth';
+    const testOnlyScope = '@test-only-scope/test-only-scope';
 
     // all are allowed to access
     checkAccess(validCredentials, testAccessOnly, true);
@@ -86,5 +89,13 @@ export default function(server) {
     checkPublish(validCredentials, testOnlyAuth, true);
     checkPublish(undefined, testOnlyAuth, false);
     checkPublish(badCredentials, testOnlyAuth, false);
+
+    // only authenticated users are allowed for their own scope
+    checkAccess(validScopeCredentials, testOnlyScope, true);
+    checkAccess(undefined, testOnlyScope, false);
+    checkAccess(badCredentials, testOnlyScope, false);
+    checkPublish(validScopeCredentials, testOnlyScope, true);
+    checkPublish(undefined, testOnlyScope, false);
+    checkPublish(badCredentials, testOnlyScope, false);
   });
 }
