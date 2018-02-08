@@ -171,6 +171,11 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint"
+    }
+  },
   "license": "MIT",
   "commitlint": {
     "extends": [

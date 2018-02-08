@@ -1,8 +1,6 @@
 const timeout = 5000;
 
-describe(
-  '/ (Home Page)',
-  () => {
+describe('/ (Home Page)', () => {
     let page;
 
     beforeAll(async () => {
