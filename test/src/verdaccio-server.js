@@ -1,5 +1,5 @@
 // @flow
-import type {IVerdaccioConfig} from './types';
+import type {IVerdaccioConfig} from '../flow/types';
 
 export class VerdaccioConfig implements IVerdaccioConfig {
 

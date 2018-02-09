@@ -1,8 +1,8 @@
 // @flow
 
 import _ from 'lodash';
-import smartRequest, {PromiseAssert} from '../../functional/lib/request';
-import type {IRequestPromise} from '../../functional/lib/types';
+import smartRequest, {PromiseAssert} from '../../src/request';
+import type {IRequestPromise} from '../../flow/types';
 
 describe('Request Functional', () => {
 

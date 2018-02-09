@@ -1,11 +1,11 @@
 const timeout = 5000;
 
-describe('/ (Home Page)', () => {
+describe('/ (Verdaccio Page)', () => {
     let page;
 
     beforeAll(async () => {
       page = await global.__BROWSER__.newPage();
-      await page.goto('https://google.com');
+      await page.goto('http://0.0.0.0:55558');
     }, timeout);
 
     afterAll(async () => {
@@ -15,7 +15,7 @@ describe('/ (Home Page)', () => {
     it('should load without error', async () => {
       let text = await page.evaluate(() => document.body.textContent);
 
-      expect(text).toContain('google');
+      expect(text).toContain('adduser');
     })
   },
   timeout

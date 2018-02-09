@@ -1,0 +1,24 @@
+storage: ./store-e2e
+
+web:
+  enable: true
+  title: verdaccio-server-e2e
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+logs:
+  - {type: stdout, format: pretty, level: trace}
+
+packages:
+  '*':
+    access: $all
+
+listen: 0.0.0.0:55558
+
+# expose internal methods
+_debug: true
