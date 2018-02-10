@@ -62,10 +62,10 @@ describe('<PackageList /> component', () => {
     expect(instance.renderHelp()).toBeUndefined();
     expect(instance.renderTitle().props.children).toEqual('Available Packages');
     expect(instance.renderNoItems()).toEqual(
-      <NoItems text="No items were found with that query" />
+      <NoItems className="package-no-items" text="No items were found with that query" />
     );
     expect(instance.renderOptions()).toEqual(
-      <NoItems text="No items were found with that query" />
+      <NoItems className="package-no-items" text="No items were found with that query" />
     );
     // package count
     expect(wrapper.find('Package')).toHaveLength(3);

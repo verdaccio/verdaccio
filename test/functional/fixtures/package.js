@@ -1,10 +1,10 @@
-module.exports = function(name, version) {
+module.exports = function(name, version = '0.0.0', port = '55551', domain= `http://localhost:${port}`) {
   return {
     name: name,
-    version: version || '0.0.0',
+    version: version,
     dist: {
       shasum: 'fake',
-      tarball: `http://localhost:55551/${encodeURIComponent(name)}/-/blahblah`,
+      tarball: `${domain}/${encodeURIComponent(name)}/-/blahblah`,
     },
   };
 };

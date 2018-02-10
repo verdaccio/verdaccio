@@ -1,7 +1,9 @@
+const publishMetadata = require('../unit/partials/publish-api');
+
 describe('/ (Verdaccio Page)', () => {
     let page;
     // this might be increased based on the delays included in all test
-    jest.setTimeout(10000);
+    jest.setTimeout(10000000);
 
     const clickButton = async function(selector, options = {button: 'middle', delay: 100}) {
       const button = await page.$(selector);
@@ -13,6 +15,10 @@ describe('/ (Verdaccio Page)', () => {
       const text = await page.evaluate(() => document.querySelector('header button > span').textContent);
       expect(text).toMatch('Login');
     };
+
+    const getPackages = async function() {
+      return await page.$$('.package-list-items > div');
+    }
 
     const logIn = async function() {
       await clickButton('header button');
@@ -100,4 +106,13 @@ describe('/ (Verdaccio Page)', () => {
     await page.waitFor(1000);
     await evaluateSignIn();
   })
+
+  it('should publish a package', async () => {
+    await global.__SERVER__.putPackage(publishMetadata.name, publishMetadata);
+    await page.waitFor(1000);
+    await page.reload();
+    await page.waitFor(1000);
+    const packagesList = await getPackages();
+    expect(packagesList).toHaveLength(1);
+  });
 });

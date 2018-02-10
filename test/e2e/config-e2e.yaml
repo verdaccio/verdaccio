@@ -19,8 +19,12 @@ logs:
   - {type: stdout, format: pretty, level: trace}
 
 packages:
-  '*':
+  '@*/*':
     access: $all
+    publish: $all
+  '**':
+    access: $all
+    publish: $all
 
 listen: 0.0.0.0:55558
 
