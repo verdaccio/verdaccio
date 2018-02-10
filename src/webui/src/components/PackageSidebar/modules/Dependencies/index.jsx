@@ -33,7 +33,7 @@ export default class Dependencies extends React.Component {
           {
             dependenciesList.map((dependenceName, index) => {
               return (
-                <li key={index} title={`Depend on version: ${dependencies[dependenceName]}`}>
+                <li className="dependency-item" key={index} title={`Depend on version: ${dependencies[dependenceName]}`}>
                   <a href={getDetailPageURL(dependenceName)}>{dependenceName}</a>
                   {index < dependenciesList.length - 1 && <span>,&nbsp;</span>}
                 </li>

@@ -8,7 +8,7 @@ export default function MaintainerInfo({title, name, avatar}) {
   return (
     <div className={classes.maintainer} title={name}>
       <img src={avatar} alt={avatarDescription} title={avatarDescription}/>
-      <span>{name}</span>
+      <span className="maintainer-name">{name}</span>
     </div>
   );
 }

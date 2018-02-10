@@ -43,7 +43,7 @@ export default class LastSync extends React.Component {
         <ul>
           {this.recentReleases.map((versionInfo) => {
             return (
-              <li key={versionInfo.version}>
+              <li className="last-sync-item" key={versionInfo.version}>
                 <span>{versionInfo.version}</span>
                 <span>{versionInfo.time}</span>
               </li>

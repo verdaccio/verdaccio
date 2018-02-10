@@ -123,10 +123,14 @@ describe('/ (Verdaccio Page)', () => {
     await packageItem.focus();
     await packageItem.click({clickCount: 1, delay: 200});
     await page.waitFor(1000);
-    await page.screenshot({path: 'readme.png'});
     const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
 
     expect(readmeText).toMatch('test');
+  });
+
+  it('should contains last sync information', async () => {
+    const versionList = await page.$$('.sidebar-info .last-sync-item');
+    expect(versionList).toHaveLength(3);
   });
 
 });

@@ -65,7 +65,7 @@ export default class Maintainers extends React.Component {
         title="Maintainers"
         className={classes.maintainersModule}
       >
-        <ul>
+        <ul className="maintainer-author">
           {author && <MaintainerInfo title="Author" name={author.name} avatar={author.avatar}/>}
           {this.renderContributors()}
         </ul>
