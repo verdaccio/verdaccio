@@ -29,7 +29,6 @@ test:
     - yarn run test
     - nvm alias default 8
     - yarn run test
-    - yarn run test:e2e
     - nvm alias default 9
     - yarn run test
     - yarn run test:e2e

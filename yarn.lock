@@ -200,7 +200,7 @@
     lodash "4.17.4"
     mkdirp "0.5.1"
 
-"@verdaccio/streams@0.0.2":
+"@verdaccio/streams@0.0.2", "@verdaccio/streams@^0.0.2":
   version "0.0.2"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
@@ -5598,7 +5598,7 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memory-fs@^0.4.0, memory-fs@~0.4.1:
+memory-fs@^0.4.0, memory-fs@^0.4.1, memory-fs@~0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
   dependencies:
@@ -8801,6 +8801,14 @@ vendors@^1.0.0:
 verdaccio-auth-memory@^0.0.4:
   version "0.0.4"
   resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
+
+verdaccio-memory@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.3.tgz#8ba6b51f2cf93d67958fedad5feb3f1e19933e48"
+  dependencies:
+    "@verdaccio/streams" "^0.0.2"
+    http-errors "1.6.2"
+    memory-fs "^0.4.1"
 
 verror@1.10.0:
   version "1.10.0"

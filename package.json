@@ -126,6 +126,7 @@
     "supertest": "3.0.0",
     "url-loader": "0.6.2",
     "verdaccio-auth-memory": "^0.0.4",
+    "verdaccio-memory": "0.0.3",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.11.1",
     "webpack-merge": "4.1.1"
@@ -147,7 +148,7 @@
     "flow": "flow",
     "pretest": "npm run code:build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --maxWorkers 2",
-    "test:e2e": "cross-env npm run code-test:build && BABEL_ENV=registry jest --config ./jest.e2e.config.js --maxWorkers 2",
+    "test:e2e": "npm run code-test:build && cross-env BABEL_ENV=registry jest --config ./jest.e2e.config.js --maxWorkers 2",
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js' --maxWorkers 2",
     "test:func": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/functional.*\\.func)\\.js' --maxWorkers 2",
     "pre:ci": "npm run lint && npm run build:webui",

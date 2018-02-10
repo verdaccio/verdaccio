@@ -20,7 +20,7 @@ module.exports = async function() {
 
   const fork = await process1.init();
   console.log(chalk.green('Setup Puppeteer'));
-  const browser = await puppeteer.launch({});
+  const browser = await puppeteer.launch();
   global.__BROWSER__ = browser;
   global.__VERDACCIO_E2E__ = fork[0];
   mkdirp.sync(DIR);

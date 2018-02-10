@@ -129,13 +129,13 @@ export default class Header extends React.Component {
     if (!this.isTokenExpire) { // TODO: Check jwt token expire
       return (
         <div className={ classes.welcome }>
-          Hi, {storage.getItem('username')}
+          <span className="user-logged-greetings">Hi, {storage.getItem('username')}</span>
           &nbsp;
-          <Button type="danger" onClick={this.handleLogout}>Logout</Button>
+          <Button className="header-button-logout" type="danger" onClick={this.handleLogout}>Logout</Button>
         </div>
       );
     } else {
-      return <Button type="danger" style={ {marginLeft: 'auto'} } onClick={ this.toggleLoginModal }>Login</Button>;
+      return <Button className="header-button-login" type="danger" style={ {marginLeft: 'auto'} } onClick={ this.toggleLoginModal }>Login</Button>;
     }
   }
 
@@ -175,10 +175,10 @@ export default class Header extends React.Component {
             <Input name="password" type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
           </Dialog.Body>
           <Dialog.Footer className="dialog-footer">
-            <Button onClick={ () => this.toggleLoginModal() }>
+            <Button onClick={ () => this.toggleLoginModal() } className="cancel-login-button">
               Cancel
             </Button>
-            <Button type="primary" onClick={ this.handleSubmit }>
+            <Button type="primary" className="login-button" onClick={ this.handleSubmit }>
               Login
             </Button>
           </Dialog.Footer>

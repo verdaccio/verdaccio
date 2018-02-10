@@ -4,6 +4,10 @@ web:
   enable: true
   title: verdaccio-server-e2e
 
+store:
+  memory:
+    cache: true
+
 auth:
   auth-memory:
     users:
