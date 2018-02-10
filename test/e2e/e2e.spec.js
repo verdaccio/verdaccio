@@ -3,9 +3,9 @@ const publishMetadata = require('../unit/partials/publish-api');
 describe('/ (Verdaccio Page)', () => {
     let page;
     // this might be increased based on the delays included in all test
-    jest.setTimeout(10000000);
+    jest.setTimeout(20000);
 
-    const clickButton = async function(selector, options = {button: 'middle', delay: 100}) {
+    const clickElement = async function(selector, options = {button: 'middle', delay: 100}) {
       const button = await page.$(selector);
       await button.focus();
       await button.click(options);
@@ -21,7 +21,7 @@ describe('/ (Verdaccio Page)', () => {
     }
 
     const logIn = async function() {
-      await clickButton('header button');
+      await clickElement('header button');
       await page.waitFor(500);
       // we fill the sign in form
       const signInDialog = await page.$('.el-dialog');
@@ -102,7 +102,7 @@ describe('/ (Verdaccio Page)', () => {
 
   it('should logout an user', async () => {
     // we asume the user is logged already
-    await clickButton('.header-button-logout', {clickCount: 3, delay: 200});
+    await clickElement('.header-button-logout', {clickCount: 1, delay: 200});
     await page.waitFor(1000);
     await evaluateSignIn();
   })
@@ -113,6 +113,20 @@ describe('/ (Verdaccio Page)', () => {
     await page.reload();
     await page.waitFor(1000);
     const packagesList = await getPackages();
+
     expect(packagesList).toHaveLength(1);
   });
+
+  it('should navigate to the package detail', async () => {
+    const packagesList = await getPackages();
+    const packageItem = packagesList[0];
+    await packageItem.focus();
+    await packageItem.click({clickCount: 1, delay: 200});
+    await page.waitFor(1000);
+    await page.screenshot({path: 'readme.png'});
+    const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
+
+    expect(readmeText).toMatch('test');
+  });
+
 });
