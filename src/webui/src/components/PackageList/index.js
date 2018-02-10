@@ -17,7 +17,7 @@ export default class PackageList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="package-list-items">
         <div className={classes.pkgContainer}>
           {this.renderTitle()}
           {this.isTherePackages() ? this.renderList(): this.renderOptions()}
@@ -49,7 +49,7 @@ export default class PackageList extends React.Component {
   }
 
   renderNoItems() {
-   return <NoItems text={'No items were found with that query'}/>;
+   return <NoItems className="package-no-items" text={'No items were found with that query'}/>;
   }
 
   renderHelp() {

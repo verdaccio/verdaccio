@@ -3,7 +3,7 @@
 import assert from 'assert';
 import request from 'request';
 import _ from 'lodash';
-import type {IRequestPromise} from './types';
+import type {IRequestPromise} from '../flow/types';
 
 const requestData = Symbol('smart_request_data');
 

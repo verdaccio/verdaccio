@@ -102,11 +102,13 @@
     "jest": "22.1.4",
     "jest-environment-jsdom": "22.1.4",
     "jest-environment-jsdom-global": "1.0.3",
+    "jest-environment-node": "22.2.0",
     "localstorage-memory": "1.0.2",
     "node-sass": "4.7.2",
     "normalize.css": "7.0.0",
     "ora": "^1.4.0",
     "prop-types": "15.6.0",
+    "puppeteer": "1.0.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-hot-loader": "4.0.0-beta.17",
@@ -124,6 +126,7 @@
     "supertest": "3.0.0",
     "url-loader": "0.6.2",
     "verdaccio-auth-memory": "^0.0.4",
+    "verdaccio-memory": "0.0.3",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.11.1",
     "webpack-merge": "4.1.1"
@@ -145,6 +148,7 @@
     "flow": "flow",
     "pretest": "npm run code:build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --maxWorkers 2",
+    "test:e2e": "cross-env BABEL_ENV=registry jest --config ./jest.e2e.config.js --maxWorkers 2",
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js' --maxWorkers 2",
     "test:func": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/functional.*\\.func)\\.js' --maxWorkers 2",
     "pre:ci": "npm run lint && npm run build:webui",
@@ -167,6 +171,11 @@
   "preferGlobal": true,
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint"
+    }
   },
   "license": "MIT",
   "commitlint": {
