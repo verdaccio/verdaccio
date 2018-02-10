@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import {addGravatarSupport, deleteProperties, sortByName} from '../../../lib/utils';
-import {addScope, allow} from '../middleware';
+import {addScope, addGravatarSupport, deleteProperties, sortByName} from '../../../lib/utils';
+import {allow} from '../middleware';
 import async from 'async';
 import marked from 'marked';
 
