@@ -3,6 +3,37 @@ describe('/ (Verdaccio Page)', () => {
     // this might be increased based on the delays included in all test
     jest.setTimeout(10000);
 
+    const clickButton = async function(selector, options = {button: 'middle', delay: 100}) {
+      const button = await page.$(selector);
+      await button.focus();
+      await button.click(options);
+    };
+
+    const evaluateSignIn = async function() {
+      const text = await page.evaluate(() => document.querySelector('header button > span').textContent);
+      expect(text).toMatch('Login');
+    };
+
+    const logIn = async function() {
+      await clickButton('header button');
+      await page.waitFor(500);
+      // we fill the sign in form
+      const signInDialog = await page.$('.el-dialog');
+      const userInput = await signInDialog.$('input[type=text]');
+      expect(userInput).not.toBeNull();
+      const passInput = await signInDialog.$('input[type=password]');
+      expect(passInput).not.toBeNull();
+      await userInput.type('test', {delay: 100});
+      await passInput.type('test', {delay: 100});
+      await passInput.dispose();
+      // click on log in
+      const loginButton = await page.$('.login-button');
+      expect(loginButton).toBeDefined();
+      await loginButton.focus();
+      await loginButton.click({delay: 100});
+      await page.waitFor(500);
+    };
+
     beforeAll(async () => {
       page = await global.__BROWSER__.newPage();
       await page.goto('http://0.0.0.0:55558');
@@ -42,8 +73,7 @@ describe('/ (Verdaccio Page)', () => {
     })
 
     it('should match button Login to sign in', async () => {
-      let text = await page.evaluate(() => document.querySelector('header button > span').textContent);
-      expect(text).toMatch('Login');
+      await evaluateSignIn();
     })
 
     it('should click on sign in button', async () => {
@@ -54,30 +84,20 @@ describe('/ (Verdaccio Page)', () => {
       expect(signInDialog).not.toBeNull();
     })
 
-    it('should log in an user test', async () => {
+    it('should log in an user', async () => {
       // we open the dialog
-      const signInButton = await page.$('header button');
-      await signInButton.click({button: 'middle', delay: 100});
-      await page.waitFor(500);
-      // we fill the sign in form
-      const signInDialog = await page.$('.el-dialog');
-      const userInput = await signInDialog.$('input[type=text]');
-      expect(userInput).not.toBeNull();
-      const passInput = await signInDialog.$('input[type=password]');
-      expect(passInput).not.toBeNull();
-      await userInput.type('test', {delay: 100});
-      await passInput.type('test', {delay: 100});
-      await passInput.dispose();
-      // click on log in
-      const loginButton = await page.$('.login-button');
-      expect(loginButton).toBeDefined();
-      await loginButton.focus();
-      await loginButton.click({delay: 100});
-      await page.waitFor(500);
+      await logIn();
       // check whether user is logged
       const greetings = await page.evaluate(() => document.querySelector('.user-logged-greetings').textContent);
       const buttonLogout = await page.$('.header-button-logout');
       expect(greetings).toMatch('Hi, test');
       expect(buttonLogout).toBeDefined();
-    })
-  });
+    });
+
+  it('should logout an user', async () => {
+    // we asume the user is logged already
+    await clickButton('.header-button-logout', {clickCount: 3, delay: 200});
+    await page.waitFor(1000);
+    await evaluateSignIn();
+  })
+});
