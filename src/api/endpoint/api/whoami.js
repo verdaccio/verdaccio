@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = function(route) {
   route.get('/whoami', function(req, res, next) {
     if (req.headers.referer === 'whoami') {

@@ -291,6 +291,7 @@ class LocalStorage implements IStorage {
    */
   mergeTags(name: string, tags: MergeTags, callback: Callback) {
     this._updatePackage(name, (data, cb) => {
+      /* eslint guard-for-in: 0 */
       for (let t: string in tags) {
         if (_.isNull(tags[t])) {
           delete data['dist-tags'][t];
@@ -499,7 +500,7 @@ class LocalStorage implements IStorage {
    * @param {*} filename
    * @return {ReadTarball}
    */
-  getTarball(name: string, filename: string) {
+  getTarball(name: string, filename: string): IReadTarball {
     assert(Utils.validate_name(filename));
 
     const storage: IPackageStorage = this._getLocalStorage(name);
@@ -516,7 +517,7 @@ class LocalStorage implements IStorage {
    * @private
    * @return {ReadTarball}
    */
-  _createFailureStreamResponse() {
+  _createFailureStreamResponse(): IReadTarball {
     const stream: IReadTarball = new ReadTarball();
 
     process.nextTick(() => {

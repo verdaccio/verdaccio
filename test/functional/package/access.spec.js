@@ -4,15 +4,6 @@ export default function(server) {
     const buildToken = (auth) => {
       return `Basic ${(new Buffer(auth).toString('base64'))}`;
     };
-    let oldAuth;
-
-    beforeAll(function() {
-      oldAuth = server.authstr;
-    });
-
-    afterAll(function() {
-      server.authstr = oldAuth;
-    });
 
     /**
      * Check whether the user is allowed to fetch packages
@@ -72,7 +63,7 @@ export default function(server) {
     checkPublish(undefined, testAccessOnly, false);
     checkPublish(badCredentials, testAccessOnly, false);
 
-    // // all are allowed to publish
+    // all are allowed to publish
     checkAccess(validCredentials, testPublishOnly, false);
     checkAccess(undefined, testPublishOnly, false);
     checkAccess(badCredentials, testPublishOnly, false);

@@ -39,7 +39,7 @@ The issue tracker is a channel were mostly users/developers post.
 
 #### I want to report a bug
 
-We considere a bug a feature that is not working as is described in the documentation. Before reporte a bug follow the next steps:
+We considere a bug a feature that is not working as is described in the documentation. Before reporting a bug follow the next steps:
 
 1. Use the GitHub issue search — check if the issue has already been reported.
 
@@ -49,7 +49,7 @@ Verdaccio still does not support all npm commands due either in the initial desi
 
 ## Request Features
 
-A new feature is always welcome, thus, analyse whether you ir idea fits in the scope of the project and elaborate your request providing enough context, for instance:
+A new feature is always welcome, thus, analyse whether your idea fits in the scope of the project and elaborate your request providing enough context, for instance:
 
 * A wide description the advantages of your request.
 * It's compatible with `npm` and `yarn`?

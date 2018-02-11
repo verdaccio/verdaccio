@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import assert from 'assert';
 import smartRequest from './request';
-import type {IServerBridge} from './types';
+import type {IServerBridge} from '../flow/types';
 
 const buildAuthHeader = (user, pass): string => {
   return `Basic ${(new Buffer(`${user}:${pass}`)).toString('base64')}`;
@@ -180,7 +180,7 @@ export default class Server implements IServerBridge {
   }
 
   addPackage(name: string) {
-    return this.putPackage(name, require('../fixtures/package')(name))
+    return this.putPackage(name, require('../functional/fixtures/package')(name))
       .status(201)
       .body_ok('created new package');
   }

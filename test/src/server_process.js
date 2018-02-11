@@ -3,7 +3,7 @@ import _ from 'lodash';
 import rimRaf from 'rimraf';
 import path from 'path';
 import {fork} from 'child_process';
-import type {IVerdaccioConfig, IServerBridge, IServerProcess} from './types';
+import type {IVerdaccioConfig, IServerBridge, IServerProcess} from '../flow/types';
 
 export default class VerdaccioProcess implements IServerProcess {
 
@@ -20,20 +20,19 @@ export default class VerdaccioProcess implements IServerProcess {
 
   init(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const verdaccioRegisterWrap: string = path.join(__dirname, '../../../bin/verdaccio');
-      const storageDir: string = path.join(__dirname, `/../${this.config.storagePath}`);
-      const configPath: string = path.join(__dirname, '../', this.config.configPath);
+      const verdaccioRegisterWrap: string = path.join(__dirname, '../../bin/verdaccio');
 
-      rimRaf(storageDir, (err) => {
+      rimRaf(this.config.storagePath, (err) => {
         if (_.isNil(err) === false) {
           reject(err);
         }
 
         this.childFork = fork(verdaccioRegisterWrap,
-          ['-c', configPath],
+          ['-c', this.config.configPath],
           {
-            silent: this.silence
-          }
+            silent: this.silence,
+            execArgv: [`--inspect=${this.config.port + 5}`]
+          },
         );
 
         this.childFork.on('message', (msg) => {
@@ -49,16 +48,16 @@ export default class VerdaccioProcess implements IServerProcess {
           }
         });
 
-        this.childFork.on('error', function(err) {
-          reject(err);
+        this.childFork.on('error', (err) => {
+          reject([err, this]);
         });
 
-        this.childFork.on('disconnect', function(err) {
-          reject(err);
+        this.childFork.on('disconnect', (err) => {
+          reject([err, this]);
         });
 
-        this.childFork.on('exit', function(err) {
-          reject(err);
+        this.childFork.on('exit', (err) => {
+          reject([err, this]);
         });
 
       });

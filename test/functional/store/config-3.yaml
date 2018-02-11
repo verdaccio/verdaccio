@@ -1,11 +1,8 @@
 storage: ./test-storage3
 
-users:
-  test:
-    password: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
-
 web:
   enable: true
+  title: verdaccio-server-3
 
 uplinks:
   server1:
@@ -13,6 +10,13 @@ uplinks:
   server2:
     url: http://localhost:55552/
     cache: false
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
 
 logs:
   - {type: stdout, format: pretty, level: trace}

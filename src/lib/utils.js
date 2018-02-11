@@ -1,13 +1,13 @@
-'use strict';
+import {generateGravatarUrl} from '../utils/user';
+import assert from 'assert';
+import semver from 'semver';
+import YAML from 'js-yaml';
+import URL from 'url';
+import fs from 'fs';
+import _ from 'lodash';
+import createError from 'http-errors';
 
-const assert = require('assert');
-const semver = require('semver');
-const YAML = require('js-yaml');
-const URL = require('url');
-const fs = require('fs');
-const _ = require('lodash');
 const Logger = require('./logger');
-const createError = require('http-errors');
 
 /**
  * Validate a package.
@@ -336,8 +336,8 @@ const ErrorCode = {
   get400: (customMessage) => {
     return createError(400, customMessage);
   },
-  get500: () => {
-    return createError(500);
+  get500: (customMessage) => {
+    return customMessage ? createError(500, customMessage) : createError(500);
   },
   get403: () => {
     return createError(403, 'can\'t use this filename');
@@ -380,6 +380,56 @@ function fileExists(path) {
   }
 }
 
+function sortByName(packages) {
+  return packages.sort(function(a, b) {
+    if (a.name < b.name) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+}
+
+function addScope(scope, packageName) {
+  return `@${scope}/${packageName}`;
+}
+
+function deleteProperties(propertiesToDelete, packageInfo) {
+  _.forEach(propertiesToDelete, (property) => {
+    delete packageInfo[property];
+  });
+
+  return packageInfo;
+}
+
+function addGravatarSupport(info) {
+  if (_.isString(_.get(info, 'latest.author.email'))) {
+    info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
+  } else {
+    // _.get can't guarantee author property exist
+    _.set(info, 'latest.author.avatar', generateGravatarUrl());
+  }
+
+  if (_.get(info, 'latest.contributors.length', 0) > 0) {
+    info.latest.contributors = _.map(info.latest.contributors, (contributor) => {
+        if (_.isString(contributor.email)) {
+          contributor.avatar = generateGravatarUrl(contributor.email);
+        } else {
+          contributor.avatar = generateGravatarUrl();
+        }
+
+        return contributor;
+      }
+    );
+  }
+
+  return info;
+}
+
+module.exports.addGravatarSupport = addGravatarSupport;
+module.exports.deleteProperties = deleteProperties;
+module.exports.addScope = addScope;
+module.exports.sortByName = sortByName;
 module.exports.folder_exists = folder_exists;
 module.exports.file_exists = fileExists;
 module.exports.parseInterval = parseInterval;

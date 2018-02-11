@@ -1,15 +1,16 @@
 // @flow
 import _ from 'lodash';
+import path from 'path';
 
 // we need this for notifications
 import {setup} from '../../src/lib/logger';
 setup();
 
-import {VerdaccioConfig} from './lib/verdaccio-server';
-import VerdaccioProcess  from './lib/server_process';
+import {VerdaccioConfig} from '../src/verdaccio-server';
+import VerdaccioProcess  from '../src/server_process';
 import ExpressServer  from './lib/simple_server';
-import Server from './lib/server';
-import type {IServerProcess, IServerBridge} from './lib/types';
+import Server from '../src/server';
+import type {IServerProcess, IServerBridge} from '../flow/types';
 
 import basic from './basic/basic.spec';
 import packageAccess from './package/access.spec';
@@ -34,21 +35,23 @@ import upLinkCache from './uplink.cache.spec';
 import upLinkAuth from './uplink.auth.spec';
 
 describe('functional test verdaccio', function() {
+  jest.setTimeout(10000);
   const EXPRESS_PORT = 55550;
+  const pathStore = path.join(__dirname, './store');
   const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
   const processRunning = [];
   const config1 = new VerdaccioConfig(
-    './store/test-storage',
-    './store/config-1.yaml',
-    'http://localhost:55551/');
+    path.join(pathStore, '/test-storage'),
+    path.join(pathStore, '/config-1.yaml'),
+    'http://localhost:55551/', 55551);
   const config2 = new VerdaccioConfig(
-      './store/test-storage2',
-      './store/config-2.yaml',
-      'http://localhost:55552/');
+    path.join(pathStore, '/test-storage2'),
+    path.join(pathStore, '/config-2.yaml'),
+      'http://localhost:55552/', 55552);
   const config3 = new VerdaccioConfig(
-        './store/test-storage3',
-        './store/config-3.yaml',
-        'http://localhost:55553/');
+    path.join(pathStore, '/test-storage3'),
+    path.join(pathStore, '/config-3.yaml'),
+        'http://localhost:55553/', 55553);
   const server1: IServerBridge = new Server(config1.domainPath);
   const server2: IServerBridge = new Server(config2.domainPath);
   const server3: IServerBridge = new Server(config3.domainPath);
@@ -68,10 +71,12 @@ describe('functional test verdaccio', function() {
         express.start(EXPRESS_PORT).then((app) =>{
           done();
         }, (err) => {
-          done(err);
+          console.error(err);
+          done();
         });
-    }).catch((error) => {
-      done(error);
+    }).catch((err) => {
+      console.error(err);
+      done();
     });
   });
 

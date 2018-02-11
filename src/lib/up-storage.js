@@ -1,20 +1,29 @@
-const JSONStream = require('JSONStream');
-const createError = require('http-errors');
-const _ = require('lodash');
-const request = require('request');
-const Stream = require('stream');
-const URL = require('url');
-const Logger = require('./logger');
-const MyStreams = require('@verdaccio/streams');
-const Utils = require('./utils');
-const zlib = require('zlib');
+// @flow
 
+import zlib from 'zlib';
+import JSONStream from 'JSONStream';
+import createError from 'http-errors';
+import _ from 'lodash';
+import request from 'request';
+import Stream from 'stream';
+import URL from 'url';
+import {parseInterval, is_object, ErrorCode} from './utils';
+import {ReadTarball} from '@verdaccio/streams';
+
+import type {
+  IProxy,
+  Config,
+  Callback,
+  Logger,
+} from '@verdaccio/types';
+
+import type {IUploadTarball} from '@verdaccio/streams';
+
+const LoggerApi = require('./logger');
 const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
-
 const jsonContentType = 'application/json';
-
 const contenTypeAccept = `${jsonContentType};`;
 
 /**
@@ -32,23 +41,37 @@ const setConfig = (config, key, def) => {
  * Implements Storage interface
  * (same for storage.js, local-storage.js, up-storage.js)
  */
-class ProxyStorage {
+class ProxyStorage implements IProxy {
+  config: Config;
+  failed_requests: number;
+  userAgent: string;
+  ca: string | void;
+  logger: Logger;
+  server_id: string;
+  url: any;
+  maxage: string;
+  timeout: string;
+  max_fails: number;
+  fail_timeout: number;
+  upname: string;
+  proxy: string;
+  last_request_time: number;
 
   /**
    * Constructor
    * @param {*} config
    * @param {*} mainConfig
    */
-  constructor(config, mainConfig) {
+  constructor(config: UpLinkConf, mainConfig: Config) {
     this.config = config;
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
     this.ca = config.ca;
-    this.logger = Logger.logger.child({sub: 'out'});
+    this.logger = LoggerApi.logger.child({sub: 'out'});
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);
-
+    // $FlowFixMe
     this._setupProxy(this.url.hostname, config, mainConfig, this.url.protocol === 'https:');
 
     this.config.url = this.config.url.replace(/\/$/, '');
@@ -61,10 +84,10 @@ class ProxyStorage {
     }
 
     // a bunch of different configurable timers
-    this.maxage = Utils.parseInterval(setConfig(this.config, 'maxage', '2m' ));
-    this.timeout = Utils.parseInterval(setConfig(this.config, 'timeout', '30s'));
+    this.maxage = parseInterval(setConfig(this.config, 'maxage', '2m' ));
+    this.timeout = parseInterval(setConfig(this.config, 'timeout', '30s'));
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2 ));
-    this.fail_timeout = Utils.parseInterval(setConfig(this.config, 'fail_timeout', '5m' ));
+    this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m' ));
   }
 
   /**
@@ -73,7 +96,7 @@ class ProxyStorage {
    * @param {*} cb
    * @return {Request}
    */
-  request(options, cb) {
+  request(options: any, cb: Callback) {
     let json;
 
     if (this._statusCheck() === false) {
@@ -81,11 +104,12 @@ class ProxyStorage {
 
       process.nextTick(function() {
         if (_.isFunction(cb)) {
-          cb(createError('uplink is offline'));
+          cb(ErrorCode.get500('uplink is offline'));
         }
+        // $FlowFixMe
         streamRead.emit('error', createError('uplink is offline'));
       });
-
+      // $FlowFixMe
       streamRead._read = function() {};
       // preventing 'Uncaught, unspecified "error" event'
       streamRead.on('error', function() {});
@@ -107,7 +131,7 @@ class ProxyStorage {
       uri: uri,
     }, 'making request: \'@{method} @{uri}\'');
 
-    if (Utils.is_object(options.json)) {
+    if (is_object(options.json)) {
       json = JSON.stringify(options.json);
       headers['Content-Type'] = headers['Content-Type'] || 'application/json';
     }
@@ -115,7 +139,7 @@ class ProxyStorage {
     let requestCallback = cb ? (function(err, res, body) {
       let error;
       const responseLength = err ? 0 : body.length;
-
+      // $FlowFixMe
       processBody(err, body);
       logActivity();
       cb(err, res, body);
@@ -131,6 +155,7 @@ class ProxyStorage {
 
         if (options.json && res.statusCode < 300) {
           try {
+            // $FlowFixMe
             body = JSON.parse(body.toString('utf8'));
           } catch(_err) {
             body = {};
@@ -139,7 +164,7 @@ class ProxyStorage {
           }
         }
 
-        if (!err && Utils.is_object(body)) {
+        if (!err && is_object(body)) {
           if (_.isString(body.error)) {
             error = body.error;
           }
@@ -181,7 +206,7 @@ class ProxyStorage {
 
     let statusCalled = false;
     req.on('response', function(res) {
-      if (!req._verdaccio_aborted && _.isNil(statusCalled) === false) {
+      if (!req._verdaccio_aborted && !statusCalled) {
         statusCalled = true;
         self._statusCheck(true);
       }
@@ -215,7 +240,7 @@ class ProxyStorage {
    * @return {Object}
    * @private
    */
-  _setHeaders(options) {
+  _setHeaders(options: any) {
     const headers = options.headers || {};
     const accept = 'Accept';
     const acceptEncoding = 'Accept-Encoding';
@@ -235,7 +260,7 @@ class ProxyStorage {
    * @return {Object}
    * @private
    */
-  _setAuth(headers) {
+  _setAuth(headers: any) {
 
     if (_.isNil(this.config.auth) || headers['authorization']) {
       return headers;
@@ -247,7 +272,7 @@ class ProxyStorage {
 
     // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
     // or get other variable export in env
-    let token = process.env.NPM_TOKEN;
+    let token: any = process.env.NPM_TOKEN;
     if (this.config.auth.token) {
       token = this.config.auth.token;
     } else if (this.config.auth.token_env) {
@@ -269,7 +294,7 @@ class ProxyStorage {
    * @throws {Error}
    * @private
    */
-  _throwErrorAuth(message) {
+  _throwErrorAuth(message: string) {
     this.logger.error(message);
     throw new Error(message);
   }
@@ -281,7 +306,7 @@ class ProxyStorage {
    * @param {string} token
    * @private
    */
-  _setHeaderAuthorization(headers, type, token) {
+  _setHeaderAuthorization(headers: any, type: string, token: string) {
     if (type !== 'bearer' && type !== 'basic') {
       this._throwErrorAuth(`Auth type '${type}' not allowed`);
     }
@@ -309,7 +334,7 @@ class ProxyStorage {
    * @param {Object} headers
    * @private
    */
-  _overrideWithUplinkConfigHeaders(headers) {
+  _overrideWithUplinkConfigHeaders(headers: any) {
     // add/override headers specified in the config
     for (let key in this.config.headers) {
       if (Object.prototype.hasOwnProperty.call(this.config.headers, key)) {
@@ -319,13 +344,15 @@ class ProxyStorage {
   }
 
   /**
-   * Determine whether can fetch from the provided URL.
+   * Determine whether can fetch from the provided URL
    * @param {*} url
    * @return {Boolean}
    */
-  isUplinkValid(url) {
-    url = URL.parse(url);
-    return url.protocol === this.url.protocol && url.host === this.url.host && url.path.indexOf(this.url.path) === 0;
+  isUplinkValid(url: string) {
+      // $FlowFixMe
+      url = URL.parse(url);
+      // $FlowFixMe
+     return url.protocol === this.url.protocol && url.host === this.url.host && url.path.indexOf(this.url.path) === 0;
   }
 
   /**
@@ -334,7 +361,7 @@ class ProxyStorage {
    * @param {*} options request options, eg: eTag.
    * @param {*} callback
    */
-  getRemoteMetadata(name, options, callback) {
+  getRemoteMetadata(name: string, options: any, callback: Callback) {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
@@ -351,10 +378,11 @@ class ProxyStorage {
         return callback(err);
       }
       if (res.statusCode === 404) {
-        return callback( createError[404]('package doesn\'t exist on uplink') );
+        return callback( ErrorCode.get404('package doesn\'t exist on uplink'));
       }
       if (!(res.statusCode >= 200 && res.statusCode < 300)) {
-        const error = createError(`bad status code: ${res.statusCode}`);
+        const error = createError(500, `bad status code: ${res.statusCode}`);
+        // $FlowFixMe
         error.remoteStatus = res.statusCode;
         return callback(error);
       }
@@ -367,8 +395,8 @@ class ProxyStorage {
    * @param {String} url
    * @return {Stream}
    */
-  fetchTarball(url) {
-    const stream = new MyStreams.ReadTarball({});
+  fetchTarball(url: string) {
+    const stream = new ReadTarball({});
     let current_length = 0;
     let expected_length;
 
@@ -381,12 +409,12 @@ class ProxyStorage {
       },
     });
 
-    readStream.on('response', function(res) {
+    readStream.on('response', function(res: any) {
       if (res.statusCode === 404) {
-        return stream.emit('error', createError[404]('file doesn\'t exist on uplink'));
+        return stream.emit('error', ErrorCode.get404('file doesn\'t exist on uplink'));
       }
       if (!(res.statusCode >= 200 && res.statusCode < 300)) {
-        return stream.emit('error', createError('bad uplink status code: ' + res.statusCode));
+        return stream.emit('error', createError(500, 'bad uplink status code: ' + res.statusCode));
       }
       if (res.headers['content-length']) {
         expected_length = res.headers['content-length'];
@@ -407,7 +435,7 @@ class ProxyStorage {
         current_length += data.length;
       }
       if (expected_length && current_length != expected_length) {
-        stream.emit('error', createError('content length mismatch'));
+        stream.emit('error', createError(500, 'content length mismatch'));
       }
     });
     return stream;
@@ -418,9 +446,9 @@ class ProxyStorage {
    * @param {*} options request options
    * @return {Stream}
    */
-  search(options) {
-    const transformStream = new Stream.PassThrough({objectMode: true});
-    const requestStream = this.request({
+  search(options: any) {
+    const transformStream: IUploadTarball = new Stream.PassThrough({objectMode: true});
+    const requestStream: IUploadTarball = this.request({
       uri: options.req.url,
       req: options.req,
       headers: {
@@ -429,14 +457,14 @@ class ProxyStorage {
     });
 
     let parsePackage = (pkg) => {
-      if (Utils.is_object(pkg)) {
+      if (is_object(pkg)) {
         transformStream.emit('data', pkg);
       }
     };
 
     requestStream.on('response', (res) => {
       if (!String(res.statusCode).match(/^2\d\d$/)) {
-        return transformStream.emit('error', createError(`bad status code ${res.statusCode} from uplink`));
+        return transformStream.emit('error', createError(500, `bad status code ${res.statusCode} from uplink`));
       }
 
       // See https://github.com/request/request#requestoptions-callback
@@ -470,7 +498,7 @@ class ProxyStorage {
    * @param {*} req the http request
    * @param {*} headers the request headers
    */
-  _addProxyHeaders(req, headers) {
+  _addProxyHeaders(req: any, headers: any) {
     if (req) {
       // Only submit X-Forwarded-For field if we don't have a proxy selected
       // in the config file.
@@ -501,7 +529,7 @@ class ProxyStorage {
    * @param {*} alive
    * @return {Boolean}
    */
-  _statusCheck(alive) {
+  _statusCheck(alive?: boolean) {
     if (arguments.length === 0) {
       return this._ifRequestFailure() === false;
     } else {
@@ -540,9 +568,9 @@ class ProxyStorage {
    * @param {*} mainconfig
    * @param {*} isHTTPS
    */
-  _setupProxy(hostname, config, mainconfig, isHTTPS) {
+  _setupProxy(hostname: string, config: UpLinkConf, mainconfig: Config, isHTTPS: boolean) {
     let noProxyList;
-    let proxy_key = isHTTPS ? 'https_proxy' : 'http_proxy';
+    let proxy_key: string = isHTTPS ? 'https_proxy' : 'http_proxy';
 
     // get http_proxy and no_proxy configs
     if (proxy_key in config) {
@@ -551,6 +579,7 @@ class ProxyStorage {
       this.proxy = mainconfig[proxy_key];
     }
     if ('no_proxy' in config) {
+      // $FlowFixMe
       noProxyList = config.no_proxy;
     } else if ('no_proxy' in mainconfig) {
       noProxyList = mainconfig.no_proxy;
@@ -560,17 +589,22 @@ class ProxyStorage {
     if (hostname[0] !== '.') {
       hostname = '.' + hostname;
     }
+    // $FlowFixMe
     if (_.isString(noProxyList) && noProxyList.length) {
+      // $FlowFixMe
       noProxyList = noProxyList.split(',');
     }
     if (_.isArray(noProxyList)) {
+      // $FlowFixMe
       for (let i = 0; i < noProxyList.length; i++) {
+        // $FlowFixMe
         let noProxyItem = noProxyList[i];
         if (noProxyItem[0] !== '.') noProxyItem = '.' + noProxyItem;
         if (hostname.lastIndexOf(noProxyItem) === hostname.length - noProxyItem.length) {
           if (this.proxy) {
             this.logger.debug({url: this.url.href, rule: noProxyItem},
               'not using proxy for @{url}, excluded by @{rule} rule');
+              // $FlowFixMe
             this.proxy = false;
           }
           break;
