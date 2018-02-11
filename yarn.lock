@@ -3519,9 +3519,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@0.64.0:
-  version "0.64.0"
-  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.64.0.tgz#ddd3fb3b183ab1ab35a5d5dec9caf5ebbcded167"
+flow-bin@0.65.0:
+  version "0.65.0"
+  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.65.0.tgz#64ffeca27211c786e2d68508c65686ba1b8a2169"
 
 flow-config-parser@^0.3.0:
   version "0.3.0"
