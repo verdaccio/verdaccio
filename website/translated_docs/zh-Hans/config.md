@@ -139,16 +139,38 @@ https:
   ca: path/to/server.pem
 ```
 
-### 通知
+### Proxy
 
-可以通过启用 "通知" 功能来调用第三方工具的 Web Hooks。如需了解更多信息，请阅读文档中的 ["通知" 部分](notifications.md)
+Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+
+#### http_proxy and https_proxy
+
+If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+
+```yaml
+http_proxy: http://something.local/
+https_proxy: https://something.local/
+```
+
+#### no_proxy
+
+This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+
+```yaml
+http_proxy: http://something.local/
+https_proxy: https://something.local/
+```
+
+### Notifications
+
+Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
   method: POST
   headers: [{'Content-Type': 'application/json'}]
   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
-  content: '{"color":"green","message":"发布了新的包: * {{ name }}*","notify":true,"message_format":"text"}'
+  content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
