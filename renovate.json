@@ -2,5 +2,6 @@
   "extends": [
     "config:base"
   ],
+  "schedule": "on the last day of the month",
   "excludePackageNames": ["lunr", "react-syntax-highlighter"]
 }
