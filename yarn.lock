@@ -3017,9 +3017,9 @@ eslint-plugin-babel@4.1.2:
   version "4.1.2"
   resolved "https://registry.npmjs.org/eslint-plugin-babel/-/eslint-plugin-babel-4.1.2.tgz#79202a0e35757dd92780919b2336f1fa2fe53c1e"
 
-eslint-plugin-flowtype@2.42.0:
-  version "2.42.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.42.0.tgz#7fcc98df4ed9482a22ac10ba4ca48d649c4c733a"
+eslint-plugin-flowtype@2.43.0:
+  version "2.43.0"
+  resolved "https://registry.npmjs.org/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.43.0.tgz#47cdac5f01cda53f1c3e8477f0c83fee66a1606e"
   dependencies:
     lodash "^4.15.0"
 
