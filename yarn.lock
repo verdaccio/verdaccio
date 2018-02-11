@@ -3527,9 +3527,9 @@ flow-config-parser@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/flow-config-parser/-/flow-config-parser-0.3.0.tgz#704916efba88cd2518ab4d8f933079571276138f"
 
-flow-runtime@0.16.0:
-  version "0.16.0"
-  resolved "https://registry.npmjs.org/flow-runtime/-/flow-runtime-0.16.0.tgz#6da4aac36b8e26ea2dc80b38395ebecbfcb5a535"
+flow-runtime@0.17.0:
+  version "0.17.0"
+  resolved "https://registry.npmjs.org/flow-runtime/-/flow-runtime-0.17.0.tgz#ff57dd22bd7b0682c7beff20c3590f6a4a8286e3"
 
 follow-redirects@^1.2.5:
   version "1.4.1"
