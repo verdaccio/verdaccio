@@ -6,6 +6,7 @@ const Crypto = require('crypto');
 const Error = require('http-errors');
 const Logger = require('./logger');
 const jwt = require('jsonwebtoken');
+
 /**
  * Handles the authentification, load auth plugins.
  */
@@ -38,10 +39,17 @@ class Auth {
 
     const allow_action = function(action) {
       return function(user, pkg, cb) {
-        let ok = pkg[action].reduce(function(prev, curr) {
-          if (user.name === curr || user.groups.indexOf(curr) !== -1) return true;
-          return prev;
-        }, false);
+        // fetch scope (e.g. `myco` from `@myco/mypkg`) from full package name if exists
+        const scope = (pkg.name.match(/^@([^\/]+)\/[^\/]+$/) || [])[1];
+        const userGroups = [user.name, ...user.groups];
+        let allowedGroups = pkg[action];
+
+        if (scope && allowedGroups.includes('$scope')) {
+          // replace `$scope` with scope from package
+          allowedGroups[allowedGroups.indexOf('$scope')] = scope;
+        }
+
+        const ok = userGroups.some((group) => allowedGroups.includes(group));
 
         if (ok) return cb(null, true);
 

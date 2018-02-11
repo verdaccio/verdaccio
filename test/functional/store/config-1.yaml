@@ -1,6 +1,6 @@
 storage: ./test-storage
 
-max_users: 2
+max_users: 3
 
 web:
   enable: true
@@ -12,6 +12,9 @@ auth:
       test:
         name: test
         password: test
+      test-only-scope:
+        name: test-only-scope
+        password: foobar
 
 
 uplinks:
@@ -114,6 +117,11 @@ packages:
   'test-only-auth':
     allow_access: $authenticated
     allow_publish: $authenticated
+    storage: false
+
+  '@test-only-scope/*':
+    allow_access: $scope
+    allow_publish: $scope
     storage: false
 
   '*':
