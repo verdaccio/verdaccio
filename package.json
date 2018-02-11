@@ -121,7 +121,7 @@
     "style-loader": "0.20.1",
     "stylelint": "8.4.0",
     "stylelint-config-recommended-scss": "3.0.0",
-    "stylelint-scss": "2.2.0",
+    "stylelint-scss": "2.3.0",
     "stylelint-webpack-plugin": "0.10.1",
     "supertest": "3.0.0",
     "url-loader": "0.6.2",
