@@ -7089,14 +7089,15 @@ react-dom@16.2.0, react-dom@^16.1.1:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-hot-loader@4.0.0-beta.17:
-  version "4.0.0-beta.17"
-  resolved "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-4.0.0-beta.17.tgz#484ff64221fc456698d6a24cd2a107b66f024eaa"
+react-hot-loader@4.0.0-beta.22:
+  version "4.0.0-beta.22"
+  resolved "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-4.0.0-beta.22.tgz#a0596395dc46c416c52ea9c7565bd2e8ff3ca964"
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^2.3.1"
-    react-stand-in "^4.0.0-beta.17"
+    prop-types "^15.6.0"
+    shallowequal "^1.0.2"
 
 react-reconciler@^0.7.0:
   version "0.7.0"
@@ -7129,12 +7130,6 @@ react-router@^4.2.0:
     path-to-regexp "^1.7.0"
     prop-types "^15.5.4"
     warning "^3.0.0"
-
-react-stand-in@^4.0.0-beta.17:
-  version "4.0.0-beta.21"
-  resolved "https://registry.npmjs.org/react-stand-in/-/react-stand-in-4.0.0-beta.21.tgz#fb694e465cb20fab7f36d3284f82b68bbd7a657e"
-  dependencies:
-    shallowequal "^1.0.2"
 
 react-syntax-highlighter@5.8.0:
   version "5.8.0"
