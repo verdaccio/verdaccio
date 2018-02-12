@@ -182,7 +182,7 @@
   version "9.4.0"
   resolved "https://registry.npmjs.org/@types/node/-/node-9.4.0.tgz#b85a0bcf1e1cc84eb4901b7e96966aedc6f078d1"
 
-"@verdaccio/file-locking@0.0.5":
+"@verdaccio/file-locking@0.0.5", "@verdaccio/file-locking@^0.0.5":
   version "0.0.5"
   resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.5.tgz#6172dfa2f7094a1da8e4c14906bfa33836b5713d"
   dependencies:
@@ -2322,6 +2322,10 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/crypto/-/crypto-1.0.1.tgz#2af1b7cad8175d24c8a1b0778255794a21803037"
 
 css-color-names@0.0.4:
   version "0.0.4"
@@ -8820,6 +8824,15 @@ vendors@^1.0.0:
 verdaccio-auth-memory@0.0.4:
   version "0.0.4"
   resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
+
+verdaccio-htpasswd@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.1.1.tgz#8810731bab41933f040a9d17e46848294e321fb2"
+  dependencies:
+    "@verdaccio/file-locking" "^0.0.5"
+    apache-md5 "^1.1.2"
+    crypto "^1.0.1"
+    unix-crypt-td-js "^1.0.0"
 
 verdaccio-memory@0.0.3:
   version "0.0.3"
