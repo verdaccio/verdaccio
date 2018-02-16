@@ -110,9 +110,9 @@ function displayHTTPSWarning(storageLocation) {
     '',
     'And then add to config file (' + storageLocation + '):',
     '  https:',
-    '    key: verdaccio-key.pem',
-    '    cert: verdaccio-cert.pem',
-    '    ca: verdaccio-cert.pem',
+    `    key: ${resolveConfigPath('verdaccio-key.pem')}`,
+    `    cert: ${resolveConfigPath('verdaccio-cert.pem')}`,
+    `    ca: ${resolveConfigPath('verdaccio-csr.pem')}`,
   ].join('\n'));
   process.exit(2);
 }
