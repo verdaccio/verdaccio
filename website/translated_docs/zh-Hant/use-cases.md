@@ -1,6 +1,6 @@
 ---
 id: use-cases
-title: Use Cases
+title: "Use Cases"
 ---
 ## Using private packages
 
