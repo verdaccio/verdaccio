@@ -1,6 +1,6 @@
 ---
 id: uplinks
-title: Uplinks
+title: "Uplinks"
 ---
 An *uplink* is a link with an external registry that provides acccess to external packages.
 
