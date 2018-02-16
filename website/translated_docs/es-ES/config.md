@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: Archivo de Configuración
+title: "Archivo de Configuración"
 ---
 Este archivo es la piedra angular de verdaccio donde puedes modificar su comportamiento por defecto, activar plugins y características externas.
 
@@ -134,9 +134,9 @@ Para habilitar`https` en `verdaccio` es suficiente con definir en `listen` en su
 
 ```yaml
 https:
-  key: path/to/server.key
-  cert: path/to/server.crt
-  ca: path/to/server.pem
+    key: ./path/verdaccio-key.pem
+    cert: ./path/verdaccio-cert.pem
+    ca: ./path/verdaccio-csr.pem
 ```
 
 ### Proxy

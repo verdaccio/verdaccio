@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: Configuration File
+title: "Configuration File"
 ---
 此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
 
@@ -134,9 +134,9 @@ listen:
 
 ```yaml
 https:
-  key: path/to/server.key
-  cert: path/to/server.crt
-  ca: path/to/server.pem
+    key: ./path/verdaccio-key.pem
+    cert: ./path/verdaccio-cert.pem
+    ca: ./path/verdaccio-csr.pem
 ```
 
 ### Proxy

@@ -1,6 +1,6 @@
 ---
 id: ssl
-title: Set up the SSL Certificates
+title: "Set up the SSL Certificates"
 ---
 Follow this instructions to configure a SSL certificate to serve NPM registry under HTTPS.
 
@@ -13,22 +13,22 @@ Once you update the listen and try to run verdaccio again will ask for certifica
 
 * Generate your certificates
 
-     $ openssl genrsa -out ~/.config/verdaccio/verdaccio-key.pem 2048
-     $ openssl req -new -sha256 -key ~/.config/verdaccio/verdaccio-key.pem -out ~/.config/verdaccio/verdaccio-csr.pem
-     $ openssl x509 -req -in ~/.config/verdaccio/verdaccio-csr.pem -signkey ~/.config/verdaccio/verdaccio-key.pem -out ~/.config/verdaccio/verdaccio-cert.pem
+     $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
+     $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
+     $ openssl x509 -req -in /Users/user/.config/verdaccio/verdaccio-csr.pem -signkey /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-cert.pem
      ````
     
-    * Edit your config file `~/.config/verdaccio/config.yaml` and add the following section
+    * Edit your config file `/Users/user/.config/verdaccio/config.yaml` and add the following section
     
     
 
-https: key: ~/.config/verdaccio/server.key cert: ~/.config/verdaccio/server.crt ca: ~/.config/verdaccio/server.ca
+https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 
     <br />Alternatively, if you have a certificate as `server.pfx` format, you can add the following configuration section. The passphrase is optional and only needed, if your certificate is encrypted.
     
     
 
-https: pfx: ~/.config/verdaccio/server.pfx passphrase: 'secret' ````
+https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
 More info on the `key`, `cert`, `ca`, `pfx` and `passphrase` arguments on the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 

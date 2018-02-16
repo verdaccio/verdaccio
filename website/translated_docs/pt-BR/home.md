@@ -1,6 +1,6 @@
 ---
 id: home
-title: Verdaccio registro privado e proxy npm
+title: "Verdaccio registro privado e proxy npm"
 ---
 
 

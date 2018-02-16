@@ -1,6 +1,6 @@
 ---
 id: dev-plugins
-title: Developing Plugins
+title: "Developing Plugins"
 ---
 There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
 

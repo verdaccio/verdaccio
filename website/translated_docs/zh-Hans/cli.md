@@ -1,6 +1,6 @@
 ---
 id: cli
-title: Command Line Tool
+title: "Command Line Tool"
 ---
 Verdaccio 命令行是启动和控制此应用的工具
 

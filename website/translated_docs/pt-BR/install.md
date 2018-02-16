@@ -1,6 +1,6 @@
 ---
 id: installation
-title: Instalação
+title: "Instalação"
 ---
 Verdaccio is a multiplatform web application, to install you need at least some prerequisites.
 

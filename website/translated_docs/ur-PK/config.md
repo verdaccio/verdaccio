@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: Configuration File
+title: "Configuration File"
 ---
 This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
 
@@ -134,9 +134,9 @@ To enable `https` in `verdaccio` enough with set your `listen` domain with the p
 
 ```yaml
 https:
-  key: path/to/server.key
-  cert: path/to/server.crt
-  ca: path/to/server.pem
+    key: ./path/verdaccio-key.pem
+    cert: ./path/verdaccio-cert.pem
+    ca: ./path/verdaccio-csr.pem
 ```
 
 ### Proxy

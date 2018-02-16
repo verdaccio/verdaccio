@@ -1,6 +1,6 @@
 ---
 id: what-is-verdaccio
-title: Qué es Verdaccio?
+title: "Qué es Verdaccio?"
 ---
 ## En pocas palabras
 

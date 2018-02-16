@@ -1,6 +1,6 @@
 ---
 id: what-is-verdaccio
-title: What is Verdaccio?
+title: "What is Verdaccio?"
 ---
 ## In a nutshell
 
