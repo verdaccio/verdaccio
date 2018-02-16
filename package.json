@@ -43,7 +43,7 @@
     "minimatch": "^3.0.2",
     "mkdirp": "^0.5.1",
     "pkginfo": "^0.4.0",
-    "request": "^2.72.0",
+    "request": "2.83.0",
     "semver": "^5.5.0",
     "unix-crypt-td-js": "^1.0.0"
   },
