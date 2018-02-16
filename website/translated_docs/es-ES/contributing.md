@@ -1,6 +1,6 @@
 ---
 id: contributing
-title: Contribuyendo en Verdaccio
+title: "Contribuyendo en Verdaccio"
 ---
 Primero lo primero, saltar en un código desconocido no es tarea fácil, pero estamos aquí para ayudarte.
 
