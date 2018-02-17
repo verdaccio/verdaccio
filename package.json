@@ -46,7 +46,7 @@
     "request": "2.83.0",
     "semver": "^5.5.0",
     "unix-crypt-td-js": "^1.0.0",
-    "verdaccio-htpasswd": "0.1.1"
+    "verdaccio-htpasswd": "0.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "6.1.0",
