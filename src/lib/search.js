@@ -1,16 +1,21 @@
-/* eslint no-invalid-this: "off" */
+// @flow
 
-const lunr = require('lunr');
+import lunr from 'lunr';
+import type {IStorageHandler, Version, IWebSearch} from '@verdaccio/types';
 
 /**
  * Handle the search Indexer.
  */
-class Search {
+class Search implements IWebSearch {
+
+  index: any;
+  storage: IStorageHandler;
 
   /**
    * Constructor.
    */
   constructor() {
+    /* eslint no-invalid-this: "off" */
     this.index = lunr(function() {
       this.field('name', {boost: 10});
       this.field('description', {boost: 4});
@@ -26,18 +31,18 @@ class Search {
    * @param {*} q the keyword
    * @return {Array} list of results.
    */
-  query(q) {
-	  return q === '*'
-      ? this.storage.localStorage.localList.get().map( function( pkg ) {
+  query(query: string) {
+	  return query === '*'
+      ? this.storage.localStorage.localData.get().map( function( pkg ) {
         return {ref: pkg, score: 1};
-      }) : this.index.search(q);
+      }) : this.index.search(query);
   }
 
   /**
    * Add a new element to index
    * @param {*} pkg the package
    */
-  add(pkg) {
+  add(pkg: Version) {
     this.index.add({
       id: pkg.name,
       name: pkg.name,
@@ -50,7 +55,7 @@ class Search {
    * Remove an element from the index.
    * @param {*} name the id element
    */
-  remove(name) {
+  remove(name: string) {
     this.index.remove({id: name});
   }
 
@@ -72,7 +77,7 @@ class Search {
    * Set up the {Storage}
    * @param {*} storage An storage reference.
    */
-  configureStorage(storage) {
+  configureStorage(storage: IStorageHandler) {
     this.storage = storage;
     this.reindex();
   }
