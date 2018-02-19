@@ -57,11 +57,11 @@ class Config {
     assert(self.storage, 'CONFIG: storage path not defined');
 
     const users = {
-      'all': true,
-      'anonymous': true,
-      'undefined': true,
-      'owner': true,
-      'none': true,
+      all: true,
+      anonymous: true,
+      undefined: true,
+      owner: true,
+      none: true,
     };
 
     const check_user_or_uplink = function(arg) {

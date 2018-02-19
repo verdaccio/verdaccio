@@ -24,9 +24,9 @@ export default {
 
   plugins: [
     new webpack.DefinePlugin({
-      '__DEBUG__': true,
+      __DEBUG__: true,
       'process.env.NODE_ENV': '"development"',
-      '__APP_VERSION__': `"${getPackageVersion()}"`,
+      __APP_VERSION__: `"${getPackageVersion()}"`,
     }),
     new HTMLWebpackPlugin({
       title: 'Verdaccio',

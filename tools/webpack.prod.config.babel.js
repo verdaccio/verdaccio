@@ -18,9 +18,9 @@ const prodConf = {
 
   plugins: [
     new webpack.DefinePlugin({
-      '__DEBUG__': false,
+      __DEBUG__: false,
       'process.env.NODE_ENV': '"production"',
-      '__APP_VERSION__': `"${getPackageVersion()}"`,
+      __APP_VERSION__: `"${getPackageVersion()}"`,
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,

@@ -7,13 +7,18 @@
 .*/coverage/.*
 .*/.vscode/.*
 .*/build/.*
-
-[include]
+.*/docs/.*
+.*/scripts/.*
+.*/assets/.*
+.*/bin/.*
+.*/systemd/.*
+.*/website/.*
+.*/wiki/.*
+.*/docs/.*
+.*/tools/.*
 
 [libs]
 node_modules/@verdaccio/types/lib/
-
-[lints]
 
 [options]
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe

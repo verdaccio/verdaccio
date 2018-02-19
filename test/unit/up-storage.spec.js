@@ -6,13 +6,20 @@ import _ from 'lodash';
 import configExample from './partials/config';
 import {setup} from '../../src/lib/logger';
 
+import type {UpLinkConf, Config} from '@verdaccio/types';
+
 setup([]);
 
 describe('UpStorge', () => {
 
-  const uplinkDefault = {
-    url: 'https://registry.npmjs.org/'
+  const uplinkDefault: UpLinkConf = {
+    url: 'https://registry.npmjs.org/',
+    fail_timeout: '5m',
+    max_fails: 2,
+    maxage: '2m',
+    timeout: '1m',
   };
+
   let generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample);
 

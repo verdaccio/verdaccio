@@ -17,13 +17,14 @@ const DEFAULT_REVISION: string = `0-0000000000000000`;
 const generatePackageTemplate = function(name: string): Package {
   return {
     // standard things
-    'name': name,
-    'versions': {},
+    name,
+    versions: {},
     'dist-tags': {},
-    'time': {},
-    '_distfiles': {},
-    '_attachments': {},
-    '_uplinks': {},
+    time: {},
+    _distfiles: {},
+    _attachments: {},
+    _uplinks: {},
+    _rev: '',
   };
 };
 
