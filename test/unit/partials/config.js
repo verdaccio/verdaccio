@@ -1,5 +1,5 @@
 const config = {
-  storage: __dirname + '/store/test-storage',
+  storage: `${__dirname}/store/test-storage`,
   uplinks: {
     'npmjs': {
       'url': 'https://registry.npmjs.org/'
@@ -15,6 +15,12 @@ const config = {
     'forbidden-place': {
       allow_access: 'nobody',
       allow_publish: 'nobody'
+    },
+
+    'react': {
+      allow_access: '$all',
+      allow_publish: '$all',
+      proxy: 'npmjs'
     },
 
     'jquery': {

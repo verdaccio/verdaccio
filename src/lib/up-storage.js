@@ -7,17 +7,19 @@ import _ from 'lodash';
 import request from 'request';
 import Stream from 'stream';
 import URL from 'url';
-import {parseInterval, is_object, ErrorCode} from './utils';
+import {parseInterval, isObject, ErrorCode} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
 
 import type {
   IProxy,
   Config,
+  UpLinkConf,
   Callback,
+  Headers,
   Logger,
 } from '@verdaccio/types';
 
-import type {IUploadTarball} from '@verdaccio/streams';
+// import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('./logger');
 const encode = function(thing) {
@@ -42,15 +44,15 @@ const setConfig = (config, key, def) => {
  * (same for storage.js, local-storage.js, up-storage.js)
  */
 class ProxyStorage implements IProxy {
-  config: Config;
+  config: UpLinkConf;
   failed_requests: number;
   userAgent: string;
   ca: string | void;
   logger: Logger;
   server_id: string;
   url: any;
-  maxage: string;
-  timeout: string;
+  maxage: number;
+  timeout: number;
   max_fails: number;
   fail_timeout: number;
   upname: string;
@@ -76,11 +78,11 @@ class ProxyStorage implements IProxy {
 
     this.config.url = this.config.url.replace(/\/$/, '');
 
-    if (Number(this.config.timeout) >= 1000) {
+    if (this.config.timeout && Number(this.config.timeout) >= 1000) {
       this.logger.warn(['Too big timeout value: ' + this.config.timeout,
-                        'We changed time format to nginx-like one',
-                        '(see http://nginx.org/en/docs/syntax.html)',
-                        'so please update your config accordingly'].join('\n'));
+        'We changed time format to nginx-like one',
+        '(see http://nginx.org/en/docs/syntax.html)',
+        'so please update your config accordingly'].join('\n'));
     }
 
     // a bunch of different configurable timers
@@ -96,14 +98,14 @@ class ProxyStorage implements IProxy {
    * @param {*} cb
    * @return {Request}
    */
-  request(options: any, cb: Callback) {
+  request(options: any, cb?: Callback) {
     let json;
 
     if (this._statusCheck() === false) {
       let streamRead = new Stream.Readable();
 
       process.nextTick(function() {
-        if (_.isFunction(cb)) {
+        if (cb) {
           cb(ErrorCode.get500('uplink is offline'));
         }
         // $FlowFixMe
@@ -131,7 +133,7 @@ class ProxyStorage implements IProxy {
       uri: uri,
     }, 'making request: \'@{method} @{uri}\'');
 
-    if (is_object(options.json)) {
+    if (isObject(options.json)) {
       json = JSON.stringify(options.json);
       headers['Content-Type'] = headers['Content-Type'] || 'application/json';
     }
@@ -142,6 +144,7 @@ class ProxyStorage implements IProxy {
       // $FlowFixMe
       processBody(err, body);
       logActivity();
+      // $FlowFixMe
       cb(err, res, body);
 
       /**
@@ -164,7 +167,7 @@ class ProxyStorage implements IProxy {
           }
         }
 
-        if (!err && is_object(body)) {
+        if (!err && isObject(body)) {
           if (_.isString(body.error)) {
             error = body.error;
           }
@@ -176,8 +179,8 @@ class ProxyStorage implements IProxy {
       function logActivity() {
         let message = '@{!status}, req: \'@{request.method} @{request.url}\'';
         message += error
-                ? ', error: @{!error}'
-                : ', bytes: @{bytes.in}/@{bytes.out}';
+          ? ', error: @{!error}'
+          : ', bytes: @{bytes.in}/@{bytes.out}';
         self.logger.warn({
           err: err,
           request: {method: method, url: uri},
@@ -261,8 +264,9 @@ class ProxyStorage implements IProxy {
    * @private
    */
   _setAuth(headers: any) {
+    const auth = this.config.auth;
 
-    if (_.isNil(this.config.auth) || headers['authorization']) {
+    if (typeof auth === 'undefined' || headers['authorization']) {
       return headers;
     }
 
@@ -273,10 +277,12 @@ class ProxyStorage implements IProxy {
     // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
     // or get other variable export in env
     let token: any = process.env.NPM_TOKEN;
-    if (this.config.auth.token) {
-      token = this.config.auth.token;
-    } else if (this.config.auth.token_env) {
-      token = process.env[this.config.auth.token_env];
+
+    if (auth.token) {
+      token = auth.token;
+    } else if (auth.token_env ) {
+      // $FlowFixMe
+      token = process.env[auth.token_env];
     }
 
     if (_.isNil(token)) {
@@ -284,8 +290,9 @@ class ProxyStorage implements IProxy {
     }
 
     // define type Auth allow basic and bearer
-    const type = this.config.auth.type;
+    const type = auth.type;
     this._setHeaderAuthorization(headers, type, token);
+
     return headers;
   }
 
@@ -321,25 +328,28 @@ class ProxyStorage implements IProxy {
    * Eg:
    *
    * uplinks:
-       npmjs:
-         url: https://registry.npmjs.org/
-         headers:
-           Accept: "application/vnd.npm.install-v2+json; q=1.0"
-       verdaccio-staging:
-         url: https://mycompany.com/npm
-         headers:
-           Accept: "application/json"
-           authorization: "Basic YourBase64EncodedCredentials=="
+   npmjs:
+   url: https://registry.npmjs.org/
+   headers:
+   Accept: "application/vnd.npm.install-v2+json; q=1.0"
+   verdaccio-staging:
+   url: https://mycompany.com/npm
+   headers:
+   Accept: "application/json"
+   authorization: "Basic YourBase64EncodedCredentials=="
 
    * @param {Object} headers
    * @private
    */
-  _overrideWithUplinkConfigHeaders(headers: any) {
+  _overrideWithUplinkConfigHeaders(headers: Headers) {
+    if (!this.config.headers) {
+      return headers;
+    }
+
     // add/override headers specified in the config
+    /* eslint guard-for-in: 0 */
     for (let key in this.config.headers) {
-      if (Object.prototype.hasOwnProperty.call(this.config.headers, key)) {
         headers[key] = this.config.headers[key];
-      }
     }
   }
 
@@ -349,10 +359,10 @@ class ProxyStorage implements IProxy {
    * @return {Boolean}
    */
   isUplinkValid(url: string) {
-      // $FlowFixMe
-      url = URL.parse(url);
-      // $FlowFixMe
-     return url.protocol === this.url.protocol && url.host === this.url.host && url.path.indexOf(this.url.path) === 0;
+    // $FlowFixMe
+    url = URL.parse(url);
+    // $FlowFixMe
+    return url.protocol === this.url.protocol && url.host === this.url.host && url.path.indexOf(this.url.path) === 0;
   }
 
   /**
@@ -447,8 +457,8 @@ class ProxyStorage implements IProxy {
    * @return {Stream}
    */
   search(options: any) {
-    const transformStream: IUploadTarball = new Stream.PassThrough({objectMode: true});
-    const requestStream: IUploadTarball = this.request({
+    const transformStream: any = new Stream.PassThrough({objectMode: true});
+    const requestStream: stream$Readable = this.request({
       uri: options.req.url,
       req: options.req,
       headers: {
@@ -457,7 +467,7 @@ class ProxyStorage implements IProxy {
     });
 
     let parsePackage = (pkg) => {
-      if (is_object(pkg)) {
+      if (isObject(pkg)) {
         transformStream.emit('data', pkg);
       }
     };
@@ -486,6 +496,8 @@ class ProxyStorage implements IProxy {
     });
 
     transformStream.abort = () => {
+      // FIXME: this is clearly a potential issue
+      // $FlowFixMe
       requestStream.abort();
       transformStream.emit('end');
     };
@@ -509,8 +521,8 @@ class ProxyStorage implements IProxy {
       if (this.proxy === false) {
         headers['X-Forwarded-For'] = (
           req && req.headers['x-forwarded-for']
-          ? req.headers['x-forwarded-for'] + ', '
-          : ''
+            ? req.headers['x-forwarded-for'] + ', '
+            : ''
         ) + req.connection.remoteAddress;
       }
     }
@@ -518,8 +530,8 @@ class ProxyStorage implements IProxy {
     // always attach Via header to avoid loops, even if we're not proxying
     headers['Via'] =
       req && req.headers['via']
-      ? req.headers['via'] + ', '
-      : '';
+        ? req.headers['via'] + ', '
+        : '';
 
     headers['Via'] += '1.1 ' + this.server_id + ' (Verdaccio)';
   }
@@ -604,7 +616,7 @@ class ProxyStorage implements IProxy {
           if (this.proxy) {
             this.logger.debug({url: this.url.href, rule: noProxyItem},
               'not using proxy for @{url}, excluded by @{rule} rule');
-              // $FlowFixMe
+            // $FlowFixMe
             this.proxy = false;
           }
           break;

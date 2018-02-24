@@ -17,6 +17,7 @@ import type {
   IStorage,
   IProxy,
   IStorageHandler,
+  Versions,
   ProxyList,
   Package,
   Config,
@@ -27,17 +28,22 @@ import type {
   Logger,
 } from '@verdaccio/types';
 
-import type {IReadTarball} from '@verdaccio/streams';
+import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('../lib/logger');
 const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
-const getDefaultMetadata = (name) => {
-  return {
-    'name': name,
-    'versions': {},
+const getDefaultMetadata = function(name): Package {
+  const pkgMetadata: Package = {
+    name,
+    versions: {},
     'dist-tags': {},
-    '_uplinks': {},
+    _uplinks: {},
+    _distfiles: {},
+    _attachments: {},
+    _rev: '',
   };
+
+  return pkgMetadata;
 };
 
 /**
@@ -63,9 +69,9 @@ class Storage implements IStorageHandler {
 
   /**
    *  Add a {name} package to a system
-      Function checks if package with the same name is available from uplinks.
-      If it isn't, we create package locally
-      Used storages: local (write) && uplinks
+   Function checks if package with the same name is available from uplinks.
+   If it isn't, we create package locally
+   Used storages: local (write) && uplinks
    * @param {*} name
    * @param {*} metadata
    * @param {*} callback
@@ -97,6 +103,7 @@ class Storage implements IStorageHandler {
      */
     const checkPackageRemote = () => {
       return new Promise((resolve, reject) => {
+        // $FlowFixMe
         self._syncUplinksMetadata(name, null, {}, (err, results, err_results) => {
           // something weird
           if (err && err.status !== 404) {
@@ -111,7 +118,7 @@ class Storage implements IStorageHandler {
             // if uplink fails with a status other than 404, we report failure
             if (_.isNil(err_results[i][0]) === false) {
               if (err_results[i][0].status !== 404) {
-                if (_.isNil(this.config.publish) === false &&
+                if (this.config.publish &&
                   _.isBoolean(this.config.publish.allow_offline) &&
                   this.config.publish.allow_offline) {
                   return resolve();
@@ -159,20 +166,20 @@ class Storage implements IStorageHandler {
 
   /**
    * Add a new version of package {name} to a system
-     Used storages: local (write)
+   Used storages: local (write)
    * @param {*} name
    * @param {*} version
    * @param {*} metadata
    * @param {*} tag
    * @param {*} callback
    */
-  addVersion(name: string, version: Version, metadata: Package, tag: string, callback: Callback) {
+  addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback) {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
   /**
    * Tags a package version with a provided tag
-     Used storages: local (write)
+   Used storages: local (write)
    * @param {*} name
    * @param {*} tag_hash
    * @param {*} callback
@@ -183,7 +190,7 @@ class Storage implements IStorageHandler {
 
   /**
    * Tags a package version with a provided tag
-     Used storages: local (write)
+   Used storages: local (write)
    * @param {*} name
    * @param {*} tag_hash
    * @param {*} callback
@@ -195,8 +202,8 @@ class Storage implements IStorageHandler {
 
   /**
    * Change an existing package (i.e. unpublish one version)
-     Function changes a package info from local storage and all uplinks with write access./
-     Used storages: local (write)
+   Function changes a package info from local storage and all uplinks with write access./
+   Used storages: local (write)
    * @param {*} name
    * @param {*} metadata
    * @param {*} revision
@@ -208,8 +215,8 @@ class Storage implements IStorageHandler {
 
   /**
    * Remove a package from a system
-     Function removes a package from local storage
-     Used storages: local (write)
+   Function removes a package from local storage
+   Used storages: local (write)
    * @param {*} name
    * @param {*} callback
    */
@@ -220,11 +227,11 @@ class Storage implements IStorageHandler {
   }
 
   /**
-    Remove a tarball from a system
-    Function removes a tarball from local storage.
-    Tarball in question should not be linked to in any existing
-    versions, i.e. package version should be unpublished first.
-    Used storage: local (write)
+   Remove a tarball from a system
+   Function removes a tarball from local storage.
+   Tarball in question should not be linked to in any existing
+   versions, i.e. package version should be unpublished first.
+   Used storage: local (write)
    * @param {*} name
    * @param {*} filename
    * @param {*} revision
@@ -236,22 +243,22 @@ class Storage implements IStorageHandler {
 
   /**
    * Upload a tarball for {name} package
-    Function is syncronous and returns a WritableStream
-    Used storages: local (write)
+   Function is syncronous and returns a WritableStream
+   Used storages: local (write)
    * @param {*} name
    * @param {*} filename
    * @return {Stream}
    */
-  add_tarball(name: string, filename: string) {
+  add_tarball(name: string, filename: string): IUploadTarball {
     return this.localStorage.addTarball(name, filename);
   }
 
   /**
-    Get a tarball from a storage for {name} package
-    Function is syncronous and returns a ReadableStream
-    Function tries to read tarball locally, if it fails then it reads package
-    information in order to figure out where we can get this tarball from
-    Used storages: local || uplink (just one)
+   Get a tarball from a storage for {name} package
+   Function is syncronous and returns a ReadableStream
+   Function tries to read tarball locally, if it fails then it reads package
+   information in order to figure out where we can get this tarball from
+   Used storages: local || uplink (just one)
    * @param {*} name
    * @param {*} filename
    * @return {Stream}
@@ -266,7 +273,8 @@ class Storage implements IStorageHandler {
     // information about it, so fetching package info is unnecessary
 
     // trying local first
-    let localStream: IReadTarball = self.localStorage.getTarball(name, filename);
+    // flow: should be IReadTarball
+    let localStream: any = self.localStorage.getTarball(name, filename);
     let is_open = false;
     localStream.on('error', (err) => {
       if (is_open || err.status !== 404) {
@@ -276,7 +284,8 @@ class Storage implements IStorageHandler {
       // local reported 404
       let err404 = err;
       localStream.abort();
-      localStream = null; // gc
+      // $FlowFixMe
+      localStream = null; // we force for garbage collector
       self.localStorage.getPackageMetadata(name, (err, info: Package) => {
         if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
           // information about this file exists locally
@@ -285,7 +294,7 @@ class Storage implements IStorageHandler {
           // we know nothing about this file, trying to get information elsewhere
           self._syncUplinksMetadata(name, info, {}, (err, info: Package) => {
             if (_.isNil(err) === false) {
-               return readStream.emit('error', err);
+              return readStream.emit('error', err);
             }
             if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
               return readStream.emit('error', err404);
@@ -367,7 +376,7 @@ class Storage implements IStorageHandler {
 
         savestream.on('error', function(err) {
           self.logger.warn( {err: err}
-                            , 'error saving file: @{err.message}\n@{err.stack}' );
+            , 'error saving file: @{err.message}\n@{err.stack}' );
           if (savestream) {
             savestream.abort();
           }
@@ -381,11 +390,11 @@ class Storage implements IStorageHandler {
   }
 
   /**
-    Retrieve a package metadata for {name} package
-      Function invokes localStorage.getPackage and uplink.get_package for every
-      uplink with proxy_access rights against {name} and combines results
-      into one json object
-    Used storages: local && uplink (proxy_access)
+   Retrieve a package metadata for {name} package
+   Function invokes localStorage.getPackage and uplink.get_package for every
+   uplink with proxy_access rights against {name} and combines results
+   into one json object
+   Used storages: local && uplink (proxy_access)
 
    * @param {object} options
    * @property {string} options.name Package Name
@@ -423,18 +432,18 @@ class Storage implements IStorageHandler {
           result._attachments = {};
 
           options.callback(null, result, uplink_errors);
-      });
+        });
     });
   }
 
   /**
-    Retrieve remote and local packages more recent than {startkey}
-    Function streams all packages from all uplinks first, and then
-    local packages.
-      Note that local packages could override registry ones just because
-      they appear in JSON last. That's a trade-off we make to avoid
-      memory issues.
-      Used storages: local && uplink (proxy_access)
+   Retrieve remote and local packages more recent than {startkey}
+   Function streams all packages from all uplinks first, and then
+   local packages.
+   Note that local packages could override registry ones just because
+   they appear in JSON last. That's a trade-off we make to avoid
+   memory issues.
+   Used storages: local && uplink (proxy_access)
    * @param {*} startkey
    * @param {*} options
    * @return {Stream}
@@ -445,42 +454,42 @@ class Storage implements IStorageHandler {
     let stream: any = new Stream.PassThrough({objectMode: true});
 
     async.eachSeries(Object.keys(this.uplinks), function(up_name, cb) {
-      // shortcut: if `local=1` is supplied, don't call uplinks
-      if (options.req.query.local !== undefined) {
-         return cb();
-      }
-      // search by keyword for each uplink
-      let lstream: IUploadTarball = self.uplinks[up_name].search(options);
-      // join streams
-      lstream.pipe(stream, {end: false});
-      lstream.on('error', function(err) {
-        self.logger.error({err: err}, 'uplink error: @{err.message}');
-        cb(), cb = function() {};
-      });
-      lstream.on('end', function() {
-        cb(), cb = function() {};
-      });
-
-      stream.abort = function() {
-        if (lstream.abort) {
-          lstream.abort();
+        // shortcut: if `local=1` is supplied, don't call uplinks
+        if (options.req.query.local !== undefined) {
+          return cb();
         }
-        cb(), cb = function() {};
-      };
-    },
-    // executed after all series
-    function() {
-      // attach a local search results
-      let lstream: IReadTarball = self.localStorage.search(startkey, options);
-      stream.abort = function() {
-        lstream.abort();
-      };
-      lstream.pipe(stream, {end: true});
-      lstream.on('error', function(err) {
-        self.logger.error({err: err}, 'search error: @{err.message}');
-        stream.end();
+        // search by keyword for each uplink
+        let lstream: IUploadTarball = self.uplinks[up_name].search(options);
+        // join streams
+        lstream.pipe(stream, {end: false});
+        lstream.on('error', function(err) {
+          self.logger.error({err: err}, 'uplink error: @{err.message}');
+          cb(), cb = function() {};
+        });
+        lstream.on('end', function() {
+          cb(), cb = function() {};
+        });
+
+        stream.abort = function() {
+          if (lstream.abort) {
+            lstream.abort();
+          }
+          cb(), cb = function() {};
+        };
+      },
+      // executed after all series
+      function() {
+        // attach a local search results
+        let lstream: IReadTarball = self.localStorage.search(startkey, options);
+        stream.abort = function() {
+          lstream.abort();
+        };
+        lstream.pipe(stream, {end: true});
+        lstream.on('error', function(err) {
+          self.logger.error({err: err}, 'search error: @{err.message}');
+          stream.end();
+        });
       });
-    });
 
     return stream;
   }
@@ -523,24 +532,17 @@ class Storage implements IStorageHandler {
 
   /**
    * Function fetches package metadata from uplinks and synchronizes it with local data
-     if package is available locally, it MUST be provided in pkginfo
-     returns callback(err, result, uplink_errors)
-   * @param {*} name
-   * @param {*} packageInfo
-   * @param {*} options
-   * @param {*} callback
+   if package is available locally, it MUST be provided in pkginfo
+   returns callback(err, result, uplink_errors)
    */
-  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback) {
-    let exists = false;
+  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void {
+    let exists = true;
     const self = this;
     const upLinks = [];
-    if (_.isNil(packageInfo)) {
+    if (!packageInfo || packageInfo === null) {
       exists = false;
       packageInfo = getDefaultMetadata(name);
-    } else {
-      exists = true;
     }
-
 
     for (let up in this.uplinks) {
       if (this.config.hasProxyTo(name, up)) {
@@ -553,7 +555,7 @@ class Storage implements IStorageHandler {
       const _options = Object.assign({}, options);
       let upLinkMeta = packageInfo._uplinks[upLink.upname];
 
-      if (Utils.is_object(upLinkMeta)) {
+      if (Utils.isObject(upLinkMeta)) {
 
         const fetched = upLinkMeta.fetched;
 
@@ -591,7 +593,7 @@ class Storage implements IStorageHandler {
 
         // added to fix verdaccio#73
         if ('time' in upLinkResponse) {
-          packageInfo['time'] = upLinkResponse.time;
+          packageInfo.time = upLinkResponse.time;
         }
 
         this._updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
@@ -616,8 +618,8 @@ class Storage implements IStorageHandler {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
         return callback( Utils.ErrorCode.get404('no such package available')
-                      , null
-                      , upLinksErrors );
+          , null
+          , upLinksErrors );
       }
 
       self.localStorage.updateVersions(name, packageInfo, function(err, packageJsonLocal: Package) {
@@ -666,7 +668,7 @@ class Storage implements IStorageHandler {
 
   /**
    * Function gets a local info and an info from uplinks and tries to merge it
-     exported for unit tests only.
+   exported for unit tests only.
    * @param {*} local
    * @param {*} up
    * @param {*} config

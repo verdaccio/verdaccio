@@ -1,41 +1,46 @@
-/* eslint prefer-spread: "off" */
-/* eslint prefer-rest-params: "off" */
+// @flow
 
 import {loadPlugin} from '../lib/plugin-loader';
-const Crypto = require('crypto');
+import Crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import {ErrorCode} from './utils';
 const Error = require('http-errors');
-const Logger = require('./logger');
-const jwt = require('jsonwebtoken');
+
+import type {Config, Logger, Callback} from '@verdaccio/types';
+import type {$Request, $Response, NextFunction} from 'express';
+
+type $RequestExtend = $Request & {remote_user: any}
+
+const LoggerApi = require('./logger');
 /**
  * Handles the authentification, load auth plugins.
  */
 class Auth {
+  config: Config;
+  logger: Logger;
+  secret: string;
+  plugins: Array<any>;
 
-  /**
-   * @param {*} config config reference
-   */
-  constructor(config) {
+  constructor(config: Config) {
     this.config = config;
-    this.logger = Logger.logger.child({sub: 'auth'});
+    this.logger = LoggerApi.logger.child({sub: 'auth'});
     this.secret = config.secret;
+    this.plugins = this._loadPlugin(config);
+    this._applyDefaultPlugins();
+  }
 
+  _loadPlugin(config: Config) {
     const plugin_params = {
-      config: config,
+      config,
       logger: this.logger,
     };
 
-    if (config.users_file) {
-      if (!config.auth || !config.auth.htpasswd) {
-        // b/w compat
-        config.auth = config.auth || {};
-        config.auth.htpasswd = {file: config.users_file};
-      }
-    }
-
-    this.plugins = loadPlugin(config, config.auth, plugin_params, function(p) {
+    return loadPlugin(config, config.auth, plugin_params, function(p) {
       return p.authenticate || p.allow_access || p.allow_publish;
     });
+  }
 
+  _applyDefaultPlugins() {
     const allow_action = function(action) {
       return function(user, pkg, cb) {
         let ok = pkg[action].reduce(function(prev, curr) {
@@ -46,20 +51,20 @@ class Auth {
         if (ok) return cb(null, true);
 
         if (user.name) {
-          cb( Error[403]('user ' + user.name + ' is not allowed to ' + action + ' package ' + pkg.name) );
+          cb(ErrorCode.get403('user ' + user.name + ' is not allowed to ' + action + ' package ' + pkg.name));
         } else {
-          cb( Error[403]('unregistered users are not allowed to ' + action + ' package ' + pkg.name) );
+          cb(ErrorCode.get403('unregistered users are not allowed to ' + action + ' package ' + pkg.name));
         }
       };
     };
 
     this.plugins.push({
       authenticate: function(user, password, cb) {
-        return cb( Error[403]('bad username/password, access denied') );
+        cb(ErrorCode.get403('bad username/password, access denied'));
       },
 
       add_user: function(user, password, cb) {
-        return cb( Error[409]('registration is disabled') );
+        return cb(ErrorCode.get409('bad username/password, access denied'));
       },
 
       allow_access: allow_action('access'),
@@ -67,13 +72,7 @@ class Auth {
     });
   }
 
-  /**
-   * Authenticate an user.
-   * @param {*} user
-   * @param {*} password
-   * @param {*} cb
-   */
-  authenticate(user, password, cb) {
+  authenticate(user: string, password: string, cb: Callback) {
     const plugins = this.plugins.slice(0)
     ;(function next() {
       let p = plugins.shift();
@@ -94,13 +93,7 @@ class Auth {
     })();
   }
 
-  /**
-   * Add a new user.
-   * @param {*} user
-   * @param {*} password
-   * @param {*} cb
-   */
-  add_user(user, password, cb) {
+  add_user(user: string, password: string, cb: Callback) {
     let self = this;
     let plugins = this.plugins.slice(0)
 
@@ -129,16 +122,13 @@ class Auth {
 
   /**
    * Allow user to access a package.
-   * @param {*} package_name
-   * @param {*} user
-   * @param {*} callback
    */
-  allow_access(package_name, user, callback) {
+  allow_access(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
-    let pkg = Object.assign({name: package_name},
-                                this.config.getMatchedPackagesSpec(package_name))
+    // $FlowFixMe
+    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
 
-    ;(function next() {
+    (function next() {
       let p = plugins.shift();
 
       if (typeof(p.allow_access) !== 'function') {
@@ -162,16 +152,13 @@ class Auth {
 
   /**
    * Allow user to publish a package.
-   * @param {*} package_name
-   * @param {*} user
-   * @param {*} callback
    */
-  allow_publish(package_name, user, callback) {
+  allow_publish(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
-    let pkg = Object.assign({name: package_name},
-                                this.config.getMatchedPackagesSpec(package_name))
+    // $FlowFixMe
+    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
 
-    ;(function next() {
+    (function next() {
       let p = plugins.shift();
 
       if (typeof(p.allow_publish) !== 'function') {
@@ -193,7 +180,7 @@ class Auth {
   basic_middleware() {
     let self = this;
     let credentials;
-    return function(req, res, _next) {
+    return function(req: $RequestExtend, res: $Response, _next: NextFunction) {
       req.pause();
 
       const next = function(err) {
@@ -222,7 +209,7 @@ class Auth {
       let parts = authorization.split(' ');
 
       if (parts.length !== 2) {
-        return next( Error[400]('bad authorization header') );
+        return next( ErrorCode.get400('bad authorization header') );
       }
 
       const scheme = parts[0];
@@ -263,10 +250,12 @@ class Auth {
    */
   bearer_middleware() {
     let self = this;
-    return function(req, res, _next) {
+    return function(req: $RequestExtend, res: $Response, _next: NextFunction) {
       req.pause();
       const next = function(_err) {
         req.resume();
+        /* eslint prefer-spread: "off" */
+        /* eslint prefer-rest-params: "off" */
         return _next.apply(null, arguments);
       };
 
@@ -283,7 +272,7 @@ class Auth {
       let parts = authorization.split(' ');
 
       if (parts.length !== 2) {
-        return next( Error[400]('bad authorization header') );
+        return next( ErrorCode.get400('bad authorization header') );
       }
 
       let scheme = parts[0];
@@ -300,6 +289,7 @@ class Auth {
       }
 
       req.remote_user = authenticatedUser(user.u, user.g);
+      // $FlowFixMe
       req.remote_user.token = token;
       next();
     };
@@ -310,7 +300,7 @@ class Auth {
    * @return {Function}
    */
   jwtMiddleware() {
-    return (req, res, _next) => {
+    return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
       if (req.remote_user !== null && req.remote_user.name !== undefined) return _next();
 
       req.pause();
@@ -343,7 +333,7 @@ class Auth {
    * @param {string} expire_time
    * @return {string}
    */
-  issue_token(user, expire_time) {
+  issue_token(user: any, expire_time: string) {
     return jwt.sign(
       {
         user: user.name,
@@ -362,7 +352,7 @@ class Auth {
    * @param {*} token
    * @return {Object}
    */
-  decode_token(token) {
+  decode_token(token: string) {
     let decoded;
     try {
       decoded = jwt.verify(token, this.secret);
@@ -375,10 +365,8 @@ class Auth {
 
   /**
    * Encrypt a string.
-   * @param {String} buf
-   * @return {Buffer}
    */
-  aes_encrypt(buf) {
+  aes_encrypt(buf: Buffer) {
     const c = Crypto.createCipher('aes192', this.secret);
     const b1 = c.update(buf);
     const b2 = c.final();
@@ -387,10 +375,8 @@ class Auth {
 
   /**
     * Dencrypt a string.
-   * @param {String} buf
-   * @return {Buffer}
    */
-  aes_decrypt(buf) {
+  aes_decrypt(buf: Buffer ) {
     try {
       const c = Crypto.createDecipher('aes192', this.secret);
       const b1 = c.update(buf);
@@ -417,11 +403,9 @@ function buildAnonymousUser() {
 
 /**
  * Authenticate an user.
- * @param {*} name
- * @param {*} groups
  * @return {Object} { name: xx, groups: [], real_groups: [] }
  */
-function authenticatedUser(name, groups) {
+function authenticatedUser(name: string, groups: Array<any>) {
   let _groups = (groups || []).concat(['$all', '$authenticated', '@all', '@authenticated', 'all']);
   return {
     name: name,
@@ -430,4 +414,4 @@ function authenticatedUser(name, groups) {
   };
 }
 
-module.exports = Auth;
+export default Auth;

@@ -75,6 +75,7 @@
     "no-invalid-this": 2,
     "new-cap": 2,
     "one-var": 2,
+    "quote-props":["error", "as-needed"],
     "no-console": [
       2,
       {

@@ -1,3 +1,5 @@
+// @flow
+
 import {generateGravatarUrl} from '../utils/user';
 import assert from 'assert';
 import semver from 'semver';
@@ -6,15 +8,16 @@ import URL from 'url';
 import fs from 'fs';
 import _ from 'lodash';
 import createError from 'http-errors';
+import type {Package, Config} from '@verdaccio/types';
+import type {$Request} from 'express';
 
 const Logger = require('./logger');
 
 /**
  * Validate a package.
- * @param {*} name
  * @return {Boolean} whether the package is valid or not
  */
-function validate_package(name) {
+function validate_package(name: any): boolean {
 	name = name.split('/', 2);
 	if (name.length === 1) {
 		// normal package
@@ -32,7 +35,7 @@ function validate_package(name) {
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
  */
-function validate_name(name) {
+function validate_name(name: string): boolean {
 	if (_.isString(name) === false) {
 		return false;
 	}
@@ -54,7 +57,7 @@ function validate_name(name) {
  * @param {*} obj the element
  * @return {Boolean}
  */
-function isObject(obj) {
+function isObject(obj: any): boolean {
 	return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
@@ -65,7 +68,7 @@ function isObject(obj) {
  * @param {*} name
  * @return {Object} the object with additional properties as dist-tags ad versions
  */
-function validate_metadata(object, name) {
+function validate_metadata(object: Package, name: string) {
 	assert(isObject(object), 'not a json object');
 	assert.equal(object.name, name);
 
@@ -82,12 +85,9 @@ function validate_metadata(object, name) {
 
 /**
  * Create base url for registry.
- * @param {String} protocol
- * @param {String} host
- * @param {String} prefix
  * @return {String} base registry url
  */
-function combineBaseUrl(protocol, host, prefix) {
+function combineBaseUrl(protocol: string, host: string, prefix?: string): string {
 	let result = `${protocol}://${host}`;
 
 	if (prefix) {
@@ -108,7 +108,7 @@ function combineBaseUrl(protocol, host, prefix) {
  * @param {*} config
  * @return {String} a filtered package
  */
-function filter_tarball_urls(pkg, req, config) {
+function filter_tarball_urls(pkg: Package, req: $Request, config: Config) {
 	/**
 	 * Filter a tarball url.
 	 * @param {*} _url
@@ -118,6 +118,7 @@ function filter_tarball_urls(pkg, req, config) {
 		if (!req.headers.host) {
 			return _url;
 		}
+		// $FlowFixMe
 		const filename = URL.parse(_url).pathname.replace(/^.*\//, '');
 		const base = combineBaseUrl(getWebProtocol(req), req.headers.host, config.url_prefix);
 
@@ -142,7 +143,7 @@ function filter_tarball_urls(pkg, req, config) {
  * @param {*} tag
  * @return {Boolean} whether a package has been tagged
  */
-function tag_version(data, version, tag) {
+function tag_version(data: Package, version: string, tag: string) {
 	if (_.isEmpty(tag) === false) {
 		if (data['dist-tags'][tag] !== version) {
 			if (semver.parse(version, true)) {
@@ -161,20 +162,20 @@ function tag_version(data, version, tag) {
 
 /**
  * Gets version from a package object taking into account semver weirdness.
- * @param {*} object
- * @param {*} version
  * @return {String} return the semantic version of a package
  */
-function get_version(object, version) {
+function get_version(pkg: Package, version: any) {
 	// this condition must allow cast
-	if (object.versions[version] != null) {
-		return object.versions[version];
+	if (pkg.versions[version] != null) {
+		return pkg.versions[version];
 	}
+
 	try {
 		version = semver.parse(version, true);
-		for (let k in object.versions) {
-			if (version.compare(semver.parse(k, true)) === 0) {
-				return object.versions[k];
+		for (let versionItem in pkg.versions) {
+			// $FlowFixMe
+			if (version.compare(semver.parse(versionItem, true)) === 0) {
+				return pkg.versions[versionItem];
 			}
 		}
 	} catch (err) {
@@ -196,7 +197,7 @@ function get_version(object, version) {
  * @param {*} urlAddress the internet address definition
  * @return {Object|Null} literal object that represent the address parsed
  */
-function parse_address(urlAddress) {
+function parse_address(urlAddress: any) {
 	//
 	// TODO: refactor it to something more reasonable?
 	//
@@ -225,12 +226,10 @@ function parse_address(urlAddress) {
 
 /**
  * Function filters out bad semver versions and sorts the array.
- * @param {*} array
  * @return {Array} sorted Array
  */
-function semverSort(array) {
-	return array
-		.filter(function(x) {
+function semverSort(listVersions: Array<string>) {
+	return listVersions.filter(function(x) {
 			if (!semver.parse(x, true)) {
 				Logger.logger.warn( {ver: x}, 'ignoring bad version @{ver}' );
 				return false;
@@ -245,32 +244,33 @@ function semverSort(array) {
  * Flatten arrays of tags.
  * @param {*} data
  */
-function normalize_dist_tags(data) {
+function normalize_dist_tags(pkg: Package) {
 	let sorted;
-	if (!data['dist-tags'].latest) {
+	if (!pkg['dist-tags'].latest) {
 		// overwrite latest with highest known version based on semver sort
-		sorted = semverSort(Object.keys(data.versions));
+		sorted = semverSort(Object.keys(pkg.versions));
 		if (sorted && sorted.length) {
-				data['dist-tags'].latest = sorted.pop();
+				pkg['dist-tags'].latest = sorted.pop();
 		}
 	}
 
-	for (let tag in data['dist-tags']) {
-		if (_.isArray(data['dist-tags'][tag])) {
-			if (data['dist-tags'][tag].length) {
+	for (let tag in pkg['dist-tags']) {
+		if (_.isArray(pkg['dist-tags'][tag])) {
+			if (pkg['dist-tags'][tag].length) {
 				// sort array
-				sorted = semverSort(data['dist-tags'][tag]);
+				// $FlowFixMe
+				sorted = semverSort(pkg['dist-tags'][tag]);
 				if (sorted.length) {
 						// use highest version based on semver sort
-						data['dist-tags'][tag] = sorted.pop();
+						pkg['dist-tags'][tag] = sorted.pop();
 				}
 			} else {
-				delete data['dist-tags'][tag];
+				delete pkg['dist-tags'][tag];
 			}
-		} else if (_.isString(data['dist-tags'][tag] )) {
-			if (!semver.parse(data['dist-tags'][tag], true)) {
+		} else if (_.isString(pkg['dist-tags'][tag] )) {
+			if (!semver.parse(pkg['dist-tags'][tag], true)) {
 				// if the version is invalid, delete the dist-tag entry
-				delete data['dist-tags'][tag];
+				delete pkg['dist-tags'][tag];
 			}
 		}
 	}
@@ -278,14 +278,14 @@ function normalize_dist_tags(data) {
 
 const parseIntervalTable = {
   '': 1000,
-  'ms': 1,
-  's': 1000,
-  'm': 60*1000,
-  'h': 60*60*1000,
-  'd': 86400000,
-  'w': 7*86400000,
-  'M': 30*86400000,
-  'y': 365*86400000,
+  ms: 1,
+  s: 1000,
+  m: 60*1000,
+  h: 60*60*1000,
+  d: 86400000,
+  w: 7*86400000,
+  M: 30*86400000,
+  y: 365*86400000,
 };
 
 /**
@@ -293,7 +293,7 @@ const parseIntervalTable = {
  * @param {*} interval
  * @return {Number}
  */
-function parseInterval(interval) {
+function parseInterval(interval: any) {
   if (typeof(interval) === 'number') {
     return interval * 1000;
   }
@@ -318,46 +318,46 @@ function parseInterval(interval) {
  * @param {*} req
  * @return {String}
  */
-function getWebProtocol(req) {
+function getWebProtocol(req: $Request) {
   return req.get('X-Forwarded-Proto') || req.protocol;
 }
 
-const getLatestVersion = function(pkgInfo) {
+const getLatestVersion = function(pkgInfo: Package) {
   return pkgInfo['dist-tags'].latest;
 };
 
 const ErrorCode = {
-  get409: () => {
-    return createError(409, 'this package is already present');
+  get409: (message: string = 'this package is already present') => {
+    return createError(409, message);
   },
-  get422: (customMessage) => {
+  get422: (customMessage?: string) => {
     return createError(422, customMessage || 'bad data');
   },
-  get400: (customMessage) => {
+  get400: (customMessage?: string) => {
     return createError(400, customMessage);
   },
-  get500: (customMessage) => {
+  get500: (customMessage?: string) => {
     return customMessage ? createError(500, customMessage) : createError(500);
   },
-  get403: () => {
-    return createError(403, 'can\'t use this filename');
+  get403: (message: string = 'can\'t use this filename') => {
+    return createError(403, message);
   },
   get503: () => {
     return createError(500, 'resource temporarily unavailable');
   },
-  get404: (customMessage) => {
+  get404: (customMessage?: string) => {
     return createError(404, customMessage || 'no such package available');
   },
 };
 
-const parseConfigFile = (config_path) => YAML.safeLoad(fs.readFileSync(config_path, 'utf8'));
+const parseConfigFile = (configPath: string) => YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
 
 /**
  * Check whether the path already exist.
  * @param {String} path
  * @return {Boolean}
  */
-function folder_exists(path) {
+function folder_exists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
@@ -371,7 +371,7 @@ function folder_exists(path) {
  * @param {String} path
  * @return {Boolean}
  */
-function fileExists(path) {
+function fileExists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
@@ -380,7 +380,7 @@ function fileExists(path) {
   }
 }
 
-function sortByName(packages) {
+function sortByName(packages: Array<any>) {
   return packages.sort(function(a, b) {
     if (a.name < b.name) {
       return -1;
@@ -390,11 +390,11 @@ function sortByName(packages) {
   });
 }
 
-function addScope(scope, packageName) {
+function addScope(scope: string, packageName: string) {
   return `@${scope}/${packageName}`;
 }
 
-function deleteProperties(propertiesToDelete, packageInfo) {
+function deleteProperties(propertiesToDelete: Array<string>, packageInfo: Package) {
   _.forEach(propertiesToDelete, (property) => {
     delete packageInfo[property];
   });
@@ -402,7 +402,7 @@ function deleteProperties(propertiesToDelete, packageInfo) {
   return packageInfo;
 }
 
-function addGravatarSupport(info) {
+function addGravatarSupport(info: any) {
   if (_.isString(_.get(info, 'latest.author.email'))) {
     info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
   } else {
@@ -426,25 +426,27 @@ function addGravatarSupport(info) {
   return info;
 }
 
-module.exports.addGravatarSupport = addGravatarSupport;
-module.exports.deleteProperties = deleteProperties;
-module.exports.addScope = addScope;
-module.exports.sortByName = sortByName;
-module.exports.folder_exists = folder_exists;
-module.exports.file_exists = fileExists;
-module.exports.parseInterval = parseInterval;
-module.exports.semver_sort = semverSort;
-module.exports.parse_address = parse_address;
-module.exports.get_version = get_version;
-module.exports.normalize_dist_tags = normalize_dist_tags;
-module.exports.tag_version = tag_version;
-module.exports.combineBaseUrl = combineBaseUrl;
-module.exports.filter_tarball_urls = filter_tarball_urls;
-module.exports.validate_metadata = validate_metadata;
-module.exports.is_object = isObject;
-module.exports.validate_name = validate_name;
-module.exports.validate_package = validate_package;
-module.exports.getWebProtocol = getWebProtocol;
-module.exports.getLatestVersion = getLatestVersion;
-module.exports.ErrorCode = ErrorCode;
-module.exports.parseConfigFile = parseConfigFile;
+export {
+	addGravatarSupport,
+	deleteProperties,
+	addScope,
+	sortByName,
+	folder_exists,
+	fileExists,
+	parseInterval,
+	semverSort,
+	parse_address,
+	get_version,
+	normalize_dist_tags,
+	tag_version,
+	combineBaseUrl,
+	filter_tarball_urls,
+	validate_metadata,
+	isObject,
+	validate_name,
+	validate_package,
+	getWebProtocol,
+	getLatestVersion,
+	ErrorCode,
+	parseConfigFile,
+};

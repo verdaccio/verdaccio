@@ -157,7 +157,7 @@ function print(type, msg, obj, colors) {
 		let _ref = name.split('.');
 		for (let _i = 0; _i < _ref.length; _i++) {
 			let id = _ref[_i];
-			if (Utils.is_object(str) || Array.isArray(str)) {
+			if (Utils.isObject(str) || Array.isArray(str)) {
 				str = str[id];
 			} else {
 				str = undefined;

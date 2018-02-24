@@ -65,7 +65,7 @@ module.exports.encodeScopePackage = function(req, res, next) {
 };
 
 module.exports.expect_json = function expect_json(req, res, next) {
-  if (!utils.is_object(req.body)) {
+  if (!utils.isObject(req.body)) {
     return next( createError[400]('can\'t parse incoming json') );
   }
   next();

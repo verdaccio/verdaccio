@@ -96,7 +96,7 @@ module.exports = function(router, auth, storage, config) {
       });
     };
 
-    if (Object.keys(req.body).length === 1 && Utils.is_object(req.body.users)) {
+    if (Object.keys(req.body).length === 1 && Utils.isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
       return next( createError[404]('npm star|unstar calls are not implemented') );
     }
