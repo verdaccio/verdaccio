@@ -327,8 +327,8 @@ const getLatestVersion = function(pkgInfo) {
 };
 
 const ErrorCode = {
-  get409: () => {
-    return createError(409, 'this package is already present');
+  get409: (message = 'this package is already present') => {
+    return createError(409, message);
   },
   get422: (customMessage) => {
     return createError(422, customMessage || 'bad data');
@@ -339,8 +339,8 @@ const ErrorCode = {
   get500: (customMessage) => {
     return customMessage ? createError(500, customMessage) : createError(500);
   },
-  get403: () => {
-    return createError(403, 'can\'t use this filename');
+  get403: (message = 'can\'t use this filename') => {
+    return createError(403, message);
   },
   get503: () => {
     return createError(500, 'resource temporarily unavailable');

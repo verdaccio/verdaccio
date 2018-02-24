@@ -1,7 +1,3 @@
-/* eslint prefer-rest-params: "off" */
-
-'use strict';
-
 // see https://secure.flickr.com/photos/girliemac/sets/72157628409467125
 
 const images = {
@@ -69,6 +65,7 @@ module.exports.middleware = function(req, res, next) {
     if (status in images) {
       res.setHeader('X-Status-Cat', module.exports.get_image(status));
     }
+    /* eslint prefer-rest-params: "off" */
     _writeHead.apply(res, arguments);
   };
 

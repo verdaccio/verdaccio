@@ -24,7 +24,7 @@ const generateStorage = function(): IStorageHandler {
 
 describe('StorageTest', () => {
 
-  jest.setTimeout(1000000);
+  jest.setTimeout(10000);
 
 	beforeAll((done)=> {
 		const storage: IStorageHandler = generateStorage();

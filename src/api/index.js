@@ -6,8 +6,8 @@ import cors from 'cors';
 import Storage from '../lib/storage';
 import {loadPlugin} from '../lib/plugin-loader';
 import hookDebug from './debug';
+import Auth from '../lib/auth';
 
-const Auth = require('../lib/auth');
 const Logger = require('../lib/logger');
 const Config = require('../lib/config');
 const Middleware = require('./web/middleware');
