@@ -72,19 +72,19 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 > Warning: Verdaccio does not currently support PM2's cluster mode, running it with cluster mode may cause unknown behavior.
 
-#### Alpha
+#### Beta
 
 ⚠️⚠️ **Please, help us to test the version 3.x in order to release a stable version soon. Do never test with your original storage folder, do always a backup** ⚠️⚠️
 
 If you are an adventurous developer you can use and install the latest beta version, this is a non stable version, I'd recommend only use for testing purporses.
 
 ```bash
-$ npm install -g verdaccio@alpha
+$ npm install -g verdaccio@beta
 ```
 or using docker
 
 ```bash
-$ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:alpha
+$ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:beta
 ```
 
 ## Publishing Private Packages
