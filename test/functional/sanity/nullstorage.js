@@ -8,26 +8,28 @@ function getBinary() {
 
 export default function (server, server2) {
 
-  test('trying to fetch non-existent package / null storage', () => {
-    return server.getPackage('test-nullstorage-nonexist')
-             .status(404)
-             .body_error(/no such package/);
+  describe('should check whether test-nullstorage is on server1', () => {
+    test('trying to fetch non-existent package / null storage', () => {
+      return server.getPackage('test-nullstorage-nonexist')
+               .status(404)
+               .body_error(/no such package/);
+    });
   });
 
-  describe('test-nullstorage on server2', () => {
+  describe('should check whether test-nullstorage is on server2', () => {
     beforeAll(function() {
       return server2.addPackage('test-nullstorage2');
     });
 
-    test('creating new package - server2', () => {/* test for before() */});
+    test('should creaate a new package on server2', () => {/* test for before() */});
 
-    test('downloading non-existent tarball', () => {
+    test('should fails on download a non existent tarball', () => {
       return server.getTarball('test-nullstorage2', 'blahblah')
                .status(404)
                .body_error(/no such file/);
     });
 
-    describe('tarball', () => {
+    describe('test and publish test-nullstorage2 package', () => {
       beforeAll(function() {
         return server2.putTarball('test-nullstorage2', 'blahblah', getBinary())
                  .status(201)
@@ -42,9 +44,9 @@ export default function (server, server2) {
                  .body_ok(/published/);
       });
 
-      test('uploading new tarball', () => {/* test for before() */});
+      test('should upload a new version for test-nullstorage2', () => {/* test for before() */});
 
-      test('downloading newly created tarball', () => {
+      test('should fetch the newly created published tarball for test-nullstorage2', () => {
         return server.getTarball('test-nullstorage2', 'blahblah')
                  .status(200)
                  .then(function(body) {
@@ -52,7 +54,7 @@ export default function (server, server2) {
                  });
       });
 
-      test('downloading newly created package', () => {
+      test('should check whether the metadata for test-nullstorage2 match', () => {
         return server.getPackage('test-nullstorage2')
                  .status(200)
                  .then(function(body) {

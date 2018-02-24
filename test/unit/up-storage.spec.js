@@ -5,26 +5,20 @@ import _ from 'lodash';
 // $FlowFixMe
 import configExample from './partials/config';
 import {setup} from '../../src/lib/logger';
-
-import type {UpLinkConf, Config} from '@verdaccio/types';
+import type {IProxy, Config} from '@verdaccio/types';
 
 setup([]);
 
 describe('UpStorge', () => {
 
-  const uplinkDefault: UpLinkConf = {
-    url: 'https://registry.npmjs.org/',
-    fail_timeout: '5m',
-    max_fails: 2,
-    maxage: '2m',
-    timeout: '1m',
+  const uplinkDefault = {
+    url: 'https://registry.npmjs.org/'
   };
-
-  let generateProxy = (config: UpLinkConf = uplinkDefault) => {
+  const generateProxy = (config: UpLinkConf = uplinkDefault): IProxy => {
     const appConfig: Config = new AppConfig(configExample);
 
     return new ProxyStorage(config, appConfig);
-  }
+  };
 
   test('should be defined', () => {
     const proxy = generateProxy();
@@ -142,5 +136,70 @@ describe('UpStorge', () => {
         });
       });
     });
+
+  describe('UpStorge::isUplinkValid', () => {
+    const validateUpLink = (
+      url: string,
+      tarBallUrl?: string = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
+      const uplinkConf = { url };
+      const proxy: IProxy = generateProxy(uplinkConf);
+
+      return proxy.isUplinkValid(tarBallUrl);
+    }
+
+    test('should validate tarball path against uplink', () => {
+      expect(validateUpLink('https://artifactory.mydomain.com')).toBe(true);
+    });
+
+    test('should validate tarball path against uplink case#2', () => {
+      expect(validateUpLink('https://artifactory.mydomain.com:443')).toBe(true);
+    });
+
+    test('should validate tarball path against uplink case#3', () => {
+      expect(validateUpLink('http://localhost')).toBe(true);
+    });
+
+    test('should validate tarball path against uplink case#4', () => {
+      expect(validateUpLink('http://my.domain.test')).toBe(true);
+    });
+
+    test('should validate tarball path against uplink case#5', () => {
+      expect(validateUpLink('http://my.domain.test:3000')).toBe(true);
+    });
+
+    // corner case https://github.com/verdaccio/verdaccio/issues/571
+    test('should validate tarball path against uplink case#6', () => {
+      expect(validateUpLink('https://my.domain.test',
+      `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(false);
+    });
+
+    test('should fails on validate tarball path against uplink', () => {
+      const url = 'https://artifactory.mydomain.com';
+      const tarBallUrl = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+      const uplinkConf = { url };
+      const proxy: IProxy = generateProxy(uplinkConf);
+
+      expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
+    });
+
+    test('should fails on validate tarball path against uplink case#2', () => {
+      const url = 'https://localhost:5001';
+      const tarBallUrl = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+      const uplinkConf = { url };
+      const proxy: IProxy = generateProxy(uplinkConf);
+
+      expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
+    });
+
+    test('should fails on validate tarball path against uplink case#3', () => {
+      const url = 'http://localhost:5001';
+      const tarBallUrl = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+      const uplinkConf = { url };
+      const proxy: IProxy = generateProxy(uplinkConf);
+
+      expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
+    });
+
+  });
 
 });
