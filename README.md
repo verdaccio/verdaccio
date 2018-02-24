@@ -7,7 +7,7 @@
 `verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
 
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
-[![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
+[![Backers on Open Collective](https://opencollective.com/verdaccio/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/verdaccio/sponsors/badge.svg)](#sponsors) [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
@@ -172,6 +172,36 @@ If you have any issue you can try the following options, do no desist to ask or 
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
 * [Chat Room](https://gitter.im/verdaccio/)
 * [Logos](https://github.com/verdaccio/verdaccio/tree/master/assets)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
+
+<a href="https://opencollective.com/verdaccio#backers" target="_blank"><img src="https://opencollective.com/verdaccio/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
+
+<a href="https://opencollective.com/verdaccio/sponsor/0/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/1/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/2/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/3/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/4/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/5/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/6/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/7/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/8/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/verdaccio/sponsor/9/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).

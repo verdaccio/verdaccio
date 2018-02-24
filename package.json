@@ -42,6 +42,7 @@
     "mime": "^2.0.3",
     "minimatch": "^3.0.2",
     "mkdirp": "^0.5.1",
+    "opencollective": "^1.0.3",
     "pkginfo": "^0.4.0",
     "request": "2.83.0",
     "semver": "^5.5.0",
@@ -163,7 +164,8 @@
     "dev:webui": "cross-env BABEL_ENV=ui babel-node tools/dev.server.js",
     "build:webui": "npm run pre:webpack && BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js",
     "build:docker": "docker build -t verdaccio . --no-cache",
-    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
+    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi .",
+    "postinstall": "opencollective postinstall"
   },
   "engines": {
     "node": ">=6.12.0",
@@ -183,5 +185,10 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio",
+    "logo": "https://opencollective.com/verdaccio/logo.txt"
   }
 }
