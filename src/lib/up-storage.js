@@ -360,9 +360,15 @@ class ProxyStorage implements IProxy {
    */
   isUplinkValid(url: string) {
     // $FlowFixMe
-    url = URL.parse(url);
+    const urlParsed: Url = URL.parse(url);
+    const isHTTPS = (urlDomainParsed) => urlDomainParsed.protocol === 'https:' && (urlParsed.port === null || urlParsed.port === '443');
+    const getHost = (urlDomainParsed) => isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
+    const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;
+    const isMatchHost: boolean = getHost(urlParsed) === getHost(this.url);
     // $FlowFixMe
-    return url.protocol === this.url.protocol && url.host === this.url.host && url.path.indexOf(this.url.path) === 0;
+    const isMatchPath: boolean = urlParsed.path.indexOf(this.url.path) === 0;
+
+    return isMatchProtocol && isMatchHost && isMatchPath;
   }
 
   /**
