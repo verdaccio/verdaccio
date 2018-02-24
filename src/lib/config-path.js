@@ -4,7 +4,7 @@ import Path from 'path';
 import logger from './logger';
 import mkdirp from 'mkdirp';
 
-import {folder_exists, file_exists} from './utils';
+import {folder_exists, fileExists} from './utils';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
@@ -27,7 +27,7 @@ function findConfigFile(configPath) {
     throw new Error('no configuration files can be proccesed');
   }
 
-  const primaryConf = _.find(configPaths, (configLocation) => file_exists(configLocation.path));
+  const primaryConf = _.find(configPaths, (configLocation) => fileExists(configLocation.path));
   if (_.isNil(primaryConf) === false) {
     return primaryConf.path;
   }
