@@ -75,7 +75,7 @@ class Config {
       // sanity check for strategic config properties
     ['users', 'uplinks', 'packages'].forEach(function(x) {
       if (self[x] == null) self[x] = {};
-      assert(Utils.is_object(self[x]), `CONFIG: bad "${x}" value (object expected)`);
+      assert(Utils.isObject(self[x]), `CONFIG: bad "${x}" value (object expected)`);
     });
     // sanity check for users
     for (let i in self.users) {

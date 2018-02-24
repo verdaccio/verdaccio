@@ -42,7 +42,7 @@ function normalizePackage(pkg: Package) {
     'time'];
 
   pkgProperties.forEach((key) => {
-    if (_.isNil(Utils.is_object(pkg[key]))) {
+    if (_.isNil(Utils.isObject(pkg[key]))) {
       pkg[key] = {};
     }
   });

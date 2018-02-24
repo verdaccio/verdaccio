@@ -1,7 +1,5 @@
-'use strict';
-
 let assert = require('assert');
-let semver_sort = require('../../src/lib/utils').semver_sort;
+let semverSort = require('../../src/lib/utils').semverSort;
 import Storage from '../../src/lib/storage';
 
 require('../../src/lib/logger').setup([]);
@@ -57,9 +55,9 @@ describe('Storage._merge_versions versions', () => {
 
   });
 
-  test('semver_sort', () => {
+  test('semverSort', () => {
 
-    assert.deepEqual(semver_sort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']),
+    assert.deepEqual(semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']),
     ['1.2.3a',
       '1.2.3-b',
       '1.2.3c',

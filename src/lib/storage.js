@@ -555,7 +555,7 @@ class Storage implements IStorageHandler {
       const _options = Object.assign({}, options);
       let upLinkMeta = packageInfo._uplinks[upLink.upname];
 
-      if (Utils.is_object(upLinkMeta)) {
+      if (Utils.isObject(upLinkMeta)) {
 
         const fetched = upLinkMeta.fetched;
 

@@ -1,14 +1,16 @@
+// @flow
 
 import Path from 'path';
 import _ from 'lodash';
 import logger from './logger';
+import type {Config} from '@verdaccio/types';
 
 /**
  * Requires a module.
  * @param {*} path the module's path
  * @return {Object}
  */
-function tryLoad(path) {
+function tryLoad(path: string) {
   try {
     return require(path);
   } catch(err) {
@@ -37,13 +39,13 @@ function mergeConfig(appConfig, pluginConfig) {
  * - A seccond attempt from node_modules, in case to have multiple match as for instance verdaccio-ldap
  * and sinopia-ldap. All verdaccio prefix will have preferences.
  * @param {*} config a reference of the configuration settings
- * @param {*} plugin_configs
+ * @param {*} pluginConfigs
  * @param {*} params a set of params to initialise the plugin
- * @param {*} sanity_check callback that check the shape that should fulfill the plugin
+ * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-function loadPlugin(config, plugin_configs, params, sanity_check) {
-  let plugins = Object.keys(plugin_configs || {}).map(function(p) {
+function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck: Function) {
+  return Object.keys(pluginConfigs || {}).map(function(p) {
     let plugin;
 
     // try local plugins first
@@ -78,18 +80,16 @@ function loadPlugin(config, plugin_configs, params, sanity_check) {
     }
 
     /* eslint new-cap:off */
-    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, plugin_configs[p]), params) : plugin(plugin_configs[p], params);
+    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[p]), params) : plugin(pluginConfigs[p], params);
     /* eslint new-cap:off */
 
-    if (plugin === null || !sanity_check(plugin)) {
+    if (plugin === null || !sanityCheck(plugin)) {
       logger.logger.error({content: p}, '@{content} doesn\'t look like a valid plugin');
       throw Error('"' + p + '" doesn\'t look like a valid plugin');
     }
     logger.logger.warn({content: p}, 'Plugin successfully loaded: @{content}');
     return plugin;
   });
-
-  return plugins;
 }
 
 export {loadPlugin};

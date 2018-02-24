@@ -191,7 +191,7 @@ class LocalStorage implements IStorage {
 
       for (let up in packageInfo._uplinks) {
         if (Object.prototype.hasOwnProperty.call(packageInfo._uplinks, up)) {
-          const need_change = !Utils.is_object(packageLocalJson._uplinks[up])
+          const need_change = !Utils.isObject(packageLocalJson._uplinks[up])
             || packageInfo._uplinks[up].etag !== packageLocalJson._uplinks[up].etag
             || packageInfo._uplinks[up].fetched !== packageLocalJson._uplinks[up].fetched;
 
@@ -248,10 +248,10 @@ class LocalStorage implements IStorage {
       }
 
       // if uploaded tarball has a different shasum, it's very likely that we have some kind of error
-      if (Utils.is_object(metadata.dist) && _.isString(metadata.dist.tarball)) {
+      if (Utils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
         let tarball = metadata.dist.tarball.replace(/.*\//, '');
 
-        if (Utils.is_object(data._attachments[tarball])) {
+        if (Utils.isObject(data._attachments[tarball])) {
 
           if (_.isNil(data._attachments[tarball].shasum) === false && _.isNil(metadata.dist.shasum) === false) {
             if (data._attachments[tarball].shasum != metadata.dist.shasum) {
@@ -339,7 +339,7 @@ class LocalStorage implements IStorage {
   changePackage(name: string,
                 pkg: Package,
                 revision?: string, callback: Callback) {
-    if (!Utils.is_object(pkg.versions) || !Utils.is_object(pkg['dist-tags'])) {
+    if (!Utils.isObject(pkg.versions) || !Utils.isObject(pkg['dist-tags'])) {
       return callback( Utils.ErrorCode.get422());
     }
 
@@ -604,7 +604,7 @@ class LocalStorage implements IStorage {
             }
 
             const listVersions: Array<string> = Object.keys(data.versions);
-            const versions: Array<string> = Utils.semver_sort(listVersions);
+            const versions: Array<string> = Utils.semverSort(listVersions);
             const latest: string = data['dist-tags'] && data['dist-tags'].latest ? data['dist-tags'].latest : versions.pop();
 
             if (data.versions[latest]) {

@@ -52,7 +52,7 @@
     "@commitlint/cli": "6.1.0",
     "@commitlint/config-conventional": "6.1.0",
     "@commitlint/travis-cli": "6.1.0",
-    "@verdaccio/types": "1.0.1",
+    "@verdaccio/types": "1.0.3",
     "axios": "0.17.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",

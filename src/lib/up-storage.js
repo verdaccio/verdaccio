@@ -7,7 +7,7 @@ import _ from 'lodash';
 import request from 'request';
 import Stream from 'stream';
 import URL from 'url';
-import {parseInterval, is_object, ErrorCode} from './utils';
+import {parseInterval, isObject, ErrorCode} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
 
 import type {
@@ -51,8 +51,8 @@ class ProxyStorage implements IProxy {
   logger: Logger;
   server_id: string;
   url: any;
-  maxage: string;
-  timeout: string;
+  maxage: number;
+  timeout: number;
   max_fails: number;
   fail_timeout: number;
   upname: string;
@@ -133,7 +133,7 @@ class ProxyStorage implements IProxy {
       uri: uri,
     }, 'making request: \'@{method} @{uri}\'');
 
-    if (is_object(options.json)) {
+    if (isObject(options.json)) {
       json = JSON.stringify(options.json);
       headers['Content-Type'] = headers['Content-Type'] || 'application/json';
     }
@@ -167,7 +167,7 @@ class ProxyStorage implements IProxy {
           }
         }
 
-        if (!err && is_object(body)) {
+        if (!err && isObject(body)) {
           if (_.isString(body.error)) {
             error = body.error;
           }
@@ -467,7 +467,7 @@ class ProxyStorage implements IProxy {
     });
 
     let parsePackage = (pkg) => {
-      if (is_object(pkg)) {
+      if (isObject(pkg)) {
         transformStream.emit('data', pkg);
       }
     };
