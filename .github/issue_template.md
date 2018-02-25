@@ -1,41 +1,32 @@
+<!--
+First of all, please read this section
+
+https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug
+
+Some advices before file an issue
+  * Give a brief explanation of the issue, suggestion or feature to request.
+  * If the issue is a question, provide as much information you have available.
+  * How can I do in order to reproduce it? What environment?
+  * Define which version the issue happens and whether previous version the behaviour is correct.
+  * Provide your config file is really helpful. Please be aware to hide sensisive data (passwords, server IP, etc) before post.
+-->
+
 #### My reason:
-
-<!-- 
-	a brief explanation of the issue, suggestion, feature
--->
-
 #### Steps to reproduce:
-
-<!-- 
-	(if it applies)
-	how can I do in order to reproduce it? environment? 
--->
-####  App Version:	
-<!-- 
-      Define which version the issue happens and whether previous version the behaviour is correct
--->
-
-####  Config file:	
-<!-- 
-      Provide your config file might be really helpful. Please be aware to hide sensisive data before post.
--->
-
+#### App Version:
+#### Config file:
 #### Additional information:
 
-<!--
-	provide the following information would be helpful
--->
-	
- - `$ set DEBUG=express:* verdaccio` enable extreme verdaccio debug mode
- - `$ npm --verbose` prints:
+ - `$ NODE_DEBUG=request verdaccio` display request calls (verdaccio <--> uplinks)
+ - `$ DEBUG=express:* verdaccio` enable extreme verdaccio debug mode (verdaccio api)
+ - `$ npm -ddd` prints:
  - `$ npm config get registry` prints:
  - Verdaccio terminal output
- - Windows, OS X/macOS, or Linux?:
+ - Which (Windows, OS X/macOS, or Linux) environment are you running verdaccio?:
  - Verdaccio configuration file, eg: `cat ~/.config/verdaccio/config.yaml`
- <!-- Remove those does not apply for you -->
- - Container:
-   - I use local environment
-   - I develop / deploy using Docker.
-   - I deploy to a PaaS.
+  - Container Options:
+   - Docker?:
+   - Kubernetes?:
 
 #### Additional verbose log:
+
