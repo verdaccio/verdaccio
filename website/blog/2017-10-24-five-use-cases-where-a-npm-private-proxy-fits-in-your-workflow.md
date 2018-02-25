@@ -38,7 +38,7 @@ Also, something is quite usual that many [developers use paid registries](https:
 
 ### How verdaccio solves this?
 
-Easy peasy, it uses [uplinks](https://github.com/verdaccio/verdaccio/blob/master/wiki/uplinks.md). You can proxy multiple registries using a single one instead, that’s cool, right?
+Easy peasy, it uses [uplinks](https://github.com/verdaccio/verdaccio/blob/master/docs/uplinks.md). You can proxy multiple registries using a single one instead, that’s cool, right?
 
 ```yaml
 uplinks:
@@ -155,7 +155,7 @@ Composite your Docker containers with Verdaccio is quite easy, also the configur
 
 ## Wrap
 
-Verdaccio is not the unique solution available, others have also some sort of OSS support. But not all is completely free. Verdaccio inherits from Sinopia [the plugin ecosystem for authentication](https://github.com/verdaccio/verdaccio/blob/master/wiki/plugins.md#sinopia-legacy-plugins) which is completely free an compatible with LDAP, Active Directory or Atlassian Crowd.
+Verdaccio is not the unique solution available, others have also some sort of OSS support. But not all is completely free. Verdaccio inherits from Sinopia [the plugin ecosystem for authentication](https://github.com/verdaccio/verdaccio/blob/master/docs/plugins.md#sinopia-legacy-plugins) which is completely free an compatible with LDAP, Active Directory or Atlassian Crowd.
 
 [local-npm](https://github.com/local-npm/local-npm) seems a quite good solution if you need only a offline proxy. [codebox-npm](https://github.com/craftship/codebox-npm) if you ony rely on Github auth and AWS as a platform and [Nexus3](https://www.sonatype.com/nexus-repository-oss) when you need to scale properly.
 
