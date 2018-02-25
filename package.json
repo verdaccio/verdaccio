@@ -97,7 +97,7 @@
     "friendly-errors-webpack-plugin": "1.6.1",
     "github-markdown-css": "2.10.0",
     "html-webpack-plugin": "2.30.1",
-    "husky": "0.14.3",
+    "husky": "0.15.0-rc.8",
     "identity-obj-proxy": "3.0.0",
     "in-publish": "2.0.0",
     "jest": "22.1.4",
@@ -176,7 +176,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run lint"
+      "pre-commit": "npm run lint"
     }
   },
   "license": "MIT",
