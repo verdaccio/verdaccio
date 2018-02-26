@@ -1,8 +1,8 @@
 // @flow
 
 import lunr from 'lunr';
-import type {IStorageHandler, Version, IWebSearch} from '@verdaccio/types';
-
+import type {Version} from '@verdaccio/types';
+import type {IStorageHandler, IWebSearch} from '../../types';
 /**
  * Handle the search Indexer.
  */

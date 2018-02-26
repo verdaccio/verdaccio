@@ -19,7 +19,6 @@ import {loadPlugin} from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import type {
-  IStorage,
   Package,
   Config,
   MergeTags,
@@ -32,11 +31,11 @@ import type {
   ILocalData,
   IPackageStorage,
 } from '@verdaccio/local-storage';
-
 import type {
   IUploadTarball,
   IReadTarball,
 } from '@verdaccio/streams';
+import type {IStorage} from '../../types';
 
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).

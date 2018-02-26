@@ -7,8 +7,8 @@ import configExample from './partials/config';
 import AppConfig from '../../src/lib/config';
 import {setup} from '../../src/lib/logger';
 
-
-import type {IAuth, Config} from '@verdaccio/types';
+import type {IAuth} from '../../types';
+import type {Config} from '@verdaccio/types';
 
 setup(configExample.logs);
 

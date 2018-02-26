@@ -8,7 +8,8 @@ import AppConfig from '../../src/lib/config';
 import Storage from '../../src/lib/storage';
 import {setup} from '../../src/lib/logger';
 
-import type {IStorageHandler, Config} from '@verdaccio/types';
+import type {Config} from '@verdaccio/types';
+import type {IStorageHandler} from '../../types';
 
 setup(configExample.logs);
 

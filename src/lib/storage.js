@@ -12,13 +12,9 @@ import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
 import ProxyStorage from './up-storage';
 import * as Utils from './utils';
-
+import type {IStorage, IProxy, IStorageHandler, ProxyList} from '../../types';
 import type {
-  IStorage,
-  IProxy,
-  IStorageHandler,
   Versions,
-  ProxyList,
   Package,
   Config,
   MergeTags,
@@ -27,7 +23,6 @@ import type {
   Callback,
   Logger,
 } from '@verdaccio/types';
-
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('../lib/logger');

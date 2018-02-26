@@ -10,7 +10,8 @@ import {readFile} from '../functional/lib/test.utils';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
-import type {IStorage, Config} from '@verdaccio/types';
+import type {Config} from '@verdaccio/types';
+import type {IStorage} from '../../types';
 
 setup([]);
 

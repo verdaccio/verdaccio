@@ -5,7 +5,8 @@ import _ from 'lodash';
 // $FlowFixMe
 import configExample from './partials/config';
 import {setup} from '../../src/lib/logger';
-import type {Config, IProxy, UpLinkConf} from '@verdaccio/types';
+import type {Config, UpLinkConf} from '@verdaccio/types';
+import type {IProxy} from '../../types';
 
 setup([]);
 

@@ -11,15 +11,13 @@ import {parseInterval, isObject, ErrorCode} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
 
 import type {
-  IProxy,
   Config,
   UpLinkConf,
   Callback,
   Headers,
   Logger,
 } from '@verdaccio/types';
-
-// import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
+import type {IProxy} from '../../types';
 
 const LoggerApi = require('./logger');
 const encode = function(thing) {
