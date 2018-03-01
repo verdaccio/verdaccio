@@ -56,7 +56,7 @@
     "axios": "0.17.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
-    "babel-eslint": "8.2.1",
+    "babel-eslint": "8.2.2",
     "babel-jest": "22.1.0",
     "babel-loader": "7.1.2",
     "babel-plugin-flow-runtime": "0.17.0",
