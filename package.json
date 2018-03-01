@@ -51,7 +51,7 @@
   "devDependencies": {
     "@commitlint/cli": "6.1.0",
     "@commitlint/config-conventional": "6.1.0",
-    "@commitlint/travis-cli": "6.1.0",
+    "@commitlint/travis-cli": "6.1.2",
     "@verdaccio/types": "2.0.0",
     "axios": "0.17.1",
     "babel-cli": "6.26.0",
