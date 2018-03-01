@@ -82,7 +82,7 @@
     "element-theme-default": "1.4.12",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.17.0",
+    "eslint": "4.18.1",
     "eslint-config-google": "0.9.1",
     "eslint-loader": "1.9.0",
     "eslint-plugin-babel": "4.1.2",
