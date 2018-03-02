@@ -14,12 +14,15 @@ import type {
 	IReadTarball,
 } from '@verdaccio/streams';
 import type {ILocalData} from '@verdaccio/local-storage';
+import type {NextFunction, $Request, $Response} from 'request';
 
 export interface IAuth {
 	config: Config;
 	logger: Logger;
 	secret: string;
 	plugins: Array<any>;
+	aes_encrypt(buf: Buffer): Buffer;
+	add_user(user: string, password: string, cb: Callback): any;
 }
 
 export interface IWebSearch {
@@ -102,3 +105,6 @@ export interface IStorage {
 	search(startKey: string, options: any): IUploadTarball;
 }
 
+export type $RequestExtend = $Request & {remote_user?: any}
+export type $ResponseExtend = $Response & {cookies?: any}
+export type $NextFunctionVer = NextFunction & mixed;

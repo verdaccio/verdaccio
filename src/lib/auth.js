@@ -7,9 +7,8 @@ import {ErrorCode} from './utils';
 const Error = require('http-errors');
 
 import type {Config, Logger, Callback} from '@verdaccio/types';
-import type {$Request, $Response, NextFunction} from 'express';
-
-type $RequestExtend = $Request & {remote_user: any}
+import type {$Response, NextFunction} from 'express';
+import type {$RequestExtend} from '../../types';
 
 const LoggerApi = require('./logger');
 /**
@@ -366,7 +365,7 @@ class Auth {
   /**
    * Encrypt a string.
    */
-  aes_encrypt(buf: Buffer) {
+  aes_encrypt(buf: Buffer): Buffer {
     const c = Crypto.createCipher('aes192', this.secret);
     const b1 = c.update(buf);
     const b2 = c.final();

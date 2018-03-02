@@ -347,7 +347,10 @@ const ErrorCode = {
   },
   get404: (customMessage?: string) => {
     return createError(404, customMessage || 'no such package available');
-  },
+	},
+	getCode: (statusCode: number, customMessage: string) => {
+    return createError(statusCode, customMessage);
+	},
 };
 
 const parseConfigFile = (configPath: string) => YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
