@@ -588,15 +588,15 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-autoprefixer@^7.1.2:
-  version "7.2.6"
-  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-7.2.6.tgz#256672f86f7c735da849c4f07d008abb056067dc"
+autoprefixer@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-8.1.0.tgz#374cf35be1c0e8fce97408d876f95f66f5cb4641"
   dependencies:
-    browserslist "^2.11.3"
-    caniuse-lite "^1.0.30000805"
+    browserslist "^3.1.1"
+    caniuse-lite "^1.0.30000810"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
-    postcss "^6.0.17"
+    postcss "^6.0.19"
     postcss-value-parser "^3.2.3"
 
 aws-sign2@~0.6.0:
@@ -1596,12 +1596,19 @@ browserslist@^1.3.6, browserslist@^1.5.2, browserslist@^1.7.6:
     caniuse-db "^1.0.30000639"
     electron-to-chromium "^1.2.7"
 
-browserslist@^2.1.2, browserslist@^2.11.3:
+browserslist@^2.1.2:
   version "2.11.3"
   resolved "https://registry.npmjs.org/browserslist/-/browserslist-2.11.3.tgz#fe36167aed1bbcde4827ebfe71347a2cc70b99b2"
   dependencies:
     caniuse-lite "^1.0.30000792"
     electron-to-chromium "^1.3.30"
+
+browserslist@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npmjs.org/browserslist/-/browserslist-3.1.1.tgz#d380fc048bc3a33e60fb87dc135110ebaaa6320a"
+  dependencies:
+    caniuse-lite "^1.0.30000809"
+    electron-to-chromium "^1.3.33"
 
 bser@^2.0.0:
   version "2.0.0"
@@ -1729,9 +1736,13 @@ caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
   version "1.0.30000809"
   resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000809.tgz#b0b88434a598f40b546d46a4dbd839b0ff798f4d"
 
-caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805:
+caniuse-lite@^1.0.30000792:
   version "1.0.30000809"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000809.tgz#1e12c1344b8f74d56737ee2614bcedb648943479"
+
+caniuse-lite@^1.0.30000809, caniuse-lite@^1.0.30000810:
+  version "1.0.30000810"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000810.tgz#47585fffce0e9f3593a6feea4673b945424351d9"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -2288,15 +2299,6 @@ cors@^2.8.3:
     object-assign "^4"
     vary "^1"
 
-cosmiconfig@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-3.1.0.tgz#640a94bf9847f321800403cd273af60665c73397"
-  dependencies:
-    is-directory "^0.3.1"
-    js-yaml "^3.9.0"
-    parse-json "^3.0.0"
-    require-from-string "^2.0.1"
-
 cosmiconfig@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-4.0.0.tgz#760391549580bbd2df1e562bc177b13c290972dc"
@@ -2832,6 +2834,10 @@ ee-first@1.1.1:
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30:
   version "1.3.33"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.33.tgz#bf00703d62a7c65238136578c352d6c5c042a545"
+
+electron-to-chromium@^1.3.33:
+  version "1.3.34"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.34.tgz#d93498f40391bb0c16a603d8241b9951404157ed"
 
 element-react@1.4.8:
   version "1.4.8"
@@ -3935,7 +3941,7 @@ globule@^1.0.0:
     lodash "~4.17.4"
     minimatch "~3.0.2"
 
-gonzales-pe@^4.0.3:
+gonzales-pe@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/gonzales-pe/-/gonzales-pe-4.2.3.tgz#41091703625433285e0aee3aa47829fc1fbeb6f2"
   dependencies:
@@ -5309,9 +5315,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-known-css-properties@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npmjs.org/known-css-properties/-/known-css-properties-0.5.0.tgz#6ff66943ed4a5b55657ee095779a91f4536f8084"
+known-css-properties@^0.6.0:
+  version "0.6.1"
+  resolved "https://registry.npmjs.org/known-css-properties/-/known-css-properties-0.6.1.tgz#31b5123ad03d8d1a3f36bd4155459c981173478b"
 
 lazy-cache@^0.2.3:
   version "0.2.7"
@@ -5736,7 +5742,7 @@ methods@^1.1.1, methods@^1.1.2, methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
-micromatch@^2.1.5, micromatch@^2.3.0, micromatch@^2.3.11:
+micromatch@^2.1.5, micromatch@^2.3.11:
   version "2.3.11"
   resolved "https://registry.npmjs.org/micromatch/-/micromatch-2.3.11.tgz#86677c97d1720b363431d04d0d15293bd38c1565"
   dependencies:
@@ -5757,6 +5763,24 @@ micromatch@^2.1.5, micromatch@^2.3.0, micromatch@^2.3.11:
 micromatch@^3.1.4:
   version "3.1.6"
   resolved "https://registry.npmjs.org/micromatch/-/micromatch-3.1.6.tgz#8d7c043b48156f408ca07a4715182b79b99420bf"
+  dependencies:
+    arr-diff "^4.0.0"
+    array-unique "^0.3.2"
+    braces "^2.3.1"
+    define-property "^2.0.2"
+    extend-shallow "^3.0.2"
+    extglob "^2.0.4"
+    fragment-cache "^0.2.1"
+    kind-of "^6.0.2"
+    nanomatch "^1.2.9"
+    object.pick "^1.3.0"
+    regex-not "^1.0.0"
+    snapdragon "^0.8.1"
+    to-regex "^3.0.1"
+
+micromatch@^3.1.8:
+  version "3.1.9"
+  resolved "https://registry.npmjs.org/micromatch/-/micromatch-3.1.9.tgz#15dc93175ae39e52e93087847096effc73efcf89"
   dependencies:
     arr-diff "^4.0.0"
     array-unique "^0.3.2"
@@ -6454,12 +6478,6 @@ parse-json@^2.2.0:
   dependencies:
     error-ex "^1.2.0"
 
-parse-json@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/parse-json/-/parse-json-3.0.0.tgz#fa6f47b18e23826ead32f263e744d0e1e847fb13"
-  dependencies:
-    error-ex "^1.3.1"
-
 parse-json@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/parse-json/-/parse-json-4.0.0.tgz#be35f5425be1f7f6c747184f98a788cb99477ee0"
@@ -6854,12 +6872,12 @@ postcss-safe-parser@^3.0.1:
   dependencies:
     postcss "^6.0.6"
 
-postcss-sass@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/postcss-sass/-/postcss-sass-0.2.0.tgz#e55516441e9526ba4b380a730d3a02e9eaa78c7a"
+postcss-sass@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/postcss-sass/-/postcss-sass-0.3.0.tgz#dc2582ee0e61541aa88bafdc5a8aebb53deaae75"
   dependencies:
-    gonzales-pe "^4.0.3"
-    postcss "^6.0.6"
+    gonzales-pe "^4.2.3"
+    postcss "^6.0.16"
 
 postcss-scss@^1.0.2:
   version "1.0.3"
@@ -6921,7 +6939,7 @@ postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
-postcss@^6.0.1, postcss@^6.0.14, postcss@^6.0.15, postcss@^6.0.17, postcss@^6.0.6, postcss@^6.0.8:
+postcss@^6.0.1, postcss@^6.0.14, postcss@^6.0.15, postcss@^6.0.16, postcss@^6.0.19, postcss@^6.0.6, postcss@^6.0.8:
   version "6.0.19"
   resolved "https://registry.npmjs.org/postcss/-/postcss-6.0.19.tgz#76a78386f670b9d9494a655bf23ac012effd1555"
   dependencies:
@@ -8293,9 +8311,9 @@ style-search@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/style-search/-/style-search-0.1.0.tgz#7958c793e47e32e07d2b5cafe5c0bf8e12e77902"
 
-stylelint-config-recommended-scss@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-3.0.0.tgz#1604a7c5774acee202bf2cedbcbde8ee5efbdecd"
+stylelint-config-recommended-scss@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-3.1.0.tgz#25b8511074420615cce18de812b21b2aba13a29f"
   dependencies:
     stylelint-config-recommended "^2.0.0"
 
@@ -8303,9 +8321,9 @@ stylelint-config-recommended@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/stylelint-config-recommended/-/stylelint-config-recommended-2.1.0.tgz#f526d5c771c6811186d9eaedbed02195fee30858"
 
-stylelint-scss@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/stylelint-scss/-/stylelint-scss-2.2.0.tgz#3e324bf13346db7af21cd24ad57fe3202f7c3823"
+stylelint-scss@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/stylelint-scss/-/stylelint-scss-2.4.0.tgz#2d417688556d64536f435e7a6f77a40dbb89e505"
   dependencies:
     lodash "^4.17.4"
     postcss-media-query-parser "^0.2.3"
@@ -8313,23 +8331,23 @@ stylelint-scss@2.2.0:
     postcss-selector-parser "^3.1.1"
     postcss-value-parser "^3.3.0"
 
-stylelint-webpack-plugin@0.10.1:
-  version "0.10.1"
-  resolved "https://registry.npmjs.org/stylelint-webpack-plugin/-/stylelint-webpack-plugin-0.10.1.tgz#16264256aea3f73eb30aba0adbc30b3bec3e4bea"
+stylelint-webpack-plugin@0.10.3:
+  version "0.10.3"
+  resolved "https://registry.npmjs.org/stylelint-webpack-plugin/-/stylelint-webpack-plugin-0.10.3.tgz#1b80048df3b38a8559207e12b12c6e987b28f317"
   dependencies:
     arrify "^1.0.1"
-    micromatch "^2.3.0"
+    micromatch "^3.1.8"
     object-assign "^4.1.0"
     ramda "^0.25.0"
 
-stylelint@8.4.0:
-  version "8.4.0"
-  resolved "https://registry.npmjs.org/stylelint/-/stylelint-8.4.0.tgz#c2dbaeb17236917819f9206e1c0df5fddf6f83c3"
+stylelint@9.1.1:
+  version "9.1.1"
+  resolved "https://registry.npmjs.org/stylelint/-/stylelint-9.1.1.tgz#bfabb7eb8ea6251a4732f4b2a0468963a30d3da9"
   dependencies:
-    autoprefixer "^7.1.2"
+    autoprefixer "^8.0.0"
     balanced-match "^1.0.0"
     chalk "^2.0.1"
-    cosmiconfig "^3.1.0"
+    cosmiconfig "^4.0.0"
     debug "^3.0.0"
     execall "^1.0.0"
     file-entry-cache "^2.0.0"
@@ -8339,7 +8357,7 @@ stylelint@8.4.0:
     html-tags "^2.0.0"
     ignore "^3.3.3"
     imurmurhash "^0.1.4"
-    known-css-properties "^0.5.0"
+    known-css-properties "^0.6.0"
     lodash "^4.17.4"
     log-symbols "^2.0.0"
     mathml-tag-names "^2.0.1"
@@ -8347,18 +8365,19 @@ stylelint@8.4.0:
     micromatch "^2.3.11"
     normalize-selector "^0.2.0"
     pify "^3.0.0"
-    postcss "^6.0.6"
+    postcss "^6.0.16"
     postcss-html "^0.12.0"
     postcss-less "^1.1.0"
     postcss-media-query-parser "^0.2.3"
     postcss-reporter "^5.0.0"
     postcss-resolve-nested-selector "^0.1.1"
     postcss-safe-parser "^3.0.1"
-    postcss-sass "^0.2.0"
+    postcss-sass "^0.3.0"
     postcss-scss "^1.0.2"
     postcss-selector-parser "^3.1.0"
     postcss-value-parser "^3.3.0"
     resolve-from "^4.0.0"
+    signal-exit "^3.0.2"
     specificity "^0.3.1"
     string-width "^2.1.0"
     style-search "^0.1.0"
