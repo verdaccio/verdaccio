@@ -38,7 +38,7 @@
     "lockfile": "^1.0.1",
     "lodash": "4.17.5",
     "lunr": "^0.7.0",
-    "marked": "0.3.12",
+    "marked": "0.3.17",
     "mime": "^2.0.3",
     "minimatch": "^3.0.2",
     "mkdirp": "^0.5.1",
@@ -49,7 +49,7 @@
     "verdaccio-htpasswd": "0.1.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "6.1.0",
+    "@commitlint/cli": "6.1.2",
     "@commitlint/config-conventional": "6.1.0",
     "@commitlint/travis-cli": "6.1.0",
     "@verdaccio/types": "2.0.0",
