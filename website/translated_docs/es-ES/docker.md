@@ -30,7 +30,7 @@ Para usar una versión mas específica ("patch"):
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` version.
+Para usar el siguiente lanzamiento se usa el tag ` beta`.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -42,11 +42,11 @@ The Canary version (master branch) is tagged as `alpha`
 docker pull verdaccio/verdaccio:alpha
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Si estas interesado en un listado de todos tags, [por favor visite el sitio web de Docker Hub](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ## Ejecutando verdaccio usando Docker
 
-To run the docker container:
+Para ejecutar el contenedor de docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
