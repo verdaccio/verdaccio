@@ -48,13 +48,13 @@ Puedes personalizar la configuracion de verdaccio usando un * configMap* de Kube
 
 #### Preparando
 
-Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
+Copie la [configuración existente ](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) y adáptelo para su propio caso de uso:
 
 ```bash
 wget https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml -O config.yaml
 ```
 
-**Note:** Make sure you are using the right path for the storage that is used for persistency:
+**Nota:** Asegúrese que usa la dirección correcta para el almacenamiento que es usado por la persistencia:
 
 ```yaml
 storage: /verdaccio/storage/data
@@ -63,24 +63,24 @@ auth:
     file: /verdaccio/storage/htpasswd
 ```
 
-#### Deploy the configMap
+#### Desplegar el configMap
 
-Deploy the `configMap` to the cluster
+Desplegar el ` configMap` en el cluster
 
 ```bash
 kubectl create configmap verdaccio-config --from-file ./config.yaml
 ```
 
-#### Deploy Verdaccio
+#### Desplegar Verdaccio
 
-Now you can deploy the Verdaccio Helm chart and specify which configuration to use:
+Ahora puedes desplegar Verdaccio Helm chart y especificar cual configuración usar:
 
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
 ```
 
-## Rancher Support
+## Soporte Rancher
 
-[Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
+[Rancher](http://rancher.com/) es una completa plataforma para la administración de contenedores en producción muy fácil de usar.
 
 * [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)
