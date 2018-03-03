@@ -129,23 +129,23 @@ Dentro del proyecto existe un script the npm para simplificar la creación de la
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Nota: Construir la primera vez toma unos minutos porque se necesita ejecutar `npm install` y tomará mas tiempo cada vez que cambies cualquier archivo que no este listado en `. dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Si quieres usar la imagen de docker en un rpi o dispositivo compatible existe también un dockerfile disponible:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Por favor, note que para cualquiera de los comandos arriba mencionados necesitas docker instalado en tu máquina y el comando docker debe estar disponible en tu `$PATH`.
 
-## Docker Examples
+## Ejemplos con Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Existe disponible un repositorio que aloja múltiples configuraciones para componer imágenes de Docker con `verdaccio`, por ejemplo, un "reverse proxy":
 
 https://github.com/verdaccio/docker-examples
 
-## Docker Custom Builds
+## Imágenes de Docker Personalizadas
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
@@ -156,4 +156,4 @@ https://github.com/verdaccio/docker-examples
 * [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
 * [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
 * [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) imagen de docker que ejecuta verdaccio desde coldrye-debian-nodejs.
