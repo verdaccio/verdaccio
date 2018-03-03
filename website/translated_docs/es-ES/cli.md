@@ -15,7 +15,7 @@ $ verdaccio --listen 4000 --config ~./config.yaml
 | --listen \ **-l** | 4873                           | -p 7000        | puerto http                 |
 | --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | el archivo de configuración |
 
-## Default config file location
+## Ubicación por defecto del archivo de configuración
 
 To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
