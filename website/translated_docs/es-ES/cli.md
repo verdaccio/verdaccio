@@ -1,19 +1,19 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: "Herramienta de Linea de Comando"
 ---
-The verdaccio CLI is your go start the application.
+El CLI de verdaccio es la forma de iniciar la aplicación.
 
-## Commands
+## Comandos
 
 ```bash
 $ verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
-| ------------------ | ------------------------------ | -------------- | ---------------------- |
-| --listen \ **-l** | 4873                           | -p 7000        | http port              |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
+| Comando            | Por Defecto                    | Ejemplo        | Descripción                 |
+| ------------------ | ------------------------------ | -------------- | --------------------------- |
+| --listen \ **-l** | 4873                           | -p 7000        | puerto http                 |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | el archivo de configuración |
 
 ## Default config file location
 
