@@ -2,47 +2,47 @@
 id: kubernetes
 title: "Kubernetes"
 ---
-Puedes encontrar las instrucciones para desplegar Verdaccio en un cluster de Kubernetes en el repositorio [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example). However, the recommended method to install Verdaccio on a Kubernetes cluster is to use [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) package manager which bring multiple advantages.
+Puedes encontrar las instrucciones para desplegar Verdaccio en un cluster de Kubernetes en el repositorio [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example). Sin embargo, el método recomendado de instalar Verdaccio en un cluster de Kubernetes es usando [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) es un administrador de paquetes que trae muchos beneficios y ventajas.
 
 ## Helm
 
-### Setup Helm
+### Configurar Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+Si no has usado Helm anteriormente, necesitarás configurar el controlador de Helm llamado Tiller:
 
 ```bash
 helm init
 ```
 
-### Install
+### Instalación
 
-Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
+Desplegar Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. En este ejemplo usamos `npm` como nombre de lanzamiento:
 
 ```bash
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### Desplegar una versión específica
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### Actualizando Verdaccio
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Desinstalar
 
 ```bash
 helm del --purge npm
 ```
 
-**Note:** this command delete all the resources, including packages that you may have previously published to the registry.
+**Nota**: el comando borra todos los recursos, incluyendo los paquetes que tu podrías haber publicado anteriormente al registro.
 
-### Custom Verdaccio configuration
+### Configuración personalizada de Verdaccio
 
 You can customize the Verdaccio configuration using a Kubernetes *configMap*.
 
