@@ -67,9 +67,9 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 ### Usar un puerto personalizado con Docker
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Cualquier `host:port` configurado en `conf/config.yaml` bajo el parametro `listen` es ignorado usando Docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Si deseas alcanzar la instancia de docker con un diferente puerto, digamos `5000`. En el comando `docker run` reemplace `-p 4873:4873` por `-p 5000:4873`.
 
 In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
 
