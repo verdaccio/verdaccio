@@ -123,7 +123,7 @@ Docker generará un volumen en cual persistirá los datos de almacenamiento de l
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Dentro del proyecto existe un script the npm para simplificar la creación de la imagen de Docker:
 
 ```bash
 npm run build:docker
