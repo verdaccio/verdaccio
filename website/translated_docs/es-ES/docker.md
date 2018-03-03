@@ -100,9 +100,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Puedes usar el puerto a usar (para el contenedor y el cliente) prefijando el comando `PORT=5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker generará un volumen en cual persistirá los datos de almacenamiento de la aplicación. Puedes usar `docker inspect` o `docker volume inspect` para revelar el contenido físico del volumen y editar la configuración tal como:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -117,7 +117,7 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## Construye tu propia imagen de Docker
 
 ```bash
 docker build -t verdaccio .
