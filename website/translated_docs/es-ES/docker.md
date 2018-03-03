@@ -52,11 +52,11 @@ Para ejecutar el contenedor de docker:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+El último argumento define cual imagen se usa. En la linea de abajo se descargará la ultima imagen desde Docker Hub, si ya no existía previamente.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Si ya has [construido tu imagen](#build-your-own-docker-image) usa `verdaccio` como último argumento.
 
-You can use `-v` to mount `conf` and `storage` to the hosts filesystem:
+Puedes usar `-v` para montar `conf` y `storage` desde tu sistema de archivos:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -65,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-### Docker and custom port configuration
+### Usar un puerto personalizado con Docker
 
 Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
 
