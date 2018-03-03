@@ -44,9 +44,9 @@ helm del --purge npm
 
 ### Configuración personalizada de Verdaccio
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+Puedes personalizar la configuracion de verdaccio usando un * configMap* de Kubernetes.
 
-#### Prepare
+#### Preparando
 
 Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
 
