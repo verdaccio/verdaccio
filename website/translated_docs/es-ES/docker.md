@@ -10,21 +10,21 @@ docker pull verdaccio/verdaccio
 
 ## Versiones con Etiquetas
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+A partir de la versión `v2.x` puedes descargar imagenes de docker por [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), como a continuación:
 
-For a major version:
+Para usar una versión "major":
 
 ```bash
 docker pull verdaccio/verdaccio:2
 ```
 
-For a minor version:
+Para usar una versión "minor":
 
 ```bash
 docker pull verdaccio/verdaccio:2.1
 ```
 
-For a specific (patch) version:
+Para usar una versión mas específica ("patch"):
 
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
