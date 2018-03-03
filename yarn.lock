@@ -220,24 +220,24 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/local-storage@0.1.4":
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.1.4.tgz#7e235d8f3e7a98bfa6214c75ae80a8e5ae1afe04"
+"@verdaccio/local-storage@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.3.0.tgz#6fdf3fac243a43842ecfc84a0207c4ba5e4cd5cb"
   dependencies:
     "@verdaccio/file-locking" "0.0.5"
-    "@verdaccio/streams" "0.0.2"
-    async "2.5.0"
+    "@verdaccio/streams" "1.0.0"
+    async "2.6.0"
     http-errors "1.6.2"
-    lodash "4.17.4"
+    lodash "4.17.5"
     mkdirp "0.5.1"
-
-"@verdaccio/streams@0.0.2", "@verdaccio/streams@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
 "@verdaccio/streams@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
+
+"@verdaccio/streams@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
 "@verdaccio/types@2.0.0":
   version "2.0.0"
@@ -553,21 +553,15 @@ async-validator@^1.8.1:
   dependencies:
     babel-runtime "6.x"
 
-async@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.npmjs.org/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
+async@2.6.0, async@^2.1.2, async@^2.1.4, async@^2.1.5, async@^2.4.1, async@^2.5.0, async@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.npmjs.org/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
     lodash "^4.14.0"
 
 async@^1.4.0, async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.npmjs.org/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
-
-async@^2.1.2, async@^2.1.4, async@^2.1.5, async@^2.4.1, async@^2.5.0, async@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
-  dependencies:
-    lodash "^4.14.0"
 
 asynckit@^0.4.0:
   version "0.4.0"
