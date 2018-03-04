@@ -6,9 +6,9 @@ Las notificaciones fueron introducidas con la idea de usar webhooks para Slack, 
 
 ## Uso
 
-An example with a **hipchat** hook:
+Un ejemplo con ** hipchat**:
 
-#### Single notification
+#### Notificación sencilla
 
 ```yaml
 notify:
@@ -18,7 +18,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Múltiples notificaciones
 
 ```yaml
 notify:
@@ -41,7 +41,7 @@ notify:
 
 ```
 
-## Configuration
+## Configuración
 
 | Property            | Type         | Required | Support | Default | Description                                                                                  |
 | ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
