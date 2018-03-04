@@ -10,27 +10,27 @@ docker pull verdaccio/verdaccio
 
 ## Versiones con Etiquetas
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+A partir de la versión `v2.x` puedes descargar imagenes de docker por [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), como a continuación:
 
-For a major version:
+Para usar una versión "major":
 
 ```bash
 docker pull verdaccio/verdaccio:2
 ```
 
-For a minor version:
+Para usar una versión "minor":
 
 ```bash
 docker pull verdaccio/verdaccio:2.1
 ```
 
-For a specific (patch) version:
+Para usar una versión mas específica ("patch"):
 
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` version.
+Para usar el siguiente lanzamiento se usa el tag ` beta`.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -42,21 +42,21 @@ The Canary version (master branch) is tagged as `alpha`
 docker pull verdaccio/verdaccio:alpha
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Si estas interesado en un listado de todos tags, [por favor visite el sitio web de Docker Hub](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ## Ejecutando verdaccio usando Docker
 
-To run the docker container:
+Para ejecutar el contenedor de docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+El último argumento define cual imagen se usa. En la linea de abajo se descargará la ultima imagen desde Docker Hub, si ya no existía previamente.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Si ya has [construido tu imagen](#build-your-own-docker-image) usa `verdaccio` como último argumento.
 
-You can use `-v` to mount `conf` and `storage` to the hosts filesystem:
+Puedes usar `-v` para montar `conf` y `storage` desde tu sistema de archivos:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -65,11 +65,11 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-### Docker and custom port configuration
+### Usar un puerto personalizado con Docker
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Cualquier `host:port` configurado en `conf/config.yaml` bajo el parametro `listen` es ignorado usando Docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Si deseas alcanzar la instancia de docker con un diferente puerto, digamos `5000`. En el comando `docker run` reemplace `-p 4873:4873` por `-p 5000:4873`.
 
 In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
 
@@ -81,9 +81,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### Configura Docker con HTTPS
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Puedes configurar el protocolo que verdaccio, de manera similar la configuración del puerto. Puedes sobre escribir el vapor por defecto ("http") de la variable de entorno `PROTOCOL` a "https", después puedes especificar el certificado en config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -91,18 +91,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Usando docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Obtener la última versión de [docker-compose](https://github.com/docker/compose).
+2. Construye y ejecuta el contenedor:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Puedes usar el puerto a usar (para el contenedor y el cliente) prefijando el comando `PORT=5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker generará un volumen en cual persistirá los datos de almacenamiento de la aplicación. Puedes usar `docker inspect` o `docker volume inspect` para revelar el contenido físico del volumen y editar la configuración tal como:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -117,35 +117,35 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## Construye tu propia imagen de Docker
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Dentro del proyecto existe un script the npm para simplificar la creación de la imagen de Docker:
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Nota: Construir la primera vez toma unos minutos porque se necesita ejecutar `npm install` y tomará mas tiempo cada vez que cambies cualquier archivo que no este listado en `. dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Si quieres usar la imagen de docker en un rpi o dispositivo compatible existe también un dockerfile disponible:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Por favor, note que para cualquiera de los comandos arriba mencionados necesitas docker instalado en tu máquina y el comando docker debe estar disponible en tu `$PATH`.
 
-## Docker Examples
+## Ejemplos con Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Existe disponible un repositorio que aloja múltiples configuraciones para componer imágenes de Docker con `verdaccio`, por ejemplo, un "reverse proxy":
 
 https://github.com/verdaccio/docker-examples
 
-## Docker Custom Builds
+## Imágenes de Docker Personalizadas
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
@@ -156,4 +156,4 @@ https://github.com/verdaccio/docker-examples
 * [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
 * [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
 * [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) imagen de docker que ejecuta verdaccio desde coldrye-debian-nodejs.
