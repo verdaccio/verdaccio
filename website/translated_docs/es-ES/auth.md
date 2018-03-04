@@ -36,7 +36,7 @@ Como se describe en [el ticket #212](https://github.com/verdaccio/verdaccio/issu
 
 ## Htpasswd por defecto
 
-In order to simplify the setup, `verdaccio` use a build-in plugin based on `htpasswd`.
+Con el fin de simplificar la instalación, `verdaccio` usa una extensión por defecto basada en ` htpasswd`.
 
 ```yaml
 auth:
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Propiedad | Tipo   | Requerido | Example    | Support | Description                              |
+| --------- | ------ | --------- | ---------- | ------- | ---------------------------------------- |
+| file      | string | Yes       | ./htpasswd | all     | file that host the encrypted credentials |
+| max_users | number | No        | 1000       | all     | set limit of users                       |
 
 In case to decide do not allow user to login, you can set `max_users: -1`.
