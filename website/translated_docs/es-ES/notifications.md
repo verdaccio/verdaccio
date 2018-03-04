@@ -2,9 +2,9 @@
 id: notifications
 title: "Notificaciones"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `publish` / `create` commands.
+Las notificaciones fueron introducidas con la idea de usar webhooks para Slack, pero también se puede enviar un *payload* a cualquier endpoint. Actualmente solo activo para los comandos `publish` / `create`.
 
-## Usage
+## Uso
 
 An example with a **hipchat** hook:
 
