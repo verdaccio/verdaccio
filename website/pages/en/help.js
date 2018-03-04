@@ -7,6 +7,7 @@
 
 const React = require('react');
 
+const translate = require("../../server/translate.js").translate;
 const CompLibrary = require('../../core/CompLibrary.js');
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
@@ -18,18 +19,18 @@ class Help extends React.Component {
     const supportLinks = [
       {
         content:
-          'Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)',
-        title: 'Browse Docs',
+          <translate>Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)</translate>,
+        title: <translate>Browse Docs</translate>,
       },
       {
-        content: 'You can follow and contact us on [Twitter](https://twitter.com/verdaccio_npm).',
+        content: <translate>You can follow and contact us on</translate> + '[Twitter](https://twitter.com/verdaccio_npm).',
         title: 'Twitter',
       },
       {
-        content: "If the documentation is not enough help, you can try browsing into our " +
+        content: <translate>If the documentation is not enough help, you can try browsing into our</translate> +
         "[Question Database](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aquestion+) " +
-        "and also you can chat with the Verdaccio community in [Gitter](https://gitter.im/verdaccio/).",
-        title: 'More Help?',
+        <translate>and also you can chat with the Verdaccio community at</translate> + "[Gitter](https://gitter.im/verdaccio/).",
+        title: <translate>More Help?</translate>,
       },
     ];
 
@@ -38,9 +39,17 @@ class Help extends React.Component {
         <Container className="mainContainer documentContainer postContainer">
           <div className="post">
             <header className="postHeader">
-              <h2>Need help?</h2>
+              <h2>
+                <translate>
+                  Need help?
+                </translate>
+              </h2>
             </header>
-            <p>This project is maintained by the Verdaccio community.</p>
+            <p>
+              <translate>
+                This project is maintained by the Verdaccio community.
+              </translate>
+            </p>
             <GridBlock contents={supportLinks} layout="threeColumn" />
           </div>
         </Container>
