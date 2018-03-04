@@ -2,11 +2,11 @@
 id: uplinks
 title: "Uplinks"
 ---
-An *uplink* is a link with an external registry that provides acccess to external packages.
+Un * uplink* es un enlace a un registro externo que provee acceso a paquetes externos.
 
 ![Uplinks](/img/uplinks.png)
 
-### Usage
+### Uso
 
 ```yaml
 uplinks:
@@ -21,7 +21,7 @@ uplinks:
     url: http://localhost:55666/
 ```
 
-### Configuration
+### Configuración
 
 You can define mutiple uplinks and each of them must have an unique name (key). They can have two properties:
 
