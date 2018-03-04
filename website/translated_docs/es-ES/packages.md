@@ -72,9 +72,9 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-Siempre puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+Siempre puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. ` verdaccio` verifica si el usuario trata de acceder o publicar un paquete específico pertenece al grupo correcto.
 
-#### Set multiple groups
+#### Definir múltiples grupos
 
 Define multiple access groups is fairly easy, just define them with a white space between them.
 
