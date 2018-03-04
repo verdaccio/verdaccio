@@ -76,7 +76,7 @@ Siempre puedes cambiar el comportamiento por defecto usando una diferente extens
 
 #### Definir múltiples grupos
 
-Define multiple access groups is fairly easy, just define them with a white space between them.
+Definir múltiples grupos es muy sencillo, solo define grupos con un espacio entre todos ellos.
 
 ```yaml
   'company-*':
@@ -90,9 +90,9 @@ Define multiple access groups is fairly easy, just define them with a white spac
 
 ```
 
-#### Blocking access to set of packages
+#### Bloqueando el acceso a paquetes
 
-If you want to block the acccess/publish to a specific group of packages. Just, do not define `access` and `publish`.
+Si deseas bloquear el acceso/publicación a paquetes específicos. Solo, no definas ` access` y ` publish`.
 
 ```yaml
 packages:
@@ -102,15 +102,15 @@ packages:
      publish: $authenticated
 ```
 
-### Configuration
+### Configuración
 
-You can define mutiple `packages` and each of them must have an unique `Regex`.
+Puedes definir múltiples ` packages` y en cada uno de ellos debes definir un único ` Regex `.
 
-| Property              | Type    | Required | Example        | Support | Description                                 |
-| --------------------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| allow_access/access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| allow_publish/publish | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy_access/proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage               | boolean | No       | [true,false]   | all     | TODO                                        |
+| Propiedad             | Tipo    | Requerido | Ejemplo        | Soporte | Descripción                                                |
+| --------------------- | ------- | --------- | -------------- | ------- | ---------------------------------------------------------- |
+| allow_access/access   | string  | No        | $all           | all     | define que grupos estan permitidos para acceder al paquete |
+| allow_publish/publish | string  | No        | $authenticated | all     | defini que grupos estan permitidos a publicar              |
+| proxy_access/proxy    | string  | No        | npmjs          | all     | limita las busquedas a un uplink específico                |
+| storage               | boolean | No        | [true,false]   | all     | TODO                                                       |
 
-We higlight recommend do not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated, please use the short version of each of those (**access**/**publish**/**proxy**
+Recomendamos no usar **allow_access**/**allow_publish** y **proxy_access** nunca mas, estan depreciados u se las versiones cortas (**access**/**publish**/**proxy**)
