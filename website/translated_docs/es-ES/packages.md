@@ -1,12 +1,12 @@
 ---
 id: packages
-title: "Package Access"
+title: "Acceso a Paquetes"
 ---
-It's a series of contrains that allow or restrict access to the local storage based in specific criteria.
+Es una serie de restricciones que permiten o restringen el acceso al almacenamiento local basado en unos criterios específicos.
 
-The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the `htpasswd` plugin. If you use a different plugin the behaviour might be different. The default plugin `htpasswd` does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it. For more information about permissions visit [the authentification section in the wiki](auth.md).
+Las restricciones de seguridad dependen de la extensión usada, por defecto `verdaccio` usa la extensión ` htpasswd`. Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. La extensión por defecto ` htpasswd` no majena por si mismo ` allow_access` y ` allow_publish`, en se caso existe un manejador por defecto en caso que la extensión no este listo para ello. Para mas información sobre permisos visite [la sección de autenticación](auth.md).
 
-### Usage
+### Uso
 
 ```yalm
 packages:
@@ -29,7 +29,7 @@ packages:
     proxy_access: uplink2
 ```
 
-if none is specified, the default one remains
+si ninguno es especificado, por defecto uno permanece activo
 
 ```yaml
 packages:
@@ -38,7 +38,7 @@ packages:
      publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+La lista de grupos validos de acuerdo a la extensión por defecto son
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
