@@ -110,14 +110,14 @@ describe('endpoint unit test', () => {
         .put('/-/user/org.couchdb.user:jota')
         .send(credentialsShort)
         .expect('Content-Type', /json/)
-        .expect(409)
+        .expect(400)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
 
           expect(res.body.error).toBeDefined();
-          expect(res.body.error).toMatch(/username should not contain non-uri-safe characters/);
+          expect(res.body.error).toMatch(/username and password is required/);
           done();
         });
     });
@@ -131,7 +131,7 @@ describe('endpoint unit test', () => {
         .put('/-/user/org.couchdb.user:jota')
         .send(credentialsShort)
         .expect('Content-Type', /json/)
-        .expect(403)
+        .expect(400)
         .end(function(err, res) {
           if (err) {
             return done(err);
@@ -139,26 +139,23 @@ describe('endpoint unit test', () => {
 
           expect(res.body.error).toBeDefined();
           //FIXME: message is not 100% accurate
-          expect(res.body.error).toMatch(/this user already exists/);
+          expect(res.body.error).toMatch(/username and password is required/);
           done();
         });
     });
 
-    test('should test fails add a new user', (done) => {
+    test('should test add a new user with login', (done) => {
 
       request(app)
         .put('/-/user/org.couchdb.user:jota')
         .send(credentials)
         .expect('Content-Type', /json/)
-        .expect(403)
+        .expect(200)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
-
-          expect(res.body.error).toBeDefined();
-          //FIXME: message is not 100% accurate
-          expect(res.body.error).toMatch(/this user already exists/);
+          expect(res.body).toBeTruthy();
           done();
         });
     });
@@ -172,17 +169,14 @@ describe('endpoint unit test', () => {
         .put('/-/user/org.couchdb.user:jota')
         .send(credentialsShort)
         .expect('Content-Type', /json/)
-        //TODO: this should return 401 and will fail when issue
-        // https://github.com/verdaccio/verdaccio-htpasswd/issues/5
-        // is being fixed
-        .expect(403)
+        .expect(401)
         .end(function(err, res) {
           if (err) {
             return done(err);
           }
 
           expect(res.body.error).toBeDefined();
-          expect(res.body.error).toMatch(/this user already exists/);
+          expect(res.body.error).toMatch(/unauthorized/);
           done();
         });
     });
