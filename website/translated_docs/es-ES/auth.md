@@ -34,7 +34,7 @@ Por ejemplo:
 
 Como se describe en [el ticket #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) hasta la versión de `pm@5.3.0` y todas las versiones menores **no permitirán publicar sin un token**. Sin embargo, `yarn` no tiene esa limitación.
 
-## Default htpasswd
+## Htpasswd por defecto
 
 In order to simplify the setup, `verdaccio` use a build-in plugin based on `htpasswd`.
 
