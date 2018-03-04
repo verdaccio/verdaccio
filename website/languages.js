@@ -127,7 +127,7 @@ const languages = [
     tag: 'pt-PT',
   },
   {
-    enabled: true,
+    enabled: false,
     name: 'Português (Brasil)',
     tag: 'pt-BR',
   },
@@ -172,7 +172,7 @@ const languages = [
     tag: 'vi',
   },
   {
-    enabled: true,
+    enabled: false,
     name: '中文',
     tag: 'zh-Hans',
   },
