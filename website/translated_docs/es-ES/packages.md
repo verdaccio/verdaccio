@@ -44,14 +44,14 @@ La lista de grupos validos de acuerdo a la extensión por defecto son
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieves all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+Todos los usuarios reciben una serie de permisos independientemente si es anónimo no grupos son delegados por la extensión, en caso de ` htpasswd` regresa el usuario como grupo. Por ejemplo, si inicias sesión como ` npmUser` la lista de grupos sera.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need todo something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend use a prefix for your packages, in that way it'd be easier to protect them.
+Si deseas proteger un grupo de paquetes específicos por un grupo, necesitarás hacer algo así. Vamos a usar un ` Regex` que cubre todos los paquetes prefijados `npmuser-`. Recomendamos user un prefijo para tus paquetes, en esa manera es mucho mas fácil protegerlos.
 
 ```yaml
 packages:
@@ -60,7 +60,7 @@ packages:
      publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Reinicia ` verdaccio` y trata de instalar el paquete`npmuser-core`.
 
 ```bash
 $ npm install npmuser-core
@@ -72,7 +72,7 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+Siempre puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
 
 #### Set multiple groups
 
