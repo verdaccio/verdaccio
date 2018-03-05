@@ -1,23 +1,23 @@
 ---
 id: contributing
-title: "Contributing Verdaccio"
+title: "Contribuindo com o Verdaccio"
 ---
 First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
 
-## Comunication Channels
+## Meios de Comunicação
 
 If you are willing for asking, we use two channels for discussions:
 
-* [Public Gitter channel](https://gitter.im/verdaccio/)
-* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
+* [Canal público no Gitter](https://gitter.im/verdaccio/)
+* [Canal do Slack para Contribuidores](https://verdaccio-npm.slack.com) (você precisa de um convite para entrar, tente pedir um em nosso canal do **Gitter**)
 
-## Getting started
+## Como Começar
 
 As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
 
-### Finding my spot
+### Como contribuir
 
-All we have different skills, so, let's see where you might feel comfortable.
+Todos nós temos habilidades diferentes, você pode ajudar onde se sentir confortável.
 
 ### I know or I want to learn Node.js
 
