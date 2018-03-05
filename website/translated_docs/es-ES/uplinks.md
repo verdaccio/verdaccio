@@ -23,23 +23,23 @@ uplinks:
 
 ### Configuración
 
-You can define mutiple uplinks and each of them must have an unique name (key). They can have two properties:
+Puedes definir múltiples uplinks y cada uno de ellos debe tener un nombre único (key). Pueden tener las siguientes propiedades:
 
-| Property     | Type    | Required | Example                                                                             | Support | Description                                                                                                        | Default    |
-| ------------ | ------- | -------- | ----------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ | ---------- |
-| url          | string  | Yes      | https://registry.npmjs.org/                                                         | all     | The registry url                                                                                                   | npmjs      |
-| ca           | string  | No       | ~./ssl/client.crt'                                                                  | all     | SSL path certificate                                                                                               | No default |
-| timeout      | string  | No       | 100ms                                                                               | all     | set new timeout for the request                                                                                    | 30s        |
-| maxage       | string  | No       | 10m                                                                                 | all     | limit maximun failure request                                                                                      | 2m         |
-| fail_timeout | string  | No       | 10m                                                                                 | all     | defines max time when a request becomes a failure                                                                  | 5m         |
-| max_fails    | number  | No       | 2                                                                                   | all     | limit maximun failure request                                                                                      | 2          |
-| cache        | boolean | No       | [true,false]                                                                        | >= 2.1  | avoid cache tarballs                                                                                               | true       |
-| auth         | list    | No       | type: [bearer,basic], [token: "token",token_env: [true,\<get name process.env\>]] | >= 2.5  | assigns the header 'Authorization' see: http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules | disabled   |
-| headers      | list    | No       | authorization: "Basic YourBase64EncodedCredentials=="                               | all     | list of custom headers for the uplink                                                                              | disabled   |
+| Propiedad    | Tipo    | Requerido | Ejemplo                                                                             | Soporte | Descripción                                                                                                          | Por Defecto |
+| ------------ | ------- | --------- | ----------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- | ----------- |
+| url          | string  | Yes       | https://registry.npmjs.org/                                                         | all     | El dominio del registro                                                                                              | npmjs       |
+| ca           | string  | No        | ~./ssl/client.crt'                                                                  | all     | Ubicación del certificado SSL                                                                                        | Desactivado |
+| timeout      | string  | No        | 100ms                                                                               | all     | timeout por petición                                                                                                 | 30s         |
+| maxage       | string  | No        | 10m                                                                                 | all     | limite máximo de fallos de cada petición                                                                             | 2m          |
+| fail_timeout | string  | No        | 10m                                                                                 | all     | define el tiempo máximo cuando una petición falla                                                                    | 5m          |
+| max_fails    | number  | No        | 2                                                                                   | all     | límite máximo de fallos                                                                                              | 2           |
+| cache        | boolean | No        | [true,false]                                                                        | >= 2.1  | evita persistir tarballs                                                                                             | true        |
+| auth         | list    | No        | type: [bearer,basic], [token: "token",token_env: [true,\<get name process.env\>]] | >= 2.5  | asigna el encamezado 'Authorization' ver: http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules | desactivado |
+| headers      | list    | No        | authorization: "Basic YourBase64EncodedCredentials=="                               | all     | listado de encabezados por uplink                                                                                    | desactivado |
 
-### You Must know
+### Debes saber
 
-* Uplinks must be registries compatible with the `npm` endpoints. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
-* Setting `cache` to false will help to save space in your hard drive. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
-* Exceed with multiple uplinks might slow down the lookup of your packages due for each request a npm client does, verdaccio does 1 call for each uplink.
-* The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
+* Uplinks deben ser compatibles con los *endpoints* de `npm`. Ejemplo: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* y más.
+* Definiendo `cache` a falso ayudará a salvar espacio en tu disco duro. Esto evitará almacenar `tarballs` pero [mantendrá metadatos en los folders](https://github.com/verdaccio/verdaccio/issues/391).
+* Excederse con muchos uplinks podría afectar el performance al momento de resolver paquetes por cada request que el cliente npm ejecuta, verdaccio hace 1 llamada por cada uplink.
+* Los parametros (timeout, maxage and fail_timeout) siguen el formato de [NGINX measurement units](http://nginx.org/en/docs/syntax.html)

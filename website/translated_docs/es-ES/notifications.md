@@ -1,14 +1,14 @@
 ---
 id: notifications
-title: "Notifications"
+title: "Notificaciones"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `publish` / `create` commands.
+Las notificaciones fueron introducidas con la idea de usar webhooks para Slack, pero también se puede enviar un *payload* a cualquier endpoint. Actualmente solo activo para los comandos `publish` / `create`.
 
-## Usage
+## Uso
 
-An example with a **hipchat** hook:
+Un ejemplo con ** hipchat**:
 
-#### Single notification
+#### Notificación sencilla
 
 ```yaml
 notify:
@@ -18,7 +18,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Múltiples notificaciones
 
 ```yaml
 notify:
@@ -41,13 +41,13 @@ notify:
 
 ```
 
-## Configuration
+## Configuración
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any Handlebar expressions                                                                    |
+| Propiedad           | Tipo         | Requerido | Soporte | Por Defecto | Descripción                                                                                  |
+| ------------------- | ------------ | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------- |
+| method              | string       | No        | all     |             | HTTP verb                                                                                    |
+| packagePattern      | string       | No        | all     |             | Solo ejecutar esta notificación si el nombre del paquete coincide con la expresión regular   |
+| packagePatternFlags | string       | No        | all     |             | Any flags to be used with the regular expression                                             |
+| headers             | array/object | Yes       | all     |             | If this endpoint requires specific headers, set them here as an array of key: value objects. |
+| endpoint            | string       | Yes       | all     |             | set the URL endpoint for this call                                                           |
+| content             | string       | Yes       | all     |             | any Handlebar expressions                                                                    |
