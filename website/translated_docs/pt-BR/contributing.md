@@ -6,7 +6,7 @@ First of all Jumping into an unfamiliar code base is not easy but we are here to
 
 ## Meios de Comunicação
 
-If you are willing for asking, we use two channels for discussions:
+Se você quiser fazer perguntas, nós usamos dois canais para discussões:
 
 * [Canal público no Gitter](https://gitter.im/verdaccio/)
 * [Canal do Slack para Contribuidores](https://verdaccio-npm.slack.com) (você precisa de um convite para entrar, tente pedir um em nosso canal do **Gitter**)
@@ -19,11 +19,11 @@ As a first glance verdaccio is a single repository, but there are many ways you 
 
 Todos nós temos habilidades diferentes, você pode ajudar onde se sentir confortável.
 
-### I know or I want to learn Node.js
+### Eu sei ou quero aprender Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+O `Verdaccio` é baseado em Node.js, nós também usamos algumas livrarias como `express`, `commander`, `request` e `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Nós temos uma longa [lista de plugins](plugins.md) prontos para serem usados e que também aceitam contribuições. Se quiser, [voce pode criar o seu próprio](dev-plugins.md).
 
 ### I would prefer to work in the User Interface
 
@@ -58,9 +58,9 @@ We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdac
 
 We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
 
-### I can do translations
+### Eu posso traduzir
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Nosso projeto busca ser multilíngue, e contamos **com a ótima ajuda** do [Crowdin](https://crowdin.com) que é uma ótima plataforma para traduções.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
