@@ -25,9 +25,9 @@ O `Verdaccio` é baseado em Node.js, nós também usamos algumas livrarias como 
 
 Nós temos uma longa [lista de plugins](plugins.md) prontos para serem usados e que também aceitam contribuições. Se quiser, [voce pode criar o seu próprio](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### Eu prefiro trabalhar com a Interface do Usuário
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Recentemente nós começamos a usar tecnologias mais modernas, como `React` e `element-react`. Estamos abertos a novas ideias para melhorar a UI.
 
 ### I feel more confortable improving the stack
 
@@ -48,11 +48,11 @@ Many contributors find typos and grammar issues, that also helps to improve the 
 
 ### I am a Designer
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+Nós temos uma página inicial <http://www.verdaccio.org/> que ficaria muito boa com novas ideias.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Nosso site é gerado com [Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Eu sou um DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
