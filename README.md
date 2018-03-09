@@ -158,7 +158,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 ### Misc stuff
 
-- Searching (npm search) - **supported** (cli / browser)
+- Searching (npm search) - **supported** (cli / browser / output json array)
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 - Ping (npm ping) - **supported**
 
