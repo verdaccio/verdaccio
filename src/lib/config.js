@@ -1,8 +1,6 @@
 /* eslint prefer-rest-params: "off" */
 /* eslint prefer-spread: "off" */
 
-'use strict';
-
 const assert = require('assert');
 const _ = require('lodash');
 const Error = require('http-errors');

@@ -1,7 +1,4 @@
-'use strict';
-
 // ensure that all arguments are validated
-
 const assert = require('assert');
 const path = require('path');
 
