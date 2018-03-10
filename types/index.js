@@ -22,6 +22,7 @@ export interface IAuth {
 	secret: string;
 	plugins: Array<any>;
 	aes_encrypt(buf: Buffer): Buffer;
+	basic_middleware(): $NextFunctionVer;
 	add_user(user: string, password: string, cb: Callback): any;
 }
 

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(route, auth, storage) {
+export default function(route, auth, storage) {
   // searching packages
   route.get('/-/all(\/since)?', function(req, res) {
     let received_end = false;
@@ -96,4 +94,4 @@ module.exports = function(route, auth, storage) {
       check_finish();
     });
   });
-};
+}

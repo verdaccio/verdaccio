@@ -1,20 +1,25 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+// @flow
+
+import type {IAuth, IStorage} from '../../../types';
+import type {Config} from '@verdaccio/types';
+
+import express from 'express';
+import bodyParser from 'body-parser';
+import whoami from './api/whoami';
+import ping from './api/ping';
+import user from './api/user';
+import distTags from './api/dist-tags';
+import publish from './api/publish';
+import search from './api/search';
+import pkg from './api/package';
+
 const Middleware = require('../web/middleware');
 const match = Middleware.match;
 const validateName = Middleware.validate_name;
 const validatePkg = Middleware.validate_package;
 const encodeScopePackage = Middleware.encodeScopePackage;
 
-const whoami = require('./api/whoami');
-const ping = require('./api/ping');
-const user = require('./api/user');
-const distTags = require('./api/dist-tags');
-const publish = require('./api/publish');
-const search = require('./api/search');
-const pkg = require('./api/package');
-
-module.exports = function(config, auth, storage) {
+module.exports = function(config: Config, auth: IAuth, storage: IStorage) {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
@@ -38,23 +43,15 @@ module.exports = function(config, auth, storage) {
   // app.use(auth.bearer_middleware())
   app.use(bodyParser.json({strict: false, limit: config.max_body_size || '10mb'}));
   app.use(Middleware.anti_loop(config));
-
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);
-
   // for "npm whoami"
   whoami(app);
-
   pkg(app, auth, storage, config);
-
   search(app, auth, storage);
-
   user(app, auth);
-
   distTags(app, auth, storage);
-
   publish(app, auth, storage, config);
-
   ping(app);
 
   return app;

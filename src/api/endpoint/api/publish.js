@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('lodash');
 const Path = require('path');
 const createError = require('http-errors');
@@ -13,7 +11,7 @@ const media = Middleware.media;
 const expect_json = Middleware.expect_json;
 const notify = Notify.notify;
 
-module.exports = function(router, auth, storage, config) {
+export default function(router, auth, storage, config) {
   const can = Middleware.allow(auth);
 
   // publishing a package
@@ -185,4 +183,4 @@ module.exports = function(router, auth, storage, config) {
       });
     });
   });
-};
+}

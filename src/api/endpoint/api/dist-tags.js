@@ -1,12 +1,10 @@
-'use strict';
-
 const Middleware = require('../../web/middleware');
 const mime = require('mime');
 const _ = require('lodash');
 
 const media = Middleware.media;
 
-module.exports = function(route, auth, storage) {
+export default function(route, auth, storage) {
   const can = Middleware.allow(auth);
   const tag_package_version = function(req, res, next) {
     if (_.isString(req.body) === false) {
@@ -71,4 +69,4 @@ module.exports = function(route, auth, storage) {
         return next({ok: 'tags updated'});
       });
     });
-};
+}

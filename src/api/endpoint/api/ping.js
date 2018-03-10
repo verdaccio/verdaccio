@@ -1,7 +1,10 @@
-'use strict';
+// @flow
 
-module.exports = function(route) {
-  route.get('/-/ping', function(req, res, next) {
+import type {Router} from 'express';
+import type {$RequestExtend, $ResponseExtend, $NextFunctionVer} from '../../../../types';
+
+export default function(route: Router) {
+  route.get('/-/ping', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next({});
   });
-};
+}

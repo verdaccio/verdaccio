@@ -4,7 +4,7 @@ const createError = require('http-errors');
 const Middleware = require('../../web/middleware');
 const Utils = require('../../../lib/utils');
 
-module.exports = function(route, auth, storage, config) {
+export default function(route, auth, storage, config) {
   const can = Middleware.allow(auth);
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function(req, res, next) {
@@ -56,4 +56,4 @@ module.exports = function(route, auth, storage, config) {
     res.header('Content-Type', 'application/octet-stream');
     stream.pipe(res);
   });
-};
+}
