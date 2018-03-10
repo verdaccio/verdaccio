@@ -25,7 +25,7 @@ It allows you to have a **local npm private registry with zero configuration**. 
 
 *  [Documentation](http://www.verdaccio.org/docs/en/installation.html)
 *  [Chat](https://gitter.im/verdaccio/questions)
-*  [Roadmap](https://github.com/verdaccio/verdaccio/wiki)
+*  [Wiki](https://github.com/verdaccio/verdaccio/wiki)
 
 ## Introduction
 
