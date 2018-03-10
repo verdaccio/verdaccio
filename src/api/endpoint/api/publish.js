@@ -2,7 +2,7 @@ const _ = require('lodash');
 const Path = require('path');
 const createError = require('http-errors');
 
-const {media, expect_json, allow} = require('../../web/middleware');
+const {media, expect_json, allow} = require('../../middleware');
 const Notify = require('../../../lib/notify');
 const Utils = require('../../../lib/utils');
 const mime = require('mime');

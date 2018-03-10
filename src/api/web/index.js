@@ -4,7 +4,7 @@ import fs from 'fs';
 import Search from '../../lib/search';
 import * as Utils from '../../lib/utils';
 
-const {securityIframe} = require('./middleware');
+const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
 const router = express.Router();
 const env = require('../../config/env');

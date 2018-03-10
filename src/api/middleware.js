@@ -4,9 +4,9 @@ import {
   validate_name as utilValidateName,
   validate_package as utilValidatePackage,
   isObject,
-  ErrorCode} from '../../lib/utils';
+  ErrorCode} from '../lib/utils';
 
-const Logger = require('../../lib/logger');
+const Logger = require('../lib/logger');
 
 export function match(regexp) {
   return function(req, res, next, value) {

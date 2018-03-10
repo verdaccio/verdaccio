@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const createError = require('http-errors');
 
-const {allow} = require('../../web/middleware');
+const {allow} = require('../../middleware');
 const Utils = require('../../../lib/utils');
 
 export default function(route, auth, storage, config) {

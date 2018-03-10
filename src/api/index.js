@@ -11,7 +11,7 @@ import apiEndpoint from './endpoint';
 
 const Logger = require('../lib/logger');
 const Config = require('../lib/config');
-const Middleware = require('./web/middleware');
+const Middleware = require('./middleware');
 const Cats = require('../lib/status-cats');
 
 export default function(configHash) {

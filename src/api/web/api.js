@@ -5,7 +5,7 @@ import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
 
 import Search from '../../lib/search';
-import {match, validate_name, validatePackage, securityIframe} from './middleware';
+import {match, validate_name, validatePackage, securityIframe} from '../middleware';
 
 const route = Router(); /* eslint new-cap: 0 */
 

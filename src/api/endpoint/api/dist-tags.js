@@ -1,4 +1,4 @@
-const {media, allow} = require('../../web/middleware');
+const {media, allow} = require('../../middleware');
 const mime = require('mime');
 const _ = require('lodash');
 

@@ -13,7 +13,7 @@ import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
 
-const {match, validate_name, validatePackage, encodeScopePackage, anti_loop} = require('../web/middleware');
+const {match, validate_name, validatePackage, encodeScopePackage, anti_loop} = require('../middleware');
 
 export default function(config: Config, auth: IAuth, storage: IStorage) {
   /* eslint new-cap:off */
