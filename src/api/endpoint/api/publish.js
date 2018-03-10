@@ -2,17 +2,15 @@ const _ = require('lodash');
 const Path = require('path');
 const createError = require('http-errors');
 
-const Middleware = require('../../web/middleware');
+const {media, expect_json, allow} = require('../../web/middleware');
 const Notify = require('../../../lib/notify');
 const Utils = require('../../../lib/utils');
 const mime = require('mime');
 
-const media = Middleware.media;
-const expect_json = Middleware.expect_json;
 const notify = Notify.notify;
 
 export default function(router, auth, storage, config) {
-  const can = Middleware.allow(auth);
+  const can = allow(auth);
 
   // publishing a package
   router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expect_json, function(req, res, next) {

@@ -4,7 +4,7 @@ import fs from 'fs';
 import Search from '../../lib/search';
 import * as Utils from '../../lib/utils';
 
-const Middleware = require('./middleware');
+const {securityIframe} = require('./middleware');
 /* eslint new-cap:off */
 const router = express.Router();
 const env = require('../../config/env');
@@ -15,7 +15,7 @@ module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
 
   router.use(auth.jwtMiddleware());
-  router.use(Middleware.securityIframe);
+  router.use(securityIframe);
 
   // Static
   router.get('/-/static/:filename', function(req, res, next) {

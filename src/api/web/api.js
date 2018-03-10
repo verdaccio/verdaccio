@@ -5,7 +5,7 @@ import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
 
 import Search from '../../lib/search';
-import {match, validate_name, validate_package, securityIframe} from './middleware';
+import {match, validate_name, validatePackage, securityIframe} from './middleware';
 
 const route = Router(); /* eslint new-cap: 0 */
 
@@ -18,7 +18,7 @@ module.exports = function(config, auth, storage) {
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
-  route.param('package', validate_package);
+  route.param('package', validatePackage);
   route.param('filename', validate_name);
   route.param('version', validate_name);
   route.param('anything', match(/.*/));

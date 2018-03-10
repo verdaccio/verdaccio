@@ -1,11 +1,11 @@
 const _ = require('lodash');
 const createError = require('http-errors');
 
-const Middleware = require('../../web/middleware');
+const {allow} = require('../../web/middleware');
 const Utils = require('../../../lib/utils');
 
 export default function(route, auth, storage, config) {
-  const can = Middleware.allow(auth);
+  const can = allow(auth);
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function(req, res, next) {
     const getPackageMetaCallback = function(err, info) {

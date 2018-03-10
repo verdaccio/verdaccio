@@ -7,13 +7,14 @@ import Storage from '../lib/storage';
 import {loadPlugin} from '../lib/plugin-loader';
 import hookDebug from './debug';
 import Auth from '../lib/auth';
+import apiEndpoint from './endpoint';
 
 const Logger = require('../lib/logger');
 const Config = require('../lib/config');
 const Middleware = require('./web/middleware');
 const Cats = require('../lib/status-cats');
 
-module.exports = function(configHash) {
+export default function(configHash) {
   // Config
   Logger.setup(configHash.logs);
   const config = new Config(configHash);
@@ -58,7 +59,7 @@ module.exports = function(configHash) {
   });
 
   // For  npm request
-  app.use(require('./endpoint')(config, auth, storage));
+  app.use(apiEndpoint(config, auth, storage));
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
@@ -95,5 +96,4 @@ module.exports = function(configHash) {
   app.use(Middleware.final);
 
   return app;
-};
-
+}

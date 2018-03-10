@@ -13,25 +13,21 @@ import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
 
-const Middleware = require('../web/middleware');
-const match = Middleware.match;
-const validateName = Middleware.validate_name;
-const validatePkg = Middleware.validate_package;
-const encodeScopePackage = Middleware.encodeScopePackage;
+const {match, validate_name, validatePackage, encodeScopePackage, anti_loop} = require('../web/middleware');
 
-module.exports = function(config: Config, auth: IAuth, storage: IStorage) {
+export default function(config: Config, auth: IAuth, storage: IStorage) {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
-  app.param('package', validatePkg);
-  app.param('filename', validateName);
-  app.param('tag', validateName);
-  app.param('version', validateName);
-  app.param('revision', validateName);
-  app.param('token', validateName);
+  app.param('package', validatePackage);
+  app.param('filename', validate_name);
+  app.param('tag', validate_name);
+  app.param('version', validate_name);
+  app.param('revision', validate_name);
+  app.param('token', validate_name);
 
   // these can't be safely put into express url for some reason
   // TODO: For some reason? what reason?
@@ -42,7 +38,7 @@ module.exports = function(config: Config, auth: IAuth, storage: IStorage) {
   app.use(auth.basic_middleware());
   // app.use(auth.bearer_middleware())
   app.use(bodyParser.json({strict: false, limit: config.max_body_size || '10mb'}));
-  app.use(Middleware.anti_loop(config));
+  app.use(anti_loop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);
   // for "npm whoami"
@@ -55,4 +51,4 @@ module.exports = function(config: Config, auth: IAuth, storage: IStorage) {
   ping(app);
 
   return app;
-};
+}

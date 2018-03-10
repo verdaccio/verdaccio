@@ -1,11 +1,10 @@
-const Middleware = require('../../web/middleware');
+const {media, allow} = require('../../web/middleware');
 const mime = require('mime');
 const _ = require('lodash');
 
-const media = Middleware.media;
 
 export default function(route, auth, storage) {
-  const can = Middleware.allow(auth);
+  const can = allow(auth);
   const tag_package_version = function(req, res, next) {
     if (_.isString(req.body) === false) {
       return next('route');

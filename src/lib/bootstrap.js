@@ -5,9 +5,9 @@ import fs from 'fs';
 import http from'http';
 import https from 'https';
 import constants from 'constants';
+import server from '../api/index';
+import {parse_address} from './utils';
 
-const server = require('../api/index');
-const Utils = require('./utils');
 const logger = require('./logger');
 
 /**
@@ -34,7 +34,7 @@ export function getListListenAddresses(argListen, configListen) {
     addresses = ['4873'];
   }
   addresses = addresses.map(function(addr) {
-    const parsedAddr = Utils.parse_address(addr);
+    const parsedAddr = parse_address(addr);
 
     if (!parsedAddr) {
       logger.logger.warn({addr: addr},

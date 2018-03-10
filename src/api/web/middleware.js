@@ -1,13 +1,17 @@
 /* eslint prefer-rest-params: "off" */
 
-const crypto = require('crypto');
-const _ = require('lodash');
+import crypto from 'crypto';
+import _ from 'lodash';
+import {
+  validate_name as utilValidateName,
+  validate_package as utilValidatePackage,
+  isObject} from '../../lib/utils';
+
 const createError = require('http-errors');
-const utils = require('../../lib/utils');
 const Logger = require('../../lib/logger');
 
 
-module.exports.match = function match(regexp) {
+export function match(regexp) {
   return function(req, res, next, value) {
     if (regexp.exec(value)) {
       next();
@@ -15,37 +19,37 @@ module.exports.match = function match(regexp) {
       next('route');
     }
   };
-};
+}
 
-module.exports.securityIframe = function securityIframe(req, res, next) {
+export function securityIframe(req, res, next) {
   // disable loading in frames (clickjacking, etc.)
   res.header('X-Frame-Options', 'deny');
   next();
-};
+}
 
-module.exports.validate_name = function validate_name(req, res, next, value, name) {
+export function validate_name(req, res, next, value, name) {
   if (value.charAt(0) === '-') {
     // special case in couchdb usually
     next('route');
-  } else if (utils.validate_name(value)) {
+  } else if (utilValidateName(value)) {
     next();
   } else {
     next( createError[403]('invalid ' + name) );
   }
-};
+}
 
-module.exports.validate_package = function validate_package(req, res, next, value, name) {
+export function validatePackage(req, res, next, value, name) {
   if (value.charAt(0) === '-') {
     // special case in couchdb usually
     next('route');
-  } else if (utils.validate_package(value)) {
+  } else if (utilValidatePackage(value)) {
     next();
   } else {
     next( createError[403]('invalid ' + name) );
   }
-};
+}
 
-module.exports.media = function media(expect) {
+export function media(expect) {
   return function(req, res, next) {
     if (req.headers['content-type'] !== expect) {
       next( createError[415]('wrong content-type, expect: ' + expect
@@ -54,24 +58,24 @@ module.exports.media = function media(expect) {
       next();
     }
   };
-};
+}
 
-module.exports.encodeScopePackage = function(req, res, next) {
+export function encodeScopePackage(req, res, next) {
   if (req.url.indexOf('@') !== -1) {
     // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
     req.url = req.url.replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
   }
   next();
-};
+}
 
-module.exports.expect_json = function expect_json(req, res, next) {
-  if (!utils.isObject(req.body)) {
+export function expect_json(req, res, next) {
+  if (!isObject(req.body)) {
     return next( createError[400]('can\'t parse incoming json') );
   }
   next();
-};
+}
 
-module.exports.anti_loop = function(config) {
+export function anti_loop(config) {
   return function(req, res, next) {
     if (req.headers.via != null) {
       let arr = req.headers.via.split(',');
@@ -85,7 +89,7 @@ module.exports.anti_loop = function(config) {
     }
     next();
   };
-};
+}
 
 /**
  * Express doesn't do etags with requests <= 1024b
@@ -99,7 +103,7 @@ function md5sum(data) {
 }
 
 
-module.exports.allow = function(auth) {
+export function allow(auth) {
   return function(action) {
     return function(req, res, next) {
       req.pause();
@@ -122,9 +126,9 @@ module.exports.allow = function(auth) {
       });
     };
   };
-};
+}
 
-module.exports.final = function(body, req, res, next) {
+ export function final(body, req, res, next) {
   if (res.statusCode === 401 && !res.getHeader('WWW-Authenticate')) {
     // they say it's required for 401, so...
     res.header('WWW-Authenticate', 'Basic, Bearer');
@@ -165,9 +169,9 @@ module.exports.final = function(body, req, res, next) {
   }
 
   res.send(body);
-};
+}
 
-module.exports.log = function(req, res, next) {
+export function log(req, res, next) {
   // logger
   req.log = Logger.logger.child({sub: 'in'});
 
@@ -175,6 +179,7 @@ module.exports.log = function(req, res, next) {
   if (_.isNil(_auth) === false) {
     req.headers.authorization = '<Classified>';
   }
+
   let _cookie = req.headers.cookie;
   if (_.isNil(_cookie) === false) {
     req.headers.cookie = '<Classified>';
@@ -248,10 +253,10 @@ module.exports.log = function(req, res, next) {
     log();
   };
   next();
-};
+}
 
 // Middleware
-module.exports.errorReportingMiddleware = function(req, res, next) {
+export function errorReportingMiddleware(req, res, next) {
   res.report_error = res.report_error || function(err) {
     if (err.status && err.status >= 400 && err.status < 600) {
       if (_.isNil(res.headersSent) === false) {
@@ -273,5 +278,4 @@ module.exports.errorReportingMiddleware = function(req, res, next) {
     }
   };
   next();
-};
-
+}
