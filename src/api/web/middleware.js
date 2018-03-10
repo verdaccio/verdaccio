@@ -1,15 +1,12 @@
-/* eslint prefer-rest-params: "off" */
-
 import crypto from 'crypto';
 import _ from 'lodash';
 import {
   validate_name as utilValidateName,
   validate_package as utilValidatePackage,
-  isObject} from '../../lib/utils';
+  isObject,
+  ErrorCode} from '../../lib/utils';
 
-const createError = require('http-errors');
 const Logger = require('../../lib/logger');
-
 
 export function match(regexp) {
   return function(req, res, next, value) {
@@ -34,7 +31,7 @@ export function validate_name(req, res, next, value, name) {
   } else if (utilValidateName(value)) {
     next();
   } else {
-    next( createError[403]('invalid ' + name) );
+    next( ErrorCode.get403('invalid ' + name));
   }
 }
 
@@ -45,14 +42,14 @@ export function validatePackage(req, res, next, value, name) {
   } else if (utilValidatePackage(value)) {
     next();
   } else {
-    next( createError[403]('invalid ' + name) );
+    next( ErrorCode.get403('invalid ' + name) );
   }
 }
 
 export function media(expect) {
   return function(req, res, next) {
     if (req.headers['content-type'] !== expect) {
-      next( createError[415]('wrong content-type, expect: ' + expect
+      next( ErrorCode.getCode(415, 'wrong content-type, expect: ' + expect
         + ', got: '+req.headers['content-type']) );
     } else {
       next();
@@ -70,7 +67,7 @@ export function encodeScopePackage(req, res, next) {
 
 export function expect_json(req, res, next) {
   if (!isObject(req.body)) {
-    return next( createError[400]('can\'t parse incoming json') );
+    return next( ErrorCode.get400('can\'t parse incoming json') );
   }
   next();
 }
@@ -83,7 +80,7 @@ export function anti_loop(config) {
       for (let i=0; i<arr.length; i++) {
         let m = arr[i].match(/\s*(\S+)\s+(\S+)/);
         if (m && m[2] === config.server_id) {
-          return next( createError[508]('loop detected') );
+          return next( ErrorCode.getCode(508, 'loop detected') );
         }
       }
     }
@@ -121,7 +118,7 @@ export function allow(auth) {
         } else {
           // last plugin (that's our built-in one) returns either
           // cb(err) or cb(null, true), so this should never happen
-          throw createError('bug in the auth plugin system');
+          throw ErrorCode.get500('bug in the auth plugin system');
         }
       });
     };
@@ -207,6 +204,7 @@ export function log(req, res, next) {
   let _write = res.write;
   res.write = function(buf) {
     bytesout += buf.length;
+    /* eslint prefer-rest-params: "off" */
     _write.apply(res, arguments);
   };
 
@@ -249,6 +247,7 @@ export function log(req, res, next) {
     if (buf) {
       bytesout += buf.length;
     }
+    /* eslint prefer-rest-params: "off" */
     _end.apply(res, arguments);
     log();
   };
