@@ -1,5 +1,3 @@
-'use strict';
-
 let assert = require('assert');
 let tag_version = require('../../src/lib/utils').tag_version;
 

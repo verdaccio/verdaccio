@@ -1,8 +1,3 @@
-/* eslint prefer-rest-params: "off" */
-/* eslint prefer-spread: "off" */
-
-'use strict';
-
 const assert = require('assert');
 const _ = require('lodash');
 const Error = require('http-errors');
@@ -23,6 +18,7 @@ function flatten(array) {
   let result = [];
   for (let i=0; i<array.length; i++) {
     if (Array.isArray(array[i])) {
+      /* eslint prefer-spread: "off" */
       result.push.apply(result, flatten(array[i]));
     } else {
       result.push(array[i]);
@@ -116,6 +112,7 @@ class Config {
      */
     function normalize_userlist() {
       let result = [];
+      /* eslint prefer-rest-params: "off" */
 
       for (let i=0; i<arguments.length; i++) {
         if (arguments[i] == null) continue;

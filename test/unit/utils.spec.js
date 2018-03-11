@@ -1,5 +1,3 @@
-'use strict';
-
 let assert = require('assert');
 let validate = require('../../src/lib/utils').validate_name;
 

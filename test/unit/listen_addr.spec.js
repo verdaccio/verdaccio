@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const _ = require('lodash');
 const parse = require('../../src/lib/utils').parse_address;

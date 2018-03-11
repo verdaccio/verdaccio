@@ -1,8 +1,3 @@
-'use strict';
-
-require('../lib/startup');
-
-
 module.exports = function () {
   const server2 = process.server2;
 

@@ -1,13 +1,19 @@
+// @flow
+
 import {assign, isObject, isFunction} from 'lodash';
 import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
 import http from'http';
 import https from 'https';
+// $FlowFixMe
 import constants from 'constants';
+import server from '../api/index';
+import {parse_address} from './utils';
 
-const server = require('../api/index');
-const Utils = require('./utils');
+import type {Callback} from '@verdaccio/types';
+import type {$Application} from 'express';
+
 const logger = require('./logger');
 
 /**
@@ -21,7 +27,7 @@ const logger = require('./logger');
     - localhost:5557
     @return {Array}
  */
-export function getListListenAddresses(argListen, configListen) {
+export function getListListenAddresses(argListen: string, configListen: mixed) {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -34,7 +40,7 @@ export function getListListenAddresses(argListen, configListen) {
     addresses = ['4873'];
   }
   addresses = addresses.map(function(addr) {
-    const parsedAddr = Utils.parse_address(addr);
+    const parsedAddr = parse_address(addr);
 
     if (!parsedAddr) {
       logger.logger.warn({addr: addr},
@@ -57,7 +63,7 @@ export function getListListenAddresses(argListen, configListen) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, callback) {
+function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback) {
   if (isObject(config) === false) {
     throw new Error('config file must be an object');
   }
@@ -143,7 +149,7 @@ function handleHTTPS(app, configPath, config) {
   }
 }
 
-function listenDefaultCallback(webServer, addr, pkgName, pkgVersion) {
+function listenDefaultCallback(webServer: $Application, addr: any, pkgName: string, pkgVersion: string) {
   webServer.listen(addr.port || addr.path, addr.host, () => {
     // send a message for tests
     if (isFunction(process.send)) {
@@ -151,6 +157,7 @@ function listenDefaultCallback(webServer, addr, pkgName, pkgVersion) {
         verdaccio_started: true,
       });
     }
+  // $FlowFixMe
   }).on('error', function(err) {
     logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
     process.exit(2);

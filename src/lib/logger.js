@@ -1,5 +1,3 @@
-'use strict';
-
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');

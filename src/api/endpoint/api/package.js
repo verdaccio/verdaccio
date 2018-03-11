@@ -1,33 +1,33 @@
 const _ = require('lodash');
 const createError = require('http-errors');
 
-const Middleware = require('../../web/middleware');
-const Utils = require('../../../lib/utils');
+const {allow} = require('../../middleware');
+const {DIST_TAGS, filter_tarball_urls, get_version} = require('../../../lib/utils');
 
-module.exports = function(route, auth, storage, config) {
-  const can = Middleware.allow(auth);
+export default function(route, auth, storage, config) {
+  const can = allow(auth);
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function(req, res, next) {
     const getPackageMetaCallback = function(err, info) {
       if (err) {
         return next(err);
       }
-      info = Utils.filter_tarball_urls(info, req, config);
+      info = filter_tarball_urls(info, req, config);
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {
         return next(info);
       }
 
-      let t = Utils.get_version(info, queryVersion);
+      let t = get_version(info, queryVersion);
       if (_.isNil(t) === false) {
         return next(t);
       }
 
-      if (_.isNil(info['dist-tags']) === false) {
-        if (_.isNil(info['dist-tags'][queryVersion]) === false) {
-          queryVersion = info['dist-tags'][queryVersion];
-          t = Utils.get_version(info, queryVersion);
+      if (_.isNil(info[DIST_TAGS]) === false) {
+        if (_.isNil(info[DIST_TAGS][queryVersion]) === false) {
+          queryVersion = info[DIST_TAGS][queryVersion];
+          t = get_version(info, queryVersion);
           if (_.isNil(t) === false) {
             return next(t);
           }
@@ -56,4 +56,4 @@ module.exports = function(route, auth, storage, config) {
     res.header('Content-Type', 'application/octet-stream');
     stream.pipe(res);
   });
-};
+}

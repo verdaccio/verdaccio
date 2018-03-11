@@ -1,20 +1,16 @@
-'use strict';
-
 const _ = require('lodash');
 const Path = require('path');
 const createError = require('http-errors');
 
-const Middleware = require('../../web/middleware');
+const {media, expect_json, allow} = require('../../middleware');
 const Notify = require('../../../lib/notify');
-const Utils = require('../../../lib/utils');
+const {DIST_TAGS, validate_metadata, isObject} = require('../../../lib/utils');
 const mime = require('mime');
 
-const media = Middleware.media;
-const expect_json = Middleware.expect_json;
 const notify = Notify.notify;
 
-module.exports = function(router, auth, storage, config) {
-  const can = Middleware.allow(auth);
+export default function(router, auth, storage, config) {
+  const can = allow(auth);
 
   // publishing a package
   router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expect_json, function(req, res, next) {
@@ -84,7 +80,7 @@ module.exports = function(router, auth, storage, config) {
             return next(err);
           }
 
-          add_tags(metadata['dist-tags'], function(err) {
+          add_tags(metadata[DIST_TAGS], function(err) {
             if (err) {
               return next(err);
             }
@@ -96,13 +92,13 @@ module.exports = function(router, auth, storage, config) {
       });
     };
 
-    if (Object.keys(req.body).length === 1 && Utils.isObject(req.body.users)) {
+    if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
       return next( createError[404]('npm star|unstar calls are not implemented') );
     }
 
     try {
-      metadata = Utils.validate_metadata(req.body, name);
+      metadata = validate_metadata(req.body, name);
     } catch(err) {
       return next( createError[422]('bad incoming package data') );
     }
@@ -185,4 +181,4 @@ module.exports = function(router, auth, storage, config) {
       });
     });
   });
-};
+}

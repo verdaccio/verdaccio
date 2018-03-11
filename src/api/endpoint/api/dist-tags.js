@@ -1,13 +1,11 @@
-'use strict';
+import mime from 'mime';
+import _ from 'lodash';
+import {media, allow} from '../../middleware';
+import {DIST_TAGS} from '../../../lib/utils';
 
-const Middleware = require('../../web/middleware');
-const mime = require('mime');
-const _ = require('lodash');
 
-const media = Middleware.media;
-
-module.exports = function(route, auth, storage) {
-  const can = Middleware.allow(auth);
+export default function(route, auth, storage) {
+  const can = allow(auth);
   const tag_package_version = function(req, res, next) {
     if (_.isString(req.body) === false) {
       return next('route');
@@ -57,7 +55,7 @@ module.exports = function(route, auth, storage) {
           return next(err);
         }
 
-        next(info['dist-tags']);
+        next(info[DIST_TAGS]);
       },
     });
   });
@@ -71,4 +69,4 @@ module.exports = function(route, auth, storage) {
         return next({ok: 'tags updated'});
       });
     });
-};
+}

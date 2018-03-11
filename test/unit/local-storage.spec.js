@@ -1,4 +1,5 @@
 // @flow
+
 import rimRaf from 'rimraf';
 import path from 'path';
 import LocalStorage from '../../src/lib/local-storage';

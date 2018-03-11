@@ -22,6 +22,11 @@ export interface IAuth {
 	secret: string;
 	plugins: Array<any>;
 	aes_encrypt(buf: Buffer): Buffer;
+	basic_middleware(): $NextFunctionVer;
+	jwtMiddleware(): $NextFunctionVer;
+	authenticate(user: string, password: string, cb: Callback): void;
+	allow_access(packageName: string, user: string, callback: Callback): void;
+	issue_token(user: string, time: string): string;
 	add_user(user: string, password: string, cb: Callback): any;
 }
 
@@ -108,3 +113,4 @@ export interface IStorage {
 export type $RequestExtend = $Request & {remote_user?: any}
 export type $ResponseExtend = $Response & {cookies?: any}
 export type $NextFunctionVer = NextFunction & mixed;
+export type $SidebarPackage = Package & {latest: mixed}

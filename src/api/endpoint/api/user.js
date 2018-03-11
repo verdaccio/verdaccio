@@ -7,7 +7,7 @@ import {ErrorCode} from '../../../lib/utils';
 import _ from 'lodash';
 import Cookies from 'cookies';
 
-module.exports = function(route: Router, auth: IAuth) {
+export default function(route: Router, auth: IAuth) {
   route.get('/-/user/:org_couchdb_user', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     res.status(200);
     next({
@@ -70,4 +70,4 @@ module.exports = function(route: Router, auth: IAuth) {
       roles: [],
     });
   });
-};
+}

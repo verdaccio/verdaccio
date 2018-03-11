@@ -1,5 +1,3 @@
-'use strict';
-
 let assert = require('assert');
 let parseInterval = require('../../src/lib/utils').parseInterval;
 
