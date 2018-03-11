@@ -19,7 +19,6 @@
     "@verdaccio/local-storage": "0.3.0",
     "@verdaccio/streams": "1.0.0",
     "JSONStream": "^1.1.1",
-    "apache-md5": "^1.1.2",
     "async": "^2.6.0",
     "body-parser": "^1.15.0",
     "bunyan": "^1.8.0",
@@ -45,7 +44,6 @@
     "pkginfo": "^0.4.0",
     "request": "2.83.0",
     "semver": "^5.5.0",
-    "unix-crypt-td-js": "^1.0.0",
     "verdaccio-htpasswd": "0.1.4"
   },
   "devDependencies": {
