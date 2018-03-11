@@ -18,7 +18,7 @@ describe('api with no limited access configuration', () => {
   let app;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/access-storage');
+    const store = path.join(__dirname, './partials/store/access-storage');
     rimraf(store, () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
@@ -32,6 +32,17 @@ describe('api with no limited access configuration', () => {
       auth = new Auth(config);
       app = indexAPI(config, auth, storage);
       done();
+    });
+  });
+
+  afterAll(function(done) {
+    const store = path.join(__dirname, './partials/store/access-storage');
+    rimraf(store, (err) => {
+      if (err) {
+        return done(err);
+      }
+
+      return done();
     });
   });
 
@@ -51,9 +62,9 @@ describe('api with no limited access configuration', () => {
         });
     });
 
-    test('should success on fetch endpoint /-/react', (done) => {
+    test('should success on fetch endpoint /-/vue', (done) => {
       request(app)
-        .get('/react')
+        .get('/vue')
         .set('content-type', 'application/json; charset=utf-8')
         .expect('Content-Type', /json/)
         .expect(200)
