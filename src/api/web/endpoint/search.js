@@ -1,9 +1,13 @@
+// @flow
+
 import Search from '../../../lib/search';
 import {DIST_TAGS} from '../../../lib/utils';
+import type {Router} from 'express';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
 
-function addSearchWebApi(route, storage, auth) {
+function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   // Search package
-  route.get('/search/:anything', function(req, res, next) {
+  route.get('/search/:anything', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const results = Search.query(req.params.anything);
     const packages = [];
 

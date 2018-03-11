@@ -1,6 +1,6 @@
 // @flow
 
-import type {IAuth, IStorage} from '../../../types';
+import type {IAuth, IStorageHandler} from '../../../types';
 import type {Config} from '@verdaccio/types';
 
 import express from 'express';
@@ -15,14 +15,16 @@ import pkg from './api/package';
 
 const {match, validate_name, validatePackage, encodeScopePackage, anti_loop} = require('../middleware');
 
-export default function(config: Config, auth: IAuth, storage: IStorage) {
+export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
+  // $FlowFixMe
   app.param('package', validatePackage);
+  // $FlowFixMe
   app.param('filename', validate_name);
   app.param('tag', validate_name);
   app.param('version', validate_name);

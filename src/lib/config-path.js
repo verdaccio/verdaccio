@@ -1,3 +1,5 @@
+// @flow
+
 import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
@@ -16,7 +18,7 @@ const pkgJSON = require('../../package.json');
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile(configPath) {
+function findConfigFile(configPath: any) {
   if (_.isNil(configPath) === false) {
     return Path.resolve(configPath);
   }
@@ -27,7 +29,7 @@ function findConfigFile(configPath) {
     throw new Error('no configuration files can be proccesed');
   }
 
-  const primaryConf = _.find(configPaths, (configLocation) => fileExists(configLocation.path));
+  const primaryConf: any = _.find(configPaths, (configLocation: any) => fileExists(configLocation.path));
   if (_.isNil(primaryConf) === false) {
     return primaryConf.path;
   }
@@ -35,7 +37,7 @@ function findConfigFile(configPath) {
   return createConfigFile(_.head(configPaths)).path;
 }
 
-function createConfigFile(configLocation) {
+function createConfigFile(configLocation: any) {
   createConfigFolder(configLocation);
 
   const defaultConfig = updateStorageLinks(configLocation, readDefaultConfig());
@@ -61,6 +63,7 @@ function updateStorageLinks(configLocation, defaultConfig) {
 
     // $XDG_DATA_HOME defines the base directory relative to which user specific data files should be stored,
     // If $XDG_DATA_HOME is either not set or empty, a default equal to $HOME/.local/share should be used.
+    // $FlowFixMe
     let dataDir = process.env.XDG_DATA_HOME || Path.join(process.env.HOME, '.local', 'share');
     if (folder_exists(dataDir)) {
       dataDir = Path.resolve(Path.join(dataDir, pkgJSON.name, 'storage'));

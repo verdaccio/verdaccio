@@ -1,8 +1,13 @@
+// @flow
+
 import HTTPError from 'http-errors';
+import type {Config} from '@verdaccio/types';
+import type {Router} from 'express';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer} from '../../../../types';
 import {combineBaseUrl, getWebProtocol} from '../../../lib/utils';
 
-function addUserAuthApi(route, auth, config) {
-  route.post('/login', function(req, res, next) {
+function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
+  route.post('/login', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     auth.authenticate(req.body.username, req.body.password, (err, user) => {
       if (!err) {
         req.remote_user = user;
@@ -17,7 +22,7 @@ function addUserAuthApi(route, auth, config) {
     });
   });
 
-  route.post('/-/logout', function(req, res, next) {
+  route.post('/-/logout', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const base = combineBaseUrl(getWebProtocol(req), req.get('host'), config.url_prefix);
 
     res.cookies.set('token', '');

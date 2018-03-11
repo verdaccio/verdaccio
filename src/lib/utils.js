@@ -399,24 +399,24 @@ function addScope(scope: string, packageName: string) {
   return `@${scope}/${packageName}`;
 }
 
-function deleteProperties(propertiesToDelete: Array<string>, packageInfo: Package) {
+function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
   _.forEach(propertiesToDelete, (property) => {
-    delete packageInfo[property];
+    delete objectItem[property];
   });
 
-  return packageInfo;
+  return objectItem;
 }
 
-function addGravatarSupport(info: any) {
-  if (_.isString(_.get(info, 'latest.author.email'))) {
-    info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
+function addGravatarSupport(pkgInfo: any) {
+  if (_.isString(_.get(pkgInfo, 'latest.author.email'))) {
+    pkgInfo.latest.author.avatar = generateGravatarUrl(pkgInfo.latest.author.email);
   } else {
     // _.get can't guarantee author property exist
-    _.set(info, 'latest.author.avatar', generateGravatarUrl());
+    _.set(pkgInfo, 'latest.author.avatar', generateGravatarUrl());
   }
 
-  if (_.get(info, 'latest.contributors.length', 0) > 0) {
-    info.latest.contributors = _.map(info.latest.contributors, (contributor) => {
+  if (_.get(pkgInfo, 'latest.contributors.length', 0) > 0) {
+    pkgInfo.latest.contributors = _.map(pkgInfo.latest.contributors, (contributor) => {
         if (_.isString(contributor.email)) {
           contributor.avatar = generateGravatarUrl(contributor.email);
         } else {
@@ -428,7 +428,7 @@ function addGravatarSupport(info: any) {
     );
   }
 
-  return info;
+  return pkgInfo;
 }
 
 export {

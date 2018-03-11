@@ -1,3 +1,5 @@
+// @flow
+
 import express from 'express';
 import Error from 'http-errors';
 import compression from 'compression';
@@ -9,18 +11,22 @@ import hookDebug from './debug';
 import Auth from '../lib/auth';
 import apiEndpoint from './endpoint';
 
-const Logger = require('../lib/logger');
+import type {$Application} from 'express';
+import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
+import type {Config as IConfig} from '@verdaccio/types';
+
+const LoggerApp = require('../lib/logger');
 const Config = require('../lib/config');
 const Middleware = require('./middleware');
 const Cats = require('../lib/status-cats');
 
-export default function(configHash) {
+export default function(configHash: any) {
   // Config
-  Logger.setup(configHash.logs);
-  const config = new Config(configHash);
-  const storage = new Storage(config);
-  const auth = new Auth(config);
-  const app = express();
+  LoggerApp.setup(configHash.logs);
+  const config: IConfig = new Config(configHash);
+  const storage: IStorageHandler = new Storage(config);
+  const auth: IAuth = new Auth(config);
+  const app: $Application = express();
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
@@ -29,14 +35,14 @@ export default function(configHash) {
   // Router setup
   app.use(Middleware.log);
   app.use(Middleware.errorReportingMiddleware);
-  app.use(function(req, res, next) {
+  app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     res.setHeader('X-Powered-By', config.user_agent);
     next();
   });
   app.use(Cats.middleware);
   app.use(compression());
 
-  app.get('/favicon.ico', function(req, res, next) {
+  app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     req.url = '/-/static/favicon.png';
     next();
   });
@@ -49,7 +55,7 @@ export default function(configHash) {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: Logger.logger,
+    logger: LoggerApp.logger,
   };
   const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin) {
     return plugin.register_middlewares;
@@ -66,17 +72,17 @@ export default function(configHash) {
     app.use('/', require('./web')(config, auth, storage));
     app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
   } else {
-    app.get('/', function(req, res, next) {
+    app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(Error[404]('Web interface is disabled in the config file'));
     });
   }
 
   // Catch 404
-  app.get('/*', function(req, res, next) {
+  app.get('/*', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next(Error[404]('File not found'));
   });
 
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {
       if (err.code === 'ECONNABORT' && res.statusCode === 304) {
         return next();
