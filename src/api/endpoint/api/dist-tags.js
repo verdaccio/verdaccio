@@ -1,6 +1,7 @@
-const {media, allow} = require('../../middleware');
-const mime = require('mime');
-const _ = require('lodash');
+import mime from 'mime';
+import _ from 'lodash';
+import {media, allow} from '../../middleware';
+import {DIST_TAGS} from '../../../lib/utils';
 
 
 export default function(route, auth, storage) {
@@ -54,7 +55,7 @@ export default function(route, auth, storage) {
           return next(err);
         }
 
-        next(info['dist-tags']);
+        next(info[DIST_TAGS]);
       },
     });
   });

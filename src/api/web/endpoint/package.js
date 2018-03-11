@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {addScope, addGravatarSupport, deleteProperties, sortByName} from '../../../lib/utils';
+import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS} from '../../../lib/utils';
 import {allow} from '../../middleware';
 import async from 'async';
 import marked from 'marked';
@@ -66,7 +66,7 @@ function addPackageWebApi(route, storage, auth) {
       req,
       callback: function(err, info) {
         if (_.isNil(err)) {
-          info.latest = info.versions[info['dist-tags'].latest];
+          info.latest = info.versions[info[DIST_TAGS].latest];
           info = deleteProperties(['readme', 'versions'], info);
           info = addGravatarSupport(info);
           next(info);

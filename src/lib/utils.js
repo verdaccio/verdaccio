@@ -13,6 +13,8 @@ import type {$Request} from 'express';
 
 const Logger = require('./logger');
 
+export const DIST_TAGS = 'dist-tags';
+
 /**
  * Validate a package.
  * @return {Boolean} whether the package is valid or not
@@ -72,8 +74,8 @@ function validate_metadata(object: Package, name: string) {
 	assert(isObject(object), 'not a json object');
 	assert.equal(object.name, name);
 
-	if (!isObject(object['dist-tags'])) {
-		object['dist-tags'] = {};
+	if (!isObject(object[DIST_TAGS])) {
+		object[DIST_TAGS] = {};
 	}
 
 	if (!isObject(object['versions'])) {
@@ -145,16 +147,16 @@ function filter_tarball_urls(pkg: Package, req: $Request, config: Config) {
  */
 function tag_version(data: Package, version: string, tag: string) {
 	if (_.isEmpty(tag) === false) {
-		if (data['dist-tags'][tag] !== version) {
+		if (data[DIST_TAGS][tag] !== version) {
 			if (semver.parse(version, true)) {
 				// valid version - store
-				data['dist-tags'][tag] = version;
+				data[DIST_TAGS][tag] = version;
 				return true;
 			}
 		}
 		Logger.logger.warn({ver: version, tag: tag}, 'ignoring bad version @{ver} in @{tag}');
-		if (tag && data['dist-tags'][tag]) {
-			delete data['dist-tags'][tag];
+		if (tag && data[DIST_TAGS][tag]) {
+			delete data[DIST_TAGS][tag];
 		}
 	}
 	return false;
@@ -246,31 +248,31 @@ function semverSort(listVersions: Array<string>) {
  */
 function normalize_dist_tags(pkg: Package) {
 	let sorted;
-	if (!pkg['dist-tags'].latest) {
+	if (!pkg[DIST_TAGS].latest) {
 		// overwrite latest with highest known version based on semver sort
 		sorted = semverSort(Object.keys(pkg.versions));
 		if (sorted && sorted.length) {
-				pkg['dist-tags'].latest = sorted.pop();
+				pkg[DIST_TAGS].latest = sorted.pop();
 		}
 	}
 
-	for (let tag in pkg['dist-tags']) {
-		if (_.isArray(pkg['dist-tags'][tag])) {
-			if (pkg['dist-tags'][tag].length) {
+	for (let tag in pkg[DIST_TAGS]) {
+		if (_.isArray(pkg[DIST_TAGS][tag])) {
+			if (pkg[DIST_TAGS][tag].length) {
 				// sort array
 				// $FlowFixMe
-				sorted = semverSort(pkg['dist-tags'][tag]);
+				sorted = semverSort(pkg[DIST_TAGS][tag]);
 				if (sorted.length) {
 						// use highest version based on semver sort
-						pkg['dist-tags'][tag] = sorted.pop();
+						pkg[DIST_TAGS][tag] = sorted.pop();
 				}
 			} else {
-				delete pkg['dist-tags'][tag];
+				delete pkg[DIST_TAGS][tag];
 			}
-		} else if (_.isString(pkg['dist-tags'][tag] )) {
-			if (!semver.parse(pkg['dist-tags'][tag], true)) {
+		} else if (_.isString(pkg[DIST_TAGS][tag] )) {
+			if (!semver.parse(pkg[DIST_TAGS][tag], true)) {
 				// if the version is invalid, delete the dist-tag entry
-				delete pkg['dist-tags'][tag];
+				delete pkg[DIST_TAGS][tag];
 			}
 		}
 	}
@@ -323,7 +325,7 @@ function getWebProtocol(req: $Request) {
 }
 
 const getLatestVersion = function(pkgInfo: Package) {
-  return pkgInfo['dist-tags'].latest;
+  return pkgInfo[DIST_TAGS].latest;
 };
 
 const ErrorCode = {

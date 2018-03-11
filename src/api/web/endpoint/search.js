@@ -1,4 +1,5 @@
 import Search from '../../../lib/search';
+import {DIST_TAGS} from '../../../lib/utils';
 
 function addSearchWebApi(route, storage, auth) {
   // Search package
@@ -16,7 +17,7 @@ function addSearchWebApi(route, storage, auth) {
                 return;
               }
 
-              packages.push(entry.versions[entry['dist-tags'].latest]);
+              packages.push(entry.versions[entry[DIST_TAGS].latest]);
             });
           }
 

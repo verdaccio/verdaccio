@@ -4,7 +4,7 @@ const createError = require('http-errors');
 
 const {media, expect_json, allow} = require('../../middleware');
 const Notify = require('../../../lib/notify');
-const Utils = require('../../../lib/utils');
+const {DIST_TAGS, validate_metadata, isObject} = require('../../../lib/utils');
 const mime = require('mime');
 
 const notify = Notify.notify;
@@ -80,7 +80,7 @@ export default function(router, auth, storage, config) {
             return next(err);
           }
 
-          add_tags(metadata['dist-tags'], function(err) {
+          add_tags(metadata[DIST_TAGS], function(err) {
             if (err) {
               return next(err);
             }
@@ -92,13 +92,13 @@ export default function(router, auth, storage, config) {
       });
     };
 
-    if (Object.keys(req.body).length === 1 && Utils.isObject(req.body.users)) {
+    if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
       return next( createError[404]('npm star|unstar calls are not implemented') );
     }
 
     try {
-      metadata = Utils.validate_metadata(req.body, name);
+      metadata = validate_metadata(req.body, name);
     } catch(err) {
       return next( createError[422]('bad incoming package data') );
     }

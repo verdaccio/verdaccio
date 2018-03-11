@@ -11,7 +11,7 @@ import Search from './search';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
 import ProxyStorage from './up-storage';
-import * as Utils from './utils';
+import {ErrorCode, normalize_dist_tags, validate_metadata, isObject, DIST_TAGS} from './utils';
 import type {IStorage, IProxy, IStorageHandler, ProxyList} from '../../types';
 import type {
   Versions,
@@ -26,7 +26,7 @@ import type {
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('../lib/logger');
-const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
+const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time'];
 const getDefaultMetadata = function(name): Package {
   const pkgMetadata: Package = {
     name,
@@ -85,7 +85,7 @@ class Storage implements IStorageHandler {
             return reject(err);
           }
           if (results) {
-            return reject(Utils.ErrorCode.get409('this package is already present'));
+            return reject(ErrorCode.get409('this package is already present'));
           }
           return resolve();
         });
@@ -106,7 +106,7 @@ class Storage implements IStorageHandler {
           }
           // checking package
           if (results) {
-            return reject(Utils.ErrorCode.get409('this package is already present'));
+            return reject(ErrorCode.get409('this package is already present'));
           }
           for (let i = 0; i < err_results.length; i++) {
             // checking error
@@ -421,7 +421,7 @@ class Storage implements IStorageHandler {
             }
           }
 
-          Utils.normalize_dist_tags(result);
+          normalize_dist_tags(result);
 
           // npm can throw if this field doesn't exist
           result._attachments = {};
@@ -501,7 +501,7 @@ class Storage implements IStorageHandler {
     const getPackage = function(i) {
       self.localStorage.getPackageMetadata(locals[i], function(err, info) {
         if (_.isNil(err)) {
-          const latest = info['dist-tags'].latest;
+          const latest = info[DIST_TAGS].latest;
 
           if (latest && info.versions[latest]) {
             packages.push(info.versions[latest]);
@@ -550,7 +550,7 @@ class Storage implements IStorageHandler {
       const _options = Object.assign({}, options);
       let upLinkMeta = packageInfo._uplinks[upLink.upname];
 
-      if (Utils.isObject(upLinkMeta)) {
+      if (isObject(upLinkMeta)) {
 
         const fetched = upLinkMeta.fetched;
 
@@ -572,7 +572,7 @@ class Storage implements IStorageHandler {
         }
 
         try {
-          Utils.validate_metadata(upLinkResponse, name);
+          validate_metadata(upLinkResponse, name);
         } catch(err) {
           self.logger.error({
             sub: 'out',
@@ -612,7 +612,7 @@ class Storage implements IStorageHandler {
     }, (err: Error, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
-        return callback( Utils.ErrorCode.get404('no such package available')
+        return callback( ErrorCode.get404('no such package available')
           , null
           , upLinksErrors );
       }
@@ -678,15 +678,12 @@ class Storage implements IStorageHandler {
       }
     }
 
-    // refresh dist-tags
-    const distTag = 'dist-tags';
-
-    for (let i in up[distTag]) {
-      if (local[distTag][i] !== up[distTag][i]) {
-        if (!local[distTag][i] || semver.lte(local[distTag][i], up[distTag][i])) {
-          local[distTag][i] = up[distTag][i];
+    for (let i in up[DIST_TAGS]) {
+      if (local[DIST_TAGS][i] !== up[DIST_TAGS][i]) {
+        if (!local[DIST_TAGS][i] || semver.lte(local[DIST_TAGS][i], up[DIST_TAGS][i])) {
+          local[DIST_TAGS][i] = up[DIST_TAGS][i];
         }
-        if (i === 'latest' && local[distTag][i] === up[distTag][i]) {
+        if (i === 'latest' && local[DIST_TAGS][i] === up[DIST_TAGS][i]) {
           // if remote has more fresh package, we should borrow its readme
           local.readme = up.readme;
         }
