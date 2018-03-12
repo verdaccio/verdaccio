@@ -1,5 +1,19 @@
 /* your custom css */
 
+.mainContainer .wrapper a,
+.inner .projectIntro a {
+  background-color: rgba(10, 78, 31, 0.15);
+  color: #1a1a1a;
+  transition: all 0.25s ease-out;
+  text-decoration: underline;
+}
+
+.mainContainer .wrapper a:hover,
+.inner .projectIntro a:hover {
+  background-color: rgba(10, 78, 31, 0.35);
+  text-decoration: none !important;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 
