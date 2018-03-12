@@ -4,7 +4,9 @@ title: "Package Access"
 ---
 It's a series of contrains that allow or restrict access to the local storage based in specific criteria.
 
-The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the `htpasswd` plugin. If you use a different plugin the behaviour might be different. The default plugin `htpasswd` does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it. For more information about permissions visit [the authentification section in the wiki](auth.md).
+The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it.
+
+For more information about permissions visit [the authentification section in the wiki](auth.md).
 
 ### Usage
 
@@ -12,21 +14,21 @@ The security constraints remains on shoulders of the plugin being used, by defau
 packages:
   # scoped packages
   '@scope/*':
-    allow_access: all
-    allow_publish: all
+    access: all
+    publish: all
     proxy: server2
 
   'private-*':
     access: all
     publish: all
-    proxy_access: uplink1
+    proxy: uplink1
 
   '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
-    allow_access: all
-    allow_publish: all
-    proxy_access: uplink2
+    access: all
+    publish: all
+    proxy: uplink2
 ```
 
 if none is specified, the default one remains
@@ -80,13 +82,13 @@ Define multiple access groups is fairly easy, just define them with a white spac
 
 ```yaml
   'company-*':
-    allow_access: admin internal
-    allow_publish: admin
-    proxy_access: server1
+    access: admin internal
+    publish: admin
+    proxy: server1
   'supersecret-*':
-    allow_access: secret super-secret-area ultra-secret-area
-    allow_publish: secret ultra-secret-area
-    proxy_access: server1
+    access: secret super-secret-area ultra-secret-area
+    publish: secret ultra-secret-area
+    proxy: server1
 
 ```
 
@@ -102,15 +104,43 @@ packages:
      publish: $authenticated
 ```
 
+#### Blocking proxying a set of specific packages
+
+You might want to block one or several packages to fetch from remote repositories., but, at the same time, allow others to access different *uplinks*.
+
+Let's see the following example:
+
+```yaml
+packages:
+  'jquery':
+     access: $all
+     publish: $all
+  'my-company-*':
+     access: $all
+     publish: $authenticated     
+  '**':
+     access: all
+     publish: $authenticated
+     proxy: npmjs         
+```
+
+Let's describe what we want with the example above:
+
+* I want to host my own `jquery` dependency but I need to avoid proxying it.
+* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
+* I want to proxying all the rest dependencies.
+
+Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way how your dependencies are solved will be affected.
+
 ### Configuration
 
 You can define mutiple `packages` and each of them must have an unique `Regex`.
 
-| Property              | Type    | Required | Example        | Support | Description                                 |
-| --------------------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| allow_access/access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| allow_publish/publish | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy_access/proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage               | boolean | No       | [true,false]   | all     | TODO                                        |
+| Property | Type    | Required | Example        | Support | Description                                 |
+| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
+| access   | string  | No       | $all           | all     | define groups allowed to access the package |
+| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
+| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
+| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
 
-We higlight recommend do not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated, please use the short version of each of those (**access**/**publish**/**proxy**
+> We higlight recommend do not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and soon will be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
