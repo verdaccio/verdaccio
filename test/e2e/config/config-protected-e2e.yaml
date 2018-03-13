@@ -1,0 +1,30 @@
+# this is useless yet since we use a custom storage, just ignore it
+storage: ./store-e2e
+
+web:
+  enable: true
+  title: verdaccio-server-protected-e2e
+
+store:
+  memory:
+    cache: true
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+logs:
+  - {type: stdout, format: pretty, level: warn}
+
+packages:
+  'protected-*':
+    access: $authenticated
+    publish: $authenticated
+
+listen: 0.0.0.0:55552
+
+# expose internal methods
+_debug: true

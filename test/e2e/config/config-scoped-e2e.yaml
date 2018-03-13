@@ -1,3 +1,4 @@
+# this is useless yet since we use a custom storage, just ignore it
 storage: ./store-e2e
 
 web:
@@ -24,7 +25,7 @@ packages:
     publish: $all
   '**':
     access: $all
-    publish: $all
+    publish: $authenticated
 
 listen: 0.0.0.0:55558
 
