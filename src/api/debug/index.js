@@ -1,8 +1,12 @@
-import _ from 'lodash';
+// @flow
 
-export default (app, selfPath) => {
+import _ from 'lodash';
+import type {$Application} from 'express';
+import type {$ResponseExtend, $RequestExtend, $NextFunctionVer} from '../../../types';
+
+export default (app: $Application, selfPath: string) => {
     // Hook for tests only
-    app.get('/-/_debug', function(req, res, next) {
+    app.get('/-/_debug', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       const doGarbabeCollector = _.isNil(global.gc) === false;
 
       if (doGarbabeCollector) {

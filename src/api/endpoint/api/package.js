@@ -1,13 +1,16 @@
-const _ = require('lodash');
-const createError = require('http-errors');
+// @flow
 
-const {allow} = require('../../middleware');
-const {DIST_TAGS, filter_tarball_urls, get_version} = require('../../../lib/utils');
+import _ from 'lodash';
+import {allow} from '../../middleware';
+import {DIST_TAGS, filter_tarball_urls, get_version, ErrorCode} from '../../../lib/utils';
+import type {Router} from 'express';
+import type {Config} from '@verdaccio/types';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
 
-export default function(route, auth, storage, config) {
+export default function(route: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);
   // TODO: anonymous user?
-  route.get('/:package/:version?', can('access'), function(req, res, next) {
+  route.get('/:package/:version?', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const getPackageMetaCallback = function(err, info) {
       if (err) {
         return next(err);
@@ -33,8 +36,7 @@ export default function(route, auth, storage, config) {
           }
         }
       }
-
-      return next( createError[404]('version not found: ' + req.params.version) );
+      return next(ErrorCode.get404('version not found: ' + req.params.version));
     };
 
     storage.getPackage({
@@ -44,7 +46,7 @@ export default function(route, auth, storage, config) {
     });
   });
 
-  route.get('/:package/-/:filename', can('access'), function(req, res) {
+  route.get('/:package/-/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend) {
     const stream = storage.get_tarball(req.params.package, req.params.filename);
 
     stream.on('content-length', function(content) {

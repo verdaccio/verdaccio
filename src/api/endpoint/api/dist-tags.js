@@ -1,12 +1,16 @@
+// @flow
+
 import mime from 'mime';
 import _ from 'lodash';
 import {media, allow} from '../../middleware';
 import {DIST_TAGS} from '../../../lib/utils';
+import type {Router} from 'express';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
 
 
-export default function(route, auth, storage) {
+export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   const can = allow(auth);
-  const tag_package_version = function(req, res, next) {
+  const tag_package_version = function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isString(req.body) === false) {
       return next('route');
     }
@@ -32,7 +36,7 @@ export default function(route, auth, storage) {
   route.put('/-/package/:package/dist-tags/:tag',
     can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req, res, next) {
+  route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const tags = {};
     tags[req.params.tag] = null;
     storage.mergeTags(req.params.package, tags, function(err) {
@@ -46,7 +50,7 @@ export default function(route, auth, storage) {
     });
   });
 
-  route.get('/-/package/:package/dist-tags', can('access'), function(req, res, next) {
+  route.get('/-/package/:package/dist-tags', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.getPackage({
       name: req.params.package,
       req,
@@ -60,7 +64,7 @@ export default function(route, auth, storage) {
     });
   });
 
-  route.post('/-/package/:package/dist-tags', can('publish'), function(req, res, next) {
+  route.post('/-/package/:package/dist-tags', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       storage.mergeTags(req.params.package, req.body, function(err) {
         if (err) {
           return next(err);
