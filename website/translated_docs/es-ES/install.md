@@ -2,19 +2,19 @@
 id: installation
 title: "Installation"
 ---
-Verdaccio es una aplicación web multiplataforma, para instalarla al menos necesitas ciertos prerrequisitos.
+Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
 
 #### Prerrequisitos
 
 1. Node mayor que 
-    - Para la versión de `verdaccio@2.x` soportamos desde Node `v4.6.1`.
-    - Para la versión `verdaccio@3.x` soportamos como mínimo Node `6.12.0`
+    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
+    - For version `verdaccio@3.x` Node `6.12.0` is the minimum supported version.
 2. npm `>=3.x` o `yarn`
-3. La interfaz web soporta los exploradores `Chrome, Firefox, Edge, and IE9`
+3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
 
 ## Instalando el CLI
 
-`verdaccio` debe ser instalado globamente usando cualquiera de estas opciones
+`verdaccio` must be installed globaly using either of the following methods:
 
 Usando `npm`
 
@@ -30,7 +30,7 @@ yarn global add verdaccio
 
 ## Uso Básico
 
-Una vez ha sido instalado solo necesitas ejecutar el comando CLI.
+Once it has been installed, you only need to execute the CLI command:
 
 ```bash
 $> verdaccio
@@ -40,8 +40,8 @@ warn --- http address - http://localhost:5555/ - verdaccio/3.0.0
 
 ![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
 
-Para mas información sobre el CLI por favor [lea la sección cli](cli.md).
+For more information about the CLI, please [read the cli section](cli.md).
 
 ## Imagen de Docker
 
-`verdaccio` ofrece una imagen Docker lista para usar, en el mayor de los casos es suficiente con la configuración por defecto, para mas información sobre como instalar la imagen oficial [lea la sección de Docker](docker.md).
+`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
