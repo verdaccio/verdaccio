@@ -161,9 +161,9 @@ http_proxy: http://something.local/
 https_proxy: https://something.local/
 ```
 
-### Notifications
+### Notificaciones
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilita notificaciones en aplicaciones a terceros es muy sencillo via web hooks. Para más información sobre esta sección lea [la página de notificaciones](notifications.md).
 
 ```yaml
 notify:
