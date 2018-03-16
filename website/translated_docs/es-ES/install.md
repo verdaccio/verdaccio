@@ -14,7 +14,7 @@ Verdaccio es una aplicación web multiplataforma. Para instalarlo, necesitas uno
 
 ## Instalando el CLI
 
-`verdaccio` must be installed globaly using either of the following methods:
+`verdaccio` debe ser instalado globalmente usando uno de los siguientes métodos:
 
 Usando `npm`
 
@@ -30,7 +30,7 @@ yarn global add verdaccio
 
 ## Uso Básico
 
-Once it has been installed, you only need to execute the CLI command:
+Una vez ha sido instalado, solo necesitas ejecutar un la CLI:
 
 ```bash
 $> verdaccio
@@ -40,7 +40,7 @@ warn --- http address - http://localhost:5555/ - verdaccio/3.0.0
 
 ![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
 
-For more information about the CLI, please [read the cli section](cli.md).
+Para más información sobre el CLI, por favor [lea la sección cli](cli.md).
 
 ## Imagen de Docker
 
