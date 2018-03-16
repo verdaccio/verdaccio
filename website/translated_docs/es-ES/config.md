@@ -141,7 +141,7 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies tienen propósitos especiales en servidores HTTP diseñados para transferir datos desde servidores remotos a clientes locales.
 
 #### http_proxy and https_proxy
 
