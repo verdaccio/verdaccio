@@ -44,4 +44,4 @@ Para más información sobre el CLI, por favor [lea la sección cli](cli.md).
 
 ## Imagen de Docker
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` tiene una imagen oficial de docker que puedes usar, y en el mayor de los casos, la configuración por defecto es suficiente. Para mas información sobre como instalar las imagenes oficiales, [lea la sección de docker](docker.md).
