@@ -141,11 +141,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies tienen propósitos especiales en servidores HTTP diseñados para transferir datos desde servidores remotos a clientes locales.
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Si ya tienes un proxy en tu red, puedes definir el encabezado `X-Forwarded-For` usando las siguientes propiedades.
 
 ```yaml
 http_proxy: http://something.local/
@@ -154,16 +154,16 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Esta variable debería contentener una lista de extensiones domínios separados por comas donde el proxy no debería ser usado.
 
 ```yaml
 http_proxy: http://something.local/
 https_proxy: https://something.local/
 ```
 
-### Notifications
+### Notificaciones
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilita notificaciones en aplicaciones a terceros es muy sencillo via web hooks. Para más información sobre esta sección lea [la página de notificaciones](notifications.md).
 
 ```yaml
 notify:
