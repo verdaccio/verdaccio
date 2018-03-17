@@ -10,3 +10,4 @@ tools/
 /.*
 website/
 assets/
+.vscode/

@@ -19,9 +19,6 @@ yarn-error.log
 coverage/
 .nyc*
 
-# Visual Studio Code
-.vscode/*
-
 .idea/
 
 
