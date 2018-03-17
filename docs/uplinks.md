@@ -36,6 +36,7 @@ max_fails | number | No |2 | all | limit maximun failure request | 2
 cache | boolean | No |[true,false] | >= 2.1 | avoid cache tarballs | true
 auth | list | No | type: [bearer,basic], [token: "token",token_env: [true,\<get name process.env\>]]  | >= 2.5 | assigns the header 'Authorization' see: http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules | disabled
 headers | list | No | authorization: "Basic YourBase64EncodedCredentials==" | all | list of custom headers for the uplink | disabled
+strict_ssl |boolean | No | [true,false] | >= 3.0 | If true, requires SSL certificates be valid. | true
 
 
 ### You Must know

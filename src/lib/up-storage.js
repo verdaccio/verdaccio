@@ -56,6 +56,7 @@ class ProxyStorage implements IProxy {
   upname: string;
   proxy: string;
   last_request_time: number;
+  strict_ssl: boolean;
 
   /**
    * Constructor
@@ -88,6 +89,7 @@ class ProxyStorage implements IProxy {
     this.timeout = parseInterval(setConfig(this.config, 'timeout', '30s'));
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2 ));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m' ));
+    this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
   }
 
   /**
@@ -129,6 +131,7 @@ class ProxyStorage implements IProxy {
       method: method,
       headers: headers,
       uri: uri,
+      strictSSL: this.strict_ssl
     }, 'making request: \'@{method} @{uri}\'');
 
     if (isObject(options.json)) {
@@ -203,6 +206,7 @@ class ProxyStorage implements IProxy {
       encoding: null,
       gzip: true,
       timeout: this.timeout,
+      strictSSL: this.strict_ssl
     }, requestCallback);
 
     let statusCalled = false;
@@ -387,6 +391,7 @@ class ProxyStorage implements IProxy {
       json: true,
       headers: headers,
       req: options.req,
+      strictSSL: this.strict_ssl
     }, (err, res, body) => {
       if (err) {
         return callback(err);
@@ -418,6 +423,7 @@ class ProxyStorage implements IProxy {
     const readStream = this.request({
       uri_full: url,
       encoding: null,
+      strictSSL: this.strict_ssl,
       headers: {
         Accept: contenTypeAccept,
       },
@@ -465,6 +471,7 @@ class ProxyStorage implements IProxy {
     const requestStream: stream$Readable = this.request({
       uri: options.req.url,
       req: options.req,
+      strictSSL: this.strict_ssl,
       headers: {
         referer: options.req.headers.referer,
       },
