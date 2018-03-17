@@ -131,7 +131,6 @@ class ProxyStorage implements IProxy {
       method: method,
       headers: headers,
       uri: uri,
-      strictSSL: this.strict_ssl
     }, 'making request: \'@{method} @{uri}\'');
 
     if (isObject(options.json)) {
@@ -206,7 +205,7 @@ class ProxyStorage implements IProxy {
       encoding: null,
       gzip: true,
       timeout: this.timeout,
-      strictSSL: this.strict_ssl
+      strictSSL: this.strict_ssl,
     }, requestCallback);
 
     let statusCalled = false;
@@ -391,7 +390,6 @@ class ProxyStorage implements IProxy {
       json: true,
       headers: headers,
       req: options.req,
-      strictSSL: this.strict_ssl
     }, (err, res, body) => {
       if (err) {
         return callback(err);
@@ -423,7 +421,6 @@ class ProxyStorage implements IProxy {
     const readStream = this.request({
       uri_full: url,
       encoding: null,
-      strictSSL: this.strict_ssl,
       headers: {
         Accept: contenTypeAccept,
       },
@@ -471,7 +468,6 @@ class ProxyStorage implements IProxy {
     const requestStream: stream$Readable = this.request({
       uri: options.req.url,
       req: options.req,
-      strictSSL: this.strict_ssl,
       headers: {
         referer: options.req.headers.referer,
       },
