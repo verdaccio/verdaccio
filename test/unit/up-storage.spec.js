@@ -1,10 +1,11 @@
 // @flow
+import _ from 'lodash';
 import ProxyStorage from '../../src/lib/up-storage';
 import AppConfig from '../../src/lib/config';
-import _ from 'lodash';
 // $FlowFixMe
 import configExample from './partials/config';
 import {setup} from '../../src/lib/logger';
+
 import type {Config, UpLinkConf} from '@verdaccio/types';
 import type {IProxy} from '../../types';
 
