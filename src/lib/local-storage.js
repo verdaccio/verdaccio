@@ -10,7 +10,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
 import async from 'async';
-import {ErrorCode, isObject, getLatestVersion, tag_version, validate_name, semverSort, DIST_TAGS} from './utils';
+import {ErrorCode, isObject, getLatestVersion, tagVersion, validate_name, semverSort, DIST_TAGS} from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, cleanUpReadme,
   fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
@@ -35,7 +35,7 @@ import type {
   IUploadTarball,
   IReadTarball,
 } from '@verdaccio/streams';
-import type {IStorage} from '../../types';
+import type {IStorage, StringValue} from '../../types';
 
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
@@ -233,7 +233,7 @@ class LocalStorage implements IStorage {
   addVersion(name: string,
              version: string,
              metadata: Version,
-             tag: string,
+             tag: StringValue,
              callback: Callback) {
     this._updatePackage(name, (data, cb) => {
       // keep only one readme per package
@@ -272,7 +272,7 @@ class LocalStorage implements IStorage {
       }
 
       data.versions[version] = metadata;
-      tag_version(data, version, tag);
+      tagVersion(data, version, tag);
 
       let addFailed = this.localData.add(name);
       if (addFailed) {
@@ -302,7 +302,7 @@ class LocalStorage implements IStorage {
           return cb( this._getVersionNotFound() );
         }
         const key: string = tags[t];
-        tag_version(data, key, t);
+        tagVersion(data, key, t);
       }
       cb();
     }, callback);

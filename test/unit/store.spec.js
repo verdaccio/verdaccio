@@ -39,7 +39,7 @@ describe('StorageTest', () => {
       name: 'react',
       req: request,
       callback: () => {
-        const stream = storage.get_tarball('react', 'react-16.1.0.tgz');
+        const stream = storage.getTarball('react', 'react-16.1.0.tgz');
         stream.on('content-length', function(content) {
           if (content) {
             expect(content).toBeTruthy();

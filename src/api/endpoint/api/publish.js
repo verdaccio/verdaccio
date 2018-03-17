@@ -1,23 +1,27 @@
-const _ = require('lodash');
-const Path = require('path');
-const createError = require('http-errors');
+// @flow
 
-const {media, expect_json, allow} = require('../../middleware');
-const Notify = require('../../../lib/notify');
-const {DIST_TAGS, validate_metadata, isObject} = require('../../../lib/utils');
-const mime = require('mime');
+import _ from 'lodash';
+import Path from 'path';
+import mime from 'mime';
 
-const notify = Notify.notify;
+import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
+import {media, expect_json, allow} from '../../middleware';
+import {notify} from '../../../lib/notify';
 
-export default function(router, auth, storage, config) {
+import type {Router} from 'express';
+import type {Config, Callback} from '@verdaccio/types';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+
+export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expect_json, function(req, res, next) {
+  router.put('/:package/:_rev?/:revision?', can('publish'),
+    media(mime.getType('json')), expect_json, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const name = req.params.package;
     let metadata;
-    const create_tarball = function(filename, data, cb) {
-      let stream = storage.add_tarball(name, filename);
+    const create_tarball = function(filename: string, data, cb: Callback) {
+      let stream = storage.addTarball(name, filename);
       stream.on('error', function(err) {
         cb(err);
       });
@@ -26,6 +30,8 @@ export default function(router, auth, storage, config) {
       });
 
       // this is dumb and memory-consuming, but what choices do we have?
+      // flow: we need first refactor this file before decides which type use here
+      // $FlowFixMe
       stream.end(new Buffer(data.data, 'base64'));
       stream.done();
     };
@@ -59,7 +65,7 @@ export default function(router, auth, storage, config) {
         || Object.keys(metadata.versions).length !== 1) {
         // npm is doing something strange again
         // if this happens in normal circumstances, report it as a bug
-        return next( createError[400]('unsupported registry call') );
+        return next(ErrorCode.get400('unsupported registry call'));
       }
 
       if (err && err.status != 409) {
@@ -94,13 +100,13 @@ export default function(router, auth, storage, config) {
 
     if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
-      return next( createError[404]('npm star|unstar calls are not implemented') );
+      return next(ErrorCode.get404('npm star|unstar calls are not implemented'));
     }
 
     try {
       metadata = validate_metadata(req.body, name);
     } catch(err) {
-      return next( createError[422]('bad incoming package data') );
+      return next(ErrorCode.get422('bad incoming package data'));
     }
 
     if (req.params._rev) {
@@ -115,7 +121,7 @@ export default function(router, auth, storage, config) {
   });
 
   // unpublishing an entire package
-  router.delete('/:package/-rev/*', can('publish'), function(req, res, next) {
+  router.delete('/:package/-rev/*', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.remove_package(req.params.package, function(err) {
       if (err) {
         return next(err);
@@ -126,7 +132,8 @@ export default function(router, auth, storage, config) {
   });
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), function(req, res, next) {
+  router.delete('/:package/-/:filename/-rev/:revision', can('publish'),
+  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.remove_tarball(req.params.package, req.params.filename, req.params.revision, function(err) {
       if (err) {
         return next(err);
@@ -137,9 +144,10 @@ export default function(router, auth, storage, config) {
   });
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media('application/octet-stream'), function(req, res, next) {
+  router.put('/:package/-/:filename/*', can('publish'), media('application/octet-stream'),
+  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const name = req.params.package;
-    const stream = storage.add_tarball(name, req.params.filename);
+    const stream = storage.addTarball(name, req.params.filename);
     req.pipe(stream);
 
     // checking if end event came before closing
@@ -166,7 +174,8 @@ export default function(router, auth, storage, config) {
   });
 
   // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expect_json, function(req, res, next) {
+  router.put('/:package/:version/-tag/:tag', can('publish'),
+     media(mime.getType('json')), expect_json, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     let name = req.params.package;
     let version = req.params.version;
     let tag = req.params.tag;

@@ -47,7 +47,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
   });
 
   route.get('/:package/-/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend) {
-    const stream = storage.get_tarball(req.params.package, req.params.filename);
+    const stream = storage.getTarball(req.params.package, req.params.filename);
 
     stream.on('content-length', function(content) {
       res.header('Content-Length', content);

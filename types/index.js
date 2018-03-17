@@ -16,6 +16,8 @@ import type {
 import type {ILocalData} from '@verdaccio/local-storage';
 import type {NextFunction, $Request, $Response} from 'request';
 
+export type StringValue = string | void | null;
+
 export interface IAuth {
 	config: Config;
 	logger: Logger;
@@ -77,14 +79,14 @@ export interface IStorageHandler {
 	logger: Logger;
 	uplinks: ProxyList;
 	addPackage(name: string, metadata: any, callback: Function): void;
-	addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback): void;
+	addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
 	mergeTags(name: string, tagHash: MergeTags, callback: Callback): void;
 	replace_tags(name: string, tagHash: MergeTags, callback: Callback): void;
 	change_package(name: string, metadata: Package, revision: string, callback: Callback): void;
 	remove_package(name: string, callback: Callback): void;
 	remove_tarball(name: string, filename: string, revision: string, callback: Callback): void;
-	add_tarball(name: string, filename: string): IUploadTarball;
-	get_tarball(name: string, filename: string): IReadTarball;
+	addTarball(name: string, filename: string): IUploadTarball;
+	getTarball(name: string, filename: string): IReadTarball;
 	getPackage(options: any): void;
 	search(startkey: string, options: any): void;
 	getLocalDatabase(callback: Callback): void;
@@ -100,7 +102,7 @@ export interface IStorage {
 	addPackage(name: string, info: Package, callback: Callback): void;
 	removePackage(name: string, callback: Callback): void;
 	updateVersions(name: string, packageInfo: Package, callback: Callback): void;
-	addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback): void;
+	addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
 	mergeTags(name: string, tags: MergeTags, callback: Callback): void;
 	changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
 	removeTarball(name: string, filename: string, revision: string, callback: Callback): void;

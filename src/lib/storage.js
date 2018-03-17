@@ -12,7 +12,7 @@ import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
 import ProxyStorage from './up-storage';
 import {ErrorCode, normalize_dist_tags, validate_metadata, isObject, DIST_TAGS} from './utils';
-import type {IStorage, IProxy, IStorageHandler, ProxyList} from '../../types';
+import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
 import type {
   Versions,
   Package,
@@ -168,7 +168,7 @@ class Storage implements IStorageHandler {
    * @param {*} tag
    * @param {*} callback
    */
-  addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback) {
+  addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback) {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
@@ -244,7 +244,7 @@ class Storage implements IStorageHandler {
    * @param {*} filename
    * @return {Stream}
    */
-  add_tarball(name: string, filename: string): IUploadTarball {
+  addTarball(name: string, filename: string): IUploadTarball {
     return this.localStorage.addTarball(name, filename);
   }
 
@@ -258,7 +258,7 @@ class Storage implements IStorageHandler {
    * @param {*} filename
    * @return {Stream}
    */
-  get_tarball(name: string, filename: string) {
+  getTarball(name: string, filename: string) {
     let readStream = new ReadTarball();
     readStream.abort = function() {};
 

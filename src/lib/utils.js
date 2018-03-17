@@ -10,6 +10,7 @@ import _ from 'lodash';
 import createError from 'http-errors';
 import type {Package, Config} from '@verdaccio/types';
 import type {$Request} from 'express';
+import type {StringValue} from '../../types';
 
 const Logger = require('./logger');
 
@@ -145,8 +146,8 @@ function filter_tarball_urls(pkg: Package, req: $Request, config: Config) {
  * @param {*} tag
  * @return {Boolean} whether a package has been tagged
  */
-function tag_version(data: Package, version: string, tag: string) {
-	if (_.isEmpty(tag) === false) {
+function tagVersion(data: Package, version: string, tag: StringValue) {
+	if (tag) {
 		if (data[DIST_TAGS][tag] !== version) {
 			if (semver.parse(version, true)) {
 				// valid version - store
@@ -443,7 +444,7 @@ export {
 	parse_address,
 	get_version,
 	normalize_dist_tags,
-	tag_version,
+	tagVersion,
 	combineBaseUrl,
 	filter_tarball_urls,
 	validate_metadata,
