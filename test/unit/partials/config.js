@@ -14,7 +14,7 @@ const config = {
 
     'forbidden-place': {
       allow_access: 'nobody',
-      allow_publish: 'nobody'
+      allow_publish: '$all'
     },
 
     'react': {
