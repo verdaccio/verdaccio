@@ -48,6 +48,9 @@ uplinks:
     # to be stored in the local storage (defaults to true)
     #cache: false
 
+    # set this to false to disable strict SSL cert check (defaults to true)
+    #strict_ssl: false
+
 packages:
   '@*/*':
     # scoped packages
