@@ -12,6 +12,7 @@ import Auth from '../../src/lib/auth';
 import indexAPI from '../../src/api/index';
 
 require('../../src/lib/logger').setup([]);
+const credentials = { name: 'Jota', password: 'secretPass' };
 
 describe('endpoint unit test', () => {
   let config;
@@ -84,11 +85,7 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test user api', () => {
-      const credentials = { name: 'Jota', password: 'secretPass' };
-
       test('should test add a new user', (done) => {
-
-
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentials)
@@ -595,6 +592,42 @@ describe('endpoint unit test', () => {
             expect(res.body).toHaveLength(0);
             done();
           });
+      });
+    });
+
+    describe('User', () => {
+      describe('login webui', () => {
+        test('should log a user jota', (done) => {
+          request(app)
+            .post('/-/verdaccio/login')
+            .send({
+              username: credentials.name,
+              password: credentials.password
+            })
+            .expect(200)
+            .end(function(err, res) {
+              expect(res.body.error).toBeUndefined();
+              expect(res.body.token).toBeDefined();
+              expect(res.body.token).toBeTruthy();
+              expect(res.body.username).toMatch(credentials.name);
+              done();
+            });
+        });
+
+        test('should fails on log unvalid user', (done) => {
+          request(app)
+            .post('/-/verdaccio/login')
+            .send(JSON.stringify({
+              username: 'fake',
+              password: 'fake'
+            }))
+            //FIXME: there should be 401
+            .expect(200)
+            .end(function(err, res) {
+              expect(res.body.error).toMatch(/bad username\/password, access denied/);
+              done();
+            });
+        });
       });
     });
   });
