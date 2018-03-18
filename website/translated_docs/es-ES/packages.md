@@ -106,9 +106,9 @@ packages:
 
 #### Bloqueando proxy a un grupo específico de paquetes
 
-You might want to block one or several packages to fetch from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Podrías querer bloquear uno o varios paquetes que sean descargados desde repositorios remotos, pero al mismo tiempo, permitir otros acceder a diferentes * uplinks*.
 
-Let's see the following example:
+Veamos el siguiente ejemplo:
 
 ```yaml
 packages:
