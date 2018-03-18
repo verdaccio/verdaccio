@@ -15,26 +15,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 * add strict_ssl_option, fixes [#587](https://github.com/verdaccio/verdaccio/issues/587) ([f0fef44](https://github.com/verdaccio/verdaccio/commit/f0fef44))
 
-
-
-<a name="3.0.0-beta.3"></a>
-# [3.0.0-beta.3](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.2...v3.0.0-beta.3) (2018-03-18)
-
-
-### Bug Fixes
-
-* add teardown for unit test ([036120b](https://github.com/verdaccio/verdaccio/commit/036120b))
-
-
-### Features
-
-* add strict_ssl_option, fixes [#587](https://github.com/verdaccio/verdaccio/issues/587) ([f0fef44](https://github.com/verdaccio/verdaccio/commit/f0fef44))
-
-
-
 <a name="3.0.0-alpha.0"></a>
 # [3.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v3.0.0-0...v3.0.0-alpha.0) (2018-01-07)
-
 
 
 <a name="2.7.2"></a>
