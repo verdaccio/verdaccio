@@ -14,7 +14,7 @@ jest.mock(
  
 console.error = jest.fn();
 
-describe('<PackageSidebar /> : <LastSync />', () => {
+describe.skip('<PackageSidebar /> : <LastSync />', () => {
   it('should load the component and check getters: lastUpdate, recentReleases with package data', () => {
     const wrapper = mount(<LastSync packageMeta={packageMeta} />);
     const instance = wrapper.instance();
