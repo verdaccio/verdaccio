@@ -53,7 +53,7 @@ Todos los usuarios reciben todo ese grupo de permisos independientemente si es a
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need todo something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend use a prefix for your packages, in that way it'd be easier to protect them.
+Si quieres proteger un grupo específico de paquetes bajo un grupo, necesitas hacer algo así. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. Recomendamos usar un prefijo en sus paquetes, en esa manera es mucho mas sencillo protegerlos.
 
 ```yaml
 packages:
@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Reinicia `verdaccio` en tu terminal trata de instalar `npmuser-core`.
 
 ```bash
 $ npm install npmuser-core
