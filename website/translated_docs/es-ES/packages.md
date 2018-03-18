@@ -4,9 +4,9 @@ title: "Acceso a Paquetes"
 ---
 Es una serie de restricciones que permiten o restringen el acceso al almacenamiento local basado en unos criterios específicos.
 
-The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. The default plugin does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it.
+Las restricciones de seguridad permanecen en los hombros de la extensión usada, por defecto `verdaccio`usa [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. La extensión por defecto no maneja por si mismo `allow_access` y `allow_publish`, se usa un soporte interno en caso que la extensión no este lista para ella.
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+Para mas información sobre permisos, visite [la sección de autenticación](auth.md).
 
 ### Uso
 
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+si ninguno esta especificado, por defecto uno se define
 
 ```yaml
 packages:
@@ -40,7 +40,7 @@ packages:
      publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+La lista de grupos validos de acuerdo a la extensión por defecto son
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
