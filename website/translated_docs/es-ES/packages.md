@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` solo revisa si el usuario trata de acceder a un publicar un paquete específico pertenece al grupo correcto.
 
 #### Definir múltiples grupos
 
-Define multiple access groups is fairly easy, just define them with a white space between them.
+Define múltiples grupos de acceso es sencillo, solo defínelos con espacios entre ellos.
 
 ```yaml
   'company-*':
@@ -94,7 +94,7 @@ Define multiple access groups is fairly easy, just define them with a white spac
 
 #### Bloqueando el acceso a paquetes
 
-If you want to block the acccess/publish to a specific group of packages. Just, do not define `access` and `publish`.
+Si quieres bloquear el acceso/publicar a un grupo de paquetes. Solo, no definas `access` y `publish`.
 
 ```yaml
 packages:
@@ -104,7 +104,7 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Bloqueando proxy a un grupo específico de paquetes
 
 You might want to block one or several packages to fetch from remote repositories., but, at the same time, allow others to access different *uplinks*.
 
