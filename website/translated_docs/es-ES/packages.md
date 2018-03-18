@@ -74,7 +74,7 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
 
 #### Definir múltiples grupos
 
