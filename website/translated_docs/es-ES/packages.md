@@ -46,7 +46,7 @@ La lista de grupos validos de acuerdo a la extensión por defecto son
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieves all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+Todos los usuarios reciben todo ese grupo de permisos independientemente si es anónimo o no más el grupo proveído por la extensión, en caso de ` htpasswd` se regresa el nombre de usuario por grupo. Por ejemplo, si has iniciado sesión como ` npmUser` el listado de grupos será.
 
 ```js
 // groups without '$' are going to be deprecated eventually
