@@ -4,9 +4,9 @@ title: "Acceso a Paquetes"
 ---
 Es una serie de restricciones que permiten o restringen el acceso al almacenamiento local basado en unos criterios específicos.
 
-The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. The default plugin does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it.
+Las restricciones de seguridad permanecen en los hombros de la extensión usada, por defecto `verdaccio`usa [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. La extensión por defecto no maneja por si mismo `allow_access` y `allow_publish`, se usa un soporte interno en caso que la extensión no este lista para ella.
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+Para mas información sobre permisos, visite [la sección de autenticación](auth.md).
 
 ### Uso
 
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+si ninguno esta especificado, por defecto uno se define
 
 ```yaml
 packages:
@@ -40,20 +40,20 @@ packages:
      publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+La lista de grupos validos de acuerdo a la extensión por defecto son
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieves all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+Todos los usuarios reciben todo ese grupo de permisos independientemente si es anónimo o no más el grupo proveído por la extensión, en caso de ` htpasswd` se regresa el nombre de usuario por grupo. Por ejemplo, si has iniciado sesión como ` npmUser` el listado de grupos será.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need todo something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend use a prefix for your packages, in that way it'd be easier to protect them.
+Si quieres proteger un grupo específico de paquetes bajo un grupo, necesitas hacer algo así. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. Recomendamos usar un prefijo en sus paquetes, en esa manera es mucho mas sencillo protegerlos.
 
 ```yaml
 packages:
@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Reinicia `verdaccio` en tu terminal trata de instalar `npmuser-core`.
 
 ```bash
 $ npm install npmuser-core
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` solo revisa si el usuario trata de acceder a un publicar un paquete específico pertenece al grupo correcto.
 
 #### Definir múltiples grupos
 
-Define multiple access groups is fairly easy, just define them with a white space between them.
+Define múltiples grupos de acceso es sencillo, solo defínelos con espacios entre ellos.
 
 ```yaml
   'company-*':
@@ -94,7 +94,7 @@ Define multiple access groups is fairly easy, just define them with a white spac
 
 #### Bloqueando el acceso a paquetes
 
-If you want to block the acccess/publish to a specific group of packages. Just, do not define `access` and `publish`.
+Si quieres bloquear el acceso/publicar a un grupo de paquetes. Solo, no definas `access` y `publish`.
 
 ```yaml
 packages:
@@ -104,11 +104,11 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Bloqueando proxy a un grupo específico de paquetes
 
-You might want to block one or several packages to fetch from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Podrías querer bloquear uno o varios paquetes que sean descargados desde repositorios remotos, pero al mismo tiempo, permitir otros acceder a diferentes * uplinks*.
 
-Let's see the following example:
+Veamos el siguiente ejemplo:
 
 ```yaml
 packages:

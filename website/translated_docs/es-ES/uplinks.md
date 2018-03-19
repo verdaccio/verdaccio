@@ -36,6 +36,7 @@ Puedes definir múltiples uplinks y cada uno de ellos debe tener un nombre únic
 | cache        | boolean | No        | [true,false]                                                                        | >= 2.1  | evita persistir tarballs                                                                                             | true        |
 | auth         | list    | No        | type: [bearer,basic], [token: "token",token_env: [true,\<get name process.env\>]] | >= 2.5  | asigna el encamezado 'Authorization' ver: http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules | desactivado |
 | headers      | list    | No        | authorization: "Basic YourBase64EncodedCredentials=="                               | all     | listado de encabezados por uplink                                                                                    | desactivado |
+| strict_ssl   | boolean | No        | [true,false]                                                                        | >= 3.0  | Es verdadero, requiere que el certificado SSL sea válido.                                                            | true        |
 
 ### Debes saber
 
