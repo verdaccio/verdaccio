@@ -7,11 +7,11 @@ import {Link} from 'react-router-dom';
 
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
-
+import {getRegistryURL} from '../../../utils/url';
 
 import classes from './header.scss';
 import './logo.png';
-import {getRegistryURL} from '../../../utils/url';
+
 
 export default class Header extends React.Component {
   state = {
@@ -43,9 +43,9 @@ export default class Header extends React.Component {
   }
 
   componentWillMount() {
-    API.get('logo')
+    API.request('logo')
     .then((response) => {
-      this.setState({logo: response.data});
+      this.setState({logo: response.url});
     })
     .catch((error) => {
       throw new Error(error);
@@ -62,15 +62,15 @@ export default class Header extends React.Component {
     }
 
     try {
-      let resp = await API.post(`login`, {
+      let resp = await API.request(`login`, 'POST', {
         data: {
           username: this.state.username,
           password: this.state.password
         }
-      });
+      }).then((response) => response.json());
 
-      storage.setItem('token', resp.data.token);
-      storage.setItem('username', resp.data.username);
+      storage.setItem('token', resp.token);
+      storage.setItem('username', resp.username);
       location.reload();
     } catch (e) {
       const errorObj = {
@@ -78,7 +78,7 @@ export default class Header extends React.Component {
         type: 'error'
       };
       if (get(e, 'response.status', 0) === 401) {
-        errorObj.description = e.response.data.error;
+        errorObj.description = e.response.error;
       } else {
         errorObj.description = e.message;
       }
