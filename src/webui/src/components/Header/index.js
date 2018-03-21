@@ -43,9 +43,7 @@ export default class Header extends React.Component {
 
   componentWillMount() {
     API.request('logo')
-    .then((response) => {
-      this.setState({logo: response.url});
-    })
+    .then((response) => response.text().then((logo) => this.setState({logo})))
     .catch((error) => {
       throw new Error(error);
     });
