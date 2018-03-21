@@ -62,10 +62,15 @@ export default class Header extends React.Component {
     }
 
     try {
+      const credentials = {
+        username: this.state.username,
+        password: this.state.password
+      };
       let resp = await API.request(`login`, 'POST', {
-        data: {
-          username: this.state.username,
-          password: this.state.password
+        body: JSON.stringify(credentials),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
       }).then((response) => response.json());
 
