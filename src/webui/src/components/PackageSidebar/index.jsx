@@ -32,7 +32,9 @@ export default class PackageSidebar extends React.Component {
     let packageMeta;
 
     try {
-      packageMeta = await API.request(`sidebar/${packageName}`, 'GET').then((response) => response.json());
+      packageMeta = await API.request(`sidebar/${packageName}`, 'GET').then(function(response) {
+        return response.json();
+      });
     } catch (err) {
       this.setState({
         failed: true

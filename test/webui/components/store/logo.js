@@ -4,7 +4,7 @@
  */
 export default function() {
   const response = {
-    data: 'http://xyz.com/image.jpg'
+    url: 'http://xyz.com/image.jpg'
   };
   return Promise.resolve(response);
 }

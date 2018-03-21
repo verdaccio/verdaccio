@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, Dialog, Input, Alert} from 'element-react';
 import isString from 'lodash/isString';
-import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
 import {Link} from 'react-router-dom';
 
@@ -72,7 +71,9 @@ export default class Header extends React.Component {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
-      }).then((response) => response.json());
+      }).then(function(response) {
+        return response.json();
+      });
 
       storage.setItem('token', resp.token);
       storage.setItem('username', resp.username);
@@ -82,11 +83,7 @@ export default class Header extends React.Component {
         title: 'Unable to login',
         type: 'error'
       };
-      if (get(e, 'response.status', 0) === 401) {
-        errorObj.description = e.response.error;
-      } else {
-        errorObj.description = e.message;
-      }
+      errorObj.description = e.message;
       this.setState({loginError: errorObj});
     }
   }

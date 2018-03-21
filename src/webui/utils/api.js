@@ -17,10 +17,17 @@ class API {
         url = window.VERDACCIO_API_URL + url;
       }
 
+      function handleErrors(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+      }
+
       return fetch(url, {
         method,
         ...options
-      });
+      }).then(handleErrors);
     }
 }
 

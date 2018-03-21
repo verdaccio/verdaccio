@@ -8,7 +8,7 @@ import PackageSidebar from '../../../../src/webui/src/components/PackageSidebar'
 import { packageMeta } from '../store/packageMeta';
 
 jest.mock('../../../../src/webui/utils/api', () => ({
-  get: require('../__mocks__/api').default.get
+  request: require('../__mocks__/api').default.request,
 }));
 
 console.error = jest.fn();
@@ -18,7 +18,7 @@ describe('<PackageSidebar /> component', () => {
     const wrapper = mount(<PackageSidebar />);
     const { loadPackageData } = wrapper.instance();
     expect(console.error).toBeCalled();
-    loadPackageData().then(response => {
+    loadPackageData().catch(response => {
       expect(response).toBeUndefined();
       expect(wrapper.state()).toEqual({ failed: true });
     });

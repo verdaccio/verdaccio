@@ -10,29 +10,36 @@ import { packageMeta } from '../store/packageMeta';
  * @param {string} endpoint
  * @returns {Promise}
  */
-const register = (method = 'get', endpoint, config = {}) => {
+const register = (url, method = 'get', options = {}) => {
 
-  if (endpoint === 'login' && method === 'post') {
-    return login(config);
+  if (url === 'login' && method.toLocaleLowerCase() === 'post') {
+    return login(options);
   }
 
-  if (endpoint === 'logo' && method === 'get') {
+  if (url === 'logo' && method.toLocaleLowerCase() === 'get') {
     return logo();
   }
 
-  if (endpoint === 'sidebar/verdaccio' && method === 'get') {
-    return Promise.resolve({ data: packageMeta });
+  if (url === 'sidebar/verdaccio' && method.toLocaleLowerCase() === 'get') {
+    return new Promise(function(resolve) {
+      resolve({
+        json: function() {
+          return packageMeta;
+        }
+      });
+    });
   }
 
-  return Promise.reject({ status: 404, data: 'Not found' });
+  throw Error('Not found');
 };
 
 /**
  * Bind API methods
  */
-const API = ['get', 'post'].reduce((api, method) => {
-  api[method] = register.bind(null, method);
-  return api;
-}, {});
+class API {
+  request() {
+    return register.call(null, ...arguments);
+  }
+}
 
-export default API;
+export default new API;
