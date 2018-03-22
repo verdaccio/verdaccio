@@ -190,7 +190,7 @@ class Storage implements IStorageHandler {
    * @param {*} tag_hash
    * @param {*} callback
    */
-  replace_tags(name: string, tagHash: MergeTags, callback: Callback) {
+  replaceTags(name: string, tagHash: MergeTags, callback: Callback) {
     this.logger.warn('method deprecated');
     this.localStorage.mergeTags(name, tagHash, callback);
   }
@@ -204,7 +204,7 @@ class Storage implements IStorageHandler {
    * @param {*} revision
    * @param {*} callback
    */
-  change_package(name: string, metadata: Package, revision: string, callback: Callback) {
+  changePackage(name: string, metadata: Package, revision: string, callback: Callback) {
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
 
@@ -215,7 +215,7 @@ class Storage implements IStorageHandler {
    * @param {*} name
    * @param {*} callback
    */
-  remove_package(name: string, callback: Callback) {
+  removePackage(name: string, callback: Callback) {
     this.localStorage.removePackage(name, callback);
     // update the indexer
     Search.remove(name);
@@ -232,7 +232,7 @@ class Storage implements IStorageHandler {
    * @param {*} revision
    * @param {*} callback
    */
-  remove_tarball(name: string, filename: string, revision: string, callback: Callback) {
+  removeTarball(name: string, filename: string, revision: string, callback: Callback) {
     this.localStorage.removeTarball(name, filename, revision, callback);
   }
 
