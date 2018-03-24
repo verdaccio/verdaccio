@@ -69,9 +69,7 @@ export default class Header extends React.Component {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
-      }).then(function(response) {
-        return response.json();
-      });
+      }).then((response) => response.json());
 
       storage.setItem('token', resp.token);
       storage.setItem('username', resp.username);
