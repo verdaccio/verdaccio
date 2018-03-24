@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import format from 'date-fns/format';
 import Module from '../../Module';
-import datetime from '../../../../../utils/datetime';
 import classes from './style.scss';
+
+const TIMEFORMAT = 'YYYY/MM/DD, HH:mm:ss';
 
 export default class LastSync extends React.Component {
   static propTypes = {
@@ -19,15 +21,15 @@ export default class LastSync extends React.Component {
       }
     });
 
-    return lastUpdate ? datetime(lastUpdate) : '';
+    const time = format(new Date(lastUpdate), TIMEFORMAT);
+
+    return lastUpdate ? time : '';
   }
 
   get recentReleases() {
     let recentReleases = Object.keys(this.props.packageMeta.time).map((version) => {
-      return {
-        version,
-        time: datetime(this.props.packageMeta.time[version])
-      };
+      const time = format(new Date(this.props.packageMeta.time[version]), TIMEFORMAT);
+      return {version, time};
     });
 
     return recentReleases.slice(recentReleases.length - 3, recentReleases.length).reverse();
