@@ -231,13 +231,9 @@
     lodash "4.17.5"
     mkdirp "0.5.1"
 
-"@verdaccio/streams@1.0.0":
+"@verdaccio/streams@1.0.0", "@verdaccio/streams@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
-
-"@verdaccio/streams@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
 "@verdaccio/types@2.0.2":
   version "2.0.2"
@@ -8944,11 +8940,11 @@ verdaccio-htpasswd@0.1.4:
     crypto "^1.0.1"
     unix-crypt-td-js "^1.0.0"
 
-verdaccio-memory@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.3.tgz#8ba6b51f2cf93d67958fedad5feb3f1e19933e48"
+verdaccio-memory@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.6.tgz#9521701710c2b768e00e6bcc23d9ce9faca4109e"
   dependencies:
-    "@verdaccio/streams" "^0.0.2"
+    "@verdaccio/streams" "^1.0.0"
     http-errors "1.6.2"
     memory-fs "^0.4.1"
 

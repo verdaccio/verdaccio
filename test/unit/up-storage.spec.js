@@ -12,6 +12,7 @@ import type {IProxy} from '../../types';
 setup([]);
 
 describe('UpStorge', () => {
+  jest.setTimeout(10000);
 
   const uplinkDefault = {
     url: 'https://registry.npmjs.org/'
