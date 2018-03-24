@@ -81,10 +81,10 @@ export interface IStorageHandler {
 	addPackage(name: string, metadata: any, callback: Function): void;
 	addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
 	mergeTags(name: string, tagHash: MergeTags, callback: Callback): void;
-	replace_tags(name: string, tagHash: MergeTags, callback: Callback): void;
-	change_package(name: string, metadata: Package, revision: string, callback: Callback): void;
-	remove_package(name: string, callback: Callback): void;
-	remove_tarball(name: string, filename: string, revision: string, callback: Callback): void;
+	replaceTags(name: string, tagHash: MergeTags, callback: Callback): void;
+	changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
+	removePackage(name: string, callback: Callback): void;
+	removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
 	addTarball(name: string, filename: string): IUploadTarball;
 	getTarball(name: string, filename: string): IReadTarball;
 	getPackage(options: any): void;

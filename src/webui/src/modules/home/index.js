@@ -52,11 +52,11 @@ export default class Home extends React.Component {
 
   async loadPackages() {
     try {
-      this.req = await API.get('packages');
+      this.req = await API.request('packages', 'GET').then((response) => response.json());
 
       if (this.state.query === '') {
         this.setState({
-          packages: this.req.data,
+          packages: this.req,
           loading: false
         });
       }
@@ -71,12 +71,12 @@ export default class Home extends React.Component {
 
   async searchPackage(query) {
    try {
-     this.req = await API.get(`/search/${query}`);
+     this.req = await API.request(`/search/${query}`, 'GET').then((response) => response.json());
 
      // Implement cancel feature later
      if (this.state.query === query) {
        this.setState({
-         packages: this.req.data,
+         packages: this.req,
          fistTime: false,
          loading: false
        });

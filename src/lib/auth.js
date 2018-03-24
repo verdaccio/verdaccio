@@ -296,11 +296,12 @@ class Auth {
 
   /**
    * JWT middleware for WebUI
-   * @return {Function}
    */
   jwtMiddleware() {
     return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
-      if (req.remote_user !== null && req.remote_user.name !== undefined) return _next();
+      if (req.remote_user !== null && req.remote_user.name !== undefined) {
+       return _next();
+      }
 
       req.pause();
       const next = function(_err) {
@@ -308,18 +309,22 @@ class Auth {
         return _next();
       };
 
-      req.remote_user = buildAnonymousUser();
-
-      let token = (req.headers.authorization || '').replace('Bearer ', '');
-      if (!token) return next();
+      const token = (req.headers.authorization || '').replace('Bearer ', '');
+      if (!token) {
+        return next();
+      }
 
       let decoded;
       try {
         decoded = this.decode_token(token);
-      } catch (err) {/**/}
+      } catch (err) {
+       // FIXME: intended behaviour, do we want it?
+      }
 
       if (decoded) {
         req.remote_user = authenticatedUser(decoded.user, decoded.group);
+      } else {
+        req.remote_user = buildAnonymousUser();
       }
 
       next();

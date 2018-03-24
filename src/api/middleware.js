@@ -73,7 +73,7 @@ export function encodeScopePackage(req: $RequestExtend, res: $ResponseExtend, ne
   next();
 }
 
-export function expect_json(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   if (!isObject(req.body)) {
     return next( ErrorCode.get400('can\'t parse incoming json') );
   }

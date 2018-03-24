@@ -5,7 +5,7 @@ import Path from 'path';
 import mime from 'mime';
 
 import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
-import {media, expect_json, allow} from '../../middleware';
+import {media, expectJson, allow} from '../../middleware';
 import {notify} from '../../../lib/notify';
 
 import type {Router} from 'express';
@@ -17,7 +17,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
   // publishing a package
   router.put('/:package/:_rev?/:revision?', can('publish'),
-    media(mime.getType('json')), expect_json, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const name = req.params.package;
     let metadata;
     const create_tarball = function(filename: string, data, cb: Callback) {
@@ -110,7 +110,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     }
 
     if (req.params._rev) {
-      storage.change_package(name, metadata, req.params.revision, function(err) {
+      storage.changePackage(name, metadata, req.params.revision, function(err) {
         after_change(err, 'package changed');
       });
     } else {
@@ -122,7 +122,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
   // unpublishing an entire package
   router.delete('/:package/-rev/*', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.remove_package(req.params.package, function(err) {
+    storage.removePackage(req.params.package, function(err) {
       if (err) {
         return next(err);
       }
@@ -134,7 +134,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
   // removing a tarball
   router.delete('/:package/-/:filename/-rev/:revision', can('publish'),
   function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.remove_tarball(req.params.package, req.params.filename, req.params.revision, function(err) {
+    storage.removeTarball(req.params.package, req.params.filename, req.params.revision, function(err) {
       if (err) {
         return next(err);
       }
@@ -156,6 +156,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
       complete = true;
       stream.done();
     });
+
     req.on('close', function() {
       if (!complete) {
         stream.abort();
@@ -165,6 +166,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     stream.on('error', function(err) {
       return res.report_error(err);
     });
+
     stream.on('success', function() {
       res.status(201);
       return next({
@@ -175,15 +177,15 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
   // adding a version
   router.put('/:package/:version/-tag/:tag', can('publish'),
-     media(mime.getType('json')), expect_json, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    let name = req.params.package;
-    let version = req.params.version;
-    let tag = req.params.tag;
+     media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const {version, tag} = req.params;
+    const name = req.params.package;
 
     storage.addVersion(name, version, req.body, tag, function(err) {
       if (err) {
         return next(err);
       }
+
       res.status(201);
       return next({
         ok: 'package published',

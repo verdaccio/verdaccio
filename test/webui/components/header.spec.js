@@ -8,8 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import storage from '../../../src/webui/utils/storage';
 
 jest.mock('../../../src/webui/utils/api', () => ({
-  get: require('./__mocks__/api').default.get,
-  post: require('./__mocks__/api').default.post
+  request: require('./__mocks__/api').default.request,
 }));
 
 describe('<Header /> component shallow', () => {
@@ -81,15 +80,15 @@ describe('<Header /> component shallow', () => {
   it('handleSubmit - login should failed with 401', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
     const handleSubmit = HeaderWrapper.instance().handleSubmit;
-    const error = {
+    const errorObject = {
       title: 'Unable to login',
       type: 'error',
       description: 'Unauthorized'
     };
     HeaderWrapper.setState({ username: 'sam', password: '12345' });
 
-    handleSubmit().then(() => {
-      expect(HeaderWrapper.state('loginError')).toEqual(error);
+    handleSubmit().catch((error) => {
+      expect(HeaderWrapper.state('loginError')).toEqual(errorObject);
     });
   });
 

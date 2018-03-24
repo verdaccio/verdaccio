@@ -9,7 +9,7 @@ import getPackageVersion from './getPackageVersion';
 
 const prodConf = {
   entry: {
-    main: ['babel-polyfill', `${env.SRC_ROOT}/webui/src/index.js`],
+    main: ['babel-polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/webui/src/index.js`],
   },
 
   module: {
