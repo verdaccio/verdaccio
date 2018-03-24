@@ -10,6 +10,7 @@ export default {
   ...baseConfig,
   entry: {
     main: [
+      'whatwg-fetch',
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4872',
       'webpack/hot/only-dev-server',
@@ -21,6 +22,8 @@ export default {
     ...baseConfig.output,
     publicPath: '/',
   },
+
+  devtool: 'cheap-module-eval-source-map',
 
   plugins: [
     new webpack.DefinePlugin({
