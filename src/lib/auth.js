@@ -94,8 +94,8 @@ class Auth {
         // Info: Cannot use `== false to check falsey values`
         if (!!groups && groups.length !== 0) {
           // TODO: create a better understanding of expectations
-          if (typeof groups === "string") {
-            throw new TypeError("invalid type for function");
+          if (typeof groups === 'string') {
+            throw new TypeError('invalid type for function');
           }
           return cb(err, authenticatedUser(user, groups));
         }

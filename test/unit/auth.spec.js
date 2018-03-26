@@ -37,7 +37,7 @@ describe('AuthTest', () => {
 			// $FlowFixMe
 			auth.authenticate(null, result, callback);
 
-			expect(callback.mock.calls.length).toBe(2);
+			expect(callback.mock.calls).toHaveLength(2);
 			expect(callback.mock.calls[0][0]).toBe(1);
 			expect(callback.mock.calls[0][1]).toBeUndefined();
 			expect(callback.mock.calls[1][0]).toBeNull();
@@ -70,14 +70,13 @@ describe('AuthTest', () => {
 			expect(auth).toBeDefined();
 
 			const callback = jest.fn();
-			let index = 0;
 
 			for (const value of [ true, 1, "test", { } ]) {
 				expect(function ( ) {
 					// $FlowFixMe
 					auth.authenticate(null, value, callback);
 				}).toThrow(TypeError);
-				expect(callback.mock.calls.length).toBe(0);
+				expect(callback.mock.calls).toHaveLength(0);
 			}
 		});
 
@@ -92,7 +91,7 @@ describe('AuthTest', () => {
 
 			// $FlowFixMe
 			auth.authenticate(null, value, callback);
-			expect(callback.mock.calls.length).toBe(1);
+			expect(callback.mock.calls).toHaveLength(1);
 			expect(callback.mock.calls[0][0]).toBeDefined();
 			expect(callback.mock.calls[0][1]).toBeUndefined();
 		});
@@ -115,7 +114,4 @@ describe('AuthTest', () => {
 			}
 		});
 	})
-
-
-
 });
