@@ -9,9 +9,9 @@ These instructions were written for Windows Server 2012, IIS 8, [Node.js 0.12.3]
 Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
 * Create a new folder in Explorer where you want to host verdaccio.
 For example `C:\verdaccio`.
-Save [package.json](https://github.com/verdaccio/verdaccio/wiki/Installing-on-IIS-server#packagejson),
-[start.js](https://github.com/verdaccio/verdaccio/wiki/Installing-on-IIS-server#startjs)
-and [web.config](https://github.com/verdaccio/verdaccio/wiki/Installing-on-IIS-server#webconfig) in this folder.
+Save [package.json](#packagejson),
+[start.js](#startjs)
+and [web.config](#webconfig) in this folder.
 * Create a new site in Internet Information Services Manager. You can name it whatever you want.
 I'll call it verdaccio in these [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Specify the path to where you saved all files and a port number.
 * Go back to Explorer and give the user that runs the application pool modify rights to the folder you just created. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
