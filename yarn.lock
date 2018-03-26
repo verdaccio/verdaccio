@@ -231,13 +231,9 @@
     lodash "4.17.5"
     mkdirp "0.5.1"
 
-"@verdaccio/streams@1.0.0":
+"@verdaccio/streams@1.0.0", "@verdaccio/streams@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
-
-"@verdaccio/streams@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
 "@verdaccio/types@2.0.2":
   version "2.0.2"
@@ -604,13 +600,6 @@ aws-sign2@~0.7.0:
 aws4@^1.2.1, aws4@^1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
-
-axios@0.18.0:
-  version "0.18.0"
-  resolved "https://registry.npmjs.org/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
-  dependencies:
-    follow-redirects "^1.3.0"
-    is-buffer "^1.1.5"
 
 babel-cli@6.26.0:
   version "6.26.0"
@@ -2513,6 +2502,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+date-fns@1.29.0:
+  version "1.29.0"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -3603,12 +3596,6 @@ flow-config-parser@^0.3.0:
 flow-runtime@0.17.0:
   version "0.17.0"
   resolved "https://registry.npmjs.org/flow-runtime/-/flow-runtime-0.17.0.tgz#ff57dd22bd7b0682c7beff20c3590f6a4a8286e3"
-
-follow-redirects@^1.3.0:
-  version "1.4.1"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.4.1.tgz#d8120f4518190f55aac65bb6fc7b85fcd666d6aa"
-  dependencies:
-    debug "^3.1.0"
 
 for-in@^0.1.3:
   version "0.1.8"
@@ -8944,11 +8931,11 @@ verdaccio-htpasswd@0.1.4:
     crypto "^1.0.1"
     unix-crypt-td-js "^1.0.0"
 
-verdaccio-memory@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.3.tgz#8ba6b51f2cf93d67958fedad5feb3f1e19933e48"
+verdaccio-memory@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.6.tgz#9521701710c2b768e00e6bcc23d9ce9faca4109e"
   dependencies:
-    "@verdaccio/streams" "^0.0.2"
+    "@verdaccio/streams" "^1.0.0"
     http-errors "1.6.2"
     memory-fs "^0.4.1"
 
@@ -9127,7 +9114,7 @@ whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.3:
   dependencies:
     iconv-lite "0.4.19"
 
-whatwg-fetch@>=0.10.0:
+whatwg-fetch@2.0.3, whatwg-fetch@>=0.10.0:
   version "2.0.3"
   resolved "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
 

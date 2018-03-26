@@ -7,7 +7,7 @@ web:
 
 store:
   memory:
-    cache: true
+    limit: 10
 
 auth:
   auth-memory:

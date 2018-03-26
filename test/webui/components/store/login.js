@@ -5,21 +5,20 @@
  */
 export default function(config) {
   return new Promise(function(resolve, reject) {
-    if (config.data.username === 'sam' && config.data.password === '1234') {
-      resolve({
-        status: 200,
-        data: {
-          username: 'sam',
-          token: 'TEST_TOKEN'
-        }
+    const body = JSON.parse(config.body);
+    if (body.username === 'sam' && body.password === '1234') {
+      return new Promise(function(resolve) {
+        resolve({
+          json: function() {
+            return {
+              username: 'sam',
+              token: 'TEST_TOKEN'
+            }
+          }
+        });
       });
     } else {
-      reject({
-        response: {
-          status: 401,
-          data: { error: 'Unauthorized' }
-        }
-      });
+      throw Error('Unauthorized');
     }
   });
 }

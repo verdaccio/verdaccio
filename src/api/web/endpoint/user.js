@@ -4,7 +4,6 @@ import HTTPError from 'http-errors';
 import type {Config} from '@verdaccio/types';
 import type {Router} from 'express';
 import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer} from '../../../../types';
-// import {combineBaseUrl, getWebProtocol} from '../../../lib/utils';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
   route.post('/login', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -21,14 +20,6 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
       }
     });
   });
-
-  // FIXME: this will be re-implemented
-  // route.post('/-/logout', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-  //   const base = combineBaseUrl(getWebProtocol(req), req.get('host'), config.url_prefix);
-
-  //   res.cookies.set('token', '');
-  //   res.redirect(base);
-  // });
 }
 
 export default addUserAuthApi;

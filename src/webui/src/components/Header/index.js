@@ -1,17 +1,16 @@
 import React from 'react';
 import {Button, Dialog, Input, Alert} from 'element-react';
 import isString from 'lodash/isString';
-import get from 'lodash/get';
 import isNumber from 'lodash/isNumber';
 import {Link} from 'react-router-dom';
 
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
-
+import {getRegistryURL} from '../../../utils/url';
 
 import classes from './header.scss';
 import './logo.png';
-import {getRegistryURL} from '../../../utils/url';
+
 
 export default class Header extends React.Component {
   state = {
@@ -43,10 +42,8 @@ export default class Header extends React.Component {
   }
 
   componentWillMount() {
-    API.get('logo')
-    .then((response) => {
-      this.setState({logo: response.data});
-    })
+    API.request('logo')
+    .then((response) => response.text().then((logo) => this.setState({logo})))
     .catch((error) => {
       throw new Error(error);
     });
@@ -62,26 +59,27 @@ export default class Header extends React.Component {
     }
 
     try {
-      let resp = await API.post(`login`, {
-        data: {
-          username: this.state.username,
-          password: this.state.password
+      const credentials = {
+        username: this.state.username,
+        password: this.state.password
+      };
+      let resp = await API.request(`login`, 'POST', {
+        body: JSON.stringify(credentials),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
-      });
+      }).then((response) => response.json());
 
-      storage.setItem('token', resp.data.token);
-      storage.setItem('username', resp.data.username);
+      storage.setItem('token', resp.token);
+      storage.setItem('username', resp.username);
       location.reload();
     } catch (e) {
       const errorObj = {
         title: 'Unable to login',
         type: 'error'
       };
-      if (get(e, 'response.status', 0) === 401) {
-        errorObj.description = e.response.data.error;
-      } else {
-        errorObj.description = e.message;
-      }
+      errorObj.description = e.message;
       this.setState({loginError: errorObj});
     }
   }
