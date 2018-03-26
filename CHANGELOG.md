@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.5"></a>
+# [3.0.0-beta.5](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2018-03-26)
+
+
+### Bug Fixes
+
+* adds debounce to search api call ([aa60e1d](https://github.com/verdaccio/verdaccio/commit/aa60e1d))
+* **test:** replaces LocaleString with date-nfs/format ([0d3cf84](https://github.com/verdaccio/verdaccio/commit/0d3cf84))
+* correct linter errors and warnings ([5c5af27](https://github.com/verdaccio/verdaccio/commit/5c5af27))
+* display logo ([cbf4b9c](https://github.com/verdaccio/verdaccio/commit/cbf4b9c))
+* login with fetch ([f338ee4](https://github.com/verdaccio/verdaccio/commit/f338ee4))
+* unit test and better error handling ([2022a30](https://github.com/verdaccio/verdaccio/commit/2022a30))
+
+
+### Features
+
+* remove web logout endpoint ([badc707](https://github.com/verdaccio/verdaccio/commit/badc707))
+
+
+
 <a name="3.0.0-beta.4"></a>
 # [3.0.0-beta.4](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.2...v3.0.0-beta.4) (2018-03-18)
 
