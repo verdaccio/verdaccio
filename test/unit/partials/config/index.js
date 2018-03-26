@@ -1,5 +1,8 @@
+
+import path from 'path';
+
 const config = {
-  storage: `${__dirname}/store/test-storage`,
+  storage: path.join(__dirname, '../store/test-storage'),
   uplinks: {
     'npmjs': {
       'url': 'https://registry.npmjs.org/'
