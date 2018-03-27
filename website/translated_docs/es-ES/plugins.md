@@ -87,6 +87,10 @@ This is a list of plugins compatible with **Verdaccio**.
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
 
+### Storage Plugins
+
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in memory
+
 ## Caveats
 
 Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
