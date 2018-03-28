@@ -220,7 +220,7 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/local-storage@0.3.0":
+"@verdaccio/local-storage@^0.3.0":
   version "0.3.0"
   resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-0.3.0.tgz#6fdf3fac243a43842ecfc84a0207c4ba5e4cd5cb"
   dependencies:
@@ -8922,7 +8922,7 @@ verdaccio-auth-memory@0.0.4:
   version "0.0.4"
   resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
 
-verdaccio-htpasswd@0.1.4:
+verdaccio-htpasswd@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.1.4.tgz#a2f6e8487181a0f7b0cb7a792643e3b13adea031"
   dependencies:
