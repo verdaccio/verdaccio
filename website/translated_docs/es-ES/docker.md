@@ -56,7 +56,7 @@ El último argumento define cual imagen se usa. En la linea de abajo se descarga
 
 Si ya has [construido tu imagen](#build-your-own-docker-image) usa `verdaccio` como último argumento.
 
-Puedes usar `-v` para montar `conf` y `storage` desde tu sistema de archivos:
+You can use `-v` to bind mount `conf` and `storage` to the hosts filesystem:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -64,6 +64,8 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   -v $V_PATH/storage:/verdaccio/storage \
   verdaccio/verdaccio
 ```
+
+> Note: Verdaccio runs as a non-root user (uid=101, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 101:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Usar un puerto personalizado con Docker
 
