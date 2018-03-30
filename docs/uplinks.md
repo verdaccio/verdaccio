@@ -38,6 +38,7 @@ auth | list | No | type: [bearer,basic], [token: "token",token_env: [true,\<get 
 headers | list | No | authorization: "Basic YourBase64EncodedCredentials==" | all | list of custom headers for the uplink | disabled
 strict_ssl |boolean | No | [true,false] | >= 3.0 | If true, requires SSL certificates be valid. | true
 
+> The `auth` property allows you to use a auth token via an environment variable, [clik here for an example](https://github.com/verdaccio/verdaccio/releases/tag/v2.5.0). 
 
 ### You Must know
 
