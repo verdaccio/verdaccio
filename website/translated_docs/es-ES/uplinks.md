@@ -38,7 +38,7 @@ Puedes definir múltiples uplinks y cada uno de ellos debe tener un nombre únic
 | headers      | list    | No        | authorization: "Basic YourBase64EncodedCredentials=="                               | all     | listado de encabezados por uplink                                                                                    | desactivado |
 | strict_ssl   | boolean | No        | [true,false]                                                                        | >= 3.0  | Es verdadero, requiere que el certificado SSL sea válido.                                                            | true        |
 
-> The `auth` property allows you to use a auth token via an environment variable, [clik here for an example](https://github.com/verdaccio/verdaccio/releases/tag/v2.5.0).
+> La propiedad ` auth` te permite usar token te autenticación vía variables de entorno, [haz click aqui para ver un ejemplo](https://github.com/verdaccio/verdaccio/releases/tag/v2.5.0).
 
 ### Debes saber
 
