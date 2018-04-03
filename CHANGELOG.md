@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.6"></a>
+# [3.0.0-beta.6](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2018-04-03)
+
+
+### Bug Fixes
+
+* api login use case when user already exist ([6491db4](https://github.com/verdaccio/verdaccio/commit/6491db4))
+
+
+### Features
+
+* update verdaccio-htpasswd plugin ([3a9c994](https://github.com/verdaccio/verdaccio/commit/3a9c994))
+
+
+
 <a name="3.0.0-beta.5"></a>
 # [3.0.0-beta.5](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.4...v3.0.0-beta.5) (2018-03-26)
 
