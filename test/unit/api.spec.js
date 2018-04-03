@@ -146,17 +146,35 @@ describe('endpoint unit test', () => {
       });
 
       test('should test add a new user with login', (done) => {
+        const newCredentials = _.clone(credentials);
+        newCredentials.name = 'jotaNew';
 
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
-          .send(credentials)
+          .put('/-/user/org.couchdb.user:jotaNew')
+          .send(newCredentials)
           .expect('Content-Type', /json/)
-          .expect(200)
+          .expect(201)
           .end(function(err, res) {
             if (err) {
               return done(err);
             }
             expect(res.body).toBeTruthy();
+            done();
+          });
+      });
+
+      test('should test fails on add a existing user with login', (done) => {
+        request(app)
+          .put('/-/user/org.couchdb.user:jotaNew')
+          .send(credentials)
+          .expect('Content-Type', /json/)
+          .expect(409)
+          .end(function(err, res) {
+            if (err) {
+              return done(err);
+            }
+            expect(res.body.error).toBeDefined();
+            expect(res.body.error).toMatch(/username is already registered/);
             done();
           });
       });
