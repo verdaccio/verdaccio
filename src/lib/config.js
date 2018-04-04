@@ -8,6 +8,8 @@ const Utils = require('./utils');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
+const strategicConfigProps = ['users', 'uplinks', 'packages'];
+const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 
 /**
  * [[a, [b, c]], d] -> [a, b, c, d]
@@ -16,7 +18,7 @@ const pkgName = module.exports.name;
  */
 function flatten(array) {
   let result = [];
-  for (let i=0; i<array.length; i++) {
+  for (let i=0; i < array.length; i++) {
     if (Array.isArray(array[i])) {
       /* eslint prefer-spread: "off" */
       result.push.apply(result, flatten(array[i]));
@@ -25,6 +27,39 @@ function flatten(array) {
     }
   }
   return result;
+}
+
+function checkUserOrUplink(item, users) {
+  assert(item !== 'all' && item !== 'owner'
+    && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved user/uplink name: ' + item);
+  assert(!item.match(/\s/), 'CONFIG: invalid user name: ' + item);
+  assert(users[item] == null, 'CONFIG: duplicate user/uplink name: ' + item);
+  users[item] = true;
+}
+
+/**
+ * Normalise user list.
+ * @return {Array}
+ */
+function normalizeUserlist() {
+  let result = [];
+  /* eslint prefer-rest-params: "off" */
+
+  for (let i=0; i < arguments.length; i++) {
+    if (arguments[i] == null) {
+      continue;
+    }
+
+    // if it's a string, split it to array
+    if (typeof(arguments[i]) === 'string') {
+      result.push(arguments[i].split(/\s+/));
+    } else if (Array.isArray(arguments[i])) {
+      result.push(arguments[i]);
+    } else {
+      throw Error('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
+    }
+  }
+  return flatten(result);
 }
 
 /**
@@ -37,21 +72,6 @@ class Config {
    */
   constructor(config) {
     const self = this;
-    for (let i in config) {
-      if (self[i] == null) {
-        self[i] = config[i];
-      }
-    }
-
-    if (!self.user_agent) {
-      self.user_agent = `${pkgName}/${pkgVersion}`;
-    }
-
-    // some weird shell scripts are valid yaml files parsed as string
-    assert.equal(typeof(config), 'object', 'CONFIG: it doesn\'t look like a valid config file');
-
-    assert(self.storage, 'CONFIG: storage path not defined');
-
     const users = {
       all: true,
       anonymous: true,
@@ -60,23 +80,32 @@ class Config {
       none: true,
     };
 
-    const check_user_or_uplink = function(arg) {
-        assert(arg !== 'all' && arg !== 'owner'
-          && arg !== 'anonymous' && arg !== 'undefined' && arg !== 'none', 'CONFIG: reserved user/uplink name: ' + arg);
-        assert(!arg.match(/\s/), 'CONFIG: invalid user name: ' + arg);
-        assert(users[arg] == null, 'CONFIG: duplicate user/uplink name: ' + arg);
-        users[arg] = true;
-      };
+    for (let configProp in config) {
+      if (self[configProp] == null) {
+        self[configProp] = config[configProp];
+      }
 
-      // sanity check for strategic config properties
-    ['users', 'uplinks', 'packages'].forEach(function(x) {
+    }
+    if (!self.user_agent) {
+      self.user_agent = `${pkgName}/${pkgVersion}`;
+
+    }
+
+    // some weird shell scripts are valid yaml files parsed as string
+    assert.equal(typeof(config), 'object', 'CONFIG: it doesn\'t look like a valid config file');
+
+    assert(self.storage, 'CONFIG: storage path not defined');
+
+     // sanity check for strategic config properties
+    strategicConfigProps.forEach(function(x) {
       if (self[x] == null) self[x] = {};
       assert(Utils.isObject(self[x]), `CONFIG: bad "${x}" value (object expected)`);
     });
+
     // sanity check for users
     for (let i in self.users) {
       if (Object.prototype.hasOwnProperty.call(self.users, i)) {
-        check_user_or_uplink(i);
+        checkUserOrUplink(i, users);
       }
     }
     // sanity check for uplinks
@@ -86,47 +115,26 @@ class Config {
         self.uplinks[i].cache = true;
       }
       if (Object.prototype.hasOwnProperty.call(self.uplinks, i)) {
-        check_user_or_uplink(i);
-      }
-    }
-    for (let i in self.users) {
-      if (Object.prototype.hasOwnProperty.call(self.users, i)) {
-        assert(self.users[i].password, 'CONFIG: no password for user: ' + i);
-        assert(typeof(self.users[i].password) === 'string' &&
-          self.users[i].password.match(/^[a-f0-9]{40}$/)
-          , 'CONFIG: wrong password format for user: ' + i + ', sha1 expected');
-      }
-    }
-    for (let i in self.uplinks) {
-      if (Object.prototype.hasOwnProperty.call(self.uplinks, i)) {
-        assert(self.uplinks[i].url, 'CONFIG: no url for uplink: ' + i);
-        assert( typeof(self.uplinks[i].url) === 'string'
-          , 'CONFIG: wrong url format for uplink: ' + i);
-        self.uplinks[i].url = self.uplinks[i].url.replace(/\/$/, '');
+        checkUserOrUplink(i, users);
       }
     }
 
-    /**
-     * Normalise user list.
-     * @return {Array}
-     */
-    function normalize_userlist() {
-      let result = [];
-      /* eslint prefer-rest-params: "off" */
-
-      for (let i=0; i<arguments.length; i++) {
-        if (arguments[i] == null) continue;
-
-        // if it's a string, split it to array
-        if (typeof(arguments[i]) === 'string') {
-          result.push(arguments[i].split(/\s+/));
-        } else if (Array.isArray(arguments[i])) {
-          result.push(arguments[i]);
-        } else {
-          throw Error('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
-        }
+    for (let user in self.users) {
+      if (Object.prototype.hasOwnProperty.call(self.users, user)) {
+        assert(self.users[user].password, 'CONFIG: no password for user: ' + user);
+        assert(typeof(self.users[user].password) === 'string' &&
+          self.users[user].password.match(/^[a-f0-9]{40}$/)
+          , 'CONFIG: wrong password format for user: ' + user + ', sha1 expected');
       }
-      return flatten(result);
+    }
+
+    for (let uplink in self.uplinks) {
+      if (Object.prototype.hasOwnProperty.call(self.uplinks, uplink)) {
+        assert(self.uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
+        assert( typeof(self.uplinks[uplink].url) === 'string'
+          , 'CONFIG: wrong url format for uplink: ' + uplink);
+        self.uplinks[uplink].url = self.uplinks[uplink].url.replace(/\/$/, '');
+      }
     }
 
     // add a default rule for all packages to make writing plugins easier
@@ -134,35 +142,26 @@ class Config {
       self.packages['**'] = {};
     }
 
-    for (let i in self.packages) {
-      if (Object.prototype.hasOwnProperty.call(self.packages, i)) {
+    for (let pkg in self.packages) {
+      if (Object.prototype.hasOwnProperty.call(self.packages, pkg)) {
         assert(
-          typeof(self.packages[i]) === 'object' &&
-          !Array.isArray(self.packages[i])
-          , 'CONFIG: bad "'+i+'" package description (object expected)');
+          typeof(self.packages[pkg]) === 'object' &&
+          !Array.isArray(self.packages[pkg])
+          , 'CONFIG: bad "'+pkg+'" package description (object expected)');
 
-        self.packages[i].access = normalize_userlist(
-          self.packages[i].allow_access,
-          self.packages[i].access
-        );
-        delete self.packages[i].allow_access;
+        self.packages[pkg].access = normalizeUserlist(self.packages[pkg].allow_access, self.packages[pkg].access);
+        delete self.packages[pkg].allow_access;
 
-        self.packages[i].publish = normalize_userlist(
-          self.packages[i].allow_publish,
-          self.packages[i].publish
-        );
-        delete self.packages[i].allow_publish;
+        self.packages[pkg].publish = normalizeUserlist(self.packages[pkg].allow_publish, self.packages[pkg].publish);
+        delete self.packages[pkg].allow_publish;
 
-        self.packages[i].proxy = normalize_userlist(
-          self.packages[i].proxy_access,
-          self.packages[i].proxy
-        );
-        delete self.packages[i].proxy_access;
+        self.packages[pkg].proxy = normalizeUserlist(self.packages[pkg].proxy_access, self.packages[pkg].proxy);
+        delete self.packages[pkg].proxy_access;
       }
     }
 
     // loading these from ENV if aren't in config
-    ['http_proxy', 'https_proxy', 'no_proxy'].forEach((function(v) {
+    allowedEnvConfig.forEach((function(v) {
       if (!(v in self)) {
         self[v] = process.env[v] || process.env[v.toUpperCase()];
       }

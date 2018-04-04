@@ -4,7 +4,6 @@ import {loadPlugin} from '../lib/plugin-loader';
 import Crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import {ErrorCode} from './utils';
-const Error = require('http-errors');
 
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
@@ -47,7 +46,9 @@ class Auth {
           return prev;
         }, false);
 
-        if (ok) return cb(null, true);
+        if (ok) {
+          return cb(null, true);
+        }
 
         if (user.name) {
           cb(ErrorCode.get403('user ' + user.name + ' is not allowed to ' + action + ' package ' + pkg.name));
@@ -373,7 +374,7 @@ class Auth {
     try {
       decoded = jwt.verify(token, this.secret);
     } catch (err) {
-      throw Error[401](err.message);
+      throw ErrorCode.getCode(401, err.message);
     }
 
     return decoded;
