@@ -242,9 +242,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-2.0.2.tgz#2a60faa458bbb5eaf3cdb6db1ef95c8d2e2fa5ed"
+"@verdaccio/types@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-2.0.3.tgz#ae72544af5f867975bc68d8862b040611f1b80ed"
 
 JSONStream@1.3.2, JSONStream@^1.0.4:
   version "1.3.2"
@@ -3652,9 +3652,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@0.67.1:
-  version "0.67.1"
-  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.67.1.tgz#eabb7197cce870ac9442cfd04251c7ddc30377db"
+flow-bin@0.69.0:
+  version "0.69.0"
+  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.69.0.tgz#053159a684a6051fcbf0b71a2eb19a9679082da6"
 
 flow-config-parser@^0.3.0:
   version "0.3.0"
