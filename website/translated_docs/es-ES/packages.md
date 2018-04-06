@@ -127,7 +127,7 @@ packages:
 Vamos a describir que es lo que queremos con el ejemplo de arriba:
 
 * Quiero almacenar mi propia dependencia ` jquery` pero necesito evitar que se busque en el proxy.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
+* Quiero que todas mis dependencias que coincidan con `my-company-*` pero necesito evitar que dichos paquetes se actualicen vía proxy.
 * I want to proxying all the rest dependencies.
 
 Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way how your dependencies are solved will be affected.
