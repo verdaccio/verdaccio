@@ -126,7 +126,7 @@ packages:
 
 Vamos a describir que es lo que queremos con el ejemplo de arriba:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
+* Quiero almacenar mi propia dependencia ` jquery` pero necesito evitar que se busque en el proxy.
 * I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
 * I want to proxying all the rest dependencies.
 
