@@ -22,7 +22,7 @@ RUN npm config set registry http://registry.npmjs.org/ && \
     yarn global add -s flow-bin@0.52.0 && \
     yarn install --production=false && \
     yarn run lint && \
-    yarn run code:build && \
+    yarn run code:docker-build && \
     yarn run build:webui && \
     yarn run test:unit -- --silent true --coverage false --bail && \
     yarn cache clean && \
