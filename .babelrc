@@ -26,7 +26,19 @@
       ]
     },
     "test": {
-      "presets": [ "es2015-node4", "stage-2", "stage-3", "flow", "react"],
+      "presets": [["env", {
+        "targets": {
+          "node": "6.10"
+        }
+      }], "flow", "react"],
+      "plugins": [
+        "transform-class-properties",
+        "transform-object-rest-spread"
+      ]
+    },
+    "testE2E": {
+      /** for an issue on puppeteer env we need to use es2015-node4 **/
+      "presets": [ "es2015-node4", "flow"],
       "plugins": [
         "transform-class-properties",
         "transform-object-rest-spread"
@@ -34,17 +46,27 @@
     },
     "registry": {
       "presets": [
-        "es2015-node4", "flow"
-      ],
+        ["env", {
+          "targets": {
+            "node": "6.10"
+          }
+        }], "stage-3", "flow"],
       "plugins": [
-        "transform-object-rest-spread"
+        "transform-object-rest-spread",
+        "transform-class-properties"
       ]
+    },
+    "registry-docker": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "9"
+          }
+        }], "flow"]
     },
     "development": {
       "presets": ["flow"],
-      "plugins": [
-        "flow-runtime"
-      ]
+      "plugins": ["flow-runtime"]
     }
   }
 }
