@@ -71,11 +71,31 @@ function cleanUpReadme(version: Version): Version {
   return version;
 }
 
+function getLatestReadme(pkg: Package): string {
+  const versions = pkg['versions'] || {};
+  const distTags = pkg['dist-tags'] || {};
+  const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
+  let readme = latestVersion.readme || pkg.readme || '';
+  // In case of empty readme - trying to get ANY readme in the following order: 'beta','alpha','test'
+  const readmeDistTagsPriority = [
+    'beta',
+    'alpha',
+    'test'];
+  readmeDistTagsPriority.map(function(tag) {
+    if(!readme) {
+      const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
+      readme = data.readme || readme;
+    }
+  });
+  return readme;
+}
+
 export {
   generatePackageTemplate,
   normalizePackage,
   generateRevision,
   cleanUpReadme,
+  getLatestReadme,
   DEFAULT_REVISION,
   fileExist,
   noSuchFile,
