@@ -78,9 +78,12 @@ function getLatestReadme(pkg: Package): string {
   let readme = latestVersion.readme || pkg.readme || '';
   // In case of empty readme - trying to get ANY readme in the following order: 'beta','alpha','test'
   const readmeDistTagsPriority = [
+    'next',
     'beta',
     'alpha',
-    'test'];
+    'test',
+    'dev',
+    'canary'];
   readmeDistTagsPriority.map(function(tag) {
     if(!readme) {
       const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
