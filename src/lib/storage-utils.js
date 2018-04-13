@@ -76,7 +76,7 @@ function getLatestReadme(pkg: Package): string {
   const distTags = pkg['dist-tags'] || {};
   const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
   let readme = latestVersion.readme || pkg.readme || '';
-  // In case of empty readme - trying to get ANY readme in the following order: 'beta','alpha','test'
+  // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
   const readmeDistTagsPriority = [
     'next',
     'beta',
