@@ -124,17 +124,17 @@ packages:
      proxy: npmjs         
 ```
 
-Let's describe what we want with the example above:
+Vamos a describir que es lo que queremos con el ejemplo de arriba:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want to proxying all the rest dependencies.
+* Quiero almacenar mi propia dependencia ` jquery` pero necesito evitar que se busque en el proxy.
+* Quiero que todas mis dependencias que coincidan con `my-company-*` pero necesito evitar que dichos paquetes se actualicen vía proxy.
+* Quiero que el resto de dependencias se actualicen vía proxy.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way how your dependencies are solved will be affected.
+Se **consciente que el orden de la definición de los paquetes es importante y siempre usa doble wildcard**. Porque sino lo incluyes `verdaccio`lo incluirá por ti y en la forma que tus dependencias son resueltas se verá afectada.
 
 ### Configuración
 
-You can define mutiple `packages` and each of them must have an unique `Regex`.
+Puedes definir multiples `paquetes`y cada uno de ellos deben tener un único ` Regex`.
 
 | Propiedad | Tipo    | Requerido | Ejemplo        | Soporte | Descripción                                                |
 | --------- | ------- | --------- | -------------- | ------- | ---------------------------------------------------------- |
@@ -143,4 +143,4 @@ You can define mutiple `packages` and each of them must have an unique `Regex`.
 | proxy     | string  | No        | npmjs          | all     | limita las busquedas a un uplink específico                |
 | storage   | boolean | No        | [true,false]   | all     | TODO                                                       |
 
-> We higlight recommend do not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and soon will be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Recomendamos ya no usar **allow_access**/**allow_publish** y **proxy_access** nunca más, esas propiedades están depreciadas y pronto serán removidas, por favor use las versiones cortas (**access**/**publish**/**proxy**).
