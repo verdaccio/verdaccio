@@ -21,6 +21,10 @@ function tryLoad(path: string) {
   }
 }
 
+function mergeConfig(appConfig, pluginConfig) {
+  return _.merge(appConfig, pluginConfig);
+}
+
 function isValid(plugin) {
   return (_.isFunction(plugin) || _.isFunction(plugin.default));
 }
@@ -74,9 +78,8 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
       logger.logger.error({content: pluginId}, '@{content} doesn\'t look like a valid plugin');
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
-    const pluginConfiguration = pluginConfigs[pluginId];
     /* eslint new-cap:off */
-    plugin = isES6(plugin) ? new plugin.default(pluginConfiguration, params) : plugin(pluginConfiguration, params);
+    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
