@@ -9,6 +9,7 @@
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
 [![Backers on Open Collective](https://opencollective.com/verdaccio/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/verdaccio/sponsors/badge.svg)](#sponsors) [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
 [![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
+![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg)
 [![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
 [![dependencies Status](https://david-dm.org/verdaccio/verdaccio/status.svg)](https://david-dm.org/verdaccio/verdaccio)
