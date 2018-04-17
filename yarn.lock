@@ -4285,7 +4285,7 @@ http-errors@1.6.2:
     setprototypeof "1.0.3"
     statuses ">= 1.3.1 < 2"
 
-http-errors@~1.6.2:
+http-errors@1.6.3, http-errors@~1.6.2:
   version "1.6.3"
   resolved "https://registry.npmjs.org/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
   dependencies:
@@ -9048,12 +9048,12 @@ verdaccio-htpasswd@0.2.0:
     bcryptjs "2.4.3"
     unix-crypt-td-js "^1.0.0"
 
-verdaccio-memory@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.6.tgz#9521701710c2b768e00e6bcc23d9ce9faca4109e"
+verdaccio-memory@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-0.0.7.tgz#f449182d47e6e10819f445b6cb9444787a6bdd7c"
   dependencies:
     "@verdaccio/streams" "^1.0.0"
-    http-errors "1.6.2"
+    http-errors "1.6.3"
     memory-fs "^0.4.1"
 
 verror@1.10.0:
