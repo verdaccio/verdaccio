@@ -50,6 +50,8 @@ class LocalStorage implements IStorage {
     this.logger = logger.child({sub: 'fs'});
     this.config = config;
     this.localData = this._loadStorage(config, logger);
+    config.secret = config.checkSecretKey(this.localData.getSecret());
+    this.localData.setSecret(this.config.secret);
   }
 
   _loadStorage(config: Config, logger: Logger) {
