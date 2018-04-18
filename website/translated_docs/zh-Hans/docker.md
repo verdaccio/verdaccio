@@ -30,16 +30,10 @@ For a specific (patch) version:
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` version.
+For the next major release using the `beta` (`v.3.x`) version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
-```
-
-The Canary version (master branch) is tagged as `alpha`
-
-```bash
-docker pull verdaccio/verdaccio:alpha
 ```
 
 > If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
@@ -145,7 +139,7 @@ Please note that for any of the above docker commands you need to have docker in
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
-https://github.com/verdaccio/docker-examples
+<https://github.com/verdaccio/docker-examples>
 
 ## Docker Custom Builds
 
