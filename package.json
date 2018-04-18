@@ -104,6 +104,7 @@
     "stylelint": "7.13.0",
     "stylelint-config-standard": "16.0.0",
     "stylelint-webpack-plugin": "0.8.0",
+    "touch": "^3.1.0",
     "url-loader": "0.5.8",
     "webpack": "3.2.0",
     "webpack-dev-server": "2.5.0",
