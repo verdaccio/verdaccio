@@ -28,7 +28,7 @@ or using `yarn`
 yarn global add verdaccio
 ```
 
-#### Beta
+### Beta
 
 ⚠️⚠️ **Help us to test the version 3.x in order to release a stable version soon. Remember, to do never test with your original storage folder, do always a backup** ⚠️⚠️
 
