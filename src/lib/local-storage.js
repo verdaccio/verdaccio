@@ -98,19 +98,20 @@ class LocalStorage implements IStorage {
 
       data = normalizePackage(data);
 
-      const removeFailed = this.localData.remove(name);
-
-      if (removeFailed) {
-        // This will happen when database is locked
-        return callback(ErrorCode.get422(removeFailed.message));
-      }
-      storage.deletePackage(pkgFileName, (err) => {
-        if (err) {
-          return callback(err);
+      this.localData.remove(name, (removeFailed) => {
+        if (removeFailed) {
+          // This will happen when database is locked
+          return callback(ErrorCode.get422(removeFailed.message));
         }
-        const attachments = Object.keys(data._attachments);
 
-        this._deleteAttachments(storage, attachments, callback);
+        storage.deletePackage(pkgFileName, (err) => {
+          if (err) {
+            return callback(err);
+          }
+          const attachments = Object.keys(data._attachments);
+
+          this._deleteAttachments(storage, attachments, callback);
+        });
       });
     });
   }
@@ -254,12 +255,14 @@ class LocalStorage implements IStorage {
       data.versions[version] = metadata;
       tagVersion(data, version, tag);
 
-      let addFailed = this.localData.add(name);
-      if (addFailed) {
-        return cb(ErrorCode.get422(addFailed.message));
-      }
+      this.localData.add(name, (addFailed) => {
+        if (addFailed) {
+          return cb(ErrorCode.get422(addFailed.message));
+        }
 
-      cb();
+        cb();
+      });
+
     }, callback);
   }
 
