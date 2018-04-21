@@ -1,4 +1,4 @@
-import verdaccio from '../../src/api/index';
+import endPointAPI from '../../src/api/index';
 
 const assert = require('assert');
 const express = require('express');
@@ -17,9 +17,9 @@ describe('basic system test', () => {
     rimraf(__dirname + '/store/test-storage', done);
   });
 
-  beforeAll(function(done) {
+  beforeAll(async function(done) {
 
-    app.use(verdaccio(config));
+    app.use(await endPointAPI(config));
 
     server.listen(0, function() {
       port = server.address().port;

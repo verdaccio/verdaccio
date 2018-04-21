@@ -13,22 +13,24 @@ import type {IStorageHandler} from '../../types';
 
 setup(configExample.logs);
 
-const generateStorage = function(): IStorageHandler {
+const generateStorage = async function() {
   const storageConfig = _.clone(configExample);
 	const storage = `./unit/partials/store/test-storage-store.spec`;
   storageConfig.self_path = __dirname;
   storageConfig.storage = storage;
 	const config: Config = new AppConfig(storageConfig);
+  const store: IStorageHandler = new Storage(config);
+  await store.init(config);
 
-	return  new Storage(config);
+	return store;
 }
 
 describe('StorageTest', () => {
 
   jest.setTimeout(10000);
 
-	beforeAll((done)=> {
-		const storage: IStorageHandler = generateStorage();
+	beforeAll(async (done)=> {
+		const storage: IStorageHandler = await generateStorage();
 		var request  = httpMocks.createRequest({
 			method: 'GET',
 			url: '/react',
@@ -50,14 +52,14 @@ describe('StorageTest', () => {
     });
 	});
 
-	test('should be defined', () => {
-		const storage: IStorageHandler = generateStorage();
+	test('should be defined', async () => {
+		const storage: IStorageHandler = await generateStorage();
 
     expect(storage).toBeDefined();
 	});
 
-	test('should fetch from uplink react metadata from nmpjs', (done) => {
-		const storage: IStorageHandler = generateStorage();
+	test('should fetch from uplink react metadata from nmpjs', async (done) => {
+		const storage: IStorageHandler = await generateStorage();
 
 		// $FlowFixMe
 		storage._syncUplinksMetadata('react', null, {}, (err, metadata, errors) => {
@@ -66,8 +68,8 @@ describe('StorageTest', () => {
 		});
 	});
 
-	test('should fails on fetch from uplink metadata from nmpjs', (done) => {
-		const storage: IStorageHandler = generateStorage();
+	test('should fails on fetch from uplink metadata from nmpjs', async (done) => {
+		const storage: IStorageHandler = await generateStorage();
 
 		// $FlowFixMe
 		storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {

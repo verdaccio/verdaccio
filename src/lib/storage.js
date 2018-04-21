@@ -41,10 +41,6 @@ const getDefaultMetadata = function(name): Package {
   return pkgMetadata;
 };
 
-/**
- * Implements Storage interface
- * (same for storage.js, local-storage.js, up-storage.js).
- */
 class Storage implements IStorageHandler {
   localStorage: IStorage;
   config: Config;
@@ -59,7 +55,12 @@ class Storage implements IStorageHandler {
     this.uplinks = {};
     this._setupUpLinks(this.config);
     this.logger = LoggerApi.logger.child();
+  }
+
+  init(config: Config) {
     this.localStorage = new LocalStorage(this.config, LoggerApi.logger);
+
+    return this.localStorage.getSecret(config);
   }
 
   /**

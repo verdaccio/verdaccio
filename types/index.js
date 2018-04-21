@@ -79,6 +79,7 @@ export interface IStorageHandler {
 	logger: Logger;
 	uplinks: ProxyList;
 	addPackage(name: string, metadata: any, callback: Function): void;
+	init(config: Config): Promise<any>;
 	addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
 	mergeTags(name: string, tagHash: MergeTags, callback: Callback): void;
 	replaceTags(name: string, tagHash: MergeTags, callback: Callback): void;
@@ -110,6 +111,7 @@ export interface IStorage {
 	getTarball(name: string, filename: string): IReadTarball;
 	getPackageMetadata(name: string, callback: Callback): void;
 	search(startKey: string, options: any): IUploadTarball;
+  getSecret(config: Config): Promise<any>;
 }
 
 export type $RequestExtend = $Request & {remote_user?: any}
