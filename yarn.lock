@@ -9048,9 +9048,9 @@ verdaccio-htpasswd@0.2.0:
     bcryptjs "2.4.3"
     unix-crypt-td-js "^1.0.0"
 
-verdaccio-memory@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-1.0.0.tgz#33f12dd27bfc850602f2245799291ed5ec75414f"
+verdaccio-memory@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-1.0.1.tgz#1bd49c997145a0c2d8d73836e2714e79d1463a12"
   dependencies:
     "@verdaccio/streams" "^1.0.0"
     http-errors "1.6.3"
