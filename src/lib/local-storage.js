@@ -50,29 +50,7 @@ class LocalStorage implements IStorage {
     this.logger = logger.child({sub: 'fs'});
     this.config = config;
     this.localData = this._loadStorage(config, logger);
-    config.secret = config.checkSecretKey(this.localData.getSecret());
-    this.localData.setSecret(this.config.secret);
-  }
-
-  _loadStorage(config: Config, logger: Logger) {
-    const Storage = this._loadStorePlugin();
-
-    if (_.isNil(Storage)) {
-      return new LocalDatabase(this.config, logger);
-    } else {
-      return Storage;
-    }
-  }
-
-  _loadStorePlugin() {
-    const plugin_params = {
-      config: this.config,
-      logger: this.logger,
-    };
-
-    return _.head(loadPlugin(this.config, this.config.store, plugin_params, function(plugin) {
-      return plugin.getPackageStorage;
-    }));
+    this._setSecret(config);
   }
 
   addPackage(name: string, pkg: Package, callback: Callback) {
@@ -120,19 +98,20 @@ class LocalStorage implements IStorage {
 
       data = normalizePackage(data);
 
-      const removeFailed = this.localData.remove(name);
-
-      if (removeFailed) {
-        // This will happen when database is locked
-        return callback(ErrorCode.get422(removeFailed.message));
-      }
-      storage.deletePackage(pkgFileName, (err) => {
-        if (err) {
-          return callback(err);
+      this.localData.remove(name, (removeFailed) => {
+        if (removeFailed) {
+          // This will happen when database is locked
+          return callback(ErrorCode.get422(removeFailed.message));
         }
-        const attachments = Object.keys(data._attachments);
 
-        this._deleteAttachments(storage, attachments, callback);
+        storage.deletePackage(pkgFileName, (err) => {
+          if (err) {
+            return callback(err);
+          }
+          const attachments = Object.keys(data._attachments);
+
+          this._deleteAttachments(storage, attachments, callback);
+        });
       });
     });
   }
@@ -276,12 +255,14 @@ class LocalStorage implements IStorage {
       data.versions[version] = metadata;
       tagVersion(data, version, tag);
 
-      let addFailed = this.localData.add(name);
-      if (addFailed) {
-        return cb(ErrorCode.get422(addFailed.message));
-      }
+      this.localData.add(name, (addFailed) => {
+        if (addFailed) {
+          return cb(ErrorCode.get422(addFailed.message));
+        }
 
-      cb();
+        cb();
+      });
+
     }, callback);
   }
 
@@ -857,6 +838,32 @@ class LocalStorage implements IStorage {
       hash.url = UrlNode.format(tarballUrl);
     }
   }
+
+  _setSecret(config: Config) {
+    this.localData.setSecret(config.checkSecretKey(this.localData.getSecret()));
+  }
+
+  _loadStorage(config: Config, logger: Logger) {
+    const Storage = this._loadStorePlugin();
+
+    if (_.isNil(Storage)) {
+      return new LocalDatabase(this.config, logger);
+    } else {
+      return Storage;
+    }
+  }
+
+  _loadStorePlugin() {
+    const plugin_params = {
+      config: this.config,
+      logger: this.logger,
+    };
+
+    return _.head(loadPlugin(this.config, this.config.store, plugin_params, function(plugin) {
+      return plugin.getPackageStorage;
+    }));
+  }
+
 }
 
 export default LocalStorage;

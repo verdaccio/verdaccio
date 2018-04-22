@@ -8,7 +8,7 @@ import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageH
 function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   // Search package
   route.get('/search/:anything', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const results = Search.query(req.params.anything);
+    const results: any = Search.query(req.params.anything);
     const packages = [];
 
     const getPackageInfo = function(i) {

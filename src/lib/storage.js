@@ -495,34 +495,38 @@ class Storage implements IStorageHandler {
    */
   getLocalDatabase(callback: Callback) {
     let self = this;
-    let locals = this.localStorage.localData.get();
-    let packages = [];
+    this.localStorage.localData.get((err, locals) => {
+      if (err) {
+        callback(err);
+      }
 
-    const getPackage = function(i) {
-      self.localStorage.getPackageMetadata(locals[i], function(err, info) {
-        if (_.isNil(err)) {
-          const latest = info[DIST_TAGS].latest;
+      let packages = [];
+      const getPackage = function(itemPkg) {
+        self.localStorage.getPackageMetadata(locals[itemPkg], function(err, info) {
+          if (_.isNil(err)) {
+            const latest = info[DIST_TAGS].latest;
 
-          if (latest && info.versions[latest]) {
-            packages.push(info.versions[latest]);
-          } else {
-            self.logger.warn( {package: locals[i]}, 'package @{package} does not have a "latest" tag?' );
+            if (latest && info.versions[latest]) {
+              packages.push(info.versions[latest]);
+            } else {
+              self.logger.warn( {package: locals[itemPkg]}, 'package @{package} does not have a "latest" tag?' );
+            }
           }
-        }
 
-        if (i >= locals.length - 1) {
-          callback(null, packages);
-        } else {
-          getPackage(i + 1);
-        }
-      });
-    };
+          if (itemPkg >= locals.length - 1) {
+            callback(null, packages);
+          } else {
+            getPackage(itemPkg + 1);
+          }
+        });
+      };
 
-    if (locals.length) {
-      getPackage(0);
-    } else {
-      callback(null, []);
-    }
+      if (locals.length) {
+        getPackage(0);
+      } else {
+        callback(null, []);
+      }
+    });
   }
 
   /**

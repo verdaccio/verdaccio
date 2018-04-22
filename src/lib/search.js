@@ -33,8 +33,10 @@ class Search implements IWebSearch {
    */
   query(query: string) {
 	  return query === '*'
-      ? this.storage.localStorage.localData.get().map( function( pkg ) {
-        return {ref: pkg, score: 1};
+      ? this.storage.localStorage.localData.get((items) => {
+        items.map( function( pkg ) {
+          return {ref: pkg, score: 1};
+        });
       }) : this.index.search(query);
   }
 
