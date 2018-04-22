@@ -57,10 +57,11 @@ export interface IProxy {
 	upname: string;
 	fetchTarball(url: string): IReadTarball;
 	isUplinkValid(url: string): boolean;
+	getRemoteMetadata(name: string, options: any, callback: Callback): void;
 }
 
 export type ProxyList = {
-	[key: string]: IProxy | null;
+	[key: string]: IProxy;
 }
 
 export type Utils = {
@@ -78,7 +79,7 @@ export interface IStorageHandler {
 	localStorage: IStorage;
 	logger: Logger;
 	uplinks: ProxyList;
-	addPackage(name: string, metadata: any, callback: Function): void;
+	addPackage(name: string, metadata: any, callback: Function): Promise<any>;
 	init(config: Config): Promise<any>;
 	addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
 	mergeTags(name: string, tagHash: MergeTags, callback: Callback): void;
@@ -93,7 +94,6 @@ export interface IStorageHandler {
 	getLocalDatabase(callback: Callback): void;
 	_syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
 	_updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
-	_setupUpLinks(config: Config): void;
 }
 
 export interface IStorage {
