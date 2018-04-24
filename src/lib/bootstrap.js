@@ -8,7 +8,7 @@ import http from'http';
 import https from 'https';
 // $FlowFixMe
 import constants from 'constants';
-import server from '../api/index';
+import endPointAPI from '../api/index';
 import {parse_address} from './utils';
 
 import type {Callback} from '@verdaccio/types';
@@ -63,31 +63,35 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback) {
+function startVerdaccio(config: any, cliListen: string,
+                              configPath: string, pkgVersion: string,
+                              pkgName: string, callback: Callback) {
   if (isObject(config) === false) {
     throw new Error('config file must be an object');
   }
 
-  const app = server(config);
-  const addresses = getListListenAddresses(cliListen, config.listen);
+  endPointAPI(config).then((app)=> {
+    const addresses = getListListenAddresses(cliListen, config.listen);
 
-  addresses.forEach(function(addr) {
-    let webServer;
-    if (addr.proto === 'https') {
-      // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
-      if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
-        displayHTTPSWarning(configPath);
+    addresses.forEach(function(addr) {
+      let webServer;
+      if (addr.proto === 'https') {
+        // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
+        if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
+          displayHTTPSWarning(configPath);
+        }
+
+        webServer = handleHTTPS(app, configPath, config);
+      } else { // http
+        webServer = http.createServer(app);
       }
 
-      webServer = handleHTTPS(app, configPath, config);
-    } else { // http
-      webServer = http.createServer(app);
-    }
+      unlinkAddressPath(addr);
 
-    unlinkAddressPath(addr);
-
-    callback(webServer, addr, pkgName, pkgVersion);
+      callback(webServer, addr, pkgName, pkgVersion);
+    });
   });
+
 }
 
 function unlinkAddressPath(addr) {

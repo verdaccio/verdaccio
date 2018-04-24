@@ -50,7 +50,6 @@ class LocalStorage implements IStorage {
     this.logger = logger.child({sub: 'fs'});
     this.config = config;
     this.localData = this._loadStorage(config, logger);
-    this._setSecret(config);
   }
 
   addPackage(name: string, pkg: Package, callback: Callback) {
@@ -839,8 +838,10 @@ class LocalStorage implements IStorage {
     }
   }
 
-  _setSecret(config: Config) {
-    this.localData.setSecret(config.checkSecretKey(this.localData.getSecret()));
+  async getSecret(config: Config) {
+    const secretKey = await this.localData.getSecret();
+
+    return this.localData.setSecret(config.checkSecretKey(secretKey));
   }
 
   _loadStorage(config: Config, logger: Logger) {

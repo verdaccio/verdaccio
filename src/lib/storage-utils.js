@@ -2,11 +2,11 @@
 
 import _ from 'lodash';
 import crypto from 'crypto';
-import * as Utils from './utils';
+import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS} from './utils';
+import Search from './search';
 
-import type {
-  Package, Version,
-} from '@verdaccio/types';
+import type {Package, Version} from '@verdaccio/types';
+import type {IStorage} from '../../types';
 
 const pkgFileName = 'package.json';
 const fileExist: string = 'EEXISTS';
@@ -42,7 +42,7 @@ function normalizePackage(pkg: Package) {
     'time'];
 
   pkgProperties.forEach((key) => {
-    if (_.isNil(Utils.isObject(pkg[key]))) {
+    if (_.isNil(isObject(pkg[key]))) {
       pkg[key] = {};
     }
   });
@@ -52,7 +52,7 @@ function normalizePackage(pkg: Package) {
   }
 
   // normalize dist-tags
-  Utils.normalize_dist_tags(pkg);
+  normalizeDistTags(pkg);
 
   return pkg;
 }
@@ -70,6 +70,7 @@ function cleanUpReadme(version: Version): Version {
 
   return version;
 }
+
 
 function getLatestReadme(pkg: Package): string {
   const versions = pkg['versions'] || {};
@@ -91,6 +92,90 @@ function getLatestReadme(pkg: Package): string {
     }
   });
   return readme;
+}
+
+export const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time'];
+
+export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
+  const propertyToKeep = [...WHITELIST];
+    if (keepUpLinkData === true) {
+      propertyToKeep.push('_uplinks');
+    }
+
+    for (let i in result) {
+      if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
+        delete result[i];
+      }
+    }
+
+    return result;
+}
+
+/**
+ * Check whether a package it is already a local package
+ * @param {*} name
+ * @param {*} localStorage
+ */
+export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
+  return new Promise((resolve, reject) => {
+    localStorage.getPackageMetadata(name, (err, results) => {
+      if (!_.isNil(err) && err.status !== 404) {
+        return reject(err);
+      }
+      if (results) {
+        return reject(ErrorCode.get409('this package is already present'));
+      }
+      return resolve();
+    });
+  });
+}
+
+export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<any> {
+  return new Promise((resolve, reject) => {
+    localStorage.addPackage(name, metadata, (err, latest) => {
+      if (!_.isNull(err)) {
+        return reject(err);
+      } else if (!_.isUndefined(latest)) {
+        Search.add(latest);
+      }
+      return resolve();
+    });
+  });
+}
+
+export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // $FlowFixMe
+    syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors) => {
+
+      // something weird
+      if (err && err.status !== 404) {
+        return reject(err);
+      }
+
+      // checking package exist already
+      if (_.isNil(packageJsonLocal) === false) {
+        return reject(ErrorCode.get409('this package is already present'));
+      }
+
+      for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
+        // checking error
+        // if uplink fails with a status other than 404, we report failure
+        if (_.isNil(upLinksErrors[errorItem][0]) === false) {
+          if (upLinksErrors[errorItem][0].status !== 404) {
+
+            if (isAllowPublishOffline) {
+              return resolve();
+            }
+
+            return reject(ErrorCode.get503('one of the uplinks is down, refuse to publish'));
+          }
+        }
+      }
+
+      return resolve();
+    });
+  });
 }
 
 export {
