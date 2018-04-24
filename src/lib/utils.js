@@ -247,7 +247,7 @@ function semverSort(listVersions: Array<string>) {
  * Flatten arrays of tags.
  * @param {*} data
  */
-function normalize_dist_tags(pkg: Package) {
+export function normalizeDistTags(pkg: Package) {
 	let sorted;
 	if (!pkg[DIST_TAGS].latest) {
 		// overwrite latest with highest known version based on semver sort
@@ -443,7 +443,6 @@ export {
 	semverSort,
 	parse_address,
 	get_version,
-	normalize_dist_tags,
 	tagVersion,
 	combineBaseUrl,
 	filter_tarball_urls,

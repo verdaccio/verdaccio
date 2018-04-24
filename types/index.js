@@ -70,7 +70,7 @@ export type Utils = {
 	isObject: (value: any) => boolean;
 	validate_name: (value: any) => boolean;
 	tag_version: (value: any, version: string, tag: string) => void;
-	normalize_dist_tags: (pkg: Package) => void;
+	normalizeDistTags: (pkg: Package) => void;
 	semverSort: (keys: Array<string>) => Array<string>;
 }
 

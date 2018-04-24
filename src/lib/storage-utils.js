@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 import crypto from 'crypto';
-import {ErrorCode, isObject, normalize_dist_tags} from './utils';
+import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS} from './utils';
 import Search from './search';
 
 import type {Package, Version} from '@verdaccio/types';
@@ -52,7 +52,7 @@ function normalizePackage(pkg: Package) {
   }
 
   // normalize dist-tags
-  normalize_dist_tags(pkg);
+  normalizeDistTags(pkg);
 
   return pkg;
 }
@@ -69,6 +69,23 @@ function cleanUpReadme(version: Version): Version {
   }
 
   return version;
+}
+
+export const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time'];
+
+export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
+  const propertyToKeep = [...WHITELIST];
+    if (keepUpLinkData === true) {
+      propertyToKeep.push('_uplinks');
+    }
+
+    for (let i in result) {
+      if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
+        delete result[i];
+      }
+    }
+
+    return result;
 }
 
 /**

@@ -8,10 +8,10 @@ import ProxyStorage from './up-storage';
 import Search from './search';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
-import {checkPackageLocal, publishPackage, checkPackageRemote} from './storage-utils';
+import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef} from './storage-utils';
 import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
 import {mergeVersions} from './metadata-utils';
-import {ErrorCode, normalize_dist_tags, validate_metadata, isObject, DIST_TAGS} from './utils';
+import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
 import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
 import type {
   Versions,
@@ -26,7 +26,6 @@ import type {
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('../lib/logger');
-const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time'];
 const getDefaultMetadata = function(name): Package {
   const pkgMetadata: Package = {
     name,
@@ -47,9 +46,6 @@ class Storage implements IStorageHandler {
   logger: Logger;
   uplinks: ProxyList;
 
-  /**
-   * @param {*} config
-   */
   constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
@@ -169,9 +165,9 @@ class Storage implements IStorageHandler {
     // trying local first
     // flow: should be IReadTarball
     let localStream: any = self.localStorage.getTarball(name, filename);
-    let is_open = false;
+    let isOpen = false;
     localStream.on('error', (err) => {
-      if (is_open || err.status !== 404) {
+      if (isOpen || err.status !== 404) {
         return readStream.emit('error', err);
       }
 
@@ -202,7 +198,7 @@ class Storage implements IStorageHandler {
       readStream.emit('content-length', v);
     });
     localStream.on('open', function() {
-      is_open = true;
+      isOpen = true;
       localStream.pipe(readStream);
     });
     return readStream;
@@ -214,10 +210,10 @@ class Storage implements IStorageHandler {
     function serveFile(file: DistFile) {
       let uplink: any = null;
 
-      for (let p in self.uplinks) {
+      for (let uplinkId in self.uplinks) {
         // $FlowFixMe
-        if (self.uplinks[p].isUplinkValid(file.url)) {
-          uplink = self.uplinks[p];
+        if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
+          uplink = self.uplinks[uplinkId];
         }
       }
 
@@ -304,28 +300,17 @@ class Storage implements IStorageHandler {
       }
 
       this._syncUplinksMetadata(options.name, data, {req: options.req},
-        function getPackageSynUpLinksCallback(err, result: Package, uplink_errors) {
+        function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors) {
           if (err) {
             return options.callback(err);
           }
 
-          const propertyToKeep = [...WHITELIST];
-          if (options.keepUpLinkData === true) {
-            propertyToKeep.push('_uplinks');
-          }
-
-          for (let i in result) {
-            if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
-              delete result[i];
-            }
-          }
-
-          normalize_dist_tags(result);
+          normalizeDistTags(cleanUpLinksRef(options.keepUpLinkData, result));
 
           // npm can throw if this field doesn't exist
           result._attachments = {};
 
-          options.callback(null, result, uplink_errors);
+          options.callback(null, result, uplinkErrors);
         });
     });
   }
