@@ -7,23 +7,19 @@ import configDefault from './partials/config';
 import publishMetadata from './partials/publish-api';
 import forbiddenPlace from './partials/forbidden-place';
 import Config from '../../src/lib/config';
-import Storage from '../../src/lib/storage';
-import Auth from '../../src/lib/auth';
-import indexAPI from '../../src/api/index';
+import endPointAPI from '../../src/api/index';
 
 require('../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
 
 describe('endpoint unit test', () => {
   let config;
-  let storage;
-  let auth;
   let app;
   jest.setTimeout(10000);
 
   beforeAll(function(done) {
     const store = path.join(__dirname, './partials/store/test-storage');
-    rimraf(store, () => {
+    rimraf(store, async () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
         htpasswd: {
@@ -32,9 +28,7 @@ describe('endpoint unit test', () => {
       };
       configForTest.self_path = store;
       config = new Config(configForTest);
-      storage = new Storage(config);
-      auth = new Auth(config);
-      app = indexAPI(config, auth, storage);
+      app = await endPointAPI(config);
       done();
     });
   });

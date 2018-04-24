@@ -9,10 +9,10 @@ require('../../src/lib/logger').setup([]);
 describe('startServer via API', () => {
 
   describe('startServer launcher', () => {
-    test('should provide all server data', (done) => {
+    test('should provide all server data await/async', async (done) => {
       const store = path.join(__dirname, 'partials/store');
 
-      startServer(config, 6000, store, '1.0.0', 'verdaccio-test',
+      await startServer(config, 6000, store, '1.0.0', 'verdaccio-test',
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
@@ -27,8 +27,12 @@ describe('startServer via API', () => {
       });
     });
 
-    test('should fails if config is missing', () => {
-      expect(() => { return startServer() }).toThrow('config file must be an object');
+    test('should fails if config is missing', async () => {
+      try {
+        await startServer();
+      } catch (e) {
+        expect(e.message).toEqual('config file must be an object');
+      }
     });
 
   });

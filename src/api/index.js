@@ -20,11 +20,7 @@ const Config = require('../lib/config');
 const Middleware = require('./middleware');
 const Cats = require('../lib/status-cats');
 
-export default function(configHash: any) {
-  // Config
-  LoggerApp.setup(configHash.logs);
-  const config: IConfig = new Config(configHash);
-  const storage: IStorageHandler = new Storage(config);
+const defineAPI = function(config: Config, storage: IStorageHandler) {
   const auth: IAuth = new Auth(config);
   const app: $Application = express();
   // run in production mode by default, just in case
@@ -102,4 +98,13 @@ export default function(configHash: any) {
   app.use(Middleware.final);
 
   return app;
+};
+
+export default async function(configHash: any) {
+  LoggerApp.setup(configHash.logs);
+  const config: IConfig = new Config(configHash);
+  const storage: IStorageHandler = new Storage(config);
+  // waits until init calls have been intialized
+  await storage.init(config);
+  return defineAPI(config, storage);
 }

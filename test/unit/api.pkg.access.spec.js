@@ -5,21 +5,17 @@ import rimraf from 'rimraf';
 
 import configDefault from './partials/config/access';
 import Config from '../../src/lib/config';
-import Storage from '../../src/lib/storage';
-import Auth from '../../src/lib/auth';
-import indexAPI from '../../src/api/index';
+import endPointAPI from '../../src/api/index';
 
 require('../../src/lib/logger').setup([]);
 
 describe('api with no limited access configuration', () => {
   let config;
-  let storage;
-  let auth;
   let app;
 
   beforeAll(function(done) {
     const store = path.join(__dirname, './partials/store/access-storage');
-    rimraf(store, () => {
+    rimraf(store, async () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
         htpasswd: {
@@ -28,9 +24,7 @@ describe('api with no limited access configuration', () => {
       };
       configForTest.self_path = store;
       config = new Config(configForTest);
-      storage = new Storage(config);
-      auth = new Auth(config);
-      app = indexAPI(config, auth, storage);
+      app = await endPointAPI(config);
       done();
     });
   });

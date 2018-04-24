@@ -59,12 +59,12 @@ try {
   }
 
   logger.logger.warn({file: configPathLocation}, 'config file  - @{file}');
+
+  startVerdaccio(verdaccioConfiguration, cliListner, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
 } catch (err) {
   logger.logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
   process.exit(1);
 }
-
-startVerdaccio(verdaccioConfiguration, cliListner, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
 
 process.on('uncaughtException', function(err) {
   logger.logger.fatal( {

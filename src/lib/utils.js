@@ -247,7 +247,7 @@ function semverSort(listVersions: Array<string>) {
  * Flatten arrays of tags.
  * @param {*} data
  */
-function normalize_dist_tags(pkg: Package) {
+export function normalizeDistTags(pkg: Package) {
 	let sorted;
 	if (!pkg[DIST_TAGS].latest) {
 		// overwrite latest with highest known version based on semver sort
@@ -345,8 +345,8 @@ const ErrorCode = {
   get403: (message: string = 'can\'t use this filename') => {
     return createError(403, message);
   },
-  get503: () => {
-    return createError(500, 'resource temporarily unavailable');
+  get503: (message: string = 'resource temporarily unavailable') => {
+    return createError(503, message);
   },
   get404: (customMessage?: string) => {
     return createError(404, customMessage || 'no such package available');
@@ -443,7 +443,6 @@ export {
 	semverSort,
 	parse_address,
 	get_version,
-	normalize_dist_tags,
 	tagVersion,
 	combineBaseUrl,
 	filter_tarball_urls,
