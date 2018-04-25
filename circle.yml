@@ -15,6 +15,7 @@ dependencies:
       fi
     - nvm install 6
     - nvm install 8
+    - nvm install 10
 
   cache_directories:
     - ~/.yarn
@@ -30,6 +31,8 @@ test:
     - nvm alias default 8
     - yarn run test
     - nvm alias default 9
+    - yarn run test
+    - nvm alias default 10
     - yarn run test
     - yarn run test:e2e
     - yarn run coverage:publish
