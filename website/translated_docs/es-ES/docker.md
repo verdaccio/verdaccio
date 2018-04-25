@@ -30,7 +30,7 @@ Para usar una versión mas específica ("patch"):
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` (`v.3.x`) version.
+Para el siguiente lanzamiento usando va versión `beta` (`v.3.x`).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
