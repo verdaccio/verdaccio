@@ -40,7 +40,7 @@ docker pull verdaccio/verdaccio:beta
 
 ## Ejecutando verdaccio usando Docker
 
-To run the docker container:
+Para ejecutar el contenedor de Docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
