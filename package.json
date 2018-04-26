@@ -163,7 +163,7 @@
     "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --ignore src/webui/ --copy-files",
     "pre:webpack": "rimraf static/*",
     "dev:webui": "cross-env BABEL_ENV=ui babel-node tools/dev.server.js",
-    "build:webui": "npm run pre:webpack && BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js",
+    "build:webui": "npm run pre:webpack && cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js",
     "build:docker": "docker build -t verdaccio . --no-cache",
     "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
   },
