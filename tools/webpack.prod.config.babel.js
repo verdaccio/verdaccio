@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const baseConfig = require('./webpack.config');
 const env = require('../src/config/env');
 const _ = require('lodash');
@@ -8,6 +9,8 @@ const merge = require('webpack-merge');
 import getPackageVersion from './getPackageVersion';
 
 const prodConf = {
+  mode: 'production',
+
   entry: {
     main: ['babel-polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/webui/src/index.js`],
   },
@@ -22,13 +25,9 @@ const prodConf = {
       'process.env.NODE_ENV': '"production"',
       __APP_VERSION__: `"${getPackageVersion()}"`,
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false,
-      },
+    new MiniCssExtractPlugin({
+      filename: 'style.[contenthash].css',
     }),
-    new ExtractTextPlugin('style.[contenthash].css'),
     new HTMLWebpackPlugin({
       title: 'ToReplaceByTitle',
       filename: 'index.html',
@@ -37,18 +36,22 @@ const prodConf = {
       debug: false,
       inject: true,
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
   ],
+
+  optimization: {
+    minimizer: [
+      new UglifyJsWebpackPlugin({
+        sourceMap: true,
+      }),
+    ],
+  },
 };
 
 prodConf.module.rules = baseConfig.module.rules
   .filter((loader) =>
     Array.isArray(loader.use) && loader.use.find((v) => /css/.test(v.loader.split('-')[0]))
   ).forEach((loader) => {
-  loader.use = ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: _.tail(loader.use),
-  });
+    loader.use = [MiniCssExtractPlugin.loader].concat(_.tail(loader.use));
 });
 
 module.exports = merge(baseConfig, prodConf);
