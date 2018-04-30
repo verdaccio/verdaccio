@@ -7,7 +7,6 @@ import type {IStorageHandler, IWebSearch} from '../../types';
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-
   index: any;
   storage: IStorageHandler;
 

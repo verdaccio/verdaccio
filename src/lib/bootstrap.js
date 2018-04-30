@@ -91,7 +91,6 @@ function startVerdaccio(config: any, cliListen: string,
       callback(webServer, addr, pkgName, pkgVersion);
     });
   });
-
 }
 
 function unlinkAddressPath(addr) {

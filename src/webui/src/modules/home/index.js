@@ -13,7 +13,6 @@ import classes from './home.scss';
 
 
 export default class Home extends React.Component {
-
   static propTypes = {
     children: PropTypes.element
   }

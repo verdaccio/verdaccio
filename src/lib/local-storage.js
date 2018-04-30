@@ -41,7 +41,6 @@ import type {IStorage, StringValue} from '../../types';
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
  */
 class LocalStorage implements IStorage {
-
   config: Config;
   localData: ILocalData;
   logger: Logger;
@@ -260,7 +259,6 @@ class LocalStorage implements IStorage {
 
         cb();
       });
-
     }, callback);
   }
 
@@ -325,7 +323,6 @@ class LocalStorage implements IStorage {
 
     this._updatePackage(name, (jsonData, cb) => {
       for (let ver in jsonData.versions) {
-
         if (_.isNil(pkg.versions[ver])) {
           this.logger.info( {name: name, version: ver}, 'unpublishing @{name}@@{version}');
 
@@ -337,7 +334,6 @@ class LocalStorage implements IStorage {
             }
           }
         }
-
       }
 
       jsonData[DIST_TAGS] = pkg[DIST_TAGS];
@@ -553,7 +549,6 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   getPackageMetadata(name: string, callback?: Callback = () => {}): void {
-
     const storage: IPackageStorage = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return callback( ErrorCode.get404() );
@@ -863,7 +858,6 @@ class LocalStorage implements IStorage {
       return plugin.getPackageStorage;
     }));
   }
-
 }
 
 export default LocalStorage;

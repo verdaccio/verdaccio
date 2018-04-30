@@ -148,7 +148,6 @@ class Auth {
       }
 
       p.allow_access(user, pkg, function(err, ok) {
-
         if (err) {
           return callback(err);
         }

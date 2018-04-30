@@ -17,7 +17,6 @@ const route = Router(); /* eslint new-cap: 0 */
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
 */
 module.exports = function(config: Config, auth: IAuth, storage: IStorageHandler) {
-
   Search.configureStorage(storage);
 
   // validate all of these params as a package name

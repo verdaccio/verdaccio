@@ -40,13 +40,11 @@ export function updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy) {
 
 export function fetchUplinkMetadata(name: string, packageInfo: Package,
                                     options: any, upLink: any, logger: Logger): Promise<any> {
-
   return new Promise(function(resolve, reject) {
     const _options = Object.assign({}, options);
     const upLinkMeta = packageInfo._uplinks[upLink.upname];
 
     if (isObject(upLinkMeta)) {
-
       const fetched = upLinkMeta.fetched;
 
       // check whether is too soon to ask for metadata

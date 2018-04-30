@@ -32,7 +32,7 @@
   "rules": {
     "no-tabs": 2,
     "keyword-spacing": 2,
-    "padded-blocks": 0,
+    "padded-blocks": 2,
     "no-useless-escape": 0,
     "handle-callback-err": 2,
     "no-debugger": 2,

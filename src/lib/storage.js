@@ -434,12 +434,10 @@ class Storage implements IStorageHandler {
     }
 
     async.map(upLinks, (upLink, cb) => {
-
       const _options = Object.assign({}, options);
       let upLinkMeta = packageInfo._uplinks[upLink.upname];
 
       if (isObject(upLinkMeta)) {
-
         const fetched = upLinkMeta.fetched;
 
         if (fetched && (Date.now() - fetched) < upLink.maxage) {
@@ -483,7 +481,6 @@ class Storage implements IStorageHandler {
 
         try {
           mergeVersions(packageInfo, upLinkResponse);
-
         } catch (err) {
           self.logger.error({
             sub: 'out',
