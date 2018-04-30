@@ -224,12 +224,19 @@
   version "9.6.1"
   resolved "https://registry.npmjs.org/@types/node/-/node-9.6.1.tgz#e2d374ef15b315b48e7efc308fa1a7cd51faa06c"
 
-"@verdaccio/file-locking@0.0.5", "@verdaccio/file-locking@^0.0.5":
+"@verdaccio/file-locking@0.0.5":
   version "0.0.5"
   resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.5.tgz#6172dfa2f7094a1da8e4c14906bfa33836b5713d"
   dependencies:
     lockfile "1.0.3"
     lodash "4.17.4"
+
+"@verdaccio/file-locking@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.7.tgz#5fd1b2bd391e54fa32d079002b5f7ba90844e344"
+  dependencies:
+    lockfile "1.0.3"
+    lodash "4.17.10"
 
 "@verdaccio/local-storage@1.0.2":
   version "1.0.2"
@@ -10012,11 +10019,11 @@ verdaccio-auth-memory@0.0.4:
   version "0.0.4"
   resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
 
-verdaccio-htpasswd@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.2.0.tgz#daf48f33de20ef6cdde5f15d13000772af66790f"
+verdaccio-htpasswd@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.2.1.tgz#9f598b8fd3e2e1d7cf5fb26352453fed0cd1df97"
   dependencies:
-    "@verdaccio/file-locking" "^0.0.5"
+    "@verdaccio/file-locking" "^0.0.7"
     apache-md5 "^1.1.2"
     bcryptjs "2.4.3"
     unix-crypt-td-js "^1.0.0"
