@@ -33,7 +33,7 @@
     "no-tabs": 2,
     "keyword-spacing": 2,
     "padded-blocks": 2,
-    "no-useless-escape": 0,
+    "no-useless-escape": 2,
     "handle-callback-err": 2,
     "no-debugger": 2,
     "no-fallthrough": 2,
