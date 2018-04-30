@@ -7,7 +7,7 @@ import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
 
 import Search from '../../lib/search';
-import {match, validate_name, validatePackage, securityIframe} from '../middleware';
+import {match, validateName, validatePackage, securityIframe} from '../middleware';
 import type {Config} from '@verdaccio/types';
 import type {IAuth, IStorageHandler} from '../../../types';
 
@@ -25,9 +25,9 @@ module.exports = function(config: Config, auth: IAuth, storage: IStorageHandler)
   // $FlowFixMe
   route.param('package', validatePackage);
   // $FlowFixMe
-  route.param('filename', validate_name);
+  route.param('filename', validateName);
   // $FlowFixMe
-  route.param('version', validate_name);
+  route.param('version', validateName);
   route.param('anything', match(/.*/));
 
   route.use(bodyParser.urlencoded({extended: false}));

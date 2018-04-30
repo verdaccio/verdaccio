@@ -1,6 +1,7 @@
 import assert from 'assert';
 import _ from 'lodash';
 
+import {HEADERS} from '../../../src/lib/constants';
 import {notify} from '../../../src/lib/notify';
 
 export default function(express) {
@@ -8,7 +9,7 @@ export default function(express) {
     notify: {
       method: 'POST',
       headers: [{
-        'Content-Type': 'application/json'
+        'Content-Type': HEADERS.JSON
       }],
       endpoint: "http://localhost:55550/api/notify",
       content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
@@ -50,7 +51,7 @@ export default function(express) {
 
       const configMultipleHeader = _.cloneDeep(config);
       configMultipleHeader.notify.headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': HEADERS.JSON
       };
 
       notify(metadata, configMultipleHeader).then(function (body) {

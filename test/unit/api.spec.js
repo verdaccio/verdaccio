@@ -8,6 +8,7 @@ import publishMetadata from './partials/publish-api';
 import forbiddenPlace from './partials/forbidden-place';
 import Config from '../../src/lib/config';
 import endPointAPI from '../../src/api/index';
+import {HEADERS} from '../../src/lib/constants';
 
 require('../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
@@ -260,7 +261,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -278,7 +279,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/1.5.1')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -296,7 +297,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/latest')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -314,7 +315,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/never-will-exist-this-tag')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(404)
           .end(function(err, res) {
@@ -329,7 +330,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/@verdaccio/not-found')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(404)
           .end(function(err, res) {
@@ -344,7 +345,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/forbidden-place')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(403)
           .end(function(err, res) {
@@ -401,8 +402,8 @@ describe('endpoint unit test', () => {
           .put('/jquery/verdaccio-tag')
           .send(JSON.stringify(jqueryVersion))
           .set('accept', 'gzip')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           .expect(201)
           .end(function(err, res) {
             if (err) {
@@ -419,8 +420,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/-/package/jquery/dist-tags')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           .expect(200)
           .end(function(err, res) {
             if (err) {
@@ -438,7 +439,7 @@ describe('endpoint unit test', () => {
         request(app)
           .post('/-/package/jquery/dist-tags')
           .send(JSON.stringify(jqueryUpdatedVersion))
-          .set('content-type', 'application/json')
+          .set('content-type', HEADERS.JSON)
           .expect(201)
           .end(function(err, res) {
             if (err) {
@@ -455,8 +456,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/-/package/jquery/dist-tags')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           .expect(200)
           .end(function(err, res) {
             if (err) {
@@ -473,8 +474,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .del('/-/package/jquery/dist-tags/verdaccio-tag')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           //.expect('Content-Type', /json/)
           .expect(201)
           .end(function(err, res) {
@@ -496,8 +497,8 @@ describe('endpoint unit test', () => {
         const cacheTime = now - 6000000;
         request(app)
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
-          // .set('accept-encoding', 'application/json')
-          // .set('content-type', 'application/json')
+          // .set('accept-encoding', HEADERS.JSON)
+          // .set('content-type', HEADERS.JSON)
           //.expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -516,7 +517,7 @@ describe('endpoint unit test', () => {
       test('should publish a new package', (done) => {
         request(app)
           .put('/@scope%2fpk1-test')
-          .set('content-type', 'application/json')
+          .set('content-type', HEADERS.JSON)
           .send(JSON.stringify(publishMetadata))
           .expect(201)
           .end(function(err, res) {
@@ -535,7 +536,7 @@ describe('endpoint unit test', () => {
         //FUTURE: for some reason it does not remove the scope folder
         request(app)
           .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
-          .set('content-type', 'application/json')
+          .set('content-type', HEADERS.JSON)
           .expect(201)
           .end(function(err, res) {
             if (err) {
@@ -553,13 +554,13 @@ describe('endpoint unit test', () => {
     beforeAll(async function() {
       await request(app)
       .put('/@scope%2fpk1-test')
-      .set('content-type', 'application/json')
+      .set('content-type', HEADERS.JSON)
       .send(JSON.stringify(publishMetadata))
       .expect(201);
 
       await request(app)
       .put('/forbidden-place')
-      .set('content-type', 'application/json')
+      .set('content-type', HEADERS.JSON)
       .send(JSON.stringify(forbiddenPlace))
       .expect(201);
     });

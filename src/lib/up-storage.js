@@ -9,6 +9,7 @@ import Stream from 'stream';
 import URL from 'url';
 import {parseInterval, isObject, ErrorCode} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
+import {HEADERS} from '../lib/constants';
 
 import type {
   Config,
@@ -23,7 +24,7 @@ const LoggerApi = require('./logger');
 const encode = function(thing) {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
-const jsonContentType = 'application/json';
+const jsonContentType = HEADERS.JSON;
 const contenTypeAccept = `${jsonContentType};`;
 
 /**
@@ -135,7 +136,7 @@ class ProxyStorage implements IProxy {
 
     if (isObject(options.json)) {
       json = JSON.stringify(options.json);
-      headers['Content-Type'] = headers['Content-Type'] || 'application/json';
+      headers['Content-Type'] = headers['Content-Type'] || HEADERS.JSON;
     }
 
     let requestCallback = cb ? (function(err, res, body) {

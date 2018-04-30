@@ -1,4 +1,5 @@
 import assert from 'assert';
+import {HEADERS} from '../../../src/lib/constants';
 
 export default function (server, server2) {
 
@@ -8,7 +9,7 @@ export default function (server, server2) {
       return server.request({
         uri: '/readme-test',
         headers: {
-          'content-type': 'application/json',
+          'content-type': HEADERS.JSON,
         },
         method: 'PUT',
         json: require('./pkg-readme.json'),

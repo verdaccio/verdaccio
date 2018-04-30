@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import API from '../../../utils/api';
 import storage from '../../../utils/storage';
 import {getRegistryURL} from '../../../utils/url';
+import {HEADERS} from '../../../../lib/constants';
 
 import classes from './header.scss';
 import './logo.png';
@@ -66,8 +67,8 @@ export default class Header extends React.Component {
       let resp = await API.request(`login`, 'POST', {
         body: JSON.stringify(credentials),
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
+          Accept: HEADERS.JSON,
+          'Content-Type': HEADERS.JSON
         }
       }).then((response) => response.json());
 

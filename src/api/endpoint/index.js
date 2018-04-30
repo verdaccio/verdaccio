@@ -13,7 +13,7 @@ import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
 
-const {match, validate_name, validatePackage, encodeScopePackage, anti_loop} = require('../middleware');
+const {match, validateName, validatePackage, encodeScopePackage, anti_loop} = require('../middleware');
 
 export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
@@ -25,11 +25,11 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   // $FlowFixMe
   app.param('package', validatePackage);
   // $FlowFixMe
-  app.param('filename', validate_name);
-  app.param('tag', validate_name);
-  app.param('version', validate_name);
-  app.param('revision', validate_name);
-  app.param('token', validate_name);
+  app.param('filename', validateName);
+  app.param('tag', validateName);
+  app.param('version', validateName);
+  app.param('revision', validateName);
+  app.param('token', validateName);
 
   // these can't be safely put into express url for some reason
   // TODO: For some reason? what reason?

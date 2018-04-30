@@ -1,6 +1,7 @@
 
 import assert from 'assert';
 import {generateSha} from '../lib/test.utils';
+import {HEADERS} from '../../../src/lib/constants';
 
 export default function(server, server2) {
 
@@ -9,7 +10,7 @@ export default function(server, server2) {
       return server.request({
         uri: '/@test%2fscoped',
         headers: {
-          'content-type': 'application/json',
+          'content-type': HEADERS.JSON,
         },
         method: 'PUT',
         json: require('./scoped.json'),
