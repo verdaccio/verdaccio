@@ -11,7 +11,7 @@ const pkgJSON = require('../../package.json');
  * @return {String} security level
  */
 function getlvl(x) {
-  switch(true) {
+  switch (true) {
     case x < 15: return 'trace';
     case x < 25: return 'debug';
     case x < 35: return 'info';

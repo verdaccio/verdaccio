@@ -461,7 +461,7 @@ class Storage implements IStorageHandler {
 
         try {
           validate_metadata(upLinkResponse, name);
-        } catch(err) {
+        } catch (err) {
           self.logger.error({
             sub: 'out',
             err: err,
@@ -484,7 +484,7 @@ class Storage implements IStorageHandler {
         try {
           mergeVersions(packageInfo, upLinkResponse);
 
-        } catch(err) {
+        } catch (err) {
           self.logger.error({
             sub: 'out',
             err: err,

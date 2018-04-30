@@ -348,7 +348,7 @@ class Auth {
       const b1 = c.update(buf);
       const b2 = c.final();
       return Buffer.concat([b1, b2]);
-    } catch(_) {
+    } catch (_) {
       return new Buffer(0);
     }
   }

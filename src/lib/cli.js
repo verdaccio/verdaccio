@@ -17,7 +17,7 @@ try {
   // for debugging memory leaks
   // totally optional
   require('heapdump');
-} catch(err) { }
+} catch (err) { }
 
 const logger = require('./logger');
 logger.setup(); // default setup

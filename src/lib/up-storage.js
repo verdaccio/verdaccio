@@ -161,7 +161,7 @@ class ProxyStorage implements IProxy {
           try {
             // $FlowFixMe
             body = JSON.parse(body.toString('utf8'));
-          } catch(_err) {
+          } catch (_err) {
             body = {};
             err = _err;
             error = err.message;
@@ -639,7 +639,6 @@ class ProxyStorage implements IProxy {
       this.logger.debug( {url: this.url.href, proxy: this.proxy}, 'using proxy @{proxy} for @{url}' );
     }
   }
-
 }
 
 export default ProxyStorage;

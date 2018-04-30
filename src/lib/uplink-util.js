@@ -69,7 +69,7 @@ export function fetchUplinkMetadata(name: string, packageInfo: Package,
 
       try {
         validate_metadata(upLinkResponse, name);
-      } catch(err) {
+      } catch (err) {
         logger.error({
           sub: 'out',
           err: err,
@@ -91,7 +91,7 @@ export function fetchUplinkMetadata(name: string, packageInfo: Package,
 
       try {
         mergeVersions(packageInfo, upLinkResponse);
-      } catch(err) {
+      } catch (err) {
         logger.error({
           sub: 'out',
           err: err,

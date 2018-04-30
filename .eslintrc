@@ -31,7 +31,7 @@
   },
   "rules": {
     "no-tabs": 2,
-    "keyword-spacing": 0,
+    "keyword-spacing": 2,
     "padded-blocks": 0,
     "no-useless-escape": 0,
     "handle-callback-err": 2,

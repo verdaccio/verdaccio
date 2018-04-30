@@ -64,7 +64,7 @@ function generateRevision(rev: string): string {
 }
 
 function cleanUpReadme(version: Version): Version {
-  if(_.isNil(version) === false) {
+  if (_.isNil(version) === false) {
     delete version.readme;
   }
 

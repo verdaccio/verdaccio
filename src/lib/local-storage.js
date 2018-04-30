@@ -231,7 +231,6 @@ class LocalStorage implements IStorage {
         let tarball = metadata.dist.tarball.replace(/.*\//, '');
 
         if (isObject(data._attachments[tarball])) {
-
           if (_.isNil(data._attachments[tarball].shasum) === false && _.isNil(metadata.dist.shasum) === false) {
             if (data._attachments[tarball].shasum != metadata.dist.shasum) {
               const errorMessage = `shasum error, ${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;

@@ -123,5 +123,4 @@ export default class Home extends React.Component {
   renderPackageList() {
     return <PackageList help={this.state.fistTime} packages={this.state.packages} />;
   }
-
 }

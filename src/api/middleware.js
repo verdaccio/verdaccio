@@ -160,7 +160,7 @@ export function allow(auth: IAuth) {
     } else {
       // send(null), send(204), etc.
     }
-  } catch(err) {
+  } catch (err) {
     // if verdaccio sends headers first, and then calls res.send()
     // as an error handler, we can't report error properly,
     // and should just close socket

@@ -367,7 +367,7 @@ function folder_exists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 }
@@ -381,7 +381,7 @@ function fileExists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 }
