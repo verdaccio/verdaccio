@@ -75,13 +75,13 @@ class Auth {
   authenticate(user: string, password: string, cb: Callback) {
     const plugins = this.plugins.slice(0)
     ;(function next() {
-      let p = plugins.shift();
+      const plugin = plugins.shift();
 
-      if (typeof(p.authenticate) !== 'function') {
+      if (typeof(plugin.authenticate) !== 'function') {
         return next();
       }
 
-      p.authenticate(user, password, function(err, groups) {
+      plugin.authenticate(user, password, function(err, groups) {
         if (err) {
           return cb(err);
         }
@@ -171,26 +171,26 @@ class Auth {
     let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
 
     (function next() {
-      let p = plugins.shift();
+      const plugin = plugins.shift();
 
-      if (typeof(p.allow_publish) !== 'function') {
+      if (typeof(plugin.allow_publish) !== 'function') {
         return next();
       }
 
-      p.allow_publish(user, pkg, function(err, ok) {
-        if (err) return callback(err);
-        if (ok) return callback(null, ok);
+      plugin.allow_publish(user, pkg, function(err, ok) {
+        if (err) {
+          return callback(err);
+        }
+
+        if (ok) {
+          return callback(null, ok);
+        }
         next(); // cb(null, false) causes next plugin to roll
       });
     })();
   }
 
-
-  /**
-   * Set up a basic middleware.
-   * @return {Function}
-   */
-  basic_middleware() {
+  apiJWTmiddleware() {
     return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
       req.pause();
 
@@ -265,7 +265,7 @@ class Auth {
   /**
    * JWT middleware for WebUI
    */
-  jwtMiddleware() {
+  webUIJWTmiddleware() {
     return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
       if (req.remote_user !== null && req.remote_user.name !== undefined) {
        return _next();
@@ -299,13 +299,7 @@ class Auth {
     };
   }
 
-  /**
-   * Generates the token.
-   * @param {object} user
-   * @param {string} expire_time
-   * @return {string}
-   */
-  issue_token(user: any, expire_time: string) {
+  issueUIjwt(user: any, expire_time: string) {
     return jwt.sign(
       {
         user: user.name,

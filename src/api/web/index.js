@@ -14,7 +14,7 @@ const spliceURL = require('../../utils/string').spliceURL;
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
 
-  router.use(auth.jwtMiddleware());
+  router.use(auth.webUIJWTmiddleware());
   router.use(securityIframe);
 
   // Static

@@ -23,7 +23,6 @@ export default function(route: Router, auth: IAuth) {
       res.status(201);
       return next({
         ok: 'you are authenticated as \'' + req.remote_user.name + '\'',
-        // token: auth.issue_token(req.remote_user),
         token: token,
       });
     } else {
@@ -42,7 +41,6 @@ export default function(route: Router, auth: IAuth) {
         res.status(201);
         return next({
           ok: 'user \'' + req.body.name + '\' created',
-          // token: auth.issue_token(req.remote_user),
           token: token,
         });
       });

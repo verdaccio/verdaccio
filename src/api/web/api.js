@@ -31,7 +31,7 @@ module.exports = function(config: Config, auth: IAuth, storage: IStorageHandler)
   route.param('anything', match(/.*/));
 
   route.use(bodyParser.urlencoded({extended: false}));
-  route.use(auth.jwtMiddleware());
+  route.use(auth.webUIJWTmiddleware());
   route.use(securityIframe);
 
   addPackageWebApi(route, storage, auth);

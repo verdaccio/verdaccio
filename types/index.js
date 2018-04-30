@@ -24,11 +24,11 @@ export interface IAuth {
 	secret: string;
 	plugins: Array<any>;
 	aes_encrypt(buf: Buffer): Buffer;
-	basic_middleware(): $NextFunctionVer;
-	jwtMiddleware(): $NextFunctionVer;
+	apiJWTmiddleware(): $NextFunctionVer;
+  webUIJWTmiddleware(): $NextFunctionVer;
 	authenticate(user: string, password: string, cb: Callback): void;
 	allow_access(packageName: string, user: string, callback: Callback): void;
-	issue_token(user: string, time: string): string;
+  issueUIjwt(user: string, time: string): string;
 	add_user(user: string, password: string, cb: Callback): any;
 }
 
