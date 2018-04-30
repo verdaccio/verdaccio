@@ -9,11 +9,11 @@ import type {Package} from '@verdaccio/types';
 /**
  * Function gets a local info and an info from uplinks and tries to merge it
  exported for unit tests only.
-	* @param {*} local
-	* @param {*} up
-	* @param {*} config
-	* @static
-	*/
+  * @param {*} local
+  * @param {*} up
+  * @param {*} config
+  * @static
+  */
   export function mergeVersions(local: Package, up: Package) {
     // copy new versions to a cache
     // NOTE: if a certain version was updated, we can't refresh it reliably

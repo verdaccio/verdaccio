@@ -32,7 +32,7 @@ class Search implements IWebSearch {
    * @return {Array} list of results.
    */
   query(query: string) {
-	  return query === '*'
+    return query === '*'
       ? this.storage.localStorage.localData.get((items) => {
         items.map( function( pkg ) {
           return {ref: pkg, score: 1};

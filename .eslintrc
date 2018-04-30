@@ -30,7 +30,7 @@
     "__APP_VERSION__": true
   },
   "rules": {
-    "no-tabs": 0,
+    "no-tabs": 2,
     "keyword-spacing": 0,
     "padded-blocks": 0,
     "no-useless-escape": 0,
