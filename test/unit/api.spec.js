@@ -36,7 +36,7 @@ describe('endpoint unit test', () => {
   describe('Registry API Endpoints', () => {
 
     describe('should test ping api', () => {
-      test('should test endpoint /-/ping', (done) => {
+     test('should test endpoint /-/ping', (done) => {
         request(app)
           .get('/-/ping')
           .expect('Content-Type', /json/)
@@ -79,6 +79,49 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test user api', () => {
+
+      describe('should test authorization headers with tokens only errors', () => {
+        test('should fails on protected endpoint /-/auth-package bad format', (done) => {
+          request(app)
+            .get('/auth-package')
+            .set('authorization', 'FakeHader')
+            .expect('Content-Type', /json/)
+            .expect(403)
+            .end(function(err, res) {
+              expect(res.body.error).toBeDefined();
+              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              done();
+            });
+        });
+
+        test('should fails on protected endpoint /-/auth-package bad JWT Bearer format', (done) => {
+          request(app)
+            .get('/auth-package')
+            .set('authorization', 'Bearer')
+            .expect('Content-Type', /json/)
+            .expect(403)
+            .end(function(err, res) {
+              expect(res.body.error).toBeDefined();
+              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              done();
+            });
+        });
+
+        test('should fails on protected endpoint /-/auth-package well JWT Bearer', (done) => {
+          request(app)
+            .get('/auth-package')
+            .set('authorization', 'Bearer 12345')
+            .expect('Content-Type', /json/)
+            .expect(403)
+            .end(function(err, res) {
+              expect(res.body.error).toBeDefined();
+              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              done();
+            });
+        });
+      });
+
+
       test('should test add a new user', (done) => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
@@ -89,10 +132,25 @@ describe('endpoint unit test', () => {
             if (err) {
               return done(err);
             }
-
             expect(res.body.ok).toBeDefined();
+            expect(res.body.token).toBeDefined();
+            const token = res.body.token;
+            expect(typeof token).toBe('string');
             expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
-            done();
+
+            // testing JWT auth headers with token
+            // we need it here, because token is required
+            request(app)
+              .get('/vue')
+              .set('authorization', `Bearer ${token}`)
+              .expect('Content-Type', /json/)
+              .expect(200)
+              .end(function(err, res) {
+                expect(err).toBeNull();
+                expect(res.body).toBeDefined();
+                expect(res.body.name).toMatch(/vue/);
+                done();
+              });
           });
       });
 

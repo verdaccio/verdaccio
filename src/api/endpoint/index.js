@@ -38,7 +38,6 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   app.param('anything', match(/.*/));
 
   app.use(auth.basic_middleware());
-  // app.use(auth.bearer_middleware())
   app.use(bodyParser.json({strict: false, limit: config.max_body_size || '10mb'}));
   app.use(anti_loop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
