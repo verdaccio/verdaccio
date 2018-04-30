@@ -30,59 +30,24 @@
     "__APP_VERSION__": true
   },
   "rules": {
-    "no-tabs": 2,
-    "keyword-spacing": 2,
-    "padded-blocks": 2,
     "no-useless-escape": 2,
     "handle-callback-err": 2,
-    "no-debugger": 2,
     "no-fallthrough": 2,
-    "curly": 2,
-    "eol-last": 1,
-    "no-irregular-whitespace": 1,
-    "no-mixed-spaces-and-tabs": [
-      1,
-      "smart-tabs"
-    ],
-    "no-trailing-spaces": 1,
     "no-new-require": 2,
-    "no-undef": 2,
-    "no-unreachable": 2,
-    "no-unused-vars": [
-      2,
-      {
-        "vars": "all",
-        "args": "none"
-      }
-    ],
-    "max-len": [
-      1,
-      160
-    ],
-    "semi": [
-      2,
-      "always"
-    ],
+    "max-len": [2, 160],
+    // strong change by now, but we need to enable this rule in the future
     "camelcase": 0,
+
+    // google eslint rule enable this, we do not want it
     "require-jsdoc": 0,
     "valid-jsdoc": 0,
+
+    // enable this in the future
     "prefer-spread": 1,
     "prefer-rest-params": 1,
-    "no-var": 2,
-    "no-constant-condition": 2,
-    "no-empty": 2,
-    "guard-for-in": 2,
-    "no-invalid-this": 2,
-    "new-cap": 2,
-    "one-var": 2,
-    "quote-props":["error", "as-needed"],
-    "no-console": [
-      2,
-      {
-        "allow": [
-          "warn"
-        ]
-      }
-    ]
+
+    // disallows quotes around object literal property names that are not strictly required
+    // handling metadata enable this helps
+    "quote-props":["error", "as-needed"]
   }
 }
