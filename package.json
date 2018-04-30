@@ -45,7 +45,7 @@
     "pkginfo": "0.4.1",
     "request": "2.83.0",
     "semver": "5.5.0",
-    "verdaccio-htpasswd": "0.2.1"
+    "verdaccio-htpasswd": "0.2.2"
   },
   "devDependencies": {
     "@commitlint/cli": "6.1.3",

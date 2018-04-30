@@ -10019,9 +10019,9 @@ verdaccio-auth-memory@0.0.4:
   version "0.0.4"
   resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
 
-verdaccio-htpasswd@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.2.1.tgz#9f598b8fd3e2e1d7cf5fb26352453fed0cd1df97"
+verdaccio-htpasswd@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.2.2.tgz#6873fe42cd83ff03d260b21483941635f320c8ba"
   dependencies:
     "@verdaccio/file-locking" "^0.0.7"
     apache-md5 "^1.1.2"
