@@ -51,7 +51,6 @@ class HomeSplash extends React.Component {
               <div className="section promoSection">
                 <div className="promoRow">
                   <div className="pluginRowBlock">
-                    <Button href="https://github.com/verdaccio">Github</Button>
                     <Button
                       href={
                         siteConfig.baseUrl +
@@ -60,9 +59,10 @@ class HomeSplash extends React.Component {
                         '/installation.html'
                       }>
                       <translate>
-                        Documentation
+                        Get Started
                       </translate>
                     </Button>
+                    <Button href="https://github.com/verdaccio">Github</Button>
                     <Button
                       href={
                         siteConfig.baseUrl +
