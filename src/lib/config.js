@@ -91,9 +91,7 @@ class Config {
     // some weird shell scripts are valid yaml files parsed as string
     assert.equal(typeof(config), 'object', 'CONFIG: it doesn\'t look like a valid config file');
 
-    assert(self.storage, 'CONFIG: storage path not defined');
-
-     // sanity check for strategic config properties
+    // sanity check for strategic config properties
     strategicConfigProps.forEach(function(x) {
       if (self[x] == null) self[x] = {};
       assert(Utils.isObject(self[x]), `CONFIG: bad "${x}" value (object expected)`);
