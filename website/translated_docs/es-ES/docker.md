@@ -12,29 +12,31 @@ Para descargar la última [imagen de Docker](https://hub.docker.com/r/verdaccio/
 docker pull verdaccio/verdaccio
 ```
 
+![Docker pull](/svg/docker_verdaccio.svg)
+
 ## Versiones con Etiquetas
 
-A partir de la versión `v2.x` puedes descargar imagenes de docker por [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), como a continuación:
+Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
-Para usar una versión "major":
+For a major version:
 
 ```bash
 docker pull verdaccio/verdaccio:2
 ```
 
-Para usar una versión "minor":
+For a minor version:
 
 ```bash
 docker pull verdaccio/verdaccio:2.1
 ```
 
-Para usar una versión mas específica ("patch"):
+For a specific (patch) version:
 
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-Para el siguiente lanzamiento usando va versión `beta` (`v.3.x`).
+For the next major release using the `beta` (`v.3.x`) version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -44,7 +46,7 @@ docker pull verdaccio/verdaccio:beta
 
 ## Ejecutando verdaccio usando Docker
 
-Para ejecutar el contenedor de Docker:
+To run the docker container:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
