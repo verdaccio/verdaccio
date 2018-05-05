@@ -15,6 +15,8 @@ To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/v
 docker pull verdaccio/verdaccio
 ```
 
+![Docker pull](/svg/docker_verdaccio.svg)
+
 ## Tagged Versions
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:

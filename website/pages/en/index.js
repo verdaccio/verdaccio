@@ -56,7 +56,7 @@ class HomeSplash extends React.Component {
                         siteConfig.baseUrl +
                         'docs/' +
                         this.props.language +
-                        '/installation.html'
+                        '/what-is-verdaccio.html'
                       }>
                       <translate>
                         Get Started
