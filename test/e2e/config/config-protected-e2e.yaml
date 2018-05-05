@@ -1,4 +1,3 @@
-# this is useless yet since we use a custom storage, just ignore it
 web:
   enable: true
   title: verdaccio-server-protected-e2e
