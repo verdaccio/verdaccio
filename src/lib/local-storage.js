@@ -842,6 +842,7 @@ class LocalStorage implements IStorage {
     const Storage = this._loadStorePlugin();
 
     if (_.isNil(Storage)) {
+      assert(this.config.storage, 'CONFIG: storage path not defined');
       return new LocalDatabase(this.config, logger);
     } else {
       return Storage;
