@@ -19,17 +19,17 @@ $> verdaccio
 
 ## Using Verdaccio
 
-Using verdaccio with any node package manager client is straightforward
+Using verdaccio with any node package manager client is quite straightforward.
 
 ![registry](/svg/npm_install.svg)
 
-either globally for all your projects
+You can use a custom registry either setting globally for all your projects
 
 ```
 npm set registry http://localhost:4873
 ```
 
-or by command line
+or by command line as argument `--registry` in npm (slightly different un yarn)
 
 ```
 npm install lodash --registry http://localhost:4873
@@ -37,7 +37,7 @@ npm install lodash --registry http://localhost:4873
 
 ## Private
 
-All packages you publish are private packages and oly accesible based in your configuration.
+All packages that you publish are private and only accessible based in your configuration.
 
 ## Proxy
 
