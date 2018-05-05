@@ -52,6 +52,6 @@ Verdaccio cache all dependencies by demand and speed up installations in local o
 * It's a fairly easy install and use
 * We offer Docker and Kubernetes support
 * It is 100% compatible with yarn, npm and pnpm
-* It was **forked** based on `sinopia@1.4.0` fork and 100% **backward compatible**.
+* It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
 * Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
 
