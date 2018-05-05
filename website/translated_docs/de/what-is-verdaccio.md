@@ -26,7 +26,7 @@ You can use a custom registry either setting globally for all your projects
     npm set registry http://localhost:4873
     
 
-or by command line as argument `--registry` in npm (slightly different un yarn)
+or by command line as argument `--registry` in npm (slightly different in yarn)
 
     npm install lodash --registry http://localhost:4873
     
