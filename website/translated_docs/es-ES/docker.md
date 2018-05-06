@@ -16,27 +16,27 @@ docker pull verdaccio/verdaccio
 
 ## Versiones con Etiquetas
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+Desde la versión `` puedes obtener imagenes de docker por [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), de la siguiente manera:
 
-For a major version:
+Para usar una versión "major":
 
 ```bash
 docker pull verdaccio/verdaccio:2
 ```
 
-For a minor version:
+Para usar una versión "minor":
 
 ```bash
 docker pull verdaccio/verdaccio:2.1
 ```
 
-For a specific (patch) version:
+Para un (parche) especifico:
 
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` (`v.3.x`) version.
+Para el próximo mayor lanzamiento usando la versión `beta` (`v.3.x`).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -46,13 +46,13 @@ docker pull verdaccio/verdaccio:beta
 
 ## Ejecutando verdaccio usando Docker
 
-To run the docker container:
+Para ejecutar el contenedor docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+El último argumento define cual imagen se usa. En la linea de abajo se descargará la ultima imagen desde Docker Hub, si no existía previamente.
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
