@@ -41,12 +41,12 @@ Verdaccio almacena todas las dependencias bajo demanda y acelera las instalacion
 
 ## Verdaccio en pocas palabras
 
-* It's a web app based on Node.js
-* It's a private npm registry
-* It's a local network proxy
-* It's a Pluggable application
-* It's a fairly easy install and use
-* We offer Docker and Kubernetes support
-* It is 100% compatible with yarn, npm and pnpm
-* It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
-* Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
+* Es una aplicación web basada en Node.js
+* Es un registro privado
+* Es un proxy para la red local
+* Es una aplicación extensible
+* Es muy fácil de usar e instalar
+* Ofrecemos soporte en Docker y Kubernetes
+* Es 100% compatible con yarn, npm y pnpm
+* Es un ** forked** basado en `sinopia@1.4.0` y 100% **compatible hacia atras**.
+* Verdaccio significa **Un color verde popular en la Italia medieval para la pintura en fresco**.
