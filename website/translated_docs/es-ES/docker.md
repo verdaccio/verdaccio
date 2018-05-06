@@ -2,15 +2,21 @@
 id: docker
 title: Docker
 ---
+<div class="docker-count">
+  ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
+</div>
+
 Para descargar la última [imagen de Docker](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 ```bash
 docker pull verdaccio/verdaccio
 ```
 
+![Docker pull](/svg/docker_verdaccio.svg)
+
 ## Versiones con Etiquetas
 
-A partir de la versión `v2.x` puedes descargar imagenes de docker por [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), como a continuación:
+Desde la versión `` puedes obtener imagenes de docker por [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), de la siguiente manera:
 
 Para usar una versión "major":
 
@@ -24,13 +30,13 @@ Para usar una versión "minor":
 docker pull verdaccio/verdaccio:2.1
 ```
 
-Para usar una versión mas específica ("patch"):
+Para un (parche) especifico:
 
 ```bash
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` (`v.3.x`) version.
+Para el próximo mayor lanzamiento usando la versión `beta` (`v.3.x`).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -40,13 +46,13 @@ docker pull verdaccio/verdaccio:beta
 
 ## Ejecutando verdaccio usando Docker
 
-To run the docker container:
+Para ejecutar el contenedor docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+El último argumento define cual imagen se usa. En la linea de abajo se descargará la ultima imagen desde Docker Hub, si no existía previamente.
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
@@ -59,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=101, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 101:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Usar un puerto personalizado con Docker
 
