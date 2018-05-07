@@ -61,7 +61,7 @@ describe('<Header /> component shallow', () => {
       title: 'Unable to login',
       type: 'error'
     };
-    expect(handleSubmit()).toBeDefined();
+    expect(handleSubmit({ preventDefault: () => {} })).toBeDefined();
     expect(HeaderWrapper.state('loginError')).toEqual(error);
   });
 
