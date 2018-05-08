@@ -8,6 +8,7 @@ import publishMetadata from './partials/publish-api';
 import forbiddenPlace from './partials/forbidden-place';
 import Config from '../../src/lib/config';
 import endPointAPI from '../../src/api/index';
+import {HEADERS} from '../../src/lib/constants';
 
 require('../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
@@ -36,7 +37,7 @@ describe('endpoint unit test', () => {
   describe('Registry API Endpoints', () => {
 
     describe('should test ping api', () => {
-      test('should test endpoint /-/ping', (done) => {
+     test('should test endpoint /-/ping', (done) => {
         request(app)
           .get('/-/ping')
           .expect('Content-Type', /json/)
@@ -79,6 +80,49 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test user api', () => {
+
+      describe('should test authorization headers with tokens only errors', () => {
+        test('should fails on protected endpoint /-/auth-package bad format', (done) => {
+          request(app)
+            .get('/auth-package')
+            .set('authorization', 'FakeHader')
+            .expect('Content-Type', /json/)
+            .expect(403)
+            .end(function(err, res) {
+              expect(res.body.error).toBeDefined();
+              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              done();
+            });
+        });
+
+        test('should fails on protected endpoint /-/auth-package bad JWT Bearer format', (done) => {
+          request(app)
+            .get('/auth-package')
+            .set('authorization', 'Bearer')
+            .expect('Content-Type', /json/)
+            .expect(403)
+            .end(function(err, res) {
+              expect(res.body.error).toBeDefined();
+              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              done();
+            });
+        });
+
+        test('should fails on protected endpoint /-/auth-package well JWT Bearer', (done) => {
+          request(app)
+            .get('/auth-package')
+            .set('authorization', 'Bearer 12345')
+            .expect('Content-Type', /json/)
+            .expect(403)
+            .end(function(err, res) {
+              expect(res.body.error).toBeDefined();
+              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              done();
+            });
+        });
+      });
+
+
       test('should test add a new user', (done) => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
@@ -89,10 +133,25 @@ describe('endpoint unit test', () => {
             if (err) {
               return done(err);
             }
-
             expect(res.body.ok).toBeDefined();
+            expect(res.body.token).toBeDefined();
+            const token = res.body.token;
+            expect(typeof token).toBe('string');
             expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
-            done();
+
+            // testing JWT auth headers with token
+            // we need it here, because token is required
+            request(app)
+              .get('/vue')
+              .set('authorization', `Bearer ${token}`)
+              .expect('Content-Type', /json/)
+              .expect(200)
+              .end(function(err, res) {
+                expect(err).toBeNull();
+                expect(res.body).toBeDefined();
+                expect(res.body.name).toMatch(/vue/);
+                done();
+              });
           });
       });
 
@@ -202,7 +261,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -220,7 +279,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/1.5.1')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -238,7 +297,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/latest')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -256,7 +315,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/never-will-exist-this-tag')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(404)
           .end(function(err, res) {
@@ -271,7 +330,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/@verdaccio/not-found')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(404)
           .end(function(err, res) {
@@ -286,7 +345,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/forbidden-place')
-          .set('content-type', 'application/json; charset=utf-8')
+          .set('content-type', HEADERS.JSON_CHARSET)
           .expect('Content-Type', /json/)
           .expect(403)
           .end(function(err, res) {
@@ -343,8 +402,8 @@ describe('endpoint unit test', () => {
           .put('/jquery/verdaccio-tag')
           .send(JSON.stringify(jqueryVersion))
           .set('accept', 'gzip')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           .expect(201)
           .end(function(err, res) {
             if (err) {
@@ -361,8 +420,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/-/package/jquery/dist-tags')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           .expect(200)
           .end(function(err, res) {
             if (err) {
@@ -380,7 +439,7 @@ describe('endpoint unit test', () => {
         request(app)
           .post('/-/package/jquery/dist-tags')
           .send(JSON.stringify(jqueryUpdatedVersion))
-          .set('content-type', 'application/json')
+          .set('content-type', HEADERS.JSON)
           .expect(201)
           .end(function(err, res) {
             if (err) {
@@ -397,8 +456,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/-/package/jquery/dist-tags')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           .expect(200)
           .end(function(err, res) {
             if (err) {
@@ -415,8 +474,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .del('/-/package/jquery/dist-tags/verdaccio-tag')
-          .set('accept-encoding', 'application/json')
-          .set('content-type', 'application/json')
+          .set('accept-encoding', HEADERS.JSON)
+          .set('content-type', HEADERS.JSON)
           //.expect('Content-Type', /json/)
           .expect(201)
           .end(function(err, res) {
@@ -438,8 +497,8 @@ describe('endpoint unit test', () => {
         const cacheTime = now - 6000000;
         request(app)
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
-          // .set('accept-encoding', 'application/json')
-          // .set('content-type', 'application/json')
+          // .set('accept-encoding', HEADERS.JSON)
+          // .set('content-type', HEADERS.JSON)
           //.expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
@@ -458,7 +517,7 @@ describe('endpoint unit test', () => {
       test('should publish a new package', (done) => {
         request(app)
           .put('/@scope%2fpk1-test')
-          .set('content-type', 'application/json')
+          .set('content-type', HEADERS.JSON)
           .send(JSON.stringify(publishMetadata))
           .expect(201)
           .end(function(err, res) {
@@ -477,7 +536,7 @@ describe('endpoint unit test', () => {
         //FUTURE: for some reason it does not remove the scope folder
         request(app)
           .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
-          .set('content-type', 'application/json')
+          .set('content-type', HEADERS.JSON)
           .expect(201)
           .end(function(err, res) {
             if (err) {
@@ -495,13 +554,13 @@ describe('endpoint unit test', () => {
     beforeAll(async function() {
       await request(app)
       .put('/@scope%2fpk1-test')
-      .set('content-type', 'application/json')
+      .set('content-type', HEADERS.JSON)
       .send(JSON.stringify(publishMetadata))
       .expect(201);
 
       await request(app)
       .put('/forbidden-place')
-      .set('content-type', 'application/json')
+      .set('content-type', HEADERS.JSON)
       .send(JSON.stringify(forbiddenPlace))
       .expect(201);
     });

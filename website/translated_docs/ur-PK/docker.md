@@ -2,11 +2,17 @@
 id: docker
 title: Docker
 ---
+<div class="docker-count">
+  ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
+</div>
+
 To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 ```bash
 docker pull verdaccio/verdaccio
 ```
+
+![Docker pull](/svg/docker_verdaccio.gif)
 
 ## Tagged Versions
 
@@ -30,16 +36,10 @@ For a specific (patch) version:
 docker pull verdaccio/verdaccio:2.1.7
 ```
 
-For the next major release using the `beta` version.
+For the next major release using the `beta` (`v.3.x`) version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
-```
-
-The Canary version (master branch) is tagged as `alpha`
-
-```bash
-docker pull verdaccio/verdaccio:alpha
 ```
 
 > If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
@@ -65,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=101, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 101:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Docker and custom port configuration
 
@@ -145,7 +145,7 @@ Please note that for any of the above docker commands you need to have docker in
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
-https://github.com/verdaccio/docker-examples
+<https://github.com/verdaccio/docker-examples>
 
 ## Docker Custom Builds
 

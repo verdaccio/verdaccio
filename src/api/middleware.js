@@ -7,6 +7,7 @@ import {
   validate_package as utilValidatePackage,
   isObject,
   ErrorCode} from '../lib/utils';
+import {HEADERS} from '../lib/constants';
 import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth} from '../../types';
 import type {Config} from '@verdaccio/types';
 
@@ -30,7 +31,7 @@ export function securityIframe(req: $RequestExtend, res: $ResponseExtend, next: 
 
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validate_name(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string) {
+export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string) {
   if (value.charAt(0) === '-') {
     // special case in couchdb usually
     next('route');
@@ -142,7 +143,7 @@ export function allow(auth: IAuth) {
   try {
     if (_.isString(body) || _.isObject(body)) {
       if (!res.getHeader('Content-type')) {
-        res.header('Content-type', 'application/json');
+        res.header('Content-type', HEADERS.JSON);
       }
 
       if (typeof(body) === 'object' && _.isNil(body) === false) {
@@ -159,7 +160,7 @@ export function allow(auth: IAuth) {
     } else {
       // send(null), send(204), etc.
     }
-  } catch(err) {
+  } catch (err) {
     // if verdaccio sends headers first, and then calls res.send()
     // as an error handler, we can't report error properly,
     // and should just close socket

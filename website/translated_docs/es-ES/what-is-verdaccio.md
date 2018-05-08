@@ -2,27 +2,51 @@
 id: what-is-verdaccio
 title: "Qué es Verdaccio?"
 ---
-## En pocas palabras
-
-* Es una aplicación web basada en Node.js
-* Es un registro de npm privado
-* Es un servidor proxy local
-* Es una aplicación que se puede extender
-* Es muy fácil de usar e instalar
-* Ofrecemos soporte en Docker y Kubernetes
-* Es 100% compatible con yarn, npm y pnpm
-* Proyecto que nació basado en una bifurcación de `sinopia@1.4.0` y completamente compatible
-* Verdaccio significa **Un color verde popular en la Italia medieval para la pintura en fresco**.
+Verdacio es un **ligero registry privado y proxy**hecho en **Node.js**
 
 ## Qué es un registro
 
-* Es un repositorio para paquetes que implementan la especificación CommonJS para la lectura de información de paquetes
-* Almacena paquetes de Node
-* Provee un API compatible con clientes npm
-* Compatible con (semver) Versionado Semántico
+* Un repositorio de paquetes que implementan la espcificación **CommonJS Compliant Package Registry specification** para la lectura de información de paquetes
+* Provee un API compatible con clientes npm **(yarn/npm/pnpm)**
+* Compatible con el versionado semantico **(semver)**
 
-```bash curl -v https://registry.npmjs.org/aaa
+    $> verdaccio
+    
 
-* Connected to registry.npmjs.org (151.101.12.162) port 443 (#0)
+![registry](/svg/verdaccio_server.gif)
 
-* Connection #0 to host registry.npmjs.org left intact {"_id":"aaa","_rev":"6-ad86dfc8720569871753b5bf561f2741","name":"aaa","description":"aaa...","dist-tags":{"latest":"0.0.2"},"versions":{"0.0.1":{"name":"aaa","version":"0.0.1","description":"aaa...","main":"index.js","scripts":{"test":"test.js"},"repository":{"type":"git","url":"http:/www.google.git"},"keywords":["math"],"author":{"name":"peter"},"license":"BSD","_id":"aaa@0.0.1","dist": {"shasum":"a04fa88ad887a70dd5429652ce23823619dfd7c3","tarball":"https://registry.npmjs.org/aaa/-/aaa-0.0.1.tgz"},"_npmVersion":"1.1.62","_npmUser":{"name":"erhu65","email":"erhu65@gmail.com"},"maintainers":[{"name":"erhu65","email":"erhu65@gmail.com"}],"directories":{}},"0.0.2":{"name":"aaa","version":"0.0.2","description":"aaa...","main":"index.js","scripts":{"test":"test.js"},"repository":{"type":"git","url":"http:/www.google.git"},"keywords":["math"],"author":{"name":"peter"},"license":"BSD","_id":"aaa@0.0.2","dist": {"shasum":"acd2f632b94b0f89765e75bb7b7549ce5b01caa2","tarball":"https://registry.npmjs.org/aaa/-/aaa-0.0.2.tgz"},"_npmVersion":"1.1.62","_npmUser":{"name":"erhu65","email":"erhu65@gmail.com"},"maintainers":[{"name":"erhu65","email":"erhu65@gmail.com"}],"directories":{}}},"readme":"ERROR: No README.md file found!","maintainers":[{"name":"erhu65","email":"erhu65@gmail.com"}],"timmacbook-j:verdaccio.mmacbookmacbook-j:verdaccio.master.git jpicmacbook-j:verdaccio.master.git jpicmacbookmacbookmacbookmacbookmacbook ````
+## Usando Verdaccio
+
+Usar verdaccio con cualquier cliente de manejador de paquetes es muy sencillo.
+
+![registry](/svg/npm_install.gif)
+
+Puedes usar un registro personalizado bien definiendolo globalmente para todos los projectos
+
+    npm set registry http://localhost:4873
+    
+
+o por línea de commandos como argumento `--registry` en npm (ligeramente diferente en yarn)
+
+    npm install lodash --registry http://localhost:4873
+    
+
+## Privado
+
+Todos los paquetes que publicas son privados y accesibles basados en tu configuración.
+
+## Proxy
+
+Verdaccio almacena todas las dependencias bajo demanda y acelera las instalaciones en redes locales y privadas.
+
+## Verdaccio en pocas palabras
+
+* Es una aplicación web basada en Node.js
+* Es un registro privado
+* Es un proxy para la red local
+* Es una aplicación extensible
+* Es muy fácil de usar e instalar
+* Ofrecemos soporte en Docker y Kubernetes
+* Es 100% compatible con yarn, npm y pnpm
+* Es un ** forked** basado en `sinopia@1.4.0` y 100% **compatible hacia atras**.
+* Verdaccio significa **Un color verde popular en la Italia medieval para la pintura en fresco**.

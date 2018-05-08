@@ -31,6 +31,15 @@ const config = {
       allow_publish: '$all',
       proxy: 'npmjs'
     },
+    'auth-package': {
+      allow_access: '$authenticated',
+      allow_publish: '$authenticated'
+    },
+    'vue': {
+      allow_access: '$authenticated',
+      allow_publish: '$authenticated',
+      proxy: 'npmjs'
+    },
     '*': {
       allow_access: '$all',
       allow_publish: '$all'

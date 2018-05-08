@@ -4,6 +4,7 @@ import _ from 'lodash';
 import assert from 'assert';
 import smartRequest from './request';
 import type {IServerBridge} from '../flow/types';
+import {HEADERS} from '../../src/lib/constants';
 
 const buildAuthHeader = (user, pass): string => {
   return `Basic ${(new Buffer(`${user}:${pass}`)).toString('base64')}`;
@@ -25,7 +26,7 @@ export default class Server implements IServerBridge {
     assert(options.uri);
     const headers = options.headers || {};
 
-    headers.accept = headers.accept || 'application/json';
+    headers.accept = headers.accept || HEADERS.JSON;
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
     headers.authorization = headers.authorization || this.authstr;
 
@@ -78,7 +79,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}`,
       method: 'PUT',
       headers: {
-        'content-type': 'application/json',
+        'content-type': HEADERS.JSON,
       },
     }).send(data);
   }
@@ -92,7 +93,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(version)}/-tag/latest`,
       method: 'PUT',
       headers: {
-        'content-type': 'application/json',
+        'content-type': HEADERS.JSON,
       },
     }).send(data);
   }
@@ -110,7 +111,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
-        'content-type': 'application/octet-stream',
+        'content-type': HEADERS.OCTET_STREAM,
       },
     }).send(data);
   }
@@ -120,7 +121,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json; charset=utf-8',
+        'content-type': HEADERS.JSON_CHARSET,
       },
     });
   }
@@ -130,7 +131,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json; charset=utf-8',
+        'content-type': HEADERS.JSON_CHARSET,
       },
     });
   }
@@ -141,7 +142,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
       method: 'PUT',
       headers: {
-        'content-type': 'application/json',
+        'content-type': HEADERS.JSON,
       },
     }).send(JSON.stringify(version));
   }
@@ -151,7 +152,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
-        'content-type': 'application/octet-stream',
+        'content-type': HEADERS.OCTET_STREAM,
         'content-length': size,
       },
       timeout: 1000,
@@ -208,7 +209,7 @@ export default class Server implements IServerBridge {
       uri: '/-/_debug',
       method: 'GET',
       headers: {
-        'content-type': 'application/json',
+        'content-type': HEADERS.JSON,
       },
     })
   }

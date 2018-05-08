@@ -13,7 +13,7 @@ import type {Config} from '@verdaccio/types';
 function tryLoad(path: string) {
   try {
     return require(path);
-  } catch(err) {
+  } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       return null;
     }

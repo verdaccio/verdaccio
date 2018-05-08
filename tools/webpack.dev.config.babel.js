@@ -8,6 +8,9 @@ import getPackageVersion from './getPackageVersion';
 
 export default {
   ...baseConfig,
+
+  mode: 'development',
+
   entry: {
     main: [
       'whatwg-fetch',
@@ -28,7 +31,6 @@ export default {
   plugins: [
     new webpack.DefinePlugin({
       __DEBUG__: true,
-      'process.env.NODE_ENV': '"development"',
       __APP_VERSION__: `"${getPackageVersion()}"`,
     }),
     new HTMLWebpackPlugin({

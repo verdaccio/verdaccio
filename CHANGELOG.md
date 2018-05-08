@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.7"></a>
+# [3.0.0-beta.7](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.6...v3.0.0-beta.7) (2018-04-30)
+
+
+### Bug Fixes
+
+* beta header ([102fa22](https://github.com/verdaccio/verdaccio/commit/102fa22))
+* enforce maximum amount of users for new users only ([4d19d7d](https://github.com/verdaccio/verdaccio/commit/4d19d7d))
+* package command build:webui breaks on non-unix platforms ([4ec81d4](https://github.com/verdaccio/verdaccio/commit/4ec81d4))
+* restore plugin loader ([3c1c3ca](https://github.com/verdaccio/verdaccio/commit/3c1c3ca))
+* should fix flow performance issues ([453891b](https://github.com/verdaccio/verdaccio/commit/453891b))
+* update memory plugin ([a7aa77a](https://github.com/verdaccio/verdaccio/commit/a7aa77a))
+* update memory plugin for e2e ([df418a8](https://github.com/verdaccio/verdaccio/commit/df418a8))
+* update memory storage plugin ([a75b7bd](https://github.com/verdaccio/verdaccio/commit/a75b7bd))
+* update types ([4d5e8aa](https://github.com/verdaccio/verdaccio/commit/4d5e8aa))
+* update uplinks auth header ([3f6eeb4](https://github.com/verdaccio/verdaccio/commit/3f6eeb4)), closes [#670](https://github.com/verdaccio/verdaccio/issues/670)
+* upgrade webpack to v4. fixes [[#544](https://github.com/verdaccio/verdaccio/issues/544)] ([b1c631c](https://github.com/verdaccio/verdaccio/commit/b1c631c))
+
+
+
 <a name="3.0.0-beta.6"></a>
 # [3.0.0-beta.6](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.5...v3.0.0-beta.6) (2018-04-03)
 

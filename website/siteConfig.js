@@ -28,7 +28,8 @@ const siteConfig = {
   headerLinks: [
     {doc: 'installation', label: 'Docs'},
     {page: 'help', label: 'Help'},
-    {blog: true, label: 'Blog'},
+    { href: "https://medium.com/verdaccio", label: 'Blog'},
+    { href: "https://github.com/verdaccio", label: "GitHub" }
   ],
   users,
   /* path to images for header/footer */

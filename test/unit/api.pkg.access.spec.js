@@ -3,6 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
+import {HEADERS} from '../../src/lib/constants';
 import configDefault from './partials/config/access';
 import Config from '../../src/lib/config';
 import endPointAPI from '../../src/api/index';
@@ -45,7 +46,7 @@ describe('api with no limited access configuration', () => {
     test('should test fails on fetch endpoint /-/jquery', (done) => {
       request(app)
         .get('/jquery')
-        .set('content-type', 'application/json; charset=utf-8')
+        .set('content-type', HEADERS.JSON_CHARSET)
         .expect('Content-Type', /json/)
         .expect(404)
         .end(function(err, res) {
@@ -59,7 +60,7 @@ describe('api with no limited access configuration', () => {
     test('should success on fetch endpoint /-/vue', (done) => {
       request(app)
         .get('/vue')
-        .set('content-type', 'application/json; charset=utf-8')
+        .set('content-type', HEADERS.JSON_CHARSET)
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err, res) {

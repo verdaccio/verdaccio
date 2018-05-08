@@ -4,7 +4,7 @@ import {assign, isObject, isFunction} from 'lodash';
 import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
-import http from'http';
+import http from 'http';
 import https from 'https';
 // $FlowFixMe
 import constants from 'constants';
@@ -91,7 +91,6 @@ function startVerdaccio(config: any, cliListen: string,
       callback(webServer, addr, pkgName, pkgVersion);
     });
   });
-
 }
 
 function unlinkAddressPath(addr) {

@@ -3,11 +3,19 @@ id: docker
 title: Docker
 ---
 
+<div class="docker-count">
+
+![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
+
+</div>
+
 To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 ```bash
 docker pull verdaccio/verdaccio
 ```
+
+![Docker pull](/svg/docker_verdaccio.gif)
 
 ## Tagged Versions
 
@@ -57,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   -v $V_PATH/storage:/verdaccio/storage \
   verdaccio/verdaccio
 ```
->Note: Verdaccio runs as a non-root user (uid=101, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 101:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+>Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Docker and custom port configuration
 Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.

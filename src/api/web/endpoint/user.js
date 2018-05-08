@@ -12,7 +12,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
         req.remote_user = user;
 
         next({
-          token: auth.issue_token(user, '24h'),
+          token: auth.issueUIjwt(user, '24h'),
           username: req.remote_user.name,
         });
       } else {

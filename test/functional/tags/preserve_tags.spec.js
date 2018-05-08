@@ -1,5 +1,6 @@
 import assert from 'assert';
 import {generateSha} from '../lib/test.utils';
+import {HEADERS} from '../../../src/lib/constants';
 
 export default function(server, server2, express) {
   describe('should test preserve tags when publishing something', () => {
@@ -8,7 +9,7 @@ export default function(server, server2, express) {
       return server.request({
         uri: '/testpkg-preserve',
         headers: {
-          'content-type': 'application/json',
+          'content-type': HEADERS.JSON,
         },
         method: 'PUT',
         json: require('./preserve_tags.json'),

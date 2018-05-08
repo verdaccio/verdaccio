@@ -64,7 +64,7 @@ function generateRevision(rev: string): string {
 }
 
 function cleanUpReadme(version: Version): Version {
-  if(_.isNil(version) === false) {
+  if (_.isNil(version) === false) {
     delete version.readme;
   }
 
@@ -151,7 +151,6 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
   return new Promise((resolve, reject) => {
     // $FlowFixMe
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors) => {
-
       // something weird
       if (err && err.status !== 404) {
         return reject(err);
@@ -167,7 +166,6 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
         // if uplink fails with a status other than 404, we report failure
         if (_.isNil(upLinksErrors[errorItem][0]) === false) {
           if (upLinksErrors[errorItem][0].status !== 404) {
-
             if (isAllowPublishOffline) {
               return resolve();
             }
