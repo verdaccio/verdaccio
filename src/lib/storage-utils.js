@@ -76,7 +76,10 @@ function getLatestReadme(pkg: Package): string {
   const versions = pkg['versions'] || {};
   const distTags = pkg['dist-tags'] || {};
   const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
-  let readme = latestVersion.readme || pkg.readme || '';
+  let readme = _.trim(pkg.readme || latestVersion.readme || '');
+  if(readme) {
+    return readme;
+  }
   // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
   const readmeDistTagsPriority = [
     'next',
@@ -86,10 +89,11 @@ function getLatestReadme(pkg: Package): string {
     'dev',
     'canary'];
   readmeDistTagsPriority.map(function(tag) {
-    if(!readme) {
-      const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
-      readme = data.readme || readme;
+    if(readme) {
+      return readme;
     }
+    const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
+    readme = _.trim(data.readme || readme);
   });
   return readme;
 }
