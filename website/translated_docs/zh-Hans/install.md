@@ -28,7 +28,7 @@ npm install -g verdaccio
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.svg)
+![install verdaccio](/svg/install_verdaccio.gif)
 
 ### Beta
 
