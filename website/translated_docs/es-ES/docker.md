@@ -12,7 +12,7 @@ Para descargar la última [imagen de Docker](https://hub.docker.com/r/verdaccio/
 docker pull verdaccio/verdaccio
 ```
 
-![Docker pull](/svg/docker_verdaccio.svg)
+![Docker pull](/svg/docker_verdaccio.gif)
 
 ## Versiones con Etiquetas
 

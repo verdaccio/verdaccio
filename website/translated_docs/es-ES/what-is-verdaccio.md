@@ -13,13 +13,13 @@ Verdacio es un **ligero registry privado y proxy**hecho en **Node.js**
     $> verdaccio
     
 
-![registry](/svg/verdaccio_server.svg)
+![registry](/svg/verdaccio_server.gif)
 
 ## Usando Verdaccio
 
 Usar verdaccio con cualquier cliente de manejador de paquetes es muy sencillo.
 
-![registry](/svg/npm_install.svg)
+![registry](/svg/npm_install.gif)
 
 Puedes usar un registro personalizado bien definiendolo globalmente para todos los projectos
 
