@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.8"></a>
+# [3.0.0-beta.8](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.7...v3.0.0-beta.8) (2018-05-09)
+
+
+### Bug Fixes
+
+* allow do not include storage if uses a storage plugin ([4332ffc](https://github.com/verdaccio/verdaccio/commit/4332ffc))
+* disable autocomplete on search so it doesn't default to username ([2e41d9f](https://github.com/verdaccio/verdaccio/commit/2e41d9f))
+* make enter key submit the login modal form ([f89b498](https://github.com/verdaccio/verdaccio/commit/f89b498))
+
+
+
 <a name="3.0.0-beta.7"></a>
 # [3.0.0-beta.7](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.6...v3.0.0-beta.7) (2018-04-30)
 
