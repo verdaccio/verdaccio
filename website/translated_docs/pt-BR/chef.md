@@ -11,4 +11,4 @@ For further information:
 
 > We are looking for contributors for this repository, if you are interested please notify the author via tickets.
 
-Author: [Keli Grubb](https://github.com/kgrubb]) && Barthelemy Vessemont.
+Author: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
