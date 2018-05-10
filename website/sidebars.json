@@ -29,6 +29,7 @@
       "docker",
       "kubernetes",
       "ansible",
+      "puppet",
       "ci"
     ],
     "Development": [
