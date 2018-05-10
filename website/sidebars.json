@@ -30,6 +30,7 @@
       "kubernetes",
       "ansible",
       "puppet",
+      "chef",
       "ci"
     ],
     "Development": [
