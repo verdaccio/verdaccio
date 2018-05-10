@@ -5,7 +5,7 @@ title: "Developing Plugins"
 
 There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
 
-## Authentication Plugins
+## Authentication Plugin
 
 This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
 
@@ -78,7 +78,7 @@ auth:
 ```
 Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
 
-## Middleware Integration
+## Middleware Plugin
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests. A pretty good example
 of middleware plugin is the (sinopia-github-oauth)[https://github.com/soundtrackyourbrand/sinopia-github-oauth]) compatible with `verdaccio`.
@@ -95,7 +95,7 @@ To register a middleware we need an object with a single method called `register
 *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to  the storage actions.
 
 
-## Storage Plugins
+## Storage Plugin
 
 Since `verdaccio@3.x` we also can plug a custom storage.
 
@@ -109,27 +109,28 @@ class LocalDatabase<ILocalData>{
     constructor(config: Config, logger: Logger): ILocalData;
 }
 
-interface ILocalData {
-  add(name: string): SyncReturn;
-  remove(name: string): SyncReturn;
-  get(): StorageList;
-  getPackageStorage(packageInfo: string): IPackageStorage;
-  sync(): ?SyncReturn;
+declare interface verdaccio$ILocalData {
+  add(name: string, callback: verdaccio$Callback): void;
+  remove(name: string, callback: verdaccio$Callback): void;
+  get(callback: verdaccio$Callback): void;
+  getSecret(): Promise<string>;
+  setSecret(secret: string): Promise<any>;
+  getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
 }
 
-interface ILocalPackageManager {
-  writeTarball(name: string): IUploadTarball;
-  readTarball(name: string): IReadTarball;
-  readPackage(fileName: string, callback: Callback): void;
-  createPackage(name: string, value: any, cb: Callback): void;
-  deletePackage(fileName: string, callback: Callback): void;
-  removePackage(callback: Callback): void;
+declare interface verdaccio$ILocalPackageManager {
+  writeTarball(name: string): verdaccio$IUploadTarball;
+  readTarball(name: string): verdaccio$IReadTarball;
+  readPackage(fileName: string, callback: verdaccio$Callback): void;
+  createPackage(name: string, value: verdaccio$Package, cb: verdaccio$Callback): void;
+  deletePackage(fileName: string, callback: verdaccio$Callback): void;
+  removePackage(callback: verdaccio$Callback): void;
   updatePackage(pkgFileName: string,
-                updateHandler: Callback,
-                onWrite: Callback,
+                updateHandler: verdaccio$Callback,
+                onWrite: verdaccio$Callback,
                 transformPackage: Function,
-                onEnd: Callback): void;
-  savePackage(fileName: string, json: Package, callback: Callback): void;
+                onEnd: verdaccio$Callback): void;
+  savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
 interface IUploadTarball extends stream$PassThrough {
@@ -143,5 +144,16 @@ interface IReadTarball extends stream$PassThrough {
 }
 ```
 
-> This API still is experimental and might change next minor versions. The default [LocalStorage plugin](https://github.com/verdaccio/local-storage) it comes built-in in `verdaccio` and it is being
-loaded if any storage plugin has been defined.
+> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types
+definitions in our official repository](https://github.com/verdaccio/flow-types).
+
+### Storage Plugins Examples
+
+The following list of plugins are implementing the Storage API and might be used them as example.
+
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
+* [local-storage](https://github.com/verdaccio/local-storage)
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
+* [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
+
+> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
