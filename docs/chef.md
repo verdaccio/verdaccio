@@ -1,6 +1,6 @@
 ---
 id: chef
-title: "Using Chef Cookbook and Verdaccio"
+title: "Chef Cookbook"
 ---
 
 Using Chef Cookbook for Verdaccio
