@@ -1,6 +1,6 @@
 ---
 id: ansible
-title: "Installing with Ansible"
+title: "Ansible"
 ---
 We have a customised solution for `verdaccio` in our organization.
 
