@@ -63,6 +63,32 @@ function generateRevision(rev: string): string {
   return ((+_rev[0] || 0) + 1) + '-' + crypto.pseudoRandomBytes(8).toString('hex');
 }
 
+function getLatestReadme(pkg: Package): string {
+  const versions = pkg['versions'] || {};
+  const distTags = pkg['dist-tags'] || {};
+  const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
+  let readme = _.trim(pkg.readme || latestVersion.readme || '');
+  if (readme) {
+    return readme;
+  }
+  // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
+  const readmeDistTagsPriority = [
+    'next',
+    'beta',
+    'alpha',
+    'test',
+    'dev',
+    'canary'];
+  readmeDistTagsPriority.map(function(tag) {
+    if (readme) {
+      return readme;
+    }
+    const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
+    readme = _.trim(data.readme || readme);
+  });
+  return readme;
+}
+
 function cleanUpReadme(version: Version): Version {
   if (_.isNil(version) === false) {
     delete version.readme;
@@ -157,6 +183,7 @@ export {
   generatePackageTemplate,
   normalizePackage,
   generateRevision,
+  getLatestReadme,
   cleanUpReadme,
   DEFAULT_REVISION,
   fileExist,
