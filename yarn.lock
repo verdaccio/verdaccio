@@ -231,22 +231,22 @@
     lockfile "1.0.3"
     lodash "4.17.4"
 
-"@verdaccio/file-locking@^0.0.7":
+"@verdaccio/file-locking@0.0.7", "@verdaccio/file-locking@^0.0.7":
   version "0.0.7"
   resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-0.0.7.tgz#5fd1b2bd391e54fa32d079002b5f7ba90844e344"
   dependencies:
     lockfile "1.0.3"
     lodash "4.17.10"
 
-"@verdaccio/local-storage@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-1.0.2.tgz#3cdc2b27ce0496787f0ca36560b8a34b4959164e"
+"@verdaccio/local-storage@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-1.0.3.tgz#f7916afbde27e725339b1fa1e11566c3734b5194"
   dependencies:
-    "@verdaccio/file-locking" "0.0.5"
+    "@verdaccio/file-locking" "0.0.7"
     "@verdaccio/streams" "1.0.0"
     async "2.6.0"
     http-errors "1.6.2"
-    lodash "4.17.5"
+    lodash "4.17.10"
     mkdirp "0.5.1"
 
 "@verdaccio/streams@1.0.0", "@verdaccio/streams@^1.0.0":
@@ -6131,7 +6131,7 @@ lodash@4.17.4:
   version "4.17.4"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-lodash@4.17.5, lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
   version "4.17.5"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
