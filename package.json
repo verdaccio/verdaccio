@@ -127,7 +127,7 @@
     "url-loader": "0.6.2",
     "verdaccio-auth-memory": "0.0.4",
     "verdaccio-memory": "1.0.1",
-    "webpack": "4.6.0",
+    "webpack": "4.8.3",
     "webpack-cli": "2.0.15",
     "webpack-dev-server": "3.1.4",
     "webpack-merge": "4.1.2",
