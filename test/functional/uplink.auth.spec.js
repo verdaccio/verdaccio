@@ -1,9 +1,9 @@
 import assert from 'assert';
-import ProxyStorage from '../../src/lib/up-storage';
+import ProxyStorage, {DEFAULT_REGISTRY} from '../../src/lib/up-storage';
 
 function createUplink(config) {
   const defaultConfig = {
-    url: 'https://registry.npmjs.org/'
+    url: DEFAULT_REGISTRY
   };
   let mergeConfig = Object.assign({}, defaultConfig, config);
   return new ProxyStorage(mergeConfig, {});

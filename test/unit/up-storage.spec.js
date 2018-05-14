@@ -1,6 +1,6 @@
 // @flow
 import _ from 'lodash';
-import ProxyStorage from '../../src/lib/up-storage';
+import ProxyStorage, {DEFAULT_REGISTRY} from '../../src/lib/up-storage';
 import AppConfig from '../../src/lib/config';
 // $FlowFixMe
 import configExample from './partials/config';
@@ -15,7 +15,7 @@ describe('UpStorge', () => {
   jest.setTimeout(10000);
 
   const uplinkDefault = {
-    url: 'https://registry.npmjs.org/'
+    url: DEFAULT_REGISTRY
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample);
