@@ -38,6 +38,10 @@ const setConfig = (config, key, def) => {
   return _.isNil(config[key]) === false ? config[key] : def;
 };
 
+export const TOKEN_BASIC = 'basic';
+export const TOKEN_BEARER = 'bearer';
+export const DEFAULT_REGISTRY = 'https://registry.npmjs.org/';
+
 /**
  * Implements Storage interface
  * (same for storage.js, local-storage.js, up-storage.js)
@@ -266,33 +270,45 @@ class ProxyStorage implements IProxy {
    * @private
    */
   _setAuth(headers: any) {
-    const auth = this.config.auth;
+    const {auth} = this.config;
 
-    if (typeof auth === 'undefined' || headers['authorization']) {
+    if (_.isNil(auth) || headers['authorization']) {
       return headers;
     }
 
-    if (!_.isObject(this.config.auth)) {
+    // $FlowFixMe
+    if (_.isObject(auth) === false && _.isObject(auth.token) === false) {
       this._throwErrorAuth('Auth invalid');
     }
 
     // get NPM_TOKEN http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules
     // or get other variable export in env
-    let token: any = process.env.NPM_TOKEN;
+    // https://github.com/verdaccio/verdaccio/releases/tag/v2.5.0
+    let token: any;
+    const tokenConf: any = auth;
 
-    if (auth.token) {
-      token = auth.token;
-    } else if (auth.token_env ) {
+    if (_.isNil(tokenConf.token) === false && _.isString(tokenConf.token)) {
+      token = tokenConf.token;
+    } else if (_.isNil(tokenConf.token_env) === false) {
       // $FlowFixMe
-      token = process.env[auth.token_env];
+      if (_.isString(tokenConf.token_env)) {
+        token = process.env[tokenConf.token_env];
+      } else if (_.isBoolean(tokenConf.token_env) && tokenConf.token_env) {
+        token = process.env.NPM_TOKEN;
+      } else {
+        this.logger.error('token is required' );
+        this._throwErrorAuth('token is required');
+      }
+    } else {
+      token = process.env.NPM_TOKEN;
     }
 
     if (_.isNil(token)) {
-      this._throwErrorAuth('Token is required');
+      this._throwErrorAuth('token is required');
     }
 
     // define type Auth allow basic and bearer
-    const type = auth.type;
+    const type = tokenConf.type || TOKEN_BASIC;
     this._setHeaderAuthorization(headers, type, token);
 
     return headers;
@@ -315,8 +331,8 @@ class ProxyStorage implements IProxy {
    * @param {string} token
    * @private
    */
-  _setHeaderAuthorization(headers: any, type: string, token: string) {
-    if (type !== 'bearer' && type !== 'basic') {
+  _setHeaderAuthorization(headers: any, type: string, token: any) {
+    if (type !== TOKEN_BEARER && type !== TOKEN_BASIC) {
       this._throwErrorAuth(`Auth type '${type}' not allowed`);
     }
 

@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.9"></a>
+# [3.0.0-beta.9](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2018-05-13)
+
+
+### Bug Fixes
+
+* update dependencies [#691](https://github.com/verdaccio/verdaccio/issues/691) ([d07bfc5](https://github.com/verdaccio/verdaccio/commit/d07bfc5))
+* vulnerabilities dependencies ([d4722d6](https://github.com/verdaccio/verdaccio/commit/d4722d6))
+* vulnerabilities with lodash ([bcf128e](https://github.com/verdaccio/verdaccio/commit/bcf128e))
+
+
+
 <a name="3.0.0-beta.8"></a>
 # [3.0.0-beta.8](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.7...v3.0.0-beta.8) (2018-05-09)
 
