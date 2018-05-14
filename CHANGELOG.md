@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.10"></a>
+# [3.0.0-beta.10](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.9...v3.0.0-beta.10) (2018-05-14)
+
+
+### Bug Fixes
+
+* avoid issues with missing token [#693](https://github.com/verdaccio/verdaccio/issues/693) ([08f6a64](https://github.com/verdaccio/verdaccio/commit/08f6a64))
+
+
+### Features
+
+* return latest dis-tag readme whether main metadata readme is emtpy ([e75376b](https://github.com/verdaccio/verdaccio/commit/e75376b))
+
+
+
 <a name="3.0.0-beta.9"></a>
 # [3.0.0-beta.9](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2018-05-13)
 
