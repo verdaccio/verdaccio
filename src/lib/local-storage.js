@@ -12,7 +12,7 @@ import _ from 'lodash';
 import async from 'async';
 import {ErrorCode, isObject, getLatestVersion, tagVersion, validate_name, semverSort, DIST_TAGS} from './utils';
 import {
-  generatePackageTemplate, normalizePackage, generateRevision, cleanUpReadme,
+  generatePackageTemplate, normalizePackage, generateRevision, cleanUpReadme, getLatestReadme,
   fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
 import {loadPlugin} from '../lib/plugin-loader';
@@ -127,6 +127,11 @@ class LocalStorage implements IStorage {
       }
 
       let change = false;
+      // updating readme
+      packageLocalJson.readme = getLatestReadme(packageInfo);
+      if (packageInfo.readme !== packageLocalJson.readme) {
+        change = true;
+      }
       for (let versionId in packageInfo.versions) {
         if (_.isNil(packageLocalJson.versions[versionId])) {
           let version = packageInfo.versions[versionId];
@@ -178,11 +183,6 @@ class LocalStorage implements IStorage {
             packageLocalJson._uplinks[up] = packageInfo._uplinks[up];
           }
         }
-      }
-
-      if (packageInfo.readme !== packageLocalJson.readme) {
-        packageLocalJson.readme = packageInfo.readme;
-        change = true;
       }
 
       if ('time' in packageInfo) {

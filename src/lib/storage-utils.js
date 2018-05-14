@@ -71,6 +71,33 @@ function cleanUpReadme(version: Version): Version {
   return version;
 }
 
+
+function getLatestReadme(pkg: Package): string {
+  const versions = pkg['versions'] || {};
+  const distTags = pkg['dist-tags'] || {};
+  const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
+  let readme = _.trim(pkg.readme || latestVersion.readme || '');
+  if(readme) {
+    return readme;
+  }
+  // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
+  const readmeDistTagsPriority = [
+    'next',
+    'beta',
+    'alpha',
+    'test',
+    'dev',
+    'canary'];
+  readmeDistTagsPriority.map(function(tag) {
+    if(readme) {
+      return readme;
+    }
+    const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
+    readme = _.trim(data.readme || readme);
+  });
+  return readme;
+}
+
 export const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
@@ -158,6 +185,7 @@ export {
   normalizePackage,
   generateRevision,
   cleanUpReadme,
+  getLatestReadme,
   DEFAULT_REVISION,
   fileExist,
   noSuchFile,
