@@ -81,7 +81,7 @@ Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and t
 ## Middleware Plugin
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests. A pretty good example
-of middleware plugin is the (sinopia-github-oauth)[https://github.com/soundtrackyourbrand/sinopia-github-oauth]) compatible with `verdaccio`.
+of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) compatible with `verdaccio`.
 
 ### API
 
