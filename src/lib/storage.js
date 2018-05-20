@@ -98,15 +98,6 @@ class Storage implements IStorageHandler {
   }
 
   /**
-   * Tags a package version with a provided tag
-   Used storages: local (write)
-   */
-  replaceTags(name: string, tagHash: MergeTags, callback: Callback) {
-    this.logger.warn('method deprecated');
-    this.localStorage.mergeTags(name, tagHash, callback);
-  }
-
-  /**
    * Change an existing package (i.e. unpublish one version)
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)

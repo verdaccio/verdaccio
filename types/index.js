@@ -83,7 +83,6 @@ export interface IStorageHandler {
   init(config: Config): Promise<any>;
   addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
   mergeTags(name: string, tagHash: MergeTags, callback: Callback): void;
-  replaceTags(name: string, tagHash: MergeTags, callback: Callback): void;
   changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
   removePackage(name: string, callback: Callback): void;
   removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
