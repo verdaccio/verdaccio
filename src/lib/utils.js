@@ -155,10 +155,6 @@ function tagVersion(data: Package, version: string, tag: StringValue) {
         return true;
       }
     }
-    Logger.logger.warn({ver: version, tag: tag}, 'ignoring bad version @{ver} in @{tag}');
-    if (tag && data[DIST_TAGS][tag]) {
-      delete data[DIST_TAGS][tag];
-    }
   }
   return false;
 }
