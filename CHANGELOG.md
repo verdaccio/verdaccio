@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.11"></a>
+# [3.0.0-beta.11](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.10...v3.0.0-beta.11) (2018-05-20)
+
+
+### Bug Fixes
+
+* **docs:** clarify usage of uplink auth property ([01f7969](https://github.com/verdaccio/verdaccio/commit/01f7969))
+* remove useless warning ignoring tag ([0aeac06](https://github.com/verdaccio/verdaccio/commit/0aeac06))
+
+
+
 <a name="3.0.0-beta.10"></a>
 # [3.0.0-beta.10](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.9...v3.0.0-beta.10) (2018-05-14)
 
