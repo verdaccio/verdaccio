@@ -38,7 +38,9 @@ export default function () {
         });
       };
 
-      assert.throws(fnError, 'Auth invalid');
+      expect(function ( ) {
+        fnError();
+      }).toThrow(Error('Auth invalid'));
     });
 
     test('if assigns the header authorization', () => {
@@ -100,7 +102,9 @@ export default function () {
         })
       };
 
-      assert.throws(fnError, `Auth type 'null' not allowed`);
+      expect(function ( ) {
+        fnError();
+      }).toThrow(Error(`Auth type 'null' not allowed`));
     });
 
     test('set auth with NPM_TOKEN', () => {
