@@ -272,6 +272,7 @@ class LocalStorage implements IStorage {
     this._updatePackage(name, (data, cb) => {
       /* eslint guard-for-in: 0 */
       for (let tag: string in tags) {
+        // this handle dist-tag rm command
         if (_.isNull(tags[tag])) {
           delete data[DIST_TAGS][tag];
           continue;
