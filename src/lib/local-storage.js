@@ -271,17 +271,17 @@ class LocalStorage implements IStorage {
   mergeTags(name: string, tags: MergeTags, callback: Callback) {
     this._updatePackage(name, (data, cb) => {
       /* eslint guard-for-in: 0 */
-      for (let t: string in tags) {
-        if (_.isNull(tags[t])) {
-          delete data[DIST_TAGS][t];
+      for (let tag: string in tags) {
+        if (_.isNull(tags[tag])) {
+          delete data[DIST_TAGS][tag];
           continue;
         }
 
-        if (_.isNil(data.versions[tags[t]])) {
+        if (_.isNil(data.versions[tags[tag]])) {
           return cb( this._getVersionNotFound() );
         }
-        const key: string = tags[t];
-        tagVersion(data, key, t);
+        const version: string = tags[tag];
+        tagVersion(data, version, tag);
       }
       cb();
     }, callback);
