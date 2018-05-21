@@ -16,6 +16,11 @@ auth:
     # You can set this to -1 to disable registration.
     #max_users: 1000
 
+# Experimental built-in middlewares
+#middlewares:
+#  audit:
+#    enabled: true
+
 # a list of other known repositories we can talk to
 uplinks:
   npmjs:
