@@ -163,6 +163,10 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 - Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 - Ping (npm ping) - **supported**
 
+### Security
+
+- npm audit - **supported**
+
 ## FAQ / Contact / Troubleshoot
 
 If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
