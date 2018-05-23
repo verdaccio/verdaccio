@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0-beta.12"></a>
+# [3.0.0-beta.12](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.11...v3.0.0-beta.12) (2018-05-23)
+
+
+### Features
+
+* add node 10 support for test and docker ([cee2564](https://github.com/verdaccio/verdaccio/commit/cee2564))
+* support for npm audit fix [#689](https://github.com/verdaccio/verdaccio/issues/689) ([f9f180d](https://github.com/verdaccio/verdaccio/commit/f9f180d))
+
+
+
 <a name="3.0.0-beta.11"></a>
 # [3.0.0-beta.11](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.10...v3.0.0-beta.11) (2018-05-20)
 
