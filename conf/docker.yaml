@@ -47,6 +47,11 @@ packages:
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
 
+# To use `npm audit` uncomment the following section
+#middlewares:
+#  audit:
+#    enabled: true
+
 # log settings
 logs:
   - {type: stdout, format: pretty, level: http}
