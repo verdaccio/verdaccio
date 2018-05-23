@@ -10135,9 +10135,9 @@ vendors@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
 
-verdaccio-audit@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-0.0.3.tgz#d7743b02286f845d5b84b4400a84769660a13223"
+verdaccio-audit@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-0.1.0.tgz#4cc2e9a61c71492962f1a623bd099c51f5ca745a"
   dependencies:
     body-parser "1.18.3"
     compression "1.7.2"
