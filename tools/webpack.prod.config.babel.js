@@ -31,6 +31,7 @@ const prodConf = {
     new HTMLWebpackPlugin({
       title: 'ToReplaceByTitle',
       filename: 'index.html',
+      favicon: `${env.SRC_ROOT}/webui/template/favicon.ico`,
       verdaccioURL: 'ToReplaceByVerdaccio',
       template: `${env.SRC_ROOT}/webui/template/index.html`,
       debug: false,
