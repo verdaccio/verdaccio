@@ -34,7 +34,7 @@ maxage | string | No |10m | all | limit maximun failure request | 2m
 fail_timeout | string | No |10m | all | defines max time when a request becomes a failure | 5m
 max_fails | number | No |2 | all | limit maximun failure request | 2
 cache | boolean | No |[true,false] | >= 2.1 | cache all remote tarballs in storage | true
-auth | list | No | [see below](uplinks.md#auth-property)  | >= 2.5 | assigns the header 'Authorization' see: http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules | disabled
+auth | list | No | [see below](uplinks.md#auth-property)  | >= 2.5 | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled
 headers | list | No | authorization: "Bearer SecretJWToken==" | all | list of custom headers for the uplink | disabled
 strict_ssl |boolean | No | [true,false] | >= 3.0 | If true, requires SSL certificates be valid. | true
 
