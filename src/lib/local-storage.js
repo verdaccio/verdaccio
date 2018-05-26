@@ -191,7 +191,7 @@ class LocalStorage implements IStorage {
       }
 
       if (change) {
-        this.logger.debug('updating package info');
+        this.logger.debug({name}, 'updating package @{name} info');
         this._writePackage(name, packageLocalJson, function(err) {
           callback(err, packageLocalJson);
         });

@@ -256,8 +256,8 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function(err) {
-          self.logger.warn( {err: err}
-            , 'error saving file: @{err.message}\n@{err.stack}' );
+          self.logger.warn( {err: err, fileName: file}
+            , 'error saving file @{fileName}: @{err.message}\n@{err.stack}' );
           if (savestream) {
             savestream.abort();
           }
