@@ -25,18 +25,20 @@ uplinks:
 
 Puedes definir múltiples uplinks y cada uno de ellos debe tener un nombre único (key). Pueden tener las siguientes propiedades:
 
-| Propiedad    | Tipo    | Requerido | Ejemplo                     | Soporte | Descripción                                                                                                          | Por Defecto |
-| ------------ | ------- | --------- | --------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- | ----------- |
-| url          | string  | Yes       | https://registry.npmjs.org/ | all     | El dominio del registro                                                                                              | npmjs       |
-| ca           | string  | No        | ~./ssl/client.crt'          | all     | Ubicación del certificado SSL                                                                                        | Desactivado |
-| timeout      | string  | No        | 100ms                       | all     | timeout por petición                                                                                                 | 30s         |
-| maxage       | string  | No        | 10m                         | all     | limite máximo de fallos de cada petición                                                                             | 2m          |
-| fail_timeout | string  | No        | 10m                         | all     | define el tiempo máximo cuando una petición falla                                                                    | 5m          |
-| max_fails    | number  | No        | 2                           | all     | límite máximo de fallos                                                                                              | 2           |
-| cache        | boolean | No        | [true,false]                | >= 2.1  | evita persistir tarballs                                                                                             | true        |
-| auth         | list    | No        | see below                   | >= 2.5  | asigna el encamezado 'Authorization' ver: http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules | desactivado |
-| headers      | list    | No        | ]]                          | all     | listado de encabezados por uplink                                                                                    | desactivado |
-| strict_ssl   | boolean | No        | [true,false]                | >= 3.0  | Es verdadero, requiere que el certificado SSL sea válido.                                                            | true        |
+| Propiedad    | Tipo    | Requerido | Ejemplo                               | Soporte | Descripción                                                                                                                | Por Defecto |
+| ------------ | ------- | --------- | ------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| url          | string  | Yes       | https://registry.npmjs.org/           | all     | El dominio del registro                                                                                                    | npmjs       |
+| ca           | string  | No        | ~./ssl/client.crt'                    | all     | Ubicación del certificado SSL                                                                                              | Desactivado |
+| timeout      | string  | No        | 100ms                                 | all     | timeout por petición                                                                                                       | 30s         |
+| maxage       | string  | No        | 10m                                   | all     | limite máximo de fallos de cada petición                                                                                   | 2m          |
+| fail_timeout | string  | No        | 10m                                   | all     | define el tiempo máximo cuando una petición falla                                                                          | 5m          |
+| max_fails    | number  | No        | 2                                     | all     | límite máximo de fallos                                                                                                    | 2           |
+| cache        | boolean | No        | [true,false]                          | >= 2.1  | cache all remote tarballs in storage                                                                                       | true        |
+| auth         | list    | No        | [see below](uplinks.md#auth-property) | >= 2.5  | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | desactivado |
+| headers      | list    | No        | ]]                                    | all     | listado de encabezados por uplink                                                                                          | desactivado |
+| strict_ssl   | boolean | No        | [true,false]                          | >= 3.0  | Es verdadero, requiere que el certificado SSL sea válido.                                                                  | true        |
+
+#### Auth property
 
 The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
 
