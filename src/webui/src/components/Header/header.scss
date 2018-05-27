@@ -6,13 +6,13 @@
   width: 100%;
   align-items: center;
   background: $primary-color;
+  color: #fff;
 
   figure {
     margin: 0 0 0 10px;
     font-size: 14px;
     line-height: 18px;
     padding: 8px 0;
-    color: #f9f2f4;
   }
 
   .headerWrap {
@@ -22,13 +22,24 @@
     @include container-size();
   }
 
+  .headerRight {
+    margin-left: auto;
+  }
+
   .logo {
     height: 50px;
   }
 
-  .welcome {
-    margin-left: auto;
-    color: white;
+  .headerButton {
+    color: inherit;
+    border-color: #fff;
+    background-color: transparent;
+
+    &:hover, &:focus {
+      color: $primary-color;
+      border-color: #f7f8f6;
+      background-color: #f7f8f6;
+    }
   }
 }
 

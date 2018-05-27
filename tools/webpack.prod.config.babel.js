@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const baseConfig = require('./webpack.config');
 const env = require('../src/config/env');
 const _ = require('lodash');
@@ -44,6 +45,7 @@ const prodConf = {
       new UglifyJsWebpackPlugin({
         sourceMap: true,
       }),
+      new OptimizeCSSAssetsPlugin({}),
     ],
   },
 };

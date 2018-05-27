@@ -129,14 +129,13 @@ export default class Header extends React.Component {
   renderUserActionButton() {
     if (!this.isTokenExpire) { // TODO: Check jwt token expire
       return (
-        <div className={ classes.welcome }>
-          <span className="user-logged-greetings">Hi, {storage.getItem('username')}</span>
-          &nbsp;
-          <Button className="header-button-logout" type="danger" onClick={this.handleLogout}>Logout</Button>
+        <div className="user-logged">
+          <span className="user-logged-greetings" style={ {marginRight: '10px'} }>Hi, {storage.getItem('username')}</span>
+          <Button className={`${classes.headerButton} header-button-logout`} type="danger" onClick={this.handleLogout}>Logout</Button>
         </div>
       );
     } else {
-      return <Button className="header-button-login" type="danger" style={ {marginLeft: 'auto'} } onClick={ this.toggleLoginModal }>Login</Button>;
+      return <Button className={`${classes.headerButton} header-button-login`} onClick={ this.toggleLoginModal }>Login</Button>;
     }
   }
 
@@ -154,7 +153,10 @@ export default class Header extends React.Component {
             <br/>
             npm adduser --registry { registryURL }
           </figure>
-          {this.renderUserActionButton()}
+
+          <div className={ classes.headerRight }>
+            {this.renderUserActionButton()}
+          </div>
         </div>
 
         <Dialog

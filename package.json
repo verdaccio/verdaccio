@@ -107,6 +107,7 @@
     "node-mocks-http": "1.6.7",
     "node-sass": "4.9.0",
     "normalize.css": "8.0.0",
+    "optimize-css-assets-webpack-plugin": "4.0.1",
     "ora": "1.4.0",
     "prop-types": "15.6.1",
     "puppeteer": "1.1.1",

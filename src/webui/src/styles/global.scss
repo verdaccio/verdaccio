@@ -28,4 +28,21 @@ ul {
     flex-direction: column;
     min-height: 100vh;
   }
+
+  .el-button {
+    &:hover, &:focus {
+      color: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  .el-input__inner {
+    &:hover, &:focus {
+      border-color: $primary-color;
+    }
+  }
+
+  .el-dialog__headerbtn:hover .el-dialog__close {
+    color: $text-black;
+  }
 }
