@@ -1,11 +1,13 @@
 @import '../../../styles/variable';
 
 .module {
+
+  margin-bottom: 10px;
+
   .moduleTitle {
     display: flex;
     align-items: flex-end;
     font-size: 21px;
-    color: $primary-color;
     margin: 0 0 10px;
     padding: 5px 0;
     font-weight: 600;
