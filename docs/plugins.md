@@ -18,7 +18,7 @@ $> npm install --global verdaccio-activedirectory
 `verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
 
 ```
-&> npm install --global sinopia-memory
+$> npm install --global sinopia-memory
 ```
 
 ### Configuration
@@ -33,8 +33,6 @@ The default configuration looks like this, due we use a build-in `htpasswd` plug
 ```yaml
  htpasswd:
     file: ./htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
     #max_users: 1000
 ```
 
@@ -56,8 +54,6 @@ This is tecnically possible, the plugins order becames important, the the creden
 auth:
   htpasswd:
     file: ./htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
     #max_users: 1000
   activedirectory:
     url: "ldap://10.0.100.1"
@@ -79,7 +75,6 @@ middlewares:
 
 This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
-
 ```yaml
 store:
   memory:
@@ -88,7 +83,7 @@ store:
 
 > If you define a custom store, the property **storage** in the configuration file will be ignored.
 
-## Legacy plugins compatible with **Verdaccio**.
+## Legacy plugins
 
 ### Sinopia Plugins
 
