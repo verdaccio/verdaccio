@@ -15,6 +15,7 @@
 [![dependencies Status](https://david-dm.org/verdaccio/verdaccio/status.svg)](https://david-dm.org/verdaccio/verdaccio)
 [![Known Vulnerabilities](https://snyk.io/test/github/verdaccio/verdaccio/badge.svg?targetFile=package.json)](https://snyk.io/test/github/verdaccio/verdaccio?targetFile=package.json)
 [![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio?ref=badge_shield)
 
 
 <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
@@ -213,3 +214,6 @@ Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/L
 
 The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /wiki and /assets folder) is [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio?ref=badge_large)
