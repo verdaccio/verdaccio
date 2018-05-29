@@ -37,7 +37,7 @@ As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/21
 
 ## Default htpasswd
 
-In order to simplify the setup, `verdaccio` use a build-in plugin based on `htpasswd`.
+In order to simplify the setup, `verdaccio` use a built-in plugin based on `htpasswd`.
 
 ```yaml
 auth:
