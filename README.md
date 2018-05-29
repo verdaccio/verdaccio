@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://www.verdaccio.org/">
-        <img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-8d2f3.appspot.com/o/verdaccio%2Fverdaccio%402x.png?alt=media&token=0672210e-d2fe-46fb-9105-1df397f40074">
+        <img src="https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png">
     </a>
 <br>
 <br>
@@ -20,7 +20,7 @@
   <a href="https://hub.docker.com/r/verdaccio/verdaccio/"><img alt="npm Downloads" src="https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200"></a>
 </div>
 <div align="center">
-  <p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-8d2f3.appspot.com/o/verdaccio%2Fverdaccio_big_30.gif?alt=media&token=622e1974-b844-46bd-ac22-40c8e9af724b"></p>
+  <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/feature-release/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
 </div>
 
