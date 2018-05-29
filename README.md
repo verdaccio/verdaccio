@@ -202,6 +202,7 @@ If you have any issue you can try the following options, do no desist to ask or 
 
 
 <h2 align="center">License</h2>
-Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).
 
-The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /wiki and /assets folder) is [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
+
+The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /docs and /assets folder) is [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
