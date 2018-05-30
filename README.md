@@ -47,7 +47,7 @@ pnpm i -g verdaccio
 
 <h2 align="center">Introduction</h2>
 
-It allows you to have a **local npm private registry with zero configuration**. You don't have to install and replicate an entire database. Verdaccio keeps its own small database and, if a package doesn't exist there, **it asks any other registry** (npmjs.org) for it keeping only those packages you use.
+Verdaccio is a simple, **zero-config-required local private npm registry**. No need for an entire database just to get started! Verdaccio comes out of the box with **its own tiny database**, and the ability to proxy other registries (eg. npmjs.org), caching the downloaded modules along the way. For those looking to extend their storage capabilities, Verdaccio **supports various community-made plugins to hook into services such as Amazon's s3 and Google Cloud Storage**.
 
 ### Use private packages
 
