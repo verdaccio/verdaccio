@@ -134,162 +134,166 @@ describe('LocalStorage', () => {
       });
     });
 
-    describe('LocalStorage::addTarball', () => {
+    describe('LocalStorage::tarball operations', () => {
 
-      test('should add a new tarball', (done) => {
-        const tarballData = JSON.parse(readMetadata('addTarball'));
-        const stream = storage.addTarball(pkgName, tarballName);
+      describe('LocalStorage::addTarball', () => {
 
-        stream.on('error', function(err) {
-          expect(err).toBeNull();
-          done();
+        test('should add a new tarball', (done) => {
+          const tarballData = JSON.parse(readMetadata('addTarball'));
+          const stream = storage.addTarball(pkgName, tarballName);
+
+          stream.on('error', function(err) {
+            expect(err).toBeNull();
+            done();
+          });
+          stream.on('success', function() {
+            done();
+          });
+
+          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.done();
         });
-        stream.on('success', function() {
-          done();
+
+        test('should add a new second tarball', (done) => {
+          const tarballData = JSON.parse(readMetadata('addTarball'));
+          const stream = storage.addTarball(pkgName, tarballName2);
+          stream.on('error', function(err) {
+            expect(err).toBeNull();
+            done();
+          });
+          stream.on('success', function() {
+            done();
+          });
+
+          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.done();
         });
 
-        stream.end(new Buffer(tarballData.data, 'base64'));
-        stream.done();
+        test('should fails on add a duplicated new tarball ', (done) => {
+          const tarballData = JSON.parse(readMetadata('addTarball'));
+          const stream = storage.addTarball(pkgName, tarballName);
+          stream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(409);
+            expect(err.message).toMatch(/this package is already present/);
+            done();
+          });
+
+          stream.on('success', function() {
+            done();
+          });
+
+          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.done();
+        });
+
+        test('should fails on add a new tarball on missing package', (done) => {
+          const tarballData = JSON.parse(readMetadata('addTarball'));
+          const stream = storage.addTarball('unexsiting-package', tarballName);
+          stream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(404);
+            expect(err.message).toMatch(/no such package available/);
+            done();
+          });
+
+          stream.on('success', function() {
+            done();
+          });
+
+          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.done();
+        });
+
+        test('should fails on use invalid package name on add a new tarball', (done) => {
+          const stream = storage.addTarball(pkgName, `${pkgName}-fails-add-tarball-1.0.4.tgz`);
+          stream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(422);
+            expect(err.message).toMatch(/refusing to accept zero-length file/);
+            done();
+          });
+
+          stream.done();
+        });
+
+        test('should fails on abort on add a new tarball', (done) => {
+          const stream = storage.addTarball('package.json', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
+          stream.abort();
+          stream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(403);
+            expect(err.message).toMatch(/can't use this filename/);
+            done();
+          });
+
+          stream.done();
+        });
+
+        describe('LocalStorage::removeTarball', () => {
+
+          test('should remove a tarball', (done) => {
+            storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
+              expect(err).toBeNull();
+              expect(pkg).toBeUndefined();
+              done();
+            });
+          });
+
+          test('should remove a tarball that does not exist', (done) => {
+            storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
+              expect(err).not.toBeNull();
+              expect(err.statusCode).toEqual(404);
+              expect(err.message).toMatch(/no such file available/);
+              done();
+            });
+          });
+        });
+
       });
 
-      test('should add a new second tarball', (done) => {
-        const tarballData = JSON.parse(readMetadata('addTarball'));
-        const stream = storage.addTarball(pkgName, tarballName2);
-        stream.on('error', function(err) {
-          expect(err).toBeNull();
-          done();
-        });
-        stream.on('success', function() {
-          done();
-        });
-
-        stream.end(new Buffer(tarballData.data, 'base64'));
-        stream.done();
-      });
-
-      test('should fails on add a duplicated new tarball ', (done) => {
-        const tarballData = JSON.parse(readMetadata('addTarball'));
-        const stream = storage.addTarball(pkgName, tarballName);
-        stream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(409);
-          expect(err.message).toMatch(/this package is already present/);
-          done();
+      describe('LocalStorage::getTarball', () => {
+        test('should get a existing tarball', (done) => {
+          const stream = storage.getTarball(pkgName, tarballName);
+          stream.on('content-length', function(contentLength) {
+            expect(contentLength).toBe(279);
+            done();
+          });
+          stream.on('open', function() {
+            done();
+          });
         });
 
-        stream.on('success', function() {
-          done();
-        });
-
-        stream.end(new Buffer(tarballData.data, 'base64'));
-        stream.done();
-      });
-
-      test('should fails on add a new tarball on missing package', (done) => {
-        const tarballData = JSON.parse(readMetadata('addTarball'));
-        const stream = storage.addTarball('unexsiting-package', tarballName);
-        stream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(404);
-          expect(err.message).toMatch(/no such package available/);
-          done();
-        });
-
-        stream.on('success', function() {
-          done();
-        });
-
-        stream.end(new Buffer(tarballData.data, 'base64'));
-        stream.done();
-      });
-
-      test('should fails on use invalid package name on add a new tarball', (done) => {
-        const stream = storage.addTarball(pkgName, `${pkgName}-fails-add-tarball-1.0.4.tgz`);
-        stream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(422);
-          expect(err.message).toMatch(/refusing to accept zero-length file/);
-          done();
-        });
-
-        stream.done();
-      });
-
-      test('should fails on abort on add a new tarball', (done) => {
-        const stream = storage.addTarball('package.json', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
-        stream.abort();
-        stream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(403);
-          expect(err.message).toMatch(/can't use this filename/);
-          done();
-        });
-
-        stream.done();
-      });
-    });
-
-    describe('LocalStorage::removeTarball', () => {
-
-      test('should remove a tarball', (done) => {
-        storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
-          expect(err).toBeNull();
-          expect(pkg).toBeUndefined();
-          done();
-        });
-      });
-
-      test('should remove a tarball that does not exist', (done) => {
-        storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(404);
-          expect(err.message).toMatch(/no such file available/);
-          done();
-        });
-      });
-    });
-
-    describe('LocalStorage::getTarball', () => {
-      test('should get a existing tarball', (done) => {
-        const stream = storage.getTarball(pkgName, tarballName);
-        stream.on('content-length', function(contentLength) {
-          expect(contentLength).toBe(279);
-          done();
-        });
-        stream.on('open', function() {
-          done();
-        });
-      });
-
-      test('should fails on get a tarball that does not exist', (done) => {
-        const stream = storage.getTarball('fake', tarballName);
-        stream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(404);
-          expect(err.message).toMatch(/no such file available/);
-          done();
-        });
-      });
-    });
-
-    describe('LocalStorage::search', () => {
-      test('should find a tarball', (done) => {
-        const stream = storage.search('99999');
-
-        stream.on('data', function each(pkg) {
-          expect(pkg.name).toEqual(pkgName);
-        });
-
-        stream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          done();
-        });
-
-        stream.on('end', function() {
-          done();
+        test('should fails on get a tarball that does not exist', (done) => {
+          const stream = storage.getTarball('fake', tarballName);
+          stream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(404);
+            expect(err.message).toMatch(/no such file available/);
+            done();
+          });
         });
       });
 
+      describe('LocalStorage::search', () => {
+        test('should find a tarball', (done) => {
+          const stream = storage.search('99999');
+
+          stream.on('data', function each(pkg) {
+            expect(pkg.name).toEqual(pkgName);
+          });
+
+          stream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            done();
+          });
+
+          stream.on('end', function() {
+            done();
+          });
+        });
+
+      });
     });
 
     describe('LocalStorage::removePackage', () => {
