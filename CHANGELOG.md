@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.12...v3.0.0) (2018-05-30)
+
+
+### Bug Fixes
+
+* favicon refers to .png while only .ico exists [#681](https://github.com/verdaccio/verdaccio/issues/681) ([11e6f9f](https://github.com/verdaccio/verdaccio/commit/11e6f9f))
+* web-ui css were not being minimized ([3168a76](https://github.com/verdaccio/verdaccio/commit/3168a76))
+
+
+### Features
+
+* new verdaccio skin to webui ([b8b2612](https://github.com/verdaccio/verdaccio/commit/b8b2612))
+
+
+
 <a name="3.0.0-beta.12"></a>
 # [3.0.0-beta.12](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.11...v3.0.0-beta.12) (2018-05-23)
 
