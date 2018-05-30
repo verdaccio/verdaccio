@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### 匿名发布包
 
-`Verdaccio` 提供了匿名发布功能, 使用此功能需要正确配置 [包访问权限](packages.md).
+`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
 
 例如：
 
@@ -36,7 +36,7 @@ registry=http://localhost:5555/
 
 ## 默认 htpasswd
 
-为了简化安装配置步骤, `Verdaccio` 提供了一个基于 `htpasswd` 的内置认证插件.
+In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.0-beta.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:
