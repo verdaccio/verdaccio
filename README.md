@@ -9,14 +9,13 @@
 
 
 <div align="center">
-<p>
+  <p>
     Verdaccio is lightweight private npm proxy registry.
   </p>
-    <a href="https://www.npmjs.org/package/verdaccio">
-    <img alt="npm version" src="https://img.shields.io/npm/v/verdaccio.svg?&maxAge=43200"></a>
-  <a href="https://circleci.com/gh/verdaccio/verdaccio"><img alt="CircleCI Status" src="https://img.shields.io/circleci/project/github/verdaccio/verdaccio/master.svg?label=circle&maxAge=43200"></a>
-  <a href="https://codecov.io/github/verdaccio/verdaccio"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg?maxAge=43200"></a>
-  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm Downloads" src="http://img.shields.io/npm/dm/verdaccio.svg?maxAge=43200"></a>
+  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm version" src="https://img.shields.io/npm/v/verdaccio.svg?&maxAge=43200"></a>
+  <a href="https://circleci.com/gh/verdaccio/verdaccio"><img alt="CircleCI Status" src="https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token"></a>
+  <a href="https://codecov.io/github/verdaccio/verdaccio"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg"></a>
+  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm Downloads" src="http://img.shields.io/npm/dm/verdaccio.svg"></a>
   <a href="https://hub.docker.com/r/verdaccio/verdaccio/"><img alt="npm Downloads" src="https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200"></a>
 </div>
 <div align="center">
