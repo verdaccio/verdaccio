@@ -36,6 +36,10 @@ export default class LastSync extends React.Component {
   }
 
   render() {
+    if (!this.props.packageMeta.time) {
+      return null;
+    }
+
     return (
       <Module
         title="Last Sync"
