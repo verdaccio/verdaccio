@@ -108,10 +108,10 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### 最大 Body 尺寸
 
-默认的 JSON 请求 Body 尺寸为 `1MB`，如果你遇到了错误提示 `"request entity too large"` ，可以尝试增大这个值
+By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
 
 ```yaml
-max_body_size: 1mb
+max_body_size: 10mb
 ```
 
 ### 监听端口
