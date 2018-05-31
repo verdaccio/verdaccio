@@ -184,6 +184,8 @@ notify:
 
 ### Audit
 
+<small>Since: `verdaccio@3.0.0`</small>
+
 `npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
 a built-in middleware plugin to handle this command.
 
