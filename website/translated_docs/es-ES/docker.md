@@ -36,7 +36,7 @@ Para un (parche) especifico:
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (`master branch`)] version.
+For the next major release using the `beta` (master branch) version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
