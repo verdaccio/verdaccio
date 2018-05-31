@@ -44,9 +44,9 @@ packages:
     proxy: npmjs
 
 # To use `npm audit` uncomment the following section
-#middlewares:
-#  audit:
-#    enabled: true
+middlewares:
+  audit:
+    enabled: true
 
 # log settings
 logs:

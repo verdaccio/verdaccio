@@ -182,8 +182,18 @@ notify:
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 
+### Audit
 
+`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
+a built-in middleware plugin to handle this command.
 
+> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+
+```yaml
+middlewares:
+  audit:
+    enabled: true
+```
 
 
 
