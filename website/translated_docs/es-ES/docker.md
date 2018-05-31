@@ -21,22 +21,22 @@ Desde la versión `` puedes obtener imagenes de docker por [tag](https://hub.doc
 Para usar una versión "major":
 
 ```bash
-docker pull verdaccio/verdaccio:2
+docker pull verdaccio/verdaccio:3
 ```
 
 Para usar una versión "minor":
 
 ```bash
-docker pull verdaccio/verdaccio:2.1
+docker pull verdaccio/verdaccio:3.0
 ```
 
 Para un (parche) especifico:
 
 ```bash
-docker pull verdaccio/verdaccio:2.1.7
+docker pull verdaccio/verdaccio:3.0.1
 ```
 
-Para el próximo mayor lanzamiento usando la versión `beta` (`v.3.x`).
+For the next major release using the `beta` (`master branch`)] version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
