@@ -19,7 +19,7 @@
   <a href="https://hub.docker.com/r/verdaccio/verdaccio/"><img alt="npm Downloads" src="https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200"></a>
 </div>
 <div align="center">
-  <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/feature-release/assets/gif/verdaccio_big_30.gif?raw=true"></p>
+  <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
 </div>
 
