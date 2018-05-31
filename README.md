@@ -59,7 +59,7 @@ Verdaccio is a simple, **zero-config-required local private npm registry**. No n
    
 ### Link multiple registries
 
-If you use multiples registries in your organization and need to fetch packages from multiple sources in one single project you might take advance of the uplinks feature with Verdaccio, chaining multiple regirtries and fetching from one single endpoint.
+If you use multiples registries in your organization and need to fetch packages from multiple sources in one single project you might take advance of the uplinks feature with Verdaccio, chaining multiple registries and fetching from one single endpoint.
 
 
 ### Override public packages
