@@ -297,7 +297,7 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::removePackage', () => {
-      test('should remove completely package', (done) => {
+      test.skip('should remove completely package', (done) => {
         storage.removePackage(pkgName, (err, data) => {
           expect(err).toBeNull();
           expect(data).toBeUndefined();
