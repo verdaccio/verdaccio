@@ -4,7 +4,7 @@
     </a>
 <br>
 <br>
-<h1>3.0.0 Released 🎉</h1>
+<h1>Version 3 Released 🎉</h1>
 </div>
 
 
