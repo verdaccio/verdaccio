@@ -1,7 +1,8 @@
+import {generateRandomHexString} from './crypto-utils';
+
 const assert = require('assert');
 const _ = require('lodash');
 const Error = require('http-errors');
-const Crypto = require('crypto');
 const minimatch = require('minimatch');
 
 const Utils = require('./utils');
@@ -164,7 +165,7 @@ class Config {
 
     // unique identifier of self server (or a cluster), used to avoid loops
     if (!self.server_id) {
-      self.server_id = Crypto.pseudoRandomBytes(6).toString('hex');
+      self.server_id = generateRandomHexString(6);
     }
   }
 
@@ -209,7 +210,7 @@ class Config {
     }
     // it generates a secret key
     // FUTURE: this might be an external secret key, perhaps whitin config file?
-    this.secret = Crypto.pseudoRandomBytes(32).toString('hex');
+    this.secret = generateRandomHexString(32);
     return this.secret;
   }
 }

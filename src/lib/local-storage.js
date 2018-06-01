@@ -2,7 +2,6 @@
 
 /* eslint prefer-rest-params: 0 */
 
-import Crypto from 'crypto';
 import assert from 'assert';
 import fs from 'fs';
 import Path from 'path';
@@ -13,27 +12,28 @@ import async from 'async';
 import {ErrorCode, isObject, getLatestVersion, tagVersion, validate_name, semverSort, DIST_TAGS} from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme,
-  fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
+fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
+import {createTarballHash} from './crypto-utils';
 import {loadPlugin} from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import type {
-  Package,
-  Config,
-  MergeTags,
-  Version,
-  DistFile,
-  Callback,
-  Logger,
+Package,
+Config,
+MergeTags,
+Version,
+DistFile,
+Callback,
+Logger,
 } from '@verdaccio/types';
 import type {
-  ILocalData,
-  IPackageStorage,
+ILocalData,
+IPackageStorage,
 } from '@verdaccio/local-storage';
 import type {
-  IUploadTarball,
-  IReadTarball,
+IUploadTarball,
+IReadTarball,
 } from '@verdaccio/streams';
 import type {IStorage, StringValue} from '../../types';
 
@@ -386,7 +386,7 @@ class LocalStorage implements IStorage {
     assert(validate_name(filename));
 
     let length = 0;
-    const shaOneHash = Crypto.createHash('sha1');
+    const shaOneHash = createTarballHash();
     const uploadStream: IUploadTarball = new UploadTarball();
     const _transform = uploadStream._transform;
     const storage = this._getLocalStorage(name);

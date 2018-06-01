@@ -1,13 +1,13 @@
 // @flow
 
 import {loadPlugin} from '../lib/plugin-loader';
-import Crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import {ErrorCode} from './utils';
 
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend} from '../../types';
+import {aesDecrypt, aesEncrypt} from './crypto-utils';
 
 const LoggerApi = require('./logger');
 /**
@@ -254,7 +254,9 @@ class Auth {
          this.logger.warn('basic authentication is deprecated, please use JWT instead');
          return credentials;
       } else if (scheme.toUpperCase() === 'BEARER') {
-         credentials = this.aes_decrypt(new Buffer(parts[1], 'base64')).toString('utf8');
+         const token = new Buffer(parts[1], 'base64');
+
+         credentials = aesDecrypt(token, this.secret).toString('utf8');
          return credentials;
       } else {
         return;
@@ -331,25 +333,8 @@ class Auth {
   /**
    * Encrypt a string.
    */
-  aes_encrypt(buf: Buffer): Buffer {
-    const c = Crypto.createCipher('aes192', this.secret);
-    const b1 = c.update(buf);
-    const b2 = c.final();
-    return Buffer.concat([b1, b2]);
-  }
-
-  /**
-    * Dencrypt a string.
-   */
-  aes_decrypt(buf: Buffer ) {
-    try {
-      const c = Crypto.createDecipher('aes192', this.secret);
-      const b1 = c.update(buf);
-      const b2 = c.final();
-      return Buffer.concat([b1, b2]);
-    } catch (_) {
-      return new Buffer(0);
-    }
+  aesEncrypt(buf: Buffer): Buffer {
+    return aesEncrypt(buf, this.secret);
   }
 }
 

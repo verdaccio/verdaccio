@@ -23,7 +23,7 @@ export interface IAuth {
   logger: Logger;
   secret: string;
   plugins: Array<any>;
-  aes_encrypt(buf: Buffer): Buffer;
+  aesEncrypt(buf: Buffer): Buffer;
   apiJWTmiddleware(): $NextFunctionVer;
   webUIJWTmiddleware(): $NextFunctionVer;
   authenticate(user: string, password: string, cb: Callback): void;

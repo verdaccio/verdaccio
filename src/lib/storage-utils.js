@@ -1,9 +1,9 @@
 // @flow
 
 import _ from 'lodash';
-import crypto from 'crypto';
 import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS} from './utils';
 import Search from './search';
+import {generateRandomHexString} from '../lib/crypto-utils';
 
 import type {Package, Version} from '@verdaccio/types';
 import type {IStorage} from '../../types';
@@ -60,7 +60,7 @@ function normalizePackage(pkg: Package) {
 function generateRevision(rev: string): string {
   const _rev = rev.split('-');
 
-  return ((+_rev[0] || 0) + 1) + '-' + crypto.pseudoRandomBytes(8).toString('hex');
+  return ((+_rev[0] || 0) + 1) + '-' + generateRandomHexString();
 }
 
 function getLatestReadme(pkg: Package): string {
