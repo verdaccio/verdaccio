@@ -13,6 +13,13 @@ const users = [
     infoLink: "https://filiosoft.com/",
     fbOpenSource: false,
     pinned: false,
+  },
+  {
+    caption: "SheetJS",
+    image: "/img/sheetjs.png",
+    infoLink: "https://sheetjs.com/",
+    fbOpenSource: false,
+    pinned: true,
   }
 ];
 
