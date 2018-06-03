@@ -113,6 +113,15 @@ export interface IStorage {
   getSecret(config: Config): Promise<any>;
 }
 
+export type JWTPayload = {
+  user: string;
+  group: string | void;
+}
+
+export type JWTSignOptions = {
+  expiresIn: string;
+}
+
 export type $RequestExtend = $Request & {remote_user?: any}
 export type $ResponseExtend = $Response & {cookies?: any}
 export type $NextFunctionVer = NextFunction & mixed;

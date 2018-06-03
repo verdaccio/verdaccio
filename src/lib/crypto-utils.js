@@ -1,6 +1,8 @@
 // @flow
 
 import {createDecipher, createCipher, createHash, pseudoRandomBytes} from 'crypto';
+import jwt from 'jsonwebtoken';
+import type {JWTPayload, JWTSignOptions} from '../../types';
 
 export const defaultAlgorithm = 'aes192';
 
@@ -40,4 +42,15 @@ export function stringToMD5(data: Buffer | string) {
 
 export function generateRandomHexString(length: number = 8) {
   return pseudoRandomBytes(length).toString('hex');
+}
+
+export function signPayload(payload: JWTPayload, secret: string, options: JWTSignOptions) {
+  return jwt.sign(payload, secret, {
+    notBefore: '1000', // Make sure the time will not rollback :)
+    ...options,
+  });
+}
+
+export function verifyPayload(token: string, secret: string) {
+  return jwt.verify(token, secret);
 }

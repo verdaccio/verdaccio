@@ -1,13 +1,13 @@
 // @flow
 
 import {loadPlugin} from '../lib/plugin-loader';
-import jwt from 'jsonwebtoken';
 import {ErrorCode} from './utils';
+import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
 
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
-import type {$RequestExtend} from '../../types';
-import {aesDecrypt, aesEncrypt} from './crypto-utils';
+import type {$RequestExtend, JWTPayload} from '../../types';
+
 
 const LoggerApi = require('./logger');
 /**
@@ -18,6 +18,7 @@ class Auth {
   logger: Logger;
   secret: string;
   plugins: Array<any>;
+  static DEFAULT_EXPIRE_WEB_TOKEN: string = '7d';
 
   constructor(config: Config) {
     this.config = config;
@@ -300,18 +301,14 @@ class Auth {
     };
   }
 
-  issueUIjwt(user: any, expire_time: string) {
-    return jwt.sign(
-      {
-        user: user.name,
-        group: user.real_groups && user.real_groups.length ? user.real_groups : undefined,
-      },
-      this.secret,
-      {
-        notBefore: '1000', // Make sure the time will not rollback :)
-        expiresIn: expire_time || '7d',
-      }
-    );
+  issueUIjwt(user: any, expiresIn: string) {
+    const {name, real_groups} = user;
+    const payload: JWTPayload = {
+      user: name,
+      group: real_groups && real_groups.length ? real_groups : undefined,
+    };
+
+    return signPayload(payload, this.secret, {expiresIn: expiresIn || Auth.DEFAULT_EXPIRE_WEB_TOKEN});
   }
 
   /**
@@ -322,7 +319,7 @@ class Auth {
   decode_token(token: string) {
     let decoded;
     try {
-      decoded = jwt.verify(token, this.secret);
+      decoded = verifyPayload(token, this.secret);
     } catch (err) {
       throw ErrorCode.getCode(401, err.message);
     }
