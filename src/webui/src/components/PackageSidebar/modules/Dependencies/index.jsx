@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import get from 'lodash/size';
+import get from 'lodash/get';
 import Module from '../../Module';
 
 import classes from './style.scss';
