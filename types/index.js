@@ -23,7 +23,7 @@ export interface IAuth {
   logger: Logger;
   secret: string;
   plugins: Array<any>;
-  aes_encrypt(buf: Buffer): Buffer;
+  aesEncrypt(buf: Buffer): Buffer;
   apiJWTmiddleware(): $NextFunctionVer;
   webUIJWTmiddleware(): $NextFunctionVer;
   authenticate(user: string, password: string, cb: Callback): void;
@@ -111,6 +111,15 @@ export interface IStorage {
   getPackageMetadata(name: string, callback: Callback): void;
   search(startKey: string, options: any): IUploadTarball;
   getSecret(config: Config): Promise<any>;
+}
+
+export type JWTPayload = {
+  user: string;
+  group: string | void;
+}
+
+export type JWTSignOptions = {
+  expiresIn: string;
 }
 
 export type $RequestExtend = $Request & {remote_user?: any}

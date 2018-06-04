@@ -1,5 +1,5 @@
 // @flow
-import {stringToMD5} from './string';
+import {stringToMD5} from '../lib/crypto-utils';
 
 
 export const GRAVATAR_DEFAULT = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm';

@@ -1,6 +1,5 @@
 // @flow
 
-import crypto from 'crypto';
 import _ from 'lodash';
 import {
   validate_name as utilValidateName,
@@ -8,6 +7,7 @@ import {
   isObject,
   ErrorCode} from '../lib/utils';
 import {HEADERS} from '../lib/constants';
+import {stringToMD5} from '../lib/crypto-utils';
 import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth} from '../../types';
 import type {Config} from '@verdaccio/types';
 
@@ -97,18 +97,6 @@ export function anti_loop(config: Config) {
   };
 }
 
-/**
- * Express doesn't do etags with requests <= 1024b
- * we use md5 here, it works well on 1k+ bytes, but sucks with fewer data
- * could improve performance using crc32 after benchmarks.
- * @param {Object} data
- * @return {String}
- */
-function md5sum(data) {
-  return crypto.createHash('md5').update(data).digest('hex');
-}
-
-
 export function allow(auth: IAuth) {
   return function(action: string) {
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -155,7 +143,7 @@ export function allow(auth: IAuth) {
 
       // don't send etags with errors
       if (!res.statusCode || (res.statusCode >= 200 && res.statusCode < 300)) {
-        res.header('ETag', '"' + md5sum(body) + '"');
+        res.header('ETag', '"' + stringToMD5(body) + '"');
       }
     } else {
       // send(null), send(204), etc.

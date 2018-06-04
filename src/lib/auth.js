@@ -1,13 +1,13 @@
 // @flow
 
 import {loadPlugin} from '../lib/plugin-loader';
-import Crypto from 'crypto';
-import jwt from 'jsonwebtoken';
 import {ErrorCode} from './utils';
+import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
 
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
-import type {$RequestExtend} from '../../types';
+import type {$RequestExtend, JWTPayload} from '../../types';
+
 
 const LoggerApi = require('./logger');
 /**
@@ -18,6 +18,7 @@ class Auth {
   logger: Logger;
   secret: string;
   plugins: Array<any>;
+  static DEFAULT_EXPIRE_WEB_TOKEN: string = '7d';
 
   constructor(config: Config) {
     this.config = config;
@@ -254,7 +255,9 @@ class Auth {
          this.logger.warn('basic authentication is deprecated, please use JWT instead');
          return credentials;
       } else if (scheme.toUpperCase() === 'BEARER') {
-         credentials = this.aes_decrypt(new Buffer(parts[1], 'base64')).toString('utf8');
+         const token = new Buffer(parts[1], 'base64');
+
+         credentials = aesDecrypt(token, this.secret).toString('utf8');
          return credentials;
       } else {
         return;
@@ -298,18 +301,14 @@ class Auth {
     };
   }
 
-  issueUIjwt(user: any, expire_time: string) {
-    return jwt.sign(
-      {
-        user: user.name,
-        group: user.real_groups && user.real_groups.length ? user.real_groups : undefined,
-      },
-      this.secret,
-      {
-        notBefore: '1000', // Make sure the time will not rollback :)
-        expiresIn: expire_time || '7d',
-      }
-    );
+  issueUIjwt(user: any, expiresIn: string) {
+    const {name, real_groups} = user;
+    const payload: JWTPayload = {
+      user: name,
+      group: real_groups && real_groups.length ? real_groups : undefined,
+    };
+
+    return signPayload(payload, this.secret, {expiresIn: expiresIn || Auth.DEFAULT_EXPIRE_WEB_TOKEN});
   }
 
   /**
@@ -320,7 +319,7 @@ class Auth {
   decode_token(token: string) {
     let decoded;
     try {
-      decoded = jwt.verify(token, this.secret);
+      decoded = verifyPayload(token, this.secret);
     } catch (err) {
       throw ErrorCode.getCode(401, err.message);
     }
@@ -331,25 +330,8 @@ class Auth {
   /**
    * Encrypt a string.
    */
-  aes_encrypt(buf: Buffer): Buffer {
-    const c = Crypto.createCipher('aes192', this.secret);
-    const b1 = c.update(buf);
-    const b2 = c.final();
-    return Buffer.concat([b1, b2]);
-  }
-
-  /**
-    * Dencrypt a string.
-   */
-  aes_decrypt(buf: Buffer ) {
-    try {
-      const c = Crypto.createDecipher('aes192', this.secret);
-      const b1 = c.update(buf);
-      const b2 = c.final();
-      return Buffer.concat([b1, b2]);
-    } catch (_) {
-      return new Buffer(0);
-    }
+  aesEncrypt(buf: Buffer): Buffer {
+    return aesEncrypt(buf, this.secret);
   }
 }
 
