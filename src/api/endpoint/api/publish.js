@@ -4,6 +4,7 @@ import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
+import {HEADERS} from '../../../lib/constants';
 import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
 import {media, expectJson, allow} from '../../middleware';
 import {notify} from '../../../lib/notify';
@@ -144,7 +145,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
   });
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media('application/octet-stream'),
+  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM),
   function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const name = req.params.package;
     const stream = storage.addTarball(name, req.params.filename);

@@ -9,7 +9,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
 import async from 'async';
-import {ErrorCode, isObject, getLatestVersion, tagVersion, validate_name, semverSort, DIST_TAGS} from './utils';
+import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, semverSort, DIST_TAGS} from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme,
 fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
@@ -355,7 +355,7 @@ class LocalStorage implements IStorage {
    */
   removeTarball(name: string, filename: string,
                 revision: string, callback: Callback) {
-    assert(validate_name(filename));
+    assert(validateName(filename));
 
     this._updatePackage(name, (data, cb) => {
       if (data._attachments[filename]) {
@@ -383,7 +383,7 @@ class LocalStorage implements IStorage {
    * @return {Stream}
    */
   addTarball(name: string, filename: string) {
-    assert(validate_name(filename));
+    assert(validateName(filename));
 
     let length = 0;
     const shaOneHash = createTarballHash();
@@ -479,7 +479,7 @@ class LocalStorage implements IStorage {
    * @return {ReadTarball}
    */
   getTarball(name: string, filename: string): IReadTarball {
-    assert(validate_name(filename));
+    assert(validateName(filename));
 
     const storage: IPackageStorage = this._getLocalStorage(name);
 
@@ -683,7 +683,7 @@ class LocalStorage implements IStorage {
               }
 
               async.eachSeries(files, (file2, cb) => {
-                if (validate_name(file2)) {
+                if (validateName(file2)) {
                   onPackage({
                     name: `${file}/${file2}`,
                     path: Path.resolve(base, storage, file, file2),
@@ -693,7 +693,7 @@ class LocalStorage implements IStorage {
                 }
               }, cb);
             });
-          } else if (validate_name(file)) {
+          } else if (validateName(file)) {
             onPackage({
               name: file,
               path: Path.resolve(base, storage, file),

@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 import {
-  validate_name as utilValidateName,
+  validateName as utilValidateName,
   validate_package as utilValidatePackage,
   isObject,
   ErrorCode} from '../lib/utils';
@@ -87,7 +87,7 @@ export function anti_loop(config: Config) {
       let arr = req.headers.via.split(',');
 
       for (let i=0; i<arr.length; i++) {
-        let m = arr[i].match(/\s*(\S+)\s+(\S+)/);
+        const m = arr[i].match(/\s*(\S+)\s+(\S+)/);
         if (m && m[2] === config.server_id) {
           return next( ErrorCode.getCode(508, 'loop detected') );
         }

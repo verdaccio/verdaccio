@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import {allow} from '../../middleware';
 import {DIST_TAGS, filter_tarball_urls, get_version, ErrorCode} from '../../../lib/utils';
+import {HEADERS} from '../../../lib/constants';
 import type {Router} from 'express';
 import type {Config} from '@verdaccio/types';
 import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
@@ -22,21 +23,21 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
         return next(info);
       }
 
-      let t = get_version(info, queryVersion);
-      if (_.isNil(t) === false) {
-        return next(t);
+      let version = get_version(info, queryVersion);
+      if (_.isNil(version) === false) {
+        return next(version);
       }
 
       if (_.isNil(info[DIST_TAGS]) === false) {
         if (_.isNil(info[DIST_TAGS][queryVersion]) === false) {
           queryVersion = info[DIST_TAGS][queryVersion];
-          t = get_version(info, queryVersion);
-          if (_.isNil(t) === false) {
-            return next(t);
+          version = get_version(info, queryVersion);
+          if (_.isNil(version) === false) {
+            return next(version);
           }
         }
       }
-      return next(ErrorCode.get404('version not found: ' + req.params.version));
+      return next(ErrorCode.get404(`version not found: ${req.params.version}`));
     };
 
     storage.getPackage({
@@ -55,7 +56,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
     stream.on('error', function(err) {
       return res.report_error(err);
     });
-    res.header('Content-Type', 'application/octet-stream');
+    res.header('Content-Type', HEADERS.OCTET_STREAM);
     stream.pipe(res);
   });
 }

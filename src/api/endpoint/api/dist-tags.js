@@ -7,7 +7,6 @@ import {DIST_TAGS} from '../../../lib/utils';
 import type {Router} from 'express';
 import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
 
-
 export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   const can = allow(auth);
   const tag_package_version = function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -27,14 +26,11 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   };
 
   // tagging a package
-  route.put('/:package/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put('/:package/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.post('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.post('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.put('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
   route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const tags = {};

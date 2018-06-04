@@ -24,12 +24,10 @@ function validate_package(name: any): boolean {
   name = name.split('/', 2);
   if (name.length === 1) {
     // normal package
-    return module.exports.validate_name(name[0]);
+    return validateName(name[0]);
   } else {
     // scoped package
-    return name[0][0] === '@'
-        && module.exports.validate_name(name[0].slice(1))
-        && module.exports.validate_name(name[1]);
+    return name[0][0] === '@' && validateName(name[0].slice(1)) && validateName(name[1]);
   }
 }
 
@@ -38,7 +36,7 @@ function validate_package(name: any): boolean {
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
  */
-function validate_name(name: string): boolean {
+function validateName(name: string): boolean {
   if (_.isString(name) === false) {
     return false;
   }
@@ -444,7 +442,7 @@ export {
   filter_tarball_urls,
   validate_metadata,
   isObject,
-  validate_name,
+  validateName,
   validate_package,
   getWebProtocol,
   getLatestVersion,

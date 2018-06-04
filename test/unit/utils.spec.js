@@ -1,7 +1,7 @@
 // @flow
 
 import assert from 'assert';
-import {validate_name as validate}  from '../../src/lib/utils';
+import {validateName as validate}  from '../../src/lib/utils';
 import {generateGravatarUrl, GRAVATAR_DEFAULT}  from '../../src/utils/user';
 import {spliceURL}  from '../../src/utils/string';
 
