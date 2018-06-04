@@ -1,64 +1,90 @@
 @import '../../styles/variable';
 
 .package {
-  display: block;
-  position: relative;
-  color: inherit;
-  margin: 0;
-  padding: 10px 0;
-  cursor: pointer;
-  text-decoration: none;
+  .header {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0;
+  }
 
-  h1 {
-    font-size: 18px;
+  .footer {
+    display: flex;
+    p.description {
+      width: 100%;
+      margin-bottom: 0;
+      font-size: 14px;
+      color: darkgray;
+    }
+  }
 
-    :global {
-      .el-tag {
-        margin-left: 5px;
+  .details {
+    display: flex;
+    font-size: 80%;
+    color: $description_color;
+    padding-top: 5px;
+    .license {
+      width: 20%;
+      text-align: right;
+    }
+
+    .homepage {
+      width: 80%;
+    }
+  }
+
+  > a {
+    display: block;
+    position: relative;
+    color: inherit;
+    margin: 0;
+    padding: 10px 0;
+    cursor: pointer;
+    text-decoration: none;
+
+    .title {
+      width: 100%;
+
+      h1 {
+        font-size: 18px;
+        margin: 0;
+
+        :global {
+          .el-tag {
+            margin-left: 5px;
+          }
+        }
       }
     }
-  }
 
-  // Author
-  .author {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    color: lightgrey;
-    font-size: inherit;
-    word-wrap: break-word;
-    width: 100px;
-    text-align: right;
-  }
-
-  p {
-    margin-bottom: 0;
-    font-size: 14px;
-    color: darkgray;
-  }
-
-  &:hover {
-    &::before {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(255, 255, 255, 0.7);
-      content: '';
+    .author {
+      color: $description_color;
+      font-size: inherit;
+      width: 30%;
+      text-align: right;
     }
 
-    &::after {
-      display: block;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 0;
-      left: 0;
-      content: 'Click to view detail';
-      text-align: center;
-      font-size: 18px;
+    &:hover {
+      &::before {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.7);
+        content: '';
+      }
+
+      &::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        left: 0;
+        text-align: center;
+        font-size: 18px;
+      }
     }
   }
 }

@@ -12,6 +12,8 @@ describe('<Package /> component', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',
+      time: '2018-05-03T23:36:55.046Z',
+      license: 'MIT',
       description: 'Private NPM repository',
       author: { name: 'Sam' }
     };
@@ -28,15 +30,15 @@ describe('<Package /> component', () => {
 
     // integration expectations
     expect(wrapper.find('a').prop('href')).toEqual('detail/verdaccio');
-    expect(wrapper.find('h1').text()).toEqual('verdacciov1.0.0');
+    expect(wrapper.find('h1').text()).toEqual('verdaccio v1.0.0');
     expect(wrapper.find('.el-tag--gray').text()).toEqual('v1.0.0');
     expect(
-      wrapper
-        .find('span')
-        .filterWhere(n => n.prop('role') === 'author')
+      wrapper.find('div').filterWhere(n => n.prop('role') === 'author')
         .text()
     ).toEqual('By: Sam');
     expect(wrapper.find('p').text()).toEqual('Private NPM repository');
+    expect(wrapper.find('.homepage').text()).toMatch(/Published about/);
+    expect(wrapper.find('.license').text()).toMatch(/MIT/);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
