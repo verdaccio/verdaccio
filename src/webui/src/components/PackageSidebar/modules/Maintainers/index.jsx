@@ -40,7 +40,9 @@ export default class Maintainers extends React.Component {
   }
 
   get uniqueContributors() {
-    if (!this.contributors) return [];
+    if (!this.contributors) {
+      return [];
+    }
 
     return uniqBy(this.contributors, (contributor) => contributor.name).slice(0, 5);
   }
@@ -56,7 +58,11 @@ export default class Maintainers extends React.Component {
 
     return (this.showAllContributors ? this.contributors : this.uniqueContributors)
       .map((contributor, index) => {
-        return <MaintainerInfo key={index} title="Contributors" name={contributor.name} avatar={contributor.avatar}/>;
+        return <MaintainerInfo
+          key={index}
+          title="Contributors"
+          name={contributor.name}
+          avatar={contributor.avatar}/>;
       });
   }
 

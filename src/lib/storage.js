@@ -382,7 +382,11 @@ class Storage implements IStorageHandler {
             const latest = info[DIST_TAGS].latest;
 
             if (latest && info.versions[latest]) {
-              packages.push(info.versions[latest]);
+              const version = info.versions[latest];
+              const time = info.time[latest];
+              version.time = time;
+
+              packages.push(version);
             } else {
               self.logger.warn( {package: locals[itemPkg]}, 'package @{package} does not have a "latest" tag?' );
             }
