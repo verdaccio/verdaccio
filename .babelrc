@@ -22,7 +22,8 @@
         "react-hot-loader/babel",
         "transform-runtime",
         "transform-object-rest-spread",
-        "transform-decorators-legacy"
+        "transform-decorators-legacy",
+        "syntax-dynamic-import"
       ]
     },
     "test": {

@@ -43,8 +43,7 @@ module.exports = function(config, auth, storage) {
     const defaultTitle = 'Verdaccio';
     let webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
-      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : defaultTitle)
-      .replace(/(main.*\.js|style.*\.css)/g, `${base}/-/static/$1`);
+      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : defaultTitle);
 
     res.setHeader('Content-Type', 'text/html');
 

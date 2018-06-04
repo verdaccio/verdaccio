@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Tag} from 'element-react';
 import {Link} from 'react-router-dom';
 import isNil from 'lodash/isNil';
+import {formatDateDistance} from '../../utils/DateUtils';
 
 import classes from './package.scss';
 
@@ -12,17 +13,67 @@ export default class Package extends React.Component {
   }
 
   render() {
-    const {
-      package: pkg
-    } = this.props;
+    const {package: pkg} = this.props;
 
     return (
-        <Link to={`detail/${pkg.name}`} className={classes.package}>
-          <h1>{pkg.name}<Tag type="gray">v{pkg.version}</Tag></h1>
-          {this.renderAuthor(pkg)}
-          <p>{pkg.description}</p>
+      <section className={classes.package}>
+        <Link to={`detail/${pkg.name}`}>
+          <div className={classes.header}>
+            {this.renderTitle(pkg)}
+            {this.renderAuthor(pkg)}
+          </div>
+          <div className={classes.footer}>
+            {this.renderDescription(pkg)}
+          </div>
+          <div className={classes.details}>
+            {this.renderPublished(pkg)}
+            {this.renderLicense(pkg)}
+          </div>
         </Link>
+      </section>
     );
+  }
+
+  renderPublished(pkg) {
+    if (pkg.time) {
+      return (<div className={classes.homepage}>
+        {`Published ${formatDateDistance(pkg.time)} ago`}
+      </div>);
+    }
+
+    return null;
+  }
+
+  renderLicense(pkg) {
+    if (pkg.license) {
+      return (<div className={classes.license}>
+        {pkg.license}
+      </div>);
+    }
+
+    return null;
+  }
+
+  renderDescription(pkg) {
+    return (
+      <p className={classes.description}>
+        {pkg.description}
+      </p>
+    );
+  }
+
+  renderTitle(pkg) {
+    return (
+      <div className={classes.title}>
+        <h1>
+          {pkg.name} {this.renderTag(pkg)}
+        </h1>
+      </div>
+    );
+  }
+
+  renderTag(pkg) {
+    return <Tag type="gray">v{pkg.version}</Tag>;
   }
 
   renderAuthor(pkg) {
@@ -30,6 +81,6 @@ export default class Package extends React.Component {
       return;
     }
 
-    return <span role="author" className={classes.author}>By: {pkg.author.name}</span>;
+    return <div role="author" className={classes.author}>{`By: ${pkg.author.name}`}</div>;
   }
 }

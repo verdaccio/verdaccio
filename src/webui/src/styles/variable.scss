@@ -1,10 +1,19 @@
 /*  Variables */
+
+$break-small: 800px;
+$break-large: 1240px;
+$description_color: lightgrey;
+
 @mixin container-size {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
   min-width: 400px;
-  max-width: 1140px;
+  max-width: $break-small;
+
+  @media screen and (min-width: $break-large) {
+    max-width: $break-large;
+  }
 }
 
 $space-lg: 30px;
