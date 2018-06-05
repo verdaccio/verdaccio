@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import {loadPlugin} from '../lib/plugin-loader';
 import {ErrorCode} from './utils';
 import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
@@ -74,8 +75,8 @@ class Auth {
   }
 
   authenticate(user: string, password: string, cb: Callback) {
-    const plugins = this.plugins.slice(0)
-    ;(function next() {
+    const plugins = this.plugins.slice(0);
+    (function next() {
       const plugin = plugins.shift();
 
       if (typeof(plugin.authenticate) !== 'function') {
@@ -99,6 +100,11 @@ class Auth {
           if (typeof groups === 'string') {
             throw new TypeError('invalid type for function');
           }
+          const isGroupValid: boolean = _.isArray(groups);
+          if (!isGroupValid) {
+            throw new TypeError('user groups is different than an array');
+          }
+
           return cb(err, authenticatedUser(user, groups));
         }
         next();
@@ -350,14 +356,16 @@ function buildAnonymousUser() {
 
 /**
  * Authenticate an user.
- * @return {Object} { name: xx, groups: [], real_groups: [] }
+ * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
  */
-function authenticatedUser(name: string, groups: Array<any>) {
-  let _groups = (groups || []).concat(['$all', '$authenticated', '@all', '@authenticated', 'all']);
+function authenticatedUser(name: string, pluginGroups: Array<any>) {
+  const isGroupValid: boolean = _.isArray(pluginGroups);
+  const groups = (isGroupValid ? pluginGroups : []).concat(['$all', '$authenticated', '@all', '@authenticated', 'all']);
+
   return {
-    name: name,
-    groups: _groups,
-    real_groups: groups,
+    name,
+    groups,
+    real_groups: pluginGroups,
   };
 }
 
