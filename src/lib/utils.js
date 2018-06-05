@@ -8,7 +8,7 @@ import URL from 'url';
 import fs from 'fs';
 import _ from 'lodash';
 import createError from 'http-errors';
-import type {Package, Config} from '@verdaccio/types';
+import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
 import type {StringValue} from '../../types';
 
@@ -102,39 +102,46 @@ function combineBaseUrl(protocol: string, host: string, prefix?: string): string
   return result;
 }
 
+export function extractTarballFromUrl(url: string) {
+  // $FlowFixMe
+  return URL.parse(url).pathname.replace(/^.*\//, '');
+}
+
 /**
- * Iterate a packages's versions and filter each original tarbal url.
+ * Iterate a packages's versions and filter each original tarball url.
  * @param {*} pkg
  * @param {*} req
  * @param {*} config
  * @return {String} a filtered package
  */
-function filter_tarball_urls(pkg: Package, req: $Request, config: Config) {
-  /**
-   * Filter a tarball url.
-   * @param {*} _url
-   * @return {String} a parsed url
-   */
-  const filter = function(_url) {
-    if (!req.headers.host) {
-      return _url;
-    }
-    // $FlowFixMe
-    const filename = URL.parse(_url).pathname.replace(/^.*\//, '');
-    const base = combineBaseUrl(getWebProtocol(req), req.headers.host, config.url_prefix);
-
-    return `${base}/${pkg.name.replace(/\//g, '%2f')}/-/${filename}`;
-  };
-
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: $Request, urlPrefix: string | void) {
   for (let ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
-      const dist = pkg.versions[ver].dist;
-      if (_.isNull(dist) === false && _.isNull(dist.tarball) === false) {
-        dist.tarball = filter(dist.tarball);
+      const distName = pkg.versions[ver].dist;
+
+      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
+        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
       }
     }
   }
   return pkg;
+}
+
+/**
+ * Filter a tarball url.
+ * @param {*} uri
+ * @return {String} a parsed url
+ */
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: $Request, urlPrefix: string | void) {
+  const currentHost = req.headers.host;
+
+  if (!currentHost) {
+    return uri;
+  }
+  const tarballName = extractTarballFromUrl(uri);
+  const domainRegistry = combineBaseUrl(getWebProtocol(req), req.headers.host, urlPrefix);
+
+  return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
 }
 
 /**
@@ -161,7 +168,7 @@ function tagVersion(data: Package, version: string, tag: StringValue) {
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
-function get_version(pkg: Package, version: any) {
+function getVersion(pkg: Package, version: any) {
   // this condition must allow cast
   if (pkg.versions[version] != null) {
     return pkg.versions[version];
@@ -436,10 +443,9 @@ export {
   parseInterval,
   semverSort,
   parse_address,
-  get_version,
+  getVersion,
   tagVersion,
   combineBaseUrl,
-  filter_tarball_urls,
   validate_metadata,
   isObject,
   validateName,

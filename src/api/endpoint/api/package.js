@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 import {allow} from '../../middleware';
-import {DIST_TAGS, filter_tarball_urls, get_version, ErrorCode} from '../../../lib/utils';
+import {DIST_TAGS, convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode} from '../../../lib/utils';
 import {HEADERS} from '../../../lib/constants';
 import type {Router} from 'express';
 import type {Config} from '@verdaccio/types';
@@ -12,26 +12,26 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
   const can = allow(auth);
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const getPackageMetaCallback = function(err, info) {
+    const getPackageMetaCallback = function(err, metadata) {
       if (err) {
         return next(err);
       }
-      info = filter_tarball_urls(info, req, config);
+      metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix);
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {
-        return next(info);
+        return next(metadata);
       }
 
-      let version = get_version(info, queryVersion);
+      let version = getVersion(metadata, queryVersion);
       if (_.isNil(version) === false) {
         return next(version);
       }
 
-      if (_.isNil(info[DIST_TAGS]) === false) {
-        if (_.isNil(info[DIST_TAGS][queryVersion]) === false) {
-          queryVersion = info[DIST_TAGS][queryVersion];
-          version = get_version(info, queryVersion);
+      if (_.isNil(metadata[DIST_TAGS]) === false) {
+        if (_.isNil(metadata[DIST_TAGS][queryVersion]) === false) {
+          queryVersion = metadata[DIST_TAGS][queryVersion];
+          version = getVersion(metadata, queryVersion);
           if (_.isNil(version) === false) {
             return next(version);
           }

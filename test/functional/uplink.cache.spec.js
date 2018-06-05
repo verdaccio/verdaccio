@@ -43,8 +43,7 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server3.getPackage(PKG_GH131)
-        .status(200);
+      return server3.getPackage(PKG_GH131).status(200);
     });
 
     beforeAll(function () {

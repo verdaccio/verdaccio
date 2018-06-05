@@ -1,9 +1,9 @@
 // @flow
-
 import assert from 'assert';
-import {validateName as validate}  from '../../src/lib/utils';
+import {validateName as validate, convertDistRemoteToLocalTarballUrls}  from '../../src/lib/utils';
 import {generateGravatarUrl, GRAVATAR_DEFAULT}  from '../../src/utils/user';
 import {spliceURL}  from '../../src/utils/string';
+import Package from "../../src/webui/src/components/Package";
 
 describe('Utilities', () => {
 
@@ -73,6 +73,41 @@ describe('Utilities', () => {
       assert( !validate('pk%20g') );
       assert( !validate('pk+g') );
       assert( !validate('pk:g') );
+    });
+  });
+
+  describe('Packages utilities', () => {
+    const metadata: Package = {
+      "name": "npm_test",
+      "versions": {
+        "1.0.0": {
+          "dist": {
+            "tarball": "http:\/\/registry.org\/npm_test\/-\/npm_test-1.0.0.tgz"
+          }
+        },
+        "1.0.1": {
+          "dist": {
+            "tarball": "http:\/\/registry.org\/npm_test\/-\/npm_test-1.0.1.tgz"
+          }
+        }
+      },
+    };
+
+    const buildURI = (host, version) => `http://${host}/npm_test/-/npm_test-${version}.tgz`;
+    const host = 'fake.com';
+
+    test('convertDistRemoteToLocalTarballUrls', () => {
+      // $FlowFixMe
+      const convertDist = convertDistRemoteToLocalTarballUrls(Object.assign({}, metadata), {
+        headers: {
+          host,
+        },
+        get: ()=> 'http',
+        protocol: 'http'
+      }, '');
+
+      expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(host, '1.0.0'));
+      expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(host, '1.0.1'));
     });
   });
 });
