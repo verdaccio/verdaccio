@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/verdaccio/verdaccio/compare/v3.0.2...v3.1.0) (2018-06-05)
+
+
+### Bug Fixes
+
+* groups are not array were not handled ([a62688f](https://github.com/verdaccio/verdaccio/commit/a62688f))
+* improve bundle size ([a79d87b](https://github.com/verdaccio/verdaccio/commit/a79d87b))
+
+
+### Features
+
+* add published date and license on ui ([ecbe616](https://github.com/verdaccio/verdaccio/commit/ecbe616))
+* using code splitting on routers ([0af6f5a](https://github.com/verdaccio/verdaccio/commit/0af6f5a))
+
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/verdaccio/verdaccio/compare/v3.0.1...v3.0.2) (2018-05-31)
 
