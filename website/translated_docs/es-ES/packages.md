@@ -2,9 +2,9 @@
 id: packages
 title: "Acceso a Paquetes"
 ---
-Es una serie de restricciones que permiten o restringen el acceso al almacenamiento local basado en unos criterios específicos.
+It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
 
-Las restricciones de seguridad permanecen en los hombros de la extensión usada, por defecto `verdaccio`usa [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. La extensión por defecto no maneja por si mismo `allow_access` y `allow_publish`, se usa un soporte interno en caso que la extensión no este lista para ella.
+The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
 
 Para mas información sobre permisos, visite [la sección de autenticación](auth.md).
 
@@ -46,14 +46,14 @@ La lista de grupos validos de acuerdo a la extensión por defecto son
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-Todos los usuarios reciben todo ese grupo de permisos independientemente si es anónimo o no más el grupo proveído por la extensión, en caso de ` htpasswd` se regresa el nombre de usuario por grupo. Por ejemplo, si has iniciado sesión como ` npmUser` el listado de grupos será.
+All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. Por ejemplo, si has iniciado sesión como ` npmUser` el listado de grupos será.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-Si quieres proteger un grupo específico de paquetes bajo un grupo, necesitas hacer algo así. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. Recomendamos usar un prefijo en sus paquetes, en esa manera es mucho mas sencillo protegerlos.
+If you want to protect specific set packages under your group, you need to do something like this. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. We recomend using a prefix for your packages, in that way it will be easier to protect them.
 
 ```yaml
 packages:
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` solo revisa si el usuario trata de acceder a un publicar un paquete específico pertenece al grupo correcto.
+Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
 
 #### Definir múltiples grupos
 
-Define múltiples grupos de acceso es sencillo, solo defínelos con espacios entre ellos.
+Defining multiple access groups is fairly easy, just define them with a white space between them.
 
 ```yaml
   'company-*':
@@ -94,7 +94,7 @@ Define múltiples grupos de acceso es sencillo, solo defínelos con espacios ent
 
 #### Bloqueando el acceso a paquetes
 
-Si quieres bloquear el acceso/publicar a un grupo de paquetes. Solo, no definas `access` y `publish`.
+If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
 
 ```yaml
 packages:
@@ -106,7 +106,7 @@ packages:
 
 #### Bloqueando proxy a un grupo específico de paquetes
 
-Podrías querer bloquear uno o varios paquetes que sean descargados desde repositorios remotos, pero al mismo tiempo, permitir otros acceder a diferentes * uplinks*.
+You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
 
 Veamos el siguiente ejemplo:
 
@@ -117,20 +117,24 @@ packages:
      publish: $all
   'my-company-*':
      access: $all
-     publish: $authenticated     
+     publish: $authenticated
+  '@my-local-scope/*':
+     access: $all
+     publish: $authenticated
   '**':
      access: all
      publish: $authenticated
-     proxy: npmjs         
+     proxy: npmjs
 ```
 
-Vamos a describir que es lo que queremos con el ejemplo de arriba:
+Let's describe what we want with the above example:
 
 * Quiero almacenar mi propia dependencia ` jquery` pero necesito evitar que se busque en el proxy.
 * Quiero que todas mis dependencias que coincidan con `my-company-*` pero necesito evitar que dichos paquetes se actualicen vía proxy.
-* Quiero que el resto de dependencias se actualicen vía proxy.
+* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
+* I want proxying for all the rest of the dependencies.
 
-Se **consciente que el orden de la definición de los paquetes es importante y siempre usa doble wildcard**. Porque sino lo incluyes `verdaccio`lo incluirá por ti y en la forma que tus dependencias son resueltas se verá afectada.
+Se **consciente que el orden de la definición de los paquetes es importante y siempre usa doble wildcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
 ### Configuración
 
@@ -143,4 +147,4 @@ Puedes definir multiples `paquetes`y cada uno de ellos deben tener un único ` R
 | proxy     | string  | No        | npmjs          | all     | limita las busquedas a un uplink específico                |
 | storage   | boolean | No        | [true,false]   | all     | TODO                                                       |
 
-> Recomendamos ya no usar **allow_access**/**allow_publish** y **proxy_access** nunca más, esas propiedades están depreciadas y pronto serán removidas, por favor use las versiones cortas (**access**/**publish**/**proxy**).
+> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
