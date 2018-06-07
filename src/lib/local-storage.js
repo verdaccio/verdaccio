@@ -239,6 +239,12 @@ class LocalStorage implements IStorage {
           }
 
           let currentDate = new Date().toISOString();
+
+          // some old storage do not have this field #740
+          if (_.isNil(data.time)) {
+            data.time = {};
+          }
+
           data.time['modified'] = currentDate;
 
           if (('created' in data.time) === false) {
