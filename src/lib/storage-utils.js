@@ -1,7 +1,7 @@
 // @flow
 
 import _ from 'lodash';
-import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS} from './utils';
+import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS, semverSort} from './utils';
 import Search from './search';
 import {generateRandomHexString} from '../lib/crypto-utils';
 
@@ -177,6 +177,35 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
       return resolve();
     });
   });
+}
+
+export function prepareSearchPackage(data: Package, time: mixed) {
+  const listVersions: Array<string> = Object.keys(data.versions);
+  const versions: Array<string> = semverSort(listVersions);
+  const latest: string = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+
+  if (data.versions[latest]) {
+    const version: Version = data.versions[latest];
+    const pkg: any = {
+      name: version.name,
+      description: version.description,
+      'dist-tags': {latest},
+      maintainers: version.maintainers || [version.author].filter(Boolean),
+      author: version.author,
+      repository: version.repository,
+      readmeFilename: version.readmeFilename || '',
+      homepage: version.homepage,
+      keywords: version.keywords,
+      bugs: version.bugs,
+      license: version.license,
+      time: {
+        modified: time,
+      },
+      versions: {[latest]: 'latest'},
+    };
+
+    return pkg;
+  }
 }
 
 export {
