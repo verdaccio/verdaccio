@@ -126,6 +126,8 @@ modern verdaccio API and using the prefix as *verdaccio-xx-name*.
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
 
+* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
+
 ### Storage Plugins
 
 (compatible since 3.x)
