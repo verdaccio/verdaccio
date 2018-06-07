@@ -9,12 +9,13 @@ import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
 import async from 'async';
-import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, semverSort, DIST_TAGS} from './utils';
+import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS} from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme,
 fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
 import {createTarballHash} from './crypto-utils';
+import {prepareSearchPackage} from './storage-utils';
 import {loadPlugin} from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
@@ -567,7 +568,7 @@ class LocalStorage implements IStorage {
   search(startKey: string, options: any) {
     const stream = new UploadTarball({objectMode: true});
 
-    this._eachPackage((item, cb) => {
+    this._searchEachPackage((item, cb) => {
       fs.stat(item.path, (err, stats) => {
         if (_.isNil(err) === false) {
           return cb(err);
@@ -579,33 +580,12 @@ class LocalStorage implements IStorage {
               return cb(err);
             }
 
-            const listVersions: Array<string> = Object.keys(data.versions);
-            const versions: Array<string> = semverSort(listVersions);
-            const latest: string = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+            const time = item.time ? new Date(item.time).toISOString() : stats.mtime;
 
-            if (data.versions[latest]) {
-              const version: Version = data.versions[latest];
-              const pkg: any = {
-                name: version.name,
-                description: version.description,
-                'dist-tags': {latest},
-                maintainers: version.maintainers || [version.author].filter(Boolean),
-                author: version.author,
-                repository: version.repository,
-                readmeFilename: version.readmeFilename || '',
-                homepage: version.homepage,
-                keywords: version.keywords,
-                bugs: version.bugs,
-                license: version.license,
-                time: {
-                  modified: item.time ? new Date(item.time).toISOString() : stats.mtime,
-                },
-                versions: {[latest]: 'latest'},
-              };
-
-              stream.push(pkg);
+            const result = prepareSearchPackage(data, time);
+            if (_.isNil(result) === false) {
+              stream.push(result);
             }
-
             cb();
           });
         } else {
@@ -650,22 +630,37 @@ class LocalStorage implements IStorage {
     });
   }
 
+  _getCustomPackageLocalStorages() {
+    const storages = {};
+
+    // add custom storage if exist
+    if (this.config.storage) {
+      storages[this.config.storage] = true;
+    }
+
+    const {packages} = this.config;
+
+    if (packages) {
+      const listPackagesConf = Object.keys(packages || {});
+
+      listPackagesConf.map( (pkg) => {
+        if (packages[pkg].storage) {
+          storages[packages[pkg].storage] = true;
+        }
+      });
+    }
+
+    return storages;
+  }
+
   /**
    * Walks through each package and calls `on_package` on them.
    * @param {*} onPackage
    * @param {*} onEnd
    */
-  _eachPackage(onPackage: Callback, onEnd: Callback) {
-    const storages = {};
+  _searchEachPackage(onPackage: Callback, onEnd: Callback) {
+    const storages = this._getCustomPackageLocalStorages();
 
-    storages[this.config.storage] = true;
-    if (this.config.packages) {
-      Object.keys(this.config.packages || {}).map( (pkg) => {
-        if (this.config.packages[pkg].storage) {
-          storages[this.config.packages[pkg].storage] = true;
-        }
-      });
-    }
     const base = Path.dirname(this.config.self_path);
 
     async.eachSeries(Object.keys(storages), function(storage, cb) {
@@ -684,10 +679,12 @@ class LocalStorage implements IStorage {
 
               async.eachSeries(files, (file2, cb) => {
                 if (validateName(file2)) {
-                  onPackage({
+                  const item = {
                     name: `${file}/${file2}`,
                     path: Path.resolve(base, storage, file, file2),
-                  }, cb);
+                  };
+
+                  onPackage(item, cb);
                 } else {
                   cb();
                 }
