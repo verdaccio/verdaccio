@@ -143,7 +143,7 @@ publish | string | No | $authenticated | all | define groups allowed to publish
 proxy | string | No |npmjs | all | limit look ups for specific uplink
 storage | boolean | No | [true,false] | all | TODO
 
-> We higlight the we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
 
 
 
