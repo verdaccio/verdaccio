@@ -5,12 +5,17 @@
 <br>
 <br>
 <h1>Version 3 Released 🎉</h1>
+<h5>
+  <a target="_blank" href="https://medium.com/verdaccio/verdaccio-3-released-feb06ef38558">
+    All the new features you need to know
+  </a>
+</h5>
 </div>
 
 
 <div align="center">
   <p>
-    Verdaccio is lightweight private npm proxy registry.
+    A lightweight private npm proxy registry
   </p>
   <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm version" src="https://img.shields.io/npm/v/verdaccio.svg"></a>
   <a href="https://circleci.com/gh/verdaccio/verdaccio"><img alt="CircleCI Status" src="https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token"></a>
