@@ -28,7 +28,7 @@ Startup directory and Arguments fields. Assuming an install with node in the sys
 location of c:\verdaccio the below values will work:
     * Path: `node`
     * Startup directory: `c:\verdaccio`
-    * Arguments: `c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml`
+    * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
 
     You can adjust other service settings under other tabs as desired. When you are done, click Install service button
 
