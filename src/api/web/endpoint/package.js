@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS} from '../../../lib/utils';
 import {allow} from '../../middleware';
-import async from 'async';
 import marked from 'marked';
 import type {Router} from 'express';
 import type {
@@ -18,35 +17,43 @@ import type {
 function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   const can = allow(auth);
 
+  const checkAllow = (name, remoteUser) => new Promise((resolve, reject) => {
+    try {
+      auth.allow_access(name, remoteUser, (err, allowed) => {
+        if (err) {
+          resolve(false);
+        } else {
+          resolve(allowed);
+        }
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
+
   // Get list of all visible package
   route.get('/packages', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.getLocalDatabase(function(err, packages) {
+    storage.getLocalDatabase(async function(err, packages) {
       if (err) {
-        // that function shouldn't produce any
         throw err;
       }
 
-      async.filterSeries(
-        packages,
-        function(pkg, cb) {
-          auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
-            setImmediate(function() {
-              if (err) {
-                cb(null, false);
-              } else {
-                cb(err, allowed);
-              }
-            });
-          });
-        },
-        function(err, packages) {
-          if (err) {
+      async function processPermissionsPackages(packages) {
+        const permissions = [];
+        for (let pkg of packages) {
+          try {
+            if (await checkAllow(pkg.name, req.remote_user)) {
+              permissions.push(pkg);
+            }
+          } catch (err) {
             throw err;
           }
-
-          next(sortByName(packages));
         }
-      );
+
+        return permissions;
+      }
+
+      next(sortByName(await processPermissionsPackages(packages)));
     });
   });
 
