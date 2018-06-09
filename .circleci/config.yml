@@ -22,6 +22,8 @@ aliases:
     <<: *node9_executor
   - &repo_key
     repo-{{ .Branch }}-{{ .Revision }}
+  - &coverage_key
+    coverage-{{ .Branch }}-{{ .Revision }}
   - &base_config_key
     base-config-{{ .Branch }}-{{ .Revision }}
   - &yarn_cache_key
@@ -108,6 +110,10 @@ jobs:
       - run:
           name: Test with Node 9
           command: yarn run test
+      - save_cache:
+          key: *coverage_key
+          paths:
+            - coverage
 
   test_node10:
     <<: *defaults
@@ -132,9 +138,19 @@ jobs:
     <<: *default_executor
     steps:
       - *restore_repo
+      - restore_cache:
+          key: *coverage_key
       - run:
           name: Publish coverage
           command: yarn run coverage:publish
+      - store_artifacts:
+          path: coverage/clover.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+      - store_test_results:
+          path: coverage/clover.xml
 
   publish_gh_pages:
     <<: *defaults
@@ -189,7 +205,11 @@ workflows:
           <<: *ignore_branches
       - coverage:
           requires:
-            - prepare
+            - test_node6
+            - test_node8
+            - test_node9
+            - test_node10
+            - test_e2e
           <<: *ignore_branches
       - publish_gh_pages:
           requires:
@@ -198,10 +218,10 @@ workflows:
             - test_node9
             - test_node10
             - test_e2e
-            - coverage
           <<: *ignore_branches
       - deploy:
           requires:
+            - coverage
             - publish_gh_pages
           filters:
             branches:
