@@ -2,7 +2,6 @@
 
 import zlib from 'zlib';
 import JSONStream from 'JSONStream';
-import createError from 'http-errors';
 import _ from 'lodash';
 import request from 'request';
 import Stream from 'stream';
@@ -114,7 +113,7 @@ class ProxyStorage implements IProxy {
           cb(ErrorCode.get500('uplink is offline'));
         }
         // $FlowFixMe
-        streamRead.emit('error', createError('uplink is offline'));
+        streamRead.emit('error', ErrorCode.get500('uplink is offline'));
       });
       // $FlowFixMe
       streamRead._read = function() {};
@@ -415,7 +414,7 @@ class ProxyStorage implements IProxy {
         return callback( ErrorCode.get404('package doesn\'t exist on uplink'));
       }
       if (!(res.statusCode >= 200 && res.statusCode < 300)) {
-        const error = createError(500, `bad status code: ${res.statusCode}`);
+        const error = ErrorCode.get500(`bad status code: ${res.statusCode}`);
         // $FlowFixMe
         error.remoteStatus = res.statusCode;
         return callback(error);
@@ -448,7 +447,7 @@ class ProxyStorage implements IProxy {
         return stream.emit('error', ErrorCode.get404('file doesn\'t exist on uplink'));
       }
       if (!(res.statusCode >= 200 && res.statusCode < 300)) {
-        return stream.emit('error', createError(500, 'bad uplink status code: ' + res.statusCode));
+        return stream.emit('error', ErrorCode.get500(`bad uplink status code: ${res.statusCode}`));
       }
       if (res.headers['content-length']) {
         expected_length = res.headers['content-length'];
@@ -469,7 +468,7 @@ class ProxyStorage implements IProxy {
         current_length += data.length;
       }
       if (expected_length && current_length != expected_length) {
-        stream.emit('error', createError(500, 'content length mismatch'));
+        stream.emit('error', ErrorCode.get500('content length mismatch'));
       }
     });
     return stream;
@@ -498,7 +497,7 @@ class ProxyStorage implements IProxy {
 
     requestStream.on('response', (res) => {
       if (!String(res.statusCode).match(/^2\d\d$/)) {
-        return transformStream.emit('error', createError(500, `bad status code ${res.statusCode} from uplink`));
+        return transformStream.emit('error', ErrorCode.get500(`bad status code ${res.statusCode} from uplink`));
       }
 
       // See https://github.com/request/request#requestoptions-callback
