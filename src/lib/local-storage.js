@@ -3,12 +3,9 @@
 /* eslint prefer-rest-params: 0 */
 
 import assert from 'assert';
-import fs from 'fs';
-import Path from 'path';
 import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
-import async from 'async';
 import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS} from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme,
@@ -575,29 +572,21 @@ class LocalStorage implements IStorage {
     const stream = new UploadTarball({objectMode: true});
 
     this._searchEachPackage((item, cb) => {
-      fs.stat(item.path, (err, stats) => {
-        if (_.isNil(err) === false) {
-          return cb(err);
-        }
-
-        if (stats.mtime.getTime() > parseInt(startKey, 10)) {
-          this.getPackageMetadata(item.name, (err: Error, data: Package) => {
-            if (err) {
-              return cb(err);
-            }
-
-            const time = item.time ? new Date(item.time).toISOString() : stats.mtime;
-
-            const result = prepareSearchPackage(data, time);
-            if (_.isNil(result) === false) {
-              stream.push(result);
-            }
-            cb();
-          });
-        } else {
+      if (item.time > parseInt(startKey, 10)) {
+        this.getPackageMetadata(item.name, (err: Error, data: Package) => {
+          if (err) {
+            return cb(err);
+          }
+          const time = new Date(item.time).toISOString();
+          const result = prepareSearchPackage(data, time);
+          if (_.isNil(result) === false) {
+            stream.push(result);
+          }
           cb();
-        }
-      });
+        });
+      } else {
+        cb();
+      }
     }, function onEnd(err) {
       if (err) {
         return stream.emit('error', err);
@@ -665,48 +654,13 @@ class LocalStorage implements IStorage {
    * @param {*} onEnd
    */
   _searchEachPackage(onPackage: Callback, onEnd: Callback) {
-    const storages = this._getCustomPackageLocalStorages();
-
-    const base = Path.dirname(this.config.self_path);
-
-    async.eachSeries(Object.keys(storages), function(storage, cb) {
-      fs.readdir(Path.resolve(base, storage), function(err, files) {
-        if (err) {
-          return cb(err);
-        }
-
-        async.eachSeries(files, function(file, cb) {
-          if (file.match(/^@/)) {
-            // scoped
-            fs.readdir(Path.resolve(base, storage, file), function(err, files) {
-              if (err) {
-                return cb(err);
-              }
-
-              async.eachSeries(files, (file2, cb) => {
-                if (validateName(file2)) {
-                  const item = {
-                    name: `${file}/${file2}`,
-                    path: Path.resolve(base, storage, file, file2),
-                  };
-
-                  onPackage(item, cb);
-                } else {
-                  cb();
-                }
-              }, cb);
-            });
-          } else if (validateName(file)) {
-            onPackage({
-              name: file,
-              path: Path.resolve(base, storage, file),
-            }, cb);
-          } else {
-            cb();
-          }
-        }, cb);
-      });
-    }, onEnd);
+    // save wait whether plugin still do not support search functionality
+    if (_.isNil(this.localData.search)) {
+      this.logger.warn('plugin search not implemented yet');
+      onEnd();
+    } else {
+      this.localData.search(onPackage, onEnd, validateName);
+    }
   }
 
   /**

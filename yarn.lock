@@ -242,13 +242,13 @@
     lockfile "1.0.3"
     lodash "4.17.10"
 
-"@verdaccio/local-storage@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-1.0.3.tgz#f7916afbde27e725339b1fa1e11566c3734b5194"
+"@verdaccio/local-storage@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-1.1.2.tgz#938f1da741d148db020bbe68bfb21e86d38e3177"
   dependencies:
     "@verdaccio/file-locking" "0.0.7"
     "@verdaccio/streams" "1.0.0"
-    async "2.6.0"
+    async "2.6.1"
     http-errors "1.6.2"
     lodash "4.17.10"
     mkdirp "0.5.1"
@@ -257,9 +257,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@2.1.1":
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-2.1.1.tgz#d0ff73154a9e389b828df3d5046e26fbb67f3233"
+"@verdaccio/types@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.0.0.tgz#1f5ad5c959955b320181ac9968dd894f209985bc"
 
 "@webassemblyjs/ast@1.5.9":
   version "1.5.9"
@@ -688,6 +688,12 @@ async@2.6.0, async@^2.1.4, async@^2.5.0:
   resolved "https://registry.npmjs.org/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
     lodash "^4.14.0"
+
+async@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.npmjs.org/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
+  dependencies:
+    lodash "^4.17.10"
 
 async@^1.4.0, async@^1.5.2:
   version "1.5.2"
@@ -5820,7 +5826,7 @@ lodash.upperfirst@4.3.1:
   version "4.3.1"
   resolved "https://registry.npmjs.org/lodash.upperfirst/-/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
 
-lodash@4.17.10, lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
+lodash@4.17.10, lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
   version "4.17.10"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
