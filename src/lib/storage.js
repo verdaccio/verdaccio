@@ -8,7 +8,8 @@ import ProxyStorage from './up-storage';
 import Search from './search';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
-import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef} from './storage-utils';
+import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
+  mergeTime, generatePackageTemplate} from './storage-utils';
 import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
 import {mergeVersions} from './metadata-utils';
 import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
@@ -26,19 +27,6 @@ import type {
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('../lib/logger');
-const getDefaultMetadata = function(name): Package {
-  const pkgMetadata: Package = {
-    name,
-    versions: {},
-    'dist-tags': {},
-    _uplinks: {},
-    _distfiles: {},
-    _attachments: {},
-    _rev: '',
-  };
-
-  return pkgMetadata;
-};
 
 class Storage implements IStorageHandler {
   localStorage: IStorage;
@@ -417,9 +405,10 @@ class Storage implements IStorageHandler {
     let exists = true;
     const self = this;
     const upLinks = [];
+
     if (!packageInfo || packageInfo === null) {
       exists = false;
-      packageInfo = getDefaultMetadata(name);
+      packageInfo = generatePackageTemplate(name);
     }
 
     for (let up in this.uplinks) {
@@ -467,10 +456,7 @@ class Storage implements IStorageHandler {
           fetched: Date.now(),
         };
 
-        // added to fix verdaccio#73
-        if ('time' in upLinkResponse) {
-          packageInfo.time = upLinkResponse.time;
-        }
+        packageInfo.time = mergeTime(packageInfo, upLinkResponse);
 
         updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 

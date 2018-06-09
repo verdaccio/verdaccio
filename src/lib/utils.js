@@ -81,6 +81,10 @@ function validate_metadata(object: Package, name: string) {
     object['versions'] = {};
   }
 
+  if (!isObject(object['time'])) {
+    object['time'] = {};
+  }
+
   return object;
 }
 
