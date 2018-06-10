@@ -91,7 +91,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
             if (err) {
               return next(err);
             }
-            notify(metadata, config);
+            notify(metadata, config, req.remote_user);
             res.status(201);
             return next({ok: ok_message, success: true});
           });
