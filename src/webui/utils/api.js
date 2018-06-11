@@ -26,6 +26,7 @@ class API {
 
       return fetch(url, {
         method,
+        credentials: 'same-origin',
         ...options
       }).then(handleErrors);
     }
