@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/verdaccio/verdaccio/compare/v3.1.1...v3.1.2) (2018-06-11)
+
+
+### Bug Fixes
+
+* configure fetch to send cookies ([98ac855](https://github.com/verdaccio/verdaccio/commit/98ac855))
+* search implementation depends now of each plugin ([8f0508f](https://github.com/verdaccio/verdaccio/commit/8f0508f))
+
+
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/verdaccio/verdaccio/compare/v3.1.0...v3.1.1) (2018-06-07)
 
