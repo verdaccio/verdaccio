@@ -40,6 +40,7 @@
     "valid-jsdoc": 0,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
+    "linebreak-style": 0,
     "quote-props":["error", "as-needed"]
   }
 }
