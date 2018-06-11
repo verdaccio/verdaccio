@@ -1,4 +1,4 @@
-FROM node:10.1-alpine
+FROM node:10.3-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 RUN apk --no-cache add openssl && \
