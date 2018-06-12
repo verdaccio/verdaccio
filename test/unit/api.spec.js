@@ -609,7 +609,6 @@ describe('endpoint unit test', () => {
             const sideBarInfo = res.body;
             const latestVersion = publishMetadata.versions[publishMetadata['dist-tags'].latest];
 
-            expect(sideBarInfo.name).toBe(latestVersion.name);
             expect(sideBarInfo.latest.author).toBeDefined();
             expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
             expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
