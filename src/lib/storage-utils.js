@@ -11,7 +11,6 @@ import type {IStorage} from '../../types';
 const pkgFileName = 'package.json';
 const fileExist: string = 'EEXISTS';
 const noSuchFile: string = 'ENOENT';
-const resourceNotAvailable: string = 'EAGAIN';
 const DEFAULT_REVISION: string = `0-0000000000000000`;
 
 const generatePackageTemplate = function(name: string): Package {
@@ -19,11 +18,11 @@ const generatePackageTemplate = function(name: string): Package {
     // standard things
     name,
     versions: {},
-    'dist-tags': {},
     time: {},
+    [DIST_TAGS]: {},
+    _uplinks: {},
     _distfiles: {},
     _attachments: {},
-    _uplinks: {},
     _rev: '',
   };
 };
@@ -179,6 +178,14 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
   });
 }
 
+export function mergeTime(localMetadata: Package, remoteMetadata: Package) {
+  if ('time' in remoteMetadata) {
+    return Object.assign({}, localMetadata.time, remoteMetadata.time);
+  }
+
+  return localMetadata.time;
+}
+
 export function prepareSearchPackage(data: Package, time: mixed) {
   const listVersions: Array<string> = Object.keys(data.versions);
   const versions: Array<string> = semverSort(listVersions);
@@ -189,7 +196,7 @@ export function prepareSearchPackage(data: Package, time: mixed) {
     const pkg: any = {
       name: version.name,
       description: version.description,
-      'dist-tags': {latest},
+      [DIST_TAGS]: {latest},
       maintainers: version.maintainers || [version.author].filter(Boolean),
       author: version.author,
       repository: version.repository,
@@ -218,6 +225,5 @@ export {
   fileExist,
   noSuchFile,
   pkgFileName,
-  resourceNotAvailable,
 };
 

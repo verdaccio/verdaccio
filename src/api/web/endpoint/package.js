@@ -86,12 +86,11 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
       req,
       callback: function(err: Error, info: $SidebarPackage) {
         if (_.isNil(err)) {
-          const sideBarInfo: any = _.clone(info);
+          let sideBarInfo: any = _.clone(info);
           sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
-
-          info = deleteProperties(['readme', 'versions'], sideBarInfo);
-          info = addGravatarSupport(sideBarInfo);
-          next(info);
+          sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
+          sideBarInfo = addGravatarSupport(sideBarInfo);
+          next(sideBarInfo);
         } else {
           res.status(404);
           res.end();
