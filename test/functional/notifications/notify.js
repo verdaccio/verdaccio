@@ -12,8 +12,12 @@ export default function(express) {
         'Content-Type': HEADERS.JSON
       }],
       endpoint: "http://localhost:55550/api/notify",
-      content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+      content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     }
+  };
+
+  const publisherInfo = {
+    name: "publisher-name-test"
   };
 
   describe('notifications', () => {
@@ -33,10 +37,14 @@ export default function(express) {
         name: "pkg-test"
       };
 
-      notify(metadata, config).then(function (body) {
+      notify(metadata, config, publisherInfo).then(function (body) {
         const jsonBody = JSON.parse(body);
-        assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
-        'Body notify message should be equal');
+        assert.ok(
+          `New package published: * ${metadata.name}*. Publisher name: * ${
+            publisherInfo.name
+          } *.` === jsonBody.message,
+          "Body notify message should be equal"
+        );
         done();
       }, function (err) {
         assert.fail(err);
@@ -54,10 +62,14 @@ export default function(express) {
         'Content-Type': HEADERS.JSON
       };
 
-      notify(metadata, configMultipleHeader).then(function (body) {
+      notify(metadata, configMultipleHeader, publisherInfo).then(function (body) {
         const jsonBody = JSON.parse(body);
-        assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
-          'Body notify message should be equal');
+        assert.ok(
+          `New package published: * ${metadata.name}*. Publisher name: * ${
+            publisherInfo.name
+          } *.` === jsonBody.message,
+          "Body notify message should be equal"
+        );
         done();
       }, function (err) {
         assert.fail(err);
@@ -85,11 +97,15 @@ export default function(express) {
           multipleNotificationsEndpoint.notify.push(notificationSettings);
         }
 
-      notify(metadata, multipleNotificationsEndpoint).then(function (body) {
+      notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
         body.forEach(function(notification) {
           const jsonBody = JSON.parse(notification);
-          assert.ok(`New package published: * ${metadata.name}*` === jsonBody.message,
-            'Body notify message should be equal');
+          assert.ok(
+            `New package published: * ${metadata.name}*. Publisher name: * ${
+              publisherInfo.name
+            } *.` === jsonBody.message,
+            "Body notify message should be equal"
+          );
         });
         done();
       }, function (err) {
@@ -105,13 +121,39 @@ export default function(express) {
       const configFail = _.cloneDeep(config);
       configFail.notify.endpoint = "http://localhost:55550/api/notify/bad";
 
-      notify(metadata, configFail).then(function () {
+      notify(metadata, configFail, publisherInfo).then(function () {
         assert.equal(false, 'This service should fails with status code 400');
         done();
       }, function (err) {
         assert.ok('Bad Request' === err, 'The error message should be "Bad Request');
         done();
       });
+    });
+
+    test("publisher property should not be overridden if it exists in metadata", done => {
+      const metadata = {
+        name: "pkg-test",
+        publisher: {
+          name: "existing-publisher-name"
+        }
+      };
+
+      notify(metadata, config, publisherInfo).then(
+        function(body) {
+          const jsonBody = JSON.parse(body);
+          assert.ok(
+            `New package published: * ${metadata.name}*. Publisher name: * ${
+              metadata.publisher.name
+            } *.` === jsonBody.message,
+            "Body notify message should be equal"
+          );
+          done();
+        },
+        function(err) {
+          assert.fail(err);
+          done();
+        }
+      );
     });
 
   });
