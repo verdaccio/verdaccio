@@ -34,6 +34,8 @@ aliases:
         - *repo_key
   - &ignore_branches
     filters:
+      tags:
+        only: /.*/
       branches:
         ignore:
           - gh-pages
@@ -166,7 +168,7 @@ jobs:
             yarn install
             GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
 
-  deploy:
+  publish_package:
     <<: *defaults
     <<: *default_executor
     steps:
@@ -219,12 +221,13 @@ workflows:
             - test_node10
             - test_e2e
           <<: *ignore_branches
-      - deploy:
+      - publish_package:
           requires:
             - coverage
             - publish_gh_pages
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /(v)?[0-9]+(\.[0-9]+)*/
+            branches:
+              ignore:
+                - /.*/
