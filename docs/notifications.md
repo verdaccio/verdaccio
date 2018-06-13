@@ -36,6 +36,11 @@ notify:
      headers: [{'Content-Type': 'application/json'}]
      endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
      content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+  'example-stride':
+     method: POST
+     headers: [{'Content-Type': 'application/json'}, {'authorization': 'Bearer secretToken'}]
+     endpoint: https://api.atlassian.com/site/{cloudId}/conversation/{conversationId}/message
+     content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
 ### Publisher information
