@@ -34,6 +34,30 @@ notify:
      content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
+### Publisher information
+
+You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+
+See below the `publisher` object type:
+
+    {
+      name: string,
+      groups: string[],
+      real_groups: string[]
+    }
+    
+
+An example:
+
+    notify:
+      method: POST
+      headers: [{'Content-Type': 'application/json'}]
+      endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+      content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
+    
+
+**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+
 ## Configuration
 
 | Property            | Type         | Required | Support | Default | Description                                                                                  |
