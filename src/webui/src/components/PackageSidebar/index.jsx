@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LastSync from './modules/LastSync';
 import Maintainers from './modules/Maintainers';
 import Dependencies from './modules/Dependencies';
+import Infos from './modules/Infos';
 
 import API from '../../../utils/api';
 
@@ -53,6 +54,7 @@ export default class PackageSidebar extends React.Component {
     return packageMeta ?
       (<aside className="sidebar-info">
         <LastSync packageMeta={packageMeta} />
+        <Infos packageMeta={packageMeta} />
         <Maintainers packageMeta={packageMeta} />
         <Dependencies packageMeta={packageMeta} />
         {/* Package management module? Help us implement it! */}

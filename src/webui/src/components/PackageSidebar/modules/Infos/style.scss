@@ -1,0 +1,22 @@
+@import '../../../../styles/variable';
+
+.infosModule {
+  li {
+    display: flex;
+    font-size: 14px;
+    line-height: 2;
+
+    a {
+      color: inherit;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 150px;
+    }
+    
+    a:last-child,
+    span:last-child {
+      margin-left: auto;
+    }
+  }
+}
