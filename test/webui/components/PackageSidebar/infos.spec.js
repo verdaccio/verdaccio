@@ -1,5 +1,5 @@
 /**
- * LastSync component
+ * Infos component
  */
 
 import React from 'react';

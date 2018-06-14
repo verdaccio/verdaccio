@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import Module from '../../Module';
+import isString from 'lodash/isString';
+import isNil from 'lodash/isNil';
 
 import classes from './style.scss';
 
@@ -19,21 +21,25 @@ export default class Infos extends React.Component {
   }
 
   normalizeInfo(infoObj) {
-    if (typeof infoObj === 'string') {
+    if (isString(infoObj)) {
       return {url: infoObj};
-    } else if (infoObj === null) {
+    } else if (isNil(infoObj)) {
       return {url: ''};
     }
 
-    infoObj.url = infoObj.url.replace(/^git\+/, '');
+    infoObj.url = this.normalizeGitUrl(infoObj);
 
     return infoObj;
+  }
+
+  normalizeGitUrl(infoObj) {
+    return infoObj.url.replace(/^git\+/, '');
   }
 
   render() {
     const infos = this.infos;
 
-    if (!infos.homepage.url && !infos.repo.url && infos.license === 'N/A') {
+    if (infos.homepage.url === '' && infos.repo.url === '' && infos.license === 'N/A') {
       return '';
     }
 
@@ -43,19 +49,21 @@ export default class Infos extends React.Component {
         className={classes.infosModule}
       >
         <ul>
-          {infos.homepage.url &&
-            <li><span>Homepage</span><a href={infos.homepage.url} target="_blank">{infos.homepage.url}</a></li>
-          }
+          {infos.homepage.url && this.renderSection('Homepage', infos.homepage.url)}
 
-          {infos.repo.url &&
-            <li><span>Repository</span><a href={infos.repo.url} target="_blank">{infos.repo.url}</a></li>
-          }
+          {infos.repo.url && this.renderSection('Repository', infos.repo.url)}
 
           {infos.license &&
             <li><span>License</span><span>{infos.license}</span></li>
           }
         </ul>
       </Module>
+    );
+  }
+
+  renderSection(title, url) {
+    return (
+      <li><span>{title}</span><a href={url} target="_blank">{url}</a></li>
     );
   }
 }
