@@ -12,6 +12,7 @@ import {notify} from '../../../lib/notify';
 import type {Router} from 'express';
 import type {Config, Callback} from '@verdaccio/types';
 import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import logger from '../../../lib/logger';
 
 export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);
@@ -80,18 +81,24 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
           return next(err);
         }
 
-        const t2 = Object.keys(metadata.versions)[0];
-        metadata.versions[t2].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
-        create_version(t2, metadata.versions[t2], function(err) {
+        const versionToPublish = Object.keys(metadata.versions)[0];
+        metadata.versions[versionToPublish].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
+        create_version(versionToPublish, metadata.versions[versionToPublish], function(err) {
           if (err) {
             return next(err);
           }
 
-          add_tags(metadata[DIST_TAGS], function(err) {
+          add_tags(metadata[DIST_TAGS], async function(err) {
             if (err) {
               return next(err);
             }
-            notify(metadata, config, req.remote_user);
+
+            try {
+              await notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`);
+            } catch (err) {
+              logger.logger.error({err}, 'notify batch service has failed: @{err}');
+            }
+
             res.status(201);
             return next({ok: ok_message, success: true});
           });
