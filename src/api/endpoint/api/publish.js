@@ -88,14 +88,16 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
             return next(err);
           }
 
-          add_tags(metadata[DIST_TAGS], function(err) {
+          add_tags(metadata[DIST_TAGS], async function(err) {
             if (err) {
               return next(err);
             }
 
-            notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`).then(() =>{}, (err) => {
+            try {
+              await notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`);
+            } catch (err) {
               logger.logger.error({err}, 'notify batch service has failed: @{err}');
-            });
+            }
 
             res.status(201);
             return next({ok: ok_message, success: true});
