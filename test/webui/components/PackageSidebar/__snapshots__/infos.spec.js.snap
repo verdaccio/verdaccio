@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PackageSidebar /> : <Infos /> should load the Info component and match snapshot 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><ul><li><span>Homepage</span><a href=\\"https://github.com/verdaccio/verdaccio#readme\\" target=\\"_blank\\">https://github.com/verdaccio/verdaccio#readme</a></li><li><span>Repository</span><a href=\\"git://github.com/verdaccio/verdaccio.git\\" target=\\"_blank\\">git://github.com/verdaccio/verdaccio.git</a></li><li><span>License</span><span>WTFPL</span></li></ul></div></div>"`;

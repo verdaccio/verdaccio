@@ -22,6 +22,12 @@ export default function(express) {
 
   describe('notifications', () => {
 
+    function parseBody(notification) {
+      const jsonBody = JSON.parse(notification);
+
+      return jsonBody;
+    }
+
     beforeAll(function () {
       express.post('/api/notify', function (req, res) {
         res.send(req.body);
@@ -38,7 +44,7 @@ export default function(express) {
       };
 
       notify(metadata, config, publisherInfo).then(function (body) {
-        const jsonBody = JSON.parse(body);
+        const jsonBody = parseBody(body);
         assert.ok(
           `New package published: * ${metadata.name}*. Publisher name: * ${
             publisherInfo.name
@@ -63,7 +69,7 @@ export default function(express) {
       };
 
       notify(metadata, configMultipleHeader, publisherInfo).then(function (body) {
-        const jsonBody = JSON.parse(body);
+        const jsonBody = parseBody(body);
         assert.ok(
           `New package published: * ${metadata.name}*. Publisher name: * ${
             publisherInfo.name
@@ -99,7 +105,7 @@ export default function(express) {
 
       notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
         body.forEach(function(notification) {
-          const jsonBody = JSON.parse(notification);
+          const jsonBody = parseBody(notification);
           assert.ok(
             `New package published: * ${metadata.name}*. Publisher name: * ${
               publisherInfo.name
@@ -125,7 +131,7 @@ export default function(express) {
         assert.equal(false, 'This service should fails with status code 400');
         done();
       }, function (err) {
-        assert.ok('Bad Request' === err, 'The error message should be "Bad Request');
+        expect(err).toEqual('bad response');
         done();
       });
     });
@@ -140,7 +146,7 @@ export default function(express) {
 
       notify(metadata, config, publisherInfo).then(
         function(body) {
-          const jsonBody = JSON.parse(body);
+          const jsonBody = parseBody(body);
           assert.ok(
             `New package published: * ${metadata.name}*. Publisher name: * ${
               metadata.publisher.name
