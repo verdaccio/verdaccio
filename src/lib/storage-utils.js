@@ -11,7 +11,7 @@ import type {IStorage} from '../../types';
 const pkgFileName = 'package.json';
 const fileExist: string = 'EEXISTS';
 const noSuchFile: string = 'ENOENT';
-const DEFAULT_REVISION: string = `0-0000000000000000`;
+export const DEFAULT_REVISION: string = `0-0000000000000000`;
 
 const generatePackageTemplate = function(name: string): Package {
   return {
@@ -41,7 +41,9 @@ function normalizePackage(pkg: Package) {
     'time'];
 
   pkgProperties.forEach((key) => {
-    if (_.isNil(isObject(pkg[key]))) {
+    const pkgProp = pkg[key];
+
+    if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
       pkg[key] = {};
     }
   });
@@ -221,7 +223,6 @@ export {
   generateRevision,
   getLatestReadme,
   cleanUpReadme,
-  DEFAULT_REVISION,
   fileExist,
   noSuchFile,
   pkgFileName,
