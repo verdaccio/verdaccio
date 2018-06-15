@@ -9,7 +9,7 @@ import Search from './search';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
 import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
-  mergeTime, generatePackageTemplate} from './storage-utils';
+  mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
 import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
 import {mergeVersions} from './metadata-utils';
 import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
@@ -456,7 +456,7 @@ class Storage implements IStorageHandler {
           fetched: Date.now(),
         };
 
-        packageInfo.time = mergeTime(packageInfo, upLinkResponse);
+        packageInfo.time = mergeUplinkTimeIntoLocal(packageInfo, upLinkResponse);
 
         updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 

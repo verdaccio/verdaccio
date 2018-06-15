@@ -180,7 +180,7 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
   });
 }
 
-export function mergeTime(localMetadata: Package, remoteMetadata: Package) {
+export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata: Package): any {
   if ('time' in remoteMetadata) {
     return Object.assign({}, localMetadata.time, remoteMetadata.time);
   }
