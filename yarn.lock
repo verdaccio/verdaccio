@@ -7961,9 +7961,9 @@ request@2, request@2.85.0, request@^2.81.0, request@^2.83.0:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-request@2.86.0:
-  version "2.86.0"
-  resolved "https://registry.npmjs.org/request/-/request-2.86.0.tgz#2b9497f449b0a32654c081a5cf426bbfb5bf5b69"
+request@2.87.0:
+  version "2.87.0"
+  resolved "https://registry.npmjs.org/request/-/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
   dependencies:
     aws-sign2 "~0.7.0"
     aws4 "^1.6.0"
@@ -7973,7 +7973,6 @@ request@2.86.0:
     forever-agent "~0.6.1"
     form-data "~2.3.1"
     har-validator "~5.0.3"
-    hawk "~6.0.2"
     http-signature "~1.2.0"
     is-typedarray "~1.0.0"
     isstream "~0.1.2"
@@ -9414,14 +9413,14 @@ vendors@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
 
-verdaccio-audit@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-0.1.0.tgz#4cc2e9a61c71492962f1a623bd099c51f5ca745a"
+verdaccio-audit@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-0.2.0.tgz#426e26a3fa2e26341d7a12096025f48a8d40f6d2"
   dependencies:
     body-parser "1.18.3"
     compression "1.7.2"
     express "4.16.3"
-    request "2.86.0"
+    request "2.87.0"
 
 verdaccio-auth-memory@0.0.4:
   version "0.0.4"
