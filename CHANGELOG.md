@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/verdaccio/verdaccio/compare/v3.1.2...v3.2.0) (2018-06-15)
+
+
+### Bug Fixes
+
+* allowing to allow replace static enpoint in case of reverse proxy ([90803c7](https://github.com/verdaccio/verdaccio/commit/90803c7))
+* fixed linebreaks lint issue ([9e3ab09](https://github.com/verdaccio/verdaccio/commit/9e3ab09))
+* normalize package was broken [#758](https://github.com/verdaccio/verdaccio/issues/758) ([3717ad4](https://github.com/verdaccio/verdaccio/commit/3717ad4))
+
+
+### Features
+
+* Add basic package infos and resource links to sidebar. ([7bd3a4f](https://github.com/verdaccio/verdaccio/commit/7bd3a4f))
+* add published package support to template ([4245636](https://github.com/verdaccio/verdaccio/commit/4245636))
+* added information about package publisher for notifications ([1ca5298](https://github.com/verdaccio/verdaccio/commit/1ca5298))
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/verdaccio/verdaccio/compare/v3.1.1...v3.1.2) (2018-06-11)
 
