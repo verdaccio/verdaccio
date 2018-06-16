@@ -1,6 +1,7 @@
 {
+  "version": "3.2.0",
   "scripts": {
-    "examples": "docusaurus-examples",
+    "examples": "verdaccio-website",
     "start": "docusaurus-start",
     "build": "docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
@@ -8,6 +9,7 @@
     "version": "docusaurus-version",
     "rename-version": "docusaurus-rename-version"
   },
+  "license": "MIT",
   "devDependencies": {
     "docusaurus": "1.2.0"
   }
