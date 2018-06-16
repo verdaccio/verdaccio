@@ -54,7 +54,18 @@
         }], "stage-3", "flow"],
       "plugins": [
         "transform-object-rest-spread",
-        "transform-class-properties"
+        "transform-class-properties",
+        [
+          "module-resolver",
+          {
+            "root": [
+              "./"
+            ],
+            "alias": {
+              "components": "./src/webui/src/components"
+            }
+          }
+        ]
       ]
     },
     "registry-docker": {
