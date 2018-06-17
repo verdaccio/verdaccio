@@ -7,7 +7,7 @@ Verdaccio 命令行是启动和控制此应用的工具
 ## 命令
 
 ```bash
-$ verdaccio --listen 4000 --config ~./config.yaml
+verdaccio --listen 4000 --config ~./config.yaml
 ```
 
 | 参数                 | 默认值                            | 示例             | 描述        |

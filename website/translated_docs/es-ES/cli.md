@@ -7,7 +7,7 @@ El CLI de verdaccio es la forma de iniciar la aplicación.
 ## Comandos
 
 ```bash
-$ verdaccio --listen 4000 --config ~./config.yaml
+verdaccio --listen 4000 --config ~./config.yaml
 ```
 
 | Comando            | Por Defecto                    | Ejemplo        | Descripción                 |
