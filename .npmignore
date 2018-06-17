@@ -38,7 +38,7 @@ test-storage*
 test/
 __mocks__/
 jestEnvironment.js
-test/e2e/jest.e2e.config.js
+test/jest.e2e.config.js
 test/jest.config.func.js
 jest.config.unit.js
 

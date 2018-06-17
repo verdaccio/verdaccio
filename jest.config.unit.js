@@ -11,10 +11,10 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-global',
   testRegex: '(test/unit.*\\.spec|test/unit/webui/.*\\.spec)\\.js',
   setupFiles: [
-    './test/unit/setup-webui.js'
+    './test/unit/setup.js'
   ],
   modulePathIgnorePatterns: [
-    'setup-webui.js'
+    'setup.js'
   ],
   testPathIgnorePatterns: [
     '__snapshots__'
