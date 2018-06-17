@@ -19,6 +19,11 @@
   text-decoration: none !important;
 }
 
+.feature-section .blockContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .docker-count img {
   margin-left: initial;
 }

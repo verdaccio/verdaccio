@@ -153,11 +153,11 @@ class HomeSplash extends React.Component {
 
 const FeatureSection = () => (
   <GridBlock
+    className="feature-section"
     align="center"
     contents={[
       {
-        content: '```bash\n' +
-        'npm install --global verdaccio'
+        content: '```bash\n' + 'npm install --global verdaccio'
       }
     ]}
     layout="twoColumn"
