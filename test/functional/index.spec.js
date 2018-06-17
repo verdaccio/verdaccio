@@ -12,27 +12,27 @@ import ExpressServer  from './lib/simple_server';
 import Server from '../lib/server';
 import type {IServerProcess, IServerBridge} from '../types';
 
-import basic from './basic/basic.spec';
-import packageAccess from './package/access.spec';
-import packageGzip from './package/gzip.spec';
-import packageScoped from './package/scoped.spec';
-import tags from './tags/tags.spec';
-import preserveTags from './tags/preserve_tags.spec';
-import addtag from './tags/addtag.spec';
+import basic from './basic/basic';
+import packageAccess from './package/access';
+import packageGzip from './package/gzip';
+import packageScoped from './package/scoped';
+import tags from './tags/tags';
+import preserveTags from './tags/preserve_tags';
+import addtag from './tags/addtag';
 import adduser from './adduser/adduser';
 import logout from './adduser/logout';
 import notify from './notifications/notify';
 import incomplete from './sanity/incomplete';
 import mirror from './sanity/mirror';
-import readme from './readme/readme.spec';
+import readme from './readme/readme';
 import gh29 from './gh29';
 import nullstorage from './sanity/nullstorage';
 import racycrash from './sanity/racycrash';
 import security from './sanity/security';
 import race from './performance/race';
-import pluginsAuth from './plugins/auth.spec';
-import upLinkCache from './uplink.cache.spec';
-import upLinkAuth from './uplink.auth.spec';
+import pluginsAuth from './plugins/auth';
+import upLinkCache from './uplink.cache';
+import upLinkAuth from './uplink.auth';
 
 describe('functional test verdaccio', function() {
   jest.setTimeout(10000);

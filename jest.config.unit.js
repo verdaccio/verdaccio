@@ -1,7 +1,7 @@
 /* eslint comma-dangle: 0 */
 
 module.exports = {
-  name: 'verdaccio-jest',
+  name: 'verdaccio-unit-jest',
   verbose: true,
   collectCoverage: true,
   coveragePathIgnorePatterns: [
@@ -9,7 +9,7 @@ module.exports = {
     'fixtures'
   ],
   testEnvironment: 'jest-environment-jsdom-global',
-  testRegex: '(/test/unit.*\\.spec|test/functional.*\\.func|/test/unit/webui/.*\\.spec)\\.js',
+  testRegex: '(test/unit.*\\.spec|test/unit/webui/.*\\.spec)\\.js',
   setupFiles: [
     './test/unit/setup-webui.js'
   ],
