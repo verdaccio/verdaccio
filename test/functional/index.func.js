@@ -6,11 +6,11 @@ import path from 'path';
 import {setup} from '../../src/lib/logger';
 setup();
 
-import {VerdaccioConfig} from '../src/verdaccio-server';
-import VerdaccioProcess  from '../src/server_process';
+import {VerdaccioConfig} from '../lib/verdaccio-server';
+import VerdaccioProcess  from '../lib/server_process';
 import ExpressServer  from './lib/simple_server';
-import Server from '../src/server';
-import type {IServerProcess, IServerBridge} from '../flow/types';
+import Server from '../lib/server';
+import type {IServerProcess, IServerBridge} from '../types';
 
 import basic from './basic/basic.spec';
 import packageAccess from './package/access.spec';

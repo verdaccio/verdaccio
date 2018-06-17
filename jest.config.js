@@ -9,13 +9,12 @@ module.exports = {
     'fixtures'
   ],
   testEnvironment: 'jest-environment-jsdom-global',
-  testRegex: '(/test/unit.*\\.spec|test/functional.*\\.func|/test/webui/.*\\.spec)\\.js',
-  // 'testRegex': '(test/functional.*\\.func)\\.js'
+  testRegex: '(/test/unit.*\\.spec|test/functional.*\\.func|/test/unit/webui/.*\\.spec)\\.js',
   setupFiles: [
-    './test/webui/global.js'
+    './test/unit/setup-webui.js'
   ],
   modulePathIgnorePatterns: [
-    'global.js'
+    'setup-webui.js'
   ],
   testPathIgnorePatterns: [
     '__snapshots__'

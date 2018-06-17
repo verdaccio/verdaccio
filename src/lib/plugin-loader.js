@@ -49,7 +49,7 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
     let plugin;
 
     // try local plugins first
-    plugin = tryLoad(Path.resolve(__dirname + '/..//plugins', pluginId));
+    plugin = tryLoad(Path.resolve(__dirname + '/../plugins', pluginId));
 
     // npm package
     if (plugin === null && pluginId.match(/^[^\.\/]/)) {
