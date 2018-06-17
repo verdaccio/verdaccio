@@ -7,6 +7,7 @@
     "ansible": "Instalar con Ansible",
     "authentification": "Autentificación",
     "build": "Construir el código fuente",
+    "chef": "Chef Cookbook",
     "ci": "Continuous Integration",
     "cli": "Herramienta de línea de comando",
     "configuration": "Archivo de Configuración",
@@ -22,6 +23,7 @@
     "packages": "Acceso a paquetes",
     "plugins": "Extensiones",
     "protect-your-dependencies": "Protegiendo paquetes",
+    "puppet": "Puppet",
     "source-code": "Código fuente",
     "reverse-proxy": "Configuración de proxy inverso",
     "server-configuration": "Configuración del Servidor",
@@ -61,10 +63,8 @@
     "This project is maintained by the Verdaccio community.|no description given": "Este proyecto es mantenido por la comunidad de Verdaccio.",
     "Get Started|no description given": "Get Started",
     "Contribute|no description given": "Contribuye",
-    "Easy to Install|no description given": "Fácil de Instalar",
-    "Easy to Set Up|no description given": "Fácil de Configurar",
-    "Easy to Use|no description given": "Fácil de Usar",
     "That’s it ! Enjoy your private package manager.|no description given": "Eso es todo ! Disfruta tu registro privado.",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Many great developers are already enjoying Verdaccio, join the community!",
     "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** y **pnpm** son parte del ambiente de desarrollo e intentamos mantenernos al día con las últimas actualizaciones.",
     "The most popular npm clients are supported|no description given": "Los clientes *npm* mas populares son compatibles",
     "We have an official **Docker** image ready to use|no description given": "Ofrecemos una imagen oficial en **Docker** lista para usar",
@@ -81,6 +81,12 @@
     "Add your company|no description given": "Agrega tu compañia",
     "Help Translate|recruit community translators for your project": "Ayuda con traducciones",
     "Edit this Doc|recruitment message asking to edit the doc source": "Editar",
-    "Translate this Doc|recruitment message asking to translate the docs": "Traducir"
+    "Translate this Doc|recruitment message asking to translate the docs": "Traducir",
+    "Many great developers are already enjoying Verdaccio, join the club!|no description given": "Many great developers are already enjoying Verdaccio, join the club!",
+    "Easy to Install|no description given": "Fácil de Instalar",
+    "Easy to Set Up|no description given": "Fácil de Configurar",
+    "Easy to Use|no description given": "Fácil de Usar",
+    "What developers are saying|no description given": "What developers are saying",
+    "Many great developers are already enjoying Verdaccio, join the community!": "Many great developers are already enjoying Verdaccio, join the community!"
   }
 }
