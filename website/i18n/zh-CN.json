@@ -7,6 +7,7 @@
     "ansible": "使用 Ansible 安装",
     "authentification": "认证",
     "build": "编译源代码",
+    "chef": "Chef Cookbook",
     "ci": "Continuous Integration",
     "cli": "命令行工具",
     "configuration": "配置文件",
@@ -22,6 +23,7 @@
     "packages": "npm 包访问权限",
     "plugins": "插件",
     "protect-your-dependencies": "保护 npm 包",
+    "puppet": "Puppet",
     "source-code": "源代码",
     "reverse-proxy": "反向代理配置",
     "server-configuration": "服务器配置",
@@ -61,10 +63,8 @@
     "This project is maintained by the Verdaccio community.|no description given": "这个项目由 Verdaccio 社区维护。",
     "Get Started|no description given": "Get Started",
     "Contribute|no description given": "贡献",
-    "Easy to Install|no description given": "易于安装",
-    "Easy to Set Up|no description given": "易于设置",
-    "Easy to Use|no description given": "易于使用",
     "That’s it ! Enjoy your private package manager.|no description given": "就这么简单! 开始使用你的 私有 npm 仓库吧。",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Many great developers are already enjoying Verdaccio, join the community!",
     "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.",
     "The most popular npm clients are supported|no description given": "支持所有主流的 npm 客户端",
     "We have an official **Docker** image ready to use|no description given": "我们有官方的 **Docker** 镜像可供使用",
@@ -81,6 +81,12 @@
     "Add your company|no description given": "添加你的公司",
     "Help Translate|recruit community translators for your project": "帮助翻译",
     "Edit this Doc|recruitment message asking to edit the doc source": "编辑",
-    "Translate this Doc|recruitment message asking to translate the docs": "翻译"
+    "Translate this Doc|recruitment message asking to translate the docs": "翻译",
+    "Many great developers are already enjoying Verdaccio, join the club!|no description given": "Many great developers are already enjoying Verdaccio, join the club!",
+    "Easy to Install|no description given": "易于安装",
+    "Easy to Set Up|no description given": "易于设置",
+    "Easy to Use|no description given": "易于使用",
+    "What developers are saying|no description given": "What developers are saying",
+    "Many great developers are already enjoying Verdaccio, join the community!": "Many great developers are already enjoying Verdaccio, join the community!"
   }
 }
