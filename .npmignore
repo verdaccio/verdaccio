@@ -24,7 +24,7 @@ test/
 types/
 wiki/
 jestEnvironment.js
-jest.e2e.config.js
+test/e2e/jest.e2e.config.js
 jest.config.js
 debug/
 

@@ -157,7 +157,7 @@
     "test": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC jest --maxWorkers 2",
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC jest '(/test/unit.*\\.spec|/test/webui/.*\\.spec)\\.js' --maxWorkers 2",
     "test:func": "cross-env NODE_ENV=test BABEL_ENV=test jest '(/test/functional.*\\.func)\\.js' --maxWorkers 2",
-    "test:e2e": "cross-env BABEL_ENV=testE2E jest --config ./jest.e2e.config.js --maxWorkers 2",
+    "test:e2e": "cross-env BABEL_ENV=testE2E jest --config ./test/e2e/jest.e2e.config.js --maxWorkers 2",
     "test:all": "npm run test && npm run test:e2e",
     "pre:ci": "npm run lint && npm run build:webui",
     "commitmsg": "commitlint -e $GIT_PARAMS",
