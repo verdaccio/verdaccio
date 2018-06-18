@@ -25,7 +25,7 @@ Quería que la página `verdaccio` fuese la página predeterminada en IIS así q
 
 These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Un archivo de configuración predeterminado será creado `c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
