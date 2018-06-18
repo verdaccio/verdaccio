@@ -18,8 +18,8 @@ export default class ExpressServer {
         extended: true
       }));
 
-      this.server = this.app.listen(port, function starExpressServer() {
-        resolve();
+      this.server = this.app.listen(port, () => {
+        resolve(this);
       });
     });
   }

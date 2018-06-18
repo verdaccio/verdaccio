@@ -10,12 +10,14 @@ export default class VerdaccioProcess implements IServerProcess {
   bridge: IServerBridge;
   config: IVerdaccioConfig;
   childFork: any;
+  isDebug: boolean;
   silence: boolean;
 
-  constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence: boolean = true) {
+  constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence: boolean = true, isDebug: boolean = false) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
+    this.isDebug = isDebug;
   }
 
   init(): Promise<any> {
@@ -27,13 +29,17 @@ export default class VerdaccioProcess implements IServerProcess {
           reject(err);
         }
 
-        this.childFork = fork(verdaccioRegisterWrap,
-          ['-c', this.config.configPath],
-          {
-            silent: this.silence,
+        let childOptions = {
+          silent: this.silence
+        };
+
+        if (this.isDebug) {
+          childOptions = Object.assign({}, childOptions, {
             execArgv: [`--inspect=${this.config.port + 5}`]
-          },
-        );
+          });
+        }
+
+        this.childFork = fork(verdaccioRegisterWrap, ['-c', this.config.configPath], childOptions);
 
         this.childFork.on('message', (msg) => {
           if ('verdaccio_started' in msg) {

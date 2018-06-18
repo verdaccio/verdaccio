@@ -1,16 +1,10 @@
 // @flow
-import _ from 'lodash';
-import path from 'path';
 
 // we need this for notifications
 import {setup} from '../../src/lib/logger';
 setup();
 
-import {VerdaccioConfig} from '../lib/verdaccio-server';
-import VerdaccioProcess  from '../lib/server_process';
-import ExpressServer  from './lib/simple_server';
-import Server from '../lib/server';
-import type {IServerProcess, IServerBridge} from '../types';
+import type {IServerBridge} from '../types';
 
 import basic from './basic/basic';
 import packageAccess from './package/access';
@@ -36,81 +30,36 @@ import upLinkAuth from './uplink.auth';
 
 describe('functional test verdaccio', function() {
   jest.setTimeout(10000);
-  const EXPRESS_PORT = 55550;
-  const pathStore = path.join(__dirname, './store');
-  const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
-  const processRunning = [];
-  const config1 = new VerdaccioConfig(
-    path.join(pathStore, '/test-storage'),
-    path.join(pathStore, '/config-1.yaml'),
-    'http://localhost:55551/', 55551);
-  const config2 = new VerdaccioConfig(
-    path.join(pathStore, '/test-storage2'),
-    path.join(pathStore, '/config-2.yaml'),
-      'http://localhost:55552/', 55552);
-  const config3 = new VerdaccioConfig(
-    path.join(pathStore, '/test-storage3'),
-    path.join(pathStore, '/config-3.yaml'),
-        'http://localhost:55553/', 55553);
-  const server1: IServerBridge = new Server(config1.domainPath);
-  const server2: IServerBridge = new Server(config2.domainPath);
-  const server3: IServerBridge = new Server(config3.domainPath);
-  const process1: IServerProcess = new VerdaccioProcess(config1, server1, SILENCE_LOG);
-  const process2: IServerProcess = new VerdaccioProcess(config2, server2, SILENCE_LOG);
-  const process3: IServerProcess = new VerdaccioProcess(config3, server3, SILENCE_LOG);
-  const express: any = new ExpressServer();
-
-  beforeAll((done) => {
-    Promise.all([
-      process1.init(),
-      process2.init(),
-      process3.init()]).then((forks) => {
-        _.map(forks, (fork) => {
-          processRunning.push(fork[0]);
-        });
-        express.start(EXPRESS_PORT).then((app) =>{
-          done();
-        }, (err) => {
-          console.error(err);
-          done();
-        });
-    }).catch((err) => {
-      console.error(err);
-      done();
-    });
-  });
-
-  afterAll(() => {
-    _.map(processRunning, (fork) => {
-      fork.stop();
-    });
-    express.server.close();
-  });
+  const server1: IServerBridge = global.__SERVERS__[0];
+  const server2: IServerBridge = global.__SERVERS__[1];
+  const server3: IServerBridge = global.__SERVERS__[2];
+  const app = global.__WEB_SERVER__.app;
 
   // list of test
   // note: order of the following calls is important
   packageAccess(server1);
-  basic(server1, server2);
   gh29(server1, server2);
-  tags(server1, express.app);
-  packageGzip(server1, express.app);
-  incomplete(server1, express.app);
+  tags(server1, app);
+  packageGzip(server1, app);
+  incomplete(server1, app);
   mirror(server1, server2);
-  preserveTags(server1, server2, express.app);
+  preserveTags(server1, server2, app);
   readme(server1, server2);
   nullstorage(server1, server2);
   race(server1);
-  racycrash(server1, express.app);
+  racycrash(server1, app);
   packageScoped(server1, server2);
   security(server1);
   addtag(server1);
   pluginsAuth(server2);
-  notify(express.app);
+  notify(app);
   // requires packages published to server1/server2
   upLinkCache(server1, server2, server3);
   upLinkAuth();
   adduser(server1);
   logout(server1);
+  basic(server1, server2);
+
 });
 
 process.on('unhandledRejection', function(err) {
