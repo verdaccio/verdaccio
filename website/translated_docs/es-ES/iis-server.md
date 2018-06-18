@@ -2,7 +2,7 @@
 id: iss-server
 title: "Installing on IIS server"
 ---
-These instructions were written for Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) and [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
+Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) and [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
 
 - Install IIS Install [iisnode](https://github.com/tjanczuk/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
 - Create a new folder in Explorer where you want to host verdaccio. For example `C:\verdaccio`. Save [package.json](#packagejson), [start.js](#startjs) and [web.config](#webconfig) in this folder.
@@ -15,9 +15,9 @@ These instructions were written for Windows Server 2012, IIS 8, [Node.js 0.12.3]
     
 
 - Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- ¡Y listo! Ahora puedes navegar al host y al puerto que especificaste
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Quería que la página `verdaccio` fuese la página predeterminada en IIS así que hice lo siguiente:
 
 - I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
 - I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
