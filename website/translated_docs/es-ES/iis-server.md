@@ -1,6 +1,6 @@
 ---
-id: iss-server
-title: "Installing on IIS server"
+id: iss-servidor
+title: "Instalación en servidor IIS"
 ---
 Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) and [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
 
@@ -19,7 +19,7 @@ Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.
 
 Quería que la página `verdaccio` fuese la página predeterminada en IIS así que hice lo siguiente:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
+- Me aseguré que el archivo .npmrc en `c:\users{yourname}` tuviese el registro configurado a `"registry=http://localhost/"`
 - I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
 - I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
 
