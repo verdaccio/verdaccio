@@ -108,7 +108,7 @@ Desde: `verdaccio@2.3.6` debido a [#197](https://github.com/verdaccio/verdaccio/
 
 ### Tamaño Máximo del Cuerpo
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Por defecto el tamaño máximo de cuerpo para un documento JSON es `10mb`, si encuentras errores tales como `"request entity too large"` puedes incrementar este valor.
 
 ```yaml
 max_body_size: 10mb
@@ -177,11 +177,11 @@ notify:
 
 ### Audit
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Desde: <code>verdaccio@3.0.0</code></small>
 
 `npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Si tienes una nueva instalación va incluida por defecto, de otra modo necesitarás añadir las siguientes propiedades a tu configuración de archivo
 
 ```yaml
 middlewares:
