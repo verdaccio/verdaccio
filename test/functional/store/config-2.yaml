@@ -33,58 +33,58 @@ logs:
 
 packages:
   '@test/*':
-    allow_access: $all
-    allow_publish: $all
+    access: $all
+    publish: $all
     proxy: server1
 
   'testfwd':
-    allow_access: $all
-    allow_publish: $all
+    access: $all
+    publish: $all
 
   'testloop':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: server1
+    access: $all
+    publish: $all
+    proxy: server1
     proxy_publish: server1
 
   # used by gh29.js
   'testpkg-gh29':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   # used by preserve_tags_spec.js
   'testpkg-preserve':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   'testpkg':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   'readme-*':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   'test-nullstorage*':
-    allow_access: $all
-    allow_publish: $all
+    access: $all
+    publish: $all
 
   'test-auth-regular':
-    allow_access: $authenticated
+    access: $authenticated
 
   'test-auth-*':
-    allow_access: authtest
+    access: authtest
 
   'test-deny':
-    allow_access: authtest2
+    access: authtest2
 
   '*':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
+    access: test $anonymous
+    publish: test $anonymous
 
 listen: 55552
 
