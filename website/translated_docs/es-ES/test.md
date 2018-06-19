@@ -34,15 +34,15 @@ const config = require('./partials/config');
  describe('basic system test', () => {
 
   beforeAll(function(done) {
-    // something important
+    // algo importante
   });
 
   afterAll((done) => {
-    // undo something important
+    // deshacer algo importante
   });
 
   test('server should respond on /', done => {
-    // your test
+    // tu test
     done();
   });
 });
@@ -77,7 +77,7 @@ Todo inicia en el archivo `index.js`. Adentrémosnos en este.
   const express: any = new ExpressServer();
   ...
 
-    // we check whether all instances has been started, since run in independent processes
+    // revisamos si todas las instancias han sido iniciadas, desde su ejecución en procesos independientes
     beforeAll((done) => {
       Promise.all([
         process1.init(),
@@ -96,7 +96,7 @@ Todo inicia en el archivo `index.js`. Adentrémosnos en este.
       });
     });
 
-    // after finish all, we ensure are been stoped
+    // al finalizarlas, nos aseguramos de que han sido detenidas
     afterAll(() => {
       _.map(processRunning, (fork) => {
         fork.stop();
@@ -107,9 +107,9 @@ Todo inicia en el archivo `index.js`. Adentrémosnos en este.
 
 ```
 
-### Usage
+### Uso
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Aquí describiremos cómo se ve un test funcional típico, revise en línea para información más detallada.
 
 #### The lib/server.js
 
