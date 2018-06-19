@@ -40,6 +40,6 @@ Estas instrucciones son válidas mayormente para OSX y Linux. Para Windows, las 
 
 ## Docker
 
-If you are using the Docker image, you have to set the `PROTOCOL` environment variable to `https` as the `listen` argument is provided on the [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), and thus ignored from your config file.
+Si está usando la imagen Docker, debe configurar la variable de entorno `PROTOCOL` como `https` ya que el argumento `listen` es proporcionado por [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43) y, por lo tanto, ignora lo establecido en su archivo config.
 
-You can also set the `PORT` environment variable if you are using a different port than `4873`.
+También puede configurar la variable de entorno `PORT` si está usando un puerto diferente a `4873`.
