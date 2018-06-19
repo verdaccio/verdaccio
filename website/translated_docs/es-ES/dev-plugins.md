@@ -1,6 +1,6 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Extensiones en Desarrollo"
 ---
 There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
 
@@ -32,7 +32,7 @@ The auth was successful.
      callback(null, groups);
     
 
-### Example
+### Ejemplo
 
 ```javascript
 function Auth(config, stuff) {
@@ -75,11 +75,11 @@ auth:
 
 Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
 
-## Middleware Plugin
+## Extensión de Middleware
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Un muy buen ejemplo de la extensión de middleware es [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) y [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
