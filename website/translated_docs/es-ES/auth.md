@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### Publicar anonimamente
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` te permite habilitar publicar de manera anónima, para poder hacerlo necesitarás configurar correctamente tu [acceso a paquetes](packages.md).
 
 Por ejemplo:
 
