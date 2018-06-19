@@ -1,6 +1,6 @@
 ---
 id: chef
-title: "Chef Cookbook"
+title: "Libro de Cocina del Chef"
 ---
 Usando el Libro de Cocina del Chef para Verdaccio
 
