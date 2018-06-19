@@ -68,11 +68,11 @@ location / {
 }
 ```
 
-For this case, `url_prefix` should NOT set in verdaccio config
+Para este caso, `url_prefix` NO debe establecerse en la configuración verdaccio
 
 * * *
 
-or a sub-directory installation:
+o a una instalación de sub-directorio:
 
 ```nginx
 location ~ ^/verdaccio/(.*)$ {
@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-For this case, `url_prefix` should set to `/verdaccio/`
+Para este caso, `url_prefix` debe establecerse a `/verdaccio/`
 
 > Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
