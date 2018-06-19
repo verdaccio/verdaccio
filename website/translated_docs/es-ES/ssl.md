@@ -11,7 +11,7 @@ Siga estas instrucciones para configurar un certificado SSL que sirva al registr
 
 Una vez haya actualizado la propiedad listen e intente correr verdaccio nuevamente pedirá los certificados.
 
-* Generar sus certificados
+* Genere sus certificados
 
      $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
      $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
@@ -30,13 +30,13 @@ https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.c
 
 https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
-More info on the `key`, `cert`, `ca`, `pfx` and `passphrase` arguments on the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+Puede encontrar más información referente a los argumentos `key`, `cert`, `ca`, `pfx` y `passphrase`, en la [Documentación de nodes](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
-* Run `verdaccio` in your command line.
+* Corra `verdaccio` en su línea de comandos.
 
-* Open the browser and load `https://your.domain.com:port/`
+* Abra el explorador y cargue `https://your.domain.com:port/`
 
-This instructions are mostly valid under OSX and Linux, on Windows the paths will vary but, the steps are the same.
+Estas instrucciones son válidas mayormente para OSX y Linux. Para Windows, las rutas serán diferentes, pero los pasos a seguir son iguales.
 
 ## Docker
 
