@@ -1,12 +1,12 @@
 ---
 id: unit-testing
-title: "Unit Testing"
+title: "Tests Unitarios"
 ---
-All tests are split in three folders:
+Todos los tests están divididos entre tres carpetas:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - Tests que cubren funciones que transforman datos en un modo no-trivial. Estos tests simplemente `require()` (requieren de) algunos archivos y código de ejecución, por lo que son muy rápidos.
+- `test/functtional` - Tests que ejecutan una instancia de verdaccio y realizan una serie de peticiones a esta sobre http. Son de mayor lentitud en comparación a los tests unitarios.
+- `test/integration` - Tests que ejecutan una instancia de verdaccio y realizan peticiones a esta usando npm. Son considerablemente lentas y pueden incidir sobre un registro real de npm. **test sin mantenimiento**
 
 Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
 
