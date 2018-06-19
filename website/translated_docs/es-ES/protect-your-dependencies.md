@@ -1,5 +1,5 @@
 ---
-id: protect-your-dependencies
+id: protege-tus-dependencias
 title: "Protegiendo paquetes"
 ---
 `verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
@@ -41,5 +41,5 @@ o con `yarn`
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
+error Ocurrió un error inesperado: "http://localhost:5555/webpack-1: no se les permite acceder al paquete my-company-core a usuarios no registrados".
 ```
