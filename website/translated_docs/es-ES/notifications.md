@@ -152,7 +152,7 @@ Puede accesar al paquete que está siendo publicado con el comando `{{publishedP
 | ------------------- | ------------ | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------- |
 | method              | string       | No        | all     |             | HTTP verb                                                                                    |
 | packagePattern      | string       | No        | all     |             | Solo ejecutar esta notificación si el nombre del paquete coincide con la expresión regular   |
-| packagePatternFlags | string       | No        | all     |             | Any flags to be used with the regular expression                                             |
+| packagePatternFlags | string       | No        | all     |             | Cualquier bandera para ser usada con la expresión regular                                    |
 | headers             | array/object | Yes       | all     |             | Si el endpoint requiere encabezados específicos, defínelos aquí como un arreglo (key:value). |
 | endpoint            | string       | Yes       | all     |             | define el URL para el endpoint                                                               |
-| content             | string       | Yes       | all     |             | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| content             | string       | Yes       | all     |             | cualquier expresión [Handlebar](https://handlebarsjs.com/)                                   |
