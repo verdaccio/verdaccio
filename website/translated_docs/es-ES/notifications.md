@@ -43,28 +43,28 @@ notify:
 
 ## Modelo
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+Usamos [Handlebars](https://handlebarsjs.com/) como el motor del modelo principal.
 
-### Format Examples
+### Ejemplos de Formato
 
-    # iterate all versions
+    # iterar todas las versiones
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
     
-    # publisher and `dist-tag` package published
+    # publisher y el paquete `dist-tag` publicado
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Propiedades
 
-List of properties accesible via template
+Lista de las propiedades accesibles mediante el modelo
 
 * Metadata
-* Publisher (who is publishing)
-* Package Published (package@1.0.0)
+* Publisher (quién está publicando)
+* Paquete Publicado (package@1.0.0)
 
 ### Metadata
 
-Package metadata that the template has access
+Empaqueta la metadata a la que el modelo tiene acceso
 
     {
         "_id": "@test/pkg1",
