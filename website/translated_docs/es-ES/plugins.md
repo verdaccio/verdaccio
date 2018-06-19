@@ -91,11 +91,11 @@ store:
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): complemento auth para sinopia que soporta la multitud de atlassian.
 * [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): complemento de autenticación Active Directory para sinopia.
-* [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): authentication plugin for sinopia2, supporting github oauth web flow.
-* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): Sinopia authentication plugin that delegates authentication to another HTTP URL
-* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alternate LDAP Auth plugin for Sinopia
-* [sinopia-request](https://www.npmjs.com/package/sinopia-request): An easy and fully auth-plugin with configuration to use an external API.
-* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Generate password in htaccess format, encrypt with GPG and send via MailGun API to users.
+* [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): complemento de autenticación para sinopia2, el cual soporta el flujo web de github oauth.
+* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): complemento de autenticación de Sinopia que delega autenticación a otro URL HTTP
+* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alterna el complemento LDAP Auth para Sinopia
+* [sinopia-request](https://www.npmjs.com/package/sinopia-request): Un complemento sencillo y completamente auth con configuración para usar una API externa.
+* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Genera contraseña en formato htaccess, encripta con GPG y evía a través de la API MailGun a los usuarios.
 * [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): An easy and fully auth-plugin with configuration to use a mongodb database.
 * [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): auth plugin for sinopia supporting htpasswd format.
 * [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): a leveldb backed auth plugin for sinopia private npm.
