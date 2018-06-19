@@ -89,7 +89,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Para registrar un middleware necesitamos un objeto con un único método llamado `register_middlewares` que recibirá 3 argumentos (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Para registrar un middleware necesitamos un objeto con un único método llamado `register_middlewares` que recibirá 3 argumentos (`expressApp, auth, storage`). *Auth* es la instancia de autentificación y *storage* es de igual manera la instancia de Almacenamiento principal que te dará el acceso a todas las acciones de almacenamiento.
 
 ## Extensión de Almacenamiento
 
