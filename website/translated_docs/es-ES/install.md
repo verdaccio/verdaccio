@@ -8,7 +8,7 @@ Verdaccio es una aplicación web multiplataforma. Para instalarlo, necesitas uno
 
 1. Node mayor que 
     - En `verdaccio@2.x` Node `v4.6.1` es la versión mínima soportada.
-    - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
+    - Para la versión `verdaccio@latest` El Node `6.12.0` es la versión mínima soportada.
 2. npm `>=3.x` o `yarn`
 3. La interfaz web soporta los exploradores `Chrome, Firefox, Edge, and IE9`.
 
@@ -28,7 +28,7 @@ o usando `yarn`
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![instalar verdaccio](/svg/install_verdaccio.gif)
 
 ## Uso Básico
 
