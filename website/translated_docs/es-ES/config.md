@@ -181,7 +181,7 @@ notify:
 
 `npm audit` es un nuevo comando lanzado con [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio incluye una extensión de middleware integrada para el manejo de este comando.
 
-> Si tienes una nueva instalación va incluida por defecto, de otro modo necesitarás añadir las siguientes propiedades a tu configuración de archivo
+> Si tienes una nueva instalación va incluida por defecto, de otro modo necesitarás añadir las siguientes propiedades a tu archivo config
 
 ```yaml
 middlewares:
