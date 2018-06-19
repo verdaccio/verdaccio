@@ -85,7 +85,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
 
 ### Usando HTTPS con Docker
 
-Puedes configurar el protocolo que verdaccio va a escuchar, similar a la configuración de puerto. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Puedes configurar el protocolo que verdaccio va a escuchar, similar a la configuración de puerto. Tienes que sobre escribir el valor por defecto ("http") de la variable del entorno `PROTOCOL` a "https", luego de haber especificado los certificados en config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -95,16 +95,16 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 
 ### Usando docker-compose
 
-1. Obtener la última versión de [docker-compose](https://github.com/docker/compose).
+1. Obtén la última versión de [docker-compose](https://github.com/docker/compose).
 2. Construye y ejecuta el contenedor:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Puedes configurar el puerto a usar (tanto para el contenedor como para el cliente) prefijando el comando anterior con `PORT=5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker generará un volumen con nombre en el cual se almacenan datos de aplicación persistente. Puedes usar `docker inspect` ó `docker volume inspect` para revelar la ubicación física del volumen y editar la configuración, tal como:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -131,7 +131,7 @@ There is also an npm script for building the docker image, so you can also do:
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Nota: La primera construcción toma algunos minutos para construir porque necesita ejecutar el `npm install`, y tomará el mismo tiempo cada vez que cambies cualquier archivo que no esté listado en `.dockerignore`.
 
 If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
 
