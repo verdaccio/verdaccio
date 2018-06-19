@@ -81,6 +81,6 @@ uplinks:
 
 * Verdaccio no usa Basic Authentication desde la versión `v2.3.0`. Todos los tokens generados por verdaccio están basados en JWT ([JSON Web Token](https://jwt.io/))
 * Uplinks must be registries compatible with the `npm` endpoints. Por ejemplo: *verdaccio*, `sinopia@1.4.0`, *registro npmjs*, *registro yarn*, *JFrog*, *Nexus* y más.
-* Definiendo el `caché` como falso te ayudará a ahorrar espacio en tu disco duro. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
+* Definiendo el `caché` como falso te ayudará a ahorrar espacio en tu disco duro. Esto evitará almacenar `tarballs` pero [ mantendrá los metadatos en carpetas](https://github.com/verdaccio/verdaccio/issues/391).
 * Excederse con múltiples uplinks puede ralentizar la búsqueda de tus paquetes debido a que cada solicitud que un cliente npm realiza, verdaccio hace una llamada por cada uplink.
-* The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
+* El formato (timeout, maxage y fail_timeout) sigue las [unidades de medida NGINX](http://nginx.org/en/docs/syntax.html)
