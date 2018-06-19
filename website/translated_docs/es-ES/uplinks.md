@@ -62,7 +62,7 @@ uplinks:
       token_env: FOO_TOKEN
 ```
 
-`token_env: FOO_TOKEN`internally will use `process.env['FOO_TOKEN']`
+`token_env: FOO_TOKEN` utilizará internamente `process.env['FOO_TOKEN']`
 
 o al especificar directamente un token:
 
