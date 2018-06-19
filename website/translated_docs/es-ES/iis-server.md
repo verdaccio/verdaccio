@@ -21,7 +21,7 @@ Quería que la página `verdaccio` fuese la página predeterminada en IIS así q
 
 - Me aseguré que el archivo .npmrc en `c:\users{yourname}` tuviese el registro configurado a `"registry=http://localhost/"`
 - Detuve el "Sitio Web Predeterminado" y solo empiezo el sitio "verdaccio" en IIS
-- Establecí los enlaces a "http", dirección de ip "Todos sin Asignar" en el puerto 80, ok cualquier advertencia o prompt
+- Establecí los enlaces a "http", dirección de ip "All Unassigned" en el puerto 80, ok cualquier advertencia o carácter de comando
 
 Estas instrucciones se basan en [Anfitrión Sinopia en IIS en Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tuve que hacer pequeños ajustes a mi configuración web como se puede ver debajo pero puedes encontrar el original del enlace mencionado el cual funciona mejor
 
