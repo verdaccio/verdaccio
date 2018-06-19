@@ -12,7 +12,7 @@ logs:
   - {type: file, path: verdaccio.log, level: info}
 ```
 
-Usa `SIGUSR2` para notificar a la aplicación, el archivo de registro fue girado y necesita reabrirlo.
+Usa `SIGUSR2` para notificar a la aplicación, el archivo de registro fue rotado y necesita reabrirlo.
 
 ### Configuración
 
