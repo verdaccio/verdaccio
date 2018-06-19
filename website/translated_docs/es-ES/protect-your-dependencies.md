@@ -26,7 +26,7 @@ Entonces, si yo estoy conectado como **equipoD**. No debería ser capaz de acced
 teamD
 ```
 
-I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
+No tendré acceso a dichas dependencias y tampoco serán visibles vía web para el usuario **equipoD**. Si intentas acceder, ocurrirá lo siguiente.
 
 ```bash
 ➜ npm install my-company-core
@@ -34,7 +34,7 @@ npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
-or with `yarn`
+o con `yarn`
 
 ```bash
 ➜ yarn add my-company-core
