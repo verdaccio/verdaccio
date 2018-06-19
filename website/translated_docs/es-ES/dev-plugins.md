@@ -16,14 +16,14 @@ function authenticate (user, password, callback) {
 }
 ```
 
-##### EnError
+##### OnError
 
 Algo malo sucedió o la autenticación no tuvo éxito.
 
     callback(null, false)
     
 
-##### EnÉxito
+##### OnSuccess
 
 La autenticación tuvo éxito.
 
