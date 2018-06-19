@@ -4,7 +4,7 @@ title: "Tests Unitarios"
 ---
 Todos los tests están divididos entre tres carpetas:
 
-- `test/unit` - Tests que cubren funciones que transforman datos en un modo no-trivial. Estos tests simplemente `require()` (requieren de) algunos archivos y código de ejecución, por lo que son muy rápidos.
+- `test/unit` - Tests que cubren funciones que transforman datos de forma no-trivial. Estos tests simplemente `require()` (requieren de) algunos archivos y código de ejecución, por lo que son muy rápidos.
 - `test/functional` - Tests que ejecutan una instancia de verdaccio y realizan una serie de peticiones a esta sobre http. Son de mayor lentitud en comparación a los tests unitarios.
 - `test/integration` - Tests que ejecutan una instancia de verdaccio y realizan peticiones a esta usando npm. Son considerablemente lentas y pueden incidir sobre un registro real de npm. **test sin mantenimiento**
 
@@ -21,7 +21,7 @@ Para ejecutar el script de test puedes utilizar tanto `npm` como `yarn`.
 
 Esto accionará solo los primeros dos grupos de tests, unit y funtional.
 
-### Usar test/unit
+### Usando test/unit
 
 El siguiente es simplemente un ejemplo de cómo se debe ver un test unitario. Básicamente, sigue el estandar `jest`.
 
@@ -31,7 +31,7 @@ Intenta describir exactamente qué hace el test unitario en una sola frase en el
 const verdaccio = require('../../src/api/index');
 const config = require('./partials/config');
 
-describe('basic system test', () => {
+ describe('basic system test', () => {
 
   beforeAll(function(done) {
     // something important
@@ -48,11 +48,11 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Usando test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Los tests functionales en verdaccio acarrean un mayor nivel de complejidad que amerita una explicación profunda para asegurar el éxito de tu experiencia.
 
-All starts in the `index.js` file. Let's dive in into it.
+Todo inicia en el archivo `index.js`. Adentrémosnos en este.
 
 ```javascript
 // we create 3 server instances
