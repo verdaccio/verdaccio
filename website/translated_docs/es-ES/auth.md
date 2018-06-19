@@ -36,7 +36,7 @@ Como se describe en [el ticket #212](https://github.com/verdaccio/verdaccio/issu
 
 ## Htpasswd por defecto
 
-Para simplificar la instalación, `verdaccio` usa una extensión basada en `htpasswd`. A partir de la versión v3.0.x se usa una [extensión externa](https://github.com/verdaccio/verdaccio-htpasswd) por defecto. The v2.x version of this package still contains the built-in version of this plugin.
+Para simplificar la instalación, `verdaccio` usa una extensión basada en `htpasswd`. A partir de la versión v3.0.x se usa una [extensión externa](https://github.com/verdaccio/verdaccio-htpasswd) por defecto. La versión v2.x de este paquete mantiene la versión integrada de esta extensión.
 
 ```yaml
 auth:
