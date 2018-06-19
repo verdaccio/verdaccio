@@ -2,7 +2,7 @@
 id: dev-plugins
 title: "Extensiones en Desarrollo"
 ---
-Hay muchas maneras de extender `verdaccio`, actualmente apoyamos `extensiones de autenticación`, `extensiones de middleware` (desde `v2.7.0`) y `extensiones de almacenamiento` desde (`v3.x`).
+Hay muchas maneras de extender `verdaccio`, actualmente apoyamos `authentication plugins`, `middleware plugins` (desde `v2.7.0`) y `storage plugins` desde (`v3.x`).
 
 ## Extensión de Autenticación
 
