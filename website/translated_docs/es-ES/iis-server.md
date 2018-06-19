@@ -7,7 +7,7 @@ Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.
 - Instala IIS Instala [iisnode](https://github.com/tjanczuk/iisnode). Asegúrate de instalar los requerimientos (Url Rewrite Module & node) como se explicó en las instrucciones para iisnode.
 - Crea una nueva carpeta en Explorer en donde deseas alojar a Verdaccio. Por ejemplo `C:\verdaccio`. Guardar [package.json](#packagejson), [start.js](#startjs) y [web.config](#webconfig) en esta carpeta.
 - Crea un nuevo sitio en Administrador de Servicios de Información de Internet. Puedes ponerle el nombre que quieras. Lo llamaré Verdaccio en estas [instrucciones](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Especifica la ruta en donde guardaste todos los archivos y un número de puerto.
-- Regresa a Explorer y otorgale al usuario que ejecuta el grupo de aplicaciones derechos para modificar la carpeta que acabas de crear. SI has nombrado el nuevo sitio verdaccio y no cambiaste el grupo de aplicaciones, está funcionado gracias a un ApplicationPoolIdentity y deberías entregarle al usuario derechos para modificar IIS AppPool\verdaccio mira las instrucciones si necesitas ayuda. (Puede restringir el acceso más adelante si lo deseas para que así solo tenga derechos para modificar en el iisnode y verdaccio\storage)
+- Regresa a Explorer y otorgale al usuario que ejecuta el grupo de aplicaciones derechos para modificar la carpeta que acabas de crear. Si has nombrado el nuevo sitio verdaccio y no cambiaste el grupo de aplicaciones, está funcionado gracias a un ApplicationPoolIdentity y deberías otorgarle al usuario derechos para modificar IIS AppPool\verdaccio mira las instrucciones si necesitas ayuda. (Puede restringir el acceso más adelante si lo deseas para que así solo tenga derechos para modificar en el iisnode y verdaccio\storage)
 - Empieza una línea de comando y ejecuta los comandos que aparecen debajo para descargar verdaccio:
 
     cd c:\verdaccio
@@ -20,7 +20,7 @@ Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.
 Quería que la página `verdaccio` fuese la página predeterminada en IIS así que hice lo siguiente:
 
 - Me aseguré que el archivo .npmrc en `c:\users{yourname}` tuviese el registro configurado a `"registry=http://localhost/"`
-- Detuve el "Sitio Web Predeterminado" y solo empiezo el sitio "verdaccio" sitio en IIS
+- Detuve el "Sitio Web Predeterminado" y solo empiezo el sitio "verdaccio" en IIS
 - Establecí los enlaces a "http", dirección de ip "Todos sin Asignar" en el puerto 80, ok cualquier advertencia o prompt
 
 Estas instrucciones se basan en [Anfitrión Sinopia en IIS en Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tuve que hacer pequeños ajustes a mi configuración web como se puede ver debajo pero puedes encontrar el original del enlace mencionado el cual funciona mejor
