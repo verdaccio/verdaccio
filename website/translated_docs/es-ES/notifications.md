@@ -41,7 +41,7 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## Modelo
 
 We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 
