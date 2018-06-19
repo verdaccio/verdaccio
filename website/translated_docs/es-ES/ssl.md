@@ -9,22 +9,22 @@ Siga estas instrucciones para configurar un certificado SSL que sirva al registr
     listen: 'https://your.domain.com/'
     
 
-Once you update the listen and try to run verdaccio again will ask for certificates.
+Una vez haya actualizado la propiedad listen e intente correr verdaccio nuevamente pedirá los certificados.
 
-* Generate your certificates
+* Generar sus certificados
 
      $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
      $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
      $ openssl x509 -req -in /Users/user/.config/verdaccio/verdaccio-csr.pem -signkey /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-cert.pem
      ````
     
-    * Edit your config file `/Users/user/.config/verdaccio/config.yaml` and add the following section
+    * Edite su archivo config `/Users/user/.config/verdaccio/config.yaml`y añada la próxima sección
     
     
 
 https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 
-    <br />Alternatively, if you have a certificate as `server.pfx` format, you can add the following configuration section. The passphrase is optional and only needed, if your certificate is encrypted.
+    <br />Alternativamente, si tiene un certificado de formato `server.pfx`, puede añadir la siguiente sección de configuración. La propiedad passphrase es opcional y solo necesaria en caso de que su certificado esté encriptado.
     
     
 
