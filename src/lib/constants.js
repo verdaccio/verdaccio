@@ -13,3 +13,13 @@ export const ERROR_CODE = {
 export const TOKEN_BASIC = 'Basic';
 export const TOKEN_BEARER = 'Bearer';
 export const DEFAULT_REGISTRY = 'https://registry.npmjs.org/';
+
+
+export const HTTP_STATUS = {
+  INTERNAL_ERROR: 500,
+  OK: 200,
+  CREATED: 201,
+  NOT_FOUND: 404,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+};

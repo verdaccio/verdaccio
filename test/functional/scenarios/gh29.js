@@ -1,10 +1,15 @@
-import {createTarballHash} from "../../src/lib/crypto-utils";
+import {createTarballHash} from "../../../src/lib/crypto-utils";
+import {HTTP_STATUS} from "../../../src/lib/constants";
+import fs from 'fs';
+import path from 'path';
 
-function readfile(x) {
-  return require('fs').readFileSync(__dirname + '/' + x);
+function readfile(filePath) {
+  const folder = path.join(__dirname , filePath);
+
+  return fs.readFileSync(folder);
 }
 
-const binary = 'fixtures/binary';
+const binary = '../fixtures/binary';
 const pkgName = 'testpkg-gh29';
 const pkgContent = 'blahblah';
 
@@ -12,7 +17,7 @@ export default function (server, server2) {
 
   test('downloading non-existent tarball #1 / srv2', () => {
     return server2.getTarball(pkgName, pkgContent)
-             .status(404)
+             .status(HTTP_STATUS.NOT_FOUND)
              .body_error(/no such package/);
   });
 
@@ -20,8 +25,8 @@ export default function (server, server2) {
 
 
     beforeAll(function() {
-      return server.putPackage(pkgName, require('./fixtures/package')(pkgName))
-               .status(201)
+      return server.putPackage(pkgName, require('../fixtures/package')(pkgName))
+               .status(HTTP_STATUS.CREATED)
                .body_ok(/created new package/);
     });
 
@@ -29,14 +34,14 @@ export default function (server, server2) {
 
     test('downloading non-existent tarball #2 / srv2', () => {
       return server2.getTarball(pkgName, pkgContent)
-               .status(404)
+               .status(HTTP_STATUS.NOT_FOUND)
                .body_error(/no such file available/);
     });
 
     describe('tarball', () => {
       beforeAll(function() {
         return server.putTarball(pkgName, pkgContent, readfile(binary))
-                 .status(201)
+                 .status(HTTP_STATUS.CREATED)
                  .body_ok(/.*/);
       });
 
@@ -44,10 +49,10 @@ export default function (server, server2) {
 
       describe('pkg version', () => {
         beforeAll(function() {
-          const pkg = require('./fixtures/package')(pkgName);
+          const pkg = require('../fixtures/package')(pkgName);
           pkg.dist.shasum = createTarballHash().update(readfile(binary)).digest('hex');
           return server.putVersion(pkgName, '0.0.1', pkg)
-                   .status(201)
+                   .status(HTTP_STATUS.CREATED)
                    .body_ok(/published/);
         });
 
@@ -55,7 +60,7 @@ export default function (server, server2) {
 
         test('downloading newly created tarball / srv2', () => {
           return server2.getTarball(pkgName, pkgContent)
-                 .status(200)
+                 .status(HTTP_STATUS.OK)
                  .then(function(body) {
                    expect(body).toEqual(readfile(binary));
                  });

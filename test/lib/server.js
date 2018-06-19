@@ -4,10 +4,11 @@ import _ from 'lodash';
 import assert from 'assert';
 import smartRequest from './request';
 import type {IServerBridge} from '../types';
-import {HEADERS} from '../../src/lib/constants';
+import {HEADERS, HTTP_STATUS, TOKEN_BASIC} from '../../src/lib/constants';
+import {buildToken} from "../../src/lib/utils";
 
 const buildAuthHeader = (user, pass): string => {
-  return `Basic ${(new Buffer(`${user}:${pass}`)).toString('base64')}`;
+  return buildToken(TOKEN_BASIC, new Buffer(`${user}:${pass}`).toString('base64'));
 };
 
 export default class Server implements IServerBridge {
@@ -22,7 +23,6 @@ export default class Server implements IServerBridge {
   }
 
   request(options: any): any {
-    // console.log("--->$$$$ REQUEST", options);
     assert(options.uri);
     const headers = options.headers || {};
 
@@ -182,14 +182,14 @@ export default class Server implements IServerBridge {
 
   addPackage(name: string) {
     return this.putPackage(name, require('../functional/fixtures/package')(name))
-      .status(201)
+      .status(HTTP_STATUS.CREATED)
       .body_ok('created new package');
   }
 
   whoami() {
     return this.request({
       uri: '/-/whoami'
-    }).status(200)
+    }).status(HTTP_STATUS.OK)
       .then(function(body) {
         return body.username;
       });
@@ -198,7 +198,7 @@ export default class Server implements IServerBridge {
   ping() {
     return this.request({
       uri: '/-/ping'
-    }).status(200)
+    }).status(HTTP_STATUS.OK)
       .then(function(body) {
         return body;
       });

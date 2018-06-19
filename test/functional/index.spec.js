@@ -19,14 +19,13 @@ import notify from './notifications/notify';
 import incomplete from './sanity/incomplete';
 import mirror from './sanity/mirror';
 import readme from './readme/readme';
-import gh29 from './gh29';
+import gh29 from './scenarios/gh29';
 import nullstorage from './sanity/nullstorage';
 import racycrash from './sanity/racycrash';
 import security from './sanity/security';
 import race from './performance/race';
 import pluginsAuth from './plugins/auth';
-import upLinkCache from './uplink.cache';
-import upLinkAuth from './uplink.auth';
+import upLinkCache from './uplinks/cache';
 
 describe('functional test verdaccio', function() {
   jest.setTimeout(10000);
@@ -55,7 +54,6 @@ describe('functional test verdaccio', function() {
   notify(app);
   // requires packages published to server1/server2
   upLinkCache(server1, server2, server3);
-  upLinkAuth();
   adduser(server1);
   logout(server1);
   basic(server1, server2);
