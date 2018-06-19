@@ -1,12 +1,12 @@
 ---
 id: protect-your-dependencies
-title: "Protecting packages"
+title: "Protegiendo paquetes"
 ---
 `verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
 
-### Package configuration
+### Configuración del paquete
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+Veamos por instancia la siguiente configuración. Tienes un conjunto de dependencias con prefijo `my-company-*` y necesitas protegerlas de anónimos o de otro usuario registrado sin credenciales.
 
 ```yaml
   'my-company-*':
@@ -15,11 +15,11 @@ Let's see for instance the following set up. You have a set of dependencies what
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to * publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+Con esta configuración, básicamente le permitimos agrupar **administradores** y **equipoA** para * publicar* y el **equipoA** **equipoB** **equipoC** *acceder* a dichas dependencias.
 
 ### Use case: teamD try to access the dependency
 
-So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
+Entonces, si yo estoy conectado como **equipoD**. No debería ser capaz de acceder a todas las dependencias que cumplan con el patrón `my-company-*`.
 
 ```bash
 ➜ npm whoami
