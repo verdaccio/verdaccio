@@ -38,9 +38,9 @@ Puedes definir múltiples uplinks y cada uno de ellos debe tener un nombre únic
 | headers      | list    | No        | ]]                                    | all     | listado de encabezados por uplink                                                                                                 | desactivado |
 | strict_ssl   | boolean | No        | [true,false]                          | >= 3.0  | Es verdadero, requiere que el certificado SSL sea válido.                                                                         | true        |
 
-#### Auth property
+#### Propiedad auth
 
-The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
+La propiedad `auth` te permite usar un token auth con un uplink. Usando la variable de entorno por defecto:
 
 ```yaml
 uplinks:
@@ -80,7 +80,7 @@ uplinks:
 ### Debes saber
 
 * Verdaccio no usa Basic Authentication desde la versión `v2.3.0`. Todos los tokens generados por verdaccio están basados en JWT ([JSON Web Token](https://jwt.io/))
-* Uplinks must be registries compatible with the `npm` endpoints. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
+* Uplinks must be registries compatible with the `npm` endpoints. Por ejemplo: *verdaccio*, `sinopia@1.4.0`, *registro npmjs*, *registro yarn*, *JFrog*, *Nexus* y más.
 * Definiendo el `caché` como falso te ayudará a ahorrar espacio en tu disco duro. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
 * Excederse con múltiples uplinks puede ralentizar la búsqueda de tus paquetes debido a que cada solicitud que un cliente npm realiza, verdaccio hace una llamada por cada uplink.
 * The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
