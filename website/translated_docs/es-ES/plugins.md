@@ -23,9 +23,9 @@ $> npm install --global verdaccio-activedirectory
 
 Abra el archivo `config.yaml` y actualice la sección `auth` como a continuación:
 
-The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+La configuración por defecto luce así, debido a que usamos un complemento build-in `htpasswd` por defecto que puede desactivar con solo comentar las siguientes líneas.
 
-### Auth Plugin Configuration
+### Configuración del Complemento de Auth
 
 ```yaml
  htpasswd:
@@ -33,7 +33,7 @@ The default configuration looks like this, due we use a build-in `htpasswd` plug
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+y reemplazándolos con (en caso de que decida usar un complemento `ldap`).
 
 ```yaml
 auth:
@@ -43,9 +43,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Auth plugins
+#### Múltiples complementos Auth
 
-This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
+Esto es técnicamente posible, el orden de los complementos se vuelve importante, las credenciales serán resueltas en orden.
 
 ```yaml
 auth:
@@ -58,9 +58,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Plugin Configuration
+### Configuración del Complemento Middleware
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+Este es un ejemplo de como se instala un complemento middleware. Todos los complementos middleware deben estar definidos en el namespace **middlewares**.
 
 ```yaml
 middlewares:
@@ -68,9 +68,9 @@ middlewares:
     enabled: true
 ```
 
-### Store Plugin Configuration
+### Configuraión del Complemento Almacén (Store)
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+Este es un ejemplo de como instalar un complemento de almacenamiento. Todos los complementos de almacenamiento debe estar definidos en el namespace **store**.
 
 ```yaml
 store:
