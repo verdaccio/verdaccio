@@ -4,7 +4,7 @@ title: "Extensiones en Desarrollo"
 ---
 There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
 
-## Authentication Plugin
+## Extensión de Autenticación
 
 This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
 
@@ -18,14 +18,14 @@ function authenticate (user, password, callback) {
 
 ##### OnError
 
-Either something bad happened or auth was unsuccessful.
+Algo malo sucedió o la autenticación no tuvo éxito.
 
     callback(null, false)
     
 
 ##### OnSuccess
 
-The auth was successful.
+La autenticación tuvo éxito.
 
 `groups` is an array of strings where the user is part of.
 
@@ -91,7 +91,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 
 To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
 
-## Storage Plugin
+## Extensión de Almacenamiento
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage) but, since `verdaccio@3.x` you can plug in a custom storage.
 
@@ -139,11 +139,11 @@ interface IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. Para más información acerca del API de Almacenamiento por favor sigue los [tipos y definiciones en nuestro repositorio oficial](https://github.com/verdaccio/flow-types).
+> El API de Almacenamiento todavía es experimental y podría cambiar en las próximas versiones menores. Para más información acerca del API de Almacenamiento por favor sigue los [tipos y definiciones en nuestro repositorio oficial](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Ejemplos de Extensiones de Almacenamiento
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+La siguiente lista de extensiones implementan el API de Almacenamiento y pueden ser utilizados como ejemplo.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
