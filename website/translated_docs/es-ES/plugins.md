@@ -78,19 +78,19 @@ store:
     limit: 1000
 ```
 
-> If you define a custom store, the property **storage** in the configuration file will be ignored.
+> Si define un almacén personalizado, la propiedad **storage** en el archivo de configuración será ignorada.
 
-## Legacy plugins
+## Complementos heredados
 
-### Sinopia Plugins
+### Complementos Sinopia
 
-(compatible all versions)
+(compatible con todas las versiones)
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
-* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): complemento auth para sinopia soportando un registro npm.
+* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): complemento auth para sinopia que mantiene a los usuarios en la memoria.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
-* [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
-* [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): Active Directory authentication plugin for sinopia.
+* [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): complemento auth para sinopia que soporta la multitud de atlassian.
+* [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): complemento de autenticación Active Directory para sinopia.
 * [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): authentication plugin for sinopia2, supporting github oauth web flow.
 * [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): Sinopia authentication plugin that delegates authentication to another HTTP URL
 * [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alternate LDAP Auth plugin for Sinopia
