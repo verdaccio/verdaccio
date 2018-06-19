@@ -1,27 +1,27 @@
 ---
 id: plugins
-title: "Plugins"
+title: "Complementos"
 ---
-Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
+Verdaccion es una aplicación extensible. Puede ser extendida en muchas maneras, tanto con nuevos métodos de autenticación, añadiendo endpoints o usando un almacenamiento personalizado.
 
-> If you are interested to develop your own plugin, read the [development](development.md) section.
+> Si está interesado en desarrollar su propio complemento, lea la sección [development](development.md).
 
-## Usage
+## Uso
 
-### Installation
+### Instalación
 
 ```bash
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccion` como un fork de sinopia tiene compatibilidad con versiones anteriores, con complementos que son compatibles con `sinopia@1.4.0`. En tal caso la instalación es la misma.
 
     $> npm install --global sinopia-memory
     
 
-### Configuration
+### Configuración
 
-Open the `config.yaml` file and update the `auth` section as follows:
+Abra el archivo `config.yaml` y actualice la sección `auth` como a continuación:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
 
