@@ -8,15 +8,15 @@ Basándose ligeramente en las instrucciones encontradas [aquí](http://asysadmin
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
 2. Instalar localmente verdaccio (me encontré con problemas npm con las instalaciones globales) 
-    * npm install verdaccio
-3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
+    * instalar verdaccio con npm
+3. Crear su archivo `config.yaml` en esta ubicación `(c:\verdaccio\config.yaml)`
 4. Windows Service Setup
 
 ## Using NSSM
 
 ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
 
-* Download [NSSM](https://www.nssm.cc/download/) and extract
+* Descargar [NSSM](https://www.nssm.cc/download/) y extraerlo
 
 * Add the path that contains nssm.exe to the PATH
 
