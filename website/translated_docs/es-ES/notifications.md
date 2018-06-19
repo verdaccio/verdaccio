@@ -117,9 +117,9 @@ Empaqueta la metadata a la que el modelo tiene acceso
 
 ### Publisher
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+Puede accesar a la información del paquete publisher en el `content` de una webhook usando el objeto `publisher`.
 
-See below the `publisher` object type:
+Vea debalo del tipo de objeto `publisher`:
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+Un ejemplo:
 
     notify:
       method: POST
@@ -137,16 +137,16 @@ An example:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**Nota:** no es posible obtener la informacion de publisher si el archivo `package.json` ya tiene la propiedad `publisher`.
 
-### Package Published
+### Paquete Publicado
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+Puede accesar al paquete que está siendo publicado con el comando `{{publishedPackage}}` como a continuación.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-## Configuration
+## Configuración
 
 | Propiedad           | Tipo         | Requerido | Soporte | Por Defecto | Descripción                                                                                  |
 | ------------------- | ------------ | --------- | ------- | ----------- | -------------------------------------------------------------------------------------------- |
