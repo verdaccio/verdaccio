@@ -139,7 +139,7 @@ interface IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> The Storage API is still experimental and might change in the next minor versions. Para más información acerca del API de Almacenamiento por favor sigue los [tipos y definiciones en nuestro repositorio oficial](https://github.com/verdaccio/flow-types).
 
 ### Storage Plugins Examples
 
@@ -150,4 +150,4 @@ The following list of plugins are implementing the Storage API and might be used
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> ¿Estás dispuesto a contribuir con nuevas extensiones de almacenamiento? [Haz click aquí.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
