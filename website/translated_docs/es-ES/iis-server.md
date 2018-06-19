@@ -2,26 +2,26 @@
 id: iss-servidor
 title: "Instalación en servidor IIS"
 ---
-Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) and [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
+Estas instrucciones fueron escritas para Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) y [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
 
 - Instala IIS Instala [iisnode](https://github.com/tjanczuk/iisnode). Asegúrate de instalar los requerimientos (Url Rewrite Module & node) como se explicó en las instrucciones para iisnode.
 - Crea una nueva carpeta en Explorer en donde deseas alojar a Verdaccio. Por ejemplo `C:\verdaccio`. Guardar [package.json](#packagejson), [start.js](#startjs) y [web.config](#webconfig) en esta carpeta.
-- Crea un nuevo sitio en Administrador de Servicios de Información de Internet. Puedes ponerle el nombre que quieras. Lo llamaré Verdaccio en estas [instrucciones](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Especifíca la ruta en donde guardaste todos los archivos y un número de puerto.
-- Regresa a Explorer y entrega al usuario que usa el grupo de aplicaciones derechos para modificar la carpeta que acabas de crear. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
+- Crea un nuevo sitio en Administrador de Servicios de Información de Internet. Puedes ponerle el nombre que quieras. Lo llamaré Verdaccio en estas [instrucciones](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Especifica la ruta en donde guardaste todos los archivos y un número de puerto.
+- Regresa a Explorer y otorgale al usuario que ejecuta el grupo de aplicaciones derechos para modificar la carpeta que acabas de crear. Si has nombrado el nuevo sitio verdaccio y no cambiaste el grupo de aplicaciones, está funcionado gracias a un ApplicationPoolIdentity y deberías otorgarle al usuario derechos para modificar IIS AppPool\verdaccio mira las instrucciones si necesitas ayuda. (Puede restringir el acceso más adelante si lo deseas para que así solo tenga derechos para modificar en el iisnode y verdaccio\storage)
 - Empieza una línea de comando y ejecuta los comandos que aparecen debajo para descargar verdaccio:
 
     cd c:\verdaccio
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
+- Asegúrate de tener una regla de entrada que acepte Tráfico de TCP al puerto en Windows Firewall
 - ¡Y listo! Ahora puedes navegar al host y al puerto que especificaste
 
 Quería que la página `verdaccio` fuese la página predeterminada en IIS así que hice lo siguiente:
 
 - Me aseguré que el archivo .npmrc en `c:\users{yourname}` tuviese el registro configurado a `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Detuve el "Sitio Web Predeterminado" y solo empiezo el sitio "verdaccio" en IIS
+- Establecí los enlaces a "http", dirección de ip "All Unassigned" en el puerto 80, ok cualquier advertencia o carácter de comando
 
 Estas instrucciones se basan en [Anfitrión Sinopia en IIS en Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tuve que hacer pequeños ajustes a mi configuración web como se puede ver debajo pero puedes encontrar el original del enlace mencionado el cual funciona mejor
 

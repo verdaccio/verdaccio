@@ -4,7 +4,7 @@ title: "Reverse Proxy Setup"
 ---
 ## Apache
 
-Apache and mod_proxy should not decode/encode slashes and leave them as they are:
+Apache y mod_proxy no deberían decodificar/codificar barras y dejarlas como son:
 
     <VirtualHost *:80>
       AllowEncodedSlashes NoDecode
@@ -13,7 +13,7 @@ Apache and mod_proxy should not decode/encode slashes and leave them as they are
     </VirtualHost>
     
 
-### Configuration with SSL
+### Configuración con SSL
 
 config.yaml
 
@@ -21,7 +21,7 @@ config.yaml
 url_prefix: https://npm.your.domain.com
 ```
 
-Apache virtual server configuration
+Configuración del servidor virtual de Apache
 
         apacheconfig
         <IfModule mod_ssl.c>
@@ -55,7 +55,7 @@ Apache virtual server configuration
 
 If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
 
-To resolve this issue, you should send real domain and port to verdaccio with `Host` heade
+Para resolver este problema, debes enviar el dominio real y el puerto a verdaccio con `Host` heade
 
 Nginx configure should look like this:
 
@@ -68,11 +68,11 @@ location / {
 }
 ```
 
-For this case, `url_prefix` should NOT set in verdaccio config
+Para este caso, `url_prefix` NO debe establecerse en la configuración verdaccio
 
 * * *
 
-or a sub-directory installation:
+o a una instalación de sub-directorio:
 
 ```nginx
 location ~ ^/verdaccio/(.*)$ {
@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-For this case, `url_prefix` should set to `/verdaccio/`
+Para este caso, `url_prefix` debe establecerse a `/verdaccio/`
 
 > Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
