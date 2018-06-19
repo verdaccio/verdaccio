@@ -117,13 +117,13 @@ La clase de servidor es tan solo un wrapper que simula un cliente `npm` y propor
 
 Como mencionamos en la sección previa, estamos creando 3 servidores de proceso que son accesibles en cada proceso como `server1`, `server2` y ``server3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+Usando dichas referencias serás capaz de enviar peticiones a cualquiera de las 3 instancias en ejecución.
 
 ```javascript
 <br />export default function(server) {
-  // we recieve any server instance via arguments
+  // recibimos cualquier instancia de servidor a través de argumentos
   test('add tag - 404', () => {
-    // we interact with the server instance.
+    // interactuamos con la instancia de servidor.
     return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1').status(404).body_error(/no such package/);
   });
 });
@@ -131,4 +131,4 @@ Using such reference you will be able to send request to any of the 3 instance r
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Esta sección no ha sido usada jamás, pero estamos buscando ayuda con la intención de poder ejecutarla apropiadamente. **Toda idea nueva es bastante bienvenida.**
