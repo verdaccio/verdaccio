@@ -27,7 +27,7 @@ Algo malo sucedió o la autenticación no tuvo éxito.
 
 La autenticación tuvo éxito.
 
-`groups` is an array of strings where the user is part of.
+`groups` es una matriz de cadenas de caracteres donde el usuario participa.
 
      callback(null, groups);
     
@@ -65,7 +65,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the setup
+Y la configuración
 
 ```yaml
 auth:
@@ -73,7 +73,7 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Donde `htpasswd` es el sufijo del nombre de la extensión. Por ejemplo: `verdaccio-htpasswd` y el resto del cuerpo serían los parámetros de configuración de la extensión.
 
 ## Extensión de Middleware
 
