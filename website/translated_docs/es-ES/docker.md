@@ -67,7 +67,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 > Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
-### Docker y configuración personalizada del puerto
+### Usar un puerto personalizado con Docker
 
 Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` está actualmente ignorado al usar docker.
 
@@ -83,7 +83,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Usando HTTPS con Docker
+### Configura Docker con HTTPS
 
 Puedes configurar el protocolo que verdaccio va a escuchar, similar a la configuración de puerto. Tienes que sobre escribir el valor por defecto ("http") de la variable del entorno `PROTOCOL` a "https", luego de haber especificado los certificados en config.yaml.
 
@@ -139,11 +139,11 @@ If you want to use the docker image on a rpi or a compatible device there is als
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Por favor note que para cualquier comando docker de arriba, necesitas tener un docker instalado en tu máquina y el docker ejecutable debe estar disponible en tu `$PATH`.
 
 ## Ejemplos con Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Existe un repositorio separado que aloja múltiples configuraciones para componer imágenes Docker con `verdaccio`, por ejemplo, como proxy inverso:
 
 <https://github.com/verdaccio/docker-examples>
 
