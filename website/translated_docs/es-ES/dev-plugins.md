@@ -6,7 +6,7 @@ Hay muchas maneras de extender `verdaccio`, actualmente apoyamos `authentication
 
 ## Extensión de Autenticación
 
-Esta sección describe cómo se ve una extensión de Verdaccio de manera ES5. Básicamente tenemos que devolver un objeto con un único método llamado `autenticar` que recibirá 3 argumentos (`usuario, contraseña, devolución de llamada`). Una vez que la autenticación haya sido ejecutada habrán 2 opciones con las que se podrá dar una respuesta a `verdaccio`.
+Esta sección describe cómo se ve una extensión de Verdaccio de manera ES5. Básicamente tenemos que devolver un objeto con un único método llamado `authenticate` que recibirá 3 argumentos (`user, password, callback`). Una vez que la autenticación haya sido ejecutada habrán 2 opciones con las que se podrá dar una respuesta a `verdaccio`.
 
 ### API
 
