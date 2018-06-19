@@ -11,4 +11,4 @@ Para más información:
 
 > Estamos buscando contribuyentes para este repositorio, si está interesado por favor notifique al autor via tickets.
 
-Author: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
+Autor: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
