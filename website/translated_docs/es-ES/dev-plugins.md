@@ -77,7 +77,7 @@ Donde `htpasswd` es el sufijo del nombre de la extensión. Por ejemplo: `verdacc
 
 ## Extensión de Middleware
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Las extensiones de Middleware tienen la capacidad de modificar la capa de API, ya sea añadiendo extremos o peticiones de interceptación.
 
 > Un muy buen ejemplo de la extensión de middleware es [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) y [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
@@ -89,15 +89,15 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Para registrar un middleware necesitamos un objeto con un único método llamado `register_middlewares` que recibirá 3 argumentos (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
 
 ## Extensión de Almacenamiento
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage) but, since `verdaccio@3.x` you can plug in a custom storage.
+Verdaccio por defecto utiliza una extensión de almacenamientos de sistema de archivos [local-storage](https://github.com/verdaccio/local-storage) pero, desde `verdaccio@3.x` puedes añadir un almacenamiento personalizado.
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `ILocalData` implementation. Please see details bellow.
+El API de almacenamiento es un poco más complejo, necesitarás crear una clase que devuelva una implementación de `ILocalData`. Por favor, mira los detalles que aparecen a continuación.
 
 ```js
 <br />class LocalDatabase<ILocalData>{
