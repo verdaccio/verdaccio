@@ -1,5 +1,6 @@
-import assert from 'assert';
-import ProxyStorage, {DEFAULT_REGISTRY} from '../../src/lib/up-storage';
+import ProxyStorage from '../../src/lib/up-storage';
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY} from "../../src/lib/constants";
+import {buildToken} from "../../src/lib/utils";
 
 function createUplink(config) {
   const defaultConfig = {
@@ -27,8 +28,8 @@ export default function () {
       const keys = Object.keys(headers);
       const keysExpected = ['Accept', 'Accept-Encoding', 'User-Agent'];
 
-      assert.deepEqual(keys, keysExpected);
-      assert.equal(keys.length, 3);
+      expect(keys).toEqual(keysExpected);
+      expect(keys).toHaveLength(3);
     });
 
     test('if assigns value invalid to attribute auth', () => {
@@ -45,11 +46,11 @@ export default function () {
 
     test('if assigns the header authorization', () => {
       const headers = setHeaders({}, {
-        'authorization': 'basic Zm9vX2Jhcg=='
+        'authorization': buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
       });
 
-      assert.equal(Object.keys(headers).length, 4);
-      assert.equal(headers['authorization'], 'basic Zm9vX2Jhcg==');
+      expect(Object.keys(headers)).toHaveLength(4);
+      expect(headers['authorization']).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
     });
 
     test(
@@ -57,39 +58,39 @@ export default function () {
       () => {
         const headers = setHeaders({
           auth: {
-            type: 'bearer',
+            type: TOKEN_BEARER,
             token: 'tokenBearer'
           }
         }, {
-          'authorization': 'basic tokenBasic'
+          'authorization': buildToken(TOKEN_BASIC, 'tokenBasic')
         });
 
-        assert.equal(headers['authorization'], 'basic tokenBasic');
+        expect(headers['authorization']).toEqual(buildToken(TOKEN_BASIC, 'tokenBasic'));
       }
     );
 
     test('set type auth basic', () => {
       const headers = setHeaders({
         auth: {
-          type: 'basic',
+          type: TOKEN_BASIC,
           token: 'Zm9vX2Jhcg=='
         }
       });
 
-      assert.equal(Object.keys(headers).length, 4);
-      assert.equal(headers['authorization'], 'Basic Zm9vX2Jhcg==');
+      expect(Object.keys(headers)).toHaveLength(4);
+      expect(headers['authorization']).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
     });
 
     test('set type auth bearer', () => {
       const headers = setHeaders({
         auth: {
-          type: 'bearer',
+          type: TOKEN_BEARER,
           token: 'Zm9vX2Jhcf==='
         }
       });
 
-      assert.equal(Object.keys(headers).length, 4);
-      assert.equal(headers['authorization'], 'Bearer Zm9vX2Jhcf===');
+      expect(Object.keys(headers)).toHaveLength(4);
+      expect(headers['authorization']).toEqual(buildToken(TOKEN_BEARER, 'Zm9vX2Jhcf==='));
     });
 
     test('set auth type invalid', () => {
@@ -111,11 +112,11 @@ export default function () {
       process.env.NPM_TOKEN = 'myToken';
       const headers = setHeaders({
         auth: {
-          type: 'bearer'
+          type: TOKEN_BEARER
         }
       });
 
-      assert.equal(headers['authorization'], 'Bearer myToken');
+      expect(headers['authorization']).toBe(`${TOKEN_BEARER} myToken`);
       delete process.env.NPM_TOKEN;
     });
 
@@ -123,12 +124,12 @@ export default function () {
       process.env.NPM_TOKEN_TEST = 'myTokenTest';
       const headers = setHeaders({
         auth: {
-          type: 'basic',
+          type: TOKEN_BASIC,
           token_env: 'NPM_TOKEN_TEST'
         }
       });
 
-      assert.equal(headers['authorization'], 'Basic myTokenTest');
+      expect(headers['authorization']).toBe(buildToken(TOKEN_BASIC, 'myTokenTest'));
       delete process.env.NPM_TOKEN_TEST;
     });
 
@@ -137,12 +138,14 @@ export default function () {
       const fnError = function() {
         setHeaders({
           auth: {
-            type: 'basic'
+            type: TOKEN_BASIC
           }
         });
       };
 
-      assert.throws(fnError, 'Token is required');
+      expect(function( ) {
+        fnError();
+      }).toThrow(ERROR_CODE.token_required);
     });
   });
 }

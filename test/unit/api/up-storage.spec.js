@@ -1,6 +1,6 @@
 // @flow
 import _ from 'lodash';
-import ProxyStorage, {DEFAULT_REGISTRY} from '../../../src/lib/up-storage';
+import ProxyStorage from '../../../src/lib/up-storage';
 import AppConfig from '../../../src/lib/config';
 // $FlowFixMe
 import configExample from '../partials/config/index';
@@ -8,6 +8,7 @@ import {setup} from '../../../src/lib/logger';
 
 import type {Config, UpLinkConf} from '@verdaccio/types';
 import type {IProxy} from '../../../types/index';
+import {DEFAULT_REGISTRY} from "../../../src/lib/constants";
 
 setup([]);
 

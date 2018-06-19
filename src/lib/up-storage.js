@@ -6,16 +6,15 @@ import _ from 'lodash';
 import request from 'request';
 import Stream from 'stream';
 import URL from 'url';
-import {parseInterval, isObject, ErrorCode} from './utils';
+import {parseInterval, isObject, ErrorCode, buildToken} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
-import {HEADERS} from '../lib/constants';
-
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS} from './constants';
 import type {
-  Config,
-  UpLinkConf,
-  Callback,
-  Headers,
-  Logger,
+Config,
+UpLinkConf,
+Callback,
+Headers,
+Logger,
 } from '@verdaccio/types';
 import type {IProxy} from '../../types';
 
@@ -36,10 +35,6 @@ const contenTypeAccept = `${jsonContentType};`;
 const setConfig = (config, key, def) => {
   return _.isNil(config[key]) === false ? config[key] : def;
 };
-
-export const TOKEN_BASIC = 'basic';
-export const TOKEN_BEARER = 'bearer';
-export const DEFAULT_REGISTRY = 'https://registry.npmjs.org/';
 
 /**
  * Implements Storage interface
@@ -295,15 +290,15 @@ class ProxyStorage implements IProxy {
       } else if (_.isBoolean(tokenConf.token_env) && tokenConf.token_env) {
         token = process.env.NPM_TOKEN;
       } else {
-        this.logger.error('token is required' );
-        this._throwErrorAuth('token is required');
+        this.logger.error(ERROR_CODE.token_required);
+        this._throwErrorAuth(ERROR_CODE.token_required);
       }
     } else {
       token = process.env.NPM_TOKEN;
     }
 
     if (_.isNil(token)) {
-      this._throwErrorAuth('token is required');
+      this._throwErrorAuth(ERROR_CODE.token_required);
     }
 
     // define type Auth allow basic and bearer
@@ -331,12 +326,14 @@ class ProxyStorage implements IProxy {
    * @private
    */
   _setHeaderAuthorization(headers: any, type: string, token: any) {
-    if (type !== TOKEN_BEARER && type !== TOKEN_BASIC) {
-      this._throwErrorAuth(`Auth type '${type}' not allowed`);
+    const _type: string = type.toLowerCase();
+
+    if (_type !== TOKEN_BEARER.toLowerCase() && _type !== TOKEN_BASIC.toLowerCase()) {
+      this._throwErrorAuth(`Auth type '${_type}' not allowed`);
     }
 
     type = _.upperFirst(type);
-    headers['authorization'] = `${type} ${token}`;
+    headers['authorization'] = buildToken(type, token);
   }
 
   /**
