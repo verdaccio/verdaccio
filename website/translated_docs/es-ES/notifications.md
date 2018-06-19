@@ -2,13 +2,13 @@
 id: notifications
 title: "Notificaciones"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
+Notify fué creado principalmente para usarse con los webhooks entrantes de Slack, pero también entregará una carga útil simple a cualquier endpoint. Actualmente sólo está activo para el comando `npm publish`.
 
 ## Uso
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+Un ejemplo con un hook de **HipChat**, **Stride** y **Google Hangouts Chat**:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio soporta cualquier API, siéntase en libertad de añadir más ejemplos.
 
 #### Notificación sencilla
 
