@@ -6,7 +6,7 @@ Hay muchas maneras de extender `verdaccio`, actualmente apoyamos `extensiones de
 
 ## Extensión de Autenticación
 
-This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Esta sección describe cómo se ve una extensión de Verdaccio de manera ES5. Básicamente tenemos que devolver un objeto con un único método llamado `autenticar` que recibirá 3 argumentos (`usuario, contraseña, devolución de llamada`). Una vez que la autenticación haya sido ejecutada habrán 2 opciones con las que se podrá dar una respuesta a `verdaccio`.
 
 ### API
 
