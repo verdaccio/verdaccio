@@ -5,14 +5,14 @@ title: "Tests Unitarios"
 Todos los tests están divididos entre tres carpetas:
 
 - `test/unit` - Tests que cubren funciones que transforman datos en un modo no-trivial. Estos tests simplemente `require()` (requieren de) algunos archivos y código de ejecución, por lo que son muy rápidos.
-- `test/functtional` - Tests que ejecutan una instancia de verdaccio y realizan una serie de peticiones a esta sobre http. Son de mayor lentitud en comparación a los tests unitarios.
+- `test/functional` - Tests que ejecutan una instancia de verdaccio y realizan una serie de peticiones a esta sobre http. Son de mayor lentitud en comparación a los tests unitarios.
 - `test/integration` - Tests que ejecutan una instancia de verdaccio y realizan peticiones a esta usando npm. Son considerablemente lentas y pueden incidir sobre un registro real de npm. **test sin mantenimiento**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+Los tests de tipo unit y functional son ejecutados automáticamente al correr `npm test` desde el directorio raiz del proyecto. Los tests de tipo integration se suponen deben ser ejecutados de forma manual ocasionalmente.
 
-We use `jest` for all test.
+Utilizamos `jest` para todos los tests.
 
-## The npm Script
+## El Script npm
 
 To run the test script you can use either `npm` or `yarn`.
 
