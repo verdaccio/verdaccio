@@ -55,7 +55,7 @@ Los tests functionales en verdaccio acarrean un mayor nivel de complejidad que a
 Todo inicia en el archivo `index.js`. Adentrémosnos en este.
 
 ```javascript
-// we create 3 server instances
+// creamos tres instancias de servidores
  const config1 = new VerdaccioConfig(
     './store/test-storage',
     './store/config-1.yaml',
