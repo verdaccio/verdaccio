@@ -52,4 +52,4 @@ auth:
 | file      | string | Si        | ./htpasswd | all     | archivo que aloja las credenciales encriptadas |
 | max_users | number | No        | 1000       | all     | limita los usuarios que pueden registrarse     |
 
-En caso que decidas no permiter mas nuevos registros, puedes definir `max_users: -1`.
+En caso que decidas no permitir más nuevos registros, puedes definir `max_users: -1`.
