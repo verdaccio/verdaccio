@@ -1,9 +1,8 @@
 // @flow
 
 import _ from 'lodash';
-import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS} from '../../../lib/utils';
+import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme} from '../../../lib/utils';
 import {allow} from '../../middleware';
-import marked from 'marked';
 import type {Router} from 'express';
 import type {
   IAuth,
@@ -71,7 +70,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
         }
 
         res.set('Content-Type', 'text/plain');
-        next(marked(info.readme || 'ERROR: No README data found!'));
+        next(parseReadme(info.name, info.readme));
       },
     });
   });

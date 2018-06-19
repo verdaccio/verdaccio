@@ -1,9 +1,12 @@
 // @flow
 import assert from 'assert';
-import {validateName as validate, convertDistRemoteToLocalTarballUrls}  from '../../src/lib/utils';
+import {validateName as validate, convertDistRemoteToLocalTarballUrls, parseReadme}  from '../../src/lib/utils';
 import {generateGravatarUrl, GRAVATAR_DEFAULT}  from '../../src/utils/user';
 import {spliceURL}  from '../../src/utils/string';
 import Package from "../../src/webui/src/components/Package";
+import Logger, {setup} from '../../src/lib/logger';
+
+setup([]);
 
 describe('Utilities', () => {
 
@@ -108,6 +111,36 @@ describe('Utilities', () => {
 
       expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(host, '1.0.0'));
       expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(host, '1.0.1'));
+    });
+  });
+
+  describe('parseReadme', () => {
+    test('should pass for ascii/makrdown text to html template', () => {
+      const markdown = '# markdown';
+      const ascii = "= AsciiDoc";
+      expect(parseReadme('testPackage', markdown)).toEqual('<h1 id="markdown">markdown</h1>\n');
+      expect(parseReadme('testPackage', ascii)).toEqual('<h1>AsciiDoc</h1>\n');
+    });
+
+    test('should pass for conversion of non-ascii to markdown text', () => {
+      const simpleText = 'simple text';
+      const randomText = '%%%%%**##==';
+      const randomTextNonAscii = 'simple text \n = ascii';
+      const randomTextMarkdown = 'simple text \n # markdown';
+      expect(parseReadme('testPackage', randomText)).toEqual('<p>%%%%%**##==</p>\n');
+      expect(parseReadme('testPackage', simpleText)).toEqual('<p>simple text</p>\n');
+      expect(parseReadme('testPackage', randomTextNonAscii))
+        .toEqual('<p>simple text \n = ascii</p>\n');
+      expect(parseReadme('testPackage', randomTextMarkdown))
+        .toEqual('<p>simple text </p>\n<h1 id="markdown">markdown</h1>\n');
+    });
+
+    test('should show error for no readme data', () => {
+      const noData = '';
+      const spy = jest.spyOn(Logger.logger, 'error')
+      expect(parseReadme('testPackage', noData))
+        .toEqual('<p>ERROR: No README data found!</p>\n');
+      expect(spy).toHaveBeenCalledWith({'packageName': 'testPackage'}, '@{packageName}: No readme found');
     });
   });
 });
