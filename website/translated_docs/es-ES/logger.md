@@ -2,7 +2,7 @@
 id: logger
 title: "Registrador"
 ---
-As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+Como cualquier aplicación web, verdaccio tiene un registrador personalizable integrado. Puedes definir varios tipos de salidas.
 
 ```yaml
 logs:
@@ -12,13 +12,13 @@ logs:
   - {type: file, path: verdaccio.log, level: info}
 ```
 
-Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it.
+Usa `SIGUSR2` para notificar a la aplicación, el archivo de registro fue girado y necesita reabrirlo.
 
-### Configuration
+### Configuración
 
-| Property | Type   | Required | Example                                        | Support | Description                                       |
-| -------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
-| type     | string | No       | [stdout, file]                                 | all     | define the output                                 |
-| path     | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
-| format   | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
-| level    | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| Property | Tipo                 | Requerido | Ejemplo                                        | Support | Descripción                                       |
+| -------- | -------------------- | --------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
+| type     | cadena de caracteres | No        | [stdout, file]                                 | todos   | define la salida                                  |
+| path     | cadena de caracteres | No        | verdaccio.log                                  | todos   | if type is file, define the location of that file |
+| format   | cadena de caracteres | No        | [pretty, pretty-timestamped]                   | todos   | formato de salida                                 |
+| level    | cadena de caracteres | No        | [fatal, error, warn, http, info, debug, trace] | todos   | verbose level                                     |
