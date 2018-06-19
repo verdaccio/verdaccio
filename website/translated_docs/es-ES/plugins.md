@@ -96,15 +96,15 @@ store:
 * [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alterna el complemento LDAP Auth para Sinopia
 * [sinopia-request](https://www.npmjs.com/package/sinopia-request): Un complemento sencillo y completamente auth con configuración para usar una API externa.
 * [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Genera contraseña en formato htaccess, encripta con GPG y evía a través de la API MailGun a los usuarios.
-* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): An easy and fully auth-plugin with configuration to use a mongodb database.
-* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): auth plugin for sinopia supporting htpasswd format.
-* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): a leveldb backed auth plugin for sinopia private npm.
-* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): Gitlab authentication plugin for sinopia.
-* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
-* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
-* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin with github oauth web flow.
+* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): Un complemento fácil y completamente auth con configuración para usar una base de datos mongodb.
+* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): complemento auth para sinopia que soporta el formato htpasswd.
+* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): un complemento auth leveldb respaldado para el npm privado de sinopia.
+* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): complemento de autenticación de Gitlab para sinopia.
+* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): complemento de autenticación de Gitlab para sinopia
+* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): complemento auth LDAP para sinopia.
+* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) complemento de autenticación de Sinopia con flujo web github oauth.
 
-> All sinopia plugins should be compatible with all future verdaccio versions. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+> Todos los complemento de sinopia deben ser compatibles con todas las futuras versiones de verdaccio. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
 
 ## Verdaccio Plugins
 
