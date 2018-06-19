@@ -111,11 +111,11 @@ Todo inicia en el archivo `index.js`. Adentrémosnos en este.
 
 Aquí describiremos cómo se ve un test funcional típico, revise en línea para información más detallada.
 
-#### The lib/server.js
+#### El lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+La clase de servidor es tan solo un wrapper que simula un cliente `npm` y proporciona un API simple para el test funcional.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Como mencionamos en la sección previa, estamos creando 3 servidores de proceso que son accesibles en cada proceso como `server1`, `server2` y ``server3`.
 
 Using such reference you will be able to send request to any of the 3 instance running.
 
