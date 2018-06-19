@@ -7,11 +7,22 @@ import { mount } from 'enzyme';
 import Package from '../../../src/webui/src/components/Package';
 import { BrowserRouter } from 'react-router-dom';
 
+/**
+ * Generates one month back date from current time
+ * @return {object} date object
+ */
+const dateOneMonthAgo = () => {
+  const date = new Date();
+  date.setMonth(date.getMonth() - 1);
+  return date;
+}
+
 describe('<Package /> component', () => {
   it('should load the component', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',
+      time: dateOneMonthAgo(),
       license: 'MIT',
       description: 'Private NPM repository',
       author: { name: 'Sam' }
