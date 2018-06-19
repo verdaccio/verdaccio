@@ -45,7 +45,6 @@ packages:
     access: $all
     publish: $all
     proxy: server1
-    proxy_publish: server1
 
   # used by gh29.js
   'testpkg-gh29':
