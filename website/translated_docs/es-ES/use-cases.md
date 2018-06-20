@@ -1,10 +1,10 @@
 ---
-id: casos-de-uso
+id: use-cases
 title: "Casos de Usos"
 ---
 ## Uso de paquetes privados
 
-Puede agregar usuarios y administrar que usuarios pueden acceder a cual paquete.
+Puede agregar usuarios y administrar qué usuarios pueden acceder a cuál paquete.
 
 Se recomienda que defina un prefijo para sus paquetes privados, por ejemplo "local", así que todos sus elementos privados se verán así: `local-foo`. De esta manera puede separar claramente los paquetes públicos de los privados.
 
@@ -16,7 +16,7 @@ Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, pod
 
 ## Anular paquetes públicos
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+Si quiere utilizar una versión modificada de algún paquete público `foo`, puede solo publicarlo en su servidor local, así que cuando su tipo `npm install foo`, lo considerará instalando su versión.
 
 There's two options here:
 
