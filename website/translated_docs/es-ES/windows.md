@@ -44,7 +44,7 @@ MÉTODO ALTERNATIVO: (el paquete WinSW faltaba cuando intenté descargarlo)
 * Comenzar su servicio 
     * `verdaccio-winsw.exe start`
 
-Algunas de las configuraciones anteriores son más detalladas de lo que esperaba, parece como si 'workingdirectory' se ignora, pero aparte de eso, esto funciona para mi y permite que mi instancia de verdaccio persista entre reinicios del servidor, y también que se reinicie a sí mismo de haber algún problema en el proceso de verdaccio.
+Algunas de las configuraciones anteriores son más detalladas de lo que esperaba, parece como si 'workingdirectory' es ignorado, pero aparte de eso, esto funciona para mí y permite que mi instancia de verdaccio persista entre reinicios del servidor, y también que se reinicie a sí mismo de haber algún problema en el proceso de verdaccio.
 
 ## Repositorios
 
