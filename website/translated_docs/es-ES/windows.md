@@ -40,9 +40,9 @@ MÉTODO ALTERNATIVO: (el paquete WinSW faltaba cuando intenté descargarlo)
 * Crear un archivo de configuración en `c:\verdaccio`, llamado `verdaccio-winsw.xml` con la siguiente configuración `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
 * Instalar su servicio 
     * `cd c:\verdaccio`
-    * `instalar verdaccio-winsw.exe`
+    * `verdaccio-winsw.exe install`
 * Comenzar su servicio 
-    * `iniciar verdaccio-winsw.exe`
+    * `verdaccio-winsw.exe start`
 
 Algunas de las configuraciones anteriores son más detalladas de lo que esperaba, parece como si 'workingdirectory' se ignora, pero aparte de eso, esto funciona para mi y permite que mi instancia de verdaccio persista entre reinicios del servidor, y también que se reinicie a sí mismo de haber algún problema en el proceso de verdaccio.
 
