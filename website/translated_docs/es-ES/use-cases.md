@@ -10,7 +10,7 @@ Se recomienda que defina un prefijo para sus paquetes privados, por ejemplo "loc
 
 ## Uso de paquetes públicos desde npmjs.org
 
-Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está inactivo, sirven paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio descargará solo los que necesita (= solicitados por los clientes), y esta información se almacenará en caché, entonces si un cliente pregunta lo mismo por segunda vez, puede ser atendido sin preguntar a npmjs.org por eso.
+Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está fuera de línea, proporciona paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio descargará solo los que necesita (= solicitados por los clientes), y esta información se almacenará en caché, entonces si un cliente pregunta lo mismo por segunda vez, puede ser atendido sin preguntar a npmjs.org por eso.
 
 Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, podrá hacerlo nuevamente (con todas sus dependencias) en cualquier momento incluso si npmjs.org está inactivo. Pero digamos que express@3.0.0 no se descargará hasta que realmente alguien lo necesite. Y si npmjs.org no está conectado, este servidor diría que solo express@3.0.1 (= solo lo que está en caché) se publicará, pero nada más.
 
