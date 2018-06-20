@@ -53,7 +53,7 @@ Todos los usuarios reciben todos estos conjuntos de permisos, independientemente
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-Si deseas proteger paquetes establecidos específicos bajo tu grupo, debes realizar algo similara a esto. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. We recomend using a prefix for your packages, in that way it will be easier to protect them.
+Si deseas proteger paquetes establecidos específicos bajo tu grupo, debes realizar algo similara a esto. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. Recomendamos usar un prefijo para tus paquetes, de esta forma será más sencillo protegerlos.
 
 ```yaml
 packages:
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+Puedes cambiar el comportamiento por defecto usando una diferente extensión de autenticación. `verdaccio` simplemente comprueba si el usuario que intentó acceder o publicar un paquete específico pertenece al grupo correcto.
 
 #### Definir múltiples grupos
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+Definir múltiples grupos de acceso es bastante sencillo, simplemente defínalos dejando un espacio en blanco entre ellos.
 
 ```yaml
   'company-*':
@@ -94,7 +94,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 #### Bloqueando el acceso a paquetes
 
-If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
+Si así lo deseas bloquea el acceso/la publicación a un grupo específico de paquetes. Simplemente no definas `access` y `publish`.
 
 ```yaml
 packages:
@@ -106,7 +106,7 @@ packages:
 
 #### Bloqueando proxy a un grupo específico de paquetes
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Puede que quieras bloquear para uno o varios paquetes la capacidad de hacer fetching de repositorios remotos., pero, a la misma vez, permitir a otros acceder a *uplinks* diferentes.
 
 Veamos el siguiente ejemplo:
 
@@ -127,7 +127,7 @@ packages:
      proxy: npmjs
 ```
 
-Let's describe what we want with the above example:
+Vamos a describir lo que se desea con el ejemplo anterior:
 
 * Quiero almacenar mi propia dependencia ` jquery` pero necesito evitar que se busque en el proxy.
 * Quiero que todas mis dependencias que coincidan con `my-company-*` pero necesito evitar que dichos paquetes se actualicen vía proxy.
