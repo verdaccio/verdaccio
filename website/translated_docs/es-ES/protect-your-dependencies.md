@@ -1,12 +1,12 @@
 ---
-id: protege-tus-dependencias
+id: protect-your-dependencies
 title: "Protegiendo paquetes"
 ---
 `verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
 
 ### Configuración del paquete
 
-Veamos por instancia la siguiente configuración. Tienes un conjunto de dependencias con prefijo `my-company-*` y necesitas protegerlas de anónimos o de otro usuario registrado sin credenciales.
+Veamos por ejemplo la siguiente configuración. Tienes un conjunto de dependencias con prefijo `my-company-*` y necesitas protegerlas de anónimos o de otro usuario registrado sin credenciales.
 
 ```yaml
   'my-company-*':
