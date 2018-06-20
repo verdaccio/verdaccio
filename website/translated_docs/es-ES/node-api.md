@@ -21,7 +21,7 @@ Verdaccio puede ser invocado programáticamente. El API de node ha sido introduc
 
 ## Otras implementaciones
 
-* [servidor-verdaccio](https://github.com/boringame/verdaccio-server) servidor proxy de registro de npm local
+* [verdaccio-server](https://github.com/boringame/verdaccio-server) servidor proxy de registro de npm local
 
 ```js
 // js

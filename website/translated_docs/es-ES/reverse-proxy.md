@@ -1,6 +1,6 @@
 ---
 id: reverse-proxy
-title: "Reverse Proxy Setup"
+title: "Configuración de Proxy Inverso"
 ---
 ## Apache
 
@@ -51,13 +51,13 @@ Configuración del servidor virtual de Apache
     }
     
 
-## Run behind reverse proxy with different domain and port
+## Ejecutar detrás del proxy inverso con un puerto y dominio diferente
 
 If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
 
 Para resolver este problema, debes enviar el dominio real y el puerto a verdaccio con `Host` heade
 
-Nginx configure should look like this:
+La configuración Nginx debe lucir así:
 
 ```nginx
 location / {
@@ -85,4 +85,4 @@ location ~ ^/verdaccio/(.*)$ {
 
 Para este caso, `url_prefix` debe establecerse a `/verdaccio/`
 
-> Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
+> Nota: Hay una Barra oblicua después de la ruta de instalación (`https://your-domain:port/vardaccio/`)!

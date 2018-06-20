@@ -65,13 +65,13 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. En el ejemplo de arriba, necesitas ejecutar `sudo chown -R 100:101 /opt/verdaccio` de lo contrario, obtendrás errores de permiso en tiempo de ejecución. [Usar el volumen docker](https://docs.docker.com/storage/volumes/) es recomendado antes que usar el montaje de unión.
 
 ### Usar un puerto personalizado con Docker
 
-Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` está actualmente ignorado al usar docker.
+Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` es ignorado al usar docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Si quieres alcanzar la instancia de docker de verdaccio bajo un puerto diferente, digamos `5000` en tu comando `docker run` remplaza `-p 4873:4873` con `-p 5000:4873`.
 
 En caso de que necesites especificar cuál puerto escuchar **en el contenedor docker**, desde la versión 2.?.? puedes hacerlo al proveer argumentos adicionales a `docker run`: `--env PORT=5000` Esto cambia cual puerto el contenedor docker muestra y el puerto que verdaccio escucha.
 
@@ -102,7 +102,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-Puedes configurar el puerto a usar (tanto para el contenedor como para el cliente) prefijando el comando anterior con `PORT=5000`.
+Puedes configurar el puerto a usar (tanto para el contenedor como para el cliente) al anteponer el comando anterior con `PORT=5000`.
 
 Docker generará un volumen con nombre en el cual se almacenan datos de aplicación persistente. Puedes usar `docker inspect` ó `docker volume inspect` para revelar la ubicación física del volumen y editar la configuración, tal como:
 
@@ -125,15 +125,15 @@ Docker generará un volumen con nombre en el cual se almacenan datos de aplicaci
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Existe también un script npm para construir la imagen docker, para que también puedas hacer:
 
 ```bash
 npm run build:docker
 ```
 
-Nota: La primera construcción toma algunos minutos para construir porque necesita ejecutar el `npm install`, y tomará el mismo tiempo cada vez que cambies cualquier archivo que no esté listado en `.dockerignore`.
+Nota: La primera construcción toma algunos minutos en llevarse a cabo porque necesita ejecutar el `npm install`, y tomará el mismo tiempo cada vez que cambies cualquier archivo que no esté listado en `.dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Si quieres usar la imagen docker en un rpi o en un dispositivo compatible, también existe un dockerfile disponible. Para construir la imagen docker para raspberry pi ejecute:
 
 ```bash
 npm run build:docker:rpi

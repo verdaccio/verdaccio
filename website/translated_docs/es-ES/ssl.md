@@ -32,7 +32,7 @@ https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
 Puede encontrar más información referente a los argumentos `key`, `cert`, `ca`, `pfx` y `passphrase`, en la [Documentación de nodes](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
-* Corra `verdaccio` en su línea de comandos.
+* Ejecuta `verdaccio` en su línea de comandos.
 
 * Abra el explorador y cargue `https://your.domain.com:port/`
 
