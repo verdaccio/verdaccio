@@ -104,21 +104,21 @@ store:
 * [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): complemento auth LDAP para sinopia.
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) complemento de autenticación de Sinopia con flujo web github oauth.
 
-> Todos los complemento de sinopia deben ser compatibles con todas las futuras versiones de verdaccio. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+> Todos los complementos de sinopia deben ser compatibles con todas las futuras versiones de verdaccio. De cualquier forma, alentamos a los contribuyentes a migrarlos a la API moderna de verdaccio y usar el prefijo como *verdaccio-xx-name*.
 
-## Verdaccio Plugins
+## Complementos de Verdaccio
 
-(compatible since 2.1.x)
+(compatible desde 2.1.x)
 
-### Authorization Plugins
+### Complementos de Autorización
 
-* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
-* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
-* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
-* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
-* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): complemento de autenticación de Bitbucket para verdaccio.
+* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): complemento LDAP auth para verdaccio.
+* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): complemento de autenticación Active Directory para verdaccio
+* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use la Token de Acceso Personal de GitLab para autenticarse
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): basado en Auth en el complemento del archivo htpasswd (incorporado) para verdaccio
 
-### Middleware Plugins
+### Complementos de Middleware
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
 
