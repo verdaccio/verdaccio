@@ -15,18 +15,18 @@ Veamos por ejemplo la siguiente configuración. Tienes un conjunto de dependenci
     proxy: npmjs
 ```
 
-Con esta configuración, básicamente le permitimos agrupar **administradores** y **equipoA** para * publicar* y el **equipoA** **equipoB** **equipoC** *acceder* a dichas dependencias.
+Con esta configuración, básicamente le permitimos agrupar **admin** and **teamA** para * publicar* y **teamA** **teamB** **teamC** *access* a dichas dependencias.
 
 ### Use case: teamD try to access the dependency
 
-Entonces, si yo estoy conectado como **equipoD**. No debería ser capaz de acceder a todas las dependencias que cumplan con el patrón `my-company-*`.
+Entonces, si yo estoy conectado como **teamD**. No debería ser capaz de acceder a todas las dependencias que cumplan con el patrón `my-company-*`.
 
 ```bash
 ➜ npm whoami
 teamD
 ```
 
-No tendré acceso a dichas dependencias y tampoco serán visibles vía web para el usuario **equipoD**. Si intentas acceder, ocurrirá lo siguiente.
+No tendré acceso a dichas dependencias y tampoco serán visibles vía web para el usuario **teamD**. Si intentas acceder, ocurrirá lo siguiente.
 
 ```bash
 ➜ npm install my-company-core
