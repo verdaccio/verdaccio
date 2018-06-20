@@ -8,7 +8,7 @@ Basándome ligeramente en las instrucciones encontradas [aquí](http://asysadmin
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
 2. Instalar localmente verdaccio (me encontré con problemas npm con las instalaciones globales) 
-    * npm install verdaccio
+    * instalar verdaccio con npm
 3. Crear su archivo `config.yaml` en esta ubicación `(c:\verdaccio\config.yaml)`
 4. Configurar el Servicio de Windows
 
@@ -24,7 +24,7 @@ MÉTODO ALTERNATIVO: (el paquete WinSW faltaba cuando intenté descargarlo)
 
 * Ejecutar la instalación nssm de verdaccio. Como mínimo debe completar en la Aplicación las pestañas de Ruta, el directorio de Inicio y los campos de Argumentos. Suponiendo una instalación con nodo en la ruta del sistema y una ubicación de c:\verdaccio los siguientes valores funcionarán:
     
-    * Ruta:`nodo`
+    * Ruta: `node`
     * Directorio de Inicio: `c:\verdaccio`
     * Argumentos: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
