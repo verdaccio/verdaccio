@@ -1,10 +1,10 @@
 ---
 id: puppet
-title: "Puppet"
+title: "Marioneta"
 ---
-Install verdaccio for Debian, Ubuntu, Fedora, and RedHat.
+Instalar verdaccio para Debian, Ubuntu, Fedora y RedHat.
 
-# Usage
+# Uso
 
 There are two variants to install verdaccio using this Puppet module:
 
