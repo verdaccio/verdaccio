@@ -1,8 +1,8 @@
 ---
 id: plugins
-title: "Complementos"
+title: "Plugins"
 ---
-Verdaccion es una aplicación extensible. Puede ser extendida en muchas maneras, tanto con nuevos métodos de autenticación, añadiendo endpoints o usando un almacenamiento personalizado.
+Verdaccio es una aplicación extensible. Puede ser extendida en muchas maneras, tanto con nuevos métodos de autenticación, añadiendo endpoints o usando un almacenamiento personalizado.
 
 > Si está interesado en desarrollar su propio plugin, lea la sección [development](development.md).
 
@@ -14,7 +14,7 @@ Verdaccion es una aplicación extensible. Puede ser extendida en muchas maneras,
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccion` como un fork de sinopia tiene compatibilidad con versiones anteriores, con plugins que son compatibles con `sinopia@1.4.0`. En tal caso la instalación es la misma.
+`verdaccio` como un fork de sinopia tiene compatibilidad con versiones anteriores, con plugins que son compatibles con `sinopia@1.4.0`. En tal caso la instalación es la misma.
 
     $> npm install --global sinopia-memory
     
