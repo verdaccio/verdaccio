@@ -8,7 +8,7 @@ Todos los tests están divididos entre tres carpetas:
 - `test/functional` - Tests que ejecutan una instancia de verdaccio y realizan una serie de peticiones a esta sobre http. Son de mayor lentitud en comparación a los tests unitarios.
 - `test/integration` - Tests que ejecutan una instancia de verdaccio y realizan peticiones a esta usando npm. Son considerablemente lentas y pueden incidir sobre un registro real de npm. **test sin mantenimiento**
 
-Los tests de tipo unit y functional son ejecutados automáticamente al correr `npm test` desde el directorio raiz del proyecto. Los tests de tipo integration se suponen deben ser ejecutados de forma manual ocasionalmente.
+Los tests de tipo unit y functional son ejecutados automáticamente al correr `npm test` desde el directorio raíz del proyecto. Los tests de tipo integration se suponen deben ser ejecutados de forma manual ocasionalmente.
 
 Utilizamos `jest` para todos los tests.
 
@@ -23,7 +23,7 @@ Esto accionará solo los primeros dos grupos de tests, unit y funtional.
 
 ### Usando test/unit
 
-El siguiente es simplemente un ejemplo de cómo se debe ver un test unitario. Básicamente, sigue el estandar `jest`.
+El siguiente es simplemente un ejemplo de cómo se debe ver un test unitario. Básicamente, sigue el estándar `jest`.
 
 Intenta describir exactamente qué hace el test unitario en una sola frase en el encabezado de la sección `test`.
 
@@ -50,9 +50,9 @@ const config = require('./partials/config');
 
 ### Usando test/functional
 
-Los tests functionales en verdaccio acarrean un mayor nivel de complejidad que amerita una explicación profunda para asegurar el éxito de tu experiencia.
+Los tests funcionales en verdaccio acarrean un mayor nivel de complejidad que amerita una explicación profunda para asegurar el éxito de tu experiencia.
 
-Todo inicia en el archivo `index.js`. Adentrémosnos en este.
+Todo inicia en el archivo `index.js`. Adentrémonos en este.
 
 ```javascript
 // creamos tres instancias de servidores
@@ -109,7 +109,7 @@ Todo inicia en el archivo `index.js`. Adentrémosnos en este.
 
 ### Uso
 
-Aquí describiremos cómo se ve un test funcional típico, revise en línea para información más detallada.
+Aquí describiremos cómo se ve un test funcional típico.
 
 #### El lib/server.js
 
@@ -131,4 +131,4 @@ Usando dichas referencias serás capaz de enviar peticiones a cualquiera de las 
 
 ### Test/integration
 
-Esta sección no ha sido usada jamás, pero estamos buscando ayuda con la intención de poder ejecutarla apropiadamente. **Toda idea nueva es bastante bienvenida.**
+Esta sección no ha sido usada jamás, pero estamos buscando ayuda con la intención de poder ejecutarla apropiadamente. **Toda idea nueva es bien recibida.**
