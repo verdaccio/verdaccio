@@ -134,7 +134,7 @@ Vamos a describir lo que se desea con el ejemplo anterior:
 * Quiero que todas las dependencias que estén en `my-local-scope` hagan scope pero necesito evitar que estas se actualicen vía proxy.
 * Quiero que el resto de las dependencias se actualicen vía proxy.
 
-Se **consciente que el orden de la definición de los paquetes es importante y siempre usa doble wildcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+Se **consciente que el orden de la definición de los paquetes es importante y siempre usa doble wildcard**. Porque si no lo incluyes, `verdaccio` lo incluirá por ti y la forma en que tus dependencias son resueltas se verá afectada.
 
 ### Configuración
 
@@ -147,4 +147,4 @@ Puedes definir multiples `paquetes`y cada uno de ellos deben tener un único ` R
 | proxy     | string  | No        | npmjs          | all     | limita las busquedas a un uplink específico                |
 | storage   | boolean | No        | [true,false]   | all     | TODO                                                       |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Resaltamos que ya no recomendamos usar **allow_access**/**allow_publish** y **proxy_access**, estos son obsoletos y pronto serán removidos, por favor usar las versiones reducidas de estos (**access**/**publish**/**proxy**).
