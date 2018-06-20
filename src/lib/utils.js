@@ -10,6 +10,8 @@ import _ from 'lodash';
 import createError from 'http-errors';
 import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
+import marked from 'marked';
+import asciidoctor from 'asciidoctor.js';
 import type {StringValue} from '../../types';
 
 const Logger = require('./logger');
@@ -437,6 +439,31 @@ function addGravatarSupport(pkgInfo: any) {
   return pkgInfo;
 }
 
+/**
+ * parse package readme - markdown/ascii
+ * @param {String} packageName name of package
+ * @param {String} readme package readme
+ * @return {String} converted html template
+ */
+function parseReadme(packageName: string, readme: string): string {
+  const ascii = asciidoctor();
+  const docTypeIdentifier = new RegExp(/^=+ \w/, 'g');
+
+  // asciidoc
+  if (docTypeIdentifier.test(readme)) {
+    return ascii.convert(readme, {safe: 'safe', attributes: {showtitle: true, icons: 'font'}});
+  }
+
+  if (readme) {
+    return marked(readme);
+  }
+
+  // logs readme not found error
+  Logger.logger.error({packageName}, '@{packageName}: No readme found');
+
+  return marked('ERROR: No README data found!');
+}
+
 export {
   addGravatarSupport,
   deleteProperties,
@@ -458,4 +485,5 @@ export {
   getLatestVersion,
   ErrorCode,
   parseConfigFile,
+  parseReadme,
 };
