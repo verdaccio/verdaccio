@@ -8,7 +8,7 @@ Basándose ligeramente en las instrucciones encontradas [aquí](http://asysadmin
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
 2. Instalar localmente verdaccio (me encontré con problemas npm con las instalaciones globales) 
-    * instalar verdaccio con npm
+    * npm install verdaccio
 3. Crear su archivo `config.yaml` en esta ubicación `(c:\verdaccio\config.yaml)`
 4. Configurar el Servicio de Windows
 
