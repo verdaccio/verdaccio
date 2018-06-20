@@ -26,26 +26,26 @@ MÉTODO ALTERNATIVO: (el paquete WinSW faltaba cuando intenté descargarlo)
     
     * Ruta:`nodo`
     * Directorio de Inicio: `c:\verdaccio`
-    * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
+    * Argumentos: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    You can adjust other service settings under other tabs as desired. When you are done, click Install service button
+    Puede ajustar otras configuraciones de servicio en otras pestañas, según desee. Cuando termine, haga clic en el botón Servicio de Instalación
     
-    * Start the service sc start verdaccio
+    * Iniciar el servicio sc iniciar verdaccio
 
-## Using WinSW
+## Uso de WinSW
 
-* As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
+* A partir del 27/10/2015, WinSW ya no está disponible en la siguiente ubicación. Por favor, siga las instrucciones anteriores de Uso de NSSM.
 * Descargar [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
-    * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
-* Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
-* Install your service 
+    * Colocar el archivo ejecutable (por ejemplo `winsw-1.9-bin.exe`) en esta carpeta (`c:\verdaccio`) y cambiarle el nombre a `verdaccio-winsw.exe`
+* Crear un archivo de configuración en `c:\verdaccio`, llamado `verdaccio-winsw.xml` con la siguiente configuración `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
+* Instalar su servicio 
     * `cd c:\verdaccio`
-    * `verdaccio-winsw.exe install`
-* Start your service 
-    * `verdaccio-winsw.exe start`
+    * `instalar verdaccio-winsw.exe`
+* Comenzar su servicio 
+    * `iniciar verdaccio-winsw.exe`
 
-Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
+Algunas de las configuraciones anteriores son más detalladas de lo que esperaba, parece como si 'workingdirectory' se ignora, pero aparte de eso, esto funciona para mi y permite que mi instancia de verdaccio persista entre reinicios del servidor, y también que se reinicie a sí mismo de haber algún problema en el proceso de verdaccio.
 
-## Repositories
+## Repositorios
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)
