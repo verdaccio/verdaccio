@@ -1,16 +1,16 @@
 ---
-id: use-cases
-title: "Use Cases"
+id: casos-de-uso
+title: "Casos de Usos"
 ---
-## Using private packages
+## Uso de paquetes privados
 
-You can add users and manage which users can access which packages.
+Puede agregar usuarios y administrar que usuarios pueden acceder a cual paquete.
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+Se recomienda que defina un prefijo para sus paquetes privados, por ejemplo "local", así que todos sus elementos privados se verán así: `local-foo`. De esta manera puede separar claramente los paquetes públicos de los privados.
 
-## Using public packages from npmjs.org
+## Uso de paquetes públicos desde npmjs.org
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está inactivo, sirven paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
 
 Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
 
