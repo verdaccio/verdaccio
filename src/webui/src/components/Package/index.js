@@ -35,13 +35,9 @@ export default class Package extends React.Component {
   }
 
   renderPublished(pkg) {
-    if (pkg.time) {
       return (<div className={classes.homepage}>
-        {`Published ${formatDateDistance(pkg.time)} ago`}
+        {pkg.time ? `Published ${formatDateDistance(pkg.time)} ago`: ''}
       </div>);
-    }
-
-    return null;
   }
 
   renderLicense(pkg) {
