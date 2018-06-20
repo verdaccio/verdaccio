@@ -4,7 +4,7 @@ title: "Acceso a Paquetes"
 ---
 Es una serie de restricciones que permiten o limitan el acceso al almacenamiento local basándose en criterios específicos.
 
-The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
+Las restricciones de seguridad permanecen dependientes de la extensión en uso. Por defecto, `verdaccio` utiliza [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Si usas una extensión diferente ten en cuenta que el comportamiento podría ser diferente. La extensión por defecto no maneja `allow_access` y `allow_publish` por sí misma, esta usa un recurso de seguridad interno en caso de que la extensión no esté lista para esto.
 
 Para mas información sobre permisos, visite [la sección de autenticación](auth.md).
 
