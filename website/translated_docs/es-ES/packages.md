@@ -46,14 +46,14 @@ La lista de grupos validos de acuerdo a la extensión por defecto son
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. Por ejemplo, si has iniciado sesión como ` npmUser` el listado de grupos será.
+Todos los usuarios reciben todos estos conjuntos de permisos, independientemente de si son anonymous o no, además de los grupos proporcionados por la extensión. En caso de `htpasswd` retorna el nombre de usuario como un grupo. Por ejemplo, si has iniciado sesión como ` npmUser` el listado de grupos será.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need to do something like this. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. We recomend using a prefix for your packages, in that way it will be easier to protect them.
+Si deseas proteger paquetes establecidos específicos bajo tu grupo, debes realizar algo similara a esto. Vamos a usar un `Regex` que cubre los todos los páquetes prefijos con`npmuser-`. We recomend using a prefix for your packages, in that way it will be easier to protect them.
 
 ```yaml
 packages:
