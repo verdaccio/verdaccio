@@ -8,7 +8,7 @@ Verdaccio es una aplicación web multiplataforma. Para instalarlo, necesitas uno
 
 1. Node mayor que 
     - En `verdaccio@2.x` Node `v4.6.1` es la versión mínima soportada.
-    - Para la versión `verdaccio@latest` El Node `6.12.0` es la versión mínima soportada.
+    - Para la versión `verdaccio@latest` El Nodo `6.12.0` es la versión mínima soportada.
 2. npm `>=3.x` o `yarn`
 3. La interfaz web soporta los exploradores `Chrome, Firefox, Edge, and IE9`.
 
