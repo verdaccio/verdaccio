@@ -16,7 +16,7 @@ Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, pod
 
 ## Anular paquetes públicos
 
-Si quiere utilizar una versión modificada de algún paquete público `foo`, puede solo publicarlo en su servidor local, así que cuando escriba `npm install foo`, lo considerará instalando su versión.
+Si quiere utilizar una versión modificada de algún paquete público `foo`, puede sólo publicarlo en su servidor local, así que cuando escriba `npm install foo`, lo considerará instalando su versión.
 
 There's two options here:
 
