@@ -68,7 +68,7 @@ middlewares:
     enabled: true
 ```
 
-### Configuraión del Plugin Store (Almacén)
+### Configuración del Plugin Store (Almacén)
 
 Este es un ejemplo de como instalar un plugin de almacenamiento. Todos los plugins de almacenamiento debe estar definidos en el namespace **store**.
 
@@ -78,7 +78,7 @@ store:
     limit: 1000
 ```
 
-> Si define un almacén personalizado, la propiedad **storage** en el archivo de configuración será ignorada.
+> Si define un almacenamiento personalizado, la propiedad **storage** en el archivo de configuración será ignorada.
 
 ## Plugins heredados
 
