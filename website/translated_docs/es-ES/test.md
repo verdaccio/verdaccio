@@ -109,7 +109,7 @@ Todo inicia en el archivo `index.js`. Adentrémosnos en este.
 
 ### Uso
 
-Aquí describiremos cómo se ve un test funcional típico, revise en línea para información más detallada.
+Aquí describiremos cómo se ve un test funcional típico.
 
 #### El lib/server.js
 
