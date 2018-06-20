@@ -10,11 +10,11 @@ Se recomienda que defina un prefijo para sus paquetes privados, por ejemplo "loc
 
 ## Uso de paquetes públicos desde npmjs.org
 
-Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está inactivo, sirven paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está inactivo, sirven paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio descargará solo los que necesita (= solicitados por los clientes), y esta información se almacenará en caché, entonces si un cliente pregunta lo mismo por segunda vez, puede ser atendido sin preguntar a npmjs.org por eso.
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, podrá hacerlo nuevamente (con todas sus dependencias) en cualquier momento incluso si npmjs.org está inactivo. Pero digamos que express@3.0.0 no se descargará hasta que realmente alguien lo necesite. Y si npmjs.org no está conectado, este servidor diría que solo express@3.0.1 (= solo lo que está en caché) se publicará, pero nada más.
 
-## Override public packages
+## Anular paquetes públicos
 
 If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
 
