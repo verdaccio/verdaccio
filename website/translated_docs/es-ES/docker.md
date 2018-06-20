@@ -69,7 +69,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 ### Usar un puerto personalizado con Docker
 
-Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` está actualmente ignorado al usar docker.
+Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` es ignorado al usar docker.
 
 Si quieres alcanzar la instancia de docker de verdaccio bajo un puerto diferente, digamos `5000` en tu comando `docker run` remplaza `-p 4873:4873` con `-p 5000:4873`.
 
@@ -102,7 +102,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-Puedes configurar el puerto a usar (tanto para el contenedor como para el cliente) prefijando el comando anterior con `PORT=5000`.
+Puedes configurar el puerto a usar (tanto para el contenedor como para el cliente) al anteponer el comando anterior con `PORT=5000`.
 
 Docker generará un volumen con nombre en el cual se almacenan datos de aplicación persistente. Puedes usar `docker inspect` ó `docker volume inspect` para revelar la ubicación física del volumen y editar la configuración, tal como:
 
