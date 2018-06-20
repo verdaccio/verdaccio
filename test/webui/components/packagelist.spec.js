@@ -32,12 +32,14 @@ describe('<PackageList /> component', () => {
         {
           name: 'verdaccio',
           version: '1.0.0',
+          time: new Date(),
           description: 'Private NPM repository',
           author: { name: 'Sam' }
         },
         {
           name: 'abc',
           version: '1.0.1',
+          time: new Date(),
           description: 'abc description',
           author: { name: 'Rose' }
         },
