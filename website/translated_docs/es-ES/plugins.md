@@ -116,7 +116,7 @@ store:
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): plugin LDAP auth para verdaccio.
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): plugin de autenticación Active Directory para verdaccio
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use la Token de Acceso Personal de GitLab para autenticarse
-* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): basado en Auth en el plugin del archivo htpasswd (incorporado) para verdaccio
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth basado en el plugin del archivo htpasswd (incorporado) para verdaccio
 
 ### Plugins de Middleware
 
