@@ -25,6 +25,8 @@ packages:
     publish: $authenticated
     proxy: npmjs
   '**':
+    # access: $all # Uncomment to allow all users to pull from cache
+    #              # (note: beware DOS potential for publicly exposed installs)
     proxy: npmjs
 logs:
   - {type: stdout, format: pretty, level: http}
