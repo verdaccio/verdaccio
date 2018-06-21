@@ -6,6 +6,7 @@ import smartRequest from './request';
 import type {IServerBridge} from '../types';
 import {HEADERS, HTTP_STATUS, TOKEN_BASIC} from '../../src/lib/constants';
 import {buildToken} from "../../src/lib/utils";
+import {CREDENTIALS} from "../functional/config.func";
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, new Buffer(`${user}:${pass}`).toString('base64'));
@@ -19,7 +20,7 @@ export default class Server implements IServerBridge {
   constructor(url: string) {
     this.url = url.replace(/\/$/, '');
     this.userAgent = 'node/v8.1.2 linux x64';
-    this.authstr = buildAuthHeader('test', 'test');
+    this.authstr = buildAuthHeader(CREDENTIALS.user, CREDENTIALS.password);
   }
 
   request(options: any): any {
@@ -47,7 +48,7 @@ export default class Server implements IServerBridge {
       json: {
         name: name,
         password: password,
-        email: 'test@example.com',
+        email: `${CREDENTIALS.user}@example.com`,
         _id: `org.couchdb.user:${name}`,
         type: 'user',
         roles: [],

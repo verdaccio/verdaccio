@@ -1,4 +1,3 @@
-import assert from 'assert';
 import _ from 'lodash';
 
 import {HEADERS} from '../../../src/lib/constants';
@@ -12,7 +11,7 @@ export default function(express) {
         'Content-Type': HEADERS.JSON
       }],
       endpoint: "http://localhost:55550/api/notify",
-      content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
+      content: `{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}`
     }
   };
 
@@ -45,15 +44,11 @@ export default function(express) {
 
       notify(metadata, config, publisherInfo).then(function (body) {
         const jsonBody = parseBody(body);
-        assert.ok(
-          `New package published: * ${metadata.name}*. Publisher name: * ${
-            publisherInfo.name
-          } *.` === jsonBody.message,
-          "Body notify message should be equal"
-        );
+        expect(
+          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message, "Body notify message should be equal");
         done();
       }, function (err) {
-        assert.fail(err);
+        expect(err).toBeDefined();
         done();
       });
     });
@@ -70,15 +65,12 @@ export default function(express) {
 
       notify(metadata, configMultipleHeader, publisherInfo).then(function (body) {
         const jsonBody = parseBody(body);
-        assert.ok(
-          `New package published: * ${metadata.name}*. Publisher name: * ${
-            publisherInfo.name
-          } *.` === jsonBody.message,
-          "Body notify message should be equal"
-        );
+        expect(
+          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
+          .toBe(jsonBody.message, "Body notify message should be equal");
         done();
       }, function (err) {
-        assert.fail(err);
+        expect(err).toBeDefined();
         done();
       });
     });
@@ -106,16 +98,13 @@ export default function(express) {
       notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
         body.forEach(function(notification) {
           const jsonBody = parseBody(notification);
-          assert.ok(
-            `New package published: * ${metadata.name}*. Publisher name: * ${
-              publisherInfo.name
-            } *.` === jsonBody.message,
-            "Body notify message should be equal"
-          );
+          expect(
+            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
+            .toBe(jsonBody.message, "Body notify message should be equal");
         });
         done();
       }, function (err) {
-        assert.fail(err);
+        expect(err).toBeDefined();
         done();
       });
     });
@@ -128,7 +117,7 @@ export default function(express) {
       configFail.notify.endpoint = "http://localhost:55550/api/notify/bad";
 
       notify(metadata, configFail, publisherInfo).then(function () {
-        assert.equal(false, 'This service should fails with status code 400');
+        expect(false).toBe('This service should fails with status code 400');
         done();
       }, function (err) {
         expect(err).toEqual('bad response');
@@ -147,16 +136,12 @@ export default function(express) {
       notify(metadata, config, publisherInfo).then(
         function(body) {
           const jsonBody = parseBody(body);
-          assert.ok(
-            `New package published: * ${metadata.name}*. Publisher name: * ${
-              metadata.publisher.name
-            } *.` === jsonBody.message,
-            "Body notify message should be equal"
-          );
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`)
+            .toBe(jsonBody.message, "Body notify message should be equal");
           done();
         },
         function(err) {
-          assert.fail(err);
+          expect(err).toBeDefined();
           done();
         }
       );

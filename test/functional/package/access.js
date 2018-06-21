@@ -1,8 +1,12 @@
+import {buildToken} from "../../../src/lib/utils";
+import {HTTP_STATUS, TOKEN_BASIC} from "../../../src/lib/constants";
+import {CREDENTIALS} from "../config.func";
+
 export default function(server) {
 
   describe('package access control', () => {
-    const buildToken = (auth) => {
-      return `Basic ${(new Buffer(auth).toString('base64'))}`;
+    const buildAccesToken = (auth) => {
+      return buildToken(TOKEN_BASIC, `${(new Buffer(auth).toString('base64'))}`);
     };
 
     /**
@@ -13,14 +17,13 @@ export default function(server) {
      */
     function checkAccess(auth, pkg, ok) {
       test(
-        (ok ? 'allows' : 'forbids') +' access ' + auth + ' to ' + pkg,
-        () => {
-          server.authstr = auth ? buildToken(auth) : undefined;
-          let req = server.getPackage(pkg);
+        (ok ? 'allows' : 'forbids') + ' access ' + auth + ' to ' + pkg, () => {
+          server.authstr = auth ? buildAccesToken(auth) : undefined;
+          const req = server.getPackage(pkg);
           if (ok) {
-            return req.status(404).body_error(/no such package available/);
+            return req.status(HTTP_STATUS.NOT_FOUND).body_error(/no such package available/);
           } else {
-            return req.status(403).body_error(/not allowed to access package/);
+            return req.status(HTTP_STATUS.FORBIDDEN).body_error(/not allowed to access package/);
           }
         }
       );
@@ -34,12 +37,12 @@ export default function(server) {
      */
     function checkPublish(auth, pkg, ok) {
       test(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, () => {
-        server.authstr = auth ? buildToken(auth) : undefined;
+        server.authstr = auth ? buildAccesToken(auth) : undefined;
         const req = server.putPackage(pkg, require('../fixtures/package')(pkg));
         if (ok) {
-          return req.status(404).body_error(/this package cannot be added/);
+          return req.status(HTTP_STATUS.NOT_FOUND).body_error(/this package cannot be added/);
         } else {
-          return req.status(403).body_error(/not allowed to publish package/);
+          return req.status(HTTP_STATUS.FORBIDDEN).body_error(/not allowed to publish package/);
         }
       });
     }
@@ -47,7 +50,7 @@ export default function(server) {
     // credentials
     const badCredentials = 'test:badpass';
     // test user is logged by default
-    const validCredentials = 'test:test';
+    const validCredentials = `${CREDENTIALS.user}:${CREDENTIALS.password}`;
 
     // defined on server1 configuration
     const testAccessOnly = 'test-access-only';
