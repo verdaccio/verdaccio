@@ -17,10 +17,12 @@ export const DEFAULT_REGISTRY = 'https://registry.npmjs.org/';
 
 export const HTTP_STATUS = {
   INTERNAL_ERROR: 500,
+  SERVICE_UNAVAILABLE: 503,
   OK: 200,
   CREATED: 201,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
+  CONFLICT: 409,
 };
