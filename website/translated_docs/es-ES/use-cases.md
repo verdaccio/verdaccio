@@ -4,13 +4,13 @@ title: "Casos de Usos"
 ---
 ## Uso de paquetes privados
 
-Puede agregar usuarios y administrar qué usuarios pueden acceder a cuál paquete.
+Puede agregar usuarios y administrar qué usuarios pueden acceder a cuáles paquetes.
 
 Se recomienda que defina un prefijo para sus paquetes privados, por ejemplo "local", así que todos sus elementos privados se verán así: `local-foo`. De esta manera puede separar claramente los paquetes públicos de los privados.
 
 ## Uso de paquetes públicos desde npmjs.org
 
-Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está fuera de línea, proporciona paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio descargará solo los que necesita (los solicitados por los clientes), y esta información se almacenará en caché, entonces si un cliente pregunta lo mismo por segunda vez, puede ser atendido sin preguntar a npmjs.org por eso.
+Si algún paquete no existe en el almacenamiento, el servidor intentará recuperarlo desde npmjs.org. Si npmjs.org está fuera de línea, este proporciona paquetes desde el caché que simulan que no existen otros paquetes. Verdaccio descargará solo los que necesita (los solicitados por los clientes), y esta información se almacenará en caché, entonces si un cliente pregunta lo mismo por segunda vez, puede ser atendido sin preguntar a npmjs.org por eso.
 
 Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, podrá hacerlo nuevamente (con todas sus dependencias) en cualquier momento incluso si npmjs.org está fuera de línea. Pero digamos que express@3.0.0 no se descargará hasta que realmente alguien lo necesite. Y si npmjs.org no está conectado, este servidor diría que solo express@3.0.1 (únicamente lo que está en caché) se publicará, pero nada más.
 
@@ -18,14 +18,14 @@ Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, pod
 
 Si quiere utilizar una versión modificada de algún paquete público `foo`, puede sólo publicarlo en su servidor local, así que cuando escriba `npm install foo`, lo considerará instalando su versión.
 
-There's two options here:
+Hay dos opciones aquí:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Quiere crear una bifurcación separada y detener la sincronización con la versión pública.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Si quiere hacer eso, debe modificar su archivo de configuración para que verdaccio nunca más realice solicitudes en cuanto a este paquete en npmjs. Agregue una entrada separada para este paquete a *config.yaml* y elimine `npmjs` desde la lista `proxy` y reinicie el servidor.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Cuando publique su paquete localmente, probablemente deberá iniciar con la cadena de versión superior a la existente, para que no entre en conflicto con el paquete existente en caché.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Quiere utilizar temporalmente su versión, pero regresar a la pública tan pronto como se actualice.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    A fin de evitar conflictos de versiones, debería utilizar un sufijo personalizado previo al lanzamiento de la siguiente versión del parche. Por ejemplo, si un paquete público tiene la versión 0.1.2, puede cargar 0.1.3-my-temp-fix. De esta manera su paquete se utilizará hasta que el desarrollador original cargue su paquete público al 0.1.3.
