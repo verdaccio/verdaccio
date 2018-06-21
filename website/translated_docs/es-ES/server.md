@@ -38,7 +38,7 @@ Si está ejecutando `verdaccio` en una instancia de Amazon EC2, [necesitará est
 
 Podemos utilizar el paquete de nodo llamado 'forever' para mantener verdaccio ejecutándose todo el tiempo. https://github.com/nodejitsu/forever
 
-Primero instale globalmente para siempre:
+Primero instales forever globalmente:
 
 ```bash
 $ sudo npm install -g forever
@@ -54,18 +54,18 @@ Puede verificar la documentación para más información sobre como utilizar for
 
 ## Sobrevivir a los reinicios del servidor
 
-We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
+Podemos utilizar crontab y forever juntos para reiniciar verdaccio después de un reinicio del servidor. Cuando inicie sesión como usuario de verdaccio haga lo siguiente:
 
 ```bash
 $ crontab -e
 ```
 
-This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
+Esto podría pedirle que escoja un editor. Elija su favorito y continúe. Agregue la siguiente entrada al archivo:
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
 
-The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+Las ubicaciones pueden variar dependiendo de su configuración del servidor. Si quiere saber donde están sus archivos puede utilizar el comando 'which':
 
 ```bash
 $ which forever
