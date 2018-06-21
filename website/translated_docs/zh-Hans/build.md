@@ -1,13 +1,13 @@
 ---
-id: build
-title: "Build the source code"
+id: 建立
+title: "编译源代码"
 ---
-Verdaccio relies on `yarn` instead `npm` to download dependencies.
+Verdaccio 依赖 `纱` 而不是 `npm` 下载依赖项。
 
-*Note: the current build only will build with `➜ yarn@1.x`.
+* 注意: 当前生成仅将使用 `➜ yarn@1` 生成。
 
 ```bash
-  yarn install
+  纱线安装
 ```
 
-To see the complete list of scripts, [click here](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
+要查看脚本的完整列表, 请 [单击此处](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code)。
