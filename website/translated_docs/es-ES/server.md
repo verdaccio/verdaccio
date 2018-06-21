@@ -2,26 +2,26 @@
 id: server-configuration
 title: "Configuración del Servidor"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+Esta materia es principalmente la configuración básica del servidor de linux pero me pareció importante documentar y compartir los pasos que tomé para obtener la ejecución de verdaccio permanentemente en mi servidor. Necesitará permisos de raíz (o sudo) para lo siguiente.
 
-## Running as a separate user
+## Ejecutar con un usuario separado
 
-First create the verdaccio user:
+Crear primero el usuario de verdaccio:
 
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+Crear una capa como el usuario de verdaccio utilizando el siguiente comando:
 
 ```bash
 $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+El comando 'cd ~' lo envía al directorio principal del usuario de verdaccio. Asegúrese de ejecutar verdaccio al menos una vez para generar el archivo de configuración. Edítelo acorde a sus necesidades.
 
-## Listening on all addresses
+## Escuchar todas las direcciones
 
 If you want to listen to every external address set the listen directive in the config to:
 
