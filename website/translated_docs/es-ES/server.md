@@ -44,15 +44,15 @@ Primero instale globalmente para siempre:
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+Asegúrese que ha iniciado verdaccio al menos una vez para general el archivo de configuración y escriba el usuario admin creado. Puede entonces utilizar el siguiente comando para iniciar verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+Puede verificar la documentación para más información sobre como utilizar forever.
 
-## Surviving server restarts
+## Sobrevivir a los reinicios del servidor
 
 We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
 
