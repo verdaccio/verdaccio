@@ -33,52 +33,52 @@ First of all 跳入不熟悉的代码库并不容易，但我们在这里帮助�
 
 <p>当然，我们很乐意帮助我们改进堆栈，您可以将依赖关系升级为<code> eslint </ code>，<code> stylelint </ code>，<code> webpack </ code>。 您可能只需改进<code> webpack </ code>配置即可。 任何建议都非常受欢迎。 此外，无论您是否使用<strong> Yeoman </ strong>，您都可以通过<a href="https://github.com/verdaccio/generator-verdaccio-plugin"> verdaccio生成器</a>来帮助我们。</p>
 
-<p>Here some ideas:</p>
+<p>这里有一些想法：</p>
 
 <ul>
-<li>Create a common eslint rules to be used across all dependencies or plugins</li>
-<li>Improve Flow types definitions delivery</li>
-<li>Moving to Webpack 4</li>
-<li>Improve hot reload with Webpack</li>
-<li>We use babel and webpack across all dependencies, why not a common preset?</li>
-<li>Improve continous integration delivery</li>
+<li>创建一个通用的eslint规则，用于跨所有依赖项或插件</li>
+<li>改进流类型定义交付</li>
+<li>移动到Webpack 4</li>
+<li>使用Webpack改进热重载</li>
+<li>我们在所有的依赖中使用babel和webpack，为什么不是一个常见的预设？</li>
+<li>改善持续集成交付</li>
 </ul>
 
-<h3>I do great Documentation</h3>
+<h3>我做了很棒的文档</h3>
 
-<p>Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.</p>
+<p>许多贡献者发现拼写错误和语法问题，这也有助于改善故障排除的整体体验。</p>
 
-<h3>I am a Designer</h3>
+<h3>我是一个设计师</h3>
 
-<p>We have a frontend website <a href="http://www.verdaccio.org/">http://www.verdaccio.org/</a> that will be happy to see your ideas.</p>
+<p>我们有一个前端网站<a href="http://www.verdaccio.org/"> http://www.verdaccio.org/ </a>，很高兴看到您的想法。</p>
 
-<p>Our website is based on <a href="https://docusaurus.io/">Docusaurus</a>.</p>
+<p>我们的网站基于<a href="https://docusaurus.io/"> Docusaurus </a>。</p>
 
-<h3>I am a DevOps</h3>
+<h3>我是DevOps</h3>
 
-<p>We have a widely popular Docker image <a href="https://hub.docker.com/r/verdaccio/verdaccio/">https://hub.docker.com/r/verdaccio/verdaccio/</a> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.</p>
+<p>我们有一个广受欢迎的Docker镜像<a href="https://hub.docker.com/r/verdaccio/verdaccio/"> https://hub.docker.com/r/verdaccio/verdaccio/ </a> 需要维护并且很可能有很大的改进，我们需要您的知识以使所有用户受益。</p>
 
-<p>We have support for <strong>Kubernetes</strong>, <strong>Puppet</strong>, <strong>Ansible</strong> and <strong>Chef</strong> and we need help in those fields, feel free to see all repositories.</p>
+<p>我们支持<strong> Kubernetes </ strong>，<strong> Puppet </ strong>，<strong> Ansible </ strong>和<strong>厨师</ strong>，因此我们需要这些字段的帮助， 查看所有存储库。</p>
 
-<h3>I can do translations</h3>
+<h3>我可以做翻译</h3>
 
-<p>Verdaccio aims to be multilingual, in order to achieve it <strong>we have the awesome support</strong> of <a href="https://crowdin.com">Crowdin</a> that is an amazing platform for translations.</p>
+<p>Verdaccio的目标是成为多语种，以实现它<strong>我们拥有<a href="https://crowdin.com"> Crowdin </a>的出色支持</ strong>，这是一个非常棒的翻译平台。</p>
 
 <p><img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px"/></p>
 
-<p>We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one <a href="https://github.com/verdaccio/verdaccio/issues/new">creating a ticket</a>.</p>
+<p>我们已经建立了一个项目，您可以选择自己喜欢的语言，如果您没有发现您的语言可以随意请求<a href="https://github.com/verdaccio/verdaccio/issues/new">创建一张票</A>。</p>
 
-<p><a href="https://crowdin.com/project/verdaccio">Go to Crowdin Verdaccio</a></p>
+<p><a href="https://crowdin.com/project/verdaccio">去Crowdin Verdaccio</a></p>
 
-<h2>I'm ready to contribute</h2>
+<h2>我准备贡献</h2>
 
-<p>If you are thinking <em>"I've seen already the <a href="repositories.md">repositories</a> and I'm willing to start right away"</em>  then I have good news for you, that's the next step.</p>
+<p>如果您正在考虑<em>“我已经看到<a href="repositories.md">存储库</a>，并且我愿意立即开始”</ em>，那么我对你有好消息 ，这是下一步。</p>
 
-<p>You will need learn how to build, <a href="build.md">we have prepared a guide just for that</a>.</p>
+<p>您需要了解如何构建，<a href="build.md">我们已经为此准备了一个指南</a>。</p>
 
-<p>Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the <a href="test.md"><strong>Unit Test</strong></a>.</p>
+<p>一旦玩过所有脚本并知道如何使用它们，我们就可以开始下一步，运行<a href="test.md"> <strong>单元测试</ strong> </ a>。</p>
 
-<h2>Full list of contributors. We want to see your face here !</h2>
+<h2>贡献者的完整列表。 我们想在这里看到你的脸！</h2>
 
 <p>
 
