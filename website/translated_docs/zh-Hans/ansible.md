@@ -2,12 +2,12 @@
 id: ansible
 title: "Ansible"
 ---
-We have a customised solution for `verdaccio` in our organization.
+我们的组织中有一个针对 `verdaccio` 的定制解决方案。
 
 <https://github.com/verdaccio/ansible-verdaccio>
 
-#### Other options
+#### 其他选项
 
-* Ansible role for Gentoo users: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
-* Ansible role for Ubuntu users: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
-* ansible-verdaccio-role <https://github.com/refinery29/ansible-verdaccio-role>
+* Ansible 的角色为巴布亚用户: [jirutka/Ansible-角色 sinopia](https://github.com/jirutka/ansible-role-sinopia)。
+* Ubuntu 用户的 Ansible 角色: [jagregory/sinopia Ansible](https://github.com/jagregory/sinopia-ansible)。
+* ansible-verdaccio-角色 <https://github.com/refinery29/ansible-verdaccio-role>
