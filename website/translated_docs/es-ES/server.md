@@ -2,9 +2,9 @@
 id: server-configuration
 title: "Configuración del Servidor"
 ---
-Esta materia es principalmente la configuración básica del servidor de linux pero me pareció importante documentar y compartir los pasos que tomé para obtener la ejecución de verdaccio permanentemente en mi servidor. Necesitará permisos de raíz (o sudo) para lo siguiente.
+Esta materia es principalmente la configuración básica del servidor de linux pero me pareció importante documentar y compartir los pasos que tomé para obtener la ejecución de verdaccio permanentemente en mi servidor. Necesitará permisos de root (o sudo) para lo siguiente.
 
-## Ejecutar con un usuario separado
+## Ejecutar como un usuario separado
 
 Crear primero el usuario de verdaccio:
 
