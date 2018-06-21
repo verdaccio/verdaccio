@@ -18,11 +18,11 @@ Ejemplo: si solicita exitosamente express@3.0.1 desde este servidor una vez, pod
 
 Si quiere utilizar una versión modificada de algún paquete público `foo`, puede sólo publicarlo en su servidor local, así que cuando escriba `npm install foo`, lo considerará instalando su versión.
 
-There's two options here:
+Hay dos opciones aquí:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Quiere crea una bifurcación separada y detener la sincronización con la versión pública.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Si quiere hacer eso, debe modificar su archivo de configuración para que verdaccio nunca más realice solicitudes en cuanto a este paquete en npmjs. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
     
     When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
