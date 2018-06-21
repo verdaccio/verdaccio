@@ -21,24 +21,24 @@ $ cd ~
 
 El comando 'cd ~' lo envía al directorio principal del usuario de verdaccio. Asegúrese de ejecutar verdaccio al menos una vez para generar el archivo de configuración. Edítelo acorde a sus necesidades.
 
-## Escuchar todas las direcciones
+## Atender todas las direcciones
 
-If you want to listen to every external address set the listen directive in the config to:
+Si quiere atender cada dirección externa establezca la directiva a atender en la configuración para:
 
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+Si está ejecutando `verdaccio` en una instancia de Amazon EC2, [necesitará establecer la escucha en cambiar su archivo de configuración](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) como se describió anteriormente.
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> ¿Configurar Apache? Por favor verifique la [Configuración Inversa de Proxy](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## Mantener verdaccio ejecutándose para siempre
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+Podemos utilizar el paquete de nodo llamado 'forever' para mantener verdaccio ejecutándose todo el tiempo. https://github.com/nodejitsu/forever
 
-First install forever globally:
+Primero instale globalmente para siempre:
 
 ```bash
 $ sudo npm install -g forever
