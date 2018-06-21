@@ -1,8 +1,8 @@
 ---
-id: authentification
-title: "Authentification"
+id: 认证
+title: "认证"
 ---
-认证部分设置与 "Auth" [ 插件 ](plugins.md)息息相关。包的访问限制也同时通过 [ 包访问权限](packages.md) 控制。
+认证绑定到您正在使用的授权 [插件](plugins.md) 。包限制还由 [包访问](packages.md) 处理。
 
 客户端的认证流程由 `npm` 自行处理，在你通过以下命令登陆后：
 
@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### 匿名发布包
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio`允许您启用匿名发布, 以实现您需要正确设置 [包访问](packages.md) .
 
 例如：
 
@@ -36,7 +36,7 @@ registry=http://localhost:5555/
 
 ## 默认 htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+为了简化安装, `verdaccio` 使用基于 `htpasswd` 的插件。 在默认情况下, 将使用 [外部插件](https://github.com/verdaccio/verdaccio-htpasswd) 作为 v3.0 版本。 此软件包的 v2 版本仍然包含此插件的内置版本。
 
 ```yaml
 auth:
