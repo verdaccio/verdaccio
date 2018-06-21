@@ -20,12 +20,12 @@ Si quiere utilizar una versión modificada de algún paquete público `foo`, pue
 
 Hay dos opciones aquí:
 
-1. Quiere crea una bifurcación separada y detener la sincronización con la versión pública.
+1. Quiere crear una bifurcación separada y detener la sincronización con la versión pública.
     
-    Si quiere hacer eso, debe modificar su archivo de configuración para que verdaccio nunca más realice solicitudes en cuanto a este paquete en npmjs. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Si quiere hacer eso, debe modificar su archivo de configuración para que verdaccio nunca más realice solicitudes en cuanto a este paquete en npmjs. Agregue una entrada separada para este paquete a *config.yaml* y elimine `npmjs` desde la lista `proxy` y reinicie el servidor.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Cuando publique su paquete localmente, probablemente deberá iniciar con la cadena de versión superior a la existente, para que no entre en conflicto con el paquete existente en caché.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Quiere utilizar temporalmente su versión, pero regresar a la pública tan pronto como se actualice.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    A fin de evitar conflictos de versiones, debería utilizar un sufijo personalizado previo al lanzamiento de la siguiente versión del parche. Por ejemplo, si un paquete público tiene la versión 0.1.2, puede cargar 0.1.3-my-temp-fix. De esta manera su paquete se utilizará hasta que el desarrollador original cargue su paquete público al 0.1.3.
