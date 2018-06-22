@@ -106,9 +106,9 @@ packages:
 
 #### 阻止代理一组特定包
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+你可能想要阻止一个或多个包从远程库获取数据，但在同时，允许其他包访问不同的*uplinks*。
 
-Let's see the following example:
+请看如下示例：
 
 ```yaml
 packages:
@@ -127,7 +127,7 @@ packages:
      proxy: npmjs
 ```
 
-Let's describe what we want with the above example:
+让我们描述一下在上面的示例中我们想要做什么：
 
 * I want to host my own `jquery` dependency but I need to avoid proxying it.
 * I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
