@@ -1,4 +1,4 @@
-import {HTTP_STATUS, PACKAGE_ERROR} from "../../../src/lib/constants";
+import {HTTP_STATUS, API_ERROR} from "../../../src/lib/constants";
 
 export default function(server2) {
   // credentials
@@ -70,19 +70,19 @@ export default function(server2) {
         test(`should fails (404) on access ${UNEXISTING_PKG_NAME}`, () => {
           return server2.getPackage(UNEXISTING_PKG_NAME)
                    .status(HTTP_STATUS.NOT_FOUND)
-                   .body_error(PACKAGE_ERROR.NO_PACKAGE);
+                   .body_error(API_ERROR.NO_PACKAGE);
         });
 
         test(`should fails (403) access ${ONLY_ACCESS_BY_USER_2}`, () => {
           return server2.getPackage(ONLY_ACCESS_BY_USER_2)
                    .status(HTTP_STATUS.FORBIDDEN)
-                   .body_error(PACKAGE_ERROR.NOT_ALLOWED);
+                   .body_error(API_ERROR.NOT_ALLOWED);
         });
 
         test(`should fails (404) access ${AUTH_PKG_ACCESS_NAME}`, () => {
           return server2.getPackage(AUTH_PKG_ACCESS_NAME)
                    .status(HTTP_STATUS.NOT_FOUND)
-                   .body_error(PACKAGE_ERROR.NO_PACKAGE);
+                   .body_error(API_ERROR.NO_PACKAGE);
         });
       });
 
@@ -96,19 +96,19 @@ export default function(server2) {
         test(`should fails (403) on access ${UNEXISTING_PKG_NAME}`, () => {
           return server2.getPackage(UNEXISTING_PKG_NAME)
                    .status(HTTP_STATUS.FORBIDDEN)
-                   .body_error(PACKAGE_ERROR.NOT_ALLOWED);
+                   .body_error(API_ERROR.NOT_ALLOWED);
         });
 
         test(`should fails (403) on access ${DENY_PKG_NAME}`, () => {
           return server2.getPackage(DENY_PKG_NAME)
                    .status(HTTP_STATUS.FORBIDDEN)
-                   .body_error(PACKAGE_ERROR.NOT_ALLOWED);
+                   .body_error(API_ERROR.NOT_ALLOWED);
         });
 
         test(`should fails (404) access ${AUTH_PKG_ACCESS_NAME}`, () => {
           return server2.getPackage(AUTH_PKG_ACCESS_NAME)
                    .status(HTTP_STATUS.NOT_FOUND)
-                   .body_error(PACKAGE_ERROR.NO_PACKAGE);
+                   .body_error(API_ERROR.NO_PACKAGE);
         });
       });
 

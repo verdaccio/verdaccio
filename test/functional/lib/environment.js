@@ -8,6 +8,7 @@ import VerdaccioProcess from "../../lib/server_process";
 import Server from "../../lib/server";
 import ExpressServer from "./simple_server";
 import type {IServerBridge} from '../../types';
+import {PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from "../../../src/lib/constants";
 
 const EXPRESS_PORT = 55550;
 
@@ -34,17 +35,17 @@ class FunctionalEnvironment extends NodeEnvironment {
     const pathStore = path.join(__dirname, '../store');
     const listServers = [
       {
-        port: 55551,
+        port: PORT_SERVER_1,
         config: '/config-1.yaml',
         storage: '/test-storage'
       },
       {
-        port: 55552,
+        port: PORT_SERVER_2,
         config: '/config-2.yaml',
         storage: '/test-storage2'
       },
       {
-        port: 55553,
+        port: PORT_SERVER_3,
         config: '/config-3.yaml',
         storage: '/test-storage3'
       }

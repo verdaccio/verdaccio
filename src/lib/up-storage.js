@@ -8,7 +8,7 @@ import Stream from 'stream';
 import URL from 'url';
 import {parseInterval, isObject, ErrorCode, buildToken} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
-import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS} from './constants';
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE} from './constants';
 import type {
 Config,
 UpLinkConf,
@@ -407,10 +407,10 @@ class ProxyStorage implements IProxy {
       if (err) {
         return callback(err);
       }
-      if (res.statusCode === 404) {
-        return callback( ErrorCode.getNotFound('package doesn\'t exist on uplink'));
+      if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+        return callback( ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
       }
-      if (!(res.statusCode >= 200 && res.statusCode < 300)) {
+      if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
         const error = ErrorCode.getInternalError(`bad status code: ${res.statusCode}`);
         // $FlowFixMe
         error.remoteStatus = res.statusCode;
@@ -440,15 +440,15 @@ class ProxyStorage implements IProxy {
     });
 
     readStream.on('response', function(res: any) {
-      if (res.statusCode === 404) {
-        return stream.emit('error', ErrorCode.getNotFound('file doesn\'t exist on uplink'));
+      if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+        return stream.emit('error', ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
       }
-      if (!(res.statusCode >= 200 && res.statusCode < 300)) {
+      if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
         return stream.emit('error', ErrorCode.getInternalError(`bad uplink status code: ${res.statusCode}`));
       }
-      if (res.headers['content-length']) {
-        expected_length = res.headers['content-length'];
-        stream.emit('content-length', res.headers['content-length']);
+      if (res.headers[HEADER_TYPE.CONTENT_LENGTH]) {
+        expected_length = res.headers[HEADER_TYPE.CONTENT_LENGTH];
+        stream.emit(HEADER_TYPE.CONTENT_LENGTH, res.headers[HEADER_TYPE.CONTENT_LENGTH]);
       }
 
       readStream.pipe(stream);
@@ -465,7 +465,7 @@ class ProxyStorage implements IProxy {
         current_length += data.length;
       }
       if (expected_length && current_length != expected_length) {
-        stream.emit('error', ErrorCode.getInternalError('content length mismatch'));
+        stream.emit('error', ErrorCode.getInternalError(API_ERROR.CONTENT_MISMATCH));
       }
     });
     return stream;
@@ -500,7 +500,7 @@ class ProxyStorage implements IProxy {
       // See https://github.com/request/request#requestoptions-callback
       // Request library will not decode gzip stream.
       let jsonStream;
-      if (res.headers['content-encoding'] === 'gzip') {
+      if (res.headers[HEADER_TYPE.CONTENT_ENCODING] === HEADERS.GZIP) {
         jsonStream = res.pipe(zlib.createUnzip());
       } else {
         jsonStream = res;

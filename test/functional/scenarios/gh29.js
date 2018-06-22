@@ -11,19 +11,18 @@ function readfile(filePath) {
 
 const binary = '../fixtures/binary';
 const pkgName = 'testpkg-gh29';
-const pkgContent = 'blahblah';
+const pkgFileName = 'blahblah';
 
 export default function (server, server2) {
-
-  test('downloading non-existent tarball #1 / srv2', () => {
-    return server2.getTarball(pkgName, pkgContent)
-             .status(HTTP_STATUS.NOT_FOUND)
-             .body_error(/no such package/);
+  describe('pkg-gh29 #1', () => {
+    test('downloading non-existent tarball #1 / srv2', () => {
+      return server2.getTarball(pkgName, pkgFileName)
+               .status(HTTP_STATUS.NOT_FOUND)
+               .body_error(/no such package/);
+    });
   });
 
-  describe('pkg-gh29', () => {
-
-
+  describe('pkg-gh29 #2', () => {
     beforeAll(function() {
       return server.putPackage(pkgName, require('../fixtures/package')(pkgName))
                .status(HTTP_STATUS.CREATED)
@@ -33,14 +32,14 @@ export default function (server, server2) {
     test('creating new package / srv1', () => {});
 
     test('downloading non-existent tarball #2 / srv2', () => {
-      return server2.getTarball(pkgName, pkgContent)
+      return server2.getTarball(pkgName, pkgFileName)
                .status(HTTP_STATUS.NOT_FOUND)
                .body_error(/no such file available/);
     });
 
     describe('tarball', () => {
       beforeAll(function() {
-        return server.putTarball(pkgName, pkgContent, readfile(binary))
+        return server.putTarball(pkgName, pkgFileName, readfile(binary))
                  .status(HTTP_STATUS.CREATED)
                  .body_ok(/.*/);
       });
@@ -59,7 +58,7 @@ export default function (server, server2) {
         test('uploading new package version / srv1', () => {});
 
         test('downloading newly created tarball / srv2', () => {
-          return server2.getTarball(pkgName, pkgContent)
+          return server2.getTarball(pkgName, pkgFileName)
                  .status(HTTP_STATUS.OK)
                  .then(function(body) {
                    expect(body).toEqual(readfile(binary));

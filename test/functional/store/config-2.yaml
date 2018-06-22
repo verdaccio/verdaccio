@@ -39,7 +39,11 @@ packages:
     publish: $all
     proxy: server1
 
-  'testfwd':
+  'test-fwd':
+    access: $all
+    publish: $all
+
+  'test-mirror-fwdw*':
     access: $all
     publish: $all
 

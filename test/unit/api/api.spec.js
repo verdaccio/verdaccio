@@ -8,7 +8,7 @@ import publishMetadata from '../partials/publish-api';
 import forbiddenPlace from '../partials/forbidden-place';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
-import {HEADERS} from '../../../src/lib/constants';
+import {HEADERS, API_ERROR} from '../../../src/lib/constants';
 
 require('../../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
@@ -595,7 +595,7 @@ describe('endpoint unit test', () => {
           .expect(200)
           .expect('Content-Type', 'text/plain; charset=utf-8')
           .end(function(err, res) {
-            expect(res.body.error).toMatch('no such package available');
+            expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
             done();
           });
       });

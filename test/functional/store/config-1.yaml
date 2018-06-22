@@ -34,12 +34,13 @@ packages:
     publish: $all
     proxy: server2
 
-  'testfwd*':
+  ## mirror.js
+  'test-mirror-*':
     access: $all
     publish: $all
     proxy: server2
-    proxy_publish: server2
 
+  ## mirror.js
   'testloop':
     access: $all
     publish: $all

@@ -1,8 +1,8 @@
 // @flow
 
+import _ from 'lodash';
 import assert from 'assert';
 import request from 'request';
-import _ from 'lodash';
 import type {IRequestPromise} from '../types';
 
 const requestData = Symbol('smart_request_data');
@@ -54,7 +54,6 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
-      // console.log("======>smartRequest body_error://", body);
       try {
         if (_.isRegExp(expected)) {
           assert(body.error.match(expected), body.error + ' doesn\'t match ' + expected);

@@ -10,7 +10,7 @@ import _ from 'lodash';
 import asciidoctor from 'asciidoctor.js';
 import createError from 'http-errors';
 import marked from 'marked';
-import {HTTP_STATUS} from './constants';
+import {HTTP_STATUS, API_ERROR} from './constants';
 
 import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
@@ -359,7 +359,7 @@ const ErrorCode = {
     return createError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
   },
   getNotFound: (customMessage?: string) => {
-    return createError(HTTP_STATUS.NOT_FOUND, customMessage || 'no such package available');
+    return createError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
   },
   getCode: (statusCode: number, customMessage: string) => {
     return createError(statusCode, customMessage);
