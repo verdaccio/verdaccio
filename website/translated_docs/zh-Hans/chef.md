@@ -1,14 +1,14 @@
 ---
-id: 厨师
-title: "厨师食谱"
+id: chef
+title: "Chef Cookbook"
 ---
-使用厨师食谱 Verdaccio
+Using Chef Cookbook for Verdaccio
 
-详细信息:
+For further information:
 
 * <https://github.com/verdaccio/verdaccio-cookbook>
 * <https://supermarket.chef.io/cookbooks/verdaccio>
 
-> 我们正在寻找这个存储库的贡献者, 如果你有兴趣请通过门票通知作者。
+> We are looking for contributors for this repository, if you are interested please notify the author via tickets.
 
-作者: [颗粒 Grubb](https://github.com/kgrubb) && 巴泰勒米 Vessemont。
+Author: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
