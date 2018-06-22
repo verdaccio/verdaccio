@@ -1,6 +1,17 @@
-import assert from 'assert';
+import {HTTP_STATUS, PACKAGE_ERROR} from "../../../src/lib/constants";
 
-export default function(server2){
+export default function(server2) {
+  // credentials
+  const USER1 = 'authtest';
+  const USER2 = 'authtest2';
+  const CORRECT_PASSWORD = 'blahblah';
+  const WRONG_PASSWORD = 'wrongpass1';
+  // package names
+  const DENY_PKG_NAME = 'test-auth-deny';
+  const AUTH_PKG_ACCESS_NAME = 'test-auth-regular';
+  const ONLY_ACCESS_BY_USER_2 = 'test-deny';
+  const UNEXISTING_PKG_NAME = 'test-auth-allow';
+
   const requestAuthFail = (user, pass, message, statusCode) => {
     return server2.auth(user, pass)
       .status(statusCode)
@@ -9,7 +20,7 @@ export default function(server2){
         return server2.whoami();
       })
       .then(function(username) {
-        assert.equal(username, null);
+        expect(username).toBeUndefined();
       });
   };
   const requestAuthOk = (user, pass, regex, statusCode) => {
@@ -20,76 +31,87 @@ export default function(server2){
         return server2.whoami();
       })
       .then(function(username) {
-        assert.equal(username, user);
+        expect(username).toBe(user);
       });
 
   };
 
-  describe('test default authentication', () => {
+  describe('plugin authentication', () => {
 
-    test('should not authenticate with wrong password', () => {
-      return requestAuthFail('authtest', 'wrongpass1', 'i don\'t like your password', 401);
+    describe('test users authentication', () => {
+
+      test('should not authenticate user1 with wrong password', () => {
+        return requestAuthFail(USER1, WRONG_PASSWORD, 'i don\'t like your password', HTTP_STATUS.UNAUTHORIZED);
+      });
+
+      test('should not authenticate user2 with wrong password', () => {
+        return requestAuthFail(USER2, WRONG_PASSWORD, 'i don\'t like your password', HTTP_STATUS.UNAUTHORIZED);
+      });
+
+      test('should right user2 password handled by plugin', () => {
+        return requestAuthOk(USER2, CORRECT_PASSWORD, new RegExp(USER2), HTTP_STATUS.CREATED);
+      });
+
+      test('should right user1 password handled by plugin', () => {
+        return requestAuthOk(USER1, CORRECT_PASSWORD, new RegExp(USER1), HTTP_STATUS.CREATED);
+      });
+
     });
 
-    test('should right password handled by plugin', () => {
-      return requestAuthOk('authtest2', 'blahblah', /'authtest2'/, 201);
+    describe('test package access authorization', () => {
+
+     describe(`access with user ${USER1} on server2`, () => {
+        beforeAll(function() {
+          return server2.auth(USER1, CORRECT_PASSWORD)
+                   .status(HTTP_STATUS.CREATED)
+                   .body_ok(new RegExp(USER1));
+        });
+
+        test(`should fails (404) on access ${UNEXISTING_PKG_NAME}`, () => {
+          return server2.getPackage(UNEXISTING_PKG_NAME)
+                   .status(HTTP_STATUS.NOT_FOUND)
+                   .body_error(PACKAGE_ERROR.NO_PACKAGE);
+        });
+
+        test(`should fails (403) access ${ONLY_ACCESS_BY_USER_2}`, () => {
+          return server2.getPackage(ONLY_ACCESS_BY_USER_2)
+                   .status(HTTP_STATUS.FORBIDDEN)
+                   .body_error(PACKAGE_ERROR.NOT_ALLOWED);
+        });
+
+        test(`should fails (404) access ${AUTH_PKG_ACCESS_NAME}`, () => {
+          return server2.getPackage(AUTH_PKG_ACCESS_NAME)
+                   .status(HTTP_STATUS.NOT_FOUND)
+                   .body_error(PACKAGE_ERROR.NO_PACKAGE);
+        });
+      });
+
+      describe(`access with user ${USER2} on server2`, () => {
+        beforeAll(function() {
+          return server2.auth(USER2, CORRECT_PASSWORD)
+                   .status(HTTP_STATUS.CREATED)
+                   .body_ok(new RegExp(USER2));
+        });
+
+        test(`should fails (403) on access ${UNEXISTING_PKG_NAME}`, () => {
+          return server2.getPackage(UNEXISTING_PKG_NAME)
+                   .status(HTTP_STATUS.FORBIDDEN)
+                   .body_error(PACKAGE_ERROR.NOT_ALLOWED);
+        });
+
+        test(`should fails (403) on access ${DENY_PKG_NAME}`, () => {
+          return server2.getPackage(DENY_PKG_NAME)
+                   .status(HTTP_STATUS.FORBIDDEN)
+                   .body_error(PACKAGE_ERROR.NOT_ALLOWED);
+        });
+
+        test(`should fails (404) access ${AUTH_PKG_ACCESS_NAME}`, () => {
+          return server2.getPackage(AUTH_PKG_ACCESS_NAME)
+                   .status(HTTP_STATUS.NOT_FOUND)
+                   .body_error(PACKAGE_ERROR.NO_PACKAGE);
+        });
+      });
+
     });
-
-  });
-
-  describe('test access authorization', () => {
-
-   describe('access with user authtest', () => {
-      beforeAll(function() {
-        return server2.auth('authtest', 'blahblah')
-                 .status(201)
-                 .body_ok(/'authtest'/);
-      });
-
-      test('access test-auth-allow', () => {
-        return server2.getPackage('test-auth-allow')
-                 .status(404)
-                 .body_error('no such package available');
-      });
-
-      test('access test-deny', () => {
-        return server2.getPackage('test-deny')
-                 .status(403)
-                 .body_error('not allowed to access package');
-      });
-
-      test('access test-auth-regular', () => {
-        return server2.getPackage('test-auth-regular')
-                 .status(404)
-                 .body_error('no such package available');
-      });
-    });
-
-    describe('access with user authtest2', () => {
-      beforeAll(function() {
-        return server2.auth('authtest2', 'blahblah')
-                 .status(201)
-                 .body_ok(/'authtest2'/);
-      });
-
-      test('access test-auth-allow', () => {
-        return server2.getPackage('test-auth-allow')
-                 .status(403)
-                 .body_error('not allowed to access package');
-      });
-
-      test('access test-auth-deny', () => {
-        return server2.getPackage('test-auth-deny')
-                 .status(403)
-                 .body_error('not allowed to access package');
-      });
-
-      test('access test-auth-regular', () => {
-        return server2.getPackage('test-auth-regular')
-                 .status(404)
-                 .body_error('no such package available');
-      });
-    });
-
   });
 }

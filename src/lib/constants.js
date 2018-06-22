@@ -37,3 +37,8 @@ export const HTTP_STATUS = {
 export const PORT_SERVER_1 = '55551';
 export const PORT_SERVER_2 = '55552';
 export const PORT_SERVER_3 = '55551';
+
+export const PACKAGE_ERROR = {
+  NO_PACKAGE: 'no such package available',
+  NOT_ALLOWED: 'not allowed to access package',
+};

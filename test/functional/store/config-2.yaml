@@ -72,6 +72,7 @@ packages:
     access: $all
     publish: $all
 
+   ## start test auth.js
   'test-auth-regular':
     access: $authenticated
 
@@ -80,6 +81,7 @@ packages:
 
   'test-deny':
     access: authtest2
+   ## end test auth.js
 
   '*':
     access: test $anonymous
