@@ -69,6 +69,11 @@ export default class Maintainers extends React.Component {
   render() {
     let author = this.author;
 
+    // There is no author info on `package.json`
+    if (!author.name) {
+      return null;
+    }
+
     return (
       <Module
         title="Maintainers"
