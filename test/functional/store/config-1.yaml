@@ -37,14 +37,13 @@ packages:
   'testfwd*':
     access: $all
     publish: $all
-    proxy_access: server2
+    proxy: server2
     proxy_publish: server2
 
   'testloop':
     access: $all
     publish: $all
-    proxy_access: server2
-    proxy_publish: server2
+    proxy: server2
 
   'testexp':
     access: $anonymous
@@ -53,48 +52,48 @@ packages:
   'testexp_tag*':
     access: $all
     publish: $all
-    proxy_access: express
+    proxy: express
 
   # used by gzip.spec.js
   'testexp_gzi*':
     access: $all
     publish: $all
-    proxy_access: express
+    proxy: express
 
   # used by gh29.js
   'testpkg-gh29':
     access: $all
     publish: $all
-    proxy_access: express
+    proxy: express
 
   # used by preserve_tags_spec.js
   'testpkg-preserve':
     access: $all
     publish: $all
-    proxy_access: express
+    proxy: express
 
   # used by racycrash.js
   'testexp-racycrash':
     access: $all
     publish: $all
-    proxy_access: express
+    proxy: express
 
   # used by incomplete.js
   'testexp-incomplete':
     access: $all
     publish: $all
-    proxy_access: express
+    proxy: express
 
   'test-nullstorage*':
     access: $all
     publish: $all
-    proxy_access: server2
+    proxy: server2
     storage: false
 
   'baduplink':
     access: $all
     publish: $all
-    proxy_access: baduplink
+    proxy: baduplink
 
   'test-access-only':
     access: $all
