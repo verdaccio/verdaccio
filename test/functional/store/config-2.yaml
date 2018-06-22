@@ -12,6 +12,8 @@ web:
 middlewares:
   ../fixtures/plugins/middlewares:
     message: this is a custom route
+  ../fixtures/plugins/middlewares.es6:
+      message: this is a custom route es6
 
 max_users: 3
 

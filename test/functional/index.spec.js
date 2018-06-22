@@ -25,6 +25,7 @@ import racycrash from './sanity/racycrash';
 import security from './sanity/security';
 import race from './performance/race';
 import pluginsAuth from './plugins/auth';
+import middleware from './plugins/middleware';
 import upLinkCache from './uplinks/cache';
 
 describe('functional test verdaccio', function() {
@@ -45,6 +46,7 @@ describe('functional test verdaccio', function() {
   preserveTags(server1, server2, app);
   readme(server1, server2);
   nullstorage(server1, server2);
+  middleware(server2);
   race(server1);
   racycrash(server1, app);
   packageScoped(server1, server2);

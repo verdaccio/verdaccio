@@ -258,7 +258,7 @@ class Auth {
       const scheme = parts[0];
       if (scheme.toUpperCase() === 'BASIC') {
          credentials = new Buffer(parts[1], 'base64').toString();
-         this.logger.warn('basic authentication is deprecated, please use JWT instead');
+         this.logger.info('basic authentication is deprecated, please use JWT instead');
          return credentials;
       } else if (scheme.toUpperCase() === 'BEARER') {
          const token = new Buffer(parts[1], 'base64');
