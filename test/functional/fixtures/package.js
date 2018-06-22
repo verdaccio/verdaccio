@@ -4,6 +4,7 @@ module.exports = function(name, version = '0.0.0', port = PORT_SERVER_1, domain=
   return {
     name: name,
     version: version,
+    readme: "this is a readme",
     dist: {
       shasum: 'fake',
       tarball: `${domain}/${encodeURIComponent(name)}/-/blahblah`,

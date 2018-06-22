@@ -42,3 +42,5 @@ export const PACKAGE_ERROR = {
   NO_PACKAGE: 'no such package available',
   NOT_ALLOWED: 'not allowed to access package',
 };
+
+export const DEFAULT_NO_README = 'ERROR: No README data found!';
