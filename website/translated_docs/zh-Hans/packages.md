@@ -104,7 +104,7 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### 阻止代理一组特定包
 
 You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
 
