@@ -4,7 +4,7 @@ title: "包的访问"
 ---
 这是一系列的约束，它基于特定条件允许或限制对本地存储的访问。
 
-The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
+安全约束构建于被使用的插件上，在默认情况下，`verdaccio`使用[htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd)。 如果你使用不同的插件，行为可能会有所不同。 The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
 
 For more information about permissions visit [the authentification section in the wiki](auth.md).
 
