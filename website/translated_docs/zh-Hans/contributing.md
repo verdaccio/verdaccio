@@ -1,86 +1,81 @@
 ---
-id: 贡献
-title: "贡献 Verdaccio"
+id: contributing
+title: "Contributing Verdaccio"
 ---
-First of all 跳入不熟悉的代码库并不容易，但我们在这里帮助您。
+First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
 
-## 通信渠道
+## Comunication Channels
 
-如果您愿意询问, 我们将使用两个渠道进行讨论:
+If you are willing for asking, we use two channels for discussions:
 
-* [公共 Gitter 频道](https://gitter.im/verdaccio/)
-* [参与者松弛通道](https://verdaccio-npm.slack.com) (不幸的是, 只有通过电子邮件邀请, 您可能会询问 **Gitter** 将包括在内)
+* [Public Gitter channel](https://gitter.im/verdaccio/)
+* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
 
-## 开始
+## Getting started
 
-乍一看, verdaccio 是一个单一的存储库, 但是有很多方法可以帮助您, 并提供多种技术来实践。
+As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
 
-### 找到我的位置
+### Finding my spot
 
-我们有不同的技能, 所以, 让我们看看你可能会觉得舒服。
+All we have different skills, so, let's see where you might feel comfortable.
 
-### 我知道或者我想学习节点. js
+### I know or I want to learn Node.js
 
-节点. js 是 `verdaccio`的基础, 我们使用库作为 `express`, `指挥官`, `请求` 或 `异步`。 Verdaccio基本上是一个Rest API，它可以与 npm </ code>客户端兼容，如<code> yarn </ code>。</p>
+Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
-<p>我们有一个很长的<a href="plugins.md">插件列表</a>，可以随时使用和改进，但同时<a href="dev-plugins.md">您可以创建自己的</ a>.</p>
+We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
 
-<h3>我宁愿在用户界面中工作</h3>
+### I would prefer to work in the User Interface
 
-<p>最近，我们已经将<code> React </ code>和<code> element-react </ code>转移到现代技术。 我们期待看到如何改进用户界面的新想法。</p>
+Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
 
-<h3>我感觉更舒适的改进堆栈</h3>
+### I feel more confortable improving the stack
 
-<p>当然，我们很乐意帮助我们改进堆栈，您可以将依赖关系升级为<code> eslint </ code>，<code> stylelint </ code>，<code> webpack </ code>。 您可能只需改进<code> webpack </ code>配置即可。 任何建议都非常受欢迎。 此外，无论您是否使用<strong> Yeoman </ strong>，您都可以通过<a href="https://github.com/verdaccio/generator-verdaccio-plugin"> verdaccio生成器</a>来帮助我们。</p>
+Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
 
-<p>这里有一些想法：</p>
+Here some ideas:
 
-<ul>
-<li>创建一个通用的eslint规则，用于跨所有依赖项或插件</li>
-<li>改进流类型定义交付</li>
-<li>移动到Webpack 4</li>
-<li>使用Webpack改进热重载</li>
-<li>我们在所有的依赖中使用babel和webpack，为什么不是一个常见的预设？</li>
-<li>改善持续集成交付</li>
-</ul>
+* Create a common eslint rules to be used across all dependencies or plugins
+* Improve Flow types definitions delivery
+* Moving to Webpack 4
+* Improve hot reload with Webpack
+* We use babel and webpack across all dependencies, why not a common preset?
+* Improve continous integration delivery
 
-<h3>我做了很棒的文档</h3>
+### I do great Documentation
 
-<p>许多贡献者发现拼写错误和语法问题，这也有助于改善故障排除的整体体验。</p>
+Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
 
-<h3>我是一个设计师</h3>
+### I am a Designer
 
-<p>我们有一个前端网站<a href="http://www.verdaccio.org/"> http://www.verdaccio.org/ </a>，很高兴看到您的想法。</p>
+We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
-<p>我们的网站基于<a href="https://docusaurus.io/"> Docusaurus </a>。</p>
+Our website is based on [Docusaurus](https://docusaurus.io/).
 
-<h3>我是DevOps</h3>
+### I am a DevOps
 
-<p>我们有一个广受欢迎的Docker镜像<a href="https://hub.docker.com/r/verdaccio/verdaccio/"> https://hub.docker.com/r/verdaccio/verdaccio/ </a> 需要维护并且很可能有很大的改进，我们需要您的知识以使所有用户受益。</p>
+We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
-<p>我们支持<strong> Kubernetes </ strong>，<strong> Puppet </ strong>，<strong> Ansible </ strong>和<strong>厨师</ strong>，因此我们需要这些字段的帮助， 查看所有存储库。</p>
+We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
 
-<h3>我可以做翻译</h3>
+### I can do translations
 
-<p>Verdaccio的目标是成为多语种，以实现它<strong>我们拥有<a href="https://crowdin.com"> Crowdin </a>的出色支持</ strong>，这是一个非常棒的翻译平台。</p>
+Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
 
-<p><img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px"/></p>
+<img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-<p>我们已经建立了一个项目，您可以选择自己喜欢的语言，如果您没有发现您的语言可以随意请求<a href="https://github.com/verdaccio/verdaccio/issues/new">创建一张票</A>。</p>
+We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
-<p><a href="https://crowdin.com/project/verdaccio">去Crowdin Verdaccio</a></p>
+[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-<h2>我准备贡献</h2>
+## I'm ready to contribute
 
-<p>如果您正在考虑<em>“我已经看到<a href="repositories.md">存储库</a>，并且我愿意立即开始”</ em>，那么我对你有好消息 ，这是下一步。</p>
+If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
 
-<p>您需要了解如何构建，<a href="build.md">我们已经为此准备了一个指南</a>。</p>
+You will need learn how to build, [we have prepared a guide just for that](build.md).
 
-<p>一旦玩过所有脚本并知道如何使用它们，我们就可以开始下一步，运行<a href="test.md"> <strong>单元测试</ strong> </ a>。</p>
+Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
 
-<h2>贡献者的完整列表。 我们想在这里看到你的脸！</h2>
-
-<p>
+## Full list of contributors. We want to see your face here !
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
-</p>
