@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+你可以使用不同的插件认证来更改现有行为。 `verdaccio`只是检查试图访问或发布特定包的用户是否属于正确的组。
 
-#### Set multiple groups
+#### 设置多个组
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+定义多个访问组非常简单，只需要在它们之间加入一个空格。
 
 ```yaml
   'company-*':
@@ -92,9 +92,9 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 ```
 
-#### Blocking access to set of packages
+#### 阻止对一组包的访问
 
-If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
+如果你想要阻止访问/发布到一组包，只需要避免定义`access` 和 `publish`。
 
 ```yaml
 packages:
