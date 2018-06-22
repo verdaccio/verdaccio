@@ -1,9 +1,11 @@
-
-import assert from 'assert';
+import {HEADERS, HTTP_STATUS, PORT_SERVER_1, PORT_SERVER_2} from '../../../src/lib/constants';
 import {generateSha} from '../lib/test.utils';
-import {HEADERS} from '../../../src/lib/constants';
+import {DIST_TAGS} from "../../../src/lib/utils";
 
 export default function(server, server2) {
+  const SCOPE = '@test/scoped';
+  const PKG_VERSION = '1.0.0';
+  const PKG_NAME = 'scoped';
 
   describe('test-scoped', () => {
     beforeAll(function() {
@@ -14,19 +16,18 @@ export default function(server, server2) {
         },
         method: 'PUT',
         json: require('./scoped.json'),
-      }).status(201);
+      }).status(HTTP_STATUS.CREATED);
     });
 
     test('should publish scope package', () => {});
 
     describe('should get scoped packages tarball', () => {
       const uploadScopedTarBall = (server) => {
-        return server.getTarball('@test/scoped', 'scoped-1.0.0.tgz')
-          .status(200)
+        return server.getTarball(SCOPE, `${PKG_NAME}-${PKG_VERSION}.tgz`)
+          .status(HTTP_STATUS.OK)
           .then(function(body) {
             // not real sha due to utf8 conversion
-            assert.strictEqual(generateSha(body),
-              '6e67b14e2c0e450b942e2bc8086b49e90f594790');
+            expect(generateSha(body)).toEqual('6e67b14e2c0e450b942e2bc8086b49e90f594790');
           });
       };
 
@@ -41,22 +42,22 @@ export default function(server, server2) {
     });
 
     describe('should retrieve scoped packages', () => {
-      const testScopePackage = (server, port) => server.getPackage('@test/scoped')
-        .status(200)
+      const testScopePackage = (server, port) => server.getPackage(SCOPE)
+        .status(HTTP_STATUS.OK)
         .then(function(body) {
-          assert.equal(body.name, '@test/scoped');
-          assert.equal(body.versions['1.0.0'].name, '@test/scoped');
-          assert.equal(body.versions['1.0.0'].dist.tarball,
-            `http://localhost:${port}/@test%2fscoped/-/scoped-1.0.0.tgz`);
-          assert.deepEqual(body['dist-tags'], {latest: '1.0.0'});
+          expect(body.name).toBe(SCOPE);
+          expect(body.versions[PKG_VERSION].name).toBe(SCOPE);
+          expect(body.versions[PKG_VERSION].dist.tarball).toBe(
+            `http://localhost:${port}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
+          expect(body[DIST_TAGS]).toEqual({latest: PKG_VERSION});
         });
 
       test('scoped package on server1', () => {
-        return testScopePackage(server, '55551');
+        return testScopePackage(server, PORT_SERVER_1);
       });
 
       test('scoped package on server2', () => {
-        return testScopePackage(server2, '55552');
+        return testScopePackage(server2, PORT_SERVER_2);
       });
     });
 
@@ -64,11 +65,11 @@ export default function(server, server2) {
       test('should work nginx workaround', () => {
         return server2.request({
           uri: '/@test/scoped/1.0.0'
-        }).status(200)
+        }).status(HTTP_STATUS.OK)
          .then(function(body) {
-           assert.equal(body.name, '@test/scoped');
-           assert.equal(body.dist.tarball,
-             'http://localhost:55552/@test%2fscoped/-/scoped-1.0.0.tgz');
+           expect(body.name).toEqual(SCOPE);
+           expect(body.dist.tarball).toEqual(
+             `http://localhost:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
          });
       });
     });
