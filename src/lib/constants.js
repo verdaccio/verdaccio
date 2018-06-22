@@ -31,6 +31,7 @@ export const HTTP_STATUS = {
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   CONFLICT: 409,
+  BAD_DATA: 422,
 };
 
 export const PORT_SERVER_1 = '55551';

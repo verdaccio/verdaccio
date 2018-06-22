@@ -127,7 +127,7 @@ export function checkPackageLocal(name: string, localStorage: IStorage): Promise
         return reject(err);
       }
       if (results) {
-        return reject(ErrorCode.get409('this package is already present'));
+        return reject(ErrorCode.getConflict('this package is already present'));
       }
       return resolve();
     });
@@ -158,7 +158,7 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
 
       // checking package exist already
       if (_.isNil(packageJsonLocal) === false) {
-        return reject(ErrorCode.get409('this package is already present'));
+        return reject(ErrorCode.getConflict('this package is already present'));
       }
 
       for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
@@ -170,7 +170,7 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
               return resolve();
             }
 
-            return reject(ErrorCode.get503('one of the uplinks is down, refuse to publish'));
+            return reject(ErrorCode.getServiceUnavailable('one of the uplinks is down, refuse to publish'));
           }
         }
       }

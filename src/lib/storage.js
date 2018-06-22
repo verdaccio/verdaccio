@@ -438,7 +438,7 @@ class Storage implements IStorageHandler {
 
         if (err || !upLinkResponse) {
           // $FlowFixMe
-          return cb(null, [err || ErrorCode.get500('no data')]);
+          return cb(null, [err || ErrorCode.getInternalError('no data')]);
         }
 
         try {
@@ -478,7 +478,7 @@ class Storage implements IStorageHandler {
     }, (err: Error, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
-        return callback( ErrorCode.get404('no such package available')
+        return callback( ErrorCode.getNotFound('no such package available')
           , null
           , upLinksErrors );
       }

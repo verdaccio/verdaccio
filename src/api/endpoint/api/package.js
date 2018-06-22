@@ -37,7 +37,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
           }
         }
       }
-      return next(ErrorCode.get404(`version not found: ${req.params.version}`));
+      return next(ErrorCode.getNotFound(`version not found: ${req.params.version}`));
     };
 
     storage.getPackage({

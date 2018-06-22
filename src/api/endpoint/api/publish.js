@@ -67,7 +67,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         || Object.keys(metadata.versions).length !== 1) {
         // npm is doing something strange again
         // if this happens in normal circumstances, report it as a bug
-        return next(ErrorCode.get400('unsupported registry call'));
+        return next(ErrorCode.getBadRequest('unsupported registry call'));
       }
 
       if (err && err.status != 409) {
@@ -108,13 +108,13 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
     if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
-      return next(ErrorCode.get404('npm star|unstar calls are not implemented'));
+      return next(ErrorCode.getNotFound('npm star|unstar calls are not implemented'));
     }
 
     try {
       metadata = validate_metadata(req.body, name);
     } catch (err) {
-      return next(ErrorCode.get422('bad incoming package data'));
+      return next(ErrorCode.getBadData('bad incoming package data'));
     }
 
     if (req.params._rev) {

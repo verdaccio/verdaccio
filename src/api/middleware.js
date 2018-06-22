@@ -38,7 +38,7 @@ export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $N
   } else if (utilValidateName(value)) {
     next();
   } else {
-    next( ErrorCode.get403('invalid ' + name));
+    next( ErrorCode.getForbidden('invalid ' + name));
   }
 }
 
@@ -51,7 +51,7 @@ export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next:
   } else if (utilValidatePackage(value)) {
     next();
   } else {
-    next( ErrorCode.get403('invalid ' + name) );
+    next( ErrorCode.getForbidden('invalid ' + name) );
   }
 }
 
@@ -76,7 +76,7 @@ export function encodeScopePackage(req: $RequestExtend, res: $ResponseExtend, ne
 
 export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   if (!isObject(req.body)) {
-    return next( ErrorCode.get400('can\'t parse incoming json') );
+    return next( ErrorCode.getBadRequest('can\'t parse incoming json') );
   }
   next();
 }
@@ -115,7 +115,7 @@ export function allow(auth: IAuth) {
         } else {
           // last plugin (that's our built-in one) returns either
           // cb(err) or cb(null, true), so this should never happen
-          throw ErrorCode.get500('bug in the auth plugin system');
+          throw ErrorCode.getInternalError('bug in the auth plugin system');
         }
       });
     };
