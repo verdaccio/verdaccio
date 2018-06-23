@@ -14,18 +14,18 @@ Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行�
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio`作为一个sinopia的分支，它和兼容`sinopia@1.4.0`的插件具有向后兼容性。在这种情况下，安装方式相同。
 
     $> npm install --global sinopia-memory
     
 
-### Configuration
+### 配置
 
-Open the `config.yaml` file and update the `auth` section as follows:
+打开`config.yaml`文件并按如下说明更新`auth`部分：
 
-The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+默认配置如下所示，由于在默认情况下我们使用一个内置的`htpasswd`插件，我们可以通过注释下面几行代码来禁用它：
 
-### Auth Plugin Configuration
+### Auth插件配置
 
 ```yaml
  htpasswd:
@@ -33,7 +33,7 @@ The default configuration looks like this, due we use a build-in `htpasswd` plug
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+如果你决定使用`ldap`插件，将上述部分进行替换。
 
 ```yaml
 auth:
@@ -43,7 +43,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Auth plugins
+#### 多个授权插件
 
 This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
 
