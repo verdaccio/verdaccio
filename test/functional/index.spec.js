@@ -11,7 +11,7 @@ import packageAccess from './package/access';
 import packageGzip from './package/gzip';
 import packageScoped from './package/scoped';
 import tags from './tags/tags';
-import preserveTags from './tags/preserve_tags';
+import distTagsMerge from './tags/dist-tags-merge';
 import addtag from './tags/addtag';
 import adduser from './adduser/adduser';
 import logout from './adduser/logout';
@@ -21,6 +21,7 @@ import mirror from './sanity/mirror';
 import readme from './readme/readme';
 import gh29 from './scenarios/gh29';
 import nullstorage from './sanity/nullstorage';
+import simpleSearch from './search/simple.search';
 import racycrash from './sanity/racycrash';
 import security from './sanity/security';
 import race from './performance/race';
@@ -43,7 +44,7 @@ describe('functional test verdaccio', function() {
   packageGzip(server1, app);
   incomplete(server1, app);
   mirror(server1, server2);
-  preserveTags(server1, server2, app);
+  distTagsMerge(server1, server2, server3);
   readme(server1, server2);
   nullstorage(server1, server2);
   middleware(server2);
@@ -59,6 +60,7 @@ describe('functional test verdaccio', function() {
   adduser(server1);
   logout(server1);
   basic(server1, server2);
+  simpleSearch(server1, server2, app)
 
 });
 

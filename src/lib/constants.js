@@ -39,6 +39,14 @@ export const HTTP_STATUS = {
   LOOP_DETECTED: 508,
 };
 
+export const API_MESSAGE = {
+  PKG_CREATED: 'created new package',
+  PKG_CHANGED: 'package changed',
+  PKG_REMOVED: 'package removed',
+  PKG_PUBLISHED: 'package published',
+  TARBALL_REMOVED: 'tarball removed',
+};
+
 export const API_ERROR = {
   NO_PACKAGE: 'no such package available',
   NOT_ALLOWED: 'not allowed to access package',

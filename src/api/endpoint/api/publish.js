@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import {HEADERS} from '../../../lib/constants';
+import {API_MESSAGE, HEADERS} from '../../../lib/constants';
 import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
 import {media, expectJson, allow} from '../../middleware';
 import {notify} from '../../../lib/notify';
@@ -119,11 +119,11 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
     if (req.params._rev) {
       storage.changePackage(name, metadata, req.params.revision, function(err) {
-        after_change(err, 'package changed');
+        after_change(err, API_MESSAGE.PKG_CHANGED);
       });
     } else {
       storage.addPackage(name, metadata, function(err) {
-        after_change(err, 'created new package');
+        after_change(err, API_MESSAGE.PKG_CREATED);
       });
     }
   });
@@ -135,7 +135,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         return next(err);
       }
       res.status(201);
-      return next({ok: 'package removed'});
+      return next({ok: API_MESSAGE.PKG_REMOVED});
     });
   });
 
@@ -147,7 +147,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         return next(err);
       }
       res.status(201);
-      return next({ok: 'tarball removed'});
+      return next({ok: API_MESSAGE.TARBALL_REMOVED});
     });
   });
 
@@ -196,7 +196,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
       res.status(201);
       return next({
-        ok: 'package published',
+        ok: API_MESSAGE.PKG_PUBLISHED,
       });
     });
   });
