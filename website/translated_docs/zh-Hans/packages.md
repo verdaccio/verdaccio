@@ -140,11 +140,11 @@ packages:
 
 你可以定义多个`包`，每个包都必须有一个唯一的`Regex`。
 
-| 属性      | 类型      | 必须的 | 范例             | 支持  | 描述                                          |
-| ------- | ------- | --- | -------------- | --- | ------------------------------------------- |
-| access  | string  | No  | $all           | all | define groups allowed to access the package |
-| publish | string  | No  | $authenticated | all | define groups allowed to publish            |
-| proxy   | string  | No  | npmjs          | all | limit look ups for specific uplink          |
-| storage | boolean | No  | [true,false]   | all | TODO                                        |
+| 属性      | 类型      | 必须的 | 范例             | 支持  | 描述                                 |
+| ------- | ------- | --- | -------------- | --- | ---------------------------------- |
+| access  | string  | No  | $all           | all | 定义允许访问包的组                          |
+| publish | string  | No  | $authenticated | all | 定义允许发布的组                           |
+| proxy   | string  | No  | npmjs          | all | limit look ups for specific uplink |
+| storage | boolean | No  | [true,false]   | all | TODO                               |
 
 > 我们强烈建议不要再使用已被弃用的**allow_access**/**allow_publish** 和 **proxy_access**，它们很快就会被移除，请使用它们的精简版本 (**access**/**publish**/**proxy**) 。
