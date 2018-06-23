@@ -11,6 +11,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "docusaurus": "1.2.0"
+    "docusaurus": "1.3.0"
   }
 }
