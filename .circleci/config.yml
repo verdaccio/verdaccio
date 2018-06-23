@@ -103,7 +103,7 @@ jobs:
       - run:
           name: Test with Node 8
           command: yarn test
-          command: yarn test:func
+          command: yarn test:functional
 
   test_node9:
     <<: *defaults
@@ -113,7 +113,7 @@ jobs:
       - run:
           name: Test with Node 9
           command: yarn test
-          command: yarn test:func
+          command: yarn test:functional
       - save_cache:
           key: *coverage_key
           paths:
@@ -127,7 +127,7 @@ jobs:
       - run:
           name: Test with Node 10
           command: yarn run test
-          command: yarn test:func
+          command: yarn test:functional
 
   test_e2e:
     <<: *defaults
