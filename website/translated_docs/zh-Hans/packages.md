@@ -134,17 +134,17 @@ packages:
 * 我想要在`my-local-scope`范围内的所有依赖库但我需要避免代理它们。
 * 我想要代理所有剩余的依赖库。
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+**注意库定义的顺序很重要同时必须使用配对的通配符**。 因为如果你没有包含它，`verdaccio`会帮你来包含它，这样你的依赖库解析会受到影响。
 
-### Configuration
+### 配置
 
-You can define mutiple `packages` and each of them must have an unique `Regex`.
+你可以定义多个`包`，每个包都必须有一个唯一的`Regex`。
 
-| Property | Type    | Required | Example        | Support | Description                                 |
-| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
+| 属性      | 类型      | 必须的 | 范例             | 支持  | 描述                                          |
+| ------- | ------- | --- | -------------- | --- | ------------------------------------------- |
+| access  | string  | No  | $all           | all | define groups allowed to access the package |
+| publish | string  | No  | $authenticated | all | define groups allowed to publish            |
+| proxy   | string  | No  | npmjs          | all | limit look ups for specific uplink          |
+| storage | boolean | No  | [true,false]   | all | TODO                                        |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> 我们强烈建议不要再使用已被弃用的**allow_access**/**allow_publish** 和 **proxy_access**，它们很快就会被移除，请使用它们的精简版本 (**access**/**publish**/**proxy**) 。
