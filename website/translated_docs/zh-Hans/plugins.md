@@ -112,13 +112,13 @@ store:
 
 ### 认证插件
 
-* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
-* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
-* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
-* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
-* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket)：verdaccio Bitbucket认证插件。
+* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap)：verdaccio LDAP认证插件。
+* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory)：verdaccio Active Directory认证插件
+* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab)：使用Gitlab的Personal Access Token进行认证
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd)：基于(内置)htpasswd文件插件的verdaccio认证插件
 
-### Middleware Plugins
+### 中间件插件
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
 
