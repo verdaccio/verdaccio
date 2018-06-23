@@ -64,7 +64,7 @@ Lista de las propiedades accesibles mediante el modelo
 
 ### Metadata
 
-Empaqueta la metadata a la que el modelo tiene acceso
+Paquete de metadata a la que el modelo tiene acceso
 
     {
         "_id": "@test/pkg1",
@@ -117,9 +117,9 @@ Empaqueta la metadata a la que el modelo tiene acceso
 
 ### Publisher
 
-Puede accesar a la información del paquete publisher en el `content` de una webhook usando el objeto `publisher`.
+Puede acceder a la información del paquete publisher en el `content` de una webhook usando el objeto `publisher`.
 
-Vea debalo del tipo de objeto `publisher`:
+Vea a continuación el tipo de objeto `publisher`:
 
     {
       name: string,
@@ -137,11 +137,11 @@ Un ejemplo:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Nota:** no es posible obtener la informacion de publisher si el archivo `package.json` ya tiene la propiedad `publisher`.
+**Nota:** no es posible obtener la información de publisher si el archivo `package.json` ya tiene la propiedad `publisher`.
 
 ### Paquete Publicado
 
-Puede accesar al paquete que está siendo publicado con el comando `{{publishedPackage}}` como a continuación.
+Puede acceder al paquete que está siendo publicado con el comando `{{publishedPackage}}` como a continuación.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     

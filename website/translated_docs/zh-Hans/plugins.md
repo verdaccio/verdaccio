@@ -1,31 +1,31 @@
 ---
 id: plugins
-title: "Plugins"
+title: "插件"
 ---
-Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
+Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行扩展，例如新的认证方法，添加endpoints，或者使用自定义存储。
 
-> If you are interested to develop your own plugin, read the [development](development.md) section.
+> 如果你对开发自己的插件感兴趣，请阅读[开发](development.md)部分。
 
-## Usage
+## 用法
 
-### Installation
+### 安装
 
 ```bash
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio`作为一个sinopia的分支，它和兼容`sinopia@1.4.0`的插件具有向后兼容性。在这种情况下，安装方式相同。
 
     $> npm install --global sinopia-memory
     
 
-### Configuration
+### 配置
 
-Open the `config.yaml` file and update the `auth` section as follows:
+打开`config.yaml`文件并按如下说明更新`auth`部分：
 
-The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+默认配置如下所示，由于在默认情况下我们使用一个内置的`htpasswd`插件，我们可以通过注释下面几行代码来禁用它：
 
-### Auth Plugin Configuration
+### Auth插件配置
 
 ```yaml
  htpasswd:
@@ -33,7 +33,7 @@ The default configuration looks like this, due we use a build-in `htpasswd` plug
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+如果你决定使用`ldap`插件，将上述部分进行替换。
 
 ```yaml
 auth:
@@ -43,9 +43,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Auth plugins
+#### 多个授权插件
 
-This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
+这在技术上可行，插件的顺序变得非常重要，安全凭据将按顺序获取。
 
 ```yaml
 auth:
@@ -58,9 +58,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Plugin Configuration
+### 中间件插件配置
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+这是一个如何设置中间件插件的示例。所有的中间件插件必须被定义在**middlewares**命名空间。
 
 ```yaml
 middlewares:
@@ -68,9 +68,9 @@ middlewares:
     enabled: true
 ```
 
-### Store Plugin Configuration
+### 存储插件配置
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+这是一个如何设置存储插件的示例。所有的存储插件必须在**store**命名空间进行定义。
 
 ```yaml
 store:
@@ -78,15 +78,15 @@ store:
     limit: 1000
 ```
 
-> If you define a custom store, the property **storage** in the configuration file will be ignored.
+> 如果你定义一个自定义存储，配置文件中的**storage**属性将会被忽略。
 
-## Legacy plugins
+## 旧式插件
 
-### Sinopia Plugins
+### Sinopia插件
 
-(compatible all versions)
+(兼容所有版本)
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm)：支持npm注册表的sinopia认证插件。
 * [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
