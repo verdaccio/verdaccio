@@ -1,5 +1,5 @@
 import {HEADERS, HTTP_STATUS} from '../../../src/lib/constants';
-import {PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
 import {generateSha} from '../lib/test.utils';
 import {DIST_TAGS} from "../../../src/lib/utils";
 
@@ -49,7 +49,7 @@ export default function(server, server2) {
           expect(body.name).toBe(SCOPE);
           expect(body.versions[PKG_VERSION].name).toBe(SCOPE);
           expect(body.versions[PKG_VERSION].dist.tarball).toBe(
-            `http://localhost:${port}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
+            `http://${DOMAIN_SERVERS}:${port}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
           expect(body[DIST_TAGS]).toEqual({latest: PKG_VERSION});
         });
 
@@ -70,7 +70,7 @@ export default function(server, server2) {
          .then(function(body) {
            expect(body.name).toEqual(SCOPE);
            expect(body.dist.tarball).toEqual(
-             `http://localhost:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
+             `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
          });
       });
     });

@@ -1,4 +1,4 @@
-import {HTTP_STATUS} from "../../../src/lib/constants";
+import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
 
 export default function(server) {
   describe('npm adduser', () => {
@@ -22,7 +22,7 @@ export default function(server) {
     test('should not register more users', () => {
       return server.auth(String(Math.random()), String(Math.random()))
                .status(HTTP_STATUS.CONFLICT)
-               .body_error(/maximum amount of users reached/);
+               .body_error(API_ERROR.MAX_USERS_REACHED);
     });
   });
 }

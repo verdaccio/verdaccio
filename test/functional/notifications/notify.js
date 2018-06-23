@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import {HEADERS} from '../../../src/lib/constants';
 import {notify} from '../../../src/lib/notify';
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.func';
 
 export default function(express) {
   const config = {
@@ -10,7 +11,7 @@ export default function(express) {
       headers: [{
         'Content-Type': HEADERS.JSON
       }],
-      endpoint: "http://localhost:55550/api/notify",
+      endpoint: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify`,
       content: `{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}`
     }
   };
@@ -114,7 +115,7 @@ export default function(express) {
         name: "pkg-test"
       };
       const configFail = _.cloneDeep(config);
-      configFail.notify.endpoint = "http://localhost:55550/api/notify/bad";
+      configFail.notify.endpoint = `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify/bad`;
 
       notify(metadata, configFail, publisherInfo).then(function () {
         expect(false).toBe('This service should fails with status code 400');

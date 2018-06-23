@@ -1,7 +1,7 @@
 import assert from 'assert';
 import {generateSha} from '../lib/test.utils';
-import {HEADERS} from '../../../src/lib/constants';
-import {PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
+import {HEADERS, HTTP_STATUS} from '../../../src/lib/constants';
+import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
 
 export default function(server, server2, express) {
   describe('should test preserve tags when publishing something', () => {
@@ -42,11 +42,11 @@ export default function(server, server2, express) {
     describe('should match dist-tags', () => {
       const matchDisTags = (server, port) => {
         return server.getPackage('testpkg-preserve')
-          .status(200)
+          .status(HTTP_STATUS.OK)
           .then(function(body) {
             assert.equal(body.name, 'testpkg-preserve');
             assert.equal(body.versions['0.0.1'].name, 'testpkg-preserve');
-            assert.equal(body.versions['0.0.1'].dist.tarball, `http://localhost:${port}/testpkg-preserve/-/testpkg-preserve-0.0.1.tgz`);
+            assert.equal(body.versions['0.0.1'].dist.tarball, `http://${DOMAIN_SERVERS}:${port}/testpkg-preserve/-/testpkg-preserve-0.0.1.tgz`);
             assert.deepEqual(body['dist-tags'], {foo: '0.0.1', latest: '0.0.1'});
           });
       };
@@ -96,13 +96,13 @@ export default function(server, server2, express) {
 
       test('server1 - search', () => {
         return server.request({uri: '/-/all'})
-                 .status(200)
+                 .status(HTTP_STATUS.OK)
                  .then(check);
       });
 
       test('server2 - search', () => {
         return server2.request({uri: '/-/all'})
-                 .status(200)
+                 .status(HTTP_STATUS.OK)
                  .then(check);
       });
 

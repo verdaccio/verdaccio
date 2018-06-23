@@ -4,9 +4,10 @@ import fs from 'fs';
 import path from 'path';
 import {createTarballHash} from "../../../src/lib/crypto-utils";
 import {HTTP_STATUS} from "../../../src/lib/constants";
-import {CREDENTIALS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.func";
+import {CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.func";
 import whoIam from './whoIam';
 import ping from './ping';
+import {DIST_TAGS} from '../../../src/lib/utils';
 
 function readfile(folderPath) {
   return fs.readFileSync(path.join(__dirname, '/', folderPath));
@@ -20,6 +21,7 @@ export default function(server: any, server2: any) {
   describe('basic test endpoints', () => {
 
     const PKG_NAME:string = 'testpkg';
+    const PKG_VERSION:string = '0.0.1';
 
     beforeAll(function() {
       return server.auth(CREDENTIALS.user, CREDENTIALS.password)
@@ -107,7 +109,7 @@ export default function(server: any, server2: any) {
           let pkg = getPackage(PKG_NAME);
           pkg.dist.shasum = createTarballHash().update('fake').digest('hex');
 
-          return server.putVersion(PKG_NAME, '0.0.1', pkg)
+          return server.putVersion(PKG_NAME, PKG_VERSION, pkg)
             .status(HTTP_STATUS.BAD_REQUEST)
             .body_error(/shasum error/);
         });
@@ -118,7 +120,7 @@ export default function(server: any, server2: any) {
             const pkg = getPackage(PKG_NAME);
 
             pkg.dist.shasum = createTarballHash().update(readfile('../fixtures/binary')).digest('hex');
-            return server.putVersion(PKG_NAME, '0.0.1', pkg)
+            return server.putVersion(PKG_NAME, PKG_VERSION, pkg)
               .status(HTTP_STATUS.CREATED)
               .body_ok(/published/);
           });
@@ -129,33 +131,33 @@ export default function(server: any, server2: any) {
 
           describe('should download a package', () => {
             beforeAll(function() {
-              return server.auth('test', 'test')
+              return server.auth(CREDENTIALS.user, CREDENTIALS.password)
                 .status(HTTP_STATUS.CREATED)
-                .body_ok(/'test'/);
+                .body_ok(new RegExp(CREDENTIALS.user));
             });
 
             test('should download a newly created package from server1', () => {
               return server.getPackage(PKG_NAME)
-                .status(200)
+                .status(HTTP_STATUS.OK)
                 .then(function (body) {
                   expect(body.name).toEqual(PKG_NAME);
-                  expect(body.versions['0.0.1'].name).toEqual(PKG_NAME);
-                  expect(body.versions['0.0.1'].dist.tarball).toEqual(`http://localhost:${PORT_SERVER_1}/testpkg/-/${TARBALL}`);
-                  expect(body['dist-tags']).toEqual({
-                    latest: '0.0.1'
+                  expect(body.versions[PKG_VERSION].name).toEqual(PKG_NAME);
+                  expect(body.versions[PKG_VERSION].dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
+                  expect(body[DIST_TAGS]).toEqual({
+                    latest: PKG_VERSION
                   });
                 });
             });
 
             test('should downloading a package from server2', () => {
               return server2.getPackage(PKG_NAME)
-                .status(200)
+                .status(HTTP_STATUS.OK)
                 .then(function (body) {
                   expect(body.name).toEqual(PKG_NAME);
-                  expect(body.versions['0.0.1'].name).toEqual(PKG_NAME);
-                  expect(body.versions['0.0.1'].dist.tarball).toEqual(`http://localhost:${PORT_SERVER_2}/testpkg/-/${TARBALL}`);
-                  expect(body['dist-tags']).toEqual({
-                    latest: '0.0.1'
+                  expect(body.versions[PKG_VERSION].name).toEqual(PKG_NAME);
+                  expect(body.versions[PKG_VERSION].dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/${PKG_NAME}/-/${TARBALL}`);
+                  expect(body[DIST_TAGS]).toEqual({
+                    latest: PKG_VERSION
                   });
                 });
             });
@@ -168,7 +170,6 @@ export default function(server: any, server2: any) {
 
     describe('handle failures on endpoints', () => {
 
-
       test('should fails trying to fetch non-existent package', () => {
         return server.getPackage(PKG_NAME).status(HTTP_STATUS.NOT_FOUND).body_error(/no such package/);
       });
@@ -176,7 +177,7 @@ export default function(server: any, server2: any) {
       test(
         'should fails on publish a version for non existing package',
         () => {
-          return server.putVersion('testpxg', '0.0.1', getPackage('testpxg'))
+          return server.putVersion('testpxg', PKG_VERSION, getPackage('testpxg'))
             .status(HTTP_STATUS.NOT_FOUND)
             .body_error(/no such package/);
         }

@@ -8,7 +8,7 @@ import VerdaccioProcess from "../../lib/server_process";
 import Server from "../../lib/server";
 import ExpressServer from "./simple_server";
 import type {IServerBridge} from '../../types';
-import {PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../config.func';
 
 const EXPRESS_PORT = 55550;
 
@@ -59,7 +59,7 @@ class FunctionalEnvironment extends NodeEnvironment {
       const verdaccioConfig = new VerdaccioConfig(
         path.join(pathStore, config.storage),
         path.join(pathStore, config.config),
-        `http://localhost:${config.port}/`, config.port);
+        `http://${DOMAIN_SERVERS}:${config.port}/`, config.port);
       console.log(chalk.magentaBright(`Running registry ${config.config} on port ${config.port}`));
       const server: IServerBridge = new Server(verdaccioConfig.domainPath);
       serverList.push(server);
