@@ -29,7 +29,7 @@ class FunctionalEnvironment extends NodeEnvironment {
   async setup() {
     const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
     // $FlowFixMe
-    const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG ? process.env.VERDACCIO_DEBUG : false;
+    const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT ? process.env.VERDACCIO_DEBUG_INJECT : false;
     const forkList = [];
     const serverList = [];
     const pathStore = path.join(__dirname, '../store');

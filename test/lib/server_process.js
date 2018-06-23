@@ -4,6 +4,7 @@ import rimRaf from 'rimraf';
 import path from 'path';
 import {fork} from 'child_process';
 import type {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
+import {CREDENTIALS} from '../functional/config.func';
 
 export default class VerdaccioProcess implements IServerProcess {
 
@@ -34,8 +35,10 @@ export default class VerdaccioProcess implements IServerProcess {
         };
 
         if (this.isDebug) {
+          const debugPort = parseInt(this.config.port, 10) + 5;
+
           childOptions = Object.assign({}, childOptions, {
-            execArgv: [`--inspect=${this.config.port + 5}`]
+            execArgv: [`--inspect=${debugPort}`]
           });
         }
 
@@ -44,9 +47,9 @@ export default class VerdaccioProcess implements IServerProcess {
         this.childFork.on('message', (msg) => {
           if ('verdaccio_started' in msg) {
             this.bridge.debug().status(200).then((body) => {
-              this.bridge.auth('test', 'test')
+              this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password)
                 .status(201)
-                .body_ok(/'test'/)
+                .body_ok(new RegExp(CREDENTIALS.user))
                 .then(() => {
                   resolve([this, body.pid]);
                 }, reject)
@@ -55,6 +58,7 @@ export default class VerdaccioProcess implements IServerProcess {
         });
 
         this.childFork.on('error', (err) => {
+          console.log('error process', err);
           reject([err, this]);
         });
 
