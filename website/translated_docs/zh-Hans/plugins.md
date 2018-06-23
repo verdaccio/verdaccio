@@ -45,7 +45,7 @@ auth:
 
 #### 多个授权插件
 
-This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
+这在技术上可行，插件的顺序变得非常重要，安全凭据将按顺序获取。
 
 ```yaml
 auth:
@@ -58,9 +58,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Plugin Configuration
+### 中间件插件配置
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+这是一个如何设置中间件插件的示例。所有的中间件插件必须被定义在**middlewares**命名空间。
 
 ```yaml
 middlewares:
@@ -68,9 +68,9 @@ middlewares:
     enabled: true
 ```
 
-### Store Plugin Configuration
+### 存储插件配置
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+这是一个如何设置存储插件的示例。所有的存储插件必须在**store**命名空间进行定义。
 
 ```yaml
 store:
@@ -78,15 +78,15 @@ store:
     limit: 1000
 ```
 
-> If you define a custom store, the property **storage** in the configuration file will be ignored.
+> 如果你定义一个自定义存储，配置文件中的**storage**属性将会被忽略。
 
-## Legacy plugins
+## 旧式插件
 
-### Sinopia Plugins
+### Sinopia插件
 
-(compatible all versions)
+(兼容所有版本)
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm)：支持npm注册表的sinopia认证插件。
 * [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
