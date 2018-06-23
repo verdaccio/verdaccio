@@ -129,10 +129,10 @@ packages:
 
 让我们描述一下在上面的示例中我们想要做什么：
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+* 我想要自己的服务器上放置`jquery`依赖库但需要避免代理它。
+* 我想要所有和`my-company-*`匹配的依赖库但我需要避免代理它们。
+* 我想要在`my-local-scope`范围内的所有依赖库但我需要避免代理它们。
+* 我想要代理所有剩余的依赖库。
 
 Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
