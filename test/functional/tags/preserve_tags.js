@@ -74,7 +74,7 @@ export default function(server, server2, express) {
             },
             'maintainers': [{
               name: 'alex',
-              email: 'alex@kocharin.ru'
+              email: 'user@domain.com'
             }],
             'readmeFilename': '',
             'time': {

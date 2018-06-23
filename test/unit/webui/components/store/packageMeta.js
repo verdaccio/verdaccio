@@ -61,7 +61,7 @@ export const packageMeta = {
     version: '2.7.1',
     description: 'Private npm repository server',
     author: {
-      name: 'Alex Kocharin',
+      name: 'User NPM',
       email: 'test@author.local',
       avatar: 'https://www.gravatar.com/avatar/a5a236ba477ee98908600c40cda74f4a'
     },
@@ -208,13 +208,13 @@ export const packageMeta = {
           'https://www.gravatar.com/avatar/4ef03c2bf8d8689527903212d96fb45b'
       },
       {
-        name: 'Alex Kocharin',
+        name: 'User NPM',
         email: 'test2@test.local',
         avatar:
           'https://www.gravatar.com/avatar/a5a236ba477ee98908600c40cda74f4a'
       },
       {
-        name: 'Alex Kocharin',
+        name: 'User NPM',
         email: 'test3@test.comu',
         avatar:
           'https://www.gravatar.com/avatar/41a61049006855759bd6ec82ef0543a0'
@@ -406,13 +406,13 @@ export const packageMeta = {
           'https://www.gravatar.com/avatar/fba48015a688c38cc84e5b55b07858c0'
       },
       {
-        name: 'Juan Picado',
+        name: 'User NPM',
         email: 'test35@test.local',
         avatar:
           'https://www.gravatar.com/avatar/fba48015a688c38cc84e5b55b07858c0'
       },
       {
-        name: 'Juan Picado @jotadeveloper',
+        name: 'User NPM @nickname',
         email: 'test36@test.local',
         avatar:
           'https://www.gravatar.com/avatar/fba48015a688c38cc84e5b55b07858c0'
@@ -610,13 +610,13 @@ export const packageMeta = {
           'https://www.gravatar.com/avatar/3b99683f0a4c26a8906ecbe7968a4ade'
       },
       {
-        name: 'jotadeveloper',
+        name: 'nickname',
         email: 'test69@test.local',
         avatar:
           'https://www.gravatar.com/avatar/fba48015a688c38cc84e5b55b07858c0'
       },
       {
-        name: 'jotadeveloper',
+        name: 'nickname',
         email: 'test70@test.local',
         avatar:
           'https://www.gravatar.com/avatar/047ba1e853d20459e531619af5493c56'

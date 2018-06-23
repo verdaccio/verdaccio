@@ -23,12 +23,12 @@ describe('<PackageSidebar /> : <Maintainers />', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('author shoule be equal to Alex Kocharin', () => {
+  it('author shoule be equal to User NPM', () => {
     expect(instance.author).toEqual({
       avatar:
         'https://www.gravatar.com/avatar/a5a236ba477ee98908600c40cda74f4a',
       email: 'test@author.local',
-      name: 'Alex Kocharin'
+      name: 'User NPM'
     });
   });
 

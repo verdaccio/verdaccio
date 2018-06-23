@@ -18,10 +18,10 @@
            tarball: 'http://localhost:4873/__NAME__/-/__NAME__-__VERSION__.tgz' },
         _from: '.',
         _npmVersion: '1.3.21',
-        _npmUser: { name: 'rlidwka', email: 'alex@kocharin.ru' },
-        maintainers: [ { name: 'rlidwka', email: 'alex@kocharin.ru' } ] } },
+        _npmUser: { name: 'rlidwka', email: 'user@domain.com' },
+        maintainers: [ { name: 'rlidwka', email: 'user@domain.com' } ] } },
   readme: 'ERROR: No README data found!',
-  maintainers: [ { name: 'rlidwka', email: 'alex@kocharin.ru' } ],
+  maintainers: [ { name: 'rlidwka', email: 'user@domain.com' } ],
   _attachments:
    { '__NAME__-__VERSION__.tgz':
       { content_type: 'application/octet-stream',
