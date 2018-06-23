@@ -1,6 +1,7 @@
 import {readFile} from '../lib/test.utils';
 import {HTTP_STATUS} from "../../../src/lib/constants";
 import generatePkg  from '../fixtures/package';
+import {TARBALL} from '../config.func';
 
 const getBinary = () =>  readFile('../fixtures/binary');
 
@@ -14,7 +15,6 @@ export default function (server, server2) {
   });
 
   describe('mirror', () => {
-    const pkgFileName = 'blahblah';
     const pkgList = ['pkg1', 'pkg2', 'pkg3'];
 
     pkgList.forEach(function (pkg) {
@@ -45,7 +45,7 @@ export default function (server, server2) {
 
           describe('should put a tarball', () => {
             beforeAll(function () {
-              return server2.putTarball(pkg, pkgFileName, getBinary())
+              return server2.putTarball(pkg, TARBALL, getBinary())
                 .status(HTTP_STATUS.CREATED)
                 .body_ok(/.*/);
             });
@@ -53,7 +53,7 @@ export default function (server, server2) {
             test(`should ${prefix} uploading new tarball`, () => {});
 
             test(`should ${prefix} downloading tarball from server2`, () => {
-              return server2.getTarball(pkg, pkgFileName)
+              return server2.getTarball(pkg, TARBALL)
                 .status(HTTP_STATUS.OK)
                 .then(function (body) {
                   expect(body).toEqual(getBinary());
@@ -65,7 +65,7 @@ export default function (server, server2) {
             });
 
             test(`should ${prefix} downloading tarball from server1`, () => {
-              return server.getTarball(pkg, pkgFileName)
+              return server.getTarball(pkg, TARBALL)
                 .status(HTTP_STATUS.OK)
                 .then(function (body) {
                   expect(body).toEqual(getBinary());

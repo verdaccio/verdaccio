@@ -4,7 +4,7 @@ export default function(server2) {
   // credentials
   const USER1 = 'authtest';
   const USER2 = 'authtest2';
-  const CORRECT_PASSWORD = 'blahblah';
+  const CORRECT_PASSWORD = 'blahblah-password';
   const WRONG_PASSWORD = 'wrongpass1';
   // package names
   const DENY_PKG_NAME = 'test-auth-deny';

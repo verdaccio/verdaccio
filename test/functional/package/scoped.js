@@ -1,4 +1,5 @@
-import {HEADERS, HTTP_STATUS, PORT_SERVER_1, PORT_SERVER_2} from '../../../src/lib/constants';
+import {HEADERS, HTTP_STATUS} from '../../../src/lib/constants';
+import {PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
 import {generateSha} from '../lib/test.utils';
 import {DIST_TAGS} from "../../../src/lib/utils";
 

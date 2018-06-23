@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import {createTarballHash} from "../../../src/lib/crypto-utils";
 import {HTTP_STATUS} from "../../../src/lib/constants";
-import {CREDENTIALS} from "../config.func";
+import {CREDENTIALS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.func";
 import whoIam from './whoIam';
 import ping from './ping';
 
@@ -44,7 +44,7 @@ export default function(server: any, server2: any) {
       });
 
       test('downloading non-existent tarball', () => {
-        return server.getTarball(PKG_NAME, 'blahblah')
+        return server.getTarball(PKG_NAME, TARBALL)
           .status(HTTP_STATUS.NOT_FOUND)
           .body_error(/no such file/);
       });
@@ -56,7 +56,7 @@ export default function(server: any, server2: any) {
       describe('publishing package', () => {
 
         beforeAll(function () {
-          return server.putTarball(PKG_NAME, 'blahblah', readfile('../fixtures/binary'))
+          return server.putTarball(PKG_NAME, TARBALL, readfile('../fixtures/binary'))
             .status(HTTP_STATUS.CREATED)
             .body_ok(/.*/);
         });
@@ -96,7 +96,7 @@ export default function(server: any, server2: any) {
         // testexp-incomplete
 
         test('downloading newly created tarball', () => {
-          return server.getTarball(PKG_NAME, 'blahblah')
+          return server.getTarball(PKG_NAME, TARBALL)
             .status(200)
             .then(function (body) {
               expect(body).toEqual(readfile('../fixtures/binary'));
@@ -140,7 +140,7 @@ export default function(server: any, server2: any) {
                 .then(function (body) {
                   expect(body.name).toEqual(PKG_NAME);
                   expect(body.versions['0.0.1'].name).toEqual(PKG_NAME);
-                  expect(body.versions['0.0.1'].dist.tarball).toEqual('http://localhost:55551/testpkg/-/blahblah');
+                  expect(body.versions['0.0.1'].dist.tarball).toEqual(`http://localhost:${PORT_SERVER_1}/testpkg/-/${TARBALL}`);
                   expect(body['dist-tags']).toEqual({
                     latest: '0.0.1'
                   });
@@ -153,7 +153,7 @@ export default function(server: any, server2: any) {
                 .then(function (body) {
                   expect(body.name).toEqual(PKG_NAME);
                   expect(body.versions['0.0.1'].name).toEqual(PKG_NAME);
-                  expect(body.versions['0.0.1'].dist.tarball).toEqual('http://localhost:55552/testpkg/-/blahblah');
+                  expect(body.versions['0.0.1'].dist.tarball).toEqual(`http://localhost:${PORT_SERVER_2}/testpkg/-/${TARBALL}`);
                   expect(body['dist-tags']).toEqual({
                     latest: '0.0.1'
                   });
@@ -183,7 +183,7 @@ export default function(server: any, server2: any) {
       );
 
       test('should be a package not found', () => {
-        return server.putTarball('nonExistingPackage', 'blahblah', readfile('../fixtures/binary'))
+        return server.putTarball('nonExistingPackage', TARBALL, readfile('../fixtures/binary'))
           .status(HTTP_STATUS.NOT_FOUND)
           .body_error(/no such/);
       });

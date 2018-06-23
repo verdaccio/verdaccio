@@ -25,10 +25,10 @@ auth:
         password: test
       authtest2:
         name: authtest2
-        password: blahblah
+        password: blahblah-password
       authtest:
         name: authtest
-        password: blahblah
+        password: blahblah-password
 
 logs:
   - {type: stdout, format: pretty, level: trace}

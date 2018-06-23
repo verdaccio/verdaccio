@@ -2,6 +2,7 @@ import {createTarballHash} from "../../../src/lib/crypto-utils";
 import {HTTP_STATUS} from "../../../src/lib/constants";
 import fs from 'fs';
 import path from 'path';
+import {TARBALL} from '../config.func';
 
 function readfile(filePath) {
   const folder = path.join(__dirname , filePath);
@@ -11,12 +12,11 @@ function readfile(filePath) {
 
 const binary = '../fixtures/binary';
 const pkgName = 'testpkg-gh29';
-const pkgFileName = 'blahblah';
 
 export default function (server, server2) {
   describe('pkg-gh29 #1', () => {
     test('downloading non-existent tarball #1 / srv2', () => {
-      return server2.getTarball(pkgName, pkgFileName)
+      return server2.getTarball(pkgName, TARBALL)
                .status(HTTP_STATUS.NOT_FOUND)
                .body_error(/no such package/);
     });
@@ -32,14 +32,14 @@ export default function (server, server2) {
     test('creating new package / srv1', () => {});
 
     test('downloading non-existent tarball #2 / srv2', () => {
-      return server2.getTarball(pkgName, pkgFileName)
+      return server2.getTarball(pkgName, TARBALL)
                .status(HTTP_STATUS.NOT_FOUND)
                .body_error(/no such file available/);
     });
 
     describe('tarball', () => {
       beforeAll(function() {
-        return server.putTarball(pkgName, pkgFileName, readfile(binary))
+        return server.putTarball(pkgName, TARBALL, readfile(binary))
                  .status(HTTP_STATUS.CREATED)
                  .body_ok(/.*/);
       });
@@ -58,7 +58,7 @@ export default function (server, server2) {
         test('uploading new package version / srv1', () => {});
 
         test('downloading newly created tarball / srv2', () => {
-          return server2.getTarball(pkgName, pkgFileName)
+          return server2.getTarball(pkgName, TARBALL)
                  .status(HTTP_STATUS.OK)
                  .then(function(body) {
                    expect(body).toEqual(readfile(binary));

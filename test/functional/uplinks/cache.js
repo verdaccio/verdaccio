@@ -4,13 +4,13 @@ import assert from 'assert';
 import crypto from 'crypto';
 import {readFile} from '../lib/test.utils';
 import {HTTP_STATUS} from "../../../src/lib/constants";
+import {TARBALL} from '../config.func';
 
 function getBinary() {
   return readFile('../fixtures/binary');
 }
 
 const STORAGE = '../store/test-storage3';
-const TARBALL = 'blahblah';
 const PKG_GH131 = 'pkg-gh131';
 const PKG_GH1312 = 'pkg-gh1312';
 

@@ -8,7 +8,7 @@ import VerdaccioProcess from "../../lib/server_process";
 import Server from "../../lib/server";
 import ExpressServer from "./simple_server";
 import type {IServerBridge} from '../../types';
-import {PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from "../../../src/lib/constants";
+import {PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../config.func';
 
 const EXPRESS_PORT = 55550;
 

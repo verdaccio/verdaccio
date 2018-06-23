@@ -1,6 +1,7 @@
 import assert from 'assert';
 import {generateSha} from '../lib/test.utils';
 import {HEADERS} from '../../../src/lib/constants';
+import {PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
 
 export default function(server, server2, express) {
   describe('should test preserve tags when publishing something', () => {
@@ -51,11 +52,11 @@ export default function(server, server2, express) {
       };
 
       test('server1 should be able to match latest dist-tags correctly', () => {
-        return matchDisTags(server, '55551');
+        return matchDisTags(server, PORT_SERVER_1);
       });
 
       test('server2 should be able to match latest dist-tags correctly', () => {
-        return matchDisTags(server2, '55552');
+        return matchDisTags(server2, PORT_SERVER_2);
       });
     });
 
