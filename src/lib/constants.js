@@ -48,6 +48,7 @@ export const API_ERROR = {
   CONTENT_MISMATCH: 'content length mismatch',
   NOT_FILE_UPLINK: 'file doesn\'t exist on uplink',
   MAX_USERS_REACHED: 'maximum amount of users reached',
+  VERSION_NOT_EXIST: 'this version doesn\'t exist',
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';

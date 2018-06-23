@@ -34,6 +34,7 @@ IUploadTarball,
 IReadTarball,
 } from '@verdaccio/streams';
 import type {IStorage, StringValue} from '../../types';
+import {API_ERROR} from './constants';
 
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
@@ -298,7 +299,7 @@ class LocalStorage implements IStorage {
    * @private
    */
   _getVersionNotFound() {
-    return ErrorCode.getNotFound('this version doesn\'t exist');
+    return ErrorCode.getNotFound(API_ERROR.VERSION_NOT_EXIST);
   }
 
   /**

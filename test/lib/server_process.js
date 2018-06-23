@@ -3,8 +3,9 @@ import _ from 'lodash';
 import rimRaf from 'rimraf';
 import path from 'path';
 import {fork} from 'child_process';
-import type {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
 import {CREDENTIALS} from '../functional/config.func';
+import {HTTP_STATUS} from '../../src/lib/constants';
+import type {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
 
 export default class VerdaccioProcess implements IServerProcess {
 
@@ -46,9 +47,9 @@ export default class VerdaccioProcess implements IServerProcess {
 
         this.childFork.on('message', (msg) => {
           if ('verdaccio_started' in msg) {
-            this.bridge.debug().status(200).then((body) => {
+            this.bridge.debug().status(HTTP_STATUS.OK).then((body) => {
               this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password)
-                .status(201)
+                .status(HTTP_STATUS.CREATED)
                 .body_ok(new RegExp(CREDENTIALS.user))
                 .then(() => {
                   resolve([this, body.pid]);

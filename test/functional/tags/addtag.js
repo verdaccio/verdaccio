@@ -1,44 +1,69 @@
 import {readFile} from '../lib/test.utils';
-import {HTTP_STATUS} from "../../../src/lib/constants";
+import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
 
 const readTags = () => readFile('../fixtures/publish.json5');
 
 export default function(server) {
-  test('add tag - 404', () => {
-    return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1')
-      .status(HTTP_STATUS.NOT_FOUND)
-      .body_error(/no such package/);
-  });
 
-  describe('addtag', () => {
-    beforeAll(function() {
-      return server.putPackage('testpkg-tag', eval(
-        '(' + readTags()
-          .toString('utf8')
-          .replace(/__NAME__/g, 'testpkg-tag')
-          .replace(/__VERSION__/g, '0.0.1')
-        + ')'
-      )).status(HTTP_STATUS.CREATED);
+  describe('should test add tag', () => {
+
+    const PKG_NAME = 'testpkg-tag';
+    const PKG_VERSION = '0.0.1';
+
+    test('should fails on add tag to non existing package', () => {
+      return server.addTag(PKG_NAME, 'tagtagtag', PKG_VERSION)
+        .status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.NO_PACKAGE);
     });
 
-    test('add testpkg-tag', () => {});
+    describe('should test add tag to a package', () => {
+      beforeAll(function() {
+        return server.putPackage(PKG_NAME, eval(
+          '(' + readTags()
+            .toString('utf8')
+            .replace(/__NAME__/g, PKG_NAME)
+            .replace(/__VERSION__/g, PKG_VERSION)
+          + ')'
+        )).status(HTTP_STATUS.CREATED);
+      });
 
-    test('should fails on add non semver version tag ', () => {
-      return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1-x')
-        .status(HTTP_STATUS.NOT_FOUND)
-        .body_error(/version doesn't exist/);
-    });
+      describe('should test valid formats tags', () => {
+        test('should fails on add a tag that do not exist', () => {
+          return server.addTag(PKG_NAME, 'tagtagtag', '4.0.0-no-exist')
+            .status(HTTP_STATUS.NOT_FOUND)
+            .body_error(API_ERROR.VERSION_NOT_EXIST);
+        });
 
-    test('add tag - bad tag', () => {
-      return server.addTag('testpkg-tag', 'tag/tag/tag', '0.0.1-x')
-        .status(HTTP_STATUS.FORBIDDEN)
-        .body_error(/invalid tag/);
-    });
+        test('should add tag succesfully minor version', () => {
+          return server.addTag(PKG_NAME, 'tagtagtag', PKG_VERSION)
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(/tagged/);
+        });
+      });
 
-    test('add tag - good', () => {
-      return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1')
-        .status(HTTP_STATUS.CREATED)
-        .body_ok(/tagged/);
+      describe('should test handle invalid tag and version names', () => {
+        const INVALID_TAG ='tag/tag/tag';
+        const handleInvalidTag = function handleInvalidTag(tag, version) {
+          return server.addTag(PKG_NAME, tag, version)
+            .status(HTTP_STATUS.FORBIDDEN)
+            .body_error(/invalid tag/);
+        };
+
+        test('should fails on add tag for bad format', () => {
+          return handleInvalidTag(INVALID_TAG, '0.0.1-x');
+        });
+
+        test('should fails on add tag for bad format negative version', () => {
+          return handleInvalidTag(INVALID_TAG, '-0.0.1');
+        });
+
+        test('should fails on add tag for bad format empty version', () => {
+          return handleInvalidTag(INVALID_TAG, '');
+        });
+
+        test('should fails on add tag for bad format symbols', () => {
+          return handleInvalidTag(INVALID_TAG, '%^$%&$%^%$$#@');
+        });
+      });
     });
   });
 }
