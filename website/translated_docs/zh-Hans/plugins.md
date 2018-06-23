@@ -122,16 +122,16 @@ store:
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)：支持*npm audit* cli的verdaccio插件(内置) (自3.x版本后兼容)
 
-* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
+* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api)：该插件支持*npm profile*cli，以及针对基于*verdaccio-htpasswd*认证的*npm profile set password*插件。
 
-### Storage Plugins
+### 存储插件
 
-(compatible since 3.x)
+(兼容自3.x及以后版本)
 
-* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)存储插件在内存中装载包
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage)存储插件在**Amazon S3**中存储包
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)存储插件在**Google Cloud Storage**中存储包
 
-## Caveats
+## 警告
 
-> Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
+> 并不是所有的这些插件都被持续测试过，其中有些可能不能正常工作。如果你发现任何问题，请和插件的所有者联系。
