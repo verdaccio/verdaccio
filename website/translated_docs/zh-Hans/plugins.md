@@ -96,21 +96,21 @@ store:
 * [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap)：另一个Sinopia LDAP认证插件
 * [sinopia-request](https://www.npmjs.com/package/sinopia-request)：一个简单易用且功能齐全的认证插件，可以通过配置使用外部API。
 * [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email)：使用htaccess格式生成密码，通过GPG加密并通过MailGun API发送给用户。
-* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): An easy and fully auth-plugin with configuration to use a mongodb database.
-* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): auth plugin for sinopia supporting htpasswd format.
-* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): a leveldb backed auth plugin for sinopia private npm.
-* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): Gitlab authentication plugin for sinopia.
-* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
-* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
-* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin with github oauth web flow.
+* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb)：一个易用且功能齐全的认证插件，可通过配置使用mongodb数据库。
+* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd)：支持htpasswd格式的sinopia认证插件。
+* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb)：针对Sinopia private npm的基于leveldb的Sinopia认证插件。
+* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres)：sinopia Gitlab认证插件。
+* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab)：sinopia Gitlab认证插件。
+* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap)：sinopia LDAP认证插件。
+* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env)：基于github oauth web flow的Sinopia认证插件。
 
-> All sinopia plugins should be compatible with all future verdaccio versions. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+> 所有的sinopia插件都应该和verdaccio的未来版本兼容。 无论如何，我们鼓励贡献者将它们迁移到最新的verdaccio API并且使用*verdaccio-xx-name*格式的前缀。
 
-## Verdaccio Plugins
+## Verdaccio插件
 
-(compatible since 2.1.x)
+(兼容2.1.x及以后版本)
 
-### Authorization Plugins
+### 认证插件
 
 * [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
