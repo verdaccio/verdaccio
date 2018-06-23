@@ -120,7 +120,7 @@ store:
 
 ### 中间件插件
 
-* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
+* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)：支持*npm audit* cli的verdaccio插件(内置) (自3.x版本后兼容)
 
 * [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
 
