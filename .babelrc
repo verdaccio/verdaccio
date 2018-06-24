@@ -37,8 +37,8 @@
         "transform-object-rest-spread"
       ]
     },
-    "testE2E": {
-      /** for an issue on puppeteer env we need to use es2015-node4 **/
+    "testOldEnv": {
+      /** FIXME: for an issue on jest env we need to use es2015-node4 **/
       "presets": [ "es2015-node4", "flow"],
       "plugins": [
         "transform-class-properties",

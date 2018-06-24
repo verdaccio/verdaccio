@@ -6,23 +6,24 @@ import async from 'async';
 import Stream from 'stream';
 import ProxyStorage from './up-storage';
 import Search from './search';
+import {API_ERROR, HTTP_STATUS} from './constants';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
 import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
-  mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
+mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
 import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
 import {mergeVersions} from './metadata-utils';
 import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
 import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
 import type {
-  Versions,
-  Package,
-  Config,
-  MergeTags,
-  Version,
-  DistFile,
-  Callback,
-  Logger,
+Versions,
+Package,
+Config,
+MergeTags,
+Version,
+DistFile,
+Callback,
+Logger,
 } from '@verdaccio/types';
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
@@ -146,7 +147,7 @@ class Storage implements IStorageHandler {
     let localStream: any = self.localStorage.getTarball(name, filename);
     let isOpen = false;
     localStream.on('error', (err) => {
-      if (isOpen || err.status !== 404) {
+      if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
         return readStream.emit('error', err);
       }
 
@@ -273,7 +274,7 @@ class Storage implements IStorageHandler {
    */
   getPackage(options: any) {
     this.localStorage.getPackageMetadata(options.name, (err, data) => {
-      if (err && (!err.status || err.status >= 500)) {
+      if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
         return options.callback(err);
       }
@@ -438,7 +439,7 @@ class Storage implements IStorageHandler {
 
         if (err || !upLinkResponse) {
           // $FlowFixMe
-          return cb(null, [err || ErrorCode.get500('no data')]);
+          return cb(null, [err || ErrorCode.getInternalError('no data')]);
         }
 
         try {
@@ -478,7 +479,7 @@ class Storage implements IStorageHandler {
     }, (err: Error, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
-        return callback( ErrorCode.get404('no such package available')
+        return callback( ErrorCode.getNotFound(API_ERROR.NO_PACKAGE)
           , null
           , upLinksErrors );
       }

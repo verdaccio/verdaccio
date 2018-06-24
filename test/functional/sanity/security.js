@@ -1,67 +1,68 @@
-import assert from 'assert';
+import _ from 'lodash';
+import {HTTP_STATUS} from '../../../src/lib/constants';
 
 export default function(server) {
 
-  describe('Security', () => {
+  describe('should test security on endpoints', () => {
     beforeAll(function () {
       return server.addPackage('testpkg-sec');
     });
 
-    test('bad pkg #1', () => {
+    test('should fails on fetch bad pkg #1', () => {
       return server.getPackage('package.json')
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid package/);
     });
 
-    test('bad pkg #2', () => {
+    test('should fails on fetch bad pkg #2', () => {
       return server.getPackage('__proto__')
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid package/);
     });
 
-    test('__proto__, connect stuff', () => {
+    test('should do not fails on __proto__, connect stuff', () => {
       return server.request({uri: '/testpkg-sec?__proto__=1'})
         .then(function (body) {
           // test for NOT outputting stack trace
-          assert(!body || typeof(body) === 'object' || body.indexOf('node_modules') === -1);
+          expect(_.isNil(body) || _.isObject(body) || body.indexOf('node_modules')).toBeTruthy();
 
           // test for NOT crashing
-          return server.request({uri: '/testpkg-sec'}).status(200);
+          return server.request({uri: '/testpkg-sec'}).status(HTTP_STATUS.OK);
         });
     });
 
-    test('do not return package.json as an attachment', () => {
+    test('should fails and do not return package.json as an attachment', () => {
       return server.request({uri: '/testpkg-sec/-/package.json'})
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
 
-    test('silly things - reading #1', () => {
+    test('should fails on fetch silly things - reading #1', () => {
       return server.request({uri: '/testpkg-sec/-/../../../../../../../../etc/passwd'})
-        .status(404);
+        .status(HTTP_STATUS.NOT_FOUND);
     });
 
-    test('silly things - reading #2', () => {
+    test('should fails on fetch silly things - reading #2', () => {
       return server.request({uri: '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'})
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
 
-    test('silly things - writing #1', () => {
+    test('should fails on fetch silly things - writing #1', () => {
       return server.putTarball('testpkg-sec', 'package.json', '{}')
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
 
-    test('silly things - writing #3', () => {
+    test('should fails on fetch silly things - writing #3', () => {
       return server.putTarball('testpkg-sec', 'node_modules', '{}')
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
 
-    test('silly things - writing #4', () => {
+    test('should fails on fetch silly things - writing #4', () => {
       return server.putTarball('testpkg-sec', '../testpkg.tgz', '{}')
-        .status(403)
+        .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
   });

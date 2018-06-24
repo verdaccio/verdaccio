@@ -1,30 +1,45 @@
-node_modules
+
+## npm
 npm-debug.log
-renovate.json
 yarn-error.log
+node_modules
+verdaccio-*.tgz
+
+renovate.json
 docker-compose.yaml
 Dockerfile.rpi
 Dockerfile
-circle.yml
 crowdin.yaml
-coverage/
-verdaccio-*.tgz
-test-storage*
 scripts/
-docs/
 src/
-tools/
 /.*
 .vscode/
-website/
-assets/
-flow-typed/
-__mocks__/
-test/
-types/
-wiki/
-jestEnvironment.js
-jest.e2e.config.js
-jest.config.js
+.circleci/
 debug/
+
+# build ui
+tools/
+
+## assets and website
+assets/
+website/
+
+## docs
+docs/
+wiki/
+
+## flow
+flow-typed/
+types/
+
+# jest
+coverage/
+test-storage*
+test/
+__mocks__/
+jestEnvironment.js
+test/jest.e2e.config.js
+test/jest.config.functional.js
+jest.config.unit.js
+
 

@@ -1,8 +1,8 @@
-import assert from 'assert';
 import _ from 'lodash';
 
 import {HEADERS} from '../../../src/lib/constants';
 import {notify} from '../../../src/lib/notify';
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
 
 export default function(express) {
   const config = {
@@ -11,8 +11,8 @@ export default function(express) {
       headers: [{
         'Content-Type': HEADERS.JSON
       }],
-      endpoint: "http://localhost:55550/api/notify",
-      content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
+      endpoint: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify`,
+      content: `{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}`
     }
   };
 
@@ -45,15 +45,11 @@ export default function(express) {
 
       notify(metadata, config, publisherInfo).then(function (body) {
         const jsonBody = parseBody(body);
-        assert.ok(
-          `New package published: * ${metadata.name}*. Publisher name: * ${
-            publisherInfo.name
-          } *.` === jsonBody.message,
-          "Body notify message should be equal"
-        );
+        expect(
+          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message, "Body notify message should be equal");
         done();
       }, function (err) {
-        assert.fail(err);
+        expect(err).toBeDefined();
         done();
       });
     });
@@ -70,15 +66,12 @@ export default function(express) {
 
       notify(metadata, configMultipleHeader, publisherInfo).then(function (body) {
         const jsonBody = parseBody(body);
-        assert.ok(
-          `New package published: * ${metadata.name}*. Publisher name: * ${
-            publisherInfo.name
-          } *.` === jsonBody.message,
-          "Body notify message should be equal"
-        );
+        expect(
+          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
+          .toBe(jsonBody.message, "Body notify message should be equal");
         done();
       }, function (err) {
-        assert.fail(err);
+        expect(err).toBeDefined();
         done();
       });
     });
@@ -106,16 +99,13 @@ export default function(express) {
       notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
         body.forEach(function(notification) {
           const jsonBody = parseBody(notification);
-          assert.ok(
-            `New package published: * ${metadata.name}*. Publisher name: * ${
-              publisherInfo.name
-            } *.` === jsonBody.message,
-            "Body notify message should be equal"
-          );
+          expect(
+            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
+            .toBe(jsonBody.message, "Body notify message should be equal");
         });
         done();
       }, function (err) {
-        assert.fail(err);
+        expect(err).toBeDefined();
         done();
       });
     });
@@ -125,10 +115,10 @@ export default function(express) {
         name: "pkg-test"
       };
       const configFail = _.cloneDeep(config);
-      configFail.notify.endpoint = "http://localhost:55550/api/notify/bad";
+      configFail.notify.endpoint = `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify/bad`;
 
       notify(metadata, configFail, publisherInfo).then(function () {
-        assert.equal(false, 'This service should fails with status code 400');
+        expect(false).toBe('This service should fails with status code 400');
         done();
       }, function (err) {
         expect(err).toEqual('bad response');
@@ -136,27 +126,23 @@ export default function(express) {
       });
     });
 
-    test("publisher property should not be overridden if it exists in metadata", done => {
+    test('publisher property should not be overridden if it exists in metadata', done => {
       const metadata = {
-        name: "pkg-test",
+        name: 'pkg-test',
         publisher: {
-          name: "existing-publisher-name"
+          name: 'existing-publisher-name'
         }
       };
 
       notify(metadata, config, publisherInfo).then(
         function(body) {
           const jsonBody = parseBody(body);
-          assert.ok(
-            `New package published: * ${metadata.name}*. Publisher name: * ${
-              metadata.publisher.name
-            } *.` === jsonBody.message,
-            "Body notify message should be equal"
-          );
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`)
+            .toBe(jsonBody.message, 'Body notify message should be equal');
           done();
         },
         function(err) {
-          assert.fail(err);
+          expect(err).toBeDefined();
           done();
         }
       );

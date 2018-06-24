@@ -1,29 +1,27 @@
-{ _id: '__NAME__',
-  name: '__NAME__',
-  description: '',
-  'dist-tags': { latest: '__VERSION__' },
-  versions:
-   { '__VERSION__':
-      { name: '__NAME__',
-        version: '__VERSION__',
-        description: '',
-        main: 'index.js',
-        scripts: { test: 'echo "Error: no test specified" && exit 1' },
-        author: '',
-        license: 'ISC',
-        readme: 'ERROR: No README data found!',
-        _id: '__NAME__@__VERSION__',
-        dist:
-         { shasum: '071c8dd9fd775bf3ebc0d5108431110f5f857ce3',
-           tarball: 'http://localhost:4873/__NAME__/-/__NAME__-__VERSION__.tgz' },
-        _from: '.',
-        _npmVersion: '1.3.21',
-        _npmUser: { name: 'rlidwka', email: 'alex@kocharin.ru' },
-        maintainers: [ { name: 'rlidwka', email: 'alex@kocharin.ru' } ] } },
-  readme: 'ERROR: No README data found!',
-  maintainers: [ { name: 'rlidwka', email: 'alex@kocharin.ru' } ],
-  _attachments:
-   { '__NAME__-__VERSION__.tgz':
-      { content_type: 'application/octet-stream',
-        data: 'H4sIAAAAAAAAA+2SP2vDMBDFPftTHDdkah3Zim3IGjJ0zppFyNdE+SMJSSmBkO8eWS6mQ7cGSsC/5cG9p7uTkBXyKHY0t4MWB2909mQYY81iAVHLtmY/NcGrCrKyquq25Q1vm4yVnPEm+s9e5DcuPggXV/lrn+EuMOqLcMsBUIsz4RIwkA/v9rjDt1iN4Bc5r4zuPVawok4GduSlUzZ8O2P6LFQqKN3RNf6kIT1kfTRuKZem9DGSewNbXDtn3BK0gd4Ab0mqT0XdFmE2A7qqACXGk/fUTVzC3rhxLJ6UJO3T9h+bFeb3/L9fdGJiYuI1eACk8AYWAAgAAA==',
-        length: 250 } } }
+{ "_id": "__NAME__",
+  "name": "__NAME__",
+  "dist-tags": { "latest": "__VERSION__" },
+  "versions":
+   { "__VERSION__":
+      { "name": "__NAME__",
+        "version": "__VERSION__",
+        "description": "",
+        "main": "index.js",
+        "author": "",
+        "license": "ISC",
+        "readme": "ERROR: No README data found!",
+        "_id": "__NAME__@__VERSION__",
+        "dist":
+         { "shasum": "071c8dd9fd775bf3ebc0d5108431110f5f857ce3",
+           "tarball": "http://localhost:4873/__NAME__/-/__NAME__-__VERSION__.tgz" },
+        "_from": ".",
+        "_npmVersion": "1.3.21",
+        "_npmUser": { "name": "username", "email": "user@domain.com" },
+        "maintainers": [ { "name": "username", "email": "user@domain.com" } ] } },
+  "readme": "ERROR: No README data found!",
+  "maintainers": [ { "name": "username", "email": "user@domain.com" } ],
+  "_attachments":
+   { "__NAME__-__VERSION__.tgz":
+      { "content_type": "application/octet-stream",
+        "data": "H4sIAAAAAAAAA+2SP2vDMBDFPftTHDdkah3Zim3IGjJ0zppFyNdE+SMJSSmBkO8eWS6mQ7cGSsC/5cG9p7uTkBXyKHY0t4MWB2909mQYY81iAVHLtmY/NcGrCrKyquq25Q1vm4yVnPEm+s9e5DcuPggXV/lrn+EuMOqLcMsBUIsz4RIwkA/v9rjDt1iN4Bc5r4zuPVawok4GduSlUzZ8O2P6LFQqKN3RNf6kIT1kfTRuKZem9DGSewNbXDtn3BK0gd4Ab0mqT0XdFmE2A7qqACXGk/fUTVzC3rhxLJ6UJO3T9h+bFeb3/L9fdGJiYuI1eACk8AYWAAgAAA==",
+        "length": 250 } } }

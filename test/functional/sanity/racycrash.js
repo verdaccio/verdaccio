@@ -1,6 +1,9 @@
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
+import {API_ERROR, HEADER_TYPE, HTTP_STATUS} from '../../../src/lib/constants';
+
 export default function(server, express) {
 
-  describe('test for unexpected client hangs', () => {
+  describe('shoul test for unexpected client hangs', () => {
     let handleResponseTarball;
 
     beforeAll(function() {
@@ -13,7 +16,7 @@ export default function(server, express) {
               'version': '0.1.0',
               'dist': {
                 'shasum': 'fake',
-                'tarball': 'http://localhost:55550/testexp-racycrash/-/test.tar.gz',
+                'tarball': `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-racycrash/-/test.tar.gz`,
               },
             },
           },
@@ -27,14 +30,14 @@ export default function(server, express) {
 
     test('should not crash on error if client disconnects', callback => {
       handleResponseTarball = function(res) {
-        res.header('content-length', 1e6);
+        res.header(HEADER_TYPE.CONTENT_LENGTH, 1e6);
         res.write('test test test');
         setTimeout(function() {
           res.write('-');
           // destroy the connection
           res.socket.destroy();
           cb();
-        }, 200);
+        }, HTTP_STATUS.OK);
       };
 
        server.request({uri: '/testexp-racycrash/-/test.tar.gz'})
@@ -45,7 +48,7 @@ export default function(server, express) {
       function cb() {
         // test for NOT crashing
         server.request({uri: '/testexp-racycrash'})
-          .status(200)
+          .status(HTTP_STATUS.OK)
           .then(function() {
            callback();
           });
@@ -58,7 +61,7 @@ export default function(server, express) {
       };
 
       return server.request({uri: '/testexp-racycrash/-/test.tar.gz'})
-               .body_error('internal server error');
+               .body_error(API_ERROR.INTERNAL_SERVER_ERROR);
     });
   });
 }

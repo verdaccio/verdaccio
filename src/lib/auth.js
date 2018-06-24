@@ -53,20 +53,20 @@ class Auth {
         }
 
         if (user.name) {
-          cb(ErrorCode.get403('user ' + user.name + ' is not allowed to ' + action + ' package ' + pkg.name));
+          cb(ErrorCode.getForbidden(`user ${user.name} is not allowed to ${action} package ${pkg.name}`));
         } else {
-          cb(ErrorCode.get403('unregistered users are not allowed to ' + action + ' package ' + pkg.name));
+          cb(ErrorCode.getForbidden(`unregistered users are not allowed to ${action} package ${pkg.name}`));
         }
       };
     };
 
     this.plugins.push({
       authenticate: function(user, password, cb) {
-        cb(ErrorCode.get403('bad username/password, access denied'));
+        cb(ErrorCode.getForbidden('bad username/password, access denied'));
       },
 
       add_user: function(user, password, cb) {
-        return cb(ErrorCode.get409('bad username/password, access denied'));
+        return cb(ErrorCode.getConflict('bad username/password, access denied'));
       },
 
       allow_access: allow_action('access'),
@@ -224,7 +224,7 @@ class Auth {
 
       const parts = authorization.split(' ');
       if (parts.length !== 2) {
-        return next( ErrorCode.get400('bad authorization header') );
+        return next( ErrorCode.getBadRequest('bad authorization header') );
       }
 
       const credentials = this._parseCredentials(parts);
@@ -258,7 +258,7 @@ class Auth {
       const scheme = parts[0];
       if (scheme.toUpperCase() === 'BASIC') {
          credentials = new Buffer(parts[1], 'base64').toString();
-         this.logger.warn('basic authentication is deprecated, please use JWT instead');
+         this.logger.info('basic authentication is deprecated, please use JWT instead');
          return credentials;
       } else if (scheme.toUpperCase() === 'BEARER') {
          const token = new Buffer(parts[1], 'base64');

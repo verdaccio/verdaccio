@@ -8,7 +8,6 @@ export default class ExpressServer {
 
   constructor() {
     this.app = express();
-    this.server;
   }
 
   start(port: number): Promise<any> {
@@ -18,8 +17,8 @@ export default class ExpressServer {
         extended: true
       }));
 
-      this.server = this.app.listen(port, function starExpressServer() {
-        resolve();
+      this.server = this.app.listen(port, () => {
+        resolve(this);
       });
     });
   }

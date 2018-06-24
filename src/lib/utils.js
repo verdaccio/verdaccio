@@ -7,11 +7,13 @@ import YAML from 'js-yaml';
 import URL from 'url';
 import fs from 'fs';
 import _ from 'lodash';
+import asciidoctor from 'asciidoctor.js';
 import createError from 'http-errors';
+import marked from 'marked';
+import {HTTP_STATUS, API_ERROR} from './constants';
+
 import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
-import marked from 'marked';
-import asciidoctor from 'asciidoctor.js';
 import type {StringValue} from '../../types';
 
 const Logger = require('./logger');
@@ -337,26 +339,27 @@ const getLatestVersion = function(pkgInfo: Package) {
 };
 
 const ErrorCode = {
-  get409: (message: string = 'this package is already present') => {
-    return createError(409, message);
+  getConflict: (message: string = 'this package is already present') => {
+    return createError(HTTP_STATUS.CONFLICT, message);
   },
-  get422: (customMessage?: string) => {
-    return createError(422, customMessage || 'bad data');
+  getBadData: (customMessage?: string) => {
+    return createError(HTTP_STATUS.BAD_DATA, customMessage || 'bad data');
   },
-  get400: (customMessage?: string) => {
-    return createError(400, customMessage);
+  getBadRequest: (customMessage?: string) => {
+    return createError(HTTP_STATUS.BAD_REQUEST, customMessage);
   },
-  get500: (customMessage?: string) => {
-    return customMessage ? createError(500, customMessage) : createError(500);
+  getInternalError: (customMessage?: string) => {
+    return customMessage ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
+      : createError(HTTP_STATUS.INTERNAL_ERROR);
   },
-  get403: (message: string = 'can\'t use this filename') => {
-    return createError(403, message);
+  getForbidden: (message: string = 'can\'t use this filename') => {
+    return createError(HTTP_STATUS.FORBIDDEN, message);
   },
-  get503: (message: string = 'resource temporarily unavailable') => {
-    return createError(503, message);
+  getServiceUnavailable: (message: string = 'resource temporarily unavailable') => {
+    return createError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
   },
-  get404: (customMessage?: string) => {
-    return createError(404, customMessage || 'no such package available');
+  getNotFound: (customMessage?: string) => {
+    return createError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
   },
   getCode: (statusCode: number, customMessage: string) => {
     return createError(statusCode, customMessage);
@@ -462,6 +465,10 @@ function parseReadme(packageName: string, readme: string): string {
   Logger.logger.error({packageName}, '@{packageName}: No readme found');
 
   return marked('ERROR: No README data found!');
+}
+
+export function buildToken(type: string, token: string) {
+  return `${_.capitalize(type)} ${token}`;
 }
 
 export {

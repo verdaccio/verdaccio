@@ -1,12 +1,11 @@
-const assert = require('assert');
-const _ = require('lodash');
+import _ from 'lodash';
 
 module.exports = function(server) {
 
   test('ping', () => {
     return server.ping().then(function (data) {
       // it's always an empty object
-      assert.ok(_.isObject(data));
+      expect(_.isObject(data)).toBeDefined();
     });
   });
 
