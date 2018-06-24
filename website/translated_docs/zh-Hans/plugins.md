@@ -14,7 +14,7 @@ Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行�
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio`作为一个sinopia的分支，它和兼容`sinopia@1.4.0`的插件具有向后兼容性。在这种情况下，安装方式相同。
+作为一个sinopia的分支项目，`verdaccio`和兼容`sinopia@1.4.0`的插件具有向后兼容性。在这种情况下，安装方式相同。
 
     $> npm install --global sinopia-memory
     
@@ -43,7 +43,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### 多个授权插件
+#### 多个Auth插件
 
 这在技术上可行，插件的顺序变得非常重要，安全凭据将按顺序获取。
 
