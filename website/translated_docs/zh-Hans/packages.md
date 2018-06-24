@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-重启`verdaccio`并在命令行中安装`npmuser-core`。
+重启`verdaccio`并在命令行中尝试安装`npmuser-core`。
 
 ```bash
 $ npm install npmuser-core
