@@ -1,5 +1,5 @@
 import {HEADERS, HTTP_STATUS} from '../../../src/lib/constants';
-import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2} from '../config.functional';
 import {generateSha} from '../lib/test.utils';
 import {DIST_TAGS} from "../../../src/lib/utils";
 
@@ -53,13 +53,8 @@ export default function(server, server2) {
           expect(body[DIST_TAGS]).toEqual({latest: PKG_VERSION});
         });
 
-      test('scoped package on server1', () => {
-        return testScopePackage(server, PORT_SERVER_1);
-      });
-
-      test('scoped package on server2', () => {
-        return testScopePackage(server2, PORT_SERVER_2);
-      });
+      test('scoped package on server1', () => testScopePackage(server, PORT_SERVER_1));
+      test('scoped package on server2', () => testScopePackage(server2, PORT_SERVER_2));
     });
 
     describe('should retrieve a scoped packages under nginx', () => {

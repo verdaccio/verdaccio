@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import {HEADERS} from '../../../src/lib/constants';
 import {notify} from '../../../src/lib/notify';
-import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
 
 export default function(express) {
   const config = {
@@ -126,11 +126,11 @@ export default function(express) {
       });
     });
 
-    test("publisher property should not be overridden if it exists in metadata", done => {
+    test('publisher property should not be overridden if it exists in metadata', done => {
       const metadata = {
-        name: "pkg-test",
+        name: 'pkg-test',
         publisher: {
-          name: "existing-publisher-name"
+          name: 'existing-publisher-name'
         }
       };
 
@@ -138,7 +138,7 @@ export default function(express) {
         function(body) {
           const jsonBody = parseBody(body);
           expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`)
-            .toBe(jsonBody.message, "Body notify message should be equal");
+            .toBe(jsonBody.message, 'Body notify message should be equal');
           done();
         },
         function(err) {

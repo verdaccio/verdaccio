@@ -1,5 +1,5 @@
 import {API_ERROR, HEADER_TYPE, HTTP_STATUS} from '../../../src/lib/constants';
-import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
 
 const defaultPkg = {
   'name': 'testexp-incomplete',
@@ -34,10 +34,10 @@ export default function (server, express) {
       });
     });
 
-    listofCalls.forEach(function (type) {
-      test('should not store tarballs / ' + type, callback => {
+    listofCalls.forEach((type) => {
+      test(`should not store tarballs / ${type}`, callback => {
         let called;
-        express.get('/testexp-incomplete/-/' + type + '.tar.gz', function (_, response) {
+        express.get(`/testexp-incomplete/-/${type}.tar.gz`, function (_, response) {
           if (called) {
             return response.socket.destroy();
           }

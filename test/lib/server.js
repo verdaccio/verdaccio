@@ -6,7 +6,7 @@ import smartRequest from './request';
 import type {IServerBridge} from '../types';
 import {HEADERS, HTTP_STATUS, TOKEN_BASIC} from '../../src/lib/constants';
 import {buildToken} from "../../src/lib/utils";
-import {CREDENTIALS} from "../functional/config.func";
+import {CREDENTIALS} from "../functional/config.functional";
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, new Buffer(`${user}:${pass}`).toString('base64'));

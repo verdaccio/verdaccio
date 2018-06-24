@@ -1,4 +1,4 @@
-import {CREDENTIALS} from "../config.func";
+import {CREDENTIALS} from "../config.functional";
 
 module.exports = function(server) {
 

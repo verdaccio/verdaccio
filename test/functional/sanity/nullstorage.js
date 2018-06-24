@@ -1,7 +1,7 @@
 import {readFile} from '../lib/test.utils';
 import {createTarballHash} from "../../../src/lib/crypto-utils";
 import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
-import {DOMAIN_SERVERS, PORT_SERVER_1, TARBALL} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_1, TARBALL} from '../config.functional';
 import generatePkg  from '../fixtures/package';
 import {DIST_TAGS} from '../../../src/lib/utils';
 

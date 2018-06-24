@@ -10,6 +10,7 @@ import {setup} from '../../../src/lib/logger';
 
 import type {Config} from '@verdaccio/types';
 import type {IStorageHandler} from '../../../types/index';
+import {API_ERROR} from '../../../src/lib/constants';
 
 setup(configExample.logs);
 
@@ -75,7 +76,7 @@ describe('StorageTest', () => {
 		storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {
 			expect(errors).toBeInstanceOf(Array);
 			expect(errors[0][0].statusCode).toBe(404);
-			expect(errors[0][0].message).toMatch(/package doesn't exist on uplink/);
+			expect(errors[0][0].message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
 			done();
 		});
   });

@@ -8,7 +8,7 @@ import {setup} from '../../../src/lib/logger';
 
 import type {Config, UpLinkConf} from '@verdaccio/types';
 import type {IProxy} from '../../../types/index';
-import {DEFAULT_REGISTRY} from "../../../src/lib/constants";
+import {API_ERROR, DEFAULT_REGISTRY} from "../../../src/lib/constants";
 
 setup([]);
 
@@ -59,7 +59,7 @@ describe('UpStorge', () => {
       proxy.getRemoteMetadata('@verdaccio/fake-package', {etag: '123456'}, (err) => {
         expect(err).not.toBeNull();
         expect(err.statusCode).toBe(404);
-        expect(err.message).toMatch(/package doesn't exist on uplink/);
+        expect(err.message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
         done();
       });
     });

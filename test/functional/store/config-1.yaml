@@ -56,7 +56,7 @@ packages:
     proxy: express
 
   # used by gzip.spec.js
-  'testexp_gzi*':
+  'testexp_gzip':
     access: $all
     publish: $all
     proxy: express

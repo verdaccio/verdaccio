@@ -52,7 +52,7 @@ export const API_ERROR = {
   NOT_ALLOWED: 'not allowed to access package',
   INTERNAL_SERVER_ERROR: 'internal server error',
   UNKNOWN_ERROR: 'unknown error',
-  NOT_PACKAGE_UPLINK: 'package doesn\'t exist on uplink',
+  NOT_PACKAGE_UPLINK: 'package does not exist on uplink',
   CONTENT_MISMATCH: 'content length mismatch',
   NOT_FILE_UPLINK: 'file doesn\'t exist on uplink',
   MAX_USERS_REACHED: 'maximum amount of users reached',

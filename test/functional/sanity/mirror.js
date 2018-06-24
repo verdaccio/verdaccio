@@ -1,7 +1,7 @@
 import {readFile} from '../lib/test.utils';
-import {HTTP_STATUS} from "../../../src/lib/constants";
+import {API_MESSAGE, HTTP_STATUS} from "../../../src/lib/constants";
 import generatePkg  from '../fixtures/package';
-import {TARBALL} from '../config.func';
+import {TARBALL} from '../config.functional';
 
 const getBinary = () =>  readFile('../fixtures/binary');
 
@@ -19,13 +19,13 @@ export default function (server, server2) {
 
     pkgList.forEach(function (pkg) {
       let prefix = pkg;
-      pkg = 'test-mirror-' + pkg;
+      pkg = `test-mirror-${pkg}`;
 
       describe(`testing mirror for ${pkg}`, () => {
         beforeAll(function () {
           return server2.putPackage(pkg, generatePkg(pkg))
             .status(HTTP_STATUS.CREATED)
-            .body_ok(/created new package/);
+            .body_ok(API_MESSAGE.PKG_CREATED);
         });
 
         test(prefix + 'creating new package', () => {});

@@ -4,7 +4,7 @@ import assert from 'assert';
 import crypto from 'crypto';
 import {readFile} from '../lib/test.utils';
 import {HTTP_STATUS} from "../../../src/lib/constants";
-import {TARBALL} from '../config.func';
+import {TARBALL} from '../config.functional';
 
 function getBinary() {
   return readFile('../fixtures/binary');

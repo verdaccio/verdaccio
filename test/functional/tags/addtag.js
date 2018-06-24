@@ -17,13 +17,10 @@ export default function(server) {
 
     describe('should test add tag to a package', () => {
       beforeAll(function() {
-        return server.putPackage(PKG_NAME, eval(
-          '(' + readTags()
-            .toString('utf8')
-            .replace(/__NAME__/g, PKG_NAME)
-            .replace(/__VERSION__/g, PKG_VERSION)
-          + ')'
-        )).status(HTTP_STATUS.CREATED);
+        return server.putPackage(PKG_NAME,
+          JSON.parse(readTags().toString('utf8').replace(/__NAME__/g, PKG_NAME)
+            .replace(/__VERSION__/g, PKG_VERSION))
+        ).status(HTTP_STATUS.CREATED);
       });
 
       describe('should test valid formats tags', () => {
@@ -42,7 +39,7 @@ export default function(server) {
 
       describe('should test handle invalid tag and version names', () => {
         const INVALID_TAG ='tag/tag/tag';
-        const handleInvalidTag = function handleInvalidTag(tag, version) {
+        const handleInvalidTag = function(tag, version) {
           return server.addTag(PKG_NAME, tag, version)
             .status(HTTP_STATUS.FORBIDDEN)
             .body_error(/invalid tag/);

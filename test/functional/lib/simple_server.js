@@ -8,7 +8,6 @@ export default class ExpressServer {
 
   constructor() {
     this.app = express();
-    this.server;
   }
 
   start(port: number): Promise<any> {

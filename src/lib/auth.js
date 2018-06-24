@@ -53,9 +53,9 @@ class Auth {
         }
 
         if (user.name) {
-          cb(ErrorCode.getForbidden('user ' + user.name + ' is not allowed to ' + action + ' package ' + pkg.name));
+          cb(ErrorCode.getForbidden(`user ${user.name} is not allowed to ${action} package ${pkg.name}`));
         } else {
-          cb(ErrorCode.getForbidden('unregistered users are not allowed to ' + action + ' package ' + pkg.name));
+          cb(ErrorCode.getForbidden(`unregistered users are not allowed to ${action} package ${pkg.name}`));
         }
       };
     };

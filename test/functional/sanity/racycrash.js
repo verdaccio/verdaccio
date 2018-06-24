@@ -1,4 +1,4 @@
-import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.func';
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
 import {API_ERROR, HEADER_TYPE, HTTP_STATUS} from '../../../src/lib/constants';
 
 export default function(server, express) {

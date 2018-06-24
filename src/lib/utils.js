@@ -467,12 +467,8 @@ function parseReadme(packageName: string, readme: string): string {
   return marked('ERROR: No README data found!');
 }
 
-export function capitalizeFirstLetter(character: string) {
-  return character[0].toUpperCase() + character.slice(1);
-}
-
 export function buildToken(type: string, token: string) {
-  return `${capitalizeFirstLetter(type)} ${token}`;
+  return `${_.capitalize(type)} ${token}`;
 }
 
 export {

@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import {createTarballHash} from "../../../src/lib/crypto-utils";
 import {HTTP_STATUS} from "../../../src/lib/constants";
-import {CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.func";
+import {CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.functional";
 import whoIam from './whoIam';
 import ping from './ping';
 import {DIST_TAGS} from '../../../src/lib/utils';
@@ -123,10 +123,6 @@ export default function(server: any, server2: any) {
             return server.putVersion(PKG_NAME, PKG_VERSION, pkg)
               .status(HTTP_STATUS.CREATED)
               .body_ok(/published/);
-          });
-
-          test('uploading new package version', () => {
-            /* test for before() */
           });
 
           describe('should download a package', () => {

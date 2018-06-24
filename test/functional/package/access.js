@@ -1,6 +1,6 @@
 import {buildToken} from "../../../src/lib/utils";
-import {HTTP_STATUS, TOKEN_BASIC} from "../../../src/lib/constants";
-import {CREDENTIALS} from "../config.func";
+import {API_ERROR, HTTP_STATUS, TOKEN_BASIC} from "../../../src/lib/constants";
+import {CREDENTIALS} from "../config.functional";
 
 export default function(server) {
 
@@ -17,13 +17,14 @@ export default function(server) {
      */
     function checkAccess(auth, pkg, ok) {
       test(
-        (ok ? 'allows' : 'forbids') + ' access ' + auth + ' to ' + pkg, () => {
+        `${(ok ? 'allows' : 'forbids')} access ${auth} to ${pkg}`, () => {
           server.authstr = auth ? buildAccesToken(auth) : undefined;
           const req = server.getPackage(pkg);
+
           if (ok) {
-            return req.status(HTTP_STATUS.NOT_FOUND).body_error(/no such package available/);
+            return req.status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.NO_PACKAGE);
           } else {
-            return req.status(HTTP_STATUS.FORBIDDEN).body_error(/not allowed to access package/);
+            return req.status(HTTP_STATUS.FORBIDDEN).body_error(API_ERROR.NOT_ALLOWED);
           }
         }
       );

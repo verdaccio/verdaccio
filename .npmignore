@@ -39,7 +39,7 @@ test/
 __mocks__/
 jestEnvironment.js
 test/jest.e2e.config.js
-test/jest.config.func.js
+test/jest.config.functional.js
 jest.config.unit.js
 
 
