@@ -110,7 +110,7 @@ store:
 
 (兼容2.1.x及以后版本)
 
-### 认证插件
+### 授权插件
 
 * [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket)：verdaccio Bitbucket认证插件。
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap)：verdaccio LDAP认证插件。
@@ -128,9 +128,9 @@ store:
 
 (兼容自3.x及以后版本)
 
-* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)存储插件在内存中装载包
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage)存储插件在**Amazon S3**中存储包
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)存储插件在**Google Cloud Storage**中存储包
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)在内存中装载包的存储插件
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage)在**Amazon S3**中存储包的存储插件
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)在**Google Cloud Storage**中存储包的存储插件
 
 ## 警告
 
