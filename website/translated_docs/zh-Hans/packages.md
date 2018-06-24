@@ -4,7 +4,7 @@ title: "包的访问"
 ---
 这是一系列的约束，它基于特定条件允许或限制对本地存储的访问。
 
-安全约束构建于被使用的插件上，在默认情况下，`verdaccio`使用[htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd)。 如果你使用不同的插件，行为可能会有所不同。 默认插件自己并不处理`allow_access`和`allow_publish`，它使用内部回退功能以防止插件尚未就绪。
+安全约束构建于被使用的插件上，在默认情况下，`verdaccio`使用[htpasswd 插件](https://github.com/verdaccio/verdaccio-htpasswd)。 如果你使用不同的插件，行为可能会有所不同。 默认插件自己并不处理`allow_access`和`allow_publish`，它使用内部回退功能以防止插件尚未就绪。
 
 关于权限的更多信息，请访问[维基文档的认证部分](auth.md)。
 
