@@ -4,7 +4,7 @@ import _ from 'lodash';
 import smartRequest, {PromiseAssert} from '../../lib/request';
 import type {IRequestPromise} from '../../types';
 
-describe('Request Functional', () => {
+describe.skip('Request Functional', () => {
 
   const restTest: string = "http://registry.npmjs.org/aaa";
 

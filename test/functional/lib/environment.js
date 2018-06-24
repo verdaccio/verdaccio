@@ -77,9 +77,7 @@ class FunctionalEnvironment extends NodeEnvironment {
   async teardown() {
     await super.teardown();
     console.log(chalk.yellow('Teardown Test Environment.'));
-    // this.global.__VERDACCIO_E2E__.stop();
-    // this.global.__VERDACCIO__PROTECTED_E2E__.stop();
-    // close verdaccios
+    // shutdown verdaccio
     for (let server of this.global.__SERVERS_PROCESS__) {
       server[0].stop();
     }
