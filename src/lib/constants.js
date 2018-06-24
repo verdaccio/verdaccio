@@ -27,6 +27,7 @@ export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
   MULTIPLE_CHOICES: 300,
+  NOT_MODIFIED: 304,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
@@ -57,6 +58,8 @@ export const API_ERROR = {
   NOT_FILE_UPLINK: 'file doesn\'t exist on uplink',
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: 'this version doesn\'t exist',
+  FILE_NOT_FOUND: 'File not found',
+  WEB_DISABLED: 'Web interface is disabled in the config file',
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';

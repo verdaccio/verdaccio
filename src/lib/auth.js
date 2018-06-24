@@ -148,13 +148,13 @@ class Auth {
     let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
 
     (function next() {
-      let p = plugins.shift();
+      const plugin = plugins.shift();
 
-      if (typeof(p.allow_access) !== 'function') {
+      if (typeof(plugin.allow_access) !== 'function') {
         return next();
       }
 
-      p.allow_access(user, pkg, function(err, ok) {
+      plugin.allow_access(user, pkg, function(err, ok) {
         if (err) {
           return callback(err);
         }
