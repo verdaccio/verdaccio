@@ -8,12 +8,12 @@ title: "Puppet"
 
 在使用Puppet模块安装verdaccio时有两个变量：
 
-* Apply-mode (with puppet-apply and no puppetmaster setup needed)
-* Master-Agent-mode (with puppet-agent accessing your configuration through the puppetmaster).
+* Apply-mode (和puppet-apply一起使用，无需配置puppetmaster)
+* Master-Agent-mode (puppet-agent会通过puppetmaster访问你的配置)。
 
-In both variants you have to explicitely call "class nodejs {}" in your puppet script because the puppet-verdaccio module only defines this as a requirement, so you have all the flexibility you want when installing nodejs. Scroll down for details about Master-Agent-mode variant.
+在这两个变量中，你必须在你的puppet代码中显式调用"class nodejs {}"，原因在于puppet-verdaccio模块只以此做为先决条件，因此在安装nodejs时你具有所有你需要的灵活性。 向下滚动查看Master-Agent-mode的所有细节信息。
 
-For further information:
+详细信息：
 
 <https://github.com/verdaccio/puppet-verdaccio>
 
