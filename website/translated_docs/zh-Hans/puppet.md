@@ -17,4 +17,4 @@ title: "Puppet"
 
 <https://github.com/verdaccio/puppet-verdaccio>
 
-> We are looking for active contributors for this integration, if you are interested [refers to this ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+> 我们正在为这个集成寻找积极的贡献者，如果你感兴趣，请查看[这个票证](https://github.com/verdaccio/puppet-verdaccio/issues/11)。
