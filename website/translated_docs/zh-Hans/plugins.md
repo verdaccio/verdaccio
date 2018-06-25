@@ -4,7 +4,7 @@ title: "插件"
 ---
 Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行扩展，例如新的认证方法，添加endpoints，或者使用自定义存储。
 
-> 如果你对开发自己的插件感兴趣，请阅读[开发](development.md)部分。
+> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
 
 ## 用法
 
