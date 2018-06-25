@@ -3,7 +3,8 @@
 export const HEADERS = {
   JSON: 'application/json',
   JSON_CHARSET: 'application/json; charset=utf-8',
-  OCTET_STREAM: 'application/octet-stream',
+  OCTET_STREAM: 'application/octet-stream; charset=utf-8',
+  TEXT_CHARSET: 'text/plain; charset=utf-8',
   GZIP: 'gzip',
 };
 
@@ -46,6 +47,10 @@ export const API_MESSAGE = {
   PKG_REMOVED: 'package removed',
   PKG_PUBLISHED: 'package published',
   TARBALL_REMOVED: 'tarball removed',
+  TAG_UPDATED: 'tags updated',
+  TAG_REMOVED: 'tag removed',
+  TAG_ADDED: 'package tagged',
+
 };
 
 export const API_ERROR = {

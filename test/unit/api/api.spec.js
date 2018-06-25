@@ -9,9 +9,10 @@ import forbiddenPlace from '../partials/forbidden-place';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 
-import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE} from '../../../src/lib/constants';
+import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE} from '../../../src/lib/constants';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import {DIST_TAGS} from '../../../src/lib/utils';
 
 require('../../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
@@ -55,9 +56,9 @@ describe('endpoint unit test', () => {
      test('should test endpoint /-/ping', (done) => {
         request(app)
           .get('/-/ping')
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -70,7 +71,7 @@ describe('endpoint unit test', () => {
       test('should test /-/whoami endpoint', (done) => {
         request(app)
           .get('/-/whoami')
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
@@ -83,7 +84,7 @@ describe('endpoint unit test', () => {
       test('should test /whoami endpoint', (done) => {
         request(app)
           .get('/-/whoami')
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
@@ -101,7 +102,7 @@ describe('endpoint unit test', () => {
           request(app)
             .get('/auth-package')
             .set('authorization', 'FakeHader')
-            .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
@@ -114,7 +115,7 @@ describe('endpoint unit test', () => {
           request(app)
             .get('/auth-package')
             .set('authorization', 'Bearer')
-            .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
@@ -127,7 +128,7 @@ describe('endpoint unit test', () => {
           request(app)
             .get('/auth-package')
             .set('authorization', 'Bearer 12345')
-            .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
@@ -142,7 +143,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentials)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -159,7 +160,7 @@ describe('endpoint unit test', () => {
             request(app)
               .get('/vue')
               .set('authorization', `Bearer ${token}`)
-              .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+              .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
               .expect(HTTP_STATUS.OK)
               .end(function(err, res) {
                 expect(err).toBeNull();
@@ -178,7 +179,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
           .end(function(err, res) {
             if (err) {
@@ -199,7 +200,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
           .end(function(err, res) {
             if (err) {
@@ -220,7 +221,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jotaNew')
           .send(newCredentials)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -235,7 +236,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jotaNew')
           .send(credentials)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CONFLICT)
           .end(function(err, res) {
             if (err) {
@@ -255,7 +256,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.UNAUTHORIZED)
           .end(function(err, res) {
             if (err) {
@@ -277,7 +278,7 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/jquery')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
@@ -295,7 +296,7 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/jquery/1.5.1')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
@@ -313,7 +314,7 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/jquery/latest')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
@@ -331,9 +332,9 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/jquery/never-will-exist-this-tag')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -346,7 +347,7 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/@verdaccio/not-found')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.NOT_FOUND)
           .end(function(err, res) {
             if (err) {
@@ -361,9 +362,9 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/forbidden-place')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.FORBIDDEN)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -375,7 +376,7 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/-/jquery-1.5.1.tgz')
-          .expect(HEADER_TYPE.CONTENT_TYPE, /application\/octet-stream/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
@@ -391,10 +392,11 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/-/jquery-0.0.1.tgz')
-          .expect(HEADER_TYPE.CONTENT_TYPE, /application\/octet-stream/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
+              expect(err).not.toBeNull();
               return done(err);
             }
 
@@ -422,6 +424,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
@@ -440,6 +443,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
@@ -458,11 +462,12 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
             expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/tags updated/);
+            expect(res.body.ok).toMatch(API_MESSAGE.TAG_UPDATED);
             done();
           });
       });
@@ -476,6 +481,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
@@ -491,15 +497,16 @@ describe('endpoint unit test', () => {
           .del('/-/package/jquery/dist-tags/verdaccio-tag')
           .set('accept-encoding', HEADERS.JSON)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          //.expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          //.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
             expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/tag removed/);
+            expect(res.body.ok).toMatch(API_MESSAGE.TAG_REMOVED);
             done();
           });
       });
@@ -514,10 +521,11 @@ describe('endpoint unit test', () => {
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
           // .set('accept-encoding', HEADERS.JSON)
           // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          //.expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          //.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
             //TODO: we have to catch the stream check whether it returns something
@@ -537,12 +545,13 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
             expect(res.body.success).toBeDefined();
             expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(/created new package/);
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
             done();
           });
       });
@@ -555,10 +564,11 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/package removed/);
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
             done();
           });
       });
@@ -596,7 +606,7 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/verdaccio/package/readme/@scope/pk1-test')
           .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, 'text/plain; charset=utf-8')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function(err, res) {
             expect(res.text).toMatch('<h1 id="test">test</h1>\n');
             done();
@@ -608,7 +618,7 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/verdaccio/package/readme/@scope/404')
           .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, 'text/plain; charset=utf-8')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function(err, res) {
             expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
             done();
@@ -619,10 +629,10 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/verdaccio/sidebar/@scope/pk1-test')
           .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function(err, res) {
             const sideBarInfo = res.body;
-            const latestVersion = publishMetadata.versions[publishMetadata['dist-tags'].latest];
+            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
 
             expect(sideBarInfo.latest.author).toBeDefined();
             expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
@@ -636,8 +646,8 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/verdaccio/sidebar/@scope/404')
           .expect(HTTP_STATUS.NOT_FOUND)
-          .expect(HEADER_TYPE.CONTENT_TYPE, /json/)
-          .end(function(err, res) {
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .end(function() {
             done();
           });
       });
