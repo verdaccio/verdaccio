@@ -31,11 +31,12 @@ module.exports = {
   ],
   testPathIgnorePatterns: [
     '__snapshots__',
-    'build'
+    '<rootDir>/build',
   ],
   coveragePathIgnorePatterns: [
     'node_modules',
-    'fixtures'
+    'fixtures',
+    '<rootDir>/test',
   ],
   // moduleFileExtensions: ["js"],
   moduleNameMapper: {

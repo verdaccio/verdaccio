@@ -71,7 +71,6 @@ describe('StorageTest', () => {
       storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {
         expect(err).not.toBeNull();
         expect(errors).toBeInstanceOf(Array);
-        console.log(errors);
         expect(errors[0][0].statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         expect(errors[0][0].message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
         done();
