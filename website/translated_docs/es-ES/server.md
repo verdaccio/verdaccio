@@ -44,7 +44,7 @@ Primero instale forever globalmente:
 $ sudo npm install -g forever
 ```
 
-Asegúrese que ha iniciado verdaccio al menos una vez para general el archivo de configuración y escriba el usuario admin creado. Puede entonces utilizar el siguiente comando para iniciar verdaccio:
+Asegúrese que ha iniciado verdaccio al menos una vez para generar el archivo de configuración y escriba el usuario admin creado. Puede entonces utilizar el siguiente comando para iniciar verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
