@@ -38,7 +38,7 @@ Si está ejecutando `verdaccio` en una instancia de Amazon EC2, [necesitará est
 
 Podemos utilizar el paquete de nodo llamado 'forever' para mantener verdaccio ejecutándose todo el tiempo. https://github.com/nodejitsu/forever
 
-Primero instales forever globalmente:
+Primero instale forever globalmente:
 
 ```bash
 $ sudo npm install -g forever
