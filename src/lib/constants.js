@@ -64,6 +64,7 @@ export const API_ERROR = {
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: 'this version doesn\'t exist',
   FILE_NOT_FOUND: 'File not found',
+  BAD_STATUS_CODE: 'bad status code',
   WEB_DISABLED: 'Web interface is disabled in the config file',
 };
 
