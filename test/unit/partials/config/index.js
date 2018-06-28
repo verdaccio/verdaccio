@@ -52,7 +52,7 @@ const config = {
     },
   },
   logs: [
-    {type: 'stdout', format: 'pretty', level: 'info'},
+    {type: 'stdout', format: 'pretty', level: 'warn'},
   ],
 };
 

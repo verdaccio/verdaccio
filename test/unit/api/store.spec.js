@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+import path from 'path';
 // $FlowFixMe
 import configExample from '../partials/config/index';
 import AppConfig from '../../../src/lib/config';
@@ -18,7 +19,7 @@ setup(configExample.logs);
 const mockServerPort: number = 55548;
 const generateStorage = async function(port = mockServerPort, configDefault = configExample) {
   const storageConfig = _.clone(configDefault);
-  const storage = `./unit/partials/store/test-storage-store.spec`;
+  const storage = path.join(__dirname, '../partials/store/test-storage-store.spec');
   storageConfig.self_path = __dirname;
   storageConfig.storage = storage;
   storageConfig.uplinks = {
