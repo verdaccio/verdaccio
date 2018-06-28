@@ -4,21 +4,17 @@
  * @returns {promise}
  */
 export default function(config) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     const body = JSON.parse(config.body);
     if (body.username === 'sam' && body.password === '1234') {
-      return new Promise(function(resolve) {
         resolve({
-          json: function() {
-            return {
-              username: 'sam',
-              token: 'TEST_TOKEN'
-            }
-          }
+          username: 'sam',
+          token: 'TEST_TOKEN'
         });
-      });
     } else {
-      throw Error('Unauthorized');
+      reject({
+          error: 'bad username/password, access denied'
+      });
     }
   });
 }
