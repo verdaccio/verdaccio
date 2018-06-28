@@ -1,0 +1,25 @@
+storage: ./mock-store
+
+web:
+  enable: false
+  title: verdaccio-server-unit-test
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+logs:
+  - {type: stdout, format: pretty, level: warn}
+
+packages:
+  '@*/*':
+    access: $all
+    publish: none
+  '**':
+    access: $all
+    publish: none
+
+_debug: true

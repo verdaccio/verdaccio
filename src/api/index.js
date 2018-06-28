@@ -1,9 +1,8 @@
 // @flow
 
-import express from 'express';
-import Error from 'http-errors';
-import compression from 'compression';
 import _ from 'lodash';
+import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import Storage from '../lib/storage';
 import {loadPlugin} from '../lib/plugin-loader';
@@ -14,6 +13,8 @@ import apiEndpoint from './endpoint';
 import type {$Application} from 'express';
 import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
 import type {Config as IConfig} from '@verdaccio/types';
+import {ErrorCode} from '../lib/utils';
+import {API_ERROR, HTTP_STATUS} from '../lib/constants';
 
 const LoggerApp = require('../lib/logger');
 const Config = require('../lib/config');
@@ -69,18 +70,18 @@ const defineAPI = function(config: Config, storage: IStorageHandler) {
     app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
   } else {
     app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      next(Error[404]('Web interface is disabled in the config file'));
+      next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
   // Catch 404
   app.get('/*', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    next(Error[404]('File not found'));
+    next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
   app.use(function(err, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {
-      if (err.code === 'ECONNABORT' && res.statusCode === 304) {
+      if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
       }
       if (_.isFunction(res.report_error) === false) {

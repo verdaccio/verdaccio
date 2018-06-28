@@ -1,16 +1,16 @@
 // @flow
-
-import {generateGravatarUrl} from '../utils/user';
+import _ from 'lodash';
+import fs from 'fs';
 import assert from 'assert';
 import semver from 'semver';
 import YAML from 'js-yaml';
 import URL from 'url';
-import fs from 'fs';
-import _ from 'lodash';
 import asciidoctor from 'asciidoctor.js';
 import createError from 'http-errors';
 import marked from 'marked';
-import {HTTP_STATUS, API_ERROR} from './constants';
+
+import {HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN} from './constants';
+import {generateGravatarUrl} from '../utils/user';
 
 import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
@@ -219,8 +219,8 @@ function parse_address(urlAddress: any) {
   if (urlPattern) {
     return {
       proto: urlPattern[2] || 'http',
-      host: urlPattern[6] || urlPattern[7] || 'localhost',
-      port: urlPattern[8] || '4873',
+      host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
+      port: urlPattern[8] || DEFAULT_PORT,
     };
   }
 

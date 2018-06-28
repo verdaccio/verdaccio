@@ -13,6 +13,10 @@
 # path to a directory with all packages
 storage: /verdaccio/storage
 
+web:
+  # WebUI is enabled as default, if you want disable it, just uncomment this line
+  title: Verdaccio
+
 auth:
   htpasswd:
     file: /verdaccio/conf/htpasswd

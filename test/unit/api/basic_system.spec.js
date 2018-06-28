@@ -1,11 +1,10 @@
 import endPointAPI from '../../../src/api/index';
+import {API_ERROR} from '../../../src/lib/constants';
 
-const assert = require('assert');
-const express = require('express');
-const request = require('request');
-const rimraf = require('rimraf');
-
-const config = require('../partials/config/index');
+import express from 'express';
+import request from 'request';
+import rimraf from 'rimraf';
+import config from '../partials/config/index';
 
 const app = express();
 const server = require('http').createServer(app);
@@ -35,18 +34,18 @@ describe('basic system test', () => {
     request({
       url: 'http://localhost:' + port + '/',
     }, function(err, res, body) {
-      assert.equal(err, null);
-      assert(body.match(/<title>Verdaccio<\/title>/));
+      expect(err).toBeNull();
+      expect(body).toMatch(/<title>Verdaccio<\/title>/);
       done();
     });
   });
 
   test('server should respond on /whatever', done => {
     request({
-      url: 'http://localhost:' + port + '/whatever',
+      url: `http://localhost:${port}/whatever`,
     }, function(err, res, body) {
-      assert.equal(err, null);
-      assert(body.match(/no such package available/));
+      expect(err).toBeNull();
+      expect(body).toMatch(API_ERROR.NO_PACKAGE);
       done();
     });
   });

@@ -4,20 +4,39 @@ module.exports = {
   name: 'verdaccio-unit-jest',
   verbose: true,
   collectCoverage: true,
-  coveragePathIgnorePatterns: [
-    'node_modules',
-    'fixtures'
-  ],
   testEnvironment: 'jest-environment-jsdom-global',
   testRegex: '(test/unit.*\\.spec|test/unit/webui/.*\\.spec)\\.js',
   setupFiles: [
     './test/unit/setup.js'
   ],
+   // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
+   // when it tries to scan for package.json files.
   modulePathIgnorePatterns: [
-    'setup.js'
+    '<rootDir>/test/unit/partials/mock-store/.*/package.json',
+    '<rootDir>/test/functional/store/.*/package.json',
+    '<rootDir>/test/unit/partials/store/.*/package.json',
+    '<rootDir>/coverage',
+    '<rootDir>/docs',
+    '<rootDir>/debug',
+    '<rootDir>/scripts',
+    '<rootDir>/.circleci',
+    '<rootDir>/tools',
+    '<rootDir>/wiki',
+    '<rootDir>/systemd',
+    '<rootDir>/flow-typed',
+    '<rootDir>test/unit/partials/mock-store/.*/package.json',
+    '<rootDir>/test/functional/store/.*/package.json',
+    '<rootDir>/build',
+    '<rootDir>/.vscode/',
   ],
   testPathIgnorePatterns: [
-    '__snapshots__'
+    '__snapshots__',
+    '<rootDir>/build',
+  ],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    'fixtures',
+    '<rootDir>/test',
   ],
   moduleNameMapper: {
     '\\.(scss)$': '<rootDir>/node_modules/identity-obj-proxy',

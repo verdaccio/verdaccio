@@ -8,21 +8,32 @@ import {setup} from '../../../src/lib/logger';
 
 import type {Config, UpLinkConf} from '@verdaccio/types';
 import type {IProxy} from '../../../types/index';
-import {API_ERROR, DEFAULT_REGISTRY} from "../../../src/lib/constants";
+import {API_ERROR} from "../../../src/lib/constants";
+import {mockServer} from './mock';
+import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 setup([]);
 
 describe('UpStorge', () => {
-  jest.setTimeout(10000);
-
+  const mockServerPort: number = 55547;
+  let mockRegistry;
   const uplinkDefault = {
-    url: DEFAULT_REGISTRY
+    url: `http://0.0.0.0:${mockServerPort}`
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample);
 
     return new ProxyStorage(config, appConfig);
   };
+
+  beforeAll(async () => {
+    mockRegistry = await mockServer(mockServerPort).init();
+  });
+
+  afterAll(function(done) {
+    mockRegistry[0].stop();
+    done();
+  });
 
   test('should be defined', () => {
     const proxy = generateProxy();
@@ -69,7 +80,7 @@ describe('UpStorge', () => {
     describe('UpStorge::fetchTarball', () => {
       test('should fetch a tarball from uplink', (done) => {
         const proxy = generateProxy();
-        const tarball:string = 'https://registry.npmjs.org/aaa/-/aaa-0.0.1.tgz';
+        const tarball:string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
         const stream = proxy.fetchTarball(tarball);
 
         stream.on('error', function(err) {
@@ -86,7 +97,7 @@ describe('UpStorge', () => {
 
       test('should throw a 404 on fetch a tarball from uplink', (done) => {
         const proxy = generateProxy();
-        const tarball:string = 'https://google.es/aaa/-/aaa-0.0.1.tgz';
+        const tarball:string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
         const stream = proxy.fetchTarball(tarball);
 
         stream.on('error', function(err) {

@@ -1,8 +1,10 @@
+import path from 'path';
+import _ from 'lodash';
+
 import startServer from '../../../src/index';
 import {getListListenAddresses} from '../../../src/lib/bootstrap';
 import config from '../partials/config/index';
-import path from 'path';
-import _ from 'lodash';
+import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../src/lib/constants';
 
 require('../../../src/lib/logger').setup([]);
 
@@ -11,18 +13,21 @@ describe('startServer via API', () => {
   describe('startServer launcher', () => {
     test('should provide all server data await/async', async (done) => {
       const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const port = '6000';
 
-      await startServer(config, 6000, store, '1.0.0', 'verdaccio-test',
+      await startServer(config, port, store, version, serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
           expect(addrs.proto).toBe('http');
           expect(addrs.host).toBe('localhost');
-          expect(addrs.port).toBe('6000');
+          expect(addrs.port).toBe(port);
           expect(pkgName).toBeDefined();
           expect(pkgVersion).toBeDefined();
-          expect(pkgVersion).toBe('1.0.0');
-          expect(pkgName).toBe('verdaccio-test');
+          expect(pkgVersion).toBe(version);
+          expect(pkgName).toBe(serverName);
           done();
       });
     });
@@ -38,12 +43,12 @@ describe('startServer via API', () => {
   });
 
   describe('getListListenAddresses test', () => {
-    test('should return by default 4873', () => {
+    test(`should return by default ${DEFAULT_PORT}`, () => {
       const addrs = getListListenAddresses()[0];
 
       expect(addrs.proto).toBe('http');
-      expect(addrs.host).toBe('localhost');
-      expect(addrs.port).toBe('4873');
+      expect(addrs.host).toBe(DEFAULT_DOMAIN);
+      expect(addrs.port).toBe(DEFAULT_PORT);
     });
 
     test('should return a list of address and no cli argument provided', () => {

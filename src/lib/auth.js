@@ -8,6 +8,7 @@ import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
+import {ROLES} from './constants';
 
 
 const LoggerApi = require('./logger');
@@ -148,13 +149,13 @@ class Auth {
     let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
 
     (function next() {
-      let p = plugins.shift();
+      const plugin = plugins.shift();
 
-      if (typeof(p.allow_access) !== 'function') {
+      if (typeof(plugin.allow_access) !== 'function') {
         return next();
       }
 
-      p.allow_access(user, pkg, function(err, ok) {
+      plugin.allow_access(user, pkg, function(err, ok) {
         if (err) {
           return callback(err);
         }
@@ -360,7 +361,7 @@ function buildAnonymousUser() {
  */
 function authenticatedUser(name: string, pluginGroups: Array<any>) {
   const isGroupValid: boolean = _.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat(['$all', '$authenticated', '@all', '@authenticated', 'all']);
+  const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
 
   return {
     name,
