@@ -4,6 +4,7 @@ import _ from 'lodash';
 import startServer from '../../../src/index';
 import {getListListenAddresses} from '../../../src/lib/bootstrap';
 import config from '../partials/config/index';
+import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../src/lib/constants';
 
 require('../../../src/lib/logger').setup([]);
 
@@ -42,12 +43,12 @@ describe('startServer via API', () => {
   });
 
   describe('getListListenAddresses test', () => {
-    test('should return by default 4873', () => {
+    test(`should return by default ${DEFAULT_PORT}`, () => {
       const addrs = getListListenAddresses()[0];
 
       expect(addrs.proto).toBe('http');
-      expect(addrs.host).toBe('localhost');
-      expect(addrs.port).toBe('4873');
+      expect(addrs.host).toBe(DEFAULT_DOMAIN);
+      expect(addrs.port).toBe(DEFAULT_PORT);
     });
 
     test('should return a list of address and no cli argument provided', () => {

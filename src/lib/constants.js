@@ -1,5 +1,8 @@
 // @flow
 
+export const DEFAULT_PORT = '4873';
+export const DEFAULT_DOMAIN = 'localhost';
+
 export const HEADERS = {
   JSON: 'application/json',
   JSON_CHARSET: 'application/json; charset=utf-8',
