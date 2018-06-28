@@ -1,8 +1,9 @@
+import path from 'path';
+import _ from 'lodash';
+
 import startServer from '../../../src/index';
 import {getListListenAddresses} from '../../../src/lib/bootstrap';
 import config from '../partials/config/index';
-import path from 'path';
-import _ from 'lodash';
 
 require('../../../src/lib/logger').setup([]);
 
@@ -11,18 +12,21 @@ describe('startServer via API', () => {
   describe('startServer launcher', () => {
     test('should provide all server data await/async', async (done) => {
       const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const port = '6000';
 
-      await startServer(config, 6000, store, '1.0.0', 'verdaccio-test',
+      await startServer(config, port, store, version, serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
           expect(addrs.proto).toBe('http');
           expect(addrs.host).toBe('localhost');
-          expect(addrs.port).toBe('6000');
+          expect(addrs.port).toBe(port);
           expect(pkgName).toBeDefined();
           expect(pkgVersion).toBeDefined();
-          expect(pkgVersion).toBe('1.0.0');
-          expect(pkgName).toBe('verdaccio-test');
+          expect(pkgVersion).toBe(version);
+          expect(pkgName).toBe(serverName);
           done();
       });
     });

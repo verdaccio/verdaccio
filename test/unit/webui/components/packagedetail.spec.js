@@ -5,6 +5,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import PackageDetail from '../../../../src/webui/src/components/PackageDetail/index';
 import Readme from '../../../../src/webui/src/components/Readme/index';
+import {WEB_TITLE} from '../../../../src/lib/constants';
 
 console.error = jest.fn();
 
@@ -17,11 +18,11 @@ describe('<PackageDetail /> component', () => {
   it('should load the component', () => {
     const props = {
       readMe: 'Test readme',
-      package: 'Verdaccio'
+      package: WEB_TITLE
     };
     const wrapper = shallow(<PackageDetail {...props} />);
 
-    expect(wrapper.find('h1').text()).toEqual('Verdaccio');
+    expect(wrapper.find('h1').text()).toEqual(WEB_TITLE);
     expect(
       wrapper
         .find(Readme)

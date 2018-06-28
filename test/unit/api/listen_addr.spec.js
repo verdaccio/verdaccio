@@ -1,22 +1,21 @@
-const assert = require('assert');
-const _ = require('lodash');
-const parse = require('../../../src/lib/utils').parse_address;
+import _ from 'lodash';
+import {parse_address as parse} from '../../../src/lib/utils';
 
 describe('Parse listen address', () => {
-  function addTest(what, proto, host, port) {
-    test(what, () => {
+  function addTest(uri, proto, host, port) {
+    test(uri, () => {
       if (_.isNull(proto)) {
-        assert.strictEqual(parse(what), null);
+        expect(parse(uri)).toBeNull();
       } else if (port) {
-        assert.deepEqual(parse(what), {
-          proto: proto,
-          host: host,
-          port: port,
+        expect(parse(uri)).toEqual({
+          proto,
+          host,
+          port,
         });
       } else {
-        assert.deepEqual(parse(what), {
-          proto: proto,
-          path: host,
+        expect(parse(uri)).toEqual({
+          proto,
+          host,
         });
       }
     });

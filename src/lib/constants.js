@@ -21,8 +21,16 @@ export const ERROR_CODE = {
 
 export const TOKEN_BASIC = 'Basic';
 export const TOKEN_BEARER = 'Bearer';
-export const DEFAULT_REGISTRY = 'https://registry.npmjs.org/';
+export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
+export const DEFAULT_UPLINK = 'npmjs';
 
+export const ROLES = {
+  $ALL: '$all',
+  $AUTH: '$authenticated',
+  DEPRECATED_ALL: '@all',
+  DEPRECATED_AUTH: '@authenticated',
+  ALL: 'all',
+};
 
 export const HTTP_STATUS = {
   OK: 200,
@@ -69,3 +77,6 @@ export const API_ERROR = {
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
+
+
+export const WEB_TITLE = 'Verdaccio';
