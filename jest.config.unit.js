@@ -38,7 +38,6 @@ module.exports = {
     'fixtures',
     '<rootDir>/test',
   ],
-  // moduleFileExtensions: ["js"],
   moduleNameMapper: {
     '\\.(scss)$': '<rootDir>/node_modules/identity-obj-proxy',
     'github-markdown-css': '<rootDir>/node_modules/identity-obj-proxy',
