@@ -83,3 +83,8 @@ export const DEFAULT_NO_README = 'ERROR: No README data found!';
 
 
 export const WEB_TITLE = 'Verdaccio';
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};

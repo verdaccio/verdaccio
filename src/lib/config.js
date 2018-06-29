@@ -1,8 +1,9 @@
 import {generateRandomHexString} from './crypto-utils';
+import {normalisePackageAccess} from './config-utils';
 
 const assert = require('assert');
 const _ = require('lodash');
-const Error = require('http-errors');
+// const Error = require('http-errors');
 const minimatch = require('minimatch');
 
 const Utils = require('./utils');
@@ -12,55 +13,12 @@ const pkgName = module.exports.name;
 const strategicConfigProps = ['users', 'uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 
-/**
- * [[a, [b, c]], d] -> [a, b, c, d]
- * @param {*} array
- * @return {Array}
- */
-function flatten(array) {
-  let result = [];
-  for (let i=0; i < array.length; i++) {
-    if (Array.isArray(array[i])) {
-      /* eslint prefer-spread: "off" */
-      result.push.apply(result, flatten(array[i]));
-    } else {
-      result.push(array[i]);
-    }
-  }
-  return result;
-}
-
 function checkUserOrUplink(item, users) {
   assert(item !== 'all' && item !== 'owner'
     && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved user/uplink name: ' + item);
   assert(!item.match(/\s/), 'CONFIG: invalid user name: ' + item);
   assert(users[item] == null, 'CONFIG: duplicate user/uplink name: ' + item);
   users[item] = true;
-}
-
-/**
- * Normalise user list.
- * @return {Array}
- */
-function normalizeUserlist() {
-  let result = [];
-  /* eslint prefer-rest-params: "off" */
-
-  for (let i=0; i < arguments.length; i++) {
-    if (arguments[i] == null) {
-      continue;
-    }
-
-    // if it's a string, split it to array
-    if (typeof(arguments[i]) === 'string') {
-      result.push(arguments[i].split(/\s+/));
-    } else if (Array.isArray(arguments[i])) {
-      result.push(arguments[i]);
-    } else {
-      throw Error('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
-    }
-  }
-  return flatten(result);
 }
 
 /**
@@ -133,28 +91,7 @@ class Config {
       }
     }
 
-    // add a default rule for all packages to make writing plugins easier
-    if (self.packages['**'] == null) {
-      self.packages['**'] = {};
-    }
-
-    for (let pkg in self.packages) {
-      if (Object.prototype.hasOwnProperty.call(self.packages, pkg)) {
-        assert(
-          typeof(self.packages[pkg]) === 'object' &&
-          !Array.isArray(self.packages[pkg])
-          , 'CONFIG: bad "'+pkg+'" package description (object expected)');
-
-        self.packages[pkg].access = normalizeUserlist(self.packages[pkg].allow_access, self.packages[pkg].access);
-        delete self.packages[pkg].allow_access;
-
-        self.packages[pkg].publish = normalizeUserlist(self.packages[pkg].allow_publish, self.packages[pkg].publish);
-        delete self.packages[pkg].allow_publish;
-
-        self.packages[pkg].proxy = normalizeUserlist(self.packages[pkg].proxy_access, self.packages[pkg].proxy);
-        delete self.packages[pkg].proxy_access;
-      }
-    }
+    self.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
     allowedEnvConfig.forEach((function(v) {
