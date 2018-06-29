@@ -7,7 +7,21 @@ const baseConfig = require('./webpack.config');
 const env = require('../src/config/env');
 const _ = require('lodash');
 const merge = require('webpack-merge');
-import getPackageVersion from './getPackageVersion';
+const getPackageJson = require('./getPackageJson');
+
+const {
+  version,
+  name,
+  license,
+} = getPackageJson('version', 'name', 'license');
+
+const banner = `
+    Name: [name]
+    Generated on: ${Date.now()}
+    Package: ${name}
+    Version: v${version}
+    License: ${license}
+    `;
 
 const prodConf = {
   mode: 'production',
@@ -24,7 +38,7 @@ const prodConf = {
     new webpack.DefinePlugin({
       __DEBUG__: false,
       'process.env.NODE_ENV': '"production"',
-      __APP_VERSION__: `"${getPackageVersion()}"`,
+      __APP_VERSION__: `"${version}"`,
     }),
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css',
@@ -38,6 +52,7 @@ const prodConf = {
       debug: false,
       inject: true,
     }),
+    new webpack.BannerPlugin(banner),
   ],
 
   optimization: {
@@ -55,6 +70,6 @@ prodConf.module.rules = baseConfig.module.rules
     Array.isArray(loader.use) && loader.use.find((v) => /css/.test(v.loader.split('-')[0]))
   ).forEach((loader) => {
     loader.use = [MiniCssExtractPlugin.loader].concat(_.tail(loader.use));
-});
+  });
 
 module.exports = merge(baseConfig, prodConf);
