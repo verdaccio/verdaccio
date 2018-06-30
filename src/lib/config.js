@@ -1,14 +1,14 @@
 import {generateRandomHexString} from './crypto-utils';
 import {normalisePackageAccess} from './config-utils';
+import {getUserAgent} from './utils';
+import {APP_ERROR} from './constants';
 
 const assert = require('assert');
 const _ = require('lodash');
 const minimatch = require('minimatch');
 
 const Utils = require('./utils');
-const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
-const pkgVersion = module.exports.version;
-const pkgName = module.exports.name;
+const LoggerApi = require('./logger');
 const strategicConfigProps = ['users', 'uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 
@@ -29,6 +29,7 @@ class Config {
    */
   constructor(config) {
     const self = this;
+    this.logger = LoggerApi.logger;
     const users = {
       all: true,
       anonymous: true,
@@ -43,16 +44,18 @@ class Config {
       }
     }
 
-    if (!self.user_agent) {
-      self.user_agent = `${pkgName}/${pkgVersion}`;
+    if (_.isNil(this.user_agent)) {
+      this.user_agent = getUserAgent();
     }
 
     // some weird shell scripts are valid yaml files parsed as string
-    assert.equal(typeof(config), 'object', 'CONFIG: it doesn\'t look like a valid config file');
+    assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
 
     // sanity check for strategic config properties
     strategicConfigProps.forEach(function(x) {
-      if (self[x] == null) self[x] = {};
+      if (self[x] == null) {
+        self[x] = {};
+      }
       assert(Utils.isObject(self[x]), `CONFIG: bad "${x}" value (object expected)`);
     });
 
@@ -73,13 +76,9 @@ class Config {
       }
     }
 
-    for (let user in self.users) {
-      if (Object.prototype.hasOwnProperty.call(self.users, user)) {
-        assert(self.users[user].password, 'CONFIG: no password for user: ' + user);
-        assert(typeof(self.users[user].password) === 'string' &&
-          self.users[user].password.match(/^[a-f0-9]{40}$/)
-          , 'CONFIG: wrong password format for user: ' + user + ', sha1 expected');
-      }
+    if (_.isNil(this.users) === false) {
+      this.logger.warn(`[users]: property on configuration file 
+      is not longer supported, property being ignored`);
     }
 
     for (let uplink in self.uplinks) {

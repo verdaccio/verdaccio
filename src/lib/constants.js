@@ -83,6 +83,10 @@ export const API_ERROR = {
   WEB_DISABLED: 'Web interface is disabled in the config file',
 };
 
+export const APP_ERROR = {
+  CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
+};
+
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
 
 

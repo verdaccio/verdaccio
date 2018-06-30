@@ -17,8 +17,17 @@ import type {$Request} from 'express';
 import type {StringValue} from '../../types';
 
 const Logger = require('./logger');
+const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
+const pkgVersion = module.exports.version;
+const pkgName = module.exports.name;
 
 export const DIST_TAGS = 'dist-tags';
+
+export function getUserAgent(): string {
+  assert(_.isString(pkgName));
+  assert(_.isString(pkgVersion));
+  return `${pkgName}/${pkgVersion}`;
+}
 
 /**
  * Validate a package.
