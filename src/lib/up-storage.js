@@ -105,10 +105,10 @@ class ProxyStorage implements IProxy {
 
       process.nextTick(function() {
         if (cb) {
-          cb(ErrorCode.getInternalError('uplink is offline'));
+          cb(ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
         }
         // $FlowFixMe
-        streamRead.emit('error', ErrorCode.getInternalError('uplink is offline'));
+        streamRead.emit('error', ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
       });
       // $FlowFixMe
       streamRead._read = function() {};

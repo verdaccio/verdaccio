@@ -3,13 +3,14 @@
 import _ from 'lodash';
 import minimatch from 'minimatch';
 import assert from 'assert';
+import {ErrorCode} from './utils';
 
 /**
  * Normalise user list.
  * @return {Array}
  */
 export function normalizeUserlist(oldFormat: any, newFormat: any) {
-  let result = [];
+  const result = [];
   /* eslint prefer-rest-params: "off" */
 
   for (let i=0; i < arguments.length; i++) {
@@ -23,7 +24,7 @@ export function normalizeUserlist(oldFormat: any, newFormat: any) {
     } else if (Array.isArray(arguments[i])) {
       result.push(arguments[i]);
     } else {
-      throw Error('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
+      throw ErrorCode.getInternalError('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
     }
   }
   return _.flatten(result);
@@ -36,6 +37,7 @@ export function getMatchedPackagesSpec(packages: any, pkg: any) {
       return packages[i];
     }
   }
+
   return {};
 }
 
@@ -61,3 +63,4 @@ export function normalisePackageAccess(packages: any): any {
 
   return normalizedPkgs;
 }
+

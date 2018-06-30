@@ -171,7 +171,7 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
               return resolve();
             }
 
-            return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE));
+            return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
           }
         }
       }

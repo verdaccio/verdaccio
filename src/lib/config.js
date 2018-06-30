@@ -3,7 +3,6 @@ import {normalisePackageAccess} from './config-utils';
 
 const assert = require('assert');
 const _ = require('lodash');
-// const Error = require('http-errors');
 const minimatch = require('minimatch');
 
 const Utils = require('./utils');
@@ -43,6 +42,7 @@ class Config {
         self[configProp] = config[configProp];
       }
     }
+
     if (!self.user_agent) {
       self.user_agent = `${pkgName}/${pkgVersion}`;
     }
