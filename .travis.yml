@@ -4,6 +4,8 @@ node_js:
   - 'lts/boron'
   - 'lts/carbon'
   - 'lts/*'
+git:
+  depth: 5
 script:
   - npm install
   - commitlint-travis
