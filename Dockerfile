@@ -21,10 +21,10 @@ ENV NODE_ENV=production
 RUN npm config set registry http://registry.npmjs.org/ && \
     yarn global add -s flow-bin@0.69.0 && \
     yarn install --production=false && \
-    yarn run lint && \
-    yarn run code:docker-build && \
-    yarn run build:webui && \
-    yarn run test:unit -- --silent true --coverage false --bail && \
+    yarn lint && \
+    yarn code:docker-build && \
+    yarn build:webui && \
+    yarn test:unit --coverage false && \
     yarn cache clean && \
     yarn install --production=true --pure-lockfile
 
