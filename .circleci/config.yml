@@ -32,7 +32,7 @@ aliases:
     restore_cache:
       keys:
         - *repo_key
-  - &ignore_branches
+  - &ignore_non_dev_branches
     filters:
       tags:
         only: /.*/
@@ -41,6 +41,13 @@ aliases:
           - gh-pages
           - l10n_master
           - /release\/.*/
+  - &execute_on_release
+    filters:
+      tags:
+        only: /(v)?[0-9]+(\.[0-9]+)*/
+      branches:
+        ignore:
+          - /.*/
 
 jobs:
   prepare:
@@ -187,27 +194,27 @@ workflows:
   workflow:
     jobs:
       - prepare:
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - test_node6:
           requires:
             - prepare
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - test_node8:
           requires:
             - prepare
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - test_node9:
           requires:
             - prepare
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - test_node10:
           requires:
             - prepare
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - test_e2e:
           requires:
             - prepare
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - coverage:
           requires:
             - test_node6
@@ -215,7 +222,7 @@ workflows:
             - test_node9
             - test_node10
             - test_e2e
-          <<: *ignore_branches
+          <<: *ignore_non_dev_branches
       - publish_gh_pages:
           requires:
             - test_node6
@@ -223,14 +230,9 @@ workflows:
             - test_node9
             - test_node10
             - test_e2e
-          <<: *ignore_branches
+          <<: *execute_on_release
       - publish_package:
           requires:
             - coverage
             - publish_gh_pages
-          filters:
-            tags:
-              only: /(v)?[0-9]+(\.[0-9]+)*/
-            branches:
-              ignore:
-                - /.*/
+          <<: *execute_on_release
