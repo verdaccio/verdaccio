@@ -44,7 +44,7 @@ export default class Header extends React.Component {
 
   componentWillMount() {
     API.request('logo')
-    .then((response) => response.text().then((logo) => this.setState({logo})))
+    .then((logo) => this.setState({logo}))
     .catch((error) => {
       throw new Error(error);
     });
@@ -66,13 +66,13 @@ export default class Header extends React.Component {
         username: this.state.username,
         password: this.state.password
       };
-      let resp = await API.request(`login`, 'POST', {
+      const resp = await API.request(`login`, 'POST', {
         body: JSON.stringify(credentials),
         headers: {
           Accept: HEADERS.JSON,
           'Content-Type': HEADERS.JSON
         }
-      }).then((response) => response.json());
+      });
 
       storage.setItem('token', resp.token);
       storage.setItem('username', resp.username);
@@ -80,9 +80,9 @@ export default class Header extends React.Component {
     } catch (e) {
       const errorObj = {
         title: 'Unable to login',
-        type: 'error'
+        type: 'error',
+        description: e.error
       };
-      errorObj.description = e.message;
       this.setState({loginError: errorObj});
     }
   }

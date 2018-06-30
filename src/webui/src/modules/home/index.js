@@ -51,7 +51,7 @@ export default class Home extends React.Component {
 
   async loadPackages() {
     try {
-      this.req = await API.request('packages', 'GET').then((response) => response.json());
+      this.req = await API.request('packages', 'GET');
 
       if (this.state.query === '') {
         this.setState({
@@ -70,7 +70,7 @@ export default class Home extends React.Component {
 
   async searchPackage(query) {
    try {
-     this.req = await API.request(`/search/${query}`, 'GET').then((response) => response.json());
+     this.req = await API.request(`/search/${query}`, 'GET');
 
      // Implement cancel feature later
      if (this.state.query === query) {

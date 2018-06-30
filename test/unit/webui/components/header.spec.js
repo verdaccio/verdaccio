@@ -55,7 +55,7 @@ describe('<Header /> component shallow', () => {
 
   it('handleSubmit - should give error for blank username and password', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
-    const handleSubmit = HeaderWrapper.instance().handleSubmit;
+    const {handleSubmit} = HeaderWrapper.instance();
     const error = {
       description: "Username or password can't be empty!",
       title: 'Unable to login',
@@ -67,11 +67,14 @@ describe('<Header /> component shallow', () => {
 
   it('handleSubmit - should login successfully', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
-    const handleSubmit = HeaderWrapper.instance().handleSubmit;
-
+    const {handleSubmit} = HeaderWrapper.instance();
+    const event = {preventDefault: () => {}}
+    const spy = jest.spyOn(event, 'preventDefault');
+    
     HeaderWrapper.setState({ username: 'sam', password: '1234' });
 
-    handleSubmit().then(() => {
+    handleSubmit(event).then(() => {
+      expect(spy).toHaveBeenCalled();
       expect(storage.getItem('token')).toEqual('TEST_TOKEN');
       expect(storage.getItem('username')).toEqual('sam');
     });
@@ -79,30 +82,37 @@ describe('<Header /> component shallow', () => {
 
   it('handleSubmit - login should failed with 401', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
-    const handleSubmit = HeaderWrapper.instance().handleSubmit;
+    const {handleSubmit} = HeaderWrapper.instance();
     const errorObject = {
       title: 'Unable to login',
       type: 'error',
-      description: 'Unauthorized'
+      description: 'bad username/password, access denied'
     };
+    const event = { preventDefault: () => { } }
+    const spy = jest.spyOn(event, 'preventDefault');
     HeaderWrapper.setState({ username: 'sam', password: '12345' });
 
-    handleSubmit().catch((error) => {
+    handleSubmit(event).then(() => {
+      expect(spy).toHaveBeenCalled();
       expect(HeaderWrapper.state('loginError')).toEqual(errorObject);
     });
   });
 
   it('handleSubmit - login should failed with when no data is sent', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
-    const handleSubmit = HeaderWrapper.instance().handleSubmit;
+    const {handleSubmit} = HeaderWrapper.instance();
     const error = {
       title: 'Unable to login',
       type: 'error',
       description: "Username or password can't be empty!"
     };
+    const event = { preventDefault: () => { } }
+    const spy = jest.spyOn(event, 'preventDefault');
+
     HeaderWrapper.setState({});
 
-    handleSubmit().then(() => {
+    handleSubmit(event).then(() => {
+      expect(spy).toHaveBeenCalled();
       expect(HeaderWrapper.state('loginError')).toEqual(error);
     });
   });
