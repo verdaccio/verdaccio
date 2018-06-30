@@ -65,17 +65,20 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
+  BAD_USERNAME_PASSWORD: 'bad username/password, access denied {APP}',
   NO_PACKAGE: 'no such package available',
   NOT_ALLOWED: 'not allowed to access package',
   INTERNAL_SERVER_ERROR: 'internal server error',
   UNKNOWN_ERROR: 'unknown error',
   NOT_PACKAGE_UPLINK: 'package does not exist on uplink',
+  UPLINK_OFFLINE: 'one of the uplinks is down, refuse to publish',
   CONTENT_MISMATCH: 'content length mismatch',
   NOT_FILE_UPLINK: 'file doesn\'t exist on uplink',
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: 'this version doesn\'t exist',
   FILE_NOT_FOUND: 'File not found',
   BAD_STATUS_CODE: 'bad status code',
+  PACKAGE_EXIST: 'this package is already present',
   WEB_DISABLED: 'Web interface is disabled in the config file',
 };
 

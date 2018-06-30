@@ -8,7 +8,7 @@ import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
-import {ROLES} from './constants';
+import {API_ERROR, ROLES} from './constants';
 
 
 const LoggerApi = require('./logger');
@@ -63,11 +63,11 @@ class Auth {
 
     this.plugins.push({
       authenticate: function(user, password, cb) {
-        cb(ErrorCode.getForbidden('bad username/password, access denied'));
+        cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       },
 
       add_user: function(user, password, cb) {
-        return cb(ErrorCode.getConflict('bad username/password, access denied'));
+        return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
       },
 
       allow_access: allow_action('access'),

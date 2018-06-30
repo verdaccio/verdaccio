@@ -29,7 +29,7 @@ describe('endpoint unit test', () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
         htpasswd: {
-          file: './test-storage/htpasswd-test'
+          file: './test-storage/.htpasswd'
         }
       };
       configForTest.uplinks = {
