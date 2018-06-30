@@ -4,6 +4,9 @@ node_js:
   - 'lts/boron'
   - 'lts/carbon'
   - 'lts/*'
+cache:
+  directories:
+    - 'node_modules'
 script:
   - npm install
   - commitlint-travis
