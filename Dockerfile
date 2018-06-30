@@ -24,7 +24,6 @@ RUN npm config set registry http://registry.npmjs.org/ && \
     yarn lint && \
     yarn code:docker-build && \
     yarn build:webui && \
-    yarn test:unit --coverage false && \
     yarn cache clean && \
     yarn install --production=true --pure-lockfile
 
