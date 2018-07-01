@@ -43,7 +43,7 @@ storage: ./storage
 
 ### 认证
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
+在这里完成授权设置，默认授权是基于`htpasswd` 并且是内置的。 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
 
 ```yaml
 auth:
