@@ -17,8 +17,8 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## 默认配置文件路径位置
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+要找到主目录，我们依赖 **$XDG_DATA_HOME** 为首选和Windows 环境，我们寻找 [APPDATA 环境变量](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/)。
 
-## Default storage location
+## 默认存储位置
 
-We use **$XDG_DATA_HOME** environment variable as default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share. If you are using a custom storage, this location is irrelevant.
+我们用**$XDG_DATA_HOME** 环境变量为默认值来默认查找存储 [，它应该和](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) $HOME/.local/share一样。 如果是在使用自定义的存储，此位置就不相干。
