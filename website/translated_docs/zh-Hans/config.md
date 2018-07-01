@@ -89,7 +89,7 @@ packages:
 
 ### 离线发布
 
-`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *ture* 来允许离线发布
+`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *true* 来允许离线发布。
 
 ```yaml
 publish:
@@ -104,7 +104,7 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+从: `verdaccio@2.3.6` 到 [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### 最大 Body 尺寸
 
