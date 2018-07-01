@@ -5,6 +5,14 @@ import minimatch from 'minimatch';
 import assert from 'assert';
 import {ErrorCode} from './utils';
 
+const BLACKLIST = {
+  all: true,
+  anonymous: true,
+  undefined: true,
+  owner: true,
+  none: true,
+};
+
 /**
  * Normalise user list.
  * @return {Array}
@@ -39,6 +47,45 @@ export function getMatchedPackagesSpec(packages: any, pkg: any) {
   }
 
   return {};
+}
+
+export function uplinkSanityCheck(uplinks: any, users: any = BLACKLIST) {
+  const newUplinks = _.clone(uplinks);
+  let newUsers = _.clone(users);
+
+  for (let uplink in newUplinks) {
+    if (Object.prototype.hasOwnProperty.call(newUplinks, uplink)) {
+      if (_.isNil(newUplinks[uplink].cache)) {
+        newUplinks[uplink].cache = true;
+      }
+      newUsers = sanityCheckNames(uplink, newUsers);
+    }
+  }
+
+  return newUplinks;
+}
+
+export function sanityCheckNames(item: string, users: any) {
+  assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved user/uplink name: ' + item);
+  assert(!item.match(/\s/), 'CONFIG: invalid user name: ' + item);
+  assert(users[item] == null, 'CONFIG: duplicate user/uplink name: ' + item);
+  users[item] = true;
+
+  return users;
+}
+
+export function sanityCheckUplinksProps(configUpLinks: any) {
+  const uplinks = _.clone(configUpLinks);
+
+  for (let uplink in uplinks) {
+    if (Object.prototype.hasOwnProperty.call(uplinks, uplink)) {
+      assert(uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
+      assert( _.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
+      uplinks[uplink].url = uplinks[uplink].url.replace(/\/$/, '');
+    }
+  }
+
+  return uplinks;
 }
 
 export function normalisePackageAccess(packages: any): any {
