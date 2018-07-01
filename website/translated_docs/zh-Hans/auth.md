@@ -4,10 +4,10 @@ title: "认证"
 ---
 认证关联到你正在使用的授权[插件](plugins.md)。程序包限制也是通过[程序包访问](packages.md)处理的。
 
-客户认证由`npm` 客户自己处理。一旦登陆到应用程序后：
+客户端的认证流程由 `npm` 自行处理，在你通过以下命令登陆后：
 
 ```bash
-npm 添加用户 --注册 http://localhost:4873
+npm adduser --registry http://localhost:4873
 ```
 
 代币由托管在用户主文件夹里的`npm`配置文件生成。 如需了解更多有关于 `npm 配置 (.npmrc)` 相关的内容，请查阅 [官方文档](https://docs.npmjs.com/files/npmrc).
