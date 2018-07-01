@@ -106,9 +106,9 @@ url_prefix: https://dev.company.local/verdaccio/
 
 从: `verdaccio@2.3.6` 到 [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### 最大 Body 尺寸
+### 最大正文大小
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+默认的 JSON 文件最大正文大小是`10mb`, 如果遇到`“请求实体太大”`的错误，可以增加此数值。
 
 ```yaml
 max_body_size: 10mb
@@ -139,9 +139,9 @@ https:
     ca: ./path/verdaccio-csr.pem
 ```
 
-### Proxy
+### 代理服务器
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+代理服务器是专门把数据从远程服务器传输到本地客户端的HTTP 服务器。
 
 #### http_proxy and https_proxy
 
