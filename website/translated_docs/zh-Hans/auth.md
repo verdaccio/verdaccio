@@ -32,11 +32,11 @@ cat .npmrc
     代理服务器: npmjs
 ```
 
-如 [Issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) 所述，截至 `npm@5.3.0` 你仍然 **无法在没有 Token 的情况下发布包**。 `yarn` 没有此限制。
+如问题#212所描述的[](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) 直到发行`npm@5.3.0` 以及所有小版本** 你将无法在无代币的情况下发布**。 然而`yarn` 没有此限制。
 
 ## 默认 htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 截至v3.0.x版本，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:
