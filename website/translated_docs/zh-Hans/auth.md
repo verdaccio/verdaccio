@@ -10,29 +10,29 @@ title: "认证"
 npm adduser --registry http://localhost:4873
 ```
 
-代币由托管在用户主文件夹里的`npm`配置文件生成。 如需了解更多有关于 `npm 配置 (.npmrc)` 相关的内容，请查阅 [官方文档](https://docs.npmjs.com/files/npmrc).
+`npm` 会将 Verdaccio 返回的 Token 保存在配置文件中，它存放于您的用户主目录下。 如需了解更多有关于 `npm 配置 (.npmrc)` 相关的内容，请查阅 [官方文档](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
-注册=http://localhost:5555/
+registry=http://localhost:5555/
 //localhost:5555/:_authToken="secretVerdaccioToken"
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### 匿名发布
+#### 匿名发布包
 
-`verdaccio` 允许启用匿名发布，要使用这个功能，必须设置正确的 [程序包访问权限](packages.md).
+`verdaccio` 允许启用匿名发布，要使用这个功能，必须设置正确的 [程序包访问权限](packages.md)。
 
 例如：
 
 ```yaml
   'my-company-*':
-    访问: $anonymous
-    发布: $anonymous
-    代理服务器: npmjs
+    access: $anonymous
+    publish: $anonymous
+    proxy: npmjs
 ```
 
-如问题#212所描述的[](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) 直到发行`npm@5.3.0` 以及所有小版本** 你将无法在无代币的情况下发布**。 然而`yarn` 没有此限制。
+如 [Issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) 所述，截至 `npm@5.3.0` 你仍然 **无法在没有 Token 的情况下发布包**。 `yarn` 没有此限制。
 
 ## 默认 htpasswd
 
