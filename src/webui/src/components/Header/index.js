@@ -27,6 +27,7 @@ export default class Header extends React.Component {
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.loadLogo = this.loadLogo.bind(this);
   }
 
   toggleLoginModal() {
@@ -43,11 +44,16 @@ export default class Header extends React.Component {
   }
 
   componentWillMount() {
-    API.request('logo')
-    .then((logo) => this.setState({logo}))
-    .catch((error) => {
+    this.loadLogo();
+  }
+
+  async loadLogo() {
+    try {
+      const logo = await API.request('logo');
+      this.setState({logo});
+    } catch (error) {
       throw new Error(error);
-    });
+    }
   }
 
   async handleSubmit(event) {

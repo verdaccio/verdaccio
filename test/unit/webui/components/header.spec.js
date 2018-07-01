@@ -34,9 +34,19 @@ describe('<Header /> component shallow', () => {
     expect(HeaderWrapper.state()).toEqual(state);
   });
 
+  it('should load verdaccio logo', () => {
+    const HeaderWrapper = wrapper.find(Header).dive();
+    const { loadLogo } = HeaderWrapper.instance();
+
+    loadLogo().then(() => {
+      expect(HeaderWrapper.state('logo'))
+        .toEqual('http://localhost/-/static/logo.png');
+    });
+  });
+
   it('should toggleLogin modal', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
-    const toggleLoginModal = HeaderWrapper.instance().toggleLoginModal;
+    const { toggleLoginModal } = HeaderWrapper.instance();
 
     expect(toggleLoginModal()).toBeUndefined();
     expect(HeaderWrapper.state('showLogin')).toBeTruthy();
