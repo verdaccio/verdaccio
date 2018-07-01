@@ -21,15 +21,15 @@ cat .npmrc
 
 #### 匿名发布
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` 允许启用匿名发布，要使用这个功能，必须设置正确的 [程序包访问权限](packages.md).
 
 例如：
 
 ```yaml
   'my-company-*':
-    access: $anonymous
-    publish: $anonymous
-    proxy: npmjs
+    访问: $anonymous
+    发布: $anonymous
+    代理服务器: npmjs
 ```
 
 如 [Issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) 所述，截至 `npm@5.3.0` 你仍然 **无法在没有 Token 的情况下发布包**。 `yarn` 没有此限制。
