@@ -11,4 +11,4 @@ title: "厨师食谱"
 
 > 我们在寻找此资源库的贡献者，如果有兴趣请通过下单通知作者。
 
-Author: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
+作者: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont。
