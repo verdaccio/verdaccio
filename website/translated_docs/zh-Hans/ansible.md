@@ -8,6 +8,6 @@ title: "Ansible"
 
 #### 其他选项
 
-* Ansible 针对Gentoo用户的角色:[jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia)。
-* Ansible 针对 Ubuntu 用户的角色: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible)。
-* ansible-verdaccio-角色 <https://github.com/refinery29/ansible-verdaccio-role>
+* Ansible 对Gentoo用户的作用:[jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia)。
+* Ansible 对 Ubuntu 用户的作用: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible)。
+* ansible-verdaccio-role <https://github.com/refinery29/ansible-verdaccio-role>
