@@ -145,7 +145,7 @@ https:
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+如果网络里有代理服务器，可以使用以下属性为页眉设置` X-转发`。
 
 ```yaml
 http_proxy: http://something.local/
@@ -154,16 +154,16 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+此变量应该包含一个不应该使用的以逗号分隔的域名扩展代理服务器列表。
 
 ```yaml
 http_proxy: http://something.local/
 https_proxy: https://something.local/
 ```
 
-### Notifications
+### 通知
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+使用web hooks来启用三方工具通知是非常容易的。如需了解更多此部分的内容，请阅读[通知页面](notifications.md)。
 
 ```yaml
 notify:
@@ -173,11 +173,11 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> 有关更多配置设置的详细信息，请[核对源代码](https://github.com/verdaccio/verdaccio/tree/master/conf)。
 
-### Audit
+### 审核
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>自: <code>verdaccio@3.0.0</code></small>
 
 `npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
 
