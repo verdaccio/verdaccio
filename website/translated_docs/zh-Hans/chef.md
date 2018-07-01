@@ -1,6 +1,6 @@
 ---
-id: chef
-title: "Chef Cookbook"
+id: 厨师
+title: "厨师食谱"
 ---
 Using Chef Cookbook for Verdaccio
 
