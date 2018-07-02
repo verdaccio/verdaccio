@@ -35,9 +35,9 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 这里是一些想法：
 
-* Create a common eslint rules to be used across all dependencies or plugins
-* Improve Flow types definitions delivery
-* Moving to Webpack 4
+* 创建要在所有依赖项或插件中使用的eslint共同规则
+* 改善定义传递的流程类型
+* 迁移到Webpack 4
 * Improve hot reload with Webpack
 * We use babel and webpack across all dependencies, why not a common preset?
 * Improve continous integration delivery
