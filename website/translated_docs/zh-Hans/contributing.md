@@ -54,13 +54,13 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我是一名DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+我们有广受欢迎的Docker图像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来受益于所有用户。
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+我们支持 **Kubernetes**, **Puppet**, **Ansible** 和 **Chef**，在这些领域我们需要帮助，请随时查看所有资源库。
 
-### I can do translations
+### 我可以翻译
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
