@@ -2,7 +2,7 @@
 id: 认证
 title: "认证"
 ---
-认证关联到你正在使用的授权[插件](plugins.md)。程序包限制也是通过[程序包访问](packages.md)处理的。
+认证部分设置与 "Auth" [ 插件 ](plugins.md)息息相关。包的访问限制也同时通过 [ 包访问权限](packages.md) 控制。
 
 客户端的认证流程由 `npm` 自行处理，在你通过以下命令登陆后：
 
@@ -36,20 +36,20 @@ registry=http://localhost:5555/
 
 ## 默认 htpasswd
 
-为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 截至v3.0.x版本，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此程序包的v2.x 版本仍然包含此插件的内置版本。
+为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 如同v3.0.x版本，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此程序包的v2.x 版本仍然包含此插件的内置版本。
 
 ```yaml
-授权:
+auth:
   htpasswd:
-    文件: ./htpasswd
-    # 允许最大用户注册数量, 默认为 "+inf"。
-    # 设置为 -1 禁用注册。
-    #最大_用户: 1000
+    file: ./htpasswd
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # You can set this to -1 to disable registration.
+    #max_users: 1000
 ```
 
-| 属性    | 类型  | 必填 | 示例         | 支持 | 描述        |
-| ----- | --- | -- | ---------- | -- | --------- |
-| 文件    | 字符串 | 是  | ./htpasswd | 全部 | 承载加密凭据的文件 |
-| 最大_用户 | 数量  | 否  | 1000       | 全部 | 设置用户限制    |
+| 属性        | 类型  | 必填 | 示例         | 支持   | 描述                     |
+| --------- | --- | -- | ---------- | ---- | ---------------------- |
+| 文件        | 字符串 | 是  | ./htpasswd | 任意路径 | 存储了加密认证信息的 htpasswd 文件 |
+| max_users | 数量  | 否  | 1000       | 任意数字 | 最大的用户数量                |
 
-如果决定不让用户登陆，可以设置`max_users: -1`。
+如果需要禁止新用户注册，可将配置修改为 `max_users: -1`.
