@@ -1,6 +1,6 @@
 ---
-id: contributing
-title: "Contributing Verdaccio"
+id: 贡献
+title: "参与Verdaccio贡献"
 ---
 First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
 
