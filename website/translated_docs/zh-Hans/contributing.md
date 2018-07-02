@@ -64,15 +64,15 @@ Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdi
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地要求[创建要求凭证](https://github.com/verdaccio/verdaccio/issues/new)。
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[转到 Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## 我已经做好贡献的准备
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+如果您正在想*“我已经查看[资源库](repositories.md)，并且愿意马上开始贡献”*，那么我有好消息给您，也就是下一步。
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+您将要了解如何创建，[我们已经为您准备了指南](build.md)。
 
 Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
 
