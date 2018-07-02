@@ -2,22 +2,22 @@
 id: 贡献
 title: "参与Verdaccio贡献"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all 一头扎进不熟悉的代码库并不容易，但是我们会在此帮助你。
 
-## Comunication Channels
+## 沟通渠道
 
-If you are willing for asking, we use two channels for discussions:
+如果您愿意询问，我们使用两个渠道进行讨论：
 
-* [Public Gitter channel](https://gitter.im/verdaccio/)
-* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
+* [公共Gitter渠道](https://gitter.im/verdaccio/)
+* [Slack 贡献者渠道](https://verdaccio-npm.slack.com)（可惜只有通过电子邮件邀请才可以进入，您可以在**Gitter**里要求加入）
 
-## Getting started
+## 开始
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+乍一看，verdaccio只是单一资源库，但是又很多方法您可以参与贡献以及练习多种技术。
 
-### Finding my spot
+### 寻找适合我的位置
 
-All we have different skills, so, let's see where you might feel comfortable.
+大家都有不同的技能，因此，让我们看看您在哪里会觉得舒服。
 
 ### I know or I want to learn Node.js
 
