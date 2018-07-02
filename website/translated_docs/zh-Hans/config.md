@@ -145,7 +145,7 @@ https:
 
 #### http_proxy and https_proxy
 
-如果网络里有代理服务器，可以使用以下属性为页眉设置` X-转发`。
+如果您的网络里有代理服务器，您可以使用以下属性来设置`X-Forwarded-For`页眉。
 
 ```yaml
 http_proxy: http://something.local/
@@ -181,7 +181,7 @@ notify:
 
 `npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0) 一起发布的新命令。Verdaccio 包含一个内置的中间体插件来处理此命令。
 
-> 新安装是默认版本，但是可以添加以下属性到配置文件中
+> 新安装采用默认版本，但是您可以添加以下代码段到配置文件中
 
 ```yaml
 middlewares:
