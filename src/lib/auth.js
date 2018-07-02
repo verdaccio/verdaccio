@@ -9,6 +9,7 @@ import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
 import {API_ERROR, ROLES} from './constants';
+import {getMatchedPackagesSpec} from './config-utils';
 
 
 const LoggerApi = require('./logger');
@@ -146,7 +147,7 @@ class Auth {
   allow_access(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
+    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();
@@ -175,7 +176,7 @@ class Auth {
   allow_publish(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
+    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();

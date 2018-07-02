@@ -1,10 +1,12 @@
 // @flow
-
 import _ from 'lodash';
-import minimatch from 'minimatch';
 import assert from 'assert';
+import minimatch from 'minimatch';
+
 import {ErrorCode} from './utils';
 
+import type {PackageList} from '@verdaccio/types';
+import type {MatchedPackage} from '../../types';
 const BLACKLIST = {
   all: true,
   anonymous: true,
@@ -36,17 +38,6 @@ export function normalizeUserlist(oldFormat: any, newFormat: any) {
     }
   }
   return _.flatten(result);
-}
-
-export function getMatchedPackagesSpec(packages: any, pkg: any) {
-  for (let i in packages) {
-    // $FlowFixMe
-    if (minimatch.makeRe(i).exec(pkg)) {
-      return packages[i];
-    }
-  }
-
-  return {};
 }
 
 export function uplinkSanityCheck(uplinks: any, users: any = BLACKLIST) {
@@ -88,8 +79,36 @@ export function sanityCheckUplinksProps(configUpLinks: any) {
   return uplinks;
 }
 
-export function normalisePackageAccess(packages: any): any {
-  const normalizedPkgs: any = {...packages};
+/**
+ * Check whether an uplink can proxy
+ */
+export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): boolean {
+  const matchedPkg: MatchedPackage = (getMatchedPackagesSpec(pkg, packages): MatchedPackage);
+  const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
+  if (proxyList) {
+    return proxyList.reduce((prev, curr) => {
+      if (upLink === curr) {
+        return true;
+      }
+      return prev;
+    }, false);
+  }
+
+  return false;
+}
+
+export function getMatchedPackagesSpec(pkg: string, packages: PackageList): MatchedPackage {
+  for (let i in packages) {
+    // $FlowFixMe
+    if (minimatch.makeRe(i).exec(pkg)) {
+      return packages[i];
+    }
+  }
+  return;
+}
+
+export function normalisePackageAccess(packages: PackageList): PackageList {
+  const normalizedPkgs: PackageList = {...packages};
   // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
     normalizedPkgs['**'] = {};

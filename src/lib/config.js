@@ -1,11 +1,24 @@
+// @flow
+
 import _ from 'lodash';
 import assert from 'assert';
-import minimatch from 'minimatch';
 
 import {generateRandomHexString} from './crypto-utils';
-import {normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck} from './config-utils';
+import {
+  getMatchedPackagesSpec,
+  normalisePackageAccess,
+  sanityCheckUplinksProps,
+  uplinkSanityCheck} from './config-utils';
 import {getUserAgent, isObject} from './utils';
 import {APP_ERROR} from './constants';
+
+import type {
+  PackageList,
+  Config as AppConfig,
+  Logger,
+  } from '@verdaccio/types';
+
+import type {MatchedPackage, StartUpConfig} from '../../types';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -14,10 +27,24 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 /**
  * Coordinates the application configuration
  */
-class Config {
-  constructor(config) {
+class Config implements AppConfig {
+  logger: Logger;
+  user_agent: string;
+  secret: string;
+  uplinks: any;
+  packages: PackageList;
+  users: any;
+  server_id: string;
+  self_path: string;
+  storage: string | void;
+  $key: any;
+  $value: any;
+
+  constructor(config: StartUpConfig) {
     const self = this;
     this.logger = LoggerApi.logger;
+    this.self_path = config.self_path;
+    this.storage = config.storage;
 
     for (let configProp in config) {
       if (self[configProp] == null) {
@@ -44,7 +71,7 @@ class Config {
     this.uplinks = sanityCheckUplinksProps(uplinkSanityCheck(this.uplinks));
 
     if (_.isNil(this.users) === false) {
-      this.logger.warn(`[users]: property on configuration file 
+      this.logger.warn(`[users]: property on configuration file
       is not longer supported, property being ignored`);
     }
 
@@ -64,41 +91,17 @@ class Config {
   }
 
   /**
-   * Check whether an uplink can proxy
-   * @param {String} pkg package anem
-   * @param {*} upLink
-   * @return {Boolean}
-   */
-  hasProxyTo(pkg, upLink) {
-    return (this.getMatchedPackagesSpec(pkg).proxy || []).reduce(function(prev, curr) {
-      if (upLink === curr) {
-        return true;
-      }
-      return prev;
-    }, false);
-  }
-
-  /**
    * Check for package spec
-   * @param {String} pkg package name
-   * @return {Object}
    */
-  getMatchedPackagesSpec(pkg) {
-    for (let i in this.packages) {
-      if (minimatch.makeRe(i).exec(pkg)) {
-        return this.packages[i];
-      }
-    }
-    return {};
+  getMatchedPackagesSpec(pkg: string): MatchedPackage {
+    return getMatchedPackagesSpec(pkg, this.packages);
   }
 
   /**
    * Store or create whether recieve a secret key
-   * @param {String} secret
-   * @return {String}
    */
-  checkSecretKey(secret) {
-    if (_.isString(secret) && secret !== '') {
+  checkSecretKey(secret: string): string {
+    if (_.isString(secret) && _.isEmpty(secret) === false) {
       this.secret = secret;
       return secret;
     }
@@ -109,4 +112,4 @@ class Config {
   }
 }
 
-module.exports = Config;
+export default Config;

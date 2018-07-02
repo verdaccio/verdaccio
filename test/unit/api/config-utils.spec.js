@@ -11,7 +11,7 @@ describe('Config Utilities', () => {
     return path.join(__dirname, `../partials/config/yaml/${name}.yaml`);
   };
 
-  describe('getMatchedPackagesSpec', () => {
+  describe('normalisePackageAccess', () => {
     test('should test basic conversion', ()=> {
       const {packages} = parseConfigFile(parsePartial('pkgs-basic'));
       const access = normalisePackageAccess(packages);
@@ -58,8 +58,14 @@ describe('Config Utilities', () => {
       const react = access['react-*'];
 
       expect(react).toBeDefined();
+      expect(react.access).toBeDefined();
+      // $FlowFixMe
       expect(react.access[0]).toBe(ROLES.$ALL);
+      expect(react.publish).toBeDefined();
+      // $FlowFixMe);
       expect(react.publish[0]).toBe('admin');
+      expect(react.proxy).toBeDefined();
+      // $FlowFixMe
       expect(react.proxy[0]).toBe('uplink2');
       expect(react.storage).toBeDefined();
 

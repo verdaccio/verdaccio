@@ -234,9 +234,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.0.0.tgz#1f5ad5c959955b320181ac9968dd894f209985bc"
+"@verdaccio/types@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.0.1.tgz#8cdfd74a8a070ad797a056652f257f9ead3717f9"
 
 "@webassemblyjs/ast@1.5.9":
   version "1.5.9"
