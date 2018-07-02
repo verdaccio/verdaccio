@@ -36,7 +36,7 @@ registry=http://localhost:5555/
 
 ## 默认 htpasswd
 
-为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 如同v3.0.x版本，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此程序包的v2.x 版本仍然包含此插件的内置版本。
+为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 截至v3.0.x版本，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此程序包的v2.x 版本仍然包含此插件的内置版本。
 
 ```yaml
 auth:
@@ -50,6 +50,6 @@ auth:
 | 属性        | 类型  | 必填 | 示例         | 支持   | 描述                     |
 | --------- | --- | -- | ---------- | ---- | ---------------------- |
 | 文件        | 字符串 | 是  | ./htpasswd | 任意路径 | 存储了加密认证信息的 htpasswd 文件 |
-| max_users | 数量  | 否  | 1000       | 任意数字 | 最大的用户数量                |
+| max_users | 数字  | 否  | 1000       | 任意数字 | 最大的用户数量                |
 
 如果需要禁止新用户注册，可将配置修改为 `max_users: -1`.
