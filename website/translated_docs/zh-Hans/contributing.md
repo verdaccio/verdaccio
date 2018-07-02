@@ -19,13 +19,13 @@ First of all 一头扎进不熟悉的代码库并不容易，但是我们会在�
 
 大家都有不同的技能，因此，让我们看看您在哪里会觉得舒服。
 
-### I know or I want to learn Node.js
+### 我知道或者我想要学习 Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` 或者 `async`程序库。 Verdaccio大体上就是一个Rest API ，它和`yarn`一样，创建与`npm` 客户兼容的通信。
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+我们有很多[插件列表](plugins.md)可供使用和改善，但是同时[您也可以创建自己的插件](dev-plugins.md)。
 
-### I would prefer to work in the User Interface
+### 我倾向在用户界面中作业
 
 Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
 
