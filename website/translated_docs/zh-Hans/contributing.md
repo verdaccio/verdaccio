@@ -38,21 +38,21 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 * 创建要在所有依赖项或插件中使用的eslint共同规则
 * 改善定义传递的流程类型
 * 迁移到Webpack 4
-* Improve hot reload with Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* 改善Webpack的组件级
+* 我们在所有依赖项使用babel 和 webpack，为什么不能用通用预设？
+* 改善持续集成传递
 
-### I do great Documentation
+### 我在文档方面很在行
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+许多贡献者发现打字错误和语法问题，这也有助于提高故障排除的整体体验。
 
-### I am a Designer
+### 我是设计师
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+我们有个前端网站<http://www.verdaccio.org/> ，将很高兴看到您的想法。
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+我们的网站是基于[Docusaurus](https://docusaurus.io/)。
 
-### I am a DevOps
+### 我是一名DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
