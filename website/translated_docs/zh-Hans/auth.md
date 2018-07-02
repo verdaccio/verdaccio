@@ -36,7 +36,7 @@ registry=http://localhost:5555/
 
 ## 默认 htpasswd
 
-为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 截至v3.0.x版本，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此程序包的v2.x 版本仍然包含此插件的内置版本。
+为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 到v3.0.x版本为止，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此包的v2.x 版本仍然包含此插件的内置版本。
 
 ```yaml
 auth:
