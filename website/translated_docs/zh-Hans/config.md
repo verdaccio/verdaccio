@@ -154,7 +154,7 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-此变量应该包含一个不应该使用的以逗号分隔的域名扩展代理服务器列表。
+此变量应该包含一个不应该使用的，以逗号分隔的域名扩展代理服务器列表。
 
 ```yaml
 http_proxy: http://something.local/
