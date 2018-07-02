@@ -2,7 +2,7 @@
 id: cli
 title: "命令行工具"
 ---
-Verdaccio 命令行是启动和控制此应用的工具
+Verdaccio 命令行是启动和控制此应用的工具。
 
 ## 命令
 
