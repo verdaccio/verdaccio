@@ -74,8 +74,8 @@ Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdi
 
 您将要了解如何创建，[我们已经为您准备了指南](build.md)。
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+一旦您熟悉了所有的脚本并知道如何使用它们，我们就做好进入下一步的准备，开始运行[**单元测试**](test.md)。
 
-## Full list of contributors. We want to see your face here !
+## 这里是贡献者的完整名单。我们想在这里看到您！
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
