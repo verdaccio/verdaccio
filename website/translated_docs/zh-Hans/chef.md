@@ -1,8 +1,8 @@
 ---
-id: 厨师
-title: "厨师食谱"
+id: chef
+title: "Chef Cookbook"
 ---
-使用厨师食谱给 Verdaccio
+Verdaccio使用Chef Cookbook
 
 要获得更多的信息：
 
