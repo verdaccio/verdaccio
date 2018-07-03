@@ -3,10 +3,5 @@
  * @returns {promise}
  */
 export default function() {
-  const response = {
-    text(){
-      return 'http://xyz.com/image.jpg';
-    }
-  };
-  return Promise.resolve(response);
+  return Promise.resolve('http://localhost/-/static/logo.png');
 }
