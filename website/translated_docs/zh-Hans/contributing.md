@@ -6,22 +6,22 @@ First of all 一头扎进不熟悉的代码库并不容易，但是我们会在�
 
 ## 沟通渠道
 
-如果您愿意询问，我们使用两个渠道进行讨论：
+如果您想知道，我们使用两个渠道进行讨论：
 
 * [公共Gitter渠道](https://gitter.im/verdaccio/)
 * [Slack 贡献者渠道](https://verdaccio-npm.slack.com)（可惜只有通过电子邮件邀请才可以进入，您可以在**Gitter**里要求加入）
 
 ## 开始
 
-乍一看，verdaccio只是单一资源库，但是又很多方法您可以参与贡献以及练习多种技术。
+乍一看，verdaccio只是单一资源库，但是有很多方法您可以参与贡献以及练习多种技术。
 
-### 寻找适合我的位置
+### 寻找适合我的地方
 
-大家都有不同的技能，因此，让我们看看您在哪里会觉得舒服。
+大家都有不同的技能，因此，让我们看看您在哪个方面会感觉舒适。
 
 ### 我知道或者我想要学习 Node.js
 
-Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` 或者 `async`程序库。 Verdaccio大体上就是一个Rest API ，它和`yarn`一样，创建与`npm` 客户兼容的通信。
+Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` 或者 `async`程序库。 Verdaccio大体上就是一个Rest API ，它和`yarn`一样，创建与`npm` 客户端兼容的通信。
 
 我们有很多[插件列表](plugins.md)可供使用和改善，但是同时[您也可以创建自己的插件](dev-plugins.md)。
 
