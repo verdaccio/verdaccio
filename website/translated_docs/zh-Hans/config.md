@@ -154,7 +154,7 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-此变量应该包含一个不应该使用的，以逗号分隔的域名扩展代理服务器列表。
+此变量应该包含一个代理服务器不应该被用到的，以逗号分隔的域名扩展列表。
 
 ```yaml
 http_proxy: http://something.local/
@@ -177,7 +177,7 @@ notify:
 
 ### 审核
 
-<small>自: <code>verdaccio@3.0.0</code></small>
+<small>Since: <code>verdaccio@3.0.0</code></small>
 
 `npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0) 一起发布的新命令。Verdaccio 包含一个内置的中间体插件来处理此命令。
 
