@@ -109,8 +109,9 @@ jobs:
       - *restore_repo
       - run:
           name: Test with Node 8
-          command: yarn test
-          command: yarn test:functional
+          command: |
+            yarn test
+            yarn test:functional
 
   test_node9:
     <<: *defaults
@@ -119,8 +120,9 @@ jobs:
       - *restore_repo
       - run:
           name: Test with Node 9
-          command: yarn test
-          command: yarn test:functional
+          command: |
+            yarn test
+            yarn test:functional
       - save_cache:
           key: *coverage_key
           paths:
@@ -133,8 +135,9 @@ jobs:
       - *restore_repo
       - run:
           name: Test with Node 10
-          command: yarn run test
-          command: yarn test:functional
+          command: |
+            yarn run test
+            yarn test:functional
 
   test_e2e:
     <<: *defaults
