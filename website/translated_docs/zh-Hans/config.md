@@ -104,11 +104,11 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-从: `verdaccio@2.3.6` 到 [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### 最大正文大小
 
-默认的 JSON 文件最大正文大小是`10mb`, 如果遇到`“请求实体太大”`的错误，可以增加此数值。
+默认的 JSON 文件最大正文大小是`10mb`, 如果遇到`“请求实体太大”`的错误，您可以增大此数值。
 
 ```yaml
 max_body_size: 10mb
