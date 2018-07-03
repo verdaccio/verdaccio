@@ -25,9 +25,9 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 我们有很多[插件列表](plugins.md)可供使用和改善，但是同时[您也可以创建自己的插件](dev-plugins.md)。
 
-### 我倾向在用户界面中作业
+### 我倾向在用户界面作业
 
-最近，我们已经转移到使用`React` 和 `element-react`的现代技术。我们期待看到如何改善UI 的新想法。
+最近，我们已经转移到使用`React` 和 `element-react`这样的现代技术。我们期待看到如何改善UI 的新想法。
 
 ### 我觉得改善堆栈更自在
 
@@ -44,7 +44,7 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我在文档方面很在行
 
-许多贡献者发现打字错误和语法问题，这也有助于提高故障排除的整体体验。
+许多贡献者发现打字错误和语法问题，这也有助于我们提高故障排除的整体体验。
 
 ### 我是设计师
 
@@ -64,7 +64,7 @@ Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdi
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地要求[创建要求凭证](https://github.com/verdaccio/verdaccio/issues/new)。
+我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地发起[创建要求凭证](https://github.com/verdaccio/verdaccio/issues/new)。
 
 [转到 Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
