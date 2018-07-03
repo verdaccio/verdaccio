@@ -29,6 +29,10 @@ export function getUserAgent(): string {
   return `${pkgName}/${pkgVersion}`;
 }
 
+export function buildBase64Buffer(payload: string): Buffer {
+  return new Buffer(payload, 'base64');
+}
+
 /**
  * Validate a package.
  * @return {Boolean} whether the package is valid or not

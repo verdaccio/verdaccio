@@ -29,10 +29,12 @@ export const DEFAULT_UPLINK = 'npmjs';
 
 export const ROLES = {
   $ALL: '$all',
+  ALL: 'all',
   $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
   DEPRECATED_ALL: '@all',
   DEPRECATED_AUTH: '@authenticated',
-  ALL: 'all',
+  DEPRECATED_ANONUMOUS: '@anonymous',
 };
 
 export const HTTP_STATUS = {
@@ -80,7 +82,10 @@ export const API_ERROR = {
   FILE_NOT_FOUND: 'File not found',
   BAD_STATUS_CODE: 'bad status code',
   PACKAGE_EXIST: 'this package is already present',
+  BAD_AUTH_HEADER: 'bad authorization header',
   WEB_DISABLED: 'Web interface is disabled in the config file',
+  DEPRECATED_BASIC_HEADER: 'basic authentication is deprecated, please use JWT instead',
+  BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
 };
 
 export const APP_ERROR = {
