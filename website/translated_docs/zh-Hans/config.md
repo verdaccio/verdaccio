@@ -179,7 +179,7 @@ notify:
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0) 一起发布的新命令。Verdaccio 包含一个内置的中间体插件来处理此命令。
+`npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0) 一起发布的新命令。Verdaccio 包含一个内置的middleware (中间体)插件来处理此命令。
 
 > 新安装采用默认版本，但是您可以添加以下代码段到配置文件中
 
