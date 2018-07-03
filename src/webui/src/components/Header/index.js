@@ -31,9 +31,9 @@ export default class Header extends React.Component {
   }
 
   toggleLoginModal() {
-    this.setState({
-      showLogin: !this.state.showLogin
-    });
+    this.setState((prevState) => ({
+      showLogin: !prevState.showLogin
+    }));
     this.setState({loginError: null});
   }
 
