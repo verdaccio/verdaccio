@@ -21,4 +21,4 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## 默认存储位置
 
-我们以**$XDG_DATA_HOME** 环境变量为默认值来默认查找存储，[它应该和](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) $HOME/.local/share一样。 如果您正在使用自定义存储，则与此位置不相干。
+我们以**$XDG_DATA_HOME** 环境变量为默认值来默认查找存储，[这应该和](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) $HOME/.local/share一样。 如果您正在使用自定义存储，则与此位置不相干。
