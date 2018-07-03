@@ -17,7 +17,7 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## 默认配置文件路径位置
 
-要找到主目录，我们依赖 **$XDG_DATA_HOME** 为首选，寻找Windows 环境 [APPDATA 环境变量](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/)。
+要找到主目录，我们首先选择 **$XDG_DATA_HOME**，接着寻找Windows 环境 [APPDATA 环境变量](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/)。
 
 ## 默认存储位置
 
