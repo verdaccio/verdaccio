@@ -120,7 +120,5 @@ packages:
     access: test $anonymous
     publish: test $anonymous
 
-listen: 55551
-
 # expose internal methods
 _debug: true

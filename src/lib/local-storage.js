@@ -745,7 +745,10 @@ class LocalStorage implements IStorage {
       json._rev = DEFAULT_REVISION;
     }
 
-    json._rev = generateRevision(json._rev);
+    // this is intended in debug mode we do not want modify the store revision
+    if (_.isNil(this.config._debug)) {
+      json._rev = generateRevision(json._rev);
+    }
 
     return json;
   }

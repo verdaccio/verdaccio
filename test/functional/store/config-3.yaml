@@ -38,7 +38,5 @@ packages:
   '*':
     access: $all
 
-listen: 55553
-
 # expose internal methods
 _debug: true

@@ -8,7 +8,11 @@ import publishMetadata from '../partials/publish-api';
 import forbiddenPlace from '../partials/forbidden-place';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
-import {HEADERS, API_ERROR} from '../../../src/lib/constants';
+
+import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE} from '../../../src/lib/constants';
+import {mockServer} from './mock';
+import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import {DIST_TAGS} from '../../../src/lib/utils';
 
 require('../../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
@@ -16,10 +20,11 @@ const credentials = { name: 'Jota', password: 'secretPass' };
 describe('endpoint unit test', () => {
   let config;
   let app;
-  jest.setTimeout(10000);
+  let mockRegistry;
 
   beforeAll(function(done) {
     const store = path.join(__dirname, '../partials/store/test-storage');
+    const mockServerPort = 55549;
     rimraf(store, async () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
@@ -27,11 +32,22 @@ describe('endpoint unit test', () => {
           file: './test-storage/htpasswd-test'
         }
       };
+      configForTest.uplinks = {
+        npmjs: {
+          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+        }
+      };
       configForTest.self_path = store;
       config = new Config(configForTest);
       app = await endPointAPI(config);
+      mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
+  });
+
+  afterAll(function(done) {
+    mockRegistry[0].stop();
+    done();
   });
 
   describe('Registry API Endpoints', () => {
@@ -40,9 +56,9 @@ describe('endpoint unit test', () => {
      test('should test endpoint /-/ping', (done) => {
         request(app)
           .get('/-/ping')
-          .expect('Content-Type', /json/)
-          .expect(200)
-          .end(function(err, res) {
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -55,8 +71,8 @@ describe('endpoint unit test', () => {
       test('should test /-/whoami endpoint', (done) => {
         request(app)
           .get('/-/whoami')
-          .expect('Content-Type', /json/)
-          .expect(200)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -68,8 +84,8 @@ describe('endpoint unit test', () => {
       test('should test /whoami endpoint', (done) => {
         request(app)
           .get('/-/whoami')
-          .expect('Content-Type', /json/)
-          .expect(200)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -86,8 +102,8 @@ describe('endpoint unit test', () => {
           request(app)
             .get('/auth-package')
             .set('authorization', 'FakeHader')
-            .expect('Content-Type', /json/)
-            .expect(403)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
               expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
@@ -99,8 +115,8 @@ describe('endpoint unit test', () => {
           request(app)
             .get('/auth-package')
             .set('authorization', 'Bearer')
-            .expect('Content-Type', /json/)
-            .expect(403)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
               expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
@@ -112,8 +128,8 @@ describe('endpoint unit test', () => {
           request(app)
             .get('/auth-package')
             .set('authorization', 'Bearer 12345')
-            .expect('Content-Type', /json/)
-            .expect(403)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
               expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
@@ -127,8 +143,8 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentials)
-          .expect('Content-Type', /json/)
-          .expect(201)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -144,8 +160,8 @@ describe('endpoint unit test', () => {
             request(app)
               .get('/vue')
               .set('authorization', `Bearer ${token}`)
-              .expect('Content-Type', /json/)
-              .expect(200)
+              .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+              .expect(HTTP_STATUS.OK)
               .end(function(err, res) {
                 expect(err).toBeNull();
                 expect(res.body).toBeDefined();
@@ -163,8 +179,8 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentialsShort)
-          .expect('Content-Type', /json/)
-          .expect(400)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.BAD_REQUEST)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -184,8 +200,8 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentialsShort)
-          .expect('Content-Type', /json/)
-          .expect(400)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.BAD_REQUEST)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -205,8 +221,8 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jotaNew')
           .send(newCredentials)
-          .expect('Content-Type', /json/)
-          .expect(201)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -220,8 +236,8 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jotaNew')
           .send(credentials)
-          .expect('Content-Type', /json/)
-          .expect(409)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.CONFLICT)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -240,8 +256,8 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/-/user/org.couchdb.user:jota')
           .send(credentialsShort)
-          .expect('Content-Type', /json/)
-          .expect(401)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.UNAUTHORIZED)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -261,9 +277,9 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery')
-          .set('content-type', HEADERS.JSON_CHARSET)
-          .expect('Content-Type', /json/)
-          .expect(200)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -279,9 +295,9 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/1.5.1')
-          .set('content-type', HEADERS.JSON_CHARSET)
-          .expect('Content-Type', /json/)
-          .expect(200)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -297,9 +313,9 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/latest')
-          .set('content-type', HEADERS.JSON_CHARSET)
-          .expect('Content-Type', /json/)
-          .expect(200)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -315,10 +331,10 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/never-will-exist-this-tag')
-          .set('content-type', HEADERS.JSON_CHARSET)
-          .expect('Content-Type', /json/)
-          .expect(404)
-          .end(function(err, res) {
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -330,9 +346,9 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/@verdaccio/not-found')
-          .set('content-type', HEADERS.JSON_CHARSET)
-          .expect('Content-Type', /json/)
-          .expect(404)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.NOT_FOUND)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -345,10 +361,10 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/forbidden-place')
-          .set('content-type', HEADERS.JSON_CHARSET)
-          .expect('Content-Type', /json/)
-          .expect(403)
-          .end(function(err, res) {
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.FORBIDDEN)
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -360,8 +376,8 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/-/jquery-1.5.1.tgz')
-          .expect('Content-Type', /application\/octet-stream/)
-          .expect(200)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
               return done(err);
@@ -376,10 +392,11 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/jquery/-/jquery-0.0.1.tgz')
-          .expect('Content-Type', /application\/octet-stream/)
-          .expect(404)
-          .end(function(err, res) {
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .end(function(err) {
             if (err) {
+              expect(err).not.toBeNull();
               return done(err);
             }
 
@@ -403,10 +420,11 @@ describe('endpoint unit test', () => {
           .send(JSON.stringify(jqueryVersion))
           .set('accept', 'gzip')
           .set('accept-encoding', HEADERS.JSON)
-          .set('content-type', HEADERS.JSON)
-          .expect(201)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
@@ -421,10 +439,11 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/package/jquery/dist-tags')
           .set('accept-encoding', HEADERS.JSON)
-          .set('content-type', HEADERS.JSON)
-          .expect(200)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
@@ -439,15 +458,16 @@ describe('endpoint unit test', () => {
         request(app)
           .post('/-/package/jquery/dist-tags')
           .send(JSON.stringify(jqueryUpdatedVersion))
-          .set('content-type', HEADERS.JSON)
-          .expect(201)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
             expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/tags updated/);
+            expect(res.body.ok).toMatch(API_MESSAGE.TAG_UPDATED);
             done();
           });
       });
@@ -457,10 +477,11 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/package/jquery/dist-tags')
           .set('accept-encoding', HEADERS.JSON)
-          .set('content-type', HEADERS.JSON)
-          .expect(200)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
@@ -475,16 +496,17 @@ describe('endpoint unit test', () => {
         request(app)
           .del('/-/package/jquery/dist-tags/verdaccio-tag')
           .set('accept-encoding', HEADERS.JSON)
-          .set('content-type', HEADERS.JSON)
-          //.expect('Content-Type', /json/)
-          .expect(201)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          //.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
 
             expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/tag removed/);
+            expect(res.body.ok).toMatch(API_MESSAGE.TAG_REMOVED);
             done();
           });
       });
@@ -498,11 +520,12 @@ describe('endpoint unit test', () => {
         request(app)
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
           // .set('accept-encoding', HEADERS.JSON)
-          // .set('content-type', HEADERS.JSON)
-          //.expect('Content-Type', /json/)
-          .expect(200)
-          .end(function(err, res) {
+          // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          //.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function(err) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
             //TODO: we have to catch the stream check whether it returns something
@@ -517,17 +540,18 @@ describe('endpoint unit test', () => {
       test('should publish a new package', (done) => {
         request(app)
           .put('/@scope%2fpk1-test')
-          .set('content-type', HEADERS.JSON)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .send(JSON.stringify(publishMetadata))
-          .expect(201)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
             expect(res.body.success).toBeDefined();
             expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(/created new package/);
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
             done();
           });
       });
@@ -536,14 +560,15 @@ describe('endpoint unit test', () => {
         //FUTURE: for some reason it does not remove the scope folder
         request(app)
           .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
-          .set('content-type', HEADERS.JSON)
-          .expect(201)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
+              expect.toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/package removed/);
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
             done();
           });
       });
@@ -554,15 +579,15 @@ describe('endpoint unit test', () => {
     beforeAll(async function() {
       await request(app)
       .put('/@scope%2fpk1-test')
-      .set('content-type', HEADERS.JSON)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .send(JSON.stringify(publishMetadata))
-      .expect(201);
+      .expect(HTTP_STATUS.CREATED);
 
       await request(app)
       .put('/forbidden-place')
-      .set('content-type', HEADERS.JSON)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .send(JSON.stringify(forbiddenPlace))
-      .expect(201);
+      .expect(HTTP_STATUS.CREATED);
     });
 
     describe('Packages', () => {
@@ -570,7 +595,7 @@ describe('endpoint unit test', () => {
       test('should display all packages', (done) => {
         request(app)
           .get('/-/verdaccio/packages' )
-          .expect(200)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             expect(res.body).toHaveLength(1);
             done();
@@ -580,8 +605,8 @@ describe('endpoint unit test', () => {
       test.skip('should display scoped readme', (done) => {
         request(app)
           .get('/-/verdaccio/package/readme/@scope/pk1-test')
-          .expect(200)
-          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .expect(HTTP_STATUS.OK)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function(err, res) {
             expect(res.text).toMatch('<h1 id="test">test</h1>\n');
             done();
@@ -592,8 +617,8 @@ describe('endpoint unit test', () => {
       test.skip('should display scoped readme 404', (done) => {
         request(app)
           .get('/-/verdaccio/package/readme/@scope/404')
-          .expect(200)
-          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .expect(HTTP_STATUS.OK)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function(err, res) {
             expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
             done();
@@ -603,11 +628,11 @@ describe('endpoint unit test', () => {
       test('should display sidebar info', (done) => {
         request(app)
           .get('/-/verdaccio/sidebar/@scope/pk1-test')
-          .expect(200)
-          .expect('Content-Type', /json/)
+          .expect(HTTP_STATUS.OK)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function(err, res) {
             const sideBarInfo = res.body;
-            const latestVersion = publishMetadata.versions[publishMetadata['dist-tags'].latest];
+            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
 
             expect(sideBarInfo.latest.author).toBeDefined();
             expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
@@ -620,9 +645,9 @@ describe('endpoint unit test', () => {
       test('should display sidebar info 404', (done) => {
         request(app)
           .get('/-/verdaccio/sidebar/@scope/404')
-          .expect(404)
-          .expect('Content-Type', /json/)
-          .end(function(err, res) {
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .end(function() {
             done();
           });
       });
@@ -633,7 +658,7 @@ describe('endpoint unit test', () => {
       test('should search pk1-test', (done) => {
         request(app)
           .get('/-/verdaccio/search/scope')
-          .expect(200)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             expect(res.body).toHaveLength(1);
             done();
@@ -643,7 +668,7 @@ describe('endpoint unit test', () => {
       test('should search with 404', (done) => {
         request(app)
           .get('/-/verdaccio/search/@')
-          .expect(200)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             // in a normal world, the output would be 1
             // https://github.com/verdaccio/verdaccio/issues/345
@@ -656,7 +681,7 @@ describe('endpoint unit test', () => {
       test('should not find forbidden-place', (done) => {
         request(app)
           .get('/-/verdaccio/search/forbidden-place')
-          .expect(200)
+          .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             //this is expected since we are not logged
             // and  forbidden-place is allow_access: 'nobody'
@@ -675,7 +700,7 @@ describe('endpoint unit test', () => {
               username: credentials.name,
               password: credentials.password
             })
-            .expect(200)
+            .expect(HTTP_STATUS.OK)
             .end(function(err, res) {
               expect(res.body.error).toBeUndefined();
               expect(res.body.token).toBeDefined();
@@ -693,7 +718,7 @@ describe('endpoint unit test', () => {
               password: 'fake'
             }))
             //FIXME: there should be 401
-            .expect(200)
+            .expect(HTTP_STATUS.OK)
             .end(function(err, res) {
               expect(res.body.error).toMatch(/bad username\/password, access denied/);
               done();

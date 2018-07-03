@@ -1,10 +1,7 @@
 /**
- * Mock response for login api
+ * Mock response for logo api
  * @returns {promise}
  */
 export default function() {
-  const response = {
-    url: 'http://xyz.com/image.jpg'
-  };
-  return Promise.resolve(response);
+  return Promise.resolve('http://localhost/-/static/logo.png');
 }

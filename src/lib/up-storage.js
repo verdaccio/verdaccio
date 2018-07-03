@@ -411,7 +411,7 @@ class ProxyStorage implements IProxy {
         return callback( ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
       }
       if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
-        const error = ErrorCode.getInternalError(`bad status code: ${res.statusCode}`);
+        const error = ErrorCode.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${res.statusCode}`);
         // $FlowFixMe
         error.remoteStatus = res.statusCode;
         return callback(error);
