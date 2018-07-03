@@ -1,8 +1,9 @@
 // @flow
+
 import path from 'path';
 import {spliceURL}  from '../../../src/utils/string';
 import {parseConfigFile} from '../../../src/lib/utils';
-import {normalisePackageAccess} from '../../../src/lib/config-utils';
+import {getMatchedPackagesSpec, hasProxyTo, normalisePackageAccess} from '../../../src/lib/config-utils';
 import {PACKAGE_ACCESS, ROLES} from '../../../src/lib/constants';
 
 describe('Config Utilities', () => {
@@ -86,14 +87,92 @@ describe('Config Utilities', () => {
       const {packages} = parseConfigFile(parsePartial('pkgs-empty'));
       const access = normalisePackageAccess(packages);
       expect(access).toBeDefined();
+
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
       expect(scoped).toBeUndefined();
-      const all = access[`${PACKAGE_ACCESS.ALL}`];
 
+      // ** should be added by default
+      const all = access[`${PACKAGE_ACCESS.ALL}`];
       expect(all).toBeDefined();
+
       expect(all.access).toBeUndefined();
       expect(all.publish).toBeUndefined();
 
+    });
+  });
+
+  describe('getMatchedPackagesSpec', () => {
+    test('should test basic config', () => {
+      const {packages} = parseConfigFile(parsePartial('pkgs-custom'));
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('vue', packages).proxy).toMatch('npmjs');
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('@scope/vue', packages).proxy).toMatch('npmjs');
+    });
+
+    test('should test no ** wildcard on config', () => {
+      const {packages} = parseConfigFile(parsePartial('pkgs-nosuper-wildcard-custom'));
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
+      // $FlowFixMe
+      expect(getMatchedPackagesSpec('@fake/angular', packages).proxy).toMatch('npmjs');
+      expect(getMatchedPackagesSpec('vue', packages)).toBeUndefined();
+      expect(getMatchedPackagesSpec('@scope/vue', packages)).toBeUndefined();
+    });
+  });
+
+  describe('hasProxyTo', () => {
+    test('should test basic config', () => {
+      const packages = normalisePackageAccess(parseConfigFile(parsePartial('pkgs-basic')).packages);
+      // react
+      expect(hasProxyTo('react', 'facebook', packages)).toBeFalsy();
+      expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
+      // vue
+      expect(hasProxyTo('vue', 'google', packages)).toBeFalsy();
+      expect(hasProxyTo('vue', 'fake', packages)).toBeFalsy();
+      expect(hasProxyTo('vue', 'npmjs', packages)).toBeTruthy();
+      // angular
+      expect(hasProxyTo('angular', 'google', packages)).toBeFalsy();
+      expect(hasProxyTo('angular', 'facebook', packages)).toBeFalsy();
+      expect(hasProxyTo('angular', 'npmjs', packages)).toBeTruthy();
+    });
+
+    test('should test resolve based on custom package access', () => {
+      const packages = normalisePackageAccess(parseConfigFile(parsePartial('pkgs-custom')).packages);
+      // react
+      expect(hasProxyTo('react', 'facebook', packages)).toBeTruthy();
+      expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
+      // vue
+      expect(hasProxyTo('vue', 'google', packages)).toBeFalsy();
+      expect(hasProxyTo('vue', 'fake', packages)).toBeFalsy();
+      expect(hasProxyTo('vue', 'npmjs', packages)).toBeTruthy();
+      // angular
+      expect(hasProxyTo('angular', 'google', packages)).toBeTruthy();
+      expect(hasProxyTo('angular', 'facebook', packages)).toBeFalsy();
+      expect(hasProxyTo('angular', 'npmjs', packages)).toBeFalsy();
+    });
+
+    test('should not resolve any proxy', () => {
+      const packages = normalisePackageAccess(parseConfigFile(parsePartial('pkgs-empty')).packages);
+      // react
+      expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();
+      expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();
+      // vue
+      expect(hasProxyTo('vue', 'npmjs', packages)).toBeFalsy();
+      expect(hasProxyTo('vue', 'npmjs', packages)).toBeFalsy();
+      expect(hasProxyTo('vue', 'npmjs', packages)).toBeFalsy();
+      // angular
+      expect(hasProxyTo('angular', 'npmjs', packages)).toBeFalsy();
+      expect(hasProxyTo('angular', 'npmjs', packages)).toBeFalsy();
+      expect(hasProxyTo('angular', 'npmjs', packages)).toBeFalsy();
+      // private
+      expect(hasProxyTo('private', 'fake', packages)).toBeFalsy();
     });
   });
 
