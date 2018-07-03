@@ -64,7 +64,7 @@ Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdi
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地发起[创建要求凭证](https://github.com/verdaccio/verdaccio/issues/new)。
+我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地发起[创建要求票证](https://github.com/verdaccio/verdaccio/issues/new)。
 
 [转到 Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
