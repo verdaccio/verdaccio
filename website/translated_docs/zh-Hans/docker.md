@@ -85,7 +85,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
 
 ### HTTPS 和Docker一起使用
 
-您可以配置verdaccio要听从的协议，类似于端口配置。 You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+您可以配置verdaccio要听从的协议，类似于端口配置。 当您在config.yaml里指定证书后，您必须用 "https"覆盖`PROTOCOL` 环境变量的默认值 ("http") 。
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -95,16 +95,16 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 
 ### Using docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. 获取[docker-compose](https://github.com/docker/compose)的最新版本。
+2. 创建并运行容器：
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+您可以添加`PORT=5000`到以上命令之前来设置要使用（容器和主机）的端口。
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker将生成一个用于存储持续应用程序数据的命名卷。 You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
 
     $ docker volume inspect verdaccio_verdaccio
     [
