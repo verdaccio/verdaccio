@@ -1,13 +1,13 @@
 ---
 id: iss-server
-title: "IIS server上安装"
+title: "IIS server上进行安装"
 ---
-这些指用法说明是为Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) 和[verdaccio 2.1.0](https://github.com/verdaccio/verdaccio)所写。
+这些用法说明是为Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) 和[verdaccio 2.1.0](https://github.com/verdaccio/verdaccio)所写。
 
 - 安装IIS Install [iisnode](https://github.com/tjanczuk/iisnode)。请确保您依照iisnode用法说明中所说的安装先决条件 (Url 重写模块 & 节点) 。
 - 在要承载verdaccio的资源管理器中创建一个新文件夹。 例如 `C:\verdaccio`。 在此文件夹里保存 [package.json](#packagejson), [start.js](#startjs) 和 [web.config](#webconfig) 。
 - 在因特网信息服务管理器中创建一个新站点。 您可以随意给它命名。 我将在这些[用法说明](http://www.iis.net/learn/manage/configuring-security/application-pool-identities)中称它为verdaccio。 指定保存所有文件和端口号的路径。
-- 返回到资源管理器中，赋予运行此应用程序池的用户对您刚创建的文件夹的修改权限。 如果您已命名此站点为verdaccio，并没有修改该应用程序池，它正在ApplicationPoolIdentity下运行，您就应该给用户 IIS AppPool\verdaccio修改权限。如果您需要帮助的话，请参照用法说明。 （如果需要，可以在日后限制访问，这样它只有 iisnode 和verdaccio\storage的修改权限）
+- 返回到资源管理器中，把对您刚创建的文件夹的修改权限赋予给运行此应用程序池的用户。 如果您已命名此站点为verdaccio，并没有修改该应用程序池，它正在ApplicationPoolIdentity下运行，您就应该给用户 IIS AppPool\verdaccio修改权限。如果您需要帮助的话，请参照用法说明。 （如果需要，可以在日后限制访问，这样它只有 iisnode 和verdaccio\storage的修改权限）
 - 启动命令行并执行以下命令来下载verdaccio:
 
     cd c:\verdaccio
