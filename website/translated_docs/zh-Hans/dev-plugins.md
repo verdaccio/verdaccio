@@ -75,7 +75,7 @@ auth:
 
 其中`htpasswd` 是插件名称的后缀。例如：`verdaccio-htpasswd`，剩下的组成部分是插件配置的参数。
 
-## Middleware插件
+## Middleware Plugin（Middleware 插件）
 
 Middleware 插件有能力修改API 接口，它可以添加新的端点，也可以截取请求。
 
@@ -89,9 +89,9 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-要注册middleware，我们需要一个object（对象) 以及一个叫做`register_middlewares` 的单纯方法，它将接收到3 个参数 (`expressApp, auth, storage`)。 *Auth* 是authentification 实例参数，*storage* 也是主存储实例，它将让您可以访问所有的存储操作。
+要注册middleware，我们需要一个object（对象) 以及一个叫做`register_middlewares` 的单纯方法，它将接收到3 个参数 (`expressApp, auth, storage`)。 *Auth* 是authentification（认证） 实例参数，*storage* 也是主存储实例，它将让您可以访问所有的存储操作。
 
-## 存储插件
+## Storage Plugin（存储插件）
 
 Verdaccio 默认使用文件系统存储插件 [local-storage](https://github.com/verdaccio/local-storage) ，但是从`verdaccio@3.x` 版本开始，您可以插入自定义存储。
 
@@ -139,7 +139,7 @@ interface IReadTarball extends stream$PassThrough {
 }
 ```
 
-> API存储任然还在实验阶段并在接下来的次版本中可能会有修改。 有关存储API的更多信息，请遵循[ 我们官网资源库里的类型定义](https://github.com/verdaccio/flow-types)。
+> API存储仍然还在实验阶段并在接下来的次版本中可能会有修改。 有关存储API的更多信息，请遵循[ 我们官网资源库里的类型定义](https://github.com/verdaccio/flow-types)。
 
 ### 存储插件示例
 
