@@ -104,7 +104,7 @@ $ docker-compose up --build
 
 您可以添加`PORT=5000`到以上命令之前来设置要使用（容器和主机）的端口。
 
-Docker将生成一个用于存储持续应用程序数据的命名卷。 You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker将生成一个用于存储持续应用程序数据的命名卷。 您可以使用 `docker inspect` 或者 `docker volume inspect` 来查看此卷的物理位置并编辑配置，比如：
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -119,29 +119,29 @@ Docker将生成一个用于存储持续应用程序数据的命名卷。 You can
     
     
 
-## Build your own Docker image
+## 创建您自己的Docker图片
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+还有一个创建 docker图片的npm 脚本，因此您还可以执行以下操作：
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+请注意: 第一个创建的图片要花几分钟时间，因为它需要运行 `npm install`, 而且，如果您更改任何未在`.dockerignore`列表里的文件，它也将会运行一样久时间。
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+如果您要在rpi或者兼容设备上使用docker图片，也有现有的dockerfile。要生成raspberry pi（草莓派）的docker图片，需要执行：
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+请注意， 以上所有docker命令都要求您的机台上安装docker, 而且docker 执行项必须在您的`$PATH`里。
 
-## Docker Examples
+## Docker示例
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
