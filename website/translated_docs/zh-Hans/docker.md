@@ -69,13 +69,13 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 ### Docker和自定义端口配置
 
-在使用docker 的时候，当前都忽略任何在`listen` 下的`conf/config.yaml` 里配置的`host:port`。
+在使用docker 的时候，当前任何在`listen` 下的`conf/config.yaml` 里配置的`host:port`都将被忽略。
 
 如果您要在不同端口下获得 verdaccio docker 实例，比如 `docker run` 命令里的`5000`，您可以用 `-p 5000:4873`取代 `-p 4873:4873` 。
 
 从版本2.?.? 开始，如果您需要指定**docker容器**内特定倾听端口， 您可以通过提供额外参数给`docker run`: `--env PORT=5000`来达成。这会改变docker容器显示的端口以及 verdaccio要听从的端口。
 
-当然您给出 `-p` 参数数字必须吻合，因此，假设您希望他们全都一样，您可以复制，黏贴和采用以下代码：
+当然您给出的 `-p` 参数数字必须吻合，因此，假设您希望他们全都一样，您可以复制，黏贴和采用以下代码：
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -93,7 +93,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### 使用docker-compose
 
 1. 获取[docker-compose](https://github.com/docker/compose)的最新版本。
 2. 创建并运行容器：
@@ -102,7 +102,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-您可以添加`PORT=5000`到以上命令之前来设置要使用（容器和主机）的端口。
+您可以添加`PORT=5000`到以上命令的前面来设置要使用（容器和主机）的端口。
 
 Docker将生成一个用于存储持续应用程序数据的命名卷。 您可以使用 `docker inspect` 或者 `docker volume inspect` 来查看此卷的物理位置并编辑配置，比如：
 
@@ -131,7 +131,7 @@ docker build -t verdaccio .
 npm run build:docker
 ```
 
-请注意: 第一个创建的图片要花几分钟时间，因为它需要运行 `npm install`, 而且，如果您更改任何未在`.dockerignore`列表里的文件，它也将会运行一样久时间。
+请注意: 第一个创建的图片要花几分钟时间，因为它需要运行 `npm install`, 而且，如果您更改任何未在`.dockerignore`列表里的文件，它也将会运行相同的时间。
 
 如果您要在rpi或者兼容设备上使用docker图片，也有现有的dockerfile。要生成raspberry pi（草莓派）的docker图片，需要执行：
 
