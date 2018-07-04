@@ -2,11 +2,11 @@
 id: dev-plugins
 title: "插件开发"
 ---
-There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
+有很多方法来扩展 `verdaccio`, 目前我们支持 `authentication plugins`, `middleware plugins` (自 `v2.7.0` 版本) 和 `storage plugins` 自 (`v3.x`)版本。
 
-## Authentication Plugin
+## Authentication Plugin（认证插件）
 
-This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+本节将描述 Verdaccio 插件在ES5 里是如何运作的。 Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
 
 ### API
 
