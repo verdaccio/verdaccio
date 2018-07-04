@@ -54,9 +54,9 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 最后一个参数定义要使用的图片。如果您还没有操作的话，上面的代码将从dockerhub里拉出最新的预先创建的图片。
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+如果您已经用 `verdaccio`作为最后参数[在本地创建一个图片](#build-your-own-docker-image)。
 
-You can use `-v` to bind mount `conf` and `storage` to the hosts filesystem:
+您可以用`-v`来绑定安装 `conf`和`storage`到主机文件系统中：
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -65,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> 请注意：Verdaccio 在容器内是作为non-root 用户 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Docker and custom port configuration
 
