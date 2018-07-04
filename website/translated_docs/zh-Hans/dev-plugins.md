@@ -6,7 +6,7 @@ title: "插件开发"
 
 ## Authentication Plugin（认证插件）
 
-本节将描述 Verdaccio 插件在ES5 里是如何运作的。 Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+本节将描述 Verdaccio 插件在ES5 里是如何运作的。 基本上我们要用一个叫做`authenticate` 的简单方法来返回一个 object，此方法将收到3 个参数 (`user, password, callback`)。 一旦执行验证后，有两个可用的值来回应 `verdaccio`。
 
 ### API
 
@@ -18,21 +18,21 @@ function authenticate (user, password, callback) {
 
 ##### OnError
 
-Either something bad happened or auth was unsuccessful.
+要么是不好的事发生，要么是授权不成功。
 
     callback(null, false)
     
 
 ##### OnSuccess
 
-The auth was successful.
+授权成功。
 
-`groups` is an array of strings where the user is part of.
+`groups`是用户组成的一组字符串。
 
      callback(null, groups);
     
 
-### Example
+### 例如
 
 ```javascript
 function Auth(config, stuff) {
@@ -65,7 +65,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the setup
+设置
 
 ```yaml
 auth:
@@ -73,9 +73,9 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+其中`htpasswd` 是插件名称的后缀。例如：`verdaccio-htpasswd`，剩下的组成部分是插件配置的参数。
 
-## Middleware Plugin
+## Middleware插件
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
