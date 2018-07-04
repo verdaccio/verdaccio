@@ -65,13 +65,13 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> 请注意：Verdaccio 在容器内是作为non-root 用户 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> 请注意：Verdaccio 在容器内是作为non-root 用户 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷](https://docs.docker.com/storage/volumes/)来替代绑定安装。
 
-### Docker and custom port configuration
+### Docker和自定义端口配置
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+在使用docker 的时候，当前都忽略任何在`listen` 下的`conf/config.yaml` 里配置的`host:port`。
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+如果您要在不同端口下获得 verdaccio docker 实例，比如 `docker run` 命令里的`5000`，您可以用 `-p 5000:4873`取代 `-p 4873:4873` 。
 
 In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
 
