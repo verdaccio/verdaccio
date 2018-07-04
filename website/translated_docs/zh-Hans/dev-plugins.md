@@ -139,7 +139,7 @@ interface IReadTarball extends stream$PassThrough {
 }
 ```
 
-> API存储任然还在实验阶段并在接下来的次版本中可能会有修改。 For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> API存储任然还在实验阶段并在接下来的次版本中可能会有修改。 有关存储API的更多信息，请遵循[ 我们官网资源库里的类型定义](https://github.com/verdaccio/flow-types)。
 
 ### Storage Plugins Examples
 
