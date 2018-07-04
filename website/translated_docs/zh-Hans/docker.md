@@ -52,7 +52,7 @@ docker pull verdaccio/verdaccio:beta
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-最后一个参数定义要使用的图片。如果您还没有操作的话，上面的代码将从dockerhub里拉出最新的预先创建的图片。
+最后一个参数定义要使用的图片。如果您还没有试的话，上面的代码将从dockerhub里拉出最新的预先创建的图片。
 
 如果您已经用 `verdaccio`作为最后参数[在本地创建一个图片](#build-your-own-docker-image)。
 
@@ -65,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> 请注意：Verdaccio 在容器内是作为non-root 用户 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷](https://docs.docker.com/storage/volumes/)来替代绑定安装。
+> 请注意：Verdaccio 在容器内是作为non-root 用户端 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户端。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷](https://docs.docker.com/storage/volumes/)来替代绑定安装。
 
 ### Docker和自定义端口配置
 
