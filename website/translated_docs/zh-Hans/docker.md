@@ -73,9 +73,9 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 如果您要在不同端口下获得 verdaccio docker 实例，比如 `docker run` 命令里的`5000`，您可以用 `-p 5000:4873`取代 `-p 4873:4873` 。
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+从版本2.?.? 开始，如果您需要指定**docker容器**内特定倾听端口， 您可以通过提供额外参数给`docker run`: `--env PORT=5000`来达成。这会改变docker容器显示的端口以及 verdaccio要听从的端口。
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+当然您给出 `-p` 参数数字必须吻合，因此，假设您希望他们全都一样，您可以复制，黏贴和采用以下代码：
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -83,9 +83,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### HTTPS 和Docker一起使用
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+您可以配置verdaccio要听从的协议，类似于端口配置。 You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
