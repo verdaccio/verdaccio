@@ -6,7 +6,7 @@ title: "插件开发"
 
 ## Authentication Plugin（认证插件）
 
-本节将描述 Verdaccio 插件在ES5 里是如何运作的。 基本上我们要用一个叫做`authenticate` 的简单方法来返回一个 object，此方法将收到3 个参数 (`user, password, callback`)。 一旦执行验证后，有两个可用的值来回应 `verdaccio`。
+本节将描述 Verdaccio 插件在ES5 里是如何运作的。 基本上我们要用一个叫做`authenticate` 的单纯方法来返回一个 object（对象），此方法将接收到3 个参数 (`user, password, callback`)。 一旦执行验证后，有两个可用的值来回应 `verdaccio`。
 
 ### API
 
@@ -141,13 +141,13 @@ interface IReadTarball extends stream$PassThrough {
 
 > API存储任然还在实验阶段并在接下来的次版本中可能会有修改。 有关存储API的更多信息，请遵循[ 我们官网资源库里的类型定义](https://github.com/verdaccio/flow-types)。
 
-### Storage Plugins Examples
+### 存储插件示例
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+以下插件列表执行存储API，可以作为示例。
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> 您是否愿意为新的存储插件做贡献？请[点击此处。](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
