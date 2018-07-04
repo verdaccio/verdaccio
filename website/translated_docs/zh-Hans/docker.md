@@ -6,7 +6,7 @@ title: Docker
   ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 </div>
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+要拉出最新的预先-创建的[docker 图片](https://hub.docker.com/r/verdaccio/verdaccio/)：
 
 ```bash
 docker pull verdaccio/verdaccio
@@ -14,11 +14,11 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## 标记版本
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+自版本`v2.x`开始，您可以通过[标签](https://hub.docker.com/r/verdaccio/verdaccio/tags/)来拉出docker 图片，具体操作如下:
 
-For a major version:
+对于主版本：
 
 ```bash
 docker pull verdaccio/verdaccio:3
