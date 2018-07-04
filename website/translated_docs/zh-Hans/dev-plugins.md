@@ -77,9 +77,9 @@ auth:
 
 ## Middleware插件
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Middleware 插件有能力修改API 接口，它可以添加新的端点，也可以截取请求。
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Middleware 插件的一个很好的例子是 [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) 和 [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)。
 
 ### API
 
@@ -89,9 +89,9 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+要注册middleware，我们需要一个object（对象) 以及一个叫做`register_middlewares` 的单纯方法，它将接收到3 个参数 (`expressApp, auth, storage`)。 *Auth* 是authentification 实例参数，*storage* 也是主存储实例，它将让您可以访问所有的存储操作。
 
-## Storage Plugin
+## 存储插件
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage) but, since `verdaccio@3.x` you can plug in a custom storage.
 
