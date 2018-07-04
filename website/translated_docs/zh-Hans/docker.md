@@ -24,25 +24,25 @@ docker pull verdaccio/verdaccio
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+对于次版本：
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+对于特定（补丁）版本：
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+下一个主版本将使用 `beta`（主分支）版本。
 
 ```bash
 docker pull verdaccio/verdaccio:beta
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> 如果您对标签列表感兴趣，[ 请访问 Docker 网站枢纽](https://hub.docker.com/r/verdaccio/verdaccio/tags/)。
 
 ## Running verdaccio using Docker
 
