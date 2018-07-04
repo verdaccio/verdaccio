@@ -44,15 +44,15 @@ docker pull verdaccio/verdaccio:beta
 
 > 如果您对标签列表感兴趣，[ 请访问 Docker 网站枢纽](https://hub.docker.com/r/verdaccio/verdaccio/tags/)。
 
-## Running verdaccio using Docker
+## 用Docker运行verdaccio
 
-To run the docker container:
+要运行docker 容器：
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+最后一个参数定义要使用的图片。如果您还没有操作的话，上面的代码将从dockerhub里拉出最新的预先创建的图片。
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
