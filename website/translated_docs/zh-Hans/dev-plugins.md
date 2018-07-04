@@ -93,11 +93,11 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 
 ## 存储插件
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage) but, since `verdaccio@3.x` you can plug in a custom storage.
+Verdaccio 默认使用文件系统存储插件 [local-storage](https://github.com/verdaccio/local-storage) ，但是从`verdaccio@3.x` 版本开始，您可以插入自定义存储。
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `ILocalData` implementation. Please see details bellow.
+API 存储更复杂一些，您得创建一个返回实现`ILocalData`的 class。请参阅以下详细信息。
 
 ```js
 <br />class LocalDatabase<ILocalData>{
@@ -139,7 +139,7 @@ interface IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> API存储任然还在实验阶段并在接下来的次版本中可能会有修改。 For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
 
 ### Storage Plugins Examples
 
