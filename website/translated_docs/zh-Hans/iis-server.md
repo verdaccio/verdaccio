@@ -7,8 +7,8 @@ title: "IIS server上安装"
 - 安装IIS Install [iisnode](https://github.com/tjanczuk/iisnode)。请确保您依照iisnode用法说明中所说的安装先决条件 (Url 重写模块 & 节点) 。
 - 在要承载verdaccio的资源管理器中创建一个新文件夹。 例如 `C:\verdaccio`。 在此文件夹里保存 [package.json](#packagejson), [start.js](#startjs) 和 [web.config](#webconfig) 。
 - 在因特网信息服务管理器中创建一个新站点。 您可以随意给它命名。 我将在这些[用法说明](http://www.iis.net/learn/manage/configuring-security/application-pool-identities)中称它为verdaccio。 指定保存所有文件和端口号的路径。
-- Go back to Explorer and give the user that runs the application pool modify rights to the folder you just created. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
-- Start a command prompt and execute the commands below to download verdaccio:
+- 返回到资源管理器中，赋予运行此应用程序池的用户对您刚创建的文件夹的修改权限。 如果您已命名此站点为verdaccio，并没有修改该应用程序池，它正在ApplicationPoolIdentity下运行，您就应该给用户 IIS AppPool\verdaccio修改权限。如果您需要帮助的话，请参照用法说明。 （如果需要，可以在日后限制访问，这样它只有 iisnode 和verdaccio\storage的修改权限）
+- 启动命令行并执行以下命令来下载verdaccio:
 
     cd c:\verdaccio
     npm install
