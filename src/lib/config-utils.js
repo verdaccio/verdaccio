@@ -5,7 +5,7 @@ import minimatch from 'minimatch';
 
 import {ErrorCode} from './utils';
 
-import type {PackageList} from '@verdaccio/types';
+import type {PackageList, UpLinksConfList} from '@verdaccio/types';
 import type {MatchedPackage} from '../../types';
 
 const BLACKLIST = {
@@ -41,7 +41,7 @@ export function normalizeUserlist(oldFormat: any, newFormat: any) {
   return _.flatten(result);
 }
 
-export function uplinkSanityCheck(uplinks: any, users: any = BLACKLIST) {
+export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLIST) {
   const newUplinks = _.clone(uplinks);
   let newUsers = _.clone(users);
 
@@ -58,9 +58,9 @@ export function uplinkSanityCheck(uplinks: any, users: any = BLACKLIST) {
 }
 
 export function sanityCheckNames(item: string, users: any) {
-  assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved user/uplink name: ' + item);
-  assert(!item.match(/\s/), 'CONFIG: invalid user name: ' + item);
-  assert(users[item] == null, 'CONFIG: duplicate user/uplink name: ' + item);
+  assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved uplink name: ' + item);
+  assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
+  assert(users[item] == null, 'CONFIG: duplicate uplink name: ' + item);
   users[item] = true;
 
   return users;

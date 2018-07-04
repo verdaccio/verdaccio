@@ -3,7 +3,12 @@
 import path from 'path';
 import {spliceURL}  from '../../../src/utils/string';
 import {parseConfigFile} from '../../../src/lib/utils';
-import {getMatchedPackagesSpec, hasProxyTo, normalisePackageAccess} from '../../../src/lib/config-utils';
+import {
+  getMatchedPackagesSpec,
+  hasProxyTo,
+  normalisePackageAccess, sanityCheckUplinksProps,
+  uplinkSanityCheck
+} from '../../../src/lib/config-utils';
 import {PACKAGE_ACCESS, ROLES} from '../../../src/lib/constants';
 
 describe('Config Utilities', () => {
@@ -11,6 +16,35 @@ describe('Config Utilities', () => {
   const parsePartial = (name) => {
     return path.join(__dirname, `../partials/config/yaml/${name}.yaml`);
   };
+
+  describe('uplinkSanityCheck', () => {
+    test('should test basic conversion', ()=> {
+      const uplinks = uplinkSanityCheck(parseConfigFile(parsePartial('uplink-basic')).uplinks);
+        expect(Object.keys(uplinks)).toContain('server1');
+        expect(Object.keys(uplinks)).toContain('server2');
+    });
+
+    test('should throw error on blacklisted uplink name', ()=> {
+      const {uplinks} = parseConfigFile(parsePartial('uplink-wrong'));
+
+      expect(() => {
+        uplinkSanityCheck(uplinks)
+      }).toThrow('CONFIG: reserved uplink name: anonymous');
+    });
+  });
+
+  describe('sanityCheckUplinksProps', () => {
+    test('should fails if url prop is missing', ()=> {
+      const {uplinks} = parseConfigFile(parsePartial('uplink-wrong'));
+        expect(() => {
+          sanityCheckUplinksProps(uplinks)
+        }).toThrow('CONFIG: no url for uplink: none-url');
+    });
+
+    test('should bypass an empty uplink list', ()=> {
+      expect(sanityCheckUplinksProps([])).toHaveLength(0);
+    });
+  });
 
   describe('normalisePackageAccess', () => {
     test('should test basic conversion', ()=> {
