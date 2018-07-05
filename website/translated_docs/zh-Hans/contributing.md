@@ -54,13 +54,13 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我是一名DevOps
 
-我们有广受欢迎的Docker图像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来受益于所有用户。
+我们有广受欢迎的Docker图像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来使所有用户都可受益。
 
 我们支持 **Kubernetes**, **Puppet**, **Ansible** 和 **Chef**，在这些领域我们需要帮助，请随时查看所有资源库。
 
 ### 我可以翻译
 
-Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
+Verdaccio的目标是多语言，为了实现这个目标，**我们得到**[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
@@ -76,6 +76,6 @@ Verdaccio着眼于多语种，为了实现这个目标，**我们得到**[Crowdi
 
 一旦您熟悉了所有的脚本并知道如何使用它们，我们就做好进入下一步的准备，开始运行[**单元测试**](test.md)。
 
-## 这里是贡献者的完整名单。我们想在这里看到您！
+## 这里是贡献者的完整名单。我们希望在这里看到您！
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
