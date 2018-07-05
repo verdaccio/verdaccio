@@ -16,7 +16,7 @@ docker pull verdaccio/verdaccio
 
 ## 标记版本
 
-自版本`v2.x`开始，您可以通过[标签](https://hub.docker.com/r/verdaccio/verdaccio/tags/)来拉出docker 图片，具体操作如下:
+自版本`v2.x`开始，您可以通过[标签](https://hub.docker.com/r/verdaccio/verdaccio/tags/)来下载(pull)docker镜像，具体操作如下:
 
 对于主版本：
 
@@ -52,9 +52,9 @@ docker pull verdaccio/verdaccio:beta
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-最后一个参数定义要使用的图片。如果您还没有试的话，上面的代码将从dockerhub里拉出最新的预先创建的图片。
+最后一个参数定义要使用的图片。如果您还没有试的话，上面的代码将从dockerhub里下载(pull) 最新的预先创建的镜像。
 
-如果您已经用 `verdaccio`作为最后参数[在本地创建一个图片](#build-your-own-docker-image)。
+如果您已经用 `verdaccio`作为最后参数[在本地创建一个镜像](#build-your-own-docker-image)。
 
 您可以用`-v`来绑定安装 `conf`和`storage`到主机文件系统中：
 
@@ -73,7 +73,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 如果您要在不同端口下获得 verdaccio docker 实例，比如 `docker run` 命令里的`5000`，您可以用 `-p 5000:4873`取代 `-p 4873:4873` 。
 
-从版本2.?.? 开始，如果您需要指定**docker容器**内特定倾听端口， 您可以通过提供额外参数给`docker run`: `--env PORT=5000`来达成。这会改变docker容器显示的端口以及 verdaccio要听从的端口。
+从版本2.?.? 开始，如果您需要指定**docker容器**内特定监听端口， 您可以通过提供额外参数给`docker run`: `--env PORT=5000`来达成。这会改变docker容器显示的端口以及 verdaccio要监听的端口。
 
 当然您给出的 `-p` 参数数字必须吻合，因此，假设您希望他们全都一样，您可以复制，黏贴和采用以下代码：
 
@@ -85,7 +85,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
 
 ### HTTPS 和Docker一起使用
 
-您可以配置verdaccio要听从的协议，类似于端口配置。 当您在config.yaml里指定证书后，您必须用 "https"覆盖`PROTOCOL` 环境变量的默认值 ("http") 。
+您可以配置verdaccio要监听的协议，类似于端口配置。 当您在config.yaml里指定证书后，您必须用 "https"覆盖`PROTOCOL` 环境变量的默认值 ("http") 。
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -104,7 +104,7 @@ $ docker-compose up --build
 
 您可以添加`PORT=5000`到以上命令的前面来设置要使用（容器和主机）的端口。
 
-Docker将生成一个用于存储持续应用程序数据的命名卷。 您可以使用 `docker inspect` 或者 `docker volume inspect` 来查看此卷的物理位置并编辑配置，比如：
+Docker将生成一个用于存储持续应用程序数据的命名卷(named volume)。 您可以使用 `docker inspect` 或者 `docker volume inspect` 来查看此卷(volume) 的物理位置并编辑配置，比如：
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -119,7 +119,7 @@ Docker将生成一个用于存储持续应用程序数据的命名卷。 您可�
     
     
 
-## 创建您自己的Docker图片
+## 创建您自己的Docker镜像
 
 ```bash
 docker build -t verdaccio .
@@ -131,9 +131,9 @@ docker build -t verdaccio .
 npm run build:docker
 ```
 
-请注意: 第一个创建的图片要花几分钟时间，因为它需要运行 `npm install`, 而且，如果您更改任何未在`.dockerignore`列表里的文件，它也将会运行相同的时间。
+请注意: 第一个创建的镜像要花几分钟时间，因为它需要运行 `npm install`, 而且，如果您更改任何未在`.dockerignore`列表里的文件，它也将会运行相同的时间。
 
-如果您要在rpi或者兼容设备上使用docker图片，也有现有的dockerfile。要生成raspberry pi（草莓派）的docker图片，需要执行：
+如果您要在rpi或者兼容设备上使用docker镜像，也有现有的dockerfile。要生成raspberry pi（树莓派）的docker镜像，需要执行：
 
 ```bash
 npm run build:docker:rpi
@@ -158,4 +158,4 @@ npm run build:docker:rpi
 * [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
 * [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
 * [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) coldrye-debian-nodejs支持的verdaccio docker 图片。
+* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) coldrye-debian-nodejs支持的verdaccio docker镜像。
