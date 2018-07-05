@@ -1,33 +1,38 @@
 // @flow
-
-import {generateGravatarUrl} from '../utils/user';
+import _ from 'lodash';
+import fs from 'fs';
 import assert from 'assert';
 import semver from 'semver';
 import YAML from 'js-yaml';
 import URL from 'url';
-import fs from 'fs';
-import _ from 'lodash';
+import asciidoctor from 'asciidoctor.js';
 import createError from 'http-errors';
-import type {Package, Config} from '@verdaccio/types';
+import marked from 'marked';
+
+import {HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN} from './constants';
+import {generateGravatarUrl} from '../utils/user';
+
+import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
+import type {StringValue} from '../../types';
 
 const Logger = require('./logger');
+
+export const DIST_TAGS = 'dist-tags';
 
 /**
  * Validate a package.
  * @return {Boolean} whether the package is valid or not
  */
 function validate_package(name: any): boolean {
-	name = name.split('/', 2);
-	if (name.length === 1) {
-		// normal package
-		return module.exports.validate_name(name[0]);
-	} else {
-		// scoped package
-		return name[0][0] === '@'
-				&& module.exports.validate_name(name[0].slice(1))
-				&& module.exports.validate_name(name[1]);
-	}
+  name = name.split('/', 2);
+  if (name.length === 1) {
+    // normal package
+    return validateName(name[0]);
+  } else {
+    // scoped package
+    return name[0][0] === '@' && validateName(name[0].slice(1)) && validateName(name[1]);
+  }
 }
 
 /**
@@ -35,21 +40,21 @@ function validate_package(name: any): boolean {
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
  */
-function validate_name(name: string): boolean {
-	if (_.isString(name) === false) {
-		return false;
-	}
-	name = name.toLowerCase();
+function validateName(name: string): boolean {
+  if (_.isString(name) === false) {
+    return false;
+  }
+  name = name.toLowerCase();
 
-	// all URL-safe characters and "@" for issue #75
-	return !(!name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/)
-	 || name.charAt(0) === '.' // ".bin", etc.
-	 || name.charAt(0) === '-' // "-" is reserved by couchdb
-	 || name === 'node_modules'
-	 || name === '__proto__'
-	 || name === 'package.json'
-	 || name === 'favicon.ico'
-	);
+  // all URL-safe characters and "@" for issue #75
+  return !(!name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/)
+   || name.charAt(0) === '.' // ".bin", etc.
+   || name.charAt(0) === '-' // "-" is reserved by couchdb
+   || name === 'node_modules'
+   || name === '__proto__'
+   || name === 'package.json'
+   || name === 'favicon.ico'
+  );
 }
 
 /**
@@ -58,7 +63,7 @@ function validate_name(name: string): boolean {
  * @return {Boolean}
  */
 function isObject(obj: any): boolean {
-	return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
+  return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
 /**
@@ -69,18 +74,22 @@ function isObject(obj: any): boolean {
  * @return {Object} the object with additional properties as dist-tags ad versions
  */
 function validate_metadata(object: Package, name: string) {
-	assert(isObject(object), 'not a json object');
-	assert.equal(object.name, name);
+  assert(isObject(object), 'not a json object');
+  assert.equal(object.name, name);
 
-	if (!isObject(object['dist-tags'])) {
-		object['dist-tags'] = {};
-	}
+  if (!isObject(object[DIST_TAGS])) {
+    object[DIST_TAGS] = {};
+  }
 
-	if (!isObject(object['versions'])) {
-		object['versions'] = {};
-	}
+  if (!isObject(object['versions'])) {
+    object['versions'] = {};
+  }
 
-	return object;
+  if (!isObject(object['time'])) {
+    object['time'] = {};
+  }
+
+  return object;
 }
 
 /**
@@ -88,52 +97,59 @@ function validate_metadata(object: Package, name: string) {
  * @return {String} base registry url
  */
 function combineBaseUrl(protocol: string, host: string, prefix?: string): string {
-	let result = `${protocol}://${host}`;
+  let result = `${protocol}://${host}`;
 
-	if (prefix) {
-		prefix = prefix.replace(/\/$/, '');
+  if (prefix) {
+    prefix = prefix.replace(/\/$/, '');
 
-		result = (prefix.indexOf('/') === 0)
-			? `${result}${prefix}`
-			: prefix;
-	}
+    result = (prefix.indexOf('/') === 0)
+      ? `${result}${prefix}`
+      : prefix;
+  }
 
-	return result;
+  return result;
+}
+
+export function extractTarballFromUrl(url: string) {
+  // $FlowFixMe
+  return URL.parse(url).pathname.replace(/^.*\//, '');
 }
 
 /**
- * Iterate a packages's versions and filter each original tarbal url.
+ * Iterate a packages's versions and filter each original tarball url.
  * @param {*} pkg
  * @param {*} req
  * @param {*} config
  * @return {String} a filtered package
  */
-function filter_tarball_urls(pkg: Package, req: $Request, config: Config) {
-	/**
-	 * Filter a tarball url.
-	 * @param {*} _url
-	 * @return {String} a parsed url
-	 */
-	const filter = function(_url) {
-		if (!req.headers.host) {
-			return _url;
-		}
-		// $FlowFixMe
-		const filename = URL.parse(_url).pathname.replace(/^.*\//, '');
-		const base = combineBaseUrl(getWebProtocol(req), req.headers.host, config.url_prefix);
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: $Request, urlPrefix: string | void) {
+  for (let ver in pkg.versions) {
+    if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
+      const distName = pkg.versions[ver].dist;
 
-		return `${base}/${pkg.name.replace(/\//g, '%2f')}/-/${filename}`;
-	};
+      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
+        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
+      }
+    }
+  }
+  return pkg;
+}
 
-	for (let ver in pkg.versions) {
-		if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
-			const dist = pkg.versions[ver].dist;
-			if (_.isNull(dist) === false && _.isNull(dist.tarball) === false) {
-				dist.tarball = filter(dist.tarball);
-			}
-		}
-	}
-	return pkg;
+/**
+ * Filter a tarball url.
+ * @param {*} uri
+ * @return {String} a parsed url
+ */
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: $Request, urlPrefix: string | void) {
+  const currentHost = req.headers.host;
+
+  if (!currentHost) {
+    return uri;
+  }
+  const tarballName = extractTarballFromUrl(uri);
+  const domainRegistry = combineBaseUrl(getWebProtocol(req), req.headers.host, urlPrefix);
+
+  return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
 }
 
 /**
@@ -143,85 +159,81 @@ function filter_tarball_urls(pkg: Package, req: $Request, config: Config) {
  * @param {*} tag
  * @return {Boolean} whether a package has been tagged
  */
-function tag_version(data: Package, version: string, tag: string) {
-	if (_.isEmpty(tag) === false) {
-		if (data['dist-tags'][tag] !== version) {
-			if (semver.parse(version, true)) {
-				// valid version - store
-				data['dist-tags'][tag] = version;
-				return true;
-			}
-		}
-		Logger.logger.warn({ver: version, tag: tag}, 'ignoring bad version @{ver} in @{tag}');
-		if (tag && data['dist-tags'][tag]) {
-			delete data['dist-tags'][tag];
-		}
-	}
-	return false;
+function tagVersion(data: Package, version: string, tag: StringValue) {
+  if (tag) {
+    if (data[DIST_TAGS][tag] !== version) {
+      if (semver.parse(version, true)) {
+        // valid version - store
+        data[DIST_TAGS][tag] = version;
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 /**
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
-function get_version(pkg: Package, version: any) {
-	// this condition must allow cast
-	if (pkg.versions[version] != null) {
-		return pkg.versions[version];
-	}
+function getVersion(pkg: Package, version: any) {
+  // this condition must allow cast
+  if (pkg.versions[version] != null) {
+    return pkg.versions[version];
+  }
 
-	try {
-		version = semver.parse(version, true);
-		for (let versionItem in pkg.versions) {
-			// $FlowFixMe
-			if (version.compare(semver.parse(versionItem, true)) === 0) {
-				return pkg.versions[versionItem];
-			}
-		}
-	} catch (err) {
-		return undefined;
-	}
+  try {
+    version = semver.parse(version, true);
+    for (let versionItem in pkg.versions) {
+      // $FlowFixMe
+      if (version.compare(semver.parse(versionItem, true)) === 0) {
+        return pkg.versions[versionItem];
+      }
+    }
+  } catch (err) {
+    return undefined;
+  }
 }
 
 /**
  * Parse an internet address
  * Allow:
-		- https:localhost:1234        - protocol + host + port
-		- localhost:1234              - host + port
-		- 1234                        - port
-		- http::1234                  - protocol + port
-		- https://localhost:443/      - full url + https
-		- http://[::1]:443/           - ipv6
-		- unix:/tmp/http.sock         - unix sockets
-		- https://unix:/tmp/http.sock - unix sockets (https)
+    - https:localhost:1234        - protocol + host + port
+    - localhost:1234              - host + port
+    - 1234                        - port
+    - http::1234                  - protocol + port
+    - https://localhost:443/      - full url + https
+    - http://[::1]:443/           - ipv6
+    - unix:/tmp/http.sock         - unix sockets
+    - https://unix:/tmp/http.sock - unix sockets (https)
  * @param {*} urlAddress the internet address definition
  * @return {Object|Null} literal object that represent the address parsed
  */
 function parse_address(urlAddress: any) {
-	//
-	// TODO: refactor it to something more reasonable?
-	//
-	//        protocol :  //      (  host  )|(    ipv6     ):  port  /
-	let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(urlAddress);
+  //
+  // TODO: refactor it to something more reasonable?
+  //
+  //        protocol :  //      (  host  )|(    ipv6     ):  port  /
+  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(urlAddress);
 
-	if (urlPattern) {
-	  return {
+  if (urlPattern) {
+    return {
       proto: urlPattern[2] || 'http',
-      host: urlPattern[6] || urlPattern[7] || 'localhost',
-      port: urlPattern[8] || '4873',
+      host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
+      port: urlPattern[8] || DEFAULT_PORT,
     };
   }
 
-	urlPattern = /^((https?):(\/\/)?)?unix:(.*)$/.exec(urlAddress);
+  urlPattern = /^((https?):(\/\/)?)?unix:(.*)$/.exec(urlAddress);
 
-	if (urlPattern) {
-		return {
-			proto: urlPattern[2] || 'http',
-			path: urlPattern[4],
-		};
-	}
+  if (urlPattern) {
+    return {
+      proto: urlPattern[2] || 'http',
+      path: urlPattern[4],
+    };
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -229,51 +241,51 @@ function parse_address(urlAddress: any) {
  * @return {Array} sorted Array
  */
 function semverSort(listVersions: Array<string>) {
-	return listVersions.filter(function(x) {
-			if (!semver.parse(x, true)) {
-				Logger.logger.warn( {ver: x}, 'ignoring bad version @{ver}' );
-				return false;
-			}
-			return true;
-		})
-		.sort(semver.compareLoose)
-		.map(String);
+  return listVersions.filter(function(x) {
+      if (!semver.parse(x, true)) {
+        Logger.logger.warn( {ver: x}, 'ignoring bad version @{ver}' );
+        return false;
+      }
+      return true;
+    })
+    .sort(semver.compareLoose)
+    .map(String);
 }
 
 /**
  * Flatten arrays of tags.
  * @param {*} data
  */
-function normalize_dist_tags(pkg: Package) {
-	let sorted;
-	if (!pkg['dist-tags'].latest) {
-		// overwrite latest with highest known version based on semver sort
-		sorted = semverSort(Object.keys(pkg.versions));
-		if (sorted && sorted.length) {
-				pkg['dist-tags'].latest = sorted.pop();
-		}
-	}
+export function normalizeDistTags(pkg: Package) {
+  let sorted;
+  if (!pkg[DIST_TAGS].latest) {
+    // overwrite latest with highest known version based on semver sort
+    sorted = semverSort(Object.keys(pkg.versions));
+    if (sorted && sorted.length) {
+        pkg[DIST_TAGS].latest = sorted.pop();
+    }
+  }
 
-	for (let tag in pkg['dist-tags']) {
-		if (_.isArray(pkg['dist-tags'][tag])) {
-			if (pkg['dist-tags'][tag].length) {
-				// sort array
-				// $FlowFixMe
-				sorted = semverSort(pkg['dist-tags'][tag]);
-				if (sorted.length) {
-						// use highest version based on semver sort
-						pkg['dist-tags'][tag] = sorted.pop();
-				}
-			} else {
-				delete pkg['dist-tags'][tag];
-			}
-		} else if (_.isString(pkg['dist-tags'][tag] )) {
-			if (!semver.parse(pkg['dist-tags'][tag], true)) {
-				// if the version is invalid, delete the dist-tag entry
-				delete pkg['dist-tags'][tag];
-			}
-		}
-	}
+  for (let tag in pkg[DIST_TAGS]) {
+    if (_.isArray(pkg[DIST_TAGS][tag])) {
+      if (pkg[DIST_TAGS][tag].length) {
+        // sort array
+        // $FlowFixMe
+        sorted = semverSort(pkg[DIST_TAGS][tag]);
+        if (sorted.length) {
+            // use highest version based on semver sort
+            pkg[DIST_TAGS][tag] = sorted.pop();
+        }
+      } else {
+        delete pkg[DIST_TAGS][tag];
+      }
+    } else if (_.isString(pkg[DIST_TAGS][tag] )) {
+      if (!semver.parse(pkg[DIST_TAGS][tag], true)) {
+        // if the version is invalid, delete the dist-tag entry
+        delete pkg[DIST_TAGS][tag];
+      }
+    }
+  }
 }
 
 const parseIntervalTable = {
@@ -323,30 +335,34 @@ function getWebProtocol(req: $Request) {
 }
 
 const getLatestVersion = function(pkgInfo: Package) {
-  return pkgInfo['dist-tags'].latest;
+  return pkgInfo[DIST_TAGS].latest;
 };
 
 const ErrorCode = {
-  get409: (message: string = 'this package is already present') => {
-    return createError(409, message);
+  getConflict: (message: string = 'this package is already present') => {
+    return createError(HTTP_STATUS.CONFLICT, message);
   },
-  get422: (customMessage?: string) => {
-    return createError(422, customMessage || 'bad data');
+  getBadData: (customMessage?: string) => {
+    return createError(HTTP_STATUS.BAD_DATA, customMessage || 'bad data');
   },
-  get400: (customMessage?: string) => {
-    return createError(400, customMessage);
+  getBadRequest: (customMessage?: string) => {
+    return createError(HTTP_STATUS.BAD_REQUEST, customMessage);
   },
-  get500: (customMessage?: string) => {
-    return customMessage ? createError(500, customMessage) : createError(500);
+  getInternalError: (customMessage?: string) => {
+    return customMessage ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
+      : createError(HTTP_STATUS.INTERNAL_ERROR);
   },
-  get403: (message: string = 'can\'t use this filename') => {
-    return createError(403, message);
+  getForbidden: (message: string = 'can\'t use this filename') => {
+    return createError(HTTP_STATUS.FORBIDDEN, message);
   },
-  get503: () => {
-    return createError(500, 'resource temporarily unavailable');
+  getServiceUnavailable: (message: string = 'resource temporarily unavailable') => {
+    return createError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
   },
-  get404: (customMessage?: string) => {
-    return createError(404, customMessage || 'no such package available');
+  getNotFound: (customMessage?: string) => {
+    return createError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
+  },
+  getCode: (statusCode: number, customMessage: string) => {
+    return createError(statusCode, customMessage);
   },
 };
 
@@ -361,7 +377,7 @@ function folder_exists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 }
@@ -375,7 +391,7 @@ function fileExists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 }
@@ -394,24 +410,24 @@ function addScope(scope: string, packageName: string) {
   return `@${scope}/${packageName}`;
 }
 
-function deleteProperties(propertiesToDelete: Array<string>, packageInfo: Package) {
+function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
   _.forEach(propertiesToDelete, (property) => {
-    delete packageInfo[property];
+    delete objectItem[property];
   });
 
-  return packageInfo;
+  return objectItem;
 }
 
-function addGravatarSupport(info: any) {
-  if (_.isString(_.get(info, 'latest.author.email'))) {
-    info.latest.author.avatar = generateGravatarUrl(info.latest.author.email);
+function addGravatarSupport(pkgInfo: any) {
+  if (_.isString(_.get(pkgInfo, 'latest.author.email'))) {
+    pkgInfo.latest.author.avatar = generateGravatarUrl(pkgInfo.latest.author.email);
   } else {
     // _.get can't guarantee author property exist
-    _.set(info, 'latest.author.avatar', generateGravatarUrl());
+    _.set(pkgInfo, 'latest.author.avatar', generateGravatarUrl());
   }
 
-  if (_.get(info, 'latest.contributors.length', 0) > 0) {
-    info.latest.contributors = _.map(info.latest.contributors, (contributor) => {
+  if (_.get(pkgInfo, 'latest.contributors.length', 0) > 0) {
+    pkgInfo.latest.contributors = _.map(pkgInfo.latest.contributors, (contributor) => {
         if (_.isString(contributor.email)) {
           contributor.avatar = generateGravatarUrl(contributor.email);
         } else {
@@ -423,30 +439,58 @@ function addGravatarSupport(info: any) {
     );
   }
 
-  return info;
+  return pkgInfo;
+}
+
+/**
+ * parse package readme - markdown/ascii
+ * @param {String} packageName name of package
+ * @param {String} readme package readme
+ * @return {String} converted html template
+ */
+function parseReadme(packageName: string, readme: string): string {
+  const asciiRegex = /^\n?(?:={1,5}[ \t]+\S|[^#].*(\n(?!#+[ \t]+\S).*){0,8}\n={1,5}[ \t]+\S)/;
+  const docTypeIdentifier = new RegExp(asciiRegex, 'g');
+  // asciidoc
+  if (docTypeIdentifier.test(readme)) {
+    const ascii = asciidoctor();
+    return ascii.convert(readme, {safe: 'safe', attributes: {showtitle: true, icons: 'font'}});
+  }
+
+  if (readme) {
+    return marked(readme);
+  }
+
+  // logs readme not found error
+  Logger.logger.error({packageName}, '@{packageName}: No readme found');
+
+  return marked('ERROR: No README data found!');
+}
+
+export function buildToken(type: string, token: string) {
+  return `${_.capitalize(type)} ${token}`;
 }
 
 export {
-	addGravatarSupport,
-	deleteProperties,
-	addScope,
-	sortByName,
-	folder_exists,
-	fileExists,
-	parseInterval,
-	semverSort,
-	parse_address,
-	get_version,
-	normalize_dist_tags,
-	tag_version,
-	combineBaseUrl,
-	filter_tarball_urls,
-	validate_metadata,
-	isObject,
-	validate_name,
-	validate_package,
-	getWebProtocol,
-	getLatestVersion,
-	ErrorCode,
-	parseConfigFile,
+  addGravatarSupport,
+  deleteProperties,
+  addScope,
+  sortByName,
+  folder_exists,
+  fileExists,
+  parseInterval,
+  semverSort,
+  parse_address,
+  getVersion,
+  tagVersion,
+  combineBaseUrl,
+  validate_metadata,
+  isObject,
+  validateName,
+  validate_package,
+  getWebProtocol,
+  getLatestVersion,
+  ErrorCode,
+  parseConfigFile,
+  parseReadme,
 };

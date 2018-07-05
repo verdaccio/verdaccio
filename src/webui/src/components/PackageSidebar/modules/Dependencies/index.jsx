@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import get from 'lodash/get';
 import Module from '../../Module';
 
 import classes from './style.scss';
@@ -13,7 +13,7 @@ export default class Dependencies extends React.Component {
   };
 
   get dependencies() {
-    return _.get(this, 'props.packageMeta.latest.dependencies', {});
+    return get(this, 'props.packageMeta.latest.dependencies', {});
   }
 
   render() {

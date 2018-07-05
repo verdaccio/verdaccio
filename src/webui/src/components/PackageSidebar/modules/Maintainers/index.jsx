@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import get from 'lodash/get';
+import filter from 'lodash/filter';
+import size from 'lodash/size';
+import uniqBy from 'lodash/uniqBy';
 import Module from '../../Module';
 
 import classes from './style.scss';
@@ -19,27 +22,29 @@ export default class Maintainers extends React.Component {
   }
 
   get author() {
-    return _.get(this, 'props.packageMeta.latest.author');
+    return get(this, 'props.packageMeta.latest.author');
   }
 
   get contributors() {
-    let contributors = _.get(this, 'props.packageMeta.latest.contributors', {});
-    return _.filter(contributors, (contributor) => {
+    let contributors = get(this, 'props.packageMeta.latest.contributors', {});
+    return filter(contributors, (contributor) => {
       return (
-        contributor.name !== _.get(this, 'author.name') &&
-        contributor.email !== _.get(this, 'author.email')
+        contributor.name !== get(this, 'author.name') &&
+        contributor.email !== get(this, 'author.email')
       );
     });
   }
 
   get showAllContributors() {
-    return this.state.showAllContributors || _.size(this.contributors) <= 5;
+    return this.state.showAllContributors || size(this.contributors) <= 5;
   }
 
   get uniqueContributors() {
-    if (!this.contributors) return [];
+    if (!this.contributors) {
+      return [];
+    }
 
-    return _.uniqBy(this.contributors, (contributor) => contributor.name).slice(0, 5);
+    return uniqBy(this.contributors, (contributor) => contributor.name).slice(0, 5);
   }
 
   handleShowAllContributors() {
@@ -53,7 +58,11 @@ export default class Maintainers extends React.Component {
 
     return (this.showAllContributors ? this.contributors : this.uniqueContributors)
       .map((contributor, index) => {
-        return <MaintainerInfo key={index} title="Contributors" name={contributor.name} avatar={contributor.avatar}/>;
+        return <MaintainerInfo
+          key={index}
+          title="Contributors"
+          name={contributor.name}
+          avatar={contributor.avatar}/>;
       });
   }
 

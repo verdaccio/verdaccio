@@ -1,27 +1,29 @@
-'use strict';
+// @flow
 
-const _ = require('lodash');
-const Cookies = require('cookies');
-const createError = require('http-errors');
+import type {$Response, Router} from 'express';
+import type {$RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth} from '../../../../types';
+import {ErrorCode} from '../../../lib/utils';
 
-module.exports = function(route, auth) {
-  route.get('/-/user/:org_couchdb_user', function(req, res, next) {
+import _ from 'lodash';
+import Cookies from 'cookies';
+
+export default function(route: Router, auth: IAuth) {
+  route.get('/-/user/:org_couchdb_user', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     res.status(200);
     next({
       ok: 'you are authenticated as "' + req.remote_user.name + '"',
     });
   });
 
-  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req, res, next) {
+  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     let token = (req.body.name && req.body.password)
-      ? auth.aes_encrypt(req.body.name + ':' + req.body.password).toString('base64')
+      ? auth.aesEncrypt(new Buffer(req.body.name + ':' + req.body.password)).toString('base64')
       : undefined;
     if (_.isNil(req.remote_user.name) === false) {
       res.status(201);
       return next({
         ok: 'you are authenticated as \'' + req.remote_user.name + '\'',
-        // token: auth.issue_token(req.remote_user),
-        token: token,
+        token,
       });
     } else {
       auth.add_user(req.body.name, req.body.password, function(err, user) {
@@ -30,7 +32,7 @@ module.exports = function(route, auth) {
             // With npm registering is the same as logging in,
             // and npm accepts only an 409 error.
             // So, changing status code here.
-            return next( createError[err.status || 409](err.message) );
+            return next( ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
           }
           return next(err);
         }
@@ -39,14 +41,13 @@ module.exports = function(route, auth) {
         res.status(201);
         return next({
           ok: 'user \'' + req.body.name + '\' created',
-          // token: auth.issue_token(req.remote_user),
           token: token,
         });
       });
     }
   });
 
-  route.delete('/-/user/token/*', function(req, res, next) {
+  route.delete('/-/user/token/*', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     res.status(200);
     next({
       ok: 'Logged out',
@@ -56,7 +57,7 @@ module.exports = function(route, auth) {
 
   // placeholder 'cause npm require to be authenticated to publish
   // we do not do any real authentication yet
-  route.post('/_session', Cookies.express(), function(req, res, next) {
+  route.post('/_session', Cookies.express(), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     res.cookies.set('AuthSession', String(Math.random()), {
       // npmjs.org sets 10h expire
       expires: new Date(Date.now() + 10 * 60 * 60 * 1000),
@@ -67,4 +68,4 @@ module.exports = function(route, auth) {
       roles: [],
     });
   });
-};
+}

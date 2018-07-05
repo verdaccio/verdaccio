@@ -4,14 +4,22 @@ import PropTypes from 'prop-types';
 
 import classes from './search.scss';
 
+const noSubmit = (e) => {
+  e.preventDefault();
+};
+
 const Search = (props) => {
     return (
-      <input
-        type="text"
-        placeholder={props.placeHolder}
-        className={ classes.searchBox }
-        onChange={ props.handleSearchInput }
-      />
+      <form autoComplete="off" onSubmit={noSubmit}>
+        <input
+          name="search-box"
+          type="text"
+          placeholder={props.placeHolder}
+          className={classes.searchBox}
+          onChange={props.handleSearchInput}
+          autoComplete="off"
+        />
+      </form>
     );
 };
 

@@ -1,14 +1,13 @@
 const env = require('../src/config/env');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
-const isDev = process.env.NODE_ENV === 'development';
-
 module.exports = {
   entry: `${env.SRC_ROOT}/webui/src/index.js`,
 
   output: {
     path: `${env.APP_ROOT}/static/`,
     filename: '[name].[hash].js',
+    publicPath: 'ToReplaceByVerdaccio/-/static',
   },
 
   resolve: {
@@ -23,6 +22,22 @@ module.exports = {
       syntax: 'scss',
     }),
   ],
+
+  optimization: {
+    runtimeChunk: {
+      name: 'manifest',
+    },
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          priority: -20,
+          chunks: 'all',
+        },
+      },
+    },
+  },
 
   module: {
     rules: [
@@ -85,8 +100,6 @@ module.exports = {
       },
     ],
   },
-
-  devtool: isDev ? 'source-map' : false,
 
   stats: {
     children: false,

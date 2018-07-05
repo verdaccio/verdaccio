@@ -1,25 +1,29 @@
-import express from 'express';
-import Error from 'http-errors';
-import compression from 'compression';
+// @flow
+
 import _ from 'lodash';
+import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import Storage from '../lib/storage';
 import {loadPlugin} from '../lib/plugin-loader';
 import hookDebug from './debug';
 import Auth from '../lib/auth';
+import apiEndpoint from './endpoint';
 
-const Logger = require('../lib/logger');
+import type {$Application} from 'express';
+import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
+import type {Config as IConfig} from '@verdaccio/types';
+import {ErrorCode} from '../lib/utils';
+import {API_ERROR, HTTP_STATUS} from '../lib/constants';
+
+const LoggerApp = require('../lib/logger');
 const Config = require('../lib/config');
-const Middleware = require('./web/middleware');
+const Middleware = require('./middleware');
 const Cats = require('../lib/status-cats');
 
-module.exports = function(configHash) {
-  // Config
-  Logger.setup(configHash.logs);
-  const config = new Config(configHash);
-  const storage = new Storage(config);
-  const auth = new Auth(config);
-  const app = express();
+const defineAPI = function(config: Config, storage: IStorageHandler) {
+  const auth: IAuth = new Auth(config);
+  const app: $Application = express();
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
@@ -28,14 +32,14 @@ module.exports = function(configHash) {
   // Router setup
   app.use(Middleware.log);
   app.use(Middleware.errorReportingMiddleware);
-  app.use(function(req, res, next) {
+  app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     res.setHeader('X-Powered-By', config.user_agent);
     next();
   });
   app.use(Cats.middleware);
   app.use(compression());
 
-  app.get('/favicon.ico', function(req, res, next) {
+  app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     req.url = '/-/static/favicon.png';
     next();
   });
@@ -48,7 +52,7 @@ module.exports = function(configHash) {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: Logger.logger,
+    logger: LoggerApp.logger,
   };
   const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin) {
     return plugin.register_middlewares;
@@ -58,26 +62,26 @@ module.exports = function(configHash) {
   });
 
   // For  npm request
-  app.use(require('./endpoint')(config, auth, storage));
+  app.use(apiEndpoint(config, auth, storage));
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
     app.use('/', require('./web')(config, auth, storage));
     app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
   } else {
-    app.get('/', function(req, res, next) {
-      next(Error[404]('Web interface is disabled in the config file'));
+    app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+      next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
   // Catch 404
-  app.get('/*', function(req, res, next) {
-    next(Error[404]('File not found'));
+  app.get('/*', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {
-      if (err.code === 'ECONNABORT' && res.statusCode === 304) {
+      if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
       }
       if (_.isFunction(res.report_error) === false) {
@@ -97,3 +101,11 @@ module.exports = function(configHash) {
   return app;
 };
 
+export default async function(configHash: any) {
+  LoggerApp.setup(configHash.logs);
+  const config: IConfig = new Config(configHash);
+  const storage: IStorageHandler = new Storage(config);
+  // waits until init calls have been intialized
+  await storage.init(config);
+  return defineAPI(config, storage);
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading, MessageBox} from 'element-react';
 import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash/debounce';
 
 import API from '../../../utils/api';
 
@@ -12,7 +13,6 @@ import classes from './home.scss';
 
 
 export default class Home extends React.Component {
-
   static propTypes = {
     children: PropTypes.element
   }
@@ -26,6 +26,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.handleSearchInput = this.handleSearchInput.bind(this);
+    this.searchPackage = debounce(this.searchPackage, 800);
   }
 
   componentDidMount() {
@@ -50,11 +51,11 @@ export default class Home extends React.Component {
 
   async loadPackages() {
     try {
-      this.req = await API.get('packages');
+      this.req = await API.request('packages', 'GET');
 
       if (this.state.query === '') {
         this.setState({
-          packages: this.req.data,
+          packages: this.req,
           loading: false
         });
       }
@@ -69,12 +70,12 @@ export default class Home extends React.Component {
 
   async searchPackage(query) {
    try {
-     this.req = await API.get(`/search/${query}`);
+     this.req = await API.request(`/search/${query}`, 'GET');
 
      // Implement cancel feature later
      if (this.state.query === query) {
        this.setState({
-         packages: this.req.data,
+         packages: this.req,
          fistTime: false,
          loading: false
        });
@@ -121,5 +122,4 @@ export default class Home extends React.Component {
   renderPackageList() {
     return <PackageList help={this.state.fistTime} packages={this.state.packages} />;
   }
-
 }

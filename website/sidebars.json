@@ -28,7 +28,10 @@
     "DevOps": [
       "docker",
       "kubernetes",
-      "ansible"
+      "ansible",
+      "puppet",
+      "chef",
+      "ci"
     ],
     "Development": [
       "build",

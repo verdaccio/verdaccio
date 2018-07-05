@@ -1,27 +1,29 @@
-'use strict';
+// @flow
 
-const _ = require('lodash');
-const Path = require('path');
-const createError = require('http-errors');
+import _ from 'lodash';
+import Path from 'path';
+import mime from 'mime';
 
-const Middleware = require('../../web/middleware');
-const Notify = require('../../../lib/notify');
-const Utils = require('../../../lib/utils');
-const mime = require('mime');
+import {API_MESSAGE, HEADERS} from '../../../lib/constants';
+import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
+import {media, expectJson, allow} from '../../middleware';
+import {notify} from '../../../lib/notify';
 
-const media = Middleware.media;
-const expect_json = Middleware.expect_json;
-const notify = Notify.notify;
+import type {Router} from 'express';
+import type {Config, Callback} from '@verdaccio/types';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import logger from '../../../lib/logger';
 
-module.exports = function(router, auth, storage, config) {
-  const can = Middleware.allow(auth);
+export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
+  const can = allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expect_json, function(req, res, next) {
+  router.put('/:package/:_rev?/:revision?', can('publish'),
+    media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const name = req.params.package;
     let metadata;
-    const create_tarball = function(filename, data, cb) {
-      let stream = storage.add_tarball(name, filename);
+    const create_tarball = function(filename: string, data, cb: Callback) {
+      let stream = storage.addTarball(name, filename);
       stream.on('error', function(err) {
         cb(err);
       });
@@ -30,6 +32,8 @@ module.exports = function(router, auth, storage, config) {
       });
 
       // this is dumb and memory-consuming, but what choices do we have?
+      // flow: we need first refactor this file before decides which type use here
+      // $FlowFixMe
       stream.end(new Buffer(data.data, 'base64'));
       stream.done();
     };
@@ -63,7 +67,7 @@ module.exports = function(router, auth, storage, config) {
         || Object.keys(metadata.versions).length !== 1) {
         // npm is doing something strange again
         // if this happens in normal circumstances, report it as a bug
-        return next( createError[400]('unsupported registry call') );
+        return next(ErrorCode.getBadRequest('unsupported registry call'));
       }
 
       if (err && err.status != 409) {
@@ -77,18 +81,24 @@ module.exports = function(router, auth, storage, config) {
           return next(err);
         }
 
-        const t2 = Object.keys(metadata.versions)[0];
-        metadata.versions[t2].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
-        create_version(t2, metadata.versions[t2], function(err) {
+        const versionToPublish = Object.keys(metadata.versions)[0];
+        metadata.versions[versionToPublish].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
+        create_version(versionToPublish, metadata.versions[versionToPublish], function(err) {
           if (err) {
             return next(err);
           }
 
-          add_tags(metadata['dist-tags'], function(err) {
+          add_tags(metadata[DIST_TAGS], async function(err) {
             if (err) {
               return next(err);
             }
-            notify(metadata, config);
+
+            try {
+              await notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`);
+            } catch (err) {
+              logger.logger.error({err}, 'notify batch service has failed: @{err}');
+            }
+
             res.status(201);
             return next({ok: ok_message, success: true});
           });
@@ -96,54 +106,56 @@ module.exports = function(router, auth, storage, config) {
       });
     };
 
-    if (Object.keys(req.body).length === 1 && Utils.isObject(req.body.users)) {
+    if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
-      return next( createError[404]('npm star|unstar calls are not implemented') );
+      return next(ErrorCode.getNotFound('npm star|unstar calls are not implemented'));
     }
 
     try {
-      metadata = Utils.validate_metadata(req.body, name);
-    } catch(err) {
-      return next( createError[422]('bad incoming package data') );
+      metadata = validate_metadata(req.body, name);
+    } catch (err) {
+      return next(ErrorCode.getBadData('bad incoming package data'));
     }
 
     if (req.params._rev) {
-      storage.change_package(name, metadata, req.params.revision, function(err) {
-        after_change(err, 'package changed');
+      storage.changePackage(name, metadata, req.params.revision, function(err) {
+        after_change(err, API_MESSAGE.PKG_CHANGED);
       });
     } else {
       storage.addPackage(name, metadata, function(err) {
-        after_change(err, 'created new package');
+        after_change(err, API_MESSAGE.PKG_CREATED);
       });
     }
   });
 
   // unpublishing an entire package
-  router.delete('/:package/-rev/*', can('publish'), function(req, res, next) {
-    storage.remove_package(req.params.package, function(err) {
+  router.delete('/:package/-rev/*', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    storage.removePackage(req.params.package, function(err) {
       if (err) {
         return next(err);
       }
       res.status(201);
-      return next({ok: 'package removed'});
+      return next({ok: API_MESSAGE.PKG_REMOVED});
     });
   });
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), function(req, res, next) {
-    storage.remove_tarball(req.params.package, req.params.filename, req.params.revision, function(err) {
+  router.delete('/:package/-/:filename/-rev/:revision', can('publish'),
+  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    storage.removeTarball(req.params.package, req.params.filename, req.params.revision, function(err) {
       if (err) {
         return next(err);
       }
       res.status(201);
-      return next({ok: 'tarball removed'});
+      return next({ok: API_MESSAGE.TARBALL_REMOVED});
     });
   });
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media('application/octet-stream'), function(req, res, next) {
+  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM),
+  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const name = req.params.package;
-    const stream = storage.add_tarball(name, req.params.filename);
+    const stream = storage.addTarball(name, req.params.filename);
     req.pipe(stream);
 
     // checking if end event came before closing
@@ -152,6 +164,7 @@ module.exports = function(router, auth, storage, config) {
       complete = true;
       stream.done();
     });
+
     req.on('close', function() {
       if (!complete) {
         stream.abort();
@@ -161,6 +174,7 @@ module.exports = function(router, auth, storage, config) {
     stream.on('error', function(err) {
       return res.report_error(err);
     });
+
     stream.on('success', function() {
       res.status(201);
       return next({
@@ -170,19 +184,20 @@ module.exports = function(router, auth, storage, config) {
   });
 
   // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expect_json, function(req, res, next) {
-    let name = req.params.package;
-    let version = req.params.version;
-    let tag = req.params.tag;
+  router.put('/:package/:version/-tag/:tag', can('publish'),
+     media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const {version, tag} = req.params;
+    const name = req.params.package;
 
     storage.addVersion(name, version, req.body, tag, function(err) {
       if (err) {
         return next(err);
       }
+
       res.status(201);
       return next({
-        ok: 'package published',
+        ok: API_MESSAGE.PKG_PUBLISHED,
       });
     });
   });
-};
+}

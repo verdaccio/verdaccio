@@ -1,13 +1,13 @@
 ---
 id: ansible
-title: "Installing with Ansible"
+title: "Ansible"
 ---
-We have a customised solution for `verdaccio` in our organization.
+Tenemos una solución hecha específicamente para `verdaccio` en nuestra organización.
 
 <https://github.com/verdaccio/ansible-verdaccio>
 
-#### Other options
+#### Otras opciones
 
-* Ansible role for Gentoo users: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
-* Ansible role for Ubuntu users: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
-* ansible-verdaccio-role <https://github.com/refinery29/ansible-verdaccio-role>
+* Rol de Ansible para los usuarios de Gentoo: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
+* Rol de Ansible para los usuarios de Ubuntu: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
+* ansible-verdaccio-rol <https://github.com/refinery29/ansible-verdaccio-role>

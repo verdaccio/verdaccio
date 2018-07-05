@@ -1,9 +1,10 @@
-const publishMetadata = require('../unit/partials/publish-api');
+const scopedPackageMetadata = require('./partials/pkg-scoped');
+const protectedPackageMetadata = require('./partials/pkg-protected');
 
 describe('/ (Verdaccio Page)', () => {
     let page;
     // this might be increased based on the delays included in all test
-    jest.setTimeout(20000);
+    jest.setTimeout(200000);
 
     const clickElement = async function(selector, options = {button: 'middle', delay: 100}) {
       const button = await page.$(selector);
@@ -18,7 +19,7 @@ describe('/ (Verdaccio Page)', () => {
 
     const getPackages = async function() {
       return await page.$$('.package-list-items > div');
-    }
+    };
 
     const logIn = async function() {
       await clickElement('header button');
@@ -108,7 +109,7 @@ describe('/ (Verdaccio Page)', () => {
   })
 
   it('should publish a package', async () => {
-    await global.__SERVER__.putPackage(publishMetadata.name, publishMetadata);
+    await global.__SERVER__.putPackage(scopedPackageMetadata.name, scopedPackageMetadata);
     await page.waitFor(1000);
     await page.reload();
     await page.waitFor(1000);
@@ -131,6 +132,17 @@ describe('/ (Verdaccio Page)', () => {
   it('should contains last sync information', async () => {
     const versionList = await page.$$('.sidebar-info .last-sync-item');
     expect(versionList).toHaveLength(3);
+  });
+
+  it('should publish a protected package', async () => {
+    await page.goto('http://0.0.0.0:55552');
+    await page.waitFor(500);
+    await global.__SERVER_PROTECTED__.putPackage(protectedPackageMetadata.name, protectedPackageMetadata);
+    await page.waitFor(500);
+    await page.reload();
+    await page.waitFor(500);
+    let text = await page.evaluate(() => document.querySelector('.container h1').textContent);
+    expect(text).toMatch('No Package Published Yet');
   });
 
 });

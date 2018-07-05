@@ -6,19 +6,18 @@ build/
 ###
 !bin/verdaccio
 test-storage*
+access-storage*
 .verdaccio_test_env
 node_modules
 package-lock.json
 build/
 npm_test-fails-add-tarball*
+yarn-error.log
 
 
 # Istanbul
 coverage/
 .nyc*
-
-# Visual Studio Code
-.vscode/*
 
 .idea/
 
@@ -29,8 +28,5 @@ bundle.js.map
 __tests__
 
 # Compiled script
-static/index.html
-static/style.*
-static/*.js
-static/logo.*
+static/*
 

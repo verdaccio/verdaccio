@@ -30,12 +30,12 @@
       "_npmVersion": "1.3.1",
       "_npmUser": {
         "name": "alex",
-        "email": "alex@kocharin.ru"
+        "email": "user@domain.com"
       },
       "maintainers": [
         {
           "name": "juan",
-          "email": "juanpicado19@gmail.com"
+          "email": "user@domain.com"
         }
       ]
     }
@@ -44,7 +44,7 @@
   "maintainers": [
     {
       "name": "juan",
-      "email": "juanpicado19@gmail.com"
+      "email": "user@domain.com"
     }
   ],
   "_attachments": {

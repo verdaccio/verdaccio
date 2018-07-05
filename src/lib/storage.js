@@ -3,63 +3,48 @@
 import _ from 'lodash';
 import assert from 'assert';
 import async from 'async';
-import createError from 'http-errors';
-import semver from 'semver';
 import Stream from 'stream';
-
+import ProxyStorage from './up-storage';
 import Search from './search';
+import {API_ERROR, HTTP_STATUS} from './constants';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
-import ProxyStorage from './up-storage';
-import * as Utils from './utils';
-import type {IStorage, IProxy, IStorageHandler, ProxyList} from '../../types';
+import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
+mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
+import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
+import {mergeVersions} from './metadata-utils';
+import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
+import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
 import type {
-  Versions,
-  Package,
-  Config,
-  MergeTags,
-  Version,
-  DistFile,
-  Callback,
-  Logger,
+Versions,
+Package,
+Config,
+MergeTags,
+Version,
+DistFile,
+Callback,
+Logger,
 } from '@verdaccio/types';
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
 
 const LoggerApi = require('../lib/logger');
-const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
-const getDefaultMetadata = function(name): Package {
-  const pkgMetadata: Package = {
-    name,
-    versions: {},
-    'dist-tags': {},
-    _uplinks: {},
-    _distfiles: {},
-    _attachments: {},
-    _rev: '',
-  };
 
-  return pkgMetadata;
-};
-
-/**
- * Implements Storage interface
- * (same for storage.js, local-storage.js, up-storage.js).
- */
 class Storage implements IStorageHandler {
   localStorage: IStorage;
   config: Config;
   logger: Logger;
   uplinks: ProxyList;
 
-  /**
-   * @param {*} config
-   */
   constructor(config: Config) {
     this.config = config;
-    this.uplinks = {};
-    this._setupUpLinks(this.config);
+    this.uplinks = setupUpLinks(config);
     this.logger = LoggerApi.logger.child();
+  }
+
+  init(config: Config) {
     this.localStorage = new LocalStorage(this.config, LoggerApi.logger);
+
+    return this.localStorage.getSecret(config);
   }
 
   /**
@@ -67,131 +52,37 @@ class Storage implements IStorageHandler {
    Function checks if package with the same name is available from uplinks.
    If it isn't, we create package locally
    Used storages: local (write) && uplinks
-   * @param {*} name
-   * @param {*} metadata
-   * @param {*} callback
    */
-  addPackage(name: string, metadata: any, callback: Function) {
-    const self = this;
+  async addPackage(name: string, metadata: any, callback: Function) {
+    try {
+      await checkPackageLocal(name, this.localStorage);
+      await checkPackageRemote(name, this._isAllowPublishOffline(), this._syncUplinksMetadata.bind(this));
+      await publishPackage(name, metadata, this.localStorage);
+      callback();
+    } catch (err) {
+      callback(err);
+    }
+  }
 
-    /**
-     * Check whether a package it is already a local package
-     * @return {Promise}
-     */
-    const checkPackageLocal = () => {
-      return new Promise((resolve, reject) => {
-        this.localStorage.getPackageMetadata(name, (err, results) => {
-          if (!_.isNil(err) && err.status !== 404) {
-            return reject(err);
-          }
-          if (results) {
-            return reject(Utils.ErrorCode.get409('this package is already present'));
-          }
-          return resolve();
-        });
-      });
-    };
-
-    /**
-     * Check whether a package exist in any of the uplinks.
-     * @return {Promise}
-     */
-    const checkPackageRemote = () => {
-      return new Promise((resolve, reject) => {
-        // $FlowFixMe
-        self._syncUplinksMetadata(name, null, {}, (err, results, err_results) => {
-          // something weird
-          if (err && err.status !== 404) {
-            return reject(err);
-          }
-          // checking package
-          if (results) {
-            return reject(Utils.ErrorCode.get409('this package is already present'));
-          }
-          for (let i = 0; i < err_results.length; i++) {
-            // checking error
-            // if uplink fails with a status other than 404, we report failure
-            if (_.isNil(err_results[i][0]) === false) {
-              if (err_results[i][0].status !== 404) {
-                if (this.config.publish &&
-                  _.isBoolean(this.config.publish.allow_offline) &&
-                  this.config.publish.allow_offline) {
-                  return resolve();
-                }
-                return reject(createError(503, 'one of the uplinks is down, refuse to publish'));
-              }
-            }
-          }
-
-          return resolve();
-        });
-      });
-    };
-
-    /**
-     * Add a package to the local database
-     * @return {Promise}
-     */
-    const publishPackage = () => {
-      return new Promise((resolve, reject) => {
-        self.localStorage.addPackage(name, metadata, (err, latest) => {
-          if (!_.isNull(err)) {
-            return reject(err);
-          } else if (!_.isUndefined(latest)) {
-            Search.add(latest);
-          }
-          return resolve();
-        });
-      });
-    };
-
-    // NOTE:
-    // - when we checking package for existance, we ask ALL uplinks
-    // - when we publishing package, we only publish it to some of them
-    // so all requests are necessary
-    checkPackageLocal()
-      .then(() => {
-        return checkPackageRemote().then(() => {
-          return publishPackage().then(() => {
-            callback();
-          }, (err) => callback(err));
-        }, (err) => callback(err));
-      }, (err) => callback(err));
+  _isAllowPublishOffline(): boolean {
+    return typeof this.config.publish !== 'undefined'
+            && _.isBoolean(this.config.publish.allow_offline)
+            && this.config.publish.allow_offline;
   }
 
   /**
    * Add a new version of package {name} to a system
    Used storages: local (write)
-   * @param {*} name
-   * @param {*} version
-   * @param {*} metadata
-   * @param {*} tag
-   * @param {*} callback
    */
-  addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback) {
+  addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback) {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
   /**
    * Tags a package version with a provided tag
    Used storages: local (write)
-   * @param {*} name
-   * @param {*} tag_hash
-   * @param {*} callback
    */
   mergeTags(name: string, tagHash: MergeTags, callback: Callback) {
-    this.localStorage.mergeTags(name, tagHash, callback);
-  }
-
-  /**
-   * Tags a package version with a provided tag
-   Used storages: local (write)
-   * @param {*} name
-   * @param {*} tag_hash
-   * @param {*} callback
-   */
-  replace_tags(name: string, tagHash: MergeTags, callback: Callback) {
-    this.logger.warn('method deprecated');
     this.localStorage.mergeTags(name, tagHash, callback);
   }
 
@@ -199,12 +90,8 @@ class Storage implements IStorageHandler {
    * Change an existing package (i.e. unpublish one version)
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
-   * @param {*} name
-   * @param {*} metadata
-   * @param {*} revision
-   * @param {*} callback
    */
-  change_package(name: string, metadata: Package, revision: string, callback: Callback) {
+  changePackage(name: string, metadata: Package, revision: string, callback: Callback) {
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
 
@@ -212,10 +99,8 @@ class Storage implements IStorageHandler {
    * Remove a package from a system
    Function removes a package from local storage
    Used storages: local (write)
-   * @param {*} name
-   * @param {*} callback
    */
-  remove_package(name: string, callback: Callback) {
+  removePackage(name: string, callback: Callback) {
     this.localStorage.removePackage(name, callback);
     // update the indexer
     Search.remove(name);
@@ -227,12 +112,8 @@ class Storage implements IStorageHandler {
    Tarball in question should not be linked to in any existing
    versions, i.e. package version should be unpublished first.
    Used storage: local (write)
-   * @param {*} name
-   * @param {*} filename
-   * @param {*} revision
-   * @param {*} callback
    */
-  remove_tarball(name: string, filename: string, revision: string, callback: Callback) {
+  removeTarball(name: string, filename: string, revision: string, callback: Callback) {
     this.localStorage.removeTarball(name, filename, revision, callback);
   }
 
@@ -240,11 +121,8 @@ class Storage implements IStorageHandler {
    * Upload a tarball for {name} package
    Function is syncronous and returns a WritableStream
    Used storages: local (write)
-   * @param {*} name
-   * @param {*} filename
-   * @return {Stream}
    */
-  add_tarball(name: string, filename: string): IUploadTarball {
+  addTarball(name: string, filename: string): IUploadTarball {
     return this.localStorage.addTarball(name, filename);
   }
 
@@ -254,11 +132,8 @@ class Storage implements IStorageHandler {
    Function tries to read tarball locally, if it fails then it reads package
    information in order to figure out where we can get this tarball from
    Used storages: local || uplink (just one)
-   * @param {*} name
-   * @param {*} filename
-   * @return {Stream}
    */
-  get_tarball(name: string, filename: string) {
+  getTarball(name: string, filename: string) {
     let readStream = new ReadTarball();
     readStream.abort = function() {};
 
@@ -270,9 +145,9 @@ class Storage implements IStorageHandler {
     // trying local first
     // flow: should be IReadTarball
     let localStream: any = self.localStorage.getTarball(name, filename);
-    let is_open = false;
+    let isOpen = false;
     localStream.on('error', (err) => {
-      if (is_open || err.status !== 404) {
+      if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
         return readStream.emit('error', err);
       }
 
@@ -303,7 +178,7 @@ class Storage implements IStorageHandler {
       readStream.emit('content-length', v);
     });
     localStream.on('open', function() {
-      is_open = true;
+      isOpen = true;
       localStream.pipe(readStream);
     });
     return readStream;
@@ -315,10 +190,10 @@ class Storage implements IStorageHandler {
     function serveFile(file: DistFile) {
       let uplink: any = null;
 
-      for (let p in self.uplinks) {
+      for (let uplinkId in self.uplinks) {
         // $FlowFixMe
-        if (self.uplinks[p].isUplinkValid(file.url)) {
-          uplink = self.uplinks[p];
+        if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
+          uplink = self.uplinks[uplinkId];
         }
       }
 
@@ -370,8 +245,8 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function(err) {
-          self.logger.warn( {err: err}
-            , 'error saving file: @{err.message}\n@{err.stack}' );
+          self.logger.warn( {err: err, fileName: file}
+            , 'error saving file @{fileName}: @{err.message}\n@{err.stack}' );
           if (savestream) {
             savestream.abort();
           }
@@ -399,34 +274,23 @@ class Storage implements IStorageHandler {
    */
   getPackage(options: any) {
     this.localStorage.getPackageMetadata(options.name, (err, data) => {
-      if (err && (!err.status || err.status >= 500)) {
+      if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
         return options.callback(err);
       }
 
       this._syncUplinksMetadata(options.name, data, {req: options.req},
-        function getPackageSynUpLinksCallback(err, result: Package, uplink_errors) {
+        function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors) {
           if (err) {
             return options.callback(err);
           }
 
-          const propertyToKeep = [...WHITELIST];
-          if (options.keepUpLinkData === true) {
-            propertyToKeep.push('_uplinks');
-          }
-
-          for (let i in result) {
-            if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
-              delete result[i];
-            }
-          }
-
-          Utils.normalize_dist_tags(result);
+          normalizeDistTags(cleanUpLinksRef(options.keepUpLinkData, result));
 
           // npm can throw if this field doesn't exist
           result._attachments = {};
 
-          options.callback(null, result, uplink_errors);
+          options.callback(null, result, uplinkErrors);
         });
     });
   }
@@ -495,34 +359,42 @@ class Storage implements IStorageHandler {
    */
   getLocalDatabase(callback: Callback) {
     let self = this;
-    let locals = this.localStorage.localData.get();
-    let packages = [];
+    this.localStorage.localData.get((err, locals) => {
+      if (err) {
+        callback(err);
+      }
 
-    const getPackage = function(i) {
-      self.localStorage.getPackageMetadata(locals[i], function(err, info) {
-        if (_.isNil(err)) {
-          const latest = info['dist-tags'].latest;
+      let packages = [];
+      const getPackage = function(itemPkg) {
+        self.localStorage.getPackageMetadata(locals[itemPkg], function(err, info) {
+          if (_.isNil(err)) {
+            const latest = info[DIST_TAGS].latest;
 
-          if (latest && info.versions[latest]) {
-            packages.push(info.versions[latest]);
-          } else {
-            self.logger.warn( {package: locals[i]}, 'package @{package} does not have a "latest" tag?' );
+            if (latest && info.versions[latest]) {
+              const version = info.versions[latest];
+              const time = info.time[latest];
+              version.time = time;
+
+              packages.push(version);
+            } else {
+              self.logger.warn( {package: locals[itemPkg]}, 'package @{package} does not have a "latest" tag?' );
+            }
           }
-        }
 
-        if (i >= locals.length - 1) {
-          callback(null, packages);
-        } else {
-          getPackage(i + 1);
-        }
-      });
-    };
+          if (itemPkg >= locals.length - 1) {
+            callback(null, packages);
+          } else {
+            getPackage(itemPkg + 1);
+          }
+        });
+      };
 
-    if (locals.length) {
-      getPackage(0);
-    } else {
-      callback(null, []);
-    }
+      if (locals.length) {
+        getPackage(0);
+      } else {
+        callback(null, []);
+      }
+    });
   }
 
   /**
@@ -534,9 +406,10 @@ class Storage implements IStorageHandler {
     let exists = true;
     const self = this;
     const upLinks = [];
+
     if (!packageInfo || packageInfo === null) {
       exists = false;
-      packageInfo = getDefaultMetadata(name);
+      packageInfo = generatePackageTemplate(name);
     }
 
     for (let up in this.uplinks) {
@@ -546,12 +419,10 @@ class Storage implements IStorageHandler {
     }
 
     async.map(upLinks, (upLink, cb) => {
-
       const _options = Object.assign({}, options);
       let upLinkMeta = packageInfo._uplinks[upLink.upname];
 
-      if (Utils.isObject(upLinkMeta)) {
-
+      if (isObject(upLinkMeta)) {
         const fetched = upLinkMeta.fetched;
 
         if (fetched && (Date.now() - fetched) < upLink.maxage) {
@@ -568,12 +439,12 @@ class Storage implements IStorageHandler {
 
         if (err || !upLinkResponse) {
           // $FlowFixMe
-          return cb(null, [err || createError(500, 'no data')]);
+          return cb(null, [err || ErrorCode.getInternalError('no data')]);
         }
 
         try {
-          Utils.validate_metadata(upLinkResponse, name);
-        } catch(err) {
+          validate_metadata(upLinkResponse, name);
+        } catch (err) {
           self.logger.error({
             sub: 'out',
             err: err,
@@ -586,17 +457,13 @@ class Storage implements IStorageHandler {
           fetched: Date.now(),
         };
 
-        // added to fix verdaccio#73
-        if ('time' in upLinkResponse) {
-          packageInfo.time = upLinkResponse.time;
-        }
+        packageInfo.time = mergeUplinkTimeIntoLocal(packageInfo, upLinkResponse);
 
-        this._updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
+        updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 
         try {
-          Storage._mergeVersions(packageInfo, upLinkResponse, self.config);
-
-        } catch(err) {
+          mergeVersions(packageInfo, upLinkResponse);
+        } catch (err) {
           self.logger.error({
             sub: 'out',
             err: err,
@@ -612,7 +479,7 @@ class Storage implements IStorageHandler {
     }, (err: Error, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
-        return callback( Utils.ErrorCode.get404('no such package available')
+        return callback( ErrorCode.getNotFound(API_ERROR.NO_PACKAGE)
           , null
           , upLinksErrors );
       }
@@ -643,57 +510,6 @@ class Storage implements IStorageHandler {
       }
     }
   }
-
-  /**
-   * Set up the Up Storage for each link.
-   * @param {Object} config
-   * @private
-   */
-  _setupUpLinks(config: Config) {
-    for (let uplinkName in config.uplinks) {
-      if (Object.prototype.hasOwnProperty.call(config.uplinks, uplinkName)) {
-        // instance for each up-link definition
-        const proxy: IProxy = new ProxyStorage(config.uplinks[uplinkName], config);
-        proxy.upname = uplinkName;
-
-        this.uplinks[uplinkName] = proxy;
-      }
-    }
-  }
-
-  /**
-   * Function gets a local info and an info from uplinks and tries to merge it
-   exported for unit tests only.
-   * @param {*} local
-   * @param {*} up
-   * @param {*} config
-   * @static
-   */
-  static _mergeVersions(local: Package, up: Package, config: Config) {
-    // copy new versions to a cache
-    // NOTE: if a certain version was updated, we can't refresh it reliably
-    for (let i in up.versions) {
-      if (_.isNil(local.versions[i])) {
-        local.versions[i] = up.versions[i];
-      }
-    }
-
-    // refresh dist-tags
-    const distTag = 'dist-tags';
-
-    for (let i in up[distTag]) {
-      if (local[distTag][i] !== up[distTag][i]) {
-        if (!local[distTag][i] || semver.lte(local[distTag][i], up[distTag][i])) {
-          local[distTag][i] = up[distTag][i];
-        }
-        if (i === 'latest' && local[distTag][i] === up[distTag][i]) {
-          // if remote has more fresh package, we should borrow its readme
-          local.readme = up.readme;
-        }
-      }
-    }
-  }
-
 }
 
 export default Storage;

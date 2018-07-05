@@ -7,7 +7,6 @@ import type {IStorageHandler, IWebSearch} from '../../types';
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-
   index: any;
   storage: IStorageHandler;
 
@@ -32,9 +31,11 @@ class Search implements IWebSearch {
    * @return {Array} list of results.
    */
   query(query: string) {
-	  return query === '*'
-      ? this.storage.localStorage.localData.get().map( function( pkg ) {
-        return {ref: pkg, score: 1};
+    return query === '*'
+      ? this.storage.localStorage.localData.get((items) => {
+        items.map( function( pkg ) {
+          return {ref: pkg, score: 1};
+        });
       }) : this.index.search(query);
   }
 

@@ -2,36 +2,38 @@
 id: plugins
 title: "Plugins"
 ---
-Verdaccio is an plugabble aplication. Currently supports multiple plugins only for [Authentication](auth.md) but there are plans to [improve the plugin system](https://github.com/verdaccio/verdaccio/issues/169). If you are interested to develop your own plugin, read the [development](development.md) section.
+Verdaccio es una aplicación extensible. Puede ser extendida en muchas maneras, tanto con nuevos métodos de autenticación, añadiendo endpoints o usando un almacenamiento personalizado.
 
-## Usage
+> Si está interesado en desarrollar su propio plugin, lea la sección [development](development.md).
 
-### Installation
+## Uso
+
+### Instalación
 
 ```bash
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio` como un fork de sinopia tiene compatibilidad con versiones anteriores, con plugins que son compatibles con `sinopia@1.4.0`. En tal caso la instalación es la misma.
 
-    &> npm install --global sinopia-memory
+    $> npm install --global sinopia-memory
     
 
-### Configuration
+### Configuración
 
-Open the `config.yaml` file and update the `auth` section as follows:
+Abra el archivo `config.yaml` y actualice la sección `auth` como a continuación:
 
-The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+La configuración por defecto luce así, debido a que usamos un plugin `htpasswd` incorporado por defecto que puede desactivar con solo comentar las siguientes líneas.
+
+### Configuración del Plugin Auth
 
 ```yaml
  htpasswd:
     file: ./htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+y reemplazándolos con (en caso de que decida usar un plugin `ldap`).
 
 ```yaml
 auth:
@@ -41,16 +43,14 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Multiple Auth plugins
+#### Múltiples Plugins Auth
 
-This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
+Esto es técnicamente posible, el orden de los plugins se vuelve importante, las credenciales serán resueltas en orden.
 
 ```yaml
 auth:
   htpasswd:
     file: ./htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
     #max_users: 1000
   activedirectory:
     url: "ldap://10.0.100.1"
@@ -58,35 +58,80 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-This is a list of plugins compatible with **Verdaccio**.
+### Configuración del Plugin Middleware
 
-## Sinopia Legacy Plugins
+Este es un ejemplo de como se instala un plugin middleware. Todos los plugins middleware deben estar definidos en el namespace **middlewares**.
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
-* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
+```yaml
+middlewares:
+  audit:
+    enabled: true
+```
+
+### Configuración del Plugin Store (Almacén)
+
+Este es un ejemplo de como instalar un plugin de almacenamiento. Todos los plugins de almacenamiento debe estar definidos en el namespace **store**.
+
+```yaml
+store:
+  memory:
+    limit: 1000
+```
+
+> Si define un almacenamiento personalizado, la propiedad **storage** en el archivo de configuración será ignorada.
+
+## Plugins heredados
+
+### Plugins de Sinopia
+
+(compatible con todas las versiones)
+
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): plugin auth para sinopia soportando un registro npm.
+* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): plugin auth para sinopia que mantiene a los usuarios en la memoria.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
-* [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
-* [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): Active Directory authentication plugin for sinopia.
-* [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): authentication plugin for sinopia2, supporting github oauth web flow.
-* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): Sinopia authentication plugin that delegates authentication to another HTTP URL
-* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alternate LDAP Auth plugin for Sinopia
-* [sinopia-request](https://www.npmjs.com/package/sinopia-request): An easy and fully auth-plugin with configuration to use an external API.
-* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Generate password in htaccess format, encrypt with GPG and send via MailGun API to users.
-* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): An easy and fully auth-plugin with configuration to use a mongodb database.
-* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): auth plugin for sinopia supporting htpasswd format.
-* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): a leveldb backed auth plugin for sinopia private npm.
-* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): Gitlab authentication plugin for sinopia.
-* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
-* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
-* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin with github oauth web flow.
+* [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): plugin auth para sinopia que soporta atlassian crowd.
+* [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): plugin de autenticación Active Directory para sinopia.
+* [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): plugin de autenticación para sinopia2, el cual soporta el flujo web de github oauth.
+* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): plugin de autenticación de Sinopia que delega autenticación a otro URL HTTP
+* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alterna el plugin LDAP Auth para Sinopia
+* [sinopia-request](https://www.npmjs.com/package/sinopia-request): Un plugin sencillo y completamente auth con configuración para usar una API externa.
+* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Genera contraseña en formato htaccess, encripta con GPG y la evía a través de la API MailGun a los usuarios.
+* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): Un plugin fácil y completamente auth con configuración para usar una base de datos mongodb.
+* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): plugin auth para sinopia que soporta el formato htpasswd.
+* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): un plugin auth leveldb respaldado para el npm privado de sinopia.
+* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): plugin de autenticación de Gitlab para sinopia.
+* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): plugin de autenticación de Gitlab para sinopia
+* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): plugin LDAP auth para sinopia.
+* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) plugin de autenticación de Sinopia con flujo web github oauth.
 
-## Verdaccio Plugins (since 2.1.x)
+> Todos los plugins de sinopia deben ser compatibles con todas las futuras versiones de verdaccio. De cualquier forma, alentamos a los contribuyentes a migrarlos a la API moderna de verdaccio y usar el prefijo como *verdaccio-xx-name*.
 
-* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
-* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
-* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
-* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
+## Plugins de Verdaccio
 
-## Caveats
+(compatible desde 2.1.x)
 
-Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
+### Plugins de Autorización
+
+* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): plugin de autenticación de Bitbucket para verdaccio.
+* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): plugin LDAP auth para verdaccio.
+* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): plugin de autenticación Active Directory para verdaccio
+* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use la Token de Acceso Personal de GitLab para autenticarse
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth basado en el plugin del archivo htpasswd (incorporado) para verdaccio
+
+### Plugins de Middleware
+
+* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): plugin de verdaccio para soporte cli de *npm audit* (incorporado) (compatible desde 3.x)
+
+* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): plugin de verdaccio para soporte cli de *npm profile* y *npm profile set password* para la autenticación basada en *verdaccio-htpasswd*
+
+### Plugins de Storage (Almacenamiento)
+
+(compatible desde 3.x)
+
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Plugin de almacenamiento para alojar paquetes en la Memoria
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Plugin de almacenamiento para alojar paquetes **Amazon S3**
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Plugin de almacenamiento para alojar paquetes **Google Cloud Storage**
+
+## Advertencias
+
+> No todos estos plugins han sido probados continuamente, algunos pueden no funcionar del todo. Por favor, si encontró algún problema siéntase con la libertad de notificar al dueño de cada plugin.

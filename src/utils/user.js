@@ -1,6 +1,8 @@
 // @flow
-import {stringToMD5} from './string';
+import {stringToMD5} from '../lib/crypto-utils';
 
+
+export const GRAVATAR_DEFAULT = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm';
 /**
  * Generate gravatar url from email address
  */
@@ -11,6 +13,6 @@ export function generateGravatarUrl(email?: string): string {
 
     return `https://www.gravatar.com/avatar/${emailMD5}`;
   } else {
-    return 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm';
+    return GRAVATAR_DEFAULT;
   }
 }

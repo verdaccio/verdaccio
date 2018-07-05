@@ -1,61 +1,61 @@
 ---
 id: unit-testing
-title: "Unit Testing"
+title: "Tests Unitarios"
 ---
-All tests are split in three folders:
+Todos los tests están divididos entre tres carpetas:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - Tests que cubren funciones que transforman datos de forma no-trivial. Estos tests simplemente `require()` (requieren de) algunos archivos y código de ejecución, por lo que son muy rápidos.
+- `test/functional` - Tests que ejecutan una instancia de verdaccio y realizan una serie de peticiones a esta sobre http. Son de mayor lentitud en comparación a los tests unitarios.
+- `test/integration` - Tests que ejecutan una instancia de verdaccio y realizan peticiones a esta usando npm. Son considerablemente lentas y pueden incidir sobre un registro real de npm. **test sin mantenimiento**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+Los tests de tipo unit y functional son ejecutados automáticamente al correr `npm test` desde el directorio raíz del proyecto. Los tests de tipo integration se suponen deben ser ejecutados de forma manual ocasionalmente.
 
-We use `jest` for all test.
+Utilizamos `jest` para todos los tests.
 
-## The npm Script
+## El Script npm
 
-To run the test script you can use either `npm` or `yarn`.
+Para ejecutar el script de test puedes utilizar tanto `npm` como `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+Esto accionará solo los primeros dos grupos de tests, unit y funtional.
 
-### Using test/unit
+### Usando test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+El siguiente es simplemente un ejemplo de cómo se debe ver un test unitario. Básicamente, sigue el estándar `jest`.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Intenta describir exactamente qué hace el test unitario en una sola frase en el encabezado de la sección `test`.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
 const config = require('./partials/config');
 
-describe('basic system test', () => {
+ describe('basic system test', () => {
 
   beforeAll(function(done) {
-    // something important
+    // algo importante
   });
 
   afterAll((done) => {
-    // undo something important
+    // deshacer algo importante
   });
 
   test('server should respond on /', done => {
-    // your test
+    // tu test
     done();
   });
 });
 ```
 
-### Using test/functional
+### Usando test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Los tests funcionales en verdaccio acarrean un mayor nivel de complejidad que amerita una explicación profunda para asegurar el éxito de tu experiencia.
 
-All starts in the `index.js` file. Let's dive in into it.
+Todo inicia en el archivo `index.js`. Adentrémonos en este.
 
 ```javascript
-// we create 3 server instances
+// creamos tres instancias de servidores
  const config1 = new VerdaccioConfig(
     './store/test-storage',
     './store/config-1.yaml',
@@ -77,7 +77,7 @@ All starts in the `index.js` file. Let's dive in into it.
   const express: any = new ExpressServer();
   ...
 
-    // we check whether all instances has been started, since run in independent processes
+    // revisamos si todas las instancias han sido iniciadas, desde su ejecución en procesos independientes
     beforeAll((done) => {
       Promise.all([
         process1.init(),
@@ -96,7 +96,7 @@ All starts in the `index.js` file. Let's dive in into it.
       });
     });
 
-    // after finish all, we ensure are been stoped
+    // al finalizarlas, nos aseguramos de que han sido detenidas
     afterAll(() => {
       _.map(processRunning, (fork) => {
         fork.stop();
@@ -107,23 +107,23 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### Uso
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Aquí describiremos cómo se ve un test funcional típico.
 
-#### The lib/server.js
+#### El lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+La clase de servidor es tan solo un wrapper que simula un cliente `npm` y proporciona un API simple para el test funcional.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Como mencionamos en la sección previa, estamos creando 3 servidores de proceso que son accesibles en cada proceso como `server1`, `server2` y ``server3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+Usando dichas referencias serás capaz de enviar peticiones a cualquiera de las 3 instancias en ejecución.
 
 ```javascript
 <br />export default function(server) {
-  // we recieve any server instance via arguments
+  // recibimos cualquier instancia de servidor a través de argumentos
   test('add tag - 404', () => {
-    // we interact with the server instance.
+    // interactuamos con la instancia de servidor.
     return server.addTag('testpkg-tag', 'tagtagtag', '0.0.1').status(404).body_error(/no such package/);
   });
 });
@@ -131,4 +131,4 @@ Using such reference you will be able to send request to any of the 3 instance r
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Esta sección no ha sido usada jamás, pero estamos buscando ayuda con la intención de poder ejecutarla apropiadamente. **Toda idea nueva es bien recibida.**

@@ -9,7 +9,6 @@ import NoItems from '../NoItems';
 import classes from './packageList.scss';
 
 export default class PackageList extends React.Component {
-
   static propTypes = {
     packages: PropTypes.array,
     help: PropTypes.bool

@@ -108,10 +108,10 @@ Desde: `verdaccio@2.3.6` debido a [#197](https://github.com/verdaccio/verdaccio/
 
 ### Tamaño Máximo del Cuerpo
 
-Por defecto el tamaño máximo cuerpo para un documento JSON es ` 1mb`, si un problema similar a `"request entity too large"` te podrá interesar aumentar este valor.
+Por defecto el tamaño máximo de cuerpo para un documento JSON es `10mb`, si encuentras errores tales como `"request entity too large"` puedes incrementar este valor.
 
 ```yaml
-max_body_size: 1mb
+max_body_size: 10mb
 ```
 
 ### Puertos
@@ -141,11 +141,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies tienen propósitos especiales en servidores HTTP diseñados para transferir datos desde servidores remotos a clientes locales.
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Si ya tienes un proxy en tu red, puedes definir el encabezado `X-Forwarded-For` usando las siguientes propiedades.
 
 ```yaml
 http_proxy: http://something.local/
@@ -154,16 +154,16 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Esta variable debería contentener una lista de extensiones domínios separados por comas donde el proxy no debería ser usado.
 
 ```yaml
 http_proxy: http://something.local/
 https_proxy: https://something.local/
 ```
 
-### Notifications
+### Notificaciones
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilita notificaciones en aplicaciones a terceros es muy sencillo via web hooks. Para más información sobre esta sección lea [la página de notificaciones](notifications.md).
 
 ```yaml
 notify:
@@ -174,3 +174,17 @@ notify:
 ```
 
 > Para información detallada sobre configuración, por favor [revise el código fuente](https://github.com/verdaccio/verdaccio/tree/master/conf).
+
+### Revisión
+
+<small>Desde: <code>verdaccio@3.0.0</code></small>
+
+`npm audit` es un nuevo comando lanzado con [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio incluye una extensión de middleware integrada para el manejo de este comando.
+
+> Si tienes una nueva instalación va incluida por defecto, de otro modo necesitarás añadir las siguientes propiedades a tu archivo config
+
+```yaml
+middlewares:
+  audit:
+    enabled: true
+```

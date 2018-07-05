@@ -1,46 +1,64 @@
-import _ from 'lodash';
-import {addScope, addGravatarSupport, deleteProperties, sortByName} from '../../../lib/utils';
-import {allow} from '../middleware';
-import async from 'async';
-import marked from 'marked';
+// @flow
 
-function addPackageWebApi(route, storage, auth) {
+import _ from 'lodash';
+import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme} from '../../../lib/utils';
+import {allow} from '../../middleware';
+import type {Router} from 'express';
+import type {
+  IAuth,
+  $ResponseExtend,
+  $RequestExtend,
+  $NextFunctionVer,
+  IStorageHandler,
+  $SidebarPackage} from '../../../../types';
+
+
+function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   const can = allow(auth);
 
+  const checkAllow = (name, remoteUser) => new Promise((resolve, reject) => {
+    try {
+      auth.allow_access(name, remoteUser, (err, allowed) => {
+        if (err) {
+          resolve(false);
+        } else {
+          resolve(allowed);
+        }
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
+
   // Get list of all visible package
-  route.get('/packages', function(req, res, next) {
-    storage.getLocalDatabase(function(err, packages) {
+  route.get('/packages', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    storage.getLocalDatabase(async function(err, packages) {
       if (err) {
-        // that function shouldn't produce any
         throw err;
       }
 
-      async.filterSeries(
-        packages,
-        function(pkg, cb) {
-          auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
-            setImmediate(function() {
-              if (err) {
-                cb(null, false);
-              } else {
-                cb(err, allowed);
-              }
-            });
-          });
-        },
-        function(err, packages) {
-          if (err) {
+      async function processPermissionsPackages(packages) {
+        const permissions = [];
+        for (let pkg of packages) {
+          try {
+            if (await checkAllow(pkg.name, req.remote_user)) {
+              permissions.push(pkg);
+            }
+          } catch (err) {
             throw err;
           }
-
-          next(sortByName(packages));
         }
-      );
+
+        return permissions;
+      }
+
+      next(sortByName(await processPermissionsPackages(packages)));
     });
   });
 
   // Get package readme
-  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req, res, next) {
+  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'),
+  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({
@@ -52,24 +70,26 @@ function addPackageWebApi(route, storage, auth) {
         }
 
         res.set('Content-Type', 'text/plain');
-        next(marked(info.readme || 'ERROR: No README data found!'));
+        next(parseReadme(info.name, info.readme));
       },
     });
   });
 
-  route.get('/sidebar/(@:scope/)?:package', function(req, res, next) {
-    const packageName = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
+  route.get('/sidebar/(@:scope/)?:package',
+  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const packageName: string = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({
       name: packageName,
       keepUpLinkData: true,
       req,
-      callback: function(err, info) {
+      callback: function(err: Error, info: $SidebarPackage) {
         if (_.isNil(err)) {
-          info.latest = info.versions[info['dist-tags'].latest];
-          info = deleteProperties(['readme', 'versions'], info);
-          info = addGravatarSupport(info);
-          next(info);
+          let sideBarInfo: any = _.clone(info);
+          sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
+          sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
+          sideBarInfo = addGravatarSupport(sideBarInfo);
+          next(sideBarInfo);
         } else {
           res.status(404);
           res.end();

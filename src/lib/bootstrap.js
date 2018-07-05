@@ -1,13 +1,20 @@
+// @flow
+
 import {assign, isObject, isFunction} from 'lodash';
 import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
-import http from'http';
+import http from 'http';
 import https from 'https';
+// $FlowFixMe
 import constants from 'constants';
+import endPointAPI from '../api/index';
+import {parse_address} from './utils';
 
-const server = require('../api/index');
-const Utils = require('./utils');
+import type {Callback} from '@verdaccio/types';
+import type {$Application} from 'express';
+import {DEFAULT_PORT} from './constants';
+
 const logger = require('./logger');
 
 /**
@@ -21,7 +28,7 @@ const logger = require('./logger');
     - localhost:5557
     @return {Array}
  */
-export function getListListenAddresses(argListen, configListen) {
+export function getListListenAddresses(argListen: string, configListen: mixed) {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -31,10 +38,10 @@ export function getListListenAddresses(argListen, configListen) {
   } else if (configListen) {
     addresses = [configListen];
   } else {
-    addresses = ['4873'];
+    addresses = [DEFAULT_PORT];
   }
   addresses = addresses.map(function(addr) {
-    const parsedAddr = Utils.parse_address(addr);
+    const parsedAddr = parse_address(addr);
 
     if (!parsedAddr) {
       logger.logger.warn({addr: addr},
@@ -57,30 +64,33 @@ export function getListListenAddresses(argListen, configListen) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config, cliListen, configPath, pkgVersion, pkgName, callback) {
+function startVerdaccio(config: any, cliListen: string,
+                              configPath: string, pkgVersion: string,
+                              pkgName: string, callback: Callback) {
   if (isObject(config) === false) {
     throw new Error('config file must be an object');
   }
 
-  const app = server(config);
-  const addresses = getListListenAddresses(cliListen, config.listen);
+  endPointAPI(config).then((app)=> {
+    const addresses = getListListenAddresses(cliListen, config.listen);
 
-  addresses.forEach(function(addr) {
-    let webServer;
-    if (addr.proto === 'https') {
-      // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
-      if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
-        displayHTTPSWarning(configPath);
+    addresses.forEach(function(addr) {
+      let webServer;
+      if (addr.proto === 'https') {
+        // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
+        if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
+          displayHTTPSWarning(configPath);
+        }
+
+        webServer = handleHTTPS(app, configPath, config);
+      } else { // http
+        webServer = http.createServer(app);
       }
 
-      webServer = handleHTTPS(app, configPath, config);
-    } else { // http
-      webServer = http.createServer(app);
-    }
+      unlinkAddressPath(addr);
 
-    unlinkAddressPath(addr);
-
-    callback(webServer, addr, pkgName, pkgVersion);
+      callback(webServer, addr, pkgName, pkgVersion);
+    });
   });
 }
 
@@ -143,7 +153,7 @@ function handleHTTPS(app, configPath, config) {
   }
 }
 
-function listenDefaultCallback(webServer, addr, pkgName, pkgVersion) {
+function listenDefaultCallback(webServer: $Application, addr: any, pkgName: string, pkgVersion: string) {
   webServer.listen(addr.port || addr.path, addr.host, () => {
     // send a message for tests
     if (isFunction(process.send)) {
@@ -151,6 +161,7 @@ function listenDefaultCallback(webServer, addr, pkgName, pkgVersion) {
         verdaccio_started: true,
       });
     }
+  // $FlowFixMe
   }).on('error', function(err) {
     logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
     process.exit(2);

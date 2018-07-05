@@ -2,59 +2,59 @@
 id: kubernetes
 title: "Kubernetes"
 ---
-You can find instructions to deploy Verdaccio on a Kubernetes cluster on the [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example) repository. However, the recommended method to install Verdaccio on a Kubernetes cluster is to use [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) package manager which bring multiple advantages.
+Puedes encontrar las instrucciones para desplegar Verdaccio en un cluster de Kubernetes en el repositorio [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example). Sin embargo, el método recomendado de instalar Verdaccio en un cluster de Kubernetes es usando [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) es un administrador de paquetes que trae muchos beneficios y ventajas.
 
 ## Helm
 
-### Setup Helm
+### Configurar Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+Si no has usado Helm anteriormente, necesitarás configurar el controlador de Helm llamado Tiller:
 
 ```bash
 helm init
 ```
 
-### Install
+### Instalación
 
-Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
+Desplegar Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. En este ejemplo usamos `npm` como nombre de lanzamiento:
 
 ```bash
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### Desplegar una versión específica
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### Actualizando Verdaccio
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Desinstalar
 
 ```bash
 helm del --purge npm
 ```
 
-**Note:** this command delete all the resources, including packages that you may have previously published to the registry.
+**Nota**: el comando borra todos los recursos, incluyendo los paquetes que tu podrías haber publicado anteriormente al registro.
 
-### Custom Verdaccio configuration
+### Configuración personalizada de Verdaccio
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+Puedes personalizar la configuracion de verdaccio usando un * configMap* de Kubernetes.
 
-#### Prepare
+#### Preparando
 
-Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
+Copie la [configuración existente ](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) y adáptelo para su propio caso de uso:
 
 ```bash
-wget https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml -O config.yaml
+wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/full.yaml -O config.yaml
 ```
 
-**Note:** Make sure you are using the right path for the storage that is used for persistency:
+**Nota:** Asegúrese que usa la dirección correcta para el almacenamiento que es usado por la persistencia:
 
 ```yaml
 storage: /verdaccio/storage/data
@@ -63,24 +63,24 @@ auth:
     file: /verdaccio/storage/htpasswd
 ```
 
-#### Deploy the configMap
+#### Desplegar el configMap
 
-Deploy the `configMap` to the cluster
+Desplegar el ` configMap` en el cluster
 
 ```bash
 kubectl create configmap verdaccio-config --from-file ./config.yaml
 ```
 
-#### Deploy Verdaccio
+#### Desplegar Verdaccio
 
-Now you can deploy the Verdaccio Helm chart and specify which configuration to use:
+Ahora puedes desplegar Verdaccio Helm chart y especificar cual configuración usar:
 
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
 ```
 
-## Rancher Support
+## Soporte Rancher
 
-[Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
+[Rancher](http://rancher.com/) es una completa plataforma para la administración de contenedores en producción muy fácil de usar.
 
 * [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)

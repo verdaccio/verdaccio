@@ -1,9 +1,9 @@
-const Handlebars = require('handlebars');
-const request = require('request');
-const _ = require('lodash');
-const logger = require('./logger');
+import Handlebars from 'handlebars';
+import request from 'request';
+import _ from 'lodash';
+import logger from './logger';
 
-const handleNotify = function(metadata, notifyEntry) {
+const handleNotify = function(metadata, notifyEntry, publisherInfo, publishedPackage) {
   let regex;
   if (metadata.name && notifyEntry.packagePattern) {
     // FUTURE: comment out due https://github.com/verdaccio/verdaccio/pull/108#issuecomment-312421052
@@ -15,7 +15,12 @@ const handleNotify = function(metadata, notifyEntry) {
   }
 
   const template = Handlebars.compile(notifyEntry.content);
-  const content = template( metadata );
+
+  // don't override 'publisher' if package.json already has that
+  if (!metadata.publisher) {
+    metadata = {...metadata, publishedPackage, publisher: publisherInfo};
+  }
+  const content = template(metadata);
 
   const options = {
     body: content,
@@ -28,7 +33,7 @@ const handleNotify = function(metadata, notifyEntry) {
       if (Object.is(item, item)) {
         for (const key in item) {
           if (item.hasOwnProperty(key)) {
-              header[key] = item[key];
+            header[key] = item[key];
           }
         }
       }
@@ -40,36 +45,47 @@ const handleNotify = function(metadata, notifyEntry) {
 
   options.method = notifyEntry.method;
 
-  if ( notifyEntry.endpoint ) {
+  if (notifyEntry.endpoint) {
     options.url = notifyEntry.endpoint;
   }
 
-  return new Promise(( resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request(options, function(err, response, body) {
       if (err || response.statusCode >= 400) {
-        const errorMessage = _.isNil(err) ? response.statusMessage : err;
-        logger.logger.error({err: errorMessage}, ' notify error: @{err.message}' );
+        const errorMessage = _.isNil(err) ? response.body : err.message;
+        logger.logger.error({errorMessage}, 'notify service has thrown an error: @{errorMessage}');
+
         reject(errorMessage);
       } else {
-        logger.logger.info({content: content}, 'A notification has been shipped: @{content}');
-        if (body) {
-          logger.logger.debug({body: body}, ' body: @{body}' );
+        logger.logger.info({content}, 'A notification has been shipped: @{content}');
+        if (_.isNil(body) === false) {
+          const bodyResolved = _.isNil(body) === false ? body : null;
+
+          logger.logger.debug({body}, ' body: @{body}');
+          return resolve(bodyResolved);
         }
-        resolve(_.isNil(body) === false ? body : null);
+
+        reject(Error('body is missing'));
       }
     });
   });
 };
 
-const notify = function(metadata, config) {
+function sendNotification(metadata, key, ...moreMedatata) {
+  return handleNotify(metadata, key, ...moreMedatata);
+}
+
+const notify = function(metadata, config, ...moreMedatata) {
   if (config.notify) {
     if (config.notify.content) {
-      return handleNotify(metadata, config.notify);
+      return sendNotification(metadata, config.notify, ...moreMedatata);
     } else {
       // multiple notifications endpoints PR #108
-      return Promise.all(_.map(config.notify, (key) => handleNotify(metadata, key)));
+      return Promise.all(_.map(config.notify, (key) => sendNotification(metadata, key, ...moreMedatata)));
     }
   }
+
+  return Promise.resolve();
 };
 
-module.exports.notify = notify;
+export {notify};

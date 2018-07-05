@@ -4,12 +4,16 @@ import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import baseConfig from './webpack.config';
 import env from '../src/config/env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
-import getPackageVersion from './getPackageVersion';
+import getPackageJson from './getPackageJson';
 
 export default {
   ...baseConfig,
+
+  mode: 'development',
+
   entry: {
     main: [
+      'whatwg-fetch',
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4872',
       'webpack/hot/only-dev-server',
@@ -22,11 +26,12 @@ export default {
     publicPath: '/',
   },
 
+  devtool: 'cheap-module-eval-source-map',
+
   plugins: [
     new webpack.DefinePlugin({
       __DEBUG__: true,
-      'process.env.NODE_ENV': '"development"',
-      __APP_VERSION__: `"${getPackageVersion()}"`,
+      __APP_VERSION__: `"${getPackageJson('version')}"`,
     }),
     new HTMLWebpackPlugin({
       title: 'Verdaccio',

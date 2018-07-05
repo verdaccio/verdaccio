@@ -9,7 +9,6 @@ const React = require('react');
 
 class Footer extends React.Component {
   render() {
-    const currentYear = new Date().getFullYear();
     return (
       <footer className="nav-footer" id="footer">
         <section className="sitemap">
@@ -28,7 +27,7 @@ class Footer extends React.Component {
                 this.props.config.baseUrl +
                 'docs/' +
                 this.props.language +
-                '/installation.html'
+                '/what-is-verdaccio.html'
               }>
               Getting Started
             </a>
@@ -60,11 +59,10 @@ class Footer extends React.Component {
               User Showcase
             </a>
             <a
-              href="https://stackoverflow.com/search?q=verdaccio"
-              target="_blank">
+              href="https://stackoverflow.com/search?q=verdaccio" target="_blank">
               Stack Overflow
             </a>
-            <a href="https://gitter.im/verdaccio">Project Chat</a>
+            <a href="https://gitter.im/verdaccio" target="_blank">Project Chat</a>
             <a href="https://twitter.com/verdaccio_npm" target="_blank">
               <img
                 alt="Follow Verdaccio on Twitter"
@@ -74,8 +72,8 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={this.props.config.baseUrl + 'blog'}>Blog</a>
-            <a href="https://github.com/verdaccio">GitHub</a>
+            <a href="https://medium.com/verdaccio" target="_blank">Blog</a>
+            <a href="https://github.com/verdaccio" target="_blank">GitHub</a>
             <a
               className="github-button"
               href={this.props.config.repoUrl}

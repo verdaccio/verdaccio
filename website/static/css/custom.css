@@ -1,16 +1,63 @@
 /* your custom css */
 
-@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+/*.mainContainer .wrapper code {*/
+  /*padding: 2px;*/
+  /*font-family: inherit;*/
+/*}*/
+
+.mainContainer .wrapper a,
+.inner .projectIntro a {
+  background-color: rgba(10, 78, 31, 0.15);
+  color: #1a1a1a;
+  transition: all 0.25s ease-out;
+  text-decoration: underline;
 }
 
-@media only screen and (min-width: 1024px) {
+.mainContainer .wrapper a:hover,
+.inner .projectIntro a:hover {
+  background-color: rgba(10, 78, 31, 0.35);
+  text-decoration: none !important;
 }
 
-@media only screen and (max-width: 1023px) {
+.feature-section .blockContent {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-@media only screen and (min-width: 1400px) {
+.docker-count img {
+  margin-left: initial;
 }
 
-@media only screen and (min-width: 1500px) {
+.tweets-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
+
+.tweets-section > div {
+  padding: 20px;
+  flex: 2;
+  box-sizing:border-box;
+  text-align: center;
+   margin: 0 auto;
+}
+
+.tweets-section > div  .twitter-tweet {
+  margin: 0 auto !important;
+}
+
+/*@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {*/
+/*}*/
+
+/*@media only screen and (min-width: 1024px) {*/
+/*}*/
+
+/*@media only screen and (max-width: 1023px) {*/
+/*}*/
+
+/*@media only screen and (min-width: 1400px) {*/
+/*}*/
+
+/*@media only screen and (min-width: 1500px) {*/
+/*}*/

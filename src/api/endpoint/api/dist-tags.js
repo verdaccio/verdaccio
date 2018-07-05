@@ -1,14 +1,16 @@
-'use strict';
+// @flow
 
-const Middleware = require('../../web/middleware');
-const mime = require('mime');
-const _ = require('lodash');
+import mime from 'mime';
+import _ from 'lodash';
+import {media, allow} from '../../middleware';
+import {DIST_TAGS} from '../../../lib/utils';
+import type {Router} from 'express';
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import {API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
 
-const media = Middleware.media;
-
-module.exports = function(route, auth, storage) {
-  const can = Middleware.allow(auth);
-  const tag_package_version = function(req, res, next) {
+export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
+  const can = allow(auth);
+  const tag_package_version = function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isString(req.body) === false) {
       return next('route');
     }
@@ -19,36 +21,33 @@ module.exports = function(route, auth, storage) {
       if (err) {
         return next(err);
       }
-      res.status(201);
-      return next({ok: 'package tagged'});
+      res.status(HTTP_STATUS.CREATED);
+      return next({ok: API_MESSAGE.TAG_ADDED});
     });
   };
 
   // tagging a package
-  route.put('/:package/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put('/:package/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.post('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.post('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.put('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req, res, next) {
+  route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const tags = {};
     tags[req.params.tag] = null;
     storage.mergeTags(req.params.package, tags, function(err) {
       if (err) {
         return next(err);
       }
-      res.status(201);
+      res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: 'tag removed',
+        ok: API_MESSAGE.TAG_REMOVED,
       });
     });
   });
 
-  route.get('/-/package/:package/dist-tags', can('access'), function(req, res, next) {
+  route.get('/-/package/:package/dist-tags', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.getPackage({
       name: req.params.package,
       req,
@@ -57,18 +56,20 @@ module.exports = function(route, auth, storage) {
           return next(err);
         }
 
-        next(info['dist-tags']);
+        next(info[DIST_TAGS]);
       },
     });
   });
 
-  route.post('/-/package/:package/dist-tags', can('publish'), function(req, res, next) {
+  route.post('/-/package/:package/dist-tags', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       storage.mergeTags(req.params.package, req.body, function(err) {
         if (err) {
           return next(err);
         }
-        res.status(201);
-        return next({ok: 'tags updated'});
+        res.status(HTTP_STATUS.CREATED);
+        return next({
+          ok: API_MESSAGE.TAG_UPDATED,
+        });
       });
     });
-};
+}

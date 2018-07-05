@@ -9,6 +9,7 @@ const React = require('react');
 
 const CompLibrary = require('../../core/CompLibrary.js');
 const Container = CompLibrary.Container;
+const translate = require("../../server/translate.js").translate;
 
 const siteConfig = require(process.cwd() + '/siteConfig.js');
 
@@ -27,15 +28,29 @@ class Users extends React.Component {
         <Container padding={['bottom', 'top']}>
           <div className="showcaseSection">
             <div className="prose">
-              <h1>Who's Using This?</h1>
-              <p>This project is used by many folks</p>
+              <h1>
+                <translate>
+                  Who's Using This?
+                </translate>
+              </h1>
+              <p>
+                <translate>
+                  This project is used by many folks
+                </translate>
+              </p>
             </div>
             <div className="logos">{showcase}</div>
-            <p>Are you using this project? Do not be shy and add your company/project logo.</p>
+            <p>
+              <translate>
+                Are you using this project? Do not be shy and add your company/project logo.
+              </translate>
+            </p>
             <a
               href="https://github.com/verdaccio/verdaccio/edit/master/website/siteConfig.js"
               className="button">
-              Add your company
+              <translate>
+                Add your company
+              </translate>
             </a>
           </div>
         </Container>

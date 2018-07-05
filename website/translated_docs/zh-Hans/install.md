@@ -2,19 +2,19 @@
 id: installation
 title: "Installation"
 ---
-Verdaccio 是一个基于 Web 技术的跨平台应用，在安装它之前你需要确保满足以下前提条件
+Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
 
 #### 最低要求:
 
 1. Node.js 版本 
-    - For version `verdaccio@2.x` we support from Node `v4.6.1`.
-    - For version `verdaccio@3.x` we support as minimum Node `6.12.0`
+    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
+    - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
 2. npm `>=3.x` or `yarn`
-3. The web interface support browsers `Chrome, Firefox, Edge, and IE9`
+3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
 
 ## 安装
 
-`verdaccio` must be install globaly using any of the most modern
+`verdaccio` must be installed globaly using either of the following methods:
 
 使用 `npm`
 
@@ -28,20 +28,22 @@ npm install -g verdaccio
 yarn global add verdaccio
 ```
 
+![install verdaccio](/svg/install_verdaccio.gif)
+
 ## 基本使用
 
-安装后只需要通过命令行启动即可使用
+Once it has been installed, you only need to execute the CLI command:
 
 ```bash
 $> verdaccio
 warn --- config file  - /home/.config/verdaccio/config.yaml
-warn --- http address - http://localhost:5555/ - verdaccio/3.0.0
+warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
 ![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
 
-阅读 [命令行文档](cli.md) 以了解更多信息。
+For more information about the CLI, please [read the cli section](cli.md).
 
 ## Docker 镜像
 
-`Verdaccio` 提供了官方 Docker 镜像可供使用, 默认配置可以满足大多数用户的使用需求，如果希望了解更多有关于如何安装和使用 Docker 镜像的信息，请 [阅读文档中的 Docker 部分](docker.md).
+`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).

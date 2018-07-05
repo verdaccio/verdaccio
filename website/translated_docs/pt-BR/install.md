@@ -2,19 +2,19 @@
 id: installation
 title: "Instalação"
 ---
-Verdaccio is a multiplatform web application, to install you need at least some prerequisites.
+Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
 
 #### Pré-requisitos
 
 1. Node, acima da versão 
-    - For version `verdaccio@2.x` we support from Node `v4.6.1`.
-    - For version `verdaccio@3.x` we support as minimum Node `6.12.0`
+    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
+    - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
 2. npm `>=3.x` or `yarn`
-3. The web interface support browsers `Chrome, Firefox, Edge, and IE9`
+3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
 
 ## Instação
 
-`verdaccio` must be install globaly using any of the most modern
+`verdaccio` must be installed globaly using either of the following methods:
 
 Usando `npm`
 
@@ -28,20 +28,22 @@ ou usando `yarn`
 yarn global add verdaccio
 ```
 
+![install verdaccio](/svg/install_verdaccio.gif)
+
 ## Como Usar
 
-Assim que instalado, você só precisa executar um único comando na linha de comando.
+Once it has been installed, you only need to execute the CLI command:
 
 ```bash
 $> verdaccio
 warn --- config file  - /home/.config/verdaccio/config.yaml
-warn --- http address - http://localhost:5555/ - verdaccio/3.0.0
+warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
 ![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
 
-Para mais informações sobre a Linha de Comando, por favor [leia a seção sobre Linha de Comando](cli.md).
+For more information about the CLI, please [read the cli section](cli.md).
 
 ## Imagem do Docker
 
-`verdaccio` já possui uma imagem para o Docker oficial, na maioria dos casos a configuração padrão já é suficiente. Para mais informações sobre como instalar a imagem oficial, visite a [seção do Docker](docker.md).
+`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).

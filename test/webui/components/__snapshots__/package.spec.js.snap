@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<Package /> component should load the component 1`] = `"<a class=\\"package\\" href=\\"detail/verdaccio\\"><h1>verdaccio<span class=\\"el-tag el-tag--gray\\">v1.0.0</span></h1><span role=\\"author\\" class=\\"author\\">By: Sam</span><p>Private NPM repository</p></a>"`;
