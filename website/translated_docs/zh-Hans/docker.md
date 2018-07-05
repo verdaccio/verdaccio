@@ -6,7 +6,7 @@ title: Docker
   ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 </div>
 
-要拉出最新的预先-创建的[docker 图片](https://hub.docker.com/r/verdaccio/verdaccio/)：
+要下载(pull)最新的预先-创建的[docker镜像](https://hub.docker.com/r/verdaccio/verdaccio/)：
 
 ```bash
 docker pull verdaccio/verdaccio
