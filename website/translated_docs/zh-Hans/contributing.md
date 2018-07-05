@@ -54,7 +54,7 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我是一名DevOps
 
-我们有广受欢迎的Docker图像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来使所有用户都可受益。
+我们有广受欢迎的Docker镜像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来使所有用户都可受益。
 
 我们支持 **Kubernetes**, **Puppet**, **Ansible** 和 **Chef**，在这些领域我们需要帮助，请随时查看所有资源库。
 
