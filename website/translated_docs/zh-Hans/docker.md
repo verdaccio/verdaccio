@@ -52,7 +52,7 @@ docker pull verdaccio/verdaccio:beta
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-最后一个参数定义要使用的图片。如果您还没有试的话，上面的代码将从dockerhub里下载(pull) 最新的预先创建的镜像。
+最后一个参数定义要使用的镜像。如果您还没有试的话，上面的代码将从dockerhub里下载(pull) 最新的预先创建的镜像。
 
 如果您已经用 `verdaccio`作为最后参数[在本地创建一个镜像](#build-your-own-docker-image)。
 
@@ -143,7 +143,7 @@ npm run build:docker:rpi
 
 ## Docker示例
 
-有个分开的资源库可以承载多个配置来用`verdaccio`生成Docker图片, 比如，reverse proxy（反向代理服务器）:
+有个分开的资源库可以承载多个配置来用`verdaccio`生成Docker镜像, 比如，reverse proxy（反向代理服务器）:
 
 <https://github.com/verdaccio/docker-examples>
 
