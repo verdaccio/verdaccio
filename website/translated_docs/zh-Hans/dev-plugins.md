@@ -6,7 +6,7 @@ title: "插件开发"
 
 ## Authentication Plugin（认证插件）
 
-本节将描述 Verdaccio 插件在ES5 里是如何运作的。 基本上我们要用一个叫做`authenticate` 的单纯方法来返回一个 object（对象），此方法将接收到3 个参数 (`user, password, callback`)。 一旦执行验证后，有两个可用的值来回应 `verdaccio`。
+本节将描述 Verdaccio 插件在ES5 里是如何运作的。 基本上我们要用一个叫做`authenticate` 的单纯方法来返回一个 object（对象），此方法将接收到3 个参数 (`user, password, callback`)。 一旦执行认证后，有两个选项来回应 `verdaccio`。
 
 ### API
 
@@ -18,7 +18,7 @@ function authenticate (user, password, callback) {
 
 ##### OnError
 
-要么是不好的事发生，要么是授权不成功。
+要么是发生了糟糕的事，要么是授权不成功。
 
     callback(null, false)
     
@@ -97,7 +97,7 @@ Verdaccio 默认使用文件系统存储插件 [local-storage](https://github.co
 
 ### API
 
-API 存储更复杂一些，您得创建一个返回实现`ILocalData`的 class。请参阅以下详细信息。
+API 存储更复杂一些，您得创建一个返回实现`ILocalData`的类（class）。请参阅以下详细信息。
 
 ```js
 <br />class LocalDatabase<ILocalData>{
