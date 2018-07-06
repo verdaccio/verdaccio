@@ -4,7 +4,7 @@ title: "Plugins"
 ---
 Verdaccio es una aplicación extensible. Puede ser extendida en muchas maneras, tanto con nuevos métodos de autenticación, añadiendo endpoints o usando un almacenamiento personalizado.
 
-> Si está interesado en desarrollar su propio plugin, lea la sección [development](development.md).
+> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
 
 ## Uso
 

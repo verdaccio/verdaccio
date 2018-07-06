@@ -2,19 +2,19 @@
 id: puppet
 title: "Puppet"
 ---
-Install verdaccio for Debian, Ubuntu, Fedora, and RedHat.
+在Debian、Ubuntu、Fedora和RedHat中安装verdaccio。
 
-# Usage
+# 用法
 
-There are two variants to install verdaccio using this Puppet module:
+在使用Puppet模块安装verdaccio时有两个变量：
 
-* Apply-mode (with puppet-apply and no puppetmaster setup needed)
-* Master-Agent-mode (with puppet-agent accessing your configuration through the puppetmaster).
+* Apply-mode (和puppet-apply一起使用，无需配置puppetmaster)
+* Master-Agent-mode (puppet-agent会通过puppetmaster访问你的配置)。
 
-In both variants you have to explicitely call "class nodejs {}" in your puppet script because the puppet-verdaccio module only defines this as a requirement, so you have all the flexibility you want when installing nodejs. Scroll down for details about Master-Agent-mode variant.
+在这两个变量中，你必须在你的puppet代码中显式调用"class nodejs {}"，原因在于puppet-verdaccio模块只以此做为先决条件，因此在安装nodejs时你具有所有你需要的灵活性。 向下滚动查看Master-Agent-mode的所有细节信息。
 
-For further information:
+详细信息：
 
 <https://github.com/verdaccio/puppet-verdaccio>
 
-> We are looking for active contributors for this integration, if you are interested [refers to this ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+> 我们正在为这个集成寻找积极的贡献者，如果你感兴趣，请查看[这个票证](https://github.com/verdaccio/puppet-verdaccio/issues/11)。
