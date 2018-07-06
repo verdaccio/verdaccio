@@ -1,6 +1,6 @@
 ---
-id: configuration
-title: "Configuration File"
+id: 配置
+title: "配置文件"
 ---
 此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
 
@@ -43,7 +43,7 @@ storage: ./storage
 
 ### 认证
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
+在这里完成授权设置，默认授权是基于`htpasswd` 并且是内置的。 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
 
 ```yaml
 auth:
@@ -89,7 +89,7 @@ packages:
 
 ### 离线发布
 
-`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *ture* 来允许离线发布
+`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *true* 来允许离线发布。
 
 ```yaml
 publish:
@@ -106,9 +106,9 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### 最大 Body 尺寸
+### 最大正文大小
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+默认的 JSON 文件最大正文大小是`10mb`, 如果遇到`“请求实体太大”`的错误，您可以增大此数值。
 
 ```yaml
 max_body_size: 10mb
@@ -116,7 +116,7 @@ max_body_size: 10mb
 
 ### 监听端口
 
-`Verdaccio` 默认使用 `4873` 端口. 可以通过 [命令行传递参数](cli.md) 或修改配置文件，以下格式是有效的
+`Verdaccio` 默认使用 `4873` 端口. 可以通过 [命令行传递参数](cli.md) 或修改配置文件，以下格式是有效的。
 
 ```yaml
 listen:
@@ -139,13 +139,13 @@ https:
     ca: ./path/verdaccio-csr.pem
 ```
 
-### Proxy
+### 代理服务器
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+代理服务器是专门把数据从远程服务器传输到本地客户端的HTTP 服务器。
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+如果您的网络里有代理服务器，您可以使用以下属性来设置`X-Forwarded-For`页眉。
 
 ```yaml
 http_proxy: http://something.local/
@@ -154,16 +154,16 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+此变量应该包含一个代理服务器不应该被用到的，以逗号分隔的域名扩展列表。
 
 ```yaml
 http_proxy: http://something.local/
 https_proxy: https://something.local/
 ```
 
-### Notifications
+### 通知
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+使用web hooks来启用三方工具通知是非常容易的。如需了解更多此部分的内容，请阅读[通知页面](notifications.md)。
 
 ```yaml
 notify:
@@ -173,15 +173,15 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> 有关更多配置设置的详细信息，请[核对源代码](https://github.com/verdaccio/verdaccio/tree/master/conf)。
 
-### Audit
+### 审核
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0) 一起发布的新命令。Verdaccio 包含一个内置的middleware (中间体)插件来处理此命令。
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> 新安装采用默认版本，但是您可以添加以下代码段到配置文件中
 
 ```yaml
 middlewares:
