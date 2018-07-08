@@ -4,7 +4,7 @@ title: "插件"
 ---
 Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行扩展，例如新的认证方法，添加endpoints，或者使用自定义存储。
 
-> 如果你对开发自己的插件感兴趣，请阅读[开发](development.md)部分。
+> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
 
 ## 用法
 
@@ -14,7 +14,7 @@ Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行�
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio`作为一个sinopia的分支，它和兼容`sinopia@1.4.0`的插件具有向后兼容性。在这种情况下，安装方式相同。
+作为一个sinopia的分支项目，`verdaccio`和兼容`sinopia@1.4.0`的插件具有向后兼容性。在这种情况下，安装方式相同。
 
     $> npm install --global sinopia-memory
     
@@ -43,7 +43,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### 多个授权插件
+#### 多个Auth插件
 
 这在技术上可行，插件的顺序变得非常重要，安全凭据将按顺序获取。
 
@@ -87,51 +87,51 @@ store:
 (兼容所有版本)
 
 * [sinopia-npm](https://www.npmjs.com/package/sinopia-npm)：支持npm注册表的sinopia认证插件。
-* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
-* [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
-* [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
-* [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): Active Directory authentication plugin for sinopia.
-* [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): authentication plugin for sinopia2, supporting github oauth web flow.
-* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): Sinopia authentication plugin that delegates authentication to another HTTP URL
-* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alternate LDAP Auth plugin for Sinopia
-* [sinopia-request](https://www.npmjs.com/package/sinopia-request): An easy and fully auth-plugin with configuration to use an external API.
-* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Generate password in htaccess format, encrypt with GPG and send via MailGun API to users.
-* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): An easy and fully auth-plugin with configuration to use a mongodb database.
-* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): auth plugin for sinopia supporting htpasswd format.
-* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): a leveldb backed auth plugin for sinopia private npm.
-* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): Gitlab authentication plugin for sinopia.
-* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
-* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
-* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin with github oauth web flow.
+* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory)：在内存中缓存用户的sinopia认证插件。
+* [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli)。
+* [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd)：支持atlassian crowd的sinopia认证插件。
+* [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory)：sinopia Active Directory认证插件。
+* [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth)：sinopia2的认证插件，支持github oauth web flow。
+* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth)：将认证代理给另一个HTTP URL的Sinopia认证插件。
+* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap)：另一个Sinopia LDAP认证插件
+* [sinopia-request](https://www.npmjs.com/package/sinopia-request)：一个简单易用且功能齐全的认证插件，可以通过配置使用外部API。
+* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email)：使用htaccess格式生成密码，通过GPG加密并通过MailGun API发送给用户。
+* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb)：一个易用且功能齐全的认证插件，可通过配置使用mongodb数据库。
+* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd)：支持htpasswd格式的sinopia认证插件。
+* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb)：针对Sinopia private npm的基于leveldb的Sinopia认证插件。
+* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres)：sinopia Gitlab认证插件。
+* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab)：sinopia Gitlab认证插件。
+* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap)：sinopia LDAP认证插件。
+* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env)：基于github oauth web flow的Sinopia认证插件。
 
-> All sinopia plugins should be compatible with all future verdaccio versions. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+> 所有的sinopia插件都应该和verdaccio的未来版本兼容。 无论如何，我们鼓励贡献者将它们迁移到最新的verdaccio API并且使用*verdaccio-xx-name*格式的前缀。
 
-## Verdaccio Plugins
+## Verdaccio插件
 
-(compatible since 2.1.x)
+(兼容2.1.x及以后版本)
 
-### Authorization Plugins
+### 授权插件
 
-* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
-* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
-* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
-* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
-* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket)：verdaccio Bitbucket认证插件。
+* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap)：verdaccio LDAP认证插件。
+* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory)：verdaccio Active Directory认证插件
+* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab)：使用Gitlab的Personal Access Token进行认证
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd)：基于(内置)htpasswd文件插件的verdaccio认证插件
 
-### Middleware Plugins
+### 中间件插件
 
-* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
+* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)：支持*npm audit* cli的verdaccio插件(内置) (自3.x版本后兼容)
 
-* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
+* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api)：该插件支持*npm profile*cli，以及针对基于*verdaccio-htpasswd*认证的*npm profile set password*插件。
 
-### Storage Plugins
+### 存储插件
 
-(compatible since 3.x)
+(兼容自3.x及以后版本)
 
-* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)在内存中装载包的存储插件
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage)在**Amazon S3**中存储包的存储插件
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)在**Google Cloud Storage**中存储包的存储插件
 
-## Caveats
+## 警告
 
-> Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
+> 并不是所有这些插件都被持续测试过，其中有些可能不能正常工作。如果你发现任何问题，请和插件的所有者联系。

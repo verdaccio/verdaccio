@@ -1,6 +1,6 @@
 ---
-id: authentification
-title: "Authentification"
+id: 认证
+title: "认证"
 ---
 认证部分设置与 "Auth" [ 插件 ](plugins.md)息息相关。包的访问限制也同时通过 [ 包访问权限](packages.md) 控制。
 
@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### 匿名发布包
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` 允许启用匿名发布，要使用这个功能，必须设置正确的 [程序包访问权限](packages.md)。
 
 例如：
 
@@ -36,7 +36,7 @@ registry=http://localhost:5555/
 
 ## 默认 htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+为了简化安装，`verdaccio` 使用`htpasswd`基础上的插件。 到v3.0.x版本为止，默认使用[外部插件](https://github.com/verdaccio/verdaccio-htpasswd)。 此包的v2.x 版本仍然包含此插件的内置版本。
 
 ```yaml
 auth:
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| 属性        | 类型     | 必填 | 示例         | 支持   | 描述                     |
-| --------- | ------ | -- | ---------- | ---- | ---------------------- |
-| file      | string | 是  | ./htpasswd | 任意路径 | 存储了加密认证信息的 htpasswd 文件 |
-| max_users | number | 否  | 1000       | 任意数字 | 最大的用户数量                |
+| 属性        | 类型  | 必填 | 示例         | 支持   | 描述                     |
+| --------- | --- | -- | ---------- | ---- | ---------------------- |
+| 文件        | 字符串 | 是  | ./htpasswd | 任意路径 | 存储了加密认证信息的 htpasswd 文件 |
+| max_users | 数字  | 否  | 1000       | 任意数字 | 最大的用户数量                |
 
 如果需要禁止新用户注册，可将配置修改为 `max_users: -1`.

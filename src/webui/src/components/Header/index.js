@@ -27,12 +27,13 @@ export default class Header extends React.Component {
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.loadLogo = this.loadLogo.bind(this);
   }
 
   toggleLoginModal() {
-    this.setState({
-      showLogin: !this.state.showLogin
-    });
+    this.setState((prevState) => ({
+      showLogin: !prevState.showLogin
+    }));
     this.setState({loginError: null});
   }
 
@@ -43,11 +44,16 @@ export default class Header extends React.Component {
   }
 
   componentWillMount() {
-    API.request('logo')
-    .then((response) => response.text().then((logo) => this.setState({logo})))
-    .catch((error) => {
+    this.loadLogo();
+  }
+
+  async loadLogo() {
+    try {
+      const logo = await API.request('logo');
+      this.setState({logo});
+    } catch (error) {
       throw new Error(error);
-    });
+    }
   }
 
   async handleSubmit(event) {
@@ -66,13 +72,13 @@ export default class Header extends React.Component {
         username: this.state.username,
         password: this.state.password
       };
-      let resp = await API.request(`login`, 'POST', {
+      const resp = await API.request(`login`, 'POST', {
         body: JSON.stringify(credentials),
         headers: {
           Accept: HEADERS.JSON,
           'Content-Type': HEADERS.JSON
         }
-      }).then((response) => response.json());
+      });
 
       storage.setItem('token', resp.token);
       storage.setItem('username', resp.username);
@@ -80,9 +86,9 @@ export default class Header extends React.Component {
     } catch (e) {
       const errorObj = {
         title: 'Unable to login',
-        type: 'error'
+        type: 'error',
+        description: e.error
       };
-      errorObj.description = e.message;
       this.setState({loginError: errorObj});
     }
   }

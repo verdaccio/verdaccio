@@ -22,11 +22,7 @@ const register = (url, method = 'get', options = {}) => {
 
   if (url === 'sidebar/verdaccio' && method.toLocaleLowerCase() === 'get') {
     return new Promise(function(resolve) {
-      resolve({
-        json: function() {
-          return packageMeta;
-        }
-      });
+      resolve(packageMeta);
     });
   }
 

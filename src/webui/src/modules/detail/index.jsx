@@ -47,7 +47,7 @@ export default class Detail extends React.Component {
     });
 
     try {
-      const resp = await API.request(`package/readme/${packageName}`, 'GET').then((response) => response.text());
+      const resp = await API.request(`package/readme/${packageName}`, 'GET');
       this.setState({
         readMe: resp
       });
