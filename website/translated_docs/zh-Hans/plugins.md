@@ -117,6 +117,7 @@ store:
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory)：verdaccio Active Directory认证插件
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab)：使用Gitlab的Personal Access Token进行认证
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd)：基于(内置)htpasswd文件插件的verdaccio认证插件
+* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
 
 ### 中间件插件
 
