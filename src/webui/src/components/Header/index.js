@@ -43,7 +43,7 @@ export default class Header extends React.Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadLogo();
   }
 
