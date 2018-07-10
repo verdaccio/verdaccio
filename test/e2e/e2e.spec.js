@@ -97,7 +97,7 @@ describe('/ (Verdaccio Page)', () => {
       // check whether user is logged
       const greetings = await page.evaluate(() => document.querySelector('.user-logged-greetings').textContent);
       const buttonLogout = await page.$('.header-button-logout');
-      expect(greetings).toMatch('Hi, test');
+      expect(greetings).toMatch('Hi, Test');
       expect(buttonLogout).toBeDefined();
     });
 
