@@ -15,9 +15,9 @@ title: "IIS server上进行安装"
     
 
 - 请确保您有入站规则来接受TCP流量到Windows防火墙的端口
-- Thats it! Now you can navigate to the host and port that you specified
+- 就这样！现在您可以导航到您指定的主机和端口
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+我要 `verdaccio`站点成为IIS中默认的站点，因此我执行以下操作：
 
 - I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
 - I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
