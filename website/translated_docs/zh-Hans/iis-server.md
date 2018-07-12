@@ -14,7 +14,7 @@ title: "IIS server上进行安装"
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
+- 请确保您有入站规则来接受TCP流量到Windows防火墙的端口
 - Thats it! Now you can navigate to the host and port that you specified
 
 I wanted the `verdaccio` site to be the default site in IIS so I did the following:
