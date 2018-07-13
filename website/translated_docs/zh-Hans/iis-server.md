@@ -21,7 +21,7 @@ title: "IIS server上进行安装"
 
 - 我确定把`c:\users{yourname}`里的.npmrc文件的registry设置为 `"registry=http://localhost/"`
 - 我中止“默认网站”，并且只在IIS 里启动"verdaccio"站点
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- 我将绑定设置为"http", 端口80 上的ip 地址"全部未定义"，ok 任何警告或提示。
 
 These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
 
