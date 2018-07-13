@@ -23,9 +23,9 @@ title: "IIS server上进行安装"
 - 我中止“默认网站”，并且只在IIS 里启动"verdaccio"站点
 - 我将绑定设置为"http", 端口80 上的ip 地址"全部未定义"，ok 任何警告或提示。
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+这些指南是基于[Sinopia主机在Windows IIS](https://gist.github.com/HCanber/4dd8409f79991a09ac75)。 我不得不依照以下调整我的网页配置，但是您可能发现上述提到链接里的原始配置可以更好作业
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+将创建默认配置文件`c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
@@ -68,14 +68,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
     <rewrite>
       <rules>
 
-        <!-- iisnode folder is where iisnode stores it's logs. These should
-        never be rewritten -->
-        <rule name="iisnode" stopProcessing="true">
-          <match url="iisnode*" />
-          <action type="None" />
-        </rule>
-
-        <!-- Rewrite all other urls in order for verdaccio to handle these -->
+        <!-- iisnode folder is where iisnode stores it's logs. <!-- Rewrite all other urls in order for verdaccio to handle these -->
         <rule name="verdaccio">
           <match url="/*" />
           <action type="Rewrite" url="start.js" />
