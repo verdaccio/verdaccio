@@ -1,8 +1,8 @@
 ---
 id: installation
-title: "Installation"
+title: "安装"
 ---
-Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
+Verdaccio 是一个多平台网页应用程序。在安装之前，您需要具有一些先决条件。
 
 #### 最低要求:
 
