@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Form, Button, Dialog, Input, Alert} from 'element-react';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
@@ -13,7 +13,7 @@ import classes from './header.scss';
 import './logo.png';
 
 
-export default class Header extends React.Component {
+export default class Header extends Component {
   state = {
     showLogin: false,
     username: '',
@@ -130,7 +130,7 @@ export default class Header extends React.Component {
     if (!this.isTokenExpire) { // TODO: Check jwt token expire
       return (
         <div className="user-logged">
-          <span className="user-logged-greetings" style={ {marginRight: '10px'} }>Hi, {storage.getItem('username')}</span>
+          <span className="user-logged-greetings" style={ {marginRight: '10px', textTransform: 'capitalize'} }>Hi, {storage.getItem('username')}</span>
           <Button className={`${classes.headerButton} header-button-logout`} type="danger" onClick={this.handleLogout}>Logout</Button>
         </div>
       );
