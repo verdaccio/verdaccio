@@ -2,23 +2,18 @@ import {ErrorCode} from './utils';
 import {API_ERROR} from './constants';
 
 export function allow_action(action) {
-  return function(user, pkg, cb) {
-    const ok = pkg[action].reduce(function(prev, curr) {
-      if (user.name === curr || user.groups.indexOf(curr) !== -1) {
-        return true;
-      }
+  return function(user, pkg, callback) {
+    const {name, groups} = user;
+    const hasPermission = pkg[action].some((group) => name === group || groups.includes(group));
 
-      return prev;
-    }, false);
-
-    if (ok) {
-      return cb(null, true);
+    if (hasPermission) {
+      return callback(null, true);
     }
 
-    if (user.name) {
-      cb(ErrorCode.getForbidden(`user ${user.name} is not allowed to ${action} package ${pkg.name}`));
+    if (name) {
+      callback(ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
     } else {
-      cb(ErrorCode.getForbidden(`unregistered users are not allowed to ${action} package ${pkg.name}`));
+      callback(ErrorCode.getForbidden(`unregistered users are not allowed to ${action} package ${pkg.name}`));
     }
   };
 }
