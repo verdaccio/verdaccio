@@ -28,7 +28,7 @@ npm install -g verdaccio
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![安装verdaccio](/svg/install_verdaccio.gif)
 
 ## 基本使用
 
@@ -46,4 +46,4 @@ warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 
 ## Docker 镜像
 
-`verdaccio`有官方docker镜像可以使用，在大多数情况下，默认的配置已经够好。 For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio`有官方docker镜像可以使用，在大多数情况下，默认的配置已经够好。 更多关于如何安装官方镜像的信息，请[阅读docker章节](docker.md)。
