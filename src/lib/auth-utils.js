@@ -20,11 +20,11 @@ export function allow_action(action) {
 
 export function getDefaultPlugins() {
   return {
-    authenticate: function(user, password, cb) {
+    authenticate(user, password, cb) {
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user: function(user, password, cb) {
+    add_user(user, password, cb) {
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 

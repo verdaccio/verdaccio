@@ -96,13 +96,6 @@ export interface IStorageHandler {
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }
 
-// export interface ConfigHandler {
-//   checkSecretKey(token: string): string;
-//   hasProxyTo(pkg: string, upLink: string): boolean;
-//   getMatchedPackagesSpec(storage: string): verdaccio$PackageAccess | void;
-//   [key: string]: number;
-// }
-
 export type StartUpConfig = {
   storage: string;
   self_path: string;

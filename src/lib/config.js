@@ -78,11 +78,11 @@ class Config implements AppConfig {
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
-    allowedEnvConfig.forEach((function(v) {
-      if (!(v in self)) {
-        self[v] = process.env[v] || process.env[v.toUpperCase()];
+    allowedEnvConfig.forEach((envConf) => {
+      if (!(envConf in self)) {
+        self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
       }
-    }));
+    });
 
     // unique identifier of self server (or a cluster), used to avoid loops
     if (!this.server_id) {

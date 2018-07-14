@@ -30,7 +30,7 @@ export function normalizeUserlist(oldFormat: any, newFormat: any) {
     }
 
     // if it's a string, split it to array
-    if (typeof(arguments[i]) === 'string') {
+    if (_.isString(arguments[i])) {
       result.push(arguments[i].split(/\s+/));
     } else if (Array.isArray(arguments[i])) {
       result.push(arguments[i]);
@@ -60,7 +60,7 @@ export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLI
 export function sanityCheckNames(item: string, users: any) {
   assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved uplink name: ' + item);
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
-  assert(users[item] == null, 'CONFIG: duplicate uplink name: ' + item);
+  assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
   users[item] = true;
 
   return users;
@@ -87,12 +87,7 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   const matchedPkg: MatchedPackage = (getMatchedPackagesSpec(pkg, packages): MatchedPackage);
   const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
   if (proxyList) {
-    return proxyList.reduce((prev, curr) => {
-      if (upLink === curr) {
-        return true;
-      }
-      return prev;
-    }, false);
+    return proxyList.some((curr) => upLink === curr);
   }
 
   return false;
