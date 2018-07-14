@@ -157,7 +157,7 @@
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC jest --config ./jest.config.js --maxWorkers 2",
     "test:functional": "cross-env NODE_ENV=testOldEnv jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index*",
     "test:e2e": "cross-env BABEL_ENV=testOldEnv jest --config ./test/jest.config.e2e.js",
-    "test:all": "npm run test && npm run test:functional && npm run test:e2e",
+    "test:all": "npm run build:webui && npm run test && npm run test:functional && npm run test:e2e",
     "pre:ci": "npm run lint && npm run build:webui",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coverage:publish": "codecov",
