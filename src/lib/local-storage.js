@@ -396,8 +396,8 @@ class LocalStorage implements IStorage {
     const _transform = uploadStream._transform;
     const storage = this._getLocalStorage(name);
 
-    uploadStream.abort = function() {};
-    uploadStream.done = function() {};
+    (uploadStream: any).abort = function() {};
+    (uploadStream: any).done = function() {};
 
     uploadStream._transform = function(data) {
       shaOneHash.update(data);
@@ -459,11 +459,11 @@ class LocalStorage implements IStorage {
       });
     });
 
-    uploadStream.abort = function() {
+    (uploadStream: any).abort = function() {
       writeStream.abort();
     };
 
-    uploadStream.done = function() {
+    (uploadStream: any).done = function() {
       if (!length) {
         uploadStream.emit('error', ErrorCode.getBadData('refusing to accept zero-length file'));
         writeStream.abort();
@@ -521,7 +521,7 @@ class LocalStorage implements IStorage {
     const readTarballStream = storage.readTarball(filename);
     const e404 = ErrorCode.getNotFound;
 
-    stream.abort = function() {
+    (stream: any).abort = function() {
       if (_.isNil(readTarballStream) === false) {
         readTarballStream.abort();
       }
@@ -800,7 +800,7 @@ class LocalStorage implements IStorage {
     return this.localData.setSecret(config.checkSecretKey(secretKey));
   }
 
-  _loadStorage(config: Config, logger: Logger) {
+  _loadStorage(config: Config, logger: Logger): ILocalData {
     const Storage = this._loadStorePlugin();
 
     if (_.isNil(Storage)) {
@@ -811,13 +811,13 @@ class LocalStorage implements IStorage {
     }
   }
 
-  _loadStorePlugin() {
+  _loadStorePlugin(): ILocalData {
     const plugin_params = {
       config: this.config,
       logger: this.logger,
     };
 
-    return _.head(loadPlugin(this.config, this.config.store, plugin_params, function(plugin) {
+    return _.head(loadPlugin(this.config, this.config.store, plugin_params, (plugin) => {
       return plugin.getPackageStorage;
     }));
   }

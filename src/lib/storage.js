@@ -136,7 +136,7 @@ class Storage implements IStorageHandler {
    */
   getTarball(name: string, filename: string) {
     let readStream = new ReadTarball();
-    readStream.abort = function() {};
+    (readStream: any).abort = function() {};
 
     let self = this;
 

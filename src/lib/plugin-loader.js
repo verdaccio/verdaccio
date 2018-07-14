@@ -44,8 +44,12 @@ function isES6(plugin) {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck: Function) {
-  return Object.keys(pluginConfigs || {}).map(function(pluginId) {
+function loadPlugin<T>(
+        config: Config,
+        pluginConfigs: any = {},
+        params: any,
+        sanityCheck: Function): T[] {
+  return Object.keys(pluginConfigs).map((pluginId: string) => {
     let plugin;
 
     // try local plugins first
@@ -79,7 +83,9 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
     /* eslint new-cap:off */
-    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+    plugin = isES6(plugin)
+      ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
+      : plugin(pluginConfigs[pluginId], params);
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
