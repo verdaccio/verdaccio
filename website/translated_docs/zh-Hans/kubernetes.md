@@ -2,39 +2,39 @@
 id: kubernetes
 title: "Kubernetes"
 ---
-您可以在[verdaccio/docker-例子](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example)资源库找到在Kubernetes群集中配置Verdaccio的指南。 然而，推荐在Kubernetes集群上安装Verdaccio的方法是用[Helm](https://helm.sh)。 Helm is a [Kubernetes](https://kubernetes.io) package manager which bring multiple advantages.
+您可以在[verdaccio/docker-例子](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example)资源库找到在Kubernetes群集中配置Verdaccio的指南。 然而，推荐在Kubernetes集群上安装Verdaccio的方法是用[Helm](https://helm.sh)。 Helm 是 [Kubernetes](https://kubernetes.io) package管理者，它带来好多优点。
 
 ## Helm
 
-### Setup Helm
+### 设置Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+如果您以前没有使用过Helm， 您需要设置叫做Tiller的Helm控制器:
 
 ```bash
 helm init
 ```
 
-### Install
+### 安装
 
-Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
+配置Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart。在这个例子里，我们用 `npm` 作为发行名称:
 
 ```bash
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### 配置特定版本
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### 升级Verdaccio
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### 卸载
 
 ```bash
 helm del --purge npm
