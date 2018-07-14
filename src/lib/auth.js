@@ -36,8 +36,10 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, pluginOptions, function(plugin) {
-      return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
+    return loadPlugin(config, config.auth, pluginOptions, (plugin) => {
+      const {authenticate, allow_access, allow_publish} = plugin;
+
+      return authenticate || allow_access || allow_publish;
     });
   }
 
