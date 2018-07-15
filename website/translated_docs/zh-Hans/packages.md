@@ -4,7 +4,7 @@ title: "包的访问"
 ---
 这是一系列的约束，它基于特定条件允许或限制对本地存储的访问。
 
-安全约束构建于被使用的插件上，在默认情况下，`verdaccio`使用[htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd)。 如果你使用不同的插件，行为可能会有所不同。 默认插件自己并不处理`allow_access`和`allow_publish`，它使用内部回退功能以防止插件尚未就绪。
+安全约束构建于被使用的插件上，在默认情况下，`verdaccio`使用[htpasswd 插件](https://github.com/verdaccio/verdaccio-htpasswd)。 如果你使用不同的插件，行为可能会有所不同。 默认插件自己并不处理`allow_access`和`allow_publish`，它使用内部回退功能以防止插件尚未就绪。
 
 关于权限的更多信息，请访问[维基文档的认证部分](auth.md)。
 
@@ -46,7 +46,7 @@ packages:
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. 例如，如果你以`npmUser`身份登录，组列表为：
+All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. 例如，如果你以`npmUser`身份登录，组列表为。
 
 ```js
 // groups without '$' are going to be deprecated eventually
@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-重启`verdaccio`并在命令行中安装`npmuser-core`。
+重启`verdaccio`并在命令行中尝试安装`npmuser-core`。
 
 ```bash
 $ npm install npmuser-core
@@ -94,7 +94,7 @@ npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 
 #### 阻止对一组包的访问
 
-如果你想要阻止访问/发布到一组包，只需要避免定义`access` 和 `publish`。
+如果你想要阻止访问/发布到一组包，只要不定义`access` 和 `publish`即可。
 
 ```yaml
 packages:
@@ -134,13 +134,13 @@ packages:
 * 我想要在`my-local-scope`范围内的所有依赖库但我需要避免代理它们。
 * 我想要代理所有剩余的依赖库。
 
-**注意库定义的顺序很重要同时必须使用配对的通配符**。 因为如果你没有包含它，`verdaccio`会帮你来包含它，这样你的依赖库解析会受到影响。
+**注意库定义的顺序很重要同时必须使用双通配符**。 因为如果你没有包含它，`verdaccio`会帮你来包含它，这样你的依赖库解析会受到影响。
 
 ### 配置
 
-你可以定义多个`包`，每个包都必须有一个唯一的`Regex`。
+你可以定义多个`packages`，每个包都必须有一个唯一的`Regex`。
 
-| 属性      | 类型      | 必须的 | 范例             | 支持  | 描述              |
+| 属性      | 类型      | 必须的 | 示例             | 支持  | 描述              |
 | ------- | ------- | --- | -------------- | --- | --------------- |
 | access  | string  | No  | $all           | all | 定义允许访问包的组       |
 | publish | string  | No  | $authenticated | all | 定义允许发布的组        |
