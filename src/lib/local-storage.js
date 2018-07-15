@@ -13,7 +13,7 @@ fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
 import {createTarballHash} from './crypto-utils';
 import {prepareSearchPackage} from './storage-utils';
-import {loadPlugin} from '../lib/plugin-loader';
+import loadPlugin from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import type {
@@ -570,7 +570,7 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   search(startKey: string, options: any) {
-    const stream = new UploadTarball({objectMode: true});
+    const stream = new ReadTarball({objectMode: true});
 
     this._searchEachPackage((item, cb) => {
       if (item.time > parseInt(startKey, 10)) {

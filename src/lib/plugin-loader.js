@@ -45,7 +45,7 @@ function isES6(plugin) {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-function loadPlugin<T>(
+export default function loadPlugin<T>(
         config: Config,
         pluginConfigs: any = {},
         params: any,
@@ -97,5 +97,3 @@ function loadPlugin<T>(
     return plugin;
   });
 }
-
-export {loadPlugin};

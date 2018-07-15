@@ -10,13 +10,13 @@ const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/par
 import type {
 	Config as AppConfig,
 	IPluginMiddleware,
-	IBasicStorage,
+	IStorageManager,
 	IBasicAuth,
 } from '@verdaccio/types';
 import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 
 export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
-	register_middlewares(app: any, auth: IBasicAuth, storage: IBasicStorage): void {
+	register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void {
 		auth.authenticate('user', 'password', () => {});
 		auth.allow_access('packageName', 'user', () => {});
 		auth.add_user('user', 'password', () => {});
@@ -27,10 +27,8 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
 		storage.mergeTags('name', {'latest': '1.0.0'}, () => {});
 		storage.changePackage('name', readMetadata(), 'revision', () => {});
 		storage.removePackage('name', () => {});
-		storage.updateVersions('name', generatePackageTemplate('test'), () => {});
 		storage.mergeTags('name', {'latest': '1.0.0'}, () => {});
 		storage.removeTarball('name', 'filename', 'revision', () => {});
-		storage.getPackageMetadata('test', () => {});
 		/* eslint no-unused-vars: 0 */
 		const config1: AppConfig = new Config({
 			storage: './storage',
@@ -39,8 +37,7 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
 		const add: IUploadTarball = storage.addTarball('name', 'filename');
 		storage.getTarball('name', 'filename');
 		const read: IReadTarball = storage.getTarball('name', 'filename');
-		const search: IUploadTarball = storage.search('test');
-		const secret: Promise<any> = storage.getSecret(config1);
+		const search: IReadTarball = storage.search('test');
 		/* eslint no-unused-vars: 0 */
 	}
 }

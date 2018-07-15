@@ -1,5 +1,5 @@
 import path from 'path';
-import {loadPlugin} from '../../../src/lib/plugin-loader';
+import loadPlugin from '../../../src/lib/plugin-loader';
 import logger from '../../../src/lib/logger';
 
 logger.setup([]);

@@ -3,7 +3,7 @@
 import _ from 'lodash';
 
 import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
-import {loadPlugin} from '../lib/plugin-loader';
+import loadPlugin from '../lib/plugin-loader';
 import {buildBase64Buffer, ErrorCode} from './utils';
 import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
 import {getDefaultPlugins} from './auth-utils';
@@ -39,7 +39,7 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin<IPluginAuth>(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
+    return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
       const {authenticate, allow_access, allow_publish} = plugin;
 
       return authenticate || allow_access || allow_publish;
