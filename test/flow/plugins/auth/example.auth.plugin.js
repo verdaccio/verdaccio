@@ -1,19 +1,18 @@
 // @flow
 
+// this file is not aim to be tested, just to check flow definitions
+
 import Config from '../../../../src/lib/config';
 import LoggerApi from '../../../../src/lib/logger';
 
 import type {
-	AuthPlugin,
 	Config as AppConfig,
-	IAuthPlugin,
+	IPluginAuth,
 	Logger,
 	PluginOptions
 	} from '@verdaccio/types';
 
-
-// this class is not aim to be tested, just to check flow definitions
-class ExampleAuthPlugin implements IAuthPlugin {
+class ExampleAuthPlugin implements IPluginAuth {
 	config: AppConfig;
 	logger: Logger;
 
@@ -45,6 +44,8 @@ const options: PluginOptions = {
 	logger: LoggerApi.logger.child()
 }
 
-// $FlowFixMe
-const instance1: AuthPlugin = new ExampleAuthPlugin(config1, options);
-console.log(instance1);
+const auth = new ExampleAuthPlugin(config1, options);
+
+auth.authenticate('user', 'pass', () => {});
+auth.allow_access('packageName', 'user', () => {});
+auth.allow_publish('packageName', 'user', () => {});

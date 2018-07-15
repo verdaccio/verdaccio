@@ -1,6 +1,8 @@
 // @flow
 
 import type {
+  IBasicAuth,
+  IBasicStorage,
   UpLinkConf,
   Callback,
   Versions,
@@ -9,6 +11,7 @@ import type {
   Config,
   Logger,
   PackageAccess,
+  StringValue as verdaccio$StringValue,
   Package} from '@verdaccio/types';
 import type {
   IUploadTarball,
@@ -17,20 +20,22 @@ import type {
 import type {ILocalData} from '@verdaccio/local-storage';
 import type {NextFunction, $Request, $Response} from 'request';
 
-export type StringValue = string | void | null;
+export type StringValue = verdaccio$StringValue;
 
-export interface IAuth {
-  config: Config;
-  logger: Logger;
-  secret: string;
-  plugins: Array<any>;
-  aesEncrypt(buf: Buffer): Buffer;
+interface IAuthWebUI {
+  issueUIjwt(user: string, time: string): string;
+}
+
+interface IAuthMiddleware {
   apiJWTmiddleware(): $NextFunctionVer;
   webUIJWTmiddleware(): $NextFunctionVer;
-  authenticate(user: string, password: string, cb: Callback): void;
-  allow_access(packageName: string, user: string, callback: Callback): void;
-  issueUIjwt(user: string, time: string): string;
-  add_user(user: string, password: string, cb: Callback): any;
+}
+
+export interface IAuth extends IBasicAuth, IAuthMiddleware, IAuthWebUI {
+  config: verdaccio$Config;
+  logger: verdaccio$Logger;
+  secret: string;
+  plugins: Array<any>;
 }
 
 export interface IWebSearch {
@@ -103,22 +108,10 @@ export type StartUpConfig = {
 
 export type MatchedPackage = PackageAccess | void;
 
-export interface IStorage {
+export interface IStorage extends IBasicStorage {
   config: Config;
   localData: ILocalData;
   logger: Logger;
-  addPackage(name: string, info: Package, callback: Callback): void;
-  removePackage(name: string, callback: Callback): void;
-  updateVersions(name: string, packageInfo: Package, callback: Callback): void;
-  addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
-  mergeTags(name: string, tags: MergeTags, callback: Callback): void;
-  changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
-  removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
-  addTarball(name: string, filename: string): IUploadTarball;
-  getTarball(name: string, filename: string): IReadTarball;
-  getPackageMetadata(name: string, callback: Callback): void;
-  search(startKey: string, options: any): IUploadTarball;
-  getSecret(config: Config): Promise<any>;
 }
 
 export type JWTPayload = {
