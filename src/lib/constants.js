@@ -93,7 +93,7 @@ export const APP_ERROR = {
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
-
+export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
 export const WEB_TITLE = 'Verdaccio';
 

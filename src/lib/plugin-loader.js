@@ -4,6 +4,7 @@ import Path from 'path';
 import _ from 'lodash';
 import logger from './logger';
 import type {Config} from '@verdaccio/types';
+import {MODULE_NOT_FOUND} from './constants';
 
 /**
  * Requires a module.
@@ -14,7 +15,7 @@ function tryLoad(path: string) {
   try {
     return require(path);
   } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
+    if (err.code === MODULE_NOT_FOUND) {
       return null;
     }
     throw err;
