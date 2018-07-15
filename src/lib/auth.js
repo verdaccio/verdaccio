@@ -1,17 +1,20 @@
 // @flow
 
 import _ from 'lodash';
+
+import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
 import {loadPlugin} from '../lib/plugin-loader';
 import {buildBase64Buffer, ErrorCode} from './utils';
 import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
+import {getDefaultPlugins} from './auth-utils';
 
-import type {Config, Logger, Callback} from '@verdaccio/types';
+import {getMatchedPackagesSpec} from './config-utils';
+
+import type {Config, Logger, Callback, IPluginAuth} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
-import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
-import {getMatchedPackagesSpec} from './config-utils';
 import type {IAuth} from '../../types';
-import {getDefaultPlugins} from './auth-utils';
+
 
 const LoggerApi = require('./logger');
 
@@ -36,7 +39,7 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, pluginOptions, (plugin) => {
+    return loadPlugin<IPluginAuth>(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
       const {authenticate, allow_access, allow_publish} = plugin;
 
       return authenticate || allow_access || allow_publish;
