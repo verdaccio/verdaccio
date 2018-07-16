@@ -7,6 +7,7 @@ import {generateRandomHexString} from '../lib/crypto-utils';
 
 import type {Package, Version} from '@verdaccio/types';
 import type {IStorage} from '../../types';
+import {API_ERROR, HTTP_STATUS} from './constants';
 
 const pkgFileName = 'package.json';
 const fileExist: string = 'EEXISTS';
@@ -123,11 +124,11 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
 export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
   return new Promise((resolve, reject) => {
     localStorage.getPackageMetadata(name, (err, results) => {
-      if (!_.isNil(err) && err.status !== 404) {
+      if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
         return reject(err);
       }
       if (results) {
-        return reject(ErrorCode.getConflict('this package is already present'));
+        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
       }
       return resolve();
     });
@@ -152,25 +153,25 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
     // $FlowFixMe
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors) => {
       // something weird
-      if (err && err.status !== 404) {
+      if (err && err.status !== HTTP_STATUS.NOT_FOUND) {
         return reject(err);
       }
 
       // checking package exist already
       if (_.isNil(packageJsonLocal) === false) {
-        return reject(ErrorCode.getConflict('this package is already present'));
+        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
       }
 
       for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
         // checking error
         // if uplink fails with a status other than 404, we report failure
         if (_.isNil(upLinksErrors[errorItem][0]) === false) {
-          if (upLinksErrors[errorItem][0].status !== 404) {
+          if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
             if (isAllowPublishOffline) {
               return resolve();
             }
 
-            return reject(ErrorCode.getServiceUnavailable('one of the uplinks is down, refuse to publish'));
+            return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
           }
         }
       }

@@ -64,9 +64,12 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config: any, cliListen: string,
-                              configPath: string, pkgVersion: string,
-                              pkgName: string, callback: Callback) {
+function startVerdaccio(config: any,
+                        cliListen: string,
+                        configPath: string,
+                        pkgVersion: string,
+                        pkgName: string,
+                        callback: Callback) {
   if (isObject(config) === false) {
     throw new Error('config file must be an object');
   }

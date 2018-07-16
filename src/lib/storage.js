@@ -26,6 +26,7 @@ Callback,
 Logger,
 } from '@verdaccio/types';
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
+import {hasProxyTo} from './config-utils';
 
 const LoggerApi = require('../lib/logger');
 
@@ -412,9 +413,9 @@ class Storage implements IStorageHandler {
       packageInfo = generatePackageTemplate(name);
     }
 
-    for (let up in this.uplinks) {
-      if (this.config.hasProxyTo(name, up)) {
-        upLinks.push(this.uplinks[up]);
+    for (let uplink in this.uplinks) {
+      if (hasProxyTo(name, uplink, this.config.packages)) {
+        upLinks.push(this.uplinks[uplink]);
       }
     }
 

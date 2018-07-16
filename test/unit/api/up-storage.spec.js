@@ -8,7 +8,7 @@ import {setup} from '../../../src/lib/logger';
 
 import type {Config, UpLinkConf} from '@verdaccio/types';
 import type {IProxy} from '../../../types/index';
-import {API_ERROR} from "../../../src/lib/constants";
+import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
@@ -102,8 +102,8 @@ describe('UpStorge', () => {
 
         stream.on('error', function(err) {
           expect(err).not.toBeNull();
-          expect(err.statusCode).toBe(404);
-          expect(err.message).toMatch(/file doesn't exist on uplink/);
+          expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+          expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
 
           done();
         });
@@ -141,9 +141,9 @@ describe('UpStorge', () => {
                 const streamThirdTry = proxy.fetchTarball(tarball);
                 streamThirdTry.on('error', function(err) {
                   expect(err).not.toBeNull();
-                  expect(err.statusCode).toBe(500);
+                  expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
                   expect(proxy.failed_requests).toBe(2);
-                  expect(err.message).toMatch(/uplink is offline/);
+                  expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
                   done();
                 });
               });

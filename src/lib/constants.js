@@ -29,10 +29,12 @@ export const DEFAULT_UPLINK = 'npmjs';
 
 export const ROLES = {
   $ALL: '$all',
+  ALL: 'all',
   $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
   DEPRECATED_ALL: '@all',
   DEPRECATED_AUTH: '@authenticated',
-  ALL: 'all',
+  DEPRECATED_ANONUMOUS: '@anonymous',
 };
 
 export const HTTP_STATUS = {
@@ -65,21 +67,37 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
+  BAD_USERNAME_PASSWORD: 'bad username/password, access denied {APP}',
   NO_PACKAGE: 'no such package available',
   NOT_ALLOWED: 'not allowed to access package',
   INTERNAL_SERVER_ERROR: 'internal server error',
   UNKNOWN_ERROR: 'unknown error',
   NOT_PACKAGE_UPLINK: 'package does not exist on uplink',
+  UPLINK_OFFLINE_PUBLISH: 'one of the uplinks is down, refuse to publish',
+  UPLINK_OFFLINE: 'uplink is offline',
   CONTENT_MISMATCH: 'content length mismatch',
   NOT_FILE_UPLINK: 'file doesn\'t exist on uplink',
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: 'this version doesn\'t exist',
   FILE_NOT_FOUND: 'File not found',
   BAD_STATUS_CODE: 'bad status code',
+  PACKAGE_EXIST: 'this package is already present',
+  BAD_AUTH_HEADER: 'bad authorization header',
   WEB_DISABLED: 'Web interface is disabled in the config file',
+  DEPRECATED_BASIC_HEADER: 'basic authentication is deprecated, please use JWT instead',
+  BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
+};
+
+export const APP_ERROR = {
+  CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
 
 
 export const WEB_TITLE = 'Verdaccio';
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};
