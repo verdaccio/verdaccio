@@ -10,7 +10,7 @@ import {getDefaultPlugins} from './auth-utils';
 
 import {getMatchedPackagesSpec} from './config-utils';
 
-import type {Config, Logger, Callback, IPluginAuth} from '@verdaccio/types';
+import type {Config, Logger, Callback, IPluginAuth, RemoteUser} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
 import type {IAuth} from '../../types';
@@ -118,7 +118,7 @@ class Auth implements IAuth {
   /**
    * Allow user to access a package.
    */
-  allow_access(packageName: string, user: string, callback: Callback) {
+  allow_access(packageName: string, user: RemoteUser, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
     let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));

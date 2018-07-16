@@ -67,7 +67,7 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
-  BAD_USERNAME_PASSWORD: 'bad username/password, access denied {APP}',
+  BAD_USERNAME_PASSWORD: 'bad username/password, access denied',
   NO_PACKAGE: 'no such package available',
   NOT_ALLOWED: 'not allowed to access package',
   INTERNAL_SERVER_ERROR: 'internal server error',

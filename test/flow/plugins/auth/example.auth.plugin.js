@@ -9,6 +9,7 @@ import type {
 	Config as AppConfig,
 	PackageAccess,
 	IPluginAuth,
+	RemoteUser,
 	Logger,
 	PluginOptions
 	} from '@verdaccio/types';
@@ -30,11 +31,11 @@ class ExampleAuthPlugin implements IPluginAuth {
 		cb();
 	}
 
-  allow_access(user: string, pkg: PackageAccess, cb: verdaccio$Callback): void {
+  allow_access(user: RemoteUser, pkg: PackageAccess, cb: verdaccio$Callback): void {
 		cb();
 	}
 
-  allow_publish(user: string, pkg: PackageAccess, cb: verdaccio$Callback): void {
+  allow_publish(user: RemoteUser, pkg: PackageAccess, cb: verdaccio$Callback): void {
 		cb();
 	}
 }
@@ -50,7 +51,12 @@ const options: PluginOptions = {
 }
 
 const auth = new ExampleAuthPlugin(config1, options);
+const remoteUser: RemoteUser = {
+	groups: [],
+	real_groups: [],
+	name: 'test'
+};
 
 auth.authenticate('user', 'pass', () => {});
-auth.allow_access('packageName', {}, () => {});
-auth.allow_publish('packageName', {}, () => {});
+auth.allow_access(remoteUser, {}, () => {});
+auth.allow_publish(remoteUser, {}, () => {});

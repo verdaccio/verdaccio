@@ -11,14 +11,20 @@ import type {
 	Config as AppConfig,
 	IPluginMiddleware,
 	IStorageManager,
+	RemoteUser,
 	IBasicAuth,
 } from '@verdaccio/types';
 import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 
 export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
 	register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void {
+		const remoteUser: RemoteUser = {
+			groups: [],
+			real_groups: [],
+			name: 'test'
+		};
 		auth.authenticate('user', 'password', () => {});
-		auth.allow_access('packageName', 'user', () => {});
+		auth.allow_access('packageName', remoteUser, () => {});
 		auth.add_user('user', 'password', () => {});
 		auth.aesEncrypt(new Buffer('pass'));
 		// storage
