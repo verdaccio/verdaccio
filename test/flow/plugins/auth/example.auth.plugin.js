@@ -7,6 +7,7 @@ import LoggerApi from '../../../../src/lib/logger';
 
 import type {
 	Config as AppConfig,
+	PackageAccess,
 	IPluginAuth,
 	Logger,
 	PluginOptions
@@ -29,11 +30,11 @@ class ExampleAuthPlugin implements IPluginAuth {
 		cb();
 	}
 
-  allow_access(packageName: string, user: string, cb: verdaccio$Callback): void {
+  allow_access(user: string, pkg: PackageAccess, cb: verdaccio$Callback): void {
 		cb();
 	}
 
-  allow_publish(packageName: string, user: string, cb: verdaccio$Callback): void {
+  allow_publish(user: string, pkg: PackageAccess, cb: verdaccio$Callback): void {
 		cb();
 	}
 }
@@ -51,5 +52,5 @@ const options: PluginOptions = {
 const auth = new ExampleAuthPlugin(config1, options);
 
 auth.authenticate('user', 'pass', () => {});
-auth.allow_access('packageName', 'user', () => {});
-auth.allow_publish('packageName', 'user', () => {});
+auth.allow_access('packageName', {}, () => {});
+auth.allow_publish('packageName', {}, () => {});
