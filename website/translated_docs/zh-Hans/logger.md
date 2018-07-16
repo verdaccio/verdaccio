@@ -1,8 +1,8 @@
 ---
-id: logger
-title: "Logger"
+id: 记录器
+title: "记录器"
 ---
-As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+和任何网页应用程序一样， verdaccio 有自定义的内置记录器。您可以定义多种输出类型。
 
 ```yaml
 logs:
