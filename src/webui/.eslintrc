@@ -26,7 +26,6 @@
       }
     ],
     "comma-dangle": 0,
-    "semi": 1,
     "react/no-danger-with-children": 1,
     "react/no-string-refs": 1,
     "react/prefer-es6-class": [

@@ -83,13 +83,15 @@
     "element-theme-default": "1.4.13",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.18.2",
+    "eslint": "5.1.0",
     "eslint-config-google": "0.9.1",
+    "eslint-config-prettier": "2.9.0",
     "eslint-loader": "2.0.0",
     "eslint-plugin-babel": "4.1.2",
     "eslint-plugin-flowtype": "2.46.1",
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-jest": "21.14.0",
+    "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.7.0",
     "file-loader": "1.1.11",
     "flow-bin": "0.69.0",
@@ -111,6 +113,8 @@
     "normalize.css": "8.0.0",
     "optimize-css-assets-webpack-plugin": "4.0.1",
     "ora": "1.4.0",
+    "prettier": "1.13.7",
+    "pretty-quick": "1.6.0",
     "prop-types": "15.6.1",
     "puppeteer": "1.1.1",
     "react": "16.2.0",
@@ -171,7 +175,10 @@
     "dev:webui": "cross-env BABEL_ENV=ui babel-node tools/dev.server.js",
     "build:webui": "npm run pre:webpack && cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js",
     "build:docker": "docker build -t verdaccio . --no-cache",
-    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
+    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi .",
+    "prettier-list": "prettier -l --config .prettierrc ./{test,src,tools}/**/*.js",
+    "prettier-write": "prettier --write --config .prettierrc ./{test,src,tools}/**/*.js",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "engines": {
     "node": ">=6.12.0",
@@ -183,7 +190,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "pretty-quick --staged"
     }
   },
   "license": "MIT",
