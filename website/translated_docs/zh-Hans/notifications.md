@@ -10,7 +10,7 @@ title: "通知"
 
 > Verdaccio 支持任何 API, 请随意添加更多范例。
 
-#### Single notification
+#### 单通知
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### 多通知
 
 ```yaml
 notify:
