@@ -1,14 +1,14 @@
 ---
-id: notifications
-title: "Notifications"
+id: 通知
+title: "通知"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
+创建通知主要是与Slack的输入webhooks一起使用，但它也会传递简单的载荷到任何末端。目前只对 `npm publish`命令有效。
 
-## Usage
+## 使用
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+**HipChat**, **Stride** 和 **Google Hangouts Chat** hook的一个范例:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio 支持任何 API, 请随意添加更多范例。
 
 #### Single notification
 
