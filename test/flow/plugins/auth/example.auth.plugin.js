@@ -21,6 +21,10 @@ class ExampleAuthPlugin implements IPluginAuth {
 			this.logger = options.logger;
 	}
 
+	adduser(user: string, password: string, cb: verdaccio$Callback): void {
+		cb();
+	}
+
 	authenticate(user: string, password: string, cb: verdaccio$Callback): void {
 		cb();
 	}
