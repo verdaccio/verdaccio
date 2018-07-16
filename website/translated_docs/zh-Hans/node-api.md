@@ -9,7 +9,7 @@ Verdaccio can be invoqued programmatically. The node API was introduced after ve
 #### 编程
 
 ```js
- import startServer from 'verdaccio';   
+ mport startServer from 'verdaccio';   
 
  startServer(configJsonFormat, 6000, store, '1.0.0', 'verdaccio',
     (webServer, addrs, pkgName, pkgVersion) => {
@@ -19,9 +19,9 @@ Verdaccio can be invoqued programmatically. The node API was introduced after ve
   });
 ```
 
-## Other implementations
+## 其他执行
 
-* [verdaccio-server](https://github.com/boringame/verdaccio-server) local npm registry proxy server
+* [verdaccio-server](https://github.com/boringame/verdaccio-server) 本地 npm 注册proxy server（代理服务器）
 
 ```js
 // js
