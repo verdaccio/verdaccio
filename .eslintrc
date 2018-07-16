@@ -2,14 +2,19 @@
   "plugins": [
     "react",
     "flowtype",
-    "jest"
+    "jest",
+    "prettier"
   ],
   "extends": [
     "eslint:recommended",
     "google",
     "plugin:react/recommended",
     "plugin:flowtype/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react",
+    "prettier/standard"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -30,17 +35,20 @@
     "__APP_VERSION__": true
   },
   "rules": {
+    "prettier/prettier": "error",
     "no-useless-escape": 2,
     "handle-callback-err": 2,
     "no-fallthrough": 2,
     "no-new-require": 2,
-    "max-len": [2, 160],
+    "max-len": [
+      2,
+      160
+    ],
     "camelcase": 0,
     "require-jsdoc": 0,
     "valid-jsdoc": 0,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
-    "linebreak-style": 0,
-    "quote-props":["error", "as-needed"]
+    "linebreak-style": 0
   }
 }
