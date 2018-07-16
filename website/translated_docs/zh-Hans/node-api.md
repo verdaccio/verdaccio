@@ -4,9 +4,9 @@ title: "Node API"
 ---
 Verdaccio can be invoqued programmatically. The node API was introduced after version `verdaccio@3.0.0-alpha.10`.
 
-## Usage
+## 使用
 
-#### Programmatically
+#### 编程
 
 ```js
  import startServer from 'verdaccio';   
