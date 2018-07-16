@@ -91,7 +91,7 @@
     "eslint-plugin-jest": "21.17.0",
     "eslint-plugin-react": "7.10.0",
     "file-loader": "1.1.11",
-    "flow-bin": "0.75.0",
+    "flow-bin": "0.76.0",
     "flow-runtime": "0.17.0",
     "friendly-errors-webpack-plugin": "1.7.0",
     "github-markdown-css": "2.10.0",
