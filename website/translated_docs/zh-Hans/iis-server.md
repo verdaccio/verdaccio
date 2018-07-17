@@ -17,13 +17,13 @@ title: "IIS server上进行安装"
 - 请确保您有入站规则来接受TCP流量到Windows防火墙的端口
 - 就这样！现在您可以导航到您指定的主机和端口
 
-我要 `verdaccio`站点成为IIS中默认的站点，因此我执行以下操作：
+我希望 `verdaccio`站点成为IIS中默认的站点，因此我执行了以下操作：
 
-- 我确定把`c:\users{yourname}`里的.npmrc文件的registry设置为 `"registry=http://localhost/"`
+- 我确定`c:\users{yourname}`里的.npmrc文件的registry已设置为 `"registry=http://localhost/"`
 - 我中止“默认网站”，并且只在IIS 里启动"verdaccio"站点
-- 我将绑定设置为"http", 端口80 上的ip 地址"全部未定义"，ok 任何警告或提示。
+- 我将端口80绑定设置为"http", ip 地址为"全部未定义"，ok 任何警告或提示。
 
-这些指南是基于[Sinopia主机在Windows IIS](https://gist.github.com/HCanber/4dd8409f79991a09ac75)。 我不得不依照以下调整我的网页配置，但是您可能发现上述提到链接里的原始配置可以更好作业
+这些指南是基于[Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75)。 我不得不依照以下调整我的网页配置，但是您可能发现上述提到链接里的原始配置可以更好作业
 
 将创建默认配置文件`c:\verdaccio\verdaccio\config.yaml`
 
