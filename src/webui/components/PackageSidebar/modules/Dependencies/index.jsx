@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import Module from '../../Module';
 
 import classes from './style.scss';
-import {getDetailPageURL} from '../../../../../utils/url';
+import {getDetailPageURL} from '../../../../utils/url';
 import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 export default class Dependencies extends React.Component {

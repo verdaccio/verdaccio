@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import Package from '../../../../src/webui/src/components/Package/index';
+import Package from '../../../../src/webui/components/Package/index';
 import { BrowserRouter } from 'react-router-dom';
 
 /**

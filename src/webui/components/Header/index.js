@@ -5,10 +5,10 @@ import isNumber from 'lodash/isNumber';
 import capitalize from 'lodash/capitalize';
 import {Link} from 'react-router-dom';
 
-import API from '../../../utils/api';
-import storage from '../../../utils/storage';
-import {getRegistryURL} from '../../../utils/url';
-import {HEADERS} from '../../../../lib/constants';
+import API from '../../utils/api';
+import storage from '../../utils/storage';
+import {getRegistryURL} from '../../utils/url';
+import {HEADERS} from '../../../lib/constants';
 
 import classes from './header.scss';
 import './logo.png';

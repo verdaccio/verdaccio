@@ -5,7 +5,7 @@ import Maintainers from './modules/Maintainers';
 import Dependencies from './modules/Dependencies';
 import Infos from './modules/Infos';
 
-import API from '../../../utils/api';
+import API from '../../utils/api';
 
 export default class PackageSidebar extends React.Component {
   state = {};

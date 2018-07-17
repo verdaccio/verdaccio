@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import Infos from '../../../../../src/webui/src/components/PackageSidebar/modules/Infos/index';
+import Infos from '../../../../../src/webui/components/PackageSidebar/modules/Infos/index';
 import { packageMeta } from '../store/packageMeta';
  
 console.error = jest.fn();

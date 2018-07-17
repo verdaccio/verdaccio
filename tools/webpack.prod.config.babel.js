@@ -27,7 +27,7 @@ const prodConf = {
   mode: 'production',
 
   entry: {
-    main: ['babel-polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/webui/src/index.js`],
+    main: ['babel-polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/webui/index.js`],
   },
 
   module: {

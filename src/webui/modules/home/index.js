@@ -4,7 +4,7 @@ import {Loading, MessageBox} from 'element-react';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 
-import API from '../../../utils/api';
+import API from '../../utils/api';
 
 import PackageList from '../../components/PackageList';
 import Search from '../../components/Search';

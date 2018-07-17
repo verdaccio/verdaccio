@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import Maintainers from '../../../../../src/webui/src/components/PackageSidebar/modules/Maintainers/index';
+import Maintainers from '../../../../../src/webui/components/PackageSidebar/modules/Maintainers/index';
 import { packageMeta } from '../store/packageMeta';
 
 console.error = jest.fn();
