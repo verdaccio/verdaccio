@@ -10,7 +10,7 @@ title: "通知"
 
 > Verdaccio 支持任何 API, 请随意添加更多范例。
 
-#### 单通知
+#### 单个通知
 
 ```yaml
 notify:
