@@ -137,22 +137,22 @@ notify:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**请注意:** 如果 `package.json` 文件已经有`publisher`属性，是不可能再拿到发表人信息的。
 
-### Package Published
+### 已发布包
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+您可以如以下所示用热词`{{publishedPackage}}` 来访问已经发布的包.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-## Configuration
+## 配置
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| 属性                  | 类型    | 必填 | 支持   | 默认 | 描述                                          |
+| ------------------- | ----- | -- | ---- | -- | ------------------------------------------- |
+| 方法                  | 字符串   | 不  | 任意路径 |    | HTTP verb                                   |
+| packagePattern      | 字符串   | 不  | 任意路径 |    | 仅当包名字和正规表达式匹配时才运行此通知                        |
+| packagePatternFlags | 字符串   | 不  | 任意路径 |    | 任何与正规表达式一起使用的标记                             |
+| 标头                  | 数组/对象 | 是  | 任意路径 |    | 如果此端点需要特定的标头，请把它们设置为键数组：value objects（值对象）。 |
+| 端点                  | 字符串   | 是  | 任意路径 |    | 设置此调用的URL 端点                                |
+| 内容                  | 字符串   | 是  | 任意路径 |    | 任何[Handlebar](https://handlebarsjs.com/)表达式 |
