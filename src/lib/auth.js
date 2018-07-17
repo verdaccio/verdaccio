@@ -126,11 +126,11 @@ class Auth implements IAuth {
     (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.allow_access) !== 'function') {
+      if (_.isFunction(plugin.allow_access) === false) {
         return next();
       }
 
-      plugin.allow_access(user, pkg, function(err, ok) {
+      plugin.allow_access(user, pkg, function(err, ok: boolean) {
         if (err) {
           return callback(err);
         }
@@ -155,11 +155,11 @@ class Auth implements IAuth {
     (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.allow_publish) !== 'function') {
+      if (_.isFunction(plugin.allow_publish) === false) {
         return next();
       }
 
-      plugin.allow_publish(user, pkg, (err, ok) => {
+      plugin.allow_publish(user, pkg, (err, ok: boolean) => {
         if (err) {
           return callback(err);
         }
@@ -188,7 +188,8 @@ class Auth implements IAuth {
         return _next();
       };
 
-      if (req.remote_user != null && req.remote_user.name !== undefined) {
+      if (_.isUndefined(req.remote_user) === false
+          && _.isUndefined(req.remote_user.name) === false) {
         return next();
       }
       req.remote_user = buildAnonymousUser();
@@ -204,7 +205,6 @@ class Auth implements IAuth {
       }
 
       const credentials = this._parseCredentials(parts);
-
       if (!credentials) {
         return next();
       }
