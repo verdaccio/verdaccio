@@ -41,11 +41,11 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## 模板
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+我们用[Handlebars](https://handlebarsjs.com/) 作为主要模板引擎。
 
-### Format Examples
+### 格式范例
 
     # iterate all versions
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
