@@ -65,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> 请注意：Verdaccio 在容器内是作为non-root 用户端 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户端。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷](https://docs.docker.com/storage/volumes/)来替代绑定安装。
+> 请注意：Verdaccio 在容器内是作为non-root 用户端 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户端。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷（volume)](https://docs.docker.com/storage/volumes/)来替代绑定安装。
 
 ### Docker和自定义端口配置
 
@@ -125,7 +125,7 @@ Docker将生成一个用于存储持续应用程序数据的命名卷(named volu
 docker build -t verdaccio .
 ```
 
-还有一个创建 docker图片的npm 脚本，因此您还可以执行以下操作：
+还有一个创建 docker镜像的npm 脚本，因此您还可以执行以下操作：
 
 ```bash
 npm run build:docker
