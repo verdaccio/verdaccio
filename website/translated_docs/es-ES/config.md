@@ -31,7 +31,7 @@ logs:
 
 ## Secciones
 
-Las siguientes secciones explican que significa cada propiedad y las diferentes configuraciones posibles.
+The following sections explain what each property means and the different options.
 
 ### Almacenamiento
 
@@ -75,7 +75,7 @@ uplinks:
 
 ### Paquetes
 
-Paquetes permiten al usuario como los paquetes van a ser accedido. Para mas información sobre esta sección leer [la página de paquetes](packages.md).
+Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
 ```yaml
 packages:
@@ -89,7 +89,7 @@ packages:
 
 ### Publicar modo sin conexión
 
-Por defecto, `verdaccio` no permite publicar cuando el servidor esta en modo fuera de linea, este comportamiento puede ser sobrescrito cambiando el valor a *true*.
+By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
 
 ```yaml
 publish:
@@ -116,7 +116,7 @@ max_body_size: 10mb
 
 ### Puertos
 
-`verdaccio` se ejecuta por defecto en el puerto `4873`. Cambiar el puerto se puede cambiar via [cli](cli.md) o en el archivo de configuración, las siguientes opciones son válidas.
+`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
 ```yaml
 listen:
@@ -130,7 +130,7 @@ listen:
 
 ### HTTPS
 
-Para habilitar`https` en `verdaccio` es suficiente con definir en `listen` en su dominio el protocolo *https://*. Para mas información sobre esta sección leer [página de Ssl](ssl.md).
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. Para mas información sobre esta sección leer [página de Ssl](ssl.md).
 
 ```yaml
 https:
@@ -157,13 +157,12 @@ https_proxy: https://something.local/
 Esta variable debería contentener una lista de extensiones domínios separados por comas donde el proxy no debería ser usado.
 
 ```yaml
-http_proxy: http://something.local/
-https_proxy: https://something.local/
+no_proxy: localhost,127.0.0.1
 ```
 
 ### Notificaciones
 
-Habilita notificaciones en aplicaciones a terceros es muy sencillo via web hooks. Para más información sobre esta sección lea [la página de notificaciones](notifications.md).
+Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
