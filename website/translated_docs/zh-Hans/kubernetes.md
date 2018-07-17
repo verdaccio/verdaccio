@@ -40,7 +40,7 @@ helm upgrade npm stable/verdaccio
 helm del --purge npm
 ```
 
-**请注意:** 此命令删除所有源代码，包含您之前可能已经发布到库里的包。
+**请注意:** 此命令删除所有源代码，包含您之前可能已经发布到registry里的包。
 
 ### 自定义Verdaccio 配置
 
