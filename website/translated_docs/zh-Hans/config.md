@@ -31,7 +31,7 @@ logs:
 
 ## 模块
 
-以下各章节解释了每一个选项的作用和可用的值
+The following sections explain what each property means and the different options.
 
 ### 存储
 
@@ -75,7 +75,7 @@ uplinks:
 
 ### 包
 
-"包" 部分定义了用户访问仓库中的包的权限。如需了解更多信息，请阅读文档中的 [ "包" 部分](packages.md).
+Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
 ```yaml
 packages:
@@ -89,7 +89,7 @@ packages:
 
 ### 离线发布
 
-`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *true* 来允许离线发布。
+By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
 
 ```yaml
 publish:
@@ -116,7 +116,7 @@ max_body_size: 10mb
 
 ### 监听端口
 
-`Verdaccio` 默认使用 `4873` 端口. 可以通过 [命令行传递参数](cli.md) 或修改配置文件，以下格式是有效的。
+`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
 ```yaml
 listen:
@@ -130,7 +130,7 @@ listen:
 
 ### HTTPS
 
-可通过在 `listen` 的域名前增加 *https://* 并设置证书路径来启用 `Verdaccio` 的 HTTPS 支持。 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
 
 ```yaml
 https:
@@ -157,13 +157,12 @@ https_proxy: https://something.local/
 此变量应该包含一个代理服务器不应该被用到的，以逗号分隔的域名扩展列表。
 
 ```yaml
-http_proxy: http://something.local/
-https_proxy: https://something.local/
+no_proxy: localhost,127.0.0.1
 ```
 
 ### 通知
 
-使用web hooks来启用三方工具通知是非常容易的。如需了解更多此部分的内容，请阅读[通知页面](notifications.md)。
+Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
