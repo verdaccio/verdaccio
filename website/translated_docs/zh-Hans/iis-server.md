@@ -92,5 +92,5 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 
 ### 故障排除
 
-- **以https 为主机的网页界面无法加载，因为它试着从 http 下载脚本。**  
-    请确保您在verdaccio配置里正确提到`url_prefix`。请追随 [讨论](https://github.com/verdaccio/verdaccio/issues/622)。
+- **以https 为主机的网页界面无法加载，因为它总是尝试从 http下载脚本。**  
+    请确保您在verdaccio配置里正确提到`url_prefix`。请跟随 [讨论](https://github.com/verdaccio/verdaccio/issues/622)。
