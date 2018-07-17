@@ -21,7 +21,7 @@ Verdaccio can be invoqued programmatically. The node API was introduced after ve
 
 ## 其他执行
 
-* [verdaccio-server](https://github.com/boringame/verdaccio-server) 本地 npm 注册proxy server（代理服务器）
+* [verdaccio-server](https://github.com/boringame/verdaccio-server) 本地 npm registry proxy server（代理服务器）
 
 ```js
 // js
