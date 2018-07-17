@@ -1,0 +1,17 @@
+packages:
+  'react':
+    access: admin
+    publish: admin
+    proxy: facebook
+  'angular':
+    access: admin
+    publish: admin
+    proxy: google
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs

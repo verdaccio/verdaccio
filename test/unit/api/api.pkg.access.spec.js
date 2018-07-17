@@ -4,17 +4,21 @@ import path from 'path';
 import rimraf from 'rimraf';
 
 import {HEADERS} from '../../../src/lib/constants';
-import configDefault from '../partials/config/access';
+import configDefault from '../partials/config/config_access';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
+import {mockServer} from './mock';
+import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 require('../../../src/lib/logger').setup([]);
 
 describe('api with no limited access configuration', () => {
   let config;
   let app;
+  let mockRegistry;
 
   beforeAll(function(done) {
+    const mockServerPort = 55530;
     const store = path.join(__dirname, './partials/store/access-storage');
     rimraf(store, async () => {
       const configForTest = _.clone(configDefault);
@@ -24,8 +28,14 @@ describe('api with no limited access configuration', () => {
         }
       };
       configForTest.self_path = store;
+      configForTest.uplinks = {
+        npmjs: {
+          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+        }
+      };
       config = new Config(configForTest);
       app = await endPointAPI(config);
+      mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
   });
@@ -34,9 +44,11 @@ describe('api with no limited access configuration', () => {
     const store = path.join(__dirname, './partials/store/access-storage');
     rimraf(store, (err) => {
       if (err) {
+        mockRegistry[0].stop();
         return done(err);
       }
 
+      mockRegistry[0].stop();
       return done();
     });
   });

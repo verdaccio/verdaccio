@@ -1,11 +1,10 @@
 import path from 'path';
-import {DEFAULT_REGISTRY} from '../../../../src/lib/constants';
 
 const config = {
   storage: path.join(__dirname, '../store/access-storage'),
   uplinks: {
     'npmjs': {
-      'url': DEFAULT_REGISTRY
+      'url': 'http://never_use:0000/'
     }
   },
   packages: {

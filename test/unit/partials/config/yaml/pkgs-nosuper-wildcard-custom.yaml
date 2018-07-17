@@ -1,0 +1,13 @@
+packages:
+  'react':
+    access: admin
+    publish: admin
+    proxy: facebook
+  'angular':
+    access: admin
+    publish: admin
+    proxy: google
+  '@fake/*':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs

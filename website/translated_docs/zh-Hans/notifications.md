@@ -1,16 +1,16 @@
 ---
-id: notifications
-title: "Notifications"
+id: 通知
+title: "通知"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
+创建通知主要是与Slack的输入webhooks一起使用，但它也会传递简单的载荷到任何末端。目前只对 `npm publish`命令有效。
 
-## Usage
+## 使用
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+**HipChat**, **Stride** 和 **Google Hangouts Chat** hook的一个范例:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio 支持任何 API, 请随意添加更多范例。
 
-#### Single notification
+#### 单个通知
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### 多通知
 
 ```yaml
 notify:
@@ -41,30 +41,30 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## 模板
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+我们用[Handlebars](https://handlebarsjs.com/) 作为主要模板引擎。
 
-### Format Examples
+### 格式范例
 
-    # iterate all versions
+    # 重复所有版本
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
     
-    # publisher and `dist-tag` package published
+    # 已发布的发表人和 `dist-tag` 包
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### 属性
 
-List of properties accesible via template
+通过模板进入的属性列表
 
-* Metadata
-* Publisher (who is publishing)
-* Package Published (package@1.0.0)
+* 元数据
+* 发表者（在发表的人）
+* 已发布的包（包@1.0.0)
 
-### Metadata
+### 元数据
 
-Package metadata that the template has access
+模板可以访问的包元数据
 
     {
         "_id": "@test/pkg1",
@@ -115,11 +115,11 @@ Package metadata that the template has access
     }
     
 
-### Publisher
+### 发表人
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+您可以用`publisher` object(对象）在webhook的`content`里访问包发表人信息。
 
-See below the `publisher` object type:
+请参阅以下`publisher` object（对象）类别：
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+范例：
 
     notify:
       method: POST
@@ -137,22 +137,22 @@ An example:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**请注意:** 如果 `package.json` 文件已经有`publisher`属性，是不可能再拿到发表人信息的。
 
-### Package Published
+### 已发布包
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+您可以如以下所示用热词`{{publishedPackage}}` 来访问已经发布的包.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-## Configuration
+## 配置
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| 属性                  | 类型    | 必填 | 支持   | 默认 | 描述                                          |
+| ------------------- | ----- | -- | ---- | -- | ------------------------------------------- |
+| 方法                  | 字符串   | 不  | 任意路径 |    | HTTP verb                                   |
+| packagePattern      | 字符串   | 不  | 任意路径 |    | 仅当包名字和正规表达式匹配时才运行此通知                        |
+| packagePatternFlags | 字符串   | 不  | 任意路径 |    | 任何与正规表达式一起使用的标记                             |
+| 标头                  | 数组/对象 | 是  | 任意路径 |    | 如果此端点需要特定的标头，请把它们设置为键数组：value objects（值对象）。 |
+| 端点                  | 字符串   | 是  | 任意路径 |    | 设置此调用的URL 端点                                |
+| 内容                  | 字符串   | 是  | 任意路径 |    | 任何[Handlebar](https://handlebarsjs.com/)表达式 |

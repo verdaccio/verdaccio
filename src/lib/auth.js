@@ -2,20 +2,20 @@
 
 import _ from 'lodash';
 import {loadPlugin} from '../lib/plugin-loader';
-import {ErrorCode} from './utils';
+import {buildBase64Buffer, ErrorCode} from './utils';
 import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
 
 import type {Config, Logger, Callback} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
-import {ROLES} from './constants';
-
+import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import {getMatchedPackagesSpec} from './config-utils';
+import type {IAuth} from '../../types';
+import {getDefaultPlugins} from './auth-utils';
 
 const LoggerApi = require('./logger');
-/**
- * Handles the authentification, load auth plugins.
- */
-class Auth {
+
+class Auth implements IAuth {
   config: Config;
   logger: Logger;
   secret: string;
@@ -31,48 +31,20 @@ class Auth {
   }
 
   _loadPlugin(config: Config) {
-    const plugin_params = {
+    const pluginOptions = {
       config,
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, plugin_params, function(p) {
-      return p.authenticate || p.allow_access || p.allow_publish;
+    return loadPlugin(config, config.auth, pluginOptions, (plugin) => {
+      const {authenticate, allow_access, allow_publish} = plugin;
+
+      return authenticate || allow_access || allow_publish;
     });
   }
 
   _applyDefaultPlugins() {
-    const allow_action = function(action) {
-      return function(user, pkg, cb) {
-        const ok = pkg[action].reduce(function(prev, curr) {
-          if (user.name === curr || user.groups.indexOf(curr) !== -1) return true;
-          return prev;
-        }, false);
-
-        if (ok) {
-          return cb(null, true);
-        }
-
-        if (user.name) {
-          cb(ErrorCode.getForbidden(`user ${user.name} is not allowed to ${action} package ${pkg.name}`));
-        } else {
-          cb(ErrorCode.getForbidden(`unregistered users are not allowed to ${action} package ${pkg.name}`));
-        }
-      };
-    };
-
-    this.plugins.push({
-      authenticate: function(user, password, cb) {
-        cb(ErrorCode.getForbidden('bad username/password, access denied'));
-      },
-
-      add_user: function(user, password, cb) {
-        return cb(ErrorCode.getConflict('bad username/password, access denied'));
-      },
-
-      allow_access: allow_action('access'),
-      allow_publish: allow_action('publish'),
-    });
+    this.plugins.push(getDefaultPlugins());
   }
 
   authenticate(user: string, password: string, cb: Callback) {
@@ -80,7 +52,7 @@ class Auth {
     (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.authenticate) !== 'function') {
+      if (_.isFunction(plugin.authenticate) === false) {
         return next();
       }
 
@@ -98,12 +70,12 @@ class Auth {
         // Info: Cannot use `== false to check falsey values`
         if (!!groups && groups.length !== 0) {
           // TODO: create a better understanding of expectations
-          if (typeof groups === 'string') {
+          if (_.isString(groups)) {
             throw new TypeError('invalid type for function');
           }
           const isGroupValid: boolean = _.isArray(groups);
           if (!isGroupValid) {
-            throw new TypeError('user groups is different than an array');
+            throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
 
           return cb(err, authenticatedUser(user, groups));
@@ -115,19 +87,19 @@ class Auth {
 
   add_user(user: string, password: string, cb: Callback) {
     let self = this;
-    let plugins = this.plugins.slice(0)
+    let plugins = this.plugins.slice(0);
 
-    ;(function next() {
-      let p = plugins.shift();
-      let n = 'adduser';
-      if (typeof(p[n]) !== 'function') {
-        n = 'add_user';
+    (function next() {
+      let plugin = plugins.shift();
+      let method = 'adduser';
+      if (_.isFunction(plugin[method]) === false) {
+        method = 'add_user';
       }
-      if (typeof(p[n]) !== 'function') {
+      if (_.isFunction[method] === false) {
         next();
       } else {
         // p.add_user() execution
-        p[n](user, password, function(err, ok) {
+        plugin[method](user, password, function(err, ok) {
           if (err) {
             return cb(err);
           }
@@ -146,7 +118,7 @@ class Auth {
   allow_access(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
+    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();
@@ -175,7 +147,7 @@ class Auth {
   allow_publish(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
+    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();
@@ -184,7 +156,7 @@ class Auth {
         return next();
       }
 
-      plugin.allow_publish(user, pkg, function(err, ok) {
+      plugin.allow_publish(user, pkg, (err, ok) => {
         if (err) {
           return callback(err);
         }
@@ -219,13 +191,13 @@ class Auth {
       req.remote_user = buildAnonymousUser();
 
       const authorization = req.headers.authorization;
-      if (authorization == null) {
+      if (_.isNil(authorization)) {
         return next();
       }
 
       const parts = authorization.split(' ');
       if (parts.length !== 2) {
-        return next( ErrorCode.getBadRequest('bad authorization header') );
+        return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
       }
 
       const credentials = this._parseCredentials(parts);
@@ -257,12 +229,12 @@ class Auth {
   _parseCredentials(parts: Array<string>) {
       let credentials;
       const scheme = parts[0];
-      if (scheme.toUpperCase() === 'BASIC') {
-         credentials = new Buffer(parts[1], 'base64').toString();
-         this.logger.info('basic authentication is deprecated, please use JWT instead');
+      if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
+         credentials = buildBase64Buffer(parts[1]).toString();
+         this.logger.info(API_ERROR.DEPRECATED_BASIC_HEADER);
          return credentials;
-      } else if (scheme.toUpperCase() === 'BEARER') {
-         const token = new Buffer(parts[1], 'base64');
+      } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+         const token = buildBase64Buffer(parts[1]);
 
          credentials = aesDecrypt(token, this.secret).toString('utf8');
          return credentials;
@@ -276,17 +248,17 @@ class Auth {
    */
   webUIJWTmiddleware() {
     return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
-      if (req.remote_user !== null && req.remote_user.name !== undefined) {
+      if (_.isNull(req.remote_user) === false && _.isNil(req.remote_user.name) === false) {
        return _next();
       }
 
       req.pause();
-      const next = function(_err) {
+      const next = () => {
         req.resume();
         return _next();
       };
 
-      const token = (req.headers.authorization || '').replace('Bearer ', '');
+      const token = (req.headers.authorization || '').replace(`${TOKEN_BEARER} `, '');
       if (!token) {
         return next();
       }
@@ -328,7 +300,7 @@ class Auth {
     try {
       decoded = verifyPayload(token, this.secret);
     } catch (err) {
-      throw ErrorCode.getCode(401, err.message);
+      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
     }
 
     return decoded;
@@ -350,7 +322,7 @@ function buildAnonymousUser() {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
-    groups: ['$all', '$anonymous', '@all', '@anonymous'],
+    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONUMOUS],
     real_groups: [],
   };
 }
@@ -361,7 +333,12 @@ function buildAnonymousUser() {
  */
 function authenticatedUser(name: string, pluginGroups: Array<any>) {
   const isGroupValid: boolean = _.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
+  const groups = (isGroupValid ? pluginGroups : []).concat([
+      ROLES.$ALL,
+      ROLES.$AUTH,
+      ROLES.DEPRECATED_ALL,
+      ROLES.DEPRECATED_AUTH,
+      ROLES.ALL]);
 
   return {
     name,

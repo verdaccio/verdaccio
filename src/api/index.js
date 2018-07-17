@@ -15,13 +15,13 @@ import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler,
 import type {Config as IConfig} from '@verdaccio/types';
 import {ErrorCode} from '../lib/utils';
 import {API_ERROR, HTTP_STATUS} from '../lib/constants';
+import AppConfig from '../lib/config';
 
 const LoggerApp = require('../lib/logger');
-const Config = require('../lib/config');
 const Middleware = require('./middleware');
 const Cats = require('../lib/status-cats');
 
-const defineAPI = function(config: Config, storage: IStorageHandler) {
+const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   const auth: IAuth = new Auth(config);
   const app: $Application = express();
   // run in production mode by default, just in case
@@ -103,7 +103,7 @@ const defineAPI = function(config: Config, storage: IStorageHandler) {
 
 export default async function(configHash: any) {
   LoggerApp.setup(configHash.logs);
-  const config: IConfig = new Config(configHash);
+  const config: IConfig = new AppConfig(configHash);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been intialized
   await storage.init(config);

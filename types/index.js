@@ -8,6 +8,7 @@ import type {
   MergeTags,
   Config,
   Logger,
+  PackageAccess,
   Package} from '@verdaccio/types';
 import type {
   IUploadTarball,
@@ -94,6 +95,13 @@ export interface IStorageHandler {
   _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }
+
+export type StartUpConfig = {
+  storage: string;
+  self_path: string;
+}
+
+export type MatchedPackage = PackageAccess | void;
 
 export interface IStorage {
   config: Config;

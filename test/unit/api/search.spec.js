@@ -1,10 +1,10 @@
-
-
 import assert from 'assert';
 import Search from '../../../src/lib/search';
+import Config from '../../../src/lib/config';
 import Storage from '../../../src/lib/storage';
+
 let config_hash = require('../partials/config/index');
-let Config = require('../../../src/lib/config');
+
 
 require('../../../src/lib/logger').setup([]);
 
