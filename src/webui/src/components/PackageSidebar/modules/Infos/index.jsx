@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import Module from '../../Module';
 import isString from 'lodash/isString';
-import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 
 import classes from './style.scss';
 
@@ -23,17 +23,17 @@ export default class Infos extends React.Component {
   normalizeInfo(infoObj) {
     if (isString(infoObj)) {
       return {url: infoObj};
-    } else if (isNil(infoObj)) {
+    } else if (isEmpty(infoObj)) {
       return {url: ''};
     }
 
-    infoObj.url = this.normalizeGitUrl(infoObj);
+    infoObj.url = this.normalizeGitUrl(infoObj.url);
 
     return infoObj;
   }
 
-  normalizeGitUrl(infoObj) {
-    return infoObj.url.replace(/^git\+/, '');
+  normalizeGitUrl(gitUrl) {
+    return gitUrl ? gitUrl.replace(/^git\+/, '') : '';
   }
 
   render() {
