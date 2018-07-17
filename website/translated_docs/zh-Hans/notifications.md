@@ -47,24 +47,24 @@ notify:
 
 ### 格式范例
 
-    # iterate all versions
+    # 重复所有版本
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
     
-    # publisher and `dist-tag` package published
+    # 已发布的发表人和 `dist-tag` 包
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### 属性
 
-List of properties accesible via template
+通过模板进入的属性列表
 
-* Metadata
-* Publisher (who is publishing)
-* Package Published (package@1.0.0)
+* 元数据
+* 发表者（在发表的人）
+* 已发布的包（包@1.0.0)
 
-### Metadata
+### 元数据
 
-Package metadata that the template has access
+模板可以访问的包元数据
 
     {
         "_id": "@test/pkg1",
@@ -115,11 +115,11 @@ Package metadata that the template has access
     }
     
 
-### Publisher
+### 发表人
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+您可以用`publisher` object(对象）在webhook的`content`里访问包发表人信息。
 
-See below the `publisher` object type:
+请参阅以下`publisher` object（对象）类别：
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+范例：
 
     notify:
       method: POST
