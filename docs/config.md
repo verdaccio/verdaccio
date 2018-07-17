@@ -32,7 +32,7 @@ logs:
 
 ## Sections
 
-The following sections explain what means each property and the different options.
+The following sections explain what each property means and the different options.
 
 ### Storage
 
@@ -77,7 +77,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
 
 ```yaml
@@ -92,7 +92,7 @@ packages:
 
 ### Offline Publish
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden set it in to *true*.
+By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
 
 ```yaml
 publish:
@@ -120,7 +120,7 @@ max_body_size: 10mb
 
 ### Listen Port
 
-`verdaccio` runs by default in the port `4873`. Change the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
 ```yaml
 listen:
@@ -134,7 +134,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` enough with set your `listen` domain with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
 
 
 ```yaml
@@ -162,13 +162,12 @@ https_proxy: https://something.local/
 This variable should contain a comma-separated list of domain extensions proxy should not be used for.
 
 ```yaml
-http_proxy: http://something.local/
-https_proxy: https://something.local/
+no_proxy: localhost,127.0.0.1
 ```
 
 ### Notifications
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
