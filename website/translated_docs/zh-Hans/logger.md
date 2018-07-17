@@ -16,9 +16,9 @@ logs:
 
 ### 配置
 
-| 属性 | 类型  | 必填 | 范例                                             | 支持   | 描述                |
-| -- | --- | -- | ---------------------------------------------- | ---- | ----------------- |
-| 类型 | 字符串 | 不  | [stdout, file]                                 | 任意路径 | 定义输出              |
-| 路径 | 字符串 | 不  | verdaccio.log                                  | 任意路径 | 如果类型为文件，请定义该文件的位置 |
-| 格式 | 字符串 | 不  | [pretty, pretty-timestamped]                   | 任意路径 | 输出格式              |
-| 级别 | 字符串 | 不  | [fatal, error, warn, http, info, debug, trace] | 任意路径 | 详细级别              |
+| 属性     | 类型     | 必填 | 范例                                             | 支持  | 描述                |
+| ------ | ------ | -- | ---------------------------------------------- | --- | ----------------- |
+| type   | string | No | [stdout, file]                                 | all | 定义输出              |
+| path   | string | No | verdaccio.log                                  | all | 如果类型为文件，请定义该文件的位置 |
+| format | string | No | [pretty, pretty-timestamped]                   | all | 输出格式              |
+| level  | string | No | [fatal, error, warn, http, info, debug, trace] | all | 详细级别              |
