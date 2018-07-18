@@ -1,8 +1,12 @@
+// @flow
+
 import {ErrorCode} from './utils';
 import {API_ERROR} from './constants';
 
-export function allow_action(action) {
-  return function(user, pkg, callback) {
+import type {RemoteUser, Package, Callback} from '@verdaccio/types';
+
+export function allow_action(action: string) {
+  return function(user: RemoteUser, pkg: Package, callback: Callback) {
     const {name, groups} = user;
     const hasPermission = pkg[action].some((group) => name === group || groups.includes(group));
 
@@ -20,11 +24,11 @@ export function allow_action(action) {
 
 export function getDefaultPlugins() {
   return {
-    authenticate(user, password, cb) {
+    authenticate(user: string, password: string, cb: Callback) {
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user(user, password, cb) {
+    add_user(user: string, password: string, cb: Callback) {
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 

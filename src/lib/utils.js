@@ -253,7 +253,7 @@ function parse_address(urlAddress: any) {
  * Function filters out bad semver versions and sorts the array.
  * @return {Array} sorted Array
  */
-function semverSort(listVersions: Array<string>) {
+function semverSort(listVersions: Array<string>): string[] {
   return listVersions.filter(function(x) {
       if (!semver.parse(x, true)) {
         Logger.logger.warn( {ver: x}, 'ignoring bad version @{ver}' );
@@ -409,7 +409,7 @@ function fileExists(path: string) {
   }
 }
 
-function sortByName(packages: Array<any>) {
+function sortByName(packages: Array<any>): string[] {
   return packages.sort(function(a, b) {
     if (a.name < b.name) {
       return -1;

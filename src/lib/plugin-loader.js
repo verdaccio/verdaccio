@@ -4,6 +4,7 @@ import Path from 'path';
 import _ from 'lodash';
 import logger from './logger';
 import type {Config} from '@verdaccio/types';
+import {MODULE_NOT_FOUND} from './constants';
 
 /**
  * Requires a module.
@@ -14,7 +15,7 @@ function tryLoad(path: string) {
   try {
     return require(path);
   } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
+    if (err.code === MODULE_NOT_FOUND) {
       return null;
     }
     throw err;
@@ -44,8 +45,12 @@ function isES6(plugin) {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck: Function) {
-  return Object.keys(pluginConfigs || {}).map(function(pluginId) {
+export default function loadPlugin<T>(
+        config: Config,
+        pluginConfigs: any = {},
+        params: any,
+        sanityCheck: Function): T[] {
+  return Object.keys(pluginConfigs).map((pluginId: string) => {
     let plugin;
 
     // try local plugins first
@@ -79,7 +84,9 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
     /* eslint new-cap:off */
-    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+    plugin = isES6(plugin)
+      ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
+      : plugin(pluginConfigs[pluginId], params);
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
@@ -90,5 +97,3 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
     return plugin;
   });
 }
-
-export {loadPlugin};

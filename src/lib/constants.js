@@ -67,7 +67,7 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
-  BAD_USERNAME_PASSWORD: 'bad username/password, access denied {APP}',
+  BAD_USERNAME_PASSWORD: 'bad username/password, access denied',
   NO_PACKAGE: 'no such package available',
   NOT_ALLOWED: 'not allowed to access package',
   INTERNAL_SERVER_ERROR: 'internal server error',
@@ -93,7 +93,7 @@ export const APP_ERROR = {
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
-
+export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
 export const WEB_TITLE = 'Verdaccio';
 

@@ -1,17 +1,20 @@
 // @flow
 
 import _ from 'lodash';
-import {loadPlugin} from '../lib/plugin-loader';
+
+import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import loadPlugin from '../lib/plugin-loader';
 import {buildBase64Buffer, ErrorCode} from './utils';
 import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
+import {getDefaultPlugins} from './auth-utils';
 
-import type {Config, Logger, Callback} from '@verdaccio/types';
+import {getMatchedPackagesSpec} from './config-utils';
+
+import type {Config, Logger, Callback, IPluginAuth, RemoteUser} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
-import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
-import {getMatchedPackagesSpec} from './config-utils';
 import type {IAuth} from '../../types';
-import {getDefaultPlugins} from './auth-utils';
+
 
 const LoggerApi = require('./logger');
 
@@ -36,7 +39,7 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, pluginOptions, (plugin) => {
+    return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
       const {authenticate, allow_access, allow_publish} = plugin;
 
       return authenticate || allow_access || allow_publish;
@@ -115,7 +118,7 @@ class Auth implements IAuth {
   /**
    * Allow user to access a package.
    */
-  allow_access(packageName: string, user: string, callback: Callback) {
+  allow_access(packageName: string, user: RemoteUser, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
     let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
@@ -123,11 +126,11 @@ class Auth implements IAuth {
     (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.allow_access) !== 'function') {
+      if (_.isFunction(plugin.allow_access) === false) {
         return next();
       }
 
-      plugin.allow_access(user, pkg, function(err, ok) {
+      plugin.allow_access(user, pkg, function(err, ok: boolean) {
         if (err) {
           return callback(err);
         }
@@ -152,11 +155,11 @@ class Auth implements IAuth {
     (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.allow_publish) !== 'function') {
+      if (_.isFunction(plugin.allow_publish) === false) {
         return next();
       }
 
-      plugin.allow_publish(user, pkg, (err, ok) => {
+      plugin.allow_publish(user, pkg, (err, ok: boolean) => {
         if (err) {
           return callback(err);
         }
@@ -185,7 +188,8 @@ class Auth implements IAuth {
         return _next();
       };
 
-      if (req.remote_user != null && req.remote_user.name !== undefined) {
+      if (_.isUndefined(req.remote_user) === false
+          && _.isUndefined(req.remote_user.name) === false) {
         return next();
       }
       req.remote_user = buildAnonymousUser();
@@ -201,7 +205,6 @@ class Auth implements IAuth {
       }
 
       const credentials = this._parseCredentials(parts);
-
       if (!credentials) {
         return next();
       }
