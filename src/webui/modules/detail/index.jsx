@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import PackageDetail from '../../components/PackageDetail';
 import NotFound from '../../components/NotFound';
-import API from '../../../utils/api';
+import API from '../../utils/api';
 
 import classes from './detail.scss';
 import PackageSidebar from '../../components/PackageSidebar/index';

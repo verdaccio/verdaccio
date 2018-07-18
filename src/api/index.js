@@ -5,17 +5,25 @@ import express from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import Storage from '../lib/storage';
-import {loadPlugin} from '../lib/plugin-loader';
+import loadPlugin from '../lib/plugin-loader';
 import hookDebug from './debug';
 import Auth from '../lib/auth';
 import apiEndpoint from './endpoint';
-
-import type {$Application} from 'express';
-import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
-import type {Config as IConfig} from '@verdaccio/types';
 import {ErrorCode} from '../lib/utils';
 import {API_ERROR, HTTP_STATUS} from '../lib/constants';
 import AppConfig from '../lib/config';
+
+import type {$Application} from 'express';
+import type {
+  $ResponseExtend,
+  $RequestExtend,
+  $NextFunctionVer,
+  IStorageHandler,
+  IAuth} from '../../types';
+import type {
+  Config as IConfig,
+  IPluginMiddleware,
+} from '@verdaccio/types';
 
 const LoggerApp = require('../lib/logger');
 const Middleware = require('./middleware');
@@ -54,10 +62,10 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
     config: config,
     logger: LoggerApp.logger,
   };
-  const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin) {
+  const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin: IPluginMiddleware) {
     return plugin.register_middlewares;
   });
-  plugins.forEach(function(plugin) {
+  plugins.forEach((plugin) => {
     plugin.register_middlewares(app, auth, storage);
   });
 

@@ -117,6 +117,7 @@ store:
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): plugin de autenticación Active Directory para verdaccio
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use la Token de Acceso Personal de GitLab para autenticarse
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth basado en el plugin del archivo htpasswd (incorporado) para verdaccio
+* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
 
 ### Plugins de Middleware
 

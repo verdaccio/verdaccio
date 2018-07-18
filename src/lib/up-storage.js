@@ -430,7 +430,7 @@ class ProxyStorage implements IProxy {
     let current_length = 0;
     let expected_length;
 
-    stream.abort = () => {};
+    (stream: any).abort = () => {};
     const readStream = this.request({
       uri_full: url,
       encoding: null,

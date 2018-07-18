@@ -1,5 +1,5 @@
-// flow-typed signature: 41a220e96fcef89a09244ac3797039e8
-// flow-typed version: 9f7cf2ab0c/express_v4.16.x/flow_>=v0.32.x
+// flow-typed signature: cc24a4e737d9dfb8e1381c3bd4ebaa65
+// flow-typed version: d11eab7bb5/express_v4.16.x/flow_>=v0.32.x
 
 import type { Server } from "http";
 import type { Socket } from "net";
@@ -195,13 +195,11 @@ declare class express$Router extends express$Route {
       id: string
     ) => mixed
   ): void;
-
-  // Can't use regular callable signature syntax due to https://github.com/facebook/flow/issues/3084
-  $call: (
+  (
     req: http$IncomingMessage,
     res: http$ServerResponse,
     next?: ?express$NextFunction
-  ) => void;
+  ): void;
 }
 
 /*
@@ -250,6 +248,12 @@ declare class express$Application extends express$Router mixins events$EventEmit
     res: http$ServerResponse,
     next?: ?express$NextFunction
   ): void;
+  // callable signature is not inherited
+  (
+    req: http$IncomingMessage,
+    res: http$ServerResponse,
+    next?: ?express$NextFunction
+  ): void;
 }
 
 declare type JsonOptions = {
@@ -266,6 +270,20 @@ declare type JsonOptions = {
   ) => mixed
 };
 
+declare type express$UrlEncodedOptions = {
+  extended?: boolean,
+  inflate?: boolean,
+  limit?: string | number,
+  parameterLimit?: number,
+  type?: string | Array<string> | ((req: express$Request) => boolean),
+  verify?: (
+    req: express$Request,
+    res: express$Response,
+    buf: Buffer,
+    encoding: string
+  ) => mixed,
+}
+
 declare module "express" {
   declare export type RouterOptions = express$RouterOptions;
   declare export type CookieOptions = express$CookieOptions;
@@ -280,6 +298,7 @@ declare module "express" {
     (): express$Application, // If you try to call like a function, it will use this signature
     json: (opts: ?JsonOptions) => express$Middleware,
     static: (root: string, options?: Object) => express$Middleware, // `static` property on the function
-    Router: typeof express$Router // `Router` property on the function
+    Router: typeof express$Router, // `Router` property on the function
+    urlencoded: (opts: ?express$UrlEncodedOptions) => express$Middleware,
   };
 }

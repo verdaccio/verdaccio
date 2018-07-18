@@ -14,18 +14,18 @@ title: "IIS server上进行安装"
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- 请确保您有入站规则来接受TCP流量到Windows防火墙的端口
+- 就这样！现在您可以导航到您指定的主机和端口
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+我希望 `verdaccio`站点成为IIS中默认的站点，因此我执行了以下操作：
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- 我确定`c:\users{yourname}`里的.npmrc文件的registry已设置为 `"registry=http://localhost/"`
+- 我中止“默认网站”，并且只在IIS 里启动"verdaccio"站点
+- 我将端口80绑定设置为"http", ip 地址为"全部未定义"，ok 任何警告或提示。
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+这些指南是基于[Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75)。 我不得不依照以下调整我的网页配置，但是您可能发现上述提到链接里的原始配置可以更好作业
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+将创建默认配置文件`c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
@@ -68,14 +68,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
     <rewrite>
       <rules>
 
-        <!-- iisnode folder is where iisnode stores it's logs. These should
-        never be rewritten -->
-        <rule name="iisnode" stopProcessing="true">
-          <match url="iisnode*" />
-          <action type="None" />
-        </rule>
-
-        <!-- Rewrite all other urls in order for verdaccio to handle these -->
+        <!-- iisnode folder is where iisnode stores it's logs. <!-- Rewrite all other urls in order for verdaccio to handle these -->
         <rule name="verdaccio">
           <match url="/*" />
           <action type="Rewrite" url="start.js" />
@@ -97,7 +90,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### 故障排除
 
-- **The web interface does not load when hosted with https as it tries to download scripts over http.**  
-    Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
+- **以https 为主机的网页界面无法加载，因为它总是尝试从 http下载脚本。**  
+    请确保您在verdaccio配置里正确提到`url_prefix`。请跟随 [讨论](https://github.com/verdaccio/verdaccio/issues/622)。

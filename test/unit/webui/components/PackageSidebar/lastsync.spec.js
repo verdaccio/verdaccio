@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import LastSync from '../../../../../src/webui/src/components/PackageSidebar/modules/LastSync/index';
+import LastSync from '../../../../../src/webui/components/PackageSidebar/modules/LastSync/index';
 import { packageMeta } from '../store/packageMeta';
  
 console.error = jest.fn();

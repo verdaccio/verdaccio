@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import PackageSidebar from '../../../../../src/webui/src/components/PackageSidebar/index';
+import PackageSidebar from '../../../../../src/webui/components/PackageSidebar/index';
 import { packageMeta } from '../store/packageMeta';
 
 jest.mock('../../../../../src/webui/utils/api', () => ({

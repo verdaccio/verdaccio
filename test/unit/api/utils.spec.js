@@ -2,7 +2,7 @@
 import assert from 'assert';
 import {generateGravatarUrl, GRAVATAR_DEFAULT}  from '../../../src/utils/user';
 import {spliceURL}  from '../../../src/utils/string';
-import Package from "../../../src/webui/src/components/Package/index";
+import Package from "../../../src/webui/components/Package/index";
 import {validateName as validate, convertDistRemoteToLocalTarballUrls, parseReadme}  from '../../../src/lib/utils';
 import Logger, {setup} from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';

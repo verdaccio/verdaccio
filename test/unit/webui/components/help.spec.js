@@ -4,7 +4,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/light';
-import Help from '../../../../src/webui/src/components/Help/index';
+import Help from '../../../../src/webui/components/Help/index';
 
 describe('<Help /> component', () => {
 

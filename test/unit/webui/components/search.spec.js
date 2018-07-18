@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Search from '../../../../src/webui/src/components/Search/index';
+import Search from '../../../../src/webui/components/Search/index';
 console.error = jest.fn();
 
 describe('<Search /> component', () => {
