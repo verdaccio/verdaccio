@@ -41,6 +41,14 @@ Is the location of the default storage. **Verdaccio is by default based on local
 storage: ./storage
 ```
 
+### Plugins
+
+Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+
+```yaml
+plugins: ./plugins
+```
+
 ### Authentification
 
 The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
