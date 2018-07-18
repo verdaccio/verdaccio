@@ -148,11 +148,11 @@ notify:
 
 ## 配置
 
-| 属性                  | 类型    | 必填 | 支持   | 默认 | 描述                                          |
-| ------------------- | ----- | -- | ---- | -- | ------------------------------------------- |
-| 方法                  | 字符串   | 不  | 任意路径 |    | HTTP verb                                   |
-| packagePattern      | 字符串   | 不  | 任意路径 |    | 仅当包名字和正规表达式匹配时才运行此通知                        |
-| packagePatternFlags | 字符串   | 不  | 任意路径 |    | 任何与正规表达式一起使用的标记                             |
-| 标头                  | 数组/对象 | 是  | 任意路径 |    | 如果此端点需要特定的标头，请把它们设置为键数组：value objects（值对象）。 |
-| 端点                  | 字符串   | 是  | 任意路径 |    | 设置此调用的URL 端点                                |
-| 内容                  | 字符串   | 是  | 任意路径 |    | 任何[Handlebar](https://handlebarsjs.com/)表达式 |
+| 属性                  | 类型           | 必填  | 支持  | 默认 | 描述                                          |
+| ------------------- | ------------ | --- | --- | -- | ------------------------------------------- |
+| method              | string       | No  | all |    | HTTP verb                                   |
+| packagePattern      | string       | No  | all |    | 仅当包名字和正规表达式匹配时才运行此通知                        |
+| packagePatternFlags | string       | No  | all |    | 任何与正规表达式一起使用的标记                             |
+| headers             | array/object | Yes | all |    | 如果此端点需要特定的标头，请把它们设置为键数组：value objects（值对象）。 |
+| endpoint            | string       | Yes | all |    | 设置此调用的URL 端点                                |
+| content             | string       | Yes | all |    | 任何[Handlebar](https://handlebarsjs.com/)表达式 |
