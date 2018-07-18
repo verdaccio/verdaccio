@@ -56,26 +56,31 @@ El último argumento define cual imagen se usa. En la linea de abajo se descarga
 
 Si has [construido una imagen localmente](#build-your-own-docker-image) usa `verdaccio` como el último argumento.
 
-You can use `-v` to bind mount `conf` and `storage` to the hosts filesystem:
+You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   -v $V_PATH/conf:/verdaccio/conf \
   -v $V_PATH/storage:/verdaccio/storage \
+  -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
 
 > Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. En el ejemplo de arriba, necesitas ejecutar `sudo chown -R 100:101 /opt/verdaccio` de lo contrario, obtendrás errores de permiso en tiempo de ejecución. [Usar el volumen docker](https://docs.docker.com/storage/volumes/) es recomendado antes que usar el montaje de unión.
 
-### Usar un puerto personalizado con Docker
+### Plugins
 
-Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` es ignorado al usar docker.
+Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
-Si quieres alcanzar la instancia de docker de verdaccio bajo un puerto diferente, digamos `5000` en tu comando `docker run` remplaza `-p 4873:4873` con `-p 5000:4873`.
+### Docker and custom port configuration
 
-En caso de que necesites especificar cuál puerto escuchar **en el contenedor docker**, desde la versión 2.?.? puedes hacerlo al proveer argumentos adicionales a `docker run`: `--env PORT=5000` Esto cambia cual puerto el contenedor docker muestra y el puerto que verdaccio escucha.
+Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
 
-Por supuesto que los número que le das al parámetro `-p` necesitan coincidir, así que asumiendo que quieres que todos sean iguales, esto es lo que pudieses copiar, pegar y adoptar:
+If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+
+In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+
+Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -83,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Configura Docker con HTTPS
+### Using HTTPS with Docker
 
-Puedes configurar el protocolo que verdaccio va a escuchar, similar a la configuración de puerto. Tienes que sobre escribir el valor por defecto ("http") de la variable del entorno `PROTOCOL` a "https", luego de haber especificado los certificados en config.yaml.
+You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -93,7 +98,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Usando docker-compose
+### Using docker-compose
 
 1. Obtén la última versión de [docker-compose](https://github.com/docker/compose).
 2. Construye y ejecuta el contenedor:
@@ -102,9 +107,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-Puedes configurar el puerto a usar (tanto para el contenedor como para el cliente) al anteponer el comando anterior con `PORT=5000`.
+You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
 
-Docker generará un volumen con nombre en el cual se almacenan datos de aplicación persistente. Puedes usar `docker inspect` ó `docker volume inspect` para revelar la ubicación física del volumen y editar la configuración, tal como:
+Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -125,25 +130,25 @@ Docker generará un volumen con nombre en el cual se almacenan datos de aplicaci
 docker build -t verdaccio .
 ```
 
-Existe también un script npm para construir la imagen docker, para que también puedas hacer:
+There is also an npm script for building the docker image, so you can also do:
 
 ```bash
 npm run build:docker
 ```
 
-Nota: La primera construcción toma algunos minutos en llevarse a cabo porque necesita ejecutar el `npm install`, y tomará el mismo tiempo cada vez que cambies cualquier archivo que no esté listado en `.dockerignore`.
+Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
 
-Si quieres usar la imagen docker en un rpi o en un dispositivo compatible, también existe un dockerfile disponible. Para construir la imagen docker para raspberry pi ejecute:
+If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Por favor note que para cualquier comando docker de arriba, necesitas tener un docker instalado en tu máquina y el docker ejecutable debe estar disponible en tu `$PATH`.
+Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
 
 ## Ejemplos con Docker
 
-Existe un repositorio separado que aloja múltiples configuraciones para componer imágenes Docker con `verdaccio`, por ejemplo, como proxy inverso:
+There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
 <https://github.com/verdaccio/docker-examples>
 
