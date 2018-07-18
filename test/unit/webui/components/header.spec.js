@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Header from '../../../../src/webui/src/components/Header';
+import Header from '../../../../src/webui/components/Header';
 import { BrowserRouter } from 'react-router-dom';
 import storage from '../../../../src/webui/utils/storage';
 

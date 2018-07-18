@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import ModuleContentPlaceholder from '../../../../../src/webui/src/components/PackageSidebar/ModuleContentPlaceholder/index';
+import ModuleContentPlaceholder from '../../../../../src/webui/components/PackageSidebar/ModuleContentPlaceholder/index';
 
 console.error = jest.fn();
 

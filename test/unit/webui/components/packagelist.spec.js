@@ -4,9 +4,9 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import PackageList from '../../../../src/webui/src/components/PackageList/index';
-import Help from '../../../../src/webui/src/components/Help/index';
-import NoItems from '../../../../src/webui/src/components/NoItems/index';
+import PackageList from '../../../../src/webui/components/PackageList/index';
+import Help from '../../../../src/webui/components/Help/index';
+import NoItems from '../../../../src/webui/components/NoItems/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<PackageList /> component', () => {

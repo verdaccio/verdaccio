@@ -1,4 +1,4 @@
-import '../utils/__setPublicPath__';
+import './utils/__setPublicPath__';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

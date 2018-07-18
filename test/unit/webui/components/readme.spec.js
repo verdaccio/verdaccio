@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Readme from '../../../../src/webui/src/components/Readme/index';
+import Readme from '../../../../src/webui/components/Readme/index';
 
 console.error = jest.fn();
 

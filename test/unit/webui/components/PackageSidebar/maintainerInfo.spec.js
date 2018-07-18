@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import MaintainerInfo from '../../../../../src/webui/src/components/PackageSidebar/modules/Maintainers/MaintainerInfo/index';
+import MaintainerInfo from '../../../../../src/webui/components/PackageSidebar/modules/Maintainers/MaintainerInfo/index';
 
 console.error = jest.fn();
 

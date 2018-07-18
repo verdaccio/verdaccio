@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import NoItems from '../../../../src/webui/src/components/NoItems/index';
+import NoItems from '../../../../src/webui/components/NoItems/index';
 
 console.error = jest.fn();
 
