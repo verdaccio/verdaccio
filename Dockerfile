@@ -27,7 +27,7 @@ RUN npm config set registry http://registry.npmjs.org/ && \
     yarn cache clean && \
     yarn install --production=true --pure-lockfile
 
-RUN mkdir -p /verdaccio/storage /verdaccio/conf
+RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
 

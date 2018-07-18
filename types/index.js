@@ -23,6 +23,7 @@ export type StringValue = verdaccio$StringValue;
 
 export type StartUpConfig = {
   storage: string;
+  plugins?: string;
   self_path: string;
 }
 

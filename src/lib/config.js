@@ -37,6 +37,7 @@ class Config implements AppConfig {
   server_id: string;
   self_path: string;
   storage: string | void;
+  plugins: string | void;
   $key: any;
   $value: any;
 
@@ -45,6 +46,7 @@ class Config implements AppConfig {
     this.logger = LoggerApi.logger;
     this.self_path = config.self_path;
     this.storage = config.storage;
+    this.plugins = config.plugins;
 
     for (let configProp in config) {
       if (self[configProp] == null) {
