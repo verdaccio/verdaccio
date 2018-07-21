@@ -1,69 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 import Module from '../../Module';
-import isString from 'lodash/isString';
-import isNil from 'lodash/isNil';
+import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 import classes from './style.scss';
 
-export default class Infos extends React.Component {
-  static propTypes = {
-    packageMeta: PropTypes.object.isRequired
-  };
+const renderSection = (title, url) => (
+  <li>
+    <span>{title}</span>
+    <a href={url} target="_blank">
+      {url}
+    </a>
+  </li>
+);
 
-  get infos() {
-    const homepage = this.normalizeInfo(get(this, 'props.packageMeta.latest.homepage', null));
-    const repo = this.normalizeInfo(get(this, 'props.packageMeta.latest.repository', null));
-    const license = get(this, 'props.packageMeta.latest.license', 'N/A');
+const Infos = ({homepage, repository, license}) => {
+  const showInfo = homepage || repository || license;
+  return <Module title="Infos" className={classes.infosModule}>
+      {showInfo ? <ul>
+          {homepage && renderSection('Homepage', homepage)}
+          {repository && renderSection('Repository', repository)}
+          {license && <li>
+              <span>License</span>
+              <span>{license}</span>
+            </li>}
+        </ul> : <ModuleContentPlaceholder text="Not Available!" />}
+    </Module>;
+};
 
-    return {homepage, repo, license};
-  }
+Infos.propTypes = {
+  homepage: PropTypes.string,
+  repository: PropTypes.string,
+  license: PropTypes.string
+};
 
-  normalizeInfo(infoObj) {
-    if (isString(infoObj)) {
-      return {url: infoObj};
-    } else if (isNil(infoObj)) {
-      return {url: ''};
-    }
-
-    infoObj.url = this.normalizeGitUrl(infoObj);
-
-    return infoObj;
-  }
-
-  normalizeGitUrl(infoObj) {
-    return infoObj.url.replace(/^git\+/, '');
-  }
-
-  render() {
-    const infos = this.infos;
-
-    if (infos.homepage.url === '' && infos.repo.url === '' && infos.license === 'N/A') {
-      return '';
-    }
-
-    return (
-      <Module
-        title="Infos"
-        className={classes.infosModule}
-      >
-        <ul>
-          {infos.homepage.url && this.renderSection('Homepage', infos.homepage.url)}
-
-          {infos.repo.url && this.renderSection('Repository', infos.repo.url)}
-
-          {infos.license &&
-            <li><span>License</span><span>{infos.license}</span></li>
-          }
-        </ul>
-      </Module>
-    );
-  }
-
-  renderSection(title, url) {
-    return (
-      <li><span>{title}</span><a href={url} target="_blank">{url}</a></li>
-    );
-  }
-}
+export default Infos;

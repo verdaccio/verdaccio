@@ -1,61 +1,45 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import Module from '../../Module';
-import {formatDate} from '../../../../utils/DateUtils';
+import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 import classes from './style.scss';
 
-export default class LastSync extends React.Component {
-  static propTypes = {
-    packageMeta: PropTypes.object.isRequired
-  };
+const renderRecentReleases = (recentReleases) => {
+  return (
+    <ul>
+      {recentReleases.map((versionInfo) => {
+        const {version, time} = versionInfo;
+        return (
+          <li className="last-sync-item" key={version}>
+            <span>{version}</span>
+            <span>{time}</span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
-  get lastUpdate() {
-    let lastUpdate = 0;
-    Object.keys(this.props.packageMeta._uplinks).forEach((upLinkName) => {
-      const status = this.props.packageMeta._uplinks[upLinkName];
+const LastSync = ({recentReleases = [], lastUpdated = ''}) => {
+  return (
+    <Module
+      title="Last Sync"
+      description={lastUpdated}
+      className={classes.releasesModule}
+    >
+      {recentReleases.length ? (
+        renderRecentReleases(recentReleases)
+      ) : (
+        <ModuleContentPlaceholder text="Not Available!" />
+      )}
+    </Module>
+  );
+};
 
-      if (status.fetched > lastUpdate) {
-        lastUpdate = status.fetched;
-      }
-    });
+LastSync.propTypes = {
+  recentReleases: propTypes.array,
+  lastUpdated: propTypes.string
+};
 
-    const time = formatDate(lastUpdate);
-
-    return lastUpdate ? time : '';
-  }
-
-  get recentReleases() {
-    let recentReleases = Object.keys(this.props.packageMeta.time).map((version) => {
-      const time = formatDate(this.props.packageMeta.time[version]);
-      return {version, time};
-    });
-
-    return recentReleases.slice(recentReleases.length - 3, recentReleases.length).reverse();
-  }
-
-  render() {
-    if (!this.props.packageMeta.time) {
-      return null;
-    }
-
-    return (
-      <Module
-        title="Last Sync"
-        description={this.lastUpdate}
-        className={classes.releasesModule}
-      >
-        <ul>
-          {this.recentReleases.map((versionInfo) => {
-            return (
-              <li className="last-sync-item" key={versionInfo.version}>
-                <span>{versionInfo.version}</span>
-                <span>{versionInfo.time}</span>
-              </li>
-            );
-          })}
-        </ul>
-      </Module>
-    );
-  }
-}
+export default LastSync;

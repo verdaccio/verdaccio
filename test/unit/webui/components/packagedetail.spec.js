@@ -18,7 +18,7 @@ describe('<PackageDetail /> component', () => {
   it('should load the component', () => {
     const props = {
       readMe: 'Test readme',
-      package: WEB_TITLE
+      packageName: WEB_TITLE
     };
     const wrapper = shallow(<PackageDetail {...props} />);
 
