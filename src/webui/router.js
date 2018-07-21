@@ -12,7 +12,7 @@ const RouterApp = () => {
   return (
     <Router>
       <div className="page-full-height">
-        <Header/>
+        <Header loginUrl={window.LOGIN_URL}/>
         <div className="container">
           <Switch>
             <Route exact path="/(search/:keyword)?" component={ HomePage } />

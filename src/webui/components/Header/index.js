@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Form, Button, Dialog, Input, Alert} from 'element-react';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
@@ -15,6 +16,10 @@ import './logo.png';
 
 
 export default class Header extends React.Component {
+  static propTypes = {
+    loginUrl: PropTypes.string
+  }
+
   state = {
     showLogin: false,
     username: '',
@@ -143,8 +148,8 @@ export default class Header extends React.Component {
         </div>
       );
     } else {
-      if (window.LOGIN_URL) {
-        return <a className={`${classes.headerButton} header-button-login el-button`} href={ window.LOGIN_URL }>Login</a>;
+      if (this.props.loginUrl) {
+        return <a className={`${classes.headerButton} header-button-login el-button`} href={ this.props.loginUrl }>Login</a>;
       } else {
         return <Button className={`${classes.headerButton} header-button-login`} onClick={ this.toggleLoginModal }>Login</Button>;
       }

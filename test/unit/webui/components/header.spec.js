@@ -46,35 +46,20 @@ describe('<Header /> component shallow', () => {
   });
 
   it('should use a <Button> for the login button when LOGIN_URL is empty', () => {
-    global.window.LOGIN_URL = ''
-
-    const wrapper = shallow(
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
-    ).find(Header).dive();
-
-    expect(wrapper.find('.header-button-login').type()).toEqual(Button);
-
-    delete global.window.LOGIN_URL
-
+    expect(wrapper.find(Header).dive().find('.header-button-login').type()).toEqual(Button);
   });
 
   it('should use an <a> for the login button when LOGIN_URL is not empty', () => {
     const testUrl = 'https://foo.bar/quux'
-    global.window.LOGIN_URL = testUrl
-
     const wrapper = shallow(
       <BrowserRouter>
-        <Header />
+        <Header loginUrl={testUrl} />
       </BrowserRouter>
     ).find(Header).dive();
 
     const ele = wrapper.find('.header-button-login')
     expect(ele.type()).toEqual('a');
     expect(ele.prop('href')).toEqual(testUrl);
-
-    delete global.window.LOGIN_URL
   });
 
   it('should toggleLogin modal', () => {
@@ -113,7 +98,7 @@ describe('<Header /> component shallow', () => {
     const {handleSubmit} = HeaderWrapper.instance();
     const event = {preventDefault: () => {}}
     const spy = jest.spyOn(event, 'preventDefault');
-    
+
     HeaderWrapper.setState({ username: 'sam', password: '1234' });
 
     handleSubmit(event).then(() => {
