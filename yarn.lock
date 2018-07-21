@@ -234,9 +234,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@3.4.2":
-  version "3.4.2"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.4.2.tgz#e1b0952df73167428dbbe071663e72911df3404e"
+"@verdaccio/types@3.5.1":
+  version "3.5.1"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.5.1.tgz#1ddfb6e4d12680e6689e1fb189e25377f9e606a6"
 
 "@webassemblyjs/ast@1.5.9":
   version "1.5.9"
@@ -7967,7 +7967,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
-request@2, request@2.85.0, request@^2.81.0, request@^2.83.0:
+request@2, request@^2.81.0, request@^2.83.0:
   version "2.85.0"
   resolved "https://registry.npmjs.org/request/-/request-2.85.0.tgz#5a03615a47c61420b3eb99b7dba204f83603e1fa"
   dependencies:
