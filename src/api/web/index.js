@@ -41,9 +41,10 @@ module.exports = function(config, auth, storage) {
 
   router.get('/', function(req, res) {
     const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
-    let webPage = template
+    const webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
-      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE);
+      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
+      .replace(/ToReplaceByLogin/g, auth.login_url ? `${base}/${auth.login_url.replace(/^\/+/, '')}` : '');
 
     res.setHeader('Content-Type', 'text/html');
 

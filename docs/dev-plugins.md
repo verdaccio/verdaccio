@@ -3,13 +3,25 @@ id: dev-plugins
 title: "Developing Plugins"
 ---
 
-There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
+There are many ways to extend `verdaccio`, currently we support [authentication plugins](#authentication-plugin), [middleware plugins](#middleware-plugin) (since `v2.7.0`) and [storage plugins](#storage-plugin) since (`v3.x`).
 
 ## Authentication Plugin
 
-This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+This section describes how to make an authentication plugin in an ES5 way.
 
-### API
+There are two ways to create an authentication plugin:
+* Providing an object with a `authenticate` function to handle the username/password input to the login modal.
+* Providing an object with a `login_url` property to redirect the user to a different login page
+
+### `authenticate`
+
+The `authenticate` function takes three arguments:
+
+| Name     | Type     | Description  |
+| -------- | -------- | ------------ |
+| user     |`string`  | the username |
+| password |`string`  | the password |
+| callback |`function`| the callback |
 
 ```js
 function authenticate (user, password, callback) {
@@ -21,7 +33,7 @@ function authenticate (user, password, callback) {
 
 Either something bad happened or auth was unsuccessful.
 
-```
+```javascript
 callback(null, false)
 ```
 
@@ -32,9 +44,28 @@ The auth was successful.
 
 `groups` is an array of strings where the user is part of.
 
-```
+```javascript
  callback(null, groups);
 ```
+
+### `login_page`
+
+Instead of providing an `authenticate` function you can provide a `login_url` to send the user to when they click the login button.
+
+#### Using `login_page`
+
+Here's an example of using `login_page` in an authentication plugin:
+
+```javascript
+module.exports = {
+  // When the user clicks the login button they will be sent to /login_page
+  //
+  // The login_url is relative to the url_prefix in the config file, so if url_prefix is set to
+  // "http://foo.com/bar", then clicking the login button will send the user to http://foo.com/bar/login_page
+  login_url: '/login_page'
+};
+```
+
 
 ### Example
 
@@ -81,7 +112,7 @@ Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and t
 ## Middleware Plugin
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
- 
+
 > A pretty good example
 of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 

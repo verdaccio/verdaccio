@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import {Button} from 'element-react';
 import Header from '../../../../src/webui/components/Header';
 import { BrowserRouter } from 'react-router-dom';
 import storage from '../../../../src/webui/utils/storage';
@@ -44,6 +45,23 @@ describe('<Header /> component shallow', () => {
     });
   });
 
+  it('should use a <Button> for the login button when LOGIN_URL is empty', () => {
+    expect(wrapper.find(Header).dive().find('.header-button-login').type()).toEqual(Button);
+  });
+
+  it('should use an <a> for the login button when LOGIN_URL is not empty', () => {
+    const testUrl = 'https://foo.bar/quux'
+    const wrapper = shallow(
+      <BrowserRouter>
+        <Header loginUrl={testUrl} />
+      </BrowserRouter>
+    ).find(Header).dive();
+
+    const ele = wrapper.find('.header-button-login')
+    expect(ele.type()).toEqual('a');
+    expect(ele.prop('href')).toEqual(testUrl);
+  });
+
   it('should toggleLogin modal', () => {
     const HeaderWrapper = wrapper.find(Header).dive();
     const { toggleLoginModal } = HeaderWrapper.instance();
@@ -80,7 +98,7 @@ describe('<Header /> component shallow', () => {
     const {handleSubmit} = HeaderWrapper.instance();
     const event = {preventDefault: () => {}}
     const spy = jest.spyOn(event, 'preventDefault');
-    
+
     HeaderWrapper.setState({ username: 'sam', password: '1234' });
 
     handleSubmit(event).then(() => {
