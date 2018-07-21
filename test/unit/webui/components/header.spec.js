@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import {Button} from 'element-react';
 import Header from '../../../../src/webui/components/Header';
 import { BrowserRouter } from 'react-router-dom';
 import storage from '../../../../src/webui/utils/storage';
@@ -42,6 +43,38 @@ describe('<Header /> component shallow', () => {
       expect(HeaderWrapper.state('logo'))
         .toEqual('http://localhost/-/static/logo.png');
     });
+  });
+
+  it('should use a <Button> for the login button when LOGIN_URL is empty', () => {
+    global.window.LOGIN_URL = ''
+
+    const wrapper = shallow(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    ).find(Header).dive();
+
+    expect(wrapper.find('.header-button-login').type()).toEqual(Button);
+
+    delete global.window.LOGIN_URL
+
+  });
+
+  it('should use an <a> for the login button when LOGIN_URL is not empty', () => {
+    const testUrl = 'https://foo.bar/quux'
+    global.window.LOGIN_URL = testUrl
+
+    const wrapper = shallow(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    ).find(Header).dive();
+
+    const ele = wrapper.find('.header-button-login')
+    expect(ele.type()).toEqual('a');
+    expect(ele.prop('href')).toEqual(testUrl);
+
+    delete global.window.LOGIN_URL
   });
 
   it('should toggleLogin modal', () => {
