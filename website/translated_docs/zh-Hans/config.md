@@ -31,7 +31,7 @@ logs:
 
 ## 模块
 
-以下各章节解释了每一个选项的作用和可用的值
+The following sections explain what each property means and the different options.
 
 ### 存储
 
@@ -41,9 +41,17 @@ logs:
 storage: ./storage
 ```
 
-### 认证
+### Plugins
 
-在这里完成授权设置，默认授权是基于`htpasswd` 并且是内置的。 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
+Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+
+```yaml
+plugins: ./plugins
+```
+
+### Authentification
+
+The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
 
 ```yaml
 auth:
@@ -54,7 +62,7 @@ auth:
 
 ### Web UI
 
-这个选项允许你定制 Web UI 的外观. 如需了解更多信息，请阅读文档中的 ["Web UI" 部分](web.md).
+This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
 ```yaml
 web:
@@ -65,7 +73,7 @@ web:
 
 ### Uplinks
 
-通过配置 Uplinks ，Verdaccio 可以从远程的仓库中获取本地尚未缓存的包。 如需了解更多信息，请阅读文档中的 ["Uplinks" 部分](uplinks.md)
+Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
 
 ```yaml
 uplinks:
@@ -73,9 +81,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### 包
+### Packages
 
-"包" 部分定义了用户访问仓库中的包的权限。如需了解更多信息，请阅读文档中的 [ "包" 部分](packages.md).
+Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
 ```yaml
 packages:
@@ -87,9 +95,9 @@ packages:
 
 ## 高级设置
 
-### 离线发布
+### Offline Publish
 
-`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *true* 来允许离线发布。
+By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
 
 ```yaml
 publish:
@@ -98,7 +106,7 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL 前缀
+### URL Prefix
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
@@ -106,17 +114,17 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### 最大正文大小
+### Max Body Size
 
-默认的 JSON 文件最大正文大小是`10mb`, 如果遇到`“请求实体太大”`的错误，您可以增大此数值。
+By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### 监听端口
+### Listen Port
 
-`Verdaccio` 默认使用 `4873` 端口. 可以通过 [命令行传递参数](cli.md) 或修改配置文件，以下格式是有效的。
+`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
 ```yaml
 listen:
@@ -130,7 +138,7 @@ listen:
 
 ### HTTPS
 
-可通过在 `listen` 的域名前增加 *https://* 并设置证书路径来启用 `Verdaccio` 的 HTTPS 支持。 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
 
 ```yaml
 https:
@@ -139,13 +147,13 @@ https:
     ca: ./path/verdaccio-csr.pem
 ```
 
-### 代理服务器
+### Proxy
 
-代理服务器是专门把数据从远程服务器传输到本地客户端的HTTP 服务器。
+Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
 
 #### http_proxy and https_proxy
 
-如果您的网络里有代理服务器，您可以使用以下属性来设置`X-Forwarded-For`页眉。
+If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
 
 ```yaml
 http_proxy: http://something.local/
@@ -154,16 +162,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-此变量应该包含一个代理服务器不应该被用到的，以逗号分隔的域名扩展列表。
+This variable should contain a comma-separated list of domain extensions proxy should not be used for.
 
 ```yaml
-http_proxy: http://something.local/
-https_proxy: https://something.local/
+no_proxy: localhost,127.0.0.1
 ```
 
-### 通知
+### Notifications
 
-使用web hooks来启用三方工具通知是非常容易的。如需了解更多此部分的内容，请阅读[通知页面](notifications.md)。
+Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
@@ -175,11 +182,11 @@ notify:
 
 > 有关更多配置设置的详细信息，请[核对源代码](https://github.com/verdaccio/verdaccio/tree/master/conf)。
 
-### 审核
+### Audit
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0) 一起发布的新命令。Verdaccio 包含一个内置的middleware (中间体)插件来处理此命令。
+`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
 
 > 新安装采用默认版本，但是您可以添加以下代码段到配置文件中
 
