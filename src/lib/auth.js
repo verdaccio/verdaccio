@@ -23,6 +23,8 @@ class Auth implements IAuth {
   logger: Logger;
   secret: string;
   plugins: Array<any>;
+  login_url: ?string;
+
   static DEFAULT_EXPIRE_WEB_TOKEN: string = '7d';
 
   constructor(config: Config) {
@@ -31,6 +33,16 @@ class Auth implements IAuth {
     this.secret = config.secret;
     this.plugins = this._loadPlugin(config);
     this._applyDefaultPlugins();
+
+    this.plugins.forEach((plugin) => {
+        if (plugin.login_url) {
+            if (this.login_url && this.login_url != plugin.login_url) {
+                throw new Error('conflicting auth plugins: multiple plugins tried to set different login urls');
+            }
+
+            this.login_url = plugin.login_url;
+        }
+    });
   }
 
   _loadPlugin(config: Config) {
@@ -40,9 +52,9 @@ class Auth implements IAuth {
     };
 
     return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
-      const {authenticate, allow_access, allow_publish} = plugin;
+      const {authenticate, allow_access, allow_publish, login_url} = plugin;
 
-      return authenticate || allow_access || allow_publish;
+      return authenticate || allow_access || allow_publish || login_url;
     });
   }
 

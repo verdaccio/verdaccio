@@ -143,7 +143,11 @@ export default class Header extends React.Component {
         </div>
       );
     } else {
-      return <Button className={`${classes.headerButton} header-button-login`} onClick={ this.toggleLoginModal }>Login</Button>;
+      if (window.LOGIN_URL) {
+        return <a className={`${classes.headerButton} header-button-login el-button`} href={ window.LOGIN_URL }>Login</a>;
+      } else {
+        return <Button className={`${classes.headerButton} header-button-login`} onClick={ this.toggleLoginModal }>Login</Button>;
+      }
     }
   }
 

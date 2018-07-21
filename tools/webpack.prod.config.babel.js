@@ -48,6 +48,7 @@ const prodConf = {
       filename: 'index.html',
       favicon: `${env.SRC_ROOT}/webui/template/favicon.ico`,
       verdaccioURL: 'ToReplaceByVerdaccio',
+      loginURL: 'ToReplaceByLogin',
       template: `${env.SRC_ROOT}/webui/template/index.html`,
       debug: false,
       inject: true,
