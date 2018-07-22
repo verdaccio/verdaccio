@@ -62,6 +62,7 @@ export default class Maintainers extends React.Component {
           key={index}
           title="Contributors"
           name={contributor.name}
+          email={contributor.email}
           avatar={contributor.avatar}/>;
       });
   }
@@ -75,7 +76,7 @@ export default class Maintainers extends React.Component {
         className={classes.maintainersModule}
       >
         <ul className="maintainer-author">
-          {author && <MaintainerInfo title="Author" name={author.name} avatar={author.avatar}/>}
+          {author && <MaintainerInfo title="Author" name={author.name} avatar={author.avatar} email={author.email}/>}
           {this.renderContributors()}
         </ul>
         {!this.showAllContributors && (
