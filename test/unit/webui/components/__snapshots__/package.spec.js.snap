@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Package /> component should load the component 1`] = `"<section class=\\"package\\"><a href=\\"detail/verdaccio\\"><div class=\\"header\\"><div class=\\"title\\"><h1>verdaccio <span class=\\"el-tag el-tag--gray\\">v1.0.0</span></h1></div><div role=\\"author\\" class=\\"author\\">By: Sam</div></div><div class=\\"footer\\"><p class=\\"description\\">Private NPM repository</p></div><div class=\\"details\\"><div class=\\"homepage\\">Published about 1 month ago</div><div class=\\"license\\">MIT</div></div></a></section>"`;
+
+exports[`<Package /> component should load the component without author 1`] = `"<section class=\\"package\\"><a href=\\"detail/verdaccio\\"><div class=\\"header\\"><div class=\\"title\\"><h1>verdaccio <span class=\\"el-tag el-tag--gray\\">v1.0.0</span></h1></div><div role=\\"author\\" class=\\"author\\"></div></div><div class=\\"footer\\"><p class=\\"description\\">Private NPM repository</p></div><div class=\\"details\\"><div class=\\"homepage\\">Published about 1 month ago</div><div class=\\"license\\">MIT</div></div></a></section>"`;

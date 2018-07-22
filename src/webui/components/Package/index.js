@@ -2,81 +2,51 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Tag} from 'element-react';
 import {Link} from 'react-router-dom';
-import isNil from 'lodash/isNil';
-import {formatDateDistance} from '../../utils/DateUtils';
+
+import {formatDateDistance} from '../../utils/package';
 
 import classes from './package.scss';
 
-export default class Package extends React.Component {
-  static propTypes = {
-    package: PropTypes.object
-  }
-
-  render() {
-    const {package: pkg} = this.props;
-
-    return (
-      <section className={classes.package}>
-        <Link to={`detail/${pkg.name}`}>
-          <div className={classes.header}>
-            {this.renderTitle(pkg)}
-            {this.renderAuthor(pkg)}
-          </div>
-          <div className={classes.footer}>
-            {this.renderDescription(pkg)}
-          </div>
-          <div className={classes.details}>
-            {this.renderPublished(pkg)}
-            {this.renderLicense(pkg)}
-          </div>
-        </Link>
-      </section>
-    );
-  }
-
-  renderPublished(pkg) {
-      return (<div className={classes.homepage}>
-        {pkg.time ? `Published ${formatDateDistance(pkg.time)} ago`: ''}
-      </div>);
-  }
-
-  renderLicense(pkg) {
-    if (pkg.license) {
-      return (<div className={classes.license}>
-        {pkg.license}
-      </div>);
-    }
-
-    return null;
-  }
-
-  renderDescription(pkg) {
-    return (
-      <p className={classes.description}>
-        {pkg.description}
-      </p>
-    );
-  }
-
-  renderTitle(pkg) {
-    return (
-      <div className={classes.title}>
-        <h1>
-          {pkg.name} {this.renderTag(pkg)}
-        </h1>
+const Package = ({name, version, author, description, license, time}) => {
+  return (<section className={classes.package}>
+    <Link to={`detail/${name}`}>
+      <div className={classes.header}>
+        <div className={classes.title}>
+          <h1>
+            {name} <Tag type="gray">v{version}</Tag>
+          </h1>
+        </div>
+        <div role="author" className={classes.author}>
+        { author ? `By: ${author}`: ''}
+        </div>
       </div>
-    );
-  }
+      <div className={classes.footer}>
+        <p className={classes.description}>
+          {description}
+        </p>
+      </div>
+      <div className={classes.details}>
+        <div className={classes.homepage}>
+          {time ? `Published ${formatDateDistance(time)} ago` : ''}
+        </div>
+        <div className={classes.license}>
+          {license}
+        </div>
+      </div>
+    </Link>
+  </section>);
+};
 
-  renderTag(pkg) {
-    return <Tag type="gray">v{pkg.version}</Tag>;
-  }
+Package.propTypes = {
+  name: PropTypes.string,
+  version: PropTypes.string,
+  author: PropTypes.string,
+  description: PropTypes.string,
+  license: PropTypes.string,
+  time: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date)
+  ])
+};
 
-  renderAuthor(pkg) {
-    if (isNil(pkg.author) || isNil(pkg.author.name)) {
-      return;
-    }
-
-    return <div role="author" className={classes.author}>{`By: ${pkg.author.name}`}</div>;
-  }
-}
+export default Package;

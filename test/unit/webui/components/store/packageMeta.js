@@ -53,7 +53,11 @@ export const packageMeta = {
     '2.7.0': '2017-12-05T23:25:06.372Z',
     '2.7.1': '2017-12-14T15:43:27.317Z'
   },
-  _uplinks: { npmjs: { etag: '"5a272ad2-4f6b1"', fetched: 1513266232741 } },
+  _uplinks: {
+    abc: { etag: 'ddfdxjn8m8n6gn70-8m', fetched: 1532297472000}, 
+    npmjs: { etag: '"5a272ad2-4f6b1"', fetched: 1513266232741 }, 
+    xyz: { etag: '564748hydydygs-s7ehj', fetched: 1532124672000}
+  },
   _rev: '16-ba1b806df0298246',
   _attachments: {},
   latest: {

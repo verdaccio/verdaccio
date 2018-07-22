@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import filter from 'lodash/filter';
 import size from 'lodash/size';
+import has from 'lodash/has';
 import uniqBy from 'lodash/uniqBy';
+
 import Module from '../../Module';
+import MaintainerInfo from './MaintainerInfo';
+import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 import classes from './style.scss';
-import MaintainerInfo from './MaintainerInfo';
+
+const CONTRIBUTORS_TO_SHOW = 5;
 
 export default class Maintainers extends React.Component {
   static propTypes = {
@@ -44,7 +49,10 @@ export default class Maintainers extends React.Component {
       return [];
     }
 
-    return uniqBy(this.contributors, (contributor) => contributor.name).slice(0, 5);
+    return uniqBy(this.contributors, (contributor) => contributor.name).slice(
+      0,
+      CONTRIBUTORS_TO_SHOW
+    );
   }
 
   handleShowAllContributors() {
@@ -56,26 +64,33 @@ export default class Maintainers extends React.Component {
   renderContributors() {
     if (!this.contributors) return null;
 
-    return (this.showAllContributors ? this.contributors : this.uniqueContributors)
-      .map((contributor, index) => {
-        return <MaintainerInfo
+    return (this.showAllContributors
+      ? this.contributors
+      : this.uniqueContributors
+    ).map((contributor, index) => {
+      return (
+        <MaintainerInfo
           key={index}
           title="Contributors"
           name={contributor.name}
-          avatar={contributor.avatar}/>;
-      });
+          avatar={contributor.avatar}
+        />
+      );
+    });
   }
 
-  render() {
-    let author = this.author;
-
+  renderAuthorAndContributors(author) {
     return (
-      <Module
-        title="Maintainers"
-        className={classes.maintainersModule}
-      >
+      <div>
         <ul className="maintainer-author">
-          {author && <MaintainerInfo title="Author" name={author.name} avatar={author.avatar}/>}
+          {author &&
+            author.name && (
+              <MaintainerInfo
+                title="Author"
+                name={author.name}
+                avatar={author.avatar}
+              />
+            )}
           {this.renderContributors()}
         </ul>
         {!this.showAllContributors && (
@@ -86,6 +101,20 @@ export default class Maintainers extends React.Component {
           >
             Show all contributor
           </button>
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    let author = this.author;
+    const contributors = this.renderContributors();
+    return (
+      <Module title="Maintainers" className={classes.maintainersModule}>
+        {contributors.length || has(author, 'name') ? (
+          this.renderAuthorAndContributors(author)
+        ) : (
+          <ModuleContentPlaceholder text="Not Available!" />
         )}
       </Module>
     );

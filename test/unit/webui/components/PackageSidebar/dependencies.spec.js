@@ -3,22 +3,13 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import Dependencies from '../../../../../src/webui/components/PackageSidebar/modules/Dependencies/index';
-import { packageMeta } from '../store/packageMeta';
 
-console.error = jest.fn();
 
 describe('<PackageSidebar /> : <Dependencies />', () => {
-  it('should throw error for the required props', () => {
-    mount(<Dependencies />);
-    expect(console.error).toBeCalled();
-  });
-
-  it('getter: should get dependencies from package meta', () => {
-    const wrapper = mount(<Dependencies packageMeta={packageMeta} />);
-    const dependencies = wrapper.instance().dependencies;
-    const result = {
+  it('should load dependencies', () => {
+    const dependencies = {
       '@verdaccio/file-locking': '0.0.3',
       '@verdaccio/streams': '0.0.2',
       JSONStream: '^1.1.1',
@@ -50,11 +41,12 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
       semver: '^5.1.0',
       'unix-crypt-td-js': '^1.0.0'
     };
-    expect(dependencies).toEqual(result);
+    const wrapper = shallow(<Dependencies dependencies={dependencies} />);
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should load the package and match snapshot', () => {
-    const wrapper = shallow(<Dependencies packageMeta={packageMeta} />);
+  it('should load the package without dependecnies', () => {
+    const wrapper = shallow(<Dependencies />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

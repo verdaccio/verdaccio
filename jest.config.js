@@ -42,7 +42,8 @@ module.exports = {
   moduleNameMapper: {
     '\\.(scss)$': '<rootDir>/node_modules/identity-obj-proxy',
     'github-markdown-css': '<rootDir>/node_modules/identity-obj-proxy',
-    '\\.(png)$': '<rootDir>/node_modules/identity-obj-proxy'
+    '\\.(png)$': '<rootDir>/node_modules/identity-obj-proxy',
+    '\\.(svg)$': '<rootDir>/test/unit/empty.js'
   },
   transformIgnorePatterns: [
     '<rootDir>/node_modules/(?!react-syntax-highlighter)'

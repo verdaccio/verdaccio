@@ -68,7 +68,7 @@ export default class Detail extends React.Component {
     }
     return (
       <div className={classes.twoColumn}>
-        <PackageDetail readMe={readMe} package={this.packageName}/>
+        <PackageDetail readMe={readMe} packageName={this.packageName}/>
         <PackageSidebar packageName={this.packageName} />
       </div>
     );
