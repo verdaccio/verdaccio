@@ -1,6 +1,7 @@
 ---
-id: webui
-title: "Web User Interface2"
+id: version-3.3.0-webui
+title: Web User Interface2
+original_id: webui
 ---
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>

@@ -1,6 +1,7 @@
 ---
-id: installation
-title: "Installation"
+id: version-3.2.0-installation
+title: Installation
+original_id: installation
 ---
 
 Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
@@ -40,6 +41,8 @@ $> verdaccio
 warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
+
+![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
 
 For more information about the CLI, please [read the cli section](cli.md).
 

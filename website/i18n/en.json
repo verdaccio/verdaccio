@@ -3,8 +3,8 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A lightweight private npm proxy registry",
-    "ansible": "Installing with Ansible",
+    "tagline": "Verdaccio · A lightweight private npm proxy registry",
+    "ansible": "Ansible",
     "authentification": "Authentification",
     "build": "Build the source code",
     "chef": "Chef Cookbook",
@@ -31,7 +31,7 @@
     "unit-testing": "Unit Testing",
     "uplinks": "Uplinks",
     "use-cases": "Use Cases",
-    "webui": "Web User Interface",
+    "webui": "Web User Interface2",
     "what-is-verdaccio": "What is Verdaccio?",
     "windows": "Installing As a Windows Service",
     "Docs": "Docs",
@@ -57,9 +57,8 @@
     "This project is maintained by a dedicated group of people.|statement made to reader": "This project is maintained by a dedicated group of people.",
     "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)",
     "You can follow and contact us on|no description given": "You can follow and contact us on",
-    "If the documentation is not enough help, you can try browsing into our|no description given": "If the documentation is not enough help, you can try browsing into our",
     "and also you can chat with the Verdaccio community at|no description given": "and also you can chat with the Verdaccio community at",
-    "More Help?|no description given": "More Help?",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "If the documentation is not enough help, you can try browsing into our",
     "This project is maintained by the Verdaccio community.|no description given": "This project is maintained by the Verdaccio community.",
     "Get Started|no description given": "Get Started",
     "Contribute|no description given": "Contribute",
@@ -81,12 +80,6 @@
     "Add your company|no description given": "Add your company",
     "Help Translate|recruit community translators for your project": "Help Translate",
     "Edit this Doc|recruitment message asking to edit the doc source": "Edit",
-    "Translate this Doc|recruitment message asking to translate the docs": "Translate",
-    "Many great developers are already enjoying Verdaccio, join the club!|no description given": "Many great developers are already enjoying Verdaccio, join the club!",
-    "Easy to Install|no description given": "Easy to Install",
-    "Easy to Set Up|no description given": "Easy to Set Up",
-    "Easy to Use|no description given": "Easy to Use",
-    "What developers are saying|no description given": "What developers are saying",
-    "Many great developers are already enjoying Verdaccio, join the community!": "Many great developers are already enjoying Verdaccio, join the community!"
+    "Translate this Doc|recruitment message asking to translate the docs": "Translate"
   }
 }

@@ -23,14 +23,17 @@ class Help extends React.Component {
         title: <translate>Browse Docs</translate>,
       },
       {
-        content: <translate>You can follow and contact us on</translate> + '[Twitter](https://twitter.com/verdaccio_npm).',
+        content: <translate>You can follow and contact us on</translate> + ' [Twitter](https://twitter.com/verdaccio_npm).',
         title: 'Twitter',
       },
       {
+        content: <translate>and also you can chat with the Verdaccio community at</translate> + ' [Discord](https://discord.gg/7qWJxBf).',
+        title: 'Discord',
+      },
+      {
         content: <translate>If the documentation is not enough help, you can try browsing into our</translate> +
-        "[Question Database](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aquestion+) " +
-        <translate>and also you can chat with the Verdaccio community at</translate> + "[Gitter](https://gitter.im/verdaccio/).",
-        title: <translate>More Help?</translate>,
+        " [Question Database](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aquestion+) ",
+        title: 'GitHub',
       },
     ];
 
@@ -50,7 +53,7 @@ class Help extends React.Component {
                 This project is maintained by the Verdaccio community.
               </translate>
             </p>
-            <GridBlock contents={supportLinks} layout="threeColumn" />
+            <GridBlock contents={supportLinks} layout="fourColumn" />
           </div>
         </Container>
       </div>

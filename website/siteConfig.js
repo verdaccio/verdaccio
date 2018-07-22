@@ -87,6 +87,9 @@ const siteConfig = {
   algolia: {
     apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
     indexName: 'verdaccio',
+    algoliaOptions: {
+      facetFilters: ['language:LANGUAGE', 'version:VERSION'],
+    }
   },
   gaTrackingId: 'UA-2527438-21',
   twitter: true,

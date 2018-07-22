@@ -1,6 +1,7 @@
 ---
-id: plugins
-title: "Plugins"
+id: version-3.3.0-plugins
+title: Plugins
+original_id: plugins
 ---
 
 Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding

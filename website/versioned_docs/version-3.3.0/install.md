@@ -1,6 +1,7 @@
 ---
-id: installation
-title: "Installation"
+id: version-3.3.0-installation
+title: Installation
+original_id: installation
 ---
 
 Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.

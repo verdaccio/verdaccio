@@ -1,0 +1,47 @@
+{
+  "version-3.2.0-docs": {
+    "Introduction": [
+      "version-3.2.0-what-is-verdaccio",
+      "version-3.2.0-installation",
+      "version-3.2.0-cli"
+    ],
+    "Configuration": [
+      "version-3.2.0-configuration",
+      "version-3.2.0-uplinks",
+      "version-3.2.0-packages",
+      "version-3.2.0-authentification",
+      "version-3.2.0-notifications",
+      "version-3.2.0-logger",
+      "version-3.2.0-webui"
+    ],
+    "Server": [
+      "version-3.2.0-server-configuration",
+      "version-3.2.0-reverse-proxy",
+      "version-3.2.0-ssl",
+      "version-3.2.0-windows",
+      "version-3.2.0-iss-server"
+    ],
+    "Plugins": [
+      "version-3.2.0-plugins",
+      "version-3.2.0-dev-plugins"
+    ],
+    "DevOps": [
+      "version-3.2.0-docker",
+      "version-3.2.0-kubernetes",
+      "version-3.2.0-ansible",
+      "version-3.2.0-puppet",
+      "version-3.2.0-chef",
+      "version-3.2.0-ci"
+    ],
+    "Development": [
+      "version-3.2.0-build",
+      "version-3.2.0-contributing",
+      "version-3.2.0-source-code",
+      "version-3.2.0-unit-testing",
+      "version-3.2.0-node-api"
+    ],
+    "Guides": [
+      "version-3.2.0-protect-your-dependencies"
+    ]
+  }
+}
