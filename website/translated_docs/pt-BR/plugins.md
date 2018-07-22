@@ -68,6 +68,8 @@ middlewares:
     enabled: true
 ```
 
+> You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
+
 ### Store Plugin Configuration
 
 This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
