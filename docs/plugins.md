@@ -3,9 +3,9 @@ id: plugins
 title: "Plugins"
 ---
 
-Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding 
+Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding
 endpoints or using a custom storage.
- 
+
 > If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
 
 ## Usage
@@ -26,8 +26,8 @@ $> npm install --global sinopia-memory
 Open the `config.yaml` file and update the `auth` section as follows:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
- 
- 
+
+
 ### Auth Plugin Configuration
 
 ```yaml
@@ -70,6 +70,8 @@ middlewares:
   audit:
     enabled: true
 ```
+
+> You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
 
 ### Store Plugin Configuration
 
@@ -139,5 +141,5 @@ modern verdaccio API and using the prefix as *verdaccio-xx-name*.
 
 ## Caveats
 
-> Not all these plugins are been tested continuously, some of them might not work at all. 
+> Not all these plugins are been tested continuously, some of them might not work at all.
 Please if you found any issue feel free to notify the owner of each plugin.

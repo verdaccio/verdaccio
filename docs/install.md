@@ -41,8 +41,6 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
-
 For more information about the CLI, please [read the cli section](cli.md).
 
 ## Docker Image

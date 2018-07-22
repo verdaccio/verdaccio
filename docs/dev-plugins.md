@@ -3,29 +3,44 @@ id: dev-plugins
 title: "Developing Plugins"
 ---
 
-There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
+There are many ways to extend `verdaccio`, the kind of plugins supported are:
+
+* Authentication plugins
+* Middleware plugins (since `v2.7.0`)
+* Storage plugins since (`v3.x`)
+
+> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
 
 ## Authentication Plugin
 
-This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
 
 ### API
 
-```js
-function authenticate (user, password, callback) {
- ...more stuff
+```flow
+interface IPluginAuth extends IPlugin {
+  login_url?: string;
+  authenticate(user: string, password: string, cb: Callback): void;
+  adduser(user: string, password: string, cb: Callback): void;
+  allow_access(user: RemoteUser, pkg: $Subtype<PackageAccess>, cb: Callback): void;
+  allow_publish(user: RemoteUser, pkg: $Subtype<PackageAccess>, cb: Callback): void;
 }
 ```
+> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
 
-##### OnError
+#### Callback
+
+Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+
+###### OnError
 
 Either something bad happened or auth was unsuccessful.
 
-```
+```flow
 callback(null, false)
 ```
 
-##### OnSuccess
+###### OnSuccess
 
 The auth was successful.
 
@@ -69,7 +84,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the setup
+And the configuration will looks like:
 
 ```yaml
 auth:
@@ -81,7 +96,17 @@ Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and t
 ## Middleware Plugin
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
- 
+
+```flow
+interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
+  register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void;
+}
+```
+
+### register_middlewares
+
+The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+
 > A pretty good example
 of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
@@ -99,28 +124,32 @@ To register a middleware we need an object with a single method called `register
 
 ## Storage Plugin
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage) but, since `verdaccio@3.x` you can plug in a custom storage.
+Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `ILocalData` implementation. Please see details bellow.
+The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
 
-```js
-
-class LocalDatabase<ILocalData>{
-    constructor(config: Config, logger: Logger): ILocalData;
+```flow
+class LocalDatabase<IPluginStorage>{
+  constructor(config: $Subtype<verdaccio$Config>, logger: verdaccio$Logger): ILocalData;
 }
 
-declare interface verdaccio$ILocalData {
+interface IPluginStorage {
+  logger: verdaccio$Logger;
+	config: $Subtype<verdaccio$Config>;
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
+  search(onPackage: verdaccio$Callback, onEnd: verdaccio$Callback, validateName: Function): void;
 }
 
-declare interface verdaccio$ILocalPackageManager {
+interface IPackageStorageManager {
+  path: string;
+  logger: verdaccio$Logger;
   writeTarball(name: string): verdaccio$IUploadTarball;
   readTarball(name: string): verdaccio$IReadTarball;
   readPackage(fileName: string, callback: verdaccio$Callback): void;
@@ -135,14 +164,17 @@ declare interface verdaccio$ILocalPackageManager {
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
-interface IUploadTarball extends stream$PassThrough {
+class verdaccio$IUploadTarball extends stream$PassThrough {
+  abort: Function;
+  done: Function;
+  _transform: Function;
   abort(): void;
   done(): void;
 }
 
-interface IReadTarball extends stream$PassThrough {
+class verdaccio$IReadTarball extends stream$PassThrough {
+  abort: Function;
   abort(): void;
-  done(): void;
 }
 ```
 
