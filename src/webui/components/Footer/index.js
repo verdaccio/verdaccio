@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import classes from './footer.scss';
 import logo from './logo.svg';
@@ -12,7 +12,7 @@ import nicaraguaFlag from './flags/nicaragua-1f1f3-1f1ee.svg';
 import pakistanFlag from './flags/pakistan-1f1f5-1f1f0.svg';
 import spainFlag from './flags/spain-1f1ea-1f1f8.svg';
 
-export default class Footer extends React.Component {
+export default class Footer extends Component {
   constructor(props) {
     super(props);
     this.handleEarthIconClick = this.handleEarthIconClick.bind(this);

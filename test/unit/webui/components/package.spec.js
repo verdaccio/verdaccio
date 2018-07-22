@@ -25,18 +25,13 @@ describe('<Package /> component', () => {
       time: dateOneMonthAgo(),
       license: 'MIT',
       description: 'Private NPM repository',
-      author: { name: 'Sam' }
+      author: 'Sam'
     };
     const wrapper = mount(
       <BrowserRouter>
-        <Package package={props} />
+        <Package {...props}/>
       </BrowserRouter>
     );
-
-    // renderAuthor method
-    const renderAuthor = wrapper.find(Package).instance().renderAuthor;
-    expect(renderAuthor({ author: {} })).toBeUndefined();
-    expect(renderAuthor({ author: { name: 'sam' } })).toBeDefined();
 
     // integration expectations
     expect(wrapper.find('a').prop('href')).toEqual('detail/verdaccio');
@@ -50,4 +45,27 @@ describe('<Package /> component', () => {
     expect(wrapper.find('.license').text()).toMatch(/MIT/);
     expect(wrapper.html()).toMatchSnapshot();
   });
+
+  it('should load the component without author', () => {
+    const props = {
+      name: 'verdaccio',
+      version: '1.0.0',
+      time: dateOneMonthAgo(),
+      license: 'MIT',
+      description: 'Private NPM repository'
+    };
+    const wrapper = mount(
+      <BrowserRouter>
+        <Package {...props} />
+      </BrowserRouter>
+    );
+
+    // integration expectations
+    expect(
+      wrapper.find('div').filterWhere(n => n.prop('role') === 'author')
+        .text()
+    ).toEqual('');
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 });
+ 

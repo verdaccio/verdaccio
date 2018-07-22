@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PackageSidebar /> : <Infos /> should load the Info component and match snapshot 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><ul><li><span>Homepage</span><a href=\\"https://github.com/verdaccio/verdaccio#readme\\" target=\\"_blank\\">https://github.com/verdaccio/verdaccio#readme</a></li><li><span>Repository</span><a href=\\"git://github.com/verdaccio/verdaccio.git\\" target=\\"_blank\\">git://github.com/verdaccio/verdaccio.git</a></li><li><span>License</span><span>WTFPL</span></li></ul></div></div>"`;
+exports[`<PackageSidebar /> : <Infos /> should load the Info component with homepage only 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><ul><li><span>Homepage</span><a href=\\"https://www.verdaccio.org\\" target=\\"_blank\\">https://www.verdaccio.org</a></li></ul></div></div>"`;
+
+exports[`<PackageSidebar /> : <Infos /> should load the Info component with license only 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><ul><li><span>License</span><span>MIT</span></li></ul></div></div>"`;
+
+exports[`<PackageSidebar /> : <Infos /> should load the Info component with props 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><ul><li><span>Homepage</span><a href=\\"https://www.verdaccio.org\\" target=\\"_blank\\">https://www.verdaccio.org</a></li><li><span>Repository</span><a href=\\"https://github.com/verdaccio/verdaccio\\" target=\\"_blank\\">https://github.com/verdaccio/verdaccio</a></li><li><span>License</span><span>MIT</span></li></ul></div></div>"`;
+
+exports[`<PackageSidebar /> : <Infos /> should load the Info component with repository only 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><ul><li><span>Repository</span><a href=\\"https://github.com/verdaccio/verdaccio\\" target=\\"_blank\\">https://github.com/verdaccio/verdaccio</a></li></ul></div></div>"`;
+
+exports[`<PackageSidebar /> : <Infos /> should load the component without props 1`] = `"<div class=\\"module infosModule\\"><h2 class=\\"moduleTitle\\">Infos</h2><div><p class=\\"emptyPlaceholder\\">Not Available!</p></div></div>"`;
