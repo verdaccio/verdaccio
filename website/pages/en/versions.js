@@ -69,7 +69,9 @@ class Versions extends React.Component {
                 </tr>
               </tbody>
             </table>
-            <p>Other text describing this section.</p>
+            <p>
+              This is the current master branch documentation.
+            </p>
             <h3 id="archive">Past Versions</h3>
             <table className="versions">
               <tbody>
