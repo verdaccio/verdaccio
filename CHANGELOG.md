@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/verdaccio/verdaccio/compare/v3.2.0...v3.3.0) (2018-07-22)
+
+
+### Bug Fixes
+
+* add RemoteUser type for auth ([2f4dbe8](https://github.com/verdaccio/verdaccio/commit/2f4dbe8))
+* adds webpack banner plugin to tag bundles with version ([#784](https://github.com/verdaccio/verdaccio/issues/784)) ([dac28d3](https://github.com/verdaccio/verdaccio/commit/dac28d3))
+* dynamic date generation for <Package /> component test ([e5ea0c2](https://github.com/verdaccio/verdaccio/commit/e5ea0c2))
+* ignores http_proxy and https_proxy ([d04dc8d](https://github.com/verdaccio/verdaccio/commit/d04dc8d))
+* improves regex for ascii and test ([#461](https://github.com/verdaccio/verdaccio/issues/461)) ([be3968f](https://github.com/verdaccio/verdaccio/commit/be3968f))
+* license field alignment on web ui ([#761](https://github.com/verdaccio/verdaccio/issues/761)) ([9fa523a](https://github.com/verdaccio/verdaccio/commit/9fa523a))
+* open external tabs in new tabs ([25e8e60](https://github.com/verdaccio/verdaccio/commit/25e8e60))
+* package.json to reduce vulnerabilities ([389e306](https://github.com/verdaccio/verdaccio/commit/389e306))
+* solve seo issue [#760](https://github.com/verdaccio/verdaccio/issues/760) ([62d3033](https://github.com/verdaccio/verdaccio/commit/62d3033))
+* wrong auth plugin signature ([5c2c414](https://github.com/verdaccio/verdaccio/commit/5c2c414))
+
+
+### Features
+
+* adds support for ascii-doc preview in readme ([#464](https://github.com/verdaccio/verdaccio/issues/464)) ([29bb57a](https://github.com/verdaccio/verdaccio/commit/29bb57a))
+* adds support for external plugin directory ([#532](https://github.com/verdaccio/verdaccio/issues/532)) ([11dcf79](https://github.com/verdaccio/verdaccio/commit/11dcf79))
+* capitalises logged in username ([#752](https://github.com/verdaccio/verdaccio/issues/752)) ([0e21e35](https://github.com/verdaccio/verdaccio/commit/0e21e35))
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/verdaccio/verdaccio/compare/v3.1.2...v3.2.0) (2018-06-15)
 
