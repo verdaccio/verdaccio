@@ -19,11 +19,11 @@ $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+'cd ~' 命令把您送到verdaccio用户的主目录。请确保您至少运行一次verdaccio来生成config文件。根据您的需求来编辑它。
 
-## Listening on all addresses
+## 监听所有地址
 
-If you want to listen to every external address set the listen directive in the config to:
+如果您希望监听每个外部地址，请把config里的监听指令设置为:
 
 ```yaml
 # you can specify listen address (or simply a port)
