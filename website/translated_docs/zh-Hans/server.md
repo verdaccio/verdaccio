@@ -1,18 +1,18 @@
 ---
-id: server-configuration
-title: "Server Configuration"
+id: 服务器-配置
+title: "服务器配置"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+这主要是一些基础的linux服务器配置信息，但是我觉得很重要来记录并分享我让verdaccio 在我的服务器上永久运行的步骤。 您将需要以下的根（或者sudo）权限。
 
-## Running as a separate user
+## 作为单独用户运行
 
-First create the verdaccio user:
+首先创建verdaccio 用户：
 
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+您用以下命令来创建一个 shell作为verdaccio用户:
 
 ```bash
 $ sudo su verdaccio
