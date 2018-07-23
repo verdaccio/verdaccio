@@ -1,10 +1,10 @@
 ---
 id: reverse-proxy
-title: "Reverse Proxy Setup"
+title: "反向Proxy（代理）设置"
 ---
 ## Apache
 
-Apache and mod_proxy should not decode/encode slashes and leave them as they are:
+Apache 和mod_proxy 不应该 decode（解码）/encode（编码）斜线，要让它们保持不变:
 
     <VirtualHost *:80>
       AllowEncodedSlashes NoDecode
@@ -13,7 +13,7 @@ Apache and mod_proxy should not decode/encode slashes and leave them as they are
     </VirtualHost>
     
 
-### Configuration with SSL
+### 用SSL 配置
 
 config.yaml
 
