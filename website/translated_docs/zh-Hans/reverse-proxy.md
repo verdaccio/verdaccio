@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-For this case, `url_prefix` should set to `/verdaccio/`
+在这个例子里， `url_prefix` 应该设置为`/verdaccio/`
 
-> Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
+> 请注意: 在安装路径 (`https://your-domain:port/vardaccio/`)后有一条斜线!
