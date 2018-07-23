@@ -41,5 +41,5 @@ npm ERR! 403 Forbidden: webpack-1@latest
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
+错误出现意外错误: "http://localhost:5555/webpack-1: 不允许未注册用户访问my-company-core包"。
 ```
