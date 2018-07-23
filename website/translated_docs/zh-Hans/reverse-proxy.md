@@ -21,7 +21,7 @@ config.yaml
 url_prefix: https://npm.your.domain.com
 ```
 
-Apache virtual server configuration
+Apache 虚拟服务器配置
 
         apacheconfig
         <IfModule mod_ssl.c>
@@ -51,16 +51,16 @@ Apache virtual server configuration
     }
     
 
-## Run behind reverse proxy with different domain and port
+## 在反向代理服务器后运行用不同的域名和端口
 
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
+如果您在反向代理服务器后运行verdaccio，您可能会注意到所有资源文件都起到相关路径的作用，如 `http://127.0.0.1:4873/-/static`
 
-To resolve this issue, you should send real domain and port to verdaccio with `Host` heade
+要解决这个问题，您应该用 `Host`heade发送实际域名和端口到 verdaccio。
 
-Nginx configure should look like this:
+Nginx配置应该如下所示：
 
 ```nginx
-location / {
+ocation / {
     proxy_pass http://127.0.0.1:4873/;
     proxy_set_header Host            $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
@@ -68,11 +68,11 @@ location / {
 }
 ```
 
-For this case, `url_prefix` should NOT set in verdaccio config
+在这个例子里，verdaccio config里不应该设置`url_prefix`
 
 * * *
 
-or a sub-directory installation:
+或者子-目录安装：
 
 ```nginx
 location ~ ^/verdaccio/(.*)$ {
