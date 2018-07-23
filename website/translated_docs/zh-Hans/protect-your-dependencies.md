@@ -1,12 +1,12 @@
 ---
 id: protect-your-dependencies
-title: "Protecting packages"
+title: "保护包"
 ---
-`verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
+`verdaccio` 允许保护发布，为了要使用此功能，您将需要正确设置您的[包访问](packages)。
 
-### Package configuration
+### 包配置
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+例如，让我们一起来看以下设置。 You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
 
 ```yaml
   'my-company-*':
