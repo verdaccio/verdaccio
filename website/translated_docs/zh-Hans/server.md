@@ -1,8 +1,8 @@
 ---
-id: 服务器-配置
+id: server-configuration（服务器-配置）
 title: "服务器配置"
 ---
-这主要是一些基础的linux服务器配置信息，但是我觉得很重要来记录并分享我让verdaccio 在我的服务器上永久运行的步骤。 您将需要以下的根（或者sudo）权限。
+这主要是一些基础的linux服务器配置信息，但是我觉得很重要来记录并分享我让verdaccio 在服务器上永久运行的步骤。 您将需要以下的根（或者sudo）权限。
 
 ## 作为单独用户运行
 
@@ -52,7 +52,7 @@ $ forever start `which verdaccio`
 
 您可以查看文档来了解更多关于如何使用forever的信息。
 
-## Surviving server restarts
+## 存留服务器重启
 
 我们可以在服务器重启后同时用crontab和forever来重启 verdaccio。当您以 verdaccio 用户登录后请执行以下操作：
 
