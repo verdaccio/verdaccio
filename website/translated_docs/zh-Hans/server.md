@@ -30,15 +30,15 @@ $ cd ~
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+如果您在Amazon EC2 Instance运行 `verdaccio`, 如上所述，[您将需要设置监听config 文件](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) 。
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Apache configure? 请查看[逆向代理服务器配置](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## 让 verdaccio一直运行下去
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+我们可以使用名为'forever（永远）’的节点包来让verdaccio一直运行下去。 https://github.com/nodejitsu/forever
 
-First install forever globally:
+首先安装全局forever：
 
 ```bash
 $ sudo npm install -g forever
