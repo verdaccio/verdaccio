@@ -1,8 +1,8 @@
 ---
-id: protect-your-dependencies
-title: "保护包"
+id: protect-your-dependencies（保护-依赖项）
+title: "包保护"
 ---
-`verdaccio` 允许保护发布，为了要使用此功能，您将需要正确设置您的[包访问](packages)。
+`verdaccio` 允许发布保护，为了要使用此功能，您将需要正确设置[包访问权限](packages)。
 
 ### 包配置
 
