@@ -1,6 +1,6 @@
 ---
-id: 资源-代码
-title: "资源代码"
+id: source-code（源-代码）
+title: "源代码"
 ---
 `verdaccio` is composed or multiple repositories you might contribute. Look into the **issues** tab whether there is a ticket waiting for you 
 
