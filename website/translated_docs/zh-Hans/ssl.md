@@ -1,6 +1,6 @@
 ---
 id: ssl
-title: "Set up the SSL Certificates"
+title: "设置SSL 证书"
 ---
 Follow this instructions to configure a SSL certificate to serve NPM registry under HTTPS.
 
