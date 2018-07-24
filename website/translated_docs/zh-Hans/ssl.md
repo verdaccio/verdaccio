@@ -24,7 +24,7 @@ title: "设置SSL 证书"
 
 https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 
-    <br />或者，如果证书是server.pfx`格式，您可以添加以下配置部分。如果证书已加密，密码则是可选以及仅当需要时。
+    <br />或者，如果证书是server.pfx`格式，您可以添加以下配置部分。如果证书已加密，密码则是可选以及仅当需要时使用。
     
     
 
@@ -34,12 +34,12 @@ https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
 * 在命令行运行`verdaccio`。
 
-* 打开浏览器，并加载`https://your.domain.com:port/`
+* 打开浏览器并加载`https://your.domain.com:port/`
 
-此指南仅在OSX和 Linux里有效，在 Windows 里，路径将不同，但步骤是一样的。
+此指南主要在OSX和 Linux里有效，在 Windows 里，路径将不同，但步骤是一样的。
 
 ## Docker
 
-If you are using the Docker image, you have to set the `PROTOCOL` environment variable to `https` as the `listen` argument is provided on the [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), and thus ignored from your config file.
+如果您使用Docker 镜像，您得设置`PROTOCOL` 环境变量到 `https`中，原因是因为 `listen` 参数由 [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43)提供, 因此在您的config 文件中被忽略。
 
-You can also set the `PORT` environment variable if you are using a different port than `4873`.
+如果您使用不同于 `4873`的端口，您也可以设置 `PORT` 环境变量。
