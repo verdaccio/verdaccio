@@ -13,7 +13,7 @@ title: "逆向代理服务器设置"
     </VirtualHost>
     
 
-### SSL 配置
+### 用SSL 配置
 
 config.yaml
 
