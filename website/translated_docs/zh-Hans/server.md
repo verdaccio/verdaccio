@@ -44,28 +44,28 @@ listen: 0.0.0.0:4873
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+请确保您至少已经启动一次verdaccio来生成config 文件，并记录下创建的管理员用户。然后，您可以用以下命令来启动verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+您可以查看文档来了解更多关于如何使用forever的信息。
 
 ## Surviving server restarts
 
-We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
+我们可以在服务器重启后同时用crontab和forever来重启 verdaccio。当您以 verdaccio 用户登录后请执行以下操作：
 
 ```bash
 $ crontab -e
 ```
 
-This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
+这可能会要您选择一个编辑器。请挑选您最喜欢的并继续。请将以下条目添加到文件中：
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
 
-The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+取决于服务器的设置，位置可能会有所不同。如果您想知道文件的位置，可以使用 'which' 命令：
 
 ```bash
 $ which forever
