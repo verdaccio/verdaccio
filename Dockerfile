@@ -37,13 +37,14 @@ RUN addgroup -S verdaccio && adduser -S -G verdaccio verdaccio && \
 
 USER verdaccio
 
-ENV PORT 4873
-ENV PROTOCOL http
+ENV VERDACCIO_PORT 4873
+ENV VERDACCIO_LISTEN 0.0.0.0
+ENV VERDACCIO_PROTOCOL http
 
-EXPOSE $PORT
+EXPOSE $VERDACCIO_PORT
 
 VOLUME ["/verdaccio"]
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $PROTOCOL://0.0.0.0:${PORT}
+CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://${VERDACCIO_LISTEN}:${VERDACCIO_PORT}
