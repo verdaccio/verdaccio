@@ -2,29 +2,29 @@
 id: ssl
 title: "设置SSL 证书"
 ---
-Follow this instructions to configure a SSL certificate to serve NPM registry under HTTPS.
+依照这些说明来配置SSL 证书来服务HTTPS 下的NPM registry。
 
-* Update the listen property in your `~/.config/verdaccio/config.yaml`:
+* 在`~/.config/verdaccio/config.yaml`更新监听属性：
 
     listen: 'https://your.domain.com/'
     
 
-Once you update the listen and try to run verdaccio again will ask for certificates.
+一旦更新监听，并试着再次运行verdaccio ，将会被要求使用证书。
 
-* Generate your certificates
+* 生成证书
 
      $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
      $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
      $ openssl x509 -req -in /Users/user/.config/verdaccio/verdaccio-csr.pem -signkey /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-cert.pem
      ````
     
-    * Edit your config file `/Users/user/.config/verdaccio/config.yaml` and add the following section
+    * 编辑 config file `/Users/user/.config/verdaccio/config.yaml`并添加以下部分
     
     
 
 https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 
-    <br />Alternatively, if you have a certificate as `server.pfx` format, you can add the following configuration section. The passphrase is optional and only needed, if your certificate is encrypted.
+    <br />或者，如果证书是server.pfx`格式，您可以添加以下配置部分。如果证书已加密，密码则是可选以及仅当需要时。
     
     
 
