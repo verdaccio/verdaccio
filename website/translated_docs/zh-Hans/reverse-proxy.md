@@ -1,10 +1,10 @@
 ---
-id: reverse-proxy
-title: "反向Proxy（代理）设置"
+id: reverse-proxy（逆向代理服务器）
+title: "逆向代理服务器设置"
 ---
 ## Apache
 
-Apache 和mod_proxy 不应该 decode（解码）/encode（编码）斜线，要让它们保持不变:
+不要在Apache 和mod_proxy 解码/编码slashes（斜线），要让它们保持不变:
 
     <VirtualHost *:80>
       AllowEncodedSlashes NoDecode
@@ -13,7 +13,7 @@ Apache 和mod_proxy 不应该 decode（解码）/encode（编码）斜线，要�
     </VirtualHost>
     
 
-### 用SSL 配置
+### SSL 配置
 
 config.yaml
 
