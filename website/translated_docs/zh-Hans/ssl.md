@@ -30,13 +30,13 @@ https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.c
 
 https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
-More info on the `key`, `cert`, `ca`, `pfx` and `passphrase` arguments on the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+更多 关于`key`, `cert`, `ca`, `pfx` 和`passphrase` 参数信息，请参照 [节点文档](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
-* Run `verdaccio` in your command line.
+* 在命令行运行`verdaccio`。
 
-* Open the browser and load `https://your.domain.com:port/`
+* 打开浏览器，并加载`https://your.domain.com:port/`
 
-This instructions are mostly valid under OSX and Linux, on Windows the paths will vary but, the steps are the same.
+此指南仅在OSX和 Linux里有效，在 Windows 里，路径将不同，但步骤是一样的。
 
 ## Docker
 
