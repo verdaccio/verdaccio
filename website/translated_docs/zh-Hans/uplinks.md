@@ -4,7 +4,7 @@ title: "Uplinks"
 ---
 *上行链路* 是指可以访问到外部包的外部注册服务器地址。
 
-![Uplinks](/img/uplinks.png)
+![上行链路](/img/uplinks.png)
 
 ### 用法
 
@@ -35,7 +35,7 @@ uplinks:
 | max_fails    | number  | 否   | 2                                       | 全部     | 请求连续失败的最大次数限制                                                                                               | 2        |
 | cache        | boolean | 否   | [true,false]                            | >= 2.1 | 缓存下载的远程tarball文件到本地                                                                                         | true     |
 | auth         | list    | 否   | [见下文](uplinks.md#auth-property)         | >= 2.5 | 指定“授权authorization”请求头的内容 [详情见](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled |
-| headers      | list    | 否   | authorization: "Bearer SecretJWToken==" | all    | 上行链路请求的请求头header列表                                                                                          | disabled |
+| headers      | list    | 否   | authorization: "Bearer SecretJWToken==" | 全部     | 上行链路请求的请求头header列表                                                                                          | disabled |
 | strict_ssl   | boolean | 否   | [true,false]                            | >= 3.0 | 为true时，会检测SSL证书的有效性                                                                                         | true     |
 
 #### Auth属性
@@ -83,4 +83,4 @@ uplinks:
 * 上行链路必须是兼容`npm`的注册服务器 例如: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
 * 设置`cache` 为false可以帮助节省你的硬盘空间。 This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
 * 配置过多的上行链路会导致包查询速度变慢，这是因为相比较一个npm客户端每发送一次的请求，verdaccio却需要向每个上行链路都发送一次这样的请求
-* 这些属性(timeout, maxage and fail_timeout) 的配置格式参考[NGINX measurement units](http://nginx.org/en/docs/syntax.html)
+* 这些属性(timeout, maxage and fail_timeout) 的配置单位格式参考[NGINX measurement units](http://nginx.org/en/docs/syntax.html)
