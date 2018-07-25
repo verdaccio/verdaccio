@@ -1,4 +1,4 @@
-# we try to aoid adding files to the docker images that change often
+# we try to avoid adding files to the docker images that change often
 # or that are not needed for running the docker image
 # tis greatly reduces the amount of times we need to rerun `npm install` when building image locally
 # https://codefresh.io/blog/not-ignore-dockerignore/
