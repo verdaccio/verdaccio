@@ -1,71 +1,71 @@
 ---
-id: server-configuration
-title: "Server Configuration"
+id: server-configuration（服务器-配置）
+title: "服务器配置"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+这主要是一些基础的linux服务器配置信息，但是我觉得很重要来记录并分享我让verdaccio 在服务器上永久运行的步骤。 您将需要以下的根（或者sudo）权限。
 
-## Running as a separate user
+## 作为单独用户运行
 
-First create the verdaccio user:
+首先创建verdaccio 用户：
 
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+您用以下命令来创建一个 shell作为verdaccio用户:
 
 ```bash
 $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+'cd ~' 命令把您送到verdaccio用户的主目录。请确保您至少运行一次verdaccio来生成config文件。根据您的需求来编辑它。
 
-## Listening on all addresses
+## 监听所有地址
 
-If you want to listen to every external address set the listen directive in the config to:
+如果您希望监听每个外部地址，请把config里的监听指令设置为:
 
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+如果您在Amazon EC2 Instance运行 `verdaccio`, 如上所述，[您将需要设置监听config 文件](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) 。
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Apache configure? 请查看[逆向代理服务器配置](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## 让 verdaccio一直运行下去
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+我们可以使用名为'forever（永远）’的节点包来让verdaccio一直运行下去。 https://github.com/nodejitsu/forever
 
-First install forever globally:
+首先安装全局forever：
 
 ```bash
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+请确保您至少已经启动一次verdaccio来生成config 文件，并记录下创建的管理员用户。然后，您可以用以下命令来启动verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+您可以查看文档来了解更多关于如何使用forever的信息。
 
-## Surviving server restarts
+## 存留服务器重启
 
-We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
+我们可以在服务器重启后同时用crontab和forever来重启 verdaccio。当您以 verdaccio 用户登录后请执行以下操作：
 
 ```bash
 $ crontab -e
 ```
 
-This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
+这可能会要您选择一个编辑器。请挑选您最喜欢的并继续。请将以下条目添加到文件中：
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
 
-The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+取决于服务器的设置，位置可能会有所不同。如果您想知道文件的位置，可以使用 'which' 命令：
 
 ```bash
 $ which forever

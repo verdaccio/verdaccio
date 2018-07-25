@@ -3,8 +3,8 @@
   "localized-strings": {
     "next": "Siguiente",
     "previous": "Anterior",
-    "tagline": "Un repositorio y proxy de npm privado",
-    "ansible": "Instalar con Ansible",
+    "tagline": "Verdaccio · A lightweight private npm proxy registry",
+    "ansible": "Ansible",
     "authentification": "Autentificación",
     "build": "Construir el código fuente",
     "chef": "Libro de cocina de chef",
@@ -31,7 +31,7 @@
     "unit-testing": "Tests Unitario",
     "uplinks": "Uplinks",
     "use-cases": "Casos de Uso",
-    "webui": "Interfaz de Usuario Web",
+    "webui": "Web User Interface2",
     "what-is-verdaccio": "Qué es Verdaccio?",
     "windows": "Instalando como Servicio en Windows",
     "Docs": "Documentación",
@@ -57,9 +57,8 @@
     "This project is maintained by a dedicated group of people.|statement made to reader": "Este proyecto es mantenido por un grupo de personas dedicadas.",
     "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "Aprenda mucho mas sobre Verdaccio usando la [documentación en este sitio.](/docs/en/installation.html)",
     "You can follow and contact us on|no description given": "Puedes seguirnos o contactarnos en",
-    "If the documentation is not enough help, you can try browsing into our|no description given": "Si la documentación no ofrece demasiada ayuda, puedes tratar de navegar en nuestra",
     "and also you can chat with the Verdaccio community at|no description given": "y también puedes hablar con nuestra comunidad en",
-    "More Help?|no description given": "Mas Ayuda?",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "Si la documentación no ofrece demasiada ayuda, puedes tratar de navegar en nuestra",
     "This project is maintained by the Verdaccio community.|no description given": "Este proyecto es mantenido por la comunidad de Verdaccio.",
     "Get Started|no description given": "Empezar",
     "Contribute|no description given": "Contribuye",
@@ -81,12 +80,6 @@
     "Add your company|no description given": "Agrega tu compañia",
     "Help Translate|recruit community translators for your project": "Ayuda con traducciones",
     "Edit this Doc|recruitment message asking to edit the doc source": "Editar",
-    "Translate this Doc|recruitment message asking to translate the docs": "Traducir",
-    "Many great developers are already enjoying Verdaccio, join the club!|no description given": "Muchos grandes desarrolladores ya están disfrutando de Verdaccio, ¡Únete al club!",
-    "Easy to Install|no description given": "Fácil de Instalar",
-    "Easy to Set Up|no description given": "Fácil de Configurar",
-    "Easy to Use|no description given": "Fácil de Usar",
-    "What developers are saying|no description given": "Lo que dicen los desarrolladores",
-    "Many great developers are already enjoying Verdaccio, join the community!": "Many great developers are already enjoying Verdaccio, ¡Únete a la comunidad!"
+    "Translate this Doc|recruitment message asking to translate the docs": "Traducir"
   }
 }

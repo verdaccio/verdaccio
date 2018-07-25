@@ -40,10 +40,8 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
-
-Para mas información sobre CLI, por favor[lea la sección cli](cli.md).
+For more information about the CLI, please [read the cli section](cli.md).
 
 ## Imagen de Docker
 
-` verdaccio`ofrece una imagen oficial de docker que puedes usar, y en el mayor de los casos, la configuración por defecto es suficiente. Para mas información sobre como instalar la imagen oficial, [lea la sección de docker](docker.md).
+`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
