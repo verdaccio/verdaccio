@@ -23,20 +23,20 @@ uplinks:
 
 ### 配置
 
-你可以定义多个上行链路，每一个都必须有唯一的名称(键值). 它们可以有两个属性:
+你可以定义多个上行链路，每一个都必须有唯一的名称(键值). 它们可以有多个属性:
 
-| 属性           | 类型      | 必须的 | 范例                                      | 支持     | 描述                                                                                                                         | 默认值        |
-| ------------ | ------- | --- | --------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| url          | string  | 是   | https://registry.npmjs.org/             | 全部     | The registry url                                                                                                           | npmjs      |
-| ca           | string  | 否   | ~./ssl/client.crt'                      | 全部     | SSL path certificate                                                                                                       | No default |
-| timeout      | string  | 否   | 100ms                                   | 全部     | set new timeout for the request                                                                                            | 30s        |
-| maxage       | string  | 否   | 10m                                     | 全部     | limit maximun failure request                                                                                              | 2m         |
-| fail_timeout | string  | 否   | 10m                                     | 全部     | defines max time when a request becomes a failure                                                                          | 5m         |
-| max_fails    | number  | 否   | 2                                       | all    | limit maximun failure request                                                                                              | 2          |
-| cache        | boolean | 否   | [true,false]                            | >= 2.1 | cache all remote tarballs in storage                                                                                       | true       |
-| auth         | list    | 否   | [见下文](uplinks.md#auth-property)         | >= 2.5 | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled   |
-| headers      | list    | 否   | authorization: "Bearer SecretJWToken==" | all    | list of custom headers for the uplink                                                                                      | disabled   |
-| strict_ssl   | boolean | No  | [true,false]                            | >= 3.0 | If true, requires SSL certificates be valid.                                                                               | true       |
+| 属性           | 类型      | 必须的 | 范例                                      | 支持版本   | 描述                                                                                                                         | 默认值      |
+| ------------ | ------- | --- | --------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------- | -------- |
+| url          | string  | 是   | https://registry.npmjs.org/             | 全部     | 外部注册服务器URL                                                                                                                 | npmjs    |
+| ca           | string  | 否   | ~./ssl/client.crt'                      | 全部     | SSL证书文件路径                                                                                                                  | 无默认值     |
+| timeout      | string  | 否   | 100ms                                   | 全部     | 为请求设置新的超时时间                                                                                                                | 30s      |
+| maxage       | string  | 否   | 10m                                     | 全部     | limit maximun failure request                                                                                              | 2m       |
+| fail_timeout | string  | 否   | 10m                                     | 全部     | 定义认定一个请求为失败的最长时间值                                                                                                          | 5m       |
+| max_fails    | number  | 否   | 2                                       | 全部     | 最大请求失败次数限制                                                                                                                 | 2        |
+| cache        | boolean | 否   | [true,false]                            | >= 2.1 | cache all remote tarballs in storage                                                                                       | true     |
+| auth         | list    | 否   | [见下文](uplinks.md#auth-property)         | >= 2.5 | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled |
+| headers      | list    | 否   | authorization: "Bearer SecretJWToken==" | all    | list of custom headers for the uplink                                                                                      | disabled |
+| strict_ssl   | boolean | 否   | [true,false]                            | >= 3.0 | If true, requires SSL certificates be valid.                                                                               | true     |
 
 #### Auth property
 
