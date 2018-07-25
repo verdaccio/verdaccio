@@ -36,9 +36,9 @@ uplinks:
 | cache        | boolean | 否   | [true,false]                            | >= 2.1 | 缓存下载的远程tarball文件到本地                                                                                         | true     |
 | auth         | list    | 否   | [见下文](uplinks.md#auth-property)         | >= 2.5 | 指定“授权authorization”请求头的内容 [详情见](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled |
 | headers      | list    | 否   | authorization: "Bearer SecretJWToken==" | all    | 上行链路请求的请求头header列表                                                                                          | disabled |
-| strict_ssl   | boolean | 否   | [true,false]                            | >= 3.0 | If true, requires SSL certificates be valid.                                                                | true     |
+| strict_ssl   | boolean | 否   | [true,false]                            | >= 3.0 | 为true时，会检测SSL证书的有效性                                                                                         | true     |
 
-#### Auth property
+#### Auth属性
 
 The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
 
