@@ -6,7 +6,7 @@ An *uplink* is a link with an external registry that provides acccess to externa
 
 ![Uplinks](/img/uplinks.png)
 
-### Usage
+### 用法
 
 ```yaml
 uplinks:
