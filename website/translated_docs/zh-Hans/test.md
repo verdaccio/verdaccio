@@ -1,8 +1,8 @@
 ---
-id: unit-testing
-title: "Unit Testing"
+id: unit-testing(单元-测试）
+title: "单元测试"
 ---
-All tests are split in three folders:
+所有测试都被分成3 个文件夹：
 
 - `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
 - `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
