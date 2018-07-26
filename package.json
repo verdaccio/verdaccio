@@ -33,6 +33,7 @@
     "global": "4.3.2",
     "handlebars": "4.0.11",
     "http-errors": "1.6.2",
+    "js-base64": "2.4.8",
     "js-string-escape": "1.0.1",
     "js-yaml": "3.11.0",
     "jsonwebtoken": "8.2.1",
