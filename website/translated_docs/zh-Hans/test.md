@@ -4,8 +4,8 @@ title: "单元测试"
 ---
 所有测试都被分成3 个文件夹：
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
+- `test/unit` - 涵盖非平凡方式转换数据的功能测试。这些测试只 `require()` 一些文件并在其中运行代码，因此它们是非常快的。
+- `test/functional` - 启动verdaccio instance并在 http上执行一系列请求的测试。它们比单元测试慢一些。
 - `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
 
 Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
