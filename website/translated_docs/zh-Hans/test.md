@@ -52,7 +52,7 @@ describe('basic system test', () => {
 
 Verdaccio 中的功能测试有点复杂，需要深入解释来让您有成功的体验。
 
-一切从`index.js`文件开始。让我们来深入了解它把。
+一切从`index.js`文件开始。让我们来深入了解它吧。
 
 ```javascript
 // we create 3 server instances
