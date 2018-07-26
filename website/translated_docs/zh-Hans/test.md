@@ -6,9 +6,9 @@ title: "单元测试"
 
 - `test/unit` - 涵盖非平凡方式转换数据的功能测试。这些测试只 `require()` 一些文件并在其中运行代码，因此它们是非常快的。
 - `test/functional` - 启动verdaccio instance并在 http上执行一系列请求的测试。它们比单元测试慢一些。
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/integration` - 启动verdaccio instance并用 npm对其执行请求的测试。它们真的很慢并能打击到真的npm registry。 **unmaintained test**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+单元和功能测试是从项目根目录里运行 `npm test` 来自动执行的。集成测试应该时常手动执行。
 
 We use `jest` for all test.
 
