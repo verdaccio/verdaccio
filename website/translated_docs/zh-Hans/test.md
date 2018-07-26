@@ -25,7 +25,7 @@ title: "单元测试"
 
 以下只是单元测试的一个例子。基本上遵守`jest` 标准。
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+请试着描述单元对`test` 部分页眉中的单个句子测试的确切内容。
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,9 +48,9 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### 使用测试/功能
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Verdaccio 中的功能测试有点复杂，需要深入解释来让您有成功的体验。
 
 All starts in the `index.js` file. Let's dive in into it.
 
