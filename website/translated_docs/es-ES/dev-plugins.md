@@ -2,32 +2,49 @@
 id: dev-plugins
 title: "Extensiones en Desarrollo"
 ---
-Hay muchas maneras de extender `verdaccio`, actualmente apoyamos `authentication plugins`, `middleware plugins` (desde `v2.7.0`) y `storage plugins` desde (`v3.x`).
+There are many ways to extend `verdaccio`, the kind of plugins supported are:
+
+* Authentication plugins
+* Middleware plugins (since `v2.7.0`)
+* Storage plugins since (`v3.x`)
+
+> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
 
 ## Extensión de Autenticación
 
-Esta sección describe cómo se ve una extensión de Verdaccio de manera ES5. Básicamente tenemos que devolver un objeto con un único método llamado `authenticate` que recibirá 3 argumentos (`user, password, callback`). Una vez que la autenticación haya sido ejecutada habrán 2 opciones con las que se podrá dar una respuesta a `verdaccio`.
+Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
 
 ### API
 
-```js
-function authenticate (user, password, callback) {
- ...more stuff
+```flow
+interface IPluginAuth extends IPlugin {
+  login_url?: string;
+  authenticate(user: string, password: string, cb: Callback): void;
+  adduser(user: string, password: string, cb: Callback): void;
+  allow_access(user: RemoteUser, pkg: $Subtype<PackageAccess>, cb: Callback): void;
+  allow_publish(user: RemoteUser, pkg: $Subtype<PackageAccess>, cb: Callback): void;
 }
 ```
 
-##### OnError
+> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
 
-Algo malo sucedió o la autenticación no tuvo éxito.
+#### Callback
 
-    callback(null, false)
-    
+Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
 
-##### OnSuccess
+###### OnError
 
-La autenticación tuvo éxito.
+Either something bad happened or auth was unsuccessful.
 
-`groups` es una matriz de cadenas de caracteres donde el usuario participa.
+```flow
+callback(null, false)
+```
+
+###### OnSuccess
+
+The auth was successful.
+
+`groups` is an array of strings where the user is part of.
 
      callback(null, groups);
     
@@ -65,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-Y la configuración
+And the configuration will looks like:
 
 ```yaml
 auth:
@@ -73,13 +90,23 @@ auth:
     file: ./htpasswd
 ```
 
-Donde `htpasswd` es el sufijo del nombre de la extensión. Por ejemplo: `verdaccio-htpasswd` y el resto del cuerpo serían los parámetros de configuración de la extensión.
+Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
 
 ## Extensión de Middleware
 
-Las extensiones de Middleware tienen la capacidad de modificar la capa de API, ya sea añadiendo extremos o peticiones de interceptación.
+Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
-> Un muy buen ejemplo de la extensión de middleware es [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) y [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+```flow
+interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
+  register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void;
+}
+```
+
+### register_middlewares
+
+The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+
+> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
@@ -89,31 +116,36 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Para registrar un middleware necesitamos un objeto con un único método llamado `register_middlewares` que recibirá 3 argumentos (`expressApp, auth, storage`). *Auth* es la instancia de autentificación y *storage* es de igual manera la instancia de Almacenamiento principal que te dará el acceso a todas las acciones de almacenamiento.
+To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
 
 ## Extensión de Almacenamiento
 
-Verdaccio por defecto utiliza una extensión de almacenamientos de sistema de archivos [local-storage](https://github.com/verdaccio/local-storage) pero, desde `verdaccio@3.x` puedes añadir un almacenamiento personalizado.
+Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
 
 ### API
 
-El API de almacenamiento es un poco más complejo, necesitarás crear una clase que devuelva una implementación de `ILocalData`. Por favor, mira los detalles que aparecen a continuación.
+The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
 
-```js
-<br />class LocalDatabase<ILocalData>{
-    constructor(config: Config, logger: Logger): ILocalData;
+```flow
+class LocalDatabase<IPluginStorage>{
+  constructor(config: $Subtype<verdaccio$Config>, logger: verdaccio$Logger): ILocalData;
 }
 
-declare interface verdaccio$ILocalData {
+interface IPluginStorage {
+  logger: verdaccio$Logger;
+    config: $Subtype<verdaccio$Config>;
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
+  search(onPackage: verdaccio$Callback, onEnd: verdaccio$Callback, validateName: Function): void;
 }
 
-declare interface verdaccio$ILocalPackageManager {
+interface IPackageStorageManager {
+  path: string;
+  logger: verdaccio$Logger;
   writeTarball(name: string): verdaccio$IUploadTarball;
   readTarball(name: string): verdaccio$IReadTarball;
   readPackage(fileName: string, callback: verdaccio$Callback): void;
@@ -128,26 +160,29 @@ declare interface verdaccio$ILocalPackageManager {
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
-interface IUploadTarball extends stream$PassThrough {
+class verdaccio$IUploadTarball extends stream$PassThrough {
+  abort: Function;
+  done: Function;
+  _transform: Function;
   abort(): void;
   done(): void;
 }
 
-interface IReadTarball extends stream$PassThrough {
+class verdaccio$IReadTarball extends stream$PassThrough {
+  abort: Function;
   abort(): void;
-  done(): void;
 }
 ```
 
-> El API de Almacenamiento todavía es experimental y podría cambiar en las próximas versiones menores. Para más información acerca del API de Almacenamiento por favor sigue los [tipos y definiciones en nuestro repositorio oficial](https://github.com/verdaccio/flow-types).
+> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
 
-### Ejemplos de Extensiones de Almacenamiento
+### Storage Plugins Examples
 
-La siguiente lista de extensiones implementan el API de Almacenamiento y pueden ser utilizados como ejemplo.
+The following list of plugins are implementing the Storage API and might be used them as example.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> ¿Estás dispuesto a contribuir con nuevas extensiones de almacenamiento? [Haz click aquí.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)

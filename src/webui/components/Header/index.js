@@ -4,6 +4,7 @@ import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import capitalize from 'lodash/capitalize';
 import {Link} from 'react-router-dom';
+import {Base64} from 'js-base64';
 
 import API from '../../utils/api';
 import storage from '../../utils/storage';
@@ -108,7 +109,7 @@ export default class Header extends React.Component {
     }
 
     try {
-      payload = JSON.parse(atob(payload));
+      payload = JSON.parse(Base64.decode(payload));
     } catch (err) {
       console.error('Invalid token:', err, token); // eslint-disable-line
       return false;

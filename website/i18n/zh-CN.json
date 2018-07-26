@@ -3,8 +3,8 @@
   "localized-strings": {
     "next": "下一个",
     "previous": "上一个",
-    "tagline": "一个轻量级的私有 npm 代理仓库",
-    "ansible": "使用 Ansible 安装",
+    "tagline": "Verdaccio · A lightweight private npm proxy registry",
+    "ansible": "Ansible",
     "authentification": "认证",
     "build": "编译源代码",
     "chef": "Chef Cookbook",
@@ -31,7 +31,7 @@
     "unit-testing": "单元测试",
     "uplinks": "Uplinks",
     "use-cases": "使用场景",
-    "webui": "Web 界面",
+    "webui": "Web User Interface2",
     "what-is-verdaccio": "什么是 Verdaccio？",
     "windows": "作为 Windows 服务安装",
     "Docs": "文档",
@@ -57,9 +57,8 @@
     "This project is maintained by a dedicated group of people.|statement made to reader": "This project is maintained by a dedicated group of people.",
     "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "通过 [站内文档](/docs/en/installation.html) 了解更多信息",
     "You can follow and contact us on|no description given": "您可在这里以关注并联系我们",
-    "If the documentation is not enough help, you can try browsing into our|no description given": "If the documentation is not enough help, you can try browsing into our",
     "and also you can chat with the Verdaccio community at|no description given": "你也可以在这里与 Verdaccio 社区交流",
-    "More Help?|no description given": "需要更多帮助?",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "If the documentation is not enough help, you can try browsing into our",
     "This project is maintained by the Verdaccio community.|no description given": "这个项目由 Verdaccio 社区维护。",
     "Get Started|no description given": "Get Started",
     "Contribute|no description given": "贡献",
@@ -81,12 +80,6 @@
     "Add your company|no description given": "添加你的公司",
     "Help Translate|recruit community translators for your project": "帮助翻译",
     "Edit this Doc|recruitment message asking to edit the doc source": "编辑",
-    "Translate this Doc|recruitment message asking to translate the docs": "翻译",
-    "Many great developers are already enjoying Verdaccio, join the club!|no description given": "Many great developers are already enjoying Verdaccio, join the club!",
-    "Easy to Install|no description given": "易于安装",
-    "Easy to Set Up|no description given": "易于设置",
-    "Easy to Use|no description given": "易于使用",
-    "What developers are saying|no description given": "What developers are saying",
-    "Many great developers are already enjoying Verdaccio, join the community!": "Many great developers are already enjoying Verdaccio, join the community!"
+    "Translate this Doc|recruitment message asking to translate the docs": "翻译"
   }
 }
