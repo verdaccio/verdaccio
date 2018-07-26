@@ -25,7 +25,7 @@ title: "单元测试"
 
 以下只是单元测试的一个例子。基本上遵守`jest` 标准。
 
-请试着描述单元对`test` 部分页眉中的单个句子测试的确切内容。
+请试着描述单元在 `test` 部分页眉里的单一句子里确切测试什么。
 
 ```javacript
 const verdaccio = require('../../src/api/index');
