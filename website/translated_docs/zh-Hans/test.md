@@ -10,20 +10,20 @@ title: "单元测试"
 
 单元和功能测试是从项目根目录里运行 `npm test` 来自动执行的。集成测试应该时常手动执行。
 
-We use `jest` for all test.
+我们所有测试都使用 `jest`。
 
-## The npm Script
+## Npm 脚本
 
-To run the test script you can use either `npm` or `yarn`.
+要运行测试脚本，您可以使用 `npm` 或 `yarn`。
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+这将只会触发测试，单元和功能的前两组。
 
-### Using test/unit
+### 使用测试/单元
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+以下只是单元测试的一个例子。基本上遵守`jest` 标准。
 
 Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
 
