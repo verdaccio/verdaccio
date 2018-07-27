@@ -24,8 +24,8 @@ title: "使用场景"
     
     如果您希望这么做，您应该修改配置文件，这样verdaccio将不再向npmjs提出此包的请求。 将此包单独添加到*config.yaml* 中并从`proxy`列表删除`npmjs`，然后重启服务器。
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    当您在本地发布包，您可能应该从现有版本更高的 string开始，这样它就不会和缓存中的现有包冲突。
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. 您希望临时使用自己的版本，但在它更新后立即切换回公共版本。
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    为了避免版本冲突，您应该使用下一个补丁版本的自定义预发行的后缀。 例如，如果公共包有 0.1.2版本，您可以上传0.1.3-my-temp-fix。 这样，您的包将在原始维护人员更新其公共包到0.1.3之前使用。
