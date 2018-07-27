@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/verdaccio/verdaccio/compare/v3.3.0...v3.4.0) (2018-07-27)
+
+
+### Bug Fixes
+
+* Authentication Plugins / plugin[method] is not a function ([0a3870e](https://github.com/verdaccio/verdaccio/commit/0a3870e))
+
+
+### Features
+
+* adds base64 support in webui token ([#840](https://github.com/verdaccio/verdaccio/issues/840)) ([4a7a94a](https://github.com/verdaccio/verdaccio/commit/4a7a94a))
+
+
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/verdaccio/verdaccio/compare/v3.2.0...v3.3.0) (2018-07-22)
 
