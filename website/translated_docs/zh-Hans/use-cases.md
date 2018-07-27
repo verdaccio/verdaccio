@@ -16,13 +16,13 @@ title: "使用场景"
 
 ## 覆盖公共包
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+如果您希望使用一些公共包`foo`的修正版本，您只要把它发布到您的当地服务器，这样当您输入`npm install foo`，它将考虑安装您的版本。
 
-There's two options here:
+这里有两个选项：
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. 您要创建单独的分叉并停止与公共版本同步。
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    如果您希望这么做，您应该修改配置文件，这样verdaccio将不再向npmjs提出此包的请求。 将此包单独添加到*config.yaml* 中并从`proxy`列表删除`npmjs`，然后重启服务器。
     
     When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
