@@ -113,7 +113,7 @@ Verdaccio 中的功能测试有点复杂，需要深入解释来让您有成功�
 
 #### The lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+服务器 class(类）只是模拟 `npm` client 的 wrapper类，它为功能测试提供简单的API。
 
 As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
 
