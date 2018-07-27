@@ -1,8 +1,8 @@
 ---
-id: use-cases
-title: "Use Cases"
+id: use-cases（使用-场景）
+title: "使用场景"
 ---
-## Using private packages
+## 使用私有包
 
 You can add users and manage which users can access which packages.
 
