@@ -1,12 +1,12 @@
 ---
 id: webui
-title: "Web User Interface2"
+title: "网页用户界面2"
 ---
 
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
-Verdaccio has a web user interface to display only the private packges and can be customisable.
+Verdaccio有个网页用户界面，它只显示私有包并可以定制。
 
 ```yaml
 web:
