@@ -12,9 +12,9 @@ title: "使用场景"
 
 如果一些包没有在存储里，服务器将试着从npmjs.org中取它。 如果npmjs.org坏了，它会假装没有其他的包存在, 起到缓存包的作用。 Verdaccio将只下载需要的 (= 由客户要求的)信息, 而且此信息将被缓存，这样如果客户再次问同样的事，它可以马上作用而不需要问npmjs.org。
 
-例如：如果您曾经成功从此服务器请求express@3.0.1，哪怕npmjs.org 坏了，您也可以在任何时候再次请求（及其相关项）。 但是，除非有人真正需要express@3.0.0，否则它是不会被下载的。 And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+例如：如果您曾经成功从此服务器请求express@3.0.1，哪怕npmjs.org 坏了，您也可以在任何时候再次请求（及其相关项）。 但是，除非有人真正需要express@3.0.0，否则它是不会被下载的。 而且如果npmjs.org脱线，此服务器将会说除了express@3.0.1 （=只有在缓存里的）外，没有其他的发布。
 
-## Override public packages
+## 覆盖公共包
 
 If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
 
