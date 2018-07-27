@@ -4,13 +4,13 @@ title: "使用场景"
 ---
 ## 使用私有包
 
-You can add users and manage which users can access which packages.
+您可以添加用户并管理哪个用户可以访问哪个包。
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+建议您定义私有包的前缀。例如“local(当地）"，这样您私人的东西将如下所示：`local-foo`。 通过这种方法您可以清楚地把公有包和私有包分开。
 
-## Using public packages from npmjs.org
+## 从npmjs.org使用公有包
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+如果一些包没有在存储里，服务器将试着从npmjs.org中取它。 如果npmjs.org坏了，它会假装没有其他的包存在, 起到缓存包的作用。 Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
 
 Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
 
