@@ -109,7 +109,7 @@ Verdaccio 中的功能测试有点复杂，需要深入解释来让您有成功�
 
 ### 使用
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+这里我们将描述常规功能测试看起来是什么样的，请核对内联了解更多详细信息。
 
 #### The lib/server.js
 
