@@ -115,9 +115,9 @@ Verdaccio 中的功能测试有点复杂，需要深入解释来让您有成功�
 
 服务器 class(类）只是模拟 `npm` client 的 wrapper类，它为功能测试提供简单的API。
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+如我们在之前的章节里提到的， 我们正创建3 个流程服务器，可以在每个流程里以`server1`, `server2` 和 ``server3`进行访问。
 
-Using such reference you will be able to send request to any of the 3 instance running.
+通过这样的引用，您可以给这任何3 个运行的instance 发送请求。
 
 ```javascript
 <br />export default function(server) {
@@ -129,6 +129,6 @@ Using such reference you will be able to send request to any of the 3 instance r
 });
 ```
 
-### Test/integration
+### 测试/集成
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+这些部分还没有被使用，但是我们在寻求帮助来让它正常运转。**欢迎任何新的想法。**
