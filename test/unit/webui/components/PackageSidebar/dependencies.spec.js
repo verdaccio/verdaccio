@@ -4,11 +4,15 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Dependencies from '../../../../../src/webui/components/PackageSidebar/modules/Dependencies/index';
+import Dependencies, {
+  NO_DEPENDENCIES,
+  DEP_ITEM_CLASS
+} from '../../../../../src/webui/components/PackageSidebar/modules/Dependencies/index';
+import ModuleContentPlaceholder from '../../../../../src/webui/components/PackageSidebar/ModuleContentPlaceholder';
 
 
 describe('<PackageSidebar /> : <Dependencies />', () => {
-  it('should load dependencies', () => {
+  test('should load dependencies', () => {
     const dependencies = {
       '@verdaccio/file-locking': '0.0.3',
       '@verdaccio/streams': '0.0.2',
@@ -42,11 +46,15 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
       'unix-crypt-td-js': '^1.0.0'
     };
     const wrapper = shallow(<Dependencies dependencies={dependencies} />);
+
+    expect(wrapper.find(`.${DEP_ITEM_CLASS}`)).toHaveLength(Object.keys(dependencies).length);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should load the package without dependecnies', () => {
+  test('should load the package without dependencies', () => {
     const wrapper = shallow(<Dependencies />);
+
+    expect(wrapper.find(ModuleContentPlaceholder).props().text).toBe(NO_DEPENDENCIES);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
