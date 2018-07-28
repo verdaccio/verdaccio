@@ -1,12 +1,13 @@
-@import '../../styles/variable';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .pkgDetail {
   .title {
-    font-size: 26px;
-    border-bottom: 1px solid $border-color;
-    font-weight: 600;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-semibold;
     margin: 0 0 40px;
     padding-bottom: 5px;
+    @include border-bottom-default($greyGainsboro);
   }
 
   .readme {

@@ -1,0 +1,22 @@
+@import "variables";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    color: $text-color;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+strong {
+    font-weight: $font-weight-semibold;
+}

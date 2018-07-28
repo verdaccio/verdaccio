@@ -1,4 +1,5 @@
-@import '../../styles/variable';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .header {
   display: flex;
@@ -6,20 +7,19 @@
   width: 100%;
   align-items: center;
   background: $primary-color;
-  color: #fff;
+  color: $white;
 
   figure {
     margin: 0 0 0 10px;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
     padding: 8px 0;
   }
 
   .headerWrap {
     display: flex;
     align-items: center;
-
-    @include container-size();
+    @include container-size;
   }
 
   .headerRight {
@@ -32,13 +32,13 @@
 
   .headerButton {
     color: inherit;
-    border-color: #fff;
+    border-color: $white;
     background-color: transparent;
 
     &:hover, &:focus {
       color: $primary-color;
-      border-color: #f7f8f6;
-      background-color: #f7f8f6;
+      border-color: $saltpan;
+      background-color: $saltpan;
     }
   }
 }

@@ -9,8 +9,6 @@ import API from '../../utils/api';
 import PackageList from '../../components/PackageList';
 import Search from '../../components/Search';
 
-import classes from './home.scss';
-
 
 export default class Home extends React.Component {
   static propTypes = {
@@ -69,24 +67,24 @@ export default class Home extends React.Component {
   }
 
   async searchPackage(query) {
-   try {
-     this.req = await API.request(`/search/${query}`, 'GET');
+    try {
+      this.req = await API.request(`/search/${query}`, 'GET');
 
-     // Implement cancel feature later
-     if (this.state.query === query) {
-       this.setState({
-         packages: this.req,
-         fistTime: false,
-         loading: false
-       });
-     }
-   } catch (err) {
-     MessageBox.msgbox({
-       type: 'error',
-       title: 'Warning',
-       message: 'Unable to get search result, please try again later.'
-     });
-   }
+      // Implement cancel feature later
+      if (this.state.query === query) {
+        this.setState({
+          packages: this.req,
+          fistTime: false,
+          loading: false
+        });
+      }
+    } catch (err) {
+      MessageBox.msgbox({
+        type: 'error',
+        title: 'Warning',
+        message: 'Unable to get search result, please try again later.'
+      });
+    }
   }
 
   handleSearchInput(e) {
@@ -101,10 +99,10 @@ export default class Home extends React.Component {
 
   render() {
     return (
-        <div className={ classes.container }>
-          { this.renderSearchBar() }
-          { this.state.loading ? this.renderLoading() : this.renderPackageList() }
-        </div>
+      <div>
+        {this.renderSearchBar()}
+        {this.state.loading ? this.renderLoading() : this.renderPackageList()}
+      </div>
     );
   }
 
@@ -112,7 +110,7 @@ export default class Home extends React.Component {
     if (this.isTherePackages() && this.state.fistTime) {
       return;
     }
-    return <Search handleSearchInput={ this.handleSearchInput } />;
+    return <Search handleSearchInput={this.handleSearchInput} />;
   }
 
   renderLoading() {

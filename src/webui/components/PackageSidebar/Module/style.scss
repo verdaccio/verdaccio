@@ -1,4 +1,5 @@
-@import '../../../styles/variable';
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .module {
 
@@ -7,17 +8,17 @@
   .moduleTitle {
     display: flex;
     align-items: flex-end;
-    font-size: 21px;
+    font-size: $font-size-lg;
     margin: 0 0 10px;
     padding: 5px 0;
-    font-weight: 600;
-    border-bottom: 1px solid $border-color;
+    font-weight: $font-weight-semibold;
+    @include border-bottom-default($greyGainsboro);
 
     span { // description
-      font-size: 14px;
-      color: $text-grey;
+      font-size: $font-size-sm;
+      color: $greyChateau;
       margin-left: auto;
-      font-weight: lighter;
+      font-weight: $font-weight-light;
     }
   }
 }
