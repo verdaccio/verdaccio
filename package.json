@@ -199,7 +199,7 @@
     },
     {
       "path": "./static/[1-9].*.css",
-      "maxSize": "2.5 kB"
+      "maxSize": "5 kB"
     },
     {
       "path": "./static/0.*.css",
