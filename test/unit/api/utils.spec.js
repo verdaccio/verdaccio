@@ -118,14 +118,17 @@ describe('Utilities', () => {
   });
 
   describe('parseReadme', () => {
-    test('should pass for ascii/makrdown text to html template', () => {
-      const markdown = '# markdown';
+    test('should pass for ascii text to html template', () => {
       const ascii = "= AsciiDoc";
 
-      expect(parseReadme('testPackage', markdown)).toEqual('<h1 id="markdown">markdown</h1>\n');
       expect(parseReadme('testPackage', ascii)).toEqual('<h1>AsciiDoc</h1>\n');
-      expect(parseReadme('testPackage', String(readmeFile('markdown.md')))).toMatchSnapshot();
       expect(parseReadme('testPackage', String(readmeFile('ascii.adoc')))).toMatchSnapshot();
+    });
+
+    test('should pass for makrdown text to html template', () => {
+      const markdown = '# markdown';
+      expect(parseReadme('testPackage', markdown)).toEqual('<h1 id="markdown">markdown</h1>\n');
+      expect(parseReadme('testPackage', String(readmeFile('markdown.md')))).toMatchSnapshot();
     });
 
     test('should pass for conversion of non-ascii to markdown text', () => {
