@@ -30,7 +30,7 @@ const Dependencies = ({dependencies = {}}) => {
   const dependenciesList = Object.keys(dependencies);
   return (
     <Module title="Dependencies" className={classes.dependenciesModule}>
-      {dependenciesList.length > 1 ? (
+      {dependenciesList.length > 0 ? (
         renderDependenciesList(dependencies, dependenciesList)
       ) : (
         <ModuleContentPlaceholder text="Zero Dependencies!" />
