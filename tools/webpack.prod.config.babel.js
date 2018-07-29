@@ -45,6 +45,7 @@ const prodConf = {
     }),
     new HTMLWebpackPlugin({
       title: 'ToReplaceByTitle',
+      scope: 'ToReplaceByScope',
       filename: 'index.html',
       favicon: `${env.SRC_ROOT}/webui/template/favicon.ico`,
       verdaccioURL: 'ToReplaceByVerdaccio',
