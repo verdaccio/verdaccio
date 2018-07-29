@@ -49,4 +49,4 @@ Verdaccio 按需要缓存所有相关项，并在当地或私有网络能会加�
 * 我们提供Docker和Kubernetes支持
 * 它与yarn, npm 和pnpm 100% 兼容
 * 它**forked**于`sinopia@1.4.0`并且100% **向下兼容**。
-* Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
+* Verdaccio 表示**意大利中世纪晚期fresco 绘画中流行的一种绿色**的意思。
