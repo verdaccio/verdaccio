@@ -14,7 +14,7 @@ import {generateNewVersion} from '../../lib/utils-test';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
-import type {Config} from '@verdaccio/types';
+import type {Config, MergeTags} from '@verdaccio/types';
 import type {IStorage} from '../../../types/index';
 import {API_ERROR, HTTP_STATUS} from '../../../src/lib/constants';
 import {DIST_TAGS} from '../../../src/lib/utils';
@@ -27,6 +27,14 @@ describe('LocalStorage', () => {
   const pkgNameScoped = `@scope/${pkgName}-scope`;
   const tarballName: string = `${pkgName}-add-tarball-1.0.4.tgz`;
   const tarballName2: string = `${pkgName}-add-tarball-1.0.5.tgz`;
+  const getPackageMetadataFromStore = (pkgName: string) => {
+    return new Promise((resolve) => {
+      storage.getPackageMetadata(pkgName, (err, data ) => {
+        resolve(data);
+      });
+    });
+  };
+
   const addNewVersion = (pkgName: string, version: string) => {
     return new Promise((resolve) => {
       storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
@@ -120,6 +128,65 @@ describe('LocalStorage', () => {
         expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
         expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
         done();
+      });
+    });
+
+    describe('LocalStorage::mergeTags', () => {
+      test('should mergeTags', async (done) => {
+        const pkgName = 'merge-tags-test-1';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        // const tarballName: string = `${pkgName}-${version}.tgz`;
+        await addNewVersion(pkgName, '1.0.0');
+        await addNewVersion(pkgName, '2.0.0');
+        await addNewVersion(pkgName, '3.0.0');
+        const tags: MergeTags = {
+          beta: '3.0.0',
+          latest: '2.0.0'
+        };
+
+        storage.mergeTags(pkgName, tags, async (err, data) => {
+          expect(err).toBeNull();
+          expect(data).toBeUndefined();
+          const metadata = await getPackageMetadataFromStore(pkgName);
+          expect(metadata[DIST_TAGS]).toBeDefined();
+          expect(metadata[DIST_TAGS]['beta']).toBeDefined();
+          expect(metadata[DIST_TAGS]['beta']).toBe('3.0.0');
+          expect(metadata[DIST_TAGS]['latest']).toBe('2.0.0');
+          done();
+        });
+      });
+
+      test('should fails mergeTags version not found', async (done) => {
+        const pkgName = 'merge-tags-test-1';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        // const tarballName: string = `${pkgName}-${version}.tgz`;
+        await addNewVersion(pkgName, '1.0.0');
+        await addNewVersion(pkgName, '2.0.0');
+        await addNewVersion(pkgName, '3.0.0');
+        const tags: MergeTags = {
+          beta: '9999.0.0'
+        };
+
+        storage.mergeTags(pkgName, tags, async (err, data) => {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
+          expect(err.message).toMatch(API_ERROR.VERSION_NOT_EXIST);
+          done();
+        });
+      });
+
+      test('should fails on mergeTags', async (done) => {
+        const tags: MergeTags = {
+          beta: '3.0.0',
+          latest: '2.0.0'
+        };
+
+        storage.mergeTags('not-found', tags, async (err) => {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
+          expect(err.message).toMatch(API_ERROR.NO_PACKAGE);
+          done();
+        });
       });
     });
 

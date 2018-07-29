@@ -269,12 +269,12 @@ class LocalStorage implements IStorage {
 
   /**
    * Merge a new list of tags for a local packages with the existing one.
-   * @param {*} name
+   * @param {*} pkgName
    * @param {*} tags
    * @param {*} callback
    */
-  mergeTags(name: string, tags: MergeTags, callback: Callback) {
-    this._updatePackage(name, (data, cb) => {
+  mergeTags(pkgName: string, tags: MergeTags, callback: Callback) {
+    this._updatePackage(pkgName, (data, cb) => {
       /* eslint guard-for-in: 0 */
       for (let tag: string in tags) {
         // this handle dist-tag rm command
