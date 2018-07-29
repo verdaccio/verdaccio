@@ -63,7 +63,7 @@
     "Get Started|no description given": "开始",
     "Contribute|no description given": "贡献",
     "That’s it ! Enjoy your private package manager.|no description given": "就这么简单! 开始使用你的 私有 npm 仓库吧。",
-    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Many great developers are already enjoying Verdaccio, join the community!",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "很多好的开发人员已经开始享受使用Verdaccio, 请加入社区！",
     "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.",
     "The most popular npm clients are supported|no description given": "支持所有主流的 npm 客户端",
     "We have an official **Docker** image ready to use|no description given": "我们有官方的 **Docker** 镜像可供使用",
