@@ -1,27 +1,27 @@
 ---
-id: what-is-verdaccio
-title: "What is Verdaccio?"
+id: what-is-verdaccio（verdaccio是什么）
+title: "Verdaccio是什么？"
 ---
-Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
+Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry**
 
-## What's a registry
+## Registry是什么？
 
-* A repository for packages that implements the **CommonJS Compliant Package Registry specification** for reading package info
-* Provide an API compatible with npm clients **(yarn/npm/pnpm)**
-* Follow the semantic Versioning compatible **(semver)**
+* 包的资源库，它执行**CommonJS Compliant Package Registry specification** 来阅读包信息
+* 提供与npm clients **(yarn/npm/pnpm)**兼容的API
+* 效仿Versioning语义兼容**(semver)**
 
     $> verdaccio
     
 
 ![registry](/svg/verdaccio_server.gif)
 
-## Using Verdaccio
+## 使用Verdaccio
 
-Using verdaccio with any node package manager client is quite straightforward.
+用任何节点包manager client使用 verdaccio是相当简单的。
 
 ![registry](/svg/npm_install.gif)
 
-You can use a custom registry either setting globally for all your projects
+您要么可以用定制registry全局设置所有项目
 
     npm set registry http://localhost:4873
     
