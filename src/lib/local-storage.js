@@ -601,11 +601,11 @@ class LocalStorage implements IStorage {
 
   /**
    * Retrieve a wrapper that provide access to the package location.
-   * @param {Object} packageInfo package name.
+   * @param {Object} pkgName package name.
    * @return {Object}
    */
-  _getLocalStorage(packageInfo: string): IPackageStorage {
-    return this.localData.getPackageStorage(packageInfo);
+  _getLocalStorage(pkgName: string): IPackageStorage {
+    return this.localData.getPackageStorage(pkgName);
   }
 
   /**
@@ -667,21 +667,21 @@ class LocalStorage implements IStorage {
 
   /**
    * Retrieve either a previous created local package or a boilerplate.
-   * @param {*} name
+   * @param {*} pkgName
    * @param {*} callback
    * @return {Function}
    */
-  _readCreatePackage(name: string, callback: Callback) {
-    const storage: any = this._getLocalStorage(name);
+  _readCreatePackage(pkgName: string, callback: Callback) {
+    const storage: any = this._getLocalStorage(pkgName);
     if (_.isNil(storage)) {
-      return this._createNewPackage(name, callback);
+      return this._createNewPackage(pkgName, callback);
     }
 
-    storage.readPackage(name, (err, data) => {
+    storage.readPackage(pkgName, (err, data) => {
       // TODO: race condition
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
-          data = generatePackageTemplate(name);
+          data = generatePackageTemplate(pkgName);
         } else {
           return callback(this._internalError(err, pkgFileName, 'error reading'));
         }

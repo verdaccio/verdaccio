@@ -2,7 +2,10 @@
 
 import type { Version } from "@verdaccio/types";
 
-export function generateNewVersion(pkgName: string, version: string): Version {
+export function generateNewVersion(
+  pkgName: string,
+  version: string,
+  shashum: string = '238e7641e59508dc9c20eb4ad37a8aa57ab777b4'): Version {
   // $FlowFixMe
   return {
     "name": pkgName,
@@ -23,8 +26,8 @@ export function generateNewVersion(pkgName: string, version: string): Version {
     },
     "dist": {
       "integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
-      "shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
-      "tarball": `http:\/\/localhost:4873\/${pkgName}\/-\/npm_test-${version}.tgz`
+      "shasum": shashum,
+      "tarball": `http:\/\/localhost:4873\/${pkgName}\/-\/${pkgName}-${version}.tgz`
     }
   }
 }

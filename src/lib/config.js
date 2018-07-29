@@ -95,8 +95,8 @@ class Config implements AppConfig {
   /**
    * Check for package spec
    */
-  getMatchedPackagesSpec(pkg: string): MatchedPackage {
-    return getMatchedPackagesSpec(pkg, this.packages);
+  getMatchedPackagesSpec(pkgName: string): MatchedPackage {
+    return getMatchedPackagesSpec(pkgName, this.packages);
   }
 
   /**

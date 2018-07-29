@@ -16,6 +16,8 @@ const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/par
 
 import type {Config} from '@verdaccio/types';
 import type {IStorage} from '../../../types/index';
+import {API_ERROR, HTTP_STATUS} from '../../../src/lib/constants';
+import {DIST_TAGS} from '../../../src/lib/utils';
 
 setup([]);
 
@@ -32,6 +34,24 @@ describe('LocalStorage', () => {
       });
     });
   };
+  const addTarballToStore = (pkgName: string, tarballName) => {
+    return new Promise((resolve, reject) => {
+      const tarballData = JSON.parse(readMetadata('addTarball'));
+      const stream = storage.addTarball(pkgName, tarballName);
+
+      stream.on('error', function(err) {
+        expect(err).toBeNull();
+        reject();
+      });
+      stream.on('success', function() {
+        resolve();
+      });
+
+      stream.end(new Buffer(tarballData.data, 'base64'));
+      stream.done();
+    });
+  };
+
   const addPackageToStore = (pkgName, metadata) => {
     return new Promise((resolve, reject) => {
       // $FlowFixMe
@@ -97,38 +117,66 @@ describe('LocalStorage', () => {
 
       storage.addPackage(pkgName, metadata, (err) => {
         expect(err).not.toBeNull();
-        expect(err.statusCode).toEqual(409);
-        expect(err.message).toMatch(/this package is already present/);
+        expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
+        expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
         done();
       });
     });
 
     describe('LocalStorage::addVersion', () => {
-      test('should add new version without tag', (done) => {
-        const metadata = JSON.parse(readMetadata('metadata-add-version'));
+      test('should add new version without tag', async (done) => {
+        const pkgName = 'add-version-test-1';
+        const version = '1.0.1';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        const tarballName: string = `${pkgName}-${version}.tgz`;
+        await addNewVersion(pkgName, '9.0.0');
+        await addTarballToStore(pkgName, `${pkgName}-9.0.0.tgz`);
+        await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(pkgName, '1.0.1', metadata, '', (err, data) => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
           expect(err).toBeNull();
           expect(data).toBeUndefined();
           done();
         });
       });
 
-      test('should fails on add a duplicated version without tag', (done) => {
-        const metadata = JSON.parse(readMetadata('metadata-add-version'));
+      test('should fails on add a duplicated version without tag', async (done) => {
+        const pkgName = 'add-version-test-2';
+        const version = '1.0.1';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        await addNewVersion(pkgName, version);
 
-        storage.addVersion(pkgName, '1.0.1', metadata, '', (err, data) => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
           expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(409);
-          expect(err.message).toMatch(/this package is already present/);
+          expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
+          expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
           done();
         });
       });
 
-      test('should add new second version without tag', (done) => {
-        const metadata = JSON.parse(readMetadata('metadata-add-version'));
+      test('should fails add new version wrong shasum', async (done) => {
+        const pkgName = 'add-version-test-4';
+        const version = '4.0.0';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        const tarballName: string = `${pkgName}-${version}.tgz`;
+        await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(pkgName, '1.0.2', metadata, 'beta', (err, data) => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', (err, data) => {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
+          expect(err.message).toMatch(/shasum error/);
+          done();
+        });
+      });
+
+      test('should add new second version without tag', async (done) => {
+        const pkgName = 'add-version-test-3';
+        const version = '1.0.2';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        await addNewVersion(pkgName, '1.0.1');
+        await addNewVersion(pkgName, '1.0.3');
+
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), 'beta', (err, data) => {
           expect(err).toBeNull();
           expect(data).toBeUndefined();
           done();
@@ -137,12 +185,27 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::updateVersions', () => {
-      test('should update versions from origin', (done) => {
+      test('should update versions from external source', async (done) => {
         const metadata = JSON.parse(readMetadata('metadata-update-versions-tags'));
+        const pkgName = 'add-update-versions-test-1';
+        const version = '1.0.2';
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        await addNewVersion(pkgName, '1.0.1');
+        await addNewVersion(pkgName, version);
 
         storage.updateVersions(pkgName, metadata, (err, data) => {
           expect(err).toBeNull();
-          expect(data.versions['1.0.3']).toBeDefined();
+          expect(data.versions['1.0.1']).toBeDefined();
+          expect(data.versions[version]).toBeDefined();
+          expect(data.versions['1.0.4']).toBeDefined();
+          expect(data[DIST_TAGS]['latest']).toBeDefined();
+          expect(data[DIST_TAGS]['latest']).toBe('1.0.1');
+          expect(data[DIST_TAGS]['beta']).toBeDefined();
+          expect(data[DIST_TAGS]['beta']).toBe('1.0.2');
+          expect(data[DIST_TAGS]['next']).toBeDefined();
+          expect(data[DIST_TAGS]['next']).toBe('1.0.4');
+          expect(data['_rev'] === metadata['_rev']).toBeFalsy();
+          expect(data.readme).toBe('readme 1.0.4');
           done();
         });
       });
@@ -212,7 +275,7 @@ describe('LocalStorage', () => {
           const stream = storage.addTarball(pkgName, tarballName);
           stream.on('error', function(err) {
             expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(409);
+            expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
             expect(err.message).toMatch(/this package is already present/);
             done();
           });
@@ -247,7 +310,7 @@ describe('LocalStorage', () => {
           const stream = storage.addTarball(pkgName, `${pkgName}-fails-add-tarball-1.0.4.tgz`);
           stream.on('error', function(err) {
             expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(422);
+            expect(err.statusCode).toEqual(HTTP_STATUS.BAD_DATA);
             expect(err.message).toMatch(/refusing to accept zero-length file/);
             done();
           });
@@ -260,7 +323,7 @@ describe('LocalStorage', () => {
           stream.abort();
           stream.on('error', function(err) {
             expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(403);
+            expect(err.statusCode).toEqual(HTTP_STATUS.FORBIDDEN);
             expect(err.message).toMatch(/can't use this filename/);
             done();
           });
@@ -281,7 +344,7 @@ describe('LocalStorage', () => {
           test('should remove a tarball that does not exist', (done) => {
             storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
               expect(err).not.toBeNull();
-              expect(err.statusCode).toEqual(404);
+              expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
               expect(err.message).toMatch(/no such file available/);
               done();
             });
@@ -306,7 +369,7 @@ describe('LocalStorage', () => {
           const stream = storage.getTarball('fake', tarballName);
           stream.on('error', function(err) {
             expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(404);
+            expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such file available/);
             done();
           });
@@ -363,7 +426,7 @@ describe('LocalStorage', () => {
       test('should fails with @scoped package not found', (done) => {
         storage.removePackage(pkgNameScoped, (err, data) => {
           expect(err).not.toBeNull();
-          expect(err.message).toMatch(/no such package available/);
+          expect(err.message).toMatch(API_ERROR.NO_PACKAGE);
           done();
         });
       });
