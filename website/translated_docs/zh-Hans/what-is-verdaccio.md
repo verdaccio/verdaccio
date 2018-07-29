@@ -26,24 +26,24 @@ Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry**
     npm set registry http://localhost:4873
     
 
-or by command line as argument `--registry` in npm (slightly different in yarn)
+或者把命令行作为npm里的参数`--registry`（在yarn里稍微有些不同）
 
     npm install lodash --registry http://localhost:4873
     
 
-## Private
+## 私有
 
-All packages that you publish are private and only accessible based in your configuration.
+所有您发布的包是私有的并且访问只取决于您的配置。
 
 ## Proxy
 
-Verdaccio cache all dependencies by demand and speed up installations in local or private networks.
+Verdaccio 按需要缓存所有相关项，并在当地或私有网络能会加速安装。
 
-## Verdaccio in a nutshell
+## Verdaccio是个小容器
 
-* It's a web app based on Node.js
-* It's a private npm registry
-* It's a local network proxy
+* 它是基于Node.js的网页应用程序
+* 它是私有npm registry
+* 它是本地网络proxy
 * It's a Pluggable application
 * It's a fairly easy install and use
 * We offer Docker and Kubernetes support
