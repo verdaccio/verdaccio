@@ -47,11 +47,11 @@ describe('LocalStorage', () => {
       const tarballData = JSON.parse(readMetadata('addTarball'));
       const stream = storage.addTarball(pkgName, tarballName);
 
-      stream.on('error', function(err) {
+      stream.on('error', (err) => {
         expect(err).toBeNull();
         reject();
       });
-      stream.on('success', function() {
+      stream.on('success', () => {
         resolve();
       });
 
@@ -77,7 +77,7 @@ describe('LocalStorage', () => {
     });
   };
 
-  beforeAll(function () {
+  beforeAll(() => {
     const config: Config = new AppConfig(configExample);
     config.self_path = path.join('../partials/store');
 
@@ -135,7 +135,6 @@ describe('LocalStorage', () => {
       test('should mergeTags', async (done) => {
         const pkgName = 'merge-tags-test-1';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
-        // const tarballName: string = `${pkgName}-${version}.tgz`;
         await addNewVersion(pkgName, '1.0.0');
         await addNewVersion(pkgName, '2.0.0');
         await addNewVersion(pkgName, '3.0.0');
@@ -310,7 +309,7 @@ describe('LocalStorage', () => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
 
-          stream.on('error', function(err) {
+          stream.on('error', (err) => {
             expect(err).toBeNull();
             done();
           });
@@ -325,7 +324,7 @@ describe('LocalStorage', () => {
         test('should add a new second tarball', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName2);
-          stream.on('error', function(err) {
+          stream.on('error', (err) => {
             expect(err).toBeNull();
             done();
           });
@@ -340,7 +339,7 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball ', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
-          stream.on('error', function(err) {
+          stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
             expect(err.message).toMatch(/this package is already present/);
@@ -358,14 +357,14 @@ describe('LocalStorage', () => {
         test('should fails on add a new tarball on missing package', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball('unexsiting-package', tarballName);
-          stream.on('error', function(err) {
+          stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(404);
             expect(err.message).toMatch(/no such package available/);
             done();
           });
 
-          stream.on('success', function() {
+          stream.on('success', () => {
             done();
           });
 
