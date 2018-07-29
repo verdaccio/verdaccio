@@ -14,15 +14,15 @@ title: "作为 Windows 服务安装"
 
 ## 使用NSSM
 
-ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
+替代方法: (当我尝试下载的时候，WinSW 包缺失)
 
-* Download [NSSM](https://www.nssm.cc/download/) and extract
+* 下载[NSSM](https://www.nssm.cc/download/)并提取
 
-* Add the path that contains nssm.exe to the PATH
+* 添加包含nssm.exe 的路径到PATH（路径）中
 
-* Open an administrative command
+* 打开管理命令
 
-* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
+* 运行nssm install verdaccio，至少必须填写应用程序 tab Path（选项卡路径），启动目录和参数字段。 Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
     
     * Path: `node`
     * Startup directory: `c:\verdaccio`
