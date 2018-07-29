@@ -44,9 +44,9 @@ Verdaccio 按需要缓存所有相关项，并在当地或私有网络能会加�
 * 它是基于Node.js的网页应用程序
 * 它是私有npm registry
 * 它是本地网络proxy
-* It's a Pluggable application
-* It's a fairly easy install and use
-* We offer Docker and Kubernetes support
-* It is 100% compatible with yarn, npm and pnpm
-* It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
+* 它是插件式应用程序
+* 它相当容易安装和使用
+* 我们提供Docker和Kubernetes支持
+* 它与yarn, npm 和pnpm 100% 兼容
+* 它**forked**于`sinopia@1.4.0`并且100% **向下兼容**。
 * Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
