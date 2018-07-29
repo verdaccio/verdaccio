@@ -1,14 +1,15 @@
-@import '../../styles/variable';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .notFound {
   width: 100%;
-  font-size: 18px;
-  line-height: 30px;
+  font-size: $font-size-md;
+  line-height: $line-height-xl;
   border: none;
-  border-bottom: 1px solid lightgrey;
   outline: none;
+  @include border-bottom-default($grey-light);
 
   &:focus {
-    border-bottom: 1px solid grey;
+    @include border-bottom-default($grey);
   }
 }
