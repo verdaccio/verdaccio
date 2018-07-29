@@ -81,6 +81,6 @@ uplinks:
 
 * 自版本 `v2.3.0`以来, Verdaccio 不在使用Basic Authentication。verdaccio 所生成的所有令牌都基于 JWT ([JSON Web Token](https://jwt.io/))
 * 上行链路必须是兼容`npm`的注册服务器 例如: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
-* 设置`cache` 为false可以帮助节省你的硬盘空间。 This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
+* 设置`cache` 为false可以帮助节省你的硬盘空间。 这将避免存储 `tarballs`，但是[它将保留元数据在文件夹里](https://github.com/verdaccio/verdaccio/issues/391)。
 * 配置过多的上行链路会导致包查询速度变慢，这是因为相比较一个npm客户端每发送一次的请求，verdaccio却需要向每个上行链路都发送一次这样的请求
 * 这些属性(timeout, maxage and fail_timeout) 的配置单位格式参考[NGINX measurement units](http://nginx.org/en/docs/syntax.html)
