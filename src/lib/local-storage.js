@@ -333,6 +333,7 @@ class LocalStorage implements IStorage {
           this.logger.info( {name: name, version: ver}, 'unpublishing @{name}@@{version}');
 
           delete jsonData.versions[ver];
+          delete jsonData.time[ver];
 
           for (let file in jsonData._attachments) {
             if (jsonData._attachments[file].version === ver) {

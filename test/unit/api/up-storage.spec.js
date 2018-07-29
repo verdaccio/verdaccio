@@ -80,7 +80,7 @@ describe('UpStorge', () => {
     describe('UpStorge::fetchTarball', () => {
       test('should fetch a tarball from uplink', (done) => {
         const proxy = generateProxy();
-        const tarball:string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
+        const tarball: string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
         const stream = proxy.fetchTarball(tarball);
 
         stream.on('error', function(err) {
@@ -97,7 +97,7 @@ describe('UpStorge', () => {
 
       test('should throw a 404 on fetch a tarball from uplink', (done) => {
         const proxy = generateProxy();
-        const tarball:string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
+        const tarball: string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
         const stream = proxy.fetchTarball(tarball);
 
         stream.on('error', function(err) {
@@ -117,7 +117,7 @@ describe('UpStorge', () => {
 
       test('should be offline uplink', (done) => {
         const proxy = generateProxy();
-        const tarball:string = 'http://404.verdaccioo.com';
+        const tarball: string = 'http://404.verdaccioo.com';
         const stream = proxy.fetchTarball(tarball);
         expect(proxy.failed_requests).toBe(0);
 

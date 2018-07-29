@@ -63,7 +63,6 @@ export const API_MESSAGE = {
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
   TAG_ADDED: 'package tagged',
-
 };
 
 export const API_ERROR = {
@@ -86,6 +85,7 @@ export const API_ERROR = {
   WEB_DISABLED: 'Web interface is disabled in the config file',
   DEPRECATED_BASIC_HEADER: 'basic authentication is deprecated, please use JWT instead',
   BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
+  RESOURCE_UNAVAILABLE: 'resource unavailable',
 };
 
 export const APP_ERROR = {
