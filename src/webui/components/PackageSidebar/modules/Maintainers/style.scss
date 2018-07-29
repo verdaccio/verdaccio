@@ -1,4 +1,4 @@
-@import '../../../../styles/variable';
+@import '../../../../styles/variables';
 
 .maintainersModule {
   .showAllContributors {
@@ -6,7 +6,7 @@
     width: 100%;
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: $font-size-sm;
     text-align: center;
     padding: 10px 0;
   }
