@@ -8,6 +8,9 @@ import AppConfig from '../../../src/lib/config';
 import configExample from '../partials/config/index';
 import Logger, {setup} from '../../../src/lib/logger';
 import {readFile} from '../../functional/lib/test.utils';
+import {generatePackageTemplate} from '../../../src/lib/storage-utils';
+import {generateNewVersion} from '../../lib/utils-test';
+
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
@@ -22,6 +25,29 @@ describe('LocalStorage', () => {
   const pkgNameScoped = `@scope/${pkgName}-scope`;
   const tarballName: string = `${pkgName}-add-tarball-1.0.4.tgz`;
   const tarballName2: string = `${pkgName}-add-tarball-1.0.5.tgz`;
+  const addNewVersion = (pkgName: string, version: string) => {
+    return new Promise((resolve) => {
+      storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
+        resolve(data);
+      });
+    });
+  };
+  const addPackageToStore = (pkgName, metadata) => {
+    return new Promise((resolve, reject) => {
+      // $FlowFixMe
+      const pkgStoragePath = storage._getLocalStorage(pkgName);
+      rimRaf(pkgStoragePath.path, (err) => {
+        expect(err).toBeNull();
+        storage.addPackage(pkgName, metadata, async (err, data) => {
+          if (err) {
+            reject(err);
+          }
+
+          resolve(data);
+        });
+      });
+    });
+  };
 
   beforeAll(function () {
     const config: Config = new AppConfig(configExample);
@@ -123,13 +149,25 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::changePackage', () => {
-      test('should unpublish a version', (done) => {
-        const metadata = JSON.parse(readMetadata('metadata-unpublish'));
+      const pkgName: string = 'change-package';
+
+      test('should unpublish a version', async done => {
+        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+        await addNewVersion(pkgName, '1.0.1');
+        await addNewVersion(pkgName, '1.0.2');
+        await addNewVersion(pkgName, '1.0.3');
+        const metadata = JSON.parse(readMetadata('changePackage/metadata-change'));
         const rev: string = metadata['_rev'];
 
         storage.changePackage(pkgName, metadata, rev, (err) => {
           expect(err).toBeUndefined();
-          done();
+          storage.getPackageMetadata(pkgName, (err, data ) => {
+            expect(err).toBeNull();
+            expect(data.versions['1.0.1']).toBeDefined();
+            expect(data.versions['1.0.2']).toBeUndefined();
+            expect(data.versions['1.0.3']).toBeUndefined();
+            done();
+          });
         });
       });
     });

@@ -315,35 +315,35 @@ class LocalStorage implements IStorage {
    * Update the package metadata, tags and attachments (tarballs).
    * Note: Currently supports unpublishing only.
    * @param {*} name
-   * @param {*} pkg
+   * @param {*} incomingPkg
    * @param {*} revision
    * @param {*} callback
    * @return {Function}
    */
   changePackage(name: string,
-                pkg: Package,
+                incomingPkg: Package,
                 revision?: string, callback: Callback) {
-    if (!isObject(pkg.versions) || !isObject(pkg[DIST_TAGS])) {
+    if (!isObject(incomingPkg.versions) || !isObject(incomingPkg[DIST_TAGS])) {
       return callback( ErrorCode.getBadData());
     }
 
-    this._updatePackage(name, (jsonData, cb) => {
-      for (let ver in jsonData.versions) {
-        if (_.isNil(pkg.versions[ver])) {
-          this.logger.info( {name: name, version: ver}, 'unpublishing @{name}@@{version}');
+    this._updatePackage(name, (localData, cb) => {
+      for (let version in localData.versions) {
+        if (_.isNil(incomingPkg.versions[version])) {
+          this.logger.info( {name: name, version: version}, 'unpublishing @{name}@@{version}');
 
-          delete jsonData.versions[ver];
-          delete jsonData.time[ver];
+          delete localData.versions[version];
+          delete localData.time[version];
 
-          for (let file in jsonData._attachments) {
-            if (jsonData._attachments[file].version === ver) {
-              delete jsonData._attachments[file].version;
+          for (let file in localData._attachments) {
+            if (localData._attachments[file].version === version) {
+              delete localData._attachments[file].version;
             }
           }
         }
       }
 
-      jsonData[DIST_TAGS] = pkg[DIST_TAGS];
+      localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
       cb();
     }, function(err) {
       if (err) {
