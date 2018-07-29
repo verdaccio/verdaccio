@@ -7,12 +7,12 @@ title: "作为 Windows 服务安装"
 1. 为 verdaccio创建一个目录 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
-2. Install verdaccio locally (I ran into npm issues with global installs) 
+2. 当地安装verdaccio（我在全局安装的时候出现npm问题） 
     * npm install verdaccio
-3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
-4. Windows Service Setup
+3. 在此位置`(c:\verdaccio\config.yaml)`创建`config.yaml`文件
+4. Windows服务设置
 
-## Using NSSM
+## 使用NSSM
 
 ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
 
