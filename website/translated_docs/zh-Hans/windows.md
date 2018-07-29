@@ -22,20 +22,20 @@ title: "作为 Windows 服务安装"
 
 * 打开管理命令
 
-* 运行nssm install verdaccio，至少必须填写应用程序 tab Path（选项卡路径），启动目录和参数字段。 Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
+* 运行nssm install verdaccio，至少必须填写应用程序 tab Path（选项卡路径），启动目录和参数字段。 假设在系统路径中以及c:\verdaccio位置用node安装，以下的值将起作用：
     
     * Path: `node`
     * Startup directory: `c:\verdaccio`
     * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    You can adjust other service settings under other tabs as desired. When you are done, click Install service button
+    您可以根据需要在其他选项卡调整其他服务设置。完成后，请单击安装服务按钮
     
     * Start the service sc start verdaccio
 
-## Using WinSW
+## 使用WinSW
 
-* As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
-* Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
+* 截至2015-10-27, WinSW 不再存在以下位置。请跟随以上使用NSSM指南。
+* 下载 [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
     * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
 * Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
 * Install your service 
