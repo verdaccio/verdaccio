@@ -31,7 +31,7 @@ logs:
 
 ## 模块
 
-The following sections explain what each property means and the different options.
+以下各章节解释了每个属性的含义以及不同的选项。
 
 ### 存储
 
@@ -41,17 +41,17 @@ The following sections explain what each property means and the different option
 storage: ./storage
 ```
 
-### Plugins
+### 插件
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+是插件目录的位置。对Docker/Kubernetes 基础上的配置非常有用。
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### 认证
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+认证设置在这里完成，默认的授权是基于`htpasswd` 并且是内置的。 您可以通过[plugins](plugins.md)来修改此行为。 如需了解更多关于本章节的信息，请阅读[auth page](auth.md)。
 
 ```yaml
 auth:
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+此属性让您可以修改此web UI的外观和感觉。如需了解更多关于此章节的信息，请阅读 [web ui page](web.md)。
 
 ```yaml
 web:
@@ -71,7 +71,7 @@ web:
   logo: logo.png
 ```
 
-### Uplinks
+### 上行链路
 
 Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
 
