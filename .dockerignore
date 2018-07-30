@@ -1,6 +1,6 @@
 # we try to avoid adding files to the docker images that change often
 # or that are not needed for running the docker image
-# tis greatly reduces the amount of times we need to rerun `npm install` when building image locally
+# this greatly reduces the amount of times we need to rerun `npm install` when building image locally
 # https://codefresh.io/blog/not-ignore-dockerignore/
 # https://docs.docker.com/engine/reference/builder/#dockerignore-file
 
@@ -28,6 +28,6 @@ coverage/
 jsconfig.json
 *.iml
 
-# let's not get to recursive ;)
+# let's not get too recursive ;)
 Dockerfile*
 docker-compose*.yaml
