@@ -170,7 +170,7 @@ no_proxy: localhost,127.0.0.1
 
 ### 通知
 
-通过web hooks来启用第三方工具通知是很容易的。有关更多此章节的详细信息，请阅读 [notifications page（通知页面）](notifications.md)。
+通过web hooks来启用第三方工具通知是很容易的。有关更多本模块的详细信息，请阅读 [notifications page（通知页面）](notifications.md)。
 
 ```yaml
 notify:
