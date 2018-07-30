@@ -29,7 +29,7 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## 模块
+## 章节
 
 以下各章节解释了每个属性的含义以及不同的选项。
 
