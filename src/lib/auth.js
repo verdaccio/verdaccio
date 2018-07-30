@@ -98,7 +98,7 @@ class Auth implements IAuth {
       if (_.isFunction(plugin[method]) === false) {
         method = 'add_user';
       }
-      if (_.isFunction[method] === false) {
+      if (_.isFunction(plugin[method]) === false) {
         next();
       } else {
         // p.add_user() execution

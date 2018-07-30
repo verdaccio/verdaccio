@@ -1,12 +1,12 @@
 ---
 id: webui
-title: "Web User Interface2"
+title: "网页用户界面2"
 ---
 
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
-Verdaccio has a web user interface to display only the private packges and can be customisable.
+Verdaccio有个网页用户界面，它只显示私有包并可以定制。
 
 ```yaml
 web:
@@ -15,12 +15,12 @@ web:
   logo: logo.png
 ```
 
-All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
+所有访问限制定义为[保护包](protect-your-dependencies.md)，它也将应用于网页界面。
 
-### Configuration
+### 配置
 
-| Property | Type    | Required | Example                        | Support | Description                        |
-| -------- | ------- | -------- | ------------------------------ | ------- | ---------------------------------- |
-| enable   | boolean | No       | true/false                     | all     | allow to display the web interface |
-| title    | string  | No       | Verdaccio                      | all     | HTML head title description        |
-| logo     | string  | No       | http://my.logo.domain/logo.png | all     | a URI where logo is located        |
+| 属性     | 类型      | 必填 | 范例                             | 支持  | 描述          |
+| ------ | ------- | -- | ------------------------------ | --- | ----------- |
+| enable | boolean | No | true/false                     | all | 允许显示网页界面    |
+| title  | string  | No | Verdaccio                      | all | HTML 页眉标题说明 |
+| logo   | string  | No | http://my.logo.domain/logo.png | all | logo 位于的URI |
