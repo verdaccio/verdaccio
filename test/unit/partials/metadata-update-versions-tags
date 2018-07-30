@@ -1,8 +1,8 @@
 {
-	"name": "npm_test",
+	"name": "add-update-versions-test-1",
 	"versions": {
 		"1.0.1": {
-			"name": "npm_test",
+			"name": "add-update-versions-test-1",
 			"version": "1.0.1",
 			"description": "",
 			"main": "index.js",
@@ -16,18 +16,18 @@
 			"keywords": [],
 			"author": "",
 			"license": "ISC",
-			"_id": "npm_test@1.0.1",
+			"_id": "add-update-versions-test-1@1.0.1",
 			"_npmVersion": "5.5.1",
 			"_nodeVersion": "9.3.0",
 			"_npmUser": {},
 			"dist": {
 				"integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
-				"shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
-				"tarball": "http://localhost:4873/npm_test/-/npm_test-1.0.1.tgz"
+				"shasum": "238e7641e59508dc9c20eb4ad37a8aa57ab777b4",
+				"tarball": "http://localhost:4873/add-update-versions-test-1/-/add-update-versions-test-1-1.0.1.tgz"
 			}
 		},
 		"1.0.2": {
-			"name": "npm_test",
+			"name": "add-update-versions-test-1",
 			"version": "1.0.1",
 			"description": "",
 			"main": "index.js",
@@ -41,19 +41,19 @@
 			"keywords": [],
 			"author": "",
 			"license": "ISC",
-			"_id": "npm_test@1.0.1",
+			"_id": "add-update-versions-test-1@1.0.1",
 			"_npmVersion": "5.5.1",
 			"_nodeVersion": "9.3.0",
 			"_npmUser": {},
 			"dist": {
 				"integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
-				"shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
-				"tarball": "http://localhost:4873/npm_test/-/npm_test-1.0.1.tgz"
+				"shasum": "238e7641e59508dc9c20eb4ad37a8aa57ab777b4",
+				"tarball": "http://localhost:4873/add-update-versions-test-1/-/add-update-versions-test-1-1.0.1.tgz"
 			}
 		},
-		"1.0.3": {
-            "name": "npm_test",
-            "version": "1.0.3",
+		"1.0.4": {
+            "name": "add-update-versions-test-1",
+            "version": "1.0.4",
             "description": "",
             "main": "index.js",
             "dependencies": {
@@ -66,26 +66,26 @@
             "keywords": [],
             "author": "",
             "license": "ISC",
-            "_id": "npm_test@1.0.1",
+            "_id": "add-update-versions-test-1@1.0.1",
             "_npmVersion": "5.5.1",
             "_nodeVersion": "9.3.0",
             "_npmUser": {},
             "dist": {
                 "integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",
-                "shasum": "b7088c30970489637f8b4e6795e8cf2b699d7569",
-                "tarball": "http://localhost:4873/npm_test/-/npm_test-1.0.1.tgz"
+                "shasum": "238e7641e59508dc9c20eb4ad37a8aa57ab777b4",
+                "tarball": "http://localhost:4873/add-update-versions-test-1/-/add-update-versions-test-1-1.0.1.tgz"
             }
         }
 	},
 	"dist-tags": {
 		"latest": "1.0.1",
 		"beta": "1.0.2",
-		"next": "1.0.3"
+		"next": "1.0.4"
 	},
 	"time": {},
 	"_distfiles": {},
 	"_attachments": {},
 	"_uplinks": {},
 	"_rev": "2-b8a00ec71cdc7323",
-	"readme": "ERROR: No README data found!"
+	"readme": "readme 1.0.4"
 }
