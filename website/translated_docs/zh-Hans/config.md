@@ -51,7 +51,7 @@ plugins: ./plugins
 
 ### 认证
 
-认证设置在这里完成，默认的授权是基于`htpasswd` 并且是内置的。 您可以通过[plugins](plugins.md)来修改此行为。 如需了解更多关于本章节的信息，请阅读[auth page](auth.md)。
+认证设置在这里完成，默认的授权是基于`htpasswd` 并且是内置的。 您可以通过[plugins](plugins.md)来修改此行为。 如需了解更多关于本章节的信息，请阅读[auth page（页面）](auth.md)。
 
 ```yaml
 auth:
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-此属性让您可以修改此web UI的外观和感觉。如需了解更多关于此章节的信息，请阅读 [web ui page](web.md)。
+此属性让您可以修改此web UI的外观和感觉。如需了解更多关于此章节的信息，请阅读 [web ui page（web ui 页面）](web.md)。
 
 ```yaml
 web:
@@ -73,7 +73,7 @@ web:
 
 ### 上行链路
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+当包不在本地的时候，上行链路可以让系统从远程的registry里获取这些包。 如需了解更多关于本章节的信息，请阅读[uplinks page（上行链路页面）](uplinks.md)。
 
 ```yaml
 uplinks:
@@ -81,9 +81,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### 包
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+包让用户控制访问包的权限。如需了解更多关于此章节的信息，请阅读[packages page（包页面）](packages.md)。
 
 ```yaml
 packages:
@@ -95,9 +95,9 @@ packages:
 
 ## 高级设置
 
-### Offline Publish
+### 脱线发布
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+`verdaccio`默认不允许客户脱线的时候发布，可以把这设置为*true*来覆盖此行为。
 
 ```yaml
 publish:
@@ -106,7 +106,7 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### URL 前缀
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
@@ -114,15 +114,15 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### 最大正文大小
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+默认的最大JSON 文件正文大小为`10mb`, 如果遇到`"request entity too large"` 的错误提示，您可以增大此数值。
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### 监听端口
 
 `verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
