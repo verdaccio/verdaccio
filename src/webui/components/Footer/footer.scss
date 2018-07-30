@@ -1,17 +1,19 @@
-@import '../../styles/variable';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .wrap {
   margin-top: auto;
-  border-top: 1px solid $border-color;
-  background: #f9f9f9;
+  background: $snow;
+  @include border(top, 1px, solid, $greyGainsboro);
 }
+
 footer.footer {
   display: flex;
   margin-top: 0;
   padding: 20px 0;
-  font-size: 14px;
+  font-size: $font-size-sm;
   height: 18px;
-  color: #999;
+  color: $nobel-01;
 
   span {
     display: inline-block;
@@ -25,7 +27,7 @@ footer.footer {
     position: relative;
     margin-top: -2px;
     height: 20px;
-    background: #d3dddd;
+    background: $greyAthens;
     padding: 1px 4px;
     border-radius: 2px;
     transform: scaleX(0);
@@ -33,14 +35,14 @@ footer.footer {
     transform-origin: left;
 
     &:before {
+      content: '';
       position: absolute;
       top: 3px;
       left: -7px;
       display: block;
-      content: '';
       width: 7px;
       height: 15px;
-      background: #d3dddd;
+      background: $greyAthens;
       background-image: linear-gradient(45deg, white, white 30%, transparent 30%), linear-gradient(-225deg, white, white 30%, transparent 30%);
     }
 

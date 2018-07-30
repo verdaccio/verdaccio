@@ -1,9 +1,12 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
 .pkgContainer {
   margin: 0;
   padding: 0;
 
   li {
-    border-bottom: 1px solid #e4e8f1;
+    @include border-bottom-default($paleNavy);
     list-style: none;
 
     &:last-child {
@@ -12,8 +15,8 @@
   }
 
   .listTitle {
-    font-weight: normal;
-    font-size: 24px;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-xl;
     margin-top: 30px;
     margin-bottom: 0;
   }

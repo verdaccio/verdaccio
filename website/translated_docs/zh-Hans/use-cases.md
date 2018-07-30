@@ -1,6 +1,6 @@
 ---
-id: use-cases（使用-场景）
-title: "使用场景"
+id: use-cases（使用-案例）
+title: "使用案例"
 ---
 ## 使用私有包
 

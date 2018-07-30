@@ -9,7 +9,12 @@ import asciidoctor from 'asciidoctor.js';
 import createError from 'http-errors';
 import marked from 'marked';
 
-import {HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN} from './constants';
+import {
+  HTTP_STATUS,
+  API_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_DOMAIN,
+} from './constants';
 import {generateGravatarUrl} from '../utils/user';
 
 import type {Package} from '@verdaccio/types';
@@ -44,7 +49,11 @@ function validate_package(name: any): boolean {
     return validateName(name[0]);
   } else {
     // scoped package
-    return name[0][0] === '@' && validateName(name[0].slice(1)) && validateName(name[1]);
+    return (
+      name[0][0] === '@' &&
+      validateName(name[0].slice(1)) &&
+      validateName(name[1])
+    );
   }
 }
 
@@ -60,13 +69,14 @@ function validateName(name: string): boolean {
   name = name.toLowerCase();
 
   // all URL-safe characters and "@" for issue #75
-  return !(!name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/)
-   || name.charAt(0) === '.' // ".bin", etc.
-   || name.charAt(0) === '-' // "-" is reserved by couchdb
-   || name === 'node_modules'
-   || name === '__proto__'
-   || name === 'package.json'
-   || name === 'favicon.ico'
+  return !(
+    !name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
+    name.charAt(0) === '.' || // ".bin", etc.
+    name.charAt(0) === '-' || // "-" is reserved by couchdb
+    name === 'node_modules' ||
+    name === '__proto__' ||
+    name === 'package.json' ||
+    name === 'favicon.ico'
   );
 }
 
@@ -109,15 +119,17 @@ function validate_metadata(object: Package, name: string) {
  * Create base url for registry.
  * @return {String} base registry url
  */
-function combineBaseUrl(protocol: string, host: string, prefix?: string): string {
+function combineBaseUrl(
+  protocol: string,
+  host: string,
+  prefix?: string
+): string {
   let result = `${protocol}://${host}`;
 
   if (prefix) {
     prefix = prefix.replace(/\/$/, '');
 
-    result = (prefix.indexOf('/') === 0)
-      ? `${result}${prefix}`
-      : prefix;
+    result = prefix.indexOf('/') === 0 ? `${result}${prefix}` : prefix;
   }
 
   return result;
@@ -135,13 +147,25 @@ export function extractTarballFromUrl(url: string) {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: $Request, urlPrefix: string | void) {
+export function convertDistRemoteToLocalTarballUrls(
+  pkg: Package,
+  req: $Request,
+  urlPrefix: string | void
+) {
   for (let ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
 
-      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
-        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
+      if (
+        _.isNull(distName) === false &&
+        _.isNull(distName.tarball) === false
+      ) {
+        distName.tarball = getLocalRegistryTarballUri(
+          distName.tarball,
+          pkg.name,
+          req,
+          urlPrefix
+        );
       }
     }
   }
@@ -153,14 +177,23 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: $Request,
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: $Request, urlPrefix: string | void) {
+export function getLocalRegistryTarballUri(
+  uri: string,
+  pkgName: string,
+  req: $Request,
+  urlPrefix: string | void
+) {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
     return uri;
   }
   const tarballName = extractTarballFromUrl(uri);
-  const domainRegistry = combineBaseUrl(getWebProtocol(req), req.headers.host, urlPrefix);
+  const domainRegistry = combineBaseUrl(
+    getWebProtocol(req),
+    req.headers.host,
+    urlPrefix
+  );
 
   return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
 }
@@ -227,7 +260,9 @@ function parse_address(urlAddress: any) {
   // TODO: refactor it to something more reasonable?
   //
   //        protocol :  //      (  host  )|(    ipv6     ):  port  /
-  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(urlAddress);
+  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(
+    urlAddress
+  );
 
   if (urlPattern) {
     return {
@@ -254,9 +289,10 @@ function parse_address(urlAddress: any) {
  * @return {Array} sorted Array
  */
 function semverSort(listVersions: Array<string>): string[] {
-  return listVersions.filter(function(x) {
+  return listVersions
+    .filter(function(x) {
       if (!semver.parse(x, true)) {
-        Logger.logger.warn( {ver: x}, 'ignoring bad version @{ver}' );
+        Logger.logger.warn({ver: x}, 'ignoring bad version @{ver}');
         return false;
       }
       return true;
@@ -275,7 +311,7 @@ export function normalizeDistTags(pkg: Package) {
     // overwrite latest with highest known version based on semver sort
     sorted = semverSort(Object.keys(pkg.versions));
     if (sorted && sorted.length) {
-        pkg[DIST_TAGS].latest = sorted.pop();
+      pkg[DIST_TAGS].latest = sorted.pop();
     }
   }
 
@@ -286,13 +322,13 @@ export function normalizeDistTags(pkg: Package) {
         // $FlowFixMe
         sorted = semverSort(pkg[DIST_TAGS][tag]);
         if (sorted.length) {
-            // use highest version based on semver sort
-            pkg[DIST_TAGS][tag] = sorted.pop();
+          // use highest version based on semver sort
+          pkg[DIST_TAGS][tag] = sorted.pop();
         }
       } else {
         delete pkg[DIST_TAGS][tag];
       }
-    } else if (_.isString(pkg[DIST_TAGS][tag] )) {
+    } else if (_.isString(pkg[DIST_TAGS][tag])) {
       if (!semver.parse(pkg[DIST_TAGS][tag], true)) {
         // if the version is invalid, delete the dist-tag entry
         delete pkg[DIST_TAGS][tag];
@@ -305,12 +341,12 @@ const parseIntervalTable = {
   '': 1000,
   ms: 1,
   s: 1000,
-  m: 60*1000,
-  h: 60*60*1000,
+  m: 60 * 1000,
+  h: 60 * 60 * 1000,
   d: 86400000,
-  w: 7*86400000,
-  M: 30*86400000,
-  y: 365*86400000,
+  w: 7 * 86400000,
+  M: 30 * 86400000,
+  y: 365 * 86400000,
 };
 
 /**
@@ -319,7 +355,7 @@ const parseIntervalTable = {
  * @return {Number}
  */
 function parseInterval(interval: any) {
-  if (typeof(interval) === 'number') {
+  if (typeof interval === 'number') {
     return interval * 1000;
   }
   let result = 0;
@@ -327,9 +363,11 @@ function parseInterval(interval: any) {
   interval.split(/\s+/).forEach(function(x) {
     if (!x) return;
     let m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
-    if (!m
-      || parseIntervalTable[m[4]] >= last_suffix
-      || (m[4] === '' && last_suffix !== Infinity)) {
+    if (
+      !m ||
+      parseIntervalTable[m[4]] >= last_suffix ||
+      (m[4] === '' && last_suffix !== Infinity)
+    ) {
       throw Error('invalid interval: ' + interval);
     }
     last_suffix = parseIntervalTable[m[4]];
@@ -362,24 +400,31 @@ const ErrorCode = {
     return createError(HTTP_STATUS.BAD_REQUEST, customMessage);
   },
   getInternalError: (customMessage?: string) => {
-    return customMessage ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
+    return customMessage
+      ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
       : createError(HTTP_STATUS.INTERNAL_ERROR);
   },
   getForbidden: (message: string = 'can\'t use this filename') => {
     return createError(HTTP_STATUS.FORBIDDEN, message);
   },
-  getServiceUnavailable: (message: string = 'resource temporarily unavailable') => {
+  getServiceUnavailable: (
+    message: string = API_ERROR.RESOURCE_UNAVAILABLE
+  ) => {
     return createError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
   },
   getNotFound: (customMessage?: string) => {
-    return createError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
+    return createError(
+      HTTP_STATUS.NOT_FOUND,
+      customMessage || API_ERROR.NO_PACKAGE
+    );
   },
   getCode: (statusCode: number, customMessage: string) => {
     return createError(statusCode, customMessage);
   },
 };
 
-const parseConfigFile = (configPath: string) => YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
+const parseConfigFile = (configPath: string) =>
+  YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
 
 /**
  * Check whether the path already exist.
@@ -431,28 +476,42 @@ function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
   return objectItem;
 }
 
-function addGravatarSupport(pkgInfo: any) {
-  if (_.isString(_.get(pkgInfo, 'latest.author.email'))) {
-    pkgInfo.latest.author.avatar = generateGravatarUrl(pkgInfo.latest.author.email);
-  } else {
-    // _.get can't guarantee author property exist
-    _.set(pkgInfo, 'latest.author.avatar', generateGravatarUrl());
+function addGravatarSupport(pkgInfo: Object): Object {
+  const pkgInfoCopy = {...pkgInfo};
+  const author = _.get(pkgInfo, 'latest.author', null);
+  const contributors = _.get(pkgInfo, 'latest.contributors', []);
+  const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
+
+  // for author.
+  if (author && _.isObject(author)) {
+    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(author.email);
   }
 
-  if (_.get(pkgInfo, 'latest.contributors.length', 0) > 0) {
-    pkgInfo.latest.contributors = _.map(pkgInfo.latest.contributors, (contributor) => {
-        if (_.isString(contributor.email)) {
-          contributor.avatar = generateGravatarUrl(contributor.email);
-        } else {
-          contributor.avatar = generateGravatarUrl();
-        }
-
-        return contributor;
-      }
-    );
+  if (author && _.isString(author)) {
+    pkgInfoCopy.latest.author = {
+      avatar: generateGravatarUrl(),
+      email: '',
+      author,
+    };
   }
 
-  return pkgInfo;
+  // for contributors
+  if (_.isEmpty(contributors) === false) {
+    pkgInfoCopy.latest.contributors = contributors.map((contributor) => {
+      contributor.avatar = generateGravatarUrl(contributor.email);
+      return contributor;
+    });
+  }
+
+  // for maintainers
+  if (_.isEmpty(maintainers) === false) {
+    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer) => {
+      maintainer.avatar = generateGravatarUrl(maintainer.email);
+      return maintainer;
+    });
+  }
+
+  return pkgInfoCopy;
 }
 
 /**
@@ -467,7 +526,10 @@ function parseReadme(packageName: string, readme: string): string {
   // asciidoc
   if (docTypeIdentifier.test(readme)) {
     const ascii = asciidoctor();
-    return ascii.convert(readme, {safe: 'safe', attributes: {showtitle: true, icons: 'font'}});
+    return ascii.convert(readme, {
+      safe: 'safe',
+      attributes: {showtitle: true, icons: 'font'},
+    });
   }
 
   if (readme) {

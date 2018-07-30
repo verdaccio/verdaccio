@@ -1,8 +1,8 @@
 {
-  "name": "npm_test",
+  "name": "change-package",
   "versions": {
     "1.0.1": {
-      "name": "npm_test",
+      "name": "change-package",
       "version": "1.0.1",
       "description": "",
       "main": "index.js",
@@ -20,7 +20,7 @@
       ],
       "author": "",
       "license": "ISC",
-      "_id": "npm_test@1.0.0",
+      "_id": "change-package@1.0.0",
       "_npmVersion": "5.5.1",
       "_nodeVersion": "9.3.0",
       "_npmUser": {
@@ -29,7 +29,7 @@
       "dist": {
         "integrity": "sha512-tfzM1OFjWwg2d2Wke\/DV6icjeTZUVOZYLkbf8wmONRSAgMovL\/F+zyI24OhTtWyOXd1Kbj2YUMBvLpmpAjv8zg==",
         "shasum": "3e4e6bd5097b295e520b947c9be3259a9509a673",
-        "tarball": "http:\/\/localhost:4873\/npm_test\/-\/npm_test-1.0.1.tgz"
+        "tarball": "http:\/\/localhost:4873\/change-package\/-\/change-package-1.0.1.tgz"
       }
     }
   },

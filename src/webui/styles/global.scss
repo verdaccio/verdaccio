@@ -1,22 +1,11 @@
-@import "variable";
-
-body {
-  font-family: $font;
-  font-size: 12px;
-  color: $text-black;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+@import "variables";
+@import "mixins";
 
 :global {
   .container {
     margin-top: $space-lg;
 
-    @include container-size();
+    @include container-size;
 
     .el-loading-spinner {
       margin-top: 0 !important;
@@ -43,6 +32,6 @@ ul {
   }
 
   .el-dialog__headerbtn:hover .el-dialog__close {
-    color: $text-black;
+    color: $eclipse;
   }
 }
