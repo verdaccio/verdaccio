@@ -56,7 +56,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 如果您已经用 `verdaccio`作为最后参数[在本地创建一个镜像](#build-your-own-docker-image)。
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+您可以用 `-v`来绑定安装 `conf`, `storage` 和`plugins`到主机文件系统中:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -68,15 +68,15 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 > 请注意：Verdaccio 在容器内是作为non-root 用户端 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户端。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷（volume)](https://docs.docker.com/storage/volumes/)来替代绑定安装。
 
-### Plugins
+### 插件
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+插件可以在单独的目录里安装，并用Docker或者Kubernetes挂载，然而，请确保使用与Verdaccio Dockerfile相同的基镜像的本地依赖项来创建插件。
 
-### Docker and custom port configuration
+### Docker和自定义端口配置
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+任何在 `listen`下的`conf/config.yaml` 里配置的`host:port` 目前在使用docker时都将被忽略。
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+如果您希望在不同的端口获得verdaccio docker instance，比如 `docker run` 命令里的`5000`，请用 `-p 5000:4873`来取代`-p 4873:4873` 。
 
 In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
 
