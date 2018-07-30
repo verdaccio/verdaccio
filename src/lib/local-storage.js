@@ -269,12 +269,12 @@ class LocalStorage implements IStorage {
 
   /**
    * Merge a new list of tags for a local packages with the existing one.
-   * @param {*} name
+   * @param {*} pkgName
    * @param {*} tags
    * @param {*} callback
    */
-  mergeTags(name: string, tags: MergeTags, callback: Callback) {
-    this._updatePackage(name, (data, cb) => {
+  mergeTags(pkgName: string, tags: MergeTags, callback: Callback) {
+    this._updatePackage(pkgName, (data, cb) => {
       /* eslint guard-for-in: 0 */
       for (let tag: string in tags) {
         // this handle dist-tag rm command
@@ -315,34 +315,35 @@ class LocalStorage implements IStorage {
    * Update the package metadata, tags and attachments (tarballs).
    * Note: Currently supports unpublishing only.
    * @param {*} name
-   * @param {*} pkg
+   * @param {*} incomingPkg
    * @param {*} revision
    * @param {*} callback
    * @return {Function}
    */
   changePackage(name: string,
-                pkg: Package,
+                incomingPkg: Package,
                 revision?: string, callback: Callback) {
-    if (!isObject(pkg.versions) || !isObject(pkg[DIST_TAGS])) {
+    if (!isObject(incomingPkg.versions) || !isObject(incomingPkg[DIST_TAGS])) {
       return callback( ErrorCode.getBadData());
     }
 
-    this._updatePackage(name, (jsonData, cb) => {
-      for (let ver in jsonData.versions) {
-        if (_.isNil(pkg.versions[ver])) {
-          this.logger.info( {name: name, version: ver}, 'unpublishing @{name}@@{version}');
+    this._updatePackage(name, (localData, cb) => {
+      for (let version in localData.versions) {
+        if (_.isNil(incomingPkg.versions[version])) {
+          this.logger.info( {name: name, version: version}, 'unpublishing @{name}@@{version}');
 
-          delete jsonData.versions[ver];
+          delete localData.versions[version];
+          delete localData.time[version];
 
-          for (let file in jsonData._attachments) {
-            if (jsonData._attachments[file].version === ver) {
-              delete jsonData._attachments[file].version;
+          for (let file in localData._attachments) {
+            if (localData._attachments[file].version === version) {
+              delete localData._attachments[file].version;
             }
           }
         }
       }
 
-      jsonData[DIST_TAGS] = pkg[DIST_TAGS];
+      localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
       cb();
     }, function(err) {
       if (err) {
@@ -600,11 +601,11 @@ class LocalStorage implements IStorage {
 
   /**
    * Retrieve a wrapper that provide access to the package location.
-   * @param {Object} packageInfo package name.
+   * @param {Object} pkgName package name.
    * @return {Object}
    */
-  _getLocalStorage(packageInfo: string): IPackageStorage {
-    return this.localData.getPackageStorage(packageInfo);
+  _getLocalStorage(pkgName: string): IPackageStorage {
+    return this.localData.getPackageStorage(pkgName);
   }
 
   /**
@@ -666,21 +667,21 @@ class LocalStorage implements IStorage {
 
   /**
    * Retrieve either a previous created local package or a boilerplate.
-   * @param {*} name
+   * @param {*} pkgName
    * @param {*} callback
    * @return {Function}
    */
-  _readCreatePackage(name: string, callback: Callback) {
-    const storage: any = this._getLocalStorage(name);
+  _readCreatePackage(pkgName: string, callback: Callback) {
+    const storage: any = this._getLocalStorage(pkgName);
     if (_.isNil(storage)) {
-      return this._createNewPackage(name, callback);
+      return this._createNewPackage(pkgName, callback);
     }
 
-    storage.readPackage(name, (err, data) => {
+    storage.readPackage(pkgName, (err, data) => {
       // TODO: race condition
       if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
-          data = generatePackageTemplate(name);
+          data = generatePackageTemplate(pkgName);
         } else {
           return callback(this._internalError(err, pkgFileName, 'error reading'));
         }

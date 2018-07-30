@@ -7,13 +7,16 @@ import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 import classes from './style.scss';
 
+export const NO_DEPENDENCIES = 'Zero Dependencies!';
+export const DEP_ITEM_CLASS = 'dependency-item';
+
 const renderDependenciesList = (dependencies, dependenciesList) => {
   return (
     <ul>
       {dependenciesList.map((dependenceName, index) => {
         return (
           <li
-            className="dependency-item"
+            className={DEP_ITEM_CLASS}
             key={index}
             title={`Depend on version: ${dependencies[dependenceName]}`}
           >
@@ -30,10 +33,10 @@ const Dependencies = ({dependencies = {}}) => {
   const dependenciesList = Object.keys(dependencies);
   return (
     <Module title="Dependencies" className={classes.dependenciesModule}>
-      {dependenciesList.length > 1 ? (
+      {dependenciesList.length > 0 ? (
         renderDependenciesList(dependencies, dependenciesList)
       ) : (
-        <ModuleContentPlaceholder text="Zero Dependencies!" />
+        <ModuleContentPlaceholder text={NO_DEPENDENCIES} />
       )}
     </Module>
   );

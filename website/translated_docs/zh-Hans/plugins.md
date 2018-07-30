@@ -2,9 +2,9 @@
 id: plugins
 title: "插件"
 ---
-Verdaccio是一个可插拔的应用程序。它可以通过多种方式进行扩展，例如新的认证方法，添加endpoints，或者使用自定义存储。
+Verdaccio是一个可插入式应用程序。它可以通过多种方式扩展，可以是新的认证方法，添加端点或者使用定制存储。
 
-> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
+> 如果您感兴趣开发自己的插件，请阅读[开发](dev-plugins.md)模块。
 
 ## 用法
 
@@ -68,6 +68,8 @@ middlewares:
     enabled: true
 ```
 
+> 您可以跟着[audit middle plugin（审核中间插件）](https://github.com/verdaccio/verdaccio-audit)的基本范例。
+
 ### 存储插件配置
 
 这是一个如何设置存储插件的示例。所有的存储插件必须在**store**命名空间进行定义。
@@ -78,7 +80,7 @@ store:
     limit: 1000
 ```
 
-> 如果你定义一个自定义存储，配置文件中的**storage**属性将会被忽略。
+> 如果您定义定制存储，配置文件中的**存储**属性将会被忽略。
 
 ## 旧式插件
 
@@ -104,7 +106,7 @@ store:
 * [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap)：sinopia LDAP认证插件。
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env)：基于github oauth web flow的Sinopia认证插件。
 
-> 所有的sinopia插件都应该和verdaccio的未来版本兼容。 无论如何，我们鼓励贡献者将它们迁移到最新的verdaccio API并且使用*verdaccio-xx-name*格式的前缀。
+> 所有sinopia 插件都应该和所有verdaccio将来版本兼容。 无论如何，我们鼓励贡献者们迁移到 modern verdaccio API并使用 *verdaccio-xx-name*为前缀。
 
 ## Verdaccio插件
 
@@ -117,7 +119,7 @@ store:
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory)：verdaccio Active Directory认证插件
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab)：使用Gitlab的Personal Access Token进行认证
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd)：基于(内置)htpasswd文件插件的verdaccio认证插件
-* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
+* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): verdaccio 的Github oauth认证插件。
 
 ### 中间件插件
 
@@ -135,4 +137,4 @@ store:
 
 ## 警告
 
-> 并不是所有这些插件都被持续测试过，其中有些可能不能正常工作。如果你发现任何问题，请和插件的所有者联系。
+> 并不是所有这些插件都被持续测试过，其中有些可能根本无法正常工作。 如果您发现任何问题，请随时通知每个插件的所有者。

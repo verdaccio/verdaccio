@@ -1,7 +1,7 @@
 FROM node:10.3-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
-RUN apk --no-cache add openssl && \
+RUN apk --no-cache add wget openssl && \
     wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
     chmod +x /usr/local/bin/dumb-init && \
     apk del openssl && \

@@ -1,12 +1,12 @@
 ---
-id: protect-your-dependencies
-title: "Protecting packages"
+id: protect-your-dependencies（保护-依赖项）
+title: "保护包"
 ---
-`verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
+`verdaccio` 允许发布保护，为了要使用此功能，您将需要正确设置[包访问权限](packages)。
 
-### Package configuration
+### 包配置
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+例如，让我们一起来看以下设置。 您有一组前缀为`my-company-*`的依赖项，您要保护它们不让匿名或另一个没有正确证书的已登录用户使用。
 
 ```yaml
   'my-company-*':
@@ -15,18 +15,18 @@ Let's see for instance the following set up. You have a set of dependencies what
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to * publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+通过此配置，大体上上我们允许**admin** 和**teamA** 团队来 *发布*，同时**teamA** **teamB** **teamC** *可访问* 这些依赖项。
 
-### Use case: teamD try to access the dependency
+### 用例：teamD试着访问此依赖项
 
-So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
+因此，如果我以**teamD**身份登录。我应该无法访问匹配`my-company-*` pattern的所有依赖项。
 
 ```bash
 ➜ npm whoami
 teamD
 ```
 
-I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
+我无法访问此类依赖项，并且在网页上也不会被用户 **teamD**看到。如果我试着访问，结果如下。
 
 ```bash
 ➜ npm install my-company-core
@@ -34,12 +34,12 @@ npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
-or with `yarn`
+或者用`yarn`
 
 ```bash
 ➜ yarn add my-company-core
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
+错误出现意外错误: "http://localhost:5555/webpack-1: 不允许未注册用户访问my-company-core包"。
 ```
