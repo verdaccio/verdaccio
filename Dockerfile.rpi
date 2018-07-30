@@ -6,8 +6,11 @@ WORKDIR /verdaccio
 
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
 
-EXPOSE 4873
+ENV VERDACCIO_PORT 4873
+ENV VERDACCIO_PROTOCOL http
+
+EXPOSE $VERDACCIO_PORT
 
 VOLUME ["/verdaccio/conf", "/verdaccio/storage"]
 
-CMD ["/usr/src/app/bin/verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:4873"]
+CMD ["/usr/src/app/bin/verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "0.0.0.0:$VERDACCIO_PORT"]

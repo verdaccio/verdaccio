@@ -93,10 +93,10 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   return false;
 }
 
-export function getMatchedPackagesSpec(pkg: string, packages: PackageList): MatchedPackage {
+export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): MatchedPackage {
   for (let i in packages) {
     // $FlowFixMe
-    if (minimatch.makeRe(i).exec(pkg)) {
+    if (minimatch.makeRe(i).exec(pkgName)) {
       return packages[i];
     }
   }

@@ -1,7 +1,8 @@
-@import '../../styles/variable';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .twoColumn {
-  @include container-size();
+  @include container-size;
   margin: auto 10px;
   display: flex;
 

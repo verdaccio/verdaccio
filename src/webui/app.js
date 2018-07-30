@@ -7,13 +7,13 @@ i18n.use(locale);
 
 import Route from './router';
 
-import './styles/global.scss';
+import './styles/main.scss';
 import 'normalize.css';
 
 export default class App extends React.Component {
   render() {
     return (
-        <Route/>
+      <Route />
     );
   }
 }
