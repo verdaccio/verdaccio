@@ -124,7 +124,7 @@ max_body_size: 10mb
 
 ### 监听端口
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` 默认在`4873`端口运行。可以通过[cli](cli.md) 或者在配置文件里更改端口，以下选项有效。
 
 ```yaml
 listen:
@@ -138,7 +138,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+要在 `verdaccio`启用`https`，只要用 *https://*协议来设置`listen` 标志。 如需了解更多关于此章节的信息，请阅读 [ssl page（页面）](ssl.md)。
 
 ```yaml
 https:
@@ -149,11 +149,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxy是专门把数据从远程服务器传输到本地客户端的HTTP 服务器。
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+如果您的网络里有proxy，您可以用以下属性设置`X-Forwarded-For` 页眉。
 
 ```yaml
 http_proxy: http://something.local/
@@ -162,13 +162,13 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+此变量应该包含一个proxy 本不应该用的以逗号分开的域名扩展列表。
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### 通知
 
 Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
