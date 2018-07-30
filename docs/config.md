@@ -70,6 +70,7 @@ web:
   enable: true
   title: Verdaccio
   logo: logo.png
+  scope:
 ```
 
 ### Uplinks

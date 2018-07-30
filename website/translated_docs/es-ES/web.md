@@ -13,7 +13,6 @@ web:
   enable: true
   title: Verdaccio
   logo: logo.png
-  scope:
 ```
 
 All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
@@ -25,4 +24,3 @@ All access restrictions defined to [protect your packages](protect-your-dependen
 | enable    | boolean | No        | true/false                     | all     | habilita la interfaz web             |
 | title     | string  | No        | Verdaccio                      | all     | El título de la interfaz web         |
 | logo      | string  | No        | http://my.logo.domain/logo.png | all     | el URI donde el logo esta localizado |
-| scope     | string  | No        | \\@myscopy                     | all     | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header (note: escape @ with \\@) |
