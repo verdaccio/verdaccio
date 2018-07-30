@@ -47,4 +47,4 @@ VOLUME ["/verdaccio"]
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 
-CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://${VERDACCIO_LISTEN}:${VERDACCIO_PORT}
+CMD $APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_LISTEN:$VERDACCIO_PORT
