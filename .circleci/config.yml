@@ -148,6 +148,15 @@ jobs:
           name: Test End-to-End
           command: yarn run test:e2e
 
+  test_size:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test size
+          command: yarn test:size
+
   coverage:
     <<: *defaults
     <<: *default_executor
@@ -218,6 +227,10 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
+      - test_size:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
       - coverage:
           requires:
             - test_node6
@@ -225,6 +238,7 @@ workflows:
             - test_node9
             - test_node10
             - test_e2e
+            - test_size
           <<: *ignore_non_dev_branches
       - publish_gh_pages:
           requires:
@@ -233,6 +247,7 @@ workflows:
             - test_node9
             - test_node10
             - test_e2e
+            - test_size
           <<: *execute_on_release
       - publish_package:
           requires:
