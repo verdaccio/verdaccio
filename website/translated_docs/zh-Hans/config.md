@@ -83,7 +83,7 @@ uplinks:
 
 ### 包
 
-包让用户控制访问包的权限。如需了解更多关于此章节的信息，请阅读[packages page（包页面）](packages.md)。
+包让用户控制访问包的权限。有关更多此章节的详细信息，请阅读[packages page（包页面）](packages.md)。
 
 ```yaml
 packages:
@@ -138,7 +138,7 @@ listen:
 
 ### HTTPS
 
-要在 `verdaccio`启用`https`，只要用 *https://*协议来设置`listen` 标志。 如需了解更多关于此章节的信息，请阅读 [ssl page（页面）](ssl.md)。
+要在 `verdaccio`启用`https`，只要用 *https://*协议来设置`listen` 标志。 有关更多此章节的详细信息，请阅读 [ssl page](ssl.md)。
 
 ```yaml
 https:
@@ -162,7 +162,7 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-此变量应该包含一个proxy 本不应该用的以逗号分开的域名扩展列表。
+此变量应该包含一个proxy 本不应该用到的以逗号分开的域名扩展列表。
 
 ```yaml
 no_proxy: localhost,127.0.0.1
@@ -170,7 +170,7 @@ no_proxy: localhost,127.0.0.1
 
 ### 通知
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+通过web hooks来启用第三方工具通知是很容易的。有关更多此章节的详细信息，请阅读 [notifications page（通知页面）](notifications.md)。
 
 ```yaml
 notify:
@@ -182,11 +182,11 @@ notify:
 
 > 有关更多配置设置的详细信息，请[核对源代码](https://github.com/verdaccio/verdaccio/tree/master/conf)。
 
-### Audit
+### 审核
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0)一起发布的新命令。Verdaccio 包含一个内置的middleware plugin(中间插件）来处理此命令。
 
 > 新安装采用默认版本，但是您可以添加以下代码段到配置文件中
 
