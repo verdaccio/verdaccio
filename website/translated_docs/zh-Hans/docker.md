@@ -80,7 +80,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 从版本2.?.? 开始, 假如您需要指定**docker 容器**内的监听端口， 您可以通过提供额外的参数给`docker run`: `--env PORT=5000`来达成。这将更改docker容器显示的端口以及verdaccio监听的端口。
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+当然您给出的`-p`参数数字必须吻合，因此，假设您希望它们全部都一样，这是您需要复制，黏贴和采用的代码：
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -88,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### HTTPS与Docker一同使用
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+您可以配置 verdaccio 要监听的协议，类似于端口配置。 在 config.yaml里指定证书后，您必须用"https"覆盖`PROTOCOL` 环境变量中的默认值("http")。
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,7 +98,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### 使用docker-compose
 
 1. 获取[docker-compose](https://github.com/docker/compose)的最新版本。
 2. 创建并运行容器：
