@@ -8,8 +8,7 @@ First of all saltar en un código desconocido no es tarea fácil, pero estamos a
 
 Si estas deseando por hacer preguntas, nosotros tenemos dos canales para discusiones:
 
-* [Canal público en Gitter](https://gitter.im/verdaccio/)
-* [Canal Slack para Colaboradores](https://verdaccio-npm.slack.com)(desafortunadamente solo se puede entrar bajo petición por correo electrónico, si estas interesado (es en ingles) puedes preguntar en Gitter para ser incluido.
+* [Public Discord channel](http://chat.verdaccio.org/)
 
 ## Empezando
 
