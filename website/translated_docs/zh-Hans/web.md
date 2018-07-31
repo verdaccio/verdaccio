@@ -20,9 +20,9 @@ web:
 
 ### 配置
 
-| 属性     | 类型      | 必填 | 范例                             | 支持  | 描述                                                                                                                                                   |
-| ------ | ------- | -- | ------------------------------ | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| enable | boolean | No | true/false                     | all | 允许显示网页界面                                                                                                                                             |
-| title  | string  | No | Verdaccio                      | all | HTML 页眉标题说明                                                                                                                                          |
-| logo   | string  | No | http://my.logo.domain/logo.png | all | logo 位于的URI                                                                                                                                          |
-| scope  | string  | No | \\@myscope                   | all | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header (note: escape @ with \\@) |
+| 属性     | 类型      | 必填 | 范例                             | 支持  | 描述                                                                    |
+| ------ | ------- | -- | ------------------------------ | --- | --------------------------------------------------------------------- |
+| enable | boolean | No | true/false                     | all | 允许显示网页界面                                                              |
+| title  | string  | No | Verdaccio                      | all | HTML 页眉标题说明                                                           |
+| logo   | string  | No | http://my.logo.domain/logo.png | all | logo 位于的URI                                                           |
+| scope  | string  | No | \\@myscope                   | all | 如果要为特定模块作用域使用此registry，请指定该作用域，在webui指南页眉内设置它（注释：escape @ with \\@) |
