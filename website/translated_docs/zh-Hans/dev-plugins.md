@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+其中`htpasswd` 是插件名称，例如：`verdaccio-htpasswd` 的后缀。剩下的组成部分是插件配置的参数。
 
 ## Middleware Plugin（Middleware 插件）
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Middleware 插件有修改API 接口的能力，它可以添加新的端点或者拦截请求。
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,9 +104,9 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+此方法通过`auth`和`storage`提供完全认证访问。`app` 是可以让您添加新端点的表达应用程序。
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Middleware插件的一个很好的例子是[sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) 和 [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)。
 
 ### API
 
