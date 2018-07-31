@@ -174,15 +174,15 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> 存储API 仍然还在实验阶段，并在接下来的小版本中可能会有修改。 更多有关存储API 的详细信息，请跟随[类型 我们官方资源库里的定义](https://github.com/verdaccio/flow-types)。
 
-### Storage Plugins Examples
+### 存储插件示例
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+以下插件列表执行存储API，可以被用作示例。
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> 您是否愿意为新存储插件做出贡献？[请点击此处。](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
