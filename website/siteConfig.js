@@ -48,7 +48,14 @@ const users = [
     infoLink: "https://strapi.io/",
     fbOpenSource: false,
     pinned: true,
-  }
+  },
+  {
+    caption: "Innovaccer",
+    image: "/img/users/innovaccer.png",
+    infoLink: "http://innovaccer.com/",
+    fbOpenSource: false,
+    pinned: true,
+  },
 ];
 
 const siteConfig = {
