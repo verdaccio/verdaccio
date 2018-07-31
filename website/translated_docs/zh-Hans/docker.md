@@ -136,19 +136,19 @@ docker build -t verdaccio .
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+请注意：第一个镜像的创建要花费几分钟时间，因为它需要运行`npm install`，而且，当您任何时候更改任何没有列在`.dockerignore`里的文件，它也需要运行那么长的时间。
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+如果您希望在rpi或兼容设备上使用docker镜像，也有现成的dockerfile。要创建 raspberry pi（树莓派）的docker镜像，请执行：
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+请注意，您需要在您的机台上安装 docker 来执行以上任何docker命令， docker 执行项应该在您的`$PATH`里。
 
 ## Docker示例
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+有个分开的 repository（资源库）承载多个配置来用 `verdaccio`生成Docker镜像，例如，reverse proxy（反向代理服务器）:
 
 <https://github.com/verdaccio/docker-examples>
 
