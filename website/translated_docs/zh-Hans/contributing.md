@@ -8,7 +8,7 @@ First of all 一头扎进不熟悉的代码库并不容易，但是我们会在�
 
 如果您想知道，我们使用两个频道进行讨论：
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [公共Discord频道](http://chat.verdaccio.org/)
 
 ## 开始
 
