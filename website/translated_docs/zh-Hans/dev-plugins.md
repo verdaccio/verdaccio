@@ -12,7 +12,7 @@ title: "插件开发"
 
 ## Authentication Plugin（认证插件）
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+基本上我们必须用一个叫做`authenticate`的单一方法来返回一个object（对象），此方法将接收到3 个参数(`user, password, callback`)。
 
 ### API
 
@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> 仅 `adduser`, `allow_access` 和`allow_publish` 是可选的，verdaccio 在所有这些例子里提供后退。
 
-#### Callback
+#### 回调
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+一旦执行了认证，有两个选项来回应 `verdaccio`。
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+要么是发生了糟糕的事，要么是授权不成功。
 
 ```flow
 callback(null, false)
@@ -42,9 +42,9 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+授权成功
 
-`groups` is an array of strings where the user is part of.
+`groups`是用户组成的一组字符串。
 
      callback(null, groups);
     
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+配置将如下所示：
 
 ```yaml
 auth:
