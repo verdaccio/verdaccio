@@ -8,8 +8,7 @@ First of all Jumping into an unfamiliar code base is not easy but we are here to
 
 Se você quiser fazer perguntas, nós usamos dois canais para discussões:
 
-* [Canal público no Gitter](https://gitter.im/verdaccio/)
-* [Canal do Slack para Contribuidores](https://verdaccio-npm.slack.com) (você precisa de um convite para entrar, tente pedir um em nosso canal do **Gitter**)
+* [Public Discord channel](http://chat.verdaccio.org/)
 
 ## Como Começar
 
