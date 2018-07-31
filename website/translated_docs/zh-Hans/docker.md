@@ -107,9 +107,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+把`PORT=5000`作为以上命令的前缀来设置要使用（容器和主机二者）的端口。
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker将生成一个named volume（命名卷），它用于存储持续应用程序数据。 您可以使用`docker inspect` 或者 `docker volume inspect` 来查看此volume（卷）的物理位置并编辑配置，比如：
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -130,7 +130,7 @@ Docker will generate a named volume in which to store persistent application dat
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+还有一个创建docker image（镜像）的npm脚本，因此您还可以执行以下操作：
 
 ```bash
 npm run build:docker
