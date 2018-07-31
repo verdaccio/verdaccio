@@ -2,7 +2,7 @@
 id: node-api
 title: "Node API"
 ---
-Verdaccio can be invoqued programmatically. The node API was introduced after version `verdaccio@3.0.0-alpha.10`.
+Verdaccio 可以以编程方式调用。node API在版本`verdaccio@3.0.0-alpha.10`后被引入。
 
 ## 使用
 
