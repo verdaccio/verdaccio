@@ -172,15 +172,15 @@ export default class Header extends React.Component {
 
   render() {
     const registryURL = getRegistryURL();
-
+    const {logo, scope, loginError, showLogin} = this.state;
     return (
       <header className={classes.header}>
         <div className={classes.headerWrap}>
           <Link to="/">
-            <img src={this.state.logo} className={classes.logo} />
+            <img src={logo} className={classes.logo} />
           </Link>
           <figure>
-            npm set { this.state.scope }registry { registryURL }
+            npm set { scope }registry { registryURL }
             <br/>
             npm adduser --registry { registryURL }
           </figure>
@@ -193,16 +193,16 @@ export default class Header extends React.Component {
         <Dialog
           title="Login"
           size="tiny"
-          visible={this.state.showLogin}
+          visible={showLogin}
           onCancel={this.toggleLoginModal}
         >
           <Form className="login-form">
             <Dialog.Body>
-              {this.state.loginError && (
+              {loginError && (
                 <Alert
-                  title={this.state.loginError.title}
-                  type={this.state.loginError.type}
-                  description={this.state.loginError.description}
+                  title={loginError.title}
+                  type={loginError.type}
+                  description={loginError.description}
                   showIcon={true}
                   closable={false}
                 />
