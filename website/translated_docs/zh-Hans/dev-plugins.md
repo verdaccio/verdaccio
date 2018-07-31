@@ -116,15 +116,15 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+要注册middleware，我们需要一个object（对象）以及一个可以接收3 个参数(`expressApp, auth, storage`)，名叫 `register_middlewares`的单一方法。 *Auth*是authentification instance，*storage* 也是主Storage instance，它将让您可以访问到所有存储操作。
 
 ## Storage Plugin（存储插件）
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
+Verdaccio 默认使用文件系统存储插件[local-storage](https://github.com/verdaccio/local-storage), 但是，从`verdaccio@3.x` 开始，您可以插入定制存储来取代默认的行为。
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+存储API 更复杂一些，您将需要创建一个可以返回`IPluginStorage`执行的class（类）。请参阅以下详细信息。
 
 ```flow
 class LocalDatabase<IPluginStorage>{
