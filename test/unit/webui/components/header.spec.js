@@ -28,6 +28,7 @@ describe('<Header /> component shallow', () => {
       username: '',
       password: '',
       logo: '',
+      scope: '',
       loginError: null
     };
     const HeaderWrapper = wrapper.find(Header).dive();

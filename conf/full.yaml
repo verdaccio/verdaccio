@@ -9,7 +9,11 @@ web:
 
   title: Verdaccio
 
-  # logo: logo.png
+  #logo: logo.png
+
+  # If you're using this registry for a specific module scope,
+  # specify that scope to set it in the webui instructions header (note: escape @ with \@)
+  #scope: \@myscope
 
 auth:
   htpasswd:

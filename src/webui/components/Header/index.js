@@ -21,8 +21,9 @@ export default class Header extends React.Component {
     username: '',
     password: '',
     logo: '',
-    loginError: null
-  }
+    loginError: null,
+    scope: (window.VERDACCIO_SCOPE) ? `${window.VERDACCIO_SCOPE}:` : ''
+  };
 
   constructor(props) {
     super(props);
@@ -158,7 +159,7 @@ export default class Header extends React.Component {
             <img src={ this.state.logo } className={ classes.logo } />
           </Link>
           <figure>
-            npm set registry { registryURL }
+            npm set { this.state.scope }registry { registryURL }
             <br/>
             npm adduser --registry { registryURL }
           </figure>
