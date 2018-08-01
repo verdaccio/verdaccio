@@ -26,7 +26,7 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> 仅 `adduser`, `allow_access` 和`allow_publish` 是可选的，verdaccio 在所有这些例子里提供后退。
+> 仅 `adduser`, `allow_access` 和`allow_publish` 是可选的，verdaccio 在所有这些例子里提供后退功能。
 
 #### 回调
 
