@@ -17,6 +17,7 @@ plugins: /verdaccio/plugins
 
 web:
   # WebUI is enabled as default, if you want disable it, just uncomment this line
+  #enable: false
   title: Verdaccio
 
 auth:
