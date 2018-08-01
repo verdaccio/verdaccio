@@ -14,7 +14,6 @@ import {HEADERS} from '../../../lib/constants';
 import classes from './header.scss';
 import './logo.png';
 
-
 export default class Header extends React.Component {
   state = {
     showLogin: false,
@@ -31,6 +30,7 @@ export default class Header extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.loadLogo = this.loadLogo.bind(this);
+    this.renderUserActionButton = this.renderUserActionButton.bind(this);
   }
 
   toggleLoginModal() {
@@ -63,11 +63,13 @@ export default class Header extends React.Component {
     event.preventDefault();
 
     if (this.state.username === '' || this.state.password === '') {
-      return this.setState({loginError: {
-        title: 'Unable to login',
-        type: 'error',
-        description: 'Username or password can\'t be empty!'
-      }});
+      return this.setState({
+        loginError: {
+          title: 'Unable to login',
+          type: 'error',
+          description: 'Username or password can\'t be empty!'
+        }
+      });
     }
 
     try {
@@ -119,8 +121,8 @@ export default class Header extends React.Component {
     if (!payload.exp || !isNumber(payload.exp)) {
       return true;
     }
-
-    const jsTimestamp = (payload.exp * 1000) - 30000; // Report as expire before (real expire time - 30s)
+    // Report as expire before (real expire time - 30s)
+    const jsTimestamp = payload.exp * 1000 - 30000;
     const expired = Date.now() >= jsTimestamp;
 
     if (expired) {
@@ -136,35 +138,54 @@ export default class Header extends React.Component {
   }
 
   renderUserActionButton() {
-    if (!this.isTokenExpire) { // TODO: Check jwt token expire
+    if (!this.isTokenExpire) {
+      // TODO: Check jwt token expire
       const username = capitalize(storage.getItem('username'));
       return (
         <div className="user-logged">
-          <span className="user-logged-greetings" style={{marginRight: '10px'}}>Hi, {username}</span>
-          <Button className={`${classes.headerButton} header-button-logout`} type="danger" onClick={this.handleLogout}>Logout</Button>
+          <span
+            className="user-logged-greetings"
+            style={{marginRight: '10px'}}
+          >
+            Hi, {username}
+          </span>
+          <Button
+            className={`${classes.headerButton} header-button-logout`}
+            type="danger"
+            onClick={this.handleLogout}
+          >
+            Logout
+          </Button>
         </div>
       );
     } else {
-      return <Button className={`${classes.headerButton} header-button-login`} onClick={ this.toggleLoginModal }>Login</Button>;
+      return (
+        <Button
+          className={`${classes.headerButton} header-button-login`}
+          onClick={this.toggleLoginModal}
+        >
+          Login
+        </Button>
+      );
     }
   }
 
   render() {
     const registryURL = getRegistryURL();
-
+    const {logo, scope, loginError, showLogin} = this.state;
     return (
-      <header className={ classes.header }>
-        <div className={ classes.headerWrap }>
+      <header className={classes.header}>
+        <div className={classes.headerWrap}>
           <Link to="/">
-            <img src={ this.state.logo } className={ classes.logo } />
+            <img src={logo} className={classes.logo} />
           </Link>
           <figure>
-            npm set { this.state.scope }registry { registryURL }
+            npm set { scope }registry { registryURL }
             <br/>
             npm adduser --registry { registryURL }
           </figure>
 
-          <div className={ classes.headerRight }>
+          <div className={classes.headerRight}>
             {this.renderUserActionButton()}
           </div>
         </div>
@@ -172,27 +193,47 @@ export default class Header extends React.Component {
         <Dialog
           title="Login"
           size="tiny"
-          visible={ this.state.showLogin }
-          onCancel={ () => this.toggleLoginModal() }
+          visible={showLogin}
+          onCancel={this.toggleLoginModal}
         >
           <Form className="login-form">
             <Dialog.Body>
-              { this.state.loginError &&
-              <Alert
-                title={this.state.loginError.title} type={this.state.loginError.type}
-                description={this.state.loginError.description} showIcon={true} closable={false}>
-              </Alert>
-              }
-              <br/>
-              <Input name="username" placeholder="Username" onChange={this.handleInput.bind(this, 'username')} />
-              <br/><br/>
-              <Input name="password" type="password" placeholder="Type your password" onChange={this.handleInput.bind(this, 'password')} />
+              {loginError && (
+                <Alert
+                  title={loginError.title}
+                  type={loginError.type}
+                  description={loginError.description}
+                  showIcon={true}
+                  closable={false}
+                />
+              )}
+              <br />
+              <Input
+                name="username"
+                placeholder="Username"
+                onChange={this.handleInput.bind(this, 'username')}
+              />
+              <br />
+              <br />
+              <Input
+                name="password"
+                type="password"
+                placeholder="Type your password"
+                onChange={this.handleInput.bind(this, 'password')}
+              />
             </Dialog.Body>
             <Dialog.Footer className="dialog-footer">
-              <Button onClick={ () => this.toggleLoginModal() } className="cancel-login-button">
+              <Button
+                onClick={this.toggleLoginModal}
+                className="cancel-login-button"
+              >
                 Cancel
               </Button>
-              <Button nativeType="submit" className="login-button" onClick={ this.handleSubmit }>
+              <Button
+                nativeType="submit"
+                className="login-button"
+                onClick={this.handleSubmit}
+              >
                 Login
               </Button>
             </Dialog.Footer>
