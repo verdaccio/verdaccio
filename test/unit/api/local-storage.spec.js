@@ -327,7 +327,7 @@ describe('LocalStorage', () => {
           stream.on('error', (err) => {
             expect(err).toBeNull();
             done();
-          });
+          });    
           stream.on('success', function() {
             done();
           });
@@ -342,14 +342,17 @@ describe('LocalStorage', () => {
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
-            expect(err.message).toMatch(/this package is already present/);
-            done();
+            expect(err.message).toMatch(/this package is already present/);           
           });
 
-          stream.on('success', function() {
-            done();
+          stream.on('success', function() { 
+            done.fail(new Error('The Success event should not be called on duplicated tarball'))
           });
-
+          stream.on('end', function() {            
+            setTimeout(function(){       
+              done();
+            },50);
+          });
           stream.end(new Buffer(tarballData.data, 'base64'));
           stream.done();
         });
