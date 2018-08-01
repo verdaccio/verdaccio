@@ -61,9 +61,9 @@ const users = [
 const siteConfig = {
   title: 'Verdaccio' /* title for your website */,
   tagline: 'Verdaccio · A lightweight private npm proxy registry',
-  url: 'http://www.verdaccio.org' /* your website url */,
+  url: 'https://verdaccio.org' /* your website url */,
   organizationName: 'verdaccio',
-  cname: 'www.verdaccio.org',
+  cname: 'verdaccio.org',
   noIndex: false,
   baseUrl: '/' /* base url for your project */,
   projectName: 'verdaccio',
@@ -93,10 +93,7 @@ const siteConfig = {
   },
   algolia: {
     apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
-    indexName: 'verdaccio',
-    algoliaOptions: {
-      facetFilters: ['language:LANGUAGE', 'version:VERSION'],
-    }
+    indexName: 'verdaccio'
   },
   gaTrackingId: 'UA-2527438-21',
   twitter: true,
