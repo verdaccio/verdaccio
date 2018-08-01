@@ -1,9 +1,10 @@
-FROM node:10.3-alpine as builder
+FROM node:10.7-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org/
 
 RUN apk --no-cache add openssl ca-certificates wget && \
+    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
     wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
     apk add glibc-2.25-r0.apk
@@ -21,7 +22,7 @@ RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
 
 
 
-FROM node:10.3-alpine
+FROM node:10.7-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
