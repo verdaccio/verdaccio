@@ -61,9 +61,9 @@ const users = [
 const siteConfig = {
   title: 'Verdaccio' /* title for your website */,
   tagline: 'Verdaccio · A lightweight private npm proxy registry',
-  url: 'http://www.verdaccio.org' /* your website url */,
+  url: 'https://verdaccio.org' /* your website url */,
   organizationName: 'verdaccio',
-  cname: 'www.verdaccio.org',
+  cname: 'verdaccio.org',
   noIndex: false,
   baseUrl: '/' /* base url for your project */,
   projectName: 'verdaccio',
