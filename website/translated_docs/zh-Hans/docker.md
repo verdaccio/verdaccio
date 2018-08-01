@@ -78,9 +78,9 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 如果您希望在不同的端口获得verdaccio docker instance，比如 `docker run` 命令里的`5000`，请用 `-p 5000:4873`来取代`-p 4873:4873` 。
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+从版本2.?.? 开始, 假如您需要指定**docker 容器**内的监听端口， 您可以通过提供额外的参数给`docker run`: `--env PORT=5000`来达成。这将更改docker容器显示的端口以及verdaccio监听的端口。
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+当然您给出的`-p`参数数字必须吻合，因此，假设您希望它们全部都一样，这是您需要复制，黏贴和采用的代码：
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -88,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### HTTPS与Docker一同使用
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+您可以配置 verdaccio 要监听的协议，类似于端口配置。 在 config.yaml里指定证书后，您必须用"https"覆盖`PROTOCOL` 环境变量中的默认值("http")。
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,7 +98,7 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### 使用docker-compose
 
 1. 获取[docker-compose](https://github.com/docker/compose)的最新版本。
 2. 创建并运行容器：
@@ -107,9 +107,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+把`PORT=5000`作为以上命令的前缀来设置要使用（容器和主机二者）的端口。
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker将生成一个named volume（命名卷），它用于存储持续应用程序数据。 您可以使用`docker inspect` 或者 `docker volume inspect` 来查看此volume（卷）的物理位置并编辑配置，比如：
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -130,25 +130,25 @@ Docker will generate a named volume in which to store persistent application dat
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+还有一个创建docker image（镜像）的npm脚本，因此您还可以执行以下操作：
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+请注意：第一个镜像的创建要花费几分钟时间，因为它需要运行`npm install`，而且，当您任何时候更改任何没有列在`.dockerignore`里的文件，它也需要运行那么长的时间。
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+如果您希望在rpi或兼容设备上使用docker镜像，也有现成的dockerfile。要创建 raspberry pi（树莓派）的docker镜像，请执行：
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+请注意，您需要在您的机台上安装 docker 来执行以上任何docker命令， docker 执行项应该在您的`$PATH`里。
 
 ## Docker示例
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+有个分开的 repository（资源库）承载多个配置来用 `verdaccio`生成Docker镜像，例如，reverse proxy（反向代理服务器）:
 
 <https://github.com/verdaccio/docker-examples>
 

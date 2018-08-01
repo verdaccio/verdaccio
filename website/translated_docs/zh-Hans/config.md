@@ -29,9 +29,9 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## 模块
+## 章节
 
-以下各模块解释了每个属性的含义以及不同的选项。
+以下各章节解释了每个属性的含义以及不同的选项。
 
 ### 存储
 
@@ -51,7 +51,7 @@ plugins: ./plugins
 
 ### 认证
 
-认证设置在这里完成，默认的授权是基于`htpasswd` 并且是内置的。 您可以通过[plugins](plugins.md)来修改此行为。 有关更多本模块的详细信息，请阅读[auth页面](auth.md)。
+认证设置在这里完成，默认的授权是基于`htpasswd` 并且是内置的。 您可以通过[plugins](plugins.md)来修改此行为。 有关更多本章节的详细信息，请阅读[auth页面](auth.md)。
 
 ```yaml
 auth:
@@ -62,18 +62,19 @@ auth:
 
 ### Web UI
 
-此属性让您可以修改此web UI的外观和感觉。有关更多本模块的详细信息，请阅读 [web ui页面](web.md)。
+此属性让您可以修改此web UI的外观和感觉。有关更多此章节的详细信息，请阅读 [web ui页面](web.md)。
 
 ```yaml
 web:
   enable: true
   title: Verdaccio
   logo: logo.png
+  scope:
 ```
 
 ### 上行链路
 
-当包不在本地的时候，上行链路可以让系统从远程的registry里获取这些包。 有关更多本模块的详细信息，请阅读[上行链路页面](uplinks.md)。
+当包不在本地的时候，上行链路可以让系统从远程的registry里获取这些包。 有关更多本章节的详细信息，请阅读[上行链路页面](uplinks.md)。
 
 ```yaml
 uplinks:
@@ -138,7 +139,7 @@ listen:
 
 ### HTTPS
 
-要在 `verdaccio`启用`https`，只要用 *https://*协议来设置`listen` 标志。 有关更多本模块的详细信息，请阅读 [ssl page](ssl.md)。
+要在 `verdaccio`启用`https`，只要用 *https://*协议来设置`listen` 标志。 有关更多此章节的详细信息，请阅读 [ssl page](ssl.md)。
 
 ```yaml
 https:
@@ -170,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### 通知
 
-通过web hooks来启用第三方工具通知是很容易的。有关更多本模块的详细信息，请阅读 [notifications page（通知页面）](notifications.md)。
+通过web hooks来启用第三方工具通知是很容易的。有关更多此章节的详细信息，请阅读 [notifications page（通知页面）](notifications.md)。
 
 ```yaml
 notify:

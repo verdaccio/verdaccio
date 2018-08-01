@@ -46,7 +46,7 @@ packages:
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. 例如，如果你以`npmUser`身份登录，组列表为。
+如果`htpasswd` 返回用户名为组，所有用户，不管匿名与否，都会分别接到该组的权限以及插件提供的组。 例如，如果你以`npmUser`身份登录，组列表为。
 
 ```js
 // groups without '$' are going to be deprecated eventually

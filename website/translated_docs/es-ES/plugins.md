@@ -120,6 +120,7 @@ store:
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use la Token de Acceso Personal de GitLab para autenticarse
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth basado en el plugin del archivo htpasswd (incorporado) para verdaccio
 * [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
+* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
 
 ### Plugins de Middleware
 

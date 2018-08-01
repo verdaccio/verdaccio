@@ -40,8 +40,8 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-For more information about the CLI, please [read the cli section](cli.md).
+更多关于CLI的详细信息，请[阅读cli章节](cli.md)。
 
 ## Docker 镜像
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` 有官方docker镜像可以使用，而且在大多数情况下，默认配置已经够好。 更多关于如何安装官方镜像的详细信息，请[阅读docker章节](docker.md)。

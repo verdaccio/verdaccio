@@ -1,32 +1,32 @@
 ---
 id: contributing
-title: "Contribuindo com o Verdaccio"
+title: "Contributing Verdaccio"
 ---
 First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
 
-## Meios de Comunicação
+## Comunication Channels
 
-Se você quiser fazer perguntas, nós usamos dois canais para discussões:
+If you are willing for asking, we use two channels for discussions:
 
 * [Public Discord channel](http://chat.verdaccio.org/)
 
-## Como Começar
+## Getting started
 
 As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
 
-### Como contribuir
+### Finding my spot
 
-Todos nós temos habilidades diferentes, você pode ajudar onde se sentir confortável.
+All we have different skills, so, let's see where you might feel comfortable.
 
-### Eu sei ou quero aprender Node.js
+### I know or I want to learn Node.js
 
-O `Verdaccio` é baseado em Node.js, nós também usamos algumas livrarias como `express`, `commander`, `request` e `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
-Nós temos uma longa [lista de plugins](plugins.md) prontos para serem usados e que também aceitam contribuições. Se quiser, [voce pode criar o seu próprio](dev-plugins.md).
+We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
 
-### Eu prefiro trabalhar com a Interface do Usuário
+### I would prefer to work in the User Interface
 
-Recentemente nós começamos a usar tecnologias mais modernas, como `React` e `element-react`. Estamos abertos a novas ideias para melhorar a UI.
+Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
 
 ### I feel more confortable improving the stack
 
@@ -47,19 +47,19 @@ Many contributors find typos and grammar issues, that also helps to improve the 
 
 ### I am a Designer
 
-Nós temos uma página inicial <http://www.verdaccio.org/> que ficaria muito boa com novas ideias.
+We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
-Nosso site é gerado com [Docusaurus](https://docusaurus.io/).
+Our website is based on [Docusaurus](https://docusaurus.io/).
 
-### Eu sou um DevOps
+### I am a DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
 We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
 
-### Eu posso traduzir
+### I can do translations
 
-Nosso projeto busca ser multilíngue, e contamos **com a ótima ajuda** do [Crowdin](https://crowdin.com) que é uma ótima plataforma para traduções.
+Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 

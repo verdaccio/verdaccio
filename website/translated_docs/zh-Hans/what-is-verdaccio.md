@@ -1,10 +1,10 @@
 ---
-id: what-is-verdaccio（什么是verdaccio）
-title: "什么是Verdaccio？"
+id: what-is-verdaccio（verdaccio是什么）
+title: "Verdaccio是什么？"
 ---
 Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry**
 
-## 什么是Registry？
+## Registry是什么？
 
 * 包的资源库，它执行**CommonJS Compliant Package Registry specification** 来阅读包信息
 * 提供与npm clients **(yarn/npm/pnpm)**兼容的API
@@ -39,7 +39,7 @@ Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry**
 
 Verdaccio 按需要缓存所有相关项，并在当地或私有网络下可以加速安装。
 
-## Verdaccio是个小容器
+## Verdaccio概述摘要
 
 * 它是基于Node.js的网页应用程序
 * 它是私有npm registry

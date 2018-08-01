@@ -30,7 +30,7 @@ title: "作为 Windows 服务安装"
     
     您可以根据需要在其他选项卡调整其他服务设置。完成后，请单击安装服务按钮
     
-    * Start the service sc start verdaccio
+    * 启动服务 sc 启动 verdaccio
 
 ## 使用WinSW
 

@@ -8,8 +8,7 @@ First of all 一头扎进不熟悉的代码库并不容易，但是我们会在�
 
 如果您想知道，我们使用两个频道进行讨论：
 
-* [公共Gitter频道](https://gitter.im/verdaccio/)
-* [贡献者Slack频道](https://verdaccio-npm.slack.com)（可惜只有通过电子邮件邀请才可以进入，您可以在**Gitter**里要求加入）
+* [公共Discord频道](http://chat.verdaccio.org/)
 
 ## 开始
 
