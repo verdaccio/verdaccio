@@ -104,7 +104,7 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-此方法通过`auth`和`storage`提供完全认证访问。`app` 是可以让您添加新端点的表达应用程序。
+此方法通过`auth`和`storage`提供认证和存储的完全访问。`app` 是可以让您添加新端点的应用程序。
 
 > Middleware插件的一个很好的例子是[sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) 和 [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)。
 
@@ -116,7 +116,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-要注册middleware，我们需要一个object（对象）以及一个可以接收3 个参数(`expressApp, auth, storage`)，名叫 `register_middlewares`的单一方法。 *Auth*是authentification instance，*storage* 也是主Storage instance，它将让您可以访问到所有存储操作。
+要注册middleware，我们需要一个object（对象）以及一个可以接收3 个参数(`expressApp, auth, storage`)，名叫 `register_middlewares`的单一方法。 *Auth*是认证实例，*storage* 也是主存储实例，它将让您可以访问到所有存储操作。
 
 ## Storage Plugin（存储插件）
 
@@ -174,11 +174,11 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> 存储API 仍然还在实验阶段，并在接下来的小版本中可能会有修改。 更多有关存储API 的详细信息，请跟随[类型 我们官方资源库里的定义](https://github.com/verdaccio/flow-types)。
+> 存储API 仍然还在实验阶段，并在接下来的小版本中可能会有修改。 更多有关存储API 的详细信息，请访问[我们官方资源库里的类型定义](https://github.com/verdaccio/flow-types)。
 
 ### 存储插件示例
 
-以下插件列表执行存储API，可以被用作示例。
+以下插件列表实现存储API，可以被用作示例。
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
