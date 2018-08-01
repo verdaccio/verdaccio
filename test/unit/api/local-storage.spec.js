@@ -10,7 +10,7 @@ import Logger, {setup} from '../../../src/lib/logger';
 import {readFile} from '../../functional/lib/test.utils';
 import {generatePackageTemplate} from '../../../src/lib/storage-utils';
 import {generateNewVersion} from '../../lib/utils-test';
-
+import _ from 'lodash';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
@@ -339,20 +339,24 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball ', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
+          let spy;
+          if(_.has(stream, '_readableState') && _.has(stream._readableState, 'pipes') && typeof stream._readableState.pipes === 'object'){
+              const writableStream = stream._readableState.pipes;
+              spy = jest.spyOn(writableStream, 'abort');
+          }
+          else
+          {
+            done.fail("Error: can't access the write stream.")
+          }         
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
-            expect(err.message).toMatch(/this package is already present/);           
-          });
-
-          stream.on('success', function() { 
-            done.fail(new Error('The Success event should not be called on duplicated tarball'))
-          });
-          stream.on('end', function() {            
-            setTimeout(function(){       
-              done();
-            },50);
-          });
+            expect(err.message).toMatch(/this package is already present/); 
+          });   
+          stream.on('success', function(){
+            expect(spy).toHaveBeenCalled();            
+            done();
+          });         
           stream.end(new Buffer(tarballData.data, 'base64'));
           stream.done();
         });
@@ -400,26 +404,25 @@ describe('LocalStorage', () => {
           stream.done();
         });
 
-        describe('LocalStorage::removeTarball', () => {
+      });     
+      describe('LocalStorage::removeTarball', () => {
 
-          test('should remove a tarball', (done) => {
-            storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
-              expect(err).toBeNull();
-              expect(pkg).toBeUndefined();
-              done();
-            });
-          });
-
-          test('should remove a tarball that does not exist', (done) => {
-            storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
-              expect(err).not.toBeNull();
-              expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
-              expect(err.message).toMatch(/no such file available/);
-              done();
-            });
+        test('should remove a tarball', (done) => {
+          storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {    
+            expect(err).toBeNull();
+            expect(pkg).toBeUndefined();
+            done();
           });
         });
 
+        test('should remove a tarball that does not exist', (done) => {
+          storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
+            expect(err.message).toMatch(/no such file available/);
+            done();
+          });
+        });
       });
 
       describe('LocalStorage::getTarball', () => {
@@ -499,7 +502,7 @@ describe('LocalStorage', () => {
           done();
         });
       });
-    });
+    }); 
   });
 
 });
