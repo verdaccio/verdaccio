@@ -11,7 +11,6 @@ import {readFile} from '../../functional/lib/test.utils';
 import {generatePackageTemplate} from '../../../src/lib/storage-utils';
 import {generateNewVersion} from '../../lib/utils-test';
 
-
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
 import type {Config, MergeTags} from '@verdaccio/types';
@@ -339,17 +338,18 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball ', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
+          let spy;
+          // $FlowFixMe
+          spy = jest.spyOn(stream &&  stream._readableState && stream._readableState.pipes, 'abort');
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
-            expect(err.message).toMatch(/this package is already present/);
+            expect(err.message).toMatch(/this package is already present/); 
+          });
+          stream.on('success', function(){
+            expect(spy).toHaveBeenCalled();
             done();
           });
-
-          stream.on('success', function() {
-            done();
-          });
-
           stream.end(new Buffer(tarballData.data, 'base64'));
           stream.done();
         });
@@ -397,26 +397,25 @@ describe('LocalStorage', () => {
           stream.done();
         });
 
-        describe('LocalStorage::removeTarball', () => {
+      });
+      describe('LocalStorage::removeTarball', () => {
 
-          test('should remove a tarball', (done) => {
-            storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
-              expect(err).toBeNull();
-              expect(pkg).toBeUndefined();
-              done();
-            });
-          });
-
-          test('should remove a tarball that does not exist', (done) => {
-            storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
-              expect(err).not.toBeNull();
-              expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
-              expect(err.message).toMatch(/no such file available/);
-              done();
-            });
+        test('should remove a tarball', (done) => {
+          storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
+            expect(err).toBeNull();
+            expect(pkg).toBeUndefined();
+            done();
           });
         });
 
+        test('should remove a tarball that does not exist', (done) => {
+          storage.removeTarball(pkgName, tarballName2, 'rev', (err) => {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
+            expect(err.message).toMatch(/no such file available/);
+            done();
+          });
+        });
       });
 
       describe('LocalStorage::getTarball', () => {
