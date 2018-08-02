@@ -124,7 +124,7 @@ Verdaccio 默认使用文件系统存储插件[local-storage](https://github.com
 
 ### API
 
-存储API 更复杂一些，您将需要创建一个可以返回`IPluginStorage`执行的class（类）。请参阅以下详细信息。
+存储API 更复杂一些，您将需要创建一个可以返回实现`IPluginStorage`的class（类）。请参阅以下详细信息。
 
 ```flow
 class LocalDatabase<IPluginStorage>{
