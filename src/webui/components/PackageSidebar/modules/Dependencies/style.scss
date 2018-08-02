@@ -1,0 +1,13 @@
+@import '../../../../styles/variables';
+
+.dependenciesModule {
+  li {
+    display: inline-block;
+    font-size: $font-size-sm;
+    line-height: $line-height-xxs;
+
+    a {
+      color: inherit;
+    }
+  }
+}

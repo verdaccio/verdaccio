@@ -8,18 +8,17 @@ export default class ExpressServer {
 
   constructor() {
     this.app = express();
-    this.server;
   }
 
   start(port: number): Promise<any> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.app.use(bodyParser.json());
       this.app.use(bodyParser.urlencoded({
         extended: true
       }));
 
-      this.server = this.app.listen(port, function starExpressServer() {
-        resolve();
+      this.server = this.app.listen(port, () => {
+        resolve(this);
       });
     });
   }

@@ -26,14 +26,17 @@ packages:
     access: $all
     proxy: server1
 
+  'testpkg-preserve':
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
+
   'pkg-gh1312':
     access: $all
     proxy: server2
 
   '*':
     access: $all
-
-listen: 55553
 
 # expose internal methods
 _debug: true

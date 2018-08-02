@@ -1,52 +1,52 @@
 ---
-id: what-is-verdaccio
-title: "What is Verdaccio?"
+id: what-is-verdaccio（verdaccio是什么）
+title: "Verdaccio是什么？"
 ---
-Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
+Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry**
 
-## What's a registry
+## Registry是什么？
 
-* A repository for packages that implements the **CommonJS Compliant Package Registry specification** for reading package info
-* Provide an API compatible with npm clients **(yarn/npm/pnpm)**
-* Follow the semantic Versioning compatible **(semver)**
+* 包的资源库，它执行**CommonJS Compliant Package Registry specification** 来阅读包信息
+* 提供与npm clients **(yarn/npm/pnpm)**兼容的API
+* 跟随Versioning语义兼容**(semver)**
 
     $> verdaccio
     
 
 ![registry](/svg/verdaccio_server.gif)
 
-## Using Verdaccio
+## 使用Verdaccio
 
-Using verdaccio with any node package manager client is quite straightforward.
+用任何节点包manager client使用 verdaccio是相当简单的。
 
 ![registry](/svg/npm_install.gif)
 
-You can use a custom registry either setting globally for all your projects
+您要么可以用定制registry全局设置所有项目
 
     npm set registry http://localhost:4873
     
 
-or by command line as argument `--registry` in npm (slightly different in yarn)
+要么把命令行作为npm里的参数`--registry`（在yarn里稍微有些不同）
 
     npm install lodash --registry http://localhost:4873
     
 
-## Private
+## 私有
 
-All packages that you publish are private and only accessible based in your configuration.
+所有您发布的包是私有的并且访问权限仅取决于您的配置。
 
 ## Proxy
 
-Verdaccio cache all dependencies by demand and speed up installations in local or private networks.
+Verdaccio 按需要缓存所有相关项，并在当地或私有网络下可以加速安装。
 
-## Verdaccio in a nutshell
+## Verdaccio概述摘要
 
-* It's a web app based on Node.js
-* It's a private npm registry
-* It's a local network proxy
-* It's a Pluggable application
-* It's a fairly easy install and use
-* We offer Docker and Kubernetes support
-* It is 100% compatible with yarn, npm and pnpm
-* It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
-* Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
+* 它是基于Node.js的网页应用程序
+* 它是私有npm registry
+* 它是本地网络proxy
+* 它是可插入式应用程序
+* 它相当容易安装和使用
+* 我们提供Docker和Kubernetes支持
+* 它与yarn, npm 和pnpm 100% 兼容
+* 它**forked**于`sinopia@1.4.0`并且100% **向后兼容**。
+* Verdaccio 表示**意大利中世纪晚期fresco 绘画中流行的一种绿色**的意思。

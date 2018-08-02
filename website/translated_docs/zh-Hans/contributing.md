@@ -1,81 +1,80 @@
 ---
-id: contributing
-title: "Contributing Verdaccio"
+id: 贡献
+title: "参与Verdaccio贡献"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all 一头扎进不熟悉的代码库并不容易，但是我们会在此帮助你。
 
-## Comunication Channels
+## 沟通频道
 
-If you are willing for asking, we use two channels for discussions:
+如果您想知道，我们使用两个频道进行讨论：
 
-* [Public Gitter channel](https://gitter.im/verdaccio/)
-* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
+* [公共Discord频道](http://chat.verdaccio.org/)
 
-## Getting started
+## 开始
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+乍一看，verdaccio只是单一资源库，但是有很多方法您可以参与贡献以及练习多种技术。
 
-### Finding my spot
+### 寻找适合我的地方
 
-All we have different skills, so, let's see where you might feel comfortable.
+大家都有不同的技能，因此，让我们看看您在哪个方面会感觉舒适。
 
-### I know or I want to learn Node.js
+### 我知道或者我想要学习 Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` 或者 `async`程序库。 Verdaccio大体上就是一个Rest API ，它和`yarn`一样，创建与`npm` 客户端兼容的通信。
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+我们有很多[插件列表](plugins.md)可供使用和改善，但是同时[您也可以创建自己的插件](dev-plugins.md)。
 
-### I would prefer to work in the User Interface
+### 我倾向在用户界面作业
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+最近，我们已经转移到使用`React` 和 `element-react`这样的现代技术。我们期待看到如何改善UI 的新想法。
 
-### I feel more confortable improving the stack
+### 我觉得改善堆栈更自在
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+当然，我们会很乐意您帮助我们改善堆栈，您可以将依赖项升级为 `eslint`, `stylelint`, `webpack`。 哪怕只是改进 `webpack`配置都非常棒。 我们欢迎任何的建议。 此外，如果您有**Yeoman**的经验，您可以帮我们改善[verdaccio发生器](https://github.com/verdaccio/generator-verdaccio-plugin)。
 
-Here some ideas:
+这里是一些想法：
 
-* Create a common eslint rules to be used across all dependencies or plugins
-* Improve Flow types definitions delivery
-* Moving to Webpack 4
-* Improve hot reload with Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* 创建要在所有依赖项或插件中使用的eslint共同规则
+* 改善定义传递的流程类型
+* 迁移到Webpack 4
+* 改善Webpack的组件级
+* 我们在所有依赖项使用babel 和 webpack，为什么不能用通用预设？
+* 改善持续集成传递
 
-### I do great Documentation
+### 我在文档方面很在行
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+许多贡献者发现打字错误和语法问题，这也有助于我们提高故障排除的整体体验。
 
-### I am a Designer
+### 我是设计师
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+我们有个前端网站<http://www.verdaccio.org/> ，将很高兴看到您的想法。
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+我们的网站是基于[Docusaurus](https://docusaurus.io/)。
 
-### I am a DevOps
+### 我是一名DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+我们有广受欢迎的Docker镜像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来使所有用户都可受益。
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+我们支持 **Kubernetes**, **Puppet**, **Ansible** 和 **Chef**，在这些领域我们需要帮助，请随时查看所有资源库。
 
-### I can do translations
+### 我可以翻译
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio的目标是多语言，为了实现这个目标，**我们得到**[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地发起[创建要求票证](https://github.com/verdaccio/verdaccio/issues/new)。
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[转到 Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## 我已经做好贡献的准备
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+如果您正在想*“我已经查看[资源库](repositories.md)，并且愿意马上开始贡献”*，那么我有好消息给您，也就是下一步。
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+您将要了解如何创建，[我们已经为您准备了指南](build.md)。
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+一旦您熟悉了所有的脚本并知道如何使用它们，我们就做好进入下一步的准备，开始运行[**单元测试**](test.md)。
 
-## Full list of contributors. We want to see your face here !
+## 这里是贡献者的完整名单。我们希望在这里看到您！
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>

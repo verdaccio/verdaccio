@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.twoColumn {
+  @include container-size;
+  margin: auto 10px;
+  display: flex;
+
+  > div {
+    &:first-child {
+      flex-shrink: 1;
+      min-width: 300px;
+      width: 100%;
+    }
+  }
+
+  > aside {
+    &:last-child {
+      margin-left: auto;
+
+      padding-left: 15px;
+      flex-shrink: 0;
+      width: 285px;
+    }
+  }
+}

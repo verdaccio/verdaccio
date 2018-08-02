@@ -77,13 +77,15 @@ Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and t
 
 ## Middleware Plugin
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests. A pretty good example of middleware plugin is the (sinopia-github-oauth)[https://github.com/soundtrackyourbrand/sinopia-github-oauth]) compatible with `verdaccio`.
+Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+
+> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
 ```js
-function register_middlewares(expressApp, auth, storage) {
-   ...more stuff
+function register_middlewares(expressApp, authInstance, storageInstance) {
+   /* more stuff */
 }
 ```
 
@@ -91,7 +93,7 @@ To register a middleware we need an object with a single method called `register
 
 ## Storage Plugin
 
-Since `verdaccio@3.x` we also can plug a custom storage.
+Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage) but, since `verdaccio@3.x` you can plug in a custom storage.
 
 ### API
 

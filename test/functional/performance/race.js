@@ -1,115 +1,122 @@
-import assert from 'assert';
 import async from 'async';
+import {HTTP_STATUS} from "../../../src/lib/constants";
 
-let _oksum = 0;
+let okTotalSum = 0;
 const racePkg = require('../fixtures/package');
 
 export default function(server) {
 
-  describe('race', () => {
+  describe('should test race condition on publish packages', () => {
+    const MAX_COUNT = 20;
+    const PKG_NAME = 'race';
+    const PUBLISHED = 'published';
+    const PRESENT = 'already present';
+    const UNAVAILABLE = 'unavailable';
+
     beforeAll(function () {
-      return server.putPackage('race', racePkg('race'))
-        .status(201)
+      return server.putPackage(PKG_NAME, racePkg(PKG_NAME))
+        .status(HTTP_STATUS.CREATED)
         .body_ok(/created new package/);
     });
 
     test('creating new package', () => {});
 
-    test('uploading 10 same versions', callback => {
-      let fns = [];
-      for (let i = 0; i < 10; i++) {
-        fns.push(function (cb_) {
-          let data = racePkg('race');
+    test('should uploading 10 same versions and ignore 9', callback => {
+      let listOfRequest = [];
+      for (let i = 0; i < MAX_COUNT; i++) {
+        listOfRequest.push(function (callback) {
+          let data = racePkg(PKG_NAME);
           data.rand = Math.random();
 
           let _res;
-          server.putVersion('race', '0.0.1', data)
-            .response(function (res) {
+          server.putVersion(PKG_NAME, '0.0.1', data).response(function (res) {
               _res = res;
-            })
-            .then(function (body) {
-              cb_(null, [_res, body]);
+            }).then(function (body) {
+              callback(null, [_res, body]);
             });
         });
       }
 
-      async.parallel(fns, function (err, res) {
-        let okcount = 0;
-        let failcount = 0;
+      async.parallel(listOfRequest, function (err, response) {
+        let okCount = 0;
+        let failCount = 0;
 
-        assert.equal(err, null);
+        expect(err).toBeNull();
 
-        res.forEach(function (arr) {
-          let resp = arr[0];
-          let body = arr[1];
+        response.forEach(function (payload) {
+          const [resp, body] = payload;
 
-          if (resp.statusCode === 201 && ~body.ok.indexOf('published')) {
-            okcount++;
+          if (resp.statusCode === HTTP_STATUS.CREATED && ~body.ok.indexOf(PUBLISHED)) {
+            okCount++;
           }
-          if (resp.statusCode === 409 && ~body.error.indexOf('already present')) {
-            failcount++;
+
+          if (resp.statusCode === HTTP_STATUS.CONFLICT && ~body.error.indexOf(PRESENT)) {
+            failCount++;
           }
-          if (resp.statusCode === 503 && ~body.error.indexOf('unavailable')) {
-            failcount++;
+
+          if (resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
+            failCount++;
           }
         });
 
-        assert.equal(okcount + failcount, 10);
-        assert.equal(okcount, 1);
-        _oksum += okcount;
+        expect(okCount + failCount).toEqual(MAX_COUNT);
+        expect(okCount).toEqual(1);
+        expect(failCount).toEqual(MAX_COUNT - 1);
+        okTotalSum += okCount;
 
         callback();
       });
     });
 
-    test('uploading 10 diff versions', callback => {
-      let fns = [];
-      for (let i = 0; i < 10; i++) {
-        (function (i) {
-          fns.push(function (cb_) {
-            let _res;
-            server.putVersion('race', '0.1.' + String(i), require('../fixtures/package')('race'))
-              .response(function (res) {
-                _res = res;
-              })
-              .then(function (body) {
-                cb_(null, [_res, body]);
-              });
-          });
-        })(i);
+    test('shoul uploading 10 diff versions and accept 10', callback => {
+      const listofRequest = [];
+
+      for (let i = 0; i < MAX_COUNT; i++) {
+        listofRequest.push(function (callback) {
+          let _res;
+          server.putVersion(PKG_NAME, '0.1.' + String(i), racePkg(PKG_NAME))
+            .response(function (res) {
+              _res = res;
+            })
+            .then(function (body) {
+              callback(null, [_res, body]);
+            });
+        });
       }
 
-      async.parallel(fns, function (err, res) {
+      async.parallel(listofRequest, function (err, response) {
         let okcount = 0;
         let failcount = 0;
 
-        assert.equal(err, null);
-        res.forEach(function (arr) {
-          let resp = arr[0];
-          let body = arr[1];
-          if (resp.statusCode === 201 && ~body.ok.indexOf('published')) {
+        expect(err).toBeNull();
+        response.forEach(function (payload) {
+          const [response, body] = payload;
+
+          if (response.statusCode === HTTP_STATUS.CREATED && ~body.ok.indexOf(PUBLISHED)) {
             okcount++;
           }
-          if (resp.statusCode === 409 && ~body.error.indexOf('already present')) {
+          if (response.statusCode === HTTP_STATUS.CONFLICT && ~body.error.indexOf(PRESENT)) {
             failcount++;
           }
-          if (resp.statusCode === 503 && ~body.error.indexOf('unavailable')) {
+          if (response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
             failcount++;
           }
         });
-        assert.equal(okcount + failcount, 10);
-        assert.notEqual(okcount, 1);
-        _oksum += okcount;
+
+        expect(okcount + failcount).toEqual(MAX_COUNT);
+        expect(okcount).toEqual(MAX_COUNT);
+        expect(failcount).toEqual(0);
+        // should be more than 1
+        expect(okcount).not.toEqual(1);
+        okTotalSum += okcount;
 
         callback();
       });
     });
 
-    afterAll(function () {
-      return server.getPackage('race')
-        .status(200)
-        .then(function (body) {
-          assert.equal(Object.keys(body.versions).length, _oksum);
+    afterAll(function() {
+      return server.getPackage(PKG_NAME).status(HTTP_STATUS.OK).then(function (body) {
+          expect(Object.keys(body.versions)).toHaveLength(okTotalSum);
         });
     });
   });

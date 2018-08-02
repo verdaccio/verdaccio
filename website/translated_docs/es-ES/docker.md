@@ -21,22 +21,22 @@ Desde la versión `` puedes obtener imagenes de docker por [tag](https://hub.doc
 Para usar una versión "major":
 
 ```bash
-docker pull verdaccio/verdaccio:2
+docker pull verdaccio/verdaccio:3
 ```
 
 Para usar una versión "minor":
 
 ```bash
-docker pull verdaccio/verdaccio:2.1
+docker pull verdaccio/verdaccio:3.0
 ```
 
 Para un (parche) especifico:
 
 ```bash
-docker pull verdaccio/verdaccio:2.1.7
+docker pull verdaccio/verdaccio:3.0.1
 ```
 
-Para el próximo mayor lanzamiento usando la versión `beta` (`v.3.x`).
+Para el siguiente gran lanzamiento usando la versión `beta` (rama principal).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -54,20 +54,25 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 El último argumento define cual imagen se usa. En la linea de abajo se descargará la ultima imagen desde Docker Hub, si no existía previamente.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Si has [construido una imagen localmente](#build-your-own-docker-image) usa `verdaccio` como el último argumento.
 
-You can use `-v` to bind mount `conf` and `storage` to the hosts filesystem:
+You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   -v $V_PATH/conf:/verdaccio/conf \
   -v $V_PATH/storage:/verdaccio/storage \
+  -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. En el ejemplo de arriba, necesitas ejecutar `sudo chown -R 100:101 /opt/verdaccio` de lo contrario, obtendrás errores de permiso en tiempo de ejecución. [Usar el volumen docker](https://docs.docker.com/storage/volumes/) es recomendado antes que usar el montaje de unión.
 
-### Usar un puerto personalizado con Docker
+### Plugins
+
+Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+
+### Docker and custom port configuration
 
 Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
 
@@ -83,7 +88,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Configura Docker con HTTPS
+### Using HTTPS with Docker
 
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
@@ -93,9 +98,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Usando docker-compose
+### Using docker-compose
 
-1. Obtener la última versión de [docker-compose](https://github.com/docker/compose).
+1. Obtén la última versión de [docker-compose](https://github.com/docker/compose).
 2. Construye y ejecuta el contenedor:
 
 ```bash

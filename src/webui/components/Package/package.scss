@@ -1,0 +1,87 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.package {
+  .header {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0;
+  }
+
+  .footer {
+    display: flex;
+    p.description {
+      width: 100%;
+      margin-bottom: 0;
+      font-size: $font-size-sm;
+      color: $grey-dark;
+    }
+  }
+
+  .details {
+    display: flex;
+    font-size: 80%;
+    color: $grey-light;
+    padding-top: 5px;
+    .license {
+      width: 20%;
+      text-align: right;
+    }
+
+    .homepage {
+      width: 80%;
+    }
+  }
+
+  > a {
+    display: block;
+    position: relative;
+    color: inherit;
+    margin: 0;
+    padding: 10px 0;
+    cursor: pointer;
+    text-decoration: none;
+
+    .title {
+      width: 100%;
+
+      h1 {
+        font-size: $font-size-md;
+        margin: 0;
+
+        :global {
+          .el-tag {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    .author {
+      color: $grey-light;
+      font-size: inherit;
+      width: 30%;
+      text-align: right;
+    }
+
+    &:hover {
+      &::before {
+        content: '';
+        display: block;
+        background: rgba(255, 255, 255, 0.7);
+        @include fullSize;
+      }
+
+      &::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        left: 0;
+        text-align: center;
+        transform: translateY(-50%);
+        font-size: $font-size-md;
+      }
+    }
+  }
+}

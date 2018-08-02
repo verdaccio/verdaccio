@@ -1,11 +1,12 @@
-FROM node:9.5.0-alpine@sha256:50ae5f22356c5a0b0c0ea76d27a453b0baf577c61633aee25cea93dcacec1630
+FROM node:10.7-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
-RUN apk --no-cache add openssl && \
+RUN apk --no-cache add wget openssl && \
     wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 && \
     chmod +x /usr/local/bin/dumb-init && \
     apk del openssl && \
     apk --no-cache add ca-certificates wget && \
+    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
     apk add glibc-2.25-r0.apk
@@ -21,14 +22,13 @@ ENV NODE_ENV=production
 RUN npm config set registry http://registry.npmjs.org/ && \
     yarn global add -s flow-bin@0.69.0 && \
     yarn install --production=false && \
-    yarn run lint && \
-    yarn run code:docker-build && \
-    yarn run build:webui && \
-    yarn run test:unit -- --silent true --coverage false --bail && \
+    yarn lint && \
+    yarn code:docker-build && \
+    yarn build:webui && \
     yarn cache clean && \
     yarn install --production=true --pure-lockfile
 
-RUN mkdir -p /verdaccio/storage /verdaccio/conf
+RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
 

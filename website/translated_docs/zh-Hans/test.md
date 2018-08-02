@@ -1,31 +1,31 @@
 ---
-id: unit-testing
-title: "Unit Testing"
+id: unit-testing(单元-测试）
+title: "单元测试"
 ---
-All tests are split in three folders:
+所有测试都被分成3 个文件夹：
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - 涵盖非平凡方式转换数据的功能测试。这些测试只 `require()` 一些文件并在其中运行代码，因此它们是非常快的。
+- `test/functional` - 启动verdaccio instance并在 http上执行一系列请求的测试。它们比单元测试慢一些。
+- `test/integration` - 启动verdaccio instance并用 npm对其执行请求的测试。它们真的很慢并能打击到真的npm registry。 **unmaintained test**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+单元和功能测试是从项目根目录里运行 `npm test` 来自动执行的。集成测试应该时常手动执行。
 
-We use `jest` for all test.
+我们所有测试都使用 `jest`。
 
-## The npm Script
+## Npm 脚本
 
-To run the test script you can use either `npm` or `yarn`.
+要运行测试脚本，您可以使用 `npm` 或 `yarn`。
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+这将只会触发测试，单元和功能的前两组。
 
-### Using test/unit
+### 使用测试/单元
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+以下只是单元测试的一个例子。基本上遵守`jest` 标准。
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+请试着描述单元在 `test` 部分页眉里的单一句子里确切测试什么。
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,11 +48,11 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### 使用测试/功能
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Verdaccio 中的功能测试有点复杂，需要深入解释来让您有成功的体验。
 
-All starts in the `index.js` file. Let's dive in into it.
+一切从`index.js`文件开始。让我们来深入了解它吧。
 
 ```javascript
 // we create 3 server instances
@@ -107,17 +107,17 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### 使用
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+这里我们将描述常规功能测试看起来是什么样的，请核对内联了解更多详细信息。
 
 #### The lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+服务器 class(类）只是模拟 `npm` client 的 wrapper类，它为功能测试提供简单的API。
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+如我们在之前的章节里提到的， 我们正创建3 个流程服务器，可以在每个流程里以`server1`, `server2` 和 ``server3`进行访问。
 
-Using such reference you will be able to send request to any of the 3 instance running.
+通过这样的引用，您可以给这任何3 个运行的instance 发送请求。
 
 ```javascript
 <br />export default function(server) {
@@ -129,6 +129,6 @@ Using such reference you will be able to send request to any of the 3 instance r
 });
 ```
 
-### Test/integration
+### 测试/集成
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+这些部分还没有被使用，但是我们在寻求帮助来让它正常运转。**欢迎任何新的想法。**

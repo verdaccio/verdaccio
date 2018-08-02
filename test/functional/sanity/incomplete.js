@@ -1,4 +1,5 @@
-import assert from 'assert';
+import {API_ERROR, HEADER_TYPE, HTTP_STATUS} from '../../../src/lib/constants';
+import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
 
 const defaultPkg = {
   'name': 'testexp-incomplete',
@@ -8,7 +9,7 @@ const defaultPkg = {
       'version': '0.1.0',
       'dist': {
         'shasum': 'fake',
-        'tarball': 'http://localhost:55550/testexp-incomplete/-/content-length.tar.gz',
+        'tarball': `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/content-length.tar.gz`,
       },
     },
     '0.1.1': {
@@ -16,14 +17,14 @@ const defaultPkg = {
       'version': '0.1.1',
       'dist': {
         'shasum': 'fake',
-        'tarball': 'http://localhost:55550/testexp-incomplete/-/chunked.tar.gz',
+        'tarball': `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/chunked.tar.gz`,
       },
     },
   },
 };
 
 export default function (server, express) {
-  const ddd = ['content-length', 'chunked'];
+  const listofCalls = [HEADER_TYPE.CONTENT_LENGTH, 'chunked'];
 
   describe('test send incomplete packages', () => {
 
@@ -33,17 +34,17 @@ export default function (server, express) {
       });
     });
 
-    ddd.forEach(function (type) {
-      test.skip('should not store tarballs / ' + type, callback => {
+    listofCalls.forEach((type) => {
+      test(`should not store tarballs / ${type}`, callback => {
         let called;
-        express.get('/testexp-incomplete/-/' + type + '.tar.gz', function (_, response) {
+        express.get(`/testexp-incomplete/-/${type}.tar.gz`, function (_, response) {
           if (called) {
             return response.socket.destroy();
           }
 
           called = true;
           if (type !== 'chunked') {
-            response.header('content-length', 1e6);
+            response.header(HEADER_TYPE.CONTENT_LENGTH, 1e6);
           }
 
           response.write('test test test\n');
@@ -56,18 +57,18 @@ export default function (server, express) {
         });
 
         server.request({uri: '/testexp-incomplete/-/' + type + '.tar.gz'})
-          .status(200)
+          .status(HTTP_STATUS.OK)
           .response(function (res) {
             if (type !== 'chunked') {
-              assert.equal(res.headers['content-length'], 1e6);
+              expect(parseInt(res.headers[HEADER_TYPE.CONTENT_LENGTH], 10)).toBe(1e6);
             }
           }).then(function (body) {
-            assert(body.match(/test test test/));
+            expect(body).toMatch(/test test test/);
           });
 
         function cb() {
           server.request({uri: '/testexp-incomplete/-/' + type + '.tar.gz'})
-            .body_error('internal server error')
+            .body_error(API_ERROR.INTERNAL_SERVER_ERROR)
             .then(function () {
               callback();
             });

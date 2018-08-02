@@ -1,51 +1,51 @@
 ---
 id: windows
-title: "Installing As a Windows Service"
+title: "作为 Windows 服务安装"
 ---
-Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). I crafted the following and it provided me with a fully working verdaccio service installation:
+基于的非精确指南请见[这里](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service)。 我制作以下，它提供良好运行的verdaccio 服务安装：
 
-1. Create a directory for verdaccio 
+1. 为 verdaccio创建一个目录 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
-2. Install verdaccio locally (I ran into npm issues with global installs) 
+2. 当地安装verdaccio（我在全局安装的时候出现npm问题） 
     * npm install verdaccio
-3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
-4. Windows Service Setup
+3. 在此位置`(c:\verdaccio\config.yaml)`创建`config.yaml`文件
+4. Windows服务设置
 
-## Using NSSM
+## 使用NSSM
 
-ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
+替代方法: (当我尝试下载的时候，WinSW 包缺失)
 
-* Download [NSSM](https://www.nssm.cc/download/) and extract
+* 下载[NSSM](https://www.nssm.cc/download/)并提取
 
-* Add the path that contains nssm.exe to the PATH
+* 添加包含nssm.exe 的路径到PATH（路径）中
 
-* Open an administrative command
+* 打开管理命令
 
-* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
+* 运行nssm install verdaccio，至少必须填写应用程序 tab Path（选项卡路径），启动目录和参数字段。 假设在系统路径中以及c:\verdaccio位置用node安装，以下的值将起作用：
     
     * Path: `node`
     * Startup directory: `c:\verdaccio`
-    * Arguments: `c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml`
+    * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    You can adjust other service settings under other tabs as desired. When you are done, click Install service button
+    您可以根据需要在其他选项卡调整其他服务设置。完成后，请单击安装服务按钮
     
-    * Start the service sc start verdaccio
+    * 启动服务 sc 启动 verdaccio
 
-## Using WinSW
+## 使用WinSW
 
-* As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
-* Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
-    * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
-* Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
-* Install your service 
+* 截至2015-10-27, WinSW 不再存在以下位置。请跟随以上使用NSSM指南。
+* 下载 [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
+    * 放置可执行文件(例如`winsw-1.9-bin.exe`)到此文件夹(`c:\verdaccio`) 中并将其重命名为`verdaccio-winsw.exe`
+* 在`c:\verdaccio`创建一个配置文件, 命名为`verdaccio-winsw.xml`，它有以下配置`xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`。
+* 安装服务 
     * `cd c:\verdaccio`
     * `verdaccio-winsw.exe install`
-* Start your service 
+* 开始服务 
     * `verdaccio-winsw.exe start`
 
-Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
+以上的一些配置比我预想的要繁琐，看起来好像忽略了'workingdirectory'，但除此以外，这对我来说很有效，而且让verdaccio instance保持在服务器重启之间，并且还在verdaccio 流程出事故的时候可以自我重启。
 
-## Repositories
+## 资源库
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)

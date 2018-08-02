@@ -1,5 +1,7 @@
 # path to a directory with all packages
 storage: ./storage
+# path to a directory with plugins to include
+plugins: ./plugins
 
 web:
   # WebUI is enabled as default, if you want disable it, just uncomment this line
@@ -7,7 +9,11 @@ web:
 
   title: Verdaccio
 
-  # logo: logo.png
+  #logo: logo.png
+
+  # If you're using this registry for a specific module scope,
+  # specify that scope to set it in the webui instructions header (note: escape @ with \@)
+  #scope: \@myscope
 
 auth:
   htpasswd:
@@ -15,6 +21,12 @@ auth:
     # Maximum amount of users allowed to register, defaults to "+infinity".
     # You can set this to -1 to disable registration.
     #max_users: 1000
+
+# Configure plugins that can register custom middlewares
+# To use `npm audit` uncomment the following section
+middlewares:
+  audit:
+    enabled: true
 
 # a list of other known repositories we can talk to
 uplinks:
@@ -136,34 +148,34 @@ logs:
 # webhooks, but will also deliver a simple payload to
 # any endpoint. Currently only active for publish / create
 # commands.
-notify:
+#notify:
   # Choose a method. Technically this will accept any HTTP
   # request method, but probably stick to GET or POST
-  method: POST
+#  method: POST
   # Only run this notification if the package name matches the regular
   # expression
-  packagePattern: ^example-package$
+#  packagePattern: ^example-package$
   # Any flags to be used with the regular expression
-  packagePatternFlags: i
+#  packagePatternFlags: i
   # If this endpoint requires specific headers, set them here
   # as an array of key: value objects.
-  headers: [{'Content-type': 'application/x-www-form-urlencoded'}]
+#  headers: [{'Content-type': 'application/x-www-form-urlencoded'}]
   # set the URL endpoint for this call
-  endpoint: https://hooks.slack.com/...
+#  endpoint: https://hooks.slack.com/...
   # Finally, the content you will be sending in the body.
   # This data will first be run through Handlebars to parse
   # any Handlebar expressions. All data housed in the metadata object
   # is available for use within the expressions.
-  content: ' {{ handlebar-expression }}'
+#  content: ' {{ handlebar-expression }}'
   # For Slack, follow the following format:
   # content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Verdaccio", "icon_emoji": ":package:" }'
 
   # Multiple notification endpoints can be created by specifying a collection
-  'example-package-1':
-    method: POST
+#  'example-package-1':
+#    method: POST
     # Only run this notification if the package name matches the regular
     # expression
-    packagePattern: ^example-package-regex$
+#    packagePattern: ^example-package-regex$
     # Any flags to be used with the regular expression
     # since verdaccio 2.2.2 this property has been disabled read #108
     # it will be re-enabled after 2.5.0
@@ -171,18 +183,14 @@ notify:
     # If this endpoint requires specific headers, set them here
     # as an array of key: value objects.
     # headers supports as well a literal object
-    headers: {'Content-type': 'application/x-www-form-urlencoded'}
+#    headers: {'Content-type': 'application/x-www-form-urlencoded'}
     # set the URL endpoint for this call
-    endpoint: https://hooks.slack.com/...
+#    endpoint: https://hooks.slack.com/...
     # Finally, the content you will be sending in the body.
     # This data will first be run through Handlebars to parse
     # any Handlebar expressions. All data housed in the metadata object
     # is available for use within the expressions.
-    content: ' {{ handlebar-expression }}'
+#    content: ' {{ handlebar-expression }}'
     # For Slack, follow the following format:
     # content: '{ "text": "Package *{{ name }}* published to version *{{ dist-tags.latest }}*", "username": "Verdaccio", "icon_emoji": ":package:" }'
 
-# Configure plugins that can register custom middlewares
-#middlewares:
-# plugin-name:
-#   setting: true

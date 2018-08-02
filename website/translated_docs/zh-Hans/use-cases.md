@@ -1,31 +1,31 @@
 ---
-id: use-cases
-title: "Use Cases"
+id: use-cases（使用-案例）
+title: "使用案例"
 ---
-## Using private packages
+## 使用私有包
 
-You can add users and manage which users can access which packages.
+您可以添加用户并管理哪个用户可以访问哪个包。
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+建议您定义私有包的前缀。例如“local(当地）"，这样您私人的东西将如下所示：`local-foo`。 通过这种方法您可以清楚地把公有包和私有包分开。
 
-## Using public packages from npmjs.org
+## 从npmjs.org使用公有包
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+如果一些包没有在存储里，服务器将试着从npmjs.org中取它。 如果npmjs.org坏了，它会假装没有其他的包存在, 并起到缓存包的作用。 Verdaccio将只下载需要的 (= 由客户要求的)信息, 而且此信息将被缓存，这样如果客户再次问同样的事，它可以马上作用而不需要问npmjs.org。
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+例如：如果您曾经成功从此服务器请求express@3.0.1，哪怕npmjs.org 坏了，您也可以在任何时候再次请求（包含其相关项）。 但是，除非有人真正需要express@3.0.0，否则它是不会被下载的。 而且如果npmjs.org脱线，此服务器将会说除了express@3.0.1 （=只有在缓存里的）外，没有其他的发布。
 
-## Override public packages
+## 覆盖公共包
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+如果您希望使用一些公共包`foo`的修正版本，您只要把它发布到您的当地服务器，这样当您输入`npm install foo`，它将考虑安装您的版本。
 
-There's two options here:
+这里有两个选项：
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. 您要创建单独的分叉并停止与公共版本同步。
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    如果您希望这么做，您应该修改配置文件，这样verdaccio将不再向npmjs提出此包的请求。 将此包单独添加到*config.yaml* 中并从`proxy`列表删除`npmjs`，然后重启服务器。
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    当您在本地发布包，您可能应该从现有版本更高的 string开始，这样它就不会和缓存中的现有包冲突。
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. 您希望临时使用自己的版本，但在它更新后立即切换回公共版本。
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    为了避免版本冲突，您应该使用下一个补丁版本的自定义预发行的后缀。 例如，如果公共包有 0.1.2版本，您可以上传0.1.3-my-temp-fix。 这样，您的包将在原始维护人员更新其公共包到0.1.3之前使用。

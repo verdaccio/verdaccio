@@ -28,8 +28,5 @@ bundle.js.map
 __tests__
 
 # Compiled script
-static/index.html
-static/style.*
-static/*.js
-static/logo.*
+static/*
 

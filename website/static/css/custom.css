@@ -1,5 +1,10 @@
 /* your custom css */
 
+/*.mainContainer .wrapper code {*/
+  /*padding: 2px;*/
+  /*font-family: inherit;*/
+/*}*/
+
 .mainContainer .wrapper a,
 .inner .projectIntro a {
   background-color: rgba(10, 78, 31, 0.15);
@@ -14,21 +19,45 @@
   text-decoration: none !important;
 }
 
+.feature-section .blockContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .docker-count img {
   margin-left: initial;
 }
 
-@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+.tweets-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
-@media only screen and (min-width: 1024px) {
+.tweets-section > div {
+  padding: 20px;
+  flex: 2;
+  box-sizing:border-box;
+  text-align: center;
+   margin: 0 auto;
 }
 
-@media only screen and (max-width: 1023px) {
+.tweets-section > div  .twitter-tweet {
+  margin: 0 auto !important;
 }
 
-@media only screen and (min-width: 1400px) {
-}
+/*@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {*/
+/*}*/
 
-@media only screen and (min-width: 1500px) {
-}
+/*@media only screen and (min-width: 1024px) {*/
+/*}*/
+
+/*@media only screen and (max-width: 1023px) {*/
+/*}*/
+
+/*@media only screen and (min-width: 1400px) {*/
+/*}*/
+
+/*@media only screen and (min-width: 1500px) {*/
+/*}*/

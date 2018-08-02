@@ -4,7 +4,7 @@ import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import baseConfig from './webpack.config';
 import env from '../src/config/env';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
-import getPackageVersion from './getPackageVersion';
+import getPackageJson from './getPackageJson';
 
 export default {
   ...baseConfig,
@@ -17,7 +17,7 @@ export default {
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4872',
       'webpack/hot/only-dev-server',
-      `${env.SRC_ROOT}/webui/src/index.js`,
+      `${env.SRC_ROOT}/webui/index.js`,
     ],
   },
 
@@ -31,10 +31,11 @@ export default {
   plugins: [
     new webpack.DefinePlugin({
       __DEBUG__: true,
-      __APP_VERSION__: `"${getPackageVersion()}"`,
+      __APP_VERSION__: `"${getPackageJson('version')}"`,
     }),
     new HTMLWebpackPlugin({
       title: 'Verdaccio',
+      scope: '',
       filename: 'index.html',
       verdaccioURL: '//localhost:4873',
       template: `${env.SRC_ROOT}/webui/template/index.html`,

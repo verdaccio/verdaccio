@@ -1,0 +1,21 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.infosModule {
+  li {
+    display: flex;
+    font-size: $font-size-sm;
+    line-height: $line-height-xs;
+
+    a {
+      color: inherit;
+      max-width: 150px;
+      @include ellipsis;
+    }
+    
+    a:last-child,
+    span:last-child {
+      margin-left: auto;
+    }
+  }
+}

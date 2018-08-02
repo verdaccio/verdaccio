@@ -1,0 +1,9 @@
+uplinks:
+  facebook:
+    url: http://localhost:55551/
+    maxage: 0
+  anonymous:
+    url: http://localhost:55551/
+    maxage: 0
+  none-url:
+    maxage: 0

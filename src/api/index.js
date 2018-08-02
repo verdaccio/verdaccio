@@ -1,26 +1,35 @@
 // @flow
 
-import express from 'express';
-import Error from 'http-errors';
-import compression from 'compression';
 import _ from 'lodash';
+import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import Storage from '../lib/storage';
-import {loadPlugin} from '../lib/plugin-loader';
+import loadPlugin from '../lib/plugin-loader';
 import hookDebug from './debug';
 import Auth from '../lib/auth';
 import apiEndpoint from './endpoint';
+import {ErrorCode} from '../lib/utils';
+import {API_ERROR, HTTP_STATUS} from '../lib/constants';
+import AppConfig from '../lib/config';
 
 import type {$Application} from 'express';
-import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
-import type {Config as IConfig} from '@verdaccio/types';
+import type {
+  $ResponseExtend,
+  $RequestExtend,
+  $NextFunctionVer,
+  IStorageHandler,
+  IAuth} from '../../types';
+import type {
+  Config as IConfig,
+  IPluginMiddleware,
+} from '@verdaccio/types';
 
 const LoggerApp = require('../lib/logger');
-const Config = require('../lib/config');
 const Middleware = require('./middleware');
 const Cats = require('../lib/status-cats');
 
-const defineAPI = function(config: Config, storage: IStorageHandler) {
+const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   const auth: IAuth = new Auth(config);
   const app: $Application = express();
   // run in production mode by default, just in case
@@ -53,10 +62,10 @@ const defineAPI = function(config: Config, storage: IStorageHandler) {
     config: config,
     logger: LoggerApp.logger,
   };
-  const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin) {
+  const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin: IPluginMiddleware) {
     return plugin.register_middlewares;
   });
-  plugins.forEach(function(plugin) {
+  plugins.forEach((plugin) => {
     plugin.register_middlewares(app, auth, storage);
   });
 
@@ -69,18 +78,18 @@ const defineAPI = function(config: Config, storage: IStorageHandler) {
     app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
   } else {
     app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      next(Error[404]('Web interface is disabled in the config file'));
+      next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
   // Catch 404
   app.get('/*', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    next(Error[404]('File not found'));
+    next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
   app.use(function(err, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {
-      if (err.code === 'ECONNABORT' && res.statusCode === 304) {
+      if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
       }
       if (_.isFunction(res.report_error) === false) {
@@ -102,7 +111,7 @@ const defineAPI = function(config: Config, storage: IStorageHandler) {
 
 export default async function(configHash: any) {
   LoggerApp.setup(configHash.logs);
-  const config: IConfig = new Config(configHash);
+  const config: IConfig = new AppConfig(configHash);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been intialized
   await storage.init(config);

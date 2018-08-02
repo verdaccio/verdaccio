@@ -1,23 +1,29 @@
 // @flow
 
-import {loadPlugin} from '../lib/plugin-loader';
-import Crypto from 'crypto';
-import jwt from 'jsonwebtoken';
-import {ErrorCode} from './utils';
+import _ from 'lodash';
 
-import type {Config, Logger, Callback} from '@verdaccio/types';
+import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import loadPlugin from '../lib/plugin-loader';
+import {buildBase64Buffer, ErrorCode} from './utils';
+import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
+import {getDefaultPlugins} from './auth-utils';
+
+import {getMatchedPackagesSpec} from './config-utils';
+
+import type {Config, Logger, Callback, IPluginAuth, RemoteUser} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
-import type {$RequestExtend} from '../../types';
+import type {$RequestExtend, JWTPayload} from '../../types';
+import type {IAuth} from '../../types';
+
 
 const LoggerApi = require('./logger');
-/**
- * Handles the authentification, load auth plugins.
- */
-class Auth {
+
+class Auth implements IAuth {
   config: Config;
   logger: Logger;
   secret: string;
   plugins: Array<any>;
+  static DEFAULT_EXPIRE_WEB_TOKEN: string = '7d';
 
   constructor(config: Config) {
     this.config = config;
@@ -28,56 +34,28 @@ class Auth {
   }
 
   _loadPlugin(config: Config) {
-    const plugin_params = {
+    const pluginOptions = {
       config,
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, plugin_params, function(p) {
-      return p.authenticate || p.allow_access || p.allow_publish;
+    return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
+      const {authenticate, allow_access, allow_publish} = plugin;
+
+      return authenticate || allow_access || allow_publish;
     });
   }
 
   _applyDefaultPlugins() {
-    const allow_action = function(action) {
-      return function(user, pkg, cb) {
-        const ok = pkg[action].reduce(function(prev, curr) {
-          if (user.name === curr || user.groups.indexOf(curr) !== -1) return true;
-          return prev;
-        }, false);
-
-        if (ok) {
-          return cb(null, true);
-        }
-
-        if (user.name) {
-          cb(ErrorCode.get403('user ' + user.name + ' is not allowed to ' + action + ' package ' + pkg.name));
-        } else {
-          cb(ErrorCode.get403('unregistered users are not allowed to ' + action + ' package ' + pkg.name));
-        }
-      };
-    };
-
-    this.plugins.push({
-      authenticate: function(user, password, cb) {
-        cb(ErrorCode.get403('bad username/password, access denied'));
-      },
-
-      add_user: function(user, password, cb) {
-        return cb(ErrorCode.get409('bad username/password, access denied'));
-      },
-
-      allow_access: allow_action('access'),
-      allow_publish: allow_action('publish'),
-    });
+    this.plugins.push(getDefaultPlugins());
   }
 
   authenticate(user: string, password: string, cb: Callback) {
-    const plugins = this.plugins.slice(0)
-    ;(function next() {
+    const plugins = this.plugins.slice(0);
+    (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.authenticate) !== 'function') {
+      if (_.isFunction(plugin.authenticate) === false) {
         return next();
       }
 
@@ -95,9 +73,14 @@ class Auth {
         // Info: Cannot use `== false to check falsey values`
         if (!!groups && groups.length !== 0) {
           // TODO: create a better understanding of expectations
-          if (typeof groups === 'string') {
+          if (_.isString(groups)) {
             throw new TypeError('invalid type for function');
           }
+          const isGroupValid: boolean = _.isArray(groups);
+          if (!isGroupValid) {
+            throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
+          }
+
           return cb(err, authenticatedUser(user, groups));
         }
         next();
@@ -107,19 +90,19 @@ class Auth {
 
   add_user(user: string, password: string, cb: Callback) {
     let self = this;
-    let plugins = this.plugins.slice(0)
+    let plugins = this.plugins.slice(0);
 
-    ;(function next() {
-      let p = plugins.shift();
-      let n = 'adduser';
-      if (typeof(p[n]) !== 'function') {
-        n = 'add_user';
+    (function next() {
+      let plugin = plugins.shift();
+      let method = 'adduser';
+      if (_.isFunction(plugin[method]) === false) {
+        method = 'add_user';
       }
-      if (typeof(p[n]) !== 'function') {
+      if (_.isFunction(plugin[method]) === false) {
         next();
       } else {
         // p.add_user() execution
-        p[n](user, password, function(err, ok) {
+        plugin[method](user, password, function(err, ok) {
           if (err) {
             return cb(err);
           }
@@ -135,19 +118,19 @@ class Auth {
   /**
    * Allow user to access a package.
    */
-  allow_access(packageName: string, user: string, callback: Callback) {
+  allow_access(packageName: string, user: RemoteUser, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
+    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
-      let p = plugins.shift();
+      const plugin = plugins.shift();
 
-      if (typeof(p.allow_access) !== 'function') {
+      if (_.isFunction(plugin.allow_access) === false) {
         return next();
       }
 
-      p.allow_access(user, pkg, function(err, ok) {
+      plugin.allow_access(user, pkg, function(err, ok: boolean) {
         if (err) {
           return callback(err);
         }
@@ -167,16 +150,16 @@ class Auth {
   allow_publish(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, this.config.getMatchedPackagesSpec(packageName));
+    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();
 
-      if (typeof(plugin.allow_publish) !== 'function') {
+      if (_.isFunction(plugin.allow_publish) === false) {
         return next();
       }
 
-      plugin.allow_publish(user, pkg, function(err, ok) {
+      plugin.allow_publish(user, pkg, (err, ok: boolean) => {
         if (err) {
           return callback(err);
         }
@@ -205,23 +188,23 @@ class Auth {
         return _next();
       };
 
-      if (req.remote_user != null && req.remote_user.name !== undefined) {
+      if (_.isUndefined(req.remote_user) === false
+          && _.isUndefined(req.remote_user.name) === false) {
         return next();
       }
       req.remote_user = buildAnonymousUser();
 
       const authorization = req.headers.authorization;
-      if (authorization == null) {
+      if (_.isNil(authorization)) {
         return next();
       }
 
       const parts = authorization.split(' ');
       if (parts.length !== 2) {
-        return next( ErrorCode.get400('bad authorization header') );
+        return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
       }
 
       const credentials = this._parseCredentials(parts);
-
       if (!credentials) {
         return next();
       }
@@ -249,12 +232,14 @@ class Auth {
   _parseCredentials(parts: Array<string>) {
       let credentials;
       const scheme = parts[0];
-      if (scheme.toUpperCase() === 'BASIC') {
-         credentials = new Buffer(parts[1], 'base64').toString();
-         this.logger.warn('basic authentication is deprecated, please use JWT instead');
+      if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
+         credentials = buildBase64Buffer(parts[1]).toString();
+         this.logger.info(API_ERROR.DEPRECATED_BASIC_HEADER);
          return credentials;
-      } else if (scheme.toUpperCase() === 'BEARER') {
-         credentials = this.aes_decrypt(new Buffer(parts[1], 'base64')).toString('utf8');
+      } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+         const token = buildBase64Buffer(parts[1]);
+
+         credentials = aesDecrypt(token, this.secret).toString('utf8');
          return credentials;
       } else {
         return;
@@ -266,17 +251,17 @@ class Auth {
    */
   webUIJWTmiddleware() {
     return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
-      if (req.remote_user !== null && req.remote_user.name !== undefined) {
+      if (_.isNull(req.remote_user) === false && _.isNil(req.remote_user.name) === false) {
        return _next();
       }
 
       req.pause();
-      const next = function(_err) {
+      const next = () => {
         req.resume();
         return _next();
       };
 
-      const token = (req.headers.authorization || '').replace('Bearer ', '');
+      const token = (req.headers.authorization || '').replace(`${TOKEN_BEARER} `, '');
       if (!token) {
         return next();
       }
@@ -298,18 +283,14 @@ class Auth {
     };
   }
 
-  issueUIjwt(user: any, expire_time: string) {
-    return jwt.sign(
-      {
-        user: user.name,
-        group: user.real_groups && user.real_groups.length ? user.real_groups : undefined,
-      },
-      this.secret,
-      {
-        notBefore: '1000', // Make sure the time will not rollback :)
-        expiresIn: expire_time || '7d',
-      }
-    );
+  issueUIjwt(user: any, expiresIn: string) {
+    const {name, real_groups} = user;
+    const payload: JWTPayload = {
+      user: name,
+      group: real_groups && real_groups.length ? real_groups : undefined,
+    };
+
+    return signPayload(payload, this.secret, {expiresIn: expiresIn || Auth.DEFAULT_EXPIRE_WEB_TOKEN});
   }
 
   /**
@@ -320,9 +301,9 @@ class Auth {
   decode_token(token: string) {
     let decoded;
     try {
-      decoded = jwt.verify(token, this.secret);
+      decoded = verifyPayload(token, this.secret);
     } catch (err) {
-      throw ErrorCode.getCode(401, err.message);
+      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
     }
 
     return decoded;
@@ -331,25 +312,8 @@ class Auth {
   /**
    * Encrypt a string.
    */
-  aes_encrypt(buf: Buffer): Buffer {
-    const c = Crypto.createCipher('aes192', this.secret);
-    const b1 = c.update(buf);
-    const b2 = c.final();
-    return Buffer.concat([b1, b2]);
-  }
-
-  /**
-    * Dencrypt a string.
-   */
-  aes_decrypt(buf: Buffer ) {
-    try {
-      const c = Crypto.createDecipher('aes192', this.secret);
-      const b1 = c.update(buf);
-      const b2 = c.final();
-      return Buffer.concat([b1, b2]);
-    } catch (_) {
-      return new Buffer(0);
-    }
+  aesEncrypt(buf: Buffer): Buffer {
+    return aesEncrypt(buf, this.secret);
   }
 }
 
@@ -361,21 +325,28 @@ function buildAnonymousUser() {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
-    groups: ['$all', '$anonymous', '@all', '@anonymous'],
+    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONUMOUS],
     real_groups: [],
   };
 }
 
 /**
  * Authenticate an user.
- * @return {Object} { name: xx, groups: [], real_groups: [] }
+ * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
  */
-function authenticatedUser(name: string, groups: Array<any>) {
-  let _groups = (groups || []).concat(['$all', '$authenticated', '@all', '@authenticated', 'all']);
+function authenticatedUser(name: string, pluginGroups: Array<any>) {
+  const isGroupValid: boolean = _.isArray(pluginGroups);
+  const groups = (isGroupValid ? pluginGroups : []).concat([
+      ROLES.$ALL,
+      ROLES.$AUTH,
+      ROLES.DEPRECATED_ALL,
+      ROLES.DEPRECATED_AUTH,
+      ROLES.ALL]);
+
   return {
-    name: name,
-    groups: _groups,
-    real_groups: groups,
+    name,
+    groups,
+    real_groups: pluginGroups,
   };
 }
 

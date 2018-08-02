@@ -1,12 +1,15 @@
 // @flow
 
 import _ from 'lodash';
-import smartRequest, {PromiseAssert} from '../../src/request';
-import type {IRequestPromise} from '../../flow/types';
+import smartRequest, {PromiseAssert} from '../../lib/request';
+import {mockServer} from '../api/mock';
+import {HTTP_STATUS} from '../../../src/lib/constants';
+import type {IRequestPromise} from '../../types';
 
 describe('Request Functional', () => {
-
-  const restTest: string = "http://registry.npmjs.org/aaa";
+  const mockServerPort = 55547;
+  const restTest: string = `http://localhost:${55547}/jquery`;
+  let mockRegistry;
 
   describe('Request Functional', () => {
     test('PromiseAssert', () => {
@@ -25,6 +28,15 @@ describe('Request Functional', () => {
     });
   });
   describe('smartRequest Rest', () => {
+
+    beforeAll(async () => {
+      mockRegistry = await mockServer(mockServerPort).init();
+    });
+
+    afterAll(function(done) {
+      mockRegistry[0].stop();
+      done();
+    });
 
     test('basic rest', (done) => {
       const options: any = {
@@ -46,8 +58,8 @@ describe('Request Functional', () => {
           method: 'GET'
         };
         // $FlowFixMe
-        smartRequest(options).status(200).then((result)=> {
-          expect(JSON.parse(result).name).toBe('aaa');
+        smartRequest(options).status(HTTP_STATUS.OK).then((result)=> {
+          expect(JSON.parse(result).name).toBe('jquery');
           done();
         })
       });

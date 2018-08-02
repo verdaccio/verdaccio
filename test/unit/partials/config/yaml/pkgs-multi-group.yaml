@@ -1,0 +1,9 @@
+packages:
+  '@*/*':
+    access: $all
+    publish: admin superadmin
+    proxy: npmjs
+  '**':
+    access: $all user1 user2
+    publish: admin
+    proxy: npmjs

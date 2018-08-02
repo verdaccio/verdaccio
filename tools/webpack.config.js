@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: `${env.APP_ROOT}/static/`,
     filename: '[name].[hash].js',
+    publicPath: 'ToReplaceByVerdaccio/-/static',
   },
 
   resolve: {
@@ -21,6 +22,22 @@ module.exports = {
       syntax: 'scss',
     }),
   ],
+
+  optimization: {
+    runtimeChunk: {
+      name: 'manifest',
+    },
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          priority: -20,
+          chunks: 'all',
+        },
+      },
+    },
+  },
 
   module: {
     rules: [

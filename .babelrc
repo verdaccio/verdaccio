@@ -22,7 +22,8 @@
         "react-hot-loader/babel",
         "transform-runtime",
         "transform-object-rest-spread",
-        "transform-decorators-legacy"
+        "transform-decorators-legacy",
+        "syntax-dynamic-import"
       ]
     },
     "test": {
@@ -36,8 +37,7 @@
         "transform-object-rest-spread"
       ]
     },
-    "testE2E": {
-      /** for an issue on puppeteer env we need to use es2015-node4 **/
+    "testOldEnv": {
       "presets": [ "es2015-node4", "flow"],
       "plugins": [
         "transform-class-properties",
@@ -60,9 +60,13 @@
       "presets": [
         ["env", {
           "targets": {
-            "node": "9"
+            "node": "10"
           }
-        }], "flow"]
+        }], "flow"],
+      "plugins": [
+        "transform-object-rest-spread",
+        "transform-class-properties"
+      ]
     },
     "development": {
       "presets": ["flow"],

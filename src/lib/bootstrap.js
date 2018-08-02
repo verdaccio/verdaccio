@@ -13,6 +13,7 @@ import {parse_address} from './utils';
 
 import type {Callback} from '@verdaccio/types';
 import type {$Application} from 'express';
+import {DEFAULT_PORT} from './constants';
 
 const logger = require('./logger');
 
@@ -37,7 +38,7 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
   } else if (configListen) {
     addresses = [configListen];
   } else {
-    addresses = ['4873'];
+    addresses = [DEFAULT_PORT];
   }
   addresses = addresses.map(function(addr) {
     const parsedAddr = parse_address(addr);
@@ -63,9 +64,12 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config: any, cliListen: string,
-                              configPath: string, pkgVersion: string,
-                              pkgName: string, callback: Callback) {
+function startVerdaccio(config: any,
+                        cliListen: string,
+                        configPath: string,
+                        pkgVersion: string,
+                        pkgName: string,
+                        callback: Callback) {
   if (isObject(config) === false) {
     throw new Error('config file must be an object');
   }

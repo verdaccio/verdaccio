@@ -30,97 +30,95 @@ logs:
 
 packages:
   '@test/*':
-    allow_access: $all
-    allow_publish: $all
+    access: $all
+    publish: $all
     proxy: server2
 
-  'testfwd*':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: server2
-    proxy_publish: server2
+  ## mirror.js
+  'test-mirror-*':
+    access: $all
+    publish: $all
+    proxy: server2
 
+  ## mirror.js
   'testloop':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: server2
-    proxy_publish: server2
+    access: $all
+    publish: $all
+    proxy: server2
 
   'testexp':
-    allow_access: $anonymous
+    access: $anonymous
 
   # used by tags.spec.js
   'testexp_tag*':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: express
+    access: $all
+    publish: $all
+    proxy: express
 
   # used by gzip.spec.js
-  'testexp_gzi*':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: express
+  'testexp_gzip':
+    access: $all
+    publish: $all
+    proxy: express
 
   # used by gh29.js
   'testpkg-gh29':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: express
+    access: $all
+    publish: $all
+    proxy: express
 
   # used by preserve_tags_spec.js
   'testpkg-preserve':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: express
+    access: $all
+    publish: $all
+    proxy: express
 
   # used by racycrash.js
   'testexp-racycrash':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: express
+    access: $all
+    publish: $all
+    proxy: express
 
   # used by incomplete.js
   'testexp-incomplete':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: express
+    access: $all
+    publish: $all
+    proxy: express
 
   'test-nullstorage*':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: server2
+    access: $all
+    publish: $all
+    proxy: server2
     storage: false
 
   'baduplink':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: baduplink
+    access: $all
+    publish: $all
+    proxy: baduplink
 
   'test-access-only':
-    allow_access: $all
-    allow_publish: nobody
+    access: $all
+    publish: nobody
     storage: false
 
   'test-publish-only':
-    allow_access: nobody
-    allow_publish: $all
+    access: nobody
+    publish: $all
     storage: false
 
   'test-only-test':
-    allow_access: test
-    allow_publish: test
+    access: test
+    publish: test
     storage: false
 
   'test-only-auth':
-    allow_access: $authenticated
-    allow_publish: $authenticated
+    access: $authenticated
+    publish: $authenticated
     storage: false
 
   '*':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-
-listen: 55551
+    access: test $anonymous
+    publish: test $anonymous
 
 # expose internal methods
 _debug: true

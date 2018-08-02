@@ -2,6 +2,214 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.5.1"></a>
+## [3.5.1](https://github.com/verdaccio/verdaccio/compare/v3.5.0...v3.5.1) (2018-08-02)
+
+
+### Bug Fixes
+
+* remove version page ([8a0e8ab](https://github.com/verdaccio/verdaccio/commit/8a0e8ab))
+
+
+
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/verdaccio/verdaccio/compare/v3.4.1...v3.5.0) (2018-08-02)
+
+
+### Bug Fixes
+
+* fix docker python issue [#883](https://github.com/verdaccio/verdaccio/issues/883) ([ec744ea](https://github.com/verdaccio/verdaccio/commit/ec744ea))
+* unpublish version does not remove it from timeline ([61e62bd](https://github.com/verdaccio/verdaccio/commit/61e62bd))
+
+
+### Features
+
+* adds gravatar support for maintainers ([4df6b3b](https://github.com/verdaccio/verdaccio/commit/4df6b3b))
+* adds option to set scope in webui instructions header ([f9e9383](https://github.com/verdaccio/verdaccio/commit/f9e9383)), closes [#593](https://github.com/verdaccio/verdaccio/issues/593)
+
+
+<a name="3.4.1"></a>
+## [3.4.1](https://github.com/verdaccio/verdaccio/compare/v3.4.0...v3.4.1) (2018-07-27)
+
+
+### Bug Fixes
+
+* solves dependency bug for one dependency ([#857](https://github.com/verdaccio/verdaccio/issues/857)) ([f9c9c44](https://github.com/verdaccio/verdaccio/commit/f9c9c44))
+
+
+
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/verdaccio/verdaccio/compare/v3.3.0...v3.4.0) (2018-07-27)
+
+
+### Bug Fixes
+
+* Authentication Plugins / plugin[method] is not a function ([0a3870e](https://github.com/verdaccio/verdaccio/commit/0a3870e))
+
+
+### Features
+
+* adds base64 support in webui token ([#840](https://github.com/verdaccio/verdaccio/issues/840)) ([4a7a94a](https://github.com/verdaccio/verdaccio/commit/4a7a94a))
+
+
+
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/verdaccio/verdaccio/compare/v3.2.0...v3.3.0) (2018-07-22)
+
+
+### Bug Fixes
+
+* add RemoteUser type for auth ([2f4dbe8](https://github.com/verdaccio/verdaccio/commit/2f4dbe8))
+* adds webpack banner plugin to tag bundles with version ([#784](https://github.com/verdaccio/verdaccio/issues/784)) ([dac28d3](https://github.com/verdaccio/verdaccio/commit/dac28d3))
+* dynamic date generation for <Package /> component test ([e5ea0c2](https://github.com/verdaccio/verdaccio/commit/e5ea0c2))
+* ignores http_proxy and https_proxy ([d04dc8d](https://github.com/verdaccio/verdaccio/commit/d04dc8d))
+* improves regex for ascii and test ([#461](https://github.com/verdaccio/verdaccio/issues/461)) ([be3968f](https://github.com/verdaccio/verdaccio/commit/be3968f))
+* license field alignment on web ui ([#761](https://github.com/verdaccio/verdaccio/issues/761)) ([9fa523a](https://github.com/verdaccio/verdaccio/commit/9fa523a))
+* open external tabs in new tabs ([25e8e60](https://github.com/verdaccio/verdaccio/commit/25e8e60))
+* package.json to reduce vulnerabilities ([389e306](https://github.com/verdaccio/verdaccio/commit/389e306))
+* solve seo issue [#760](https://github.com/verdaccio/verdaccio/issues/760) ([62d3033](https://github.com/verdaccio/verdaccio/commit/62d3033))
+* wrong auth plugin signature ([5c2c414](https://github.com/verdaccio/verdaccio/commit/5c2c414))
+
+
+### Features
+
+* adds support for ascii-doc preview in readme ([#464](https://github.com/verdaccio/verdaccio/issues/464)) ([29bb57a](https://github.com/verdaccio/verdaccio/commit/29bb57a))
+* adds support for external plugin directory ([#532](https://github.com/verdaccio/verdaccio/issues/532)) ([11dcf79](https://github.com/verdaccio/verdaccio/commit/11dcf79))
+* capitalises logged in username ([#752](https://github.com/verdaccio/verdaccio/issues/752)) ([0e21e35](https://github.com/verdaccio/verdaccio/commit/0e21e35))
+
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/verdaccio/verdaccio/compare/v3.1.2...v3.2.0) (2018-06-15)
+
+
+### Bug Fixes
+
+* allowing to allow replace static enpoint in case of reverse proxy ([90803c7](https://github.com/verdaccio/verdaccio/commit/90803c7))
+* fixed linebreaks lint issue ([9e3ab09](https://github.com/verdaccio/verdaccio/commit/9e3ab09))
+* normalize package was broken [#758](https://github.com/verdaccio/verdaccio/issues/758) ([3717ad4](https://github.com/verdaccio/verdaccio/commit/3717ad4))
+
+
+### Features
+
+* Add basic package infos and resource links to sidebar. ([7bd3a4f](https://github.com/verdaccio/verdaccio/commit/7bd3a4f))
+* add published package support to template ([4245636](https://github.com/verdaccio/verdaccio/commit/4245636))
+* added information about package publisher for notifications ([1ca5298](https://github.com/verdaccio/verdaccio/commit/1ca5298))
+
+
+
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/verdaccio/verdaccio/compare/v3.1.1...v3.1.2) (2018-06-11)
+
+
+### Bug Fixes
+
+* configure fetch to send cookies ([98ac855](https://github.com/verdaccio/verdaccio/commit/98ac855))
+* search implementation depends now of each plugin ([8f0508f](https://github.com/verdaccio/verdaccio/commit/8f0508f))
+
+
+
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/verdaccio/verdaccio/compare/v3.1.0...v3.1.1) (2018-06-07)
+
+
+### Bug Fixes
+
+* migration issue with old storage [#740](https://github.com/verdaccio/verdaccio/issues/740) ([e977d50](https://github.com/verdaccio/verdaccio/commit/e977d50))
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/verdaccio/verdaccio/compare/v3.0.2...v3.1.0) (2018-06-05)
+
+
+### Bug Fixes
+
+* groups are not array were not handled ([a62688f](https://github.com/verdaccio/verdaccio/commit/a62688f))
+* improve bundle size ([a79d87b](https://github.com/verdaccio/verdaccio/commit/a79d87b))
+
+
+### Features
+
+* add published date and license on ui ([ecbe616](https://github.com/verdaccio/verdaccio/commit/ecbe616))
+* using code splitting on routers ([0af6f5a](https://github.com/verdaccio/verdaccio/commit/0af6f5a))
+
+
+
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/verdaccio/verdaccio/compare/v3.0.1...v3.0.2) (2018-05-31)
+
+
+### Bug Fixes
+
+* enable audit by default ([8df186c](https://github.com/verdaccio/verdaccio/commit/8df186c))
+* skip problematic unit test ([c920fa3](https://github.com/verdaccio/verdaccio/commit/c920fa3))
+
+
+
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/verdaccio/verdaccio/compare/v3.0.0...v3.0.1) (2018-05-31)
+
+
+### Bug Fixes
+
+* ui fails to render whether time is missing ([f575b48](https://github.com/verdaccio/verdaccio/commit/f575b48))
+
+
+
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.12...v3.0.0) (2018-05-30)
+
+
+### Bug Fixes
+
+* favicon refers to .png while only .ico exists [#681](https://github.com/verdaccio/verdaccio/issues/681) ([11e6f9f](https://github.com/verdaccio/verdaccio/commit/11e6f9f))
+* web-ui css were not being minimized ([3168a76](https://github.com/verdaccio/verdaccio/commit/3168a76))
+
+
+### Features
+
+* new verdaccio skin to webui ([b8b2612](https://github.com/verdaccio/verdaccio/commit/b8b2612))
+
+
+
+<a name="3.0.0-beta.12"></a>
+# [3.0.0-beta.12](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.11...v3.0.0-beta.12) (2018-05-23)
+
+
+### Features
+
+* add node 10 support for test and docker ([cee2564](https://github.com/verdaccio/verdaccio/commit/cee2564))
+* support for npm audit fix [#689](https://github.com/verdaccio/verdaccio/issues/689) ([f9f180d](https://github.com/verdaccio/verdaccio/commit/f9f180d))
+
+
+
+<a name="3.0.0-beta.11"></a>
+# [3.0.0-beta.11](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.10...v3.0.0-beta.11) (2018-05-20)
+
+
+### Bug Fixes
+
+* **docs:** clarify usage of uplink auth property ([01f7969](https://github.com/verdaccio/verdaccio/commit/01f7969))
+* remove useless warning ignoring tag ([0aeac06](https://github.com/verdaccio/verdaccio/commit/0aeac06))
+
+
+
+<a name="3.0.0-beta.10"></a>
+# [3.0.0-beta.10](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.9...v3.0.0-beta.10) (2018-05-14)
+
+
+### Bug Fixes
+
+* avoid issues with missing token [#693](https://github.com/verdaccio/verdaccio/issues/693) ([08f6a64](https://github.com/verdaccio/verdaccio/commit/08f6a64))
+
+
+### Features
+
+* return latest dis-tag readme whether main metadata readme is emtpy ([e75376b](https://github.com/verdaccio/verdaccio/commit/e75376b))
+
+
+
 <a name="3.0.0-beta.9"></a>
 # [3.0.0-beta.9](https://github.com/verdaccio/verdaccio/compare/v3.0.0-beta.8...v3.0.0-beta.9) (2018-05-13)
 

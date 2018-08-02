@@ -4,6 +4,7 @@ import Path from 'path';
 import _ from 'lodash';
 import logger from './logger';
 import type {Config} from '@verdaccio/types';
+import {MODULE_NOT_FOUND} from './constants';
 
 /**
  * Requires a module.
@@ -14,7 +15,7 @@ function tryLoad(path: string) {
   try {
     return require(path);
   } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
+    if (err.code === MODULE_NOT_FOUND) {
       return null;
     }
     throw err;
@@ -36,7 +37,8 @@ function isES6(plugin) {
 /**
  * Load a plugin following the rules
  * - First try to load from the internal directory plugins (which will disappear soon or later).
- * - A seccond attempt from node_modules, in case to have multiple match as for instance verdaccio-ldap
+ * - A second attempt from the external plugin directory
+ * - A third attempt from node_modules, in case to have multiple match as for instance verdaccio-ldap
  * and sinopia-ldap. All verdaccio prefix will have preferences.
  * @param {*} config a reference of the configuration settings
  * @param {*} pluginConfigs
@@ -44,12 +46,31 @@ function isES6(plugin) {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck: Function) {
-  return Object.keys(pluginConfigs || {}).map(function(pluginId) {
+export default function loadPlugin<T>(
+        config: Config,
+        pluginConfigs: any = {},
+        params: any,
+        sanityCheck: Function): T[] {
+  return Object.keys(pluginConfigs).map((pluginId: string) => {
     let plugin;
 
     // try local plugins first
-    plugin = tryLoad(Path.resolve(__dirname + '/..//plugins', pluginId));
+    plugin = tryLoad(Path.resolve(__dirname + '/../plugins', pluginId));
+
+    // try the external plugin directory
+    if (plugin === null && config.plugins) {
+      const pluginDir = config.plugins;
+      plugin = tryLoad(Path.resolve(pluginDir, pluginId));
+
+      // npm package
+      if (plugin === null && pluginId.match(/^[^\.\/]/)) {
+        plugin = tryLoad(Path.resolve(pluginDir, `verdaccio-${pluginId}`));
+        // compatibility for old sinopia plugins
+        if (!plugin) {
+          plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
+        }
+      }
+    }
 
     // npm package
     if (plugin === null && pluginId.match(/^[^\.\/]/)) {
@@ -79,7 +100,9 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
     /* eslint new-cap:off */
-    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+    plugin = isES6(plugin)
+      ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
+      : plugin(pluginConfigs[pluginId], params);
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
@@ -90,5 +113,3 @@ function loadPlugin(config: Config, pluginConfigs: any, params: any, sanityCheck
     return plugin;
   });
 }
-
-export {loadPlugin};

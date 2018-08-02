@@ -1,0 +1,37 @@
+@import "variables";
+@import "mixins";
+
+:global {
+  .container {
+    margin-top: $space-lg;
+
+    @include container-size;
+
+    .el-loading-spinner {
+      margin-top: 0 !important;
+    }
+  }
+
+  .page-full-height {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .el-button {
+    &:hover, &:focus {
+      color: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  .el-input__inner {
+    &:hover, &:focus {
+      border-color: $primary-color;
+    }
+  }
+
+  .el-dialog__headerbtn:hover .el-dialog__close {
+    color: $eclipse;
+  }
+}

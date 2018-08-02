@@ -1,6 +1,6 @@
 ---
-id: configuration
-title: "Configuration File"
+id: 配置
+title: "配置文件"
 ---
 此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
 
@@ -29,9 +29,9 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## 模块
+## 章节
 
-以下各章节解释了每一个选项的作用和可用的值
+以下各章节解释了每个属性的含义以及不同的选项。
 
 ### 存储
 
@@ -41,9 +41,17 @@ logs:
 storage: ./storage
 ```
 
+### 插件
+
+是插件目录的位置。对Docker/Kubernetes 基础上的配置非常有用。
+
+```yaml
+plugins: ./plugins
+```
+
 ### 认证
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. 您可以通过 [ 插件 ](plugins.md) 修改此行为。 如需了解更多信息，请阅读文档中的 ["认证" 部分](auth.md)
+认证设置在这里完成，默认的授权是基于`htpasswd` 并且是内置的。 您可以通过[plugins](plugins.md)来修改此行为。 有关更多本章节的详细信息，请阅读[auth页面](auth.md)。
 
 ```yaml
 auth:
@@ -54,18 +62,19 @@ auth:
 
 ### Web UI
 
-这个选项允许你定制 Web UI 的外观. 如需了解更多信息，请阅读文档中的 ["Web UI" 部分](web.md).
+此属性让您可以修改此web UI的外观和感觉。有关更多此章节的详细信息，请阅读 [web ui页面](web.md)。
 
 ```yaml
 web:
   enable: true
   title: Verdaccio
   logo: logo.png
+  scope:
 ```
 
-### Uplinks
+### 上行链路
 
-通过配置 Uplinks ，Verdaccio 可以从远程的仓库中获取本地尚未缓存的包。 如需了解更多信息，请阅读文档中的 ["Uplinks" 部分](uplinks.md)
+当包不在本地的时候，上行链路可以让系统从远程的registry里获取这些包。 有关更多本章节的详细信息，请阅读[上行链路页面](uplinks.md)。
 
 ```yaml
 uplinks:
@@ -75,7 +84,7 @@ uplinks:
 
 ### 包
 
-"包" 部分定义了用户访问仓库中的包的权限。如需了解更多信息，请阅读文档中的 [ "包" 部分](packages.md).
+包让用户控制访问包的权限。有关更多本模块的详细信息，请阅读[包页面](packages.md)。
 
 ```yaml
 packages:
@@ -87,9 +96,9 @@ packages:
 
 ## 高级设置
 
-### 离线发布
+### 脱线发布
 
-`Verdaccio` 默认不允许在与 Uplinks 断开连接后发布任何包，但是通过设置以下选项为 *ture* 来允许离线发布
+`verdaccio`默认不允许客户脱线的时候发布，可以把这设置为*true*来覆盖此行为。
 
 ```yaml
 publish:
@@ -106,17 +115,17 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### 最大 Body 尺寸
+### 最大正文大小
 
-默认的 JSON 请求 Body 尺寸为 `1MB`，如果你遇到了错误提示 `"request entity too large"` ，可以尝试增大这个值
+默认的最大JSON 文件正文大小为`10mb`, 如果遇到`"request entity too large"` 的错误提示，您可以增大此数值。
 
 ```yaml
-max_body_size: 1mb
+max_body_size: 10mb
 ```
 
 ### 监听端口
 
-`Verdaccio` 默认使用 `4873` 端口. 可以通过 [命令行传递参数](cli.md) 或修改配置文件，以下格式是有效的
+`verdaccio` 默认在`4873`端口运行。可以通过[cli](cli.md) 或者在配置文件里更改端口，以下选项有效。
 
 ```yaml
 listen:
@@ -130,7 +139,7 @@ listen:
 
 ### HTTPS
 
-可通过在 `listen` 的域名前增加 *https://* 并设置证书路径来启用 `Verdaccio` 的 HTTPS 支持。 如需了解更多信息，请阅读文档中的 ["SSL" 部分](ssl.md)
+要在 `verdaccio`启用`https`，只要用 *https://*协议来设置`listen` 标志。 有关更多此章节的详细信息，请阅读 [ssl page](ssl.md)。
 
 ```yaml
 https:
@@ -141,11 +150,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxy是专门把数据从远程服务器传输到本地客户端的HTTP 服务器。
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+如果您的网络里有proxy，您可以用以下属性设置`X-Forwarded-For` 页眉。
 
 ```yaml
 http_proxy: http://something.local/
@@ -154,16 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+此变量应该包含一个proxy 本不应该用到的以逗号分开的域名扩展列表。
 
 ```yaml
-http_proxy: http://something.local/
-https_proxy: https://something.local/
+no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### 通知
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+通过web hooks来启用第三方工具通知是很容易的。有关更多此章节的详细信息，请阅读 [notifications page（通知页面）](notifications.md)。
 
 ```yaml
 notify:
@@ -173,4 +181,18 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> 有关更多配置设置的详细信息，请[核对源代码](https://github.com/verdaccio/verdaccio/tree/master/conf)。
+
+### 审核
+
+<small>Since: <code>verdaccio@3.0.0</code></small>
+
+`npm audit` 是和[npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0)一起发布的新命令。Verdaccio 包含一个内置的middleware plugin(中间插件）来处理此命令。
+
+> 新安装采用默认版本，但是您可以添加以下代码段到配置文件中
+
+```yaml
+middlewares:
+  audit:
+    enabled: true
+```

@@ -1,20 +1,20 @@
 ---
 id: installation
-title: "Installation"
+title: "安装"
 ---
-Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
+Verdaccio 是一个多平台网页应用程序。在安装之前，您需要具有一些先决条件。
 
 #### 最低要求:
 
 1. Node.js 版本 
-    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
-    - For version `verdaccio@beta` Node `6.12.0` is the minimum supported version.
+    - 对于`verdaccio@2.x`版本，Node `v4.6.1`是最低支持版本。
+    - 对于`verdaccio@latest`版本，Node `6.12.0` 是最低支持版本。
 2. npm `>=3.x` or `yarn`
-3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
+3. 网页界面支持`Chrome, Firefox, Edge, 和 IE9` 浏览器。
 
-## 安装
+## 安装CLI
 
-`verdaccio` must be installed globaly using either of the following methods:
+`verdaccio` 总体上必须用以下两种方法之一来安装：
 
 使用 `npm`
 
@@ -28,32 +28,20 @@ npm install -g verdaccio
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
-
-### Beta
-
-⚠️⚠️ **Help us to test the version 3.x in order to release a stable version soon. Remember, to do never test with your original storage folder, do always a backup** ⚠️⚠️
-
-If you are an adventurous developer you can use and install the latest beta version, this is a non stable version, I'd recommend only use for testing purporses.
-
-```bash
-$ npm install -g verdaccio@beta
-```
+![安装verdaccio](/svg/install_verdaccio.gif)
 
 ## 基本使用
 
-Once it has been installed, you only need to execute the CLI command:
+一旦安装后，您只需要执行CLI 命令：
 
 ```bash
 $> verdaccio
 warn --- config file  - /home/.config/verdaccio/config.yaml
-warn --- http address - http://localhost:4873/ - verdaccio/2.7.4
+warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-![](https://cdn-images-1.medium.com/max/720/1*jDHnZ7_68u5s1lFK2cygnA.gif)
-
-For more information about the CLI, please [read the cli section](cli.md).
+更多关于CLI的详细信息，请[阅读cli章节](cli.md)。
 
 ## Docker 镜像
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` 有官方docker镜像可以使用，而且在大多数情况下，默认配置已经够好。 更多关于如何安装官方镜像的详细信息，请[阅读docker章节](docker.md)。

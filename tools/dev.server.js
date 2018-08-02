@@ -30,6 +30,10 @@ new WebpackDevServer(compiler, {
     chunks: true,
     chunkModules: false,
   },
+  proxy: [{
+      context: ['/-/verdaccio/logo', '/-/verdaccio/packages', '/-/static/logo.png'],
+      target: 'http://localhost:4873',
+  }],
 }).listen(4872, 'localhost', function(err) {
   if (err) {
     return console.log(err);

@@ -1,10 +1,10 @@
 ---
 id: webui
-title: "Interfaz Web de Usuario"
+title: "Web User Interface2"
 ---
 
 
-<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
+<p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
 Verdaccio tiene una interfaz web de usuario que solo muetra paquetes privados y puede ser personalizable.
 
@@ -13,12 +13,16 @@ web:
   enable: true
   title: Verdaccio
   logo: logo.png
+  scope:
 ```
+
+All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
 
 ### Configuración
 
-| Propiedad | Tipo    | Requerido | Ejemplo                        | Soporte | Descripcion                          |
-| --------- | ------- | --------- | ------------------------------ | ------- | ------------------------------------ |
-| enable    | boolean | No        | true/false                     | all     | habilita la interfaz web             |
-| title     | string  | No        | $authenticated                 | all     | El título de la interfaz web         |
-| logo      | string  | No        | http://my.logo.domain/logo.png | all     | el URI donde el logo esta localizado |
+| Propiedad | Tipo    | Requerido | Ejemplo                        | Soporte | Descripcion                                                                                                                                          |
+| --------- | ------- | --------- | ------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| enable    | boolean | No        | true/false                     | all     | habilita la interfaz web                                                                                                                             |
+| title     | string  | No        | Verdaccio                      | all     | El título de la interfaz web                                                                                                                         |
+| logo      | string  | No        | http://my.logo.domain/logo.png | all     | el URI donde el logo esta localizado                                                                                                                 |
+| scope     | string  | No        | \\@myscope                   | all     | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header (note: escape @ with \\@) |

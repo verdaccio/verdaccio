@@ -18,8 +18,8 @@ const json = {
 
       ],
       "author": {
-        "name": "Juan Picado",
-        "email": "juan@jotadeveloper.com"
+        "name": "User NPM",
+        "email": "user@domain.com"
       },
       "license": "ISC",
       "dependencies": {

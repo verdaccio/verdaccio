@@ -1,38 +1,55 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "插件开发"
 ---
-There are many ways to extend `verdaccio`, currently we support `authentication plugins`, `middleware plugins` (since `v2.7.0`) and `storage plugins` since (`v3.x`).
+有很多种扩展 `verdaccio`的方法，支持的插件种类有：
 
-## Authentication Plugin
+* 认证插件
+* Middleware 插件 (自 `v2.7.0`)
+* 存储插件自 (`v3.x`)
 
-This section will describe how it looks like a Verdaccio plugin in a ES5 way. Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`). Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+> 我们建议使用[flow类型定义](https://github.com/verdaccio/flow-types)来开发插件。
+
+## Authentication Plugin（认证插件）
+
+基本上我们必须用一个叫做`authenticate`的单一方法来返回一个object（对象），此方法将接收到3 个参数(`user, password, callback`)。
 
 ### API
 
-```js
-function authenticate (user, password, callback) {
- ...more stuff
+```flow
+interface IPluginAuth extends IPlugin {
+  login_url?: string;
+  authenticate(user: string, password: string, cb: Callback): void;
+  adduser(user: string, password: string, cb: Callback): void;
+  allow_access(user: RemoteUser, pkg: $Subtype<PackageAccess>, cb: Callback): void;
+  allow_publish(user: RemoteUser, pkg: $Subtype<PackageAccess>, cb: Callback): void;
 }
 ```
 
-##### OnError
+> 仅 `adduser`, `allow_access` 和`allow_publish` 是可选的，verdaccio 在所有这些例子里提供后退。
 
-Either something bad happened or auth was unsuccessful.
+#### 回调
 
-    callback(null, false)
-    
+一旦执行了认证，有两个选项来回应 `verdaccio`。
 
-##### OnSuccess
+###### OnError
 
-The auth was successful.
+要么是发生了糟糕的事，要么是授权不成功。
 
-`groups` is an array of strings where the user is part of.
+```flow
+callback(null, false)
+```
+
+###### OnSuccess
+
+授权成功
+
+`groups`是用户组成的一组字符串。
 
      callback(null, groups);
     
 
-### Example
+### 例如
 
 ```javascript
 function Auth(config, stuff) {
@@ -65,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the setup
+配置将如下所示：
 
 ```yaml
 auth:
@@ -73,45 +90,62 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+其中`htpasswd` 是插件名称，例如：`verdaccio-htpasswd` 的后缀。剩下的组成部分是插件配置的参数。
 
-## Middleware Plugin
+## Middleware Plugin（Middleware 插件）
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests. A pretty good example of middleware plugin is the (sinopia-github-oauth)[https://github.com/soundtrackyourbrand/sinopia-github-oauth]) compatible with `verdaccio`.
+Middleware 插件有修改API 接口的能力，它可以添加新的端点或者拦截请求。
 
-### API
-
-```js
-function register_middlewares(expressApp, auth, storage) {
-   ...more stuff
+```flow
+interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
+  register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void;
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+### register_middlewares
 
-## Storage Plugin
+此方法通过`auth`和`storage`提供完全认证访问。`app` 是可以让您添加新端点的表达应用程序。
 
-Since `verdaccio@3.x` we also can plug a custom storage.
+> Middleware插件的一个很好的例子是[sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) 和 [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit)。
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `ILocalData` implementation. Please see details bellow.
-
 ```js
-<br />class LocalDatabase<ILocalData>{
-    constructor(config: Config, logger: Logger): ILocalData;
+function register_middlewares(expressApp, authInstance, storageInstance) {
+   /* more stuff */
+}
+```
+
+要注册middleware，我们需要一个object（对象）以及一个可以接收3 个参数(`expressApp, auth, storage`)，名叫 `register_middlewares`的单一方法。 *Auth*是authentification instance，*storage* 也是主Storage instance，它将让您可以访问到所有存储操作。
+
+## Storage Plugin（存储插件）
+
+Verdaccio 默认使用文件系统存储插件[local-storage](https://github.com/verdaccio/local-storage), 但是，从`verdaccio@3.x` 开始，您可以插入定制存储来取代默认的行为。
+
+### API
+
+存储API 更复杂一些，您将需要创建一个可以返回`IPluginStorage`执行的class（类）。请参阅以下详细信息。
+
+```flow
+class LocalDatabase<IPluginStorage>{
+  constructor(config: $Subtype<verdaccio$Config>, logger: verdaccio$Logger): ILocalData;
 }
 
-declare interface verdaccio$ILocalData {
+interface IPluginStorage {
+  logger: verdaccio$Logger;
+    config: $Subtype<verdaccio$Config>;
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
+  search(onPackage: verdaccio$Callback, onEnd: verdaccio$Callback, validateName: Function): void;
 }
 
-declare interface verdaccio$ILocalPackageManager {
+interface IPackageStorageManager {
+  path: string;
+  logger: verdaccio$Logger;
   writeTarball(name: string): verdaccio$IUploadTarball;
   readTarball(name: string): verdaccio$IReadTarball;
   readPackage(fileName: string, callback: verdaccio$Callback): void;
@@ -126,26 +160,29 @@ declare interface verdaccio$ILocalPackageManager {
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
-interface IUploadTarball extends stream$PassThrough {
+class verdaccio$IUploadTarball extends stream$PassThrough {
+  abort: Function;
+  done: Function;
+  _transform: Function;
   abort(): void;
   done(): void;
 }
 
-interface IReadTarball extends stream$PassThrough {
+class verdaccio$IReadTarball extends stream$PassThrough {
+  abort: Function;
   abort(): void;
-  done(): void;
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> 存储API 仍然还在实验阶段，并在接下来的小版本中可能会有修改。 更多有关存储API 的详细信息，请跟随[类型 我们官方资源库里的定义](https://github.com/verdaccio/flow-types)。
 
-### Storage Plugins Examples
+### 存储插件示例
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+以下插件列表执行存储API，可以被用作示例。
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> 您是否愿意为新存储插件做出贡献？[请点击此处。](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)

@@ -6,7 +6,7 @@ import {media, allow} from '../../middleware';
 import {DIST_TAGS} from '../../../lib/utils';
 import type {Router} from 'express';
 import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
-
+import {API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
 
 export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   const can = allow(auth);
@@ -21,20 +21,17 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
       if (err) {
         return next(err);
       }
-      res.status(201);
-      return next({ok: 'package tagged'});
+      res.status(HTTP_STATUS.CREATED);
+      return next({ok: API_MESSAGE.TAG_ADDED});
     });
   };
 
   // tagging a package
-  route.put('/:package/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put('/:package/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.post('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.post('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.put('/-/package/:package/dist-tags/:tag',
-    can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
   route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const tags = {};
@@ -43,9 +40,9 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
       if (err) {
         return next(err);
       }
-      res.status(201);
+      res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: 'tag removed',
+        ok: API_MESSAGE.TAG_REMOVED,
       });
     });
   });
@@ -69,8 +66,10 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
         if (err) {
           return next(err);
         }
-        res.status(201);
-        return next({ok: 'tags updated'});
+        res.status(HTTP_STATUS.CREATED);
+        return next({
+          ok: API_MESSAGE.TAG_UPDATED,
+        });
       });
     });
 }

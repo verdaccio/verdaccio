@@ -17,13 +17,13 @@ export default function(route: Router, auth: IAuth) {
 
   route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     let token = (req.body.name && req.body.password)
-      ? auth.aes_encrypt(new Buffer(req.body.name + ':' + req.body.password)).toString('base64')
+      ? auth.aesEncrypt(new Buffer(req.body.name + ':' + req.body.password)).toString('base64')
       : undefined;
     if (_.isNil(req.remote_user.name) === false) {
       res.status(201);
       return next({
         ok: 'you are authenticated as \'' + req.remote_user.name + '\'',
-        token: token,
+        token,
       });
     } else {
       auth.add_user(req.body.name, req.body.password, function(err, user) {
@@ -32,7 +32,7 @@ export default function(route: Router, auth: IAuth) {
             // With npm registering is the same as logging in,
             // and npm accepts only an 409 error.
             // So, changing status code here.
-            return next( ErrorCode.getCode(err.status, err.message) || ErrorCode.get409(err.message));
+            return next( ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
           }
           return next(err);
         }

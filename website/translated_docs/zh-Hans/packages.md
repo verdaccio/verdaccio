@@ -1,14 +1,14 @@
 ---
 id: packages
-title: "Package Access"
+title: "包的访问"
 ---
-It's a series of contrains that allow or restrict access to the local storage based in specific criteria.
+这是一系列的约束，它基于特定条件允许或限制对本地存储的访问。
 
-The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it.
+安全约束构建于被使用的插件上，在默认情况下，`verdaccio`使用[htpasswd 插件](https://github.com/verdaccio/verdaccio-htpasswd)。 如果你使用不同的插件，行为可能会有所不同。 默认插件自己并不处理`allow_access`和`allow_publish`，它使用内部回退功能以防止插件尚未就绪。
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+关于权限的更多信息，请访问[维基文档的认证部分](auth.md)。
 
-### Usage
+### 用法
 
 ```yalm
 packages:
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+如果未进行任何设置，默认值则会被保留
 
 ```yaml
 packages:
@@ -40,20 +40,20 @@ packages:
      publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+根据默认插件设置，有效的组列表为
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieves all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+如果`htpasswd` 返回用户名为组，所有用户，不管匿名与否，都会分别接到该组的权限以及插件提供的组。 例如，如果你以`npmUser`身份登录，组列表为。
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need todo something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend use a prefix for your packages, in that way it'd be easier to protect them.
+如果你想要保护你所在组的特定包，你需要做如下工作。 我们来使用一个包含所有前缀为`npmuser-`的包的`Regex`。 我们建议在包前使用前缀，通过这种方式更容易保护它们。
 
 ```yaml
 packages:
@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+重启`verdaccio`并在命令行中尝试安装`npmuser-core`。
 
 ```bash
 $ npm install npmuser-core
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+你可以使用不同的插件认证来更改现有行为。 `verdaccio`只是检查试图访问或发布特定包的用户是否属于正确的组。
 
-#### Set multiple groups
+#### 设置多个组
 
-Define multiple access groups is fairly easy, just define them with a white space between them.
+定义多个访问组非常简单，只需要在它们之间加入一个空格。
 
 ```yaml
   'company-*':
@@ -92,9 +92,9 @@ Define multiple access groups is fairly easy, just define them with a white spac
 
 ```
 
-#### Blocking access to set of packages
+#### 阻止对一组包的访问
 
-If you want to block the acccess/publish to a specific group of packages. Just, do not define `access` and `publish`.
+如果你想要阻止访问/发布到一组包，只要不定义`access` 和 `publish`即可。
 
 ```yaml
 packages:
@@ -104,11 +104,11 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### 阻止代理一组特定包
 
-You might want to block one or several packages to fetch from remote repositories., but, at the same time, allow others to access different *uplinks*.
+你可能想要阻止一个或多个包从远程库获取数据，但在同时，允许其他包访问不同的*uplinks*。
 
-Let's see the following example:
+请看如下示例：
 
 ```yaml
 packages:
@@ -117,30 +117,34 @@ packages:
      publish: $all
   'my-company-*':
      access: $all
-     publish: $authenticated     
+     publish: $authenticated
+  '@my-local-scope/*':
+     access: $all
+     publish: $authenticated
   '**':
      access: all
      publish: $authenticated
-     proxy: npmjs         
+     proxy: npmjs
 ```
 
-Let's describe what we want with the example above:
+让我们描述一下在上面的示例中我们想要做什么：
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want to proxying all the rest dependencies.
+* 我想要自己的服务器上放置`jquery`依赖库但需要避免代理它。
+* 我想要所有和`my-company-*`匹配的依赖库但我需要避免代理它们。
+* 我想要在`my-local-scope`范围内的所有依赖库但我需要避免代理它们。
+* 我想要代理所有剩余的依赖库。
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way how your dependencies are solved will be affected.
+**注意库定义的顺序很重要同时必须使用双通配符**。 因为如果你没有包含它，`verdaccio`会帮你来包含它，这样你的依赖库解析会受到影响。
 
-### Configuration
+### 配置
 
-You can define mutiple `packages` and each of them must have an unique `Regex`.
+你可以定义多个`packages`，每个包都必须有一个唯一的`Regex`。
 
-| Property | Type    | Required | Example        | Support | Description                                 |
-| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
+| 属性      | 类型      | 必须的 | 示例             | 支持  | 描述              |
+| ------- | ------- | --- | -------------- | --- | --------------- |
+| access  | string  | No  | $all           | all | 定义允许访问包的组       |
+| publish | string  | No  | $authenticated | all | 定义允许发布的组        |
+| proxy   | string  | No  | npmjs          | all | 针对特定的uplink限制查找 |
+| storage | boolean | No  | [true,false]   | all | TODO            |
 
-> We higlight recommend do not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and soon will be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> 我们强烈建议不要再使用已被弃用的**allow_access**/**allow_publish** 和 **proxy_access**，它们很快就会被移除，请使用它们的精简版本 (**access**/**publish**/**proxy**) 。

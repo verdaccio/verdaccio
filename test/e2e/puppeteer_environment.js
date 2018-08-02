@@ -4,9 +4,9 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const {VerdaccioConfig} = require("../src/verdaccio-server");
-const VerdaccioProcess = require("../src/server_process");
-const Server = require("../src/server");
+const {VerdaccioConfig} = require("../lib/verdaccio-server");
+const VerdaccioProcess = require("../lib/server_process");
+const Server = require("../lib/server");
 
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');

@@ -3,6 +3,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import Search from '../../lib/search';
 import * as Utils from '../../lib/utils';
+import {WEB_TITLE} from '../../lib/constants';
 
 const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
@@ -40,11 +41,10 @@ module.exports = function(config, auth, storage) {
 
   router.get('/', function(req, res) {
     const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
-    const defaultTitle = 'Verdaccio';
     let webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
-      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : defaultTitle)
-      .replace(/(main.*\.js|style.*\.css)/g, `${base}/-/static/$1`);
+      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
+      .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
     res.setHeader('Content-Type', 'text/html');
 

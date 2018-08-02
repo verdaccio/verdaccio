@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.header {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  align-items: center;
+  background: $primary-color;
+  color: $white;
+
+  figure {
+    margin: 0 0 0 10px;
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    padding: 8px 0;
+  }
+
+  .headerWrap {
+    display: flex;
+    align-items: center;
+    @include container-size;
+  }
+
+  .headerRight {
+    margin-left: auto;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .headerButton {
+    color: inherit;
+    border-color: $white;
+    background-color: transparent;
+
+    &:hover, &:focus {
+      color: $primary-color;
+      border-color: $saltpan;
+      background-color: $saltpan;
+    }
+  }
+}
+

@@ -32,7 +32,7 @@ logs:
 
 ## Sections
 
-The following sections explain what means each property and the different options.
+The following sections explain what each property means and the different options.
 
 ### Storage
 
@@ -40,6 +40,14 @@ Is the location of the default storage. **Verdaccio is by default based on local
 
 ```yaml
 storage: ./storage
+```
+
+### Plugins
+
+Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+
+```yaml
+plugins: ./plugins
 ```
 
 ### Authentification
@@ -62,6 +70,7 @@ web:
   enable: true
   title: Verdaccio
   logo: logo.png
+  scope:
 ```
 
 ### Uplinks
@@ -77,7 +86,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
 
 ```yaml
@@ -92,7 +101,7 @@ packages:
 
 ### Offline Publish
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden set it in to *true*.
+By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
 
 ```yaml
 publish:
@@ -112,15 +121,15 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### Max Body Size
 
-By default the maximum body size for a JSON document is `1mb`, if you run in errors as `"request entity too large"` you may increase this value.
+By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
 
 ```yaml
-max_body_size: 1mb
+max_body_size: 10mb
 ```
 
 ### Listen Port
 
-`verdaccio` runs by default in the port `4873`. Change the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
 ```yaml
 listen:
@@ -134,7 +143,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` enough with set your `listen` domain with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
 
 
 ```yaml
@@ -162,13 +171,12 @@ https_proxy: https://something.local/
 This variable should contain a comma-separated list of domain extensions proxy should not be used for.
 
 ```yaml
-http_proxy: http://something.local/
-https_proxy: https://something.local/
+no_proxy: localhost,127.0.0.1
 ```
 
 ### Notifications
 
-Enable notifications to three party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
@@ -182,8 +190,20 @@ notify:
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 
+### Audit
 
+<small>Since: `verdaccio@3.0.0`</small>
 
+`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
+a built-in middleware plugin to handle this command.
+
+> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+
+```yaml
+middlewares:
+  audit:
+    enabled: true
+```
 
 
 

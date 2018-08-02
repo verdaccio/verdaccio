@@ -1,10 +1,8 @@
 // @flow
 
 import _ from 'lodash';
-import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS} from '../../../lib/utils';
+import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme} from '../../../lib/utils';
 import {allow} from '../../middleware';
-import async from 'async';
-import marked from 'marked';
 import type {Router} from 'express';
 import type {
   IAuth,
@@ -18,35 +16,43 @@ import type {
 function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   const can = allow(auth);
 
+  const checkAllow = (name, remoteUser) => new Promise((resolve, reject) => {
+    try {
+      auth.allow_access(name, remoteUser, (err, allowed) => {
+        if (err) {
+          resolve(false);
+        } else {
+          resolve(allowed);
+        }
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
+
   // Get list of all visible package
   route.get('/packages', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.getLocalDatabase(function(err, packages) {
+    storage.getLocalDatabase(async function(err, packages) {
       if (err) {
-        // that function shouldn't produce any
         throw err;
       }
 
-      async.filterSeries(
-        packages,
-        function(pkg, cb) {
-          auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
-            setImmediate(function() {
-              if (err) {
-                cb(null, false);
-              } else {
-                cb(err, allowed);
-              }
-            });
-          });
-        },
-        function(err, packages) {
-          if (err) {
+      async function processPermissionsPackages(packages) {
+        const permissions = [];
+        for (let pkg of packages) {
+          try {
+            if (await checkAllow(pkg.name, req.remote_user)) {
+              permissions.push(pkg);
+            }
+          } catch (err) {
             throw err;
           }
-
-          next(sortByName(packages));
         }
-      );
+
+        return permissions;
+      }
+
+      next(sortByName(await processPermissionsPackages(packages)));
     });
   });
 
@@ -64,7 +70,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
         }
 
         res.set('Content-Type', 'text/plain');
-        next(marked(info.readme || 'ERROR: No README data found!'));
+        next(parseReadme(info.name, info.readme));
       },
     });
   });
@@ -79,12 +85,11 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
       req,
       callback: function(err: Error, info: $SidebarPackage) {
         if (_.isNil(err)) {
-          const sideBarInfo: any = _.clone(info);
+          let sideBarInfo: any = _.clone(info);
           sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
-
-          info = deleteProperties(['readme', 'versions'], sideBarInfo);
-          info = addGravatarSupport(sideBarInfo);
-          next(info);
+          sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
+          sideBarInfo = addGravatarSupport(sideBarInfo);
+          next(sideBarInfo);
         } else {
           res.status(404);
           res.end();

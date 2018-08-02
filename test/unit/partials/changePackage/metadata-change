@@ -1,0 +1,46 @@
+{
+  "name": "change-package",
+  "versions": {
+    "1.0.1": {
+      "name": "change-package",
+      "version": "1.0.1",
+      "description": "",
+      "main": "index.js",
+      "dependencies": {
+        "test": "^1.4.0"
+      },
+      "devDependencies": {
+
+      },
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [
+
+      ],
+      "author": "",
+      "license": "ISC",
+      "_id": "change-package@1.0.0",
+      "_npmVersion": "5.5.1",
+      "_nodeVersion": "9.3.0",
+      "_npmUser": {
+
+      },
+      "dist": {
+        "integrity": "sha512-tfzM1OFjWwg2d2Wke\/DV6icjeTZUVOZYLkbf8wmONRSAgMovL\/F+zyI24OhTtWyOXd1Kbj2YUMBvLpmpAjv8zg==",
+        "shasum": "3e4e6bd5097b295e520b947c9be3259a9509a673",
+        "tarball": "http:\/\/localhost:4873\/change-package\/-\/change-package-1.0.1.tgz"
+      }
+    }
+  },
+  "dist-tags": {
+    "latest": "1.0.1"
+  },
+  "time": {
+    "modified": "2017-12-17T14:15:10.760Z",
+    "created": "2017-12-17T11:39:33.140Z",
+    "1.0.1": "2017-12-17T11:39:33.140Z"
+  },
+  "_rev": "9-1c8dae9336a8dc70",
+  "readme": "ERROR: No README data found!"
+}

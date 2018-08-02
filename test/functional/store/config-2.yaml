@@ -12,6 +12,8 @@ web:
 middlewares:
   ../fixtures/plugins/middlewares:
     message: this is a custom route
+  ../fixtures/plugins/middlewares.es6:
+      message: this is a custom route es6
 
 max_users: 3
 
@@ -23,70 +25,73 @@ auth:
         password: test
       authtest2:
         name: authtest2
-        password: blahblah
+        password: blahblah-password
       authtest:
         name: authtest
-        password: blahblah
+        password: blahblah-password
 
 logs:
   - {type: stdout, format: pretty, level: trace}
 
 packages:
   '@test/*':
-    allow_access: $all
-    allow_publish: $all
+    access: $all
+    publish: $all
     proxy: server1
 
-  'testfwd':
-    allow_access: $all
-    allow_publish: $all
+  'test-fwd':
+    access: $all
+    publish: $all
+
+  'test-mirror-fwdw*':
+    access: $all
+    publish: $all
 
   'testloop':
-    allow_access: $all
-    allow_publish: $all
-    proxy_access: server1
-    proxy_publish: server1
+    access: $all
+    publish: $all
+    proxy: server1
 
   # used by gh29.js
   'testpkg-gh29':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   # used by preserve_tags_spec.js
   'testpkg-preserve':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   'testpkg':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   'readme-*':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-    proxy_access: server1
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
 
   'test-nullstorage*':
-    allow_access: $all
-    allow_publish: $all
+    access: $all
+    publish: $all
 
+   ## start test auth.js
   'test-auth-regular':
-    allow_access: $authenticated
+    access: $authenticated
 
   'test-auth-*':
-    allow_access: authtest
+    access: authtest
 
   'test-deny':
-    allow_access: authtest2
+    access: authtest2
+   ## end test auth.js
 
   '*':
-    allow_access: test $anonymous
-    allow_publish: test $anonymous
-
-listen: 55552
+    access: test $anonymous
+    publish: test $anonymous
 
 # expose internal methods
 _debug: true

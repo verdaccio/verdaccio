@@ -51,7 +51,7 @@ Puedes personalizar la configuracion de verdaccio usando un * configMap* de Kube
 Copie la [configuración existente ](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) y adáptelo para su propio caso de uso:
 
 ```bash
-wget https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml -O config.yaml
+wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/full.yaml -O config.yaml
 ```
 
 **Nota:** Asegúrese que usa la dirección correcta para el almacenamiento que es usado por la persistencia:

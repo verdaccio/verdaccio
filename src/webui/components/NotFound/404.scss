@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.notFound {
+  width: 100%;
+  font-size: $font-size-md;
+  line-height: $line-height-xl;
+  border: none;
+  outline: none;
+  @include border-bottom-default($grey-light);
+
+  &:focus {
+    @include border-bottom-default($grey);
+  }
+}

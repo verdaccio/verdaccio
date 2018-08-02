@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### Publicar anonimamente
 
-`verdaccio` te permite habilitar publicar de manera anónima, para conseguirlo necesitarás configurar correctamente el [acceso de paquetes](packages.md).
+`verdaccio` te permite habilitar publicar de manera anónima, para poder hacerlo necesitarás configurar correctamente tu [acceso a paquetes](packages.md).
 
 Por ejemplo:
 
@@ -36,7 +36,7 @@ Como se describe en [el ticket #212](https://github.com/verdaccio/verdaccio/issu
 
 ## Htpasswd por defecto
 
-Con el fin de simplificar la instalación, `verdaccio` usa una extensión por defecto basada en ` htpasswd`.
+Para simplificar la instalación, `verdaccio` usa una extensión basada en `htpasswd`. A partir de la versión v3.0.x se usa una [extensión externa](https://github.com/verdaccio/verdaccio-htpasswd) por defecto. La versión v2.x de este paquete mantiene la versión integrada de esta extensión.
 
 ```yaml
 auth:
@@ -52,4 +52,4 @@ auth:
 | file      | string | Si        | ./htpasswd | all     | archivo que aloja las credenciales encriptadas |
 | max_users | number | No        | 1000       | all     | limita los usuarios que pueden registrarse     |
 
-En caso que decidas no permiter mas nuevos registros, puedes definir `max_users: -1`.
+En caso que decidas no permitir más nuevos registros, puedes definir `max_users: -1`.

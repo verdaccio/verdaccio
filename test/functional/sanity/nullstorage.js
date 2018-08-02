@@ -1,6 +1,9 @@
-import assert from 'assert';
-import crypto from 'crypto';
 import {readFile} from '../lib/test.utils';
+import {createTarballHash} from "../../../src/lib/crypto-utils";
+import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
+import {DOMAIN_SERVERS, PORT_SERVER_1, TARBALL} from '../config.functional';
+import generatePkg  from '../fixtures/package';
+import {DIST_TAGS} from '../../../src/lib/utils';
 
 function getBinary() {
   return readFile('../fixtures/binary');
@@ -8,62 +11,65 @@ function getBinary() {
 
 export default function (server, server2) {
 
-  describe('should check whether test-nullstorage is on server1', () => {
-    test('trying to fetch non-existent package / null storage', () => {
-      return server.getPackage('test-nullstorage-nonexist')
-               .status(404)
-               .body_error(/no such package/);
+  const PKG_NAME = 'test-nullstorage2';
+  const PKG_VERSION = '0.0.1';
+
+  describe('should test a scenario when tarball is being fetch from uplink', () => {
+
+    describe(`should check whether ${PKG_NAME} is on server1`, () => {
+      test('should fails on fetch non-existent package on server1', () => {
+        return server.getPackage('test-nullstorage-nonexist').status(HTTP_STATUS.NOT_FOUND)
+                 .body_error(API_ERROR.NO_PACKAGE);
+      });
     });
+
+    describe(`should check whether ${PKG_NAME} is on server2`, () => {
+      beforeAll(function() {
+        return server2.addPackage(PKG_NAME);
+      });
+
+      test('should create a new package on server2', () => {/* test for before() */});
+
+      test('should fails on download a non existent tarball from server1', () => {
+        return server.getTarball(PKG_NAME, TARBALL)
+                 .status(HTTP_STATUS.NOT_FOUND)
+                 .body_error(/no such file/);
+      });
+
+      describe(`should succesfully publish ${PKG_NAME} package on server2`, () => {
+        beforeAll(function() {
+          return server2.putTarball(PKG_NAME, TARBALL, getBinary())
+                   .status(HTTP_STATUS.CREATED).body_ok(/.*/);
+        });
+
+        beforeAll(function() {
+          let pkg = generatePkg(PKG_NAME);
+          pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
+          return server2.putVersion(PKG_NAME, PKG_VERSION, pkg)
+                   .status(HTTP_STATUS.CREATED).body_ok(/published/);
+        });
+
+        test(`should publish a new version for ${PKG_NAME} on server 2`, () => {/* test for before() */});
+
+        test(`should fetch the newly created published tarball for ${PKG_NAME} from server1 on server2`, () => {
+          return server.getTarball(PKG_NAME, TARBALL)
+                   .status(HTTP_STATUS.OK)
+                   .then(function(body) {
+                     expect(body).toEqual(getBinary());
+                   });
+        });
+
+        test(`should fetch metadata for ${PKG_NAME} match from server1`, () => {
+          return server.getPackage(PKG_NAME)
+                   .status(HTTP_STATUS.OK)
+                   .then(function(body) {
+                     expect(body.name).toBe(PKG_NAME);
+                     expect(body.versions[PKG_VERSION].name).toBe(PKG_NAME);
+                     expect(body.versions[PKG_VERSION].dist.tarball).toBe(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
+                     expect(body[DIST_TAGS]).toEqual({latest: PKG_VERSION});
+                   });
+        });
+      });
   });
-
-  describe('should check whether test-nullstorage is on server2', () => {
-    beforeAll(function() {
-      return server2.addPackage('test-nullstorage2');
-    });
-
-    test('should creaate a new package on server2', () => {/* test for before() */});
-
-    test('should fails on download a non existent tarball', () => {
-      return server.getTarball('test-nullstorage2', 'blahblah')
-               .status(404)
-               .body_error(/no such file/);
-    });
-
-    describe('test and publish test-nullstorage2 package', () => {
-      beforeAll(function() {
-        return server2.putTarball('test-nullstorage2', 'blahblah', getBinary())
-                 .status(201)
-                 .body_ok(/.*/);
-      });
-
-      beforeAll(function() {
-        let pkg = require('../fixtures/package')('test-nullstorage2');
-        pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
-        return server2.putVersion('test-nullstorage2', '0.0.1', pkg)
-                 .status(201)
-                 .body_ok(/published/);
-      });
-
-      test('should upload a new version for test-nullstorage2', () => {/* test for before() */});
-
-      test('should fetch the newly created published tarball for test-nullstorage2', () => {
-        return server.getTarball('test-nullstorage2', 'blahblah')
-                 .status(200)
-                 .then(function(body) {
-                   assert.deepEqual(body, getBinary());
-                 });
-      });
-
-      test('should check whether the metadata for test-nullstorage2 match', () => {
-        return server.getPackage('test-nullstorage2')
-                 .status(200)
-                 .then(function(body) {
-                   assert.equal(body.name, 'test-nullstorage2');
-                   assert.equal(body.versions['0.0.1'].name, 'test-nullstorage2');
-                   assert.equal(body.versions['0.0.1'].dist.tarball, 'http://localhost:55551/test-nullstorage2/-/blahblah');
-                   assert.deepEqual(body['dist-tags'], {latest: '0.0.1'});
-                 });
-      });
-    });
   });
 }

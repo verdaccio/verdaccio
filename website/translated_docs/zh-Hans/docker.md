@@ -6,7 +6,7 @@ title: Docker
   ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 </div>
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+要下载(pull)最新的预先-创建的[docker镜像](https://hub.docker.com/r/verdaccio/verdaccio/)：
 
 ```bash
 docker pull verdaccio/verdaccio
@@ -14,68 +14,73 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## 标记版本
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+自版本`v2.x`开始，您可以通过[标签](https://hub.docker.com/r/verdaccio/verdaccio/tags/)来下载(pull)docker镜像，具体操作如下:
 
-For a major version:
-
-```bash
-docker pull verdaccio/verdaccio:2
-```
-
-For a minor version:
+对于主版本：
 
 ```bash
-docker pull verdaccio/verdaccio:2.1
+docker pull verdaccio/verdaccio:3
 ```
 
-For a specific (patch) version:
+对于次版本：
 
 ```bash
-docker pull verdaccio/verdaccio:2.1.7
+docker pull verdaccio/verdaccio:3.0
 ```
 
-For the next major release using the `beta` (`v.3.x`) version.
+对于特定（补丁）版本：
+
+```bash
+docker pull verdaccio/verdaccio:3.0.1
+```
+
+下一个主版本将使用 `beta`（主分支）版本。
 
 ```bash
 docker pull verdaccio/verdaccio:beta
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> 如果您对标签列表感兴趣，[ 请访问 Docker 网站枢纽](https://hub.docker.com/r/verdaccio/verdaccio/tags/)。
 
-## Running verdaccio using Docker
+## 用Docker运行verdaccio
 
-To run the docker container:
+要运行docker 容器：
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+最后一个参数定义要使用的镜像。如果您还没有试的话，上面的代码将从dockerhub里下载(pull) 最新的预先创建的镜像。
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+如果您已经用 `verdaccio`作为最后参数[在本地创建一个镜像](#build-your-own-docker-image)。
 
-You can use `-v` to bind mount `conf` and `storage` to the hosts filesystem:
+您可以用 `-v`来绑定安装 `conf`, `storage` 和`plugins`到主机文件系统中:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   -v $V_PATH/conf:/verdaccio/conf \
   -v $V_PATH/storage:/verdaccio/storage \
+  -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> 请注意：Verdaccio 在容器内是作为non-root 用户端 (uid=100, gid=101) 运行, 如果您使用绑定安装来覆盖默认设置, 您需要确保安装目录是被指定到正确的用户端。 在上面的示例里，您要运行 `sudo chown -R 100:101 /opt/verdaccio`，否则在运行的时候您会得到权限错误提醒。 推荐[使用docker卷（volume)](https://docs.docker.com/storage/volumes/)来替代绑定安装。
 
-### Docker and custom port configuration
+### 插件
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+插件可以在单独的目录里安装，并用Docker或者Kubernetes挂载，然而，请确保使用与Verdaccio Dockerfile相同的基镜像的本地依赖项来创建插件。
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+### Docker和自定义端口配置
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+任何在 `listen`下的`conf/config.yaml` 里配置的`host:port` 目前在使用docker时都将被忽略。
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+如果您希望在不同的端口获得verdaccio docker instance，比如 `docker run` 命令里的`5000`，请用 `-p 5000:4873`来取代`-p 4873:4873` 。
+
+从版本2.?.? 开始, 假如您需要指定**docker 容器**内的监听端口， 您可以通过提供额外的参数给`docker run`: `--env PORT=5000`来达成。这将更改docker容器显示的端口以及verdaccio监听的端口。
+
+当然您给出的`-p`参数数字必须吻合，因此，假设您希望它们全部都一样，这是您需要复制，黏贴和采用的代码：
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -83,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### HTTPS与Docker一同使用
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+您可以配置 verdaccio 要监听的协议，类似于端口配置。 在 config.yaml里指定证书后，您必须用"https"覆盖`PROTOCOL` 环境变量中的默认值("http")。
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -93,18 +98,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### 使用docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. 获取[docker-compose](https://github.com/docker/compose)的最新版本。
+2. 创建并运行容器：
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+把`PORT=5000`作为以上命令的前缀来设置要使用（容器和主机二者）的端口。
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker将生成一个named volume（命名卷），它用于存储持续应用程序数据。 您可以使用`docker inspect` 或者 `docker volume inspect` 来查看此volume（卷）的物理位置并编辑配置，比如：
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -119,43 +124,43 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## 创建您自己的Docker镜像
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+还有一个创建docker image（镜像）的npm脚本，因此您还可以执行以下操作：
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+请注意：第一个镜像的创建要花费几分钟时间，因为它需要运行`npm install`，而且，当您任何时候更改任何没有列在`.dockerignore`里的文件，它也需要运行那么长的时间。
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+如果您希望在rpi或兼容设备上使用docker镜像，也有现成的dockerfile。要创建 raspberry pi（树莓派）的docker镜像，请执行：
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+请注意，您需要在您的机台上安装 docker 来执行以上任何docker命令， docker 执行项应该在您的`$PATH`里。
 
-## Docker Examples
+## Docker示例
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+有个分开的 repository（资源库）承载多个配置来用 `verdaccio`生成Docker镜像，例如，reverse proxy（反向代理服务器）:
 
 <https://github.com/verdaccio/docker-examples>
 
-## Docker Custom Builds
+## Docker 自定义创建
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
-* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
+* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) 专用 NPM 容器可以备份到s3
 * [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
 * [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
 * [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
 * [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
 * [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
 * [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) coldrye-debian-nodejs支持的verdaccio docker镜像。

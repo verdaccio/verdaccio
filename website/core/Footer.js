@@ -62,7 +62,7 @@ class Footer extends React.Component {
               href="https://stackoverflow.com/search?q=verdaccio" target="_blank">
               Stack Overflow
             </a>
-            <a href="https://gitter.im/verdaccio" target="_blank">Project Chat</a>
+            <a href="http://chat.verdaccio.org" target="_blank">Project Chat</a>
             <a href="https://twitter.com/verdaccio_npm" target="_blank">
               <img
                 alt="Follow Verdaccio on Twitter"

@@ -2,21 +2,19 @@
 
 import zlib from 'zlib';
 import JSONStream from 'JSONStream';
-import createError from 'http-errors';
 import _ from 'lodash';
 import request from 'request';
 import Stream from 'stream';
 import URL from 'url';
-import {parseInterval, isObject, ErrorCode} from './utils';
+import {parseInterval, isObject, ErrorCode, buildToken} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
-import {HEADERS} from '../lib/constants';
-
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE} from './constants';
 import type {
-  Config,
-  UpLinkConf,
-  Callback,
-  Headers,
-  Logger,
+Config,
+UpLinkConf,
+Callback,
+Headers,
+Logger,
 } from '@verdaccio/types';
 import type {IProxy} from '../../types';
 
@@ -37,10 +35,6 @@ const contenTypeAccept = `${jsonContentType};`;
 const setConfig = (config, key, def) => {
   return _.isNil(config[key]) === false ? config[key] : def;
 };
-
-export const TOKEN_BASIC = 'basic';
-export const TOKEN_BEARER = 'bearer';
-export const DEFAULT_REGISTRY = 'https://registry.npmjs.org/';
 
 /**
  * Implements Storage interface
@@ -111,10 +105,10 @@ class ProxyStorage implements IProxy {
 
       process.nextTick(function() {
         if (cb) {
-          cb(ErrorCode.get500('uplink is offline'));
+          cb(ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
         }
         // $FlowFixMe
-        streamRead.emit('error', createError('uplink is offline'));
+        streamRead.emit('error', ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
       });
       // $FlowFixMe
       streamRead._read = function() {};
@@ -296,15 +290,15 @@ class ProxyStorage implements IProxy {
       } else if (_.isBoolean(tokenConf.token_env) && tokenConf.token_env) {
         token = process.env.NPM_TOKEN;
       } else {
-        this.logger.error('token is required' );
-        this._throwErrorAuth('token is required');
+        this.logger.error(ERROR_CODE.token_required);
+        this._throwErrorAuth(ERROR_CODE.token_required);
       }
     } else {
       token = process.env.NPM_TOKEN;
     }
 
     if (_.isNil(token)) {
-      this._throwErrorAuth('token is required');
+      this._throwErrorAuth(ERROR_CODE.token_required);
     }
 
     // define type Auth allow basic and bearer
@@ -332,12 +326,14 @@ class ProxyStorage implements IProxy {
    * @private
    */
   _setHeaderAuthorization(headers: any, type: string, token: any) {
-    if (type !== TOKEN_BEARER && type !== TOKEN_BASIC) {
-      this._throwErrorAuth(`Auth type '${type}' not allowed`);
+    const _type: string = type.toLowerCase();
+
+    if (_type !== TOKEN_BEARER.toLowerCase() && _type !== TOKEN_BASIC.toLowerCase()) {
+      this._throwErrorAuth(`Auth type '${_type}' not allowed`);
     }
 
     type = _.upperFirst(type);
-    headers['authorization'] = `${type} ${token}`;
+    headers['authorization'] = buildToken(type, token);
   }
 
   /**
@@ -411,11 +407,11 @@ class ProxyStorage implements IProxy {
       if (err) {
         return callback(err);
       }
-      if (res.statusCode === 404) {
-        return callback( ErrorCode.get404('package doesn\'t exist on uplink'));
+      if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+        return callback( ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
       }
-      if (!(res.statusCode >= 200 && res.statusCode < 300)) {
-        const error = createError(500, `bad status code: ${res.statusCode}`);
+      if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
+        const error = ErrorCode.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${res.statusCode}`);
         // $FlowFixMe
         error.remoteStatus = res.statusCode;
         return callback(error);
@@ -434,7 +430,7 @@ class ProxyStorage implements IProxy {
     let current_length = 0;
     let expected_length;
 
-    stream.abort = () => {};
+    (stream: any).abort = () => {};
     const readStream = this.request({
       uri_full: url,
       encoding: null,
@@ -444,15 +440,15 @@ class ProxyStorage implements IProxy {
     });
 
     readStream.on('response', function(res: any) {
-      if (res.statusCode === 404) {
-        return stream.emit('error', ErrorCode.get404('file doesn\'t exist on uplink'));
+      if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+        return stream.emit('error', ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
       }
-      if (!(res.statusCode >= 200 && res.statusCode < 300)) {
-        return stream.emit('error', createError(500, 'bad uplink status code: ' + res.statusCode));
+      if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
+        return stream.emit('error', ErrorCode.getInternalError(`bad uplink status code: ${res.statusCode}`));
       }
-      if (res.headers['content-length']) {
-        expected_length = res.headers['content-length'];
-        stream.emit('content-length', res.headers['content-length']);
+      if (res.headers[HEADER_TYPE.CONTENT_LENGTH]) {
+        expected_length = res.headers[HEADER_TYPE.CONTENT_LENGTH];
+        stream.emit(HEADER_TYPE.CONTENT_LENGTH, res.headers[HEADER_TYPE.CONTENT_LENGTH]);
       }
 
       readStream.pipe(stream);
@@ -469,7 +465,7 @@ class ProxyStorage implements IProxy {
         current_length += data.length;
       }
       if (expected_length && current_length != expected_length) {
-        stream.emit('error', createError(500, 'content length mismatch'));
+        stream.emit('error', ErrorCode.getInternalError(API_ERROR.CONTENT_MISMATCH));
       }
     });
     return stream;
@@ -498,13 +494,13 @@ class ProxyStorage implements IProxy {
 
     requestStream.on('response', (res) => {
       if (!String(res.statusCode).match(/^2\d\d$/)) {
-        return transformStream.emit('error', createError(500, `bad status code ${res.statusCode} from uplink`));
+        return transformStream.emit('error', ErrorCode.getInternalError(`bad status code ${res.statusCode} from uplink`));
       }
 
       // See https://github.com/request/request#requestoptions-callback
       // Request library will not decode gzip stream.
       let jsonStream;
-      if (res.headers['content-encoding'] === 'gzip') {
+      if (res.headers[HEADER_TYPE.CONTENT_ENCODING] === HEADERS.GZIP) {
         jsonStream = res.pipe(zlib.createUnzip());
       } else {
         jsonStream = res;

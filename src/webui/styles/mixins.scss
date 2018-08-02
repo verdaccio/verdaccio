@@ -1,0 +1,48 @@
+@import "variables";
+
+@mixin border($direction, $width, $style, $color) {
+    border-#{$direction}: $width $style $color;
+}
+
+@mixin border-bottom-default($color) {
+    border-bottom: 1px solid $color;
+}
+
+@mixin searchBox {
+    width: 100%;
+    font-size: $font-size-md;
+    line-height: $line-height-xl;
+    border: none;
+    @include border-bottom-default($grey-light);
+    outline: none;
+
+    &:focus {
+        @include border-bottom-default($grey);
+    }
+}
+
+@mixin ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin fullSize {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin container-size {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    min-width: 400px;
+    max-width: $break-sm;
+    @media screen and (min-width: $break-lg) {
+        max-width: $break-lg;
+    }
+}

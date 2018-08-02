@@ -1,34 +1,61 @@
-<p align="center"><img src="https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png"></p>
-
-### A lightweight private npm proxy registry
-
-
-
-`verdaccio` is a fork of `sinopia`. It aims to keep backwards compatibility with `sinopia`, while keeping up with npm changes.
-
-[![CircleCI](https://circleci.com/gh/verdaccio/verdaccio/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio/tree/master)
-[![Backers on Open Collective](https://opencollective.com/verdaccio/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/verdaccio/sponsors/badge.svg)](#sponsors) [![npm version badge](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
-[![downloads badge](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
-[![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg)](https://hub.docker.com/r/verdaccio/verdaccio/)
-[![Gitter chat](https://badges.gitter.im/verdaccio/questions.png)](https://gitter.im/verdaccio/)
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
-[![dependencies Status](https://david-dm.org/verdaccio/verdaccio/status.svg)](https://david-dm.org/verdaccio/verdaccio)
-[![Known Vulnerabilities](https://snyk.io/test/github/verdaccio/verdaccio/badge.svg?targetFile=package.json)](https://snyk.io/test/github/verdaccio/verdaccio?targetFile=package.json)
-[![codecov](https://codecov.io/gh/verdaccio/verdaccio/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio)
+<div align="center">
+    <a href="https://www.verdaccio.org/">
+        <img src="https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png">
+    </a>
+<br>
+<br>
+<h1>Version 3 Released 🎉</h1>
+<h5>
+  <a target="_blank" href="https://medium.com/verdaccio/verdaccio-3-released-feb06ef38558">
+    All the new features you need to know
+  </a>
+</h5>
+</div>
 
 
-<p align="center"><img src="https://firebasestorage.googleapis.com/v0/b/jotadeveloper-website.appspot.com/o/verdaccio_long_video2.gif?alt=media&token=4d20cad1-f700-4803-be14-4b641c651b41"></p>
+<div align="center">
+  <p>
+    A lightweight private npm proxy registry
+  </p>
+  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm version" src="https://img.shields.io/npm/v/verdaccio.svg"></a>
+  <a href="https://circleci.com/gh/verdaccio/verdaccio"><img alt="CircleCI Status" src="https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token"></a>
+  <a href="https://codecov.io/github/verdaccio/verdaccio"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg"></a>
+  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm Downloads" src="http://img.shields.io/npm/dm/verdaccio.svg"></a>
+  <a href="https://hub.docker.com/r/verdaccio/verdaccio/"><img alt="npm Downloads" src="https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200"></a>
+  <a href="https://www.browserstack.com/automate/public-build/am8rVDJ1V1BSbW90aE4xUnZsbnNUOFVuVS9ZRmJWL3NWcjkzRUxycHF3TT0tLUh5aTBiY2VzT1A1NDRWdHg2L0FQT3c9PQ==--0e9064ebcb01bfebb9976a543500b0396c0bfcae%"><img src='https://www.browserstack.com/automate/badge.svg?badge_key=am8rVDJ1V1BSbW90aE4xUnZsbnNUOFVuVS9ZRmJWL3NWcjkzRUxycHF3TT0tLUh5aTBiY2VzT1A1NDRWdHg2L0FQT3c9PQ==--0e9064ebcb01bfebb9976a543500b0396c0bfcae%'/></a>
+  <a href="https://discord.gg/AwXRqPD"
+  ><img alt="discord" src="https://img.shields.io/badge/Discord-%23questions%20%23general-blue.svg"/>
+  </a>
+</div>
+<div align="center">
+  <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
+
+</div>
+
+<h2 align="center">Install</h2>
+
+Install with npm:
+
+```bash
+npm install --global verdaccio
+```
+
+Install with yarn:
+
+```bash
+yarn global add verdaccio
+```
+
+Install with pnpm:
+
+```bash
+pnpm i -g verdaccio
+```
 
 
-It allows you to have a **local npm private registry with zero configuration**. You don't have to install and replicate an entire database. Verdaccio keeps its own small database and, if a package doesn't exist there, **it asks any other registry** (npmjs.org) for it keeping only those packages you use.
+<h2 align="center">Introduction</h2>
 
-## Quick Links
-
-*  [Documentation](http://www.verdaccio.org/docs/en/installation.html)
-*  [Chat](https://gitter.im/verdaccio/questions)
-*  [Wiki](https://github.com/verdaccio/verdaccio/wiki)
-
-## Introduction
+Verdaccio is a simple, **zero-config-required local private npm registry**. No need for an entire database just to get started! Verdaccio comes out of the box with **its own tiny database**, and the ability to proxy other registries (eg. npmjs.org), caching the downloaded modules along the way. For those looking to extend their storage capabilities, Verdaccio **supports various community-made plugins to hook into services such as Amazon's s3 and Google Cloud Storage**.
 
 ### Use private packages
 
@@ -37,7 +64,11 @@ It allows you to have a **local npm private registry with zero configuration**. 
 ### Cache npmjs.org registry
 
    If you have more than one server you want to install packages on, you might want to use this to decrease latency
-   (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache) or avoid issues like *[How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)*.
+   (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache) or avoid issues like *[How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)*, *[Many packages suddenly disappeared](https://github.com/npm/registry/issues/255?source=techstories.org)* or *[Registry returns 404 for a package I have installed before](https://github.com/npm/registry/issues/329)*.
+   
+### Link multiple registries
+
+If you use multiples registries in your organization and need to fetch packages from multiple sources in one single project you might take advance of the uplinks feature with Verdaccio, chaining multiple registries and fetching from one single endpoint.
 
 
 ### Override public packages
@@ -46,13 +77,7 @@ It allows you to have a **local npm private registry with zero configuration**. 
 
 See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/tree/master/docs/use-cases.md).
 
-## Get Started
-
-Installation and starting (application will create default config in config.yaml you can edit later)
-
-```bash
-npm install --global verdaccio
-```
+<h2 align="center">Get Started</h2>
 
 Run in your terminal
 
@@ -73,22 +98,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 > Warning: Verdaccio does not currently support PM2's cluster mode, running it with cluster mode may cause unknown behavior.
 
-#### Beta
-
-⚠️⚠️ **Please, help us to test the version 3.x in order to release a stable version soon. Do never test with your original storage folder, do always a backup** ⚠️⚠️
-
-If you are an adventurous developer you can use and install the latest beta version, this is a non stable version, I'd recommend only use for testing purporses.
-
-```bash
-$ npm install -g verdaccio@beta
-```
-or using docker
-
-```bash
-$ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:beta
-```
-
-## Publishing Private Packages
+<h2 align="center">Publishing Private Packages</h2>
 
 #### Create an user and log in
 
@@ -104,20 +114,21 @@ npm publish --registry http://localhost:4873
 
 This will prompt you for user credentials which will be saved on the `verdaccio` server.
 
-## Docker
+<h2 align="center"> Docker</h2>
 
 Below are the most commony needed informations,
-every aspect of Docker and verdaccio is [documented separately](http://www.verdaccio.org/docs/en/docker.html)
+every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
 
-### Prebuilt images
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
-
-```bash
+```
 docker pull verdaccio/verdaccio
 ```
 
-Since version 2 images for every version are available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+
+```
+docker pull verdaccio/verdaccio:3.0.0
+```
 
 ### Running verdaccio using Docker
 
@@ -127,17 +138,9 @@ To run the docker container:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-### Using docker-compose
-
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
-
-```bash
-$ docker-compose up --build
-```
 Docker examples are available [in this repository](https://github.com/verdaccio/docker-examples).
 
-## Compatibility
+<h2 align="center">Compatibility</h2>
 
 Verdaccio aims to support all features of a standard npm client that make sense to support in private repository. Unfortunately, it isn't always possible.
 
@@ -150,44 +153,36 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Unpublishing packages (npm unpublish) - **supported**
 - Tagging (npm tag) - **supported**
-- Deprecation (npm deprecate) - not supported
+- Deprecation (npm deprecate) - not supported - *PR-welcome*
 
 ### User management
 
 - Registering new users (npm adduser {newuser}) - **supported**
-- Transferring ownership (npm owner add {user} {pkg}) - not supported, verdaccio uses its own acl management system
-
+- Transferring ownership (npm owner add {user} {pkg}) - not supported, *PR-welcome*
 ### Misc stuff
 
 - Searching (npm search) - **supported** (cli / browser)
-- Starring (npm star, npm unstar) - not supported, doesn't make sense in private registry
 - Ping (npm ping) - **supported**
+- Starring (npm star, npm unstar) - not supported, *PR-welcome*
 
-## FAQ / Contact / Troubleshoot
+### Security
 
-If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
+- npm audit - **supported**
 
-* [Roadmap](https://github.com/verdaccio/verdaccio/wiki)
-* [Most common questions](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
-* [Reporting a bug](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
-* [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
-* [Chat Room](https://gitter.im/verdaccio/)
-* [Logos](https://github.com/verdaccio/verdaccio/tree/master/assets)
-
-## Contributors
+<h2 align="center">Contributors</h2>
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="../../graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
 
 
-## Backers
+### Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
 
 <a href="https://opencollective.com/verdaccio#backers" target="_blank"><img src="https://opencollective.com/verdaccio/backers.svg?width=890"></a>
 
 
-## Sponsors
+### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
 
@@ -202,10 +197,20 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/verdaccio/sponsor/8/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/verdaccio/sponsor/9/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/9/avatar.svg"></a>
 
+<h2 align="center"> FAQ / Contact / Troubleshoot</h2>
+
+If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
+
+* [Roadmap](https://github.com/verdaccio/verdaccio/wiki)
+* [Most common questions](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
+* [Reporting a bug](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
+* [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
+* [Chat Room](http://chat.verdaccio.org/)
+* [Logos](https://github.com/verdaccio/verdaccio/tree/master/assets)
 
 
-## License
-Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).
+<h2 align="center">License</h2>
 
-The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /wiki and /assets folder) is [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 
+The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /docs and /assets folder) is [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).

@@ -6,39 +6,29 @@ import async from 'async';
 import Stream from 'stream';
 import ProxyStorage from './up-storage';
 import Search from './search';
+import {API_ERROR, HTTP_STATUS} from './constants';
 import LocalStorage from './local-storage';
 import {ReadTarball} from '@verdaccio/streams';
-import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef} from './storage-utils';
+import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
+mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
 import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
 import {mergeVersions} from './metadata-utils';
 import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
 import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
 import type {
-  Versions,
-  Package,
-  Config,
-  MergeTags,
-  Version,
-  DistFile,
-  Callback,
-  Logger,
+Versions,
+Package,
+Config,
+MergeTags,
+Version,
+DistFile,
+Callback,
+Logger,
 } from '@verdaccio/types';
 import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
+import {hasProxyTo} from './config-utils';
 
 const LoggerApi = require('../lib/logger');
-const getDefaultMetadata = function(name): Package {
-  const pkgMetadata: Package = {
-    name,
-    versions: {},
-    'dist-tags': {},
-    _uplinks: {},
-    _distfiles: {},
-    _attachments: {},
-    _rev: '',
-  };
-
-  return pkgMetadata;
-};
 
 class Storage implements IStorageHandler {
   localStorage: IStorage;
@@ -98,15 +88,6 @@ class Storage implements IStorageHandler {
   }
 
   /**
-   * Tags a package version with a provided tag
-   Used storages: local (write)
-   */
-  replaceTags(name: string, tagHash: MergeTags, callback: Callback) {
-    this.logger.warn('method deprecated');
-    this.localStorage.mergeTags(name, tagHash, callback);
-  }
-
-  /**
    * Change an existing package (i.e. unpublish one version)
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
@@ -155,7 +136,7 @@ class Storage implements IStorageHandler {
    */
   getTarball(name: string, filename: string) {
     let readStream = new ReadTarball();
-    readStream.abort = function() {};
+    (readStream: any).abort = function() {};
 
     let self = this;
 
@@ -167,7 +148,7 @@ class Storage implements IStorageHandler {
     let localStream: any = self.localStorage.getTarball(name, filename);
     let isOpen = false;
     localStream.on('error', (err) => {
-      if (isOpen || err.status !== 404) {
+      if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
         return readStream.emit('error', err);
       }
 
@@ -265,8 +246,8 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function(err) {
-          self.logger.warn( {err: err}
-            , 'error saving file: @{err.message}\n@{err.stack}' );
+          self.logger.warn( {err: err, fileName: file}
+            , 'error saving file @{fileName}: @{err.message}\n@{err.stack}' );
           if (savestream) {
             savestream.abort();
           }
@@ -294,7 +275,7 @@ class Storage implements IStorageHandler {
    */
   getPackage(options: any) {
     this.localStorage.getPackageMetadata(options.name, (err, data) => {
-      if (err && (!err.status || err.status >= 500)) {
+      if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
         return options.callback(err);
       }
@@ -391,7 +372,11 @@ class Storage implements IStorageHandler {
             const latest = info[DIST_TAGS].latest;
 
             if (latest && info.versions[latest]) {
-              packages.push(info.versions[latest]);
+              const version = info.versions[latest];
+              const time = info.time[latest];
+              version.time = time;
+
+              packages.push(version);
             } else {
               self.logger.warn( {package: locals[itemPkg]}, 'package @{package} does not have a "latest" tag?' );
             }
@@ -422,14 +407,15 @@ class Storage implements IStorageHandler {
     let exists = true;
     const self = this;
     const upLinks = [];
+
     if (!packageInfo || packageInfo === null) {
       exists = false;
-      packageInfo = getDefaultMetadata(name);
+      packageInfo = generatePackageTemplate(name);
     }
 
-    for (let up in this.uplinks) {
-      if (this.config.hasProxyTo(name, up)) {
-        upLinks.push(this.uplinks[up]);
+    for (let uplink in this.uplinks) {
+      if (hasProxyTo(name, uplink, this.config.packages)) {
+        upLinks.push(this.uplinks[uplink]);
       }
     }
 
@@ -454,7 +440,7 @@ class Storage implements IStorageHandler {
 
         if (err || !upLinkResponse) {
           // $FlowFixMe
-          return cb(null, [err || ErrorCode.get500('no data')]);
+          return cb(null, [err || ErrorCode.getInternalError('no data')]);
         }
 
         try {
@@ -472,10 +458,7 @@ class Storage implements IStorageHandler {
           fetched: Date.now(),
         };
 
-        // added to fix verdaccio#73
-        if ('time' in upLinkResponse) {
-          packageInfo.time = upLinkResponse.time;
-        }
+        packageInfo.time = mergeUplinkTimeIntoLocal(packageInfo, upLinkResponse);
 
         updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 
@@ -497,7 +480,7 @@ class Storage implements IStorageHandler {
     }, (err: Error, upLinksErrors: any) => {
       assert(!err && Array.isArray(upLinksErrors));
       if (!exists) {
-        return callback( ErrorCode.get404('no such package available')
+        return callback( ErrorCode.getNotFound(API_ERROR.NO_PACKAGE)
           , null
           , upLinksErrors );
       }

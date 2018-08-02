@@ -22,7 +22,7 @@ registry=http://localhost:5555/
 
 #### Anonymous publish
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages acces](packages.md).
+`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
 
 Eg:
 
@@ -37,7 +37,8 @@ As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/21
 
 ## Default htpasswd
 
-In order to simplify the setup, `verdaccio` use a build-in plugin based on `htpasswd`.
+In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) 
+is used by default. The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:

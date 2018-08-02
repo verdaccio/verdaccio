@@ -1,12 +1,12 @@
 ---
 id: protect-your-dependencies
-title: "Protecting packages"
+title: "Protegiendo paquetes"
 ---
 `verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
 
-### Package configuration
+### Configuración del paquete
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+Veamos por ejemplo la siguiente configuración. Tienes un conjunto de dependencias con prefijo `my-company-*` y necesitas protegerlas de anónimos o de otro usuario registrado sin credenciales.
 
 ```yaml
   'my-company-*':
@@ -15,18 +15,18 @@ Let's see for instance the following set up. You have a set of dependencies what
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to * publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+Con esta configuración, básicamente le permitimos agrupar **admin** and **teamA** para * publicar* y **teamA** **teamB** **teamC** *access* a dichas dependencias.
 
 ### Use case: teamD try to access the dependency
 
-So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
+Entonces, si yo estoy conectado como **teamD**. No debería ser capaz de acceder a todas las dependencias que cumplan con el patrón `my-company-*`.
 
 ```bash
 ➜ npm whoami
 teamD
 ```
 
-I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
+No tendré acceso a dichas dependencias y tampoco serán visibles vía web para el usuario **teamD**. Si intentas acceder, ocurrirá lo siguiente.
 
 ```bash
 ➜ npm install my-company-core
@@ -34,12 +34,12 @@ npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
-or with `yarn`
+o con `yarn`
 
 ```bash
 ➜ yarn add my-company-core
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
+error Ocurrió un error inesperado: "http://localhost:5555/webpack-1: no se les permite acceder al paquete my-company-core a usuarios no registrados".
 ```

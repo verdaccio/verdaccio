@@ -8,6 +8,13 @@
 
 # path to a directory with all packages
 storage: ./storage
+# path to a directory with plugins to include
+plugins: ./plugins
+
+web:
+  # WebUI is enabled as default, if you want disable it, just uncomment this line
+  #enable: false
+  title: Verdaccio
 
 auth:
   htpasswd:
@@ -42,6 +49,11 @@ packages:
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
+
+# To use `npm audit` uncomment the following section
+middlewares:
+  audit:
+    enabled: true
 
 # log settings
 logs:

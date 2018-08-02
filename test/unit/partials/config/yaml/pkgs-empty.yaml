@@ -1,0 +1,4 @@
+packages:
+  'private':
+    access: admin
+    publish: admin
