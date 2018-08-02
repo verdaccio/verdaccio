@@ -181,7 +181,7 @@ class ProxyStorage implements IProxy {
           ? ', error: @{!error}'
           : ', bytes: @{bytes.in}/@{bytes.out}';
         self.logger.warn({
-          err: err,
+          err: err || undefined, // if error is null/false change this to undefined so it wont log
           request: {method: method, url: uri},
           level: 35, // http
           status: res != null ? res.statusCode : 'ERR',
