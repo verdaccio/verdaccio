@@ -10,7 +10,6 @@ import Logger, {setup} from '../../../src/lib/logger';
 import {readFile} from '../../functional/lib/test.utils';
 import {generatePackageTemplate} from '../../../src/lib/storage-utils';
 import {generateNewVersion} from '../../lib/utils-test';
-import _ from 'lodash';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
@@ -340,14 +339,10 @@ describe('LocalStorage', () => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
           let spy;
-          if(_.has(stream, '_readableState') && _.has(stream._readableState, 'pipes') && typeof stream._readableState.pipes === 'object'){
-              const writableStream = stream._readableState.pipes;
-              spy = jest.spyOn(writableStream, 'abort');
-          }
-          else
-          {
-            done.fail("Error: can't access the write stream.")
-          }         
+
+          // $FlowFixMe
+          spy = jest.spyOn(stream &&  stream._readableState && stream._readableState.pipes, 'abort');
+                
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
