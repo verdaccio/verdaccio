@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.5.1"></a>
+## [3.5.1](https://github.com/verdaccio/verdaccio/compare/v3.5.0...v3.5.1) (2018-08-02)
+
+
+### Bug Fixes
+
+* remove version page ([8a0e8ab](https://github.com/verdaccio/verdaccio/commit/8a0e8ab))
+
+
+
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/verdaccio/verdaccio/compare/v3.4.1...v3.5.0) (2018-08-02)
+
+
+### Bug Fixes
+
+* fix docker python issue [#883](https://github.com/verdaccio/verdaccio/issues/883) ([ec744ea](https://github.com/verdaccio/verdaccio/commit/ec744ea))
+* unpublish version does not remove it from timeline ([61e62bd](https://github.com/verdaccio/verdaccio/commit/61e62bd))
+
+
+### Features
+
+* adds gravatar support for maintainers ([4df6b3b](https://github.com/verdaccio/verdaccio/commit/4df6b3b))
+* adds option to set scope in webui instructions header ([f9e9383](https://github.com/verdaccio/verdaccio/commit/f9e9383)), closes [#593](https://github.com/verdaccio/verdaccio/issues/593)
+
+
 <a name="3.4.1"></a>
 ## [3.4.1](https://github.com/verdaccio/verdaccio/compare/v3.4.0...v3.4.1) (2018-07-27)
 
