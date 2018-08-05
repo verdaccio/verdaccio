@@ -1,9 +1,17 @@
 // @flow
-
+import _ from 'lodash';
 import {ErrorCode} from './utils';
-import {API_ERROR} from './constants';
+import {API_ERROR, TIME_EXPIRATION_7D} from './constants';
 
-import type {RemoteUser, Package, Callback} from '@verdaccio/types';
+import type {
+  RemoteUser,
+  Package,
+  Callback,
+  Config,
+  Security,
+  APITokenOptions,
+  JWTOptions} from '@verdaccio/types';
+import type {CookieSessionToken} from '../../types';
 
 export function allow_action(action: string) {
   return function(user: RemoteUser, pkg: Package, callback: Callback) {
@@ -35,4 +43,44 @@ export function getDefaultPlugins() {
     allow_access: allow_action('access'),
     allow_publish: allow_action('publish'),
   };
+}
+
+export function createSessionToken(): CookieSessionToken {
+  return {
+    // npmjs.org sets 10h expire
+    expires: new Date(Date.now() + 10 * 60 * 60 * 1000),
+  };
+}
+
+const defaultWebTokenOptions: JWTOptions = {
+  sign: {
+    expiresIn: TIME_EXPIRATION_7D,
+  },
+  verify: {},
+};
+
+const defaultApiTokenConf: APITokenOptions = {
+    legacy: true,
+    sign: {},
+};
+
+export function getSecurity(config: Config): Security {
+  const defaultSecurity: Security = {
+    web: defaultWebTokenOptions,
+    api: defaultApiTokenConf,
+  };
+
+  if (_.isNil(config.security) === false) {
+    return _.merge(defaultSecurity, config.security);
+  }
+
+  return defaultSecurity;
+}
+
+export function getAuthenticatedMessage(user: string): string {
+  return 'you are authenticated as \'' + user + '\'';
+}
+
+export function buildUserBuffer(name: string, password: string) {
+  return new Buffer(`${name}:${password}`);
 }

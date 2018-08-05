@@ -10,11 +10,11 @@ import {getDefaultPlugins} from './auth-utils';
 
 import {getMatchedPackagesSpec} from './config-utils';
 
-import type {Config, Logger, Callback, IPluginAuth, RemoteUser} from '@verdaccio/types';
+import type {
+  Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions,
+} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
-import type {$RequestExtend, JWTPayload} from '../../types';
-import type {IAuth} from '../../types';
-
+import type {$RequestExtend, JWTPayload, IAuth} from '../../types';
 
 const LoggerApi = require('./logger');
 
@@ -23,7 +23,6 @@ class Auth implements IAuth {
   logger: Logger;
   secret: string;
   plugins: Array<any>;
-  static DEFAULT_EXPIRE_WEB_TOKEN: string = '7d';
 
   constructor(config: Config) {
     this.config = config;
@@ -283,14 +282,14 @@ class Auth implements IAuth {
     };
   }
 
-  issueUIjwt(user: any, expiresIn: string) {
+  issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions) {
     const {name, real_groups} = user;
     const payload: JWTPayload = {
       user: name,
       group: real_groups && real_groups.length ? real_groups : undefined,
     };
 
-    return signPayload(payload, this.secret, {expiresIn: expiresIn || Auth.DEFAULT_EXPIRE_WEB_TOKEN});
+    return signPayload(payload, this.secret, signOptions);
   }
 
   /**

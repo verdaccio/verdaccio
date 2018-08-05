@@ -22,6 +22,19 @@ auth:
     # You can set this to -1 to disable registration.
     #max_users: 1000
 
+security:
+  api:
+    legacy: true # use AES algorithm
+    # jwt enables json web token and disable legacy
+    # jwt: https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
+    sign:
+      expiresIn: 7d # 7 days by default
+    # verify:
+  web:
+    sign:
+      expiresIn: 7d # 7 days by default
+    # verify: https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
+
 # Configure plugins that can register custom middlewares
 # To use `npm audit` uncomment the following section
 middlewares:

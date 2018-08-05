@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import assert from 'assert';
-import crypto from 'crypto';
 import {readFile} from '../lib/test.utils';
 import {HTTP_STATUS} from "../../../src/lib/constants";
 import {TARBALL} from '../config.functional';
+import {createTarballHash} from '../../../src/lib/crypto-utils';
 
 function getBinary() {
   return readFile('../fixtures/binary');
@@ -35,7 +35,7 @@ export default function (server, server2, server3) {
 
     beforeAll(function () {
       const pkg = require('../fixtures/package')(PKG_GH131);
-      pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
+      pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
 
       return server.putVersion(PKG_GH131, '0.0.1', pkg)
         .status(HTTP_STATUS.CREATED)
@@ -67,7 +67,7 @@ export default function (server, server2, server3) {
 
     beforeAll(function () {
       const pkg = require('../fixtures/package')(PKG_GH1312);
-      pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
+      pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
 
       return server2.putVersion(PKG_GH1312, '0.0.1', pkg)
         .status(HTTP_STATUS.CREATED)

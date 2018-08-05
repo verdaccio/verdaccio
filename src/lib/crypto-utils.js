@@ -1,10 +1,18 @@
 // @flow
 
-import {createDecipher, createCipher, createHash, pseudoRandomBytes} from 'crypto';
+import {
+  createDecipher,
+  createCipher,
+  createHash,
+  pseudoRandomBytes,
+} from 'crypto';
 import jwt from 'jsonwebtoken';
-import type {JWTPayload, JWTSignOptions} from '../../types';
+
+import type {JWTSignOptions} from '@verdaccio/types';
+import type {JWTPayload} from '../../types';
 
 export const defaultAlgorithm = 'aes192';
+export const defaultTarballHashAlgorithm = 'sha1';
 
 export function aesEncrypt(buf: Buffer, secret: string): Buffer {
   const c = createCipher(defaultAlgorithm, secret);
@@ -26,7 +34,7 @@ export function aesDecrypt(buf: Buffer, secret: string) {
 }
 
 export function createTarballHash() {
-  return createHash('sha1');
+  return createHash(defaultTarballHashAlgorithm);
 }
 
 /**
@@ -44,13 +52,13 @@ export function generateRandomHexString(length: number = 8) {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export function signPayload(payload: JWTPayload, secret: string, options: JWTSignOptions) {
-  return jwt.sign(payload, secret, {
+export function signPayload(payload: JWTPayload, secretOrPrivateKey: string, options: JWTSignOptions) {
+  return jwt.sign(payload, secretOrPrivateKey, {
     notBefore: '1000', // Make sure the time will not rollback :)
     ...options,
   });
 }
 
-export function verifyPayload(token: string, secret: string) {
-  return jwt.verify(token, secret);
+export function verifyPayload(token: string, secretOrPrivateKey: string) {
+  return jwt.verify(token, secretOrPrivateKey);
 }

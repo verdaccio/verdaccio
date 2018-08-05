@@ -8,8 +8,10 @@ import type {
   Callback,
   Versions,
   Version,
+  RemoteUser,
   Config,
   Logger,
+  JWTSignOptions,
   PackageAccess,
   StringValue as verdaccio$StringValue,
   Package} from '@verdaccio/types';
@@ -31,15 +33,15 @@ export type MatchedPackage = PackageAccess | void;
 
 export type JWTPayload = {
   user: string;
-  group: string | void;
-}
-
-export type JWTSignOptions = {
-  expiresIn: string;
+  group: Array<string> | void;
 }
 
 export type ProxyList = {
   [key: string]: IProxy;
+}
+
+export type CookieSessionToken = {
+  expires: Date;
 }
 
 export type Utils = {
@@ -59,7 +61,7 @@ export type $SidebarPackage = Package & {latest: mixed}
 
 
 interface IAuthWebUI {
-  issueUIjwt(user: string, time: string): string;
+  issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions): string;
 }
 
 interface IAuthMiddleware {
