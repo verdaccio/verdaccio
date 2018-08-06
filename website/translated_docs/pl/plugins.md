@@ -21,7 +21,7 @@ $> npm install --global verdaccio-activedirectory
 
 ### Configuration
 
-Open the `config.yaml` file and update the `auth` section as follows:
+Otwórz plik `config.yaml` i zaktualizuj sekcję `auth` następująco:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
 
@@ -58,9 +58,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Plugin Configuration
+### Konfiguracja wtyczki oprogramowania pośredniego
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+To jest przykład jak skonfigurować wtyczkę oprogramowania pośredniego. Wszystkie te wtyczki muszą mieć zdefiniowane nazwy z przestrzeni nazw **oprogramowań pośrednich**.
 
 ```yaml
 middlewares:
@@ -86,7 +86,7 @@ store:
 
 ### Sinopia Plugins
 
-(compatible all versions)
+(kompatybilne ze wszystkimi wersjami)
 
 * [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
 * [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
