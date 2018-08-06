@@ -1,10 +1,10 @@
 ---
 id: plugins
-title: "Plugins"
+title: "Wtyczki"
 ---
-Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
+Verdaccio jest aplikacją obsługującą wtyczki. Dzięki temu można rozszerzyć działanie aplikacji na wiele sposobów: wprowadzić nowe metody uwierzytelniania, dodawać punkty końcowe lub użyć niestandardowego magazynu danych.
 
-> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
+> Jeśli jesteś zainteresowany stworzeniem swojej własnej wtyczki, przeczytaj sekcję dotyczącą [programowania](dev-plugins.md).
 
 ## Usage
 
