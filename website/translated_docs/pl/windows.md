@@ -1,10 +1,10 @@
 ---
 id: windows
-title: "Installing As a Windows Service"
+title: "Instalacja jako Usługa systemu Windows"
 ---
 Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). I crafted the following and it provided me with a fully working verdaccio service installation:
 
-1. Create a directory for verdaccio 
+1. Stwórz folder dla verdaccio 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
 2. Install verdaccio locally (I ran into npm issues with global installs) 
@@ -46,6 +46,6 @@ ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
 
 Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
 
-## Repositories
+## Repozytoria
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)
