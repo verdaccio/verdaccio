@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Powiadomienia
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Dostarczanie powiadomień do aplikacji zewnętrznych jest całkiem łatwe poprzez web hooks. Aby uzyskać więcej informacji o tej sekcji przeczytaj [stronę dotyczącą powiadomień](notifications.md).
 
 ```yaml
 notify:
@@ -181,13 +181,13 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Bardziej szczegółowe ustawienia konfiguracji znajdziesz w [kodzie źródłowym](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 ### Audit
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` to nowa komenda wydana razem z [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio zawiera wbudowany plugin oprogramowania pośredniego do obsługi tej komendy.
 
 > If you have a new installation it comes by default, otherwise you need to add the following props to your config file
 
