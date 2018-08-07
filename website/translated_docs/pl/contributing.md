@@ -12,17 +12,17 @@ Jeżeli masz jakieś pytania, używamy dwóch kanałów do dyskusji:
 
 ## Pierwsze kroki
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+Na pierwszy rzut oka verdaccio jest pojedyńczym repozytorium, lecz jest wiele sposobów, dzięki którym możesz z nami współpracować i wiele technik do przećwiczenia.
 
 ### Finding my spot
 
-All we have different skills, so, let's see where you might feel comfortable.
+Wszyscy mamy różne umiejętności, więc zobaczmy w czym czujesz się komfortowo.
 
-### I know or I want to learn Node.js
+### Znam lub chcę się nauczyć Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js jest podstawą `verdaccio`, używamy bibliotek takich jak `express`, `commander`, `request` lub `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Posiadamy długą [listę wtyczek](plugins.md) gotową do użycia oraz rozwijania, ale również możesz [stworzyć swoją własną](dev-plugins.md).
 
 ### I would prefer to work in the User Interface
 
