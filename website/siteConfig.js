@@ -30,7 +30,7 @@ const users = [
     infoLink: "https://pnpm.js.org/",
     fbOpenSource: false,
     pinned: true,
-  },
+  },British Open live stream free: TV channel, watch 2018 British Open golf online
   {
     caption: "nodesource",
     image: "/img/users/nodesource.jpg",
