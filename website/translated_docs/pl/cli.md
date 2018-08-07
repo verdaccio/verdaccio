@@ -1,16 +1,16 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: "Narzędzie wiersza poleceń"
 ---
 The verdaccio CLI is your go start the application.
 
-## Commands
+## Komendy
 
 ```bash
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
+| Command            | Default                        | Example        | Opis                   |
 | ------------------ | ------------------------------ | -------------- | ---------------------- |
 | --listen \ **-l** | 4873                           | -p 7000        | http port              |
 | --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
