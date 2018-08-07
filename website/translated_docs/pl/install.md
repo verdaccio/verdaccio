@@ -32,7 +32,7 @@ yarn global add verdaccio
 
 ## Basic Usage
 
-Once it has been installed, you only need to execute the CLI command:
+Po jego zainstalowaniu, trzeba tylko wywołać komendę CLI:
 
 ```bash
 $> verdaccio
@@ -40,7 +40,7 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-For more information about the CLI, please [read the cli section](cli.md).
+Aby uzyskać więcej informacji o CLI, zapoznaj się z [sekcją cli](cli.md).
 
 ## Docker Image
 
