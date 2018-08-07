@@ -30,9 +30,9 @@ Od niedawna zaczęliśmy używać nowoczesnych technologii, takich jak `React` o
 
 ### I feel more confortable improving the stack
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Wszelkie propozycje są mile widziane. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
 
-Here some ideas:
+Tutaj jest kilka pomysłów:
 
 * Create a common eslint rules to be used across all dependencies or plugins
 * Improve Flow types definitions delivery
@@ -41,25 +41,25 @@ Here some ideas:
 * We use babel and webpack across all dependencies, why not a common preset?
 * Improve continous integration delivery
 
-### I do great Documentation
+### Robię świetne dokumentacje
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+Wiele współtwórców znajduje literówki i błędy gramatyczne, to również przyczynia się do ogólnego wrażenia podczas rozwiązywania problemów.
 
 ### I am a Designer
 
 We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Nasza strona internetowa jest oparta o [Docusaurus](https://docusaurus.io/).
 
 ### I am a DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+Wspieramy **Kubernetes**, **Puppet**, **Ansible** i **Chef** oraz potrzebujemy pomocy tych dziedzinach, nie krępuj się sprawdzić wszystkie repozytoria.
 
-### I can do translations
+### Mogę tłumaczyć
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio chce być wielojęzyczny, w tym celu **mamy niesamowitą pomoc** ze strony serwisu [Crowdin](https://crowdin.com), który jest świetną platformą do tłumaczeń.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
