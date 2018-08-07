@@ -67,14 +67,14 @@ We have setup a project where you can choose your favourite language, if you do 
 
 [Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## Jestem gotowy do współtworzenia
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Jeśli myślisz *"Widziałem już [repozytoria](repositories.md) i jestem gotów zacząć od razu"*, wtedy mam dla Ciebie dobrą wiadomość, która znajduje się w następnym kroku.
 
 You will need learn how to build, [we have prepared a guide just for that](build.md).
 
 Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## Pełna lista współtwórców. Chcemy tutaj zobaczyć Twoją twarz!
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
