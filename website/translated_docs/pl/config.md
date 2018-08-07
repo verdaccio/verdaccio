@@ -60,9 +60,9 @@ auth:
     max_users: 1000
 ```
 
-### Interfejs internetowy
+### Internetowy interfejs użytkownika
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Te właściwości pozwalają Ci zmienić wygląd internetowego interfejsu użytkownika. Aby uzyskać więcej informacji na temat tej sekcji, przeczytaj stronę dotyczącą [internetowego interfejsu użytkownika](web.md).
 
 ```yaml
 web:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Ustawienia zaawansowane
 
-### Offline Publish
+### Publikowanie w trybie offline
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Domyślnie `verdaccio` nie pozwala na publikowanie w trybie offline, można to zmienić poprzez ustawienie tej właściwości na *true*.
 
 ```yaml
 publish:
