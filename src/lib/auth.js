@@ -282,11 +282,20 @@ class Auth implements IAuth {
     };
   }
 
-  issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions) {
+  issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions): string {
     const {name, real_groups} = user;
     const payload: JWTPayload = {
       user: name,
       group: real_groups && real_groups.length ? real_groups : undefined,
+    };
+
+    return signPayload(payload, this.secret, signOptions);
+  }
+
+  issuAPIjwt(name: string, password: string, signOptions: JWTSignOptions): string {
+    const payload: JWTPayload = {
+      user: name,
+      password,
     };
 
     return signPayload(payload, this.secret, signOptions);

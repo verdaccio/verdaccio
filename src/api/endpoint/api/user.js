@@ -5,12 +5,13 @@ import Cookies from 'cookies';
 
 import {ErrorCode} from '../../../lib/utils';
 import {API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
-import {buildUserBuffer, createSessionToken, getAuthenticatedMessage} from '../../../lib/auth-utils';
+import {createSessionToken, getApiToken, getAuthenticatedMessage} from '../../../lib/auth-utils';
 
+import type {Config} from '@verdaccio/types';
 import type {$Response, Router} from 'express';
 import type {$RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth} from '../../../../types';
 
-export default function(route: Router, auth: IAuth) {
+export default function(route: Router, auth: IAuth, config: Config) {
   route.get('/-/user/:org_couchdb_user', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     res.status(HTTP_STATUS.OK);
     next({
@@ -20,7 +21,8 @@ export default function(route: Router, auth: IAuth) {
 
   route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     const {name, password} = req.body;
-    const token = (name && password) ? auth.aesEncrypt(buildUserBuffer(name, password)).toString('base64') : undefined;
+
+    const token = (name && password) ? getApiToken(auth, config, name, password) : undefined;
 
     if (_.isNil(req.remote_user.name) === false) {
       res.status(HTTP_STATUS.CREATED);

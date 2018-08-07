@@ -1,0 +1,9 @@
+security:
+  api:
+    legacy: false
+    sign:
+      expiresIn: 7d
+      notBefore: 0
+  web:
+    sign:
+      expiresIn: 7d

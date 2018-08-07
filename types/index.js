@@ -33,7 +33,8 @@ export type MatchedPackage = PackageAccess | void;
 
 export type JWTPayload = {
   user: string;
-  group: Array<string> | void;
+  password?: string;
+  group?: Array<string> | void;
 }
 
 export type ProxyList = {
@@ -60,8 +61,10 @@ export type $NextFunctionVer = NextFunction & mixed;
 export type $SidebarPackage = Package & {latest: mixed}
 
 
-interface IAuthWebUI {
+export interface IAuthWebUI {
   issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions): string;
+  issuAPIjwt(name: string, password: string, signOptions: JWTSignOptions): string;
+  aesEncrypt(buf: Buffer): Buffer;
 }
 
 interface IAuthMiddleware {

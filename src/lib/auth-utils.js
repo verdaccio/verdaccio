@@ -11,7 +11,7 @@ import type {
   Security,
   APITokenOptions,
   JWTOptions} from '@verdaccio/types';
-import type {CookieSessionToken} from '../../types';
+import type {CookieSessionToken, IAuthWebUI} from '../../types';
 
 export function allow_action(action: string) {
   return function(user: RemoteUser, pkg: Package, callback: Callback) {
@@ -83,4 +83,27 @@ export function getAuthenticatedMessage(user: string): string {
 
 export function buildUserBuffer(name: string, password: string) {
   return new Buffer(`${name}:${password}`);
+}
+
+export function getApiToken(
+  auth: IAuthWebUI,
+  config: Config,
+  username: string,
+  password: string): string {
+  const security: Security = getSecurity(config);
+
+  if (_.isNil(security.api.legacy) === false &&
+      _.isNil(security.api.jwt) &&
+      security.api.legacy === true) {
+     // fallback all goes to AES encription
+     return auth.aesEncrypt(buildUserBuffer(username, password)).toString('base64');
+  } else {
+      // i am wiling to use here _.isNil but flow does not like it yet.
+    if (typeof security.api.jwt !== 'undefined' &&
+      typeof security.api.jwt.sign !== 'undefined') {
+      return auth.issuAPIjwt(username, password, security.api.jwt.sign);
+    } else {
+      return auth.aesEncrypt(buildUserBuffer(username, password)).toString('base64');
+    }
+  }
 }
