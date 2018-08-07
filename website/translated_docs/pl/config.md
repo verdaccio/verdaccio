@@ -1,12 +1,12 @@
 ---
 id: configuration
-title: "Configuration File"
+title: "Plik konfiguracyjny"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Plik ten jest podstawą verdaccio, ponieważ to w nim możesz modyfikować domyślne zachowanie aplikacji, rozszerzać jej funkcje oraz włączać wtyczki.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Domyślny plik konfiguracyjny jest tworzony, gdy po raz pierwszy uruchomisz `verdaccio`.
 
-## Default Configuration
+## Podstawowa konfiguracja
 
 The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
 
@@ -29,7 +29,7 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Sekcje
 
 The following sections explain what each property means and the different options.
 
@@ -41,7 +41,7 @@ Is the location of the default storage. **Verdaccio is by default based on local
 storage: ./storage
 ```
 
-### Plugins
+### Wtyczki
 
 Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
 
@@ -49,9 +49,9 @@ Is the location of the plugin directory. Useful for Docker/Kubernetes based depl
 plugins: ./plugins
 ```
 
-### Authentification
+### Uwierzytelnianie
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Uwierzytelnianie jest wykonywane tutaj, podstawowe uwierzytelnianie jest oparte o `htpasswd` i jest wbudowane w aplikację. Możesz modyfikować jego zachowanie poprzez [wtyczki](plugins.md). Więcej informacji o tej sekcji znajdziesz na [stronie dotyczącej uwierzytelniania](auth.md).
 
 ```yaml
 auth:
@@ -60,7 +60,7 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Interfejs internetowy
 
 This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
