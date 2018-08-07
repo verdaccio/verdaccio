@@ -2,15 +2,15 @@
 id: contributing
 title: "Contributing Verdaccio"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Zapoznanie się z obcą podstawą kodowania nie jest łatwe, ale jesteśmy tutaj, aby Ci z tym pomóc.
 
-## Comunication Channels
+## Kanały komunikacji
 
-If you are willing for asking, we use two channels for discussions:
+Jeżeli masz jakieś pytania, używamy dwóch kanałów do dyskusji:
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [Publiczny kanał Discord](http://chat.verdaccio.org/)
 
-## Getting started
+## Pierwsze kroki
 
 As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
 
