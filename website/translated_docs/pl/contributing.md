@@ -16,7 +16,7 @@ Na pierwszy rzut oka verdaccio jest pojedyńczym repozytorium, lecz jest wiele s
 
 ### Finding my spot
 
-Wszyscy mamy różne umiejętności, więc zobaczmy w czym czujesz się komfortowo.
+Wszyscy posiadamy różne umiejętności, więc zobaczmy w czym czujesz się komfortowo.
 
 ### Znam lub chcę się nauczyć Node.js
 
@@ -24,9 +24,9 @@ Node.js jest podstawą `verdaccio`, używamy bibliotek takich jak `express`, `co
 
 Posiadamy długą [listę wtyczek](plugins.md) gotową do użycia oraz rozwijania, ale również możesz [stworzyć swoją własną](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### Wolę pracować w interfejsie użytkownika
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Od niedawna zaczęliśmy używać nowoczesnych technologii, takich jak `React` oraz `element-react`. Z niecierpliwością oczekujemy nowych pomysłów na ulepszenie interfejsu użytkownika.
 
 ### I feel more confortable improving the stack
 
