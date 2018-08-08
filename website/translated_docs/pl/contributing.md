@@ -75,6 +75,6 @@ You will need learn how to build, [we have prepared a guide just for that](build
 
 Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
 
-## Pełna lista współtwórców. Chcemy tutaj zobaczyć Twoją twarz!
+## Pełna lista współtwórców. Chcemy tutaj zobaczyć Twoją twarz !
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
