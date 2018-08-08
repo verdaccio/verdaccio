@@ -2,11 +2,12 @@
 
 import _ from 'lodash';
 
-import {API_ERROR, HTTP_STATUS, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import {API_ERROR, ROLES, TOKEN_BEARER} from './constants';
 import loadPlugin from '../lib/plugin-loader';
-import {buildBase64Buffer, ErrorCode} from './utils';
-import {aesDecrypt, aesEncrypt, signPayload, verifyPayload} from './crypto-utils';
-import {getDefaultPlugins} from './auth-utils';
+import {aesEncrypt, signPayload} from './crypto-utils';
+import {
+  getDefaultPlugins, resolveTokenMiddleWare, verifyJWTPayload, buildAnonymousUser,
+} from './auth-utils';
 
 import {getMatchedPackagesSpec} from './config-utils';
 
@@ -198,25 +199,8 @@ class Auth implements IAuth {
         return next();
       }
 
-      const parts = authorization.split(' ');
-      if (parts.length !== 2) {
-        return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
-      }
-
-      const credentials = this._parseCredentials(parts);
-      if (!credentials) {
-        return next();
-      }
-
-      const index = credentials.indexOf(':');
-      if (index < 0) {
-        return next();
-      }
-
-      const user: string = credentials.slice(0, index);
-      const pass: string = credentials.slice(index + 1);
-
-      this.authenticate(user, pass, function(err, user) {
+      const credentials: JWTPayload = resolveTokenMiddleWare(this.config, authorization, next);
+      this.authenticate(credentials.user, (credentials.password: any), function(err, user) {
         if (!err) {
           req.remote_user = user;
           next();
@@ -226,23 +210,6 @@ class Auth implements IAuth {
         }
       });
     };
-  }
-
-  _parseCredentials(parts: Array<string>) {
-      let credentials;
-      const scheme = parts[0];
-      if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-         credentials = buildBase64Buffer(parts[1]).toString();
-         this.logger.info(API_ERROR.DEPRECATED_BASIC_HEADER);
-         return credentials;
-      } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-         const token = buildBase64Buffer(parts[1]);
-
-         credentials = aesDecrypt(token, this.secret).toString('utf8');
-         return credentials;
-      } else {
-        return;
-      }
   }
 
   /**
@@ -265,15 +232,15 @@ class Auth implements IAuth {
         return next();
       }
 
-      let decoded;
+      let credentials;
       try {
-        decoded = this.decode_token(token);
+        credentials = verifyJWTPayload(token, this.secret);
       } catch (err) {
        // FIXME: intended behaviour, do we want it?
       }
 
-      if (decoded) {
-        req.remote_user = authenticatedUser(decoded.user, decoded.group);
+      if (credentials) {
+        req.remote_user = authenticatedUser(credentials.user, (credentials.group: any));
       } else {
         req.remote_user = buildAnonymousUser();
       }
@@ -302,40 +269,11 @@ class Auth implements IAuth {
   }
 
   /**
-   * Decodes the token.
-   * @param {*} token
-   * @return {Object}
-   */
-  decode_token(token: string) {
-    let decoded;
-    try {
-      decoded = verifyPayload(token, this.secret);
-    } catch (err) {
-      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
-    }
-
-    return decoded;
-  }
-
-  /**
    * Encrypt a string.
    */
   aesEncrypt(buf: Buffer): Buffer {
     return aesEncrypt(buf, this.secret);
   }
-}
-
-/**
- * Builds an anonymous user in case none is logged in.
- * @return {Object} { name: xx, groups: [], real_groups: [] }
- */
-function buildAnonymousUser() {
-  return {
-    name: undefined,
-    // groups without '$' are going to be deprecated eventually
-    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONUMOUS],
-    real_groups: [],
-  };
 }
 
 /**

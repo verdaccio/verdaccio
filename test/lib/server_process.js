@@ -76,7 +76,7 @@ export default class VerdaccioProcess implements IServerProcess {
     });
 
     this.childFork.on('error', (err) => {
-      console.log('error process', err);
+      // console.log('error process', err);
       reject([err, this]);
     });
 

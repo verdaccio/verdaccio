@@ -11,7 +11,7 @@ import {setup} from '../../../src/lib/logger';
 import type {IAuth} from '../../../types/index';
 import type {Config} from '@verdaccio/types';
 import {buildBase64Buffer, parseConfigFile} from '../../../src/lib/utils';
-import {getApiToken} from '../../../src/lib/auth-utils';
+import {getApiToken, getAuthenticatedMessage} from '../../../src/lib/auth-utils';
 import {aesDecrypt, verifyPayload} from '../../../src/lib/crypto-utils';
 
 setup(configExample.logs);
@@ -59,6 +59,13 @@ describe('Auth utilities', () => {
   };
 
   describe('getApiToken test', () => {
+    test('should sign token with aes and security missing', () => {
+      const token = createBase('security-missing',
+        'test', 'test', '1234567', 'aesEncrypt', 'issuAPIjwt');
+
+      verifyAES(token, 'test', 'test', '1234567');
+      expect(_.isString(token)).toBeTruthy();
+    });
 
     test('should sign token with aes and security emtpy', () => {
       const token = createBase('security-empty',
@@ -101,4 +108,9 @@ describe('Auth utilities', () => {
     });
   });
 
+  describe('getAuthenticatedMessage test', () => {
+    test('should sign token with jwt enabled', () => {
+      expect(getAuthenticatedMessage('test')).toBe('you are authenticated as \'test\'');
+    });
+  });
 });
