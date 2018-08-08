@@ -2,7 +2,7 @@
 id: installation
 title: "Instalacja"
 ---
-Verdaccio jest wieloplatformową aplikacją internetową. Aby zainstalować ją, musisz spełnić kilka wymagań.
+Verdaccio jest wieloplatformową aplikacją internetową. Aby ją zainstalować, musisz spełnić kilka wymagań.
 
 #### Wymagania
 
