@@ -8,6 +8,6 @@ Chúng tôi có một giải pháp tuỳ chỉnh cho `verdaccio` trong tổ ch�
 
 #### Những lựa chọn khác
 
-* Ansible role for Gentoo users: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
-* Ansible role for Ubuntu users: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
-* ansible-verdaccio-role <https://github.com/refinery29/ansible-verdaccio-role>
+* Vai trò của phần mềm Ansible đối với người dùng Gentoo: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
+* Vai trò của phần mềm Ansible đối với người dùng Ubuntu: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
+* Vai trò của ansible-verdaccio <https://github.com/refinery29/ansible-verdaccio-role>
