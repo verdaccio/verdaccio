@@ -6,13 +6,13 @@ import {API_ERROR, ROLES, TOKEN_BEARER} from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import {aesEncrypt, signPayload} from './crypto-utils';
 import {
-  getDefaultPlugins, resolveTokenMiddleWare, verifyJWTPayload, buildAnonymousUser,
+  getDefaultPlugins, resolveTokenMiddleWare, verifyJWTPayload, buildAnonymousUser, isAuthHeaderValid,
 } from './auth-utils';
-
+import {ErrorCode} from './utils';
 import {getMatchedPackagesSpec} from './config-utils';
 
 import type {
-  Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions,
+Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions,
 } from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload, IAuth} from '../../types';
@@ -197,6 +197,10 @@ class Auth implements IAuth {
       const authorization = req.headers.authorization;
       if (_.isNil(authorization)) {
         return next();
+      }
+
+      if (!isAuthHeaderValid(authorization)) {
+        return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
       }
 
       const credentials: JWTPayload = resolveTokenMiddleWare(this.config, authorization, next);

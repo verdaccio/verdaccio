@@ -157,16 +157,16 @@ export function verifyJWTPayload(token: string, secret: string): JWTPayload {
   }
 }
 
+export function isAuthHeaderValid(authorization: string): boolean {
+  return authorization.split(' ').length === 2;
+}
+
 export function resolveTokenMiddleWare(
     config: Config,
     authorizationHeader: string,
     next: any): JWTPayload {
   const security: Security = getSecurity(config);
   const parts = authorizationHeader.split(' ');
-
-  if (parts.length !== 2) {
-    return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
-  }
 
   if (isAESLegacy(security)) {
     const credentials = parseAESCredentials(parts, config.secret);
