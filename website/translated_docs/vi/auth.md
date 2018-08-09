@@ -36,7 +36,7 @@ Như đã giải thích từ phần [vấn đề số #212](https://github.com/v
 
 ## Tự động tạo ra tập tin htpasswd
 
-Để đơn giản hóa quá trình cài đặt, `verdaccio` đã sử dụng plugin dựa vào tập tin `htpasswd`. [Plugin ngoài](https://github.com/verdaccio/verdaccio-htpasswd) đã được cài đặt mặc định trong phiên bản v3.0.x. The v2.x version of this package still contains the built-in version of this plugin.
+Để đơn giản hóa quá trình cài đặt, `verdaccio` đã sử dụng plugin dựa vào tập tin `htpasswd`. [Plugin ngoài](https://github.com/verdaccio/verdaccio-htpasswd) đã được cài đặt mặc định trong phiên bản v3.0.x. V2.x trong package (gói) này vẫn là phiên bản tích hợp với plugin này.
 
 ```yaml
 auth:
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Lớp Property | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ | Miêu tả                                  |
+| ------------ | ----------- | ------- | ---------- | ------ | ---------------------------------------- |
+| file         | string      | Yes     | ./htpasswd | all    | file that host the encrypted credentials |
+| max_users    | number      | No      | 1000       | all    | set limit of users                       |
 
 In case to decide do not allow user to login, you can set `max_users: -1`.
