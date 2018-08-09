@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Thuộc tính này cho phép bạn sửa đổi giao diện của web UI. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang web ui ](web.md).
 
 ```yaml
 web:
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Khi những gói không phải là cục bộ, uplinks cho phép hệ thống lấy các gói này từ một cơ quan đăng ký từ xa. Để biết thêm chi tiết về nội dung này, vui lòng đọc [ trang Uplink ](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Các loại gói
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Các gói này cho phép người dùng kiểm soát quyền truy cập vào gói. Để biết thêm chi tiết về mô-đun này, vui lòng đọc [ trang gói ](packages.md).
 
 ```yaml
 packages:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Cài đặt nâng cao
 
-### Offline Publish
+### Phát hành ngoại tuyến
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+` verdaccio ` theo mặc định không cho phép khách hàng phát hành khi họ ngoại tuyến. Bạn có thể thay đổi cài đặt này bằng cách cài thành * true*.
 
 ```yaml
 publish:
@@ -107,7 +107,7 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Tiền tố URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
