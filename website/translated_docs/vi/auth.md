@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Thuộc tính | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ | Miêu tả                                      |
-| ---------- | ----------- | ------- | ---------- | ------ | -------------------------------------------- |
-| tập tin    | chuỗi       | Có      | ./htpasswd | tùy ý  | tập tin lưu trữ các thông tin đã được mã hóa |
-| max_users  | số          | Không   | 1000       | tất cả | giới hạn người dùng                          |
+| Thuộc tính | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ           | Miêu tả                                      |
+| ---------- | ----------- | ------- | ---------- | ---------------- | -------------------------------------------- |
+| tập tin    | chuỗi       | Có      | ./htpasswd | bất kỳ chuỗi nào | tập tin lưu trữ các thông tin đã được mã hóa |
+| max_users  | số          | Không   | 1000       | bất kỳ số nào    | giới hạn người dùng                          |
 
-Trường hợp bạn không muốn người dùng đăng nhập, bạn cài đặt `max_users: -1`.
+Trường hợp bạn cần vô hiệu hóa đăng ký người dùng mới, bạn có thể thay đổi cấu hình thành `max_users: -1`.
