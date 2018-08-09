@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Lớp Property | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ | Miêu tả                                  |
-| ------------ | ----------- | ------- | ---------- | ------ | ---------------------------------------- |
-| file         | string      | Yes     | ./htpasswd | all    | file that host the encrypted credentials |
-| max_users    | number      | No      | 1000       | all    | set limit of users                       |
+| Lớp Property | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ | Miêu tả                                      |
+| ------------ | ----------- | ------- | ---------- | ------ | -------------------------------------------- |
+| tập tin      | string      | Có      | ./htpasswd | tất cả | tập tin lưu trữ các thông tin đã được mã hóa |
+| max_users    | số          | Không   | 1000       | all    | set limit of users                           |
 
 In case to decide do not allow user to login, you can set `max_users: -1`.
