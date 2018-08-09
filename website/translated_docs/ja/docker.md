@@ -36,7 +36,7 @@ For a specific (patch) version:
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (`master branch`)] version.
+For the next major release using the `beta` (master branch) version.
 
 ```bash
 docker pull verdaccio/verdaccio:beta
@@ -56,16 +56,21 @@ The last argument defines which image to use. The above line will pull the lates
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
-You can use `-v` to bind mount `conf` and `storage` to the hosts filesystem:
+You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   -v $V_PATH/conf:/verdaccio/conf \
   -v $V_PATH/storage:/verdaccio/storage \
+  -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
 
 > Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+
+### Plugins
+
+Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
 ### Docker and custom port configuration
 
