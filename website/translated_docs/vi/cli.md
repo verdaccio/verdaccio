@@ -10,12 +10,12 @@ Dòng lệnh CLI của Verdaccio là công cụ để bạn bắt đầu khởi 
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Lệnh               | Default                        | Example        | Description            |
+| Tham số            | Giá trị mặc định               | Ví dụ          | Miêu tả                |
 | ------------------ | ------------------------------ | -------------- | ---------------------- |
 | --listen \ **-l** | 4873                           | -p 7000        | http port              |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | đường dẫn tệp cấu hình |
 
-## Default config file location
+## Vị trí đường dẫn tệp cấu hình mặc định
 
 To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
