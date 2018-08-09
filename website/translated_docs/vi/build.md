@@ -1,6 +1,6 @@
 ---
-id: build
-title: "Build the source code"
+id: xây dựng
+title: "Xây dựng mã nguồn"
 ---
 Verdaccio relies on `yarn` instead `npm` to download dependencies.
 
