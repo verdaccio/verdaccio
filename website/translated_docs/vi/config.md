@@ -35,7 +35,7 @@ Những nội dung sau sẽ giải thích ý nghĩa của từng thuộc tính v
 
 ### Kho lưu trữ
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Là nơi lưu trữ mặc định. **Verdaccio sử dụng bộ nhớ chế độ tệp cục bộ tích hợp theo mặc định **.
 
 ```yaml
 storage: ./storage
@@ -43,15 +43,15 @@ storage: ./storage
 
 ### Plugins
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Là vị trí của thư mục của plugin. Rất hữu ích cho cấu hình chạy trên hệ thống Docker / Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Yêu cầu xác thực
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Cài đặt yêu cầu xác thực được thực hiện ở đây, sự xác thực mặc đình này chạy trên tệp tin` htpasswd ` và được tích hợp sẵn. Bạn có thể sửa đổi chế độ này bằng [ plugins ](plugins.md). Để biết thêm chi tiết về nội dung này, vui lòng đọc [ trang xác thực](auth.md).
 
 ```yaml
 auth:
