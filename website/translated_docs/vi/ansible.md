@@ -1,6 +1,6 @@
 ---
 id: ansible
-title: "Ansible"
+title: "Phần mềm nguồn mở ansible"
 ---
 Chúng tôi có một giải pháp tuỳ chỉnh cho `verdaccio` trong tổ chức của chúng tôi.
 
