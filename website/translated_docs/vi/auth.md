@@ -1,16 +1,16 @@
 ---
-id: authentification
+id: yêu cầu xác thực
 title: "Yêu cầu xác thực"
 ---
-Yêu cầu xác thực được thông qua [plugin](plugins.md) mà bạn đang sử dụng. Vào [truy cập gói](packages.md) để biết danh mục các gói.
+Cài đặt yêu cầu xác thực có liên quan chặt chẽ đến [plugin](plugins.md) mà bạn đang sử dụng. Giới hạn truy cập gói cũng được kiểm soát thông qua [quyền truy cập gói](packages.md).
 
-Tự khách hàng có thể dùng công cụ `npm` để xác minh tài khoản của mình. Bạn có thể đăng nhập vào ứng dụng bằng mã sau:
+Quá trình xác thực của khách hàng được xử lý bởi chính công cụ `npm`. Bạn có thể đăng nhập vào ứng dụng bằng lệnh sau:
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-Trong thư mục lưu trữ dữ liệu của người dùng trên File Server (File Server là một máy chủ chứa dữ liệu phân quyền thư mục và chia sẻ tài nguyên với nhau), một token được tạo ra trong tập tin cấu hình (config file) có sử dụng phương thức `npm`. Để biết thêm thông tin về `.npmrc`, xin hãy đọc phần [tài liệu chính thức](https://docs.npmjs.com/files/npmrc).
+`npm` sẽ lưu Token được Verdaccio trả về trong tệp cấu hình, tệp này sẽ được lưu trữ trong thư mục chính của bạn. Để biết thêm thông tin về `.npmrc`, xin hãy đọc phần [tài liệu chính thức](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
