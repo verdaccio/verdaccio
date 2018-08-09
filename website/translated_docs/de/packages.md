@@ -2,9 +2,9 @@
 id: packages
 title: "Package Access"
 ---
-It's a series of contrains that allow or restrict access to the local storage based in specific criteria.
+It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
 
-The security constraints remains on shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handles by itself `allow_access` and `allow_publish`, it's use an internal fallback in case the plugin is not ready for it.
+The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
 
 For more information about permissions visit [the authentification section in the wiki](auth.md).
 
@@ -46,14 +46,14 @@ The list of valid groups according the default plugins are
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieves all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need todo something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend use a prefix for your packages, in that way it'd be easier to protect them.
+If you want to protect specific set packages under your group, you need to do something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend using a prefix for your packages, in that way it will be easier to protect them.
 
 ```yaml
 packages:
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just check whether the user that try to access or publish specific package belongs to the right group.
+You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
 
 #### Set multiple groups
 
-Define multiple access groups is fairly easy, just define them with a white space between them.
+Defining multiple access groups is fairly easy, just define them with a white space between them.
 
 ```yaml
   'company-*':
@@ -94,7 +94,7 @@ Define multiple access groups is fairly easy, just define them with a white spac
 
 #### Blocking access to set of packages
 
-If you want to block the acccess/publish to a specific group of packages. Just, do not define `access` and `publish`.
+If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
 
 ```yaml
 packages:
@@ -106,7 +106,7 @@ packages:
 
 #### Blocking proxying a set of specific packages
 
-You might want to block one or several packages to fetch from remote repositories., but, at the same time, allow others to access different *uplinks*.
+You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
 
 Let's see the following example:
 
@@ -117,20 +117,24 @@ packages:
      publish: $all
   'my-company-*':
      access: $all
-     publish: $authenticated     
+     publish: $authenticated
+  '@my-local-scope/*':
+     access: $all
+     publish: $authenticated
   '**':
      access: all
      publish: $authenticated
-     proxy: npmjs         
+     proxy: npmjs
 ```
 
-Let's describe what we want with the example above:
+Let's describe what we want with the above example:
 
 * I want to host my own `jquery` dependency but I need to avoid proxying it.
 * I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want to proxying all the rest dependencies.
+* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
+* I want proxying for all the rest of the dependencies.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way how your dependencies are solved will be affected.
+Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
 ### Configuration
 
@@ -143,4 +147,4 @@ You can define mutiple `packages` and each of them must have an unique `Regex`.
 | proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
 | storage  | boolean | No       | [true,false]   | all     | TODO                                        |
 
-> We higlight recommend do not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and soon will be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
