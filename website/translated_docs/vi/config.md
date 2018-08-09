@@ -117,7 +117,7 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### Thuộc tính Max Body Size
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Thuộc tính Maximum body size của tệp JSON mặc định là `10mb ` và bạn có thể tăng giá trị này nếu bạn gặp lỗi như `"đối tượng yêu cầu quá lớn"`.
 
 ```yaml
 max_body_size: 10mb
