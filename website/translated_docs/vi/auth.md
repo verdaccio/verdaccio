@@ -10,7 +10,7 @@ Quá trình xác thực của khách hàng được xử lý bởi chính công 
 npm adduser --registry http://localhost:4873
 ```
 
-`npm` sẽ lưu Token được Verdaccio trả về trong tệp cấu hình, tệp này sẽ được lưu trữ trong thư mục chính của bạn. Để biết thêm thông tin về `.npmrc`, xin hãy đọc phần [tài liệu chính thức](https://docs.npmjs.com/files/npmrc).
+`npm` sẽ lưu Token được Verdaccio trả về trong tệp cấu hình, tệp này sẽ được lưu trữ trong thư mục chính của bạn. Để biết thêm thông tin về cấu hình `.npmrc`, vui lòng xem [ tài liệu chính thức ](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -19,9 +19,9 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Chế độ công khai ẩn danh
+#### Gói phát hành ẩn danh
 
-Bạn có thể chọn chế độ công khai ẩn danh khi sử dụng `verdaccio`, để bật chế độ này lên bạn cần cài đặt phần [truy cập](packages.md) một cách chính xác.
+Bạn có thể chọn gói phát hành ẩn danh khi sử dụng `verdaccio`, để bật chế độ này lên bạn cần cài đặt phần [quyền truy cập gói](packages.md) một cách chính xác.
 
 Ví dụ:
 
