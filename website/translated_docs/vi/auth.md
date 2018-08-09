@@ -21,9 +21,9 @@ registry=http://localhost:5555/
 
 #### Chế độ công khai ẩn danh
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+Bạn có thể chọn chế độ công khai ẩn danh khi sử dụng `verdaccio`, để bật chế độ này lên bạn cần cài đặt [truy cập](packages.md)một cách chính xác.
 
-Eg:
+Ví dụ:
 
 ```yaml
   'my-company-*':
