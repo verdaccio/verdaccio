@@ -2,13 +2,13 @@
 id: cấu hình
 title: "Tệp cấu hình"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Tệp này là một phần quan trọng của Verdaccio, đây là nơi bạn có thể sửa đổi hành vi mặc định, bật plugin và mở rộng các tính năng.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Để chạy tệp cấu hình mặc định đầu tiên, bạn chạy `verdaccio`.
 
-## Default Configuration
+## Cấu hình mặc định
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Cấu hình mặc định có hỗ trợ gói **scoped** và cho phép truy cập ẩn danh vào các gói không phải riêng tư, nhưng chỉ ** người dùng đã đăng nhập mới có thể xuất bản gói **.
 
 ```yaml
 storage: ./storage
@@ -29,11 +29,11 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Các nội dung
 
-The following sections explain what each property means and the different options.
+Những nội dung sau sẽ giải thích ý nghĩa của từng thuộc tính và các tùy chọn khác nhau.
 
-### Storage
+### Kho lưu trữ
 
 Is the location of the default storage. **Verdaccio is by default based on local file system**.
 
