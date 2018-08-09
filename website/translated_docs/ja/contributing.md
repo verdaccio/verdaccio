@@ -8,8 +8,7 @@ First of all Jumping into an unfamiliar code base is not easy but we are here to
 
 If you are willing for asking, we use two channels for discussions:
 
-* [Public Gitter channel](https://gitter.im/verdaccio/)
-* [Contributors Slack channel](https://verdaccio-npm.slack.com) (unfortunately only by email invitation, you might ask in **Gitter** to be included)
+* [Public Discord channel](http://chat.verdaccio.org/)
 
 ## Getting started
 
