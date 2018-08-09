@@ -17,8 +17,8 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## Vị trí đường dẫn tệp cấu hình mặc định
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+Để tìm thư mục chính, trước hết chúng ta chọn **$XDG_DATA_HOME**, sau đó tìm [biến môi trường APPDATA](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/) trong Window.
 
-## Default storage location
+## Vị trí lưu trữ mặc định
 
 We use **$XDG_DATA_HOME** environment variable as default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share. If you are using a custom storage, this location is irrelevant.
