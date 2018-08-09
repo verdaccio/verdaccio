@@ -2,9 +2,9 @@
 id: chef
 title: "Chef Cookbook"
 ---
-Using Chef Cookbook for Verdaccio
+Cách sử dụng Chef Cookbook trong Verdaccio
 
-For further information:
+Để biết thêm thông tin:
 
 * <https://github.com/verdaccio/verdaccio-cookbook>
 * <https://supermarket.chef.io/cookbooks/verdaccio>
