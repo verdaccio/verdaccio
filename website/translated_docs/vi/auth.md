@@ -2,7 +2,7 @@
 id: Yêu cầu xác thực
 title: "Yêu cầu xác thực"
 ---
-The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
+Yêu cầu xác thực được thông qua [plugin](plugins.md) mà bạn đang sử dụng. Vào [truy cập gói](packages.md) để biết danh mục các gói.
 
 The client authentification is handled by `npm` client itself. Once you login to the application:
 
