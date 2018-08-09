@@ -1,6 +1,6 @@
 ---
-id: configuration
-title: "Configuration File"
+id: cấu hình
+title: "Tệp cấu hình"
 ---
 This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
 
