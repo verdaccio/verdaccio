@@ -4,7 +4,7 @@ title: "Yêu cầu xác thực"
 ---
 Yêu cầu xác thực được thông qua [plugin](plugins.md) mà bạn đang sử dụng. Vào [truy cập gói](packages.md) để biết danh mục các gói.
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+Tự khách hàng có thể dùng công cụ `npm` để xác minh tài khoản của mình. Bạn có thể đăng nhập vào ứng dụng bằng mã sau:
 
 ```bash
 npm adduser --registry http://localhost:4873
