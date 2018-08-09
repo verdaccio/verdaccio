@@ -7,7 +7,7 @@ The verdaccio CLI is your go start the application.
 ## Commands
 
 ```bash
-$ verdaccio --listen 4000 --config ~./config.yaml
+verdaccio --listen 4000 --config ~./config.yaml
 ```
 
 | Command            | Default                        | Example        | Description            |
