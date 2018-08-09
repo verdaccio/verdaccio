@@ -10,7 +10,7 @@ Tự khách hàng có thể dùng công cụ `npm` để xác minh tài khoản 
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+Trong thư mục lưu trữ dữ liệu của người dùng trên File Server (File Server là một máy chủ chứa dữ liệu phân quyền thư mục và chia sẻ tài nguyên với nhau), một token được tạo ra trong tập tin cấu hình (config file) có sử dụng phương thức `npm`. Để biết thêm thông tin về `.npmrc`, xin hãy đọc phần [tài liệu chính thức](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
