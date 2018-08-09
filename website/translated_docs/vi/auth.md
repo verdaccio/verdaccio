@@ -32,7 +32,7 @@ Ví dụ:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+Như đã giải thích từ phần [vấn đề số #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) đến phần `npm@5.3.0` và trong tất cả các phiên bản phụ **sẽ không cho phép bạn công khai các mã code của mình nếu không có một token nào**. However `yarn` has not such limitation.
 
 ## Default htpasswd
 
