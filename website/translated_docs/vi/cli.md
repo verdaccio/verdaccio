@@ -1,16 +1,16 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: "Công cụ dòng lệnh Command line"
 ---
-The verdaccio CLI is your go start the application.
+Dòng lệnh CLI của Verdaccio là công cụ để bạn bắt đầu khởi động và kiểm soát ứng dụng này.
 
-## Commands
+## Các lệnh
 
 ```bash
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
+| Lệnh               | Default                        | Example        | Description            |
 | ------------------ | ------------------------------ | -------------- | ---------------------- |
 | --listen \ **-l** | 4873                           | -p 7000        | http port              |
 | --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
