@@ -4,7 +4,7 @@ title: "Tệp cấu hình"
 ---
 Tệp này là một phần quan trọng của Verdaccio, đây là nơi bạn có thể sửa đổi hành vi mặc định, bật plugin và mở rộng các tính năng.
 
-Để chạy tệp cấu hình mặc định đầu tiên, bạn chạy `verdaccio`.
+Để cài tệp cấu hình mặc định đầu tiên, bạn chạy `verdaccio`.
 
 ## Cấu hình mặc định
 
@@ -115,7 +115,7 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Thuộc tính Max Body Size
 
 By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
 
