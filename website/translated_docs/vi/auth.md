@@ -36,7 +36,7 @@ Như đã giải thích từ phần [vấn đề số #212](https://github.com/v
 
 ## Tự động tạo ra tập tin htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+Để đơn giản hóa quá trình cài đặt, `verdaccio` đã sử dụng plugin dựa vào tập tin `htpasswd`. [Plugin ngoài](https://github.com/verdaccio/verdaccio-htpasswd) đã được cài đặt mặc định trong phiên bản v3.0.x. The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:
