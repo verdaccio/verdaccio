@@ -2,12 +2,12 @@
 id: xây dựng
 title: "Xây dựng mã nguồn"
 ---
-Verdaccio relies on `yarn` instead `npm` to download dependencies.
+Để tải các đối tượng dependency, Verdaccio dùng công cụ `yarn` thay vì dùng `npm`.
 
-*Note: the current build only will build with `➜ yarn@1.x`.
+*Lưu ý: Hiện nay việc xây dựng mã nguồn đều dựa vào `➜ yarn@1.x`.
 
 ```bash
-  yarn install
+  cài đặt yarn
 ```
 
-To see the complete list of scripts, [click here](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
+Để xem đầy đủ danh sách các tập lệnh, [bấm vào đây](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
