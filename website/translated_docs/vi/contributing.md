@@ -1,18 +1,18 @@
 ---
 id: đóng góp
-title: "Contributing Verdaccio"
+title: "Tham gia đóng góp Verdaccio"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Để có thể sử dụng một cơ sở mã hoàn toàn mới là điều không hề dễ dàng, vì vậy chúng tôi luôn sẵn sàng giúp đỡ bạn.
 
-## Comunication Channels
+## Kênh trao đổi
 
-If you are willing for asking, we use two channels for discussions:
+Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua hai kênh sau để chúng ta cùng thảo luận:
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [Kênh Discord công khai](http://chat.verdaccio.org/)
 
-## Getting started
+## Bắt đầu
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại có nhiều cách khác nhau để bạn có thể đóng góp và một loạt các công nghệ để bạn thực hành.
 
 ### Finding my spot
 
