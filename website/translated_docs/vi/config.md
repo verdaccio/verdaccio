@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Những thông báo
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Thật dễ dàng để bật thông báo cho các công cụ của bên thứ ba thông qua các móc nối web. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang thông báo ](notifications.md).
 
 ```yaml
 notify:
@@ -181,13 +181,13 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Để biết thêm thông tin về cài đặt cấu hình, vui lòng [ kiểm tra mã nguồn ](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Đánh giá
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+` kiểm tra npm ` là một lệnh mới được phát hành trong phiên bản [ npm 6.x ](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio bao gồm một plugin middleware tích hợp (plugin trung gian) để xử lý lệnh này.
 
 > If you have a new installation it comes by default, otherwise you need to add the following props to your config file
 
