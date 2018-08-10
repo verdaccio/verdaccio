@@ -154,7 +154,7 @@ Proxy là một máy chủ HTTP làm nhiệm vụ chuyển tiếp thông tin và
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Nếu bạn có một proxy trên mạng của mình, bạn có thể đặt tiêu đề `X-Forwarded-For` với các thuộc tính sau.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,13 +163,13 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Biến này phải chứa danh sách các tiện ích mở rộng tên được phân cách bằng dấu phẩy không được proxy sử dụng.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Những thông báo
 
 Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
 
