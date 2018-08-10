@@ -123,9 +123,9 @@ Thuộc tính Maximum body size của tệp JSON mặc định là `10mb ` và b
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Cổng nghe
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio ` được chạy mặc định trên cổng `4873 `. Cổng có thể được thay đổi thông qua [ cli ](cli.md) hoặc trong một tập tin cấu hình.
 
 ```yaml
 listen:
@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Để bật `https` trong `verdaccio`, chỉ cần sử dụng giao thức *https://* để đặt cờ `nghe `. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang ssl ](ssl.md).
 
 ```yaml
 https:
@@ -150,7 +150,7 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxy là một máy chủ HTTP làm nhiệm vụ chuyển tiếp thông tin và kiểm soát tạo sự an toàn cho việc chuyển dữ liệu từ máy chủ từ xa đến máy khách.
 
 #### http_proxy and https_proxy
 
