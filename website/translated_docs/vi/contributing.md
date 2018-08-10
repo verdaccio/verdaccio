@@ -14,11 +14,11 @@ Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua h
 
 Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại có nhiều cách khác nhau để bạn có thể đóng góp và một loạt các công nghệ để bạn thực hành.
 
-### Finding my spot
+### Tìm vị trí phù hợp với tôi
 
-All we have different skills, so, let's see where you might feel comfortable.
+Mỗi người đều có các kỹ năng khác nhau, vì vậy hãy xem và cảm nhận nơi bạn thấy thoải mái nhất để có thể sử dụng kỹ năng của mình.
 
-### I know or I want to learn Node.js
+### Tôi biết hoặc tôi muốn tìm hiểu về Node.js
 
 Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
