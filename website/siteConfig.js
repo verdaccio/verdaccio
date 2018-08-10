@@ -37,7 +37,7 @@ const users = [
     infoLink: "https://nodesource.com/",
     fbOpenSource: false,
     pinned: true,
-  },
+  },d
   {
     caption: "Strapi",
     image: "/img/users/strapijs.jpg",
