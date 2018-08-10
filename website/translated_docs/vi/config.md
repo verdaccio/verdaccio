@@ -189,7 +189,7 @@ notify:
 
 ` kiểm tra npm ` là một lệnh mới được phát hành trong phiên bản [ npm 6.x ](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio bao gồm một plugin middleware tích hợp (plugin trung gian) để xử lý lệnh này.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Trong trường hợp bạn muốn cài đặt phiên bản mặc định mới, bạn cần thêm đoạn mã sau vào tệp cấu hình
 
 ```yaml
 middlewares:
