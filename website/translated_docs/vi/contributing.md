@@ -37,7 +37,7 @@ Dưới đây là một số ý tưởng:
 * Tạo quy tắc chung Eslint để sử dụng trong tất cả các dependency hoặc plugin
 * Cải thiện việc phân phối các loại quy trình xác định
 * Di chuyển sang Webpack 4
-* Improve hot reload with Webpack
+* Nâng cấp mức độ thành phần của Webpack
 * We use babel and webpack across all dependencies, why not a common preset?
 * Improve continous integration delivery
 
