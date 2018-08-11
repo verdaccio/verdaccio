@@ -46,7 +46,7 @@ export function generateRandomHexString(length: number = 8) {
 
 export function signPayload(payload: JWTPayload, secret: string, options: JWTSignOptions) {
   return jwt.sign(payload, secret, {
-    notBefore: '1000', // Make sure the time will not rollback :)
+    notBefore: '1', // Make sure the time will not rollback :)
     ...options,
   });
 }

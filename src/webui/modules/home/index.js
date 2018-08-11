@@ -12,13 +12,14 @@ import Search from '../../components/Search';
 
 export default class Home extends React.Component {
   static propTypes = {
-    children: PropTypes.element
+    children: PropTypes.element,
+    isUserLoggedIn: PropTypes.bool
   }
 
   state = {
     loading: true,
     fistTime: true,
-    query: ''
+    query: '',
   }
 
   constructor(props) {
@@ -31,6 +32,11 @@ export default class Home extends React.Component {
     this.loadPackages();
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (this.props.isUserLoggedIn !== nextProps.isUserLoggedIn) {
+      this.loadPackages();
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) { // eslint-disable-line no-unused-vars
     if (prevState.query !== this.state.query) {
@@ -57,14 +63,15 @@ export default class Home extends React.Component {
           loading: false
         });
       }
-    } catch (err) {
+    } catch (error) {
       MessageBox.msgbox({
         type: 'error',
         title: 'Warning',
-        message: 'Unable to load package list: ' + err.message
+        message: `Unable to load package list: ${error.message}`
       });
     }
   }
+
 
   async searchPackage(query) {
     try {
@@ -98,12 +105,10 @@ export default class Home extends React.Component {
   }
 
   render() {
-    return (
-      <div>
+    return <div>
         {this.renderSearchBar()}
-        {this.state.loading ? this.renderLoading() : this.renderPackageList()}
-      </div>
-    );
+      {this.state.loading ? this.renderLoading() : <PackageList help={this.state.packages.length === 0} packages={this.state.packages} />}
+      </div>;
   }
 
   renderSearchBar() {
@@ -115,9 +120,5 @@ export default class Home extends React.Component {
 
   renderLoading() {
     return <Loading text="Loading..." />;
-  }
-
-  renderPackageList() {
-    return <PackageList help={this.state.fistTime} packages={this.state.packages} />;
   }
 }
