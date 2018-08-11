@@ -51,10 +51,21 @@ export function generateRandomHexString(length: number = 8) {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions) {
-  return jwt.sign(payload, secretOrPrivateKey, {
-    notBefore: '1000', // Make sure the time will not rollback :)
-    ...options,
+export async function signPayload(
+  payload: RemoteUser,
+  secretOrPrivateKey: string,
+  options: JWTSignOptions): Promise<string> {
+  return new Promise(function(resolve, reject) {
+    return jwt.sign(payload, secretOrPrivateKey, {
+      notBefore: '1000', // Make sure the time will not rollback :)
+      ...options,
+    }, (err, token) => {
+        if (err) {
+          return reject(err);
+        } else {
+          return resolve(token);
+        }
+    });
   });
 }
 

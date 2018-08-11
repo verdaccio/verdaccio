@@ -107,11 +107,11 @@ export function isAESLegacy(security: Security): boolean {
     security.api.legacy === true;
 }
 
-export function getApiToken(
+export async function getApiToken(
   auth: IAuthWebUI,
   config: Config,
   remoteUser: RemoteUser,
-  aesPassword: string): string {
+  aesPassword: string): Promise<string> {
   const security: Security = getSecurity(config);
 
   if (isAESLegacy(security)) {
@@ -121,7 +121,7 @@ export function getApiToken(
       // i am wiling to use here _.isNil but flow does not like it yet.
     if (typeof security.api.jwt !== 'undefined' &&
       typeof security.api.jwt.sign !== 'undefined') {
-      return auth.jwtEncrypt(remoteUser, security.api.jwt.sign);
+      return await auth.jwtEncrypt(remoteUser, security.api.jwt.sign);
     } else {
       return auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64');
     }
@@ -170,16 +170,13 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
   try {
     const payload: RemoteUser = (verifyPayload(token, secret): RemoteUser);
 
-    // const payload: RemoteUser = {
-    //   user: payload.user,
-    //   group: payload.group,
-    // };
-
     return payload;
   } catch (err) {
+    // #168 this check should be removed as soon AES encrypt is removed.
     if (err.name === 'JsonWebTokenError') {
-      // it will be possible jwt is enabled and old tokens fails
-      // then we return an anonymous user
+      // it might be possible the jwt configuration is enabled and
+      // old tokens fails still remains in usage, thus
+      // we return an anonymous user to force log in.
       return buildAnonymousUser();
     } else {
       throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
@@ -187,12 +184,11 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
   }
 }
 
-//
 export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function resolveTokenMiddleWare(
+export function getMiddlewareCredentials(
     security: Security,
     secret: string,
     authorizationHeader: string
@@ -213,6 +209,7 @@ export function resolveTokenMiddleWare(
     const parts = authorizationHeader.split(' ');
     const scheme = parts[0];
     const token = parts[1];
+
     if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
         return verifyJWTPayload(token, secret);
     } else {

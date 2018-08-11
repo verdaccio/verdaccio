@@ -12,7 +12,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
   route.post('/login', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const {username, password} = req.body;
 
-    auth.authenticate(username, password, (err, user: RemoteUser) => {
+    auth.authenticate(username, password, async (err, user: RemoteUser) => {
       if (err) {
         const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
         next(ErrorCode.getCode(errorCode, err.message));
@@ -21,7 +21,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
         const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
 
         next({
-          token: auth.jwtEncrypt(user, jWTSignOptions),
+          token: await auth.jwtEncrypt(user, jWTSignOptions),
           username: req.remote_user.name,
         });
       }

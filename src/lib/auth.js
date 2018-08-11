@@ -7,7 +7,7 @@ import loadPlugin from '../lib/plugin-loader';
 import {aesEncrypt, signPayload} from './crypto-utils';
 import {
   getDefaultPlugins,
-  resolveTokenMiddleWare,
+  getMiddlewareCredentials,
   verifyJWTPayload,
   buildAnonymousUser,
   isAuthHeaderValid,
@@ -214,7 +214,7 @@ class Auth implements IAuth {
       const {secret} = this.config;
 
       if (isAESLegacy(security)) {
-        const credentials: any = resolveTokenMiddleWare(security, secret, authorization);
+        const credentials: any = getMiddlewareCredentials(security, secret, authorization);
         if (credentials) {
           const {user, password} = credentials;
           this.authenticate(user, password, (err, user) => {
@@ -247,7 +247,7 @@ class Auth implements IAuth {
           });
         } else {
           // jwt handler
-          const credentials: any = resolveTokenMiddleWare(security, secret, authorization);
+          const credentials: any = getMiddlewareCredentials(security, secret, authorization);
           if (credentials) {
             // if the signature is valid we rely on it
             req.remote_user = credentials;
@@ -315,14 +315,17 @@ class Auth implements IAuth {
     };
   }
 
-  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string {
+  async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string {
     const {real_groups} = user;
     const payload: RemoteUser = {
       ...user,
       group: real_groups && real_groups.length ? real_groups : undefined,
     };
 
-    return signPayload(payload, this.secret, signOptions);
+    const token: string = await signPayload(payload, this.secret, signOptions);
+
+    // $FlowFixMe
+    return token;
   }
 
   /**

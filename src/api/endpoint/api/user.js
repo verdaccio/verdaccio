@@ -19,11 +19,11 @@ export default function(route: Router, auth: IAuth, config: Config) {
     });
   });
 
-  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
+  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', async function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     const {name, password} = req.body;
 
     if (_.isNil(req.remote_user.name) === false) {
-      const token = (name && password) ? getApiToken(auth, config, req.remote_user, password) : undefined;
+      const token = (name && password) ? await getApiToken(auth, config, req.remote_user, password) : undefined;
 
       res.status(HTTP_STATUS.CREATED);
 
@@ -32,7 +32,7 @@ export default function(route: Router, auth: IAuth, config: Config) {
         token,
       });
     } else {
-      auth.add_user(name, password, function(err, user) {
+      auth.add_user(name, password, async function(err, user) {
         if (err) {
           if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
             // With npm registering is the same as logging in,
@@ -43,7 +43,7 @@ export default function(route: Router, auth: IAuth, config: Config) {
           return next(err);
         }
 
-        const token = (name && password) ? getApiToken(auth, config, user, password) : undefined;
+        const token = (name && password) ? await getApiToken(auth, config, user, password) : undefined;
 
         req.remote_user = user;
         res.status(HTTP_STATUS.CREATED);
