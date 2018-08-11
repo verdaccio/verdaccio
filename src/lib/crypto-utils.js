@@ -8,8 +8,7 @@ import {
 } from 'crypto';
 import jwt from 'jsonwebtoken';
 
-import type {JWTSignOptions} from '@verdaccio/types';
-import type {JWTPayload} from '../../types';
+import type {JWTSignOptions, RemoteUser} from '@verdaccio/types';
 
 export const defaultAlgorithm = 'aes192';
 export const defaultTarballHashAlgorithm = 'sha1';
@@ -52,7 +51,7 @@ export function generateRandomHexString(length: number = 8) {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export function signPayload(payload: JWTPayload, secretOrPrivateKey: string, options: JWTSignOptions) {
+export function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions) {
   return jwt.sign(payload, secretOrPrivateKey, {
     notBefore: '1000', // Make sure the time will not rollback :)
     ...options,

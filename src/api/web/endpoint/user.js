@@ -21,7 +21,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
         const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
 
         next({
-          token: auth.issueUIjwt(user, jWTSignOptions),
+          token: auth.jwtEncrypt(user, jWTSignOptions),
           username: req.remote_user.name,
         });
       }

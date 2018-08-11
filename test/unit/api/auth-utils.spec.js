@@ -8,11 +8,12 @@ import configExample from '../partials/config/index';
 import AppConfig from '../../../src/lib/config';
 import {setup} from '../../../src/lib/logger';
 
-import type {IAuth} from '../../../types/index';
-import type {Config} from '@verdaccio/types';
-import {buildBase64Buffer, parseConfigFile} from '../../../src/lib/utils';
+import {convertPayloadToBase64, parseConfigFile} from '../../../src/lib/utils';
 import {getApiToken, getAuthenticatedMessage} from '../../../src/lib/auth-utils';
 import {aesDecrypt, verifyPayload} from '../../../src/lib/crypto-utils';
+
+import type {IAuth} from '../../../types/index';
+import type {Config, RemoteUser} from '@verdaccio/types';
 
 setup(configExample.logs);
 
@@ -23,7 +24,7 @@ describe('Auth utilities', () => {
 
   const createBase = function(
     template: string,
-    user: string,
+    username: string,
     password: string,
     secret = '12345',
     methodToSpy: string,
@@ -35,23 +36,29 @@ describe('Auth utilities', () => {
       const auth: IAuth = new Auth(config);
       const spy = jest.spyOn(auth, methodToSpy);
       const spyNotCalled = jest.spyOn(auth, methodNotBeenCalled);
+      const user: RemoteUser = {
+        name: username,
+        real_groups: [],
+        groups: []
+      };
       const token = getApiToken(auth, config, user, password);
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spyNotCalled).not.toHaveBeenCalled();
+      expect(token).toBeDefined();
 
       return token;
   };
 
   const verifyJWT = (token: string, user: string, password: string, secret: string) => {
     const payload = verifyPayload(token, secret);
-
-    expect(payload.user).toBe(user);
-    expect(payload.password).toBe(password);
+    expect(payload.name).toBe(user);
+    expect(payload.groups).toBeDefined();
+    expect(payload.real_groups).toBeDefined();
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
-    const payload = aesDecrypt(buildBase64Buffer(token), secret).toString('utf8')
+    const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString('utf8')
     const content = payload.split(':');
 
     expect(content[0]).toBe(user);
@@ -61,7 +68,7 @@ describe('Auth utilities', () => {
   describe('getApiToken test', () => {
     test('should sign token with aes and security missing', () => {
       const token = createBase('security-missing',
-        'test', 'test', '1234567', 'aesEncrypt', 'issuAPIjwt');
+        'test', 'test', '1234567', 'aesEncrypt', 'jwtEncrypt');
 
       verifyAES(token, 'test', 'test', '1234567');
       expect(_.isString(token)).toBeTruthy();
@@ -69,7 +76,7 @@ describe('Auth utilities', () => {
 
     test('should sign token with aes and security emtpy', () => {
       const token = createBase('security-empty',
-        'test', 'test', '123456', 'aesEncrypt', 'issuAPIjwt');
+        'test', 'test', '123456', 'aesEncrypt', 'jwtEncrypt');
 
       verifyAES(token, 'test', 'test', '123456');
       expect(_.isString(token)).toBeTruthy();
@@ -77,7 +84,7 @@ describe('Auth utilities', () => {
 
     test('should sign token with aes', () => {
       const token = createBase('security-basic',
-        'test', 'test', '123456', 'aesEncrypt', 'issuAPIjwt');
+        'test', 'test', '123456', 'aesEncrypt', 'jwtEncrypt');
 
       verifyAES(token, 'test', 'test', '123456');
       expect(_.isString(token)).toBeTruthy();
@@ -85,7 +92,7 @@ describe('Auth utilities', () => {
 
     test('should sign token with legacy and jwt disabled', () => {
       const token = createBase('security-no-legacy',
-        'test', 'test', 'x8T#ZCx=2t', 'aesEncrypt', 'issuAPIjwt');
+        'test', 'test', 'x8T#ZCx=2t', 'aesEncrypt', 'jwtEncrypt');
 
       expect(_.isString(token)).toBeTruthy();
       verifyAES(token, 'test', 'test', 'x8T#ZCx=2t');
@@ -93,7 +100,7 @@ describe('Auth utilities', () => {
 
     test('should sign token with legacy enabled and jwt enabled', () => {
       const token = createBase('security-jwt-legacy-enabled',
-        'test', 'test', 'secret', 'issuAPIjwt', 'aesEncrypt');
+        'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
 
       verifyJWT(token, 'test', 'test', 'secret');
       expect(_.isString(token)).toBeTruthy();
@@ -101,7 +108,7 @@ describe('Auth utilities', () => {
 
     test('should sign token with jwt enabled', () => {
       const token = createBase('security-jwt',
-        'test', 'test', 'secret', 'issuAPIjwt', 'aesEncrypt');
+        'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
 
         expect(_.isString(token)).toBeTruthy();
         verifyJWT(token, 'test', 'test', 'secret');

@@ -31,11 +31,22 @@ export type StartUpConfig = {
 
 export type MatchedPackage = PackageAccess | void;
 
-export type JWTPayload = {
-  user: string;
+export type JWTPayload = RemoteUser & {
   password?: string;
-  group?: Array<string> | void;
 }
+
+export type AESPayload = {
+  user: string;
+  password: string;
+}
+
+export type AuthTokenHeader = {
+  scheme: string;
+  token: string;
+}
+
+export type BasicPayload = AESPayload | void;
+export type AuthMiddlewarePayload = RemoteUser | BasicPayload;
 
 export type ProxyList = {
   [key: string]: IProxy;
@@ -62,8 +73,7 @@ export type $SidebarPackage = Package & {latest: mixed}
 
 
 export interface IAuthWebUI {
-  issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions): string;
-  issuAPIjwt(name: string, password: string, signOptions: JWTSignOptions): string;
+  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string;
   aesEncrypt(buf: Buffer): Buffer;
 }
 

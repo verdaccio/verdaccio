@@ -2,20 +2,26 @@
 
 import _ from 'lodash';
 
-import {API_ERROR, ROLES, TOKEN_BEARER} from './constants';
+import {API_ERROR, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import {aesEncrypt, signPayload} from './crypto-utils';
 import {
-  getDefaultPlugins, resolveTokenMiddleWare, verifyJWTPayload, buildAnonymousUser, isAuthHeaderValid,
+  getDefaultPlugins,
+  resolveTokenMiddleWare,
+  verifyJWTPayload,
+  buildAnonymousUser,
+  isAuthHeaderValid,
+  getSecurity,
+  isAESLegacy, parseAuthTokenHeader, parseBasicPayload,
 } from './auth-utils';
-import {ErrorCode} from './utils';
+import {convertPayloadToBase64, ErrorCode} from './utils';
 import {getMatchedPackagesSpec} from './config-utils';
 
 import type {
-Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions,
+  Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security,
 } from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
-import type {$RequestExtend, JWTPayload, IAuth} from '../../types';
+import type {$RequestExtend, IAuth} from '../../types';
 
 const LoggerApi = require('./logger');
 
@@ -50,7 +56,7 @@ class Auth implements IAuth {
     this.plugins.push(getDefaultPlugins());
   }
 
-  authenticate(user: string, password: string, cb: Callback) {
+  authenticate(username: string, password: string, cb: Callback) {
     const plugins = this.plugins.slice(0);
     (function next() {
       const plugin = plugins.shift();
@@ -59,7 +65,7 @@ class Auth implements IAuth {
         return next();
       }
 
-      plugin.authenticate(user, password, function(err, groups) {
+      plugin.authenticate(username, password, function(err, groups) {
         if (err) {
           return cb(err);
         }
@@ -81,7 +87,7 @@ class Auth implements IAuth {
             throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
 
-          return cb(err, authenticatedUser(user, groups));
+          return cb(err, authenticatedUser(username, groups));
         }
         next();
       });
@@ -188,13 +194,14 @@ class Auth implements IAuth {
         return _next();
       };
 
-      if (_.isUndefined(req.remote_user) === false
-          && _.isUndefined(req.remote_user.name) === false) {
+      if (_.isUndefined(req.remote_user) === false && _.isUndefined(req.remote_user.name) === false) {
         return next();
       }
+
+      // in case auth header does not exist we return anonymous function
       req.remote_user = buildAnonymousUser();
 
-      const authorization = req.headers.authorization;
+      const {authorization} = req.headers;
       if (_.isNil(authorization)) {
         return next();
       }
@@ -203,16 +210,54 @@ class Auth implements IAuth {
         return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
       }
 
-      const credentials: JWTPayload = resolveTokenMiddleWare(this.config, authorization, next);
-      this.authenticate(credentials.user, (credentials.password: any), function(err, user) {
-        if (!err) {
-          req.remote_user = user;
-          next();
+      const security: Security = getSecurity(this.config);
+      const {secret} = this.config;
+
+      if (isAESLegacy(security)) {
+        const credentials: any = resolveTokenMiddleWare(security, secret, authorization);
+        if (credentials) {
+          const {user, password} = credentials;
+          this.authenticate(user, password, (err, user) => {
+            if (!err) {
+              req.remote_user = user;
+              next();
+            } else {
+              req.remote_user = buildAnonymousUser();
+              next(err);
+            }
+          });
         } else {
-          req.remote_user = buildAnonymousUser();
-          next(err);
+          // we force npm client to ask again with basic authentication
+          return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
         }
-      });
+      } else {
+        const {scheme, token} = parseAuthTokenHeader(authorization);
+        if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
+          // this should happen when client tries to login with an existing user
+          const credentials = convertPayloadToBase64(token).toString();
+          const {user, password} = (parseBasicPayload(credentials): any);
+          this.authenticate(user, password, (err, user) => {
+            if (!err) {
+              req.remote_user = user;
+              next();
+            } else {
+              req.remote_user = buildAnonymousUser();
+              next(err);
+            }
+          });
+        } else {
+          // jwt handler
+          const credentials: any = resolveTokenMiddleWare(security, secret, authorization);
+          if (credentials) {
+            // if the signature is valid we rely on it
+            req.remote_user = credentials;
+            next();
+          } else {
+            // with JWT throw 401
+            return next(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+          }
+        }
+      }
     };
   }
 
@@ -226,25 +271,42 @@ class Auth implements IAuth {
       }
 
       req.pause();
-      const next = () => {
+      const next = (err) => {
         req.resume();
+        if (err) {
+          // req.remote_user.error = err.message;
+          res.status(err.statusCode).send(err.message);
+        }
+
         return _next();
       };
 
-      const token = (req.headers.authorization || '').replace(`${TOKEN_BEARER} `, '');
+      const authorization = req.headers.authorization;
+
+      if (_.isNil(authorization)) {
+        return next();
+      }
+
+      if (!isAuthHeaderValid(authorization)) {
+        return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
+      }
+
+      const token = (authorization || '').replace(`${TOKEN_BEARER} `, '');
       if (!token) {
         return next();
       }
 
       let credentials;
       try {
-        credentials = verifyJWTPayload(token, this.secret);
+        credentials = verifyJWTPayload(token, this.config.secret);
       } catch (err) {
        // FIXME: intended behaviour, do we want it?
       }
 
       if (credentials) {
-        req.remote_user = authenticatedUser(credentials.user, (credentials.group: any));
+        const {name, groups} = credentials;
+        // $FlowFixMe
+        req.remote_user = authenticatedUser(name, groups);
       } else {
         req.remote_user = buildAnonymousUser();
       }
@@ -253,20 +315,11 @@ class Auth implements IAuth {
     };
   }
 
-  issueUIjwt(user: RemoteUser, signOptions: JWTSignOptions): string {
-    const {name, real_groups} = user;
-    const payload: JWTPayload = {
-      user: name,
+  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string {
+    const {real_groups} = user;
+    const payload: RemoteUser = {
+      ...user,
       group: real_groups && real_groups.length ? real_groups : undefined,
-    };
-
-    return signPayload(payload, this.secret, signOptions);
-  }
-
-  issuAPIjwt(name: string, password: string, signOptions: JWTSignOptions): string {
-    const payload: JWTPayload = {
-      user: name,
-      password,
     };
 
     return signPayload(payload, this.secret, signOptions);

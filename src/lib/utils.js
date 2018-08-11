@@ -34,7 +34,7 @@ export function getUserAgent(): string {
   return `${pkgName}/${pkgVersion}`;
 }
 
-export function buildBase64Buffer(payload: string): Buffer {
+export function convertPayloadToBase64(payload: string): Buffer {
   return new Buffer(payload, 'base64');
 }
 

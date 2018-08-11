@@ -3,7 +3,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import Search from '../../lib/search';
 import * as Utils from '../../lib/utils';
-import {WEB_TITLE} from '../../lib/constants';
+import {HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
 
 const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
@@ -15,7 +15,7 @@ const spliceURL = require('../../utils/string').spliceURL;
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
 
-  router.use(auth.webUIJWTmiddleware());
+  // router.use(auth.webUIJWTmiddleware());
   router.use(securityIframe);
 
   // Static
@@ -25,7 +25,7 @@ module.exports = function(config, auth, storage) {
       if (!err) {
         return;
       }
-      if (err.status === 404) {
+      if (err.status === HTTP_STATUS.NOT_FOUND) {
         next();
       } else {
         next(err);

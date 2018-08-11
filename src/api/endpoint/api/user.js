@@ -22,9 +22,9 @@ export default function(route: Router, auth: IAuth, config: Config) {
   route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     const {name, password} = req.body;
 
-    const token = (name && password) ? getApiToken(auth, config, name, password) : undefined;
-
     if (_.isNil(req.remote_user.name) === false) {
+      const token = (name && password) ? getApiToken(auth, config, req.remote_user, password) : undefined;
+
       res.status(HTTP_STATUS.CREATED);
 
       return next({
@@ -42,6 +42,8 @@ export default function(route: Router, auth: IAuth, config: Config) {
           }
           return next(err);
         }
+
+        const token = (name && password) ? getApiToken(auth, config, user, password) : undefined;
 
         req.remote_user = user;
         res.status(HTTP_STATUS.CREATED);

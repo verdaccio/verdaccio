@@ -1,6 +1,6 @@
 // @flow
 import _ from 'lodash';
-import {buildBase64Buffer, ErrorCode} from './utils';
+import {convertPayloadToBase64, ErrorCode} from './utils';
 import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER} from './constants';
 
 import type {
@@ -11,14 +11,16 @@ import type {
   Security,
   APITokenOptions,
   JWTOptions} from '@verdaccio/types';
-import type {CookieSessionToken, IAuthWebUI, JWTPayload} from '../../types';
+import type {
+  CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload,
+} from '../../types';
 import {aesDecrypt, verifyPayload} from './crypto-utils';
 
 /**
  * Builds an anonymous user in case none is logged in.
  * @return {Object} { name: xx, groups: [], real_groups: [] }
  */
-export function buildAnonymousUser() {
+export function buildAnonymousUser(): RemoteUser {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
@@ -99,7 +101,7 @@ export function buildUserBuffer(name: string, password: string) {
   return new Buffer(`${name}:${password}`);
 }
 
-function isAESLegacy(security: Security): boolean {
+export function isAESLegacy(security: Security): boolean {
   return _.isNil(security.api.legacy) === false &&
     _.isNil(security.api.jwt) &&
     security.api.legacy === true;
@@ -108,89 +110,113 @@ function isAESLegacy(security: Security): boolean {
 export function getApiToken(
   auth: IAuthWebUI,
   config: Config,
-  username: string,
-  password: string): string {
+  remoteUser: RemoteUser,
+  aesPassword: string): string {
   const security: Security = getSecurity(config);
 
   if (isAESLegacy(security)) {
      // fallback all goes to AES encryption
-     return auth.aesEncrypt(buildUserBuffer(username, password)).toString('base64');
+     return auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64');
   } else {
       // i am wiling to use here _.isNil but flow does not like it yet.
     if (typeof security.api.jwt !== 'undefined' &&
       typeof security.api.jwt.sign !== 'undefined') {
-      return auth.issuAPIjwt(username, password, security.api.jwt.sign);
+      return auth.jwtEncrypt(remoteUser, security.api.jwt.sign);
     } else {
-      return auth.aesEncrypt(buildUserBuffer(username, password)).toString('base64');
+      return auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64');
     }
   }
 }
 
-export function parseAESCredentials(parts: Array<string>, secret: string) {
-  let credentials;
-  const scheme = parts[0];
+export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHeader {
+  const parts = authorizationHeader.split(' ');
+  const [scheme, token] = parts;
+
+  return {scheme, token};
+}
+
+export function parseBasicPayload(credentials: string): BasicPayload {
+  const index = credentials.indexOf(':');
+  if (index < 0) {
+    return;
+  }
+
+  const user: string = credentials.slice(0, index);
+  const password: string = credentials.slice(index + 1);
+
+  return {user, password};
+}
+
+export function parseAESCredentials(
+  authorizationHeader: string, secret: string) {
+  const {scheme, token} = parseAuthTokenHeader(authorizationHeader);
+
+  // basic is deprecated and should not be enforced
   if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-    credentials = buildBase64Buffer(parts[1]).toString();
+    const credentials = convertPayloadToBase64(token).toString();
 
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    const token = buildBase64Buffer(parts[1]);
+    const tokenAsBuffer = convertPayloadToBase64(token);
+    const credentials = aesDecrypt(tokenAsBuffer, secret).toString('utf8');
 
-    credentials = aesDecrypt(token, secret).toString('utf8');
     return credentials;
   } else {
     return;
   }
 }
 
-export function verifyJWTPayload(token: string, secret: string): JWTPayload {
+export function verifyJWTPayload(token: string, secret: string): RemoteUser {
   try {
-    const payload = verifyPayload(token, secret);
+    const payload: RemoteUser = (verifyPayload(token, secret): RemoteUser);
 
-    return {
-      user: payload.user,
-      password: payload.password,
-      group: payload.group,
-    };
+    // const payload: RemoteUser = {
+    //   user: payload.user,
+    //   group: payload.group,
+    // };
+
+    return payload;
   } catch (err) {
-    throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
+    if (err.name === 'JsonWebTokenError') {
+      // it will be possible jwt is enabled and old tokens fails
+      // then we return an anonymous user
+      return buildAnonymousUser();
+    } else {
+      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
+    }
   }
 }
 
+//
 export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
 export function resolveTokenMiddleWare(
-    config: Config,
-    authorizationHeader: string,
-    next: any): JWTPayload {
-  const security: Security = getSecurity(config);
-  const parts = authorizationHeader.split(' ');
-
+    security: Security,
+    secret: string,
+    authorizationHeader: string
+  ): AuthMiddlewarePayload {
   if (isAESLegacy(security)) {
-    const credentials = parseAESCredentials(parts, config.secret);
+    const credentials = parseAESCredentials(authorizationHeader, secret);
     if (!credentials) {
-      return next();
+      return;
     }
 
-    const index = credentials.indexOf(':');
-    if (index < 0) {
-      return next();
+    const parsedCredentials = parseBasicPayload(credentials);
+    if (!parsedCredentials) {
+      return;
     }
 
-    const user: string = credentials.slice(0, index);
-    const password: string = credentials.slice(index + 1);
-
-    return {user, password};
+    return parsedCredentials;
   } else {
-    const token = parts[1];
+    const parts = authorizationHeader.split(' ');
     const scheme = parts[0];
-
+    const token = parts[1];
     if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-        return verifyJWTPayload(token, config.secret);
+        return verifyJWTPayload(token, secret);
     } else {
-      return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
+      return;
     }
   }
 }
