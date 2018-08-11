@@ -30,7 +30,7 @@ Thời gian gần đây, chúng tôi đã chuyển sang các công nghệ hiện
 
 ### Việc nâng cấp ngăn xếp sẽ giúp tôi cảm thấy thoải mái hơn
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Tất nhiên, chúng tôi sẽ vui lòng giúp bạn cải thiện ngăn xếp và bạn có thể nâng cấp các dependency của mình lên `eslint `, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Here some ideas:
 
