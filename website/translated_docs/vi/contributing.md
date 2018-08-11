@@ -26,7 +26,7 @@ Chúng tôi có rất nhiều [danh sách plugin](plugins.md) có sẵn và đư
 
 ### Tôi thích làm việc trong giao diện người dùng hơn
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Thời gian gần đây, chúng tôi đã chuyển sang các công nghệ hiện đại như `React` và `element-react`. Chúng tôi mong được biết đến những ý tưởng mới về cách cải thiện giao diện người dùng.
 
 ### I feel more confortable improving the stack
 
