@@ -20,11 +20,11 @@ Mỗi người đều có các kỹ năng khác nhau, vì vậy hãy xem và c�
 
 ### Tôi biết hoặc tôi muốn tìm hiểu về Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js là một hệ thống phần mềm dựa trên `verdaccio`, chúng tôi sử dụng `express`, `commander `, `request` hoặc `async ` làm thư viện của chương trình. Về cơ bản, Verdaccio là một Rest API, giống như `yarn`, tạo ra giao tiếp tương thích với máy khách `npm`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Chúng tôi có rất nhiều [danh sách plugin](plugins.md) có sẵn và được cải thiện, nhưng đồng thời [bạn cũng có thể tạo plugin của riêng mình](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### Tôi thích làm việc trong giao diện người dùng hơn
 
 Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
 
