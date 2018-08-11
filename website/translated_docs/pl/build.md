@@ -10,4 +10,4 @@ Verdaccio relies on `yarn` instead `npm` to download dependencies.
   yarn install
 ```
 
-To see the complete list of scripts, [click here](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
+Aby zobaczyć pełną listę skryptów, [kliknij tutaj](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
