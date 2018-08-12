@@ -17,6 +17,7 @@ import type {
   IReadTarball,
 } from '@verdaccio/streams';
 import type {ILocalData} from '@verdaccio/local-storage';
+import lunrMutable from 'lunr-mutable-indexes';
 import type {NextFunction, $Request, $Response} from 'request';
 
 export type StringValue = verdaccio$StringValue;
@@ -75,7 +76,7 @@ export interface IAuth extends IBasicAuth, IAuthMiddleware, IAuthWebUI {
 }
 
 export interface IWebSearch {
-  index: any;
+  index: lunrMutable.index;
   storage: IStorageHandler;
   query(query: string): any;
   add(pkg: Version): void;
