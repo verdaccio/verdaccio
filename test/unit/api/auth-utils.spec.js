@@ -1,7 +1,6 @@
 // @flow
 
 import _ from 'lodash';
-import path from 'path';
 import Auth from '../../../src/lib/auth';
 // $FlowFixMe
 import configExample from '../partials/config/index';
@@ -17,6 +16,7 @@ import {
   getSecurity
 } from '../../../src/lib/auth-utils';
 import {aesDecrypt, verifyPayload} from '../../../src/lib/crypto-utils';
+import {parseConfigurationFile} from '../__helper';
 
 import type {IAuth, } from '../../../types/index';
 import type {Config, Security, RemoteUser} from '@verdaccio/types';
@@ -24,12 +24,12 @@ import type {Config, Security, RemoteUser} from '@verdaccio/types';
 setup(configExample.logs);
 
 describe('Auth utilities', () => {
-  const parseConfigurationFile = (name) => {
-    return path.join(__dirname, `../partials/config/yaml/security/${name}.yaml`);
+  const parseConfigurationSecurityFile = (name) => {
+    return parseConfigurationFile(`security/${name}`);
   };
 
   function getConfig(configFileName: string, secret: string) {
-    const conf = parseConfigFile(parseConfigurationFile(configFileName));
+    const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     const secConf= _.merge(configExample, conf);
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
@@ -225,7 +225,7 @@ describe('Auth utilities', () => {
         const user: string = 'test';
         const config: Config = getConfig('security-jwt', secret);
         const token = await signCredentials('security-jwt',
-          user, 'test', secret, 'jwtEncrypt', 'aesEncrypt');
+          user, 'secretTest', secret, 'jwtEncrypt', 'aesEncrypt');
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
         expect(credentials).toBeDefined();
