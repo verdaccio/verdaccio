@@ -38,12 +38,26 @@ export default class LoginModal extends Component {
     });
   }
 
-  submitCredentials(event) {
+  async submitCredentials(event) {
     // prevents default submit behaviour
     event.preventDefault();
     const {username, password} = this.state;
-    this.props.onSubmit(username, password);
+    await this.props.onSubmit(username, password);
+    // let's wait for API response and then set
+    // username and password filed to empty state
     this.setState({username: '', password: ''});
+  }
+
+  renderLoginError({type, title, description} = {}) {
+    return type ? (
+      <Alert
+        title={title}
+        type={type}
+        description={description}
+        showIcon={true}
+        closable={false}
+      />
+    ) : '';
   }
 
   render() {
@@ -59,15 +73,7 @@ export default class LoginModal extends Component {
         >
           <Form className="login-form">
             <Dialog.Body>
-              {error.type && (
-                <Alert
-                  title={error.title}
-                  type={error.type}
-                  description={error.description}
-                  showIcon={true}
-                  closable={false}
-                />
-              )}
+              {this.renderLoginError(error)}
               <br />
               <Input
                 type="text"
@@ -89,7 +95,7 @@ export default class LoginModal extends Component {
             <Dialog.Footer className="dialog-footer">
               <Button onClick={onCancel} className="cancel-login-button">
                 Cancel
-            </Button>
+              </Button>
               <Button
                 nativeType="submit"
                 className="login-button"

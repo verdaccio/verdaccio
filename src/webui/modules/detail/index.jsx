@@ -24,7 +24,7 @@ export default class Detail extends Component {
   };
 
   getPackageName(props = this.props) {
-    let params = props.match.params;
+    const params = props.match.params;
     return `${(params.scope && '@' + params.scope + '/') || ''}${params.package}`;
   }
   get packageName() {
@@ -35,9 +35,9 @@ export default class Detail extends Component {
     await this.loadPackageInfo(this.packageName);
   }
 
-  UNSAFE_componentWillReceiveProps(newProps) {
+  componentDidUpdate(newProps) {
     if (newProps.isUserLoggedIn !== this.props.isUserLoggedIn) {
-      let packageName = this.getPackageName(newProps);
+      const packageName = this.getPackageName(newProps);
       this.loadPackageInfo(packageName);
     }
   }
@@ -61,7 +61,7 @@ export default class Detail extends Component {
   }
 
   render() {
-    let {notFound, readMe} = this.state;
+    const {notFound, readMe} = this.state;
 
     if (notFound) {
       return <NotFound pkg={this.packageName}/>;

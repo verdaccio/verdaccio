@@ -17,11 +17,12 @@ const Header = ({
   return (
     <header className={classes.header}>
       <div className={classes.headerWrap}>
-        <a href="">
+        <a href="/#/">
           <img src={logo} className={classes.logo} />
         </a>
         <figure>
-          npm set {scope}registry {registryUrl}
+          npm set {scope}
+          registry {registryUrl}
           <br />
           npm adduser --registry {registryUrl}
         </figure>
@@ -30,15 +31,14 @@ const Header = ({
           {username ? (
             <div className="user-logged">
               <span
-                className="user-logged-greetings"
-                style={{marginRight: '10px'}}
+                className={`user-logged-greetings ${classes.usernameField}`}
               >
                 Hi, {capitalize(username)}
               </span>
               <Button
                 className={`${classes.headerButton} header-button-logout`}
                 type="danger"
-                onClick={() => handleLogout()}
+                onClick={handleLogout}
               >
                 Logout
               </Button>
@@ -46,7 +46,7 @@ const Header = ({
           ) : (
             <Button
               className={`${classes.headerButton} header-button-login`}
-              onClick={() => toggleLoginModal()}
+              onClick={toggleLoginModal}
             >
               Login
             </Button>

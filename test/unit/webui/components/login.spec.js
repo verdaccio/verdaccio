@@ -58,7 +58,7 @@ describe('<LoginModal />', () => {
     expect(wrapper.state('password')).toEqual('1234');
   });
 
-  it('submitCredential: should call the onSubmit', () => {
+  it('submitCredential: should call the onSubmit', async () => {
     const props = {
       visibility: true,
       error: {},
@@ -72,7 +72,7 @@ describe('<LoginModal />', () => {
     const wrapper = mount(<LoginModal {...props} />);
     const { submitCredentials } = wrapper.instance();
     wrapper.setState({username: 'sam', password: 1234})
-    submitCredentials(event);
+    await submitCredentials(event);
     expect(props.onSubmit).toHaveBeenCalledWith('sam', 1234);
     expect(event.preventDefault).toHaveBeenCalled();
   });

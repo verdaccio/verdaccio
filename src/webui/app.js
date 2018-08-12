@@ -50,8 +50,10 @@ export default class App extends Component {
     if (isTokenExpire(token) || username === undefined) {
       this.handleLogout();
     } else {
-      this.setState({user: {username, token}});
-      this.setState({isUserLoggedIn: true});
+      this.setState({
+        user: {username, token},
+        isUserLoggedIn: true
+      });
     }
   }
 
@@ -66,9 +68,9 @@ export default class App extends Component {
    */
   toggleLoginModal() {
     this.setState((prevState) => ({
-      showLoginModal: !prevState.showLoginModal
+      showLoginModal: !prevState.showLoginModal,
+      error: {}
     }));
-    this.setState({error: {}});
   }
 
   /**
@@ -97,9 +99,12 @@ export default class App extends Component {
         showLoginModal: false
       });
     }
+
     if (error) {
-      this.setState({user: {}});
-      this.setState({error});
+      this.setState({
+        user: {},
+        error
+      });
     }
   }
 
@@ -110,35 +115,47 @@ export default class App extends Component {
   handleLogout() {
     storage.removeItem('username');
     storage.removeItem('token');
-    this.setState({user: {}});
-    this.setState({isUserLoggedIn: false});
+    this.setState({
+      user: {},
+      isUserLoggedIn: false
+    });
+  }
+
+  renderHeader() {
+    const {
+      logoUrl,
+      user,
+      scope,
+    } = this.state;
+    return <Header
+      logo={logoUrl}
+      username={user.username}
+      scope={scope}
+      toggleLoginModal={this.toggleLoginModal}
+      handleLogout={this.handleLogout}
+    />;
+  }
+
+  renderLoginModal() {
+    const {
+      error,
+      showLoginModal
+    } = this.state;
+    return <LoginModal
+      visibility={showLoginModal}
+      error={error}
+      onChange={this.setUsernameAndPassword}
+      onCancel={this.toggleLoginModal}
+      onSubmit={this.doLogin}
+    />;
   }
 
   render() {
-    const {
-      error,
-      logoUrl,
-      showLoginModal,
-      user,
-      scope,
-      isUserLoggedIn
-    } = this.state;
+    const {isUserLoggedIn} = this.state;
     return (
       <div className="page-full-height">
-          <Header
-            logo={logoUrl}
-            username={user.username}
-            scope={scope}
-            toggleLoginModal={this.toggleLoginModal}
-            handleLogout={this.handleLogout}
-          />
-          <LoginModal
-            visibility={showLoginModal}
-            error={error}
-            onChange={this.setUsernameAndPassword}
-            onCancel={this.toggleLoginModal}
-            onSubmit={this.doLogin}
-          />
+          {this.renderHeader()}
+          {this.renderLoginModal()}
           <Route isUserLoggedIn={isUserLoggedIn} />
         <Footer />
       </div>

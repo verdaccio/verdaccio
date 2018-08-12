@@ -1,15 +1,12 @@
-import {Base64} from 'js-base64';
-import addHours from 'date-fns/add_hours';
 
 import {isTokenExpire, makeLogin} from '../../../../src/webui/utils/login';
 
-const generateTokenWithTimeRange = (limit = 0) => {
-  const payload = {
-    username: 'verdaccio',
-    exp: Number.parseInt(addHours(new Date(), limit).getTime() / 1000, 10)
-  };
-  return `xxxxxx.${Base64.encode(JSON.stringify(payload))}.xxxxxx`;
-};
+import {
+  generateTokenWithTimeRange,
+  generateTokenWithExpirationAsString,
+  generateTokenWithOutExpiration
+} from '../components/__mocks__/token';
+
 
 console.error = jest.fn();
 
@@ -37,40 +34,18 @@ describe('isTokenExpire', () => {
   });
 
   it('isTokenExpire - token expiration is not available', () => {
-    const generateTokenWithOutExpiration = () => {
-      const payload = {
-        username: 'verdaccio'
-      };
-      return `xxxxxx.${Base64.encode(JSON.stringify(payload))}.xxxxxx`;
-    };
     const token = generateTokenWithOutExpiration();
     expect(isTokenExpire(token)).toBeTruthy();
   });
 
-  it('isTokenExpire - token expiration is not a number', () => {
-    const generateTokenWithExpirationAsString = () => {
-      const payload = {
-        username: 'verdaccio',
-        exp: 'I am not a number'
-      };
-      return `xxxxxx.${Base64.encode(JSON.stringify(payload))}.xxxxxx`;
-    };
-    const token = generateTokenWithExpirationAsString();
-    expect(isTokenExpire(token)).toBeTruthy();
-  });
-
   it('isTokenExpire - token is not a valid json token', () => {
-    const generateTokenWithExpirationAsString = () => {
-      const payload = { username: 'verdaccio', exp: 'I am not a number' };
-      return `xxxxxx.${Base64.encode(payload)}.xxxxxx`;
-    };
+    const token = generateTokenWithExpirationAsString();
     const result = [
       'Invalid token:',
       SyntaxError('Unexpected token o in JSON at position 1'),
       'xxxxxx.W29iamVjdCBPYmplY3Rd.xxxxxx'
     ];
-    const token = generateTokenWithExpirationAsString();
-    isTokenExpire(token);
+    expect(isTokenExpire(token)).toBeTruthy();
     expect(console.error).toBeCalledWith(...result);
   });
 });

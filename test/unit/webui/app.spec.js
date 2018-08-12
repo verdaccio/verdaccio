@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Base64 } from 'js-base64';
-import addHours from 'date-fns/add_hours';
 import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
+
+import {generateTokenWithTimeRange} from './components/__mocks__/token';
 
 jest.mock('../../../src/webui/utils/storage', () => {
   class LocalStorageMock {
@@ -57,13 +57,7 @@ describe('App', () => {
   });
 
   it('isUserAlreadyLoggedIn: token already available in storage', async () => {
-    const generateTokenWithTimeRange = (limit = 0) => {
-      const payload = {
-        username: 'verdaccio',
-        exp: Number.parseInt(addHours(new Date(), limit).getTime() / 1000, 10)
-      };
-      return `xxxxxx.${Base64.encode(JSON.stringify(payload))}.xxxxxx`;
-    };
+    
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', generateTokenWithTimeRange(24));
     const { isUserAlreadyLoggedIn } = wrapper.instance();

@@ -10,7 +10,10 @@ export function isTokenExpire(token) {
         return true;
     }
 
-    let payload = token.split('.')[1];
+    let [
+        ,
+        payload
+    ] = token.split('.');
 
     if (!payload) {
         return true;
@@ -18,9 +21,10 @@ export function isTokenExpire(token) {
 
     try {
         payload = JSON.parse(Base64.decode(payload));
-    } catch (err) {
-        console.error('Invalid token:', err, token); // eslint-disable-line
-        return false;
+    } catch (error) {
+        // eslint-disable-next-line
+        console.error('Invalid token:', error, token);
+        return true;
     }
 
     if (!payload.exp || !isNumber(payload.exp)) {
@@ -56,9 +60,8 @@ export async function makeLogin(username, password) {
     }
 
     try {
-        const credentials = {username, password};
         const resp = await API.request(`login`, 'POST', {
-            body: JSON.stringify(credentials),
+            body: JSON.stringify({username, password}),
             headers: {
                 Accept: HEADERS.JSON,
                 'Content-Type': HEADERS.JSON
