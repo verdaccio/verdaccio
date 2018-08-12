@@ -38,14 +38,14 @@ Dưới đây là một số ý tưởng:
 * Cải thiện việc phân phối các loại quy trình xác định
 * Di chuyển sang Webpack 4
 * Nâng cấp mức độ thành phần của Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* Chúng tôi sử dụng babel và webpack cho tất cả các dependency, tại sao chúng ta không thể sử dụng một cài đặt phổ biến khác?
+* Nâng cấp việc phân phối tích hợp liên tục
 
-### I do great Documentation
+### Tôi soạn tài liệu rất giỏi
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+Một số người đã góp ý cho chúng tôi về lỗi đánh máy và các vấn đề ngữ pháp, điều này đã giúp chúng tôi nâng cấp sự trải nghiệm và khắc phục sự cố chung.
 
-### I am a Designer
+### Tôi là một nhà thiết kế
 
 We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
