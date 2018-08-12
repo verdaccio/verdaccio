@@ -23,7 +23,7 @@ export default class App extends Component {
     error: {},
     logoUrl: '',
     user: {},
-    scope: '',
+    scope: (window.VERDACCIO_SCOPE) ? `${window.VERDACCIO_SCOPE}:` : '',
     showLoginModal: false,
     isUserLoggedIn: false
   };
