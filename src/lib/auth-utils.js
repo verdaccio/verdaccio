@@ -125,7 +125,7 @@ export function getAuthenticatedMessage(user: string): string {
 }
 
 export function buildUserBuffer(name: string, password: string) {
-  return new Buffer(`${name}:${password}`);
+  return Buffer.from(`${name}:${password}`, 'utf8');
 }
 
 export function isAESLegacy(security: Security): boolean {
@@ -143,15 +143,19 @@ export async function getApiToken(
 
   if (isAESLegacy(security)) {
      // fallback all goes to AES encryption
-     return auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64');
+    return await new Promise((resolve) => {
+      resolve(auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64'));
+    });
   } else {
       // i am wiling to use here _.isNil but flow does not like it yet.
     if (typeof security.api.jwt !== 'undefined' &&
       typeof security.api.jwt.sign !== 'undefined') {
       return await auth.jwtEncrypt(remoteUser, security.api.jwt.sign);
     } else {
-      return auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64');
-    }
+      return await new Promise((resolve) => {
+        resolve(auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64'));
+      });
+  }
   }
 }
 
@@ -233,9 +237,7 @@ export function getMiddlewareCredentials(
 
     return parsedCredentials;
   } else {
-    const parts = authorizationHeader.split(' ');
-    const scheme = parts[0];
-    const token = parts[1];
+    const {scheme, token} = parseAuthTokenHeader(authorizationHeader);
 
     if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
         return verifyJWTPayload(token, secret);
