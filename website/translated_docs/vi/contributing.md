@@ -47,11 +47,11 @@ Một số người đã góp ý cho chúng tôi về lỗi đánh máy và các
 
 ### Tôi là một nhà thiết kế
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+Chúng tôi có trang web frontend [ http://www.verdaccio.org/](http://www.verdaccio.org/) và sẽ rất vui khi nhận sư chia sẻ những ý tưởng của các bạn.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Trang web của chúng tôi dựa trên [Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Tôi là một DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
