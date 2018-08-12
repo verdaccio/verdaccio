@@ -53,7 +53,7 @@ Trang web của chúng tôi dựa trên [Docusaurus](https://docusaurus.io/).
 
 ### Tôi là một DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+Chúng tôi có một hình ảnh Docker được sử dụng rộng rãi [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/), nó cần được bảo trì và có thể cần được nâng cấp khá nhiều, chúng tôi cần kiến ​​thức của bạn để mang lại lợi ích cho tất cả người dùng.
 
 We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
 
