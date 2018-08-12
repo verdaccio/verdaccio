@@ -59,11 +59,11 @@ Chúng tôi hỗ trợ phần ** Kubernetes**, **Puppet **, **Ansible** và **Ch
 
 ### Tôi có thể dịch tài liệu
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Mục tiêu của Verdaccio là đa ngôn ngữ, để đạt được mục tiêu này, **chúng tôi đã nhận được sự giúp đỡ tuyệt vời** từ [ Crowdin ](https://crowdin.com) - một nền tảng hoàn hảo dành cho việc dịch thuật.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Chúng tôi đã lập một dự án mà bạn có thể chọn ngôn ngữ yêu thích của mình, nếu bạn không tìm thấy ngôn ngữ mình muốn, vui lòng khởi chạy <a href = "https://github.com/verdaccio/verdaccio/issues/new">Tạo một vé yêu cầu</a>.
 
 [Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
