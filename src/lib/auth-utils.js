@@ -16,15 +16,42 @@ import type {
 } from '../../types';
 import {aesDecrypt, verifyPayload} from './crypto-utils';
 
+
 /**
- * Builds an anonymous user in case none is logged in.
+ * Create a RemoteUser object
+ * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
+ */
+export function createRemoteUser(name: string, pluginGroups: Array<string>): RemoteUser {
+  const isGroupValid: boolean = _.isArray(pluginGroups);
+  const groups = (isGroupValid ? pluginGroups : []).concat([
+    ROLES.$ALL,
+    ROLES.$AUTH,
+    ROLES.DEPRECATED_ALL,
+    ROLES.DEPRECATED_AUTH,
+    ROLES.ALL]);
+
+  return {
+    name,
+    groups,
+    real_groups: pluginGroups,
+  };
+}
+
+
+/**
+ * Builds an anonymous remote user in case none is logged in.
  * @return {Object} { name: xx, groups: [], real_groups: [] }
  */
-export function buildAnonymousUser(): RemoteUser {
+export function createAnonymousRemoteUser(): RemoteUser {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
-    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONUMOUS],
+    groups: [
+      ROLES.$ALL,
+      ROLES.$ANONYMOUS,
+      ROLES.DEPRECATED_ALL,
+      ROLES.DEPRECATED_ANONUMOUS,
+    ],
     real_groups: [],
   };
 }
@@ -177,7 +204,7 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
       // it might be possible the jwt configuration is enabled and
       // old tokens fails still remains in usage, thus
       // we return an anonymous user to force log in.
-      return buildAnonymousUser();
+      return createAnonymousRemoteUser();
     } else {
       throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
     }

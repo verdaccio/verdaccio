@@ -2,17 +2,17 @@
 
 import _ from 'lodash';
 
-import {API_ERROR, ROLES, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import {API_ERROR, TOKEN_BASIC, TOKEN_BEARER} from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import {aesEncrypt, signPayload} from './crypto-utils';
 import {
   getDefaultPlugins,
   getMiddlewareCredentials,
   verifyJWTPayload,
-  buildAnonymousUser,
+  createAnonymousRemoteUser,
   isAuthHeaderValid,
   getSecurity,
-  isAESLegacy, parseAuthTokenHeader, parseBasicPayload,
+  isAESLegacy, parseAuthTokenHeader, parseBasicPayload, createRemoteUser,
 } from './auth-utils';
 import {convertPayloadToBase64, ErrorCode} from './utils';
 import {getMatchedPackagesSpec} from './config-utils';
@@ -80,14 +80,14 @@ class Auth implements IAuth {
         if (!!groups && groups.length !== 0) {
           // TODO: create a better understanding of expectations
           if (_.isString(groups)) {
-            throw new TypeError('invalid type for function');
+            throw new TypeError('plugin group error: invalid type for function');
           }
           const isGroupValid: boolean = _.isArray(groups);
           if (!isGroupValid) {
             throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
 
-          return cb(err, authenticatedUser(username, groups));
+          return cb(err, createRemoteUser(username, groups));
         }
         next();
       });
@@ -194,12 +194,12 @@ class Auth implements IAuth {
         return _next();
       };
 
-      if (_.isUndefined(req.remote_user) === false && _.isUndefined(req.remote_user.name) === false) {
+      if (this._isRemoteUserMissing(req.remote_user)) {
         return next();
       }
 
       // in case auth header does not exist we return anonymous function
-      req.remote_user = buildAnonymousUser();
+      req.remote_user = createAnonymousRemoteUser();
 
       const {authorization} = req.headers;
       if (_.isNil(authorization)) {
@@ -214,51 +214,72 @@ class Auth implements IAuth {
       const {secret} = this.config;
 
       if (isAESLegacy(security)) {
-        const credentials: any = getMiddlewareCredentials(security, secret, authorization);
-        if (credentials) {
-          const {user, password} = credentials;
-          this.authenticate(user, password, (err, user) => {
-            if (!err) {
-              req.remote_user = user;
-              next();
-            } else {
-              req.remote_user = buildAnonymousUser();
-              next(err);
-            }
-          });
-        } else {
-          // we force npm client to ask again with basic authentication
-          return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
-        }
+        this._handleAESMiddleware(req, security, secret, authorization, next);
       } else {
-        const {scheme, token} = parseAuthTokenHeader(authorization);
-        if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-          // this should happen when client tries to login with an existing user
-          const credentials = convertPayloadToBase64(token).toString();
-          const {user, password} = (parseBasicPayload(credentials): any);
-          this.authenticate(user, password, (err, user) => {
-            if (!err) {
-              req.remote_user = user;
-              next();
-            } else {
-              req.remote_user = buildAnonymousUser();
-              next(err);
-            }
-          });
-        } else {
-          // jwt handler
-          const credentials: any = getMiddlewareCredentials(security, secret, authorization);
-          if (credentials) {
-            // if the signature is valid we rely on it
-            req.remote_user = credentials;
-            next();
-          } else {
-            // with JWT throw 401
-            return next(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
-          }
-        }
+        this._handleJWTAPIMiddleware(req, security, secret, authorization, next);
       }
     };
+  }
+
+  _handleJWTAPIMiddleware(
+    req: $RequestExtend,
+    security: Security,
+    secret: string,
+    authorization: string,
+    next: Function) {
+    const {scheme, token} = parseAuthTokenHeader(authorization);
+    if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
+      // this should happen when client tries to login with an existing user
+      const credentials = convertPayloadToBase64(token).toString();
+      const {user, password} = (parseBasicPayload(credentials): any);
+      this.authenticate(user, password, (err, user) => {
+        if (!err) {
+          req.remote_user = user;
+          next();
+        } else {
+          req.remote_user = createAnonymousRemoteUser();
+          next(err);
+        }
+      });
+    } else {
+      // jwt handler
+      const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+      if (credentials) {
+        // if the signature is valid we rely on it
+        req.remote_user = credentials;
+        next();
+      } else {
+        // with JWT throw 401
+        next(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      }
+    }
+  }
+
+  _handleAESMiddleware(req: $RequestExtend,
+    security: Security,
+    secret: string,
+    authorization: string,
+    next: Function) {
+    const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+    if (credentials) {
+      const {user, password} = credentials;
+      this.authenticate(user, password, (err, user) => {
+        if (!err) {
+          req.remote_user = user;
+          next();
+        } else {
+          req.remote_user = createAnonymousRemoteUser();
+          next(err);
+        }
+      });
+    } else {
+      // we force npm client to ask again with basic authentication
+      return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+    }
+  }
+
+  _isRemoteUserMissing(remote_user: RemoteUser): boolean {
+    return _.isUndefined(remote_user) === false && _.isUndefined(remote_user.name) === false;
   }
 
   /**
@@ -266,7 +287,7 @@ class Auth implements IAuth {
    */
   webUIJWTmiddleware() {
     return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
-      if (_.isNull(req.remote_user) === false && _.isNil(req.remote_user.name) === false) {
+      if (this._isRemoteUserMissing(req.remote_user)) {
        return _next();
       }
 
@@ -281,8 +302,7 @@ class Auth implements IAuth {
         return _next();
       };
 
-      const authorization = req.headers.authorization;
-
+      const {authorization} = req.headers;
       if (_.isNil(authorization)) {
         return next();
       }
@@ -306,9 +326,9 @@ class Auth implements IAuth {
       if (credentials) {
         const {name, groups} = credentials;
         // $FlowFixMe
-        req.remote_user = authenticatedUser(name, groups);
+        req.remote_user = createRemoteUser(name, groups);
       } else {
-        req.remote_user = buildAnonymousUser();
+        req.remote_user = createAnonymousRemoteUser();
       }
 
       next();
@@ -334,26 +354,6 @@ class Auth implements IAuth {
   aesEncrypt(buf: Buffer): Buffer {
     return aesEncrypt(buf, this.secret);
   }
-}
-
-/**
- * Authenticate an user.
- * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
- */
-function authenticatedUser(name: string, pluginGroups: Array<any>) {
-  const isGroupValid: boolean = _.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([
-      ROLES.$ALL,
-      ROLES.$AUTH,
-      ROLES.DEPRECATED_ALL,
-      ROLES.DEPRECATED_AUTH,
-      ROLES.ALL]);
-
-  return {
-    name,
-    groups,
-    real_groups: pluginGroups,
-  };
 }
 
 export default Auth;
