@@ -76,7 +76,6 @@ export default class LoginModal extends Component {
               {this.renderLoginError(error)}
               <br />
               <Input
-                type="text"
                 name="username"
                 placeholder="Username"
                 value={username}
