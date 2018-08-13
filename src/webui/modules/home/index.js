@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading, MessageBox} from 'element-react';
 import isEmpty from 'lodash/isEmpty';
-import debounce from 'lodash/debounce';
 
 import API from '../../utils/api';
 
 import PackageList from '../../components/PackageList';
 import Search from '../../components/Search';
-
 
 export default class Home extends React.Component {
   static propTypes = {
@@ -24,7 +22,6 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.handleSearchInput = this.handleSearchInput.bind(this);
-    this.searchPackage = debounce(this.searchPackage, 800);
   }
 
   componentDidMount() {
@@ -42,7 +39,9 @@ export default class Home extends React.Component {
       if (prevState.query !== '' && this.state.query === '') {
         this.loadPackages();
       } else {
-        this.searchPackage(this.state.query);
+        this.setState({
+          loading: false
+        });
       }
     }
   }
@@ -62,27 +61,6 @@ export default class Home extends React.Component {
         type: 'error',
         title: 'Warning',
         message: 'Unable to load package list: ' + err.message
-      });
-    }
-  }
-
-  async searchPackage(query) {
-    try {
-      this.req = await API.request(`/search/${query}`, 'GET');
-
-      // Implement cancel feature later
-      if (this.state.query === query) {
-        this.setState({
-          packages: this.req,
-          fistTime: false,
-          loading: false
-        });
-      }
-    } catch (err) {
-      MessageBox.msgbox({
-        type: 'error',
-        title: 'Warning',
-        message: 'Unable to get search result, please try again later.'
       });
     }
   }
@@ -118,6 +96,31 @@ export default class Home extends React.Component {
   }
 
   renderPackageList() {
-    return <PackageList help={this.state.fistTime} packages={this.state.packages} />;
+    let packages = [];
+    packages = this.state.query ? this.getFilteredPackages(this.state.packages, this.state.query) : this.state.packages;
+
+    return <PackageList help={this.state.fistTime} packages={packages} />;
+  }
+
+  /**
+   * Method to return an array of Package that contains
+   * the query in 'name' & 'description' field
+   * @param {*} packages
+   * @param {*} query
+   */
+  getFilteredPackages(packages = [], query) {
+    let filteredPackages = [];
+    filteredPackages = packages.filter(({name, description}) => {
+      // Method to return boolean value if given string includes a query string
+      // string & query are converted to lowercase to ignore capital casing typos
+      let includes = (string, query) => {
+        return string.toLowerCase().includes(query.toLowerCase());
+      };
+      return (
+         includes(name, query) ||
+         includes(description, query)
+      );
+    });
+    return filteredPackages;
   }
 }
