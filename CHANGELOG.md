@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.6.0"></a>
+# [3.6.0](https://github.com/verdaccio/verdaccio/compare/v3.5.1...v3.6.0) (2018-08-13)
+
+
+### Bug Fixes
+
+* abort the stream to prevent overwriting existing tarbal ([2e5a409](https://github.com/verdaccio/verdaccio/commit/2e5a409))
+* **webui:** search crash on ' ' as a value [#898](https://github.com/verdaccio/verdaccio/issues/898) ([#902](https://github.com/verdaccio/verdaccio/issues/902)) ([fd67698](https://github.com/verdaccio/verdaccio/commit/fd67698))
+
+
+### Features
+
+* **translations:** enable Chinese Simplified on website ([88b29e0](https://github.com/verdaccio/verdaccio/commit/88b29e0))
+
+
+
 <a name="3.5.1"></a>
 ## [3.5.1](https://github.com/verdaccio/verdaccio/compare/v3.5.0...v3.5.1) (2018-08-02)
 

@@ -89,7 +89,7 @@ export default class Home extends React.Component {
 
   handleSearchInput(e) {
     this.setState({
-      query: e.target.value
+      query: e.target.value.trim()
     });
   }
 

@@ -426,6 +426,7 @@ class LocalStorage implements IStorage {
     writeStream.on('error', (err) => {
       if (err.code === fileExist) {
         uploadStream.emit('error', ErrorCode.getConflict());
+        uploadStream.abort();
       } else if (err.code === noSuchFile) {
         // check if package exists to throw an appropriate message
         this.getPackageMetadata(name, function(_err, res) {
