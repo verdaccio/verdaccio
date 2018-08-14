@@ -4,11 +4,11 @@ title: "Phát triển các plugin"
 ---
 Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được hỗ trợ là:
 
-* Những plugin xác thực
+* Những plugin xác minh
 * Plugin phần mềm trung gian (kể từ phiên bản `v2.7.0`)
 * Plugin lưu trữ từ phiên bản (` v3.x `)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Chúng tôi khuyên bạn nên phát triển plugin bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
 
 ## Authentication Plugin
 
