@@ -69,11 +69,11 @@ Chúng tôi đã lập một dự án mà bạn có thể chọn ngôn ngữ yê
 
 ## Tôi đã sẵn sàng đóng góp vào bản dịch
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Bước tiếp theo, nếu bạn đang nghĩ *"Tôi đã xem [kho lưu trữ ](repositories.md) và sẵn sàng đóng góp vào bản dịch ngay*, thì đó là một tin tốt để bạn có thể tiếp tục bước tiếp theo.
 
-Bạn cần phải tìm hiểu cách đóng gop vào bản dịch, [ chúng tôi đã sẵn sàng hướng dẫn cho bạn ](build.md).
+Bạn cần phải tìm hiểu cách đóng góp vào bản dịch, [ chúng tôi đã sẵn sàng hướng dẫn cho bạn ](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Khi bạn đã làm quen với tất cả các tập lệnh và biết cách sử dụng, chúng tôi sẵn sàng chuyển sang bước tiếp theo và bắt đầu chạy [**kiểm tra đơn vị**](test.md).
 
 ## Full list of contributors. We want to see your face here !
 
