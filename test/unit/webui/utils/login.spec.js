@@ -1,12 +1,10 @@
-
-import {isTokenExpire, makeLogin} from '../../../../src/webui/utils/login';
+import { isTokenExpire, makeLogin } from '../../../../src/webui/utils/login';
 
 import {
   generateTokenWithTimeRange,
   generateTokenWithExpirationAsString,
   generateTokenWithOutExpiration
 } from '../components/__mocks__/token';
-
 
 console.error = jest.fn();
 
@@ -54,7 +52,7 @@ describe('makeLogin', () => {
   it('makeLogin - should give error for blank username and password', async () => {
     const result = {
       error: {
-        description: 'Something went wrong.',
+        description: "Username or password can't be empty!",
         title: 'Unable to login',
         type: 'error'
       }
@@ -72,9 +70,11 @@ describe('makeLogin', () => {
 
   it('makeLogin - login should failed with 401', async () => {
     const result = {
-      error: { description: 'bad username/password, access denied', 
-      title: 'Unable to login', 
-      type: 'error'}
+      error: {
+        description: 'bad username/password, access denied',
+        title: 'Unable to login',
+        type: 'error'
+      }
     };
 
     const { username, password } = { username: 'sam', password: '123456' };
@@ -87,7 +87,7 @@ describe('makeLogin', () => {
       error: {
         title: 'Unable to login',
         type: 'error',
-        description: 'Username or password can\'t be empty!'
+        description: "Username or password can't be empty!"
       }
     };
 

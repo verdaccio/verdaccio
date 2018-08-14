@@ -1,6 +1,6 @@
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
-import size from 'lodash/size';
+import isEmpty from 'lodash/isEmpty';
 import {Base64} from 'js-base64';
 import API from './api';
 import {HEADERS} from '../../lib/constants';
@@ -39,43 +39,35 @@ export function isTokenExpire(token) {
 
 
 export async function makeLogin(username, password) {
-    const payload = {};
-
-    if (isString(username) === false && isString(password) === false) {
-        payload.error = {
-            title: 'Unable to login',
-            type: 'error',
-            description: 'Something went wrong.'
-        };
-        return payload;
-    }
-
-    if (size(username) < 1 || size(password) < 1) {
-        payload.error = {
+    // checks isEmpty
+    if (isEmpty(username) || isEmpty(password)) {
+        const error = {
             title: 'Unable to login',
             type: 'error',
             description: 'Username or password can\'t be empty!'
         };
-        return payload;
+        return {error};
     }
 
     try {
-        const resp = await API.request(`login`, 'POST', {
+        const response = await API.request('login', 'POST', {
             body: JSON.stringify({username, password}),
             headers: {
                 Accept: HEADERS.JSON,
                 'Content-Type': HEADERS.JSON
             }
         });
-        payload.username = resp.username;
-        payload.token = resp.token;
-        return payload;
+        const result = {
+            username: response.username,
+            token: response.token
+        };
+        return result;
     } catch (e) {
-        payload.error = {
+        const error = {
             title: 'Unable to login',
             type: 'error',
             description: e.error
         };
-        return payload;
+        return {error};
     }
 }
