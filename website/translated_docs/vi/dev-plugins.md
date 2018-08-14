@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Chỉ có các tùy chọn là `adduser`, ` allow_access` và `allow_publish` và verdaccio cung cấp chức năng dự phòng trong tất cả các tùy chọn này.
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Khi xác thực được thực hiện, có hai tùy chọn để trả lời `verdaccio`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Hiện lỗi này nghĩa là hoặc xảy ra lỗi hoặc xác thực không thành công.
 
 ```flow
 callback(null, false)
@@ -42,14 +42,14 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Xác thực thành công.
 
-`groups` is an array of strings where the user is part of.
+`groups` là một tập hợp các chuỗi người dùng.
 
      callback(null, groups);
     
 
-### Example
+### Ví dụ
 
 ```javascript
 function Auth(config, stuff) {
