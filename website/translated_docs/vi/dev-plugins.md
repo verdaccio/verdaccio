@@ -10,9 +10,9 @@ Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được h�
 
 > Chúng tôi khuyên bạn nên phát triển plugin bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
 
-## Authentication Plugin
+## Plugin xác minh
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Cơ bản chúng ta phải trả về một đối tượng với phương thức được gọi là `authenticate`, và sẽ nhận lại 3 tham số (`user, password, callback`).
 
 ### API
 
