@@ -90,9 +90,9 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Trong đó `htpasswd` là tên của plugin, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình plugin.
 
-## Middleware Plugin
+## Plugin phần mềm trung gian
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
