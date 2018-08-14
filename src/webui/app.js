@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import isNull from 'lodash/isNull';
+import isNil from 'lodash/isNil';
 import 'element-theme-default';
 import {i18n} from 'element-react';
 import locale from 'element-react/src/locale/lang/en';
@@ -48,7 +48,7 @@ export default class App extends Component {
     const token = storage.getItem('token');
     const username = storage.getItem('username');
 
-    if (isTokenExpire(token) || isNull(username)) {
+    if (isTokenExpire(token) || isNil(username)) {
       this.handleLogout();
     } else {
       this.setState({
