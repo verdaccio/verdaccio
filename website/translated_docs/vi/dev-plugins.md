@@ -1,12 +1,12 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Phát triển các plugin"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được hỗ trợ là:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Những plugin xác thực
+* Plugin phần mềm trung gian (kể từ phiên bản `v2.7.0`)
+* Plugin lưu trữ từ phiên bản (` v3.x `)
 
 > We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
 
