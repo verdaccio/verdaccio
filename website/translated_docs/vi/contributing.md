@@ -12,25 +12,25 @@ Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua h
 
 ## Bắt đầu
 
-Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại chứa dựng nhiều cách khác nhau để bạn có thể đóng góp và một loạt các công nghệ để bạn thực hành.
+Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại chứa dựng nhiều nội dung khác nhau để bạn có thể đóng góp bản dịch của mình và một loạt các công nghệ để bạn thực hành.
 
 ### Tìm phần phù hợp với tôi
 
-Mỗi người đều có các kỹ năng khác nhau, vì vậy hãy xem và cảm nhận nơi bạn thấy thoải mái nhất để có thể sử dụng kỹ năng của mình.
+Mỗi người đều có các kỹ năng khác nhau, vì vậy hãy xem và cảm nhận phần nào bạn cảm thấy có thể phát huy tối đa kỹ năng của mình.
 
 ### Tôi biết hoặc tôi muốn tìm hiểu về Node.js
 
 Node.js là một hệ thống phần mềm dựa trên `verdaccio`, chúng tôi sử dụng `express`, `commander `, `request` hoặc `async ` làm thư viện của chương trình. Về cơ bản, Verdaccio là một Rest API, giống như `yarn`, tạo ra giao tiếp tương thích với máy khách `npm`.
 
-Chúng tôi có rất nhiều [danh sách plugin](plugins.md) có sẵn và được cải thiện, nhưng đồng thời [bạn cũng có thể tạo plugin của riêng mình](dev-plugins.md).
+Chúng tôi có rất nhiều [danh sách plugin](plugins.md) có sẵn và đã được nâng cấp, nhưng đồng thời [bạn cũng có thể tạo plugin của riêng mình](dev-plugins.md).
 
 ### Tôi thích làm việc trong giao diện người dùng hơn
 
-Thời gian gần đây, chúng tôi đã chuyển sang các công nghệ hiện đại như `React` và `element-react`. Chúng tôi mong được biết đến những ý tưởng mới về cách cải thiện giao diện người dùng.
+Thời gian gần đây, chúng tôi đã chuyển sang các công nghệ hiện đại như `React` và `element-react`. Chúng tôi mong được biết đến những ý tưởng mới về cách nâng cấp giao diện người dùng.
 
 ### Việc nâng cấp ngăn xếp sẽ giúp tôi cảm thấy thoải mái hơn
 
-Tất nhiên, chúng tôi sẽ vui lòng giúp bạn cải thiện ngăn xếp và bạn có thể nâng cấp các dependency của mình lên `eslint `, `stylelint`, `webpack`. Bạn có thể nâng cấp cấu hình `webpack` cũng rất tuyệt. Chúng tôi hoan nghênh mọi ý kiến đóng góp của các bạn. Ngoài ra, nếu bạn có trải nghiệm với công cụ tạo khung **Yeoman**, bạn có thể giúp chúng tôi nâng cấp [verdaccio generator ](https://github.com/verdaccio/generator-verdaccio-plugin).
+Tất nhiên, chúng tôi sẽ vui lòng giúp bạn sắp xếp ngăn xếp và bạn có thể nâng cấp các dependency của mình lên `eslint `, `stylelint`, `webpack`. Bạn cũng nên nâng cấp cấu hình `webpack`. Chúng tôi hoan nghênh mọi ý kiến đóng góp của các bạn. Ngoài ra, nếu bạn có trải nghiệm với công cụ tạo khung **Yeoman**, bạn có thể giúp chúng tôi nâng cấp [verdaccio generator ](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Dưới đây là một số ý tưởng:
 
@@ -55,7 +55,7 @@ Trang web của chúng tôi dựa trên [Docusaurus](https://docusaurus.io/).
 
 Chúng tôi có một hình ảnh Docker được sử dụng rộng rãi [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/), nó cần được bảo trì và có thể cần được nâng cấp khá nhiều, chúng tôi cần kiến ​​thức của bạn để mang lại lợi ích cho tất cả người dùng.
 
-Chúng tôi hỗ trợ phần ** Kubernetes**, **Puppet **, **Ansible** và **Chef**, chúng tôi cần sự đóng góp của các bạn ở những nội dung này, vui lòng kiểm tra tất cả kho tài nguyên.
+Chúng tôi hỗ trợ phần ** Kubernetes**, **Puppet **, **Ansible** và **Chef**, và cần sự đóng góp của các bạn ở những nội dung này, vui lòng kiểm tra tất cả kho tài nguyên.
 
 ### Tôi có thể dịch tài liệu
 
@@ -69,7 +69,7 @@ Chúng tôi đã lập một dự án mà bạn có thể chọn ngôn ngữ yê
 
 ## Tôi đã sẵn sàng đóng góp vào bản dịch
 
-Bước tiếp theo, nếu bạn đang nghĩ *"Tôi đã xem [kho lưu trữ ](repositories.md) và sẵn sàng đóng góp vào bản dịch ngay*, thì đó là một tin tốt để bạn có thể tiếp tục bước tiếp theo.
+Nếu bạn đang nghĩ *"Tôi đã xem [kho lưu trữ ](repositories.md) và sẵn sàng đóng góp vào bản dịch ngay*, thì đó là một tin tốt để bạn có thể tiếp tục bước tiếp theo.
 
 Bạn cần phải tìm hiểu cách đóng góp vào bản dịch, [ chúng tôi đã sẵn sàng hướng dẫn cho bạn ](build.md).
 
