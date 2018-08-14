@@ -5,7 +5,7 @@ title: "Phát triển các plugin"
 Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được hỗ trợ là:
 
 * Những plugin xác minh
-* Plugin phần mềm trung gian (kể từ phiên bản `v2.7.0`)
+* Plugin Middleware (kể từ phiên bản `v2.7.0`)
 * Plugin lưu trữ từ phiên bản (` v3.x `)
 
 > Chúng tôi khuyên bạn nên phát triển plugin bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
@@ -92,9 +92,9 @@ auth:
 
 Trong đó `htpasswd` là tên của plugin, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình plugin.
 
-## Plugin phần mềm trung gian
+## Plugin Middleware
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Plugin Middleware có khả năng sửa đổi giao diện API để thêm các điểm cuối mới hoặc chặn các yêu cầu.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
