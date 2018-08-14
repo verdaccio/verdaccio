@@ -6,7 +6,7 @@ First of all Để có thể sử dụng một cơ sở mã hoàn toàn mới l�
 
 ## Kênh trao đổi
 
-Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua hai kênh sau để chúng ta cùng thảo luận:
+Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua hai kênh sau để cùng thảo luận:
 
 * [Kênh Discord công khai](http://chat.verdaccio.org/)
 
