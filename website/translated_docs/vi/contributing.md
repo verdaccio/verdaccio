@@ -67,11 +67,11 @@ Chúng tôi đã lập một dự án mà bạn có thể chọn ngôn ngữ yê
 
 [Tham gia Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## Tôi đã sẵn sàng đóng góp
+## Tôi đã sẵn sàng đóng góp vào bản dịch
 
 If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Bạn cần phải tìm hiểu cách đóng gop vào bản dịch, [ chúng tôi đã sẵn sàng hướng dẫn cho bạn ](build.md).
 
 Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
 
