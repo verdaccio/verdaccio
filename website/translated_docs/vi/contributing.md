@@ -1,6 +1,6 @@
 ---
 id: đóng góp
-title: "Tham gia đóng góp Verdaccio"
+title: "Tham gia đóng góp vào bản dịch Verdaccio"
 ---
 First of all Để có thể sử dụng một cơ sở mã hoàn toàn mới là điều không hề dễ dàng, vì vậy chúng tôi luôn sẵn sàng giúp đỡ bạn.
 
@@ -12,9 +12,9 @@ Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua h
 
 ## Bắt đầu
 
-Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại có nhiều cách khác nhau để bạn có thể đóng góp và một loạt các công nghệ để bạn thực hành.
+Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại chứa dựng nhiều cách khác nhau để bạn có thể đóng góp và một loạt các công nghệ để bạn thực hành.
 
-### Tìm vị trí phù hợp với tôi
+### Tìm phần phù hợp với tôi
 
 Mỗi người đều có các kỹ năng khác nhau, vì vậy hãy xem và cảm nhận nơi bạn thấy thoải mái nhất để có thể sử dụng kỹ năng của mình.
 
@@ -75,6 +75,6 @@ Bạn cần phải tìm hiểu cách đóng góp vào bản dịch, [ chúng tô
 
 Khi bạn đã làm quen với tất cả các tập lệnh và biết cách sử dụng, chúng tôi sẵn sàng chuyển sang bước tiếp theo và bắt đầu chạy [**kiểm tra đơn vị**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## Dưới đây là danh sách đầy đủ các cộng tác viên. Chúng tôi hy vọng sẽ gặp bạn ở đây!
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
