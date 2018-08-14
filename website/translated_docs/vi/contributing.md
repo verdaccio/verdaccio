@@ -1,6 +1,6 @@
 ---
 id: đóng góp
-title: "Tham gia đóng góp vào bản dịch Verdaccio"
+title: "Tham gia đóng góp Verdaccio"
 ---
 First of all Để có thể sử dụng một cơ sở mã hoàn toàn mới là điều không hề dễ dàng, vì vậy chúng tôi luôn sẵn sàng giúp đỡ bạn.
 
@@ -12,9 +12,9 @@ Nếu bạn có bất cứ câu hỏi nào, xin hãy gửi cho chúng tôi qua h
 
 ## Bắt đầu
 
-Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại chứa dựng nhiều nội dung khác nhau để bạn có thể đóng góp bản dịch của mình và một loạt các công nghệ để bạn thực hành.
+Thoạt nhìn, verdaccio chỉ là một kho lưu trữ đơn giản, nhưng bên trong lại có nhiều cách khác nhau để bạn có thể đóng góp và một loạt các công nghệ để bạn thực hành.
 
-### Tìm phần phù hợp với tôi
+### Tìm vị trí phù hợp với tôi
 
 Mỗi người đều có các kỹ năng khác nhau, vì vậy hãy xem và cảm nhận phần nào bạn cảm thấy có thể phát huy tối đa kỹ năng của mình.
 
