@@ -65,9 +65,9 @@ Mục tiêu của Verdaccio là đa ngôn ngữ, để đạt được mục ti�
 
 Chúng tôi đã lập một dự án mà bạn có thể chọn ngôn ngữ yêu thích của mình, nếu bạn không tìm thấy ngôn ngữ mình muốn, vui lòng khởi chạy <a href = "https://github.com/verdaccio/verdaccio/issues/new">Tạo một vé yêu cầu</a>.
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Tham gia Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## Tôi đã sẵn sàng đóng góp
 
 If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
 
