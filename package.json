@@ -37,6 +37,7 @@
     "js-string-escape": "1.0.1",
     "js-yaml": "3.12.0",
     "jsonwebtoken": "8.3.0",
+    "lint-staged": "7.2.0",
     "lockfile": "1.0.4",
     "lodash": "4.17.10",
     "lunr": "0.7.0",
@@ -86,11 +87,13 @@
     "enzyme-adapter-react-16": "1.1.1",
     "eslint": "5.2.0",
     "eslint-config-google": "0.9.1",
-    "eslint-loader": "2.1.0",
-    "eslint-plugin-babel": "5.1.0",
-    "eslint-plugin-flowtype": "2.50.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-loader": "2.0.0",
+    "eslint-plugin-babel": "4.1.2",
+    "eslint-plugin-flowtype": "2.49.3",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jest": "21.18.0",
+    "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.10.0",
     "file-loader": "1.1.11",
     "flow-bin": "0.77.0",
@@ -112,6 +115,7 @@
     "normalize.css": "8.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.0",
     "ora": "1.4.0",
+    "prettier": "1.13.7",
     "prop-types": "15.6.1",
     "puppeteer": "1.1.1",
     "react": "16.2.0",
@@ -185,8 +189,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
   },
   "bundlesize": [
     {

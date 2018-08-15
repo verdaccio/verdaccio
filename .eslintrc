@@ -9,7 +9,8 @@
     "google",
     "plugin:react/recommended",
     "plugin:flowtype/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -30,6 +31,7 @@
     "__APP_VERSION__": true
   },
   "rules": {
+    "prettier/prettier": ["error", null, "@prettier"],
     "no-useless-escape": 2,
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
