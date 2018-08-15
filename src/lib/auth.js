@@ -279,7 +279,8 @@ class Auth implements IAuth {
   }
 
   _isRemoteUserMissing(remote_user: RemoteUser): boolean {
-    return _.isUndefined(remote_user) === false && _.isUndefined(remote_user.name) === false;
+    return _.isUndefined(remote_user) === false &&
+      (_.isUndefined(remote_user.name) === false);
   }
 
   /**

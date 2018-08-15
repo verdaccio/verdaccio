@@ -7,7 +7,6 @@ import {HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
 
 const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
-const router = express.Router();
 const env = require('../../config/env');
 const template = fs.readFileSync(`${env.DIST_PATH}/index.html`).toString();
 const spliceURL = require('../../utils/string').spliceURL;
@@ -15,7 +14,9 @@ const spliceURL = require('../../utils/string').spliceURL;
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
 
-  // router.use(auth.webUIJWTmiddleware());
+  const router = express.Router();
+
+  router.use(auth.webUIJWTmiddleware());
   router.use(securityIframe);
 
   // Static
