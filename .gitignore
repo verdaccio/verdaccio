@@ -5,7 +5,7 @@ build/
 
 ### Test
 
-test/unit/partials/store/test-jwt-storage/
+test/unit/partials/store/test-jwt-storage/*
 
 ###
 !bin/verdaccio
