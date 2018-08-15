@@ -135,11 +135,11 @@ const LanguagesGroups = props => {
   );
 };
 
-const CrowdingTranslators = props => {
+const CrowdinTranslators = props => {
   return (
     <div className="translation_section">
       <h2>
-        Crowding Translators
+        Crowdin Translators
       </h2>
       <div>
         <LanguagesGroups languages={props.translators}/>
@@ -168,7 +168,7 @@ class Team extends React.Component {
           <div class="team_container">
             <MemberSection title="Core" members={admons} imageSize={100}/>
             <MemberSection title="Maintainers" members={maintainers} imageSize={80}/>
-            <CrowdingTranslators translators={translators} />
+            <CrowdinTranslators translators={translators} />
           </div>
         </Container>
       </div>
