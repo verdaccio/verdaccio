@@ -125,6 +125,14 @@ describe('Auth utilities', () => {
         expect(_.isString(token)).toBeTruthy();
         verifyJWT(token, 'test', 'test', 'secret');
     });
+
+    test('should sign with jwt whether legacy is disabled', async () => {
+      const token = await signCredentials('security-legacy-disabled',
+        'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
+
+      expect(_.isString(token)).toBeTruthy();
+      verifyJWT(token, 'test', 'test', 'secret');
+    });
   });
 
   describe('getAuthenticatedMessage test', () => {
