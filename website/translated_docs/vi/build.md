@@ -2,7 +2,7 @@
 id: tạo
 title: "Tạo mã nguồn"
 ---
-Để tải các đối tượng dependency, Verdaccio dùng công cụ `yarn` thay vì dùng `npm`.
+Để tải các gói phụ thuộc Verdaccio sử dụng `yarn` thay vì `npm`.
 
 *Xin lưu ý: Mã nguồn hiện tại chỉ có thể được tạo bởi `➜ yarn@1.x`.
 
