@@ -12,7 +12,7 @@ auth:
         password: test
 
 logs:
-  - {type: stdout, format: pretty, level: warn}
+  - { type: stdout, format: pretty, level: warn }
 
 packages:
   '@*/*':

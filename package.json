@@ -115,7 +115,7 @@
     "normalize.css": "8.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.0",
     "ora": "1.4.0",
-    "prettier": "1.13.7",
+    "prettier": "1.14.2",
     "prop-types": "15.6.1",
     "puppeteer": "1.1.1",
     "react": "16.2.0",
@@ -193,6 +193,9 @@
     }
   },
   "lint-staged": {
+    "*.yaml": [
+      "prettier --parser yaml --no-config --single-quote --write"
+    ],
     "*.js": [
       "eslint .",
       "prettier --write",

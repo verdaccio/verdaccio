@@ -13,7 +13,6 @@ auth:
         name: test
         password: test
 
-
 uplinks:
   express:
     url: http://localhost:55550/
@@ -26,7 +25,7 @@ uplinks:
     url: http://localhost:55666/
 
 logs:
-  - {type: stdout, format: pretty, level: trace}
+  - { type: stdout, format: pretty, level: trace }
 
 packages:
   '@test/*':
