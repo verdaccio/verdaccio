@@ -1,14 +1,14 @@
 ---
-id: configuration
-title: "Configuration File"
+id: cấu hình
+title: "Tệp cấu hình"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Tệp này là một phần quan trọng của Verdaccio, đây là nơi bạn có thể sửa đổi hành vi mặc định, bật plugin và mở rộng các tính năng.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Để cài tệp cấu hình mặc định đầu tiên, bạn chạy `verdaccio`.
 
-## Default Configuration
+## Cấu hình mặc định
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Cấu hình mặc định có hỗ trợ gói **scoped** và cho phép truy cập ẩn danh vào các gói không phải riêng tư, nhưng chỉ ** người dùng đã đăng nhập mới có thể xuất bản gói **.
 
 ```yaml
 storage: ./storage
@@ -29,13 +29,13 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Các nội dung
 
-The following sections explain what each property means and the different options.
+Những nội dung sau sẽ giải thích ý nghĩa của từng thuộc tính và các tùy chọn khác nhau.
 
-### Storage
+### Kho lưu trữ
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Là nơi lưu trữ mặc định. **Verdaccio sử dụng bộ nhớ chế độ tệp cục bộ tích hợp theo mặc định **.
 
 ```yaml
 storage: ./storage
@@ -43,15 +43,15 @@ storage: ./storage
 
 ### Plugins
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Là vị trí của thư mục của plugin. Rất hữu ích cho cấu hình chạy trên hệ thống Docker / Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Yêu cầu xác thực
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Cài đặt yêu cầu xác thực được thực hiện ở đây, sự xác thực mặc đình này chạy trên tệp tin` htpasswd ` và được tích hợp sẵn. Bạn có thể sửa đổi chế độ này bằng [ plugins ](plugins.md). Để biết thêm chi tiết về nội dung này, vui lòng đọc [ trang xác thực](auth.md).
 
 ```yaml
 auth:
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Thuộc tính này cho phép bạn sửa đổi giao diện của web UI. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang web ui ](web.md).
 
 ```yaml
 web:
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Khi những gói không phải là cục bộ, uplinks cho phép hệ thống lấy các gói này từ một cơ quan đăng ký từ xa. Để biết thêm chi tiết về nội dung này, vui lòng đọc [ trang Uplink ](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Các loại gói
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Các gói này cho phép người dùng kiểm soát quyền truy cập vào gói. Để biết thêm chi tiết về mô-đun này, vui lòng đọc [ trang gói ](packages.md).
 
 ```yaml
 packages:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Cài đặt nâng cao
 
-### Offline Publish
+### Phát hành ngoại tuyến
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+` verdaccio ` theo mặc định không cho phép khách hàng phát hành khi họ ngoại tuyến. Bạn có thể thay đổi cài đặt này bằng cách cài thành * true*.
 
 ```yaml
 publish:
@@ -107,7 +107,7 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Tiền tố URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
@@ -115,17 +115,17 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Thuộc tính Max Body Size
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Thuộc tính Maximum body size của tệp JSON mặc định là `10mb ` và bạn có thể tăng giá trị này nếu bạn gặp lỗi như `"đối tượng yêu cầu quá lớn"`.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Cổng nghe
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio ` được chạy mặc định trên cổng `4873 `. Cổng có thể được thay đổi thông qua [ cli ](cli.md) hoặc trong một tập tin cấu hình.
 
 ```yaml
 listen:
@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Để bật `https` trong `verdaccio`, chỉ cần sử dụng giao thức *https://* để đặt cờ `nghe `. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang ssl ](ssl.md).
 
 ```yaml
 https:
@@ -150,11 +150,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxy là một máy chủ HTTP làm nhiệm vụ chuyển tiếp thông tin và kiểm soát tạo sự an toàn cho việc chuyển dữ liệu từ máy chủ từ xa đến máy khách.
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Nếu bạn có một proxy trên mạng của mình, bạn có thể đặt tiêu đề `X-Forwarded-For` với các thuộc tính sau.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Biến này phải chứa danh sách các tiện ích mở rộng tên được phân cách bằng dấu phẩy không được proxy sử dụng.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Những thông báo
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Thật dễ dàng để bật thông báo cho các công cụ của bên thứ ba thông qua các móc nối web. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang thông báo ](notifications.md).
 
 ```yaml
 notify:
@@ -181,15 +181,15 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Để biết thêm thông tin về cài đặt cấu hình, vui lòng [ kiểm tra mã nguồn ](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Đánh giá
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+` kiểm tra npm ` là một lệnh mới được phát hành trong phiên bản [ npm 6.x ](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio bao gồm một plugin middleware tích hợp (plugin trung gian) để xử lý lệnh này.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Trong trường hợp bạn muốn cài đặt phiên bản mặc định mới, bạn cần thêm đoạn mã sau vào tệp cấu hình
 
 ```yaml
 middlewares:
