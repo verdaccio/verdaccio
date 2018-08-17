@@ -1,18 +1,18 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Phát triển các plugin"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được hỗ trợ là:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Những plugin xác minh
+* Plugin Middleware (kể từ phiên bản `v2.7.0`)
+* Plugin lưu trữ từ phiên bản (` v3.x `)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Chúng tôi khuyên bạn nên phát triển plugin bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
 
-## Authentication Plugin
+## Plugin xác minh
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Cơ bản chúng ta phải trả về một đối tượng với phương thức được gọi là `authenticate`, và sẽ nhận lại 3 tham số (`user, password, callback`).
 
 ### API
 
@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Chỉ có các tùy chọn là `adduser`, ` allow_access` và `allow_publish` và verdaccio cung cấp chức năng dự phòng trong tất cả các tùy chọn này.
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Khi xác thực được thực hiện, có hai tùy chọn để trả lời `verdaccio`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Hiện lỗi này nghĩa là hoặc xảy ra lỗi hoặc xác thực không thành công.
 
 ```flow
 callback(null, false)
@@ -42,14 +42,14 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Xác thực thành công.
 
-`groups` is an array of strings where the user is part of.
+`groups` là một tập hợp các chuỗi người dùng.
 
      callback(null, groups);
     
 
-### Example
+### Ví dụ
 
 ```javascript
 function Auth(config, stuff) {
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+Cấu hình sẽ trông như thế này:
 
 ```yaml
 auth:
@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Trong đó `htpasswd` là tên của plugin, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình plugin.
 
-## Middleware Plugin
+## Plugin Middleware
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Plugin Middleware có khả năng sửa đổi giao diện API để thêm các điểm cuối mới hoặc chặn các yêu cầu.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {

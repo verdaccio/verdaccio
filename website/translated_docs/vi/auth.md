@@ -32,11 +32,11 @@ Ví dụ:
     proxy: npmjs
 ```
 
-Như đã giải thích từ phần [issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) đến phần `npm@5.3.0` và trong tất cả các phiên bản phụ ** bạn sẽ không được phép công khai các mã code của mình nếu không có một token nào**. Tuy nhiên đối với công cụ quản lý thư viện `yarn` thì không có yêu cầu này.
+Như đã giải thích trong phần [issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500), kể từ phiên bản `npm@5.3.0` và trong tất cả các phiên bản phụ khác ** bạn sẽ không được phép xuất bản gói mà không có một token nào**. Tuy nhiên đối với công cụ quản lý thư viện `yarn` thì không có yêu cầu này.
 
-## Tự động tạo ra tập tin htpasswd
+## Tự động tạo tập tin htpasswd
 
-Để đơn giản hóa quá trình cài đặt, `verdaccio` đã sử dụng plugin dựa vào tập tin `htpasswd`. [Plugin ngoài](https://github.com/verdaccio/verdaccio-htpasswd) đã được cài đặt mặc định trong phiên bản v3.0.x. V2.x trong package (gói) này vẫn là phiên bản tích hợp với plugin này.
+Để đơn giản hóa quá trình cài đặt, `verdaccio` đã sử dụng plugin dựa trên tập tin `htpasswd`. [Plugin bên ngoài](https://github.com/verdaccio/verdaccio-htpasswd) đã được cài đặt mặc định trong phiên bản v3.0.x. V2.x của gói này vẫn chứa phiên bản tích hợp của plugin này.
 
 ```yaml
 auth:
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Lớp Property | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ | Miêu tả                                      |
-| ------------ | ----------- | ------- | ---------- | ------ | -------------------------------------------- |
-| tập tin      | string      | Có      | ./htpasswd | tất cả | tập tin lưu trữ các thông tin đã được mã hóa |
-| max_users    | số          | Không   | 1000       | tất cả | giới hạn người dùng                          |
+| Thuộc tính | Phương thức | Yêu cầu | Ví dụ      | Hỗ trợ | Miêu tả                                      |
+| ---------- | ----------- | ------- | ---------- | ------ | -------------------------------------------- |
+| tập tin    | chuỗi       | Có      | ./htpasswd | tất cả | tập tin lưu trữ các thông tin đã được mã hóa |
+| max_users  | số          | Không   | 1000       | tất cả | giới hạn người dùng                          |
 
 Trường hợp bạn không muốn người dùng đăng nhập, bạn cài đặt `max_users: -1`.
