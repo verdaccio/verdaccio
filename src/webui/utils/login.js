@@ -31,7 +31,7 @@ export function isTokenExpire(token) {
         return true;
     }
     // Report as expire before (real expire time - 30s)
-    const jsTimestamp = payload.exp * 1000 - 30000;
+    const jsTimestamp = (payload.exp * 1000) - 30000;
     const expired = Date.now() >= jsTimestamp;
 
     return expired;
@@ -57,11 +57,8 @@ export async function makeLogin(username, password) {
                 'Content-Type': HEADERS.JSON
             }
         });
-        const result = {
-            username: response.username,
-            token: response.token
-        };
-        return result;
+        const {username, token} = response;
+        return {username, token};
     } catch (e) {
         const error = {
             title: 'Unable to login',

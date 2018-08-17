@@ -31,7 +31,6 @@ export default class Home extends Component {
     this.loadPackages();
   }
 
-  // eslint-disable-next-line no-unused-vars
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
       if (this.req && this.req.abort) this.req.abort();

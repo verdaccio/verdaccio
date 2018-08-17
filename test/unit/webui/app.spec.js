@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
+import { API_ERROR } from '../../../src/lib/constants';
 
 import {generateTokenWithTimeRange} from './components/__mocks__/token';
 
@@ -96,7 +97,7 @@ describe('App', () => {
     const { doLogin } = wrapper.instance();
     await doLogin('sam', '12345');
     const result = {
-      description: 'bad username/password, access denied',
+      description: API_ERROR.BAD_USERNAME_PASSWORD,
       title: 'Unable to login',
       type: 'error'
     };
