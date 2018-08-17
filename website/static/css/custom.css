@@ -1,22 +1,13 @@
-/* your custom css */
-
-/*.mainContainer .wrapper code {*/
-  /*padding: 2px;*/
-  /*font-family: inherit;*/
-/*}*/
-
 .mainContainer .wrapper a,
 .inner .projectIntro a {
-  background-color: rgba(10, 78, 31, 0.15);
   color: #1a1a1a;
   transition: all 0.25s ease-out;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .mainContainer .wrapper a:hover,
 .inner .projectIntro a:hover {
-  background-color: rgba(10, 78, 31, 0.35);
-  text-decoration: none !important;
+  text-decoration: underline;
 }
 
 .feature-section .blockContent {
@@ -47,17 +38,92 @@
   margin: 0 auto !important;
 }
 
-/*@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {*/
-/*}*/
+/** team **/
 
-/*@media only screen and (min-width: 1024px) {*/
-/*}*/
+.banner_members_title {
+  margin-top: 0;
+}
 
-/*@media only screen and (max-width: 1023px) {*/
-/*}*/
+.team_container a,
+.team_container a:hover {
+  font-size: 80%;
+  text-decoration: none;
+}
 
-/*@media only screen and (min-width: 1400px) {*/
-/*}*/
+.member_group {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-/*@media only screen and (min-width: 1500px) {*/
-/*}*/
+.member_media_object {
+  width: 15%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+.member_media_object .team_role {
+  font-size: 80%;
+}
+
+@media (min-width: 1281px) {
+  .member_media_object {
+    width: 15%
+  }
+}
+
+@media (min-width: 1025px) and (max-width:1280px) {
+  .member_media_object {
+    width: 33.3%
+  }
+}
+
+@media (min-width: 768px) and (max-width:1024px) {
+  .member_media_object {
+    width: 50%
+  }
+}
+
+@media (min-width: 768px) and (max-width:1024px) and (orientation:landscape) {
+  .member_media_object {
+    width: 50%
+  }
+}
+
+@media (min-width: 481px) and (max-width:767px) {
+  .member_media_object {
+    width: 100%
+  }
+}
+
+@media (min-width: 320px) and (max-width:480px) {
+  .member_media_object {
+    width: 100%
+  }
+}
+
+.member_section {
+  width: 100%;
+}
+
+.member_section .language_title {
+  text-transform: capitalize;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.member_info {
+  line-height: 1.7;
+}
+
+.member_info > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member_avatar > img {
+  border-radius: 50px;
+  border: 1px solid #4b5e40;
+}
+

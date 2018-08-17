@@ -88,7 +88,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### HTTPS与Docker一同使用
+### 在Docker中使用HTTPS
 
 您可以配置 verdaccio 要监听的协议，类似于端口配置。 在 config.yaml里指定证书后，您必须用"https"覆盖`PROTOCOL` 环境变量中的默认值("http")。
 
@@ -109,7 +109,7 @@ $ docker-compose up --build
 
 把`PORT=5000`作为以上命令的前缀来设置要使用（容器和主机二者）的端口。
 
-Docker将生成一个named volume（命名卷），它用于存储持续应用程序数据。 您可以使用`docker inspect` 或者 `docker volume inspect` 来查看此volume（卷）的物理位置并编辑配置，比如：
+Docker将生成一个named volume（命名卷），它用于存储持久化应用程序数据。 您可以使用`docker inspect` 或者 `docker volume inspect` 来查看此volume（卷）的物理位置并编辑配置，比如：
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -144,7 +144,7 @@ npm run build:docker
 npm run build:docker:rpi
 ```
 
-请注意，您需要在您的机台上安装 docker 来执行以上任何docker命令， docker 执行项应该在您的`$PATH`里。
+请注意，您需要在您的机器上安装 docker 来执行以上任何docker命令， docker 可执行程序应该在您的`$PATH`里。
 
 ## Docker示例
 

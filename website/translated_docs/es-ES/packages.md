@@ -138,7 +138,7 @@ Se **consciente que el orden de la definición de los paquetes es importante y s
 
 ### Configuración
 
-Puedes definir multiples `paquetes`y cada uno de ellos deben tener un único ` Regex`.
+You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
 | Propiedad | Tipo    | Requerido | Ejemplo        | Soporte | Descripción                                                |
 | --------- | ------- | --------- | -------------- | ------- | ---------------------------------------------------------- |
