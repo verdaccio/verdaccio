@@ -45,7 +45,7 @@ auth:
 
 #### 多个Auth插件
 
-这在技术上可行，插件的顺序变得非常重要，安全凭据将按顺序获取。
+This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
 
 ```yaml
 auth:
