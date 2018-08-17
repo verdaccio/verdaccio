@@ -36,12 +36,12 @@ export default class PackageList extends React.Component {
 
   renderList() {
     return this.props.packages.map((pkg, i) => {
-      const {name, version, description, time} = pkg;
+      const {name, version, description, time, keywords} = pkg;
       const author = formatAuthor(pkg.author);
       const license = formatLicense(pkg.license);
       return (
         <li key={i}>
-          <Package {...{name, version, author, description, license, time}} />
+          <Package {...{name, version, author, description, license, time, keywords}} />
         </li>
       );
     });
