@@ -96,8 +96,9 @@ describe('App', () => {
   it('doLogin - authentication failure', async () => {
     const { doLogin } = wrapper.instance();
     await doLogin('sam', '12345');
+    console.log(API_ERROR.BAD_USERNAME_PASSWORD);
     const result = {
-      description: API_ERROR.BAD_USERNAME_PASSWORD,
+      description: 'bad username/password, access denied',
       title: 'Unable to login',
       type: 'error'
     };

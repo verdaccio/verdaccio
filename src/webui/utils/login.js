@@ -57,8 +57,11 @@ export async function makeLogin(username, password) {
                 'Content-Type': HEADERS.JSON
             }
         });
-        const {username, token} = response;
-        return {username, token};
+        const result = {
+            username: response.username,
+            token: response.token
+        };
+        return result;
     } catch (e) {
         const error = {
             title: 'Unable to login',
