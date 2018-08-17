@@ -63,13 +63,7 @@ export async function signPayload(
     return jwt.sign(payload, secretOrPrivateKey, {
       notBefore: '1000', // Make sure the time will not rollback :)
       ...options,
-    }, (err, token) => {
-        if (err) {
-          return reject(err);
-        } else {
-          return resolve(token);
-        }
-    });
+    }, (error, token) => error ? reject(error) : resolve(token));
   });
 }
 

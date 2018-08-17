@@ -89,9 +89,11 @@ export function getDefaultPlugins() {
 }
 
 export function createSessionToken(): CookieSessionToken {
+  const tenHoursTime = 10 * 60 * 60 * 1000;
+
   return {
     // npmjs.org sets 10h expire
-    expires: new Date(Date.now() + 10 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + tenHoursTime),
   };
 }
 
@@ -129,9 +131,9 @@ export function buildUserBuffer(name: string, password: string) {
 }
 
 export function isAESLegacy(security: Security): boolean {
-  return _.isNil(security.api.legacy) === false &&
-    _.isNil(security.api.jwt) &&
-    security.api.legacy === true;
+  const {legacy, jwt} = security.api;
+
+  return _.isNil(legacy) === false &&_.isNil(jwt) && legacy === true;
 }
 
 export async function getApiToken(
@@ -148,9 +150,11 @@ export async function getApiToken(
     });
   } else {
       // i am wiling to use here _.isNil but flow does not like it yet.
-    if (typeof security.api.jwt !== 'undefined' &&
-      typeof security.api.jwt.sign !== 'undefined') {
-      return await auth.jwtEncrypt(remoteUser, security.api.jwt.sign);
+    const {jwt} = security.api;
+
+    if (typeof jwt !== 'undefined' &&
+      typeof jwt.sign !== 'undefined') {
+      return await auth.jwtEncrypt(remoteUser, jwt.sign);
     } else {
       return await new Promise((resolve) => {
         resolve(auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64'));
@@ -192,8 +196,6 @@ export function parseAESCredentials(
     const credentials = aesDecrypt(tokenAsBuffer, secret).toString('utf8');
 
     return credentials;
-  } else {
-    return;
   }
 }
 
@@ -241,8 +243,6 @@ export function getMiddlewareCredentials(
 
     if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
         return verifyJWTPayload(token, secret);
-    } else {
-      return;
     }
   }
 }
