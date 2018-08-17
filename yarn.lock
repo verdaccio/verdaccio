@@ -6445,9 +6445,15 @@ lru-cache@^4.0.1, lru-cache@^4.1.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-lunr@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/lunr/-/lunr-0.7.0.tgz#e7d279a273c4ab42ff584b61ce32a3513a2d3859"
+lunr-mutable-indexes@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/lunr-mutable-indexes/-/lunr-mutable-indexes-2.3.1.tgz#5c20dab83e8c210326f69896b824be8f6e9449d3"
+  dependencies:
+    lunr ">= 2.3.0 < 2.4.0"
+
+"lunr@>= 2.3.0 < 2.4.0":
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/lunr/-/lunr-2.3.1.tgz#113616a2b602ddc10932a7bf8a4e6e57ebfecdf2"
 
 make-dir@^1.0.0:
   version "1.3.0"

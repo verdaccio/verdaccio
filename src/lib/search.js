@@ -1,29 +1,31 @@
 // @flow
 
-import lunr from 'lunr';
+import lunrMutable from 'lunr-mutable-indexes';
 import type {Version} from '@verdaccio/types';
 import type {IStorageHandler, IWebSearch} from '../../types';
 /**
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-  index: any;
+  index: lunrMutable.index;
   storage: IStorageHandler;
 
   /**
    * Constructor.
    */
   constructor() {
-    /* eslint no-invalid-this: "off" */
-    this.index = lunr(function() {
+     /* eslint no-invalid-this: "off" */
+     this.index = lunrMutable(function() {
       this.field('name', {boost: 10});
       this.field('description', {boost: 4});
       this.field('author', {boost: 6});
+      this.field('keywords', {boost: 7});
+      this.field('version');
       this.field('readme');
     });
   }
 
-  /**
+   /**
    * Performs a query to the indexer.
    * If the keyword is a * it returns all local elements
    * otherwise performs a search
@@ -36,10 +38,10 @@ class Search implements IWebSearch {
         items.map( function( pkg ) {
           return {ref: pkg, score: 1};
         });
-      }) : this.index.search(query);
-  }
+      }) : this.index.search(`*${query}*`);
+    }
 
-  /**
+   /**
    * Add a new element to index
    * @param {*} pkg the package
    */
@@ -48,6 +50,8 @@ class Search implements IWebSearch {
       id: pkg.name,
       name: pkg.name,
       description: pkg.description,
+      version: `v${pkg.version}`,
+      keywords: pkg.keywords,
       author: pkg._npmUser ? pkg._npmUser.name : '???',
     });
   }

@@ -18,6 +18,17 @@
     }
   }
 
+  .tags {
+    margin: 0 0.5em 0.5em 0;
+    white-space: nowrap;
+    font-size: $font-size-sm;
+    :global {
+      .el-tag {
+        margin-right: 5px;
+      }
+    }
+  }
+
   .details {
     display: flex;
     font-size: 80%;
