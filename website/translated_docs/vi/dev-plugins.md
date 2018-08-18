@@ -185,4 +185,4 @@ Dưới đây là danh sách những phần mềm bổ trợ đang sử dụng A
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Bạn đã sẵn sàng đóng góp vào phần mềm bổ trợ lưu trữ mới chưa? [Nhấp vào đây.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
