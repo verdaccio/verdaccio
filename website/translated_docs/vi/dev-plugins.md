@@ -116,7 +116,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Bằng cách sử dụng một cách thức duy nhất để đăng ký middleware là `register_middlewares`, chúng ta cần tìm một đối tượng có thể nhận được 3 tham số (` expressApp, auth, storage `) được gọi là. *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
 
 ## Storage Plugin
 
