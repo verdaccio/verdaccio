@@ -124,7 +124,7 @@ Theo mặc định, Verdaccio sử dụng phần mềm bổ trợ lưu trữ h�
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+Vì API lưu trữ phức tạp hơn nên bạn sẽ cần phải tạo một lớp (bao gồm nhóm các đối tượng mà có các thuộc tính chung) có thể hoàn tác lại việc sử dụng ` IPluginStorage `. Vui lòng xem chi tiết bên dưới.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,11 +174,11 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> API lưu trữ vẫn đang trong quá trình chạy thử nghiệm và có thể sẽ được sửa đổi trong phiên bản tiếp theo. Để biết thêm thông tin về API lưu trữ, vui lòng truy cập [ và nhập định nghĩa trong kho lưu trữ chính thức của chúng tôi ](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Những ví dụ về phần mềm bổ trợ bộ nhớ
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Dưới đây là danh sách những phần mềm bổ trợ đang sử dụng API lưu trữ và có thể được sử dụng làm ví dụ.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
