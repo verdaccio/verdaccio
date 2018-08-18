@@ -1,16 +1,16 @@
 ---
 id: dev-plugins
-title: "Phát triển các plugin"
+title: "Phát triển các phần mềm bổ trợ"
 ---
-Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được hỗ trợ là:
+Có nhiều cách để mở rộng `verdaccio`. Các loại phần mềm bổ trợ là:
 
-* Những plugin xác minh
-* Plugin Middleware (kể từ phiên bản `v2.7.0`)
-* Plugin lưu trữ từ phiên bản (` v3.x `)
+* Những phần mềm bổ trợ xác minh
+* Phần mềm bổ trợ Middleware (kể từ phiên bản `v2.7.0`)
+* Phần mềm bổ trợ lưu trữ từ phiên bản (` v3.x `)
 
-> Chúng tôi khuyên bạn nên phát triển plugin bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
+> Chúng tôi khuyên bạn nên phát triển phần mềm bổ trợ bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
 
-## Plugin xác minh
+## Phần mềm bổ trợ xác minh
 
 Cơ bản chúng ta phải trả về một đối tượng với phương thức được gọi là `authenticate`, và sẽ nhận lại 3 tham số (`user, password, callback`).
 
@@ -116,9 +116,9 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Bằng cách sử dụng một cách thức duy nhất để đăng ký middleware là `register_middlewares`, chúng ta cần tìm một đối tượng có thể nhận được 3 tham số (` expressApp, auth, storage `) được gọi là. *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Bằng cách sử dụng một cách thức duy nhất để đăng ký middleware là `register_middlewares`, chúng ta cần tìm một đối tượng có thể nhận được 3 tham số (` expressApp, auth, storage `) được gọi là. Lớp xác thực *Auth* và lớp lưu trữ chính *storage* cho phép bạn truy cập vào tất cả các hoạt động lưu trữ.
 
-## Storage Plugin
+## Phần mềm bổ trợ lưu trữ
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
 
