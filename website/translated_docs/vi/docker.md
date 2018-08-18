@@ -16,15 +16,15 @@ docker pull verdaccio/verdaccio
 
 ## Những phiên bản thẻ
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+Bắt đầu với phiên bản `v2.x`, bạn có thể tải những hình ảnh này qua [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), cụ thể như sau:
 
-For a major version:
+Đối với phiên bản chính:
 
 ```bash
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+Đối với phiên bản phụ:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
