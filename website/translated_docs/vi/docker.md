@@ -14,7 +14,7 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## Những phiên bản thẻ
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
