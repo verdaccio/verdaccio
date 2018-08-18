@@ -51,7 +51,7 @@ Phiên bản chính tiếp theo sẽ sử dụng bản `beta</​​code> (maste
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+Tham số cuối cùng sẽ xác định hình ảnh nào cần được sử dụng. Nếu bạn chưa thử, mã trên sẽ giúp bạn tải hình ảnh mới nhất được tạo trước từ ​​dockerhub.
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
