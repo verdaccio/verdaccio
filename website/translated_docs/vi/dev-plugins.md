@@ -104,9 +104,9 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Phương thức này sẽ cung cấp đầy đủ cách truy cập để xác thực và lưu trữ thông qua `auth` và `storage`. Nếu bạn muốn thêm điểm cuối mới, hãy dùng ứng dụng `app`.
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Một ví dụ điển hình về plugin Middleware là [ sinopia-github-oauth ](https://github.com/soundtrackyourbrand/sinopia-github-oauth) và <a href = "https: // Github.com/verdaccio/verdaccio-audit">verdaccio-audit </a>.
 
 ### API
 
