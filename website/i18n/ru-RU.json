@@ -30,8 +30,8 @@
     "ssl": "Настройка SSL-сертификатов",
     "unit-testing": "Модульное тестирование",
     "uplinks": "Uplinks",
-    "use-cases": "Use Cases",
-    "webui": "Web User Interface2",
+    "use-cases": "Примеры использования",
+    "webui": "Пользовательский Веб-Интерфейс2",
     "what-is-verdaccio": "Что такое Verdaccio?",
     "windows": "Установка в качестве службы Windows",
     "Docs": "Документы",
@@ -53,7 +53,7 @@
     "Browse Docs|no description given": "Просмотр документов",
     "Ask questions about the documentation and project|no description given": "Задать вопросы о документации и проекте",
     "Join the community|no description given": "Присоединиться к сообществу",
-    "Find out what's new with this project|no description given": "Find out what's new with this project",
+    "Find out what's new with this project|no description given": "Узнайте, что нового в этом проекте",
     "Stay up to date|no description given": "Оставайтесь в курсе",
     "Need help?|no description given": "Нужна помощь?",
     "This project is maintained by a dedicated group of people.|statement made to reader": "Этот проект поддерживается отдельной группой людей.",
@@ -78,10 +78,10 @@
     "More|no description given": "Больше",
     "Users|no description given": "Пользователи",
     "This project is used by many folks|no description given": "Этот проект используется множеством людей",
-    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Are you using this project? Do not be shy and add your company/project logo.",
-    "Add your company|no description given": "Add your company",
-    "Help Translate|recruit community translators for your project": "Help Translate",
-    "Edit this Doc|recruitment message asking to edit the doc source": "Edit",
-    "Translate this Doc|recruitment message asking to translate the docs": "Translate"
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Вы используете этот проект? Не стесняйся и добавь логитип проекта.",
+    "Add your company|no description given": "Добавить вашу компанию",
+    "Help Translate|recruit community translators for your project": "Помочь перевести",
+    "Edit this Doc|recruitment message asking to edit the doc source": "Редактировать",
+    "Translate this Doc|recruitment message asking to translate the docs": "Перевести"
   }
 }
