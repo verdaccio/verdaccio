@@ -92,9 +92,9 @@ auth:
 
 Trong đó `htpasswd` là tên của plugin, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình plugin.
 
-## Plugin Middleware
+## Phần mềm bổ trợ Middleware
 
-Plugin Middleware có khả năng sửa đổi giao diện API để thêm các điểm cuối mới hoặc chặn các yêu cầu.
+Phần mềm bổ trợ Middleware có khả năng sửa đổi giao diện API để thêm các điểm cuối mới hoặc chặn các yêu cầu.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -106,7 +106,7 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 Phương thức này sẽ cung cấp đầy đủ cách truy cập để xác thực và lưu trữ thông qua `auth` và `storage`. Nếu bạn muốn thêm điểm cuối mới, hãy dùng ứng dụng `app`.
 
-> Một ví dụ điển hình về plugin Middleware là [ sinopia-github-oauth ](https://github.com/soundtrackyourbrand/sinopia-github-oauth) và <a href = "https: // Github.com/verdaccio/verdaccio-audit">verdaccio-audit </a>.
+> Một ví dụ điển hình về phần mềm bổ trợ Middleware là [ sinopia-github-oauth ](https://github.com/soundtrackyourbrand/sinopia-github-oauth) và <a href = "https: // Github.com/verdaccio/verdaccio-audit">verdaccio-audit </a>.
 
 ### API
 
@@ -120,7 +120,7 @@ Bằng cách sử dụng một cách thức duy nhất để đăng ký middlewa
 
 ## Phần mềm bổ trợ lưu trữ
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
+Theo mặc định, Verdaccio sử dụng phần mềm bổ trợ lưu trữ hệ thống tệp [local-storage](https://github.com/verdaccio/local-storage), tuy nhiên, từ phiên bản `verdaccio@3.x ` bạn có thể chèn lưu trữ tùy chỉnh thay vì hành vi mặc định.
 
 ### API
 
