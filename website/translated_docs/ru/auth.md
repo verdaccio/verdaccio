@@ -1,6 +1,6 @@
 ---
 id: authentification
-title: "Authentification"
+title: "Аутентификация"
 ---
 The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
 
