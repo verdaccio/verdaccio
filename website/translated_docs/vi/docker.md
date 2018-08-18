@@ -30,23 +30,22 @@ docker pull verdaccio/verdaccio:3
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+Đối với một phiên bản (bản vá) cụ thể:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+Phiên bản chính tiếp theo sẽ sử dụng bản `beta</​​code> (master branch).</p>
 
-```bash
-docker pull verdaccio/verdaccio:beta
-```
+<pre><code class="bash">docker pull verdaccio/verdaccio:beta
+`</pre> 
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Nếu bạn quan tâm đến danh sách thẻ, hãy [truy cập trang web Docker](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-## Running verdaccio using Docker
+## Sử dụng Docker để chạy verdaccio
 
-To run the docker container:
+Để chạy vùng chứa docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
