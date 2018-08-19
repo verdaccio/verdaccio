@@ -154,7 +154,7 @@ https:
 
 #### http_proxy и https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Если в вашей сети используется прокси, вы можете установить `X-Forwarded-For` заголовок использую следующие свойства.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Это свойство должно содержать разделённый через запятую список доменов, для которых прокси не будет использоваться.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Уведомления
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Уведомления для сторонних инструментов включаются очень просто через web hooks. Читайте об этом в разделе [Уведомления](notifications.md).
 
 ```yaml
 notify:
@@ -181,15 +181,15 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Для более детальной настройки, пожалуйста [загляните в исходнй код](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Аудит
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Начиная с: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` это новая команда, добавленная в [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio имеет встроенный плагин для обработки этой команды.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Если это у вас вновь созданная конфигурация, то значение будет установлено по умолчанию. Если нет, вам необходимо добавить эти опции в ваши файл конфигурации
 
 ```yaml
 middlewares:
