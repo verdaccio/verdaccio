@@ -1,10 +1,10 @@
 ---
 id: build
-title: "Build the source code"
+title: "Сборка исходного кода"
 ---
-Verdaccio relies on `yarn` instead `npm` to download dependencies.
+Verdaccio использует `yarn` вместо `npm` для загрузки зависимостей.
 
-*Note: the current build only will build with `➜ yarn@1.x`.
+* Примечание: текущая сборка может быть собрана только с `➜ yarn@1.x`.
 
 ```bash
   yarn install
