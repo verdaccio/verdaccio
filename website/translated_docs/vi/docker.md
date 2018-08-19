@@ -65,7 +65,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Lưu ý: Verdaccio chạy như một tài khoản non-root (uid = 100, gid = 101) bên trong vùng chứa. Nếu bạn sử dụng cài đặt bind để ghi đè lên các thiết lập mặc định, bạn cần đảm bảo thư mục cài đặt tương thích với tài khoản. Trong ví dụ trên, bạn sẽ chạy `sudo chown -R 100: 101/opt /verdaccio`, nếu không bạn sẽ nhận được cảnh báo lỗi quyền truy cập khi sử dụng. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Plugins
 
