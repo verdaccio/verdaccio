@@ -10,4 +10,4 @@ Verdaccio использует `yarn` вместо `npm` для загрузки
   yarn install
 ```
 
-To see the complete list of scripts, [click here](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
+Посмотреть весь список скриптов сборки можно [здесь](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code).
