@@ -2,25 +2,25 @@
 id: contributing
 title: "Содействие Verdaccio"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Нырять в незнакомую кодовую базу не просто, но мы здесь для того, чтобы помочь вам.
 
-## Comunication Channels
+## Каналы связи
 
-If you are willing for asking, we use two channels for discussions:
+Если вы готовы задать вопрос, мы используем два канала для обсуждений:
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [Публичный Discord канал](http://chat.verdaccio.org/)
 
-## Getting started
+## Приступая к работе
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+На первый взгляд verdaccio представляет собой единый репозиторий, но есть много способов, которыми вы могли бы посодействовать. А так же есть разнообразные технологии для практики.
 
-### Finding my spot
+### Занять свою нишу
 
-All we have different skills, so, let's see where you might feel comfortable.
+Все мы имеем различные навыки, так что, давайте посмотрим, где вы можете чувствовать себя комфортно.
 
-### I know or I want to learn Node.js
+### Я знаю, или я хочу узнать Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js это основа `verdaccio`, мы используем такие библиотеки как `express`, `commander`, `request` или `async`. Verdaccio это в основном Rest API который обеспечивает коммуникацию `npm` совместимых клиентов, таких как `yarn`.
 
 We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
 
