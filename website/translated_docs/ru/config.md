@@ -60,9 +60,9 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Веб интерфейс
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Эти свойства позволят вам изменить внешний вид веб интерфейса. Читайте об это в разделе [Веб интерфейса](web.md).
 
 ```yaml
 web:
@@ -72,9 +72,9 @@ web:
   scope:
 ```
 
-### Uplinks
+### Подключения
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Каналы — это способность системы получать пакетов из удаленных реестров, если эти пакеты не доступны локально. Читайте об этом в разделе [Каналы](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Пакеты
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Секция пакеты позволяет пользователю контролировать доступ к пакетам. Читайте об этом в разделе [Пакеты](packages.md).
 
 ```yaml
 packages:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Расширенные настройки
 
-### Offline Publish
+### Публикация без подключения к сети
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+По умолчанию `verdaccio` не позволяет публиковать пакеты, если у клиента не подключения к сети. Это может быть изменено устновкой данного параметрв в *true*.
 
 ```yaml
 publish:
