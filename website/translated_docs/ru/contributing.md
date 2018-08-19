@@ -53,7 +53,7 @@ Node.js это основа `verdaccio`, мы используем такие б
 
 ### Я DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+У нас есть образ для широко известного Docker'а <https://hub.docker.com/r/verdaccio/verdaccio/> ему необходимо техническое сопровождение и скорее всего огромные улучшения, нам нужны ваши знания для пользы всего сообщества.
 
 We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
 
