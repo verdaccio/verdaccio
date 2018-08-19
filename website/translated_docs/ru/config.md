@@ -8,7 +8,7 @@ title: "Файл конфигурации"
 
 ## Стандартная конфигурация
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Стандартная конфигурация поддерживает **область видимости (scope)** пакетов и позволяет любым пользователям получить доступ ко всем пакетам, но **только авторизованные пользователи могут публиковать пакеты**.
 
 ```yaml
 storage: ./storage
@@ -29,29 +29,29 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Разделы
 
-The following sections explain what each property means and the different options.
+Следующие разделы пояснят что означает каждое свойство и его различные опции.
 
-### Storage
+### Хранилище
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Местоположение хранилища по умолчанию. **По умолчанию Verdaccio определит исходя из локальной файловой системы**.
 
 ```yaml
 storage: ./storage
 ```
 
-### Plugins
+### Плагины
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Местоположения директории с плагинами. Полезно при развёртывании при помощи Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Аутентификация
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Настройка аутентификация делается здесь. По умолчанию аутентификация основана на `htpasswd` и является встроенной. Вы можете изменить это при помощи [плагинов](plugins.md). Читайте об этом в разделе [Аутентификация](auth.md).
 
 ```yaml
 auth:
