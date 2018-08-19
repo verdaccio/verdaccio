@@ -21,9 +21,9 @@ registry=http://localhost:5555/
 
 #### Анонимная публицация
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` позволяет включить анонимную публикацию. Для того, чтобы сделать это вам нужно правильно настроить ваш [доступ к пакетам](packages.md).
 
-Eg:
+Например:
 
 ```yaml
   'my-company-*':
