@@ -65,9 +65,9 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Lưu ý: Verdaccio chạy như một tài khoản non-root (uid = 100, gid = 101) bên trong vùng chứa. Nếu bạn sử dụng cài đặt bind để ghi đè lên các thiết lập mặc định, bạn cần đảm bảo thư mục cài đặt tương thích với tài khoản. Trong ví dụ trên, bạn sẽ chạy `sudo chown -R 100: 101/opt /verdaccio`, nếu không bạn sẽ nhận được cảnh báo lỗi quyền truy cập khi sử dụng. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Lưu ý: Verdaccio chạy như một tài khoản non-root (uid = 100, gid = 101) bên trong vùng chứa. Nếu bạn sử dụng cài đặt bind để ghi đè lên các thiết lập mặc định, bạn cần đảm bảo thư mục cài đặt tương thích với tài khoản. Trong ví dụ trên, bạn sẽ chạy `sudo chown -R 100: 101/opt /verdaccio`, nếu không bạn sẽ nhận được cảnh báo lỗi quyền truy cập khi sử dụng. Chúng tôi khuyên bạn nên [ sử dụng khối lượng docker](https://docs.docker.com/storage/volumes/) thay vì cài đặt bắt buộc.
 
-### Plugins
+### Những phần mềm bổ trợ
 
 Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
