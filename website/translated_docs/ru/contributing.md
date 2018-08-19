@@ -22,17 +22,17 @@ First of all Нырять в незнакомую кодовую базу не �
 
 Node.js это основа `verdaccio`, мы используем такие библиотеки как `express`, `commander`, `request` или `async`. Verdaccio это в основном Rest API который обеспечивает коммуникацию `npm` совместимых клиентов, таких как `yarn`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Мы имеем длинный [список плагинов](plugins.md) готовых к использованию и улучшению, но в тоже время [вы можете создать свой собственный](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### Я бы предпочел работать с пользовательским интерфейсом
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Недавно мы переехали на современные технологии, такие как `React` и `element-react`. Мы с нетерпением ожидаем увидеть новые идеи для улучшения пользовательского интерфейса.
 
-### I feel more confortable improving the stack
+### Мне гораздо комфортнее улучшать стек технологий
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Разумеется мы будем рады помощи в улучшении стека, вы можете обновить зависимости, такие как `eslint`, `stylelint`, `webpack`. Вы можете просто улучшить `webpack` конфигурацию. Это было бы здорово. Мы рады приветствовать любые ваши предложения. Кроме того, если у вас есть опыт работы с **Yeoman** вы можете помочь нам с [генератором verdaccio](https://github.com/verdaccio/generator-verdaccio-plugin).
 
-Here some ideas:
+Вот некоторые идеи:
 
 * Create a common eslint rules to be used across all dependencies or plugins
 * Improve Flow types definitions delivery
