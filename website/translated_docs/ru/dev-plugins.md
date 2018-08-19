@@ -1,18 +1,18 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Разработка плагинов"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Есть много способов расширить `verdaccio`, поддерживаются следующие типы плагинов:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Плагин аутентификации
+* Middleware плагины (начиная с `v2.7.0`)
+* Плагины для хранения с (`v3.x`)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Мы рекомендуем разрабатывать плагины с использованием [flow type definitions](https://github.com/verdaccio/flow-types).
 
-## Authentication Plugin
+## Плагин аутентификации
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+В основном мы должны возвращать объект с помощью одного метода, называемого `authenticate`, который должен принимать три аругмента (`user, password, callback`).
 
 ### API
 
