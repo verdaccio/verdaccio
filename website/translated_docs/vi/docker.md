@@ -69,7 +69,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 ### Những phần mềm bổ trợ
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+Những phần mềm bổ trợ có thể được cài đặt trong một thư mục riêng biệt và được gắn với Docker hoặc Kubernetes, tuy nhiên, bạn nên đảm bảo việc tạo các phần mềm bổ trợ bằng cách sử dụng các phụ thuộc cục bộ của cùng một dữ liệu hình ảnh như Verdaccio Dockerfile.
 
 ### Docker and custom port configuration
 
