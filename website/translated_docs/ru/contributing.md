@@ -63,18 +63,18 @@ Verdaccio стремится стать многоязычным и для до�
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+У нас есть настройка для выбора вашего любимого языка, если вы не нашли свой язык не стесняйтесь попросить его [создав задачу](https://github.com/verdaccio/verdaccio/issues/new).
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Перейти в Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## Я готов помогать
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Если вы думаете *"Я уже видел [репозитории](repositories.md) и я хочу начать прямо сейчас"* то для вас есть хорошая возможноть, это следующий шаг.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Вам нужно научиться собирать проект из исходников, [и мы подготовили для вас руководство](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+После того, как вы поигрались со скриптами и узнали как ими пользоваться, мы готовы перейти к следующему шагу, запуск [**Модульных тестов**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## Полный список участников. Мы хотим видеть здесь и ваше лицо!
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
