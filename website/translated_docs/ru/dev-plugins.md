@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Необязательными являются только `adduser`, `allow_access` и `allow_publish`, verdaccio предоставляет запасной вариант в этих случаях.
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+После того как аутентификация была выполнена, `verdaccio` может быть возвращено только два ответа.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Либо что-то пошло не так, либо аутентификация была не удачной.
 
 ```flow
 callback(null, false)
@@ -42,21 +42,21 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Аутентификация прошла успешно.
 
-`groups` is an array of strings where the user is part of.
+`groups` это массив строк с именами групп, в которых пользователь состоит.
 
      callback(null, groups);
     
 
-### Example
+### Пример
 
 ```javascript
 function Auth(config, stuff) {
   var self = Object.create(Auth.prototype);
   self._users = {};
 
-  // config for this module
+  // конфигурация для этого модуля
   self._config = config;
 
   // verdaccio logger
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+И конфигурация будет выглядеть как-то так:
 
 ```yaml
 auth:
