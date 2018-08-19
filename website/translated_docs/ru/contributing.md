@@ -34,24 +34,24 @@ Node.js это основа `verdaccio`, мы используем такие б
 
 Вот некоторые идеи:
 
-* Create a common eslint rules to be used across all dependencies or plugins
-* Improve Flow types definitions delivery
-* Moving to Webpack 4
-* Improve hot reload with Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* Создать общие правила для eslint, которые будут использоваться во всех зависимостях и плагинах
+* Улучшение доставки определений Flow types
+* Перейти к использованию Webpack 4
+* Улучшить горячую перезагрузку с Webpack
+* Мы используем babel и webpack во всех зависимостях, почему бы не сделать общий набор настроек?
+* Улучшить доставку непрерывной интеграции
 
-### I do great Documentation
+### Я делаю прекрасную документацию
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+Много участников находят опечатки и грамматические ошибки, которые так же улучшаю общее впечатление от использования и устранения проблем.
 
-### I am a Designer
+### Я Дизайнер
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+У нас есть веб-сайт <http://www.verdaccio.org/> который будет рад новым идеям.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Наш веб-сайт основан на [Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Я DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
