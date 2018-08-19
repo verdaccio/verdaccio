@@ -1,21 +1,21 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: "Инструмент командной строки"
 ---
-The verdaccio CLI is your go start the application.
+Инструмент командной строки verdaccio, это начало вашей работы с приложением.
 
-## Commands
+## Команды
 
 ```bash
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
-| ------------------ | ------------------------------ | -------------- | ---------------------- |
-| --listen \ **-l** | 4873                           | -p 7000        | http port              |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
+| Команда            | По умолчанию                   | Пример         | Описание          |
+| ------------------ | ------------------------------ | -------------- | ----------------- |
+| --listen \ **-l** | 4873                           | -p 7000        | http порт         |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | файл конфигурации |
 
-## Default config file location
+## Расположение файла конфигурации по умолчанию
 
 To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
