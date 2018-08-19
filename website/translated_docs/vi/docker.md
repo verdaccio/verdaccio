@@ -45,7 +45,7 @@ Phiên bản chính tiếp theo sẽ sử dụng bản `beta</​​code> (maste
 
 ## Sử dụng Docker để chạy verdaccio
 
-Để chạy vùng chứa docker:
+Để chạy vùng chứa docker hãy chạy mã:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
@@ -53,7 +53,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 Tham số cuối cùng sẽ xác định hình ảnh nào cần được sử dụng. Nếu bạn chưa thử, mã trên sẽ giúp bạn tải hình ảnh mới nhất được tạo trước từ ​​dockerhub.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Khi bạn muốn tạo [một bản sao cục bộ](#build-your-own-docker-image) hãy dùng `verdaccio` làm tham số cuối cùng.
 
 You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
 
