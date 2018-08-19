@@ -138,7 +138,7 @@ packages:
 
 ### 配置
 
-你可以定义多个`packages`，每个包都必须有一个唯一的`Regex`。
+You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
 | 属性      | 类型      | 必须的 | 示例             | 支持  | 描述              |
 | ------- | ------- | --- | -------------- | --- | --------------- |
