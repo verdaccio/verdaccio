@@ -105,41 +105,41 @@ publish:
   allow_offline: false
 ```
 
-<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Начиная с: <code>verdaccio@2.3.6</code> в связи <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### URL приствка
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Начиная с: `verdaccio@2.3.6` в связи [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Максимальный размер
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+По умолчанию максимальный размер JSON документа `10 Мб`, если вы получаете ошибки типа `"request entity too large"`, то вы можете увеличить это значение.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Рабочий порт
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` по умолчанию запускается на порту `4873`. Изменить порт можно при помощи [Интерфейса командной строки](cli.md) или в файле конфигурации. Следующие значения являются правильными.
 
 ```yaml
 listen:
-# - localhost:4873            # default value
-# - http://localhost:4873     # same thing
-# - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
-# - https://example.org:4873  # if you want to use https
+# - localhost:4873            # значение по умолчанию
+# - http://localhost:4873     # тоже самое
+# - 0.0.0.0:4873              # работа на всех адресах (INADDR_ANY)
+# - https://example.org:4873  # если нужно использовать https
 # - "[::1]:4873"                # ipv6
 # - unix:/tmp/verdaccio.sock    # unix socket
 ```
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Для включения `https` в `verdaccio` достаточно устанновить опцию `listen` в значение с протоколом *https://*. Читайте об этом в разделе [SSL](ssl.md).
 
 ```yaml
 https:
@@ -148,11 +148,11 @@ https:
     ca: ./path/verdaccio-csr.pem
 ```
 
-### Proxy
+### Проксирование
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Прокси сервера, это специально предназначенные сервера для передачи от удалённых серверов к локальным клиентам.
 
-#### http_proxy and https_proxy
+#### http_proxy и https_proxy
 
 If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
 
