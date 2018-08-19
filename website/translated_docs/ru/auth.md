@@ -32,11 +32,11 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+Как описано в [issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) до `npm@5.3.0`, включая все минорные релизы, **не позволят вам публикацию без токенов**. Однако `yarn` не имеет таких ограничений.
 
-## Default htpasswd
+## Стандартный htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+Для того, чтобы упростить настройку, `verdaccio` использует плагин работающий с `htpasswd`. Начиная с версии v3.0.x [внешний плагин](https://github.com/verdaccio/verdaccio-htpasswd) используется по умолчанию. The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:
