@@ -1,12 +1,12 @@
 ---
 id: configuration
-title: "Configuration File"
+title: "Файл конфигурации"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Этот файл является краеугольным камнем verdaccio. В нём вы можете изменить стандартное поведение, включить плагины и расширенные возможности.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Стандартный файл конфигурации создаётся при самом первом запуске `verdaccio`.
 
-## Default Configuration
+## Стандартная конфигурация
 
 The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
 
