@@ -55,11 +55,11 @@ Node.js это основа `verdaccio`, мы используем такие б
 
 У нас есть образ для широко известного Docker'а <https://hub.docker.com/r/verdaccio/verdaccio/> ему необходимо техническое сопровождение и скорее всего огромные улучшения, нам нужны ваши знания для пользы всего сообщества.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+У нас есть поддержка **Kubernetes**, **Puppet**, **Ansible** и **Chef** и здесь нам тоже нужна помощь, не стесняйтесь заглянуть во все репозитории.
 
-### I can do translations
+### Я могу переводить
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio стремится стать многоязычным и для достижения этого **у нас есть классная поддержка** [Crowdin](https://crowdin.com). Это потрясающая платформа для переводов.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
