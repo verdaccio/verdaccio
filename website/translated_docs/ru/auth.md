@@ -10,7 +10,7 @@ title: "Аутентификация"
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+Токен генерируется в файле конфигурации `npm`, расположенном в домашней директории пользователя. Больше информации о `.npmrc` читайте в [официальной документации](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -19,7 +19,7 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### Анонимная публицация
 
 `verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
 
