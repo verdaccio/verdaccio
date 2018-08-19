@@ -36,20 +36,20 @@ Eg:
 
 ## Стандартный htpasswd
 
-Для того, чтобы упростить настройку, `verdaccio` использует плагин работающий с `htpasswd`. Начиная с версии v3.0.x [внешний плагин](https://github.com/verdaccio/verdaccio-htpasswd) используется по умолчанию. The v2.x version of this package still contains the built-in version of this plugin.
+Для того, чтобы упростить настройку, `verdaccio` использует плагин работающий с `htpasswd`. Начиная с версии v3.0.x [внешний плагин](https://github.com/verdaccio/verdaccio-htpasswd) используется по умолчанию. Но версия v2.x содержит встроенную версию данного плагина.
 
 ```yaml
 auth:
   htpasswd:
     file: ./htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
+    # Максимальное количество пользователей, которые могут зарегистрироваться. По умолчанию "+inf".
+    # Вы можете установить -1 для отключения регистрации пользователей.
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Свойство  | Тип    | Обязательное | Пример     | Поддержка | Описание                                 |
+| --------- | ------ | ------------ | ---------- | --------- | ---------------------------------------- |
+| file      | string | Да           | ./htpasswd | все       | файл, содержащий зашифрованные реквизиты |
+| max_users | number | Нет          | 1000       | все       | устанавливает ограничение пользователей  |
 
-In case to decide do not allow user to login, you can set `max_users: -1`.
+Для того, чтобы запретить пользователям входить, вы можете установить `max_users: -1`.
