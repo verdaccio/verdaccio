@@ -4,7 +4,7 @@ title: "Аутентификация"
 ---
 Аутентификация зависит от того [плагина](plugins.md), который вы используете. The package restrictions also is handled by the [Package Access](packages.md).
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+Аутентификация клиента обрабатывается самим клиентом `npm`. В тот момент, когда вы выполняете вход в приложение:
 
 ```bash
 npm adduser --registry http://localhost:4873
