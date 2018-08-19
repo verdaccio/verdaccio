@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Где `htpasswd` это суфикс имени плагина. Например: `verdaccio-htpasswd` и остальная часть тела должна быть конфигурацией плагина.
 
-## Middleware Plugin
+## Middleware плагин
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Middleware плагины могут менять API, добавляя конечные обработчики или перехватывая запросы.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
