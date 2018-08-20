@@ -30,11 +30,11 @@ Thời gian gần đây, chúng tôi đã chuyển sang các công nghệ hiện
 
 ### Việc nâng cấp ngăn xếp sẽ giúp tôi cảm thấy thoải mái hơn
 
-Tất nhiên, chúng tôi sẽ vui lòng giúp bạn sắp xếp ngăn xếp và bạn có thể nâng cấp các dependency của mình lên `eslint `, `stylelint`, `webpack`. Bạn cũng nên nâng cấp cấu hình `webpack`. Chúng tôi hoan nghênh mọi ý kiến đóng góp của các bạn. Ngoài ra, nếu bạn có trải nghiệm với công cụ tạo khung **Yeoman**, bạn có thể giúp chúng tôi nâng cấp [verdaccio generator ](https://github.com/verdaccio/generator-verdaccio-plugin).
+Tất nhiên, chúng tôi sẽ vui lòng giúp bạn sắp xếp ngăn xếp và bạn có thể nâng cấp các gói phụ thuộc của mình lên `eslint `, `stylelint`, `webpack`. Bạn cũng nên nâng cấp cấu hình `webpack`. Chúng tôi hoan nghênh mọi ý kiến đóng góp của các bạn. Ngoài ra, nếu bạn có trải nghiệm với công cụ tạo khung **Yeoman**, bạn có thể giúp chúng tôi nâng cấp [verdaccio generator ](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Dưới đây là một số ý tưởng:
 
-* Tạo quy tắc chung Eslint để sử dụng trong tất cả các dependency hoặc plugin
+* Tạo quy tắc chung Eslint để sử dụng trong tất cả các gói phụ thuộc hoặc những phần mềm bổ trợ
 * Cải thiện việc phân phối các loại quy trình xác định
 * Di chuyển sang Webpack 4
 * Nâng cấp mức độ thành phần của Webpack
