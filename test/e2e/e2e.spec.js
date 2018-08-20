@@ -86,7 +86,7 @@ describe('/ (Verdaccio Page)', () => {
     it('should click on sign in button', async () => {
       const signInButton = await page.$('header button');
       await signInButton.click();
-      const signInDialog = await page.$('header .el-dialog__wrapper');
+      const signInDialog = await page.$('.login-dialog .el-dialog__wrapper');
 
       expect(signInDialog).not.toBeNull();
     })

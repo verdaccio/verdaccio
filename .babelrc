@@ -34,7 +34,8 @@
       }], "flow", "react"],
       "plugins": [
         "transform-class-properties",
-        "transform-object-rest-spread"
+        "transform-object-rest-spread",
+        "babel-plugin-dynamic-import-node"
       ]
     },
     "testOldEnv": {
