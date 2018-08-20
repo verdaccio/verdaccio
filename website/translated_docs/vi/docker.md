@@ -89,7 +89,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
 
 ### Sử dụng HTTPS trong Docker
 
-Bạn có thể cài đặt cấu hình giao thức tương tự như cấu hình cổng mà verdaccio sẽ sử dụng. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Bạn có thể cài đặt cấu hình giao thức tương tự như cấu hình cổng mà verdaccio sẽ sử dụng. Sau khi bạn xác định certificate trong config.yaml, bạn phải ghi đè giá trị mặc định ("http") trong biến môi trường ` PROTOCOL ` bằng "https".
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -97,18 +97,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Sử dụng docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Tải phiên bản mới nhất của [docker-compose](https://github.com/docker/compose).
+2. Tạo và chạy vùng chứa:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Sử dụng `PORT=5000` làm tiền tố cho lệnh trên nhằm cài đặt cổng để sử dụng (cả vùng chứa và máy chủ lưu trữ).
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker sẽ tạo ra một ổ đĩa có tên là lưu trữ dữ liệu ứng dụng liên tục. Bạn có thể sử dụng `docker inspect` hoặc `docker volume inspect` để xác định vị trí thực của ổ đĩa này và chỉnh sửa cấu hình, ví dụ như:
 
     $ docker volume inspect verdaccio_verdaccio
     [
