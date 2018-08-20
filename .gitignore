@@ -10,7 +10,6 @@ access-storage*
 .verdaccio_test_env
 node_modules
 package-lock.json
-build/
 npm_test-fails-add-tarball*
 yarn-error.log
 
