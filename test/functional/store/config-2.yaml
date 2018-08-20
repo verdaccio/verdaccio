@@ -13,7 +13,7 @@ middlewares:
   ../fixtures/plugins/middlewares:
     message: this is a custom route
   ../fixtures/plugins/middlewares.es6:
-      message: this is a custom route es6
+    message: this is a custom route es6
 
 max_users: 3
 
@@ -31,7 +31,7 @@ auth:
         password: blahblah-password
 
 logs:
-  - {type: stdout, format: pretty, level: trace}
+  - { type: stdout, format: pretty, level: trace }
 
 packages:
   '@test/*':
@@ -78,7 +78,7 @@ packages:
     access: $all
     publish: $all
 
-   ## start test auth.js
+    ## start test auth.js
   'test-auth-regular':
     access: $authenticated
 
@@ -87,7 +87,7 @@ packages:
 
   'test-deny':
     access: authtest2
-   ## end test auth.js
+    ## end test auth.js
 
   '*':
     access: test $anonymous
