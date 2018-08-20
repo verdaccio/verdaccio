@@ -90,7 +90,7 @@ auth:
     file: ./htpasswd
 ```
 
-Trong đó `htpasswd` là tên của plugin, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình plugin.
+Trong đó `htpasswd` là tên của một phần mềm bổ trợ, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình phần mềm bổ trợ.
 
 ## Phần mềm bổ trợ Middleware
 
