@@ -75,9 +75,9 @@ Những phần mềm bổ trợ có thể được cài đặt trong một thư 
 
 Bất kỳ một `host: port` nào sử dụng cấu hình trong `conf / config.yaml` ở `listen` sẽ bị bỏ qua khi sử dụng docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Nếu bạn muốn có bản sao của verdaccio docker trên một cổng khác, chẳng hạn như `5000` trong lệnh `docker run`, bạn cần thay thế `-p 4873: 4873` bằng `-p 5000: 4873`.
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+Bắt đầu từ phiên bản 2.?.? sẽ cho phép bạn chỉ định cổng nghe trong **docker container**. you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
 
 Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
 
