@@ -77,9 +77,9 @@ Bất kỳ một `host: port` nào sử dụng cấu hình trong `conf / config.
 
 Nếu bạn muốn có bản sao của verdaccio docker trên một cổng khác, chẳng hạn như `5000` trong lệnh `docker run`, bạn cần thay thế `-p 4873: 4873` bằng `-p 5000: 4873`.
 
-Bắt đầu từ phiên bản 2.?.? sẽ cho phép bạn chỉ định cổng nghe trong **docker container**. you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+Bắt đầu từ phiên bản 2.?.? sẽ cho phép bạn chỉ định cổng nghe trong **docker container**. bạn có thể thực hiện thao tác này bằng cách cung cấp các tham số bổ sung cho `docker run`: `--env ​​PORT=5000 `. Điều này sẽ thay đổi cổng được hiển thị bởi vùng chứa docker và cổng mà verdaccio sử dụng.
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+Tất nhiên, những tham số `-p` bạn cung cấp phải khớp, vì vậy nếu bạn muốn tất cả chúng giống nhau, bạn chỉ cần sao chép, dán và sử dụng:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
