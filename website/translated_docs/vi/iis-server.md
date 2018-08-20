@@ -1,6 +1,6 @@
 ---
 id: iss-server
-title: "Installing on IIS server"
+title: "Cài đặt trên máy chủ IIS"
 ---
 These instructions were written for Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) and [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
 
