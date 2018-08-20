@@ -53,7 +53,7 @@ Trang web của chúng tôi dựa trên [Docusaurus](https://docusaurus.io/).
 
 ### Tôi là một DevOps
 
-Chúng tôi có một hình ảnh Docker được sử dụng rộng rãi [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/), nó cần được bảo trì và có thể cần được nâng cấp khá nhiều, chúng tôi cần kiến ​​thức của bạn để mang lại lợi ích cho tất cả người dùng.
+Chúng tôi có một hình ảnh Docker được sử dụng rộng rãi trên [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/), hình ảnh này cần được bảo trì và có thể cần được nâng cấp khá nhiều, chúng tôi cần kiến ​​thức của bạn để mang lại lợi ích cho tất cả người dùng.
 
 Chúng tôi hỗ trợ phần ** Kubernetes**, **Puppet **, **Ansible** và **Chef**, và cần sự đóng góp của các bạn ở những nội dung này, vui lòng kiểm tra tất cả kho tài nguyên.
 
