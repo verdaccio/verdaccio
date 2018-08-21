@@ -2,59 +2,59 @@
 id: kubernetes
 title: "Kubernetes"
 ---
-You can find instructions to deploy Verdaccio on a Kubernetes cluster on the [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example) repository. Tuy nhiên, cách cài đặt chúng tôi gợi ý cho bạn để chạy Verdaccio trên phần lưu trữ Kubernetes là sử dụng [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) package manager which bring multiple advantages.
+Bạn có thể tìm thấy cách sử dụng Verdaccio trong phần lưu trữ Kubernetes ở [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example). Tuy nhiên, cách cài đặt chúng tôi gợi ý cho bạn để chạy Verdaccio trên phần lưu trữ Kubernetes là sử dụng [Helm](https://helm.sh). Vì Helm là một trình quản lý gói [ Kubernetes ](https://kubernetes.io) có nhiều ưu điểm.
 
 ## Helm
 
-### Setup Helm
+### Cài đặt Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+Nếu trước đây bạn chưa từng sử dụng Helm, bạn cần tạo bộ điều khiển Helm có tên là Tiller:
 
 ```bash
 helm init
 ```
 
-### Install
+### Cài đặt
 
-Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
+Chạy biểu đồ Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio). Trong ví dụ này, chúng tôi sử dụng ` npm` làm tên bản phát hành:
 
 ```bash
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### Sử dụng cấu hình phiên bản cụ thể
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### Nâng cấp Verdaccio
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Gỡ cài đặt
 
 ```bash
 helm del --purge npm
 ```
 
-**Note:** this command delete all the resources, including packages that you may have previously published to the registry.
+**Lưu ý:** Lệnh này sẽ xóa tất cả mã nguồn, bao gồm các gói mà bạn đã đăng trước đó vào sổ đăng ký.
 
-### Custom Verdaccio configuration
+### Tùy chỉnh cấu hình Verdaccio
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+Bạn có thể tùy chỉnh cấu hình Verdaccio bằng Kubernetes *configMap*.
 
-#### Prepare
+#### Chuẩn bị
 
-Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
+Sao chép [cấu hình hiện tại](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) và điều chỉnh cấu hình theo những gì bạn muốn:
 
 ```bash
 wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/full.yaml -O config.yaml
 ```
 
-**Note:** Make sure you are using the right path for the storage that is used for persistency:
+**Lưu ý:** Hãy chắc chắn bạn đang sử dụng đúng đường dẫn để lưu trữ liên tục:
 
 ```yaml
 storage: /verdaccio/storage/data
