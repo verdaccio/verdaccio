@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Loading} from 'element-react';
 import isEmpty from 'lodash/isEmpty';
@@ -12,9 +12,10 @@ import PackageSidebar from '../../components/PackageSidebar/index';
 
 const loadingMessage = 'Loading...';
 
-export default class Detail extends React.Component {
+export default class Detail extends Component {
   static propTypes = {
-    match: PropTypes.object
+    match: PropTypes.object,
+    isUserLoggedIn: PropTypes.bool
   };
 
   state = {
@@ -23,7 +24,7 @@ export default class Detail extends React.Component {
   };
 
   getPackageName(props = this.props) {
-    let params = props.match.params;
+    const params = props.match.params;
     return `${(params.scope && '@' + params.scope + '/') || ''}${params.package}`;
   }
   get packageName() {
@@ -34,11 +35,11 @@ export default class Detail extends React.Component {
     await this.loadPackageInfo(this.packageName);
   }
 
-  async componentWillReceiveProps(newProps) {
-    let packageName = this.getPackageName(newProps);
-    if (packageName === this.packageName) return;
-
-    await this.loadPackageInfo(packageName);
+  componentDidUpdate(newProps) {
+    if (newProps.isUserLoggedIn !== this.props.isUserLoggedIn) {
+      const packageName = this.getPackageName(newProps);
+      this.loadPackageInfo(packageName);
+    }
   }
 
   async loadPackageInfo(packageName) {
@@ -49,7 +50,8 @@ export default class Detail extends React.Component {
     try {
       const resp = await API.request(`package/readme/${packageName}`, 'GET');
       this.setState({
-        readMe: resp
+        readMe: resp,
+        notFound: false
       });
     } catch (err) {
       this.setState({
@@ -59,7 +61,7 @@ export default class Detail extends React.Component {
   }
 
   render() {
-    let {notFound, readMe} = this.state;
+    const {notFound, readMe} = this.state;
 
     if (notFound) {
       return <NotFound pkg={this.packageName}/>;
