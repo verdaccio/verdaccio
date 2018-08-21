@@ -1,7 +1,6 @@
 npm-debug.log
 verdaccio-*.tgz
 .DS_Store
-build/
 
 ###
 !bin/verdaccio
