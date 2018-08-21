@@ -21,11 +21,11 @@ Tôi muốn trang web `verdaccio` trở thành trang mặc định trong IIS, v�
 
 - Tôi chắc chắn sổ đăng ký cho tệp .npmrc trong `c:\users{yourname}` được đặt thành `"registry= http: // localhost /"`
 - Tôi đã hủy bỏ "trang web mặc định" và chỉ bắt đầu trang "verdaccio" trong IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Tôi cài đặt các binding thành "http" và địa chỉ Ip là "All Unassigned" ở cổng 80, nhấp vào ok cho bất kỳ cảnh báo hoặc lời nhắc nào
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Những nguyên tắc này dựa trên [ Host Sinopia trong IIS trên Windows ](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tôi phải điều chỉnh cấu hình trang web của mình như sau, tuy nhiên bạn có thể nhận thấy cấu hình ban đầu trong liên kết được đề cập ở trên hoạt động tốt hơn
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Tệp cấu hình mặc định `c:\verdaccio\verdaccio\config.yaml` sẽ được tạo
 
 ### package.json
 
@@ -97,7 +97,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### Khắc phục sự cố
 
-- **The web interface does not load when hosted with https as it tries to download scripts over http.**  
-    Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
+- **Không thể tải giao diện web được lưu trữ trên https vì web luôn tải tập lệnh từ http.**  
+    Hãy đảm bảo việc bạn nhập `url_prefix` chính xác trong cấu hình verdaccio. Vui lòng vào [discussion](https://github.com/verdaccio/verdaccio/issues/622) để cùng thảo luận.
