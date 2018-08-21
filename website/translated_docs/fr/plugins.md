@@ -4,7 +4,7 @@ title: "Plugins"
 ---
 Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
 
-> If you are interested to develop your own plugin, read the [development](development.md) section.
+> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
 
 ## Usage
 
@@ -45,7 +45,7 @@ auth:
 
 #### Multiple Auth plugins
 
-This is tecnically possible, the plugins order becames important, the the credentials will resolved in order.
+This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
 
 ```yaml
 auth:
@@ -67,6 +67,8 @@ middlewares:
   audit:
     enabled: true
 ```
+
+> You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
 
 ### Store Plugin Configuration
 
@@ -117,10 +119,14 @@ store:
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
+* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
 
 ### Middleware Plugins
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
+
+* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
 
 ### Storage Plugins
 

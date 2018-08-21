@@ -45,7 +45,7 @@ auth:
 
 #### 多个Auth插件
 
-这在技术上可行，插件的顺序变得非常重要，安全凭据将按顺序获取。
+This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
 
 ```yaml
 auth:
@@ -120,7 +120,7 @@ store:
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab)：使用Gitlab的Personal Access Token进行认证
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd)：基于(内置)htpasswd文件插件的verdaccio认证插件
 * [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): verdaccio 的Github oauth认证插件。
-* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
+* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): verdaccio登录按钮的GitHub OAuth 插件。
 
 ### 中间件插件
 

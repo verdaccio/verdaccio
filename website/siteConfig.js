@@ -1,11 +1,7 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
 
-/* List of projects/orgs using your project for the users page */
+const {loadYaml} = require('./utils');
+
+const team = loadYaml("./data/team.yml");
 const users = [
   {
     caption: "Filiosoft",
@@ -69,11 +65,15 @@ const siteConfig = {
   projectName: 'verdaccio',
   headerLinks: [
     { doc: 'installation', label: 'Docs'},
-    { page: 'help', label: 'Help'},
     { href: "https://medium.com/verdaccio", label: 'Blog'},
-    { href: "https://github.com/verdaccio", label: "GitHub" }
+    { page: 'help', label: 'Help'},
+    { href: "https://github.com/verdaccio", label: "GitHub" },
+    { search: true },
+    { page: 'team', label: 'Team'},
+    { href: "https://opencollective.com/verdaccio", label: "Donate" },
   ],
   users,
+  team,
   headerIcon: 'img/verdaccio-tiny.png',
   footerIcon: 'img/verdaccio-blackwhite.png',
   favicon: 'img/favicon.ico',
@@ -82,7 +82,6 @@ const siteConfig = {
     secondaryColor: '#205C3B',
   },
   translationRecruitingLink: 'https://crowdin.com/project/verdaccio',
-  // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
   copyright:
     'Copyright © ' + new Date().getFullYear() + ' Verdaccio community',
   // organizationName: 'deltice', // or set an env variable ORGANIZATION_NAME
@@ -105,7 +104,6 @@ const siteConfig = {
   stylesheets: [
       '/css/code-blocks-buttons.css',
   ],
-  // You may provide arbitrary config keys to be used as needed by your template.
   repoUrl: 'https://github.com/verdaccio/verdaccio',
   cleanUrl: true,
   scrollToTop: true,

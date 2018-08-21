@@ -1,0 +1,83 @@
+admons:
+  - name: Trent Earl
+    github: trentearl
+    role: founder
+  - name: John Wilkinson
+    github: jmwilkinson
+    role: founder
+  - name: Juan Picado
+    github: juanpicado
+    twitter: jotadeveloper
+    role: admin/core
+  - name: Ayush Sharma
+    github: ayusharma
+    twitter: ayusharma_
+    role: admin/core
+  - name: Sergio Hg
+    github: sergiohgz
+    role: core
+  - name: Meeeeow
+    github: Meeeeow
+    role: core
+maintainers:
+  - name: Verdaccio
+    github: verdacciobot
+    twitter: verdaccio_npm
+    role: bot
+  - name: Roger Meier
+    github: bufferoverflow
+    active: true
+  - name: Cameron Little
+    github: apexskier
+    active: true
+  - name: Priscila
+    github: priscilawebdev
+    active: true
+  - name: Keli Grubb
+    github: kgrubb
+    active: true
+  - name: Lucius Gaitán
+    github: lgaitan
+    active: true
+  - name: Diego Louzán
+    github: dlouzan
+    active: true
+  - name: Dharmender-Singh
+    github: Dharmender-Singh
+    active: true
+translators:
+  spanish:
+    - name: María Eugenia Lucena
+      crowdin: marugy99
+      role: proofreader
+    - name: Samuel Miller
+      crowdin: SamuelLMiller
+      role: translator
+    - name: isabella394
+      crowdin: isabella394
+      role: translator
+    - name: Alejandro Estévez
+      crowdin: acrywhif
+      role: translator
+  chinese:
+    - name: sunray
+      crowdin: sunray
+      role: proofreader
+    - name: aafeng
+      crowdin: aafeng
+      role: proofreader
+    - name: susanli3769
+      crowdin: emmali73
+      role: translator
+    - name: Samuel Miller
+      crowdin: SamuelLMiller
+      role: translator
+    - name: Aaron Li
+      crowdin: AaronLi
+      role: translator
+    - name: victory
+      crowdin: victory622
+      role: translator
+    - name: breathewind
+      crowdin: breathewind
+      role: translator
