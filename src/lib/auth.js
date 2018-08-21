@@ -58,6 +58,7 @@ class Auth implements IAuth {
 
   authenticate(username: string, password: string, cb: Callback) {
     const plugins = this.plugins.slice(0);
+    const self = this;
     (function next() {
       const plugin = plugins.shift();
 
@@ -65,6 +66,7 @@ class Auth implements IAuth {
         return next();
       }
 
+      self.logger.trace( {username}, 'authenticating @{username}');
       plugin.authenticate(username, password, function(err, groups) {
         if (err) {
           return cb(err);
@@ -97,6 +99,7 @@ class Auth implements IAuth {
   add_user(user: string, password: string, cb: Callback) {
     let self = this;
     let plugins = this.plugins.slice(0);
+    this.logger.trace( {user}, 'add user @{user}');
 
     (function next() {
       let plugin = plugins.shift();
@@ -128,6 +131,7 @@ class Auth implements IAuth {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
     let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
+    this.logger.trace( {packageName}, 'allow access for @{packageName}');
 
     (function next() {
       const plugin = plugins.shift();
@@ -157,6 +161,7 @@ class Auth implements IAuth {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
     let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
+    this.logger.trace( {packageName}, 'allow publish for @{packageName}');
 
     (function next() {
       const plugin = plugins.shift();
@@ -207,6 +212,7 @@ class Auth implements IAuth {
       }
 
       if (!isAuthHeaderValid(authorization)) {
+        this.logger.trace('api middleware auth heather is not valid');
         return next( ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER) );
       }
 
@@ -214,8 +220,10 @@ class Auth implements IAuth {
       const {secret} = this.config;
 
       if (isAESLegacy(security)) {
+        this.logger.trace('api middleware using legacy auth token');
         this._handleAESMiddleware(req, security, secret, authorization, next);
       } else {
+        this.logger.trace('api middleware using JWT auth token');
         this._handleJWTAPIMiddleware(req, security, secret, authorization, next);
       }
     };
