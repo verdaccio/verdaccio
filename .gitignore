@@ -26,5 +26,3 @@ bundle.js.map
 __tests__
 
 # Compiled script
-static/*
-
