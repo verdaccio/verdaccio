@@ -32,6 +32,7 @@ security:
   web:
     sign:
       expiresIn: 7d
+      notBefore: 1
 
 # a list of other known repositories we can talk to
 uplinks:
