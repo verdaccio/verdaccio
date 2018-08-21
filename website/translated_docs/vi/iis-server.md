@@ -6,8 +6,8 @@ Những hướng dẫn này dành cho Windows Server 2012, IIS 8, [Node.js 0.12.
 
 - Khi muốn cài đặt IIS bạn cần chạy [iisnode](https://github.com/tjanczuk/iisnode). Bạn cần chắc chắn mình tuân thủ các điều kiện cần thiết trong việc cài đặt (Mô-đun Rewrite Rewrite & node) như được mô tả trong các hướng dẫn iisnode.
 - Bạn hãy tạo một thư mục mới trong Explorer để lưu trữ verdaccio. Ví dụ: `C:\verdaccio`. Lưu [package.json](#packagejson), [start.js](#startjs) và [web.config](#webconfig) vào thư mục này.
-- Tạo một trang mới trong Trình quản lý dịch vụ thông tin Internet. Hãy đặt tên cho thư mục theo ý thích của bạn. I'll call it verdaccio in these [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Specify the path to where you saved all files and a port number.
-- Go back to Explorer and give the user that runs the application pool modify rights to the folder you just created. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
+- Tạo một trang mới trong Trình quản lý dịch vụ thông tin Internet. Hãy đặt tên cho thư mục theo ý thích của bạn. Tôi sẽ gọi là verdaccio như trong [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities) này. Xác định đường dẫn để lưu tất cả các tệp và số cổng.
+- Trở lại Explorer và cấp quyền cho người dùng sử dụng nhóm ứng dụng trong thư mục bạn vừa tạo. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
 - Start a command prompt and execute the commands below to download verdaccio:
 
     cd c:\verdaccio
