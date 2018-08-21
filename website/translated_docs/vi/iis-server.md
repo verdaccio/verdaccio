@@ -7,20 +7,20 @@ Những hướng dẫn này dành cho Windows Server 2012, IIS 8, [Node.js 0.12.
 - Khi muốn cài đặt IIS bạn cần chạy [iisnode](https://github.com/tjanczuk/iisnode). Bạn cần chắc chắn mình tuân thủ các điều kiện cần thiết trong việc cài đặt (Mô-đun Rewrite Rewrite & node) như được mô tả trong các hướng dẫn iisnode.
 - Bạn hãy tạo một thư mục mới trong Explorer để lưu trữ verdaccio. Ví dụ: `C:\verdaccio`. Lưu [package.json](#packagejson), [start.js](#startjs) và [web.config](#webconfig) vào thư mục này.
 - Tạo một trang mới trong Trình quản lý dịch vụ thông tin Internet. Hãy đặt tên cho thư mục theo ý thích của bạn. Tôi sẽ gọi là verdaccio như trong [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities) này. Xác định đường dẫn để lưu tất cả các tệp và số cổng.
-- Trở lại Explorer và cấp quyền cho người dùng sử dụng nhóm ứng dụng trong thư mục bạn vừa tạo. Trong trường hợp bạn đã đặt tên trang này là verdaccio và chưa sửa đổi nhóm ứng dụng, đồng thời trang đang chạy ứng dụng ApplicationPoolIdentity, bạn nên cấp cho người dùng quyền sửa đổi IIS AppPool\verdaccio. Nếu bạn cần trợ giúp, vui lòng tham khảo hướng dẫn. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
-- Start a command prompt and execute the commands below to download verdaccio:
+- Trở lại Explorer và cấp quyền cho người dùng sử dụng nhóm ứng dụng trong thư mục bạn vừa tạo. Trong trường hợp bạn đã đặt tên trang này là verdaccio và chưa sửa đổi nhóm ứng dụng, đồng thời trang đang chạy ứng dụng ApplicationPoolIdentity, bạn nên cấp cho người dùng quyền sửa đổi IIS AppPool\verdaccio. Nếu bạn cần trợ giúp, vui lòng tham khảo hướng dẫn. (Nếu cần, bạn có thể hạn chế quyền truy cập trong tương lai, chỉ cho phép quyền sửa đổi trong iisnode và verdaccio\storage)
+- Bắt đầu dòng lệnh và thực hiện lệnh sau để tải verdaccio:
 
     cd c:\verdaccio
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- Hãy chắc chắn bạn có yêu cầu gửi đến rằng chấp nhận lưu lượng truy cập TCP vào cổng tường lửa của Windows
+- Sau đấy bạn có thể điều hướng đến máy chủ và cổng mà bạn chỉ định
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Tôi muốn trang web `verdaccio` trở thành trang mặc định trong IIS, vì vậy tôi đã làm như sau:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
+- Tôi chắc chắn sổ đăng ký cho tệp .npmrc trong `c:\users{yourname}` được đặt thành `"registry= http: // localhost /"`
+- Tôi đã hủy bỏ "trang web mặc định" và chỉ bắt đầu trang "verdaccio" trong IIS
 - I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
 
 These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
