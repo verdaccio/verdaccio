@@ -8,8 +8,10 @@ import type {
   Callback,
   Versions,
   Version,
+  RemoteUser,
   Config,
   Logger,
+  JWTSignOptions,
   PackageAccess,
   StringValue as verdaccio$StringValue,
   Package} from '@verdaccio/types';
@@ -17,6 +19,7 @@ import type {
   IReadTarball,
 } from '@verdaccio/streams';
 import type {ILocalData} from '@verdaccio/local-storage';
+import lunrMutable from 'lunr-mutable-indexes';
 import type {NextFunction, $Request, $Response} from 'request';
 
 export type StringValue = verdaccio$StringValue;
@@ -29,17 +32,29 @@ export type StartUpConfig = {
 
 export type MatchedPackage = PackageAccess | void;
 
-export type JWTPayload = {
-  user: string;
-  group: string | void;
+export type JWTPayload = RemoteUser & {
+  password?: string;
 }
 
-export type JWTSignOptions = {
-  expiresIn: string;
+export type AESPayload = {
+  user: string;
+  password: string;
 }
+
+export type AuthTokenHeader = {
+  scheme: string;
+  token: string;
+}
+
+export type BasicPayload = AESPayload | void;
+export type AuthMiddlewarePayload = RemoteUser | BasicPayload;
 
 export type ProxyList = {
   [key: string]: IProxy;
+}
+
+export type CookieSessionToken = {
+  expires: Date;
 }
 
 export type Utils = {
@@ -58,8 +73,9 @@ export type $NextFunctionVer = NextFunction & mixed;
 export type $SidebarPackage = Package & {latest: mixed}
 
 
-interface IAuthWebUI {
-  issueUIjwt(user: string, time: string): string;
+export interface IAuthWebUI {
+  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string;
+  aesEncrypt(buf: Buffer): Buffer;
 }
 
 interface IAuthMiddleware {
@@ -75,7 +91,7 @@ export interface IAuth extends IBasicAuth, IAuthMiddleware, IAuthWebUI {
 }
 
 export interface IWebSearch {
-  index: any;
+  index: lunrMutable.index;
   storage: IStorageHandler;
   query(query: string): any;
   add(pkg: Version): void;

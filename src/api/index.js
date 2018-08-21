@@ -12,6 +12,8 @@ import apiEndpoint from './endpoint';
 import {ErrorCode} from '../lib/utils';
 import {API_ERROR, HTTP_STATUS} from '../lib/constants';
 import AppConfig from '../lib/config';
+import webAPI from './web/api';
+import web from './web';
 
 import type {$Application} from 'express';
 import type {
@@ -74,8 +76,8 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use('/', require('./web')(config, auth, storage));
-    app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
+    app.use('/', web(config, auth, storage));
+    app.use('/-/verdaccio/', webAPI(config, auth, storage));
   } else {
     app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));

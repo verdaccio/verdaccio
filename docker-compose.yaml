@@ -4,11 +4,11 @@ services:
     build: .
     container_name: verdaccio
     environment:
-      - PORT
+      - VERDACCIO_PORT
     ports:
-      - $PORT:$PORT
+      - $VERDACCIO_PORT:$VERDACCIO_PORT
     volumes:
-       - verdaccio:/verdaccio
+      - verdaccio-storage:/verdaccio/storage
 volumes:
   verdaccio:
     driver: local

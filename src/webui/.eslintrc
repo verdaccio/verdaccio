@@ -10,7 +10,14 @@
   },
   "rules": {
     "require-jsdoc": 0,
-    "no-console": 2,
+    "no-console": [
+      1,
+      {
+        "allow": [
+          "log"
+        ]
+      }
+    ],
     "no-unused-vars": [
       2,
       {

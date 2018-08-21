@@ -7,7 +7,7 @@ import {formatDateDistance} from '../../utils/package';
 
 import classes from './package.scss';
 
-const Package = ({name, version, author, description, license, time}) => {
+const Package = ({name, version, author, description, license, time, keywords}) => {
   return (<section className={classes.package}>
     <Link to={`detail/${name}`}>
       <div className={classes.header}>
@@ -24,6 +24,13 @@ const Package = ({name, version, author, description, license, time}) => {
         <p className={classes.description}>
           {description}
         </p>
+      </div>
+      <div className={classes.tags}>
+        {keywords && keywords.map((keyword, index) => (
+          <Tag key={index} type="gray">
+            {keyword}
+          </Tag>
+        ))}
       </div>
       <div className={classes.details}>
         <div className={classes.homepage}>
@@ -42,6 +49,7 @@ Package.propTypes = {
   version: PropTypes.string,
   author: PropTypes.string,
   description: PropTypes.string,
+  keywords: PropTypes.array,
   license: PropTypes.string,
   time: PropTypes.oneOfType([
     PropTypes.string,

@@ -32,14 +32,15 @@
     "express": "4.16.3",
     "global": "4.3.2",
     "handlebars": "4.0.11",
-    "http-errors": "1.6.3",
+    "http-errors": "1.7.0",
     "js-base64": "2.4.8",
     "js-string-escape": "1.0.1",
     "js-yaml": "3.12.0",
     "jsonwebtoken": "8.3.0",
+    "lint-staged": "7.2.0",
     "lockfile": "1.0.4",
     "lodash": "4.17.10",
-    "lunr": "0.7.0",
+    "lunr-mutable-indexes": "2.3.1",
     "marked": "0.4.0",
     "mime": "2.3.1",
     "minimatch": "3.0.4",
@@ -53,12 +54,13 @@
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
     "@commitlint/config-conventional": "7.0.1",
-    "@verdaccio/types": "3.4.2",
+    "@verdaccio/types": "3.7.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
     "babel-jest": "23.4.0",
     "babel-loader": "7.1.5",
+    "babel-plugin-dynamic-import-node": "2.0.0",
     "babel-plugin-flow-runtime": "0.17.0",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-plugin-transform-async-to-generator": "6.24.1",
@@ -77,8 +79,8 @@
     "babel-register": "6.26.0",
     "babel-runtime": "6.26.0",
     "bundlesize": "0.17.0",
-    "cross-env": "5.1.4",
     "codecov": "3.0.4",
+    "cross-env": "5.1.4",
     "css-loader": "0.28.10",
     "element-react": "1.4.8",
     "element-theme-default": "1.4.13",
@@ -86,11 +88,13 @@
     "enzyme-adapter-react-16": "1.1.1",
     "eslint": "5.2.0",
     "eslint-config-google": "0.9.1",
-    "eslint-loader": "2.1.0",
-    "eslint-plugin-babel": "5.1.0",
-    "eslint-plugin-flowtype": "2.50.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-loader": "2.0.0",
+    "eslint-plugin-babel": "4.1.2",
+    "eslint-plugin-flowtype": "2.49.3",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jest": "21.18.0",
+    "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.10.0",
     "file-loader": "1.1.11",
     "flow-bin": "0.77.0",
@@ -112,10 +116,11 @@
     "normalize.css": "8.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.0",
     "ora": "1.4.0",
+    "prettier": "1.14.2",
     "prop-types": "15.6.1",
     "puppeteer": "1.1.1",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
+    "react": "16.4.2",
+    "react-dom": "16.4.2",
     "react-hot-loader": "4.2.0",
     "react-router-dom": "4.2.2",
     "react-syntax-highlighter": "5.8.0",
@@ -185,8 +190,19 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.yaml": [
+      "prettier --parser yaml --no-config --single-quote --write",
+      "git add"
+    ],
+    "*.js": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
   },
   "bundlesize": [
     {

@@ -11,7 +11,7 @@
 #
 
 # path to a directory with all packages
-storage: /verdaccio/storage
+storage: /verdaccio/storage/data
 # path to a directory with plugins to include
 plugins: /verdaccio/plugins
 
@@ -22,10 +22,21 @@ web:
 
 auth:
   htpasswd:
-    file: /verdaccio/conf/htpasswd
+    file: /verdaccio/storage/htpasswd
     # Maximum amount of users allowed to register, defaults to "+infinity".
     # You can set this to -1 to disable registration.
     #max_users: 1000
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 60d
+        notBefore: 1
+  web:
+    sign:
+      expiresIn: 7d
+      notBefore: 1
 
 # a list of other known repositories we can talk to
 uplinks:
@@ -61,5 +72,5 @@ middlewares:
 
 # log settings
 logs:
-  - {type: stdout, format: pretty, level: http}
+  - { type: stdout, format: pretty, level: http }
   #- {type: file, path: verdaccio.log, level: info}

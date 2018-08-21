@@ -1,12 +1,11 @@
 project_identifier_env: CROWDIN_VERDACCIO_PROJECT_ID
 api_key_env: CROWDIN_VERDACCIO_API_KEY
-base_path: "./"
+base_path: './'
 preserve_hierarchy: true
 commit_message: 'docs(website): new translations'
 
 files:
-  -
-    source: '/docs/*.md'
+  - source: '/docs/*.md'
     translation: '/website/translated_docs/%locale%/%original_file_name%'
     languages_mapping: &anchor
       locale:
@@ -44,7 +43,6 @@ files:
         'vi': 'vi'
         'zh-CN': 'zh-CN'
         'zh-TW': 'zh-TW'
-  -
-    source: '/website/i18n/en.json'
+  - source: '/website/i18n/en.json'
     translation: '/website/i18n/%locale%.json'
     languages_mapping: *anchor
