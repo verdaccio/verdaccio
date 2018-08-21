@@ -61,6 +61,31 @@ auth:
     max_users: 1000
 ```
 
+### Security
+
+<small>Since: `verdaccio@4.0.0` due [#168](https://github.com/verdaccio/verdaccio/pull/168)</small>
+
+The security block allows you to customise the token signature. To enable [JWT (json web token)](https://jwt.io/) new signture you need to add the block `jwt` to `api` section,  `web` uses by default `jwt`. 
+
+The configuration is separated in two sections, `api` and `web`. To use JWT on  `api`, it has to be defined, otherwise will use the legacy token signature (`aes192`). For JWT you might customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
+
+```
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 7d # 7 days by default
+     verify:
+     	someProp: [value]
+```
+> We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions. 
+
 ### Web UI
 
 This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).

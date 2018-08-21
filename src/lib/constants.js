@@ -1,7 +1,9 @@
 // @flow
 
-export const DEFAULT_PORT = '4873';
-export const DEFAULT_DOMAIN = 'localhost';
+export const DEFAULT_PORT: string = '4873';
+export const DEFAULT_DOMAIN: string = 'localhost';
+export const TIME_EXPIRATION_24H: string ='24h';
+export const TIME_EXPIRATION_7D: string = '7d';
 
 export const HEADERS = {
   JSON: 'application/json',
@@ -63,6 +65,7 @@ export const API_MESSAGE = {
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
   TAG_ADDED: 'package tagged',
+  LOGGED_OUT: 'Logged out',
 };
 
 export const API_ERROR = {

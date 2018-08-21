@@ -1,0 +1,36 @@
+storage: ./storage
+plugins: ./plugins
+
+web:
+  title: Verdaccio
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 10m
+        notBefore: 0
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+  'vue':
+    access: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+middlewares:
+  audit:
+    enabled: true
+logs:
+  - { type: stdout, format: pretty, level: http }

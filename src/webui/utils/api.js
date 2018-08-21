@@ -10,7 +10,7 @@ class API {
       if (token) {
         if (!options.headers) options.headers = {};
 
-        options.headers.authorization = token;
+        options.headers.authorization = `Bearer ${token}`;
       }
 
       if (!['http://', 'https://', '//'].some((prefix) => url.startsWith(prefix))) {

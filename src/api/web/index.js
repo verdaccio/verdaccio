@@ -3,17 +3,18 @@ import _ from 'lodash';
 import fs from 'fs';
 import Search from '../../lib/search';
 import * as Utils from '../../lib/utils';
-import {WEB_TITLE} from '../../lib/constants';
+import {HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
 
 const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
-const router = express.Router();
 const env = require('../../config/env');
 const template = fs.readFileSync(`${env.DIST_PATH}/index.html`).toString();
 const spliceURL = require('../../utils/string').spliceURL;
 
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
+
+  const router = express.Router();
 
   router.use(auth.webUIJWTmiddleware());
   router.use(securityIframe);
@@ -25,7 +26,7 @@ module.exports = function(config, auth, storage) {
       if (!err) {
         return;
       }
-      if (err.status === 404) {
+      if (err.status === HTTP_STATUS.NOT_FOUND) {
         next();
       } else {
         next(err);
