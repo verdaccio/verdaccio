@@ -28,7 +28,7 @@ hoặc sử dụng `yarn`
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![cài đặt verdaccio](/svg/install_verdaccio.gif)
 
 ## Cách sử dụng cơ bản
 
@@ -44,4 +44,4 @@ warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 
 ## Hình ảnh Docker
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` có hình ảnh docker chính thức có thể được sử dụng và trong hầu hết các trường hợp, kể cả sử dụng với cấu hình mặc định. Để biết thêm chi tiết về cách cài đặt hình ảnh chính thức, vui lòng [đọc phần docker](docker.md).
