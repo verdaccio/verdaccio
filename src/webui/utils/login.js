@@ -1,42 +1,6 @@
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
 import isEmpty from 'lodash/isEmpty';
-import {Base64} from 'js-base64';
 import API from './api';
 import {HEADERS} from '../../lib/constants';
-
-export function isTokenExpire(token) {
-    if (!isString(token)) {
-        return true;
-    }
-
-    let [
-        ,
-        payload
-    ] = token.split('.');
-
-    if (!payload) {
-        return true;
-    }
-
-    try {
-        payload = JSON.parse(Base64.decode(payload));
-    } catch (error) {
-        // eslint-disable-next-line
-        console.error('Invalid token:', error, token);
-        return true;
-    }
-
-    if (!payload.exp || !isNumber(payload.exp)) {
-        return true;
-    }
-    // Report as expire before (real expire time - 30s)
-    const jsTimestamp = (payload.exp * 1000) - 30000;
-    const expired = Date.now() >= jsTimestamp;
-
-    return expired;
-}
-
 
 export async function makeLogin(username, password) {
     // checks isEmpty

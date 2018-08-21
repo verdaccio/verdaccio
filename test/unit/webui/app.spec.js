@@ -4,8 +4,6 @@ import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
 import { API_ERROR } from '../../../src/lib/constants';
 
-import { generateTokenWithTimeRange } from './components/__mocks__/token';
-
 jest.mock('../../../src/webui/utils/storage', () => {
   class LocalStorageMock {
     constructor() {
@@ -56,7 +54,7 @@ describe('App', () => {
   it('isUserAlreadyLoggedIn: token already available in storage', async () => {
 
     storage.setItem('username', 'verdaccio');
-    storage.setItem('token', generateTokenWithTimeRange(24));
+    storage.setItem('token', 'token');
     const { isUserAlreadyLoggedIn } = wrapper.instance();
 
     isUserAlreadyLoggedIn();

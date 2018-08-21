@@ -1,52 +1,10 @@
-import { isTokenExpire, makeLogin } from '../../../../src/webui/utils/login';
-
-import {
-  generateTokenWithTimeRange,
-  generateTokenWithExpirationAsString,
-  generateTokenWithOutExpiration
-} from '../components/__mocks__/token';
+import { makeLogin } from '../../../../src/webui/utils/login';
 
 console.error = jest.fn();
 
 jest.mock('.../../../../src/webui/utils/api', () => ({
   request: require('../components/__mocks__/api').default.request
 }));
-
-describe('isTokenExpire', () => {
-  it('isTokenExpire - token is not present', () => {
-    expect(isTokenExpire()).toBeTruthy();
-  });
-
-  it('isTokenExpire - token is not a valid payload', () => {
-    expect(isTokenExpire('not_a_valid_token')).toBeTruthy();
-  });
-
-  it('isTokenExpire - token should not expire in 24 hrs range', () => {
-    const token = generateTokenWithTimeRange(24);
-    expect(isTokenExpire(token)).toBeFalsy();
-  });
-
-  it('isTokenExpire - token should expire for current time', () => {
-    const token = generateTokenWithTimeRange();
-    expect(isTokenExpire(token)).toBeTruthy();
-  });
-
-  it('isTokenExpire - token expiration is not available', () => {
-    const token = generateTokenWithOutExpiration();
-    expect(isTokenExpire(token)).toBeTruthy();
-  });
-
-  it('isTokenExpire - token is not a valid json token', () => {
-    const token = generateTokenWithExpirationAsString();
-    const result = [
-      'Invalid token:',
-      SyntaxError('Unexpected token o in JSON at position 1'),
-      'xxxxxx.W29iamVjdCBPYmplY3Rd.xxxxxx'
-    ];
-    expect(isTokenExpire(token)).toBeTruthy();
-    expect(console.error).toBeCalledWith(...result);
-  });
-});
 
 describe('makeLogin', () => {
   it('makeLogin - should give error for blank username and password', async () => {
