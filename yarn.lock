@@ -655,11 +655,11 @@ asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
-asciidoctor.js@1.5.6:
-  version "1.5.6"
-  resolved "https://registry.npmjs.org/asciidoctor.js/-/asciidoctor.js-1.5.6.tgz#12f4810c62ea47867da145e819fc93b0674b5431"
+asciidoctor.js@1.5.7-rc.1:
+  version "1.5.7-rc.1"
+  resolved "http://npm-registry.cheggnet.com/asciidoctor.js/-/asciidoctor.js-1.5.7-rc.1.tgz#704f5a923827e0226d313f7ef24489876db56459"
   dependencies:
-    opal-runtime "1.0.3"
+    opal-runtime "1.0.7"
 
 asn1.js@^4.0.0:
   version "4.10.1"
@@ -7085,9 +7085,9 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-opal-runtime@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/opal-runtime/-/opal-runtime-1.0.3.tgz#e81e5c2a2568bbb0b05743b427d035dd901485b7"
+opal-runtime@1.0.7:
+  version "1.0.7"
+  resolved "http://npm-registry.cheggnet.com/opal-runtime/-/opal-runtime-1.0.7.tgz#ef1f0f6ab2b14c0dcceccae0c318c409835b039d"
   dependencies:
     glob "6.0.4"
     xmlhttprequest "1.8.0"
