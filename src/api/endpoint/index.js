@@ -46,7 +46,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   whoami(app);
   pkg(app, auth, storage, config);
   search(app, auth, storage);
-  user(app, auth);
+  user(app, auth, config);
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
   ping(app);

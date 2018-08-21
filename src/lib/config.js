@@ -15,6 +15,7 @@ import {APP_ERROR} from './constants';
 import type {
   PackageList,
   Config as AppConfig,
+  Security,
   Logger,
   } from '@verdaccio/types';
 
@@ -38,6 +39,7 @@ class Config implements AppConfig {
   self_path: string;
   storage: string | void;
   plugins: string | void;
+  security: Security;
   $key: any;
   $value: any;
 

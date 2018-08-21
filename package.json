@@ -32,7 +32,7 @@
     "express": "4.16.3",
     "global": "4.3.2",
     "handlebars": "4.0.11",
-    "http-errors": "1.6.3",
+    "http-errors": "1.7.0",
     "js-base64": "2.4.8",
     "js-string-escape": "1.0.1",
     "js-yaml": "3.12.0",
@@ -54,7 +54,7 @@
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
     "@commitlint/config-conventional": "7.0.1",
-    "@verdaccio/types": "3.4.2",
+    "@verdaccio/types": "3.7.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
@@ -194,7 +194,8 @@
   },
   "lint-staged": {
     "*.yaml": [
-      "prettier --parser yaml --no-config --single-quote --write"
+      "prettier --parser yaml --no-config --single-quote --write",
+      "git add"
     ],
     "*.js": [
       "eslint .",

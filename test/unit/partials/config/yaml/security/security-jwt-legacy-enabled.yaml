@@ -1,0 +1,10 @@
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 7d
+        notBefore: 0
+  web:
+    sign:
+      expiresIn: 7d
