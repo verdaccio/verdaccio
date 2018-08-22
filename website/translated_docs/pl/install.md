@@ -45,3 +45,9 @@ Aby uzyskać więcej informacji o CLI, zapoznaj się z [sekcją cli](cli.md).
 ## Docker Image
 
 `verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+
+## Cloudron
+
+`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+
+[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
