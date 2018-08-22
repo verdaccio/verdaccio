@@ -65,22 +65,22 @@ auth:
 
 #### Cài đặt sử dụng configMap
 
-Deploy the `configMap` to the cluster
+Cài đặt `configMap` trong cụm máy tính
 
 ```bash
 kubectl create configmap verdaccio-config --from-file ./config.yaml
 ```
 
-#### Deploy Verdaccio
+#### Cài đặt sử dụng cấu hình Verdaccio
 
-Now you can deploy the Verdaccio Helm chart and specify which configuration to use:
+Bây giờ bạn có thể cài đặt cấu hình biểu đồ Verdaccio Helm và chỉ định cấu hình nào sẽ sử dụng:
 
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
 ```
 
-## Rancher Support
+## Sữ hữu dụng của Rancher
 
-[Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
+[Rancher](http://rancher.com/) là một nền tảng quản lý vùng chứa hoàn chỉnh giúp dễ dàng quản lý và sử dụng vùng chứa trong khi hoạt động.
 
 * [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)
