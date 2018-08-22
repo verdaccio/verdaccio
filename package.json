@@ -6,6 +6,7 @@
     "name": "Alex Kocharin",
     "email": "alex@kocharin.ru"
   },
+  "homepage": "https://verdaccio.org/",
   "repository": {
     "type": "git",
     "url": "git://github.com/verdaccio/verdaccio"
