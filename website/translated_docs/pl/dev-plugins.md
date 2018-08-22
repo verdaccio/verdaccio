@@ -1,6 +1,6 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Tworzenie wtyczek"
 ---
 There are many ways to extend `verdaccio`, the kind of plugins supported are:
 
@@ -42,7 +42,7 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Uwierzytelnianie zakończone sukcesem.
 
 `groups` is an array of strings where the user is part of.
 
@@ -92,7 +92,7 @@ auth:
 
 Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
 
-## Middleware Plugin
+## Wtyczka oprogramowania pośredniego
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
