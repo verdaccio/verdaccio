@@ -123,7 +123,7 @@ By default the maximum body size for a JSON document is `10mb`, if you run in er
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Port nasłuchu
 
 `verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
