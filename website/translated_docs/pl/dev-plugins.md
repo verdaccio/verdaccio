@@ -34,7 +34,7 @@ Once the authentication has been executed there is 2 options to give a response 
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Gdy coś złego się wydarzy, lub uwierzytelnianie nie powiedzie się.
 
 ```flow
 callback(null, false)
