@@ -63,7 +63,7 @@ auth:
     file: /verdaccio/storage/htpasswd
 ```
 
-#### Deploy the configMap
+#### Cài đặt sử dụng configMap
 
 Deploy the `configMap` to the cluster
 
