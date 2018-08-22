@@ -2,7 +2,7 @@
 id: logger
 title: "Logger"
 ---
-As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+Cũng như bất kỳ ứng dụng web nào, verdaccio có trình ghi nhật ký tích hợp tùy chỉnh. Bạn có thể lựa chọn nhiều loại đầu ra.
 
 ```yaml
 logs:
