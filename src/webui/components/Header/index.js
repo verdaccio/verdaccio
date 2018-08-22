@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button} from 'element-react';
+import Button from '@material-ui/core/Button';
 import capitalize from 'lodash/capitalize';
-import {getRegistryURL} from '../../utils/url';
+import { getRegistryURL } from '../../utils/url';
 import classes from './header.scss';
 import './logo.png';
 
@@ -10,8 +10,8 @@ const Header = ({
   logo = '',
   scope = '',
   username = '',
-  handleLogout = () => {},
-  toggleLoginModal = () => {}
+  handleLogout = () => { },
+  toggleLoginModal = () => { }
 }) => {
   const registryUrl = getRegistryURL();
   return (
@@ -37,20 +37,21 @@ const Header = ({
               </span>
               <Button
                 className={`${classes.headerButton} header-button-logout`}
-                type="danger"
+                color="primary"
                 onClick={handleLogout}
               >
                 Logout
               </Button>
             </div>
           ) : (
-            <Button
-              className={`${classes.headerButton} header-button-login`}
-              onClick={toggleLoginModal}
-            >
-              Login
+              <Button
+                className={`${classes.headerButton} header-button-login`}
+                color="primary"
+                onClick={toggleLoginModal}
+              >
+                Login
             </Button>
-          )}
+            )}
         </div>
       </div>
     </header>

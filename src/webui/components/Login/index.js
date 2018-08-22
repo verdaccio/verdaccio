@@ -1,6 +1,15 @@
-import React, {Component, createRef} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Form, Button, Dialog, Input, Alert} from 'element-react';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import ErrorIcon from '@material-ui/icons/Error';
+
+import classes from "./login.scss";
 
 export default class LoginModal extends Component {
   static propTypes = {
@@ -13,9 +22,9 @@ export default class LoginModal extends Component {
   static defaultProps = {
     visibility: true,
     error: {},
-    onCancel: () => {},
-    onSubmit: () => {}
-  };
+    onCancel: () => { },
+    onSubmit: () => { }
+  }
 
   state = {
     form: {
@@ -49,14 +58,12 @@ export default class LoginModal extends Component {
 
   /**
    * set login modal's username and password to current state
-   * Required by: <LoginModal />
+   * Required to login
    */
-  setCredentials(key, value) {
-    this.setState(
-      (prevState) => ({
-        form: {...prevState.form, [key]: value}
-      })
-    );
+  setCredentials(name, e) {
+    this.setState({
+      [name]: e.target.value
+    });
   }
 
   /**
@@ -69,87 +76,87 @@ export default class LoginModal extends Component {
   submitCredentials(event) {
     // prevents default submit behavior
     event.preventDefault();
-    this.formRef.current.validate((valid) => {
-      if (valid) {
-        const {username, password} = this.state.form;
-        this.props.onSubmit(username, password);
-        this.setState({
-          form: {username}
-        });
-      }
-      return false;
-    });
+
+    const { username, password } = this.state;
+    await this.props.onSubmit(username, password);
+    // let's wait for API response and then set
+    // username and password filed to empty state
+    this.setState({ username: '', password: '' });
   }
 
-  renderLoginError({type, title, description} = {}) {
-    return type ? (
-      <Alert
-        title={title}
-        type={type}
-        description={description}
-        showIcon={true}
-        closable={false}
-        style={{lineHeight: '10px'}}
+  renderLoginError({ type, title, description } = {}) {
+    return type === 'error' && (
+      <SnackbarContent
+        className={classes.loginError}
+        aria-describedby="client-snackbar"
+        message={
+          <div
+            id="client-snackbar"
+            className={classes.loginErrorMsg}
+          >
+            <ErrorIcon className={classes.loginIcon} />
+            <span>
+              <div><strong>{title}</strong></div>
+              <div>{description}</div>
+            </span>
+          </div>
+        }
       />
-    ) : (
-      ''
     );
   }
 
   render() {
-    const {visibility, onCancel, error} = this.props;
-    const {username, password} = this.state.form;
+    const { visibility, onCancel, error } = this.props;
+    const { username, password } = this.state;
     return (
-      <div className="login-dialog">
+      <div className="login">
         <Dialog
-          title="Login"
-          size="tiny"
-          visible={visibility}
-          onCancel={onCancel}
+          onClose={onCancel}
+          open={visibility}
+          maxWidth="xs"
+          aria-labelledby="login-dialog"
+          fullWidth
         >
-          <Dialog.Body>
-            <Form
-              className="login-form"
-              ref={this.formRef}
-              model={this.state.form}
-              rules={this.state.rules}
+          <DialogTitle id="login-dialog">Login</DialogTitle>
+          <DialogContent>
+            {this.renderLoginError(error)}
+            <TextField
+              label="Username"
+              placeholder="Please type your username"
+              defaultValue={username}
+              onChange={this.setCredentials.bind(this, 'username')}
+              fullWidth
+              required
+              autoFocus
+            />
+            <TextField
+              label="Password"
+              type="password"
+              placeholder="Please type your password"
+              defaultValue={password}
+              onChange={this.setCredentials.bind(this, 'password')}
+              fullWidth
+              required
+            />
+          </DialogContent>
+          <DialogActions className="dialog-footer">
+            <Button
+              onClick={onCancel}
+              className="cancel-login-button"
+              color="inherit"
             >
-              <Form.Item>
-                {this.renderLoginError(error)}
-              </Form.Item>
-              <Form.Item prop="username" labelPosition="top">
-                <Input
-                  name="username"
-                  placeholder="Type your username"
-                  value={username}
-                  onChange={this.setCredentials.bind(this, 'username')}
-                />
-              </Form.Item>
-              <Form.Item prop="password">
-                <Input
-                  name="password"
-                  type="password"
-                  placeholder="Type your password"
-                  value={password}
-                  onChange={this.setCredentials.bind(this, 'password')}
-                />
-              </Form.Item>
-              <Form.Item style={{float: 'right'}}>
-                <Button onClick={onCancel} className="cancel-login-button">
-                  Cancel
-                </Button>
-                    <Button
-                      nativeType="submit"
-                      className="login-button"
-                      onClick={this.submitCredentials}
-                    >
-                      Login
-                </Button>
-              </Form.Item>
-            </Form>
-          </Dialog.Body>
+              Cancel
+              </Button>
+            <Button
+              className="login-button"
+              onClick={this.submitCredentials.bind(this)}
+              color="inherit"
+            >
+              Login
+            </Button>
+          </DialogActions>
         </Dialog>
-      </div>
+      </div >
     );
   }
 }

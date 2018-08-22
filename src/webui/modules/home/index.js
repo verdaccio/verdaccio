@@ -1,6 +1,13 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {Loading, MessageBox} from 'element-react';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import ErrorIcon from '@material-ui/icons/Error';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 
@@ -9,13 +16,20 @@ import API from '../../utils/api';
 import PackageList from '../../components/PackageList';
 import Search from '../../components/Search';
 
-export default class Home extends Component {
+import classes from "./home.scss";
+
+class Home extends Component {
   static propTypes = {
     children: PropTypes.element,
     isUserLoggedIn: PropTypes.bool
   };
 
   state = {
+    showAlertDialog: false,
+    alertDialogContent: {
+      title: '',
+      message: ''
+    },
     loading: true,
     fistTime: true,
     query: ''
@@ -24,6 +38,8 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.handleSearchInput = this.handleSearchInput.bind(this);
+    this.handleShowAlertDialog = this.handleShowAlertDialog.bind(this);
+    this.handleCloseAlertDialog = this.handleCloseAlertDialog.bind(this);
     this.searchPackage = debounce(this.searchPackage, 800);
   }
 
@@ -61,8 +77,7 @@ export default class Home extends Component {
         });
       }
     } catch (error) {
-      MessageBox.msgbox({
-        type: 'error',
+      this.handleShowAlertDialog({
         title: 'Warning',
         message: `Unable to load package list: ${error.message}`
       });
@@ -82,13 +97,65 @@ export default class Home extends Component {
         });
       }
     } catch (err) {
-      MessageBox.msgbox({
-        type: 'error',
+      this.handleShowAlertDialog({
         title: 'Warning',
         message: 'Unable to get search result, please try again later.'
       });
     }
   }
+
+  renderAlertDialog() {
+    return (
+      <Dialog
+        open={this.state.showAlertDialog}
+        onClose={this.handleCloseAlertDialog}
+        aria-labelledby="alert-dialog-title"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {this.state.alertDialogContent.title}
+        </DialogTitle>
+        <DialogContent>
+          <SnackbarContent
+            className={classes.alertError}
+            aria-describedby="client-snackbar"
+            message={
+              <div
+                id="client-snackbar"
+                className={classes.alertErrorMsg}
+              >
+                <ErrorIcon className={classes.alertIcon} />
+                <span>
+                  {this.state.alertDialogContent.message}
+                </span>
+              </div>
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={this.handleCloseAlertDialog}
+            color="primary"
+            autoFocus
+          >
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+
+  handleShowAlertDialog(content) {
+    this.setState({
+      showAlertDialog: true,
+      alertDialogContent: content
+    });
+  };
+
+  handleCloseAlertDialog() {
+    this.setState({
+      showAlertDialog: false
+    });
+  };
 
   handleSearchInput(e) {
     this.setState({
@@ -101,15 +168,16 @@ export default class Home extends Component {
   }
 
   render() {
-    const {packages, loading} = this.state;
+    const { packages, loading } = this.state;
     return (
       <Fragment>
         {this.renderSearchBar()}
         {loading ? (
-          <Loading text="Loading..." />
+          <CircularProgress size={50} />
         ) : (
-          <PackageList help={isEmpty(packages) === true} packages={packages} />
-        )}
+            <PackageList help={isEmpty(packages) === true} packages={packages} />
+          )}
+        {this.renderAlertDialog()}
       </Fragment>
     );
   }
@@ -121,3 +189,5 @@ export default class Home extends Component {
     return <Search handleSearchInput={this.handleSearchInput} />;
   }
 }
+
+export default Home;

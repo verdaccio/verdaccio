@@ -6,6 +6,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Package from '../../../../src/webui/components/Package/index';
 import { BrowserRouter } from 'react-router-dom';
+import Chip from '@material-ui/core/Chip';
 
 /**
  * Generates one month back date from current time
@@ -29,14 +30,17 @@ describe('<Package /> component', () => {
     };
     const wrapper = mount(
       <BrowserRouter>
-        <Package {...props}/>
+        <Package {...props} />
       </BrowserRouter>
     );
+
+    const version =
+      wrapper.findWhere(node => node.is(Chip) && node.prop('label') === 'v1.0.0');
 
     // integration expectations
     expect(wrapper.find('a').prop('href')).toEqual('detail/verdaccio');
     expect(wrapper.find('h1').text()).toEqual('verdaccio v1.0.0');
-    expect(wrapper.find('.el-tag--gray').text()).toEqual('v1.0.0');
+    expect(version.exists()).toBe(true);
     expect(
       wrapper.find('div').filterWhere(n => n.prop('role') === 'author')
         .text()
@@ -68,4 +72,3 @@ describe('<Package /> component', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
- 
