@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Loading} from 'element-react';
 import isEmpty from 'lodash/isEmpty';
+import SyntaxHighlighter from './SyntaxHighlighter';
 
 import PackageDetail from '../../components/PackageDetail';
 import NotFound from '../../components/NotFound';
@@ -33,6 +34,7 @@ export default class Detail extends Component {
 
   async componentDidMount() {
     await this.loadPackageInfo(this.packageName);
+    SyntaxHighlighter.highlightAll();
   }
 
   componentDidUpdate(newProps) {
