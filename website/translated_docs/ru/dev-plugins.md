@@ -104,15 +104,15 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Метод предоставляет полный доступ к аутентификации и хранилищу через `auth` и `storage`. `app` это приложение express, которое позволяет добавлять новые обработчики запросов (так называемые endpoint).
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Очень хорошим примером middleware-плагина является [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) и [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
 ```js
 function register_middlewares(expressApp, authInstance, storageInstance) {
-   /* more stuff */
+   /* реализация плагина */
 }
 ```
 
