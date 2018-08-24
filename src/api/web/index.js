@@ -19,28 +19,20 @@ module.exports = function(config, auth, storage) {
   router.use(securityIframe);
 
   // Static
-  router.get('/-/static/:filename', function(req, res, next) {
-    const file = `${env.APP_ROOT}/static/${req.params.filename}`;
-    res.sendFile(file, function(err) {
-      if (!err) {
-        return;
-      }
-      if (err.status === 404) {
-        next();
-      } else {
-        next(err);
-      }
-    });
-  });
+  router.use('/-/static', express.static(`${env.APP_ROOT}/static`));
 
   router.get('/-/verdaccio/logo', function(req, res) {
-    const installPath = _.get(config, 'url_prefix', '');
+    let installPath = _.get(config, 'url_prefix', '');
+    if (_.get(config, 'base_path', '') !== '') {
+      installPath = installPath.replace(/\/$/, '');
+      installPath = installPath + _.get(config, 'base_path', '');
+    }
 
     res.send(_.get(config, 'web.logo') || spliceURL(installPath, '/-/static/logo.png'));
   });
 
   router.get('/', function(req, res) {
-    const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
+    const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix, config.base_path);
     let webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)

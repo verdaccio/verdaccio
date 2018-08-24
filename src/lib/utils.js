@@ -122,7 +122,8 @@ function validate_metadata(object: Package, name: string) {
 function combineBaseUrl(
   protocol: string,
   host: string,
-  prefix?: string
+  prefix?: string,
+  basePath?: string
 ): string {
   let result = `${protocol}://${host}`;
 
@@ -130,6 +131,12 @@ function combineBaseUrl(
     prefix = prefix.replace(/\/$/, '');
 
     result = prefix.indexOf('/') === 0 ? `${result}${prefix}` : prefix;
+  }
+
+  if (basePath) {
+    basePath = basePath.replace(/\/$/, '');
+
+    result = `${result}${basePath}`;
   }
 
   return result;
@@ -150,7 +157,8 @@ export function extractTarballFromUrl(url: string) {
 export function convertDistRemoteToLocalTarballUrls(
   pkg: Package,
   req: $Request,
-  urlPrefix: string | void
+  urlPrefix: string | void,
+  basePath: string | void
 ) {
   for (let ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
@@ -164,7 +172,8 @@ export function convertDistRemoteToLocalTarballUrls(
           distName.tarball,
           pkg.name,
           req,
-          urlPrefix
+          urlPrefix,
+          basePath
         );
       }
     }
@@ -181,7 +190,8 @@ export function getLocalRegistryTarballUri(
   uri: string,
   pkgName: string,
   req: $Request,
-  urlPrefix: string | void
+  urlPrefix: string | void,
+  basePath: string | void
 ) {
   const currentHost = req.headers.host;
 
@@ -192,7 +202,8 @@ export function getLocalRegistryTarballUri(
   const domainRegistry = combineBaseUrl(
     getWebProtocol(req),
     req.headers.host,
-    urlPrefix
+    urlPrefix,
+    basePath
   );
 
   return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;

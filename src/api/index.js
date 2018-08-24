@@ -47,7 +47,11 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   app.use(Cats.middleware);
   app.use(compression());
 
-  app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+
+  /* eslint new-cap:off */
+  const internalApp = express.Router();
+
+  internalApp.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     req.url = '/-/static/favicon.png';
     next();
   });
@@ -69,23 +73,30 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
     plugin.register_middlewares(app, auth, storage);
   });
 
+  /* Router section */
+
   // For  npm request
-  app.use(apiEndpoint(config, auth, storage));
+  internalApp.use(apiEndpoint(config, auth, storage));
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use('/', require('./web')(config, auth, storage));
-    app.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
+    internalApp.use('/', require('./web')(config, auth, storage));
+    internalApp.use('/-/verdaccio/', require('./web/api')(config, auth, storage));
   } else {
-    app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    internalApp.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
+
+  const basePath = _.get(config, 'base_path', '/');
+
+  app.use(basePath, internalApp);
 
   // Catch 404
   app.get('/*', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
+  /* EO Router section */
 
   app.use(function(err, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {

@@ -16,7 +16,8 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
       if (err) {
         return next(err);
       }
-      metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix);
+      // $FlowFixMe
+      metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix, config.base_path);
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {
