@@ -3,7 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import configDefault from '../partials/config/index';
+import configDefault from '../partials/config/config_basepath';
 import publishMetadata from '../partials/publish-api';
 import forbiddenPlace from '../partials/forbidden-place';
 import Config from '../../../src/lib/config';
@@ -24,13 +24,13 @@ describe('endpoint unit test', () => {
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/test-storage');
-    const mockServerPort = 55549;
+    const store = path.join(__dirname, '../partials/store/test-storage-base');
+    const mockServerPort = 55554;
     rimraf(store, async () => {
       const configForTest = _.clone(configDefault);
       configForTest.auth = {
         htpasswd: {
-          file: './test-storage/.htpasswd'
+          file: './test-storage-base/.htpasswd'
         }
       };
       configForTest.uplinks = {
