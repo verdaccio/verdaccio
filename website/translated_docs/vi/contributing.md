@@ -30,11 +30,11 @@ Thời gian gần đây, chúng tôi đã chuyển sang các công nghệ hiện
 
 ### Việc nâng cấp ngăn xếp sẽ giúp tôi cảm thấy thoải mái hơn
 
-Tất nhiên, chúng tôi sẽ vui lòng giúp bạn sắp xếp ngăn xếp và bạn có thể nâng cấp các dependency của mình lên `eslint `, `stylelint`, `webpack`. Bạn cũng nên nâng cấp cấu hình `webpack`. Chúng tôi hoan nghênh mọi ý kiến đóng góp của các bạn. Ngoài ra, nếu bạn có trải nghiệm với công cụ tạo khung **Yeoman**, bạn có thể giúp chúng tôi nâng cấp [verdaccio generator ](https://github.com/verdaccio/generator-verdaccio-plugin).
+Tất nhiên, chúng tôi sẽ vui lòng giúp bạn sắp xếp ngăn xếp và bạn có thể nâng cấp các gói phụ thuộc của mình lên `eslint `, `stylelint`, `webpack`. Bạn cũng nên nâng cấp cấu hình `webpack`. Chúng tôi hoan nghênh mọi ý kiến đóng góp của các bạn. Ngoài ra, nếu bạn có trải nghiệm với công cụ tạo khung **Yeoman**, bạn có thể giúp chúng tôi nâng cấp [verdaccio generator ](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Dưới đây là một số ý tưởng:
 
-* Tạo quy tắc chung Eslint để sử dụng trong tất cả các dependency hoặc plugin
+* Tạo quy tắc chung Eslint để sử dụng trong tất cả các gói phụ thuộc hoặc những phần mềm bổ trợ
 * Cải thiện việc phân phối các loại quy trình xác định
 * Di chuyển sang Webpack 4
 * Nâng cấp mức độ thành phần của Webpack
@@ -53,7 +53,7 @@ Trang web của chúng tôi dựa trên [Docusaurus](https://docusaurus.io/).
 
 ### Tôi là một DevOps
 
-Chúng tôi có một hình ảnh Docker được sử dụng rộng rãi [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/), nó cần được bảo trì và có thể cần được nâng cấp khá nhiều, chúng tôi cần kiến ​​thức của bạn để mang lại lợi ích cho tất cả người dùng.
+Chúng tôi có một hình ảnh Docker được sử dụng rộng rãi trên [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/), hình ảnh này cần được bảo trì và có thể cần được nâng cấp khá nhiều, chúng tôi cần kiến ​​thức của bạn để mang lại lợi ích cho tất cả người dùng.
 
 Chúng tôi hỗ trợ phần ** Kubernetes**, **Puppet **, **Ansible** và **Chef**, và cần sự đóng góp của các bạn ở những nội dung này, vui lòng kiểm tra tất cả kho tài nguyên.
 

@@ -6,7 +6,7 @@ title: Docker
   ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 </div>
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+Để tải [hình ảnh docker mới nhất](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 ```bash
 docker pull verdaccio/verdaccio
@@ -14,49 +14,48 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## Những phiên bản thẻ
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+Bắt đầu với phiên bản `v2.x`, bạn có thể tải những hình ảnh này qua [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), cụ thể như sau:
 
-For a major version:
+Đối với phiên bản chính:
 
 ```bash
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+Đối với phiên bản phụ:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+Đối với một phiên bản (bản vá) cụ thể:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+Phiên bản chính tiếp theo sẽ sử dụng bản `beta</​​code> (master branch).</p>
 
-```bash
-docker pull verdaccio/verdaccio:beta
-```
+<pre><code class="bash">docker pull verdaccio/verdaccio:beta
+`</pre> 
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Nếu bạn quan tâm đến danh sách thẻ, hãy [truy cập trang web Docker](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-## Running verdaccio using Docker
+## Sử dụng Docker để chạy verdaccio
 
-To run the docker container:
+Để chạy vùng chứa docker hãy chạy mã:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+Tham số cuối cùng sẽ xác định hình ảnh nào cần được sử dụng. Nếu bạn chưa thử, mã trên sẽ giúp bạn tải hình ảnh mới nhất được tạo trước từ ​​dockerhub.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Khi bạn muốn tạo [một bản sao cục bộ](#build-your-own-docker-image) hãy dùng `verdaccio` làm tham số cuối cùng.
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+Bạn có thể sử dụng `-v` để liên kết với `conf`, `storage` và `plugins` với hệ thống tệp host:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -66,21 +65,21 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Lưu ý: Verdaccio chạy như một tài khoản non-root (uid = 100, gid = 101) bên trong vùng chứa. Nếu bạn sử dụng cài đặt bind để ghi đè lên các thiết lập mặc định, bạn cần đảm bảo thư mục cài đặt tương thích với tài khoản. Trong ví dụ trên, bạn sẽ chạy `sudo chown -R 100: 101/opt /verdaccio`, nếu không bạn sẽ nhận được cảnh báo lỗi quyền truy cập khi sử dụng. Chúng tôi khuyên bạn nên [ sử dụng khối lượng docker](https://docs.docker.com/storage/volumes/) thay vì cài đặt bắt buộc.
 
-### Plugins
+### Những phần mềm bổ trợ
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+Những phần mềm bổ trợ có thể được cài đặt trong một thư mục riêng biệt và được gắn với Docker hoặc Kubernetes, tuy nhiên, bạn nên đảm bảo việc tạo các phần mềm bổ trợ bằng cách sử dụng các phụ thuộc cục bộ của cùng một dữ liệu hình ảnh như Verdaccio Dockerfile.
 
-### Docker and custom port configuration
+### Docker và cấu hình cổng tùy chỉnh
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Bất kỳ một `host: port` nào sử dụng cấu hình trong `conf / config.yaml` ở `listen` sẽ bị bỏ qua khi sử dụng docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Nếu bạn muốn có bản sao của verdaccio docker trên một cổng khác, chẳng hạn như `5000` trong lệnh `docker run`, bạn cần thay thế `-p 4873: 4873` bằng `-p 5000: 4873`.
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+Bắt đầu từ phiên bản 2.?.? sẽ cho phép bạn chỉ định cổng nghe trong **docker container**. bạn có thể thực hiện thao tác này bằng cách cung cấp các tham số bổ sung cho `docker run`: `--env ​​PORT=5000 `. Điều này sẽ thay đổi cổng được hiển thị bởi vùng chứa docker và cổng mà verdaccio sử dụng.
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+Tất nhiên, những tham số `-p` bạn cung cấp phải khớp, vì vậy nếu bạn muốn tất cả chúng giống nhau, bạn chỉ cần sao chép, dán và sử dụng:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -88,9 +87,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### Sử dụng HTTPS trong Docker
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Bạn có thể cài đặt cấu hình giao thức tương tự như cấu hình cổng mà verdaccio sẽ sử dụng. Sau khi bạn xác định certificate trong config.yaml, bạn phải ghi đè giá trị mặc định ("http") trong biến môi trường ` PROTOCOL ` bằng "https".
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,18 +97,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Sử dụng docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Tải phiên bản mới nhất của [docker-compose](https://github.com/docker/compose).
+2. Tạo và chạy vùng chứa:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Sử dụng `PORT=5000` làm tiền tố cho lệnh trên nhằm cài đặt cổng để sử dụng (cả vùng chứa và máy chủ lưu trữ).
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker sẽ tạo ra một ổ đĩa có tên là lưu trữ dữ liệu ứng dụng liên tục. Bạn có thể sử dụng `docker inspect` hoặc `docker volume inspect` để xác định vị trí thực của ổ đĩa này và chỉnh sửa cấu hình, ví dụ như:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -124,35 +123,35 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## Tạo hình ảnh Docker của riêng bạn
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Ngoài ra còn có một script npm để tạo ra một hình ảnh docker, vì vậy bạn cũng có thể làm như sau:
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Xin lưu ý rằng việc tạo hình ảnh đầu tiên mất vài phút vì nó cần phải chạy `npm install` và khi bạn thay đổi bất cứ điều gì vào bất kỳ lúc nào và không được liệt kê trong `.dockerignore` thì sẽ mất một thời gian dài để chạy các tập tin này.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Nếu bạn muốn sử dụng hình ảnh docker trên một thiết bị rpi hoặc một thiết bị tương thích khác thì cũng cần một dockerfile được tạo sẵn trước đó. Để tạo một hình ảnh docker của Raspberry Pi, bạn cần thực hiện như sau:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Lưu ý rằng bạn cần phải cài đặt docker trên máy của bạn để thực hiện bất kỳ lệnh docker nào ở trên, docker executable phải nằm trong `$PATH` của bạn.
 
-## Docker Examples
+## Ví dụ Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Có một kho lưu trữ riêng biệt lưu nhiều cấu hình để tạo hình ảnh Docker với `verdaccio`, ví dụ như đối với reverse proxy:
 
 <https://github.com/verdaccio/docker-examples>
 
-## Docker Custom Builds
+## Tạo tùy chỉnh Docker
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)

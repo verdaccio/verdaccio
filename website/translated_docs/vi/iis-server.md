@@ -1,31 +1,31 @@
 ---
 id: iss-server
-title: "Installing on IIS server"
+title: "Cài đặt trên máy chủ IIS"
 ---
-These instructions were written for Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) and [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
+Những hướng dẫn này dành cho Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) và [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
 
-- Install IIS Install [iisnode](https://github.com/tjanczuk/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
-- Create a new folder in Explorer where you want to host verdaccio. For example `C:\verdaccio`. Save [package.json](#packagejson), [start.js](#startjs) and [web.config](#webconfig) in this folder.
-- Create a new site in Internet Information Services Manager. You can name it whatever you want. I'll call it verdaccio in these [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Specify the path to where you saved all files and a port number.
-- Go back to Explorer and give the user that runs the application pool modify rights to the folder you just created. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
-- Start a command prompt and execute the commands below to download verdaccio:
+- Khi muốn cài đặt IIS bạn cần chạy [iisnode](https://github.com/tjanczuk/iisnode). Bạn cần chắc chắn mình tuân thủ các điều kiện cần thiết trong việc cài đặt (Mô-đun Rewrite Rewrite & node) như được mô tả trong các hướng dẫn iisnode.
+- Bạn hãy tạo một thư mục mới trong Explorer để lưu trữ verdaccio. Ví dụ: `C:\verdaccio`. Lưu [package.json](#packagejson), [start.js](#startjs) và [web.config](#webconfig) vào thư mục này.
+- Tạo một trang mới trong Trình quản lý dịch vụ thông tin Internet. Hãy đặt tên cho thư mục theo ý thích của bạn. Tôi sẽ gọi là verdaccio như trong [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities) này. Xác định đường dẫn để lưu tất cả các tệp và số cổng.
+- Trở lại Explorer và cấp quyền cho người dùng sử dụng nhóm ứng dụng trong thư mục bạn vừa tạo. Trong trường hợp bạn đã đặt tên trang này là verdaccio và chưa sửa đổi nhóm ứng dụng, đồng thời trang đang chạy ứng dụng ApplicationPoolIdentity, bạn nên cấp cho người dùng quyền sửa đổi IIS AppPool\verdaccio. Nếu bạn cần trợ giúp, vui lòng tham khảo hướng dẫn. (Nếu cần, bạn có thể hạn chế quyền truy cập trong tương lai, chỉ cho phép quyền sửa đổi trong iisnode và verdaccio\storage)
+- Bắt đầu dòng lệnh và thực hiện lệnh sau để tải verdaccio:
 
     cd c:\verdaccio
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- Hãy chắc chắn bạn có yêu cầu gửi đến rằng chấp nhận lưu lượng truy cập TCP vào cổng tường lửa của Windows
+- Sau đấy bạn có thể điều hướng đến máy chủ và cổng mà bạn chỉ định
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Tôi muốn trang web `verdaccio` trở thành trang mặc định trong IIS, vì vậy tôi đã làm như sau:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Tôi chắc chắn sổ đăng ký cho tệp .npmrc trong `c:\users{yourname}` được đặt thành `"registry= http: // localhost /"`
+- Tôi đã hủy bỏ "trang web mặc định" và chỉ bắt đầu trang "verdaccio" trong IIS
+- Tôi cài đặt các binding thành "http" và địa chỉ Ip là "All Unassigned" ở cổng 80, nhấp vào ok cho bất kỳ cảnh báo hoặc lời nhắc nào
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Những nguyên tắc này dựa trên [ Host Sinopia trong IIS trên Windows ](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tôi phải điều chỉnh cấu hình trang web của mình như sau, tuy nhiên bạn có thể nhận thấy cấu hình ban đầu trong liên kết được đề cập ở trên hoạt động tốt hơn
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Tệp cấu hình mặc định `c:\verdaccio\verdaccio\config.yaml` sẽ được tạo
 
 ### package.json
 
@@ -97,7 +97,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### Khắc phục sự cố
 
-- **The web interface does not load when hosted with https as it tries to download scripts over http.**  
-    Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
+- **Không thể tải giao diện web được lưu trữ trên https vì web luôn tải tập lệnh từ http.**  
+    Hãy đảm bảo việc bạn nhập `url_prefix` chính xác trong cấu hình verdaccio. Vui lòng vào [discussion](https://github.com/verdaccio/verdaccio/issues/622) để cùng thảo luận.

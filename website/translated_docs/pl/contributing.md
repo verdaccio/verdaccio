@@ -65,7 +65,7 @@ Verdaccio chce być wielojęzyczny, w tym celu **mamy niesamowitą pomoc** ze st
 
 We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Przejdź do Verdaccio na platformie Crowdin](https://crowdin.com/project/verdaccio)
 
 ## Jestem gotowy do współtworzenia
 

@@ -45,3 +45,9 @@ warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ## Docker 镜像
 
 `verdaccio` 有官方docker镜像可以使用，而且在大多数情况下，默认配置已经够好。 更多关于如何安装官方镜像的详细信息，请[阅读docker章节](docker.md)。
+
+## Cloudron
+
+`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+
+[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
