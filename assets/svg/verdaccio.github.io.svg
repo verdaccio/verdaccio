@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="960px" height="561px" viewBox="0 0 960 561" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>verdaccio.github.io</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="960" height="369"></rect>
+        <filter x="-0.7%" y="-2.0%" width="101.4%" height="103.5%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="-1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0744168931 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-4" points="96 34.2 65.6 95 48 95 0.8 0.6 31.2 0.6 56.8 51.8 65.6 34.2 96 34.2"></polygon>
+        <filter x="-20.0%" y="-11.7%" width="139.9%" height="140.3%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0906646286 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-6" points="101.6 23 71.2 23 82.4 0.6 112.8 0.6 101.6 23"></polygon>
+        <filter x="-45.7%" y="-49.1%" width="191.3%" height="269.6%" filterUnits="objectBoundingBox" id="filter-7">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0906646286 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="verdaccio.github.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#FFFFFF" x="0" y="0" width="960" height="561"></rect>
+        <g id="Group-5">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+                <use fill="#F7F8F6" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="Group" opacity="0.417346014" mask="url(#mask-2)" fill="#4A5E3F">
+                <g transform="translate(740.694191, 349.064745) rotate(-35.000000) translate(-740.694191, -349.064745) translate(400.694191, 64.564745)" id="Combined-Shape">
+                    <polygon fill-opacity="0.141332654" points="580.60076 202.388704 395.198837 568.615882 287.860881 568.615882 0 0 185.401923 6.84789635e-14 341.529859 308.401834 395.198837 202.388704 580.60076 202.388704"></polygon>
+                    <path d="M426.889943,133.165312 L339.571545,133.165312 L339.571545,104.629888 L441.443009,104.629888 L455.996075,76.094464 L388.081766,76.094464 L388.081766,47.55904 L470.549142,47.55904 L480.251186,28.535424 L436.591987,28.535424 L436.591987,0 L494.804252,0 L679.143091,0 L611.228782,133.165312 L426.889943,133.165312 Z" fill-opacity="0.233978714"></path>
+                    <polygon fill-opacity="0.113988904" points="396.562186 568.615882 288.853938 568.615882 0 0 186.041519 0 435.45057 492.609383"></polygon>
+                </g>
+            </g>
+            <g id="Group-Copy" opacity="0.417346014" mask="url(#mask-2)" fill="#4A5E3F">
+                <g transform="translate(180.322830, 94.008655) rotate(-35.000000) translate(-180.322830, -94.008655) translate(-79.177170, -123.491345)" id="Combined-Shape">
+                    <polygon fill-opacity="0.141332654" points="443.271172 154.517672 301.722394 434.121079 219.773102 434.121079 0 0 141.548778 5.22816235e-14 260.747748 235.4555 301.722394 154.517672 443.271172 154.517672"></polygon>
+                    <polygon fill-opacity="0.113988904" points="302.76327 434.121079 220.531271 434.121079 0 0 142.03709 0 332.453379 376.092409"></polygon>
+                </g>
+            </g>
+            <g id="Group-Copy" opacity="0.417346014" mask="url(#mask-2)" fill="#4A5E3F">
+                <g transform="translate(119.506397, 347.831732) rotate(-90.000000) translate(-119.506397, -347.831732) translate(3.006397, 250.331732)" id="Combined-Shape">
+                    <polygon fill-opacity="0.141332654" points="198.951506 69.3515067 135.420773 194.844709 98.6398225 194.844709 0 0 63.5307331 2.34653377e-14 117.030298 105.678486 135.420773 69.3515067 198.951506 69.3515067"></polygon>
+                    <path d="M146.280203,45.6310794 L116.359253,45.6310794 L116.359253,35.852991 L151.267028,35.852991 L156.253853,26.0749025 L132.982003,26.0749025 L132.982003,16.2968141 L161.240679,16.2968141 L164.565229,9.77808845 L149.604753,9.77808845 L149.604753,0 L169.552054,0 L232.718505,0 L209.446655,45.6310794 L146.280203,45.6310794 Z" fill-opacity="0.233978714"></path>
+                    <polygon fill-opacity="0.113988904" points="135.887945 194.844709 98.9801083 194.844709 0 0 63.7499002 0 149.21363 168.799949"></polygon>
+                </g>
+            </g>
+        </g>
+        <text id="Lightweight-private" font-family=".SFNSDisplay, .SF NS Display" font-size="24" font-weight="normal" fill="#405236">
+            <tspan x="265" y="478">Lightweight private npm proxy registry</tspan>
+        </text>
+        <g id="Verdaccio-Copy-2" transform="translate(380.000000, 114.000000)">
+            <rect id="BG" fill="#FFFFFF" x="0" y="0" width="200" height="200" rx="74"></rect>
+            <g id="Group" transform="translate(44.000000, 59.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                    <path stroke="#405236" stroke-width="4.8" d="M92.1167184,36.6 L67.0832816,36.6 L56.8,57.1665631 L29.7167184,3 L4.68328157,3 L49.4832816,92.6 L64.1167184,92.6 L92.1167184,36.6 Z" stroke-linejoin="square" fill="#405236" fill-rule="evenodd"></path>
+                </g>
+                <g id="Path">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                    <path stroke="#CD4000" stroke-width="4.8" d="M100.116718,20.6 L108.916718,3 L83.8832816,3 L75.0832816,20.6 L100.116718,20.6 Z" stroke-linejoin="square" fill="#CD4000" fill-rule="evenodd"></path>
+                </g>
+                <path d="M64.1214744,92.6 L69.2702249,82.3759732 L29.7145053,3 L4.68328157,3 L49.4832816,92.6 L64.1214744,92.6 Z" id="Combined-Shape" stroke="#405236" stroke-width="4.8" fill="#4A5E3F"></path>
+                <path d="M75.2,3 L105.642076,3" id="Line-3" stroke="#CD4000" stroke-width="4.8" stroke-linecap="square"></path>
+                <path d="M67.2,11 L97.6420761,11" id="Line-3" stroke="#CD4000" stroke-width="4.8" stroke-linecap="square"></path>
+                <path d="M59.2,20.6 L89.6420761,20.6" id="Line-3" stroke="#CD4000" stroke-width="4.8" stroke-linecap="square"></path>
+            </g>
+        </g>
+        <g id="Group-3" transform="translate(749.000000, 20.000000)">
+            <rect id="Rectangle-2-Copy" fill="#FFFFFF" x="0" y="0" width="191" height="44" rx="22"></rect>
+            <text id="Documentation" font-family="OpenSans-Semibold, Open Sans" font-size="22" font-weight="500" fill="#405236">
+                <tspan x="13" y="30">Documentation</tspan>
+            </text>
+        </g>
+        <g id="Group-2" transform="translate(590.000000, 20.000000)">
+            <rect id="Rectangle-2" fill="#000000" x="0" y="0" width="139" height="44" rx="22"></rect>
+            <path d="M22.288,6 C13.294,6 6,13.293 6,22.29 C6,29.487 10.667,35.592 17.14,37.746 C17.955,37.896 18.252,37.393 18.252,36.961 C18.252,36.574 18.238,35.55 18.23,34.191 C13.699,35.175 12.743,32.007 12.743,32.007 C12.002,30.125 10.934,29.624 10.934,29.624 C9.455,28.614 11.046,28.634 11.046,28.634 C12.681,28.749 13.541,30.313 13.541,30.313 C14.994,32.802 17.354,32.083 18.282,31.666 C18.43,30.614 18.851,29.896 19.316,29.489 C15.699,29.078 11.896,27.68 11.896,21.438 C11.896,19.66 12.531,18.205 13.573,17.067 C13.405,16.655 12.846,14.998 13.733,12.756 C13.733,12.756 15.1,12.318 18.212,14.426 C19.511,14.064 20.905,13.884 22.29,13.877 C23.674,13.884 25.067,14.064 26.368,14.426 C29.478,12.318 30.843,12.756 30.843,12.756 C31.732,14.998 31.173,16.655 31.006,17.067 C32.05,18.205 32.68,19.66 32.68,21.438 C32.68,27.696 28.871,29.073 25.243,29.476 C25.827,29.979 26.348,30.973 26.348,32.492 C26.348,34.67 26.328,36.427 26.328,36.961 C26.328,37.397 26.622,37.904 27.448,37.745 C33.916,35.586 38.579,29.485 38.579,22.29 C38.579,13.293 31.285,6 22.288,6" id="Fill-50" fill="#FFFFFE"></path>
+            <text id="GitHub" font-family="OpenSans-Semibold, Open Sans" font-size="22" font-weight="500" fill="#FFFFFF">
+                <tspan x="51" y="30">GitHub</tspan>
+            </text>
+            <path d="M45.5,17.5 L45.5,28.6803399" id="Line" stroke="#FFFFFF" stroke-width="2" opacity="0.546761775" stroke-linecap="square"></path>
+        </g>
+        <g id="Group-4" transform="translate(393.000000, 392.000000)" fill="#405236" font-family="OpenSansLight-Italic, Open Sans" font-size="42.4" font-style="italic" font-weight="300">
+            <text id="Verdaccio">
+                <tspan x="0.41640625" y="45">Verdaccio</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

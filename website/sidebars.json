@@ -3,7 +3,8 @@
     "Introduction": [
       "what-is-verdaccio",
       "installation",
-      "cli"
+      "cli",
+      "logo"
     ],
     "Configuration": [
       "configuration",

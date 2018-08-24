@@ -74,9 +74,9 @@ const siteConfig = {
   ],
   users,
   team,
-  headerIcon: 'img/verdaccio-tiny.png',
-  footerIcon: 'img/verdaccio-blackwhite.png',
-  favicon: 'img/favicon.ico',
+  headerIcon: 'img/logo/symbol/svg/verdaccio-tiny.svg',
+  footerIcon: 'img/logo/symbol/svg/verdaccio-blackwhite.svg',
+  favicon: 'img/favicon/favicon.ico',
   colors: {
     primaryColor: '#4B5E40',
     secondaryColor: '#205C3B',
