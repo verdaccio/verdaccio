@@ -9,7 +9,7 @@ won the [contest](https://github.com/verdaccio/verdaccio/issues/237)
 
 > All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs). 
 
-Special thanks to *[https://github.com/Lisapressmar](https://github.com/Lisapressmar)* for her contribution 
+Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution 
 with multiple image formats and sizes.
 
 ## Symbols
