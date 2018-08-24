@@ -19,7 +19,7 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### Anonimowa publikacja
 
 `verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
 
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Typ    | Wymagane | Przykład   | Wsparcie  | Opis                                     |
-| --------- | ------ | -------- | ---------- | --------- | ---------------------------------------- |
-| plik      | string | Tak      | ./htpasswd | wszystkie | file that host the encrypted credentials |
-| max_users | numer  | Nie      | 1000       | all       | ustaw limit użytkowników                 |
+| Właściwość | Typ    | Wymagane | Przykład   | Wsparcie  | Opis                                     |
+| ---------- | ------ | -------- | ---------- | --------- | ---------------------------------------- |
+| plik       | string | Tak      | ./htpasswd | wszystkie | file that host the encrypted credentials |
+| max_users  | numer  | Nie      | 1000       | all       | ustaw limit użytkowników                 |
 
 W przypadku, gdy będziesz chciał wyłączyć możliwość zalogowania się, ustaw `max_users: -1`.
