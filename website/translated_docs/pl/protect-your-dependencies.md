@@ -6,7 +6,7 @@ title: "Protecting packages"
 
 ### Package configuration
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+Zobaczmy dla przykładu następującą konfigurację. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
 
 ```yaml
   'my-company-*':

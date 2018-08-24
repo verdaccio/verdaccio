@@ -49,6 +49,15 @@ class Footer extends React.Component {
               }>
               Configuration
             </a>
+            <a
+              href={
+                this.props.config.baseUrl +
+                'docs/' +
+                this.props.language +
+                '/logo'
+              }>
+              Logos
+            </a>
           </div>
           <div>
             <h5>Community</h5>

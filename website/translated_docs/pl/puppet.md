@@ -13,7 +13,7 @@ There are two variants to install verdaccio using this Puppet module:
 
 In both variants you have to explicitely call "class nodejs {}" in your puppet script because the puppet-verdaccio module only defines this as a requirement, so you have all the flexibility you want when installing nodejs. Scroll down for details about Master-Agent-mode variant.
 
-For further information:
+Więcej informacji znajdziesz:
 
 <https://github.com/verdaccio/puppet-verdaccio>
 

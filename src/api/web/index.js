@@ -21,7 +21,7 @@ module.exports = function(config, auth, storage) {
 
   // Static
   router.get('/-/static/:filename', function(req, res, next) {
-    const file = `${env.APP_ROOT}/static/${req.params.filename}`;
+    const file = `${env.DIST_PATH}/${req.params.filename}`;
     res.sendFile(file, function(err) {
       if (!err) {
         return;
