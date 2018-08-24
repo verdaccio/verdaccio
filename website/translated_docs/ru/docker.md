@@ -3,10 +3,10 @@ id: docker
 title: Docker
 ---
 <div class="docker-count">
-  ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
+  ![alt Количество скачиваний](http://dockeri.co/image/verdaccio/verdaccio "Количество скачиваний")
 </div>
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+Для скачивания последней версии [Docker образа](https://hub.docker.com/r/verdaccio/verdaccio/):
 
 ```bash
 docker pull verdaccio/verdaccio
@@ -14,29 +14,29 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## Версии с меткой
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+Начиная с версии `v2.x` вы можете скачать Docker образ [тег](https://hub.docker.com/r/verdaccio/verdaccio/tags/), так:
 
-For a major version:
+Для базовых версий:
 
 ```bash
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+Для минорной версии:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+Конкретная версия (патч):
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+Следующая базовая версия, при помощи тега `beta` (ветка master).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
