@@ -1,4 +1,5 @@
 import storage from './storage';
+import {HTTP_STATUS} from '../../../src/lib/constants';
 
 class API {
   request(url, method = 'GET', options = {}) {
@@ -8,7 +9,9 @@ class API {
 
     const token = storage.getItem('token');
     if (token) {
-      if (!options.headers) options.headers = {};
+      if (!options.headers) {
+        options.headers = {};
+      }
 
         options.headers.authorization = `Bearer ${token}`;
       }
@@ -45,7 +48,7 @@ class API {
         ...options
       })
         .then(function checkAuth(response) {
-          if (response.status === 401) {
+          if (response.status === HTTP_STATUS.UNAUTHORIZED) {
             storage.removeItem('token');
             storage.removeItem('username');
           }

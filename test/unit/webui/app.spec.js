@@ -34,6 +34,8 @@ describe('App', () => {
 
   beforeEach(() => {
     wrapper = mount(<App />);
+    storage.removeItem('username');
+    storage.removeItem('token');
   });
   it('loadLogo: set logo url in state', async () => {
     const { loadLogo } = wrapper.instance();
@@ -52,15 +54,20 @@ describe('App', () => {
   });
 
   it('isUserAlreadyLoggedIn: token already available in storage', async () => {
-
     storage.setItem('username', 'verdaccio');
-    storage.setItem('token', 'token');
+    storage.setItem('token', 'TEST_TOKEN');
     const { isUserAlreadyLoggedIn } = wrapper.instance();
-
+    const result = {token: 'TEST_TOKEN', username: 'verdaccio'};
     isUserAlreadyLoggedIn();
-
-    expect(wrapper.state('user').username).toEqual('verdaccio');
+    expect(wrapper.state('user')).toEqual(result);
   });
+
+  it('isUserAlreadyLoggedIn: token not available in storage', async () => {
+    const { isUserAlreadyLoggedIn } = wrapper.instance();
+    isUserAlreadyLoggedIn();
+    expect(wrapper.state('user')).toEqual({});
+  });
+
 
   it('handleLogout - logouts the user and clear localstorage', async () => {
     const { handleLogout } = wrapper.instance();
@@ -89,9 +96,8 @@ describe('App', () => {
   it('doLogin - authentication failure', async () => {
     const { doLogin } = wrapper.instance();
     await doLogin('sam', '12345');
-    console.log(API_ERROR.BAD_USERNAME_PASSWORD);
     const result = {
-      description: 'bad username/password, access denied',
+      description: API_ERROR.BAD_USERNAME_PASSWORD,
       title: 'Unable to login',
       type: 'error'
     };
