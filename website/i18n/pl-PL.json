@@ -9,7 +9,7 @@
     "build": "Build the source code",
     "chef": "Chef Cookbook",
     "ci": "Continuous Integration",
-    "cli": "Command Line Tool",
+    "cli": "Narzędzie wiersza poleceń",
     "configuration": "Plik konfiguracyjny",
     "contributing": "Contributing Verdaccio",
     "dev-plugins": "Tworzenie wtyczek",
