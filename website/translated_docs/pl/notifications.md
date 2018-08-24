@@ -41,7 +41,7 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## Szablon
 
 We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 
@@ -54,9 +54,9 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Właściwości
 
-List of properties accesible via template
+Lista właściwości dostępnych poprzez szablon
 
 * Metadata
 * Publisher (who is publishing)

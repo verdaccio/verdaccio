@@ -1,16 +1,16 @@
 ---
 id: dev-plugins
-title: "Phát triển các plugin"
+title: "Phát triển các phần mềm bổ trợ"
 ---
-Có nhiều cách để mở rộng `verdaccio`. Các loại plugin được hỗ trợ là:
+Có nhiều cách để mở rộng `verdaccio`. Các loại phần mềm bổ trợ là:
 
-* Những plugin xác minh
-* Plugin Middleware (kể từ phiên bản `v2.7.0`)
-* Plugin lưu trữ từ phiên bản (` v3.x `)
+* Những phần mềm bổ trợ xác minh
+* Phần mềm bổ trợ Middleware (kể từ phiên bản `v2.7.0`)
+* Phần mềm bổ trợ lưu trữ từ phiên bản (` v3.x `)
 
-> Chúng tôi khuyên bạn nên phát triển plugin bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
+> Chúng tôi khuyên bạn nên phát triển phần mềm bổ trợ bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
 
-## Plugin xác minh
+## Phần mềm bổ trợ xác minh
 
 Cơ bản chúng ta phải trả về một đối tượng với phương thức được gọi là `authenticate`, và sẽ nhận lại 3 tham số (`user, password, callback`).
 
@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Trong đó `htpasswd` là tên của plugin, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình plugin.
+Trong đó `htpasswd` là tên của một phần mềm bổ trợ, ví dụ: hậu tố của `verdaccio-htpasswd`. Các mã còn lại là các tham số của cấu hình phần mềm bổ trợ.
 
-## Plugin Middleware
+## Phần mềm bổ trợ Middleware
 
-Plugin Middleware có khả năng sửa đổi giao diện API để thêm các điểm cuối mới hoặc chặn các yêu cầu.
+Phần mềm bổ trợ Middleware có khả năng sửa đổi giao diện API để thêm các điểm cuối mới hoặc chặn các yêu cầu.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,9 +104,9 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Phương thức này sẽ cung cấp đầy đủ cách truy cập để xác thực và lưu trữ thông qua `auth` và `storage`. Nếu bạn muốn thêm điểm cuối mới, hãy dùng ứng dụng `app`.
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Một ví dụ điển hình về phần mềm bổ trợ Middleware là [ sinopia-github-oauth ](https://github.com/soundtrackyourbrand/sinopia-github-oauth) và <a href = "https: // Github.com/verdaccio/verdaccio-audit">verdaccio-audit </a>.
 
 ### API
 
@@ -116,15 +116,15 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Bằng cách sử dụng một cách thức duy nhất để đăng ký middleware là `register_middlewares`, chúng ta cần tìm một đối tượng có thể nhận được 3 tham số (` expressApp, auth, storage `) được gọi là. Lớp xác thực *Auth* và lớp lưu trữ chính *storage* cho phép bạn truy cập vào tất cả các hoạt động lưu trữ.
 
-## Storage Plugin
+## Phần mềm bổ trợ lưu trữ
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
+Theo mặc định, Verdaccio sử dụng phần mềm bổ trợ lưu trữ hệ thống tệp [local-storage](https://github.com/verdaccio/local-storage), tuy nhiên, từ phiên bản `verdaccio@3.x ` bạn có thể chèn lưu trữ tùy chỉnh thay vì hành vi mặc định.
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+Vì API lưu trữ phức tạp hơn nên bạn sẽ cần phải tạo một lớp (bao gồm nhóm các đối tượng mà có các thuộc tính chung) có thể hoàn tác lại việc sử dụng ` IPluginStorage `. Vui lòng xem chi tiết bên dưới.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,15 +174,15 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> API lưu trữ vẫn đang trong quá trình chạy thử nghiệm và có thể sẽ được sửa đổi trong phiên bản tiếp theo. Để biết thêm thông tin về API lưu trữ, vui lòng truy cập [ và nhập định nghĩa trong kho lưu trữ chính thức của chúng tôi ](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Những ví dụ về phần mềm bổ trợ bộ nhớ
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Dưới đây là danh sách những phần mềm bổ trợ đang sử dụng API lưu trữ và có thể được sử dụng làm ví dụ.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Bạn đã sẵn sàng đóng góp vào phần mềm bổ trợ lưu trữ mới chưa? [Nhấp vào đây.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)

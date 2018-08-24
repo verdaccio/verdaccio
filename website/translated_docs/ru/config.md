@@ -1,14 +1,14 @@
 ---
 id: configuration
-title: "Configuration File"
+title: "Файл конфигурации"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Этот файл является краеугольным камнем verdaccio. В нём вы можете изменить стандартное поведение, включить плагины и расширенные возможности.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Стандартный файл конфигурации создаётся при самом первом запуске `verdaccio`.
 
-## Default Configuration
+## Стандартная конфигурация
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Стандартная конфигурация поддерживает **область видимости (scope)** пакетов и позволяет любым пользователям получить доступ ко всем пакетам, но **только авторизованные пользователи могут публиковать пакеты**.
 
 ```yaml
 storage: ./storage
@@ -29,29 +29,29 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Разделы
 
-The following sections explain what each property means and the different options.
+Следующие разделы пояснят что означает каждое свойство и его различные опции.
 
-### Storage
+### Хранилище
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Местоположение хранилища по умолчанию. **По умолчанию Verdaccio определит исходя из локальной файловой системы**.
 
 ```yaml
 storage: ./storage
 ```
 
-### Plugins
+### Плагины
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Местоположения директории с плагинами. Полезно при развёртывании при помощи Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Аутентификация
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Настройка аутентификация делается здесь. По умолчанию аутентификация основана на `htpasswd` и является встроенной. Вы можете изменить это при помощи [плагинов](plugins.md). Читайте об этом в разделе [Аутентификация](auth.md).
 
 ```yaml
 auth:
@@ -60,9 +60,9 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Веб интерфейс
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Эти свойства позволят вам изменить внешний вид веб интерфейса. Читайте об это в разделе [Веб интерфейса](web.md).
 
 ```yaml
 web:
@@ -72,9 +72,9 @@ web:
   scope:
 ```
 
-### Uplinks
+### Подключения
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Каналы — это способность системы получать пакетов из удаленных реестров, если эти пакеты не доступны локально. Читайте об этом в разделе [Каналы](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Пакеты
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Секция пакеты позволяет пользователю контролировать доступ к пакетам. Читайте об этом в разделе [Пакеты](packages.md).
 
 ```yaml
 packages:
@@ -94,52 +94,52 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Расширенные настройки
 
-### Offline Publish
+### Публикация без подключения к сети
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+По умолчанию `verdaccio` не позволяет публиковать пакеты, если у клиента не подключения к сети. Это может быть изменено устновкой данного параметрв в *true*.
 
 ```yaml
 publish:
   allow_offline: false
 ```
 
-<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Начиная с: <code>verdaccio@2.3.6</code> в связи <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### URL приствка
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Начиная с: `verdaccio@2.3.6` в связи [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Максимальный размер
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+По умолчанию максимальный размер JSON документа `10 Мб`, если вы получаете ошибки типа `"request entity too large"`, то вы можете увеличить это значение.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Рабочий порт
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` по умолчанию запускается на порту `4873`. Изменить порт можно при помощи [Интерфейса командной строки](cli.md) или в файле конфигурации. Следующие значения являются правильными.
 
 ```yaml
 listen:
-# - localhost:4873            # default value
-# - http://localhost:4873     # same thing
-# - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
-# - https://example.org:4873  # if you want to use https
+# - localhost:4873            # значение по умолчанию
+# - http://localhost:4873     # тоже самое
+# - 0.0.0.0:4873              # работа на всех адресах (INADDR_ANY)
+# - https://example.org:4873  # если нужно использовать https
 # - "[::1]:4873"                # ipv6
 # - unix:/tmp/verdaccio.sock    # unix socket
 ```
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Для включения `https` в `verdaccio` достаточно устанновить опцию `listen` в значение с протоколом *https://*. Читайте об этом в разделе [SSL](ssl.md).
 
 ```yaml
 https:
@@ -148,13 +148,13 @@ https:
     ca: ./path/verdaccio-csr.pem
 ```
 
-### Proxy
+### Проксирование
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Прокси сервера, это специально предназначенные сервера для передачи от удалённых серверов к локальным клиентам.
 
-#### http_proxy and https_proxy
+#### http_proxy и https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Если в вашей сети используется прокси, вы можете установить `X-Forwarded-For` заголовок использую следующие свойства.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Это свойство должно содержать разделённый через запятую список доменов, для которых прокси не будет использоваться.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Уведомления
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Уведомления для сторонних инструментов включаются очень просто через web hooks. Читайте об этом в разделе [Уведомления](notifications.md).
 
 ```yaml
 notify:
@@ -181,15 +181,15 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Для более детальной настройки, пожалуйста [загляните в исходнй код](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Аудит
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Начиная с: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` это новая команда, добавленная в [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio имеет встроенный плагин для обработки этой команды.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Если это у вас вновь созданная конфигурация, то значение будет установлено по умолчанию. Если нет, вам необходимо добавить эти опции в ваши файл конфигурации
 
 ```yaml
 middlewares:

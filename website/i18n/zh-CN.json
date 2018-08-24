@@ -18,6 +18,7 @@
     "installation": "安装",
     "kubernetes": "Kubernetes",
     "logger": "日志",
+    "logo": "Logo",
     "node-api": "Node API",
     "notifications": "通知",
     "packages": "npm 包访问权限",

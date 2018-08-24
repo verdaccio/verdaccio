@@ -1,6 +1,6 @@
 ---
-id: authentification
-title: "Authentification"
+id: uwierzytelnianie
+title: "Uwierzytelnianie"
 ---
 The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
 
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Property  | Typ    | Wymagane | Przykład   | Wsparcie  | Opis                                     |
+| --------- | ------ | -------- | ---------- | --------- | ---------------------------------------- |
+| plik      | string | Tak      | ./htpasswd | wszystkie | file that host the encrypted credentials |
+| max_users | numer  | Nie      | 1000       | all       | ustaw limit użytkowników                 |
 
-In case to decide do not allow user to login, you can set `max_users: -1`.
+W przypadku, gdy będziesz chciał wyłączyć możliwość zalogowania się, ustaw `max_users: -1`.

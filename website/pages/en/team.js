@@ -148,14 +148,13 @@ const CrowdinTranslators = props => {
   );
 };
 
-const BannerTitle = () => {
+const BannerTitle = (props) => {
   return (
-    <h1 className="banner_members_title">
-      Team Members
+    <h1 className="header_title">
+      {props.title}
     </h1>
   );
 };
-
 
 class Team extends React.Component {
   render() {
@@ -164,7 +163,7 @@ class Team extends React.Component {
     return (
       <div className="mainContainer">
         <Container padding={['bottom']}>
-          <BannerTitle/>
+          <BannerTitle title={"Team Members"}/>
           <div class="team_container">
             <MemberSection title="Core" members={admons} imageSize={100}/>
             <MemberSection title="Maintainers" members={maintainers} imageSize={80}/>

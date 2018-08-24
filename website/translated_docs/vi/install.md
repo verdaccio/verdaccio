@@ -1,20 +1,20 @@
 ---
-id: installation
+id: cài đặt
 title: "Installation"
 ---
-Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
+Verdaccio là một ứng dụng web đa nền tảng. Bạn cần phải có một số điều kiện bắt buộc trước khi cài đặt.
 
-#### Prerequisites
+#### Những yêu cầu tối thiểu
 
-1. Node higher than 
-    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
-    - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
+1. Phiên bản Node. js 
+    - Đối với phiên bản `verdaccio@2.x` tối thiểu bạn phải dùng Node `v4.6.1`.
+    - Đối với phiên bản `verdaccio@latest`, tối thiểu bạn phải dùng `6.12.0`.
 2. npm `>=3.x` or `yarn`
-3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
+3. Các giao diện hỗ trợ web bao gồm các trình duyệt như `Chrome, Firefox, Edge và IE9`.
 
-## Installing the CLI
+## Cài đặt CLI
 
-`verdaccio` must be installed globaly using either of the following methods:
+`verdaccio` phải được cài đặt theo một trong hai cách:
 
 Using `npm`
 
@@ -22,17 +22,17 @@ Using `npm`
 npm install -g verdaccio
 ```
 
-or using `yarn`
+hoặc sử dụng `yarn`
 
 ```bash
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![cài đặt verdaccio](/svg/install_verdaccio.gif)
 
-## Basic Usage
+## Cách sử dụng cơ bản
 
-Once it has been installed, you only need to execute the CLI command:
+Sau khi cài đặt, bạn chỉ cần thực hiện lệnh CLI:
 
 ```bash
 $> verdaccio
@@ -40,8 +40,14 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-For more information about the CLI, please [read the cli section](cli.md).
+Để biết thêm thông tin về CLI, vui lòng [ đọc phần cli](cli.md).
 
-## Docker Image
+## Hình ảnh Docker
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` có hình ảnh docker chính thức có thể được sử dụng và trong hầu hết các trường hợp, kể cả sử dụng với cấu hình mặc định. Để biết thêm chi tiết về cách cài đặt hình ảnh chính thức, vui lòng [đọc phần docker](docker.md).
+
+## Cloudron
+
+`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+
+[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)

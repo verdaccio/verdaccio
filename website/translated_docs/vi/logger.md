@@ -2,7 +2,7 @@
 id: logger
 title: "Logger"
 ---
-As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+Cũng như bất kỳ ứng dụng web nào, verdaccio có trình ghi nhật ký tích hợp tùy chỉnh. Bạn có thể lựa chọn nhiều loại đầu ra.
 
 ```yaml
 logs:
@@ -12,13 +12,13 @@ logs:
   - {type: file, path: verdaccio.log, level: info}
 ```
 
-Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it.
+Sử dụng `SIGUSR2` để thông báo cho ứng dụng biết rằng tệp nhật ký này đã bị lặp và cần được mở lại.
 
-### Configuration
+### Cấu hình
 
-| Property | Type   | Required | Example                                        | Support | Description                                       |
-| -------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
-| type     | string | No       | [stdout, file]                                 | all     | define the output                                 |
-| path     | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
-| format   | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
-| level    | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| Thuộc tính | Loại   | Yêu cầu | Ví dụ                                          | Hỗ trợ | Miêu tả                                 |
+| ---------- | ------ | ------- | ---------------------------------------------- | ------ | --------------------------------------- |
+| type       | string | No      | [stdout, file]                                 | all    | xác định đầu ra                         |
+| path       | string | No      | verdaccio.log                                  | all    | nếu là tệp, hãy xác định vị trí của tệp |
+| format     | string | No      | [pretty, pretty-timestamped]                   | all    | định dạng đầu ra                        |
+| level      | string | No      | [fatal, error, warn, http, info, debug, trace] | all    | mức độ chi tiết                         |
