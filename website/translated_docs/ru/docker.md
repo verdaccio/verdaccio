@@ -66,13 +66,13 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Примечание: Verdaccio, внутри контейнера, запускается не из под root (uid=100, gid=101), если вы используете монтирование каталогов, вам необходимо убедиться, что у пользователя, из контейнера, будет доступ к этим каталогам. В примере выше, вам нужно выполнить `sudo chown -R 100:101 /opt/verdaccio` иначе вы получите ошибку прав доступа во время запуска контейнера. Рекомендуется использовать [Docker разделы](https://docs.docker.com/storage/volumes/) при монтировании каталогов.
 
-### Plugins
+### Плагины
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+Плагины могут быть установлены в отдельную директорию и смонтированы с использованием Docker или Kubernetes. Однако вам нужно убедиться, что вы используете встроенные плагины с родными зависимостями, использующими такой же базовый образ как и в Verdaccio Dockerfile.
 
-### Docker and custom port configuration
+### Docker и конфигурация пользовательского порта
 
 Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
 
