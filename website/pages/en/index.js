@@ -123,7 +123,7 @@ class HomeSplash extends React.Component {
           <div className="wrapper homeWrapper">
             <div className="inner">
               <h1 className="projectTitle">
-              <img title={siteConfig.title} alt={siteConfig.title} src={siteConfig.baseUrl + 'img/verdaccio@2x.png'} />
+              <img title={siteConfig.title} alt={siteConfig.title} src={siteConfig.baseUrl + 'img/logo/banner/png/verdaccio-banner@2x.png'} />
                 <small>
                   {
                     translation[this.props.language]['localized-strings'].tagline
@@ -253,7 +253,7 @@ class Index extends React.Component {
                 {
                   content:
                     <translate>Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.</translate>,
-                  image: siteConfig.baseUrl + 'img/verdaccio-tiny@3x.png',
+                  image: siteConfig.baseUrl + 'img/logo/symbol/png/verdaccio-tiny@3x.png',
                   imageAlign: 'right',
                   title: <translate>Plugin Support</translate>,
                 },

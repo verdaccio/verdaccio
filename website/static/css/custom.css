@@ -15,6 +15,10 @@
   margin: 0 auto;
 }
 
+.header_title {
+  margin-top: 0;
+}
+
 .docker-count img {
   margin-left: initial;
 }
@@ -39,10 +43,6 @@
 }
 
 /** team **/
-
-.banner_members_title {
-  margin-top: 0;
-}
 
 .team_container a,
 .team_container a:hover {
