@@ -32,11 +32,11 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. Jednakże `yarn` nie posiada takich ograniczeń.
 
-## Default htpasswd
+## Domyślne htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+Aby ułatwić konfigurację, `verdaccio` używa wtyczki bazującej na `htpasswd`. Począwszy od wersji v3.0.x domyślnie używana jest [zewnętrzna wtyczka](https://github.com/verdaccio/verdaccio-htpasswd). Ten pakiet, w wersji v2.x nadal zawiera wbudowaną wersję tej wtyczki.
 
 ```yaml
 auth:
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Właściwość | Typ    | Wymagane | Przykład   | Wsparcie  | Opis                                     |
-| ---------- | ------ | -------- | ---------- | --------- | ---------------------------------------- |
-| plik       | string | Tak      | ./htpasswd | wszystkie | file that host the encrypted credentials |
-| max_users  | numer  | Nie      | 1000       | all       | ustaw limit użytkowników                 |
+| Właściwość | Typ         | Wymagane | Przykład   | Wsparcie  | Opis                                              |
+| ---------- | ----------- | -------- | ---------- | --------- | ------------------------------------------------- |
+| plik       | ciąg znaków | Tak      | ./htpasswd | wszystkie | plik, który udostępnia zaszyfrowane poświadczenia |
+| max_users  | numer       | Nie      | 1000       | all       | ustaw limit użytkowników                          |
 
 W przypadku, gdy będziesz chciał wyłączyć możliwość zalogowania się, ustaw `max_users: -1`.
