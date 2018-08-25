@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks es la habilidad del sistema para descargar paquetes de registros remotos cuando dichos paquetes no estan disponibles localmente. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks es la habilidad del sistema para descargar paquetes de registros remotos cuando dichos paquetes no estan disponibles localmente. Para mas información sobre esta sección lea [la página de uplinks](uplinks.md).
 
 ```yaml
 uplinks:
@@ -84,7 +84,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paquetes te permite controlar como los paquetes van a ser accedidos. Para mas información sobre esta sección lea [la páginas de paquetes](packages.md).
 
 ```yaml
 packages:
@@ -96,18 +96,18 @@ packages:
 
 ## Configuración Avanzada
 
-### Offline Publish
+### Publicar fuera de línea
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Por defecto `verdaccio`no permite publicar cuando el cliente esta fuera de línea, este comportamiento puede ser anulado ajustando esta propiedad a *true*.
 
 ```yaml
 publish:
   allow_offline: false
 ```
 
-<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Desde: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefijo URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
