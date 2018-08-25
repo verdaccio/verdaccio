@@ -1,6 +1,6 @@
 ---
 id: contributing
-title: "Contributing Verdaccio"
+title: "Współtworzenie Verdaccio"
 ---
 First of all Zapoznanie się z obcą podstawą kodowania nie jest łatwe, ale jesteśmy tutaj, aby Ci z tym pomóc.
 
@@ -14,7 +14,7 @@ Jeżeli masz jakieś pytania, używamy dwóch kanałów do dyskusji:
 
 Na pierwszy rzut oka verdaccio jest pojedyńczym repozytorium, lecz jest wiele sposobów, dzięki którym możesz z nami współpracować i wiele technik do przećwiczenia.
 
-### Finding my spot
+### Znajdowanie swojej mocnej strony
 
 Wszyscy posiadamy różne umiejętności, więc zobaczmy w czym czujesz się komfortowo.
 
@@ -30,7 +30,7 @@ Od niedawna zaczęliśmy używać nowoczesnych technologii, takich jak `React` o
 
 ### I feel more confortable improving the stack
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Wszelkie propozycje są mile widziane. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Wszelkie propozycje są mile widziane. Ponadto, jeśli masz doświadczenie z **Yeoman** możesz nam pomóc z [generatorem verdaccio](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Tutaj jest kilka pomysłów:
 
@@ -45,7 +45,7 @@ Tutaj jest kilka pomysłów:
 
 Wiele współtwórców znajduje literówki i błędy gramatyczne, to również przyczynia się do ogólnego wrażenia podczas rozwiązywania problemów.
 
-### I am a Designer
+### Jestem projektantem
 
 We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
@@ -63,7 +63,7 @@ Verdaccio chce być wielojęzyczny, w tym celu **mamy niesamowitą pomoc** ze st
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Przygotowaliśmy projekt, w którym możesz wybrać swój ulubiony język, jeśli nie znalazłeś tam swojego języka, nie wahaj się powiadomić nas o tym poprzez [wysłanie zgłoszenia](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Przejdź do Verdaccio na platformie Crowdin](https://crowdin.com/project/verdaccio)
 
@@ -73,7 +73,7 @@ Jeśli myślisz *"Widziałem już [repozytoria](repositories.md) i jestem gotów
 
 You will need learn how to build, [we have prepared a guide just for that](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Gdy zapoznasz się ze wszystkimi skryptami i będziesz wiedział jak ich używać, będziesz gotów do następnego kroku, uruchom [**Test jednostek**](test.md).
 
 ## Pełna lista współtwórców. Chcemy tutaj zobaczyć Twoją twarz !
 

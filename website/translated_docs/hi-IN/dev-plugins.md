@@ -1,18 +1,18 @@
 ---
 id: dev-plugins
-title: "Tworzenie wtyczek"
+title: "Developing Plugins"
 ---
-Istnieje wiele sposobów na rozszerzenie funkcjonalności `verdaccio`, wspierane są następujące rodzaje wtyczek:
+There are many ways to extend `verdaccio`, the kind of plugins supported are:
 
-* Wtyczki uwierzytelniania
-* Wtyczki oprogramowania pośredniego (od wersji `v2.7.0`)
-* Wtyczki magazynu danych od wersji (`v3.x`)
+* Authentication plugins
+* Middleware plugins (since `v2.7.0`)
+* Storage plugins since (`v3.x`)
 
 > We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
 
-## Wtyczka uwierzytelniania
+## Authentication Plugin
 
-Musimy tylko zwrócić obiekt pojedynczą metodą `authenticate`, która otrzyma 3 argumenty (`user, password, callback`).
+Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
 
 ### API
 
@@ -30,11 +30,11 @@ interface IPluginAuth extends IPlugin {
 
 #### Callback
 
-Po wykonaniu uwierzytelniania mamy 2 opcje na odpowiedź do `verdaccio`.
+Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
 
 ###### OnError
 
-Gdy coś złego się wydarzy, lub uwierzytelnianie nie powiedzie się.
+Either something bad happened or auth was unsuccessful.
 
 ```flow
 callback(null, false)
@@ -42,7 +42,7 @@ callback(null, false)
 
 ###### OnSuccess
 
-Uwierzytelnianie zakończone sukcesem.
+The auth was successful.
 
 `groups` is an array of strings where the user is part of.
 
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-Konfiguracja będzie wyglądać następująco:
+And the configuration will looks like:
 
 ```yaml
 auth:
@@ -92,7 +92,7 @@ auth:
 
 Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
 
-## Wtyczka oprogramowania pośredniego
+## Middleware Plugin
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
@@ -116,15 +116,15 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Aby zarejestrować oprogramowanie pośrednie potrzebujemy obiekt z pojedynczą metodą `register_middlewares`, która otrzyma 3 argumenty (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
 
-## Wtyczka magazynu danych
+## Storage Plugin
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
 
 ### API
 
-API magazynu danych jest trochę bardziej skomplikowane, będziesz musiał stworzyć klasę, która zwraca implementację `IPluginStorage`. Poniżej zapoznasz się ze szczegółami.
+The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,15 +174,15 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> API magazynu danych jest nadal w fazie eksperymentalnej i może się zmienić w następnej pomniejszej wersji. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
 
-### Przykłady wtyczek magazynu danych
+### Storage Plugins Examples
 
-Poniższa lista wtyczek wdraża API magazynu danych oraz mogą być użyte jako przykład.
+The following list of plugins are implementing the Storage API and might be used them as example.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Chciałbyś współtworzyć ten projekt z nowymi wtyczkami magazynu danych? [Kliknij tutaj.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
