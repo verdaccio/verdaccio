@@ -125,7 +125,7 @@ max_body_size: 10mb
 
 ### Port nasłuchu
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` domyślnie nadaje poprzez port `4873`. Zmiana tego portu może być dokonana przez [cli](cli.md) lub przez plik konfiguracyjny, wszystkie następujące opcje są prawidłowe.
 
 ```yaml
 listen:
