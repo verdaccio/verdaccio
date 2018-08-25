@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+Konfiguracja będzie wyglądać następująco:
 
 ```yaml
 auth:
