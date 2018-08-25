@@ -130,7 +130,7 @@ Docker generará un volumen con nombre que persistira con los datos de la aplica
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Existe tambien un comando npm para construir la imagen de Docker, tambien puede hacerlo así:
 
 ```bash
 npm run build:docker
