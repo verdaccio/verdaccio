@@ -124,7 +124,7 @@ Verdaccio by default uses a file system storage plugin [local-storage](https://g
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+API magazynu danych jest trochę bardziej skomplikowane, będziesz musiał stworzyć klasę, która zwraca implementację `IPluginStorage`. Poniżej zapoznasz się ze szczegółami.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,15 +174,15 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> API magazynu danych jest nadal w fazie eksperymentalnej i może się zmienić w następnej pomniejszej wersji. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Przykłady wtyczek magazynu danych
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Poniższa lista wtyczek wdraża API magazynu danych oraz mogą być użyte jako przykład.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Chciałbyś współtworzyć ten projekt z nowymi wtyczkami magazynu danych? [Kliknij tutaj.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
