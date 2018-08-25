@@ -56,7 +56,7 @@ El último argumento define cual imagen se usa. En la linea de abajo se descarga
 
 Si has [construido una imagen localmente](#build-your-own-docker-image) usa `verdaccio` como el último argumento.
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+Puede usar `-v` para montar `conf`, `storage` and `plugins` a archivos de sistema alojados:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
