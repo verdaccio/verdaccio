@@ -154,7 +154,7 @@ Proxies tienen un proposito especial como servidores HTTP diseñados para transf
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Si estás detras de un proxy en tu red puedes definir el encabezado `X-Forwarded-For` usando las siguientes propiedades.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Esta variable debe contener una lista de dominios separados por coma los cuales no deberian ser usado el proxy.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Notificaciones
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilitar notificaciones para herramientas a terceros es muy sencillo via web hooks. Para mas información sobre esta sección lea [notifications page](notifications.md).
 
 ```yaml
 notify:
@@ -185,9 +185,9 @@ notify:
 
 ### Audit
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Desde: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` es un nuevo comando liberado con [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio icluye una extensión middleware para el manejo de este comando.
 
 > Si tienes una nueva instalación va incluida por defecto, de otro modo necesitarás añadir las siguientes propiedades a tu archivo config
 
