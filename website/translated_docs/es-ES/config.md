@@ -113,19 +113,19 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Desde: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Tamaño Máximo del Cuerpo
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Por defecto el tamaño máximo para el cuerpo de un documento JSON es de `10mb`, si encuentras errores tales `"request entity too large"` tu podrías incrementar este valor.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Puerto de Escucha
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` se ejecuta por defecto en el puerto `4873`. Cambiar el puerto puede ser echo o bien via [cli](cli.md) o en el archivo de configuración, las siguientes opciones son válidas.
 
 ```yaml
 listen:
