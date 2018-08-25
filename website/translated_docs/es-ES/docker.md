@@ -90,7 +90,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
 
 ### Usando HTTPS con Docker
 
-Puedes configurar el protocolo que verdaccio va a escuchar, similarmente que con la configuración del puerto. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Puedes configurar el protocolo que verdaccio va a escuchar, similarmente que con la configuración del puerto. Tienes que anular el valor por defecto ("http") de la variable de ambiente a "https" de `PROTOCOL`, despues debe especificar los certificados en el config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -107,9 +107,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Puedes definir el puerto a usar (para ambos el contenedor y el huesped) definiendo con un prefijo con el comando de arriba con `PORT=5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker generará un volumen con nombre que persistira con los datos de la aplicación. Puedes usar `docker inspect` o `docker volume inspect` para revelar la ubicación física del volumen y editar la configuración, de la siguiente manera:
 
     $ docker volume inspect verdaccio_verdaccio
     [
