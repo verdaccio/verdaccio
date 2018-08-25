@@ -68,7 +68,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 > Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. En el ejemplo de arriba, necesitas ejecutar `sudo chown -R 100:101 /opt/verdaccio` de lo contrario, obtendrás errores de permiso en tiempo de ejecución. [Usar el volumen docker](https://docs.docker.com/storage/volumes/) es recomendado antes que usar el montaje de unión.
 
-### Plugins
+### Extensiones
 
 Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
