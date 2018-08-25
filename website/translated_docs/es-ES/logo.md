@@ -1,6 +1,6 @@
 ---
 id: logo
-title: "Verdaccio Logotype"
+title: "Logotipo de Verdaccio"
 ---
 El logotipo fue diseñado por **[Breno Rodrigues](https://github.com/rodriguesbreno)** que gano el [concurso](https://github.com/verdaccio/verdaccio/issues/237) ([ultima fase](https://github.com/verdaccio/verdaccio/issues/328)) y donó su trabajo a este proyecto.
 
@@ -10,7 +10,7 @@ Especialmente gracias a *[@Lisapressmar](https://github.com/Lisapressmar)* por s
 
 ## Simbolos
 
-**With text**
+**Con texto**
 
 ![symbol tiny with text](/img/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -22,7 +22,7 @@ Especialmente gracias a *[@Lisapressmar](https://github.com/Lisapressmar)* por s
 
 ![symbol svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**No text**
+**Sin texto**
 
 ![symbol tiny](/img/logo/symbol/png/verdaccio-tiny.png)
 
@@ -46,7 +46,7 @@ Especialmente gracias a *[@Lisapressmar](https://github.com/Lisapressmar)* por s
 
 ![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
 
-## Banner
+## Pancarta
 
 ![banner small](/img/logo/banner/png/verdaccio-banner.png)
 
