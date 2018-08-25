@@ -31,7 +31,7 @@ logs:
 
 ## Secciones
 
-The following sections explain what each property means and the different options.
+Las siguientes seciones explican que significa cada propiedad y todas sus diferentes opciones.
 
 ### Almacenamiento
 
@@ -41,17 +41,17 @@ Es la localización por defecto del almacenamiento. **Verdaccio esta basado por 
 storage: ./storage
 ```
 
-### Plugins
+### Extensiones
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Es la localización del directorio de extensiones. Muy útil para despliegues basados en Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Autentificación
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+La configuración de autentificación es definida aquí, por defecto la autentificación esta basada en `htpasswd` y es por defecto. Puedes modificar el comportamiento via [extensiones](plugins.md). Para mas información sobre esta sección lee [la página de autentificación](auth.md).
 
 ```yaml
 auth:
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Estas propiedades te permiten modificar el aspecto del interfaz web. Para mas información sobre esta sección lea [la página de interfaz web](web.md).
 
 ```yaml
 web:
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks es la habilidad del sistema para descargar paquetes de registros remotos cuando dichos paquetes no estan disponibles localmente. Para mas información sobre esta sección lea [la página de uplinks](uplinks.md).
 
 ```yaml
 uplinks:
@@ -84,7 +84,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paquetes te permite controlar como los paquetes van a ser accedidos. Para mas información sobre esta sección lea [la páginas de paquetes](packages.md).
 
 ```yaml
 packages:
@@ -96,18 +96,18 @@ packages:
 
 ## Configuración Avanzada
 
-### Offline Publish
+### Publicar fuera de línea
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Por defecto `verdaccio`no permite publicar cuando el cliente esta fuera de línea, este comportamiento puede ser anulado ajustando esta propiedad a *true*.
 
 ```yaml
 publish:
   allow_offline: false
 ```
 
-<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Desde: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefijo URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
