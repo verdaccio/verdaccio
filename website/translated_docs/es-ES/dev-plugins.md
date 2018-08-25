@@ -42,9 +42,9 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+La autenticación fue satisfactoria.
 
-`groups` is an array of strings where the user is part of.
+`groups` es un array de cadenas de los cuales el usuario es parte.
 
      callback(null, groups);
     
