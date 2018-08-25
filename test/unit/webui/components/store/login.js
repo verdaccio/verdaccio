@@ -1,3 +1,4 @@
+import {API_ERROR} from '../../../../../src/lib/constants';
 /**
  * API mock for login endpoint
  * @param {object}  config configuration of api call
@@ -13,7 +14,7 @@ export default function(config) {
         });
     } else {
       reject({
-          error: 'bad username/password, access denied'
+          error: API_ERROR.BAD_USERNAME_PASSWORD
       });
     }
   });

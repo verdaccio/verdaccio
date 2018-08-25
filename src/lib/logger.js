@@ -37,40 +37,44 @@ function setup(logs) {
     const stream = new Stream();
     stream.writable = true;
 
-    if (target.type === 'stdout' || target.type === 'stderr') {
-      // destination stream
-      const dest = target.type === 'stdout' ? process.stdout : process.stderr;
+    let dest;
+    let destIsTTY = false;
+    const prettyPrint = (obj) => print(obj.level, obj.msg, obj, destIsTTY) + '\n';
+    const prettyTimestampedPrint = (obj) => obj.time.toISOString() + print(obj.level, obj.msg, obj, destIsTTY) + '\n';
+    const jsonPrint = (obj) => {
+      const msg = fillInMsgTemplate(obj.msg, obj, destIsTTY);
+      return JSON.stringify({...obj, msg}, Logger.safeCycles()) + '\n';
+    };
 
-      if (target.format === 'pretty') {
-        // making fake stream for prettypritting
-        stream.write = function(obj) {
-          dest.write(print(obj.level, obj.msg, obj, dest.isTTY) + '\n');
-        };
-      } else if (target.format === 'pretty-timestamped') {
-        // making fake stream for prettypritting
-        stream.write = function(obj) {
-          dest.write(obj.time.toISOString() + print(obj.level, obj.msg, obj, dest.isTTY) + '\n');
-        };
-      } else {
-        stream.write = function(obj) {
-          dest.write(JSON.stringify(obj, Logger.safeCycles()) + '\n');
-        };
-      }
-    } else if (target.type === 'file') {
-      const dest = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
+    if (target.type === 'file') {
+      // destination stream
+      dest = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
       dest.on('error', function(err) {
         Logger.emit('error', err);
       });
-      stream.write = function(obj) {
-        if (target.format === 'pretty') {
-          dest.write(print(obj.level, obj.msg, obj, false) + '\n');
-        } else {
-          dest.write(JSON.stringify(obj, Logger.safeCycles()) + '\n');
-        }
-      };
+    } else if (target.type === 'stdout' || target.type === 'stderr') {
+      dest = target.type === 'stdout' ? process.stdout : process.stderr;
+      destIsTTY = dest.isTTY;
     } else {
       throw Error('wrong target type for a log');
     }
+
+    if (target.format === 'pretty') {
+      // making fake stream for prettypritting
+      stream.write = (obj) => {
+        dest.write(prettyPrint(obj));
+      };
+    } else if (target.format === 'pretty-timestamped') {
+      // making fake stream for prettypritting
+      stream.write = (obj) => {
+        dest.write(prettyTimestampedPrint(obj));
+      };
+    } else {
+      stream.write = (obj) => {
+        dest.write(jsonPrint(obj));
+      };
+    }
+
 
     if (target.level === 'http') target.level = 35;
     streams.push({
@@ -132,19 +136,8 @@ function pad(str) {
   return str;
 }
 
-/**
- * Apply colors to a string based on level parameters.
- * @param {*} type
- * @param {*} msg
- * @param {*} obj
- * @param {*} colors
- * @return {String}
- */
-function print(type, msg, obj, colors) {
-  if (typeof type === 'number') {
-    type = getlvl(type);
-  }
-  let finalmsg = msg.replace(/@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g, function(_, name) {
+function fillInMsgTemplate(msg, obj, colors) {
+  return msg.replace(/@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g, (_, name) => {
     let str = obj;
     let is_error;
     if (name[0] === '!') {
@@ -174,6 +167,21 @@ function print(type, msg, obj, colors) {
       return require('util').inspect(str, null, null, colors);
     }
   });
+}
+
+/**
+ * Apply colors to a string based on level parameters.
+ * @param {*} type
+ * @param {*} msg
+ * @param {*} obj
+ * @param {*} colors
+ * @return {String}
+ */
+function print(type, msg, obj, colors) {
+  if (typeof type === 'number') {
+    type = getlvl(type);
+  }
+  const finalmsg = fillInMsgTemplate(msg, obj, colors);
 
   const subsystems = [{
     in: chalk.green('<--'),

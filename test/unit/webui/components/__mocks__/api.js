@@ -4,6 +4,7 @@
 import logo from '../store/logo';
 import login from '../store/login';
 import { packageMeta } from '../store/packageMeta';
+import { packageInformation } from '../store/package';
 
 /**
  * Register mock api endpoints
@@ -26,7 +27,13 @@ const register = (url, method = 'get', options = {}) => {
     });
   }
 
-  throw Error('Not found');
+  if (url === 'packages' && method.toLocaleLowerCase() === 'get') {
+    return new Promise(function (resolve) {
+      resolve(packageInformation);
+    });
+  }
+
+  throw Error(`URL not found: ${url}`);
 };
 
 /**

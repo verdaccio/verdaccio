@@ -1,48 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Header /> component shallow renderUserActionButton - should show login button 1`] = `
-<Button
-  className="headerButton header-button-login"
-  disabled={false}
-  loading={false}
-  nativeType="button"
-  onClick={[Function]}
-  plain={false}
-  type="default"
->
-  Login
-</Button>
-`;
+exports[`<Header /> component shallow should load header component in login state 1`] = `"<header class=\\"header\\"><div class=\\"headerWrap\\"><a href=\\"/#/\\"><img src=\\"logo.png\\" class=\\"logo\\"/></a><figure>npm set scope:registry http://localhost<br/>npm adduser --registry http://localhost</figure><div class=\\"headerRight\\"><div class=\\"user-logged\\"><span class=\\"user-logged-greetings usernameField\\">Hi, Verdaccio</span><button class=\\"el-button el-button--danger headerButton header-button-logout\\" type=\\"button\\"><span>Logout</span></button></div></div></div></header>"`;
 
-exports[`<Header /> component shallow renderUserActionButton - should show users as loggedin 1`] = `
-<div
-  className="user-logged"
->
-  <span
-    className="user-logged-greetings"
-    style={
-      Object {
-        "marginRight": "10px",
-      }
-    }
-  >
-    Hi, 
-    Sam
-  </span>
-  <Button
-    className="headerButton header-button-logout"
-    disabled={false}
-    loading={false}
-    nativeType="button"
-    onClick={[Function]}
-    plain={false}
-    type="danger"
-  >
-    Logout
-  </Button>
-</div>
-`;
-
-exports[`<Header /> snapshot for loggedin user should match snapshot 1`] = `"<header class=\\"header\\"><div class=\\"headerWrap\\"><a href=\\"/\\"><img src=\\"\\" class=\\"logo\\"></a><figure>npm set registry http://localhost<br>npm adduser --registry http://localhost</figure><div class=\\"headerRight\\"><div class=\\"user-logged\\"><span class=\\"user-logged-greetings\\" style=\\"margin-right: 10px;\\">Hi, Verdaccio</span><button class=\\"el-button el-button--danger headerButton header-button-logout\\" type=\\"button\\"><span>Logout</span></button></div></div></div><div><div style=\\"z-index: 1013; display: none;\\" class=\\"el-dialog__wrapper\\"><div style=\\"top: 15%;\\" class=\\"el-dialog el-dialog--tiny\\"><div class=\\"el-dialog__header\\"><span class=\\"el-dialog__title\\">Login</span><button type=\\"button\\" class=\\"el-dialog__headerbtn\\"><i class=\\"el-dialog__close el-icon el-icon-close\\"></i></button></div><form class=\\"el-form el-form--label-right login-form\\"><div class=\\"el-dialog__body\\"><br><div class=\\"el-input\\"><input type=\\"text\\" name=\\"username\\" placeholder=\\"Username\\" class=\\"el-input__inner\\" autocomplete=\\"off\\"></div><br><br><div class=\\"el-input\\"><input type=\\"password\\" name=\\"password\\" placeholder=\\"Type your password\\" class=\\"el-input__inner\\" autocomplete=\\"off\\"></div></div><div class=\\"el-dialog__footer dialog-footer\\"><button class=\\"el-button el-button--default cancel-login-button\\" type=\\"button\\"><span>Cancel</span></button><button class=\\"el-button el-button--default login-button\\" type=\\"submit\\"><span>Login</span></button></div></form></div></div><div class=\\"v-modal\\" style=\\"z-index: 1012; display: none;\\"></div></div></header>"`;
-
-exports[`<Header /> snapshot test shoud match snapshot 1`] = `"<header class=\\"header\\"><div class=\\"headerWrap\\"><a href=\\"/\\"><img src=\\"\\" class=\\"logo\\"></a><figure>npm set registry http://localhost<br>npm adduser --registry http://localhost</figure><div class=\\"headerRight\\"><button class=\\"el-button el-button--default headerButton header-button-login\\" type=\\"button\\"><span>Login</span></button></div></div><div><div style=\\"z-index: 1013; display: none;\\" class=\\"el-dialog__wrapper\\"><div style=\\"top: 15%;\\" class=\\"el-dialog el-dialog--tiny\\"><div class=\\"el-dialog__header\\"><span class=\\"el-dialog__title\\">Login</span><button type=\\"button\\" class=\\"el-dialog__headerbtn\\"><i class=\\"el-dialog__close el-icon el-icon-close\\"></i></button></div><form class=\\"el-form el-form--label-right login-form\\"><div class=\\"el-dialog__body\\"><br><div class=\\"el-input\\"><input type=\\"text\\" name=\\"username\\" placeholder=\\"Username\\" class=\\"el-input__inner\\" autocomplete=\\"off\\"></div><br><br><div class=\\"el-input\\"><input type=\\"password\\" name=\\"password\\" placeholder=\\"Type your password\\" class=\\"el-input__inner\\" autocomplete=\\"off\\"></div></div><div class=\\"el-dialog__footer dialog-footer\\"><button class=\\"el-button el-button--default cancel-login-button\\" type=\\"button\\"><span>Cancel</span></button><button class=\\"el-button el-button--default login-button\\" type=\\"submit\\"><span>Login</span></button></div></form></div></div><div class=\\"v-modal\\" style=\\"z-index: 1012; display: none;\\"></div></div></header>"`;
+exports[`<Header /> component shallow should load header component in logout state 1`] = `"<header class=\\"header\\"><div class=\\"headerWrap\\"><a href=\\"/#/\\"><img src=\\"logo.png\\" class=\\"logo\\"/></a><figure>npm set scope:registry http://localhost<br/>npm adduser --registry http://localhost</figure><div class=\\"headerRight\\"><button class=\\"el-button el-button--default headerButton header-button-login\\" type=\\"button\\"><span>Login</span></button></div></div></header>"`;
