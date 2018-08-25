@@ -132,16 +132,7 @@ describe('Utilities', () => {
   });
 
   describe('parseReadme', () => {
-    test('should pass for ascii text to html template', () => {
-      const ascii = '= AsciiDoc';
-
-      expect(parseReadme('testPackage', ascii)).toEqual('<h1>AsciiDoc</h1>\n');
-      expect(
-        parseReadme('testPackage', String(readmeFile('ascii.adoc')))
-      ).toMatchSnapshot();
-    });
-
-    test('should pass for makrdown text to html template', () => {
+    test('should parse makrdown text to html template', () => {
       const markdown = '# markdown';
       expect(parseReadme('testPackage', markdown)).toEqual(
         '<h1 id="markdown">markdown</h1>\n'
@@ -154,7 +145,6 @@ describe('Utilities', () => {
     test('should pass for conversion of non-ascii to markdown text', () => {
       const simpleText = 'simple text';
       const randomText = '%%%%%**##==';
-      const randomTextNonAscii = 'simple text \n = ascii';
       const randomTextMarkdown = 'simple text \n # markdown';
 
       expect(parseReadme('testPackage', randomText)).toEqual(
@@ -162,9 +152,6 @@ describe('Utilities', () => {
       );
       expect(parseReadme('testPackage', simpleText)).toEqual(
         '<p>simple text</p>\n'
-      );
-      expect(parseReadme('testPackage', randomTextNonAscii)).toEqual(
-        '<p>simple text \n = ascii</p>\n'
       );
       expect(parseReadme('testPackage', randomTextMarkdown)).toEqual(
         '<p>simple text </p>\n<h1 id="markdown">markdown</h1>\n'

@@ -59,6 +59,9 @@ translators:
     - name: Alejandro Estévez
       crowdin: acrywhif
       role: translator
+    - name: José Peralta
+      crowdin: Josedpg11
+      role: translator
   chinese:
     - name: sunray
       crowdin: sunray

@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.7.0"></a>
+# [3.7.0](https://github.com/verdaccio/verdaccio/compare/v3.6.0...v3.7.0) (2018-08-25)
+
+
+### Bug Fixes
+
+* bugs related to logging with type json ([#893](https://github.com/verdaccio/verdaccio/issues/893)) ([cd231ba](https://github.com/verdaccio/verdaccio/commit/cd231ba))
+* login without reload ([#678](https://github.com/verdaccio/verdaccio/issues/678)) ([#679](https://github.com/verdaccio/verdaccio/issues/679)) ([#914](https://github.com/verdaccio/verdaccio/issues/914)) ([9cd3ccb](https://github.com/verdaccio/verdaccio/commit/9cd3ccb))
+* path to static directory could be changed ([#942](https://github.com/verdaccio/verdaccio/issues/942)) ([5557ce5](https://github.com/verdaccio/verdaccio/commit/5557ce5))
+* removes asciidoctor.js support ([#884](https://github.com/verdaccio/verdaccio/issues/884)) ([#947](https://github.com/verdaccio/verdaccio/issues/947)) ([cf05938](https://github.com/verdaccio/verdaccio/commit/cf05938))
+
+
+### Features
+
+* update logos & add new page for logos on website ([#941](https://github.com/verdaccio/verdaccio/issues/941)) ([652003f](https://github.com/verdaccio/verdaccio/commit/652003f))
+
+
+
 <a name="3.6.0"></a>
 # [3.6.0](https://github.com/verdaccio/verdaccio/compare/v3.5.1...v3.6.0) (2018-08-13)
 

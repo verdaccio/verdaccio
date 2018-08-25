@@ -31,7 +31,7 @@ logs:
 
 ## Secciones
 
-The following sections explain what each property means and the different options.
+Las siguientes seciones explican que significa cada propiedad y todas sus diferentes opciones.
 
 ### Almacenamiento
 
@@ -41,17 +41,17 @@ Es la localización por defecto del almacenamiento. **Verdaccio esta basado por 
 storage: ./storage
 ```
 
-### Plugins
+### Extensiones
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Es la localización del directorio de extensiones. Muy útil para despliegues basados en Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Autentificación
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+La configuración de autentificación es definida aquí, por defecto la autentificación esta basada en `htpasswd` y es por defecto. Puedes modificar el comportamiento via [extensiones](plugins.md). Para mas información sobre esta sección lee [la página de autentificación](auth.md).
 
 ```yaml
 auth:
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Estas propiedades te permiten modificar el aspecto del interfaz web. Para mas información sobre esta sección lea [la página de interfaz web](web.md).
 
 ```yaml
 web:
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks es la habilidad del sistema para descargar paquetes de registros remotos cuando dichos paquetes no estan disponibles localmente. Para mas información sobre esta sección lea [la página de uplinks](uplinks.md).
 
 ```yaml
 uplinks:
@@ -84,7 +84,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paquetes te permite controlar como los paquetes van a ser accedidos. Para mas información sobre esta sección lea [la páginas de paquetes](packages.md).
 
 ```yaml
 packages:
@@ -96,36 +96,36 @@ packages:
 
 ## Configuración Avanzada
 
-### Offline Publish
+### Publicar fuera de línea
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Por defecto `verdaccio`no permite publicar cuando el cliente esta fuera de línea, este comportamiento puede ser anulado ajustando esta propiedad a *true*.
 
 ```yaml
 publish:
   allow_offline: false
 ```
 
-<small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
+<small>Desde: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefijo URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Desde: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Tamaño Máximo del Cuerpo
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Por defecto el tamaño máximo para el cuerpo de un documento JSON es de `10mb`, si encuentras errores tales `"request entity too large"` tu podrías incrementar este valor.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Puerto de Escucha
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` se ejecuta por defecto en el puerto `4873`. Cambiar el puerto puede ser echo o bien via [cli](cli.md) o en el archivo de configuración, las siguientes opciones son válidas.
 
 ```yaml
 listen:
@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Para habilitar `https` en `verdaccio` es suficiente con definir el argumento `listen` con el protocolo *https://*. Para mas información sobre esta sección lea la [página de ssl](ssl.md).
 
 ```yaml
 https:
@@ -150,11 +150,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies tienen un proposito especial como servidores HTTP diseñados para transferir datos remotamente a clientes locales.
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Si estás detras de un proxy en tu red puedes definir el encabezado `X-Forwarded-For` usando las siguientes propiedades.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Esta variable debe contener una lista de dominios separados por coma los cuales no deberian ser usado el proxy.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Notificaciones
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Habilitar notificaciones para herramientas a terceros es muy sencillo via web hooks. Para mas información sobre esta sección lea [notifications page](notifications.md).
 
 ```yaml
 notify:
@@ -185,9 +185,9 @@ notify:
 
 ### Audit
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Desde: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` es un nuevo comando liberado con [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio icluye una extensión middleware para el manejo de este comando.
 
 > Si tienes una nueva instalación va incluida por defecto, de otro modo necesitarás añadir las siguientes propiedades a tu archivo config
 
