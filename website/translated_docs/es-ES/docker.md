@@ -148,7 +148,7 @@ Please note that for any of the above docker commands you need to have docker in
 
 ## Ejemplos con Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Existe un repositorio separado que aloja multiples configuraciones de imagenes Docker con `verdaccio`, por ejemplo, un servidor proxy a la inversa:
 
 <https://github.com/verdaccio/docker-examples>
 
