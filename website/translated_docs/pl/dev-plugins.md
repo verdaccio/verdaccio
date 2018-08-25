@@ -2,17 +2,17 @@
 id: dev-plugins
 title: "Tworzenie wtyczek"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Istnieje wiele sposobów na rozszerzenie funkcjonalności `verdaccio`, wspierane są następujące rodzaje wtyczek:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Wtyczki uwierzytelniania
+* Wtyczki oprogramowania pośredniego (od wersji `v2.7.0`)
+* Wtyczki magazynu danych od wersji (`v3.x`)
 
 > We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
 
-## Authentication Plugin
+## Wtyczka uwierzytelniania
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Musimy tylko zwrócić obiekt pojedynczą metodą `authenticate`, która otrzyma 3 argumenty (`user, password, callback`).
 
 ### API
 
@@ -30,7 +30,7 @@ interface IPluginAuth extends IPlugin {
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Po wykonaniu uwierzytelniania mamy 2 opcje na odpowiedź do `verdaccio`.
 
 ###### OnError
 
