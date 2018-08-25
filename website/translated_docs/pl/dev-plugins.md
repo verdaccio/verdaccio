@@ -116,9 +116,9 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Aby zarejestrować oprogramowanie pośrednie potrzebujemy obiekt z pojedynczą metodą `register_middlewares`, która otrzyma 3 argumenty (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
 
-## Storage Plugin
+## Wtyczka magazynu danych
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
 
