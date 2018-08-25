@@ -63,7 +63,7 @@ Verdaccio chce być wielojęzyczny, w tym celu **mamy niesamowitą pomoc** ze st
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Przygotowaliśmy projekt, w którym możesz wybrać swój ulubiony język, jeśli nie znalazłeś tam swojego języka, nie wahaj się powiadomić nas o tym poprzez [wysłanie zgłoszenia](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Przejdź do Verdaccio na platformie Crowdin](https://crowdin.com/project/verdaccio)
 
@@ -73,7 +73,7 @@ Jeśli myślisz *"Widziałem już [repozytoria](repositories.md) i jestem gotów
 
 You will need learn how to build, [we have prepared a guide just for that](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Gdy zapoznasz się ze wszystkimi skryptami i będziesz wiedział jak ich używać, będziesz gotów do następnego kroku, uruchom [**Test jednostek**](test.md).
 
 ## Pełna lista współtwórców. Chcemy tutaj zobaczyć Twoją twarz !
 
