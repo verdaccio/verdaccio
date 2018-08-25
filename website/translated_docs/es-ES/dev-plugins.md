@@ -2,10 +2,10 @@
 id: dev-plugins
 title: "Extensiones en Desarrollo"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Existen muchas maneras de extender `verdaccio`, los tipos de extensiones soportados son:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
+* Extensiones de autenticación
+* Extensiones de Middleware (since `v2.7.0`)
 * Storage plugins since (`v3.x`)
 
 > We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
