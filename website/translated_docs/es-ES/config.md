@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Para habilitar `https` en `verdaccio` es suficiente con definir el argumento `listen` con el protocolo *https://*. Para mas información sobre esta sección lea la [página de ssl](ssl.md).
 
 ```yaml
 https:
@@ -150,7 +150,7 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies tienen un proposito especial como servidores HTTP diseñados para transferir datos remotamente a clientes locales.
 
 #### http_proxy and https_proxy
 
