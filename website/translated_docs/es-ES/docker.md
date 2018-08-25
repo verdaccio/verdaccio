@@ -66,17 +66,17 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. En el ejemplo de arriba, necesitas ejecutar `sudo chown -R 100:101 /opt/verdaccio` de lo contrario, obtendrás errores de permiso en tiempo de ejecución. [Usar el volumen docker](https://docs.docker.com/storage/volumes/) es recomendado antes que usar el montaje de unión.
+> Note: Verdaccio se ejecuta como usuario non-root (uid=100, gid=101) dentro del contenedor, si usas montaje para anular el por defecto, necesitas asegurarte que el directorio a montar es asignado al usuario correcto. En el ejemplo de arriba, necesitas ejecutar `sudo chown -R 100:101 /opt/verdaccio` de lo contrario, obtendrás errores de permiso en tiempo de ejecución. [Usar el volumen docker](https://docs.docker.com/storage/volumes/) es recomendado antes que usar el montaje de unión.
 
 ### Extensiones
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+Extensiones pueden ser instaladas en un directorio separado y montado usando Docker o Kubernetes, de todos modos debes asegurarte que construyes extensiones con dependencias nativas usando como base la imagen de Dockerfile Verdaccio.
 
-### Docker and custom port configuration
+### Configuración de Docker y puerto de escucha por defecto
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Cualquier `host:port` configurado en `conf/config.yaml` bajo `listen` es ignorado cuando se usa Docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Si quieres contactar la instancia de verdaccio en Docker bajo un puerto diferente, digamos `5000` en su comando `docker run` reemplace `-p 4873:4873` con `-p 5000:4873`.
 
 In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
 
