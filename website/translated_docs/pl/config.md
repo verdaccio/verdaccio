@@ -117,7 +117,7 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### Max Body Size
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Domyślnie maksymalny rozmiar ciała dokumentu JSON to `10mb`, jeśli napotykasz błędy takie jak `"zbyt duży rozmiar żądania"` możesz zwiększyć tę wartość.
 
 ```yaml
 max_body_size: 10mb
