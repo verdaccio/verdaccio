@@ -1,6 +1,6 @@
 ---
 id: contributing
-title: "Contributing Verdaccio"
+title: "Współtworzenie Verdaccio"
 ---
 First of all Zapoznanie się z obcą podstawą kodowania nie jest łatwe, ale jesteśmy tutaj, aby Ci z tym pomóc.
 
@@ -14,7 +14,7 @@ Jeżeli masz jakieś pytania, używamy dwóch kanałów do dyskusji:
 
 Na pierwszy rzut oka verdaccio jest pojedyńczym repozytorium, lecz jest wiele sposobów, dzięki którym możesz z nami współpracować i wiele technik do przećwiczenia.
 
-### Finding my spot
+### Znajdowanie swojej mocnej strony
 
 Wszyscy posiadamy różne umiejętności, więc zobaczmy w czym czujesz się komfortowo.
 
@@ -30,7 +30,7 @@ Od niedawna zaczęliśmy używać nowoczesnych technologii, takich jak `React` o
 
 ### I feel more confortable improving the stack
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Wszelkie propozycje są mile widziane. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You migt merely improve the `webpack` configuration would be great. Wszelkie propozycje są mile widziane. Ponadto, jeśli masz doświadczenie z **Yeoman** możesz nam pomóc z [generatorem verdaccio](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Tutaj jest kilka pomysłów:
 
@@ -45,7 +45,7 @@ Tutaj jest kilka pomysłów:
 
 Wiele współtwórców znajduje literówki i błędy gramatyczne, to również przyczynia się do ogólnego wrażenia podczas rozwiązywania problemów.
 
-### I am a Designer
+### Jestem projektantem
 
 We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
 
