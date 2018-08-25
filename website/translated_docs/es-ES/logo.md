@@ -2,13 +2,13 @@
 id: logo
 title: "Verdaccio Logotype"
 ---
-The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbreno)** which won the [contest](https://github.com/verdaccio/verdaccio/issues/237) ([last stage](https://github.com/verdaccio/verdaccio/issues/328)) and donated his work to this project.
+El logotipo fue diseñado por **[Breno Rodrigues](https://github.com/rodriguesbreno)** que gano el [concurso](https://github.com/verdaccio/verdaccio/issues/237) ([ultima fase](https://github.com/verdaccio/verdaccio/issues/328)) y donó su trabajo a este proyecto.
 
-> All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+> Todos los logos estan licenciados bajo [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
-Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution with multiple image formats and sizes.
+Especialmente gracias a *[@Lisapressmar](https://github.com/Lisapressmar)* por su contribución con multiples formatos y tamaños.
 
-## Symbols
+## Simbolos
 
 **With text**
 
