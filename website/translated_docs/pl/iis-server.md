@@ -8,19 +8,19 @@ Te instrukcje zostały napisane dla systemu Windows Server 2012, usługi IIS8, [
 - Utwórz nowy folder w Eksploratorze, gdzie chcesz, aby znajdowało się verdaccio. Na przykład `C:\verdaccio`. Zapisz[package.json](#packagejson), [start.js](#startjs) oraz [web.config](#webconfig) w tym folderze.
 - Create a new site in Internet Information Services Manager. Możesz ją nazwać jakkolwiek chcesz. Ja nazwę ją verdaccio w tych [instrukcjach](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Określ ścieżkę do lokalizacji, w której zapisałeś wszystkie pliki i numer portu.
 - Wróć do Eksploratora i daj użytkownikowi, który uruchamia pulę aplikacji, prawa do modyfikacji folderu, który został właśnie utworzony. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
-- Start a command prompt and execute the commands below to download verdaccio:
+- Uruchom wiersz polecenia i wykonaj poniższe polecenia, aby pobrać verdaccio:
 
     cd c:\verdaccio
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- Upewnij się, że w Zaporze systemu Windows masz regułę ruchu przychodzącego akceptującą ruch TCP przez dany port
+- To wszystko! Teraz można przejść do hosta i portu, który został określony
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Chciałem, aby strona `verdaccio` była domyślną stroną w IIS, więc wykonałem następujące czynności:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
+- Upewniłem się, że plik .npmrc w `c:\users{yourname}` miał rejestr ustawiony jako `"registry=http://localhost/"`
+- Zatrzymałem "Domyślną witrynę sieci Web" i uruchomiłem tylko witrynę "verdaccio" w IIS
 - I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
 
 These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
