@@ -97,7 +97,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### Rozwiązywanie problemów
 
-- **The web interface does not load when hosted with https as it tries to download scripts over http.**  
-    Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
+- **Interfejs sieciowy nie ładuje się, gdy jest hostowany przez protokół https, ponieważ próbuje on pobrać skrypty za pomocą protokołu http.**  
+    Upewnij się, że poprawnie wskazałeś `url_prefix` w konfiguracji verdaccio. Śledź [dyskusję](https://github.com/verdaccio/verdaccio/issues/622).
