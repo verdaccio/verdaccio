@@ -69,6 +69,7 @@ class Auth implements IAuth {
       self.logger.trace( {username}, 'authenticating @{username}');
       plugin.authenticate(username, password, function(err, groups) {
         if (err) {
+          self.logger.trace( {username, err}, 'authenticating for user @{username} failed. Error: @{err.message}');
           return cb(err);
         }
 
@@ -89,6 +90,7 @@ class Auth implements IAuth {
             throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
 
+          self.logger.trace( {username, groups}, 'authentication for user @{username} was successfully. Groups: @{groups}');
           return cb(err, createRemoteUser(username, groups));
         }
         next();
@@ -113,9 +115,11 @@ class Auth implements IAuth {
         // p.add_user() execution
         plugin[method](user, password, function(err, ok) {
           if (err) {
+            self.logger.trace( {user, err}, 'the user @{user} could not being added. Error: @{err}');
             return cb(err);
           }
           if (ok) {
+            self.logger.trace( {user}, 'the user @{user} has been added');
             return self.authenticate(user, password, cb);
           }
           next();
@@ -131,6 +135,7 @@ class Auth implements IAuth {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
     let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
+    const self = this;
     this.logger.trace( {packageName}, 'allow access for @{packageName}');
 
     (function next() {
@@ -142,10 +147,12 @@ class Auth implements IAuth {
 
       plugin.allow_access(user, pkg, function(err, ok: boolean) {
         if (err) {
+          self.logger.trace( {packageName, err}, 'forbidden access for @{packageName}. Error: @{err.message}');
           return callback(err);
         }
 
         if (ok) {
+          self.logger.trace( {packageName}, 'allowed access for @{packageName}');
           return callback(null, ok);
         }
 
@@ -159,6 +166,7 @@ class Auth implements IAuth {
    */
   allow_publish(packageName: string, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
+    const self = this;
     // $FlowFixMe
     let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace( {packageName}, 'allow publish for @{packageName}');
@@ -172,10 +180,12 @@ class Auth implements IAuth {
 
       plugin.allow_publish(user, pkg, (err, ok: boolean) => {
         if (err) {
+          self.logger.trace( {packageName}, 'forbidden publish for @{packageName}');
           return callback(err);
         }
 
         if (ok) {
+          self.logger.trace( {packageName}, 'allowed publish for @{packageName}');
           return callback(null, ok);
         }
         next(); // cb(null, false) causes next plugin to roll
