@@ -5,6 +5,7 @@ const LocalData = require('../../src/lib/storage/local/local-data');
 const path = require('path');
 const _ = require('lodash');
 const fs = require('fs-extra');
+const touch = require('touch');
 
 
 describe('Local Database', function() {
@@ -34,6 +35,18 @@ describe('Local Database', function() {
       assert(error.message.match(/locked/));
       assert(dataLocal.locked);
     });
+
+    it('should emit an event when database file is touched', (done) => {
+      const dataPath = buildValidDbPath();
+      const dataLocal = new LocalData(dataPath);
+      dataLocal.on('data', (data) => {
+        assert(_.isEmpty(data.list) === false);
+        assert(_.isNil(data.secret) === false);
+        assert(_.isEqual(data, dataLocal.data));
+        done();
+      });
+      touch.sync(dataPath);
+    }).timeout(LocalData.DEFAULT_WATCH_POLL_INTERVAL + 100);
 
   });
 

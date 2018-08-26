@@ -2,23 +2,61 @@
 
 const fs = require('fs');
 const Path = require('path');
+const EventEmitter = require('events').EventEmitter;
 const logger = require('../../logger');
+
+/**
+ * The default value for the database watcher poll interval.
+ * @type {number}
+ * @todo FUTURE: should go to the configuration.
+ */
+const DEFAULT_WATCH_POLL_INTERVAL = 1000;
 
 /**
  * Handle local database.
  * FUTURE: must be a plugin.
  */
- class LocalData {
+ class LocalData extends EventEmitter {
 
   /**
-   * Load an parse the local json database.
+   * Load an parse the local json database.yarn
    * @param {*} path the database path
    */
    constructor(path) {
+    super();
     this.path = path;
     // Prevent any write action, wait admin to check what happened during startup
     this.locked = false;
-    this.data = this._fetchLocalPackages();
+    this.watch = true;
+    this._updateData();
+    // Default 
+    fs.watchFile(this.path, {
+      persistent: false,
+      interval: DEFAULT_WATCH_POLL_INTERVAL,
+    }, () => {
+      this._updateData();
+    });
+  }
+
+  /**
+   * Updates in-memory data from local storage.
+   * 
+   * @private
+   * @fires LocalData#data
+   */
+  _updateData() {
+    if (this.watch) {
+      this.data = this._fetchLocalPackages();
+      /**
+       * Data event.
+       *
+       * @event LocalData#data
+       * @type {Object}
+       * @property {string[]} list - List of package names.
+       * @property {string} secret - The secret key.
+       */
+      this.emit('data', this.data);
+    }
   }
 
   /**
@@ -115,7 +153,8 @@ const logger = require('../../logger');
       logger.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
       return new Error('Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.');
     }
-
+    // don't get self-notified.
+    this.watch = false;
     // Uses sync to prevent ugly race condition
     try {
       require('mkdirp').sync(Path.dirname(this.path));
@@ -127,9 +166,12 @@ const logger = require('../../logger');
       fs.writeFileSync(this.path, JSON.stringify(this.data));
     } catch (err) {
       return err;
+    } finally {
+      this.watch = true;
     }
   }
 
 }
 
 module.exports = LocalData;
+module.exports.DEFAULT_WATCH_POLL_INTERVAL = DEFAULT_WATCH_POLL_INTERVAL;

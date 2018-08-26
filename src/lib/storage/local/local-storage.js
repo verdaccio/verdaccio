@@ -49,6 +49,11 @@ class LocalStorage {
     this.config = config;
     this.utils = utils;
     this.localList = new LocalData(this._buildStoragePath(this.config));
+    this.localList.on('data', (data) => {
+      if (_.isNil(data) === false) {
+        data.secret = this.config.checkSecretKey(data.secret);
+      }
+    });
     this.logger = logger.child({sub: 'fs'});
   }
 

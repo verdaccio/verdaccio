@@ -13,6 +13,13 @@ class Search {
    * Constructor.
    */
   constructor() {
+    this.createIndex();
+  }
+
+  /**
+   * Creates an empty search index.
+   */
+  createIndex() {
     this.index = lunr(function() {
       this.field('name', {boost: 10});
       this.field('description', {boost: 4});
@@ -60,6 +67,7 @@ class Search {
    * Force a reindex.
    */
   reindex() {
+    this.createIndex();
     let self = this;
     this.storage.get_local(function(err, packages) {
       if (err) throw err; // that function shouldn't produce any
@@ -77,6 +85,9 @@ class Search {
   configureStorage(storage) {
     this.storage = storage;
     this.reindex();
+    this.storage.localStorage.localList.on('data', (data) => {
+      this.reindex();
+    });
   }
 }
 
