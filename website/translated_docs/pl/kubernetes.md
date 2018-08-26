@@ -34,7 +34,7 @@ helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Odinstalowywanie
 
 ```bash
 helm del --purge npm
@@ -42,7 +42,7 @@ helm del --purge npm
 
 **Note:** this command delete all the resources, including packages that you may have previously published to the registry.
 
-### Custom Verdaccio configuration
+### Niestandardowa konfiguracja Verdaccio
 
 You can customize the Verdaccio configuration using a Kubernetes *configMap*.
 
