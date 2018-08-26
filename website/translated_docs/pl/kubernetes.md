@@ -8,7 +8,7 @@ You can find instructions to deploy Verdaccio on a Kubernetes cluster on the [ve
 
 ### Setup Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+Jeśli nie używałeś wcześniej Helm, musisz ustawić kontroler Helm zwany Tiller:
 
 ```bash
 helm init
