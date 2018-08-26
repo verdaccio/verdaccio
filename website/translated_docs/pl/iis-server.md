@@ -21,11 +21,11 @@ Chciałem, aby strona `verdaccio` była domyślną stroną w IIS, więc wykonał
 
 - Upewniłem się, że plik .npmrc w `c:\users{yourname}` miał rejestr ustawiony jako `"registry=http://localhost/"`
 - Zatrzymałem "Domyślną witrynę sieci Web" i uruchomiłem tylko witrynę "verdaccio" w IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Ustawiłem powiązania na "http", adres ip na "Wszystkie nieprzypisane" na porcie 80 i obyło się bez żadnych ostrzeżeń lub monitów
 
 These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Domyślny plik konfiguracji zostanie utworzony `c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
