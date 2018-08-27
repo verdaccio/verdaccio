@@ -19,7 +19,19 @@ module.exports = function(config, auth, storage) {
   router.use(securityIframe);
 
   // Static
-  router.use('/-/static', express.static(`${env.APP_ROOT}/static`));
+  router.get('/-/static/:filename', function(req, res, next) {
+    const file = `${env.APP_ROOT}/static/${req.params.filename}`;
+    res.sendFile(file, function(err) {
+      if (!err) {
+        return;
+      }
+      if (err.status === 404) {
+        next();
+      } else {
+        next(err);
+      }
+    });
+  });
 
   router.get('/-/verdaccio/logo', function(req, res) {
     let installPath = _.get(config, 'url_prefix', '');
