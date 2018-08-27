@@ -118,6 +118,11 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
+### Base Path
+
+```yaml
+base_path: /verdaccioprefix/
+```
 
 ### Max Body Size
 
