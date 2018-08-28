@@ -30,12 +30,6 @@ export default class PackageSidebar extends React.Component {
     await this.loadPackageData(this.props.packageName);
   }
 
-  async UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.packageName !== this.props.packageName) {
-      await this.loadPackageData(newProps.packageName);
-    }
-  }
-
   async loadPackageData(packageName) {
     let packageMeta;
 

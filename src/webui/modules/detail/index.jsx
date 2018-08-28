@@ -20,12 +20,14 @@ export default class Detail extends Component {
 
   state = {
     readMe: '',
-    notFound: false,
+    notFound: false
   };
 
   getPackageName(props = this.props) {
     const params = props.match.params;
-    return `${(params.scope && '@' + params.scope + '/') || ''}${params.package}`;
+    return `${(params.scope && '@' + params.scope + '/') || ''}${
+      params.package
+    }`;
   }
   get packageName() {
     return this.getPackageName();
@@ -35,9 +37,12 @@ export default class Detail extends Component {
     await this.loadPackageInfo(this.packageName);
   }
 
-  componentDidUpdate(newProps) {
-    if (newProps.isUserLoggedIn !== this.props.isUserLoggedIn) {
-      const packageName = this.getPackageName(newProps);
+  componentDidUpdate(prevProps) {
+    const condition1 = prevProps.isUserLoggedIn !== this.props.isUserLoggedIn;
+    const condition2 =
+      prevProps.match.params.package !== this.props.match.params.package;
+    if (condition1 || condition2) {
+      const packageName = this.getPackageName(this.props);
       this.loadPackageInfo(packageName);
     }
   }
@@ -64,13 +69,13 @@ export default class Detail extends Component {
     const {notFound, readMe} = this.state;
 
     if (notFound) {
-      return <NotFound pkg={this.packageName}/>;
+      return <NotFound pkg={this.packageName} />;
     } else if (isEmpty(readMe)) {
       return <Loading text={loadingMessage} />;
     }
     return (
       <div className={classes.twoColumn}>
-        <PackageDetail readMe={readMe} packageName={this.packageName}/>
+        <PackageDetail readMe={readMe} packageName={this.packageName} />
         <PackageSidebar packageName={this.packageName} />
       </div>
     );
