@@ -138,17 +138,17 @@ npm run build:docker
 
 Примечание: Первая сборки может занять несколько минут, потому что нужно выполнить `npm install`, это будет занимать много времени, всякий раз, как вы измените, что либо, что не перечислено в `.dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Если вам нужно использовать Docker образ на rpi или совместимом устройстве, то Dockerfile так же доступен. Для сборки Docker образа под raspberry pi выполните:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Имейте в виду, что для выполнения всех, представленных выше команд, Docker должен быть установлен на вашем компьютере и исполняемый файл должен быть представлен в переменной окружения `$PATH`.
 
-## Docker Examples
+## Примеры
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Это отдельные репозитории, которые содержат многожество конфигураций для сборки Docker образов с `verdaccio`, для запуска обратного прокси:
 
 <https://github.com/verdaccio/docker-examples>
 
