@@ -107,9 +107,9 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Вы можете указать используемый порт (внутри контейнера и снаружи) дописав перед командой `PORT=5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker сгенерирует именованный раздел, в котором будут храниться данные приложения. Вы можете использовать `docker inspect` или `docker volume inspect` для определения физического местоположения и изменения конфигурации, например:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -124,19 +124,19 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## Сборка собственного Docker образа
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Есть так же npm скрипт для сборки Docker образа, по этому вы можете выполнить:
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Примечание: Первая сборки может занять несколько минут, потому что нужно выполнить `npm install`, это будет занимать много времени, всякий раз, как вы измените, что либо, что не перечислено в `.dockerignore`.
 
 If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
 
