@@ -78,7 +78,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
 
 Если вам необходимо чтобы docker-экземпляр verdaccio работал на другом порту, скажем на `5000`, в вашей `docker run` команде нужно заменить `-p 4873:4873` на `-p 5000:4873`.
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+В том случае, когда вам нужно указать какой порт слушать **в docker контейнере**, начиная с версии 2.?.?, вы можете указать дополнительный аргумент в `docker run`: `--env PORT=5000` Это изменит порт, который docker контейнер будет слушать и порт, который будет слушать verdaccio.
 
 Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
 
