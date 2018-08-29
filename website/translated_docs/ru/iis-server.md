@@ -23,9 +23,9 @@ title: "Установка на IIS сервер"
 - Я остановил "Default Web Site" и просто запустил сайт "verdaccio" в IIS
 - Я установил привязку ip адреса "Всех неназначенных" к "http" на 80ый порт, чтобы избежать предупреждений или запросов
 
-Эта инструкция основана на [Host Sinopia в IIS под Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Эта инструкция основана на [Host Sinopia в IIS под Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Мне пришлось настроить мою конфигурацию, так как показано ниже. Но вы можете обратиться к оригиналу по приведённой выше ссылке
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Файл конфигурации по умолчанию будет создан `c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
@@ -97,7 +97,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### Устранение проблем
 
-- **The web interface does not load when hosted with https as it tries to download scripts over http.**  
-    Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
+- **Web интерфейс не загружается, когда используется https, из-за попыток загрузить скрипты по http.**  
+    Убедитесь что у вас правильно указан `url_prefix` в конфигурации verdaccio. Перейти к [обсуждению](https://github.com/verdaccio/verdaccio/issues/622).
