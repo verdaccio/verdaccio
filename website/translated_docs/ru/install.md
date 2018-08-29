@@ -12,27 +12,27 @@ Verdaccio — мультиплатформенное веб-приложение
 2. npm `>=3.x` или `yarn`
 3. Обозреватели, поддерживающие веб-интерфейс, `Chrome, Firefox, Edge, and IE9`.
 
-## Installing the CLI
+## Установка инструмента командной строки
 
-`verdaccio` must be installed globaly using either of the following methods:
+`verdaccio` должен быть установлено глобально используя один из следующих способов:
 
-Using `npm`
+С использованием `npm`
 
 ```bash
 npm install -g verdaccio
 ```
 
-or using `yarn`
+или с использованием `yarn`
 
 ```bash
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![установка verdaccio](/svg/install_verdaccio.gif)
 
-## Basic Usage
+## Запуск
 
-Once it has been installed, you only need to execute the CLI command:
+После того как установка завершится, всё что вам нужно, это выполнить команду:
 
 ```bash
 $> verdaccio
@@ -40,14 +40,14 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-For more information about the CLI, please [read the cli section](cli.md).
+Больше информации об инструментах командной строки [читайте в этом разделе](cli.md).
 
-## Docker Image
+## Docker образ
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` имеет официальный образ Docker, который вы можете использовать, и в большенстве случаем стандартная конфигурация отлично работает. Больше информации о том как установить официальный образ [читайте в этом разделе](docker.md).
 
 ## Cloudron
 
-`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+`verdaccio` так же доступен для устновку в один клик с [Cloudron](https://cloudron.io)
 
-[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
+[![Установка](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
