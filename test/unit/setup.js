@@ -18,3 +18,4 @@ if (global.document) {
   }));
   document.execCommand = jest.fn();
 }
+global.VERDACCIO_API_URL = 'http://localhost/-/verdaccio/'
