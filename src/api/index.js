@@ -70,7 +70,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
     return plugin.register_middlewares;
   });
   plugins.forEach((plugin) => {
-    plugin.register_middlewares(app, auth, storage);
+    plugin.register_middlewares(internalApp, auth, storage);
   });
 
   /* Router section */
