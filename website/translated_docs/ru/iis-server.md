@@ -17,13 +17,13 @@ title: "Установка на IIS сервер"
 - Убедитесь, что у вас есть правила приёма входящего TCP подключения на порт в Windows Firewall
 - Вот и всё! Теперь вы можете перейти на хост и порт, который вы указывали
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Я хотел чтобы сайт `verdaccio` был сайтом по умолчанию в IIS, по этому я сделал так:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Я убедился что .npmrc файл, который находится в `c:\users\{yourname}`, содержит реестр установленный в `"registry=http://localhost/"`
+- Я остановил "Default Web Site" и просто запустил сайт "verdaccio" в IIS
+- Я установил привязку ip адреса "Всех неназначенных" к "http" на 80ый порт, чтобы избежать предупреждений или запросов
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Эта инструкция основана на [Host Sinopia в IIS под Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
 
 A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
 
