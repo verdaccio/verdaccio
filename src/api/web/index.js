@@ -1,14 +1,29 @@
+import fs from 'fs';
+import path from 'path';
+
 import express from 'express';
 import _ from 'lodash';
-import fs from 'fs';
 import Search from '../../lib/search';
 import * as Utils from '../../lib/utils';
 import {HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
+import VError from 'verror';
+import chalk from 'chalk';
 
 const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
 const env = require('../../config/env');
-const template = fs.readFileSync(`${env.DIST_PATH}/index.html`).toString();
+const templatePath = path.join(env.DIST_PATH, '/index.html');
+const existTemplate = fs.existsSync(templatePath);
+
+if (!existTemplate) {
+  const err = new VError('missing file: "%s", run `yarn build:webui`', templatePath);
+  /* eslint no-console:off */
+  console.error(chalk.red(err.message));
+  /* eslint no-console:off */
+  process.exit(2);
+}
+
+const template = fs.readFileSync(templatePath).toString();
 const spliceURL = require('../../utils/string').spliceURL;
 
 module.exports = function(config, auth, storage) {

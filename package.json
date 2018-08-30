@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -36,7 +36,6 @@
     "js-string-escape": "1.0.1",
     "js-yaml": "3.12.0",
     "jsonwebtoken": "8.3.0",
-    "lint-staged": "7.2.0",
     "lockfile": "1.0.4",
     "lodash": "4.17.10",
     "lunr-mutable-indexes": "2.3.1",
@@ -48,7 +47,8 @@
     "request": "2.87.0",
     "semver": "5.5.0",
     "verdaccio-audit": "0.2.0",
-    "verdaccio-htpasswd": "0.2.2"
+    "verdaccio-htpasswd": "0.2.2",
+    "verror": "1.10.0"
   },
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
@@ -98,6 +98,7 @@
     "file-loader": "1.1.11",
     "flow-bin": "0.77.0",
     "flow-runtime": "0.17.0",
+    "lint-staged": "7.2.0",
     "friendly-errors-webpack-plugin": "1.7.0",
     "github-markdown-css": "2.10.0",
     "html-webpack-plugin": "3.2.0",
