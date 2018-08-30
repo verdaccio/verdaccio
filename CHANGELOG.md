@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.7.1"></a>
+## [3.7.1](https://github.com/verdaccio/verdaccio/compare/v3.7.0...v3.7.1) (2018-08-28)
+
+
+### Bug Fixes
+
+* login modal validation ([#958](https://github.com/verdaccio/verdaccio/issues/958)) ([9f78c31](https://github.com/verdaccio/verdaccio/commit/9f78c31))
+* ui change details issue in props update ([#959](https://github.com/verdaccio/verdaccio/issues/959)) ([#960](https://github.com/verdaccio/verdaccio/issues/960)) ([431e760](https://github.com/verdaccio/verdaccio/commit/431e760))
+
+
+
 <a name="3.7.0"></a>
 # [3.7.0](https://github.com/verdaccio/verdaccio/compare/v3.6.0...v3.7.0) (2018-08-25)
 
