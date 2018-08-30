@@ -37,8 +37,6 @@ function checkAuthentication(response) {
   if (response.status === HTTP_STATUS.UNAUTHORIZED) {
     storage.removeItem('token');
     storage.removeItem('username');
-    alert('You\'ve been logged out from server');
-    window.location.reload();
   }
   return response;
 }
