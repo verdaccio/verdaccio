@@ -33,9 +33,9 @@ logs:
 
 The following sections explain what each property means and the different options.
 
-### Storage
+### Magazyn danych
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Jest lokalizacją domyślnego magazynu danych. **Verdaccio domyślnie jest oparte o lokalny system plików**.
 
 ```yaml
 storage: ./storage
@@ -117,7 +117,7 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### Max Body Size
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Domyślnie maksymalny rozmiar ciała dokumentu JSON to `10mb`, jeśli napotykasz błędy takie jak `"zbyt duży rozmiar żądania"` możesz zwiększyć tę wartość.
 
 ```yaml
 max_body_size: 10mb
@@ -125,7 +125,7 @@ max_body_size: 10mb
 
 ### Port nasłuchu
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` domyślnie nadaje poprzez port `4873`. Zmiana tego portu może być dokonana przez [cli](cli.md) lub przez plik konfiguracyjny, wszystkie następujące opcje są prawidłowe.
 
 ```yaml
 listen:
@@ -189,7 +189,7 @@ notify:
 
 `npm audit` to nowa komenda wydana razem z [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio zawiera wbudowany plugin oprogramowania pośredniego do obsługi tej komendy.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Jeśli instalujesz aplikację od nowa, to posiada to ona domyślnie, w przeciwnym razie musisz dodać następujące właściwości do Twojego pliku konfiguracyjnego
 
 ```yaml
 middlewares:

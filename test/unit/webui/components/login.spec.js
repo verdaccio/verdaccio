@@ -35,7 +35,7 @@ describe('<LoginModal />', () => {
       onSubmit: () => {}
     };
     const wrapper = mount(<LoginModal {...props} />);
-    wrapper.find('.el-dialog__footer > .cancel-login-button').simulate('click');
+    wrapper.find('button.cancel-login-button').simulate('click');
     expect(props.onCancel).toHaveBeenCalled();
     wrapper.find('.el-dialog__headerbtn > .el-dialog__close').simulate('click');
     expect(props.onCancel).toHaveBeenCalled();
@@ -45,35 +45,40 @@ describe('<LoginModal />', () => {
     const props = {
       visibility: true,
       error: {},
-      onCancel: () => { },
-      onSubmit: () => { }
+      onCancel: () => {},
+      onSubmit: () => {}
     };
     const wrapper = mount(<LoginModal {...props} />);
     const { setCredentials } = wrapper.instance();
 
     expect(setCredentials('username', 'xyz')).toBeUndefined();
-    expect(wrapper.state('username')).toEqual('xyz');
+    expect(wrapper.state('form').username).toEqual('xyz');
 
     expect(setCredentials('password', '1234')).toBeUndefined();
-    expect(wrapper.state('password')).toEqual('1234');
+    expect(wrapper.state('form').password).toEqual('1234');
   });
 
-  it('submitCredential: should call the onSubmit', async () => {
+  it('submitCredential: should call the onSubmit', () => {
     const props = {
       visibility: true,
       error: {},
-      onCancel: () => { },
+      onCancel: () => {},
       onSubmit: jest.fn()
     };
 
     const event = {
       preventDefault: jest.fn()
-    }
+    };
     const wrapper = mount(<LoginModal {...props} />);
     const { submitCredentials } = wrapper.instance();
-    wrapper.setState({username: 'sam', password: 1234})
-    await submitCredentials(event);
-    expect(props.onSubmit).toHaveBeenCalledWith('sam', 1234);
+    wrapper
+      .find('input[type="text"]')
+      .simulate('change', { target: { value: 'sam' } });
+    wrapper
+      .find('input[type="password"]')
+      .simulate('change', { target: { value: '1234' } });
+    submitCredentials(event);
     expect(event.preventDefault).toHaveBeenCalled();
+    expect(props.onSubmit).toHaveBeenCalledWith('sam', '1234');
   });
 });

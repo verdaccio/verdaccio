@@ -5,7 +5,6 @@ import assert from 'assert';
 import semver from 'semver';
 import YAML from 'js-yaml';
 import URL from 'url';
-import asciidoctor from 'asciidoctor.js';
 import createError from 'http-errors';
 import marked from 'marked';
 
@@ -532,17 +531,6 @@ function addGravatarSupport(pkgInfo: Object): Object {
  * @return {String} converted html template
  */
 function parseReadme(packageName: string, readme: string): string {
-  const asciiRegex = /^\n?(?:={1,5}[ \t]+\S|[^#].*(\n(?!#+[ \t]+\S).*){0,8}\n={1,5}[ \t]+\S)/;
-  const docTypeIdentifier = new RegExp(asciiRegex, 'g');
-  // asciidoc
-  if (docTypeIdentifier.test(readme)) {
-    const ascii = asciidoctor();
-    return ascii.convert(readme, {
-      safe: 'safe',
-      attributes: {showtitle: true, icons: 'font'},
-    });
-  }
-
   if (readme) {
     return marked(readme);
   }

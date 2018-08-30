@@ -223,7 +223,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
         url: req.url,
       },
       level: 35, // http
-      user: req.remote_user && req.remote_user.name,
+      user: req.remote_user && req.remote_user.name || null,
       remoteIP,
       status: res.statusCode,
       error: res._verdaccio_error,
