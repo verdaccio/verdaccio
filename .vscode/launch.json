@@ -8,6 +8,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "CLI Babel Registry",
+			"stopOnEntry": false,
 			"program": "${workspaceFolder}/debug/bootstrap.js",
 			"env": {
 				"BABEL_ENV": "registry"
@@ -21,9 +22,10 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/node_modules/jest-cli/bin/jest.js",
 			"stopOnEntry": false,
-			"args": ["--debug=true" ],
+			"args": [
+				"--debug=true" ],
 			"cwd": "${workspaceRoot}",
-			"preLaunchTask": null,
+			"preLaunchTask": "pre-test",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
 				"--nolazy"
@@ -33,6 +35,35 @@
 				"TZ": "UTC"
 			},
 			"console": "integratedTerminal"
+		},
+		{
+			"name": "Functional Tests",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceRoot}/node_modules/.bin/jest",
+			"stopOnEntry": false,
+			"args": [
+				"--config",
+				"./test/jest.config.functional.js",
+				"--testPathPattern",
+				"./test/functional/index*",
+				"--debug=false",
+				"--verbose",
+				"--useStderr",
+				"--detectOpenHandles"],
+			"cwd": "${workspaceRoot}",
+			"env": {
+				"BABEL_ENV": "testOldEnv",
+				"VERDACCIO_DEBUG": "true",
+				"VERDACCIO_DEBUG_INJECT": "true",
+				"NODE_DEBUG": "TO_DEBUG_REQUEST_REMOVE_THIS_request"
+			},
+			"preLaunchTask": "pre-test",
+			"console": "integratedTerminal",
+			"runtimeExecutable": null,
+			"runtimeArgs": [
+				"--nolazy"
+			],
 		},
 		{
 			"type": "node",
