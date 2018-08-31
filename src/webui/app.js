@@ -64,7 +64,7 @@ export default class App extends Component {
   }
 
   /**
-   * Toogles the login modal
+   * Toggles the login modal
    * Required by: <LoginModal /> <Header />
    */
   toggleLoginModal() {
@@ -94,7 +94,7 @@ export default class App extends Component {
       storage.setItem('username', username);
       storage.setItem('token', token);
       // close login modal after successful login
-      // set userLoggined to true
+      // set isUserLoggedin to true
       this.setState({
         isUserLoggedIn: true,
         showLoginModal: false

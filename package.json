@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -44,6 +44,7 @@
     "mime": "2.3.1",
     "minimatch": "3.0.4",
     "mkdirp": "0.5.1",
+    "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "request": "2.87.0",
     "semver": "5.5.0",

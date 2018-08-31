@@ -1,9 +1,11 @@
+const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');
 const chalk = require('chalk');
 const Utils = require('./utils');
 const pkgJSON = require('../../package.json');
+const _ = require('lodash');
 
 /**
  * Match the level based on buyan severity scale
@@ -23,6 +25,16 @@ function getlvl(x) {
 }
 
 /**
+ * A RotatingFileStream that modifes the message first
+ */
+class VerdaccioRotatingFileStream extends Logger.RotatingFileStream { // We depend on mv so that this is there
+  write(obj) {
+    const msg = fillInMsgTemplate(obj.msg, obj, false);
+    super.write(JSON.stringify({...obj, msg}, Logger.safeCycles()) + '\n');
+  }
+}
+
+/**
  * Setup the Buyan logger
  * @param {*} logs list of log configuration
  */
@@ -33,55 +45,77 @@ function setup(logs) {
   }
 
   logs.forEach(function(target) {
+    let level = target.level || 35;
+    if (level === 'http') {
+      level = 35;
+    }
+
     // create a stream for each log configuration
-    const stream = new Stream();
-    stream.writable = true;
+    if (target.type === 'rotating-file') {
+      if (target.format !== 'json') {
+        throw new Error('Rotating file streams only work with JSON!');
+      }
+      if (cluster.isWorker) {
+        // https://github.com/trentm/node-bunyan#stream-type-rotating-file
+        throw new Error('Cluster mode is not supported for rotating-file!');
+      }
 
-    let dest;
-    let destIsTTY = false;
-    const prettyPrint = (obj) => print(obj.level, obj.msg, obj, destIsTTY) + '\n';
-    const prettyTimestampedPrint = (obj) => obj.time.toISOString() + print(obj.level, obj.msg, obj, destIsTTY) + '\n';
-    const jsonPrint = (obj) => {
-      const msg = fillInMsgTemplate(obj.msg, obj, destIsTTY);
-      return JSON.stringify({...obj, msg}, Logger.safeCycles()) + '\n';
-    };
+      const stream = new VerdaccioRotatingFileStream(
+        _.merge({},
+          // Defaults can be found here: https://github.com/trentm/node-bunyan#stream-type-rotating-file
+          target.options || {},
+          {path: target.path, level})
+      );
 
-    if (target.type === 'file') {
-      // destination stream
-      dest = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
-      dest.on('error', function(err) {
-        Logger.emit('error', err);
+      streams.push(
+          {
+            type: 'raw',
+            level,
+            stream,
+          }
+        );
+    } else {
+      const stream = new Stream();
+      stream.writable = true;
+
+      let destination;
+      let destinationIsTTY = false;
+      if (target.type === 'file') {
+        // destination stream
+        destination = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
+        destination.on('error', function(err) {
+          stream.emit('error', err);
+        });
+      } else if (target.type === 'stdout' || target.type === 'stderr') {
+        destination = target.type === 'stdout' ? process.stdout : process.stderr;
+        destinationIsTTY = destination.isTTY;
+      } else {
+        throw Error('wrong target type for a log');
+      }
+
+      if (target.format === 'pretty') {
+        // making fake stream for prettypritting
+        stream.write = (obj) => {
+          destination.write(`${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+        };
+      } else if (target.format === 'pretty-timestamped') {
+        // making fake stream for pretty pritting
+        stream.write = (obj) => {
+          destination.write(`${obj.time.toISOString()}${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+        };
+      } else {
+        stream.write = (obj) => {
+          const msg = fillInMsgTemplate(obj.msg, obj, destinationIsTTY);
+          destination.write(`${JSON.stringify({...obj, msg}, Logger.safeCycles())}\n`);
+        };
+      }
+
+      streams.push({
+        type: 'raw',
+        level,
+        stream: stream,
       });
-    } else if (target.type === 'stdout' || target.type === 'stderr') {
-      dest = target.type === 'stdout' ? process.stdout : process.stderr;
-      destIsTTY = dest.isTTY;
-    } else {
-      throw Error('wrong target type for a log');
     }
-
-    if (target.format === 'pretty') {
-      // making fake stream for prettypritting
-      stream.write = (obj) => {
-        dest.write(prettyPrint(obj));
-      };
-    } else if (target.format === 'pretty-timestamped') {
-      // making fake stream for prettypritting
-      stream.write = (obj) => {
-        dest.write(prettyTimestampedPrint(obj));
-      };
-    } else {
-      stream.write = (obj) => {
-        dest.write(jsonPrint(obj));
-      };
-    }
-
-
-    if (target.level === 'http') target.level = 35;
-    streams.push({
-      type: 'raw',
-      level: target.level || 35,
-      stream: stream,
-    });
   });
 
   // buyan default configuration
