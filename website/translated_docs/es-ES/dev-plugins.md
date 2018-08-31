@@ -2,17 +2,17 @@
 id: dev-plugins
 title: "Extensiones en Desarrollo"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Existen muchas maneras de extender `verdaccio`, los tipos de extensiones soportados son:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Extensiones de autenticación
+* Extensiones de Middleware (since `v2.7.0`)
+* Extensiones de Almacenamiento desde (`v3.x`)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Nosotros reocmendados desarrollar extensiones usando nuestras [definiciones de tipado de Flow](https://github.com/verdaccio/flow-types).
 
 ## Extensión de Autenticación
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Basicamente tenemos que retornar un objecto con un simple método llamado `authenticate`que recivirá 3 argumentos (`user, password, callback`).
 
 ### API
 
@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Solamente `adduser`, `allow_access` and `allow_publish` son opcionales, verdaccio contiene una implementación interna en caso que no sean definidos.
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Una vez que la autenticación ha sido ejecutada habrá 2 argumentos que dara una respuesta a `verdaccio`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+O bien algo malo paso o la autenticación no fue satisfactoria.
 
 ```flow
 callback(null, false)
@@ -42,9 +42,9 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+La autenticación fue satisfactoria.
 
-`groups` is an array of strings where the user is part of.
+`groups` es un array de cadenas de los cuales el usuario es parte.
 
      callback(null, groups);
     

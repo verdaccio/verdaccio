@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {Form, Button, Dialog, Input, Alert} from 'element-react';
 
@@ -15,15 +15,34 @@ export default class LoginModal extends Component {
     error: {},
     onCancel: () => {},
     onSubmit: () => {}
-  }
+  };
 
   state = {
-    username: '',
-    password: ''
-  }
+    form: {
+      username: '',
+      password: ''
+    },
+    rules: {
+      username: [
+        {
+          required: true,
+          message: 'Please input the username',
+          trigger: 'change'
+        }
+      ],
+      password: [
+        {
+          required: true,
+          message: 'Please input the password',
+          trigger: 'change'
+        }
+      ]
+    }
+  };
 
   constructor(props) {
     super(props);
+    this.formRef = createRef();
     this.submitCredentials = this.submitCredentials.bind(this);
     this.setCredentials = this.setCredentials.bind(this);
   }
@@ -32,20 +51,34 @@ export default class LoginModal extends Component {
    * set login modal's username and password to current state
    * Required by: <LoginModal />
    */
-  setCredentials(name, e) {
-    this.setState({
-      [name]: e
-    });
+  setCredentials(key, value) {
+    this.setState(
+      (prevState) => ({
+        form: {...prevState.form, [key]: value}
+      })
+    );
   }
 
-  async submitCredentials(event) {
-    // prevents default submit behaviour
+  /**
+   * Clears the username and password field.
+   */
+  handleReset() {
+    this.formRef.current.resetFields();
+  }
+
+  submitCredentials(event) {
+    // prevents default submit behavior
     event.preventDefault();
-    const {username, password} = this.state;
-    await this.props.onSubmit(username, password);
-    // let's wait for API response and then set
-    // username and password filed to empty state
-    this.setState({username: '', password: ''});
+    this.formRef.current.validate((valid) => {
+      if (valid) {
+        const {username, password} = this.state.form;
+        this.props.onSubmit(username, password);
+        this.setState({
+          form: {username}
+        });
+      }
+      return false;
+    });
   }
 
   renderLoginError({type, title, description} = {}) {
@@ -56,13 +89,16 @@ export default class LoginModal extends Component {
         description={description}
         showIcon={true}
         closable={false}
+        style={{lineHeight: '10px'}}
       />
-    ) : '';
+    ) : (
+      ''
+    );
   }
 
   render() {
     const {visibility, onCancel, error} = this.props;
-    const {username, password} = this.state;
+    const {username, password} = this.state.form;
     return (
       <div className="login-dialog">
         <Dialog
@@ -71,39 +107,47 @@ export default class LoginModal extends Component {
           visible={visibility}
           onCancel={onCancel}
         >
-          <Form className="login-form">
-            <Dialog.Body>
-              {this.renderLoginError(error)}
-              <br />
-              <Input
-                name="username"
-                placeholder="Username"
-                value={username}
-                onChange={this.setCredentials.bind(this, 'username')}
-              />
-              <br />
-              <br />
-              <Input
-                name="password"
-                type="password"
-                placeholder="Type your password"
-                value={password}
-                onChange={this.setCredentials.bind(this, 'password')}
-              />
-            </Dialog.Body>
-            <Dialog.Footer className="dialog-footer">
-              <Button onClick={onCancel} className="cancel-login-button">
-                Cancel
-              </Button>
-              <Button
-                nativeType="submit"
-                className="login-button"
-                onClick={this.submitCredentials}
-              >
-                Login
-            </Button>
-            </Dialog.Footer>
-          </Form>
+          <Dialog.Body>
+            <Form
+              className="login-form"
+              ref={this.formRef}
+              model={this.state.form}
+              rules={this.state.rules}
+            >
+              <Form.Item>
+                {this.renderLoginError(error)}
+              </Form.Item>
+              <Form.Item prop="username" labelPosition="top">
+                <Input
+                  name="username"
+                  placeholder="Type your username"
+                  value={username}
+                  onChange={this.setCredentials.bind(this, 'username')}
+                />
+              </Form.Item>
+              <Form.Item prop="password">
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="Type your password"
+                  value={password}
+                  onChange={this.setCredentials.bind(this, 'password')}
+                />
+              </Form.Item>
+              <Form.Item style={{float: 'right'}}>
+                <Button onClick={onCancel} className="cancel-login-button">
+                  Cancel
+                </Button>
+                    <Button
+                      nativeType="submit"
+                      className="login-button"
+                      onClick={this.submitCredentials}
+                    >
+                      Login
+                </Button>
+              </Form.Item>
+            </Form>
+          </Dialog.Body>
         </Dialog>
       </div>
     );
