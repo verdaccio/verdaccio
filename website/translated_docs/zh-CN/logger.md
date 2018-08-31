@@ -6,13 +6,15 @@ title: "记录器"
 
 ```yaml
 logs:
-  # 控制台输出
+  # console output
   - {type: stdout, format: pretty, level: http}
-  # 文件输出
+  # file output
   - {type: file, path: verdaccio.log, level: info}
+  # Rotating log stream. Options are passed directly to bunyan. See: https://github.com/trentm/node-bunyan#stream-type-rotating-file
+  - {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 ```
 
-用`SIGUSR2` 来通知应用程序，此log-file 已循环，需要重新打开它。
+Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it. Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
 
 ### 配置
 
