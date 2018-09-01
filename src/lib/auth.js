@@ -13,7 +13,7 @@ import {getMatchedPackagesSpec} from './config-utils';
 import type {Config, Logger, Callback, IPluginAuth, RemoteUser} from '@verdaccio/types';
 import type {$Response, NextFunction} from 'express';
 import type {$RequestExtend, JWTPayload} from '../../types';
-import type {IAuth} from '../../types';
+import type {IAuth, IUser} from '../../types';
 
 
 const LoggerApi = require('./logger');
@@ -283,7 +283,7 @@ class Auth implements IAuth {
     };
   }
 
-  issueUIjwt(user: any, expiresIn: string) {
+  issueUIjwt(user: IUser, expiresIn: string) {
     const {name, real_groups} = user;
     const payload: JWTPayload = {
       user: name,
