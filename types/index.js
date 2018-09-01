@@ -57,9 +57,13 @@ export type $ResponseExtend = $Response & {cookies?: any}
 export type $NextFunctionVer = NextFunction & mixed;
 export type $SidebarPackage = Package & {latest: mixed}
 
+export interface IUser {
+  real_groups: Array<string>;
+  name: string;
+}
 
 interface IAuthWebUI {
-  issueUIjwt(user: string, time: string): string;
+  issueUIjwt(user: IUser, time: string): string;
 }
 
 interface IAuthMiddleware {
