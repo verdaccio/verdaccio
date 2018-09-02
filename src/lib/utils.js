@@ -67,17 +67,18 @@ export function validateName(name: string): boolean {
   if (_.isString(name) === false) {
     return false;
   }
-  name = name.toLowerCase();
+
+  const normalizedName: string = name.toLowerCase();
 
   // all URL-safe characters and "@" for issue #75
   return !(
-    !name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
-    name.charAt(0) === '.' || // ".bin", etc.
-    name.charAt(0) === '-' || // "-" is reserved by couchdb
-    name === 'node_modules' ||
-    name === '__proto__' ||
-    name === 'package.json' ||
-    name === 'favicon.ico'
+    !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
+    normalizedName.charAt(0) === '.' || // ".bin", etc.
+    normalizedName.charAt(0) === '-' || // "-" is reserved by couchdb
+    normalizedName === 'node_modules' ||
+    normalizedName === '__proto__' ||
+    normalizedName === 'package.json' ||
+    normalizedName === 'favicon.ico'
   );
 }
 

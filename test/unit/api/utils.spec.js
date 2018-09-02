@@ -4,10 +4,10 @@ import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../../../src/utils/user';
 import { spliceURL } from '../../../src/utils/string';
 import Package from '../../../src/webui/components/Package/index';
 import {
-  validateName as validate,
+  validateName,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
-  addGravatarSupport
+  addGravatarSupport, validate_package, validate_metadata, DIST_TAGS
 } from '../../../src/lib/utils';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
@@ -18,6 +18,100 @@ const readmeFile = (fileName: string = 'markdown.md') =>
 setup([]);
 
 describe('Utilities', () => {
+
+  describe('API utilities', () => {
+    describe('validate_package', () => {
+      test('should validate package names', () => {
+        expect(validate_package("package-name")).toBeTruthy();
+        expect(validate_package("@scope/package-name")).toBeTruthy();
+        expect(validate_package("node_modules")).toBeTruthy();
+        expect(validate_package("__proto__")).toBeTruthy();
+        expect(validate_package("package.json")).toBeTruthy();
+        expect(validate_package("favicon.ico")).toBeTruthy();
+      });
+
+      test('should fails on validate package names', () => {
+        expect(validate_package("package-name/test/fake")).toBeFalsy();
+        expect(validate_package("@/package-name")).toBeFalsy();
+        expect(validate_package("$%$%#$%$#%#$%$#")).toBeFalsy();
+      });
+
+      describe('validateName', () => {
+        test('should fails with no string', () => {
+          // intended to fail with flow, do not remove
+          // $FlowFixMe
+          expect(validateName(null)).toBeFalsy();
+          // $FlowFixMe
+          expect(validateName()).toBeFalsy();
+        });
+
+        test('good ones', () => {
+          expect(validateName('verdaccio')).toBeTruthy();
+          expect(validateName('some.weird.package-zzz')).toBeTruthy();
+          expect(validateName('old-package@0.1.2.tgz')).toBeTruthy();
+        });
+
+        test('should be valid using uppercase', () => {
+          expect(validateName('ETE')).toBeTruthy();
+          expect(validateName('JSONStream')).toBeTruthy();
+        });
+
+        test('should fails using package.json', () => {
+          expect(validateName('package.json')).toBeFalsy();
+        });
+
+        test('should fails with path seps', () => {
+          expect(validateName('some/thing')).toBeFalsy();
+          expect(validateName('some\\thing')).toBeFalsy();
+        });
+
+        test('should fail with no hidden files', () => {
+          expect(validateName('.bin')).toBeFalsy();
+        });
+
+        test('should fails with reserved words', () => {
+          expect(validateName('favicon.ico')).toBeFalsy();
+          expect(validateName('node_modules')).toBeFalsy();
+          expect(validateName('__proto__')).toBeFalsy();
+        });
+
+        test('should fails with other options', () => {
+          expect(validateName('pk g')).toBeFalsy();
+          expect(validateName('pk\tg')).toBeFalsy();
+          expect(validateName('pk%20g')).toBeFalsy();
+          expect(validateName('pk+g')).toBeFalsy();
+          expect(validateName('pk:g')).toBeFalsy();
+        });
+      });
+    });
+
+    describe('validate_metadata', () => {
+      test('should fills an empty metadata object', () => {
+        // intended to fail with flow, do not remove
+        // $FlowFixMe
+        expect(Object.keys(validate_metadata({}))).toContain(DIST_TAGS);
+        // $FlowFixMe
+        expect(Object.keys(validate_metadata({}))).toContain('versions');
+        // $FlowFixMe
+        expect(Object.keys(validate_metadata({}))).toContain('time');
+      });
+
+      test('should fails the assertions is not an object', () => {
+        expect(function ( ) {
+          // $FlowFixMe
+          validate_metadata('');
+        }).toThrow(assert.AssertionError);
+      });
+
+      test('should fails the assertions is name does not match', () => {
+        expect(function ( ) {
+          // $FlowFixMe
+          validate_metadata({}, "no-name");
+        }).toThrow(assert.AssertionError);
+      });
+    });
+  });
+
   describe('String utilities', () => {
     test('should splice two strings and generate a url', () => {
       const url: string = spliceURL('http://domain.com', '/-/static/logo.png');
@@ -44,46 +138,6 @@ describe('Utilities', () => {
       const gravatarUrl: string = generateGravatarUrl();
 
       expect(gravatarUrl).toMatch(GRAVATAR_DEFAULT);
-    });
-  });
-
-  describe('Validations', () => {
-    test('good ones', () => {
-      assert(validate('verdaccio'));
-      assert(validate('some.weird.package-zzz'));
-      assert(validate('old-package@0.1.2.tgz'));
-    });
-
-    test('uppercase', () => {
-      assert(validate('EVE'));
-      assert(validate('JSONStream'));
-    });
-
-    test('no package.json', () => {
-      assert(!validate('package.json'));
-    });
-
-    test('no path seps', () => {
-      assert(!validate('some/thing'));
-      assert(!validate('some\\thing'));
-    });
-
-    test('no hidden', () => {
-      assert(!validate('.bin'));
-    });
-
-    test('no reserved', () => {
-      assert(!validate('favicon.ico'));
-      assert(!validate('node_modules'));
-      assert(!validate('__proto__'));
-    });
-
-    test('other', () => {
-      assert(!validate('pk g'));
-      assert(!validate('pk\tg'));
-      assert(!validate('pk%20g'));
-      assert(!validate('pk+g'));
-      assert(!validate('pk:g'));
     });
   });
 
