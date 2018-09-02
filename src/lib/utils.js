@@ -222,7 +222,7 @@ export function tagVersion(data: Package, version: string, tag: StringValue): bo
  */
 export function getVersion(pkg: Package, version: any) {
   // this condition must allow cast
-  if (pkg.versions[version] != null) {
+  if (_.isNil(pkg.versions[version]) === false) {
     return pkg.versions[version];
   }
 

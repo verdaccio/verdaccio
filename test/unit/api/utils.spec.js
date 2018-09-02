@@ -7,7 +7,7 @@ import {
   validateName,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
-  addGravatarSupport, validate_package, validate_metadata, DIST_TAGS
+  addGravatarSupport, validate_package, validate_metadata, DIST_TAGS, combineBaseUrl, getVersion, normalizeDistTags
 } from '../../../src/lib/utils';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
@@ -18,22 +18,140 @@ const readmeFile = (fileName: string = 'markdown.md') =>
 setup([]);
 
 describe('Utilities', () => {
+  const buildURI = (host, version) =>
+    `http://${host}/npm_test/-/npm_test-${version}.tgz`;
+  const fakeHost = 'fake.com';
+  const metadata: Package = {
+    name: 'npm_test',
+    versions: {
+      '1.0.0': {
+        dist: {
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz'
+        }
+      },
+      '1.0.1': {
+        dist: {
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz'
+        }
+      }
+    }
+  };
+  const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
+    describe('convertDistRemoteToLocalTarballUrls', () => {
+      test('should build a URI for dist tarball based on new domain', () => {
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
+          // $FlowFixMe
+          {
+            headers: {
+              host: fakeHost
+            },
+            get: () => 'http',
+            protocol: 'http'
+          });
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
+        expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.1'));
+      });
+
+      test('should return same URI whether host is missing', () => {
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
+          // $FlowFixMe
+          {
+            headers: {},
+            get: () => 'http',
+            protocol: 'http'
+          });
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
+      });
+    });
+
+    describe('normalizeDistTags', () => {
+      test('should delete a invalid latest version', () => {
+        const pkg = cloneMetadata();
+        pkg[DIST_TAGS] = {
+          latest: '20000'
+        };
+
+        normalizeDistTags(pkg)
+
+        expect(Object.keys(pkg[DIST_TAGS])).toHaveLength(0);
+      });
+
+      test('should define last published version as latest', () => {
+        const pkg = cloneMetadata();
+        pkg[DIST_TAGS] = {};
+
+        normalizeDistTags(pkg)
+
+        expect(pkg[DIST_TAGS]).toEqual({latest: '1.0.1'});
+      });
+
+      test('should define last published version as latest with a custom dist-tag', () => {
+        const pkg = cloneMetadata();
+        pkg[DIST_TAGS] = {
+          beta: '1.0.1'
+        };
+
+        normalizeDistTags(pkg);
+
+        expect(pkg[DIST_TAGS]).toEqual({beta: '1.0.1', latest: '1.0.1'});
+      });
+
+      test('should convert any array of dist-tags to a plain string', () => {
+        const pkg = cloneMetadata();
+        pkg[DIST_TAGS] = {
+          latest: ['1.0.1']
+        };
+
+        normalizeDistTags(pkg);
+
+        expect(pkg[DIST_TAGS]).toEqual({latest: '1.0.1'});
+      });
+    });
+
+    describe('getVersion', () => {
+      test('should get the right version', () => {
+        expect(getVersion(cloneMetadata(), '1.0.0')).toEqual(metadata.versions['1.0.0']);
+        expect(getVersion(cloneMetadata(), 'v1.0.0')).toEqual(metadata.versions['1.0.0']);
+      });
+
+      test('should return nothing on get non existing version', () => {
+        expect(getVersion(cloneMetadata(), '0')).toBeUndefined();
+        expect(getVersion(cloneMetadata(), '2.0.0')).toBeUndefined();
+        expect(getVersion(cloneMetadata(), 'v2.0.0')).toBeUndefined();
+        expect(getVersion(cloneMetadata(), undefined)).toBeUndefined();
+        expect(getVersion(cloneMetadata(), null)).toBeUndefined();
+        expect(getVersion(cloneMetadata(), 2)).toBeUndefined();
+      })
+    });
+
+    describe('combineBaseUrl', () => {
+      test('should create a URI', () => {
+        expect(combineBaseUrl("http", 'domain')).toEqual('http://domain');
+      });
+
+      test('should create a base url for registry', () => {
+        expect(combineBaseUrl("http", 'domain', '/prefix/')).toEqual('http://domain/prefix');
+        expect(combineBaseUrl("http", 'domain', 'only-prefix')).toEqual('only-prefix');
+      });
+
+    });
+
     describe('validate_package', () => {
       test('should validate package names', () => {
         expect(validate_package("package-name")).toBeTruthy();
         expect(validate_package("@scope/package-name")).toBeTruthy();
-        expect(validate_package("node_modules")).toBeTruthy();
-        expect(validate_package("__proto__")).toBeTruthy();
-        expect(validate_package("package.json")).toBeTruthy();
-        expect(validate_package("favicon.ico")).toBeTruthy();
       });
 
       test('should fails on validate package names', () => {
         expect(validate_package("package-name/test/fake")).toBeFalsy();
         expect(validate_package("@/package-name")).toBeFalsy();
         expect(validate_package("$%$%#$%$#%#$%$#")).toBeFalsy();
+        expect(validate_package("node_modules")).toBeFalsy();
+        expect(validate_package("__proto__")).toBeFalsy();
+        expect(validate_package("package.json")).toBeFalsy();
+        expect(validate_package("favicon.ico")).toBeFalsy();
       });
 
       describe('validateName', () => {
@@ -138,50 +256,6 @@ describe('Utilities', () => {
       const gravatarUrl: string = generateGravatarUrl();
 
       expect(gravatarUrl).toMatch(GRAVATAR_DEFAULT);
-    });
-  });
-
-  describe('Packages utilities', () => {
-    const metadata: Package = {
-      name: 'npm_test',
-      versions: {
-        '1.0.0': {
-          dist: {
-            tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz'
-          }
-        },
-        '1.0.1': {
-          dist: {
-            tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz'
-          }
-        }
-      }
-    };
-
-    const buildURI = (host, version) =>
-      `http://${host}/npm_test/-/npm_test-${version}.tgz`;
-    const host = 'fake.com';
-
-    test('convertDistRemoteToLocalTarballUrls', () => {
-      const convertDist = convertDistRemoteToLocalTarballUrls(
-        Object.assign({}, metadata),
-        // $FlowFixMe
-        {
-          headers: {
-            host
-          },
-          get: () => 'http',
-          protocol: 'http'
-        },
-        ''
-      );
-
-      expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
-        buildURI(host, '1.0.0')
-      );
-      expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(
-        buildURI(host, '1.0.1')
-      );
     });
   });
 
