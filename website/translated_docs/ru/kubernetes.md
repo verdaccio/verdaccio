@@ -73,14 +73,14 @@ kubectl create configmap verdaccio-config --from-file ./config.yaml
 
 #### Разворачивание Verdaccio
 
-Now you can deploy the Verdaccio Helm chart and specify which configuration to use:
+Сейчас вы можете развернуть Verdaccio Helm пакет и указать, с какой конфигурацией его нужно развернуть: use:
 
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
 ```
 
-## Rancher Support
+## Поддержка Rancher
 
-[Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
+[Rancher](http://rancher.com/) это платформа для управления конечными контейнерами, которая делает управление им и их использование в production реально простым.
 
 * [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)
