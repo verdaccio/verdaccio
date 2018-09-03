@@ -1,8 +1,8 @@
 ---
-id: authentification
-title: "Authentification"
+id: autenticacao
+title: "Autenticação"
 ---
-The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
+A autenticação está ligada ao [plugin](plugins.md) auth que você está utilizando. As restrições do pacote também são tratadas pelo [Package Access](packages.md).
 
 The client authentification is handled by `npm` client itself. Once you login to the application:
 
