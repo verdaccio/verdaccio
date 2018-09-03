@@ -157,6 +157,7 @@
     "flow": "flow check",
     "pretest": "npm run code:build",
     "test": "npm run test:unit",
+    "test:clean": "npx jest --clearCache",
     "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC jest --config ./jest.config.js --maxWorkers 2",
     "test:functional": "cross-env NODE_ENV=testOldEnv jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index*",
     "test:e2e": "cross-env BABEL_ENV=testOldEnv jest --config ./test/jest.config.e2e.js",
