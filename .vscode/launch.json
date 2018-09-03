@@ -6,55 +6,72 @@
 	"configurations": [
 		{
 			"type": "node",
-			"request": "attach",
-			"name": "Attach to Process",
-			"processId": "${command:PickProcess}",
-			"port": 5858
+			"request": "launch",
+			"name": "CLI Babel Registry",
+			"stopOnEntry": false,
+			"program": "${workspaceFolder}/debug/bootstrap.js",
+			"env": {
+				"BABEL_ENV": "registry"
+			},
+			"preLaunchTask": "npm: build:webui",
+			"console": "integratedTerminal"
 		},
 		{
-			"name": "Tests",
+			"name": "Unit Tests",
 			"type": "node",
 			"request": "launch",
 			"program": "${workspaceRoot}/node_modules/jest-cli/bin/jest.js",
 			"stopOnEntry": false,
-			"args": ["--runInBand"],
+			"args": [
+				"--debug=true" ],
 			"cwd": "${workspaceRoot}",
-			"preLaunchTask": null,
+			"preLaunchTask": "pre-test",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
-					"--nolazy"
+				"--nolazy"
 			],
 			"env": {
-					"NODE_ENV": "test"
+				"NODE_ENV": "test",
+				"TZ": "UTC"
 			},
-			"externalConsole": false,
-			"sourceMaps": false,
-			"outDir": null
+			"console": "integratedTerminal"
 		},
 		{
+			"name": "Functional Tests",
 			"type": "node",
 			"request": "launch",
-			"name": "Mocha Tests",
+			"program": "${workspaceRoot}/node_modules/.bin/jest",
 			"stopOnEntry": false,
-      "runtimeExecutable": null,
-			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
 			"args": [
-				"--no-timeouts",
-				"${workspaceRoot}/test/unit"
-			]
+				"--config",
+				"./test/jest.config.functional.js",
+				"--testPathPattern",
+				"./test/functional/index*",
+				"--debug=false",
+				"--verbose",
+				"--useStderr",
+				"--detectOpenHandles"],
+			"cwd": "${workspaceRoot}",
+			"env": {
+				"BABEL_ENV": "testOldEnv",
+				"VERDACCIO_DEBUG": "true",
+				"VERDACCIO_DEBUG_INJECT": "true",
+				"NODE_DEBUG": "TO_DEBUG_REQUEST_REMOVE_THIS_request"
+			},
+			"preLaunchTask": "pre-test",
+			"console": "integratedTerminal",
+			"runtimeExecutable": null,
+			"runtimeArgs": [
+				"--nolazy"
+			],
 		},
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "Verdaccio",
-			"program": "${workspaceRoot}/bin/verdaccio"
-		},
-		{
-			"type": "node",
-			"request": "attach",
-			"name": "Attach to Process",
-			"address": "localhost",
-			"port": 5858
+			"name": "Verdaccio Compiled",
+			"preLaunchTask": "npm: code:build",
+			"program": "${workspaceRoot}/bin/verdaccio",
+			"console": "integratedTerminal"
 		}
 	]
 }
