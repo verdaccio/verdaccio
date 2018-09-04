@@ -4,13 +4,13 @@ title: "Phát triển các phần mềm bổ trợ"
 ---
 Có nhiều cách để mở rộng `verdaccio`. Các loại phần mềm bổ trợ là:
 
-* Những phần mềm bổ trợ xác minh
+* Xác minh các phần mềm bổ trợ
 * Phần mềm bổ trợ Middleware (kể từ phiên bản `v2.7.0`)
 * Phần mềm bổ trợ lưu trữ từ phiên bản (` v3.x `)
 
 > Chúng tôi khuyên bạn nên phát triển phần mềm bổ trợ bằng cách sử dụng [định nghĩa loại luồng ](https://github.com/verdaccio/flow-types) của chúng tôi.
 
-## Phần mềm bổ trợ xác minh
+## Xác minh phần mềm bổ trợ
 
 Cơ bản chúng ta phải trả về một đối tượng với phương thức được gọi là `authenticate`, và sẽ nhận lại 3 tham số (`user, password, callback`).
 
