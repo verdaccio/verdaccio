@@ -45,7 +45,7 @@ Phiên bản chính tiếp theo sẽ sử dụng bản `beta</​​code> (maste
 
 ## Sử dụng Docker để chạy verdaccio
 
-Để chạy vùng chứa docker hãy chạy mã:
+Để chạy vùng chứa docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
