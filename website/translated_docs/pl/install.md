@@ -30,7 +30,7 @@ yarn global add verdaccio
 
 ![install verdaccio](/svg/install_verdaccio.gif)
 
-## Basic Usage
+## Podstawowe użycie
 
 Po jego zainstalowaniu, trzeba tylko wywołać komendę CLI:
 

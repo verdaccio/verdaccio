@@ -10,7 +10,7 @@ An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
 
 > Verdaccio supports any API, feel free to ad more examples.
 
-#### Single notification
+#### Pojedyncze powiadomienie
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Wiele powiadomień
 
 ```yaml
 notify:

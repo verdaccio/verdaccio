@@ -30,7 +30,7 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我觉得改善堆栈更自在
 
-当然，我们会很乐意您帮助我们改善堆栈，您可以将依赖项升级为 `eslint`, `stylelint`, `webpack`。 哪怕只是改进 `webpack`配置都非常棒。 我们欢迎任何的建议。 此外，如果您有**Yeoman**的经验，您可以帮我们改善[verdaccio发生器](https://github.com/verdaccio/generator-verdaccio-plugin)。
+当然，我们会很乐意您帮助我们改善堆栈，您可以将依赖项升级为 `eslint`, `stylelint`, `webpack`。 You might merely improve the `webpack` configuration would be great. 我们欢迎任何的建议。 此外，如果您有**Yeoman**的经验，您可以帮我们改善[verdaccio发生器](https://github.com/verdaccio/generator-verdaccio-plugin)。
 
 这里是一些想法：
 
