@@ -10,10 +10,10 @@ Dòng lệnh CLI của Verdaccio là công cụ để bạn bắt đầu khởi 
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Tham số            | Giá trị mặc định               | Ví dụ          | Miêu tả                |
-| ------------------ | ------------------------------ | -------------- | ---------------------- |
-| --listen \ **-l** | 4873                           | -p 7000        | http port              |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | đường dẫn tệp cấu hình |
+| Tham số            | Giá trị mặc định               | Ví dụ          | Miêu tả          |
+| ------------------ | ------------------------------ | -------------- | ---------------- |
+| --listen \ **-l** | 4873                           | -p 7000        | http port        |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | tệp tin cấu hình |
 
 ## Vị trí đường dẫn tệp cấu hình mặc định
 
