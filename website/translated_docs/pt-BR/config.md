@@ -49,9 +49,9 @@ Is the location of the plugin directory. Useful for Docker/Kubernetes based depl
 plugins: ./plugins
 ```
 
-### Authentification
+### Autenticação
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. Você pode modifica este comportamento via [plugins](plugins.md). Para maiores informações sobre esta seção, leia a [página sobre autenticação](auth.md).
 
 ```yaml
 auth:
@@ -94,7 +94,7 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Configurações Avançadas
 
 ### Offline Publish
 
