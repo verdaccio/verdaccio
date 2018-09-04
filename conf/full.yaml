@@ -126,7 +126,8 @@ packages:
 #
 # parameters for file: name is filename
 #  {type: 'file', path: 'verdaccio.log', level: 'debug'},
-#
+# Rotating log stream. Options are passed directly to bunyan. See: https://github.com/trentm/node-bunyan#stream-type-rotating-file
+# {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 # parameters for stdout and stderr: format: json | pretty | pretty-timestamped
 #  {type: 'stdout', format: 'pretty', level: 'debug'},
 logs:
