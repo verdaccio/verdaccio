@@ -1,8 +1,8 @@
 ---
-id: build
-title: "Build the source code"
+id: compilazione
+title: "Compilare il codice sorgente"
 ---
-Verdaccio relies on `yarn` instead `npm` to download dependencies.
+Verdaccio si basa su `yarn` invece che su `npm` per scaricare le dipendenze.
 
 *Note: the current build only will build with `➜ yarn@1.x`.
 
