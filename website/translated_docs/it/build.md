@@ -4,7 +4,7 @@ title: "Compilare il codice sorgente"
 ---
 Verdaccio si basa su `yarn` invece che su `npm` per scaricare le dipendenze.
 
-*Nota: la struttura corrente si baserà solo su `➜ yarn@1.x`.
+*Nota: la compilazione corrente si baserà solo su `➜ yarn@1.x`.
 
 ```bash
   yarn install
