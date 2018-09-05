@@ -2,7 +2,7 @@
 id: ansible
 title: "Ansible"
 ---
-We have a customised solution for `verdaccio` in our organization.
+Abbiamo una soluzione personalizzata per `verdaccio` nella nostra organizzazione.
 
 <https://github.com/verdaccio/ansible-verdaccio>
 
