@@ -52,4 +52,4 @@ auth:
 | file      | stringa | Sì        | . / htpasswd | tutti    | file che ospitano le credenziali crittografate |
 | max_users | numero  | No        | 1000         | tutti    | imposta limite di utenti                       |
 
-Nel caso si decida di non consentire all'utente di accedere, è possibile impostare `max_users:-1`.
+Nel caso si decida di non consentire all'utente di accedere, è possibile impostare `max_users: -1`.
