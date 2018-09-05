@@ -4,13 +4,13 @@ title: "Autentificazione"
 ---
 L'autenticazione è legata al [plugin](plugins.md) di autenticazione che si utilizza. Anche le restrizioni di pacchetto sono gestite dal [pacchetto accesso](packages.md).
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+L'autenticazione del client viene gestito dal `npm` client stesso. Una volta che si effettua il login all'applicazione:
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+Un token viene generato nel file di configurazione `npm` ospitato nella cartella home dell'utente. Per ulteriori informazioni su `.npmrc` leggere la [documentazione ufficiale](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
