@@ -19,11 +19,11 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Pubblicare anonimamente
+#### Pubblicazione anonima
 
 `verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
 
-Eg:
+Ad esempio:
 
 ```yaml
   'my-company-*':
