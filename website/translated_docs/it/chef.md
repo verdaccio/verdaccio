@@ -2,7 +2,7 @@
 id: chef
 title: "Chef Cookbook"
 ---
-Using Chef Cookbook for Verdaccio
+Uso di Chef Cookbook per Verdaccio
 
 Per ulteriori informazioni:
 
