@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Questa proprietà consente di modificare le caratteristiche dell'interfaccia utente web. Per ulteriori informazioni su questa sezione, leggere la [pagina dell'interfaccia utente web](web.md).
 
 ```yaml
 web:
@@ -82,7 +82,7 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Pacchetti
 
 Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
 
