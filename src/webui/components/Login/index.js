@@ -75,8 +75,8 @@ export default class LoginModal extends Component {
     event.preventDefault();
 
     this.setState({
-      form: Object.keys(this.state.form).reduce((acc, key) => ({ 
-        ...acc, 
+      form: Object.keys(this.state.form).reduce((acc, key) => ({
+        ...acc,
         ...{ [key]: {...this.state.form[key], pristine: false } }
       }), {})
     }, () => {
@@ -91,9 +91,9 @@ export default class LoginModal extends Component {
     await this.props.onSubmit(username.value, password.value);
     // let's wait for API response and then set
     // username and password filed to empty state
-    this.setState({ 
-     form: Object.keys(this.state.form).reduce((acc, key) => ({ 
-      ...acc, 
+    this.setState({
+     form: Object.keys(this.state.form).reduce((acc, key) => ({
+      ...acc,
       ...{ [key]: {...this.state.form[key], value: "", pristine: true } }
     }), {})
     });
@@ -135,17 +135,17 @@ export default class LoginModal extends Component {
           <DialogTitle id="login-dialog">Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
-            <FormControl 
-              error={!username.value && !username.pristine} 
-              aria-describedby='username' 
+            <FormControl
+              error={!username.value && !username.pristine}
+              aria-describedby='username'
               required={username.required}
               fullWidth
             >
               <InputLabel htmlFor="username">Username</InputLabel>
-              <Input 
-                id="username" 
-                value={username.value} 
-                onChange={this.setCredentials.bind(this, 'username')} 
+              <Input
+                id="username"
+                value={username.value}
+                onChange={this.setCredentials.bind(this, 'username')}
                 placeholder="Your username"
               />
               {!username.value && !username.pristine && (
@@ -154,19 +154,19 @@ export default class LoginModal extends Component {
                 </FormHelperText>
               )}
             </FormControl>
-            <FormControl 
-              error={!password.value && !password.pristine} 
-              aria-describedby='password' 
+            <FormControl
+              error={!password.value && !password.pristine}
+              aria-describedby='password'
               required={password.required}
               style={{ marginTop: '8px' }}
               fullWidth
             >
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input 
-                id="password" 
+              <Input
+                id="password"
                 type="password"
-                value={password.value} 
-                onChange={this.setCredentials.bind(this, 'password')} 
+                value={password.value}
+                onChange={this.setCredentials.bind(this, 'password')}
                 placeholder="Your strong password"
               />
               {!password.value && !password.pristine && (

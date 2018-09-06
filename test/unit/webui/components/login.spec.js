@@ -83,7 +83,11 @@ describe('<LoginModal />', () => {
     };
 
     const wrapper = mount(<LoginModal {...props} />);
-    const { validateCredentials, setCredentials, submitCredentials } = wrapper.instance();
+    const instance = wrapper.instance();
+
+    instance.submitCredentials = jest.fn();
+    const { validateCredentials, setCredentials, submitCredentials } = instance;
+
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
 
@@ -94,7 +98,7 @@ describe('<LoginModal />', () => {
     expect(event.preventDefault).toHaveBeenCalled();
     expect(wrapper.state('form').username.pristine).toEqual(false);
     expect(wrapper.state('form').password.pristine).toEqual(false);
-    await submitCredentials();
+
     expect(submitCredentials).toHaveBeenCalledTimes(1);
   });
 
@@ -111,7 +115,7 @@ describe('<LoginModal />', () => {
 
     expect(setCredentials('password', eventPassword)).toBeUndefined();
     expect(wrapper.state('form').password.value).toEqual('1234');
-    
+
     await submitCredentials();
     expect(props.onSubmit).toHaveBeenCalledWith('xyz', '1234');
     expect(wrapper.state('form').username.value).toEqual('');
