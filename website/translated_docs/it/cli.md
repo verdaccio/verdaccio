@@ -2,15 +2,15 @@
 id: cli
 title: "Strumento riga di comando"
 ---
-The verdaccio CLI is your go start the application.
+Il CLI di verdaccio è il modo per avviare l'applicazione.
 
-## Commands
+## Comandi
 
 ```bash
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
+| Comandi            | Impostazione predefinita       | Esempio        | Descrizione            |
 | ------------------ | ------------------------------ | -------------- | ---------------------- |
 | --listen \ **-l** | 4873                           | -p 7000        | http port              |
 | --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
