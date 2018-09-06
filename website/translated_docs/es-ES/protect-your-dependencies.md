@@ -17,7 +17,7 @@ Veamos por ejemplo la siguiente configuración. Tienes un conjunto de dependenci
 
 Con esta configuración, básicamente le permitimos agrupar **admin** and **teamA** para * publicar* y **teamA** **teamB** **teamC** *access* a dichas dependencias.
 
-### Use case: teamD try to access the dependency
+### Caso de Uso: teamD trata de acceder a la dependencia
 
 Entonces, si yo estoy conectado como **teamD**. No debería ser capaz de acceder a todas las dependencias que cumplan con el patrón `my-company-*`.
 
