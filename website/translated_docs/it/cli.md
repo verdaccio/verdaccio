@@ -1,6 +1,6 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: "Strumento riga di comando"
 ---
 The verdaccio CLI is your go start the application.
 
