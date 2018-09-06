@@ -1,5 +1,5 @@
 ---
-id: compilazione
+id: build
 title: "Compilare il codice sorgente"
 ---
 Verdaccio si basa su `yarn` invece che su `npm` per scaricare le dipendenze.
