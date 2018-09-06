@@ -8,7 +8,7 @@ Un file di configurazione predefinito viene creato la prima volta che si esegue 
 
 ## Configurazione predefinita
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+La configurazione predefinita dispone del supporto per pacchetti ** scoped** e permette a qualsiasi utente di accedere a tutti i pacchetti ma solo **agli utenti autenticati di pubblicare**.
 
 ```yaml
 storage: ./storage
@@ -29,7 +29,7 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Sezioni
 
 The following sections explain what each property means and the different options.
 
