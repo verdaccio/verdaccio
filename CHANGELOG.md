@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.8.0"></a>
+# [3.8.0](https://github.com/verdaccio/verdaccio/compare/v3.7.1...v3.8.0) (2018-09-05)
+
+
+### Bug Fixes
+
+* missing properties for default matcher [#981](https://github.com/verdaccio/verdaccio/issues/981) ([#982](https://github.com/verdaccio/verdaccio/issues/982)) ([3ca20d0](https://github.com/verdaccio/verdaccio/commit/3ca20d0))
+
+
+### Features
+
+* exposed rotating-file log for json logging ([#948](https://github.com/verdaccio/verdaccio/issues/948)) ([5ca0ca5](https://github.com/verdaccio/verdaccio/commit/5ca0ca5))
+
+
+
 <a name="3.7.1"></a>
 ## [3.7.1](https://github.com/verdaccio/verdaccio/compare/v3.7.0...v3.7.1) (2018-08-28)
 

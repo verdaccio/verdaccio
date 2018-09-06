@@ -45,7 +45,7 @@ Phiên bản chính tiếp theo sẽ sử dụng bản `beta</​​code> (maste
 
 ## Sử dụng Docker để chạy verdaccio
 
-Để chạy vùng chứa docker hãy chạy mã:
+Để chạy vùng chứa docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
@@ -145,7 +145,7 @@ npm run build:docker:rpi
 
 Lưu ý rằng bạn cần phải cài đặt docker trên máy của bạn để thực hiện bất kỳ lệnh docker nào ở trên, docker executable phải nằm trong `$PATH` của bạn.
 
-## Ví dụ Docker
+## Docket ví dụ
 
 Có một kho lưu trữ riêng biệt lưu nhiều cấu hình để tạo hình ảnh Docker với `verdaccio`, ví dụ như đối với reverse proxy:
 
