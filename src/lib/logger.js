@@ -24,6 +24,10 @@ function getlvl(x) {
   }
 }
 
+function formatLocalISOString(date) {
+  const tzoffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
+  return (new Date(date.getTime() - tzoffset)).toISOString().slice(0, -1);
+}
 /**
  * A RotatingFileStream that modifes the message first
  */
@@ -101,7 +105,7 @@ function setup(logs) {
       } else if (target.format === 'pretty-timestamped') {
         // making fake stream for pretty pritting
         stream.write = (obj) => {
-          destination.write(`${obj.time.toISOString()}${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+          destination.write(`${formatLocalISOString(obj.time)}${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else {
         stream.write = (obj) => {
