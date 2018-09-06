@@ -128,6 +128,7 @@ export default class LoginModal extends Component {
         <Dialog
           onClose={onCancel}
           open={visibility}
+          className="login-dialog"
           maxWidth="xs"
           aria-labelledby="login-dialog"
           fullWidth
