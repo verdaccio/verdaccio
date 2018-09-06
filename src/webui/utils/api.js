@@ -17,9 +17,6 @@ const BASE_URL = window.VERDACCIO_API_URL;
 function handleResponseType(response) {
   if (response.headers) {
     const contentType = response.headers.get('Content-Type');
-    if (contentType.includes('application/pdf')) {
-      return Promise.all([response.ok, response.blob()]);
-    }
     if (contentType.includes('application/json')) {
       return Promise.all([response.ok, response.json()]);
     }
