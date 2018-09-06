@@ -30,7 +30,7 @@ Recientemente hemos migrado a tecnologías mas modernas como `React`y `element-r
 
 ### Me siento más cómodo mejorado el stack
 
-Por su puesto, estaríamos muy felices que nos ayudaras a mejorar el stack, puedes actualizar dependencias como `eslint`, `stylelint` o `webpack`. O simplemente podrías mejorar la configuración de ` webpack`, sería genial. Cualquier sugerencia es bienvenida. Ademas si quieres mejorar tu experiencia con**Yeoman** podrías ayudarnos con [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Por su puesto, estaríamos muy felices que nos ayudaras a mejorar el stack, puedes actualizar dependencias como `eslint`, `stylelint` o `webpack`. You might merely improve the `webpack` configuration would be great. Cualquier sugerencia es bienvenida. Ademas si quieres mejorar tu experiencia con**Yeoman** podrías ayudarnos con [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Aquí algunas ideas:
 
