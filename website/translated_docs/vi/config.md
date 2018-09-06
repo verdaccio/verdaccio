@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-Thuộc tính này cho phép bạn sửa đổi giao diện của web UI. Để biết thêm chi tiết về phần này, vui lòng đọc [ trang web ui ](web.md).
+This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
 ```yaml
 web:
