@@ -98,7 +98,7 @@ packages:
 
 ### Pubblicazione non in linea
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Per impostazione predefinita `verdaccio` non consente di pubblicare quando il client è offline, questo comportamento può essere modificato impostandola su *true*.
 
 ```yaml
 publish:
@@ -107,7 +107,7 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefisso URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
