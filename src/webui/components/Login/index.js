@@ -80,7 +80,7 @@ export default class LoginModal extends Component {
         ...{ [key]: {...this.state.form[key], pristine: false } }
       }), {})
     }, () => {
-      if (!Object.values(this.state.form).some(field => !field.value)) {
+      if (!Object.keys(this.state.form).some(id => !this.state.form[id])) {
         this.submitCredentials();
       }
     });
