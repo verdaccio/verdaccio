@@ -19,7 +19,7 @@ Verdaccio can be invoqued programmatically. The node API was introduced after ve
   });
 ```
 
-## Other implementations
+## Inne implementacje
 
 * [verdaccio-server](https://github.com/boringame/verdaccio-server) local npm registry proxy server
 

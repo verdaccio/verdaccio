@@ -77,6 +77,10 @@ class FunctionalEnvironment extends NodeEnvironment {
   async teardown() {
     await super.teardown();
     console.log(chalk.yellow('Teardown Test Environment.'));
+    if (!this.global.__SERVERS_PROCESS__) {
+      throw new Error("There are no servers to stop");
+    }
+
     // shutdown verdaccio
     for (let server of this.global.__SERVERS_PROCESS__) {
       server[0].stop();

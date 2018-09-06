@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.loginDialog {
+    min-width: 300px;
+}
+
+.loginError {
+    background-color: $red !important;
+    min-width: inherit !important;
+    margin-bottom: 10px !important;
+}
+
+.loginErrorMsg {
+    display: flex;
+    align-items: center;
+}
+
+.loginIcon {
+    opacity: 0.9;
+    margin-right: 8px;
+}
+

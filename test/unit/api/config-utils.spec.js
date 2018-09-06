@@ -1,6 +1,7 @@
 // @flow
 
 import path from 'path';
+import _ from 'lodash';
 import {spliceURL}  from '../../../src/utils/string';
 import {parseConfigFile} from '../../../src/lib/utils';
 import {
@@ -125,12 +126,14 @@ describe('Config Utilities', () => {
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
       expect(scoped).toBeUndefined();
 
-      // ** should be added by default
+      // ** should be added by default **
       const all = access[`${PACKAGE_ACCESS.ALL}`];
       expect(all).toBeDefined();
 
-      expect(all.access).toBeUndefined();
-      expect(all.publish).toBeUndefined();
+      expect(all.access).toBeDefined();
+      expect(_.isArray(all.access)).toBeTruthy();
+      expect(all.publish).toBeDefined();
+      expect(_.isArray(all.publish)).toBeTruthy();
 
     });
   });

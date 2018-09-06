@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import isNil from 'lodash/isNil';
 import 'element-theme-default';
-import {i18n} from 'element-react';
-import locale from 'element-react/src/locale/lang/en';
 
 import storage from './utils/storage';
 import logo from './utils/logo';
-import {makeLogin, isTokenExpire} from './utils/login';
+import { makeLogin, isTokenExpire } from './utils/login';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LoginModal from './components/Login';
-
-i18n.use(locale);
 
 import Route from './router';
 
@@ -52,7 +48,7 @@ export default class App extends Component {
       this.handleLogout();
     } else {
       this.setState({
-        user: {username, token},
+        user: { username, token },
         isUserLoggedIn: true
       });
     }
@@ -60,7 +56,7 @@ export default class App extends Component {
 
   async loadLogo() {
     const logoUrl = await logo();
-    this.setState({logoUrl});
+    this.setState({ logoUrl });
   }
 
   /**
@@ -79,7 +75,7 @@ export default class App extends Component {
    * Required by: <Header />
    */
   async doLogin(usernameValue, passwordValue) {
-    const {username, token, error} = await makeLogin(
+    const { username, token, error } = await makeLogin(
       usernameValue,
       passwordValue
     );
@@ -152,12 +148,12 @@ export default class App extends Component {
   }
 
   render() {
-    const {isUserLoggedIn} = this.state;
+    const { isUserLoggedIn } = this.state;
     return (
       <div className="page-full-height">
-          {this.renderHeader()}
-          {this.renderLoginModal()}
-          <Route isUserLoggedIn={isUserLoggedIn} />
+        {this.renderHeader()}
+        {this.renderLoginModal()}
+        <Route isUserLoggedIn={isUserLoggedIn} />
         <Footer />
       </div>
     );
