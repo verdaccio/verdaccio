@@ -125,7 +125,7 @@ max_body_size: 10mb
 
 ### Porta in ascolto
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` viene eseguita per impostazione predefinita nella porta `4873`. Modifica della porta può essere fatta tramite [cli](cli.md) o nel file di configurazione, le seguenti opzioni sono valide.
 
 ```yaml
 listen:
@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Per abilitare `https` in `verdaccio` è sufficiente impostare il tag `ascolto` con il protocollo *https://*. For more information about this section read the [ssl page](ssl.md).
 
 ```yaml
 https:
