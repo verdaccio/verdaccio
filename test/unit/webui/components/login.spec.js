@@ -2,6 +2,22 @@ import React from 'react';
 import { mount } from 'enzyme';
 import LoginModal from '../../../../src/webui/components/Login';
 
+const eventUsername = {
+  target: {
+    value: 'xyz'
+  }
+}
+
+const eventPassword = {
+  target: {
+    value: '1234'
+  }
+}
+
+const event = {
+  preventDefault: jest.fn()
+};
+
 describe('<LoginModal />', () => {
   it('should load the component in default state', () => {
     const wrapper = mount(<LoginModal />);
@@ -51,25 +67,14 @@ describe('<LoginModal />', () => {
     const wrapper = mount(<LoginModal {...props} />);
     const { setCredentials } = wrapper.instance();
 
-    const eventUsername = {
-      target: {
-        value: 'xyz'
-      }
-    }
-
-    const eventPassword = {
-      target: {
-        value: '1234'
-      }
-    }
     expect(setCredentials('username', eventUsername)).toBeUndefined();
-    expect(wrapper.state('username')).toEqual('xyz');
+    expect(wrapper.state('form').username.value).toEqual('xyz');
 
     expect(setCredentials('password', eventPassword)).toBeUndefined();
-    expect(wrapper.state('password')).toEqual('1234');
+    expect(wrapper.state('form').password.value).toEqual('1234');
   });
 
-  it('submitCredential: should call the onSubmit', () => {
+  it('validateCredentials: should validate credentials', async () => {
     const props = {
       visibility: true,
       error: {},
@@ -77,15 +82,42 @@ describe('<LoginModal />', () => {
       onSubmit: jest.fn()
     };
 
-    const event = {
-      preventDefault: jest.fn()
-    };
     const wrapper = mount(<LoginModal {...props} />);
-    const { submitCredentials } = wrapper.instance();
-    wrapper.setState({ username: 'sam', password: 1234 })
-    await submitCredentials(event);
-    expect(props.onSubmit).toHaveBeenCalledWith('sam', 1234);
+    const { validateCredentials, setCredentials, submitCredentials } = wrapper.instance();
+    expect(setCredentials('username', eventUsername)).toBeUndefined();
+    expect(wrapper.state('form').username.value).toEqual('xyz');
+
+    expect(setCredentials('password', eventPassword)).toBeUndefined();
+    expect(wrapper.state('form').password.value).toEqual('1234');
+
+    validateCredentials(event);
     expect(event.preventDefault).toHaveBeenCalled();
-    expect(props.onSubmit).toHaveBeenCalledWith('sam', '1234');
+    expect(wrapper.state('form').username.pristine).toEqual(false);
+    expect(wrapper.state('form').password.pristine).toEqual(false);
+    await submitCredentials();
+    expect(submitCredentials).toHaveBeenCalledTimes(1);
   });
+
+
+  it('submitCredentials: should submit credentials',  async () => {
+    const props = {
+      onSubmit: jest.fn()
+    };
+
+    const wrapper = mount(<LoginModal {...props} />);
+    const { setCredentials, submitCredentials } = wrapper.instance();
+    expect(setCredentials('username', eventUsername)).toBeUndefined();
+    expect(wrapper.state('form').username.value).toEqual('xyz');
+
+    expect(setCredentials('password', eventPassword)).toBeUndefined();
+    expect(wrapper.state('form').password.value).toEqual('1234');
+    
+    await submitCredentials();
+    expect(props.onSubmit).toHaveBeenCalledWith('xyz', '1234');
+    expect(wrapper.state('form').username.value).toEqual('');
+    expect(wrapper.state('form').username.pristine).toEqual(true);
+    expect(wrapper.state('form').password.value).toEqual('');
+    expect(wrapper.state('form').password.pristine).toEqual(true);
+  });
+
 });

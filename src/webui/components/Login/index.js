@@ -70,7 +70,10 @@ export default class LoginModal extends Component {
     });
   }
 
-  validateCredentials() {
+  validateCredentials(event) {
+    // prevents default submit behavior
+    event.preventDefault();
+
     this.setState({
       form: Object.keys(this.state.form).reduce((acc, key) => ({ 
         ...acc, 
@@ -84,9 +87,6 @@ export default class LoginModal extends Component {
   }
 
   async submitCredentials() {
-    // prevents default submit behavior
-    event.preventDefault();
-
     const { form: { username, password } } = this.state;
     await this.props.onSubmit(username.value, password.value);
     // let's wait for API response and then set
