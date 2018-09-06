@@ -84,7 +84,7 @@ uplinks:
 
 ### Pacchetti
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Pacchetti consente all'utente di controllare come i pacchetti vengono resi accessibili. Per ulteriori informazioni su questa sezione leggere [pacchetti pagina](packages.md).
 
 ```yaml
 packages:
@@ -94,9 +94,9 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Impostazioni avanzate
 
-### Offline Publish
+### Pubblicazione non in linea
 
 By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
 
