@@ -2,7 +2,7 @@
 id: configuration
 title: "File di configurazione"
 ---
-Questo file è il fondamento di verdaccio dove è possibile modificare il comportamento predefinito, attivare i plugins ed estendere le funzionalità.
+Questo file è il fondamento di verdaccio dove è possibile modificare il comportamento predefinito, attivare i plugin ed estendere le funzionalità.
 
 Un file di configurazione predefinito viene creato la prima volta che si esegue `verdaccio`.
 
@@ -31,25 +31,25 @@ logs:
 
 ## Sezioni
 
-The following sections explain what each property means and the different options.
+Le sezioni seguenti spiegano cosa significa ogni proprietà e le diverse opzioni.
 
-### Storage
+### Archiviazione
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+È il percorso di archiviazione predefinito. **Verdaccio è di default basato sul file locale di sistema**.
 
 ```yaml
 storage: ./storage
 ```
 
-### Plugins
+### Plugin
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+È il percorso della directory dei plugin. Utile per distribuzioni basate su Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Autenticazione
 
 The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
 
