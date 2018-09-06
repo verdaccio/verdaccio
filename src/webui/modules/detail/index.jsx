@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Loading} from 'element-react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import isEmpty from 'lodash/isEmpty';
 
 import PackageDetail from '../../components/PackageDetail';
@@ -9,8 +9,6 @@ import API from '../../utils/api';
 
 import classes from './detail.scss';
 import PackageSidebar from '../../components/PackageSidebar/index';
-
-const loadingMessage = 'Loading...';
 
 export default class Detail extends Component {
   static propTypes = {
@@ -66,12 +64,12 @@ export default class Detail extends Component {
   }
 
   render() {
-    const {notFound, readMe} = this.state;
+    const { notFound, readMe } = this.state;
 
     if (notFound) {
       return <NotFound pkg={this.packageName} />;
     } else if (isEmpty(readMe)) {
-      return <Loading text={loadingMessage} />;
+      return <CircularProgress size={50} />;
     }
     return (
       <div className={classes.twoColumn}>

@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Tag} from 'element-react';
-import {Link} from 'react-router-dom';
+import Chip from '@material-ui/core/Chip';
+import { Link } from 'react-router-dom';
 
-import {formatDateDistance} from '../../utils/package';
+import { formatDateDistance } from '../../utils/package';
 
 import classes from './package.scss';
 
-const Package = ({name, version, author, description, license, time, keywords}) => {
+const Package = ({ name, version, author, description, license, time, keywords }) => {
   return (<section className={classes.package}>
     <Link to={`detail/${name}`}>
       <div className={classes.header}>
         <div className={classes.title}>
           <h1>
-            {name} <Tag type="gray">v{version}</Tag>
+            {name} <Chip label={`v${version}`} />
           </h1>
         </div>
         <div role="author" className={classes.author}>
-        { author ? `By: ${author}`: ''}
+          {author ? `By: ${author}` : ''}
         </div>
       </div>
       <div className={classes.footer}>
@@ -27,9 +27,11 @@ const Package = ({name, version, author, description, license, time, keywords}) 
       </div>
       <div className={classes.tags}>
         {keywords && keywords.map((keyword, index) => (
-          <Tag key={index} type="gray">
-            {keyword}
-          </Tag>
+          <Chip
+            key={index}
+            label={keyword}
+            className={classes.tag}
+          />
         ))}
       </div>
       <div className={classes.details}>

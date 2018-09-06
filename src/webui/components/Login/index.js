@@ -1,6 +1,18 @@
-import React, {Component, createRef} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Form, Button, Dialog, Input, Alert} from 'element-react';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import ErrorIcon from '@material-ui/icons/Error';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
+import classes from "./login.scss";
 
 export default class LoginModal extends Component {
   static propTypes = {
@@ -15,141 +27,174 @@ export default class LoginModal extends Component {
     error: {},
     onCancel: () => {},
     onSubmit: () => {}
-  };
-
-  state = {
-    form: {
-      username: '',
-      password: ''
-    },
-    rules: {
-      username: [
-        {
-          required: true,
-          message: 'Please input the username',
-          trigger: 'change'
-        }
-      ],
-      password: [
-        {
-          required: true,
-          message: 'Please input the password',
-          trigger: 'change'
-        }
-      ]
-    }
-  };
+  }
 
   constructor(props) {
     super(props);
-    this.formRef = createRef();
     this.submitCredentials = this.submitCredentials.bind(this);
     this.setCredentials = this.setCredentials.bind(this);
+    this.validateCredentials = this.validateCredentials.bind(this);
+    this.state = {
+      form: {
+        username: {
+          required: true,
+          pristine: true,
+          helperText: 'Field required',
+          value: ''
+        },
+        password:  {
+          required: true,
+          pristine: true,
+          helperText: 'Field required',
+          value: ''
+        },
+      },
+      error: props.error
+    };
   }
 
   /**
    * set login modal's username and password to current state
-   * Required by: <LoginModal />
+   * Required to login
    */
-  setCredentials(key, value) {
-    this.setState(
-      (prevState) => ({
-        form: {...prevState.form, [key]: value}
-      })
-    );
-  }
-
-  /**
-   * Clears the username and password field.
-   */
-  handleReset() {
-    this.formRef.current.resetFields();
-  }
-
-  submitCredentials(event) {
-    // prevents default submit behavior
-    event.preventDefault();
-    this.formRef.current.validate((valid) => {
-      if (valid) {
-        const {username, password} = this.state.form;
-        this.props.onSubmit(username, password);
-        this.setState({
-          form: {username}
-        });
+  setCredentials(name, e) {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [name]: {
+          ...this.state.form[name],
+          value: e.target.value,
+          pristine: false
+        }
       }
-      return false;
     });
   }
 
-  renderLoginError({type, title, description} = {}) {
-    return type ? (
-      <Alert
-        title={title}
-        type={type}
-        description={description}
-        showIcon={true}
-        closable={false}
-        style={{lineHeight: '10px'}}
+  validateCredentials(event) {
+    // prevents default submit behavior
+    event.preventDefault();
+
+    this.setState({
+      form: Object.keys(this.state.form).reduce((acc, key) => ({
+        ...acc,
+        ...{ [key]: {...this.state.form[key], pristine: false } }
+      }), {})
+    }, () => {
+      if (!Object.keys(this.state.form).some(id => !this.state.form[id])) {
+        this.submitCredentials();
+      }
+    });
+  }
+
+  async submitCredentials() {
+    const { form: { username, password } } = this.state;
+    await this.props.onSubmit(username.value, password.value);
+    // let's wait for API response and then set
+    // username and password filed to empty state
+    this.setState({
+     form: Object.keys(this.state.form).reduce((acc, key) => ({
+      ...acc,
+      ...{ [key]: {...this.state.form[key], value: "", pristine: true } }
+    }), {})
+    });
+  }
+
+  renderLoginError({ type, title, description } = {}) {
+    return type === 'error' && (
+      <SnackbarContent
+        className={classes.loginError}
+        aria-describedby="client-snackbar"
+        message={
+          <div
+            id="client-snackbar"
+            className={classes.loginErrorMsg}
+          >
+            <ErrorIcon className={classes.loginIcon} />
+            <span>
+              <div><strong>{title}</strong></div>
+              <div>{description}</div>
+            </span>
+          </div>
+        }
       />
-    ) : (
-      ''
     );
   }
 
   render() {
-    const {visibility, onCancel, error} = this.props;
-    const {username, password} = this.state.form;
+    const { visibility, onCancel, error } = this.props;
+    const { form: { username, password } } = this.state;
     return (
-      <div className="login-dialog">
+      <div className="login">
         <Dialog
-          title="Login"
-          size="tiny"
-          visible={visibility}
-          onCancel={onCancel}
+          onClose={onCancel}
+          open={visibility}
+          className="login-dialog"
+          maxWidth="xs"
+          aria-labelledby="login-dialog"
+          fullWidth
         >
-          <Dialog.Body>
-            <Form
-              className="login-form"
-              ref={this.formRef}
-              model={this.state.form}
-              rules={this.state.rules}
+          <DialogTitle id="login-dialog">Login</DialogTitle>
+          <DialogContent>
+            {this.renderLoginError(error)}
+            <FormControl
+              error={!username.value && !username.pristine}
+              aria-describedby='username'
+              required={username.required}
+              fullWidth
             >
-              <Form.Item>
-                {this.renderLoginError(error)}
-              </Form.Item>
-              <Form.Item prop="username" labelPosition="top">
-                <Input
-                  name="username"
-                  placeholder="Type your username"
-                  value={username}
-                  onChange={this.setCredentials.bind(this, 'username')}
-                />
-              </Form.Item>
-              <Form.Item prop="password">
-                <Input
-                  name="password"
-                  type="password"
-                  placeholder="Type your password"
-                  value={password}
-                  onChange={this.setCredentials.bind(this, 'password')}
-                />
-              </Form.Item>
-              <Form.Item style={{float: 'right'}}>
-                <Button onClick={onCancel} className="cancel-login-button">
-                  Cancel
-                </Button>
-                    <Button
-                      nativeType="submit"
-                      className="login-button"
-                      onClick={this.submitCredentials}
-                    >
-                      Login
-                </Button>
-              </Form.Item>
-            </Form>
-          </Dialog.Body>
+              <InputLabel htmlFor="username">Username</InputLabel>
+              <Input
+                id="username"
+                value={username.value}
+                onChange={this.setCredentials.bind(this, 'username')}
+                placeholder="Your username"
+              />
+              {!username.value && !username.pristine && (
+                <FormHelperText id='username-error'>
+                  {username.helperText}
+                </FormHelperText>
+              )}
+            </FormControl>
+            <FormControl
+              error={!password.value && !password.pristine}
+              aria-describedby='password'
+              required={password.required}
+              style={{ marginTop: '8px' }}
+              fullWidth
+            >
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                type="password"
+                value={password.value}
+                onChange={this.setCredentials.bind(this, 'password')}
+                placeholder="Your strong password"
+              />
+              {!password.value && !password.pristine && (
+                <FormHelperText id='password-error'>
+                  {password.helperText}
+                </FormHelperText>
+              )}
+            </FormControl>
+          </DialogContent>
+          <DialogActions className="dialog-footer">
+            <Button
+              onClick={onCancel}
+              className="cancel-login-button"
+              color="inherit"
+            >
+              Cancel
+              </Button>
+            <Button
+              className="login-button"
+              onClick={this.validateCredentials.bind(this)}
+              color="inherit"
+            >
+              Login
+            </Button>
+          </DialogActions>
         </Dialog>
-      </div>
+      </div >
     );
   }
 }

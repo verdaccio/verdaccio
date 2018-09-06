@@ -25,10 +25,10 @@ describe('/ (Verdaccio Page)', () => {
       await clickElement('header button');
       await page.waitFor(500);
       // we fill the sign in form
-      const signInDialog = await page.$('.el-dialog');
-      const userInput = await signInDialog.$('input[type=text]');
+      const signInDialog = await page.$('.login-dialog');
+      const userInput = await signInDialog.$('#username');
       expect(userInput).not.toBeNull();
-      const passInput = await signInDialog.$('input[type=password]');
+      const passInput = await signInDialog.$('#password');
       expect(passInput).not.toBeNull();
       await userInput.type('test', {delay: 100});
       await passInput.type('test', {delay: 100});
@@ -86,7 +86,7 @@ describe('/ (Verdaccio Page)', () => {
     it('should click on sign in button', async () => {
       const signInButton = await page.$('header button');
       await signInButton.click();
-      const signInDialog = await page.$('.login-dialog .el-dialog__wrapper');
+      const signInDialog = await page.$('#login-dialog');
 
       expect(signInDialog).not.toBeNull();
     })
