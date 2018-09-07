@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-Per abilitare `https` in `verdaccio` è sufficiente impostare il tag `ascolto` con il protocollo *https://*. For more information about this section read the [ssl page](ssl.md).
+Per abilitare `https` in `verdaccio` è sufficiente impostare il tag `ascolto` con il protocollo *https://*. Per ulteriori informazioni su questa sezione leggere la [ pagina del ssl](ssl.md).
 
 ```yaml
 https:
@@ -150,11 +150,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+I proxy sono speciali HTTP Server progettati per trasferire dati da server remoti ai clienti locali.
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Se avete un proxy nella rete è possibile impostare un'intestazione di `X-Forwarded-For` utilizzando le seguenti proprietà.
 
 ```yaml
 http_proxy: http://something.local/
