@@ -62,7 +62,7 @@ auth:
 
 ### Internetowy interfejs użytkownika
 
-Te właściwości pozwalają Ci zmienić wygląd internetowego interfejsu użytkownika. Aby uzyskać więcej informacji na temat tej sekcji, przeczytaj stronę dotyczącą [internetowego interfejsu użytkownika](web.md).
+This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
 ```yaml
 web:
