@@ -53,13 +53,13 @@ Il nostro sito web è basato su [Docusaurus](https://docusaurus.io/).
 
 ### Io sono un DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+Abbiamo un'immagine su Docker molto popolare <https://hub.docker.com/r/verdaccio/verdaccio/> che ha bisogno di manutenzione e miglioramenti abbastanza ingenti, abbiamo bisogno della vostra conoscenza per il beneficio di tutti gli utenti.
 
 Abbiamo il supporto per **Kubernetes**, **Puppet**, **Ansible** e **Chef** e abbiamo bisogno di aiuto in quei campi, sentitevi liberi di vedere tutti i repository.
 
-### I can do translations
+### Posso fare traduzioni
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio mira ad essere multilingue, per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
