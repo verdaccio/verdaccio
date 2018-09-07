@@ -30,9 +30,9 @@ Recentemente ci siamo spostati su tecnologie moderne come `React` e `element-rea
 
 ### Mi sento più a mio agio a migliorare lo stack
 
-Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile aggiornare le dipendenze come `eslint`, `stylelint`, `webpack`. Sarebbe di grande aiuto se potessi anche soltanto migliorare la configurazione del`webpack`. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile aggiornare le dipendenze come `eslint`, `stylelint`, `webpack`. Sarebbe di grande aiuto se potessi semplicemente migliorare la configurazione di `webpack`. Ogni suggerimento è molto gradito. Inoltre se avessi esperienza con **Yeoman** potresti aiutarci con il [generatore di verdaccio](https://github.com/verdaccio/generator-verdaccio-plugin).
 
-Here some ideas:
+Qui alcune idee:
 
 * Create a common eslint rules to be used across all dependencies or plugins
 * Improve Flow types definitions delivery
