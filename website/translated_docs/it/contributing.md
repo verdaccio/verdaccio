@@ -45,17 +45,17 @@ Qui alcune idee:
 
 Molti contributori trovano errori di battitura e problemi di grammatica, altra cosa che aiuta a migliorare l'esperienza complessiva per la risoluzione dei problemi.
 
-### I am a Designer
+### Sono un Designer
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+Abbiamo un frontend del sito <http://www.verdaccio.org/> che sarà felice di vedere le vostre idee.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Il nostro sito web è basato su [Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Io sono un DevOps
 
 We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+Abbiamo il supporto per **Kubernetes**, **Puppet**, **Ansible** e **Chef** e abbiamo bisogno di aiuto in quei campi, sentitevi liberi di vedere tutti i repository.
 
 ### I can do translations
 
