@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-Per abilitare `https` in `verdaccio` è sufficiente impostare il tag `ascolto` con il protocollo *https://*. Per ulteriori informazioni su questa sezione leggere la [ pagina del ssl](ssl.md).
+Per abilitare `https` in `verdaccio` è sufficiente impostare il flag `ascolto` con il protocollo *https://*. Per ulteriori informazioni su questa sezione leggere la [ pagina del ssl](ssl.md).
 
 ```yaml
 https:
@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Notifiche
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Abilitare le notifiche di strumenti di terze parti è abbastanza facile via web hooks. Per ulteriori informazioni su questa sezione, leggere la [pagina delle notifiche](notifications.md).
 
 ```yaml
 notify:
@@ -181,7 +181,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> Per impostazioni di configurazione più dettagliate, si prega di [controllare la fonte del codice](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Per impostazioni di configurazione più dettagliate, si prega di [controllare il codice sorgente](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 ### Audit
 
