@@ -4,20 +4,23 @@
 /* eslint no-empty:0 */
 
 import path from 'path';
+import semver from 'semver';
+import chalk from 'chalk';
 import {startVerdaccio, listenDefaultCallback} from './bootstrap';
 import findConfigFile from './config-path';
 
 if (process.getuid && process.getuid() === 0) {
-  global.console.error('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.');
+  global.console.warn(chalk.bgYellow('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.'));
+}
+
+const MIN_NODE_VERSION = '6.9.0';
+
+if (semver.satisfies(process.version, `>=${MIN_NODE_VERSION}`) === false) {
+ global.console.error(chalk.bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
+ process.exit(1);
 }
 
 process.title = 'verdaccio';
-
-try {
-  // for debugging memory leaks
-  // totally optional
-  require('heapdump');
-} catch (err) { }
 
 const logger = require('./logger');
 logger.setup(); // default setup
