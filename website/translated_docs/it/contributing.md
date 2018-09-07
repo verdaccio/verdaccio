@@ -63,11 +63,11 @@ Verdaccio mira ad essere multilingue, per poter raggiungere questa meta **abbiam
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## Sono pronto a contribuire
 
 If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
 
