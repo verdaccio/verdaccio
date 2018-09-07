@@ -31,7 +31,7 @@ logs:
 
 ## Sezioni
 
-Le sezioni seguenti spiegano cosa significa ogni proprietà e le diverse opzioni.
+Le sezioni seguenti spiegano cosa significa ogni proprietà e le diverse opzioni possibili.
 
 ### Archiviazione
 
@@ -74,7 +74,7 @@ web:
 
 ### Uplink
 
-Uplinks è la capacità del sistema di recuperare i pacchetti da registri remoti quando quei pacchetti non sono disponibili localmente. Per ulteriori informazioni su questa sezione leggere la [ pagina uplinks](uplinks.md).
+Uplink è la capacità del sistema di recuperare i pacchetti da registri remoti quando quei pacchetti non sono disponibili localmente. Per ulteriori informazioni su questa sezione leggere la [ pagina uplink](uplinks.md).
 
 ```yaml
 uplinks:
@@ -84,7 +84,7 @@ uplinks:
 
 ### Pacchetti
 
-Pacchetti consente all'utente di controllare come i pacchetti vengono resi accessibili. Per ulteriori informazioni su questa sezione leggere [pacchetti pagina](packages.md).
+Pacchetti consente all'utente di controllare come i pacchetti vengono resi accessibili. Per ulteriori informazioni su questa sezione leggere [la pagina dei pacchetti ](packages.md).
 
 ```yaml
 packages:
@@ -125,7 +125,7 @@ max_body_size: 10mb
 
 ### Porta in ascolto
 
-`verdaccio` viene eseguita per impostazione predefinita nella porta `4873`. Modifica della porta può essere fatta tramite [cli](cli.md) o nel file di configurazione, le seguenti opzioni sono valide.
+`verdaccio` viene eseguito per impostazione predefinita nella porta `4873`. Modifica della porta può essere fatta tramite [cli](cli.md) o nel file di configurazione, le seguenti opzioni sono valide.
 
 ```yaml
 listen:
