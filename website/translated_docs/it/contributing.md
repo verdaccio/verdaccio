@@ -20,11 +20,11 @@ Tutti noi abbiamo competenze diverse, quindi, vediamo dove ti potresti sentire a
 
 ### Conosco o voglio imparare Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js è la base di `verdaccio`, usiamo librerie come `express`, `commander,``request ` o `async`. Verdaccio è fondamentalmente un'API Rest che crea una comunicazione con i client `npm` compatibili, come `yarn`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Abbiamo una lunga [lista di plugin](plugins.md) pronti per essere utilizzati e migliorati, ma al tempo stesso [è possibile crearne uno proprio](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### Preferirei lavorare nell'Interfaccia Utente
 
 Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
 
