@@ -26,11 +26,11 @@ Abbiamo una lunga [lista di plugin](plugins.md) pronti per essere utilizzati e m
 
 ### Preferirei lavorare nell'Interfaccia Utente
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Recentemente ci siamo spostati su tecnologie moderne come `React` e `element-react`. Siamo ansiosi vedere nuove idee su come migliorare l'interfaccia utente.
 
-### I feel more confortable improving the stack
+### Mi sento più a mio agio a migliorare lo stack
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You might merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile aggiornare le dipendenze come `eslint`, `stylelint`, `webpack`. You might merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
 
 Here some ideas:
 
