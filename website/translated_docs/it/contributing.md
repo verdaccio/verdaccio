@@ -14,11 +14,11 @@ Se desideri fare domande, usiamo due canali per le discussioni:
 
 A prima vista verdaccio è un unico repository, ma ci sono molti modi in cui potresti contribuire e una ampia varietà di tecnologie da usare.
 
-### Finding my spot
+### Trovare il mio posto
 
-All we have different skills, so, let's see where you might feel comfortable.
+Tutti noi abbiamo competenze diverse, quindi, vediamo dove ti potresti sentire a tuo agio.
 
-### I know or I want to learn Node.js
+### Conosco o voglio imparare Node.js
 
 Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
 
