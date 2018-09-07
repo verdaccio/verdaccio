@@ -34,7 +34,7 @@ Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile a
 
 Qui alcune idee:
 
-* Creare regole comuni di eslint per l'uso in tutte le dipendenze o plugin
+* Creare regole comuni di eslint che possano essere usate in tutte le dipendenze o plugin
 * Migliorare la distribuzione delle definizioni del tipo di flusso
 * Migrare su Webpack 4
 * Migliorare l'hot reload con Webpack
@@ -47,7 +47,7 @@ Molti contributori trovano errori di battitura e problemi di grammatica, altra c
 
 ### Sono un Designer
 
-Abbiamo un frontend del sito <http://www.verdaccio.org/> che sarà felice di vedere le vostre idee.
+Abbiamo un frontend del sito <http://www.verdaccio.org/> che sarà felice di vedere le tue idee.
 
 Il nostro sito web è basato su [Docusaurus](https://docusaurus.io/).
 
@@ -65,7 +65,7 @@ Verdaccio mira ad essere multilingue, per poter raggiungere questa meta **abbiam
 
 Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Vai a Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
 ## Sono pronto a contribuire
 
