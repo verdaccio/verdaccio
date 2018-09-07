@@ -69,12 +69,12 @@ Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferit
 
 ## Sono pronto a contribuire
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Se stai pensando *"ho già visto il repository[](repositories.md) e sono disposto a iniziare subito"* ho una buona notizia per te, che troverai nel prossimo step.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Avrai bisogno di imparare a costruire un progetto, [abbiamo preparato una guida proprio per questo](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Una volta che ti sei divertito con tutti gli script e hai capito come utilizzarli, siamo pronti per andare al passaggio successivo, eseguire l' [**Unit Test**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## Lista completa dei contributori. Vogliamo vedere la tua faccia qui!
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
