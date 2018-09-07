@@ -2,7 +2,7 @@
 id: contributing
 title: "Contribuendo a Verdaccio"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Saltare dentro a un code base sconosciuto non è facile, ma noi siamo qui per aiutarti.
 
 ## Canali di comunicazione
 
@@ -14,7 +14,7 @@ Se desideri fare domande, usiamo due canali per le discussioni:
 
 A prima vista verdaccio è un unico repository, ma ci sono molti modi in cui potresti contribuire e una ampia varietà di tecnologie da usare.
 
-### Trovare il mio posto
+### Trovare il proprio posto
 
 Tutti noi abbiamo competenze diverse, quindi, vediamo dove ti potresti sentire a tuo agio.
 
@@ -26,7 +26,7 @@ Abbiamo una lunga [lista di plugin](plugins.md) pronti per essere utilizzati e m
 
 ### Preferirei lavorare nell'Interfaccia Utente
 
-Recentemente ci siamo spostati su tecnologie moderne come `React` e `element-react`. Siamo ansiosi vedere nuove idee su come migliorare l'interfaccia utente.
+Recentemente ci siamo spostati su tecnologie moderne come `React` e `element-react`. Siamo ansiosi di vedere nuove idee su come migliorare l'Interfaccia Utente.
 
 ### Mi sento più a mio agio a migliorare lo stack
 
