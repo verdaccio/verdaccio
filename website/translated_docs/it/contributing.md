@@ -4,15 +4,15 @@ title: "Contribuendo a Verdaccio"
 ---
 First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
 
-## Comunication Channels
+## Canali di comunicazione
 
-If you are willing for asking, we use two channels for discussions:
+Se desideri fare domande, usiamo due canali per le discussioni:
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [Canale pubblico Discord](http://chat.verdaccio.org/)
 
-## Getting started
+## Guida introduttiva
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+A prima vista verdaccio è un unico repository, ma ci sono molti modi in cui potresti contribuire e una ampia varietà di tecnologie da usare.
 
 ### Finding my spot
 
