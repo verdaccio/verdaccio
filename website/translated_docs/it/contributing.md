@@ -35,15 +35,15 @@ Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile a
 Qui alcune idee:
 
 * Creare regole comuni di eslint per l'uso in tutte le dipendenze o plugin
-* Improve Flow types definitions delivery
-* Moving to Webpack 4
-* Improve hot reload with Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* Migliorare la distribuzione delle definizioni del tipo di flusso
+* Migrare su Webpack 4
+* Migliorare l'hot reload con Webpack
+* Utilizziamo babel e webpack attraverso tutte le dipendenze, perché non un preset comune?
+* Migliorare l'erogazione di integrazione continua
 
-### I do great Documentation
+### Sono bravo nella documentazione
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+Molti contributori trovano errori di battitura e problemi di grammatica, altra cosa che aiuta a migliorare l'esperienza complessiva per la risoluzione dei problemi.
 
 ### I am a Designer
 
