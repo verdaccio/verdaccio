@@ -34,7 +34,7 @@ Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile a
 
 Qui alcune idee:
 
-* Create a common eslint rules to be used across all dependencies or plugins
+* Creare regole comuni di eslint per l'uso in tutte le dipendenze o plugin
 * Improve Flow types definitions delivery
 * Moving to Webpack 4
 * Improve hot reload with Webpack
