@@ -8,7 +8,7 @@ import classes from './style.scss';
 const renderSection = (title, url) => (
   <li>
     <span>{title}</span>
-    <a href={url} target="_blank">
+    <a href={url} target="_blank" rel="noopener noreferrer">
       {url}
     </a>
   </li>
