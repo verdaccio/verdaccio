@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const Utils = require('./utils');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
+const {format} = require('date-fns');
 
 /**
  * Match the level based on buyan severity scale
@@ -24,10 +25,6 @@ function getlvl(x) {
   }
 }
 
-function formatLocalISOString(date) {
-  const tzoffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
-  return (new Date(date.getTime() - tzoffset)).toISOString().slice(0, -1);
-}
 /**
  * A RotatingFileStream that modifes the message first
  */
@@ -105,7 +102,7 @@ function setup(logs) {
       } else if (target.format === 'pretty-timestamped') {
         // making fake stream for pretty pritting
         stream.write = (obj) => {
-          destination.write(`${formatLocalISOString(obj.time)}${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+          destination.write(`[${format(obj.time, 'YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else {
         stream.write = (obj) => {
