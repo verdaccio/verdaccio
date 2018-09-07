@@ -1,16 +1,16 @@
 ---
-id: authentification
-title: "Authentification"
+id: autenticazione
+title: "Autenticazione"
 ---
-The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
+L'autenticazione è legata al [plugin](plugins.md) di autenticazione che si utilizza. Anche le restrizioni di pacchetto sono gestite dal [pacchetto accesso](packages.md).
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+L'autenticazione del client viene gestito dal `npm` client stesso. Una volta che si effettua il login all'applicazione:
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+Un token viene generato nel file di configurazione `npm` ospitato nella cartella home dell'utente. Per ulteriori informazioni su `.npmrc` leggere la [documentazione ufficiale](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -19,11 +19,11 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### Pubblicazione anonima
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` permette di attivare la pubblicazione anonima, per riuscirci sarà necessario impostare correttamente [l'accesso ai pacchetti](packages.md).
 
-Eg:
+Ad esempio:
 
 ```yaml
   'my-company-*':
@@ -32,11 +32,11 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+Come è descritto [nel caso #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) fino al `npm@5.3.0` e in tutte le versioni minori **non vi sarà permesso pubblicare senza un token **. Tuttavia `yarn` ha non tale limitazione.
 
-## Default htpasswd
+## Impostazione predefinita htpasswd
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+Al fine di semplificare l'installazione, `verdaccio` utilizza un plugin basato su `htpasswd`. A partire dalla versione v3.0.x un [plugin esterno](https://github.com/verdaccio/verdaccio-htpasswd) viene utilizzato come impostazione predefinita. La versione v2.x di questo pacchetto contiene ancora la versione incorporata di questo plugin.
 
 ```yaml
 auth:
@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Proprietà | Tipo    | Richiesto | Esempio      | Supporto | Descrizione                                    |
+| --------- | ------- | --------- | ------------ | -------- | ---------------------------------------------- |
+| file      | stringa | Sì        | . / htpasswd | tutti    | file che ospitano le credenziali crittografate |
+| max_users | numero  | No        | 1000         | tutti    | imposta limite di utenti                       |
 
-In case to decide do not allow user to login, you can set `max_users: -1`.
+Nel caso si decida di non consentire all'utente di accedere, è possibile impostare `max_users: -1`.
