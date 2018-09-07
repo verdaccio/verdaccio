@@ -69,7 +69,7 @@ Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferit
 
 ## Sono pronto a contribuire
 
-Se stai pensando *"ho già visto il repository[](repositories.md) e sono disposto a iniziare subito"* ho una buona notizia per te, che troverai nel prossimo step.
+Se stai pensando *"ho già visto [i repository](repositories.md) e sono disposto a iniziare subito"* ho buone notizie per te, le troverai nel prossimo step.
 
 Avrai bisogno di imparare a costruire un progetto, [abbiamo preparato una guida proprio per questo](build.md).
 
