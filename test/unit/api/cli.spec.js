@@ -2,9 +2,9 @@ import path from 'path';
 import _ from 'lodash';
 
 import startServer from '../../../src/index';
-import {getListListenAddresses} from '../../../src/lib/bootstrap';
 import config from '../partials/config/index';
-import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../src/lib/constants';
+import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../src/lib/constants';
+import {getListListenAddresses} from '../../../src/lib/cli/utils';
 
 require('../../../src/lib/logger').setup([]);
 
@@ -43,26 +43,51 @@ describe('startServer via API', () => {
   });
 
   describe('getListListenAddresses test', () => {
-    test(`should return by default ${DEFAULT_PORT}`, () => {
-      const addrs = getListListenAddresses()[0];
 
-      expect(addrs.proto).toBe('http');
+    test('should return no address if a single address is wrong', () => {
+      const addrs = getListListenAddresses("wrong");
+
+      expect(_.isArray(addrs)).toBeTruthy();
+      expect(addrs).toHaveLength(0);
+    });
+
+    test('should return no address if a two address are wrong', () => {
+      const addrs = getListListenAddresses(["wrong", "same-wrong"]);
+
+      expect(_.isArray(addrs)).toBeTruthy();
+      expect(addrs).toHaveLength(0);
+    });
+
+    test('should return a list of 1 address provided', () => {
+      const addrs = getListListenAddresses(null, '1000');
+
+      expect(_.isArray(addrs)).toBeTruthy();
+      expect(addrs).toHaveLength(1);
+    });
+
+    test('should return a list of 2 address provided', () => {
+      const addrs = getListListenAddresses(null, ['1000', '2000']);
+
+      expect(_.isArray(addrs)).toBeTruthy();
+      expect(addrs).toHaveLength(2);
+    });
+
+    test(`should return by default ${DEFAULT_PORT}`, () => {
+      const [addrs] = getListListenAddresses();
+
+      expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
       expect(addrs.host).toBe(DEFAULT_DOMAIN);
       expect(addrs.port).toBe(DEFAULT_PORT);
     });
 
-    test('should return a list of address and no cli argument provided', () => {
-      const addrs = getListListenAddresses(null, ['1000', '2000']);
+    test('should return default proto, host and custom port', () => {
+      const initPort = '1000';
+      const [addrs] = getListListenAddresses(null, initPort);
 
-      expect(_.isArray(addrs)).toBeTruthy();
+      expect(addrs.proto).toEqual(DEFAULT_PROTOCOL);
+      expect(addrs.host).toEqual(DEFAULT_DOMAIN);
+      expect(addrs.port).toEqual(initPort);
     });
-
-    test('should return an address and no cli argument provided', () => {
-      const addrs = getListListenAddresses(null, '1000');
-
-      expect(_.isArray(addrs)).toBeTruthy();
-    });
-
 
   });
 
