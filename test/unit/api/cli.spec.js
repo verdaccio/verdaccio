@@ -6,18 +6,28 @@ import config from '../partials/config/index';
 import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../src/lib/constants';
 import {getListListenAddresses} from '../../../src/lib/cli/utils';
 
-require('../../../src/lib/logger').setup([]);
+const logger = require('../../../src/lib/logger');
+
+jest.mock('../../../src/lib/logger', () => ({
+  setup: jest.fn(),
+  logger: {
+    child: jest.fn(),
+    warn: jest.fn(),
+    error: jest.fn(),
+    fatal: jest.fn()
+  }
+}));
 
 describe('startServer via API', () => {
 
   describe('startServer launcher', () => {
-    test('should provide all server data await/async', async (done) => {
+    test('should provide all HTTP server data', async (done) => {
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const port = '6000';
 
-      await startServer(config, port, store, version, serverName,
+      await startServer(_.clone(config), port, store, version, serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
@@ -30,6 +40,28 @@ describe('startServer via API', () => {
           expect(pkgName).toBe(serverName);
           done();
       });
+    });
+
+    test('should provide all HTTPS server fails', async (done) => {
+      const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const address = 'https://www.domain.com:443';
+      const realProcess = process;
+
+      const conf = _.clone(config);
+      conf.https = {};
+      // save process to catch exist
+      const exitMock = jest.fn();
+      global.process = { ...realProcess, exit: exitMock };
+      await startServer(conf, address, store, version, serverName, () => {
+        expect(logger.logger.fatal).toBeCalled();
+        expect(logger.logger.fatal).toHaveBeenCalledTimes(2);
+        done();
+      });
+      expect(exitMock).toHaveBeenCalledWith(2);
+      // restore process
+      global.process = realProcess;
     });
 
     test('should fails if config is missing', async () => {
