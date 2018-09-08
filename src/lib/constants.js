@@ -13,9 +13,12 @@ export const csrPem = 'verdaccio-csr.pem';
 
 export const HEADERS = {
   JSON: 'application/json',
+  CONTENT_TYPE: 'Content-type',
+  ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
+  WWW_AUTH: 'WWW-Authenticate',
   GZIP: 'gzip',
 };
 
@@ -79,6 +82,7 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
+  PLUGIN_ERROR: 'bug in the auth plugin system',
   CONFIG_BAD_FORMAT: 'config file must be an object',
   BAD_USERNAME_PASSWORD: 'bad username/password, access denied',
   NO_PACKAGE: 'no such package available',

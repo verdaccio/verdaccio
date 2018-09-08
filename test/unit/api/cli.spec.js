@@ -21,8 +21,8 @@ describe('startServer via API', () => {
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
-          expect(addrs.proto).toBe('http');
-          expect(addrs.host).toBe('localhost');
+          expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
+          expect(addrs.host).toBe(DEFAULT_DOMAIN);
           expect(addrs.port).toBe(port);
           expect(pkgName).toBeDefined();
           expect(pkgVersion).toBeDefined();
