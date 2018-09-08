@@ -1,14 +1,12 @@
 import Handlebars from 'handlebars';
-import request from 'request';
 import _ from 'lodash';
-import logger from './logger';
 
-const handleNotify = function(metadata, notifyEntry, publisherInfo, publishedPackage) {
+import {notifyRequest} from './notify-request';
+
+export function handleNotify(metadata, notifyEntry, publisherInfo, publishedPackage) {
   let regex;
   if (metadata.name && notifyEntry.packagePattern) {
-    // FUTURE: comment out due https://github.com/verdaccio/verdaccio/pull/108#issuecomment-312421052
-    // regex = new RegExp(notifyEntry.packagePattern, notifyEntry.packagePatternFlags || '');
-    regex = new RegExp(notifyEntry.packagePattern);
+    regex = new RegExp(notifyEntry.packagePattern, notifyEntry.packagePatternFlags || '');
     if (!regex.test(metadata.name)) {
       return;
     }
@@ -49,33 +47,14 @@ const handleNotify = function(metadata, notifyEntry, publisherInfo, publishedPac
     options.url = notifyEntry.endpoint;
   }
 
-  return new Promise((resolve, reject) => {
-    request(options, function(err, response, body) {
-      if (err || response.statusCode >= 400) {
-        const errorMessage = _.isNil(err) ? response.body : err.message;
-        logger.logger.error({errorMessage}, 'notify service has thrown an error: @{errorMessage}');
+  return notifyRequest(options, content);
+}
 
-        reject(errorMessage);
-      } else {
-        logger.logger.info({content}, 'A notification has been shipped: @{content}');
-        if (_.isNil(body) === false) {
-          const bodyResolved = _.isNil(body) === false ? body : null;
-
-          logger.logger.debug({body}, ' body: @{body}');
-          return resolve(bodyResolved);
-        }
-
-        reject(Error('body is missing'));
-      }
-    });
-  });
-};
-
-function sendNotification(metadata, key, ...moreMedatata) {
+export function sendNotification(metadata, key, ...moreMedatata) {
   return handleNotify(metadata, key, ...moreMedatata);
 }
 
-const notify = function(metadata, config, ...moreMedatata) {
+export function notify(metadata, config, ...moreMedatata) {
   if (config.notify) {
     if (config.notify.content) {
       return sendNotification(metadata, config.notify, ...moreMedatata);
@@ -86,6 +65,4 @@ const notify = function(metadata, config, ...moreMedatata) {
   }
 
   return Promise.resolve();
-};
-
-export {notify};
+}
