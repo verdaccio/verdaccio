@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-此属性让您可以修改此web UI的外观和感觉。有关更多此章节的详细信息，请阅读 [web ui页面](web.md)。
+This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
 ```yaml
 web:
