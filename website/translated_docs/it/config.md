@@ -31,7 +31,7 @@ logs:
 
 ## Sezioni
 
-Le sezioni seguenti spiegano cosa significa ogni proprietà e le diverse opzioni.
+Le sezioni seguenti spiegano cosa significa ogni proprietà e le diverse opzioni possibili.
 
 ### Archiviazione
 
@@ -74,7 +74,7 @@ web:
 
 ### Uplink
 
-Uplinks è la capacità del sistema di recuperare i pacchetti da registri remoti quando quei pacchetti non sono disponibili localmente. Per ulteriori informazioni su questa sezione leggere la [ pagina uplinks](uplinks.md).
+Uplink è la capacità del sistema di recuperare i pacchetti da registri remoti quando quei pacchetti non sono disponibili localmente. Per ulteriori informazioni su questa sezione leggere la [ pagina uplink](uplinks.md).
 
 ```yaml
 uplinks:
@@ -84,7 +84,7 @@ uplinks:
 
 ### Pacchetti
 
-Pacchetti consente all'utente di controllare come i pacchetti vengono resi accessibili. Per ulteriori informazioni su questa sezione leggere [pacchetti pagina](packages.md).
+Pacchetti consente all'utente di controllare come i pacchetti vengono resi accessibili. Per ulteriori informazioni su questa sezione leggere [la pagina dei pacchetti ](packages.md).
 
 ```yaml
 packages:
@@ -125,7 +125,7 @@ max_body_size: 10mb
 
 ### Porta in ascolto
 
-`verdaccio` viene eseguita per impostazione predefinita nella porta `4873`. Modifica della porta può essere fatta tramite [cli](cli.md) o nel file di configurazione, le seguenti opzioni sono valide.
+`verdaccio` viene eseguito per impostazione predefinita nella porta `4873`. Modifica della porta può essere fatta tramite [cli](cli.md) o nel file di configurazione, le seguenti opzioni sono valide.
 
 ```yaml
 listen:
@@ -139,7 +139,7 @@ listen:
 
 ### HTTPS
 
-Per abilitare `https` in `verdaccio` è sufficiente impostare il tag `ascolto` con il protocollo *https://*. Per ulteriori informazioni su questa sezione leggere la [ pagina del ssl](ssl.md).
+Per abilitare `https` in `verdaccio` è sufficiente impostare il flag `ascolto` con il protocollo *https://*. Per ulteriori informazioni su questa sezione leggere la [ pagina del ssl](ssl.md).
 
 ```yaml
 https:
@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Notifiche
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Abilitare le notifiche di strumenti di terze parti è abbastanza facile via web hooks. Per ulteriori informazioni su questa sezione, leggere la [pagina delle notifiche](notifications.md).
 
 ```yaml
 notify:
@@ -181,7 +181,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> Per impostazioni di configurazione più dettagliate, si prega di [controllare la fonte del codice](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Per impostazioni di configurazione più dettagliate, si prega di [controllare il codice sorgente](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 ### Audit
 
