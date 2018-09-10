@@ -4,7 +4,7 @@ title: "Cos'è Verdaccio?"
 ---
 Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
 
-## What's a registry
+## Cos'è un registro
 
 * A repository for packages that implements the **CommonJS Compliant Package Registry specification** for reading package info
 * Provide an API compatible with npm clients **(yarn/npm/pnpm)**
