@@ -79,7 +79,7 @@ class Home extends Component {
     } catch (error) {
       this.handleShowAlertDialog({
         title: 'Warning',
-        message: `Unable to load package list: ${error.message}`
+        message: `Unable to load package list: ${error.error}`
       });
     }
   }
