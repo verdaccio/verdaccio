@@ -6,7 +6,7 @@ Verdaccio è un **registro proxy npm leggero e privato** scritto in **Node.js**
 
 ## Cos'è un registro
 
-* Un repository per pacchetti che implementa la **specificazione CommonJS Compliant Package Registry** per la lettura di informazioni di pacchetti
+* Un repository per pacchetti che implementa la **specificazione CommonJS Compliant Package Registry** per la lettura delle informazioni dei pacchetti
 * Fornisce un API compatibile con i client npm **(yarn/npm/pnpm)**
 * Segue il Versionamento semantico compatibile **(semver)**
 
@@ -17,11 +17,11 @@ Verdaccio è un **registro proxy npm leggero e privato** scritto in **Node.js**
 
 ## Utilizzo di Verdaccio
 
-Using verdaccio with any node package manager client is quite straightforward.
+L'uso di verdaccio con qualsiasi gestore del pacchetto di nodi dei client.
 
 ![registry](/svg/npm_install.gif)
 
-You can use a custom registry either setting globally for all your projects
+È possibile utilizzare un registro personalizzato oppure settarlo in generale per tutti i tuoi progetti
 
     npm set registry http://localhost:4873
     
