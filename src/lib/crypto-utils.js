@@ -61,7 +61,7 @@ export async function signPayload(
   options: JWTSignOptions): Promise<string> {
   return new Promise(function(resolve, reject) {
     return jwt.sign(payload, secretOrPrivateKey, {
-      notBefore: '1000', // Make sure the time will not rollback :)
+      notBefore: '1', // Make sure the time will not rollback :)
       ...options,
     }, (error, token) => error ? reject(error) : resolve(token));
   });
