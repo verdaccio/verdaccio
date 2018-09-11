@@ -44,8 +44,8 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
 * Avviare il servizio 
     * `verdaccio-winsw.exe start`
 
-Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
+Alcune delle configurazioni sopra citate sono più dettagliate di quanto mi aspettassi, sembra comunque che 'workingdirectory' venga ignorato, ma a parte questo, per me funziona e permette, nel mio caso, che verdaccio continui a funzionare tra i riavvi del server, ed inoltre che si riavvii da solo qualora dovessero esserci crash del processo di verdaccio.
 
-## Repositories
+## Repositori
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)
