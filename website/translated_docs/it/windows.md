@@ -22,11 +22,11 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
 
 * Aprire un comando amministrativo
 
-* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
+* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Supponendo un'installazione con nodo nel percorso di sistema ed una posizione di c:\verdaccio, i valori qui sotto funzioneranno:
     
-    * Path: `node`
-    * Startup directory: `c:\verdaccio`
-    * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
+    * Percorso: `node`
+    * Directory di avvio: `c:\verdaccio`
+    * Argomenti: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
     You can adjust other service settings under other tabs as desired. When you are done, click Install service button
     
