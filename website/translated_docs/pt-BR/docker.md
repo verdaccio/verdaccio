@@ -54,7 +54,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 O último argumento define qual imagem usar. a linha acima vai buscar a imagem mais recente da pre-build do dockerhub, isso se você já não tiver feito.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Se você tiver [uma imagem construída localmente](#build-your-own-docker-image) use `verdaccio` como o último argumento.
 
 You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
 
