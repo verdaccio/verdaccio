@@ -152,7 +152,7 @@ https:
 
 Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
 
-#### http_proxy and https_proxy
+#### http_proxy e https_proxy
 
 If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
 
