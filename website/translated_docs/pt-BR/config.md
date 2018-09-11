@@ -107,13 +107,13 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefixo de URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Desde: `verdaccio@2.3.6` feito em [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### Max Body Size
 
