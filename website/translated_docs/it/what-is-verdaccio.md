@@ -48,5 +48,5 @@ Verdaccio memorizza tutte le dipendenze su richiesta e velocizza le installazion
 * È discretamente facile da installare e da usare
 * Offriamo supporto Docker e Kubernetes
 * È 100% compatibile con yarn, npm e pnpm
-* It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
-* Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
+* È un **fork** basato su `sinopia@1.4.0` e 100% **retrocompatible**.
+* Il nome Verdaccio viene da **Una tonalità di verde, popolare nell'Italia tardo medievale usata per gli affreschi**.
