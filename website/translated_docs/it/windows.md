@@ -22,7 +22,7 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
 
 * Aprire un comando amministrativo
 
-* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Supponendo un'installazione con nodo nel percorso di sistema ed una posizione di c:\verdaccio, i valori qui sotto funzioneranno:
+* Eseguire nssm install verdaccio. È necessario inserire nel Percorso della Application tab, la cartella Startup e i campi Argomenti. Supponendo un'installazione con nodo nel percorso di sistema ed una posizione di c:\verdaccio, i valori qui sotto funzioneranno:
     
     * Percorso: `node`
     * Directory di avvio: `c:\verdaccio`
