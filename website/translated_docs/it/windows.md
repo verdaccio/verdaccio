@@ -22,10 +22,10 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
 
 * Aprire un comando amministrativo
 
-* Eseguire nssm install verdaccio. È necessario inserire nel Percorso della Application tab, la cartella Startup e i campi Argomenti. Supponendo un'installazione con nodo nel percorso di sistema ed una posizione di c:\verdaccio, i valori qui sotto funzioneranno:
+* Eseguire nssm install verdaccio. È necessario inserire nel Percorso della Application tab, la cartella Startup e i campi Argomenti. Supponendo un'installazione con node nel percorso di sistema ed una posizione di c:\verdaccio, i valori qui sotto funzioneranno:
     
     * Percorso: `node`
-    * Directory di avvio: `c:\verdaccio`
+    * Cartella di avvio: `c:\verdaccio`
     * Argomenti: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
     È possibile adattare configurazioni di servizio alternative sotto altre schede, come si preferisce. Una volta terminato, cliccare sul pulsante installa servizio
