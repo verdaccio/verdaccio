@@ -30,9 +30,9 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
     
     È possibile adattare configurazioni di servizio alternative sotto altre schede, come si preferisce. Una volta terminato, cliccare sul pulsante installa servizio
     
-    * Start the service sc start verdaccio
+    * Avviare il servizio sc start verdaccio
 
-## Using WinSW
+## Utilizzo di WinSW
 
 * As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
 * Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
