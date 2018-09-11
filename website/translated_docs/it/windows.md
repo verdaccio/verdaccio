@@ -28,7 +28,7 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
     * Directory di avvio: `c:\verdaccio`
     * Argomenti: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    You can adjust other service settings under other tabs as desired. When you are done, click Install service button
+    È possibile adattare configurazioni di servizio alternative sotto altre schede, come si preferisce. Una volta terminato, cliccare sul pulsante installa servizio
     
     * Start the service sc start verdaccio
 
