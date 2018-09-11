@@ -28,7 +28,7 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
     * Cartella di avvio: `c:\verdaccio`
     * Argomenti: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    È possibile adattare configurazioni di servizio alternative sotto altre schede, come si preferisce. Una volta terminato, cliccare sul pulsante installa servizio
+    Se si desidera, è possibile adattare configurazioni di servizio alternative sotto altre tab. Una volta terminato, cliccare sul bottone di installazione
     
     * Avviare il servizio sc start verdaccio
 
@@ -36,12 +36,12 @@ METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a sca
 
 * A partire dal 27/10/2015, WinSW non è più disponibile nella posizione seguente. Si prega di seguire le istruzioni di utilizzo NSSM scritte sopra.
 * Scaricare [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
-    * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
+    * Collocare l'eseguibile (e.g. `winsw-1.9-bin.exe`) in questa cartella (`c:\verdaccio`) e rinominarlo `verdaccio-winsw.exe`
 * Creare un file di configurazione in `c:\verdaccio`, denominato `verdaccio-winsw.xml` con la seguente configurazione `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
-* Install your service 
+* Installare il servizio 
     * `cd c:\verdaccio`
     * `verdaccio-winsw.exe install`
-* Start your service 
+* Avviare il servizio 
     * `verdaccio-winsw.exe start`
 
 Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
