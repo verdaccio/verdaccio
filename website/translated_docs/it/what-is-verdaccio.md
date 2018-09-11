@@ -26,23 +26,23 @@ L'uso di verdaccio con qualsiasi gestore del pacchetto di nodi dei client.
     npm set registry http://localhost:4873
     
 
-or by command line as argument `--registry` in npm (slightly different in yarn)
+o da riga di comando come argomento `--registry` in npm (leggermente diverso in yarn)
 
     npm install lodash --registry http://localhost:4873
     
 
-## Private
+## Privato
 
-All packages that you publish are private and only accessible based in your configuration.
+Tutti i pacchetti che pubblichi sono privati e accessibili soltanto in base alla tua configurazione.
 
 ## Proxy
 
-Verdaccio cache all dependencies by demand and speed up installations in local or private networks.
+Verdaccio memorizza tutte le dipendenze su richiesta e velocizza le installazioni in locale o su reti private.
 
-## Verdaccio in a nutshell
+## Verdaccio in pillole
 
-* It's a web app based on Node.js
-* It's a private npm registry
+* È un'applicazione web basata su Node.js
+* È un registro npm privato
 * It's a local network proxy
 * It's a Pluggable application
 * It's a fairly easy install and use
