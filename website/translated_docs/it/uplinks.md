@@ -36,9 +36,9 @@ uplinks:
 | cache        | variabile booleana | No        | [vero/falso]                             | >= 2.1   | memorizzare nella cache tutti i tarball remoti in archivio                                                                                      | vero                     |
 | auth         | elenco             | No        | [vedi sotto](uplinks.md#auth-property)   | >= 2.5   | assegnare l'intestazione 'Autorizzazione' [ ulteriori informazioni](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabilitato             |
 | headers      | elenco             | No        | autorizzazione: "Bearer SecretJWToken==" | tutti    | elenco di intestazioni personalizzate per l'uplink                                                                                              | disabilitato             |
-| strict_ssl   | variabile booleana | No        | [vero/falso]                             | >= 3.0   | If true, requires SSL certificates be valid.                                                                                                    | true                     |
+| strict_ssl   | variabile booleana | No        | [vero/falso]                             | >= 3.0   | Se vero, richiede che i certificati SSL siano validi.                                                                                           | vero                     |
 
-#### Auth property
+#### Proprietà dell' auth
 
 The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
 
