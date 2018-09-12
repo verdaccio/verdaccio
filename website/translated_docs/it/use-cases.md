@@ -24,8 +24,8 @@ Ci sono due opzioni qui:
     
     Se si vuole fare ciò, si dovrebbe modificare il file di configurazione affinché verdaccio non faccia più richieste a npmjs riguardo a questi pacchetti. Aggiungere un'entrata separata per questo pacchetto a *config.yaml* e rimuovere `npmjs` dalla lista `proxy` e riavviare il server.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Quando si pubblica il pacchetto in locale, si dovrebbe probabilmente iniziare con formato della stringa superiore a quella esistente, così che non vada in conflitto con il pacchetto già esistente nella cache.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Si vuole temporaneamente utilizzare la propria versione, ma tornare alla pubblica appena questa sia aggiorna,.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    Per evitare qualsiasi conflitto delle versioni, si dovrebbe usare un suffisso personalizzato rilasciato prima della successiva versione della patch. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
