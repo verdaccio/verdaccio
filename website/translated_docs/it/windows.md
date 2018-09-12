@@ -1,8 +1,8 @@
 ---
 id: windows
-title: "Installing As a Windows Service"
+title: "Installazione come servizio di Windows"
 ---
-Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). Ho elaborato ciò che segue e mi ha fornito un servizio di installazione per verdaccio completamente funzionante:
+Basato approssimatamente sulle istruzioni che trovi [qui](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). Ho elaborato ciò che segue e mi ha fornito un servizio di installazione per verdaccio completamente funzionante:
 
 1. Creare una directory per verdaccio 
     * mkdir `c:\verdaccio`
