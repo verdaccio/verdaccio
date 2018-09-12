@@ -10,11 +10,11 @@ title: "Casi di utilizzo"
 
 ## Utilizzo dei pacchetti pubblici da npmjs.org
 
-Se qualche pacchetto non esiste nell'archivio, il server proverà a recuperarlo da npmjs.org. Se npmjs.org non funziona, fornirà solo i pacchetti presenti nella cache come se non ne esistessero altri. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Se qualche pacchetto non esiste nell'archivio, il server proverà a recuperarlo da npmjs.org. Se npmjs.org non funziona, fornirà solo i pacchetti presenti nella cache come se non ne esistessero altri. Verdaccio scaricherà solo ciò che è necessario (= richiesto dai client), e questa informazione verrà memorizzata, così che se il client chiederà la stessa cosa una seconda volta, potrà essere soddisfatto senza dover chiedere a npmjs.org.
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Esempio: se si fa una richiesta express@3.0.1 che va a buon fine da questo server una volta, sarà possibile farla un'altra volta ( con tutte le sue dipendenze) in ogni momento, anche con npmjs.org non funzionante. Però diciamo che express@3.0.0 non verrà scaricato fino a che non sia effettivamente necessario per qualcuno. E se npmjs.org fosse offline, questo server direbbe che solo express@3.0.1 (= solo quello che è nella cache) verrebbe pubblicato, ma nient'altro.
 
-## Override public packages
+## Annullare pacchetti pubblici
 
 If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
 
