@@ -2,7 +2,7 @@
 id: use-cases
 title: "Casi di utilizzo"
 ---
-## Using private packages
+## Utilizzo di pacchetti privati
 
 È possibile aggiungere utenti e gestire quali utenti possono accedere a quali pacchetti.
 
@@ -28,4 +28,4 @@ Ci sono due opzioni qui:
 
 2. Si vuole temporaneamente utilizzare la propria versione, ma tornare alla pubblica appena questa sia aggiorna,.
     
-    Per evitare qualsiasi conflitto delle versioni, si dovrebbe usare un suffisso personalizzato rilasciato prima della successiva versione della patch. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    Per evitare qualsiasi conflitto delle versioni, si dovrebbe usare un suffisso personalizzato rilasciato prima della successiva versione della patch. Per esempio, se un pacchetto pubblico ha la versione 0.1.2, si può caricare 0.1.3-my-temp-fix. In questo modo il pacchetto verrà utilizzato fino a che il suo manutentore originale aggiorni il suo pacchetto pubblico alla 0.1.3.
