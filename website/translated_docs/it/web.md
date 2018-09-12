@@ -6,7 +6,7 @@ title: "Utente Web Interface2"
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
-Verdaccio has a web user interface to display only the private packages and can be customisable.
+Verdaccio offre un'interfaccia web utente per mostrare solo i pacchetti privati e può essere personalizzata,.
 
 ```yaml
 web:
@@ -20,9 +20,9 @@ Tutte le restrizioni di accesso definite per [proteggere i pacchetti](protect-yo
 
 ### Configurazione
 
-| Property | Tipo    | Richiesto | Esempio                        | Supporto | Descrizione                                                                                                                                          |
-| -------- | ------- | --------- | ------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| enable   | boolean | No        | true/false                     | all      | abilita l'interfaccia web                                                                                                                            |
-| title    | string  | No        | Verdaccio                      | all      | Descrizione del titolo HTML                                                                                                                          |
-| logo     | string  | No        | http://my.logo.domain/logo.png | all      | un URI in cui si trova il logo                                                                                                                       |
-| scope    | string  | No        | \\@myscope                   | all      | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header (note: escape @ with \\@) |
+| Proprietà | Tipo    | Richiesto | Esempio                        | Supporto | Descrizione                                                                                                                                                                |
+| --------- | ------- | --------- | ------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| enable    | boolean | No        | true/false                     | all      | abilita l'interfaccia web                                                                                                                                                  |
+| title     | string  | No        | Verdaccio                      | all      | Descrizione del titolo HTML                                                                                                                                                |
+| logo      | string  | No        | http://my.logo.domain/logo.png | all      | un URI in cui si trova il logo                                                                                                                                             |
+| scope     | string  | No        | \\@myscope                   | all      | Se si utilizza questo registro per uno specifico scope, definisci quello scope nelle istruzioni dell' intestazione dell'interfaccia web utente (nota: escape @ with \\@) |
