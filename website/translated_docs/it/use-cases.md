@@ -6,11 +6,11 @@ title: "Casi di utilizzo"
 
 È possibile aggiungere utenti e gestire quali utenti possono accedere a quali pacchetti.
 
-È raccomandabile definire un prefisso per i pacchetti privati, per esempio "locale", così che tutti gli elementi privati abbiano questo aspetto: `local-foo`. This way you can clearly separate public packages from private ones.
+È raccomandabile definire un prefisso per i pacchetti privati, per esempio "locale", così che tutti gli elementi privati abbiano questo aspetto: `local-foo`. In questo modo si possono separare chiaramente i pacchetti pubblici da quelli privati.
 
-## Using public packages from npmjs.org
+## Utilizzo dei pacchetti pubblici da npmjs.org
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Se qualche pacchetto non esiste nell'archivio, il server proverà a recuperarlo da npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
 
 Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
 
