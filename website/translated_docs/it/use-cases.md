@@ -1,12 +1,12 @@
 ---
 id: use-cases
-title: "Use Cases"
+title: "Casi di utilizzo"
 ---
 ## Using private packages
 
-You can add users and manage which users can access which packages.
+È possibile aggiungere utenti e gestire quali utenti possono accedere a quali pacchetti.
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+È raccomandabile definire un prefisso per i pacchetti privati, per esempio "locale", così che tutti gli elementi privati abbiano questo aspetto: `local-foo`. This way you can clearly separate public packages from private ones.
 
 ## Using public packages from npmjs.org
 
