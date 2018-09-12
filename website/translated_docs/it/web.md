@@ -1,6 +1,6 @@
 ---
 id: webui
-title: "Web User Interface2"
+title: "Utente Web Interface2"
 ---
 
 
@@ -16,9 +16,9 @@ web:
   scope:
 ```
 
-All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
+Tutte le restrizioni di accesso definite per [proteggere i pacchetti](protect-your-dependencies.md) si applicano anche all'interfaccia Web.
 
-### Configuration
+### Configurazione
 
 | Property | Type    | Required | Example                        | Support | Description                                                                                                                                          |
 | -------- | ------- | -------- | ------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
