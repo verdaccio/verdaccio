@@ -16,11 +16,11 @@ Esempio: se si fa una richiesta express@3.0.1 che va a buon fine da questo serve
 
 ## Annullare pacchetti pubblici
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+Se si desidera utilizzare una versione modificata di qualche pacchetto pubblico `foo`, si può pubblicarla solamente sul server locale, così scrivendo `npm install foo`, installerà questa versione.
 
-There's two options here:
+Ci sono due opzioni qui:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Si desidera creare un fork separato e interrompere la sincronizzazione con la versione pubblica.
     
     If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
     
