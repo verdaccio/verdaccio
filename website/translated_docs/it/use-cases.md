@@ -22,7 +22,7 @@ Ci sono due opzioni qui:
 
 1. Si desidera creare un fork separato e interrompere la sincronizzazione con la versione pubblica.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Se si vuole fare ciò, si dovrebbe modificare il file di configurazione affinché verdaccio non faccia più richieste a npmjs riguardo a questi pacchetti. Aggiungere un'entrata separata per questo pacchetto a *config.yaml* e rimuovere `npmjs` dalla lista `proxy` e riavviare il server.
     
     When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
