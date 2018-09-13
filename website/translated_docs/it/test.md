@@ -4,7 +4,7 @@ title: "Test Unità"
 ---
 Tutti i test sono divisi in tre cartelle:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
+- `test/unit` - Test che coprono le funzioni che trasformano i dati in modo non banale. Questi test `require()` (necessitano) semplicemente alcuni file ed eseguono il codice in essi, quindi sono molto rapidi.
 - `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
 - `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
 
