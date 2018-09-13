@@ -23,9 +23,9 @@ Questo azionerà solo i primi due gruppi di test, unità e funzionale.
 
 ### Utilizzo di test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+Il seguente è solo un esempio di come dovrebbe vedersi un test unità. Fondamentalmente seguire il `jest` standard.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Provare a descrivere cosa fa esattamente il test unità in una sola frase nell'intestazione della sezione `test`.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,7 +48,7 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Utilizzo di test/functional
 
 Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
 
