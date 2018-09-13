@@ -117,7 +117,7 @@ La classe server è solamente un wrapper che simula un `npm` client e fornisce u
 
 Come abbiamo menzionato nella sezione precedente, stiamo creando 3 server di processo che siano accessibili in ogni processo come `server1`, `server2` e ``server3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+Usando queste referenze sarai in grado di inviare richieste a ognuna delle 3 istanze in esecuzione.
 
 ```javascript
 <br />export default function(server) {
