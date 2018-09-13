@@ -107,11 +107,11 @@ Tutto inizia nel file `index.js`. Andiamo ad analizzarlo da vicino.
 
 ```
 
-### Usage
+### Utilizzo
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Qui andremo a descrivere come dovrebbe apparire un test funzionale tipico.
 
-#### The lib/server.js
+#### Il lib/server.js
 
 The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
 
