@@ -10,7 +10,7 @@ title: "Casi di utilizzo"
 
 ## Utilizzo dei pacchetti pubblici da npmjs.org
 
-Se qualche pacchetto non esiste nell'archivio, il server proverà a recuperarlo da npmjs.org. Se npmjs.org non funziona, fornirà solo i pacchetti presenti nella cache come se non ne esistessero altri. Verdaccio scaricherà solo ciò che è necessario (= richiesto dai client), e questa informazione verrà memorizzata, così che se il client chiederà la stessa cosa una seconda volta, potrà essere soddisfatto senza dover chiedere a npmjs.org.
+Se qualche pacchetto non esiste nell'archivio, il server proverà a recuperarlo da npmjs.org. Se npmjs.org non funziona, fornirà solo i pacchetti presenti nella cache come se non ne esistessero altri. Verdaccio scaricherà solo ciò che è necessario (= richiesto dai client), e questa informazione verrà memorizzata nella cache, così che se il client chiederà la stessa cosa una seconda volta, potrà essere soddisfatto senza dover chiedere a npmjs.org.
 
 Esempio: se si fa una richiesta express@3.0.1 che va a buon fine da questo server una volta, sarà possibile farla un'altra volta ( con tutte le sue dipendenze) in ogni momento, anche con npmjs.org non funzionante. Però diciamo che express@3.0.0 non verrà scaricato fino a che non sia effettivamente necessario per qualcuno. E se npmjs.org fosse offline, questo server direbbe che solo express@3.0.1 (= solo quello che è nella cache) verrebbe pubblicato, ma nient'altro.
 
