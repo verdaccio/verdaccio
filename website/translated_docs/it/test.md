@@ -113,7 +113,7 @@ Qui andremo a descrivere come dovrebbe apparire un test funzionale tipico.
 
 #### Il lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+La classe server è solamente un wrapper che simula un `npm` client e fornisce un API semplice per il test funzionale.
 
 As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
 
