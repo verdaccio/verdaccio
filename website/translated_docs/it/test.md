@@ -6,22 +6,22 @@ Tutti i test sono divisi in tre cartelle:
 
 - `test/unit` - Test che coprono le funzioni che trasformano i dati in modo non banale. Questi test `require()` (necessitano) semplicemente alcuni file ed eseguono il codice in essi, quindi sono molto rapidi.
 - `test/functional` - Test che lanciano un'istanza di verdaccio e realizzano una serie di richieste a essa su http. Sono più lenti dei test unità.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/integration` - Test che lanciano un'istanza di verdaccio e fanno richieste a essa usando npm. Sono considerevolmente lenti e possono raggiungere un registro npm reale. **test non mantenuto**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+I test unità e funzionali vengono eseguiti automaticamente all'avvio di `npm test` dalla cartella principale del progetto. I test di integrazione vanno eseguiti manualmente di volta in volta.
 
-We use `jest` for all test.
+Usiamo `jest` per tutti i test.
 
-## The npm Script
+## Lo Script npm
 
-To run the test script you can use either `npm` or `yarn`.
+Per eseguire lo script del test si può utilizzare sia `npm` che `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+Questo azionerà solo i primi due gruppi di test, unità e funzionale.
 
-### Using test/unit
+### Utilizzo di test/unit
 
 The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
 
