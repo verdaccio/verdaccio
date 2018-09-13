@@ -115,7 +115,7 @@ Qui andremo a descrivere come dovrebbe apparire un test funzionale tipico.
 
 La classe server è solamente un wrapper che simula un `npm` client e fornisce un API semplice per il test funzionale.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Come abbiamo menzionato nella sezione precedente, stiamo creando 3 server di processo che siano accessibili in ogni processo come `server1`, `server2` e ``server3`.
 
 Using such reference you will be able to send request to any of the 3 instance running.
 
