@@ -131,4 +131,4 @@ Usando queste referenze sarai in grado di inviare richieste a ognuna delle 3 ist
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Questa sezione non è ancora mai stata usata, ma stiamo cercando aiuto per farla funzionare a dovere. **Ogni nuova idea è benvenuta**
