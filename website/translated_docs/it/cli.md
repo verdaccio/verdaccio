@@ -2,7 +2,7 @@
 id: cli
 title: "Strumento riga di comando"
 ---
-Il CLI di verdaccio è il modo per avviare l'applicazione.
+Il CLI di verdaccio è la modalità per avviare l'applicazione.
 
 ## Comandi
 
