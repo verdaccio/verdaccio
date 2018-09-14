@@ -1,5 +1,5 @@
 ---
-id: uplinks
+id: uplink
 title: "Uplink"
 ---
 Un *uplink* è un link ad un registro esterno che fornisce accesso ai pacchetti esterni.
