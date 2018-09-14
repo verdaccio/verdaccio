@@ -1,6 +1,6 @@
 ---
 id: ssl
-title: "Set up the SSL Certificates"
+title: "Configurare i Certificati SSL"
 ---
 Segui queste istruzioni per configurare un certificato SSL che serva al registro NPM sotto HTTPS.
 
@@ -40,6 +40,6 @@ Le istruzioni sono ampiamente valide per OSX e Linux, per Windows i percorsi pot
 
 ## Docker
 
-If you are using the Docker image, you have to set the `PROTOCOL` environment variable to `https` as the `listen` argument is provided on the [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), and thus ignored from your config file.
+Se si sta utilizzando l'immagine Docker, bisogna impostare la variabile ambientale `PROTOCOL` su `https` visto che l'argomento `listen` viene fornito su [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), e viene quindi ignorato dal file di configurazione.
 
-You can also set the `PORT` environment variable if you are using a different port than `4873`.
+Si può anche impostare la variabile ambientale `PORT` se si sta utilizzando una porta differente da `4873`.
