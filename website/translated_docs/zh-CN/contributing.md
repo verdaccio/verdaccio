@@ -53,17 +53,17 @@ title: "参与Verdaccio贡献"
 
 ### 我是一名DevOps
 
-我们有广受欢迎的Docker镜像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来使所有用户都可受益。
+我们有广受欢迎的Docker镜像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护并且可能进行极大的调整，我们需要您的知识来使所有用户都可受益。
 
 我们支持 **Kubernetes**, **Puppet**, **Ansible** 和 **Chef**，在这些领域我们需要帮助，请随时查看所有资源库。
 
 ### 我可以翻译
 
-Verdaccio的目标是多语言，为了实现这个目标，**我们得到**[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
+Verdaccio 的目标是多语言，为了实现这个目标，**我们得到了 **[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地发起[创建要求票证](https://github.com/verdaccio/verdaccio/issues/new)。
+我们已经创建了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请随意地发起[创建要求票证](https://github.com/verdaccio/verdaccio/issues/new)。
 
 [转到 Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
