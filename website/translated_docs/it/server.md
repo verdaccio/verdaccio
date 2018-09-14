@@ -12,14 +12,14 @@ Come prima cosa creare l'utente verdaccio:
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+Creare una shell come l'utente verdaccio utilizzando il seguente comando:
 
 ```bash
 $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+Il comando 'cd ~' manda alla cartella home dell'utente verdaccio. Assicurarsi di eseguire verdaccio almeno una volta per generare il file di configurazione. Modificarlo a seconda delle proprie esigenze.
 
 ## Listening on all addresses
 
