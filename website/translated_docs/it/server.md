@@ -21,7 +21,7 @@ $ cd ~
 
 Il comando 'cd ~' manda alla cartella home dell'utente verdaccio. Assicurarsi di eseguire verdaccio almeno una volta per generare il file di configurazione. Modificarlo a seconda delle proprie esigenze.
 
-## Listening on all addresses
+## Ascolto di tutti gli indirizzi
 
 If you want to listen to every external address set the listen directive in the config to:
 
