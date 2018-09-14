@@ -1,5 +1,5 @@
 ---
-id: 配置
+id: configuration
 title: "配置文件"
 ---
 此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
