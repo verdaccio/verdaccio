@@ -32,11 +32,11 @@ https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
 Ulteriori informazioni sugli argomenti `key`, `cert`, `ca`, `pfx` e `passphrase` sulla [documentazione Node ](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
-* Run `verdaccio` in your command line.
+* Eseguire `verdaccio` nella linea di comando.
 
-* Open the browser and load `https://your.domain.com:port/`
+* Aprire il browser e caricare `https://your.domain.com:port/`
 
-This instructions are mostly valid under OSX and Linux, on Windows the paths will vary but, the steps are the same.
+Le istruzioni sono ampiamente valide per OSX e Linux, per Windows i percorsi potranno variare, ma i passi da seguire sono gli stessi.
 
 ## Docker
 
