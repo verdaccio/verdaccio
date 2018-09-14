@@ -6,7 +6,7 @@ title: "网页用户界面2"
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
-Verdaccio has a web user interface to display only the private packages and can be customisable.
+Verdaccio 有可定制的 Web 界面用于管理私有包
 
 ```yaml
 web:
