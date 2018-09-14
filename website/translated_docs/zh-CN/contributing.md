@@ -2,7 +2,7 @@
 id: 贡献
 title: "参与Verdaccio贡献"
 ---
-First of all 一头扎进不熟悉的代码库并不容易，但是我们会在此帮助你。
+首先， 一头扎进不熟悉的代码库并不容易，但是我们会在此帮助你。
 
 ## 沟通频道
 
@@ -22,7 +22,7 @@ First of all 一头扎进不熟悉的代码库并不容易，但是我们会在�
 
 Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` 或者 `async`程序库。 Verdaccio大体上就是一个Rest API ，它和`yarn`一样，创建与`npm` 客户端兼容的通信。
 
-我们有很多[插件列表](plugins.md)可供使用和改善，但是同时[您也可以创建自己的插件](dev-plugins.md)。
+我们有很多[插件列表](plugins.md)可供使用和改善体验，但是同时[您也可以创建自己的插件](dev-plugins.md)。
 
 ### 我倾向在用户界面作业
 
