@@ -32,7 +32,7 @@ listen: 0.0.0.0:4873
 
 Se si sta eseguendo `verdaccio` in un'istanza di Amazon EC2, [ sarà necessario impostare l'ascolto nel cambiare il file di configurazione](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) come viene descritto sopra.
 
-> Devi configurare Apache? Guarda per favore la [Configurazione Inversa del Proxy](reverse-proxy.md)
+> Devi configurare Apache? Controlla per favore la [Configurazione Inversa del Proxy](reverse-proxy.md)
 
 ## Keeping verdaccio running forever
 
