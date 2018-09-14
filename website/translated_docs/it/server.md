@@ -30,9 +30,9 @@ If you want to listen to every external address set the listen directive in the 
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+Se si sta eseguendo `verdaccio` in un'istanza di Amazon EC2, [ sarà necessario impostare l'ascolto nel cambiare il file di configurazione](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) come viene descritto sopra.
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Devi configurare Apache? Guarda per favore la [Configurazione Inversa del Proxy](reverse-proxy.md)
 
 ## Keeping verdaccio running forever
 
