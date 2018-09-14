@@ -59,11 +59,11 @@ Abbiamo il supporto per **Kubernetes**, **Puppet**, **Ansible** e **Chef** e abb
 
 ### Posso fare traduzioni
 
-Verdaccio mira ad essere multilingue, per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
+Verdaccio mira ad essere multilingue e,per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Abbiamo impostato un progetto nel quale è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Vai a Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
