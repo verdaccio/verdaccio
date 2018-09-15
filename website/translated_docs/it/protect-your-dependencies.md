@@ -19,14 +19,14 @@ Con questa configurazione, si permette fondamentalmente di raggruppare **admin**
 
 ### Caso d'uso: teamD prova ad accedere alla dipendenza
 
-So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
+Quindi, se io sono loggato come **teamD** non dovrei poter accedere a tutte quelle dipendenze che corrispondono al modello `my-company-*`.
 
 ```bash
 ➜ npm whoami
 teamD
 ```
 
-I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
+Non solo non avrò accesso a tali dipendenze ma non saranno nemmeno visibili via web per l'utente **teamD**.
 
 ```bash
 ➜ npm install my-company-core
@@ -34,7 +34,7 @@ npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
-or with `yarn`
+o con `yarn`
 
 ```bash
 ➜ yarn add my-company-core
