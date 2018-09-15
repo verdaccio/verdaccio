@@ -6,7 +6,7 @@ title: "Protezione dei pacchetti"
 
 ### Configurazione del pacchetto
 
-Vediamo, per esempio, la seguente configurazione. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+Vediamo, per esempio, la seguente configurazione. Si dispone di una serie di dipendenze che hanno come prefisso `my-company-*` e si necessita di proteggerle da anonimi o da altri utenti loggati senza credenziali.
 
 ```yaml
   'my-company-*':
@@ -15,9 +15,9 @@ Vediamo, per esempio, la seguente configurazione. You have a set of dependencies
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to * publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+Con questa configurazione, si permette fondamentalmente di raggruppare **admin** e **teamA** per * pubblicare* e **teamA** **teamB** **teamC** *per accedere* a tali dipendenze.
 
-### Use case: teamD try to access the dependency
+### Caso d'uso: teamD prova ad accedere alla dipendenza
 
 So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
 
