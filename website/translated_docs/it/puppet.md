@@ -11,10 +11,10 @@ Sono disponibili due varianti per installare verdaccio usando questo modulo Pupp
 * Metodo Apply (con puppet-apply e senza la necessità di configurare il puppet master)
 * Metodo Master- Agent (con l'accesso del puppet-agent alla configurazione tramite il puppet master).
 
-In both variants you have to explicitely call "class nodejs {}" in your puppet script because the puppet-verdaccio module only defines this as a requirement, so you have all the flexibility you want when installing nodejs. Scroll down for details about Master-Agent-mode variant.
+In entrambe le varianti è necessario chiamare esplicitamente i "class nodejs {}" nel puppet script perché il modulo puppet-verdaccio lo definisce solo come un requisito, per cui si ha tutta la flessibilità che si desidera al momento di installare nodejs. Scorrere verso il basso per dettagli sulla variante del metodo Master-Agent.
 
-For further information:
+Per ulteriori informazioni:
 
 <https://github.com/verdaccio/puppet-verdaccio>
 
-> We are looking for active contributors for this integration, if you are interested [refers to this ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+> Stiamo cercando collaboratori attivi per questa integrazione, se sei interessato [ fai riferimento a questo ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
