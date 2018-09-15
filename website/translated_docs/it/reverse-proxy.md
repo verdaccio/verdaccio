@@ -72,7 +72,7 @@ In questo caso, `url_prefix` non dovrebbe essere impostato nella configurazione 
 
 * * *
 
-oppure nell'installazione di una sotto cartella:
+o nell'installazione di una sotto cartella:
 
 ```nginx
 location ~ ^/verdaccio/(.*)$ {
@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-For this case, `url_prefix` should set to `/verdaccio/`
+In questo caso invece, `url_prefix` dovrebbe essere impostato su `/verdaccio/`
 
 > Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
