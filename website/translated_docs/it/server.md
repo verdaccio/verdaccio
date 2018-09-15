@@ -23,7 +23,7 @@ Il comando 'cd ~' manda alla cartella home dell'utente verdaccio. Assicurarsi di
 
 ## Ascolto di tutti gli indirizzi
 
-If you want to listen to every external address set the listen directive in the config to:
+Se si desidera ascoltare ogni indirizzo esterno impostare la direttiva listen nella configurazione su:
 
 ```yaml
 # you can specify listen address (or simply a port)
