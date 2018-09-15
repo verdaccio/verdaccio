@@ -52,7 +52,7 @@ $ forever start `which verdaccio`
 
 È possibile verificare la documentazione per ulteriori informazioni su come utilizzare forever.
 
-## Surviving server restarts
+## Durata dei riavvi del server
 
 We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
 
