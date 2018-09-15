@@ -6,7 +6,7 @@ Installazione di verdaccio per Debian, Ubuntu, Fedora, and RedHat.
 
 # Utilizzo
 
-There are two variants to install verdaccio using this Puppet module:
+Sono disponibili due varianti per installare verdaccio usando questo modulo Puppet:
 
 * Apply-mode (with puppet-apply and no puppetmaster setup needed)
 * Master-Agent-mode (with puppet-agent accessing your configuration through the puppetmaster).
