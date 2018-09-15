@@ -4,7 +4,7 @@ title: "Configurazione di Proxy inverso"
 ---
 ## Apache
 
-Apache and mod_proxy should not decode/encode slashes and leave them as they are:
+Apache e mod_proxy non dovrebbero decodificare/codificare gli slash e dovrebbero lasciarli così come sono:
 
     <VirtualHost *:80>
       AllowEncodedSlashes NoDecode
@@ -13,7 +13,7 @@ Apache and mod_proxy should not decode/encode slashes and leave them as they are
     </VirtualHost>
     
 
-### Configuration with SSL
+### Configurazione con SSL
 
 config.yaml
 
@@ -21,7 +21,7 @@ config.yaml
 url_prefix: https://npm.your.domain.com
 ```
 
-Apache virtual server configuration
+Configurazione del server virtuale Apache
 
         apacheconfig
         <IfModule mod_ssl.c>
