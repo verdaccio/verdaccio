@@ -38,19 +38,19 @@ Se si sta eseguendo `verdaccio` in un'istanza di Amazon EC2, [ sarà necessario 
 
 We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
 
-First install forever globally:
+Innanzitutto installare forever globalmente:
 
 ```bash
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+Assicurarsi di aver avviato verdaccio almeno una volta per generare il file di configurazione ed annotare l'utente amministratore creato. Successivamente può essere usato il seguente comando per avviare verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+È possibile verificare la documentazione per ulteriori informazioni su come utilizzare forever.
 
 ## Surviving server restarts
 
