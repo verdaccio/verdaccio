@@ -2,11 +2,11 @@
 id: protect-your-dependencies
 title: "Protezione dei pacchetti"
 ---
-`verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
+`verdaccio` permette di proteggere la pubblicazione. Per ottenere ciò è necessario configurare correttamente l' [accesso ai pacchetti](packages).
 
-### Package configuration
+### Configurazione del pacchetto
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+Vediamo, per esempio, la seguente configurazione. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
 
 ```yaml
   'my-company-*':
