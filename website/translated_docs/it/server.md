@@ -54,13 +54,13 @@ $ forever start `which verdaccio`
 
 ## Durata dei riavvi del server
 
-We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
+Si può utilizzare crontab e forever contemporaneamente per riavviare verdaccio in seguito ad una reinizializzazione del server. Quando sei loggato come utente verdaccio, effettua le seguenti operazioni:
 
 ```bash
 $ crontab -e
 ```
 
-This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
+Questo potrebbe richiedere di scegliere un editor. Selezionare il preferito e procedere. Aggiungere la seguente annotazione al file:
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
