@@ -34,9 +34,9 @@ Se si sta eseguendo `verdaccio` in un'istanza di Amazon EC2, [ sarà necessario 
 
 > Devi configurare Apache? Controlla per favore la [Configurazione Inversa del Proxy](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## Mantenere verdaccio in funzione
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+È possibile utilizzare il pacchetto del nodo chiamato 'forever' per mantenere in funzione il sito di verdaccio
 
 Innanzitutto installare forever globalmente:
 
