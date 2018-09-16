@@ -41,5 +41,5 @@ o con `yarn`
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
+errore Si è verificato un errore imprevisto: "http://localhost:5555/webpack-1: gli utenti non registrati non sono autorizzati ad accedere al pacchetto my-company-core".
 ```
