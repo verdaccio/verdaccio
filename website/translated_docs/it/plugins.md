@@ -19,9 +19,9 @@ $> npm install --global verdaccio-activedirectory
     $> npm install --global sinopia-memory
     
 
-### Configuration
+### Configurazione
 
-Open the `config.yaml` file and update the `auth` section as follows:
+Aprire il file `config.yaml` e aggiornare la sezione `auth` come segue:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
 
