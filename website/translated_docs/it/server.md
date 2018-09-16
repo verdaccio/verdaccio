@@ -50,7 +50,7 @@ Assicurarsi di aver avviato verdaccio almeno una volta per generare il file di c
 $ forever start `which verdaccio`
 ```
 
-È possibile verificare la documentazione per ulteriori informazioni su come utilizzare forever.
+Per ulteriori informazioni su come utilizzare forever verificare la documentazione.
 
 ## Durata dei riavvi del server
 
