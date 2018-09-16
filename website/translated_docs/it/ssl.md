@@ -30,7 +30,7 @@ https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.c
 
 https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
-Ulteriori informazioni sugli argomenti `key`, `cert`, `ca`, `pfx` e `passphrase` sulla [documentazione Node ](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+Ulteriori informazioni sugli argomenti `key`, `cert`, `ca`, `pfx` e `passphrase` si possono trovare nella [documentazione Node ](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
 * Eseguire `verdaccio` nella linea di comando.
 
