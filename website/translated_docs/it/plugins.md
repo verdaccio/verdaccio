@@ -33,7 +33,7 @@ La configurazione predefinita appare così, poiché usiamo un plugin `htpasswd` 
     #max_users: 1000
 ```
 
-e sostituendo con (in caso si decida di utilizzare un plugin `ldap`).
+e sostituendo con (in caso si decida di utilizzare un plugin `ldap`.
 
 ```yaml
 auth:
@@ -89,7 +89,7 @@ store:
 (compatibili con tutte le versioni)
 
 * [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): plugin auth per il supporto di sinopia a un registro npm.
-* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): plugin auth per sinopia che mantiene gli usuari in memoria.
+* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): plugin auth per sinopia che mantiene gli utenti in memoria.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
 * [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): Active Directory authentication plugin for sinopia.
