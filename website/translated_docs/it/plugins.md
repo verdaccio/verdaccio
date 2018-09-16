@@ -68,11 +68,11 @@ middlewares:
     enabled: true
 ```
 
-> You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
+> Si potrebbe seguire il [plugin audit middle](https://github.com/verdaccio/verdaccio-audit) come esempio di base.
 
-### Store Plugin Configuration
+### Configurazione del Plugin Store
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+Questo è un esempio di come configurare un plugin di archiviazione. Tutti i plugin di archiviazione devono essere definiti nel namespace **store**.
 
 ```yaml
 store:
