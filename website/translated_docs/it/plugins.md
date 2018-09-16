@@ -33,7 +33,7 @@ La configurazione predefinita appare così, poiché usiamo un plugin `htpasswd` 
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+e sostituendo con (in caso si decida di utilizzare un plugin `ldap`).
 
 ```yaml
 auth:
