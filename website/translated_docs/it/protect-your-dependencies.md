@@ -2,7 +2,7 @@
 id: protect-your-dependencies
 title: "Protezione dei pacchetti"
 ---
-`verdaccio` permette di proteggere la pubblicazione. Per ottenere ciò è necessario configurare correttamente l' [accesso ai pacchetti](packages).
+`verdaccio` permette di proteggere la pubblicazione. Per ottenere ciò è necessario configurare correttamente l'[accesso ai pacchetti](packages).
 
 ### Configurazione del pacchetto
 
