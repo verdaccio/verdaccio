@@ -80,7 +80,7 @@ store:
     limit: 1000
 ```
 
-> Se si definisce uno store personalizzato, la proprietà **storage** nel file di configurazione verrà ignorata.
+> Se si definisce uno store personalizzato, la proprietà di **archiviazione** nel file di configurazione verrà ignorata.
 
 ## Plugin ereditati
 
