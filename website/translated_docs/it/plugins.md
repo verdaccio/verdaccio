@@ -4,11 +4,11 @@ title: "Plugin"
 ---
 Verdaccio è un'applicazione estensibile. Si può espandere in molti modi, o con nuovi metodi di autenticazione, aggiungendo endpoint o utilizzando un archivio personalizzato.
 
-> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
+> Se sei interessato a sviluppare il tuo plugin personale, leggi la sezione [sviluppo](dev-plugins.md).
 
-## Usage
+## Utilizzo
 
-### Installation
+### Installazione
 
 ```bash
 $> npm install --global verdaccio-activedirectory
