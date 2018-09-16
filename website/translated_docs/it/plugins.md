@@ -25,7 +25,7 @@ Aprire il file `config.yaml` e aggiornare la sezione `auth` come segue:
 
 La configurazione predefinita appare così, poiché usiamo un plugin `htpasswd` incorporato di default che si può disabilitare commentando le seguenti linee.
 
-### Auth Plugin Configuration
+### Configurazione del plugin Auth
 
 ```yaml
  htpasswd:
@@ -43,7 +43,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Molti plugin Auth
+#### Multiple Auth plugins
 
 This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
 
@@ -58,9 +58,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Plugin Configuration
+### Configurazione del Plugin Middleware
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+Questo è un esempio di come si configura un plugin middleware. Tutti i plugin middleware devono essere definiti nel namespace **middlewares**.
 
 ```yaml
 middlewares:
