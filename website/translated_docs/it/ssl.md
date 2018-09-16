@@ -9,7 +9,7 @@ Segui queste istruzioni per configurare un certificato SSL che serva al registro
     listen: 'https://your.domain.com/'
     
 
-Una volta aggiornato il listen e avviato verdaccio di nuovo chiederà i certificati.
+Una volta aggiornato listen e avviato verdaccio di nuovo chiederà i certificati.
 
 * Generare i certificati
 
