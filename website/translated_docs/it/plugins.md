@@ -80,16 +80,16 @@ store:
     limit: 1000
 ```
 
-> If you define a custom store, the property **storage** in the configuration file will be ignored.
+> Se si definisce uno store personalizzato, la proprietà **storage** nel file di configurazione verrà ignorata.
 
-## Legacy plugins
+## Plugin ereditati
 
-### Sinopia Plugins
+### Plugin di Sinopia
 
-(compatible all versions)
+(compatibili con tutte le versioni)
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
-* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): plugin auth per il supporto di sinopia a un registro npm.
+* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): plugin auth per sinopia che mantiene gli usuari in memoria.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
 * [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): Active Directory authentication plugin for sinopia.
