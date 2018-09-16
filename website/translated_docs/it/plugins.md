@@ -14,7 +14,7 @@ Verdaccio è un'applicazione estensibile. Si può espandere in molti modi, o con
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio` essendo un fork di sinopia, ha compatibilità con le versioni precedenti e con plugin che sono compatibili con `sinopia@1.4.0`. In questo caso l'installazione è la stessa.
 
     $> npm install --global sinopia-memory
     
