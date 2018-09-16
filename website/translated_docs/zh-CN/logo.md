@@ -1,10 +1,10 @@
 ---
 id: logo
-title: "Verdaccio Logotype"
+title: "Verdaccio 标识"
 ---
-The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbreno)** which won the [contest](https://github.com/verdaccio/verdaccio/issues/237) ([last stage](https://github.com/verdaccio/verdaccio/issues/328)) and donated his work to this project.
+此标识由赢得[制作比赛](https://github.com/verdaccio/verdaccio/issues/237)（最后阶段[](https://github.com/verdaccio/verdaccio/issues/328)）且将作品捐献给此项目的**[Breno Rodrigues](https://github.com/rodriguesbreno)**制作。</p> 
 
-> All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+> 所有标识均使用[知识共享](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs)许可授权。
 
 Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution with multiple image formats and sizes.
 
