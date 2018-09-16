@@ -51,9 +51,9 @@ Configurazione del server virtuale Apache
     }
     
 
-## Run behind reverse proxy with different domain and port
+## Avvio dietro al proxy inverso con dominio e porta differenti
 
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
+Se esegui verdaccio dietro al proxy inverso, potresti notare che tutti i file risorsa funzionano come percorsi correlati, come ` http://127.0.0.1:4873/-/static `
 
 Per risolvere il problema, si dovrebbe inviare a verdaccio il dominio reale e la porta con l'intestazione `Host`
 
