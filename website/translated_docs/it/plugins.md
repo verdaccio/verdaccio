@@ -43,7 +43,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Auth plugins
+#### Plugin Auth multipli
 
 This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
 
