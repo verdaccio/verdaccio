@@ -1,6 +1,6 @@
 ---
 id: packages
-title: "Package Access"
+title: "Accesso al pacchetto"
 ---
 It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
 
