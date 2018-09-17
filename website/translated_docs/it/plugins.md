@@ -106,7 +106,7 @@ store:
 * [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): plugin auth LDAP per sinopia.
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) plugin di autenticazione di Sinopia con flusso web github oauth.
 
-> Tutti i plugin di sinopia dovrebbero essere compatibili con tutte le versioni future di verdaccio. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+> Tutti i plugin di sinopia dovrebbero essere compatibili con tutte le versioni future di verdaccio. Comunque, incoraggiamo i contributori a spostarli sull'API attuale di *verdaccio*.
 
 ## Verdaccio Plugins
 
