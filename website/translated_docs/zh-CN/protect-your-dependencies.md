@@ -15,7 +15,7 @@ title: "保护包"
     proxy: npmjs
 ```
 
-通过此配置，大体上上我们允许**admin** 和**teamA** 团队来 *发布*，同时**teamA** **teamB** **teamC** *可访问* 这些依赖项。
+With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
 
 ### 用例：teamD试着访问此依赖项
 

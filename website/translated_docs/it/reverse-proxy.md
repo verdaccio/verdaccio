@@ -55,7 +55,7 @@ Configurazione del server virtuale Apache
 
 Se esegui verdaccio dietro al proxy inverso, potresti notare che tutti i file risorsa funzionano come percorsi correlati, come ` http://127.0.0.1:4873/-/static `
 
-Per risolvere il problema, si dovrebbe inviare a verdaccio il dominio reale e la porta con l'intestazione `Host`
+Per risolvere il problema, si dovrebbe inviare a verdaccio il dominio reale e la porta con l'intestazione `Host` header
 
 La configurazione di Nginx dovrebbe apparire così:
 
@@ -85,4 +85,4 @@ location ~ ^/verdaccio/(.*)$ {
 
 In questo caso invece, `url_prefix` dovrebbe essere impostato su `/verdaccio/`
 
-> Nota: C'è uno Slash dopo il percorso dell'installazione (`https://your-domain:port/vardaccio/`)!
+> Nota: C'è uno Slash dopo il percorso dell'installazione (`https://your-domain:port/verdaccio/`)!
