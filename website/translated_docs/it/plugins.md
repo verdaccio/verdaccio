@@ -128,9 +128,9 @@ store:
 
 * [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): plugin di verdaccio per il supporto cli di *npm profile* e *npm profile set password* per l'autenticazione basata su *verdaccio-htpasswd*
 
-### Storage Plugins
+### Plugin di archiviazione
 
-(compatible since 3.x)
+(compatibile da 3.x)
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
 * [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
