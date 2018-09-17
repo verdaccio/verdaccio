@@ -87,4 +87,4 @@ location ~ ^/verdaccio/(.*)$ {
 ```
 For this case, `url_prefix` should set to `/verdaccio/`
 
-> Note: There is a Slash after install path (`https://your-domain:port/vardaccio/`)!
+> Note: There is a Slash after install path (`https://your-domain:port/verdaccio/`)!
