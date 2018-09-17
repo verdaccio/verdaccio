@@ -39,7 +39,7 @@ Qui alcune idee:
 * Migrare su Webpack 4
 * Migliorare l'hot reload con Webpack
 * Utilizziamo babel e webpack attraverso tutte le dipendenze, perché non un preset comune?
-* Migliorare l'erogazione di integrazione continua
+* Migliorare la distribuzione continuativa dell'integrazione
 
 ### Sono bravo nella documentazione
 
@@ -53,17 +53,17 @@ Il nostro sito web è basato su [Docusaurus](https://docusaurus.io/).
 
 ### Io sono un DevOps
 
-Abbiamo un'immagine su Docker molto popolare <https://hub.docker.com/r/verdaccio/verdaccio/> che ha bisogno di manutenzione e miglioramenti abbastanza ingenti, abbiamo bisogno della vostra conoscenza per il beneficio di tutti gli utenti.
+Abbiamo un'immagine su Docker molto popolare <https://hub.docker.com/r/verdaccio/verdaccio/> che necessita di manutenzione e molto probabilmente di enormi miglioramenti, abbiamo quindi bisogno della vostra conoscenza per il beneficio di tutti gli utenti.
 
 Abbiamo il supporto per **Kubernetes**, **Puppet**, **Ansible** e **Chef** e abbiamo bisogno di aiuto in quei campi, sentitevi liberi di vedere tutti i repository.
 
 ### Posso fare traduzioni
 
-Verdaccio mira ad essere multilingue, per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
+Verdaccio mira ad essere multilingue e,per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Abbiamo impostato un progetto nel quale è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Vai a Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 

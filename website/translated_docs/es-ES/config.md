@@ -31,7 +31,7 @@ logs:
 
 ## Secciones
 
-Las siguientes seciones explican que significa cada propiedad y todas sus diferentes opciones.
+Las siguientes secciones explican que significa cada propiedad y todas sus diferentes opciones.
 
 ### Almacenamiento
 

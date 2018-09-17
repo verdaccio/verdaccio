@@ -1,5 +1,5 @@
 ---
-id: 配置
+id: configuration
 title: "配置文件"
 ---
 此文件是 Verdaccio 的重要部分, 您可以在其中修改默认行为, 启用插件并扩展功能。
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+这个选项允许你定制 Web UI 的外观，如需了解更多信息请参阅 [Web UI 页面](web.md)
 
 ```yaml
 web:

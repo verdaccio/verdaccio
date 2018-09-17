@@ -1,8 +1,8 @@
 ---
-id: configuration
+id: configurazione
 title: "File di configurazione"
 ---
-Questo file è il fondamento di verdaccio dove è possibile modificare il comportamento predefinito, attivare i plugin ed estendere le funzionalità.
+Questo file è il fondamento di verdaccio nel quale è possibile modificare il comportamento predefinito, attivare i plugin ed estendere le funzionalità.
 
 Un file di configurazione predefinito viene creato la prima volta che si esegue `verdaccio`.
 
@@ -51,7 +51,7 @@ plugins: ./plugins
 
 ### Autenticazione
 
-L'impostazione dell'autenticazione viene fatta qui, l'autenticazione predefinita è basata su `htpasswd` ed è incorporata. È possibile modificare questo comportamento tramite [plugin](plugins.md). Per ulteriori informazioni su questa sezione leggere la [ pagina dell'autenticazione](auth.md).
+L'impostazione dell'autenticazione viene fatta qui, l'autenticazione predefinita è basata su `htpasswd` ed è incorporata. È possibile modificare questa condotta tramite [plugin](plugins.md). Per ulteriori informazioni su questa sezione leggere la [ pagina dell'autenticazione](auth.md).
 
 ```yaml
 auth:
@@ -98,7 +98,7 @@ packages:
 
 ### Pubblicazione non in linea
 
-Per impostazione predefinita `verdaccio` non consente di pubblicare quando il client è offline, questo comportamento può essere modificato impostandola su *true*.
+Per impostazione predefinita `verdaccio` non consente di pubblicare quando il client è offline, questa condotta può essere modificata impostandola su *true*.
 
 ```yaml
 publish:

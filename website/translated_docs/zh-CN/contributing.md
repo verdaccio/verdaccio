@@ -2,35 +2,35 @@
 id: 贡献
 title: "参与Verdaccio贡献"
 ---
-First of all 一头扎进不熟悉的代码库并不容易，但是我们会在此帮助你。
+首先， 一头扎进不熟悉的代码库并不容易，但是我们会在此帮助你。
 
 ## 沟通频道
 
-如果您想知道，我们使用两个频道进行讨论：
+如果您想提出问题，我们使用两个 Discord 频道进行讨论：
 
-* [公共Discord频道](http://chat.verdaccio.org/)
+* [公开 Discord 频道](http://chat.verdaccio.org/)
 
 ## 开始
 
 乍一看，verdaccio只是单一资源库，但是有很多方法您可以参与贡献以及练习多种技术。
 
-### 寻找适合我的地方
+### 找到我的长处
 
 大家都有不同的技能，因此，让我们看看您在哪个方面会感觉舒适。
 
 ### 我知道或者我想要学习 Node.js
 
-Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` 或者 `async`程序库。 Verdaccio大体上就是一个Rest API ，它和`yarn`一样，创建与`npm` 客户端兼容的通信。
+`verdaccio` 基于 Node.js 开发, 我们使用了一些第三方库，例如： `express`, `commander`, `request` 和 `async` 。 Verdaccio 是一个与 `npm` 或 `yarn` 这些第三方客户端兼容的 Rest API。
 
-我们有很多[插件列表](plugins.md)可供使用和改善，但是同时[您也可以创建自己的插件](dev-plugins.md)。
+我们有很多[插件列表](plugins.md)可供使用和改善体验，但是同时[您也可以创建自己的插件](dev-plugins.md)。
 
-### 我倾向在用户界面作业
+### 我希望使用图形界面
 
-最近，我们已经转移到使用`React` 和 `element-react`这样的现代技术。我们期待看到如何改善UI 的新想法。
+最近，我们已经开始使用 `React` 和 `element-react` 这样的现代技术。我们期待看到关于如何改善 UI 的新想法。
 
 ### 我觉得改善堆栈更自在
 
-当然，我们会很乐意您帮助我们改善堆栈，您可以将依赖项升级为 `eslint`, `stylelint`, `webpack`。 You might merely improve the `webpack` configuration would be great. 我们欢迎任何的建议。 此外，如果您有**Yeoman**的经验，您可以帮我们改善[verdaccio发生器](https://github.com/verdaccio/generator-verdaccio-plugin)。
+当然，我们会很乐意您帮助我们改善堆栈，您可以将依赖项升级为 `eslint`, `stylelint`, `webpack`。 或者你愿意改进 `webpack` 的配置文件也很棒。 我们欢迎任何的建议。 此外，如果您有使用 **Yeoman** 的经验，您可以帮我们改善 [verdaccio 插件生成器 ](https://github.com/verdaccio/generator-verdaccio-plugin)。
 
 这里是一些想法：
 
@@ -43,7 +43,7 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我在文档方面很在行
 
-许多贡献者发现打字错误和语法问题，这也有助于我们提高故障排除的整体体验。
+许多贡献者发现了打字错误和语法问题，这也有助于我们提高故障排除的整体体验。
 
 ### 我是设计师
 
@@ -53,17 +53,17 @@ Node.js是`verdaccio`的基础, 我们使用 `express`, `commander`, `request` �
 
 ### 我是一名DevOps
 
-我们有广受欢迎的Docker镜像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护和进行可能相当大的改善，我们需要您的知识来使所有用户都可受益。
+我们有广受欢迎的Docker镜像<https://hub.docker.com/r/verdaccio/verdaccio/>，它需要维护并且可能进行极大的调整，我们需要您的知识来使所有用户都可受益。
 
 我们支持 **Kubernetes**, **Puppet**, **Ansible** 和 **Chef**，在这些领域我们需要帮助，请随时查看所有资源库。
 
 ### 我可以翻译
 
-Verdaccio的目标是多语言，为了实现这个目标，**我们得到**[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
+Verdaccio 的目标是多语言，为了实现这个目标，**我们得到了 **[Crowdin](https://crowdin.com) 的巨大支持，它是一个了不起的翻译平台。
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-我们已经设置了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请自由地发起[创建要求票证](https://github.com/verdaccio/verdaccio/issues/new)。
+我们已经创建了一个项目，您可以选择自己最喜欢的语言，如果您没有找到想要的语言，请随意地发起[创建要求票证](https://github.com/verdaccio/verdaccio/issues/new)。
 
 [转到 Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
