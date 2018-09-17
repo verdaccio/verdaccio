@@ -15,7 +15,7 @@ Vediamo, per esempio, la seguente configurazione. Si dispone di una serie di dip
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+Con questa configurazione, si permette fondamentalmente di raggruppare **admin** e **teamA** per *pubblicare* e **teamA** **teamB** **teamC** *per accedere* a tali dipendenze.
 
 ### Caso d'uso: teamD prova ad accedere alla dipendenza
 
