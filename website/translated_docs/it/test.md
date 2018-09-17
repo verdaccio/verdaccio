@@ -4,7 +4,7 @@ title: "Test Unità"
 ---
 Tutti i test sono divisi in tre cartelle:
 
-- `test/unit` - Test che coprono le funzioni che trasformano i dati in modo non banale. Questi test `require()` (necessitano) semplicemente alcuni file ed eseguono il codice in essi, quindi sono molto rapidi.
+- `test/unit` - Test che coprono le funzioni che trasformano i dati in modo non banale. Questi test `require()` necessitano semplicemente alcuni file ed eseguono il codice in essi, quindi sono molto rapidi.
 - `test/functional` - Test che lanciano un'istanza di verdaccio e realizzano una serie di richieste a essa su http. Sono più lenti dei test unità.
 - `test/integration` - Test che lanciano un'istanza di verdaccio e fanno richieste a essa usando npm. Sono considerevolmente lenti e possono raggiungere un registro npm reale. **test non mantenuto**
 
