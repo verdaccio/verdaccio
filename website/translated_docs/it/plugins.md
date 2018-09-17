@@ -112,7 +112,7 @@ store:
 
 (compatibile da 2.1.x)
 
-### Authorization Plugins
+### Plugin di autorizzazione
 
 * [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): plugin di autenticazione di Bitbucket per verdaccio.
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): auth plugin di LDAP per verdaccio.
@@ -138,4 +138,4 @@ store:
 
 ## Avvertenze
 
-> Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
+> Non tutti questi plugin vengono testati assiduamente, alcuni di essi potrebbero anche non funzionare proprio. In caso si incontri qualsiasi problema, si prega di notificarlo al proprietario del plugin in questione.
