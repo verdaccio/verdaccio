@@ -6,7 +6,7 @@ title: "网页用户界面2"
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
-Verdaccio has a web user interface to display only the private packages and can be customisable.
+Verdaccio 有可定制的 Web 界面用于管理私有包
 
 ```yaml
 web:
@@ -16,11 +16,11 @@ web:
   scope:
 ```
 
-所有访问限制定义为[保护包](protect-your-dependencies.md)，它也将应用于网页界面。
+所有访问限制设置可以参考 [保护包](protect-your-dependencies.md) 页面，这些规则也将应用于 Web 界面。
 
 ### 配置
 
-| 属性     | 类型      | 必填 | 范例                             | 支持  | 描述                                                                    |
+| 属性     | 类型      | 必填 | 示例                             | 支持  | 描述                                                                    |
 | ------ | ------- | -- | ------------------------------ | --- | --------------------------------------------------------------------- |
 | enable | boolean | No | true/false                     | all | 允许显示网页界面                                                              |
 | title  | string  | No | Verdaccio                      | all | HTML 页眉标题说明                                                           |

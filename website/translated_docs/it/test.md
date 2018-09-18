@@ -1,31 +1,31 @@
 ---
 id: unit-testing
-title: "Unit Testing"
+title: "Test Unità"
 ---
-All tests are split in three folders:
+Tutti i test sono divisi in tre cartelle:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - Test che coprono le funzioni che trasformano i dati in modo non banale. Questi test `require()` necessitano semplicemente alcuni file ed eseguono il codice in essi, quindi sono molto rapidi.
+- `test/functional` - Test che lanciano un'istanza di verdaccio e realizzano una serie di richieste a essa su http. Sono più lenti dei test unità.
+- `test/integration` - Test che lanciano un'istanza di verdaccio e fanno richieste a essa usando npm. Sono considerevolmente lenti e possono raggiungere un registro npm reale. **test non mantenuto**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+I test unità e funzionali vengono eseguiti automaticamente all'avvio di `npm test` dalla cartella principale del progetto. I test di integrazione vanno eseguiti manualmente di volta in volta.
 
-We use `jest` for all test.
+Usiamo `jest` per tutti i test.
 
-## The npm Script
+## Lo Script npm
 
-To run the test script you can use either `npm` or `yarn`.
+Per eseguire lo script del test si può utilizzare sia `npm` che `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+Questo azionerà solo i primi due gruppi di test, unità e funzionale.
 
-### Using test/unit
+### Utilizzo di test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+Il seguente è solo un esempio di come dovrebbe vedersi un test unità. Fondamentalmente seguire il `jest` standard.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Provare a descrivere cosa fa esattamente il test unità in una sola frase nell'intestazione della sezione `test`.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,11 +48,11 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Utilizzo di test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Il test funzionale in verdaccio presenta un maggior livello di complessità che necessita di una spiegazione esaustiva per assicurarti un'esperienza positiva.
 
-All starts in the `index.js` file. Let's dive in into it.
+Tutto inizia nel file `index.js`. Andiamo ad analizzarlo da vicino.
 
 ```javascript
 // we create 3 server instances
@@ -107,17 +107,17 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### Utilizzo
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Qui andremo a descrivere come dovrebbe apparire un test funzionale tipico.
 
-#### The lib/server.js
+#### Il lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+La classe server è solamente un wrapper che simula un `npm` client e fornisce un API semplice per il test funzionale.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Come abbiamo menzionato nella sezione precedente, stiamo creando 3 server di processo che siano accessibili in ogni processo come `server1`, `server2` e ``server3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+Usando queste referenze sarai in grado di inviare richieste a ognuna delle 3 istanze in esecuzione.
 
 ```javascript
 <br />export default function(server) {
@@ -131,4 +131,4 @@ Using such reference you will be able to send request to any of the 3 instance r
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Questa sezione non è ancora mai stata usata, ma stiamo cercando aiuto per farla funzionare a dovere. **Ogni nuova idea è benvenuta**

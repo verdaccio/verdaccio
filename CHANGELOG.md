@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.8.1"></a>
+## [3.8.1](https://github.com/verdaccio/verdaccio/compare/v3.8.0...v3.8.1) (2018-09-10)
+
+
+### Bug Fixes
+
+* support localTimeZone for logger `pretty-timestamped` format ([#984](https://github.com/verdaccio/verdaccio/issues/984)) ([df237fa](https://github.com/verdaccio/verdaccio/commit/df237fa))
+
+
+
 <a name="3.8.0"></a>
 # [3.8.0](https://github.com/verdaccio/verdaccio/compare/v3.7.1...v3.8.0) (2018-09-05)
 

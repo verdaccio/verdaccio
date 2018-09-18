@@ -15,7 +15,7 @@ Zobaczmy dla przykładu następującą konfigurację. You have a set of dependen
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to * publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
 
 ### Use case: teamD try to access the dependency
 

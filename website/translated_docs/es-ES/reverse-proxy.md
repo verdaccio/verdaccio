@@ -55,7 +55,7 @@ Configuración del servidor virtual de Apache
 
 If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
 
-Para resolver este problema, debes enviar el dominio real y el puerto a verdaccio con `Host` heade
+To resolve this issue, you should send real domain and port to verdaccio with `Host` header
 
 La configuración Nginx debe lucir así:
 
@@ -85,4 +85,4 @@ location ~ ^/verdaccio/(.*)$ {
 
 Para este caso, `url_prefix` debe establecerse a `/verdaccio/`
 
-> Nota: Hay una Barra oblicua después de la ruta de instalación (`https://your-domain:port/vardaccio/`)!
+> Note: There is a Slash after install path (`https://your-domain:port/verdaccio/`)!

@@ -2,7 +2,7 @@
 id: contributing
 title: "Contribuendo a Verdaccio"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Saltare dentro a un code base sconosciuto non è facile, ma noi siamo qui per aiutarti.
 
 ## Canali di comunicazione
 
@@ -14,7 +14,7 @@ Se desideri fare domande, usiamo due canali per le discussioni:
 
 A prima vista verdaccio è un unico repository, ma ci sono molti modi in cui potresti contribuire e una ampia varietà di tecnologie da usare.
 
-### Trovare il mio posto
+### Trovare il proprio posto
 
 Tutti noi abbiamo competenze diverse, quindi, vediamo dove ti potresti sentire a tuo agio.
 
@@ -26,7 +26,7 @@ Abbiamo una lunga [lista di plugin](plugins.md) pronti per essere utilizzati e m
 
 ### Preferirei lavorare nell'Interfaccia Utente
 
-Recentemente ci siamo spostati su tecnologie moderne come `React` e `element-react`. Siamo ansiosi vedere nuove idee su come migliorare l'interfaccia utente.
+Recentemente ci siamo spostati su tecnologie moderne come `React` e `element-react`. Siamo ansiosi di vedere nuove idee su come migliorare l'Interfaccia Utente.
 
 ### Mi sento più a mio agio a migliorare lo stack
 
@@ -34,12 +34,12 @@ Naturalmente, saremo felici se ci aiutassi a migliorare lo stack, è possibile a
 
 Qui alcune idee:
 
-* Creare regole comuni di eslint per l'uso in tutte le dipendenze o plugin
+* Creare regole comuni di eslint che possano essere usate in tutte le dipendenze o plugin
 * Migliorare la distribuzione delle definizioni del tipo di flusso
 * Migrare su Webpack 4
 * Migliorare l'hot reload con Webpack
 * Utilizziamo babel e webpack attraverso tutte le dipendenze, perché non un preset comune?
-* Migliorare l'erogazione di integrazione continua
+* Migliorare la distribuzione continuativa dell'integrazione
 
 ### Sono bravo nella documentazione
 
@@ -47,29 +47,29 @@ Molti contributori trovano errori di battitura e problemi di grammatica, altra c
 
 ### Sono un Designer
 
-Abbiamo un frontend del sito <http://www.verdaccio.org/> che sarà felice di vedere le vostre idee.
+Abbiamo un frontend del sito <http://www.verdaccio.org/> che sarà felice di vedere le tue idee.
 
 Il nostro sito web è basato su [Docusaurus](https://docusaurus.io/).
 
 ### Io sono un DevOps
 
-Abbiamo un'immagine su Docker molto popolare <https://hub.docker.com/r/verdaccio/verdaccio/> che ha bisogno di manutenzione e miglioramenti abbastanza ingenti, abbiamo bisogno della vostra conoscenza per il beneficio di tutti gli utenti.
+Abbiamo un'immagine su Docker molto popolare <https://hub.docker.com/r/verdaccio/verdaccio/> che necessita di manutenzione e molto probabilmente di enormi miglioramenti, abbiamo quindi bisogno della vostra conoscenza per il beneficio di tutti gli utenti.
 
 Abbiamo il supporto per **Kubernetes**, **Puppet**, **Ansible** e **Chef** e abbiamo bisogno di aiuto in quei campi, sentitevi liberi di vedere tutti i repository.
 
 ### Posso fare traduzioni
 
-Verdaccio mira ad essere multilingue, per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
+Verdaccio mira ad essere multilingue e,per poter raggiungere questa meta **abbiamo l'importante supporto** di [Crowdin](https://crowdin.com) che è un incredibile piattaforma per le traduzioni.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-Abbiamo impostato un progetto dove è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Abbiamo impostato un progetto nel quale è possibile scegliere la tua lingua preferita, se non la trovi richiedila [creando un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Vai a Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
 ## Sono pronto a contribuire
 
-Se stai pensando *"ho già visto il repository[](repositories.md) e sono disposto a iniziare subito"* ho una buona notizia per te, che troverai nel prossimo step.
+Se stai pensando *"ho già visto [i repository](repositories.md) e sono disposto a iniziare subito"* ho buone notizie per te, le troverai nel prossimo step.
 
 Avrai bisogno di imparare a costruire un progetto, [abbiamo preparato una guida proprio per questo](build.md).
 
