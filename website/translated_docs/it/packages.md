@@ -1,8 +1,8 @@
 ---
-id: packages
+id: pacchetti
 title: "Accesso al pacchetto"
 ---
-It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
+È una serie di restrizioni che permettono o limitano l'accesso all'archiviazione locale basandosi su criteri specifici.
 
 The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
 
