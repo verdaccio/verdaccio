@@ -2,9 +2,9 @@
 id: notifiche
 title: "Notifiche"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
+Notify fu creato principalmente per essere utilizzato con i webhook entranti di Slack, ma inoltre consegnerà un semplice carico utile ad ogni endpoint. Al momento è solo attivo per il comando `npm publish`.
 
-## Usage
+## Utilizzo
 
 An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
 
