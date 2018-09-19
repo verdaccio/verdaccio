@@ -134,7 +134,7 @@ Descriviamo quello che si desidera con l'esempio precedente:
 * Desidero tutte le dipendenze che si trovino nell'ambito `my-local-scope` ma ho necessità di evitare di inoltrarle.
 * Desidero l'inoltro per tutte le dipendenze rimanenti.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+**Non dimenticare l'importanza dell'ordine dei pacchetti e utilizzare sempre il doppio asterisco**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
 ### Configuration
 
