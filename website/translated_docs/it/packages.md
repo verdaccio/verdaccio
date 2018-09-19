@@ -78,7 +78,7 @@ npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 
 #### Definire gruppi multipli
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+Definire gruppi di accesso multipli è abbastanza facile, basta distinguerli semplicemente con uno spazio bianco tra di essi.
 
 ```yaml
   'company-*':
@@ -92,7 +92,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 ```
 
-#### Blocking access to set of packages
+#### Bloccare l'accesso a gruppi di pacchetti
 
 If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
 
