@@ -6,11 +6,11 @@ Notify fu creato principalmente per essere utilizzato con i webhook entranti di 
 
 ## Utilizzo
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+Un esempio con un hook **HipChat**, **Stride** e **Google Hangouts Chat**:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio supporta ogni API, sentiti libero di aggiungere ulteriori esempi.
 
-#### Single notification
+#### Notificazione singola
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Notificazione multipla
 
 ```yaml
 notify:
@@ -43,9 +43,9 @@ notify:
 
 ## Template
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+Usiamo [Handlebars](https://handlebarsjs.com/) come template engine principale.
 
-### Format Examples
+### Esempi di formato
 
     # iterate all versions
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
@@ -54,12 +54,12 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Proprietà
 
-List of properties accesible via template
+Elenco delle proprietà accessibili tramite template
 
 * Metadata
-* Publisher (who is publishing)
+* Publisher (chi sta pubblicando)
 * Package Published (package@1.0.0)
 
 ### Metadata
