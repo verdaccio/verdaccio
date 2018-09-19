@@ -104,7 +104,7 @@ packages:
      publish: $authenticated
 ```
 
-#### Bloccare il proxy ad un gruppo specifico di pacchetti
+#### Bloccare l'inoltro di un gruppo di pacchetti specifici
 
 Si potrebbe voler impedire che uno o vari pacchetti vengano raggiunti dai registri remoti, ma allo stesso tempo, permettere ad altri l'accesso a differenti *uplink*.
 
@@ -129,7 +129,7 @@ packages:
 
 Descriviamo quello che si desidera con l'esempio precedente:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
+* Desidero ospitare la mia dipendenza `jquery` ma devo evitare il suo inoltro.
 * I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
 * I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
 * I want proxying for all the rest of the dependencies.
