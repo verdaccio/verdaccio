@@ -60,11 +60,11 @@ Elenco delle proprietà accessibili tramite template
 
 * Metadata
 * Publisher (chi sta pubblicando)
-* Package Published (package@1.0.0)
+* Pacchetto pubblicato (package@1.0.0)
 
 ### Metadata
 
-Package metadata that the template has access
+Pacchetto metadata al quale il template ha accesso
 
     {
         "_id": "@test/pkg1",
@@ -117,9 +117,9 @@ Package metadata that the template has access
 
 ### Publisher
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+Si può accedere alle informazioni del pacchetto publisher nel `content` di un webhook utilizzando l'oggetto `publisher`.
 
-See below the `publisher` object type:
+Vedi sotto il tipo di oggetto `publisher`:
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+Un esempio:
 
     notify:
       method: POST
