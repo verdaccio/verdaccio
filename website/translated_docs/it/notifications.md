@@ -137,22 +137,22 @@ Un esempio:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**Nota:** non è possibile ottenere le informazioni del publisher se il file `package.json` ha già la proprietà `publisher`.
 
-### Package Published
+### Pacchetto pubblicato
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+Si può accedere al pacchetto che è stato pubblicato con la keyword `{{publishedPackage}}` come segue.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-## Configuration
+## Configurazione
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Proprietà           | Tipo         | Richiesto | Supporto | Impostazione predefinita | Descrizione                                                                                  |
+| ------------------- | ------------ | --------- | -------- | ------------------------ | -------------------------------------------------------------------------------------------- |
+| method              | stringa      | No        | tutti    |                          | metodi HTTP                                                                                  |
+| packagePattern      | stringa      | No        | tutti    |                          | Eseguire questa notifica solo se il nome del pacchetto coincide con l'espressione regolare   |
+| packagePatternFlags | stringa      | No        | tutti    |                          | Any flags to be used with the regular expression                                             |
+| headers             | array/object | Yes       | all      |                          | If this endpoint requires specific headers, set them here as an array of key: value objects. |
+| endpoint            | string       | Yes       | all      |                          | set the URL endpoint for this call                                                           |
+| content             | string       | Yes       | all      |                          | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
