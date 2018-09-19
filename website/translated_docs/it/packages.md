@@ -147,4 +147,4 @@ Si possono definire `pacchetti` multipli ed ognuno di essi deve avere un `Regex`
 | proxy         | stringa            | No        | npmjs          | tutti    | limita le ricerche di un uplink specifico               |
 | archiviazione | variabile booleana | No        | [vero/falso]   | tutti    | TODO                                                    |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Vogliamo rimarcare che non raccomandiamo più l'utilizzo di **allow_access**/**allow_publish** e **proxy_access** che sono superati e saranno presto rimossi, si prega di utilizzare invece la versione breve di ognuna di queste (**access**/**publish**/**proxy**).
