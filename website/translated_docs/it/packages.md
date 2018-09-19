@@ -129,10 +129,10 @@ packages:
 
 Descriviamo quello che si desidera con l'esempio precedente:
 
-* Desidero ospitare la mia dipendenza `jquery` ma devo evitare il suo inoltro.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+* Desidero ospitare la mia dipendenza `jquery` ma ho necessità di evitare il suo inoltro.
+* Desidero tutte le dipendenze che coincidono con `my-company-*` ma ho necessità di evitare di inoltrarle.
+* Desidero tutte le dipendenze che si trovino nell'ambito `my-local-scope` ma ho necessità di evitare di inoltrarle.
+* Desidero l'inoltro per tutte le dipendenze rimanenti.
 
 Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
