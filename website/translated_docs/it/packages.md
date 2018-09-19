@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Riavviare `verdaccio` e provare ad installare `npmuser-core` nella console.
 
 ```bash
 $ npm install npmuser-core
@@ -74,9 +74,9 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+È possibile modificare la condotta esistente utilizzando un plugin di autenticazione differente. `verdaccio` verifica semplicemente che l'utente che ha provato ad accedere o pubblicare un pacchetto specifico appartenga al gruppo corretto.
 
-#### Set multiple groups
+#### Definire gruppi multipli
 
 Defining multiple access groups is fairly easy, just define them with a white space between them.
 
