@@ -94,7 +94,7 @@ Definire gruppi di accesso multipli è abbastanza facile, basta distinguerli sem
 
 #### Bloccare l'accesso a gruppi di pacchetti
 
-If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
+Se si desidera bloccare l'accesso/pubblicazione ad uno specifico gruppo di pacchetti, è sufficiente non definire `access` e `publish`.
 
 ```yaml
 packages:
@@ -104,11 +104,11 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Bloccare il proxy ad un gruppo specifico di pacchetti
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Si potrebbe voler impedire che uno o vari pacchetti vengano raggiunti dai registri remoti, ma allo stesso tempo, permettere ad altri l'accesso a differenti *uplink*.
 
-Let's see the following example:
+Vediamo l'esempio seguente:
 
 ```yaml
 packages:
