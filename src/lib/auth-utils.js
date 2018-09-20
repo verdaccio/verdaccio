@@ -50,7 +50,7 @@ export function createAnonymousRemoteUser(): RemoteUser {
       ROLES.$ALL,
       ROLES.$ANONYMOUS,
       ROLES.DEPRECATED_ALL,
-      ROLES.DEPRECATED_ANONUMOUS,
+      ROLES.DEPRECATED_ANONYMOUS,
     ],
     real_groups: [],
   };

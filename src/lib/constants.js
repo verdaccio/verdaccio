@@ -40,7 +40,7 @@ export const ROLES = {
   $ANONYMOUS: '$anonymous',
   DEPRECATED_ALL: '@all',
   DEPRECATED_AUTH: '@authenticated',
-  DEPRECATED_ANONUMOUS: '@anonymous',
+  DEPRECATED_ANONYMOUS: '@anonymous',
 };
 
 export const HTTP_STATUS = {
