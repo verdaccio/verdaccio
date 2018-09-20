@@ -13,6 +13,10 @@ export const HEADERS = {
   GZIP: 'gzip',
 };
 
+export const CHARACTER_ENCODING = {
+  UTF8: 'utf-8'
+}
+
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',
   CONTENT_TYPE: 'content-type',
