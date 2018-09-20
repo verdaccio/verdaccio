@@ -14,13 +14,13 @@ logs:
   - {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 ```
 
-Utilizzare `SIGUSR2` per notificare all'applicazione, il file-log è stato ruotato ed è necessario riaprirlo. Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
+Utilizzare `SIGUSR2` per notificare all'applicazione, il file-log è stato ruotato ed è necessario riaprirlo. Nota: L'attività di rotazione dei log non è supportata in modalità cluster. [Vedere qui](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
 
-### Configuration
+### Configurazione
 
-| Property | Type   | Required | Example                                        | Support | Description                                       |
-| -------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
-| type     | string | No       | [stdout, file]                                 | all     | define the output                                 |
-| path     | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
-| format   | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
-| level    | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| Proprietà | Tipo    | Richiesto | Esempio                                        | Supporto | Descrizione                                           |
+| --------- | ------- | --------- | ---------------------------------------------- | -------- | ----------------------------------------------------- |
+| tipo      | stringa | No        | [stdout, file]                                 | tutti    | definire l'output                                     |
+| percorso  | stringa | No        | verdaccio.log                                  | tutti    | se il tipo è file, definire la posizione di quel file |
+| formato   | stringa | No        | [pretty, pretty-timestamped]                   | all      | output format                                         |
+| level     | string  | No        | [fatal, error, warn, http, info, debug, trace] | all      | verbose level                                         |
