@@ -6,11 +6,11 @@ Il logo è stato disegnato da **[Breno Rodrigues](https://github.com/rodriguesbr
 
 > Tutti i loghi sono registrati sotto la licenza [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
-Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution with multiple image formats and sizes.
+Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)* per aver contribuito con diversi formati e dimensioni dell'immagine.
 
-## Symbols
+## Simboli
 
-**With text**
+**Con testo**
 
 ![symbol tiny with text](/img/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -22,7 +22,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![symbol svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**No text**
+**Senza testo**
 
 ![symbol tiny](/img/logo/symbol/png/verdaccio-tiny.png)
 
@@ -34,7 +34,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![svg format symbol no text](/img/logo/symbol/svg/verdaccio-tiny.svg)
 
-### Black&White
+### Bianco e nero
 
 ![symbol bw small](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
