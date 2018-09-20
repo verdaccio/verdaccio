@@ -12,44 +12,44 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 
 **Con testo**
 
-![symbol tiny with text](/img/logo/symbol/png/logo-small-header-bottom.png)
+![simbolo piccolo con testo](/img/logo/symbol/png/logo-small-header-bottom.png)
 
-![symbol medium with text](/img/logo/symbol/png/logo-small-header-bottom@2x.png)
+![simbolo medio con testo](/img/logo/symbol/png/logo-small-header-bottom@2x.png)
 
-![symbol big with text](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
+![simbolo grande con testo](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
 
 **SVG**
 
-![symbol svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
+![simbolo svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
 
 **Senza testo**
 
-![symbol tiny](/img/logo/symbol/png/verdaccio-tiny.png)
+![simbolo piccolo](/img/logo/symbol/png/verdaccio-tiny.png)
 
-![symbol medium](/img/logo/symbol/png/verdaccio-tiny@2x.png)
+![simbolo medio](/img/logo/symbol/png/verdaccio-tiny@2x.png)
 
-![symbol big](/img/logo/symbol/png/verdaccio-tiny@3x.png)
+![simbolo grande](/img/logo/symbol/png/verdaccio-tiny@3x.png)
 
 **SVG**
 
-![svg format symbol no text](/img/logo/symbol/svg/verdaccio-tiny.svg)
+![formato SVG simbolo senza testo](/img/logo/symbol/svg/verdaccio-tiny.svg)
 
 ### Bianco e nero
 
-![symbol bw small](/img/logo/symbol/png/verdaccio-blackwhite.png)
+![simbolo bianco e nero piccolo](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
-![symbol bw medium](/img/logo/symbol/png/verdaccio-blackwhite@2x.png)
+![simbolo bianco e nero medio](/img/logo/symbol/png/verdaccio-blackwhite@2x.png)
 
-![symbol bw big](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
+![simbolo bianco e nero grande](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
 **SVG**
 
-![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
+![simbolo bianco e nero svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
 
 ## Banner
 
-![banner small](/img/logo/banner/png/verdaccio-banner.png)
+![banner piccolo](/img/logo/banner/png/verdaccio-banner.png)
 
-![banner medium](/img/logo/banner/png/verdaccio-banner@2x.png)
+![banner medio](/img/logo/banner/png/verdaccio-banner@2x.png)
 
-![banner big](/img/logo/banner/png/verdaccio-banner@3x.png)
+![banner grande](/img/logo/banner/png/verdaccio-banner@3x.png)
