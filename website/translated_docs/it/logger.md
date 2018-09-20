@@ -2,7 +2,7 @@
 id: logger
 title: "Logger"
 ---
-As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+Come ogni applicazione web, verdaccio ha un logger incorporato personalizzabile. Si possono definire vari tipi di output.
 
 ```yaml
 logs:
@@ -14,7 +14,7 @@ logs:
   - {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 ```
 
-Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it. Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
+Utilizzare `SIGUSR2` per notificare all'applicazione, il file-log è stato ruotato ed è necessario riaprirlo. Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
 
 ### Configuration
 
