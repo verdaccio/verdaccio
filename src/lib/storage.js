@@ -13,7 +13,7 @@ import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
 mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
 import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
 import {mergeVersions} from './metadata-utils';
-import {ErrorCode, normalizeDistTags, validate_metadata, isObject, DIST_TAGS} from './utils';
+import {ErrorCode, normalizeDistTags, validateMetadata, isObject, DIST_TAGS} from './utils';
 import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
 import type {
 Versions,
@@ -444,7 +444,7 @@ class Storage implements IStorageHandler {
         }
 
         try {
-          validate_metadata(upLinkResponse, name);
+          validateMetadata(upLinkResponse, name);
         } catch (err) {
           self.logger.error({
             sub: 'out',
