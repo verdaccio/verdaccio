@@ -148,11 +148,11 @@ Si può accedere al pacchetto che è stato pubblicato con la keyword `{{publishe
 
 ## Configurazione
 
-| Proprietà           | Tipo          | Richiesto | Supporto | Impostazione predefinita | Descrizione                                                                                  |
-| ------------------- | ------------- | --------- | -------- | ------------------------ | -------------------------------------------------------------------------------------------- |
-| method              | stringa       | No        | tutti    |                          | metodi HTTP                                                                                  |
-| packagePattern      | stringa       | No        | tutti    |                          | Eseguire questa notifica solo se il nome del pacchetto coincide con l'espressione regolare   |
-| packagePatternFlags | stringa       | No        | tutti    |                          | Qualsiasi flag da utilizzare con l'espressione regolare                                      |
-| headers             | array/oggetto | Sì        | tutti    |                          | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string        | Yes       | all      |                          | set the URL endpoint for this call                                                           |
-| content             | string        | Yes       | all      |                          | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Proprietà           | Tipo          | Richiesto | Supporto | Impostazione predefinita | Descrizione                                                                                                    |
+| ------------------- | ------------- | --------- | -------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| metodo              | stringa       | No        | tutti    |                          | metodi HTTP                                                                                                    |
+| packagePattern      | stringa       | No        | tutti    |                          | Eseguire questa notifica solo se il nome del pacchetto coincide con l'espressione regolare                     |
+| packagePatternFlags | stringa       | No        | tutti    |                          | Qualsiasi flag da utilizzare con l'espressione regolare                                                        |
+| intestazioni        | array/oggetto | Sì        | tutti    |                          | Se questo endpoint richiede intestazioni specifiche, definirle qui come un array della key: oggetti di valore. |
+| endpoint            | stringa       | Sì        | tutti    |                          | definire l'URL dell'endpoint per questa chiamata                                                               |
+| content             | stringa       | Sì        | tutti    |                          | any [Handlebar](https://handlebarsjs.com/) expressions                                                         |
