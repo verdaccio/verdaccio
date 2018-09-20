@@ -2,11 +2,11 @@
 id: kubernetes
 title: "Kubernetes"
 ---
-You can find instructions to deploy Verdaccio on a Kubernetes cluster on the [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example) repository. However, the recommended method to install Verdaccio on a Kubernetes cluster is to use [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) package manager which bring multiple advantages.
+Le istruzioni per sviluppare Verdaccio su un cluster Kubernetes si possono trovare nell'archivio [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example). Tuttavia, il metodo raccomandato per l'installazione di Verdaccio su un cluster Kubernetes è di utilizzare [Helm](https://helm.sh). Helm è un gestore di pacchetti [Kubernetes](https://kubernetes.io) che trae molteplici vantaggi.
 
 ## Helm
 
-### Setup Helm
+### Configurare Helm
 
 If you haven't used Helm before, you need to setup the Helm controller called Tiller:
 
