@@ -155,4 +155,4 @@ Si può accedere al pacchetto che è stato pubblicato con la keyword `{{publishe
 | packagePatternFlags | stringa       | No        | tutti    |                          | Qualsiasi flag da utilizzare con l'espressione regolare                                                        |
 | intestazioni        | array/oggetto | Sì        | tutti    |                          | Se questo endpoint richiede intestazioni specifiche, definirle qui come un array della key: oggetti di valore. |
 | endpoint            | stringa       | Sì        | tutti    |                          | definire l'URL dell'endpoint per questa chiamata                                                               |
-| content             | stringa       | Sì        | tutti    |                          | any [Handlebar](https://handlebarsjs.com/) expressions                                                         |
+| content             | stringa       | Sì        | tutti    |                          | qualsiasi espressione [Handlebar](https://handlebarsjs.com/)                                                   |
