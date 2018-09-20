@@ -1,5 +1,5 @@
 ---
-id: pacchetti
+id: packages
 title: "Accesso al pacchetto"
 ---
 È una serie di restrizioni che permettono o limitano l'accesso all'archiviazione locale basandosi su criteri specifici.
