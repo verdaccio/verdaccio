@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Verdaccio update banner should print major update banner 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "
+        [37m[1mA new MAJOR version of Verdaccio is available. [1m[31m3.0.0[37m[1m → [1m[32m4.5.6[37m[1m [22m[39m
+        [37m[1mRun [32m[1mnpm install -g verdaccio[1m[37m to update[22m[39m.
+        [37m[1mRegistry: https://registry.npmjs.org[22m[39m
+        [34m[1mChangelog: https://github.com/verdaccio/verdaccio/releases/tag/v4.5.6[22m[39m
+    ",
+    ],
+  ],
+  "results": Array [
+    Object {
+      "isThrow": false,
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Verdaccio update banner should print minor update banner 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "
+        [37m[1mA new MINOR version of Verdaccio is available. [1m[31m4.0.0[37m[1m → [1m[32m4.5.6[37m[1m [22m[39m
+        [37m[1mRun [32m[1mnpm install -g verdaccio[1m[37m to update[22m[39m.
+        [37m[1mRegistry: https://registry.npmjs.org[22m[39m
+        [34m[1mChangelog: https://github.com/verdaccio/verdaccio/releases/tag/v4.5.6[22m[39m
+    ",
+    ],
+  ],
+  "results": Array [
+    Object {
+      "isThrow": false,
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Verdaccio update banner should print patch update banner 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "
+        [37m[1mA new PATCH version of Verdaccio is available. [1m[31m4.5.0[37m[1m → [1m[32m4.5.6[37m[1m [22m[39m
+        [37m[1mRun [32m[1mnpm install -g verdaccio[1m[37m to update[22m[39m.
+        [37m[1mRegistry: https://registry.npmjs.org[22m[39m
+        [34m[1mChangelog: https://github.com/verdaccio/verdaccio/releases/tag/v4.5.6[22m[39m
+    ",
+    ],
+  ],
+  "results": Array [
+    Object {
+      "isThrow": false,
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Verdaccio update banner when default registry returns with error 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "
+        [31m[1mUnable to check verdaccio version on https://registry.npmjs.org[22m[39m
+        [31m[1mError: {\\"message\\":\\"internal server error\\",\\"statusCode\\":500}[22m[39m
+    ",
+    ],
+  ],
+  "results": Array [
+    Object {
+      "isThrow": false,
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`create banner should create a major update banner 1`] = `
+"
+        [37m[1mA new MAJOR version of Verdaccio is available. [1m[31m1.0.0[37m[1m → [1m[32m2.0.0[37m[1m [22m[39m
+        [37m[1mRun [32m[1mnpm install -g verdaccio[1m[37m to update[22m[39m.
+        [37m[1mRegistry: https://registry.npmjs.org[22m[39m
+        [34m[1mChangelog: https://github.com/verdaccio/verdaccio/releases/tag/v2.0.0[22m[39m
+    "
+`;
+
+exports[`create banner should create a minor update banner 1`] = `
+"
+        [37m[1mA new MINOR version of Verdaccio is available. [1m[31m1.0.0[37m[1m → [1m[32m1.1.0[37m[1m [22m[39m
+        [37m[1mRun [32m[1mnpm install -g verdaccio[1m[37m to update[22m[39m.
+        [37m[1mRegistry: https://registry.npmjs.org[22m[39m
+        [34m[1mChangelog: https://github.com/verdaccio/verdaccio/releases/tag/v1.1.0[22m[39m
+    "
+`;
+
+exports[`create banner should create a patch update banner 1`] = `
+"
+        [37m[1mA new PATCH version of Verdaccio is available. [1m[31m1.0.0[37m[1m → [1m[32m1.0.1[37m[1m [22m[39m
+        [37m[1mRun [32m[1mnpm install -g verdaccio[1m[37m to update[22m[39m.
+        [37m[1mRegistry: https://registry.npmjs.org[22m[39m
+        [34m[1mChangelog: https://github.com/verdaccio/verdaccio/releases/tag/v1.0.1[22m[39m
+    "
+`;
+
+exports[`createErrorBanner should create an error banner 1`] = `
+"
+        [31m[1mUnable to check verdaccio version on https://registry.npmjs.org[22m[39m
+        [31m[1mError: message[22m[39m
+    "
+`;

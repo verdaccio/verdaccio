@@ -104,3 +104,7 @@ export const PACKAGE_ACCESS = {
   SCOPE: '@*/*',
   ALL: '**',
 };
+
+export const UPDATE_BANNER = {
+  CHANGELOG_URL: 'https://github.com/verdaccio/verdaccio/releases/tag/'
+}
