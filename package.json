@@ -15,8 +15,6 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@material-ui/core": "3.0.3",
-    "@material-ui/icons": "3.0.1",
     "@verdaccio/file-locking": "0.0.7",
     "@verdaccio/local-storage": "1.2.0",
     "@verdaccio/streams": "1.0.0",
@@ -58,6 +56,8 @@
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
     "@commitlint/config-conventional": "7.0.1",
+    "@material-ui/core": "3.1.0",
+    "@material-ui/icons": "3.0.1",
     "@verdaccio/types": "3.7.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
@@ -87,7 +87,6 @@
     "codecov": "3.0.4",
     "cross-env": "5.1.4",
     "css-loader": "0.28.10",
-    "lint-staged": "7.2.0",
     "element-theme-default": "1.4.13",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
@@ -114,6 +113,7 @@
     "jest-environment-jsdom": "23.4.0",
     "jest-environment-jsdom-global": "1.1.0",
     "jest-environment-node": "23.4.0",
+    "lint-staged": "7.2.0",
     "localstorage-memory": "1.0.2",
     "mini-css-extract-plugin": "0.4.1",
     "node-mocks-http": "1.7.0",
