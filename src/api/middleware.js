@@ -58,7 +58,7 @@ export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next:
 export function media(expect: string) {
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
-      next( ErrorCode.getCode(HTTP_STATUS.UNSUPORTED_MEDIA, 'wrong content-type, expect: ' + expect
+      next( ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect
         + ', got: '+req.headers[HEADER_TYPE.CONTENT_TYPE]) );
     } else {
       next();
