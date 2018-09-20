@@ -7,6 +7,7 @@ import logger from './logger';
 import mkdirp from 'mkdirp';
 
 import {folderExists, fileExists} from './utils';
+import {CHARACTER_ENCODING} from './constants';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
@@ -48,7 +49,7 @@ function createConfigFile(configLocation: any) {
 }
 
 function readDefaultConfig() {
-  return fs.readFileSync(require.resolve('../../conf/default.yaml'), 'utf8');
+  return fs.readFileSync(require.resolve('../../conf/default.yaml'), CHARACTER_ENCODING.UTF8);
 }
 
 function createConfigFolder(configLocation) {

@@ -14,7 +14,7 @@ export const HEADERS = {
 };
 
 export const CHARACTER_ENCODING = {
-  UTF8: 'utf-8'
+  UTF8: 'utf8'
 }
 
 export const HEADER_TYPE = {

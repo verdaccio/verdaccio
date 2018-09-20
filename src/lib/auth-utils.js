@@ -1,7 +1,7 @@
 // @flow
 import _ from 'lodash';
 import {convertPayloadToBase64, ErrorCode} from './utils';
-import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING} from './constants';
 
 import type {
   RemoteUser,
@@ -127,7 +127,7 @@ export function getAuthenticatedMessage(user: string): string {
 }
 
 export function buildUserBuffer(name: string, password: string) {
-  return Buffer.from(`${name}:${password}`, 'utf8');
+  return Buffer.from(`${name}:${password}`, CHARACTER_ENCODING.UTF8);
 }
 
 export function isAESLegacy(security: Security): boolean {

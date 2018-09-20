@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import Auth from '../../../src/lib/auth';
+import {CHARACTER_ENCODING} from '../../../src/lib/constants';
 // $FlowFixMe
 import configExample from '../partials/config/index';
 import AppConfig from '../../../src/lib/config';
@@ -70,7 +71,7 @@ describe('Auth utilities', () => {
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
-    const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString('utf8');
+    const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString(CHARACTER_ENCODING.UTF8);
     const content = payload.split(':');
 
     expect(content[0]).toBe(user);
@@ -86,7 +87,7 @@ describe('Auth utilities', () => {
       expect(_.isString(token)).toBeTruthy();
     });
 
-    test('should sign token with aes and security emtpy', async () => {
+    test('should sign token with aes and security empty', async () => {
       const token = await signCredentials('security-empty',
         'test', 'test', '123456', 'aesEncrypt', 'jwtEncrypt');
 
