@@ -14,7 +14,7 @@ If you haven't used Helm before, you need to setup the Helm controller called Ti
 helm init
 ```
 
-### Install
+### Installazione
 
 Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
 
