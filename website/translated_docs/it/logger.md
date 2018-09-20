@@ -22,5 +22,5 @@ Utilizzare `SIGUSR2` per notificare all'applicazione, il file-log è stato ruota
 | --------- | ------- | --------- | ---------------------------------------------- | -------- | ----------------------------------------------------- |
 | tipo      | stringa | No        | [stdout, file]                                 | tutti    | definire l'output                                     |
 | percorso  | stringa | No        | verdaccio.log                                  | tutti    | se il tipo è file, definire la posizione di quel file |
-| formato   | stringa | No        | [pretty, pretty-timestamped]                   | all      | output format                                         |
-| level     | string  | No        | [fatal, error, warn, http, info, debug, trace] | all      | verbose level                                         |
+| formato   | stringa | No        | [pretty, pretty-timestamped]                   | tutti    | formato dell'output                                   |
+| livello   | stringa | No        | [fatal, error, warn, http, info, debug, trace] | tutti    | livello dettagliato                                   |
