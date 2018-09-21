@@ -32,9 +32,9 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 
 **SVG**
 
-![formato SVG simbolo senza testo](/img/logo/symbol/svg/verdaccio-tiny.svg)
+![formato svg simbolo senza testo](/img/logo/symbol/svg/verdaccio-tiny.svg)
 
-### Bianco e nero
+### Nero&Bianco
 
 ![simbolo bianco e nero piccolo](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
