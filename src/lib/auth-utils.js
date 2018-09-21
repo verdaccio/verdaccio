@@ -198,6 +198,8 @@ export function parseAESCredentials(
   }
 }
 
+export const expireReasons: Array<string> = ['JsonWebTokenError', 'TokenExpiredError'];
+
 export function verifyJWTPayload(token: string, secret: string): RemoteUser {
   try {
     const payload: RemoteUser = (verifyPayload(token, secret): RemoteUser);
@@ -205,7 +207,7 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
     return payload;
   } catch (error) {
     // #168 this check should be removed as soon AES encrypt is removed.
-    if (error.name === 'JsonWebTokenError') {
+    if (expireReasons.includes(error.name)) {
       // it might be possible the jwt configuration is enabled and
       // old tokens fails still remains in usage, thus
       // we return an anonymous user to force log in.
