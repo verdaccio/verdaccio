@@ -10,7 +10,7 @@ Un esempio con un hook **HipChat**, **Stride** e **Google Hangouts Chat**:
 
 > Verdaccio supporta ogni API, sentiti libero di aggiungere ulteriori esempi.
 
-#### Notificazione singola
+#### Notifica singola
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Notificazione multipla
+#### Notifica multipla
 
 ```yaml
 notify:
@@ -150,7 +150,7 @@ Si può accedere al pacchetto che è stato pubblicato con la keyword `{{publishe
 
 | Proprietà           | Tipo          | Richiesto | Supporto | Impostazione predefinita | Descrizione                                                                                                    |
 | ------------------- | ------------- | --------- | -------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| metodo              | stringa       | No        | tutti    |                          | metodi HTTP                                                                                                    |
+| metodo              | stringa       | No        | tutti    |                          | HTTP verb                                                                                                      |
 | packagePattern      | stringa       | No        | tutti    |                          | Eseguire questa notifica solo se il nome del pacchetto coincide con l'espressione regolare                     |
 | packagePatternFlags | stringa       | No        | tutti    |                          | Qualsiasi flag da utilizzare con l'espressione regolare                                                        |
 | intestazioni        | array/oggetto | Sì        | tutti    |                          | Se questo endpoint richiede intestazioni specifiche, definirle qui come un array della key: oggetti di valore. |
