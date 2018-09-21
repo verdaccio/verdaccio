@@ -22,7 +22,7 @@ import {aesDecrypt, verifyPayload} from './crypto-utils';
  * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
  */
 export function createRemoteUser(name: string, pluginGroups: Array<string>): RemoteUser {
-  const isGroupValid: boolean = _.isArray(pluginGroups);
+  const isGroupValid: boolean = Array.isArray(pluginGroups);
   const groups = (isGroupValid ? pluginGroups : []).concat([
     ROLES.$ALL,
     ROLES.$AUTH,
@@ -152,8 +152,7 @@ export async function getApiToken(
       // i am wiling to use here _.isNil but flow does not like it yet.
     const {jwt} = security.api;
 
-    if (typeof jwt !== 'undefined' &&
-      typeof jwt.sign !== 'undefined') {
+    if (jwt && jwt.sign) {
       return await auth.jwtEncrypt(remoteUser, jwt.sign);
     } else {
       return await new Promise((resolve) => {
@@ -204,15 +203,15 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
     const payload: RemoteUser = (verifyPayload(token, secret): RemoteUser);
 
     return payload;
-  } catch (err) {
+  } catch (error) {
     // #168 this check should be removed as soon AES encrypt is removed.
-    if (err.name === 'JsonWebTokenError') {
+    if (error.name === 'JsonWebTokenError') {
       // it might be possible the jwt configuration is enabled and
       // old tokens fails still remains in usage, thus
       // we return an anonymous user to force log in.
       return createAnonymousRemoteUser();
     } else {
-      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, err.message);
+      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
     }
   }
 }
