@@ -10,7 +10,7 @@ logs:
   - {type: stdout, format: pretty, level: http}
   # file output
   - {type: file, path: verdaccio.log, level: info}
-  # Rotating log stream. Options are passed directly to bunyan. See: https://github.com/trentm/node-bunyan#stream-type-rotating-file
+  # Rotating log stream. Le opzioni vengono passate direttamente a Bunyan. See: https://github.com/trentm/node-bunyan#stream-type-rotating-file
   - {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 ```
 
