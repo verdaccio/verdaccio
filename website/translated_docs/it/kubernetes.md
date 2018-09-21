@@ -8,7 +8,7 @@ Le istruzioni per sviluppare Verdaccio su un cluster Kubernetes si possono trova
 
 ### Configurare Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+Se non si è mai usato Helm prima d'ora, è necessario configurare il controller chiamato Tiller:
 
 ```bash
 helm init
@@ -16,37 +16,37 @@ helm init
 
 ### Installazione
 
-Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
+Sviluppare il grafico Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio). In questo esempio usiamo `npm` come nome della release:
 
 ```bash
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### Sviluppare una versione specifica
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### Aggiornamento di Verdaccio
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Disinstallazione
 
 ```bash
 helm del --purge npm
 ```
 
-**Note:** this command delete all the resources, including packages that you may have previously published to the registry.
+**Nota:** questo comando cancella tutte le risorse, inclusi i pacchetti che potresti aver pubblicato precedentemente sul registro.
 
-### Custom Verdaccio configuration
+### Configurazione personalizzata di Verdaccio
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+È possibile personalizzare la configurazione di Verdaccio utilizzando un Kubernetes *configMap*.
 
-#### Prepare
+#### Preparazione
 
 Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
 
