@@ -53,7 +53,7 @@ Tutti gli utenti ricevono tutti questi gruppi di permessi indipendentemente dal 
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-Se si desidera proteggere un insieme specifico di pacchetti dentro al tuo gruppo, è necessario fare qualcosa simile a questo. Utilizziamo un `Regex` che copra tutti i pacchetti con prefisso `npmuser-`. Raccomandiamo di utilizzare un prefisso per i pacchetti, in modo che possa essere più semplice proteggerli.
+Se si desidera proteggere un insieme specifico di pacchetti dentro al proprio gruppo, è necessario fare qualcosa simile a questo. Utilizziamo un `Regex` che copra tutti i pacchetti con prefisso `npmuser-`. Raccomandiamo di utilizzare un prefisso per i pacchetti, in modo che possa essere più semplice proteggerli.
 
 ```yaml
 packages:
@@ -78,7 +78,7 @@ npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 
 #### Definire gruppi multipli
 
-Definire gruppi di accesso multipli è abbastanza facile, basta distinguerli semplicemente con uno spazio bianco tra di essi.
+Definire gruppi di accesso multipli è abbastanza facile, è sufficiente distinguerli semplicemente con uno spazio bianco tra di essi.
 
 ```yaml
   'company-*':
@@ -130,11 +130,11 @@ packages:
 Descriviamo quello che si desidera con l'esempio precedente:
 
 * Desidero ospitare la mia dipendenza `jquery` ma ho necessità di evitare il suo inoltro.
-* Desidero tutte le dipendenze che coincidono con `my-company-*` ma ho necessità di evitare di inoltrarle.
+* Desidero tutte le dipendenze che coincidano con `my-company-*` ma ho necessità di evitare di inoltrarle.
 * Desidero tutte le dipendenze che si trovino nell'ambito `my-local-scope` ma ho necessità di evitare di inoltrarle.
 * Desidero l'inoltro per tutte le dipendenze rimanenti.
 
-**Non dimenticare l'importanza dell'ordine dei pacchetti e utilizzare sempre il doppio asterisco**. Poiché se non lo si include, `verdaccio` lo includerà per voi e questo inciderà sulla modalità con cui le dipendenze sono risolte.
+**Non dimenticare l'importanza dell'ordine dei pacchetti e di utilizzare sempre il doppio asterisco**. Poiché se non lo si include, `verdaccio` lo includerà per voi e questo inciderà sulla modalità con cui le dipendenze sono risolte.
 
 ### Configurazione
 
