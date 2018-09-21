@@ -48,13 +48,13 @@ helm del --purge npm
 
 #### Preparazione
 
-Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
+Copiare la [configurazione esistente](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) ed adattarla al proprio caso:
 
 ```bash
 wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/full.yaml -O config.yaml
 ```
 
-**Note:** Make sure you are using the right path for the storage that is used for persistency:
+**Nota:** Assicurarsi che si stia utilizzando il percorso corretto per l'archiviazione che viene usato per la persistenza:
 
 ```yaml
 storage: /verdaccio/storage/data
@@ -63,17 +63,17 @@ auth:
     file: /verdaccio/storage/htpasswd
 ```
 
-#### Deploy the configMap
+#### Sviluppare il configMap
 
-Deploy the `configMap` to the cluster
+Sviluppare il `configMap` nel cluster
 
 ```bash
 kubectl create configmap verdaccio-config --from-file ./config.yaml
 ```
 
-#### Deploy Verdaccio
+#### Sviluppare Verdaccio
 
-Now you can deploy the Verdaccio Helm chart and specify which configuration to use:
+Ora è possibile sviluppare il grafico Verdaccio Helm e specificare quale configurazione utilizzare:
 
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
