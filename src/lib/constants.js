@@ -14,7 +14,7 @@ export const HEADERS = {
 };
 
 export const CHARACTER_ENCODING = {
-  UTF8: 'utf-8'
+  UTF8: 'utf8'
 }
 
 export const HEADER_TYPE = {
@@ -40,7 +40,7 @@ export const ROLES = {
   $ANONYMOUS: '$anonymous',
   DEPRECATED_ALL: '@all',
   DEPRECATED_AUTH: '@authenticated',
-  DEPRECATED_ANONUMOUS: '@anonymous',
+  DEPRECATED_ANONYMOUS: '@anonymous',
 };
 
 export const HTTP_STATUS = {
@@ -53,7 +53,7 @@ export const HTTP_STATUS = {
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   CONFLICT: 409,
-  UNSUPORTED_MEDIA: 415,
+  UNSUPPORTED_MEDIA: 415,
   BAD_DATA: 422,
   INTERNAL_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,

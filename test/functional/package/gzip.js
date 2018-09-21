@@ -1,6 +1,6 @@
 import zlib from 'zlib';
 import {readFile} from '../lib/test.utils';
-import {HEADER_TYPE, HEADERS, HTTP_STATUS} from "../../../src/lib/constants";
+import {HEADER_TYPE, HEADERS, HTTP_STATUS, CHARACTER_ENCODING} from "../../../src/lib/constants";
 
 export default function(server, express) {
   const PKG_NAME = 'testexp_gzip';
@@ -13,7 +13,7 @@ export default function(server, express) {
     beforeAll(function() {
       express.get(`/${PKG_NAME}`, function(req, res) {
         const pkg = JSON.parse(readFile('../fixtures/publish.json5')
-            .toString('utf8')
+            .toString(CHARACTER_ENCODING.UTF8)
             .replace(/__NAME__/g, PKG_NAME)
             .replace(/__VERSION__/g, PKG_VERSION));
 
@@ -69,7 +69,7 @@ export default function(server, express) {
         .then(async function(body) {
           // should fails since is zipped
           expect(function() {
-            JSON.parse(body.toString('utf8'));
+            JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
           }).toThrow(/Unexpected/);
 
           // we unzip content and check content

@@ -8,7 +8,7 @@ import Stream from 'stream';
 import URL from 'url';
 import {parseInterval, isObject, ErrorCode, buildToken} from './utils';
 import {ReadTarball} from '@verdaccio/streams';
-import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE} from './constants';
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING} from './constants';
 import type {
 Config,
 UpLinkConf,
@@ -158,7 +158,7 @@ class ProxyStorage implements IProxy {
         if (options.json && res.statusCode < 300) {
           try {
             // $FlowFixMe
-            body = JSON.parse(body.toString('utf8'));
+            body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
           } catch (_err) {
             body = {};
             err = _err;
