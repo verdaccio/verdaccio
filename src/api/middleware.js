@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+
 import {
   validateName as utilValidateName,
   validatePackage as utilValidatePackage,
@@ -115,7 +116,7 @@ export function allow(auth: IAuth) {
         } else {
           // last plugin (that's our built-in one) returns either
           // cb(err) or cb(null, true), so this should never happen
-          throw ErrorCode.getInternalError('bug in the auth plugin system');
+          throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
         }
       });
     };
@@ -123,15 +124,15 @@ export function allow(auth: IAuth) {
 }
 
  export function final(body: any, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-  if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader('WWW-Authenticate')) {
+  if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {
     // they say it's required for 401, so...
-    res.header('WWW-Authenticate', `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
+    res.header(HEADERS.WWW_AUTH, `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
   }
 
   try {
     if (_.isString(body) || _.isObject(body)) {
-      if (!res.getHeader('Content-type')) {
-        res.header('Content-type', HEADERS.JSON);
+      if (!res.getHeader(HEADERS.CONTENT_TYPE)) {
+        res.header(HEADERS.CONTENT_TYPE, HEADERS.JSON);
       }
 
       if (typeof(body) === 'object' && _.isNil(body) === false) {
@@ -143,7 +144,7 @@ export function allow(auth: IAuth) {
 
       // don't send etags with errors
       if (!res.statusCode || (res.statusCode >= 200 && res.statusCode < 300)) {
-        res.header('ETag', '"' + stringToMD5(body) + '"');
+        res.header(HEADERS.ETAG, '"' + stringToMD5(body) + '"');
       }
     } else {
       // send(null), send(204), etc.

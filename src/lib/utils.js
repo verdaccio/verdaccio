@@ -14,6 +14,7 @@ import {
   API_ERROR,
   DEFAULT_PORT,
   DEFAULT_DOMAIN,
+  DEFAULT_PROTOCOL,
   CHARACTER_ENCODING
 } from './constants';
 import {generateGravatarUrl} from '../utils/user';
@@ -67,17 +68,18 @@ export function validateName(name: string): boolean {
   if (_.isString(name) === false) {
     return false;
   }
-  name = name.toLowerCase();
+
+  const normalizedName: string = name.toLowerCase();
 
   // all URL-safe characters and "@" for issue #75
   return !(
-    !name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
-    name.charAt(0) === '.' || // ".bin", etc.
-    name.charAt(0) === '-' || // "-" is reserved by couchdb
-    name === 'node_modules' ||
-    name === '__proto__' ||
-    name === 'package.json' ||
-    name === 'favicon.ico'
+    !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
+    normalizedName.charAt(0) === '.' || // ".bin", etc.
+    normalizedName.charAt(0) === '-' || // "-" is reserved by couchdb
+    normalizedName === 'node_modules' ||
+    normalizedName === '__proto__' ||
+    normalizedName === 'package.json' ||
+    normalizedName === 'favicon.ico'
   );
 }
 
@@ -221,7 +223,7 @@ export function tagVersion(data: Package, version: string, tag: StringValue): bo
  */
 export function getVersion(pkg: Package, version: any) {
   // this condition must allow cast
-  if (pkg.versions[version] != null) {
+  if (_.isNil(pkg.versions[version]) === false) {
     return pkg.versions[version];
   }
 
@@ -263,7 +265,7 @@ export function parseAddress(urlAddress: any) {
 
   if (urlPattern) {
     return {
-      proto: urlPattern[2] || 'http',
+      proto: urlPattern[2] || DEFAULT_PROTOCOL,
       host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
       port: urlPattern[8] || DEFAULT_PORT,
     };
@@ -273,7 +275,7 @@ export function parseAddress(urlAddress: any) {
 
   if (urlPattern) {
     return {
-      proto: urlPattern[2] || 'http',
+      proto: urlPattern[2] || DEFAULT_PROTOCOL,
       path: urlPattern[4],
     };
   }
@@ -391,7 +393,7 @@ export const ErrorCode = {
     return createError(HTTP_STATUS.CONFLICT, message);
   },
   getBadData: (customMessage?: string) => {
-    return createError(HTTP_STATUS.BAD_DATA, customMessage || 'bad data');
+    return createError(HTTP_STATUS.BAD_DATA, customMessage || API_ERROR.BAD_DATA);
   },
   getBadRequest: (customMessage?: string) => {
     return createError(HTTP_STATUS.BAD_REQUEST, customMessage);
