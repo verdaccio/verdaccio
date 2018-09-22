@@ -100,4 +100,4 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 ### Risoluzione dei problemi
 
 - **L'interfaccia web non viene caricata quando è allocata su https dal momento che tenta di scaricare scripts su http.**  
-    Assicurarsi di aver menzionato correttamente `url-prefix` nella configurazione di verdaccio. Seguire la [discussione](https://github.com/verdaccio/verdaccio/issues/622).
+    Assicurarsi di aver nominato correttamente `url-prefix` nella configurazione di verdaccio. Seguire la [discussione](https://github.com/verdaccio/verdaccio/issues/622).
