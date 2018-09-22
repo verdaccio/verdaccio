@@ -64,7 +64,7 @@ Verdaccio is a simple, **zero-config-required local private npm registry**. No n
 ### Cache npmjs.org registry
 
    If you have more than one server you want to install packages on, you might want to use this to decrease latency
-   (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache) or avoid issues like *[How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)*, *[Many packages suddenly disappeared](https://github.com/npm/registry/issues/255?source=techstories.org)* or *[Registry returns 404 for a package I have installed before](https://github.com/npm/registry/issues/329)*.
+   (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache) or avoid issues like *[How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)*, *[Many packages suddenly disappeared](https://github.com/npm/registry-issue-archive/issues/255)* or *[Registry returns 404 for a package I have installed before](https://github.com/npm/registry-issue-archive/issues/329)*.
    
 ### Link multiple registries
 

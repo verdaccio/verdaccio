@@ -2,19 +2,19 @@
 id: installation
 title: "安装"
 ---
-Verdaccio 是一个多平台网页应用程序。在安装之前，您需要具有一些先决条件。
+Verdaccio 是一个跨平台的 Web 应用程序。在安装之前，您需要确保系统环境已满足以下条件。
 
 #### 最低要求:
 
 1. Node.js 版本 
-    - 对于`verdaccio@2.x`版本，Node `v4.6.1`是最低支持版本。
-    - 对于`verdaccio@latest`版本，Node `6.12.0` 是最低支持版本。
+    - 对于 `verdaccio@2.x` 版本，Node `v4.6.1` 是最低支持版本。
+    - 对于 `verdaccio@latest` 版本，Node `6.12.0` 是最低支持版本。
 2. npm `>=3.x` or `yarn`
-3. 网页界面支持`Chrome, Firefox, Edge, 和 IE9` 浏览器。
+3. Web 界面支持 `Chrome, Firefox, Edge, 和 IE9` 浏览器。
 
 ## 安装CLI
 
-`verdaccio` 总体上必须用以下两种方法之一来安装：
+`verdaccio` 需要使用以下两种方法之一安装到全局环境：
 
 使用 `npm`
 
@@ -32,7 +32,7 @@ yarn global add verdaccio
 
 ## 基本使用
 
-一旦安装后，您只需要执行CLI 命令：
+一旦安装后，您只需要执行命令：
 
 ```bash
 $> verdaccio
@@ -44,10 +44,10 @@ warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 
 ## Docker 镜像
 
-`verdaccio` 有官方docker镜像可以使用，而且在大多数情况下，默认配置已经够好。 更多关于如何安装官方镜像的详细信息，请[阅读docker章节](docker.md)。
+`verdaccio` 有官方 docker 镜像可以使用，在大多数情况下，默认配置已经足够了。 更多关于如何安装官方镜像的详细信息，请[阅读docker章节](docker.md)。
 
 ## Cloudron
 
-`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+`verdaccio` 可以使用 [Cloudron](https://cloudron.io) 一键安装
 
-[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
+[![安装](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)

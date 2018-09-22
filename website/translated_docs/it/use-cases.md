@@ -1,31 +1,31 @@
 ---
 id: use-cases
-title: "Use Cases"
+title: "Casi di utilizzo"
 ---
-## Using private packages
+## Utilizzo di pacchetti privati
 
-You can add users and manage which users can access which packages.
+È possibile aggiungere utenti e gestire quali utenti possono accedere a quali pacchetti.
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+È raccomandabile definire un prefisso per i pacchetti privati, per esempio "locale", così che tutti gli elementi privati abbiano questo aspetto: `local-foo`. In questo modo si possono separare chiaramente i pacchetti pubblici da quelli privati.
 
-## Using public packages from npmjs.org
+## Utilizzo dei pacchetti pubblici da npmjs.org
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Se qualche pacchetto non esiste nell'archivio, il server proverà a recuperarlo da npmjs.org. Se npmjs.org non funziona, fornirà solo i pacchetti presenti nella cache come se non ne esistessero altri. Verdaccio scaricherà solo ciò che è necessario (= richiesto dai client), e questa informazione verrà memorizzata nella cache, così che se il client chiederà la stessa cosa una seconda volta, potrà essere soddisfatto senza dover chiedere a npmjs.org.
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Esempio: se si fa una richiesta express@3.0.1 che va a buon fine da questo server una volta, sarà possibile farla un'altra volta ( con tutte le sue dipendenze) in ogni momento, anche con npmjs.org non funzionante. Però diciamo che express@3.0.0 non verrà scaricato fino a che non sia effettivamente necessario per qualcuno. E se npmjs.org fosse offline, questo server direbbe che solo express@3.0.1 (= solo quello che è nella cache) verrebbe pubblicato, ma nient'altro.
 
-## Override public packages
+## Annullare pacchetti pubblici
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+Se si desidera utilizzare una versione modificata di qualche pacchetto pubblico `foo`, si può pubblicarla solamente sul server locale, così scrivendo `npm install foo`, installerà questa versione.
 
-There's two options here:
+Ci sono due opzioni qui:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Si desidera creare un fork separato e interrompere la sincronizzazione con la versione pubblica.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Se si vuole fare ciò, si dovrebbe modificare il file di configurazione affinché verdaccio non faccia più richieste a npmjs riguardo a questi pacchetti. Aggiungere un'entrata separata per questo pacchetto a *config.yaml* e rimuovere `npmjs` dalla lista `proxy` e riavviare il server.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Quando si pubblica il pacchetto in locale, si dovrebbe probabilmente iniziare con formato della stringa superiore a quella esistente, così che non vada in conflitto con il pacchetto già esistente nella cache.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Si vuole temporaneamente utilizzare la propria versione, ma tornare alla pubblica appena questa sia aggiorna,.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    Per evitare qualsiasi conflitto delle versioni, si dovrebbe usare un suffisso personalizzato rilasciato prima della successiva versione della patch. Per esempio, se un pacchetto pubblico ha la versione 0.1.2, si può caricare 0.1.3-my-temp-fix. In questo modo il pacchetto verrà utilizzato fino a che il suo manutentore originale aggiorni il suo pacchetto pubblico alla 0.1.3.
