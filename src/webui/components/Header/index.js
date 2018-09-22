@@ -1,43 +1,39 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button/index';
 import IconButton from '@material-ui/core/IconButton/index';
 import MenuItem from '@material-ui/core/MenuItem/index';
 import Menu from '@material-ui/core/Menu/index';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Info from '@material-ui/icons/Info';
 import Help from '@material-ui/icons/Help';
-import FileCopy from '@material-ui/icons/FileCopy';
-import Tooltip from '@material-ui/core/Tooltip/index';
 
 import {getRegistryURL} from '../../utils/url';
-import {copyToClipBoard} from '../../utils/styles/mixins';
 import Link from '../Link';
 import Logo from '../Logo';
+import CopyToClipBoard from '../CopyToClipBoard/index';
 
-import InfoDialog from './infoDialog';
+import RegistryInfoDialog from '../RegistryInfoDialog';
 import {IProps, IState} from './interfaces';
-import {Wrapper, InnerWrapper, ClipBoardCopy, ClipBoardCopyText, CopyIcon} from './styles';
+import {Wrapper, InnerWrapper} from './styles';
 
 class Header extends Component<IProps, IState> {
-  handleMenu: Function;
-  handleClose: Function;
-  handleOpenInfoDialog: Function;
-  handleCloseInfoDialog: Function;
+  handleLoggedInMenu: Function;
+  handleLoggedInMenuClose: Function;
+  handleOpenRegistryInfoDialog: Function;
+  handleCloseRegistryInfoDialog: Function;
   handleToggleLogin: Function;
   renderInfoDialog: Function;
 
-  constructor() {
-    super();
-    this.handleMenu = this.handleMenu.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleOpenInfoDialog = this.handleOpenInfoDialog.bind(this);
-    this.handleCloseInfoDialog = this.handleCloseInfoDialog.bind(this);
+  constructor(props: Object) {
+    super(props);
+    this.handleLoggedInMenu = this.handleLoggedInMenu.bind(this);
+    this.handleLoggedInMenuClose = this.handleLoggedInMenuClose.bind(this);
+    this.handleOpenRegistryInfoDialog = this.handleOpenRegistryInfoDialog.bind(this);
+    this.handleCloseRegistryInfoDialog = this.handleCloseRegistryInfoDialog.bind(this);
     this.handleToggleLogin = this.handleToggleLogin.bind(this);
     this.renderInfoDialog = this.renderInfoDialog.bind(this);
     this.state = {
@@ -53,37 +49,51 @@ class Header extends Component<IProps, IState> {
     });
   }
 
-  handleMenu(event: SyntheticEvent<HTMLElement>) {
+  /**
+   * opens popover menu for logged in user.
+   */
+  handleLoggedInMenu(event: SyntheticEvent<HTMLElement>) {
     this.setState({
       anchorEl: event.currentTarget,
     });
   }
 
-  handleClose() {
+  /**
+   * closes popover menu for logged in user
+   */
+  handleLoggedInMenuClose() {
     this.setState({
       anchorEl: null,
     });
   }
 
-  handleOpenInfoDialog() {
+  /**
+   * opens registry information dialog.
+   */
+  handleOpenRegistryInfoDialog() {
     this.setState({
       openInfoDialog: true,
     });
   }
 
-  handleCloseInfoDialog() {
+  /**
+   * closes registry information dialog.
+   */
+  handleCloseRegistryInfoDialog() {
     this.setState({
       openInfoDialog: false,
     });
   }
 
+  /**
+   * close/open popover menu for logged in users.
+   */
   handleToggleLogin() {
-    const {toggleLoginModal} = this.props;
     this.setState(
       {
         anchorEl: null,
       },
-      () => toggleLoginModal()
+      this.props.toggleLoginModal
     );
   }
 
@@ -97,16 +107,17 @@ class Header extends Component<IProps, IState> {
 
   renderRightSide() {
     const {username = ''} = this.props;
+    const installationLink = 'https://verdaccio.org/docs/en/installation';
     return (
       <div>
-        <IconButton color="inherit" component={Link} to="https://verdaccio.org/docs/en/installation" blank>
+        <IconButton color="inherit" component={Link} to={installationLink} blank>
           <Help />
         </IconButton>
-        <IconButton color="inherit" onClick={this.handleOpenInfoDialog}>
+        <IconButton color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
           <Info />
         </IconButton>
         {username ? (
-          this.renderMenu()
+          this.renderMenu(username)
         ) : (
           <Button color="inherit" onClick={this.handleToggleLogin}>
             Login
@@ -116,15 +127,18 @@ class Header extends Component<IProps, IState> {
     );
   }
 
-  renderMenu() {
-    const {username = '', handleLogout} = this.props;
+  /**
+   * render popover menu
+   */
+  renderMenu(username: string) {
+    const {handleLogout} = this.props;
     const {anchorEl} = this.state;
     const open = Boolean(anchorEl);
     return (
       <React.Fragment>
-        <IconButton aria-owns={username ? 'sidebar-menu' : null} aria-haspopup="true" color="inherit" onClick={this.handleMenu}>
-          <AccountCircle />
-        </IconButton>
+        <Button color="inherit" aria-owns="sidebar-menu" aria-haspopup="true" onClick={this.handleLoggedInMenu}>
+          Hi, {username}
+        </Button>
         <Menu
           id="sidebar-menu"
           anchorEl={anchorEl}
@@ -137,7 +151,7 @@ class Header extends Component<IProps, IState> {
             horizontal: 'right',
           }}
           open={open}
-          onClose={this.handleClose}
+          onClose={this.handleLoggedInMenuClose}
         >
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
@@ -145,29 +159,16 @@ class Header extends Component<IProps, IState> {
     );
   }
 
-  renderCopyToClibBoard(text: string) {
-    return (
-      <ClipBoardCopy>
-        <ClipBoardCopyText>{text}</ClipBoardCopyText>
-        <Tooltip title="Copy to Clipboard">
-          <CopyIcon aria-label="Copy to Clipboard" onClick={copyToClipBoard(text)}>
-            <FileCopy />
-          </CopyIcon>
-        </Tooltip>
-      </ClipBoardCopy>
-    );
-  }
-
   renderInfoDialog() {
     const {scope} = this.props;
     const {openInfoDialog, registryUrl} = this.state;
     return (
-      <InfoDialog open={openInfoDialog} onClose={this.handleCloseInfoDialog}>
+      <RegistryInfoDialog open={openInfoDialog} onClose={this.handleCloseRegistryInfoDialog}>
         <div>
-          {this.renderCopyToClibBoard(`npm set ${scope} registry ${registryUrl}`)}
-          {this.renderCopyToClibBoard(`npm adduser --registry ${registryUrl}`)}
+          <CopyToClipBoard text={`npm set ${scope} registry ${registryUrl}`} />
+          <CopyToClipBoard text={`npm adduser --registry ${registryUrl}`} />
         </div>
-      </InfoDialog>
+      </RegistryInfoDialog>
     );
   }
 

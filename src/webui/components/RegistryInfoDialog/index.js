@@ -14,7 +14,7 @@ import type {Node} from 'react';
 
 import {IProps} from './interfaces';
 
-const InfoDialog = ({open = false, children, onClose}: IProps): Node => (
+const RegistryInfoDialog = ({open = false, children, onClose}: IProps): Node => (
   <Dialog open={open} onClose={onClose}>
     <Title disableTypography>Register Info</Title>
     <Content>{children}</Content>
@@ -26,4 +26,4 @@ const InfoDialog = ({open = false, children, onClose}: IProps): Node => (
   </Dialog>
 );
 
-export default InfoDialog;
+export default RegistryInfoDialog;

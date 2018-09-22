@@ -6,8 +6,8 @@
 
 export interface IProps {
   username?: string;
-  handleLogout: () => {};
-  toggleLoginModal: () => {};
+  handleLogout: Function;
+  toggleLoginModal: Function;
   scope: string;
 }
 

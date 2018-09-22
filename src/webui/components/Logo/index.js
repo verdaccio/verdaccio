@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-/* @flow */
 
 import styled from 'react-emotion';
 import logo from './img/logo.svg';
