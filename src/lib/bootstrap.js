@@ -1,7 +1,6 @@
 // @flow
 
 import {assign, isObject, isFunction} from 'lodash';
-import Path from 'path';
 import URL from 'url';
 import fs from 'fs';
 import http from 'http';
@@ -9,52 +8,13 @@ import https from 'https';
 // $FlowFixMe
 import constants from 'constants';
 import endPointAPI from '../api/index';
-import {parseAddress} from './utils';
+import {getListListenAddresses, resolveConfigPath} from './cli/utils';
+import {API_ERROR, certPem, csrPem, keyPem} from './constants';
 
 import type {Callback} from '@verdaccio/types';
 import type {$Application} from 'express';
-import {DEFAULT_PORT} from './constants';
 
 const logger = require('./logger');
-
-/**
- * Retrieve all addresses defined in the config file.
- * Verdaccio is able to listen multiple ports
- * @param {String} argListen
- * @param {String} configListen
- * eg:
- *  listen:
-    - localhost:5555
-    - localhost:5557
-    @return {Array}
- */
-export function getListListenAddresses(argListen: string, configListen: mixed) {
-  // command line || config file || default
-  let addresses;
-  if (argListen) {
-    addresses = [argListen];
-  } else if (Array.isArray(configListen)) {
-    addresses = configListen;
-  } else if (configListen) {
-    addresses = [configListen];
-  } else {
-    addresses = [DEFAULT_PORT];
-  }
-  addresses = addresses.map(function(addr) {
-    const parsedAddr = parseAddress(addr);
-
-    if (!parsedAddr) {
-      logger.logger.warn({addr: addr},
-         'invalid address - @{addr}, we expect a port (e.g. "4873"),'
-       + ' host:port (e.g. "localhost:4873") or full url'
-       + ' (e.g. "http://localhost:4873/")');
-    }
-
-    return parsedAddr;
-  }).filter(Boolean);
-
-  return addresses;
-}
 
 /**
  * Trigger the server after configuration has been loaded.
@@ -71,7 +31,7 @@ function startVerdaccio(config: any,
                         pkgName: string,
                         callback: Callback) {
   if (isObject(config) === false) {
-    throw new Error('config file must be an object');
+    throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
   endPointAPI(config).then((app)=> {
@@ -82,7 +42,7 @@ function startVerdaccio(config: any,
       if (addr.proto === 'https') {
         // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
         if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
-          displayHTTPSWarning(configPath);
+          logHTTPSWarning(configPath);
         }
 
         webServer = handleHTTPS(app, configPath, config);
@@ -103,11 +63,7 @@ function unlinkAddressPath(addr) {
   }
 }
 
-function displayHTTPSWarning(storageLocation) {
-  const resolveConfigPath = function(file) {
-    return Path.resolve(Path.dirname(storageLocation), file);
-  };
-
+function logHTTPSWarning(storageLocation) {
   logger.logger.fatal([
     'You have enabled HTTPS and need to specify either ',
     '    "https.key", "https.cert" and "https.ca" or ',
@@ -116,16 +72,16 @@ function displayHTTPSWarning(storageLocation) {
     '',
     // commands are borrowed from node.js docs
     'To quickly create self-signed certificate, use:',
-    ' $ openssl genrsa -out ' + resolveConfigPath('verdaccio-key.pem') + ' 2048',
-    ' $ openssl req -new -sha256 -key ' + resolveConfigPath('verdaccio-key.pem') + ' -out ' + resolveConfigPath('verdaccio-csr.pem'),
-    ' $ openssl x509 -req -in ' + resolveConfigPath('verdaccio-csr.pem') +
-    ' -signkey ' + resolveConfigPath('verdaccio-key.pem') + ' -out ' + resolveConfigPath('verdaccio-cert.pem'),
+    ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
+    ' $ openssl req -new -sha256 -key ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, csrPem),
+    ' $ openssl x509 -req -in ' + resolveConfigPath(storageLocation, csrPem) +
+    ' -signkey ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, certPem),
     '',
     'And then add to config file (' + storageLocation + '):',
     '  https:',
-    `    key: ${resolveConfigPath('verdaccio-key.pem')}`,
-    `    cert: ${resolveConfigPath('verdaccio-cert.pem')}`,
-    `    ca: ${resolveConfigPath('verdaccio-csr.pem')}`,
+    `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
+    `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
+    `    ca: ${resolveConfigPath(storageLocation, csrPem)}`,
   ].join('\n'));
   process.exit(2);
 }
