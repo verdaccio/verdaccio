@@ -15,9 +15,9 @@ Veamos por ejemplo la siguiente configuración. Tienes un conjunto de dependenci
     proxy: npmjs
 ```
 
-Con esta configuración, básicamente le permitimos agrupar **admin** and **teamA** para * publicar* y **teamA** **teamB** **teamC** *access* a dichas dependencias.
+With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
 
-### Use case: teamD try to access the dependency
+### Caso de Uso: teamD trata de acceder a la dependencia
 
 Entonces, si yo estoy conectado como **teamD**. No debería ser capaz de acceder a todas las dependencias que cumplan con el patrón `my-company-*`.
 

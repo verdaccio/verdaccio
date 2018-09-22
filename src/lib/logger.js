@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const Utils = require('./utils');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
+const {format} = require('date-fns');
 
 /**
  * Match the level based on buyan severity scale
@@ -101,7 +102,7 @@ function setup(logs) {
       } else if (target.format === 'pretty-timestamped') {
         // making fake stream for pretty pritting
         stream.write = (obj) => {
-          destination.write(`${obj.time.toISOString()}${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+          destination.write(`[${format(obj.time, 'YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else {
         stream.write = (obj) => {

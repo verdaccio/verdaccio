@@ -25,7 +25,7 @@ Tôi muốn trang web `verdaccio` trở thành trang mặc định trong IIS, v�
 
 Những nguyên tắc này dựa trên [ Host Sinopia trong IIS trên Windows ](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tôi phải điều chỉnh cấu hình trang web của mình như sau, tuy nhiên bạn có thể nhận thấy cấu hình ban đầu trong liên kết được đề cập ở trên hoạt động tốt hơn
 
-Tệp cấu hình mặc định `c:\verdaccio\verdaccio\config.yaml` sẽ được tạo
+Tệp tin cấu hình mặc định `c:\verdaccio\verdaccio\config.yaml` sẽ được tạo
 
 ### package.json
 

@@ -1,51 +1,51 @@
 ---
 id: windows
-title: "Installing As a Windows Service"
+title: "Installazione come servizio di Windows"
 ---
-Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). I crafted the following and it provided me with a fully working verdaccio service installation:
+Basato approssimativamente sulle istruzioni che trovi [qui](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). Ho elaborato ciò che segue e mi ha fornito un servizio di installazione per verdaccio completamente funzionante:
 
-1. Create a directory for verdaccio 
+1. Creare una directory per verdaccio 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
-2. Install verdaccio locally (I ran into npm issues with global installs) 
+2. Installare verdaccio localmente (ho incontrato problemi con npm con le installazioni generali) 
     * npm install verdaccio
-3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
-4. Windows Service Setup
+3. Creare il file `config.yaml` in questa posizione `(c:\verdaccio\config.yaml)`
+4. Configurare Windows Service
 
-## Using NSSM
+## Utilizzo di NSSM
 
-ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
+METODO ALTERNATIVO: (il pacchetto WinSW non era presente quando ho provato a scaricarlo)
 
-* Download [NSSM](https://www.nssm.cc/download/) and extract
+* Scaricare [NSMM](https://www.nssm.cc/download/) ed estrarlo
 
-* Add the path that contains nssm.exe to the PATH
+* Aggiungere il percorso che contiene nssm.exe al PERCORSO
 
-* Open an administrative command
+* Aprire un comando amministrativo
 
-* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
+* Eseguire nssm install verdaccio. È necessario inserire nel Percorso della Application tab, la cartella Startup e i campi Argomenti. Supponendo un'installazione con node nel percorso di sistema ed una posizione di c:\verdaccio, i valori qui sotto funzioneranno:
     
-    * Path: `node`
-    * Startup directory: `c:\verdaccio`
-    * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
+    * Percorso: `node`
+    * Cartella di avvio: `c:\verdaccio`
+    * Argomenti: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    You can adjust other service settings under other tabs as desired. When you are done, click Install service button
+    Se si desidera, è possibile adattare configurazioni di servizio alternative sotto altre tab. Una volta terminato, cliccare sul bottone di installazione
     
-    * Start the service sc start verdaccio
+    * Avviare il servizio sc start verdaccio
 
-## Using WinSW
+## Utilizzo di WinSW
 
-* As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
-* Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
-    * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
-* Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
-* Install your service 
+* A partire dal 27/10/2015, WinSW non è più disponibile nella posizione seguente. Si prega di seguire le istruzioni di utilizzo NSSM scritte sopra.
+* Scaricare [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
+    * Collocare l'eseguibile (e.g. `winsw-1.9-bin.exe`) in questa cartella (`c:\verdaccio`) e rinominarlo `verdaccio-winsw.exe`
+* Creare un file di configurazione in `c:\verdaccio`, denominato `verdaccio-winsw.xml` con la seguente configurazione `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
+* Installare il servizio 
     * `cd c:\verdaccio`
     * `verdaccio-winsw.exe install`
-* Start your service 
+* Avviare il servizio 
     * `verdaccio-winsw.exe start`
 
-Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
+Alcune delle configurazioni sopra citate sono più dettagliate di quanto mi aspettassi, sembra comunque che 'workingdirectory' venga ignorato, ma a parte questo, per me funziona e permette, nel mio caso, che verdaccio continui a funzionare tra i riavvi del server, ed inoltre che si riavvii da solo qualora dovessero esserci crash del processo di verdaccio.
 
-## Repositories
+## Repositori
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)

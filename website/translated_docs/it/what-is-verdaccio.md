@@ -1,52 +1,52 @@
 ---
 id: what-is-verdaccio
-title: "What is Verdaccio?"
+title: "Cos'è Verdaccio?"
 ---
-Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
+Verdaccio è un **registro proxy npm leggero e privato** scritto in **Node.js**
 
-## What's a registry
+## Cos'è un registro
 
-* A repository for packages that implements the **CommonJS Compliant Package Registry specification** for reading package info
-* Provide an API compatible with npm clients **(yarn/npm/pnpm)**
-* Follow the semantic Versioning compatible **(semver)**
+* Un repositorio per pacchetti che implementa la **specificazione CommonJS Compliant Package Registry** per la lettura delle informazioni dei pacchetti
+* Fornisce un API compatibile con i client npm **(yarn/npm/pnpm)**
+* Segue il Versionamento semantico compatibile **(semver)**
 
     $> verdaccio
     
 
 ![registry](/svg/verdaccio_server.gif)
 
-## Using Verdaccio
+## Utilizzo di Verdaccio
 
-Using verdaccio with any node package manager client is quite straightforward.
+L'uso di verdaccio con qualsiasi gestore del pacchetto di nodi dei client è molto semplice.
 
 ![registry](/svg/npm_install.gif)
 
-You can use a custom registry either setting globally for all your projects
+È possibile utilizzare un registro personalizzato oppure settarlo in generale per tutti i tuoi progetti
 
     npm set registry http://localhost:4873
     
 
-or by command line as argument `--registry` in npm (slightly different in yarn)
+o da riga di comando come argomento `--registry` in npm (leggermente diverso in yarn)
 
     npm install lodash --registry http://localhost:4873
     
 
-## Private
+## Privato
 
-All packages that you publish are private and only accessible based in your configuration.
+Tutti i pacchetti che pubblichi sono privati e accessibili soltanto in base alla tua configurazione.
 
 ## Proxy
 
-Verdaccio cache all dependencies by demand and speed up installations in local or private networks.
+Verdaccio memorizza tutte le dipendenze su richiesta e velocizza le installazioni in locale o su reti private.
 
-## Verdaccio in a nutshell
+## Verdaccio in pillole
 
-* It's a web app based on Node.js
-* It's a private npm registry
-* It's a local network proxy
-* It's a Pluggable application
-* It's a fairly easy install and use
-* We offer Docker and Kubernetes support
-* It is 100% compatible with yarn, npm and pnpm
-* It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
-* Verdaccio means **A green color popular in late medieval Italy for fresco painting**.
+* È un'applicazione web basata su Node.js
+* È un registro npm privato
+* È un proxy di rete locale
+* È un'applicazione estensibile
+* È discretamente facile da installare e da usare
+* Offriamo supporto Docker e Kubernetes
+* È 100% compatibile con yarn, npm e pnpm
+* È un **fork** basato su `sinopia@1.4.0` e 100% **retrocompatible**.
+* Il nome Verdaccio viene da **Una tonalità di verde, popolare nell'Italia tardo medievale usata per gli affreschi**.

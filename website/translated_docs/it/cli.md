@@ -1,24 +1,24 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: "Strumento riga di comando"
 ---
-The verdaccio CLI is your go start the application.
+Il CLI di verdaccio è la modalità per avviare l'applicazione.
 
-## Commands
+## Comandi
 
 ```bash
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
-| ------------------ | ------------------------------ | -------------- | ---------------------- |
-| --listen \ **-l** | 4873                           | -p 7000        | http port              |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
+| Comandi            | Impostazione predefinita       | Esempio        | Descrizione               |
+| ------------------ | ------------------------------ | -------------- | ------------------------- |
+| --listen \ **-l** | 4873                           | -p 7000        | porta http                |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | il file di configurazione |
 
-## Default config file location
+## Posizione predefinita dei file config
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+Per individuare la home directory, ci si affida a **$XDG_DATA_HOME** come prima scelta ed in un ambiente Windows si usa [variabile di ambiente APPDATA](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
-## Default storage location
+## Percorso di archiviazione predefinito
 
-We use **$XDG_DATA_HOME** environment variable as default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share. If you are using a custom storage, this location is irrelevant.
+Si usa la variabile di ambiente **$XDG_DATA_HOME** di default per individuare l'archiviazione predefinita che [dovrebbe essere la stessa](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) di $HOME/.local/share. Se si utilizza un'archiviazione dati personalizzata, questo percorso è irrilevante.

@@ -31,7 +31,7 @@ logs:
 
 ## Secciones
 
-Las siguientes seciones explican que significa cada propiedad y todas sus diferentes opciones.
+Las siguientes secciones explican que significa cada propiedad y todas sus diferentes opciones.
 
 ### Almacenamiento
 
@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-Estas propiedades te permiten modificar el aspecto del interfaz web. Para mas información sobre esta sección lea [la página de interfaz web](web.md).
+This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
 ```yaml
 web:

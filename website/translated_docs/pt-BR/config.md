@@ -62,7 +62,7 @@ auth:
 
 ### Web UI
 
-This properties allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
 ```yaml
 web:
@@ -107,13 +107,13 @@ publish:
 
 <small>Since: <code>verdaccio@2.3.6</code> due <a href="https://github.com/verdaccio/verdaccio/pull/223">#223</a></small>
 
-### URL Prefix
+### Prefixo de URL
 
 ```yaml
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Desde: `verdaccio@2.3.6` feito em [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### Max Body Size
 
@@ -152,7 +152,7 @@ https:
 
 Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
 
-#### http_proxy and https_proxy
+#### http_proxy e https_proxy
 
 If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
 

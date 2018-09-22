@@ -55,7 +55,7 @@ Apache 虚拟服务器配置
 
 如果您在逆向代理服务器后运行verdaccio，您可能会注意到所有源文件都起到相关路径的作用，如 `http://127.0.0.1:4873/-/static`
 
-要解决这个问题，您应该用 `Host`heade发送实际域名和端口到 verdaccio。
+To resolve this issue, you should send real domain and port to verdaccio with `Host` header
 
 Nginx configure应该如下所示：
 
@@ -85,4 +85,4 @@ location ~ ^/verdaccio/(.*)$ {
 
 在这个例子里， `url_prefix` 应该设置为`/verdaccio/`
 
-> 请注意: 在安装路径 (`https://your-domain:port/vardaccio/`)后有一条斜线!
+> Note: There is a Slash after install path (`https://your-domain:port/verdaccio/`)!
