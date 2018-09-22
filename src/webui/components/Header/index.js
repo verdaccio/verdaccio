@@ -4,16 +4,16 @@
 
 // @flow
 
-import React, {Component, MouseEvent} from 'react';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import React, {Component} from 'react';
+import Button from '@material-ui/core/Button/index';
+import IconButton from '@material-ui/core/IconButton/index';
+import MenuItem from '@material-ui/core/MenuItem/index';
+import Menu from '@material-ui/core/Menu/index';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Info from '@material-ui/icons/Info';
 import Help from '@material-ui/icons/Help';
 import FileCopy from '@material-ui/icons/FileCopy';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@material-ui/core/Tooltip/index';
 
 import {getRegistryURL} from '../../utils/url';
 import {copyToClipBoard} from '../../utils/styles/mixins';
@@ -25,6 +25,13 @@ import {IProps, IState} from './interfaces';
 import {Wrapper, InnerWrapper, ClipBoardCopy, ClipBoardCopyText, CopyIcon} from './styles';
 
 class Header extends Component<IProps, IState> {
+  handleMenu: Function;
+  handleClose: Function;
+  handleOpenInfoDialog: Function;
+  handleCloseInfoDialog: Function;
+  handleToggleLogin: Function;
+  renderInfoDialog: Function;
+
   constructor() {
     super();
     this.handleMenu = this.handleMenu.bind(this);
@@ -34,7 +41,6 @@ class Header extends Component<IProps, IState> {
     this.handleToggleLogin = this.handleToggleLogin.bind(this);
     this.renderInfoDialog = this.renderInfoDialog.bind(this);
     this.state = {
-      anchorEl: null,
       openInfoDialog: false,
       registryUrl: '',
     };
@@ -47,7 +53,7 @@ class Header extends Component<IProps, IState> {
     });
   }
 
-  handleMenu(event: MouseEvent<HTMLElement>) {
+  handleMenu(event: SyntheticEvent<HTMLElement>) {
     this.setState({
       anchorEl: event.currentTarget,
     });
@@ -157,8 +163,10 @@ class Header extends Component<IProps, IState> {
     const {openInfoDialog, registryUrl} = this.state;
     return (
       <InfoDialog open={openInfoDialog} onClose={this.handleCloseInfoDialog}>
-        {this.renderCopyToClibBoard(`npm set ${scope} registry ${registryUrl}`)}
-        {this.renderCopyToClibBoard(`npm adduser --registry ${registryUrl}`)}
+        <div>
+          {this.renderCopyToClibBoard(`npm set ${scope} registry ${registryUrl}`)}
+          {this.renderCopyToClibBoard(`npm adduser --registry ${registryUrl}`)}
+        </div>
       </InfoDialog>
     );
   }

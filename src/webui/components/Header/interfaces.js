@@ -12,7 +12,7 @@ export interface IProps {
 }
 
 export interface IState {
-  anchorEl?: HTMLElement;
+  anchorEl?: any;
   openInfoDialog: boolean;
   registryUrl: string;
 }

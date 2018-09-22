@@ -5,8 +5,8 @@
 /* @flow */
 
 import styled from 'react-emotion';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle/index';
+import DialogContent from '@material-ui/core/DialogContent/index';
 import colors from '../../../utils/styles/colors';
 import {fontSize} from '../../../utils/styles/sizes';
 

@@ -5,9 +5,9 @@
 /* @flow */
 
 import styled, {css} from 'react-emotion';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import AppBar from '@material-ui/core/AppBar/index';
+import Toolbar from '@material-ui/core/Toolbar/index';
+import IconButton from '@material-ui/core/IconButton/index';
 import colors from '../../utils/styles/colors';
 import mq from '../../utils/styles/media';
 
