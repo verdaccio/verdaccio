@@ -1,4 +1,5 @@
 // @flow
+// @prettier
 import _ from 'lodash';
 import fs from 'fs';
 import assert from 'assert';
@@ -13,6 +14,7 @@ import {
   API_ERROR,
   DEFAULT_PORT,
   DEFAULT_DOMAIN,
+  CHARACTER_ENCODING
 } from './constants';
 import {generateGravatarUrl} from '../utils/user';
 
@@ -41,17 +43,17 @@ export function convertPayloadToBase64(payload: string): Buffer {
  * Validate a package.
  * @return {Boolean} whether the package is valid or not
  */
-function validate_package(name: any): boolean {
-  name = name.split('/', 2);
-  if (name.length === 1) {
+export function validatePackage(name: string): boolean {
+  const nameList = name.split('/', 2);
+  if (nameList.length === 1) {
     // normal package
-    return validateName(name[0]);
+    return validateName(nameList[0]);
   } else {
     // scoped package
     return (
-      name[0][0] === '@' &&
-      validateName(name[0].slice(1)) &&
-      validateName(name[1])
+      nameList[0][0] === '@' &&
+      validateName(nameList[0].slice(1)) &&
+      validateName(nameList[1])
     );
   }
 }
@@ -61,7 +63,7 @@ function validate_package(name: any): boolean {
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
  */
-function validateName(name: string): boolean {
+export function validateName(name: string): boolean {
   if (_.isString(name) === false) {
     return false;
   }
@@ -84,7 +86,7 @@ function validateName(name: string): boolean {
  * @param {*} obj the element
  * @return {Boolean}
  */
-function isObject(obj: any): boolean {
+export function isObject(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
@@ -95,7 +97,7 @@ function isObject(obj: any): boolean {
  * @param {*} name
  * @return {Object} the object with additional properties as dist-tags ad versions
  */
-function validate_metadata(object: Package, name: string) {
+export function validateMetadata(object: Package, name: string): Object {
   assert(isObject(object), 'not a json object');
   assert.equal(object.name, name);
 
@@ -118,7 +120,7 @@ function validate_metadata(object: Package, name: string) {
  * Create base url for registry.
  * @return {String} base registry url
  */
-function combineBaseUrl(
+export function combineBaseUrl(
   protocol: string,
   host: string,
   prefix?: string
@@ -204,15 +206,11 @@ export function getLocalRegistryTarballUri(
  * @param {*} tag
  * @return {Boolean} whether a package has been tagged
  */
-function tagVersion(data: Package, version: string, tag: StringValue) {
-  if (tag) {
-    if (data[DIST_TAGS][tag] !== version) {
-      if (semver.parse(version, true)) {
-        // valid version - store
-        data[DIST_TAGS][tag] = version;
-        return true;
-      }
-    }
+export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
+  if (tag && data[DIST_TAGS][tag] !== version && semver.parse(version, true)) {
+    // valid version - store
+    data[DIST_TAGS][tag] = version;
+    return true;
   }
   return false;
 }
@@ -221,7 +219,7 @@ function tagVersion(data: Package, version: string, tag: StringValue) {
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
-function getVersion(pkg: Package, version: any) {
+export function getVersion(pkg: Package, version: any) {
   // this condition must allow cast
   if (pkg.versions[version] != null) {
     return pkg.versions[version];
@@ -254,7 +252,7 @@ function getVersion(pkg: Package, version: any) {
  * @param {*} urlAddress the internet address definition
  * @return {Object|Null} literal object that represent the address parsed
  */
-function parse_address(urlAddress: any) {
+export function parseAddress(urlAddress: any) {
   //
   // TODO: refactor it to something more reasonable?
   //
@@ -287,7 +285,7 @@ function parse_address(urlAddress: any) {
  * Function filters out bad semver versions and sorts the array.
  * @return {Array} sorted Array
  */
-function semverSort(listVersions: Array<string>): string[] {
+export function semverSort(listVersions: Array<string>): string[] {
   return listVersions
     .filter(function(x) {
       if (!semver.parse(x, true)) {
@@ -353,7 +351,7 @@ const parseIntervalTable = {
  * @param {*} interval
  * @return {Number}
  */
-function parseInterval(interval: any) {
+export function parseInterval(interval: any): number {
   if (typeof interval === 'number') {
     return interval * 1000;
   }
@@ -380,16 +378,16 @@ function parseInterval(interval: any) {
  * @param {*} req
  * @return {String}
  */
-function getWebProtocol(req: $Request) {
+export function getWebProtocol(req: $Request): string {
   return req.get('X-Forwarded-Proto') || req.protocol;
 }
 
-const getLatestVersion = function(pkgInfo: Package) {
+export function getLatestVersion(pkgInfo: Package): string {
   return pkgInfo[DIST_TAGS].latest;
 };
 
-const ErrorCode = {
-  getConflict: (message: string = 'this package is already present') => {
+export const ErrorCode = {
+  getConflict: (message: string = API_ERROR.PACKAGE_EXIST) => {
     return createError(HTTP_STATUS.CONFLICT, message);
   },
   getBadData: (customMessage?: string) => {
@@ -422,15 +420,16 @@ const ErrorCode = {
   },
 };
 
-const parseConfigFile = (configPath: string) =>
-  YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
+export function parseConfigFile (configPath: string): Object {
+  return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+}
 
 /**
  * Check whether the path already exist.
  * @param {String} path
  * @return {Boolean}
  */
-function folder_exists(path: string) {
+export function folderExists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
@@ -444,7 +443,7 @@ function folder_exists(path: string) {
  * @param {String} path
  * @return {Boolean}
  */
-function fileExists(path: string) {
+export function fileExists(path: string): boolean {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
@@ -453,7 +452,7 @@ function fileExists(path: string) {
   }
 }
 
-function sortByName(packages: Array<any>): string[] {
+export function sortByName(packages: Array<any>): string[] {
   return packages.sort(function(a, b) {
     if (a.name < b.name) {
       return -1;
@@ -463,11 +462,11 @@ function sortByName(packages: Array<any>): string[] {
   });
 }
 
-function addScope(scope: string, packageName: string) {
+export function addScope(scope: string, packageName: string) {
   return `@${scope}/${packageName}`;
 }
 
-function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
+export function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
   _.forEach(propertiesToDelete, (property) => {
     delete objectItem[property];
   });
@@ -475,7 +474,7 @@ function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
   return objectItem;
 }
 
-function addGravatarSupport(pkgInfo: Object): Object {
+export function addGravatarSupport(pkgInfo: Object): Object {
   const pkgInfoCopy = {...pkgInfo};
   const author = _.get(pkgInfo, 'latest.author', null);
   const contributors = _.get(pkgInfo, 'latest.contributors', []);
@@ -519,7 +518,7 @@ function addGravatarSupport(pkgInfo: Object): Object {
  * @param {String} readme package readme
  * @return {String} converted html template
  */
-function parseReadme(packageName: string, readme: string): string {
+export function parseReadme(packageName: string, readme: string): string {
   if (readme) {
     return marked(readme);
   }
@@ -530,30 +529,6 @@ function parseReadme(packageName: string, readme: string): string {
   return marked('ERROR: No README data found!');
 }
 
-export function buildToken(type: string, token: string) {
+export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;
 }
-
-export {
-  addGravatarSupport,
-  deleteProperties,
-  addScope,
-  sortByName,
-  folder_exists,
-  fileExists,
-  parseInterval,
-  semverSort,
-  parse_address,
-  getVersion,
-  tagVersion,
-  combineBaseUrl,
-  validate_metadata,
-  isObject,
-  validateName,
-  validate_package,
-  getWebProtocol,
-  getLatestVersion,
-  ErrorCode,
-  parseConfigFile,
-  parseReadme,
-};

@@ -9,7 +9,7 @@ import https from 'https';
 // $FlowFixMe
 import constants from 'constants';
 import endPointAPI from '../api/index';
-import {parse_address} from './utils';
+import {parseAddress} from './utils';
 
 import type {Callback} from '@verdaccio/types';
 import type {$Application} from 'express';
@@ -41,7 +41,7 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
     addresses = [DEFAULT_PORT];
   }
   addresses = addresses.map(function(addr) {
-    const parsedAddr = parse_address(addr);
+    const parsedAddr = parseAddress(addr);
 
     if (!parsedAddr) {
       logger.logger.warn({addr: addr},

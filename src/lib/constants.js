@@ -13,6 +13,10 @@ export const HEADERS = {
   GZIP: 'gzip',
 };
 
+export const CHARACTER_ENCODING = {
+  UTF8: 'utf8'
+}
+
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',
   CONTENT_TYPE: 'content-type',
@@ -36,7 +40,7 @@ export const ROLES = {
   $ANONYMOUS: '$anonymous',
   DEPRECATED_ALL: '@all',
   DEPRECATED_AUTH: '@authenticated',
-  DEPRECATED_ANONUMOUS: '@anonymous',
+  DEPRECATED_ANONYMOUS: '@anonymous',
 };
 
 export const HTTP_STATUS = {
@@ -49,7 +53,7 @@ export const HTTP_STATUS = {
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   CONFLICT: 409,
-  UNSUPORTED_MEDIA: 415,
+  UNSUPPORTED_MEDIA: 415,
   BAD_DATA: 422,
   INTERNAL_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,
@@ -104,3 +108,7 @@ export const PACKAGE_ACCESS = {
   SCOPE: '@*/*',
   ALL: '**',
 };
+
+export const UPDATE_BANNER = {
+  CHANGELOG_URL: 'https://github.com/verdaccio/verdaccio/releases/tag/'
+}
