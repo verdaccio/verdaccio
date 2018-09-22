@@ -23,9 +23,9 @@ Desideravo che `verdaccio` fosse il sito di default su IIS, quindi ho intrapreso
 - Ho arrestato il "Sito Web predefinito" e ho avviato esclusivamente il sito "verdaccio" su IIS
 - Ho stabilito le connessioni a "http", indirizzo ip "All Unassigned" sulla porta 80, ok qualsiasi avvertenza o prompt
 
-Queste istruzioni sono basate su [Host Sinopia in IIS su Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Queste istruzioni sono basate su [Host Sinopia in IIS su Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Ho dovuto fare un piccolo aggiustamento alla configurazione web come si può notare qui sotto, ma è possibile trovare l'originale dal link menzionato che funziona meglio
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Verrà creato un file di configurazione predefinito `c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
@@ -97,7 +97,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### Risoluzione dei problemi
 
 - **The web interface does not load when hosted with https as it tries to download scripts over http.**  
     Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
