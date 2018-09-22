@@ -10,13 +10,16 @@ import MenuItem from '@material-ui/core/MenuItem/index';
 import Menu from '@material-ui/core/Menu/index';
 import Info from '@material-ui/icons/Info';
 import Help from '@material-ui/icons/Help';
+import Tooltip from '@material-ui/core/Tooltip';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import {getRegistryURL} from '../../utils/url';
 import Link from '../Link';
 import Logo from '../Logo';
 import CopyToClipBoard from '../CopyToClipBoard/index';
-
 import RegistryInfoDialog from '../RegistryInfoDialog';
+
+import type {Node} from 'react';
 import {IProps, IState} from './interfaces';
 import {Wrapper, InnerWrapper} from './styles';
 
@@ -97,7 +100,7 @@ class Header extends Component<IProps, IState> {
     );
   }
 
-  renderLeftSide() {
+  renderLeftSide(): Node {
     return (
       <Link to="/">
         <Logo />
@@ -105,19 +108,23 @@ class Header extends Component<IProps, IState> {
     );
   }
 
-  renderRightSide() {
+  renderRightSide(): Node {
     const {username = ''} = this.props;
     const installationLink = 'https://verdaccio.org/docs/en/installation';
     return (
       <div>
-        <IconButton color="inherit" component={Link} to={installationLink} blank>
-          <Help />
-        </IconButton>
-        <IconButton color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
-          <Info />
-        </IconButton>
+        <Tooltip title="Documentation">
+          <IconButton color="inherit" component={Link} to={installationLink} blank>
+            <Help />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Registry Information">
+          <IconButton color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
+            <Info />
+          </IconButton>
+        </Tooltip>
         {username ? (
-          this.renderMenu(username)
+          this.renderMenu()
         ) : (
           <Button color="inherit" onClick={this.handleToggleLogin}>
             Login
@@ -130,15 +137,15 @@ class Header extends Component<IProps, IState> {
   /**
    * render popover menu
    */
-  renderMenu(username: string) {
+  renderMenu(): Node {
     const {handleLogout} = this.props;
     const {anchorEl} = this.state;
     const open = Boolean(anchorEl);
     return (
       <React.Fragment>
-        <Button color="inherit" aria-owns="sidebar-menu" aria-haspopup="true" onClick={this.handleLoggedInMenu}>
-          Hi, {username}
-        </Button>
+        <IconButton aria-owns="sidebar-menu" aria-haspopup="true" color="inherit" onClick={this.handleLoggedInMenu}>
+          <AccountCircle />
+        </IconButton>
         <Menu
           id="sidebar-menu"
           anchorEl={anchorEl}
@@ -159,7 +166,7 @@ class Header extends Component<IProps, IState> {
     );
   }
 
-  renderInfoDialog() {
+  renderInfoDialog(): Node {
     const {scope} = this.props;
     const {openInfoDialog, registryUrl} = this.state;
     return (
