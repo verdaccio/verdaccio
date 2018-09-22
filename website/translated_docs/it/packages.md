@@ -1,14 +1,14 @@
 ---
-id: packages
-title: "Package Access"
+id: pacchetti
+title: "Accesso al pacchetto"
 ---
-It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
+È una serie di restrizioni che permettono o limitano l'accesso all'archiviazione locale basandosi su criteri specifici.
 
-The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
+Le restrizioni di sicurezza dipendono dal plugin che si sta utilizzando, `verdaccio` usa di default il [plugin htpasswd](https://github.com/verdaccio/verdaccio-htpasswd). Se si usa un plugin differente il funzionamento potrebbe essere diverso. Il plugin predefinito non gestisce direttamente `allow_access` e `allow_publish`, ma utilizza un'alternativa interna nel caso in cui il plugin non sia pronto per questo.
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+Per ulteriori informazioni sui permessi, visita [la sezione autenticazione nella wiki](auth.md).
 
-### Usage
+### Utilizzo
 
 ```yalm
 packages:
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+se non ne viene specificato nemmeno uno, rimane quello predefinito
 
 ```yaml
 packages:
@@ -40,20 +40,20 @@ packages:
      publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+La lista di gruppi validi a seconda dei plugin predefiniti è
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+Tutti gli utenti ricevono tutti questi gruppi di permessi indipendentemente dal fatto che siano anonimi o no, più i gruppi previsti dal plugin, nel caso `htpasswd` respinga lo username come un gruppo. Per esempio, se si è loggati come `npmUser` l'elenco dei nomi sarà.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need to do something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend using a prefix for your packages, in that way it will be easier to protect them.
+Se si desidera proteggere un insieme specifico di pacchetti dentro al proprio gruppo, è necessario fare qualcosa simile a questo. Utilizziamo un `Regex` che copra tutti i pacchetti con prefisso `npmuser-`. Raccomandiamo di utilizzare un prefisso per i pacchetti, in modo che possa essere più semplice proteggerli.
 
 ```yaml
 packages:
@@ -62,7 +62,7 @@ packages:
      publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Riavviare `verdaccio` e provare ad installare `npmuser-core` nella console.
 
 ```bash
 $ npm install npmuser-core
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+È possibile modificare la condotta esistente utilizzando un plugin di autenticazione differente. `verdaccio` verifica semplicemente che l'utente che ha provato ad accedere o pubblicare un pacchetto specifico appartenga al gruppo corretto.
 
-#### Set multiple groups
+#### Definire gruppi multipli
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+Definire gruppi di accesso multipli è abbastanza facile, è sufficiente distinguerli semplicemente con uno spazio bianco tra di essi.
 
 ```yaml
   'company-*':
@@ -92,9 +92,9 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 ```
 
-#### Blocking access to set of packages
+#### Bloccare l'accesso a gruppi di pacchetti
 
-If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
+Se si desidera bloccare l'accesso/pubblicazione ad uno specifico gruppo di pacchetti, è sufficiente non definire `access` e `publish`.
 
 ```yaml
 packages:
@@ -104,11 +104,11 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Bloccare l'inoltro di un gruppo di pacchetti specifici
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Si potrebbe voler impedire che uno o vari pacchetti vengano raggiunti dai registri remoti, ma allo stesso tempo, permettere ad altri l'accesso a differenti *uplink*.
 
-Let's see the following example:
+Vediamo l'esempio seguente:
 
 ```yaml
 packages:
@@ -127,24 +127,24 @@ packages:
      proxy: npmjs
 ```
 
-Let's describe what we want with the above example:
+Descriviamo quello che si desidera con l'esempio precedente:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+* Desidero ospitare la mia dipendenza `jquery` ma ho necessità di evitare il suo inoltro.
+* Desidero tutte le dipendenze che coincidano con `my-company-*` ma ho necessità di evitare di inoltrarle.
+* Desidero tutte le dipendenze che si trovino nell'ambito `my-local-scope` ma ho necessità di evitare di inoltrarle.
+* Desidero l'inoltro per tutte le dipendenze rimanenti.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+**Non dimenticare l'importanza dell'ordine dei pacchetti e di utilizzare sempre il doppio asterisco**. Poiché se non lo si include, `verdaccio` lo includerà per voi e questo inciderà sulla modalità con cui le dipendenze sono risolte.
 
-### Configuration
+### Configurazione
 
-You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
+Si possono definire `pacchetti` multipli ed ognuno di essi deve avere un `Regex` unico. La sintassi è basata su [ espressioni minimatch glob](https://github.com/isaacs/minimatch).
 
-| Property | Type    | Required | Example        | Support | Description                                 |
-| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
+| Proprietà     | Tipo               | Richiesto | Esempio        | Supporto | Descrizione                                             |
+| ------------- | ------------------ | --------- | -------------- | -------- | ------------------------------------------------------- |
+| accesso       | stringa            | No        | $all           | tutti    | definisce i gruppi autorizzati ad accedere al pacchetto |
+| pubblicazione | stringa            | No        | $authenticated | tutti    | definisce i gruppi autorizzati a pubblicare             |
+| proxy         | stringa            | No        | npmjs          | tutti    | limita le ricerche di un uplink specifico               |
+| archiviazione | variabile booleana | No        | [vero/falso]   | tutti    | TODO                                                    |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Vogliamo rimarcare che non raccomandiamo più l'utilizzo di **allow_access**/**allow_publish** e **proxy_access** che sono superati e saranno presto rimossi, si prega di utilizzare invece la versione breve di ognuna di queste (**access**/**publish**/**proxy**).

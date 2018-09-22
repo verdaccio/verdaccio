@@ -1,55 +1,55 @@
 ---
 id: logo
-title: "Verdaccio Logotype"
+title: "Logo di Verdaccio"
 ---
-The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbreno)** which won the [contest](https://github.com/verdaccio/verdaccio/issues/237) ([last stage](https://github.com/verdaccio/verdaccio/issues/328)) and donated his work to this project.
+Il logo è stato disegnato da **[Breno Rodrigues](https://github.com/rodriguesbreno)** che ha vinto il [contest](https://github.com/verdaccio/verdaccio/issues/237) ([fase finale](https://github.com/verdaccio/verdaccio/issues/328)) e ha donato il suo lavoro per questo progetto.
 
-> All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+> Tutti i loghi sono registrati sotto la licenza [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
-Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution with multiple image formats and sizes.
+Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)* per aver contribuito con diversi formati e dimensioni dell'immagine.
 
-## Symbols
+## Simboli
 
-**With text**
+**Con testo**
 
-![symbol tiny with text](/img/logo/symbol/png/logo-small-header-bottom.png)
+![simbolo piccolo con testo](/img/logo/symbol/png/logo-small-header-bottom.png)
 
-![symbol medium with text](/img/logo/symbol/png/logo-small-header-bottom@2x.png)
+![simbolo medio con testo](/img/logo/symbol/png/logo-small-header-bottom@2x.png)
 
-![symbol big with text](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
-
-**SVG**
-
-![symbol svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
-
-**No text**
-
-![symbol tiny](/img/logo/symbol/png/verdaccio-tiny.png)
-
-![symbol medium](/img/logo/symbol/png/verdaccio-tiny@2x.png)
-
-![symbol big](/img/logo/symbol/png/verdaccio-tiny@3x.png)
+![simbolo grande con testo](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
 
 **SVG**
 
-![svg format symbol no text](/img/logo/symbol/svg/verdaccio-tiny.svg)
+![simbolo svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
 
-### Black&White
+**Senza testo**
 
-![symbol bw small](/img/logo/symbol/png/verdaccio-blackwhite.png)
+![simbolo piccolo](/img/logo/symbol/png/verdaccio-tiny.png)
 
-![symbol bw medium](/img/logo/symbol/png/verdaccio-blackwhite@2x.png)
+![simbolo medio](/img/logo/symbol/png/verdaccio-tiny@2x.png)
 
-![symbol bw big](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
+![simbolo grande](/img/logo/symbol/png/verdaccio-tiny@3x.png)
 
 **SVG**
 
-![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
+![formato svg simbolo senza testo](/img/logo/symbol/svg/verdaccio-tiny.svg)
+
+### Nero&Bianco
+
+![simbolo bianco e nero piccolo](/img/logo/symbol/png/verdaccio-blackwhite.png)
+
+![simbolo bianco e nero medio](/img/logo/symbol/png/verdaccio-blackwhite@2x.png)
+
+![simbolo bianco e nero grande](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
+
+**SVG**
+
+![simbolo bianco e nero svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
 
 ## Banner
 
-![banner small](/img/logo/banner/png/verdaccio-banner.png)
+![banner piccolo](/img/logo/banner/png/verdaccio-banner.png)
 
-![banner medium](/img/logo/banner/png/verdaccio-banner@2x.png)
+![banner medio](/img/logo/banner/png/verdaccio-banner@2x.png)
 
-![banner big](/img/logo/banner/png/verdaccio-banner@3x.png)
+![banner grande](/img/logo/banner/png/verdaccio-banner@3x.png)
