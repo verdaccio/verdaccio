@@ -7,7 +7,7 @@ import {
   validateName,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
-  addGravatarSupport, validate_package, validate_metadata, DIST_TAGS, combineBaseUrl, getVersion, normalizeDistTags
+  addGravatarSupport, validatePackage, validateMetadata, DIST_TAGS, combineBaseUrl, getVersion, normalizeDistTags
 } from '../../../src/lib/utils';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
@@ -138,20 +138,20 @@ describe('Utilities', () => {
 
     });
 
-    describe('validate_package', () => {
+    describe('validatePackage', () => {
       test('should validate package names', () => {
-        expect(validate_package("package-name")).toBeTruthy();
-        expect(validate_package("@scope/package-name")).toBeTruthy();
+        expect(validatePackage("package-name")).toBeTruthy();
+        expect(validatePackage("@scope/package-name")).toBeTruthy();
       });
 
       test('should fails on validate package names', () => {
-        expect(validate_package("package-name/test/fake")).toBeFalsy();
-        expect(validate_package("@/package-name")).toBeFalsy();
-        expect(validate_package("$%$%#$%$#%#$%$#")).toBeFalsy();
-        expect(validate_package("node_modules")).toBeFalsy();
-        expect(validate_package("__proto__")).toBeFalsy();
-        expect(validate_package("package.json")).toBeFalsy();
-        expect(validate_package("favicon.ico")).toBeFalsy();
+        expect(validatePackage("package-name/test/fake")).toBeFalsy();
+        expect(validatePackage("@/package-name")).toBeFalsy();
+        expect(validatePackage("$%$%#$%$#%#$%$#")).toBeFalsy();
+        expect(validatePackage("node_modules")).toBeFalsy();
+        expect(validatePackage("__proto__")).toBeFalsy();
+        expect(validatePackage("package.json")).toBeFalsy();
+        expect(validatePackage("favicon.ico")).toBeFalsy();
       });
 
       describe('validateName', () => {
@@ -203,28 +203,28 @@ describe('Utilities', () => {
       });
     });
 
-    describe('validate_metadata', () => {
+    describe('validateMetadata', () => {
       test('should fills an empty metadata object', () => {
         // intended to fail with flow, do not remove
         // $FlowFixMe
-        expect(Object.keys(validate_metadata({}))).toContain(DIST_TAGS);
+        expect(Object.keys(validateMetadata({}))).toContain(DIST_TAGS);
         // $FlowFixMe
-        expect(Object.keys(validate_metadata({}))).toContain('versions');
+        expect(Object.keys(validateMetadata({}))).toContain('versions');
         // $FlowFixMe
-        expect(Object.keys(validate_metadata({}))).toContain('time');
+        expect(Object.keys(validateMetadata({}))).toContain('time');
       });
 
       test('should fails the assertions is not an object', () => {
         expect(function ( ) {
           // $FlowFixMe
-          validate_metadata('');
+          validateMetadata('');
         }).toThrow(assert.AssertionError);
       });
 
       test('should fails the assertions is name does not match', () => {
         expect(function ( ) {
           // $FlowFixMe
-          validate_metadata({}, "no-name");
+          validateMetadata({}, "no-name");
         }).toThrow(assert.AssertionError);
       });
     });

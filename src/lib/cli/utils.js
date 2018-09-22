@@ -2,7 +2,7 @@
 
 import path from 'path';
 
-import {parse_address} from '../utils';
+import {parseAddress} from '../utils';
 import {DEFAULT_PORT} from '../constants';
 
 const logger = require('../logger');
@@ -35,7 +35,7 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
     addresses = [DEFAULT_PORT];
   }
   addresses = addresses.map(function(addr) {
-    const parsedAddr = parse_address(addr);
+    const parsedAddr = parseAddress(addr);
 
     if (!parsedAddr) {
       logger.logger.warn({addr: addr},
