@@ -1,6 +1,6 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Sviluppare Estensioni"
 ---
 There are many ways to extend `verdaccio`, the kind of plugins supported are:
 
