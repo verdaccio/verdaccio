@@ -7,8 +7,8 @@ Queste istruzioni sono state scritte per Windows Server 2012, IIS 8, [Node.js 0.
 - Installare IIS e [iisnode](https://github.com/tjanczuk/iisnode). Assicurarsi di installare i prerequisiti (Url Rewrite Module & node) come spiegato nelle istruzioni per iisnode.
 - Creare una nuova cartella in Explorer in cui si desidera ospitare verdaccio. Per esempio `C:\verdaccio`. Salvare in questa cartella [package.json](#packagejson), [start.js](#startjs) e [web.config](#webconfig).
 - Creare un nuovo sito su Internet Information Services Manager. È possibile nominarlo come si preferisce. In queste [istruzioni](http://www.iis.net/learn/manage/configuring-security/application-pool-identities) verrà chiamato verdaccio. Specificare il percorso in cui sono stati salvati i file ed il numero della porta.
-- Tornare indietro a Explorer e autorizzare l'utente che esegue il gruppo di applicazioni a poter modificare la cartella appena creata. Se si è nominato il nuovo sito verdaccio e non si è modificato il gruppo di applicazioni, allora questo sta funzionando grazie ad un'ApplicationPoolIdentity e si dovrebbe dare all'utente le autorizzazioni di poter modificare IIS AppPool\verdaccio, vedere le istruzioni in caso di aiuto. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
-- Start a command prompt and execute the commands below to download verdaccio:
+- Tornare indietro a Explorer e autorizzare l'utente che esegue il gruppo di applicazioni a poter modificare la cartella appena creata. Se si è nominato il nuovo sito verdaccio e non si è modificato il gruppo di applicazioni, allora questo sta funzionando grazie ad un'ApplicationPoolIdentity e si dovrebbe dare all'utente le autorizzazioni di poter modificare IIS AppPool\verdaccio, vedere le istruzioni in caso di aiuto. (Se si desidera è possibile restringere l'accesso successivamente, così che si ottengano solo le autorizzazioni a modificare su iisnode e verdaccio/storage)
+- Iniziare un prompt dei comandi ed eseguire quelli sottostanti per scaricare verdaccio:
 
     cd c:\verdaccio
     npm install
