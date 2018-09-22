@@ -21,9 +21,9 @@ Desideravo che `verdaccio` fosse il sito di default su IIS, quindi ho intrapreso
 
 - Mi sono assicurato che il file .nmprc in `c:\users{yourname}` avesse il registro configurato su `"registry=http://localhost/"`
 - Ho arrestato il "Sito Web predefinito" e ho avviato esclusivamente il sito "verdaccio" su IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Ho stabilito le connessioni a "http", indirizzo ip "All Unassigned" sulla porta 80, ok qualsiasi avvertenza o prompt
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Queste istruzioni sono basate su [Host Sinopia in IIS su Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
 
 A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
 
