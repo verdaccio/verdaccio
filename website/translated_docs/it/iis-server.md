@@ -17,10 +17,10 @@ Queste istruzioni sono state scritte per Windows Server 2012, IIS 8, [Node.js 0.
 - Assicurarsi di possedere una regola in entrata che accetti il traffico TCP alla porta in Windows Firewall
 - Con questo è tutto! Ora si può navigare nell'host e nella porta che sono stati specificati
 
-Desideravo che il sito `verdaccio` fosse di default su IIS, quindi ho fatto le seguenti azioni:
+Desideravo che `verdaccio` fosse il sito di default su IIS, quindi ho intrapreso le seguenti azioni:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
+- Mi sono assicurato che il file .nmprc in `c:\users{yourname}` avesse il registro configurato su `"registry=http://localhost/"`
+- Ho arrestato il "Sito Web predefinito" e ho avviato esclusivamente il sito "verdaccio" su IIS
 - I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
 
 These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
