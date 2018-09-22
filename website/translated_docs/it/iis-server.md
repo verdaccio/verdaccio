@@ -14,10 +14,10 @@ Queste istruzioni sono state scritte per Windows Server 2012, IIS 8, [Node.js 0.
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- Assicurarsi di possedere una regola in entrata che accetti il traffico TCP alla porta in Windows Firewall
+- Con questo è tutto! Ora si può navigare nell'host e nella porta che sono stati specificati
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Desideravo che il sito `verdaccio` fosse di default su IIS, quindi ho fatto le seguenti azioni:
 
 - I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
 - I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
