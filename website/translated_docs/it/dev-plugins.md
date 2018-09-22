@@ -2,15 +2,15 @@
 id: dev-plugins
 title: "Sviluppare Estensioni"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Esistono diversi modi di ampliare `verdaccio`, i tipi di estensioni supportati sono:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Plugin di autenticazione
+* Plugin Middleware (da `v2.7.0`)
+* Plugin di archiviazione da (`v3.x`)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Consigliamo di sviluppare estensioni utilizzando le nostre [definizioni di tipo di flusso](https://github.com/verdaccio/flow-types).
 
-## Authentication Plugin
+## Plugin di autenticazione
 
 Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
 
