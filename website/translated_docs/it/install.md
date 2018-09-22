@@ -28,7 +28,7 @@ o usando `yarn`
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![installare verdaccio](/svg/install_verdaccio.gif)
 
 ## Utilizzo di base
 
@@ -44,10 +44,10 @@ Per ulteriori informazioni riguardo a CLI, si prega di [leggere la sezione cli](
 
 ## Immagine Docker
 
-`verdaccio` ha un'immagine docker ufficiale disponibile da utilizzare, ed in molti casi, la configurazione predefinita è sufficientemente buona. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` ha un'immagine docker ufficiale disponibile da utilizzare, ed in molti casi, la configurazione predefinita è sufficientemente buona. Per ulteriori informazioni su come installare l'immagine ufficiale, [leggere la sezione docker](docker.md).
 
 ## Cloudron
 
-`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+`verdaccio` è anche disponibile come applicazione da installare in 1 click su [Cloudron](https://cloudron.io)
 
-[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
+[![Installazione](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
