@@ -59,36 +59,40 @@ export default function(server) {
     const testOnlyTest = 'test-only-test';
     const testOnlyAuth = 'test-only-auth';
 
-    // all are allowed to access
-    checkAccess(validCredentials, testAccessOnly, true);
-    checkAccess(undefined, testAccessOnly, true);
-    checkAccess(badCredentials, testAccessOnly, true);
-    checkPublish(validCredentials, testAccessOnly, false);
-    checkPublish(undefined, testAccessOnly, false);
-    checkPublish(badCredentials, testAccessOnly, false);
+    describe('all are allowed to access', () => {
+      checkAccess(validCredentials, testAccessOnly, true);
+      checkAccess(undefined, testAccessOnly, true);
+      checkAccess(badCredentials, testAccessOnly, true);
+      checkPublish(validCredentials, testAccessOnly, false);
+      checkPublish(undefined, testAccessOnly, false);
+      checkPublish(badCredentials, testAccessOnly, false);
+    });
 
-    // all are allowed to publish
-    checkAccess(validCredentials, testPublishOnly, false);
-    checkAccess(undefined, testPublishOnly, false);
-    checkAccess(badCredentials, testPublishOnly, false);
-    checkPublish(validCredentials, testPublishOnly, true);
-    checkPublish(undefined, testPublishOnly, true);
-    checkPublish(badCredentials, testPublishOnly, true);
+    describe('all are allowed to publish', () => {
+      checkAccess(validCredentials, testPublishOnly, false);
+      checkAccess(undefined, testPublishOnly, false);
+      checkAccess(badCredentials, testPublishOnly, false);
+      checkPublish(validCredentials, testPublishOnly, true);
+      checkPublish(undefined, testPublishOnly, true);
+      checkPublish(badCredentials, testPublishOnly, true);
+    });
 
-    // only user "test" is allowed to publish and access
-    checkAccess(validCredentials, testOnlyTest, true);
-    checkAccess(undefined, testOnlyTest, false);
-    checkAccess(badCredentials, testOnlyTest, false);
-    checkPublish(validCredentials, testOnlyTest, true);
-    checkPublish(undefined, testOnlyTest, false);
-    checkPublish(badCredentials, testOnlyTest, false);
+    describe('only user "test" is allowed to publish and access', () => {
+      checkAccess(validCredentials, testOnlyTest, true);
+      checkAccess(undefined, testOnlyTest, false);
+      checkAccess(badCredentials, testOnlyTest, false);
+      checkPublish(validCredentials, testOnlyTest, true);
+      checkPublish(undefined, testOnlyTest, false);
+      checkPublish(badCredentials, testOnlyTest, false);
+    });
 
-    // only authenticated users are allowed
-    checkAccess(validCredentials, testOnlyAuth, true);
-    checkAccess(undefined, testOnlyAuth, false);
-    checkAccess(badCredentials, testOnlyAuth, false);
-    checkPublish(validCredentials, testOnlyAuth, true);
-    checkPublish(undefined, testOnlyAuth, false);
-    checkPublish(badCredentials, testOnlyAuth, false);
+    describe('only authenticated users are allowed', () => {
+      checkAccess(validCredentials, testOnlyAuth, true);
+      checkAccess(undefined, testOnlyAuth, false);
+      checkAccess(badCredentials, testOnlyAuth, false);
+      checkPublish(validCredentials, testOnlyAuth, true);
+      checkPublish(undefined, testOnlyAuth, false);
+      checkPublish(badCredentials, testOnlyAuth, false);
+    });
   });
 }

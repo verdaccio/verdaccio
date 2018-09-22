@@ -1,15 +1,24 @@
 // @flow
 
 export const DEFAULT_PORT: string = '4873';
+export const DEFAULT_PROTOCOL: string = 'http';
 export const DEFAULT_DOMAIN: string = 'localhost';
 export const TIME_EXPIRATION_24H: string ='24h';
 export const TIME_EXPIRATION_7D: string = '7d';
+export const DIST_TAGS = 'dist-tags';
+
+export const keyPem = 'verdaccio-key.pem';
+export const certPem = 'verdaccio-cert.pem';
+export const csrPem = 'verdaccio-csr.pem';
 
 export const HEADERS = {
   JSON: 'application/json',
+  CONTENT_TYPE: 'Content-type',
+  ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
+  WWW_AUTH: 'WWW-Authenticate',
   GZIP: 'gzip',
 };
 
@@ -73,8 +82,11 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
+  PLUGIN_ERROR: 'bug in the auth plugin system',
+  CONFIG_BAD_FORMAT: 'config file must be an object',
   BAD_USERNAME_PASSWORD: 'bad username/password, access denied',
   NO_PACKAGE: 'no such package available',
+  BAD_DATA: 'bad data',
   NOT_ALLOWED: 'not allowed to access package',
   INTERNAL_SERVER_ERROR: 'internal server error',
   UNKNOWN_ERROR: 'unknown error',

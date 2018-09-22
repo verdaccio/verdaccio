@@ -37,6 +37,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     'node_modules',
     'fixtures',
+    '<rootDir>/src/api/debug',
     '<rootDir>/test',
   ],
   moduleNameMapper: {
