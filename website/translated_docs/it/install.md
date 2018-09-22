@@ -12,17 +12,17 @@ Verdaccio è un'applicazione web multi piattaforma. Per la sua installazione son
 2. npm `>=3.x` or `yarn`
 3. L'interfaccia web supporta i browser `Chrome, Firefox, Edge, and IE9`.
 
-## Installing the CLI
+## Installazione di CLI
 
-`verdaccio` must be installed globaly using either of the following methods:
+`verdaccio` deve essere installato globalmente utilizzando uno dei seguenti metodi:
 
-Using `npm`
+Usando `npm`
 
 ```bash
 npm install -g verdaccio
 ```
 
-or using `yarn`
+o usando `yarn`
 
 ```bash
 yarn global add verdaccio
@@ -30,9 +30,9 @@ yarn global add verdaccio
 
 ![install verdaccio](/svg/install_verdaccio.gif)
 
-## Basic Usage
+## Utilizzo di base
 
-Once it has been installed, you only need to execute the CLI command:
+Una volta che è stato installato, è necessario solamente eseguire il comando CLI:
 
 ```bash
 $> verdaccio
@@ -40,11 +40,11 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-For more information about the CLI, please [read the cli section](cli.md).
+Per ulteriori informazioni riguardo a CLI, si prega di [leggere la sezione cli](cli.md).
 
-## Docker Image
+## Immagine Docker
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` ha un'immagine docker ufficiale disponibile da utilizzare, ed in molti casi, la configurazione predefinita è sufficientemente buona. For more information about how to install the official image, [read the docker section](docker.md).
 
 ## Cloudron
 
