@@ -12,7 +12,7 @@ Esistono diversi modi di ampliare `verdaccio`, i tipi di estensioni supportati s
 
 ## Plugin di autenticazione
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Fondamentalmente dobbiamo restituire un oggetto con un unico metodo chiamato `authenticate` che riceverà 3 argomenti (`user, password, callback`).
 
 ### API
 
