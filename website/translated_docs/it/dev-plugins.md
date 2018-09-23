@@ -124,7 +124,7 @@ Verdaccio di default utilizza un'estensione di archiviazione del file system [lo
 
 ### API
 
-L'archiviazione API è un po' più complessa, è necessario creare una classe che restituisca un'implementazione `IPluginStorage`. Si prega di leggere i dettagli qui sotto.
+L'API di archiviazione è un po' più complessa, è necessario creare una classe che restituisca un'implementazione `IPluginStorage`. Si prega di leggere i dettagli qui sotto.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,9 +174,9 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> L'API di archiviazione è ancora in via sperimentale e potrebbe cambiare nelle successive versioni minori. Per ulteriori informazioni sull'API di archiviazione si prega di seguire le [ definizioni dei tipi nel nostro archivio ufficiale](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Esempi di Plugin di Archiviazione
 
 The following list of plugins are implementing the Storage API and might be used them as example.
 
