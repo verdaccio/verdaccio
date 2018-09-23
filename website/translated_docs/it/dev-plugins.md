@@ -30,11 +30,11 @@ interface IPluginAuth extends IPlugin {
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Una volta che l'autenticazione viene eseguita, esistono 2 possibili opzioni per dare una risposta a `verdaccio`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Nel caso in cui qualcosa sia andato storto oppure l'auth sia fallita.
 
 ```flow
 callback(null, false)
