@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem/index';
 import Menu from '@material-ui/core/Menu/index';
 import Info from '@material-ui/icons/Info';
 import Help from '@material-ui/icons/Help';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@material-ui/core/Tooltip/index';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import {getRegistryURL} from '../../utils/url';
