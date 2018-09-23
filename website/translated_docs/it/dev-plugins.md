@@ -42,14 +42,14 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Nel caso in cui l'auth sia andata a buon fine.
 
-`groups` is an array of strings where the user is part of.
+`groups` è un array di stringhe di cui l'utente fa parte.
 
      callback(null, groups);
     
 
-### Example
+### Esempio
 
 ```javascript
 function Auth(config, stuff) {
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+E la configurazione apparirà così:
 
 ```yaml
 auth:
