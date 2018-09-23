@@ -1,5 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import DialogActions from '@material-ui/core/DialogActions';
+
 import LoginModal from '../../../../src/webui/components/Login';
 
 const eventUsername = {
@@ -51,9 +53,10 @@ describe('<LoginModal />', () => {
       onSubmit: () => { }
     };
     const wrapper = mount(<LoginModal {...props} />);
-    wrapper.find('.dialog-footer > .cancel-login-button').simulate('click');
+    expect(wrapper.find(DialogActions)).toHaveLength(1);
+    wrapper.find('#login--form-cancel').simulate('click');
     expect(props.onCancel).toHaveBeenCalled();
-    wrapper.find('.dialog-footer > .login-button').simulate('click');
+    wrapper.find('#login--form-submit').simulate('click');
     expect(props.onCancel).toHaveBeenCalled();
   });
 

@@ -119,14 +119,14 @@ class Header extends Component<IProps, IState> {
           </IconButton>
         </Tooltip>
         <Tooltip title="Registry Information" disableFocusListener>
-          <IconButton color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
+          <IconButton id="header--button-registryInfo" color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
             <Info />
           </IconButton>
         </Tooltip>
         {username ? (
           this.renderMenu()
         ) : (
-          <Button color="inherit" onClick={this.handleToggleLogin}>
+          <Button id="header--button-login" color="inherit" onClick={this.handleToggleLogin}>
             Login
           </Button>
         )}
@@ -143,7 +143,7 @@ class Header extends Component<IProps, IState> {
     const open = Boolean(anchorEl);
     return (
       <React.Fragment>
-        <IconButton aria-owns="sidebar-menu" aria-haspopup="true" color="inherit" onClick={this.handleLoggedInMenu}>
+        <IconButton id="header--button-account" aria-owns="sidebar-menu" aria-haspopup="true" color="inherit" onClick={this.handleLoggedInMenu}>
           <AccountCircle />
         </IconButton>
         <Menu
@@ -160,7 +160,9 @@ class Header extends Component<IProps, IState> {
           open={open}
           onClose={this.handleLoggedInMenuClose}
         >
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={handleLogout} id="header--button-logout">
+            Logout
+          </MenuItem>
         </Menu>
       </React.Fragment>
     );
