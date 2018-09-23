@@ -90,9 +90,9 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Dove `htpasswd` è il suffisso del nome del plugin. es: `verdaccio-htpasswd` ed il resto del body sarebbe composto dai parametri di configurazione del plugin.
 
-## Middleware Plugin
+## Plugin Middleware
 
 Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
 
