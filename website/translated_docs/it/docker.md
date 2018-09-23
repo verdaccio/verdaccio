@@ -18,25 +18,25 @@ docker pull verdaccio/verdaccio
 
 Dalla versione `v2.x` si possono ottenere immagini docker per [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), come segue:
 
-For a major version:
+Per una versione maggiore:
 
 ```bash
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+Per una versione minore:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+Per una specifica (patch) versione:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+Per la successiva maggiore release che utilizzi la versione `beta` (ramo master).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
