@@ -94,7 +94,7 @@ Dove `htpasswd` è il suffisso del nome del plugin. es: `verdaccio-htpasswd` ed 
 
 ## Plugin Middleware
 
-Le estensioni Middleware possiedono la capacità di modificare il livello API, aggiungendo nuovi endpoint o intercettando le richieste.
+Le estensioni Middleware possiedono la capacità di modificare il livello API, aggiungendo nuovi endpoint o intercettando richieste.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
