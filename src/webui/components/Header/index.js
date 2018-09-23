@@ -113,12 +113,12 @@ class Header extends Component<IProps, IState> {
     const installationLink = 'https://verdaccio.org/docs/en/installation';
     return (
       <div>
-        <Tooltip title="Documentation">
+        <Tooltip title="Documentation" disableFocusListener>
           <IconButton color="inherit" component={Link} to={installationLink} blank>
             <Help />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Registry Information">
+        <Tooltip title="Registry Information" disableFocusListener>
           <IconButton color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
             <Info />
           </IconButton>

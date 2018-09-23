@@ -31,7 +31,7 @@ const copyToClipBoardUtility = (str: string) => (event: SyntheticEvent<HTMLEleme
 const CopyToClipBoard = ({text}: IProps): Node => (
   <ClipBoardCopy>
     <ClipBoardCopyText>{text}</ClipBoardCopyText>
-    <Tooltip title="Copy to Clipboard">
+    <Tooltip title="Copy to Clipboard" disableFocusListener>
       <CopyIcon aria-label="Copy to Clipboard" onClick={copyToClipBoardUtility(text)}>
         <FileCopy />
       </CopyIcon>
