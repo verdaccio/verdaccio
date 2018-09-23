@@ -120,7 +120,7 @@ Per registrare un middleware necessitiamo di un oggetto con un unico metodo chia
 
 ## Plugin di archiviazione
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
+Verdaccio di default utilizza un'estensione di archiviazione del file system [local-storage](https://github.com/verdaccio/local-storage), ma, dalla versione di `verdaccio@3.x` in poi è possibile collegarne una personalizzata che sostituisca la condotta predefinita.
 
 ### API
 
