@@ -178,7 +178,7 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 
 ### Esempi di Plugin di Archiviazione
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Il seguente è un elenco di estensioni che utilizzano l'API di archiviazione e che potrebbero essere utilizzate come esempio.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
