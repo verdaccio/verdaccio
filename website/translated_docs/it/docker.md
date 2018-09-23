@@ -16,7 +16,7 @@ docker pull verdaccio/verdaccio
 
 ## Versioni taggate
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+Dalla versione `v2.x` si possono ottenere immagini docker per [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), come segue:
 
 For a major version:
 
