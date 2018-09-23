@@ -185,4 +185,4 @@ Il seguente è un elenco di estensioni che utilizzano l'API di archiviazione e c
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Sei disposto a contribuire con nuovi Plugin di Archiviazione? [Clicca qui.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
