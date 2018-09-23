@@ -124,7 +124,7 @@ Verdaccio di default utilizza un'estensione di archiviazione del file system [lo
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+L'archiviazione API è un po' più complessa, è necessario creare una classe che restituisca un'implementazione `IPluginStorage`. Si prega di leggere i dettagli qui sotto.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
