@@ -1,21 +1,27 @@
+/**
+ * @prettier
+ * @flow
+ */
+
 import React from 'react';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
+
 import LoginModal from '../../../../src/webui/components/Login';
 
 const eventUsername = {
   target: {
-    value: 'xyz'
-  }
-}
+    value: 'xyz',
+  },
+};
 
 const eventPassword = {
   target: {
-    value: '1234'
-  }
-}
+    value: '1234',
+  },
+};
 
 const event = {
-  preventDefault: jest.fn()
+  preventDefault: jest.fn(),
 };
 
 describe('<LoginModal />', () => {
@@ -30,10 +36,10 @@ describe('<LoginModal />', () => {
       error: {
         type: 'error',
         title: 'Error Title',
-        description: 'Error Description'
+        description: 'Error Description',
       },
-      onCancel: () => { },
-      onSubmit: () => { }
+      onCancel: () => {},
+      onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
@@ -45,15 +51,13 @@ describe('<LoginModal />', () => {
       error: {
         type: 'error',
         title: 'Error Title',
-        description: 'Error Description'
+        description: 'Error Description',
       },
       onCancel: jest.fn(),
-      onSubmit: () => { }
+      onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
-    wrapper.find('.dialog-footer > .cancel-login-button').simulate('click');
-    expect(props.onCancel).toHaveBeenCalled();
-    wrapper.find('.dialog-footer > .login-button').simulate('click');
+    wrapper.find('button[id="login--form-cancel"]').simulate('click');
     expect(props.onCancel).toHaveBeenCalled();
   });
 
@@ -62,10 +66,10 @@ describe('<LoginModal />', () => {
       visibility: true,
       error: {},
       onCancel: () => {},
-      onSubmit: () => {}
+      onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
-    const { setCredentials } = wrapper.instance();
+    const {setCredentials} = wrapper.instance();
 
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
@@ -79,14 +83,14 @@ describe('<LoginModal />', () => {
       visibility: true,
       error: {},
       onCancel: () => {},
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
     };
 
     const wrapper = mount(<LoginModal {...props} />);
     const instance = wrapper.instance();
 
     instance.submitCredentials = jest.fn();
-    const { validateCredentials, setCredentials, submitCredentials } = instance;
+    const {validateCredentials, setCredentials, submitCredentials} = instance;
 
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
@@ -102,14 +106,13 @@ describe('<LoginModal />', () => {
     expect(submitCredentials).toHaveBeenCalledTimes(1);
   });
 
-
-  it('submitCredentials: should submit credentials',  async () => {
+  it('submitCredentials: should submit credentials', async () => {
     const props = {
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
     };
 
     const wrapper = mount(<LoginModal {...props} />);
-    const { setCredentials, submitCredentials } = wrapper.instance();
+    const {setCredentials, submitCredentials} = wrapper.instance();
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
 
@@ -123,5 +126,4 @@ describe('<LoginModal />', () => {
     expect(wrapper.state('form').password.value).toEqual('');
     expect(wrapper.state('form').password.pristine).toEqual(true);
   });
-
 });

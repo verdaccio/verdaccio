@@ -23,7 +23,8 @@
         "transform-runtime",
         "transform-object-rest-spread",
         "transform-decorators-legacy",
-        "syntax-dynamic-import"
+        "syntax-dynamic-import",
+        "emotion"
       ]
     },
     "test": {
@@ -35,7 +36,8 @@
       "plugins": [
         "transform-class-properties",
         "transform-object-rest-spread",
-        "babel-plugin-dynamic-import-node"
+        "babel-plugin-dynamic-import-node",
+        "emotion"
       ]
     },
     "testOldEnv": {
