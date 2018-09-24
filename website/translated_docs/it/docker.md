@@ -42,11 +42,11 @@ Per la successiva maggiore release che utilizzi la versione `beta` (ramo master)
 docker pull verdaccio/verdaccio:beta
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Se si è interessati ad un elenco dei tag, [ si prega di visitare il sito Docker Hub](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-## Running verdaccio using Docker
+## Eseguire verdaccio utilizzando Docker
 
-To run the docker container:
+Per avviare il contenitore Docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
