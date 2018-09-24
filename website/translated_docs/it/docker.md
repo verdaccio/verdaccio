@@ -124,13 +124,13 @@ Docker genererà un volume nominato nel quale immagazzinare i dati persistenti d
     
     
 
-## Build your own Docker image
+## Creare la propria immagine Docker
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Esiste inoltre uno script npm per creare l'immagine docker, quindi si può anche fare:
 
 ```bash
 npm run build:docker
