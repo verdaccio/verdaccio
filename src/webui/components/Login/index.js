@@ -124,7 +124,6 @@ export default class LoginModal extends Component {
     const { visibility, onCancel, error } = this.props;
     const { form: { username, password } } = this.state;
     return (
-      <div className="login">
         <Dialog
           onClose={onCancel}
           open={visibility}
@@ -194,7 +193,6 @@ export default class LoginModal extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div >
     );
   }
 }
