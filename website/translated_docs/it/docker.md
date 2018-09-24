@@ -90,7 +90,7 @@ PORT=5000; docker run -it --rm --name verdaccio \
 
 ### Utilizzare HTTPS con Docker
 
-È possibile configurare il protocollo che verdaccio andrà ad ascoltare, analogamente a come si configura la porta. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+È possibile configurare il protocollo che verdaccio andrà ad ascoltare, analogamente a come si configura la porta. È necessario sovrascrivere il valore predefinito ("http") della variabile ambientale del `PROTOCOL` con "https", dopo aver specificato i certificati nel config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,10 +98,10 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Utilizzare docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Scaricare l'ultima versione di [docker-compose](https://github.com/docker/compose).
+2. Creare ed eseguire il contenitore:
 
 ```bash
 $ docker-compose up --build
