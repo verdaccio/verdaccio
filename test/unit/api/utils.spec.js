@@ -7,7 +7,14 @@ import {
   validateName,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
-  addGravatarSupport, validatePackage, validateMetadata, DIST_TAGS, combineBaseUrl, getVersion, normalizeDistTags
+  addGravatarSupport,
+  validatePackage,
+  validateMetadata,
+  DIST_TAGS,
+  combineBaseUrl,
+  getVersion,
+  normalizeDistTags,
+  getWebProtocol
 } from '../../../src/lib/utils';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
@@ -39,6 +46,36 @@ describe('Utilities', () => {
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
+    describe('getWebProtocol', () => {
+      test('should handle undefined header', () => {
+        expect(getWebProtocol(undefined, 'http')).toBe('http');
+      });
+
+      test('should handle emtpy string', () => {
+        expect(getWebProtocol('', 'http')).toBe('http');
+      });
+
+      test('should have header priority over request protocol', () => {
+        expect(getWebProtocol("https", 'http')).toBe('https');
+      });
+
+      test('should have handle empty protocol', () => {
+        expect(getWebProtocol("https", '')).toBe('https');
+      });
+
+      describe('getWebProtocol and HAProxy variant', () => {
+        // https://github.com/verdaccio/verdaccio/issues/695
+
+        test('should handle http', () => {
+          expect(getWebProtocol("http,http", 'https')).toBe('http');
+        });
+
+        test('should handle https', () => {
+          expect(getWebProtocol("https,https", 'http')).toBe('https');
+        });
+      });
+    });
+
     describe('convertDistRemoteToLocalTarballUrls', () => {
       test('should build a URI for dist tarball based on new domain', () => {
         const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),

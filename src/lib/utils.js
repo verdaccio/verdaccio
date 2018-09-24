@@ -15,7 +15,7 @@ import {
   DEFAULT_PORT,
   DEFAULT_DOMAIN,
   DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING
+  CHARACTER_ENCODING, HEADERS
 } from './constants';
 import {generateGravatarUrl} from '../utils/user';
 
@@ -193,7 +193,7 @@ export function getLocalRegistryTarballUri(
   }
   const tarballName = extractTarballFromUrl(uri);
   const domainRegistry = combineBaseUrl(
-    getWebProtocol(req),
+    getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol),
     req.headers.host,
     urlPrefix
   );
@@ -377,11 +377,14 @@ export function parseInterval(interval: any): number {
 
 /**
  * Detect running protocol (http or https)
- * @param {*} req
- * @return {String}
  */
-export function getWebProtocol(req: $Request): string {
-  return req.get('X-Forwarded-Proto') || req.protocol;
+export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
+  if (typeof(headerProtocol) === 'string' && headerProtocol !== '') {
+    const commaIndex = headerProtocol.indexOf(',');
+    return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
+  }
+
+  return protocol;
 }
 
 export function getLatestVersion(pkgInfo: Package): string {
