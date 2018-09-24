@@ -144,15 +144,15 @@ Se si desidera utilizzare l'immagine docker su un raspberry pi o su un dispositi
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Si prega di notare che per ognuno dei comandi docker sopra citati è necessario avere docker installato sul pc e l'eseguibile docker dovrebbe essere disponibile su `$PATH`.
 
-## Docker Examples
+## Esempi Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Esiste una cartella separata che ospita configurazioni multiple per comporre immagini Docker con `verdaccio`, per esempio, come proxy inverso:
 
 <https://github.com/verdaccio/docker-examples>
 
-## Docker Custom Builds
+## Build personalizzati di Docker
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
