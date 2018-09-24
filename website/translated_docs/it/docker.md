@@ -136,9 +136,9 @@ Esiste inoltre uno script npm per creare l'immagine docker, quindi si può anche
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Nota: Il primo build necessita di qualche minuto per creare perché ha bisogno di avviare `npm install`, e potrebbe impiegare lo stesso tempo ogni volta che si cambia un file che non sia elencato in `.dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Se si desidera utilizzare l'immagine docker su un raspberry pi o su un dispositivo compatibile, è altresì disponibile un dockerfile. Per creare un'immagine docker per raspberry pi eseguire:
 
 ```bash
 npm run build:docker:rpi
