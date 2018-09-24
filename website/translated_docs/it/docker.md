@@ -52,11 +52,11 @@ Per avviare il contenitore Docker:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-L'ultimo argomento definisce quale immagine si utilizza. La riga sopra scaricherà da dockerhub l'ultima immagine pre costruita disponibile, se non ne è ancora stata creata una.
+L'ultimo argomento definisce quale immagine si utilizza. La riga sopra citata scaricherà da dockerhub l'ultima immagine pre costruita disponibile, se non ne è ancora stata creata una.
 
 Se è stata [costruita un'immagine localmente](#build-your-own-docker-image) utilizzare `verdaccio` come ultimo argomento.
 
-È possibile utilizzare `-v` per montare `conf`, `storage` e `plugins` al filesystem degli host:
+È possibile utilizzare `-v` per montare `conf`, `storage` e `plugins` nel filesystem degli host:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
