@@ -23,7 +23,7 @@ Desideravo che `verdaccio` fosse il sito di default su IIS, quindi ho intrapreso
 - Ho arrestato il "Sito Web predefinito" e ho avviato esclusivamente il sito "verdaccio" su IIS
 - Ho stabilito le connessioni a "http", indirizzo ip "All Unassigned" sulla porta 80, ok qualsiasi avvertenza o prompt
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Ho dovuto fare un piccolo aggiustamento alla configurazione web come si può notare qui sotto, ma è possibile trovare l'originale dal link menzionato che funziona meglio
+Queste istruzioni sono basate su [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Ho dovuto fare un piccolo aggiustamento alla configurazione web come si può notare qui sotto, ma è possibile trovare l'originale dal link menzionato che funziona meglio
 
 Verrà creato un file di configurazione predefinito `c:\verdaccio\verdaccio\config.yaml`
 
