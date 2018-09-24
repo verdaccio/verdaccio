@@ -56,7 +56,7 @@ L'ultimo argomento definisce quale immagine si utilizza. La riga sopra scaricher
 
 Se è stata [costruita un'immagine localmente](#build-your-own-docker-image) utilizzare `verdaccio` come ultimo argomento.
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+È possibile utilizzare `-v` per montare `conf`, `storage` e `plugins` al filesystem degli host:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
