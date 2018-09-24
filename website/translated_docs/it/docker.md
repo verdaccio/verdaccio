@@ -52,9 +52,9 @@ Per avviare il contenitore Docker:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+L'ultimo argomento definisce quale immagine si utilizza. La riga sopra scaricherà da dockerhub l'ultima immagine pre costruita disponibile, se non ne è ancora stata creata una.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Se è stata [costruita un'immagine localmente](#build-your-own-docker-image) utilizzare `verdaccio` come ultimo argomento.
 
 You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
 
