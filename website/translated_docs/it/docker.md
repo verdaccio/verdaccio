@@ -74,7 +74,7 @@ I plugin possono essere installati in una cartella separata e montati utilizzand
 
 ### Configurazione di Docker e della porta personalizzata
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Ogni `host:port` configurato in `conf/config.yaml` sotto a `listen` viene attualmente ignorato quando si utilizza docker.
 
 If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
 
