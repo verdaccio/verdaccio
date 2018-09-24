@@ -78,9 +78,9 @@ Ogni `host:port` configurato in `conf/config.yaml` sotto a `listen` viene attual
 
 Se si desidera raggiungere l'istanza docker di verdaccio da una porta differente, diciamo `5000`, nel comando `docker run` sostituire `-p 4873:4873` con `-p 5000:4873`.
 
-Nel caso in cui sia necessario specificare quale porta ascoltare **nel contenitore docker**, dalla versione 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+Nel caso in cui sia necessario specificare quale porta ascoltare **nel contenitore docker**, dalla versione 2.?.? ciò è possibile fornendo argomenti supplementari a `docker run`: `--env PORT=5000` Questo sostituisce la porta che il contenitore docker offre e la porta che verdaccio ascolta.
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+Naturalmente i numeri che vengono forniti al parametro `-p` devono combaciare, quindi, supponendo di volerli tutti uguali, questo è ciò che è possibile copiare, incollare ed adottare:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -88,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### Utilizzare HTTPS con Docker
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+È possibile configurare il protocollo che verdaccio andrà ad ascoltare, analogamente a come si configura la porta. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
