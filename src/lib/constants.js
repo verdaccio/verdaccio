@@ -14,6 +14,7 @@ export const csrPem = 'verdaccio-csr.pem';
 export const HEADERS = {
   JSON: 'application/json',
   CONTENT_TYPE: 'Content-type',
+  FORWARDED_PROTO: 'X-Forwarded-Proto',
   ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',

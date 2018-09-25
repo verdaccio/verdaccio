@@ -7,7 +7,7 @@ import express from 'express';
 
 import * as Utils from '../../lib/utils';
 import Search from '../../lib/search';
-import {HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
+import {HEADERS, HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
 
 const {securityIframe} = require('../middleware');
 /* eslint new-cap:off */
@@ -56,7 +56,10 @@ module.exports = function(config, auth, storage) {
   });
 
   router.get('/', function(req, res) {
-    const base = Utils.combineBaseUrl(Utils.getWebProtocol(req), req.get('host'), config.url_prefix);
+    const base = Utils.combineBaseUrl(
+      Utils.getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol),
+      req.get('host'), config.url_prefix);
+
     let webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
