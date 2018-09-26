@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import _ from 'lodash';
@@ -16,16 +20,8 @@ import webAPI from './web/api';
 import web from './web';
 
 import type {$Application} from 'express';
-import type {
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-  IAuth} from '../../types';
-import type {
-  Config as IConfig,
-  IPluginMiddleware,
-} from '@verdaccio/types';
+import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
+import type {Config as IConfig, IPluginMiddleware} from '@verdaccio/types';
 
 const LoggerApp = require('../lib/logger');
 const Middleware = require('./middleware');
@@ -67,7 +63,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin: IPluginMiddleware) {
     return plugin.register_middlewares;
   });
-  plugins.forEach((plugin) => {
+  plugins.forEach(plugin => {
     plugin.register_middlewares(app, auth, storage);
   });
 
@@ -111,11 +107,11 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   return app;
 };
 
-export default async function(configHash: any) {
+export default (async function(configHash: any) {
   LoggerApp.setup(configHash.logs);
   const config: IConfig = new AppConfig(configHash);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been intialized
   await storage.init(config);
   return defineAPI(config, storage);
-}
+});

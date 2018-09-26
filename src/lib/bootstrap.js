@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import {assign, isObject, isFunction} from 'lodash';
@@ -24,17 +28,12 @@ const logger = require('./logger');
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config: any,
-                        cliListen: string,
-                        configPath: string,
-                        pkgVersion: string,
-                        pkgName: string,
-                        callback: Callback) {
+function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback) {
   if (isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  endPointAPI(config).then((app)=> {
+  endPointAPI(config).then(app => {
     const addresses = getListListenAddresses(cliListen, config.listen);
 
     addresses.forEach(function(addr) {
@@ -46,7 +45,8 @@ function startVerdaccio(config: any,
         }
 
         webServer = handleHTTPS(app, configPath, config);
-      } else { // http
+      } else {
+        // http
         webServer = http.createServer(app);
       }
 
@@ -64,25 +64,31 @@ function unlinkAddressPath(addr) {
 }
 
 function logHTTPSWarning(storageLocation) {
-  logger.logger.fatal([
-    'You have enabled HTTPS and need to specify either ',
-    '    "https.key", "https.cert" and "https.ca" or ',
-    '    "https.pfx" and optionally "https.passphrase" ',
-    'to run https server',
-    '',
-    // commands are borrowed from node.js docs
-    'To quickly create self-signed certificate, use:',
-    ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
-    ' $ openssl req -new -sha256 -key ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, csrPem),
-    ' $ openssl x509 -req -in ' + resolveConfigPath(storageLocation, csrPem) +
-    ' -signkey ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, certPem),
-    '',
-    'And then add to config file (' + storageLocation + '):',
-    '  https:',
-    `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
-    `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
-    `    ca: ${resolveConfigPath(storageLocation, csrPem)}`,
-  ].join('\n'));
+  logger.logger.fatal(
+    [
+      'You have enabled HTTPS and need to specify either ',
+      '    "https.key", "https.cert" and "https.ca" or ',
+      '    "https.pfx" and optionally "https.passphrase" ',
+      'to run https server',
+      '',
+      // commands are borrowed from node.js docs
+      'To quickly create self-signed certificate, use:',
+      ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
+      ' $ openssl req -new -sha256 -key ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, csrPem),
+      ' $ openssl x509 -req -in ' +
+        resolveConfigPath(storageLocation, csrPem) +
+        ' -signkey ' +
+        resolveConfigPath(storageLocation, keyPem) +
+        ' -out ' +
+        resolveConfigPath(storageLocation, certPem),
+      '',
+      'And then add to config file (' + storageLocation + '):',
+      '  https:',
+      `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
+      `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
+      `    ca: ${resolveConfigPath(storageLocation, csrPem)}`,
+    ].join('\n')
+  );
   process.exit(2);
 }
 
@@ -106,41 +112,46 @@ function handleHTTPS(app, configPath, config) {
       });
     }
     return https.createServer(httpsOptions, app);
-  } catch (err) { // catch errors related to certificate loading
+  } catch (err) {
+    // catch errors related to certificate loading
     logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
     process.exit(2);
   }
 }
 
 function listenDefaultCallback(webServer: $Application, addr: any, pkgName: string, pkgVersion: string) {
-  webServer.listen(addr.port || addr.path, addr.host, () => {
-    // send a message for tests
-    if (isFunction(process.send)) {
-      process.send({
-        verdaccio_started: true,
-      });
-    }
-  // $FlowFixMe
-  }).on('error', function(err) {
-    logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
-    process.exit(2);
-  });
+  webServer
+    .listen(addr.port || addr.path, addr.host, () => {
+      // send a message for tests
+      if (isFunction(process.send)) {
+        process.send({
+          verdaccio_started: true,
+        });
+      }
+    })
+    // $FlowFixMe
+    .on('error', function(err) {
+      logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+      process.exit(2);
+    });
 
-  logger.logger.warn({
-    addr: ( addr.path
-          ? URL.format({
-              protocol: 'unix',
-              pathname: addr.path,
-            })
-          : URL.format({
-              protocol: addr.proto,
-              hostname: addr.host,
-              port: addr.port,
-              pathname: '/',
-            })
-          ),
-    version: pkgName + '/' + pkgVersion,
-  }, 'http address - @{addr} - @{version}');
+  logger.logger.warn(
+    {
+      addr: addr.path
+        ? URL.format({
+            protocol: 'unix',
+            pathname: addr.path,
+          })
+        : URL.format({
+            protocol: addr.proto,
+            hostname: addr.host,
+            port: addr.port,
+            pathname: '/',
+          }),
+      version: pkgName + '/' + pkgVersion,
+    },
+    'http address - @{addr} - @{version}'
+  );
 }
 
 export {startVerdaccio, listenDefaultCallback};

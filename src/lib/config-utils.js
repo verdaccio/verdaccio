@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 import _ from 'lodash';
 import assert from 'assert';
@@ -24,7 +28,7 @@ export function normalizeUserlist(oldFormat: any, newFormat: any) {
   const result = [];
   /* eslint prefer-rest-params: "off" */
 
-  for (let i=0; i < arguments.length; i++) {
+  for (let i = 0; i < arguments.length; i++) {
     if (arguments[i] == null) {
       continue;
     }
@@ -72,7 +76,7 @@ export function sanityCheckUplinksProps(configUpLinks: any) {
   for (let uplink in uplinks) {
     if (Object.prototype.hasOwnProperty.call(uplinks, uplink)) {
       assert(uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
-      assert( _.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
+      assert(_.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
       uplinks[uplink].url = uplinks[uplink].url.replace(/\/$/, '');
     }
   }
@@ -87,7 +91,7 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   const matchedPkg: MatchedPackage = (getMatchedPackagesSpec(pkg, packages): MatchedPackage);
   const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
   if (proxyList) {
-    return proxyList.some((curr) => upLink === curr);
+    return proxyList.some(curr => upLink === curr);
   }
 
   return false;
@@ -112,8 +116,7 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
 
   for (let pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
-      assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false,
-        `CONFIG: bad "'${pkg}'" package description (object expected)`);
+      assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false, `CONFIG: bad "'${pkg}'" package description (object expected)`);
       normalizedPkgs[pkg].access = normalizeUserlist(packages[pkg].allow_access, packages[pkg].access);
       delete normalizedPkgs[pkg].allow_access;
       normalizedPkgs[pkg].publish = normalizeUserlist(packages[pkg].allow_publish, packages[pkg].publish);
@@ -125,4 +128,3 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
 
   return normalizedPkgs;
 }
-

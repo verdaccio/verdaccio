@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import mime from 'mime';
@@ -62,14 +66,14 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   });
 
   route.post('/-/package/:package/dist-tags', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      storage.mergeTags(req.params.package, req.body, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.status(HTTP_STATUS.CREATED);
-        return next({
-          ok: API_MESSAGE.TAG_UPDATED,
-        });
+    storage.mergeTags(req.params.package, req.body, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(HTTP_STATUS.CREATED);
+      return next({
+        ok: API_MESSAGE.TAG_UPDATED,
       });
     });
+  });
 }

@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import _ from 'lodash';
@@ -23,7 +27,7 @@ export default function(route: Router, auth: IAuth, config: Config) {
     const {name, password} = req.body;
 
     if (_.isNil(req.remote_user.name) === false) {
-      const token = (name && password) ? await getApiToken(auth, config, req.remote_user, password) : undefined;
+      const token = name && password ? await getApiToken(auth, config, req.remote_user, password) : undefined;
 
       res.status(HTTP_STATUS.CREATED);
 
@@ -38,17 +42,17 @@ export default function(route: Router, auth: IAuth, config: Config) {
             // With npm registering is the same as logging in,
             // and npm accepts only an 409 error.
             // So, changing status code here.
-            return next( ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
+            return next(ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
           }
           return next(err);
         }
 
-        const token = (name && password) ? await getApiToken(auth, config, user, password) : undefined;
+        const token = name && password ? await getApiToken(auth, config, user, password) : undefined;
 
         req.remote_user = user;
         res.status(HTTP_STATUS.CREATED);
         return next({
-          ok: `user '${req.body.name }' created`,
+          ok: `user '${req.body.name}' created`,
           token,
         });
       });
@@ -61,7 +65,6 @@ export default function(route: Router, auth: IAuth, config: Config) {
       ok: API_MESSAGE.LOGGED_OUT,
     });
   });
-
 
   // placeholder 'cause npm require to be authenticated to publish
   // we do not do any real authentication yet

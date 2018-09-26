@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import Path from 'path';
@@ -27,7 +31,7 @@ function mergeConfig(appConfig, pluginConfig) {
 }
 
 function isValid(plugin) {
-  return (_.isFunction(plugin) || _.isFunction(plugin.default));
+  return _.isFunction(plugin) || _.isFunction(plugin.default);
 }
 
 function isES6(plugin) {
@@ -46,11 +50,7 @@ function isES6(plugin) {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export default function loadPlugin<T>(
-        config: Config,
-        pluginConfigs: any = {},
-        params: any,
-        sanityCheck: Function): T[] {
+export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, params: any, sanityCheck: Function): T[] {
   return Object.keys(pluginConfigs).map((pluginId: string) => {
     let plugin;
 
@@ -96,17 +96,15 @@ export default function loadPlugin<T>(
     }
 
     if (!isValid(plugin)) {
-      logger.logger.error({content: pluginId}, '@{content} doesn\'t look like a valid plugin');
+      logger.logger.error({content: pluginId}, "@{content} doesn't look like a valid plugin");
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
     /* eslint new-cap:off */
-    plugin = isES6(plugin)
-      ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
-      : plugin(pluginConfigs[pluginId], params);
+    plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
-      logger.logger.error({content: pluginId}, '@{content} doesn\'t look like a valid plugin');
+      logger.logger.error({content: pluginId}, "@{content} doesn't look like a valid plugin");
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
     logger.logger.warn({content: pluginId}, 'Plugin successfully loaded: @{content}');

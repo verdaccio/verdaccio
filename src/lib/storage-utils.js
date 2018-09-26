@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import _ from 'lodash';
@@ -33,15 +37,9 @@ const generatePackageTemplate = function(name: string): Package {
  * @param {Object} pkg package reference.
  */
 function normalizePackage(pkg: Package) {
-  const pkgProperties = [
-    'versions',
-    'dist-tags',
-    '_distfiles',
-    '_attachments',
-    '_uplinks',
-    'time'];
+  const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
 
-  pkgProperties.forEach((key) => {
+  pkgProperties.forEach(key => {
     const pkgProp = pkg[key];
 
     if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
@@ -62,7 +60,7 @@ function normalizePackage(pkg: Package) {
 function generateRevision(rev: string): string {
   const _rev = rev.split('-');
 
-  return ((+_rev[0] || 0) + 1) + '-' + generateRandomHexString();
+  return (+_rev[0] || 0) + 1 + '-' + generateRandomHexString();
 }
 
 function getLatestReadme(pkg: Package): string {
@@ -74,13 +72,7 @@ function getLatestReadme(pkg: Package): string {
     return readme;
   }
   // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
-  const readmeDistTagsPriority = [
-    'next',
-    'beta',
-    'alpha',
-    'test',
-    'dev',
-    'canary'];
+  const readmeDistTagsPriority = ['next', 'beta', 'alpha', 'test', 'dev', 'canary'];
   readmeDistTagsPriority.map(function(tag) {
     if (readme) {
       return readme;
@@ -103,17 +95,18 @@ export const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
-    if (keepUpLinkData === true) {
-      propertyToKeep.push('_uplinks');
-    }
+  if (keepUpLinkData === true) {
+    propertyToKeep.push('_uplinks');
+  }
 
-    for (let i in result) {
-      if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
-        delete result[i];
-      }
+  for (let i in result) {
+    if (propertyToKeep.indexOf(i) === -1) {
+      // Remove sections like '_uplinks' from response
+      delete result[i];
     }
+  }
 
-    return result;
+  return result;
 }
 
 /**
@@ -218,14 +211,4 @@ export function prepareSearchPackage(data: Package, time: mixed) {
   }
 }
 
-export {
-  generatePackageTemplate,
-  normalizePackage,
-  generateRevision,
-  getLatestReadme,
-  cleanUpReadme,
-  fileExist,
-  noSuchFile,
-  pkgFileName,
-};
-
+export {generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, fileExist, noSuchFile, pkgFileName};

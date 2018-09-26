@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import isNil from 'lodash/isNil';
 import logger from '../logger';
 import request from 'request';

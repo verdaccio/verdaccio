@@ -1,23 +1,18 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import _ from 'lodash';
 import assert from 'assert';
 
 import {generateRandomHexString} from './crypto-utils';
-import {
-  getMatchedPackagesSpec,
-  normalisePackageAccess,
-  sanityCheckUplinksProps,
-  uplinkSanityCheck} from './config-utils';
+import {getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck} from './config-utils';
 import {getUserAgent, isObject} from './utils';
 import {APP_ERROR} from './constants';
 
-import type {
-  PackageList,
-  Config as AppConfig,
-  Security,
-  Logger,
-  } from '@verdaccio/types';
+import type {PackageList, Config as AppConfig, Security, Logger} from '@verdaccio/types';
 
 import type {MatchedPackage, StartUpConfig} from '../../types';
 
@@ -82,7 +77,7 @@ class Config implements AppConfig {
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
-    allowedEnvConfig.forEach((envConf) => {
+    allowedEnvConfig.forEach(envConf => {
       if (!(envConf in self)) {
         self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
       }

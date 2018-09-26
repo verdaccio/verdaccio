@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 export default function(route, auth, storage) {
   // searching packages
-  route.get('/-/all(\/since)?', function(req, res) {
+  route.get('/-/all(/since)?', function(req, res) {
     let received_end = false;
     let response_finished = false;
     let processing_pkgs = 0;

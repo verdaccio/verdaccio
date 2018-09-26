@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import {HTTP_STATUS} from '../../../lib/constants';
