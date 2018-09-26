@@ -1,18 +1,18 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Sviluppare Estensioni"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Esistono diversi modi di ampliare `verdaccio`, i tipi di estensioni supportati sono:
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Plugin di autenticazione
+* Plugin Middleware (da `v2.7.0`)
+* Plugin di archiviazione da (`v3.x`)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Consigliamo di sviluppare estensioni utilizzando le nostre [definizioni di tipo di flusso](https://github.com/verdaccio/flow-types).
 
-## Authentication Plugin
+## Plugin di autenticazione
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Fondamentalmente dobbiamo restituire un oggetto con un unico metodo chiamato `authenticate` che riceverà 3 argomenti (`user, password, callback`).
 
 ### API
 
@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Solamente `adduser`, `allow_access` e `allow_publish` sono facoltativi, verdaccio fornisce una soluzione di ripiego in tutti questi casi.
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Una volta che l'autenticazione viene eseguita, esistono 2 possibili opzioni per dare una risposta a `verdaccio`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Nel caso in cui qualcosa sia andato storto oppure l'auth sia fallita.
 
 ```flow
 callback(null, false)
@@ -42,14 +42,14 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Nel caso in cui l'auth sia andata a buon fine.
 
-`groups` is an array of strings where the user is part of.
+`groups` è un array di stringhe di cui l'utente fa parte.
 
      callback(null, groups);
     
 
-### Example
+### Esempio
 
 ```javascript
 function Auth(config, stuff) {
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+E la configurazione apparirà così:
 
 ```yaml
 auth:
@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Dove `htpasswd` è il suffisso del nome del plugin. es: `verdaccio-htpasswd` ed il resto del body sarebbe composto dai parametri di configurazione del plugin.
 
-## Middleware Plugin
+## Plugin Middleware
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Le estensioni Middleware possiedono la capacità di modificare il livello API, aggiungendo nuovi endpoint o intercettando richieste.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,9 +104,9 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Questo metodo fornisce un accesso completo all'autenticazione ed all'archiviazione tramite `auth` and `storage`. `app` è l'applicazione rapida che permette l'aggiunta di nuovi endpoint.
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Un bell'esempio di plugin middleware è il [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) ed il [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
@@ -116,15 +116,15 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Per registrare un middleware necessitiamo di un oggetto con un unico metodo chiamato `register_middlewares` il quale riceverà 3 argomenti (`expressApp, auth, storage`). *Auth* è l'istanza di autenticazione e *storage* è anche la principale istanza di Archiviazione che darà accesso a tutte le azioni di memorizzazione.
 
-## Storage Plugin
+## Plugin di archiviazione
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
+Verdaccio di default utilizza un'estensione di archiviazione del file system [local-storage](https://github.com/verdaccio/local-storage), ma, dalla versione di `verdaccio@3.x` in poi è possibile collegarne una personalizzata che sostituisca la condotta predefinita.
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+L'API di archiviazione è un po' più complessa, è necessario creare una classe che restituisca un'implementazione `IPluginStorage`. Si prega di leggere i dettagli qui sotto.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,15 +174,15 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> L'API di archiviazione è ancora in via sperimentale e potrebbe cambiare nelle successive versioni minori. Per ulteriori informazioni sull'API di archiviazione si prega di seguire le [ definizioni dei tipi nel nostro archivio ufficiale](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Esempi di Plugin di Archiviazione
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Il seguente è un elenco di estensioni che utilizzano l'API di archiviazione e che potrebbero essere utilizzate come esempio.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Sei disposto a contribuire con nuovi Plugin di Archiviazione? [Clicca qui.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
