@@ -396,35 +396,82 @@ describe('Utilities', () => {
       expect(addGravatarSupport(packageInfo)).toEqual(packageInfo);
     });
 
-    test('contributors field has contributors', () => {
-      const packageInfo = {
-        latest: {
-          contributors: [
-            { name: 'user', email: 'user@verdccio.org' },
-            { name: 'user1', email: 'user1@verdccio.org' }
-          ]
-        }
-      };
+    describe("contributors", () => {
+      test('contributors field has contributors', () => {
+        const packageInfo = {
+          latest: {
+            contributors: [
+              { name: 'user', email: 'user@verdccio.org' },
+              { name: 'user1', email: 'user1@verdccio.org' }
+            ]
+          }
+        };
 
-      const result = {
-        latest: {
-          contributors: [
-            {
-              avatar:
-                'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
-              email: 'user@verdccio.org',
-              name: 'user'
-            },
-            {
-              avatar:
-                'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
-              email: 'user1@verdccio.org',
-              name: 'user1'
-            }
-          ]
-        }
-      };
-      expect(addGravatarSupport(packageInfo)).toEqual(result);
+        const result = {
+          latest: {
+            contributors: [
+              {
+                avatar:
+                  'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
+                email: 'user@verdccio.org',
+                name: 'user'
+              },
+              {
+                avatar:
+                  'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
+                email: 'user1@verdccio.org',
+                name: 'user1'
+              }
+            ]
+          }
+        };
+        expect(addGravatarSupport(packageInfo)).toEqual(result);
+      });
+
+      test('contributors field is an object', () => {
+        const packageInfo = {
+          latest: {
+            contributors: { name: 'user', email: 'user@verdccio.org' }
+          }
+        };
+
+        const result = {
+          latest: {
+            contributors: [
+              {
+                avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
+                email: 'user@verdccio.org',
+                name: 'user'
+              }
+            ]
+          }
+        };
+
+        expect(addGravatarSupport(packageInfo)).toEqual(result);
+      });
+
+      test('contributors field is a string', () => {
+        const contributor: string = 'Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)';
+        const packageInfo = {
+          latest: {
+            contributors: contributor
+          }
+        };
+
+        const result = {
+          latest: {
+            contributors: [
+              {
+                avatar: GRAVATAR_DEFAULT,
+                email: contributor,
+                name: contributor
+              }
+            ]
+          }
+        };
+
+        expect(addGravatarSupport(packageInfo)).toEqual(result);
+      });
     });
 
     test('maintainers field is a blank array', () => {

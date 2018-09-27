@@ -17,6 +17,7 @@ import {
   generateRevision,
   getLatestReadme,
   cleanUpReadme,
+  normalizeContributors,
   fileExist,
   noSuchFile,
   DEFAULT_REVISION,
@@ -135,6 +136,7 @@ class LocalStorage implements IStorage {
           // we don't keep readmes for package versions,
           // only one readme per package
           version = cleanUpReadme(version);
+          version.contributors = normalizeContributors(version.contributors);
 
           change = true;
           packageLocalJson.versions[versionId] = version;
@@ -215,6 +217,7 @@ class LocalStorage implements IStorage {
 
         // TODO: lodash remove
         metadata = cleanUpReadme(metadata);
+        metadata.contributors = normalizeContributors(metadata.contributors);
 
         if (data.versions[version] != null) {
           return cb(ErrorCode.getConflict());
