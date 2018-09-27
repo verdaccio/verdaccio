@@ -5,7 +5,7 @@ import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS, semverSort} from './u
 import Search from './search';
 import {generateRandomHexString} from '../lib/crypto-utils';
 
-import type {Package, Version} from '@verdaccio/types';
+import type {Package, Version, Author} from '@verdaccio/types';
 import type {IStorage} from '../../types';
 import {API_ERROR, HTTP_STATUS} from './constants';
 
@@ -99,7 +99,15 @@ function cleanUpReadme(version: Version): Version {
   return version;
 }
 
-export const WHITELIST = ['_rev', 'name', 'versions', DIST_TAGS, 'readme', 'time'];
+export function normalizeContributors(contributors: Array<Author>): Array<Author> {
+   if (isObject(contributors) || _.isString(contributors)) {
+    return [((contributors): any)];
+  }
+
+  return contributors;
+}
+
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
