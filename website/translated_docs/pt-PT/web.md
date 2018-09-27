@@ -1,6 +1,6 @@
 ---
 id: webui
-title: "Web User Interface2"
+title: "Web User Interface"
 ---
 
 
