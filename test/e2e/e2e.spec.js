@@ -58,7 +58,8 @@ describe('/ (Verdaccio Page)', () => {
   it('should load without error', async () => {
     let text = await page.evaluate(() => document.body.textContent);
 
-    expect(text).toContain('adduser');
+    // FIXME: perhaps it is not the best approach
+    expect(text).toContain('Powered by');
   });
 
   it('should match title with no packages published', async () => {
