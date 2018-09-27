@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "3.8.2",
+  "version": "4.0.0-alpha.0",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -84,7 +84,7 @@
     "bundlesize": "0.17.0",
     "codecov": "3.1.0",
     "cross-env": "5.2.0",
-    "css-loader": "1.0.0",
+    "css-loader": "0.28.10",
     "element-theme-default": "1.4.13",
     "emotion": "9.2.8",
     "enzyme": "3.6.0",

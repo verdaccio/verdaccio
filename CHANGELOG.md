@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.0"></a>
+# [4.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v4.0.0-alpha.0) (2018-09-27)
+
+
+### Bug Fixes
+
+* fix docker python issue [#883](https://github.com/verdaccio/verdaccio/issues/883) ([611aeb4](https://github.com/verdaccio/verdaccio/commit/611aeb4))
+* load package list undefined ([#993](https://github.com/verdaccio/verdaccio/issues/993)) ([4431c47](https://github.com/verdaccio/verdaccio/commit/4431c47))
+* Make systemd unit more production-like ([#929](https://github.com/verdaccio/verdaccio/issues/929)) ([ffc9410](https://github.com/verdaccio/verdaccio/commit/ffc9410))
+
+
+### Features
+
+* add support for jwt on api ([#896](https://github.com/verdaccio/verdaccio/issues/896)) ([a68d247](https://github.com/verdaccio/verdaccio/commit/a68d247)), closes [#168](https://github.com/verdaccio/verdaccio/issues/168)
+* add support for multiple protocol on protocol header ([#1014](https://github.com/verdaccio/verdaccio/issues/1014)) ([40e2b10](https://github.com/verdaccio/verdaccio/commit/40e2b10))
+* added prettier ([#921](https://github.com/verdaccio/verdaccio/issues/921)) ([43bd622](https://github.com/verdaccio/verdaccio/commit/43bd622))
+* check for minimum node.js version on start ([#968](https://github.com/verdaccio/verdaccio/issues/968)) ([ba9dc35](https://github.com/verdaccio/verdaccio/commit/ba9dc35))
+* rename database file name ([#954](https://github.com/verdaccio/verdaccio/issues/954)) ([dd72120](https://github.com/verdaccio/verdaccio/commit/dd72120))
+* replaced element-react by Material-UI ([#950](https://github.com/verdaccio/verdaccio/issues/950)) ([#985](https://github.com/verdaccio/verdaccio/issues/985)) ([3639557](https://github.com/verdaccio/verdaccio/commit/3639557))
+* replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
+* verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
+
+
+
 <a name="3.8.2"></a>
 ## [3.8.2](https://github.com/verdaccio/verdaccio/compare/v3.8.1...v3.8.2) (2018-09-27)
 
