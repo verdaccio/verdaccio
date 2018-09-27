@@ -1,8 +1,6 @@
 // Spacings
 // -------------------------
 
-const spacings = {
+export const spacings = {
     lg: '30px'
 };
-
-export default spacings;
