@@ -65,7 +65,7 @@ Verdaccio is a simple, **zero-config-required local private npm registry**. No n
 
    If you have more than one server you want to install packages on, you might want to use this to decrease latency
    (presumably "slow" npmjs.org will be connected to only once per package/version) and provide limited failover (if npmjs.org is down, we might still find something useful in the cache) or avoid issues like *[How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)*, *[Many packages suddenly disappeared](https://github.com/npm/registry-issue-archive/issues/255)* or *[Registry returns 404 for a package I have installed before](https://github.com/npm/registry-issue-archive/issues/329)*.
-   
+
 ### Link multiple registries
 
 If you use multiples registries in your organization and need to fetch packages from multiple sources in one single project you might take advance of the uplinks feature with Verdaccio, chaining multiple registries and fetching from one single endpoint.
@@ -116,7 +116,7 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 
 <h2 align="center"> Docker</h2>
 
-Below are the most commony needed informations,
+Below are the most commonly needed informations,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
 
 
