@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.1"></a>
+# [4.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2018-09-27)
+
+
+
 <a name="4.0.0-alpha.0"></a>
 # [4.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v4.0.0-alpha.0) (2018-09-27)
 
