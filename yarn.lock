@@ -407,9 +407,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@3.7.1":
-  version "3.7.1"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.7.1.tgz#e084ce466e8308c502013a810f29f52615aba124"
+"@verdaccio/types@3.7.2":
+  version "3.7.2"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.7.2.tgz#7b4dcd0730fc61738a06f436d809da5c7bf76a3d"
 
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
