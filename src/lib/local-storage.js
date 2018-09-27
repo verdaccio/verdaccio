@@ -8,7 +8,7 @@ import _ from 'lodash';
 // $FlowFixMe
 import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS} from './utils';
 import {
-  generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme,
+  generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors,
 fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
 } from './storage-utils';
 import {createTarballHash} from './crypto-utils';
@@ -138,6 +138,7 @@ class LocalStorage implements IStorage {
           // we don't keep readmes for package versions,
           // only one readme per package
           version = cleanUpReadme(version);
+          version.contributors = normalizeContributors(version.contributors);
 
           change = true;
           packageLocalJson.versions[versionId] = version;
@@ -219,6 +220,7 @@ class LocalStorage implements IStorage {
 
       // TODO: lodash remove
       metadata = cleanUpReadme(metadata);
+      metadata.contributors = normalizeContributors(metadata.contributors);
 
       if (data.versions[version] != null) {
         return cb( ErrorCode.getConflict() );
