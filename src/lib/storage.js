@@ -9,13 +9,13 @@ import async from 'async';
 import Stream from 'stream';
 import ProxyStorage from './up-storage';
 import Search from './search';
-import { API_ERROR, HTTP_STATUS } from './constants';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS } from './constants';
 import LocalStorage from './local-storage';
 import { ReadTarball } from '@verdaccio/streams';
 import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { mergeVersions } from './metadata-utils';
-import { ErrorCode, normalizeDistTags, validateMetadata, isObject, DIST_TAGS } from './utils';
+import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
 import type { IStorage, IProxy, IStorageHandler, ProxyList, StringValue } from '../../types';
 import type { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
 import type { IReadTarball, IUploadTarball } from '@verdaccio/streams';
@@ -111,7 +111,7 @@ class Storage implements IStorageHandler {
 
   /**
    * Upload a tarball for {name} package
-   Function is syncronous and returns a WritableStream
+   Function is synchronous and returns a WritableStream
    Used storages: local (write)
    */
   addTarball(name: string, filename: string): IUploadTarball {
@@ -120,7 +120,7 @@ class Storage implements IStorageHandler {
 
   /**
    Get a tarball from a storage for {name} package
-   Function is syncronous and returns a ReadableStream
+   Function is synchronous and returns a ReadableStream
    Function tries to read tarball locally, if it fails then it reads package
    information in order to figure out where we can get this tarball from
    Used storages: local || uplink (just one)

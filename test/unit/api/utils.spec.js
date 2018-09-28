@@ -10,12 +10,12 @@ import {
   addGravatarSupport,
   validatePackage,
   validateMetadata,
-  DIST_TAGS,
   combineBaseUrl,
   getVersion,
   normalizeDistTags,
   getWebProtocol
 } from '../../../src/lib/utils';
+import { DIST_TAGS } from '../../../src/lib/constants';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
 

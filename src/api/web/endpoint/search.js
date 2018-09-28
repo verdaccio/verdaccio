@@ -4,7 +4,7 @@
  */
 
 import Search from '../../../lib/search';
-import { DIST_TAGS } from '../../../lib/utils';
+import { DIST_TAGS } from '../../../lib/constants';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 

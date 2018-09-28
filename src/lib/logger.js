@@ -17,7 +17,7 @@ const { format } = require('date-fns');
  * @param {*} x severity level
  * @return {String} security level
  */
-function getlvl(x) {
+function calculateLevel(x) {
   switch (true) {
     case x < 15:
       return 'trace';
@@ -107,12 +107,12 @@ function setup(logs) {
       }
 
       if (target.format === 'pretty') {
-        // making fake stream for prettypritting
+        // making fake stream for pretty printing
         stream.write = obj => {
           destination.write(`${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else if (target.format === 'pretty-timestamped') {
-        // making fake stream for pretty pritting
+        // making fake stream for pretty printing
         stream.write = obj => {
           destination.write(`[${format(obj.time, 'YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
@@ -226,9 +226,9 @@ function fillInMsgTemplate(msg, obj, colors) {
  */
 function print(type, msg, obj, colors) {
   if (typeof type === 'number') {
-    type = getlvl(type);
+    type = calculateLevel(type);
   }
-  const finalmsg = fillInMsgTemplate(msg, obj, colors);
+  const finalMessage = fillInMsgTemplate(msg, obj, colors);
 
   const subsystems = [
     {
@@ -247,9 +247,9 @@ function print(type, msg, obj, colors) {
 
   const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
   if (colors) {
-    return ` ${levels[type](pad(type))}${chalk.white(`${sub} ${finalmsg}`)}`;
+    return ` ${levels[type](pad(type))}${chalk.white(`${sub} ${finalMessage}`)}`;
   } else {
-    return ` ${pad(type)}${sub} ${finalmsg}`;
+    return ` ${pad(type)}${sub} ${finalMessage}`;
   }
 }
 
