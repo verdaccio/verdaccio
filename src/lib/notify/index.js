@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 
@@ -60,7 +64,7 @@ export function notify(metadata, config, ...moreMedatata) {
       return sendNotification(metadata, config.notify, ...moreMedatata);
     } else {
       // multiple notifications endpoints PR #108
-      return Promise.all(_.map(config.notify, (key) => sendNotification(metadata, key, ...moreMedatata)));
+      return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, ...moreMedatata)));
     }
   }
 

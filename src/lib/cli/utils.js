@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import path from 'path';
@@ -34,18 +38,20 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
   } else {
     addresses = [DEFAULT_PORT];
   }
-  addresses = addresses.map(function(addr) {
-    const parsedAddr = parseAddress(addr);
+  addresses = addresses
+    .map(function(addr) {
+      const parsedAddr = parseAddress(addr);
 
-    if (!parsedAddr) {
-      logger.logger.warn({addr: addr},
-        'invalid address - @{addr}, we expect a port (e.g. "4873"),'
-        + ' host:port (e.g. "localhost:4873") or full url'
-        + ' (e.g. "http://localhost:4873/")');
-    }
+      if (!parsedAddr) {
+        logger.logger.warn(
+          {addr: addr},
+          'invalid address - @{addr}, we expect a port (e.g. "4873"),' + ' host:port (e.g. "localhost:4873") or full url' + ' (e.g. "http://localhost:4873/")'
+        );
+      }
 
-    return parsedAddr;
-  }).filter(Boolean);
+      return parsedAddr;
+    })
+    .filter(Boolean);
 
   return addresses;
 }

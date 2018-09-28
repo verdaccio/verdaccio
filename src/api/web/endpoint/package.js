@@ -1,34 +1,32 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import _ from 'lodash';
 import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme} from '../../../lib/utils';
 import {allow} from '../../middleware';
 import type {Router} from 'express';
-import type {
-  IAuth,
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-  $SidebarPackage} from '../../../../types';
-
+import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage} from '../../../../types';
 
 function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   const can = allow(auth);
 
-  const checkAllow = (name, remoteUser) => new Promise((resolve, reject) => {
-    try {
-      auth.allow_access(name, remoteUser, (err, allowed) => {
-        if (err) {
-          resolve(false);
-        } else {
-          resolve(allowed);
-        }
-      });
-    } catch (err) {
-      reject(err);
-    }
-  });
+  const checkAllow = (name, remoteUser) =>
+    new Promise((resolve, reject) => {
+      try {
+        auth.allow_access(name, remoteUser, (err, allowed) => {
+          if (err) {
+            resolve(false);
+          } else {
+            resolve(allowed);
+          }
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
 
   // Get list of all visible package
   route.get('/packages', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -57,8 +55,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
   });
 
   // Get package readme
-  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'),
-  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({
@@ -75,8 +72,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
     });
   });
 
-  route.get('/sidebar/(@:scope/)?:package',
-  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  route.get('/sidebar/(@:scope/)?:package', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName: string = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({

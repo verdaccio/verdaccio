@@ -1,12 +1,16 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import ProxyStorage from './up-storage';
 import type {Versions, Config} from '@verdaccio/types';
 import type {IProxy, ProxyList} from '../../types';
 
- /**
-   * Set up the Up Storage for each link.
-   */
+/**
+ * Set up the Up Storage for each link.
+ */
 export function setupUpLinks(config: Config): ProxyList {
   const uplinks: ProxyList = {};
 

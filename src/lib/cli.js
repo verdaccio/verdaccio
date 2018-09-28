@@ -2,6 +2,9 @@
 
 /* eslint no-sync:0 */
 /* eslint no-empty:0 */
+/**
+ * @prettier
+ */
 
 import path from 'path';
 import semver from 'semver';

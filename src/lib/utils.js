@@ -1,5 +1,9 @@
+/**
+ * @prettier
+ */
+
 // @flow
-// @prettier
+
 import _ from 'lodash';
 import fs from 'fs';
 import assert from 'assert';
@@ -9,14 +13,7 @@ import URL from 'url';
 import createError from 'http-errors';
 import marked from 'marked';
 
-import {
-  HTTP_STATUS,
-  API_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING, HEADERS
-} from './constants';
+import {HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS} from './constants';
 import {generateGravatarUrl, GRAVATAR_DEFAULT} from '../utils/user';
 
 import type {Package} from '@verdaccio/types';
@@ -52,11 +49,7 @@ export function validatePackage(name: string): boolean {
     return validateName(nameList[0]);
   } else {
     // scoped package
-    return (
-      nameList[0][0] === '@' &&
-      validateName(nameList[0].slice(1)) &&
-      validateName(nameList[1])
-    );
+    return nameList[0][0] === '@' && validateName(nameList[0].slice(1)) && validateName(nameList[1]);
   }
 }
 
@@ -123,11 +116,7 @@ export function validateMetadata(object: Package, name: string): Object {
  * Create base url for registry.
  * @return {String} base registry url
  */
-export function combineBaseUrl(
-  protocol: string,
-  host: string,
-  prefix?: string
-): string {
+export function combineBaseUrl(protocol: string, host: string, prefix?: string): string {
   let result = `${protocol}://${host}`;
 
   if (prefix) {
@@ -151,25 +140,13 @@ export function extractTarballFromUrl(url: string) {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(
-  pkg: Package,
-  req: $Request,
-  urlPrefix: string | void
-) {
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: $Request, urlPrefix: string | void) {
   for (let ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
 
-      if (
-        _.isNull(distName) === false &&
-        _.isNull(distName.tarball) === false
-      ) {
-        distName.tarball = getLocalRegistryTarballUri(
-          distName.tarball,
-          pkg.name,
-          req,
-          urlPrefix
-        );
+      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
+        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
       }
     }
   }
@@ -181,23 +158,14 @@ export function convertDistRemoteToLocalTarballUrls(
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: $Request,
-  urlPrefix: string | void
-) {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: $Request, urlPrefix: string | void) {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
     return uri;
   }
   const tarballName = extractTarballFromUrl(uri);
-  const domainRegistry = combineBaseUrl(
-    getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol),
-    req.headers.host,
-    urlPrefix
-  );
+  const domainRegistry = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.headers.host, urlPrefix);
 
   return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
 }
@@ -260,9 +228,7 @@ export function parseAddress(urlAddress: any) {
   // TODO: refactor it to something more reasonable?
   //
   //        protocol :  //      (  host  )|(    ipv6     ):  port  /
-  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(
-    urlAddress
-  );
+  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(urlAddress);
 
   if (urlPattern) {
     return {
@@ -363,11 +329,7 @@ export function parseInterval(interval: any): number {
   interval.split(/\s+/).forEach(function(x) {
     if (!x) return;
     let m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
-    if (
-      !m ||
-      parseIntervalTable[m[4]] >= last_suffix ||
-      (m[4] === '' && last_suffix !== Infinity)
-    ) {
+    if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
       throw Error('invalid interval: ' + interval);
     }
     last_suffix = parseIntervalTable[m[4]];
@@ -380,7 +342,7 @@ export function parseInterval(interval: any): number {
  * Detect running protocol (http or https)
  */
 export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
-  if (typeof(headerProtocol) === 'string' && headerProtocol !== '') {
+  if (typeof headerProtocol === 'string' && headerProtocol !== '') {
     const commaIndex = headerProtocol.indexOf(',');
     return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
   }
@@ -390,7 +352,7 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
 
 export function getLatestVersion(pkgInfo: Package): string {
   return pkgInfo[DIST_TAGS].latest;
-};
+}
 
 export const ErrorCode = {
   getConflict: (message: string = API_ERROR.PACKAGE_EXIST) => {
@@ -403,30 +365,23 @@ export const ErrorCode = {
     return createError(HTTP_STATUS.BAD_REQUEST, customMessage);
   },
   getInternalError: (customMessage?: string) => {
-    return customMessage
-      ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
-      : createError(HTTP_STATUS.INTERNAL_ERROR);
+    return customMessage ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage) : createError(HTTP_STATUS.INTERNAL_ERROR);
   },
-  getForbidden: (message: string = 'can\'t use this filename') => {
+  getForbidden: (message: string = "can't use this filename") => {
     return createError(HTTP_STATUS.FORBIDDEN, message);
   },
-  getServiceUnavailable: (
-    message: string = API_ERROR.RESOURCE_UNAVAILABLE
-  ) => {
+  getServiceUnavailable: (message: string = API_ERROR.RESOURCE_UNAVAILABLE) => {
     return createError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
   },
   getNotFound: (customMessage?: string) => {
-    return createError(
-      HTTP_STATUS.NOT_FOUND,
-      customMessage || API_ERROR.NO_PACKAGE
-    );
+    return createError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
   },
   getCode: (statusCode: number, customMessage: string) => {
     return createError(statusCode, customMessage);
   },
 };
 
-export function parseConfigFile (configPath: string): Object {
+export function parseConfigFile(configPath: string): Object {
   return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
 }
 
@@ -473,7 +428,7 @@ export function addScope(scope: string, packageName: string) {
 }
 
 export function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
-  _.forEach(propertiesToDelete, (property) => {
+  _.forEach(propertiesToDelete, property => {
     delete objectItem[property];
   });
 
@@ -501,7 +456,7 @@ export function addGravatarSupport(pkgInfo: Object): Object {
 
   // for contributors
   if (_.isEmpty(contributors) === false) {
-    pkgInfoCopy.latest.contributors = contributors.map((contributor) => {
+    pkgInfoCopy.latest.contributors = contributors.map(contributor => {
       if (isObject(contributor)) {
         // $FlowFixMe
         contributor.avatar = generateGravatarUrl(contributor.email);
@@ -519,7 +474,7 @@ export function addGravatarSupport(pkgInfo: Object): Object {
 
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
-    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer) => {
+    pkgInfoCopy.latest.maintainers = maintainers.map(maintainer => {
       maintainer.avatar = generateGravatarUrl(maintainer.email);
       return maintainer;
     });

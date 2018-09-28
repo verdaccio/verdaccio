@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import type {IAuth, IStorageHandler} from '../../../types';

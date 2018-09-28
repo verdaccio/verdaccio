@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import lunrMutable from 'lunr-mutable-indexes';
@@ -14,8 +18,8 @@ class Search implements IWebSearch {
    * Constructor.
    */
   constructor() {
-     /* eslint no-invalid-this: "off" */
-     this.index = lunrMutable(function() {
+    /* eslint no-invalid-this: "off" */
+    this.index = lunrMutable(function() {
       this.field('name', {boost: 10});
       this.field('description', {boost: 4});
       this.field('author', {boost: 6});
@@ -25,7 +29,7 @@ class Search implements IWebSearch {
     });
   }
 
-   /**
+  /**
    * Performs a query to the indexer.
    * If the keyword is a * it returns all local elements
    * otherwise performs a search
@@ -34,14 +38,15 @@ class Search implements IWebSearch {
    */
   query(query: string) {
     return query === '*'
-      ? this.storage.localStorage.localData.get((items) => {
-        items.map( function( pkg ) {
-          return {ref: pkg, score: 1};
-        });
-      }) : this.index.search(`*${query}*`);
-    }
+      ? this.storage.localStorage.localData.get(items => {
+          items.map(function(pkg) {
+            return {ref: pkg, score: 1};
+          });
+        })
+      : this.index.search(`*${query}*`);
+  }
 
-   /**
+  /**
    * Add a new element to index
    * @param {*} pkg the package
    */

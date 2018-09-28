@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 import {Router} from 'express';
