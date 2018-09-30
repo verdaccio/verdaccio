@@ -10,6 +10,7 @@ export const DEFAULT_DOMAIN: string = 'localhost';
 export const TIME_EXPIRATION_24H: string = '24h';
 export const TIME_EXPIRATION_7D: string = '7d';
 export const DIST_TAGS = 'dist-tags';
+export const DEFAULT_MIN_LIMIT_PASSWORD: number = 7;
 
 export const keyPem = 'verdaccio-key.pem';
 export const certPem = 'verdaccio-cert.pem';
@@ -87,6 +88,8 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
+  PASSWORD_SHORT: 'The provided password is too short. Please pick a password longer than 7 characters.',
+  MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',
   CONFIG_BAD_FORMAT: 'config file must be an object',
   BAD_USERNAME_PASSWORD: 'bad username/password, access denied',

@@ -61,6 +61,30 @@ class Auth implements IAuth {
     this.plugins.push(getDefaultPlugins());
   }
 
+  changePassword(username: string, password: string, newPassword: string, cb: Callback) {
+    for (const plugin of this.plugins) {
+      if (_.isFunction(plugin.changePassword) === false) {
+        break;
+      }
+
+      this.logger.trace({username}, 'updating password for @{username}');
+
+      plugin.changePassword(username, password, newPassword, (err, profile) => {
+        if (err) {
+          this.logger.error(
+            {username, err},
+            `An error has been produced 
+          updating the password for @{username}. Error: @{err.message}`
+          );
+          return cb(err);
+        }
+
+        this.logger.trace({username}, 'updated password for @{username} was successful');
+        return cb(null, profile);
+      });
+    }
+  }
+
   authenticate(username: string, password: string, cb: Callback) {
     const plugins = this.plugins.slice(0);
     const self = this;

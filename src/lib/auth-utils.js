@@ -6,11 +6,15 @@
 
 import _ from 'lodash';
 import {convertPayloadToBase64, ErrorCode} from './utils';
-import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING} from './constants';
+import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING, DEFAULT_MIN_LIMIT_PASSWORD} from './constants';
 
 import type {RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions} from '@verdaccio/types';
 import type {CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload} from '../../types';
 import {aesDecrypt, verifyPayload} from './crypto-utils';
+
+export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD) {
+  return typeof password === 'string' && password.length >= minLength;
+}
 
 /**
  * Create a RemoteUser object

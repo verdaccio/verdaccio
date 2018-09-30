@@ -1,0 +1,57 @@
+/**
+ * @prettier
+ */
+
+// @flow
+
+import _ from 'lodash';
+import {allow} from '../../../middleware';
+import type {$Response, Router} from 'express';
+import type {$NextFunctionVer, $RequestExtend, IAuth} from '../../../../../types';
+import {API_ERROR, HTTP_STATUS} from '../../../../lib/constants';
+import {ErrorCode} from '../../../../lib/utils';
+
+export default function(route: Router, auth: IAuth) {
+  const can = allow(auth);
+  const buildProfile = name => ({
+    tfa: false,
+    name,
+    email: '',
+    email_verified: false,
+    created: '',
+    updated: '',
+    cidr_whitelist: null,
+    fullname: '',
+  });
+
+  route.get('/-/npm/v1/user', can('access'), function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
+    if (_.isNil(req.remote_user.name) === false) {
+      return next(buildProfile(req.remote_user.name));
+    }
+
+    res.status(HTTP_STATUS.UNAUTHORIZED);
+    return next({
+      message: API_ERROR.MUST_BE_LOGGED,
+    });
+  });
+
+  route.post('/-/npm/v1/user', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
+    if (_.isNil(req.remote_user.name)) {
+      res.status(HTTP_STATUS.UNAUTHORIZED);
+      return next({
+        message: API_ERROR.MUST_BE_LOGGED,
+      });
+    }
+
+    const {password} = req.body;
+    const {name} = req.remote_user;
+
+    auth.changePassword(name, password.old, password.new, (err, profile) => {
+      if (_.isNull(err) === false) {
+        return next(ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
+      }
+
+      next(buildProfile(profile));
+    });
+  });
+}
