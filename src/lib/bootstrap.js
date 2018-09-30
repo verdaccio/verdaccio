@@ -1,10 +1,9 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
-
-import {assign, isObject, isFunction} from 'lodash';
+import { assign, isObject, isFunction } from 'lodash';
 import URL from 'url';
 import fs from 'fs';
 import http from 'http';
@@ -12,11 +11,11 @@ import https from 'https';
 // $FlowFixMe
 import constants from 'constants';
 import endPointAPI from '../api/index';
-import {getListListenAddresses, resolveConfigPath} from './cli/utils';
-import {API_ERROR, certPem, csrPem, keyPem} from './constants';
+import { getListListenAddresses, resolveConfigPath } from './cli/utils';
+import { API_ERROR, certPem, csrPem, keyPem } from './constants';
 
-import type {Callback} from '@verdaccio/types';
-import type {$Application} from 'express';
+import type { Callback } from '@verdaccio/types';
+import type { $Application } from 'express';
 
 const logger = require('./logger');
 
@@ -114,7 +113,7 @@ function handleHTTPS(app, configPath, config) {
     return https.createServer(httpsOptions, app);
   } catch (err) {
     // catch errors related to certificate loading
-    logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+    logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
     process.exit(2);
   }
 }
@@ -131,7 +130,7 @@ function listenDefaultCallback(webServer: $Application, addr: any, pkgName: stri
     })
     // $FlowFixMe
     .on('error', function(err) {
-      logger.logger.fatal({err: err}, 'cannot create server: @{err.message}');
+      logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });
 
@@ -154,4 +153,4 @@ function listenDefaultCallback(webServer: $Application, addr: any, pkgName: stri
   );
 }
 
-export {startVerdaccio, listenDefaultCallback};
+export { startVerdaccio, listenDefaultCallback };

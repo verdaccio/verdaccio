@@ -11,9 +11,9 @@ import express from 'express';
 
 import * as Utils from '../../lib/utils';
 import Search from '../../lib/search';
-import {HEADERS, HTTP_STATUS, WEB_TITLE} from '../../lib/constants';
+import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 
-const {securityIframe} = require('../middleware');
+const { securityIframe } = require('../middleware');
 /* eslint new-cap:off */
 const env = require('../../config/env');
 const templatePath = path.join(env.DIST_PATH, '/index.html');

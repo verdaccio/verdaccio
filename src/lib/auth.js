@@ -1,14 +1,13 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 
-import {API_ERROR, TOKEN_BASIC, TOKEN_BEARER} from './constants';
+import { API_ERROR, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import loadPlugin from '../lib/plugin-loader';
-import {aesEncrypt, signPayload} from './crypto-utils';
+import { aesEncrypt, signPayload } from './crypto-utils';
 import {
   getDefaultPlugins,
   getMiddlewareCredentials,
@@ -21,12 +20,12 @@ import {
   parseBasicPayload,
   createRemoteUser,
 } from './auth-utils';
-import {convertPayloadToBase64, ErrorCode} from './utils';
-import {getMatchedPackagesSpec} from './config-utils';
+import { convertPayloadToBase64, ErrorCode } from './utils';
+import { getMatchedPackagesSpec } from './config-utils';
 
-import type {Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security} from '@verdaccio/types';
-import type {$Response, NextFunction} from 'express';
-import type {$RequestExtend, IAuth} from '../../types';
+import type { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security } from '@verdaccio/types';
+import type { $Response, NextFunction } from 'express';
+import type { $RequestExtend, IAuth } from '../../types';
 
 const LoggerApi = require('./logger');
 
@@ -38,7 +37,7 @@ class Auth implements IAuth {
 
   constructor(config: Config) {
     this.config = config;
-    this.logger = LoggerApi.logger.child({sub: 'auth'});
+    this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
     this.plugins = this._loadPlugin(config);
     this._applyDefaultPlugins();
@@ -51,7 +50,7 @@ class Auth implements IAuth {
     };
 
     return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
-      const {authenticate, allow_access, allow_publish} = plugin;
+      const { authenticate, allow_access, allow_publish } = plugin;
 
       return authenticate || allow_access || allow_publish;
     });
@@ -71,10 +70,10 @@ class Auth implements IAuth {
         return next();
       }
 
-      self.logger.trace({username}, 'authenticating @{username}');
+      self.logger.trace({ username }, 'authenticating @{username}');
       plugin.authenticate(username, password, function(err, groups) {
         if (err) {
-          self.logger.trace({username, err}, 'authenticating for user @{username} failed. Error: @{err.message}');
+          self.logger.trace({ username, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
           return cb(err);
         }
 
@@ -95,7 +94,7 @@ class Auth implements IAuth {
             throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
 
-          self.logger.trace({username, groups}, 'authentication for user @{username} was successfully. Groups: @{groups}');
+          self.logger.trace({ username, groups }, 'authentication for user @{username} was successfully. Groups: @{groups}');
           return cb(err, createRemoteUser(username, groups));
         }
         next();
@@ -106,7 +105,7 @@ class Auth implements IAuth {
   add_user(user: string, password: string, cb: Callback) {
     let self = this;
     let plugins = this.plugins.slice(0);
-    this.logger.trace({user}, 'add user @{user}');
+    this.logger.trace({ user }, 'add user @{user}');
 
     (function next() {
       let plugin = plugins.shift();
@@ -120,11 +119,11 @@ class Auth implements IAuth {
         // p.add_user() execution
         plugin[method](user, password, function(err, ok) {
           if (err) {
-            self.logger.trace({user, err}, 'the user @{user} could not being added. Error: @{err}');
+            self.logger.trace({ user, err }, 'the user @{user} could not being added. Error: @{err}');
             return cb(err);
           }
           if (ok) {
-            self.logger.trace({user}, 'the user @{user} has been added');
+            self.logger.trace({ user }, 'the user @{user} has been added');
             return self.authenticate(user, password, cb);
           }
           next();
@@ -139,9 +138,9 @@ class Auth implements IAuth {
   allow_access(packageName: string, user: RemoteUser, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
+    let pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
     const self = this;
-    this.logger.trace({packageName}, 'allow access for @{packageName}');
+    this.logger.trace({ packageName }, 'allow access for @{packageName}');
 
     (function next() {
       const plugin = plugins.shift();
@@ -152,12 +151,12 @@ class Auth implements IAuth {
 
       plugin.allow_access(user, pkg, function(err, ok: boolean) {
         if (err) {
-          self.logger.trace({packageName, err}, 'forbidden access for @{packageName}. Error: @{err.message}');
+          self.logger.trace({ packageName, err }, 'forbidden access for @{packageName}. Error: @{err.message}');
           return callback(err);
         }
 
         if (ok) {
-          self.logger.trace({packageName}, 'allowed access for @{packageName}');
+          self.logger.trace({ packageName }, 'allowed access for @{packageName}');
           return callback(null, ok);
         }
 
@@ -173,8 +172,8 @@ class Auth implements IAuth {
     let plugins = this.plugins.slice(0);
     const self = this;
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
-    this.logger.trace({packageName}, 'allow publish for @{packageName}');
+    let pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
+    this.logger.trace({ packageName }, 'allow publish for @{packageName}');
 
     (function next() {
       const plugin = plugins.shift();
@@ -185,12 +184,12 @@ class Auth implements IAuth {
 
       plugin.allow_publish(user, pkg, (err, ok: boolean) => {
         if (err) {
-          self.logger.trace({packageName}, 'forbidden publish for @{packageName}');
+          self.logger.trace({ packageName }, 'forbidden publish for @{packageName}');
           return callback(err);
         }
 
         if (ok) {
-          self.logger.trace({packageName}, 'allowed publish for @{packageName}');
+          self.logger.trace({ packageName }, 'allowed publish for @{packageName}');
           return callback(null, ok);
         }
         next(); // cb(null, false) causes next plugin to roll
@@ -221,7 +220,7 @@ class Auth implements IAuth {
       // in case auth header does not exist we return anonymous function
       req.remote_user = createAnonymousRemoteUser();
 
-      const {authorization} = req.headers;
+      const { authorization } = req.headers;
       if (_.isNil(authorization)) {
         return next();
       }
@@ -232,7 +231,7 @@ class Auth implements IAuth {
       }
 
       const security: Security = getSecurity(this.config);
-      const {secret} = this.config;
+      const { secret } = this.config;
 
       if (isAESLegacy(security)) {
         this.logger.trace('api middleware using legacy auth token');
@@ -245,11 +244,11 @@ class Auth implements IAuth {
   }
 
   _handleJWTAPIMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function) {
-    const {scheme, token} = parseAuthTokenHeader(authorization);
+    const { scheme, token } = parseAuthTokenHeader(authorization);
     if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
       // this should happen when client tries to login with an existing user
       const credentials = convertPayloadToBase64(token).toString();
-      const {user, password} = (parseBasicPayload(credentials): any);
+      const { user, password } = (parseBasicPayload(credentials): any);
       this.authenticate(user, password, (err, user) => {
         if (!err) {
           req.remote_user = user;
@@ -276,7 +275,7 @@ class Auth implements IAuth {
   _handleAESMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function) {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     if (credentials) {
-      const {user, password} = credentials;
+      const { user, password } = credentials;
       this.authenticate(user, password, (err, user) => {
         if (!err) {
           req.remote_user = user;
@@ -316,7 +315,7 @@ class Auth implements IAuth {
         return _next();
       };
 
-      const {authorization} = req.headers;
+      const { authorization } = req.headers;
       if (_.isNil(authorization)) {
         return next();
       }
@@ -338,7 +337,7 @@ class Auth implements IAuth {
       }
 
       if (credentials) {
-        const {name, groups} = credentials;
+        const { name, groups } = credentials;
         // $FlowFixMe
         req.remote_user = createRemoteUser(name, groups);
       } else {
@@ -350,7 +349,7 @@ class Auth implements IAuth {
   }
 
   async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string {
-    const {real_groups} = user;
+    const { real_groups } = user;
     const payload: RemoteUser = {
       ...user,
       group: real_groups && real_groups.length ? real_groups : undefined,

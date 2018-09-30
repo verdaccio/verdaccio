@@ -56,7 +56,7 @@ export default function(route, auth, storage) {
       res.write('{"_updated":' + 99999);
     }
 
-    let stream = storage.search(req.query.startkey || 0, {req: req});
+    let stream = storage.search(req.query.startkey || 0, { req: req });
 
     stream.on('data', function each(pkg) {
       processing_pkgs++;

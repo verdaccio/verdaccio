@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 import express from 'express';
@@ -13,15 +12,15 @@ import loadPlugin from '../lib/plugin-loader';
 import hookDebug from './debug';
 import Auth from '../lib/auth';
 import apiEndpoint from './endpoint';
-import {ErrorCode} from '../lib/utils';
-import {API_ERROR, HTTP_STATUS} from '../lib/constants';
+import { ErrorCode } from '../lib/utils';
+import { API_ERROR, HTTP_STATUS } from '../lib/constants';
 import AppConfig from '../lib/config';
 import webAPI from './web/api';
 import web from './web';
 
-import type {$Application} from 'express';
-import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth} from '../../types';
-import type {Config as IConfig, IPluginMiddleware} from '@verdaccio/types';
+import type { $Application } from 'express';
+import type { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
+import type { Config as IConfig, IPluginMiddleware } from '@verdaccio/types';
 
 const LoggerApp = require('../lib/logger');
 const Middleware = require('./middleware');

@@ -1,12 +1,11 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
-
 import lunrMutable from 'lunr-mutable-indexes';
-import type {Version} from '@verdaccio/types';
-import type {IStorageHandler, IWebSearch} from '../../types';
+import type { Version } from '@verdaccio/types';
+import type { IStorageHandler, IWebSearch } from '../../types';
 /**
  * Handle the search Indexer.
  */
@@ -20,10 +19,10 @@ class Search implements IWebSearch {
   constructor() {
     /* eslint no-invalid-this: "off" */
     this.index = lunrMutable(function() {
-      this.field('name', {boost: 10});
-      this.field('description', {boost: 4});
-      this.field('author', {boost: 6});
-      this.field('keywords', {boost: 7});
+      this.field('name', { boost: 10 });
+      this.field('description', { boost: 4 });
+      this.field('author', { boost: 6 });
+      this.field('keywords', { boost: 7 });
       this.field('version');
       this.field('readme');
     });
@@ -40,7 +39,7 @@ class Search implements IWebSearch {
     return query === '*'
       ? this.storage.localStorage.localData.get(items => {
           items.map(function(pkg) {
-            return {ref: pkg, score: 1};
+            return { ref: pkg, score: 1 };
           });
         })
       : this.index.search(`*${query}*`);
@@ -66,7 +65,7 @@ class Search implements IWebSearch {
    * @param {*} name the id element
    */
   remove(name: string) {
-    this.index.remove({id: name});
+    this.index.remove({ id: name });
   }
 
   /**

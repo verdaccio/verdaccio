@@ -1,20 +1,19 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 import assert from 'assert';
 
-import {generateRandomHexString} from './crypto-utils';
-import {getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck} from './config-utils';
-import {getUserAgent, isObject} from './utils';
-import {APP_ERROR} from './constants';
+import { generateRandomHexString } from './crypto-utils';
+import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
+import { getUserAgent, isObject } from './utils';
+import { APP_ERROR } from './constants';
 
-import type {PackageList, Config as AppConfig, Security, Logger} from '@verdaccio/types';
+import type { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
 
-import type {MatchedPackage, StartUpConfig} from '../../types';
+import type { MatchedPackage, StartUpConfig } from '../../types';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];

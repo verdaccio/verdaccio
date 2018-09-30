@@ -1,16 +1,15 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 
-import {validateName as utilValidateName, validatePackage as utilValidatePackage, isObject, ErrorCode} from '../lib/utils';
-import {API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER} from '../lib/constants';
-import {stringToMD5} from '../lib/crypto-utils';
-import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth} from '../../types';
-import type {Config} from '@verdaccio/types';
+import { validateName as utilValidateName, validatePackage as utilValidatePackage, isObject, ErrorCode } from '../lib/utils';
+import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
+import { stringToMD5 } from '../lib/crypto-utils';
+import type { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
+import type { Config } from '@verdaccio/types';
 
 const Logger = require('../lib/logger');
 
@@ -167,7 +166,7 @@ export function final(body: any, req: $RequestExtend, res: $ResponseExtend, next
 
 export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   // logger
-  req.log = Logger.logger.child({sub: 'in'});
+  req.log = Logger.logger.child({ sub: 'in' });
 
   let _auth = req.headers.authorization;
   if (_.isNil(_auth) === false) {
@@ -180,7 +179,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   }
 
   req.url = req.originalUrl;
-  req.log.info({req: req, ip: req.ip}, "@{ip} requested '@{req.method} @{req.url}'");
+  req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
   req.originalUrl = req.url;
 
   if (_.isNil(_auth) === false) {
@@ -261,16 +260,16 @@ export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExte
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (_.isNil(res.headersSent) === false) {
           res.status(err.status);
-          next({error: err.message || API_ERROR.UNKNOWN_ERROR});
+          next({ error: err.message || API_ERROR.UNKNOWN_ERROR });
         }
       } else {
-        Logger.logger.error({err: err}, 'unexpected error: @{!err.message}\n@{err.stack}');
+        Logger.logger.error({ err: err }, 'unexpected error: @{!err.message}\n@{err.stack}');
         if (!res.status || !res.send) {
           Logger.logger.error('this is an error in express.js, please report this');
           res.destroy();
         } else if (!res.headersSent) {
           res.status(HTTP_STATUS.INTERNAL_ERROR);
-          next({error: API_ERROR.INTERNAL_SERVER_ERROR});
+          next({ error: API_ERROR.INTERNAL_SERVER_ERROR });
         } else {
           // socket should be already closed
         }

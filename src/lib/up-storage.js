@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import zlib from 'zlib';
 import JSONStream from 'JSONStream';
@@ -10,11 +9,11 @@ import _ from 'lodash';
 import request from 'request';
 import Stream from 'stream';
 import URL from 'url';
-import {parseInterval, isObject, ErrorCode, buildToken} from './utils';
-import {ReadTarball} from '@verdaccio/streams';
-import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING} from './constants';
-import type {Config, UpLinkConf, Callback, Headers, Logger} from '@verdaccio/types';
-import type {IProxy} from '../../types';
+import { parseInterval, isObject, ErrorCode, buildToken } from './utils';
+import { ReadTarball } from '@verdaccio/streams';
+import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
+import type { Config, UpLinkConf, Callback, Headers, Logger } from '@verdaccio/types';
+import type { IProxy } from '../../types';
 
 const LoggerApi = require('./logger');
 const encode = function(thing) {
@@ -65,7 +64,7 @@ class ProxyStorage implements IProxy {
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
     this.ca = config.ca;
-    this.logger = LoggerApi.logger.child({sub: 'out'});
+    this.logger = LoggerApi.logger.child({ sub: 'out' });
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);
@@ -187,7 +186,7 @@ class ProxyStorage implements IProxy {
             self.logger.warn(
               {
                 err: err || undefined, // if error is null/false change this to undefined so it wont log
-                request: {method: method, url: uri},
+                request: { method: method, url: uri },
                 level: 35, // http
                 status: res != null ? res.statusCode : 'ERR',
                 error: error,
@@ -278,7 +277,7 @@ class ProxyStorage implements IProxy {
    * @private
    */
   _setAuth(headers: any) {
-    const {auth} = this.config;
+    const { auth } = this.config;
 
     if (_.isNil(auth) || headers['authorization']) {
       return headers;
@@ -494,7 +493,7 @@ class ProxyStorage implements IProxy {
    * @return {Stream}
    */
   search(options: any) {
-    const transformStream: any = new Stream.PassThrough({objectMode: true});
+    const transformStream: any = new Stream.PassThrough({ objectMode: true });
     const requestStream: stream$Readable = this.request({
       uri: options.req.url,
       req: options.req,
@@ -650,7 +649,7 @@ class ProxyStorage implements IProxy {
         if (noProxyItem[0] !== '.') noProxyItem = '.' + noProxyItem;
         if (hostname.lastIndexOf(noProxyItem) === hostname.length - noProxyItem.length) {
           if (this.proxy) {
-            this.logger.debug({url: this.url.href, rule: noProxyItem}, 'not using proxy for @{url}, excluded by @{rule} rule');
+            this.logger.debug({ url: this.url.href, rule: noProxyItem }, 'not using proxy for @{url}, excluded by @{rule} rule');
             // $FlowFixMe
             this.proxy = false;
           }
@@ -663,7 +662,7 @@ class ProxyStorage implements IProxy {
     if (_.isString(this.proxy) === false) {
       delete this.proxy;
     } else {
-      this.logger.debug({url: this.url.href, proxy: this.proxy}, 'using proxy @{proxy} for @{url}');
+      this.logger.debug({ url: this.url.href, proxy: this.proxy }, 'using proxy @{proxy} for @{url}');
     }
   }
 }

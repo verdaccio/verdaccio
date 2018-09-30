@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 import assert from 'assert';
@@ -10,17 +9,17 @@ import async from 'async';
 import Stream from 'stream';
 import ProxyStorage from './up-storage';
 import Search from './search';
-import {API_ERROR, HTTP_STATUS} from './constants';
+import { API_ERROR, HTTP_STATUS } from './constants';
 import LocalStorage from './local-storage';
-import {ReadTarball} from '@verdaccio/streams';
-import {checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate} from './storage-utils';
-import {setupUpLinks, updateVersionsHiddenUpLink} from './uplink-util';
-import {mergeVersions} from './metadata-utils';
-import {ErrorCode, normalizeDistTags, validateMetadata, isObject, DIST_TAGS} from './utils';
-import type {IStorage, IProxy, IStorageHandler, ProxyList, StringValue} from '../../types';
-import type {Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger} from '@verdaccio/types';
-import type {IReadTarball, IUploadTarball} from '@verdaccio/streams';
-import {hasProxyTo} from './config-utils';
+import { ReadTarball } from '@verdaccio/streams';
+import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
+import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
+import { mergeVersions } from './metadata-utils';
+import { ErrorCode, normalizeDistTags, validateMetadata, isObject, DIST_TAGS } from './utils';
+import type { IStorage, IProxy, IStorageHandler, ProxyList, StringValue } from '../../types';
+import type { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
+import type { IReadTarball, IUploadTarball } from '@verdaccio/streams';
+import { hasProxyTo } from './config-utils';
 
 const LoggerApi = require('../lib/logger');
 
@@ -241,7 +240,7 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function(err) {
-          self.logger.warn({err: err, fileName: file}, 'error saving file @{fileName}: @{err.message}\n@{err.stack}');
+          self.logger.warn({ err: err, fileName: file }, 'error saving file @{fileName}: @{err.message}\n@{err.stack}');
           if (savestream) {
             savestream.abort();
           }
@@ -274,7 +273,7 @@ class Storage implements IStorageHandler {
         return options.callback(err);
       }
 
-      this._syncUplinksMetadata(options.name, data, {req: options.req}, function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors) {
+      this._syncUplinksMetadata(options.name, data, { req: options.req }, function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors) {
         if (err) {
           return options.callback(err);
         }
@@ -304,7 +303,7 @@ class Storage implements IStorageHandler {
   search(startkey: string, options: any) {
     let self = this;
     // stream to write a tarball
-    let stream: any = new Stream.PassThrough({objectMode: true});
+    let stream: any = new Stream.PassThrough({ objectMode: true });
 
     async.eachSeries(
       Object.keys(this.uplinks),
@@ -318,10 +317,10 @@ class Storage implements IStorageHandler {
         // join streams
         lstream.pipe(
           stream,
-          {end: false}
+          { end: false }
         );
         lstream.on('error', function(err) {
-          self.logger.error({err: err}, 'uplink error: @{err.message}');
+          self.logger.error({ err: err }, 'uplink error: @{err.message}');
           cb(), (cb = function() {});
         });
         lstream.on('end', function() {
@@ -344,10 +343,10 @@ class Storage implements IStorageHandler {
         };
         lstream.pipe(
           stream,
-          {end: true}
+          { end: true }
         );
         lstream.on('error', function(err) {
-          self.logger.error({err: err}, 'search error: @{err.message}');
+          self.logger.error({ err: err }, 'search error: @{err.message}');
           stream.end();
         });
       }
@@ -380,7 +379,7 @@ class Storage implements IStorageHandler {
 
               packages.push(version);
             } else {
-              self.logger.warn({package: locals[itemPkg]}, 'package @{package} does not have a "latest" tag?');
+              self.logger.warn({ package: locals[itemPkg] }, 'package @{package} does not have a "latest" tag?');
             }
           }
 

@@ -1,14 +1,13 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
-
 import _ from 'lodash';
-import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme} from '../../../lib/utils';
-import {allow} from '../../middleware';
-import type {Router} from 'express';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage} from '../../../../types';
+import { addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme } from '../../../lib/utils';
+import { allow } from '../../middleware';
+import type { Router } from 'express';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
 
 function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   const can = allow(auth);

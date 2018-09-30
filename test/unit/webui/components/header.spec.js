@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import Header from '../../../../src/webui/components/Header';
 
 describe('<Header /> component with logged in state', () => {
@@ -22,13 +22,13 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should load the component in logged in state', () => {
-    const state = {openInfoDialog: false, registryUrl: 'http://localhost'};
+    const state = { openInfoDialog: false, registryUrl: 'http://localhost' };
     expect(wrapper.state()).toEqual(state);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
   test('handleLoggedInMenu: set anchorEl to html element value in state', () => {
-    const {handleLoggedInMenu} = wrapper.instance();
+    const { handleLoggedInMenu } = wrapper.instance();
 
     // creates a sample menu
     const div = document.createElement('div');
@@ -58,31 +58,31 @@ describe('<Header /> component with logged out state', () => {
   });
 
   test('should load the component in logged out state', () => {
-    const state = {openInfoDialog: false, registryUrl: 'http://localhost'};
+    const state = { openInfoDialog: false, registryUrl: 'http://localhost' };
     expect(wrapper.state()).toEqual(state);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
   test('handleLoggedInMenuClose: set anchorEl value to null in state', () => {
-    const {handleLoggedInMenuClose} = wrapper.instance();
+    const { handleLoggedInMenuClose } = wrapper.instance();
     handleLoggedInMenuClose();
     expect(wrapper.state('anchorEl')).toBeNull();
   });
 
   test('handleOpenRegistryInfoDialog: set openInfoDialog to be truthy in state', () => {
-    const {handleOpenRegistryInfoDialog} = wrapper.instance();
+    const { handleOpenRegistryInfoDialog } = wrapper.instance();
     handleOpenRegistryInfoDialog();
     expect(wrapper.state('openInfoDialog')).toBeTruthy();
   });
 
   test('handleCloseRegistryInfoDialog: set openInfoDialog to be falsy in state', () => {
-    const {handleCloseRegistryInfoDialog} = wrapper.instance();
+    const { handleCloseRegistryInfoDialog } = wrapper.instance();
     handleCloseRegistryInfoDialog();
     expect(wrapper.state('openInfoDialog')).toBeFalsy();
   });
 
   test('handleToggleLogin: close/open popover menu', () => {
-    const {handleToggleLogin} = wrapper.instance();
+    const { handleToggleLogin } = wrapper.instance();
     handleToggleLogin();
     expect(wrapper.state('anchorEl')).toBeNull();
     expect(props.toggleLoginModal).toHaveBeenCalled();

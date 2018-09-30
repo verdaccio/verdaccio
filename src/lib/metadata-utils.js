@@ -1,14 +1,13 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import semver from 'semver';
 import _ from 'lodash';
-import {DIST_TAGS} from './utils';
+import { DIST_TAGS } from './utils';
 
-import type {Package} from '@verdaccio/types';
+import type { Package } from '@verdaccio/types';
 
 /**
  * Function gets a local info and an info from uplinks and tries to merge it

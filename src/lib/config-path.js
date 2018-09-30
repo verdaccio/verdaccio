@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import fs from 'fs';
 import _ from 'lodash';
@@ -10,8 +9,8 @@ import Path from 'path';
 import logger from './logger';
 import mkdirp from 'mkdirp';
 
-import {folderExists, fileExists} from './utils';
-import {CHARACTER_ENCODING} from './constants';
+import { folderExists, fileExists } from './utils';
+import { CHARACTER_ENCODING } from './constants';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
@@ -58,7 +57,7 @@ function readDefaultConfig() {
 
 function createConfigFolder(configLocation) {
   mkdirp.sync(Path.dirname(configLocation.path));
-  logger.logger.info({file: configLocation.path}, 'Creating default config file in @{file}');
+  logger.logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
 }
 
 function updateStorageLinks(configLocation, defaultConfig) {
