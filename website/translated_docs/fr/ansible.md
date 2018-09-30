@@ -2,11 +2,11 @@
 id: ansible
 title: "Ansible"
 ---
-We have a customised solution for `verdaccio` in our organization.
+Nous avons une solution personnalisée pour `verdaccio` dans notre organisation.
 
 <https://github.com/verdaccio/ansible-verdaccio>
 
-#### Other options
+#### Autres options
 
 * Ansible role for Gentoo users: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
 * Ansible role for Ubuntu users: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
