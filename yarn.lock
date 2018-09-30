@@ -407,9 +407,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@3.7.3-beta-1":
-  version "3.7.3-beta-1"
-  resolved "http://localhost:4873/@verdaccio%2ftypes/-/types-3.7.3-beta-1.tgz#939423c2b010e82e8f0d20650ea94ab8b070a39e"
+"@verdaccio/types@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-4.0.0.tgz#3905eb5572b323195ae6e086330143769cb9b1bb"
 
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
@@ -10748,9 +10748,9 @@ verdaccio-auth-memory@0.0.4:
   version "0.0.4"
   resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
 
-verdaccio-htpasswd@0.2.2-beta:
-  version "0.2.2-beta"
-  resolved "http://localhost:4873/verdaccio-htpasswd/-/verdaccio-htpasswd-0.2.2-beta.tgz#b618aff7f8a582b6e26714e59408e50eebc2b256"
+verdaccio-htpasswd@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/verdaccio-htpasswd/-/verdaccio-htpasswd-0.2.2.tgz#6873fe42cd83ff03d260b21483941635f320c8ba"
   dependencies:
     "@verdaccio/file-locking" "^0.0.7"
     apache-md5 "^1.1.2"
