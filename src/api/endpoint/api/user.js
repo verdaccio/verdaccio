@@ -8,8 +8,8 @@ import _ from 'lodash';
 import Cookies from 'cookies';
 
 import {ErrorCode} from '../../../lib/utils';
-import {API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
-import {createSessionToken, getApiToken, getAuthenticatedMessage} from '../../../lib/auth-utils';
+import {API_ERROR, API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
+import {createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword} from '../../../lib/auth-utils';
 
 import type {Config} from '@verdaccio/types';
 import type {$Response, Router} from 'express';
@@ -36,6 +36,12 @@ export default function(route: Router, auth: IAuth, config: Config) {
         token,
       });
     } else {
+      if (validatePassword(password) === false) {
+        /* eslint new-cap:off */
+        return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT()));
+        /* eslint new-cap:off */
+      }
+
       auth.add_user(name, password, async function(err, user) {
         if (err) {
           if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {

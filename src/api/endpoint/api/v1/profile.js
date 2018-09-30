@@ -10,6 +10,7 @@ import type {$Response, Router} from 'express';
 import type {$NextFunctionVer, $RequestExtend, IAuth} from '../../../../../types';
 import {API_ERROR, HTTP_STATUS} from '../../../../lib/constants';
 import {ErrorCode} from '../../../../lib/utils';
+import {validatePassword} from '../../../../lib/auth-utils';
 
 export default function(route: Router, auth: IAuth) {
   const can = allow(auth);
@@ -45,6 +46,11 @@ export default function(route: Router, auth: IAuth) {
 
     const {password} = req.body;
     const {name} = req.remote_user;
+    if (validatePassword(password.new) === false) {
+      /* eslint new-cap:off */
+      return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT()));
+      /* eslint new-cap:off */
+    }
 
     auth.changePassword(name, password.old, password.new, (err, profile) => {
       if (_.isNull(err) === false) {

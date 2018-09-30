@@ -88,7 +88,8 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
-  PASSWORD_SHORT: 'The provided password is too short. Please pick a password longer than 7 characters.',
+  PASSWORD_SHORT: (passLength: number = DEFAULT_MIN_LIMIT_PASSWORD) =>
+    `The provided password is too short. Please pick a password longer than ${passLength} characters.`,
   MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',
   CONFIG_BAD_FORMAT: 'config file must be an object',
