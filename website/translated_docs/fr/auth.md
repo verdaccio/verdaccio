@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### Publication anonyme
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` permet d'activer la publication anonyme. Pour utiliser cette fonction, vous devez définir correctement votre [accès au package](packages.md).
 
 Eg:
 
@@ -32,11 +32,11 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. Cependant `yarn` n'a pas une telle limitation.
 
-## Default htpasswd
+## Htpasswd par défaut
 
-In order to simplify the setup, `verdaccio` use a plugin based on `htpasswd`. As of version v3.0.x an [external plugin](https://github.com/verdaccio/verdaccio-htpasswd) is used by default. The v2.x version of this package still contains the built-in version of this plugin.
+Afin de simplifier la configuration, `verdaccio` utiliser un plugin basé sur `htpasswd`. A partir de la version 3.0.x, le [ plugin externe ](https://github.com/verdaccio/verdaccio-htpasswd) est utilisé par défaut. The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:
