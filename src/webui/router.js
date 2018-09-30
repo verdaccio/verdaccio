@@ -15,7 +15,7 @@ class RouterApp extends Component {
     const {isUserLoggedIn} = this.props;
     return (
       <Router>
-        <div className="container">
+        <div className="container content">
           <Switch>
             <Route
               exact
