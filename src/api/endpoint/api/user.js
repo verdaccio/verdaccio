@@ -37,7 +37,7 @@ export default function(route: Router, auth: IAuth, config: Config) {
     } else {
       if (validatePassword(password) === false) {
         /* eslint new-cap:off */
-        return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT()));
+        return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
         /* eslint new-cap:off */
       }
 
