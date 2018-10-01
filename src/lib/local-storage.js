@@ -8,14 +8,8 @@ import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
 import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
-import {
-  generatePackageTemplate,
-  normalizePackage,
-  generateRevision,
-  getLatestReadme,
-  cleanUpReadme,
-  normalizeContributors,
-} from './storage-utils';
+import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
+import { API_ERROR, DIST_TAGS, STORAGE } from './constants';
 import { createTarballHash } from './crypto-utils';
 import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
@@ -25,7 +19,6 @@ import type { Package, Config, MergeTags, Version, DistFile, Callback, Logger } 
 import type { ILocalData, IPackageStorage } from '@verdaccio/local-storage';
 import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import type { IStorage, StringValue } from '../../types';
-import { API_ERROR } from './constants';
 
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).

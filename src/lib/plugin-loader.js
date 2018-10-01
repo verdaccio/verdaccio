@@ -92,14 +92,14 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
     if (plugin === null) {
       logger.logger.error({ content: pluginId }, 'plugin not found. try npm install verdaccio-@{content}');
       throw Error(`
-        ${ pluginId } plugin not found.
-        try "npm install verdaccio-'${ pluginId }
+        ${pluginId} plugin not found.
+        try "npm install verdaccio-'${pluginId}
       `);
     }
 
     if (!isValid(plugin)) {
-      logger.logger.error({content: pluginId}, "@{content} doesn't look like a valid plugin");
-      throw Error(`"${ pluginId }" is not a valid plugin`);
+      logger.logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
+      throw Error(`"${pluginId}" is not a valid plugin`);
     }
     /* eslint new-cap:off */
     plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
@@ -107,7 +107,7 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
 
     if (plugin === null || !sanityCheck(plugin)) {
       logger.logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
-      throw Error(`"${ pluginId }" is not a valid plugin`);
+      throw Error(`"${pluginId}" is not a valid plugin`);
     }
 
     logger.logger.warn({ content: pluginId }, 'Plugin successfully loaded: @{content}');
