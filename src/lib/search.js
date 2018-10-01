@@ -74,7 +74,10 @@ class Search implements IWebSearch {
   reindex() {
     let self = this;
     this.storage.getLocalDatabase(function(error, packages) {
-      if (error) throw error; // that function shouldn't produce any
+      if (error) {
+        // that function shouldn't produce any
+        throw error;
+      }
       let i = packages.length;
       while (i--) {
         self.add(packages[i]);

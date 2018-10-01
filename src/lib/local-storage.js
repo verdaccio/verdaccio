@@ -42,7 +42,7 @@ class LocalStorage implements IStorage {
     }
 
     storage.createPackage(name, generatePackageTemplate(name), err => {
-      if (_.isNull(err) === false && err.code === STORAGE.FILE_EXIST) {
+      if (_.isNull(err) === false && err.code === STORAGE.FILE_EXIST_ERROR) {
         return callback(ErrorCode.getConflict());
       }
 
@@ -70,7 +70,7 @@ class LocalStorage implements IStorage {
 
     storage.readPackage(name, (err, data) => {
       if (_.isNil(err) === false) {
-        if (err.code === STORAGE.NO_SUCH_FILE) {
+        if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
           return callback(ErrorCode.getNotFound());
         } else {
           return callback(err);
@@ -420,10 +420,10 @@ class LocalStorage implements IStorage {
     const writeStream: IUploadTarball = storage.writeTarball(filename);
 
     writeStream.on('error', err => {
-      if (err.code === STORAGE.FILE_EXIST) {
+      if (err.code === STORAGE.FILE_EXIST_ERROR) {
         uploadStream.emit('error', ErrorCode.getConflict());
         uploadStream.abort();
-      } else if (err.code === STORAGE.NO_SUCH_FILE) {
+      } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
         // check if package exists to throw an appropriate message
         this.getPackageMetadata(name, function(_err, res) {
           if (_err) {
@@ -530,7 +530,7 @@ class LocalStorage implements IStorage {
     };
 
     readTarballStream.on('error', function(err) {
-      if (err && err.code === STORAGE.NO_SUCH_FILE) {
+      if (err && err.code === STORAGE.NO_SUCH_FILE_ERROR) {
         stream.emit('error', e404('no such file available'));
       } else {
         stream.emit('error', err);
@@ -620,7 +620,7 @@ class LocalStorage implements IStorage {
   _readPackage(name: string, storage: any, callback: Callback) {
     storage.readPackage(name, (err, result) => {
       if (err) {
-        if (err.code === STORAGE.NO_SUCH_FILE) {
+        if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
           return callback(ErrorCode.getNotFound());
         } else {
           return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
@@ -684,7 +684,7 @@ class LocalStorage implements IStorage {
     storage.readPackage(pkgName, (err, data) => {
       // TODO: race condition
       if (_.isNil(err) === false) {
-        if (err.code === STORAGE.NO_SUCH_FILE) {
+        if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
           data = generatePackageTemplate(pkgName);
         } else {
           return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
