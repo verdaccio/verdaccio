@@ -229,7 +229,7 @@
     },
     {
       "path": "./build/**/*.js",
-      "maxSize": "5.50 kB"
+      "maxSize": "5.90 kB"
     }
   ],
   "license": "MIT",
