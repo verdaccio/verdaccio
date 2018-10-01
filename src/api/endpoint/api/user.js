@@ -1,19 +1,18 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 import Cookies from 'cookies';
 
-import {ErrorCode} from '../../../lib/utils';
-import {API_ERROR, API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
-import {createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword} from '../../../lib/auth-utils';
+import { ErrorCode } from '../../../lib/utils';
+import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '../../../lib/constants';
+import { createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
 
-import type {Config} from '@verdaccio/types';
-import type {$Response, Router} from 'express';
-import type {$RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth} from '../../../../types';
+import type { Config } from '@verdaccio/types';
+import type { $Response, Router } from 'express';
+import type { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '../../../../types';
 
 export default function(route: Router, auth: IAuth, config: Config) {
   route.get('/-/user/:org_couchdb_user', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
@@ -24,7 +23,7 @@ export default function(route: Router, auth: IAuth, config: Config) {
   });
 
   route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', async function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
-    const {name, password} = req.body;
+    const { name, password } = req.body;
 
     if (_.isNil(req.remote_user.name) === false) {
       const token = name && password ? await getApiToken(auth, config, req.remote_user, password) : undefined;

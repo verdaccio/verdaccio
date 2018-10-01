@@ -3,7 +3,7 @@
  * @flow
  */
 
-import styled, {css} from 'react-emotion';
+import styled, { css } from 'react-emotion';
 import AppBar from '@material-ui/core/AppBar/index';
 import Toolbar from '@material-ui/core/Toolbar/index';
 import colors from '../../utils/styles/colors';

@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 /* eslint prefer-rest-params: 0 */
 
@@ -10,7 +9,7 @@ import assert from 'assert';
 import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
-import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS} from './utils';
+import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS } from './utils';
 import {
   generatePackageTemplate,
   normalizePackage,
@@ -23,16 +22,16 @@ import {
   DEFAULT_REVISION,
   pkgFileName,
 } from './storage-utils';
-import {createTarballHash} from './crypto-utils';
-import {prepareSearchPackage} from './storage-utils';
+import { createTarballHash } from './crypto-utils';
+import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
-import {UploadTarball, ReadTarball} from '@verdaccio/streams';
-import type {Package, Config, MergeTags, Version, DistFile, Callback, Logger} from '@verdaccio/types';
-import type {ILocalData, IPackageStorage} from '@verdaccio/local-storage';
-import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
-import type {IStorage, StringValue} from '../../types';
-import {API_ERROR} from './constants';
+import { UploadTarball, ReadTarball } from '@verdaccio/streams';
+import type { Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
+import type { ILocalData, IPackageStorage } from '@verdaccio/local-storage';
+import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
+import type { IStorage, StringValue } from '../../types';
+import { API_ERROR } from './constants';
 
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
@@ -43,7 +42,7 @@ class LocalStorage implements IStorage {
   logger: Logger;
 
   constructor(config: Config, logger: Logger) {
-    this.logger = logger.child({sub: 'fs'});
+    this.logger = logger.child({ sub: 'fs' });
     this.config = config;
     this.localData = this._loadStorage(config, logger);
   }
@@ -190,7 +189,7 @@ class LocalStorage implements IStorage {
       }
 
       if (change) {
-        this.logger.debug({name}, 'updating package @{name} info');
+        this.logger.debug({ name }, 'updating package @{name} info');
         this._writePackage(name, packageLocalJson, function(err) {
           callback(err, packageLocalJson);
         });
@@ -335,7 +334,7 @@ class LocalStorage implements IStorage {
       (localData, cb) => {
         for (let version in localData.versions) {
           if (_.isNil(incomingPkg.versions[version])) {
-            this.logger.info({name: name, version: version}, 'unpublishing @{name}@@{version}');
+            this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
 
             delete localData.versions[version];
             delete localData.time[version];
@@ -586,7 +585,7 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   search(startKey: string, options: any) {
-    const stream = new ReadTarball({objectMode: true});
+    const stream = new ReadTarball({ objectMode: true });
 
     this._searchEachPackage(
       (item, cb) => {
@@ -653,7 +652,7 @@ class LocalStorage implements IStorage {
       storages[this.config.storage] = true;
     }
 
-    const {packages} = this.config;
+    const { packages } = this.config;
 
     if (packages) {
       const listPackagesConf = Object.keys(packages || {});
@@ -721,7 +720,7 @@ class LocalStorage implements IStorage {
    * @return {Object} Error instance
    */
   _internalError(err: string, file: string, message: string) {
-    this.logger.error({err: err, file: file}, `${message}  @{file}: @{!err.message}`);
+    this.logger.error({ err: err, file: file }, `${message}  @{file}: @{!err.message}`);
 
     return ErrorCode.getInternalError();
   }

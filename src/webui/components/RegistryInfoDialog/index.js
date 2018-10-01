@@ -1,20 +1,19 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog/index';
 import DialogActions from '@material-ui/core/DialogActions/index';
 import Button from '@material-ui/core/Button/index';
-import {Title, Content} from './styles';
+import { Title, Content } from './styles';
 
-import type {Node} from 'react';
+import type { Node } from 'react';
 
-import {IProps} from './interfaces';
+import { IProps } from './interfaces';
 
-const RegistryInfoDialog = ({open = false, children, onClose}: IProps): Node => (
+const RegistryInfoDialog = ({ open = false, children, onClose }: IProps): Node => (
   <Dialog id="registryInfo--dialog-container" open={open} onClose={onClose}>
     <Title disableTypography>Register Info</Title>
     <Content>{children}</Content>

@@ -1,21 +1,20 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import {API_MESSAGE, HEADERS} from '../../../lib/constants';
-import {DIST_TAGS, validateMetadata, isObject, ErrorCode} from '../../../lib/utils';
-import {media, expectJson, allow} from '../../middleware';
-import {notify} from '../../../lib/notify';
+import { API_MESSAGE, HEADERS } from '../../../lib/constants';
+import { DIST_TAGS, validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
+import { media, expectJson, allow } from '../../middleware';
+import { notify } from '../../../lib/notify';
 
-import type {Router} from 'express';
-import type {Config, Callback} from '@verdaccio/types';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import type { Router } from 'express';
+import type { Config, Callback } from '@verdaccio/types';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import logger from '../../../lib/logger';
 
 export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
@@ -105,11 +104,11 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
             try {
               await notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`);
             } catch (err) {
-              logger.logger.error({err}, 'notify batch service has failed: @{err}');
+              logger.logger.error({ err }, 'notify batch service has failed: @{err}');
             }
 
             res.status(201);
-            return next({ok: ok_message, success: true});
+            return next({ ok: ok_message, success: true });
           });
         });
       });
@@ -144,7 +143,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         return next(err);
       }
       res.status(201);
-      return next({ok: API_MESSAGE.PKG_REMOVED});
+      return next({ ok: API_MESSAGE.PKG_REMOVED });
     });
   });
 
@@ -155,7 +154,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         return next(err);
       }
       res.status(201);
-      return next({ok: API_MESSAGE.TARBALL_REMOVED});
+      return next({ ok: API_MESSAGE.TARBALL_REMOVED });
     });
   });
 
@@ -200,7 +199,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     res: $ResponseExtend,
     next: $NextFunctionVer
   ) {
-    const {version, tag} = req.params;
+    const { version, tag } = req.params;
     const name = req.params.package;
 
     storage.addVersion(name, version, req.body, tag, function(err) {

@@ -1,12 +1,11 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
-
 import _ from 'lodash';
-import type {$Application} from 'express';
-import type {$ResponseExtend, $RequestExtend, $NextFunctionVer} from '../../../types';
+import type { $Application } from 'express';
+import type { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../types';
 
 export default (app: $Application, selfPath: string) => {
   // Hook for tests only

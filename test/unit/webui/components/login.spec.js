@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 
 import LoginModal from '../../../../src/webui/components/Login';
 
@@ -69,7 +69,7 @@ describe('<LoginModal />', () => {
       onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
-    const {setCredentials} = wrapper.instance();
+    const { setCredentials } = wrapper.instance();
 
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
@@ -90,7 +90,7 @@ describe('<LoginModal />', () => {
     const instance = wrapper.instance();
 
     instance.submitCredentials = jest.fn();
-    const {validateCredentials, setCredentials, submitCredentials} = instance;
+    const { validateCredentials, setCredentials, submitCredentials } = instance;
 
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
@@ -112,7 +112,7 @@ describe('<LoginModal />', () => {
     };
 
     const wrapper = mount(<LoginModal {...props} />);
-    const {setCredentials, submitCredentials} = wrapper.instance();
+    const { setCredentials, submitCredentials } = wrapper.instance();
     expect(setCredentials('username', eventUsername)).toBeUndefined();
     expect(wrapper.state('form').username.value).toEqual('xyz');
 

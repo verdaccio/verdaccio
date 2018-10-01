@@ -1,16 +1,15 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
-
 import _ from 'lodash';
-import {convertPayloadToBase64, ErrorCode} from './utils';
-import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING, DEFAULT_MIN_LIMIT_PASSWORD} from './constants';
+import { convertPayloadToBase64, ErrorCode } from './utils';
+import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 
-import type {RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions} from '@verdaccio/types';
-import type {CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload} from '../../types';
-import {aesDecrypt, verifyPayload} from './crypto-utils';
+import type { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions } from '@verdaccio/types';
+import type { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
+import { aesDecrypt, verifyPayload } from './crypto-utils';
 
 export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD) {
   return typeof password === 'string' && password.length >= minLength;
@@ -46,7 +45,7 @@ export function createAnonymousRemoteUser(): RemoteUser {
 
 export function allow_action(action: string) {
   return function(user: RemoteUser, pkg: Package, callback: Callback) {
-    const {name, groups} = user;
+    const { name, groups } = user;
     const hasPermission = pkg[action].some(group => name === group || groups.includes(group));
 
     if (hasPermission) {
@@ -119,7 +118,7 @@ export function buildUserBuffer(name: string, password: string) {
 }
 
 export function isAESLegacy(security: Security): boolean {
-  const {legacy, jwt} = security.api;
+  const { legacy, jwt } = security.api;
 
   return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
 }
@@ -134,7 +133,7 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
     });
   } else {
     // i am wiling to use here _.isNil but flow does not like it yet.
-    const {jwt} = security.api;
+    const { jwt } = security.api;
 
     if (jwt && jwt.sign) {
       return await auth.jwtEncrypt(remoteUser, jwt.sign);
@@ -150,7 +149,7 @@ export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHead
   const parts = authorizationHeader.split(' ');
   const [scheme, token] = parts;
 
-  return {scheme, token};
+  return { scheme, token };
 }
 
 export function parseBasicPayload(credentials: string): BasicPayload {
@@ -162,11 +161,11 @@ export function parseBasicPayload(credentials: string): BasicPayload {
   const user: string = credentials.slice(0, index);
   const password: string = credentials.slice(index + 1);
 
-  return {user, password};
+  return { user, password };
 }
 
 export function parseAESCredentials(authorizationHeader: string, secret: string) {
-  const {scheme, token} = parseAuthTokenHeader(authorizationHeader);
+  const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   // basic is deprecated and should not be enforced
   if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
@@ -219,7 +218,7 @@ export function getMiddlewareCredentials(security: Security, secret: string, aut
 
     return parsedCredentials;
   } else {
-    const {scheme, token} = parseAuthTokenHeader(authorizationHeader);
+    const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
     if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
       return verifyJWTPayload(token, secret);

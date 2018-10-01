@@ -9,7 +9,7 @@
 import Config from '../../../../src/lib/config';
 import LoggerApi from '../../../../src/lib/logger';
 
-import type {Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions} from '@verdaccio/types';
+import type { Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions } from '@verdaccio/types';
 
 class ExampleAuthPlugin implements IPluginAuth {
   config: AppConfig;
@@ -97,5 +97,5 @@ auth.authenticate('user', 'pass', () => {});
 auth.allow_access(remoteUser, {}, () => {});
 auth.allow_publish(remoteUser, {}, () => {});
 authSub.authenticate('user', 'pass', () => {});
-authSub.allow_access(remoteUser, {sub: true}, () => {});
-authSub.allow_publish(remoteUser, {sub: true}, () => {});
+authSub.allow_access(remoteUser, { sub: true }, () => {});
+authSub.allow_publish(remoteUser, { sub: true }, () => {});
