@@ -10,7 +10,7 @@ describe('/ (Verdaccio Page)', () => {
   // this might be increased based on the delays included in all test
   jest.setTimeout(200000);
 
-  const clickElement = async function(selector, options = {button: 'middle', delay: 100}) {
+  const clickElement = async function(selector, options = { button: 'middle', delay: 100 }) {
     const button = await page.$(selector);
     await button.focus();
     await button.click(options);
@@ -34,14 +34,14 @@ describe('/ (Verdaccio Page)', () => {
     expect(userInput).not.toBeNull();
     const passInput = await signInDialog.$('#login--form-password');
     expect(passInput).not.toBeNull();
-    await userInput.type('test', {delay: 100});
-    await passInput.type('test', {delay: 100});
+    await userInput.type('test', { delay: 100 });
+    await passInput.type('test', { delay: 100 });
     await passInput.dispose();
     // click on log in
     const loginButton = await page.$('#login--form-submit');
     expect(loginButton).toBeDefined();
     await loginButton.focus();
-    await loginButton.click({delay: 100});
+    await loginButton.click({ delay: 100 });
     await page.waitFor(500);
   };
 
@@ -100,8 +100,8 @@ describe('/ (Verdaccio Page)', () => {
 
   it('should logout an user', async () => {
     // we assume the user is logged already
-    await clickElement('#header--button-account', {clickCount: 1, delay: 2000});
-    await clickElement('#header--button-logout', {clickCount: 1, delay: 200});
+    await clickElement('#header--button-account', { clickCount: 1, delay: 2000 });
+    await clickElement('#header--button-logout', { clickCount: 1, delay: 200 });
     await page.waitFor(1000);
     await evaluateSignIn();
   });
@@ -132,7 +132,7 @@ describe('/ (Verdaccio Page)', () => {
     const packagesList = await getPackages();
     const packageItem = packagesList[0];
     await packageItem.focus();
-    await packageItem.click({clickCount: 1, delay: 200});
+    await packageItem.click({ clickCount: 1, delay: 200 });
     await page.waitFor(1000);
     const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
 

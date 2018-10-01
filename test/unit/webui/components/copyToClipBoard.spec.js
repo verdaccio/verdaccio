@@ -4,10 +4,10 @@
  */
 
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 
 import CopyToClipBoard from '../../../../src/webui/components/CopyToClipBoard';
-import {CopyIcon} from '../../../../src/webui/components/CopyToClipBoard/styles';
+import { CopyIcon } from '../../../../src/webui/components/CopyToClipBoard/styles';
 
 describe('<CopyToClipBoard /> component', () => {
   let wrapper;
@@ -34,7 +34,7 @@ describe('<CopyToClipBoard /> component', () => {
       addRange: () => {},
     }));
 
-    const {document, getSelection} = global;
+    const { document, getSelection } = global;
 
     wrapper.find(CopyIcon).simulate('click', event);
     expect(event.preventDefault).toHaveBeenCalled();

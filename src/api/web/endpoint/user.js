@@ -1,20 +1,19 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
+import { HTTP_STATUS } from '../../../lib/constants';
 
-import {HTTP_STATUS} from '../../../lib/constants';
-
-import type {Router} from 'express';
-import type {Config, RemoteUser, JWTSignOptions} from '@verdaccio/types';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer} from '../../../../types';
-import {ErrorCode} from '../../../lib/utils';
-import {getSecurity} from '../../../lib/auth-utils';
+import type { Router } from 'express';
+import type { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../../types';
+import { ErrorCode } from '../../../lib/utils';
+import { getSecurity } from '../../../lib/auth-utils';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
   route.post('/login', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const {username, password} = req.body;
+    const { username, password } = req.body;
 
     auth.authenticate(username, password, async (err, user: RemoteUser) => {
       if (err) {

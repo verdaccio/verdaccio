@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import _ from 'lodash';
 import fs from 'fs';
@@ -13,13 +12,13 @@ import URL from 'url';
 import createError from 'http-errors';
 import marked from 'marked';
 
-import {HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS} from './constants';
-import {generateGravatarUrl, GRAVATAR_DEFAULT} from '../utils/user';
+import { HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS } from './constants';
+import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../utils/user';
 
-import type {Package} from '@verdaccio/types';
-import type {$Request} from 'express';
-import type {StringValue} from '../../types';
-import {normalizeContributors} from './storage-utils';
+import type { Package } from '@verdaccio/types';
+import type { $Request } from 'express';
+import type { StringValue } from '../../types';
+import { normalizeContributors } from './storage-utils';
 
 const Logger = require('./logger');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
@@ -258,7 +257,7 @@ export function semverSort(listVersions: Array<string>): string[] {
   return listVersions
     .filter(function(x) {
       if (!semver.parse(x, true)) {
-        Logger.logger.warn({ver: x}, 'ignoring bad version @{ver}');
+        Logger.logger.warn({ ver: x }, 'ignoring bad version @{ver}');
         return false;
       }
       return true;
@@ -436,7 +435,7 @@ export function deleteProperties(propertiesToDelete: Array<string>, objectItem: 
 }
 
 export function addGravatarSupport(pkgInfo: Object): Object {
-  const pkgInfoCopy = {...pkgInfo};
+  const pkgInfoCopy = { ...pkgInfo };
   const author = _.get(pkgInfo, 'latest.author', null);
   const contributors = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
@@ -495,7 +494,7 @@ export function parseReadme(packageName: string, readme: string): string {
   }
 
   // logs readme not found error
-  Logger.logger.error({packageName}, '@{packageName}: No readme found');
+  Logger.logger.error({ packageName }, '@{packageName}: No readme found');
 
   return marked('ERROR: No README data found!');
 }

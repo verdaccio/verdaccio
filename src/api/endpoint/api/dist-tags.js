@@ -1,16 +1,15 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import mime from 'mime';
 import _ from 'lodash';
-import {media, allow} from '../../middleware';
-import {DIST_TAGS} from '../../../lib/utils';
-import type {Router} from 'express';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
-import {API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
+import { media, allow } from '../../middleware';
+import { DIST_TAGS } from '../../../lib/utils';
+import type { Router } from 'express';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
+import { API_MESSAGE, HTTP_STATUS } from '../../../lib/constants';
 
 export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   const can = allow(auth);
@@ -26,7 +25,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
         return next(err);
       }
       res.status(HTTP_STATUS.CREATED);
-      return next({ok: API_MESSAGE.TAG_ADDED});
+      return next({ ok: API_MESSAGE.TAG_ADDED });
     });
   };
 

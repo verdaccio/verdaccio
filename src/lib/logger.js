@@ -10,7 +10,7 @@ const chalk = require('chalk');
 const Utils = require('./utils');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
-const {format} = require('date-fns');
+const { format } = require('date-fns');
 
 /**
  * Match the level based on buyan severity scale
@@ -43,7 +43,7 @@ class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
   // We depend on mv so that this is there
   write(obj) {
     const msg = fillInMsgTemplate(obj.msg, obj, false);
-    super.write(JSON.stringify({...obj, msg}, Logger.safeCycles()) + '\n');
+    super.write(JSON.stringify({ ...obj, msg }, Logger.safeCycles()) + '\n');
   }
 }
 
@@ -54,7 +54,7 @@ class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
 function setup(logs) {
   let streams = [];
   if (logs == null) {
-    logs = [{type: 'stdout', format: 'pretty', level: 'http'}];
+    logs = [{ type: 'stdout', format: 'pretty', level: 'http' }];
   }
 
   logs.forEach(function(target) {
@@ -78,7 +78,7 @@ function setup(logs) {
           {},
           // Defaults can be found here: https://github.com/trentm/node-bunyan#stream-type-rotating-file
           target.options || {},
-          {path: target.path, level}
+          { path: target.path, level }
         )
       );
 
@@ -95,7 +95,7 @@ function setup(logs) {
       let destinationIsTTY = false;
       if (target.type === 'file') {
         // destination stream
-        destination = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
+        destination = require('fs').createWriteStream(target.path, { flags: 'a', encoding: 'utf8' });
         destination.on('error', function(err) {
           stream.emit('error', err);
         });
@@ -119,7 +119,7 @@ function setup(logs) {
       } else {
         stream.write = obj => {
           const msg = fillInMsgTemplate(obj.msg, obj, destinationIsTTY);
-          destination.write(`${JSON.stringify({...obj, msg}, Logger.safeCycles())}\n`);
+          destination.write(`${JSON.stringify({ ...obj, msg }, Logger.safeCycles())}\n`);
         };
       }
 

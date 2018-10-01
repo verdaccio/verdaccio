@@ -1,15 +1,14 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import request from 'request';
 import semver from 'semver';
 import chalk from 'chalk';
 import _ from 'lodash';
 
-import {UPDATE_BANNER, DEFAULT_REGISTRY, HTTP_STATUS} from './constants';
+import { UPDATE_BANNER, DEFAULT_REGISTRY, HTTP_STATUS } from './constants';
 
 const VERDACCIO_LATEST_REGISTRY_URL = `${DEFAULT_REGISTRY}/verdaccio/latest`;
 
@@ -47,7 +46,7 @@ export function verdaccioUpdateBanner(pkgVersion: string) {
     if (!error && response.statusCode === HTTP_STATUS.OK && response.body) {
       // In case, NPM does not returns version, keeping version equals to
       // verdaccio version.
-      const {version = pkgVersion} = JSON.parse(response.body);
+      const { version = pkgVersion } = JSON.parse(response.body);
       const releaseType = semver.diff(version, pkgVersion);
 
       if (releaseType && semver.gt(version, pkgVersion)) {

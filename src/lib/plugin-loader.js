@@ -1,14 +1,13 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import Path from 'path';
 import _ from 'lodash';
 import logger from './logger';
-import type {Config} from '@verdaccio/types';
-import {MODULE_NOT_FOUND} from './constants';
+import type { Config } from '@verdaccio/types';
+import { MODULE_NOT_FOUND } from './constants';
 
 /**
  * Requires a module.
@@ -91,12 +90,12 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
     }
 
     if (plugin === null) {
-      logger.logger.error({content: pluginId}, 'plugin not found. try npm install verdaccio-@{content}');
+      logger.logger.error({ content: pluginId }, 'plugin not found. try npm install verdaccio-@{content}');
       throw Error('"' + pluginId + '" plugin not found\ntry "npm install verdaccio-' + pluginId + '"');
     }
 
     if (!isValid(plugin)) {
-      logger.logger.error({content: pluginId}, "@{content} doesn't look like a valid plugin");
+      logger.logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
     /* eslint new-cap:off */
@@ -104,10 +103,10 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
-      logger.logger.error({content: pluginId}, "@{content} doesn't look like a valid plugin");
+      logger.logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
       throw Error('"' + pluginId + '" doesn\'t look like a valid plugin');
     }
-    logger.logger.warn({content: pluginId}, 'Plugin successfully loaded: @{content}');
+    logger.logger.warn({ content: pluginId }, 'Plugin successfully loaded: @{content}');
     return plugin;
   });
 }

@@ -2,14 +2,15 @@
  * @prettier
  * @flow
  */
+
 import React from 'react';
 import FileCopy from '@material-ui/icons/FileCopy';
 import Tooltip from '@material-ui/core/Tooltip/index';
 
-import type {Node} from 'react';
-import {IProps} from './interfaces';
+import type { Node } from 'react';
+import { IProps } from './interfaces';
 
-import {ClipBoardCopy, ClipBoardCopyText, CopyIcon} from './styles';
+import { ClipBoardCopy, ClipBoardCopyText, CopyIcon } from './styles';
 
 const copyToClipBoardUtility = (str: string) => (event: SyntheticEvent<HTMLElement>) => {
   event.preventDefault();
@@ -28,7 +29,7 @@ const copyToClipBoardUtility = (str: string) => (event: SyntheticEvent<HTMLEleme
   }
 };
 
-const CopyToClipBoard = ({text}: IProps): Node => (
+const CopyToClipBoard = ({ text }: IProps): Node => (
   <ClipBoardCopy>
     <ClipBoardCopyText>{text}</ClipBoardCopyText>
     <Tooltip title="Copy to Clipboard" disableFocusListener>

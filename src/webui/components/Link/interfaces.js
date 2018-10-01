@@ -1,8 +1,7 @@
 /**
  * @prettier
+ * @flow
  */
-
-/* @flow */
 
 export interface IProps {
   children?: React.Node;

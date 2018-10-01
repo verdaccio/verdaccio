@@ -1,16 +1,16 @@
 /**
  * @prettier
+ * @flow
  */
 
-// @flow
 import _ from 'lodash';
 import assert from 'assert';
 import minimatch from 'minimatch';
 
-import {ErrorCode} from './utils';
+import { ErrorCode } from './utils';
 
-import type {PackageList, UpLinksConfList} from '@verdaccio/types';
-import type {MatchedPackage} from '../../types';
+import type { PackageList, UpLinksConfList } from '@verdaccio/types';
+import type { MatchedPackage } from '../../types';
 
 const BLACKLIST = {
   all: true,
@@ -108,10 +108,10 @@ export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): 
 }
 
 export function normalisePackageAccess(packages: PackageList): PackageList {
-  const normalizedPkgs: PackageList = {...packages};
+  const normalizedPkgs: PackageList = { ...packages };
   // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
-    normalizedPkgs['**'] = {access: [], publish: []};
+    normalizedPkgs['**'] = { access: [], publish: [] };
   }
 
   for (let pkg in packages) {

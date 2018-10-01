@@ -1,13 +1,12 @@
 /**
  * @prettier
+ * @flow
  */
-
-// @flow
 
 import path from 'path';
 
-import {parseAddress} from '../utils';
-import {DEFAULT_PORT} from '../constants';
+import { parseAddress } from '../utils';
+import { DEFAULT_PORT } from '../constants';
 
 const logger = require('../logger');
 
@@ -44,7 +43,7 @@ export function getListListenAddresses(argListen: string, configListen: mixed) {
 
       if (!parsedAddr) {
         logger.logger.warn(
-          {addr: addr},
+          { addr: addr },
           'invalid address - @{addr}, we expect a port (e.g. "4873"),' + ' host:port (e.g. "localhost:4873") or full url' + ' (e.g. "http://localhost:4873/")'
         );
       }
