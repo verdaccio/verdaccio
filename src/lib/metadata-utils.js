@@ -5,7 +5,7 @@
 
 import semver from 'semver';
 import _ from 'lodash';
-import { DIST_TAGS } from './utils';
+import { DIST_TAGS } from './constants';
 
 import type { Package } from '@verdaccio/types';
 

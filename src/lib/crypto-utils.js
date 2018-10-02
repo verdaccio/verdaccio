@@ -38,7 +38,7 @@ export function createTarballHash() {
 }
 
 /**
- * Express doesn't do etags with requests <= 1024b
+ * Express doesn't do ETAGS with requests <= 1024b
  * we use md5 here, it works well on 1k+ bytes, but sucks with fewer data
  * could improve performance using crc32 after benchmarks.
  * @param {Object} data

@@ -30,7 +30,7 @@ function findConfigFile(configPath: any) {
   const configPaths = getConfigPaths();
 
   if (_.isEmpty(configPaths)) {
-    throw new Error('no configuration files can be proccesed');
+    throw new Error('no configuration files can be processed');
   }
 
   const primaryConf: any = _.find(configPaths, (configLocation: any) => fileExists(configLocation.path));

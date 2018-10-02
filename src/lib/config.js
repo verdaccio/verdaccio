@@ -96,7 +96,7 @@ class Config implements AppConfig {
   }
 
   /**
-   * Store or create whether recieve a secret key
+   * Store or create whether receive a secret key
    */
   checkSecretKey(secret: string): string {
     if (_.isString(secret) && _.isEmpty(secret) === false) {
@@ -104,7 +104,7 @@ class Config implements AppConfig {
       return secret;
     }
     // it generates a secret key
-    // FUTURE: this might be an external secret key, perhaps whitin config file?
+    // FUTURE: this might be an external secret key, perhaps within config file?
     this.secret = generateRandomHexString(32);
     return this.secret;
   }

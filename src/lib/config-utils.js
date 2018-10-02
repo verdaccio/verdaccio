@@ -21,10 +21,10 @@ const BLACKLIST = {
 };
 
 /**
- * Normalise user list.
+ * Normalize user list.
  * @return {Array}
  */
-export function normalizeUserlist(oldFormat: any, newFormat: any) {
+export function normalizeUserList(oldFormat: any, newFormat: any) {
   const result = [];
   /* eslint prefer-rest-params: "off" */
 
@@ -117,11 +117,11 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
   for (let pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
       assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false, `CONFIG: bad "'${pkg}'" package description (object expected)`);
-      normalizedPkgs[pkg].access = normalizeUserlist(packages[pkg].allow_access, packages[pkg].access);
+      normalizedPkgs[pkg].access = normalizeUserList(packages[pkg].allow_access, packages[pkg].access);
       delete normalizedPkgs[pkg].allow_access;
-      normalizedPkgs[pkg].publish = normalizeUserlist(packages[pkg].allow_publish, packages[pkg].publish);
+      normalizedPkgs[pkg].publish = normalizeUserList(packages[pkg].allow_publish, packages[pkg].publish);
       delete normalizedPkgs[pkg].allow_publish;
-      normalizedPkgs[pkg].proxy = normalizeUserlist(packages[pkg].proxy_access, packages[pkg].proxy);
+      normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
       delete normalizedPkgs[pkg].proxy_access;
     }
   }

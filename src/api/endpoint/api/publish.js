@@ -7,8 +7,8 @@ import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import { API_MESSAGE, HEADERS } from '../../../lib/constants';
-import { DIST_TAGS, validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
+import { API_MESSAGE, HEADERS, DIST_TAGS } from '../../../lib/constants';
+import { validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
 import { media, expectJson, allow } from '../../middleware';
 import { notify } from '../../../lib/notify';
 

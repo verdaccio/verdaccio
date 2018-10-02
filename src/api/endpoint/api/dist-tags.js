@@ -6,10 +6,9 @@
 import mime from 'mime';
 import _ from 'lodash';
 import { media, allow } from '../../middleware';
-import { DIST_TAGS } from '../../../lib/utils';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
-import { API_MESSAGE, HTTP_STATUS } from '../../../lib/constants';
+import { API_MESSAGE, HTTP_STATUS, DIST_TAGS } from '../../../lib/constants';
 
 export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   const can = allow(auth);

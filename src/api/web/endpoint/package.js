@@ -4,8 +4,9 @@
  */
 
 import _ from 'lodash';
-import { addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme } from '../../../lib/utils';
+import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme } from '../../../lib/utils';
 import { allow } from '../../middleware';
+import { DIST_TAGS } from '../../../lib/constants';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
 

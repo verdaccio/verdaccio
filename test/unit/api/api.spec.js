@@ -9,10 +9,9 @@ import forbiddenPlace from '../partials/forbidden-place';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 
-import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE} from '../../../src/lib/constants';
+import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, DIST_TAGS} from '../../../src/lib/constants';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {DIST_TAGS} from '../../../src/lib/utils';
 
 require('../../../src/lib/logger').setup([]);
 const credentials = { name: 'Jota', password: 'secretPass' };
