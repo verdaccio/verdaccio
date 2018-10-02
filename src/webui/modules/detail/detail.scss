@@ -3,7 +3,7 @@
 
 .twoColumn {
   @include container-size;
-  margin: auto 10px;
+  margin: 0 10px;
   display: flex;
 
   > div {

@@ -2,7 +2,6 @@
 @import '../../styles/mixins';
 
 .wrap {
-  margin-top: auto;
   background: $snow;
   @include border(top, 1px, solid, $greyGainsboro);
 }
