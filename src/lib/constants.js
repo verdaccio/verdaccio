@@ -87,6 +87,11 @@ export const API_MESSAGE = {
   LOGGED_OUT: 'Logged out',
 };
 
+export const SUPPORT_ERRORS = {
+  PLUGIN_MISSING_INTERFACE: 'the plugin does not provide implementation of the requested feature',
+  TFA_DISABLED: 'the two-factor authentication is not yet supported',
+};
+
 export const API_ERROR = {
   PASSWORD_SHORT: (passLength: number = DEFAULT_MIN_LIMIT_PASSWORD) =>
     `The provided password is too short. Please pick a password longer than ${passLength} characters.`,
@@ -118,6 +123,7 @@ export const API_ERROR = {
 
 export const APP_ERROR = {
   CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
+  PROFILE_ERROR: 'profile unexpected error',
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';

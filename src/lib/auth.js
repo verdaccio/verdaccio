@@ -5,7 +5,7 @@
 
 import _ from 'lodash';
 
-import { API_ERROR, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import { aesEncrypt, signPayload } from './crypto-utils';
 import {
@@ -61,11 +61,13 @@ class Auth implements IAuth {
   }
 
   changePassword(username: string, password: string, newPassword: string, cb: Callback) {
-    for (const plugin of this.plugins) {
-      if (_.isFunction(plugin.changePassword) === false) {
-        break;
-      }
+    const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
 
+    if (_.isEmpty(validPlugins)) {
+      return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+    }
+
+    for (const plugin of this.plugins) {
       this.logger.trace({ username }, 'updating password for @{username}');
 
       plugin.changePassword(username, password, newPassword, (err, profile) => {

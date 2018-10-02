@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { allow } from '../../../middleware';
 import type { $Response, Router } from 'express';
 import type { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
-import { API_ERROR, HTTP_STATUS } from '../../../../lib/constants';
+import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
 import { validatePassword } from '../../../../lib/auth-utils';
 
@@ -44,20 +44,27 @@ export default function(route: Router, auth: IAuth) {
       });
     }
 
-    const { password } = req.body;
+    const { password, tfa } = req.body;
     const { name } = req.remote_user;
-    if (validatePassword(password.new) === false) {
-      /* eslint new-cap:off */
-      return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
-      /* eslint new-cap:off */
-    }
 
-    auth.changePassword(name, password.old, password.new, (err, profile) => {
-      if (_.isNull(err) === false) {
-        return next(ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
+    if (_.isNil(password) === false) {
+      if (validatePassword(password.new) === false) {
+        /* eslint new-cap:off */
+        return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT()));
+        /* eslint new-cap:off */
       }
 
-      next(buildProfile(profile));
-    });
+      auth.changePassword(name, password.old, password.new, (err, profile) => {
+        if (_.isNull(err) === false) {
+          return next(ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
+        }
+
+        next(buildProfile(profile));
+      });
+    } else if (_.isNil(tfa) === false) {
+      return next(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.TFA_DISABLED));
+    } else {
+      return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, APP_ERROR.PROFILE_ERROR));
+    }
   });
 }
