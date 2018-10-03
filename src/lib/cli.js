@@ -12,6 +12,7 @@ import chalk from 'chalk';
 import {startVerdaccio, listenDefaultCallback} from './bootstrap';
 import findConfigFile from './config-path';
 import {verdaccioUpdateBanner} from './update-banner';
+import { parseConfigFile } from './utils';
 
 if (process.getuid && process.getuid() === 0) {
   global.console.warn(chalk.bgYellow('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.'));
@@ -30,7 +31,6 @@ const logger = require('./logger');
 logger.setup(); // default setup
 
 const commander = require('commander');
-const Utils = require('./utils');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
@@ -60,7 +60,7 @@ const cliListener = commander.listen;
 
 try {
   configPathLocation = findConfigFile(commander.config);
-  verdaccioConfiguration = Utils.parseConfigFile(configPathLocation);
+  verdaccioConfiguration = parseConfigFile(configPathLocation);
   process.title = verdaccioConfiguration.web && verdaccioConfiguration.web.title || 'verdaccio';
 
   if (!verdaccioConfiguration.self_path) {
