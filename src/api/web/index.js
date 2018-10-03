@@ -9,7 +9,7 @@ import VError from 'verror';
 import chalk from 'chalk';
 import express from 'express';
 
-import * as Utils from '../../lib/utils';
+import { combineBaseUrl, getWebProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 
@@ -60,7 +60,7 @@ module.exports = function(config, auth, storage) {
   });
 
   router.get('/', function(req, res) {
-    const base = Utils.combineBaseUrl(Utils.getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
+    const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
 
     let webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
