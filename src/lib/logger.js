@@ -1,13 +1,13 @@
 /**
  * @prettier
  */
+import { isObject } from './utils';
 
 const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');
 const chalk = require('chalk');
-const Utils = require('./utils');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
 const { format } = require('date-fns');
@@ -195,7 +195,7 @@ function fillInMsgTemplate(msg, obj, colors) {
     let _ref = name.split('.');
     for (let _i = 0; _i < _ref.length; _i++) {
       let id = _ref[_i];
-      if (Utils.isObject(str) || Array.isArray(str)) {
+      if (isObject(str) || Array.isArray(str)) {
         str = str[id];
       } else {
         str = undefined;
