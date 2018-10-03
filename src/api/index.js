@@ -21,10 +21,8 @@ import web from './web';
 import type { $Application } from 'express';
 import type { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
 import type { Config as IConfig, IPluginMiddleware } from '@verdaccio/types';
-
-const LoggerApp = require('../lib/logger');
-const Middleware = require('./middleware');
-const Cats = require('../lib/status-cats');
+import { setup, logger } from '../lib/logger';
+import { log, final, errorReportingMiddleware } from './middleware';
 
 const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   const auth: IAuth = new Auth(config);
@@ -35,13 +33,13 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   app.use(cors());
 
   // Router setup
-  app.use(Middleware.log);
-  app.use(Middleware.errorReportingMiddleware);
+  app.use(log);
+  app.use(errorReportingMiddleware);
   app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     res.setHeader('X-Powered-By', config.user_agent);
     next();
   });
-  app.use(Cats.middleware);
+
   app.use(compression());
 
   app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -57,7 +55,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: LoggerApp.logger,
+    logger: logger,
   };
   const plugins = loadPlugin(config, config.middlewares, plugin_params, function(plugin: IPluginMiddleware) {
     return plugin.register_middlewares;
@@ -92,7 +90,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
       if (_.isFunction(res.report_error) === false) {
         // in case of very early error this middleware may not be loaded before error is generated
         // fixing that
-        Middleware.errorReportingMiddleware(req, res, _.noop);
+        errorReportingMiddleware(req, res, _.noop);
       }
       res.report_error(err);
     } else {
@@ -101,13 +99,13 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
     }
   });
 
-  app.use(Middleware.final);
+  app.use(final);
 
   return app;
 };
 
 export default (async function(configHash: any) {
-  LoggerApp.setup(configHash.logs);
+  setup(configHash.logs);
   const config: IConfig = new AppConfig(configHash);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been intialized

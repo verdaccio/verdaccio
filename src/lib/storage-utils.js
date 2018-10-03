@@ -4,20 +4,15 @@
  */
 
 import _ from 'lodash';
-import { ErrorCode, isObject, normalizeDistTags, DIST_TAGS, semverSort } from './utils';
+import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 import Search from './search';
 import { generateRandomHexString } from '../lib/crypto-utils';
 
 import type { Package, Version, Author } from '@verdaccio/types';
 import type { IStorage } from '../../types';
-import { API_ERROR, HTTP_STATUS } from './constants';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS, STORAGE } from './constants';
 
-const pkgFileName = 'package.json';
-const fileExist: string = 'EEXISTS';
-const noSuchFile: string = 'ENOENT';
-export const DEFAULT_REVISION: string = `0-0000000000000000`;
-
-const generatePackageTemplate = function(name: string): Package {
+export function generatePackageTemplate(name: string): Package {
   return {
     // standard things
     name,
@@ -29,13 +24,13 @@ const generatePackageTemplate = function(name: string): Package {
     _attachments: {},
     _rev: '',
   };
-};
+}
 
 /**
- * Normalise package properties, tags, revision id.
+ * Normalize package properties, tags, revision id.
  * @param {Object} pkg package reference.
  */
-function normalizePackage(pkg: Package) {
+export function normalizePackage(pkg: Package) {
   const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
 
   pkgProperties.forEach(key => {
@@ -47,7 +42,7 @@ function normalizePackage(pkg: Package) {
   });
 
   if (_.isString(pkg._rev) === false) {
-    pkg._rev = DEFAULT_REVISION;
+    pkg._rev = STORAGE.DEFAULT_REVISION;
   }
 
   // normalize dist-tags
@@ -56,13 +51,13 @@ function normalizePackage(pkg: Package) {
   return pkg;
 }
 
-function generateRevision(rev: string): string {
+export function generateRevision(rev: string): string {
   const _rev = rev.split('-');
 
   return (+_rev[0] || 0) + 1 + '-' + generateRandomHexString();
 }
 
-function getLatestReadme(pkg: Package): string {
+export function getLatestReadme(pkg: Package): string {
   const versions = pkg['versions'] || {};
   const distTags = pkg['dist-tags'] || {};
   const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
@@ -82,7 +77,7 @@ function getLatestReadme(pkg: Package): string {
   return readme;
 }
 
-function cleanUpReadme(version: Version): Version {
+export function cleanUpReadme(version: Version): Version {
   if (_.isNil(version) === false) {
     delete version.readme;
   }
@@ -217,5 +212,3 @@ export function prepareSearchPackage(data: Package, time: mixed) {
     return pkg;
   }
 }
-
-export { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, fileExist, noSuchFile, pkgFileName };
