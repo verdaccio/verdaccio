@@ -10,8 +10,7 @@ import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER
 import { stringToMD5 } from '../lib/crypto-utils';
 import type { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
 import type { Config } from '@verdaccio/types';
-
-const Logger = require('../lib/logger');
+import { logger } from '../lib/logger';
 
 export function match(regexp: RegExp) {
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string) {
@@ -166,7 +165,7 @@ export function final(body: any, req: $RequestExtend, res: $ResponseExtend, next
 
 export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   // logger
-  req.log = Logger.logger.child({ sub: 'in' });
+  req.log = logger.child({ sub: 'in' });
 
   let _auth = req.headers.authorization;
   if (_.isNil(_auth) === false) {
@@ -263,9 +262,9 @@ export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExte
           next({ error: err.message || API_ERROR.UNKNOWN_ERROR });
         }
       } else {
-        Logger.logger.error({ err: err }, 'unexpected error: @{!err.message}\n@{err.stack}');
+        logger.error({ err: err }, 'unexpected error: @{!err.message}\n@{err.stack}');
         if (!res.status || !res.send) {
-          Logger.logger.error('this is an error in express.js, please report this');
+          logger.error('this is an error in express.js, please report this');
           res.destroy();
         } else if (!res.headersSent) {
           res.status(HTTP_STATUS.INTERNAL_ERROR);
