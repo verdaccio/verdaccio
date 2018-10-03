@@ -16,6 +16,7 @@ const Logo = styled.div`
   background-repeat: no-repeat;
   width: 40px;
   height: 40px;
+  margin-right: 1rem;
 `;
 
 export default Logo;

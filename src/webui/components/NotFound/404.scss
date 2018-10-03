@@ -1,5 +1,4 @@
 @import '../../styles/variables';
-@import '../../styles/mixins';
 
 .notFound {
   width: 100%;
@@ -7,9 +6,6 @@
   line-height: $line-height-xl;
   border: none;
   outline: none;
-  @include border-bottom-default($grey-light);
-
-  &:focus {
-    @include border-bottom-default($grey);
-  }
+  flex-direction: column;
+  align-items: center;
 }

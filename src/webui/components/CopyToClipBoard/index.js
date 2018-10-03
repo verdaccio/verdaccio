@@ -33,7 +33,7 @@ const CopyToClipBoard = ({ text }: IProps): Node => (
   <ClipBoardCopy>
     <ClipBoardCopyText>{text}</ClipBoardCopyText>
     <Tooltip title="Copy to Clipboard" disableFocusListener>
-      <CopyIcon aria-label="Copy to Clipboard" onClick={copyToClipBoardUtility(text)}>
+      <CopyIcon onClick={copyToClipBoardUtility(text)}>
         <FileCopy />
       </CopyIcon>
     </Tooltip>
