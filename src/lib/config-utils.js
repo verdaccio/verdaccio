@@ -1,12 +1,16 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
+
 import _ from 'lodash';
 import assert from 'assert';
 import minimatch from 'minimatch';
 
-import {ErrorCode} from './utils';
+import { ErrorCode } from './utils';
 
-import type {PackageList, UpLinksConfList} from '@verdaccio/types';
-import type {MatchedPackage} from '../../types';
+import type { PackageList, UpLinksConfList } from '@verdaccio/types';
+import type { MatchedPackage } from '../../types';
 
 const BLACKLIST = {
   all: true,
@@ -17,14 +21,14 @@ const BLACKLIST = {
 };
 
 /**
- * Normalise user list.
+ * Normalize user list.
  * @return {Array}
  */
-export function normalizeUserlist(oldFormat: any, newFormat: any) {
+export function normalizeUserList(oldFormat: any, newFormat: any) {
   const result = [];
   /* eslint prefer-rest-params: "off" */
 
-  for (let i=0; i < arguments.length; i++) {
+  for (let i = 0; i < arguments.length; i++) {
     if (arguments[i] == null) {
       continue;
     }
@@ -72,7 +76,7 @@ export function sanityCheckUplinksProps(configUpLinks: any) {
   for (let uplink in uplinks) {
     if (Object.prototype.hasOwnProperty.call(uplinks, uplink)) {
       assert(uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
-      assert( _.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
+      assert(_.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
       uplinks[uplink].url = uplinks[uplink].url.replace(/\/$/, '');
     }
   }
@@ -87,7 +91,7 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   const matchedPkg: MatchedPackage = (getMatchedPackagesSpec(pkg, packages): MatchedPackage);
   const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
   if (proxyList) {
-    return proxyList.some((curr) => upLink === curr);
+    return proxyList.some(curr => upLink === curr);
   }
 
   return false;
@@ -104,25 +108,23 @@ export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): 
 }
 
 export function normalisePackageAccess(packages: PackageList): PackageList {
-  const normalizedPkgs: PackageList = {...packages};
+  const normalizedPkgs: PackageList = { ...packages };
   // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
-    normalizedPkgs['**'] = {access: [], publish: []};
+    normalizedPkgs['**'] = { access: [], publish: [] };
   }
 
   for (let pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
-      assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false,
-        `CONFIG: bad "'${pkg}'" package description (object expected)`);
-      normalizedPkgs[pkg].access = normalizeUserlist(packages[pkg].allow_access, packages[pkg].access);
+      assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false, `CONFIG: bad "'${pkg}'" package description (object expected)`);
+      normalizedPkgs[pkg].access = normalizeUserList(packages[pkg].allow_access, packages[pkg].access);
       delete normalizedPkgs[pkg].allow_access;
-      normalizedPkgs[pkg].publish = normalizeUserlist(packages[pkg].allow_publish, packages[pkg].publish);
+      normalizedPkgs[pkg].publish = normalizeUserList(packages[pkg].allow_publish, packages[pkg].publish);
       delete normalizedPkgs[pkg].allow_publish;
-      normalizedPkgs[pkg].proxy = normalizeUserlist(packages[pkg].proxy_access, packages[pkg].proxy);
+      normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
       delete normalizedPkgs[pkg].proxy_access;
     }
   }
 
   return normalizedPkgs;
 }
-

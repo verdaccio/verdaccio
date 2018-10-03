@@ -43,7 +43,7 @@ describe('plugin loader', () => {
           return p.authenticate || p.allow_access || p.allow_publish;
         });
       } catch(e) {
-        expect(e.message).toEqual(`"${relativePath}/invalid-plugin" doesn\'t look like a valid plugin`);
+        expect(e.message).toEqual(`"${relativePath}/invalid-plugin" is not a valid plugin`);
       }
     });
 
@@ -54,7 +54,7 @@ describe('plugin loader', () => {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
       } catch(err) {
-        expect(err.message).toEqual(`"${relativePath}/invalid-plugin-sanity" doesn\'t look like a valid plugin`);
+        expect(err.message).toEqual(`"${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
       }
     });
 

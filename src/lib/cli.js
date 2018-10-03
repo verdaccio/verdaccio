@@ -2,6 +2,9 @@
 
 /* eslint no-sync:0 */
 /* eslint no-empty:0 */
+/**
+ * @prettier
+ */
 
 import path from 'path';
 import semver from 'semver';
@@ -44,7 +47,7 @@ commander
   .parse(process.argv);
 
 if (commander.args.length == 1 && !commander.config) {
-  // handling "verdaccio [config]" case if "-c" is missing in commandline
+  // handling "verdaccio [config]" case if "-c" is missing in command line
   commander.config = commander.args.pop();
 }
 
@@ -53,7 +56,7 @@ if (commander.args.length !== 0) {
 }
 let verdaccioConfiguration;
 let configPathLocation;
-const cliListner = commander.listen;
+const cliListener = commander.listen;
 
 try {
   configPathLocation = findConfigFile(commander.config);
@@ -69,7 +72,7 @@ try {
 
   logger.logger.warn({file: configPathLocation}, 'config file  - @{file}');
 
-  startVerdaccio(verdaccioConfiguration, cliListner, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
+  startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
 } catch (err) {
   logger.logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
   process.exit(1);

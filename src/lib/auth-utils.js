@@ -1,21 +1,15 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
+
 import _ from 'lodash';
-import {convertPayloadToBase64, ErrorCode} from './utils';
-import {API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING} from './constants';
+import { convertPayloadToBase64, ErrorCode } from './utils';
+import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING } from './constants';
 
-import type {
-  RemoteUser,
-  Package,
-  Callback,
-  Config,
-  Security,
-  APITokenOptions,
-  JWTOptions} from '@verdaccio/types';
-import type {
-  CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload,
-} from '../../types';
-import {aesDecrypt, verifyPayload} from './crypto-utils';
-
+import type { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions } from '@verdaccio/types';
+import type { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
+import { aesDecrypt, verifyPayload } from './crypto-utils';
 
 /**
  * Create a RemoteUser object
@@ -23,12 +17,7 @@ import {aesDecrypt, verifyPayload} from './crypto-utils';
  */
 export function createRemoteUser(name: string, pluginGroups: Array<string>): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([
-    ROLES.$ALL,
-    ROLES.$AUTH,
-    ROLES.DEPRECATED_ALL,
-    ROLES.DEPRECATED_AUTH,
-    ROLES.ALL]);
+  const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
 
   return {
     name,
@@ -36,7 +25,6 @@ export function createRemoteUser(name: string, pluginGroups: Array<string>): Rem
     real_groups: pluginGroups,
   };
 }
-
 
 /**
  * Builds an anonymous remote user in case none is logged in.
@@ -46,20 +34,15 @@ export function createAnonymousRemoteUser(): RemoteUser {
   return {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
-    groups: [
-      ROLES.$ALL,
-      ROLES.$ANONYMOUS,
-      ROLES.DEPRECATED_ALL,
-      ROLES.DEPRECATED_ANONYMOUS,
-    ],
+    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONYMOUS],
     real_groups: [],
   };
 }
 
 export function allow_action(action: string) {
   return function(user: RemoteUser, pkg: Package, callback: Callback) {
-    const {name, groups} = user;
-    const hasPermission = pkg[action].some((group) => name === group || groups.includes(group));
+    const { name, groups } = user;
+    const hasPermission = pkg[action].some(group => name === group || groups.includes(group));
 
     if (hasPermission) {
       return callback(null, true);
@@ -105,8 +88,8 @@ const defaultWebTokenOptions: JWTOptions = {
 };
 
 const defaultApiTokenConf: APITokenOptions = {
-    legacy: true,
-    sign: {},
+  legacy: true,
+  sign: {},
 };
 
 export function getSecurity(config: Config): Security {
@@ -131,34 +114,30 @@ export function buildUserBuffer(name: string, password: string) {
 }
 
 export function isAESLegacy(security: Security): boolean {
-  const {legacy, jwt} = security.api;
+  const { legacy, jwt } = security.api;
 
-  return _.isNil(legacy) === false &&_.isNil(jwt) && legacy === true;
+  return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
 }
 
-export async function getApiToken(
-  auth: IAuthWebUI,
-  config: Config,
-  remoteUser: RemoteUser,
-  aesPassword: string): Promise<string> {
+export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string): Promise<string> {
   const security: Security = getSecurity(config);
 
   if (isAESLegacy(security)) {
-     // fallback all goes to AES encryption
-    return await new Promise((resolve) => {
+    // fallback all goes to AES encryption
+    return await new Promise(resolve => {
       resolve(auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64'));
     });
   } else {
-      // i am wiling to use here _.isNil but flow does not like it yet.
-    const {jwt} = security.api;
+    // i am wiling to use here _.isNil but flow does not like it yet.
+    const { jwt } = security.api;
 
     if (jwt && jwt.sign) {
       return await auth.jwtEncrypt(remoteUser, jwt.sign);
     } else {
-      return await new Promise((resolve) => {
+      return await new Promise(resolve => {
         resolve(auth.aesEncrypt(buildUserBuffer((remoteUser: any).name, aesPassword)).toString('base64'));
       });
-  }
+    }
   }
 }
 
@@ -166,7 +145,7 @@ export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHead
   const parts = authorizationHeader.split(' ');
   const [scheme, token] = parts;
 
-  return {scheme, token};
+  return { scheme, token };
 }
 
 export function parseBasicPayload(credentials: string): BasicPayload {
@@ -178,12 +157,11 @@ export function parseBasicPayload(credentials: string): BasicPayload {
   const user: string = credentials.slice(0, index);
   const password: string = credentials.slice(index + 1);
 
-  return {user, password};
+  return { user, password };
 }
 
-export function parseAESCredentials(
-  authorizationHeader: string, secret: string) {
-  const {scheme, token} = parseAuthTokenHeader(authorizationHeader);
+export function parseAESCredentials(authorizationHeader: string, secret: string) {
+  const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   // basic is deprecated and should not be enforced
   if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
@@ -222,11 +200,7 @@ export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function getMiddlewareCredentials(
-    security: Security,
-    secret: string,
-    authorizationHeader: string
-  ): AuthMiddlewarePayload {
+export function getMiddlewareCredentials(security: Security, secret: string, authorizationHeader: string): AuthMiddlewarePayload {
   if (isAESLegacy(security)) {
     const credentials = parseAESCredentials(authorizationHeader, secret);
     if (!credentials) {
@@ -240,10 +214,10 @@ export function getMiddlewareCredentials(
 
     return parsedCredentials;
   } else {
-    const {scheme, token} = parseAuthTokenHeader(authorizationHeader);
+    const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
     if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-        return verifyJWTPayload(token, secret);
+      return verifyJWTPayload(token, secret);
     }
   }
 }

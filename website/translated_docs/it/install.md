@@ -6,33 +6,33 @@ Verdaccio è un'applicazione web multi piattaforma. Per la sua installazione son
 
 #### Prerequisiti
 
-1. Node higher than 
-    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
-    - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
+1. Nodo maggiore di 
+    - Per la versione `verdaccio@2.x` Node `v4.6.1` è la versione minima supportata.
+    - Per la versione `verdaccio@latest` Node `6.12.0` è la versione minima supportata.
 2. npm `>=3.x` or `yarn`
-3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
+3. L'interfaccia web supporta i browser `Chrome, Firefox, Edge, e IE9`.
 
-## Installing the CLI
+## Installazione di CLI
 
-`verdaccio` must be installed globaly using either of the following methods:
+`verdaccio` deve essere installato globalmente utilizzando uno dei seguenti metodi:
 
-Using `npm`
+Usando `npm`
 
 ```bash
 npm install -g verdaccio
 ```
 
-or using `yarn`
+o usando `yarn`
 
 ```bash
 yarn global add verdaccio
 ```
 
-![install verdaccio](/svg/install_verdaccio.gif)
+![installare verdaccio](/svg/install_verdaccio.gif)
 
-## Basic Usage
+## Utilizzo di base
 
-Once it has been installed, you only need to execute the CLI command:
+Una volta che è stato installato, è necessario solamente eseguire il comando CLI:
 
 ```bash
 $> verdaccio
@@ -40,14 +40,14 @@ warn --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/3.0.1
 ```
 
-For more information about the CLI, please [read the cli section](cli.md).
+Per ulteriori informazioni riguardo a CLI, si prega di [leggere la sezione cli](cli.md).
 
-## Docker Image
+## Immagine Docker
 
-`verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`verdaccio` ha un'immagine docker ufficiale disponibile da utilizzare, ed in molti casi, la configurazione predefinita è sufficientemente buona. Per ulteriori informazioni su come installare l'immagine ufficiale, [leggere la sezione docker](docker.md).
 
 ## Cloudron
 
-`verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+`verdaccio` è anche disponibile come applicazione da installare in 1 click su [Cloudron](https://cloudron.io)
 
-[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
+[![Installazione](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)

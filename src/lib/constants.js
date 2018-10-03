@@ -1,9 +1,13 @@
+/**
+ * @prettier
+ */
+
 // @flow
 
 export const DEFAULT_PORT: string = '4873';
 export const DEFAULT_PROTOCOL: string = 'http';
 export const DEFAULT_DOMAIN: string = 'localhost';
-export const TIME_EXPIRATION_24H: string ='24h';
+export const TIME_EXPIRATION_24H: string = '24h';
 export const TIME_EXPIRATION_7D: string = '7d';
 export const DIST_TAGS = 'dist-tags';
 
@@ -14,6 +18,7 @@ export const csrPem = 'verdaccio-csr.pem';
 export const HEADERS = {
   JSON: 'application/json',
   CONTENT_TYPE: 'Content-type',
+  FORWARDED_PROTO: 'X-Forwarded-Proto',
   ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
@@ -23,8 +28,8 @@ export const HEADERS = {
 };
 
 export const CHARACTER_ENCODING = {
-  UTF8: 'utf8'
-}
+  UTF8: 'utf8',
+};
 
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',
@@ -94,9 +99,9 @@ export const API_ERROR = {
   UPLINK_OFFLINE_PUBLISH: 'one of the uplinks is down, refuse to publish',
   UPLINK_OFFLINE: 'uplink is offline',
   CONTENT_MISMATCH: 'content length mismatch',
-  NOT_FILE_UPLINK: 'file doesn\'t exist on uplink',
+  NOT_FILE_UPLINK: "file doesn't exist on uplink",
   MAX_USERS_REACHED: 'maximum amount of users reached',
-  VERSION_NOT_EXIST: 'this version doesn\'t exist',
+  VERSION_NOT_EXIST: "this version doesn't exist",
   FILE_NOT_FOUND: 'File not found',
   BAD_STATUS_CODE: 'bad status code',
   PACKAGE_EXIST: 'this package is already present',
@@ -122,5 +127,12 @@ export const PACKAGE_ACCESS = {
 };
 
 export const UPDATE_BANNER = {
-  CHANGELOG_URL: 'https://github.com/verdaccio/verdaccio/releases/tag/'
-}
+  CHANGELOG_URL: 'https://github.com/verdaccio/verdaccio/releases/tag/',
+};
+
+export const STORAGE = {
+  PACKAGE_FILE_NAME: 'package.json',
+  FILE_EXIST_ERROR: 'EEXISTS',
+  NO_SUCH_FILE_ERROR: 'ENOENT',
+  DEFAULT_REVISION: '0-0000000000000000',
+};

@@ -1,12 +1,15 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import _ from 'lodash';
-import {allow} from '../../middleware';
-import {DIST_TAGS, convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode} from '../../../lib/utils';
-import {HEADERS} from '../../../lib/constants';
-import type {Router} from 'express';
-import type {Config} from '@verdaccio/types';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import { allow } from '../../middleware';
+import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '../../../lib/utils';
+import { HEADERS, DIST_TAGS } from '../../../lib/constants';
+import type { Router } from 'express';
+import type { Config } from '@verdaccio/types';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 
 export default function(route: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);

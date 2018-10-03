@@ -124,16 +124,15 @@ export default class LoginModal extends Component {
     const { visibility, onCancel, error } = this.props;
     const { form: { username, password } } = this.state;
     return (
-      <div className="login">
         <Dialog
           onClose={onCancel}
           open={visibility}
-          className="login-dialog"
+          id="login--form-container"
           maxWidth="xs"
           aria-labelledby="login-dialog"
           fullWidth
         >
-          <DialogTitle id="login-dialog">Login</DialogTitle>
+          <DialogTitle>Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
             <FormControl
@@ -144,7 +143,7 @@ export default class LoginModal extends Component {
             >
               <InputLabel htmlFor="username">Username</InputLabel>
               <Input
-                id="username"
+                id="login--form-username"
                 value={username.value}
                 onChange={this.setCredentials.bind(this, 'username')}
                 placeholder="Your username"
@@ -164,7 +163,7 @@ export default class LoginModal extends Component {
             >
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input
-                id="password"
+                id="login--form-password"
                 type="password"
                 value={password.value}
                 onChange={this.setCredentials.bind(this, 'password')}
@@ -180,13 +179,13 @@ export default class LoginModal extends Component {
           <DialogActions className="dialog-footer">
             <Button
               onClick={onCancel}
-              className="cancel-login-button"
+              id="login--form-cancel"
               color="inherit"
             >
               Cancel
               </Button>
             <Button
-              className="login-button"
+              id="login--form-submit"
               onClick={this.validateCredentials.bind(this)}
               color="inherit"
             >
@@ -194,7 +193,6 @@ export default class LoginModal extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </div >
     );
   }
 }

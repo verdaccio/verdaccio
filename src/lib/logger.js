@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
@@ -6,32 +10,40 @@ const chalk = require('chalk');
 const Utils = require('./utils');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
-const {format} = require('date-fns');
+const { format } = require('date-fns');
 
 /**
  * Match the level based on buyan severity scale
  * @param {*} x severity level
  * @return {String} security level
  */
-function getlvl(x) {
+function calculateLevel(x) {
   switch (true) {
-    case x < 15: return 'trace';
-    case x < 25: return 'debug';
-    case x < 35: return 'info';
-    case x == 35: return 'http';
-    case x < 45: return 'warn';
-    case x < 55: return 'error';
-    default: return 'fatal';
+    case x < 15:
+      return 'trace';
+    case x < 25:
+      return 'debug';
+    case x < 35:
+      return 'info';
+    case x == 35:
+      return 'http';
+    case x < 45:
+      return 'warn';
+    case x < 55:
+      return 'error';
+    default:
+      return 'fatal';
   }
 }
 
 /**
  * A RotatingFileStream that modifes the message first
  */
-class VerdaccioRotatingFileStream extends Logger.RotatingFileStream { // We depend on mv so that this is there
+class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
+  // We depend on mv so that this is there
   write(obj) {
     const msg = fillInMsgTemplate(obj.msg, obj, false);
-    super.write(JSON.stringify({...obj, msg}, Logger.safeCycles()) + '\n');
+    super.write(JSON.stringify({ ...obj, msg }, Logger.safeCycles()) + '\n');
   }
 }
 
@@ -42,7 +54,7 @@ class VerdaccioRotatingFileStream extends Logger.RotatingFileStream { // We depe
 function setup(logs) {
   let streams = [];
   if (logs == null) {
-    logs = [{type: 'stdout', format: 'pretty', level: 'http'}];
+    logs = [{ type: 'stdout', format: 'pretty', level: 'http' }];
   }
 
   logs.forEach(function(target) {
@@ -62,19 +74,19 @@ function setup(logs) {
       }
 
       const stream = new VerdaccioRotatingFileStream(
-        _.merge({},
+        _.merge(
+          {},
           // Defaults can be found here: https://github.com/trentm/node-bunyan#stream-type-rotating-file
           target.options || {},
-          {path: target.path, level})
+          { path: target.path, level }
+        )
       );
 
-      streams.push(
-          {
-            type: 'raw',
-            level,
-            stream,
-          }
-        );
+      streams.push({
+        type: 'raw',
+        level,
+        stream,
+      });
     } else {
       const stream = new Stream();
       stream.writable = true;
@@ -83,7 +95,7 @@ function setup(logs) {
       let destinationIsTTY = false;
       if (target.type === 'file') {
         // destination stream
-        destination = require('fs').createWriteStream(target.path, {flags: 'a', encoding: 'utf8'});
+        destination = require('fs').createWriteStream(target.path, { flags: 'a', encoding: 'utf8' });
         destination.on('error', function(err) {
           stream.emit('error', err);
         });
@@ -95,19 +107,19 @@ function setup(logs) {
       }
 
       if (target.format === 'pretty') {
-        // making fake stream for prettypritting
-        stream.write = (obj) => {
+        // making fake stream for pretty printing
+        stream.write = obj => {
           destination.write(`${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else if (target.format === 'pretty-timestamped') {
-        // making fake stream for pretty pritting
-        stream.write = (obj) => {
+        // making fake stream for pretty printing
+        stream.write = obj => {
           destination.write(`[${format(obj.time, 'YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else {
-        stream.write = (obj) => {
+        stream.write = obj => {
           const msg = fillInMsgTemplate(obj.msg, obj, destinationIsTTY);
-          destination.write(`${JSON.stringify({...obj, msg}, Logger.safeCycles())}\n`);
+          destination.write(`${JSON.stringify({ ...obj, msg }, Logger.safeCycles())}\n`);
         };
       }
 
@@ -130,9 +142,9 @@ function setup(logs) {
     },
   });
 
-       process.on('SIGUSR2', function() {
-               Logger.reopenFileStreams();
-       });
+  process.on('SIGUSR2', function() {
+    Logger.reopenFileStreams();
+  });
 
   module.exports.logger = logger;
 }
@@ -190,7 +202,7 @@ function fillInMsgTemplate(msg, obj, colors) {
       }
     }
 
-    if (typeof(str) === 'string') {
+    if (typeof str === 'string') {
       if (!colors || str.includes('\n')) {
         return str;
       } else if (is_error) {
@@ -214,27 +226,30 @@ function fillInMsgTemplate(msg, obj, colors) {
  */
 function print(type, msg, obj, colors) {
   if (typeof type === 'number') {
-    type = getlvl(type);
+    type = calculateLevel(type);
   }
-  const finalmsg = fillInMsgTemplate(msg, obj, colors);
+  const finalMessage = fillInMsgTemplate(msg, obj, colors);
 
-  const subsystems = [{
-    in: chalk.green('<--'),
-    out: chalk.yellow('-->'),
-    fs: chalk.black('-=-'),
-    default: chalk.blue('---'),
-  }, {
-    in: '<--',
-    out: '-->',
-    fs: '-=-',
-    default: '---',
-  }];
+  const subsystems = [
+    {
+      in: chalk.green('<--'),
+      out: chalk.yellow('-->'),
+      fs: chalk.black('-=-'),
+      default: chalk.blue('---'),
+    },
+    {
+      in: '<--',
+      out: '-->',
+      fs: '-=-',
+      default: '---',
+    },
+  ];
 
   const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
   if (colors) {
-    return ` ${levels[type]((pad(type)))}${chalk.white(`${sub} ${finalmsg}`)}`;
+    return ` ${levels[type](pad(type))}${chalk.white(`${sub} ${finalMessage}`)}`;
   } else {
-    return ` ${(pad(type))}${sub} ${finalmsg}`;
+    return ` ${pad(type)}${sub} ${finalMessage}`;
   }
 }
 

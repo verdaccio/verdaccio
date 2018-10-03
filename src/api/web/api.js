@@ -1,15 +1,18 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
-import {Router} from 'express';
+import { Router } from 'express';
 import bodyParser from 'body-parser';
 import addUserAuthApi from './endpoint/user';
 import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
 
 import Search from '../../lib/search';
-import {match, validateName, validatePackage, securityIframe} from '../middleware';
-import type {Config} from '@verdaccio/types';
-import type {IAuth, IStorageHandler} from '../../../types';
+import { match, validateName, validatePackage, securityIframe } from '../middleware';
+import type { Config } from '@verdaccio/types';
+import type { IAuth, IStorageHandler } from '../../../types';
 
 const route = Router(); /* eslint new-cap: 0 */
 
@@ -29,7 +32,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   route.param('version', validateName);
   route.param('anything', match(/.*/));
 
-  route.use(bodyParser.urlencoded({extended: false}));
+  route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
   route.use(securityIframe);
 

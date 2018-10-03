@@ -3,13 +3,19 @@
 
 :global {
   .container {
-    margin-top: $space-lg;
+    margin-top: 94px;
+    flex: 1;
 
     @include container-size;
 
     .el-loading-spinner {
       margin-top: 0 !important;
     }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
   }
 
   .page-full-height {

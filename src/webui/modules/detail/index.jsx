@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import isEmpty from 'lodash/isEmpty';
 
 import PackageDetail from '../../components/PackageDetail';
 import NotFound from '../../components/NotFound';
+import Spinner from '../../components/Spinner';
 import API from '../../utils/api';
 
 import classes from './detail.scss';
@@ -69,7 +69,7 @@ export default class Detail extends Component {
     if (notFound) {
       return <NotFound pkg={this.packageName} />;
     } else if (isEmpty(readMe)) {
-      return <CircularProgress size={50} />;
+      return <Spinner centered />;
     }
     return (
       <div className={classes.twoColumn}>

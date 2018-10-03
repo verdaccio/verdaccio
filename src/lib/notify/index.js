@@ -1,7 +1,11 @@
+/**
+ * @prettier
+ */
+
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 
-import {notifyRequest} from './notify-request';
+import { notifyRequest } from './notify-request';
 
 export function handleNotify(metadata, notifyEntry, publisherInfo, publishedPackage) {
   let regex;
@@ -16,7 +20,7 @@ export function handleNotify(metadata, notifyEntry, publisherInfo, publishedPack
 
   // don't override 'publisher' if package.json already has that
   if (!metadata.publisher) {
-    metadata = {...metadata, publishedPackage, publisher: publisherInfo};
+    metadata = { ...metadata, publishedPackage, publisher: publisherInfo };
   }
   const content = template(metadata);
 
@@ -60,7 +64,7 @@ export function notify(metadata, config, ...moreMedatata) {
       return sendNotification(metadata, config.notify, ...moreMedatata);
     } else {
       // multiple notifications endpoints PR #108
-      return Promise.all(_.map(config.notify, (key) => sendNotification(metadata, key, ...moreMedatata)));
+      return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, ...moreMedatata)));
     }
   }
 

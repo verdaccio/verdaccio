@@ -15,8 +15,7 @@ const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/par
 
 import type {Config, MergeTags} from '@verdaccio/types';
 import type {IStorage} from '../../../types/index';
-import {API_ERROR, HTTP_STATUS} from '../../../src/lib/constants';
-import {DIST_TAGS} from '../../../src/lib/utils';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '../../../src/lib/constants';
 
 setup([]);
 

@@ -1,14 +1,12 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
-import {
-  createDecipher,
-  createCipher,
-  createHash,
-  pseudoRandomBytes,
-} from 'crypto';
+import { createDecipher, createCipher, createHash, pseudoRandomBytes } from 'crypto';
 import jwt from 'jsonwebtoken';
 
-import type {JWTSignOptions, RemoteUser} from '@verdaccio/types';
+import type { JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 export const defaultAlgorithm = 'aes192';
 export const defaultTarballHashAlgorithm = 'sha1';
@@ -21,7 +19,6 @@ export function aesEncrypt(buf: Buffer, secret: string): Buffer {
   const b2 = c.final();
   return Buffer.concat([b1, b2]);
 }
-
 
 export function aesDecrypt(buf: Buffer, secret: string) {
   try {
@@ -41,29 +38,33 @@ export function createTarballHash() {
 }
 
 /**
- * Express doesn't do etags with requests <= 1024b
+ * Express doesn't do ETAGS with requests <= 1024b
  * we use md5 here, it works well on 1k+ bytes, but sucks with fewer data
  * could improve performance using crc32 after benchmarks.
  * @param {Object} data
  * @return {String}
  */
 export function stringToMD5(data: Buffer | string) {
-  return createHash('md5').update(data).digest('hex');
+  return createHash('md5')
+    .update(data)
+    .digest('hex');
 }
 
 export function generateRandomHexString(length: number = 8) {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export async function signPayload(
-  payload: RemoteUser,
-  secretOrPrivateKey: string,
-  options: JWTSignOptions): Promise<string> {
+export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions): Promise<string> {
   return new Promise(function(resolve, reject) {
-    return jwt.sign(payload, secretOrPrivateKey, {
-      notBefore: '1', // Make sure the time will not rollback :)
-      ...options,
-    }, (error, token) => error ? reject(error) : resolve(token));
+    return jwt.sign(
+      payload,
+      secretOrPrivateKey,
+      {
+        notBefore: '1', // Make sure the time will not rollback :)
+        ...options,
+      },
+      (error, token) => (error ? reject(error) : resolve(token))
+    );
   });
 }
 

@@ -1,25 +1,31 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import {API_MESSAGE, HEADERS} from '../../../lib/constants';
-import {DIST_TAGS, validateMetadata, isObject, ErrorCode} from '../../../lib/utils';
-import {media, expectJson, allow} from '../../middleware';
-import {notify} from '../../../lib/notify';
+import { API_MESSAGE, HEADERS, DIST_TAGS } from '../../../lib/constants';
+import { validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
+import { media, expectJson, allow } from '../../middleware';
+import { notify } from '../../../lib/notify';
 
-import type {Router} from 'express';
-import type {Config, Callback} from '@verdaccio/types';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import type { Router } from 'express';
+import type { Config, Callback } from '@verdaccio/types';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import logger from '../../../lib/logger';
 
 export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'),
-    media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, function(
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ) {
     const name = req.params.package;
     let metadata;
     const create_tarball = function(filename: string, data, cb: Callback) {
@@ -61,10 +67,12 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
       // https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
       // issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
 
-      if (typeof(metadata._attachments) !== 'object'
-        || Object.keys(metadata._attachments).length !== 1
-        || typeof(metadata.versions) !== 'object'
-        || Object.keys(metadata.versions).length !== 1) {
+      if (
+        typeof metadata._attachments !== 'object' ||
+        Object.keys(metadata._attachments).length !== 1 ||
+        typeof metadata.versions !== 'object' ||
+        Object.keys(metadata.versions).length !== 1
+      ) {
         // npm is doing something strange again
         // if this happens in normal circumstances, report it as a bug
         return next(ErrorCode.getBadRequest('unsupported registry call'));
@@ -96,11 +104,11 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
             try {
               await notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`);
             } catch (err) {
-              logger.logger.error({err}, 'notify batch service has failed: @{err}');
+              logger.logger.error({ err }, 'notify batch service has failed: @{err}');
             }
 
             res.status(201);
-            return next({ok: ok_message, success: true});
+            return next({ ok: ok_message, success: true });
           });
         });
       });
@@ -135,25 +143,27 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         return next(err);
       }
       res.status(201);
-      return next({ok: API_MESSAGE.PKG_REMOVED});
+      return next({ ok: API_MESSAGE.PKG_REMOVED });
     });
   });
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'),
-  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.removeTarball(req.params.package, req.params.filename, req.params.revision, function(err) {
       if (err) {
         return next(err);
       }
       res.status(201);
-      return next({ok: API_MESSAGE.TARBALL_REMOVED});
+      return next({ ok: API_MESSAGE.TARBALL_REMOVED });
     });
   });
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM),
-  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), function(
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ) {
     const name = req.params.package;
     const stream = storage.addTarball(name, req.params.filename);
     req.pipe(stream);
@@ -184,9 +194,12 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
   });
 
   // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'),
-     media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const {version, tag} = req.params;
+  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, function(
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ) {
+    const { version, tag } = req.params;
     const name = req.params.package;
 
     storage.addVersion(name, version, req.body, tag, function(err) {

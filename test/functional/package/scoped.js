@@ -1,7 +1,7 @@
 import {HEADERS, HTTP_STATUS} from '../../../src/lib/constants';
 import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2} from '../config.functional';
 import {generateSha} from '../lib/test.utils';
-import {DIST_TAGS} from "../../../src/lib/utils";
+import {DIST_TAGS} from "../../../src/lib/constants";
 
 export default function(server, server2) {
   const SCOPE = '@test/scoped';
