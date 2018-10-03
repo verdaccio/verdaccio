@@ -2,9 +2,9 @@
 id: configuration
 title: "Fichier de configuration"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Ce fichier est le pilier de verdaccio où vous pouvez modifier le comportement par défaut, activer les plugins et étendre les fonctionnalités.
 
-A default configuration file is created the very first time you run `verdaccio`.
+Un fichier de configuration par défaut est créé la première fois que vous exécutez `verdaccio`.
 
 ## Default Configuration
 
