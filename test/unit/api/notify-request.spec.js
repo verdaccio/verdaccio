@@ -25,8 +25,11 @@ const options = {
 const content = 'Verdaccio@x.x.x successfully published';
 
 describe('notifyRequest', () => {
-  test('when notification service throws error', async () => {
+  beforeEach(() => {
     jest.resetModules();
+  });
+
+  test('when notification service throws error', async () => {
     jest.doMock('request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.BAD_REQUEST,
@@ -45,7 +48,6 @@ describe('notifyRequest', () => {
   });
 
   test('when notification service throws error with null error value', async () => {
-    jest.resetModules();
     jest.doMock('request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.BAD_REQUEST,
@@ -63,7 +65,6 @@ describe('notifyRequest', () => {
   });
 
   test('when notification is successfully delivered', async () => {
-    jest.resetModules();
     jest.doMock('request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.OK,
@@ -83,7 +84,6 @@ describe('notifyRequest', () => {
   });
 
   test('when notification is successfully delivered but body is undefined/null', async () => {
-    jest.resetModules();
     jest.doMock('request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.OK,
