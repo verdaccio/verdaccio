@@ -1,6 +1,5 @@
 
 import _ from 'lodash';
-import assert from 'assert';
 import {readFile} from '../lib/test.utils';
 
 const readTags = () => readFile('../fixtures/tags.json');
@@ -26,10 +25,10 @@ export default function(server, express) {
       return server.getPackage('testexp_tags')
                .status(200)
                .then(function(body) {
-                 assert(_.isObject(body.versions['1.1.0']));
+                 expect(_.isObject(body.versions['1.1.0'])).toBe(true);
                  // note: 5.4.3 is invalid tag, 0.1.3alpha is highest semver
-                 assert.equal(body['dist-tags'].latest, '1.1.0');
-                 assert.equal(body['dist-tags'].bad, null);
+                 expect(body['dist-tags'].latest).toEqual('1.1.0');
+                 expect(body['dist-tags'].bad).toEqual(undefined);
                });
     });
 
@@ -40,7 +39,7 @@ export default function(server, express) {
         return server.request({uri: '/testexp_tags/'+ver})
                  .status(200)
                  .then(function(body) {
-                   assert.equal(body.version, '0.1.1alpha');
+                   expect(body.version).toEqual('0.1.1alpha');
                  });
       });
     });
@@ -71,7 +70,7 @@ export default function(server, express) {
           latest: "1.1.0"
         };
 
-        assert.deepEqual(body, expected);
+        expect(body).toStrictEqual(expected);
       });
     });
 
@@ -94,7 +93,7 @@ export default function(server, express) {
             "quux": "0.1.0"
           };
 
-          assert.deepEqual(body, expected);
+          expect(body).toStrictEqual(expected);
         });
       });
     });
@@ -115,7 +114,7 @@ export default function(server, express) {
             latest: '1.1.0'
           };
 
-        assert.deepEqual(body, expected);
+          expect(body).toStrictEqual(expected);
         });
       });
     });
@@ -135,7 +134,7 @@ export default function(server, express) {
             foo: "0.1.3alpha"
           };
 
-          assert.deepEqual(body, expected);
+          expect(body).toStrictEqual(expected);
         });
       });
     });
@@ -154,7 +153,7 @@ export default function(server, express) {
             "quux": "0.1.0"
           };
 
-          assert.deepEqual(body, expected);
+          expect(body).toStrictEqual(expected);
         });
       });
     });
