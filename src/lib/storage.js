@@ -20,8 +20,7 @@ import type { IStorage, IProxy, IStorageHandler, ProxyList, StringValue } from '
 import type { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
 import type { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { hasProxyTo } from './config-utils';
-
-const LoggerApi = require('../lib/logger');
+import { logger } from '../lib/logger';
 
 class Storage implements IStorageHandler {
   localStorage: IStorage;
@@ -32,11 +31,11 @@ class Storage implements IStorageHandler {
   constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
-    this.logger = LoggerApi.logger.child();
+    this.logger = logger.child();
   }
 
   init(config: Config) {
-    this.localStorage = new LocalStorage(this.config, LoggerApi.logger);
+    this.localStorage = new LocalStorage(this.config, logger);
 
     return this.localStorage.getSecret(config);
   }
