@@ -6,9 +6,9 @@ Ce fichier est le pilier de verdaccio où vous pouvez modifier le comportement p
 
 Un fichier de configuration par défaut est créé la première fois que vous exécutez `verdaccio`.
 
-## Default Configuration
+## Configuration par défaut
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+La configuration par défaut a un support pour les packs **portée(scoped)** et permet à tout utilisateur à accéder à tous les packs, mais seuls **les utilisateurs authentifiés qui peuvent publier**.
 
 ```yaml
 storage: ./storage
@@ -31,9 +31,9 @@ logs:
 
 ## Sections
 
-The following sections explain what each property means and the different options.
+Les sections suivantes expliquent ce que signifie chaque propriété et les différentes options.
 
-### Storage
+### Stockage
 
 Is the location of the default storage. **Verdaccio is by default based on local file system**.
 
