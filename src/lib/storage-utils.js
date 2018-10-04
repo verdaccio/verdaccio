@@ -145,7 +145,6 @@ export function publishPackage(name: string, metadata: any, localStorage: IStora
 
 export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<any> {
   return new Promise((resolve, reject) => {
-    // $FlowFixMe
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors) => {
       // something weird
       if (err && err.status !== HTTP_STATUS.NOT_FOUND) {

@@ -98,7 +98,7 @@ describe('Config Utilities', () => {
       // $FlowFixMe
       expect(react.access[0]).toBe(ROLES.$ALL);
       expect(react.publish).toBeDefined();
-      // $FlowFixMe);
+      // $FlowFixMe
       expect(react.publish[0]).toBe('admin');
       expect(react.proxy).toBeDefined();
       // $FlowFixMe

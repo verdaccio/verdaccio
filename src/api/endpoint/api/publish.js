@@ -39,7 +39,6 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
 
       // this is dumb and memory-consuming, but what choices do we have?
       // flow: we need first refactor this file before decides which type use here
-      // $FlowFixMe
       stream.end(new Buffer(data.data, 'base64'));
       stream.done();
     };
