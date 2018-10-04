@@ -1,12 +1,12 @@
 ---
-id: contributing
-title: "Contributing Verdaccio"
+id: contribuant
+title: "Contribuer à Verdaccio"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Passer dans une file d'attente de base inconnue n'est pas facile, mais nous sommes là pour vous aider.
 
-## Comunication Channels
+## Canaux de communication
 
-If you are willing for asking, we use two channels for discussions:
+Si vous souhaitez poser des questions, nous utilisons deux canaux de discussion:
 
 * [Public Discord channel](http://chat.verdaccio.org/)
 
