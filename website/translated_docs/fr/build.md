@@ -1,5 +1,5 @@
 ---
-id: build
+id: construire
 title: "Build the source code"
 ---
 Verdaccio relies on `yarn` instead `npm` to download dependencies.
