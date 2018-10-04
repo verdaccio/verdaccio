@@ -396,11 +396,12 @@ class LocalStorage implements IStorage {
     (uploadStream: any).abort = function() {};
     (uploadStream: any).done = function() {};
 
-    uploadStream._transform = function(data) {
+    uploadStream._transform = function(data, ...args) {
       shaOneHash.update(data);
       // measure the length for validation reasons
       length += data.length;
-      _transform.apply(uploadStream, arguments);
+      const appliedData = [data, ...args];
+      _transform.apply(uploadStream, appliedData);
     };
 
     if (name === STORAGE.PACKAGE_FILE_NAME || name === '__proto__') {

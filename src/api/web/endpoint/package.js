@@ -6,7 +6,7 @@
 import _ from 'lodash';
 import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme } from '../../../lib/utils';
 import { allow } from '../../middleware';
-import { DIST_TAGS } from '../../../lib/constants';
+import { DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
 
@@ -87,7 +87,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
           sideBarInfo = addGravatarSupport(sideBarInfo);
           next(sideBarInfo);
         } else {
-          res.status(404);
+          res.status(HTTP_STATUS.NOT_FOUND);
           res.end();
         }
       },
