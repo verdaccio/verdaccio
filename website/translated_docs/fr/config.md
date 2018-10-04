@@ -117,13 +117,13 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### Taille maximale du corps
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Par défaut, la taille maximale du corps d'un document JSON est `10mb`. Si vous rencontrez des erreurs telles que ` "entité requise trop grande" `, vous pouvez augmenter cette valeur.
 
 ```yaml
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Port d’écoute
 
 `verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
 
