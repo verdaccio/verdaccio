@@ -12,6 +12,13 @@
     "plugin:jest/recommended",
     "plugin:prettier/recommended"
   ],
+  "settings": {
+    "react": {
+      "pragma": "React",  // Pragma to use
+      "version": "16.4.2", // React version
+      "flowVersion": "0.81.0" // Flow version
+    }
+  },
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
