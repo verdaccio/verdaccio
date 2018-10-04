@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Propriété | Type   | Required | Example    | Support | Description                              |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Propriété | Type   | Required | Example    | Support | Description                                                     |
+| --------- | ------ | -------- | ---------- | ------- | --------------------------------------------------------------- |
+| file      | string | Yes      | ./htpasswd | all     | fichier qui héberge les informations d'identification chiffrées |
+| max_users | nombre | N°       | 1000       | tous    | définir un nombre limit d'utilisateurs                          |
 
-In case to decide do not allow user to login, you can set `max_users: -1`.
+Si vous décidez d'empêcher un utilisateur de se connecter, vous pouvez définir `max_users: -1`.
