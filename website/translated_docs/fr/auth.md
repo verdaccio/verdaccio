@@ -47,7 +47,7 @@ auth:
     #max_users: 1000
 ```
 
-| Property  | Type   | Required | Example    | Support | Description                              |
+| Propriété | Type   | Required | Example    | Support | Description                              |
 | --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
 | file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
 | max_users | number | No       | 1000       | all     | set limit of users                       |
