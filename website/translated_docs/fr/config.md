@@ -43,7 +43,7 @@ storage: ./storage
 
 ### Plugins
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+C'est le chemin du répertoire des plugins. Utile pour les distributions basées sur Docker / Kubernetes.
 
 ```yaml
 plugins: ./plugins
@@ -51,7 +51,7 @@ plugins: ./plugins
 
 ### Authentification
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Le paramètre d'authentification est défini ici, l'authentification par défaut est basée sur `htpasswd` et est incorporée. Vous pouvez modifier ce comportement via les[plugins](plugins.md). Pour plus d'informations sur cette section, consultez la [ page d'authentification ](auth.md).
 
 ```yaml
 auth:
