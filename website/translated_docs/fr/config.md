@@ -150,11 +150,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Les Proxy sont des serveurs HTTP spéciaux conçus pour transférer des données de serveurs distants vers des clients locaux.
 
 #### http_proxy and https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Si vous avez un proxy sur le réseau, vous pouvez définir un en-tête `X-Forwarded-For` à l'aide des propriétés suivantes.
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,7 +163,7 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Cette variable doit contenir une liste d'extensions de domaine séparées par des virgules pour lesquelles le proxy ne doit pas être utilisé.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Notifications
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+L'activation des notifications d'outils tiers est assez facile via des points d'ancrage Web. Pour plus d'informations sur cette section, consultez la [ page de notification ](notifications.md).
 
 ```yaml
 notify:
@@ -181,11 +181,11 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Pour plus de détails sur les paramètres de configuration, veuillez [ vérifier le code source ](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
 ### Audit
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Depuis : <code>verdaccio@3.0.0</code></small>
 
 `npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
 
