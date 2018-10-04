@@ -17,8 +17,8 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## Emplacement du fichier de config par défaut
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+Pour localiser le répertoire de base, nous nous appuyons sur **$XDG_DATA_HOME** comme premier choix et sur l'environnement Windows que nous cherchons [Variable d’environnement APPDATA ](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
-## Default storage location
+## Emplacement de stockage par défaut
 
 We use **$XDG_DATA_HOME** environment variable as default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share. Si vous utilisez un stockage personnalisé, cet emplacement est sans importance.
