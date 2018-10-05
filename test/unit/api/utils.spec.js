@@ -1,5 +1,4 @@
 // @flow
-import assert from 'assert';
 import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../../../src/utils/user';
 import { spliceURL } from '../../../src/utils/string';
 import Package from '../../../src/webui/components/Package/index';
@@ -255,14 +254,14 @@ describe('Utilities', () => {
         expect(function ( ) {
           // $FlowFixMe
           validateMetadata('');
-        }).toThrow(assert.AssertionError);
+        }).toThrow(expect.hasAssertions());
       });
 
       test('should fails the assertions is name does not match', () => {
         expect(function ( ) {
           // $FlowFixMe
           validateMetadata({}, "no-name");
-        }).toThrow(assert.AssertionError);
+        }).toThrow(expect.hasAssertions());
       });
     });
   });
