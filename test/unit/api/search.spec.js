@@ -57,9 +57,9 @@ describe('search', () => {
 		};
 		Search.add(item);
 		let result = Search.query('test6');
-        expect(result).toHaveLength(1);
-      Search.remove(item.name);
+    expect(result).toHaveLength(1);
+    Search.remove(item.name);
 		result = Search.query('test6');
-        expect(result).toHaveLength(0);
-    });
+    expect(result).toHaveLength(0);
+  });
 });
