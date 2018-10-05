@@ -358,7 +358,7 @@ describe('LocalStorage', () => {
           const stream = storage.addTarball('unexsiting-package', tarballName);
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(404);
+            expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such package available/);
             done();
           });

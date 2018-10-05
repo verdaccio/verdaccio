@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import {readFile} from '../lib/test.utils';
+import { HTTP_STATUS } from '../../../src/lib/constants';
 
 const readTags = () => readFile('../fixtures/tags.json');
 
@@ -9,7 +10,7 @@ export default function(server, express) {
   test('tags - testing for 404', () => {
     return server.getPackage('testexp_tags')
              // shouldn't exist yet
-             .status(404)
+             .status(HTTP_STATUS.NOT_FOUND)
              .body_error(/no such package/);
   });
 
