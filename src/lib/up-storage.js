@@ -108,7 +108,6 @@ class ProxyStorage implements IProxy {
         if (cb) {
           cb(ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
         }
-        // $FlowFixMe
         streamRead.emit('error', ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
       });
       // $FlowFixMe
@@ -297,7 +296,6 @@ class ProxyStorage implements IProxy {
     if (_.isNil(tokenConf.token) === false && _.isString(tokenConf.token)) {
       token = tokenConf.token;
     } else if (_.isNil(tokenConf.token_env) === false) {
-      // $FlowFixMe
       if (_.isString(tokenConf.token_env)) {
         token = process.env[tokenConf.token_env];
       } else if (_.isBoolean(tokenConf.token_env) && tokenConf.token_env) {
@@ -392,7 +390,6 @@ class ProxyStorage implements IProxy {
     const getHost = urlDomainParsed => (isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host);
     const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;
     const isMatchHost: boolean = getHost(urlParsed) === getHost(this.url);
-    // $FlowFixMe
     const isMatchPath: boolean = urlParsed.path.indexOf(this.url.path) === 0;
 
     return isMatchProtocol && isMatchHost && isMatchPath;
