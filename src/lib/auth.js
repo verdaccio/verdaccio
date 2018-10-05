@@ -67,9 +67,8 @@ class Auth implements IAuth {
       return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }
 
-    for (const plugin of this.plugins) {
+    for (const plugin of validPlugins) {
       this.logger.trace({ username }, 'updating password for @{username}');
-
       plugin.changePassword(username, password, newPassword, (err, profile) => {
         if (err) {
           this.logger.error(
