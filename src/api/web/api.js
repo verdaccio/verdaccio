@@ -28,7 +28,6 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   route.param('package', validatePackage);
   // $FlowFixMe
   route.param('filename', validateName);
-  // $FlowFixMe
   route.param('version', validateName);
   route.param('anything', match(/.*/));
 
