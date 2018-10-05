@@ -70,7 +70,7 @@ describe('Request Functional', () => {
           method: 'GET'
         };
         // $FlowFixMe
-        smartRequest(options).status(404).then((result)=> {
+        smartRequest(options).status(HTTP_STATUS.NOT_FOUND).then((result)=> {
           // this never is resolved
         }, function(error) {
           expect(error.code).toBe('ENOTFOUND');

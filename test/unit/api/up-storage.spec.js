@@ -69,7 +69,7 @@ describe('UpStorge', () => {
 
       proxy.getRemoteMetadata('@verdaccio/fake-package', {etag: '123456'}, (err) => {
         expect(err).not.toBeNull();
-        expect(err.statusCode).toBe(404);
+        expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         expect(err.message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
         done();
       });

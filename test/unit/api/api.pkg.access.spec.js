@@ -3,7 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import {HEADERS} from '../../../src/lib/constants';
+import { HEADERS, HTTP_STATUS } from '../../../src/lib/constants';
 import configDefault from '../partials/config/config_access';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
@@ -60,7 +60,7 @@ describe('api with no limited access configuration', () => {
         .get('/jquery')
         .set('content-type', HEADERS.JSON_CHARSET)
         .expect('Content-Type', /json/)
-        .expect(404)
+        .expect(HTTP_STATUS.NOT_FOUND)
         .end(function(err, res) {
           if (err) {
             return done(err);
