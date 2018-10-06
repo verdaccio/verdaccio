@@ -431,7 +431,7 @@ const parseConfigFile = (configPath: string) =>
  * @param {String} path
  * @return {Boolean}
  */
-function folder_exists(path: string) {
+function folderExists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
@@ -550,7 +550,7 @@ export {
   deleteProperties,
   addScope,
   sortByName,
-  folder_exists,
+  folderExists,
   fileExists,
   parseInterval,
   semverSort,
