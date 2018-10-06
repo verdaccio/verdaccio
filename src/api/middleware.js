@@ -79,7 +79,7 @@ export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $Nex
   next();
 }
 
-export function anti_loop(config: Config) {
+export function antiLoop(config: Config) {
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (req.headers.via != null) {
       let arr = req.headers.via.split(',');
