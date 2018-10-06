@@ -16,7 +16,7 @@ import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
 
-const { match, validateName, validatePackage, encodeScopePackage, anti_loop } = require('../middleware');
+const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
 
 export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
@@ -42,7 +42,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
 
   app.use(auth.apiJWTmiddleware());
   app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
-  app.use(anti_loop(config));
+  app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);
   // for "npm whoami"
