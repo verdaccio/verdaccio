@@ -5,7 +5,7 @@ import Path from 'path';
 import mime from 'mime';
 
 import {API_MESSAGE, HEADERS} from '../../../lib/constants';
-import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
+import {DIST_TAGS, validateMetadata, isObject, ErrorCode} from '../../../lib/utils';
 import {media, expectJson, allow} from '../../middleware';
 import {notify} from '../../../lib/notify';
 
@@ -112,7 +112,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     }
 
     try {
-      metadata = validate_metadata(req.body, name);
+      metadata = validateMetadata(req.body, name);
     } catch (err) {
       return next(ErrorCode.getBadData('bad incoming package data'));
     }
