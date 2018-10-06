@@ -96,7 +96,7 @@ function isObject(obj: any): boolean {
  * @param {*} name
  * @return {Object} the object with additional properties as dist-tags ad versions
  */
-function validate_metadata(object: Package, name: string) {
+function validateMetadata(object: Package, name: string) {
   assert(isObject(object), 'not a json object');
   assert.equal(object.name, name);
 
@@ -558,7 +558,7 @@ export {
   getVersion,
   tagVersion,
   combineBaseUrl,
-  validate_metadata,
+  validateMetadata,
   isObject,
   validateName,
   validate_package,
