@@ -145,7 +145,6 @@ class Storage implements IStorageHandler {
       // local reported 404
       let err404 = err;
       localStream.abort();
-      // $FlowFixMe
       localStream = null; // we force for garbage collector
       self.localStorage.getPackageMetadata(name, (err, info: Package) => {
         if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
@@ -182,7 +181,6 @@ class Storage implements IStorageHandler {
       let uplink: any = null;
 
       for (let uplinkId in self.uplinks) {
-        // $FlowFixMe
         if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
           uplink = self.uplinks[uplinkId];
         }
@@ -441,7 +439,6 @@ class Storage implements IStorageHandler {
           }
 
           if (err || !upLinkResponse) {
-            // $FlowFixMe
             return cb(null, [err || ErrorCode.getInternalError('no data')]);
           }
 

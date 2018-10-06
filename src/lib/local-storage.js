@@ -6,7 +6,6 @@
 import assert from 'assert';
 import UrlNode from 'url';
 import _ from 'lodash';
-// $FlowFixMe
 import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
 import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
 import { API_ERROR, DIST_TAGS, STORAGE } from './constants';
