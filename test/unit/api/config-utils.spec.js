@@ -60,7 +60,46 @@ describe('Config Utilities', () => {
       expect(all).toBeDefined();
     });
 
-    test('should test multi group', ()=> {
+    test('should define an empty publish array even if is not defined in packages', ()=> {
+      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic-no-publish'));
+      const access = normalisePackageAccess(packages);
+
+      const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
+      const all = access[`${PACKAGE_ACCESS.ALL}`];
+      // publish must defined
+      expect(scoped.publish).toBeDefined();
+      expect(scoped.publish).toHaveLength(0);
+      expect(all.publish).toBeDefined();
+      expect(all.publish).toHaveLength(0);
+    });
+
+    test('should define an empty access array even if is not defined in packages', ()=> {
+      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic-no-access'));
+      const access = normalisePackageAccess(packages);
+
+      const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
+      const all = access[`${PACKAGE_ACCESS.ALL}`];
+      // publish must defined
+      expect(scoped.access).toBeDefined();
+      expect(scoped.access).toHaveLength(0);
+      expect(all.access).toBeDefined();
+      expect(all.access).toHaveLength(0);
+    });
+
+    test('should define an empty proxy array even if is not defined in package', ()=> {
+      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic-no-proxy'));
+      const access = normalisePackageAccess(packages);
+
+      const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
+      const all = access[`${PACKAGE_ACCESS.ALL}`];
+      // publish must defined
+      expect(scoped.proxy).toBeDefined();
+      expect(scoped.proxy).toHaveLength(0);
+      expect(all.proxy).toBeDefined();
+      expect(all.proxy).toHaveLength(0);
+    });
+
+    test('should test multi user group definition', ()=> {
       const {packages} = parseConfigFile(parseConfigurationFile('pkgs-multi-group'));
       const access = normalisePackageAccess(packages);
 
@@ -84,7 +123,7 @@ describe('Config Utilities', () => {
     });
 
 
-    test('should deprecated packages props', ()=> {
+    test('should normalize deprecated packages into the new ones (backward props compatible)', ()=> {
       const {packages} = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
       const access = normalisePackageAccess(packages);
 
