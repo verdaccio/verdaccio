@@ -50,6 +50,6 @@ auth:
 | Propriété | Type   | Required | Example    | Support | Description                                                     |
 | --------- | ------ | -------- | ---------- | ------- | --------------------------------------------------------------- |
 | file      | string | Yes      | ./htpasswd | all     | fichier qui héberge les informations d'identification chiffrées |
-| max_users | nombre | N°       | 1000       | tous    | définir un nombre limit d'utilisateurs                          |
+| max_users | numéro | Non      | 1000       | tous    | définir un nombre limite d'utilisateurs                         |
 
 Si vous décidez d'empêcher un utilisateur de se connecter, vous pouvez définir `max_users: -1`.
