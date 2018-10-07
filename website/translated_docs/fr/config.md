@@ -98,7 +98,7 @@ packages:
 
 ### Offline Publish
 
-Par défaut `verdaccio` n'autorise pas le client à publier lorsqu'il est hors ligne, ce comportement peut être remplacé en définissant cette option *true*.
+Par défaut `verdaccio` n'autorise pas le client à publier lorsqu'il est hors ligne, ce comportement peut être remplacé en définissant cette option *Vraie*.
 
 ```yaml
 publish:
@@ -117,7 +117,7 @@ Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/
 
 ### Taille maximale du corps
 
-Par défaut, la taille maximale du corps d'un document JSON est `10mb`. Si vous rencontrez des erreurs telles que ` "entité requise trop grande" `, vous pouvez augmenter cette valeur.
+Par défaut, la taille maximale du corps d'un document JSON est `10mb`. Si vous rencontrez des erreurs telles que ` "entité de demande trop grande" `, vous pouvez augmenter cette valeur.
 
 ```yaml
 max_body_size: 10mb
