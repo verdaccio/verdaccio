@@ -23,7 +23,7 @@
     "notifications": "الإشعارات",
     "packages": "Package Access",
     "plugins": "الإضافات",
-    "protect-your-dependencies": "Protecting packages",
+    "protect-your-dependencies": "حماية الحُزم",
     "puppet": "دمية متحركة",
     "source-code": "Source Code",
     "reverse-proxy": "Reverse Proxy Setup",
@@ -47,7 +47,7 @@
     "Plugins": "الإضافات",
     "DevOps": "DevOps",
     "Development": "التطوير",
-    "Guides": "Guides"
+    "Guides": "الإرشادات"
   },
   "pages-strings": {
     "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "تعرف على المزيد باستخدام [التوثيق على هذا الموقع.] (/ docs / en / installation.html)",
@@ -74,14 +74,14 @@
     "Making the DevOps work easy|no description given": "Making the DevOps work easy",
     "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.",
     "Plugin Support|no description given": "Plugin Support",
-    "Who's Using This?|no description given": "Who's Using This?",
-    "This project is used by all these people|no description given": "This project is used by all these people",
+    "Who's Using This?|no description given": "من الذي يستخدم هذا؟",
+    "This project is used by all these people|no description given": "يُستخدَم هذا المشروع من طرف جميع هؤلاء الناس",
     "More|no description given": "المزيد",
     "Users|no description given": "المستخدمين",
     "This project is used by many folks|no description given": "يُستخدَم هذا المشروع من قبل العديد من الناس",
-    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Are you using this project? Do not be shy and add your company/project logo.",
-    "Add your company|no description given": "Add your company",
-    "Help Translate|recruit community translators for your project": "Help Translate",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "هل أنت تستخدم هذا المشروع؟ لا تخجل و قم باضافة شعار الشركة أو المشروع الخاص بك.",
+    "Add your company|no description given": "قم باضافة الشركة الخاصة بك",
+    "Help Translate|recruit community translators for your project": "قم بالمساعدة في الترجمة",
     "Edit this Doc|recruitment message asking to edit the doc source": "تحرير",
     "Translate this Doc|recruitment message asking to translate the docs": "الترجمة"
   }
