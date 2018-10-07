@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### Publication anonyme
 
-`verdaccio` permet d'activer la publication anonyme. Pour utiliser cette fonction, vous devez définir correctement votre [accès au package](packages.md).
+`verdaccio` vous permet d'activer la publication anonyme. Pour utiliser cette fonction, vous devez définir correctement votre [accès aux packages](packages.md).
 
 Eg:
 
