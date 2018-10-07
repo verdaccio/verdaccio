@@ -10,7 +10,7 @@ Le processus d'authentification du client est géré par `npm` lui-même. Une fo
 npm adduser --registry http://localhost:4873
 ```
 
-Un jeton est généré dans le fichier de configuration `npm` hébergé dans votre répertoire personnel. Pour plus d'informations sur `.npmrc` lire la [documentation officielle](https://docs.npmjs.com/files/npmrc).
+Un jeton est généré dans le `npm` fichier de configuration hébergé dans votre répertoire personnel. Pour plus d'informations sur `.npmrc` lire la [documentation officielle](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -36,7 +36,7 @@ As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/21
 
 ## Htpasswd par défaut
 
-Afin de simplifier la configuration, `verdaccio` utiliser un plugin basé sur `htpasswd`. A partir de la version 3.0.x, le [ plugin externe ](https://github.com/verdaccio/verdaccio-htpasswd) est utilisé par défaut. The v2.x version of this package still contains the built-in version of this plugin.
+Afin de simplifier la configuration, `verdaccio` utilise un plugin basé sur `htpasswd`. A partir de la version 3.0.x, le [ plugin externe ](https://github.com/verdaccio/verdaccio-htpasswd) est utilisé par défaut. The v2.x version of this package still contains the built-in version of this plugin.
 
 ```yaml
 auth:
