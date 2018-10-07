@@ -77,12 +77,12 @@
     "Who's Using This?|no description given": "Who's Using This?",
     "This project is used by all these people|no description given": "This project is used by all these people",
     "More|no description given": "المزيد",
-    "Users|no description given": "Users",
-    "This project is used by many folks|no description given": "This project is used by many folks",
+    "Users|no description given": "المستخدمين",
+    "This project is used by many folks|no description given": "يُستخدَم هذا المشروع من قبل العديد من الناس",
     "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Are you using this project? Do not be shy and add your company/project logo.",
     "Add your company|no description given": "Add your company",
     "Help Translate|recruit community translators for your project": "Help Translate",
-    "Edit this Doc|recruitment message asking to edit the doc source": "Edit",
-    "Translate this Doc|recruitment message asking to translate the docs": "Translate"
+    "Edit this Doc|recruitment message asking to edit the doc source": "تحرير",
+    "Translate this Doc|recruitment message asking to translate the docs": "الترجمة"
   }
 }
