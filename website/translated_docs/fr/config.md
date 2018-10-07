@@ -189,7 +189,7 @@ notify:
 
 ` npm audit ` est une nouvelle commande émise avec[ npm 6.x ](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio inclut un plugin middleware intégré pour gérer cette commande.
 
-> Si vous avez une nouvelle installation, elle est fournie par défaut. Sinon, vous devez ajouter les propriétés suivantes au fichier de configuration
+> Si vous avez une nouvelle installation, elle est fournie par défaut. Sinon, vous devez ajouter les propriétés suivantes à votre fichier de configuration
 
 ```yaml
 middlewares:
