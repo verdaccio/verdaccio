@@ -51,7 +51,7 @@ plugins: ./plugins
 
 ### Authentification
 
-Le paramètre d'authentification est défini ici, l'authentification par défaut est basée sur `htpasswd` et est incorporée. Vous pouvez modifier ce comportement via les[plugins](plugins.md). Pour plus d'informations sur cette section, consultez la [ page d'authentification ](auth.md).
+Le paramètre d'authentification est défini ici, l'authentification par défaut est basée sur `htpasswd` et est intégrée. Vous pouvez modifier ce comportement via les[plugins](plugins.md). Pour plus d'informations sur cette section, consultez la [ page d'authentification ](auth.md).
 
 ```yaml
 auth:
@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Notifications
 
-L'activation des notifications d'outils tiers est assez facile via des points d'ancrage Web. Pour plus d'informations sur cette section, consultez la [ page de notification ](notifications.md).
+L'activation des notifications d'outils tiers est assez facile via des webhooks. Pour plus d'informations sur cette section, consultez la [ page de notification ](notifications.md).
 
 ```yaml
 notify:
