@@ -2,7 +2,7 @@
 id: contribuant
 title: "Contribuer à Verdaccio"
 ---
-First of all Passer dans une file d'attente de base inconnue n'est pas facile, mais nous sommes là pour vous aider.
+First of all Passer à une base de code inconnue n'est pas facile, mais nous sommes là pour vous aider.
 
 ## Canaux de communication
 
