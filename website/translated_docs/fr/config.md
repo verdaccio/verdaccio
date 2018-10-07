@@ -154,7 +154,7 @@ Les Proxy sont des serveurs HTTP spéciaux conçus pour transférer des données
 
 #### http_proxy and https_proxy
 
-Si vous avez un proxy sur le réseau, vous pouvez définir un en-tête `X-Forwarded-For` à l'aide des propriétés suivantes.
+Si vous avez un proxy sur votre réseau, vous pouvez définir un en-tête `X-Forwarded-For` à l'aide des propriétés suivantes.
 
 ```yaml
 http_proxy: http://something.local/
