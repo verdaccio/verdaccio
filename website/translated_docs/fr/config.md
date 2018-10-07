@@ -43,7 +43,7 @@ storage: ./storage
 
 ### Plugins
 
-C'est le chemin du répertoire des plugins. Utile pour les distributions basées sur Docker / Kubernetes.
+C'est le chemin du répertoire des plugins. Utile pour les déploiements basées sur Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
