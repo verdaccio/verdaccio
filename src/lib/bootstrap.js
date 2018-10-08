@@ -81,7 +81,7 @@ function startVerdaccio(config: any,
       let webServer;
       if (addr.proto === 'https') {
         // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
-        if (!config.https || !config.https.key || !config.https.cert || !config.https.ca) {
+        if (!config.https || !((config.https.key && config.https.cert && config.https.ca) || config.https.pfx)) {
           displayHTTPSWarning(configPath);
         }
 
