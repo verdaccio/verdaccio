@@ -6,7 +6,7 @@
 import _ from 'lodash';
 import { allow } from '../../middleware';
 import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '../../../lib/utils';
-import { HEADERS, DIST_TAGS } from '../../../lib/constants';
+import { HEADERS, DIST_TAGS, API_ERROR } from '../../../lib/constants';
 import type { Router } from 'express';
 import type { Config } from '@verdaccio/types';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
@@ -40,7 +40,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
           }
         }
       }
-      return next(ErrorCode.getNotFound(`version not found: ${req.params.version}`));
+      return next(ErrorCode.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${req.params.version}`));
     };
 
     storage.getPackage({
