@@ -14,11 +14,12 @@ import {
   DEFAULT_PORT,
   DEFAULT_DOMAIN,
 } from './constants';
-import {generateGravatarUrl} from '../utils/user';
+import {generateGravatarUrl, GRAVATAR_DEFAULT} from '../utils/user';
 
 import type {Package} from '@verdaccio/types';
 import type {$Request} from 'express';
 import type {StringValue} from '../../types';
+import {normalizeContributors} from './storage-utils';
 
 const Logger = require('./logger');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
@@ -430,7 +431,7 @@ const parseConfigFile = (configPath: string) =>
  * @param {String} path
  * @return {Boolean}
  */
-function folder_exists(path: string) {
+function folderExists(path: string) {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
@@ -478,7 +479,7 @@ function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
 function addGravatarSupport(pkgInfo: Object): Object {
   const pkgInfoCopy = {...pkgInfo};
   const author = _.get(pkgInfo, 'latest.author', null);
-  const contributors = _.get(pkgInfo, 'latest.contributors', []);
+  const contributors = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
   // for author.
@@ -497,7 +498,17 @@ function addGravatarSupport(pkgInfo: Object): Object {
   // for contributors
   if (_.isEmpty(contributors) === false) {
     pkgInfoCopy.latest.contributors = contributors.map((contributor) => {
-      contributor.avatar = generateGravatarUrl(contributor.email);
+      if (isObject(contributor)) {
+        // $FlowFixMe
+        contributor.avatar = generateGravatarUrl(contributor.email);
+      } else if (_.isString(contributor)) {
+        contributor = {
+          avatar: GRAVATAR_DEFAULT,
+          email: contributor,
+          name: contributor,
+        };
+      }
+
       return contributor;
     });
   }
@@ -539,7 +550,7 @@ export {
   deleteProperties,
   addScope,
   sortByName,
-  folder_exists,
+  folderExists,
   fileExists,
   parseInterval,
   semverSort,

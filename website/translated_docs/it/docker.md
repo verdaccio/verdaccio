@@ -6,7 +6,7 @@ title: Docker
   ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 </div>
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+Per scaricare la più recente [immagine docker](https://hub.docker.com/r/verdaccio/verdaccio/) pre costruita:
 
 ```bash
 docker pull verdaccio/verdaccio
@@ -14,49 +14,49 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## Versioni taggate
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+Dalla versione `v2.x` si possono ottenere immagini docker per [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), come segue:
 
-For a major version:
+Per una versione maggiore:
 
 ```bash
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+Per una versione minore:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+Per una specifica (patch) versione:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+Per la successiva maggiore release che utilizzi la versione `beta` (ramo master).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Se si è interessati ad un elenco dei tag, [ si prega di visitare il sito Docker Hub](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-## Running verdaccio using Docker
+## Eseguire verdaccio utilizzando Docker
 
-To run the docker container:
+Per avviare il contenitore Docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+L'ultimo argomento definisce quale immagine si utilizza. La riga sopra citata scaricherà da dockerhub l'ultima immagine pre costruita disponibile, se non ne è ancora stata creata una.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Se è stata [costruita un'immagine localmente](#build-your-own-docker-image) utilizzare `verdaccio` come ultimo argomento.
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+È possibile utilizzare `-v` per montare `conf`, `storage` e `plugins` nel filesystem degli host:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -66,21 +66,21 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Nota: Verdaccio viene eseguito all'interno del contenitore come un utente non-root (uid=100, gid=101), se si utilizza bind mount per non tener conto delle impostazioni predefinite, è necessario assicurarsi che la cartella di mount venga assegnata all'utente corretto. Nell'esempio precedente, è necessario eseguire `sudo chown -R 100:101 /opt/verdaccio` altrimenti si presenteranno errori di permesso durante l'esecuzione. Si consiglia di [utilizzare il volume di docker](https://docs.docker.com/storage/volumes/) al posto di bind mount.
 
-### Plugins
+### Estensioni
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+I plugin possono essere installati in una cartella separata e montati utilizzando Docker o Kubernetes, ad ogni modo assicurarsi di costruire plugin con dipendenze native adoperando la stessa immagine di base del Dockerfile di Verdaccio.
 
-### Docker and custom port configuration
+### Configurazione di Docker e della porta personalizzata
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Ogni `host:port` configurato in `conf/config.yaml` sotto a `listen` viene attualmente ignorato quando si utilizza docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Se si desidera raggiungere l'istanza docker di verdaccio da una porta differente, diciamo `5000`, nel comando `docker run` sostituire `-p 4873:4873` con `-p 5000:4873`.
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+Nel caso in cui sia necessario specificare quale porta ascoltare **nel contenitore docker**, dalla versione 2.?.? ciò è possibile fornendo argomenti supplementari a `docker run`: `--env PORT=5000` Questo sostituisce la porta che il contenitore docker offre e la porta che verdaccio ascolta.
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+Naturalmente i numeri che vengono forniti al parametro `-p` devono combaciare, quindi, supponendo di volerli tutti uguali, questo è ciò che è possibile copiare, incollare ed adottare:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -88,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### Utilizzare HTTPS con Docker
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+È possibile configurare il protocollo che verdaccio andrà ad ascoltare, analogamente a come si configura la porta. È necessario sovrascrivere il valore predefinito ("http") della variabile ambientale del `PROTOCOL` con "https", dopo aver specificato i certificati nel config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,18 +98,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Utilizzare docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Scaricare l'ultima versione di [docker-compose](https://github.com/docker/compose).
+2. Creare ed eseguire il contenitore:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Si può definire la porta da utilizzare (sia per il contenitore che per l'host) anteponendo al comando precedente il prefisso `PORT=5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker genererà un volume nominato nel quale immagazzinare i dati persistenti dell'applicazione. È possibile utilizzare `docker inspect` o `docker volume inspect` per rivelare l'ubicazione fisica del volume e modificare la configurazione, in questo modo:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -124,43 +124,43 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## Creare la propria immagine Docker
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Esiste inoltre uno script npm per creare l'immagine docker, quindi si può anche fare:
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Nota: Il primo build necessita di qualche minuto per creare perché ha bisogno di avviare `npm install`, e potrebbe impiegare lo stesso tempo ogni volta che si cambia un file che non sia elencato in `.dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Se si desidera utilizzare l'immagine docker su un raspberry pi o su un dispositivo compatibile, è altresì disponibile un dockerfile. Per creare un'immagine docker per raspberry pi eseguire:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Si prega di notare che per ognuno dei comandi docker sopra citati è necessario avere docker installato sul pc e l'eseguibile docker dovrebbe essere disponibile su `$PATH`.
 
-## Docker Examples
+## Esempi Docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Esiste una cartella separata che ospita configurazioni multiple per comporre immagini Docker con `verdaccio`, per esempio, come proxy inverso:
 
 <https://github.com/verdaccio/docker-examples>
 
-## Docker Custom Builds
+## Build personalizzati di Docker
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
-* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
+* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Contenitore privato di NPM che può eseguire il back up in s3
 * [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
 * [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
 * [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
 * [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
 * [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
 * [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) immagine docker che esegue verdaccio da coldrye-debian-nodejs.

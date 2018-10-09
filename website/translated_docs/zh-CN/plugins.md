@@ -118,9 +118,10 @@ store:
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap)：verdaccio LDAP认证插件。
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory)：verdaccio Active Directory认证插件
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab)：使用Gitlab的Personal Access Token进行认证
-* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd)：基于(内置)htpasswd文件插件的verdaccio认证插件
-* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): verdaccio 的Github oauth认证插件。
-* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): verdaccio登录按钮的GitHub OAuth 插件。
+* [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): Enable GitLab CI to authenticate against verdaccio.
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
+* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
 
 ### 中间件插件
 

@@ -118,6 +118,11 @@ store:
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): auth plugin di LDAP per verdaccio.
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): plugin di autenticazione Active Directory per verdaccio
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): usare il token di Accesso Personale GitLab per autenticarsi
+* [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): Enable GitLab CI to authenticate against verdaccio.
+* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
+* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
+* [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): Enable GitLab CI to authenticate against verdaccio.
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth basato sul plugin del file htpasswd (incorporato) for verdaccio
 * [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): plugin di autenticazione Github oauth per verdaccio.
 * [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): plugin GitHub OAuth per il pulsante di login di verdaccio.

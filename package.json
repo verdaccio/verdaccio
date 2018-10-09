@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "3.8.1",
+  "version": "3.8.3",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -53,7 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
     "@commitlint/config-conventional": "7.0.1",
-    "@verdaccio/types": "3.4.2",
+    "@verdaccio/types": "3.4.4",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",

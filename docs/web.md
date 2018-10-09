@@ -1,6 +1,6 @@
 ---
 id: webui
-title: "Web User Interface2"
+title: "Web User Interface"
 ---
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
