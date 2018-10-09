@@ -3,7 +3,8 @@
  * @flow
  */
 
-import { HTTP_STATUS } from '../../../lib/constants';
+import _ from 'lodash';
+import { API_ERROR, HTTP_STATUS } from '../../../lib/constants';
 
 import type { Router } from 'express';
 import type { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
@@ -29,6 +30,19 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
         });
       }
     });
+  });
+
+  route.put('/reset_password', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    if (_.isNil(req.remote_user.name)) {
+      res.status(HTTP_STATUS.UNAUTHORIZED);
+      return next({
+        // FUTURE: update to a more meaningful message
+        message: API_ERROR.BAD_DATA,
+      });
+    }
+
+    // here we are waiting https://github.com/verdaccio/verdaccio/pull/1034
+    next({ ok: true });
   });
 }
 
