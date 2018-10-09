@@ -5,16 +5,15 @@ import rimraf from 'rimraf';
 
 import configDefault from '../partials/config/index';
 import publishMetadata from '../partials/publish-api';
-import forbiddenPlace from '../partials/forbidden-place';
 import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, DIST_TAGS} from '../../../src/lib/constants';
+import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE} from '../../../src/lib/constants';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 require('../../../src/lib/logger').setup([]);
-const credentials = { name: 'Jota', password: 'secretPass' };
+const credentials = { name: 'jota', password: 'secretPass' };
 
 describe('endpoint unit test', () => {
   let config;
@@ -140,7 +139,7 @@ describe('endpoint unit test', () => {
 
       test('should test add a new user', (done) => {
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
           .send(credentials)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
@@ -176,7 +175,7 @@ describe('endpoint unit test', () => {
         delete credentialsShort.name;
 
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
@@ -186,7 +185,7 @@ describe('endpoint unit test', () => {
             }
 
             expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/username and password is required/);
+            expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
             done();
           });
       });
@@ -197,7 +196,7 @@ describe('endpoint unit test', () => {
         delete credentialsShort.password;
 
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
@@ -208,7 +207,7 @@ describe('endpoint unit test', () => {
 
             expect(res.body.error).toBeDefined();
             //FIXME: message is not 100% accurate
-            expect(res.body.error).toMatch(/username and password is required/);
+            expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
             done();
           });
       });
@@ -242,7 +241,7 @@ describe('endpoint unit test', () => {
               return done(err);
             }
             expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/username is already registered/);
+            expect(res.body.error).toMatch(API_ERROR.USERNAME_ALREADY_REGISTERED);
             done();
           });
       });
@@ -570,159 +569,6 @@ describe('endpoint unit test', () => {
             expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
             done();
           });
-      });
-    });
-  });
-
-  describe('Registry WebUI endpoints', () => {
-    beforeAll(async function() {
-      await request(app)
-      .put('/@scope%2fpk1-test')
-      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .send(JSON.stringify(publishMetadata))
-      .expect(HTTP_STATUS.CREATED);
-
-      await request(app)
-      .put('/forbidden-place')
-      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .send(JSON.stringify(forbiddenPlace))
-      .expect(HTTP_STATUS.CREATED);
-    });
-
-    describe('Packages', () => {
-
-      test('should display all packages', (done) => {
-        request(app)
-          .get('/-/verdaccio/packages' )
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            expect(res.body).toHaveLength(1);
-            done();
-          });
-      });
-
-      test.skip('should display scoped readme', (done) => {
-        request(app)
-          .get('/-/verdaccio/package/readme/@scope/pk1-test')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
-          .end(function(err, res) {
-            expect(res.text).toMatch('<h1 id="test">test</h1>\n');
-            done();
-          });
-      });
-
-      //FIXME: disable, we need to inspect why fails randomly
-      test.skip('should display scoped readme 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/package/readme/@scope/404')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
-          .end(function(err, res) {
-            expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
-            done();
-          });
-      });
-
-      test('should display sidebar info', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function(err, res) {
-            const sideBarInfo = res.body;
-            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
-
-            expect(sideBarInfo.latest.author).toBeDefined();
-            expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
-            expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
-            expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
-            done();
-          });
-      });
-
-      test('should display sidebar info 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/404')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function() {
-            done();
-          });
-      });
-    });
-
-    describe('Search', () => {
-
-      test('should search pk1-test', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/scope')
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            expect(res.body).toHaveLength(1);
-            done();
-          });
-      });
-
-      test('should search with 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/@')
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            // in a normal world, the output would be 1
-            // https://github.com/verdaccio/verdaccio/issues/345
-            // should fix this
-            expect(res.body).toHaveLength(0);
-            done();
-          });
-      });
-
-      test('should not find forbidden-place', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/forbidden-place')
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            //this is expected since we are not logged
-            // and  forbidden-place is allow_access: 'nobody'
-            expect(res.body).toHaveLength(0);
-            done();
-          });
-      });
-    });
-
-    describe('User', () => {
-      describe('login webui', () => {
-        test('should log a user jota', (done) => {
-          request(app)
-            .post('/-/verdaccio/login')
-            .send({
-              username: credentials.name,
-              password: credentials.password
-            })
-            .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
-              expect(res.body.error).toBeUndefined();
-              expect(res.body.token).toBeDefined();
-              expect(res.body.token).toBeTruthy();
-              expect(res.body.username).toMatch(credentials.name);
-              done();
-            });
-        });
-
-        test('should fails on log unvalid user', (done) => {
-          request(app)
-            .post('/-/verdaccio/login')
-            .send(JSON.stringify({
-              username: 'fake',
-              password: 'fake'
-            }))
-            //FIXME: there should be 401
-            .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
-              expect(res.body.error).toMatch(/bad username\/password, access denied/);
-              done();
-            });
-        });
       });
     });
   });

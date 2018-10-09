@@ -110,6 +110,8 @@ export const API_ERROR = {
   DEPRECATED_BASIC_HEADER: 'basic authentication is deprecated, please use JWT instead',
   BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
   RESOURCE_UNAVAILABLE: 'resource unavailable',
+  USERNAME_PASSWORD_REQUIRED: 'username and password is required',
+  USERNAME_ALREADY_REGISTERED: 'username is already registered',
 };
 
 export const APP_ERROR = {
