@@ -89,9 +89,9 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
       }
 
       // at this point document is either created or existed before
-      const t1 = Object.keys(_attachments)[0];
+      const firstAttachmentKey = Object.keys(_attachments)[0];
 
-      createTarball(Path.basename(t1), _attachments[t1], function(error) {
+      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function(error) {
         if (error) {
           return next(error);
         }
@@ -167,11 +167,38 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   });
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), function(
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ) {
+  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
+
+  // adding a version
+  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
+}
+
+/**
+ * Adds a new version
+ */
+export function addVersion(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const { version, tag } = req.params;
+    const packageName = req.params.package;
+
+    storage.addVersion(packageName, version, req.body, tag, function(error) {
+      if (error) {
+        return next(error);
+      }
+
+      res.status(HTTP_STATUS.CREATED);
+      return next({
+        ok: API_MESSAGE.PKG_PUBLISHED,
+      });
+    });
+  };
+}
+
+/**
+ * uploadPackageTarball
+ */
+export function uploadPackageTarball(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName = req.params.package;
     const stream = storage.addTarball(packageName, req.params.filename);
     req.pipe(stream);
@@ -199,26 +226,5 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
         ok: API_MESSAGE.TARBALL_UPLOADED,
       });
     });
-  });
-
-  // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, function(
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ) {
-    const { version, tag } = req.params;
-    const packageName = req.params.package;
-
-    storage.addVersion(packageName, version, req.body, tag, function(err) {
-      if (err) {
-        return next(err);
-      }
-
-      res.status(HTTP_STATUS.CREATED);
-      return next({
-        ok: API_MESSAGE.PKG_PUBLISHED,
-      });
-    });
-  });
+  };
 }
