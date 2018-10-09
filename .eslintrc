@@ -1,6 +1,7 @@
 {
   "plugins": [
     "react",
+    "babel",
     "flowtype",
     "jest"
   ],
@@ -38,8 +39,10 @@
     "__APP_VERSION__": true
   },
   "rules": {
+    "babel/no-invalid-this": 1,
     "prettier/prettier": ["error", null, "@prettier"],
     "no-useless-escape": 2,
+    "no-invalid-this": 0,
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
     "handle-callback-err": 2,
