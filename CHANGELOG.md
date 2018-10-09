@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.8.3"></a>
+## [3.8.3](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v3.8.3) (2018-10-07)
+
+
+### Bug Fixes
+
+* don't exit if using https and pfx is enabled ([#1061](https://github.com/verdaccio/verdaccio/issues/1061)) ([#1062](https://github.com/verdaccio/verdaccio/issues/1062)) ([315a3b2](https://github.com/verdaccio/verdaccio/commit/315a3b2))
+
+
+
 <a name="3.8.2"></a>
 ## [3.8.2](https://github.com/verdaccio/verdaccio/compare/v3.8.1...v3.8.2) (2018-09-27)
 
