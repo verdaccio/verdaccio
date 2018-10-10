@@ -59,22 +59,22 @@ Nous avons un soutien pour **Kubernetes**, ** Puppet**, **Ansible** et **Chef** 
 
 ### Je peux faire des traductions
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio vise à être multilingue et, pour atteindre cet objectif, **nous bénéficions du soutien important** de [Crowdin](https://crowdin.com), qui est une plate-forme stupéfiante pour les traductions.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Nous avons mis en place un projet dans lequel vous pouvez choisir la langue que vous préférez. Si vous ne trouvez pas la langue qui vous convient, n'hésitze pas à demander une en [créant un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Aller à Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## Je suis prêt à contribuer
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Si vous pensez que *"J'ai déjà vu les [dépôts](repositories.md) et je souhaite commencer tout de suite"*, alors j'ai bien de bonnes nouvelles pour toi, Voici l'étape suivante.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Vous devrez apprendre à créer un projet, [nous avons préparé un guide à cet effet](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Une fois que vous vous êtes amusés avec tous les scripts et que vous avez compris comment les utiliser, nous sommes prêts pour passer à l'étape suivante: exécutez le [**Test unitaire**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## Liste complète des contributeurs. Nous souhaitons voir votre visage ici !
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
