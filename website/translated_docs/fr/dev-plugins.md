@@ -1,18 +1,18 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: "Développement des Plugins"
 ---
-There are many ways to extend `verdaccio`, the kind of plugins supported are:
+Il existe plusieurs façons pour étendre `verdaccio`, les types de plugins pris en charge sont :
 
-* Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Plugins d’authentification
+* Plugins Middleware (depuis `v2.7.0`)
+* Plugins de stockage depuis (`v3.x`)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Nous vous recommandons de développer des plugins à l'aide de nos [ définitions des types de flux ](https://github.com/verdaccio/flow-types).
 
-## Authentication Plugin
+## Plugin d’authentification
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Fondamentalement, nous devons renvoyer un objet avec une seule méthode appelée `authentifier` qui recevra 3 arguments (`utilisateur, mot de passe, rappel`).
 
 ### API
 
