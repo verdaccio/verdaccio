@@ -21,6 +21,7 @@
       "plugins": [
         "react-hot-loader/babel",
         "transform-runtime",
+        "transform-class-properties",
         "transform-object-rest-spread",
         "transform-decorators-legacy",
         "syntax-dynamic-import",
