@@ -94,9 +94,9 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Paramètres avancés
 
-### Offline Publish
+### Publication hors ligne
 
 Par défaut `verdaccio` n'autorise pas le client à publier lorsqu'il est hors ligne, ce comportement peut être remplacé en définissant cette option *Vraie*.
 
