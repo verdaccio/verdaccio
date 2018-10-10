@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks est la capacité du système à récupérer des paquets à partir de registres distants lorsque ces paquets ne sont pas disponibles localement. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks est la capacité du système à récupérer des paquets à partir de registres distants lorsque ces paquets ne sont pas disponibles localement. Pour plus d'informations sur cette section, lisez [uplinks page](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Paquets
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paquets permet à l'utilisateur de contrôler comment les paquets sont rendus accessibles. Pour plus d'informations sur cette section, consultez la [ page des paquets ](packages.md).
 
 ```yaml
 packages:
