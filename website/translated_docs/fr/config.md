@@ -35,7 +35,7 @@ Les sections suivantes expliquent ce que signifie chaque propriété et les diff
 
 ### Stockage
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+C'est le chemin de stockage par défaut. **Verdaccio est basé par défaut sur le fichier système local**.
 
 ```yaml
 storage: ./storage
@@ -60,7 +60,7 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Interface Web
 
 Cette propriété vous permet de modifier les fonctionnalités de l'interface utilisateur Web. Pour plus d'informations sur cette section, consultez la [ page de l'interface utilisateur Web ](web.md).
 
