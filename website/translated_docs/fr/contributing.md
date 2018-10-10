@@ -51,13 +51,13 @@ We have a frontend website <http://www.verdaccio.org/> that will be happy to see
 
 Our website is based on [Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Je suis un DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+Nous avons une image très populaire sur Docker [ https://hub.docker.com/r/verdaccio/verdaccio/](https://hub.docker.com/r/verdaccio/verdaccio/) qui a besoin de maintenance et d’énormes améliorations, nous avons donc besoin de vos connaissances pour que tous les utilisateurs en bénéficient.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+Nous avons un soutien pour **Kubernetes**, ** Puppet**, **Ansible** et **Chef** et nous avons besoin d'aide dans ces domaines, n'hésitez pas à voir tous les dépôts.
 
-### I can do translations
+### Je peux faire des traductions
 
 Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
 
