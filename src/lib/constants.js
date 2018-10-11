@@ -79,6 +79,7 @@ export const API_MESSAGE = {
   PKG_CHANGED: 'package changed',
   PKG_REMOVED: 'package removed',
   PKG_PUBLISHED: 'package published',
+  TARBALL_UPLOADED: 'tarball uploaded successfully',
   TARBALL_REMOVED: 'tarball removed',
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
@@ -110,6 +111,7 @@ export const API_ERROR = {
   DEPRECATED_BASIC_HEADER: 'basic authentication is deprecated, please use JWT instead',
   BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
   RESOURCE_UNAVAILABLE: 'resource unavailable',
+  BAD_PACKAGE_DATA: 'bad incoming package data',
 };
 
 export const APP_ERROR = {
