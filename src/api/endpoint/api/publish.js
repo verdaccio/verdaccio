@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import { API_MESSAGE, HEADERS, DIST_TAGS } from '../../../lib/constants';
+import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR } from '../../../lib/constants';
 import { validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
 import { media, expectJson, allow } from '../../middleware';
 import { notify } from '../../../lib/notify';
@@ -121,7 +121,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     try {
       metadata = validateMetadata(req.body, name);
     } catch (err) {
-      return next(ErrorCode.getBadData('bad incoming package data'));
+      return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
 
     if (req.params._rev) {
@@ -187,7 +187,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     stream.on('success', function() {
       res.status(201);
       return next({
-        ok: 'tarball uploaded successfully',
+        ok: API_MESSAGE.TARBALL_UPLOADED,
       });
     });
   });
