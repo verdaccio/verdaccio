@@ -145,26 +145,10 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   });
 
   // un-publishing an entire package
-  router.delete('/:package/-rev/*', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.removePackage(req.params.package, function(err) {
-      if (err) {
-        return next(err);
-      }
-      res.status(HTTP_STATUS.CREATED);
-      return next({ ok: API_MESSAGE.PKG_REMOVED });
-    });
-  });
+  router.delete('/:package/-rev/*', can('publish'), unPublishPackage(storage));
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.removeTarball(req.params.package, req.params.filename, req.params.revision, function(err) {
-      if (err) {
-        return next(err);
-      }
-      res.status(HTTP_STATUS.CREATED);
-      return next({ ok: API_MESSAGE.TARBALL_REMOVED });
-    });
-  });
+  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), removeTarball(storage));
 
   // uploading package tarball
   router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
@@ -173,6 +157,35 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
 }
 
+/**
+ * un-publish a package
+ */
+export function unPublishPackage(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    storage.removePackage(req.params.package, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(HTTP_STATUS.CREATED);
+      return next({ ok: API_MESSAGE.PKG_REMOVED });
+    });
+  };
+}
+
+/**
+ * Delete tarball
+ */
+export function removeTarball(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    storage.removeTarball(req.params.package, req.params.filename, req.params.revision, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(HTTP_STATUS.CREATED);
+      return next({ ok: API_MESSAGE.TARBALL_REMOVED });
+    });
+  };
+}
 /**
  * Adds a new version
  */

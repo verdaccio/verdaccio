@@ -1,7 +1,7 @@
 /**
  * @prettier
  */
-import { addVersion, uploadPackageTarball } from '../../../src/api/endpoint/api/publish';
+import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage } from '../../../src/api/endpoint/api/publish';
 import { HTTP_STATUS } from '../../../src/lib/constants';
 
 /**
@@ -98,5 +98,95 @@ describe('Publish endpoints - upload package tarball', () => {
     uploadPackageTarball(storage)(req, res, next);
     expect(req.pipe).toHaveBeenCalled();
     expect(req.on).toHaveBeenCalled();
+  });
+});
+
+/**
+ * Delete tarball
+ */
+describe('Publish endpoints - delete tarball', () => {
+  const req = {
+    params: {
+      filename: 'verdaccio.gzip',
+      package: 'verdaccio',
+      revision: 'v1.0.1',
+    },
+  };
+  const res = { status: jest.fn() };
+
+  test('should delete tarball successfully', done => {
+    const next = jest.fn();
+    const storage = {
+      removeTarball(packageName, filename, revision, cb) {
+        expect(packageName).toEqual(req.params.package);
+        expect(filename).toEqual(req.params.filename);
+        expect(revision).toEqual(req.params.revision);
+        cb();
+        done();
+      },
+    };
+
+    removeTarball(storage)(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
+    expect(next).toHaveBeenCalledWith({ ok: 'tarball removed' });
+  });
+
+  test('failed while deleting the tarball', done => {
+    const error = {
+      message: 'deletion failed',
+    };
+    const next = jest.fn();
+    const storage = {
+      removeTarball(packageName, filename, revision, cb) {
+        cb(error);
+        done();
+      },
+    };
+
+    removeTarball(storage)(req, res, next);
+    expect(next).toHaveBeenCalledWith(error);
+  });
+});
+
+/**
+ * Un-publish package
+ */
+describe('Publish endpoints - un-publish package', () => {
+  const req = {
+    params: {
+      package: 'verdaccio',
+    },
+  };
+  const res = { status: jest.fn() };
+
+  test('should un-publish package successfully', done => {
+    const next = jest.fn();
+    const storage = {
+      removePackage(packageName, cb) {
+        expect(packageName).toEqual(req.params.package);
+        cb();
+        done();
+      },
+    };
+
+    unPublishPackage(storage)(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
+    expect(next).toHaveBeenCalledWith({ ok: 'package removed' });
+  });
+
+  test('un-publish failed', done => {
+    const error = {
+      message: 'un-publish failed',
+    };
+    const next = jest.fn();
+    const storage = {
+      removePackage(packageName, cb) {
+        cb(error);
+        done();
+      },
+    };
+
+    unPublishPackage(storage)(req, res, next);
+    expect(next).toHaveBeenCalledWith(error);
   });
 });
