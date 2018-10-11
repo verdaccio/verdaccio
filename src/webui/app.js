@@ -151,10 +151,14 @@ export default class App extends Component {
     const { isUserLoggedIn } = this.state;
     return (
       <div className="page-full-height">
-        {this.renderHeader()}
+        <div id="header">
+          {this.renderHeader()}
+        </div>
         {this.renderLoginModal()}
         <Route isUserLoggedIn={isUserLoggedIn} />
-        <Footer />
+        <div id="footer">
+          <Footer />
+        </div>
       </div>
     );
   }
