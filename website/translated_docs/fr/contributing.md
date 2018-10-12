@@ -12,7 +12,7 @@ Si vous souhaitez poser des questions, nous utilisons deux canaux de discussion:
 
 ## Commencer
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+À première vue, verdaccio est un référentiel unique, mais il existe de nombreuses façons de contribuer et une grande variété de technologies à utiliser.
 
 ### Finding my spot
 
