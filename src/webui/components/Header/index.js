@@ -102,8 +102,9 @@ class Header extends Component<IProps, IState> {
   }
 
   renderLeftSide(): Node {
+    const { registryUrl } = this.state;
     return (
-      <a href="{registryUrl}/#/">
+      <a href={`${registryUrl}/#/`}>
         <Logo />
       </a>
     );
