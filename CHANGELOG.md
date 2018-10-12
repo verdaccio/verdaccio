@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.3"></a>
+# [4.0.0-alpha.3](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.3) (2018-10-12)
+
+
+### Bug Fixes
+
+* click on logo break ui ([#1071](https://github.com/verdaccio/verdaccio/issues/1071)) ([5b34dc8](https://github.com/verdaccio/verdaccio/commit/5b34dc8))
+
+
 <a name="4.0.0-alpha.2"></a>
 # [4.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.2) (2018-10-12)
 
