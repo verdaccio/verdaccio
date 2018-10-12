@@ -21,13 +21,27 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   const can = allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, function(
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ) {
-    const packageName = req.params.package;
+  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config));
 
+  // un-publishing an entire package
+  router.delete('/:package/-rev/*', can('publish'), unPublishPackage(storage));
+
+  // removing a tarball
+  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), removeTarball(storage));
+
+  // uploading package tarball
+  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
+
+  // adding a version
+  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
+}
+
+/**
+ * Publish a package
+ */
+export function publishPackage(storage: IStorageHandler, config: Config) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const packageName = req.params.package;
     /**
      * Write tarball of stream data from package clients.
      */
@@ -125,7 +139,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
 
     if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
       // 501 status is more meaningful, but npm doesn't show error message for 5xx
-      return next(ErrorCode.getNotFound('npm star| unstar calls are not implemented'));
+      return next(ErrorCode.getNotFound('npm star| un-star calls are not implemented'));
     }
 
     try {
@@ -142,19 +156,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
     } catch (error) {
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
-  });
-
-  // un-publishing an entire package
-  router.delete('/:package/-rev/*', can('publish'), unPublishPackage(storage));
-
-  // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), removeTarball(storage));
-
-  // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
-
-  // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
+  };
 }
 
 /**

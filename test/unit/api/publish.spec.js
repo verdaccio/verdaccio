@@ -1,35 +1,29 @@
 /**
  * @prettier
  */
-import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage } from '../../../src/api/endpoint/api/publish';
+import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../src/api/endpoint/api/publish';
 import { HTTP_STATUS } from '../../../src/lib/constants';
 
-/**
- * Logger Service
- */
-const logger = {
-  logger: {
-    error: jest.fn(),
-    debug: jest.fn(),
-    info: jest.fn(),
-  },
-};
-jest.doMock('../../../src/lib/logger', () => logger);
-
 describe('Publish endpoints - add a tag', () => {
-  const req = {
-    params: {
-      version: '1.0.0',
-      tag: 'tag',
-      package: 'verdaccio',
-    },
-    body: '',
-  };
-  const res = {
-    status: jest.fn(),
-  };
+  let req;
+  let res;
+  let next;
 
-  const next = jest.fn();
+  beforeEach(() => {
+    req = {
+      params: {
+        version: '1.0.0',
+        tag: 'tag',
+        package: 'verdaccio',
+      },
+      body: '',
+    };
+    res = {
+      status: jest.fn(),
+    };
+
+    next = jest.fn();
+  });
 
   test('should add a version', done => {
     const storage = {
@@ -70,16 +64,22 @@ describe('Publish endpoints - add a tag', () => {
  * Todo: Improve stream tests
  */
 describe('Publish endpoints - upload package tarball', () => {
-  const req = {
-    params: {
-      filename: 'verdaccio.gzip',
-      package: 'verdaccio',
-    },
-    pipe: jest.fn(),
-    on: jest.fn(),
-  };
-  const res = { status: jest.fn(), report_error: jest.fn() };
-  const next = jest.fn();
+  let req;
+  let res;
+  let next;
+
+  beforeEach(() => {
+    req = {
+      params: {
+        filename: 'verdaccio.gzip',
+        package: 'verdaccio',
+      },
+      pipe: jest.fn(),
+      on: jest.fn(),
+    };
+    res = { status: jest.fn(), report_error: jest.fn() };
+    next = jest.fn();
+  });
 
   test('should upload package tarball successfully', () => {
     const stream = {
@@ -105,17 +105,23 @@ describe('Publish endpoints - upload package tarball', () => {
  * Delete tarball
  */
 describe('Publish endpoints - delete tarball', () => {
-  const req = {
-    params: {
-      filename: 'verdaccio.gzip',
-      package: 'verdaccio',
-      revision: 'v1.0.1',
-    },
-  };
-  const res = { status: jest.fn() };
+  let req;
+  let res;
+  let next;
+
+  beforeEach(() => {
+    req = {
+      params: {
+        filename: 'verdaccio.gzip',
+        package: 'verdaccio',
+        revision: 'v1.0.1',
+      },
+    };
+    res = { status: jest.fn() };
+    next = jest.fn();
+  });
 
   test('should delete tarball successfully', done => {
-    const next = jest.fn();
     const storage = {
       removeTarball(packageName, filename, revision, cb) {
         expect(packageName).toEqual(req.params.package);
@@ -135,7 +141,6 @@ describe('Publish endpoints - delete tarball', () => {
     const error = {
       message: 'deletion failed',
     };
-    const next = jest.fn();
     const storage = {
       removeTarball(packageName, filename, revision, cb) {
         cb(error);
@@ -152,15 +157,21 @@ describe('Publish endpoints - delete tarball', () => {
  * Un-publish package
  */
 describe('Publish endpoints - un-publish package', () => {
-  const req = {
-    params: {
-      package: 'verdaccio',
-    },
-  };
-  const res = { status: jest.fn() };
+  let req;
+  let res;
+  let next;
+
+  beforeEach(() => {
+    req = {
+      params: {
+        package: 'verdaccio',
+      },
+    };
+    res = { status: jest.fn() };
+    next = jest.fn();
+  });
 
   test('should un-publish package successfully', done => {
-    const next = jest.fn();
     const storage = {
       removePackage(packageName, cb) {
         expect(packageName).toEqual(req.params.package);
@@ -178,7 +189,6 @@ describe('Publish endpoints - un-publish package', () => {
     const error = {
       message: 'un-publish failed',
     };
-    const next = jest.fn();
     const storage = {
       removePackage(packageName, cb) {
         cb(error);
@@ -188,5 +198,57 @@ describe('Publish endpoints - un-publish package', () => {
 
     unPublishPackage(storage)(req, res, next);
     expect(next).toHaveBeenCalledWith(error);
+  });
+});
+
+/**
+ * Publish package
+ */
+describe('Publish endpoints - publish package', () => {
+  let req;
+  let res;
+  let next;
+
+  beforeEach(() => {
+    req = {
+      body: {
+        name: 'verdaccio',
+      },
+      params: {
+        package: 'verdaccio',
+      },
+    };
+    res = { status: jest.fn() };
+    next = jest.fn();
+  });
+
+  test('should change the existing package', () => {
+    const storage = {
+      changePackage: jest.fn(),
+    };
+
+    req.params._rev = '0.0.1';
+
+    publishPackage(storage)(req, res, next);
+    expect(storage.changePackage).toMatchSnapshot();
+  });
+
+  test('should add a new package', () => {
+    const storage = {
+      addPackage: jest.fn(),
+    };
+
+    publishPackage(storage)(req, res, next);
+    expect(storage.addPackage).toMatchSnapshot();
+  });
+
+  test('should throw an error while publishing package', () => {
+    const storage = {
+      addPackage() {
+        throw new Error();
+      },
+    };
+    publishPackage(storage)(req, res, next);
+    expect(next).toHaveBeenCalledWith(new Error('bad incoming package data'));
   });
 });
