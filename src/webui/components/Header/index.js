@@ -103,9 +103,9 @@ class Header extends Component<IProps, IState> {
 
   renderLeftSide(): Node {
     return (
-      <Link to="/">
+      <a href="{registryUrl}/#/">
         <Logo />
-      </Link>
+      </a>
     );
   }
 
