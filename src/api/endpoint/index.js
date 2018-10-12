@@ -15,6 +15,7 @@ import distTags from './api/dist-tags';
 import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
+import profile from './api/v1/profile';
 
 const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
 
@@ -48,6 +49,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   // for "npm whoami"
   whoami(app);
   pkg(app, auth, storage, config);
+  profile(app, auth);
   search(app, auth, storage);
   user(app, auth, config);
   distTags(app, auth, storage);

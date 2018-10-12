@@ -186,7 +186,7 @@ describe('endpoint unit test', () => {
             }
 
             expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/username and password is required/);
+            expect(res.body.error).toMatch('username and password is required');
             done();
           });
       });
@@ -208,7 +208,7 @@ describe('endpoint unit test', () => {
 
             expect(res.body.error).toBeDefined();
             //FIXME: message is not 100% accurate
-            expect(res.body.error).toMatch(/username and password is required/);
+            expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
             done();
           });
       });
