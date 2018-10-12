@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.2"></a>
+# [4.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.2) (2018-10-12)
+
+
+### Bug Fixes
+
+* click on logo when using url_prefix was not working ([#996](https://github.com/verdaccio/verdaccio/issues/996)) ([3ac9646](https://github.com/verdaccio/verdaccio/commit/3ac9646))
+
+
+### Features
+
+* add support for profile cli command [#392](https://github.com/verdaccio/verdaccio/issues/392) (change password) ([#1034](https://github.com/verdaccio/verdaccio/issues/1034)) ([f1416ed](https://github.com/verdaccio/verdaccio/commit/f1416ed))
 
 <a name="3.8.3"></a>
 ## [3.8.3](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v3.8.3) (2018-10-07)
@@ -15,11 +27,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 <a name="4.0.0-alpha.1"></a>
 # [4.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2018-09-27)
-
-
-
-<a name="4.0.0-alpha.0"></a>
-# [4.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v4.0.0-alpha.0) (2018-09-27)
 
 
 ### Bug Fixes
