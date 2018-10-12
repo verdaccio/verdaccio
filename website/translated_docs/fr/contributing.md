@@ -8,9 +8,9 @@ First of all Passer à une base de code inconnue n'est pas facile, mais nous som
 
 Si vous souhaitez poser des questions, nous utilisons deux canaux de discussion:
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [Chaîne publique de Discord](http://chat.verdaccio.org/)
 
-## Getting started
+## Commencer
 
 As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
 
