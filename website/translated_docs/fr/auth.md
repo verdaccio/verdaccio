@@ -23,7 +23,7 @@ registry=http://localhost:5555/
 
 `verdaccio` vous permet d'activer la publication anonyme. Pour utiliser cette fonction, vous devez définir correctement votre [accès aux packages](packages.md).
 
-Eg:
+Par exemple :
 
 ```yaml
   'my-company-*':
