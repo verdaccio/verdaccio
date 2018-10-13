@@ -14,13 +14,13 @@ Si vous souhaitez poser des questions, nous utilisons deux canaux de discussion:
 
 À première vue, verdaccio est un référentiel unique, mais il existe de nombreuses façons de contribuer et une grande variété de technologies à utiliser.
 
-### Finding my spot
+### Trouver ma place
 
-All we have different skills, so, let's see where you might feel comfortable.
+Nous avons tous des compétences différentes, alors voyons où vous pouvez vous sentir confortable.
 
-### I know or I want to learn Node.js
+### Je connais ou je veux en apprendre Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js est la base de `verdaccio`, nous utilisons des bibliothèques comme `express`, `commander`, `request` ou `async`. Verdaccio est essentiellement un API Rest qui crée une communication avec les clients `npm`, comme `yarn`.
 
 We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
 
