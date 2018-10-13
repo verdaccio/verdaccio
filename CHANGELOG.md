@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.8.4"></a>
+## [3.8.4](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v3.8.4) (2018-10-13)
+
+
+### Bug Fixes
+
+* click on logo break ui ([#1073](https://github.com/verdaccio/verdaccio/issues/1073)) ([9a3c8bc](https://github.com/verdaccio/verdaccio/commit/9a3c8bc))
+* click on logo when using url_prefix was not working ([#996](https://github.com/verdaccio/verdaccio/issues/996)) ([3ac9646](https://github.com/verdaccio/verdaccio/commit/3ac9646))
+
+
+
 <a name="3.8.3"></a>
 ## [3.8.3](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v3.8.3) (2018-10-07)
 
