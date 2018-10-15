@@ -2,7 +2,7 @@
  * @prettier
  */
 import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../src/api/endpoint/api/publish';
-import { HTTP_STATUS } from '../../../src/lib/constants';
+import { HTTP_STATUS, API_ERROR } from '../../../src/lib/constants';
 
 describe('Publish endpoints - add a tag', () => {
   let req;
@@ -61,7 +61,7 @@ describe('Publish endpoints - add a tag', () => {
 });
 
 /**
- * Todo: Improve stream tests
+ * upload package: '/:package/-/:filename/*'
  */
 describe('Publish endpoints - upload package tarball', () => {
   let req;
@@ -102,7 +102,7 @@ describe('Publish endpoints - upload package tarball', () => {
 });
 
 /**
- * Delete tarball
+ * Delete tarball: '/:package/-/:filename/-rev/:revision'
  */
 describe('Publish endpoints - delete tarball', () => {
   let req;
@@ -154,7 +154,7 @@ describe('Publish endpoints - delete tarball', () => {
 });
 
 /**
- * Un-publish package
+ * Un-publish package: '/:package/-rev/*'
  */
 describe('Publish endpoints - un-publish package', () => {
   let req;
@@ -202,7 +202,7 @@ describe('Publish endpoints - un-publish package', () => {
 });
 
 /**
- * Publish package
+ * Publish package: '/:package/:_rev?/:revision?'
  */
 describe('Publish endpoints - publish package', () => {
   let req;
@@ -249,6 +249,6 @@ describe('Publish endpoints - publish package', () => {
       },
     };
     publishPackage(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(new Error('bad incoming package data'));
+    expect(next).toHaveBeenCalledWith(new Error(API_ERROR.BAD_PACKAGE_DATA));
   });
 });
