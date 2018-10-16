@@ -28,13 +28,13 @@ interface IPluginAuth extends IPlugin {
 
 > Seuls `adduser`, `allow_access` et `allow_publish` sont facultatifs, verdaccio fournit une solution de secours dans tous ces cas.
 
-#### Callback
+#### Rappel
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Une fois l’authentification effectuée, il existe 2 options possibles pour répondre à `verdaccio`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Soit que quelque chose de mauvais s'est produite, ou que l'authentification a échoué.
 
 ```flow
 callback(null, false)
@@ -42,7 +42,7 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+L’authentification a réussi.
 
 `groups` is an array of strings where the user is part of.
 
