@@ -36,20 +36,20 @@ Voici quelques idées:
 
 * Créer des règles communes d'eslint pouvant être utilisées dans toutes les dépendances ou plugins
 * Améliorer la distribution des définitions de types de flux
-* Moving to Webpack 4
-* Improve hot reload with Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* Migrer vers Webpack 4
+* Améliorez le rechargement à chaud avec Webpack
+* Nous utilisons babel et webpack à travers toutes les dépendances, pourquoi pas un préréglage commun?
+* Améliorer la distribution continue de l'intégration
 
-### I do great Documentation
+### Je fais une bonne documentation
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+De nombreux contributeurs trouvent des fautes de frappe et des problèmes de grammaire, ce qui contribue également à améliorer l'expérience globale de résolution de problèmes.
 
-### I am a Designer
+### Je suis un Designer
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+Nous avons une interface du site <http://www.verdaccio.org/> qui sera ravie de voir vos idées.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Notre site est basé sur [Docusaurus](https://docusaurus.io/).
 
 ### Je suis un DevOps
 
