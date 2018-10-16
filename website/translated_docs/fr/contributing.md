@@ -28,14 +28,14 @@ Nous avons une longue [liste de plugins](plugins.md) prête à être utilisée e
 
 Récemment, nous sommes passés à des techonologies moderne comme `React` et `element-react`. Nous sommes impatients de voir de nouvelles idées pour améliorer l’Interface Utilisateur.
 
-### I feel more confortable improving the stack
+### Je me sens plus confortable en améliorant la pile
 
-Of course, we will be happy to help us improving the stack, you can upgrade dependencies as `eslint`, `stylelint`, `webpack`. You might merely improve the `webpack` configuration would be great. Any suggestion is very welcome. Furthermore whether you have experience with **Yeoman** you might help us with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin).
+Bien sûr, nous serons heureux si vous pouviez nous aider à améliorer la pile, vous pouvez mettre à niveau des dépendances telles que `eslint`, `stylelint`, `webpack`. Ce serait très utile si vous pouvez simplement améliorer la configuration de `webpack`. Toute suggestion est la bienvenue. De même, si vous avez une expérience dans **Yeoman**, vous pouvez nous aider avec le [générateur de verdaccio](https://github.com/verdaccio/generator-verdaccio-plugin).
 
-Here some ideas:
+Voici quelques idées:
 
-* Create a common eslint rules to be used across all dependencies or plugins
-* Improve Flow types definitions delivery
+* Créer des règles communes d'eslint pouvant être utilisées dans toutes les dépendances ou plugins
+* Améliorer la distribution des définitions de types de flux
 * Moving to Webpack 4
 * Improve hot reload with Webpack
 * We use babel and webpack across all dependencies, why not a common preset?
