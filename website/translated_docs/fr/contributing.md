@@ -22,11 +22,11 @@ Nous avons tous des compétences différentes, alors voyons où vous pouvez vous
 
 Node.js est la base de `verdaccio`, nous utilisons des bibliothèques comme `express`, `commander`, `request` ou `async`. Verdaccio est essentiellement un API Rest qui crée une communication avec les clients `npm`, comme `yarn`.
 
-We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
+Nous avons une longue [liste de plugins](plugins.md) prête à être utilisée et améliorée, mais en même temps, [vous pouvez créer votre propre liste](dev-plugins.md).
 
-### I would prefer to work in the User Interface
+### J'aurais préférer travailler dans l’Interface utilisateur
 
-Recently we have moved to modern techonologies as `React` and `element-react`. We are looking forward to see new ideas how to improve the UI.
+Récemment, nous sommes passés à des techonologies moderne comme `React` et `element-react`. Nous sommes impatients de voir de nouvelles idées pour améliorer l’Interface Utilisateur.
 
 ### I feel more confortable improving the stack
 
