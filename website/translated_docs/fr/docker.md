@@ -14,17 +14,17 @@ docker pull verdaccio/verdaccio
 
 ![Docker pull](/svg/docker_verdaccio.gif)
 
-## Tagged Versions
+## Versions marquées
 
-Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
+À partir de la version `v2.x`, vous pouvez obtenir des images du menu fixe pour la [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), comme suit:
 
-For a major version:
+Pour une version majeure:
 
 ```bash
 docker pull verdaccio/verdaccio:3
 ```
 
-For a minor version:
+Pour une version mineure :
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
