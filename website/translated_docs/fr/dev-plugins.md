@@ -124,7 +124,7 @@ Verdaccio utilise par défaut une extension de stockage du système de fichiers 
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+L'API de stockage étant un peu plus complexe, vous devez créer une classe qui renvoie une implémentation `IPluginStorage`. Veuillez consulter les détails ci-dessous.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,15 +174,15 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> L'API de stockage est toujours expérimental et peut changer dans les versions mineures ultérieures. Pour plus d'informations sur l'API de stockage, veuillez suivre les [définitions de type dans nos archives officielles](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Exemples de Plugins de Stockage
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Vous trouverez ci-dessous une liste des extensions utilisant l'API de stockage et pouvant être utilisées à titre d'exemple.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Voulez-vous contribuer avec de nouveaux Plugins de Stockage?[Appuyez ici.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
