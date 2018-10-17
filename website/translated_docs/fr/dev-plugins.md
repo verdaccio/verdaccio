@@ -106,7 +106,7 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 Cette méthode fournit un accès complet à l'authentification et à l'archivage via `auth` et `storage`. `app` est l'application rapide qui permet d'ajouter de nouveaux points de terminaison.
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Un très bon exemple de plugin Middleware est le [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) et [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
