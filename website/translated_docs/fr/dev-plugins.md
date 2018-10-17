@@ -94,7 +94,7 @@ Où `htpasswd` est le suffixe du nom du plugin. ex: `verdaccio-htpasswd` et le r
 
 ## Middleware Plugin
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Les plugins middleware peuvent modifier le niveau de l'API, en ajoutant de nouveaux points de terminaison ou en interceptant des demandes.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,7 +104,7 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Cette méthode fournit un accès complet à l'authentification et à l'archivage via `auth` et `storage`. `app` est l'application rapide qui permet d'ajouter de nouveaux points de terminaison.
 
 > A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
