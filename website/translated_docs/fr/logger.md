@@ -22,5 +22,5 @@ En utilisant `SIGUSR2` pour notifier l'application, le fichier journal a été p
 | ---------- | ------ | ----------- | ---------------------------------------------- | ------- | -------------------------------------------------------------- |
 | type       | chaîne | Non         | [stdout, file]                                 | tous    | définir la sortie                                              |
 | itinéraire | chaîne | Non         | verdaccio.log                                  | tous    | si le type est fichier, définissez l’emplacement de ce fichier |
-| format     | chaîne | Non         | [pretty, pretty-timestamped]                   | all     | output format                                                  |
-| level      | string | No          | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                                  |
+| format     | chaîne | Non         | [pretty, pretty-timestamped]                   | tous    | format de la sortie                                            |
+| niveau     | chaîne | Non         | [fatal, error, warn, http, info, debug, trace] | all     | niveau détaillé                                                |
