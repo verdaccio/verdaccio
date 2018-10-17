@@ -2,11 +2,11 @@
 id: installation
 title: "Installation"
 ---
-Verdaccio is a multiplatform web application. To install it, you need a few prerequisites.
+Verdaccio est une application Web multi-plateforme. Quelques conditions préalables sont requises pour son installation.
 
-#### Prerequisites
+#### Conditions préalables
 
-1. Node higher than 
+1. Nœud supérieur à 
     - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
     - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
 2. npm `>=3.x` or `yarn`
