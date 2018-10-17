@@ -17,15 +17,15 @@ Ces instructions ont été écrites pour le serveur Windows 2012, IIS 8, [Node.j
 - Assurez-vous de disposer d'une règle entrante acceptant le trafic TCP sur le port du pare-feu Windows
 - C'est ça! Maintenant, vous pouvez parcourir l'hôte et le port que vous avez spécifiés
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Je voulais que `verdaccio` soit le site par défaut sur IIS, j'ai donc pris les mesures suivantes:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Je me suis assuré que le fichier .nmprc dans `c:\users{yourname}` avait le registre configuré sur `"registry=http://localhost/"`
+- J'ai arrêté le "site Web par défaut" et n'ai démarré que le site "verdaccio" sur IIS
+- J'ai établi des connexions avec "http", l'adresse Ip "All Unassigned" sur le port 80, permettre tout avertissement ou invite
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Ces instructions sont basées sur [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). J'ai dû faire un petit ajustement de la configuration Web, comme vous pouvez le voir ci-dessous, mais vous pouvez trouver l'original à partir du lien mentionné qui fonctionne le mieux
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Un fichier de configuration par défaut sera créé `c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
