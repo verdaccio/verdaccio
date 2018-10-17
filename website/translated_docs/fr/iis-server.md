@@ -14,8 +14,8 @@ Ces instructions ont été écrites pour le serveur Windows 2012, IIS 8, [Node.j
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- Assurez-vous de disposer d'une règle entrante acceptant le trafic TCP sur le port du pare-feu Windows
+- C'est ça! Maintenant, vous pouvez parcourir l'hôte et le port que vous avez spécifiés
 
 I wanted the `verdaccio` site to be the default site in IIS so I did the following:
 
