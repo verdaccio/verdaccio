@@ -6,7 +6,7 @@ title: Docker
   ![alt Docker Pulls Count](http://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 </div>
 
-To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
+Pour télécharger la dernière [image docker](https://hub.docker.com/r/verdaccio/verdaccio/) prédéfinie:
 
 ```bash
 docker pull verdaccio/verdaccio
