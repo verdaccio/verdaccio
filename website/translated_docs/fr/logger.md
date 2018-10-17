@@ -1,8 +1,8 @@
 ---
-id: logger
-title: "Logger"
+id: enregistreur
+title: "Enregistreur"
 ---
-As any web application, verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+Comme toute application Web, verdaccio dispose d'un enregistreur intégré personnalisable. Vous pouvez définir différents types de sorties.
 
 ```yaml
 logs:
@@ -10,17 +10,17 @@ logs:
   - {type: stdout, format: pretty, level: http}
   # file output
   - {type: file, path: verdaccio.log, level: info}
-  # Rotating log stream. Options are passed directly to bunyan. See: https://github.com/trentm/node-bunyan#stream-type-rotating-file
+  # Rotating log stream. Les options sont transmises directement à Bunyan. Voir: https://github.com/trentm/node-bunyan#stream-type-rotating-file
   - {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 ```
 
-Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it. Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
+En utilisant `SIGUSR2` pour notifier l'application, le fichier journal a été pivoté et doit être rouvert. Remarque: L'activité de rotation des journaux n'est pas prise en charge en mode cluster. [Voir ici](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
 
 ### Configuration
 
-| Property | Type   | Required | Example                                        | Support | Description                                       |
-| -------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
-| type     | string | No       | [stdout, file]                                 | all     | define the output                                 |
-| path     | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
-| format   | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
-| level    | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| Propriété | Type   | Required | Example                                        | Support | Description                                       |
+| --------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
+| type      | string | No       | [stdout, file]                                 | all     | define the output                                 |
+| path      | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
+| format    | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
+| level     | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
