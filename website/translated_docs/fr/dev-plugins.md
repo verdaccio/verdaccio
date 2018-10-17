@@ -44,12 +44,12 @@ callback(null, false)
 
 L’authentification a réussi.
 
-`groups` is an array of strings where the user is part of.
+`groups` est un tableau de chaînes dont l'utilisateur fait partie.
 
      callback(null, groups);
     
 
-### Example
+### Exemple
 
 ```javascript
 function Auth(config, stuff) {
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+Et la configuration ressemblera à ceci:
 
 ```yaml
 auth:
@@ -90,7 +90,7 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Où `htpasswd` est le suffixe du nom du plugin. ex: `verdaccio-htpasswd` et le reste du corps serait composé des paramètres de configuration du plugin.
 
 ## Middleware Plugin
 
