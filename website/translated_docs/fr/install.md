@@ -7,10 +7,10 @@ Verdaccio est une application Web multi-plateforme. Quelques conditions préalab
 #### Conditions préalables
 
 1. Nœud supérieur à 
-    - For version `verdaccio@2.x` Node `v4.6.1` is the minimum supported version.
-    - For version `verdaccio@latest` Node `6.12.0` is the minimum supported version.
-2. npm `>=3.x` or `yarn`
-3. The web interface supports the `Chrome, Firefox, Edge, and IE9` browsers.
+    - Pour la version `verdaccio@2.x` Noeud `v4.6.1` est la version minimale prise en charge.
+    - Pour la version `verdaccio@latest` Noeud `6.12.0` est la version minimale prise en charge.
+2. npm `>=3.x` ou `yarn`
+3. L'interface web prend en charge les navigateurs `Chrome, Firefox, Edge, et IE9`.
 
 ## Installing the CLI
 
