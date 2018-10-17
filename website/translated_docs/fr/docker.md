@@ -24,13 +24,13 @@ Pour une version majeure:
 docker pull verdaccio/verdaccio:3
 ```
 
-Pour une version mineure :
+Pour une version mineure:
 
 ```bash
 docker pull verdaccio/verdaccio:3.0
 ```
 
-For a specific (patch) version:
+Pour une version spécifique (patch):
 
 ```bash
 docker pull verdaccio/verdaccio:3.0.1
@@ -163,4 +163,4 @@ There is a separate repository that hosts multiple configurations to compose Doc
 * [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
 * [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
 * [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) image de docker fournissant verdaccio à partir de coldrye-debian-nodejs.
