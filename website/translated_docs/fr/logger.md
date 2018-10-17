@@ -18,9 +18,9 @@ En utilisant `SIGUSR2` pour notifier l'application, le fichier journal a été p
 
 ### Configuration
 
-| Propriété | Type   | Required | Example                                        | Support | Description                                       |
-| --------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
-| type      | string | No       | [stdout, file]                                 | all     | define the output                                 |
-| path      | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
-| format    | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
-| level     | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| Propriété  | Type   | Obligatoire | Exemple                                        | Soutien | Description                                                    |
+| ---------- | ------ | ----------- | ---------------------------------------------- | ------- | -------------------------------------------------------------- |
+| type       | chaîne | Non         | [stdout, file]                                 | tous    | définir la sortie                                              |
+| itinéraire | chaîne | Non         | verdaccio.log                                  | tous    | si le type est fichier, définissez l’emplacement de ce fichier |
+| format     | chaîne | Non         | [pretty, pretty-timestamped]                   | all     | output format                                                  |
+| level      | string | No          | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                                  |
