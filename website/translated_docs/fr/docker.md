@@ -109,7 +109,7 @@ $ docker-compose up --build
 
 Vous pouvez définir le port à utiliser (pour le conteneur et pour l'hôte) en préfixant la commande précédente avec le préfixe`PORT = 5000`.
 
-Docker générera un volume nommé dans lequel les données d'application persistantes seront stockées. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker générera un volume nommé dans lequel les données d'application persistantes seront stockées. Vous pouvez utiliser `docker inspect` ou `docker volume inspect` pour révéler l'emplacement physique du volume et modifier la configuration, comme:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -124,21 +124,21 @@ Docker générera un volume nommé dans lequel les données d'application persis
     
     
 
-## Build your own Docker image
+## Créer votre propre image Docker
 
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Il existe également un script npm pour créer une image docker, vous pouvez donc également:
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Remarque: La première génération prend quelques minutes pour être créée car elle doit démarrer `npm install` et peut prendre le même temps chaque fois que vous modifiez un fichier ne figurant pas dans la liste `.dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Si vous souhaitez utiliser l'image du menu fixe sur un périphérique rpi ou un périphérique compatible, un fichier docker est aussi disponible. Pour créer une image docker pour raspberry pi, exécutez:
 
 ```bash
 npm run build:docker:rpi
