@@ -137,8 +137,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
       });
     };
 
-    if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
-      // 501 status is more meaningful, but npm doesn't show error message for 5xx
+    if (Object.prototype.hasOwnProperty.call(req.body, '_rev') && isObject(req.body.users)) {
       return next(ErrorCode.getNotFound('npm star| un-star calls are not implemented'));
     }
 

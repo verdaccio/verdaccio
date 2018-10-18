@@ -4,6 +4,8 @@
 import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../src/api/endpoint/api/publish';
 import { HTTP_STATUS, API_ERROR } from '../../../src/lib/constants';
 
+const REVISION_MOCK = '15-e53a77096b0ee33e';
+
 describe('Publish endpoints - add a tag', () => {
   let req;
   let res;
@@ -114,7 +116,7 @@ describe('Publish endpoints - delete tarball', () => {
       params: {
         filename: 'verdaccio.gzip',
         package: 'verdaccio',
-        revision: 'v1.0.1',
+        revision: REVISION_MOCK,
       },
     };
     res = { status: jest.fn() };
@@ -227,7 +229,7 @@ describe('Publish endpoints - publish package', () => {
       changePackage: jest.fn(),
     };
 
-    req.params._rev = '0.0.1';
+    req.params._rev = REVISION_MOCK;
 
     publishPackage(storage)(req, res, next);
     expect(storage.changePackage).toMatchSnapshot();
@@ -250,5 +252,13 @@ describe('Publish endpoints - publish package', () => {
     };
     publishPackage(storage)(req, res, next);
     expect(next).toHaveBeenCalledWith(new Error(API_ERROR.BAD_PACKAGE_DATA));
+  });
+
+  test('should throw an error for un-implemented star calls', () => {
+    const storage = {};
+    req.body._rev = REVISION_MOCK;
+    req.body.users = {};
+    publishPackage(storage)(req, res, next);
+    expect(next).toHaveBeenCalledWith(new Error('npm star| un-star calls are not implemented'));
   });
 });
