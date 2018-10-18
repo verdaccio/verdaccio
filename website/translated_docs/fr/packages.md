@@ -104,9 +104,9 @@ packages:
      publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Bloquer la transmission d'un groupe de paquets spécifiques
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Vous voudrez peut-être empêcher les registres distants d’atteindre un ou plusieurs paquets tout en autorisant les autres à accéder à différentes *uplinks*.
 
 Let's see the following example:
 
