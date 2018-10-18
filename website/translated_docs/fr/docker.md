@@ -76,11 +76,11 @@ Les plugins peuvent être installés dans un dossier séparé et montés à l'ai
 
 Chaque `host: port` configuré dans `conf/config.yaml` sous `listen` est actuellement ignoré lors de l'utilisation de docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Si vous souhaitez atteindre l’instance verdaccio docker depuis un autre port, dites `5000`, dans la commande `docker run`, remplacez `-p 4873: 4873` par `-p 5000: 4873`.
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+Si vous devez spécifier le port sur lequel écouter **dans le conteneur de menu fixe**, à partir de la version 2.?.? ceci est possible en fournissant des arguments supplémentaires à `docker run`: `- env PORT = 5000` Ceci remplace le port offert par le conteneur de menu fixe et le port écouté par verdaccio.
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+Bien sûr, les nombres fournis au paramètre `-p` doivent correspondre, donc si vous les voulez tous identiques, voici ce que vous pouvez copier, coller et adopter:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
