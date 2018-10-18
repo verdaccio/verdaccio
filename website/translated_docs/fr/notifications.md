@@ -8,9 +8,9 @@ Notify a été créé principalement pour être utilisé avec les Webhooks entra
 
 Un exemple avec **HipChat**, **Stride** et **Google Hangouts Chat**, cliquez sur:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio supporte chaque API, n'hésitez pas à ajouter d'autres exemples.
 
-#### Single notification
+#### Notification unique
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Notification multiple
 
 ```yaml
 notify:
@@ -41,11 +41,11 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## Modèle
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+Nous utilisons [Handlebars](https://handlebarsjs.com/) comme moteur de gabarit principal.
 
-### Format Examples
+### Exemples de format
 
     # iterate all versions
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
@@ -54,17 +54,17 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Propriétés
 
-List of properties accesible via template
+Liste des propriétés accessibles via un modèle
 
-* Metadata
-* Publisher (who is publishing)
-* Package Published (package@1.0.0)
+* Métadonnées
+* Éditeur (celui qui publie)
+* Package publié (package@1.0.0)
 
-### Metadata
+### Métadonnées
 
-Package metadata that the template has access
+Package de métadonnées auquel le modèle a accès
 
     {
         "_id": "@test/pkg1",
@@ -115,7 +115,7 @@ Package metadata that the template has access
     }
     
 
-### Publisher
+### Editeur
 
 You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
 
