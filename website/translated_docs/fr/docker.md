@@ -88,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### Utiliser HTTPS avec Docker
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Vous pouvez configurer le protocole que verdaccio écoutera, de la même manière que le port. Vous devez remplacer la valeur par défaut ("http") de la variable d'environnement du `PROTOCOL` par "https" après avoir spécifié les certificats dans le fichier config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,18 +98,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Utiliser docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Obtenir la dernière version de [docker-composer](https://github.com/docker/compose).
+2. Générer et exécuter le conteneur:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Vous pouvez définir le port à utiliser (pour le conteneur et pour l'hôte) en préfixant la commande précédente avec le préfixe`PORT = 5000`.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker générera un volume nommé dans lequel les données d'application persistantes seront stockées. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
 
     $ docker volume inspect verdaccio_verdaccio
     [
