@@ -108,7 +108,7 @@ packages:
 
 Vous voudrez peut-être empêcher les registres distants d’atteindre un ou plusieurs paquets tout en autorisant les autres à accéder à différentes *uplinks*.
 
-Let's see the following example:
+Voyons l’exemple suivant:
 
 ```yaml
 packages:
@@ -127,24 +127,24 @@ packages:
      proxy: npmjs
 ```
 
-Let's describe what we want with the above example:
+Nous décrivons ce que nous voulons avec l'exemple précédent:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+* Je souhaite héberger ma propre dépendance `jquery` mais je dois éviter de la transférer.
+* Je veux toutes les dépendances qui coïncident avec <`my-company - *` mais je dois éviter de les transférer.
+* Je veux toutes les dépendances qui se trouvent dans la portée `my-local-scope`, mais je dois éviter de les transférer.
+* Je veux transférer toutes les dépendances restantes.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+**N'oubliez pas l'importance de la commande de colis et utilisez toujours le double astérisque**. Parce que si vous ne l'incluez pas, `verdaccio` l'inclura à votre place et cela affectera la manière dont les dépendances seront résolues.
 
 ### Configuration
 
-You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
+Vous pouvez définir mutiple `packages` et chacun d’eux doit avoir un unique `Regex`. La syntaxe est basée sur [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| Property | Type    | Required | Example        | Support | Description                                 |
-| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
+| Propriété | Type    | Obligatoire | Exemple        | Soutien | Description                                        |
+| --------- | ------- | ----------- | -------------- | ------- | -------------------------------------------------- |
+| accès     | chaîne  | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
+| publier   | chaîne  | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
+| proxy     | chaîne  | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
+| storage   | boolean | No          | [true,false]   | all     | TODO                                               |
 
 > We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
