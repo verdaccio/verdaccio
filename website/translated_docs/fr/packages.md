@@ -140,11 +140,11 @@ Nous décrivons ce que nous voulons avec l'exemple précédent:
 
 Vous pouvez définir mutiple `packages` et chacun d’eux doit avoir un unique `Regex`. La syntaxe est basée sur [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| Propriété | Type    | Obligatoire | Exemple        | Soutien | Description                                        |
-| --------- | ------- | ----------- | -------------- | ------- | -------------------------------------------------- |
-| accès     | chaîne  | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
-| publier   | chaîne  | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
-| proxy     | chaîne  | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
-| storage   | boolean | No          | [true,false]   | all     | TODO                                               |
+| Propriété | Type      | Obligatoire | Exemple        | Soutien | Description                                        |
+| --------- | --------- | ----------- | -------------- | ------- | -------------------------------------------------- |
+| accès     | chaîne    | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
+| publier   | chaîne    | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
+| proxy     | chaîne    | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
+| stockage  | booléenne | Non         | [true,false]   | tous    | TODO                                               |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Nous vous signalons qu'il est déconseillé d'utiliser les **allow_access **/**allow_publish** et les **proxy_access** qui sont obsolètes et qui seront bientôt supprimés. version courte de chacun de ces éléments (**acces**/ **publish**/**proxy**).
