@@ -117,9 +117,9 @@ Package de métadonnées auquel le modèle a accès
 
 ### Editeur
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+Vous pouvez accéder aux informations sur les packages de l'éditeur dans le `content` d'un Webhook à l'aide de l'objet `publisher`.
 
-See below the `publisher` object type:
+Voir le type d'objet `publisher` ci-dessous:
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+Un exemple:
 
     notify:
       method: POST
@@ -137,22 +137,22 @@ An example:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**Remarque:** Il est impossible d'obtenir des informations sur l'éditeur si le fichier `package.json` possède déjà la propriété `éditeur`.
 
-### Package Published
+### Package Publié
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+Vous pouvez accéder au package publié avec le mot clé `{{publishedPackage}}` comme suit.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
 ## Configuration
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Propriété           | Type         | Obligatoire | Soutien | Par défaut | Description                                                                                  |
+| ------------------- | ------------ | ----------- | ------- | ---------- | -------------------------------------------------------------------------------------------- |
+| méthode             | chaîne       | Non         | tous    |            | HTTP verb                                                                                    |
+| packagePattern      | chaîne       | Non         | tous    |            | N'effectuez cette notification que si le nom du package correspond à l'expression régulière  |
+| packagePatternFlags | chaîne       | Non         | all     |            | Any flags to be used with the regular expression                                             |
+| headers             | array/object | Yes         | all     |            | If this endpoint requires specific headers, set them here as an array of key: value objects. |
+| endpoint            | string       | Yes         | all     |            | set the URL endpoint for this call                                                           |
+| content             | string       | Yes         | all     |            | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
