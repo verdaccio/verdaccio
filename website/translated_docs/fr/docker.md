@@ -36,27 +36,27 @@ Pour une version spécifique (patch):
 docker pull verdaccio/verdaccio:3.0.1
 ```
 
-For the next major release using the `beta` (master branch) version.
+Pour la prochaine version majeure, utilisez la version `beta` (branche principale).
 
 ```bash
 docker pull verdaccio/verdaccio:beta
 ```
 
-> If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
+> Si vous êtes intéréssés par une liste de tags, [veuillez visiter le site web Docker Hub](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-## Running verdaccio using Docker
+## En cours d’exécution de Verdaccio à l’aide de Docker
 
-To run the docker container:
+Pour exécuter le conteneur de docker:
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+Le dernier argument définit quelle image est utilisée. La ligne ci-dessus téléchargera à partir du dockerhub la dernière image prédéfinie disponible, si celle-ci n'a pas encore été créée.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Si vous avez [construit une image localement](#build-your-own-docker-image), utilisez `verdaccio` comme dernier argument.
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+Vous pouvez utiliser `-v` pour monter `conf`, `storage` et `plugins` dans le système de fichiers hôte:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
