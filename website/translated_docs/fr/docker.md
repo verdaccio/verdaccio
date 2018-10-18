@@ -66,15 +66,15 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Remarque: Verdaccio s'exécute dans le conteneur en tant qu'utilisateur non root (uid = 100, gid = 101). Si vous utilisez le montage lié pour ignorer les paramètres par défaut, vous devez vous assurer que le dossier de montage est attribué à l'utilisateur correct. Dans l'exemple précédent, vous devez exécuter `sudo chown -R 100: 101 / opt / verdaccio`, sinon vous obtiendrez des erreurs d'autorisation pendant l'exécution. [Utiliser le volume docker](https://docs.docker.com/storage/volumes/) est recommandé, plutôt qu'utiliser le lieu du montage de liaison.
 
 ### Plugins
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+Les plugins peuvent être installés dans un dossier séparé et montés à l'aide de Docker ou de Kubernetes. Cependant, veillez à créer des plugins avec des dépendances natives à l'aide de la même image de base du fichier Docker de Verdaccio.
 
-### Docker and custom port configuration
+### Configuration de Docker et du port personnalisé
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Chaque `host: port` configuré dans `conf/config.yaml` sous `listen` est actuellement ignoré lors de l'utilisation de docker.
 
 If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
 
