@@ -141,22 +141,22 @@ Remarque: La première génération prend quelques minutes pour être créée ca
 Si vous souhaitez utiliser l'image du menu fixe sur un périphérique rpi ou un périphérique compatible, un fichier docker est aussi disponible. Pour créer une image docker pour raspberry pi, exécutez:
 
 ```bash
-npm run build:docker:rpi
+npm run build:docker
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Veuillez noter que pour chacune des commandes de menu mentionnées ci-dessus, il est nécessaire d’installer le docker sur le PC, aussi le docker exécutable doit être disponible sur `$PATH`.
 
-## Docker Examples
+## Exemples de docker
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Il existe un dossier distinct qui héberge plusieurs configurations pour composer des images Docker avec `verdaccio`, par exemple, en tant que proxy inverse:
 
 <https://github.com/verdaccio/docker-examples>
 
-## Docker Custom Builds
+## Constructions personnalisées de Docker
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
-* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
+* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) conteneur privé NPM pouvant être sauvegardé en s3
 * [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
 * [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
 * [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
