@@ -4,9 +4,9 @@ title: "Notifications"
 ---
 Notify a été créé principalement pour être utilisé avec les Webhooks entrants de Slack, mais fournira également une charge utile simple à chaque terminal. Pour le moment, il n'est actif que pour la commande `npm publish`.
 
-## Usage
+## Utilisation
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+Un exemple avec **HipChat**, **Stride** et **Google Hangouts Chat**, cliquez sur:
 
 > Verdaccio supports any API, feel free to ad more examples.
 
