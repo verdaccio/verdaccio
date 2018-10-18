@@ -207,7 +207,7 @@ describe('endpoint unit test', () => {
 
             expect(res.body.error).toBeDefined();
             //FIXME: message is not 100% accurate
-            expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
+            expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
             done();
           });
       });

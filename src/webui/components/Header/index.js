@@ -16,12 +16,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { getRegistryURL } from '../../utils/url';
 import Link from '../Link';
 import Logo from '../Logo';
+import Label from '../Label';
 import CopyToClipBoard from '../CopyToClipBoard/index';
 import RegistryInfoDialog from '../RegistryInfoDialog';
 
 import type { Node } from 'react';
 import { IProps, IState } from './interfaces';
-import { Wrapper, InnerWrapper } from './styles';
+import { Wrapper, InnerWrapper, Greetings } from './styles';
 
 class Header extends Component<IProps, IState> {
   handleLoggedInMenu: Function;
@@ -101,10 +102,11 @@ class Header extends Component<IProps, IState> {
   }
 
   renderLeftSide(): Node {
+    const { registryUrl } = this.state;
     return (
-      <Link to="/">
+      <a href={`${registryUrl}/#/`}>
         <Logo />
-      </Link>
+      </a>
     );
   }
 
@@ -138,7 +140,7 @@ class Header extends Component<IProps, IState> {
    * render popover menu
    */
   renderMenu(): Node {
-    const { handleLogout } = this.props;
+    const { handleLogout, username = '' } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
@@ -160,6 +162,10 @@ class Header extends Component<IProps, IState> {
           open={open}
           onClose={this.handleLoggedInMenuClose}
         >
+          <MenuItem disabled>
+            <Greetings>{`Hi,`}</Greetings>
+            <Label text={username} limit={140} weight="bold" capitalize />
+          </MenuItem>
           <MenuItem onClick={handleLogout} id="header--button-logout">
             Logout
           </MenuItem>

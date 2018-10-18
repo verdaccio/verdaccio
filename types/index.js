@@ -67,6 +67,17 @@ export type Utils = {
   semverSort: (keys: Array<string>) => Array<string>;
 }
 
+export type Profile = {
+  tfa: boolean;
+  name: string;
+  email: string;
+  email_verified: string;
+  created: string;
+  updated: string;
+  cidr_whitelist: any;
+  fullname: string;
+}
+
 export type $RequestExtend = $Request & {remote_user?: any}
 export type $ResponseExtend = $Response & {cookies?: any}
 export type $NextFunctionVer = NextFunction & mixed;

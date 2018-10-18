@@ -100,8 +100,9 @@ describe('/ (Verdaccio Page)', () => {
 
   it('should logout an user', async () => {
     // we assume the user is logged already
-    await clickElement('#header--button-account', { clickCount: 1, delay: 2000 });
-    await clickElement('#header--button-logout', { clickCount: 1, delay: 200 });
+    await clickElement('#header--button-account', { clickCount: 1, delay: 500 });
+    await page.waitFor(1000);
+    await clickElement('#header--button-logout > span', { clickCount: 1, delay: 500 });
     await page.waitFor(1000);
     await evaluateSignIn();
   });
