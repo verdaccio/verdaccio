@@ -25,18 +25,18 @@ uplinks:
 
 Možete definisati više uplinks-a, a svaki od njih mora imati jedinstveno ime (key). uplinks mogu imati dva svojstva:
 
-| Svojstvo     | Tip     | Potrebno | Primer                                  | Podrška | Opis                                                                                                                       | Podrazumevano |
-| ------------ | ------- | -------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| url          | string  | Da       | https://registry.npmjs.org/             | potpuna | The registry url                                                                                                           | npmjs         |
-| ca           | string  | No       | ~./ssl/client.crt'                      | all     | SSL path certificate                                                                                                       | No default    |
-| timeout      | string  | No       | 100ms                                   | all     | set new timeout for the request                                                                                            | 30s           |
-| maxage       | string  | No       | 10m                                     | all     | limit maximun failure request                                                                                              | 2m            |
-| fail_timeout | string  | No       | 10m                                     | all     | defines max time when a request becomes a failure                                                                          | 5m            |
-| max_fails    | number  | No       | 2                                       | all     | limit maximun failure request                                                                                              | 2             |
-| cache        | boolean | No       | [true,false]                            | >= 2.1  | cache all remote tarballs in storage                                                                                       | true          |
-| auth         | list    | No       | [see below](uplinks.md#auth-property)   | >= 2.5  | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled      |
-| headers      | list    | No       | authorization: "Bearer SecretJWToken==" | all     | list of custom headers for the uplink                                                                                      | disabled      |
-| strict_ssl   | boolean | No       | [true,false]                            | >= 3.0  | If true, requires SSL certificates be valid.                                                                               | true          |
+| Svojstvo            | Tip     | Potrebno | Primer                                 | Podrška | Opis                                                                                                                               | Podrazumevano     |
+| ------------------- | ------- | -------- | -------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| url                 | string  | Da       | https://registry.npmjs.org/            | potpuna | Url registry-a                                                                                                                     | npmjs             |
+| ca                  | string  | Ne       | ~./ssl/client.crt'                     | potpuna | Put to SSL certifikata                                                                                                             | Nema ništa zadato |
+| timeout             | string  | Ne       | 100ms                                  | potpuna | podesite novi timeout za request                                                                                                   | 30s               |
+| maxage              | string  | Ne       | 10m                                    | potpuna | limitira maksimalni broj neuspelih zahteva                                                                                         | 2m                |
+| fail_timeout        | string  | Ne       | 10m                                    | potpuna | definiše maksimalno vreme nakon kojeg zahtev postaje neuspešan                                                                     | 5m                |
+| max_fails           | number  | No       | 2                                      | potpuna | limitira maksimalni broj neuspelih zahteva                                                                                         | 2                 |
+| cache               | boolean | Ne       | [true,false]                           | >= 2.1  | keširanje svih tarballs iz storage-a                                                                                               | true              |
+| auth                | list    | Ne       | [vidi ispod](uplinks.md#auth-property) | >= 2.5  | dodeljuje zaglavlje 'Authorization' [više informacija](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | onemogućeno       |
+| zaglavlja (headers) | list    | Ne       | autorizacija: "Bearer SecretJWToken==" | potpuna | list of custom headers for the uplink                                                                                              | disabled          |
+| strict_ssl          | boolean | No       | [true,false]                           | >= 3.0  | If true, requires SSL certificates be valid.                                                                                       | true              |
 
 #### Auth property
 
