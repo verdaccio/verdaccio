@@ -1,16 +1,16 @@
 ---
-id: authentification
-title: "Authentification"
+id: autentifikacija
+title: "Autentifikacija"
 ---
-The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
+Autentifikacija je vezana za auth [plugin](plugins.md) koji koristite. Ograničenja paketa su definisana preko [Package Access](packages.md).
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+Autentifikacija klijenta vrši sam klijent putem `npm`. Nakon prijave na alikaciju:
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+Token se generiše u fajlu za konfiguraciju `npm`, koji se nalazi u home folder-u korisnika. Kako biste saznali više o `.npmrc` pročitajte [, zvaničnu dokumentaciju](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -19,11 +19,11 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### Anonimno publikovanje
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio`Vam omogućava da pružite mogućnost anonimnog publikovanja. Kako biste uspeli u tome, potrebno je da podesite [packages access](packages.md).
 
-Eg:
+Primer:
 
 ```yaml
   'my-company-*':
