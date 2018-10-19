@@ -2,23 +2,23 @@
 id: cli
 title: "Command Line Tool"
 ---
-The verdaccio CLI is your go start the application.
+Verdaccio CLI je Vaša pošetna stanica za pokretanje aplikacije.
 
-## Commands
+## Komande
 
 ```bash
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Command            | Default                        | Example        | Description            |
+| Komanda            | Podrazumevano                  | Primer         | Opis                   |
 | ------------------ | ------------------------------ | -------------- | ---------------------- |
 | --listen \ **-l** | 4873                           | -p 7000        | http port              |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | file za konfigurisanje |
 
-## Default config file location
+## Podrazumevana lokacija config file-a
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+Kako bismo locirali home directory, oslanjamo se na **$XDG_DATA_HOME** kao prvi izbor u Windows okruženju gde tragamo za [APPDATA environment variablom](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
-## Default storage location
+## Podrazumevana lokacija za čuvanje
 
 We use **$XDG_DATA_HOME** environment variable as default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share. If you are using a custom storage, this location is irrelevant.
