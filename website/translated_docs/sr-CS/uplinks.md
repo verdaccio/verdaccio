@@ -81,6 +81,6 @@ uplinks:
 
 * Verdaccio ne koristi Basic Authentication od verzije `v2.3.0`. Svi tokeni koje generiše verdaccio, bazirani su na JWT ([JSON Web Token](https://jwt.io/))
 * Uplinks moraju biti registries kompatibilni sa `npm` endpoints. Primer: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* i tako dalje.
-* Podešavanje `cache` na false, pomoći će da se uštedi prostor na hard disku. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
-* Exceed with multiple uplinks might slow down the lookup of your packages due for each request a npm client does, verdaccio does 1 call for each uplink.
-* The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
+* Podešavanje `cache` na false, pomoći će da se uštedi prostor na hard disku. Tako se izbgava čuvanje `tarballs-a` ali [će čuvati metadata u folderima](https://github.com/verdaccio/verdaccio/issues/391).
+* Preterivanje sa uplinks može usporiti lookup Vaših packages-a jer svaki put kada npm client traži zahtev, verdaccio pravi 1 pozivanje za svaki uplink.
+* Format za (timeout, maxage i fail_timeout) je usklađen sa [NGINX jedinicama mere](http://nginx.org/en/docs/syntax.html)
