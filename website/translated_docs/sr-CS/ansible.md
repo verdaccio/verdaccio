@@ -9,5 +9,5 @@ U okviru naše organizacije, nudimo prilagođena rešenja za `verdaccio`.
 #### Ostale mogućnosti
 
 * Primena Ansible-a za korisnike Gentoo-a: [jirutka/ansible-role-sinopia](https://github.com/jirutka/ansible-role-sinopia).
-* Primena Ansible-a za korisnike Ubuntu-a: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
+* Ansible role za korisnike Ubuntu-a: [jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
 * ansible-verdaccio-role <https://github.com/refinery29/ansible-verdaccio-role>
