@@ -15,29 +15,30 @@ For more information about permissions visit [the authentification section in th
 packages:
   # scoped packages
   '@scope/*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: server2
 
   'private-*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink1
 
   '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink2
 ```
+
 if none is specified, the default one remains
 
 ```yaml
 packages:
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
 The list of valid groups according the default plugins are
@@ -45,6 +46,7 @@ The list of valid groups according the default plugins are
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
+
 All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
 
 ```js
@@ -57,8 +59,8 @@ If you want to protect specific set packages under your group, you need to do so
 ```yaml
 packages:
   'npmuser-*':
-     access: npmuser
-     publish: npmuser
+    access: npmuser
+    publish: npmuser
 ```
 
 Restart `verdaccio` and in your console try to install `npmuser-core`.
@@ -72,6 +74,7 @@ npm ERR! 403 Forbidden: npmuser-core@latest
 npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
+
 You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
 
 #### Set multiple groups
@@ -87,7 +90,6 @@ Defining multiple access groups is fairly easy, just define them with a white sp
     access: secret super-secret-area ultra-secret-area
     publish: secret ultra-secret-area
     proxy: server1
-
 ```
 
 #### Blocking access to set of packages
@@ -98,9 +100,10 @@ If you want to block the acccess/publish to a specific group of packages. Just d
 packages:
   'old-*':
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
+
 #### Blocking proxying a set of specific packages
 
 You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
@@ -110,19 +113,20 @@ Let's see the following example:
 ```yaml
 packages:
   'jquery':
-     access: $all
-     publish: $all
+    access: $all
+    publish: $all
   'my-company-*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '@my-local-scope/*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '**':
-     access: all
-     publish: $authenticated
-     proxy: npmjs
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
 ```
+
 Let's describe what we want with the above example:
 
 * I want to host my own `jquery` dependency but I need to avoid proxying it.
@@ -140,11 +144,7 @@ Property | Type | Required | Example | Support | Description
 --- | --- | --- | --- | --- | ---
 access | string | No | $all | all | define groups allowed to access the package
 publish | string | No | $authenticated | all | define groups allowed to publish
-proxy | string | No |npmjs | all | limit look ups for specific uplink
+proxy | string | No | npmjs | all | limit look ups for specific uplink
 storage | boolean | No | [true,false] | all | TODO
 
 > We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
-
-
-
-
