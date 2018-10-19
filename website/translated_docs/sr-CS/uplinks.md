@@ -2,11 +2,11 @@
 id: uplinks
 title: "Uplinks"
 ---
-An *uplink* is a link with an external registry that provides acccess to external packages.
+*uplink* je link koji sadrži external registry koji omogućava pristup do external packages.
 
 ![Uplinks](/img/uplinks.png)
 
-### Usage
+### Kako se koristi
 
 ```yaml
 uplinks:
@@ -21,22 +21,22 @@ uplinks:
     url: http://localhost:55666/
 ```
 
-### Configuration
+### Konfigurisanje
 
-You can define mutiple uplinks and each of them must have an unique name (key). They can have two properties:
+Možete definisati više uplinks-a, a svaki od njih mora imati jedinstveno ime (key). uplinks mogu imati dva svojstva:
 
-| Property     | Type    | Required | Example                                 | Support | Description                                                                                                                | Default    |
-| ------------ | ------- | -------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| url          | string  | Yes      | https://registry.npmjs.org/             | all     | The registry url                                                                                                           | npmjs      |
-| ca           | string  | No       | ~./ssl/client.crt'                      | all     | SSL path certificate                                                                                                       | No default |
-| timeout      | string  | No       | 100ms                                   | all     | set new timeout for the request                                                                                            | 30s        |
-| maxage       | string  | No       | 10m                                     | all     | limit maximun failure request                                                                                              | 2m         |
-| fail_timeout | string  | No       | 10m                                     | all     | defines max time when a request becomes a failure                                                                          | 5m         |
-| max_fails    | number  | No       | 2                                       | all     | limit maximun failure request                                                                                              | 2          |
-| cache        | boolean | No       | [true,false]                            | >= 2.1  | cache all remote tarballs in storage                                                                                       | true       |
-| auth         | list    | No       | [see below](uplinks.md#auth-property)   | >= 2.5  | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled   |
-| headers      | list    | No       | authorization: "Bearer SecretJWToken==" | all     | list of custom headers for the uplink                                                                                      | disabled   |
-| strict_ssl   | boolean | No       | [true,false]                            | >= 3.0  | If true, requires SSL certificates be valid.                                                                               | true       |
+| Svojstvo     | Tip     | Potrebno | Primer                                  | Podrška | Opis                                                                                                                       | Podrazumevano |
+| ------------ | ------- | -------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| url          | string  | Da       | https://registry.npmjs.org/             | potpuna | The registry url                                                                                                           | npmjs         |
+| ca           | string  | No       | ~./ssl/client.crt'                      | all     | SSL path certificate                                                                                                       | No default    |
+| timeout      | string  | No       | 100ms                                   | all     | set new timeout for the request                                                                                            | 30s           |
+| maxage       | string  | No       | 10m                                     | all     | limit maximun failure request                                                                                              | 2m            |
+| fail_timeout | string  | No       | 10m                                     | all     | defines max time when a request becomes a failure                                                                          | 5m            |
+| max_fails    | number  | No       | 2                                       | all     | limit maximun failure request                                                                                              | 2             |
+| cache        | boolean | No       | [true,false]                            | >= 2.1  | cache all remote tarballs in storage                                                                                       | true          |
+| auth         | list    | No       | [see below](uplinks.md#auth-property)   | >= 2.5  | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled      |
+| headers      | list    | No       | authorization: "Bearer SecretJWToken==" | all     | list of custom headers for the uplink                                                                                      | disabled      |
+| strict_ssl   | boolean | No       | [true,false]                            | >= 3.0  | If true, requires SSL certificates be valid.                                                                               | true          |
 
 #### Auth property
 
