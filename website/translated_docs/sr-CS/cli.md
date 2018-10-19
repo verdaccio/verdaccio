@@ -21,4 +21,4 @@ Kako bismo locirali home directory, oslanjamo se na **$XDG_DATA_HOME** kao prvi 
 
 ## Podrazumevana lokacija za čuvanje
 
-We use **$XDG_DATA_HOME** environment variable as default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share. If you are using a custom storage, this location is irrelevant.
+Koristimo **$XDG_DATA_HOME** environment variablu kao podrazumevano podešavanje kako bismo locirali podrazumevano mesto za čuvanje koje bi trebalo [da bude isto](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) kao $HOME/.local/share. Ako koristite prilagođeno mesto za čuvanje podataka (custom storage,) onda je lokacija irelevantna.
