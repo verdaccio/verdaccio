@@ -47,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Svojstvo  | Tip    | Potrebno | Primer     | Podrška | Opis                                     |
-| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
-| file      | string | Da       | ./htpasswd | all     | file that host the encrypted credentials |
-| max_users | number | No       | 1000       | all     | set limit of users                       |
+| Svojstvo  | Tip    | Potrebno | Primer     | Podrška | Opis                                   |
+| --------- | ------ | -------- | ---------- | ------- | -------------------------------------- |
+| file      | string | Da       | ./htpasswd | potpuna | file koji sadrži šivrovane credentials |
+| max_users | broj   | Ne       | 1000       | potpuna | podešava maksimalni broj korisnika     |
 
-In case to decide do not allow user to login, you can set `max_users: -1`.
+Ako se odlučite na to da ne dozvolite korisnicima da se prijave, možete podesiti `max_users: -1`.
