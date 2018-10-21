@@ -15,6 +15,7 @@ export interface IProps {
   onChange?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
   onSuggestionsFetch?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
   onCleanSuggestions?: () => void;
+  onClick?: () => void;
 }
 
 export interface IInputField {

@@ -10,7 +10,6 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withRouter } from 'react-router';
 
 import { fontWeight } from '../../utils/styles/sizes';
 import { Wrapper, InputField } from './styles';
@@ -67,7 +66,7 @@ const AutoComplete = ({
   placeholder = '',
   disableUnderline = false,
   color,
-  ...others
+  onClick,
 }: IProps): Node => {
   const autosuggestProps = {
     renderInputComponent,
@@ -94,11 +93,10 @@ const AutoComplete = ({
             {options.children}
           </Paper>
         )}
-        // eslint-disable-next-line no-unused-vars
-        onSuggestionSelected={(_, { suggestionValue }) => others.history.push(`detail/${suggestionValue}`)}
+        onSuggestionSelected={onClick}
       />
     </Wrapper>
   );
 };
 
-export default withRouter(AutoComplete);
+export default AutoComplete;

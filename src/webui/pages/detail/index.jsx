@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
@@ -6,8 +6,6 @@ import PackageDetail from '../../components/PackageDetail';
 import NotFound from '../../components/NotFound';
 import Spinner from '../../components/Spinner';
 import API from '../../utils/api';
-
-import Header from '../../components/Header';
 
 import classes from './detail.scss';
 import PackageSidebar from '../../components/PackageSidebar/index';
@@ -70,22 +68,16 @@ export default class Detail extends Component {
 
     if (notFound) {
       return (
-        <Fragment>
-           <Header {...this.props} withoutSearch />
-           <NotFound pkg={this.packageName} />
-        </Fragment>
+        <NotFound pkg={this.packageName} />
       );
     } else if (isEmpty(readMe)) {
       return <Spinner centered />;
     }
     return (
-      <Fragment>
-        <Header {...this.props} withoutSearch />
-        <div className={`container content ${classes.twoColumn}`}>
-          <PackageDetail readMe={readMe} packageName={this.packageName} />
-          <PackageSidebar packageName={this.packageName} />
-        </div>
-      </Fragment> 
+      <div className={`container content ${classes.twoColumn}`}>
+        <PackageDetail readMe={readMe} packageName={this.packageName} />
+        <PackageSidebar packageName={this.packageName} />
+      </div>
     );
   }
 }

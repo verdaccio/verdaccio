@@ -129,7 +129,7 @@ class Header extends Component<IProps, IState> {
     const { onSearch = () => {}, search = '', withoutSearch = false, ...others } = this.props;
     return (
       <LeftSide>
-        <Link to="/">
+        <Link to="/" style={{ marginRight: '1em' }}>
           <Logo />
         </Link>
         {!withoutSearch && (

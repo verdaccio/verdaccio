@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import isNil from 'lodash/isNil';
-import deburr from 'lodash/deburr';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,10 +13,13 @@ import logo from './utils/logo';
 import { makeLogin, isTokenExpire } from './utils/login';
 
 import Footer from './components/Footer';
-import Spinner from './components/Spinner';
+import Loading from './components/Loading';
 import LoginModal from './components/Login';
+import Header from './components/Header';
+import { Container, Content } from './components/Layout';
 import Route from './router';
 import API from './utils/api';
+import { getDetailPageURL } from './utils/url';
 
 import './styles/main.scss';
 import classes from "./app.scss";
@@ -33,6 +35,7 @@ export default class App extends Component {
     isUserLoggedIn: false,
     packages: [],
     searchPackages: [],
+    filteredPackages: [],
     search: "",
     isLoading: true,
     showAlertDialog: false,
@@ -47,6 +50,12 @@ export default class App extends Component {
     this.loadLogo();
     this.isUserAlreadyLoggedIn();
     this.loadPackages();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isUserLoggedIn !== this.props.isUserLoggedIn) {
+      this.loadPackages();
+    }
   }
 
   loadLogo = async () => {
@@ -72,13 +81,13 @@ export default class App extends Component {
 
   loadPackages = async () => {
     try {
-      const packages = await API.request('packages', 'GET');
-      const transformedPackages = packages.map(({ name, ...others}) => ({
+      this.req = await API.request('packages', 'GET');
+      const transformedPackages = this.req.map(({ name, ...others}) => ({
         label: name,
         ...others
       }));
       this.setState({
-        packages: transformedPackages,
+        packages: transformedPackages, 
         filteredPackages: transformedPackages,
         isLoading: false
       });
@@ -143,6 +152,27 @@ export default class App extends Component {
     });
   }
 
+  handleFetchPackages = async ({ value }) => {
+    try {
+      this.req = await API.request(`/search/${value}`, 'GET');
+      const transformedPackages = this.req.map(({ name, ...others}) => ({
+        label: name,
+        ...others
+      }));
+      // Implement cancel feature later
+      if (this.state.search === value) {
+        this.setState({
+          searchPackages: transformedPackages
+        });
+      }
+    } catch (error) {
+      this.handleShowAlertDialog({
+        title: 'Warning',
+        message: `Unable to get search result: ${error.message}`
+      });
+    }
+  }
+
   /**
    * Logouts user
    * Required by: <Header />
@@ -156,12 +186,6 @@ export default class App extends Component {
     });
   }
 
-  handleFetchPackages = ({ value }) => {
-    this.setState({
-      searchPackages: this.getfilteredPackages(value),
-    });
-  }
-
   handlePackagesClearRequested = () => {
     this.setState({
       searchPackages: []
@@ -170,10 +194,29 @@ export default class App extends Component {
 
    // eslint-disable-next-line no-unused-vars
    handleSearch = (_, { newValue }) => {
+    const { filteredPackages, packages, search } = this.state;
+    const value = newValue.trim();
     this.setState({
-      search: newValue
+      search: value,
+      filteredPackages: value.length < search.length ? 
+        packages.filter(pkage => pkage.label.match(value)) : filteredPackages
     });
   };
+
+  // eslint-disable-next-line no-unused-vars
+  handleClickSearch = (_, { suggestionValue, method }) => {
+    const { packages } = this.state;
+    switch(method) {
+      case 'click':
+        window.location.href = getDetailPageURL(suggestionValue);
+      break;
+      case 'enter':
+        this.setState({
+          filteredPackages: packages.filter(pkage => pkage.label.match(suggestionValue))
+        });
+      break;
+    }
+  }
 
   handleShowAlertDialog = content => {
     this.setState({
@@ -189,28 +232,32 @@ export default class App extends Component {
   };
 
   getfilteredPackages = value => {
-    const { packages } = this.state;
-    const inputValue = deburr(value.trim()).toLowerCase();
+    const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    let count = 0;
   
     if (inputLength === 0) {
       return [];
     } else {
-      return packages.filter(pkge => {
-        const keep = count < 5 && (
-          pkge.label && pkge.label.slice(0, inputLength).toLowerCase() === inputValue ||
-          pkge.version && pkge.version.slice(0, inputLength).toLowerCase() === inputValue ||
-          pkge.keywords && pkge.keywords.some(keyword => keyword.slice(0, inputLength).toLowerCase() === inputValue)
-        );
-
-        if (keep) {
-          count += 1;
-        }
-
-        return keep;
-      });
+      return this.searchPackage(value);
     }
+  }
+
+  renderHeader = () => {
+    const { logoUrl, user, search, searchPackages } = this.state;
+    return (
+      <Header 
+        logo={logoUrl}
+        username={user.username}
+        toggleLoginModal={this.toggleLoginModal}
+        onLogout={this.handleLogout}
+        onSearch={this.handleSearch}
+        onSuggestionsFetch={this.handleFetchPackages}
+        onCleanSuggestions={this.handlePackagesClearRequested}
+        onClick={this.handleClickSearch}
+        packages={searchPackages}
+        search={search}
+      />
+    );
   }
   
   renderAlertDialog = () => (
@@ -263,27 +310,23 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, logoUrl, user, ...others } = this.state;
+    const { isLoading, filteredPackages, ...others } = this.state;
     return (
-      <div className="page-full-height">
-        {this.renderLoginModal()}
+      <Container isLoading={isLoading}>
         {isLoading ? (
-          <Spinner centered />
+          <Loading />
         ) : (
-          <Route
-            {...others}
-            logo={logoUrl}
-            username={user.username}
-            toggleLoginModal={this.toggleLoginModal}
-            onLogout={this.handleLogout}
-            onSearch={this.handleSearch}
-            onSuggestionsFetch={this.handleFetchPackages}
-            onCleanSuggestions={this.handlePackagesClearRequested}
-          />
+          <Fragment>
+            {this.renderHeader()}
+            <Content>
+              <Route {...others} packages={filteredPackages} />
+            </Content>
+            <Footer />
+          </Fragment>
         )}
-        <Footer />
         {this.renderAlertDialog()}
-      </div>
+        {this.renderLoginModal()}
+      </Container>
     );
   }
 }

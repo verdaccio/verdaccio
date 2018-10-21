@@ -38,7 +38,9 @@ export const InnerNavBar = styled(Toolbar)`
 `;
 
 export const Greetings = styled.span`
-  margin: 0 5px 0 0;
+  && {
+    margin: 0 5px 0 0;
+  }
 `;
 
 export const RightSide = styled(Toolbar)`

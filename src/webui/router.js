@@ -13,7 +13,7 @@ class RouterApp extends Component {
   };
 
   render() {
-    const { onClick, onSuggestionsFetch, onCleanSuggestions, searchPackages, packages, ...others } = this.props;
+    const { packages, ...others } = this.props;
     return (
       <Router>
           <Switch>
@@ -21,14 +21,7 @@ class RouterApp extends Component {
               exact
               path="/"
               render={() => (
-                <HomePage 
-                  {...others}
-                  onClick={onClick}
-                  onSuggestionsFetch={onSuggestionsFetch}
-                  onCleanSuggestions={onCleanSuggestions}
-                  searchPackages={searchPackages}
-                  packages={packages}
-                />
+                <HomePage packages={packages} />
               )}
             />
             <Route
