@@ -14,20 +14,20 @@ Para mas información sobre permisos, visite [la sección de autenticación](aut
 packages:
   # scoped packages
   '@scope/*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: server2
 
   'private-*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink1
 
   '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink2
 ```
 
@@ -36,8 +36,8 @@ si ninguno esta especificado, por defecto uno se define
 ```yaml
 packages:
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
 La lista de grupos validos de acuerdo a la extensión por defecto son
@@ -58,8 +58,8 @@ Si deseas proteger un grupo de paquetes específicos dentro de tu grupo, debes r
 ```yaml
 packages:
   'npmuser-*':
-     access: npmuser
-     publish: npmuser
+    access: npmuser
+    publish: npmuser
 ```
 
 Reinicia `verdaccio` en tu terminal trata de instalar `npmuser-core`.
@@ -89,7 +89,6 @@ Definir múltiples grupos de acceso es bastante sencillo, simplemente defínalos
     access: secret super-secret-area ultra-secret-area
     publish: secret ultra-secret-area
     proxy: server1
-
 ```
 
 #### Bloqueando el acceso a paquetes
@@ -100,8 +99,8 @@ Si así lo deseas bloquea el acceso/la publicación a un grupo específico de pa
 packages:
   'old-*':
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
 #### Bloqueando proxy a un grupo específico de paquetes
@@ -113,18 +112,18 @@ Veamos el siguiente ejemplo:
 ```yaml
 packages:
   'jquery':
-     access: $all
-     publish: $all
+    access: $all
+    publish: $all
   'my-company-*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '@my-local-scope/*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '**':
-     access: all
-     publish: $authenticated
-     proxy: npmjs
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
 ```
 
 Vamos a describir lo que se desea con el ejemplo anterior:

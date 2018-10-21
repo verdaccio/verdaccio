@@ -14,20 +14,20 @@ title: "包的访问"
 packages:
   # scoped packages
   '@scope/*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: server2
 
   'private-*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink1
 
   '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink2
 ```
 
@@ -36,8 +36,8 @@ packages:
 ```yaml
 packages:
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
 根据默认插件设置，有效的组列表为
@@ -58,8 +58,8 @@ packages:
 ```yaml
 packages:
   'npmuser-*':
-     access: npmuser
-     publish: npmuser
+    access: npmuser
+    publish: npmuser
 ```
 
 重启`verdaccio`并在命令行中尝试安装`npmuser-core`。
@@ -89,7 +89,6 @@ npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
     access: secret super-secret-area ultra-secret-area
     publish: secret ultra-secret-area
     proxy: server1
-
 ```
 
 #### 阻止对一组包的访问
@@ -100,8 +99,8 @@ npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 packages:
   'old-*':
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
 #### 阻止代理一组特定包
@@ -113,18 +112,18 @@ packages:
 ```yaml
 packages:
   'jquery':
-     access: $all
-     publish: $all
+    access: $all
+    publish: $all
   'my-company-*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '@my-local-scope/*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '**':
-     access: all
-     publish: $authenticated
-     proxy: npmjs
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
 ```
 
 让我们描述一下在上面的示例中我们想要做什么：
