@@ -14,20 +14,20 @@ For more information about permissions visit [the authentification section in th
 packages:
   # scoped packages
   '@scope/*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: server2
 
   'private-*':
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink1
 
   '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
-    access: all
-    publish: all
+    access: $all
+    publish: $all
     proxy: uplink2
 ```
 
@@ -36,8 +36,8 @@ if none is specified, the default one remains
 ```yaml
 packages:
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
 The list of valid groups according the default plugins are
@@ -58,8 +58,8 @@ If you want to protect specific set packages under your group, you need to do so
 ```yaml
 packages:
   'npmuser-*':
-     access: npmuser
-     publish: npmuser
+    access: npmuser
+    publish: npmuser
 ```
 
 Restart `verdaccio` and in your console try to install `npmuser-core`.
@@ -89,7 +89,6 @@ Defining multiple access groups is fairly easy, just define them with a white sp
     access: secret super-secret-area ultra-secret-area
     publish: secret ultra-secret-area
     proxy: server1
-
 ```
 
 #### Blocking access to set of packages
@@ -100,51 +99,51 @@ If you want to block the acccess/publish to a specific group of packages. Just d
 packages:
   'old-*':
   '**':
-     access: all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Bloquer la transmission d'un groupe de paquets spécifiques
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Vous voudrez peut-être empêcher les registres distants d’atteindre un ou plusieurs paquets tout en autorisant les autres à accéder à différentes *uplinks*.
 
-Let's see the following example:
+Voyons l’exemple suivant:
 
 ```yaml
 packages:
   'jquery':
-     access: $all
-     publish: $all
+    access: $all
+    publish: $all
   'my-company-*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '@my-local-scope/*':
-     access: $all
-     publish: $authenticated
+    access: $all
+    publish: $authenticated
   '**':
-     access: all
-     publish: $authenticated
-     proxy: npmjs
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
 ```
 
-Let's describe what we want with the above example:
+Nous décrivons ce que nous voulons avec l'exemple précédent:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+* Je souhaite héberger ma propre dépendance `jquery` mais je dois éviter de la transférer.
+* Je veux toutes les dépendances qui coïncident avec <`my-company - *` mais je dois éviter de les transférer.
+* Je veux toutes les dépendances qui se trouvent dans la portée `my-local-scope`, mais je dois éviter de les transférer.
+* Je veux transférer toutes les dépendances restantes.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+**N'oubliez pas l'importance de la commande de colis et utilisez toujours le double astérisque**. Parce que si vous ne l'incluez pas, `verdaccio` l'inclura à votre place et cela affectera la manière dont les dépendances seront résolues.
 
 ### Configuration
 
-You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
+Vous pouvez définir mutiple `packages` et chacun d’eux doit avoir un unique `Regex`. La syntaxe est basée sur [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| Property | Type    | Required | Example        | Support | Description                                 |
-| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
+| Propriété | Type      | Obligatoire | Exemple        | Soutien | Description                                        |
+| --------- | --------- | ----------- | -------------- | ------- | -------------------------------------------------- |
+| accès     | chaîne    | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
+| publier   | chaîne    | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
+| proxy     | chaîne    | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
+| stockage  | booléenne | Non         | [true,false]   | tous    | TODO                                               |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Nous vous signalons qu'il est déconseillé d'utiliser les **allow_access **/**allow_publish** et les **proxy_access** qui sont obsolètes et qui seront bientôt supprimés. version courte de chacun de ces éléments (**acces**/ **publish**/**proxy**).

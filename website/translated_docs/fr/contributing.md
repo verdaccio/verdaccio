@@ -63,13 +63,13 @@ Verdaccio vise à être multilingue et, pour atteindre cet objectif, **nous bén
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-Nous avons mis en place un projet dans lequel vous pouvez choisir la langue que vous préférez. Si vous ne trouvez pas la langue qui vous convient, n'hésitze pas à demander une en [créant un ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Nous avons mis en place un projet dans lequel vous pouvez choisir la langue que vous préférez. Si vous ne trouvez pas la langue qui vous convient, n'hésitez pas à demander une en [créant un ticket](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Aller à Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
 ## Je suis prêt à contribuer
 
-Si vous pensez que *"J'ai déjà vu les [dépôts](repositories.md) et je souhaite commencer tout de suite"*, alors j'ai bien de bonnes nouvelles pour toi, Voici l'étape suivante.
+Si vous pensez que *"J'ai déjà vu les [dépôts](repositories.md) et je souhaite commencer tout de suite"*, alors j'ai bien de bonnes nouvelles pour vous, Voici l'étape suivante.
 
 Vous devrez apprendre à créer un projet, [nous avons préparé un guide à cet effet](build.md).
 

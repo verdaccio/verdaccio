@@ -38,7 +38,7 @@ Les sections suivantes expliquent ce que signifie chaque propriété et les diff
 C'est le chemin de stockage par défaut. **Verdaccio est basé par défaut sur le fichier système local**.
 
 ```yaml
-storage: ./storage
+stockage: ./stockage
 ```
 
 ### Plugins
@@ -60,7 +60,7 @@ auth:
     max_users: 1000
 ```
 
-### Interface Web
+### Interface utilisateur Web
 
 Cette propriété vous permet de modifier les fonctionnalités de l'interface utilisateur Web. Pour plus d'informations sur cette section, consultez la [ page de l'interface utilisateur Web ](web.md).
 
@@ -84,7 +84,7 @@ uplinks:
 
 ### Paquets
 
-Paquets permet à l'utilisateur de contrôler comment les paquets sont rendus accessibles. Pour plus d'informations sur cette section, consultez la [ page des paquets ](packages.md).
+Les Paquets permettent à l'utilisateur de contrôler comment les paquets sont rendus accessibles. Pour plus d'informations sur cette section, consultez la [ page des paquets ](packages.md).
 
 ```yaml
 packages:
@@ -113,7 +113,7 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Depuis: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### Taille maximale du corps
 

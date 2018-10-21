@@ -4,13 +4,13 @@ title: "Notifications"
 ---
 Notify a été créé principalement pour être utilisé avec les Webhooks entrants de Slack, mais fournira également une charge utile simple à chaque terminal. Pour le moment, il n'est actif que pour la commande `npm publish`.
 
-## Usage
+## Utilisation
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+Un exemple avec **HipChat**, **Stride** et **Google Hangouts Chat**, cliquez sur:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio supporte chaque API, n'hésitez pas à ajouter d'autres exemples.
 
-#### Single notification
+#### Notification unique
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Notification multiple
 
 ```yaml
 notify:
@@ -41,11 +41,11 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## Modèle
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+Nous utilisons [Handlebars](https://handlebarsjs.com/) comme moteur de gabarit principal.
 
-### Format Examples
+### Exemples de format
 
     # iterate all versions
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
@@ -54,17 +54,17 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Propriétés
 
-List of properties accesible via template
+Liste des propriétés accessibles via un modèle
 
-* Metadata
-* Publisher (who is publishing)
-* Package Published (package@1.0.0)
+* Métadonnées
+* Éditeur (celui qui publie)
+* Package publié (package@1.0.0)
 
-### Metadata
+### Métadonnées
 
-Package metadata that the template has access
+Package de métadonnées auquel le modèle a accès
 
     {
         "_id": "@test/pkg1",
@@ -115,11 +115,11 @@ Package metadata that the template has access
     }
     
 
-### Publisher
+### Editeur
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+Vous pouvez accéder aux informations sur les packages de l'éditeur dans le `content` d'un Webhook à l'aide de l'objet `publisher`.
 
-See below the `publisher` object type:
+Voir le type d'objet `publisher` ci-dessous:
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+Un exemple:
 
     notify:
       method: POST
@@ -137,22 +137,22 @@ An example:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**Remarque:** Il est impossible d'obtenir des informations sur l'éditeur si le fichier `package.json` possède déjà la propriété `éditeur`.
 
-### Package Published
+### Package Publié
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+Vous pouvez accéder au package publié avec le mot clé `{{publishedPackage}}` comme suit.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
 ## Configuration
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Propriété           | Type         | Obligatoire | Soutien | Par défaut | Description                                                                                  |
+| ------------------- | ------------ | ----------- | ------- | ---------- | -------------------------------------------------------------------------------------------- |
+| méthode             | chaîne       | Non         | tous    |            | HTTP verb                                                                                    |
+| packagePattern      | chaîne       | Non         | tous    |            | N'effectuez cette notification que si le nom du package correspond à l'expression régulière  |
+| packagePatternFlags | chaîne       | Non         | all     |            | Any flags to be used with the regular expression                                             |
+| headers             | array/object | Yes         | all     |            | If this endpoint requires specific headers, set them here as an array of key: value objects. |
+| endpoint            | string       | Yes         | all     |            | set the URL endpoint for this call                                                           |
+| content             | string       | Yes         | all     |            | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
