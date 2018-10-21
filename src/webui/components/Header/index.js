@@ -17,7 +17,7 @@ const Header = ({
   return (
     <header className={classes.header}>
       <div className={classes.headerWrap}>
-        <a href="/#/">
+        <a href={`${registryUrl}/#/`}>
           <img src={logo} className={classes.logo} />
         </a>
         <figure>
