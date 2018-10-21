@@ -4,7 +4,7 @@
 
 # Version 4 
 
-Verdaccio is a simple, **zero-config-required local private npm registry**. 
+[Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**. 
 No need for an entire database just to get started! Verdaccio comes out of the box with 
 **its own tiny database**, and the ability to proxy other registries (eg. npmjs.org), 
 caching the downloaded modules along the way. 
@@ -150,7 +150,8 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 - Registering new users (npm adduser {newuser}) - **supported**
 - Change password (npm profile set password)  - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, *PR-welcome*
-### Misc stuff
+
+### Miscellany
 
 - Searching (npm search) - **supported** (cli / browser)
 - Ping (npm ping) - **supported**
@@ -201,6 +202,8 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
 
+* [Blog](https://medium.com/verdaccio)
+* [Donations](https://opencollective.com/verdaccio)
 * [Roadmaps](https://github.com/verdaccio/verdaccio/projects)
 * [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
