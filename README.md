@@ -82,7 +82,7 @@ See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/t
 Run in your terminal
 
 ```bash
-verdaccio
+$ verdaccio
 ```
 
 You would need set some npm configuration, this is optional.
@@ -103,16 +103,24 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 #### Create an user and log in
 
 ```bash
-npm adduser --registry http://localhost:4873
+$ npm adduser --registry http://localhost:4873
+```
+
+For scoped packages, you can log in for a specific scope:
+
+```bash
+$ npm adduser --registry http://localhost:4873 --scope=@mycompany
 ```
 
 #### Publish your package
 
 ```bash
-npm publish --registry http://localhost:4873
+$ npm publish --registry http://localhost:4873
 ```
 
 This will prompt you for user credentials which will be saved on the `verdaccio` server.
+
+If you are publishing a scoped package, the registry argument is optional
 
 <h2 align="center"> Docker</h2>
 
@@ -120,14 +128,14 @@ Below are the most commonly needed informations,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
 
 
-```
-docker pull verdaccio/verdaccio
+```bash
+$ docker pull verdaccio/verdaccio
 ```
 
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-```
-docker pull verdaccio/verdaccio:3.0.0
+```bash
+$ docker pull verdaccio/verdaccio:3.0.0
 ```
 
 ### Running verdaccio using Docker
@@ -135,7 +143,7 @@ docker pull verdaccio/verdaccio:3.0.0
 To run the docker container:
 
 ```bash
-docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
+$ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
 Docker examples are available [in this repository](https://github.com/verdaccio/docker-examples).
@@ -159,7 +167,8 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Registering new users (npm adduser {newuser}) - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, *PR-welcome*
-### Misc stuff
+
+### Miscellany
 
 - Searching (npm search) - **supported** (cli / browser)
 - Ping (npm ping) - **supported**
