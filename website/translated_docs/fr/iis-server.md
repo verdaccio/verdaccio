@@ -99,5 +99,5 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 
 ### Dépannage
 
-- **L'interface Web n'est pas chargée lorsqu'elle est allouée à https puisqu'elle tente de télécharger le script sur http.**  
+- **L'interface Web n'est pas chargée lorsqu'elle est allouée à l'hôte https puisqu'elle tente de télécharger le script sur http.**  
     Assurez-vous que vous avez nommé correctement `url_prefix` dans la configuration de Verdaccio. Suivez la [discussion](https://github.com/verdaccio/verdaccio/issues/622).
