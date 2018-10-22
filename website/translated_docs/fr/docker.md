@@ -138,7 +138,7 @@ npm run build:docker
 
 Remarque: La première génération prend quelques minutes pour être créée car elle doit démarrer `npm install` et peut prendre le même temps chaque fois que vous modifiez un fichier ne figurant pas dans la liste `.dockerignore`.
 
-Si vous souhaitez utiliser l'image du menu fixe sur un périphérique rpi ou un périphérique compatible, un fichier docker est aussi disponible. Pour créer une image docker pour raspberry pi, exécutez:
+Si vous souhaitez utiliser l'image docker du menu fixe sur un périphérique rpi ou un périphérique compatible, un fichier docker est aussi disponible. Pour créer une image docker pour raspberry pi, exécutez:
 
 ```bash
 npm run build:docker
