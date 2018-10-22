@@ -144,6 +144,6 @@ Vous pouvez définir mutiple `packages` et chacun d’eux doit avoir un unique `
 | accès     | chaîne de caractères | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
 | publier   | chaîne               | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
 | proxy     | chaîne de caractères | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
-| stockage  | booléenne            | Non         | [true,false]   | tous    | TODO                                               |
+| stockage  | booléenne            | Non         | [vrai,faux]    | tous    | TODO                                               |
 
 > Nous vous signalons qu'il est déconseillé d'utiliser les **allow_access **/**allow_publish** et les **proxy_access** qui sont obsolètes et qui seront bientôt supprimés. version courte de chacun de ces éléments (**acces**/ **publish**/**proxy**).
