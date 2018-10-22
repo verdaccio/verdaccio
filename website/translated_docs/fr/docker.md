@@ -78,7 +78,7 @@ Chaque `host: port` configuré dans `conf/config.yaml` sous `listen` est actuell
 
 Si vous souhaitez atteindre l’instance verdaccio docker depuis un autre port, dites `5000`, dans la commande `docker run`, remplacez `-p 4873: 4873` par `-p 5000: 4873`.
 
-Si vous devez spécifier le port sur lequel écouter **dans le conteneur de menu fixe**, à partir de la version 2.?.? ceci est possible en fournissant des arguments supplémentaires à `docker run`: `- env PORT = 5000` Ceci remplace le port offert par le conteneur de menu fixe et le port écouté par verdaccio.
+Dans le cas où vous devez spécifier le port sur lequel écouter **dans le conteneur de menu fixe**, à partir de la version 2.?.? ceci est possible en fournissant des arguments supplémentaires à `docker run`: `- env PORT = 5000` Ceci remplace le port offert par le conteneur de menu fixe et le port écouté par verdaccio.
 
 Bien sûr, les nombres fournis au paramètre `-p` doivent correspondre, donc si vous les voulez tous identiques, voici ce que vous pouvez copier, coller et adopter:
 
