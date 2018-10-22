@@ -13,10 +13,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { fontWeight } from '../../utils/styles/sizes';
 import { Wrapper, InputField } from './styles';
-import { IProps } from './interfaces';
+import { IProps } from './types';
 
 const renderInputComponent = (inputProps): Node => {
-  const { ref, startAdornment, disableUnderline, ...others } = inputProps;
+  const { ref, startAdornment, disableUnderline, onKeyDown, ...others } = inputProps;
   return (
     <InputField
       fullWidth
@@ -26,6 +26,7 @@ const renderInputComponent = (inputProps): Node => {
         },
         startAdornment,
         disableUnderline,
+        onKeyDown,
       }}
       {...others}
     />
@@ -67,6 +68,7 @@ const AutoComplete = ({
   disableUnderline = false,
   color,
   onClick,
+  onKeyDown,
 }: IProps): Node => {
   const autosuggestProps = {
     renderInputComponent,
@@ -87,6 +89,7 @@ const AutoComplete = ({
           startAdornment,
           disableUnderline,
           color,
+          onKeyDown,
         }}
         renderSuggestionsContainer={options => (
           <Paper {...options.containerProps} square>

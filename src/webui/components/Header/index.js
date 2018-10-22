@@ -24,7 +24,7 @@ import AutoComplete from '../AutoComplete';
 import Label from '../Label';
 
 import type { Node } from 'react';
-import { IProps, IState } from './interfaces';
+import { IProps, IState } from './types';
 import colors from '../../utils/styles/colors';
 import { Greetings, NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar, LeftSide, RightSide, Search, IconSearchButton } from './styles';
 

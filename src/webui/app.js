@@ -36,7 +36,7 @@ export default class App extends Component {
     packages: [],
     searchPackages: [],
     filteredPackages: [],
-    search: "",
+    search: '',
     isLoading: true,
     showAlertDialog: false,
     alertDialogContent: {
@@ -52,8 +52,9 @@ export default class App extends Component {
     this.loadPackages();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.isUserLoggedIn !== this.props.isUserLoggedIn) {
+  // eslint-disable-next-line no-unused-vars
+  componentDidUpdate(_, prevState) {
+    if (prevState.isUserLoggedIn !== this.state.isUserLoggedIn) {
       this.loadPackages();
     }
   }
@@ -154,7 +155,7 @@ export default class App extends Component {
 
   handleFetchPackages = async ({ value }) => {
     try {
-      this.req = await API.request(`/search/${value}`, 'GET');
+      this.req = await API.request(`/search/${encodeURIComponent(value)}`, 'GET');
       const transformedPackages = this.req.map(({ name, ...others}) => ({
         label: name,
         ...others
@@ -199,9 +200,20 @@ export default class App extends Component {
     this.setState({
       search: value,
       filteredPackages: value.length < search.length ? 
-        packages.filter(pkage => pkage.label.match(value)) : filteredPackages
+        packages.filter(pkg => pkg.label.match(value)) : filteredPackages
     });
   };
+
+  handleKeyDown = event => {
+    if (event.key === 'Enter') {
+      const { filteredPackages, packages } = this.state;
+      const value = event.target.value.trim();
+      this.setState({
+        filteredPackages: value ? 
+        packages.filter(pkg => pkg.label.match(value)) : filteredPackages
+      });
+    }
+  }
 
   // eslint-disable-next-line no-unused-vars
   handleClickSearch = (_, { suggestionValue, method }) => {
@@ -212,7 +224,7 @@ export default class App extends Component {
       break;
       case 'enter':
         this.setState({
-          filteredPackages: packages.filter(pkage => pkage.label.match(suggestionValue))
+          filteredPackages: packages.filter(pkg => pkg.label.match(suggestionValue))
         });
       break;
     }
@@ -254,6 +266,7 @@ export default class App extends Component {
         onSuggestionsFetch={this.handleFetchPackages}
         onCleanSuggestions={this.handlePackagesClearRequested}
         onClick={this.handleClickSearch}
+        onKeyDown={this.handleKeyDown}
         packages={searchPackages}
         search={search}
       />
@@ -310,7 +323,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, filteredPackages, ...others } = this.state;
+    const { isLoading, ...others } = this.state;
     return (
       <Container isLoading={isLoading}>
         {isLoading ? (
@@ -319,7 +332,7 @@ export default class App extends Component {
           <Fragment>
             {this.renderHeader()}
             <Content>
-              <Route {...others} packages={filteredPackages} />
+              <Route {...others} />
             </Content>
             <Footer />
           </Fragment>

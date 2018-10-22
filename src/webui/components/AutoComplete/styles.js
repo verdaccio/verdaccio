@@ -7,7 +7,7 @@ import React from 'react';
 import styled, { css } from 'react-emotion';
 
 import TxtField from '../TxtField';
-import { IInputField } from './interfaces';
+import { IInputField } from './types';
 
 export const Wrapper = styled.div`
   && {

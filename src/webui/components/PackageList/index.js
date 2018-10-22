@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 
 import Package from '../Package';
 import Help from '../Help';
@@ -15,29 +14,28 @@ export default class PackageList extends React.Component {
     help: PropTypes.bool
   };
 
-  render() {
+  renderPackges = () => {
+    const { packages } = this.props;
     return (
-      <div className="package-list-items">
-        <div className={classes.pkgContainer}>
-          {this.renderTitle()}
-          {this.isTherePackages() ? this.renderList() : this.renderOptions()}
-        </div>
-      </div>
+      packages.length > 0 ? (
+        <Fragment>
+          <h1 className={classes.listTitle}>Available Packages</h1>
+          {this.renderList()}
+        </Fragment>
+      ) : (
+        <NoItems
+          className="package-no-items"
+          text={'No items were found with that query'}
+        />
+      )
     );
   }
 
-  renderTitle() {
-    if (this.isTherePackages() === false) {
-      return;
-    }
-
-    return <h1 className={classes.listTitle}>Available Packages</h1>;
-  }
-
-  renderList() {
-    return this.props.packages.length > 0 && (
+  renderList = () => {
+    const { packages } = this.props;
+    return (
       <ul>
-        {this.props.packages.map((pkg, i) => {
+        {packages.map((pkg, i) => {
           const { label: name, version, description, time, keywords } = pkg;
           const author = formatAuthor(pkg.author);
           const license = formatLicense(pkg.license);
@@ -47,35 +45,18 @@ export default class PackageList extends React.Component {
             </li>
           );
         })}
-      </ul>
+    </ul>
     );
   }
 
-  renderOptions() {
-    if (this.isTherePackages() === false && this.props.help) {
-      return this.renderHelp();
-    } else {
-      return this.renderNoItems();
-    }
-  }
-
-  renderNoItems() {
+  render() {
+    const { help } = this.props;
     return (
-      <NoItems
-        className="package-no-items"
-        text={'No items were found with that query'}
-      />
+      <div className="package-list-items">
+        <div className={classes.pkgContainer}>
+          {help ? <Help /> : this.renderPackges()}
+        </div>
+      </div>
     );
-  }
-
-  renderHelp() {
-    if (this.props.help === false) {
-      return;
-    }
-    return <Help />;
-  }
-
-  isTherePackages() {
-    return isEmpty(this.props.packages) === false;
   }
 }

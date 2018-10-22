@@ -13,7 +13,6 @@ class RouterApp extends Component {
   };
 
   render() {
-    const { packages, ...others } = this.props;
     return (
       <Router>
           <Switch>
@@ -21,21 +20,21 @@ class RouterApp extends Component {
               exact
               path="/"
               render={() => (
-                <HomePage packages={packages} />
+                <HomePage {...this.props} />
               )}
             />
             <Route
               exact
               path="/detail/@:scope/:package"
               render={(props) => (
-                <DetailPackage {...props} {...others} />
+                <DetailPackage {...props} {...this.props} />
               )}
             />
             <Route
               exact
               path="/detail/:package"
               render={(props) => (
-                <DetailPackage {...props} {...others} />
+                <DetailPackage {...props} {...this.props} />
               )}
             />
           </Switch>

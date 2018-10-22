@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 
 import PackageList from '../../components/PackageList';
 
 class Home extends Component {
   static propTypes = {
     children: PropTypes.element,
-    isUserLoggedIn: PropTypes.bool
+    isUserLoggedIn: PropTypes.bool,
+    packages: PropTypes.array,
+    filteredPackages: PropTypes.array,
   };
 
-  state = {
-    fistTime: true
+  constructor(props) {
+    super(props);
+    this.state = {
+      fistTime: true,
+      packages: props.packages,
+      filteredPackages: props.filteredPackages
+    };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -20,18 +26,19 @@ class Home extends Component {
         packages: nextProps.packages,
       };
     }
+    if (nextProps.filteredPackages !== prevState.filteredPackages) {
+      return {
+        filteredPackages: nextProps.filteredPackages,
+      };
+    }
     return null;
   }
-
-  isTherePackages() {
-    return isEmpty(this.state.packages);
-  }
-
+  
   render() {
-    const { packages } = this.state;
+    const { filteredPackages, packages } = this.state;
     return (
       <div className="container content">
-        <PackageList help={isEmpty(packages) === true} packages={packages} />
+        <PackageList help={!packages.length > 0} packages={filteredPackages} />
       </div>
     );
   }
