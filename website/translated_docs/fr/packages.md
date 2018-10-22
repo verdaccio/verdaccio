@@ -126,24 +126,24 @@ packages:
     proxy: npmjs
 ```
 
-Nous décrivons ce que nous voulons avec l'exemple précédent:
+Décrivons ce que nous voulons avec l'exemple ci-dessus:
 
 * Je souhaite héberger ma propre dépendance `jquery` mais je dois éviter de la transférer.
 * Je veux toutes les dépendances qui coïncident avec <`my-company - *` mais je dois éviter de les transférer.
 * Je veux toutes les dépendances qui se trouvent dans la portée `my-local-scope`, mais je dois éviter de les transférer.
 * Je veux transférer toutes les dépendances restantes.
 
-**N'oubliez pas l'importance de la commande de colis et utilisez toujours le double astérisque**. Parce que si vous ne l'incluez pas, `verdaccio` l'inclura à votre place et cela affectera la manière dont les dépendances seront résolues.
+**N'oubliez pas l'importance de la commande de colis et utilisez toujours le double astérisque**. Parce que si vous ne l'incluez pas, `verdaccio` l'inclura à votre place et cela affectera la manière dont vos dépendances seront résolues.
 
 ### Configuration
 
 Vous pouvez définir mutiple `packages` et chacun d’eux doit avoir un unique `Regex`. La syntaxe est basée sur [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| Propriété | Type      | Obligatoire | Exemple        | Soutien | Description                                        |
-| --------- | --------- | ----------- | -------------- | ------- | -------------------------------------------------- |
-| accès     | chaîne    | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
-| publier   | chaîne    | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
-| proxy     | chaîne    | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
-| stockage  | booléenne | Non         | [true,false]   | tous    | TODO                                               |
+| Propriété | Type                 | Obligatoire | Exemple        | Soutien | Description                                        |
+| --------- | -------------------- | ----------- | -------------- | ------- | -------------------------------------------------- |
+| accès     | chaîne de caractères | Non         | $all           | tous    | définir des groupes autorisés à accéder au package |
+| publier   | chaîne               | Non         | $authenticated | tous    | définir les groupes autorisés à publier            |
+| proxy     | chaîne de caractères | Non         | npmjs          | tous    | limite la recherche d'un uplink spécifique         |
+| stockage  | booléenne            | Non         | [true,false]   | tous    | TODO                                               |
 
 > Nous vous signalons qu'il est déconseillé d'utiliser les **allow_access **/**allow_publish** et les **proxy_access** qui sont obsolètes et qui seront bientôt supprimés. version courte de chacun de ces éléments (**acces**/ **publish**/**proxy**).
