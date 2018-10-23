@@ -210,6 +210,7 @@ If you have any issue you can try the following options, do no desist to ask or 
 * [Chat](http://chat.verdaccio.org/)
 * [Logos](https://verdaccio.org/docs/en/logo)
 * [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
+* [Docker Examples](https://github.com/verdaccio/docker-examples)
 
 
 ### License
