@@ -13,21 +13,21 @@ For those looking to extend their storage capabilities, Verdaccio
 Google Cloud Storage** or create your own plugin.
 
 
-![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio/latest.svg)
-![verdaccio (next)](https://img.shields.io/npm/v/verdaccio/next.svg)
-![verdaccio (next)](http://img.shields.io/npm/dy/verdaccio.svg)
-![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)
+[![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio/latest.svg)](https://www.npmjs.com/package/verdaccio)
+[![verdaccio (next)](https://img.shields.io/npm/v/verdaccio/next.svg)](https://www.npmjs.com/package/verdaccio)
+[![verdaccio (next)](http://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
+[![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://verdaccio.org/docs/en/docker.html)
 
 ![circle ci status](https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token)
-![codecov](https://img.shields.io/codecov/c/github/verdaccio/verdaccio/4.x.svg)
-![discord](https://img.shields.io/discord/388674437219745793.svg)
-![node](https://img.shields.io/node/v/verdaccio/latest.svg)
+[![codecov](https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg)](https://codecov.io/gh/verdaccio/verdaccio)
+[![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
+[![node](https://img.shields.io/node/v/verdaccio/latest.svg)](https://www.npmjs.com/package/verdaccio)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
 
 
-![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)
-![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)
+[![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
+[![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
 
 
 ## Install
