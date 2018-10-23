@@ -52,7 +52,7 @@ Pour exécuter le conteneur de docker:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-Le dernier argument définit quelle image est utilisée. La ligne ci-dessus téléchargera à partir du dockerhub la dernière image prédéfinie disponible, si celle-ci n'a pas encore été créée.
+Le dernier argument définit quelle image doit être utilisée. La ligne ci-dessus téléchargera à partir du dockerhub la dernière image prédéfinie disponible, si celle-ci n'a pas encore été créée.
 
 Si vous avez [construit une image localement](#build-your-own-docker-image), utilisez `verdaccio` comme dernier argument.
 
@@ -78,7 +78,7 @@ Chaque `host: port` configuré dans `conf/config.yaml` sous `listen` est actuell
 
 Si vous souhaitez atteindre l’instance verdaccio docker depuis un autre port, dites `5000`, dans la commande `docker run`, remplacez `-p 4873: 4873` par `-p 5000: 4873`.
 
-Si vous devez spécifier le port sur lequel écouter **dans le conteneur de menu fixe**, à partir de la version 2.?.? ceci est possible en fournissant des arguments supplémentaires à `docker run`: `- env PORT = 5000` Ceci remplace le port offert par le conteneur de menu fixe et le port écouté par verdaccio.
+Dans le cas où vous devez spécifier le port sur lequel écouter **dans le conteneur de menu fixe**, à partir de la version 2.?.? ceci est possible en fournissant des arguments supplémentaires à `docker run`: `- env PORT = 5000` Ceci remplace le port offert par le conteneur de menu fixe et le port écouté par verdaccio.
 
 Bien sûr, les nombres fournis au paramètre `-p` doivent correspondre, donc si vous les voulez tous identiques, voici ce que vous pouvez copier, coller et adopter:
 
@@ -138,7 +138,7 @@ npm run build:docker
 
 Remarque: La première génération prend quelques minutes pour être créée car elle doit démarrer `npm install` et peut prendre le même temps chaque fois que vous modifiez un fichier ne figurant pas dans la liste `.dockerignore`.
 
-Si vous souhaitez utiliser l'image du menu fixe sur un périphérique rpi ou un périphérique compatible, un fichier docker est aussi disponible. Pour créer une image docker pour raspberry pi, exécutez:
+Si vous souhaitez utiliser l'image docker du menu fixe sur un périphérique rpi ou un périphérique compatible, un fichier docker est aussi disponible. Pour créer une image docker pour raspberry pi, exécutez:
 
 ```bash
 npm run build:docker
