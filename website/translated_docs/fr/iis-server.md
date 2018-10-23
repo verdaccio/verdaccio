@@ -7,7 +7,7 @@ Ces instructions ont été écrites pour le serveur Windows 2012, IIS 8, [Node.j
 - Installez IIS et [iisnode](https://github.com/tjanczuk/iisnode). Assurez-vous d'installer les conditions préalables (module de réécriture d'URL & nœud) comme expliqué dans les instructions pour iisnode.
 - Créez un nouveau dossier dans Explorer où vous souhaitez héberger Verdaccio. Par exemple `C:\verdaccio`. Sauvgarder [package.json](#packagejson), [start.js](#startjs) et [web.config](#webconfig) dans ce fichier.
 - Créez un nouveau site sur Internet Information Services Manager. Vous pouvez l’appeler comme vous voulez. Je l’appellerai verdaccio dans ces [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Spécifiez le chemin vers où vous avez enregistré les fichiers et un numéro de port.
-- Retournez vers Explorer et autorisez l'utilisateur exécutant le groupe d'applications à pouvoir modifier le dossier nouvellement créé. Si vous avez nommé le nouveau site verdaccio et que vous n'avez pas modifié le groupe d'applications, cela fonctionne grâce à un ApplicationPoolIdentity et vous devez autoriser l'utilisateur à modifier IIS AppPool\verdaccio. Voir les instructions si vous avez besoin d'aide. (Si vous le souhaitez, vous pouvez restreindre l'accès ultérieurement, de sorte que vous ne disposiez que des autorisations de modification sur iisnode et verdaccio/storage)
+- Retournez vers Explorer et autorisez l'utilisateur exécutant le groupe d'applications à pouvoir modifier le dossier nouvellement créé. Si vous avez nommé le nouveau site verdaccio et que vous n'avez pas modifié le groupe d'applications, cela fonctionne à l'arrière plan d'une ApplicationPoolIdentity et vous devez autoriser l'utilisateur à modifier IIS AppPool\verdaccio. Voir les instructions si vous avez besoin d'aide. (Si vous le souhaitez, vous pouvez restreindre l'accès ultérieurement, de sorte que vous ne disposiez que des autorisations de modification sur iisnode et verdaccio/storage)
 - Lancez une invite de commande et lancez celles ci-dessous pour télécharger verdaccio:
 
     cd c:\verdaccio
@@ -99,5 +99,5 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 
 ### Dépannage
 
-- **L'interface Web n'est pas chargée lorsqu'elle est allouée à https puisqu'elle tente de télécharger le script sur http.**  
+- **L'interface Web n'est pas chargée lorsqu'elle est allouée à l'hôte https puisqu'elle tente de télécharger le script sur http.**  
     Assurez-vous que vous avez nommé correctement `url_prefix` dans la configuration de Verdaccio. Suivez la [discussion](https://github.com/verdaccio/verdaccio/issues/622).

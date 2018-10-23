@@ -92,7 +92,7 @@ auth:
 
 Où `htpasswd` est le suffixe du nom du plugin. ex: `verdaccio-htpasswd` et le reste du corps serait composé des paramètres de configuration du plugin.
 
-## Middleware Plugin
+## Plugin Middleware
 
 Les plugins middleware peuvent modifier le niveau de l'API, en ajoutant de nouveaux points de terminaison ou en interceptant des demandes.
 
