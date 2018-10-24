@@ -21,11 +21,11 @@ $> npm install --global verdaccio-activedirectory
 
 ### Configuration
 
-Open the `config.yaml` file and update the `auth` section as follows:
+Ouvrez le fichier `>config.yaml` et mettez à jour la section `auth` comme suit :
 
-The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+La configuration par défaut ressemble à ceci, car nous utilisons un plugin intégré `htpasswd` qui peut être désactivé en commentant les lignes suivantes.
 
-### Auth Plugin Configuration
+### Configuration du Plugin d'authentification
 
 ```yaml
  htpasswd:
@@ -33,7 +33,7 @@ The default configuration looks like this, due we use a build-in `htpasswd` plug
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+et en les remplaçant par (si vous décidez d'utiliser un plugin `ldap`.
 
 ```yaml
 auth:
@@ -43,9 +43,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Auth plugins
+#### Plugins d'authentification multiples
 
-This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
+Ceci est techniquement possible, en accordant de l'importance à l'ordre du plug-in, car les informations d'identification seront résolues dans l'ordre.
 
 ```yaml
 auth:
@@ -58,7 +58,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Plugin Configuration
+### Configuration du plugin Middleware
 
 This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
