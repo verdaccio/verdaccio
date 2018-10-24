@@ -60,7 +60,7 @@ auth:
 
 ### Configuration du plugin Middleware
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+Ceci est un exemple de la façon de configurer un plugin middleware. Tous les plugins middleware doivent être définis dans l'espace de noms **middlewares**.
 
 ```yaml
 middlewares:
