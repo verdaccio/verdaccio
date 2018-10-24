@@ -17,6 +17,7 @@ Google Cloud Storage** or create your own plugin.
 [![verdaccio (next)](https://img.shields.io/npm/v/verdaccio/next.svg)](https://www.npmjs.com/package/verdaccio)
 [![verdaccio (next)](http://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
 [![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://verdaccio.org/docs/en/docker.html)
+[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 
 ![circle ci status](https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token)
 [![codecov](https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg)](https://codecov.io/gh/verdaccio/verdaccio)
@@ -168,8 +169,8 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 Thanks to the following sponsors to help to achieve our goals providing us free open source licenses.
 
-![jetbrain](assets/sponsor/jetbrains/logo.png)
-![crowdin](assets/sponsor/crowdin/logo.png)
+[![jetbrain](assets/sponsor/jetbrains/logo.png)](https://www.jetbrains.com/)
+[![crowdin](assets/sponsor/crowdin/logo.png)](https://crowdin.com/)
 
 #### Open Collective
 
@@ -190,13 +191,13 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
 
-<a href="https://opencollective.com/verdaccio#backers" target="_blank"><img src="https://opencollective.com/verdaccio/backers.svg?width=890"></a>
+[![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio#backers)
 
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="../../graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
 
+[![contrubitors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](../../graphs/contributors)
 
 ### FAQ / Contact / Troubleshoot
 
@@ -211,7 +212,6 @@ If you have any issue you can try the following options, do no desist to ask or 
 * [Logos](https://verdaccio.org/docs/en/logo)
 * [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
 * [Docker Examples](https://github.com/verdaccio/docker-examples)
-
 
 ### License
 
