@@ -42,28 +42,28 @@ helm del --purge npm
 
 **Remarque:** cette commande supprime toutes les ressources, y compris les packages que vous avez peut-être déjà publiés dans le registre.
 
-### Custom Verdaccio configuration
+### Configuration personnalisée de Verdaccio
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+Vous pouvez personnaliser la configuration de Verdaccio en utilisant un Kubernetes *configMap*.
 
-#### Prepare
+#### Préparer
 
-Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
+Copiez la [configuration existante](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) et adaptez la à votre propre cas d'utilisation:
 
 ```bash
 wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/full.yaml -O config.yaml
 ```
 
-**Note:** Make sure you are using the right path for the storage that is used for persistency:
+**Remarque:** assurez-vous que vous utilisez le chemin correct d'archivage utilisé pour la persistance:
 
 ```yaml
-storage: /verdaccio/storage/data
+torage: /verdaccio/storage/data
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
 ```
 
-#### Deploy the configMap
+#### Déployer le configMap
 
 Deploy the `configMap` to the cluster
 
