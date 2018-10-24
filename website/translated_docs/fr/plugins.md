@@ -6,7 +6,7 @@ Verdaccio est une application extensible. Il peut être étendu par de nombreuse
 
 > Si vous souhaitez développer votre plugin personnel, lisez la section [development](dev-plugins.md).
 
-## Usage
+## Utilisation
 
 ### Installation
 
@@ -14,7 +14,7 @@ Verdaccio est une application extensible. Il peut être étendu par de nombreuse
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio` étant une fourchette de sinopia, est compatible avec les versions précédentes et avec les plugins compatibles avec `sinopia@1.4.0`. Dans ce cas, l'installation est la même.
 
     $> npm install --global sinopia-memory
     
