@@ -22,25 +22,25 @@ Développez la charte de Helm [stable/verdaccio](https://github.com/kubernetes/c
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### Déployer une version spécifique
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### En cours de mettre Verdaccio à niveau
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Désinstallation
 
 ```bash
 helm del --purge npm
 ```
 
-**Note:** this command delete all the resources, including packages that you may have previously published to the registry.
+**Remarque:** cette commande supprime toutes les ressources, y compris les packages que vous avez peut-être déjà publiés dans le registre.
 
 ### Custom Verdaccio configuration
 
