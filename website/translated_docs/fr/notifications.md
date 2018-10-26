@@ -152,7 +152,7 @@ Vous pouvez accéder au package publié avec le mot clé `{{publishedPackage}}` 
 | ------------------- | -------------------- | ----------- | ------- | ---------- | -------------------------------------------------------------------------------------------- |
 | méthode             | chaîne de caractères | Non         | tous    |            | HTTP verb                                                                                    |
 | packagePattern      | chaîne de caractères | Non         | tous    |            | N'effectuez cette notification que si le nom du package correspond à l'expression régulière  |
-| packagePatternFlags | chaîne de caractères | Non         | all     |            | Any flags to be used with the regular expression                                             |
-| headers             | array/object         | Yes         | all     |            | If this endpoint requires specific headers, set them here as an array of key: value objects. |
+| packagePatternFlags | chaîne de caractères | Non         | tous    |            | Tous les drapeaux à utiliser avec l'expression régulière                                     |
+| en-têtes            | array/object         | Yes         | all     |            | If this endpoint requires specific headers, set them here as an array of key: value objects. |
 | endpoint            | string               | Yes         | all     |            | set the URL endpoint for this call                                                           |
 | content             | string               | Yes         | all     |            | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
