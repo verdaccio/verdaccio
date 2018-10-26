@@ -6,9 +6,9 @@ Il s'agit d'une série de restrictions qui permettent ou restreignent l'accès a
 
 Les restrictions de sécurité dépendent du plugin que vous utilisez. `verdaccio` utilise par défaut le plugin [htpasswd](https://github.com/verdaccio/verdaccio-htpasswd). Si vous utilisez un autre plugin, l'opération peut être différente. Le plugin par défaut ne gère pas directement `allow_access` et `allow_publish`, mais utilise une alternative interne au cas où le plugin ne serait pas prêt pour cela.
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+Pour plus d'informations sur les autorisations, consultez la [section d'authentification du wiki](auth.md).
 
-### Usage
+### Utilisation
 
 ```yalm
 packages:
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+si rien n'est spécifié, le choix est par défaut
 
 ```yaml
 packages:
@@ -40,7 +40,7 @@ packages:
     publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+La liste des groupes valides selon les plugins par défaut sont
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
