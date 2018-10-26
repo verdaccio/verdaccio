@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+Vous pouvez changer le comportement existant en utilisant un autre plugin d'authentification. `verdaccio` vérifie simplement si l'utilisateur qui a tenté d'accéder ou de publier un paquet spécifique appartient au groupe approprié.
 
-#### Set multiple groups
+#### Définir plusieurs groupes
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+Il est facile de définir plusieurs groupes d’accès, définissez-les juste avec un espace blanc entre eux.
 
 ```yaml
   'company-*':
@@ -91,7 +91,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
     proxy: server1
 ```
 
-#### Blocking access to set of packages
+#### Bloquer l’accès à l’ensemble des paquets
 
 If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
 
