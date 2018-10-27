@@ -1,8 +1,8 @@
 ---
 id: server-configuration
-title: "Server Configuration"
+title: "Configuration du serveur"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+Il s’agit principalement de la documentation de la configuration de base du serveur Linux, mais je pense qu’il est important de documenter et de partager les étapes que j’ai suivies pour démarrer définitivement Verdaccio sur mon serveur. Ils auront besoin d'autorisations root (ou sudo) pour les opérations suivantes.
 
 ## Running as a separate user
 
