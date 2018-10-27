@@ -112,7 +112,7 @@ store:
 
 (compatible depuis 2.1.x)
 
-### Authorization Plugins
+### Plugins d'Autorisation
 
 * [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
 * [verdaccio-bitbucket-server](https://github.com/oeph/verdaccio-bitbucket-server): Bitbucket Server authentication plugin for verdaccio.
@@ -130,14 +130,14 @@ store:
 
 * [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
 
-### Storage Plugins
+### Plugins de stockage
 
-(compatible since 3.x)
+(compatible depuis 3.x)
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
 * [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
 
-## Caveats
+## Avertissements
 
-> Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
+> Ces plugins ne sont pas tous testés de manière continue, certains peuvent ne pas fonctionner du tout. Si vous rencontrez un problème, veuillez en informer le propriétaire du plugin en question.
