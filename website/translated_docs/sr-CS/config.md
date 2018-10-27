@@ -154,7 +154,7 @@ Proxies su HTTP serveri posebne namene dizajnirani da prenose podatke od udaljen
 
 #### http_proxy i https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Ako imate proxy u svojoj mreži, možete podesiti `X-Forwarded-For` header koristeći sledeće unose za svojstva (properties).
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Ova varijabla bi trebalo da sadrži comma-separated listu ekstenzija domena za koju proxy ne bi trebalo da se koristi.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Notifikacije
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Dozvoljavanje notifikacija za alate napravljene od strane trećih lica je relativno jednostavno uz pomoć web hooks. Za više informacija o ovoj temi, pročitajte [notifications stranicu](notifications.md).
 
 ```yaml
 notify:
@@ -181,11 +181,11 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Za detaljnije opcije podešavanja, molimo Vas da [pogledate source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Audit (revizija)
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Počevši od: <code>verdaccio@3.0.0</code></small>
 
 `npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
 
