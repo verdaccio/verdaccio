@@ -68,11 +68,11 @@ middlewares:
     enabled: true
 ```
 
-> You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
+> Vous pouvez suivre le [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) comme exemple de base.
 
-### Store Plugin Configuration
+### Configuration du plugin store
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+Ceci est un exemple de la façon de configurer un plugin de stockage. Tous les plugins de stockage doivent être définis dans l'espace de noms **store**.
 
 ```yaml
 store:
@@ -80,16 +80,16 @@ store:
     limit: 1000
 ```
 
-> If you define a custom store, the property **storage** in the configuration file will be ignored.
+> Si vous définissez un magasin personnalisé, la propriété **stockage** du fichier de configuration sera ignorée.
 
-## Legacy plugins
+## Plugins hérités
 
 ### Sinopia Plugins
 
-(compatible all versions)
+(compatible avec toutes les versions)
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
-* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): plugin d'authentification pour la prise en charge de sinopia avec un journal npm.
+* [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): plugin d'authentification pour sinopia qui se souvient des utilisateurs.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
 * [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): Active Directory authentication plugin for sinopia.
