@@ -1396,6 +1396,15 @@ babel-plugin-macros@^2.0.0:
     cosmiconfig "^5.0.5"
     resolve "^1.8.1"
 
+babel-plugin-react-intl@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/babel-plugin-react-intl/-/babel-plugin-react-intl-3.0.1.tgz#4abc7fff04a7bbbb7034aec0a675713f2e52181c"
+  integrity sha512-FqnEO+Tq7kJVUPKsSG3s5jaHi3pAC4RUR11IrscvjsfkOApLP2DtzNo6dtQ+tX+OzEzJx7cUms8aCw5BFyW5xg==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    intl-messageformat-parser "^1.2.0"
+    mkdirp "^0.5.1"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "http://registry.npmjs.org/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -5654,7 +5663,7 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0, hoist-non-react-statics@^2.5.5:
   version "2.5.5"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
@@ -6069,7 +6078,31 @@ interpret@^1.1.0:
   resolved "https://registry.npmjs.org/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
   integrity sha1-ftGxQQxqDg94z5XTuEQMY/eLhhQ=
 
-invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
+intl-format-cache@^2.0.5:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/intl-format-cache/-/intl-format-cache-2.1.0.tgz#04a369fecbfad6da6005bae1f14333332dcf9316"
+  integrity sha1-BKNp/sv61tpgBbrh8UMzMy3PkxY=
+
+intl-messageformat-parser@1.4.0, intl-messageformat-parser@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/intl-messageformat-parser/-/intl-messageformat-parser-1.4.0.tgz#b43d45a97468cadbe44331d74bb1e8dea44fc075"
+  integrity sha1-tD1FqXRoytvkQzHXS7Ho3qRPwHU=
+
+intl-messageformat@^2.0.0, intl-messageformat@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-2.2.0.tgz#345bcd46de630b7683330c2e52177ff5eab484fc"
+  integrity sha1-NFvNRt5jC3aDMwwuUhd/9eq0hPw=
+  dependencies:
+    intl-messageformat-parser "1.4.0"
+
+intl-relativeformat@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/intl-relativeformat/-/intl-relativeformat-2.1.0.tgz#010f1105802251f40ac47d0e3e1a201348a255df"
+  integrity sha1-AQ8RBYAiUfQKxH0OPhogE0iiVd8=
+  dependencies:
+    intl-messageformat "^2.0.0"
+
+invariant@^2.1.1, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -10220,6 +10253,17 @@ react-hot-loader@4.2.0:
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.0.2"
+
+react-intl@2.7.2:
+  version "2.7.2"
+  resolved "https://registry.npmjs.org/react-intl/-/react-intl-2.7.2.tgz#efe97e3fc0e99b4e88a6e6150854d3d1852a4381"
+  integrity sha512-3dcNGLqEw2FKkX+1L2WYLgjP0MVJkvWuVd1uLcnwifIQe8JQvnd9Bss4hb4Gvg/YhBIRcs4LM6C2bAgyklucjw==
+  dependencies:
+    hoist-non-react-statics "^2.5.5"
+    intl-format-cache "^2.0.5"
+    intl-messageformat "^2.1.0"
+    intl-relativeformat "^2.1.0"
+    invariant "^2.1.1"
 
 react-is@^16.4.2, react-is@^16.6.0:
   version "16.6.0"

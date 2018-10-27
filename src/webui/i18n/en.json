@@ -1,0 +1,12 @@
+{
+  "components.footer.madeWithLove": "Made with ❤ on",
+  "components.footer.poweredBy": "Powered by",
+  "components.help.title": "No Package Published Yet",
+  "components.help.subTitle": "To publish your first package just:",
+  "components.help.firstStep": "1. Login",
+  "components.help.secondStep": "2. Publish",
+  "components.help.thirdStep": "3. Refresh this page!",
+  "components.help.npmRegisrtry": "npm {command} --registry {registryURL}",
+  "components.help.addUser": "adduser",
+  "components.help.publish": "publish"
+}

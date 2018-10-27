@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { IntlProvider } from 'react-intl';
 import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
 import { API_ERROR } from '../../../src/lib/constants';
@@ -35,61 +36,73 @@ describe('App', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(<App />);
-  });
-  it('loadLogo: set logo url in state', async () => {
-    const { loadLogo } = wrapper.instance();
-    await loadLogo();
-    expect(wrapper.state().logoUrl).toEqual(
-      'http://localhost/-/static/logo.png'
+    wrapper = mount(
+      <IntlProvider locale='en'>
+        <App />
+      </IntlProvider>
     );
+  });
+  
+  it('loadLogo: set logo url in state', async () => {
+    const { loadLogo } = wrapper.find('App').instance();
+    await loadLogo();
+    setTimeout(function() {
+      expect(wrapper.state('logoUrl')).toEqual('http://localhost/-/static/logo.png');
+    }, 100);
   });
 
   it('toggleLoginModal: should toggle the value in state', () => {
-    const { toggleLoginModal } = wrapper.instance();
-    expect(wrapper.state().showLoginModal).toBeFalsy();
+    const { toggleLoginModal } = wrapper.find('App').instance();
+    expect(wrapper.state('showLoginModal')).toBeFalsy();
     toggleLoginModal();
-    expect(wrapper.state('showLoginModal')).toBeTruthy();
-    expect(wrapper.state('error')).toEqual({});
+    setTimeout(function() {
+      expect(wrapper.state('showLoginModal')).toBeTruthy();
+      expect(wrapper.state('error')).toEqual({});
+    }, 100);
   });
 
   it('isUserAlreadyLoggedIn: token already available in storage', async () => {
-
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', generateTokenWithTimeRange(24));
-    const { isUserAlreadyLoggedIn } = wrapper.instance();
+    const { isUserAlreadyLoggedIn } = wrapper.find('App').instance();
 
     isUserAlreadyLoggedIn();
 
-    expect(wrapper.state('user').username).toEqual('verdaccio');
+    setTimeout(function() {
+      expect(wrapper.state('user').username).toEqual('verdaccio');
+    }, 100);
   });
 
   it('handleLogout - logouts the user and clear localstorage', async () => {
-    const { handleLogout } = wrapper.instance();
+    const { handleLogout } = wrapper.find('App').instance();
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', 'xxxx.TOKEN.xxxx');
 
     await handleLogout();
-    expect(wrapper.state('user')).toEqual({});
-    expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
+    setTimeout(function() {
+      expect(wrapper.state('user')).toEqual({});
+      expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
+    }, 100);
   });
 
   it('doLogin - login the user successfully', async () => {
-    const { doLogin } = wrapper.instance();
+    const { doLogin } = wrapper.find('App').instance();
     await doLogin('sam', '1234');
     const result = {
       username: 'sam',
       token: 'TEST_TOKEN'
     };
-    expect(wrapper.state('isUserLoggedIn')).toBeTruthy();
-    expect(wrapper.state('showLoginModal')).toBeFalsy();
-    expect(storage.getItem('username')).toEqual('sam');
-    expect(storage.getItem('token')).toEqual('TEST_TOKEN');
-    expect(wrapper.state('user')).toEqual(result);
+    setTimeout(function() {
+      expect(wrapper.state('isUserLoggedIn')).toBeTruthy();
+      expect(wrapper.state('showLoginModal')).toBeFalsy();
+      expect(storage.getItem('username')).toEqual('sam');
+      expect(storage.getItem('token')).toEqual('TEST_TOKEN');
+      expect(wrapper.state('user')).toEqual(result);
+    }, 100);
   });
 
   it('doLogin - authentication failure', async () => {
-    const { doLogin } = wrapper.instance();
+    const { doLogin } = wrapper.find('App').instance();
     await doLogin('sam', '12345');
     console.log(API_ERROR.BAD_USERNAME_PASSWORD);
     const result = {
@@ -97,7 +110,9 @@ describe('App', () => {
       title: 'Unable to login',
       type: 'error'
     };
-    expect(wrapper.state('user')).toEqual({});
-    expect(wrapper.state('error')).toEqual(result);
+    setTimeout(function() {
+      expect(wrapper.state('user')).toEqual({});
+      expect(wrapper.state('error')).toEqual(result);
+    }, 100);
   });
 });

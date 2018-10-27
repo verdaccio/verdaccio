@@ -47,6 +47,7 @@
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "react-autosuggest": "9.4.2",
+    "react-intl": "2.7.2",
     "react-router": "4.3.1",
     "request": "2.88.0",
     "semver": "5.5.1",
@@ -68,6 +69,7 @@
     "babel-plugin-dynamic-import-node": "2.1.0",
     "babel-plugin-emotion": "9.2.10",
     "babel-plugin-flow-runtime": "0.17.0",
+    "babel-plugin-react-intl": "3.0.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-plugin-transform-async-to-generator": "6.24.1",
     "babel-plugin-transform-class-properties": "6.24.1",
@@ -182,10 +184,11 @@
     "code:build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --ignore src/webui/ --copy-files",
     "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --ignore src/webui/ --copy-files",
     "pre:webpack": "rimraf static/*",
-    "dev:webui": "cross-env BABEL_ENV=ui babel-node tools/dev.server.js",
-    "build:webui": "npm run pre:webpack && cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js",
+    "dev:webui": "npm run build:langs && cross-env BABEL_ENV=ui babel-node tools/dev.server.js",
+    "build:webui": "npm run pre:webpack && cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js && npm run build:langs",
     "build:docker": "docker build -t verdaccio . --no-cache",
-    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi ."
+    "build:docker:rpi": "docker build -f Dockerfile.rpi -t verdaccio:rpi .",
+    "build:langs": "cross-env BABEL_ENV=ui babel-node  ./tools/mergeMessages.js"
   },
   "engines": {
     "node": ">=6.12.0",

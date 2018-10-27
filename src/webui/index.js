@@ -1,17 +1,24 @@
+/**
+ * @prettier
+ */
+
 import './utils/__setPublicPath__';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
-
+import { AppContainer } from 'react-hot-loader';
+import { IntlProvider } from 'react-intl';
+import { locale, messages } from './utils/locales';
 import App from './app';
 
-let rootNode = document.getElementById('root');
+const rootNode = document.getElementById('root');
 
-let renderApp = (Component) => {
+const renderApp = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component/>
+      <IntlProvider locale={locale} messages={messages}>
+        <Component />
+      </IntlProvider>
     </AppContainer>,
     rootNode
   );

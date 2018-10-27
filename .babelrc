@@ -3,18 +3,21 @@
     "ui": {
       "presets": [
         "react",
-        ["env",{
-          "targets": {
-            "browsers": [
-              "last 5 versions",
-              "FireFox >= 44",
-              "Safari >= 7",
-              "Explorer 11",
-              "last 4 Edge versions"
-            ],
-            "loose": true
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": [
+                "last 5 versions",
+                "FireFox >= 44",
+                "Safari >= 7",
+                "Explorer 11",
+                "last 4 Edge versions"
+              ],
+              "loose": true
+            }
           }
-        }],
+        ],
         "stage-2",
         "stage-3"
       ],
@@ -25,15 +28,29 @@
         "transform-object-rest-spread",
         "transform-decorators-legacy",
         "syntax-dynamic-import",
-        "emotion"
+        "emotion",
+        [
+          "react-intl",
+          {
+            "messagesDir": "./static/messages/",
+            "enforceDescriptions": false
+          }
+        ]
       ]
     },
     "test": {
-      "presets": [["env", {
-        "targets": {
-          "node": "6.10"
-        }
-      }], "flow", "react"],
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "6.10"
+            }
+          }
+        ],
+        "flow",
+        "react"
+      ],
       "plugins": [
         "transform-class-properties",
         "transform-object-rest-spread",
@@ -42,7 +59,10 @@
       ]
     },
     "testOldEnv": {
-      "presets": [ "es2015-node4", "flow"],
+      "presets": [
+        "es2015-node4",
+        "flow"
+      ],
       "plugins": [
         "transform-class-properties",
         "transform-object-rest-spread"
@@ -50,11 +70,17 @@
     },
     "registry": {
       "presets": [
-        ["env", {
-          "targets": {
-            "node": "6.10"
+        [
+          "env",
+          {
+            "targets": {
+              "node": "6.10"
+            }
           }
-        }], "stage-3", "flow"],
+        ],
+        "stage-3",
+        "flow"
+      ],
       "plugins": [
         "transform-object-rest-spread",
         "transform-class-properties"
@@ -62,19 +88,28 @@
     },
     "registry-docker": {
       "presets": [
-        ["env", {
-          "targets": {
-            "node": "10"
+        [
+          "env",
+          {
+            "targets": {
+              "node": "10"
+            }
           }
-        }], "flow"],
+        ],
+        "flow"
+      ],
       "plugins": [
         "transform-object-rest-spread",
         "transform-class-properties"
       ]
     },
     "development": {
-      "presets": ["flow"],
-      "plugins": ["flow-runtime"]
+      "presets": [
+        "flow"
+      ],
+      "plugins": [
+        "flow-runtime"
+      ]
     }
   }
 }

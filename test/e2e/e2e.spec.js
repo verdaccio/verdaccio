@@ -69,7 +69,7 @@ describe('/ (Verdaccio Page)', () => {
 
   it('should match title with first step', async () => {
     let text = await page.evaluate(() => document.querySelector('#adduser code').textContent);
-    expect(text).toMatch('npm adduser --registry  http://0.0.0.0:55558');
+    expect(text).toMatch('npm adduser --registry http://0.0.0.0:55558');
   });
 
   it('should match title with second step', async () => {

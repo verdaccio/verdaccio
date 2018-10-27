@@ -1,42 +1,46 @@
 import React from 'react';
+import { injectIntl, intlShape } from 'react-intl';
 import SyntaxHighlighter, {registerLanguage} from 'react-syntax-highlighter/dist/light';
 import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
 import js from 'react-syntax-highlighter/dist/languages/javascript';
 
 import classes from './help.scss';
 import {getRegistryURL} from '../../utils/url';
+import messages from './messages';
 
 registerLanguage('javascript', js);
 
-const Help = () => {
+const Help = ({ intl: { formatMessage }}) => {
   const registryURL = getRegistryURL();
 
     return (
       <div className={classes.help}>
         <li className={classes.noPkg}>
           <h1 className={classes.noPkgTitle}>
-            No Package Published Yet
+            {formatMessage(messages.title)}
           </h1>
           <div className={classes.noPkgIntro}>
             <div>
-              To publish your first package just:
+              {formatMessage(messages.subTitle)}
             </div>
             <br/>
-            <strong>
-              1. Login
-            </strong>
+            <strong>{formatMessage(messages.firstStep)}</strong>
             <SyntaxHighlighter language='javascript' style={sunburst} id="adduser">
-              {`npm adduser --registry  ${registryURL}`}
+            {formatMessage(messages.npmRegistry, { command: formatMessage(messages.addUser), registryURL })}
             </SyntaxHighlighter>
-            <strong>2. Publish</strong>
+            <strong>{formatMessage(messages.secondStep)}</strong>
             <SyntaxHighlighter language='javascript' style={sunburst} id="publish">
-              {`npm publish --registry ${registryURL}`}
+            {formatMessage(messages.npmRegistry, { command: formatMessage(messages.publish), registryURL })}
             </SyntaxHighlighter>
-            <strong>3. Refresh this page!</strong>
+            <strong>{formatMessage(messages.thirdStep)}</strong>
           </div>
         </li>
       </div>
     );
 };
 
-export default Help;
+Help.propTypes = {
+  intl: intlShape
+};
+
+export default injectIntl(Help);

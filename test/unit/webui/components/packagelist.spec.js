@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
+import { IntlProvider } from 'react-intl';
 import PackageList from '../../../../src/webui/components/PackageList/index';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -14,7 +15,9 @@ describe('<PackageList /> component', () => {
       help: true
     };
     const wrapper = mount(
-      <PackageList packages={props.packages} help={props.help} />
+      <IntlProvider locale='en'>
+        <PackageList packages={props.packages} help={props.help} />
+      </IntlProvider>,
     );
     expect(wrapper.find('Help')).toHaveLength(1);
 
