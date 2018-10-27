@@ -49,9 +49,9 @@ Je lokacija plugin directorijuma. Ovo je korisno za deployment baiziran na Docke
 plugins: ./plugins
 ```
 
-### Authentification
+### Autentifikacija
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Ovde se vrši podešavanje (set up). Podrazumevana auth je bazirana na `htpasswd` i već je ugrađena. Možete izvršiti modifikacije načina rada (behaviour) putem [plugin-a](plugins.md). Za više informacija o ovoj sekciji pročitajte [auth stranu](auth.md).
 
 ```yaml
 auth:
@@ -60,7 +60,7 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Web UI (korisnički interfejs)
 
 This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
 
