@@ -187,9 +187,9 @@ notify:
 
 <small>Počevši od: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` je nova komanda koja je uvedena u [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio, a koja uključuje ugrađeni middleware plugin bez koga je nemoguće izvršiti datu komandu.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Ako imate novu instalaciju, sve je već uključeno u okviru nje. U suprotnom, treba da dodate navedene props u Vaš config fajl
 
 ```yaml
 middlewares:
