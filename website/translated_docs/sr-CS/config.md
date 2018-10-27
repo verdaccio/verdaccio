@@ -1,6 +1,6 @@
 ---
-id: configuration
-title: "Configuration File"
+id: konfigurisanje
+title: "Fajl za konfigurisanje"
 ---
 This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
 
