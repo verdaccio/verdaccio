@@ -21,7 +21,7 @@ config.yaml
 url_prefix: https://npm.your.domain.com
 ```
 
-Apache virtual server configuration
+Configuration du serveur virtuel Apache
 
         apacheconfig
         <IfModule mod_ssl.c>
@@ -51,13 +51,13 @@ Apache virtual server configuration
     }
     
 
-## Run behind reverse proxy with different domain and port
+## Commencer derrière le proxy inverse avec un domaine et un port différents
 
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
+Si vous exécutez verdaccio derrière le proxy inverse, vous remarqueriez que tous les fichiers de ressources fonctionnent comme des chemins associés, tels que `http://127.0.0.1:4873/-/static`
 
-To resolve this issue, you should send real domain and port to verdaccio with `Host` header
+Pour résoudre le problème, vous devez envoyer le domaine réel et le port avec l'en-tête `Host` à verdaccio
 
-Nginx configure should look like this:
+La configuration de Nginx devrait ressembler à ceci:
 
 ```nginx
 location / {
@@ -68,11 +68,11 @@ location / {
 }
 ```
 
-For this case, `url_prefix` should NOT set in verdaccio config
+Dans ce cas, `url_prefix` ne doit pas être défini dans la configuration de verdaccio
 
 * * *
 
-or a sub-directory installation:
+ou dans l'installation d'un sous-dossier:
 
 ```nginx
 location ~ ^/verdaccio/(.*)$ {
@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-For this case, `url_prefix` should set to `/verdaccio/`
+Dans ce cas, `url_prefix` doit être défini sur `/verdaccio/`
 
 > Note: There is a Slash after install path (`https://your-domain:port/verdaccio/`)!
