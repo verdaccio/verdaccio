@@ -2,13 +2,13 @@
 id: konfigurisanje
 title: "Fajl za konfigurisanje"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Ovaj fajl je osnova verdaccio-a. U okviru njega, možete vršiti izmene zadatih podešavanja, možete aktivirati plugin-e i spoljašnje resurse (features).
 
-A default configuration file is created the very first time you run `verdaccio`.
+Fajl "default configuration file" se kreira prilikom prvog pokretanja `verdaccio-a`.
 
-## Default Configuration
+## Podrazumevane postavke (Default Configuration)
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Podrazumevane postavke podržavaju **scoped** pakete za sve korisnike, ali samo **autorizovanim korisnicima omogućavaju da publikuju**.
 
 ```yaml
 storage: ./storage
@@ -29,13 +29,13 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Sekcije
 
-The following sections explain what each property means and the different options.
+Sekcija u nastavku daje objašnjenja za svako svojstvo i opciju.
 
-### Storage
+### Memorija za skladištenje
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Je lokacija na kojoj se vrši skladištenje podataka. **Verdaccio je inicijalno podešen kao local file system**.
 
 ```yaml
 storage: ./storage
@@ -43,7 +43,7 @@ storage: ./storage
 
 ### Plugins
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Je lokacija plugin directorijuma. Ovo je korisno za deployment baiziran na Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
