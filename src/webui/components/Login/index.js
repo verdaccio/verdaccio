@@ -103,7 +103,6 @@ export default class LoginModal extends Component {
     return type === 'error' && (
       <SnackbarContent
         className={classes.loginError}
-        aria-describedby="client-snackbar"
         message={
           <div
             id="client-snackbar"
@@ -129,7 +128,6 @@ export default class LoginModal extends Component {
           open={visibility}
           id="login--form-container"
           maxWidth="xs"
-          aria-labelledby="login-dialog"
           fullWidth
         >
           <DialogTitle>Login</DialogTitle>
@@ -137,7 +135,6 @@ export default class LoginModal extends Component {
             {this.renderLoginError(error)}
             <FormControl
               error={!username.value && !username.pristine}
-              aria-describedby='username'
               required={username.required}
               fullWidth
             >
@@ -156,7 +153,6 @@ export default class LoginModal extends Component {
             </FormControl>
             <FormControl
               error={!password.value && !password.pristine}
-              aria-describedby='password'
               required={password.required}
               style={{ marginTop: '8px' }}
               fullWidth

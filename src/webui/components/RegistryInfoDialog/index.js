@@ -11,7 +11,7 @@ import { Title, Content } from './styles';
 
 import type { Node } from 'react';
 
-import { IProps } from './interfaces';
+import { IProps } from './types';
 
 const RegistryInfoDialog = ({ open = false, children, onClose }: IProps): Node => (
   <Dialog id="registryInfo--dialog-container" open={open} onClose={onClose}>

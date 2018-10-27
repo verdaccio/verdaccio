@@ -1,15 +1,25 @@
-import styled from 'react-emotion';
-import CircularProgress from '@material-ui/core/CircularProgress';
+/**
+ * @prettier
+ * @flow
+ */
+
+import styled, { css } from 'react-emotion';
+import CircularProgress from '@material-ui/core/CircularProgress/index';
 import colors from '../../utils/styles/colors';
 
 export const Wrapper = styled.div`
   && {
-    ${({ centered }) => centered && `
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    `}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ${props =>
+      props.centered &&
+      css`
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      `}
 `;
 
 export const Circular = styled(CircularProgress)`

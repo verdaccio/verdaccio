@@ -6,7 +6,7 @@ import classes from './404.scss';
 
 const NotFound = (props) => {
     return (
-      <div className={classes.notFound}>
+      <div className={`container content ${classes.notFound}`}>
         <h1>Error 404 - {props.pkg}</h1>
         <hr/>
         <p>
