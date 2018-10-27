@@ -84,7 +84,7 @@ uplinks:
 
 ### Paketi
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paketi (packages) daju mogućnost korisnicima da kontrolišu kako će se pristupati paketima. Za više detalja o ovoj sekciji, pročitajte [packages stranicu](packages.md).
 
 ```yaml
 packages:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Napredna podešavanja
 
-### Offline Publish
+### Publikovanje offline
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Prema zadatim podešavanjima, `verdaccio` ne dozvoljava publikovanje onda kada je klijent offline. Takav način rada (behavior), može da se promeni ako se ovo iz primera podesi na *true*.
 
 ```yaml
 publish:
@@ -115,9 +115,9 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Maksimalna veličina body sekcije dokumenta
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Prema zadatim podešavanjima, maksimalna veličina za body JSON dokumenta je `10mb`. Ako dobijete grešku `"request entity too large"` mogli biste da povećate ovu vrednost.
 
 ```yaml
 max_body_size: 10mb
