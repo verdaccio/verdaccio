@@ -133,17 +133,17 @@ Hajde da vidimo šta smo postigli u navedenom primeru:
 * Želim sve dependencies koje su u `my-local-scope` ali ujedno želim da izbegnem njihovo proxying-ovanje.
 * Želim da proxying-ujem sve ostale dependencies.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+**Budite svesni toga da je redosled definisanja Vaših paketa važno i jo nešto, uvek koristite double wilcard**. Jer ako ne uključite to, `verdaccio` će to učiniti umesto Vas, što će uticati Vaše dependencies.
 
-### Configuration
+### Konfigurisanje
 
-You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
+Možete definisati mutiple `packages` pri čemu svaki od njih mora imati jedinstveni `Regex`. Sintaksa je bazirana na [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| Property | Type    | Required | Example        | Support | Description                                 |
-| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------- |
-| access   | string  | No       | $all           | all     | define groups allowed to access the package |
-| publish  | string  | No       | $authenticated | all     | define groups allowed to publish            |
-| proxy    | string  | No       | npmjs          | all     | limit look ups for specific uplink          |
-| storage  | boolean | No       | [true,false]   | all     | TODO                                        |
+| Svojstvo | Tip     | Potrebno | Primer         | Podrška | Opis                                              |
+| -------- | ------- | -------- | -------------- | ------- | ------------------------------------------------- |
+| access   | string  | No       | $all           | all     | definiše grupe kojima je dozvoljen pristup paketu |
+| publish  | string  | No       | $authenticated | all     | definiše grupe kojima je dozvoljen o da publikuju |
+| proxy    | string  | No       | npmjs          | all     | limitira look ups za specifični uplink            |
+| storage  | boolean | No       | [true,false]   | all     | TODO                                              |
 
-> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
+> Naglašavamo da ne preporučujemo da i dalje koristite **allow_access**/**allow_publish** i **proxy_access**, jer će nevedene uskoro biti uklonjene. Molimo Vas da umesto toga koristite skraćene verzije (**access**/**publish**/**proxy**).
