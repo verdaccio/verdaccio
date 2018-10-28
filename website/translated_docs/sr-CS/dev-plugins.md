@@ -8,11 +8,11 @@ Ima mnogo načina da proširite `verdaccio`, tipovi podržanih plugin-a su:
 * Middleware plugins (od verzije `v2.7.0`)
 * Storage plugins od verzije (`v3.x`)
 
-> We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
+> Preporučujemo developing plugins koji koriste naše [flow type definicije](https://github.com/verdaccio/flow-types).
 
 ## Authentication Plugin
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+U suštini treba da vratimo objekt korišćenjem metode zvane `authenticate` koja prima 3 argumenta (`user, password, callback`).
 
 ### API
 
@@ -26,15 +26,15 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Jedini opcioni su `adduser`, `allow_access` i `allow_publish` i verdaccio omogućava a fallback u svim navedenim slučajevima.
 
 #### Callback
 
-Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
+Jednom kada se autentifikacija izvrši, na raspolaganju su 2 opcije koje daju odgovor `verdaccio-u`.
 
 ###### OnError
 
-Either something bad happened or auth was unsuccessful.
+Ili se nešto loše dogodilo ili auth nije bila uspešna.
 
 ```flow
 callback(null, false)
