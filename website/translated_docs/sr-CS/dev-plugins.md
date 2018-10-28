@@ -116,15 +116,15 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-To register a middleware we need an object with a single method called `register_middlewares` that will recieve 3 arguments (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Kako bismo registrovali middleware, potreban nam je objekar sa jedinstvenim metodom zvanim `register_middlewares` koji će primiti 3 argumenta (`expressApp, auth, storage`). *Auth* je instanca za autentifikaciju, a *storage* je takođe glavna instanca za Storage koja će Vam dati pristup svim akcijama koje se odnose na storage.
 
 ## Storage Plugin
 
-Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), but, since `verdaccio@3.x` you can plug in a custom storage replacing the default behaviour.
+Verdaccio po fabričkim podešavanjima koristi file system storage plugin [local-storage](https://github.com/verdaccio/local-storage), ali, počevši od verzije `verdaccio@3.x` možete ubaciti custom storage plugin i tako zameniti postojeći način izvršavanja (behaviour).
 
 ### API
 
-The storage API is a bit more complex, you will need to create a class that return a `IPluginStorage` implementation. Please see details bellow.
+Za storage API, stvari su nešto komplikovanije, pošto ćete morati da kreirate klasu koja vraća `IPluginStorage` implementaciju. Ispod imate detaljno objašnjenje.
 
 ```flow
 class LocalDatabase<IPluginStorage>{
@@ -174,9 +174,9 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 }
 ```
 
-> The Storage API is still experimental and might change in the next minor versions. For further information about Storage API please follow the [types definitions in our official repository](https://github.com/verdaccio/flow-types).
+> Storage API je i dalje u eksperimentalnoj fazi i moguće je da će pretrpeti neke izmene u narednim verzijama. Za više informacija o Storage API molimo Vas da pratite [types definicije u našem zvaničnom repozitorijumu](https://github.com/verdaccio/flow-types).
 
-### Storage Plugins Examples
+### Primeri za Storage Plugins
 
 The following list of plugins are implementing the Storage API and might be used them as example.
 
