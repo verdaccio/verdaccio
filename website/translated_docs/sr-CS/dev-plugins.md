@@ -42,14 +42,14 @@ callback(null, false)
 
 ###### OnSuccess
 
-The auth was successful.
+Auth je uspešno objavljena.
 
-`groups` is an array of strings where the user is part of.
+`groups` čini niz stringova u koji spada korisnik.
 
      callback(null, groups);
     
 
-### Example
+### Primer
 
 ```javascript
 function Auth(config, stuff) {
@@ -82,7 +82,7 @@ Auth.prototype.authenticate = function (user, password, callback) {
 module.exports = Auth;
 ```
 
-And the configuration will looks like:
+I na kraju, konfiguracija izgleda ovako:
 
 ```yaml
 auth:
@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Pri čemu je `htpasswd` sufiks za ime plugina. Primer: `verdaccio-htpasswd` i ostatak body-ja sadržaće parametre za konfigurisanje plugin-a.
 
 ## Middleware Plugin
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Middleware plugins imaju moć da modifikuju API layer, bilo dodavanjem novih endpoints ili intercepting zahteva.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,9 +104,9 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Metod omogućava potpuni pristup do authentification i storage preko `auth` i `storage`. `app` je express aplikacija koja Vam omogućava da dodajete nove endpoints.
 
-> A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
+> Prilično dobri primeri za middleware plugin su [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) i [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
 ### API
 
