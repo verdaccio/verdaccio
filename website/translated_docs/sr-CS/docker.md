@@ -80,7 +80,7 @@ Ako želite da pristupite verdaccio docker instanci pod različitim port-om, rec
 
 U slučaju da morate da odredite port to listen to **u docker kontejneru**, počevši od verzije 2.?.? to možete učiniti tako što ćete uneti dodatne argumente u `docker run`: `--env PORT=5000` Ovo menja port koji izlaže docker kontejner i port koji će verdaccio slušati (listens to).
 
-Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
+Naravno, neophodno je da se brojevi koje ste zadali kao `-p` parametar podudaraju, tako da ako želite da se sve podudara, možete da kopirate, zalepite i usvojite:
 
 ```bash
 PORT=5000; docker run -it --rm --name verdaccio \
@@ -88,9 +88,9 @@ PORT=5000; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using HTTPS with Docker
+### Korišćenje HTTPS sa Docker-om
 
-You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
+Možete konfigurisati protokol koji će verdaccio slušati (listen on) i to na sličan način kao što ste podesili port configuration. Potrebno je da zamenite zadatu vrednost("http") u `PROTOCOL` environment variabl-i sa "https",nakon što ste odredili sertifikate u config.yaml.
 
 ```bash
 PROTOCOL=https; docker run -it --rm --name verdaccio \
@@ -98,18 +98,18 @@ PROTOCOL=https; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-### Using docker-compose
+### Korišćenje docker-compose
 
-1. Get the latest version of [docker-compose](https://github.com/docker/compose).
-2. Build and run the container:
+1. Nabavite poslednju verziju [docker-compose](https://github.com/docker/compose).
+2. Build i pokrenite kontejner:
 
 ```bash
 $ docker-compose up --build
 ```
 
-You can set the port to use (for both container and host) by prefixing the above command with `PORT=5000`.
+Možete podesiti port koji će se upotrebljavati (i za kontejner i za host) tako što ćete dodati prefiks `PORT=5000` komandi iz gornjeg primera.
 
-Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
+Docker će napraviti imenovani volume u kome će se čuvati podaci za aplikaciju. Možete koristiti `docker inspect` ili `docker volume inspect` kako biste otkrili fiizičku lokaciju volume-a i izmenili konfiguraciju, na primer:
 
     $ docker volume inspect verdaccio_verdaccio
     [
@@ -124,7 +124,7 @@ Docker will generate a named volume in which to store persistent application dat
     
     
 
-## Build your own Docker image
+## Napravite svoj sopstveni Docker image
 
 ```bash
 docker build -t verdaccio .
