@@ -95,12 +95,12 @@ store:
 * [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): plugin d'authentification Ative Directory pour sinopia.
 * [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): plugin d'authentification pour sinopia2, prenant en charge le flux web github oauth.
 * [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): plugin d’authentification Sinopia qui délègue l’authentification vers une autre URL HTTP
-* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alternate LDAP Auth plugin for Sinopia
-* [sinopia-request](https://www.npmjs.com/package/sinopia-request): An easy and fully auth-plugin with configuration to use an external API.
-* [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Generate password in htaccess format, encrypt with GPG and send via MailGun API to users.
-* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): An easy and fully auth-plugin with configuration to use a mongodb database.
-* [sinopia-htpasswd](https://www.npmjs.com/package/sinopia-htpasswd): auth plugin for sinopia supporting htpasswd format.
-* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): a leveldb backed auth plugin for sinopia private npm.
+* [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): plugin remplaçant LDAP Auth pour Sinopia
+* sinopia-demande de [](https://www.npmjs.com/package/sinopia-request): un facile auth-plugin, entier, avec configuration pour utiliser une API externe.
+* [sinopia-htaccess-gpg-mail](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): générer le mot de passe au format htaccess, chiffrer avec GPG et envoyer via l’API MailGun pour les utilisateurs.
+* [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): un facile auth-plugin, entier, avec configuration pour utiliser une base de données mongodb.
+* [ sinopia-crowd ](https://www.npmjs.com/package/sinopia-htpasswd): plugin d'authentification pour sinopia qui prend en charge le format htpasswd.
+* [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): plugin auth pris en charge par leveldb pour la synchronisation privée npm.
 * [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): Gitlab authentication plugin for sinopia.
 * [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
 * [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
