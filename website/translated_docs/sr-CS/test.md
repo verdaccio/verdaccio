@@ -2,7 +2,7 @@
 id: unit-testing
 title: "Unit Testing"
 ---
-All tests are split in three folders:
+Svi testovi su podeljen i u tri foldera:
 
 - `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
 - `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
