@@ -93,7 +93,7 @@ Definisanje multiple access groups ej relativno jednostavno, samo je potrebno da
 
 #### Blokiranje pristupa setu paketa
 
-If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
+Ako želite da blokirate pristup/publikovanje specifičnoj grupi paketa, samo izostavite da definišete `access` i `publish`.
 
 ```yaml
 packages:
@@ -103,11 +103,11 @@ packages:
     publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Blokiranje proxying-a za set specifičnih paketa
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+Možda ćete poželeti da blokirate jedan ili više paketa od uhvaćenih (fetching) iz udaljenog repozitorijuma, ali da istovremeno dozvolite drugima da pristupe različitim *uplinks-ima*.
 
-Let's see the following example:
+Hajde da pogledamo primer:
 
 ```yaml
 packages:
@@ -126,12 +126,12 @@ packages:
     proxy: npmjs
 ```
 
-Let's describe what we want with the above example:
+Hajde da vidimo šta smo postigli u navedenom primeru:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+* Želim da hostujem svoj `jquery` dependency ali istovremeno želim da izbegnem njeno proxying-ovanje.
+* Želim sve dependencies koje se poklapaju sa `my-company-*` ali ujedno imam potrebu da izbegnem njihovo proxying-ovanje.
+* Želim sve dependencies koje su u `my-local-scope` ali ujedno želim da izbegnem njihovo proxying-ovanje.
+* Želim da proxying-ujem sve ostale dependencies.
 
 Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
