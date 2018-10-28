@@ -7,23 +7,23 @@ Navedene instrukcije su pisane za Windows Server 2012, IIS 8, [Node.js 0.12.3](h
 - Install IIS Install [iisnode](https://github.com/tjanczuk/iisnode). Postarajte se da ste instalirali (Url Rewrite Module & node) kao što je objašnjeno u uputstvima za iisnode.
 - Napravite novi folder u Explorer-, koji će biti host za verdaccio. Na primer `C:\verdaccio`. Usnimite [package.json](#packagejson), [start.js](#startjs) i [web.config](#webconfig) u ovaj folder.
 - Napravite noci sajt u Internet Information Services Manager. Možete ga nazvati kako Vam je volja. Zvaćemo ga verdaccio u ovim [instrukcijama](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Odredite path gde ćete snimiti sve fajlove i broj porta.
-- Go back to Explorer and give the user that runs the application pool modify rights to the folder you just created. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
-- Start a command prompt and execute the commands below to download verdaccio:
+- Vratite se u Explorer i u okviru foldera koji ste upravo kreirali dodelite prava korisniku koji pokreće application pool. Ako ste imenovali novi sajt kao verdaccio i niste promenili app pool, on radi pod ApplicationPoolIdentity i trebalo bi da dodelite prava korisniku, IIS AppPool\verdaccio modify rights, pogledajte instrukcije ako Vam je potrebna pomoć. (Kasnije ako poželite, možete ograničiti pristup, tako da prava ostaju promenjena samo za iisnode i verdaccio\storage)
+- Pokrenite command prompt i izvršite komande navedene ispod kako biste preuzeli verdaccio:
 
     cd c:\verdaccio
     npm install
     
 
-- Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-- Thats it! Now you can navigate to the host and port that you specified
+- Postarajte se da imate dobro podešeno pravilo za prihvatanje TCP saobraćaja na port, u Windows Firewall
+- I to je to! Sada možete da navigate do host-a i porta koje ste odredili
 
-I wanted the `verdaccio` site to be the default site in IIS so I did the following:
+Želeo sam da `verdaccio` sajt bude podrazumevani sajt u IIS i zato sam uradio sledeće:
 
-- I made sure the .npmrc file in `c:\users{yourname}` had the registry set to `"registry=http://localhost/"`
-- I stopped the "Default Web Site" and only start the site "verdaccio" site in IIS
-- I set the bindings to "http", ip address "All Unassigned" on port 80, ok any warning or prompts
+- Postarao sam se da .npmrc file u `c:\users{yourname}` ima registry podešen na `"registry=http://localhost/"`
+- Stopirao sam "Default Web Site" i pokrenuo jedino "verdaccio" sajt u IIS
+- Podesio sam bindings na "http", ip address "All Unassigned" na port 80, ok any warning or prompts
 
-These instructions are based on [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Date instrukcije se baziraju na [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
 
 A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
 
