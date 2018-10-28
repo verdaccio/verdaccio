@@ -2,13 +2,13 @@
 id: packages
 title: "Package Access"
 ---
-It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
+Ovo je serija kontejnera koja dozvoljava ili zabranjuje pristup do ocal storage na osnovu specifično definisanih kriterijuma.
 
-The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
+Sigurnost pada na pleća plugina koji se koristi. Po pravilu, `verdaccio` koristi [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Ako koristite različit plugin, način izvršavanja (behaviour) bi takođe mogao biti promenjen. Podrazumevani plugin ne rukovodi (handle) sa `allow_access` i `allow_publish` samostalni, već koristi interni fallback u slučaju da ne postoji spremni plugin.
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+Za više informacija o dozvolama, posetite [authentification sekciju na wiki](auth.md).
 
-### Usage
+### Korišćenje
 
 ```yalm
 packages:
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+ako ništa nije precizirano, ostaje kako je podrazumevano
 
 ```yaml
 packages:
@@ -40,7 +40,7 @@ packages:
     publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+Lista validnih grupa u skladu sa podrazumevanim pluginima
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
