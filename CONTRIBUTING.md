@@ -3,18 +3,22 @@
 We are happy that you wish to contribute this project. For that reason, we
 present you with this guide.
 
+Additional information is available on the
+[wiki](https://github.com/verdaccio/verdaccio/wiki).
+
 ## Contents
 
 - [Contents](#contents)
 - [How Do I Contribute?](#how-do-i-contribute)
+- [Development](#development)
 - [Reporting Bugs](#reporting-bugs)
-  - [Issue Search](#issue-search)
-  - [Check Website For Solution](#check-website-for-solution)
-  - [Chat](#chat)
-  - [Check If It's Been Fixed](#check-if-its-been-fixed)
+    - [Issue Search](#issue-search)
+    - [Check Website For Solution](#check-website-for-solution)
+    - [Chat](#chat)
+    - [Check If It's Been Fixed](#check-if-its-been-fixed)
 - [Request Features](#request-features)
-  - [Submitting a Pull Request](#submitting-a-pull-request)
-  - [Make Changes and Commit](#make-changes-and-commit)
+    - [Submitting a Pull Request](#submitting-a-pull-request)
+    - [Make Changes and Commit](#make-changes-and-commit)
 - [Update Tests](#update-tests)
 - [Develop Plugins](#develop-plugins)
 
@@ -30,6 +34,13 @@ of involvement and technical knowledge required, such as:
 
 **Please read this document carefully. It will help maintainers and readers
 in solving your issue(s), evaluating your feature request, etc.**
+
+## Development
+
+Development guides can be found on the [wiki](https://github.com/verdaccio/verdaccio/wiki):
+
+* [Building the project](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code)
+* [Running, debugging, and testing](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests)
 
 ## Reporting Bugs
 
