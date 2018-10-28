@@ -59,22 +59,22 @@ Imamo podršku za **Kubernetes**, **Puppet**, **Ansible** i **Chef**. Potrebna n
 
 ### Mogao bih da radim Prevođenje
 
-Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
+Verdaccio stremi ka tome da bude dostupan na što više jezika. Kako bismo to postigli, **imamo apsolutno sjajnu podršku** preko [Crowdin-a](https://crowdin.com), neverovatno dobre platforme za prevođenje.
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-We have setup a project where you can choose your favourite language, if you do not find your language feel free to request one [creating a ticket](https://github.com/verdaccio/verdaccio/issues/new).
+Postavili smo projekt tako da možete da odaberete svoj omiljeni jezik, a ako ga ne pronađete na listi, slobodno zatažite da ga dodamo tako što ćete nam [poslati poruku (ticket)](https://github.com/verdaccio/verdaccio/issues/new).
 
-[Go to Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
+[Pravac na Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 
-## I'm ready to contribute
+## Spreman sam da dam svoj doprinos
 
-If you are thinking *"I've seen already the [repositories](repositories.md) and I'm willing to start right away"* then I have good news for you, that's the next step.
+Ako Vam razmišljanje ide u smeru *"Već sam video [repozitorijume](repositories.md) i spreman sam da odmah započnem posao"* imamo dobru vest za Vas, jer to je sledeći korak.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Naučićete sve što je potrebno za rad jer [smo spremili uputstvo namenjeno upravo tome](build.md).
 
-Once you have played around with all scripts and you know how to use them, we are ready to go to the next step, run the [**Unit Test**](test.md).
+Jednom kada isprobate sve moguće skripte i naučite kako da ih koristite, spremni ste da načinite sledeći korak, [**run Unit Test**](test.md).
 
-## Full list of contributors. We want to see your face here !
+## Lista svih saradnika. Voleli bismo da i Vas vidimo ovde !
 
 <a href="graphs/contributors"><img src="https://opencollective.com/verdaccio/contributors.svg?width=890&button=false" /></a>
