@@ -1,23 +1,18 @@
 # Verdaccio
 > A lightweight private npm proxy registry.
 
+[![npm Version](https://img.shields.io/npm/v/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
+[![CircleCI Status](https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/verdaccio/verdaccio)
+[![Coverage Status](https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg)](https://codecov.io/github/verdaccio/verdaccio)
+[![npm Downloads](http://img.shields.io/npm/dm/verdaccio.svg)](https://www.npmjs.org/package/verdaccio)
+[![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://hub.docker.com/r/verdaccio/verdaccio/)
+[![Discord #questions #general](https://img.shields.io/badge/Discord-%23questions%20%23general-blue.svg)](https://discord.gg/AwXRqPD)
+
 **Version 3 released 🎉!
 [Click here to learn about the new features](https://medium.com/verdaccio/verdaccio-3-released-feb06ef38558).**
 
 <div align="center">
-  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm version" src="https://img.shields.io/npm/v/verdaccio.svg"></a>
-  <a href="https://circleci.com/gh/verdaccio/verdaccio"><img alt="CircleCI Status" src="https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token"></a>
-  <a href="https://codecov.io/github/verdaccio/verdaccio"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg"></a>
-  <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm Downloads" src="http://img.shields.io/npm/dm/verdaccio.svg"></a>
-  <a href="https://hub.docker.com/r/verdaccio/verdaccio/"><img alt="npm Downloads" src="https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200"></a>
-  <a href="https://www.browserstack.com/automate/public-build/am8rVDJ1V1BSbW90aE4xUnZsbnNUOFVuVS9ZRmJWL3NWcjkzRUxycHF3TT0tLUh5aTBiY2VzT1A1NDRWdHg2L0FQT3c9PQ==--0e9064ebcb01bfebb9976a543500b0396c0bfcae%"><img src='https://www.browserstack.com/automate/badge.svg?badge_key=am8rVDJ1V1BSbW90aE4xUnZsbnNUOFVuVS9ZRmJWL3NWcjkzRUxycHF3TT0tLUh5aTBiY2VzT1A1NDRWdHg2L0FQT3c9PQ==--0e9064ebcb01bfebb9976a543500b0396c0bfcae%'/></a>
-  <a href="https://discord.gg/AwXRqPD"
-  ><img alt="discord" src="https://img.shields.io/badge/Discord-%23questions%20%23general-blue.svg"/>
-  </a>
-</div>
-
-<div align="center">
-  <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true" >
+  <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true">
   </p>
 </div>
 
