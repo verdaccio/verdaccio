@@ -8,7 +8,7 @@ The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbre
 
 Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution with multiple image formats and sizes.
 
-## Symbols
+## Simboli
 
 **With text**
 
@@ -34,7 +34,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![svg format symbol no text](/img/logo/symbol/svg/verdaccio-tiny.svg)
 
-### Black&White
+### Crno-Belo
 
 ![symbol bw small](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
@@ -46,7 +46,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
 
-## Banner
+## Baner
 
 ![banner small](/img/logo/banner/png/verdaccio-banner.png)
 
