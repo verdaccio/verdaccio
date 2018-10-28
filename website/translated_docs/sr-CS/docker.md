@@ -130,25 +130,25 @@ Docker će napraviti imenovani volume u kome će se čuvati podaci za aplikaciju
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+Postoji takođe i npm script za building docker image-a, tako da možere da zadate i ovako:
 
 ```bash
 npm run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`, and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
+Napomena: Prvi build može potrajati nekoliko minuta pošto mora da pokrene `npm install`, i ponovo će trajati dugo ako promenite bilo koji fajl koji nije izlistan u `.dockerignore`.
 
-If you want to use the docker image on a rpi or a compatible device there is also a dockerfile available. To build the docker image for raspberry pi execute:
+Ako želite da koristite docker image na rpi ili kompatibilnom uređaju, postoji dostupan dockerfile. Kako biste build docker image za raspberry pi izvršite sledeću komandu:
 
 ```bash
 npm run build:docker:rpi
 ```
 
-Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
+Primite k znanju da za svaku docker komandu morate imati na svojoj mašini instaliran docker zajedno executable koja mora biti dostuna na `$PATH`.
 
-## Docker Examples
+## Docker Primeri
 
-There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
+Postoji zaseban repozitorijum koji hostuje multiple konfiguracije kako bi komponovao Docker images sa `verdaccio`, na primer, reverse proxy:
 
 <https://github.com/verdaccio/docker-examples>
 
@@ -156,7 +156,7 @@ There is a separate repository that hosts multiple configurations to compose Doc
 
 * [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 * [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
-* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
+* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Privatni NPM container koji se može backup-ovati na s3
 * [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
 * [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
 * [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
