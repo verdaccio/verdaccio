@@ -4,7 +4,7 @@ title: "Puppet"
 ---
 Install verdaccio for Debian, Ubuntu, Fedora, and RedHat.
 
-# Usage
+# Korišćenje
 
 There are two variants to install verdaccio using this Puppet module:
 
