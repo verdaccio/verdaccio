@@ -94,7 +94,7 @@ store:
 * [ sinopia-crowd ](https://www.npmjs.com/package/sinopia-crowd): plugin d'authentification pour sinopia qui prend en charge le public atlassien.
 * [sinopia-activedirectory](https://www.npmjs.com/package/sinopia-activedirectory): plugin d'authentification Ative Directory pour sinopia.
 * [sinopia-github-oauth](https://www.npmjs.com/package/sinopia-github-oauth): plugin d'authentification pour sinopia2, prenant en charge le flux web github oauth.
-* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): Sinopia authentication plugin that delegates authentication to another HTTP URL
+* [sinopia-delegated-auth](https://www.npmjs.com/package/sinopia-delegated-auth): plugin d’authentification Sinopia qui délègue l’authentification vers une autre URL HTTP
 * [sinopia-altldap](https://www.npmjs.com/package/sinopia-altldap): Alternate LDAP Auth plugin for Sinopia
 * [sinopia-request](https://www.npmjs.com/package/sinopia-request): An easy and fully auth-plugin with configuration to use an external API.
 * [sinopia-htaccess-gpg-email](https://www.npmjs.com/package/sinopia-htaccess-gpg-email): Generate password in htaccess format, encrypt with GPG and send via MailGun API to users.
