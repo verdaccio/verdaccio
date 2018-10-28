@@ -23,7 +23,7 @@ $> npm install --global verdaccio-activedirectory
 
 Otvorite `config.yaml` fajl i uradite update `auth` sekcije prema sledećim uputstvima:
 
-The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
+Podrazumevana konfiguracija izgleda ovako, jer koristimo ugrađeni `htpasswd` plugin kao podrazumevan, a koji možete zaustaviti (disable) tako što ćete sledeće linije pretvoriti u komentar.
 
 ### Auth Plugin Configuration
 
@@ -33,7 +33,7 @@ The default configuration looks like this, due we use a build-in `htpasswd` plug
     #max_users: 1000
 ```
 
-and replacing them with (in case you decide to use a `ldap` plugin.
+i zameniti ih sa datim (ako se odlučite da koristite `ldap` plugin).
 
 ```yaml
 auth:
@@ -43,9 +43,9 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Auth plugins
+#### Multiple Auth plugini
 
-This is tecnically possible, making the plugin order important, as the credentials will be resolved in order.
+Tehnički je izvodivo, ako postavite da je redosled plugina važan, usled čega će se credentials izvršiti po tom poretku.
 
 ```yaml
 auth:
@@ -60,7 +60,7 @@ auth:
 
 ### Middleware Plugin Configuration
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+Ovo je primer koji pokzuje kako treba da podesite middleware plugin. Svi middleware plugini moraju biti definisani u **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -68,11 +68,11 @@ middlewares:
     enabled: true
 ```
 
-> You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
+> Možete pratiti [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) kao bazični primer.
 
 ### Store Plugin Configuration
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+Ovo je primer koji pokzuje kako treba da podesite storage plugin. Svi storage plugini moraju se definisati u **store** namespace.
 
 ```yaml
 store:
@@ -80,15 +80,15 @@ store:
     limit: 1000
 ```
 
-> If you define a custom store, the property **storage** in the configuration file will be ignored.
+> Ako definišete custom store, svojstvo **storage** u configuration fajlu će biti ignorisano.
 
-## Legacy plugins
+## Tradicionalni plugini (Legacy plugins)
 
 ### Sinopia Plugins
 
-(compatible all versions)
+(kompatibilni sa svim verzijama)
 
-* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin for sinopia supporting an npm registry.
+* [sinopia-npm](https://www.npmjs.com/package/sinopia-npm): auth plugin za sinopia koji podržava npm registry.
 * [sinopia-memory](https://www.npmjs.com/package/sinopia-memory): auth plugin for sinopia that keeps users in memory.
 * [sinopia-github-oauth-cli](https://www.npmjs.com/package/sinopia-github-oauth-cli).
 * [sinopia-crowd](https://www.npmjs.com/package/sinopia-crowd): auth plugin for sinopia supporting atlassian crowd.
