@@ -1,6 +1,6 @@
 ---
-id: notifications
-title: "Notifications"
+id: notifikacije
+title: "Notifikacije"
 ---
 Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
 
@@ -41,7 +41,7 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## Templat
 
 We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 
@@ -54,7 +54,7 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Svojstva (Properties)
 
 List of properties accesible via template
 
