@@ -46,14 +46,14 @@ Lista validnih grupa u skladu sa podrazumevanim pluginima
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+Svi korisnici primaju sve navedeno kako bi podesili ovlašćenja nezavisno od toga jesu li anonimna ili više grupa nije omogućeno od strane plugina, a u slučaju da je tako `htpasswd` vraća username kao grupu. Na primer, ako ste prijavljeni kao `npmUser` lista grupa će izgledati ovako.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need to do something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend using a prefix for your packages, in that way it will be easier to protect them.
+Ako želite da zaštitite specifični set paketa u okviru grupe, potrebno je da uradite ovako nešto. Koristimo `Regex` koji pokriva sve `npmuser-` pakete sa prefiksima. Preporučujemo korišćenje prefiksa za Vaše pakete, jer ćete ih na taj način lakše zaštititi.
 
 ```yaml
 packages:
@@ -62,7 +62,7 @@ packages:
     publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Restartujte `verdaccio` i u svojoj konzoli probajte da instalirate `npmuser-core`.
 
 ```bash
 $ npm install npmuser-core
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+Možete promeniti postojeći behaviour korišćenjem različite plugin autentifikacije. `verdaccio` proverava da li korisnik koji je pokušao da pristupi nekom paketu ili publikuje paket pripada ispravnoj grupi korisnika.
 
-#### Set multiple groups
+#### Podešavanje multiplih grupa
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+Definisanje multiple access groups ej relativno jednostavno, samo je potrebno da ih definišete sa razmakom između.
 
 ```yaml
   'company-*':
@@ -91,7 +91,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
     proxy: server1
 ```
 
-#### Blocking access to set of packages
+#### Blokiranje pristupa setu paketa
 
 If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
 
