@@ -230,7 +230,7 @@ Thank you to all our backers! 🙏
 ### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a
-link to your website. 
+link to your website.
 
 [Click here to become a sponsor](https://opencollective.com/verdaccio#sponsor).
 
