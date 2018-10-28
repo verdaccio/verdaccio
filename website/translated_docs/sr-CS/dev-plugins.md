@@ -5,8 +5,8 @@ title: "Developing Plugins"
 Ima mnogo načina da proširite `verdaccio`, tipovi podržanih plugin-a su:
 
 * Authentication plugins
-* Middleware plugins (since `v2.7.0`)
-* Storage plugins since (`v3.x`)
+* Middleware plugins (od verzije `v2.7.0`)
+* Storage plugins od verzije (`v3.x`)
 
 > We recommend developing plugins using our [flow type definitions](https://github.com/verdaccio/flow-types).
 
