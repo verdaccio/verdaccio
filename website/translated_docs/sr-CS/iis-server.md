@@ -23,9 +23,9 @@ Navedene instrukcije su pisane za Windows Server 2012, IIS 8, [Node.js 0.12.3](h
 - Stopirao sam "Default Web Site" i pokrenuo jedino "verdaccio" sajt u IIS
 - Podesio sam bindings na "http", ip address "All Unassigned" na port 80, ok any warning or prompts
 
-Date instrukcije se baziraju na [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). I had to tweak my web config as per below but you may find the original from the for mentioned link works better
+Date instrukcije se baziraju na [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Treba još da čačnem my web config kao što je navedeno ispod, ali možete se desiti da navedeni link zapravo radi bolje
 
-A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
+Kreiraće se podrazumevana konfiguracija `c:\verdaccio\verdaccio\config.yaml`
 
 ### package.json
 
@@ -97,7 +97,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ```
 
-### Troubleshooting
+### Problemi (Troubleshooting)
 
-- **The web interface does not load when hosted with https as it tries to download scripts over http.**  
-    Make sure that you have correctly mentioned `url_prefix` in verdaccio config. Follow the [discussion](https://github.com/verdaccio/verdaccio/issues/622).
+- **Web interfejs se ne učitava kada se hostovan sa https pošto pokušava da preuzme skripte preko http.**  
+    Proverite da li ste ispravno uneli `url_prefix` u verdaccio config. Pratite [discussion](https://github.com/verdaccio/verdaccio/issues/622).
