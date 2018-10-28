@@ -28,7 +28,7 @@ Imamo dugačku [listu plugina](plugins.md) spremnu da se koristi i istovremeno u
 
 Nedavno smo se prebacili na korišćenje modernih tehnologija kao što su `React` i `element-react`. Uzbuđeni smo zbog novih ideja i razmišljanja kako da unapredimo UI.
 
-### Više mi prija da unapređujem stack
+### Više mi prija da unapređujem Stack
 
 Naravno da možete i bili bismo jako srećni ako biste učestvovali u unapređivanju stack-a. Mogli biste na primer da poboljšate dependencies kao na primer `eslint`, `stylelint`, `webpack`. Čak i ako biste mogli samo malo da poboljšate `webpack` konfiguraciju, to bi bilo sjajno. Svaka sugestija je dobrodošla. Osim toga, ako imate iskustva sa **Yeoman-om** mogli biste da nam pomognete sa [verdaccio generatorom](https://github.com/verdaccio/generator-verdaccio-plugin).
 
@@ -36,28 +36,28 @@ Evo nekih od ideja:
 
 * Kreirajte common eslint rules koja će se koristiti u svim dependencies ili pluginima
 * Unapredite Flow types definitions delivery
-* Moving to Webpack 4
-* Improve hot reload with Webpack
-* We use babel and webpack across all dependencies, why not a common preset?
-* Improve continous integration delivery
+* Kako preći na Webpack 4
+* Unapredite hot reload sa Webpack-om
+* Pošto koristimo babel i webpack u svim dependencies, zašto ne bismo imali zajednički preset?
+* Unapredite continous integration delivery
 
-### I do great Documentation
+### Sjajan sam u sređivanju Dokumentacije
 
-Many contributors find typos and grammar issues, that also helps to improve the overall experience for troubleshooting.
+Mnogi saradnici imaju dar za pronalaženje grešaka u kucanju i gramatičkih grešaka, a to je jako važno jer podiže iskustvo korišćenja na novi nivo.
 
-### I am a Designer
+### Ja sam Dizajner
 
-We have a frontend website <http://www.verdaccio.org/> that will be happy to see your ideas.
+Frontend našeg website <http://www.verdaccio.org/> bi bio jako srećan da vidi u usvoji neku od Vaših ideja.
 
-Our website is based on [Docusaurus](https://docusaurus.io/).
+Inače. naš sajt je baziran na [Docusaurus](https://docusaurus.io/).
 
-### I am a DevOps
+### Ja sam DevOps
 
-We have a widely popular Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> that need maintenance and pretty likely huge improvements, we need your knowledge for the benefits of all users.
+Imamo veoma popularan Docker image <https://hub.docker.com/r/verdaccio/verdaccio/> kome je potrebno održavanje i prilično velika unapređenja. Trebamo Vaše znanje, stavljeno u službu svih korisnika.
 
-We have support for **Kubernetes**, **Puppet**, **Ansible** and **Chef** and we need help in those fields, feel free to see all repositories.
+Imamo podršku za **Kubernetes**, **Puppet**, **Ansible** i **Chef**. Potrebna nam je pomoć za sve to, tako da, slobodno bacite pogled na sve navedene repozitorijume.
 
-### I can do translations
+### Mogao bih da radim Prevođenje
 
 Verdaccio aims to be multilingual, in order to achieve it **we have the awesome support** of [Crowdin](https://crowdin.com) that is an amazing platform for translations.
 
