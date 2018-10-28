@@ -135,9 +135,9 @@ store:
 (kompatibilani od verzije 3.x)
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin za hostovanje paketa u Memory
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin za hostovanje paketa **Amazon S3**
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin za hostovanje paketa na **Amazon S3**
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin za hostovanje paketa na **Google Cloud Storage**
 
-## Caveats
+## Upozorenja (Caveats)
 
-> Not all these plugins are been tested continuously, some of them might not work at all. Please if you found any issue feel free to notify the owner of each plugin.
+> Svi navedeni plugini nisu detaljno testirani i može se dogoditi da neki od njih uopšte ne rade. Ako naiđete na probleme, molimo Vas da slobodno pošaljete upit autorima plugina.
