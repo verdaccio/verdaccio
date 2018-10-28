@@ -2,26 +2,26 @@
 id: plugins
 title: "Plugins"
 ---
-Verdaccio is an plugabble aplication. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
+Verdaccio je aplikacija koja podržava plugine. Može se proširivati na mnogo načina, dodavanjem novih metoda za autentifikaciju, dodavanjem endpoints-a ili korišćenjem custom storage-a.
 
-> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
+> Ako ste zainteresovani da razvijete sopstveni plugin, pročitajte [development](dev-plugins.md) sekciju.
 
-## Usage
+## Korišćenje
 
-### Installation
+### Instalacija
 
 ```bash
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio` je sinopia fork i poseduje backward compability sa pluginima koji su kompatibilni sa `sinopia@1.4.0`. Utom slučaju, instalacija je potpuno ista.
 
     $> npm install --global sinopia-memory
     
 
-### Configuration
+### Konfigurisanje
 
-Open the `config.yaml` file and update the `auth` section as follows:
+Otvorite `config.yaml` fajl i uradite update `auth` sekcije prema sledećim uputstvima:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
 
