@@ -52,11 +52,11 @@ Kako biste pokrenuli docker container:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+Poslednji argument definiše koji image će se koristiti. Linija iznad povlači najnoviji prebuilt image sa dockerhub-a, ako to već niste uradili.
 
-If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
+Ako imate [build an image locally](#build-your-own-docker-image) koristite `verdaccio` kao poslednji argument.
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+Možete koristiti `-v` kako biste vezali (bind) mount `conf`, `storage` i `plugins` za hosts filesystem:
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
@@ -66,13 +66,13 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Note: Verdaccio runs as a non-root user (uid=100, gid=101) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 100:101 /opt/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Napomena: Verdaccio radi kao non-root user (uid=100, gid=101) unutar container-a. Ako koristite bind mount da pregazite zadate postavke (override), onda norate da dodelite mount directory pravom korisniku. U navedenom primeru, morate da pokrenete `sudo chown -R 100:101 /opt/verdaccio`, u suprotnom ćete dobiti permission errors u runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) je preporučeno umesto korišćenja bind mount.
 
 ### Plugins
 
-Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
+Plugins se mogu instalirati u posebnom direktorijumu i mountovati korišćenjem Docker-a ili Kubernetes. Ipak, postarajte se da build plugins sa native dependencies korišćenjem iste base image kao Verdaccio Dockerfile-a.
 
-### Docker and custom port configuration
+### Docker i custom port konfiguracija
 
 Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
 
