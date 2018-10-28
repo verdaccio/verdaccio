@@ -1,26 +1,26 @@
 ---
-id: contributing
-title: "Contributing Verdaccio"
+id: doprinošenje
+title: "Doprinošenje Verdaccio-u"
 ---
-First of all Jumping into an unfamiliar code base is not easy but we are here to help you.
+First of all Plivanje u vodama nepoznatog koda nije lako ali, mi smo tu da Vam pomognemo.
 
-## Comunication Channels
+## Kanali za komunikaciju
 
-If you are willing for asking, we use two channels for discussions:
+Ako ste voljni da pitate, na raspolaganju su dva kanala za diskusiju:
 
-* [Public Discord channel](http://chat.verdaccio.org/)
+* [Javni Discord kanal](http://chat.verdaccio.org/)
 
-## Getting started
+## Hajde da počnemo
 
-As a first glance verdaccio is a single repository, but there are many ways you might contribute and a variety of technologies to practice.
+Na prvi pogled, verdaccio je jedinstveni repozitorijum, ali u praksi postoje mnogi načini da doprinesete razvoju i upotrebite tehnologiju.
 
-### Finding my spot
+### Nađite svoje mesto pod suncem
 
-All we have different skills, so, let's see where you might feel comfortable.
+Svi mi posedujemo različite veštine, hajde da otkrijemo gde je kome udobno.
 
-### I know or I want to learn Node.js
+### Znam ili želim da naučim Node.js
 
-Node.js is the base of `verdaccio`, we use libraries as `express`, `commander`, `request` or `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js je osnova `verdaccio`. Koristimo biblioteke kao `express`, `commander`, `request` ili `async`. Verdaccio je praktično Rest API koji uspostavlja komunikaciju sa `npm` klijent-kompatibilnim, kao što je `yarn`.
 
 We have a long [list of plugins](plugins.md) ready to be used and improved but at the same time [you might create your own](dev-plugins.md).
 
