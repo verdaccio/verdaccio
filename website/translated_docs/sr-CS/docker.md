@@ -74,11 +74,11 @@ Plugins se mogu instalirati u posebnom direktorijumu i mountovati korišćenjem 
 
 ### Docker i custom port konfiguracija
 
-Any `host:port` configured in `conf/config.yaml` under `listen` is currently ignored when using docker.
+Svaki `host:port` konfigurisan u `conf/config.yaml` pod `listen` se trenutno ignoriše dok se koristi docker.
 
-If you want to reach verdaccio docker instance under different port, lets say `5000` in your `docker run` command replace `-p 4873:4873` with `-p 5000:4873`.
+Ako želite da pristupite verdaccio docker instanci pod različitim port-om, recimo `5000`, u Vašoj `docker run` komandi zamenite `-p 4873:4873` sa `-p 5000:4873`.
 
-In case you need to specify which port to listen to **in the docker container**, since version 2.?.? you can do so by providing additional arguments to `docker run`: `--env PORT=5000` This changes which port the docker container exposes and the port verdaccio listens to.
+U slučaju da morate da odredite port to listen to **u docker kontejneru**, počevši od verzije 2.?.? to možete učiniti tako što ćete uneti dodatne argumente u `docker run`: `--env PORT=5000` Ovo menja port koji izlaže docker kontejner i port koji će verdaccio slušati (listens to).
 
 Of course the numbers you give to `-p` paremeter need to match, so assuming you want them to all be the same this is what you could copy, paste and adopt:
 
