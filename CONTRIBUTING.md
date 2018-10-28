@@ -1,59 +1,89 @@
 # Contributing to Verdaccio
 
-We are happy you wish to contribute this project, for that reason we want to board you with this guide.
+We are happy that you wish to contribute this project. For that reason, we
+present you with this guide.
 
-## How I contribute?
+## Contents
 
+- [Contents](#contents)
+- [How Do I Contribute?](#how-do-i-contribute)
+- [Reporting Bugs](#reporting-bugs)
+  - [Issue Search](#issue-search)
+  - [Check Website For Solution](#check-website-for-solution)
+  - [Chat](#chat)
+  - [Check If It's Been Fixed](#check-if-its-been-fixed)
+- [Request Features](#request-features)
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+  - [Make Changes and Commit](#make-changes-and-commit)
+- [Update Tests](#update-tests)
+- [Develop Plugins](#develop-plugins)
 
-### Ways to contribute
+## How Do I Contribute?
 
-There are many ways to contribute to the Verdaccio Project. Here’s a list of technical contributions with increasing levels of involvement and required knowledge of Verdaccio's code and operations.
+There are different ways to contribute, each with a different level
+of involvement and technical knowledge required, such as:
 
-* [Reporting a Bug](CONTRIBUTING.md#reporting-a-bug)
-* [Request Features](CONTRIBUTING.md#request-features)
-* [Plugins](CONTRIBUTING.md#plugins)
-* [Improve the Documentation](http://www.verdaccio.org/docs/en/installation.html)
+* [Reporting Bugs](#reporting-bugs)
+* [Request Features](#request-features)
+* [Develop Plugins](#develop-plugins)
+* [Improve Documentation](http://www.verdaccio.org/docs/en/installation.html)
 
-Please read carefully this document. It will guide you to provide maintainers and readers valuable information to boots the process solve the issue or evaluate your proposal.
+**Please read this document carefully. It will help maintainers and readers
+in solving your issue(s), evaluating your feature request, etc.**
 
-## Reporting a Bug
+## Reporting Bugs
 
-We welcome clear bug reports. If you've found a bug in Verdaccio that isn't a security risk, please file a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues). Before you file your issue, search to see if it has already been reported. If so, up-vote (using GitHub reactions) or add additional helpful details to the existing issue to show that it's affecting multiple people.
+We welcome clear, detailed bug reports.
+
+**Bugs are considered features that are not working as described in
+documentation.**
+
+If you've found a bug in Verdaccio **that isn't a security risk**, please file 
+a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues).
+
+**NOTE: Verdaccio still does not support all npm commands. Some were not
+considered important and others have not been requested yet.**
+
+### Issue Search
+
+Search to see if it has already been reported via
+the issue search.
+
+Additionally, we have labelled questions for easy follow-up as [questions](https://github.com/verdaccio/verdaccio/labels/question).
+
+If so, up-vote it (using GitHub reactions) or add additional helpful details to
+the existing issue to show that it's affecting multiple people.
  
-### Check if there's a simple solution in the website.
+### Check Website For Solution
 
 Some of the most popular topics can be found in our website(http://www.verdaccio.org/docs/en/installation.html)
 
-### Questions & Chat
+### Chat
 
-We have tagged questions for easy follow up under the tag [questions](https://github.com/verdaccio/verdaccio/labels/question). Additionaly, I'd recommend to deliver questions in the new chat as **#questions/#development** channels at  [gitter](https://gitter.im/verdaccio/). 
+Questions can be asked in [gitter](https://gitter.im/verdaccio/)
+in the `#questions/#development` channel.
 
-### Using the issue tracker
+### Check If It's Been Fixed
 
-The issue tracker is a channel were mostly users/developers post.
-
-#### I want to report a bug
-
-We considere a bug a feature that is not working as is described in the documentation. Before reporting a bug follow the next steps:
-
-1. Use the GitHub issue search — check if the issue has already been reported.
-
-2. Check if the issue has been fixed — try to reproduce it using the latest master or development branch in the repository.
-
-Verdaccio still does not support all npm commands due either in the initial design were not considered important or nobody has request it yet.
+Check if the issue has been fixed — try to reproduce it using the latest
+`master` or development branch in the repository.
 
 ## Request Features
 
-A new feature is always welcome, thus, analyse whether your idea fits in the scope of the project and elaborate your request providing enough context, for instance:
+New feature requests are welcome. Analyse whether the idea fits within scope of
+the project. Then, detail your request, ensuring context and use case is provided.
 
-* A wide description the advantages of your request.
-* It's compatible with `npm` and `yarn`?
-* You might implement your feature and provide a forked repository as example.
-* Whatever you have on mind 🤓.
+**Please provide:**
+
+* A detailed description the advantages of your request
+* Whether or not it's compatible with `npm` and `yarn`
+* A potential implementation or design
+* Whatever else you have in your mind 🤓
 
 ### Submitting a Pull Request
-The following are the general steps you should follow in creating a pull request.  Subsequent pull requests only need
-to follow step 3 and beyond:
+
+The following are the steps you should follow when creating a pull request.
+Subsequent pull requests only need to follow step 3 and beyond.
 
 1. Fork the repository on GitHub
 2. Clone the forked repository to your machine
@@ -62,63 +92,90 @@ to follow step 3 and beyond:
 5. Issue a Pull Request to the official repository
 6. Your Pull Request is reviewed by a committer and merged into the repository
 
-*Note*: While there are other ways to accomplish the steps using other tools, the examples here will assume the most
-actions will be performed via the `git` command line.
+**NOTE**: While there are other ways to accomplish the steps using other tools,
+the examples here will assume most actions will be performed via `git` on
+command line.
 
-For more information on maintaining a fork, please see the GitHub Help article [Fork a Repo](https://help.github.com/articles/fork-a-repo/) and information on
-[rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) from git.
+For more information on maintaining a fork, please see the GitHub Help article
+titled [Fork a Repo](https://help.github.com/articles/fork-a-repo/), and
+information on [rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing).
 
 ### Make Changes and Commit
 
-#### Before commit
+#### Before Commit
 
-At this point you have ready your changes, your new feature it's ready to be shipped, but, to avoid delays to merge, please be aware the build must past.
+Before committing, **you must ensure there are no linting errors and
+all tests pass.**
 
-Before commit, run the test command:
+To do this, run:
 
 ```bash
 yarn test
 ```
-It won't have **eslint** errors and **all test must past**. Then, and only then, you should push and ship your **PR**.
 
-#### Git Commit Guidelines
+Then, and only then, you can create your pull request.
 
-We follow the [conventional commit messages](https://conventionalcommits.org/) convention in order to automate Changelog generation and auto semantic versioning based on commit messages. 
+#### Commit Guidelines
 
-* feat: A new feature
-* fix: A bug fix
+We follow the [conventional commit messages](https://conventionalcommits.org/)
+convention in order to automate CHANGELOG generation and to automate
+semantic versioning.
 
-A commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in semantic versioning).
+For example:
 
-eg: 
+* `feat: A new feature`
+* `fix: A bug fix`
+
+A commit of the type feat introduces a new feature to the codebase
+(this correlates with MINOR in semantic versioning).
+
+e.g.:
+
 ```
 feat: xxxxxxxxxx
-````
+```
 
 A commit of the type fix patches a bug in your codebase (this correlates with PATCH in semantic versioning).
 
-eg: 
+e.g.:
+
 ```
 fix: xxxxxxxxxx
-````
+```
 
-Commits types as `docs:`,`style:`,`refactor:`,`perf:`,`test:` and `chore:` are valid but has no effect on versioning, but, it would be great if you use them.
+Commits types such as as `docs:`,`style:`,`refactor:`,`perf:`,`test:`
+and `chore:` are valid but have no effect on versioning. **It would be great
+if you use them.**
 
-Use `npm run commitmsg` to check your commit message.
+Use `npm run commitmsg` to check your commit message format.
 
-> All PR that does not follow the commit guidelines will be hold until messages are fixed. 
+**PRs that do not follow the commit message guidelines will not be merged.**
 
-## Update Test
+## Update Tests
 
-Any change in the sour code **must to include test update**, if you need support about how test works, please [refers to the following guide](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests). Please include test whether is a new feature, otherwise will be hold and never be merged.
+**Any change in source code must include test updates**.
 
-> Documentation, website, build, deployment, assets  or flow types are excluded in this section
+If you need help with how testing works, please [refer to the following guide](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests).
 
-## Plugins
+**If you are introducing new features, you MUST include new tests. PRs for
+features without tests will not be merged.**
 
-Plugins are Add-ons that extend the functionality of the application. Whether you want develop your own plugin I'd suggest do the following:
+Things excluded from tests:
+* Documentation
+* Website
+* Build
+* Deployment
+* Assets
+* Flow types
 
-1. Check whether there is a legacy sinopia plugin for the feature that you need at [npmjs](https://www.npmjs.com/search?q=sinopia).
-2. There is a [life-cycle to load a plugin](https://github.com/verdaccio/verdaccio/blob/master/lib/plugin-loader.js#L22) you should keep on mind.
-3. You are free to host your plugin in your repository, whether you want to host within in our organization, feel free to ask, we'll happy to host it.
-4. Try a describe widely your plugin to provide a deeply understanding to your users.
+## Develop Plugins
+
+Plugins are add-ons that extend the functionality of the application.
+
+If you want to develop your own plugin:
+
+1. Check whether there is a legacy Sinopia plugin for the feature that you need
+    via [npmjs](https://www.npmjs.com/search?q=sinopia)
+2. Keep in mind the [life-cycle to load a plugin](https://github.com/verdaccio/verdaccio/blob/master/lib/plugin-loader.js#L22)
+3. You are free to host your plugin in your repository or ours (just ask)
+4. Provide a detailed description of your plugin to help users understand it
