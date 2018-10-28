@@ -178,11 +178,11 @@ class verdaccio$IReadTarball extends stream$PassThrough {
 
 ### Primeri za Storage Plugins
 
-The following list of plugins are implementing the Storage API and might be used them as example.
+Navedena lista plugina implementuje Storage API i možete ih koristiti kao primere.
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory)
 * [local-storage](https://github.com/verdaccio/local-storage)
 * [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud)
 * [verdaccio-s3-storage](https://github.com/Remitly/verdaccio-s3-storage/tree/s3)
 
-> Are you willing to contribute with new Storage Plugins? [Click here.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
+> Da li ste voljni da date doprinos razvoju novih Storage Plugins? [Kliknite ovde.](https://github.com/verdaccio/verdaccio/issues/103#issuecomment-357478295)
