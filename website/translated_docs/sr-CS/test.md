@@ -48,11 +48,11 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Korišćenje test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Funkcionalno testiranje u verdaccio-u je nešto kompleksnije i zahteva detaljno objađnjenje.
 
-All starts in the `index.js` file. Let's dive in into it.
+Sve počinje od `index.js` fajla. Hajde da se bacimo u rešavanje problema.
 
 ```javascript
 // we create 3 server instances
@@ -107,17 +107,17 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### Korišćenje
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Ovde ćemo pokazati kako izgleda funkcionalni test, proverite inline i saznajte više detalja.
 
 #### The lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+Server class je samo wrapper koji simulira `npm` client i obezbeđuje jednostavan API za funkcionalni test.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Kao što smo već opisali u prethodnoj sekciji, kreiramo 3 proces servera koji su dostupni u svakom procesu kao `server1`, `server2` i``server3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+Koristeći takve reference, moći ćete da šaljete zahtev do bilo koje 3 pokrenute instance.
 
 ```javascript
 <br />export default function(server) {
@@ -131,4 +131,4 @@ Using such reference you will be able to send request to any of the 3 instance r
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Ove sekcije nikada nisu korišćene, te stoga tražimo pomoć kako bi radile na ispravan način. **Svaka ideja i svaka pomoć je dobrodošla.**
