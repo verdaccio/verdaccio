@@ -1,10 +1,10 @@
 ---
 id: reverse-proxy
-title: "Reverse Proxy Setup"
+title: "Configuration du proxy inverse"
 ---
 ## Apache
 
-Apache and mod_proxy should not decode/encode slashes and leave them as they are:
+Apache et mod_proxy ne doivent pas décoder/encoder les barres obliques et doivent les laisser tels qu'elles sont:
 
     <VirtualHost *:80>
       AllowEncodedSlashes NoDecode
