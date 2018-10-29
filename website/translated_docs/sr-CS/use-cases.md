@@ -12,7 +12,7 @@ Zaista se preporučuje da definišete prefiks za svoje privatne pakete, na prime
 
 Ako neki od paketa ne postoji u memoriji, server će pokušati da ga preuzme (fetch) sa npmjs.org. U slučaju da npmjs.org nije u funkciji, preuzeće se iz cache-a. Verdaccio će preuzeti samo ono što je neophodno (= ono što je klijent zatražin), i ta će informacija biti keširana, tako da u slučaju da klijent ponovo prosledi isti zahtev, preuzeće se bez aktivne potrebe za npmjs.org.
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Primer: ako ste jednom poslali zahtev za express@3.0.1sa ovog servera, bićete u mogućnosti da to uradite ponovo (sa svim potrebnim dependencies) kad god je npmjs.org van funkcije. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
 
 ## Override public packages
 
