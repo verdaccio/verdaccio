@@ -20,12 +20,12 @@ Ako želite da koristite modifikovanu verziju nekog javnog paketa `foo`, možete
 
 Ovde postoje dve opcije:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Ako želite da kreirate poseban fork i zaustavite sinhronizaciju sa javnom verzijom.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Ako želite da uradite to, trebalo bi da modifikujetesvoju fajl za konfiguraciju tako da verdaccio prestane da traži zahteve od npmjs koji se odnose na taj paket. Dodajte psoeban unos za ovaj paket u *config.yaml* i uklonite `npmjs` iz `proxy` liste i restartujte server.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Kada publikujete svoj paket lokalno, verovatno bi trebalo da otpočnete sa sa verzijom novijom od postojeće, tako da se izbegne konflikt sa postojećim paketom u cache-u.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Ako želite da svoju verziju samo privremeno, ali da se vratite na javnu čim se pojavi ažurirana.
     
     In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
