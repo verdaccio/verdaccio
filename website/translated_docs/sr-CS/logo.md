@@ -6,50 +6,50 @@ Logotip je dizajnirao **[Breno Rodrigues](https://github.com/rodriguesbreno)** k
 
 > Svaki logo je licenciran pod [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
-Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution with multiple image formats and sizes.
+Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za njen doprinos u vidu raznih formata i veličina.
 
 ## Simboli
 
-**With text**
+**Sa tekstom**
 
-![symbol tiny with text](/img/logo/symbol/png/logo-small-header-bottom.png)
+![simbol, mali sa tekstom](/img/logo/symbol/png/logo-small-header-bottom.png)
 
-![symbol medium with text](/img/logo/symbol/png/logo-small-header-bottom@2x.png)
+![simbol, srednji sa tekstom](/img/logo/symbol/png/logo-small-header-bottom@2x.png)
 
-![symbol big with text](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
-
-**SVG**
-
-![symbol svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
-
-**No text**
-
-![symbol tiny](/img/logo/symbol/png/verdaccio-tiny.png)
-
-![symbol medium](/img/logo/symbol/png/verdaccio-tiny@2x.png)
-
-![symbol big](/img/logo/symbol/png/verdaccio-tiny@3x.png)
+![simbol, veliki sa tekstom](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
 
 **SVG**
 
-![svg format symbol no text](/img/logo/symbol/svg/verdaccio-tiny.svg)
+![simbol, svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
+
+**Bez teksta**
+
+![simbol, mali](/img/logo/symbol/png/verdaccio-tiny.png)
+
+![simbol, srednji](/img/logo/symbol/png/verdaccio-tiny@2x.png)
+
+![simbol, veliki](/img/logo/symbol/png/verdaccio-tiny@3x.png)
+
+**SVG**
+
+![svg format, simbol bez teksta](/img/logo/symbol/svg/verdaccio-tiny.svg)
 
 ### Crno-Belo
 
-![symbol bw small](/img/logo/symbol/png/verdaccio-blackwhite.png)
+![simbol, bw, mali](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
-![symbol bw medium](/img/logo/symbol/png/verdaccio-blackwhite@2x.png)
+![simbol, bw, srednji](/img/logo/symbol/png/verdaccio-blackwhite@2x.png)
 
-![symbol bw big](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
+![simbol, bw, veliki](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
 **SVG**
 
-![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
+![simbol, bw, svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
 
 ## Baner
 
-![banner small](/img/logo/banner/png/verdaccio-banner.png)
+![baner, mali](/img/logo/banner/png/verdaccio-banner.png)
 
-![banner medium](/img/logo/banner/png/verdaccio-banner@2x.png)
+![baner, srednji](/img/logo/banner/png/verdaccio-banner@2x.png)
 
-![banner big](/img/logo/banner/png/verdaccio-banner@3x.png)
+![baner, veliki](/img/logo/banner/png/verdaccio-banner@3x.png)
