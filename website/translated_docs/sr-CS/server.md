@@ -34,27 +34,27 @@ Ako imate pokrenut `verdaccio` u Amazon EC2 instanci, [moraćete da podesite lis
 
 > Konfigurisanje Apache-a? Molimo Vas da pogledate [Reverse Proxy Setup](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## Kako da verdaccio radi neprekidno
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+Možemo koristiti node paket zvani 'forever' kako biste podesili verdaccio da radi neprekidno. https://github.com/nodejitsu/forever
 
-First install forever globally:
+Prvo instalirajte forever globalno:
 
 ```bash
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+Proverite da li ste pokrenuli verdaccio barem jednom kako biste generisali config fajl i zabeležio kreiranod admin korisnika. Posle toga, možete koristiti sledeću komandu kako biste pokrenuli verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+Možete pogledati dokumentaciju za više informacija o tome kako da koristite forever.
 
-## Surviving server restarts
+## Preživljavanje resetovanja servera
 
-We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
+Možemo istovremeno koristiti crontab i forever kako bismo restartovali verdaccio nakon svakog reboot-ovanja servera. Nakon što ste prijavljeni kao verdaccio koristnik, zadajte sledeće:
 
 ```bash
 $ crontab -e
