@@ -23,16 +23,16 @@ Komanda 'cd ~' šalje Vas do home direktorijuma verdaccio korinika. Postarajte s
 
 ## Listening na svim adresama
 
-If you want to listen to every external address set the listen directive in the config to:
+Ako želite da osluškujete (listen to) svaku eksternu adresu, podesite listen derectivu u config:
 
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+Ako imate pokrenut `verdaccio` u Amazon EC2 instanci, [moraćete da podesite listen u change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) kao što je prikazano u navedenom primeru.
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Konfigurisanje Apache-a? Molimo Vas da pogledate [Reverse Proxy Setup](reverse-proxy.md)
 
 ## Keeping verdaccio running forever
 
