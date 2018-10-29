@@ -13,7 +13,7 @@ Apache i mod_proxy ne treba da decode/encode slashes, tako da je najbolje da ost
     </VirtualHost>
     
 
-### Configuration with SSL
+### Konfigurisanje sa SSL
 
 config.yaml
 
