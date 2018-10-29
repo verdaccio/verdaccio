@@ -14,11 +14,11 @@ Si un package n'existe dans l'archive, le serveur essaiera de le récupérer à 
 
 Exemple: si vous effectuez avec succès une requête express@3.0.1 une fois sur ce serveur, vous pouvez le faire à nouveau (avec toutes ses dépendances) à tout moment, même si npmjs.org ne fonctionne pas. Mais disons qu'express@3.0.0 ne sera pas téléchargé avant que ce soit réellement nécessaire pour quelqu'un. Et si npmjs.org était hors ligne, ce serveur indiquerait que seule la valeur express@3.0.1 (= uniquement ce qui est dans le cache) serait publiée, mais rien d'autre.
 
-## Override public packages
+## Annuler les paquets publics
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+Si vous souhaitez utiliser une version modifiée d'un paquet public`foo`, vous ne pouvez le publier que sur votre serveur local. Par conséquent, si vous écrivez `npm install foo`, cette version sera installée.
 
-There's two options here:
+Il y a deux options ici:
 
 1. You want to create a separate fork and stop synchronizing with public version.
     
