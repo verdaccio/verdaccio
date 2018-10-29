@@ -60,12 +60,12 @@ Možemo istovremeno koristiti crontab i forever kako bismo restartovali verdacci
 $ crontab -e
 ```
 
-This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
+Moguće je da ćete dobiti pitane da odaberete editor. Odaberite svoj omiljeni i nastavite. Unesite sledeći input u fajl:
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
 
-The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+Lokacije mogu varirati u zavisnosti od podešavanja servera. Ako želite da saznate gde se nalaze Vaši fajlovi, možete koristiti comandu 'which':
 
 ```bash
 $ which forever
