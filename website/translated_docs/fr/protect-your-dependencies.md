@@ -15,18 +15,18 @@ Voyons, par exemple, la configuration suivante. Vous avez une série de dépenda
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+Avec cette configuration, en principe, nous permettons aux groupes **admin** et **teamA** de *publier*, et **teamA** **teamB** **teamC** d'*accéder* à de telles dépendences.
 
-### Use case: teamD try to access the dependency
+### Cas d'utilisation: teamD tente d'accéder à la dépendance
 
-So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
+Par conséquent, si je me connecte en tant que ** teamD **, je ne devrais pas pouvoir accéder à toutes les dépendances qui correspondent au modèle ` my-company - * `.
 
 ```bash
 ➜ npm whoami
 teamD
 ```
 
-I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
+Je n'aurai pas accès à ces dépendances, aussi elles ne seront pas visibles sur le Web pour l'utilisateur **teamD**. Si j'essaie d'accéder, il arrivera ce qui suit.
 
 ```bash
 ➜ npm install my-company-core
@@ -34,12 +34,12 @@ npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
-or with `yarn`
+ou avec `yarn`
 
 ```bash
 ➜ yarn add my-company-core
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
+error Une erreur inattendue s'est produite: "http: // localhost: 5555 / webpack-1: les utilisateurs non enregistrés ne sont pas autorisés à accéder au package my-company-core".
 ```
