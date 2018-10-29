@@ -44,13 +44,13 @@ Premièrement installez forever entièrement:
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+Assurez-vous que vous avez démarré au moins une fois verdaccio pour générer le fichier de configuration et notez l'utilisateur administrateur créé. Ensuite, la commande suivante peut être utilisée pour lancer verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+Vous pouvez consultez la documentation pour plus d'informations sur l'utilisation forever.
 
 ## Surviving server restarts
 
