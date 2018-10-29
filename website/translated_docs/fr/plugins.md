@@ -124,7 +124,7 @@ store:
 * [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): plugin d'authentification Github oauth pour verdaccio.
 * [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): plugin de Github OAuth pour le boutton de connexion de verdaccio.
 
-### Middleware Plugins
+### Plugins Middleware
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
 
