@@ -4,28 +4,28 @@ title: "Unit Testing"
 ---
 Svi testovi su podeljen i u tri foldera:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - Testovi koji pokrivaju funkcije koje transformišu podatke na ne-trivijalni način. Da bi ste testirali, koristite `require()` na nekolliko fajlova i pokrenite kod, brzo se izvršava.
+- `test/functional` - Test koji pokreće verdaccio instancu i pokreće seriju zahteva nad http. Ovaj tip testova je sporiji od unit testova.
+- `test/integration` - Test koji pokreće verdaccio instancu i zahteva je koristeći npm. Ovaj tip testova je izuzetno spor i može da pogodi pravi npm registry. **unmaintained test**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+Unit i functional testovi se automatski izvršavaju pokretanjem `npm test` iz root directorijuma projekta. Integration testovi bi trebalo da se pokreću ručno, s vremena na vreme.
 
-We use `jest` for all test.
+Koristimo `jest` za sve testove.
 
 ## The npm Script
 
-To run the test script you can use either `npm` or `yarn`.
+Da biste pokrenuli test skriptu, možete koristiti bilo `npm` ili `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+To će pokrenuti samo prve dve grupe testova, unit i functional.
 
-### Using test/unit
+### Korišćenje test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+U navedenom primeru možete videti kako bi unit test trebalo da izgleda. Suštinski, samo pratite `jest` standard.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Pokušajte da u jednoj rečenici u zaglavlju `test` sekcije objasnite tačno šta bi unit test trebalo da radi.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
