@@ -109,7 +109,7 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ### Usage
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Ici nous allons décrire à quoi devrait ressembler un test fonctionnel typique. Vérifiez inline pour plus d'informations détaillées.
 
 #### The lib/server.js
 
