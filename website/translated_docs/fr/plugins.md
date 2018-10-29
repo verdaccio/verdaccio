@@ -128,15 +128,15 @@ store:
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): plugin verdaccio pour le support de *npm audit* (intégré) (compatible à partir de 3.x)
 
-* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
+* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): plugin verdaccio pour le support client *profil npm* et *Le profil npm du mot de passe* pour l'authentification basée sur *verdaccio-htpasswd*
 
 ### Plugins de stockage
 
 (compatible depuis 3.x)
 
-* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Des plugins de stockage pour héberger des packages en mémoire
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) plugin de stockage pour héberger les packages **Amazon S3**
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) plugin de stockage pour héberger les packages **Stockage Google Cloud**
 
 ## Avertissements
 
