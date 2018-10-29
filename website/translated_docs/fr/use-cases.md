@@ -1,18 +1,18 @@
 ---
 id: use-cases
-title: "Use Cases"
+title: "Cas d’utilisation"
 ---
-## Using private packages
+## Utilisation de packages privés
 
-You can add users and manage which users can access which packages.
+Vous pouvez ajouter des utilisateurs et gérer quels utilisateurs peuvent accéder à quels packages.
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+Il est conseillé de définir un préfixe pour les paquets privés, par exemple "local", afin que tous les éléments privés aient cet aspect: `local-foo`. De cette façon, vous pouvez clairement séparer les paquets publics et privés.
 
-## Using public packages from npmjs.org
+## Utilisation des paquets publics à partir de npmjs.org
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Si un package n'existe dans l'archive, le serveur essaiera de le récupérer à partir de npmjs.org. Si npmjs.org ne fonctionne pas, il ne fournira les packages mis en cache que s'il n'y avait pas d'autres packages. Verdaccio ne téléchargera que ce qui est requis (= requis par les clients), et ces informations seront mises en cache. Ainsi, si le client demande la même chose une seconde fois, il peut être satisfait sans avoir à demander à npmjs.org.
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Exemple: si vous effectuez avec succès une requête express@3.0.1 une fois sur ce serveur, vous pouvez le faire à nouveau (avec toutes ses dépendances) à tout moment, même si npmjs.org ne fonctionne pas. Mais disons qu'express@3.0.0 ne sera pas téléchargé avant que ce soit réellement nécessaire pour quelqu'un. Et si npmjs.org était hors ligne, ce serveur indiquerait que seule la valeur express@3.0.1 (= uniquement ce qui est dans le cache) serait publiée, mais rien d'autre.
 
 ## Override public packages
 
