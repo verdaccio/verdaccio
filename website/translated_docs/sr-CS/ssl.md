@@ -1,17 +1,17 @@
 ---
 id: ssl
-title: "Set up the SSL Certificates"
+title: "Podešavanje SSL Sertifikata"
 ---
-Follow this instructions to configure a SSL certificate to serve NPM registry under HTTPS.
+Pratite instrukcije kako da konfigurišete SSL certifikat koji služi u NPM registriju pod HTTPS.
 
-* Update the listen property in your `~/.config/verdaccio/config.yaml`:
+* Ažurirajte svojstvo listen u svom `~/.config/verdaccio/config.yaml`:
 
     listen: 'https://your.domain.com/'
     
 
-Once you update the listen and try to run verdaccio again will ask for certificates.
+Jednom kada ažurite listen i probate ponovo da pokrenete verdaccio, pitaće Vas za sertifikate.
 
-* Generate your certificates
+* Generišite svoje sertifikate
 
      $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
      $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
@@ -24,17 +24,17 @@ Once you update the listen and try to run verdaccio again will ask for certifica
 
 https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 
-    <br />Alternatively, if you have a certificate as `server.pfx` format, you can add the following configuration section. The passphrase is optional and only needed, if your certificate is encrypted.
+    <br />Alternativno, ako imate sertifikat u `server.pfx` formatu, možete dodati sledeću sekciju za konfigurisanje. Ako je Vaš sertifikat enkriptovan, jedino je neophodno uneti passphrase.
     
     
 
 https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
-More info on the `key`, `cert`, `ca`, `pfx` and `passphrase` arguments on the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+Više informacija o `key`, `cert`, `ca`, `pfx` i `passphrase` argumentima u [Node dokumentaciji](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
-* Run `verdaccio` in your command line.
+* Pokrenite `verdaccio`u svom command line-u.
 
-* Open the browser and load `https://your.domain.com:port/`
+* Otvorite pretraživač i učitajte `https://your.domain.com:port/`
 
 This instructions are mostly valid under OSX and Linux, on Windows the paths will vary but, the steps are the same.
 
