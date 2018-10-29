@@ -2,26 +2,26 @@
 id: server-configuration
 title: "Server Configuration"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+Ovo je najbazičnija konfiguracija za linux server ali nam se čini važnim da dokumentujemo i podelimo sa Vama sve korake kako bi verdaccio stalno radio na serveru. Biće Vam potrebne root (ili sudo) dozvole za navedeno.
 
-## Running as a separate user
+## Pokretanje, kao zaseban korisnik
 
-First create the verdaccio user:
+Najpre kreirajte verdaccio korisnika:
 
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+Zatim kreirate shell kao verdaccio korisnik, putem sledeće komande:
 
 ```bash
 $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+Komanda 'cd ~' šalje Vas do home direktorijuma verdaccio korinika. Postarajte se da pokrenete verdaccio barem jednom kako biste generisali config fajl. Modifikujte ga prema svojim potrebama.
 
-## Listening on all addresses
+## Listening na svim adresama
 
 If you want to listen to every external address set the listen directive in the config to:
 
