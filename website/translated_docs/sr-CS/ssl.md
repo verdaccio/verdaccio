@@ -36,10 +36,10 @@ Više informacija o `key`, `cert`, `ca`, `pfx` i `passphrase` argumentima u [Nod
 
 * Otvorite pretraživač i učitajte `https://your.domain.com:port/`
 
-This instructions are mostly valid under OSX and Linux, on Windows the paths will vary but, the steps are the same.
+Instrukcije važe uglavnom za OSX i Linux, dok će na Windows-u putanje (paths) biti različite, ali u suštini, koraci su isti.
 
 ## Docker
 
-If you are using the Docker image, you have to set the `PROTOCOL` environment variable to `https` as the `listen` argument is provided on the [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), and thus ignored from your config file.
+Ako koristite Docker image, potrebno je da podesite `PROTOCOL` environment variablu na `https` posto je `listen` argument obezbeđen kao [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), i stoga ignorisan od strane config fajla.
 
-You can also set the `PORT` environment variable if you are using a different port than `4873`.
+Takođe možete da podesite `PORT` environment variablu ako koristite različit port od `4873`.
