@@ -20,9 +20,9 @@ Sve restrikcije koje se odnose na pristup definisane su u okviru  i takođe će 
 
 ### Konfigurisanje
 
-| Svojstvo | Tip     | Neophodno | Primer                         | Podrška | Opis                                                                                                                                                 |
-| -------- | ------- | --------- | ------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| enable   | boolean | No        | true/false                     | all     | dozvoljava prikaz web interfejsa                                                                                                                     |
-| title    | string  | No        | Verdaccio                      | all     | HTML head title description                                                                                                                          |
-| logo     | string  | No        | http://my.logo.domain/logo.png | all     | a URI where logo is located                                                                                                                          |
-| scope    | string  | No        | \\@myscope                   | all     | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header (note: escape @ with \\@) |
+| Svojstvo | Tip     | Neophodno | Primer                         | Podrška | Opis                                                                                                                                              |
+| -------- | ------- | --------- | ------------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| enable   | boolean | No        | true/false                     | all     | dozvoljava prikaz web interfejsa                                                                                                                  |
+| title    | string  | No        | Verdaccio                      | all     | opis naslova HTML zaglavlja                                                                                                                       |
+| logo     | string  | No        | http://my.logo.domain/logo.png | all     | URL na kome se nalazi logo                                                                                                                        |
+| scope    | string  | No        | \\@myscope                   | all     | Ako koristite registri za specific module scope, precizirajte taj scope kako biste podesili webui instructions header (note: escape @ with \\@) |
