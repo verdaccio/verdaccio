@@ -1,23 +1,23 @@
 ---
-id: what-is-verdaccio
-title: "What is Verdaccio?"
+id: šta-je-verdaccio
+title: "Šta je Verdaccio?"
 ---
-Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
+Verdaccio je **lightweight private npm proxy registry** ugrađen u **Node.js**
 
-## What's a registry
+## Šta je registry
 
-* A repository for packages that implements the **CommonJS Compliant Package Registry specification** for reading package info
-* Provide an API compatible with npm clients **(yarn/npm/pnpm)**
-* Follow the semantic Versioning compatible **(semver)**
+* Repozitorijum za pakete koji implementira **CommonJS Compliant Package Registry specification** za čitanje informacija o paketu
+* Obezbeđuje API kompatibilnost sa npm klijentima, **(yarn/npm/pnpm)**
+* Prati semantiku Versioning compatible **(semver)**
 
     $> verdaccio
     
 
 ![registry](/svg/verdaccio_server.gif)
 
-## Using Verdaccio
+## Korišćenje Verdaccio-a
 
-Using verdaccio with any node package manager client is quite straightforward.
+Korišćenje verdaccio-a sa bilo kojim node package manager client je vrlo jasno određeno.
 
 ![registry](/svg/npm_install.gif)
 
