@@ -13,7 +13,7 @@ Apache et mod_proxy ne doivent pas décoder/encoder les barres obliques et doive
     </VirtualHost>
     
 
-### Configuration with SSL
+### Configuration avec SSL
 
 config.yaml
 
@@ -60,7 +60,7 @@ Pour résoudre le problème, vous devez envoyer le domaine réel et le port avec
 La configuration de Nginx devrait ressembler à ceci:
 
 ```nginx
-location / {
+ocation / {
     proxy_pass http://127.0.0.1:4873/;
     proxy_set_header Host            $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
