@@ -21,31 +21,31 @@ Korišćenje verdaccio-a sa bilo kojim node package manager client je vrlo jasno
 
 ![registry](/svg/npm_install.gif)
 
-You can use a custom registry either setting globally for all your projects
+Možete koristiti prilagođeni registry za sve svoje projekte bilo ako ga podesite na globalno
 
     npm set registry http://localhost:4873
     
 
-or by command line as argument `--registry` in npm (slightly different in yarn)
+ili preko command line kao argument `--registry` u npm (malo se razlikuje u odnosu na yarn)
 
     npm install lodash --registry http://localhost:4873
     
 
 ## Private
 
-All packages that you publish are private and only accessible based in your configuration.
+Svi paketi koje publikujete su podešeni kao privatni i dostupni su samo ako su tako konfigurisani.
 
 ## Proxy
 
-Verdaccio cache all dependencies by demand and speed up installations in local or private networks.
+Verdaccio kešira sve dependencies na zahtev i tako ubrzava instaliranje na lokalne ili privatne mreže.
 
-## Verdaccio in a nutshell
+## Verdaccio u kratkim crtama
 
-* It's a web app based on Node.js
-* It's a private npm registry
-* It's a local network proxy
-* It's a Pluggable application
-* It's a fairly easy install and use
+* To je web app bazirana na Node.js
+* To je privatni npm registry
+* To je lokalni network proxy
+* To je aplikacija koja podržava plugine
+* Prilično jednostavan za instaliranje i korišćenje
 * We offer Docker and Kubernetes support
 * It is 100% compatible with yarn, npm and pnpm
 * It was **forked** based on `sinopia@1.4.0` and 100% **backward compatible**.
