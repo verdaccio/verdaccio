@@ -12,13 +12,13 @@ Zaista se preporučuje da definišete prefiks za svoje privatne pakete, na prime
 
 Ako neki od paketa ne postoji u memoriji, server će pokušati da ga preuzme (fetch) sa npmjs.org. U slučaju da npmjs.org nije u funkciji, preuzeće se iz cache-a. Verdaccio će preuzeti samo ono što je neophodno (= ono što je klijent zatražin), i ta će informacija biti keširana, tako da u slučaju da klijent ponovo prosledi isti zahtev, preuzeće se bez aktivne potrebe za npmjs.org.
 
-Primer: ako ste jednom poslali zahtev za express@3.0.1sa ovog servera, bićete u mogućnosti da to uradite ponovo (sa svim potrebnim dependencies) kad god je npmjs.org van funkcije. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Primer: ako ste jednom poslali zahtev za express@3.0.1sa ovog servera, bićete u mogućnosti da to uradite ponovo (sa svim potrebnim dependencies) kad god je npmjs.org van funkcije. Ali, recimo, express@3.0.0 neće biti preuzet, sve dok ga neko ne potraži. I u slučaju da je npmjs.org offline, server će odgovoriti da je, na primer, samo express@3.0.1 dostupan (= samo onaj koji je u cache) i nijedan drugi.
 
 ## Override public packages
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+Ako želite da koristite modifikovanu verziju nekog javnog paketa `foo`, možete ga jednostavno publikovati na lokalnom serveru, tako da kada ukucate `npm install foo`, počeće da instalira Vašu verziju.
 
-There's two options here:
+Ovde postoje dve opcije:
 
 1. You want to create a separate fork and stop synchronizing with public version.
     
