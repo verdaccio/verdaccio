@@ -1,26 +1,26 @@
 ---
 id: windows
-title: "Installing As a Windows Service"
+title: "Instalirajte kao Windows Service"
 ---
-Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). I crafted the following and it provided me with a fully working verdaccio service installation:
+Ugrubo bazirano na uputstvima koja se mogu pronaći [ovde](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). Napravili smo primer verdaccio servis instalacije koja radi kao sat. Švajcarski:
 
-1. Create a directory for verdaccio 
+1. Kreirajte direktorijum za verdaccio 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
-2. Install verdaccio locally (I ran into npm issues with global installs) 
+2. Instalirajte verdaccio lokalno (događaju se problemi sa npm ako je instalacija globalna) 
     * npm install verdaccio
-3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
+3. Kreirajte svoj `config.yaml` falj na ovoj lokaciji `(c:\verdaccio\config.yaml)`
 4. Windows Service Setup
 
-## Using NSSM
+## Korišćenje NSSM
 
-ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
+ALTERNATIVNI METOD: (WinSW paket je nedostajao kada je jedan od naših saradnika pokušao da ga preuzme)
 
-* Download [NSSM](https://www.nssm.cc/download/) and extract
+* Preuzmite [NSSM](https://www.nssm.cc/download/) i ekstrakujte
 
-* Add the path that contains nssm.exe to the PATH
+* Dodajte putanju do nssm.exe u PATH
 
-* Open an administrative command
+* Otvorite administrative command
 
 * Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
     
