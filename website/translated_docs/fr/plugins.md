@@ -101,10 +101,10 @@ store:
 * [sinopia-mongodb](https://www.npmjs.com/package/sinopia-mongodb): un facile auth-plugin, entier, avec configuration pour utiliser une base de données mongodb.
 * [ sinopia-crowd ](https://www.npmjs.com/package/sinopia-htpasswd): plugin d'authentification pour sinopia qui prend en charge le format htpasswd.
 * [sinopia-leveldb](https://www.npmjs.com/package/sinopia-leveldb): plugin auth pris en charge par leveldb pour la synchronisation privée npm.
-* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): Gitlab authentication plugin for sinopia.
-* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
-* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
-* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin with github oauth web flow.
+* [sinopia-gitlabheres](https://www.npmjs.com/package/sinopia-gitlabheres): plugin d'authentification Gitlab pour sinopia.
+* [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): plugin d'authentification Gitlab pour sinopia
+* [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): plugin d'authentification LDAP pour sinopia.
+* [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) plugin d'authentification pour Sinopia avec une interface Web github oauth.
 
 > Tous les plugins de Sinopia devraient être compatibles avec toutes les futures versions de Verdaccio. Cependant, nous encourageons les contributeurs à les transférer vers l’API moderne de verdaccio et à utiliser le préfixe * verdaccio-xx-name *.
 
@@ -114,7 +114,7 @@ store:
 
 ### Plugins d'Autorisation
 
-* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
+* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): plugin d'authentification Bitbucket pour verdaccio.
 * [verdaccio-bitbucket-server](https://github.com/oeph/verdaccio-bitbucket-server): Bitbucket Server authentication plugin for verdaccio.
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
