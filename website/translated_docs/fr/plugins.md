@@ -126,7 +126,7 @@ store:
 
 ### Plugins Middleware
 
-* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
+* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): plugin verdaccio pour le support de *npm audit* (intégré) (compatible à partir de 3.x)
 
 * [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdacci plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
 
