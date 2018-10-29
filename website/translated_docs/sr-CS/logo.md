@@ -2,7 +2,7 @@
 id: logo
 title: "Verdaccio Logotype"
 ---
-The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbreno)** which won the [contest](https://github.com/verdaccio/verdaccio/issues/237) ([last stage](https://github.com/verdaccio/verdaccio/issues/328)) and donated his work to this project.
+Logotip je dizajnirao **[Breno Rodrigues](https://github.com/rodriguesbreno)** koji je osvojio [takmičenje](https://github.com/verdaccio/verdaccio/issues/237) ([završna faza](https://github.com/verdaccio/verdaccio/issues/328)) i donirao je svoj talenat našem projektu.
 
 > All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
