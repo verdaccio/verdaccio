@@ -59,12 +59,12 @@ Koristimo [Handlebars](https://handlebarsjs.com/) kao main template engine.
 Lista svojstava kojima se može pristupiti preko templata
 
 * Metadata
-* Publisher (who is publishing)
+* Publisher (onaj koji publikuje)
 * Package Published (package@1.0.0)
 
 ### Metadata
 
-Package metadata that the template has access
+Package metadata za koje templat ima pristup
 
     {
         "_id": "@test/pkg1",
@@ -117,9 +117,9 @@ Package metadata that the template has access
 
 ### Publisher
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+Možete pristupiti package publisher infomacijama u `content` u okviru webhook koristeći `publisher` objekat.
 
-See below the `publisher` object type:
+Pogledajte primer za `publisher` object type:
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+Primer:
 
     notify:
       method: POST
@@ -137,7 +137,7 @@ An example:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**Napomena:** Nije moguće dobiti publisher information ako `package.json` fajl već ima `publisher` svojstvo.
 
 ### Package Published
 
