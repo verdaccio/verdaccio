@@ -2,15 +2,15 @@
 id: notifikacije
 title: "Notifikacije"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
+Notifikacije su zamišljene da se koriste sa Slack's Incoming webhooks, ali takođe isporučuju simple payload do bilo koje endpoint. Trenutno je aktivno jedino za `npm publish` komandu.
 
-## Usage
+## Korišćenje
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+Na primer sa **HipChat**, **Stride** i **Google Hangouts Chat** hook:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio podržava svako API, slobodno dodajte još primera.
 
-#### Single notification
+#### Jedinstvena notifikacija
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Višestruka notifikacija
 
 ```yaml
 notify:
@@ -43,9 +43,9 @@ notify:
 
 ## Templat
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+Koristimo [Handlebars](https://handlebarsjs.com/) kao main template engine.
 
-### Format Examples
+### Primeri za formate
 
     # iterate all versions
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
@@ -56,7 +56,7 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 
 ### Svojstva (Properties)
 
-List of properties accesible via template
+Lista svojstava kojima se može pristupiti preko templata
 
 * Metadata
 * Publisher (who is publishing)
