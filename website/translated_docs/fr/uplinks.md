@@ -80,7 +80,7 @@ uplinks:
 ### Vous devez savoir
 
 * Verdaccio n'utilise plus l'authentification de base à partir de la version `v2.3.0`. Tous les jetons générés par verdaccio sont basés sur JWT ([jeton Web JSON](https://jwt.io/))
-* Les uplinks doivent être des registres compatibles avec les noeuds finaux `npm`. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
-* Setting `cache` to false will help to save space in your hard drive. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
-* Exceed with multiple uplinks might slow down the lookup of your packages due for each request a npm client does, verdaccio does 1 call for each uplink.
+* Les uplinks doivent être des registres compatibles avec les noeuds finaux `npm`. Par exemple: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* et autre.
+* En affectant false au paramètre `cache`, vous économiserez de l'espace sur le disque dur. Cela évitera de stocker les `tarballs`, mais [conservera les métadonnées dans les dossiers](https://github.com/verdaccio/verdaccio/issues/391).
+* Le dépassement avec plusieurs uplinks peut ralentir la recherche de vos packages car pour chaque demande transmise par un client npm, Verdaccio transmet à son tour un appel pour chaque uplink.
 * The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
