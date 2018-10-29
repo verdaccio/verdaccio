@@ -28,4 +28,4 @@ Ovde postoje dve opcije:
 
 2. Ako želite da svoju verziju samo privremeno, ali da se vratite na javnu čim se pojavi ažurirana.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    Kako biste izbegli konflikte sa verzijama, trebalo bi da koristite pre-release suffix sledeće patch verzije. Na primer, ako je javni paket verzije 0.1.2, možete upload-ovati 0.1.3-my-temp-fix. Na taj način paket koji koristite će opstati dok se ne pojavi javna verzija paketa 0.1.3.
