@@ -2,7 +2,7 @@
 id: use-cases
 title: "Use Cases"
 ---
-## Using private packages
+## Korišćenje privatnih paketa
 
 You can add users and manage which users can access which packages.
 
