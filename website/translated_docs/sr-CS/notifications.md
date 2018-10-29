@@ -141,18 +141,18 @@ Primer:
 
 ### Package Published
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+Možete pristupiti opciji package is being published pomoću ključe reči `{{publishedPackage}}` na sledeći način.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
 ## Konfigurisanje
 
-| Svojstvo            | Tip          | Neophodno | Podrška | Podrazumevano | Opis                                                                                         |
-| ------------------- | ------------ | --------- | ------- | ------------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | Ne        | all     |               | HTTP verb                                                                                    |
-| packagePattern      | string       | Ne        | all     |               | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | Ne        | all     |               | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Da        | all     |               | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Da        | all     |               | set the URL endpoint for this call                                                           |
-| content             | string       | Da        | all     |               | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Svojstvo            | Tip          | Neophodno | Podrška | Podrazumevano | Opis                                                                                           |
+| ------------------- | ------------ | --------- | ------- | ------------- | ---------------------------------------------------------------------------------------------- |
+| method              | string       | Ne        | all     |               | HTTP verb                                                                                      |
+| packagePattern      | string       | Ne        | all     |               | Pokreni ovu notifikaciju ako se ime paketa podudara sa regulernim izrazom (regular expression) |
+| packagePatternFlags | string       | Ne        | all     |               | Bilo koja zastavica (flags) koja će se koristiti sa regular expression                         |
+| headers             | array/object | Da        | all     |               | Ako endpoint zahteva specific headers, podesite ih ovde kao array of key: value objects.       |
+| endpoint            | string       | Da        | all     |               | podesite URL endpoint za ovaj poziv                                                            |
+| content             | string       | Da        | all     |               | bilo koji [Handlebar](https://handlebarsjs.com/) expressions                                   |
