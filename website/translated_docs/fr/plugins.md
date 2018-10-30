@@ -45,7 +45,7 @@ auth:
 
 #### Plugins d'authentification multiples
 
-Ceci est techniquement possible, en accordant de l'importance à l'ordre du plug-in, car les informations d'identification seront résolues dans l'ordre.
+Ceci est techniquement possible, en accordant de l'importance à l'ordre du plugin, car les informations d'identification seront résolues dans l'ordre.
 
 ```yaml
 auth:
