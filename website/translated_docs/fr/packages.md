@@ -46,7 +46,7 @@ La liste des groupes valides selon les plugins par défaut sont
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-Tous les utilisateurs reçoivent tous ces groupes d'autorisations, qu'ils soient anonymes ou non, plus les groupes fournis par le plug-in. Dans le cas `htpasswd`, rejetez le nom d'utilisateur en tant que groupe. Par exemple, si vous êtes connecté en tant que `npmUser`, la liste des noms sera.
+Tous les utilisateurs reçoivent tous ces groupes d'autorisations, qu'ils soient anonymes ou non, plus les groupes fournis par le plug-in. Dans le cas `htpasswd`, rejetez le nom d'utilisateur en tant que groupe. Par exemple, si vous êtes connectés en tant que `npmUser`, la liste des noms sera.
 
 ```js
 // groups without '$' are going to be deprecated eventually
