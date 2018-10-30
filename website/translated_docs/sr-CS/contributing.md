@@ -49,7 +49,7 @@ Mnogi saradnici imaju dar za pronalaženje grešaka u kucanju i gramatičkih gre
 
 Frontend našeg website <http://www.verdaccio.org/> bi bio jako srećan da vidi u usvoji neku od Vaših ideja.
 
-Inače. naš sajt je baziran na [Docusaurus](https://docusaurus.io/).
+Inače, naš sajt je baziran na [Docusaurus](https://docusaurus.io/).
 
 ### Ja sam DevOps
 
