@@ -1,6 +1,6 @@
 # Contributing to Verdaccio
 
-We are happy that you wish to contribute this project. For that reason, we
+We are happy that you wish to contribute to this project. For that reason, we
 present you with this guide.
 
 Additional information is available on the
