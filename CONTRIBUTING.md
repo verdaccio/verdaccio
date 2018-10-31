@@ -71,8 +71,9 @@ Some of the most popular topics can be found in our website(http://www.verdaccio
 
 ### Chat
 
-Questions can be asked in [gitter](https://gitter.im/verdaccio/)
-in the `#questions/#development` channel.
+Questions can be asked via [Discord](http://chat.verdaccio.org/)
+
+**Please use the `#questions#` and `#development` channels.**
 
 ### Check If It's Been Fixed
 
