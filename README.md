@@ -61,7 +61,8 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 
 ### E2E Testing
 
-Verdaccio has proved to be a lightweight registry that can be booted in couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in your dedicated article to E2E in our blog.
+Verdaccio has proved to be a lightweight registry that can be 
+booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in dedicated article to E2E in our blog.
 
 
 ## Get Started
@@ -176,16 +177,16 @@ Thanks to the following sponsors to help to achieve our goals providing us free 
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
 
-<a href="https://opencollective.com/verdaccio/sponsor/0/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/1/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/2/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/3/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/4/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/5/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/6/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/7/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/8/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/verdaccio/sponsor/9/website" target="_blank"><img src="https://opencollective.com/verdaccio/sponsor/9/avatar.svg"></a>
+[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
 
 ## Backers
 
