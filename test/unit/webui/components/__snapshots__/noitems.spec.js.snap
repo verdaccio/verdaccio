@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<NoItem /> component should set html from props 1`] = `"<div class=\\"noItems\\"><h2>This is a test string</h2></div>"`;
+exports[`<NoItem /> component should load the component in default state 1`] = `"<div class=\\"css-6ghnff e1ggl3im0\\"><h2></h2></div>"`;
+
+exports[`<NoItem /> component should set html from props 1`] = `"<div class=\\"css-6ghnff e1ggl3im0\\"><h2>This is a test string</h2></div>"`;
