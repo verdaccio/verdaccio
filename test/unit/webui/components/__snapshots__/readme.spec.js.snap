@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Readme /> component should dangerously set html 1`] = `"<div class=\\"markdown-body\\"><h1>This is a test string</h1></div>"`;
+
+exports[`<Readme /> component should load the component in default state 1`] = `"<div class=\\"markdown-body\\">test</div>"`;

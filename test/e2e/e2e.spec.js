@@ -136,7 +136,6 @@ describe('/ (Verdaccio Page)', () => {
     await packageItem.click({ clickCount: 1, delay: 200 });
     await page.waitFor(1000);
     const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
-
     expect(readmeText).toMatch('test');
   });
 

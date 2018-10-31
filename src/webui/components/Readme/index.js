@@ -1,15 +1,13 @@
+/**
+ * @prettier
+ * @flow
+ */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import 'github-markdown-css';
 
-const Readme = (props) => {
-  return <div className="markdown-body" dangerouslySetInnerHTML={{__html: props.readMe}}/>;
-};
+import { IProps } from './types';
 
-Readme.propTypes = {
-  readMe: PropTypes.string.isRequired
-};
+const Readme = ({ description }: IProps) => <div className="markdown-body" dangerouslySetInnerHTML={{ __html: description }} />;
 
 export default Readme;
