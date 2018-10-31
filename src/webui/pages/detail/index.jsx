@@ -68,7 +68,9 @@ export default class Detail extends Component {
 
     if (notFound) {
       return (
-        <NotFound pkg={this.packageName} />
+        <div className='container content'>
+          <NotFound pkg={this.packageName} />
+        </div>
       );
     } else if (isEmpty(readMe)) {
       return <Spinner centered />;
