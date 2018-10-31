@@ -9,7 +9,7 @@ import { fontWeight } from '../../utils/styles/sizes';
 import ellipsis from '../../utils/styles/ellipsis';
 
 import type { Node } from 'react';
-import { IProps } from './interfaces';
+import { IProps } from './types';
 
 const Wrapper = styled.span`
   font-weight: ${({ weight }) => fontWeight[weight]};

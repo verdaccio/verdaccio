@@ -17,12 +17,18 @@ describe('<Header /> component with logged in state', () => {
       handleLogout: jest.fn(),
       toggleLoginModal: jest.fn(),
       scope: 'test scope',
+      withoutSearch: true,
     };
     wrapper = mount(<Header {...props} />);
   });
 
   test('should load the component in logged in state', () => {
-    const state = { openInfoDialog: false, registryUrl: 'http://localhost' };
+    const state = {
+      openInfoDialog: false,
+      packages: undefined,
+      registryUrl: 'http://localhost',
+      showMobileNavBar: false,
+    };
     expect(wrapper.state()).toEqual(state);
     expect(wrapper.html()).toMatchSnapshot();
   });
@@ -53,12 +59,18 @@ describe('<Header /> component with logged out state', () => {
       handleLogout: jest.fn(),
       toggleLoginModal: jest.fn(),
       scope: 'test scope',
+      withoutSearch: true,
     };
     wrapper = mount(<Header {...props} />);
   });
 
   test('should load the component in logged out state', () => {
-    const state = { openInfoDialog: false, registryUrl: 'http://localhost' };
+    const state = {
+      openInfoDialog: false,
+      packages: undefined,
+      registryUrl: 'http://localhost',
+      showMobileNavBar: false,
+    };
     expect(wrapper.state()).toEqual(state);
     expect(wrapper.html()).toMatchSnapshot();
   });

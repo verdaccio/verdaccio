@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<Search /> component should match the snapshot 1`] = `"<form autoComplete=\\"off\\"><input type=\\"text\\" name=\\"search-box\\" placeholder=\\"Type to search...\\" class=\\"searchBox\\" autoComplete=\\"off\\"/></form>"`;

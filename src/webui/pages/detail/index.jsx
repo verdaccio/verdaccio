@@ -67,12 +67,14 @@ export default class Detail extends Component {
     const { notFound, readMe } = this.state;
 
     if (notFound) {
-      return <NotFound pkg={this.packageName} />;
+      return (
+        <NotFound pkg={this.packageName} />
+      );
     } else if (isEmpty(readMe)) {
       return <Spinner centered />;
     }
     return (
-      <div className={classes.twoColumn}>
+      <div className={`container content ${classes.twoColumn}`}>
         <PackageDetail readMe={readMe} packageName={this.packageName} />
         <PackageSidebar packageName={this.packageName} />
       </div>
