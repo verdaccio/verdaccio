@@ -119,10 +119,10 @@ information on [rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 Before committing, **you must ensure there are no linting errors and
 all tests pass.**
 
-To do this, run:
+To do this, run all tests (including e2e):
 
 ```bash
-yarn test
+yarn test:all
 ```
 
 Then, and only then, you can create your pull request.
