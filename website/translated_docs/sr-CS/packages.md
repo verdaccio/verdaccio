@@ -2,9 +2,9 @@
 id: packages
 title: "Package Access"
 ---
-Ovo je serija kontejnera koja dozvoljava ili zabranjuje pristup do ocal storage na osnovu specifično definisanih kriterijuma.
+Ovo je serija kontejnera koja dozvoljava ili zabranjuje pristup do local storage na osnovu specifično definisanih kriterijuma.
 
-Sigurnost pada na pleća plugina koji se koristi. Po pravilu, `verdaccio` koristi [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Ako koristite različit plugin, način izvršavanja (behaviour) bi takođe mogao biti promenjen. Podrazumevani plugin ne rukovodi (handle) sa `allow_access` i `allow_publish` samostalni, već koristi interni fallback u slučaju da ne postoji spremni plugin.
+Sigurnost pada na pleća plugina koji se koristi. Po pravilu, `verdaccio` koristi [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). Ako koristite različit plugin, način izvršavanja (behaviour) bi takođe mogao biti promenjen. Podrazumevani plugin ne rukovodi (handle) sa `allow_access` i `allow_publish` samostalno, već koristi interni fallback u slučaju da ne postoji spremni plugin.
 
 Za više informacija o dozvolama, posetite [authentification sekciju na wiki](auth.md).
 
@@ -78,7 +78,7 @@ Možete promeniti postojeći behaviour korišćenjem različite plugin autentifi
 
 #### Podešavanje multiplih grupa
 
-Definisanje multiple access groups ej relativno jednostavno, samo je potrebno da ih definišete sa razmakom između.
+Definisanje multiple access groups je relativno jednostavno, samo je potrebno da ih definišete sa razmakom između.
 
 ```yaml
   'company-*':
@@ -133,7 +133,7 @@ Hajde da vidimo šta smo postigli u navedenom primeru:
 * Želim sve dependencies koje su u `my-local-scope` ali ujedno želim da izbegnem njihovo proxying-ovanje.
 * Želim da proxying-ujem sve ostale dependencies.
 
-**Budite svesni toga da je redosled definisanja Vaših paketa važno i jo nešto, uvek koristite double wilcard**. Jer ako ne uključite to, `verdaccio` će to učiniti umesto Vas, što će uticati Vaše dependencies.
+**Budite svesni toga da je redosled definisanja Vaših paketa važan i još nešto, uvek koristite double wilcard**. Jer ako ne budete toga svesni, `verdaccio` će to učiniti umesto Vas, što će uticati Vaše dependencies.
 
 ### Konfigurisanje
 
@@ -142,8 +142,8 @@ Možete definisati mutiple `packages` pri čemu svaki od njih mora imati jedinst
 | Svojstvo | Tip     | Potrebno | Primer         | Podrška | Opis                                              |
 | -------- | ------- | -------- | -------------- | ------- | ------------------------------------------------- |
 | access   | string  | No       | $all           | all     | definiše grupe kojima je dozvoljen pristup paketu |
-| publish  | string  | No       | $authenticated | all     | definiše grupe kojima je dozvoljen o da publikuju |
+| publish  | string  | No       | $authenticated | all     | definiše grupe kojima je dozvoljeno da publikuju  |
 | proxy    | string  | No       | npmjs          | all     | limitira look ups za specifični uplink            |
 | storage  | boolean | No       | [true,false]   | all     | TODO                                              |
 
-> Naglašavamo da ne preporučujemo da i dalje koristite **allow_access**/**allow_publish** i **proxy_access**, jer će nevedene uskoro biti uklonjene. Molimo Vas da umesto toga koristite skraćene verzije (**access**/**publish**/**proxy**).
+> Naglašavamo da ne preporučujemo da i dalje koristite **allow_access**/**allow_publish** i **proxy_access**, jer će navedene uskoro biti uklonjene. Molimo Vas da umesto toga koristite skraćene verzije (**access**/**publish**/**proxy**).
