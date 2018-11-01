@@ -26,7 +26,7 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Jedini opcioni su `adduser`, `allow_access` i `allow_publish` i verdaccio omogućava a fallback u svim navedenim slučajevima.
+> Jedini opcioni su `adduser`, `allow_access` i `allow_publish` i verdaccio omogućava fallback u svim navedenim slučajevima.
 
 #### Callback
 
@@ -116,7 +116,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Kako bismo registrovali middleware, potreban nam je objekar sa jedinstvenim metodom zvanim `register_middlewares` koji će primiti 3 argumenta (`expressApp, auth, storage`). *Auth* je instanca za autentifikaciju, a *storage* je takođe glavna instanca za Storage koja će Vam dati pristup svim akcijama koje se odnose na storage.
+Kako bismo registrovali middleware, potreban nam je objekat sa jedinstvenim metodom zvanim `register_middlewares` koji će primiti 3 argumenta (`expressApp, auth, storage`). *Auth* je instanca za autentifikaciju, a *storage* je takođe glavna instanca za Storage koja će Vam dati pristup svim akcijama koje se odnose na storage.
 
 ## Storage Plugin
 
