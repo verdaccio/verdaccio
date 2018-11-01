@@ -66,11 +66,11 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio -p 4873:4873 \
   verdaccio/verdaccio
 ```
 
-> Napomena: Verdaccio radi kao non-root user (uid=100, gid=101) unutar container-a. Ako koristite bind mount da pregazite zadate postavke (override), onda norate da dodelite mount directory pravom korisniku. U navedenom primeru, morate da pokrenete `sudo chown -R 100:101 /opt/verdaccio`, u suprotnom ćete dobiti permission errors u runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) je preporučeno umesto korišćenja bind mount.
+> Napomena: Verdaccio radi kao non-root user (uid=100, gid=101) unutar container-a. Ako koristite bind mount da pregazite zadate postavke (override), onda morate da dodelite mount directory pravom korisniku. U navedenom primeru, morate da pokrenete `sudo chown -R 100:101 /opt/verdaccio`, u suprotnom ćete dobiti permission errors u runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) je preporučeno umesto korišćenja bind mount.
 
 ### Plugins
 
-Plugins se mogu instalirati u posebnom direktorijumu i mountovati korišćenjem Docker-a ili Kubernetes. Ipak, postarajte se da build plugins sa native dependencies korišćenjem iste base image kao Verdaccio Dockerfile-a.
+Plugins se mogu instalirati u posebnom direktorijumu i mountovati korišćenjem Docker-a ili Kubernetes. Ipak, postarajte se da "build" plugins sa native dependencies korišćenjem iste base image kao Verdaccio Dockerfile-a.
 
 ### Docker i custom port konfiguracija
 
@@ -130,7 +130,7 @@ Docker će napraviti imenovani volume u kome će se čuvati podaci za aplikaciju
 docker build -t verdaccio .
 ```
 
-Postoji takođe i npm script za building docker image-a, tako da možere da zadate i ovako:
+Postoji takođe i npm script za building docker image-a, tako da možete da zadate i ovako:
 
 ```bash
 npm run build:docker
@@ -144,7 +144,7 @@ Ako želite da koristite docker image na rpi ili kompatibilnom uređaju, postoji
 npm run build:docker:rpi
 ```
 
-Primite k znanju da za svaku docker komandu morate imati na svojoj mašini instaliran docker zajedno executable koja mora biti dostuna na `$PATH`.
+Primite k znanju da za svaku docker komandu morate imati na svojoj mašini instaliran docker zajedno sa docker executable koja mora biti dostuna na `$PATH`.
 
 ## Docker Primeri
 
