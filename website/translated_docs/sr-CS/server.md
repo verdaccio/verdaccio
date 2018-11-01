@@ -44,7 +44,7 @@ Prvo instalirajte forever globalno:
 $ sudo npm install -g forever
 ```
 
-Proverite da li ste pokrenuli verdaccio barem jednom kako biste generisali config fajl i zabeležio kreiranod admin korisnika. Posle toga, možete koristiti sledeću komandu kako biste pokrenuli verdaccio:
+Proverite da li ste pokrenuli verdaccio barem jednom kako biste generisali config fajl i upišete admin korisnika. Posle toga, možete koristiti sledeću komandu kako biste pokrenuli verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
@@ -60,7 +60,7 @@ Možemo istovremeno koristiti crontab i forever kako bismo restartovali verdacci
 $ crontab -e
 ```
 
-Moguće je da ćete dobiti pitane da odaberete editor. Odaberite svoj omiljeni i nastavite. Unesite sledeći input u fajl:
+Moguće je da ćete dobiti pitanje da odaberete editor. Odaberite svoj omiljeni i nastavite. Unesite sledeći input u fajl:
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
