@@ -28,7 +28,7 @@ Možete definisati više uplinks-a, a svaki od njih mora imati jedinstveno ime (
 | Svojstvo            | Tip     | Potrebno | Primer                                 | Podrška | Opis                                                                                                                               | Podrazumevano     |
 | ------------------- | ------- | -------- | -------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | url                 | string  | Da       | https://registry.npmjs.org/            | potpuna | Url registry-a                                                                                                                     | npmjs             |
-| ca                  | string  | Ne       | ~./ssl/client.crt'                     | potpuna | Put to SSL certifikata                                                                                                             | Nema ništa zadato |
+| ca                  | string  | Ne       | ~./ssl/client.crt'                     | potpuna | Put do SSL certifikata                                                                                                             | Nema ništa zadato |
 | timeout             | string  | Ne       | 100ms                                  | potpuna | podesite novi timeout za request                                                                                                   | 30s               |
 | maxage              | string  | Ne       | 10m                                    | potpuna | limitira maksimalni broj neuspelih zahteva                                                                                         | 2m                |
 | fail_timeout        | string  | Ne       | 10m                                    | potpuna | definiše maksimalno vreme nakon kojeg zahtev postaje neuspešan                                                                     | 5m                |
@@ -42,9 +42,16 @@ Možete definisati više uplinks-a, a svaki od njih mora imati jedinstveno ime (
 
 Svojstvo `auth` Vam omogućava da koristite auth token sa uplink. Koristite podrazumevanu environment variablu:
 
+```yaml
+uplinks:
+  private:
+    url: https://private-registry.domain.com/registry
+    auth:
+      type: bearer
+      token_env: true # defaults to `process.env['NPM_TOKEN']`   
+```
+
 ili preko definisane environment variable:
-=======
-or via a specified environment variable:
 
 ```yaml
 uplinks:
