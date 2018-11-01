@@ -10,7 +10,7 @@ Zaista se preporučuje da definišete prefiks za svoje privatne pakete, na prime
 
 ## Korišćenje javnih paketa sa npmjs.org
 
-Ako neki od paketa ne postoji u memoriji, server će pokušati da ga preuzme (fetch) sa npmjs.org. U slučaju da npmjs.org nije u funkciji, preuzeće se iz cache-a. Verdaccio će preuzeti samo ono što je neophodno (= ono što je klijent zatražin), i ta će informacija biti keširana, tako da u slučaju da klijent ponovo prosledi isti zahtev, preuzeće se bez aktivne potrebe za npmjs.org.
+Ako neki od paketa ne postoji u memoriji, server će pokušati da ga preuzme (fetch) sa npmjs.org. U slučaju da npmjs.org nije u funkciji, preuzeće se iz cache-a. Verdaccio će preuzeti samo ono što je neophodno (= ono što je klijent zatražio), i ta će informacija biti keširana, tako da u slučaju da klijent ponovo prosledi isti zahtev, preuzeće se bez aktivne potrebe za npmjs.org.
 
 Primer: ako ste jednom poslali zahtev za express@3.0.1sa ovog servera, bićete u mogućnosti da to uradite ponovo (sa svim potrebnim dependencies) kad god je npmjs.org van funkcije. Ali, recimo, express@3.0.0 neće biti preuzet, sve dok ga neko ne potraži. I u slučaju da je npmjs.org offline, server će odgovoriti da je, na primer, samo express@3.0.1 dostupan (= samo onaj koji je u cache) i nijedan drugi.
 
