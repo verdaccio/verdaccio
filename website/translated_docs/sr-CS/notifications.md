@@ -8,7 +8,7 @@ Notifikacije su zamišljene da se koriste sa Slack's Incoming webhooks, ali tako
 
 Na primer sa **HipChat**, **Stride** i **Google Hangouts Chat** hook:
 
-> Verdaccio podržava svako API, slobodno dodajte još primera.
+> Verdaccio podržava svaki API, slobodno dodajte još primera.
 
 #### Jedinstvena notifikacija
 
@@ -151,7 +151,7 @@ Možete pristupiti opciji package is being published pomoću ključe reči `{{pu
 | Svojstvo            | Tip          | Neophodno | Podrška | Podrazumevano | Opis                                                                                           |
 | ------------------- | ------------ | --------- | ------- | ------------- | ---------------------------------------------------------------------------------------------- |
 | method              | string       | Ne        | all     |               | HTTP verb                                                                                      |
-| packagePattern      | string       | Ne        | all     |               | Pokreni ovu notifikaciju ako se ime paketa podudara sa regulernim izrazom (regular expression) |
+| packagePattern      | string       | Ne        | all     |               | Pokreni ovu notifikaciju ako se ime paketa podudara sa regularnim izrazom (regular expression) |
 | packagePatternFlags | string       | Ne        | all     |               | Bilo koja zastavica (flags) koja će se koristiti sa regular expression                         |
 | headers             | array/object | Da        | all     |               | Ako endpoint zahteva specific headers, podesite ih ovde kao array of key: value objects.       |
 | endpoint            | string       | Da        | all     |               | podesite URL endpoint za ovaj poziv                                                            |
