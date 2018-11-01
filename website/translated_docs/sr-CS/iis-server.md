@@ -5,8 +5,8 @@ title: "Instaliranje na IIS server"
 Navedene instrukcije su pisane za Windows Server 2012, IIS 8, [Node.js 0.12.3](https://nodejs.org/), [iisnode 0.2.16](https://github.com/tjanczuk/iisnode) i [verdaccio 2.1.0](https://github.com/verdaccio/verdaccio).
 
 - Install IIS Install [iisnode](https://github.com/tjanczuk/iisnode). Postarajte se da ste instalirali (Url Rewrite Module & node) kao što je objašnjeno u uputstvima za iisnode.
-- Napravite novi folder u Explorer-, koji će biti host za verdaccio. Na primer `C:\verdaccio`. Usnimite [package.json](#packagejson), [start.js](#startjs) i [web.config](#webconfig) u ovaj folder.
-- Napravite noci sajt u Internet Information Services Manager. Možete ga nazvati kako Vam je volja. Zvaćemo ga verdaccio u ovim [instrukcijama](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Odredite path gde ćete snimiti sve fajlove i broj porta.
+- Napravite novi folder u Explorer-u, koji će biti host za verdaccio. Na primer `C:\verdaccio`. Usnimite [package.json](#packagejson), [start.js](#startjs) i [web.config](#webconfig) u ovaj folder.
+- Napravite novi sajt u Internet Information Services Manager. Možete ga nazvati kako Vam je volja. Zvaćemo ga verdaccio u ovim [instrukcijama](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Odredite path gde ćete snimiti sve fajlove i broj porta.
 - Vratite se u Explorer i u okviru foldera koji ste upravo kreirali dodelite prava korisniku koji pokreće application pool. Ako ste imenovali novi sajt kao verdaccio i niste promenili app pool, on radi pod ApplicationPoolIdentity i trebalo bi da dodelite prava korisniku, IIS AppPool\verdaccio modify rights, pogledajte instrukcije ako Vam je potrebna pomoć. (Kasnije ako poželite, možete ograničiti pristup, tako da prava ostaju promenjena samo za iisnode i verdaccio\storage)
 - Pokrenite command prompt i izvršite komande navedene ispod kako biste preuzeli verdaccio:
 
@@ -99,5 +99,5 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 
 ### Problemi (Troubleshooting)
 
-- **Web interfejs se ne učitava kada se hostovan sa https pošto pokušava da preuzme skripte preko http.**  
+- **Web interfejs se ne učitava kada je hostovan sa https pošto pokušava da preuzme skripte preko http.**  
     Proverite da li ste ispravno uneli `url_prefix` u verdaccio config. Pratite [discussion](https://github.com/verdaccio/verdaccio/issues/622).
