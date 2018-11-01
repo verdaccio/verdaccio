@@ -4,7 +4,7 @@ title: "Autentifikacija"
 ---
 Autentifikacija je vezana za auth [plugin](plugins.md) koji koristite. Ograničenja paketa su definisana preko [Package Access](packages.md).
 
-Autentifikaciju klijenta vrši sam klijent putem `npm`. Nakon prijave na alikaciju:
+Autentifikaciju klijenta vrši sam `npm` klijent. Nakon prijave na alikaciju:
 
 ```bash
 npm adduser --registry http://localhost:4873
