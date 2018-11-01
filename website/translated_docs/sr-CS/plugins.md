@@ -14,7 +14,7 @@ Verdaccio je aplikacija koja podržava plugine. Može se proširivati na mnogo n
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` je sinopia fork i poseduje backward compability sa pluginima koji su kompatibilni sa `sinopia@1.4.0`. Utom slučaju, instalacija je potpuno ista.
+`verdaccio` je sinopia fork i poseduje backward compability sa pluginima koji su kompatibilni sa `sinopia@1.4.0`. U tom slučaju, instalacija je potpuno ista.
 
     $> npm install --global sinopia-memory
     
