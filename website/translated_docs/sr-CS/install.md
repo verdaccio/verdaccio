@@ -2,7 +2,7 @@
 id: instalacija
 title: "Instalacija"
 ---
-Verdaccio je multi-platformna web aplikacija. Da biste je instalirali, potrebno je da imate ispunite nekoliko preduslova.
+Verdaccio je multi-platformna web aplikacija. Da biste je instalirali, potrebno je da ispunite nekoliko preduslova.
 
 #### Preduslovi
 
