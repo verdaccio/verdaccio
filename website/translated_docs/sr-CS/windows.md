@@ -22,7 +22,7 @@ ALTERNATIVNI METOD: (WinSW paket je nedostajao kada je jedan od naših saradnika
 
 * Otvorite administrative command
 
-* Pokrenite nssm install verdaccio Kao minimum, morate popuniti polja: Application tab Path, Startup directory i Arguments. Ako pretpostavimo da ste instalirali sa node u system path na lokaciju c:\verdaccio trebalo bi da funkcioniše:
+* Pokrenite nssm install verdaccio. Kao minimum, morate popuniti polja: Application tab Path, Startup directory i Arguments. Ako pretpostavimo da ste instalirali sa node u system path na lokaciju c:\verdaccio trebalo bi da funkcioniše:
     
     * Path: `node`
     * Startup directory: `c:\verdaccio`
