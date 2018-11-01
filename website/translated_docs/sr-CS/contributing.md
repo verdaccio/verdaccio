@@ -2,7 +2,7 @@
 id: doprinošenje
 title: "Doprinošenje Verdaccio-u"
 ---
-First of all Plivanje u vodama nepoznatog koda nije lako ali, mi smo tu da Vam pomognemo.
+First of all Plivanje u vodama nepoznatog koda nije lako, ali, mi smo tu da Vam pomognemo.
 
 ## Kanali za komunikaciju
 
@@ -20,7 +20,7 @@ Svi mi posedujemo različite veštine, hajde da otkrijemo gde je kome udobno.
 
 ### Znam ili želim da naučim Node.js
 
-Node.js je osnova `verdaccio`. Koristimo biblioteke kao `express`, `commander`, `request` ili `async`. Verdaccio je praktično Rest API koji uspostavlja komunikaciju sa `npm` klijent-kompatibilnim, kao što je `yarn`.
+Node.js je osnova `verdaccio`. Koristimo biblioteke kao na primer `express`, `commander`, `request` ili `async`. Verdaccio je praktično Rest API koji uspostavlja komunikaciju sa `npm` klijent-kompatibilnim, kao što je `yarn`.
 
 Imamo dugačku [listu plugina](plugins.md) spremnu da se koristi i istovremeno unapređuje, a ko zna, [možda se odlučite da napravite i svoj Plugin](dev-plugins.md).
 
