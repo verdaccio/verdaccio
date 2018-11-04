@@ -10,11 +10,11 @@ Il est conseillé de définir un préfixe pour les paquets privés, par exemple 
 
 ## Utilisation des paquets publics à partir de npmjs.org
 
-Si un package n'existe dans l'archive, le serveur essaiera de le récupérer à partir de npmjs.org. Si npmjs.org ne fonctionne pas, il ne fournira les packages mis en cache que s'il n'y avait pas d'autres packages. Verdaccio ne téléchargera que ce qui est requis (= requis par les clients), et ces informations seront mises en cache. Ainsi, si le client demande la même chose une seconde fois, il peut être satisfait sans avoir à demander à npmjs.org.
+Si un paquet n'existe pas dans l'archive, le serveur essaiera de le récupérer à partir de npmjs.org. Si npmjs.org ne fonctionne pas, il ne fournira les paquets mis en cache que s'il n'y avait pas d'autres paquets. Verdaccio ne téléchargera que ce qui est requis (= requis par les clients), et ces informations seront mises en cache. Ainsi, si le client demande la même chose une seconde fois, il peut être servi sans avoir à demander à npmjs.org.
 
-Exemple: si vous effectuez avec succès une requête express@3.0.1 une fois sur ce serveur, vous pouvez le faire à nouveau (avec toutes ses dépendances) à tout moment, même si npmjs.org ne fonctionne pas. Mais disons qu'express@3.0.0 ne sera pas téléchargé avant que ce soit réellement nécessaire pour quelqu'un. Et si npmjs.org était hors ligne, ce serveur indiquerait que seule la valeur express@3.0.1 (= uniquement ce qui est dans le cache) serait publiée, mais rien d'autre.
+Exemple: si vous effectuez avec succès une requête express@3.0.1 une fois sur ce serveur, vous pouvez le faire à nouveau (avec toutes ses dépendances) à tout moment, même si npmjs.org ne fonctionne pas. Mais disons qu'express@3.0.0 ne sera pas téléchargé avant que ce soit réellement nécessaire pour quelqu'un. Et si npmjs.org était hors ligne, ce serveur indiquerait que seule la valeur express@3.0.1 (= uniquement ce qui est dans le cache) sera publiée, mais rien d'autre.
 
-## Annuler les paquets publics
+## Annuler les paquets publiques
 
 Si vous souhaitez utiliser une version modifiée d'un paquet public`foo`, vous ne pouvez le publier que sur votre serveur local. Par conséquent, si vous écrivez `npm install foo`, cette version sera installée.
 
