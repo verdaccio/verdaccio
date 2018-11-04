@@ -50,7 +50,7 @@ Assurez-vous que vous avez démarré au moins une fois verdaccio pour générer 
 $ forever start `which verdaccio`
 ```
 
-Vous pouvez consultez la documentation pour plus d'informations sur l'utilisation forever.
+Vous pouvez consulter la documentation pour plus d'informations sur l'utilisation forever.
 
 ## Surviving server restarts
 
