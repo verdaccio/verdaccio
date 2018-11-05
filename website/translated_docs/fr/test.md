@@ -131,4 +131,4 @@ En utilisant ces références, vous pourrez envoyer des requêtes à chacune des
 
 ### Test/integration
 
-Cette section n'a jamais été utilisée, mais nous recherchons de l'aide pour le faire fonctionner correctement. **Toute nouvelle idée est la bienvenue.**
+Cette section n'a jamais été utilisée, mais nous recherchons de l'aide pour la faire fonctionner correctement. **Toute nouvelle idée est la bienvenue.**
