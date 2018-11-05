@@ -4,9 +4,9 @@ title: "Protection des paquets"
 ---
 `verdaccio` vous permet de protéger la publication. Pour ce faire, il est nécessaire de configurer correctement le [package acces](packages).
 
-### Configuration du package
+### Configuration du paquet
 
-Voyons, par exemple, la configuration suivante. Vous avez une série de dépendances préfixés par `my-company - *` et vous devez les protéger contre les utilisateurs anonymes ou contre les autres utilisateurs connectés sans informations d'identification correctes.
+Voyons, par exemple, la configuration suivante. Vous avez une série de dépendances préfixées par `my-company - *` et vous devez les protéger contre les utilisateurs anonymes ou contre les autres utilisateurs connectés sans informations d'identification correctes.
 
 ```yaml
   'my-company-*':
