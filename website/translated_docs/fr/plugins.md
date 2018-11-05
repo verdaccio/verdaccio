@@ -119,7 +119,7 @@ store:
 * [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): plugin d'authentification LDAP pour verdaccio.
 * [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): plugin d'authentifiation Active Directory pour verdaccio
 * [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): utilisez les Jetons d'Accès Personnel GitLab pour votre authentification
-* [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): permettre GitLab CI d'authentifier contre verdaccio.
+* [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): permettre à GitLab CI d'authentifier contre verdaccio.
 * [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): authentification basée sur le plugin du fichier htpasswd (built-in) pour verdaccio
 * [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): plugin d'authentification Github oauth pour verdaccio.
 * [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): plugin de Github OAuth pour le boutton de connexion de verdaccio.
