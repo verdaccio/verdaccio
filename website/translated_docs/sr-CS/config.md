@@ -1,14 +1,14 @@
 ---
-id: configuration
-title: "Configuration File"
+id: konfigurisanje
+title: "Fajl za konfigurisanje"
 ---
-This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
+Ovaj fajl je osnova verdaccio-a. U okviru njega, možete vršiti izmene zadatih podešavanja, možete aktivirati plugin-e i spoljašnje resurse (features).
 
-A default configuration file is created the very first time you run `verdaccio`.
+Fajl "default configuration file" se kreira prilikom prvog pokretanja `verdaccio-a`.
 
-## Default Configuration
+## Podrazumevane postavke (Default Configuration)
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Podrazumevane postavke podržavaju **scoped** pakete za sve korisnike, ali samo **autorizovanim korisnicima omogućavaju da publikuju**.
 
 ```yaml
 storage: ./storage
@@ -29,13 +29,13 @@ logs:
   - {type: stdout, format: pretty, level: http}
 ```
 
-## Sections
+## Sekcije
 
-The following sections explain what each property means and the different options.
+Sekcija u nastavku daje objašnjenja za svako svojstvo i opciju.
 
-### Storage
+### Memorija za skladištenje
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Je lokacija na kojoj se vrši skladištenje podataka. **Verdaccio je inicijalno podešen kao local file system**.
 
 ```yaml
 storage: ./storage
@@ -43,15 +43,15 @@ storage: ./storage
 
 ### Plugins
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Je lokacija plugin directorijuma. Ovo je korisno za deployment baiziran na Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
 ```
 
-### Authentification
+### Autentifikacija
 
-The authentification set up is done here, the default auth is based on `htpasswd` and is built-in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
+Ovde se vrši podešavanje (set up). Podrazumevana auth je bazirana na `htpasswd` i već je ugrađena. Možete izvršiti modifikacije načina rada (behaviour) putem [plugin-a](plugins.md). Za više informacija o ovoj sekciji pročitajte [auth stranu](auth.md).
 
 ```yaml
 auth:
@@ -60,9 +60,9 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Web UI (korisnički interfejs)
 
-This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Ovo svojstvo Vam omogućava da steknete uvid u web UI. Za više informacija o ovoj sekciji, pročitajte [web ui stranicu](web.md).
 
 ```yaml
 web:
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks pružaju mogućnost sistemu da hvata (fetch) pakete iz udaljenih registrija ako ti paketi nisu lokalno dostupni. Za više informacija o ovoj sekciji pročitajte na [uplinks stranici](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Paketi
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Paketi (packages) daju mogućnost korisnicima da kontrolišu kako će se pristupati paketima. Za više detalja o ovoj sekciji, pročitajte [packages stranicu](packages.md).
 
 ```yaml
 packages:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Napredna podešavanja
 
-### Offline Publish
+### Publikovanje offline
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+Prema zadatim podešavanjima, `verdaccio` ne dozvoljava publikovanje onda kada je klijent offline. Takav način rada (behavior), može da se promeni ako se ovo iz primera podesi na *true*.
 
 ```yaml
 publish:
@@ -115,9 +115,9 @@ url_prefix: https://dev.company.local/verdaccio/
 
 Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
-### Max Body Size
+### Maksimalna veličina body sekcije dokumenta
 
-By default the maximum body size for a JSON document is `10mb`, if you run in errors as `"request entity too large"` you may increase this value.
+Prema zadatim podešavanjima, maksimalna veličina za body JSON dokumenta je `10mb`. Ako dobijete grešku `"request entity too large"` mogli biste da povećate ovu vrednost.
 
 ```yaml
 max_body_size: 10mb
@@ -125,21 +125,21 @@ max_body_size: 10mb
 
 ### Listen Port
 
-`verdaccio` runs by default in the port `4873`. Changing the port can be done via [cli](cli.md) or in the configuration file, the following options are valid.
+`verdaccio` prema "fabričkim podešavanjima" radi na portu `4873`. Izmena porta se može obaviti preko [cli](cli.md) ili direktno u fajlu za konfigurisanje pri čemu su sledeće opcije validne:
 
 ```yaml
 listen:
-# - localhost:4873            # default value
-# - http://localhost:4873     # same thing
-# - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
-# - https://example.org:4873  # if you want to use https
+# - localhost:4873            # podrazumevano
+# - http://localhost:4873     # apsolutno isto
+# - 0.0.0.0:4873              # listen na svim adresama (INADDR_ANY)
+# - https://example.org:4873  # ako želite da koristite https
 # - "[::1]:4873"                # ipv6
 # - unix:/tmp/verdaccio.sock    # unix socket
 ```
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
+Kako biste omogućili `https` u`verdaccio` dovoljno je da podesite `listen` flag sa protokolom *https://*. Više detalja možete naći na [ssl stranici](ssl.md).
 
 ```yaml
 https:
@@ -150,11 +150,11 @@ https:
 
 ### Proxy
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies su HTTP serveri posebne namene dizajnirani da prenose podatke od udaljenih servera do lokalnih klijenata.
 
-#### http_proxy and https_proxy
+#### http_proxy i https_proxy
 
-If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties.
+Ako imate proxy u svojoj mreži, možete podesiti `X-Forwarded-For` header koristeći sledeće unose za svojstva (properties).
 
 ```yaml
 http_proxy: http://something.local/
@@ -163,15 +163,15 @@ https_proxy: https://something.local/
 
 #### no_proxy
 
-This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+Ova varijabla bi trebalo da sadrži comma-separated listu ekstenzija domena za koju proxy ne bi trebalo da se koristi.
 
 ```yaml
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Notifikacije
 
-Enabling notifications to third-party tools is fairly easy via web hooks. For more information about this section read the [notifications page](notifications.md).
+Dozvoljavanje notifikacija za alate napravljene od strane trećih lica je relativno jednostavno uz pomoć web hooks. Za više informacija o ovoj temi, pročitajte [notifications stranicu](notifications.md).
 
 ```yaml
 notify:
@@ -181,15 +181,15 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> Za detaljnije opcije podešavanja, molimo Vas da [pogledate source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Audit (revizija)
 
-<small>Since: <code>verdaccio@3.0.0</code></small>
+<small>Počevši od: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` je nova komanda koja je uvedena u [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio, a koja uključuje ugrađeni middleware plugin bez koga je nemoguće izvršiti datu komandu.
 
-> If you have a new installation it comes by default, otherwise you need to add the following props to your config file
+> Ako imate novu instalaciju, sve je već uključeno u okviru nje. U suprotnom, treba da dodate navedene props u Vaš config fajl
 
 ```yaml
 middlewares:

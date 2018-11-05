@@ -1,16 +1,16 @@
 ---
-id: notifications
-title: "Notifications"
+id: notifikacije
+title: "Notifikacije"
 ---
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. Currently only active for `npm publish` command.
+Notifikacije su zamišljene da se koriste sa Slack's Incoming webhooks, ali takođe isporučuju simple payload do bilo koje endpoint. Trenutno je aktivno jedino za `npm publish` komandu.
 
-## Usage
+## Korišćenje
 
-An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
+Na primer sa **HipChat**, **Stride** i **Google Hangouts Chat** hook:
 
-> Verdaccio supports any API, feel free to ad more examples.
+> Verdaccio podržava svaki API, slobodno dodajte još primera.
 
-#### Single notification
+#### Jedinstvena notifikacija
 
 ```yaml
 notify:
@@ -20,7 +20,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Višestruka notifikacija
 
 ```yaml
 notify:
@@ -41,11 +41,11 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'     
 ```
 
-## Template
+## Templat
 
-We use [Handlebars](https://handlebarsjs.com/) as main template engine.
+Koristimo [Handlebars](https://handlebarsjs.com/) kao main template engine.
 
-### Format Examples
+### Primeri za formate
 
     # iterate all versions
     {{ name }}{{#each versions}} v{{version}}{{/each}}`"}
@@ -54,17 +54,17 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-### Properties
+### Svojstva (Properties)
 
-List of properties accesible via template
+Lista svojstava kojima se može pristupiti preko templata
 
 * Metadata
-* Publisher (who is publishing)
+* Publisher (onaj koji publikuje)
 * Package Published (package@1.0.0)
 
 ### Metadata
 
-Package metadata that the template has access
+Package metadata za koje templat ima pristup
 
     {
         "_id": "@test/pkg1",
@@ -117,9 +117,9 @@ Package metadata that the template has access
 
 ### Publisher
 
-You can access to the package publisher information in the `content` of a webhook using the `publisher` object.
+Možete pristupiti package publisher infomacijama u `content` u okviru webhook koristeći `publisher` objekat.
 
-See below the `publisher` object type:
+Pogledajte primer za `publisher` object type:
 
     {
       name: string,
@@ -128,7 +128,7 @@ See below the `publisher` object type:
     }
     
 
-An example:
+Primer:
 
     notify:
       method: POST
@@ -137,22 +137,22 @@ An example:
       content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
     
 
-**Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
+**Napomena:** Nije moguće dobiti publisher information ako `package.json` fajl već ima `publisher` svojstvo.
 
 ### Package Published
 
-You can acces to the package is being published with the keyword `{{publishedPackage}}` as follows.
+Možete pristupiti opciji package is being published pomoću ključe reči `{{publishedPackage}}` na sledeći način.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     
 
-## Configuration
+## Konfigurisanje
 
-| Property            | Type         | Required | Support | Default | Description                                                                                  |
-| ------------------- | ------------ | -------- | ------- | ------- | -------------------------------------------------------------------------------------------- |
-| method              | string       | No       | all     |         | HTTP verb                                                                                    |
-| packagePattern      | string       | No       | all     |         | Only run this notification if the package name matches the regular expression                |
-| packagePatternFlags | string       | No       | all     |         | Any flags to be used with the regular expression                                             |
-| headers             | array/object | Yes      | all     |         | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string       | Yes      | all     |         | set the URL endpoint for this call                                                           |
-| content             | string       | Yes      | all     |         | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Svojstvo            | Tip          | Neophodno | Podrška | Podrazumevano | Opis                                                                                           |
+| ------------------- | ------------ | --------- | ------- | ------------- | ---------------------------------------------------------------------------------------------- |
+| method              | string       | Ne        | all     |               | HTTP verb                                                                                      |
+| packagePattern      | string       | Ne        | all     |               | Pokreni ovu notifikaciju ako se ime paketa podudara sa regularnim izrazom (regular expression) |
+| packagePatternFlags | string       | Ne        | all     |               | Bilo koja zastavica (flags) koja će se koristiti sa regular expression                         |
+| headers             | array/object | Da        | all     |               | Ako endpoint zahteva specific headers, podesite ih ovde kao array of key: value objects.       |
+| endpoint            | string       | Da        | all     |               | podesite URL endpoint za ovaj poziv                                                            |
+| content             | string       | Da        | all     |               | bilo koji [Handlebar](https://handlebarsjs.com/) expressions                                   |

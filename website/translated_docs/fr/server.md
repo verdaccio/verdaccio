@@ -1,56 +1,56 @@
 ---
 id: server-configuration
-title: "Server Configuration"
+title: "Configuration du serveur"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+Il s’agit principalement de la documentation de la configuration de base du serveur Linux, mais je pense qu’il est important de documenter et de partager les étapes que j’ai suivies pour démarrer définitivement Verdaccio sur mon serveur. Vous aurez besoin d'autorisations root (ou sudo) pour les opérations suivantes.
 
-## Running as a separate user
+## Gérer en tant qu'utilisateur distinct
 
-First create the verdaccio user:
+Premièrement créez l’utilisateur verdaccio:
 
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+Vous créez un shell en tant qu'utilisateur verdaccio à l'aide de la commande suivante:
 
 ```bash
 $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+La commande 'cd ~' envoie le répertoire personnel de l'utilisateur verdaccio. Veillez à exécuter verdaccio au moins une fois pour générer le fichier de configuration. Changez-le en fonction de vos besoins.
 
-## Listening on all addresses
+## À l'écoute de toutes les adresses
 
-If you want to listen to every external address set the listen directive in the config to:
+Si vous souhaitez écouter chaque adresse externe, définissez la directive d'écoute dans la configuration sur:
 
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+Si vous exécutez `verdaccio` dans une instance Amazon EC2, [ vous devrez définir le paramètre 'écouter' dans le fichier 'changer votre configuration'](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) comme décrit ci-dessus.
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Avez-vous besoin de configurer Apache? Veuillez vérifier la [configuration inverse du proxy](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## Garder verdaccio en opération pour toujours
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+Vous pouvez utiliser le package de nœud appelé 'forever' pour que le site verdaccio continue de fonctionner tout le temps. https://github.com/nodejitsu/forever
 
-First install forever globally:
+Premièrement installez forever entièrement:
 
 ```bash
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+Assurez-vous que vous avez démarré au moins une fois verdaccio pour générer le fichier de configuration et notez l'utilisateur administrateur créé. Ensuite, la commande suivante peut être utilisée pour lancer verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+Vous pouvez consulter la documentation pour plus d'informations sur l'utilisation forever.
 
 ## Surviving server restarts
 

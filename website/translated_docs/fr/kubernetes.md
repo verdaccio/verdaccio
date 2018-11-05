@@ -2,84 +2,84 @@
 id: kubernetes
 title: "Kubernetes"
 ---
-You can find instructions to deploy Verdaccio on a Kubernetes cluster on the [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example) repository. However, the recommended method to install Verdaccio on a Kubernetes cluster is to use [Helm](https://helm.sh). Helm is a [Kubernetes](https://kubernetes.io) package manager which bring multiple advantages.
+Les instructions pour développer Verdaccio sur un cluster Kubernetes sont disponibles dans l’archive [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example). Cependant, la méthode recommandée pour installer Verdaccio sur un cluster Kubernetes consiste à utiliser [Helm](https://helm.sh). Helm est un [Kubernetes](https://kubernetes.io) gestionnaire de paquets, qui présente de nombreux avantages.
 
 ## Helm
 
-### Setup Helm
+### Configurer Helm
 
-If you haven't used Helm before, you need to setup the Helm controller called Tiller:
+Si vous n'avez jamais utilisé Helm, vous devez configurer le contrôleur Helm dit Tiller:
 
 ```bash
 helm init
 ```
 
-### Install
+### Installer
 
-Deploy the Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. In this example we use `npm` as release name:
+Développez la charte de Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio). Dans cet exemple, nous utilisons `npm` comme nom de version:
 
 ```bash
 helm install --name npm stable/verdaccio
 ```
 
-### Deploy a specific version
+### Déployer une version spécifique
 
 ```bash
 helm install --name npm --set image.tag=2.6.5 stable/verdaccio
 ```
 
-### Upgrading Verdaccio
+### En cours de mettre Verdaccio à niveau
 
 ```bash
 helm upgrade npm stable/verdaccio
 ```
 
-### Uninstalling
+### Désinstallation
 
 ```bash
 helm del --purge npm
 ```
 
-**Note:** this command delete all the resources, including packages that you may have previously published to the registry.
+**Remarque:** cette commande supprime toutes les ressources, y compris les packages que vous avez peut-être déjà publiés dans le registre.
 
-### Custom Verdaccio configuration
+### Configuration personnalisée de Verdaccio
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+Vous pouvez personnaliser la configuration de Verdaccio en utilisant un Kubernetes *configMap*.
 
-#### Prepare
+#### Préparer
 
-Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) and adapt it for your use case:
+Copiez la [configuration existante](https://github.com/verdaccio/verdaccio/blob/master/conf/full.yaml) et adaptez la à votre propre cas d'utilisation:
 
 ```bash
 wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/full.yaml -O config.yaml
 ```
 
-**Note:** Make sure you are using the right path for the storage that is used for persistency:
+**Remarque:** assurez-vous que vous utilisez le chemin correct d'archivage utilisé pour la persistance:
 
 ```yaml
-storage: /verdaccio/storage/data
+torage: /verdaccio/storage/data
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
 ```
 
-#### Deploy the configMap
+#### Développer le configMap
 
-Deploy the `configMap` to the cluster
+Développer le `configMap` dans le cluster
 
 ```bash
 kubectl create configmap verdaccio-config --from-file ./config.yaml
 ```
 
-#### Deploy Verdaccio
+#### Développer Verdaccio
 
-Now you can deploy the Verdaccio Helm chart and specify which configuration to use:
+Maintenant, vous pouvez développer le tableau Verdaccio Helm et spécifier la configuration à utiliser:
 
 ```bash
 helm install --name npm --set customConfigMap=verdaccio-config stable/verdaccio
 ```
 
-## Rancher Support
+## Support Rancher
 
 [Rancher](http://rancher.com/) est une plate-forme complète de gestion de conteneurs facilitant la gestion et l'utilisation des conteneurs en production.
 

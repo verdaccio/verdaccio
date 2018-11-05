@@ -148,11 +148,11 @@ Vous pouvez accéder au package publié avec le mot clé `{{publishedPackage}}` 
 
 ## Configuration
 
-| Propriété           | Type                 | Obligatoire | Soutien | Par défaut | Description                                                                                  |
-| ------------------- | -------------------- | ----------- | ------- | ---------- | -------------------------------------------------------------------------------------------- |
-| méthode             | chaîne de caractères | Non         | tous    |            | HTTP verb                                                                                    |
-| packagePattern      | chaîne de caractères | Non         | tous    |            | N'effectuez cette notification que si le nom du package correspond à l'expression régulière  |
-| packagePatternFlags | chaîne de caractères | Non         | all     |            | Any flags to be used with the regular expression                                             |
-| headers             | array/object         | Yes         | all     |            | If this endpoint requires specific headers, set them here as an array of key: value objects. |
-| endpoint            | string               | Yes         | all     |            | set the URL endpoint for this call                                                           |
-| content             | string               | Yes         | all     |            | any [Handlebar](https://handlebarsjs.com/) expressions                                       |
+| Propriété           | Type                 | Obligatoire | Soutien | Par défaut | Description                                                                                                          |
+| ------------------- | -------------------- | ----------- | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------- |
+| méthode             | chaîne de caractères | Non         | tous    |            | HTTP verb                                                                                                            |
+| packagePattern      | chaîne de caractères | Non         | tous    |            | N'effectuez cette notification que si le nom du package correspond à l'expression régulière                          |
+| packagePatternFlags | chaîne de caractères | Non         | tous    |            | Tous les drapeaux à utiliser avec l'expression régulière                                                             |
+| en-têtes            | tableau/objet        | Oui         | tous    |            | Si ce noeud final nécessite des en-têtes spécifiques, définissez-les ici comme un tableau de clé: valeur des objets. |
+| endpoint            | chaîne de caractères | Oui         | tous    |            | définir l'URL de l'endpoint pour cet appel                                                                           |
+| content             | chaîne de caractères | Oui         | tous    |            | toute expression [Handlebar](https://handlebarsjs.com/)                                                              |

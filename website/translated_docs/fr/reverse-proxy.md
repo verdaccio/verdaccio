@@ -1,10 +1,10 @@
 ---
 id: reverse-proxy
-title: "Reverse Proxy Setup"
+title: "Configuration du proxy inverse"
 ---
 ## Apache
 
-Apache and mod_proxy should not decode/encode slashes and leave them as they are:
+Apache et mod_proxy ne doivent pas décoder/encoder les barres obliques et doivent les laisser tels qu'elles sont:
 
     <VirtualHost *:80>
       AllowEncodedSlashes NoDecode
@@ -13,7 +13,7 @@ Apache and mod_proxy should not decode/encode slashes and leave them as they are
     </VirtualHost>
     
 
-### Configuration with SSL
+### Configuration avec SSL
 
 config.yaml
 
@@ -21,7 +21,7 @@ config.yaml
 url_prefix: https://npm.your.domain.com
 ```
 
-Apache virtual server configuration
+Configuration du serveur virtuel Apache
 
         apacheconfig
         <IfModule mod_ssl.c>
@@ -51,16 +51,16 @@ Apache virtual server configuration
     }
     
 
-## Run behind reverse proxy with different domain and port
+## Commencer derrière le proxy inverse avec un domaine et un port différents
 
-If you run verdaccio behind reverse proxy, you may noticed all resource file served as relaticve path, like `http://127.0.0.1:4873/-/static`
+Si vous exécutez verdaccio derrière le proxy inverse, vous remarqueriez que tous les fichiers de ressources fonctionnent comme des chemins associés, tels que `http://127.0.0.1:4873/-/static`
 
-To resolve this issue, you should send real domain and port to verdaccio with `Host` header
+Pour résoudre le problème, vous devez envoyer le domaine réel et le port avec l'en-tête `Host` à verdaccio
 
-Nginx configure should look like this:
+La configuration de Nginx devrait ressembler à ceci:
 
 ```nginx
-location / {
+ocation / {
     proxy_pass http://127.0.0.1:4873/;
     proxy_set_header Host            $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
@@ -68,11 +68,11 @@ location / {
 }
 ```
 
-For this case, `url_prefix` should NOT set in verdaccio config
+Dans ce cas, `url_prefix` ne doit pas être défini dans la configuration de verdaccio
 
 * * *
 
-or a sub-directory installation:
+ou dans l'installation d'un sous-dossier:
 
 ```nginx
 location ~ ^/verdaccio/(.*)$ {
@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-For this case, `url_prefix` should set to `/verdaccio/`
+Dans ce cas, `url_prefix` doit être défini sur `/verdaccio/`
 
-> Note: There is a Slash after install path (`https://your-domain:port/verdaccio/`)!
+> Remarque: il y a une barre oblique après le chemin d'installation (`https://votre-domaine:port/verdaccio/`)!
