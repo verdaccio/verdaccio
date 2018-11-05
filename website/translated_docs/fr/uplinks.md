@@ -2,7 +2,7 @@
 id: uplinks
 title: "Uplinks"
 ---
-Un *uplink* est un lien avec un registre externe qui donne accès à des packages externes.
+Un *uplink* est un lien avec un registre externe qui donne accès à des paquets externes.
 
 ![Uplinks](/img/uplinks.png)
 
