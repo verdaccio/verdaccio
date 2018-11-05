@@ -36,7 +36,7 @@ Si vous exécutez `verdaccio` dans une instance Amazon EC2, [ vous devrez défin
 
 ## Garder verdaccio en opération pour toujours
 
-Vous pouvez utiliser le package de nœud appelé 'forever' pour que le site verdaccio continue de fonctionner tout le temps. https://github.com/nodejitsu/forever
+Vous pouvez utiliser le paquet de nœud appelé 'forever' pour que le site verdaccio continue de fonctionner tout le temps. https://github.com/nodejitsu/forever
 
 Premièrement installez forever entièrement:
 
