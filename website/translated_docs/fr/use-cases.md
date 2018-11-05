@@ -2,11 +2,11 @@
 id: use-cases
 title: "Cas d’utilisation"
 ---
-## Utilisation de packages privés
+## Utilisation de paquets privés
 
-Vous pouvez ajouter des utilisateurs et gérer quels utilisateurs peuvent accéder à quels packages.
+Vous pouvez ajouter des utilisateurs et gérer quels utilisateurs peuvent accéder à quels paquets.
 
-Il est conseillé de définir un préfixe pour les paquets privés, par exemple "local", afin que tous les éléments privés aient cet aspect: `local-foo`. De cette façon, vous pouvez clairement séparer les paquets publics et privés.
+Il est conseillé de définir un préfixe pour les paquets privés, par exemple "local", afin que tous les éléments privés aient cet aspect: `local-foo`. De cette façon, vous pouvez clairement séparer les paquets publiques et privés.
 
 ## Utilisation des paquets publics à partir de npmjs.org
 
