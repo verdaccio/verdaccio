@@ -4,7 +4,7 @@ title: "Uplinks"
 ---
 Un *uplink* est un lien avec un registre externe qui donne accès à des packages externes.
 
-![Uplink](/img/uplinks.png)
+![Uplinks](/img/uplinks.png)
 
 ### Utilisation
 
@@ -82,5 +82,5 @@ uplinks:
 * Verdaccio n'utilise plus l'authentification de base à partir de la version `v2.3.0`. Tous les jetons générés par verdaccio sont basés sur JWT ([jeton Web JSON](https://jwt.io/))
 * Les uplinks doivent être des registres compatibles avec les noeuds finaux `npm`. Par exemple: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* et autre.
 * En affectant false au paramètre `cache`, vous économiserez de l'espace sur le disque dur. Cela évitera de stocker les `tarballs`, mais [conservera les métadonnées dans les dossiers](https://github.com/verdaccio/verdaccio/issues/391).
-* Le dépassement avec plusieurs uplinks peut ralentir la recherche de vos packages car pour chaque demande transmise par un client npm, Verdaccio transmet à son tour un appel pour chaque uplink.
+* Le dépassement avec plusieurs uplinks peut ralentir la recherche de vos paquets car pour chaque demande transmise par un client npm, Verdaccio transmet à son tour un appel pour chaque uplink.
 * Le format (timeout, maxage et fail_timeout) suit les [unités de mesure NGINX](http://nginx.org/en/docs/syntax.html)
