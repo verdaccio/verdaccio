@@ -134,9 +134,9 @@ store:
 
 (compatible depuis 3.x)
 
-* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Des plugins de stockage pour héberger des packages en mémoire
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) plugin de stockage pour héberger les packages **Amazon S3**
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) plugin de stockage pour héberger les packages **Stockage Google Cloud**
+* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Des plugins de stockage pour héberger des paquets en mémoire
+* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) plugin de stockage pour héberger les paquets**Amazon S3**
+* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) plugin de stockage pour héberger les paquets **Stockage Google Cloud**
 
 ## Avertissements
 
