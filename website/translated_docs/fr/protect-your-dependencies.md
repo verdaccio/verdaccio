@@ -41,5 +41,5 @@ ou avec `yarn`
 yarn add v0.24.6
 info No lockfile found.
 [1/4] 
-error Une erreur inattendue s'est produite: "http: // localhost: 5555 / webpack-1: les utilisateurs non enregistrés ne sont pas autorisés à accéder au package my-company-core".
+error Une erreur inattendue s'est produite: "http: // localhost: 5555 / webpack-1: les utilisateurs non enregistrés ne sont pas autorisés à accéder au paquet my-company-core".
 ```
