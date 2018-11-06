@@ -6,13 +6,13 @@ Tous les tests sont divisés en trois dossiers:
 
 - `test/unit` - Tests couvrant les fonctions transformant les données de manière non triviale. Ces tests `demandent()` simplement peu de fichiers et exécutent le code qu'ils contiennent, ils sont donc très rapides.
 - `test/fonctionnel` - Tests qui lancent une instance verdaccio et effectuent une série de requêtes via http. Ils sont plus lents que les tests unitaires.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/integration` - Tests qui lancent une instance de verdaccio et lui adressent des requêtes à l'aide de npm. Ils sont considérablement lents et peuvent atteindre un registre npm réel. **test non maintenu**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+Les tests unitaires et fonctionnels sont effectués automatiquement lorsque vous démarrez `npm test` à partir du dossier racine du projet. Les tests d'intégration doivent être effectués manuellement de temps à autre.
 
-We use `jest` for all test.
+L'on utilise `jest` pour tous les tests.
 
-## The npm Script
+## Le Script npm
 
 To run the test script you can use either `npm` or `yarn`.
 
