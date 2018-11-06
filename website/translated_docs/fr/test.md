@@ -50,9 +50,9 @@ describe('basic system test', () => {
 
 ### Utilisation de test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Le test fonctionnel de verdaccio présente un niveau de complexité supérieur, qui nécessite une explication détaillée pour garantir une expérience positive.
 
-All starts in the `index.js` file. Let's dive in into it.
+Tout commence dans le fichier de`index.js`. Plongeons-nous dedans.
 
 ```javascript
 // we create 3 server instances
@@ -107,7 +107,7 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### Utilisation
 
 Ici nous allons décrire à quoi devrait ressembler un test fonctionnel typique. Vérifiez inline pour plus d'informations détaillées.
 
