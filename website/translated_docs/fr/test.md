@@ -14,18 +14,18 @@ L'on utilise `jest` pour tous les tests.
 
 ## Le Script npm
 
-To run the test script you can use either `npm` or `yarn`.
+Pour exécuter le script de test, vous pouvez utiliser soit `npm` ou `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+Cela activera uniquement les deux premiers groupes de test, unité et fonctionnel.
 
-### Using test/unit
+### Utilisation de test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+Ce qui suit est juste un exemple de ce à quoi un test unitaire devrait ressembler. Suivez fondamentalement la norme `jest`.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Essayez de décrire ce que fait exactement le test unitaire en une seule phrase dans l'en-tête de la section `test`.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,7 +48,7 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Utilisation de test/functional
 
 Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
 
