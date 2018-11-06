@@ -65,7 +65,7 @@ Cela peut vous demander de choisir un éditeur. Sélectionnez votre préféré e
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
 
-The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+Les emplacements peuvent varier en fonction de la configuration du serveur. Si vous voulez savoir où sont les fichiers, vous pouvez utiliser la commande 'which':
 
 ```bash
 $ which forever
