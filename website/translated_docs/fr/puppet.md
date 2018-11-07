@@ -17,4 +17,4 @@ Pour plus d'informations:
 
 <https://github.com/verdaccio/puppet-verdaccio>
 
-> We are looking for active contributors for this integration, if you are interested [refers to this ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+> Nous sommes à la recherche de collaborateurs actifs pour cette intégration. Si vous êtes intéressé, [reportez-vous à ce ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
