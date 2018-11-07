@@ -20,9 +20,9 @@ Si vous souhaitez utiliser une version modifiée d'un paquet public`foo`, vous n
 
 Il y a deux options ici:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Vous souhaitez créer un fork distinct et arrêter la synchronisation avec la version publique.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Si vous voulez faire cela, vous devriez modifier votre fichier de configuration pour que verdaccio ne fait plus de demande à propos de ce paquet pour npjms. Ajoutez une entrée distincte pour ce package à *config.yaml* et supprimez `npmjs` de la liste `proxy`, puis redémarrez le serveur.
     
     When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
 
