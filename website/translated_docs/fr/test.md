@@ -109,15 +109,15 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ### Usage
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Ici nous allons décrire à quoi devrait ressembler un test fonctionnel typique. Vérifiez inline pour plus d'informations détaillées.
 
 #### The lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+La classe de serveur est uniquement un wrapper qui simule un client `npm` et fournit une simple API pour les tests fonctionnels.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Comme nous l'avons mentionné dans la section précédente, nous créons 3 serveurs de processus accessibles dans chaque processus, tels que `serveur1`, `serveur2` et `` serveur3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+En utilisant ces références, vous pourrez envoyer des requêtes à chacune des 3 instances en cours d'exécution.
 
 ```javascript
 <br />export default function(server) {
@@ -131,4 +131,4 @@ Using such reference you will be able to send request to any of the 3 instance r
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Cette section n'a jamais été utilisée, mais nous recherchons de l'aide pour la faire fonctionner correctement. **Toute nouvelle idée est la bienvenue.**

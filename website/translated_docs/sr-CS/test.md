@@ -2,30 +2,30 @@
 id: unit-testing
 title: "Unit Testing"
 ---
-All tests are split in three folders:
+Svi testovi su podeljen u tri foldera:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - Testovi koji pokrivaju funkcije koje transformišu podatke na ne-trivijalni način. Da biste testirali, koristite `require()` na nekolliko fajlova i pokrenite kod, brzo se izvršava.
+- `test/functional` - Test koji pokreće verdaccio instancu i pokreće seriju zahteva nad http. Ovaj tip testova je sporiji od unit testova.
+- `test/integration` - Test koji pokreće verdaccio instancu i zahteva je koristeći npm. Ovaj tip testova je izuzetno spor i može da pogodi pravi npm registry. **unmaintained test**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+Unit i functional testovi se automatski izvršavaju pokretanjem `npm test` iz root directorijuma projekta. Integration testovi bi trebalo da se pokreću ručno, s vremena na vreme.
 
-We use `jest` for all test.
+Koristimo `jest` za sve testove.
 
 ## The npm Script
 
-To run the test script you can use either `npm` or `yarn`.
+Da biste pokrenuli test skriptu, možete koristiti bilo `npm` ili `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+To će pokrenuti samo prve dve grupe testova, unit i functional.
 
-### Using test/unit
+### Korišćenje test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+U navedenom primeru možete videti kako bi unit test trebalo da izgleda. Suštinski, samo pratite `jest` standard.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Pokušajte da u jednoj rečenici u zaglavlju `test` sekcije objasnite tačno šta bi unit test trebalo da radi.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,11 +48,11 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Korišćenje test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Funkcionalno testiranje u verdaccio-u je nešto kompleksnije i zahteva detaljno objašnjenje.
 
-All starts in the `index.js` file. Let's dive in into it.
+Sve počinje od `index.js` fajla. Hajde da se bacimo u rešavanje problema.
 
 ```javascript
 // we create 3 server instances
@@ -107,17 +107,17 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### Korišćenje
 
-Here we are gonna describe how it looks like an usual functional test, check inline for more detail information.
+Ovde ćemo pokazati kako izgleda funkcionalni test, proverite inline i saznajte više detalja.
 
 #### The lib/server.js
 
-The server class is just a wrapper that simulates a `npm` client and provides a simple API for the funtional test.
+Server class je samo wrapper koji simulira `npm` client i obezbeđuje jednostavan API za funkcionalni test.
 
-As we mention in the previous section, we are creating 3 process servers that are accessible in each process as `server1`, `server2` and ``server3`.
+Kao što smo već opisali u prethodnoj sekciji, kreiramo 3 proces servera koji su dostupni u svakom procesu kao `server1`, `server2` i``server3`.
 
-Using such reference you will be able to send request to any of the 3 instance running.
+Koristeći takve reference, moći ćete da šaljete zahtev do bilo koje 3 pokrenute instance.
 
 ```javascript
 <br />export default function(server) {
@@ -131,4 +131,4 @@ Using such reference you will be able to send request to any of the 3 instance r
 
 ### Test/integration
 
-These section never has been used, but we are looking for help to make it run properly. **All new ideas are very welcome.**
+Ove sekcije nikada nisu korišćene, te stoga tražimo pomoć kako bi radile na ispravan način. **Svaka ideja i svaka pomoć je dobrodošla.**
