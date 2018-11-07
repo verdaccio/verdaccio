@@ -2,14 +2,14 @@
 id: node-api
 title: "Node API"
 ---
-Verdaccio can be invoqued programmatically. The node API was introduced after version `verdaccio@3.0.0-alpha.10`.
+Verdaccio peut être invoqué par programme. Le node API a été introduit à partir de la version `verdaccio@3.0.0-alpha.10`.
 
-## Usage
+## Utilisation
 
-#### Programmatically
+#### Par programme
 
 ```js
- import startServer from 'verdaccio';   
+ mport startServer from 'verdaccio';   
 
  startServer(configJsonFormat, 6000, store, '1.0.0', 'verdaccio',
     (webServer, addrs, pkgName, pkgVersion) => {
@@ -19,7 +19,7 @@ Verdaccio can be invoqued programmatically. The node API was introduced after ve
   });
 ```
 
-## Other implementations
+## Autres implémentations
 
 * [verdaccio-server](https://github.com/boringame/verdaccio-server) local npm registry proxy server
 
