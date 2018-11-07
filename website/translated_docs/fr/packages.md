@@ -1,14 +1,14 @@
 ---
-id: packages
-title: "Package Access"
+id: paquets
+title: "Paquet d'accès"
 ---
-It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
+Il s'agit d'une série de restrictions qui permettent ou restreignent l'accès au stockage local en fonction de critères spécifiques.
 
-The security constraints remain on the shoulders of the plugin being used, by default `verdaccio` uses the [htpasswd plugin](https://github.com/verdaccio/verdaccio-htpasswd). If you use a different plugin the behaviour might be different. The default plugin does not handle `allow_access` and `allow_publish` by itself, it uses an internal fallback in case the plugin is not ready for it.
+Les restrictions de sécurité dépendent du plugin que vous utilisez. `verdaccio` utilise par défaut le plugin [htpasswd](https://github.com/verdaccio/verdaccio-htpasswd). Si vous utilisez un autre plugin, l'opération peut être différente. Le plugin par défaut ne gère pas directement `allow_access` et `allow_publish`, mais utilise une alternative interne au cas où le plugin ne serait pas prêt pour cela.
 
-For more information about permissions visit [the authentification section in the wiki](auth.md).
+Pour plus d'informations sur les autorisations, consultez la [section d'authentification du wiki](auth.md).
 
-### Usage
+### Utilisation
 
 ```yalm
 packages:
@@ -31,7 +31,7 @@ packages:
     proxy: uplink2
 ```
 
-if none is specified, the default one remains
+si rien n'est spécifié, le choix est par défaut
 
 ```yaml
 packages:
@@ -40,20 +40,20 @@ packages:
     publish: $authenticated
 ```
 
-The list of valid groups according the default plugins are
+La liste des groupes valides selon les plugins par défaut sont
 
 ```js
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
 ```
 
-All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
+Tous les utilisateurs reçoivent tous ces groupes d'autorisations, qu'ils soient anonymes ou non, plus les groupes fournis par le plug-in. Dans le cas `htpasswd`, rejetez le nom d'utilisateur en tant que groupe. Par exemple, si vous êtes connectés en tant que `npmUser`, la liste des noms sera.
 
 ```js
 // groups without '$' are going to be deprecated eventually
 '$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
 ```
 
-If you want to protect specific set packages under your group, you need to do something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recomend using a prefix for your packages, in that way it will be easier to protect them.
+Si vous souhaitez protéger un ensemble spécifique de paquets au sein de votre groupe, vous devez procéder de la même manière. Utilisons un `Regex` qui couvre tous les paquets avec le préfixe `npmuser -`. Nous vous recommandons d'utiliser un préfixe pour vos paquets afin de faciliter leur protection.
 
 ```yaml
 packages:
@@ -62,7 +62,7 @@ packages:
     publish: npmuser
 ```
 
-Restart `verdaccio` and in your console try to install `npmuser-core`.
+Redémarrez `verdaccio` et essayez d'installer `npmuser-core` dans votre console.
 
 ```bash
 $ npm install npmuser-core
@@ -74,11 +74,11 @@ npm ERR! A complete log of this run can be found in:
 npm ERR!     /Users/user/.npm/_logs/2017-07-02T12_20_14_834Z-debug.log
 ```
 
-You can change the existing behaviour using a different plugin authentication. `verdaccio` just checks whether the user that tried to access or publish a specific package belongs to the right group.
+Vous pouvez changer le comportement existant en utilisant un autre plugin d'authentification. `verdaccio` vérifie simplement si l'utilisateur qui a tenté d'accéder ou de publier un paquet spécifique appartient au groupe approprié.
 
-#### Set multiple groups
+#### Définir plusieurs groupes
 
-Defining multiple access groups is fairly easy, just define them with a white space between them.
+Il est facile de définir plusieurs groupes d’accès, définissez-les juste avec un espace blanc entre eux.
 
 ```yaml
   'company-*':
@@ -91,9 +91,9 @@ Defining multiple access groups is fairly easy, just define them with a white sp
     proxy: server1
 ```
 
-#### Blocking access to set of packages
+#### Bloquer l’accès à l’ensemble des paquets
 
-If you want to block the acccess/publish to a specific group of packages. Just do not define `access` and `publish`.
+Si vous souhaitez bloquer l’accès/publier à un groupe spécifique de paquets. alors ne définissez pas `access` et `publish`.
 
 ```yaml
 packages:
