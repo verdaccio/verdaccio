@@ -2,13 +2,13 @@
 id: chef
 title: "Chef Cookbook"
 ---
-Using Chef Cookbook for Verdaccio
+Utilisation du Chef Cookbook pour Verdaccio
 
-For further information:
+Pour plus d’informations:
 
 * <https://github.com/verdaccio/verdaccio-cookbook>
 * <https://supermarket.chef.io/cookbooks/verdaccio>
 
-> We are looking for contributors for this repository, if you are interested please notify the author via tickets.
+> Nous sommes à la recherche de collaborateurs pour ce référentiel. Si vous êtes intéressé, veuillez en informer l'auteur par ticket.
 
-Author: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
+Auteur: [Keli Grubb](https://github.com/kgrubb) && Barthelemy Vessemont.
