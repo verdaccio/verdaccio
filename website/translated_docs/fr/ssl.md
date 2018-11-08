@@ -11,7 +11,7 @@ Suivez ces instructions pour configurer un certificat SSL servant le registre NP
 
 Une fois que vous avez mis à jour le programme d'écoute et que vous avez essayé d'exécuter à nouveau verdaccio, des certificats vous seront demandés.
 
-* Générer vos certificats
+* Générer votres certificats
 
      $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
      $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
@@ -30,7 +30,7 @@ https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.c
 
 https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
 
-Plus d'informations sur `key`, `cert`, `ca`, `pfx` et `passphrase`, Veuillez vous reporter à la [documentation sur les nœuds](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
+Pour plus d'informations sur `key`, `cert`, `ca`, `pfx` et `passphrase`, veuillez vous référer à la [documentation sur les nœuds](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
 
 * Exécutez `verdaccio` dans votre ligne de commande.
 
