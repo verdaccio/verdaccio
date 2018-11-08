@@ -22,7 +22,7 @@ Il y a deux options ici:
 
 1. Vous souhaitez créer un fork distinct et arrêter la synchronisation avec la version publique.
     
-    Si vous voulez faire cela, vous devriez modifier votre fichier de configuration pour que verdaccio ne fait plus de demande à propos de ce paquet pour npjms. Ajoutez une entrée distincte pour ce package à *config.yaml* et supprimez `npmjs` de la liste `proxy`, puis redémarrez le serveur.
+    Si vous voulez faire cela, vous devriez modifier votre fichier de configuration pour que verdaccio ne fasse plus de demande à propos de ce paquet pour npjms. Ajoutez une entrée distincte pour ce paquet à *config.yaml* et supprimez `npmjs` de la liste `proxy`, puis redémarrez le serveur.
     
     Lorsque vous publiez votre paquet localement, vous devez probablement commencer par un format de chaîne de caractère supérieur à celui existant, afin d'éviter toute confusion avec le paquet existant dans le cache.
 
