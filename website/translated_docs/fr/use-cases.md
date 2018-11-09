@@ -20,12 +20,12 @@ Si vous souhaitez utiliser une version modifiée d'un paquet public`foo`, vous n
 
 Il y a deux options ici:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Vous souhaitez créer un fork distinct et arrêter la synchronisation avec la version publique.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Si vous voulez faire cela, vous devriez modifier votre fichier de configuration pour que verdaccio ne fasse plus de demande à propos de ce paquet pour npjms. Ajoutez une entrée distincte pour ce paquet à *config.yaml* et supprimez `npmjs` de la liste `proxy`, puis redémarrez le serveur.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Lorsque vous publiez votre paquet localement, vous devez probablement commencer par un format de chaîne de caractère supérieur à celui existant, afin d'éviter toute confusion avec le paquet existant dans le cache.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Vous souhaitez utiliser temporairement votre propre version, mais revenir à la version public dès sa mise à jour.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    Pour éviter toute confusion entre les versions, vous devez utiliser un suffixe personnalisé publié avant la prochaine version du patch. Par exemple, si un paquet public a la version 0.1.2, vous pouvez charger 0.1.3-my-temp-fix. De cette manière, le paquet sera utilisé jusqu'à ce que son responsable d'origine mette à jour son paquet public vers la version 0.1.3.

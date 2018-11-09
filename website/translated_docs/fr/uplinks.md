@@ -25,22 +25,22 @@ uplinks:
 
 Vous pouvez définir de mutiple uplinks et chacun d’eux doit avoir un nom unique (clé). Ils peuvent avoir deux propriétés:
 
-| Propriété    | Type                 | Obligatoire | Exemple                                 | Soutien | Description                                                                                                                | Par défaut     |
-| ------------ | -------------------- | ----------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| url          | chaîne de caractères | Oui         | https://registry.npmjs.org/             | tous    | L’url du registre                                                                                                          | npmjs          |
-| ca           | chaîne de caractères | Non         | ~./ssl/client.crt'                      | tous    | Certificat de chemin SSL                                                                                                   | Pas par défaut |
-| timeout      | chaîne de caractères | Non         | 100ms                                   | tous    | définir le nouveau délai d’attente pour la demande                                                                         | 30s            |
-| maxage       | chaîne de caractères | Non         | 10m                                     | tous    | limit maximun failure request                                                                                              | 2m             |
-| fail_timeout | string               | No          | 10m                                     | all     | defines max time when a request becomes a failure                                                                          | 5m             |
-| max_fails    | number               | No          | 2                                       | all     | limit maximun failure request                                                                                              | 2              |
-| cache        | boolean              | No          | [true,false]                            | >= 2.1  | cache all remote tarballs in storage                                                                                       | true           |
-| auth         | list                 | No          | [see below](uplinks.md#auth-property)   | >= 2.5  | assigns the header 'Authorization' [more info](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | disabled       |
-| headers      | list                 | No          | authorization: "Bearer SecretJWToken==" | all     | list of custom headers for the uplink                                                                                      | disabled       |
-| strict_ssl   | boolean              | No          | [true,false]                            | >= 3.0  | If true, requires SSL certificates be valid.                                                                               | true           |
+| Propriété    | Type                 | Obligatoire | Exemple                                     | Soutien | Description                                                                                                                          | Par défaut     |
+| ------------ | -------------------- | ----------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| url          | chaîne de caractères | Oui         | https://registry.npmjs.org/                 | tous    | L’url du registre                                                                                                                    | npmjs          |
+| ca           | chaîne de caractères | Non         | ~./ssl/client.crt'                          | tous    | Certificat de chemin SSL                                                                                                             | Pas par défaut |
+| timeout      | chaîne de caractères | Non         | 100ms                                       | tous    | définir le nouveau délai d’attente pour la demande                                                                                   | 30s            |
+| maxage       | chaîne de caractères | Non         | 10m                                         | tous    | limite maximale d'échecs à chaque demande                                                                                            | 2m             |
+| fail_timeout | chaîne de caractères | Non         | 10m                                         | tous    | définit le temps maximal pour qu'une demande devienne un échec                                                                       | 5m             |
+| max_fails    | numéro               | Non         | 2                                           | tous    | limite maximale d'échecs à chaque demande                                                                                            | 2              |
+| cache        | booléenne            | Non         | [vrai,faux]                                 | >= 2.1  | mettre en cache tous les tarballs éloignés dans l'archive                                                                            | vrai           |
+| auth         | liste                | Non         | [voir ci-dessous](uplinks.md#auth-property) | >= 2.5  | attribuer l'en-tête "Autorisation" [plus d'informations](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules) | désactivé      |
+| en-têtes     | liste                | Non         | autorisation: "Bearer SecretJWToken=="      | tous    | liste des en-têtes personnalisés pour l'uplink                                                                                       | désactivé      |
+| strict_ssl   | booléenne            | Non         | [vrai,faux]                                 | >= 3.0  | Si vrai, nécessite que les certificats SSL soient valides.                                                                           | vrai           |
 
-#### Auth property
+#### Propriété de l'auth
 
-The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
+La propriété `auth` vous permet d'utiliser un jeton d'authentification avec un uplink. Utilisez la variable environnementale par défaut:
 
 ```yaml
 uplinks:
@@ -51,7 +51,7 @@ uplinks:
       token_env: true # defaults to `process.env['NPM_TOKEN']`   
 ```
 
-or via a specified environment variable:
+ou par une variable environnementale spécifique:
 
 ```yaml
 uplinks:
@@ -62,7 +62,7 @@ uplinks:
       token_env: FOO_TOKEN
 ```
 
-`token_env: FOO_TOKEN`internally will use `process.env['FOO_TOKEN']`
+`token_env: FOO_TOKEN` utilisera en interne `process.env['FOO_TOKEN']`
 
 ou en spécifiant directement un jeton:
 
