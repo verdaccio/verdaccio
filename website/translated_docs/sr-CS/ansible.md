@@ -2,7 +2,6 @@
 id: ansible
 title: "Ansible"
 ---
-
 U okviru naše organizacije, nudimo prilagođena rešenja za `verdaccio`.
 
 <https://github.com/verdaccio/ansible-verdaccio>
