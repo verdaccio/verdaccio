@@ -49,7 +49,7 @@ auth:
 
 | Svojstvo  | Tip    | Neophodno | Primer     | Podrška | Opis                                   |
 | --------- | ------ | --------- | ---------- | ------- | -------------------------------------- |
-| file      | string | Da        | ./htpasswd | all     | file koji sadrži šivrovane credentials |
+| file      | string | Da        | ./htpasswd | all     | file koji sadrži šifrovane credentials |
 | max_users | number | Ne        | 1000       | all     | podešava maksimalni broj korisnika     |
 
 Ako se odlučite na to da ne dozvolite korisnicima da se prijave, možete podesiti `max_users: -1`.
