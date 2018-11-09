@@ -27,8 +27,6 @@ jest.mock('../../../src/webui/utils/storage', () => {
   return new LocalStorageMock();
 });
 
-jest.mock('element-theme-default', () => ({}));
-
 jest.mock('../../../src/webui/utils/api', () => ({
   request: require('./components/__mocks__/api').default.request
 }));
@@ -66,15 +64,14 @@ describe('App', () => {
     expect(wrapper.state('user').username).toEqual('verdaccio');
   });
 
-  it('handleLogout - logouts the user and clear localstorage', () => {
+  it('handleLogout - logouts the user and clear localstorage', async () => {
     const { handleLogout } = wrapper.instance();
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', 'xxxx.TOKEN.xxxx');
 
-    handleLogout();
-    expect(handleLogout()).toBeUndefined();
+    await handleLogout();
     expect(wrapper.state('user')).toEqual({});
-    expect(wrapper.state('isLoggedIn')).toBeFalsy();
+    expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
   });
 
   it('doLogin - login the user successfully', async () => {
@@ -84,11 +81,11 @@ describe('App', () => {
       username: 'sam',
       token: 'TEST_TOKEN'
     };
-    expect(wrapper.state('user')).toEqual(result);
     expect(wrapper.state('isUserLoggedIn')).toBeTruthy();
     expect(wrapper.state('showLoginModal')).toBeFalsy();
     expect(storage.getItem('username')).toEqual('sam');
     expect(storage.getItem('token')).toEqual('TEST_TOKEN');
+    expect(wrapper.state('user')).toEqual(result);
   });
 
   it('doLogin - authentication failure', async () => {

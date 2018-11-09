@@ -3,15 +3,15 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import NoItems from '../../../../src/webui/components/NoItems/index';
 
 console.error = jest.fn();
 
 describe('<NoItem /> component', () => {
-  it('should give error for the required fields', () => {
-    shallow(<NoItems />);
-    expect(console.error).toBeCalled();
+  it('should load the component in default state', () => {
+    const wrapper = mount(<NoItems />);
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should set html from props', () => {

@@ -3,15 +3,15 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import NotFound from '../../../../src/webui/components/NotFound/index';
 
 console.error = jest.fn();
 
 describe('<NotFound /> component', () => {
-  it('should give error for the required fields', () => {
-    shallow(<NotFound />);
-    expect(console.error).toBeCalled();
+  it('should load the component in default state', () => {
+    const wrapper = mount(<NotFound pkg='test' />);
+    expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('should set html from props', () => {

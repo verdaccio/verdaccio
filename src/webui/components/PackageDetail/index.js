@@ -6,8 +6,8 @@ import Readme from '../Readme';
 
 import classes from './packageDetail.scss';
 
-const displayState = (readMe) => {
-  return !isNil(readMe) ? <Readme readMe={readMe} /> : '';
+const displayState = (description) => {
+  return !isNil(description) ? <Readme description={description} /> : '';
 };
 
 const PackageDetail = ({packageName, readMe}) => {

@@ -92,7 +92,7 @@ export function isObject(obj: any): boolean {
  */
 export function validateMetadata(object: Package, name: string): Object {
   assert(isObject(object), 'not a json object');
-  assert.equal(object.name, name);
+  assert.strictEqual(object.name, name);
 
   if (!isObject(object[DIST_TAGS])) {
     object[DIST_TAGS] = {};

@@ -2,7 +2,7 @@
 id: générer
 title: "Générer le code source"
 ---
-Verdaccio se base sur `yarn` au lieu de `npm` pour télécharger les dépences.
+Verdaccio se base sur `yarn` au lieu de `npm` pour télécharger les les dépendances.
 
 *Remarque: le code source actuel ne peut être généré que par `➜ fil@1.x`.
 

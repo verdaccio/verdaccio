@@ -35,15 +35,15 @@ Les sections suivantes expliquent ce que signifie chaque propriété et les diff
 
 ### Stockage
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+C'est le chemin de stockage par défaut. **Verdaccio est basé par défaut sur le fichier système local**.
 
 ```yaml
-storage: ./storage
+stockage: ./stockage
 ```
 
 ### Plugins
 
-C'est le chemin du répertoire des plugins. Utile pour les distributions basées sur Docker / Kubernetes.
+C'est le chemin du répertoire des plugins. Utile pour les déploiements basées sur Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
@@ -51,7 +51,7 @@ plugins: ./plugins
 
 ### Authentification
 
-Le paramètre d'authentification est défini ici, l'authentification par défaut est basée sur `htpasswd` et est incorporée. Vous pouvez modifier ce comportement via les[plugins](plugins.md). Pour plus d'informations sur cette section, consultez la [ page d'authentification ](auth.md).
+Le paramètre d'authentification est défini ici, l'authentification par défaut est basée sur `htpasswd` et est intégrée. Vous pouvez modifier ce comportement via les[plugins](plugins.md). Pour plus d'informations sur cette section, consultez la [ page d'authentification ](auth.md).
 
 ```yaml
 auth:
@@ -60,7 +60,7 @@ auth:
     max_users: 1000
 ```
 
-### Web UI
+### Interface utilisateur Web
 
 Cette propriété vous permet de modifier les fonctionnalités de l'interface utilisateur Web. Pour plus d'informations sur cette section, consultez la [ page de l'interface utilisateur Web ](web.md).
 
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks est la capacité du système à récupérer des paquets à partir de registres distants lorsque ces paquets ne sont pas disponibles localement. Pour plus d'informations sur cette section, lisez [uplinks page](uplinks.md).
 
 ```yaml
 uplinks:
@@ -82,9 +82,9 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Paquets
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Les Paquets permettent à l'utilisateur de contrôler comment les paquets sont rendus accessibles. Pour plus d'informations sur cette section, consultez la [ page des paquets ](packages.md).
 
 ```yaml
 packages:
@@ -94,11 +94,11 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Paramètres avancés
 
-### Offline Publish
+### Publication hors ligne
 
-Par défaut `verdaccio` n'autorise pas le client à publier lorsqu'il est hors ligne, ce comportement peut être remplacé en définissant cette option *true*.
+Par défaut `verdaccio` n'autorise pas le client à publier lorsqu'il est hors ligne, ce comportement peut être remplacé en définissant cette option *Vraie*.
 
 ```yaml
 publish:
@@ -113,11 +113,11 @@ publish:
 url_prefix: https://dev.company.local/verdaccio/
 ```
 
-Since: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
+Depuis: `verdaccio@2.3.6` due [#197](https://github.com/verdaccio/verdaccio/pull/197)
 
 ### Taille maximale du corps
 
-Par défaut, la taille maximale du corps d'un document JSON est `10mb`. Si vous rencontrez des erreurs telles que ` "entité requise trop grande" `, vous pouvez augmenter cette valeur.
+Par défaut, la taille maximale du corps d'un document JSON est `10mb`. Si vous rencontrez des erreurs telles que ` "entité de demande trop grande" `, vous pouvez augmenter cette valeur.
 
 ```yaml
 max_body_size: 10mb
@@ -154,7 +154,7 @@ Les Proxy sont des serveurs HTTP spéciaux conçus pour transférer des données
 
 #### http_proxy and https_proxy
 
-Si vous avez un proxy sur le réseau, vous pouvez définir un en-tête `X-Forwarded-For` à l'aide des propriétés suivantes.
+Si vous avez un proxy sur votre réseau, vous pouvez définir un en-tête `X-Forwarded-For` à l'aide des propriétés suivantes.
 
 ```yaml
 http_proxy: http://something.local/
@@ -171,7 +171,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Notifications
 
-L'activation des notifications d'outils tiers est assez facile via des points d'ancrage Web. Pour plus d'informations sur cette section, consultez la [ page de notification ](notifications.md).
+L'activation des notifications d'outils tiers est assez facile via des webhooks. Pour plus d'informations sur cette section, consultez la [ page de notification ](notifications.md).
 
 ```yaml
 notify:
@@ -189,7 +189,7 @@ notify:
 
 ` npm audit ` est une nouvelle commande émise avec[ npm 6.x ](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio inclut un plugin middleware intégré pour gérer cette commande.
 
-> Si vous avez une nouvelle installation, elle est fournie par défaut. Sinon, vous devez ajouter les propriétés suivantes au fichier de configuration
+> Si vous avez une nouvelle installation, elle est fournie par défaut. Sinon, vous devez ajouter les propriétés suivantes à votre fichier de configuration
 
 ```yaml
 middlewares:

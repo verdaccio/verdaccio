@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file. See [standa
 * click on logo break ui ([#1071](https://github.com/verdaccio/verdaccio/issues/1071)) ([5b34dc8](https://github.com/verdaccio/verdaccio/commit/5b34dc8))
 
 
+
 <a name="4.0.0-alpha.2"></a>
 # [4.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.2) (2018-10-12)
 
@@ -18,19 +19,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * click on logo when using url_prefix was not working ([#996](https://github.com/verdaccio/verdaccio/issues/996)) ([3ac9646](https://github.com/verdaccio/verdaccio/commit/3ac9646))
-
-
-### Features
-
-* add support for profile cli command [#392](https://github.com/verdaccio/verdaccio/issues/392) (change password) ([#1034](https://github.com/verdaccio/verdaccio/issues/1034)) ([f1416ed](https://github.com/verdaccio/verdaccio/commit/f1416ed))
-
-<a name="3.8.3"></a>
-## [3.8.3](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v3.8.3) (2018-10-07)
-
-
-### Bug Fixes
-
-* don't exit if using https and pfx is enabled ([#1061](https://github.com/verdaccio/verdaccio/issues/1061)) ([#1062](https://github.com/verdaccio/verdaccio/issues/1062)) ([315a3b2](https://github.com/verdaccio/verdaccio/commit/315a3b2))
 
 
 
@@ -56,6 +44,34 @@ All notable changes to this project will be documented in this file. See [standa
 * replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
+<a name="3.8.5"></a>
+## [3.8.5](https://github.com/verdaccio/verdaccio/compare/v3.8.4...v3.8.5) (2018-10-18)
+
+
+### Bug Fixes
+
+* word wrap longer description ([#1076](https://github.com/verdaccio/verdaccio/issues/1076)) ([67c0b8c](https://github.com/verdaccio/verdaccio/commit/67c0b8c))
+
+
+
+<a name="3.8.4"></a>
+## [3.8.4](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v3.8.4) (2018-10-13)
+
+
+### Bug Fixes
+
+* click on logo break ui ([#1073](https://github.com/verdaccio/verdaccio/issues/1073)) ([9a3c8bc](https://github.com/verdaccio/verdaccio/commit/9a3c8bc))
+* click on logo when using url_prefix was not working ([#996](https://github.com/verdaccio/verdaccio/issues/996)) ([3ac9646](https://github.com/verdaccio/verdaccio/commit/3ac9646))
+
+
+
+<a name="3.8.3"></a>
+## [3.8.3](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v3.8.3) (2018-10-07)
+
+
+### Bug Fixes
+
+* don't exit if using https and pfx is enabled ([#1061](https://github.com/verdaccio/verdaccio/issues/1061)) ([#1062](https://github.com/verdaccio/verdaccio/issues/1062)) ([315a3b2](https://github.com/verdaccio/verdaccio/commit/315a3b2))
 
 
 <a name="3.8.2"></a>

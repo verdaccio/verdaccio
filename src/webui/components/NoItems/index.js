@@ -1,18 +1,16 @@
+/**
+ * @prettier
+ * @flow
+ */
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import { IProps } from './types';
+import { Wrapper } from './styles';
 
-import classes from './noItems.scss';
-
-const NoItems = (props) => {
-    return (
-      <div className={classes.noItems}>
-        <h2>{props.text}</h2>
-      </div>
-    );
-};
-
-NoItems.propTypes = {
-  text: PropTypes.string.isRequired
-};
+const NoItems = ({ text }: IProps) => (
+  <Wrapper>
+    <h2>{text}</h2>
+  </Wrapper>
+);
 
 export default NoItems;

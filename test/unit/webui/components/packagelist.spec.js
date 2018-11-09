@@ -5,8 +5,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import PackageList from '../../../../src/webui/components/PackageList/index';
-import Help from '../../../../src/webui/components/Help/index';
-import NoItems from '../../../../src/webui/components/NoItems/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<PackageList /> component', () => {
@@ -18,12 +16,10 @@ describe('<PackageList /> component', () => {
     const wrapper = mount(
       <PackageList packages={props.packages} help={props.help} />
     );
+    expect(wrapper.find('Help')).toHaveLength(1);
 
-    const instance = wrapper.instance();
-    expect(instance.isTherePackages()).toBeFalsy();
-    expect(instance.renderHelp()).toBeTruthy();
-    expect(instance.renderOptions()).toEqual(<Help />);
-    expect(instance.renderTitle()).toBeUndefined();
+    expect(wrapper.find('h1').text()).toEqual('No Package Published Yet');
+
   });
 
   it('should load the component with packages', () => {
@@ -52,23 +48,16 @@ describe('<PackageList /> component', () => {
       ],
       help: false
     };
+
     const wrapper = mount(
       <BrowserRouter>
         <PackageList packages={props.packages} help={props.help} />
       </BrowserRouter>
     );
 
-    const instance = wrapper.find(PackageList).instance();
 
-    expect(instance.isTherePackages()).toBeTruthy();
-    expect(instance.renderHelp()).toBeUndefined();
-    expect(instance.renderTitle().props.children).toEqual('Available Packages');
-    expect(instance.renderNoItems()).toEqual(
-      <NoItems className="package-no-items" text="No items were found with that query" />
-    );
-    expect(instance.renderOptions()).toEqual(
-      <NoItems className="package-no-items" text="No items were found with that query" />
-    );
+    expect(wrapper.find('.listTitle').text()).toContain('Available Packages');
+
     // package count
     expect(wrapper.find('Package')).toHaveLength(3);
     // match snapshot
