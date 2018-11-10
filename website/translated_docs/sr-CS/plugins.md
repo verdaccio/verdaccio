@@ -60,7 +60,7 @@ auth:
 
 ### Middleware Plugin Configuration
 
-Ovo je primer koji pokzuje kako treba da podesite middleware plugin. Svi middleware plugini moraju biti definisani u **middlewares** namespace.
+Ovo je primer koji pokazuje kako treba da podesite middleware plugin. Svi middleware plugini moraju biti definisani u **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -72,7 +72,7 @@ middlewares:
 
 ### Store Plugin Configuration
 
-Ovo je primer koji pokzuje kako treba da podesite storage plugin. Svi storage plugini moraju se definisati u **store** namespace.
+Ovo je primer koji pokazuje kako treba da podesite storage plugin. Svi storage plugini moraju se definisati u **store** namespace.
 
 ```yaml
 store:
