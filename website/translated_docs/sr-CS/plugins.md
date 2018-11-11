@@ -132,7 +132,7 @@ store:
 
 ### Storage Plugins
 
-(kompatibilani od verzije 3.x)
+(kompatibilni od verzije 3.x)
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin za hostovanje paketa u Memory
 * [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin za hostovanje paketa na **Amazon S3**
