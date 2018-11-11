@@ -2,15 +2,15 @@
 id: authentification
 title: "Authentification"
 ---
-The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
+Аутентификација је везана за auth [plugin](plugins.md) који користите. Ограничења пакета су дефинисана преко [Package Access](packages.md).
 
-The client authentification is handled by `npm` client itself. Once you login to the application:
+Аутентификацију клијента врши сам `npm` клијент. Након пријаве на апликацију:
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-A token is generated in the `npm` configuration file hosted in your user home folder. For more information about `.npmrc` read the [official documentation](https://docs.npmjs.com/files/npmrc).
+Токен се генерише у фајлу за конфигурацију `npm` који се налази у home фолдеру корисника. Како бисте сазнали више о `.npmrc` прочитајте [official documentation](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -19,11 +19,11 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### Анонимно публиковање
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` Вам омогућава да пружите могућност анонимног публиковања. Како бисте успели у томе, потребно је да подесите [packages access](packages.md).
 
-Eg:
+Пример:
 
 ```yaml
   'my-company-*':
@@ -32,7 +32,7 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. However `yarn` has not such limitation.
+Као што је описано, [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) све док `npm@5.3.0` и све верзије не буду усаглашене **неће Вам бити омогућено да публикујете без токена**. However `yarn` has not such limitation.
 
 ## Default htpasswd
 
