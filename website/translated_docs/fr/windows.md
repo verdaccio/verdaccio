@@ -7,25 +7,25 @@ Librement basé sur les instructions trouvées [ici](http://asysadmin.tumblr.com
 1. Créer un répertoire pour verdaccio 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
-2. Install verdaccio locally (I ran into npm issues with global installs) 
+2. Installer verdaccio localement (j'ai rencontré des problèmes avec npm avec des installations générales) 
     * npm install verdaccio
-3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
-4. Windows Service Setup
+3. Créer votre fichier `confi.yaml` dans cet emplacement `(c:\verdaccio\config.yaml)`
+4. Configurer le service Windows
 
-## Using NSSM
+## Utilisation de NSSM
 
-ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
+MÉTHODE ALTERNATIVE: (le paquet WinSW n'était pas présent lorsque j'ai essayé de le télécharger)
 
-* Download [NSSM](https://www.nssm.cc/download/) and extract
+* Télécharger puis extraire [NSSM](https://www.nssm.cc/download/)
 
-* Add the path that contains nssm.exe to the PATH
+* Ajoutez le chemin qui contient nssm.exe au PATH
 
-* Open an administrative command
+* Ouvrir une commande administrative
 
-* Run nssm install verdaccio At a minimum you must fill in the Application tab Path, Startup directory and Arguments fields. Assuming an install with node in the system path and a location of c:\verdaccio the below values will work:
+* Exécutez nssm install verdaccio. Vous devez au moins entrer le dossier de démarrage et les champs Arguments dans le chemin de l'onglet Application. En supposant une installation avec noeud dans le chemin système et un emplacement de c:\verdaccio, les valeurs ci-dessous fonctionneront:
     
     * Path: `node`
-    * Startup directory: `c:\verdaccio`
+    * Répertoire de démarrage: `c:\verdaccio`
     * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
     You can adjust other service settings under other tabs as desired. When you are done, click Install service button
