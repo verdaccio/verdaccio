@@ -37,15 +37,15 @@ MÉTHODE ALTERNATIVE: (le paquet WinSW n'était pas présent lorsque j'ai essay�
 * À compter du 27/10/2015, WinSW n'est plus disponible à l'emplacement suivant. Veuillez suivre les instructions d'utilisation NSSM écrites ci-dessus.
 * Télécharger [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
     * Placez l'exécutable (par exemple `winsw-1.9-bin.exe`) dans ce dossier (`c:\verdaccio`) et renommez-le `verdaccio-winsw.exe`
-* Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
-* Install your service 
+* Créez un fichier de configuration dans `c:\verdaccio`, nommé `verdaccio-winsw.xml` avec la configuration suivante`xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
+* Installez votre service 
     * `cd c:\verdaccio`
     * `verdaccio-winsw.exe install`
-* Start your service 
+* Démarrez votre service 
     * `verdaccio-winsw.exe start`
 
-Some of the above config is more verbose than I had expected, it appears as though 'workingdirectory' is ignored, but other than that, this works for me and allows my verdaccio instance to persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
+Certaines des configurations ci-dessus sont plus détaillées que prévu. Il semble cependant que le 'workingdirectory' soit ignoré. Mais à part cela, ceci fonctionne et permet, dans mon cas, que Verdaccio continue de fonctionner entre les redémarrages du serveur, en plus il redémarre de manière autonome en cas d’échec du processus de verdaccio.
 
-## Repositories
+## Référentiels
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)
