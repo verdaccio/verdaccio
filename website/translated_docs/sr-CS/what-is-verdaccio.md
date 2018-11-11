@@ -49,4 +49,4 @@ Verdaccio kešira sve dependencies na zahtev i tako ubrzava instaliranje na loka
 * Nudimo Docker i Kubernetes podršku
 * 100% Komparibilan sa yarn, npm i pnpm
 * Nakon što je **forkovan** na bazi `sinopia@1.4.0` ostvaruje100% **kompatibilnost unazad**.
-* Ime Verdaccio označava **zelenu boja koja se koristila za italijansko freskoslikarstvo kasnog srednjeg veka**.
+* Ime Verdaccio označava **zelenu boju koja se koristila za italijansko freskoslikarstvo kasnog srednjeg veka**.
