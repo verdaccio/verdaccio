@@ -28,15 +28,15 @@ MÉTHODE ALTERNATIVE: (le paquet WinSW n'était pas présent lorsque j'ai essay�
     * Répertoire de démarrage: `c:\verdaccio`
     * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    You can adjust other service settings under other tabs as desired. When you are done, click Install service button
+    Si vous le souhaitez, il est possible d'adapter d'autres configurations de service sous d'autres onglets. Une fois terminé, cliquez sur le bouton d'installation
     
-    * Start the service sc start verdaccio
+    * Démarrer le service sc start verdaccio
 
-## Using WinSW
+## Utilisation de WinSW
 
-* As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
-* Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
-    * Place the executable (e.g. `winsw-1.9-bin.exe`) into this folder (`c:\verdaccio`) and rename it to `verdaccio-winsw.exe`
+* À compter du 27/10/2015, WinSW n'est plus disponible à l'emplacement suivant. Veuillez suivre les instructions d'utilisation NSSM écrites ci-dessus.
+* Télécharger [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
+    * Placez l'exécutable (par exemple `winsw-1.9-bin.exe`) dans ce dossier (`c:\verdaccio`) et renommez-le `verdaccio-winsw.exe`
 * Create a configuration file in `c:\verdaccio`, named `verdaccio-winsw.xml` with the following configuration `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
 * Install your service 
     * `cd c:\verdaccio`
