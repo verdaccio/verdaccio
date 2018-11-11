@@ -2,9 +2,9 @@
 id: windows
 title: "Installation en tant que service Windows"
 ---
-Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). I crafted the following and it provided me with a fully working verdaccio service installation:
+Librement basé sur les instructions trouvées [ici](http://asysadmin.tumblr.com/post/32941224574/running-nginx-on-windows-as-a-service). J'ai élaboré ce qui suit, ce qui m'a fourni un service d'installation de verdaccio entièrement fonctionnel:
 
-1. Create a directory for verdaccio 
+1. Créer un répertoire pour verdaccio 
     * mkdir `c:\verdaccio`
     * cd `c:\verdaccio`
 2. Install verdaccio locally (I ran into npm issues with global installs) 
