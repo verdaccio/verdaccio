@@ -1,10 +1,10 @@
 ---
 id: what-is-verdaccio
-title: "What is Verdaccio?"
+title: "C'est quoi Verdaccio?"
 ---
-Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
+Verdaccio est un **journal proxy npm léger et privé** écrit dans **Node.js**
 
-## What's a registry
+## Qu'est-ce qu'un journal
 
 * A repository for packages that implements the **CommonJS Compliant Package Registry specification** for reading package info
 * Provide an API compatible with npm clients **(yarn/npm/pnpm)**
