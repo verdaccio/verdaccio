@@ -6,7 +6,7 @@ title: "Interface d'Utilisateur Web"
 
 <p align="center"><img src="https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true"></p>
 
-Verdaccio propose une interface d'utilisateur web pour afficher uniquement les paquets privés et qui peut être personnalisée.
+Verdaccio dispoe d'une interface d'utilisateur web pour afficher uniquement les paquets privés et qui peut être personnalisée.
 
 ```yaml
 web:
