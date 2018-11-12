@@ -49,4 +49,4 @@ Verdaccio stocke toutes les dépendances sur demande et accélère les installat
 * Nous offrons un soutien Docker et Kubernetes
 * Il est 100% compatible avec les yarn, npm et pnpm
 * Il s'agit d'un **fork** basé sur `sinopia@1.4.0` et 100% **rétrocompatible**.
-* Le nom Verdaccio vient d'**Une nuance de vert, populaire dans l’Italie médiévale tardive et utilisée pour les fresques**.
+* Le nom Verdaccio vient d'**Une nuance de vert populaire dans l’Italie médiévale tardive et utilisée pour les fresques**.
