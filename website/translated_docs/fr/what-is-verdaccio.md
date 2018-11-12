@@ -37,12 +37,12 @@ Tous les paqutes que vous publiez sont privés et accessibles uniquement sur la 
 
 ## Proxy
 
-Verdaccio stocke toutes les dépendances sur demande et accélère les installations localement ou sur des réseaux privés.
+Verdaccio stocke toutes les dépendances sur demande et accélère les installations au niveau des réseaux locaux ou privés.
 
 ## Verdaccio en quelques mots
 
 * C'est une application web basée sur Node.js
-* C'est un journal npm privé
+* C'est un registre npm privé
 * C'est un réseau local proxy
 * C'est une application extensible
 * Il est assez facile à installer et à utiliser
