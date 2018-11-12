@@ -44,7 +44,7 @@ MÉTHODE ALTERNATIVE: (le paquet WinSW n'était pas présent lorsque j'ai essay�
 * Démarrez votre service 
     * `verdaccio-winsw.exe start`
 
-Certaines des configurations ci-dessus sont plus détaillées que prévu. Il semble cependant que le 'workingdirectory' soit ignoré. Mais à part cela, ceci fonctionne et permet, dans mon cas, que Verdaccio continue de fonctionner entre les redémarrages du serveur, en plus il redémarre de manière autonome en cas d’échec du processus de verdaccio.
+Certaines des configurations ci-dessus sont plus détaillées que prévu. Il semble cependant que le 'workingdirectory' soit ignoré, à part cela, ceci fonctionne et permet, dans mon cas, que Verdaccio continue de fonctionner entre les redémarrages du serveur, en plus il redémarre de manière autonome en cas d’échec du processus de verdaccio.
 
 ## Référentiels
 
