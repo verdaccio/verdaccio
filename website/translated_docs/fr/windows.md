@@ -16,11 +16,11 @@ Librement basé sur les instructions trouvées [ici](http://asysadmin.tumblr.com
 
 MÉTHODE ALTERNATIVE: (le paquet WinSW n'était pas présent lorsque j'ai essayé de le télécharger)
 
-* Télécharger puis extraire [NSSM](https://www.nssm.cc/download/)
+* Téléchargez puis extrayez [NSSM](https://www.nssm.cc/download/)
 
 * Ajoutez le chemin qui contient nssm.exe au PATH
 
-* Ouvrir une commande administrative
+* Ouvrez une commande administrative
 
 * Exécutez nssm install verdaccio. Vous devez au moins entrer le dossier de démarrage et les champs Arguments dans le chemin de l'onglet Application. En supposant une installation avec noeud dans le chemin système et un emplacement de c:\verdaccio, les valeurs ci-dessous fonctionneront:
     
@@ -35,7 +35,7 @@ MÉTHODE ALTERNATIVE: (le paquet WinSW n'était pas présent lorsque j'ai essay�
 ## Utilisation de WinSW
 
 * À compter du 27/10/2015, WinSW n'est plus disponible à l'emplacement suivant. Veuillez suivre les instructions d'utilisation NSSM écrites ci-dessus.
-* Télécharger [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
+* Téléchargez [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
     * Placez l'exécutable (par exemple `winsw-1.9-bin.exe`) dans ce dossier (`c:\verdaccio`) et renommez-le `verdaccio-winsw.exe`
 * Créez un fichier de configuration dans `c:\verdaccio`, nommé `verdaccio-winsw.xml` avec la configuration suivante`xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.
 * Installez votre service 
