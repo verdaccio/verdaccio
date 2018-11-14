@@ -94,7 +94,7 @@ Gdzie `htpasswd` jest przyrostkiem nazwy wtyczki. np: `verdaccio-htpasswd`, a re
 
 ## Wtyczka oprogramowania pośredniego
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Wtyczki pośrednie mają możliwość modyfikowania warstwy API, dodając nowe punkty końcowe lub przechwytywania żądań.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,7 +104,7 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Metoda zapewnia pełny dostęp do uwierzytelniania i przechowywania za pomocą `auth` i `storage`. `app` to ekspresowa aplikacja, która pozwala dodawać nowe punkty końcowe.
 
 > A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
@@ -116,7 +116,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Aby zarejestrować oprogramowanie pośrednie potrzebujemy obiekt z pojedynczą metodą `register_middlewares`, która otrzyma 3 argumenty (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Aby zarejestrować oprogramowanie pośrednie potrzebujemy obiekt z pojedynczą metodą `register_middlewares`, która otrzyma 3 argumenty (`expressApp, auth, storage`). *Auth* to instancja uwierzytelniania, a *storage* to także główna instancja Storage, która zapewnia dostęp do wszystkich działań związanych z pamięcią masową.
 
 ## Wtyczka magazynu danych
 
