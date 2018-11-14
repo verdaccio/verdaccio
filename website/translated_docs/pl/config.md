@@ -84,7 +84,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Pakiety pozwalają użytkownikowi kontrolować, w jaki sposób pakiety będą dostępne. Więcej informacji na temat tej sekcji można znaleźć na [stronie pakietów](packages.md).
 
 ```yaml
 packages:
