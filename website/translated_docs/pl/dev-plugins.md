@@ -26,7 +26,7 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Tylko `dduser`, `allow_access` i `allow_publish` są opcjonalne, verdaccio zapewnia cofnięcie we wszystkich tych przypadkach.
 
 #### Callback
 
@@ -44,7 +44,7 @@ callback(null, false)
 
 Uwierzytelnianie zakończone sukcesem.
 
-`groups` is an array of strings where the user is part of.
+`grupy` to tablica ciągów znaków, w których użytkownik jest częścią.
 
      callback(null, groups);
     
@@ -90,7 +90,7 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Gdzie `htpasswd` jest przyrostkiem nazwy wtyczki. np: `verdaccio-htpasswd`, a reszta będzie parametrem konfiguracyjnym wtyczki.
 
 ## Wtyczka oprogramowania pośredniego
 
