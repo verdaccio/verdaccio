@@ -17,7 +17,7 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## Domyślna lokalizacja pliku konfiguracyjnego
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and Windows environment we look for [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+Aby znaleźć katalog osobisty, polegamy na **$XDG_DATA_HOME** pierwszym wyborze i środowisku Windows, którego szukamy [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
 ## Domyślna lokalizacja magazynu danych
 
