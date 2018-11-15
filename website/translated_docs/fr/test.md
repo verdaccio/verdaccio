@@ -1,31 +1,31 @@
 ---
 id: unit-testing
-title: "Unit Testing"
+title: "Test unitaire"
 ---
-All tests are split in three folders:
+Tous les tests sont divisés en trois dossiers:
 
-- `test/unit` - Tests that cover functions that transform data in an non-trivial way. These tests simply `require()` a few files and run code in there, so they are very fast.
-- `test/functional` - Tests that launch a verdaccio instance and perform a series of requests to it over http. They are slower than unit tests.
-- `test/integration` - Tests that launch a verdaccio instance and do requests to it using npm. They are really slow and can hit a real npm registry. **unmaintained test**
+- `test/unit` - Tests couvrant les fonctions transformant les données de manière non triviale. Ces tests `demandent()` simplement peu de fichiers et exécutent le code qu'ils contiennent, ils sont donc très rapides.
+- `test/fonctionnel` - Tests qui lancent une instance verdaccio et effectuent une série de requêtes via http. Ils sont plus lents que les tests unitaires.
+- `test/integration` - Tests qui lancent une instance de verdaccio et lui adressent des requêtes à l'aide de npm. Ils sont considérablement lents et peuvent atteindre un registre npm réel. **test non maintenu**
 
-Unit and functional tests are executed automatically by running `npm test` from the project's root directory. Integration tests are supposed to be executed manually from time to time.
+Les tests unitaires et fonctionnels sont effectués automatiquement lorsque vous démarrez `npm test` à partir du dossier racine du projet. Les tests d'intégration doivent être effectués manuellement de temps à autre.
 
-We use `jest` for all test.
+L'on utilise `jest` pour tous les tests.
 
-## The npm Script
+## Le Script npm
 
-To run the test script you can use either `npm` or `yarn`.
+Pour exécuter le script de test, vous pouvez utiliser soit `npm` ou `yarn`.
 
     yarn run test
     
 
-That will trigger only two first groups of test, unit and functional.
+Cela activera uniquement les deux premiers groupes de test, unité et fonctionnel.
 
-### Using test/unit
+### Utilisation de test/unit
 
-The following is just an example how a unit test should looks like. Basically follow the `jest` standard.
+Ce qui suit est juste un exemple de ce à quoi un test unitaire devrait ressembler. Suivez fondamentalement la norme `jest`.
 
-Try to describe what exactly does the unit test in a single sentence in the header of the `test` section.
+Essayez de décrire ce que fait exactement le test unitaire en une seule phrase dans l'en-tête de la section `test`.
 
 ```javacript
 const verdaccio = require('../../src/api/index');
@@ -48,11 +48,11 @@ describe('basic system test', () => {
 });
 ```
 
-### Using test/functional
+### Utilisation de test/functional
 
-Funtional testing in verdaccio has a bit more of complextity that needs a deep explanation in order to success in your experience.
+Le test fonctionnel de verdaccio présente un niveau de complexité supérieur, qui nécessite une explication détaillée pour garantir une expérience positive.
 
-All starts in the `index.js` file. Let's dive in into it.
+Tout commence dans le fichier de`index.js`. Plongeons-nous dedans.
 
 ```javascript
 // we create 3 server instances
@@ -107,7 +107,7 @@ All starts in the `index.js` file. Let's dive in into it.
 
 ```
 
-### Usage
+### Utilisation
 
 Ici nous allons décrire à quoi devrait ressembler un test fonctionnel typique. Vérifiez inline pour plus d'informations détaillées.
 

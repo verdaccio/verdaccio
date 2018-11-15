@@ -19,6 +19,9 @@ admons:
   - name: Meeeeow
     github: Meeeeow
     role: core
+  - name: Priscila
+    github: priscilawebdev
+    role: core
 maintainers:
   - name: Verdaccio
     github: verdacciobot
@@ -29,9 +32,6 @@ maintainers:
     active: true
   - name: Cameron Little
     github: apexskier
-    active: true
-  - name: Priscila
-    github: priscilawebdev
     active: true
   - name: Keli Grubb
     github: kgrubb

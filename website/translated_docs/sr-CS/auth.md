@@ -4,7 +4,7 @@ title: "Autentifikacija"
 ---
 Autentifikacija je vezana za auth [plugin](plugins.md) koji koristite. Ograničenja paketa su definisana preko [Package Access](packages.md).
 
-Autentifikaciju klijenta vrši sam `npm` klijent. Nakon prijave na alikaciju:
+Autentifikaciju klijenta vrši sam `npm` klijent. Nakon prijave na aplikaciju:
 
 ```bash
 npm adduser --registry http://localhost:4873
@@ -49,7 +49,7 @@ auth:
 
 | Svojstvo  | Tip    | Neophodno | Primer     | Podrška | Opis                                   |
 | --------- | ------ | --------- | ---------- | ------- | -------------------------------------- |
-| file      | string | Da        | ./htpasswd | all     | file koji sadrži šivrovane credentials |
+| file      | string | Da        | ./htpasswd | all     | file koji sadrži šifrovane credentials |
 | max_users | number | Ne        | 1000       | all     | podešava maksimalni broj korisnika     |
 
 Ako se odlučite na to da ne dozvolite korisnicima da se prijave, možete podesiti `max_users: -1`.

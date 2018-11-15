@@ -34,7 +34,7 @@ Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za nj
 
 ![svg format, simbol bez teksta](/img/logo/symbol/svg/verdaccio-tiny.svg)
 
-### Crno-Belo
+### Crno&Belo
 
 ![simbol, bw, mali](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
