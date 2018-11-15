@@ -28,13 +28,13 @@ ALTERNATIVNI METOD: (WinSW paket je nedostajao kada je jedan od naših saradnika
     * Startup directory: `c:\verdaccio`
     * Arguments: `c:\verdaccio\node_modules\verdaccio\build\lib\cli.js -c c:\verdaccio\config.yaml`
     
-    Možete podesite druga servisna podešavanja u okviru ostalih tabova po sopstvenim željama. Kada završite, kliknite dugme Install service
+    Možete da podesite druga servisna podešavanja u okviru ostalih tabova po sopstvenim željama. Kada završite, kliknite dugme Install service
     
     * Pokrenite service sc, pokrenite verdaccio
 
 ## Korišćenje WinSW
 
-* Od 2015-10-27, WinSW više nije dostupan na navedenoj lpkaciji. Pratite instrukcije date u Using NSSM.
+* Od 2015-10-27, WinSW više nije dostupan na navedenoj lokaciji. Pratite instrukcije date u Using NSSM.
 * Preuzmite [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/) 
     * Postavite exe (primer, `winsw-1.9-bin.exe`) u ovaj folder (`c:\verdaccio`) i preimenujte u `verdaccio-winsw.exe`
 * Napravite fajl za konfigurisanje `c:\verdaccio`, nazvan `verdaccio-winsw.xml` sa sledećom konfiguracijom `xml verdaccio verdaccio verdaccio node c:\verdaccio\node_modules\verdaccio\src\lib\cli.js -c c:\verdaccio\config.yaml roll c:\verdaccio`.

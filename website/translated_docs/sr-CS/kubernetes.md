@@ -16,7 +16,7 @@ helm init
 
 ### Instaliranje
 
-Deploy Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. U ovom primeru koristimo `npm` kao ime izdanja (release nam):
+Deploy Helm [stable/verdaccio](https://github.com/kubernetes/charts/tree/master/stable/verdaccio) chart. U ovom primeru koristimo `npm` kao ime izdanja (release name):
 
 ```bash
 helm install --name npm stable/verdaccio

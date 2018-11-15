@@ -144,7 +144,7 @@ Ako želite da koristite docker image na rpi ili kompatibilnom uređaju, postoji
 npm run build:docker:rpi
 ```
 
-Primite k znanju da za svaku docker komandu morate imati na svojoj mašini instaliran docker zajedno sa docker executable koja mora biti dostuna na `$PATH`.
+Primite k znanju da za svaku docker komandu morate imati na svojoj mašini instaliran docker zajedno sa docker executable koja mora biti dostupna na `$PATH`.
 
 ## Docker Primeri
 

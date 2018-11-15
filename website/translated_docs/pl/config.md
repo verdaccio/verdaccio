@@ -1,5 +1,5 @@
 ---
-id: configuration
+id: konfiguracja
 title: "Plik konfiguracyjny"
 ---
 Plik ten jest podstawą verdaccio, ponieważ to w nim możesz modyfikować domyślne zachowanie aplikacji, rozszerzać jej funkcje oraz włączać wtyczki.
@@ -8,7 +8,7 @@ Domyślny plik konfiguracyjny jest tworzony, gdy po raz pierwszy uruchomisz `ver
 
 ## Podstawowa konfiguracja
 
-The default configuration has support for **scoped** packages and allow any user to access all packages but only **authenticated users to publish**.
+Domyślna konfiguracja obsługuje pakiety **o zakresie** i umożliwia każdemu użytkownikowi dostęp do wszystkich pakietów, ale tylko **uwierzytelnionych użytkowników do publikowania**.
 
 ```yaml
 storage: ./storage
@@ -31,7 +31,7 @@ logs:
 
 ## Sekcje
 
-The following sections explain what each property means and the different options.
+Poniższe sekcje wyjaśniają, co oznacza każda właściwość i różne opcje.
 
 ### Magazyn danych
 
@@ -43,7 +43,7 @@ storage: ./storage
 
 ### Wtyczki
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes based deployments.
+Jest lokalizacja katalogu wtyczek. Przydatny w przypadku wdrożeń opartych na Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins
@@ -62,7 +62,7 @@ auth:
 
 ### Internetowy interfejs użytkownika
 
-This property allow you to modify the look and feel of the web UI. For more information about this section read the [web ui page](web.md).
+Ta właściwość pozwala Ci zmienić wygląd internetowego interfejsu użytkownika.. Więcej informacji na temat tej sekcji można znaleźć na stronie [internetowego interfejsu użytkownika](web.md).
 
 ```yaml
 web:
@@ -74,7 +74,7 @@ web:
 
 ### Uplinks
 
-Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks to zdolność systemu do pobierania pakietów ze zdalnych rejestrów, gdy pakiety te nie są dostępne lokalnie. Więcej informacji na temat tej sekcji można znaleźć na [stronie uplinks](uplinks.md).
 
 ```yaml
 uplinks:
@@ -84,7 +84,7 @@ uplinks:
 
 ### Packages
 
-Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
+Pakiety pozwalają użytkownikowi kontrolować, w jaki sposób pakiety będą dostępne. Więcej informacji na temat tej sekcji można znaleźć na [stronie pakietów](packages.md).
 
 ```yaml
 packages:

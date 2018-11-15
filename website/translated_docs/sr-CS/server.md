@@ -19,11 +19,11 @@ $ sudo su verdaccio
 $ cd ~
 ```
 
-Komanda 'cd ~' šalje Vas do home direktorijuma verdaccio korinika. Postarajte se da pokrenete verdaccio barem jednom kako biste generisali config fajl. Modifikujte ga prema svojim potrebama.
+Komanda 'cd ~' šalje Vas do home direktorijuma verdaccio korisnika. Postarajte se da pokrenete verdaccio barem jednom kako biste generisali config fajl. Modifikujte ga prema svojim potrebama.
 
 ## Listening na svim adresama
 
-Ako želite da osluškujete (listen to) svaku eksternu adresu, podesite listen derectivu u config:
+Ako želite da osluškujete (listen to) svaku eksternu adresu, podesite listen direktivu na:
 
 ```yaml
 # you can specify listen address (or simply a port)
@@ -44,7 +44,7 @@ Prvo instalirajte forever globalno:
 $ sudo npm install -g forever
 ```
 
-Proverite da li ste pokrenuli verdaccio barem jednom kako biste generisali config fajl i upišete admin korisnika. Posle toga, možete koristiti sledeću komandu kako biste pokrenuli verdaccio:
+Proverite da li ste pokrenuli verdaccio barem jednom kako biste generisali config fajl i upisali admin korisnika. Posle toga, možete koristiti sledeću komandu kako biste pokrenuli verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
@@ -54,7 +54,7 @@ Možete pogledati dokumentaciju za više informacija o tome kako da koristite fo
 
 ## Preživljavanje resetovanja servera
 
-Možemo istovremeno koristiti crontab i forever kako bismo restartovali verdaccio nakon svakog reboot-ovanja servera. Nakon što ste prijavljeni kao verdaccio koristnik, zadajte sledeće:
+Možemo istovremeno koristiti crontab i forever kako bismo restartovali verdaccio nakon svakog reboot-ovanja servera. Nakon što ste prijavljeni kao verdaccio korisnik, zadajte sledeće:
 
 ```bash
 $ crontab -e

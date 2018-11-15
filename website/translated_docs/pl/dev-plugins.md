@@ -26,7 +26,7 @@ interface IPluginAuth extends IPlugin {
 }
 ```
 
-> Only `adduser`, `allow_access` and `allow_publish` are optional, verdaccio provide a fallback in all those cases.
+> Tylko `dduser`, `allow_access` i `allow_publish` są opcjonalne, verdaccio zapewnia cofnięcie we wszystkich tych przypadkach.
 
 #### Callback
 
@@ -44,7 +44,7 @@ callback(null, false)
 
 Uwierzytelnianie zakończone sukcesem.
 
-`groups` is an array of strings where the user is part of.
+`grupy` to tablica ciągów znaków, w których użytkownik jest częścią.
 
      callback(null, groups);
     
@@ -90,11 +90,11 @@ auth:
     file: ./htpasswd
 ```
 
-Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
+Gdzie `htpasswd` jest przyrostkiem nazwy wtyczki. np: `verdaccio-htpasswd`, a reszta będzie parametrem konfiguracyjnym wtyczki.
 
 ## Wtyczka oprogramowania pośredniego
 
-Middleware plugins have the capability to modify the API layer, either adding new endpoints or intercepting requests.
+Wtyczki pośrednie mają możliwość modyfikowania warstwy API, dodając nowe punkty końcowe lub przechwytywania żądań.
 
 ```flow
 interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -104,7 +104,7 @@ interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 
 ### register_middlewares
 
-The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
+Metoda zapewnia pełny dostęp do uwierzytelniania i przechowywania za pomocą `auth` i `storage`. `app` to ekspresowa aplikacja, która pozwala dodawać nowe punkty końcowe.
 
 > A pretty good example of middleware plugin is the [sinopia-github-oauth](https://github.com/soundtrackyourbrand/sinopia-github-oauth) and [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit).
 
@@ -116,7 +116,7 @@ function register_middlewares(expressApp, authInstance, storageInstance) {
 }
 ```
 
-Aby zarejestrować oprogramowanie pośrednie potrzebujemy obiekt z pojedynczą metodą `register_middlewares`, która otrzyma 3 argumenty (`expressApp, auth, storage`). *Auth* is the authentification instance and *storage* is also the main Storage instance that will give you have access to all to the storage actions.
+Aby zarejestrować oprogramowanie pośrednie potrzebujemy obiekt z pojedynczą metodą `register_middlewares`, która otrzyma 3 argumenty (`expressApp, auth, storage`). *Auth* to instancja uwierzytelniania, a *storage* to także główna instancja Storage, która zapewnia dostęp do wszystkich działań związanych z pamięcią masową.
 
 ## Wtyczka magazynu danych
 
