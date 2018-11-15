@@ -1,15 +1,11 @@
 import React from 'react';
-import SyntaxHighlighter, {registerLanguage} from 'react-syntax-highlighter/dist/light';
-import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
-import js from 'react-syntax-highlighter/dist/languages/javascript';
+import CopyToClipBoard from '../CopyToClipBoard/index';
 
 import classes from './help.scss';
 import {getRegistryURL} from '../../utils/url';
 
-registerLanguage('javascript', js);
-
 const Help = () => {
-  const registryURL = getRegistryURL();
+  const registryUrl = getRegistryURL();
 
     return (
       <div className={classes.help}>
@@ -25,13 +21,13 @@ const Help = () => {
             <strong>
               1. Login
             </strong>
-            <SyntaxHighlighter language='javascript' style={sunburst} id="adduser">
-              {`npm adduser --registry  ${registryURL}`}
-            </SyntaxHighlighter>
+            
+            <CopyToClipBoard text={`npm set registry ${registryUrl}`} />
+        
             <strong>2. Publish</strong>
-            <SyntaxHighlighter language='javascript' style={sunburst} id="publish">
-              {`npm publish --registry ${registryURL}`}
-            </SyntaxHighlighter>
+            
+              <CopyToClipBoard text={`npm adduser --registry ${registryUrl}`} />
+
             <strong>3. Refresh this page!</strong>
           </div>
         </li>
@@ -40,3 +36,5 @@ const Help = () => {
 };
 
 export default Help;
+
+ 

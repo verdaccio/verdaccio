@@ -22,8 +22,10 @@
       font-size: $font-size-sm;
     }
 
-    code {
+    .code {
       font-style: italic;
+      padding: 5px 15px 5px 15px;
+      background-color: black;
     }
   }
 }
