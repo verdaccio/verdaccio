@@ -2,9 +2,9 @@
 id: unit-testing
 title: "Unit Testing"
 ---
-Svi testovi su podeljen u tri foldera:
+Svi testovi su podeljeni u tri foldera:
 
-- `test/unit` - Testovi koji pokrivaju funkcije koje transformišu podatke na ne-trivijalni način. Da biste testirali, koristite `require()` na nekolliko fajlova i pokrenite kod, brzo se izvršava.
+- `test/unit` - Testovi koji pokrivaju funkcije koje transformišu podatke na netrivijalni način. Da biste testirali, koristite `require()` na nekolliko fajlova i pokrenite kod, brzo se izvršava.
 - `test/functional` - Test koji pokreće verdaccio instancu i pokreće seriju zahteva nad http. Ovaj tip testova je sporiji od unit testova.
 - `test/integration` - Test koji pokreće verdaccio instancu i zahteva je koristeći npm. Ovaj tip testova je izuzetno spor i može da pogodi pravi npm registry. **unmaintained test**
 

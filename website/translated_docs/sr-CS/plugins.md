@@ -60,7 +60,7 @@ auth:
 
 ### Middleware Plugin Configuration
 
-Ovo je primer koji pokzuje kako treba da podesite middleware plugin. Svi middleware plugini moraju biti definisani u **middlewares** namespace.
+Ovo je primer koji pokazuje kako treba da podesite middleware plugin. Svi middleware plugini moraju biti definisani u **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -72,7 +72,7 @@ middlewares:
 
 ### Store Plugin Configuration
 
-Ovo je primer koji pokzuje kako treba da podesite storage plugin. Svi storage plugini moraju se definisati u **store** namespace.
+Ovo je primer koji pokazuje kako treba da podesite storage plugin. Svi storage plugini moraju se definisati u **store** namespace.
 
 ```yaml
 store:
@@ -132,7 +132,7 @@ store:
 
 ### Storage Plugins
 
-(kompatibilani od verzije 3.x)
+(kompatibilni od verzije 3.x)
 
 * [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin za hostovanje paketa u Memory
 * [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin za hostovanje paketa na **Amazon S3**

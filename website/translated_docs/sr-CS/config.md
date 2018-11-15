@@ -43,7 +43,7 @@ storage: ./storage
 
 ### Plugins
 
-Je lokacija plugin directorijuma. Ovo je korisno za deployment baiziran na Docker/Kubernetes.
+Je lokacija plugin directorijuma. Ovo je korisno za deployment baziran na Docker/Kubernetes.
 
 ```yaml
 plugins: ./plugins

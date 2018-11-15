@@ -40,6 +40,6 @@ Instrukcije važe uglavnom za OSX i Linux, dok će na Windows-u putanje (paths) 
 
 ## Docker
 
-Ako koristite Docker image, potrebno je da podesite `PROTOCOL` environment varijablu na `https` posto je `listen` argument obezbeđen kao [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), i stoga ignorisan od strane config fajla.
+Ako koristite Docker image, potrebno je da podesite `PROTOCOL` environment varijablu na `https` pošto je `listen` argument obezbeđen kao [Dockerfile](https://github.com/verdaccio/verdaccio/blob/master/Dockerfile#L43), i stoga ignorisan od strane config fajla.
 
 Takođe možete da podesite `PORT` environment variablu ako koristite različit port od `4873`.
