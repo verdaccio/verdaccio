@@ -364,6 +364,9 @@ export const ErrorCode = {
   getInternalError: (customMessage?: string) => {
     return customMessage ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage) : createError(HTTP_STATUS.INTERNAL_ERROR);
   },
+  getUnauthorized: (message: string = 'no credentials provided') => {
+    return createError(HTTP_STATUS.UNAUTHORIZED, message);
+  },
   getForbidden: (message: string = "can't use this filename") => {
     return createError(HTTP_STATUS.FORBIDDEN, message);
   },
