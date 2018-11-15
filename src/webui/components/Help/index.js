@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { CardStyled as Card } from './styles';
 import CardActions from '@material-ui/core/CardActions/index';
 import CardContent from '@material-ui/core/CardContent/index';
@@ -15,9 +15,17 @@ import CopyToClipBoard from '../CopyToClipBoard/index';
 import { getRegistryURL } from '../../utils/url';
 
 import type { Node } from 'react';
-import { IProps } from './types';
 
-const Help = ({ scope = '' }: IProps): Node => {
+function renderHeadingClipboardSegments(title: string, text: string): Node {
+  return (
+    <Fragment>
+      <Typography variant="body2">{title}</Typography>
+      <CopyToClipBoard text={text} />
+    </Fragment>
+  );
+}
+
+const Help = (): Node => {
   const registryUrl = getRegistryURL();
 
   return (
@@ -30,12 +38,8 @@ const Help = ({ scope = '' }: IProps): Node => {
           To publish your first package just:
         </Typography>
         <br />
-        <Typography variant="body2" gutterBottom>
-          1. Login
-        </Typography>
-        <CopyToClipBoard text={`$ npm set ${scope} registry ${registryUrl}`} />
-        <Typography variant="body2">2. Publish</Typography>
-        <CopyToClipBoard text={`$ npm adduser --registry ${registryUrl}`} />
+        {renderHeadingClipboardSegments('1. Login', `$ npm adduser --registry ${registryUrl}`)}
+        {renderHeadingClipboardSegments('2. Publish', `$ npm publish --registry ${registryUrl}`)}
         <Typography variant="body2">3. Refresh this page.</Typography>
       </CardContent>
       <CardActions>
