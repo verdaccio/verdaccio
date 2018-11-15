@@ -47,7 +47,7 @@ Mnogi saradnici imaju dar za pronalaženje grešaka u kucanju i gramatičkih gre
 
 ### Ja sam Dizajner
 
-Frontend našeg website <http://www.verdaccio.org/> bi bio jako srećan da vidi u usvoji neku od Vaših ideja.
+Frontend našeg website <http://www.verdaccio.org/> bi bio jako srećan da vidi i usvoji neku od Vaših ideja.
 
 Inače, naš sajt je baziran na [Docusaurus](https://docusaurus.io/).
 
@@ -63,7 +63,7 @@ Verdaccio stremi ka tome da bude dostupan na što više jezika. Kako bismo to po
 
 <img src="https://d3n8a8pro7vhmx.cloudfront.net/uridu/pages/144/attachments/original/1485948891/Crowdin.png" width="400px" />
 
-Postavili smo projekt tako da možete da odaberete svoj omiljeni jezik, a ako ga ne pronađete na listi, slobodno zatažite da ga dodamo tako što ćete nam [poslati poruku (ticket)](https://github.com/verdaccio/verdaccio/issues/new).
+Postavili smo projekat tako da možete da odaberete svoj omiljeni jezik, a ako ga ne pronađete na listi, slobodno zatražite da ga dodamo tako što ćete nam [poslati poruku (ticket)](https://github.com/verdaccio/verdaccio/issues/new).
 
 [Pravac na Crowdin Verdaccio](https://crowdin.com/project/verdaccio)
 

@@ -21,7 +21,7 @@ registry=http://localhost:5555/
 
 #### Anonimowa publikacja
 
-`verdaccio`allows you to enable anonymous publish, to achieve that you will need to set up correctly your [packages access](packages.md).
+`verdaccio` pozwala włączyć anonimowe publikowania, aby to osiągnąć, musisz poprawnie ustawić swój <a [dostęp do pakietów](packages.md).
 
 Eg:
 
@@ -32,7 +32,7 @@ Eg:
     proxy: npmjs
 ```
 
-As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**. Jednakże `yarn` nie posiada takich ograniczeń.
+Zgodnie z opisem [w sprawie #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) aż do `npm@5.3.0` i wszystkie drobne wersje **nie pozwolą ci publikować bez tokenu**. Jednakże `yarn` nie posiada takich ograniczeń.
 
 ## Domyślne htpasswd
 

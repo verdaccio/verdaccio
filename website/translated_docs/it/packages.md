@@ -11,33 +11,33 @@ Per ulteriori informazioni sui permessi, visita [la sezione autenticazione nella
 ### Utilizzo
 
 ```yalm
-packages:
-  # scoped packages
-  '@scope/*':
-    access: $all
-    publish: $all
+pacchetti:
+  # packages con scopo
+  '@scopo/*':
+    accesso: $all
+    pubblicare: $all
     proxy: server2
 
-  'private-*':
-    access: $all
-    publish: $all
+  'privato-*':
+    accessso: $all
+    pubblicare: $all
     proxy: uplink1
 
   '**':
-    # allow all users (including non-authenticated users) to read and
-    # publish all packages
-    access: $all
-    publish: $all
+    # consenti a tutti gli utenti (inclusi gli utenti non autenticati) di leggere e
+    # pubblicare tutti i pacchetti
+    accesso: $all
+    pubblicare: $all
     proxy: uplink2
 ```
 
 se non ne viene specificato nemmeno uno, rimane quello predefinito
 
 ```yaml
-packages:
+pacchetti:
   '**':
-    access: $all
-    publish: $authenticated
+    accessso: $all
+    pubblicare: $authenticated
 ```
 
 La lista di gruppi validi a seconda dei plugin predefiniti è
@@ -56,10 +56,10 @@ Tutti gli utenti ricevono tutti questi gruppi di permessi indipendentemente dal 
 Se si desidera proteggere un insieme specifico di pacchetti dentro al proprio gruppo, è necessario fare qualcosa simile a questo. Utilizziamo un `Regex` che copra tutti i pacchetti con prefisso `npmuser-`. Raccomandiamo di utilizzare un prefisso per i pacchetti, in modo che possa essere più semplice proteggerli.
 
 ```yaml
-packages:
+pacchetti:
   'npmuser-*':
-    access: npmuser
-    publish: npmuser
+    accessso: npmuser
+    pubblicare: npmuser
 ```
 
 Riavviare `verdaccio` e provare ad installare `npmuser-core` nella console.
@@ -96,11 +96,11 @@ Definire gruppi di accesso multipli è abbastanza facile, è sufficiente disting
 Se si desidera bloccare l'accesso/pubblicazione ad uno specifico gruppo di pacchetti, è sufficiente non definire `access` e `publish`.
 
 ```yaml
-packages:
-  'old-*':
+pacchetti:
+  'vecchio-*':
   '**':
-    access: $all
-    publish: $authenticated
+    accesso: $all
+    pubblicare: $authenticated
 ```
 
 #### Bloccare l'inoltro di un gruppo di pacchetti specifici
@@ -110,19 +110,19 @@ Si potrebbe voler impedire che uno o vari pacchetti vengano raggiunti dai regist
 Vediamo l'esempio seguente:
 
 ```yaml
-packages:
+pacchetti:
   'jquery':
-    access: $all
-    publish: $all
-  'my-company-*':
-    access: $all
-    publish: $authenticated
-  '@my-local-scope/*':
-    access: $all
-    publish: $authenticated
+    accesso: $all
+    pubblicare: $all
+  'mia-azienda-*':
+    accessso: $all
+    pubblicare: $authenticated
+  '@mio-locale-scopo/*':
+    accesso: $all
+    pubblicare: $authenticated
   '**':
-    access: $all
-    publish: $authenticated
+    accesso: $all
+    pubblicare: $authenticated
     proxy: npmjs
 ```
 

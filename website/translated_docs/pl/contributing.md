@@ -20,7 +20,7 @@ Wszyscy posiadamy różne umiejętności, więc zobaczmy w czym czujesz się kom
 
 ### Znam lub chcę się nauczyć Node.js
 
-Node.js jest podstawą `verdaccio`, używamy bibliotek takich jak `express`, `commander`, `request` lub `async`. Verdaccio is basically a Rest API that create a communication with `npm` clients compatible, as `yarn`.
+Node.js jest podstawą `verdaccio`, używamy bibliotek takich jak `express`, `commander`, `request` lub `async`. Verdaccio to w zasadzie Rest API, które tworzy komunikację z `npm` klientami zgodnymi, jak `yarn`.
 
 Posiadamy długą [listę wtyczek](plugins.md) gotową do użycia oraz rozwijania, ale również możesz [stworzyć swoją własną](dev-plugins.md).
 
@@ -34,7 +34,7 @@ Of course, we will be happy to help us improving the stack, you can upgrade depe
 
 Tutaj jest kilka pomysłów:
 
-* Create a common eslint rules to be used across all dependencies or plugins
+* Utwórz wspólne reguły eslint, które będą używane we wszystkich zależnościach lub wtyczkach
 * Improve Flow types definitions delivery
 * Moving to Webpack 4
 * Improve hot reload with Webpack
@@ -71,7 +71,7 @@ Przygotowaliśmy projekt, w którym możesz wybrać swój ulubiony język, jeśl
 
 Jeśli myślisz *"Widziałem już [repozytoria](repositories.md) i jestem gotów zacząć od razu"*, wtedy mam dla Ciebie dobrą wiadomość, która znajduje się w następnym kroku.
 
-You will need learn how to build, [we have prepared a guide just for that](build.md).
+Będziesz potrzebował nauczyć się budować, [przygotowaliśmy dla ciebie poradnik](build.md).
 
 Gdy zapoznasz się ze wszystkimi skryptami i będziesz wiedział jak ich używać, będziesz gotów do następnego kroku, uruchom [**Test jednostek**](test.md).
 
