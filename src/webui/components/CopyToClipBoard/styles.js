@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton/index';
 
 export const ClipBoardCopy = styled.p`
   && {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     padding: 5px 0 5px 0;
     margin: 0;
     display: flex;
@@ -18,7 +19,6 @@ export const ClipBoardCopyText = styled.span`
     overflow: hidden;
     white-space: nowrap;
     height: 21px;
-    font-style: italic;
   }
 `;
 
