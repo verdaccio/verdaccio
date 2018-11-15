@@ -141,7 +141,7 @@ Primer:
 
 ### Package Published
 
-Možete pristupiti opciji package is being published pomoću ključe reči `{{publishedPackage}}` na sledeći način.
+Možete pristupiti opciji package is being published pomoću ključne reči `{{publishedPackage}}` na sledeći način.
 
     {{ publisher.name }} has published {{publishedPackage}}"}
     

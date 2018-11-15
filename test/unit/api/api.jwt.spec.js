@@ -24,7 +24,7 @@ const parseConfigurationJWTFile = () => {
   return parseConfigurationFile(`api-jwt/jwt`);
 };
 
-const FORBIDDEN_VUE: string = 'unregistered users are not allowed to access package vue';
+const FORBIDDEN_VUE: string = 'authorization required to access package vue';
 
 describe('endpoint user auth JWT unit test', () => {
   let config;
@@ -76,9 +76,9 @@ describe('endpoint user auth JWT unit test', () => {
     expect(resp1.body).toBeDefined();
     expect(resp1.body.name).toMatch('vue');
 
-    const [err2, resp2] = await getPackage(request(app), `Bearer fake`, 'vue', HTTP_STATUS.FORBIDDEN);
+    const [err2, resp2] = await getPackage(request(app), `Bearer fake`, 'vue', HTTP_STATUS.UNAUTHORIZED);
     expect(err2).toBeNull();
-    expect(resp2.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+    expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
     done();
   });
@@ -105,9 +105,9 @@ describe('endpoint user auth JWT unit test', () => {
   });
 
   test('should fails on try to access with corrupted token', async (done) => {
-    const [err2, resp2] = await getPackage(request(app), `Bearer fake`, 'vue', HTTP_STATUS.FORBIDDEN);
+    const [err2, resp2] = await getPackage(request(app), `Bearer fake`, 'vue', HTTP_STATUS.UNAUTHORIZED);
     expect(err2).toBeNull();
-    expect(resp2.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+    expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
     done();
   });
