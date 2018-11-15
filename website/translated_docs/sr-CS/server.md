@@ -2,70 +2,70 @@
 id: server-configuration
 title: "Server Configuration"
 ---
-This is mostly basic linux server configuration stuff but I felt it important to document and share the steps I took to get verdaccio running permanently on my server. You will need root (or sudo) permissions for the following.
+Ovo je najbazičnija konfiguracija za linux server ali nam se čini važnim da dokumentujemo i podelimo sa Vama sve korake kako bi verdaccio stalno radio na serveru. Biće Vam potrebne root (ili sudo) dozvole za navedeno.
 
-## Running as a separate user
+## Pokretanje, kao zaseban korisnik
 
-First create the verdaccio user:
+Najpre kreirajte verdaccio korisnika:
 
 ```bash
 $ sudo adduser --disabled-login --gecos 'Verdaccio NPM mirror' verdaccio
 ```
 
-You create a shell as the verdaccio user using the following command:
+Zatim kreirate shell kao verdaccio korisnik, putem sledeće komande:
 
 ```bash
 $ sudo su verdaccio
 $ cd ~
 ```
 
-The 'cd ~' command send you to the home directory of the verdaccio user. Make sure you run verdaccio at least once to generate the config file. Edit it according to your needs.
+Komanda 'cd ~' šalje Vas do home direktorijuma verdaccio korisnika. Postarajte se da pokrenete verdaccio barem jednom kako biste generisali config fajl. Modifikujte ga prema svojim potrebama.
 
-## Listening on all addresses
+## Listening na svim adresama
 
-If you want to listen to every external address set the listen directive in the config to:
+Ako želite da osluškujete (listen to) svaku eksternu adresu, podesite listen direktivu na:
 
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
 ```
 
-If you are running `verdaccio` in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
+Ako imate pokrenut `verdaccio` u Amazon EC2 instanci, [moraćete da podesite listen u change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) kao što je prikazano u navedenom primeru.
 
-> Apache configure? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Konfigurisanje Apache-a? Molimo Vas da pogledate [Reverse Proxy Setup](reverse-proxy.md)
 
-## Keeping verdaccio running forever
+## Kako da verdaccio radi neprekidno
 
-We can use the node package called 'forever' to keep verdaccio running all the time. https://github.com/nodejitsu/forever
+Možemo koristiti node paket zvani 'forever' kako biste podesili verdaccio da radi neprekidno. https://github.com/nodejitsu/forever
 
-First install forever globally:
+Prvo instalirajte forever globalno:
 
 ```bash
 $ sudo npm install -g forever
 ```
 
-Make sure you've started verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start verdaccio:
+Proverite da li ste pokrenuli verdaccio barem jednom kako biste generisali config fajl i upisali admin korisnika. Posle toga, možete koristiti sledeću komandu kako biste pokrenuli verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
 ```
 
-You can check the documentation for more information on how to use forever.
+Možete pogledati dokumentaciju za više informacija o tome kako da koristite forever.
 
-## Surviving server restarts
+## Preživljavanje resetovanja servera
 
-We can use crontab and forever together to restart verdaccio after a server reboot. When you're logged in as the verdaccio user do the following:
+Možemo istovremeno koristiti crontab i forever kako bismo restartovali verdaccio nakon svakog reboot-ovanja servera. Nakon što ste prijavljeni kao verdaccio korisnik, zadajte sledeće:
 
 ```bash
 $ crontab -e
 ```
 
-This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
+Moguće je da ćete dobiti pitanje da odaberete editor. Odaberite svoj omiljeni i nastavite. Unesite sledeći input u fajl:
 
     @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
     
 
-The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+Lokacije mogu varirati u zavisnosti od podešavanja servera. Ako želite da saznate gde se nalaze Vaši fajlovi, možete koristiti comandu 'which':
 
 ```bash
 $ which forever

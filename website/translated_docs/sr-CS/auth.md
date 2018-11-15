@@ -1,17 +1,16 @@
 ---
-
 id: autentifikacija
 title: "Autentifikacija"
 ---
 Autentifikacija je vezana za auth [plugin](plugins.md) koji koristite. Ograničenja paketa su definisana preko [Package Access](packages.md).
 
-Autentifikacija klijenta vrši sam klijent putem `npm`. Nakon prijave na alikaciju:
+Autentifikaciju klijenta vrši sam `npm` klijent. Nakon prijave na aplikaciju:
 
 ```bash
 npm adduser --registry http://localhost:4873
 ```
 
-Token se generiše u fajlu za konfiguraciju `npm`, koji se nalazi u home folder-u korisnika. Kako biste saznali više o `.npmrc` pročitajte [, zvaničnu dokumentaciju](https://docs.npmjs.com/files/npmrc).
+Token se generiše u fajlu za konfiguraciju `npm`, koji se nalazi u home folder-u korisnika. Kako biste saznali više o `.npmrc` pročitajte [zvaničnu dokumentaciju](https://docs.npmjs.com/files/npmrc).
 
 ```bash
 cat .npmrc
@@ -22,7 +21,7 @@ registry=http://localhost:5555/
 
 #### Anonimno publikovanje
 
-`verdaccio`Vam omogućava da pružite mogućnost anonimnog publikovanja. Kako biste uspeli u tome, potrebno je da podesite [packages access](packages.md).
+`verdaccio` Vam omogućava da pružite mogućnost anonimnog publikovanja. Kako biste uspeli u tome, potrebno je da podesite [packages access](packages.md).
 
 Primer:
 
@@ -37,7 +36,7 @@ Kao što je opisano, [on issue #212](https://github.com/verdaccio/verdaccio/issu
 
 ## Podrazumevana htpasswd
 
-Kako bi se pojednostavio setup, `verdaccio` koristi plugin baziran na `htpasswd`. Od verzije v3.0.x an [eksterni plugin](https://github.com/verdaccio/verdaccio-htpasswd) se koristi kao podrazumevan. Verzija v2.x i dalje sadrži ugrađenu verziju ovog plugin-a.
+Kako bi se pojednostavio setup, `verdaccio` koristi plugin baziran na `htpasswd`. Od verzije v3.0.x [eksterni plugin](https://github.com/verdaccio/verdaccio-htpasswd) se koristi kao podrazumevan. Verzija v2.x i dalje sadrži ugrađenu verziju ovog plugin-a.
 
 ```yaml
 auth:
@@ -48,9 +47,9 @@ auth:
     #max_users: 1000
 ```
 
-| Svojstvo  | Tip    | Potrebno | Primer     | Podrška | Opis                                   |
-| --------- | ------ | -------- | ---------- | ------- | -------------------------------------- |
-| file      | string | Da       | ./htpasswd | potpuna | file koji sadrži šivrovane credentials |
-| max_users | broj   | Ne       | 1000       | potpuna | podešava maksimalni broj korisnika     |
+| Svojstvo  | Tip    | Neophodno | Primer     | Podrška | Opis                                   |
+| --------- | ------ | --------- | ---------- | ------- | -------------------------------------- |
+| file      | string | Da        | ./htpasswd | all     | file koji sadrži šifrovane credentials |
+| max_users | number | Ne        | 1000       | all     | podešava maksimalni broj korisnika     |
 
 Ako se odlučite na to da ne dozvolite korisnicima da se prijave, možete podesiti `max_users: -1`.

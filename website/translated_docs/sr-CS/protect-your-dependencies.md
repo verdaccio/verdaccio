@@ -2,11 +2,11 @@
 id: protect-your-dependencies
 title: "Protecting packages"
 ---
-`verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages acces](packages).
+`verdaccio` Vam omogućava da publikujete. Kako biste u tome uspeli, neophodno je da ispravno podesite svoj [packages acces](packages).
 
-### Package configuration
+### Konfigurisanje paketa
 
-Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
+Pogledajmo navedena podešavanja kao primer. Potrebno je da podesite dependencies koje imaju prefiks u vidu `my-company-*` i treba da ih zaštitite od anonimnih ili drugih prijavljenih korisnika koji su bez odgovarajućih ovlašćenja (credentials).
 
 ```yaml
   'my-company-*':
@@ -15,18 +15,18 @@ Let's see for instance the following set up. You have a set of dependencies what
     proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA** **teamB** **teamC** *access* to such dependencies.
+Sa navedenom konfiguracijom dozvoljavamo grupama **admin** i **teamA** da *publikuju* a grupama **teamA** **teamB** i **teamC** *pristup* do tih dependencies.
 
-### Use case: teamD try to access the dependency
+### Primer iz prakse: teamD pokušava da pristupi nekoj dependency
 
-So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match with `my-company-*` pattern.
+Dale, prijavljen sam kao **teamD**. Ne bi trebalo da budem u mogućnosti da pristupim svim dependencies-ima koji sadrže `my-company-*` patern.
 
 ```bash
 ➜ npm whoami
 teamD
 ```
 
-I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
+**Neću imati pristup do svih dependencies-a i takođe neću biti vidljiv preko weba za korisnika **teamD**. Ako pokušam da pristupim, dogodiće se sledeće.</p> 
 
 ```bash
 ➜ npm install my-company-core
@@ -34,7 +34,7 @@ npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
-or with `yarn`
+ili sa `yarn`
 
 ```bash
 ➜ yarn add my-company-core

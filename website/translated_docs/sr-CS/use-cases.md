@@ -2,30 +2,30 @@
 id: use-cases
 title: "Use Cases"
 ---
-## Using private packages
+## Korišćenje privatnih paketa
 
-You can add users and manage which users can access which packages.
+Možete dodavati korisnike i određivati koji će korisnici imati pristup kojim paketima.
 
-It is recommended that you define a prefix for your private packages, for example "local", so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
+Zaista se preporučuje da definišete prefiks za svoje privatne pakete, na primer "local". Posle toga, sve što je privatno, izgledaće ovako: `local-foo`. Na ovaj način možete jasno razdvojiti javne pakete od privatnih.
 
-## Using public packages from npmjs.org
+## Korišćenje javnih paketa sa npmjs.org
 
-If some package doesn't exist in the storage, server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from cache pretending that no other packages exist. Verdaccio will download only what's needed (= requested by clients), and this information will be cached, so if client will ask the same thing second time, it can be served without asking npmjs.org for it.
+Ako neki od paketa ne postoji u memoriji, server će pokušati da ga preuzme (fetch) sa npmjs.org. U slučaju da npmjs.org nije u funkciji, preuzeće se iz cache-a. Verdaccio će preuzeti samo ono što je neophodno (= ono što je klijent zatražio), i ta će informacija biti keširana, tako da u slučaju da klijent ponovo prosledi isti zahtev, preuzeće se bez aktivne potrebe za npmjs.org.
 
-Example: if you successfully request express@3.0.1 from this server once, you'll able to do that again (with all it's dependencies) anytime even if npmjs.org is down. But say express@3.0.0 will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, this server would say that only express@3.0.1 (= only what's in the cache) is published, but nothing else.
+Primer: ako ste jednom poslali zahtev za express@3.0.1sa ovog servera, bićete u mogućnosti da to uradite ponovo (sa svim potrebnim dependencies) kad god je npmjs.org van funkcije. Ali, recimo, express@3.0.0 neće biti preuzet, sve dok ga neko ne potraži. I u slučaju da je npmjs.org offline, server će odgovoriti da je, na primer, samo express@3.0.1 dostupan (= samo onaj koji je u cache) i nijedan drugi.
 
 ## Override public packages
 
-If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, it'll consider installing your version.
+Ako želite da koristite modifikovanu verziju nekog javnog paketa `foo`, možete ga jednostavno publikovati na lokalnom serveru, tako da kada ukucate `npm install foo`, počeće da instalira Vašu verziju.
 
-There's two options here:
+Ovde postoje dve opcije:
 
-1. You want to create a separate fork and stop synchronizing with public version.
+1. Ako želite da kreirate poseban fork i zaustavite sinhronizaciju sa javnom verzijom.
     
-    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to *config.yaml* and remove `npmjs` from `proxy` list and restart the server.
+    Ako želite da uradite to, trebalo bi da modifikujete svoj fajl za konfiguraciju tako da verdaccio prestane da traži zahteve od npmjs koji se odnose na taj paket. Dodajte poseban unos za ovaj paket u *config.yaml* i uklonite `npmjs` iz `proxy` liste i restartujte server.
     
-    When you publish your package locally, you should probably start with version string higher than existing one, so it won't conflict with existing package in the cache.
+    Kada publikujete svoj paket lokalno, verovatno bi trebalo da otpočnete sa sa verzijom novijom od postojeće, tako da se izbegne konflikt sa postojećim paketom u cache-u.
 
-2. You want to temporarily use your version, but return to public one as soon as it's updated.
+2. Ako želite da svoju verziju koristite samo privremeno, ali da se vratite na javnu čim se pojavi ažurirana.
     
-    In order to avoid version conflicts, you should use a custom pre-release suffix of the next patch version. For example, if a public package has version 0.1.2, you can upload 0.1.3-my-temp-fix. This way your package will be used until its original maintainer updates his public package to 0.1.3.
+    Kako biste izbegli konflikte sa verzijama, trebalo bi da koristite pre-release suffix sledeće patch verzije. Na primer, ako je javni paket verzije 0.1.2, možete upload-ovati 0.1.3-my-temp-fix. Na taj način paket koji koristite će opstati dok se ne pojavi javna verzija paketa 0.1.3.
