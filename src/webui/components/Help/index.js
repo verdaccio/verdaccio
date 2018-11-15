@@ -29,9 +29,9 @@ const Help = (): Node => {
   const registryUrl = getRegistryURL();
 
   return (
-    <Card>
+    <Card id="help-card">
       <CardContent>
-        <Typography component="h2" variant="headline" gutterBottom>
+        <Typography component="h2" variant="headline" gutterBottom id="help-card__title">
           No Package Published Yet.
         </Typography>
         <Typography color="textSecondary" gutterBottom>
