@@ -130,6 +130,7 @@ export default class LoginModal extends Component {
           maxWidth="xs"
           fullWidth
         >
+        <form onSubmit={this.validateCredentials.bind(this)} noValidate>
           <DialogTitle>Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
@@ -177,17 +178,20 @@ export default class LoginModal extends Component {
               onClick={onCancel}
               id="login--form-cancel"
               color="inherit"
+              type="button"
             >
               Cancel
               </Button>
             <Button
               id="login--form-submit"
-              onClick={this.validateCredentials.bind(this)}
+              type="submit"
               color="inherit"
+              disabled={ !password.value || !username.value }
             >
               Login
             </Button>
           </DialogActions>
+          </form>
         </Dialog>
     );
   }
