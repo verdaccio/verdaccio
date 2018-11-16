@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "Verdaccio · A lightweight private npm proxy registry",
+    "tagline": "A lightweight private npm proxy registry",
     "ansible": "Ansible",
     "authentification": "Authentification",
     "build": "Build the source code",
@@ -32,7 +32,7 @@
     "unit-testing": "Unit Testing",
     "uplinks": "Uplinks",
     "use-cases": "Use Cases",
-    "webui": "Web User Interface2",
+    "webui": "Web User Interface",
     "what-is-verdaccio": "What is Verdaccio?",
     "windows": "Installing As a Windows Service",
     "Docs": "Docs",

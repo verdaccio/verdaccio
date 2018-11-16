@@ -67,9 +67,9 @@ const languages = [
     tag: 'fi',
   },
   {
-    enabled: false,
+    enabled: true,
     name: 'Français',
-    tag: 'fr',
+    tag: 'fr-FR',
   },
   {
     enabled: false,
@@ -87,9 +87,9 @@ const languages = [
     tag: 'id-ID',
   },
   {
-    enabled: false,
+    enabled: true,
     name: 'Italiano',
-    tag: 'it',
+    tag: 'it-IT',
   },
   {
     enabled: false,
@@ -119,7 +119,7 @@ const languages = [
   {
     enabled: false,
     name: 'Polskie',
-    tag: 'pl',
+    tag: 'pl-PL',
   },
   {
     enabled: false,
@@ -139,7 +139,7 @@ const languages = [
   {
     enabled: false,
     name: 'Русский',
-    tag: 'ru',
+    tag: 'ru-RU',
   },
   {
     enabled: false,
@@ -149,7 +149,12 @@ const languages = [
   {
     enabled: false,
     name: 'Српски језик (Ћирилица)',
-    tag: 'sr',
+    tag: 'sr-SP',
+  },
+  {
+    enabled: false,
+    name: 'Serbian',
+    tag: 'sr-CS',
   },
   {
     enabled: false,
@@ -169,7 +174,7 @@ const languages = [
   {
     enabled: false,
     name: 'Tiếng Việt',
-    tag: 'vi',
+    tag: 'vi-VN',
   },
   {
     enabled: true,
