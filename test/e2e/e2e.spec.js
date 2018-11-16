@@ -56,24 +56,24 @@ describe('/ (Verdaccio Page)', () => {
   });
 
   it('should load without error', async () => {
-    let text = await page.evaluate(() => document.body.textContent);
+    const text = await page.evaluate(() => document.body.textContent);
 
     // FIXME: perhaps it is not the best approach
     expect(text).toContain('Powered by');
   });
 
   it('should match title with no packages published', async () => {
-    let text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
+    const text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
     expect(text).toMatch('No Package Published Yet');
   });
 
   it('should match title with first step', async () => {
-    let text = await page.evaluate(() => document.querySelector('#help-card').textContent);
+    const text = await page.evaluate(() => document.querySelector('#help-card').textContent);
     expect(text).toContain('$ npm adduser --registry http://0.0.0.0:55558');
   });
 
   it('should match title with second step', async () => {
-    let text = await page.evaluate(() => document.querySelector('#help-card').textContent);
+    const text = await page.evaluate(() => document.querySelector('#help-card').textContent);
     expect(text).toContain('$ npm publish --registry http://0.0.0.0:55558');
   });
 
@@ -151,7 +151,7 @@ describe('/ (Verdaccio Page)', () => {
     await page.waitFor(500);
     await page.reload();
     await page.waitFor(500);
-    let text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
+    const text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
     expect(text).toMatch('No Package Published Yet');
   });
 });
