@@ -32,7 +32,7 @@ yarn global add verdaccio
 
 ## Osnovna upotreba
 
-Jednom kada se instalita, sve što treba je da izvršite CLI komandu:
+Jednom kada se instalira, sve što treba je da izvršite CLI komandu:
 
 ```bash
 $> verdaccio

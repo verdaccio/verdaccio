@@ -19,6 +19,9 @@ admons:
   - name: Meeeeow
     github: Meeeeow
     role: core
+  - name: Priscila
+    github: priscilawebdev
+    role: core
 maintainers:
   - name: Verdaccio
     github: verdacciobot
@@ -29,9 +32,6 @@ maintainers:
     active: true
   - name: Cameron Little
     github: apexskier
-    active: true
-  - name: Priscila
-    github: priscilawebdev
     active: true
   - name: Keli Grubb
     github: kgrubb
@@ -83,4 +83,18 @@ translators:
       role: translator
     - name: breathewind
       crowdin: breathewind
+      role: translator
+  french:
+    - name: Léon Cédric
+      crowdin: leyt
+      role: proofreader
+    - name: Avoine
+      crowdin: ahmedess
+      role: translator
+  italian:
+    - name: mcassani
+      crowdin: mcassani
+      role: proofreader
+    - name: Erika Scanu
+      crowdin: akireuna
       role: translator

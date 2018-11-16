@@ -104,7 +104,7 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
               done();
             });
         });
@@ -117,7 +117,7 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
               done();
             });
         });
@@ -130,7 +130,7 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/unregistered users are not allowed to access package auth-package/);
+              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
               done();
             });
         });
@@ -361,7 +361,7 @@ describe('endpoint unit test', () => {
           .get('/forbidden-place')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.FORBIDDEN)
+          .expect(HTTP_STATUS.UNAUTHORIZED)
           .end(function(err) {
             if (err) {
               return done(err);

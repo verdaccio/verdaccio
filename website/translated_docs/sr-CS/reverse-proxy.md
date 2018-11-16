@@ -83,6 +83,6 @@ location ~ ^/verdaccio/(.*)$ {
 }
 ```
 
-U ovom slučaju, `url_prefix` treba setuje `/verdaccio/`
+U ovom slučaju, `url_prefix` treba podesiti na `/verdaccio/`
 
 > Napomena: Postoji Slash posle putanje za instalaciju (`https://your-domain:port/verdaccio/`)!

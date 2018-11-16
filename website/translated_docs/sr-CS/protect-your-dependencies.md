@@ -26,7 +26,7 @@ Dale, prijavljen sam kao **teamD**. Ne bi trebalo da budem u mogućnosti da pris
 teamD
 ```
 
-**Neću imati pristup do svih dependencies-a i takođe neću biti vidljiv preko weba za korisnika **teamD**. Ako pokušam da pristupip, dogodiće se sledeće.</p> 
+**Neću imati pristup do svih dependencies-a i takođe neću biti vidljiv preko weba za korisnika **teamD**. Ako pokušam da pristupim, dogodiće se sledeće.</p> 
 
 ```bash
 ➜ npm install my-company-core

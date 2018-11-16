@@ -12,7 +12,7 @@ Ima mnogo načina da proširite `verdaccio`, tipovi podržanih plugin-a su:
 
 ## Authentication Plugin
 
-U suštini treba da vratimo objekt korišćenjem metode zvane `authenticate` koja prima 3 argumenta (`user, password, callback`).
+U suštini treba da vratimo objekat korišćenjem metode zvane `authenticate` koja prima 3 argumenta (`user, password, callback`).
 
 ### API
 
