@@ -2,7 +2,7 @@ import { css } from 'emotion';
 
 const breakpoints = {
   small: 576,
-  medium: 800,
+  medium: 768,
   large: 1240
 };
 
