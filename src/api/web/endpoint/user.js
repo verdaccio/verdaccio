@@ -4,13 +4,13 @@
  */
 
 import _ from 'lodash';
-import { API_ERROR, HTTP_STATUS } from '../../../lib/constants';
+import { API_ERROR, APP_ERROR, HTTP_STATUS } from '../../../lib/constants';
 
 import type { Router } from 'express';
 import type { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../../types';
 import { ErrorCode } from '../../../lib/utils';
-import { getSecurity } from '../../../lib/auth-utils';
+import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
   route.post('/login', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -37,12 +37,26 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
         // FUTURE: update to a more meaningful message
-        message: API_ERROR.BAD_DATA,
+        message: API_ERROR.MUST_BE_LOGGED,
       });
     }
 
-    // here we are waiting https://github.com/verdaccio/verdaccio/pull/1034
-    next({ ok: true });
+    const { password } = req.body;
+    const { name } = req.remote_user;
+
+    if (validatePassword(password.new) === false) {
+      auth.changePassword(name, password.old, password.new, (err, isUpdated) => {
+        if (_.isNil(err) && isUpdated) {
+          next({
+            ok: true,
+          });
+        } else {
+          return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
+        }
+      });
+    } else {
+      return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
+    }
   });
 }
 

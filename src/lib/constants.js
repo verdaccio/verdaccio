@@ -128,6 +128,7 @@ export const API_ERROR = {
 export const APP_ERROR = {
   CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
   PROFILE_ERROR: 'profile unexpected error',
+  PASSWORD_VALIDATION: 'not valid password',
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
