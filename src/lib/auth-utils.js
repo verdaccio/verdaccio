@@ -17,7 +17,7 @@ export function allow_action(action: string) {
     if (name) {
       callback(ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
     } else {
-      callback(ErrorCode.getForbidden(`unregistered users are not allowed to ${action} package ${pkg.name}`));
+      callback(ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`));
     }
   };
 }

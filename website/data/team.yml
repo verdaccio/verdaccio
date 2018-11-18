@@ -84,3 +84,17 @@ translators:
     - name: breathewind
       crowdin: breathewind
       role: translator
+  french:
+    - name: Léon Cédric
+      crowdin: leyt
+      role: proofreader
+    - name: Avoine
+      crowdin: ahmedess
+      role: translator
+  italian:
+    - name: mcassani
+      crowdin: mcassani
+      role: proofreader
+    - name: Erika Scanu
+      crowdin: akireuna
+      role: translator

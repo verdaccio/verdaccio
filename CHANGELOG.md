@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.8.6"></a>
+## [3.8.6](https://github.com/verdaccio/verdaccio/compare/v3.8.5...v3.8.6) (2018-11-15)
+
+
+### Bug Fixes
+
+* answer with 401 instead of 403 when no credentials were sent ([#1109](https://github.com/verdaccio/verdaccio/issues/1109)) ([4e34551](https://github.com/verdaccio/verdaccio/commit/4e34551)), closes [#1105](https://github.com/verdaccio/verdaccio/issues/1105)
+
+
+
 <a name="3.8.5"></a>
 ## [3.8.5](https://github.com/verdaccio/verdaccio/compare/v3.8.4...v3.8.5) (2018-10-18)
 
