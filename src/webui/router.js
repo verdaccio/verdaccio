@@ -5,14 +5,16 @@ import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import {asyncComponent} from './utils/asyncComponent';
 
 const DetailPackage = asyncComponent(() => import('./pages/detail'));
-import HomePage from './pages/home';
+const HomePage = asyncComponent(() => import('./pages/home'));
 
 class RouterApp extends Component {
   static propTypes = {
-    isUserLoggedIn: PropTypes.bool
+    isUserLoggedIn: PropTypes.bool,
+    packages: PropTypes.array
   };
 
   render() {
+    const {isUserLoggedIn, packages} = this.props;
     return (
       <Router>
           <Switch>
@@ -20,21 +22,21 @@ class RouterApp extends Component {
               exact
               path="/"
               render={() => (
-                <HomePage {...this.props} />
+                <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />
               )}
             />
             <Route
               exact
               path="/detail/@:scope/:package"
               render={(props) => (
-                <DetailPackage {...props} {...this.props} />
+                <DetailPackage {...props} isUserLoggedIn={isUserLoggedIn} />
               )}
             />
             <Route
               exact
               path="/detail/:package"
               render={(props) => (
-                <DetailPackage {...props} {...this.props} />
+                <DetailPackage {...props} isUserLoggedIn={isUserLoggedIn} />
               )}
             />
           </Switch>

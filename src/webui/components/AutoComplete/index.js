@@ -57,6 +57,14 @@ const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
   );
 };
 
+const renderMessage = (message): Node => {
+  return (
+    <MenuItem selected={false} component="div">
+      <div>{message}</div>
+    </MenuItem>
+  );
+};
+
 const AutoComplete = ({
   suggestions,
   startAdornment,
@@ -69,6 +77,9 @@ const AutoComplete = ({
   color,
   onClick,
   onKeyDown,
+  suggestionsLoading = false,
+  suggestionsLoaded = false,
+  suggestionsError = false,
 }: IProps): Node => {
   const autosuggestProps = {
     renderInputComponent,
@@ -91,9 +102,13 @@ const AutoComplete = ({
           color,
           onKeyDown,
         }}
-        renderSuggestionsContainer={options => (
-          <Paper {...options.containerProps} square>
-            {options.children}
+        renderSuggestionsContainer={({ containerProps, children, query }) => (
+          <Paper {...containerProps} square>
+            {/* {message && query && renderMessage(message)} */}
+            {suggestionsLoaded && children === null && query !== '' && renderMessage('No results found.')}
+            {suggestionsLoading && renderMessage('Loading...')}
+            {suggestionsError && renderMessage('Unable to search packages.')}
+            {children}
           </Paper>
         )}
         onSuggestionSelected={onClick}

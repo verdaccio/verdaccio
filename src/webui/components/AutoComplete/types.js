@@ -7,6 +7,10 @@ import { InputAdornmentProps } from '@material-ui/core/InputAdornment';
 
 export interface IProps {
   suggestions: any[];
+  suggestionsLoading?: boolean;
+  suggestionsLoaded?: boolean;
+  suggestionsError?: boolean;
+  apiLoading?: boolean;
   color?: string;
   value?: string;
   placeholder?: string;

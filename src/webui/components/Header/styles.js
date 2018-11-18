@@ -80,18 +80,6 @@ export const InnerMobileNavBar = styled.div`
   }
 `;
 
-export const Search = styled.div`
-  && {
-    display: none;
-    max-width: 393px;
-    width: 100%;
-    display: none;
-    ${mq.medium(css`
-      display: flex;
-    `)};
-  }
-`;
-
 export const IconSearchButton = styled(IconButton)`
   && {
     display: block;

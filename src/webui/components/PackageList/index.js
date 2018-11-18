@@ -1,35 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Package from '../Package';
 import Help from '../Help';
-import NoItems from '../NoItems';
 import {formatAuthor, formatLicense} from '../../utils/package';
 
 import classes from './packageList.scss';
 
-export default class PackageList extends React.Component {
+export default class PackageList extends Component {
   static propTypes = {
-    packages: PropTypes.array,
-    help: PropTypes.bool
+    packages: PropTypes.array.isRequired,
+    help: PropTypes.bool.isRequired
   };
-
-  renderPackges = () => {
-    const { packages } = this.props;
-    return (
-      packages.length > 0 ? (
-        <Fragment>
-          <h1 className={classes.listTitle}>Available Packages</h1>
-          {this.renderList()}
-        </Fragment>
-      ) : (
-        <NoItems
-          className="package-no-items"
-          text={'No items were found with that query'}
-        />
-      )
-    );
-  }
 
   renderList = () => {
     const { packages } = this.props;
@@ -54,7 +36,7 @@ export default class PackageList extends React.Component {
     return (
       <div className="package-list-items">
         <div className={classes.pkgContainer}>
-          {help ? <Help /> : this.renderPackges()}
+          {help ? <Help /> : this.renderList()}
         </div>
       </div>
     );
