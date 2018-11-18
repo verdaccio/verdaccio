@@ -217,15 +217,10 @@ export default class App extends Component {
 
   // eslint-disable-next-line no-unused-vars
   handleClickSearch = (_, { suggestionValue, method }) => {
-    const { packages } = this.state;
     switch(method) {
       case 'click':
-        window.location.href = getDetailPageURL(suggestionValue);
-      break;
       case 'enter':
-        this.setState({
-          filteredPackages: packages.filter(pkg => pkg.label.match(suggestionValue))
-        });
+        window.location.href = getDetailPageURL(suggestionValue);
       break;
     }
   }
