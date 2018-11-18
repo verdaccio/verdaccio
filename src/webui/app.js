@@ -238,17 +238,6 @@ export default class App extends Component {
     });
   };
 
-  getfilteredPackages = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-  
-    if (inputLength === 0) {
-      return [];
-    } else {
-      return this.searchPackage(value);
-    }
-  }
-
   renderHeader = () => {
     const { logoUrl, user, search, searchPackages } = this.state;
     return (
