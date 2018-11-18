@@ -29,9 +29,8 @@ aliases:
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &restore_repo
-    restore_cache:
-      keys:
-        - *repo_key
+    attach_workspace:
+      at: ~/verdaccio
   - &ignore_non_dev_branches
     filters:
       tags:
@@ -54,7 +53,6 @@ jobs:
     <<: *defaults
     <<: *default_executor
     steps:
-      - *restore_repo
       - checkout
       - restore_cache:
           key: *base_config_key
@@ -88,10 +86,10 @@ jobs:
             - ~/.yarn
             - ~/.cache/yarn
             - node_modules
-      - save_cache:
-          key: *repo_key
+      - persist_to_workspace:
+          root: ~/verdaccio
           paths:
-            - ~/verdaccio
+            - ./*
 
   test_node6:
     <<: *defaults
@@ -153,6 +151,8 @@ jobs:
     <<: *default_executor
     steps:
       - *restore_repo
+      - restore_cache:
+          key: *base_config_key
       - run:
           name: Test size
           command: yarn test:size

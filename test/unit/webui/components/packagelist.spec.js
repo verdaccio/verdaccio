@@ -5,6 +5,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import PackageList from '../../../../src/webui/components/PackageList/index';
+import Help from '../../../../src/webui/components/Help/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<PackageList /> component', () => {
@@ -16,9 +17,7 @@ describe('<PackageList /> component', () => {
     const wrapper = mount(
       <PackageList packages={props.packages} help={props.help} />
     );
-    expect(wrapper.find('Help')).toHaveLength(1);
-
-    expect(wrapper.find('h1').text()).toEqual('No Package Published Yet');
+    expect(wrapper.find(Help).exists()).toBeTruthy();
 
   });
 
