@@ -44,6 +44,10 @@ class Search extends Component {
     switch (method) {
       case 'click':
       case 'enter':
+        this.setState({
+          loading: false,
+          loaded: false,
+        });
         window.location.href = getDetailPageURL(suggestionValue);
         break;
     }
