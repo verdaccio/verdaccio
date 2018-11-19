@@ -147,10 +147,7 @@ export default class App extends Component {
   }
 
   renderHeader = () => {
-    const { logoUrl, user, 
-      // search, 
-      // searchPackages, 
-      scope } = this.state;
+    const { logoUrl, user, scope } = this.state;
     return (
       <Header 
         logo={logoUrl}
