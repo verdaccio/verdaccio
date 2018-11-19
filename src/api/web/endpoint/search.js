@@ -17,6 +17,7 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
     const getPackageInfo = function(i) {
       storage.getPackage({
         name: results[i].ref,
+        uplinksLook: false,
         callback: (err, entry) => {
           if (!err && entry) {
             auth.allow_access(entry.name, req.remote_user, function(err, allowed) {

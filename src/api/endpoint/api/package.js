@@ -45,6 +45,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 
     storage.getPackage({
       name: req.params.package,
+      uplinksLook: true,
       req,
       callback: getPackageMetaCallback,
     });

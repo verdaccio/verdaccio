@@ -52,6 +52,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   route.get('/-/package/:package/dist-tags', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.getPackage({
       name: req.params.package,
+      uplinksLook: true,
       req,
       callback: function(err, info) {
         if (err) {
