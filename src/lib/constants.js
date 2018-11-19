@@ -121,11 +121,14 @@ export const API_ERROR = {
   BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
   RESOURCE_UNAVAILABLE: 'resource unavailable',
   BAD_PACKAGE_DATA: 'bad incoming package data',
+  USERNAME_PASSWORD_REQUIRED: 'username and password is required',
+  USERNAME_ALREADY_REGISTERED: 'username is already registered',
 };
 
 export const APP_ERROR = {
   CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
   PROFILE_ERROR: 'profile unexpected error',
+  PASSWORD_VALIDATION: 'not valid password',
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
