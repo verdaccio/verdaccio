@@ -1,5 +1,6 @@
 /**
  * @prettier
+ * @flow
  */
 
 import React, { Component } from 'react';
@@ -14,8 +15,9 @@ import { getDetailPageURL } from '../../utils/url';
 
 import { AutoCompleteWrapper } from './styles';
 
-class Search extends Component {
-  constructor(props) {
+import { IProps, IState } from './types';
+class Search extends Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -34,26 +36,27 @@ class Search extends Component {
   };
 
   // eslint-disable-next-line no-unused-vars
-  handleSearch = (_, { newValue }) => {
+  handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue, method }: { newValue: string, method: string }) => {
     const value = newValue.trim();
     this.setState({ search: value });
   };
 
   // eslint-disable-next-line no-unused-vars
-  handleClickSearch = (_, { suggestionValue, method }) => {
+  handleClickSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { suggestionValue, method }: { suggestionValue: any[], method: string }) => {
     switch (method) {
       case 'click':
       case 'enter':
+        // clear all filters before moving to a new page
         this.setState({
-          loading: false,
-          loaded: false,
+          search: '',
         });
         window.location.href = getDetailPageURL(suggestionValue);
         break;
     }
   };
 
-  handleFetchPackages = async ({ value }) => {
+  // eslint-disable-next-line no-unused-vars
+  handleFetchPackages = async ({ value }: { value: string }) => {
     try {
       this.setState({
         loading: true,
@@ -61,9 +64,9 @@ class Search extends Component {
         error: false,
       });
       // Getting results from API
-      this.req = await API.request(`/search/${encodeURIComponent(value)}`, 'GET');
+      const response = await API.request(`search/${encodeURIComponent(value)}`, 'GET');
       this.setState({ loaded: true });
-      const transformedPackages = this.req.map(({ name, ...others }) => ({
+      const transformedPackages = response.map(({ name, ...others }) => ({
         label: name,
         ...others,
       }));
@@ -75,19 +78,18 @@ class Search extends Component {
         });
       }
     } catch (_) {
-      this.setState({ error: true });
+      this.setState({ error: true, loaded: false });
     } finally {
       this.setState({ loading: false });
     }
   };
 
   render() {
-    const { suggestions, search, message, loaded, loading, error } = this.state;
+    const { suggestions, search, loaded, loading, error } = this.state;
 
     return (
       <AutoCompleteWrapper>
         <AutoComplete
-          message={message}
           suggestions={suggestions}
           suggestionsLoaded={loaded}
           suggestionsLoading={loading}
@@ -103,7 +105,6 @@ class Search extends Component {
           onSuggestionsFetch={this.handleFetchPackages}
           onCleanSuggestions={this.handlePackagesClearRequested}
           onClick={this.handleClickSearch}
-          onKeyDown={this.handleKeyDown}
           onChange={this.handleSearch}
         />
       </AutoCompleteWrapper>

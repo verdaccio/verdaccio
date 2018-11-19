@@ -65,6 +65,19 @@ const renderMessage = (message): Node => {
   );
 };
 
+const SUGGESTIONS_RESPONSE = {
+  LOADING: 'Loading...',
+  FAILURE: 'Something went wrong.',
+  NO_RESULT: 'No results found.',
+};
+
+const shouldRenderSuggestions = value => {
+  if (value.length > 0) {
+    return true;
+  }
+  return false;
+};
+
 const AutoComplete = ({
   suggestions,
   startAdornment,
@@ -104,14 +117,14 @@ const AutoComplete = ({
         }}
         renderSuggestionsContainer={({ containerProps, children, query }) => (
           <Paper {...containerProps} square>
-            {/* {message && query && renderMessage(message)} */}
-            {suggestionsLoaded && children === null && query !== '' && renderMessage('No results found.')}
-            {suggestionsLoading && renderMessage('Loading...')}
-            {suggestionsError && renderMessage('Unable to search packages.')}
+            {suggestionsLoaded && children === null && query !== '' && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
+            {suggestionsLoading && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
+            {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
             {children}
           </Paper>
         )}
         onSuggestionSelected={onClick}
+        shouldRenderSuggestions={shouldRenderSuggestions}
       />
     </Wrapper>
   );
