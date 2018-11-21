@@ -17,9 +17,9 @@ import { AutoCompleteWrapper } from './styles';
 
 import { IProps, IState } from './types';
 class Search extends Component<IProps, IState> {
+  requestList: Array<any>;
   constructor(props: IProps) {
     super(props);
-
     this.state = {
       search: '',
       suggestions: [],
@@ -27,8 +27,17 @@ class Search extends Component<IProps, IState> {
       loaded: false,
       error: false,
     };
+    this.requestList = [];
   }
 
+  cancelAllSearchRequests = () => {
+    this.requestList.forEach(request => request.abort());
+    this.requestList = [];
+  };
+
+  /**
+   * Cancel all the request from list and make request list empty.
+   */
   handlePackagesClearRequested = () => {
     this.setState({
       suggestions: [],
@@ -38,7 +47,15 @@ class Search extends Component<IProps, IState> {
   // eslint-disable-next-line no-unused-vars
   handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue, method }: { newValue: string, method: string }) => {
     const value = newValue.trim();
-    this.setState({ search: value });
+    this.setState({ search: value }, () => {
+      /**
+       * A use case where User keeps adding and removing value in input field,
+       * so we cancel all the existing requests when input is empty.
+       */
+      if (value.length === 0) {
+        this.cancelAllSearchRequests();
+      }
+    });
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -46,15 +63,16 @@ class Search extends Component<IProps, IState> {
     switch (method) {
       case 'click':
       case 'enter':
-        // clear all filters before moving to a new page
-        this.setState({
-          search: '',
-        });
+        this.setState({ search: '' });
         window.location.href = getDetailPageURL(suggestionValue);
         break;
     }
   };
 
+  /**
+   * Fetch packages from API.
+   * For AbortController see: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+   */
   // eslint-disable-next-line no-unused-vars
   handleFetchPackages = async ({ value }: { value: string }) => {
     try {
@@ -63,14 +81,16 @@ class Search extends Component<IProps, IState> {
         loaded: false,
         error: false,
       });
-      // Getting results from API
-      const response = await API.request(`search/${encodeURIComponent(value)}`, 'GET');
+      const controller = new window.AbortController();
+      const signal = controller.signal;
+      // Keep track of search requests.
+      this.requestList.push(controller);
+      const response = await API.request(`search/${encodeURIComponent(value)}`, 'GET', { signal });
       this.setState({ loaded: true });
       const transformedPackages = response.map(({ name, ...others }) => ({
         label: name,
         ...others,
       }));
-      // Implement cancel feature later
       if (this.state.search === value) {
         this.setState({
           suggestions: transformedPackages,
@@ -82,6 +102,14 @@ class Search extends Component<IProps, IState> {
     } finally {
       this.setState({ loading: false });
     }
+  };
+
+  /**
+   * As user focuses out from input, we cancel all the request from requestList
+   * and set the API state parameters to default boolean values.
+   */
+  onBlur = () => {
+    this.setState({ loaded: false, loading: false, error: false }, () => this.cancelAllSearchRequests());
   };
 
   render() {
@@ -106,6 +134,7 @@ class Search extends Component<IProps, IState> {
           onCleanSuggestions={this.handlePackagesClearRequested}
           onClick={this.handleClickSearch}
           onChange={this.handleSearch}
+          onBlur={this.onBlur}
         />
       </AutoCompleteWrapper>
     );

@@ -71,13 +71,6 @@ const SUGGESTIONS_RESPONSE = {
   NO_RESULT: 'No results found.',
 };
 
-const shouldRenderSuggestions = value => {
-  if (value.length > 0) {
-    return true;
-  }
-  return false;
-};
-
 const AutoComplete = ({
   suggestions,
   startAdornment,
@@ -90,6 +83,7 @@ const AutoComplete = ({
   color,
   onClick,
   onKeyDown,
+  onBlur,
   suggestionsLoading = false,
   suggestionsLoaded = false,
   suggestionsError = false,
@@ -114,17 +108,17 @@ const AutoComplete = ({
           disableUnderline,
           color,
           onKeyDown,
+          onBlur,
         }}
         renderSuggestionsContainer={({ containerProps, children, query }) => (
           <Paper {...containerProps} square>
-            {suggestionsLoaded && children === null && query !== '' && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
-            {suggestionsLoading && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
+            {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
+            {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
             {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
             {children}
           </Paper>
         )}
         onSuggestionSelected={onClick}
-        shouldRenderSuggestions={shouldRenderSuggestions}
       />
     </Wrapper>
   );

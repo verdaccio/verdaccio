@@ -21,6 +21,7 @@ export interface IProps {
   onCleanSuggestions?: () => void;
   onClick?: Function;
   onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: Function;
 }
 
 export interface IInputField {
