@@ -135,6 +135,19 @@ export interface IStorage extends IBasicStorage {
   logger: Logger;
 }
 
+export type IGetPackageOptions = {
+  callback: Callback;
+  name: string;
+  keepUpLinkData: boolean;
+  uplinksLook: boolean;
+  req: any;
+}
+
+export type ISyncUplinks = {
+  uplinksLook?: boolean;
+  etag?: string;
+}
+
 export interface IStorageHandler extends IStorageManager {
   localStorage: IStorage;
   uplinks: ProxyList;

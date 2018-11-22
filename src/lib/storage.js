@@ -16,7 +16,7 @@ import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef,
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { mergeVersions } from './metadata-utils';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
-import type { IStorage, IProxy, IStorageHandler, ProxyList, StringValue } from '../../types';
+import type { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks } from '../../types';
 import type { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
 import type { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { hasProxyTo } from './config-utils';
@@ -263,14 +263,18 @@ class Storage implements IStorageHandler {
    * @property {boolean} options.keepUpLinkData keep up link info in package meta, last update, etc.
    * @property {function} options.callback Callback for receive data
    */
-  getPackage(options: any) {
+  getPackage(options: IGetPackageOptions) {
     this.localStorage.getPackageMetadata(options.name, (err, data) => {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
         return options.callback(err);
       }
 
-      this._syncUplinksMetadata(options.name, data, { req: options.req }, function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors) {
+      this._syncUplinksMetadata(options.name, data, { req: options.req, uplinksLook: options.uplinksLook }, function getPackageSynUpLinksCallback(
+        err,
+        result: Package,
+        uplinkErrors
+      ) {
         if (err) {
           return options.callback(err);
         }
@@ -401,10 +405,11 @@ class Storage implements IStorageHandler {
    if package is available locally, it MUST be provided in pkginfo
    returns callback(err, result, uplink_errors)
    */
-  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void {
+  _syncUplinksMetadata(name: string, packageInfo: Package, options: ISyncUplinks, callback: Callback): void {
     let exists = true;
     const self = this;
     const upLinks = [];
+    const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
 
     if (!packageInfo || packageInfo === null) {
       exists = false;
@@ -412,7 +417,7 @@ class Storage implements IStorageHandler {
     }
 
     for (let uplink in this.uplinks) {
-      if (hasProxyTo(name, uplink, this.config.packages)) {
+      if (hasProxyTo(name, uplink, this.config.packages) && hasToLookIntoUplinks) {
         upLinks.push(this.uplinks[uplink]);
       }
     }
