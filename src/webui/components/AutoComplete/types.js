@@ -16,12 +16,12 @@ export interface IProps {
   placeholder?: string;
   startAdornment?: React.ComponentType<InputAdornmentProps>;
   disableUnderline?: boolean;
-  onChange?: Function;
-  onSuggestionsFetch?: Function;
+  onChange?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue: string }) => void;
+  onSuggestionsFetch?: ({ value: string }) => Promise<void>;
   onCleanSuggestions?: () => void;
-  onClick?: Function;
+  onClick?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { suggestionValue: any[], method: string }) => void;
   onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
-  onBlur?: Function;
+  onBlur?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface IInputField {

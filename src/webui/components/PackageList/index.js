@@ -21,7 +21,7 @@ export default class PackageList extends React.Component {
           <h1 className={classes.listTitle}>Available Packages</h1>
           {this.renderList()}
         </Fragment>
-      ) : ''
+      ) : null
     );
   }
 
