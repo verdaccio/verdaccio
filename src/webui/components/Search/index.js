@@ -15,7 +15,6 @@ import AutoComplete from '../AutoComplete';
 import colors from '../../utils/styles/colors';
 import { getDetailPageURL } from '../../utils/url';
 
-import { AutoCompleteWrapper } from './styles';
 import { IProps, IState } from './types';
 
 const CONSTANTS = {
@@ -165,27 +164,25 @@ class Search extends Component<IProps, IState> {
     const { suggestions, search, loaded, loading, error } = this.state;
 
     return (
-      <AutoCompleteWrapper>
-        <AutoComplete
-          suggestions={suggestions}
-          suggestionsLoaded={loaded}
-          suggestionsLoading={loading}
-          suggestionsError={error}
-          value={search}
-          placeholder={CONSTANTS.PLACEHOLDER_TEXT}
-          color={colors.white}
-          startAdornment={
-            <InputAdornment position="start" style={{ color: colors.white }}>
-              <IconSearch />
-            </InputAdornment>
-          }
-          onSuggestionsFetch={this.handleFetchPackages}
-          onCleanSuggestions={this.handlePackagesClearRequested}
-          onClick={this.handleClickSearch}
-          onChange={this.handleSearch}
-          onBlur={this.onBlur}
-        />
-      </AutoCompleteWrapper>
+      <AutoComplete
+        suggestions={suggestions}
+        suggestionsLoaded={loaded}
+        suggestionsLoading={loading}
+        suggestionsError={error}
+        value={search}
+        placeholder={CONSTANTS.PLACEHOLDER_TEXT}
+        color={colors.white}
+        startAdornment={
+          <InputAdornment position="start" style={{ color: colors.white }}>
+            <IconSearch />
+          </InputAdornment>
+        }
+        onSuggestionsFetch={this.handleFetchPackages}
+        onCleanSuggestions={this.handlePackagesClearRequested}
+        onClick={this.handleClickSearch}
+        onChange={this.handleSearch}
+        onBlur={this.onBlur}
+      />
     );
   }
 }

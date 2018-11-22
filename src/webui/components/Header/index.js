@@ -25,7 +25,7 @@ import Label from '../Label';
 import Search from '../Search';
 
 import { IProps, IState } from './types';
-import { Greetings, NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar, LeftSide, RightSide, IconSearchButton } from './styles';
+import { Greetings, NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar, LeftSide, RightSide, IconSearchButton, SearchWrapper } from './styles';
 
 class Header extends Component<IProps, IState> {
   handleLoggedInMenu: Function;
@@ -118,7 +118,11 @@ class Header extends Component<IProps, IState> {
         <Link to="/" style={{ marginRight: '1em' }}>
           <Logo />
         </Link>
-        {!withoutSearch && <Search />}
+        {!withoutSearch && (
+          <SearchWrapper>
+            <Search />
+          </SearchWrapper>
+        )}
       </LeftSide>
     );
   };

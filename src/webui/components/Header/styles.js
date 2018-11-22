@@ -88,3 +88,15 @@ export const IconSearchButton = styled(IconButton)`
     `)};
   }
 `;
+
+export const SearchWrapper = styled.div`
+  && {
+    display: none;
+    max-width: 393px;
+    width: 100%;
+    display: none;
+    ${mq.medium(css`
+      display: flex;
+    `)};
+  }
+`;
