@@ -69,27 +69,29 @@ class Search extends Component<IProps, IState> {
   /**
    * onChange method for the input element.
    */
-  handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue }: { newValue: string }) => {
+  handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue, method }: { newValue: string, method: string }) => {
     // stops event bubbling
     event.stopPropagation();
-    const value = newValue.trim();
-    this.setState(
-      {
-        search: value,
-        loading: true,
-        loaded: false,
-        error: false,
-      },
-      () => {
-        /**
-         * A use case where User keeps adding and removing value in input field,
-         * so we cancel all the existing requests when input is empty.
-         */
-        if (value.length === 0) {
-          this.cancelAllSearchRequests();
+    if (method === 'type') {
+      const value = newValue.trim();
+      this.setState(
+        {
+          search: value,
+          loading: true,
+          loaded: false,
+          error: false,
+        },
+        () => {
+          /**
+           * A use case where User keeps adding and removing value in input field,
+           * so we cancel all the existing requests when input is empty.
+           */
+          if (value.length === 0) {
+            this.cancelAllSearchRequests();
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   /**

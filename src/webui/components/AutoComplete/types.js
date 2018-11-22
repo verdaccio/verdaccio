@@ -16,7 +16,7 @@ export interface IProps {
   placeholder?: string;
   startAdornment?: React.ComponentType<InputAdornmentProps>;
   disableUnderline?: boolean;
-  onChange?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue: string }) => void;
+  onChange?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue: string, method: string }) => void;
   onSuggestionsFetch?: ({ value: string }) => Promise<void>;
   onCleanSuggestions?: () => void;
   onClick?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { suggestionValue: any[], method: string }) => void;
