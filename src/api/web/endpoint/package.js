@@ -60,6 +60,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
 
     storage.getPackage({
       name: packageName,
+      uplinksLook: true,
       req,
       callback: function(err, info) {
         if (err) {
@@ -77,6 +78,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
 
     storage.getPackage({
       name: packageName,
+      uplinksLook: true,
       keepUpLinkData: true,
       req,
       callback: function(err: Error, info: $SidebarPackage) {
