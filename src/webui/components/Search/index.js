@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 
 import { default as IconSearch } from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import debounce from 'lodash/debounce';
 
 import API from '../../utils/api';
 import AutoComplete from '../AutoComplete';
@@ -14,7 +15,6 @@ import colors from '../../utils/styles/colors';
 import { getDetailPageURL } from '../../utils/url';
 
 import { AutoCompleteWrapper } from './styles';
-
 import { IProps, IState } from './types';
 class Search extends Component<IProps, IState> {
   requestList: Array<any>;
@@ -28,6 +28,7 @@ class Search extends Component<IProps, IState> {
       error: false,
     };
     this.requestList = [];
+    this.handleFetchPackages = debounce(this.handleFetchPackages, 300);
   }
 
   cancelAllSearchRequests = () => {
@@ -44,22 +45,32 @@ class Search extends Component<IProps, IState> {
     });
   };
 
-  // eslint-disable-next-line no-unused-vars
-  handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue, method }: { newValue: string, method: string }) => {
+  handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue }: { newValue: string }) => {
+    // stops event bubbling
+    event.stopPropagation();
     const value = newValue.trim();
-    this.setState({ search: value }, () => {
-      /**
-       * A use case where User keeps adding and removing value in input field,
-       * so we cancel all the existing requests when input is empty.
-       */
-      if (value.length === 0) {
-        this.cancelAllSearchRequests();
+    this.setState(
+      {
+        search: value,
+        loading: true,
+        loaded: false,
+        error: false,
+      },
+      () => {
+        /**
+         * A use case where User keeps adding and removing value in input field,
+         * so we cancel all the existing requests when input is empty.
+         */
+        if (value.length === 0) {
+          this.cancelAllSearchRequests();
+        }
       }
-    });
+    );
   };
 
-  // eslint-disable-next-line no-unused-vars
   handleClickSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { suggestionValue, method }: { suggestionValue: any[], method: string }) => {
+    // stops event bubbling
+    event.stopPropagation();
     switch (method) {
       case 'click':
       case 'enter':
@@ -73,14 +84,8 @@ class Search extends Component<IProps, IState> {
    * Fetch packages from API.
    * For AbortController see: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
    */
-  // eslint-disable-next-line no-unused-vars
   handleFetchPackages = async ({ value }: { value: string }) => {
     try {
-      this.setState({
-        loading: true,
-        loaded: false,
-        error: false,
-      });
       const controller = new window.AbortController();
       const signal = controller.signal;
       // Keep track of search requests.
@@ -97,8 +102,11 @@ class Search extends Component<IProps, IState> {
           loaded: true,
         });
       }
-    } catch (_) {
-      this.setState({ error: true, loaded: false });
+    } catch (error) {
+      // AbortError is not the API error.
+      if (error.name !== 'AbortError') {
+        this.setState({ error: true, loaded: false });
+      }
     } finally {
       this.setState({ loading: false });
     }
