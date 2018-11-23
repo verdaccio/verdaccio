@@ -6,7 +6,7 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
 
-import TxtField from '../TxtField';
+import TextField from '../TextField';
 import { IInputField } from './types';
 
 export const Wrapper = styled.div`
@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
 `;
 
 export const InputField = ({ color, ...others }: IInputField) => (
-  <TxtField
+  <TextField
     {...others}
     classes={{
       input: css`
