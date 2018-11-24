@@ -3,8 +3,10 @@
  * @flow
  */
 
+import type { Node } from 'react';
+
 export interface IProps {
-  children?: React.Node;
+  children?: Node;
   to?: string;
   blank?: boolean;
 }
