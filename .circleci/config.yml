@@ -176,20 +176,6 @@ jobs:
       - store_test_results:
           path: coverage/clover.xml
 
-  publish_gh_pages:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - restore_cache:
-          key: *base_config_key
-      - run:
-          name: Publish gh-pages
-          command: |
-            cd website
-            yarn install
-            GIT_USER=verdacciobot USE_SSH=false yarn run publish-gh-pages
-
   publish_package:
     <<: *defaults
     <<: *default_executor
@@ -240,17 +226,7 @@ workflows:
             - test_e2e
             - test_size
           <<: *ignore_non_dev_branches
-      - publish_gh_pages:
-          requires:
-            - test_node6
-            - test_node8
-            - test_node9
-            - test_node10
-            - test_e2e
-            - test_size
-          <<: *execute_on_release
       - publish_package:
           requires:
             - coverage
-            - publish_gh_pages
           <<: *execute_on_release
