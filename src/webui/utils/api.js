@@ -51,6 +51,9 @@ class API {
           } else {
             reject(body);
           }
+        })
+        .catch(error => {
+          reject(error);
         });
       });
     }
