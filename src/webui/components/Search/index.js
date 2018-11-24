@@ -16,6 +16,7 @@ import colors from '../../utils/styles/colors';
 import { getDetailPageURL } from '../../utils/url';
 
 import { IProps, IState } from './types';
+import type { cancelAllSearchRequests, handlePackagesClearRequested, handleSearch, handleClickSearch, handleFetchPackages, onBlur } from './types';
 
 const CONSTANTS = {
   API_DELAY: 300,
@@ -25,12 +26,6 @@ const CONSTANTS = {
 
 class Search extends Component<IProps, IState> {
   requestList: Array<any>;
-  cancelAllSearchRequests: Function;
-  handlePackagesClearRequested: Function;
-  handleSearch: Function;
-  handleClickSearch: Function;
-  handleFetchPackages: Function;
-  onBlur: Function;
 
   constructor(props: IProps) {
     super(props);
@@ -51,7 +46,7 @@ class Search extends Component<IProps, IState> {
   /**
    * Cancel all the requests which are in pending state.
    */
-  cancelAllSearchRequests = () => {
+  cancelAllSearchRequests: cancelAllSearchRequests = () => {
     this.requestList.forEach(request => request.abort());
     this.requestList = [];
   };
@@ -59,7 +54,7 @@ class Search extends Component<IProps, IState> {
   /**
    * Cancel all the request from list and make request list empty.
    */
-  handlePackagesClearRequested = () => {
+  handlePackagesClearRequested: handlePackagesClearRequested = () => {
     this.setState({
       suggestions: [],
     });
@@ -68,7 +63,7 @@ class Search extends Component<IProps, IState> {
   /**
    * onChange method for the input element.
    */
-  handleSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue, method }: { newValue: string, method: string }) => {
+  handleSearch: handleSearch = (event, { newValue, method }) => {
     // stops event bubbling
     event.stopPropagation();
     if (method === 'type') {
@@ -96,7 +91,7 @@ class Search extends Component<IProps, IState> {
   /**
    * When an user select any package by clicking or pressing return key.
    */
-  handleClickSearch = (event: SyntheticKeyboardEvent<HTMLInputElement>, { suggestionValue, method }: { suggestionValue: Array<Object>, method: string }) => {
+  handleClickSearch: handleClickSearch = (event, { suggestionValue, method }) => {
     // stops event bubbling
     event.stopPropagation();
     switch (method) {
@@ -112,7 +107,7 @@ class Search extends Component<IProps, IState> {
    * Fetch packages from API.
    * For AbortController see: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
    */
-  handleFetchPackages = async ({ value }: { value: string }) => {
+  handleFetchPackages: handleFetchPackages = async ({ value }) => {
     try {
       const controller = new window.AbortController();
       const signal = controller.signal;
@@ -147,7 +142,7 @@ class Search extends Component<IProps, IState> {
    * As user focuses out from input, we cancel all the request from requestList
    * and set the API state parameters to default boolean values.
    */
-  onBlur = (event: SyntheticKeyboardEvent<HTMLInputElement>) => {
+  onBlur: onBlur = event => {
     // stops event bubbling
     event.stopPropagation();
     this.setState(
