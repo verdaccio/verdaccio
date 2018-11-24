@@ -7,16 +7,21 @@ import { InputAdornmentProps } from '@material-ui/core/InputAdornment';
 
 export interface IProps {
   suggestions: any[];
+  suggestionsLoading?: boolean;
+  suggestionsLoaded?: boolean;
+  suggestionsError?: boolean;
+  apiLoading?: boolean;
   color?: string;
   value?: string;
   placeholder?: string;
   startAdornment?: React.ComponentType<InputAdornmentProps>;
   disableUnderline?: boolean;
-  onChange?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
-  onSuggestionsFetch?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
+  onChange?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { newValue: string, method: string }) => void;
+  onSuggestionsFetch?: ({ value: string }) => Promise<void>;
   onCleanSuggestions?: () => void;
-  onClick?: () => void;
+  onClick?: (event: SyntheticKeyboardEvent<HTMLInputElement>, { suggestionValue: any[], method: string }) => void;
   onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface IInputField {

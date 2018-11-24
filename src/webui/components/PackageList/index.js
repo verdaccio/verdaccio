@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import Package from '../Package';
 import Help from '../Help';
-import NoItems from '../NoItems';
-import {formatAuthor, formatLicense} from '../../utils/package';
+import { formatAuthor, formatLicense } from '../../utils/package';
 
 import classes from './packageList.scss';
 
@@ -14,7 +13,7 @@ export default class PackageList extends React.Component {
     help: PropTypes.bool
   };
 
-  renderPackges = () => {
+  renderPackages = () => {
     const { packages } = this.props;
     return (
       packages.length > 0 ? (
@@ -22,12 +21,7 @@ export default class PackageList extends React.Component {
           <h1 className={classes.listTitle}>Available Packages</h1>
           {this.renderList()}
         </Fragment>
-      ) : (
-        <NoItems
-          className="package-no-items"
-          text={'No items were found with that query'}
-        />
-      )
+      ) : null
     );
   }
 
@@ -45,7 +39,7 @@ export default class PackageList extends React.Component {
             </li>
           );
         })}
-    </ul>
+      </ul>
     );
   }
 
@@ -54,7 +48,7 @@ export default class PackageList extends React.Component {
     return (
       <div className="package-list-items">
         <div className={classes.pkgContainer}>
-          {help ? <Help /> : this.renderPackges()}
+          {help ? <Help /> : this.renderPackages()}
         </div>
       </div>
     );

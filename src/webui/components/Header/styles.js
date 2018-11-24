@@ -80,7 +80,16 @@ export const InnerMobileNavBar = styled.div`
   }
 `;
 
-export const Search = styled.div`
+export const IconSearchButton = styled(IconButton)`
+  && {
+    display: block;
+    ${mq.medium(css`
+      display: none;
+    `)};
+  }
+`;
+
+export const SearchWrapper = styled.div`
   && {
     display: none;
     max-width: 393px;
@@ -88,15 +97,6 @@ export const Search = styled.div`
     display: none;
     ${mq.medium(css`
       display: flex;
-    `)};
-  }
-`;
-
-export const IconSearchButton = styled(IconButton)`
-  && {
-    display: block;
-    ${mq.medium(css`
-      display: none;
     `)};
   }
 `;
