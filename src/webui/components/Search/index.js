@@ -98,7 +98,7 @@ class Search extends Component<IProps, IState> {
       case 'click':
       case 'enter':
         this.setState({ search: '' });
-        window.location.href = getDetailPageURL(suggestionValue);
+        window.location.assign(getDetailPageURL(suggestionValue));
         break;
     }
   };
@@ -114,23 +114,22 @@ class Search extends Component<IProps, IState> {
       // Keep track of search requests.
       this.requestList.push(controller);
       const response = await API.request(`search/${encodeURIComponent(value)}`, 'GET', { signal });
-      this.setState({ loaded: true });
       const transformedPackages = response.map(({ name, ...others }) => ({
         label: name,
         ...others,
       }));
-      if (this.state.search === value) {
-        this.setState({
-          suggestions: transformedPackages,
-          loaded: true,
-        });
-      }
+      this.setState({
+        suggestions: transformedPackages,
+        loaded: true,
+      });
     } catch (error) {
       /**
        * AbortError is not the API error.
        * It means browser has cancelled the API request.
        */
-      if (error.name !== CONSTANTS.ABORT_ERROR) {
+      if (error.name === CONSTANTS.ABORT_ERROR) {
+        this.setState({ error: false, loaded: false });
+      } else {
         this.setState({ error: true, loaded: false });
       }
     } finally {
