@@ -9,12 +9,13 @@ import { mount } from 'enzyme';
 import Search from '../../../../src/webui/components/Search/index';
 
 const SEARCH_FILE_PATH = '../../../../src/webui/components/Search/index';
+const API_FILE_PATH = '../../../../src/webui/utils/api';
+const URL_FILE_PATH = '../../../../src/webui/utils/url';
 
 // Global mocks
 const event = {
   stopPropagation: jest.fn(),
 };
-
 window.location.assign = jest.fn();
 
 describe('<Search /> component test', () => {
@@ -30,14 +31,16 @@ describe('<Search /> component test', () => {
   test('onBlur: should cancel all search requests', async () => {
     const { onBlur, requestList } = wrapper.instance();
     const spy = jest.spyOn(wrapper.instance(), 'cancelAllSearchRequests');
-    // add one request
+
     const request = {
       abort: jest.fn(),
     };
+    // adds a request for AbortController
     wrapper.instance().requestList = [request];
 
     onBlur(event);
 
+    expect(request.abort).toHaveBeenCalled();
     expect(event.stopPropagation).toHaveBeenCalled();
     expect(wrapper.state('error')).toBeFalsy();
     expect(wrapper.state('loaded')).toBeFalsy();
@@ -46,7 +49,7 @@ describe('<Search /> component test', () => {
     expect(requestList).toEqual([]);
   });
 
-  test('handleSearch: should set value in state when value is defined', () => {
+  test('handleSearch: when user type package name in search component and set loading to true', () => {
     const { handleSearch } = wrapper.instance();
     const newValue = 'verdaccio';
 
@@ -95,29 +98,35 @@ describe('<Search /> component test', () => {
 
     expect(wrapper.state('suggestions')).toEqual([]);
   });
+});
 
-  test('handleFetchPackages: should load the packages from API', async () => {
-    const apiResponse = [{ name: 'verdaccio' }, { name: 'verdaccio-htpasswd' }];
-    const suggestions = [{ label: 'verdaccio' }, { label: 'verdaccio-htpasswd' }];
-
+describe('<Search /> component: mocks specific tests ', () => {
+  beforeEach(() => {
     jest.resetModules();
-    jest.doMock('../../../../src/webui/utils/api', () => ({
-      request(url) {
-        expect(url).toEqual('search/verdaccio');
-        return Promise.resolve(apiResponse);
-      },
-    }));
     jest.doMock('lodash/debounce', () => {
       return function debounceMock(fn, delay) {
         return fn;
       };
     });
+  });
+
+  test('handleFetchPackages: should load the packages from API', async () => {
+    const apiResponse = [{ name: 'verdaccio' }, { name: 'verdaccio-htpasswd' }];
+    const suggestions = [{ label: 'verdaccio' }, { label: 'verdaccio-htpasswd' }];
+
+    jest.doMock(API_FILE_PATH, () => ({
+      request(url) {
+        expect(url).toEqual('search/verdaccio');
+        return Promise.resolve(apiResponse);
+      },
+    }));
 
     const Search = require(SEARCH_FILE_PATH).default;
     const component = mount(<Search />);
     component.setState({ search: 'verdaccio' });
     const { handleFetchPackages } = component.instance();
     await handleFetchPackages({ value: 'verdaccio' });
+
     expect(component.state('suggestions')).toEqual(suggestions);
     expect(component.state('error')).toBeFalsy();
     expect(component.state('loaded')).toBeTruthy();
@@ -125,64 +134,45 @@ describe('<Search /> component test', () => {
   });
 
   test('handleFetchPackages: when browser cancel a request', async () => {
-    const apiResponse = {
-      name: 'AbortError',
-    };
+    const apiResponse = { name: 'AbortError' };
 
-    jest.resetModules();
-    jest.doMock('../../../../src/webui/utils/api', () => ({
-      request: jest.fn(() => Promise.reject(apiResponse)),
-    }));
-    jest.doMock('lodash/debounce', () => {
-      return function debounceMock(fn, delay) {
-        return fn;
-      };
-    });
+    jest.doMock(API_FILE_PATH, () => ({ request: jest.fn(() => Promise.reject(apiResponse)) }));
 
     const Search = require(SEARCH_FILE_PATH).default;
     const component = mount(<Search />);
     component.setState({ search: 'verdaccio' });
     const { handleFetchPackages } = component.instance();
     await handleFetchPackages({ value: 'verdaccio' });
+
     expect(component.state('error')).toBeFalsy();
     expect(component.state('loaded')).toBeFalsy();
     expect(component.state('loading')).toBeFalsy();
   });
 
   test('handleFetchPackages: when API server failed request', async () => {
-    const apiResponse = {
-      name: 'BAD_REQUEST',
-    };
+    const apiResponse = { name: 'BAD_REQUEST' };
 
-    jest.resetModules();
-    jest.doMock('../../../../src/webui/utils/api', () => ({
+    jest.doMock(API_FILE_PATH, () => ({
       request(url) {
         expect(url).toEqual('search/verdaccio');
         return Promise.reject(apiResponse);
       },
     }));
-    jest.doMock('lodash/debounce', () => {
-      return function debounceMock(fn, delay) {
-        return fn;
-      };
-    });
 
     const Search = require(SEARCH_FILE_PATH).default;
     const component = mount(<Search />);
     component.setState({ search: 'verdaccio' });
     const { handleFetchPackages } = component.instance();
     await handleFetchPackages({ value: 'verdaccio' });
+
     expect(component.state('error')).toBeTruthy();
     expect(component.state('loaded')).toBeFalsy();
     expect(component.state('loading')).toBeFalsy();
   });
 
   test('handleClickSearch: should change the window location on click or return key', () => {
-    jest.resetModules();
     const getDetailPageURL = jest.fn(() => 'detail/page/url');
-    jest.doMock('../../../../src/webui/utils/url', () => ({
-      getDetailPageURL,
-    }));
+    jest.doMock(URL_FILE_PATH, () => ({ getDetailPageURL }));
 
     const suggestionValue = [];
     const Search = require(SEARCH_FILE_PATH).default;
