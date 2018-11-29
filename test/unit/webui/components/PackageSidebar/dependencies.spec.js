@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Dependencies, {
   NO_DEPENDENCIES,
   DEP_ITEM_CLASS
@@ -55,6 +55,13 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
     const wrapper = shallow(<Dependencies />);
 
     expect(wrapper.find(ModuleContentPlaceholder).props().text).toBe(NO_DEPENDENCIES);
+    expect(wrapper.html()).toMatchSnapshot();
+  });
+
+  test('should permit overriding title', () => {
+    const wrapper = mount(<Dependencies title='Package dependencies' />);
+
+    expect(wrapper.find('h2').text()).toEqual('Package dependencies');
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
