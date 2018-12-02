@@ -34,6 +34,12 @@ function checkAuthentication(response) {
   if (response.status === HTTP_STATUS.UNAUTHORIZED) {
     storage.removeItem('token');
     storage.removeItem('username');
+    /**
+     * @todo 
+     * Remove it when global storage available (e.g. Redux) which can re-render
+     * application without reloading it forcefully.
+     */
+    window.location.reload();
   }
   return response;
 }
