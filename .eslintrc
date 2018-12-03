@@ -3,7 +3,8 @@
     "react",
     "babel",
     "flowtype",
-    "jest"
+    "jest",
+    "verdaccio"
   ],
   "extends": [
     "eslint:recommended",
@@ -11,7 +12,8 @@
     "plugin:react/recommended",
     "plugin:flowtype/recommended",
     "plugin:jest/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:verdaccio/recommended"
   ],
   "settings": {
     "react": {
@@ -41,6 +43,8 @@
   "rules": {
     "babel/no-invalid-this": 1,
     "prettier/prettier": ["error", null, "@prettier"],
+    "verdaccio/jsx-spread": 2,
+    "verdaccio/no-style": 2,
     "no-useless-escape": 2,
     "no-invalid-this": 0,
     "react/no-deprecated": 1,
