@@ -101,7 +101,7 @@
     "eslint-plugin-jest": "21.22.1",
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.11.1",
-    "eslint-plugin-verdaccio": "0.0.2",
+    "eslint-plugin-verdaccio": "0.0.5",
     "file-loader": "2.0.0",
     "flow-bin": "0.81.0",
     "flow-runtime": "0.17.0",

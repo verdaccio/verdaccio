@@ -3813,9 +3813,9 @@ eslint-plugin-react@7.11.1:
     jsx-ast-utils "^2.0.1"
     prop-types "^15.6.2"
 
-eslint-plugin-verdaccio@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/eslint-plugin-verdaccio/-/eslint-plugin-verdaccio-0.0.2.tgz#10ef635d1a94bbd1def585dc38f5ff303fd62ff7"
+eslint-plugin-verdaccio@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/eslint-plugin-verdaccio/-/eslint-plugin-verdaccio-0.0.5.tgz#aae139bdd4a6c2ca5aa1bd6b47098c80b4fe9dfa"
   dependencies:
     jsx-ast-utils "2.0.1"
 
