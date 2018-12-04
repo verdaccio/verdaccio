@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.9.0"></a>
+# [3.9.0](https://github.com/verdaccio/verdaccio/compare/v3.8.6...v3.9.0) (2018-12-04)
+
+
+### Bug Fixes
+
+* update node within Dockerfile ([#1139](https://github.com/verdaccio/verdaccio/issues/1139)) ([24e9121](https://github.com/verdaccio/verdaccio/commit/24e9121))
+
+
+### Features
+
+* display package peer deps ([#1144](https://github.com/verdaccio/verdaccio/issues/1144)) ([9b52b1d](https://github.com/verdaccio/verdaccio/commit/9b52b1d))
+
+
+
 <a name="3.8.6"></a>
 ## [3.8.6](https://github.com/verdaccio/verdaccio/compare/v3.8.5...v3.8.6) (2018-11-15)
 
