@@ -59,10 +59,6 @@ describe('Utilities', () => {
       assert(validate('JSONStream'));
     });
 
-    test('no package.json', () => {
-      assert(!validate('package.json'));
-    });
-
     test('no path seps', () => {
       assert(!validate('some/thing'));
       assert(!validate('some\\thing'));
