@@ -205,11 +205,12 @@
       "prettier --parser yaml --no-config --single-quote --write",
       "git add"
     ],
-    "*.js": [
+    "*": [
       "eslint .",
       "prettier --write",
       "git add"
-    ]
+    ],
+    "ignore": ["*.json"]
   },
   "bundlesize": [
     {
