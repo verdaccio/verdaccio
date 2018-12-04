@@ -201,15 +201,17 @@
     }
   },
   "lint-staged": {
-    "*.yaml": [
-      "prettier --parser yaml --no-config --single-quote --write",
-      "git add"
-    ],
-    "*": [
-      "eslint .",
-      "prettier --write",
-      "git add"
-    ],
+    "linters": {
+      "*.yaml": [
+        "prettier --parser yaml --no-config --single-quote --write",
+        "git add"
+      ],
+      "*": [
+        "eslint .",
+        "prettier --write",
+        "git add"
+      ]
+    },
     "ignore": ["*.json"]
   },
   "bundlesize": [
