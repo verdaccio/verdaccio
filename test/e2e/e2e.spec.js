@@ -55,33 +55,33 @@ describe('/ (Verdaccio Page)', () => {
     await page.close();
   });
 
-  it('should load without error', async () => {
+  test('should load without error', async () => {
     const text = await page.evaluate(() => document.body.textContent);
 
     // FIXME: perhaps it is not the best approach
     expect(text).toContain('Powered by');
   });
 
-  it('should match title with no packages published', async () => {
+  test('should match title with no packages published', async () => {
     const text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
     expect(text).toMatch('No Package Published Yet');
   });
 
-  it('should match title with first step', async () => {
+  test('should match title with first step', async () => {
     const text = await page.evaluate(() => document.querySelector('#help-card').textContent);
     expect(text).toContain('$ npm adduser --registry http://0.0.0.0:55558');
   });
 
-  it('should match title with second step', async () => {
+  test('should match title with second step', async () => {
     const text = await page.evaluate(() => document.querySelector('#help-card').textContent);
     expect(text).toContain('$ npm publish --registry http://0.0.0.0:55558');
   });
 
-  it('should match button Login to sign in', async () => {
+  test('should match button Login to sign in', async () => {
     await evaluateSignIn();
   });
 
-  it('should click on sign in button', async () => {
+  test('should click on sign in button', async () => {
     const signInButton = await page.$('#header--button-login');
     await signInButton.click();
     await page.waitFor(1000);
@@ -90,7 +90,7 @@ describe('/ (Verdaccio Page)', () => {
     expect(signInDialog).not.toBeNull();
   });
 
-  it('should log in an user', async () => {
+  test('should log in an user', async () => {
     // we open the dialog
     await logIn();
     // check whether user is logged
@@ -98,7 +98,7 @@ describe('/ (Verdaccio Page)', () => {
     expect(buttonLogout).toBeDefined();
   });
 
-  it('should logout an user', async () => {
+  test('should logout an user', async () => {
     // we assume the user is logged already
     await clickElement('#header--button-account', { clickCount: 1, delay: 500 });
     await page.waitFor(1000);
@@ -107,7 +107,7 @@ describe('/ (Verdaccio Page)', () => {
     await evaluateSignIn();
   });
 
-  it('should check registry info dialog', async () => {
+  test('should check registry info dialog', async () => {
     const registryInfoButton = await page.$('#header--button-registryInfo');
     registryInfoButton.click();
     await page.waitFor(500);
@@ -119,7 +119,7 @@ describe('/ (Verdaccio Page)', () => {
     closeButton.click();
   });
 
-  it('should publish a package', async () => {
+  test('should publish a package', async () => {
     await global.__SERVER__.putPackage(scopedPackageMetadata.name, scopedPackageMetadata);
     await page.waitFor(1000);
     await page.reload();
@@ -129,7 +129,7 @@ describe('/ (Verdaccio Page)', () => {
     expect(packagesList).toHaveLength(1);
   });
 
-  it('should navigate to the package detail', async () => {
+  test('should navigate to the package detail', async () => {
     const packagesList = await getPackages();
     const packageItem = packagesList[0];
     await packageItem.focus();
@@ -139,12 +139,12 @@ describe('/ (Verdaccio Page)', () => {
     expect(readmeText).toMatch('test');
   });
 
-  it('should contains last sync information', async () => {
+  test('should contains last sync information', async () => {
     const versionList = await page.$$('.sidebar-info .last-sync-item');
     expect(versionList).toHaveLength(3);
   });
 
-  it('should publish a protected package', async () => {
+  test('should publish a protected package', async () => {
     await page.goto('http://0.0.0.0:55552');
     await page.waitFor(500);
     await global.__SERVER_PROTECTED__.putPackage(protectedPackageMetadata.name, protectedPackageMetadata);

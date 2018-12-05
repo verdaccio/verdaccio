@@ -14,7 +14,7 @@ describe('<Footer /> component', () => {
         wrapper = mount(<Footer />);
     });
 
-    it('should load the initial state of Footer component', () => {
+    test('should load the initial state of Footer component', () => {
         expect(wrapper.html()).toMatchSnapshot();
     });
 });

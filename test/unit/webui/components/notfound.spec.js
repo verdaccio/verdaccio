@@ -9,12 +9,12 @@ import NotFound from '../../../../src/webui/components/NotFound/index';
 console.error = jest.fn();
 
 describe('<NotFound /> component', () => {
-  it('should load the component in default state', () => {
+  test('should load the component in default state', () => {
     const wrapper = mount(<NotFound pkg='test' />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should set html from props', () => {
+  test('should set html from props', () => {
     const props = {
       pkg: 'verdaccio'
     };

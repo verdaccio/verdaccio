@@ -37,7 +37,7 @@ describe('App', () => {
   beforeEach(() => {
     wrapper = mount(<App />);
   });
-  it('loadLogo: set logo url in state', async () => {
+  test('loadLogo: set logo url in state', async () => {
     const { loadLogo } = wrapper.instance();
     await loadLogo();
     expect(wrapper.state().logoUrl).toEqual(
@@ -45,7 +45,7 @@ describe('App', () => {
     );
   });
 
-  it('toggleLoginModal: should toggle the value in state', () => {
+  test('toggleLoginModal: should toggle the value in state', () => {
     const { toggleLoginModal } = wrapper.instance();
     expect(wrapper.state().showLoginModal).toBeFalsy();
     toggleLoginModal();
@@ -53,7 +53,7 @@ describe('App', () => {
     expect(wrapper.state('error')).toEqual({});
   });
 
-  it('isUserAlreadyLoggedIn: token already available in storage', async () => {
+  test('isUserAlreadyLoggedIn: token already available in storage', async () => {
 
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', generateTokenWithTimeRange(24));
@@ -64,7 +64,7 @@ describe('App', () => {
     expect(wrapper.state('user').username).toEqual('verdaccio');
   });
 
-  it('handleLogout - logouts the user and clear localstorage', async () => {
+  test('handleLogout - logouts the user and clear localstorage', async () => {
     const { handleLogout } = wrapper.instance();
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', 'xxxx.TOKEN.xxxx');
@@ -74,7 +74,7 @@ describe('App', () => {
     expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
   });
 
-  it('doLogin - login the user successfully', async () => {
+  test('doLogin - login the user successfully', async () => {
     const { doLogin } = wrapper.instance();
     await doLogin('sam', '1234');
     const result = {
@@ -88,7 +88,7 @@ describe('App', () => {
     expect(wrapper.state('user')).toEqual(result);
   });
 
-  it('doLogin - authentication failure', async () => {
+  test('doLogin - authentication failure', async () => {
     const { doLogin } = wrapper.instance();
     await doLogin('sam', '12345');
     console.log(API_ERROR.BAD_USERNAME_PASSWORD);

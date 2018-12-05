@@ -9,7 +9,7 @@ import Help from '../../../../src/webui/components/Help/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<PackageList /> component', () => {
-  it('should load the component with no packages', () => {
+  test('should load the component with no packages', () => {
     const props = {
       packages: [],
       help: true
@@ -21,7 +21,7 @@ describe('<PackageList /> component', () => {
 
   });
 
-  it('should load the component with packages', () => {
+  test('should load the component with packages', () => {
     const props = {
       packages: [
         {

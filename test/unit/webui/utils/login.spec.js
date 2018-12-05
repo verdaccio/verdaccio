@@ -13,30 +13,30 @@ jest.mock('.../../../../src/webui/utils/api', () => ({
 }));
 
 describe('isTokenExpire', () => {
-  it('isTokenExpire - token is not present', () => {
+  test('isTokenExpire - token is not present', () => {
     expect(isTokenExpire()).toBeTruthy();
   });
 
-  it('isTokenExpire - token is not a valid payload', () => {
+  test('isTokenExpire - token is not a valid payload', () => {
     expect(isTokenExpire('not_a_valid_token')).toBeTruthy();
   });
 
-  it('isTokenExpire - token should not expire in 24 hrs range', () => {
+  test('isTokenExpire - token should not expire in 24 hrs range', () => {
     const token = generateTokenWithTimeRange(24);
     expect(isTokenExpire(token)).toBeFalsy();
   });
 
-  it('isTokenExpire - token should expire for current time', () => {
+  test('isTokenExpire - token should expire for current time', () => {
     const token = generateTokenWithTimeRange();
     expect(isTokenExpire(token)).toBeTruthy();
   });
 
-  it('isTokenExpire - token expiration is not available', () => {
+  test('isTokenExpire - token expiration is not available', () => {
     const token = generateTokenWithOutExpiration();
     expect(isTokenExpire(token)).toBeTruthy();
   });
 
-  it('isTokenExpire - token is not a valid json token', () => {
+  test('isTokenExpire - token is not a valid json token', () => {
     const token = generateTokenWithExpirationAsString();
     const result = [
       'Invalid token:',
@@ -49,7 +49,7 @@ describe('isTokenExpire', () => {
 });
 
 describe('makeLogin', () => {
-  it('makeLogin - should give error for blank username and password', async () => {
+  test('makeLogin - should give error for blank username and password', async () => {
     const result = {
       error: {
         description: "Username or password can't be empty!",
@@ -61,14 +61,14 @@ describe('makeLogin', () => {
     expect(login).toEqual(result);
   });
 
-  it('makeLogin - should login successfully', async () => {
+  test('makeLogin - should login successfully', async () => {
     const { username, password } = { username: 'sam', password: '1234' };
     const result = { token: 'TEST_TOKEN', username: 'sam' };
     const login = await makeLogin(username, password);
     expect(login).toEqual(result);
   });
 
-  it('makeLogin - login should failed with 401', async () => {
+  test('makeLogin - login should failed with 401', async () => {
     const result = {
       error: {
         description: 'bad username/password, access denied',
@@ -82,7 +82,7 @@ describe('makeLogin', () => {
     expect(login).toEqual(result);
   });
 
-  it('makeLogin - login should failed with when no data is sent', async () => {
+  test('makeLogin - login should failed with when no data is sent', async () => {
     const result = {
       error: {
         title: 'Unable to login',

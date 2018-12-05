@@ -25,12 +25,12 @@ const event = {
 };
 
 describe('<LoginModal />', () => {
-  it('should load the component in default state', () => {
+  test('should load the component in default state', () => {
     const wrapper = mount(<LoginModal />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should load the component with props', () => {
+  test('should load the component with props', () => {
     const props = {
       visibility: true,
       error: {
@@ -45,7 +45,7 @@ describe('<LoginModal />', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('onCancel: should close the login modal', () => {
+  test('onCancel: should close the login modal', () => {
     const props = {
       visibility: true,
       error: {
@@ -61,7 +61,7 @@ describe('<LoginModal />', () => {
     expect(props.onCancel).toHaveBeenCalled();
   });
 
-  it('setCredentials - should set username and password in state', () => {
+  test('setCredentials - should set username and password in state', () => {
     const props = {
       visibility: true,
       error: {},
@@ -78,7 +78,7 @@ describe('<LoginModal />', () => {
     expect(wrapper.state('form').password.value).toEqual('1234');
   });
 
-  it('validateCredentials: should validate credentials', async () => {
+  test('validateCredentials: should validate credentials', async () => {
     const props = {
       visibility: true,
       error: {},
@@ -106,7 +106,7 @@ describe('<LoginModal />', () => {
     expect(submitCredentials).toHaveBeenCalledTimes(1);
   });
 
-  it('submitCredentials: should submit credentials', async () => {
+  test('submitCredentials: should submit credentials', async () => {
     const props = {
       onSubmit: jest.fn(),
     };

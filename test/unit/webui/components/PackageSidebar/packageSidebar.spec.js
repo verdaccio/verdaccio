@@ -14,7 +14,7 @@ jest.mock('../../../../../src/webui/utils/api', () => ({
 console.error = jest.fn();
 
 describe('<PackageSidebar /> component', () => {
-  it('should throw error for the required props', () => {
+  test('should throw error for the required props', () => {
     const wrapper = mount(<PackageSidebar />);
     const { loadPackageData } = wrapper.instance();
     expect(console.error).toBeCalled();
@@ -24,7 +24,7 @@ describe('<PackageSidebar /> component', () => {
     });
   });
 
-  it('should load the packageMeta', () => {
+  test('should load the packageMeta', () => {
     const wrapper = mount(<PackageSidebar packageName={'verdaccio'} />);
     const { loadPackageData } = wrapper.instance();
     loadPackageData('verdaccio').then(response => {

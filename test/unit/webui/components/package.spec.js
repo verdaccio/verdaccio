@@ -19,7 +19,7 @@ const dateOneMonthAgo = () => {
 }
 
 describe('<Package /> component', () => {
-  it('should load the component', () => {
+  test('should load the component', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',
@@ -50,7 +50,7 @@ describe('<Package /> component', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should load the component without author', () => {
+  test('should load the component without author', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',

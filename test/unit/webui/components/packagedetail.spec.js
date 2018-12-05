@@ -10,12 +10,12 @@ import {WEB_TITLE} from '../../../../src/lib/constants';
 console.error = jest.fn();
 
 describe('<PackageDetail /> component', () => {
-  it('should give error for required props', () => {
+  test('should give error for required props', () => {
     shallow(<PackageDetail />);
     expect(console.error).toBeCalled();
   });
 
-  it('should load the component', () => {
+  test('should load the component', () => {
     const props = {
       readMe: 'Test readme',
       packageName: WEB_TITLE

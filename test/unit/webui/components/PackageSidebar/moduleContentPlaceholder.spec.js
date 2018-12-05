@@ -9,11 +9,11 @@ import ModuleContentPlaceholder from '../../../../../src/webui/components/Packag
 console.error = jest.fn();
 
 describe('<PackageSidebar /> : <ModuleContentPlaceholder />', () => {
-  it('should error for required props', () => {
+  test('should error for required props', () => {
     shallow(<ModuleContentPlaceholder />);
     expect(console.error).toBeCalled();
   });
-  it('should load module component', () => {
+  test('should load module component', () => {
     const props = {
       text: 'Test text'
     };

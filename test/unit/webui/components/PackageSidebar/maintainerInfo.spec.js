@@ -9,12 +9,12 @@ import MaintainerInfo from '../../../../../src/webui/components/PackageSidebar/m
 console.error = jest.fn();
 
 describe('<PackageSidebar /> : <Maintainers /> <MaintainerInfo />', () => {
-  it('should throw error for required props', () => {
+  test('should throw error for required props', () => {
     shallow(<MaintainerInfo />);
     expect(console.error).toBeCalled();
   });
 
-  it('should load the component and match with snapshot', () => {
+  test('should load the component and match with snapshot', () => {
     const props = {
       title: 'test-title',
       name: 'test',
