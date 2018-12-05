@@ -1,10 +1,11 @@
 {
   "plugins": [
-    "react",
     "babel",
+    "react",
     "flowtype",
     "jest",
-    "verdaccio"
+    "verdaccio",
+    "jsx-a11y"
   ],
   "extends": [
     "eslint:recommended",
@@ -13,7 +14,8 @@
     "plugin:flowtype/recommended",
     "plugin:jest/recommended",
     "plugin:prettier/recommended",
-    "plugin:verdaccio/recommended"
+    "plugin:verdaccio/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
   "settings": {
     "react": {
@@ -43,10 +45,63 @@
   "rules": {
     "babel/no-invalid-this": 1,
     "prettier/prettier": ["error", null, "@prettier"],
-    "no-useless-escape": 2,
-    "no-invalid-this": 0,
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
+    "react/destructuring-assignment": ["error", "always"],
+    "react/forbid-component-props": ["error", { "forbid": ["style"] }],
+    "react/no-this-in-sfc": ["error"],
+    "react/no-unsafe": ["error"],
+    "react/sort-comp": ["error", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "render",
+        "everything-else",
+        "/^on.+$/",
+        "/^render.+$/"
+      ]
+    }],
+    "react/void-dom-elements-no-children": ["error"],
+    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
+    "react/jsx-wrap-multilines": ["error",{
+      "declaration": "parens",
+      "assignment": "parens",
+      "return": "parens",
+      "arrow": "parens",
+      "condition": "parens",
+      "logical": "parens",
+      "prop": "parens"
+    }],
+    "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-closing-tag-location": ["error"],
+    "react/jsx-curly-spacing": ["error", "always"],
+    "react/jsx-equals-spacing": ["error", "never"],
+    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
+    "react/jsx-handler-names": ["error"],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-key": ["error"],
+    "react/jsx-max-depth": ["error", { "max": 2}],
+    "react/jsx-max-props-per-line": ["error", {"maximum": 3, "when": "multiline" }],
+    "react/jsx-no-bind": ["error"],
+    "react/jsx-no-comment-textnodes": ["error"],
+    "react/jsx-no-duplicate-props": ["error"],
+    "react/jsx-no-literals": ["error"],
+    "react/jsx-no-undef": ["error"],
+    "react/jsx-one-expression-per-line": ["error", {"allow": "literal"}],
+    "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "ignore" }],
+    "react/jsx-pascal-case": ["error"],
+    "react/jsx-props-no-multi-spaces": ["error"],
+    "react/jsx-sort-default-props": ["error"],
+    "react/jsx-sort-props": ["error"],
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "allow-multiline",
+      "beforeClosing": "allow"
+    }],
+    "no-useless-escape": 2,
+    "no-invalid-this": 0,
     "handle-callback-err": 2,
     "no-fallthrough": 2,
     "no-new-require": 2,
