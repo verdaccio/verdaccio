@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.10.0"></a>
+# [3.10.0](https://github.com/verdaccio/verdaccio/compare/v3.9.0...v3.10.0) (2018-12-06)
+
+
+### Bug Fixes
+
+* update docker node to 10.14.1 ([#1148](https://github.com/verdaccio/verdaccio/issues/1148)) ([68165ca](https://github.com/verdaccio/verdaccio/commit/68165ca))
+
+
+### Features
+
+* allows package.json as package name ([#1149](https://github.com/verdaccio/verdaccio/issues/1149)) ([6554973](https://github.com/verdaccio/verdaccio/commit/6554973))
+
+
+
 <a name="3.9.0"></a>
 # [3.9.0](https://github.com/verdaccio/verdaccio/compare/v3.8.6...v3.9.0) (2018-12-04)
 
