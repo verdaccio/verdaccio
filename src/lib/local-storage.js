@@ -409,7 +409,7 @@ class LocalStorage implements IStorage {
       _transform.apply(uploadStream, arguments);
     };
 
-    if (name === pkgFileName || name === '__proto__') {
+    if (name === '__proto__') {
       process.nextTick(() => {
         uploadStream.emit('error', ErrorCode.getForbidden());
       });

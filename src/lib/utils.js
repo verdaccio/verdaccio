@@ -75,7 +75,6 @@ function validateName(name: string): boolean {
     name.charAt(0) === '-' || // "-" is reserved by couchdb
     name === 'node_modules' ||
     name === '__proto__' ||
-    name === 'package.json' ||
     name === 'favicon.ico'
   );
 }
