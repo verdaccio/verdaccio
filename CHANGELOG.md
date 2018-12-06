@@ -45,6 +45,35 @@ All notable changes to this project will be documented in this file. See [standa
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
 
+<a name="3.10.0"></a>
+# [3.10.0](https://github.com/verdaccio/verdaccio/compare/v3.9.0...v3.10.0) (2018-12-06)
+
+
+### Bug Fixes
+
+* update docker node to 10.14.1 ([#1148](https://github.com/verdaccio/verdaccio/issues/1148)) ([68165ca](https://github.com/verdaccio/verdaccio/commit/68165ca))
+
+
+### Features
+
+* allows package.json as package name ([#1149](https://github.com/verdaccio/verdaccio/issues/1149)) ([6554973](https://github.com/verdaccio/verdaccio/commit/6554973))
+
+
+
+<a name="3.9.0"></a>
+# [3.9.0](https://github.com/verdaccio/verdaccio/compare/v3.8.6...v3.9.0) (2018-12-04)
+
+
+### Bug Fixes
+
+* update node within Dockerfile ([#1139](https://github.com/verdaccio/verdaccio/issues/1139)) ([24e9121](https://github.com/verdaccio/verdaccio/commit/24e9121))
+
+
+### Features
+
+* display package peer deps ([#1144](https://github.com/verdaccio/verdaccio/issues/1144)) ([9b52b1d](https://github.com/verdaccio/verdaccio/commit/9b52b1d))
+
+
 
 <a name="3.8.6"></a>
 ## [3.8.6](https://github.com/verdaccio/verdaccio/compare/v3.8.5...v3.8.6) (2018-11-15)
@@ -84,6 +113,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * don't exit if using https and pfx is enabled ([#1061](https://github.com/verdaccio/verdaccio/issues/1061)) ([#1062](https://github.com/verdaccio/verdaccio/issues/1062)) ([315a3b2](https://github.com/verdaccio/verdaccio/commit/315a3b2))
+
 
 
 <a name="3.8.2"></a>
@@ -711,7 +741,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - Improve Docker Build - [#181](https://github.com/verdaccio/verdaccio/pull/181)
 - Bugfix #73 `npm-latest` support - [#228](https://github.com/verdaccio/verdaccio/pull/228)
-- Add [documentation](https://github.com/verdaccio/verdaccio/tree/master/wiki) - [#229](https://github.com/verdaccio/verdaccio/pull/229)   
+- Add [documentation](https://github.com/verdaccio/verdaccio/tree/master/wiki) - [#229](https://github.com/verdaccio/verdaccio/pull/229)
 
 ## 2.2.1 (June 17, 2017)
 
@@ -733,7 +763,7 @@ All notable changes to this project will be documented in this file. See [standa
 - Fix upstream search not work with gzip - ([@Meeeeow](https://github.com/Meeeeow) in [#170](https://github.com/verdaccio/verdaccio/pull/170))
 - Add additional requirement to output message - ([@marnel ](https://github.com/marnel) in [#184](https://github.com/verdaccio/verdaccio/pull/184))
 - Implement npm ping endpoint - ([@juanpicado]((https://github.com/juanpicado))) in [#179](https://github.com/verdaccio/verdaccio/pull/179)
-- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue))) 
+- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue)))
 in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 
 
@@ -769,9 +799,9 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 - rename clean up ([@juanpicado](https://github.com/juanpicado) in [#114](https://github.com/verdaccio/verdaccio/issues/114))
 - _npmUser / author not showing up ([@juanpicado](https://github.com/juanpicado) in [#65](https://github.com/verdaccio/verdaccio/issues/65))
 - Docs: correct config attribute `proxy_access` ([@robertgroh](https://github.com/robertgroh) in [#96](https://github.com/verdaccio/verdaccio/pull/96))
-- Problem with docker.yaml ([@josedepaz](https://github.com/josedepaz) in [#72](https://github.com/verdaccio/verdaccio/pull/72)) 
+- Problem with docker.yaml ([@josedepaz](https://github.com/josedepaz) in [#72](https://github.com/verdaccio/verdaccio/pull/72))
 - Prevent logging of user and password ([@tlvince](https://github.com/tlvince) in [#94](https://github.com/verdaccio/verdaccio/pull/94))
-- Updated README.md to reflect the availability of the docker image ([@jmwilkinson](https://github.com/jmwilkinson)) in [#71](https://github.com/verdaccio/verdaccio/pull/71)) 
+- Updated README.md to reflect the availability of the docker image ([@jmwilkinson](https://github.com/jmwilkinson)) in [#71](https://github.com/verdaccio/verdaccio/pull/71))
 
 ## 2.1.0 (October 11, 2016)
 
@@ -845,7 +875,7 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 
 ## 25 Nov 2014, version 1.0.0-alpha
 
-- Config file is now created in `$XDG_CONFIG_HOME` instead of current directory. 
+- Config file is now created in `$XDG_CONFIG_HOME` instead of current directory.
 
   It is printed to stdout each time sinopia starts, so you hopefully won't have any trouble locating it.
 

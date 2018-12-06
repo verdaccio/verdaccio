@@ -210,10 +210,6 @@ describe('Utilities', () => {
           expect(validateName('JSONStream')).toBeTruthy();
         });
 
-        test('should fails using package.json', () => {
-          expect(validateName('package.json')).toBeFalsy();
-        });
-
         test('should fails with path seps', () => {
           expect(validateName('some/thing')).toBeFalsy();
           expect(validateName('some\\thing')).toBeFalsy();

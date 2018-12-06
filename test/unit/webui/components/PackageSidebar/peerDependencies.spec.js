@@ -3,17 +3,20 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import Dependencies, {
+import { mount } from 'enzyme';
+import {
   NO_DEPENDENCIES,
   DEP_ITEM_CLASS
 } from '../../../../../src/webui/components/PackageSidebar/modules/Dependencies/index';
+import PeerDependencies, {
+  TITLE
+} from '../../../../../src/webui/components/PackageSidebar/modules/PeerDependencies/index';
 import ModuleContentPlaceholder from '../../../../../src/webui/components/PackageSidebar/ModuleContentPlaceholder';
 
 
-describe('<PackageSidebar /> : <Dependencies />', () => {
+describe('<PackageSidebar /> : <PeerDependencies />', () => {
   test('should load dependencies', () => {
-    const dependencies = {
+    const peerDependencies = {
       '@verdaccio/file-locking': '0.0.3',
       '@verdaccio/streams': '0.0.2',
       JSONStream: '^1.1.1',
@@ -45,23 +48,17 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
       semver: '^5.1.0',
       'unix-crypt-td-js': '^1.0.0'
     };
-    const wrapper = shallow(<Dependencies dependencies={dependencies} />);
+    const wrapper = mount(<PeerDependencies dependencies={peerDependencies} />);
 
-    expect(wrapper.find(`.${DEP_ITEM_CLASS}`)).toHaveLength(Object.keys(dependencies).length);
+    expect(wrapper.find('h2').text()).toEqual(TITLE);
+    expect(wrapper.find(`.${DEP_ITEM_CLASS}`)).toHaveLength(Object.keys(peerDependencies).length);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
   test('should load the package without dependencies', () => {
-    const wrapper = shallow(<Dependencies />);
+    const wrapper = mount(<PeerDependencies />);
 
     expect(wrapper.find(ModuleContentPlaceholder).props().text).toBe(NO_DEPENDENCIES);
-    expect(wrapper.html()).toMatchSnapshot();
-  });
-
-  test('should permit overriding title', () => {
-    const wrapper = mount(<Dependencies title='Package dependencies' />);
-
-    expect(wrapper.find('h2').text()).toEqual('Package dependencies');
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

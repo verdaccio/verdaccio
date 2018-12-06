@@ -343,7 +343,7 @@ describe('LocalStorage', () => {
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
-            expect(err.message).toMatch(/this package is already present/); 
+            expect(err.message).toMatch(/this package is already present/);
           });
           stream.on('success', function(){
             expect(spy).toHaveBeenCalled();
@@ -384,7 +384,7 @@ describe('LocalStorage', () => {
         });
 
         test('should fails on abort on add a new tarball', (done) => {
-          const stream = storage.addTarball('package.json', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
+          const stream = storage.addTarball('__proto__', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
           stream.abort();
           stream.on('error', function(err) {
             expect(err).not.toBeNull();
