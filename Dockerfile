@@ -1,4 +1,4 @@
-FROM node:10.7-alpine as builder
+FROM node:10.14.1-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org/

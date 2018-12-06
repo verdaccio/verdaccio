@@ -69,7 +69,6 @@ export function validateName(name: string): boolean {
     normalizedName.charAt(0) === '-' || // "-" is reserved by couchdb
     normalizedName === 'node_modules' ||
     normalizedName === '__proto__' ||
-    normalizedName === 'package.json' ||
     normalizedName === 'favicon.ico'
   );
 }
@@ -209,14 +208,14 @@ export function getVersion(pkg: Package, version: any) {
 /**
  * Parse an internet address
  * Allow:
-    - https:localhost:1234        - protocol + host + port
-    - localhost:1234              - host + port
-    - 1234                        - port
-    - http::1234                  - protocol + port
-    - https://localhost:443/      - full url + https
-    - http://[::1]:443/           - ipv6
-    - unix:/tmp/http.sock         - unix sockets
-    - https://unix:/tmp/http.sock - unix sockets (https)
+ - https:localhost:1234        - protocol + host + port
+ - localhost:1234              - host + port
+ - 1234                        - port
+ - http::1234                  - protocol + port
+ - https://localhost:443/      - full url + https
+ - http://[::1]:443/           - ipv6
+ - unix:/tmp/http.sock         - unix sockets
+ - https://unix:/tmp/http.sock - unix sockets (https)
  * @param {*} urlAddress the internet address definition
  * @return {Object|Null} literal object that represent the address parsed
  */
