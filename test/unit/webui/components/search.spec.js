@@ -112,7 +112,7 @@ describe('<Search /> component: mocks specific tests ', () => {
 
   test('handleFetchPackages: should load the packages from API', async () => {
     const apiResponse = [{ name: 'verdaccio' }, { name: 'verdaccio-htpasswd' }];
-    const suggestions = [{ label: 'verdaccio' }, { label: 'verdaccio-htpasswd' }];
+    const suggestions = [{ name: 'verdaccio' }, { name: 'verdaccio-htpasswd' }];
 
     jest.doMock(API_FILE_PATH, () => ({
       request(url) {

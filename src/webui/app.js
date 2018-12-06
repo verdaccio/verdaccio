@@ -65,12 +65,8 @@ export default class App extends Component {
   loadPackages = async () => {
     try {
       this.req = await API.request('packages', 'GET');
-      const transformedPackages = this.req.map(({ name, ...others}) => ({
-        label: name,
-        ...others
-      }));
       this.setState({
-        packages: transformedPackages, 
+        packages: this.req, 
         isLoading: false
       });
     } catch (error) {

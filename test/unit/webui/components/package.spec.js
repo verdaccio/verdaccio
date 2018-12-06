@@ -5,8 +5,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Package from '../../../../src/webui/components/Package/index';
+import Tag from '../../../../src/webui/components/Tag/index';
+import { formatDate, formatDateDistance } from '../../../../src/webui/utils/package';
+import { Version, A, Field, Details, OverviewItem } from '../../../../src/webui/components/Package/styles';
+
 import { BrowserRouter } from 'react-router-dom';
-import Chip from '@material-ui/core/Chip';
 
 /**
  * Generates one month back date from current time
@@ -26,7 +29,12 @@ describe('<Package /> component', () => {
       time: dateOneMonthAgo(),
       license: 'MIT',
       description: 'Private NPM repository',
-      author: 'Sam'
+      author: {
+        name: 'Sam'
+      },
+      keywords: [
+        "verdaccio"
+      ]
     };
     const wrapper = mount(
       <BrowserRouter>
@@ -34,20 +42,37 @@ describe('<Package /> component', () => {
       </BrowserRouter>
     );
 
-    const version =
-      wrapper.findWhere(node => node.is(Chip) && node.prop('label') === 'v1.0.0');
-
+  
     // integration expectations
-    expect(wrapper.find('a').prop('href')).toEqual('detail/verdaccio');
-    expect(wrapper.find('h1').text()).toEqual('verdaccio v1.0.0');
-    expect(version.exists()).toBe(true);
-    expect(
-      wrapper.find('div').filterWhere(n => n.prop('role') === 'author')
-        .text()
-    ).toEqual('By: Sam');
-    expect(wrapper.find('p').text()).toEqual('Private NPM repository');
-    expect(wrapper.find('.license').text()).toMatch(/MIT/);
-    expect(wrapper.html()).toMatchSnapshot();
+
+    // check link
+    expect(wrapper.find(A).prop('to')).toEqual(`detail/${props.name}`);
+
+    // check version
+    expect(wrapper.find(Version).prop('children')).toEqual(`${props.version} version`);
+
+    //check Author's name
+    expect(wrapper.find(Details).children().first().get(0).props.children[0].props.text).toEqual(props.author.name);
+
+    // check description
+    expect(wrapper.find(Field).someWhere(n => {
+      return (
+        n.children().first().get(0).props.children[0].props.text === 'Description' && 
+        n.children().childAt(1).containsMatchingElement(<span>{props.description}</span>)
+      )
+    })).toBe(true);
+
+    // check license
+    expect(wrapper.find(OverviewItem).someWhere(n => n.get(0).props.children[1] === props.license)).toBe(true);
+
+    // check date
+    expect(wrapper.find(OverviewItem).someWhere(n => 
+      n.get(0).props.children[1] ===  `Published on ${formatDate(props.time)} • ${formatDateDistance(props.time)} ago`
+    )).toBe(true);
+
+    // check keyword
+    expect(wrapper.find(Tag).prop('children')).toEqual(props.keywords[0]);
+
   });
 
   it('should load the component without author', () => {
@@ -56,6 +81,11 @@ describe('<Package /> component', () => {
       version: '1.0.0',
       time: dateOneMonthAgo(),
       license: 'MIT',
+      author: {
+        name: 'Anonymous',
+        email: '',
+        avatar: ''
+      },
       description: 'Private NPM repository'
     };
     const wrapper = mount(
@@ -65,10 +95,7 @@ describe('<Package /> component', () => {
     );
 
     // integration expectations
-    expect(
-      wrapper.find('div').filterWhere(n => n.prop('role') === 'author')
-        .text()
-    ).toEqual('');
+    expect(wrapper.find(Details).children().first().get(0).props.children[0].props.text).toEqual('Anonymous');
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
