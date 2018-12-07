@@ -186,7 +186,6 @@ describe('Utilities', () => {
         expect(validatePackage("$%$%#$%$#%#$%$#")).toBeFalsy();
         expect(validatePackage("node_modules")).toBeFalsy();
         expect(validatePackage("__proto__")).toBeFalsy();
-        expect(validatePackage("package.json")).toBeFalsy();
         expect(validatePackage("favicon.ico")).toBeFalsy();
       });
 
