@@ -142,7 +142,7 @@ jobs:
 
   test_node11:
     <<: *defaults
-    <<: *node10_executor
+    <<: *node11_executor
     steps:
     - *restore_repo
     - run:
