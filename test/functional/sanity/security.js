@@ -9,7 +9,7 @@ export default function(server) {
     });
 
     test('should fails on fetch bad pkg #1', () => {
-      return server.getPackage('package.json')
+      return server.getPackage('__proto__')
         .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid package/);
     });
@@ -31,8 +31,8 @@ export default function(server) {
         });
     });
 
-    test('should fails and do not return package.json as an attachment', () => {
-      return server.request({uri: '/testpkg-sec/-/package.json'})
+    test('should fails and do not return __proto__ as an attachment', () => {
+      return server.request({uri: '/testpkg-sec/-/__proto__'})
         .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
@@ -49,7 +49,7 @@ export default function(server) {
     });
 
     test('should fails on fetch silly things - writing #1', () => {
-      return server.putTarball('testpkg-sec', 'package.json', '{}')
+      return server.putTarball('testpkg-sec', '__proto__', '{}')
         .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
     });
