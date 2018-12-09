@@ -22,7 +22,7 @@ describe('/ (Verdaccio Page)', () => {
   };
 
   const getPackages = async function() {
-    return await page.$$('.package-list-items > div');
+    return await page.$$('.package-list-items .package');
   };
 
   const logIn = async function() {
@@ -125,15 +125,14 @@ describe('/ (Verdaccio Page)', () => {
     await page.reload();
     await page.waitFor(1000);
     const packagesList = await getPackages();
-
     expect(packagesList).toHaveLength(1);
   });
 
   it('should navigate to the package detail', async () => {
     const packagesList = await getPackages();
-    const packageItem = packagesList[0];
-    await packageItem.focus();
-    await packageItem.click({ clickCount: 1, delay: 200 });
+    const firstPackage = packagesList[0];
+    await firstPackage.focus();
+    await firstPackage.click({ clickCount: 1, delay: 200 });
     await page.waitFor(1000);
     const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
     expect(readmeText).toMatch('test');

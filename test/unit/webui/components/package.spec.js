@@ -7,7 +7,7 @@ import { mount } from 'enzyme';
 import Package from '../../../../src/webui/components/Package/index';
 import Tag from '../../../../src/webui/components/Tag/index';
 import { formatDate, formatDateDistance } from '../../../../src/webui/utils/package';
-import { Version, A, Field, Details, OverviewItem } from '../../../../src/webui/components/Package/styles';
+import { Version, Wrapper, Field, Details, OverviewItem } from '../../../../src/webui/components/Package/styles';
 
 import { BrowserRouter } from 'react-router-dom';
 
@@ -15,11 +15,7 @@ import { BrowserRouter } from 'react-router-dom';
  * Generates one month back date from current time
  * @return {object} date object
  */
-const dateOneMonthAgo = () => {
-  const date = new Date();
-  date.setMonth(date.getMonth() - 1);
-  return date;
-}
+const dateOneMonthAgo = () => new Date(1544377770747)
 
 describe('<Package /> component', () => {
   it('should load the component', () => {
@@ -46,10 +42,10 @@ describe('<Package /> component', () => {
     // integration expectations
 
     // check link
-    expect(wrapper.find(A).prop('to')).toEqual(`detail/${props.name}`);
+    expect(wrapper.find(Wrapper).prop('to')).toEqual(`detail/${props.name}`);
 
     // check version
-    expect(wrapper.find(Version).prop('children')).toEqual(`${props.version} version`);
+    expect(wrapper.find(Version).prop('children')).toEqual(`v${props.version}`);
 
     //check Author's name
     expect(wrapper.find(Details).children().first().get(0).props.children[0].props.text).toEqual(props.author.name);
@@ -64,11 +60,6 @@ describe('<Package /> component', () => {
 
     // check license
     expect(wrapper.find(OverviewItem).someWhere(n => n.get(0).props.children[1] === props.license)).toBe(true);
-
-    // check date
-    expect(wrapper.find(OverviewItem).someWhere(n => 
-      n.get(0).props.children[1] ===  `Published on ${formatDate(props.time)} • ${formatDateDistance(props.time)} ago`
-    )).toBe(true);
 
     // check keyword
     expect(wrapper.find(Tag).prop('children')).toEqual(props.keywords[0]);

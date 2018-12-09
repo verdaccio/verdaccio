@@ -46,7 +46,7 @@ describe('formatRepository', () => {
 describe('formatDate', () => {
   it('should format the date', () => {
     const date = 1532211072138;
-    expect(formatDate(date)).toEqual('21.07.2018');
+    expect(formatDate(date)).toEqual('21.07.2018, 22:11:12');
   });
 });
 
@@ -66,7 +66,7 @@ describe('getLastUpdatedPackageTime', () => {
   it('should get the last update time', () => {
     const lastUpdated = packageMeta._uplinks;
     expect(getLastUpdatedPackageTime(lastUpdated)).toEqual(
-      '22.07.2018'
+      '22.07.2018, 22:11:12'
     );
   });
   it('should get the last update time for blank uplink', () => {
@@ -79,9 +79,9 @@ describe('getRecentReleases', () => {
   it('should get the recent releases', () => {
     const { time } = packageMeta;
     const result = [
-      { time: '14.12.2017', version: '2.7.1' },
-      { time: '05.12.2017', version: '2.7.0' },
-      { time: '08.11.2017', version: '2.6.6' }
+      { time: '14.12.2017, 15:43:27', version: '2.7.1' },
+      { time: '05.12.2017, 23:25:06', version: '2.7.0' },
+      { time: '08.11.2017, 22:47:16', version: '2.6.6' }
     ];
     expect(getRecentReleases(time)).toEqual(result);
     expect(getRecentReleases()).toEqual([]);
