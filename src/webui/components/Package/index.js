@@ -11,7 +11,24 @@ import Tag from '../Tag';
 import { formatDate, formatDateDistance } from '../../utils/package';
 
 import { IProps } from './types';
-import { Wrapper, Header, A, Name, Version, Overview, OverviewItem, Icon, Text, Details, Avatar, Author, Field, Content, Footer } from './styles';
+import {
+  Wrapper,
+  Header,
+  MainInfo,
+  Name,
+  Version,
+  Overview,
+  Published,
+  OverviewItem,
+  Icon,
+  Text,
+  Details,
+  Avatar,
+  Author,
+  Field,
+  Content,
+  Footer,
+} from './styles';
 
 const getInitialsName = (name: string) =>
   name
@@ -20,22 +37,23 @@ const getInitialsName = (name: string) =>
     .toUpperCase();
 
 const Package = ({ name: label, version, time, author: { name, email, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => (
-  <Wrapper>
+  <Wrapper className="package" to={`detail/${label}`}>
     <Header>
-      <A to={`detail/${label}`}>
+      <MainInfo>
         <Name>{label}</Name>
-        <Version>{`${version} version`}</Version>
-      </A>
+        <Version>{`v${version}`}</Version>
+      </MainInfo>
       <Overview>
         {license && (
           <OverviewItem>
-            <Icon name="license" modifiers={spacing('margin', '4px', '5px', '0px', '0px')} />
+            <Icon name="license" pointer modifiers={spacing('margin', '4px', '5px', '0px', '0px')} />
             {license}
           </OverviewItem>
         )}
         <OverviewItem>
-          <Icon name="time" />
-          {`Published on ${formatDate(time)} • ${formatDateDistance(time)} ago`}
+          <Icon name="time" pointer />
+          <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
+          {`${formatDateDistance(time)} ago`}
         </OverviewItem>
       </Overview>
     </Header>

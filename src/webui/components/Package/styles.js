@@ -13,29 +13,12 @@ import { ellipsis } from '../../utils/styles/mixings';
 
 import Label from '../Label';
 
-export const Wrapper = styled.div`
-  && {
-    font-size: 12px;
-    background-color: #fff;
-    margin: 0 0 15px 0;
-    transition: box-shadow 0.15s;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
-    padding: 10px;
-  }
-`;
-
 // HEADER
 export const Header = styled.div`
   && {
     display: flex;
     flex-direction: column;
     padding: 0 0 5px 0;
-    ${mq.medium(css`
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    `)};
   }
 `;
 
@@ -45,14 +28,13 @@ export const Name = styled.span`
   }
 `;
 
-export const A = styled(Link)`
+export const MainInfo = styled.span`
   && {
     font-size: 14px;
-    text-decoration: none;
-    color: #3a8bff;
     font-weight: 600;
     line-height: 30px;
     flex: 1;
+    color: #3a8bff;
     padding: 0 10px 0 0;
     overflow: hidden;
     display: flex;
@@ -69,11 +51,7 @@ export const OverviewItem = styled.span`
   && {
     display: flex;
     align-items: center;
-    color: #2f273c;
     margin: 0 0 5px 0;
-    ${mq.medium(css`
-      margin: 0 0 0 20px;
-    `)};
   }
 `;
 
@@ -82,14 +60,6 @@ export const Overview = styled.span`
     position: relative;
     display: flex;
     flex-direction: column;
-    ${mq.medium(css`
-      flex-direction: row;
-      ${OverviewItem} {
-        :first-child {
-          margin: 0;
-        }
-      }
-    `)};
   }
 `;
 
@@ -113,6 +83,13 @@ export const Icon = styled(Ico)`
   && {
     margin: 1px 5px 0 0;
     fill: #bfbfbf;
+  }
+`;
+
+export const Published = styled.span`
+  && {
+    display: none;
+    ${({ modifiers }) => modifiers};
   }
 `;
 
@@ -167,6 +144,47 @@ export const Avatar = styled(Photo)`
 // Footer
 export const Footer = styled.div`
   && {
+    display: none;
     padding: 5px 0 0 0;
+  }
+`;
+
+// Container
+export const Wrapper = styled(Link)`
+  && {
+    font-size: 12px;
+    background-color: #fff;
+    margin: 0 0 15px 0;
+    transition: box-shadow 0.15s;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    color: #2f273c;
+    ${mq.medium(css`
+      ${Header} {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      ${OverviewItem} {
+        margin: 0 0 0 20px;
+      }
+      ${Overview} {
+        flex-direction: row;
+        ${OverviewItem} {
+          :first-child {
+            margin: 0;
+          }
+        }
+      }
+      ${Footer} {
+        display: block;
+      }
+      ${Published} {
+        display: inline-block;
+      }
+    `)};
   }
 `;
