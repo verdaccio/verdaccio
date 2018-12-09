@@ -6,7 +6,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Package from '../../../../src/webui/components/Package/index';
 import Tag from '../../../../src/webui/components/Tag/index';
-import { formatDate, formatDateDistance } from '../../../../src/webui/utils/package';
 import { Version, Wrapper, Field, Details, OverviewItem } from '../../../../src/webui/components/Package/styles';
 
 import { BrowserRouter } from 'react-router-dom';
