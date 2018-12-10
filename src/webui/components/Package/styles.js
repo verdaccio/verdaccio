@@ -10,6 +10,7 @@ import { default as Ico } from '../Icon';
 
 import mq from '../../utils/styles/media';
 import { ellipsis } from '../../utils/styles/mixings';
+import colors from '../../utils/styles/colors';
 
 import Label from '../Label';
 
@@ -30,7 +31,7 @@ export const Name = styled.span`
 
 export const MainInfo = styled.span`
   && {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 30px;
     flex: 1;
@@ -52,6 +53,7 @@ export const OverviewItem = styled.span`
     display: flex;
     align-items: center;
     margin: 0 0 5px 0;
+    color: ${colors.greyLight};
   }
 `;
 
@@ -82,13 +84,14 @@ export const Version = styled.span`
 export const Icon = styled(Ico)`
   && {
     margin: 1px 5px 0 0;
-    fill: #bfbfbf;
+    fill: ${colors.greyLight};
   }
 `;
 
 export const Published = styled.span`
   && {
     display: none;
+    color: ${colors.greyLight};
     ${({ modifiers }) => modifiers};
   }
 `;
@@ -141,6 +144,13 @@ export const Avatar = styled(Photo)`
   }
 `;
 
+export const Description = styled.div`
+  && {
+    margin: 5px 0;
+    text-overflow: ellipsis;
+  }
+`;
+
 // Footer
 export const Footer = styled.div`
   && {
@@ -169,7 +179,7 @@ export const Wrapper = styled(Link)`
         align-items: center;
       }
       ${OverviewItem} {
-        margin: 0 0 0 20px;
+        margin: 0 0 0 10px;
       }
       ${Overview} {
         flex-direction: row;

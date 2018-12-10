@@ -20,6 +20,7 @@ import {
   Overview,
   Published,
   OverviewItem,
+  Description,
   Icon,
   Text,
   Details,
@@ -36,7 +37,7 @@ const getInitialsName = (name: string) =>
     .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
     .toUpperCase();
 
-const Package = ({ name: label, version, time, author: { name, email, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => (
+const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => (
   <Wrapper className="package" to={`detail/${label}`}>
     <Header>
       <MainInfo>
@@ -59,20 +60,18 @@ const Package = ({ name: label, version, time, author: { name, email, avatar }, 
     </Header>
     <Content>
       <Field>
-        <Text text="Author" modifiers={spacing('margin', '0px', '0px', '5px', '0px')} />
         <Author>
           <Avatar alt={name} src={avatar}>
             {!avatar && getInitialsName(name)}
           </Avatar>
           <Details>
             <Text text={name} weight="bold" />
-            {email && <Text text={email} />}
           </Details>
         </Author>
       </Field>
       <Field>
         <Text text="Description" modifiers={spacing('margin', '0px', '0px', '5px', '0px')} />
-        <span>{description}</span>
+        <Description>{description}</Description>
       </Field>
     </Content>
     {keywords.length > 0 && (
