@@ -1,6 +1,6 @@
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
-export const TIMEFORMAT = 'YYYY/MM/DD, HH:mm:ss';
+export const TIMEFORMAT = 'DD.MM.YYYY, HH:mm:ss';
 import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
@@ -42,15 +42,25 @@ export function formatRepository(repository) {
  * @see https://docs.npmjs.com/files/package.json#author
  */
 export function formatAuthor(author) {
+    let authorDetails = { name: 'Anonymous', email: '', avatar: '' };
+
     if (isString(author)) {
-        return author;
+      authorDetails = { 
+        ...authorDetails, 
+        name: author ? author : authorDetails.name
+      };
     }
 
-    if (isObject(author) && author.name) {
-        return author.name;
+    if (isObject(author)) {
+      authorDetails = { 
+        ...authorDetails, 
+        name: author.name ? author.name : authorDetails.name,
+        email: author.email ? author.email : authorDetails.email,
+        avatar: author.avatar ? author.avatar : authorDetails.avatar
+      };
     }
 
-    return null;
+    return authorDetails;
 }
 
 /**

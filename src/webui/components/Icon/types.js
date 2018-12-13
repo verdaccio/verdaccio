@@ -2,8 +2,8 @@
  * @prettier
  * @flow
  */
-
 import { Icons } from './index';
+import type { Styles } from '../../../../types';
 
 export interface IIconsMap {
   brazil: string;
@@ -15,6 +15,8 @@ export interface IIconsMap {
   india: string;
   earth: string;
   verdaccio: string;
+  license: string;
+  time: string;
   [key: string]: string;
 }
 
@@ -26,4 +28,5 @@ export interface IProps {
   size?: 'sm' | 'md';
   pointer?: boolean;
   img?: boolean;
+  modifiers?: Styles;
 }

@@ -1,7 +1,6 @@
 // @flow
 import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../../../src/utils/user';
 import { spliceURL } from '../../../src/utils/string';
-import Package from '../../../src/webui/components/Package/index';
 import {
   validateName,
   convertDistRemoteToLocalTarballUrls,
@@ -27,7 +26,7 @@ describe('Utilities', () => {
   const buildURI = (host, version) =>
     `http://${host}/npm_test/-/npm_test-${version}.tgz`;
   const fakeHost = 'fake.com';
-  const metadata: Package = {
+  const metadata: any = {
     name: 'npm_test',
     versions: {
       '1.0.0': {
@@ -42,6 +41,7 @@ describe('Utilities', () => {
       }
     }
   };
+
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
