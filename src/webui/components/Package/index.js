@@ -69,10 +69,11 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
           </Details>
         </Author>
       </Field>
-      <Field>
-        <Text text="Description" modifiers={spacing('margin', '0px', '0px', '5px', '0px')} />
-        <Description>{description}</Description>
-      </Field>
+      {description && (
+        <Field>
+          <Description>{description}</Description>
+        </Field>
+      )}
     </Content>
     {keywords.length > 0 && (
       <Footer>

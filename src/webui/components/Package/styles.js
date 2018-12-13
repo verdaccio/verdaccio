@@ -99,7 +99,7 @@ export const Published = styled.span`
 // Content
 export const Field = styled.div`
   && {
-    padding: 0 0 10px 0;
+    padding: 0 0 5px 0;
   }
 `;
 
@@ -147,6 +147,7 @@ export const Avatar = styled(Photo)`
 export const Description = styled.div`
   && {
     margin: 5px 0;
+    max-height: 100px;
     text-overflow: ellipsis;
   }
 `;
