@@ -113,13 +113,9 @@ class Search extends Component<IProps, IState> {
       const signal = controller.signal;
       // Keep track of search requests.
       this.requestList.push(controller);
-      const response = await API.request(`search/${encodeURIComponent(value)}`, 'GET', { signal });
-      const transformedPackages = response.map(({ name, ...others }) => ({
-        label: name,
-        ...others,
-      }));
+      const suggestions = await API.request(`search/${encodeURIComponent(value)}`, 'GET', { signal });
       this.setState({
-        suggestions: transformedPackages,
+        suggestions,
         loaded: true,
       });
     } catch (error) {

@@ -1,11 +1,11 @@
 import {
   formatLicense,
   formatRepository,
-  formatAuthor,
   formatDate,
   formatDateDistance,
   getLastUpdatedPackageTime,
-  getRecentReleases
+  getRecentReleases,
+  formatAuthor, DEFAULT_USER
 } from '../../../../src/webui/utils/package';
 
 import { packageMeta } from '../components/store/packageMeta';
@@ -47,27 +47,29 @@ describe('formatRepository', () => {
 describe('formatAuthor', () => {
   test('should check author field different values', () => {
     const author = 'verdaccioNpm';
-    expect(formatAuthor(author)).toEqual(author);
+    expect(formatAuthor(author).name).toEqual(author);
   });
   test('should check author field for object value', () => {
-    const license = {
+    const user = {
       name: 'Verdaccion NPM',
       email: 'verdaccio@verdaccio.org',
       url: 'https://verdaccio.org'
     };
-    expect(formatAuthor(license)).toEqual('Verdaccion NPM');
+    expect(formatAuthor(user).avatar).toEqual('');
+    expect(formatAuthor(user).email).toEqual(user.email);
+    expect(formatAuthor(user).name).toEqual(user.name);
   });
   test('should check author field for other value', () => {
-    expect(formatAuthor(null)).toBeNull();
-    expect(formatAuthor({})).toBeNull();
-    expect(formatAuthor([])).toBeNull();
+    expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
+    expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
+    expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
   });
 });
 
 describe('formatDate', () => {
   test('should format the date', () => {
     const date = 1532211072138;
-    expect(formatDate(date)).toEqual('2018/07/21, 22:11:12');
+    expect(formatDate(date)).toEqual('21.07.2018, 22:11:12');
   });
 });
 
@@ -87,7 +89,7 @@ describe('getLastUpdatedPackageTime', () => {
   test('should get the last update time', () => {
     const lastUpdated = packageMeta._uplinks;
     expect(getLastUpdatedPackageTime(lastUpdated)).toEqual(
-      '2018/07/22, 22:11:12'
+      '22.07.2018, 22:11:12'
     );
   });
   test('should get the last update time for blank uplink', () => {
@@ -100,9 +102,9 @@ describe('getRecentReleases', () => {
   test('should get the recent releases', () => {
     const { time } = packageMeta;
     const result = [
-      { time: '2017/12/14, 15:43:27', version: '2.7.1' },
-      { time: '2017/12/05, 23:25:06', version: '2.7.0' },
-      { time: '2017/11/08, 22:47:16', version: '2.6.6' }
+      { time: '14.12.2017, 15:43:27', version: '2.7.1' },
+      { time: '05.12.2017, 23:25:06', version: '2.7.0' },
+      { time: '08.11.2017, 22:47:16', version: '2.6.6' }
     ];
     expect(getRecentReleases(time)).toEqual(result);
     expect(getRecentReleases()).toEqual([]);

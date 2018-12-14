@@ -10,23 +10,28 @@ const getSize = (size: string) => {
   switch (size) {
     case 'md':
       return `
-        width: 20px;
+        width: 18px;
         height: 18px;
+      `;
+    case 'lg':
+      return `
+        width: 20px;
+        height: 20px;
       `;
     default:
       return `
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
       `;
   }
 };
 
-const commonStyle = ({ size = 'sm', pointer }: IProps) => css`
+const commonStyle = ({ size = 'sm', pointer, modifiers }: IProps) => css`
   && {
-    padding: 0 5px;
     display: inline-block;
     cursor: ${pointer ? 'pointer' : 'default'};
     ${getSize(size)};
+    ${modifiers && modifiers};
   }
 `;
 

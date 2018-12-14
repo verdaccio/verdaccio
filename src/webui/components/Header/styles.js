@@ -11,29 +11,11 @@ import IconButton from '@material-ui/core/IconButton/index';
 import colors from '../../utils/styles/colors';
 import mq from '../../utils/styles/media';
 
-export const NavBar = styled(AppBar)`
-  && {
-    background-color: ${colors.primary};
-    min-height: 60px;
-    display: flex;
-    justify-content: center;
-  }
-`;
-
 export const InnerNavBar = styled(Toolbar)`
   && {
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    ${mq.medium(css`
-      min-width: 400px;
-      max-width: 800px;
-      width: 100%;
-      margin: auto;
-    `)};
-    ${mq.large(css`
-      max-width: 1240px;
-    `)};
+    padding: 0 15px;
   }
 `;
 
@@ -63,9 +45,6 @@ export const MobileNavBar = styled.div`
     border-bottom: 1px solid ${colors.greyLight};
     padding: 8px;
     position: relative;
-    ${mq.medium(css`
-      display: none;
-    `)};
   }
 `;
 
@@ -83,9 +62,6 @@ export const InnerMobileNavBar = styled.div`
 export const IconSearchButton = styled(IconButton)`
   && {
     display: block;
-    ${mq.medium(css`
-      display: none;
-    `)};
   }
 `;
 
@@ -95,8 +71,37 @@ export const SearchWrapper = styled.div`
     max-width: 393px;
     width: 100%;
     display: none;
+  }
+`;
+
+export const NavBar = styled(AppBar)`
+  && {
+    background-color: ${colors.primary};
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
     ${mq.medium(css`
-      display: flex;
+      ${SearchWrapper} {
+        display: flex;
+      }
+      ${IconSearchButton} {
+        display: none;
+      }
+      ${MobileNavBar} {
+        display: none;
+      }
+    `)};
+    ${mq.large(css`
+      ${InnerNavBar} {
+        padding: 0 20px;
+      }
+    `)};
+    ${mq.xlarge(css`
+      ${InnerNavBar} {
+        max-width: 1240px;
+        width: 100%;
+        margin: 0 auto;
+      }
     `)};
   }
 `;

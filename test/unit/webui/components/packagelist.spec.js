@@ -27,14 +27,14 @@ describe('<PackageList /> component', () => {
         {
           name: 'verdaccio',
           version: '1.0.0',
-          time: new Date(),
+          time: new Date(1532211072138).getTime(),
           description: 'Private NPM repository',
           author: { name: 'Sam' }
         },
         {
           name: 'abc',
           version: '1.0.1',
-          time: new Date(),
+          time: new Date(1532211072138).getTime(),
           description: 'abc description',
           author: { name: 'Rose' }
         },

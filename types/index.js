@@ -154,3 +154,10 @@ export interface IStorageHandler extends IStorageManager {
   _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }
+
+/**
+ * @property { string | number | Styles }  [ruleOrSelector]
+ */
+export type Styles = {
+  [ruleOrSelector: string]: string | number | Styles,
+};
