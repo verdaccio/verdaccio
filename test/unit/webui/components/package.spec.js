@@ -32,7 +32,7 @@ describe('<Package /> component', () => {
     };
 
     const wrapper = shallow(
-      <Package {...props} />
+      <Package { ...props } />
     );
 
 
@@ -51,7 +51,9 @@ describe('<Package /> component', () => {
     expect(wrapper.find(Field).someWhere(n => {
       return (
         n.children().first().get(0).props.children[0].props.text === 'Description' &&
-        n.children().childAt(1).containsMatchingElement(<span>{props.description}</span>)
+        n.children().childAt(1).containsMatchingElement(<span>
+          {props.description}
+                                                        </span>)
       )
     })).toBe(true);
 
@@ -63,7 +65,7 @@ describe('<Package /> component', () => {
 
   });
 
-  it.skip('should load the component without author', () => {
+  test.skip('should load the component without author', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',
@@ -77,7 +79,7 @@ describe('<Package /> component', () => {
       description: 'Private NPM repository'
     };
     const wrapper = shallow(
-      <Package {...props} />
+      <Package { ...props } />
     );
 
     // integration expectations

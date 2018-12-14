@@ -11,7 +11,7 @@ let rootNode = document.getElementById('root');
 let renderApp = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component/>
+      <Component />
     </AppContainer>,
     rootNode
   );

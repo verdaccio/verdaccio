@@ -25,7 +25,7 @@ describe('<PackageSidebar /> component', () => {
   });
 
   test('should load the packageMeta', () => {
-    const wrapper = mount(<PackageSidebar packageName={'verdaccio'} />);
+    const wrapper = mount(<PackageSidebar packageName={ 'verdaccio' } />);
     const { loadPackageData } = wrapper.instance();
     loadPackageData('verdaccio').then(response => {
       expect(wrapper.state('packageMeta')).toEqual(packageMeta);

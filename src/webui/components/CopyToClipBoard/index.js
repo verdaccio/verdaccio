@@ -32,7 +32,7 @@ const copyToClipBoardUtility = (str: string) => (event: SyntheticEvent<HTMLEleme
 const CopyToClipBoard = ({ text }: IProps): Node => (
   <ClipBoardCopy>
     <ClipBoardCopyText>{text}</ClipBoardCopyText>
-    <Tooltip title="Copy to Clipboard" disableFocusListener>
+    <Tooltip disableFocusListener={true} title={'Copy to Clipboard'}>
       <CopyIcon onClick={copyToClipBoardUtility(text)}>
         <FileCopy />
       </CopyIcon>

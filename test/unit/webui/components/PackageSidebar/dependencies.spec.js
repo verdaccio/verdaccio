@@ -45,7 +45,7 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
       semver: '^5.1.0',
       'unix-crypt-td-js': '^1.0.0'
     };
-    const wrapper = shallow(<Dependencies dependencies={dependencies} />);
+    const wrapper = shallow(<Dependencies dependencies={ dependencies } />);
 
     expect(wrapper.find(`.${DEP_ITEM_CLASS}`)).toHaveLength(Object.keys(dependencies).length);
     expect(wrapper.html()).toMatchSnapshot();
@@ -59,7 +59,7 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
   });
 
   test('should permit overriding title', () => {
-    const wrapper = mount(<Dependencies title='Package dependencies' />);
+    const wrapper = mount(<Dependencies title={ "Package dependencies" } />);
 
     expect(wrapper.find('h2').text()).toEqual('Package dependencies');
     expect(wrapper.html()).toMatchSnapshot();

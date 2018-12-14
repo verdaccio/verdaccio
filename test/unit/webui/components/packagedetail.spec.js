@@ -20,7 +20,7 @@ describe('<PackageDetail /> component', () => {
       readMe: 'Test readme',
       packageName: WEB_TITLE
     };
-    const wrapper = shallow(<PackageDetail {...props} />);
+    const wrapper = shallow(<PackageDetail { ...props } />);
 
     expect(wrapper.find('h1').text()).toEqual(WEB_TITLE);
     expect(

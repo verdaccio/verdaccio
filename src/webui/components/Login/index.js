@@ -102,18 +102,24 @@ export default class LoginModal extends Component {
   renderLoginError({ type, title, description } = {}) {
     return type === 'error' && (
       <SnackbarContent
-        className={classes.loginError}
+        className={ classes.loginError }
         message={
-          <div
-            id="client-snackbar"
-            className={classes.loginErrorMsg}
+          (<div
+            className={ classes.loginErrorMsg }
+            id={ "client-snackbar" }
           >
-            <ErrorIcon className={classes.loginIcon} />
+            <ErrorIcon className={ classes.loginIcon } />
             <span>
-              <div><strong>{title}</strong></div>
-              <div>{description}</div>
+              <div>
+                <strong>
+                  {title}
+                </strong>
+              </div>
+              <div>
+                {description}
+              </div>
             </span>
-          </div>
+           </div>)
         }
       />
     );
@@ -123,76 +129,76 @@ export default class LoginModal extends Component {
     const { visibility, onCancel, error } = this.props;
     const { form: { username, password } } = this.state;
     return (
-        <Dialog
-          onClose={onCancel}
-          open={visibility}
-          id="login--form-container"
-          maxWidth="xs"
-          fullWidth
+      <Dialog
+        fullWidth={ true }
+        id={ "login--form-container" }
+        maxWidth={ "xs" }
+        onClose={ onCancel }
+        open={ visibility }
         >
-        <form onSubmit={this.validateCredentials.bind(this)} noValidate>
+        <form noValidate={ true } onSubmit={ this.validateCredentials.bind(this) }>
           <DialogTitle>Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
             <FormControl
-              error={!username.value && !username.pristine}
-              required={username.required}
-              fullWidth
+              error={ !username.value && !username.pristine }
+              fullWidth={ true }
+              required={ username.required }
             >
-              <InputLabel htmlFor="username">Username</InputLabel>
+              <InputLabel htmlFor={ "username" }>Username</InputLabel>
               <Input
-                id="login--form-username"
-                value={username.value}
-                onChange={this.setCredentials.bind(this, 'username')}
-                placeholder="Your username"
+                id={ "login--form-username" }
+                onChange={ this.setCredentials.bind(this, 'username') }
+                placeholder={ "Your username" }
+                value={ username.value }
               />
               {!username.value && !username.pristine && (
-                <FormHelperText id='username-error'>
+                <FormHelperText id={ "username-error" }>
                   {username.helperText}
                 </FormHelperText>
               )}
             </FormControl>
             <FormControl
-              error={!password.value && !password.pristine}
-              required={password.required}
-              style={{ marginTop: '8px' }}
-              fullWidth
+              error={ !password.value && !password.pristine }
+              fullWidth={ true }
+              required={ password.required }
+              style={ { marginTop: '8px' } }
             >
-              <InputLabel htmlFor="password">Password</InputLabel>
+              <InputLabel htmlFor={ "password" }>Password</InputLabel>
               <Input
-                id="login--form-password"
-                type="password"
-                value={password.value}
-                onChange={this.setCredentials.bind(this, 'password')}
-                placeholder="Your strong password"
+                id={ "login--form-password" }
+                onChange={ this.setCredentials.bind(this, 'password') }
+                placeholder={ "Your strong password" }
+                type={ "password" }
+                value={ password.value }
               />
               {!password.value && !password.pristine && (
-                <FormHelperText id='password-error'>
+                <FormHelperText id={ "password-error" }>
                   {password.helperText}
                 </FormHelperText>
               )}
             </FormControl>
           </DialogContent>
-          <DialogActions className="dialog-footer">
+          <DialogActions className={ "dialog-footer" }>
             <Button
-              onClick={onCancel}
-              id="login--form-cancel"
-              color="inherit"
-              type="button"
+              color={ "inherit" }
+              id={ "login--form-cancel" }
+              onClick={ onCancel }
+              type={ "button" }
             >
               Cancel
-              </Button>
+            </Button>
             <Button
-              id="login--form-submit"
-              type="submit"
-              color="inherit"
+              color={ "inherit" }
               disabled={ !password.value || !username.value }
+              id={ "login--form-submit" }
+              type={ "submit" }
             >
               Login
             </Button>
           </DialogActions>
-          </form>
-        </Dialog>
+        </form>
+      </Dialog>
     );
   }
 }

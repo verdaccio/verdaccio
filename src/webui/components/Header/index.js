@@ -115,7 +115,7 @@ class Header extends Component<IProps, IState> {
     const { withoutSearch = false } = this.props;
     return (
       <LeftSide>
-        <Link to="/" style={{ marginRight: '1em' }}>
+        <Link style={ { marginRight: '1em' } } to={ '/' }>
           <Logo />
         </Link>
         {!withoutSearch && (
@@ -133,26 +133,26 @@ class Header extends Component<IProps, IState> {
     return (
       <RightSide>
         {!withoutSearch && (
-          <Tooltip title="Search packages" disableFocusListener>
-            <IconSearchButton color="inherit" onClick={this.handleToggleMNav}>
+          <Tooltip disableFocusListener={true} title={'Search packages'}>
+            <IconSearchButton color={ 'inherit' } onClick={ this.handleToggleMNav }>
               <IconSearch />
             </IconSearchButton>
           </Tooltip>
         )}
-        <Tooltip title="Documentation" disableFocusListener>
-          <IconButton color="inherit" component={Link} to={installationLink} blank>
+        <Tooltip disableFocusListener={true} title={'Documentation'}>
+          <IconButton blank={true} color={'inherit'} component={Link} to={installationLink}>
             <Help />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Registry Information" disableFocusListener>
-          <IconButton id="header--button-registryInfo" color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
+        <Tooltip disableFocusListener={true} title={'Registry Information'}>
+          <IconButton color={'inherit'} id={'header--button-registryInfo'} onClick={this.handleOpenRegistryInfoDialog}>
             <Info />
           </IconButton>
         </Tooltip>
         {username ? (
           this.renderMenu()
         ) : (
-          <Button id="header--button-login" color="inherit" onClick={this.handleToggleLogin}>
+          <Button color={'inherit'} id={'header--button-login'} onClick={this.handleToggleLogin}>
             Login
           </Button>
         )}
@@ -169,28 +169,28 @@ class Header extends Component<IProps, IState> {
     const open = Boolean(anchorEl);
     return (
       <React.Fragment>
-        <IconButton id="header--button-account" color="inherit" onClick={this.handleLoggedInMenu}>
+        <IconButton color={'inherit'} id={'header--button-account'} onClick={this.handleLoggedInMenu}>
           <AccountCircle />
         </IconButton>
         <Menu
-          id="sidebar-menu"
-          anchorEl={anchorEl}
-          anchorOrigin={{
+          anchorEl={ anchorEl }
+          anchorOrigin={ {
             vertical: 'top',
             horizontal: 'right',
-          }}
-          transformOrigin={{
+          } }
+          id={'sidebar-menu'}
+          onClose={ this.handleLoggedInMenuClose }
+          open={ open }
+          transformOrigin={ {
             vertical: 'top',
             horizontal: 'right',
-          }}
-          open={open}
-          onClose={this.handleLoggedInMenuClose}
+          } }
         >
-          <MenuItem disabled>
+          <MenuItem disabled={ true }>
             <Greetings>{`Hi,`}</Greetings>
-            <Label text={username} limit={140} weight="bold" capitalize />
+            <Label capitalize={true} limit={ 140 } text={ username } weight={ 'bold' } />
           </MenuItem>
-          <MenuItem onClick={onLogout} id="header--button-logout">
+          <MenuItem id={'header--button-logout'} onClick={onLogout}>
             Logout
           </MenuItem>
         </Menu>
@@ -202,7 +202,7 @@ class Header extends Component<IProps, IState> {
     const { scope } = this.props;
     const { openInfoDialog, registryUrl } = this.state;
     return (
-      <RegistryInfoDialog open={openInfoDialog} onClose={this.handleCloseRegistryInfoDialog}>
+      <RegistryInfoDialog onClose={ this.handleCloseRegistryInfoDialog } open={ openInfoDialog }>
         <div>
           <CopyToClipBoard text={`npm set ${scope} registry ${registryUrl}`} />
           <CopyToClipBoard text={`npm adduser --registry ${registryUrl}`} />
@@ -216,7 +216,7 @@ class Header extends Component<IProps, IState> {
     const { withoutSearch = false } = this.props;
     return (
       <div>
-        <NavBar position="static">
+        <NavBar position={ 'static' }>
           <InnerNavBar>
             {this.renderLeftSide()}
             {this.renderRightSide()}
@@ -229,7 +229,7 @@ class Header extends Component<IProps, IState> {
               <InnerMobileNavBar>
                 <Search />
               </InnerMobileNavBar>
-              <Button color="inherit" onClick={this.handleDismissMNav}>
+              <Button color={ 'inherit' } onClick={ this.handleDismissMNav }>
                 Cancel
               </Button>
             </MobileNavBar>

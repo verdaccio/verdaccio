@@ -20,7 +20,7 @@ describe('<PackageSidebar /> : <Maintainers /> <MaintainerInfo />', () => {
       name: 'test',
       avatar: 'http://xyz.com/profile.jpg'
     };
-    const wrapper = shallow(<MaintainerInfo {...props} />);
+    const wrapper = shallow(<MaintainerInfo { ...props } />);
     expect(wrapper.find('.maintainer').prop('title')).toEqual('test');
     expect(wrapper.find('img').prop('src')).toEqual(
       'http://xyz.com/profile.jpg'

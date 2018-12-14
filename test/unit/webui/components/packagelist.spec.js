@@ -15,7 +15,7 @@ describe('<PackageList /> component', () => {
       help: true
     };
     const wrapper = mount(
-      <PackageList packages={props.packages} help={props.help} />
+      <PackageList help={ props.help } packages={ props.packages } />
     );
     expect(wrapper.find(Help).exists()).toBeTruthy();
 
@@ -50,7 +50,7 @@ describe('<PackageList /> component', () => {
 
     const wrapper = mount(
       <BrowserRouter>
-        <PackageList packages={props.packages} help={props.help} />
+        <PackageList help={ props.help } packages={ props.packages } />
       </BrowserRouter>
     );
 

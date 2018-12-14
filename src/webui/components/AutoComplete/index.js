@@ -39,15 +39,15 @@ const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
   const matches = match(suggestion.name, query);
   const parts = parse(suggestion.name, matches);
   return (
-    <MenuItem selected={isHighlighted} component="div">
+    <MenuItem component={'div'} selected={isHighlighted}>
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
-            <span key={String(index)} href={suggestion.link} style={{ fontWeight: fontWeight.semiBold }}>
+            <span href={ suggestion.link } key={ String(index) } style={ { fontWeight: fontWeight.semiBold } }>
               {part.text}
             </span>
           ) : (
-            <span key={String(index)} href={suggestion.link} style={{ fontWeight: fontWeight.light }}>
+            <span href={ suggestion.link } key={ String(index) } style={ { fontWeight: fontWeight.light } }>
               {part.text}
             </span>
           );
@@ -59,7 +59,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
 
 const renderMessage = (message): Node => {
   return (
-    <MenuItem selected={false} component="div">
+    <MenuItem component={'div'} selected={false}>
       <div>{message}</div>
     </MenuItem>
   );
@@ -100,7 +100,7 @@ const AutoComplete = ({
     <Wrapper>
       <Autosuggest
         {...autosuggestProps}
-        inputProps={{
+        inputProps={ {
           value,
           onChange,
           placeholder,
@@ -109,16 +109,16 @@ const AutoComplete = ({
           color,
           onKeyDown,
           onBlur,
-        }}
-        renderSuggestionsContainer={({ containerProps, children, query }) => (
-          <Paper {...containerProps} square>
+        } }
+        onSuggestionSelected={ onClick }
+        renderSuggestionsContainer={ ({ containerProps, children, query }) => (
+          <Paper { ...containerProps } square={true}>
             {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
             {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
             {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
             {children}
           </Paper>
-        )}
-        onSuggestionSelected={onClick}
+        ) }
       />
     </Wrapper>
   );

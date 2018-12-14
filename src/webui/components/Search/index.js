@@ -155,23 +155,21 @@ class Search extends Component<IProps, IState> {
 
     return (
       <AutoComplete
-        suggestions={suggestions}
-        suggestionsLoaded={loaded}
-        suggestionsLoading={loading}
-        suggestionsError={error}
-        value={search}
-        placeholder={CONSTANTS.PLACEHOLDER_TEXT}
         color={colors.white}
-        startAdornment={
-          <InputAdornment position="start" style={{ color: colors.white }}>
-            <IconSearch />
-          </InputAdornment>
-        }
-        onSuggestionsFetch={this.handleFetchPackages}
-        onCleanSuggestions={this.handlePackagesClearRequested}
-        onClick={this.handleClickSearch}
-        onChange={this.handleSearch}
         onBlur={this.onBlur}
+        onChange={this.handleSearch}
+        onCleanSuggestions={this.handlePackagesClearRequested}
+        onClick={this.handleClionSuggestionsFetch={this.handleFetchPackages}.PLAC
+        startAdornment={
+          (<InputAdornment position="start" style={{ color: colors.white }}>
+            <IconSearch />
+          </InputAdornment>)
+        }
+        onSuggestionsFetch={ this.handleFetchPackages }
+        onCleanSuggestions={ this.handlePackagesClearRequested }
+        onClick={ this.handleClickSearch }
+        onChange={ this.handleSearch }
+        onBlur={ this.onBlur }
       />
     );
   }

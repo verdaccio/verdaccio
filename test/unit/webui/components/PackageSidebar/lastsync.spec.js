@@ -8,7 +8,7 @@ import LastSync from '../../../../../src/webui/components/PackageSidebar/modules
 
 describe('<PackageSidebar /> : <LastSync />', () => {
   test('should check the default props condition', () => {
-    const wrapper = shallow(<LastSync/>);
+    const wrapper = shallow(<LastSync />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
@@ -21,7 +21,7 @@ describe('<PackageSidebar /> : <LastSync />', () => {
         { time: '2017/11/08, 22:47:16', version: '2.6.6' }
       ]
     };
-    const wrapper = shallow(<LastSync {...props}/>);
+    const wrapper = shallow(<LastSync { ...props } />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

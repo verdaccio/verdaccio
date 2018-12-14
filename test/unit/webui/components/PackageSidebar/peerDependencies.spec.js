@@ -48,7 +48,7 @@ describe('<PackageSidebar /> : <PeerDependencies />', () => {
       semver: '^5.1.0',
       'unix-crypt-td-js': '^1.0.0'
     };
-    const wrapper = mount(<PeerDependencies dependencies={peerDependencies} />);
+    const wrapper = mount(<PeerDependencies dependencies={ peerDependencies } />);
 
     expect(wrapper.find('h2').text()).toEqual(TITLE);
     expect(wrapper.find(`.${DEP_ITEM_CLASS}`)).toHaveLength(Object.keys(peerDependencies).length);

@@ -17,7 +17,7 @@ describe('<PackageSidebar /> : <ModuleContentPlaceholder />', () => {
     const props = {
       text: 'Test text'
     };
-    const wrapper = shallow(<ModuleContentPlaceholder {...props} />);
+    const wrapper = shallow(<ModuleContentPlaceholder { ...props } />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

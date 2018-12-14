@@ -12,7 +12,7 @@ describe('<PackageSidebar /> : <Maintainers />', () => {
   let instance;
 
   beforeEach(() => {
-    wrapper = mount(<Maintainers packageMeta={packageMeta} />);
+    wrapper = mount(<Maintainers packageMeta={ packageMeta } />);
     instance = wrapper.instance();
   });
 
