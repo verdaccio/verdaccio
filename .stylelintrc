@@ -3,7 +3,6 @@
   "extends": [
     "stylelint-config-recommended"
     ],
-   "syntax": "scss",
    "rules": {
       "at-rule-no-unknown": true,
       "block-no-empty": true,
@@ -24,7 +23,7 @@
       "keyframe-declaration-no-important": true,
       "property-no-vendor-prefix": true,
       "media-feature-name-no-unknown": true,
-      "no-descending-specificity": true,
+      "no-descending-specificity": [true, { "severity": "warning" }],
       "no-duplicate-at-import-rules": true,
       "no-duplicate-selectors": true,
       "no-empty-source": true,
@@ -33,7 +32,7 @@
       "property-no-unknown": true,
       "selector-pseudo-class-no-unknown": true,
       "selector-pseudo-element-no-unknown": true,
-      "selector-type-no-unknown": true,
+      "selector-type-no-unknown": [true, { "severity": "warning" }],
       "string-no-newline": true,
       "unit-no-unknown": true
    }
