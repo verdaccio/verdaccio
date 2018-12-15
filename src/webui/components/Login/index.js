@@ -31,9 +31,6 @@ export default class LoginModal extends Component {
 
   constructor(props) {
     super(props);
-    this.submitCredentials = this.submitCredentials.bind(this);
-    this.setCredentials = this.setCredentials.bind(this);
-    this.validateCredentials = this.validateCredentials.bind(this);
     this.state = {
       form: {
         username: {
@@ -57,7 +54,7 @@ export default class LoginModal extends Component {
    * set login modal's username and password to current state
    * Required to login
    */
-  setCredentials(name, e) {
+  setCredentials = (name, e) => {
     this.setState({
       form: {
         ...this.state.form,
@@ -70,7 +67,15 @@ export default class LoginModal extends Component {
     });
   }
 
-  validateCredentials(event) {
+  setUsername = (event) => {
+    this.setCredentials('username', event);
+  }
+
+  setPassword = (event) => {
+    this.setCredentials('password', event);
+  }
+
+  validateCredentials = (event) => {
     // prevents default submit behavior
     event.preventDefault();
 
@@ -86,7 +91,7 @@ export default class LoginModal extends Component {
     });
   }
 
-  async submitCredentials() {
+  submitCredentials = async () => {
     const { form: { username, password } } = this.state;
     await this.props.onSubmit(username.value, password.value);
     // let's wait for API response and then set
@@ -99,8 +104,8 @@ export default class LoginModal extends Component {
     });
   }
 
-  renderMessage(title, description) {
-    const errorMessage = (
+  renderErrorMessage(title, description) {
+    return (
       <span>
         <div>
           <strong>
@@ -111,13 +116,15 @@ export default class LoginModal extends Component {
           {description}
         </div>
       </span>);
+  }
 
+  renderMessage(title, description) {
     return (
       <div
         className={classes.loginErrorMsg}
         id={"client-snackbar"}>
         <ErrorIcon className={classes.loginIcon} />
-        {errorMessage()}
+        {this.renderErrorMessage(title, description)}
       </div>);
   }
 
@@ -141,7 +148,7 @@ export default class LoginModal extends Component {
         onClose={onCancel}
         open={visibility}
         >
-        <form noValidate={true} onSubmit={this.validateCredentials.bind(this)}>
+        <form noValidate={true} onSubmit={this.validateCredentials}>
           <DialogTitle>Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
@@ -153,7 +160,7 @@ export default class LoginModal extends Component {
               <InputLabel htmlFor={"username"}>Username</InputLabel>
               <Input
                 id={"login--form-username"}
-                onChange={this.setCredentials.bind(this, 'username')}
+                onChange={this.setUsername}
                 placeholder={"Your username"}
                 value={username.value}
               />
@@ -172,7 +179,7 @@ export default class LoginModal extends Component {
               <InputLabel htmlFor={"password"}>Password</InputLabel>
               <Input
                 id={"login--form-password"}
-                onChange={this.setCredentials.bind(this, 'password')}
+                onChange={this.setPassword}
                 placeholder={"Your strong password"}
                 type={"password"}
                 value={password.value}

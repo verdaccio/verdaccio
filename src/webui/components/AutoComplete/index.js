@@ -96,30 +96,32 @@ const AutoComplete = ({
     onSuggestionsFetchRequested: onSuggestionsFetch,
     onSuggestionsClearRequested: onCleanSuggestions,
   };
+  const inputProps = {
+    value,
+    onChange,
+    placeholder,
+    startAdornment,
+    disableUnderline,
+    color,
+    onKeyDown,
+    onBlur,
+  };
+
+  // this format avoid arrow function eslint rule
+  function renderSuggestionsContainer({ containerProps, children, query }) {
+    return (
+      <Paper {...containerProps} square={true}>
+        {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
+        {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
+        {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
+        {children}
+      </Paper>
+    );
+  }
+
   return (
     <Wrapper>
-      <Autosuggest
-        {...autosuggestProps}
-        inputProps={{
-          value,
-          onChange,
-          placeholder,
-          startAdornment,
-          disableUnderline,
-          color,
-          onKeyDown,
-          onBlur,
-        }}
-        onSuggestionSelected={onClick}
-        renderSuggestionsContainer={({ containerProps, children, query }) => (
-          <Paper {...containerProps} square={true}>
-            {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
-            {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
-            {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
-            {children}
-          </Paper>
-        )}
-      />
+      <Autosuggest {...autosuggestProps} inputProps={inputProps} onSuggestionSelected={onClick} renderSuggestionsContainer={renderSuggestionsContainer} />
     </Wrapper>
   );
 };

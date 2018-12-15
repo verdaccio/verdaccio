@@ -20,17 +20,28 @@ interface IState {}
 
 class RouterApp extends Component<IProps, IState> {
   render() {
-    const { isUserLoggedIn, packages } = this.props;
     return (
       <Router>
         <Switch>
-          <Route exact={true} path={'/'} render={() => <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />} />
-          <Route exact={true} path={'/detail/@:scope/:package'} render={props => <DetailPackage {...props} isUserLoggedIn={isUserLoggedIn} />} />
-          <Route exact={true} path={'/detail/:package'} render={props => <DetailPackage {...props} isUserLoggedIn={isUserLoggedIn} />} />
+          <Route exact={true} path={'/'} render={this.renderHomePage} />
+          <Route exact={true} path={'/detail/@:scope/:package'} render={this.renderDetailPage} />
+          <Route exact={true} path={'/detail/:package'} render={this.renderDetailPage} />
         </Switch>
       </Router>
     );
   }
+
+  renderHomePage = () => {
+    const { isUserLoggedIn, packages } = this.props;
+
+    return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
+  };
+
+  renderDetailPage = () => {
+    const { isUserLoggedIn } = this.props;
+
+    return <DetailPackage {...this.props} isUserLoggedIn={isUserLoggedIn} />;
+  };
 }
 
 export default RouterApp;
