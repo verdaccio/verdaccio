@@ -12,8 +12,8 @@ class Home extends Component {
   render() {
     const { packages } = this.props;
     return (
-      <div className={ "container content" }>
-        <PackageList help={ packages.length < 1 } packages={ packages } />
+      <div className={"container content"}>
+        <PackageList help={packages.length < 1} packages={packages} />
       </div>
     );
   }

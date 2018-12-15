@@ -102,13 +102,13 @@ export default class LoginModal extends Component {
   renderLoginError({ type, title, description } = {}) {
     return type === 'error' && (
       <SnackbarContent
-        className={ classes.loginError }
+        className={classes.loginError}
         message={
           (<div
-            className={ classes.loginErrorMsg }
-            id={ "client-snackbar" }
+            className={classes.loginErrorMsg}
+            id={"client-snackbar"}
           >
-            <ErrorIcon className={ classes.loginIcon } />
+            <ErrorIcon className={classes.loginIcon} />
             <span>
               <div>
                 <strong>
@@ -130,69 +130,69 @@ export default class LoginModal extends Component {
     const { form: { username, password } } = this.state;
     return (
       <Dialog
-        fullWidth={ true }
-        id={ "login--form-container" }
-        maxWidth={ "xs" }
-        onClose={ onCancel }
-        open={ visibility }
+        fullWidth={true}
+        id={"login--form-container"}
+        maxWidth={"xs"}
+        onClose={onCancel}
+        open={visibility}
         >
-        <form noValidate={ true } onSubmit={ this.validateCredentials.bind(this) }>
+        <form noValidate={true} onSubmit={this.validateCredentials.bind(this)}>
           <DialogTitle>Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
             <FormControl
-              error={ !username.value && !username.pristine }
-              fullWidth={ true }
-              required={ username.required }
+              error={!username.value && !username.pristine}
+              fullWidth={true}
+              required={username.required}
             >
-              <InputLabel htmlFor={ "username" }>Username</InputLabel>
+              <InputLabel htmlFor={"username"}>Username</InputLabel>
               <Input
-                id={ "login--form-username" }
-                onChange={ this.setCredentials.bind(this, 'username') }
-                placeholder={ "Your username" }
-                value={ username.value }
+                id={"login--form-username"}
+                onChange={this.setCredentials.bind(this, 'username')}
+                placeholder={"Your username"}
+                value={username.value}
               />
               {!username.value && !username.pristine && (
-                <FormHelperText id={ "username-error" }>
+                <FormHelperText id={"username-error"}>
                   {username.helperText}
                 </FormHelperText>
               )}
             </FormControl>
             <FormControl
-              error={ !password.value && !password.pristine }
-              fullWidth={ true }
-              required={ password.required }
-              style={ { marginTop: '8px' } }
+              error={!password.value && !password.pristine}
+              fullWidth={true}
+              required={password.required}
+              style={{ marginTop: '8px' }}
             >
-              <InputLabel htmlFor={ "password" }>Password</InputLabel>
+              <InputLabel htmlFor={"password"}>Password</InputLabel>
               <Input
-                id={ "login--form-password" }
-                onChange={ this.setCredentials.bind(this, 'password') }
-                placeholder={ "Your strong password" }
-                type={ "password" }
-                value={ password.value }
+                id={"login--form-password"}
+                onChange={this.setCredentials.bind(this, 'password')}
+                placeholder={"Your strong password"}
+                type={"password"}
+                value={password.value}
               />
               {!password.value && !password.pristine && (
-                <FormHelperText id={ "password-error" }>
+                <FormHelperText id={"password-error"}>
                   {password.helperText}
                 </FormHelperText>
               )}
             </FormControl>
           </DialogContent>
-          <DialogActions className={ "dialog-footer" }>
+          <DialogActions className={"dialog-footer"}>
             <Button
-              color={ "inherit" }
-              id={ "login--form-cancel" }
-              onClick={ onCancel }
-              type={ "button" }
+              color={"inherit"}
+              id={"login--form-cancel"}
+              onClick={onCancel}
+              type={"button"}
             >
               Cancel
             </Button>
             <Button
-              color={ "inherit" }
-              disabled={ !password.value || !username.value }
-              id={ "login--form-submit" }
-              type={ "submit" }
+              color={"inherit"}
+              disabled={!password.value || !username.value}
+              id={"login--form-submit"}
+              type={"submit"}
             >
               Login
             </Button>

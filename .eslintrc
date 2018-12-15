@@ -74,7 +74,7 @@
     }],
     "react/jsx-boolean-value": ["warn", "always"],
     "react/jsx-closing-tag-location": ["warn"],
-    // "react/jsx-curly-spacing": ["warn", "never"],
+    "react/jsx-curly-spacing": ["error", "never"],
     "react/jsx-equals-spacing": ["warn", "never"],
     "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
     "react/jsx-handler-names": ["warn"],

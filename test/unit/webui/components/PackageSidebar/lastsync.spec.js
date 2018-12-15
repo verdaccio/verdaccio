@@ -21,7 +21,7 @@ describe('<PackageSidebar /> : <LastSync />', () => {
         { time: '2017/11/08, 22:47:16', version: '2.6.6' }
       ]
     };
-    const wrapper = shallow(<LastSync { ...props } />);
+    const wrapper = shallow(<LastSync {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

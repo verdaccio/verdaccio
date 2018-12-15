@@ -20,7 +20,7 @@ describe('<PackageSidebar /> : <Module />', () => {
       className: 'module-component'
     };
     const wrapper = shallow(
-      <Module { ...props }>
+      <Module {...props}>
         <p>test children</p>
       </Module>
     );

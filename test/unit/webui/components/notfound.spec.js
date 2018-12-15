@@ -10,7 +10,7 @@ console.error = jest.fn();
 
 describe('<NotFound /> component', () => {
   test('should load the component in default state', () => {
-    const wrapper = mount(<NotFound pkg={ "test" } />);
+    const wrapper = mount(<NotFound pkg={"test"} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
@@ -18,7 +18,7 @@ describe('<NotFound /> component', () => {
     const props = {
       pkg: 'verdaccio'
     };
-    const wrapper = shallow(<NotFound { ...props } />);
+    const wrapper = shallow(<NotFound {...props} />);
     expect(wrapper.find('h1').text()).toEqual('Error 404 - verdaccio');
     expect(wrapper.find('p').text()).toEqual(
       'Oops, The package you are trying to access does not exist.'

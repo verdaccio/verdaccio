@@ -145,14 +145,14 @@ export default class App extends Component {
   render() {
     const { isLoading, isUserLoggedIn, packages } = this.state;
     return (
-      <Container isLoading={ isLoading }>
+      <Container isLoading={isLoading}>
         {isLoading ? (
           <Loading />
         ) : (
           <Fragment>
             {this.renderHeader()}
             <Content>
-              <Route isUserLoggedIn={ isUserLoggedIn } packages={ packages } />
+              <Route isUserLoggedIn={isUserLoggedIn} packages={packages} />
             </Content>
             <Footer />
           </Fragment>
@@ -166,11 +166,11 @@ export default class App extends Component {
     const { error, showLoginModal } = this.state;
     return (
       <LoginModal
-        error={ error }
-        onCancel={ this.handleToggleLoginModal }
-        onChange={ this.handleSetUsernameAndPassword }
-        onSubmit={ this.handleDoLogin }
-        visibility={ showLoginModal }
+        error={error}
+        onCancel={this.handleToggleLoginModal}
+        onChange={this.handleSetUsernameAndPassword}
+        onSubmit={this.handleDoLogin}
+        visibility={showLoginModal}
       />
     );
   }
@@ -179,11 +179,11 @@ export default class App extends Component {
     const { logoUrl, user, scope } = this.state;
     return (
       <Header
-        logo={ logoUrl }
-        onLogout={ this.handleLogout }
-        onToggleLoginModal={ this.handleToggleLoginModal }
-        scope={ scope }
-        username={ user.username }
+        logo={logoUrl}
+        onLogout={this.handleLogout}
+        onToggleLoginModal={this.handleToggleLoginModal}
+        scope={scope}
+        username={user.username}
       />
     );
   }

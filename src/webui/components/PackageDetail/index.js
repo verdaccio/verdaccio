@@ -7,16 +7,16 @@ import Readme from '../Readme';
 import classes from './packageDetail.scss';
 
 const displayState = (description) => {
-  return !isNil(description) ? <Readme description={ description } /> : '';
+  return !isNil(description) ? <Readme description={description} /> : '';
 };
 
 const PackageDetail = ({packageName, readMe}) => {
   return (
-    <div className={ classes.pkgDetail }>
-      <h1 className={ classes.title }>
+    <div className={classes.pkgDetail}>
+      <h1 className={classes.title}>
         {packageName}
       </h1>
-      <div className={ classes.readme }>
+      <div className={classes.readme}>
         {displayState(readMe)}
       </div>
     </div>

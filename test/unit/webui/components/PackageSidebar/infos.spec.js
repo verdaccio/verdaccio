@@ -18,7 +18,7 @@ describe('<PackageSidebar /> : <Infos />', () => {
       license: 'MIT',
       repository: 'https://github.com/verdaccio/verdaccio'
     }
-    const wrapper = shallow(<Infos { ...props } />);
+    const wrapper = shallow(<Infos {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
@@ -26,7 +26,7 @@ describe('<PackageSidebar /> : <Infos />', () => {
     const props = {
       homepage: 'https://www.verdaccio.org'
     }
-    const wrapper = shallow(<Infos { ...props } />);
+    const wrapper = shallow(<Infos {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
@@ -34,13 +34,13 @@ describe('<PackageSidebar /> : <Infos />', () => {
     const props = {
       license: 'MIT',
     }
-    const wrapper = shallow(<Infos { ...props } />);
+    const wrapper = shallow(<Infos {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
   test('should load the Info component with repository only', () => {
     const props = { repository: 'https://github.com/verdaccio/verdaccio' };
-    const wrapper = shallow(<Infos { ...props } />);
+    const wrapper = shallow(<Infos {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
