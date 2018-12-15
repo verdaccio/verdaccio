@@ -7,7 +7,7 @@ import React from 'react';
 import type { Node } from 'react';
 import capitalize from 'lodash/capitalize';
 
-import { SVG, Img, ImgWrapper } from './styles';
+import { Svg, Img, ImgWrapper } from './styles';
 import { IProps, IIconsMap } from './types';
 
 import brazil from './img/brazil.svg';
@@ -44,10 +44,10 @@ const Icon = ({ className, name, size = 'sm', img = false, pointer = false, ...p
       <Img alt={title} src={Icons[name]} />
     </ImgWrapper>
   ) : (
-    <SVG className={className} pointer={pointer} size={size} {...props}>
+    <Svg className={className} pointer={pointer} size={size} {...props}>
       <title>{title}</title>
       <use xlinkHref={`${Icons[name]}#${name}`} />
-    </SVG>
+    </Svg>
   );
 };
 
