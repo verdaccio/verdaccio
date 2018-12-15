@@ -147,8 +147,6 @@ export const Avatar = styled(Photo)`
 export const Description = styled.div`
   && {
     margin: 5px 0;
-    max-height: 100px;
-    text-overflow: ellipsis;
   }
 `;
 
