@@ -43,11 +43,11 @@ const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
-            <span href={ suggestion.link } key={ String(index) } style={ { fontWeight: fontWeight.semiBold } }>
+            <span href={suggestion.link} key={String(index)} style={{ fontWeight: fontWeight.semiBold }}>
               {part.text}
             </span>
           ) : (
-            <span href={ suggestion.link } key={ String(index) } style={ { fontWeight: fontWeight.light } }>
+            <span href={suggestion.link} key={String(index)} style={{ fontWeight: fontWeight.light }}>
               {part.text}
             </span>
           );
@@ -100,7 +100,7 @@ const AutoComplete = ({
     <Wrapper>
       <Autosuggest
         {...autosuggestProps}
-        inputProps={ {
+        inputProps={{
           value,
           onChange,
           placeholder,
@@ -109,16 +109,16 @@ const AutoComplete = ({
           color,
           onKeyDown,
           onBlur,
-        } }
-        onSuggestionSelected={ onClick }
-        renderSuggestionsContainer={ ({ containerProps, children, query }) => (
-          <Paper { ...containerProps } square={true}>
+        }}
+        onSuggestionSelected={onClick}
+        renderSuggestionsContainer={({ containerProps, children, query }) => (
+          <Paper {...containerProps} square={true}>
             {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
             {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
             {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
             {children}
           </Paper>
-        ) }
+        )}
       />
     </Wrapper>
   );

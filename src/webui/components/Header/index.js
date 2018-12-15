@@ -184,8 +184,7 @@ class Header extends Component<IProps, IState> {
           transformOrigin={{
             vertical: 'top',
             horizontal: 'right',
-          }}
-        >
+          }}>
           <MenuItem disabled={true}>
             <Greetings>{`Hi,`}</Greetings>
             <Label capitalize={true} limit={140} text={username} weight={'bold'} />

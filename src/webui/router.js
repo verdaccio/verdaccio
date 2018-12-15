@@ -24,9 +24,9 @@ class RouterApp extends Component<IProps, IState> {
     return (
       <Router>
         <Switch>
-          <Route exact={ true } path={ '/' } render={ () => <HomePage isUserLoggedIn={ isUserLoggedIn } packages={ packages } /> } />
-          <Route exact={ true } path={ '/detail/@:scope/:package' } render={ props => <DetailPackage { ...props } isUserLoggedIn={ isUserLoggedIn } /> } />
-          <Route exact={ true } path={ '/detail/:package' } render={ props => <DetailPackage { ...props } isUserLoggedIn={ isUserLoggedIn } /> } />
+          <Route exact={true} path={'/'} render={() => <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />} />
+          <Route exact={true} path={'/detail/@:scope/:package'} render={props => <DetailPackage {...props} isUserLoggedIn={isUserLoggedIn} />} />
+          <Route exact={true} path={'/detail/:package'} render={props => <DetailPackage {...props} isUserLoggedIn={isUserLoggedIn} />} />
         </Switch>
       </Router>
     );

@@ -52,8 +52,7 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
           </OverviewItem>
         )}
         <OverviewItem>
-          <Icon name={'time'}
-                pointer={ true } />
+          <Icon name={'time'} pointer={true} />
           <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
           {`${formatDateDistance(time)} ago`}
         </OverviewItem>

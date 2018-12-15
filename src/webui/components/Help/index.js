@@ -17,9 +17,7 @@ import { CardStyled as Card, HelpTitle } from './styles';
 function renderHeadingClipboardSegments(title: string, text: string): Node {
   return (
     <Fragment>
-      <Typography variant={ 'body2' }>
-{title}
-</Typography>
+      <Typography variant={'body2'}>{title}</Typography>
       <CopyToClipBoard text={text} />
     </Fragment>
   );
@@ -29,17 +27,17 @@ const Help = (): Node => {
   const registryUrl = getRegistryURL();
 
   return (
-    <Card id={ 'help-card' }>
+    <Card id={'help-card'}>
       <CardContent>
         <Typography component={'h2'} gutterBottom={true} id={'help-card__title'} variant={'headline'}>
           No Package Published Yet.
         </Typography>
-        <HelpTitle color={ 'textSecondary' } gutterBottom={ true }>
+        <HelpTitle color={'textSecondary'} gutterBottom={true}>
           To publish your first package just:
         </HelpTitle>
         {renderHeadingClipboardSegments('1. Login', `$ npm adduser --registry ${registryUrl}`)}
         {renderHeadingClipboardSegments('2. Publish', `$ npm publish --registry ${registryUrl}`)}
-        <Typography variant={ 'body2' }>3. Refresh this page.</Typography>
+        <Typography variant={'body2'}>3. Refresh this page.</Typography>
       </CardContent>
       <CardActions>
         <Button color={'primary'} href={'https://verdaccio.org/docs/en/installation'} size={'small'} target={'_blank'}>
