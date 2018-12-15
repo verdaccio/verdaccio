@@ -47,11 +47,11 @@
     "prettier/prettier": ["error", null, "@prettier"],
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
-    "react/destructuring-assignment": ["error", "always"],
-    "react/forbid-component-props": ["error", { "forbid": ["style"] }],
-    "react/no-this-in-sfc": ["error"],
-    "react/no-unsafe": ["error"],
-    "react/sort-comp": ["error", {
+    "react/destructuring-assignment": ["warn", "always"],
+    "react/forbid-component-props": ["warn", { "forbid": ["style"] }],
+    "react/no-this-in-sfc": ["warn"],
+    "react/no-unsafe": ["warn"],
+    "react/sort-comp": ["warn", {
       "order": [
         "static-methods",
         "lifecycle",
@@ -61,9 +61,9 @@
         "/^render.+$/"
       ]
     }],
-    "react/void-dom-elements-no-children": ["error"],
-    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
-    "react/jsx-wrap-multilines": ["error",{
+    "react/void-dom-elements-no-children": ["warn"],
+    "react/no-did-mount-set-state": ["warn", "disallow-in-func"],
+    "react/jsx-wrap-multilines": ["warn",{
       "declaration": "parens",
       "assignment": "parens",
       "return": "parens",
@@ -72,29 +72,29 @@
       "logical": "parens",
       "prop": "parens"
     }],
-    "react/jsx-boolean-value": ["error", "always"],
-    "react/jsx-closing-tag-location": ["error"],
-    "react/jsx-curly-spacing": ["error", "always"],
-    "react/jsx-equals-spacing": ["error", "never"],
-    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
-    "react/jsx-handler-names": ["error"],
-    "react/jsx-indent": ["error", 2],
-    "react/jsx-indent-props": ["error", 2],
-    "react/jsx-key": ["error"],
-    "react/jsx-max-depth": ["error", { "max": 2}],
-    "react/jsx-max-props-per-line": ["error", {"maximum": 3, "when": "multiline" }],
-    "react/jsx-no-bind": ["error"],
-    "react/jsx-no-comment-textnodes": ["error"],
-    "react/jsx-no-duplicate-props": ["error"],
-    "react/jsx-no-literals": ["error"],
-    "react/jsx-no-undef": ["error"],
-    "react/jsx-one-expression-per-line": ["error", {"allow": "literal"}],
-    "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "ignore" }],
-    "react/jsx-pascal-case": ["error"],
-    "react/jsx-props-no-multi-spaces": ["error"],
-    "react/jsx-sort-default-props": ["error"],
-    "react/jsx-sort-props": ["error"],
-    "react/jsx-tag-spacing": ["error", {
+    "react/jsx-boolean-value": ["warn", "always"],
+    "react/jsx-closing-tag-location": ["warn"],
+    // "react/jsx-curly-spacing": ["warn", "never"],
+    "react/jsx-equals-spacing": ["warn", "never"],
+    "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
+    "react/jsx-handler-names": ["warn"],
+    "react/jsx-indent": ["warn", 2],
+    "react/jsx-indent-props": ["warn", 2],
+    "react/jsx-key": ["warn"],
+    "react/jsx-max-depth": ["warn", { "max": 2}],
+    "react/jsx-max-props-per-line": ["warn", {"maximum": 3, "when": "multiline" }],
+    "react/jsx-no-bind": ["warn"],
+    "react/jsx-no-comment-textnodes": ["warn"],
+    "react/jsx-no-duplicate-props": ["warn"],
+    "react/jsx-no-literals": ["warn"],
+    "react/jsx-no-undef": ["warn"],
+    "react/jsx-one-expression-per-line": ["warn", {"allow": "literal"}],
+    "react/jsx-curly-brace-presence": ["warn", { "props": "always", "children": "ignore" }],
+    "react/jsx-pascal-case": ["warn"],
+    "react/jsx-props-no-multi-spaces": ["warn"],
+    "react/jsx-sort-default-props": ["warn"],
+    "react/jsx-sort-props": ["warn"],
+    "react/jsx-tag-spacing": ["warn", {
       "closingSlash": "never",
       "beforeSelfClosing": "always",
       "afterOpening": "allow-multiline",
@@ -112,6 +112,9 @@
     "prefer-spread": 1,
     "prefer-rest-params": 1,
     "linebreak-style": 0,
-    "quote-props":["error", "as-needed"]
+    "quote-props":["warn", "as-needed"],
+    "verdaccio/jsx-no-style": ["warn"],
+    "verdaccio/jsx-spread": ["warn"],
+    "jest/expect-expect": ["warn"]
   }
 }

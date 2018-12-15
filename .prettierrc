@@ -5,7 +5,7 @@
   "singleQuote": true,
   "requirePragma": true,
   "bracketSpacing": true,
-  "jsxBracketSameLine": false,
+  "jsxBracketSameLine": true,
   "trailingComma": "es5",
   "semi": true,
   "parser": "flow"

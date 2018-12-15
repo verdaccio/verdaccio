@@ -16,7 +16,7 @@
     "jest/consistent-test-it": ["error", {"fn": "test"}],
     "jest/no-jasmine-globals": 2,
     "jest/expect-expect": [
-      "error",
+      "warn",
       {
         "assertFunctionNames": ["expect"]
       }

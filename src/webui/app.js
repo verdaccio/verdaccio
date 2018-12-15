@@ -41,10 +41,10 @@ export default class App extends Component {
     }
   }
 
-  loadLogo = async () => {
+    loadLogo = async () => {
     const logoUrl = await logo();
-    this.setState({ 
-      logoUrl 
+    this.setState({
+      logoUrl
     });
   }
 
@@ -66,7 +66,7 @@ export default class App extends Component {
     try {
       this.req = await API.request('packages', 'GET');
       this.setState({
-        packages: this.req, 
+        packages: this.req,
         isLoading: false
       });
     } catch (error) {
@@ -88,7 +88,7 @@ export default class App extends Component {
    * Toggles the login modal
    * Required by: <LoginModal /> <Header />
    */
-  toggleLoginModal = () => {
+  handleToggleLoginModal = () => {
     this.setState((prevState) => ({
       showLoginModal: !prevState.showLoginModal,
       error: {}
@@ -99,7 +99,7 @@ export default class App extends Component {
    * handles login
    * Required by: <Header />
    */
-  doLogin = async (usernameValue, passwordValue) => {
+  handleDoLogin = async (usernameValue, passwordValue) => {
     const { username, token, error } = await makeLogin(
       usernameValue,
       passwordValue
@@ -142,32 +142,6 @@ export default class App extends Component {
     });
   }
 
-  renderHeader = () => {
-    const { logoUrl, user, scope } = this.state;
-    return (
-      <Header 
-        logo={ logoUrl }
-        onLogout={ this.handleLogout }
-        scope={ scope }
-        toggleLoginModal={ this.toggleLoginModal }
-        username={ user.username }
-      />
-    );
-  }
-  
-  renderLoginModal = () => {
-    const { error, showLoginModal } = this.state;
-    return (
-      <LoginModal
-        error={ error }
-        onCancel={ this.toggleLoginModal }
-        onChange={ this.setUsernameAndPassword }
-        onSubmit={ this.doLogin }
-        visibility={ showLoginModal }
-      />
-    );
-  }
-
   render() {
     const { isLoading, isUserLoggedIn, packages } = this.state;
     return (
@@ -185,6 +159,32 @@ export default class App extends Component {
         )}
         {this.renderLoginModal()}
       </Container>
+    );
+  }
+
+  renderLoginModal = () => {
+    const { error, showLoginModal } = this.state;
+    return (
+      <LoginModal
+        error={ error }
+        onCancel={ this.handleToggleLoginModal }
+        onChange={ this.handleSetUsernameAndPassword }
+        onSubmit={ this.handleDoLogin }
+        visibility={ showLoginModal }
+      />
+    );
+  }
+
+  renderHeader = () => {
+    const { logoUrl, user, scope } = this.state;
+    return (
+      <Header
+        logo={ logoUrl }
+        onLogout={ this.handleLogout }
+        onToggleLoginModal={ this.handleToggleLoginModal }
+        scope={ scope }
+        username={ user.username }
+      />
     );
   }
 }

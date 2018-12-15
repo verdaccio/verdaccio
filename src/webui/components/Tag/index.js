@@ -9,8 +9,8 @@ import type { Element } from 'react';
 import { IProps } from './types';
 import { Wrapper } from './styles';
 
-const Tag = ({ children }: IProps): Element<Wrapper> => <Wrapper>
+const Tag = ({ children }: IProps): Element<Wrapper> => (<Wrapper>
 {children}
-</Wrapper>;
+</Wrapper>);
 
 export default Tag;

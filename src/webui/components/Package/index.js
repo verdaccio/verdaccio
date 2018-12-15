@@ -38,7 +38,7 @@ const getInitialsName = (name: string) =>
     .toUpperCase();
 
 const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => (
-  <Wrapper className={ 'package' } to={ `detail/${label}` }>
+  <Wrapper className={'package'} to={`detail/${label}`}>
     <Header>
       <MainInfo>
         <Name>{label}</Name>
@@ -47,12 +47,13 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
       <Overview>
         {license && (
           <OverviewItem>
-            <Icon modifiers={ spacing('margin', '4px', '5px', '0px', '0px') } name={ 'license' } pointer={true} />
+            <Icon modifiers={spacing('margin', '4px', '5px', '0px', '0px')} name={'license'} pointer={true} />
             {license}
           </OverviewItem>
         )}
         <OverviewItem>
-          <Icon name={ 'time' } pointer={ true } />
+          <Icon name={'time'}
+                pointer={ true } />
           <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
           {`${formatDateDistance(time)} ago`}
         </OverviewItem>

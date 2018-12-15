@@ -95,7 +95,7 @@ class Header extends Component<IProps, IState> {
       {
         anchorEl: null,
       },
-      this.props.toggleLoginModal
+      this.props.onToggleLoginModal
     );
   };
 
@@ -115,7 +115,7 @@ class Header extends Component<IProps, IState> {
     const { withoutSearch = false } = this.props;
     return (
       <LeftSide>
-        <Link style={ { marginRight: '1em' } } to={ '/' }>
+        <Link style={{ marginRight: '1em' }} to={'/'}>
           <Logo />
         </Link>
         {!withoutSearch && (
@@ -134,7 +134,7 @@ class Header extends Component<IProps, IState> {
       <RightSide>
         {!withoutSearch && (
           <Tooltip disableFocusListener={true} title={'Search packages'}>
-            <IconSearchButton color={ 'inherit' } onClick={ this.handleToggleMNav }>
+            <IconSearchButton color={'inherit'} onClick={this.handleToggleMNav}>
               <IconSearch />
             </IconSearchButton>
           </Tooltip>
@@ -173,22 +173,22 @@ class Header extends Component<IProps, IState> {
           <AccountCircle />
         </IconButton>
         <Menu
-          anchorEl={ anchorEl }
-          anchorOrigin={ {
+          anchorEl={anchorEl}
+          anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
-          } }
+          }}
           id={'sidebar-menu'}
-          onClose={ this.handleLoggedInMenuClose }
-          open={ open }
-          transformOrigin={ {
+          onClose={this.handleLoggedInMenuClose}
+          open={open}
+          transformOrigin={{
             vertical: 'top',
             horizontal: 'right',
-          } }
+          }}
         >
-          <MenuItem disabled={ true }>
+          <MenuItem disabled={true}>
             <Greetings>{`Hi,`}</Greetings>
-            <Label capitalize={true} limit={ 140 } text={ username } weight={ 'bold' } />
+            <Label capitalize={true} limit={140} text={username} weight={'bold'} />
           </MenuItem>
           <MenuItem id={'header--button-logout'} onClick={onLogout}>
             Logout
@@ -202,7 +202,7 @@ class Header extends Component<IProps, IState> {
     const { scope } = this.props;
     const { openInfoDialog, registryUrl } = this.state;
     return (
-      <RegistryInfoDialog onClose={ this.handleCloseRegistryInfoDialog } open={ openInfoDialog }>
+      <RegistryInfoDialog onClose={this.handleCloseRegistryInfoDialog} open={openInfoDialog}>
         <div>
           <CopyToClipBoard text={`npm set ${scope} registry ${registryUrl}`} />
           <CopyToClipBoard text={`npm adduser --registry ${registryUrl}`} />
@@ -216,7 +216,7 @@ class Header extends Component<IProps, IState> {
     const { withoutSearch = false } = this.props;
     return (
       <div>
-        <NavBar position={ 'static' }>
+        <NavBar position={'static'}>
           <InnerNavBar>
             {this.renderLeftSide()}
             {this.renderRightSide()}
@@ -229,7 +229,7 @@ class Header extends Component<IProps, IState> {
               <InnerMobileNavBar>
                 <Search />
               </InnerMobileNavBar>
-              <Button color={ 'inherit' } onClick={ this.handleDismissMNav }>
+              <Button color={'inherit'} onClick={this.handleDismissMNav}>
                 Cancel
               </Button>
             </MobileNavBar>
