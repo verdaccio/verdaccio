@@ -19,7 +19,7 @@ const renderInputComponent = (inputProps): Node => {
   const { ref, startAdornment, disableUnderline, onKeyDown, ...others } = inputProps;
   return (
     <InputField
-      fullWidth
+      fullWidth={true}
       InputProps={{
         inputRef: node => {
           ref(node);
