@@ -46,9 +46,9 @@ describe('App', () => {
   });
 
   test('toggleLoginModal: should toggle the value in state', () => {
-    const { toggleLoginModal } = wrapper.instance();
+    const { handleToggleLoginModal } = wrapper.instance();
     expect(wrapper.state().showLoginModal).toBeFalsy();
-    toggleLoginModal();
+    handleToggleLoginModal();
     expect(wrapper.state('showLoginModal')).toBeTruthy();
     expect(wrapper.state('error')).toEqual({});
   });
@@ -74,9 +74,9 @@ describe('App', () => {
     expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
   });
 
-  test('doLogin - login the user successfully', async () => {
-    const { doLogin } = wrapper.instance();
-    await doLogin('sam', '1234');
+  test('handleDoLogin - login the user successfully', async () => {
+    const { handleDoLogin } = wrapper.instance();
+    await handleDoLogin('sam', '1234');
     const result = {
       username: 'sam',
       token: 'TEST_TOKEN'
@@ -88,9 +88,9 @@ describe('App', () => {
     expect(wrapper.state('user')).toEqual(result);
   });
 
-  test('doLogin - authentication failure', async () => {
-    const { doLogin } = wrapper.instance();
-    await doLogin('sam', '12345');
+  test('handleDoLogin - authentication failure', async () => {
+    const { handleDoLogin } = wrapper.instance();
+    await handleDoLogin('sam', '12345');
     console.log(API_ERROR.BAD_USERNAME_PASSWORD);
     const result = {
       description: 'bad username/password, access denied',
