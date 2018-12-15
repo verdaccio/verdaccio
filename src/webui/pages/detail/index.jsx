@@ -73,7 +73,7 @@ export default class Detail extends Component {
         </div>
       );
     } else if (isEmpty(readMe)) {
-      return <Spinner centered />;
+      return <Spinner centered={true} />;
     }
     return (
       <div className={`container content ${classes.twoColumn}`}>
