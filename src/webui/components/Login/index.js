@@ -19,14 +19,14 @@ export default class LoginModal extends Component {
     visibility: PropTypes.bool,
     error: PropTypes.object,
     onCancel: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
   };
 
   static defaultProps = {
     visibility: true,
     error: {},
     onCancel: () => {},
-    onSubmit: () => {}
+    onSubmit: () => {},
   }
 
   constructor(props) {
@@ -37,16 +37,16 @@ export default class LoginModal extends Component {
           required: true,
           pristine: true,
           helperText: 'Field required',
-          value: ''
+          value: '',
         },
         password:  {
           required: true,
           pristine: true,
           helperText: 'Field required',
-          value: ''
+          value: '',
         },
       },
-      error: props.error
+      error: props.error,
     };
   }
 
@@ -61,9 +61,9 @@ export default class LoginModal extends Component {
         [name]: {
           ...this.state.form[name],
           value: e.target.value,
-          pristine: false
-        }
-      }
+          pristine: false,
+        },
+      },
     });
   }
 
@@ -82,8 +82,8 @@ export default class LoginModal extends Component {
     this.setState({
       form: Object.keys(this.state.form).reduce((acc, key) => ({
         ...acc,
-        ...{ [key]: {...this.state.form[key], pristine: false } }
-      }), {})
+        ...{ [key]: {...this.state.form[key], pristine: false } },
+      }), {}),
     }, () => {
       if (!Object.keys(this.state.form).some(id => !this.state.form[id])) {
         this.submitCredentials();
@@ -99,8 +99,8 @@ export default class LoginModal extends Component {
     this.setState({
      form: Object.keys(this.state.form).reduce((acc, key) => ({
       ...acc,
-      ...{ [key]: {...this.state.form[key], value: "", pristine: true } }
-    }), {})
+      ...{ [key]: {...this.state.form[key], value: "", pristine: true } },
+    }), {}),
     });
   }
 

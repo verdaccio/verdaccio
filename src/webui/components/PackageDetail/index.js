@@ -25,7 +25,7 @@ const PackageDetail = ({packageName, readMe}) => {
 
 PackageDetail.propTypes = {
   readMe: PropTypes.string,
-  packageName: PropTypes.string.isRequired
+  packageName: PropTypes.string.isRequired,
 };
 
 export default PackageDetail;

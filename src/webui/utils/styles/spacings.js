@@ -2,5 +2,5 @@
 // -------------------------
 
 export const spacings = {
-    lg: '30px'
+    lg: '30px',
 };

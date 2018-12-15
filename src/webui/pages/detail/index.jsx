@@ -13,12 +13,12 @@ import PackageSidebar from '../../components/PackageSidebar/index';
 export default class Detail extends Component {
   static propTypes = {
     match: PropTypes.object,
-    isUserLoggedIn: PropTypes.bool
+    isUserLoggedIn: PropTypes.boolean,
   };
 
   state = {
     readMe: '',
-    notFound: false
+    notFound: false,
   };
 
   getPackageName(props = this.props) {
@@ -47,18 +47,18 @@ export default class Detail extends Component {
 
   async loadPackageInfo(packageName) {
     this.setState({
-      readMe: ''
+      readMe: '',
     });
 
     try {
       const resp = await API.request(`package/readme/${packageName}`, 'GET');
       this.setState({
         readMe: resp,
-        notFound: false
+        notFound: false,
       });
     } catch (err) {
       this.setState({
-        notFound: true
+        notFound: true,
       });
     }
   }
@@ -77,7 +77,7 @@ export default class Detail extends Component {
     }
     return (
       <div className={`container content ${classes.twoColumn}`}>
-        <PackageDetail readMe={readMe} packageName={this.packageName} />
+        <PackageDetail packageName={this.packageName} readMe={readMe} />
         <PackageSidebar packageName={this.packageName} />
       </div>
     );

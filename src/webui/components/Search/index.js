@@ -138,19 +138,19 @@ class Search extends Component<IProps, IState> {
 
     return (
       <AutoComplete
-        suggestions={suggestions}
-        suggestionsLoaded={loaded}
-        suggestionsLoading={loading}
-        suggestionsError={error}
-        value={search}
-        placeholder={CONSTANTS.PLACEHOLDER_TEXT}
         color={colors.white}
-        startAdornment={this.renderAdorment()}
-        onSuggestionsFetch={this.handleFetchPackages}
+        onBlur={this.onBlur}
+        onChange={this.handleSearch}
         onCleanSuggestions={this.handlePackagesClearRequested}
         onClick={this.handleClickSearch}
-        onChange={this.handleSearch}
-        onBlur={this.onBlur}
+        onSuggestionsFetch={this.handleFetchPackages}
+        placeholder={CONSTANTS.PLACEHOLDER_TEXT}
+        startAdornment={this.renderAdorment()}
+        suggestions={suggestions}
+        suggestionsError={error}
+        suggestionsLoaded={loaded}
+        suggestionsLoading={loading}
+        value={search}
       />
     );
   }

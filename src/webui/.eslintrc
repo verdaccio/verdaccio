@@ -10,6 +10,7 @@
   },
   "rules": {
     "require-jsdoc": 0,
+    "camelcase": ["error"],
     "no-console": [
       1,
       {
@@ -24,14 +25,6 @@
         "vars": "all",
         "args": "all"
       }
-    ],
-    "comma-dangle": 0,
-    "semi": 1,
-    "react/no-danger-with-children": 1,
-    "react/no-string-refs": 1,
-    "react/prefer-es6-class": [
-      2,
-      "always"
     ]
   }
 }

@@ -6,13 +6,13 @@ export const TITLE = 'Peer Dependencies';
 
 const PeerDependencies = ({dependencies = {}, title = TITLE}) => {
   return (
-    <Dependencies title={title} dependencies={dependencies} />
+    <Dependencies dependencies={dependencies} title={title} />
   );
 };
 
 PeerDependencies.propTypes = {
   dependencies: PropTypes.object,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default PeerDependencies;

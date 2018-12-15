@@ -4,7 +4,7 @@ const breakpoints = {
   small: 576,
   medium: 768,
   large: 1024,
-  xlarge: 1275
+  xlarge: 1275,
 };
 
 const mq = Object.keys(breakpoints).reduce(

@@ -10,7 +10,7 @@ import classes from './packageList.scss';
 export default class PackageList extends React.Component {
   static propTypes = {
     packages: PropTypes.array,
-    help: PropTypes.bool
+    help: PropTypes.boolean,
   };
 
   renderPackages = () => {
@@ -30,9 +30,9 @@ export default class PackageList extends React.Component {
     return (
       packages.map((pkg, i) => {
         const { name, version, description, time, keywords } = pkg;
-        const author = formatAuthor(pkg.author);	
-        const license = formatLicense(pkg.license);	
-        return (	
+        const author = formatAuthor(pkg.author);
+        const license = formatLicense(pkg.license);
+        return (
           <Package key={i} {...{ name, version, author, description, license, time, keywords }} />
         );
       })

@@ -44,7 +44,7 @@ export default class App extends Component {
     loadLogo = async () => {
     const logoUrl = await logo();
     this.setState({
-      logoUrl
+      logoUrl,
     });
   }
 
@@ -57,7 +57,7 @@ export default class App extends Component {
     } else {
       this.setState({
         user: { username, token },
-        isUserLoggedIn: true
+        isUserLoggedIn: true,
       });
     }
   }
@@ -67,12 +67,12 @@ export default class App extends Component {
       this.req = await API.request('packages', 'GET');
       this.setState({
         packages: this.req,
-        isLoading: false
+        isLoading: false,
       });
     } catch (error) {
       this.handleShowAlertDialog({
         title: 'Warning',
-        message: `Unable to load package list: ${error.message}`
+        message: `Unable to load package list: ${error.message}`,
       });
       this.setLoading(false);
     }
@@ -80,7 +80,7 @@ export default class App extends Component {
 
   setLoading = isLoading => (
     this.setState({
-      isLoading
+      isLoading,
     })
   )
 
@@ -91,7 +91,7 @@ export default class App extends Component {
   handleToggleLoginModal = () => {
     this.setState((prevState) => ({
       showLoginModal: !prevState.showLoginModal,
-      error: {}
+      error: {},
     }));
   }
 
@@ -114,7 +114,7 @@ export default class App extends Component {
     if (error) {
       this.setState({
         user: {},
-        error
+        error,
       });
     }
   }
@@ -126,7 +126,7 @@ export default class App extends Component {
         token,
       },
       isUserLoggedIn: true,  // close login modal after successful login
-      showLoginModal: false  // set isUserLoggedIn to true
+      showLoginModal: false,  // set isUserLoggedIn to true
     });
   }
   /**
@@ -138,7 +138,7 @@ export default class App extends Component {
     storage.removeItem('token');
     this.setState({
       user: {},
-      isUserLoggedIn: false
+      isUserLoggedIn: false,
     });
   }
 

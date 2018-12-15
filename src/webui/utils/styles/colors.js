@@ -27,8 +27,8 @@ const colors = {
     // -------------------------
 
     primary: '#4b5e40',
-    secondary: '#20232a'
-    
+    secondary: '#20232a',
+
 };
 
 export default colors;

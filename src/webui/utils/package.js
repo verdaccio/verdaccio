@@ -47,13 +47,13 @@ export function formatAuthor(author) {
     let authorDetails = {
       name: DEFAULT_USER,
       email: '',
-      avatar: ''
+      avatar: '',
     };
 
     if (isString(author)) {
       authorDetails = {
         ...authorDetails,
-        name: author ? author : authorDetails.name
+        name: author ? author : authorDetails.name,
       };
     }
 
@@ -62,7 +62,7 @@ export function formatAuthor(author) {
         ...authorDetails,
         name: author.name ? author.name : authorDetails.name,
         email: author.email ? author.email : authorDetails.email,
-        avatar: author.avatar ? author.avatar : authorDetails.avatar
+        avatar: author.avatar ? author.avatar : authorDetails.avatar,
       };
     }
 
@@ -93,7 +93,7 @@ export function getLastUpdatedPackageTime(uplinks = {}) {
 export function getRecentReleases(time = {}) {
   const recent = Object.keys(time).map((version) => ({
     version,
-    time: formatDate(time[version])
+    time: formatDate(time[version]),
   }));
   return recent.slice(recent.length - 3, recent.length).reverse();
 }
