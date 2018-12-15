@@ -51,9 +51,7 @@ describe('<Package /> component', () => {
     expect(wrapper.find(Field).someWhere(n => {
       return (
         n.children().first().get(0).props.children[0].props.text === 'Description' &&
-        n.children().childAt(1).containsMatchingElement(<span>
-          {props.description}
-                                                        </span>)
+        n.children().childAt(1).containsMatchingElement(<span>{props.description}</span>)
       )
     })).toBe(true);
 

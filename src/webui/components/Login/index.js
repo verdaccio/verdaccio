@@ -99,28 +99,33 @@ export default class LoginModal extends Component {
     });
   }
 
+  renderMessage(title, description) {
+    const errorMessage = (
+      <span>
+        <div>
+          <strong>
+            {title}
+          </strong>
+        </div>
+        <div>
+          {description}
+        </div>
+      </span>);
+
+    return (
+      <div
+        className={classes.loginErrorMsg}
+        id={"client-snackbar"}>
+        <ErrorIcon className={classes.loginIcon} />
+        {errorMessage()}
+      </div>);
+  }
+
   renderLoginError({ type, title, description } = {}) {
     return type === 'error' && (
       <SnackbarContent
         className={classes.loginError}
-        message={
-          (<div
-            className={classes.loginErrorMsg}
-            id={"client-snackbar"}
-          >
-            <ErrorIcon className={classes.loginIcon} />
-            <span>
-              <div>
-                <strong>
-                  {title}
-                </strong>
-              </div>
-              <div>
-                {description}
-              </div>
-            </span>
-           </div>)
-        }
+        message={this.renderMessage(title, description)}
       />
     );
   }
