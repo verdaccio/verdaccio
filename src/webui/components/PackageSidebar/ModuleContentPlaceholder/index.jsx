@@ -7,5 +7,5 @@ export default function ModuleContentPlaceholder({text}) {
   return <p className={classes.emptyPlaceholder}>{text}</p>;
 }
 ModuleContentPlaceholder.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };

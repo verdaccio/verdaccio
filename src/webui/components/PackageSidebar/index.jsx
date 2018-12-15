@@ -11,7 +11,7 @@ import {
   formatLicense,
   formatRepository,
   getLastUpdatedPackageTime,
-  getRecentReleases
+  getRecentReleases,
 } from '../../utils/package';
 import API from '../../utils/api';
 
@@ -19,7 +19,7 @@ export default class PackageSidebar extends React.Component {
   state = {};
 
   static propTypes = {
-    packageName: PropTypes.string.isRequired
+    packageName: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -38,12 +38,12 @@ export default class PackageSidebar extends React.Component {
       packageMeta = await API.request(`sidebar/${packageName}`, 'GET');
     } catch (err) {
       this.setState({
-        failed: true
+        failed: true,
       });
     }
 
     this.setState({
-      packageMeta
+      packageMeta,
     });
   }
 
@@ -73,14 +73,14 @@ export default class PackageSidebar extends React.Component {
         <aside className="sidebar-info">
           {time && (
             <LastSync
-              recentReleases={recentReleases}
               lastUpdated={lastUpdated}
+              recentReleases={recentReleases}
             />
           )}
           <Infos
             homepage={homepage}
-            repository={repository}
             license={license}
+            repository={repository}
           />
           {/* TODO: Refacor later, when we decide to show only maintainers/authors */}
           <Maintainers packageMeta={packageMeta} />

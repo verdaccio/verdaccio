@@ -24,9 +24,9 @@ const renderRecentReleases = (recentReleases) => {
 const LastSync = ({recentReleases = [], lastUpdated = ''}) => {
   return (
     <Module
-      title="Last Sync"
-      description={lastUpdated}
       className={classes.releasesModule}
+      description={lastUpdated}
+      title="Last Sync"
     >
       {recentReleases.length ? (
         renderRecentReleases(recentReleases)
@@ -39,7 +39,7 @@ const LastSync = ({recentReleases = [], lastUpdated = ''}) => {
 
 LastSync.propTypes = {
   recentReleases: propTypes.array,
-  lastUpdated: propTypes.string
+  lastUpdated: propTypes.string,
 };
 
 export default LastSync;

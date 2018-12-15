@@ -16,7 +16,7 @@ const CONTRIBUTORS_TO_SHOW = 5;
 
 export default class Maintainers extends React.Component {
   static propTypes = {
-    packageMeta: PropTypes.object.isRequired
+    packageMeta: PropTypes.object.isRequired,
   };
 
   state = {};
@@ -57,7 +57,7 @@ export default class Maintainers extends React.Component {
 
   handleShowAllContributors() {
     this.setState({
-      showAllContributors: true
+      showAllContributors: true,
     });
   }
 
@@ -70,10 +70,10 @@ export default class Maintainers extends React.Component {
     ).map((contributor, index) => {
       return (
         <MaintainerInfo
-          key={index}
-          title="Contributors"
-          name={contributor.name}
           avatar={contributor.avatar}
+          key={index}
+          name={contributor.name}
+          title="Contributors"
         />
       );
     });
@@ -86,17 +86,17 @@ export default class Maintainers extends React.Component {
           {author &&
             author.name && (
               <MaintainerInfo
-                title="Author"
-                name={author.name}
                 avatar={author.avatar}
+                name={author.name}
+                title="Author"
               />
             )}
           {this.renderContributors()}
         </ul>
         {!this.showAllContributors && (
           <button
-            onClick={this.handleShowAllContributors}
             className={classes.showAllContributors}
+            onClick={this.handleShowAllContributors}
             title="Current list only show the author and first 5 contributors unique by name"
           >
             Show all contributor
@@ -110,7 +110,7 @@ export default class Maintainers extends React.Component {
     let author = this.author;
     const contributors = this.renderContributors();
     return (
-      <Module title="Maintainers" className={classes.maintainersModule}>
+      <Module className={classes.maintainersModule} title="Maintainers">
         {contributors.length || has(author, 'name') ? (
           this.renderAuthorAndContributors(author)
         ) : (

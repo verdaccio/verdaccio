@@ -7,7 +7,7 @@ export default function MaintainerInfo({title, name, avatar}) {
   let avatarDescription = `${title} ${name}'s avatar`;
   return (
     <div className={classes.maintainer} title={name}>
-      <img src={avatar} alt={avatarDescription} title={avatarDescription}/>
+      <img alt={avatarDescription} src={avatar} title={avatarDescription} />
       <span className="maintainer-name">{name}</span>
     </div>
   );
@@ -15,5 +15,5 @@ export default function MaintainerInfo({title, name, avatar}) {
 MaintainerInfo.propTypes = {
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired
+  avatar: PropTypes.string.isRequired,
 };
