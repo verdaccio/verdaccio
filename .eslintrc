@@ -10,18 +10,18 @@
   "extends": [
     "eslint:recommended",
     "google",
-    "plugin:react/recommended",
     "plugin:flowtype/recommended",
     "plugin:jest/recommended",
     "plugin:prettier/recommended",
+    "plugin:react/recommended",
     "plugin:verdaccio/recommended",
     "plugin:jsx-a11y/recommended"
   ],
   "settings": {
     "react": {
-      "pragma": "React",  // Pragma to use
-      "version": "16.4.2", // React version
-      "flowVersion": "0.81.0" // Flow version
+      "pragma": "React",
+      "version": "16.4.2",
+      "flowVersion": "0.81.0"
     }
   },
   "parser": "babel-eslint",
@@ -88,7 +88,7 @@
     "react/jsx-no-duplicate-props": ["warn"],
     "react/jsx-no-literals": ["warn"],
     "react/jsx-no-undef": ["warn"],
-    "react/jsx-one-expression-per-line": ["warn", {"allow": "literal"}],
+    "react/jsx-one-expression-per-line": ["warn", {"allow": "single-child"}],
     "react/jsx-curly-brace-presence": ["warn", { "props": "always", "children": "ignore" }],
     "react/jsx-pascal-case": ["warn"],
     "react/jsx-props-no-multi-spaces": ["warn"],
