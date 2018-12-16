@@ -37,52 +37,69 @@ const getInitialsName = (name: string) =>
     .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
     .toUpperCase();
 
-const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => (
-  <Wrapper className={'package'} to={`detail/${label}`}>
-    <Header>
-      <MainInfo>
-        <Name>{label}</Name>
-        <Version>{`v${version}`}</Version>
-      </MainInfo>
-      <Overview>
-        {license && (
-          <OverviewItem>
-            <Icon modifiers={spacing('margin', '4px', '5px', '0px', '0px')} name={'license'} pointer={true} />
-            {license}
-          </OverviewItem>
-        )}
-        <OverviewItem>
-          <Icon name={'time'} pointer={true} />
-          <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
-          {`${formatDateDistance(time)} ago`}
-        </OverviewItem>
-      </Overview>
-    </Header>
-    <Content>
-      <Field>
-        <Author>
-          <Avatar alt={name} src={avatar}>
-            {!avatar && getInitialsName(name)}
-          </Avatar>
-          <Details>
-            <Text text={name} weight={'bold'} />
-          </Details>
-        </Author>
-      </Field>
-      {description && (
-        <Field>
-          <Description>{description}</Description>
-        </Field>
-      )}
-    </Content>
-    {keywords.length > 0 && (
-      <Footer>
-        {keywords.sort().map((keyword, index) => (
-          <Tag key={index}>{keyword}</Tag>
-        ))}
-      </Footer>
-    )}
-  </Wrapper>
-);
+const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => {
+  const renderMainInfo = () => (
+    <MainInfo>
+      <Name>{label}</Name>
+      <Version>{`v${version}`}</Version>
+    </MainInfo>
+  );
 
+  const renderAuthorInfo = () => (
+    <Author>
+      <Avatar alt={name} src={avatar}>
+        {!avatar && getInitialsName(name)}
+      </Avatar>
+      <Details>
+        <Text text={name} weight={'bold'} />
+      </Details>
+    </Author>
+  );
+
+  const renderLicenseInfo = () =>
+    license && (
+      <OverviewItem>
+        <Icon modifiers={spacing('margin', '4px', '5px', '0px', '0px')} name={'license'} pointer={true} />
+        {license}
+      </OverviewItem>
+    );
+
+  const renderPublishedInfo = () => (
+    <OverviewItem>
+      <Icon name={'time'} pointer={true} />
+      <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
+      {`${formatDateDistance(time)} ago`}
+    </OverviewItem>
+  );
+
+  const renderDescription = () =>
+    description && (
+      <Field>
+        <Description>{description}</Description>
+      </Field>
+    );
+
+  return (
+    <Wrapper className={'package'} to={`detail/${label}`}>
+      <Header>
+        {renderMainInfo()}
+        <Overview>
+          {renderLicenseInfo()}
+          {renderPublishedInfo()}
+        </Overview>
+      </Header>
+      <Content>
+        <Field>{renderAuthorInfo()}</Field>
+        {renderDescription()}
+      </Content>
+      {keywords.length > 0 && (
+        <Footer>
+          {keywords.sort().map((keyword, index) => (
+            <Tag key={index}>{keyword}</Tag>
+          ))}
+        </Footer>
+      )}
+    </Wrapper>
+  );
+};
 export default Package;

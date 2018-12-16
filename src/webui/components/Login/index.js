@@ -137,6 +137,56 @@ export default class LoginModal extends Component {
     );
   }
 
+  renderNameField = () => {
+    const { form: { username } } = this.state;
+    return (
+      <FormControl
+        error={!username.value && !username.pristine}
+        fullWidth={true}
+        required={username.required}
+      >
+        <InputLabel htmlFor={"username"}>Username</InputLabel>
+        <Input
+          id={"login--form-username"}
+          onChange={this.setUsername}
+          placeholder={"Your username"}
+          value={username.value}
+        />
+        {!username.value && !username.pristine && (
+          <FormHelperText id={"username-error"}>
+            {username.helperText}
+          </FormHelperText>
+        )}
+      </FormControl>
+    );
+  }
+
+  renderPasswordField = () => {
+    const { form: { password } } = this.state;
+    return (
+      <FormControl
+        error={!password.value && !password.pristine}
+        fullWidth={true}
+        required={password.required}
+        style={{ marginTop: '8px' }}
+      >
+        <InputLabel htmlFor={"password"}>Password</InputLabel>
+        <Input
+          id={"login--form-password"}
+          onChange={this.setPassword}
+          placeholder={"Your strong password"}
+          type={"password"}
+          value={password.value}
+        />
+        {!password.value && !password.pristine && (
+          <FormHelperText id={"password-error"}>
+            {password.helperText}
+          </FormHelperText>
+        )}
+      </FormControl>
+    );
+  }
+
   render() {
     const { visibility, onCancel, error } = this.props;
     const { form: { username, password } } = this.state;
@@ -152,44 +202,8 @@ export default class LoginModal extends Component {
           <DialogTitle>Login</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
-            <FormControl
-              error={!username.value && !username.pristine}
-              fullWidth={true}
-              required={username.required}
-            >
-              <InputLabel htmlFor={"username"}>Username</InputLabel>
-              <Input
-                id={"login--form-username"}
-                onChange={this.setUsername}
-                placeholder={"Your username"}
-                value={username.value}
-              />
-              {!username.value && !username.pristine && (
-                <FormHelperText id={"username-error"}>
-                  {username.helperText}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl
-              error={!password.value && !password.pristine}
-              fullWidth={true}
-              required={password.required}
-              style={{ marginTop: '8px' }}
-            >
-              <InputLabel htmlFor={"password"}>Password</InputLabel>
-              <Input
-                id={"login--form-password"}
-                onChange={this.setPassword}
-                placeholder={"Your strong password"}
-                type={"password"}
-                value={password.value}
-              />
-              {!password.value && !password.pristine && (
-                <FormHelperText id={"password-error"}>
-                  {password.helperText}
-                </FormHelperText>
-              )}
-            </FormControl>
+            {this.renderNameField()}
+            {this.renderPasswordField()}
           </DialogContent>
           <DialogActions className={"dialog-footer"}>
             <Button
