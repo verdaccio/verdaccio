@@ -10,7 +10,7 @@ import classes from './packageList.scss';
 export default class PackageList extends React.Component {
   static propTypes = {
     packages: PropTypes.array,
-    help: PropTypes.boolean,
+    help: PropTypes.bool,
   };
 
   renderPackages = () => {

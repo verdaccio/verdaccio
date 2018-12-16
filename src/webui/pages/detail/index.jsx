@@ -13,7 +13,7 @@ import PackageSidebar from '../../components/PackageSidebar/index';
 export default class Detail extends Component {
   static propTypes = {
     match: PropTypes.object,
-    isUserLoggedIn: PropTypes.boolean,
+    isUserLoggedIn: PropTypes.bool,
   };
 
   state = {
@@ -27,6 +27,7 @@ export default class Detail extends Component {
       params.package
     }`;
   }
+
   get packageName() {
     return this.getPackageName();
   }

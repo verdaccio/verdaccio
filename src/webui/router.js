@@ -37,10 +37,10 @@ class RouterApp extends Component<IProps, IState> {
     return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
   };
 
-  renderDetailPage = () => {
+  renderDetailPage = (routerProps: any) => {
     const { isUserLoggedIn } = this.props;
 
-    return <DetailPackage {...this.props} isUserLoggedIn={isUserLoggedIn} />;
+    return <DetailPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
   };
 }
 
