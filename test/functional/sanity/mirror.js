@@ -30,7 +30,7 @@ export default function (server, server2) {
 
         test(prefix + 'creating new package', () => {});
 
-        describe(pkg, () => {
+        describe(`${pkg}`, () => {
           beforeAll(function () {
             return server2.putVersion(pkg, '0.1.1', generatePkg(pkg))
               .status(HTTP_STATUS.CREATED)
