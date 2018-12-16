@@ -123,6 +123,6 @@
     "quote-props":["warn", "as-needed"],
     "verdaccio/jsx-no-style": ["warn"],
     "verdaccio/jsx-spread": ["warn"],
-    "jest/expect-expect": ["warn"]
+    "jest/expect-expect": 0
   }
 }
