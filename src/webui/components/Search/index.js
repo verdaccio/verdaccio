@@ -174,7 +174,7 @@ class Search extends Component<IProps, IState> {
 
   renderAdorment() {
     return (
-      <InputAdornment position="start" style={{ color: colors.white }}>
+      <InputAdornment position={'start'} style={{ color: colors.white }}>
         <IconSearch />
       </InputAdornment>
     );
