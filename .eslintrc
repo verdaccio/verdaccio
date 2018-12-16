@@ -92,7 +92,7 @@
     "react/jsx-curly-brace-presence": ["warn", { "props": "always", "children": "ignore" }],
     "react/jsx-pascal-case": ["error"],
     "react/jsx-props-no-multi-spaces": ["error"],
-    "react/jsx-sort-default-props": ["warn"],
+    "react/jsx-sort-default-props": ["error"],
     "react/jsx-sort-props": ["error"],
     "react/no-string-refs": ["error"],
     "react/no-danger-with-children": ["error"],

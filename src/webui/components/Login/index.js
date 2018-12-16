@@ -23,10 +23,10 @@ export default class LoginModal extends Component {
   };
 
   static defaultProps = {
-    visibility: true,
     error: {},
     onCancel: () => {},
     onSubmit: () => {},
+    visibility: true,
   }
 
   constructor(props) {
