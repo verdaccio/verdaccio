@@ -137,7 +137,7 @@ export function extractTarballFromUrl(url: string) {
  * @return {String} a filtered package
  */
 export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: $Request, urlPrefix: string | void) {
-  for (let ver in pkg.versions) {
+  for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
 
@@ -194,7 +194,7 @@ export function getVersion(pkg: Package, version: any) {
 
   try {
     version = semver.parse(version, true);
-    for (let versionItem in pkg.versions) {
+    for (const versionItem in pkg.versions) {
       // $FlowFixMe
       if (version.compare(semver.parse(versionItem, true)) === 0) {
         return pkg.versions[versionItem];
@@ -277,7 +277,7 @@ export function normalizeDistTags(pkg: Package) {
     }
   }
 
-  for (let tag in pkg[DIST_TAGS]) {
+  for (const tag in pkg[DIST_TAGS]) {
     if (_.isArray(pkg[DIST_TAGS][tag])) {
       if (pkg[DIST_TAGS][tag].length) {
         // sort array
@@ -324,7 +324,7 @@ export function parseInterval(interval: any): number {
   let last_suffix = Infinity;
   interval.split(/\s+/).forEach(function(x) {
     if (!x) return;
-    let m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
+    const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
     if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
       throw Error('invalid interval: ' + interval);
     }

@@ -44,7 +44,7 @@ describe('isTokenExpire', () => {
       'xxxxxx.W29iamVjdCBPYmplY3Rd.xxxxxx'
     ];
     expect(isTokenExpire(token)).toBeTruthy();
-    expect(console.error).toBeCalledWith(...result);
+    expect(console.error).toHaveBeenCalledWith(...result);
   });
 });
 

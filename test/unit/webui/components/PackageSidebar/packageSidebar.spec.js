@@ -17,7 +17,7 @@ describe('<PackageSidebar /> component', () => {
   test('should throw error for the required props', () => {
     const wrapper = mount(<PackageSidebar />);
     const { loadPackageData } = wrapper.instance();
-    expect(console.error).toBeCalled();
+    expect(console.error).toHaveBeenCalled();
     loadPackageData().catch(response => {
       expect(response).toBeUndefined();
       expect(wrapper.state()).toEqual({ failed: true });

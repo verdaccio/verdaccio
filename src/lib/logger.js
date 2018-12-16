@@ -52,7 +52,7 @@ class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
  * @param {*} logs list of log configuration
  */
 function setup(logs) {
-  let streams = [];
+  const streams = [];
   if (logs == null) {
     logs = [{ type: 'stdout', format: 'pretty', level: 'http' }];
   }
@@ -165,7 +165,7 @@ const levels = {
 };
 
 let max = 0;
-for (let l in levels) {
+for (const l in levels) {
   if (Object.prototype.hasOwnProperty.call(levels, l)) {
     max = Math.max(max, l.length);
   }
@@ -192,9 +192,9 @@ function fillInMsgTemplate(msg, obj, colors) {
       is_error = true;
     }
 
-    let _ref = name.split('.');
+    const _ref = name.split('.');
     for (let _i = 0; _i < _ref.length; _i++) {
-      let id = _ref[_i];
+      const id = _ref[_i];
       if (isObject(str) || Array.isArray(str)) {
         str = str[id];
       } else {

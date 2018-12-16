@@ -69,7 +69,7 @@ export default class PackageSidebar extends React.Component {
       const peerDependencies = get(packageMeta, 'latest.peerDependencies', {});
 
       // Maintainers component
-      return (
+      return (  
         <aside className="sidebar-info">
           {time && (
             <LastSync

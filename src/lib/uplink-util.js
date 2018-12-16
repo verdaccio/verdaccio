@@ -13,7 +13,7 @@ import type { IProxy, ProxyList } from '../../types';
 export function setupUpLinks(config: Config): ProxyList {
   const uplinks: ProxyList = {};
 
-  for (let uplinkName in config.uplinks) {
+  for (const uplinkName in config.uplinks) {
     if (Object.prototype.hasOwnProperty.call(config.uplinks, uplinkName)) {
       // instance for each up-link definition
       const proxy: IProxy = new ProxyStorage(config.uplinks[uplinkName], config);
@@ -27,7 +27,7 @@ export function setupUpLinks(config: Config): ProxyList {
 }
 
 export function updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy) {
-  for (let i in versions) {
+  for (const i in versions) {
     if (Object.prototype.hasOwnProperty.call(versions, i)) {
       const version = versions[i];
 

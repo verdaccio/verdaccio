@@ -102,7 +102,7 @@ class ProxyStorage implements IProxy {
     let json;
 
     if (this._statusCheck() === false) {
-      let streamRead = new Stream.Readable();
+      const streamRead = new Stream.Readable();
 
       process.nextTick(function() {
         if (cb) {
@@ -117,8 +117,8 @@ class ProxyStorage implements IProxy {
       return streamRead;
     }
 
-    let self = this;
-    let headers = this._setHeaders(options);
+    const self = this;
+    const headers = this._setHeaders(options);
 
     this._addProxyHeaders(options.req, headers);
     this._overrideWithUplinkConfigHeaders(headers);
@@ -140,7 +140,7 @@ class ProxyStorage implements IProxy {
       headers['Content-Type'] = headers['Content-Type'] || HEADERS.JSON;
     }
 
-    let requestCallback = cb
+    const requestCallback = cb
       ? function(err, res, body) {
           let error;
           const responseLength = err ? 0 : body.length;
@@ -373,7 +373,7 @@ class ProxyStorage implements IProxy {
 
     // add/override headers specified in the config
     /* eslint guard-for-in: 0 */
-    for (let key in this.config.headers) {
+    for (const key in this.config.headers) {
       headers[key] = this.config.headers[key];
     }
   }
@@ -499,7 +499,7 @@ class ProxyStorage implements IProxy {
       },
     });
 
-    let parsePackage = pkg => {
+    const parsePackage = pkg => {
       if (isObject(pkg)) {
         transformStream.emit('data', pkg);
       }
@@ -614,7 +614,7 @@ class ProxyStorage implements IProxy {
    */
   _setupProxy(hostname: string, config: UpLinkConf, mainconfig: Config, isHTTPS: boolean) {
     let noProxyList;
-    let proxy_key: string = isHTTPS ? 'https_proxy' : 'http_proxy';
+    const proxy_key: string = isHTTPS ? 'https_proxy' : 'http_proxy';
 
     // get http_proxy and no_proxy configs
     if (proxy_key in config) {

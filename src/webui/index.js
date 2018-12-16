@@ -6,9 +6,9 @@ import {AppContainer} from 'react-hot-loader';
 
 import App from './app';
 
-let rootNode = document.getElementById('root');
+const rootNode = document.getElementById('root');
 
-let renderApp = (Component) => {
+const renderApp = (Component) => {
   ReactDOM.render(
     <AppContainer>
       <Component />

@@ -17,7 +17,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
       return next('route');
     }
 
-    let tags = {};
+    const tags = {};
     tags[req.params.tag] = req.body;
     storage.mergeTags(req.params.package, tags, function(err) {
       if (err) {

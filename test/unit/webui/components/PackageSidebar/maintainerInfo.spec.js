@@ -11,7 +11,7 @@ console.error = jest.fn();
 describe('<PackageSidebar /> : <Maintainers /> <MaintainerInfo />', () => {
   test('should throw error for required props', () => {
     shallow(<MaintainerInfo />);
-    expect(console.error).toBeCalled();
+    expect(console.error).toHaveBeenCalled();
   });
 
   test('should load the component and match with snapshot', () => {

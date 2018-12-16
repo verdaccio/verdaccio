@@ -61,7 +61,7 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   removePackage(name: string, callback: Callback) {
-    let storage: any = this._getLocalStorage(name);
+    const storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return callback(ErrorCode.getNotFound());
@@ -114,7 +114,7 @@ class LocalStorage implements IStorage {
       if (packageInfo.readme !== packageLocalJson.readme) {
         change = true;
       }
-      for (let versionId in packageInfo.versions) {
+      for (const versionId in packageInfo.versions) {
         if (_.isNil(packageLocalJson.versions[versionId])) {
           let version = packageInfo.versions[versionId];
 
@@ -132,7 +132,7 @@ class LocalStorage implements IStorage {
 
             // we do NOT overwrite any existing records
             if (_.isNil(packageLocalJson._distfiles[filename])) {
-              let hash: DistFile = (packageLocalJson._distfiles[filename] = {
+              const hash: DistFile = (packageLocalJson._distfiles[filename] = {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               });
@@ -148,14 +148,14 @@ class LocalStorage implements IStorage {
         }
       }
 
-      for (let tag in packageInfo[DIST_TAGS]) {
+      for (const tag in packageInfo[DIST_TAGS]) {
         if (!packageLocalJson[DIST_TAGS][tag] || packageLocalJson[DIST_TAGS][tag] !== packageInfo[DIST_TAGS][tag]) {
           change = true;
           packageLocalJson[DIST_TAGS][tag] = packageInfo[DIST_TAGS][tag];
         }
       }
 
-      for (let up in packageInfo._uplinks) {
+      for (const up in packageInfo._uplinks) {
         if (Object.prototype.hasOwnProperty.call(packageInfo._uplinks, up)) {
           const need_change =
             !isObject(packageLocalJson._uplinks[up]) ||
@@ -210,7 +210,7 @@ class LocalStorage implements IStorage {
 
         // if uploaded tarball has a different shasum, it's very likely that we have some kind of error
         if (isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
-          let tarball = metadata.dist.tarball.replace(/.*\//, '');
+          const tarball = metadata.dist.tarball.replace(/.*\//, '');
 
           if (isObject(data._attachments[tarball])) {
             if (_.isNil(data._attachments[tarball].shasum) === false && _.isNil(metadata.dist.shasum) === false) {
@@ -220,7 +220,7 @@ class LocalStorage implements IStorage {
               }
             }
 
-            let currentDate = new Date().toISOString();
+            const currentDate = new Date().toISOString();
 
             // some old storage do not have this field #740
             if (_.isNil(data.time)) {
@@ -264,7 +264,7 @@ class LocalStorage implements IStorage {
       pkgName,
       (data, cb) => {
         /* eslint guard-for-in: 0 */
-        for (let tag: string in tags) {
+        for (const tag: string in tags) {
           // this handle dist-tag rm command
           if (_.isNull(tags[tag])) {
             delete data[DIST_TAGS][tag];
@@ -318,14 +318,14 @@ class LocalStorage implements IStorage {
     this._updatePackage(
       name,
       (localData, cb) => {
-        for (let version in localData.versions) {
+        for (const version in localData.versions) {
           if (_.isNil(incomingPkg.versions[version])) {
             this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
 
             delete localData.versions[version];
             delete localData.time[version];
 
-            for (let file in localData._attachments) {
+            for (const file in localData._attachments) {
               if (localData._attachments[file].version === version) {
                 delete localData._attachments[file].version;
               }

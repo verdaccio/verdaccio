@@ -55,7 +55,7 @@ describe('startServer via API', () => {
       const exitMock = jest.fn();
       global.process = { ...realProcess, exit: exitMock };
       await startServer(conf, address, store, version, serverName, () => {
-        expect(logger.logger.fatal).toBeCalled();
+        expect(logger.logger.fatal).toHaveBeenCalled();
         expect(logger.logger.fatal).toHaveBeenCalledTimes(2);
         done();
       });

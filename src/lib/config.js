@@ -44,7 +44,7 @@ class Config implements AppConfig {
     this.storage = config.storage;
     this.plugins = config.plugins;
 
-    for (let configProp in config) {
+    for (const configProp in config) {
       if (self[configProp] == null) {
         self[configProp] = config[configProp];
       }

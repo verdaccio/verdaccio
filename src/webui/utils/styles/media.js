@@ -9,11 +9,11 @@ const breakpoints = {
 
 const mq = Object.keys(breakpoints).reduce(
   (accumulator, label) => {
-    let prefix =
+    const prefix =
       typeof breakpoints[label] === 'string'
         ? ''
         : 'min-width:';
-    let suffix =
+    const suffix =
       typeof breakpoints[label] === 'string' ? '' : 'px';
     accumulator[label] = cls =>
       css`

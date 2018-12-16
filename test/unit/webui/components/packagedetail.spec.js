@@ -12,7 +12,7 @@ console.error = jest.fn();
 describe('<PackageDetail /> component', () => {
   test('should give error for required props', () => {
     shallow(<PackageDetail />);
-    expect(console.error).toBeCalled();
+    expect(console.error).toHaveBeenCalled();
   });
 
   test('should load the component', () => {
