@@ -10,7 +10,7 @@ const path = require('path');
  app.param('revision', validate_name);
  app.param('token', validate_name);
  */
-describe('api endpoint app.param()', runTest('../endpoint/index.js'));
+describe('api endpoint app.param()', () => runTest('../endpoint/index.js'));
 
 function runTest(file) {
   return function() {
