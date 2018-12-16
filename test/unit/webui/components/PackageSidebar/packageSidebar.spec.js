@@ -18,7 +18,7 @@ describe('<PackageSidebar /> component', () => {
     const wrapper = mount(<PackageSidebar />);
     const { loadPackageData } = wrapper.instance();
     expect(console.error).toHaveBeenCalled();
-    loadPackageData().catch(response => {
+    return loadPackageData().catch(response => {
       expect(response).toBeUndefined();
       expect(wrapper.state()).toEqual({ failed: true });
     });
@@ -27,9 +27,9 @@ describe('<PackageSidebar /> component', () => {
   test('should load the packageMeta', () => {
     const wrapper = mount(<PackageSidebar packageName={'verdaccio'} />);
     const { loadPackageData } = wrapper.instance();
-    loadPackageData('verdaccio').then(response => {
+    expect(wrapper.html()).toMatchSnapshot();
+    return loadPackageData('verdaccio').then(response => {
       expect(wrapper.state('packageMeta')).toEqual(packageMeta);
     });
-    expect(wrapper.html()).toMatchSnapshot();
   });
 });
