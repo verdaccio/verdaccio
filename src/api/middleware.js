@@ -101,12 +101,13 @@ export function allow(auth: IAuth) {
   return function(action: string) {
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       req.pause();
-      let packageName = req.params.package;
-      if (req.params.scope) {
-        packageName = `@${req.params.scope}/${packageName}`;
+      const pkg = {};
+      pkg.packageName = req.params.scope?`@${req.params.scope}/${req.params.package}`:req.params.package;
+      if (req.params.filename && /.+-(\d.+)\.tgz/.test(req.params.filename)) {
+        pkg.packageVersion = req.params.filename.match(/.+-(\d.+)\.tgz/)[1];
       }
       // $FlowFixMe
-      auth['allow_' + action](packageName, req.remote_user, function(error, allowed) {
+      auth['allow_' + action](pkg, req.remote_user, function(error, allowed) {
         req.resume();
         if (error) {
           next(error);

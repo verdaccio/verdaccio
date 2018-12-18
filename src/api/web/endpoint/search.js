@@ -16,7 +16,7 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
         name: results[i].ref,
         callback: (err, entry) => {
           if (!err && entry) {
-            auth.allow_access(entry.name, req.remote_user, function(err, allowed) {
+            auth.allow_access({packageName: entry.name}, req.remote_user, function(err, allowed) {
               if (err || !allowed) {
                 return;
               }

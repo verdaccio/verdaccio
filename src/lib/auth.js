@@ -118,10 +118,10 @@ class Auth implements IAuth {
   /**
    * Allow user to access a package.
    */
-  allow_access(packageName: string, user: RemoteUser, callback: Callback) {
+  allow_access({packageName, packageVersion}: any, user: RemoteUser, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
+    let pkg = Object.assign({name: packageName, version: packageVersion}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();
@@ -147,10 +147,10 @@ class Auth implements IAuth {
   /**
    * Allow user to publish a package.
    */
-  allow_publish(packageName: string, user: string, callback: Callback) {
+  allow_publish({packageName, packageVersion}: any, user: string, callback: Callback) {
     let plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({name: packageName}, getMatchedPackagesSpec(packageName, this.config.packages));
+    let pkg = Object.assign({name: packageName, version: packageVersion}, getMatchedPackagesSpec(packageName, this.config.packages));
 
     (function next() {
       const plugin = plugins.shift();
