@@ -94,8 +94,7 @@ function logHTTPSWarning(storageLocation) {
 function handleHTTPS(app, configPath, config) {
   try {
     let httpsOptions = {
-      secureProtocol: 'SSLv23_method', // disable insecure SSLv2 and SSLv3
-      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
     };
 
     if (config.https.pfx) {
