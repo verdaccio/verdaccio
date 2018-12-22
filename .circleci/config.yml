@@ -76,7 +76,7 @@ jobs:
           key: *yarn_cache_key
       - run:
           name: Install Js dependencies
-          command: yarn install --no-progress
+          command: yarn install --no-progress --registry https://registry.verdaccio.org
       - run:
           name: Prepare CI
           command:  yarn run pre:ci
