@@ -1,7 +1,6 @@
 // @flow
 import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../../../src/utils/user';
 import { spliceURL } from '../../../src/utils/string';
-import Package from '../../../src/webui/components/Package/index';
 import {
   validateName,
   convertDistRemoteToLocalTarballUrls,
@@ -27,7 +26,7 @@ describe('Utilities', () => {
   const buildURI = (host, version) =>
     `http://${host}/npm_test/-/npm_test-${version}.tgz`;
   const fakeHost = 'fake.com';
-  const metadata: Package = {
+  const metadata: any = {
     name: 'npm_test',
     versions: {
       '1.0.0': {
@@ -42,6 +41,7 @@ describe('Utilities', () => {
       }
     }
   };
+
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
@@ -186,7 +186,6 @@ describe('Utilities', () => {
         expect(validatePackage("$%$%#$%$#%#$%$#")).toBeFalsy();
         expect(validatePackage("node_modules")).toBeFalsy();
         expect(validatePackage("__proto__")).toBeFalsy();
-        expect(validatePackage("package.json")).toBeFalsy();
         expect(validatePackage("favicon.ico")).toBeFalsy();
       });
 
@@ -208,10 +207,6 @@ describe('Utilities', () => {
         test('should be valid using uppercase', () => {
           expect(validateName('ETE')).toBeTruthy();
           expect(validateName('JSONStream')).toBeTruthy();
-        });
-
-        test('should fails using package.json', () => {
-          expect(validateName('package.json')).toBeFalsy();
         });
 
         test('should fails with path seps', () => {

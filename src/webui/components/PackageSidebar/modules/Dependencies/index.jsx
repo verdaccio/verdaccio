@@ -29,10 +29,10 @@ const renderDependenciesList = (dependencies, dependenciesList) => {
   );
 };
 
-const Dependencies = ({dependencies = {}}) => {
+const Dependencies = ({dependencies = {}, title = 'Dependencies'}) => {
   const dependenciesList = Object.keys(dependencies);
   return (
-    <Module title="Dependencies" className={classes.dependenciesModule}>
+    <Module title={title} className={classes.dependenciesModule}>
       {dependenciesList.length > 0 ? (
         renderDependenciesList(dependencies, dependenciesList)
       ) : (
@@ -43,7 +43,8 @@ const Dependencies = ({dependencies = {}}) => {
 };
 
 Dependencies.propTypes = {
-  dependencies: PropTypes.object
+  dependencies: PropTypes.object,
+  title: PropTypes.string
 };
 
 export default Dependencies;

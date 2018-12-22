@@ -33,11 +33,11 @@ const renderInputComponent = (inputProps): Node => {
   );
 };
 
-const getSuggestionValue = (suggestion): string => suggestion.label;
+const getSuggestionValue = (suggestion): string => suggestion.name;
 
 const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
-  const matches = match(suggestion.label, query);
-  const parts = parse(suggestion.label, matches);
+  const matches = match(suggestion.name, query);
+  const parts = parse(suggestion.name, matches);
   return (
     <MenuItem selected={isHighlighted} component="div">
       <div>

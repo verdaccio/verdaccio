@@ -18,6 +18,9 @@ aliases:
   - &node10_executor
     docker:
       - image: circleci/node:10
+  - &node11_executor
+    docker:
+    - image: circleci/node:11
   - &default_executor
     <<: *node9_executor
   - &repo_key
@@ -73,7 +76,7 @@ jobs:
           key: *yarn_cache_key
       - run:
           name: Install Js dependencies
-          command: yarn install --no-progress
+          command: yarn install --no-progress --registry https://registry.verdaccio.org
       - run:
           name: Prepare CI
           command:  yarn run pre:ci
@@ -136,6 +139,17 @@ jobs:
           command: |
             yarn run test
             yarn test:functional
+
+  test_node11:
+    <<: *defaults
+    <<: *node11_executor
+    steps:
+    - *restore_repo
+    - run:
+        name: Test with Node 11
+        command: |
+          yarn run test
+          yarn test:functional
 
   test_e2e:
     <<: *defaults
@@ -209,6 +223,10 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
+      - test_node11:
+          requires:
+          - prepare
+          <<: *ignore_non_dev_branches
       - test_e2e:
           requires:
             - prepare
@@ -223,6 +241,7 @@ workflows:
             - test_node8
             - test_node9
             - test_node10
+            - test_node11
             - test_e2e
             - test_size
           <<: *ignore_non_dev_branches

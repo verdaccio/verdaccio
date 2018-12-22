@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import LastSync from './modules/LastSync';
 import Maintainers from './modules/Maintainers';
 import Dependencies from './modules/Dependencies';
+import PeerDependencies from './modules/PeerDependencies';
 import Infos from './modules/Infos';
 
 import {
@@ -65,6 +66,7 @@ export default class PackageSidebar extends React.Component {
 
       // Dependencies component
       const dependencies = get(packageMeta, 'latest.dependencies', {});
+      const peerDependencies = get(packageMeta, 'latest.peerDependencies', {});
 
       // Maintainers component
       return (
@@ -83,6 +85,7 @@ export default class PackageSidebar extends React.Component {
           {/* TODO: Refacor later, when we decide to show only maintainers/authors */}
           <Maintainers packageMeta={packageMeta} />
           <Dependencies dependencies={dependencies} />
+          <PeerDependencies dependencies={peerDependencies} />
           {/* Package management module? Help us implement it! */}
         </aside>
       );

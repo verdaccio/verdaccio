@@ -1,7 +1,6 @@
 import {
   formatLicense,
   formatRepository,
-  formatAuthor,
   formatDate,
   formatDateDistance,
   getLastUpdatedPackageTime,
@@ -44,30 +43,10 @@ describe('formatRepository', () => {
   });
 });
 
-describe('formatAuthor', () => {
-  it('should check author field different values', () => {
-    const author = 'verdaccioNpm';
-    expect(formatAuthor(author)).toEqual(author);
-  });
-  it('should check author field for object value', () => {
-    const license = {
-      name: 'Verdaccion NPM',
-      email: 'verdaccio@verdaccio.org',
-      url: 'https://verdaccio.org'
-    };
-    expect(formatAuthor(license)).toEqual('Verdaccion NPM');
-  });
-  it('should check author field for other value', () => {
-    expect(formatAuthor(null)).toBeNull();
-    expect(formatAuthor({})).toBeNull();
-    expect(formatAuthor([])).toBeNull();
-  });
-});
-
 describe('formatDate', () => {
   it('should format the date', () => {
     const date = 1532211072138;
-    expect(formatDate(date)).toEqual('2018/07/21, 22:11:12');
+    expect(formatDate(date)).toEqual('21.07.2018, 22:11:12');
   });
 });
 
@@ -87,7 +66,7 @@ describe('getLastUpdatedPackageTime', () => {
   it('should get the last update time', () => {
     const lastUpdated = packageMeta._uplinks;
     expect(getLastUpdatedPackageTime(lastUpdated)).toEqual(
-      '2018/07/22, 22:11:12'
+      '22.07.2018, 22:11:12'
     );
   });
   it('should get the last update time for blank uplink', () => {
@@ -100,9 +79,9 @@ describe('getRecentReleases', () => {
   it('should get the recent releases', () => {
     const { time } = packageMeta;
     const result = [
-      { time: '2017/12/14, 15:43:27', version: '2.7.1' },
-      { time: '2017/12/05, 23:25:06', version: '2.7.0' },
-      { time: '2017/11/08, 22:47:16', version: '2.6.6' }
+      { time: '14.12.2017, 15:43:27', version: '2.7.1' },
+      { time: '05.12.2017, 23:25:06', version: '2.7.0' },
+      { time: '08.11.2017, 22:47:16', version: '2.6.6' }
     ];
     expect(getRecentReleases(time)).toEqual(result);
     expect(getRecentReleases()).toEqual([]);

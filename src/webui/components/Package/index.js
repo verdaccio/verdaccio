@@ -1,62 +1,88 @@
+/**
+ * @prettier
+ * @flow
+ */
+
 import React from 'react';
-import PropTypes from 'prop-types';
-import Chip from '@material-ui/core/Chip';
-import { Link } from 'react-router-dom';
+import type { Element } from 'react';
+import { spacing } from '../../utils/styles/mixings';
 
-import { formatDateDistance } from '../../utils/package';
+import Tag from '../Tag';
+import { formatDate, formatDateDistance } from '../../utils/package';
 
-import classes from './package.scss';
+import { IProps } from './types';
+import {
+  Wrapper,
+  Header,
+  MainInfo,
+  Name,
+  Version,
+  Overview,
+  Published,
+  OverviewItem,
+  Description,
+  Icon,
+  Text,
+  Details,
+  Avatar,
+  Author,
+  Field,
+  Content,
+  Footer,
+} from './styles';
 
-const Package = ({ name, version, author, description, license, time, keywords }) => {
-  return (<section className={classes.package}>
-    <Link to={`detail/${name}`}>
-      <div className={classes.header}>
-        <div className={classes.title}>
-          <h1>
-            {name} <Chip label={`v${version}`} />
-          </h1>
-        </div>
-        <div role="author" className={classes.author}>
-          {author ? `By: ${author}` : ''}
-        </div>
-      </div>
-      <div className={classes.footer}>
-        <p className={classes.description}>
-          {description}
-        </p>
-      </div>
-      <div className={classes.tags}>
-        {keywords && keywords.map((keyword, index) => (
-          <Chip
-            key={index}
-            label={keyword}
-            className={classes.tag}
-          />
+const getInitialsName = (name: string) =>
+  name
+    .split(' ')
+    .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
+    .toUpperCase();
+
+const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => (
+  <Wrapper className="package" to={`detail/${label}`}>
+    <Header>
+      <MainInfo>
+        <Name>{label}</Name>
+        <Version>{`v${version}`}</Version>
+      </MainInfo>
+      <Overview>
+        {license && (
+          <OverviewItem>
+            <Icon name="license" pointer modifiers={spacing('margin', '4px', '5px', '0px', '0px')} />
+            {license}
+          </OverviewItem>
+        )}
+        <OverviewItem>
+          <Icon name="time" pointer />
+          <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
+          {`${formatDateDistance(time)} ago`}
+        </OverviewItem>
+      </Overview>
+    </Header>
+    <Content>
+      <Field>
+        <Author>
+          <Avatar alt={name} src={avatar}>
+            {!avatar && getInitialsName(name)}
+          </Avatar>
+          <Details>
+            <Text text={name} weight="bold" />
+          </Details>
+        </Author>
+      </Field>
+      {description && (
+        <Field>
+          <Description>{description}</Description>
+        </Field>
+      )}
+    </Content>
+    {keywords.length > 0 && (
+      <Footer>
+        {keywords.sort().map((keyword, index) => (
+          <Tag key={index}>{keyword}</Tag>
         ))}
-      </div>
-      <div className={classes.details}>
-        <div className={classes.homepage}>
-          {time ? `Published ${formatDateDistance(time)} ago` : ''}
-        </div>
-        <div className={classes.license}>
-          {license}
-        </div>
-      </div>
-    </Link>
-  </section>);
-};
-
-Package.propTypes = {
-  name: PropTypes.string,
-  version: PropTypes.string,
-  author: PropTypes.string,
-  description: PropTypes.string,
-  keywords: PropTypes.array,
-  license: PropTypes.string,
-  time: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date)
-  ])
-};
+      </Footer>
+    )}
+  </Wrapper>
+);
 
 export default Package;

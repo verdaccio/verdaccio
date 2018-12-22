@@ -17,15 +17,15 @@ const Footer = (): Element<Wrapper> => (
         <Love>♥</Love>
         on
         <ToolTip>
-          <Earth name="earth" />
+          <Earth name="earth" size="md" />
           <Flags>
-            <Flag name="spain" />
-            <Flag name="nicaragua" />
-            <Flag name="india" />
-            <Flag name="brazil" />
-            <Flag name="pakistan" />
-            <Flag name="china" />
-            <Flag name="austria" />
+            <Flag name="spain" size="md" />
+            <Flag name="nicaragua" size="md" />
+            <Flag name="india" size="md" />
+            <Flag name="brazil" size="md" />
+            <Flag name="pakistan" size="md" />
+            <Flag name="china" size="md" />
+            <Flag name="austria" size="md" />
           </Flags>
         </ToolTip>
       </Left>
