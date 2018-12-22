@@ -2,8 +2,9 @@
   "env": {
     "ui": {
       "presets": [
-        "react",
-        ["env",{
+        "@babel/react",
+        "@babel/flow",
+        ["@babel/env",{
           "targets": {
             "browsers": [
               "last 5 versions",
@@ -11,70 +12,57 @@
               "Safari >= 7",
               "Explorer 11",
               "last 4 Edge versions"
-            ],
-            "loose": true
+            ]
           }
-        }],
-        "stage-2",
-        "stage-3"
+        }]
       ],
       "plugins": [
         "react-hot-loader/babel",
-        "transform-runtime",
-        "transform-class-properties",
-        "transform-object-rest-spread",
-        "transform-decorators-legacy",
-        "syntax-dynamic-import",
+        "@babel/transform-runtime",
+        "@babel/proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/syntax-dynamic-import",
         "emotion"
       ]
     },
     "test": {
-      "presets": [["env", {
+      "presets": [["@babel/env", {
         "targets": {
           "node": "6.10"
         }
-      }], "flow", "react"],
+      }], "@babel/flow",
+          "@babel/react"],
       "plugins": [
-        "transform-class-properties",
-        "transform-object-rest-spread",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread",
         "babel-plugin-dynamic-import-node",
         "emotion"
       ]
     },
-    "testOldEnv": {
-      "presets": [ "es2015-node4", "flow"],
-      "plugins": [
-        "transform-class-properties",
-        "transform-object-rest-spread"
-      ]
-    },
     "registry": {
       "presets": [
-        ["env", {
+        ["@babel/env", {
           "targets": {
             "node": "6.10"
           }
-        }], "stage-3", "flow"],
+        }], "@babel/flow"],
       "plugins": [
-        "transform-object-rest-spread",
-        "transform-class-properties"
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/proposal-class-properties"
       ]
     },
     "registry-docker": {
       "presets": [
-        ["env", {
+        ["@babel/env", {
           "targets": {
             "node": "10"
           }
-        }], "flow"],
+        }],
+        "@babel/flow"],
       "plugins": [
-        "transform-object-rest-spread",
-        "transform-class-properties"
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/proposal-class-properties"
       ]
-    },
-    "development": {
-      "presets": ["flow"],
-      "plugins": ["flow-runtime"]
     }
   }
 }

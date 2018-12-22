@@ -44,6 +44,15 @@ All notable changes to this project will be documented in this file. See [standa
 * replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
+<a name="3.10.1"></a>
+## [3.10.1](https://github.com/verdaccio/verdaccio/compare/v3.10.0...v3.10.1) (2018-12-20)
+
+
+### Bug Fixes
+
+* remove useless secureProtocol option ([#1158](https://github.com/verdaccio/verdaccio/issues/1158)) ([c99266d](https://github.com/verdaccio/verdaccio/commit/c99266d))
+
+
 
 <a name="3.10.0"></a>
 # [3.10.0](https://github.com/verdaccio/verdaccio/compare/v3.9.0...v3.10.0) (2018-12-06)
