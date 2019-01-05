@@ -6,13 +6,15 @@ export function asyncComponent(getComponent) {
     state = {Component: AsyncComponent.Component};
 
     componentDidMount() {
-      if (!this.state.Component) {
+      const { Component } = this.state;
+      if (!Component) {
         getComponent().then(({default: Component}) => {
           AsyncComponent.Component = Component;
           this.setState({Component});
         });
       }
     }
+    
     render() {
       const {Component} = this.state;
       if (Component) {

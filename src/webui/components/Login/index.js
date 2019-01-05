@@ -55,11 +55,12 @@ export default class LoginModal extends Component {
    * Required to login
    */
   setCredentials = (name, e) => {
+    const { form } = this.state;
     this.setState({
       form: {
-        ...this.state.form,
+        ...form,
         [name]: {
-          ...this.state.form[name],
+          ...form[name],
           value: e.target.value,
           pristine: false,
         },
@@ -76,30 +77,32 @@ export default class LoginModal extends Component {
   }
 
   validateCredentials = (event) => {
+    const { form } = this.state;
     // prevents default submit behavior
     event.preventDefault();
 
     this.setState({
-      form: Object.keys(this.state.form).reduce((acc, key) => ({
+      form: Object.keys(form).reduce((acc, key) => ({
         ...acc,
-        ...{ [key]: {...this.state.form[key], pristine: false } },
+        ...{ [key]: {...form[key], pristine: false } },
       }), {}),
     }, () => {
-      if (!Object.keys(this.state.form).some(id => !this.state.form[id])) {
+      if (!Object.keys(form).some(id => !form[id])) {
         this.submitCredentials();
       }
     });
   }
 
   submitCredentials = async () => {
-    const { form: { username, password } } = this.state;
-    await this.props.onSubmit(username.value, password.value);
+    const { form } = this.state;
+    const { onSubmit } = this.props;
+    await onSubmit(form.username.value, form.password.value);
     // let's wait for API response and then set
     // username and password filed to empty state
     this.setState({
-     form: Object.keys(this.state.form).reduce((acc, key) => ({
+     form: Object.keys(form).reduce((acc, key) => ({
       ...acc,
-      ...{ [key]: {...this.state.form[key], value: "", pristine: true } },
+      ...{ [key]: {...form[key], value: "", pristine: true } },
     }), {}),
     });
   }

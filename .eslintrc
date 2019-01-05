@@ -47,7 +47,7 @@
     "prettier/prettier": ["error", null, "@prettier"],
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
-    "react/destructuring-assignment": ["warn", "always"],
+    "react/destructuring-assignment": ["error", "always"],
     "react/forbid-component-props": ["warn", { "forbid": ["style"] }],
     "react/no-this-in-sfc": ["warn"],
     "react/no-unsafe": ["warn"],

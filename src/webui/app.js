@@ -36,7 +36,8 @@ export default class App extends Component {
 
   // eslint-disable-next-line no-unused-vars
   componentDidUpdate(_, prevState) {
-    if (prevState.isUserLoggedIn !== this.state.isUserLoggedIn) {
+    const { isUserLoggedIn } = this.state;
+    if (prevState.isUserLoggedIn !== isUserLoggedIn) {
       this.loadPackages();
     }
   }

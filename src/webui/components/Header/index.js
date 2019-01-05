@@ -91,17 +91,19 @@ class Header extends Component<IProps, IState> {
    * close/open popover menu for logged in users.
    */
   handleToggleLogin = () => {
+    const { onToggleLoginModal } = this.props;
     this.setState(
       {
         anchorEl: null,
       },
-      this.props.onToggleLoginModal
+      onToggleLoginModal
     );
   };
 
   handleToggleMNav = () => {
+    const { showMobileNavBar } = this.state;
     this.setState({
-      showMobileNavBar: !this.state.showMobileNavBar,
+      showMobileNavBar: !showMobileNavBar,
     });
   };
 
