@@ -21,7 +21,7 @@ describe('<PackageSidebar /> : <Module />', () => {
     };
     const wrapper = shallow(
       <Module {...props}>
-        <p>test children</p>
+        <p>{'test children'}</p>
       </Module>
     );
     expect(wrapper.html()).toMatchSnapshot();

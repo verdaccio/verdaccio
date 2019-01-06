@@ -86,7 +86,7 @@
     "react/jsx-no-bind": ["error"],
     "react/jsx-no-comment-textnodes": ["warn"],
     "react/jsx-no-duplicate-props": ["warn"],
-    "react/jsx-no-literals": ["warn"],
+    "react/jsx-no-literals": ["error"],
     "react/jsx-no-undef": ["error"],
     "react/jsx-one-expression-per-line": ["error", {"allow": "single-child"}],
     "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "ignore" }],

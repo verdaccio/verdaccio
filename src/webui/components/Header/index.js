@@ -155,7 +155,7 @@ class Header extends Component<IProps, IState> {
           this.renderMenu()
         ) : (
           <Button color={'inherit'} id={'header--button-login'} onClick={this.handleToggleLogin}>
-            Login
+            {'Login'}
           </Button>
         )}
       </RightSide>
@@ -192,7 +192,7 @@ class Header extends Component<IProps, IState> {
             <Label capitalize={true} limit={140} text={username} weight={'bold'} />
           </MenuItem>
           <MenuItem id={'header--button-logout'} onClick={onLogout}>
-            Logout
+            {'Logout'}
           </MenuItem>
         </Menu>
       </React.Fragment>
@@ -231,7 +231,7 @@ class Header extends Component<IProps, IState> {
                 <Search />
               </InnerMobileNavBar>
               <Button color={'inherit'} onClick={this.handleDismissMNav}>
-                Cancel
+                {'Cancel'}
               </Button>
             </MobileNavBar>
           )}

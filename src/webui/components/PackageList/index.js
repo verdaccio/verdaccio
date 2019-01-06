@@ -18,7 +18,7 @@ export default class PackageList extends React.Component {
     return (
       packages.length > 0 ? (
         <Fragment>
-          <h1 className={classes.listTitle}>Available Packages</h1>
+          <h1 className={classes.listTitle}>{'Available Packages'}</h1>
           {this.renderList()}
         </Fragment>
       ) : null

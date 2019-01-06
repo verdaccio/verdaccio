@@ -148,7 +148,7 @@ export default class LoginModal extends Component {
         fullWidth={true}
         required={username.required}
       >
-        <InputLabel htmlFor={"username"}>Username</InputLabel>
+        <InputLabel htmlFor={"username"}>{'Username'}</InputLabel>
         <Input
           id={"login--form-username"}
           onChange={this.setUsername}
@@ -173,7 +173,7 @@ export default class LoginModal extends Component {
         required={password.required}
         style={{ marginTop: '8px' }}
       >
-        <InputLabel htmlFor={"password"}>Password</InputLabel>
+        <InputLabel htmlFor={"password"}>{'Password'}</InputLabel>
         <Input
           id={"login--form-password"}
           onChange={this.setPassword}
@@ -202,7 +202,7 @@ export default class LoginModal extends Component {
         open={visibility}
         >
         <form noValidate={true} onSubmit={this.validateCredentials}>
-          <DialogTitle>Login</DialogTitle>
+          <DialogTitle>{'Login'}</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
             {this.renderNameField()}
@@ -215,7 +215,7 @@ export default class LoginModal extends Component {
               onClick={onCancel}
               type={"button"}
             >
-              Cancel
+              {'Cancel'}
             </Button>
             <Button
               color={"inherit"}
@@ -223,7 +223,7 @@ export default class LoginModal extends Component {
               id={"login--form-submit"}
               type={"submit"}
             >
-              Login
+              {'Login'}
             </Button>
           </DialogActions>
         </form>
