@@ -28,7 +28,8 @@ export default class PackageSidebar extends React.Component {
   }
 
   async componentDidMount() {
-    await this.loadPackageData(this.props.packageName);
+    const { packageName } = this.props;
+    await this.loadPackageData(packageName);
   }
 
   async loadPackageData(packageName) {
@@ -48,7 +49,7 @@ export default class PackageSidebar extends React.Component {
   }
 
   render() {
-    let {packageMeta} = this.state;
+    const { packageMeta } = this.state;
 
     if (packageMeta) {
       const {time, _uplinks} = packageMeta;
@@ -70,7 +71,7 @@ export default class PackageSidebar extends React.Component {
 
       // Maintainers component
       return (  
-        <aside className="sidebar-info">
+        <aside className={'sidebar-info'}>
           {time && (
             <LastSync
               lastUpdated={lastUpdated}
@@ -91,7 +92,7 @@ export default class PackageSidebar extends React.Component {
       );
     }
     return (
-      <aside className="sidebar-loading">Loading package information...</aside>
+      <aside className={'sidebar-loading'}>{'Loading package information...'}</aside>
     );
   }
 }

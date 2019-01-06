@@ -37,9 +37,10 @@ export default class Detail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const condition1 = prevProps.isUserLoggedIn !== this.props.isUserLoggedIn;
+    const { isUserLoggedIn, match } = this.props;
+    const condition1 = prevProps.isUserLoggedIn !== isUserLoggedIn;
     const condition2 =
-      prevProps.match.params.package !== this.props.match.params.package;
+      prevProps.match.params.package !== match.params.package;
     if (condition1 || condition2) {
       const packageName = this.getPackageName(this.props);
       this.loadPackageInfo(packageName);
@@ -69,7 +70,7 @@ export default class Detail extends Component {
 
     if (notFound) {
       return (
-        <div className='container content'>
+        <div className={'container content'}>
           <NotFound pkg={this.packageName} />
         </div>
       );

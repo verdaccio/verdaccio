@@ -8,7 +8,7 @@ import classes from './style.scss';
 const renderSection = (title, url) => (
   <li>
     <span>{title}</span>
-    <a href={url} rel="noopener noreferrer" target="_blank">
+    <a href={url} rel={'noopener noreferrer'} target={'_blank'}>
       {url}
     </a>
   </li>
@@ -17,17 +17,17 @@ const renderSection = (title, url) => (
 const Infos = ({homepage, repository, license}) => {
   const showInfo = homepage || repository || license;
   return (
-    <Module className={classes.infosModule} title="Infos">
+    <Module className={classes.infosModule} title={'Infos'}>
       {showInfo ? (
         <ul>
           {homepage && renderSection('Homepage', homepage)}
           {repository && renderSection('Repository', repository)}
           {license && (
           <li>
-            <span>License</span>
+            <span>{'License'}</span>
             <span>{license}</span>
           </li>)}
-        </ul>) : <ModuleContentPlaceholder text="Not Available!" />}
+        </ul>) : <ModuleContentPlaceholder text={'Not Available!'} />}
     </Module>);
 };
 

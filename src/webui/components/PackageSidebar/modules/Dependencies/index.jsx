@@ -21,7 +21,7 @@ const renderDependenciesList = (dependencies, dependenciesList) => {
             title={`Depend on version: ${dependencies[dependenceName]}`}
           >
             <a href={getDetailPageURL(dependenceName)}>{dependenceName}</a>
-            {index < dependenciesList.length - 1 && <span>,&nbsp;</span>}
+            {index < dependenciesList.length - 1 && <span>{',&nbsp;'}</span>}
           </li>
         );
       })}

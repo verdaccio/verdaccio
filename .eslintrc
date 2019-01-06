@@ -62,7 +62,7 @@
       ]
     }],
     "react/void-dom-elements-no-children": ["warn"],
-    "react/no-did-mount-set-state": ["warn", "disallow-in-func"],
+    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
     "react/jsx-wrap-multilines": ["error",{
       "declaration": "parens",
       "assignment": "parens",

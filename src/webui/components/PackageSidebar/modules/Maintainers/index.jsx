@@ -31,7 +31,7 @@ export default class Maintainers extends React.Component {
   }
 
   get contributors() {
-    let contributors = get(this, 'props.packageMeta.latest.contributors', {});
+    const contributors = get(this, 'props.packageMeta.latest.contributors', {});
     return filter(contributors, (contributor) => {
       return (
         contributor.name !== get(this, 'author.name') &&
@@ -41,7 +41,8 @@ export default class Maintainers extends React.Component {
   }
 
   get showAllContributors() {
-    return this.state.showAllContributors || size(this.contributors) <= 5;
+    const { showAllContributors } = this.state;
+    return showAllContributors || size(this.contributors) <= 5;
   }
 
   get uniqueContributors() {
@@ -73,7 +74,7 @@ export default class Maintainers extends React.Component {
           avatar={contributor.avatar}
           key={index}
           name={contributor.name}
-          title="Contributors"
+          title={'Contributors'}
         />
       );
     });
@@ -82,13 +83,13 @@ export default class Maintainers extends React.Component {
   renderAuthorAndContributors(author) {
     return (
       <div>
-        <ul className="maintainer-author">
+        <ul className={'maintainer-author'}>
           {author &&
             author.name && (
               <MaintainerInfo
                 avatar={author.avatar}
                 name={author.name}
-                title="Author"
+                title={'Author'}
               />
             )}
           {this.renderContributors()}
@@ -97,9 +98,9 @@ export default class Maintainers extends React.Component {
           <button
             className={classes.showAllContributors}
             onClick={this.handleShowAllContributors}
-            title="Current list only show the author and first 5 contributors unique by name"
+            title={'Current list only show the author and first 5 contributors unique by name'}
           >
-            Show all contributor
+            {'Show all contributor'}
           </button>
         )}
       </div>
@@ -107,14 +108,13 @@ export default class Maintainers extends React.Component {
   }
 
   render() {
-    let author = this.author;
     const contributors = this.renderContributors();
     return (
-      <Module className={classes.maintainersModule} title="Maintainers">
-        {contributors.length || has(author, 'name') ? (
-          this.renderAuthorAndContributors(author)
+      <Module className={classes.maintainersModule} title={'Maintainers'}>
+        {contributors.length || has(this.author, 'name') ? (
+          this.renderAuthorAndContributors(this.author)
         ) : (
-          <ModuleContentPlaceholder text="Not Available!" />
+          <ModuleContentPlaceholder text={'Not Available!'} />
         )}
       </Module>
     );

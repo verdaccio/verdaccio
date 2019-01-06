@@ -24,7 +24,8 @@ import RegistryInfoDialog from '../RegistryInfoDialog';
 import Label from '../Label';
 import Search from '../Search';
 
-import { IProps, IState, ToolTipType } from './types';
+import { IProps, IState } from './types';
+import type { ToolTipType } from './types';
 import { Greetings, NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar, LeftSide, RightSide, IconSearchButton, SearchWrapper } from './styles';
 
 class Header extends Component<IProps, IState> {
@@ -39,16 +40,9 @@ class Header extends Component<IProps, IState> {
     super(props);
     this.state = {
       openInfoDialog: false,
-      registryUrl: '',
+      registryUrl: getRegistryURL(),
       showMobileNavBar: false,
     };
-  }
-
-  componentDidMount() {
-    const registryUrl = getRegistryURL();
-    this.setState({
-      registryUrl,
-    });
   }
 
   /**
@@ -165,7 +159,7 @@ class Header extends Component<IProps, IState> {
     const { username = '', withoutSearch = false } = this.props;
     return (
       <RightSide>
-        {!withoutSearch && this.renderToolTip('Search packages', 'search')}
+        {!withoutSearch && this.renderToolTipIcon('Search packages', 'search')}
         {this.renderToolTipIcon('Documentation', 'help')}
         {this.renderToolTipIcon('Registry Information', 'info')}
         {username ? (

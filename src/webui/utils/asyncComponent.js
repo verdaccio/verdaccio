@@ -1,18 +1,19 @@
 import React from 'react';
 
-export function asyncComponent(getComponent) {
+export function asyncComponent(getComponentFunc) {
   return class AsyncComponent extends React.Component {
     static Component = null;
-    state = {Component: AsyncComponent.Component};
+    state = {Component: this.getComponent()};
 
-    componentDidMount() {
-      const { Component } = this.state;
-      if (!Component) {
-        getComponent().then(({default: Component}) => {
+    getComponent() {
+      if (!AsyncComponent.Component) {
+        getComponentFunc().then(({default: Component}) => {
           AsyncComponent.Component = Component;
-          this.setState({Component});
+          return Component;
         });
       }
+
+      return AsyncComponent.Component;
     }
     
     render() {

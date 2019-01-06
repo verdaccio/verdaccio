@@ -10,7 +10,7 @@ import { IProps } from './types';
 const NotFound = ({ pkg }: IProps) => (
   <Wrapper>
     <h1>
-      {'Error 404 -'}
+      {'Error 404 - '}
       {pkg}
     </h1>
     <hr />
