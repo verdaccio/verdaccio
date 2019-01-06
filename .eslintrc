@@ -88,7 +88,7 @@
     "react/jsx-no-duplicate-props": ["warn"],
     "react/jsx-no-literals": ["warn"],
     "react/jsx-no-undef": ["error"],
-    "react/jsx-one-expression-per-line": ["warn", {"allow": "single-child"}],
+    "react/jsx-one-expression-per-line": ["error", {"allow": "single-child"}],
     "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "ignore" }],
     "react/jsx-pascal-case": ["error"],
     "react/jsx-props-no-multi-spaces": ["error"],
