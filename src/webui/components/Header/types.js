@@ -17,3 +17,5 @@ export interface IState {
   registryUrl: string;
   showMobileNavBar: boolean;
 }
+
+export type ToolTipType = 'search' | 'help' | 'info';

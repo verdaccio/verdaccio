@@ -190,9 +190,33 @@ export default class LoginModal extends Component {
     );
   }
 
+  renderActions = () => {
+    const { form: { username, password } } = this.state;
+    const { onCancel } = this.props;
+    return (
+      <DialogActions className={"dialog-footer"}>
+        <Button
+          color={"inherit"}
+          id={"login--form-cancel"}
+          onClick={onCancel}
+          type={"button"}
+            >
+          {'Cancel'}
+        </Button>
+        <Button
+          color={"inherit"}
+          disabled={!password.value || !username.value}
+          id={"login--form-submit"}
+          type={"submit"}
+            >
+          {'Login'}
+        </Button>
+      </DialogActions>
+    );
+  }
+
   render() {
     const { visibility, onCancel, error } = this.props;
-    const { form: { username, password } } = this.state;
     return (
       <Dialog
         fullWidth={true}
@@ -208,24 +232,7 @@ export default class LoginModal extends Component {
             {this.renderNameField()}
             {this.renderPasswordField()}
           </DialogContent>
-          <DialogActions className={"dialog-footer"}>
-            <Button
-              color={"inherit"}
-              id={"login--form-cancel"}
-              onClick={onCancel}
-              type={"button"}
-            >
-              {'Cancel'}
-            </Button>
-            <Button
-              color={"inherit"}
-              disabled={!password.value || !username.value}
-              id={"login--form-submit"}
-              type={"submit"}
-            >
-              {'Login'}
-            </Button>
-          </DialogActions>
+          {this.renderActions()}
         </form>
       </Dialog>
     );

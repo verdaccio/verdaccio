@@ -24,7 +24,7 @@ import RegistryInfoDialog from '../RegistryInfoDialog';
 import Label from '../Label';
 import Search from '../Search';
 
-import { IProps, IState } from './types';
+import { IProps, IState, ToolTipType } from './types';
 import { Greetings, NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar, LeftSide, RightSide, IconSearchButton, SearchWrapper } from './styles';
 
 class Header extends Component<IProps, IState> {
@@ -129,28 +129,45 @@ class Header extends Component<IProps, IState> {
     );
   };
 
-  renderRightSide = (): Node => {
-    const { username = '', withoutSearch = false } = this.props;
-    const installationLink = 'https://verdaccio.org/docs/en/installation';
-    return (
-      <RightSide>
-        {!withoutSearch && (
-          <Tooltip disableFocusListener={true} title={'Search packages'}>
-            <IconSearchButton color={'inherit'} onClick={this.handleToggleMNav}>
-              <IconSearch />
-            </IconSearchButton>
-          </Tooltip>
-        )}
-        <Tooltip disableFocusListener={true} title={'Documentation'}>
-          <IconButton blank={true} color={'inherit'} component={Link} to={installationLink}>
+  renderToolTipIcon = (title: string, type: ToolTipType) => {
+    let content;
+    switch (type) {
+      case 'help':
+        content = (
+          <IconButton blank={true} color={'inherit'} component={Link} to={'https://verdaccio.org/docs/en/installation'}>
             <Help />
           </IconButton>
-        </Tooltip>
-        <Tooltip disableFocusListener={true} title={'Registry Information'}>
+        );
+        break;
+      case 'info':
+        content = (
           <IconButton color={'inherit'} id={'header--button-registryInfo'} onClick={this.handleOpenRegistryInfoDialog}>
             <Info />
           </IconButton>
-        </Tooltip>
+        );
+        break;
+      case 'search':
+        content = (
+          <IconSearchButton color={'inherit'} onClick={this.handleToggleMNav}>
+            <IconSearch />
+          </IconSearchButton>
+        );
+        break;
+    }
+    return (
+      <Tooltip disableFocusListener={true} title={title}>
+        {content}
+      </Tooltip>
+    );
+  };
+
+  renderRightSide = (): Node => {
+    const { username = '', withoutSearch = false } = this.props;
+    return (
+      <RightSide>
+        {!withoutSearch && this.renderToolTip('Search packages', 'search')}
+        {this.renderToolTipIcon('Documentation', 'help')}
+        {this.renderToolTipIcon('Registry Information', 'info')}
         {username ? (
           this.renderMenu()
         ) : (
@@ -162,11 +179,21 @@ class Header extends Component<IProps, IState> {
     );
   };
 
+  renderGreetings = () => {
+    const { username = '' } = this.props;
+    return (
+      <>
+        <Greetings>{`Hi,`}</Greetings>
+        <Label capitalize={true} limit={140} text={username} weight={'bold'} />
+      </>
+    );
+  };
+
   /**
    * render popover menu
    */
   renderMenu = (): Node => {
-    const { onLogout, username = '' } = this.props;
+    const { onLogout } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
@@ -187,10 +214,7 @@ class Header extends Component<IProps, IState> {
             vertical: 'top',
             horizontal: 'right',
           }}>
-          <MenuItem disabled={true}>
-            <Greetings>{`Hi,`}</Greetings>
-            <Label capitalize={true} limit={140} text={username} weight={'bold'} />
-          </MenuItem>
+          <MenuItem disabled={true}>{this.renderGreetings()}</MenuItem>
           <MenuItem id={'header--button-logout'} onClick={onLogout}>
             {'Logout'}
           </MenuItem>

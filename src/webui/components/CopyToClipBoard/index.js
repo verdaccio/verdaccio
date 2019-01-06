@@ -29,15 +29,20 @@ const copyToClipBoardUtility = (str: string) => (event: SyntheticEvent<HTMLEleme
   }
 };
 
-const CopyToClipBoard = ({ text }: IProps): Node => (
-  <ClipBoardCopy>
-    <ClipBoardCopyText>{text}</ClipBoardCopyText>
+const CopyToClipBoard = ({ text }: IProps): Node => {
+  const renderToolTipFileCopy = () => (
     <Tooltip disableFocusListener={true} title={'Copy to Clipboard'}>
       <CopyIcon onClick={copyToClipBoardUtility(text)}>
         <FileCopy />
       </CopyIcon>
     </Tooltip>
-  </ClipBoardCopy>
-);
+  );
+  return (
+    <ClipBoardCopy>
+      <ClipBoardCopyText>{text}</ClipBoardCopyText>
+      {renderToolTipFileCopy()}
+    </ClipBoardCopy>
+  );
+};
 
 export default CopyToClipBoard;
