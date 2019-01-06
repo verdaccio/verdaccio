@@ -120,7 +120,7 @@
     "prefer-spread": 1,
     "prefer-rest-params": 1,
     "linebreak-style": 0,
-    "quote-props":["warn", "as-needed"],
+    "quote-props":["error", "as-needed"],
     "verdaccio/jsx-no-style": ["warn"],
     "verdaccio/jsx-spread": ["warn"],
     "jest/expect-expect": 0
