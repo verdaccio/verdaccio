@@ -85,7 +85,7 @@
     "react/jsx-max-props-per-line": ["error", {"maximum": 3, "when": "multiline" }],
     "react/jsx-no-bind": ["error"],
     "react/jsx-no-comment-textnodes": ["warn"],
-    "react/jsx-no-duplicate-props": ["warn"],
+    "react/jsx-no-duplicate-props": ["error"],
     "react/jsx-no-literals": ["error"],
     "react/jsx-no-undef": ["error"],
     "react/jsx-one-expression-per-line": ["error", {"allow": "single-child"}],
