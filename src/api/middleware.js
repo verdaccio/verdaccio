@@ -5,7 +5,9 @@ import {
   validateName as utilValidateName,
   validate_package as utilValidatePackage,
   isObject,
-  ErrorCode} from '../lib/utils';
+  ErrorCode,
+  getVersionFromTarball,
+} from '../lib/utils';
 import {API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER} from '../lib/constants';
 import {stringToMD5} from '../lib/crypto-utils';
 import type {$ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth} from '../../types';
@@ -101,13 +103,11 @@ export function allow(auth: IAuth) {
   return function(action: string) {
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       req.pause();
-      const pkg = {};
-      pkg.packageName = req.params.scope?`@${req.params.scope}/${req.params.package}`:req.params.package;
-      if (req.params.filename && /.+-(\d.+)\.tgz/.test(req.params.filename)) {
-        pkg.packageVersion = req.params.filename.match(/.+-(\d.+)\.tgz/)[1];
-      }
+      const packageName = req.params.scope?`@${req.params.scope}/${req.params.package}`:req.params.package;
+      const packageVersion = req.params.filename?getVersionFromTarball(req.params.filename):undefined;
+
       // $FlowFixMe
-      auth['allow_' + action](pkg, req.remote_user, function(error, allowed) {
+      auth['allow_' + action]({packageName, packageVersion}, req.remote_user, function(error, allowed) {
         req.resume();
         if (error) {
           next(error);

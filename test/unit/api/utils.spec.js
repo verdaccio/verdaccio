@@ -7,7 +7,8 @@ import {
   validateName as validate,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
-  addGravatarSupport
+  addGravatarSupport,
+  getVersionFromTarball
 } from '../../../src/lib/utils';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
@@ -125,6 +126,19 @@ describe('Utilities', () => {
         buildURI(host, '1.0.1')
       );
     });
+
+    test('getVersionFromTarball', () => {
+      const simpleName = 'test-name-4.2.12.tgz'
+      const complexName = 'test-5.6.4-beta.2.tgz'
+      const otherComplexName = 'test-3.5.0-6.tgz'
+      expect(getVersionFromTarball(simpleName)).toEqual('4.2.12')
+      expect(getVersionFromTarball(complexName)).toEqual('5.6.4-beta.2')
+      expect(getVersionFromTarball(otherComplexName)).toEqual('3.5.0-6')
+    })
+
+    test('getVersionFromTarball should don\'n fall at incorrect tarball name', () => {
+      expect(getVersionFromTarball('incorrectName')).toBeUndefined()
+    })
   });
 
   describe('parseReadme', () => {
