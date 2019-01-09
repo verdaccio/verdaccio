@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.4"></a>
+# [4.0.0-alpha.4](https://github.com/verdaccio/verdaccio/compare/v3.10.1...v4.0.0-alpha.4) (2019-01-09)
+
+
+### Bug Fixes
+
+* applied jsx-max-depth ([d940da4](https://github.com/verdaccio/verdaccio/commit/d940da4))
+* applied prefer-const ([4962e36](https://github.com/verdaccio/verdaccio/commit/4962e36))
+* applied valid-describe ([3bda0cf](https://github.com/verdaccio/verdaccio/commit/3bda0cf))
+* applied valid-describe ([2b48958](https://github.com/verdaccio/verdaccio/commit/2b48958))
+* applied valid-expect-in-promise ([c7034e7](https://github.com/verdaccio/verdaccio/commit/c7034e7))
+* broken home page ([4f41fc9](https://github.com/verdaccio/verdaccio/commit/4f41fc9))
+* click on logo break ui ([#1071](https://github.com/verdaccio/verdaccio/issues/1071)) ([5b34dc8](https://github.com/verdaccio/verdaccio/commit/5b34dc8))
+* issue on refactor router ([19b0f47](https://github.com/verdaccio/verdaccio/commit/19b0f47))
+
+
+### Features
+
+* add support for profile cli command [#392](https://github.com/verdaccio/verdaccio/issues/392) (change password) ([#1034](https://github.com/verdaccio/verdaccio/issues/1034)) ([f1416ed](https://github.com/verdaccio/verdaccio/commit/f1416ed))
+* endpoints change password on ui ([#1068](https://github.com/verdaccio/verdaccio/issues/1068)) ([712db31](https://github.com/verdaccio/verdaccio/commit/712db31))
+* stop hit proxies on search web UI ([#1126](https://github.com/verdaccio/verdaccio/issues/1126)) ([2362310](https://github.com/verdaccio/verdaccio/commit/2362310))
+
 <a name="4.0.0-alpha.3"></a>
 # [4.0.0-alpha.3](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.3) (2018-10-12)
 
@@ -1143,3 +1165,4 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 ## 22 May 2013, version 0.0.0
 
 - first commits
+
