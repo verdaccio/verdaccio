@@ -4801,7 +4801,7 @@ express@4.16.3:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-express@^4.16.2, express@^4.16.3:
+express@4.16.4, express@^4.16.2, express@^4.16.3:
   version "4.16.4"
   resolved "https://registry.npmjs.org/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
   integrity sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg==
@@ -12781,15 +12781,13 @@ vendors@^1.0.0:
   resolved "https://registry.npmjs.org/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
   integrity sha512-w/hry/368nO21AN9QljsaIhb9ZiZtZARoVH5f3CsFbawdLdayCgKRPup7CggujvySMxx0I91NOyxdVENohprLQ==
 
-verdaccio-audit@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-1.0.0.tgz#4893baac6f711c4d065022684085220060b7c020"
-  integrity sha512-8lNrtdRt5wafBcVhM/yziPcItPWuOFmlPQn7+E+GxH0oAjUiA4ag0uBPykbtl+CVj4gQeJAwoBxhrctRgC/ETA==
+verdaccio-audit@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-1.1.0.tgz#82c2c6722fc3ce61f3ba45bf1a2046b247f00d28"
+  integrity sha512-5bCiTWWBauq49vF1Ndt0Jl0GbIBDOzjiRNO33gWBPfgjoZfPn8wFpR/woFcMfS3SPzC06rH9LBcUn9KN3uWjEg==
   dependencies:
-    body-parser "1.18.3"
-    compression "1.7.3"
-    express "4.16.3"
-    request "2.87.0"
+    express "4.16.4"
+    request "2.88.0"
 
 verdaccio-auth-memory@0.0.4:
   version "0.0.4"
