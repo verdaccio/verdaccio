@@ -22,7 +22,6 @@
   <a href="https://codecov.io/github/verdaccio/verdaccio"><img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg"></a>
   <a href="https://www.npmjs.org/package/verdaccio"><img alt="npm Downloads" src="http://img.shields.io/npm/dm/verdaccio.svg"></a>
   <a href="https://hub.docker.com/r/verdaccio/verdaccio/"><img alt="npm Downloads" src="https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200"></a>
-  <a href="https://www.browserstack.com/automate/public-build/am8rVDJ1V1BSbW90aE4xUnZsbnNUOFVuVS9ZRmJWL3NWcjkzRUxycHF3TT0tLUh5aTBiY2VzT1A1NDRWdHg2L0FQT3c9PQ==--0e9064ebcb01bfebb9976a543500b0396c0bfcae%"><img src='https://www.browserstack.com/automate/badge.svg?badge_key=am8rVDJ1V1BSbW90aE4xUnZsbnNUOFVuVS9ZRmJWL3NWcjkzRUxycHF3TT0tLUh5aTBiY2VzT1A1NDRWdHg2L0FQT3c9PQ==--0e9064ebcb01bfebb9976a543500b0396c0bfcae%'/></a>
   <a href="https://discord.gg/AwXRqPD"
   ><img alt="discord" src="https://img.shields.io/badge/Discord-%23questions%20%23general-blue.svg"/>
   </a>
