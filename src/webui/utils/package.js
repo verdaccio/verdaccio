@@ -1,8 +1,10 @@
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
-export const TIMEFORMAT = 'DD.MM.YYYY, HH:mm:ss';
 import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+
+export const TIMEFORMAT = 'DD.MM.YYYY, HH:mm:ss';
+export const DEFAULT_USER = 'Anonymous';
 
 /**
  * Formats license field for webui.
@@ -42,21 +44,25 @@ export function formatRepository(repository) {
  * @see https://docs.npmjs.com/files/package.json#author
  */
 export function formatAuthor(author) {
-    let authorDetails = { name: 'Anonymous', email: '', avatar: '' };
+    let authorDetails = {
+      name: DEFAULT_USER,
+      email: '',
+      avatar: '',
+    };
 
     if (isString(author)) {
-      authorDetails = { 
-        ...authorDetails, 
-        name: author ? author : authorDetails.name
+      authorDetails = {
+        ...authorDetails,
+        name: author ? author : authorDetails.name,
       };
     }
 
     if (isObject(author)) {
-      authorDetails = { 
-        ...authorDetails, 
+      authorDetails = {
+        ...authorDetails,
         name: author.name ? author.name : authorDetails.name,
         email: author.email ? author.email : authorDetails.email,
-        avatar: author.avatar ? author.avatar : authorDetails.avatar
+        avatar: author.avatar ? author.avatar : authorDetails.avatar,
       };
     }
 
@@ -87,7 +93,7 @@ export function getLastUpdatedPackageTime(uplinks = {}) {
 export function getRecentReleases(time = {}) {
   const recent = Object.keys(time).map((version) => ({
     version,
-    time: formatDate(time[version])
+    time: formatDate(time[version]),
   }));
   return recent.slice(recent.length - 3, recent.length).reverse();
 }

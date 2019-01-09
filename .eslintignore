@@ -5,3 +5,8 @@ static/
 flow-typed/
 website/
 build/
+*.md
+*.lock
+*.yaml
+Dockerfile
+*.rpi

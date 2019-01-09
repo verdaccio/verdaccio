@@ -42,7 +42,7 @@ class API {
         fetch(url, {
           method,
           credentials: 'same-origin',
-          ...options
+          ...options,
         })
         .then(handleResponseType)
         .then(([responseOk, body]) => {

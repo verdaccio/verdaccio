@@ -19,7 +19,6 @@ const renderInputComponent = (inputProps): Node => {
   const { ref, startAdornment, disableUnderline, onKeyDown, ...others } = inputProps;
   return (
     <InputField
-      fullWidth
       InputProps={{
         inputRef: node => {
           ref(node);
@@ -28,6 +27,7 @@ const renderInputComponent = (inputProps): Node => {
         disableUnderline,
         onKeyDown,
       }}
+      fullWidth={true}
       {...others}
     />
   );
@@ -39,15 +39,15 @@ const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
   const matches = match(suggestion.name, query);
   const parts = parse(suggestion.name, matches);
   return (
-    <MenuItem selected={isHighlighted} component="div">
+    <MenuItem component={'div'} selected={isHighlighted}>
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
-            <span key={String(index)} href={suggestion.link} style={{ fontWeight: fontWeight.semiBold }}>
+            <span href={suggestion.link} key={String(index)} style={{ fontWeight: fontWeight.semiBold }}>
               {part.text}
             </span>
           ) : (
-            <span key={String(index)} href={suggestion.link} style={{ fontWeight: fontWeight.light }}>
+            <span href={suggestion.link} key={String(index)} style={{ fontWeight: fontWeight.light }}>
               {part.text}
             </span>
           );
@@ -59,7 +59,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }): Node => {
 
 const renderMessage = (message): Node => {
   return (
-    <MenuItem selected={false} component="div">
+    <MenuItem component={'div'} selected={false}>
       <div>{message}</div>
     </MenuItem>
   );
@@ -96,30 +96,32 @@ const AutoComplete = ({
     onSuggestionsFetchRequested: onSuggestionsFetch,
     onSuggestionsClearRequested: onCleanSuggestions,
   };
+  const inputProps = {
+    value,
+    onChange,
+    placeholder,
+    startAdornment,
+    disableUnderline,
+    color,
+    onKeyDown,
+    onBlur,
+  };
+
+  // this format avoid arrow function eslint rule
+  function renderSuggestionsContainer({ containerProps, children, query }) {
+    return (
+      <Paper {...containerProps} square={true}>
+        {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
+        {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
+        {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
+        {children}
+      </Paper>
+    );
+  }
+
   return (
     <Wrapper>
-      <Autosuggest
-        {...autosuggestProps}
-        inputProps={{
-          value,
-          onChange,
-          placeholder,
-          startAdornment,
-          disableUnderline,
-          color,
-          onKeyDown,
-          onBlur,
-        }}
-        renderSuggestionsContainer={({ containerProps, children, query }) => (
-          <Paper {...containerProps} square>
-            {suggestionsLoaded && children === null && query && renderMessage(SUGGESTIONS_RESPONSE.NO_RESULT)}
-            {suggestionsLoading && query && renderMessage(SUGGESTIONS_RESPONSE.LOADING)}
-            {suggestionsError && renderMessage(SUGGESTIONS_RESPONSE.FAILURE)}
-            {children}
-          </Paper>
-        )}
-        onSuggestionSelected={onClick}
-      />
+      <Autosuggest {...autosuggestProps} inputProps={inputProps} onSuggestionSelected={onClick} renderSuggestionsContainer={renderSuggestionsContainer} />
     </Wrapper>
   );
 };

@@ -13,15 +13,19 @@ const displayState = (description) => {
 const PackageDetail = ({packageName, readMe}) => {
   return (
     <div className={classes.pkgDetail}>
-      <h1 className={classes.title}>{packageName}</h1>
-      <div className={classes.readme}>{displayState(readMe)}</div>
+      <h1 className={classes.title}>
+        {packageName}
+      </h1>
+      <div className={classes.readme}>
+        {displayState(readMe)}
+      </div>
     </div>
   );
 };
 
 PackageDetail.propTypes = {
   readMe: PropTypes.string,
-  packageName: PropTypes.string.isRequired
+  packageName: PropTypes.string.isRequired,
 };
 
 export default PackageDetail;

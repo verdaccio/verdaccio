@@ -46,10 +46,9 @@ export default {
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin(),
     new StyleLintPlugin({
-      files: ['src/**/*.scss'],
+      files: ['src/webui/**/styles.js'],
       failOnError: false,
-      emitErrors: false,
-      syntax: 'scss',
+      emitErrors: false
     }),
   ],
 };

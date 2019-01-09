@@ -4,16 +4,16 @@ const breakpoints = {
   small: 576,
   medium: 768,
   large: 1024,
-  xlarge: 1275
+  xlarge: 1275,
 };
 
 const mq = Object.keys(breakpoints).reduce(
   (accumulator, label) => {
-    let prefix =
+    const prefix =
       typeof breakpoints[label] === 'string'
         ? ''
         : 'min-width:';
-    let suffix =
+    const suffix =
       typeof breakpoints[label] === 'string' ? '' : 'px';
     accumulator[label] = cls =>
       css`

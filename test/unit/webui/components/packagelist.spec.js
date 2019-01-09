@@ -9,19 +9,19 @@ import Help from '../../../../src/webui/components/Help/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<PackageList /> component', () => {
-  it('should load the component with no packages', () => {
+  test('should load the component with no packages', () => {
     const props = {
       packages: [],
       help: true
     };
     const wrapper = mount(
-      <PackageList packages={props.packages} help={props.help} />
+      <PackageList help={props.help} packages={props.packages} />
     );
     expect(wrapper.find(Help).exists()).toBeTruthy();
 
   });
 
-  it('should load the component with packages', () => {
+  test('should load the component with packages', () => {
     const props = {
       packages: [
         {
@@ -50,7 +50,7 @@ describe('<PackageList /> component', () => {
 
     const wrapper = mount(
       <BrowserRouter>
-        <PackageList packages={props.packages} help={props.help} />
+        <PackageList help={props.help} packages={props.packages} />
       </BrowserRouter>
     );
 

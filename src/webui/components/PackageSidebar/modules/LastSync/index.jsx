@@ -5,33 +5,31 @@ import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
 
 import classes from './style.scss';
 
-const renderRecentReleases = (recentReleases) => {
-  return (
-    <ul>
-      {recentReleases.map((versionInfo) => {
-        const {version, time} = versionInfo;
-        return (
-          <li className="last-sync-item" key={version}>
-            <span>{version}</span>
-            <span>{time}</span>
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
+const renderRecentReleases = (recentReleases) => (
+  <ul>
+    {recentReleases.map((versionInfo) => {
+      const {version, time} = versionInfo;
+      return (
+        <li className={'last-sync-item'} key={version}>
+          <span>{version}</span>
+          <span>{time}</span>
+        </li>
+      );
+    })}
+  </ul>
+);
 
 const LastSync = ({recentReleases = [], lastUpdated = ''}) => {
   return (
     <Module
-      title="Last Sync"
-      description={lastUpdated}
       className={classes.releasesModule}
+      description={lastUpdated}
+      title={'Last Sync'}
     >
       {recentReleases.length ? (
         renderRecentReleases(recentReleases)
       ) : (
-        <ModuleContentPlaceholder text="Not Available!" />
+        <ModuleContentPlaceholder text={'Not Available!'} />
       )}
     </Module>
   );
@@ -39,7 +37,7 @@ const LastSync = ({recentReleases = [], lastUpdated = ''}) => {
 
 LastSync.propTypes = {
   recentReleases: propTypes.array,
-  lastUpdated: propTypes.string
+  lastUpdated: propTypes.string,
 };
 
 export default LastSync;

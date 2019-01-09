@@ -7,12 +7,12 @@ import { shallow } from 'enzyme';
 import LastSync from '../../../../../src/webui/components/PackageSidebar/modules/LastSync/index';
 
 describe('<PackageSidebar /> : <LastSync />', () => {
-  it('should check the default props condition', () => {
-    const wrapper = shallow(<LastSync/>);
+  test('should check the default props condition', () => {
+    const wrapper = shallow(<LastSync />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should load the LastSync component and match snapshot', () => {
+  test('should load the LastSync component and match snapshot', () => {
     const props = {
       lastUpdated: '2017/12/14, 15:43:52',
       recentReleases: [
@@ -21,7 +21,7 @@ describe('<PackageSidebar /> : <LastSync />', () => {
         { time: '2017/11/08, 22:47:16', version: '2.6.6' }
       ]
     };
-    const wrapper = shallow(<LastSync {...props}/>);
+    const wrapper = shallow(<LastSync {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

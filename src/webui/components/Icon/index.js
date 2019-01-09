@@ -7,7 +7,7 @@ import React from 'react';
 import type { Node } from 'react';
 import capitalize from 'lodash/capitalize';
 
-import { SVG, Img, ImgWrapper } from './styles';
+import { Svg, Img, ImgWrapper } from './styles';
 import { IProps, IIconsMap } from './types';
 
 import brazil from './img/brazil.svg';
@@ -40,14 +40,14 @@ export const Icons: $Shape<IIconsMap> = {
 const Icon = ({ className, name, size = 'sm', img = false, pointer = false, ...props }: IProps): Node => {
   const title = capitalize(name);
   return img ? (
-    <ImgWrapper className={className} size={size} title={title} pointer={pointer} {...props}>
-      <Img src={Icons[name]} alt={title} />
+    <ImgWrapper className={className} pointer={pointer} size={size} title={title} {...props}>
+      <Img alt={title} src={Icons[name]} />
     </ImgWrapper>
   ) : (
-    <SVG className={className} size={size} pointer={pointer} {...props}>
+    <Svg className={className} pointer={pointer} size={size} {...props}>
       <title>{title}</title>
       <use xlinkHref={`${Icons[name]}#${name}`} />
-    </SVG>
+    </Svg>
   );
 };
 

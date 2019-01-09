@@ -9,9 +9,12 @@ import { IProps } from './types';
 
 const NotFound = ({ pkg }: IProps) => (
   <Wrapper>
-    <h1>Error 404 - {pkg}</h1>
+    <h1>
+      {'Error 404 - '}
+      {pkg}
+    </h1>
     <hr />
-    <p>Oops, The package you are trying to access does not exist.</p>
+    <p>{'Oops, The package you are trying to access does not exist.'}</p>
   </Wrapper>
 );
 

@@ -62,7 +62,7 @@ module.exports = function(config, auth, storage) {
   router.get('/', function(req, res) {
     const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
 
-    let webPage = template
+    const webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');

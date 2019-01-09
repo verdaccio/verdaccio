@@ -20,13 +20,13 @@ import type { Package } from '@verdaccio/types';
 export function mergeVersions(local: Package, up: Package) {
   // copy new versions to a cache
   // NOTE: if a certain version was updated, we can't refresh it reliably
-  for (let i in up.versions) {
+  for (const i in up.versions) {
     if (_.isNil(local.versions[i])) {
       local.versions[i] = up.versions[i];
     }
   }
 
-  for (let i in up[DIST_TAGS]) {
+  for (const i in up[DIST_TAGS]) {
     if (local[DIST_TAGS][i] !== up[DIST_TAGS][i]) {
       if (!local[DIST_TAGS][i] || semver.lte(local[DIST_TAGS][i], up[DIST_TAGS][i])) {
         local[DIST_TAGS][i] = up[DIST_TAGS][i];

@@ -5,7 +5,7 @@ jest.mock('../../../../src/webui/utils/api', () => ({
 }));
 
 describe('logo', () => {
-  it('loadLogo - should load verdaccio logo', async () => {
+  test('loadLogo - should load verdaccio logo', async () => {
     const url = await logo();
     expect(url).toEqual('http://localhost/-/static/logo.png');
   });

@@ -36,15 +36,16 @@ export default class App extends Component {
 
   // eslint-disable-next-line no-unused-vars
   componentDidUpdate(_, prevState) {
-    if (prevState.isUserLoggedIn !== this.state.isUserLoggedIn) {
+    const { isUserLoggedIn } = this.state;
+    if (prevState.isUserLoggedIn !== isUserLoggedIn) {
       this.loadPackages();
     }
   }
 
-  loadLogo = async () => {
+    loadLogo = async () => {
     const logoUrl = await logo();
-    this.setState({ 
-      logoUrl 
+    this.setState({
+      logoUrl,
     });
   }
 
@@ -57,7 +58,7 @@ export default class App extends Component {
     } else {
       this.setState({
         user: { username, token },
-        isUserLoggedIn: true
+        isUserLoggedIn: true,
       });
     }
   }
@@ -66,13 +67,13 @@ export default class App extends Component {
     try {
       this.req = await API.request('packages', 'GET');
       this.setState({
-        packages: this.req, 
-        isLoading: false
+        packages: this.req,
+        isLoading: false,
       });
     } catch (error) {
       this.handleShowAlertDialog({
         title: 'Warning',
-        message: `Unable to load package list: ${error.message}`
+        message: `Unable to load package list: ${error.message}`,
       });
       this.setLoading(false);
     }
@@ -80,7 +81,7 @@ export default class App extends Component {
 
   setLoading = isLoading => (
     this.setState({
-      isLoading
+      isLoading,
     })
   )
 
@@ -88,10 +89,10 @@ export default class App extends Component {
    * Toggles the login modal
    * Required by: <LoginModal /> <Header />
    */
-  toggleLoginModal = () => {
+  handleToggleLoginModal = () => {
     this.setState((prevState) => ({
       showLoginModal: !prevState.showLoginModal,
-      error: {}
+      error: {},
     }));
   }
 
@@ -99,7 +100,7 @@ export default class App extends Component {
    * handles login
    * Required by: <Header />
    */
-  doLogin = async (usernameValue, passwordValue) => {
+  handleDoLogin = async (usernameValue, passwordValue) => {
     const { username, token, error } = await makeLogin(
       usernameValue,
       passwordValue
@@ -114,7 +115,7 @@ export default class App extends Component {
     if (error) {
       this.setState({
         user: {},
-        error
+        error,
       });
     }
   }
@@ -126,7 +127,7 @@ export default class App extends Component {
         token,
       },
       isUserLoggedIn: true,  // close login modal after successful login
-      showLoginModal: false  // set isUserLoggedIn to true
+      showLoginModal: false,  // set isUserLoggedIn to true
     });
   }
   /**
@@ -138,34 +139,8 @@ export default class App extends Component {
     storage.removeItem('token');
     this.setState({
       user: {},
-      isUserLoggedIn: false
+      isUserLoggedIn: false,
     });
-  }
-
-  renderHeader = () => {
-    const { logoUrl, user, scope } = this.state;
-    return (
-      <Header 
-        logo={logoUrl}
-        username={user.username}
-        toggleLoginModal={this.toggleLoginModal}
-        onLogout={this.handleLogout}
-        scope={scope}
-      />
-    );
-  }
-  
-  renderLoginModal = () => {
-    const { error, showLoginModal } = this.state;
-    return (
-      <LoginModal
-        visibility={showLoginModal}
-        error={error}
-        onChange={this.setUsernameAndPassword}
-        onCancel={this.toggleLoginModal}
-        onSubmit={this.doLogin}
-      />
-    );
   }
 
   render() {
@@ -185,6 +160,32 @@ export default class App extends Component {
         )}
         {this.renderLoginModal()}
       </Container>
+    );
+  }
+
+  renderLoginModal = () => {
+    const { error, showLoginModal } = this.state;
+    return (
+      <LoginModal
+        error={error}
+        onCancel={this.handleToggleLoginModal}
+        onChange={this.handleSetUsernameAndPassword}
+        onSubmit={this.handleDoLogin}
+        visibility={showLoginModal}
+      />
+    );
+  }
+
+  renderHeader = () => {
+    const { logoUrl, user, scope } = this.state;
+    return (
+      <Header
+        logo={logoUrl}
+        onLogout={this.handleLogout}
+        onToggleLoginModal={this.handleToggleLoginModal}
+        scope={scope}
+        username={user.username}
+      />
     );
   }
 }

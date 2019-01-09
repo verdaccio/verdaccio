@@ -19,37 +19,34 @@ export default class LoginModal extends Component {
     visibility: PropTypes.bool,
     error: PropTypes.object,
     onCancel: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
   };
 
   static defaultProps = {
-    visibility: true,
     error: {},
     onCancel: () => {},
-    onSubmit: () => {}
+    onSubmit: () => {},
+    visibility: true,
   }
 
   constructor(props) {
     super(props);
-    this.submitCredentials = this.submitCredentials.bind(this);
-    this.setCredentials = this.setCredentials.bind(this);
-    this.validateCredentials = this.validateCredentials.bind(this);
     this.state = {
       form: {
         username: {
           required: true,
           pristine: true,
           helperText: 'Field required',
-          value: ''
+          value: '',
         },
         password:  {
           required: true,
           pristine: true,
           helperText: 'Field required',
-          value: ''
+          value: '',
         },
       },
-      error: props.error
+      error: props.error,
     };
   }
 
@@ -57,142 +54,187 @@ export default class LoginModal extends Component {
    * set login modal's username and password to current state
    * Required to login
    */
-  setCredentials(name, e) {
+  setCredentials = (name, e) => {
+    const { form } = this.state;
     this.setState({
       form: {
-        ...this.state.form,
+        ...form,
         [name]: {
-          ...this.state.form[name],
+          ...form[name],
           value: e.target.value,
-          pristine: false
-        }
-      }
+          pristine: false,
+        },
+      },
     });
   }
 
-  validateCredentials(event) {
+  setUsername = (event) => {
+    this.setCredentials('username', event);
+  }
+
+  setPassword = (event) => {
+    this.setCredentials('password', event);
+  }
+
+  validateCredentials = (event) => {
+    const { form } = this.state;
     // prevents default submit behavior
     event.preventDefault();
 
     this.setState({
-      form: Object.keys(this.state.form).reduce((acc, key) => ({
+      form: Object.keys(form).reduce((acc, key) => ({
         ...acc,
-        ...{ [key]: {...this.state.form[key], pristine: false } }
-      }), {})
+        ...{ [key]: {...form[key], pristine: false } },
+      }), {}),
     }, () => {
-      if (!Object.keys(this.state.form).some(id => !this.state.form[id])) {
+      if (!Object.keys(form).some(id => !form[id])) {
         this.submitCredentials();
       }
     });
   }
 
-  async submitCredentials() {
-    const { form: { username, password } } = this.state;
-    await this.props.onSubmit(username.value, password.value);
+  submitCredentials = async () => {
+    const { form } = this.state;
+    const { onSubmit } = this.props;
+    await onSubmit(form.username.value, form.password.value);
     // let's wait for API response and then set
     // username and password filed to empty state
     this.setState({
-     form: Object.keys(this.state.form).reduce((acc, key) => ({
+     form: Object.keys(form).reduce((acc, key) => ({
       ...acc,
-      ...{ [key]: {...this.state.form[key], value: "", pristine: true } }
-    }), {})
+      ...{ [key]: {...form[key], value: "", pristine: true } },
+    }), {}),
     });
+  }
+
+  renderErrorMessage(title, description) {
+    return (
+      <span>
+        <div>
+          <strong>
+            {title}
+          </strong>
+        </div>
+        <div>
+          {description}
+        </div>
+      </span>);
+  }
+
+  renderMessage(title, description) {
+    return (
+      <div
+        className={classes.loginErrorMsg}
+        id={"client-snackbar"}>
+        <ErrorIcon className={classes.loginIcon} />
+        {this.renderErrorMessage(title, description)}
+      </div>);
   }
 
   renderLoginError({ type, title, description } = {}) {
     return type === 'error' && (
       <SnackbarContent
         className={classes.loginError}
-        message={
-          <div
-            id="client-snackbar"
-            className={classes.loginErrorMsg}
-          >
-            <ErrorIcon className={classes.loginIcon} />
-            <span>
-              <div><strong>{title}</strong></div>
-              <div>{description}</div>
-            </span>
-          </div>
-        }
+        message={this.renderMessage(title, description)}
       />
+    );
+  }
+
+  renderNameField = () => {
+    const { form: { username } } = this.state;
+    return (
+      <FormControl
+        error={!username.value && !username.pristine}
+        fullWidth={true}
+        required={username.required}
+      >
+        <InputLabel htmlFor={"username"}>{'Username'}</InputLabel>
+        <Input
+          id={"login--form-username"}
+          onChange={this.setUsername}
+          placeholder={"Your username"}
+          value={username.value}
+        />
+        {!username.value && !username.pristine && (
+          <FormHelperText id={"username-error"}>
+            {username.helperText}
+          </FormHelperText>
+        )}
+      </FormControl>
+    );
+  }
+
+  renderPasswordField = () => {
+    const { form: { password } } = this.state;
+    return (
+      <FormControl
+        error={!password.value && !password.pristine}
+        fullWidth={true}
+        required={password.required}
+        style={{ marginTop: '8px' }}
+      >
+        <InputLabel htmlFor={"password"}>{'Password'}</InputLabel>
+        <Input
+          id={"login--form-password"}
+          onChange={this.setPassword}
+          placeholder={"Your strong password"}
+          type={"password"}
+          value={password.value}
+        />
+        {!password.value && !password.pristine && (
+          <FormHelperText id={"password-error"}>
+            {password.helperText}
+          </FormHelperText>
+        )}
+      </FormControl>
+    );
+  }
+
+  renderActions = () => {
+    const { form: { username, password } } = this.state;
+    const { onCancel } = this.props;
+    return (
+      <DialogActions className={"dialog-footer"}>
+        <Button
+          color={"inherit"}
+          id={"login--form-cancel"}
+          onClick={onCancel}
+          type={"button"}
+            >
+          {'Cancel'}
+        </Button>
+        <Button
+          color={"inherit"}
+          disabled={!password.value || !username.value}
+          id={"login--form-submit"}
+          type={"submit"}
+            >
+          {'Login'}
+        </Button>
+      </DialogActions>
     );
   }
 
   render() {
     const { visibility, onCancel, error } = this.props;
-    const { form: { username, password } } = this.state;
     return (
-        <Dialog
-          onClose={onCancel}
-          open={visibility}
-          id="login--form-container"
-          maxWidth="xs"
-          fullWidth
+      <Dialog
+        fullWidth={true}
+        id={"login--form-container"}
+        maxWidth={"xs"}
+        onClose={onCancel}
+        open={visibility}
         >
-        <form onSubmit={this.validateCredentials.bind(this)} noValidate>
-          <DialogTitle>Login</DialogTitle>
+        <form noValidate={true} onSubmit={this.validateCredentials}>
+          <DialogTitle>{'Login'}</DialogTitle>
           <DialogContent>
             {this.renderLoginError(error)}
-            <FormControl
-              error={!username.value && !username.pristine}
-              required={username.required}
-              fullWidth
-            >
-              <InputLabel htmlFor="username">Username</InputLabel>
-              <Input
-                id="login--form-username"
-                value={username.value}
-                onChange={this.setCredentials.bind(this, 'username')}
-                placeholder="Your username"
-              />
-              {!username.value && !username.pristine && (
-                <FormHelperText id='username-error'>
-                  {username.helperText}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl
-              error={!password.value && !password.pristine}
-              required={password.required}
-              style={{ marginTop: '8px' }}
-              fullWidth
-            >
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                id="login--form-password"
-                type="password"
-                value={password.value}
-                onChange={this.setCredentials.bind(this, 'password')}
-                placeholder="Your strong password"
-              />
-              {!password.value && !password.pristine && (
-                <FormHelperText id='password-error'>
-                  {password.helperText}
-                </FormHelperText>
-              )}
-            </FormControl>
+            {this.renderNameField()}
+            {this.renderPasswordField()}
           </DialogContent>
-          <DialogActions className="dialog-footer">
-            <Button
-              onClick={onCancel}
-              id="login--form-cancel"
-              color="inherit"
-              type="button"
-            >
-              Cancel
-              </Button>
-            <Button
-              id="login--form-submit"
-              type="submit"
-              color="inherit"
-              disabled={ !password.value || !username.value }
-            >
-              Login
-            </Button>
-          </DialogActions>
-          </form>
-        </Dialog>
+          {this.renderActions()}
+        </form>
+      </Dialog>
     );
   }
 }

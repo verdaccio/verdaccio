@@ -101,7 +101,7 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
     propertyToKeep.push('_uplinks');
   }
 
-  for (let i in result) {
+  for (const i in result) {
     if (propertyToKeep.indexOf(i) === -1) {
       // Remove sections like '_uplinks' from response
       delete result[i];

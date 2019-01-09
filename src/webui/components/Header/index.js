@@ -25,6 +25,7 @@ import Label from '../Label';
 import Search from '../Search';
 
 import { IProps, IState } from './types';
+import type { ToolTipType } from './types';
 import { Greetings, NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar, LeftSide, RightSide, IconSearchButton, SearchWrapper } from './styles';
 
 class Header extends Component<IProps, IState> {
@@ -39,16 +40,9 @@ class Header extends Component<IProps, IState> {
     super(props);
     this.state = {
       openInfoDialog: false,
-      registryUrl: '',
+      registryUrl: getRegistryURL(),
       showMobileNavBar: false,
     };
-  }
-
-  componentDidMount() {
-    const registryUrl = getRegistryURL();
-    this.setState({
-      registryUrl,
-    });
   }
 
   /**
@@ -91,17 +85,19 @@ class Header extends Component<IProps, IState> {
    * close/open popover menu for logged in users.
    */
   handleToggleLogin = () => {
+    const { onToggleLoginModal } = this.props;
     this.setState(
       {
         anchorEl: null,
       },
-      this.props.toggleLoginModal
+      onToggleLoginModal
     );
   };
 
   handleToggleMNav = () => {
+    const { showMobileNavBar } = this.state;
     this.setState({
-      showMobileNavBar: !this.state.showMobileNavBar,
+      showMobileNavBar: !showMobileNavBar,
     });
   };
 
@@ -115,7 +111,7 @@ class Header extends Component<IProps, IState> {
     const { withoutSearch = false } = this.props;
     return (
       <LeftSide>
-        <Link to="/" style={{ marginRight: '1em' }}>
+        <Link style={{ marginRight: '1em' }} to={'/'}>
           <Logo />
         </Link>
         {!withoutSearch && (
@@ -127,36 +123,63 @@ class Header extends Component<IProps, IState> {
     );
   };
 
-  renderRightSide = (): Node => {
-    const { username = '', withoutSearch = false } = this.props;
-    const installationLink = 'https://verdaccio.org/docs/en/installation';
-    return (
-      <RightSide>
-        {!withoutSearch && (
-          <Tooltip title="Search packages" disableFocusListener>
-            <IconSearchButton color="inherit" onClick={this.handleToggleMNav}>
-              <IconSearch />
-            </IconSearchButton>
-          </Tooltip>
-        )}
-        <Tooltip title="Documentation" disableFocusListener>
-          <IconButton color="inherit" component={Link} to={installationLink} blank>
+  renderToolTipIcon = (title: string, type: ToolTipType) => {
+    let content;
+    switch (type) {
+      case 'help':
+        content = (
+          <IconButton blank={true} color={'inherit'} component={Link} to={'https://verdaccio.org/docs/en/installation'}>
             <Help />
           </IconButton>
-        </Tooltip>
-        <Tooltip title="Registry Information" disableFocusListener>
-          <IconButton id="header--button-registryInfo" color="inherit" onClick={this.handleOpenRegistryInfoDialog}>
+        );
+        break;
+      case 'info':
+        content = (
+          <IconButton color={'inherit'} id={'header--button-registryInfo'} onClick={this.handleOpenRegistryInfoDialog}>
             <Info />
           </IconButton>
-        </Tooltip>
+        );
+        break;
+      case 'search':
+        content = (
+          <IconSearchButton color={'inherit'} onClick={this.handleToggleMNav}>
+            <IconSearch />
+          </IconSearchButton>
+        );
+        break;
+    }
+    return (
+      <Tooltip disableFocusListener={true} title={title}>
+        {content}
+      </Tooltip>
+    );
+  };
+
+  renderRightSide = (): Node => {
+    const { username = '', withoutSearch = false } = this.props;
+    return (
+      <RightSide>
+        {!withoutSearch && this.renderToolTipIcon('Search packages', 'search')}
+        {this.renderToolTipIcon('Documentation', 'help')}
+        {this.renderToolTipIcon('Registry Information', 'info')}
         {username ? (
           this.renderMenu()
         ) : (
-          <Button id="header--button-login" color="inherit" onClick={this.handleToggleLogin}>
-            Login
+          <Button color={'inherit'} id={'header--button-login'} onClick={this.handleToggleLogin}>
+            {'Login'}
           </Button>
         )}
       </RightSide>
+    );
+  };
+
+  renderGreetings = () => {
+    const { username = '' } = this.props;
+    return (
+      <>
+        <Greetings>{`Hi,`}</Greetings>
+        <Label capitalize={true} limit={140} text={username} weight={'bold'} />
+      </>
     );
   };
 
@@ -164,34 +187,30 @@ class Header extends Component<IProps, IState> {
    * render popover menu
    */
   renderMenu = (): Node => {
-    const { onLogout, username = '' } = this.props;
+    const { onLogout } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
       <React.Fragment>
-        <IconButton id="header--button-account" color="inherit" onClick={this.handleLoggedInMenu}>
+        <IconButton color={'inherit'} id={'header--button-account'} onClick={this.handleLoggedInMenu}>
           <AccountCircle />
         </IconButton>
         <Menu
-          id="sidebar-menu"
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
           }}
+          id={'sidebar-menu'}
+          onClose={this.handleLoggedInMenuClose}
+          open={open}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'right',
-          }}
-          open={open}
-          onClose={this.handleLoggedInMenuClose}
-        >
-          <MenuItem disabled>
-            <Greetings>{`Hi,`}</Greetings>
-            <Label text={username} limit={140} weight="bold" capitalize />
-          </MenuItem>
-          <MenuItem onClick={onLogout} id="header--button-logout">
-            Logout
+          }}>
+          <MenuItem disabled={true}>{this.renderGreetings()}</MenuItem>
+          <MenuItem id={'header--button-logout'} onClick={onLogout}>
+            {'Logout'}
           </MenuItem>
         </Menu>
       </React.Fragment>
@@ -202,7 +221,7 @@ class Header extends Component<IProps, IState> {
     const { scope } = this.props;
     const { openInfoDialog, registryUrl } = this.state;
     return (
-      <RegistryInfoDialog open={openInfoDialog} onClose={this.handleCloseRegistryInfoDialog}>
+      <RegistryInfoDialog onClose={this.handleCloseRegistryInfoDialog} open={openInfoDialog}>
         <div>
           <CopyToClipBoard text={`npm set ${scope} registry ${registryUrl}`} />
           <CopyToClipBoard text={`npm adduser --registry ${registryUrl}`} />
@@ -216,7 +235,7 @@ class Header extends Component<IProps, IState> {
     const { withoutSearch = false } = this.props;
     return (
       <div>
-        <NavBar position="static">
+        <NavBar position={'static'}>
           <InnerNavBar>
             {this.renderLeftSide()}
             {this.renderRightSide()}
@@ -229,8 +248,8 @@ class Header extends Component<IProps, IState> {
               <InnerMobileNavBar>
                 <Search />
               </InnerMobileNavBar>
-              <Button color="inherit" onClick={this.handleDismissMNav}>
-                Cancel
+              <Button color={'inherit'} onClick={this.handleDismissMNav}>
+                {'Cancel'}
               </Button>
             </MobileNavBar>
           )}

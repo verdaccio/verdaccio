@@ -16,7 +16,7 @@ import { Version, Wrapper, Field, OverviewItem } from '../../../../src/webui/com
 const dateOneMonthAgo = () => new Date(1544377770747)
 
 describe('<Package /> component', () => {
-  it.skip('should load the component', () => {
+  test.skip('should load the component', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',
@@ -35,7 +35,7 @@ describe('<Package /> component', () => {
       <Package {...props} />
     );
 
-  
+
     // integration expectations
 
     // check link
@@ -50,7 +50,7 @@ describe('<Package /> component', () => {
     // check description
     expect(wrapper.find(Field).someWhere(n => {
       return (
-        n.children().first().get(0).props.children[0].props.text === 'Description' && 
+        n.children().first().get(0).props.children[0].props.text === 'Description' &&
         n.children().childAt(1).containsMatchingElement(<span>{props.description}</span>)
       )
     })).toBe(true);
@@ -63,7 +63,7 @@ describe('<Package /> component', () => {
 
   });
 
-  it.skip('should load the component without author', () => {
+  test.skip('should load the component without author', () => {
     const props = {
       name: 'verdaccio',
       version: '1.0.0',

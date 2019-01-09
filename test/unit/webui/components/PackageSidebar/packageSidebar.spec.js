@@ -14,22 +14,22 @@ jest.mock('../../../../../src/webui/utils/api', () => ({
 console.error = jest.fn();
 
 describe('<PackageSidebar /> component', () => {
-  it('should throw error for the required props', () => {
+  test('should throw error for the required props', () => {
     const wrapper = mount(<PackageSidebar />);
     const { loadPackageData } = wrapper.instance();
-    expect(console.error).toBeCalled();
-    loadPackageData().catch(response => {
+    expect(console.error).toHaveBeenCalled();
+    return loadPackageData().catch(response => {
       expect(response).toBeUndefined();
       expect(wrapper.state()).toEqual({ failed: true });
     });
   });
 
-  it('should load the packageMeta', () => {
+  test('should load the packageMeta', () => {
     const wrapper = mount(<PackageSidebar packageName={'verdaccio'} />);
     const { loadPackageData } = wrapper.instance();
-    loadPackageData('verdaccio').then(response => {
+    expect(wrapper.html()).toMatchSnapshot();
+    return loadPackageData('verdaccio').then(response => {
       expect(wrapper.state('packageMeta')).toEqual(packageMeta);
     });
-    expect(wrapper.html()).toMatchSnapshot();
   });
 });

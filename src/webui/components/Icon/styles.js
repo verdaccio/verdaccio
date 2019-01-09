@@ -35,7 +35,7 @@ const commonStyle = ({ size = 'sm', pointer, modifiers }: IProps) => css`
   }
 `;
 
-export const SVG = styled.svg`
+export const Svg = styled.svg`
   && {
     ${commonStyle};
   }

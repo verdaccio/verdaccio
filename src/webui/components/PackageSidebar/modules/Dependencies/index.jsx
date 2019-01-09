@@ -21,7 +21,7 @@ const renderDependenciesList = (dependencies, dependenciesList) => {
             title={`Depend on version: ${dependencies[dependenceName]}`}
           >
             <a href={getDetailPageURL(dependenceName)}>{dependenceName}</a>
-            {index < dependenciesList.length - 1 && <span>,&nbsp;</span>}
+            {index < dependenciesList.length - 1 && <span>{',&nbsp;'}</span>}
           </li>
         );
       })}
@@ -32,7 +32,7 @@ const renderDependenciesList = (dependencies, dependenciesList) => {
 const Dependencies = ({dependencies = {}, title = 'Dependencies'}) => {
   const dependenciesList = Object.keys(dependencies);
   return (
-    <Module title={title} className={classes.dependenciesModule}>
+    <Module className={classes.dependenciesModule} title={title}>
       {dependenciesList.length > 0 ? (
         renderDependenciesList(dependencies, dependenciesList)
       ) : (
@@ -44,7 +44,7 @@ const Dependencies = ({dependencies = {}, title = 'Dependencies'}) => {
 
 Dependencies.propTypes = {
   dependencies: PropTypes.object,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default Dependencies;

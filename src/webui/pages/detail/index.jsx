@@ -13,12 +13,12 @@ import PackageSidebar from '../../components/PackageSidebar/index';
 export default class Detail extends Component {
   static propTypes = {
     match: PropTypes.object,
-    isUserLoggedIn: PropTypes.bool
+    isUserLoggedIn: PropTypes.bool,
   };
 
   state = {
     readMe: '',
-    notFound: false
+    notFound: false,
   };
 
   getPackageName(props = this.props) {
@@ -27,6 +27,7 @@ export default class Detail extends Component {
       params.package
     }`;
   }
+
   get packageName() {
     return this.getPackageName();
   }
@@ -36,9 +37,10 @@ export default class Detail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const condition1 = prevProps.isUserLoggedIn !== this.props.isUserLoggedIn;
+    const { isUserLoggedIn, match } = this.props;
+    const condition1 = prevProps.isUserLoggedIn !== isUserLoggedIn;
     const condition2 =
-      prevProps.match.params.package !== this.props.match.params.package;
+      prevProps.match.params.package !== match.params.package;
     if (condition1 || condition2) {
       const packageName = this.getPackageName(this.props);
       this.loadPackageInfo(packageName);
@@ -47,18 +49,18 @@ export default class Detail extends Component {
 
   async loadPackageInfo(packageName) {
     this.setState({
-      readMe: ''
+      readMe: '',
     });
 
     try {
       const resp = await API.request(`package/readme/${packageName}`, 'GET');
       this.setState({
         readMe: resp,
-        notFound: false
+        notFound: false,
       });
     } catch (err) {
       this.setState({
-        notFound: true
+        notFound: true,
       });
     }
   }
@@ -68,16 +70,16 @@ export default class Detail extends Component {
 
     if (notFound) {
       return (
-        <div className='container content'>
+        <div className={'container content'}>
           <NotFound pkg={this.packageName} />
         </div>
       );
     } else if (isEmpty(readMe)) {
-      return <Spinner centered />;
+      return <Spinner centered={true} />;
     }
     return (
       <div className={`container content ${classes.twoColumn}`}>
-        <PackageDetail readMe={readMe} packageName={this.packageName} />
+        <PackageDetail packageName={this.packageName} readMe={readMe} />
         <PackageSidebar packageName={this.packageName} />
       </div>
     );

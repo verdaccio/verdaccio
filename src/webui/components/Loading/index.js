@@ -14,7 +14,7 @@ import { Wrapper, Badge } from './styles';
 const Loading = (): Node => (
   <Wrapper>
     <Badge>
-      <Logo md />
+      <Logo md={true} />
     </Badge>
     <Spinner />
   </Wrapper>

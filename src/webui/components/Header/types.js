@@ -6,7 +6,7 @@
 export interface IProps {
   username?: string;
   onLogout?: Function;
-  toggleLoginModal: Function;
+  onToggleLoginModal: Function;
   scope: string;
   withoutSearch?: boolean;
 }
@@ -17,3 +17,5 @@ export interface IState {
   registryUrl: string;
   showMobileNavBar: boolean;
 }
+
+export type ToolTipType = 'search' | 'help' | 'info';

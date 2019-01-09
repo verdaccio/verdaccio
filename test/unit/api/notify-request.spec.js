@@ -95,7 +95,7 @@ describe('notifyRequest', () => {
     const notification = require('../../../src/lib/notify/notify-request');
     const infoArgs = [{ content }, 'A notification has been shipped: @{content}'];
 
-    await expect(notification.notifyRequest(options, content)).rejects.toThrowError('body is missing');
+    await expect(notification.notifyRequest(options, content)).rejects.toThrow('body is missing');
     expect(logger.logger.info).toHaveBeenCalledWith(...infoArgs);
   });
 });

@@ -37,7 +37,6 @@ export const Inner = styled.div`
 
 export const Left = styled.div`
   && {
-    display: flex;
     align-items: center;
     display: none;
     ${mq.medium(css`
@@ -61,7 +60,7 @@ export const ToolTip = styled.span`
 
 export const Earth = styled(Icon)`
   && {
-    padding 0 10px;
+    padding: 0 10px;
   }
 `;
 
@@ -105,4 +104,4 @@ export const Flag = styled(Icon)`
   }
 `;
 
-export const Logo = styled(Flag)``;
+export const Logo = Flag;

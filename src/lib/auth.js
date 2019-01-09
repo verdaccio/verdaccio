@@ -128,12 +128,12 @@ class Auth implements IAuth {
   }
 
   add_user(user: string, password: string, cb: Callback) {
-    let self = this;
-    let plugins = this.plugins.slice(0);
+    const self = this;
+    const plugins = this.plugins.slice(0);
     this.logger.trace({ user }, 'add user @{user}');
 
     (function next() {
-      let plugin = plugins.shift();
+      const plugin = plugins.shift();
       let method = 'adduser';
       if (_.isFunction(plugin[method]) === false) {
         method = 'add_user';
@@ -161,9 +161,9 @@ class Auth implements IAuth {
    * Allow user to access a package.
    */
   allow_access(packageName: string, user: RemoteUser, callback: Callback) {
-    let plugins = this.plugins.slice(0);
+    const plugins = this.plugins.slice(0);
     // $FlowFixMe
-    let pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
     const self = this;
     this.logger.trace({ packageName }, 'allow access for @{packageName}');
 
@@ -194,10 +194,10 @@ class Auth implements IAuth {
    * Allow user to publish a package.
    */
   allow_publish(packageName: string, user: string, callback: Callback) {
-    let plugins = this.plugins.slice(0);
+    const plugins = this.plugins.slice(0);
     const self = this;
     // $FlowFixMe
-    let pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName }, 'allow publish for @{packageName}');
 
     (function next() {

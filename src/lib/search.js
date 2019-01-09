@@ -72,7 +72,7 @@ class Search implements IWebSearch {
    * Force a re-index.
    */
   reindex() {
-    let self = this;
+    const self = this;
     this.storage.getLocalDatabase(function(error, packages) {
       if (error) {
         // that function shouldn't produce any

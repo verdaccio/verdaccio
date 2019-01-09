@@ -59,7 +59,7 @@ describe('<PackageSidebar /> : <Dependencies />', () => {
   });
 
   test('should permit overriding title', () => {
-    const wrapper = mount(<Dependencies title='Package dependencies' />);
+    const wrapper = mount(<Dependencies title={"Package dependencies"} />);
 
     expect(wrapper.find('h2').text()).toEqual('Package dependencies');
     expect(wrapper.html()).toMatchSnapshot();

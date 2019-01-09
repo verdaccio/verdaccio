@@ -125,10 +125,10 @@ class Storage implements IStorageHandler {
    Used storages: local || uplink (just one)
    */
   getTarball(name: string, filename: string) {
-    let readStream = new ReadTarball();
+    const readStream = new ReadTarball();
     (readStream: any).abort = function() {};
 
-    let self = this;
+    const self = this;
 
     // if someone requesting tarball, it means that we should already have some
     // information about it, so fetching package info is unnecessary
@@ -143,7 +143,7 @@ class Storage implements IStorageHandler {
       }
 
       // local reported 404
-      let err404 = err;
+      const err404 = err;
       localStream.abort();
       localStream = null; // we force for garbage collector
       self.localStorage.getPackageMetadata(name, (err, info: Package) => {
@@ -180,7 +180,7 @@ class Storage implements IStorageHandler {
     function serveFile(file: DistFile) {
       let uplink: any = null;
 
-      for (let uplinkId in self.uplinks) {
+      for (const uplinkId in self.uplinks) {
         if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
           uplink = self.uplinks[uplinkId];
         }
@@ -205,7 +205,7 @@ class Storage implements IStorageHandler {
       let on_open = function() {
         // prevent it from being called twice
         on_open = function() {};
-        let rstream2 = uplink.fetchTarball(file.url);
+        const rstream2 = uplink.fetchTarball(file.url);
         rstream2.on('error', function(err) {
           if (savestream) {
             savestream.abort();
@@ -302,9 +302,9 @@ class Storage implements IStorageHandler {
    * @return {Stream}
    */
   search(startkey: string, options: any) {
-    let self = this;
+    const self = this;
     // stream to write a tarball
-    let stream: any = new Stream.PassThrough({ objectMode: true });
+    const stream: any = new Stream.PassThrough({ objectMode: true });
 
     async.eachSeries(
       Object.keys(this.uplinks),
@@ -314,7 +314,7 @@ class Storage implements IStorageHandler {
           return cb();
         }
         // search by keyword for each uplink
-        let lstream: IUploadTarball = self.uplinks[up_name].search(options);
+        const lstream: IUploadTarball = self.uplinks[up_name].search(options);
         // join streams
         lstream.pipe(
           stream,
@@ -338,7 +338,7 @@ class Storage implements IStorageHandler {
       // executed after all series
       function() {
         // attach a local search results
-        let lstream: IReadTarball = self.localStorage.search(startkey, options);
+        const lstream: IReadTarball = self.localStorage.search(startkey, options);
         stream.abort = function() {
           lstream.abort();
         };
@@ -361,13 +361,13 @@ class Storage implements IStorageHandler {
    * @param {*} callback
    */
   getLocalDatabase(callback: Callback) {
-    let self = this;
+    const self = this;
     this.localStorage.localData.get((err, locals) => {
       if (err) {
         callback(err);
       }
 
-      let packages = [];
+      const packages = [];
       const getPackage = function(itemPkg) {
         self.localStorage.getPackageMetadata(locals[itemPkg], function(err, info) {
           if (_.isNil(err)) {
@@ -416,7 +416,7 @@ class Storage implements IStorageHandler {
       packageInfo = generatePackageTemplate(name);
     }
 
-    for (let uplink in this.uplinks) {
+    for (const uplink in this.uplinks) {
       if (hasProxyTo(name, uplink, this.config.packages) && hasToLookIntoUplinks) {
         upLinks.push(this.uplinks[uplink]);
       }
@@ -426,7 +426,7 @@ class Storage implements IStorageHandler {
       upLinks,
       (upLink, cb) => {
         const _options = Object.assign({}, options);
-        let upLinkMeta = packageInfo._uplinks[upLink.upname];
+        const upLinkMeta = packageInfo._uplinks[upLink.upname];
 
         if (isObject(upLinkMeta)) {
           const fetched = upLinkMeta.fetched;
@@ -511,7 +511,7 @@ class Storage implements IStorageHandler {
    * @private
    */
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy) {
-    for (let i in versions) {
+    for (const i in versions) {
       if (Object.prototype.hasOwnProperty.call(versions, i)) {
         const version = versions[i];
 

@@ -82,7 +82,7 @@ export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $Nex
 export function antiLoop(config: Config) {
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (req.headers.via != null) {
-      let arr = req.headers.via.split(',');
+      const arr = req.headers.via.split(',');
 
       for (let i = 0; i < arr.length; i++) {
         const m = arr[i].match(/\s*(\S+)\s+(\S+)/);
@@ -167,12 +167,12 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   // logger
   req.log = logger.child({ sub: 'in' });
 
-  let _auth = req.headers.authorization;
+  const _auth = req.headers.authorization;
   if (_.isNil(_auth) === false) {
     req.headers.authorization = '<Classified>';
   }
 
-  let _cookie = req.headers.cookie;
+  const _cookie = req.headers.cookie;
   if (_.isNil(_cookie) === false) {
     req.headers.cookie = '<Classified>';
   }
@@ -195,7 +195,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   });
 
   let bytesout = 0;
-  let _write = res.write;
+  const _write = res.write;
   res.write = function(buf) {
     bytesout += buf.length;
     /* eslint prefer-rest-params: "off" */
@@ -203,9 +203,9 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   };
 
   const log = function() {
-    let forwardedFor = req.headers['x-forwarded-for'];
-    let remoteAddress = req.connection.remoteAddress;
-    let remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
+    const forwardedFor = req.headers['x-forwarded-for'];
+    const remoteAddress = req.connection.remoteAddress;
+    const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
     let message = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
     if (res._verdaccio_error) {
       message += ', error: @{!error}';

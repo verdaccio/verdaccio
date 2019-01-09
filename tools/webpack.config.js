@@ -16,10 +16,9 @@ module.exports = {
 
   plugins: [
     new StyleLintPlugin({
-      files: ['src/**/*.scss'],
+      files: ['src/webui/**/styles.js'],
       failOnError: false,
-      emitErrors: true,
-      syntax: 'scss',
+      emitErrors: true
     }),
   ],
 

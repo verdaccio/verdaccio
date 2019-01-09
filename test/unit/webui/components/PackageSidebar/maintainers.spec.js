@@ -16,12 +16,12 @@ describe('<PackageSidebar /> : <Maintainers />', () => {
     instance = wrapper.instance();
   });
 
-  it('should match with the props', () => {
+  test('should match with the props', () => {
     expect(wrapper.props().packageMeta).toEqual(packageMeta);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('author shoule be equal to User NPM', () => {
+  test('author shoule be equal to User NPM', () => {
     expect(instance.author).toEqual({
       avatar:
         'https://www.gravatar.com/avatar/a5a236ba477ee98908600c40cda74f4a',
@@ -30,11 +30,11 @@ describe('<PackageSidebar /> : <Maintainers />', () => {
     });
   });
 
-  it('should get all the contributors with false for showAllContributors', () => {
+  test('should get all the contributors with false for showAllContributors', () => {
     expect(instance.showAllContributors).toBeFalsy();
   });
 
-  it('should get unique contributors', () => {
+  test('should get unique contributors', () => {
     const result = [
       {
         avatar:
@@ -70,7 +70,7 @@ describe('<PackageSidebar /> : <Maintainers />', () => {
     expect(instance.uniqueContributors).toEqual(result);
   });
 
-  it('should click on handleShowAllContributors', () => {
+  test('should click on handleShowAllContributors', () => {
     wrapper.find('button').simulate('click');
     expect(wrapper.state('showAllContributors')).toBeTruthy();
   });

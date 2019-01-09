@@ -46,7 +46,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
      * Write tarball of stream data from package clients.
      */
     const createTarball = function(filename: string, data, cb: Callback) {
-      let stream = storage.addTarball(packageName, filename);
+      const stream = storage.addTarball(packageName, filename);
       stream.on('error', function(err) {
         cb(err);
       });
@@ -74,7 +74,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
     };
 
     const afterChange = function(error, okMessage, metadata) {
-      let metadataCopy = { ...metadata };
+      const metadataCopy = { ...metadata };
       const { _attachments, versions } = metadataCopy;
 
       // old npm behavior, if there is no attachments

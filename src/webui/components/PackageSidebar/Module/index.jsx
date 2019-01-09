@@ -21,5 +21,5 @@ Module.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   children: PropTypes.any.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
 };

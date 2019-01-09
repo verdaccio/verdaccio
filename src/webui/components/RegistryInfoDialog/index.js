@@ -14,12 +14,12 @@ import type { Node } from 'react';
 import { IProps } from './types';
 
 const RegistryInfoDialog = ({ open = false, children, onClose }: IProps): Node => (
-  <Dialog id="registryInfo--dialog-container" open={open} onClose={onClose}>
-    <Title disableTypography>Register Info</Title>
+  <Dialog id={'registryInfo--dialog-container'} onClose={onClose} open={open}>
+    <Title disableTypography={true}>{'Register Info'}</Title>
     <Content>{children}</Content>
     <DialogActions>
-      <Button id="registryInfo--dialog-close" onClick={onClose} color="inherit" autoFocus>
-        CLOSE
+      <Button color={'inherit'} id={'registryInfo--dialog-close'} onClick={onClose}>
+        {'CLOSE'}
       </Button>
     </DialogActions>
   </Dialog>

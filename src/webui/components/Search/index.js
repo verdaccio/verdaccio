@@ -133,6 +133,28 @@ class Search extends Component<IProps, IState> {
     }
   };
 
+  render(): Node {
+    const { suggestions, search, loaded, loading, error } = this.state;
+
+    return (
+      <AutoComplete
+        color={colors.white}
+        onBlur={this.onBlur}
+        onChange={this.handleSearch}
+        onCleanSuggestions={this.handlePackagesClearRequested}
+        onClick={this.handleClickSearch}
+        onSuggestionsFetch={this.handleFetchPackages}
+        placeholder={CONSTANTS.PLACEHOLDER_TEXT}
+        startAdornment={this.renderAdorment()}
+        suggestions={suggestions}
+        suggestionsError={error}
+        suggestionsLoaded={loaded}
+        suggestionsLoading={loading}
+        value={search}
+      />
+    );
+  }
+
   /**
    * As user focuses out from input, we cancel all the request from requestList
    * and set the API state parameters to default boolean values.
@@ -150,29 +172,11 @@ class Search extends Component<IProps, IState> {
     );
   };
 
-  render(): Node {
-    const { suggestions, search, loaded, loading, error } = this.state;
-
+  renderAdorment() {
     return (
-      <AutoComplete
-        suggestions={suggestions}
-        suggestionsLoaded={loaded}
-        suggestionsLoading={loading}
-        suggestionsError={error}
-        value={search}
-        placeholder={CONSTANTS.PLACEHOLDER_TEXT}
-        color={colors.white}
-        startAdornment={
-          <InputAdornment position="start" style={{ color: colors.white }}>
-            <IconSearch />
-          </InputAdornment>
-        }
-        onSuggestionsFetch={this.handleFetchPackages}
-        onCleanSuggestions={this.handlePackagesClearRequested}
-        onClick={this.handleClickSearch}
-        onChange={this.handleSearch}
-        onBlur={this.onBlur}
-      />
+      <InputAdornment position={'start'} style={{ color: colors.white }}>
+        <IconSearch />
+      </InputAdornment>
     );
   }
 }

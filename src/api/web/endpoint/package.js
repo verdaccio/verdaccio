@@ -37,7 +37,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
 
       async function processPermissionsPackages(packages) {
         const permissions = [];
-        for (let pkg of packages) {
+        for (const pkg of packages) {
           try {
             if (await checkAllow(pkg.name, req.remote_user)) {
               permissions.push(pkg);

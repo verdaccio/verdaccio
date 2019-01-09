@@ -8,7 +8,7 @@ import classes from './style.scss';
 const renderSection = (title, url) => (
   <li>
     <span>{title}</span>
-    <a href={url} target="_blank" rel="noopener noreferrer">
+    <a href={url} rel={'noopener noreferrer'} target={'_blank'}>
       {url}
     </a>
   </li>
@@ -16,22 +16,25 @@ const renderSection = (title, url) => (
 
 const Infos = ({homepage, repository, license}) => {
   const showInfo = homepage || repository || license;
-  return <Module title="Infos" className={classes.infosModule}>
-      {showInfo ? <ul>
+  return (
+    <Module className={classes.infosModule} title={'Infos'}>
+      {showInfo ? (
+        <ul>
           {homepage && renderSection('Homepage', homepage)}
           {repository && renderSection('Repository', repository)}
-          {license && <li>
-              <span>License</span>
-              <span>{license}</span>
-            </li>}
-        </ul> : <ModuleContentPlaceholder text="Not Available!" />}
-    </Module>;
+          {license && (
+          <li>
+            <span>{'License'}</span>
+            <span>{license}</span>
+          </li>)}
+        </ul>) : <ModuleContentPlaceholder text={'Not Available!'} />}
+    </Module>);
 };
 
 Infos.propTypes = {
   homepage: PropTypes.string,
   repository: PropTypes.string,
-  license: PropTypes.string
+  license: PropTypes.string,
 };
 
 export default Infos;

@@ -15,7 +15,7 @@ describe('<Header /> component with logged in state', () => {
     props = {
       username: 'test user',
       handleLogout: jest.fn(),
-      toggleLoginModal: jest.fn(),
+      onToggleLoginModal: jest.fn(),
       scope: 'test scope',
       withoutSearch: true,
     };
@@ -57,7 +57,7 @@ describe('<Header /> component with logged out state', () => {
   beforeEach(() => {
     props = {
       handleLogout: jest.fn(),
-      toggleLoginModal: jest.fn(),
+      onToggleLoginModal: jest.fn(),
       scope: 'test scope',
       withoutSearch: true,
     };
@@ -97,6 +97,6 @@ describe('<Header /> component with logged out state', () => {
     const { handleToggleLogin } = wrapper.instance();
     handleToggleLogin();
     expect(wrapper.state('anchorEl')).toBeNull();
-    expect(props.toggleLoginModal).toHaveBeenCalled();
+    expect(props.onToggleLoginModal).toHaveBeenCalled();
   });
 });

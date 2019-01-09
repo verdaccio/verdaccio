@@ -147,8 +147,6 @@ export const Avatar = styled(Photo)`
 export const Description = styled.div`
   && {
     margin: 5px 0;
-    max-height: 100px;
-    text-overflow: ellipsis;
   }
 `;
 
@@ -164,7 +162,7 @@ export const Footer = styled.div`
 export const Wrapper = styled(Link)`
   && {
     font-size: 12px;
-    background-color: #fff;
+    background-color: white;
     margin: 0 0 15px 0;
     transition: box-shadow 0.15s;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);

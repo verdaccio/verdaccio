@@ -49,7 +49,7 @@ export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLI
   const newUplinks = _.clone(uplinks);
   let newUsers = _.clone(users);
 
-  for (let uplink in newUplinks) {
+  for (const uplink in newUplinks) {
     if (Object.prototype.hasOwnProperty.call(newUplinks, uplink)) {
       if (_.isNil(newUplinks[uplink].cache)) {
         newUplinks[uplink].cache = true;
@@ -73,7 +73,7 @@ export function sanityCheckNames(item: string, users: any) {
 export function sanityCheckUplinksProps(configUpLinks: any) {
   const uplinks = _.clone(configUpLinks);
 
-  for (let uplink in uplinks) {
+  for (const uplink in uplinks) {
     if (Object.prototype.hasOwnProperty.call(uplinks, uplink)) {
       assert(uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
       assert(_.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
@@ -98,7 +98,7 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
 }
 
 export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): MatchedPackage {
-  for (let i in packages) {
+  for (const i in packages) {
     // $FlowFixMe
     if (minimatch.makeRe(i).exec(pkgName)) {
       return packages[i];
@@ -114,7 +114,7 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
     normalizedPkgs['**'] = { access: [], publish: [] };
   }
 
-  for (let pkg in packages) {
+  for (const pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
       assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false, `CONFIG: bad "'${pkg}'" package description (object expected)`);
       normalizedPkgs[pkg].access = normalizeUserList(packages[pkg].allow_access, packages[pkg].access);

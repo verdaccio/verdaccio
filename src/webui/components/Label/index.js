@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
 const Label = ({ text = '', capitalize = false, weight = 'regular', ...props }: IProps): Node => {
   return (
-    <Wrapper weight={weight} capitalize={capitalize} {...props}>
+    <Wrapper capitalize={capitalize} weight={weight} {...props}>
       {text}
     </Wrapper>
   );

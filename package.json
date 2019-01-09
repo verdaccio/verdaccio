@@ -94,16 +94,18 @@
     "emotion": "9.2.12",
     "enzyme": "3.6.0",
     "enzyme-adapter-react-16": "1.5.0",
-    "eslint": "5.6.0",
-    "eslint-config-google": "0.10.0",
-    "eslint-config-prettier": "3.1.0",
+    "eslint": "5.10.0",
+    "eslint-config-google": "0.11.0",
+    "eslint-config-prettier": "3.3.0",
     "eslint-loader": "2.1.1",
     "eslint-plugin-babel": "5.3.0",
-    "eslint-plugin-flowtype": "2.50.1",
+    "eslint-plugin-flowtype": "3.2.0",
     "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-jest": "21.22.1",
-    "eslint-plugin-prettier": "2.6.2",
+    "eslint-plugin-jest": "22.1.2",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-react": "7.11.1",
+    "eslint-plugin-verdaccio": "0.0.5",
     "file-loader": "2.0.0",
     "flow-bin": "0.81.0",
     "flow-runtime": "0.17.0",
@@ -140,8 +142,11 @@
     "source-map-loader": "0.2.4",
     "standard-version": "4.4.0",
     "style-loader": "0.23.0",
-    "stylelint": "9.5.0",
+    "stylelint": "9.9.0",
+    "stylelint-config-recommended": "2.1.0",
     "stylelint-config-recommended-scss": "3.2.0",
+    "stylelint-config-styled-components": "0.1.1",
+    "stylelint-processor-styled-components": "1.5.1",
     "stylelint-scss": "3.3.1",
     "stylelint-webpack-plugin": "0.10.5",
     "supertest": "3.3.0",
@@ -173,15 +178,16 @@
     "pretest": "npm run code:build",
     "test": "npm run test:unit",
     "test:clean": "npx jest --clearCache",
-    "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC FORCE_COLOR=1 jest --config ./jest.config.js --maxWorkers 2",
-    "test:functional": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index*",
+    "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC FORCE_COLOR=1 jest --config ./jest.config.js --maxWorkers 2 --passWithNoTests" ,
+    "test:functional": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
     "test:e2e": "cross-env BABEL_ENV=test jest --config ./test/jest.config.e2e.js",
     "test:size": "bundlesize",
     "test:all": "npm run build:webui && npm run test && npm run test:functional && npm run test:e2e && npm run test:size",
     "pre:ci": "npm run lint && npm run build:webui",
     "coverage:publish": "codecov",
-    "lint": "npm run flow && eslint . && npm run lint:css",
-    "lint:css": "stylelint 'src/**/*.scss' --syntax scss",
+    "lint": "npm run flow && npm run lint:js && npm run lint:css",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint 'src/webui/**/styles.js'",
     "dev:start": "cross-env BABEL_ENV=registry babel-node src/lib/cli",
     "code:build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --ignore src/webui/ --copy-files",
     "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --ignore src/webui/ --copy-files",
@@ -205,14 +211,19 @@
     }
   },
   "lint-staged": {
-    "*.yaml": [
-      "prettier --parser yaml --no-config --single-quote --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint .",
-      "prettier --write",
-      "git add"
+    "linters": {
+      "*.yaml": [
+        "prettier --parser yaml --no-config --single-quote --write",
+        "git add"
+      ],
+      "*": [
+        "eslint .",
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "*.json"
     ]
   },
   "bundlesize": [
