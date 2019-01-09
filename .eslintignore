@@ -8,3 +8,5 @@ build/
 *.md
 *.lock
 *.yaml
+Dockerfile
+*.rpi

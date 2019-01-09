@@ -1,7 +1,7 @@
 FROM node:10.14.1-alpine as builder
 
 ENV NODE_ENV=production \
-    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org/
+    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
 
 RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python && \
