@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "description": "Private npm repository server",
   "author": {
     "name": "Alex Kocharin",
@@ -178,7 +178,7 @@
     "pretest": "npm run code:build",
     "test": "npm run test:unit",
     "test:clean": "npx jest --clearCache",
-    "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC FORCE_COLOR=1 jest --config ./jest.config.js --maxWorkers 2 --passWithNoTests" ,
+    "test:unit": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC FORCE_COLOR=1 jest --config ./jest.config.js --maxWorkers 2 --passWithNoTests",
     "test:functional": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
     "test:e2e": "cross-env BABEL_ENV=test jest --config ./test/jest.config.e2e.js",
     "test:size": "bundlesize",
