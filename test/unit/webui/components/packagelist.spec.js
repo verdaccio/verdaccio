@@ -55,8 +55,6 @@ describe('<PackageList /> component', () => {
     );
 
 
-    expect(wrapper.find('.listTitle').text()).toContain('Available Packages');
-
     // package count
     expect(wrapper.find('Package')).toHaveLength(3);
     // match snapshot
