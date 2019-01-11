@@ -8,12 +8,12 @@ class Home extends Component {
     isUserLoggedIn: PropTypes.bool.isRequired,
     packages: PropTypes.array.isRequired,
   };
-  
+
   render() {
     const { packages } = this.props;
     return (
       <div className={"container content"}>
-        <PackageList help={packages.length < 1} packages={packages} />
+        <PackageList packages={packages} />
       </div>
     );
   }

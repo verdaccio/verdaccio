@@ -10,18 +10,14 @@ import classes from './packageList.scss';
 export default class PackageList extends React.Component {
   static propTypes = {
     packages: PropTypes.array,
-    help: PropTypes.bool,
   };
 
   renderPackages = () => {
-    const { packages } = this.props;
     return (
-      packages.length > 0 ? (
-        <Fragment>
-          <h1 className={classes.listTitle}>{'Available Packages'}</h1>
-          {this.renderList()}
-        </Fragment>
-      ) : null
+      <Fragment>
+        <h1 className={classes.listTitle}>{'Available Packages'}</h1>
+        {this.renderList()}
+      </Fragment>
     );
   }
 
@@ -40,13 +36,18 @@ export default class PackageList extends React.Component {
   }
 
   render() {
-    const { help } = this.props;
     return (
       <div className={"package-list-items"}>
         <div className={classes.pkgContainer}>
-          {help ? <Help /> : this.renderPackages()}
+          {this.hasPackages() ? this.renderPackages(): <Help /> }
         </div>
       </div>
     );
+  }
+
+  hasPackages() {
+    const {packages} = this.props;
+
+    return packages.length > 0;
   }
 }
