@@ -12,7 +12,7 @@ import Header from './components/Header';
 import { Container, Content } from './components/Layout';
 import Route from './router';
 import API from './utils/api';
-
+import './styles/typeface-roboto.scss';
 import './styles/main.scss';
 import 'normalize.css';
 
