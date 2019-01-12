@@ -94,8 +94,8 @@ const remoteUser: RemoteUser = {
 };
 
 auth.authenticate('user', 'pass', () => {});
-auth.allow_access(remoteUser, {}, () => {});
-auth.allow_publish(remoteUser, {}, () => {});
+auth.allow_access(remoteUser, { access: [], publish: [], proxy: [] }, () => {});
+auth.allow_publish(remoteUser, { access: [], publish: [], proxy: [] }, () => {});
 authSub.authenticate('user', 'pass', () => {});
-authSub.allow_access(remoteUser, { sub: true }, () => {});
-authSub.allow_publish(remoteUser, { sub: true }, () => {});
+authSub.allow_access(remoteUser, { access: [], publish: [], proxy: [], sub: true }, () => {});
+authSub.allow_publish(remoteUser, { access: [], publish: [], proxy: [], sub: true }, () => {});

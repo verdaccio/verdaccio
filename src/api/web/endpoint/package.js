@@ -9,8 +9,9 @@ import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
+import type { Config } from '@verdaccio/types';
 
-function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
+function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, config: Config) {
   const can = allow(auth);
 
   const checkAllow = (name, remoteUser) =>
@@ -86,7 +87,11 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
           let sideBarInfo: any = _.clone(info);
           sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
           sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
-          sideBarInfo = addGravatarSupport(sideBarInfo);
+          if (config.web) {
+            sideBarInfo = addGravatarSupport(sideBarInfo, config.web.gravatar);
+          } else {
+            sideBarInfo = addGravatarSupport(sideBarInfo);
+          }
           next(sideBarInfo);
         } else {
           res.status(HTTP_STATUS.NOT_FOUND);

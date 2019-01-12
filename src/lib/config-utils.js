@@ -111,7 +111,7 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
   const normalizedPkgs: PackageList = { ...packages };
   // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
-    normalizedPkgs['**'] = { access: [], publish: [] };
+    normalizedPkgs['**'] = { access: [], publish: [], proxy: [] };
   }
 
   for (const pkg in packages) {
