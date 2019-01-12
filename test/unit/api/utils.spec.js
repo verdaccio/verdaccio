@@ -1,5 +1,5 @@
 // @flow
-import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../../../src/utils/user';
+import {generateGravatarUrl, GENERIC_AVATAR } from '../../../src/utils/user';
 import { spliceURL } from '../../../src/utils/string';
 import {
   validateName,
@@ -286,7 +286,7 @@ describe('Utilities', () => {
     test('should generate generic gravatar url', () => {
       const gravatarUrl: string = generateGravatarUrl();
 
-      expect(gravatarUrl).toMatch(GRAVATAR_DEFAULT);
+      expect(gravatarUrl).toMatch(GENERIC_AVATAR);
     });
   });
 
@@ -355,8 +355,7 @@ describe('Utilities', () => {
         latest: {
           author: {
             author: 'user@verdccio.org',
-            avatar:
-              'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm',
+            avatar: GENERIC_AVATAR,
             email: ''
           }
         }
@@ -456,7 +455,7 @@ describe('Utilities', () => {
           latest: {
             contributors: [
               {
-                avatar: GRAVATAR_DEFAULT,
+                avatar: GENERIC_AVATAR,
                 email: contributor,
                 name: contributor
               }

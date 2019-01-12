@@ -13,7 +13,7 @@ import createError from 'http-errors';
 import marked from 'marked';
 
 import { HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS } from './constants';
-import { generateGravatarUrl, GRAVATAR_DEFAULT } from '../utils/user';
+import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import type { Package } from '@verdaccio/types';
 import type { $Request } from 'express';
@@ -434,7 +434,7 @@ export function deleteProperties(propertiesToDelete: Array<string>, objectItem: 
   return objectItem;
 }
 
-export function addGravatarSupport(pkgInfo: Object): Object {
+export function addGravatarSupport(pkgInfo: Object, online: boolean = true): Object {
   const pkgInfoCopy = { ...pkgInfo };
   const author = _.get(pkgInfo, 'latest.author', null);
   const contributors = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
@@ -442,12 +442,12 @@ export function addGravatarSupport(pkgInfo: Object): Object {
 
   // for author.
   if (author && _.isObject(author)) {
-    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(author.email);
+    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(author.email, online);
   }
 
   if (author && _.isString(author)) {
     pkgInfoCopy.latest.author = {
-      avatar: generateGravatarUrl(),
+      avatar: GENERIC_AVATAR,
       email: '',
       author,
     };
@@ -458,10 +458,10 @@ export function addGravatarSupport(pkgInfo: Object): Object {
     pkgInfoCopy.latest.contributors = contributors.map(contributor => {
       if (isObject(contributor)) {
         // $FlowFixMe
-        contributor.avatar = generateGravatarUrl(contributor.email);
+        contributor.avatar = generateGravatarUrl(contributor.email, online);
       } else if (_.isString(contributor)) {
         contributor = {
-          avatar: GRAVATAR_DEFAULT,
+          avatar: GENERIC_AVATAR,
           email: contributor,
           name: contributor,
         };
@@ -474,7 +474,7 @@ export function addGravatarSupport(pkgInfo: Object): Object {
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
     pkgInfoCopy.latest.maintainers = maintainers.map(maintainer => {
-      maintainer.avatar = generateGravatarUrl(maintainer.email);
+      maintainer.avatar = generateGravatarUrl(maintainer.email, online);
       return maintainer;
     });
   }

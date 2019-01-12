@@ -35,7 +35,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   route.use(auth.webUIJWTmiddleware());
   route.use(securityIframe);
 
-  addPackageWebApi(route, storage, auth);
+  addPackageWebApi(route, storage, auth, config);
   addSearchWebApi(route, storage, auth);
   addUserAuthApi(route, auth, config);
 

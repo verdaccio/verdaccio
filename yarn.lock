@@ -1181,10 +1181,10 @@
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
   integrity sha512-AjEo5LXk4Yf0SaXSc3y4i1t+wxY552O7WrVJPtnC6H7nUsSrygg/ODCG1RSKelskOq6b5p/LyXnsTkmCFXyjDQ==
 
-"@verdaccio/types@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-4.0.0.tgz#3905eb5572b323195ae6e086330143769cb9b1bb"
-  integrity sha512-4slae6K1NyzeVqgT9GkMGdQ7rPW5dpR+URnOlY+dOicK/M40WwM50tAvM9Plm3Mf1mTIwb0rI5m/hxmdoLhUJA==
+"@verdaccio/types@4.1.3":
+  version "4.1.3"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-4.1.3.tgz#72881020b5f56865b32c94114fa66e9bf627f0f7"
+  integrity sha512-DjTlLqrtaLb9ykRYAawRflYVgUyRn1A204xEC39ucaF06kZJbNu0Awm+kBhHsM9CsgM47r3z65vRJDSJNhkzjQ==
 
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
