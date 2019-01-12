@@ -10,3 +10,4 @@ build/
 *.yaml
 Dockerfile
 *.rpi
+*.scss
