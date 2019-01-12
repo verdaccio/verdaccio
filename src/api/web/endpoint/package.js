@@ -6,7 +6,7 @@
 import _ from 'lodash';
 import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme } from '../../../lib/utils';
 import { allow } from '../../middleware';
-import { DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
+import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
 
@@ -67,7 +67,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
           return next(err);
         }
 
-        res.set('Content-Type', 'text/plain');
+        res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
         next(parseReadme(info.name, info.readme));
       },
     });

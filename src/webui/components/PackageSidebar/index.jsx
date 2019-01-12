@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import LastSync from './modules/LastSync';
+import DistTags from './modules/DistTags';
 import Maintainers from './modules/Maintainers';
 import Dependencies from './modules/Dependencies';
 import PeerDependencies from './modules/PeerDependencies';
@@ -14,6 +15,7 @@ import {
   getRecentReleases,
 } from '../../utils/package';
 import API from '../../utils/api';
+import {DIST_TAGS} from '../../../lib/constants';
 
 export default class PackageSidebar extends React.Component {
   state = {};
@@ -61,6 +63,9 @@ export default class PackageSidebar extends React.Component {
       );
       const homepage = get(packageMeta, 'latest.homepage', null);
 
+      // dist-tags
+      const distTags = packageMeta[DIST_TAGS];
+
       // Lastsync component
       const recentReleases = getRecentReleases(time);
       const lastUpdated = getLastUpdatedPackageTime(_uplinks);
@@ -70,7 +75,7 @@ export default class PackageSidebar extends React.Component {
       const peerDependencies = get(packageMeta, 'latest.peerDependencies', {});
 
       // Maintainers component
-      return (  
+      return (
         <aside className={'sidebar-info'}>
           {time && (
             <LastSync
@@ -78,6 +83,7 @@ export default class PackageSidebar extends React.Component {
               recentReleases={recentReleases}
             />
           )}
+          <DistTags distTags={distTags} />
           <Infos
             homepage={homepage}
             license={license}
