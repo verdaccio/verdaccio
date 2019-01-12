@@ -11,27 +11,12 @@ import type { Node } from 'react';
 import { IProps } from './types';
 
 import { ClipBoardCopy, ClipBoardCopyText, CopyIcon } from './styles';
-
-const copyToClipBoardUtility = (str: string) => (event: SyntheticEvent<HTMLElement>) => {
-  event.preventDefault();
-  const node = document.createElement('div');
-  node.innerText = str;
-  if (document.body) {
-    document.body.appendChild(node);
-    const range = document.createRange();
-    const selection = window.getSelection();
-    range.selectNodeContents(node);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand('copy');
-    // $FlowFixMe
-    document.body.removeChild(node);
-  }
-};
+import { copyToClipBoardUtility } from '../../utils/cli-utils';
+import { TEXT } from '../../utils/constants';
 
 const CopyToClipBoard = ({ text }: IProps): Node => {
   const renderToolTipFileCopy = () => (
-    <Tooltip disableFocusListener={true} title={'Copy to Clipboard'}>
+    <Tooltip disableFocusListener={true} title={TEXT.CLIPBOARD_COPY}>
       <CopyIcon onClick={copyToClipBoardUtility(text)}>
         <FileCopy />
       </CopyIcon>

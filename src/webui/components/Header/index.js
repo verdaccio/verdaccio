@@ -19,10 +19,10 @@ import { default as IconSearch } from '@material-ui/icons/Search';
 import { getRegistryURL } from '../../utils/url';
 import Link from '../Link';
 import Logo from '../Logo';
-import CopyToClipBoard from '../CopyToClipBoard/index';
 import RegistryInfoDialog from '../RegistryInfoDialog';
 import Label from '../Label';
 import Search from '../Search';
+import RegistryInfoContent from '../RegistryInfoContent';
 
 import { IProps, IState } from './types';
 import type { ToolTipType } from './types';
@@ -222,10 +222,7 @@ class Header extends Component<IProps, IState> {
     const { openInfoDialog, registryUrl } = this.state;
     return (
       <RegistryInfoDialog onClose={this.handleCloseRegistryInfoDialog} open={openInfoDialog}>
-        <div>
-          <CopyToClipBoard text={`npm set ${scope} registry ${registryUrl}`} />
-          <CopyToClipBoard text={`npm adduser --registry ${registryUrl}`} />
-        </div>
+        <RegistryInfoContent registryUrl={registryUrl} scope={scope} />
       </RegistryInfoDialog>
     );
   };
