@@ -44,7 +44,7 @@ const DistTags = ({distTags = {}}) => {
 };
 
 DistTags.propTypes = {
-  distTags: propTypes.array,
+  distTags: propTypes.object,
 };
 
 export default DistTags;
