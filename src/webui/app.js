@@ -29,24 +29,16 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.loadLogo();
     this.isUserAlreadyLoggedIn();
-    this.loadPackages();
+    this.loadOnHandler();
   }
 
   // eslint-disable-next-line no-unused-vars
   componentDidUpdate(_, prevState) {
     const { isUserLoggedIn } = this.state;
     if (prevState.isUserLoggedIn !== isUserLoggedIn) {
-      this.loadPackages();
+      this.loadOnHandler();
     }
-  }
-
-    loadLogo = async () => {
-    const logoUrl = await logo();
-    this.setState({
-      logoUrl,
-    });
   }
 
   isUserAlreadyLoggedIn = () => {
@@ -63,10 +55,12 @@ export default class App extends Component {
     }
   }
 
-  loadPackages = async () => {
+  loadOnHandler = async () => {
     try {
+      const logoUrl = await logo();
       this.req = await API.request('packages', 'GET');
       this.setState({
+        logoUrl,
         packages: this.req,
         isLoading: false,
       });
