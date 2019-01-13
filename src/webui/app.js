@@ -16,6 +16,11 @@ import './styles/typeface-roboto.scss';
 import './styles/main.scss';
 import 'normalize.css';
 
+export const AppContext = React.createContext();
+
+export const AppContextProvider = AppContext.Provider;
+export const AppContextConsumer = AppContext.Consumer;
+
 export default class App extends Component {
   state = {
     error: {},
@@ -145,11 +150,10 @@ export default class App extends Component {
           <Loading />
         ) : (
           <Fragment>
-            {this.renderHeader()}
-            <Content>
-              <Route isUserLoggedIn={isUserLoggedIn} packages={packages} />
-            </Content>
-            <Footer />
+            <AppContextProvider value={{isUserLoggedIn, packages}}>
+              {this.renderHeader()}
+              {this.renderContent()}
+            </AppContextProvider>
           </Fragment>
         )}
         {this.renderLoginModal()}
@@ -170,8 +174,20 @@ export default class App extends Component {
     );
   }
 
+  renderContent = () => {
+    return (
+      <Fragment>
+        <Content>
+          <Route></Route>
+        </Content>
+        <Footer />
+      </Fragment>
+    );
+  }
+
   renderHeader = () => {
     const { logoUrl, user, scope } = this.state;
+
     return (
       <Header
         logo={logoUrl}

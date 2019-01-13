@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { AppContextConsumer } from './app';
 
 import { asyncComponent } from './utils/asyncComponent';
 
@@ -35,21 +36,33 @@ class RouterApp extends Component<IProps, IState> {
   }
 
   renderHomePage = () => {
-    const { isUserLoggedIn, packages } = this.props;
-
-    return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ isUserLoggedIn, packages }) {
+          return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
+        }}
+      </AppContextConsumer>
+    );
   };
 
   renderDetailPage = (routerProps: any) => {
-    const { isUserLoggedIn } = this.props;
-
-    return <DetailPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ isUserLoggedIn }) {
+          return <DetailPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+        }}
+      </AppContextConsumer>
+    );
   };
 
   renderVersionPage = (routerProps: any) => {
-    const { isUserLoggedIn } = this.props;
-
-    return <VersionPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ isUserLoggedIn }) {
+          return <VersionPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+        }}
+      </AppContextConsumer>
+    );
   };
 }
 
