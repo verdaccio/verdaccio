@@ -9,6 +9,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { asyncComponent } from './utils/asyncComponent';
 
 const DetailPackage = asyncComponent(() => import('./pages/detail'));
+const VersionPackage = asyncComponent(() => import('./pages/version'));
 const HomePage = asyncComponent(() => import('./pages/home'));
 
 interface IProps {
@@ -26,6 +27,8 @@ class RouterApp extends Component<IProps, IState> {
           <Route exact={true} path={'/'} render={this.renderHomePage} />
           <Route exact={true} path={'/detail/@:scope/:package'} render={this.renderDetailPage} />
           <Route exact={true} path={'/detail/:package'} render={this.renderDetailPage} />
+          <Route exact={true} path={'/version/@:scope/:package'} render={this.renderVersionPage} />
+          <Route exact={true} path={'/version/:package'} render={this.renderVersionPage} />
         </Switch>
       </Router>
     );
@@ -41,6 +44,12 @@ class RouterApp extends Component<IProps, IState> {
     const { isUserLoggedIn } = this.props;
 
     return <DetailPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+  };
+
+  renderVersionPage = (routerProps: any) => {
+    const { isUserLoggedIn } = this.props;
+
+    return <VersionPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
   };
 }
 
