@@ -160,7 +160,8 @@
     "webpack-cli": "3.1.1",
     "webpack-dev-server": "3.1.14",
     "webpack-merge": "4.1.4",
-    "whatwg-fetch": "3.0.0"
+    "whatwg-fetch": "3.0.0",
+    "xss": "1.0.3"
   },
   "keywords": [
     "private",

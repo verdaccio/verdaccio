@@ -80,7 +80,7 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
     );
 
   return (
-    <Wrapper className={'package'} to={`detail/${label}`}>
+    <Wrapper className={'package'} to={`version/${label}`}>
       <Header>
         {renderMainInfo()}
         <Overview>

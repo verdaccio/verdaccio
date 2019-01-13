@@ -3594,6 +3594,11 @@ cssesc@^2.0.0:
   resolved "https://registry.npmjs.org/cssesc/-/cssesc-2.0.0.tgz#3b13bd1bb1cb36e1bcb5a4dcd27f54c5dcb35703"
   integrity sha512-MsCAG1z9lPdoO/IUMLSBWBSVxVtJ1395VGIQ+Fc2gNdkQ1hNDnQdw3YhA71WJCBW1vdwA0cAnk/DnW6bqoEUYg==
 
+cssfilter@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.npmjs.org/cssfilter/-/cssfilter-0.0.10.tgz#c6d2672632a2e5c83e013e6864a42ce8defd20ae"
+  integrity sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=
+
 cssnano-preset-default@^4.0.6:
   version "4.0.6"
   resolved "https://registry.npmjs.org/cssnano-preset-default/-/cssnano-preset-default-4.0.6.tgz#92379e2a6db4a91c0ea727f5f556eeac693eab6a"
@@ -13416,6 +13421,14 @@ xregexp@4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/xregexp/-/xregexp-4.0.0.tgz#e698189de49dd2a18cc5687b05e17c8e43943020"
   integrity sha512-PHyM+sQouu7xspQQwELlGwwd05mXUFqwFYfqPO0cC7x4fxyHnnuetmQr6CjJiafIDoH4MogHb9dOoJzR/Y4rFg==
+
+xss@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/xss/-/xss-1.0.3.tgz#d04bd2558fd6c29c46113824d5e8b2a910054e23"
+  integrity sha512-LTpz3jXPLUphMMmyufoZRSKnqMj41OVypZ8uYGzvjkMV9C1EdACrhQl/EM8Qfh5htSAuMIQFOejmKAZGkJfaCg==
+  dependencies:
+    commander "^2.9.0"
+    cssfilter "0.0.10"
 
 xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.1"
