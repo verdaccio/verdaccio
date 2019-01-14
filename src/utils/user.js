@@ -8,10 +8,9 @@ export const GRAVATAR_DEFAULT =
  * Generate gravatar url from email address
  */
 export function generateGravatarUrl(email: string = ''): string {
-  let emailCopy = email;
   if (_.isString(email) && _.size(email) > 0) {
-    emailCopy = email.trim().toLocaleLowerCase();
-    const emailMD5 = stringToMD5(emailCopy);
+    email = email.trim().toLocaleLowerCase();
+    const emailMD5 = stringToMD5(email);
     return `https://www.gravatar.com/avatar/${emailMD5}`;
   }
   return GRAVATAR_DEFAULT;
