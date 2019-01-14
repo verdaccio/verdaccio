@@ -36,7 +36,7 @@ class DetailSidebar extends Component<any, any> {
               <Typography color={"textPrimary"} gutterBottom={true} variant={'title'}>
                 {packageName}
               </Typography>
-              <Typography color={"textSecondary"} gutterBottom={true} variant={'subtitle2'}>
+              <Typography color={"textSecondary"} gutterBottom={true} variant={'body2'}>
                 {packageMeta.latest.description}
               </Typography>
             </Grid>
@@ -47,7 +47,7 @@ class DetailSidebar extends Component<any, any> {
                   <CopyToClipBoard text={`pnpm install ${packageName}`} />
                   <CopyToClipBoard text={`yarn add ${packageName}`} />
                   <CardActions>
-                    <Button color={"primary"} variant={"contained"}>
+                    <Button color={"primary"} size={'small'} variant={"contained"}>
                       {'Download Tarball'}
                     </Button>
                   </CardActions>
