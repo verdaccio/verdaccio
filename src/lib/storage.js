@@ -411,7 +411,7 @@ class Storage implements IStorageHandler {
     const self = this;
     const upLinks = [];
 
-    if (!packageInfo || packageInfo === null) {
+    if (!packageInfo) {
       exists = false;
       packageInfo = generatePackageTemplate(name);
     }

@@ -141,7 +141,7 @@ class ProxyStorage implements IProxy {
       let error;
       const responseLength = err ? 0 : body.length;
       // $FlowFixMe
-      processBody(err, body);
+      processBody();
       logActivity();
       // $FlowFixMe
       cb(err, res, body);
@@ -540,7 +540,7 @@ class ProxyStorage implements IProxy {
       //
       if (this.proxy === false) {
         headers['X-Forwarded-For'] = (
-          req && req.headers['x-forwarded-for']
+          req.headers['x-forwarded-for']
             ? req.headers['x-forwarded-for'] + ', '
             : ''
         ) + req.connection.remoteAddress;
