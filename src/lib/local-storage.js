@@ -641,7 +641,7 @@ class LocalStorage implements IStorage {
     const {packages} = this.config;
 
     if (packages) {
-      const listPackagesConf = Object.keys(packages || {});
+      const listPackagesConf = Object.keys(packages);
 
       listPackagesConf.map( (pkg) => {
         if (packages[pkg].storage) {
