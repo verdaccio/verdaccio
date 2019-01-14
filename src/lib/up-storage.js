@@ -141,7 +141,7 @@ class ProxyStorage implements IProxy {
       let error;
       const responseLength = err ? 0 : body.length;
       // $FlowFixMe
-      processBody(err, body);
+      processBody();
       logActivity();
       // $FlowFixMe
       cb(err, res, body);
