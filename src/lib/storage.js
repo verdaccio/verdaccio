@@ -324,17 +324,20 @@ class Storage implements IStorageHandler {
         lstream.pipe(stream, {end: false});
         lstream.on('error', function(err) {
           self.logger.error({err: err}, 'uplink error: @{err.message}');
-          cb(), cb = function() {};
+          cb();
+          cb = function() {};
         });
         lstream.on('end', function() {
-          cb(), cb = function() {};
+          cb();
+          cb = function() {};
         });
 
         stream.abort = function() {
           if (lstream.abort) {
             lstream.abort();
           }
-          cb(), cb = function() {};
+          cb();
+          cb = function() {};
         };
       },
       // executed after all series
