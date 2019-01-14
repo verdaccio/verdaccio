@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 import Readme from '../Readme';
+import Versions from '../Versions';
 import { preventXSS } from '../../utils/sec-utils';
 import Tabs from '@material-ui/core/Tabs/index';
 import Tab from '@material-ui/core/Tab/index';
@@ -43,7 +44,7 @@ class DetailContainer extends Component<any, any> {
         <Content>
           {tabPosition === 0 && this.renderReadme(readMe)}
           {tabPosition === 1 && this.renderDependencies()}
-          {tabPosition === 2 && this.renderReadme(readMe)}
+          {tabPosition === 2 && this.renderVersions()}
           {tabPosition === 3 && this.renderReadme(readMe)}
         </Content>
       </React.Fragment>
@@ -56,9 +57,9 @@ class DetailContainer extends Component<any, any> {
     return <Readme description={encodedReadme} />;
   };
 
-  renderDependencies = () => {
-    return <Dependencies />;
-  };
+  renderVersions = () => <Versions />;
+
+  renderDependencies = () => <Dependencies />;
 
   handleChange = (event: any, tabPosition: number) => {
     event.preventDefault();
