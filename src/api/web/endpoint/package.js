@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import {addScope, addGravatarSupport, deleteProperties, sortByName, DIST_TAGS, parseReadme} from '../../../lib/utils';
 import {allow} from '../../middleware';
+import logger from '../../../lib/logger';
 import type {Router} from 'express';
 import type {
   IAuth,
@@ -45,6 +46,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
               permissions.push(pkg);
             }
           } catch (err) {
+            logger.logger.error({name: pkg.name, error: err}, 'permission process for @{name} has failed: @{error}');
             throw err;
           }
         }
