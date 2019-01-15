@@ -502,3 +502,13 @@ export function parseReadme(packageName: string, readme: string): string {
 export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;
 }
+
+/**
+ * return package version from tarball name
+ * @param {String} name
+ * @returns {String}
+ */
+export function getVersionFromTarball(name: string) {
+  // $FlowFixMe
+  return /.+-(\d.+)\.tgz/.test(name) ? name.match(/.+-(\d.+)\.tgz/)[1] : undefined;
+}

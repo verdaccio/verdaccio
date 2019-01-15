@@ -5,7 +5,7 @@
 
 import _ from 'lodash';
 
-import { validateName as utilValidateName, validatePackage as utilValidatePackage, isObject, ErrorCode } from '../lib/utils';
+import { validateName as utilValidateName, validatePackage as utilValidatePackage, getVersionFromTarball, isObject, ErrorCode } from '../lib/utils';
 import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
 import { stringToMD5 } from '../lib/crypto-utils';
 import type { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
@@ -99,12 +99,11 @@ export function allow(auth: IAuth) {
   return function(action: string) {
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       req.pause();
-      let packageName = req.params.package;
-      if (req.params.scope) {
-        packageName = `@${req.params.scope}/${packageName}`;
-      }
+      const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
+      const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
+
       // $FlowFixMe
-      auth['allow_' + action](packageName, req.remote_user, function(error, allowed) {
+      auth['allow_' + action]({ packageName, packageVersion }, req.remote_user, function(error, allowed) {
         req.resume();
         if (error) {
           next(error);
