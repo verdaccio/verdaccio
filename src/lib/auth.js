@@ -23,7 +23,7 @@ import {
 import { convertPayloadToBase64, ErrorCode } from './utils';
 import { getMatchedPackagesSpec } from './config-utils';
 
-import type { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security } from '@verdaccio/types';
+import type { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage } from '@verdaccio/types';
 import type { $Response, NextFunction } from 'express';
 import type { $RequestExtend, IAuth } from '../../types';
 
@@ -160,10 +160,10 @@ class Auth implements IAuth {
   /**
    * Allow user to access a package.
    */
-  allow_access(packageName: string, user: RemoteUser, callback: Callback) {
+  allow_access({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback) {
     const plugins = this.plugins.slice(0);
     // $FlowFixMe
-    const pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
     const self = this;
     this.logger.trace({ packageName }, 'allow access for @{packageName}');
 
@@ -193,11 +193,11 @@ class Auth implements IAuth {
   /**
    * Allow user to publish a package.
    */
-  allow_publish(packageName: string, user: string, callback: Callback) {
+  allow_publish({ packageName, packageVersion }: AuthPluginPackage, user: string, callback: Callback) {
     const plugins = this.plugins.slice(0);
     const self = this;
     // $FlowFixMe
-    const pkg = Object.assign({ name: packageName }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName }, 'allow publish for @{packageName}');
 
     (function next() {

@@ -61,7 +61,7 @@ export default function(route, auth, storage) {
     stream.on('data', function each(pkg) {
       processing_pkgs++;
 
-      auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
+      auth.allow_access({ packageName: pkg.name }, req.remote_user, function(err, allowed) {
         processing_pkgs--;
 
         if (err) {
