@@ -168,9 +168,9 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 Thanks to the following companies to help us to achieve our goals providing free open source licenses.
 
-[![jetbrain](assets/sponsor/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/sponsor/crowdin/logo.png)](https://crowdin.com/)
-[![balsamiq](assets/sponsor/balsamiq/logo.jpg)](https://balsamiq.com/)
+[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
+[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
+[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
 
 ## Open Collective Sponsors
 
@@ -217,5 +217,5 @@ If you have any issue you can try the following options, do no desist to ask or 
 
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 
-The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /docs and /assets folder) is
+The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch)  files within the /assets folder) is
  [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
