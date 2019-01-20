@@ -1,19 +1,11 @@
-/* eslint react/jsx-max-depth: 0 */
-
 import React, {Component} from 'react';
 
 import { DetailContextConsumer } from '../../pages/version/index';
-// import Paper from '@material-ui/core/Paper/index';
 import Typography from '@material-ui/core/Typography/index';
 import Grid from '@material-ui/core/Grid/index';
-// import CardHeader from '@material-ui/core/CardHeader';
-import Card from '@material-ui/core/Card/index';
-import CardContent from '@material-ui/core/CardContent/index';
+
+import Install from '../Install';
 import { Content } from './styles';
-import CopyToClipBoard from '../CopyToClipBoard';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-// import Paper from '@material-ui/core/Paper/index';
 
 class DetailSidebar extends Component<any, any> {
   render() {
@@ -28,46 +20,34 @@ class DetailSidebar extends Component<any, any> {
 
   renderSideBar = ({packageMeta, packageName}) => {
     return (
-      <React.Fragment>
-        {this.renderDescription(packageMeta, packageName)}
-        <Content>
-          <Grid container={true} spacing={24}>
-            <Grid item={true} xs={12}>
-              <Typography color={"textPrimary"} gutterBottom={true} variant={'title'}>
-                {packageName}
-              </Typography>
-              <Typography color={"textSecondary"} gutterBottom={true} variant={'body2'}>
-                {packageMeta.latest.description}
-              </Typography>
-            </Grid>
-            <Grid item={true} xs={12}>
-              <Card>
-                <CardContent>
-                  <CopyToClipBoard text={`npm install ${packageName}`} />
-                  <CopyToClipBoard text={`pnpm install ${packageName}`} />
-                  <CopyToClipBoard text={`yarn add ${packageName}`} />
-                  <CardActions>
-                    <Button color={"primary"} size={'small'} variant={"contained"}>
-                      {'Download Tarball'}
-                    </Button>
-                  </CardActions>
-                </CardContent>
-              </Card>
-            </Grid>
+      <Content>
+        <Grid container={true} spacing={24}>
+          <Grid item={true} xs={12}>
+            {this.renderTitle(packageName, packageMeta)}
           </Grid>
-        </Content>
-      </React.Fragment>
+          <Grid item={true} xs={12}>
+            {this.renderCopyCLI()}
+          </Grid>
+        </Grid>
+      </Content>
     );
   }
 
-  renderDescription = (packageMeta) => {
-    console.log('packageMeta', packageMeta);
+  renderTitle = (packageName, packageMeta) => {
+      return (
+        <React.Fragment>
+          <Typography color={"textPrimary"} gutterBottom={true} variant={'title'}>
+            {packageName}
+          </Typography>
+          <Typography color={"textSecondary"} gutterBottom={true} variant={'body2'}>
+            {packageMeta.latest.description}
+          </Typography>
+        </React.Fragment>
+      );
+  }
 
-    return (
-      <React.Fragment>
-
-      </React.Fragment>
-    );
+  renderCopyCLI = () => {
+    return <Install />;
   }
 }
 
