@@ -15,8 +15,6 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@material-ui/styles": "3.0.0-alpha.8",
-    "@material-ui/system": "3.0.0-alpha.1",
     "@verdaccio/file-locking": "0.0.7",
     "@verdaccio/local-storage": "1.2.0",
     "@verdaccio/streams": "1.0.0",
