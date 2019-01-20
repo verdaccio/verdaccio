@@ -322,17 +322,20 @@ class Storage implements IStorageHandler {
         );
         lstream.on('error', function(err) {
           self.logger.error({ err: err }, 'uplink error: @{err.message}');
-          cb(), (cb = function() {});
+          cb();
+          cb = function() {};
         });
         lstream.on('end', function() {
-          cb(), (cb = function() {});
+          cb();
+          cb = function() {};
         });
 
         stream.abort = function() {
           if (lstream.abort) {
             lstream.abort();
           }
-          cb(), (cb = function() {});
+          cb();
+          cb = function() {};
         };
       },
       // executed after all series
@@ -411,7 +414,7 @@ class Storage implements IStorageHandler {
     const upLinks = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
 
-    if (!packageInfo || packageInfo === null) {
+    if (!packageInfo) {
       exists = false;
       packageInfo = generatePackageTemplate(name);
     }
