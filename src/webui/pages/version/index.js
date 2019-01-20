@@ -4,11 +4,11 @@
  */
 
 import React, { Component } from 'react';
-import API from '../../utils/api';
 import Grid from '@material-ui/core/Grid/index';
 import Loading from '../../components/Loading';
 import DetailContainer from '../../components/DetailContainer';
 import DetailSidebar from '../../components/DetailSidebar';
+import { callDetailPage } from '../../utils/calls';
 
 export const DetailContext = React.createContext();
 
@@ -16,20 +16,67 @@ export const DetailContextProvider = DetailContext.Provider;
 export const DetailContextConsumer = DetailContext.Consumer;
 
 class VersionPage extends Component<any, any> {
-  state = {
-    readMe: '',
-    packageMeta: null,
-    isLoading: true,
-    notFound: false,
-  };
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      readMe: '',
+      packageName: this.getPackageName(props),
+      packageMeta: null,
+      isLoading: true,
+      notFound: false,
+    };
+  }
 
   async componentDidMount() {
     await this.loadPackageInfo();
   }
 
-  async loadPackageInfo() {
-    const { match } = this.props;
+  getPackageName(props: any = this.props): string {
+    const { match } = props;
     const packageName = match.params.package;
+
+    return packageName;
+  }
+
+  /* eslint no-unused-vars: 0 */
+  async componentDidUpdate(nextProps: any, prevState: any) {
+    const { packageName } = this.state;
+    if (packageName !== prevState.packageName) {
+      const { readMe, packageMeta } = await callDetailPage(packageName);
+      this.setState({
+        readMe,
+        packageMeta,
+        packageName,
+        notFound: false,
+        isLoading: false,
+      });
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps: any, prevState: any) {
+    const { match } = nextProps;
+    const packageName = match.params.package;
+
+    if (packageName !== prevState.packageName) {
+      try {
+        return {
+          packageName,
+          isLoading: false,
+        };
+      } catch (err) {
+        return {
+          notFound: true,
+          isLoading: false,
+        };
+      }
+    } else {
+      return null;
+    }
+  }
+
+  async loadPackageInfo() {
+    const { packageName } = this.state;
     // FIXME: use utility
     document.title = `Verdaccio - ${packageName}`;
 
@@ -38,30 +85,36 @@ class VersionPage extends Component<any, any> {
     });
 
     try {
-      const readMe = await API.request(`package/readme/${packageName}`, 'GET');
-      const packageMeta = await API.request(`sidebar/${packageName}`, 'GET');
+      const { readMe, packageMeta } = await callDetailPage(packageName);
       this.setState({
         readMe,
         packageMeta,
+        packageName,
         notFound: false,
         isLoading: false,
       });
     } catch (err) {
       this.setState({
         notFound: true,
+        packageName,
         isLoading: false,
       });
     }
   }
 
+  enableLoading = () => {
+    this.setState({
+      isLoading: true,
+    });
+  };
+
   render() {
-    const { isLoading, packageMeta, readMe } = this.state;
-    const { match } = this.props;
-    const packageName = match.params.package;
+    const { isLoading, packageMeta, readMe, packageName } = this.state;
+    console.log('render', packageName, isLoading);
 
     if (isLoading === false) {
       return (
-        <DetailContextProvider value={{ packageMeta, readMe, packageName }}>
+        <DetailContextProvider value={{ packageMeta, readMe, packageName, enableLoading: this.enableLoading }}>
           <Grid className={'container content'} container={true} spacing={0}>
             <Grid item={true} xs={8}>
               {this.renderDetail()}

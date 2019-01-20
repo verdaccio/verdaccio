@@ -6,27 +6,46 @@
 /* eslint react/jsx-max-depth: 0 */
 
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 import CardContent from '@material-ui/core/CardContent/index';
-// import Avatar from '@material-ui/core/Avatar/index';
 import Chip from '@material-ui/core/Chip/index';
-// import Grid from '@material-ui/core/Grid/index';
 import { Content, Tags, Tag, CardWrap } from './styles';
 import Typography from '@material-ui/core/Typography/index';
 
 class DepDetail extends Component<any, any> {
-  render() {
+  constructor(props: any) {
+    super(props);
     const { name, version } = this.props;
+
+    this.state = {
+      name,
+      version,
+    };
+  }
+
+  render() {
+    const { name, version } = this.state;
     const tagText = `${name}@${version}`;
 
     return (
       <Tag>
-        <Chip component={'div'} label={tagText} />
+        <Chip clickable={true} component={'div'} label={tagText} onClick={this.handleOnClick} />
       </Tag>
     );
   }
+
+  handleOnClick = () => {
+    const { name } = this.state;
+    const { onLoading, history } = this.props;
+
+    onLoading();
+    history.push(`/version/${name}`);
+  };
 }
+
+const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
   render() {
@@ -34,20 +53,27 @@ class DependencyBlock extends Component<any, any> {
     const deps = Object.entries(dependencies);
 
     return (
-      <CardWrap>
-        <CardContent>
-          <Typography color={'headline'} gutterBottom={true}>
-            {title}
-          </Typography>
-          <Tags>
-            {deps.map(dep => {
-              const [name, version] = dep;
+      // $FlowFixMe
+      <DetailContextConsumer>
+        {({ enableLoading }) => {
+          return (
+            <CardWrap>
+              <CardContent>
+                <Typography gutterBottom={true} variant={'headline'}>
+                  {title}
+                </Typography>
+                <Tags>
+                  {deps.map(dep => {
+                    const [name, version] = dep;
 
-              return <DepDetail key={name} name={name} version={version} />;
-            })}
-          </Tags>
-        </CardContent>
-      </CardWrap>
+                    return <WrappDepDetail key={name} name={name} onLoading={enableLoading} version={version} />;
+                  })}
+                </Tags>
+              </CardContent>
+            </CardWrap>
+          );
+        }}
+      </DetailContextConsumer>
     );
   }
 }
@@ -70,10 +96,10 @@ class Dependencies extends Component<any, any> {
   // $FlowFixMe
   renderDependencies = ({ packageMeta }) => {
     const { latest } = packageMeta;
-    console.log('renderDependencies', latest);
+    // console.log('renderDependencies', latest);
     const { dependencies, devDependencies, peerDependencies } = latest;
-    console.log('dependencies', dependencies);
-    console.log('devDependencies', devDependencies);
+    // console.log('dependencies', dependencies);
+    // console.log('devDependencies', devDependencies);
 
     return (
       <Content>

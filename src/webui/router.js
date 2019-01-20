@@ -4,10 +4,11 @@
  */
 
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { AppContextConsumer } from './app';
 
 import { asyncComponent } from './utils/asyncComponent';
+import history from './history';
 
 const DetailPackage = asyncComponent(() => import('./pages/detail'));
 const VersionPackage = asyncComponent(() => import('./pages/version'));
@@ -23,7 +24,7 @@ interface IState {}
 class RouterApp extends Component<IProps, IState> {
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact={true} path={'/'} render={this.renderHomePage} />
           <Route exact={true} path={'/detail/@:scope/:package'} render={this.renderDetailPage} />

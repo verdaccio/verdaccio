@@ -159,7 +159,7 @@ export const Footer = styled.div`
 `;
 
 // Container
-export const Wrapper = styled(Link)`
+export const WrapperLink = styled(Link)`
   && {
     font-size: 12px;
     background-color: white;

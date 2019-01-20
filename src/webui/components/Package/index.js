@@ -12,7 +12,7 @@ import { formatDate, formatDateDistance } from '../../utils/package';
 
 import { IProps } from './types';
 import {
-  Wrapper,
+  WrapperLink,
   Header,
   MainInfo,
   Name,
@@ -37,7 +37,7 @@ const getInitialsName = (name: string) =>
     .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
     .toUpperCase();
 
-const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<Wrapper> => {
+const Package = ({ name: label, version, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<WrapperLink> => {
   const renderMainInfo = () => (
     <MainInfo>
       <Name>{label}</Name>
@@ -80,7 +80,7 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
     );
 
   return (
-    <Wrapper className={'package'} to={`version/${label}`}>
+    <WrapperLink className={'package'} to={`version/${label}`}>
       <Header>
         {renderMainInfo()}
         <Overview>
@@ -99,7 +99,7 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
           ))}
         </Footer>
       )}
-    </Wrapper>
+    </WrapperLink>
   );
 };
 export default Package;

@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 
-class Versions extends React.PureComponent {
+class Versions extends React.Component<any, any> {
   render() {
     return (
+      // $FlowFixMe
       <DetailContextConsumer>
         {({ packageMeta }) => {
           const { versions } = packageMeta;
