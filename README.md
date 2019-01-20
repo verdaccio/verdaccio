@@ -172,7 +172,7 @@ Thanks to the following companies to help us to achieve our goals providing free
 [![crowdin](assets/sponsor/crowdin/logo.png)](https://crowdin.com/)
 [![balsamiq](assets/sponsor/balsamiq/logo.jpg)](https://balsamiq.com/)
 
-### Sponsors
+## Open Collective Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
 
@@ -187,7 +187,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 [![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
 [![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
 
-## Backers
+## Open Collective Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
 
