@@ -2,14 +2,14 @@
 
 ![verdaccio gif](https://github.com/verdaccio/verdaccio/blob/master/assets/gif/verdaccio_big_30.gif?raw=true)
 
-# Version 4 
+# Version 4
 
-[Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**. 
-No need for an entire database just to get started! Verdaccio comes out of the box with 
-**its own tiny database**, and the ability to proxy other registries (eg. npmjs.org), 
-caching the downloaded modules along the way. 
-For those looking to extend their storage capabilities, Verdaccio 
-**supports various community-made plugins to hook into services such as Amazon's s3, 
+[Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
+No need for an entire database just to get started! Verdaccio comes out of the box with
+**its own tiny database**, and the ability to proxy other registries (eg. npmjs.org),
+caching the downloaded modules along the way.
+For those looking to extend their storage capabilities, Verdaccio
+**supports various community-made plugins to hook into services such as Amazon's s3,
 Google Cloud Storage** or create your own plugin.
 
 
@@ -61,7 +61,7 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 
 ### E2E Testing
 
-Verdaccio has proved to be a lightweight registry that can be 
+Verdaccio has proved to be a lightweight registry that can be
 booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in dedicated article to E2E in our blog.
 
 
@@ -83,7 +83,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 > Warning: Verdaccio does not currently support PM2's cluster mode, running it with cluster mode may cause unknown behavior.
 
-## Publishing 
+## Publishing
 
 #### 1. create an user and log in
 
@@ -93,7 +93,7 @@ npm adduser --registry http://localhost:4873
 
 > if you use HTTPS, add an appropriate CA information ("null" means get CA list from OS)
 
-```bash 
+```bash
 $ npm set ca null
 ```
 
@@ -164,16 +164,15 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 - npm audit - **supported**
 
 
-## Sponsors
+## Special Thanks
 
-#### Open Source License
+Thanks to the following companies to help us to achieve our goals providing free open source licenses.
 
-Thanks to the following sponsors to help to achieve our goals providing us free open source licenses.
+[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
+[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
+[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
 
-[![jetbrain](assets/sponsor/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/sponsor/crowdin/logo.png)](https://crowdin.com/)
-
-#### Open Collective
+## Open Collective Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
 
@@ -188,7 +187,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 [![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
 [![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
 
-## Backers
+## Open Collective Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
 
@@ -218,5 +217,5 @@ If you have any issue you can try the following options, do no desist to ask or 
 
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 
-The Verdaccio documentation and logos (e.g., .md, .png, .sketch)  files in the /docs and /assets folder) is
+The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch)  files within the /assets folder) is
  [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
