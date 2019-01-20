@@ -6,18 +6,11 @@
 import styled from 'react-emotion';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
-import { default as MuiListItem } from '@material-ui/core/ListItem';
-import { default as MuiCardContent } from '@material-ui/core/CardContent';
+import Chip from '@material-ui/core/Chip';
 
 export const Content = styled.div`
   && {
     padding: 20px;
-  }
-`;
-
-export const CardContent = styled(MuiCardContent)`
-  && {
-    padding-bottom: 0;
   }
 `;
 
@@ -33,9 +26,17 @@ export const Heading = styled(Typography)`
   }
 `;
 
-export const ListItem = styled(MuiListItem)`
+export const Tags = styled('div')`
   && {
-    padding-left: 0;
-    padding-right: 0;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin: 0 -5px;
+  }
+`;
+
+export const Tag = styled(Chip)`
+  && {
+    margin: 5px;
   }
 `;

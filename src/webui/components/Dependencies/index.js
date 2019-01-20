@@ -7,11 +7,10 @@
 
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
+import CardContent from '@material-ui/core/CardContent';
 
 import { DetailContextConsumer } from '../../pages/version';
-import Chip from '@material-ui/core/Chip';
-import { Content, CardWrap, Heading, ListItem, CardContent } from './styles';
-import List from '@material-ui/core/List';
+import { Content, CardWrap, Heading, Tags, Tag } from './styles';
 
 class DepDetail extends Component<any, any> {
   constructor(props: any) {
@@ -27,11 +26,7 @@ class DepDetail extends Component<any, any> {
   render() {
     const { name, version } = this.state;
     const tagText = `${name}@${version}`;
-    return (
-      <ListItem>
-        <Chip clickable={true} component={'div'} label={tagText} onClick={this.handleOnClick} />
-      </ListItem>
-    );
+    return <Tag clickable={true} component={'div'} label={tagText} onClick={this.handleOnClick} />;
   }
 
   handleOnClick = () => {
@@ -46,7 +41,7 @@ class DepDetail extends Component<any, any> {
 const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
-  renderList = (deps: object, enableLoading: boolean) =>
+  renderTags = (deps: object, enableLoading: boolean) =>
     deps.map(dep => {
       const [name, version] = dep;
 
@@ -65,7 +60,7 @@ class DependencyBlock extends Component<any, any> {
             <CardWrap>
               <CardContent>
                 <Heading variant={'subheading'}>{title}</Heading>
-                <List>{this.renderList(deps, enableLoading)}</List>
+                <Tags>{this.renderTags(deps, enableLoading)}</Tags>
               </CardContent>
             </CardWrap>
           );
