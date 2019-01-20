@@ -86,7 +86,7 @@ class Dependencies extends Component<any, any> {
   }
 
   // $FlowFixMe
-  renderDependencies = ({ packageMeta }) => {
+  renderDependencies({ packageMeta }) {
     const { latest } = packageMeta;
     // console.log('renderDependencies', latest);
     const { dependencies, devDependencies, peerDependencies } = latest;
@@ -102,7 +102,7 @@ class Dependencies extends Component<any, any> {
         </Fragment>
       </Content>
     );
-  };
+  }
 }
 
 export default Dependencies;

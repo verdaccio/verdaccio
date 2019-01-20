@@ -30,22 +30,24 @@ class Versions extends React.PureComponent {
   );
 
   // $FlowFixMe
-  renderContent = (distTags, versions) => (
-    <>
-      {distTags && (
-        <>
-          <Heading variant={'subheading'}>{'Current Tags'}</Heading>
-          {this.renderPackageList(distTags)}
-        </>
-      )}
-      {versions && (
-        <>
-          <Heading variant={'subheading'}>{'Version History'}</Heading>
-          {this.renderPackageList(versions, true)}
-        </>
-      )}
-    </>
-  );
+  renderContent(distTags: object, versions: object) {
+    return (
+      <>
+        {distTags && (
+          <>
+            <Heading variant={'subheading'}>{'Current Tags'}</Heading>
+            {this.renderPackageList(distTags)}
+          </>
+        )}
+        {versions && (
+          <>
+            <Heading variant={'subheading'}>{'Version History'}</Heading>
+            {this.renderPackageList(versions, true)}
+          </>
+        )}
+      </>
+    );
+  }
 }
 
 export default Versions;

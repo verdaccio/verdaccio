@@ -4,11 +4,10 @@
  */
 
 import { DetailContextConsumer } from '../../pages/version/index';
-import { Heading, ListItem, CardContent } from './styles';
+import { formatDateDistance } from '../../utils/package';
+import { Heading, Spacer, ListItemText } from './styles';
 import List from '@material-ui/core/List';
-import Chip from '@material-ui/core/Chip';
-import Card from '@material-ui/core/Card';
-
+import ListItem from '@material-ui/core/ListItem';
 import React from 'react';
 
 class UpLinks extends React.PureComponent {
@@ -16,28 +15,31 @@ class UpLinks extends React.PureComponent {
     return <DetailContextConsumer>{({ packageMeta }) => this.renderContent(packageMeta._uplinks)}</DetailContextConsumer>;
   }
 
-  renderList = (uplinks: object) => (
+  renderUpLinksList = (uplinks: object) => (
     <List>
       {Object.keys(uplinks)
         .reverse()
         .map(name => (
           <ListItem key={name}>
-            <Chip label={name} />
+            <ListItemText>{name}</ListItemText>
+            <Spacer />
+            <ListItemText>{`${formatDateDistance(uplinks[name].fetched)} ago`}</ListItemText>
           </ListItem>
         ))}
     </List>
   );
 
   // $FlowFixMe
-  renderContent = uplinks =>
-    uplinks && (
-      <Card>
-        <CardContent>
-          <Heading variant={'subheading'}>{'UpLinks'}</Heading>
-          {this.renderList(uplinks)}
-        </CardContent>
-      </Card>
+  renderContent(uplinks: object) {
+    return (
+      uplinks && (
+        <>
+          <Heading variant={'subheading'}>{'Uplinks'}</Heading>
+          {this.renderUpLinksList(uplinks)}
+        </>
+      )
     );
+  }
 }
 
 export default UpLinks;

@@ -1,23 +1,25 @@
 import styled from 'react-emotion';
 import Typography from '@material-ui/core/Typography';
-import { default as MuiListItem } from '@material-ui/core/ListItem';
-import { default as MuiCardContent } from '@material-ui/core/CardContent';
+import { default as MuiListItemText } from '@material-ui/core/ListItemText';
 
 export const Heading = styled(Typography)`
-  && {
-    font-weight: 700;
-  }
+ && {
+  font-weight: 700;
+ }
 `;
 
-export const ListItem = styled(MuiListItem)`
-  && {
-    padding-left: 0;
-    padding-right: 0;
-  }
+export const Spacer = styled('div')`
+    flex: 1 1 auto;
+    border-bottom: 1px dotted rgba(0, 0, 0, .2);
+    white-space: nowrap;
+    height: 0.5em;
 `;
 
-export const CardContent = styled(MuiCardContent)`
-  && {
-    padding-bottom: 0;
-  }
+export const ListItemText = styled(MuiListItemText)`
+    && {
+      flex: none;
+      color: black;
+      opacity: .6;
+    }
 `;
+
