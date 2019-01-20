@@ -37,13 +37,6 @@ describe('App', () => {
   beforeEach(() => {
     wrapper = mount(<App />);
   });
-  test('loadLogo: set logo url in state', async () => {
-    const { loadLogo } = wrapper.instance();
-    await loadLogo();
-    expect(wrapper.state().logoUrl).toEqual(
-      'http://localhost/-/static/logo.png'
-    );
-  });
 
   test('toggleLoginModal: should toggle the value in state', () => {
     const { handleToggleLoginModal } = wrapper.instance();

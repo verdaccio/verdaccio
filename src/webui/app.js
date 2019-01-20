@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import isNil from 'lodash/isNil';
 
 import storage from './utils/storage';
-import logo from './utils/logo';
 import { makeLogin, isTokenExpire } from './utils/login';
 
 import Footer from './components/Footer';
@@ -42,8 +41,8 @@ export default class App extends Component {
     }
   }
 
-    loadLogo = async () => {
-    const logoUrl = await logo();
+    loadLogo = () => {
+    const logoUrl = window.VERDACCIO_LOGO;
     this.setState({
       logoUrl,
     });

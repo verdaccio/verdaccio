@@ -34,8 +34,9 @@ export default {
       __APP_VERSION__: `"${getPackageJson('version')}"`,
     }),
     new HTMLWebpackPlugin({
-      title: 'Verdaccio',
+      title: 'Verdaccio Dev UI',
       scope: '',
+      logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3IX6-um7AlJXyt5gzkRIB0iO4Bn9QVRKcUHhilYJPs2mAfkkI',
       filename: 'index.html',
       verdaccioURL: '//localhost:4873',
       template: `${env.SRC_ROOT}/webui/template/index.html`,

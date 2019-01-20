@@ -4,6 +4,7 @@
  */
 
 export interface IProps {
+  logo: string;
   username?: string;
   onLogout?: Function;
   onToggleLoginModal: Function;
