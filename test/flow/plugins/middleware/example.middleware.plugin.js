@@ -24,7 +24,7 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
 			name: 'test'
 		};
 		auth.authenticate('user', 'password', () => {});
-		auth.allow_access('packageName', remoteUser, () => {});
+		auth.allow_access({packageName: 'packageName'}, remoteUser, () => {});
 		auth.add_user('user', 'password', () => {});
 		auth.aesEncrypt(new Buffer('pass'));
 		// storage

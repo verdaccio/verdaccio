@@ -18,7 +18,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
   const checkAllow = (name, remoteUser) =>
     new Promise((resolve, reject) => {
       try {
-        auth.allow_access(name, remoteUser, (err, allowed) => {
+        auth.allow_access({ packageName: name }, remoteUser, (err, allowed) => {
           if (err) {
             resolve(false);
           } else {
