@@ -5,16 +5,16 @@ import storage from './utils/storage';
 import logo from './utils/logo';
 import { makeLogin, isTokenExpire } from './utils/login';
 
-import Footer from './components/Footer';
 import Loading from './components/Loading';
 import LoginModal from './components/Login';
 import Header from './components/Header';
 import { Container, Content } from './components/Layout';
-import Route from './router';
+import RouterApp from './router';
 import API from './utils/api';
 import './styles/typeface-roboto.scss';
 import './styles/main.scss';
 import 'normalize.css';
+import Footer from './components/Footer';
 
 export const AppContext = React.createContext();
 
@@ -143,15 +143,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, isUserLoggedIn, packages } = this.state;
+    const { isLoading, isUserLoggedIn, packages, logoUrl, user, scope } = this.state;
     return (
       <Container isLoading={isLoading}>
         {isLoading ? (
           <Loading />
         ) : (
           <Fragment>
-            <AppContextProvider value={{isUserLoggedIn, packages}}>
-              {this.renderHeader()}
+            <AppContextProvider value={{isUserLoggedIn, packages, logoUrl, user, scope}}>
               {this.renderContent()}
             </AppContextProvider>
           </Fragment>
@@ -178,7 +177,11 @@ export default class App extends Component {
     return (
       <Fragment>
         <Content>
-          <Route></Route>
+          <RouterApp 
+            onLogout={this.handleLogout}
+            onToggleLoginModal={this.handleToggleLoginModal}>
+            {this.renderHeader()}
+          </RouterApp>
         </Content>
         <Footer />
       </Fragment>

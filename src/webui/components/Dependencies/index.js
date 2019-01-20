@@ -34,14 +34,14 @@ class DepDetail extends Component<any, any> {
     const { onLoading, history } = this.props;
 
     onLoading();
-    history.push(`/version/${name}`);
+    history.push(`/-/web/version/${name}`);
   };
 }
 
 const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
-  renderTags = (deps: object, enableLoading: boolean) =>
+  renderTags = (deps: any, enableLoading: boolean) =>
     deps.map(dep => {
       const [name, version] = dep;
 

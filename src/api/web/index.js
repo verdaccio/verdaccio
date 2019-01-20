@@ -53,13 +53,7 @@ module.exports = function(config, auth, storage) {
     });
   });
 
-  router.get('/-/verdaccio/logo', function(req, res) {
-    const installPath = _.get(config, 'url_prefix', '');
-
-    res.send(_.get(config, 'web.logo') || spliceURL(installPath, '/-/static/logo.png'));
-  });
-
-  router.get('/', function(req, res) {
+  function renderHTML(req, res) {
     const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
 
     const webPage = template
@@ -70,6 +64,20 @@ module.exports = function(config, auth, storage) {
     res.setHeader('Content-Type', 'text/html');
 
     res.send(webPage);
+  }
+
+  router.get('/-/web/:pkg', function(req, res) {
+    renderHTML(req, res);
+  });
+
+  router.get('/-/verdaccio/logo', function(req, res) {
+    const installPath = _.get(config, 'url_prefix', '');
+
+    res.send(_.get(config, 'web.logo') || spliceURL(installPath, '/-/static/logo.png'));
+  });
+
+  router.get('/', function(req, res) {
+    renderHTML(req, res);
   });
 
   return router;

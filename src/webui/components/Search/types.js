@@ -3,7 +3,9 @@
  * @flow
  */
 
-export interface IProps {}
+export interface IProps {
+  history?: any;
+}
 
 export interface IState {
   search: string;
