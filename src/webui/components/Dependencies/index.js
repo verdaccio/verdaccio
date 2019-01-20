@@ -8,11 +8,10 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { DetailContextConsumer } from '../../pages/version/index';
-import CardContent from '@material-ui/core/CardContent/index';
-import Chip from '@material-ui/core/Chip/index';
-import { Content, Tags, Tag, CardWrap } from './styles';
-import Typography from '@material-ui/core/Typography/index';
+import { DetailContextConsumer } from '../../pages/version';
+import Chip from '@material-ui/core/Chip';
+import { Content, CardWrap, Heading, ListItem, CardContent } from './styles';
+import List from '@material-ui/core/List';
 
 class DepDetail extends Component<any, any> {
   constructor(props: any) {
@@ -28,11 +27,10 @@ class DepDetail extends Component<any, any> {
   render() {
     const { name, version } = this.state;
     const tagText = `${name}@${version}`;
-
     return (
-      <Tag>
+      <ListItem>
         <Chip clickable={true} component={'div'} label={tagText} onClick={this.handleOnClick} />
-      </Tag>
+      </ListItem>
     );
   }
 
@@ -48,6 +46,13 @@ class DepDetail extends Component<any, any> {
 const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
+  renderList = (deps: object, enableLoading: boolean) =>
+    deps.map(dep => {
+      const [name, version] = dep;
+
+      return <WrappDepDetail key={name} name={name} onLoading={enableLoading} version={version} />;
+    });
+
   render() {
     const { dependencies, title } = this.props;
     const deps = Object.entries(dependencies);
@@ -59,16 +64,8 @@ class DependencyBlock extends Component<any, any> {
           return (
             <CardWrap>
               <CardContent>
-                <Typography gutterBottom={true} variant={'headline'}>
-                  {title}
-                </Typography>
-                <Tags>
-                  {deps.map(dep => {
-                    const [name, version] = dep;
-
-                    return <WrappDepDetail key={name} name={name} onLoading={enableLoading} version={version} />;
-                  })}
-                </Tags>
+                <Heading variant={'subheading'}>{title}</Heading>
+                <List>{this.renderList(deps, enableLoading)}</List>
               </CardContent>
             </CardWrap>
           );

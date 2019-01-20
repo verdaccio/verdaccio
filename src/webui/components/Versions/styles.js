@@ -3,7 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import { default as MuiListItemText } from '@material-ui/core/ListItemText';
 
 export const Heading = styled(Typography)`
+ && {
   font-weight: 700;
+ }
 `;
 
 export const Spacer = styled('div')`

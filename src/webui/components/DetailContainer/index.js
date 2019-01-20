@@ -13,6 +13,7 @@ import Tabs from '@material-ui/core/Tabs/index';
 import Tab from '@material-ui/core/Tab/index';
 import { Content } from './styles';
 import Dependencies from '../Dependencies';
+import UpLinks from '../UpLinks';
 
 class DetailContainer extends Component<any, any> {
   state = {
@@ -43,9 +44,9 @@ class DetailContainer extends Component<any, any> {
         </Tabs>
         <Content>
           {tabPosition === 0 && this.renderReadme(readMe)}
-          {tabPosition === 1 && this.renderDependencies()}
-          {tabPosition === 2 && this.renderVersions()}
-          {tabPosition === 3 && this.renderReadme(readMe)}
+          {tabPosition === 1 && <Dependencies />}
+          {tabPosition === 2 && <Versions />}
+          {tabPosition === 3 && <UpLinks />}
         </Content>
       </React.Fragment>
     );
@@ -56,10 +57,6 @@ class DetailContainer extends Component<any, any> {
 
     return <Readme description={encodedReadme} />;
   };
-
-  renderVersions = () => <Versions />;
-
-  renderDependencies = () => <Dependencies />;
 
   handleChange = (event: any, tabPosition: number) => {
     event.preventDefault();
