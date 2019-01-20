@@ -6,16 +6,24 @@
 import { DetailContextConsumer } from '../../pages/version/index';
 import { formatDateDistance } from '../../utils/package';
 import { Heading, Spacer, ListItemText } from './styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
 import React from 'react';
+import { DIST_TAGS } from '../../../lib/constants';
 
-class Versions extends React.PureComponent {
+class Versions extends React.PureComponent<any> {
   render() {
-    return <DetailContextConsumer>{({ packageMeta }) => this.renderContent(packageMeta['dist-tags'], packageMeta.versions)}</DetailContextConsumer>;
+    return (
+      // $FlowFixMe
+      <DetailContextConsumer>
+        {({ packageMeta }) => {
+          return this.renderContent(packageMeta[DIST_TAGS], packageMeta.versions);
+        }}
+      </DetailContextConsumer>
+    );
   }
 
-  renderPackageList = (packages: object, isVersion: boolean = false) => (
+  renderPackageList = (packages: any, isVersion: boolean = false) => (
     <List>
       {Object.keys(packages)
         .reverse()
@@ -29,8 +37,7 @@ class Versions extends React.PureComponent {
     </List>
   );
 
-  // $FlowFixMe
-  renderContent = (distTags, versions) => (
+  renderContent = (distTags: any, versions: any) => (
     <>
       {distTags && (
         <>

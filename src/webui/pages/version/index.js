@@ -110,7 +110,6 @@ class VersionPage extends Component<any, any> {
 
   render() {
     const { isLoading, packageMeta, readMe, packageName } = this.state;
-    console.log('render', packageName, isLoading);
 
     if (isLoading === false) {
       return (
