@@ -36,7 +36,7 @@ export default {
     new HTMLWebpackPlugin({
       title: 'Verdaccio Dev UI',
       scope: '',
-      logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3IX6-um7AlJXyt5gzkRIB0iO4Bn9QVRKcUHhilYJPs2mAfkkI',
+      logo: 'https://verdaccio.org/img/logo/symbol/svg/verdaccio-tiny.svg',
       filename: 'index.html',
       verdaccioURL: '//localhost:4873',
       template: `${env.SRC_ROOT}/webui/template/index.html`,
