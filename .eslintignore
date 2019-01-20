@@ -12,3 +12,5 @@ Dockerfile
 *.rpi
 *.html
 *.scss
+*.png
+*.jpg
