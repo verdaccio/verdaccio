@@ -7,7 +7,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
-import CardContent from '@material-ui/core/CardContent';
+import CardContent from '@material-ui/core/CardContent/index';
 
 import { DetailContextConsumer } from '../../pages/version';
 import { Content, CardWrap, Heading, Tags, Tag } from './styles';
@@ -41,7 +41,7 @@ class DepDetail extends Component<any, any> {
 const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
-  renderTags = (deps: object, enableLoading: boolean) =>
+  renderTags = (deps: any, enableLoading: any) =>
     deps.map(dep => {
       const [name, version] = dep;
 
