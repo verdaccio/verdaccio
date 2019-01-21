@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 import Typography from '@material-ui/core/Typography/index';
@@ -9,14 +9,13 @@ import { Content } from './styles';
 import Authors from '../Author';
 import License from '../License';
 import Repository from '../Repository';
+import Developers from '../Developers';
 
 class DetailSidebar extends Component<any, any> {
   render() {
     return (
       <DetailContextConsumer>
-        {(context) => {
-          return this.renderSideBar(context);
-        }}
+        {(context) => this.renderSideBar(context)}
       </DetailContextConsumer>
     );
   };
@@ -35,6 +34,12 @@ class DetailSidebar extends Component<any, any> {
             {this.renderSecondLevel(8)}
           </Grid>
           <Grid item={true} xs={12}>
+            {this.renderMaintainers()}
+          </Grid>
+          <Grid item={true} xs={12}>
+            {this.renderContributors()}
+          </Grid>
+          <Grid item={true} xs={12}>
             {this.renderRepository()}
           </Grid>
         </Grid>
@@ -44,19 +49,27 @@ class DetailSidebar extends Component<any, any> {
 
   renderTitle = (packageName, packageMeta) => {
       return (
-        <React.Fragment>
+        <>
           <Typography color={"textPrimary"} gutterBottom={true} variant={'title'}>
             {packageName}
           </Typography>
           <Typography color={"textSecondary"} gutterBottom={true} variant={'body2'}>
             {packageMeta.latest.description}
           </Typography>
-        </React.Fragment>
+        </>
       );
   }
 
   renderCopyCLI = () => {
     return <Install />;
+  }
+
+  renderMaintainers = () => {
+    return <Developers type={'maintainers'} />;
+  }
+
+  renderContributors = () => {
+    return <Developers type={'contributors'} />;
   }
   
   renderSecondLevel = (spacing = 24) => {
@@ -73,14 +86,14 @@ class DetailSidebar extends Component<any, any> {
 
   renderAuthor = () => {
     return (
-      <Fragment>
+      <>
         <Grid item={true} xs={6}>
           <Authors />
         </Grid>
         <Grid item={true} xs={6}>
           <License />
         </Grid>
-      </Fragment>
+      </>
     );
   }
 }

@@ -1,13 +1,12 @@
 /**
  * @prettier
- * @flow
  */
 
 import { DetailContextConsumer } from '../../pages/version/index';
 import { formatDateDistance } from '../../utils/package';
 import { Heading, Spacer, ListItemText } from './styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
 import React from 'react';
 
 class UpLinks extends React.PureComponent {
@@ -15,7 +14,7 @@ class UpLinks extends React.PureComponent {
     return <DetailContextConsumer>{({ packageMeta }) => this.renderContent(packageMeta._uplinks)}</DetailContextConsumer>;
   }
 
-  renderUpLinksList = (uplinks: object) => (
+  renderUpLinksList = uplinks => (
     <List>
       {Object.keys(uplinks)
         .reverse()
@@ -29,8 +28,7 @@ class UpLinks extends React.PureComponent {
     </List>
   );
 
-  // $FlowFixMe
-  renderContent(uplinks: object) {
+  renderContent(uplinks) {
     return (
       uplinks && (
         <>
