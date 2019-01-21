@@ -41,7 +41,7 @@ class DepDetail extends Component<any, any> {
 const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
-  renderTags = (deps, enableLoading) =>
+  renderTags = (deps: any, enableLoading: any) =>
     deps.map(dep => {
       const [name, version] = dep;
 

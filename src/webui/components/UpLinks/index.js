@@ -9,9 +9,16 @@ import List from '@material-ui/core/List/index';
 import ListItem from '@material-ui/core/ListItem/index';
 import React from 'react';
 
-class UpLinks extends React.PureComponent {
+class UpLinks extends React.PureComponent<any> {
   render() {
-    return <DetailContextConsumer>{({ packageMeta }) => this.renderContent(packageMeta._uplinks)}</DetailContextConsumer>;
+    return (
+      // $FlowFixMe
+      <DetailContextConsumer>
+        {({ packageMeta }) => {
+          return this.renderContent(packageMeta._uplinks);
+        }}
+      </DetailContextConsumer>
+    );
   }
 
   renderUpLinksList = uplinks => (
