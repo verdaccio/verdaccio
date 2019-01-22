@@ -24,7 +24,7 @@ const CONSTANTS = {
   ABORT_ERROR: 'AbortError',
 };
 
-class Search extends Component<IProps, IState> {
+export class Search extends Component<IProps, IState> {
   requestList: Array<any>;
 
   constructor(props: IProps) {
