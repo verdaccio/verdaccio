@@ -53,6 +53,10 @@ function normalizePackage(pkg: Package) {
     pkg._rev = DEFAULT_REVISION;
   }
 
+  if (_.isString(pkg._id) === false) {
+    pkg._id = pkg.name;
+  }
+
   // normalize dist-tags
   normalizeDistTags(pkg);
 
@@ -107,7 +111,7 @@ export function normalizeContributors(contributors: Array<Author>): Array<Author
   return contributors;
 }
 
-export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time'];
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
