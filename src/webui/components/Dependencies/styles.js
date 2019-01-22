@@ -4,9 +4,9 @@
  */
 
 import styled from 'react-emotion';
-import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
+import Card from '@material-ui/core/Card/index';
+import Typography from '@material-ui/core/Typography/index';
+import Chip from '@material-ui/core/Chip/index';
 
 export const Content = styled.div`
   && {
