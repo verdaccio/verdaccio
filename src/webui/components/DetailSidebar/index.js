@@ -22,12 +22,12 @@ class DetailSidebar extends Component<any, any> {
 
   renderSideBar = ({packageMeta, packageName}) => {
     return (
-      <Content>
+      <Content className={'sidebar-info'}>
         <Grid container={true} spacing={24}>
           <Grid item={true} xs={12}>
             {this.renderTitle(packageName, packageMeta)}
           </Grid>
-          <Grid item={true} xs={12}>
+          <Grid className={'detail-info'} item={true} xs={12}>
             {this.renderCopyCLI()}
           </Grid>
           <Grid item={true} xs={12}>

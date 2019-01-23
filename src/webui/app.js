@@ -70,7 +70,8 @@ export default class App extends Component {
         isLoading: false,
       });
     } catch (error) {
-      this.handleShowAlertDialog({
+      // FIXME: add dialog
+      console.error({
         title: 'Warning',
         message: `Unable to load package list: ${error.message}`,
       });
