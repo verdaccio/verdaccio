@@ -9,6 +9,7 @@ import Loading from '../../components/Loading';
 import DetailContainer from '../../components/DetailContainer';
 import DetailSidebar from '../../components/DetailSidebar';
 import { callDetailPage } from '../../utils/calls';
+import { getRouterPackageName } from '../../utils/package';
 
 export const DetailContext = React.createContext();
 
@@ -21,7 +22,7 @@ class VersionPage extends Component<any, any> {
 
     this.state = {
       readMe: '',
-      packageName: this.getPackageName(props),
+      packageName: getRouterPackageName(props.match),
       packageMeta: null,
       isLoading: true,
       notFound: false,
@@ -30,13 +31,6 @@ class VersionPage extends Component<any, any> {
 
   async componentDidMount() {
     await this.loadPackageInfo();
-  }
-
-  getPackageName(props: any = this.props): string {
-    const { match } = props;
-    const packageName = match.params.package;
-
-    return packageName;
   }
 
   /* eslint no-unused-vars: 0 */
@@ -56,7 +50,7 @@ class VersionPage extends Component<any, any> {
 
   static getDerivedStateFromProps(nextProps: any, prevState: any) {
     const { match } = nextProps;
-    const packageName = match.params.package;
+    const packageName = getRouterPackageName(match);
 
     if (packageName !== prevState.packageName) {
       try {
