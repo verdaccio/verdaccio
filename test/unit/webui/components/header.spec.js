@@ -18,6 +18,7 @@ describe('<Header /> component with logged in state', () => {
     props = {
       username: 'test user',
       handleLogout: jest.fn(),
+      logo: '',
       onToggleLoginModal: jest.fn(),
       scope: 'test scope',
       withoutSearch: true,
@@ -69,6 +70,7 @@ describe('<Header /> component with logged out state', () => {
       handleLogout: jest.fn(),
       onToggleLoginModal: jest.fn(),
       scope: 'test scope',
+      logo: '',
       withoutSearch: true,
     };
     routerWrapper = shallow(

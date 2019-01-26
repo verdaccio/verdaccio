@@ -113,7 +113,7 @@ class Header extends Component<IProps, IState> {
     return (
       <LeftSide>
         <Link style={{ marginRight: '1em' }} to={'/'}>
-          <Logo />
+          {this.renderLogo()}
         </Link>
         {!withoutSearch && (
           <SearchWrapper>
@@ -122,6 +122,16 @@ class Header extends Component<IProps, IState> {
         )}
       </LeftSide>
     );
+  };
+
+  renderLogo = (): Node => {
+    const { logo } = this.props;
+
+    if (logo) {
+      return <img alt={'logo'} height={'40px'} src={logo} />;
+    } else {
+      return <Logo />;
+    }
   };
 
   renderToolTipIcon = (title: string, type: ToolTipType) => {

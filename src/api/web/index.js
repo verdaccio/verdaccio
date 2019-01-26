@@ -28,7 +28,6 @@ if (!existTemplate) {
 }
 
 const template = fs.readFileSync(templatePath).toString();
-const spliceURL = require('../../utils/string').spliceURL;
 
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
@@ -53,12 +52,13 @@ module.exports = function(config, auth, storage) {
     });
   });
 
+
   function renderHTML(req, res) {
     const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
-
     const webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
+      .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : null)
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
     res.setHeader('Content-Type', 'text/html');
