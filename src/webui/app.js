@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import isNil from 'lodash/isNil';
 
 import storage from './utils/storage';
-import logo from './utils/logo';
 import { makeLogin, isTokenExpire } from './utils/login';
 
 import Footer from './components/Footer';
@@ -24,7 +23,7 @@ export const AppContextConsumer = AppContext.Consumer;
 export default class App extends Component {
   state = {
     error: {},
-    logoUrl: '',
+    logoUrl: window.VERDACCIO_LOGO,
     user: {},
     scope: (window.VERDACCIO_SCOPE) ? `${window.VERDACCIO_SCOPE}:` : '',
     showLoginModal: false,
@@ -62,10 +61,8 @@ export default class App extends Component {
 
   loadOnHandler = async () => {
     try {
-      const logoUrl = await logo();
       this.req = await API.request('packages', 'GET');
       this.setState({
-        logoUrl,
         packages: this.req,
         isLoading: false,
       });
