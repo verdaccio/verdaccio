@@ -4,18 +4,20 @@
  */
 
 import styled from 'react-emotion';
-import Grid from '@material-ui/core/Grid/index';
 import Typography from '@material-ui/core/Typography';
+import ListItem from '@material-ui/core/ListItem';
 
 export const Heading = styled(Typography)`
   && {
     font-weight: 700;
+    margin-bottom: 10px;
     text-transform: capitalize;
   }
 `;
 
-export const GridRepo = styled(Grid)`
+export const InstallItem = styled(ListItem)`
   && {
-    align-items: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 `;

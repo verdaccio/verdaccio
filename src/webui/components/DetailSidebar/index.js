@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
 
-import { DetailContextConsumer } from '../../pages/version/index';
-import Typography from '@material-ui/core/Typography/index';
-import Grid from '@material-ui/core/Grid/index';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 
 import Install from '../Install';
-import { Content } from './styles';
-import Authors from '../Author';
+import Author from '../Author';
 import License from '../License';
 import Repository from '../Repository';
 import Developers from '../Developers';
-
-class DetailSidebar extends Component<any, any> {
+import { DetailContextConsumer } from '../../pages/version/index';
+class DetailSidebar extends Component {
   render() {
     return (
       <DetailContextConsumer>
@@ -20,43 +22,35 @@ class DetailSidebar extends Component<any, any> {
     );
   };
 
-  renderSideBar = ({packageMeta, packageName}) => {
+  renderSideBar = ({packageName, packageMeta}) => {
     return (
-      <Content>
-        <Grid container={true} spacing={24}>
-          <Grid item={true} xs={12}>
+      <>
+        <Card>
+          <CardContent>
             {this.renderTitle(packageName, packageMeta)}
-          </Grid>
-          <Grid item={true} xs={12}>
             {this.renderCopyCLI()}
-          </Grid>
-          <Grid item={true} xs={12}>
-            {this.renderSecondLevel(8)}
-          </Grid>
-          <Grid item={true} xs={12}>
-            {this.renderMaintainers()}
-          </Grid>
-          <Grid item={true} xs={12}>
-            {this.renderContributors()}
-          </Grid>
-          <Grid item={true} xs={12}>
             {this.renderRepository()}
-          </Grid>
-        </Grid>
-      </Content>
+            {this.renderAuthor()}
+            {this.renderMaintainers()}
+            {this.renderContributors()}
+            {this.renderLicense()}
+          </CardContent>
+        </Card>
+      </>
     );
   }
 
   renderTitle = (packageName, packageMeta) => {
       return (
-        <>
-          <Typography color={"textPrimary"} gutterBottom={true} variant={'title'}>
-            {packageName}
-          </Typography>
-          <Typography color={"textSecondary"} gutterBottom={true} variant={'body2'}>
-            {packageMeta.latest.description}
-          </Typography>
-        </>
+        <List>
+          <ListItem alignItems={"flex-start"}>
+            <Avatar style={{textTransform: 'capitalize'}}>{packageName[0]}</Avatar>
+            <ListItemText
+              primary={<span style={{textTransform: 'capitalize'}}>{packageName}</span>}
+              secondary={packageMeta.latest.description}
+            />
+          </ListItem>
+        </List>
       );
   }
 
@@ -72,12 +66,8 @@ class DetailSidebar extends Component<any, any> {
     return <Developers type={'contributors'} />;
   }
   
-  renderSecondLevel = (spacing = 24) => {
-    return (
-      <Grid container={true} spacing={spacing}>
-        {this.renderAuthor()}
-      </Grid>
-    );
+  renderLicense = () => {
+    return <License />;
   }
 
   renderRepository = () => {
@@ -85,18 +75,8 @@ class DetailSidebar extends Component<any, any> {
   }
 
   renderAuthor = () => {
-    return (
-      <>
-        <Grid item={true} xs={6}>
-          <Authors />
-        </Grid>
-        <Grid item={true} xs={6}>
-          <License />
-        </Grid>
-      </>
-    );
+    return <Author />;
   }
 }
-
 
 export default DetailSidebar;

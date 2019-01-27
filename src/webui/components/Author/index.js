@@ -1,54 +1,44 @@
-/* eslint no-unused-vars: 0 */
+/**
+ * @flow
+ * @prettier
+ */
 
-import React, {Component, Fragment} from 'react';
+import React, { Component } from 'react';
 
 import { DetailContextConsumer } from '../../pages/version/index';
-import Card from '@material-ui/core/Card/index';
-import CardContent from '@material-ui/core/CardContent/index';
-import CopyToClipBoard from '../CopyToClipBoard';
-import CardHeader from '@material-ui/core/CardHeader/index';
 import Avatar from '@material-ui/core/Avatar';
-import CardActions from '@material-ui/core/CardActions';
-import Typography from "@material-ui/core/Typography/index";
+import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
+import { Heading, InstallItem } from './styles';
 class Authors extends Component<any, any> {
   render() {
     return (
       <DetailContextConsumer>
-        {(context) => {
+        {context => {
           return this.renderAuthor(context);
         }}
       </DetailContextConsumer>
     );
-  };
+  }
 
-  renderAuthor = ({packageMeta}) => {
+  renderAuthor = ({ packageMeta }) => {
     const { author } = packageMeta.latest;
-    
+
     if (!author) {
       return null;
     }
 
     return (
-      <Card>
-        <CardContent>
-          {this.renderAvatar(author)}
-        </CardContent>
-      </Card>
+      <List subheader={<Heading variant={'subheading'}>{'Author'}</Heading>}>
+        <InstallItem>
+          <Avatar alt={author.name} src={author.avatar} />
+          <ListItemText primary={author.name} />
+        </InstallItem>
+      </List>
     );
-  }
-
-  renderAvatar = ({name, email, url, avatar}) => {
-    return (
-      <Fragment>
-        <Avatar aria-label={name} src={avatar} />
-        <Typography color={"textPrimary"} gutterBottom={true} variant={'caption'}>
-          {name}
-        </Typography>
-      </Fragment>
-    );
-  }
+  };
 }
-
 
 export default Authors;
