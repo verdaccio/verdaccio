@@ -12,6 +12,7 @@ import express from 'express';
 import { combineBaseUrl, getWebProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
+import { spliceURL } from '../../utils/string';
 
 const { securityIframe } = require('../middleware');
 /* eslint new-cap:off */
@@ -51,7 +52,6 @@ module.exports = function(config, auth, storage) {
       }
     });
   });
-
 
   function renderHTML(req, res) {
     const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
