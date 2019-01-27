@@ -1,5 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<NotFound /> component should load the component in default state 1`] = `"<div class=\\"css-24p7uw e1gvymku0\\"><h1>Error 404 - test</h1><hr><p>Oops, The package you are trying to access does not exist.</p></div>"`;
-
-exports[`<NotFound /> component should set html from props 1`] = `"<div class=\\"css-24p7uw e1gvymku0\\"><h1>Error 404 - verdaccio</h1><hr/><p>Oops, The package you are trying to access does not exist.</p></div>"`;
+exports[`<NotFound /> component should load the component in default state 1`] = `""`;
