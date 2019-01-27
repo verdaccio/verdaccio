@@ -89,7 +89,10 @@ function startVerdaccio(config: any,
       } else { // http
         webServer = http.createServer(app);
       }
-
+      if (config.server && config.server.keepAliveTimeout) {
+        // $FlowFixMe library definition for node is not up to date (doesn't contain recent 8.0 changes)
+        webServer.keepAliveTimeout = config.server.keepAliveTimeout;
+      }
       unlinkAddressPath(addr);
 
       callback(webServer, addr, pkgName, pkgVersion);
