@@ -35,11 +35,9 @@ class Install extends Component<any, any> {
 
   renderDownloadButton = () => {
     return (
-      <CardActions>
-        <Button color={"primary"} size={'small'} variant={"contained"}>
-          {'Download Tarball'}
-        </Button>
-      </CardActions>
+      <Button color={"primary"} size={'small'} variant={"contained"}>
+        {'Download Tarball'}
+      </Button>
     );
   }
 }
