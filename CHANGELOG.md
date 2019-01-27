@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.11.0"></a>
+# [3.11.0](https://github.com/verdaccio/verdaccio/compare/v3.10.2...v3.11.0) (2019-01-27)
+
+
+### Features
+
+* introduce server keepAliveTimeout into config files ([a359055](https://github.com/verdaccio/verdaccio/commit/a359055))
+
+
+
 <a name="3.10.2"></a>
 ## [3.10.2](https://github.com/verdaccio/verdaccio/compare/v3.10.1...v3.10.2) (2019-01-22)
 
