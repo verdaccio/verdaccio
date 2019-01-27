@@ -4,9 +4,9 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import Typography from '@material-ui/core/Typography/index';
 import { Wrapper, Inner, EmptyPackage, Heading, Card, List } from './styles';
 import PackageImg from './img/package.svg';
 
