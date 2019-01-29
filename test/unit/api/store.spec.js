@@ -2,6 +2,8 @@
 
 import _ from 'lodash';
 import path from 'path';
+import fs from 'fs';
+import rimraf from 'rimraf';
 // $FlowFixMe
 import configExample from '../partials/config/index';
 import AppConfig from '../../../src/lib/config';
@@ -16,12 +18,12 @@ import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 setup(configExample.logs);
 
+const storagePath = path.join(__dirname, '../partials/store/test-storage-store.spec');
 const mockServerPort: number = 55548;
 const generateStorage = async function(port = mockServerPort, configDefault = configExample) {
   const storageConfig = _.clone(configDefault);
-  const storage = path.join(__dirname, '../partials/store/test-storage-store.spec');
   storageConfig.self_path = __dirname;
-  storageConfig.storage = storage;
+  storageConfig.storage = storagePath;
   storageConfig.uplinks = {
     npmjs: {
       url: `http://${DOMAIN_SERVERS}:${port}`
@@ -37,8 +39,11 @@ const generateStorage = async function(port = mockServerPort, configDefault = co
 describe('StorageTest', () => {
   let mockRegistry;
 
-  beforeAll(async () => {
-    mockRegistry = await mockServer(mockServerPort).init();
+  beforeAll(done => {
+    rimraf(storagePath, async () => {
+      mockRegistry = await mockServer(mockServerPort).init();
+      done()
+    })
   });
 
   afterAll(function(done) {
@@ -90,5 +95,20 @@ describe('StorageTest', () => {
         done();
       });
     });
+
+    test('should not touch if the package exists and has no uplinks', async (done) => {
+      const storage: IStorageHandler = await generateStorage();
+      const metadataPath = path.join(storagePath, 'npm_test/package.json')
+      fs.mkdirSync(path.join(storagePath, 'npm_test'))
+      fs.copyFileSync(path.join(__dirname, '../partials/metadata'), metadataPath)
+      const metadata = JSON.parse(fs.readFileSync(metadataPath).toString())
+      const prevStat = fs.statSync(metadataPath)
+      storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
+        expect(err).toBeFalsy()
+        const nextStat = fs.statSync(metadataPath)
+        expect(nextStat).toEqual(prevStat)
+        done()
+      })
+    })
   });
 });
