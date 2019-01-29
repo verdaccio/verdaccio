@@ -98,9 +98,10 @@ describe('StorageTest', () => {
 
     test('should not touch if the package exists and has no uplinks', async (done) => {
       const storage: IStorageHandler = await generateStorage();
+      const metadataSource = path.join(__dirname, '../partials/metadata')
       const metadataPath = path.join(storagePath, 'npm_test/package.json')
       fs.mkdirSync(path.join(storagePath, 'npm_test'))
-      fs.copyFileSync(path.join(__dirname, '../partials/metadata'), metadataPath)
+      fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
       const metadata = JSON.parse(fs.readFileSync(metadataPath).toString())
       const prevStat = fs.statSync(metadataPath)
       storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
