@@ -2,6 +2,7 @@
 
 import rimRaf from 'rimraf';
 import path from 'path';
+import fs from 'fs';
 import LocalStorage from '../../../src/lib/local-storage';
 import AppConfig from '../../../src/lib/config';
 // $FlowFixMe
@@ -250,14 +251,16 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::updateVersions', () => {
-      test('should update versions from external source', async (done) => {
-        const metadata = JSON.parse(readMetadata('metadata-update-versions-tags'));
-        const pkgName = 'add-update-versions-test-1';
-        const version = '1.0.2';
+      const metadata = JSON.parse(readMetadata('metadata-update-versions-tags'));
+      const pkgName = 'add-update-versions-test-1';
+      const version = '1.0.2';
+      beforeAll(async () => {
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, '1.0.1');
         await addNewVersion(pkgName, version);
+      })
 
+      test('should update versions from external source', async (done) => {
         storage.updateVersions(pkgName, metadata, (err, data) => {
           expect(err).toBeNull();
           expect(data.versions['1.0.1']).toBeDefined();
@@ -274,6 +277,18 @@ describe('LocalStorage', () => {
           done();
         });
       });
+
+      test('should not update if the metadata match', done => {
+        const metadataPath = path.join(configExample.storage, pkgName, 'package.json')
+        const prevStat = fs.statSync(metadataPath)
+        storage.updateVersions(pkgName, metadata, (err, data) => {
+          expect(err).toBeNull()
+          const nextStat = fs.statSync(metadataPath)
+          expect(nextStat).toHaveProperty('ctime', prevStat.ctime)
+          expect(nextStat).toHaveProperty('mtime', prevStat.mtime)
+          done()
+        })
+      })
     });
 
     describe('LocalStorage::changePackage', () => {
