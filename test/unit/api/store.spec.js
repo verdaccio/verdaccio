@@ -98,18 +98,18 @@ describe('StorageTest', () => {
 
     test('should not touch if the package exists and has no uplinks', async (done) => {
       const storage: IStorageHandler = await generateStorage();
-      const metadataSource = path.join(__dirname, '../partials/metadata')
-      const metadataPath = path.join(storagePath, 'npm_test/package.json')
-      fs.mkdirSync(path.join(storagePath, 'npm_test'))
+      const metadataSource = path.join(__dirname, '../partials/metadata');
+      const metadataPath = path.join(storagePath, 'npm_test/package.json');
+      fs.mkdirSync(path.join(storagePath, 'npm_test'));
       fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
-      const metadata = JSON.parse(fs.readFileSync(metadataPath).toString())
+      const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());
       // $FlowFixMe
-      storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions)
+      storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions);
       storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
-        expect(err).toBeNull()
-        expect(storage.localStorage.updateVersions).not.toHaveBeenCalled()
-        done()
-      })
-    })
+        expect(err).toBeNull();
+        expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
+        done();
+      });
+    });
   });
 });
