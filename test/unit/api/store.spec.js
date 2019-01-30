@@ -103,11 +103,11 @@ describe('StorageTest', () => {
       fs.mkdirSync(path.join(storagePath, 'npm_test'))
       fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
       const metadata = JSON.parse(fs.readFileSync(metadataPath).toString())
-      const prevStat = fs.statSync(metadataPath)
+      // $FlowFixMe
+      storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions)
       storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
-        expect(err).toBeFalsy()
-        const nextStat = fs.statSync(metadataPath)
-        expect(nextStat).toEqual(prevStat)
+        expect(err).toBeNull()
+        expect(storage.localStorage.updateVersions).not.toHaveBeenCalled()
         done()
       })
     })
