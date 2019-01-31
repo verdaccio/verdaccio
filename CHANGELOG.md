@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.11.1"></a>
+## [3.11.1](https://github.com/verdaccio/verdaccio/compare/v3.11.0...v3.11.1) (2019-01-31)
+
+
+### Bug Fixes
+
+* don’t make change if `time` fields match ([#1167](https://github.com/verdaccio/verdaccio/issues/1167)) ([e62ef8d](https://github.com/verdaccio/verdaccio/commit/e62ef8d))
+* don’t packages that have no uplinks after reading ([#1204](https://github.com/verdaccio/verdaccio/issues/1204)) ([95686be](https://github.com/verdaccio/verdaccio/commit/95686be))
+
+
+
 <a name="3.11.0"></a>
 # [3.11.0](https://github.com/verdaccio/verdaccio/compare/v3.10.2...v3.11.0) (2019-01-27)
 
