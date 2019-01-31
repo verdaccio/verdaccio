@@ -17,8 +17,6 @@ class Developers extends Component<Props, any> {
   };
 
   render() {
-    const { visibleDevs } = this.state;
-    console.log('aqui', visibleDevs);
     return (
       <DetailContextConsumer>
         {({ packageMeta }) => {

@@ -9,7 +9,9 @@ export const Content = styled.div`
   && {
     background-color: #ffffff;
     flex: 1;
+    display: flex;
     position: relative;
+    flex-direction: column;
   }
 `;
 

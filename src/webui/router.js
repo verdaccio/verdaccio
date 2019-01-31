@@ -13,6 +13,7 @@ import { asyncComponent } from './utils/asyncComponent';
 import history from './history';
 import Header from './components/Header';
 
+const NotFound = asyncComponent(() => import('./components/NotFound'));
 const DetailPackage = asyncComponent(() => import('./pages/detail'));
 const VersionPackage = asyncComponent(() => import('./pages/version'));
 const HomePage = asyncComponent(() => import('./pages/home'));
@@ -29,6 +30,7 @@ class RouterApp extends Component<any, any> {
             <Route exact={true} path={'/-/web/detail/:package'} render={this.renderDetailPage} />
             <Route exact={true} path={'/-/web/version/@:scope/:package'} render={this.renderVersionPage} />
             <Route exact={true} path={'/-/web/version/:package'} render={this.renderVersionPage} />
+            <Route component={NotFound} />
           </Switch>
         </Fragment>
       </Router>
