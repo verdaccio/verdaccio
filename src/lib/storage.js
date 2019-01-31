@@ -487,7 +487,9 @@ class Storage implements IStorageHandler {
           , null
           , upLinksErrors );
       }
-
+      if (upLinks.length === 0) {
+        return callback(null, packageInfo);
+      }
       self.localStorage.updateVersions(name, packageInfo, function(err, packageJsonLocal: Package) {
         if (err) {
           return callback(err);
