@@ -169,7 +169,7 @@ class LocalStorage implements IStorage {
         }
       }
 
-      if ('time' in packageInfo) {
+      if ('time' in packageInfo && !_.isEqual(packageLocalJson.time, packageInfo.time)) {
         packageLocalJson.time = packageInfo.time;
         change = true;
       }

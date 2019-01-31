@@ -14,3 +14,4 @@ Dockerfile
 *.scss
 *.png
 *.jpg
+test/unit/partials/
