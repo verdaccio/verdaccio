@@ -8,5 +8,5 @@ export function getRegistryURL() {
  * @param {string} packageName
  */
 export function getDetailPageURL(packageName) {
-  return `${getRegistryURL()}/#/detail/${packageName}`;
+  return `${getRegistryURL()}/-/web/version/${packageName}`;
 }

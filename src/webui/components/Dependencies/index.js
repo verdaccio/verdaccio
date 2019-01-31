@@ -34,7 +34,7 @@ class DepDetail extends Component<any, any> {
     const { onLoading, history } = this.props;
 
     onLoading();
-    history.push(`/version/${name}`);
+    history.push(`/-/web/version/${name}`);
   };
 }
 

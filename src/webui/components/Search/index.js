@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import type { Node } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { default as IconSearch } from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -13,7 +14,6 @@ import debounce from 'lodash/debounce';
 import API from '../../utils/api';
 import AutoComplete from '../AutoComplete';
 import colors from '../../utils/styles/colors';
-import { getDetailPageURL } from '../../utils/url';
 
 import { IProps, IState } from './types';
 import type { cancelAllSearchRequests, handlePackagesClearRequested, handleSearch, handleClickSearch, handleFetchPackages, onBlur } from './types';
@@ -24,7 +24,7 @@ const CONSTANTS = {
   ABORT_ERROR: 'AbortError',
 };
 
-class Search extends Component<IProps, IState> {
+export class Search extends Component<IProps, IState> {
   requestList: Array<any>;
 
   constructor(props: IProps) {
@@ -92,13 +92,15 @@ class Search extends Component<IProps, IState> {
    * When an user select any package by clicking or pressing return key.
    */
   handleClickSearch: handleClickSearch = (event, { suggestionValue, method }) => {
+    const { history } = this.props;
     // stops event bubbling
     event.stopPropagation();
     switch (method) {
       case 'click':
       case 'enter':
         this.setState({ search: '' });
-        window.location.assign(getDetailPageURL(suggestionValue));
+        // $FlowFixMe
+        history.push(`/-/web/version/${suggestionValue}`);
         break;
     }
   };
@@ -181,4 +183,4 @@ class Search extends Component<IProps, IState> {
   }
 }
 
-export default Search;
+export default withRouter(Search);

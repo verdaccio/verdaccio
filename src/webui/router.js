@@ -3,38 +3,49 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+/* eslint  react/jsx-max-depth:0 */
+
+import React, { Component, Fragment } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { AppContextConsumer } from './app';
 
 import { asyncComponent } from './utils/asyncComponent';
 import history from './history';
+import Header from './components/Header';
 
 const DetailPackage = asyncComponent(() => import('./pages/detail'));
 const VersionPackage = asyncComponent(() => import('./pages/version'));
 const HomePage = asyncComponent(() => import('./pages/home'));
 
-interface IProps {
-  isUserLoggedIn: boolean;
-  packages: Array<Object>;
-}
-
-interface IState {}
-
-class RouterApp extends Component<IProps, IState> {
+class RouterApp extends Component<any, any> {
   render() {
     return (
       <Router history={history}>
-        <Switch>
-          <Route exact={true} path={'/'} render={this.renderHomePage} />
-          <Route exact={true} path={'/detail/@:scope/:package'} render={this.renderDetailPage} />
-          <Route exact={true} path={'/detail/:package'} render={this.renderDetailPage} />
-          <Route exact={true} path={'/version/@:scope/:package'} render={this.renderVersionPage} />
-          <Route exact={true} path={'/version/:package'} render={this.renderVersionPage} />
-        </Switch>
+        <Fragment>
+          {this.renderHeader()}
+          <Switch>
+            <Route exact={true} path={'/'} render={this.renderHomePage} />
+            <Route exact={true} path={'/-/web/detail/@:scope/:package'} render={this.renderDetailPage} />
+            <Route exact={true} path={'/-/web/detail/:package'} render={this.renderDetailPage} />
+            <Route exact={true} path={'/-/web/version/@:scope/:package'} render={this.renderVersionPage} />
+            <Route exact={true} path={'/-/web/version/:package'} render={this.renderVersionPage} />
+          </Switch>
+        </Fragment>
       </Router>
     );
   }
+
+  renderHeader = () => {
+    const { onLogout, onToggleLoginModal } = this.props;
+
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ logoUrl, scope, user }) {
+          return <Header logo={logoUrl} onLogout={onLogout} onToggleLoginModal={onToggleLoginModal} scope={scope} username={user.username} />;
+        }}
+      </AppContextConsumer>
+    );
+  };
 
   renderHomePage = () => {
     return (
