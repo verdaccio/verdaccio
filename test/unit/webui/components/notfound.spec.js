@@ -21,7 +21,7 @@ describe('<NotFound /> component', () => {
 
 
   test('should load the component in default state', () => {
-    expect(routerWrapper.html()).toMatchSnapshot();
+    expect(routerWrapper.find(NotFound)).toMatchSnapshot();
   });
 
 });

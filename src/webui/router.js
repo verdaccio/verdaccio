@@ -12,8 +12,8 @@ import { AppContextConsumer } from './app';
 import { asyncComponent } from './utils/asyncComponent';
 import history from './history';
 import Header from './components/Header';
-import NotFound from './components/NotFound';
 
+const NotFound = asyncComponent(() => import('./components/NotFound'));
 const DetailPackage = asyncComponent(() => import('./pages/detail'));
 const VersionPackage = asyncComponent(() => import('./pages/version'));
 const HomePage = asyncComponent(() => import('./pages/home'));
