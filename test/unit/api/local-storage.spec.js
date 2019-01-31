@@ -26,6 +26,13 @@ describe('LocalStorage', () => {
   const pkgNameScoped = `@scope/${pkgName}-scope`;
   const tarballName: string = `${pkgName}-add-tarball-1.0.4.tgz`;
   const tarballName2: string = `${pkgName}-add-tarball-1.0.5.tgz`;
+
+  const getStorage = (LocalStorageClass = LocalStorage) => {
+    const config: Config = new AppConfig(configExample);
+    config.self_path = path.join('../partials/store');
+    return new LocalStorageClass(config, Logger.logger);
+  }
+
   const getPackageMetadataFromStore = (pkgName: string) => {
     return new Promise((resolve) => {
       storage.getPackageMetadata(pkgName, (err, data ) => {
@@ -77,10 +84,7 @@ describe('LocalStorage', () => {
   };
 
   beforeAll(() => {
-    const config: Config = new AppConfig(configExample);
-    config.self_path = path.join('../partials/store');
-
-    storage = new LocalStorage(config, Logger.logger);
+    storage = getStorage();
   });
 
   test('should be defined', () => {
@@ -250,16 +254,27 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::updateVersions', () => {
-      test('should update versions from external source', async (done) => {
-        const metadata = JSON.parse(readMetadata('metadata-update-versions-tags'));
-        const pkgName = 'add-update-versions-test-1';
-        const version = '1.0.2';
-        await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
-        await addNewVersion(pkgName, '1.0.1');
-        await addNewVersion(pkgName, version);
+      const metadata = JSON.parse(readMetadata('metadata-update-versions-tags'));
+      const pkgName = 'add-update-versions-test-1';
+      const version = '1.0.2';
+      let _storage;
+      beforeEach(done => {
+        class MockLocalStorage extends LocalStorage {}
+        // $FlowFixMe
+        MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage)
+        _storage = getStorage(MockLocalStorage);
+        rimRaf(path.join(configExample.storage, pkgName), async () => {
+          await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
+          await addNewVersion(pkgName, '1.0.1');
+          await addNewVersion(pkgName, version);
+          done();
+        })
+      })
 
-        storage.updateVersions(pkgName, metadata, (err, data) => {
+      test('should update versions from external source', async (done) => {
+        _storage.updateVersions(pkgName, metadata, (err, data) => {
           expect(err).toBeNull();
+          expect(_storage._writePackage).toHaveBeenCalledTimes(1);
           expect(data.versions['1.0.1']).toBeDefined();
           expect(data.versions[version]).toBeDefined();
           expect(data.versions['1.0.4']).toBeDefined();
@@ -274,6 +289,17 @@ describe('LocalStorage', () => {
           done();
         });
       });
+
+      test('should not update if the metadata match', done => {
+        _storage.updateVersions(pkgName, metadata, e => {
+          expect(e).toBeNull()
+          _storage.updateVersions(pkgName, metadata, err => {
+            expect(err).toBeNull()
+            expect(_storage._writePackage).toHaveBeenCalledTimes(1);
+            done()
+          })
+        })
+      })
     });
 
     describe('LocalStorage::changePackage', () => {
