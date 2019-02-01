@@ -1186,6 +1186,11 @@
   resolved "https://registry.npmjs.org/@verdaccio/types/-/types-4.1.4.tgz#6144410b9fd63d916aa279378a4946c701a82586"
   integrity sha512-0kNIQvMakoHIk1dpgnXVgQ5qwxJGTtMpJkLZKiN5WpLi5yuQtjc+kD/0EWDV4164pKg1KUU6YFLpbcXWxR8zvQ==
 
+"@verdaccio/ui-theme@1.0.1":
+  version "1.0.1"
+  resolved "http://localhost:4873/@verdaccio%2fui-theme/-/ui-theme-1.0.1.tgz#d2c5074bbd8b8e20dfa059a6f3cfc84e7da39869"
+  integrity sha512-pTkOIk13VfINQwqn83W5Wb53+GGx6I01eyOx+JYF2b1B69aPFlqTuAcGg0ygLtUMWQZlQIQV6fM4y115bGgMxw==
+
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
   resolved "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.7.8.tgz#f31f480debeef957f01b623f27eabc695fa4fe8f"
