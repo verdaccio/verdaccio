@@ -497,6 +497,10 @@ class Storage implements IStorageHandler {
           return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
         }
 
+        if (upLinks.length === 0) {
+          return callback(null, packageInfo);
+        }
+
         self.localStorage.updateVersions(name, packageInfo, function(err, packageJsonLocal: Package) {
           if (err) {
             return callback(err);
