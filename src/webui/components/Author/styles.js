@@ -4,8 +4,8 @@
  */
 
 import styled from 'react-emotion';
-import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography/index';
+import ListItem from '@material-ui/core/ListItem/index';
 
 export const Heading = styled(Typography)`
   && {

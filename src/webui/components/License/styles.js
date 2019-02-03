@@ -4,7 +4,7 @@
  */
 
 import styled from 'react-emotion';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography/index';
 
 export const Heading = styled(Typography)`
   && {
