@@ -1224,22 +1224,17 @@
     lockfile "1.0.3"
     lodash "4.17.10"
 
-"@verdaccio/local-storage@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-1.2.0.tgz#dccbfd0710639c197567c555374eb926c535b071"
-  integrity sha512-ybuNgcHJg4GWm47TrB7NVTJk9eiuSwmby3ed8mlDUp0gsn383AF/5rcHuw+yGMm3/5d/uhuGDDyf9kWhjCzpaw==
+"@verdaccio/local-storage@2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "http://localhost:4873/@verdaccio%2flocal-storage/-/local-storage-2.0.0-beta.0.tgz#130e8ddca1831a6c0e3bfd5abf7db219be4c1ed8"
+  integrity sha512-LGZS8l4TLvprVq82IZFPXyYKMgK4WFWSuujRO7ATtF6WxzstiamIE/B44r3SZx4RwJFtFuaKh16NYmNkjbnqcg==
   dependencies:
     "@verdaccio/file-locking" "0.0.7"
-    "@verdaccio/streams" "1.0.0"
+    "@verdaccio/streams" "2.0.0-beta.0"
     async "2.6.1"
-    http-errors "1.7.0"
-    lodash "4.17.10"
+    http-errors "1.7.1"
+    lodash "4.17.11"
     mkdirp "0.5.1"
-
-"@verdaccio/streams@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
-  integrity sha512-AjEo5LXk4Yf0SaXSc3y4i1t+wxY552O7WrVJPtnC6H7nUsSrygg/ODCG1RSKelskOq6b5p/LyXnsTkmCFXyjDQ==
 
 "@verdaccio/streams@2.0.0-beta.0":
   version "2.0.0-beta.0"
@@ -6112,17 +6107,6 @@ http-errors@1.6.3, http-errors@~1.6.2, http-errors@~1.6.3:
     inherits "2.0.3"
     setprototypeof "1.1.0"
     statuses ">= 1.4.0 < 2"
-
-http-errors@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.verdaccio.org/http-errors/-/http-errors-1.7.0.tgz#b6d36492a201c7888bdcb5dd0471140423c4ad2a"
-  integrity sha512-hz3BtSHB7Z6dNWzYc+gUbWqG4dIpJedwwOhe1cvGUq5tGmcTTIRkPiAbyh/JlZx+ksSJyGJlgcHo5jGahiXnKw==
-  dependencies:
-    depd "~1.1.2"
-    inherits "2.0.3"
-    setprototypeof "1.1.0"
-    statuses ">= 1.5.0 < 2"
-    toidentifier "1.0.0"
 
 http-errors@1.7.1:
   version "1.7.1"

@@ -19,6 +19,7 @@ uplinks:
     timeout: 100ms
   server2:
     url: http://localhost:55552/
+    maxage: 0
   server3:
     url: http://localhost:55553/
   baduplink:
@@ -88,7 +89,7 @@ packages:
     access: $all
     publish: $all
     proxy: server2
-    storage: false
+    storage: sub_storage
 
   'baduplink':
     access: $all
@@ -98,22 +99,22 @@ packages:
   'test-access-only':
     access: $all
     publish: nobody
-    storage: false
+    storage: sub_storage
 
   'test-publish-only':
     access: nobody
     publish: $all
-    storage: false
+    storage: sub_storage
 
   'test-only-test':
     access: test
     publish: test
-    storage: false
+    storage: sub_storage
 
   'test-only-auth':
     access: $authenticated
     publish: $authenticated
-    storage: false
+    storage: sub_storage
 
   '*':
     access: test $anonymous
