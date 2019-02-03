@@ -13,6 +13,7 @@ export default function (server, server2) {
 
   const PKG_NAME = 'test-nullstorage2';
   const PKG_VERSION = '0.0.1';
+  // const TARBALL = `${PKG_NAME}-file.name`;
 
   describe('should test a scenario when tarball is being fetch from uplink', () => {
 
@@ -38,8 +39,7 @@ export default function (server, server2) {
 
       describe(`should succesfully publish ${PKG_NAME} package on server2`, () => {
         beforeAll(function() {
-          return server2.putTarball(PKG_NAME, TARBALL, getBinary())
-                   .status(HTTP_STATUS.CREATED).body_ok(/.*/);
+          return server2.putTarball(PKG_NAME, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
         });
 
         beforeAll(function() {

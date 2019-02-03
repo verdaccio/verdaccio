@@ -13,17 +13,17 @@ export default function(server) {
      * Check whether the user is allowed to fetch packages
      * @param auth {object} disable auth
      * @param pkg {string} package name
-     * @param ok {boolean}
+     * @param status {boolean}
      */
-    function checkAccess(auth, pkg, ok) {
+    function checkAccess(auth, pkg, status) {
       test(
-        `${(ok ? 'allows' : 'forbids')} access ${auth} to ${pkg}`, () => {
+        `${(status ? 'allows' : 'forbids')} access ${auth} to ${pkg}`, () => {
           server.authstr = auth ? buildAccesToken(auth) : undefined;
           const req = server.getPackage(pkg);
 
-          if (ok) {
+          if (status === HTTP_STATUS.NOT_FOUND) {
             return req.status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.NO_PACKAGE);
-          } else {
+          } else if (status === HTTP_STATUS.FORBIDDEN) {
             return req.status(HTTP_STATUS.FORBIDDEN).body_error(API_ERROR.NOT_ALLOWED);
           }
         }
@@ -34,16 +34,20 @@ export default function(server) {
      * Check whether the user is allowed to publish packages
      * @param auth {object} disable auth
      * @param pkg {string} package name
-     * @param ok {boolean}
+     * @param status {boolean}
      */
-    function checkPublish(auth, pkg, ok) {
-      test(`${(ok ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, () => {
+    function checkPublish(auth, pkg, status) {
+      test(`${(status ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, () => {
         server.authstr = auth ? buildAccesToken(auth) : undefined;
         const req = server.putPackage(pkg, require('../fixtures/package')(pkg));
-        if (ok) {
-          return req.status(HTTP_STATUS.NOT_FOUND).body_error(/this package cannot be added/);
-        } else {
-          return req.status(HTTP_STATUS.FORBIDDEN).body_error(/not allowed to publish package/);
+        if (status === HTTP_STATUS.NOT_FOUND) {
+          return req.status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.PACKAGE_CANNOT_BE_ADDED);
+        } else if (status === HTTP_STATUS.FORBIDDEN) {
+          return req.status(HTTP_STATUS.FORBIDDEN).body_error(API_ERROR.NOT_ALLOWED_PUBLISH);
+        } else if (status === HTTP_STATUS.CREATED) {
+          return req.status(HTTP_STATUS.CREATED);
+        } else if (status === HTTP_STATUS.CONFLICT) {
+          return req.status(HTTP_STATUS.CONFLICT);
         }
       });
     }
@@ -60,39 +64,39 @@ export default function(server) {
     const testOnlyAuth = 'test-only-auth';
 
     describe('all are allowed to access', () => {
-      checkAccess(validCredentials, testAccessOnly, true);
-      checkAccess(undefined, testAccessOnly, true);
-      checkAccess(badCredentials, testAccessOnly, true);
-      checkPublish(validCredentials, testAccessOnly, false);
-      checkPublish(undefined, testAccessOnly, false);
-      checkPublish(badCredentials, testAccessOnly, false);
+      checkAccess(validCredentials, testAccessOnly, HTTP_STATUS.NOT_FOUND);
+      checkAccess(undefined, testAccessOnly, HTTP_STATUS.NOT_FOUND);
+      checkAccess(badCredentials, testAccessOnly, HTTP_STATUS.NOT_FOUND);
+      checkPublish(validCredentials, testAccessOnly, HTTP_STATUS.FORBIDDEN);
+      checkPublish(undefined, testAccessOnly, HTTP_STATUS.FORBIDDEN);
+      checkPublish(badCredentials, testAccessOnly, HTTP_STATUS.FORBIDDEN);
     });
 
     describe('all are allowed to publish', () => {
-      checkAccess(validCredentials, testPublishOnly, false);
-      checkAccess(undefined, testPublishOnly, false);
-      checkAccess(badCredentials, testPublishOnly, false);
-      checkPublish(validCredentials, testPublishOnly, true);
-      checkPublish(undefined, testPublishOnly, true);
-      checkPublish(badCredentials, testPublishOnly, true);
+      checkAccess(validCredentials, testPublishOnly, HTTP_STATUS.FORBIDDEN);
+      checkAccess(undefined, testPublishOnly, HTTP_STATUS.FORBIDDEN);
+      checkAccess(badCredentials, testPublishOnly, HTTP_STATUS.FORBIDDEN);
+      checkPublish(validCredentials, testPublishOnly, HTTP_STATUS.CREATED);
+      checkPublish(undefined, testPublishOnly, HTTP_STATUS.CONFLICT);
+      checkPublish(badCredentials, testPublishOnly, HTTP_STATUS.CONFLICT);
     });
 
     describe('only user "test" is allowed to publish and access', () => {
-      checkAccess(validCredentials, testOnlyTest, true);
-      checkAccess(undefined, testOnlyTest, false);
-      checkAccess(badCredentials, testOnlyTest, false);
-      checkPublish(validCredentials, testOnlyTest, true);
-      checkPublish(undefined, testOnlyTest, false);
-      checkPublish(badCredentials, testOnlyTest, false);
+      checkAccess(validCredentials, testOnlyTest, HTTP_STATUS.NOT_FOUND);
+      checkAccess(undefined, testOnlyTest, HTTP_STATUS.FORBIDDEN);
+      checkAccess(badCredentials, testOnlyTest, HTTP_STATUS.FORBIDDEN);
+      checkPublish(validCredentials, testOnlyTest, HTTP_STATUS.CREATED);
+      checkPublish(undefined, testOnlyTest, HTTP_STATUS.FORBIDDEN);
+      checkPublish(badCredentials, testOnlyTest, HTTP_STATUS.FORBIDDEN);
     });
 
     describe('only authenticated users are allowed', () => {
-      checkAccess(validCredentials, testOnlyAuth, true);
-      checkAccess(undefined, testOnlyAuth, false);
-      checkAccess(badCredentials, testOnlyAuth, false);
-      checkPublish(validCredentials, testOnlyAuth, true);
-      checkPublish(undefined, testOnlyAuth, false);
-      checkPublish(badCredentials, testOnlyAuth, false);
+      checkAccess(validCredentials, testOnlyAuth, HTTP_STATUS.NOT_FOUND);
+      checkAccess(undefined, testOnlyAuth, HTTP_STATUS.FORBIDDEN);
+      checkAccess(badCredentials, testOnlyAuth, HTTP_STATUS.FORBIDDEN);
+      checkPublish(validCredentials, testOnlyAuth, HTTP_STATUS.CREATED);
+      checkPublish(undefined, testOnlyAuth, HTTP_STATUS.FORBIDDEN);
+      checkPublish(badCredentials, testOnlyAuth, HTTP_STATUS.FORBIDDEN);
     });
   });
 }
