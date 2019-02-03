@@ -5,7 +5,6 @@ import {CREDENTIALS} from "../config.functional";
 export default function(server) {
 
   describe('package access control', () => {
-    jest.setTimeout(20000000);
     const buildAccesToken = (auth) => {
       return buildToken(TOKEN_BASIC, `${(new Buffer(auth).toString('base64'))}`);
     };

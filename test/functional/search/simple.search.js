@@ -5,7 +5,6 @@ const pkgExample = require('./search.json');
 export default function(server, server2, express) {
 
   describe('should test search a published package', () => {
-    jest.setTimeout(20000000);
     const PKG_NAME = 'testpkg-search';
 
     beforeAll(function() {
