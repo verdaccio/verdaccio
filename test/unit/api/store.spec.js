@@ -2,6 +2,8 @@
 
 import _ from 'lodash';
 import path from 'path';
+import fs from 'fs';
+import rimraf from 'rimraf';
 // $FlowFixMe
 import configExample from '../partials/config/index';
 import AppConfig from '../../../src/lib/config';
@@ -16,12 +18,12 @@ import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 setup(configExample.logs);
 
+const storagePath = path.join(__dirname, '../partials/store/test-storage-store.spec');
 const mockServerPort: number = 55548;
 const generateStorage = async function(port = mockServerPort, configDefault = configExample) {
   const storageConfig = _.clone(configDefault);
-  const storage = path.join(__dirname, '../partials/store/test-storage-store.spec');
   storageConfig.self_path = __dirname;
-  storageConfig.storage = storage;
+  storageConfig.storage = storagePath;
   storageConfig.uplinks = {
     npmjs: {
       url: `http://${DOMAIN_SERVERS}:${port}`
@@ -37,8 +39,11 @@ const generateStorage = async function(port = mockServerPort, configDefault = co
 describe('StorageTest', () => {
   let mockRegistry;
 
-  beforeAll(async () => {
-    mockRegistry = await mockServer(mockServerPort).init();
+  beforeAll(done => {
+    rimraf(storagePath, async () => {
+      mockRegistry = await mockServer(mockServerPort).init();
+      done()
+    })
   });
 
   afterAll(function(done) {
@@ -87,6 +92,22 @@ describe('StorageTest', () => {
         expect(errors).toBeInstanceOf(Array);
         expect(errors[0][0].statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
         expect(errors[0][0].message).toMatch(API_ERROR.BAD_STATUS_CODE);
+        done();
+      });
+    });
+
+    test('should not touch if the package exists and has no uplinks', async (done) => {
+      const storage: IStorageHandler = await generateStorage();
+      const metadataSource = path.join(__dirname, '../partials/metadata');
+      const metadataPath = path.join(storagePath, 'npm_test/package.json');
+      fs.mkdirSync(path.join(storagePath, 'npm_test'));
+      fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
+      const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());
+      // $FlowFixMe
+      storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions);
+      storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
+        expect(err).toBeNull();
+        expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
         done();
       });
     });

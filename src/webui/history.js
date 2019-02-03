@@ -2,9 +2,9 @@
  * @prettier
  */
 
-import { createHashHistory } from 'history';
+import { createBrowserHistory } from 'history';
 
-const history = createHashHistory();
+const history = createBrowserHistory();
 
 // Listen for changes to the current location.
 history.listen((location, action) => {

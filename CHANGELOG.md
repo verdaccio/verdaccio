@@ -66,6 +66,42 @@ All notable changes to this project will be documented in this file. See [standa
 * replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
+<a name="3.11.1"></a>
+## [3.11.1](https://github.com/verdaccio/verdaccio/compare/v3.11.0...v3.11.1) (2019-01-31)
+
+
+### Bug Fixes
+
+* don’t make change if `time` fields match ([#1167](https://github.com/verdaccio/verdaccio/issues/1167)) ([e62ef8d](https://github.com/verdaccio/verdaccio/commit/e62ef8d))
+* don’t packages that have no uplinks after reading ([#1204](https://github.com/verdaccio/verdaccio/issues/1204)) ([95686be](https://github.com/verdaccio/verdaccio/commit/95686be))
+
+
+
+<a name="3.11.0"></a>
+# [3.11.0](https://github.com/verdaccio/verdaccio/compare/v3.10.2...v3.11.0) (2019-01-27)
+
+
+### Features
+
+* introduce server keepAliveTimeout into config files ([a359055](https://github.com/verdaccio/verdaccio/commit/a359055))
+
+
+
+<a name="3.10.2"></a>
+## [3.10.2](https://github.com/verdaccio/verdaccio/compare/v3.10.1...v3.10.2) (2019-01-22)
+
+
+### Bug Fixes
+
+* add logic to catch clause ([#1183](https://github.com/verdaccio/verdaccio/issues/1183)) ([056d396](https://github.com/verdaccio/verdaccio/commit/056d396))
+* adds _id to normalise metadata ([#1194](https://github.com/verdaccio/verdaccio/issues/1194)) ([e2fa581](https://github.com/verdaccio/verdaccio/commit/e2fa581))
+* remove some unneeded checks ([#1182](https://github.com/verdaccio/verdaccio/issues/1182)) ([ab56d75](https://github.com/verdaccio/verdaccio/commit/ab56d75))
+* remove unused object ([#1185](https://github.com/verdaccio/verdaccio/issues/1185)) ([e9b3907](https://github.com/verdaccio/verdaccio/commit/e9b3907))
+* remove unused parameters from processBody method invocation ([#1184](https://github.com/verdaccio/verdaccio/issues/1184)) ([064f7cf](https://github.com/verdaccio/verdaccio/commit/064f7cf))
+* remove use of comma separator ([#1186](https://github.com/verdaccio/verdaccio/issues/1186)) ([f20fefa](https://github.com/verdaccio/verdaccio/commit/f20fefa))
+* remove useless assignment to local variable emailCopy ([#1181](https://github.com/verdaccio/verdaccio/issues/1181)) ([13b8347](https://github.com/verdaccio/verdaccio/commit/13b8347))
+
+
 <a name="3.10.1"></a>
 ## [3.10.1](https://github.com/verdaccio/verdaccio/compare/v3.10.0...v3.10.1) (2018-12-20)
 

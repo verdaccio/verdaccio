@@ -80,7 +80,7 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
     );
 
   return (
-    <WrapperLink className={'package'} to={`version/${label}`}>
+    <WrapperLink className={'package'} to={`/-/web/version/${label}`}>
       <Header>
         {renderMainInfo()}
         <Overview>
