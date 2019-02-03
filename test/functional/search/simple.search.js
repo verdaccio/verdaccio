@@ -16,7 +16,6 @@ export default function(server, server2, express) {
 
     describe('should test simple search', () => {
       const check = (medatada) => {
-        console.log('medatada->', medatada);
         medatada[PKG_NAME].time.modified = '2014-10-02T07:07:51.000Z';
         expect(medatada[PKG_NAME]).toEqual(
           {
