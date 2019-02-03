@@ -9,7 +9,7 @@ import VError from 'verror';
 import chalk from 'chalk';
 import express from 'express';
 
-import { combineBaseUrl, getWebProtocol, spliceURL } from '../../lib/utils';
+import { combineBaseUrl, getWebProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 import { spliceURL } from '../../utils/string';

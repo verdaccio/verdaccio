@@ -631,29 +631,6 @@ class LocalStorage implements IStorage {
     });
   }
 
-  _getCustomPackageLocalStorages() {
-    const storages = {};
-
-    // add custom storage if exist
-    if (this.config.storage) {
-      storages[this.config.storage] = true;
-    }
-
-    const { packages } = this.config;
-
-    if (packages) {
-      const listPackagesConf = Object.keys(packages);
-
-      listPackagesConf.map(pkg => {
-        if (packages[pkg].storage) {
-          storages[packages[pkg].storage] = true;
-        }
-      });
-    }
-
-    return storages;
-  }
-
   /**
    * Walks through each package and calls `on_package` on them.
    * @param {*} onPackage
