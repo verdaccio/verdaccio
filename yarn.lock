@@ -1222,7 +1222,7 @@
     babel-plugin-emotion "9.2.10"
     babel-plugin-flow-runtime "0.18.0"
 
-"@verdaccio/file-locking@0.0.7", "@verdaccio/file-locking@^0.0.7":
+"@verdaccio/file-locking@0.0.7":
   version "0.0.7"
   resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-0.0.7.tgz#5fd1b2bd391e54fa32d079002b5f7ba90844e344"
   integrity sha512-yTecDiJrYJMNnsPA4Nminygc/bPRf2HB6Pj/o/IS8scljYvV++LRXuglefM1I7p18qs3mcgX/bofCZM4x2SOJA==
@@ -1589,7 +1589,7 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apache-md5@^1.1.2:
+apache-md5@1.1.2:
   version "1.1.2"
   resolved "https://registry.verdaccio.org/apache-md5/-/apache-md5-1.1.2.tgz#ee49736b639b4f108b6e9e626c6da99306b41692"
   integrity sha1-7klza2ObTxCLbp5ibG2pkwa0FpI=
@@ -12862,7 +12862,7 @@ unist-util-visit@^1.1.0:
   dependencies:
     unist-util-visit-parents "^2.0.0"
 
-unix-crypt-td-js@^1.0.0:
+unix-crypt-td-js@1.0.0:
   version "1.0.0"
   resolved "https://registry.verdaccio.org/unix-crypt-td-js/-/unix-crypt-td-js-1.0.0.tgz#1c0824150481bc7a01d49e98f1ec668d82412f3b"
   integrity sha1-HAgkFQSBvHoB1J6Y8exmjYJBLzs=
@@ -13032,15 +13032,16 @@ verdaccio-auth-memory@0.0.4:
   resolved "https://registry.verdaccio.org/verdaccio-auth-memory/-/verdaccio-auth-memory-0.0.4.tgz#b44a65209778a8dc3c8d39478141a0bc22e04375"
   integrity sha512-0k/RHK1XNmrPiuIbVHMo0I2ggYEwOqNUobgUQlVCTDSoUPS8jxL3MNdcCI2lPfY79G9NzsOKuVwWCXHbIWtH7A==
 
-verdaccio-htpasswd@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-1.0.1.tgz#dafb90266a039a2c472dc2af70e28b941f6b49f0"
-  integrity sha512-cW2LXu1KlfM09jM35zbW9wHN4QfL+cQXR7dMEiZpIEO9Bj5Z1up06XKRy7eD6eYqWfafeqxXQLnngCT27ltwUw==
+verdaccio-htpasswd@2.0.0-beta.0:
+  version "2.0.0-beta.0"
+  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-2.0.0-beta.0.tgz#c15ddbc0f21a7237b65fcb5be59ab64589d72440"
+  integrity sha512-5JGuQaWQxhVRuzOgVjGpedf9gtmXpNZkLGV9XZeauNR16bPzzbxu6xFGw7RMstXmnaAb4yL03K2Cb+kzAChvQg==
   dependencies:
-    "@verdaccio/file-locking" "^0.0.7"
-    apache-md5 "^1.1.2"
+    "@verdaccio/file-locking" "0.0.7"
+    apache-md5 "1.1.2"
     bcryptjs "2.4.3"
-    unix-crypt-td-js "^1.0.0"
+    http-errors "1.7.1"
+    unix-crypt-td-js "1.0.0"
 
 verdaccio-memory@2.0.0-beta.0:
   version "2.0.0-beta.0"
