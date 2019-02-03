@@ -19,7 +19,6 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
 
     return injectResponse(this, this.then(function(body) {
       try {
-        // console.log("selfData.response.statusCode", selfData.response.statusCode);
         assert.equal(selfData.response.statusCode, expected);
       } catch(err) {
         selfData.error.message = err.message;

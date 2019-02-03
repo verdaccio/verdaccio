@@ -47,7 +47,7 @@ export default class VerdaccioProcess implements IServerProcess {
   _start(verdaccioPath: string, resolve: Function, reject: Function) {
     const verdaccioRegisterWrap: string = path.join(__dirname, verdaccioPath);
     let childOptions = {
-      silent: false
+      silent: this.silence
     };
 
     if (this.isDebug) {
