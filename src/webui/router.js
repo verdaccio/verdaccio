@@ -14,7 +14,6 @@ import history from './history';
 import Header from './components/Header';
 
 const NotFound = asyncComponent(() => import('./components/NotFound'));
-const DetailPackage = asyncComponent(() => import('./pages/detail'));
 const VersionPackage = asyncComponent(() => import('./pages/version'));
 const HomePage = asyncComponent(() => import('./pages/home'));
 
@@ -26,8 +25,6 @@ class RouterApp extends Component<any, any> {
           {this.renderHeader()}
           <Switch>
             <Route exact={true} path={'/'} render={this.renderHomePage} />
-            <Route exact={true} path={'/-/web/detail/@:scope/:package'} render={this.renderDetailPage} />
-            <Route exact={true} path={'/-/web/detail/:package'} render={this.renderDetailPage} />
             <Route exact={true} path={'/-/web/version/@:scope/:package'} render={this.renderVersionPage} />
             <Route exact={true} path={'/-/web/version/:package'} render={this.renderVersionPage} />
             <Route component={NotFound} />
@@ -54,16 +51,6 @@ class RouterApp extends Component<any, any> {
       <AppContextConsumer>
         {function renderConsumerVersionPage({ isUserLoggedIn, packages }) {
           return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
-        }}
-      </AppContextConsumer>
-    );
-  };
-
-  renderDetailPage = (routerProps: any) => {
-    return (
-      <AppContextConsumer>
-        {function renderConsumerVersionPage({ isUserLoggedIn }) {
-          return <DetailPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
         }}
       </AppContextConsumer>
     );
