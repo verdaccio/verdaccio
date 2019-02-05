@@ -37,7 +37,7 @@
     "js-yaml": "3.12.0",
     "jsonwebtoken": "8.3.0",
     "lockfile": "1.0.4",
-    "lodash": "4.17.10",
+    "lodash": "4.17.11",
     "lunr": "0.7.0",
     "marked": "0.4.0",
     "mime": "2.3.1",
