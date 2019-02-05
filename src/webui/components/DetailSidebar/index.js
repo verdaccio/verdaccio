@@ -12,6 +12,7 @@ import Author from '../Author';
 import License from '../License';
 import Repository from '../Repository';
 import Developers from '../Developers';
+import Engine from '../Engines';
 import { DetailContextConsumer } from '../../pages/version/index';
 class DetailSidebar extends Component {
   render() {
@@ -30,6 +31,7 @@ class DetailSidebar extends Component {
             {this.renderTitle(packageName, packageMeta)}
             {this.renderCopyCLI()}
             {this.renderRepository()}
+            {this.renderEngine()}
             {this.renderAuthor()}
             {this.renderMaintainers()}
             {this.renderContributors()}
@@ -46,7 +48,7 @@ class DetailSidebar extends Component {
           <ListItem alignItems={"flex-start"}>
             <Avatar style={{textTransform: 'capitalize'}}>{packageName[0]}</Avatar>
             <ListItemText
-              primary={<span style={{textTransform: 'capitalize'}}>{packageName}</span>}
+              primary={packageName}
               secondary={packageMeta.latest.description}
             />
           </ListItem>
@@ -76,6 +78,10 @@ class DetailSidebar extends Component {
 
   renderAuthor = () => {
     return <Author />;
+  }
+
+  renderEngine = () => {
+    return <Engine />;
   }
 }
 

@@ -4,7 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import NotesIcon from '@material-ui/icons/Notes';
+import BookIcon from '@material-ui/icons/Book';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 
@@ -38,7 +38,7 @@ class License extends Component {
     return (
       <ListItem>
         <Avatar>
-          <NotesIcon />
+          <BookIcon />
         </Avatar>
         <ListItemText primary={license} />
       </ListItem>
