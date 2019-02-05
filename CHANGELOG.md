@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.11.2"></a>
+## [3.11.2](https://github.com/verdaccio/verdaccio/compare/v3.11.1...v3.11.2) (2019-02-05)
+
+
+### Bug Fixes
+
+* lodash vulnerability ([c35486d](https://github.com/verdaccio/verdaccio/commit/c35486d))
+
+
+
 <a name="3.11.1"></a>
 ## [3.11.1](https://github.com/verdaccio/verdaccio/compare/v3.11.0...v3.11.1) (2019-01-31)
 
