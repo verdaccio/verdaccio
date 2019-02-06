@@ -10,7 +10,7 @@ console.error = jest.fn();
 
 describe('<NoItem /> component', () => {
   test('should load the component in default state', () => {
-    const wrapper = mount(<NoItems />);
+    const wrapper = shallow(<NoItems />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
@@ -18,8 +18,7 @@ describe('<NoItem /> component', () => {
     const props = {
       text: 'This is a test string'
     };
-    const wrapper = shallow(<NoItems {...props} />);
-    expect(wrapper.find('h2').text()).toEqual('This is a test string');
+    const wrapper = mount(<NoItems {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 });
