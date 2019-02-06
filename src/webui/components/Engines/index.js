@@ -63,19 +63,18 @@ class Engine extends Component {
     );
   }
 
-  renderListItems = (text, value) => {
+  renderListItems = (heading, text) => {
     return (
-      <List subheader={<Heading variant={"subheading"}>{value}</Heading>}>
+      <List subheader={<Heading variant={"subheading"}>{text}</Heading>}>
         <ListItem>
           <Avatar>
-            { ICONS[value] }
+            { ICONS[text] }
           </Avatar>
-          <ListItemText primary={text} />
+          <ListItemText primary={heading} />
         </ListItem>
       </List>
     );
   }
 }
-
 
 export default Engine;

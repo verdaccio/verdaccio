@@ -1,13 +1,15 @@
 /**
  * @prettier
  */
-
-import { DetailContextConsumer } from '../../pages/version/index';
-import { formatDateDistance } from '../../utils/package';
-import { Heading, Spacer, ListItemText } from './styles';
+import React from 'react';
 import List from '@material-ui/core/List/index';
 import ListItem from '@material-ui/core/ListItem/index';
-import React from 'react';
+
+import { DetailContextConsumer } from '../../pages/version/index';
+import NoItems from '../NoItems';
+import { formatDateDistance } from '../../utils/package';
+
+import { Heading, Spacer, ListItemText } from './styles';
 
 class UpLinks extends React.PureComponent<any> {
   render() {
@@ -15,7 +17,7 @@ class UpLinks extends React.PureComponent<any> {
       // $FlowFixMe
       <DetailContextConsumer>
         {({ packageMeta }) => {
-          return this.renderContent(packageMeta._uplinks);
+          return this.renderContent(packageMeta._uplinks, packageMeta.latest);
         }}
       </DetailContextConsumer>
     );
@@ -35,15 +37,19 @@ class UpLinks extends React.PureComponent<any> {
     </List>
   );
 
-  renderContent(uplinks) {
-    return (
-      uplinks && (
-        <>
-          <Heading variant={'subheading'}>{'Uplinks'}</Heading>
-          {this.renderUpLinksList(uplinks)}
-        </>
-      )
-    );
+  renderContent(uplinks, { name }) {
+    console.log(uplinks);
+    if (Object.keys(uplinks).length > 0) {
+      return (
+        uplinks && (
+          <>
+            <Heading variant={'subheading'}>{'Uplinks'}</Heading>
+            {this.renderUpLinksList(uplinks)}
+          </>
+        )
+      );
+    }
+    return <NoItems text={`${name} has no uplinks.`} />;
   }
 }
 

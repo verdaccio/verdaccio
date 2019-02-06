@@ -10,7 +10,9 @@ import { withRouter } from 'react-router-dom';
 import CardContent from '@material-ui/core/CardContent/index';
 
 import { DetailContextConsumer } from '../../pages/version';
+
 import { Content, CardWrap, Heading, Tags, Tag } from './styles';
+import NoItems from '../NoItems';
 
 class DepDetail extends Component<any, any> {
   constructor(props: any) {
@@ -41,13 +43,6 @@ class DepDetail extends Component<any, any> {
 const WrappDepDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
-  renderTags = (deps: any, enableLoading: any) =>
-    deps.map(dep => {
-      const [name, version] = dep;
-
-      return <WrappDepDetail key={name} name={name} onLoading={enableLoading} version={version} />;
-    });
-
   render() {
     const { dependencies, title } = this.props;
     const deps = Object.entries(dependencies);
@@ -59,7 +54,7 @@ class DependencyBlock extends Component<any, any> {
           return (
             <CardWrap>
               <CardContent>
-                <Heading variant={'subheading'}>{title}</Heading>
+                <Heading variant={'subheading'}>{`${title} (${deps.length})`}</Heading>
                 <Tags>{this.renderTags(deps, enableLoading)}</Tags>
               </CardContent>
             </CardWrap>
@@ -68,6 +63,13 @@ class DependencyBlock extends Component<any, any> {
       </DetailContextConsumer>
     );
   }
+
+  renderTags = (deps: any, enableLoading: any) =>
+    deps.map(dep => {
+      const [name, version] = dep;
+
+      return <WrappDepDetail key={name} name={name} onLoading={enableLoading} version={version} />;
+    });
 }
 
 class Dependencies extends Component<any, any> {
@@ -88,15 +90,22 @@ class Dependencies extends Component<any, any> {
   // $FlowFixMe
   renderDependencies({ packageMeta }) {
     const { latest } = packageMeta;
-    const { dependencies, devDependencies, peerDependencies } = latest;
+    const { dependencies, devDependencies, peerDependencies, name } = latest;
 
+    if (dependencies || devDependencies || peerDependencies) {
+      return (
+        <Content>
+          <Fragment>
+            {dependencies && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
+            {devDependencies && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
+            {peerDependencies && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
+          </Fragment>
+        </Content>
+      );
+    }
     return (
       <Content>
-        <Fragment>
-          {dependencies && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
-          {devDependencies && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
-          {peerDependencies && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
-        </Fragment>
+        <NoItems text={`${name} has no dependencies.`} />
       </Content>
     );
   }
