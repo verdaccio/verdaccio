@@ -25,7 +25,7 @@ export const Header = styled.div`
 
 export const Name = styled.span`
   && {
-    ${ellipsis('50%')};
+    color: ${colors.primary};
   }
 `;
 
