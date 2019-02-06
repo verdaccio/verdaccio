@@ -25,8 +25,8 @@ class RouterApp extends Component<any, any> {
           {this.renderHeader()}
           <Switch>
             <Route exact={true} path={'/'} render={this.renderHomePage} />
-            <Route exact={true} path={'/-/web/version/@:scope/:package'} render={this.renderVersionPage} />
-            <Route exact={true} path={'/-/web/version/:package'} render={this.renderVersionPage} />
+            <Route exact={true} path={'/-/web/detail/@:scope/:package'} render={this.renderVersionPage} />
+            <Route exact={true} path={'/-/web/detail/:package'} render={this.renderVersionPage} />
             <Route component={NotFound} />
           </Switch>
         </Fragment>

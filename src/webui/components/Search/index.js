@@ -100,7 +100,7 @@ export class Search extends Component<IProps, IState> {
       case 'enter':
         this.setState({ search: '' });
         // $FlowFixMe
-        history.push(`/-/web/version/${suggestionValue}`);
+        history.push(`/-/web/detail/${suggestionValue}`);
         break;
     }
   };
