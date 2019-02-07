@@ -123,6 +123,8 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
       delete normalizedPkgs[pkg].allow_publish;
       normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
       delete normalizedPkgs[pkg].proxy_access;
+      // $FlowFixMe
+      normalizedPkgs[pkg].unpublish = normalizeUserList([], packages[pkg].unpublish);
     }
   }
 

@@ -72,6 +72,7 @@ export function getDefaultPlugins() {
 
     allow_access: allow_action('access'),
     allow_publish: allow_action('publish'),
+    allow_unpublish: allow_action('unpublish'),
   };
 }
 
