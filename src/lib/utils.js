@@ -412,13 +412,11 @@ export function fileExists(path: string): boolean {
   }
 }
 
-export function sortByName(packages: Array<any>): string[] {
+export function sortByName(packages: Array<any>, orderAscending: boolean | void = true): string[] {
   return packages.sort(function(a, b) {
-    if (a.name < b.name) {
-      return -1;
-    } else {
-      return 1;
-    }
+    const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
+
+    return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
 }
 
