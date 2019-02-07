@@ -3,8 +3,8 @@
   "version": "4.0.0-alpha.4",
   "description": "Private npm repository server",
   "author": {
-    "name": "Alex Kocharin",
-    "email": "alex@kocharin.ru"
+    "name": "Verdaccio Maintainers",
+    "email": "verdaccio.npm@gmail.com"
   },
   "repository": {
     "type": "git",
