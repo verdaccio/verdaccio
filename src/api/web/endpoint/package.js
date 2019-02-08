@@ -12,7 +12,7 @@ import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
 import type { Config } from '@verdaccio/types';
 
-const getOrder = order => {
+const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
@@ -59,7 +59,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
 
       const { web } = config;
       // $FlowFixMe
-      const order: boolean = web.sort_packages ? getOrder(web.sort_packages) : true;
+      const order: boolean = config.web ? getOrder(web.sort_packages) : true;
 
       next(sortByName(await processPermissionsPackages(packages), order));
     });
