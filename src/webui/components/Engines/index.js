@@ -1,17 +1,15 @@
 /* eslint-disable */
 import React, {Component} from 'react';
 
-import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toys from '@material-ui/icons/Toys';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 
-import { Heading } from './styles';
+import { Heading, EngineListItem, EngineAvatar } from './styles';
 
 const ICONS = {
   node: <SettingsIcon />,
@@ -66,12 +64,12 @@ class Engine extends Component {
   renderListItems = (heading, text) => {
     return (
       <List subheader={<Heading variant={"subheading"}>{text}</Heading>}>
-        <ListItem>
-          <Avatar>
+        <EngineListItem>
+          <EngineAvatar>
             { ICONS[text] }
-          </Avatar>
+          </EngineAvatar>
           <ListItemText primary={heading} />
-        </ListItem>
+        </EngineListItem>
       </List>
     );
   }

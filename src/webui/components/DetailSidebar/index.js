@@ -3,9 +3,7 @@ import React, {Component} from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 
 import Install from '../Install';
 import Author from '../Author';
@@ -14,6 +12,9 @@ import Repository from '../Repository';
 import Developers from '../Developers';
 import Engine from '../Engines';
 import { DetailContextConsumer } from '../../pages/version/index';
+
+import { TitleListItem, TitleAvatar } from './styles';
+
 class DetailSidebar extends Component {
   render() {
     return (
@@ -45,13 +46,13 @@ class DetailSidebar extends Component {
   renderTitle = (packageName, packageMeta) => {
       return (
         <List>
-          <ListItem alignItems={"flex-start"}>
-            <Avatar style={{textTransform: 'capitalize'}}>{packageName[0]}</Avatar>
+          <TitleListItem alignItems={"flex-start"}>
+            <TitleAvatar>{packageName[0]}</TitleAvatar>
             <ListItemText
               primary={packageName}
               secondary={packageMeta.latest.description}
             />
-          </ListItem>
+          </TitleListItem>
         </List>
       );
   }

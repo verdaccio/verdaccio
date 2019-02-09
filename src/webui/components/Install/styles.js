@@ -17,8 +17,7 @@ export const Heading = styled(Typography)`
 
 export const InstallItem = styled(ListItem)`
   && {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding: 0;
   }
 `;
 

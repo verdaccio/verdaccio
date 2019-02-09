@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 
-import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import BookIcon from '@material-ui/icons/Book';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 
-import { Heading } from './styles';
+import { Heading, LicenseListItem, LicenseAvatar } from './styles';
 
 class License extends Component {
   render() {
@@ -36,12 +34,12 @@ class License extends Component {
 
   renderListItems = (license) => {
     return (
-      <ListItem>
-        <Avatar>
+      <LicenseListItem>
+        <LicenseAvatar>
           <BookIcon />
-        </Avatar>
+        </LicenseAvatar>
         <ListItemText primary={license} />
-      </ListItem>
+      </LicenseListItem>
     );
   }
 }

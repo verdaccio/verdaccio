@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar/index';
 import List from '@material-ui/core/List/index';
 import ListItemText from '@material-ui/core/ListItemText/index';
 
-import { Heading, InstallItem } from './styles';
+import { Heading, AuthorListItem } from './styles';
 class Authors extends Component<any, any> {
   render() {
     return (
@@ -30,10 +30,10 @@ class Authors extends Component<any, any> {
 
     return (
       <List subheader={<Heading variant={'subheading'}>{'Author'}</Heading>}>
-        <InstallItem>
+        <AuthorListItem>
           <Avatar alt={author.name} src={author.avatar} />
           <ListItemText primary={author.name} />
-        </InstallItem>
+        </AuthorListItem>
       </List>
     );
   };
