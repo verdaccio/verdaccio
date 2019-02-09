@@ -1230,6 +1230,14 @@
     lockfile "1.0.3"
     lodash "4.17.10"
 
+"@verdaccio/file-locking@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-0.0.8.tgz#6acb62e17db2fa093f86158e4a1c0b2802a69359"
+  integrity sha512-kK7siED1Yc/t8+G3Iyb0vdQ6mM+TKNW2wM8LO0D6bXg3rBWlf863JG7JIedSGUeMzwFOKjX75jreiE+xVeAb3w==
+  dependencies:
+    lockfile "1.0.4"
+    lodash "4.17.11"
+
 "@verdaccio/local-storage@2.0.0-beta.1":
   version "2.0.0-beta.1"
   resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.0.0-beta.1.tgz#1aa602b24fa2f6b02d682e5e56b4894112e198e6"
