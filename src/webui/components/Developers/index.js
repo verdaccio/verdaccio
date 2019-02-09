@@ -52,11 +52,22 @@ class Developers extends Component<Props, any> {
     );
   }
 
+  renderLinkForClick(email, avatar) {
+    if(!email) {
+      return avatar;
+    }
+    return (
+      <a href={`mailto:${email}`} target={"_top"}>
+        {avatar}
+      </a>
+    );
+  }
 
-  renderDeveloperDetails = ({ name, avatar }) => {
+  renderDeveloperDetails = ({ name, avatar, email }) => {
+    const avatarComponent = <Avatar aria-label={name} src={avatar} />;
     return (
       <Tooltip title={name}>
-        <Avatar aria-label={name} src={avatar} />
+        {this.renderLinkForClick(email, avatarComponent)}
       </Tooltip>
     );
   }
