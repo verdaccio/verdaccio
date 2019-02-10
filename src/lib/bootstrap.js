@@ -50,7 +50,7 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
       }
       if (config.server && config.server.keepAliveTimeout) {
         // $FlowFixMe library definition for node is not up to date (doesn't contain recent 8.0 changes)
-        webServer.keepAliveTimeout = config.server.keepAliveTimeout;
+        webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
       }
       unlinkAddressPath(addr);
 

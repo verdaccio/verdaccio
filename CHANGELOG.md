@@ -66,6 +66,28 @@ All notable changes to this project will be documented in this file. See [standa
 * replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
+
+
+<a name="3.11.3"></a>
+## [3.11.3](https://github.com/verdaccio/verdaccio/compare/v3.11.2...v3.11.3) (2019-02-07)
+
+
+### Bug Fixes
+
+* server keepAliveTimeout is in milliseconds, config value in seconds. ([7f79c77](https://github.com/verdaccio/verdaccio/commit/7f79c77))
+
+
+
+<a name="3.11.2"></a>
+## [3.11.2](https://github.com/verdaccio/verdaccio/compare/v3.11.1...v3.11.2) (2019-02-05)
+
+
+### Bug Fixes
+
+* lodash vulnerability ([c35486d](https://github.com/verdaccio/verdaccio/commit/c35486d))
+
+
+
 <a name="3.11.1"></a>
 ## [3.11.1](https://github.com/verdaccio/verdaccio/compare/v3.11.0...v3.11.1) (2019-01-31)
 
