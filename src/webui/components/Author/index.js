@@ -21,17 +21,29 @@ class Authors extends Component<any, any> {
     );
   }
 
+  renderLinkForMail(email, avatarComponent) {
+    if (!email) {
+      return avatarComponent;
+    }
+    return (
+      <a href={`mailto:${email}`} target={'_top'}>
+        {avatarComponent}
+      </a>
+    );
+  }
+
   renderAuthor = ({ packageMeta }) => {
     const { author } = packageMeta.latest;
 
     if (!author) {
       return null;
     }
-
+    console.log(author);
+    const avatarComponent = <Avatar alt={author.name} src={author.avatar} />;
     return (
       <List subheader={<Heading variant={'subheading'}>{'Author'}</Heading>}>
         <AuthorListItem>
-          <Avatar alt={author.name} src={author.avatar} />
+          {this.renderLinkForMail(author.email, avatarComponent)}
           <ListItemText primary={author.name} />
         </AuthorListItem>
       </List>

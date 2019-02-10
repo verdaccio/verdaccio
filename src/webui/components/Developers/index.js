@@ -52,7 +52,7 @@ class Developers extends Component<Props, any> {
     );
   }
 
-  renderLinkForClick(email, avatar) {
+  renderLinkForMail(email, avatar) {
     if(!email) {
       return avatar;
     }
@@ -67,7 +67,7 @@ class Developers extends Component<Props, any> {
     const avatarComponent = <Avatar aria-label={name} src={avatar} />;
     return (
       <Tooltip title={name}>
-        {this.renderLinkForClick(email, avatarComponent)}
+        {this.renderLinkForMail(email, avatarComponent)}
       </Tooltip>
     );
   }
