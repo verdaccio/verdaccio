@@ -67,6 +67,15 @@ All notable changes to this project will be documented in this file. See [standa
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
 
+<a name="3.11.4"></a>
+## [3.11.4](https://github.com/verdaccio/verdaccio/compare/v3.11.3...v3.11.4) (2019-02-11)
+
+
+### Bug Fixes
+
+* update dependencies due to security vulnerabilities ([f6f014a](https://github.com/verdaccio/verdaccio/commit/f6f014a))
+
+
 
 <a name="3.11.3"></a>
 ## [3.11.3](https://github.com/verdaccio/verdaccio/compare/v3.11.2...v3.11.3) (2019-02-07)
