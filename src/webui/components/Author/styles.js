@@ -16,5 +16,6 @@ export const Heading = styled(Typography)`
 export const AuthorListItem = styled(ListItem)`
   && {
     padding-left: 0;
+    padding-right: 0;
   }
 `;

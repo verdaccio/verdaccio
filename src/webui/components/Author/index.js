@@ -38,7 +38,7 @@ class Authors extends Component<any, any> {
     if (!author) {
       return null;
     }
-    console.log(author);
+
     const avatarComponent = <Avatar alt={author.name} src={author.avatar} />;
     return (
       <List subheader={<Heading variant={'subheading'}>{'Author'}</Heading>}>

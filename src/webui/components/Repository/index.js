@@ -3,13 +3,13 @@
 import React, {Component} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 import CopyToClipBoard from '../CopyToClipBoard';
 
-import { Heading, GithubLink, GithubLogo, RepositoryListItem } from './styles';
+import { Heading, GithubLink, RepositoryListItem } from './styles';
+import git from './img/git.png';
 
 class Repository extends Component<any, any> {
   render() {
@@ -23,23 +23,22 @@ class Repository extends Component<any, any> {
   };
 
   renderRepositoryText(url) {
-    return (<GithubLink href={url}>{url}</GithubLink>);
+    return (<GithubLink href={url} target={"_blank"}>{url}</GithubLink>);
   }
 
   renderRepository = ({packageMeta}) => {
-    const { repository } = packageMeta.latest;
+    const { repository, homepage } = packageMeta.latest;
     if (!repository) {
       return null;
     }
 
-    const { url } = repository;
+    // we prefer homepage first, because it's more cleaner
+    const url = homepage || repository.url;
     return (
       <>
         <List dense={true} subheader={<Heading variant={"subheading"}>{'Repository'}</Heading>}>
           <RepositoryListItem>
-            <Avatar>
-              <GithubLogo />
-            </Avatar>
+            <Avatar src={git} />
             <ListItemText primary={(<CopyToClipBoard text={this.renderRepositoryText(url)} />)} />
           </RepositoryListItem>
         </List>

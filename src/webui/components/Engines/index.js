@@ -1,19 +1,21 @@
 /* eslint-disable */
 import React, {Component} from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-import Toys from '@material-ui/icons/Toys';
-import SettingsIcon from '@material-ui/icons/Settings';
+import Avatar from '@material-ui/core/Avatar/index';
+import Grid from '@material-ui/core/Grid/index';
+import List from '@material-ui/core/List/index';
+import ListItemText from '@material-ui/core/ListItemText/index';
 
 import { DetailContextConsumer } from '../../pages/version/index';
 
-import { Heading, EngineListItem, EngineAvatar } from './styles';
+import { Heading, EngineListItem } from './styles';
+import node from './img/node.png';
+import npm from '../Install/img/npm.svg'
+
 
 const ICONS = {
-  node: <SettingsIcon />,
-  NPM: <Toys />,
+  'node-JS': <Avatar src={node} />,
+  'NPM-version': <Avatar src={npm} />,
 }
 
 class Engine extends Component {
@@ -34,8 +36,8 @@ class Engine extends Component {
     }
 
     const engineDict = {
-      node: engines.node,
-      NPM: engines.npm
+      'node-JS': engines.node,
+      'NPM-version': engines.npm
     }
 
     const items = Object.keys(engineDict).reduce((markup, text, key) => {
@@ -63,11 +65,9 @@ class Engine extends Component {
 
   renderListItems = (heading, text) => {
     return (
-      <List subheader={<Heading variant={"subheading"}>{text}</Heading>}>
+      <List subheader={<Heading variant={"subheading"}>{text.split('-').join(' ')}</Heading>}>
         <EngineListItem>
-          <EngineAvatar>
-            { ICONS[text] }
-          </EngineAvatar>
+          { ICONS[text] }
           <ListItemText primary={heading} />
         </EngineListItem>
       </List>
