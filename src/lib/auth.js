@@ -224,7 +224,7 @@ class Auth implements IAuth {
 
   apiJWTmiddleware() {
     const plugins = this.plugins.slice(0);
-    const helpers = {buildAnonymousUser, authenticatedUser};
+    const helpers = { createAnonymousRemoteUser, createRemoteUser };
     for (const plugin of plugins) {
       if (plugin.apiJWTmiddleware) {
         return plugin.apiJWTmiddleware(helpers);
