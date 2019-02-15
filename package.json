@@ -176,9 +176,6 @@
     "npm": ">=3"
   },
   "preferGlobal": true,
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && commitlint -e $GIT_PARAMS"
