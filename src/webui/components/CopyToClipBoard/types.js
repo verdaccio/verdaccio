@@ -5,5 +5,5 @@
 
 export interface IProps {
   text: string;
-  children: any;
+  children?: any;
 }
