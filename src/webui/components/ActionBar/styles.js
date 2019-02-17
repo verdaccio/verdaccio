@@ -1,6 +1,5 @@
 /**
  * @prettier
- * @flow
  */
 import styled from 'react-emotion';
 import { default as MuiFab } from '@material-ui/core/Fab';

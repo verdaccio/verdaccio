@@ -1,10 +1,9 @@
 /**
  * @prettier
- * @flow
  */
 
 import styled from 'react-emotion';
-import Fab from '@material-ui/core/Fab/index';
+import { default as MuiFab } from '@material-ui/core/Fab/index';
 import Chip from '@material-ui/core/Chip/index';
 import ListItem from '@material-ui/core/ListItem/index';
 import Typography from '@material-ui/core/Typography/index';
@@ -32,7 +31,7 @@ export const DistChips = styled(Chip)`
   }
 `;
 
-export const DownloadButton = styled(Fab)`
+export const DownloadButton = styled(MuiFab)`
   && {
     background-color: ${colors.primary};
     color: ${colors.white};
