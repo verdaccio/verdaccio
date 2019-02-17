@@ -2,25 +2,24 @@
  * @prettier
  * @flow
  */
-
 import styled from 'react-emotion';
-import Avatar from '@material-ui/core/Avatar/index';
+import { default as MuiFab } from '@material-ui/core/Fab';
 import ListItem from '@material-ui/core/ListItem/index';
 
 import colors from '../../utils/styles/colors';
 
-export const TitleListItem = styled(ListItem)`
+export const ActionListItem = styled(ListItem)`
   && {
+    padding-top: 0;
     padding-left: 0;
     padding-right: 0;
-    padding-bottom: 0;
   }
 `;
 
-export const TitleAvatar = styled(Avatar)`
+export const Fab = styled(MuiFab)`
   && {
-    color: ${colors.greySuperLight};
     background-color: ${colors.primary};
-    text-transform: capitalize;
+    color: ${colors.white};
+    margin-right: 10px;
   }
 `;
