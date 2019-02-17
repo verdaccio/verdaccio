@@ -30,7 +30,7 @@ class DetailSidebar extends Component {
 
   renderSideBar = ({packageName, packageMeta}) => {
     return (
-      <>
+      <div className={'sidebar-info'}>
         <Card>
           <CardContent>
             {this.renderTitle(packageName, packageMeta)}
@@ -45,13 +45,13 @@ class DetailSidebar extends Component {
             {/* {this.renderLicense()} */}
           </CardContent>
         </Card>
-      </>
+      </div>
     );
   }
 
   renderTitle = (packageName, packageMeta) => {
       return (
-        <List>
+        <List className={'detail-info'}>
           <TitleListItem alignItems={"flex-start"}>
             <ListItemText
               primary={<b>{packageName}</b>}

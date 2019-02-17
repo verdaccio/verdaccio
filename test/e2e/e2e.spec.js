@@ -5,7 +5,7 @@
 const scopedPackageMetadata = require('./partials/pkg-scoped');
 const protectedPackageMetadata = require('./partials/pkg-protected');
 
-describe.skip('/ (Verdaccio Page)', () => {
+describe('/ (Verdaccio Page)', () => {
   let page;
   // this might be increased based on the delays included in all test
   jest.setTimeout(200000);
@@ -140,7 +140,7 @@ describe.skip('/ (Verdaccio Page)', () => {
 
   test('should contains last sync information', async () => {
     const versionList = await page.$$('.sidebar-info .detail-info');
-    expect(versionList).toHaveLength(3);
+    expect(versionList).toHaveLength(1);
   });
 
   test('should publish a protected package', async () => {
