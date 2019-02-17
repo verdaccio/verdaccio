@@ -11,7 +11,6 @@ import Developers from '../Developers';
 import Dist from '../Dist';
 import Engine from '../Engines';
 import Install from '../Install';
-import License from '../License';
 import Repository from '../Repository';
 
 
@@ -42,7 +41,6 @@ class DetailSidebar extends Component {
             {this.renderAuthor()}
             {this.renderMaintainers()}
             {this.renderContributors()}
-            {/* {this.renderLicense()} */}
           </CardContent>
         </Card>
       </div>
@@ -74,10 +72,6 @@ class DetailSidebar extends Component {
     return <Developers type={'contributors'} />;
   }
   
-  renderLicense = () => {
-    return <License />;
-  }
-
   renderRepository = () => {
     return <Repository />;
   }

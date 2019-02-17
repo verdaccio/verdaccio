@@ -39,10 +39,18 @@ class Repository extends Component<any, any> {
         <List dense={true} subheader={<Heading variant={"subheading"}>{'Repository'}</Heading>}>
           <RepositoryListItem>
             <Avatar src={git} />
-            <ListItemText primary={(<CopyToClipBoard text={this.renderRepositoryText(url)} />)} />
+            <ListItemText primary={this.renderContent(url)} />
           </RepositoryListItem>
         </List>
       </>
+    );
+  }
+  
+  renderContent(url) {
+    return (
+      <CopyToClipBoard text={url}>
+        {this.renderRepositoryText(url)}
+      </CopyToClipBoard>
     );
   }
 }
