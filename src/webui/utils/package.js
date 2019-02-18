@@ -106,3 +106,13 @@ export function formatDate(lastUpdate) {
 export function formatDateDistance(lastUpdate) {
   return distanceInWordsToNow(new Date(lastUpdate));
 }
+
+export function getRouterPackageName(match) {
+  const packageName = match.params.package;
+  const scope = match.params.scope;
+  if (scope) {
+    return `@${scope}/${packageName}`;
+  }
+  
+  return packageName;
+}

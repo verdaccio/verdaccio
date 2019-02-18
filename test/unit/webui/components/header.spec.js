@@ -4,11 +4,14 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { shallow } from 'enzyme';
 import Header from '../../../../src/webui/components/Header';
 
 describe('<Header /> component with logged in state', () => {
   let wrapper;
+  let routerWrapper;
+  let instance;
   let props;
 
   beforeEach(() => {
@@ -20,7 +23,13 @@ describe('<Header /> component with logged in state', () => {
       scope: 'test scope',
       withoutSearch: true,
     };
-    wrapper = mount(<Header {...props} />);
+    routerWrapper = shallow(
+      <Router>
+        <Header {...props} />
+      </Router>
+    );
+    wrapper = routerWrapper.find(Header).dive();
+    instance = wrapper.instance();
   });
 
   test('should load the component in logged in state', () => {
@@ -30,13 +39,12 @@ describe('<Header /> component with logged in state', () => {
       registryUrl: 'http://localhost',
       showMobileNavBar: false,
     };
+
     expect(wrapper.state()).toEqual(state);
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(routerWrapper.html()).toMatchSnapshot();
   });
 
   test('handleLoggedInMenu: set anchorEl to html element value in state', () => {
-    const { handleLoggedInMenu } = wrapper.instance();
-
     // creates a sample menu
     const div = document.createElement('div');
     const text = document.createTextNode('sample menu');
@@ -46,13 +54,15 @@ describe('<Header /> component with logged in state', () => {
       currentTarget: div,
     };
 
-    handleLoggedInMenu(event);
+    instance.handleLoggedInMenu(event);
     expect(wrapper.state('anchorEl')).toEqual(div);
   });
 });
 
 describe('<Header /> component with logged out state', () => {
   let wrapper;
+  let routerWrapper;
+  let instance;
   let props;
 
   beforeEach(() => {
@@ -63,7 +73,13 @@ describe('<Header /> component with logged out state', () => {
       logo: '',
       withoutSearch: true,
     };
-    wrapper = mount(<Header {...props} />);
+    routerWrapper = shallow(
+      <Router>
+        <Header {...props} />
+      </Router>
+    );
+    wrapper = routerWrapper.find(Header).dive();
+    instance = wrapper.instance();
   });
 
   test('should load the component in logged out state', () => {
@@ -74,30 +90,26 @@ describe('<Header /> component with logged out state', () => {
       showMobileNavBar: false,
     };
     expect(wrapper.state()).toEqual(state);
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(routerWrapper.html()).toMatchSnapshot();
   });
 
   test('handleLoggedInMenuClose: set anchorEl value to null in state', () => {
-    const { handleLoggedInMenuClose } = wrapper.instance();
-    handleLoggedInMenuClose();
+    instance.handleLoggedInMenuClose();
     expect(wrapper.state('anchorEl')).toBeNull();
   });
 
   test('handleOpenRegistryInfoDialog: set openInfoDialog to be truthy in state', () => {
-    const { handleOpenRegistryInfoDialog } = wrapper.instance();
-    handleOpenRegistryInfoDialog();
+    instance.handleOpenRegistryInfoDialog();
     expect(wrapper.state('openInfoDialog')).toBeTruthy();
   });
 
   test('handleCloseRegistryInfoDialog: set openInfoDialog to be falsy in state', () => {
-    const { handleCloseRegistryInfoDialog } = wrapper.instance();
-    handleCloseRegistryInfoDialog();
+    instance.handleCloseRegistryInfoDialog();
     expect(wrapper.state('openInfoDialog')).toBeFalsy();
   });
 
   test('handleToggleLogin: close/open popover menu', () => {
-    const { handleToggleLogin } = wrapper.instance();
-    handleToggleLogin();
+    instance.handleToggleLogin();
     expect(wrapper.state('anchorEl')).toBeNull();
     expect(props.onToggleLoginModal).toHaveBeenCalled();
   });

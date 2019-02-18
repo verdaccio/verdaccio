@@ -37,7 +37,7 @@ describe('App', () => {
   beforeEach(() => {
     wrapper = mount(<App />);
   });
-
+  
   test('toggleLoginModal: should toggle the value in state', () => {
     const { handleToggleLoginModal } = wrapper.instance();
     expect(wrapper.state().showLoginModal).toBeFalsy();

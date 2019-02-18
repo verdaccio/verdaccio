@@ -1,7 +1,7 @@
-FROM node:10.14.1-alpine as builder
+FROM node:10.15.1-alpine as builder
 
 ENV NODE_ENV=production \
-    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
 
 RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python && \
@@ -13,12 +13,12 @@ WORKDIR /opt/verdaccio-build
 COPY . .
 
 RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
-    yarn install --production=false && \
+    yarn install --production=false --no-lockfile && \
     yarn lint && \
     yarn code:docker-build && \
     yarn build:webui && \
     yarn cache clean && \
-    yarn install --production=true --pure-lockfile
+    yarn install --production=true --no-lockfile
 
 
 

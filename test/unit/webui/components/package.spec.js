@@ -6,7 +6,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Package from '../../../../src/webui/components/Package/index';
 import Tag from '../../../../src/webui/components/Tag/index';
-import { Version, Wrapper, Field, OverviewItem } from '../../../../src/webui/components/Package/styles';
+import { Version, WrapperLink, Field, OverviewItem } from '../../../../src/webui/components/Package/styles';
 
 
 /**
@@ -39,7 +39,7 @@ describe('<Package /> component', () => {
     // integration expectations
 
     // check link
-    expect(wrapper.find(Wrapper).prop('to')).toEqual(`detail/${props.name}`);
+    expect(wrapper.find(WrapperLink).prop('to')).toEqual(`detail/${props.name}`);
 
     // check version
     expect(wrapper.find(Version).prop('children')).toEqual(`v${props.version}`);
