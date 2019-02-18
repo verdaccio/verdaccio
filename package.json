@@ -19,7 +19,7 @@
     "@verdaccio/local-storage": "2.0.0-beta.1",
     "@verdaccio/streams": "2.0.0-beta.0",
     "JSONStream": "1.3.4",
-    "async": "2.6.1",
+    "async": "3.0.1-0",
     "body-parser": "1.18.3",
     "bunyan": "1.8.12",
     "chalk": "2.4.1",
@@ -176,9 +176,6 @@
     "npm": ">=3"
   },
   "preferGlobal": true,
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && commitlint -e $GIT_PARAMS"
