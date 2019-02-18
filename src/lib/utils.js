@@ -413,7 +413,7 @@ export function fileExists(path: string): boolean {
 }
 
 export function sortByName(packages: Array<any>, orderAscending: boolean | void = true): string[] {
-  return packages.sort(function(a, b) {
+  return packages.slice().sort(function(a, b) {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
