@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Card from '@material-ui/core/Card/index';
 import CardContent from '@material-ui/core/CardContent/index';
 import List from '@material-ui/core/List/index';
-// import ListItemText from '@material-ui/core/ListItemText/index';
 
 import ActtionBar from '../ActionBar';
 import Author from '../Author';
