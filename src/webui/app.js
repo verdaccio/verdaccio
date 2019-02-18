@@ -4,21 +4,26 @@ import isNil from 'lodash/isNil';
 import storage from './utils/storage';
 import { makeLogin, isTokenExpire } from './utils/login';
 
-import Footer from './components/Footer';
 import Loading from './components/Loading';
 import LoginModal from './components/Login';
 import Header from './components/Header';
 import { Container, Content } from './components/Layout';
-import Route from './router';
+import RouterApp from './router';
 import API from './utils/api';
 import './styles/typeface-roboto.scss';
 import './styles/main.scss';
 import 'normalize.css';
+import Footer from './components/Footer';
+
+export const AppContext = React.createContext();
+
+export const AppContextProvider = AppContext.Provider;
+export const AppContextConsumer = AppContext.Consumer;
 
 export default class App extends Component {
   state = {
     error: {},
-    logoUrl: '',
+    logoUrl: window.VERDACCIO_LOGO,
     user: {},
     scope: (window.VERDACCIO_SCOPE) ? `${window.VERDACCIO_SCOPE}:` : '',
     showLoginModal: false,
@@ -28,24 +33,16 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.loadLogo();
     this.isUserAlreadyLoggedIn();
-    this.loadPackages();
+    this.loadOnHandler();
   }
 
   // eslint-disable-next-line no-unused-vars
   componentDidUpdate(_, prevState) {
     const { isUserLoggedIn } = this.state;
     if (prevState.isUserLoggedIn !== isUserLoggedIn) {
-      this.loadPackages();
+      this.loadOnHandler();
     }
-  }
-
-    loadLogo = () => {
-    const logoUrl = window.VERDACCIO_LOGO;
-    this.setState({
-      logoUrl,
-    });
   }
 
   isUserAlreadyLoggedIn = () => {
@@ -62,7 +59,7 @@ export default class App extends Component {
     }
   }
 
-  loadPackages = async () => {
+  loadOnHandler = async () => {
     try {
       this.req = await API.request('packages', 'GET');
       this.setState({
@@ -70,7 +67,8 @@ export default class App extends Component {
         isLoading: false,
       });
     } catch (error) {
-      this.handleShowAlertDialog({
+      // FIXME: add dialog
+      console.error({
         title: 'Warning',
         message: `Unable to load package list: ${error.message}`,
       });
@@ -143,18 +141,16 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, isUserLoggedIn, packages } = this.state;
+    const { isLoading, isUserLoggedIn, packages, logoUrl, user, scope } = this.state;
     return (
       <Container isLoading={isLoading}>
         {isLoading ? (
           <Loading />
         ) : (
           <Fragment>
-            {this.renderHeader()}
-            <Content>
-              <Route isUserLoggedIn={isUserLoggedIn} packages={packages} />
-            </Content>
-            <Footer />
+            <AppContextProvider value={{isUserLoggedIn, packages, logoUrl, user, scope}}>
+              {this.renderContent()}
+            </AppContextProvider>
           </Fragment>
         )}
         {this.renderLoginModal()}
@@ -175,8 +171,24 @@ export default class App extends Component {
     );
   }
 
+  renderContent = () => {
+    return (
+      <Fragment>
+        <Content>
+          <RouterApp 
+            onLogout={this.handleLogout}
+            onToggleLoginModal={this.handleToggleLoginModal}>
+            {this.renderHeader()}
+          </RouterApp>
+        </Content>
+        <Footer />
+      </Fragment>
+    );
+  }
+
   renderHeader = () => {
     const { logoUrl, user, scope } = this.state;
+
     return (
       <Header
         logo={logoUrl}

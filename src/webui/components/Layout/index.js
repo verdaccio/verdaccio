@@ -7,9 +7,11 @@ import styled, { css } from 'react-emotion';
 
 export const Content = styled.div`
   && {
-    background-color: #fff;
+    background-color: #ffffff;
     flex: 1;
+    display: flex;
     position: relative;
+    flex-direction: column;
   }
 `;
 

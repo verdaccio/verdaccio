@@ -12,7 +12,8 @@ import {
   getVersion,
   normalizeDistTags,
   getWebProtocol,
-  getVersionFromTarball
+  getVersionFromTarball,
+  sortByName
 } from '../../../src/lib/utils';
 import { DIST_TAGS } from '../../../src/lib/constants';
 import Logger, { setup } from '../../../src/lib/logger';
@@ -46,6 +47,47 @@ describe('Utilities', () => {
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
+    describe('Sort packages', () => {
+      const packages = [
+        {
+          name: 'ghc'
+        },
+        {
+          name: 'abc'
+        },
+        {
+          name: 'zxy'
+        }
+      ];
+      test('should order ascending', () => {
+        expect(sortByName(packages)).toEqual([
+          {
+            name: 'abc'
+          },
+          {
+            name: 'ghc'
+          },
+          {
+            name: 'zxy'
+          }
+        ]);
+      });
+
+      test('should order descending', () => {
+        expect(sortByName(packages, false)).toEqual([
+          {
+            name: 'zxy'
+          },
+          {
+            name: 'ghc'
+          },
+          {
+            name: 'abc'
+          }
+        ]);
+      });
+    });
+
     describe('getWebProtocol', () => {
       test('should handle undefined header', () => {
         expect(getWebProtocol(undefined, 'http')).toBe('http');

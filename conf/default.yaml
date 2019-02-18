@@ -12,9 +12,10 @@ storage: ./storage
 plugins: ./plugins
 
 web:
-  # WebUI is enabled as default, if you want disable it, just uncomment this line
-  #enable: false
   title: Verdaccio
+  # gravatar: true
+  # by default packages are ordercer ascendant (asc|desc)
+  # sort_packages: asc
 
 auth:
   htpasswd:

@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Search from '../../../../src/webui/components/Search/index';
+import { Search } from '../../../../src/webui/components/Search/index';
 
 const SEARCH_FILE_PATH = '../../../../src/webui/components/Search/index';
 const API_FILE_PATH = '../../../../src/webui/utils/api';
@@ -121,7 +121,7 @@ describe('<Search /> component: mocks specific tests ', () => {
       },
     }));
 
-    const Search = require(SEARCH_FILE_PATH).default;
+    const Search = require(SEARCH_FILE_PATH).Search;
     const component = mount(<Search />);
     component.setState({ search: 'verdaccio' });
     const { handleFetchPackages } = component.instance();
@@ -138,7 +138,7 @@ describe('<Search /> component: mocks specific tests ', () => {
 
     jest.doMock(API_FILE_PATH, () => ({ request: jest.fn(() => Promise.reject(apiResponse)) }));
 
-    const Search = require(SEARCH_FILE_PATH).default;
+    const Search = require(SEARCH_FILE_PATH).Search;
     const component = mount(<Search />);
     component.setState({ search: 'verdaccio' });
     const { handleFetchPackages } = component.instance();
@@ -159,7 +159,7 @@ describe('<Search /> component: mocks specific tests ', () => {
       },
     }));
 
-    const Search = require(SEARCH_FILE_PATH).default;
+    const Search = require(SEARCH_FILE_PATH).Search;
     const component = mount(<Search />);
     component.setState({ search: 'verdaccio' });
     const { handleFetchPackages } = component.instance();
@@ -175,20 +175,19 @@ describe('<Search /> component: mocks specific tests ', () => {
     jest.doMock(URL_FILE_PATH, () => ({ getDetailPageURL }));
 
     const suggestionValue = [];
-    const Search = require(SEARCH_FILE_PATH).default;
-    const component = mount(<Search />);
+    const Search = require(SEARCH_FILE_PATH).Search;
+    const pushHandler = jest.fn();
+    const component = mount(<Search history={{ push: pushHandler }} />);
     const { handleClickSearch } = component.instance();
 
     // click
     handleClickSearch(event, { suggestionValue, method: 'click' });
     expect(event.stopPropagation).toHaveBeenCalled();
-    expect(getDetailPageURL).toHaveBeenCalledWith(suggestionValue);
-    expect(window.location.assign).toHaveBeenCalledWith('detail/page/url');
+    expect(pushHandler).toHaveBeenCalledTimes(1);
 
     // return key
     handleClickSearch(event, { suggestionValue, method: 'enter' });
     expect(event.stopPropagation).toHaveBeenCalled();
-    expect(getDetailPageURL).toHaveBeenCalledWith(suggestionValue);
-    expect(window.location.assign).toHaveBeenCalledWith('detail/page/url');
+    expect(pushHandler).toHaveBeenCalledTimes(2);
   });
 });

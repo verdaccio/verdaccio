@@ -139,8 +139,8 @@ describe('/ (Verdaccio Page)', () => {
   });
 
   test('should contains last sync information', async () => {
-    const versionList = await page.$$('.sidebar-info .last-sync-item');
-    expect(versionList).toHaveLength(3);
+    const versionList = await page.$$('.sidebar-info .detail-info');
+    expect(versionList).toHaveLength(1);
   });
 
   test('should publish a protected package', async () => {
