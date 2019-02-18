@@ -127,7 +127,7 @@ class Header extends Component<IProps, IState> {
   renderLogo = (): Node => {
     const { logo } = this.props;
 
-    if (logo) {
+    if (logo !== '') {
       return <img alt={'logo'} height={'40px'} src={logo} />;
     } else {
       return <Logo />;

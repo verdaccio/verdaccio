@@ -58,7 +58,7 @@ module.exports = function(config, auth, storage) {
     const webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
-      .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : null)
+      .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : '')
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
     res.setHeader('Content-Type', 'text/html');
