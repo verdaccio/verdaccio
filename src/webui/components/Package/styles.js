@@ -25,7 +25,7 @@ export const Header = styled.div`
 
 export const Name = styled.span`
   && {
-    ${ellipsis('50%')};
+    color: ${colors.primary};
   }
 `;
 
@@ -159,7 +159,7 @@ export const Footer = styled.div`
 `;
 
 // Container
-export const Wrapper = styled(Link)`
+export const WrapperLink = styled(Link)`
   && {
     font-size: 12px;
     background-color: white;
