@@ -7,4 +7,4 @@ lastTag=$(git describe --tags $(git rev-list --tags --max-count=1))
 echo "Bumping version to new tag: ${lastTag}"
 
 # Publish to NPM
-npm publish --tag next
+npm publish --tag next --registry https://registry.npmjs.org/
