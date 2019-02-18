@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent/index';
 
 import { DetailContextConsumer } from '../../pages/version';
 
-import { Content, CardWrap, Heading, Tags, Tag } from './styles';
+import { CardWrap, Heading, Tags, Tag } from './styles';
 import NoItems from '../NoItems';
 
 class DepDetail extends Component<any, any> {
@@ -94,20 +94,14 @@ class Dependencies extends Component<any, any> {
 
     if (dependencies || devDependencies || peerDependencies) {
       return (
-        <Content>
-          <Fragment>
-            {dependencies && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
-            {devDependencies && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
-            {peerDependencies && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
-          </Fragment>
-        </Content>
+        <Fragment>
+          {dependencies && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
+          {devDependencies && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
+          {peerDependencies && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
+        </Fragment>
       );
     }
-    return (
-      <Content>
-        <NoItems text={`${name} has no dependencies.`} />
-      </Content>
-    );
+    return <NoItems text={`${name} has no dependencies.`} />;
   }
 }
 

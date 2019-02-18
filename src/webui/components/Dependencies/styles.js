@@ -8,15 +8,9 @@ import Card from '@material-ui/core/Card/index';
 import Typography from '@material-ui/core/Typography/index';
 import Chip from '@material-ui/core/Chip/index';
 
-export const Content = styled.div`
-  && {
-    padding: 20px;
-  }
-`;
-
 export const CardWrap = styled(Card)`
   && {
-    margin: 0 0 25px;
+    margin: 0 0 16px;
   }
 `;
 
