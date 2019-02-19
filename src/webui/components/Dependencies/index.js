@@ -87,6 +87,10 @@ class Dependencies extends Component<any, any> {
     );
   }
 
+  checkDependencyLength(dependency: Object = {}) {
+    return Object.keys(dependency).length > 0;
+  }
+
   // $FlowFixMe
   renderDependencies({ packageMeta }) {
     const { latest } = packageMeta;
@@ -95,9 +99,9 @@ class Dependencies extends Component<any, any> {
     if (dependencies || devDependencies || peerDependencies) {
       return (
         <Fragment>
-          {dependencies && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
-          {devDependencies && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
-          {peerDependencies && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
+          {this.checkDependencyLength(dependencies) && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
+          {this.checkDependencyLength(devDependencies) && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
+          {this.checkDependencyLength(peerDependencies) && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
         </Fragment>
       );
     }
