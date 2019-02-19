@@ -17,40 +17,44 @@ class Versions extends React.PureComponent<any> {
       // $FlowFixMe
       <DetailContextConsumer>
         {({ packageMeta }) => {
-          return this.renderContent(packageMeta[DIST_TAGS], packageMeta.versions);
+          return this.renderContent(packageMeta);
         }}
       </DetailContextConsumer>
     );
   }
 
-  renderPackageList = (packages: any, isVersion: boolean = false) => (
-    <List>
-      {Object.keys(packages)
-        .reverse()
-        .map(version => (
-          <ListItem key={version}>
-            <ListItemText>{version}</ListItemText>
-            <Spacer />
-            <ListItemText>{isVersion ? `${formatDateDistance('2017-10-26T09:03:15.044Z')} ago` : packages[version]}</ListItemText>
-          </ListItem>
-        ))}
-    </List>
-  );
+  renderPackageList = (packages: any, isVersion: boolean = false, timeMap: Object = {}) => {
+    return (
+      <List>
+        {Object.keys(packages)
+          .reverse()
+          .map(version => (
+            <ListItem key={version}>
+              <ListItemText>{version}</ListItemText>
+              <Spacer />
+              <ListItemText>{isVersion && timeMap[version] ? `${formatDateDistance(timeMap[version])} ago` : packages[version]}</ListItemText>
+            </ListItem>
+          ))}
+      </List>
+    );
+  };
 
   // $FlowFixMe
-  renderContent(distTags: object, versions: object) {
+  renderContent(packageMeta) {
+    const { versions = {}, time: timeMap = {}, [DIST_TAGS]: distTags = {} } = packageMeta;
+
     return (
       <>
         {distTags && (
           <>
             <Heading variant={'subheading'}>{'Current Tags'}</Heading>
-            {this.renderPackageList(distTags)}
+            {this.renderPackageList(distTags, false, timeMap)}
           </>
         )}
         {versions && (
           <>
             <Heading variant={'subheading'}>{'Version History'}</Heading>
-            {this.renderPackageList(versions, true)}
+            {this.renderPackageList(versions, true, timeMap)}
           </>
         )}
       </>

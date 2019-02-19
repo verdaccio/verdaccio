@@ -30,25 +30,31 @@ class DetailContainer extends Component<any, any> {
     );
   }
 
+  handleChange = (event: any, tabPosition: number) => {
+    event.preventDefault();
+    this.setState({ tabPosition });
+  };
+
   // $FlowFixMe
   renderTabs = ({ readMe }) => {
     const { tabPosition } = this.state;
 
     return (
-      <React.Fragment>
-        <Tabs indicatorColor={'primary'} onChange={this.handleChange} textColor={'primary'} value={tabPosition} variant={'fullWidth'}>
-          <Tab label={'Readme'} />
-          <Tab label={'Dependencies'} />
-          <Tab label={'Versions'} />
-          <Tab label={'Uplinks'} />
-        </Tabs>
+      <>
         <Content>
+          <Tabs indicatorColor={'primary'} onChange={this.handleChange} textColor={'primary'} value={tabPosition} variant={'fullWidth'}>
+            <Tab label={'Readme'} />
+            <Tab label={'Dependencies'} />
+            <Tab label={'Versions'} />
+            <Tab label={'Uplinks'} />
+          </Tabs>
+          <br />
           {tabPosition === 0 && this.renderReadme(readMe)}
           {tabPosition === 1 && <Dependencies />}
           {tabPosition === 2 && <Versions />}
           {tabPosition === 3 && <UpLinks />}
         </Content>
-      </React.Fragment>
+      </>
     );
   };
 
@@ -56,11 +62,6 @@ class DetailContainer extends Component<any, any> {
     const encodedReadme = preventXSS(readMe);
 
     return <Readme description={encodedReadme} />;
-  };
-
-  handleChange = (event: any, tabPosition: number) => {
-    event.preventDefault();
-    this.setState({ tabPosition });
   };
 }
 
