@@ -12,7 +12,6 @@ import express from 'express';
 import { combineBaseUrl, getWebProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
-import { spliceURL } from '../../utils/string';
 
 const { securityIframe } = require('../middleware');
 /* eslint new-cap:off */
@@ -66,14 +65,8 @@ module.exports = function(config, auth, storage) {
     res.send(webPage);
   }
 
-  router.get('/-/web/:pkg', function(req, res) {
+  router.get('/-/web/:section/*', function(req, res) {
     renderHTML(req, res);
-  });
-
-  router.get('/-/verdaccio/logo', function(req, res) {
-    const installPath = _.get(config, 'url_prefix', '');
-
-    res.send(_.get(config, 'web.logo') || spliceURL(installPath, '/-/static/logo.png'));
   });
 
   router.get('/', function(req, res) {
