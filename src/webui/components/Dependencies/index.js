@@ -96,14 +96,18 @@ class Dependencies extends Component<any, any> {
     const { latest } = packageMeta;
     const { dependencies, devDependencies, peerDependencies, name } = latest;
 
-    if (dependencies || devDependencies || peerDependencies) {
-      return (
-        <Fragment>
-          {this.checkDependencyLength(dependencies) && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
-          {this.checkDependencyLength(devDependencies) && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
-          {this.checkDependencyLength(peerDependencies) && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
-        </Fragment>
-      );
+    const dependencyMap = { dependencies, devDependencies, peerDependencies };
+
+    const dependencyList = Object.keys(dependencyMap).reduce((result, value, key) => {
+      const selectedDepndency = dependencyMap[value];
+      if (selectedDepndency && this.checkDependencyLength(selectedDepndency)) {
+        result.push(<DependencyBlock dependencies={selectedDepndency} key={key} title={value} />);
+      }
+      return result;
+    }, []);
+
+    if (dependencyList.length) {
+      return <Fragment>{dependencyList}</Fragment>;
     }
     return <NoItems text={`${name} has no dependencies.`} />;
   }

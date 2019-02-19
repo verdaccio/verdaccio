@@ -17,6 +17,7 @@ export const CardWrap = styled(Card)`
 export const Heading = styled(Typography)`
   && {
     font-weight: 700;
+    text-transform: capitalize;
   }
 `;
 
