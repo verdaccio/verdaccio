@@ -3,9 +3,19 @@
  * @flow
  */
 
+/* eslint-disable */
+
 import React from 'react';
 import type { Element } from 'react';
 import { spacing } from '../../utils/styles/mixings';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar2 from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import Tag from '../Tag';
 import { formatDate, formatDateDistance } from '../../utils/package';
@@ -79,27 +89,49 @@ const Package = ({ name: label, version, time, author: { name, avatar }, descrip
       </Field>
     );
 
+  // return (
+  //   <WrapperLink className={'package'} to={`/-/web/detail/${label}`}>
+  //     <Header>
+  //       {renderMainInfo()}
+  //       <Overview>
+  //         {renderLicenseInfo()}
+  //         {renderPublishedInfo()}
+  //       </Overview>
+  //     </Header>
+  //     <Content>
+  //       <Field>{renderAuthorInfo()}</Field>
+  //       {renderDescription()}
+  //     </Content>
+  //     {keywords.length > 0 && (
+  //       <Footer>
+  //         {keywords.sort().map((keyword, index) => (
+  //           <Tag key={index}>{keyword}</Tag>
+  //         ))}
+  //       </Footer>
+  //     )}
+  //   </WrapperLink>
+  // );
+
   return (
-    <WrapperLink className={'package'} to={`/-/web/detail/${label}`}>
-      <Header>
-        {renderMainInfo()}
-        <Overview>
-          {renderLicenseInfo()}
-          {renderPublishedInfo()}
-        </Overview>
-      </Header>
-      <Content>
-        <Field>{renderAuthorInfo()}</Field>
-        {renderDescription()}
-      </Content>
-      {keywords.length > 0 && (
-        <Footer>
-          {keywords.sort().map((keyword, index) => (
-            <Tag key={index}>{keyword}</Tag>
-          ))}
-        </Footer>
-      )}
-    </WrapperLink>
+    <List>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar2 alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary={label}
+          secondary={
+            <React.Fragment>
+              <Typography component="span" color="textPrimary">
+                {name}
+              </Typography>
+              {description}
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+      <Divider></Divider>
+    </List>
   );
 };
 export default Package;
