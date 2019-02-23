@@ -27,13 +27,16 @@ class Repository extends Component<any, any> {
   }
 
   renderRepository = ({packageMeta}) => {
-    const { repository, homepage } = packageMeta.latest;
-    if (!repository) {
+    const { 
+      repository: {
+        url,
+      } = {},
+    } = packageMeta.latest;
+    
+    if (!url) {
       return null;
     }
 
-    // we prefer homepage first, because it's more cleaner
-    const url = homepage || repository.url;
     return (
       <>
         <List dense={true} subheader={<Heading variant={"subheading"}>{'Repository'}</Heading>}>

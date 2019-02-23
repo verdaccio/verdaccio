@@ -38,7 +38,6 @@ class UpLinks extends React.PureComponent<any> {
   );
 
   renderContent(uplinks, { name }) {
-    console.log(uplinks);
     if (Object.keys(uplinks).length > 0) {
       return (
         uplinks && (

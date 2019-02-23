@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent/index';
 
 import { DetailContextConsumer } from '../../pages/version';
 
-import { Content, CardWrap, Heading, Tags, Tag } from './styles';
+import { CardWrap, Heading, Tags, Tag } from './styles';
 import NoItems from '../NoItems';
 
 class DepDetail extends Component<any, any> {
@@ -87,27 +87,29 @@ class Dependencies extends Component<any, any> {
     );
   }
 
+  checkDependencyLength(dependency: Object = {}) {
+    return Object.keys(dependency).length > 0;
+  }
+
   // $FlowFixMe
   renderDependencies({ packageMeta }) {
     const { latest } = packageMeta;
     const { dependencies, devDependencies, peerDependencies, name } = latest;
 
-    if (dependencies || devDependencies || peerDependencies) {
-      return (
-        <Content>
-          <Fragment>
-            {dependencies && <DependencyBlock dependencies={dependencies} title={'Dependencies'} />}
-            {devDependencies && <DependencyBlock dependencies={devDependencies} title={'DevDependencies'} />}
-            {peerDependencies && <DependencyBlock dependencies={peerDependencies} title={'PeerDependencies'} />}
-          </Fragment>
-        </Content>
-      );
+    const dependencyMap = { dependencies, devDependencies, peerDependencies };
+
+    const dependencyList = Object.keys(dependencyMap).reduce((result, value, key) => {
+      const selectedDepndency = dependencyMap[value];
+      if (selectedDepndency && this.checkDependencyLength(selectedDepndency)) {
+        result.push(<DependencyBlock dependencies={selectedDepndency} key={key} title={value} />);
+      }
+      return result;
+    }, []);
+
+    if (dependencyList.length) {
+      return <Fragment>{dependencyList}</Fragment>;
     }
-    return (
-      <Content>
-        <NoItems text={`${name} has no dependencies.`} />
-      </Content>
-    );
+    return <NoItems text={`${name} has no dependencies.`} />;
   }
 }
 

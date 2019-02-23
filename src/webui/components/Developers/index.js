@@ -24,7 +24,7 @@ class Developers extends Component<Props, any> {
           const { type } = this.props;
           const developerType = packageMeta.latest[type];
           if (!developerType || developerType.length === 0) return null;
-          return this.renderDevelopers(developerType);
+          return this.renderDevelopers(developerType, packageMeta);
         }}
       </DetailContextConsumer>
     );
@@ -34,7 +34,7 @@ class Developers extends Component<Props, any> {
     this.setState((prev) => ({ visibleDevs: prev.visibleDevs + 6 }));
   }
 
-  renderDevelopers = (developers) => {
+  renderDevelopers = (developers, packageMeta) => {
     const { type } = this.props;
     const { visibleDevs } = this.state;
     return (
@@ -42,7 +42,7 @@ class Developers extends Component<Props, any> {
         <Heading variant={'subheading'}>{type}</Heading>
         <Content>
           {developers.slice(0, visibleDevs).map(developer => (
-            <Details key={developer.email}>{this.renderDeveloperDetails(developer)}</Details>
+            <Details key={developer.email}>{this.renderDeveloperDetails(developer, packageMeta)}</Details>
           ))}
           {visibleDevs < developers.length &&
             <Fab onClick={this.handleLoadMore} size={'small'}><Add /></Fab>
@@ -52,22 +52,27 @@ class Developers extends Component<Props, any> {
     );
   }
 
-  renderLinkForMail(email, avatar) {
+  renderLinkForMail(email, avatarComponent, packageName, version) {
     if(!email) {
-      return avatar;
+      return avatarComponent;
     }
     return (
-      <a href={`mailto:${email}`} target={"_top"}>
-        {avatar}
+      <a href={`mailto:${email}?subject=${packageName}@${version}`} target={"_top"}>
+        {avatarComponent}
       </a>
     );
   }
 
-  renderDeveloperDetails = ({ name, avatar, email }) => {
+  renderDeveloperDetails = ({ name, avatar, email }, packageMeta) => {
+    const { 
+        name: packageName,
+        version,
+      } = packageMeta.latest;
+  
     const avatarComponent = <Avatar aria-label={name} src={avatar} />;
     return (
       <Tooltip title={name}>
-        {this.renderLinkForMail(email, avatarComponent)}
+        {this.renderLinkForMail(email, avatarComponent, packageName, version)}
       </Tooltip>
     );
   }
