@@ -108,7 +108,6 @@ describe('StorageTest', () => {
       // $FlowFixMe
       storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions);
       expect(metadata).toBeDefined();
-      console.log("M-->", metadata);
       storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
         expect(err).toBeNull();
         expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
