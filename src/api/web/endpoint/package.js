@@ -7,6 +7,8 @@ import _ from 'lodash';
 import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme } from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
+import { generateGravatarUrl } from '../../../utils/user';
+import { formatAuthor } from '../../../webui/utils/package';
 import logger from '../../../lib/logger';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
@@ -41,12 +43,18 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         throw err;
       }
 
-      async function processPermissionsPackages(packages) {
+      async function processPermissionsPackages(packages = []) {
         const permissions = [];
-        for (const pkg of packages) {
+        const packgesCopy = packages.slice();
+        for (const pkg of packgesCopy) {
+          const pkgCopy = { ...pkg };
+          pkgCopy.author = formatAuthor(pkg.author);
           try {
             if (await checkAllow(pkg.name, req.remote_user)) {
-              permissions.push(pkg);
+              if (config.web) {
+                pkgCopy.author.avatar = generateGravatarUrl(pkgCopy.author.email, config.web.gravatar);
+              }
+              permissions.push(pkgCopy);
             }
           } catch (err) {
             logger.logger.error({ name: pkg.name, error: err }, 'permission process for @{name} has failed: @{error}');

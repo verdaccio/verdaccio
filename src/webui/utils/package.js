@@ -47,13 +47,17 @@ export function formatAuthor(author) {
     let authorDetails = {
       name: DEFAULT_USER,
       email: '',
-      avatar: '',
     };
+
+    if (!author) {
+      return authorDetails;
+    }
 
     if (isString(author)) {
       authorDetails = {
         ...authorDetails,
         name: author ? author : authorDetails.name,
+        email: author.email ? author.email : authorDetails.email,
       };
     }
 
@@ -61,8 +65,7 @@ export function formatAuthor(author) {
       authorDetails = {
         ...authorDetails,
         name: author.name ? author.name : authorDetails.name,
-        email: author.email ? author.email : authorDetails.email,
-        avatar: author.avatar ? author.avatar : authorDetails.avatar,
+        email: author.email ? author.email: authorDetails.email,
       };
     }
 

@@ -21,7 +21,7 @@ const getSize = (size: string) => {
     default:
       return `
         width: 14px;
-        height: 14px;
+        height: 16px;
       `;
   }
 };
