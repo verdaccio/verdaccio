@@ -39,7 +39,7 @@
     "lockfile": "1.0.4",
     "lodash": "4.17.11",
     "lunr-mutable-indexes": "2.3.2",
-    "marked": "0.6.0",
+    "marked": "0.6.1",
     "mime": "2.4.0",
     "minimatch": "3.0.4",
     "mkdirp": "0.5.1",
