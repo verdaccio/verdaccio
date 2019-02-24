@@ -22,7 +22,7 @@ RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
 
 
 
-FROM node:10.7-alpine
+FROM node:10.15.1-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
