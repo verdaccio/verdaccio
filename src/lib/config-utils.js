@@ -123,8 +123,9 @@ export function normalisePackageAccess(packages: PackageList): PackageList {
       delete normalizedPkgs[pkg].allow_publish;
       normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
       delete normalizedPkgs[pkg].proxy_access;
+      // if unpublish is not defined, we set to false to fallback in publish access
       // $FlowFixMe
-      normalizedPkgs[pkg].unpublish = normalizeUserList([], packages[pkg].unpublish);
+      normalizedPkgs[pkg].unpublish = _.isUndefined(packages[pkg].unpublish) ? false : normalizeUserList([], packages[pkg].unpublish);
     }
   }
 

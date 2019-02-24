@@ -1,12 +1,10 @@
 import request from 'supertest';
-import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
 import configDefault from '../partials/config/index';
 import publishMetadata from '../partials/publish-api';
 import forbiddenPlace from '../partials/forbidden-place';
-import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 
 import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS} from '../../../src/lib/constants';
@@ -18,7 +16,6 @@ require('../../../src/lib/logger').setup([]);
 
 const credentials = { name: 'user-web', password: 'secretPass' };
 describe('endpoint web unit test', () => {
-  let config;
   let app;
   let mockRegistry;
 
@@ -26,21 +23,21 @@ describe('endpoint web unit test', () => {
     const store = path.join(__dirname, '../store/test-storage-web');
     const mockServerPort = 55544;
     rimraf(store, async () => {
-      const configForTest = _.clone(configDefault);
-      configForTest.auth = {
-        htpasswd: {
-          file: './test-storage-web/.htpasswd'
-        }
-      };
-      configForTest.storage = path.join(__dirname, '../store/test-storage-web');
-      configForTest.uplinks = {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      };
-      configForTest.self_path = store;
-      config = new Config(configForTest);
-      app = await endPointAPI(config);
+      const configForTest = configDefault({
+        auth: {
+          htpasswd: {
+            file: './test-storage-web/.htpasswd'
+          }
+        },
+        storage: path.join(__dirname, '../store/test-storage-web'),
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
+        },
+        self_path: store
+      }, 'api.web.spec.yaml');
+      app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
@@ -52,7 +49,7 @@ describe('endpoint web unit test', () => {
   });
 
   describe('Registry WebUI endpoints', () => {
-    beforeAll(async function() {
+    beforeAll(async () => {
       await request(app)
       .put('/@scope%2fpk1-test')
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)

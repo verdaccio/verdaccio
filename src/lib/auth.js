@@ -191,32 +191,32 @@ class Auth implements IAuth {
   }
 
   allow_unpublish({ packageName, packageVersion }: AuthPluginPackage, user: string, callback: Callback) {
-    const plugins = this.plugins.slice(0);
-    const self = this;
     // $FlowFixMe
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName }, 'allow unpublish for @{packageName}');
 
-    (function next() {
-      const plugin = plugins.shift();
-
+    for (const plugin of this.plugins) {
       if (_.isFunction(plugin.allow_unpublish) === false) {
-        return next();
+        continue;
+      } else {
+        plugin.allow_unpublish(user, pkg, (err, ok: boolean) => {
+          if (err) {
+            this.logger.trace({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
+            return callback(err);
+          }
+
+          if (_.isNil(ok) === true) {
+            this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
+            return this.allow_publish(...arguments);
+          }
+
+          if (ok) {
+            this.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
+            return callback(null, ok);
+          }
+        });
       }
-
-      plugin.allow_unpublish(user, pkg, (err, ok: boolean) => {
-        if (err) {
-          self.logger.trace({ packageName }, 'forbidden unpublish for @{packageName}');
-          return callback(err);
-        }
-
-        if (ok) {
-          self.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
-          return callback(null, ok);
-        }
-        next(); // cb(null, false) causes next plugin to roll
-      });
-    })();
+    }
   }
 
   /**

@@ -1,0 +1,22 @@
+uplinks:
+  npmjs:
+    url: http://localhost:4873/
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  'corrupted-package':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  'jquery':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  '*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+logs:
+  - { type: stdout, format: pretty, level: warn }

@@ -1,6 +1,5 @@
 // @flow
 
-import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
 import rimraf from 'rimraf';
@@ -16,19 +15,21 @@ import {API_ERROR, HTTP_STATUS} from '../../../src/lib/constants';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
-setup(configExample.logs);
+setup([]);
 
 const storagePath = path.join(__dirname, '../partials/store/test-storage-store.spec');
 const mockServerPort: number = 55548;
-const generateStorage = async function(port = mockServerPort, configDefault = configExample) {
-  const storageConfig = _.clone(configDefault);
-  storageConfig.self_path = __dirname;
-  storageConfig.storage = storagePath;
-  storageConfig.uplinks = {
-    npmjs: {
-      url: `http://${DOMAIN_SERVERS}:${port}`
+const generateStorage = async function(port = mockServerPort) {
+  const storageConfig = configExample({
+    self_path: __dirname,
+    storage: storagePath,
+    uplinks: {
+      npmjs: {
+        url: `http://${DOMAIN_SERVERS}:${port}`
+      }
     }
-  };
+  }, 'store.spec.yaml');
+
   const config: Config = new AppConfig(storageConfig);
   const store: IStorageHandler = new Storage(config);
   await store.init(config);
@@ -100,11 +101,14 @@ describe('StorageTest', () => {
       const storage: IStorageHandler = await generateStorage();
       const metadataSource = path.join(__dirname, '../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
+      
       fs.mkdirSync(path.join(storagePath, 'npm_test'));
       fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
       const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());
       // $FlowFixMe
       storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions);
+      expect(metadata).toBeDefined();
+      console.log("M-->", metadata);
       storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
         expect(err).toBeNull();
         expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();

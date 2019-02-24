@@ -24,7 +24,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config));
 
   // un-publishing an entire package
-  router.delete('/:package/-rev/*', can('unpublish'), can('publish'), unPublishPackage(storage));
+  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
   router.delete('/:package/-/:filename/-rev/:revision', can('unpublish'), can('publish'), removeTarball(storage));

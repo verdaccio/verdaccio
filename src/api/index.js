@@ -106,7 +106,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
 
 export default (async function(configHash: any) {
   setup(configHash.logs);
-  const config: IConfig = new AppConfig(configHash);
+  const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config);

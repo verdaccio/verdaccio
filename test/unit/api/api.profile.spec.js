@@ -5,7 +5,6 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 import {mockServer} from './mock';
 import {parseConfigFile} from '../../../src/lib/utils';
@@ -22,7 +21,6 @@ const parseConfigurationProfile = () => {
 
 
 describe('endpoint user profile', () => {
-  let config;
   let app;
   let mockRegistry;
 
@@ -31,16 +29,16 @@ describe('endpoint user profile', () => {
     const mockServerPort = 55544;
     rimraf(store, async () => {
       const parsedConfig = parseConfigFile(parseConfigurationProfile());
-      const configForTest = _.clone(parsedConfig);
-      configForTest.storage = store;
-      configForTest.auth = {
-        htpasswd: {
-          file: './test-profile-storage/.htpasswd'
-        }
-      };
-      configForTest.self_path = store;
-      config = new Config(configForTest);
-      app = await endPointAPI(config);
+      const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
+        storage: store,
+        auth: {
+          htpasswd: {
+            file: './test-profile-storage/.htpasswd'
+          }
+        },
+        self_path: store
+      });
+      app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });

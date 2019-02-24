@@ -60,6 +60,19 @@ export function allow_action(action: string) {
   };
 }
 
+export function handleSpecialUnpublish() {
+  return function(user: RemoteUser, pkg: Package, callback: Callback) {
+    const action: string = 'unpublish';
+    const hasSupport: boolean = _.isNil(pkg[action]) === false ? pkg[action] : false;
+
+    if (hasSupport === false) {
+      return callback(null, undefined);
+    }
+
+    return allow_action(action)(user, pkg, callback);
+  };
+}
+
 export function getDefaultPlugins() {
   return {
     authenticate(user: string, password: string, cb: Callback) {
@@ -72,7 +85,7 @@ export function getDefaultPlugins() {
 
     allow_access: allow_action('access'),
     allow_publish: allow_action('publish'),
-    allow_unpublish: allow_action('unpublish'),
+    allow_unpublish: handleSpecialUnpublish(),
   };
 }
 

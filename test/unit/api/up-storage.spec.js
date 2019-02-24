@@ -21,7 +21,7 @@ describe('UpStorge', () => {
     url: `http://0.0.0.0:${mockServerPort}`
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
-    const appConfig: Config = new AppConfig(configExample);
+    const appConfig: Config = new AppConfig(configExample());
 
     return new ProxyStorage(config, appConfig);
   };

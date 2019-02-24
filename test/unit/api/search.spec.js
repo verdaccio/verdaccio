@@ -1,8 +1,7 @@
 import Search from '../../../src/lib/search';
 import Config from '../../../src/lib/config';
 import Storage from '../../../src/lib/storage';
-
-let config_hash = require('../partials/config/index');
+import buildConfig from '../partials/config/index';
 
 
 require('../../../src/lib/logger').setup([]);
@@ -33,7 +32,7 @@ let packages = [
 
 describe('search', () => {
 	beforeAll(async function() {
-		let config = new Config(config_hash);
+		let config = new Config(buildConfig());
 		this.storage = new Storage(config);
 		await this.storage.init(config);
 		Search.configureStorage(this.storage);

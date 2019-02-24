@@ -1,8 +1,9 @@
 
 import path from 'path';
+import config from './index';
 
 module.exports = {
-  ...require('./index'),
+  ...config(),
   auth: {
     [`${path.join(__dirname, '../plugin/authenticate')}`]: { }
   }

@@ -5,39 +5,40 @@ import rimraf from 'rimraf';
 
 import configDefault from '../partials/config/index';
 import publishMetadata from '../partials/publish-api';
-import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE} from '../../../src/lib/constants';
+import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../src/lib/constants';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import {buildToken} from '../../../src/lib/utils';
 
 require('../../../src/lib/logger').setup([]);
 const credentials = { name: 'jota', password: 'secretPass' };
 
 describe('endpoint unit test', () => {
-  let config;
   let app;
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/test-storage');
+    const store = path.join(__dirname, '../store/test-storage-api-spec');
     const mockServerPort = 55549;
     rimraf(store, async () => {
-      const configForTest = _.clone(configDefault);
-      configForTest.auth = {
-        htpasswd: {
-          file: './test-storage/.htpasswd'
+      const configForTest = configDefault({
+        auth: {
+          htpasswd: {
+            file: './test-storage-api-spec/.htpasswd'
+          }
+        },
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
         }
-      };
-      configForTest.uplinks = {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      };
-      configForTest.self_path = store;
-      config = new Config(configForTest);
-      app = await endPointAPI(config);
+      }, 'api.spec.yaml');
+      
+      app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
@@ -157,7 +158,7 @@ describe('endpoint unit test', () => {
             // we need it here, because token is required
             request(app)
               .get('/vue')
-              .set('authorization', `Bearer ${token}`)
+              .set('authorization', buildToken(TOKEN_BEARER, token))
               .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
               .expect(HTTP_STATUS.OK)
               .end(function(err, res) {
@@ -171,7 +172,7 @@ describe('endpoint unit test', () => {
 
       test('should test fails add a new user with missing name', (done) => {
 
-        const credentialsShort = _.clone(credentials);
+        const credentialsShort = _.cloneDeep(credentials);
         delete credentialsShort.name;
 
         request(app)
@@ -192,7 +193,7 @@ describe('endpoint unit test', () => {
 
       test('should test fails add a new user with missing password', (done) => {
 
-        const credentialsShort = _.clone(credentials);
+        const credentialsShort = _.cloneDeep(credentials);
         delete credentialsShort.password;
 
         request(app)
@@ -213,7 +214,7 @@ describe('endpoint unit test', () => {
       });
 
       test('should test add a new user with login', (done) => {
-        const newCredentials = _.clone(credentials);
+        const newCredentials = _.cloneDeep(credentials);
         newCredentials.name = 'jotaNew';
 
         request(app)
@@ -248,7 +249,7 @@ describe('endpoint unit test', () => {
 
       test('should test fails add a new user with wrong password', (done) => {
 
-        const credentialsShort = _.clone(credentials);
+        const credentialsShort = _.cloneDeep(credentials);
         credentialsShort.password = 'failPassword';
 
         request(app)
