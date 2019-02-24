@@ -364,16 +364,10 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball ', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
-          let spy;
-          // $FlowFixMe
-          spy = jest.spyOn(stream &&  stream._readableState && stream._readableState.pipes, 'abort');
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
             expect(err.message).toMatch(/this package is already present/);
-          });
-          stream.on('success', function(){
-            expect(spy).toHaveBeenCalled();
             done();
           });
           stream.end(new Buffer(tarballData.data, 'base64'));

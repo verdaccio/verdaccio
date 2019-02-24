@@ -245,10 +245,10 @@
     lockfile "1.0.4"
     lodash "4.17.11"
 
-"@verdaccio/local-storage@1.1.6":
-  version "1.1.6"
-  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-1.1.6.tgz#961310552d1927178830aa00d9ad3cef1dd1deea"
-  integrity sha512-rSzugEK6GDenprvnbzR66LSwwpdvXkG7UUJQDQu7dFjlwcCFYJZ9vgOwSU2XJnxFH+ah+ngFIQFB/wTGzzK2gA==
+"@verdaccio/local-storage@1.1.7":
+  version "1.1.7"
+  resolved "https://registry.npmjs.org/@verdaccio/local-storage/-/local-storage-1.1.7.tgz#63cc812ff0b5a3dd6e5918d239125888567330e9"
+  integrity sha512-liiB1xUW3+FZSeGinH8FkQ+GJ4s9QUVwJ/LjjgUMjySqb8XiySAsbVzVTZQcXSAYgeL9omCYHfwsyKERkvU1nA==
   dependencies:
     "@verdaccio/file-locking" "0.0.8"
     "@verdaccio/streams" "1.0.0"
