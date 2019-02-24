@@ -1238,14 +1238,14 @@
     lockfile "1.0.4"
     lodash "4.17.11"
 
-"@verdaccio/local-storage@2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.0.0-beta.1.tgz#1aa602b24fa2f6b02d682e5e56b4894112e198e6"
-  integrity sha512-JpuO0e9DLFItagUqq6EbiaHpbGAql4IREu3ntprfYVrWgdypgcYWS5iwp+Py1Not/Ahv4cYXi+cQ5HMs4SOZBw==
+"@verdaccio/local-storage@2.0.0-beta.2":
+  version "2.0.0-beta.2"
+  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.0.0-beta.2.tgz#fff60cdabc847ec9b125a3c2bf51786da6926d45"
+  integrity sha512-OZrKWe04kBSuqHfPCRCPv7QBA2Lz5+jtPChirHhvSaguZ+a8UqxVgn7lLUNsvchKBQan4r5+4VJKXAh+JicrMg==
   dependencies:
-    "@verdaccio/file-locking" "0.0.7"
+    "@verdaccio/file-locking" "0.0.8"
     "@verdaccio/streams" "2.0.0-beta.0"
-    async "2.6.1"
+    async "3.0.1-0"
     http-errors "1.7.1"
     lodash "4.17.11"
     mkdirp "0.5.1"
@@ -1793,13 +1793,6 @@ async-limiter@~1.0.0:
   resolved "https://registry.verdaccio.org/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
 
-async@2.6.1, async@^2.1.4, async@^2.5.0:
-  version "2.6.1"
-  resolved "https://registry.verdaccio.org/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
-  integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
-  dependencies:
-    lodash "^4.17.10"
-
 async@3.0.1-0:
   version "3.0.1-0"
   resolved "https://registry.verdaccio.org/async/-/async-3.0.1-0.tgz#ca06713f91c3d9eea3e966ace4093f41ef89f200"
@@ -1809,6 +1802,13 @@ async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.verdaccio.org/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
   integrity sha1-7GphrlZIDAw8skHJVhjiCJL5Zyo=
+
+async@^2.1.4, async@^2.5.0:
+  version "2.6.1"
+  resolved "https://registry.verdaccio.org/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
+  integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
+  dependencies:
+    lodash "^4.17.10"
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -8061,10 +8061,10 @@ markdown-table@^1.1.0:
   resolved "https://registry.verdaccio.org/markdown-table/-/markdown-table-1.1.2.tgz#c78db948fa879903a41bce522e3b96f801c63786"
   integrity sha512-NcWuJFHDA8V3wkDgR/j4+gZx+YQwstPgfQDV8ndUeWWzta3dnDTBxpVzqS9lkmJAuV5YX35lmyojl6HO5JXAgw==
 
-marked@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.verdaccio.org/marked/-/marked-0.6.0.tgz#a18d01cfdcf8d15c3c455b71c8329e5e0f01faa1"
-  integrity sha512-HduzIW2xApSXKXJSpCipSxKyvMbwRRa/TwMbepmlZziKdH8548WSoDP4SxzulEKjlo8BE39l+2fwJZuRKOln6g==
+marked@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.verdaccio.org/marked/-/marked-0.6.1.tgz#a63addde477bca9613028de4b2bc3629e53a0562"
+  integrity sha512-+H0L3ibcWhAZE02SKMqmvYsErLo4EAVJxu5h3bHBBDvvjeWXtl92rGUSBYHL2++5Y+RSNgl8dYOAXcYe7lp1fA==
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
