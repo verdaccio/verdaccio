@@ -15,7 +15,7 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/local-storage": "1.1.6",
+    "@verdaccio/local-storage": "1.1.7",
     "@verdaccio/streams": "1.0.0",
     "JSONStream": "1.3.5",
     "async": "3.0.1-0",
