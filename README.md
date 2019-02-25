@@ -119,7 +119,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
-docker pull verdaccio/verdaccio:4.0.0
+docker pull verdaccio/verdaccio:3
 ```
 
 ### Running verdaccio using Docker
