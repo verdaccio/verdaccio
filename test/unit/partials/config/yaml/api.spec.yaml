@@ -6,11 +6,24 @@ packages:
   '@*/*':
     access: $all
     publish: $all
-    unpublish: $all
+    unpublish: $authenticated
     proxy: npmjs
   'auth-package':
     access: $authenticated
     publish: $authenticated
+  'non-unpublish':
+    access: $authenticated
+    publish: $authenticated
+    # this is intended, empty block
+    ? unpublish
+  'super-admin-can-unpublish':
+    access: $authenticated
+    publish: super_admin
+    unpublish: super_admin
+  'all-can-unpublish':
+    access: $authenticated
+    publish: $all
+    unpublish: $all
   'forbidden-place':
     access: nobody
     publish: $all
@@ -28,4 +41,4 @@ packages:
     unpublish: xxx
     proxy: npmjs
 logs:
-  - { type: stdout, format: pretty, level: error }
+  - { type: stdout, format: pretty, level: warn }

@@ -11,9 +11,21 @@ import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER}
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 import {buildToken} from '../../../src/lib/utils';
+import {getNewToken} from './__api-helper';
 
 require('../../../src/lib/logger').setup([]);
 const credentials = { name: 'jota', password: 'secretPass' };
+
+const putPackage = (app, name, publishMetadata) => {
+  return request(app)
+    .put(name)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .send(JSON.stringify(publishMetadata))
+    .expect(HTTP_STATUS.CREATED)
+    .set('accept', 'gzip')
+    .set('accept-encoding', HEADERS.JSON)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+}
 
 describe('endpoint unit test', () => {
   let app;
@@ -113,7 +125,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package bad JWT Bearer format', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', 'Bearer')
+            .set('authorization', TOKEN_BEARER)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -126,7 +138,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package well JWT Bearer', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', 'Bearer 12345')
+            .set('authorization', buildToken(TOKEN_BEARER, '12345'))
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -413,13 +425,7 @@ describe('endpoint unit test', () => {
       };
 
       test('should set a new tag on jquery', (done) => {
-
-        request(app)
-          .put('/jquery/verdaccio-tag')
-          .send(JSON.stringify(jqueryVersion))
-          .set('accept', 'gzip')
-          .set('accept-encoding', HEADERS.JSON)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        putPackage(app, '/jquery/verdaccio-tag', jqueryVersion)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -535,8 +541,8 @@ describe('endpoint unit test', () => {
 
     });
 
-    describe('should test publish api', () => {
-      test('should publish a new package', (done) => {
+    describe('should test publish/unpublish api', () => {
+      test('should publish a new package with no credentials', (done) => {
         request(app)
           .put('/@scope%2fpk1-test')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -555,11 +561,15 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test('should unpublish a new package', (done) => {
+      test('should unpublish a new package with credentials', async (done) => {
+
+        const credentials = { name: 'jota_unpublish', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
         //FUTURE: for some reason it does not remove the scope folder
         request(app)
           .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -569,6 +579,90 @@ describe('endpoint unit test', () => {
             expect(res.body.ok).toBeDefined();
             expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
             done();
+          });
+      });
+
+      test('should fail due non-unpublish nobody can unpublish', async (done) => {
+        const credentials = { name: 'jota_unpublish_fail', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
+        request(app)
+          .del('/non-unpublish/-rev/4-6abcdb4efd41a576')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .expect(HTTP_STATUS.FORBIDDEN)
+          .end(function(err, res) {
+            expect(err).toBeNull();
+            expect(res.body.error).toBeDefined();
+            expect(res.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
+            done();
+          });
+      });
+
+      test('should be able to publish/unpublish by only super_admin user', async (done) => {
+        const credentials = { name: 'super_admin', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
+        request(app)
+          .put('/super-admin-can-unpublish')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .send(JSON.stringify(_.assign({}, publishMetadata, {
+            name: 'super-admin-can-unpublish' 
+          })))
+          .expect(HTTP_STATUS.CREATED)
+          .end(function(err, res) {
+            if (err) {
+              expect.toBeNull();
+              return done(err);
+            }
+            expect(res.body.ok).toBeDefined();
+            expect(res.body.success).toBeDefined();
+            expect(res.body.success).toBeTruthy();
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+            request(app)
+              .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.CREATED)
+              .end(function(err, res) {
+                expect(err).toBeNull();
+                expect(res.body.ok).toBeDefined();
+                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
+                done();
+              });
+          });
+      });
+
+      test('should be able to publish/unpublish by any user', async (done) => {
+        const credentials = { name: 'any_user', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
+        request(app)
+          .put('/all-can-unpublish')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .send(JSON.stringify(_.assign({}, publishMetadata, {
+            name: 'all-can-unpublish'
+          })))
+          .expect(HTTP_STATUS.CREATED)
+          .end(function(err, res) {
+            if (err) {
+              expect.toBeNull();
+              return done(err);
+            }
+            expect(res.body.ok).toBeDefined();
+            expect(res.body.success).toBeDefined();
+            expect(res.body.success).toBeTruthy();
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+            request(app)
+              .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.CREATED)
+              .end(function(err, res) {
+                expect(err).toBeNull();
+                expect(res.body.ok).toBeDefined();
+                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
+                done();
+              });
           });
       });
     });
