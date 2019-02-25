@@ -204,7 +204,8 @@ class LocalStorage implements IStorage {
         metadata = cleanUpReadme(metadata);
         metadata.contributors = normalizeContributors(metadata.contributors);
 
-        if (data.versions[version] != null) {
+        const hasVersion = data.versions[version] != null;
+        if (hasVersion) {
           return cb(ErrorCode.getConflict());
         }
 

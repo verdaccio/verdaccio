@@ -66,6 +66,18 @@ All notable changes to this project will be documented in this file. See [standa
 * replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
 * verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
 
+
+<a name="3.11.6"></a>
+## [3.11.6](https://github.com/verdaccio/verdaccio/compare/v3.11.5...v3.11.6) (2019-02-25)
+
+
+### Bug Fixes
+
+* overrides existing package to zero bytes file [#1191](https://github.com/verdaccio/verdaccio/issues/1191) ([d470cfe](https://github.com/verdaccio/verdaccio/commit/d470cfe))
+* remove unused dependency ([e943d91](https://github.com/verdaccio/verdaccio/commit/e943d91))
+
+
+
 <a name="3.11.5"></a>
 ## [3.11.5](https://github.com/verdaccio/verdaccio/compare/v3.11.4...v3.11.5) (2019-02-21)
 
