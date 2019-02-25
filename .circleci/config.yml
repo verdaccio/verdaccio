@@ -6,12 +6,9 @@ aliases:
   - &node8_executor
     docker:
       - image: circleci/node:8
-  - &node9_executor
+  - &node10_browser_executor
     docker:
-      - image: circleci/node:9
-  - &node9_browser_executor
-    docker:
-      - image: circleci/node:9-browsers
+      - image: circleci/node:10-browsers
   - &node10_executor
     docker:
       - image: circleci/node:10
@@ -19,7 +16,7 @@ aliases:
     docker:
     - image: circleci/node:11
   - &default_executor
-    <<: *node9_executor
+    <<: *node10_executor
   - &repo_key
     repo-{{ .Branch }}-{{ .Revision }}
   - &coverage_key
@@ -100,23 +97,7 @@ jobs:
           name: Test with Node 8
           command: |
             yarn test
-            yarn test:functional
-
-  test_node9:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - run:
-          name: Test with Node 9
-          command: |
-            yarn test
-            yarn test:functional
-      - save_cache:
-          key: *coverage_key
-          paths:
-            - coverage
-
+            yarn test:functional  
   test_node10:
     <<: *defaults
     <<: *node10_executor
@@ -141,7 +122,7 @@ jobs:
 
   test_e2e:
     <<: *defaults
-    <<: *node9_browser_executor
+    <<: *node10_browser_executor
     steps:
       - *restore_repo
       - run:
@@ -199,10 +180,6 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node9:
-          requires:
-            - prepare
-          <<: *ignore_non_dev_branches
       - test_node10:
           requires:
             - prepare
@@ -222,7 +199,6 @@ workflows:
       - coverage:
           requires:
             - test_node8
-            - test_node9
             - test_node10
             - test_node11
             - test_e2e

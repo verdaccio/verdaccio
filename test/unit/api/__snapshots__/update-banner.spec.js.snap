@@ -14,7 +14,7 @@ exports[`Verdaccio update banner should print major update banner 1`] = `
   ],
   "results": Array [
     Object {
-      "isThrow": false,
+      "type": "return",
       "value": undefined,
     },
   ],
@@ -35,7 +35,7 @@ exports[`Verdaccio update banner should print minor update banner 1`] = `
   ],
   "results": Array [
     Object {
-      "isThrow": false,
+      "type": "return",
       "value": undefined,
     },
   ],
@@ -56,7 +56,7 @@ exports[`Verdaccio update banner should print patch update banner 1`] = `
   ],
   "results": Array [
     Object {
-      "isThrow": false,
+      "type": "return",
       "value": undefined,
     },
   ],
@@ -75,7 +75,7 @@ exports[`Verdaccio update banner when default registry returns with error 1`] = 
   ],
   "results": Array [
     Object {
-      "isThrow": false,
+      "type": "return",
       "value": undefined,
     },
   ],

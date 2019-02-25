@@ -24,10 +24,10 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config));
 
   // un-publishing an entire package
-  router.delete('/:package/-rev/*', can('publish'), unPublishPackage(storage));
+  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'), removeTarball(storage));
+  router.delete('/:package/-/:filename/-rev/:revision', can('unpublish'), can('publish'), removeTarball(storage));
 
   // uploading package tarball
   router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));

@@ -5,7 +5,6 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 
 import {HEADERS, HTTP_STATUS, HEADER_TYPE} from '../../../src/lib/constants';
@@ -27,7 +26,6 @@ const parseConfigurationJWTFile = () => {
 const FORBIDDEN_VUE: string = 'authorization required to access package vue';
 
 describe('endpoint user auth JWT unit test', () => {
-  let config;
   let app;
   let mockRegistry;
 
@@ -36,21 +34,22 @@ describe('endpoint user auth JWT unit test', () => {
     const mockServerPort = 55546;
     rimraf(store, async () => {
       const confS = parseConfigFile(parseConfigurationJWTFile());
-      const configForTest = _.clone(confS);
-      configForTest.storage = store;
-      configForTest.auth = {
-        htpasswd: {
-          file: './test-jwt-storage/.htpasswd'
+      const configForTest = _.assign({}, _.cloneDeep(confS), {
+        storage: store,
+        plinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
+        },
+        self_path: store,
+        auth: {
+          htpasswd: {
+            file: './test-jwt-storage/.htpasswd'
+          }
         }
-      };
-      configForTest.uplinks = {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      };
-      configForTest.self_path = store;
-      config = new Config(configForTest);
-      app = await endPointAPI(config);
+      });
+      
+      app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });

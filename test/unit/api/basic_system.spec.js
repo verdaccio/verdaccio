@@ -18,7 +18,7 @@ describe('basic system test', () => {
 
   beforeAll(async function(done) {
 
-    app.use(await endPointAPI(config));
+    app.use(await endPointAPI(config()));
 
     server.listen(0, function() {
       port = server.address().port;
