@@ -19,13 +19,17 @@ web:
   # WebUI is enabled as default, if you want disable it, just uncomment this line
   #enable: false
   title: Verdaccio
+  # comment out to disable gravatar support
+  # gravatar: false
+  # by default packages are ordercer ascendant (asc|desc)
+  # sort_packages: asc
 
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
     # Maximum amount of users allowed to register, defaults to "+infinity".
     # You can set this to -1 to disable registration.
-    #max_users: 1000
+    # max_users: 1000
 
 security:
   api:
@@ -48,6 +52,7 @@ packages:
     # scoped packages
     access: $all
     publish: $authenticated
+    unpublish: $authenticated
     proxy: npmjs
 
   '**':
@@ -58,9 +63,10 @@ packages:
     # and three keywords: "$all", "$anonymous", "$authenticated"
     access: $all
 
-    # allow all known users to publish packages
+    # allow all known users to publish/publish packages
     # (anyone can register by default, remember?)
     publish: $authenticated
+    unpublish: $authenticated
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
