@@ -49,20 +49,32 @@ import {
 } from './styles';
 import { fontWeight } from '../../utils/styles/sizes';
 
-const getInitialsName = (name: string) =>
-  name
-    .split(' ')
-    .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
-    .toUpperCase();
+// const getInitialsName = (name: string) =>
+//   name
+//     .split(' ')
+//     .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
+//     .toUpperCase();
 
-const Package = ({ name: label, version, dist: { unpackedSize } = {}, time, author: { name, avatar }, description, license, keywords = [] }: IProps): Element<WrapperLink> => {
-  console.log(unpackedSize);
-  const renderVersionInfo = () => version && (
-        <OverviewItem>
-          <Icon name={'version'} />
-          {`v${version}`}
-        </OverviewItem>
-      );
+const Package = ({
+  name: label,
+  version,
+  dist: { unpackedSize } = {},
+  time,
+  author: { name, avatar },
+  description,
+  license,
+  keywords = [],
+  homepage,
+  bugs,
+}: IProps): Element<WrapperLink> => {
+  console.log(homepage);
+  const renderVersionInfo = () =>
+    version && (
+      <OverviewItem>
+        <Icon name={'version'} />
+        {`v${version}`}
+      </OverviewItem>
+    );
 
   const renderAuthorInfo = () => {
     return (
@@ -73,19 +85,16 @@ const Package = ({ name: label, version, dist: { unpackedSize } = {}, time, auth
         </Details>
       </Author>
     );
-<<<<<<< HEAD
-  };
-=======
   }
 
-  const renderFileSize = () => unpackedSize && (
-    <OverviewItem>
-      <Icon name={'filebinary'} />
-      {fileSizeSI(unpackedSize)}
-    </OverviewItem>
-  );
+  const renderFileSize = () =>
+    unpackedSize && (
+      <OverviewItem>
+        <Icon name={'filebinary'} />
+        {fileSizeSI(unpackedSize)}
+      </OverviewItem>
+    );
 
->>>>>>> b4b8d6b0... wip
   const renderLicenseInfo = () =>
     license && (
       <OverviewItem>
@@ -137,34 +146,50 @@ const Package = ({ name: label, version, dist: { unpackedSize } = {}, time, auth
     </Tag>
   ));
 
+  const renderHomePageLink = () =>
+    homepage && (
+      <a href={homepage} target="_blank">
+        <Tooltip title="Visit homepage" aria-label="Add">
+          <IconButton aria-label="Report" style={{ padding: '6px' }}>
+            <HomeIcon fontSize="small" style={{ fontSize: '16px' }} />
+          </IconButton>
+        </Tooltip>
+      </a>
+    );
+
+  const renderBugsLink = () =>
+    bugs &&
+    bugs.url && (
+      <a href={bugs.url} target="_blank">
+        <Tooltip title="Open an issue" aria-label="Add">
+          <IconButton aria-label="Report" style={{ padding: '6px' }}>
+            <BugReport fontSize="small" style={{ fontSize: '16px' }} />
+          </IconButton>
+        </Tooltip>
+      </a>
+    );
+
   return (
-    <List style={{ padding: '12px 0 12px 0'}}>
+    <List style={{ padding: '12px 0 12px 0' }}>
       <ListItem alignItems="flex-start">
-        {/* <ListItemAvatar>
-          <Avatar2 alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar> */}
-        <ListItemText component="div" style={{ paddingRight: 0}}
+        <ListItemText
+          component="div"
+          style={{ paddingRight: 0 }}
           primary={
             <Grid item xs={12} container>
               <Grid item xs>
-                <PackageName>{label}</PackageName>
+                <WrapperLink to={`/-/web/detail/${label}`}>
+                  <PackageName>{label}</PackageName>
+                </WrapperLink>
               </Grid>
-              <Grid item xs style={{ textAlign: "right" }}>
-                <Tooltip title="Visit homepage" aria-label="Add">
-                  <IconButton aria-label="Report" style={{ padding: '6px' }}>
-                    <HomeIcon fontSize="small" style={{ fontSize: '16px' }} />
-                  </IconButton>
-                </Tooltip> 
-                <Tooltip title="Open an issue" aria-label="Add">
-                  <IconButton aria-label="Report" style={{ padding: '6px' }}>
-                    <BugReport fontSize="small" style={{ fontSize: '16px' }} />
-                  </IconButton>   
-                </Tooltip>
-                <Tooltip title="Pin it" aria-label="Add">
-                  <IconButton aria-label="Report" style={{ padding: '6px' }}>
-                    <BookmarkBorder fontSize="small" style={{ fontSize: '16px' }} />
-                  </IconButton>
-                </Tooltip>          
+              <Grid item xs style={{ textAlign: 'right' }}>
+                {renderHomePageLink()}
+                {renderBugsLink()}
+                {/* <Tooltip title="Pin it" aria-label="Add">
+                    <IconButton aria-label="Report" style={{ padding: '6px' }}>
+                      <BookmarkBorder fontSize="small" style={{ fontSize: '16px' }} />
+                    </IconButton>
+                  </Tooltip>           */}
               </Grid>
             </Grid>
           }
@@ -173,9 +198,7 @@ const Package = ({ name: label, version, dist: { unpackedSize } = {}, time, auth
               <Typography component="span" style={{ color: '#586069', fontSize: '14px', paddingRight: 0 }}>
                 {description}
               </Typography>
-              {tags.length > 0 && <span style={{ marginTop: '8px', display: 'block' }}>
-                {tags}
-              </span>}
+              {tags.length > 0 && <span style={{ marginTop: '8px', display: 'block' }}>{tags}</span>}
             </React.Fragment>
           }
         />

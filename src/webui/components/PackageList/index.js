@@ -25,13 +25,13 @@ export default class PackageList extends React.Component {
     const { packages } = this.props;
     return (
       packages.map((pkg, i) => {
-        const { name, version, description, time, keywords, dist } = pkg;
+        const { name, version, description, time, keywords, dist, homepage, bugs } = pkg;
         const author = pkg.author;
         const license = formatLicense(pkg.license);
         return (
           <React.Fragment key={i}>
             {i !== 0 && <Divider style={{ margin: 0 }}></Divider>}
-            <Package {...{ name, dist, version, author, description, license, time, keywords }} />
+            <Package {...{ name, dist, version, author, description, license, time, keywords, homepage, bugs }} />
           </React.Fragment>
         );
       })
