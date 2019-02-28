@@ -1,9 +1,9 @@
 workflow "New workflow" {
-  on = "push"
   resolves = [
     "Docker build health check",
     "Test Publish Verdaccio",
-    ]
+  ]
+  on = "push"
 }
 
 action "Docker build health check" {
@@ -14,5 +14,5 @@ action "Docker build health check" {
 action "Test Publish Verdaccio" {
   uses = "verdaccio/github-actions/publish@v0.1.0"
   needs = ["Docker build health check"]
-  args = "-ddd"
+  args = "-d"
 }
