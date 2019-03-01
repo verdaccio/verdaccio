@@ -3,12 +3,12 @@
  * @flow
  */
 
-import styled, { css } from 'react-emotion';
+import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
 import { default as Photo } from '@material-ui/core/Avatar';
 import { default as Ico } from '../Icon';
 
-import mq from '../../utils/styles/media';
+// import mq from '../../utils/styles/media';
 import { ellipsis } from '../../utils/styles/mixings';
 import colors from '../../utils/styles/colors';
 
@@ -161,41 +161,8 @@ export const Footer = styled.div`
 // Container
 export const WrapperLink = styled(Link)`
   && {
-    // font-size: 12px;
-    // background-color: white;
-    // margin: 0 0 15px 0;
-    // transition: box-shadow 0.15s;
-    // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-    // border-radius: 3px;
-    // padding: 10px;
     text-decoration: none;
-  //   display: block;
-  //   color: #2f273c;
-  //   ${mq.medium(css`
-  //     ${Header} {
-  //       flex-direction: row;
-  //       justify-content: space-between;
-  //       align-items: center;
-  //     }
-  //     ${OverviewItem} {
-  //       margin: 0 0 0 0;
-  //     }
-  //     ${Overview} {
-  //       flex-direction: row;
-  //       ${OverviewItem} {
-  //         :first-child {
-  //           margin: 0;
-  //         }
-  //       }
-  //     }
-  //     ${Footer} {
-  //       display: block;
-  //     }
-  //     ${Published} {
-  //       display: inline-block;
-  //     }
-  //   `)};
-  // }
+  }
 `;
 
 /**
