@@ -21,7 +21,7 @@ describe('<PackageList /> component', () => {
 
   });
 
-  test('should load the component with packages', () => {
+  xtest('should load the component with packages', () => {
     const props = {
       packages: [
         {

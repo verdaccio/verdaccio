@@ -4,11 +4,10 @@
  */
 
 import _ from 'lodash';
-import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme } from '../../../lib/utils';
+import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme, formatAuthor } from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { generateGravatarUrl } from '../../../utils/user';
-import { formatAuthor } from '../../../webui/utils/package';
 import logger from '../../../lib/logger';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
@@ -104,6 +103,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         if (_.isNil(err)) {
           let sideBarInfo: any = _.clone(info);
           sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
+          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
           sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
           if (config.web) {
             sideBarInfo = addGravatarSupport(sideBarInfo, config.web.gravatar);

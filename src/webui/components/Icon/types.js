@@ -17,6 +17,9 @@ export interface IIconsMap {
   verdaccio: string;
   license: string;
   time: string;
+  law: string;
+  version: string;
+  filebinary: string;
   [key: string]: string;
 }
 

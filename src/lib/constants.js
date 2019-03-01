@@ -11,6 +11,7 @@ export const TIME_EXPIRATION_24H: string = '24h';
 export const TIME_EXPIRATION_7D: string = '7d';
 export const DIST_TAGS = 'dist-tags';
 export const DEFAULT_MIN_LIMIT_PASSWORD: number = 3;
+export const DEFAULT_USER = 'Anonymous';
 
 export const keyPem = 'verdaccio-key.pem';
 export const certPem = 'verdaccio-cert.pem';

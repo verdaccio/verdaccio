@@ -4,8 +4,7 @@ import {
   formatDate,
   formatDateDistance,
   getLastUpdatedPackageTime,
-  getRecentReleases,
-  formatAuthor, DEFAULT_USER
+  getRecentReleases
 } from '../../../../src/webui/utils/package';
 
 import { packageMeta } from '../components/store/packageMeta';
@@ -44,28 +43,6 @@ describe('formatRepository', () => {
   });
 });
 
-describe('formatAuthor', () => {
-  test('should check author field different values', () => {
-    const author = 'verdaccioNpm';
-    expect(formatAuthor(author).name).toEqual(author);
-  });
-  test('should check author field for object value', () => {
-    const user = {
-      name: 'Verdaccion NPM',
-      email: 'verdaccio@verdaccio.org',
-      url: 'https://verdaccio.org'
-    };
-    expect(formatAuthor(user).avatar).toEqual('');
-    expect(formatAuthor(user).email).toEqual(user.email);
-    expect(formatAuthor(user).name).toEqual(user.name);
-  });
-  test('should check author field for other value', () => {
-    expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
-    expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
-    expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
-  });
-});
-
 describe('formatDate', () => {
   test('should format the date', () => {
     const date = 1532211072138;
@@ -73,7 +50,7 @@ describe('formatDate', () => {
   });
 });
 
-describe('formatDateDistance', () => {
+xdescribe('formatDateDistance', () => {
   test('should calculate the distance', () => {
     const dateOneMonthAgo = () => {
       const date = new Date();

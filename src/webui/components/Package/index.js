@@ -1,6 +1,5 @@
 /**
  * @prettier
- * @flow
  */
 
 /* eslint-disable */
@@ -9,18 +8,18 @@ import React from 'react';
 import type { Element } from 'react';
 import { spacing } from '../../utils/styles/mixings';
 
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar2 from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid/index';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import ListItemText from '@material-ui/core/ListItemText/index';
+// import ListItemAvatar from '@material-ui/core/ListItemAvatar/index';
+// import Avatar2 from '@material-ui/core/Avatar/index';
+import Typography from '@material-ui/core/Typography/index';
 import IconButton from '@material-ui/core/IconButton';
 import BugReport from '@material-ui/icons/BugReport';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@material-ui/core/Tooltip/index';
 import HomeIcon from '@material-ui/icons/Home';
-import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
+// import BookmarkBorder from '@material-ui/icons/BookmarkBorder/index';
 
 import Tag from '../Tag';
 import fileSizeSI from '../../utils/file-size';
