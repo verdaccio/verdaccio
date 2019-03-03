@@ -5,124 +5,66 @@
 
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
-import { default as Photo } from '@material-ui/core/Avatar';
-import { default as Ico } from '../Icon';
 
-// import mq from '../../utils/styles/media';
-import { ellipsis } from '../../utils/styles/mixings';
-import colors from '../../utils/styles/colors';
+import Grid from '@material-ui/core/Grid/index';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import ListItemText from '@material-ui/core/ListItemText/index';
+import MuiIconButton from '@material-ui/core/IconButton/index';
+import Photo from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography/index';
 
+import { breakpoints } from '../../utils/styles/media';
+import Ico from '../Icon';
 import Label from '../Label';
-
-// HEADER
-export const Header = styled.div`
-  && {
-    display: flex;
-    flex-direction: column;
-    padding: 0 0 5px 0;
-  }
-`;
-
-export const Name = styled.span`
-  && {
-    color: ${colors.primary};
-  }
-`;
-
-export const MainInfo = styled.span`
-  && {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 30px;
-    flex: 1;
-    color: #3a8bff;
-    padding: 0 10px 0 0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    :hover {
-      ${Name} {
-        text-decoration: underline;
-      }
-    }
-  }
-`;
+import colors from '../../utils/styles/colors';
 
 export const OverviewItem = styled.span`
   && {
     display: flex;
     align-items: center;
     margin: 0 0 0 16px;
-    color: #908ba1;
-    font-size: 16px;
-  }
-`;
-
-export const Overview = styled.span`
-  && {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-export const Version = styled.span`
-  && {
+    color: ${colors.greyLight2};
     font-size: 12px;
-    padding: 0 0 0 10px;
-    margin: 0 0 0 5px;
-    color: #9f9f9f;
-    position: relative;
-    ${ellipsis('100%')};
-    :before {
-      content: '•';
-      position: absolute;
-      left: 0;
+    @media (max-width: ${breakpoints.medium}px) {
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+    @media (max-width: ${breakpoints.small}px) {
+      &:nth-child(4) {
+        display: none;
+      }
     }
   }
 `;
 
 export const Icon = styled(Ico)`
   && {
-    margin: 0px 10px 0px 0;
-    fill: #908ba1;
+    margin: 2px 10px 0px 0;
+    fill: ${colors.greyLight2};
   }
 `;
 
 export const Published = styled.span`
   && {
-    color: #908ba1;
-    ${({ modifiers }) => modifiers};
-  }
-`;
-
-// Content
-export const Field = styled.div`
-  && {
-    padding: 0 0 5px 0;
-  }
-`;
-
-export const Content = styled.div`
-  && {
-    ${Field} {
-      :last-child {
-        padding: 0;
-      }
-    }
+    color: ${colors.greyLight2};
+    margin: 0px 5px 0px 0px;
   }
 `;
 
 export const Text = styled(Label)`
   && {
-    color: #908ba1;
+    font-size: 12px;
+    font-weight: 500;
+    color: ${colors.greyLight2};
   }
 `;
 
 export const Details = styled.span`
   && {
     margin-left: 5px;
-    line-height: 14px;
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
   }
@@ -137,49 +79,88 @@ export const Author = styled.div`
 
 export const Avatar = styled(Photo)`
   && {
-    width: 30px;
-    height: 30px;
-    background: #4b5e40;
-    font-size: 15px;
+    width: 20px;
+    height: 20px;
   }
 `;
 
-export const Description = styled.div`
-  && {
-    margin: 5px 0;
-  }
-`;
-
-// Footer
-export const Footer = styled.div`
-  && {
-    display: none;
-    padding: 5px 0 0 0;
-  }
-`;
-
-// Container
 export const WrapperLink = styled(Link)`
   && {
     text-decoration: none;
   }
 `;
 
-/**
- * Ayush's style
- */
-
-export const PackageName = styled.span`
+export const PackageTitle = styled.span`
   && {
     font-weight: 600;
     font-size: 20px;
     display: block;
     margin-bottom: 12px;
-    color: #414141;
+    color: ${colors.eclipse};
     cursor: pointer;
 
     &:hover {
-      color: black;
+      color: ${colors.black};
+    }
+
+    @media (max-width: ${breakpoints.small}px) {
+      font-size: 14px;
+      margin-bottom: 8px;
     }
   }
+`;
+
+export const GridRightAligned = styled(Grid)`
+  && {
+    text-align: right;
+  }
+`;
+
+export const PackageList = styled(List)`
+  && {
+    padding: 12px 0 12px 0;
+
+    &:hover {
+      background-color: ${colors.greyLight3};
+    }
+  }
+`;
+
+export const IconButton = styled(MuiIconButton)`
+  && {
+    padding: 6px;
+
+    svg {
+      font-size: 16px;
+    }
+  }
+`;
+
+export const TagContainer = styled.span`
+  && {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    display: block;
+    @media (max-width: ${breakpoints.medium}px) {
+      display: none;
+    }
+  }
+`;
+
+export const PackageListItem = styled(ListItem)`
+  && {
+    padding-top: 0;
+  }
+`;
+
+export const PackageListItemText = styled(ListItemText)`
+  && {
+    padding-right: 0;
+  }
+`;
+
+export const Description = styled(Typography)`
+  color: ${colors.greyDark2};
+  font-size: 14px;
+  padding-right: 0;
 `;

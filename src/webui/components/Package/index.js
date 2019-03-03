@@ -1,72 +1,53 @@
 /**
  * @prettier
+ * @flow
  */
-
-/* eslint-disable */
-
 import React from 'react';
 import type { Element } from 'react';
-import { spacing } from '../../utils/styles/mixings';
 
-import Grid from '@material-ui/core/Grid/index';
-import List from '@material-ui/core/List/index';
-import ListItem from '@material-ui/core/ListItem/index';
-import ListItemText from '@material-ui/core/ListItemText/index';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar/index';
-// import Avatar2 from '@material-ui/core/Avatar/index';
-import Typography from '@material-ui/core/Typography/index';
-import IconButton from '@material-ui/core/IconButton';
 import BugReport from '@material-ui/icons/BugReport';
-import Tooltip from '@material-ui/core/Tooltip/index';
+import Grid from '@material-ui/core/Grid/index';
 import HomeIcon from '@material-ui/icons/Home';
-// import BookmarkBorder from '@material-ui/icons/BookmarkBorder/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import Tooltip from '@material-ui/core/Tooltip/index';
 
 import Tag from '../Tag';
 import fileSizeSI from '../../utils/file-size';
 import { formatDate, formatDateDistance } from '../../utils/package';
-
 import { IProps } from './types';
-import {
-  WrapperLink,
-  Header,
-  MainInfo,
-  Name,
-  Version,
-  Overview,
-  Published,
-  OverviewItem,
-  Description,
-  Icon,
-  Text,
-  Details,
-  Avatar,
-  Author,
-  Field,
-  Content,
-  Footer,
-  PackageName,
-} from './styles';
-import { fontWeight } from '../../utils/styles/sizes';
 
-// const getInitialsName = (name: string) =>
-//   name
-//     .split(' ')
-//     .reduce((accumulator, currentValue) => accumulator.charAt(0) + currentValue.charAt(0), '')
-//     .toUpperCase();
+import {
+  Author,
+  Avatar,
+  Description,
+  Details,
+  GridRightAligned,
+  Icon,
+  IconButton,
+  OverviewItem,
+  PackageList,
+  PackageListItem,
+  PackageListItemText,
+  PackageTitle,
+  Published,
+  TagContainer,
+  Text,
+  WrapperLink,
+} from './styles';
 
 const Package = ({
-  name: label,
-  version,
-  dist: { unpackedSize } = {},
-  time,
-  author: { name, avatar },
+  author: { name: authorName, avatar: authorAvatar },
+  bugs: { url } = {},
   description,
-  license,
-  keywords = [],
+  dist: { unpackedSize } = {},
   homepage,
-  bugs,
+  keywords = [],
+  license,
+  name: packageName,
+  time,
+  version,
 }: IProps): Element<WrapperLink> => {
-  console.log(homepage);
+  //
   const renderVersionInfo = () =>
     version && (
       <OverviewItem>
@@ -75,21 +56,20 @@ const Package = ({
       </OverviewItem>
     );
 
-  const renderAuthorInfo = () => {
-    return (
+  const renderAuthorInfo = () =>
+    authorName && (
       <Author>
-        <Avatar alt={name} src={avatar} style={{ width: '20px', height: '20px' }} />
+        <Avatar alt={authorName} src={authorAvatar} />
         <Details>
-          <Text text={name} />
+          <Text text={authorName} />
         </Details>
       </Author>
     );
-  }
 
   const renderFileSize = () =>
     unpackedSize && (
       <OverviewItem>
-        <Icon name={'filebinary'} />
+        <Icon name={'fileBinary'} />
         {fileSizeSI(unpackedSize)}
       </OverviewItem>
     );
@@ -102,114 +82,79 @@ const Package = ({
       </OverviewItem>
     );
 
-  const renderPublishedInfo = () => (
-    <OverviewItem>
-      <Icon name={'time'} />
-      <Published modifiers={spacing('margin', '0px', '5px', '0px', '0px')}>{`Published on ${formatDate(time)} •`}</Published>
-      {`${formatDateDistance(time)} ago`}
-    </OverviewItem>
-  );
-
-  const renderDescription = () =>
-    description && (
-      <Field>
-        <Description>{description}</Description>
-      </Field>
+  const renderPublishedInfo = () =>
+    time && (
+      <OverviewItem>
+        <Icon name={'time'} />
+        <Published>{`Published on ${formatDate(time)} •`}</Published>
+        {`${formatDateDistance(time)} ago`}
+      </OverviewItem>
     );
-
-  // return (
-  //   <WrapperLink className={'package'} to={`/-/web/detail/${label}`}>
-  //     <Header>
-  //       {renderMainInfo()}
-  //       <Overview>
-  //         {renderLicenseInfo()}
-  //         {renderPublishedInfo()}
-  //       </Overview>
-  //     </Header>
-  //     <Content>
-  //       <Field>{renderAuthorInfo()}</Field>
-  //       {renderDescription()}
-  //     </Content>
-  //     {keywords.length > 0 && (
-  //       <Footer>
-  //         {keywords.sort().map((keyword, index) => (
-  //           <Tag key={index}>{keyword}</Tag>
-  //         ))}
-  //       </Footer>
-  //     )}
-  //   </WrapperLink>
-  // );
-  const tags = keywords.sort().map((keyword, index) => (
-    <Tag style={{ color: '#485A3E' }} key={index}>
-      {keyword}
-    </Tag>
-  ));
 
   const renderHomePageLink = () =>
     homepage && (
-      <a href={homepage} target="_blank">
-        <Tooltip title="Visit homepage" aria-label="Add">
-          <IconButton aria-label="Report" style={{ padding: '6px' }}>
-            <HomeIcon fontSize="small" style={{ fontSize: '16px' }} />
+      <a href={homepage} target={'_blank'}>
+        <Tooltip aria-label={'Homepage'} title={'Visit homepage'}>
+          <IconButton aria-label={'Homepage'}>
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <HomeIcon />
           </IconButton>
         </Tooltip>
       </a>
     );
 
   const renderBugsLink = () =>
-    bugs &&
-    bugs.url && (
-      <a href={bugs.url} target="_blank">
-        <Tooltip title="Open an issue" aria-label="Add">
-          <IconButton aria-label="Report" style={{ padding: '6px' }}>
-            <BugReport fontSize="small" style={{ fontSize: '16px' }} />
+    url && (
+      <a href={url} target={'_blank'}>
+        <Tooltip aria-label={'Bugs'} title={'Open an issue'}>
+          <IconButton aria-label={'Bugs'}>
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <BugReport />
           </IconButton>
         </Tooltip>
       </a>
     );
 
+  const renderPrimaryComponent = () => {
+    return (
+      <Grid container={true} item={true} xs={12}>
+        <Grid item={true} xs={true}>
+          <WrapperLink to={`/-/web/detail/${packageName}`}>
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <PackageTitle>{packageName}</PackageTitle>
+          </WrapperLink>
+        </Grid>
+        <GridRightAligned item={true} xs={true}>
+          {renderHomePageLink()}
+          {renderBugsLink()}
+        </GridRightAligned>
+      </Grid>
+    );
+  };
+
+  const renderSecondaryComponent = () => {
+    const tags = keywords.sort().map((keyword, index) => <Tag key={index}>{keyword}</Tag>);
+    return (
+      <>
+        <Description component={'span'}>{description}</Description>
+        {tags.length > 0 && <TagContainer>{tags}</TagContainer>}
+      </>
+    );
+  };
+
   return (
-    <List style={{ padding: '12px 0 12px 0' }}>
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          component="div"
-          style={{ paddingRight: 0 }}
-          primary={
-            <Grid item xs={12} container>
-              <Grid item xs>
-                <WrapperLink to={`/-/web/detail/${label}`}>
-                  <PackageName>{label}</PackageName>
-                </WrapperLink>
-              </Grid>
-              <Grid item xs style={{ textAlign: 'right' }}>
-                {renderHomePageLink()}
-                {renderBugsLink()}
-                {/* <Tooltip title="Pin it" aria-label="Add">
-                    <IconButton aria-label="Report" style={{ padding: '6px' }}>
-                      <BookmarkBorder fontSize="small" style={{ fontSize: '16px' }} />
-                    </IconButton>
-                  </Tooltip>           */}
-              </Grid>
-            </Grid>
-          }
-          secondary={
-            <React.Fragment>
-              <Typography component="span" style={{ color: '#586069', fontSize: '14px', paddingRight: 0 }}>
-                {description}
-              </Typography>
-              {tags.length > 0 && <span style={{ marginTop: '8px', display: 'block' }}>{tags}</span>}
-            </React.Fragment>
-          }
-        />
+    <PackageList>
+      <ListItem alignItems={'flex-start'}>
+        <PackageListItemText component={'div'} primary={renderPrimaryComponent()} secondary={renderSecondaryComponent()} />
       </ListItem>
-      <ListItem alignItems="flex-start">
+      <PackageListItem alignItems={'flex-start'}>
         {renderAuthorInfo()}
         {renderVersionInfo()}
         {renderPublishedInfo()}
         {renderFileSize()}
         {renderLicenseInfo()}
-      </ListItem>
-    </List>
+      </PackageListItem>
+    </PackageList>
   );
 };
 export default Package;

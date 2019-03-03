@@ -1,5 +1,6 @@
 /**
  * @prettier
+ * @flow
  */
 
 import _ from 'lodash';
@@ -515,7 +516,7 @@ export function getVersionFromTarball(name: string) {
  * @see https://docs.npmjs.com/files/package.json#author
  * @param {string|object|undefined} author
  */
-export function formatAuthor(author:any) {
+export function formatAuthor(author: any) {
   let authorDetails = {
     name: DEFAULT_USER,
     email: '',

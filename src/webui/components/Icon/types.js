@@ -19,7 +19,7 @@ export interface IIconsMap {
   time: string;
   law: string;
   version: string;
-  filebinary: string;
+  fileBinary: string;
   [key: string]: string;
 }
 
