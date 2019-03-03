@@ -69,7 +69,7 @@ const Package = ({
   const renderFileSize = () =>
     unpackedSize && (
       <OverviewItem>
-        <Icon name={'fileBinary'} />
+        <Icon name={'filebinary'} />
         {fileSizeSI(unpackedSize)}
       </OverviewItem>
     );
@@ -157,4 +157,5 @@ const Package = ({
     </PackageList>
   );
 };
+
 export default Package;

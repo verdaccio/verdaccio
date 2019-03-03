@@ -50,15 +50,15 @@ describe('formatDate', () => {
   });
 });
 
-xdescribe('formatDateDistance', () => {
+describe('formatDateDistance', () => {
   test('should calculate the distance', () => {
-    const dateOneMonthAgo = () => {
+    const dateTwoMonthsAgo = () => {
       const date = new Date();
-      date.setMonth(date.getMonth() - 1);
+      date.setMonth(date.getMonth() - 2);
       return date;
     };
-    const date = dateOneMonthAgo();
-    expect(formatDateDistance(date)).toEqual('about 1 month');
+    const date = dateTwoMonthsAgo();
+    expect(formatDateDistance(date)).toEqual('about 2 months');
   });
 });
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
-import { API_ERROR } from '../../../src/lib/constants';
 
 import { generateTokenWithTimeRange } from './components/__mocks__/token';
 
@@ -38,7 +37,7 @@ describe('App', () => {
     wrapper = mount(<App />);
   });
   
-  xtest('toggleLoginModal: should toggle the value in state', () => {
+  test('toggleLoginModal: should toggle the value in state', () => {
     const { handleToggleLoginModal } = wrapper.instance();
     expect(wrapper.state().showLoginModal).toBeFalsy();
     handleToggleLoginModal();
@@ -46,7 +45,7 @@ describe('App', () => {
     expect(wrapper.state('error')).toEqual({});
   });
 
-  xtest('isUserAlreadyLoggedIn: token already available in storage', async () => {
+  test('isUserAlreadyLoggedIn: token already available in storage', async () => {
 
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', generateTokenWithTimeRange(24));
@@ -57,7 +56,7 @@ describe('App', () => {
     expect(wrapper.state('user').username).toEqual('verdaccio');
   });
 
-  xtest('handleLogout - logouts the user and clear localstorage', async () => {
+  test('handleLogout - logouts the user and clear localstorage', async () => {
     const { handleLogout } = wrapper.instance();
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', 'xxxx.TOKEN.xxxx');
@@ -67,7 +66,7 @@ describe('App', () => {
     expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
   });
 
-  xtest('handleDoLogin - login the user successfully', async () => {
+  test('handleDoLogin - login the user successfully', async () => {
     const { handleDoLogin } = wrapper.instance();
     await handleDoLogin('sam', '1234');
     const result = {
@@ -81,10 +80,9 @@ describe('App', () => {
     expect(wrapper.state('user')).toEqual(result);
   });
 
-  xtest('handleDoLogin - authentication failure', async () => {
+  test('handleDoLogin - authentication failure', async () => {
     const { handleDoLogin } = wrapper.instance();
     await handleDoLogin('sam', '12345');
-    console.log(API_ERROR.BAD_USERNAME_PASSWORD);
     const result = {
       description: 'bad username/password, access denied',
       title: 'Unable to login',
