@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-const breakpoints = {
+export const breakpoints = {
   small: 576,
   medium: 768,
   large: 1024,

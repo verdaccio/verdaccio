@@ -29,20 +29,20 @@ describe('<PackageList /> component', () => {
           version: '1.0.0',
           time: new Date(1532211072138).getTime(),
           description: 'Private NPM repository',
-          author: { name: 'Sam' }
+          author: { name: 'Sam', avatar: 'test avatar' }
         },
         {
           name: 'abc',
           version: '1.0.1',
           time: new Date(1532211072138).getTime(),
           description: 'abc description',
-          author: { name: 'Rose' }
+          author: { name: 'Rose', avatar: 'test avatar' }
         },
         {
           name: 'xyz',
           version: '1.1.0',
           description: 'xyz description',
-          author: { name: 'Martin' }
+          author: { name: 'Martin', avatar: 'test avatar' }
         }
       ],
       help: false

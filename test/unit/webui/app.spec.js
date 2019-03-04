@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
-import { API_ERROR } from '../../../src/lib/constants';
 
 import { generateTokenWithTimeRange } from './components/__mocks__/token';
 
@@ -84,7 +83,6 @@ describe('App', () => {
   test('handleDoLogin - authentication failure', async () => {
     const { handleDoLogin } = wrapper.instance();
     await handleDoLogin('sam', '12345');
-    console.log(API_ERROR.BAD_USERNAME_PASSWORD);
     const result = {
       description: 'bad username/password, access denied',
       title: 'Unable to login',

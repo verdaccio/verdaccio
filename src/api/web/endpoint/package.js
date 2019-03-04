@@ -4,9 +4,10 @@
  */
 
 import _ from 'lodash';
-import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme } from '../../../lib/utils';
+import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme, formatAuthor } from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
+import { generateGravatarUrl } from '../../../utils/user';
 import logger from '../../../lib/logger';
 import type { Router } from 'express';
 import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
@@ -41,12 +42,18 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         throw err;
       }
 
-      async function processPermissionsPackages(packages) {
+      async function processPermissionsPackages(packages = []) {
         const permissions = [];
-        for (const pkg of packages) {
+        const packgesCopy = packages.slice();
+        for (const pkg of packgesCopy) {
+          const pkgCopy = { ...pkg };
+          pkgCopy.author = formatAuthor(pkg.author);
           try {
             if (await checkAllow(pkg.name, req.remote_user)) {
-              permissions.push(pkg);
+              if (config.web) {
+                pkgCopy.author.avatar = generateGravatarUrl(pkgCopy.author.email, config.web.gravatar);
+              }
+              permissions.push(pkgCopy);
             }
           } catch (err) {
             logger.logger.error({ name: pkg.name, error: err }, 'permission process for @{name} has failed: @{error}');
@@ -96,6 +103,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         if (_.isNil(err)) {
           let sideBarInfo: any = _.clone(info);
           sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
+          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
           sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
           if (config.web) {
             sideBarInfo = addGravatarSupport(sideBarInfo, config.web.gravatar);

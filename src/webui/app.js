@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import React, { Component, Fragment } from 'react';
 import isNil from 'lodash/isNil';
 
@@ -16,7 +20,6 @@ import 'normalize.css';
 import Footer from './components/Footer';
 
 export const AppContext = React.createContext();
-
 export const AppContextProvider = AppContext.Provider;
 export const AppContextConsumer = AppContext.Consumer;
 
@@ -25,12 +28,12 @@ export default class App extends Component {
     error: {},
     logoUrl: window.VERDACCIO_LOGO,
     user: {},
-    scope: (window.VERDACCIO_SCOPE) ? `${window.VERDACCIO_SCOPE}:` : '',
+    scope: window.VERDACCIO_SCOPE ? `${window.VERDACCIO_SCOPE}:` : '',
     showLoginModal: false,
     isUserLoggedIn: false,
     packages: [],
     isLoading: true,
-  }
+  };
 
   componentDidMount() {
     this.isUserAlreadyLoggedIn();
@@ -45,19 +48,36 @@ export default class App extends Component {
     }
   }
 
+  render() {
+    const { isLoading, isUserLoggedIn, packages, logoUrl, user, scope } = this.state;
+
+    return (
+      <Container isLoading={isLoading}>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Fragment>
+            <AppContextProvider value={{ isUserLoggedIn, packages, logoUrl, user, scope }}>{this.renderContent()}</AppContextProvider>
+          </Fragment>
+        )}
+        {this.renderLoginModal()}
+      </Container>
+    );
+  }
+
   isUserAlreadyLoggedIn = () => {
     // checks for token validity
     const token = storage.getItem('token');
     const username = storage.getItem('username');
     if (isTokenExpire(token) || isNil(username)) {
-     this.handleLogout();
+      this.handleLogout();
     } else {
       this.setState({
         user: { username, token },
         isUserLoggedIn: true,
       });
     }
-  }
+  };
 
   loadOnHandler = async () => {
     try {
@@ -74,34 +94,30 @@ export default class App extends Component {
       });
       this.setLoading(false);
     }
-  }
+  };
 
-  setLoading = isLoading => (
+  setLoading = isLoading =>
     this.setState({
       isLoading,
-    })
-  )
+    });
 
   /**
    * Toggles the login modal
    * Required by: <LoginModal /> <Header />
    */
   handleToggleLoginModal = () => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       showLoginModal: !prevState.showLoginModal,
       error: {},
     }));
-  }
+  };
 
   /**
    * handles login
    * Required by: <Header />
    */
   handleDoLogin = async (usernameValue, passwordValue) => {
-    const { username, token, error } = await makeLogin(
-      usernameValue,
-      passwordValue
-    );
+    const { username, token, error } = await makeLogin(usernameValue, passwordValue);
 
     if (username && token) {
       this.setLoggedUser(username, token);
@@ -115,7 +131,7 @@ export default class App extends Component {
         error,
       });
     }
-  }
+  };
 
   setLoggedUser = (username, token) => {
     this.setState({
@@ -123,10 +139,11 @@ export default class App extends Component {
         username,
         token,
       },
-      isUserLoggedIn: true,  // close login modal after successful login
-      showLoginModal: false,  // set isUserLoggedIn to true
+      isUserLoggedIn: true, // close login modal after successful login
+      showLoginModal: false, // set isUserLoggedIn to true
     });
-  }
+  };
+
   /**
    * Logouts user
    * Required by: <Header />
@@ -138,25 +155,7 @@ export default class App extends Component {
       user: {},
       isUserLoggedIn: false,
     });
-  }
-
-  render() {
-    const { isLoading, isUserLoggedIn, packages, logoUrl, user, scope } = this.state;
-    return (
-      <Container isLoading={isLoading}>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <Fragment>
-            <AppContextProvider value={{isUserLoggedIn, packages, logoUrl, user, scope}}>
-              {this.renderContent()}
-            </AppContextProvider>
-          </Fragment>
-        )}
-        {this.renderLoginModal()}
-      </Container>
-    );
-  }
+  };
 
   renderLoginModal = () => {
     const { error, showLoginModal } = this.state;
@@ -169,34 +168,24 @@ export default class App extends Component {
         visibility={showLoginModal}
       />
     );
-  }
+  };
 
   renderContent = () => {
     return (
       <Fragment>
         <Content>
-          <RouterApp 
-            onLogout={this.handleLogout}
-            onToggleLoginModal={this.handleToggleLoginModal}>
+          <RouterApp onLogout={this.handleLogout} onToggleLoginModal={this.handleToggleLoginModal}>
             {this.renderHeader()}
           </RouterApp>
         </Content>
         <Footer />
       </Fragment>
     );
-  }
+  };
 
   renderHeader = () => {
-    const { logoUrl, user, scope } = this.state;
+    const { logoUrl, user: { username } = {}, scope } = this.state;
 
-    return (
-      <Header
-        logo={logoUrl}
-        onLogout={this.handleLogout}
-        onToggleLoginModal={this.handleToggleLoginModal}
-        scope={scope}
-        username={user.username}
-      />
-    );
-  }
+    return <Header logo={logoUrl} onLogout={this.handleLogout} onToggleLoginModal={this.handleToggleLoginModal} scope={scope} username={username} />;
+  };
 }

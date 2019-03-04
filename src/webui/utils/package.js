@@ -4,7 +4,6 @@ import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 export const TIMEFORMAT = 'DD.MM.YYYY, HH:mm:ss';
-export const DEFAULT_USER = 'Anonymous';
 
 /**
  * Formats license field for webui.
@@ -38,36 +37,6 @@ export function formatRepository(repository) {
   return null;
 }
 
-
-/**
- * Formats author field for webui.
- * @see https://docs.npmjs.com/files/package.json#author
- */
-export function formatAuthor(author) {
-    let authorDetails = {
-      name: DEFAULT_USER,
-      email: '',
-      avatar: '',
-    };
-
-    if (isString(author)) {
-      authorDetails = {
-        ...authorDetails,
-        name: author ? author : authorDetails.name,
-      };
-    }
-
-    if (isObject(author)) {
-      authorDetails = {
-        ...authorDetails,
-        name: author.name ? author.name : authorDetails.name,
-        email: author.email ? author.email : authorDetails.email,
-        avatar: author.avatar ? author.avatar : authorDetails.avatar,
-      };
-    }
-
-    return authorDetails;
-}
 
 /**
  * For <LastSync /> component

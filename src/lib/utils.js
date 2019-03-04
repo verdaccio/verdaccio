@@ -12,7 +12,7 @@ import URL from 'url';
 import createError from 'http-errors';
 import marked from 'marked';
 
-import { HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS } from './constants';
+import { HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import type { Package } from '@verdaccio/types';
@@ -509,4 +509,41 @@ export function buildToken(type: string, token: string): string {
 export function getVersionFromTarball(name: string) {
   // $FlowFixMe
   return /.+-(\d.+)\.tgz/.test(name) ? name.match(/.+-(\d.+)\.tgz/)[1] : undefined;
+}
+
+/**
+ * Formats author field for webui.
+ * @see https://docs.npmjs.com/files/package.json#author
+ * @param {string|object|undefined} author
+ */
+export function formatAuthor(author: any) {
+  let authorDetails = {
+    name: DEFAULT_USER,
+    email: '',
+    url: '',
+  };
+
+  if (!author) {
+    return authorDetails;
+  }
+
+  if (_.isString(author)) {
+    authorDetails = {
+      ...authorDetails,
+      name: author ? author : authorDetails.name,
+      email: author.email ? author.email : authorDetails.email,
+      url: author.url ? author.url : authorDetails.url,
+    };
+  }
+
+  if (_.isObject(author)) {
+    authorDetails = {
+      ...authorDetails,
+      name: author.name ? author.name : authorDetails.name,
+      email: author.email ? author.email : authorDetails.email,
+      url: author.url ? author.url : authorDetails.url,
+    };
+  }
+
+  return authorDetails;
 }
