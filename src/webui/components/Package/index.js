@@ -143,9 +143,9 @@ const Package = ({
   };
 
   return (
-    <PackageList>
+    <PackageList className={'package'}>
       <ListItem alignItems={'flex-start'}>
-        <PackageListItemText component={'div'} primary={renderPrimaryComponent()} secondary={renderSecondaryComponent()} />
+        <PackageListItemText className={'package-link'} component={'div'} primary={renderPrimaryComponent()} secondary={renderSecondaryComponent()} />
       </ListItem>
       <PackageListItem alignItems={'flex-start'}>
         {renderAuthorInfo()}
