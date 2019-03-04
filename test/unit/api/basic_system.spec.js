@@ -40,9 +40,9 @@ describe('basic system test', () => {
     });
   });
 
-  test('server should respond on /whatever', done => {
+  test('server should respond on /___not_found_package', done => {
     request({
-      url: `http://localhost:${port}/whatever`,
+      url: `http://localhost:${port}/___not_found_package`,
     }, function(err, res, body) {
       expect(err).toBeNull();
       expect(body).toMatch(API_ERROR.NO_PACKAGE);
