@@ -2,6 +2,8 @@
 
 ![verdaccio ui](https://github.com/verdaccio/verdaccio/raw/master/assets/gif/verdaccio_big_30.gif?raw=true)
 
+[📢 Share your feedback in our Survey "Verdaccio Community Feedback #1"](https://t.co/kqDtknO5d0)
+
 # Version 3
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
