@@ -22,6 +22,7 @@ const colors = {
     paleNavy: '#e4e8f1',
     saltpan: '#f7f8f6',
     snow: '#f9f9f9',
+    love: '#e25555',
 
     nobel01: '#999999',
     nobel02: '#9f9f9f',

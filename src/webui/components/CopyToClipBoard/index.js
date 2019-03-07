@@ -4,15 +4,15 @@
  */
 
 import React from 'react';
+import type { Node } from 'react';
+
 import FileCopy from '@material-ui/icons/FileCopy';
 import Tooltip from '@material-ui/core/Tooltip/index';
-
-import type { Node } from 'react';
-import { IProps } from './types';
 
 import { ClipBoardCopy, ClipBoardCopyText, CopyIcon } from './styles';
 import { copyToClipBoardUtility } from '../../utils/cli-utils';
 import { TEXT } from '../../utils/constants';
+import { IProps } from './types';
 
 const CopyToClipBoard = ({ text, children }: IProps): Node => {
   const renderToolTipFileCopy = () => (

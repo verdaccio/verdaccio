@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card/index';
 import CardContent from '@material-ui/core/CardContent/index';
 import List from '@material-ui/core/List/index';
 
-import ActtionBar from '../ActionBar';
+import ActionBar from '../ActionBar';
 import Author from '../Author';
 import Developers from '../Developers';
 import Dist from '../Dist';
@@ -88,7 +88,7 @@ class DetailSidebar extends Component {
   }
 
   renderActionBar = () => {
-    return <ActtionBar />;
+    return <ActionBar />;
   }
 }
 

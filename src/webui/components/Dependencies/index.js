@@ -3,8 +3,6 @@
  * @flow
  */
 
-/* eslint react/jsx-max-depth: 0 */
-
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import CardContent from '@material-ui/core/CardContent/index';
@@ -40,7 +38,7 @@ class DepDetail extends Component<any, any> {
   };
 }
 
-const WrappDepDetail = withRouter(DepDetail);
+const WrapperDependencyDetail = withRouter(DepDetail);
 
 class DependencyBlock extends Component<any, any> {
   render() {
@@ -68,7 +66,7 @@ class DependencyBlock extends Component<any, any> {
     deps.map(dep => {
       const [name, version] = dep;
 
-      return <WrappDepDetail key={name} name={name} onLoading={enableLoading} version={version} />;
+      return <WrapperDependencyDetail key={name} name={name} onLoading={enableLoading} version={version} />;
     });
 }
 
@@ -99,9 +97,10 @@ class Dependencies extends Component<any, any> {
     const dependencyMap = { dependencies, devDependencies, peerDependencies };
 
     const dependencyList = Object.keys(dependencyMap).reduce((result, value, key) => {
-      const selectedDepndency = dependencyMap[value];
-      if (selectedDepndency && this.checkDependencyLength(selectedDepndency)) {
-        result.push(<DependencyBlock dependencies={selectedDepndency} key={key} title={value} />);
+      const selectedDependency = dependencyMap[value];
+
+      if (selectedDependency && this.checkDependencyLength(selectedDependency)) {
+        result.push(<DependencyBlock dependencies={selectedDependency} key={key} title={value} />);
       }
       return result;
     }, []);

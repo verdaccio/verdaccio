@@ -6,12 +6,13 @@
 import styled, { css } from 'react-emotion';
 import mq from '../../utils/styles/media';
 import Icon from '../Icon';
+import colors from '../../utils/styles/colors';
 
 export const Wrapper = styled.div`
   && {
-    background: #f9f9f9;
-    border-top: 1px solid #e3e3e3;
-    color: #999999;
+    background: ${colors.snow};
+    border-top: 1px solid ${colors.greyGainsboro};
+    color: ${colors.nobel01};
     font-size: 14px;
     padding: 20px;
   }
@@ -67,7 +68,7 @@ export const Earth = styled(Icon)`
 export const Flags = styled.span`
   && {
     position: absolute;
-    background: #d3dddd;
+    background: ${colors.greyAthens};
     padding: 1px 4px;
     border-radius: 3px;
     height: 20px;
@@ -82,7 +83,7 @@ export const Flags = styled.span`
       left: -4px;
       margin-left: -5px;
       border: 5px solid;
-      border-color: #d3dddd transparent transparent transparent;
+      border-color: ${colors.greyAthens} transparent transparent transparent;
       transform: rotate(90deg);
     }
     ${ToolTip}:hover & {
@@ -93,7 +94,7 @@ export const Flags = styled.span`
 
 export const Love = styled.span`
   && {
-    color: #e25555;
+    color: ${colors.love};
     padding: 0 5px;
   }
 `;

@@ -2,13 +2,12 @@
  * @prettier
  */
 
-/* eslint-disable */
 import React, { Component } from 'react';
+
 import List from '@material-ui/core/List/index';
 
 import { DetailContextConsumer } from '../../pages/version/index';
-
-import { Heading, DistListItem, DistChips, DownloadButton } from './styles';
+import { Heading, DistListItem, DistChips } from './styles';
 import fileSizeSI from '../../utils/file-size';
 
 class Dist extends Component<any, any> {
@@ -34,10 +33,11 @@ class Dist extends Component<any, any> {
       if (value) {
         const label = (
           <span>
-            <b>{title.split('-').join(' ')}</b>: {value}
+            {/* eslint-disable-next-line */}
+            <b>{title.split('-').join(' ')}</b>:{value}
           </span>
         );
-        componentList.push(<DistChips label={label} key={key} />);
+        componentList.push(<DistChips key={key} label={label} />);
       }
       return componentList;
     }, []);
