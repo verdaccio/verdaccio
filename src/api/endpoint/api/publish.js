@@ -115,7 +115,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     try {
       metadata = validate_metadata(req.body, name);
     } catch (err) {
-      return next(ErrorCode.getBadData(`${JSON.stringify(req.body)}bad incoming package data`));
+      return next(ErrorCode.getBadData(`bad incoming package data`));
     }
 
     if (req.params._rev) {
