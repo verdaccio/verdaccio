@@ -6,7 +6,7 @@ import assert from 'assert';
 import UrlNode from 'url';
 import _ from 'lodash';
 // $FlowFixMe
-import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS} from './utils';
+import {ErrorCode, isObject, getLatestVersion, tagVersion, validateName, DIST_TAGS, USERS} from './utils';
 import {
   generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors,
 fileExist, noSuchFile, DEFAULT_REVISION, pkgFileName,
@@ -346,7 +346,7 @@ class LocalStorage implements IStorage {
           }
         }
       }
-
+      localData[USERS] = incomingPkg[USERS];
       localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
       cb();
     }, function(err) {

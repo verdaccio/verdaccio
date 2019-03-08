@@ -111,7 +111,7 @@ export function normalizeContributors(contributors: Array<Author>): Array<Author
   return contributors;
 }
 
-export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id'];
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id', 'users'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];

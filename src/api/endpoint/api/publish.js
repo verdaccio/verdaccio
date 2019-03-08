@@ -8,6 +8,7 @@ import {API_MESSAGE, HEADERS} from '../../../lib/constants';
 import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
 import {media, expectJson, allow} from '../../middleware';
 import {notify} from '../../../lib/notify';
+import star from './star';
 
 import type {Router} from 'express';
 import type {Config, Callback} from '@verdaccio/types';
@@ -15,6 +16,7 @@ import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageH
 import logger from '../../../lib/logger';
 
 export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
+  const starApi = star(storage);
   const can = allow(auth);
 
   // publishing a package
@@ -105,16 +107,15 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         });
       });
     };
-
-    if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
-      // 501 status is more meaningful, but npm doesn't show error message for 5xx
-      return next(ErrorCode.getNotFound('npm star|unstar calls are not implemented'));
+    // star body example: {"_id":"","_rev":"" , users":{}}
+    if (Object.keys(req.body).length === 3 && isObject(req.body.users)) {
+      return starApi(req, res, next);
     }
 
     try {
       metadata = validate_metadata(req.body, name);
     } catch (err) {
-      return next(ErrorCode.getBadData('bad incoming package data'));
+      return next(ErrorCode.getBadData(`${JSON.stringify(req.body)}bad incoming package data`));
     }
 
     if (req.params._rev) {

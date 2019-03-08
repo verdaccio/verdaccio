@@ -27,6 +27,7 @@ const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
 
 export const DIST_TAGS = 'dist-tags';
+export const USERS = 'users';
 
 export function getUserAgent(): string {
   assert(_.isString(pkgName));
