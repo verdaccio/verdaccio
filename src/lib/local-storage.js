@@ -8,7 +8,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
 import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
-import { API_ERROR, DIST_TAGS, STORAGE } from './constants';
+import { API_ERROR, DIST_TAGS, STORAGE, USERS } from './constants';
 import { createTarballHash } from './crypto-utils';
 import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
@@ -334,6 +334,7 @@ class LocalStorage implements IStorage {
           }
         }
 
+        localData[USERS] = incomingPkg[USERS];
         localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
         cb();
       },

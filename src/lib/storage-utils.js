@@ -10,7 +10,7 @@ import { generateRandomHexString } from '../lib/crypto-utils';
 
 import type { Package, Version, Author } from '@verdaccio/types';
 import type { IStorage } from '../../types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS, STORAGE } from './constants';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
 
 export function generatePackageTemplate(name: string): Package {
   return {
@@ -18,6 +18,7 @@ export function generatePackageTemplate(name: string): Package {
     name,
     versions: {},
     time: {},
+    [USERS]: {},
     [DIST_TAGS]: {},
     _uplinks: {},
     _distfiles: {},
@@ -97,7 +98,7 @@ export function normalizeContributors(contributors: Array<Author>): Array<Author
   return contributors;
 }
 
-export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id'];
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id', 'users'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];

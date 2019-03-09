@@ -10,6 +10,7 @@ export const DEFAULT_DOMAIN: string = 'localhost';
 export const TIME_EXPIRATION_24H: string = '24h';
 export const TIME_EXPIRATION_7D: string = '7d';
 export const DIST_TAGS = 'dist-tags';
+export const USERS = 'users';
 export const DEFAULT_MIN_LIMIT_PASSWORD: number = 3;
 export const DEFAULT_USER = 'Anonymous';
 
