@@ -11,6 +11,7 @@ import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../.
 import { validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
 import { media, expectJson, allow } from '../../middleware';
 import { notify } from '../../../lib/notify';
+import star from './star';
 
 import type { Router } from 'express';
 import type { Config, Callback, MergeTags, Version } from '@verdaccio/types';
@@ -40,6 +41,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
  * Publish a package
  */
 export function publishPackage(storage: IStorageHandler, config: Config) {
+  const starApi = star(storage);
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName = req.params.package;
     /**
@@ -138,7 +140,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
     };
 
     if (Object.prototype.hasOwnProperty.call(req.body, '_rev') && isObject(req.body.users)) {
-      return next(ErrorCode.getNotFound('npm star| un-star calls are not implemented'));
+      return starApi(req, res, next);
     }
 
     try {

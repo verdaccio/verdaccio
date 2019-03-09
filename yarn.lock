@@ -1372,10 +1372,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-2.0.0-beta.0.tgz#af8c7e673a3c368deacc8024c6f5671aa2ec32ac"
   integrity sha512-EdVF6RP0abRNT0RfgLCsqLNv7FOpm+BpzMZoaQuQGHSBQRj7OTM8ft5mpbJ40rYVXKv6D8xyU0vUnoRl09ah6g==
 
-"@verdaccio/types@4.1.4":
-  version "4.1.4"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-4.1.4.tgz#6144410b9fd63d916aa279378a4946c701a82586"
-  integrity sha512-0kNIQvMakoHIk1dpgnXVgQ5qwxJGTtMpJkLZKiN5WpLi5yuQtjc+kD/0EWDV4164pKg1KUU6YFLpbcXWxR8zvQ==
+"@verdaccio/types@5.0.0-beta.3":
+  version "5.0.0-beta.3"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-5.0.0-beta.3.tgz#f6c9fd31a40b2be96fe080c49d7f4a1239413318"
+  integrity sha512-qPwE0bjDhXXVK7Gwg0O6RargAE7/AseVcZhcZEnf25RAra5ZL3MiM0dUUlierMc9XcPVjVHwTasAnF54Qmz9bg==
 
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"

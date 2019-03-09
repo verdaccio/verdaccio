@@ -46,3 +46,26 @@ exports[`Publish endpoints - publish package should change the existing package 
   ],
 }
 `;
+
+exports[`Publish endpoints - publish package should star a package 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "verdaccio",
+      Object {
+        "users": Object {
+          "verdaccio": true,
+        },
+      },
+      "15-e53a77096b0ee33e",
+      [Function],
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

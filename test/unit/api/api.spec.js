@@ -5,6 +5,7 @@ import rimraf from 'rimraf';
 
 import configDefault from '../partials/config/index';
 import publishMetadata from '../partials/publish-api';
+import starMetadata from '../partials/star-api';
 import endPointAPI from '../../../src/api/index';
 
 import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../src/lib/constants';
@@ -561,6 +562,46 @@ describe('endpoint unit test', () => {
           });
       });
 
+      describe('should test star api', () => {
+        test('should star a package', (done) => {
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify({
+              ...starMetadata,
+              users: {
+                [credentials.name]: true
+              }
+            }))
+            .expect(HTTP_STATUS.OK)
+            .end(function(err, res) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              expect(res.body.success).toBeDefined();
+              expect(res.body.success).toBeTruthy();
+              done();
+            });
+        });
+
+        test('should unstar a package', (done) => {
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify(starMetadata))
+            .expect(HTTP_STATUS.OK)
+            .end(function(err, res) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              expect(res.body.success).toBeDefined();
+              expect(res.body.success).toBeTruthy();
+              done();
+            });
+        });
+      });
       test('should unpublish a new package with credentials', async (done) => {
 
         const credentials = { name: 'jota_unpublish', password: 'secretPass' };
