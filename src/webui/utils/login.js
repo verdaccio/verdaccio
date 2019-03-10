@@ -10,10 +10,7 @@ export function isTokenExpire(token) {
         return true;
     }
 
-    let [
-        ,
-        payload
-    ] = token.split('.');
+    let [,payload] = token.split('.');
 
     if (!payload) {
         return true;
@@ -44,7 +41,7 @@ export async function makeLogin(username, password) {
         const error = {
             title: 'Unable to login',
             type: 'error',
-            description: 'Username or password can\'t be empty!'
+            description: 'Username or password can\'t be empty!',
         };
         return {error};
     }
@@ -54,19 +51,19 @@ export async function makeLogin(username, password) {
             body: JSON.stringify({username, password}),
             headers: {
                 Accept: HEADERS.JSON,
-                'Content-Type': HEADERS.JSON
-            }
+                'Content-Type': HEADERS.JSON,
+            },
         });
         const result = {
             username: response.username,
-            token: response.token
+            token: response.token,
         };
         return result;
     } catch (e) {
         const error = {
             title: 'Unable to login',
             type: 'error',
-            description: e.error
+            description: e.error,
         };
         return {error};
     }

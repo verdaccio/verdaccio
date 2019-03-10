@@ -1,3 +1,8 @@
+/**
+ * @prettier
+ * @flow
+ */
+
 const path = require('path');
 
 const APP_ROOT = path.resolve(__dirname, '../../');

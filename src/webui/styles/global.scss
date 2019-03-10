@@ -3,7 +3,8 @@
 
 :global {
   .container {
-    margin-top: $space-lg;
+    padding: 15px;
+    flex: 1;
 
     @include container-size;
 
@@ -12,10 +13,15 @@
     }
   }
 
+  .content {
+    display: flex;
+  }
+
   .page-full-height {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow: hidden;
   }
 
   .el-button {
@@ -33,5 +39,9 @@
 
   .el-dialog__headerbtn:hover .el-dialog__close {
     color: $eclipse;
+  }
+
+  .package-list-items {
+    width: 100%;
   }
 }

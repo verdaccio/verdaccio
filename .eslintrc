@@ -1,16 +1,29 @@
 {
   "plugins": [
+    "babel",
     "react",
     "flowtype",
-    "jest"
+    "jest",
+    "verdaccio",
+    "jsx-a11y"
   ],
   "extends": [
     "eslint:recommended",
     "google",
-    "plugin:react/recommended",
     "plugin:flowtype/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:verdaccio/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.4.2",
+      "flowVersion": "0.81.0"
+    }
+  },
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
@@ -30,19 +43,86 @@
     "__APP_VERSION__": true
   },
   "rules": {
-    "no-useless-escape": 2,
+    "babel/no-invalid-this": 1,
+    "prettier/prettier": ["error", null, "@prettier"],
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
-    "handle-callback-err": 2,
-    "no-fallthrough": 2,
-    "no-new-require": 2,
-    "max-len": [2, 160],
+    "react/destructuring-assignment": ["error", "always"],
+    "react/forbid-component-props": ["warn", { "forbid": ["style"] }],
+    "react/no-this-in-sfc": ["warn"],
+    "react/no-unsafe": ["warn"],
+    "react/sort-comp": ["warn", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "render",
+        "everything-else",
+        "/^on.+$/",
+        "/^render.+$/"
+      ]
+    }],
+    "react/void-dom-elements-no-children": ["warn"],
+    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
+    "react/jsx-wrap-multilines": ["error",{
+      "declaration": "parens",
+      "assignment": "parens",
+      "return": "parens",
+      "arrow": "parens",
+      "condition": "parens",
+      "logical": "parens",
+      "prop": "parens"
+    }],
+    "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-closing-tag-location": ["error"],
+    "react/jsx-curly-spacing": ["error", "never"],
+    "react/jsx-equals-spacing": ["error", "never"],
+    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
+    "react/jsx-handler-names": ["warn"],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-key": ["error"],
+    "react/jsx-max-depth": ["error", { "max": 2}],
+    "react/jsx-max-props-per-line": ["error", {"maximum": 3, "when": "multiline" }],
+    "react/jsx-no-bind": ["error"],
+    "react/jsx-no-comment-textnodes": ["error"],
+    "react/jsx-no-duplicate-props": ["error"],
+    "react/jsx-no-literals": ["error"],
+    "react/jsx-no-undef": ["error"],
+    "react/jsx-one-expression-per-line": ["error", {"allow": "single-child"}],
+    "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "ignore" }],
+    "react/jsx-pascal-case": ["error"],
+    "react/jsx-props-no-multi-spaces": ["error"],
+    "react/jsx-sort-default-props": ["error"],
+    "react/jsx-sort-props": ["error"],
+    "react/no-string-refs": ["error"],
+    "react/no-danger-with-children": ["error"],
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "allow-multiline",
+      "beforeClosing": "allow"
+    }],
+    "react/prefer-es6-class": [
+      2,
+      "always"
+    ],
+    "semi": ["error"],
+    "comma-dangle": ["error"],
     "camelcase": 0,
+    "no-useless-escape": ["error"],
+    "no-invalid-this": 0,
+    "handle-callback-err": ["error"],
+    "no-fallthrough": ["error"],
+    "no-new-require": ["error"],
+    "max-len": ["error", 160],
     "require-jsdoc": 0,
     "valid-jsdoc": 0,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
     "linebreak-style": 0,
-    "quote-props":["error", "as-needed"]
+    "quote-props":["error", "as-needed"],
+    "verdaccio/jsx-no-style": ["warn"],
+    "verdaccio/jsx-spread": ["warn"],
+    "jest/expect-expect": 0
   }
 }

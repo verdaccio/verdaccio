@@ -116,7 +116,6 @@ function smartRequest(options: any): Promise<any> {
 
       // store the response on symbol
       smartObject[requestData].response = res;
-      // console.log("======>smartRequest RESPONSE: ", body);
       resolve(body);
     });
   });

@@ -5,3 +5,13 @@ static/
 flow-typed/
 website/
 build/
+*.md
+*.lock
+*.yaml
+Dockerfile
+*.rpi
+*.html
+*.scss
+*.png
+*.jpg
+test/unit/partials/

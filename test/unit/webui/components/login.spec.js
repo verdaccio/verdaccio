@@ -1,84 +1,129 @@
+/**
+ * @prettier
+ * @flow
+ */
+
 import React from 'react';
 import { mount } from 'enzyme';
+
 import LoginModal from '../../../../src/webui/components/Login';
 
+const eventUsername = {
+  target: {
+    value: 'xyz',
+  },
+};
+
+const eventPassword = {
+  target: {
+    value: '1234',
+  },
+};
+
+const event = {
+  preventDefault: jest.fn(),
+};
+
 describe('<LoginModal />', () => {
-  it('should load the component in default state', () => {
+  test('should load the component in default state', () => {
     const wrapper = mount(<LoginModal />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('should load the component with props', () => {
+  test('should load the component with props', () => {
     const props = {
       visibility: true,
       error: {
         type: 'error',
         title: 'Error Title',
-        description: 'Error Description'
+        description: 'Error Description',
       },
       onCancel: () => {},
-      onSubmit: () => {}
+      onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('onCancel: should close the login modal', () => {
+  test('onCancel: should close the login modal', () => {
     const props = {
       visibility: true,
       error: {
         type: 'error',
         title: 'Error Title',
-        description: 'Error Description'
+        description: 'Error Description',
       },
       onCancel: jest.fn(),
-      onSubmit: () => {}
+      onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
-    wrapper.find('button.cancel-login-button').simulate('click');
-    expect(props.onCancel).toHaveBeenCalled();
-    wrapper.find('.el-dialog__headerbtn > .el-dialog__close').simulate('click');
+    wrapper.find('button[id="login--form-cancel"]').simulate('click');
     expect(props.onCancel).toHaveBeenCalled();
   });
 
-  it('setCredentials - should set username and password in state', () => {
+  test('setCredentials - should set username and password in state', () => {
     const props = {
       visibility: true,
       error: {},
       onCancel: () => {},
-      onSubmit: () => {}
+      onSubmit: () => {},
     };
     const wrapper = mount(<LoginModal {...props} />);
     const { setCredentials } = wrapper.instance();
 
-    expect(setCredentials('username', 'xyz')).toBeUndefined();
-    expect(wrapper.state('form').username).toEqual('xyz');
+    expect(setCredentials('username', eventUsername)).toBeUndefined();
+    expect(wrapper.state('form').username.value).toEqual('xyz');
 
-    expect(setCredentials('password', '1234')).toBeUndefined();
-    expect(wrapper.state('form').password).toEqual('1234');
+    expect(setCredentials('password', eventPassword)).toBeUndefined();
+    expect(wrapper.state('form').password.value).toEqual('1234');
   });
 
-  it('submitCredential: should call the onSubmit', () => {
+  test('validateCredentials: should validate credentials', async () => {
     const props = {
       visibility: true,
       error: {},
       onCancel: () => {},
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
     };
 
-    const event = {
-      preventDefault: jest.fn()
-    };
     const wrapper = mount(<LoginModal {...props} />);
-    const { submitCredentials } = wrapper.instance();
-    wrapper
-      .find('input[type="text"]')
-      .simulate('change', { target: { value: 'sam' } });
-    wrapper
-      .find('input[type="password"]')
-      .simulate('change', { target: { value: '1234' } });
-    submitCredentials(event);
+    const instance = wrapper.instance();
+
+    instance.submitCredentials = jest.fn();
+    const { validateCredentials, setCredentials, submitCredentials } = instance;
+
+    expect(setCredentials('username', eventUsername)).toBeUndefined();
+    expect(wrapper.state('form').username.value).toEqual('xyz');
+
+    expect(setCredentials('password', eventPassword)).toBeUndefined();
+    expect(wrapper.state('form').password.value).toEqual('1234');
+
+    validateCredentials(event);
     expect(event.preventDefault).toHaveBeenCalled();
-    expect(props.onSubmit).toHaveBeenCalledWith('sam', '1234');
+    expect(wrapper.state('form').username.pristine).toEqual(false);
+    expect(wrapper.state('form').password.pristine).toEqual(false);
+
+    expect(submitCredentials).toHaveBeenCalledTimes(1);
+  });
+
+  test('submitCredentials: should submit credentials', async () => {
+    const props = {
+      onSubmit: jest.fn(),
+    };
+
+    const wrapper = mount(<LoginModal {...props} />);
+    const { setCredentials, submitCredentials } = wrapper.instance();
+    expect(setCredentials('username', eventUsername)).toBeUndefined();
+    expect(wrapper.state('form').username.value).toEqual('xyz');
+
+    expect(setCredentials('password', eventPassword)).toBeUndefined();
+    expect(wrapper.state('form').password.value).toEqual('1234');
+
+    await submitCredentials();
+    expect(props.onSubmit).toHaveBeenCalledWith('xyz', '1234');
+    expect(wrapper.state('form').username.value).toEqual('');
+    expect(wrapper.state('form').username.pristine).toEqual(true);
+    expect(wrapper.state('form').password.value).toEqual('');
+    expect(wrapper.state('form').password.pristine).toEqual(true);
   });
 });

@@ -1,42 +1,51 @@
-import React from 'react';
-import SyntaxHighlighter, {registerLanguage} from 'react-syntax-highlighter/dist/light';
-import sunburst from 'react-syntax-highlighter/src/styles/sunburst';
-import js from 'react-syntax-highlighter/dist/languages/javascript';
+/**
+ * @prettier
+ * @flow
+ */
 
-import classes from './help.scss';
-import {getRegistryURL} from '../../utils/url';
+import React, { Fragment } from 'react';
+import type { Node } from 'react';
+import CardActions from '@material-ui/core/CardActions/index';
+import CardContent from '@material-ui/core/CardContent/index';
+import Button from '@material-ui/core/Button/index';
+import Typography from '@material-ui/core/Typography/index';
 
-registerLanguage('javascript', js);
+import CopyToClipBoard from '../CopyToClipBoard/index';
+import { getRegistryURL } from '../../utils/url';
+import { CardStyled as Card, HelpTitle } from './styles';
 
-const Help = () => {
-  const registryURL = getRegistryURL();
+function renderHeadingClipboardSegments(title: string, text: string): Node {
+  return (
+    <Fragment>
+      <Typography variant={'body2'}>{title}</Typography>
+      <CopyToClipBoard text={text} />
+    </Fragment>
+  );
+}
 
-    return (
-      <div className={classes.help}>
-        <li className={classes.noPkg}>
-          <h1 className={classes.noPkgTitle}>
-            No Package Published Yet
-          </h1>
-          <div className={classes.noPkgIntro}>
-            <div>
-              To publish your first package just:
-            </div>
-            <br/>
-            <strong>
-              1. Login
-            </strong>
-            <SyntaxHighlighter language='javascript' style={sunburst} id="adduser">
-              {`npm adduser --registry  ${registryURL}`}
-            </SyntaxHighlighter>
-            <strong>2. Publish</strong>
-            <SyntaxHighlighter language='javascript' style={sunburst} id="publish">
-              {`npm publish --registry ${registryURL}`}
-            </SyntaxHighlighter>
-            <strong>3. Refresh this page!</strong>
-          </div>
-        </li>
-      </div>
-    );
+const Help = (): Node => {
+  const registryUrl = getRegistryURL();
+
+  return (
+    <Card id={'help-card'}>
+      <CardContent>
+        <Typography component={'h2'} gutterBottom={true} id={'help-card__title'} variant={'headline'}>
+          {'No Package Published Yet.'}
+        </Typography>
+        <HelpTitle color={'textSecondary'} gutterBottom={true}>
+          {'To publish your first package just:'}
+        </HelpTitle>
+        {renderHeadingClipboardSegments('1. Login', `$ npm adduser --registry ${registryUrl}`)}
+        {renderHeadingClipboardSegments('2. Publish', `$ npm publish --registry ${registryUrl}`)}
+        <Typography variant={'body2'}>{'3. Refresh this page.'}</Typography>
+      </CardContent>
+      <CardActions>
+        <Button color={'primary'} href={'https://verdaccio.org/docs/en/installation'} size={'small'} target={'_blank'}>
+          {'Learn More'}
+        </Button>
+      </CardActions>
+    </Card>
+  );
 };
 
 export default Help;

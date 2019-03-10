@@ -37,12 +37,10 @@
 }
 
 @mixin container-size {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    min-width: 400px;
-    max-width: $break-sm;
     @media screen and (min-width: $break-lg) {
         max-width: $break-lg;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

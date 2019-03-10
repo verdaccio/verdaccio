@@ -8,7 +8,8 @@ export const packageInformation = [
     homepage: 'https://jquery.com',
     author: {
       name: 'JS Foundation and other contributors',
-      url: 'https://github.com/jquery/jquery/blob/master/AUTHORS.txt'
+      url: 'https://github.com/jquery/jquery/blob/master/AUTHORS.txt',
+      avatar: '',
     },
     repository: {
       type: 'git',
@@ -108,6 +109,11 @@ export const packageInformation = [
     license: 'MIT',
     private: true,
     main: 'lodash.js',
+    author: {
+      name: 'John david dalton',
+      url: 'test url',
+      avatar: 'test avatar',
+    },
     engines: {
       node: '>=4.0.0'
     },

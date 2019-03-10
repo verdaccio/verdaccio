@@ -16,10 +16,9 @@ module.exports = {
 
   plugins: [
     new StyleLintPlugin({
-      files: ['src/**/*.scss'],
+      files: ['src/webui/**/styles.js'],
       failOnError: false,
-      emitErrors: true,
-      syntax: 'scss',
+      emitErrors: true
     }),
   ],
 
@@ -56,36 +55,26 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.(jpe?g|png|gif)$/,
-        use: 'file-loader?name=[name].[ext]',
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader'
+          },
+        ]
       },
       {
-        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
         loader: 'url-loader',
         options: {
-          limit: 50000,
-          name: 'fonts/[hash].[ext]',
+          name: 'fonts/[name].[ext]',
+          limit: 50,
         },
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              module: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
-            },
-          },
-          {
-            loader: 'sass-loader',
-          },
-        ],
+        loader: `style-loader!css-loader?module&sourceMap=false&localIdentName=[path][name]__[local]--[hash:base64:5]
+        !resolve-url-loader?keepQuery!sass-loader?sourceMap`
       },
       {
         test: /\.css$/,

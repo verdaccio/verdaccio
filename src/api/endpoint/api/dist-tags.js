@@ -1,12 +1,14 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import mime from 'mime';
 import _ from 'lodash';
-import {media, allow} from '../../middleware';
-import {DIST_TAGS} from '../../../lib/utils';
-import type {Router} from 'express';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
-import {API_MESSAGE, HTTP_STATUS} from '../../../lib/constants';
+import { media, allow } from '../../middleware';
+import type { Router } from 'express';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
+import { API_MESSAGE, HTTP_STATUS, DIST_TAGS } from '../../../lib/constants';
 
 export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   const can = allow(auth);
@@ -15,14 +17,14 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
       return next('route');
     }
 
-    let tags = {};
+    const tags = {};
     tags[req.params.tag] = req.body;
     storage.mergeTags(req.params.package, tags, function(err) {
       if (err) {
         return next(err);
       }
       res.status(HTTP_STATUS.CREATED);
-      return next({ok: API_MESSAGE.TAG_ADDED});
+      return next({ ok: API_MESSAGE.TAG_ADDED });
     });
   };
 
@@ -50,6 +52,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   route.get('/-/package/:package/dist-tags', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.getPackage({
       name: req.params.package,
+      uplinksLook: true,
       req,
       callback: function(err, info) {
         if (err) {
@@ -62,14 +65,14 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler) {
   });
 
   route.post('/-/package/:package/dist-tags', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      storage.mergeTags(req.params.package, req.body, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.status(HTTP_STATUS.CREATED);
-        return next({
-          ok: API_MESSAGE.TAG_UPDATED,
-        });
+    storage.mergeTags(req.params.package, req.body, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(HTTP_STATUS.CREATED);
+      return next({
+        ok: API_MESSAGE.TAG_UPDATED,
       });
     });
+  });
 }

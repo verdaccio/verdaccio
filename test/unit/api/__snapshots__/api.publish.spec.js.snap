@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Publish endpoints - publish package should add a new package 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "verdaccio",
+      Object {
+        "dist-tags": Object {},
+        "name": "verdaccio",
+        "time": Object {},
+        "versions": Object {},
+      },
+      [Function],
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Publish endpoints - publish package should change the existing package 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "verdaccio",
+      Object {
+        "dist-tags": Object {},
+        "name": "verdaccio",
+        "time": Object {},
+        "versions": Object {},
+      },
+      undefined,
+      [Function],
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Publish endpoints - publish package should star a package 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "verdaccio",
+      Object {
+        "users": Object {
+          "verdaccio": true,
+        },
+      },
+      "15-e53a77096b0ee33e",
+      [Function],
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

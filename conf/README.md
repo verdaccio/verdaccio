@@ -1,1 +1,1 @@
-This directory is for config examples.
+This directory is for config example.

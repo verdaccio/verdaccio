@@ -1,10 +1,8 @@
 ![verdaccio logo](https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png)
 
-![verdaccio ui](https://github.com/verdaccio/verdaccio/raw/master/assets/gif/verdaccio_big_30.gif?raw=true)
+![verdaccio gif](https://user-images.githubusercontent.com/558752/52916111-fa4ba980-32db-11e9-8a64-f4e06eb920b3.png)
 
-[📢 Share your feedback in our Survey "Verdaccio Community Feedback #1"](https://t.co/kqDtknO5d0)
-
-# Version 3
+# Version 4
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
@@ -121,7 +119,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
-docker pull verdaccio/verdaccio:3
+docker pull verdaccio/verdaccio:4.0.0
 ```
 
 ### Running verdaccio using Docker
@@ -152,7 +150,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 ### User management
 
 - Registering new users (npm adduser {newuser}) - **supported**
-- Change password (npm profile set password)  - **supported (4.x)**
+- Change password (npm profile set password)  - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, *PR-welcome*
 
 ### Miscellany
@@ -165,6 +163,14 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - npm audit - **supported**
 
+
+## Special Thanks
+
+Thanks to the following companies to help us to achieve our goals providing free open source licenses.
+
+[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
+[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
+[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
 
 ## Open Collective Sponsors
 

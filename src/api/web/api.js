@@ -1,22 +1,25 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
-import {Router} from 'express';
+import { Router } from 'express';
 import bodyParser from 'body-parser';
 import addUserAuthApi from './endpoint/user';
 import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
 
 import Search from '../../lib/search';
-import {match, validateName, validatePackage, securityIframe} from '../middleware';
-import type {Config} from '@verdaccio/types';
-import type {IAuth, IStorageHandler} from '../../../types';
+import { match, validateName, validatePackage, securityIframe } from '../middleware';
+import type { Config } from '@verdaccio/types';
+import type { IAuth, IStorageHandler } from '../../../types';
 
 const route = Router(); /* eslint new-cap: 0 */
 
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
 */
-module.exports = function(config: Config, auth: IAuth, storage: IStorageHandler) {
+export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   Search.configureStorage(storage);
 
   // validate all of these params as a package name
@@ -25,15 +28,14 @@ module.exports = function(config: Config, auth: IAuth, storage: IStorageHandler)
   route.param('package', validatePackage);
   // $FlowFixMe
   route.param('filename', validateName);
-  // $FlowFixMe
   route.param('version', validateName);
   route.param('anything', match(/.*/));
 
-  route.use(bodyParser.urlencoded({extended: false}));
+  route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
   route.use(securityIframe);
 
-  addPackageWebApi(route, storage, auth);
+  addPackageWebApi(route, storage, auth, config);
   addSearchWebApi(route, storage, auth);
   addUserAuthApi(route, auth, config);
 
@@ -43,4 +45,4 @@ module.exports = function(config: Config, auth: IAuth, storage: IStorageHandler)
   // We will/may replace current token with JWT in next major release, and it will not expire at all(configurable).
 
   return route;
-};
+}

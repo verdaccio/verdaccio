@@ -13,6 +13,8 @@
   "rules": {
     "valid-jsdoc": 0,
     "no-redeclare": 1,
+    "jest/consistent-test-it": ["error", {"fn": "test"}],
+    "jest/no-jasmine-globals": 2,
     "no-console": [
       2,
       {
