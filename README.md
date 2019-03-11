@@ -163,6 +163,17 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - npm audit - **supported**
 
+## Core Team
+
+The core team is the responsable for drive this project, team is ordered by antiquity and areas of responsability.
+
+|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  |  [Priscila Oliveria](https://github.com/priscilawebdev) | 
+|---|---|---|---|
+| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)   | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4)       | ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | 
+| [@jotadeveloper](https://twitter.com/jotadeveloper)  | [@ayusharma_](https://twitter.com/ayusharma_) | [@sergiohgz](https://twitter.com/sergiohgz)  | [@priscilawebdev](https://twitter.com/priscilawebdev) |
+| All areas  |  All areas | Docker,Builds,Stack |  UI, Stack  | 
+
+You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at *Twitter*.
 
 ## Special Thanks
 
