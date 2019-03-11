@@ -19,7 +19,7 @@ const indexTemplate = path.join(distLocation, 'index.html');
 const existTemplate = fs.existsSync(indexTemplate);
 
 if (!existTemplate) {
-  const err = new VError('missing file: "%s", run `yarn build:webui`', distLocation);
+  const err = new VError('missing file: "%s"', indexTemplate);
   /* eslint no-console:off */
   console.error(chalk.red(err.message));
   /* eslint no-console:off */

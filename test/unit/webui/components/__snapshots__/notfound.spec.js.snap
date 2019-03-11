@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<NotFound /> component should load the component in default state 1`] = `ShallowWrapper {}`;
