@@ -602,6 +602,45 @@ describe('endpoint unit test', () => {
             });
         });
       });
+
+      test('should retrieve stars list with credentials', async (done) => {
+        const credentials = { name: 'star_user', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
+        request(app)
+          .put('/@scope%2fpk1-test')
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(JSON.stringify({
+            ...starMetadata,
+            users: {
+              [credentials.name]: true
+            }
+          }))
+          .expect(HTTP_STATUS.OK).end(function(err, res) {
+            if (err) {
+              expect(err).toBeNull();
+              return done(err);
+            }
+            request(app)
+              .get('/-/_view/starredByUser')
+              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .send(JSON.stringify({
+                key: [credentials.name]
+              }))
+              .expect(HTTP_STATUS.OK)
+              .end(function(err, res) {
+                if (err) {
+                  expect(err).toBeNull();
+                  return done(err);
+                }
+                expect(res.body.rows).toBeDefined();
+                expect(res.body.rows.length).toBeGreaterThan(0);
+                done();
+              });
+          });
+      });
+
       test('should unpublish a new package with credentials', async (done) => {
 
         const credentials = { name: 'jota_unpublish', password: 'secretPass' };
