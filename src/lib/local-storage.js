@@ -8,7 +8,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
 import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
-import { API_ERROR, DIST_TAGS, STORAGE } from './constants';
+import { API_ERROR, DIST_TAGS, STORAGE, USERS } from './constants';
 import { createTarballHash } from './crypto-utils';
 import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
@@ -204,7 +204,8 @@ class LocalStorage implements IStorage {
         metadata = cleanUpReadme(metadata);
         metadata.contributors = normalizeContributors(metadata.contributors);
 
-        if (data.versions[version] != null) {
+        const hasVersion = data.versions[version] != null;
+        if (hasVersion) {
           return cb(ErrorCode.getConflict());
         }
 
@@ -333,6 +334,7 @@ class LocalStorage implements IStorage {
           }
         }
 
+        localData[USERS] = incomingPkg[USERS];
         localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
         cb();
       },
@@ -629,29 +631,6 @@ class LocalStorage implements IStorage {
 
       callback(err, normalizePackage(result));
     });
-  }
-
-  _getCustomPackageLocalStorages() {
-    const storages = {};
-
-    // add custom storage if exist
-    if (this.config.storage) {
-      storages[this.config.storage] = true;
-    }
-
-    const { packages } = this.config;
-
-    if (packages) {
-      const listPackagesConf = Object.keys(packages);
-
-      listPackagesConf.map(pkg => {
-        if (packages[pkg].storage) {
-          storages[packages[pkg].storage] = true;
-        }
-      });
-    }
-
-    return storages;
   }
 
   /**

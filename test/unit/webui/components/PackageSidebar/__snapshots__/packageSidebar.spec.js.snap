@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<PackageSidebar /> component should load the packageMeta 1`] = `"<aside class=\\"sidebar-loading\\">Loading package information...</aside>"`;

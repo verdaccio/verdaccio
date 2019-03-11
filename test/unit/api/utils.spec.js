@@ -12,9 +12,11 @@ import {
   getVersion,
   normalizeDistTags,
   getWebProtocol,
-  getVersionFromTarball
+  getVersionFromTarball,
+  sortByName,
+  formatAuthor
 } from '../../../src/lib/utils';
-import { DIST_TAGS } from '../../../src/lib/constants';
+import { DIST_TAGS, DEFAULT_USER } from '../../../src/lib/constants';
 import Logger, { setup } from '../../../src/lib/logger';
 import { readFile } from '../../functional/lib/test.utils';
 
@@ -46,6 +48,47 @@ describe('Utilities', () => {
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
+    describe('Sort packages', () => {
+      const packages = [
+        {
+          name: 'ghc'
+        },
+        {
+          name: 'abc'
+        },
+        {
+          name: 'zxy'
+        }
+      ];
+      test('should order ascending', () => {
+        expect(sortByName(packages)).toEqual([
+          {
+            name: 'abc'
+          },
+          {
+            name: 'ghc'
+          },
+          {
+            name: 'zxy'
+          }
+        ]);
+      });
+
+      test('should order descending', () => {
+        expect(sortByName(packages, false)).toEqual([
+          {
+            name: 'zxy'
+          },
+          {
+            name: 'ghc'
+          },
+          {
+            name: 'abc'
+          }
+        ]);
+      });
+    });
+
     describe('getWebProtocol', () => {
       test('should handle undefined header', () => {
         expect(getWebProtocol(undefined, 'http')).toBe('http');
@@ -521,6 +564,28 @@ describe('Utilities', () => {
         }
       };
       expect(addGravatarSupport(packageInfo)).toEqual(result);
+    });
+  });
+
+  describe('formatAuthor', () => {
+    test('should check author field different values', () => {
+      const author = 'verdaccioNpm';
+      expect(formatAuthor(author).name).toEqual(author);
+    });
+    test('should check author field for object value', () => {
+      const user = {
+        name: 'Verdaccion NPM',
+        email: 'verdaccio@verdaccio.org',
+        url: 'https://verdaccio.org'
+      };
+      expect(formatAuthor(user).url).toEqual(user.url);
+      expect(formatAuthor(user).email).toEqual(user.email);
+      expect(formatAuthor(user).name).toEqual(user.name);
+    });
+    test('should check author field for other value', () => {
+      expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
+      expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
+      expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
     });
   });
 });

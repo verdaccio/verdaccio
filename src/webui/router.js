@@ -3,44 +3,67 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+/* eslint  react/jsx-max-depth:0 */
+
+import React, { Component, Fragment } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import { AppContextConsumer } from './app';
 
 import { asyncComponent } from './utils/asyncComponent';
+import history from './history';
+import Header from './components/Header';
 
-const DetailPackage = asyncComponent(() => import('./pages/detail'));
+const NotFound = asyncComponent(() => import('./components/NotFound'));
+const VersionPackage = asyncComponent(() => import('./pages/version'));
 const HomePage = asyncComponent(() => import('./pages/home'));
 
-interface IProps {
-  isUserLoggedIn: boolean;
-  packages: Array<Object>;
-}
-
-interface IState {}
-
-class RouterApp extends Component<IProps, IState> {
+class RouterApp extends Component<any, any> {
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact={true} path={'/'} render={this.renderHomePage} />
-          <Route exact={true} path={'/detail/@:scope/:package'} render={this.renderDetailPage} />
-          <Route exact={true} path={'/detail/:package'} render={this.renderDetailPage} />
-        </Switch>
+      <Router history={history}>
+        <Fragment>
+          {this.renderHeader()}
+          <Switch>
+            <Route exact={true} path={'/'} render={this.renderHomePage} />
+            <Route exact={true} path={'/-/web/detail/@:scope/:package'} render={this.renderVersionPage} />
+            <Route exact={true} path={'/-/web/detail/:package'} render={this.renderVersionPage} />
+            <Route component={NotFound} />
+          </Switch>
+        </Fragment>
       </Router>
     );
   }
 
-  renderHomePage = () => {
-    const { isUserLoggedIn, packages } = this.props;
+  renderHeader = () => {
+    const { onLogout, onToggleLoginModal } = this.props;
 
-    return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ logoUrl, scope, user }) {
+          return <Header logo={logoUrl} onLogout={onLogout} onToggleLoginModal={onToggleLoginModal} scope={scope} username={user.username} />;
+        }}
+      </AppContextConsumer>
+    );
   };
 
-  renderDetailPage = (routerProps: any) => {
-    const { isUserLoggedIn } = this.props;
+  renderHomePage = () => {
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ isUserLoggedIn, packages }) {
+          return <HomePage isUserLoggedIn={isUserLoggedIn} packages={packages} />;
+        }}
+      </AppContextConsumer>
+    );
+  };
 
-    return <DetailPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+  renderVersionPage = (routerProps: any) => {
+    return (
+      <AppContextConsumer>
+        {function renderConsumerVersionPage({ isUserLoggedIn }) {
+          return <VersionPackage {...routerProps} isUserLoggedIn={isUserLoggedIn} />;
+        }}
+      </AppContextConsumer>
+    );
   };
 }
 

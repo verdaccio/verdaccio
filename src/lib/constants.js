@@ -10,7 +10,9 @@ export const DEFAULT_DOMAIN: string = 'localhost';
 export const TIME_EXPIRATION_24H: string = '24h';
 export const TIME_EXPIRATION_7D: string = '7d';
 export const DIST_TAGS = 'dist-tags';
+export const USERS = 'users';
 export const DEFAULT_MIN_LIMIT_PASSWORD: number = 3;
+export const DEFAULT_USER = 'Anonymous';
 
 export const keyPem = 'verdaccio-key.pem';
 export const certPem = 'verdaccio-cert.pem';
@@ -102,8 +104,10 @@ export const API_ERROR = {
   CONFIG_BAD_FORMAT: 'config file must be an object',
   BAD_USERNAME_PASSWORD: 'bad username/password, access denied',
   NO_PACKAGE: 'no such package available',
+  PACKAGE_CANNOT_BE_ADDED: 'this package cannot be added',
   BAD_DATA: 'bad data',
   NOT_ALLOWED: 'not allowed to access package',
+  NOT_ALLOWED_PUBLISH: 'not allowed to publish package',
   INTERNAL_SERVER_ERROR: 'internal server error',
   UNKNOWN_ERROR: 'unknown error',
   NOT_PACKAGE_UPLINK: 'package does not exist on uplink',

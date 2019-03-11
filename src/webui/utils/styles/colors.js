@@ -8,9 +8,12 @@ const colors = {
     white: '#fff',
     red: '#d32f2f',
     grey: '#808080',
-
+    greySuperLight: '#f5f5f5',
     greyLight: '#d3d3d3',
+    greyLight2: '#908ba1',
+    greyLight3: '#f3f4f240',
     greyDark: '#a9a9a9',
+    greyDark2: '#586069',
     greyChateau: '#95989a',
     greyGainsboro: '#e3e3e3',
     greyAthens: '#d3dddd',

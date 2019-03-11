@@ -51,18 +51,25 @@ module.exports = function(config, auth, storage) {
     });
   });
 
-  router.get('/', function(req, res) {
-    const installPath = _.get(config, 'url_prefix', '');
-    const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), installPath);
+  function renderHTML(req, res) {
+    const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
     const webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
-      .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : null)
+      .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : '')
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
     res.setHeader('Content-Type', 'text/html');
 
     res.send(webPage);
+  }
+
+  router.get('/-/web/:section/*', function(req, res) {
+    renderHTML(req, res);
+  });
+
+  router.get('/', function(req, res) {
+    renderHTML(req, res);
   });
 
   return router;

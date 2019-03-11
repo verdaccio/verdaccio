@@ -53,13 +53,15 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
   return Object.keys(pluginConfigs).map((pluginId: string) => {
     let plugin;
 
+    const localPlugin = Path.resolve(__dirname + '/../plugins', pluginId);
     // try local plugins first
-    plugin = tryLoad(Path.resolve(__dirname + '/../plugins', pluginId));
+    plugin = tryLoad(localPlugin);
 
     // try the external plugin directory
     if (plugin === null && config.plugins) {
       const pluginDir = config.plugins;
-      plugin = tryLoad(Path.resolve(pluginDir, pluginId));
+      const externalFilePlugin = Path.resolve(pluginDir, pluginId);
+      plugin = tryLoad(externalFilePlugin);
 
       // npm package
       if (plugin === null && pluginId.match(/^[^\.\/]/)) {

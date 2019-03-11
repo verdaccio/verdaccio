@@ -2,6 +2,7 @@
 
 import rimRaf from 'rimraf';
 import path from 'path';
+
 import LocalStorage from '../../../src/lib/local-storage';
 import AppConfig from '../../../src/lib/config';
 // $FlowFixMe
@@ -27,8 +28,10 @@ describe('LocalStorage', () => {
   const tarballName2: string = `${pkgName}-add-tarball-1.0.5.tgz`;
 
   const getStorage = (LocalStorageClass = LocalStorage) => {
-    const config: Config = new AppConfig(configExample);
-    config.self_path = path.join('../partials/store');
+    const config: Config = new AppConfig(configExample({
+      self_path: path.join('../partials/store')
+    }));
+    
     return new LocalStorageClass(config, Logger.logger);
   }
 
@@ -262,7 +265,7 @@ describe('LocalStorage', () => {
         // $FlowFixMe
         MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage)
         _storage = getStorage(MockLocalStorage);
-        rimRaf(path.join(configExample.storage, pkgName), async () => {
+        rimRaf(path.join(configExample().storage, pkgName), async () => {
           await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
           await addNewVersion(pkgName, '1.0.1');
           await addNewVersion(pkgName, version);
@@ -363,16 +366,10 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball ', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
-          let spy;
-          // $FlowFixMe
-          spy = jest.spyOn(stream &&  stream._readableState && stream._readableState.pipes, 'abort');
           stream.on('error', (err) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
             expect(err.message).toMatch(/this package is already present/);
-          });
-          stream.on('success', function(){
-            expect(spy).toHaveBeenCalled();
             done();
           });
           stream.end(new Buffer(tarballData.data, 'base64'));

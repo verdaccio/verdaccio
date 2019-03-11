@@ -22,7 +22,7 @@ import {parseConfigurationFile} from '../__helper';
 import type {IAuth, } from '../../../types/index';
 import type {Config, Security, RemoteUser} from '@verdaccio/types';
 
-setup(configExample.logs);
+setup([]);
 
 describe('Auth utilities', () => {
   const parseConfigurationSecurityFile = (name) => {
@@ -31,7 +31,7 @@ describe('Auth utilities', () => {
 
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
-    const secConf= _.merge(configExample, conf);
+    const secConf= _.merge(configExample(), conf);
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
 

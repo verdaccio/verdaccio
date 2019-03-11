@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
+import Typography from '@material-ui/core/Typography/index';
+
 import { IProps } from './types';
-import { Wrapper } from './styles';
 
 const NoItems = ({ text }: IProps) => (
-  <Wrapper>
-    <h2>{text}</h2>
-  </Wrapper>
+  <Typography gutterBottom={true} variant={'subtitle1'}>
+    {text}
+  </Typography>
 );
 
 export default NoItems;

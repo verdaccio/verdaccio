@@ -27,7 +27,7 @@ describe('startServer via API', () => {
       const version = '1.0.0';
       const port = '6000';
 
-      await startServer(_.clone(config), port, store, version, serverName,
+      await startServer(config(), port, store, version, serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
@@ -49,7 +49,7 @@ describe('startServer via API', () => {
       const address = 'https://www.domain.com:443';
       const realProcess = process;
 
-      const conf = _.clone(config);
+      const conf = config();
       conf.https = {};
       // save process to catch exist
       const exitMock = jest.fn();

@@ -18,7 +18,6 @@ const renderTooltip = () => (
       <Flag name={'nicaragua'} size={'md'} />
       <Flag name={'india'} size={'md'} />
       <Flag name={'brazil'} size={'md'} />
-      <Flag name={'pakistan'} size={'md'} />
       <Flag name={'china'} size={'md'} />
       <Flag name={'austria'} size={'md'} />
     </Flags>

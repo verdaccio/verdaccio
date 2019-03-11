@@ -71,7 +71,7 @@ export default function(server, express) {
           latest: "1.1.0"
         };
 
-        expect(body).toStrictEqual(expected);
+        expect(body).toEqual(expected);
       });
     });
 
@@ -94,7 +94,7 @@ export default function(server, express) {
             "quux": "0.1.0"
           };
 
-          expect(body).toStrictEqual(expected);
+          expect(body).toEqual(expected);
         });
       });
     });
@@ -115,7 +115,7 @@ export default function(server, express) {
             latest: '1.1.0'
           };
 
-          expect(body).toStrictEqual(expected);
+          expect(body).toEqual(expected);
         });
       });
     });
@@ -135,7 +135,7 @@ export default function(server, express) {
             foo: "0.1.3alpha"
           };
 
-          expect(body).toStrictEqual(expected);
+          expect(body).toEqual(expected);
         });
       });
     });
@@ -154,7 +154,7 @@ export default function(server, express) {
             "quux": "0.1.0"
           };
 
-          expect(body).toStrictEqual(expected);
+          expect(body).toEqual(expected);
         });
       });
     });

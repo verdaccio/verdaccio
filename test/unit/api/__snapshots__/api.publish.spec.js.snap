@@ -16,7 +16,7 @@ exports[`Publish endpoints - publish package should add a new package 1`] = `
   ],
   "results": Array [
     Object {
-      "isThrow": false,
+      "type": "return",
       "value": undefined,
     },
   ],
@@ -40,7 +40,30 @@ exports[`Publish endpoints - publish package should change the existing package 
   ],
   "results": Array [
     Object {
-      "isThrow": false,
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Publish endpoints - publish package should star a package 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "verdaccio",
+      Object {
+        "users": Object {
+          "verdaccio": true,
+        },
+      },
+      "15-e53a77096b0ee33e",
+      [Function],
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
       "value": undefined,
     },
   ],

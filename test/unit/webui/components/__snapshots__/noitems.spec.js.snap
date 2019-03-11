@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<NoItem /> component should load the component in default state 1`] = `"<div class=\\"css-6ghnff e1ggl3im0\\"><h2></h2></div>"`;
+exports[`<NoItem /> component should load the component in default state 1`] = `"<h6 class=\\"MuiTypography-root-1 MuiTypography-subtitle1-19 MuiTypography-gutterBottom-28\\"></h6>"`;
 
-exports[`<NoItem /> component should set html from props 1`] = `"<div class=\\"css-6ghnff e1ggl3im0\\"><h2>This is a test string</h2></div>"`;
+exports[`<NoItem /> component should set html from props 1`] = `"<h6 class=\\"MuiTypography-root-1 MuiTypography-subtitle1-19 MuiTypography-gutterBottom-28\\">This is a test string</h6>"`;

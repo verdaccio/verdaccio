@@ -254,11 +254,30 @@ describe('Publish endpoints - publish package', () => {
     expect(next).toHaveBeenCalledWith(new Error(API_ERROR.BAD_PACKAGE_DATA));
   });
 
-  test('should throw an error for un-implemented star calls', () => {
-    const storage = {};
-    req.body._rev = REVISION_MOCK;
-    req.body.users = {};
+  test('should star a package', () => {
+    const storage = {
+      changePackage: jest.fn(),
+      getPackage({ name, req, callback }) {
+        callback(null, {
+          users: {},
+        });
+      },
+    };
+    req = {
+      params: {
+        package: 'verdaccio',
+      },
+      body: {
+        _rev: REVISION_MOCK,
+        users: {
+          verdaccio: true,
+        },
+      },
+      remote_user: {
+        name: 'verdaccio',
+      },
+    };
     publishPackage(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(new Error('npm star| un-star calls are not implemented'));
+    expect(storage.changePackage).toMatchSnapshot();
   });
 });

@@ -1,26 +1,31 @@
+import _ from 'lodash';
 // @flow
-
 import Auth from '../../../src/lib/auth';
 // $FlowFixMe
-import configExample from '../partials/config/index';
+import _configExample from '../partials/config/index';
 // $FlowFixMe
-import configPlugins from '../partials/config/plugin';
+import _configPlugins from '../partials/config/plugin';
 import AppConfig from '../../../src/lib/config';
 import {setup} from '../../../src/lib/logger';
 
 import type {IAuth} from '../../../types/index';
 import type {Config} from '@verdaccio/types';
 
-const authConfig = Object.assign({}, configExample);
-// avoid noisy log output
-authConfig.logs = [{type: 'stdout', format: 'pretty', level: 'error'}];
-
-setup(configExample.logs);
+setup([]);
 
 describe('AuthTest', () => {
+  let configExample;
+  let configPlugins;
+
+  beforeEach(() => {
+    configExample = _configExample({
+      logs: [{type: 'stdout', format: 'pretty', level: 'error'}]
+    });
+    configPlugins = _.cloneDeep(_configPlugins);
+  });
 
   test('should be defined', () => {
-    const config: Config = new AppConfig(authConfig);
+    const config: Config = new AppConfig(configExample);
     const auth: IAuth = new Auth(config);
 
     expect(auth).toBeDefined();

@@ -22,7 +22,7 @@ describe('/ (Verdaccio Page)', () => {
   };
 
   const getPackages = async function() {
-    return await page.$$('.package-list-items .package');
+    return await page.$$('.package-list-items .package-link a');
   };
 
   const logIn = async function() {
@@ -131,7 +131,6 @@ describe('/ (Verdaccio Page)', () => {
   test('should navigate to the package detail', async () => {
     const packagesList = await getPackages();
     const firstPackage = packagesList[0];
-    await firstPackage.focus();
     await firstPackage.click({ clickCount: 1, delay: 200 });
     await page.waitFor(1000);
     const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
@@ -139,8 +138,8 @@ describe('/ (Verdaccio Page)', () => {
   });
 
   test('should contains last sync information', async () => {
-    const versionList = await page.$$('.sidebar-info .last-sync-item');
-    expect(versionList).toHaveLength(3);
+    const versionList = await page.$$('.sidebar-info .detail-info');
+    expect(versionList).toHaveLength(1);
   });
 
   test('should publish a protected package', async () => {

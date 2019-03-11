@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import type { Node } from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button/index';
 import IconButton from '@material-ui/core/IconButton/index';
@@ -17,7 +18,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { default as IconSearch } from '@material-ui/icons/Search';
 
 import { getRegistryURL } from '../../utils/url';
-import Link from '../Link';
+import ExternalLink from '../Link';
 import Logo from '../Logo';
 import RegistryInfoDialog from '../RegistryInfoDialog';
 import Label from '../Label';
@@ -126,7 +127,7 @@ class Header extends Component<IProps, IState> {
   renderLogo = (): Node => {
     const { logo } = this.props;
 
-    if (logo) {
+    if (logo !== '') {
       return <img alt={'logo'} height={'40px'} src={logo} />;
     } else {
       return <Logo />;
@@ -138,7 +139,7 @@ class Header extends Component<IProps, IState> {
     switch (type) {
       case 'help':
         content = (
-          <IconButton blank={true} color={'inherit'} component={Link} to={'https://verdaccio.org/docs/en/installation'}>
+          <IconButton blank={true} color={'inherit'} component={ExternalLink} to={'https://verdaccio.org/docs/en/installation'}>
             <Help />
           </IconButton>
         );

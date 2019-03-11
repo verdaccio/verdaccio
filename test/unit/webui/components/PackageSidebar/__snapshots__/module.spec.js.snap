@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<PackageSidebar /> : <Module /> should load module component 1`] = `"<div class=\\"module module-component\\"><h2 class=\\"moduleTitle\\">Test title<span>Test description</span></h2><div><p>test children</p></div></div>"`;
