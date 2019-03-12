@@ -14,7 +14,7 @@ aliases:
       - image: circleci/node:10
   - &node11_executor
     docker:
-    - image: circleci/node:11
+    - image: circleci/node:11.10.1
   - &default_executor
     <<: *node10_executor
   - &repo_key
