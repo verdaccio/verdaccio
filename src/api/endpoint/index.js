@@ -15,6 +15,7 @@ import distTags from './api/dist-tags';
 import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
+import stars from './api/stars';
 import profile from './api/v1/profile';
 
 const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
@@ -55,6 +56,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
   ping(app);
+  stars(app, storage);
 
   return app;
 }

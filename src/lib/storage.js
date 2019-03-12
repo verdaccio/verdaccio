@@ -375,11 +375,13 @@ class Storage implements IStorageHandler {
         self.localStorage.getPackageMetadata(locals[itemPkg], function(err, info) {
           if (_.isNil(err)) {
             const latest = info[DIST_TAGS].latest;
-
             if (latest && info.versions[latest]) {
               const version = info.versions[latest];
               const time = info.time[latest];
               version.time = time;
+
+              // Add for stars api
+              version.users = info.users;
 
               packages.push(version);
             } else {
