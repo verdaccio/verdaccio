@@ -22,7 +22,7 @@ aliases:
   - &coverage_key
     coverage-{{ .Branch }}-{{ .Revision }}
   - &base_config_key
-    base-config-{{ .Branch }}-{{ .Revision }}
+    base-config-b-{{ .Branch }}-{{ .Revision }}
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &restore_repo
