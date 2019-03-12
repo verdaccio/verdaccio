@@ -16,7 +16,6 @@ RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn install --production=false --no-lockfile && \
     yarn lint && \
     yarn code:docker-build && \
-    yarn build:webui && \
     yarn cache clean && \
     yarn install --production=true --no-lockfile
 
