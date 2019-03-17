@@ -65,7 +65,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
     });
   });
 
-  route.get('/:scopedPackage/-/:scope/:filename', function(req: $RequestExtend, res: $ResponseExtend) {
+  route.get('/:scopedPackage/-/:scope/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend) {
     const { scopedPackage, filename } = req.params;
 
     downloadStream(scopedPackage, filename, storage, req, res);
