@@ -380,7 +380,7 @@ export const ErrorCode = {
   },
 };
 
-function parseConfigFile(configPath: string) {
+export function parseConfigFile(configPath: string) {
   try {
     return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
   } catch(e) {
