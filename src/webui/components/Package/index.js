@@ -1,52 +1,161 @@
+/**
+ * @prettier
+ * @flow
+ */
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Tag} from 'element-react';
-import {Link} from 'react-router-dom';
+import type { Element } from 'react';
 
-import {formatDateDistance} from '../../utils/package';
+import BugReport from '@material-ui/icons/BugReport';
+import Grid from '@material-ui/core/Grid/index';
+import HomeIcon from '@material-ui/icons/Home';
+import ListItem from '@material-ui/core/ListItem/index';
+import Tooltip from '@material-ui/core/Tooltip/index';
 
-import classes from './package.scss';
+import Tag from '../Tag';
+import fileSizeSI from '../../utils/file-size';
+import { formatDate, formatDateDistance } from '../../utils/package';
+import { IProps } from './types';
 
-const Package = ({name, version, author, description, license, time}) => {
-  return (<section className={classes.package}>
-    <Link to={`detail/${name}`}>
-      <div className={classes.header}>
-        <div className={classes.title}>
-          <h1>
-            {name} <Tag type="gray">v{version}</Tag>
-          </h1>
-        </div>
-        <div role="author" className={classes.author}>
-        { author ? `By: ${author}`: ''}
-        </div>
-      </div>
-      <div className={classes.footer}>
-        <p className={classes.description}>
-          {description}
-        </p>
-      </div>
-      <div className={classes.details}>
-        <div className={classes.homepage}>
-          {time ? `Published ${formatDateDistance(time)} ago` : ''}
-        </div>
-        <div className={classes.license}>
-          {license}
-        </div>
-      </div>
-    </Link>
-  </section>);
-};
+import {
+  Author,
+  Avatar,
+  Description,
+  Details,
+  GridRightAligned,
+  Icon,
+  IconButton,
+  OverviewItem,
+  PackageList,
+  PackageListItem,
+  PackageListItemText,
+  PackageTitle,
+  Published,
+  TagContainer,
+  Text,
+  WrapperLink,
+} from './styles';
 
-Package.propTypes = {
-  name: PropTypes.string,
-  version: PropTypes.string,
-  author: PropTypes.string,
-  description: PropTypes.string,
-  license: PropTypes.string,
-  time: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date)
-  ])
+const Package = ({
+  author: { name: authorName, avatar: authorAvatar },
+  bugs: { url } = {},
+  description,
+  dist: { unpackedSize } = {},
+  homepage,
+  keywords = [],
+  license,
+  name: packageName,
+  time,
+  version,
+}: IProps): Element<WrapperLink> => {
+  //
+  const renderVersionInfo = () =>
+    version && (
+      <OverviewItem>
+        <Icon name={'version'} />
+        {`v${version}`}
+      </OverviewItem>
+    );
+
+  const renderAuthorInfo = () =>
+    authorName && (
+      <Author>
+        <Avatar alt={authorName} src={authorAvatar} />
+        <Details>
+          <Text text={authorName} />
+        </Details>
+      </Author>
+    );
+
+  const renderFileSize = () =>
+    unpackedSize && (
+      <OverviewItem>
+        <Icon name={'filebinary'} />
+        {fileSizeSI(unpackedSize)}
+      </OverviewItem>
+    );
+
+  const renderLicenseInfo = () =>
+    license && (
+      <OverviewItem>
+        <Icon name={'law'} />
+        {license}
+      </OverviewItem>
+    );
+
+  const renderPublishedInfo = () =>
+    time && (
+      <OverviewItem>
+        <Icon name={'time'} />
+        <Published>{`Published on ${formatDate(time)} •`}</Published>
+        {`${formatDateDistance(time)} ago`}
+      </OverviewItem>
+    );
+
+  const renderHomePageLink = () =>
+    homepage && (
+      <a href={homepage} target={'_blank'}>
+        <Tooltip aria-label={'Homepage'} title={'Visit homepage'}>
+          <IconButton aria-label={'Homepage'}>
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <HomeIcon />
+          </IconButton>
+        </Tooltip>
+      </a>
+    );
+
+  const renderBugsLink = () =>
+    url && (
+      <a href={url} target={'_blank'}>
+        <Tooltip aria-label={'Bugs'} title={'Open an issue'}>
+          <IconButton aria-label={'Bugs'}>
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <BugReport />
+          </IconButton>
+        </Tooltip>
+      </a>
+    );
+
+  const renderPrimaryComponent = () => {
+    return (
+      <Grid container={true} item={true} xs={12}>
+        <Grid item={true} xs={true}>
+          <WrapperLink to={`/-/web/detail/${packageName}`}>
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <PackageTitle>{packageName}</PackageTitle>
+          </WrapperLink>
+        </Grid>
+        <GridRightAligned item={true} xs={true}>
+          {renderHomePageLink()}
+          {renderBugsLink()}
+        </GridRightAligned>
+      </Grid>
+    );
+  };
+
+  const renderSecondaryComponent = () => {
+    const tags = keywords.sort().map((keyword, index) => <Tag key={index}>{keyword}</Tag>);
+    return (
+      <>
+        <Description component={'span'}>{description}</Description>
+        {tags.length > 0 && <TagContainer>{tags}</TagContainer>}
+      </>
+    );
+  };
+
+  return (
+    <PackageList className={'package'}>
+      <ListItem alignItems={'flex-start'}>
+        <PackageListItemText className={'package-link'} component={'div'} primary={renderPrimaryComponent()} secondary={renderSecondaryComponent()} />
+      </ListItem>
+      <PackageListItem alignItems={'flex-start'}>
+        {renderAuthorInfo()}
+        {renderVersionInfo()}
+        {renderPublishedInfo()}
+        {renderFileSize()}
+        {renderLicenseInfo()}
+      </PackageListItem>
+    </PackageList>
+  );
 };
 
 export default Package;

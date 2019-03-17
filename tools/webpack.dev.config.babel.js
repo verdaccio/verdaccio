@@ -34,8 +34,9 @@ export default {
       __APP_VERSION__: `"${getPackageJson('version')}"`,
     }),
     new HTMLWebpackPlugin({
-      title: 'Verdaccio',
+      title: 'Verdaccio Dev UI',
       scope: '',
+      logo: 'https://verdaccio.org/img/logo/symbol/svg/verdaccio-tiny.svg',
       filename: 'index.html',
       verdaccioURL: '//localhost:4873',
       template: `${env.SRC_ROOT}/webui/template/index.html`,
@@ -46,10 +47,9 @@ export default {
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin(),
     new StyleLintPlugin({
-      files: ['src/**/*.scss'],
+      files: ['src/webui/**/styles.js'],
       failOnError: false,
-      emitErrors: false,
-      syntax: 'scss',
+      emitErrors: false
     }),
   ],
 };

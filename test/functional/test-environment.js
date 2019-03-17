@@ -1,3 +1,2 @@
-require("babel-polyfill");
-require('babel-register');
+require('@babel/register');
 module.exports = require('./lib/environment');

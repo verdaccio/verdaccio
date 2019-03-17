@@ -5,41 +5,53 @@ import rimraf from 'rimraf';
 
 import configDefault from '../partials/config/index';
 import publishMetadata from '../partials/publish-api';
-import forbiddenPlace from '../partials/forbidden-place';
-import Config from '../../../src/lib/config';
+import starMetadata from '../partials/star-api';
 import endPointAPI from '../../../src/api/index';
 
-import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE} from '../../../src/lib/constants';
+import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../src/lib/constants';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {DIST_TAGS} from '../../../src/lib/utils';
+import {buildToken} from '../../../src/lib/utils';
+import {getNewToken} from './__api-helper';
 
 require('../../../src/lib/logger').setup([]);
-const credentials = { name: 'Jota', password: 'secretPass' };
+const credentials = { name: 'jota', password: 'secretPass' };
+
+const putPackage = (app, name, publishMetadata) => {
+  return request(app)
+    .put(name)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .send(JSON.stringify(publishMetadata))
+    .expect(HTTP_STATUS.CREATED)
+    .set('accept', 'gzip')
+    .set('accept-encoding', HEADERS.JSON)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+}
 
 describe('endpoint unit test', () => {
-  let config;
   let app;
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/test-storage');
+    const store = path.join(__dirname, '../store/test-storage-api-spec');
     const mockServerPort = 55549;
     rimraf(store, async () => {
-      const configForTest = _.clone(configDefault);
-      configForTest.auth = {
-        htpasswd: {
-          file: './test-storage/.htpasswd'
+      const configForTest = configDefault({
+        auth: {
+          htpasswd: {
+            file: './test-storage-api-spec/.htpasswd'
+          }
+        },
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
         }
-      };
-      configForTest.uplinks = {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      };
-      configForTest.self_path = store;
-      config = new Config(configForTest);
-      app = await endPointAPI(config);
+      }, 'api.spec.yaml');
+      
+      app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
@@ -114,7 +126,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package bad JWT Bearer format', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', 'Bearer')
+            .set('authorization', TOKEN_BEARER)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -127,7 +139,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package well JWT Bearer', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', 'Bearer 12345')
+            .set('authorization', buildToken(TOKEN_BEARER, '12345'))
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -141,7 +153,7 @@ describe('endpoint unit test', () => {
 
       test('should test add a new user', (done) => {
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
           .send(credentials)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
@@ -159,7 +171,7 @@ describe('endpoint unit test', () => {
             // we need it here, because token is required
             request(app)
               .get('/vue')
-              .set('authorization', `Bearer ${token}`)
+              .set('authorization', buildToken(TOKEN_BEARER, token))
               .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
               .expect(HTTP_STATUS.OK)
               .end(function(err, res) {
@@ -173,11 +185,11 @@ describe('endpoint unit test', () => {
 
       test('should test fails add a new user with missing name', (done) => {
 
-        const credentialsShort = _.clone(credentials);
+        const credentialsShort = _.cloneDeep(credentials);
         delete credentialsShort.name;
 
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
@@ -187,18 +199,18 @@ describe('endpoint unit test', () => {
             }
 
             expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/username and password is required/);
+            expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
             done();
           });
       });
 
       test('should test fails add a new user with missing password', (done) => {
 
-        const credentialsShort = _.clone(credentials);
+        const credentialsShort = _.cloneDeep(credentials);
         delete credentialsShort.password;
 
         request(app)
-          .put('/-/user/org.couchdb.user:jota')
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
@@ -209,13 +221,13 @@ describe('endpoint unit test', () => {
 
             expect(res.body.error).toBeDefined();
             //FIXME: message is not 100% accurate
-            expect(res.body.error).toMatch(/username and password is required/);
+            expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
             done();
           });
       });
 
       test('should test add a new user with login', (done) => {
-        const newCredentials = _.clone(credentials);
+        const newCredentials = _.cloneDeep(credentials);
         newCredentials.name = 'jotaNew';
 
         request(app)
@@ -243,14 +255,14 @@ describe('endpoint unit test', () => {
               return done(err);
             }
             expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/username is already registered/);
+            expect(res.body.error).toMatch(API_ERROR.USERNAME_ALREADY_REGISTERED);
             done();
           });
       });
 
       test('should test fails add a new user with wrong password', (done) => {
 
-        const credentialsShort = _.clone(credentials);
+        const credentialsShort = _.cloneDeep(credentials);
         credentialsShort.password = 'failPassword';
 
         request(app)
@@ -414,13 +426,7 @@ describe('endpoint unit test', () => {
       };
 
       test('should set a new tag on jquery', (done) => {
-
-        request(app)
-          .put('/jquery/verdaccio-tag')
-          .send(JSON.stringify(jqueryVersion))
-          .set('accept', 'gzip')
-          .set('accept-encoding', HEADERS.JSON)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        putPackage(app, '/jquery/verdaccio-tag', jqueryVersion)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -536,8 +542,8 @@ describe('endpoint unit test', () => {
 
     });
 
-    describe('should test publish api', () => {
-      test('should publish a new package', (done) => {
+    describe('should test publish/unpublish api', () => {
+      test('should publish a new package with no credentials', (done) => {
         request(app)
           .put('/@scope%2fpk1-test')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -556,11 +562,96 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test('should unpublish a new package', (done) => {
+      describe('should test star and stars api', () => {
+        test('should star a package', (done) => {
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify({
+              ...starMetadata,
+              users: {
+                [credentials.name]: true
+              }
+            }))
+            .expect(HTTP_STATUS.OK)
+            .end(function(err, res) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              expect(res.body.success).toBeDefined();
+              expect(res.body.success).toBeTruthy();
+              done();
+            });
+        });
+
+        test('should unstar a package', (done) => {
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify(starMetadata))
+            .expect(HTTP_STATUS.OK)
+            .end(function(err, res) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              expect(res.body.success).toBeDefined();
+              expect(res.body.success).toBeTruthy();
+              done();
+            });
+        });
+
+        test('should retrieve stars list with credentials', async (done) => {
+          const credentials = { name: 'star_user', password: 'secretPass' };
+          const token = await getNewToken(request(app), credentials);
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set('authorization', buildToken(TOKEN_BEARER, token))
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify({
+              ...starMetadata,
+              users: {
+                [credentials.name]: true
+              }
+            }))
+            .expect(HTTP_STATUS.OK).end(function(err) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              request(app)
+                .get('/-/_view/starredByUser')
+                .set('authorization', buildToken(TOKEN_BEARER, token))
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .send(JSON.stringify({
+                  key: [credentials.name]
+                }))
+                .expect(HTTP_STATUS.OK)
+                .end(function(err, res) {
+                  if (err) {
+                    expect(err).toBeNull();
+                    return done(err);
+                  }
+                  expect(res.body.rows).toBeDefined();
+                  expect(res.body.rows).toHaveLength(1);
+                  done();
+                });
+            });
+        });
+      });
+
+
+
+      test('should unpublish a new package with credentials', async (done) => {
+
+        const credentials = { name: 'jota_unpublish', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
         //FUTURE: for some reason it does not remove the scope folder
         request(app)
           .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -572,158 +663,89 @@ describe('endpoint unit test', () => {
             done();
           });
       });
-    });
-  });
 
-  describe('Registry WebUI endpoints', () => {
-    beforeAll(async function() {
-      await request(app)
-      .put('/@scope%2fpk1-test')
-      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .send(JSON.stringify(publishMetadata))
-      .expect(HTTP_STATUS.CREATED);
-
-      await request(app)
-      .put('/forbidden-place')
-      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .send(JSON.stringify(forbiddenPlace))
-      .expect(HTTP_STATUS.CREATED);
-    });
-
-    describe('Packages', () => {
-
-      test('should display all packages', (done) => {
+      test('should fail due non-unpublish nobody can unpublish', async (done) => {
+        const credentials = { name: 'jota_unpublish_fail', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
         request(app)
-          .get('/-/verdaccio/packages' )
-          .expect(HTTP_STATUS.OK)
+          .del('/non-unpublish/-rev/4-6abcdb4efd41a576')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .expect(HTTP_STATUS.FORBIDDEN)
           .end(function(err, res) {
-            expect(res.body).toHaveLength(1);
+            expect(err).toBeNull();
+            expect(res.body.error).toBeDefined();
+            expect(res.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
             done();
           });
       });
 
-      test.skip('should display scoped readme', (done) => {
+      test('should be able to publish/unpublish by only super_admin user', async (done) => {
+        const credentials = { name: 'super_admin', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
         request(app)
-          .get('/-/verdaccio/package/readme/@scope/pk1-test')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
+          .put('/super-admin-can-unpublish')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .send(JSON.stringify(_.assign({}, publishMetadata, {
+            name: 'super-admin-can-unpublish' 
+          })))
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
-            expect(res.text).toMatch('<h1 id="test">test</h1>\n');
-            done();
+            if (err) {
+              expect.toBeNull();
+              return done(err);
+            }
+            expect(res.body.ok).toBeDefined();
+            expect(res.body.success).toBeDefined();
+            expect(res.body.success).toBeTruthy();
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+            request(app)
+              .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.CREATED)
+              .end(function(err, res) {
+                expect(err).toBeNull();
+                expect(res.body.ok).toBeDefined();
+                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
+                done();
+              });
           });
       });
 
-      //FIXME: disable, we need to inspect why fails randomly
-      test.skip('should display scoped readme 404', (done) => {
+      test('should be able to publish/unpublish by any user', async (done) => {
+        const credentials = { name: 'any_user', password: 'secretPass' };
+        const token = await getNewToken(request(app), credentials);
         request(app)
-          .get('/-/verdaccio/package/readme/@scope/404')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
+          .put('/all-can-unpublish')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .send(JSON.stringify(_.assign({}, publishMetadata, {
+            name: 'all-can-unpublish'
+          })))
+          .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
-            expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
-            done();
+            if (err) {
+              expect.toBeNull();
+              return done(err);
+            }
+            expect(res.body.ok).toBeDefined();
+            expect(res.body.success).toBeDefined();
+            expect(res.body.success).toBeTruthy();
+            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+            request(app)
+              .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.CREATED)
+              .end(function(err, res) {
+                expect(err).toBeNull();
+                expect(res.body.ok).toBeDefined();
+                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
+                done();
+              });
           });
-      });
-
-      test('should display sidebar info', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function(err, res) {
-            const sideBarInfo = res.body;
-            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
-
-            expect(sideBarInfo.latest.author).toBeDefined();
-            expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
-            expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
-            expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
-            done();
-          });
-      });
-
-      test('should display sidebar info 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/404')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function() {
-            done();
-          });
-      });
-    });
-
-    describe('Search', () => {
-
-      test('should search pk1-test', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/scope')
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            expect(res.body).toHaveLength(1);
-            done();
-          });
-      });
-
-      test('should search with 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/@')
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            // in a normal world, the output would be 1
-            // https://github.com/verdaccio/verdaccio/issues/345
-            // should fix this
-            expect(res.body).toHaveLength(0);
-            done();
-          });
-      });
-
-      test('should not find forbidden-place', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/forbidden-place')
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            //this is expected since we are not logged
-            // and  forbidden-place is allow_access: 'nobody'
-            expect(res.body).toHaveLength(0);
-            done();
-          });
-      });
-    });
-
-    describe('User', () => {
-      describe('login webui', () => {
-        test('should log a user jota', (done) => {
-          request(app)
-            .post('/-/verdaccio/login')
-            .send({
-              username: credentials.name,
-              password: credentials.password
-            })
-            .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
-              expect(res.body.error).toBeUndefined();
-              expect(res.body.token).toBeDefined();
-              expect(res.body.token).toBeTruthy();
-              expect(res.body.username).toMatch(credentials.name);
-              done();
-            });
-        });
-
-        test('should fails on log unvalid user', (done) => {
-          request(app)
-            .post('/-/verdaccio/login')
-            .send(JSON.stringify({
-              username: 'fake',
-              password: 'fake'
-            }))
-            //FIXME: there should be 401
-            .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
-              expect(res.body.error).toMatch(/bad username\/password, access denied/);
-              done();
-            });
-        });
       });
     });
   });

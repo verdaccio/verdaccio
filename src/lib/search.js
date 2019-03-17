@@ -1,13 +1,16 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
-import lunr from 'lunr';
-import type {Version} from '@verdaccio/types';
-import type {IStorageHandler, IWebSearch} from '../../types';
+import lunrMutable from 'lunr-mutable-indexes';
+import type { Version } from '@verdaccio/types';
+import type { IStorageHandler, IWebSearch } from '../../types';
 /**
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-  index: any;
+  index: lunrMutable.index;
   storage: IStorageHandler;
 
   /**
@@ -15,10 +18,12 @@ class Search implements IWebSearch {
    */
   constructor() {
     /* eslint no-invalid-this: "off" */
-    this.index = lunr(function() {
-      this.field('name', {boost: 10});
-      this.field('description', {boost: 4});
-      this.field('author', {boost: 6});
+    this.index = lunrMutable(function() {
+      this.field('name', { boost: 10 });
+      this.field('description', { boost: 4 });
+      this.field('author', { boost: 6 });
+      this.field('keywords', { boost: 7 });
+      this.field('version');
       this.field('readme');
     });
   }
@@ -32,11 +37,12 @@ class Search implements IWebSearch {
    */
   query(query: string) {
     return query === '*'
-      ? this.storage.localStorage.localData.get((items) => {
-        items.map( function( pkg ) {
-          return {ref: pkg, score: 1};
-        });
-      }) : this.index.search(query);
+      ? this.storage.localStorage.localData.get(items => {
+          items.map(function(pkg) {
+            return { ref: pkg, score: 1 };
+          });
+        })
+      : this.index.search(`*${query}*`);
   }
 
   /**
@@ -48,6 +54,8 @@ class Search implements IWebSearch {
       id: pkg.name,
       name: pkg.name,
       description: pkg.description,
+      version: `v${pkg.version}`,
+      keywords: pkg.keywords,
       author: pkg._npmUser ? pkg._npmUser.name : '???',
     });
   }
@@ -57,16 +65,19 @@ class Search implements IWebSearch {
    * @param {*} name the id element
    */
   remove(name: string) {
-    this.index.remove({id: name});
+    this.index.remove({ id: name });
   }
 
   /**
-   * Force a reindex.
+   * Force a re-index.
    */
   reindex() {
-    let self = this;
-    this.storage.getLocalDatabase(function(err, packages) {
-      if (err) throw err; // that function shouldn't produce any
+    const self = this;
+    this.storage.getLocalDatabase(function(error, packages) {
+      if (error) {
+        // that function shouldn't produce any
+        throw error;
+      }
       let i = packages.length;
       while (i--) {
         self.add(packages[i]);

@@ -1,0 +1,12 @@
+security:
+  api:
+    legacy: true # use AES algorithm
+    # jwt enables json web token and disable legacy
+    # jwt: https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
+    sign:
+      expiresIn: 7d # 7 days by default
+    # verify:
+  web:
+    sign:
+      expiresIn: 7d # 7 days by default
+    # verify: https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback

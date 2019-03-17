@@ -1,9 +1,7 @@
-import assert from 'assert';
 import Search from '../../../src/lib/search';
 import Config from '../../../src/lib/config';
 import Storage from '../../../src/lib/storage';
-
-let config_hash = require('../partials/config/index');
+import buildConfig from '../partials/config/index';
 
 
 require('../../../src/lib/logger').setup([]);
@@ -34,7 +32,7 @@ let packages = [
 
 describe('search', () => {
 	beforeAll(async function() {
-		let config = new Config(config_hash);
+		let config = new Config(buildConfig());
 		this.storage = new Storage(config);
 		await this.storage.init(config);
 		Search.configureStorage(this.storage);
@@ -45,7 +43,7 @@ describe('search', () => {
 
 	test('search query item', () => {
 		let result = Search.query('t');
-		assert(result.length === 3);
+		expect(result).toHaveLength(3);
 	});
 
 	test('search remove item', () => {
@@ -58,9 +56,9 @@ describe('search', () => {
 		};
 		Search.add(item);
 		let result = Search.query('test6');
-		assert(result.length === 1);
-		Search.remove(item.name);
+    expect(result).toHaveLength(1);
+    Search.remove(item.name);
 		result = Search.query('test6');
-		assert(result.length === 0);
-	});
+    expect(result).toHaveLength(0);
+  });
 });

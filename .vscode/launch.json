@@ -10,6 +10,7 @@
 			"name": "CLI Babel Registry",
 			"stopOnEntry": false,
 			"program": "${workspaceFolder}/debug/bootstrap.js",
+			"args": ["-l", "0.0.0.0:4873"],
 			"env": {
 				"BABEL_ENV": "registry"
 			},
@@ -71,6 +72,7 @@
 			"name": "Verdaccio Compiled",
 			"preLaunchTask": "npm: code:build",
 			"program": "${workspaceRoot}/bin/verdaccio",
+			"args": ["-l", "0.0.0.0:4873"],
 			"console": "integratedTerminal"
 		}
 	]

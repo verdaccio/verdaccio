@@ -1,0 +1,7 @@
+notify:
+  method: POST
+  headers: { 'Content-Type': 'application/json' }
+  packagePattern: package
+  packagePatternFlags: g
+  endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+  content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'

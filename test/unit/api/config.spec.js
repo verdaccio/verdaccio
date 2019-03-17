@@ -62,22 +62,15 @@ const checkDefaultConfPackages = (config) => {
 describe('Config file', () => {
   beforeAll(function() {
 
-    this.config = new Config(parseConfigFile(resolveConf('full')));
+    this.config = new Config(parseConfigFile(resolveConf('default')));
   });
 
   describe('Config file', () => {
-    test('parse full.yaml', () => {
-      const config = new Config(parseConfigFile(resolveConf('full')));
-      checkDefaultUplink(config);
-      expect(config.storage).toBe('./storage');
-      checkDefaultConfPackages(config);
-    });
-
     test('parse docker.yaml', () => {
       const config = new Config(parseConfigFile(resolveConf('docker')));
       checkDefaultUplink(config);
-      expect(config.storage).toBe('/verdaccio/storage');
-      expect(config.auth.htpasswd.file).toBe('/verdaccio/conf/htpasswd');
+      expect(config.storage).toBe('/verdaccio/storage/data');
+      expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
       checkDefaultConfPackages(config);
     });
 

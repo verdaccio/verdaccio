@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {parse_address as parse} from '../../../src/lib/utils';
+import {parseAddress as parse} from '../../../src/lib/utils';
 import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../src/lib/constants';
 
 describe('Parse listen address', () => {

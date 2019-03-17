@@ -1,9 +1,12 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import Search from '../../../lib/search';
-import {DIST_TAGS} from '../../../lib/utils';
-import type {Router} from 'express';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import { DIST_TAGS } from '../../../lib/constants';
+import type { Router } from 'express';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 
 function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
   // Search package
@@ -14,9 +17,10 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth) {
     const getPackageInfo = function(i) {
       storage.getPackage({
         name: results[i].ref,
+        uplinksLook: false,
         callback: (err, entry) => {
           if (!err && entry) {
-            auth.allow_access(entry.name, req.remote_user, function(err, allowed) {
+            auth.allow_access({ packageName: entry.name }, req.remote_user, function(err, allowed) {
               if (err || !allowed) {
                 return;
               }

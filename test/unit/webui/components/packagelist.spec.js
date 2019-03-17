@@ -6,69 +6,55 @@ import React from 'react';
 import { mount } from 'enzyme';
 import PackageList from '../../../../src/webui/components/PackageList/index';
 import Help from '../../../../src/webui/components/Help/index';
-import NoItems from '../../../../src/webui/components/NoItems/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<PackageList /> component', () => {
-  it('should load the component with no packages', () => {
+  test('should load the component with no packages', () => {
     const props = {
       packages: [],
       help: true
     };
     const wrapper = mount(
-      <PackageList packages={props.packages} help={props.help} />
+      <PackageList help={props.help} packages={props.packages} />
     );
+    expect(wrapper.find(Help).exists()).toBeTruthy();
 
-    const instance = wrapper.instance();
-    expect(instance.isTherePackages()).toBeFalsy();
-    expect(instance.renderHelp()).toBeTruthy();
-    expect(instance.renderOptions()).toEqual(<Help />);
-    expect(instance.renderTitle()).toBeUndefined();
   });
 
-  it('should load the component with packages', () => {
+  test('should load the component with packages', () => {
     const props = {
       packages: [
         {
           name: 'verdaccio',
           version: '1.0.0',
-          time: new Date(),
+          time: new Date(1532211072138).getTime(),
           description: 'Private NPM repository',
-          author: { name: 'Sam' }
+          author: { name: 'Sam', avatar: 'test avatar' }
         },
         {
           name: 'abc',
           version: '1.0.1',
-          time: new Date(),
+          time: new Date(1532211072138).getTime(),
           description: 'abc description',
-          author: { name: 'Rose' }
+          author: { name: 'Rose', avatar: 'test avatar' }
         },
         {
           name: 'xyz',
           version: '1.1.0',
           description: 'xyz description',
-          author: { name: 'Martin' }
+          author: { name: 'Martin', avatar: 'test avatar' }
         }
       ],
       help: false
     };
+
     const wrapper = mount(
       <BrowserRouter>
-        <PackageList packages={props.packages} help={props.help} />
+        <PackageList help={props.help} packages={props.packages} />
       </BrowserRouter>
     );
 
-    const instance = wrapper.find(PackageList).instance();
 
-    expect(instance.isTherePackages()).toBeTruthy();
-    expect(instance.renderHelp()).toBeUndefined();
-    expect(instance.renderTitle().props.children).toEqual('Available Packages');
-    expect(instance.renderNoItems()).toEqual(
-      <NoItems className="package-no-items" text="No items were found with that query" />
-    );
-    expect(instance.renderOptions()).toEqual(
-      <NoItems className="package-no-items" text="No items were found with that query" />
-    );
     // package count
     expect(wrapper.find('Package')).toHaveLength(3);
     // match snapshot

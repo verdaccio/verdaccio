@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<PackageSidebar /> : <Maintainers /> <MaintainerInfo /> should load the component and match with snapshot 1`] = `"<div class=\\"maintainer\\" title=\\"test\\"><img src=\\"http://xyz.com/profile.jpg\\" alt=\\"test-title test&#x27;s avatar\\" title=\\"test-title test&#x27;s avatar\\"/><span class=\\"maintainer-name\\">test</span></div>"`;

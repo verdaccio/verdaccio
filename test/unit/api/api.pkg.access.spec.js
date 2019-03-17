@@ -3,9 +3,8 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import {HEADERS} from '../../../src/lib/constants';
+import { HEADERS, HTTP_STATUS } from '../../../src/lib/constants';
 import configDefault from '../partials/config/config_access';
-import Config from '../../../src/lib/config';
 import endPointAPI from '../../../src/api/index';
 import {mockServer} from './mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
@@ -13,7 +12,6 @@ import {DOMAIN_SERVERS} from '../../functional/config.functional';
 require('../../../src/lib/logger').setup([]);
 
 describe('api with no limited access configuration', () => {
-  let config;
   let app;
   let mockRegistry;
 
@@ -21,20 +19,21 @@ describe('api with no limited access configuration', () => {
     const mockServerPort = 55530;
     const store = path.join(__dirname, './partials/store/access-storage');
     rimraf(store, async () => {
-      const configForTest = _.clone(configDefault);
-      configForTest.auth = {
-        htpasswd: {
-          file: './access-storage/htpasswd-access-test'
+      const configForTest = _.assign({}, _.cloneDeep(configDefault), {
+        auth: {
+          htpasswd: {
+            file: './access-storage/htpasswd-access-test'
+          }
+        },
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
         }
-      };
-      configForTest.self_path = store;
-      configForTest.uplinks = {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      };
-      config = new Config(configForTest);
-      app = await endPointAPI(config);
+      });
+      
+      app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
@@ -60,7 +59,7 @@ describe('api with no limited access configuration', () => {
         .get('/jquery')
         .set('content-type', HEADERS.JSON_CHARSET)
         .expect('Content-Type', /json/)
-        .expect(404)
+        .expect(HTTP_STATUS.NOT_FOUND)
         .end(function(err, res) {
           if (err) {
             return done(err);

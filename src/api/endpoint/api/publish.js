@@ -1,58 +1,92 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import {API_MESSAGE, HEADERS} from '../../../lib/constants';
-import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
-import {media, expectJson, allow} from '../../middleware';
-import {notify} from '../../../lib/notify';
+import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../../lib/constants';
+import { validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
+import { media, expectJson, allow } from '../../middleware';
+import { notify } from '../../../lib/notify';
+import star from './star';
 
-import type {Router} from 'express';
-import type {Config, Callback} from '@verdaccio/types';
-import type {IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
+import type { Router } from 'express';
+import type { Config, Callback, MergeTags, Version } from '@verdaccio/types';
+import type { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import logger from '../../../lib/logger';
 
-export default function(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
+export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'),
-    media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const name = req.params.package;
-    let metadata;
-    const create_tarball = function(filename: string, data, cb: Callback) {
-      let stream = storage.addTarball(name, filename);
+  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config));
+
+  // un-publishing an entire package
+  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
+
+  // removing a tarball
+  router.delete('/:package/-/:filename/-rev/:revision', can('unpublish'), can('publish'), removeTarball(storage));
+
+  // uploading package tarball
+  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
+
+  // adding a version
+  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
+}
+
+/**
+ * Publish a package
+ */
+export function publishPackage(storage: IStorageHandler, config: Config) {
+  const starApi = star(storage);
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const packageName = req.params.package;
+    /**
+     * Write tarball of stream data from package clients.
+     */
+    const createTarball = function(filename: string, data, cb: Callback) {
+      const stream = storage.addTarball(packageName, filename);
       stream.on('error', function(err) {
         cb(err);
       });
       stream.on('success', function() {
         cb();
       });
-
       // this is dumb and memory-consuming, but what choices do we have?
       // flow: we need first refactor this file before decides which type use here
-      // $FlowFixMe
       stream.end(new Buffer(data.data, 'base64'));
       stream.done();
     };
 
-    const create_version = function(version, data, cb) {
-      storage.addVersion(name, version, data, null, cb);
+    /**
+     * Add new package version in storage
+     */
+    const createVersion = function(version: string, metadata: Version, cb: Callback) {
+      storage.addVersion(packageName, version, metadata, null, cb);
     };
 
-    const add_tags = function(tags, cb) {
-      storage.mergeTags(name, tags, cb);
+    /**
+     * Add new tags in storage
+     */
+    const addTags = function(tags: MergeTags, cb: Callback) {
+      storage.mergeTags(packageName, tags, cb);
     };
 
-    const after_change = function(err, ok_message) {
-      // old npm behaviour
-      if (_.isNil(metadata._attachments)) {
-        if (err) return next(err);
-        res.status(201);
+    const afterChange = function(error, okMessage, metadata) {
+      const metadataCopy = { ...metadata };
+      const { _attachments, versions } = metadataCopy;
+
+      // old npm behavior, if there is no attachments
+      if (_.isNil(_attachments)) {
+        if (error) {
+          return next(error);
+        }
+        res.status(HTTP_STATUS.CREATED);
         return next({
-          ok: ok_message,
+          ok: okMessage,
           success: true,
         });
       }
@@ -60,102 +94,129 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
       // npm-registry-client 0.3+ embeds tarball into the json upload
       // https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
       // issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
-
-      if (typeof(metadata._attachments) !== 'object'
-        || Object.keys(metadata._attachments).length !== 1
-        || typeof(metadata.versions) !== 'object'
-        || Object.keys(metadata.versions).length !== 1) {
+      if (isObject(_attachments) === false || Object.keys(_attachments).length !== 1 || isObject(versions) === false || Object.keys(versions).length !== 1) {
         // npm is doing something strange again
         // if this happens in normal circumstances, report it as a bug
         return next(ErrorCode.getBadRequest('unsupported registry call'));
       }
 
-      if (err && err.status != 409) {
-        return next(err);
+      if (error && error.status !== HTTP_STATUS.CONFLICT) {
+        return next(error);
       }
 
       // at this point document is either created or existed before
-      const t1 = Object.keys(metadata._attachments)[0];
-      create_tarball(Path.basename(t1), metadata._attachments[t1], function(err) {
-        if (err) {
-          return next(err);
+      const firstAttachmentKey = Object.keys(_attachments)[0];
+
+      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function(error) {
+        if (error) {
+          return next(error);
         }
 
-        const versionToPublish = Object.keys(metadata.versions)[0];
-        metadata.versions[versionToPublish].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
-        create_version(versionToPublish, metadata.versions[versionToPublish], function(err) {
-          if (err) {
-            return next(err);
+        const versionToPublish = Object.keys(versions)[0];
+
+        versions[versionToPublish].readme = _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
+
+        createVersion(versionToPublish, versions[versionToPublish], function(error) {
+          if (error) {
+            return next(error);
           }
 
-          add_tags(metadata[DIST_TAGS], async function(err) {
-            if (err) {
-              return next(err);
+          addTags(metadataCopy[DIST_TAGS], async function(error) {
+            if (error) {
+              return next(error);
             }
 
             try {
-              await notify(metadata, config, req.remote_user, `${metadata.name}@${versionToPublish}`);
-            } catch (err) {
-              logger.logger.error({err}, 'notify batch service has failed: @{err}');
+              await notify(metadataCopy, config, req.remote_user, `${metadataCopy.name}@${versionToPublish}`);
+            } catch (error) {
+              logger.logger.error({ error }, 'notify batch service has failed: @{error}');
             }
 
-            res.status(201);
-            return next({ok: ok_message, success: true});
+            res.status(HTTP_STATUS.CREATED);
+            return next({ ok: okMessage, success: true });
           });
         });
       });
     };
 
-    if (Object.keys(req.body).length === 1 && isObject(req.body.users)) {
-      // 501 status is more meaningful, but npm doesn't show error message for 5xx
-      return next(ErrorCode.getNotFound('npm star|unstar calls are not implemented'));
+    if (Object.prototype.hasOwnProperty.call(req.body, '_rev') && isObject(req.body.users)) {
+      return starApi(req, res, next);
     }
 
     try {
-      metadata = validate_metadata(req.body, name);
-    } catch (err) {
-      return next(ErrorCode.getBadData('bad incoming package data'));
+      const metadata = validateMetadata(req.body, packageName);
+      if (req.params._rev) {
+        storage.changePackage(packageName, metadata, req.params.revision, function(error) {
+          afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
+        });
+      } else {
+        storage.addPackage(packageName, metadata, function(error) {
+          afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
+        });
+      }
+    } catch (error) {
+      return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
+  };
+}
 
-    if (req.params._rev) {
-      storage.changePackage(name, metadata, req.params.revision, function(err) {
-        after_change(err, API_MESSAGE.PKG_CHANGED);
-      });
-    } else {
-      storage.addPackage(name, metadata, function(err) {
-        after_change(err, API_MESSAGE.PKG_CREATED);
-      });
-    }
-  });
-
-  // unpublishing an entire package
-  router.delete('/:package/-rev/*', can('publish'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+/**
+ * un-publish a package
+ */
+export function unPublishPackage(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.removePackage(req.params.package, function(err) {
       if (err) {
         return next(err);
       }
-      res.status(201);
-      return next({ok: API_MESSAGE.PKG_REMOVED});
+      res.status(HTTP_STATUS.CREATED);
+      return next({ ok: API_MESSAGE.PKG_REMOVED });
     });
-  });
+  };
+}
 
-  // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('publish'),
-  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+/**
+ * Delete tarball
+ */
+export function removeTarball(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     storage.removeTarball(req.params.package, req.params.filename, req.params.revision, function(err) {
       if (err) {
         return next(err);
       }
-      res.status(201);
-      return next({ok: API_MESSAGE.TARBALL_REMOVED});
+      res.status(HTTP_STATUS.CREATED);
+      return next({ ok: API_MESSAGE.TARBALL_REMOVED });
     });
-  });
+  };
+}
+/**
+ * Adds a new version
+ */
+export function addVersion(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const { version, tag } = req.params;
+    const packageName = req.params.package;
 
-  // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM),
-  function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const name = req.params.package;
-    const stream = storage.addTarball(name, req.params.filename);
+    storage.addVersion(packageName, version, req.body, tag, function(error) {
+      if (error) {
+        return next(error);
+      }
+
+      res.status(HTTP_STATUS.CREATED);
+      return next({
+        ok: API_MESSAGE.PKG_PUBLISHED,
+      });
+    });
+  };
+}
+
+/**
+ * uploadPackageTarball
+ */
+export function uploadPackageTarball(storage: IStorageHandler) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    const packageName = req.params.package;
+    const stream = storage.addTarball(packageName, req.params.filename);
     req.pipe(stream);
 
     // checking if end event came before closing
@@ -176,28 +237,10 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
     });
 
     stream.on('success', function() {
-      res.status(201);
+      res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: 'tarball uploaded successfully',
+        ok: API_MESSAGE.TARBALL_UPLOADED,
       });
     });
-  });
-
-  // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'),
-     media(mime.getType('json')), expectJson, function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const {version, tag} = req.params;
-    const name = req.params.package;
-
-    storage.addVersion(name, version, req.body, tag, function(err) {
-      if (err) {
-        return next(err);
-      }
-
-      res.status(201);
-      return next({
-        ok: API_MESSAGE.PKG_PUBLISHED,
-      });
-    });
-  });
+  };
 }
