@@ -425,8 +425,18 @@ const ErrorCode = {
   },
 };
 
-const parseConfigFile = (configPath: string) =>
-  YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
+function parseConfigFile(configPath: string) {
+  try {
+    return YAML.safeLoad(fs.readFileSync(configPath, 'utf8'));
+  } catch(e) {
+    try {
+      return require(configPath);
+    } catch(e) {
+      e.message = 'invalid config';
+      throw Error(e);
+    }
+  }
+}
 
 /**
  * Check whether the path already exist.
