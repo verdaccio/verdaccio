@@ -383,10 +383,10 @@ export const ErrorCode = {
 export function parseConfigFile(configPath: string) {
   try {
     return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
-  } catch(e) {
+  } catch (e) {
     try {
       return require(configPath);
-    } catch(e) {
+    } catch (e) {
       e.message = 'invalid config';
       throw Error(e);
     }
