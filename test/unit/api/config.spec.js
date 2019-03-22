@@ -81,13 +81,6 @@ describe('Config file', () => {
       expect(config.auth.htpasswd.file).toBe('./htpasswd');
       checkDefaultConfPackages(config);
     });
-
-    test('parse full.json', () => {
-      const config = new Config(parseConfigFile(resolveConf('full').replace(/.yaml$/, '.json')));
-      checkDefaultUplink(config);
-      expect(config.storage).toBe('./storage');
-      checkDefaultConfPackages(config);
-    });
   });
 
 });
