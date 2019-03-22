@@ -71,7 +71,6 @@ packages:
 server:
   keepAliveTimeout: 60
 
-# To use `npm audit` uncomment the following section
 middlewares:
   audit:
     enabled: true
