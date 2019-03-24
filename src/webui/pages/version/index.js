@@ -10,6 +10,7 @@ import DetailContainer from '../../components/DetailContainer';
 import DetailSidebar from '../../components/DetailSidebar';
 import { callDetailPage } from '../../utils/calls';
 import { getRouterPackageName } from '../../utils/package';
+import NotFound from '../../components/NotFound';
 
 export const DetailContext = React.createContext();
 
@@ -105,7 +106,11 @@ class VersionPage extends Component<any, any> {
   render() {
     const { isLoading, packageMeta, readMe, packageName } = this.state;
 
-    if (isLoading === false) {
+    if (isLoading) {
+      return <Loading />;
+    } else if (!packageMeta) {
+      return <NotFound />;
+    } else {
       return (
         <DetailContextProvider value={{ packageMeta, readMe, packageName, enableLoading: this.enableLoading }}>
           <Grid className={'container content'} container={true} spacing={0}>
@@ -118,8 +123,6 @@ class VersionPage extends Component<any, any> {
           </Grid>
         </DetailContextProvider>
       );
-    } else {
-      return <Loading />;
     }
   }
 
