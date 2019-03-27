@@ -152,4 +152,11 @@ describe('/ (Verdaccio Page)', () => {
     const text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
     expect(text).toMatch('No Package Published Yet');
   });
+
+  test('should go to 404 page', async () => {
+    await page.goto('http://0.0.0.0:55552/-/web/detail/@verdaccio/not-found');
+    await page.waitFor(500);
+    const text = await page.evaluate(() => document.querySelector('.not-found-text').textContent);
+    expect(text).toMatch("Sorry, we couldn't find it...");
+  });
 });
