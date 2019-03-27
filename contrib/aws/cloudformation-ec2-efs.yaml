@@ -1,0 +1,341 @@
+# Instructions:
+# 1. Check all "TODO" comments and make changes if required for your environment
+# 2. Provide values for all required parameters and any optional parameters desired
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Verdaccio - NPM cache / private registry
+Parameters:
+  # REQUIRED PARAMETERS
+  Ami:
+    Type: AWS::EC2::Image::Id
+    Description: >
+      Amazon Linux 2 AMI ID for the proxy instances. Find it with
+      'aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+  Ec2KeyPair:
+    Type: String
+    Description: EC2 Key Pair to use for the proxy instances.
+  HttpsCertificateArn:
+    Type: String
+    Description: ACM certificate ARN to use
+  DnsHostedZoneName:
+    Type: String
+    Description: >
+      The route 53 hosted zone name to create the `npm.<zone>` record in. Do not
+      include the trailing dot!
+  Route53RecordHostedZoneId:
+    Type: String
+    Description: >
+      Hosted Zone ID for the load balancer. Find it here:
+      https://docs.aws.amazon.com/general/latest/gr/rande.html
+  Vpc:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC to create this stack inside
+  AsgSubnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: >
+      Subnets the auto scaling group should span.
+  LbSubnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: >
+      Subnets the load balancer should span.
+  VerdaccioConfigUrl:
+    Type: String
+    Description: URL the ASG instances can download Verdaccio's config.yaml from.
+  # TODO: if you aren't using htpasswd authentication, remove this parameter
+  # and the associated user data reference.
+  VerdaccioHtpasswdUrl:
+    Type: String
+    Description: URL the ASG instances can download Verdaccio's htpasswd from.
+
+  # OPTIONAL PARAMETERS
+  DockerImage:
+    Type: String
+    Default: verdaccio/verdaccio:3
+  AsgMinSize:
+    Type: String
+    Default: '1'
+  AsgMaxSize:
+    Type: String
+    Default: '1'
+  AsgInstanceType:
+    Type: String
+    Default: t3.nano
+  DnsName:
+    Type: String
+    Default: npm
+    Description: The Route 53 record created is $DnsName.$DnsHostedZoneName
+
+Resources:
+  Asg:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    DependsOn:
+      - EfsMountA
+      - EfsMountB
+      - EfsMountC
+    Properties:
+      DesiredCapacity:
+        Ref: AsgMaxSize
+      HealthCheckGracePeriod: 60
+      HealthCheckType: ELB
+      LaunchConfigurationName:
+        Ref: Lc
+      MaxSize:
+        Ref: AsgMinSize
+      MinSize:
+        Ref: AsgMaxSize
+      Tags:
+        - Key: Name
+          Value:
+            Ref: AWS::StackName
+          PropagateAtLaunch: true
+      TargetGroupARNs:
+        - Ref: Tg
+      VPCZoneIdentifier:
+        Ref: AsgSubnets
+
+  # TODO: you may want to add target tracking scaling policy. By default the ASG
+  # does not automatically scale.
+
+  AsgSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Used by instances in the Auto Scaling Group.
+      SecurityGroupIngress:
+        - FromPort: 22
+          ToPort: 22
+          IpProtocol: tcp
+          # TODO: you may want to restrict this further
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - FromPort: 0
+          ToPort: 65535
+          IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value:
+            Fn::Sub: ${AWS::StackName} ASG
+      VpcId:
+        Ref: Vpc
+  AsgSgHttpIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId:
+        Ref: AsgSg
+      FromPort: 4873
+      ToPort: 4873
+      IpProtocol: tcp
+      SourceSecurityGroupId:
+        Ref: LbSg
+
+  Lc:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId:
+        Ref: Ami
+      InstanceType:
+        Ref: AsgInstanceType
+      KeyName:
+        Ref: Ec2KeyPair
+      SecurityGroups:
+        - Ref: AsgSg
+      UserData:
+        Fn::Base64:
+          # Since this uses Fn::Sub, don't use the ${var} form for any bash
+          # variables. Just use $var.
+          Fn::Sub: |
+            #!/bin/bash
+            set -eu
+
+            start_time=$(date +%s)
+
+            IMAGE="${DockerImage}"
+            BASE="/verdaccio"
+
+            # Mount EFS first
+            yum -y install amazon-efs-utils
+            mkdir /verdaccio
+            echo "${Efs}:/ "$BASE" efs tls,_netdev" >> /etc/fstab
+            mount -a -t efs defaults
+
+            # Create/update the config & password files.
+            mkdir "$BASE/conf"
+            curl -o "$BASE/conf/htpasswd" "${VerdaccioHtpasswdUrl}"
+            curl -o "$BASE/conf/config.yaml" "${VerdaccioConfigUrl}"
+
+            amazon-linux-extras install docker
+            systemctl start docker
+
+            # Download the image
+            docker pull "$IMAGE"
+
+            # Update permissions on the cache directory.
+            target_uid=$(docker run "$IMAGE" id -u)
+            target_gid=$(docker run "$IMAGE" id -g)
+            chown "$target_uid:$target_gid" "$BASE"
+
+            docker run --detach \
+              -p 4873:4873 \
+              --mount "type=bind,src=$BASE,dst=/verdaccio" \
+              "$IMAGE"
+
+            echo "Finished user-data script in $(( $(date +%s) - start_time)) secs"
+
+  Tg:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 5
+      HealthCheckPort: '4873'
+      HealthCheckProtocol: 'HTTP'
+      HealthCheckTimeoutSeconds: 2
+      Port: 4873
+      Protocol: 'HTTP'
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: '10'
+      VpcId:
+        Ref: Vpc
+
+  Lb:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      SecurityGroups:
+        - Ref: LbSg
+      Subnets:
+        Ref: LbSubnets
+      Tags:
+        - Key: Name
+          Value:
+            Fn::Sub: ${AWS::StackName} ALB
+
+  LbSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription:
+        Fn::Sub: Allow HTTPS connections to the ${AWS::StackName} load balancer
+      SecurityGroupIngress:
+        # TODO: You may want to restrict the allowed IPs
+        - FromPort: 443
+          ToPort: 443
+          IpProtocol: tcp
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value:
+            Fn::Sub: ${AWS::StackName} LB
+      VpcId:
+        Ref: Vpc
+  LbSgHttpEgress:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      GroupId:
+        Ref: LbSg
+      FromPort: 4873
+      ToPort: 4873
+      IpProtocol: tcp
+      DestinationSecurityGroupId:
+        Ref: AsgSg
+
+  LbListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Certificates:
+        - CertificateArn:
+            Ref: HttpsCertificateArn
+      DefaultActions:
+        - TargetGroupArn:
+            Ref: Tg
+          Type: forward
+      LoadBalancerArn:
+        Ref: Lb
+      Port: 443
+      Protocol: HTTPS
+      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+
+  Dns:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      AliasTarget:
+        DNSName:
+          Fn::GetAtt:
+            - Lb
+            - DNSName
+        HostedZoneId:
+          Ref: Route53RecordHostedZoneId
+      HostedZoneName:
+        Fn::Sub: ${DnsHostedZoneName}.
+      Name:
+        Fn::Sub: ${DnsName}.${DnsHostedZoneName}.
+      Type: A
+
+  Efs:
+    Type: AWS::EFS::FileSystem
+    Properties:
+      FileSystemTags:
+        - Key: Name
+          Value:
+            Ref: AWS::StackName
+
+  EfsSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription:
+        Fn::Sub: Allow connections from the ${AWS::StackName} ASG
+      Tags:
+        - Key: Name
+          Value:
+            Fn::Sub: ${AWS::StackName} EFS
+      VpcId:
+        Ref: Vpc
+  EfsSgFsIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId:
+        Ref: EfsSg
+      FromPort: 2049
+      ToPort: 2049
+      IpProtocol: tcp
+      SourceSecurityGroupId:
+        Ref: AsgSg
+
+  # TODO: if you have more / less than three subnets for AsgSubnets, add/delete
+  # entries here as appropriate. Also update the DependsOn section of Asg
+  # resource.
+  EfsMountA:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId:
+        Ref: Efs
+      SecurityGroups:
+        - Ref: EfsSg
+      SubnetId:
+        Fn::Select:
+          - 0
+          - Ref: AsgSubnets
+  EfsMountB:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId:
+        Ref: Efs
+      SecurityGroups:
+        - Ref: EfsSg
+      SubnetId:
+        Fn::Select:
+          - 1
+          - Ref: AsgSubnets
+  EfsMountC:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId:
+        Ref: Efs
+      SecurityGroups:
+        - Ref: EfsSg
+      SubnetId:
+        Fn::Select:
+          - 2
+          - Ref: AsgSubnets
+
+Outputs:
+  Hostname:
+    Value:
+      Ref: Dns
