@@ -175,6 +175,18 @@ The core team is the responsable for drive this project, team is ordered by anti
 
 You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at *Twitter*.
 
+## Who is using Verdaccio?
+
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+64k ⭐️)*
+* [Storybook](https://github.com/storybooks/storybook) *(+34k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+31k ⭐️)* 
+* [Uppy](https://github.com/transloadit/uppy) *(+15k ⭐️)*
+* [Aurelia Framework](https://github.com/aurelia) *(+10k ⭐️)*
+* [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+5k ⭐️)*
+* [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
+* [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
+
 ## Special Thanks
 
 Thanks to the following companies to help us to achieve our goals providing free open source licenses.
