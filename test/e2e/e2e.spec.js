@@ -142,6 +142,40 @@ describe('/ (Verdaccio Page)', () => {
     expect(versionList).toHaveLength(1);
   });
 
+  test('should display dependencies tab', async () => {
+    const dependenciesTab = await page.$$('#dependencies-tab');
+    expect(dependenciesTab).toHaveLength(1);
+    await dependenciesTab[0].click({ clickCount: 1, delay: 200 });
+    await page.waitFor(1000);
+    const tags = await page.$$('.dep-tag');
+    const tag = tags[0];
+    const label = await page.evaluate(el => el.innerText, tag);
+    expect(label).toMatch('verdaccio@');
+  });
+
+  test('should display version tab', async () => {
+    const versionsTab = await page.$$('#versions-tab');
+    expect(versionsTab).toHaveLength(1);
+    await versionsTab[0].click({ clickCount: 1, delay: 200 });
+    await page.waitFor(1000);
+    const versionItems = await page.$$('.version-item');
+    expect(versionItems).toHaveLength(2);
+  });
+
+  test('should display uplinks tab', async () => {
+    const upLinksTab = await page.$$('#uplinks-tab');
+    expect(upLinksTab).toHaveLength(1);
+    await upLinksTab[0].click({ clickCount: 1, delay: 200 });
+    await page.waitFor(1000);
+  });
+
+  test('should display readme tab', async () => {
+    const readmeTab = await page.$$('#readme-tab');
+    expect(readmeTab).toHaveLength(1);
+    await readmeTab[0].click({ clickCount: 1, delay: 200 });
+    await page.waitFor(1000);
+  });
+
   test('should publish a protected package', async () => {
     await page.goto('http://0.0.0.0:55552');
     await page.waitFor(500);

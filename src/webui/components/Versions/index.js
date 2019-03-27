@@ -29,7 +29,7 @@ class Versions extends React.PureComponent<any> {
         {Object.keys(packages)
           .reverse()
           .map(version => (
-            <ListItem key={version}>
+            <ListItem className={'version-item'} key={version}>
               <ListItemText>{version}</ListItemText>
               <Spacer />
               <ListItemText>{isVersion && timeMap[version] ? `${formatDateDistance(timeMap[version])} ago` : packages[version]}</ListItemText>
