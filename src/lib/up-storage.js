@@ -53,6 +53,7 @@ class ProxyStorage implements IProxy {
   proxy: string;
   last_request_time: number;
   strict_ssl: boolean;
+  agent_options: any;
 
   /**
    * Constructor
@@ -90,6 +91,7 @@ class ProxyStorage implements IProxy {
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
+    this.agent_options = setConfig(this.config, 'agent_options', {});
   }
 
   /**
@@ -212,6 +214,7 @@ class ProxyStorage implements IProxy {
         gzip: true,
         timeout: this.timeout,
         strictSSL: this.strict_ssl,
+        agentOptions: this.agent_options,
       },
       requestCallback
     );
