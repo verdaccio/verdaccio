@@ -69,12 +69,12 @@ describe('/ (Verdaccio Page)', () => {
 
   test('should match title with first step', async () => {
     const text = await page.evaluate(() => document.querySelector('#help-card').textContent);
-    expect(text).toContain('$ npm adduser --registry http://0.0.0.0:55558');
+    expect(text).toContain('npm adduser --registry http://0.0.0.0:55558');
   });
 
   test('should match title with second step', async () => {
     const text = await page.evaluate(() => document.querySelector('#help-card').textContent);
-    expect(text).toContain('$ npm publish --registry http://0.0.0.0:55558');
+    expect(text).toContain('npm publish --registry http://0.0.0.0:55558');
   });
 
   test('should match button Login to sign in', async () => {
