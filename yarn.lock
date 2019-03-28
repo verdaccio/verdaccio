@@ -1312,10 +1312,10 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
-"@verdaccio/babel-preset@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fbabel-preset/-/babel-preset-0.0.4.tgz#ad99e8404c3522d90190efc34308505cf19180ea"
-  integrity sha512-5iND5/uCFL2/HJ0AgS2z6d1DC4U+Czn1I5G3MUqR4hy3q+vNNl3Tm+18dxVukn6OI5obFoeSIQCZ/d6OCsAnpw==
+"@verdaccio/babel-preset@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@verdaccio/babel-preset/-/babel-preset-0.1.0.tgz#cb193ffd0e72e4a09d33f350c2a327a55eb15f6a"
+  integrity sha512-DXaS7lgbCh8IHlPPElbEtfInh1IXHsuERK0J/1oPxG4ZdQgUFqmpD29Ydxw6X5Hk980abvZ1FKGNOXz+VzvHsQ==
   dependencies:
     "@babel/cli" "7.2.3"
     "@babel/core" "7.2.2"

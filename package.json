@@ -55,7 +55,7 @@
     "@commitlint/config-conventional": "7.5.0",
     "@material-ui/core": "3.9.0",
     "@material-ui/icons": "3.0.2",
-    "@verdaccio/babel-preset": "0.0.4",
+    "@verdaccio/babel-preset": "0.1.0",
     "@verdaccio/types": "5.0.0-beta.3",
     "autosuggest-highlight": "3.1.1",
     "bundlesize": "0.17.1",
