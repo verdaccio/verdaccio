@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography/index';
 import { Wrapper, Inner, EmptyPackage, Heading, Card, List } from './styles';
 import PackageImg from './img/package.svg';
 
+export const NOT_FOUND_TEXT = "Sorry, we couldn't find it...";
+
 // eslint-disable-next-line react/prop-types
 const NotFound = ({ history, width }) => {
   const handleGoTo = to => () => {
@@ -42,7 +44,9 @@ const NotFound = ({ history, width }) => {
     <Wrapper>
       <Inner>
         <EmptyPackage alt={'404 - Page not found'} src={PackageImg} />
-        <Heading variant={isWidthUp('sm', width) ? 'h2' : 'h4'}>{"Sorry, we couldn't find it..."}</Heading>
+        <Heading className={'not-found-text'} variant={isWidthUp('sm', width) ? 'h2' : 'h4'}>
+          {NOT_FOUND_TEXT}
+        </Heading>
         {renderSubTitle()}
         <Card>{renderList()}</Card>
       </Inner>

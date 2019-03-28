@@ -28,7 +28,7 @@ class DepDetail extends Component<any, any> {
   render() {
     const { name, version } = this.state;
     const tagText = `${name}@${version}`;
-    return <Tag clickable={true} component={'div'} label={tagText} onClick={this.handleOnClick} />;
+    return <Tag className={'dep-tag'} clickable={true} component={'div'} label={tagText} onClick={this.handleOnClick} />;
   }
 
   handleOnClick = () => {
@@ -101,7 +101,7 @@ class Dependencies extends Component<any, any> {
     const dependencyList = Object.keys(dependencyMap).reduce((result, value, key) => {
       const selectedDepndency = dependencyMap[value];
       if (selectedDepndency && this.checkDependencyLength(selectedDepndency)) {
-        result.push(<DependencyBlock dependencies={selectedDepndency} key={key} title={value} />);
+        result.push(<DependencyBlock className={'dependency-block'} dependencies={selectedDepndency} key={key} title={value} />);
       }
       return result;
     }, []);
@@ -109,7 +109,7 @@ class Dependencies extends Component<any, any> {
     if (dependencyList.length) {
       return <Fragment>{dependencyList}</Fragment>;
     }
-    return <NoItems text={`${name} has no dependencies.`} />;
+    return <NoItems className={'no-dependencies'} text={`${name} has no dependencies.`} />;
   }
 }
 

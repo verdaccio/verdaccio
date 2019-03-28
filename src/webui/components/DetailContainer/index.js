@@ -43,10 +43,10 @@ class DetailContainer extends Component<any, any> {
       <>
         <Content>
           <Tabs indicatorColor={'primary'} onChange={this.handleChange} textColor={'primary'} value={tabPosition} variant={'fullWidth'}>
-            <Tab label={'Readme'} />
-            <Tab label={'Dependencies'} />
-            <Tab label={'Versions'} />
-            <Tab label={'Uplinks'} />
+            <Tab id={'readme-tab'} label={'Readme'} />
+            <Tab id={'dependencies-tab'} label={'Dependencies'} />
+            <Tab id={'versions-tab'} label={'Versions'} />
+            <Tab id={'uplinks-tab'} label={'Uplinks'} />
           </Tabs>
           <br />
           {tabPosition === 0 && this.renderReadme(readMe)}
