@@ -1355,27 +1355,32 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/local-storage@2.0.0-beta.3":
-  version "2.0.0-beta.3"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.0.0-beta.3.tgz#b813fae1b835cb1b4ad06a3a89b60f938ee7599b"
-  integrity sha512-AQi9OXVDqQCws1mrj/cwRVMY/RSbVuPDUg4ZLijzmZjhDO4uKtJ4NxfyR1IaSMCR1H3l0wiGURuYtpIrmLVwWw==
+"@verdaccio/local-storage@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.1.0.tgz#d941592237adb8e291942d6c87a90cefe32838e3"
+  integrity sha512-BmXkSdXT219+BBTe5vHemYpw8Vf1be2ZUdxYlvFpRltm+egJTtBSFO6lOWWcjaORkM48TGc7wR2K/jGJfX8KAg==
   dependencies:
     "@verdaccio/file-locking" "1.0.0"
     "@verdaccio/streams" "2.0.0-beta.0"
     async "3.0.1-0"
-    http-errors "1.7.1"
+    http-errors "1.7.2"
     lodash "4.17.11"
     mkdirp "0.5.1"
+
+"@verdaccio/streams@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-2.0.0.tgz#27f51d0cb19d5e49248860942092646e9a357967"
+  integrity sha512-QW1LsYir3wNnqhSznbJlt0iqkcgve0LpXI8RkoTTBPrq3M6ei3Ys4iw+JQKFve3gmYw9O+w8lBiOLc1qvvsoVQ==
 
 "@verdaccio/streams@2.0.0-beta.0":
   version "2.0.0-beta.0"
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-2.0.0-beta.0.tgz#af8c7e673a3c368deacc8024c6f5671aa2ec32ac"
   integrity sha512-EdVF6RP0abRNT0RfgLCsqLNv7FOpm+BpzMZoaQuQGHSBQRj7OTM8ft5mpbJ40rYVXKv6D8xyU0vUnoRl09ah6g==
 
-"@verdaccio/types@5.0.0-beta.3":
-  version "5.0.0-beta.3"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-5.0.0-beta.3.tgz#f6c9fd31a40b2be96fe080c49d7f4a1239413318"
-  integrity sha512-qPwE0bjDhXXVK7Gwg0O6RargAE7/AseVcZhcZEnf25RAra5ZL3MiM0dUUlierMc9XcPVjVHwTasAnF54Qmz9bg==
+"@verdaccio/types@5.0.0-beta.4":
+  version "5.0.0-beta.4"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-5.0.0-beta.4.tgz#433a36bef5b3bbd31711c48071989ac35dc83e54"
+  integrity sha512-aPrCUrFMXo/ikgT/9YEAr5EDlH2gFJGfdrUra2ipQxV3SbNrRN95KxwwSDS+W+YKG0+rAIQKIxnx8hf6gEtePQ==
 
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
@@ -13093,13 +13098,13 @@ verdaccio-htpasswd@2.0.0-beta.1:
     http-errors "1.7.1"
     unix-crypt-td-js "1.0.0"
 
-verdaccio-memory@2.0.0-beta.0:
-  version "2.0.0-beta.0"
-  resolved "https://registry.verdaccio.org/verdaccio-memory/-/verdaccio-memory-2.0.0-beta.0.tgz#61b9cbc7924d7f82481ede43f5f669f93207a4dd"
-  integrity sha512-DYBJ39qDLrLX2k1Kjr8yLUCT+0eRzhYGgRT0FrZz8JOVWkve2HSiYOk9kDIUZrM6FESpMIfY+stOBpZ5VVzAQg==
+verdaccio-memory@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.verdaccio.org/verdaccio-memory/-/verdaccio-memory-2.0.0.tgz#a650fa816cc87c94fcd336df5b8bff8993054dfa"
+  integrity sha512-JLZTR7AAnwVTSbdf0/SmuRM2PhwFUJPKOHWRq0bjOlBKerfhLUS+Vg6NOPFaPd1hrf76i/y0G6seyghrZp/CVg==
   dependencies:
     "@verdaccio/streams" "2.0.0-beta.0"
-    http-errors "1.7.1"
+    http-errors "1.7.2"
     memory-fs "0.4.1"
 
 verror@1.10.0:
