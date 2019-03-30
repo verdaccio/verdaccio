@@ -5,7 +5,12 @@ import Config from '../../../src/lib/config';
 import {parseConfigFile}  from '../../../src/lib/utils';
 import {DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE} from '../../../src/lib/constants';
 
-const resolveConf = (conf) =>  path.join(__dirname, `../../../conf/${conf}.yaml`);
+const resolveConf = (conf) => {
+  const { name, ext } = path.parse(conf);
+
+  return path.join(__dirname, `../../../conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`);
+};
+
 require('../../../src/lib/logger').setup([]);
 
 const checkDefaultUplink = (config) => {
