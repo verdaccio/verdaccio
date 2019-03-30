@@ -411,10 +411,13 @@ class Auth implements IAuth {
   }
 
   async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string {
-    const { real_groups } = user;
+    const { real_groups, name, groups } = user;
+    const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
+    const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);
     const payload: RemoteUser = {
-      ...user,
-      group: real_groups && real_groups.length ? real_groups : undefined,
+      real_groups: realGroupsValidated,
+      name,
+      groups: groupedGroups,
     };
 
     const token: string = await signPayload(payload, this.secret, signOptions);
