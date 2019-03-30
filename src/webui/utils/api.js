@@ -10,7 +10,7 @@ class API {
       if (token) {
         if (!options.headers) options.headers = {};
 
-        options.headers.authorization = token;
+        options.headers.authorization = `Bearer ${token}`;
       }
 
       if (!['http://', 'https://', '//'].some((prefix) => url.startsWith(prefix))) {
@@ -42,7 +42,7 @@ class API {
         fetch(url, {
           method,
           credentials: 'same-origin',
-          ...options
+          ...options,
         })
         .then(handleResponseType)
         .then(([responseOk, body]) => {
@@ -51,6 +51,9 @@ class API {
           } else {
             reject(body);
           }
+        })
+        .catch(error => {
+          reject(error);
         });
       });
     }

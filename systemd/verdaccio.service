@@ -1,12 +1,11 @@
 [Unit]
-Description=verdaccio Service
+Description=Verdaccio lightweight npm proxy registry
 
 [Service]
 Type=simple
+Restart=on-failure
 User=verdaccio
-WorkingDirectory=/home/verdaccio
-ExecStart=/usr/bin/env verdaccio
-ExecStop=/usr/bin/bash -c "kill $(ps -ef | grep ^verdacc+ | awk {'print $2'})"
+ExecStart=/usr/bin/verdaccio --config /etc/verdaccio/config.yaml
 
 [Install]
 WantedBy=multi-user.target

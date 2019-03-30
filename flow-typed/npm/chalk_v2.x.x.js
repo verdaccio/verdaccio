@@ -1,108 +1,98 @@
-// flow-typed signature: fa51178772ad1f35158cb4238bc3f1eb
-// flow-typed version: da30fe6876/chalk_v2.x.x/flow_>=v0.25.x
+// flow-typed signature: db5b2cdde8db39d47e27cc8ab84f89bf
+// flow-typed version: d662d43161/chalk_v2.x.x/flow_>=v0.25.x
 
-type $npm$chalk$StyleElement = {
-  open: string,
-  close: string
-};
-
-type $npm$chalk$Chain = $npm$chalk$Style & ((...text: any[]) => string);
-
-type $npm$chalk$Style = {
-  // General
-  reset: $npm$chalk$Chain,
-  bold: $npm$chalk$Chain,
-  dim: $npm$chalk$Chain,
-  italic: $npm$chalk$Chain,
-  underline: $npm$chalk$Chain,
-  inverse: $npm$chalk$Chain,
-  strikethrough: $npm$chalk$Chain,
-
-  // Text colors
-  black: $npm$chalk$Chain,
-  red: $npm$chalk$Chain,
-  redBright: $npm$chalk$Chain,
-  green: $npm$chalk$Chain,
-  greenBright: $npm$chalk$Chain,
-  yellow: $npm$chalk$Chain,
-  yellowBright: $npm$chalk$Chain,
-  blue: $npm$chalk$Chain,
-  blueBright: $npm$chalk$Chain,
-  magenta: $npm$chalk$Chain,
-  magentaBright: $npm$chalk$Chain,
-  cyan: $npm$chalk$Chain,
-  cyanBright: $npm$chalk$Chain,
-  white: $npm$chalk$Chain,
-  whiteBright: $npm$chalk$Chain,
-  gray: $npm$chalk$Chain,
-  grey: $npm$chalk$Chain,
-
-  // Background colors
-  bgBlack: $npm$chalk$Chain,
-  bgBlackBright: $npm$chalk$Chain,
-  bgRed: $npm$chalk$Chain,
-  bgRedBright: $npm$chalk$Chain,
-  bgGreen: $npm$chalk$Chain,
-  bgGreenBright: $npm$chalk$Chain,
-  bgYellow: $npm$chalk$Chain,
-  bgYellowBright: $npm$chalk$Chain,
-  bgBlue: $npm$chalk$Chain,
-  bgBlueBright: $npm$chalk$Chain,
-  bgMagenta: $npm$chalk$Chain,
-  bgMagentaBright: $npm$chalk$Chain,
-  bgCyan: $npm$chalk$Chain,
-  bgCyanBright: $npm$chalk$Chain,
-  bgWhite: $npm$chalk$Chain,
-  bgWhiteBright: $npm$chalk$Chain
-};
+// From: https://github.com/chalk/chalk/blob/master/index.js.flow
 
 declare module "chalk" {
-  declare var enabled: boolean;
-  declare var supportsColor: boolean;
+  declare type TemplateStringsArray = $ReadOnlyArray<string>;
 
-  // General
-  declare var reset: $npm$chalk$Chain;
-  declare var bold: $npm$chalk$Chain;
-  declare var dim: $npm$chalk$Chain;
-  declare var italic: $npm$chalk$Chain;
-  declare var underline: $npm$chalk$Chain;
-  declare var inverse: $npm$chalk$Chain;
-  declare var strikethrough: $npm$chalk$Chain;
+  declare type Level = $Values<{
+    None: 0,
+    Basic: 1,
+    Ansi256: 2,
+    TrueColor: 3
+  }>;
 
-  // Text colors
-  declare var black: $npm$chalk$Chain;
-  declare var red: $npm$chalk$Chain;
-  declare var redBright: $npm$chalk$Chain;
-  declare var green: $npm$chalk$Chain;
-  declare var greenBright: $npm$chalk$Chain;
-  declare var yellow: $npm$chalk$Chain;
-  declare var yellowBright: $npm$chalk$Chain;
-  declare var blue: $npm$chalk$Chain;
-  declare var blueBright: $npm$chalk$Chain;
-  declare var magenta: $npm$chalk$Chain;
-  declare var magentaBright: $npm$chalk$Chain;
-  declare var cyan: $npm$chalk$Chain;
-  declare var cyanBright: $npm$chalk$Chain;
-  declare var white: $npm$chalk$Chain;
-  declare var whiteBright: $npm$chalk$Chain;
-  declare var gray: $npm$chalk$Chain;
-  declare var grey: $npm$chalk$Chain;
+  declare type ChalkOptions = {|
+    enabled?: boolean,
+    level?: Level
+  |};
 
-  // Background colors
-  declare var bgBlack: $npm$chalk$Chain;
-  declare var bgBlackBright: $npm$chalk$Chain;
-  declare var bgRed: $npm$chalk$Chain;
-  declare var bgRedBright: $npm$chalk$Chain;
-  declare var bgGreen: $npm$chalk$Chain;
-  declare var bgGreenBright: $npm$chalk$Chain;
-  declare var bgYellow: $npm$chalk$Chain;
-  declare var bgYellowBright: $npm$chalk$Chain;
-  declare var bgBlue: $npm$chalk$Chain;
-  declare var bgBlueBright: $npm$chalk$Chain;
-  declare var bgMagenta: $npm$chalk$Chain;
-  declare var bgMagentaBright: $npm$chalk$Chain;
-  declare var bgCyan: $npm$chalk$Chain;
-  declare var bgCyanBright: $npm$chalk$Chain;
-  declare var bgWhite: $npm$chalk$Chain;
-  declare var bgWhiteBright: $npm$chalk$Chain;
+  declare type ColorSupport = {|
+    level: Level,
+    hasBasic: boolean,
+    has256: boolean,
+    has16m: boolean
+  |};
+
+  declare interface Chalk {
+    (...text: string[]): string,
+    (text: TemplateStringsArray, ...placeholders: string[]): string,
+    constructor(options?: ChalkOptions): Chalk,
+    enabled: boolean,
+    level: Level,
+    rgb(r: number, g: number, b: number): Chalk,
+    hsl(h: number, s: number, l: number): Chalk,
+    hsv(h: number, s: number, v: number): Chalk,
+    hwb(h: number, w: number, b: number): Chalk,
+    bgHex(color: string): Chalk,
+    bgKeyword(color: string): Chalk,
+    bgRgb(r: number, g: number, b: number): Chalk,
+    bgHsl(h: number, s: number, l: number): Chalk,
+    bgHsv(h: number, s: number, v: number): Chalk,
+    bgHwb(h: number, w: number, b: number): Chalk,
+    hex(color: string): Chalk,
+    keyword(color: string): Chalk,
+
+    +reset: Chalk,
+    +bold: Chalk,
+    +dim: Chalk,
+    +italic: Chalk,
+    +underline: Chalk,
+    +inverse: Chalk,
+    +hidden: Chalk,
+    +strikethrough: Chalk,
+
+    +visible: Chalk,
+
+    +black: Chalk,
+    +red: Chalk,
+    +green: Chalk,
+    +yellow: Chalk,
+    +blue: Chalk,
+    +magenta: Chalk,
+    +cyan: Chalk,
+    +white: Chalk,
+    +gray: Chalk,
+    +grey: Chalk,
+    +blackBright: Chalk,
+    +redBright: Chalk,
+    +greenBright: Chalk,
+    +yellowBright: Chalk,
+    +blueBright: Chalk,
+    +magentaBright: Chalk,
+    +cyanBright: Chalk,
+    +whiteBright: Chalk,
+
+    +bgBlack: Chalk,
+    +bgRed: Chalk,
+    +bgGreen: Chalk,
+    +bgYellow: Chalk,
+    +bgBlue: Chalk,
+    +bgMagenta: Chalk,
+    +bgCyan: Chalk,
+    +bgWhite: Chalk,
+    +bgBlackBright: Chalk,
+    +bgRedBright: Chalk,
+    +bgGreenBright: Chalk,
+    +bgYellowBright: Chalk,
+    +bgBlueBright: Chalk,
+    +bgMagentaBright: Chalk,
+    +bgCyanBright: Chalk,
+    +bgWhiteBrigh: Chalk,
+
+    supportsColor: ColorSupport
+  }
+
+  declare module.exports: Chalk;
 }

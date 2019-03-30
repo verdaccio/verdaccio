@@ -19,7 +19,7 @@ auth:
         password: test
 
 logs:
-  - {type: stdout, format: pretty, level: trace}
+  - { type: stdout, format: pretty, level: trace }
 
 packages:
   'pkg-gh131':

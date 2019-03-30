@@ -1,7 +1,7 @@
 // @flow
 
-import {DEFAULT_REVISION, normalizePackage, mergeUplinkTimeIntoLocal} from "../../../src/lib/storage-utils";
-import {DIST_TAGS} from "../../../src/lib/utils";
+import {normalizePackage, mergeUplinkTimeIntoLocal} from "../../../src/lib/storage-utils";
+import { STORAGE, DIST_TAGS } from '../../../src/lib/constants';
 import {readFile} from "../../functional/lib/test.utils";
 
 import type {Package} from '@verdaccio/types';
@@ -44,7 +44,7 @@ describe('Storage Utils', () => {
       const pkg = normalizePackage(readMetadata('metadata'));
       expect(pkg).toBeDefined();
       expect(pkg._rev).toBeDefined();
-      expect(pkg._rev).toBe(DEFAULT_REVISION);
+      expect(pkg._rev).toBe(STORAGE.DEFAULT_REVISION);
     });
   });
 

@@ -1,117 +1,126 @@
+import _ from 'lodash';
 // @flow
-
 import Auth from '../../../src/lib/auth';
 // $FlowFixMe
-import configExample from '../partials/config/index';
+import _configExample from '../partials/config/index';
 // $FlowFixMe
-import configPlugins from '../partials/config/plugin';
+import _configPlugins from '../partials/config/plugin';
 import AppConfig from '../../../src/lib/config';
 import {setup} from '../../../src/lib/logger';
 
 import type {IAuth} from '../../../types/index';
 import type {Config} from '@verdaccio/types';
 
-setup(configExample.logs);
+setup([]);
 
 describe('AuthTest', () => {
+  let configExample;
+  let configPlugins;
 
-	test('should be defined', () => {
-		const config: Config = new AppConfig(configExample);
-		const auth: IAuth = new Auth(config);
+  beforeEach(() => {
+    configExample = _configExample({
+      logs: [{type: 'stdout', format: 'pretty', level: 'error'}]
+    });
+    configPlugins = _.cloneDeep(_configPlugins);
+  });
 
-		expect(auth).toBeDefined();
-	});
+  test('should be defined', () => {
+    const config: Config = new AppConfig(configExample);
+    const auth: IAuth = new Auth(config);
 
-	describe('authenticate', () => {
-		test('should utilize plugin', () => {
-			const config: Config = new AppConfig(configPlugins);
-			const auth: IAuth = new Auth(config);
+    expect(auth).toBeDefined();
+  });
 
-			expect(auth).toBeDefined();
+  describe('test authenticate method', () => {
+    test('should utilize plugin', () => {
+      const config: Config = new AppConfig(configPlugins);
+      const auth: IAuth = new Auth(config);
 
-			const callback = jest.fn();
-			const result = [ "test" ];
+      expect(auth).toBeDefined();
 
-			// $FlowFixMe
-			auth.authenticate(1, null, callback);
-			// $FlowFixMe
-			auth.authenticate(null, result, callback);
+      const callback = jest.fn();
+      const result = [ "test" ];
 
-			expect(callback.mock.calls).toHaveLength(2);
-			expect(callback.mock.calls[0][0]).toBe(1);
-			expect(callback.mock.calls[0][1]).toBeUndefined();
-			expect(callback.mock.calls[1][0]).toBeNull();
-			expect(callback.mock.calls[1][1].real_groups).toBe(result);
-		});
+      // $FlowFixMe
+      auth.authenticate(1, null, callback);
+      // $FlowFixMe
+      auth.authenticate(null, result, callback);
 
-		test('should skip falsy values', () => {
-			const config: Config = new AppConfig(configPlugins);
-			const auth: IAuth = new Auth(config);
+      expect(callback.mock.calls).toHaveLength(2);
+      expect(callback.mock.calls[0][0]).toBe(1);
+      expect(callback.mock.calls[0][1]).toBeUndefined();
+      expect(callback.mock.calls[1][0]).toBeNull();
+      expect(callback.mock.calls[1][1].real_groups).toBe(result);
+    });
 
-			expect(auth).toBeDefined();
+    test('should skip falsy values', () => {
+      const config: Config = new AppConfig(configPlugins);
+      const auth: IAuth = new Auth(config);
 
-			const callback = jest.fn();
-			let index = 0;
+      expect(auth).toBeDefined();
 
-			// as defined by https://developer.mozilla.org/en-US/docs/Glossary/Falsy
-			for (const value of [ false, 0, "",  null, undefined, NaN ]) {
-				// $FlowFixMe
-				auth.authenticate(null, value, callback);
-				const call = callback.mock.calls[index++];
-				expect(call[0]).toBeDefined();
-				expect(call[1]).toBeUndefined();
-			}
-		});
+      const callback = jest.fn();
+      let index = 0;
 
-		test('should error truthy non-array', () => {
-			const config: Config = new AppConfig(configPlugins);
-			const auth: IAuth = new Auth(config);
+      // as defined by https://developer.mozilla.org/en-US/docs/Glossary/Falsy
+      for (const value of [ false, 0, "",  null, undefined, NaN ]) {
+        // $FlowFixMe
+        auth.authenticate(null, value, callback);
+        const call = callback.mock.calls[index++];
+        expect(call[0]).toBeDefined();
+        expect(call[1]).toBeUndefined();
+      }
+    });
 
-			expect(auth).toBeDefined();
+    test('should error truthy non-array', () => {
+      const config: Config = new AppConfig(configPlugins);
+      const auth: IAuth = new Auth(config);
 
-			const callback = jest.fn();
+      expect(auth).toBeDefined();
 
-			for (const value of [ true, 1, "test", { } ]) {
-				expect(function ( ) {
-					// $FlowFixMe
-					auth.authenticate(null, value, callback);
-				}).toThrow(TypeError);
-				expect(callback.mock.calls).toHaveLength(0);
-			}
-		});
+      const callback = jest.fn();
 
-		test('should skip empty array', () => {
-			const config: Config = new AppConfig(configPlugins);
-			const auth: IAuth = new Auth(config);
+      for (const value of [ true, 1, "test", { } ]) {
+        expect(function ( ) {
+          // $FlowFixMe
+          auth.authenticate(null, value, callback);
+        }).toThrow(TypeError);
+        expect(callback.mock.calls).toHaveLength(0);
+      }
+    });
 
-			expect(auth).toBeDefined();
+    test('should skip empty array', () => {
+      const config: Config = new AppConfig(configPlugins);
+      const auth: IAuth = new Auth(config);
 
-			const callback = jest.fn();
-			const value = [ ];
+      expect(auth).toBeDefined();
 
-			// $FlowFixMe
-			auth.authenticate(null, value, callback);
-			expect(callback.mock.calls).toHaveLength(1);
-			expect(callback.mock.calls[0][0]).toBeDefined();
-			expect(callback.mock.calls[0][1]).toBeUndefined();
-		});
+      const callback = jest.fn();
+      const value = [ ];
 
-		test('should accept valid array', () => {
-			const config: Config = new AppConfig(configPlugins);
-			const auth: IAuth = new Auth(config);
+      // $FlowFixMe
+      auth.authenticate(null, value, callback);
+      expect(callback.mock.calls).toHaveLength(1);
+      expect(callback.mock.calls[0][0]).toBeDefined();
+      expect(callback.mock.calls[0][1]).toBeUndefined();
+    });
 
-			expect(auth).toBeDefined();
+    test('should accept valid array', () => {
+      const config: Config = new AppConfig(configPlugins);
+      const auth: IAuth = new Auth(config);
 
-			const callback = jest.fn();
-			let index = 0;
+      expect(auth).toBeDefined();
 
-			for (const value of [ [ "" ], [ "1" ], [ "0" ], ["000"] ]) {
-				// $FlowFixMe
-				auth.authenticate(null, value, callback);
-				const call = callback.mock.calls[index++];
-				expect(call[0]).toBeNull();
-				expect(call[1].real_groups).toBe(value);
-			}
-		});
-	})
+      const callback = jest.fn();
+      let index = 0;
+
+      for (const value of [ [ "" ], [ "1" ], [ "0" ], ["000"] ]) {
+        // $FlowFixMe
+        auth.authenticate(null, value, callback);
+        const call = callback.mock.calls[index++];
+        expect(call[0]).toBeNull();
+        expect(call[1].real_groups).toBe(value);
+      }
+    });
+  })
 });

@@ -3,11 +3,10 @@
 import fs from 'fs';
 import path from 'path';
 import {createTarballHash} from "../../../src/lib/crypto-utils";
-import {HTTP_STATUS} from "../../../src/lib/constants";
+import { HTTP_STATUS, DIST_TAGS} from "../../../src/lib/constants";
 import {CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.functional";
 import whoIam from './whoIam';
 import ping from './ping';
-import {DIST_TAGS} from '../../../src/lib/utils';
 
 function readfile(folderPath) {
   return fs.readFileSync(path.join(__dirname, '/', folderPath));

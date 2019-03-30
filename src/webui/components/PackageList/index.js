@@ -1,77 +1,57 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
+
+import Divider from '@material-ui/core/Divider';
 
 import Package from '../Package';
 import Help from '../Help';
-import NoItems from '../NoItems';
-import {formatAuthor, formatLicense} from '../../utils/package';
+import { formatLicense } from '../../utils/package';
 
 import classes from './packageList.scss';
 
 export default class PackageList extends React.Component {
   static propTypes = {
     packages: PropTypes.array,
-    help: PropTypes.bool
   };
 
   render() {
     return (
-      <div className="package-list-items">
+      <div className={"package-list-items"}>
         <div className={classes.pkgContainer}>
-          {this.renderTitle()}
-          {this.isTherePackages() ? this.renderList() : this.renderOptions()}
+          {this.hasPackages() ? this.renderPackages(): <Help /> }
         </div>
       </div>
     );
   }
 
-  renderTitle() {
-    if (this.isTherePackages() === false) {
-      return;
-    }
-
-    return <h1 className={classes.listTitle}>Available Packages</h1>;
+  hasPackages() {
+    const {packages} = this.props;
+    return packages.length > 0;
   }
 
-  renderList() {
-    return this.props.packages.map((pkg, i) => {
-      const {name, version, description, time} = pkg;
-      const author = formatAuthor(pkg.author);
-      const license = formatLicense(pkg.license);
-      return (
-        <li key={i}>
-          <Package {...{name, version, author, description, license, time}} />
-        </li>
-      );
-    });
-  }
-
-  renderOptions() {
-    if (this.isTherePackages() === false && this.props.help) {
-      return this.renderHelp();
-    } else {
-      return this.renderNoItems();
-    }
-  }
-
-  renderNoItems() {
+  renderPackages = () => {
     return (
-      <NoItems
-        className="package-no-items"
-        text={'No items were found with that query'}
-      />
+      <Fragment>
+        {this.renderList()}
+      </Fragment>
     );
   }
 
-  renderHelp() {
-    if (this.props.help === false) {
-      return;
-    }
-    return <Help />;
-  }
-
-  isTherePackages() {
-    return isEmpty(this.props.packages) === false;
+  renderList = () => {
+    const { packages } = this.props;
+    return (
+      packages.map((pkg, i) => {
+        const { name, version, description, time, keywords, dist, homepage, bugs } = pkg;
+        const author = pkg.author;
+        // TODO: move format license to API side.
+        const license = formatLicense(pkg.license);
+        return (
+          <React.Fragment key={i}>
+            {i !== 0 && <Divider></Divider>}
+            <Package {...{ name, dist, version, author, description, license, time, keywords, homepage, bugs }} />
+          </React.Fragment>
+        );
+      })
+    );
   }
 }

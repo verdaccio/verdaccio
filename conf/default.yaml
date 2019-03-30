@@ -12,16 +12,29 @@ storage: ./storage
 plugins: ./plugins
 
 web:
-  # WebUI is enabled as default, if you want disable it, just uncomment this line
-  #enable: false
   title: Verdaccio
+  # comment out to disable gravatar support
+  # gravatar: false
+  # by default packages are ordercer ascendant (asc|desc)
+  # sort_packages: asc
 
 auth:
   htpasswd:
     file: ./htpasswd
     # Maximum amount of users allowed to register, defaults to "+inf".
     # You can set this to -1 to disable registration.
-    #max_users: 1000
+    # max_users: 1000
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 60d
+        notBefore: 1
+  web:
+    sign:
+      expiresIn: 7d
+      notBefore: 1
 
 # a list of other known repositories we can talk to
 uplinks:
@@ -33,6 +46,7 @@ packages:
     # scoped packages
     access: $all
     publish: $authenticated
+    unpublish: $authenticated
     proxy: npmjs
 
   '**':
@@ -43,20 +57,26 @@ packages:
     # and three keywords: "$all", "$anonymous", "$authenticated"
     access: $all
 
-    # allow all known users to publish packages
+    # allow all known users to publish/publish packages
     # (anyone can register by default, remember?)
     publish: $authenticated
+    unpublish: $authenticated
 
     # if package is not available locally, proxy requests to 'npmjs' registry
     proxy: npmjs
 
-# To use `npm audit` uncomment the following section
+# You can specify HTTP/1.1 server keep alive timeout in seconds for incomming connections.
+# A value of 0 makes the http server behave similarly to Node.js versions prior to 8.0.0, which did not have a keep-alive timeout.
+# WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enought.
+server:
+  keepAliveTimeout: 60
+
 middlewares:
   audit:
     enabled: true
 
 # log settings
 logs:
-  - {type: stdout, format: pretty, level: http}
+  - { type: stdout, format: pretty, level: http }
   #- {type: file, path: verdaccio.log, level: info}
 

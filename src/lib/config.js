@@ -1,24 +1,19 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import _ from 'lodash';
 import assert from 'assert';
 
-import {generateRandomHexString} from './crypto-utils';
-import {
-  getMatchedPackagesSpec,
-  normalisePackageAccess,
-  sanityCheckUplinksProps,
-  uplinkSanityCheck} from './config-utils';
-import {getUserAgent, isObject} from './utils';
-import {APP_ERROR} from './constants';
+import { generateRandomHexString } from './crypto-utils';
+import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
+import { getUserAgent, isObject } from './utils';
+import { APP_ERROR } from './constants';
 
-import type {
-  PackageList,
-  Config as AppConfig,
-  Logger,
-  } from '@verdaccio/types';
+import type { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
 
-import type {MatchedPackage, StartUpConfig} from '../../types';
+import type { MatchedPackage, StartUpConfig } from '../../types';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -38,6 +33,7 @@ class Config implements AppConfig {
   self_path: string;
   storage: string | void;
   plugins: string | void;
+  security: Security;
   $key: any;
   $value: any;
 
@@ -48,7 +44,7 @@ class Config implements AppConfig {
     this.storage = config.storage;
     this.plugins = config.plugins;
 
-    for (let configProp in config) {
+    for (const configProp in config) {
       if (self[configProp] == null) {
         self[configProp] = config[configProp];
       }
@@ -80,7 +76,7 @@ class Config implements AppConfig {
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
-    allowedEnvConfig.forEach((envConf) => {
+    allowedEnvConfig.forEach(envConf => {
       if (!(envConf in self)) {
         self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
       }
@@ -100,7 +96,7 @@ class Config implements AppConfig {
   }
 
   /**
-   * Store or create whether recieve a secret key
+   * Store or create whether receive a secret key
    */
   checkSecretKey(secret: string): string {
     if (_.isString(secret) && _.isEmpty(secret) === false) {
@@ -108,7 +104,7 @@ class Config implements AppConfig {
       return secret;
     }
     // it generates a secret key
-    // FUTURE: this might be an external secret key, perhaps whitin config file?
+    // FUTURE: this might be an external secret key, perhaps within config file?
     this.secret = generateRandomHexString(32);
     return this.secret;
   }

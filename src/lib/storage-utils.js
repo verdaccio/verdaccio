@@ -1,47 +1,40 @@
-// @flow
+/**
+ * @prettier
+ * @flow
+ */
 
 import _ from 'lodash';
-import {ErrorCode, isObject, normalizeDistTags, DIST_TAGS, semverSort} from './utils';
+import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 import Search from './search';
-import {generateRandomHexString} from '../lib/crypto-utils';
+import { generateRandomHexString } from '../lib/crypto-utils';
 
-import type {Package, Version, Author} from '@verdaccio/types';
-import type {IStorage} from '../../types';
-import {API_ERROR, HTTP_STATUS} from './constants';
+import type { Package, Version, Author } from '@verdaccio/types';
+import type { IStorage } from '../../types';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
 
-const pkgFileName = 'package.json';
-const fileExist: string = 'EEXISTS';
-const noSuchFile: string = 'ENOENT';
-export const DEFAULT_REVISION: string = `0-0000000000000000`;
-
-const generatePackageTemplate = function(name: string): Package {
+export function generatePackageTemplate(name: string): Package {
   return {
     // standard things
     name,
     versions: {},
     time: {},
+    [USERS]: {},
     [DIST_TAGS]: {},
     _uplinks: {},
     _distfiles: {},
     _attachments: {},
     _rev: '',
   };
-};
+}
 
 /**
- * Normalise package properties, tags, revision id.
+ * Normalize package properties, tags, revision id.
  * @param {Object} pkg package reference.
  */
-function normalizePackage(pkg: Package) {
-  const pkgProperties = [
-    'versions',
-    'dist-tags',
-    '_distfiles',
-    '_attachments',
-    '_uplinks',
-    'time'];
+export function normalizePackage(pkg: Package) {
+  const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
 
-  pkgProperties.forEach((key) => {
+  pkgProperties.forEach(key => {
     const pkgProp = pkg[key];
 
     if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
@@ -50,7 +43,7 @@ function normalizePackage(pkg: Package) {
   });
 
   if (_.isString(pkg._rev) === false) {
-    pkg._rev = DEFAULT_REVISION;
+    pkg._rev = STORAGE.DEFAULT_REVISION;
   }
 
   if (_.isString(pkg._id) === false) {
@@ -63,13 +56,13 @@ function normalizePackage(pkg: Package) {
   return pkg;
 }
 
-function generateRevision(rev: string): string {
+export function generateRevision(rev: string): string {
   const _rev = rev.split('-');
 
-  return ((+_rev[0] || 0) + 1) + '-' + generateRandomHexString();
+  return (+_rev[0] || 0) + 1 + '-' + generateRandomHexString();
 }
 
-function getLatestReadme(pkg: Package): string {
+export function getLatestReadme(pkg: Package): string {
   const versions = pkg['versions'] || {};
   const distTags = pkg['dist-tags'] || {};
   const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
@@ -78,13 +71,7 @@ function getLatestReadme(pkg: Package): string {
     return readme;
   }
   // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
-  const readmeDistTagsPriority = [
-    'next',
-    'beta',
-    'alpha',
-    'test',
-    'dev',
-    'canary'];
+  const readmeDistTagsPriority = ['next', 'beta', 'alpha', 'test', 'dev', 'canary'];
   readmeDistTagsPriority.map(function(tag) {
     if (readme) {
       return readme;
@@ -95,7 +82,7 @@ function getLatestReadme(pkg: Package): string {
   return readme;
 }
 
-function cleanUpReadme(version: Version): Version {
+export function cleanUpReadme(version: Version): Version {
   if (_.isNil(version) === false) {
     delete version.readme;
   }
@@ -104,28 +91,29 @@ function cleanUpReadme(version: Version): Version {
 }
 
 export function normalizeContributors(contributors: Array<Author>): Array<Author> {
-   if (isObject(contributors) || _.isString(contributors)) {
-    return [((contributors): any)];
+  if (isObject(contributors) || _.isString(contributors)) {
+    return [(contributors: any)];
   }
 
   return contributors;
 }
 
-export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id'];
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id', 'users'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
-    if (keepUpLinkData === true) {
-      propertyToKeep.push('_uplinks');
-    }
+  if (keepUpLinkData === true) {
+    propertyToKeep.push('_uplinks');
+  }
 
-    for (let i in result) {
-      if (propertyToKeep.indexOf(i) === -1) { // Remove sections like '_uplinks' from response
-        delete result[i];
-      }
+  for (const i in result) {
+    if (propertyToKeep.indexOf(i) === -1) {
+      // Remove sections like '_uplinks' from response
+      delete result[i];
     }
+  }
 
-    return result;
+  return result;
 }
 
 /**
@@ -162,7 +150,6 @@ export function publishPackage(name: string, metadata: any, localStorage: IStora
 
 export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<any> {
   return new Promise((resolve, reject) => {
-    // $FlowFixMe
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors) => {
       // something weird
       if (err && err.status !== HTTP_STATUS.NOT_FOUND) {
@@ -211,7 +198,7 @@ export function prepareSearchPackage(data: Package, time: mixed) {
     const pkg: any = {
       name: version.name,
       description: version.description,
-      [DIST_TAGS]: {latest},
+      [DIST_TAGS]: { latest },
       maintainers: version.maintainers || [version.author].filter(Boolean),
       author: version.author,
       repository: version.repository,
@@ -223,21 +210,9 @@ export function prepareSearchPackage(data: Package, time: mixed) {
       time: {
         modified: time,
       },
-      versions: {[latest]: 'latest'},
+      versions: { [latest]: 'latest' },
     };
 
     return pkg;
   }
 }
-
-export {
-  generatePackageTemplate,
-  normalizePackage,
-  generateRevision,
-  getLatestReadme,
-  cleanUpReadme,
-  fileExist,
-  noSuchFile,
-  pkgFileName,
-};
-

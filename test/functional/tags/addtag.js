@@ -1,5 +1,5 @@
 import {readFile} from '../lib/test.utils';
-import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
+import {API_ERROR, HTTP_STATUS, CHARACTER_ENCODING} from "../../../src/lib/constants";
 
 const readTags = () => readFile('../fixtures/publish.json5');
 
@@ -18,7 +18,7 @@ export default function(server) {
     describe('should test add tag to a package', () => {
       beforeAll(function() {
         return server.putPackage(PKG_NAME,
-          JSON.parse(readTags().toString('utf8').replace(/__NAME__/g, PKG_NAME)
+          JSON.parse(readTags().toString(CHARACTER_ENCODING.UTF8).replace(/__NAME__/g, PKG_NAME)
             .replace(/__VERSION__/g, PKG_VERSION))
         ).status(HTTP_STATUS.CREATED);
       });

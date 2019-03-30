@@ -1,18 +1,17 @@
+/**
+ * @prettier
+ * @flow
+ */
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography/index';
 
-import classes from './noItems.scss';
+import { IProps } from './types';
 
-const NoItems = (props) => {
-    return (
-      <div className={classes.noItems}>
-        <h2>{props.text}</h2>
-      </div>
-    );
-};
-
-NoItems.propTypes = {
-  text: PropTypes.string.isRequired
-};
+const NoItems = ({ text }: IProps) => (
+  <Typography gutterBottom={true} variant={'subtitle1'}>
+    {text}
+  </Typography>
+);
 
 export default NoItems;

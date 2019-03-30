@@ -68,25 +68,14 @@ export default class VerdaccioProcess implements IServerProcess {
           this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password)
             .status(HTTP_STATUS.CREATED)
             .body_ok(new RegExp(CREDENTIALS.user))
-            .then(() => {
-              resolve([this, body.pid]);
-            }, reject)
+            .then(() => resolve([this, body.pid]), reject)
         }, reject);
       }
     });
 
-    this.childFork.on('error', (err) => {
-      console.log('error process', err);
-      reject([err, this]);
-    });
-
-    this.childFork.on('disconnect', (err) => {
-      reject([err, this]);
-    });
-
-    this.childFork.on('exit', (err) => {
-      reject([err, this]);
-    });
+    this.childFork.on('error', (err) => reject([err, this]));
+    this.childFork.on('disconnect', (err) => reject([err, this]));
+    this.childFork.on('exit', (err) => reject([err, this]));
   }
 
   stop(): void {

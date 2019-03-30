@@ -2,9 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import storage from '../../../src/webui/utils/storage';
 import App from '../../../src/webui/app';
-import { API_ERROR } from '../../../src/lib/constants';
 
-import {generateTokenWithTimeRange} from './components/__mocks__/token';
+import { generateTokenWithTimeRange } from './components/__mocks__/token';
 
 jest.mock('../../../src/webui/utils/storage', () => {
   class LocalStorageMock {
@@ -27,10 +26,6 @@ jest.mock('../../../src/webui/utils/storage', () => {
   return new LocalStorageMock();
 });
 
-jest.mock('element-theme-default', () => ({}));
-
-jest.mock('element-react/src/locale/lang/en', () => ({}));
-
 jest.mock('../../../src/webui/utils/api', () => ({
   request: require('./components/__mocks__/api').default.request
 }));
@@ -41,24 +36,17 @@ describe('App', () => {
   beforeEach(() => {
     wrapper = mount(<App />);
   });
-  it('loadLogo: set logo url in state', async () => {
-    const { loadLogo } = wrapper.instance();
-    await loadLogo();
-    expect(wrapper.state().logoUrl).toEqual(
-      'http://localhost/-/static/logo.png'
-    );
-  });
-
-  it('toggleLoginModal: should toggle the value in state', () => {
-    const { toggleLoginModal } = wrapper.instance();
+  
+  test('toggleLoginModal: should toggle the value in state', () => {
+    const { handleToggleLoginModal } = wrapper.instance();
     expect(wrapper.state().showLoginModal).toBeFalsy();
-    toggleLoginModal();
+    handleToggleLoginModal();
     expect(wrapper.state('showLoginModal')).toBeTruthy();
     expect(wrapper.state('error')).toEqual({});
   });
 
-  it('isUserAlreadyLoggedIn: token already available in storage', async () => {
-    
+  test('isUserAlreadyLoggedIn: token already available in storage', async () => {
+
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', generateTokenWithTimeRange(24));
     const { isUserAlreadyLoggedIn } = wrapper.instance();
@@ -68,35 +56,33 @@ describe('App', () => {
     expect(wrapper.state('user').username).toEqual('verdaccio');
   });
 
-  it('handleLogout - logouts the user and clear localstorage', () => {
+  test('handleLogout - logouts the user and clear localstorage', async () => {
     const { handleLogout } = wrapper.instance();
     storage.setItem('username', 'verdaccio');
     storage.setItem('token', 'xxxx.TOKEN.xxxx');
 
-    handleLogout();
-    expect(handleLogout()).toBeUndefined();
+    await handleLogout();
     expect(wrapper.state('user')).toEqual({});
-    expect(wrapper.state('isLoggedIn')).toBeFalsy();
+    expect(wrapper.state('isUserLoggedIn')).toBeFalsy();
   });
 
-  it('doLogin - login the user successfully', async () => {
-    const { doLogin } = wrapper.instance();
-    await doLogin('sam', '1234');
+  test('handleDoLogin - login the user successfully', async () => {
+    const { handleDoLogin } = wrapper.instance();
+    await handleDoLogin('sam', '1234');
     const result = {
       username: 'sam',
       token: 'TEST_TOKEN'
     };
-    expect(wrapper.state('user')).toEqual(result);
     expect(wrapper.state('isUserLoggedIn')).toBeTruthy();
     expect(wrapper.state('showLoginModal')).toBeFalsy();
     expect(storage.getItem('username')).toEqual('sam');
     expect(storage.getItem('token')).toEqual('TEST_TOKEN');
+    expect(wrapper.state('user')).toEqual(result);
   });
 
-  it('doLogin - authentication failure', async () => {
-    const { doLogin } = wrapper.instance();
-    await doLogin('sam', '12345');
-    console.log(API_ERROR.BAD_USERNAME_PASSWORD);
+  test('handleDoLogin - authentication failure', async () => {
+    const { handleDoLogin } = wrapper.instance();
+    await handleDoLogin('sam', '12345');
     const result = {
       description: 'bad username/password, access denied',
       title: 'Unable to login',

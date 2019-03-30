@@ -18,7 +18,7 @@ describe('basic system test', () => {
 
   beforeAll(async function(done) {
 
-    app.use(await endPointAPI(config));
+    app.use(await endPointAPI(config()));
 
     server.listen(0, function() {
       port = server.address().port;
@@ -35,14 +35,14 @@ describe('basic system test', () => {
       url: 'http://localhost:' + port + '/',
     }, function(err, res, body) {
       expect(err).toBeNull();
-      expect(body).toMatch(/<title>Verdaccio<\/title>/);
+      expect(body).toMatch(/Verdaccio/);
       done();
     });
   });
 
-  test('server should respond on /whatever', done => {
+  test('server should respond on /___not_found_package', done => {
     request({
-      url: `http://localhost:${port}/whatever`,
+      url: `http://localhost:${port}/___not_found_package`,
     }, function(err, res, body) {
       expect(err).toBeNull();
       expect(body).toMatch(API_ERROR.NO_PACKAGE);

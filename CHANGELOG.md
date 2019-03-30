@@ -2,6 +2,239 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.6"></a>
+# [4.0.0-alpha.6](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2019-03-30)
+
+
+### Bug Fixes
+
+* add new enpoind that allow download tarballs according the standard ([87203f2](https://github.com/verdaccio/verdaccio/commit/87203f2))
+* add not found if package is missing ([4da21c1](https://github.com/verdaccio/verdaccio/commit/4da21c1))
+* husky commitlint not work, replace invalid test ([84be869](https://github.com/verdaccio/verdaccio/commit/84be869))
+* potential issue on sign new jwt tokens ([265849e](https://github.com/verdaccio/verdaccio/commit/265849e)), closes [/github.com/auth0/node-jsonwebtoken/issues/326#issuecomment-288124020](https://github.com//github.com/auth0/node-jsonwebtoken/issues/326/issues/issuecomment-288124020)
+
+
+### Features
+
+* add star and unstar api for 4.x ([1ab7c50](https://github.com/verdaccio/verdaccio/commit/1ab7c50))
+* add stars api ([75c0e1e](https://github.com/verdaccio/verdaccio/commit/75c0e1e))
+* engines and npm upgraded to v8 and v5 ([89b0efe](https://github.com/verdaccio/verdaccio/commit/89b0efe))
+
+
+
+<a name="4.0.0-alpha.5"></a>
+# [4.0.0-alpha.5](https://github.com/verdaccio/verdaccio/compare/v3.11.6...v4.0.0-alpha.5) (2019-03-04)
+
+
+### Bug Fixes
+
+* [#1191](https://github.com/verdaccio/verdaccio/issues/1191) overrides existing package to 0 bytes file ([783fbce](https://github.com/verdaccio/verdaccio/commit/783fbce))
+* applied jsx-max-depth ([d940da4](https://github.com/verdaccio/verdaccio/commit/d940da4))
+* applied prefer-const ([4962e36](https://github.com/verdaccio/verdaccio/commit/4962e36))
+* applied valid-describe ([2b48958](https://github.com/verdaccio/verdaccio/commit/2b48958))
+* applied valid-describe ([3bda0cf](https://github.com/verdaccio/verdaccio/commit/3bda0cf))
+* applied valid-expect-in-promise ([c7034e7](https://github.com/verdaccio/verdaccio/commit/c7034e7))
+* broken home page ([4f41fc9](https://github.com/verdaccio/verdaccio/commit/4f41fc9))
+* click on logo break ui ([#1071](https://github.com/verdaccio/verdaccio/issues/1071)) ([5b34dc8](https://github.com/verdaccio/verdaccio/commit/5b34dc8))
+* fixed container size ([039a94d](https://github.com/verdaccio/verdaccio/commit/039a94d))
+* issue on refactor router ([19b0f47](https://github.com/verdaccio/verdaccio/commit/19b0f47))
+* logo on header ([158666f](https://github.com/verdaccio/verdaccio/commit/158666f))
+* remove online fonts ([29c6e56](https://github.com/verdaccio/verdaccio/commit/29c6e56))
+* remove unused dependency ([3ed7a86](https://github.com/verdaccio/verdaccio/commit/3ed7a86))
+* update markup@6.0.1 ([009bb98](https://github.com/verdaccio/verdaccio/commit/009bb98))
+* v4 compatible helpers ([7279662](https://github.com/verdaccio/verdaccio/commit/7279662))
+
+
+### Features
+
+* ability to restrict unpublish action to certain users [#492](https://github.com/verdaccio/verdaccio/issues/492) ([ef50325](https://github.com/verdaccio/verdaccio/commit/ef50325))
+* add dependencies navigation ([adfcbc2](https://github.com/verdaccio/verdaccio/commit/adfcbc2))
+* add dist-tags on ui ([4f4720d](https://github.com/verdaccio/verdaccio/commit/4f4720d))
+* add support for profile cli command [#392](https://github.com/verdaccio/verdaccio/issues/392) (change password) ([#1034](https://github.com/verdaccio/verdaccio/issues/1034)) ([f1416ed](https://github.com/verdaccio/verdaccio/commit/f1416ed))
+* added uplinks component ([6c32769](https://github.com/verdaccio/verdaccio/commit/6c32769))
+* added versions. wip ([5573ff5](https://github.com/verdaccio/verdaccio/commit/5573ff5))
+* allow apiJWTmiddleware to be managed by Auth plugin ([049917a](https://github.com/verdaccio/verdaccio/commit/049917a))
+* allow disable gravatar [#1172](https://github.com/verdaccio/verdaccio/issues/1172) ([c338f46](https://github.com/verdaccio/verdaccio/commit/c338f46))
+* allow order packages via on web [#1163](https://github.com/verdaccio/verdaccio/issues/1163) ([49c6f03](https://github.com/verdaccio/verdaccio/commit/49c6f03))
+* disable node9 on circleci ([9e4e8be](https://github.com/verdaccio/verdaccio/commit/9e4e8be))
+* endpoints change password on ui ([#1068](https://github.com/verdaccio/verdaccio/issues/1068)) ([712db31](https://github.com/verdaccio/verdaccio/commit/712db31))
+* migrate react router from hash to history api [#1013](https://github.com/verdaccio/verdaccio/issues/1013) ([1a456fb](https://github.com/verdaccio/verdaccio/commit/1a456fb))
+* not found page ([#1208](https://github.com/verdaccio/verdaccio/issues/1208)) ([752b870](https://github.com/verdaccio/verdaccio/commit/752b870))
+* package version gets sent to plugins ([3943863](https://github.com/verdaccio/verdaccio/commit/3943863))
+* register info selector ([6d96007](https://github.com/verdaccio/verdaccio/commit/6d96007))
+* stop hit proxies on search web UI ([#1126](https://github.com/verdaccio/verdaccio/issues/1126)) ([2362310](https://github.com/verdaccio/verdaccio/commit/2362310))
+* update verdaccio author ([9efd1e2](https://github.com/verdaccio/verdaccio/commit/9efd1e2))
+* use verdaccio babel preset ([d37fe5c](https://github.com/verdaccio/verdaccio/commit/d37fe5c))
+* use verdaccio babel preset ([c3af3cb](https://github.com/verdaccio/verdaccio/commit/c3af3cb))
+
+
+
+<a name="4.0.0-alpha.1"></a>
+# [4.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2018-09-27)
+
+
+
+<a name="4.0.0-alpha.0"></a>
+# [4.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v3.8.2...v4.0.0-alpha.0) (2018-09-27)
+
+
+### Bug Fixes
+
+* fix docker python issue [#883](https://github.com/verdaccio/verdaccio/issues/883) ([611aeb4](https://github.com/verdaccio/verdaccio/commit/611aeb4))
+* load package list undefined ([#993](https://github.com/verdaccio/verdaccio/issues/993)) ([4431c47](https://github.com/verdaccio/verdaccio/commit/4431c47))
+* Make systemd unit more production-like ([#929](https://github.com/verdaccio/verdaccio/issues/929)) ([ffc9410](https://github.com/verdaccio/verdaccio/commit/ffc9410))
+
+
+### Features
+
+* add support for jwt on api ([#896](https://github.com/verdaccio/verdaccio/issues/896)) ([a68d247](https://github.com/verdaccio/verdaccio/commit/a68d247)), closes [#168](https://github.com/verdaccio/verdaccio/issues/168)
+* add support for multiple protocol on protocol header ([#1014](https://github.com/verdaccio/verdaccio/issues/1014)) ([40e2b10](https://github.com/verdaccio/verdaccio/commit/40e2b10))
+* added prettier ([#921](https://github.com/verdaccio/verdaccio/issues/921)) ([43bd622](https://github.com/verdaccio/verdaccio/commit/43bd622))
+* check for minimum node.js version on start ([#968](https://github.com/verdaccio/verdaccio/issues/968)) ([ba9dc35](https://github.com/verdaccio/verdaccio/commit/ba9dc35))
+* rename database file name ([#954](https://github.com/verdaccio/verdaccio/issues/954)) ([dd72120](https://github.com/verdaccio/verdaccio/commit/dd72120))
+* replaced element-react by Material-UI ([#950](https://github.com/verdaccio/verdaccio/issues/950)) ([#985](https://github.com/verdaccio/verdaccio/issues/985)) ([3639557](https://github.com/verdaccio/verdaccio/commit/3639557))
+* replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
+* verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
+
+
+
+<a name="4.0.0-alpha.4"></a>
+# [4.0.0-alpha.4](https://github.com/verdaccio/verdaccio/compare/v3.10.1...v4.0.0-alpha.4) (2019-01-09)
+
+
+### Bug Fixes
+
+* applied jsx-max-depth ([d940da4](https://github.com/verdaccio/verdaccio/commit/d940da4))
+* applied prefer-const ([4962e36](https://github.com/verdaccio/verdaccio/commit/4962e36))
+* applied valid-describe ([3bda0cf](https://github.com/verdaccio/verdaccio/commit/3bda0cf))
+* applied valid-describe ([2b48958](https://github.com/verdaccio/verdaccio/commit/2b48958))
+* applied valid-expect-in-promise ([c7034e7](https://github.com/verdaccio/verdaccio/commit/c7034e7))
+* broken home page ([4f41fc9](https://github.com/verdaccio/verdaccio/commit/4f41fc9))
+* click on logo break ui ([#1071](https://github.com/verdaccio/verdaccio/issues/1071)) ([5b34dc8](https://github.com/verdaccio/verdaccio/commit/5b34dc8))
+* issue on refactor router ([19b0f47](https://github.com/verdaccio/verdaccio/commit/19b0f47))
+
+
+### Features
+
+* add support for profile cli command [#392](https://github.com/verdaccio/verdaccio/issues/392) (change password) ([#1034](https://github.com/verdaccio/verdaccio/issues/1034)) ([f1416ed](https://github.com/verdaccio/verdaccio/commit/f1416ed))
+* endpoints change password on ui ([#1068](https://github.com/verdaccio/verdaccio/issues/1068)) ([712db31](https://github.com/verdaccio/verdaccio/commit/712db31))
+* stop hit proxies on search web UI ([#1126](https://github.com/verdaccio/verdaccio/issues/1126)) ([2362310](https://github.com/verdaccio/verdaccio/commit/2362310))
+
+<a name="4.0.0-alpha.3"></a>
+# [4.0.0-alpha.3](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.3) (2018-10-12)
+
+
+### Bug Fixes
+
+* click on logo break ui ([#1071](https://github.com/verdaccio/verdaccio/issues/1071)) ([5b34dc8](https://github.com/verdaccio/verdaccio/commit/5b34dc8))
+
+
+
+<a name="4.0.0-alpha.2"></a>
+# [4.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v3.8.3...v4.0.0-alpha.2) (2018-10-12)
+
+
+### Bug Fixes
+
+* click on logo when using url_prefix was not working ([#996](https://github.com/verdaccio/verdaccio/issues/996)) ([3ac9646](https://github.com/verdaccio/verdaccio/commit/3ac9646))
+
+
+
+<a name="4.0.0-alpha.1"></a>
+# [4.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.0...v4.0.0-alpha.1) (2018-09-27)
+
+
+### Bug Fixes
+
+* fix docker python issue [#883](https://github.com/verdaccio/verdaccio/issues/883) ([611aeb4](https://github.com/verdaccio/verdaccio/commit/611aeb4))
+* load package list undefined ([#993](https://github.com/verdaccio/verdaccio/issues/993)) ([4431c47](https://github.com/verdaccio/verdaccio/commit/4431c47))
+* Make systemd unit more production-like ([#929](https://github.com/verdaccio/verdaccio/issues/929)) ([ffc9410](https://github.com/verdaccio/verdaccio/commit/ffc9410))
+
+
+### Features
+
+* add support for jwt on api ([#896](https://github.com/verdaccio/verdaccio/issues/896)) ([a68d247](https://github.com/verdaccio/verdaccio/commit/a68d247)), closes [#168](https://github.com/verdaccio/verdaccio/issues/168)
+* add support for multiple protocol on protocol header ([#1014](https://github.com/verdaccio/verdaccio/issues/1014)) ([40e2b10](https://github.com/verdaccio/verdaccio/commit/40e2b10))
+* added prettier ([#921](https://github.com/verdaccio/verdaccio/issues/921)) ([43bd622](https://github.com/verdaccio/verdaccio/commit/43bd622))
+* check for minimum node.js version on start ([#968](https://github.com/verdaccio/verdaccio/issues/968)) ([ba9dc35](https://github.com/verdaccio/verdaccio/commit/ba9dc35))
+* rename database file name ([#954](https://github.com/verdaccio/verdaccio/issues/954)) ([dd72120](https://github.com/verdaccio/verdaccio/commit/dd72120))
+* replaced element-react by Material-UI ([#950](https://github.com/verdaccio/verdaccio/issues/950)) ([#985](https://github.com/verdaccio/verdaccio/issues/985)) ([3639557](https://github.com/verdaccio/verdaccio/commit/3639557))
+* replaced lunr by lunr-mutable ([#915](https://github.com/verdaccio/verdaccio/issues/915)) ([1602840](https://github.com/verdaccio/verdaccio/commit/1602840))
+* verdaccio update notification on CLI ([#988](https://github.com/verdaccio/verdaccio/issues/988)) ([#998](https://github.com/verdaccio/verdaccio/issues/998)) ([bc04703](https://github.com/verdaccio/verdaccio/commit/bc04703))
+
+
+<a name="3.11.6"></a>
+## [3.11.6](https://github.com/verdaccio/verdaccio/compare/v3.11.5...v3.11.6) (2019-02-25)
+
+
+### Bug Fixes
+
+* overrides existing package to zero bytes file [#1191](https://github.com/verdaccio/verdaccio/issues/1191) ([d470cfe](https://github.com/verdaccio/verdaccio/commit/d470cfe))
+* remove unused dependency ([e943d91](https://github.com/verdaccio/verdaccio/commit/e943d91))
+
+
+
+<a name="3.11.5"></a>
+## [3.11.5](https://github.com/verdaccio/verdaccio/compare/v3.11.4...v3.11.5) (2019-02-21)
+
+
+### Bug Fixes
+
+* debugging with all ports ([c7789f1](https://github.com/verdaccio/verdaccio/commit/c7789f1))
+* package.json to reduce vulnerabilities ([5fdf678](https://github.com/verdaccio/verdaccio/commit/5fdf678))
+
+
+<a name="3.11.4"></a>
+## [3.11.4](https://github.com/verdaccio/verdaccio/compare/v3.11.3...v3.11.4) (2019-02-11)
+
+
+### Bug Fixes
+
+* update dependencies due to security vulnerabilities ([f6f014a](https://github.com/verdaccio/verdaccio/commit/f6f014a))
+
+
+
+<a name="3.11.3"></a>
+## [3.11.3](https://github.com/verdaccio/verdaccio/compare/v3.11.2...v3.11.3) (2019-02-07)
+
+
+### Bug Fixes
+
+* server keepAliveTimeout is in milliseconds, config value in seconds. ([7f79c77](https://github.com/verdaccio/verdaccio/commit/7f79c77))
+
+
+
+<a name="3.11.2"></a>
+## [3.11.2](https://github.com/verdaccio/verdaccio/compare/v3.11.1...v3.11.2) (2019-02-05)
+
+
+### Bug Fixes
+
+* lodash vulnerability ([c35486d](https://github.com/verdaccio/verdaccio/commit/c35486d))
+
+
+
+<a name="3.11.1"></a>
+## [3.11.1](https://github.com/verdaccio/verdaccio/compare/v3.11.0...v3.11.1) (2019-01-31)
+
+
+### Bug Fixes
+
+* don’t make change if `time` fields match ([#1167](https://github.com/verdaccio/verdaccio/issues/1167)) ([e62ef8d](https://github.com/verdaccio/verdaccio/commit/e62ef8d))
+* don’t packages that have no uplinks after reading ([#1204](https://github.com/verdaccio/verdaccio/issues/1204)) ([95686be](https://github.com/verdaccio/verdaccio/commit/95686be))
+
+
+
+<a name="3.11.0"></a>
+# [3.11.0](https://github.com/verdaccio/verdaccio/compare/v3.10.2...v3.11.0) (2019-01-27)
+
+
+### Features
+
+* introduce server keepAliveTimeout into config files ([a359055](https://github.com/verdaccio/verdaccio/commit/a359055))
+
+
+
 <a name="3.10.2"></a>
 ## [3.10.2](https://github.com/verdaccio/verdaccio/compare/v3.10.1...v3.10.2) (2019-01-22)
 
@@ -15,7 +248,6 @@ All notable changes to this project will be documented in this file. See [standa
 * remove unused parameters from processBody method invocation ([#1184](https://github.com/verdaccio/verdaccio/issues/1184)) ([064f7cf](https://github.com/verdaccio/verdaccio/commit/064f7cf))
 * remove use of comma separator ([#1186](https://github.com/verdaccio/verdaccio/issues/1186)) ([f20fefa](https://github.com/verdaccio/verdaccio/commit/f20fefa))
 * remove useless assignment to local variable emailCopy ([#1181](https://github.com/verdaccio/verdaccio/issues/1181)) ([13b8347](https://github.com/verdaccio/verdaccio/commit/13b8347))
-
 
 
 <a name="3.10.1"></a>
@@ -724,7 +956,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - Improve Docker Build - [#181](https://github.com/verdaccio/verdaccio/pull/181)
 - Bugfix #73 `npm-latest` support - [#228](https://github.com/verdaccio/verdaccio/pull/228)
-- Add [documentation](https://github.com/verdaccio/verdaccio/tree/master/wiki) - [#229](https://github.com/verdaccio/verdaccio/pull/229)   
+- Add [documentation](https://github.com/verdaccio/verdaccio/tree/master/wiki) - [#229](https://github.com/verdaccio/verdaccio/pull/229)
 
 ## 2.2.1 (June 17, 2017)
 
@@ -746,7 +978,7 @@ All notable changes to this project will be documented in this file. See [standa
 - Fix upstream search not work with gzip - ([@Meeeeow](https://github.com/Meeeeow) in [#170](https://github.com/verdaccio/verdaccio/pull/170))
 - Add additional requirement to output message - ([@marnel ](https://github.com/marnel) in [#184](https://github.com/verdaccio/verdaccio/pull/184))
 - Implement npm ping endpoint - ([@juanpicado]((https://github.com/juanpicado))) in [#179](https://github.com/verdaccio/verdaccio/pull/179)
-- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue))) 
+- Add support for multiple notification endpoints to existing webhook - ([@ryan-codingintrigue]((https://github.com/ryan-codingintrigue)))
 in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 
 
@@ -782,9 +1014,9 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 - rename clean up ([@juanpicado](https://github.com/juanpicado) in [#114](https://github.com/verdaccio/verdaccio/issues/114))
 - _npmUser / author not showing up ([@juanpicado](https://github.com/juanpicado) in [#65](https://github.com/verdaccio/verdaccio/issues/65))
 - Docs: correct config attribute `proxy_access` ([@robertgroh](https://github.com/robertgroh) in [#96](https://github.com/verdaccio/verdaccio/pull/96))
-- Problem with docker.yaml ([@josedepaz](https://github.com/josedepaz) in [#72](https://github.com/verdaccio/verdaccio/pull/72)) 
+- Problem with docker.yaml ([@josedepaz](https://github.com/josedepaz) in [#72](https://github.com/verdaccio/verdaccio/pull/72))
 - Prevent logging of user and password ([@tlvince](https://github.com/tlvince) in [#94](https://github.com/verdaccio/verdaccio/pull/94))
-- Updated README.md to reflect the availability of the docker image ([@jmwilkinson](https://github.com/jmwilkinson)) in [#71](https://github.com/verdaccio/verdaccio/pull/71)) 
+- Updated README.md to reflect the availability of the docker image ([@jmwilkinson](https://github.com/jmwilkinson)) in [#71](https://github.com/verdaccio/verdaccio/pull/71))
 
 ## 2.1.0 (October 11, 2016)
 
@@ -858,7 +1090,7 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 
 ## 25 Nov 2014, version 1.0.0-alpha
 
-- Config file is now created in `$XDG_CONFIG_HOME` instead of current directory. 
+- Config file is now created in `$XDG_CONFIG_HOME` instead of current directory.
 
   It is printed to stdout each time sinopia starts, so you hopefully won't have any trouble locating it.
 
@@ -1117,3 +1349,4 @@ in [#108](https://github.com/verdaccio/verdaccio/pull/108)
 ## 22 May 2013, version 0.0.0
 
 - first commits
+

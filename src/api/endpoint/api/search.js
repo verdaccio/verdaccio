@@ -1,6 +1,10 @@
+/**
+ * @prettier
+ */
+
 export default function(route, auth, storage) {
   // searching packages
-  route.get('/-/all(\/since)?', function(req, res) {
+  route.get('/-/all(/since)?', function(req, res) {
     let received_end = false;
     let response_finished = false;
     let processing_pkgs = 0;
@@ -52,12 +56,12 @@ export default function(route, auth, storage) {
       res.write('{"_updated":' + 99999);
     }
 
-    let stream = storage.search(req.query.startkey || 0, {req: req});
+    const stream = storage.search(req.query.startkey || 0, { req: req });
 
     stream.on('data', function each(pkg) {
       processing_pkgs++;
 
-      auth.allow_access(pkg.name, req.remote_user, function(err, allowed) {
+      auth.allow_access({ packageName: pkg.name }, req.remote_user, function(err, allowed) {
         processing_pkgs--;
 
         if (err) {
