@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0-alpha.6"></a>
+# [4.0.0-alpha.6](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2019-03-30)
+
+
+### Bug Fixes
+
+* add new enpoind that allow download tarballs according the standard ([87203f2](https://github.com/verdaccio/verdaccio/commit/87203f2))
+* add not found if package is missing ([4da21c1](https://github.com/verdaccio/verdaccio/commit/4da21c1))
+* husky commitlint not work, replace invalid test ([84be869](https://github.com/verdaccio/verdaccio/commit/84be869))
+* potential issue on sign new jwt tokens ([265849e](https://github.com/verdaccio/verdaccio/commit/265849e)), closes [/github.com/auth0/node-jsonwebtoken/issues/326#issuecomment-288124020](https://github.com//github.com/auth0/node-jsonwebtoken/issues/326/issues/issuecomment-288124020)
+
+
+### Features
+
+* add star and unstar api for 4.x ([1ab7c50](https://github.com/verdaccio/verdaccio/commit/1ab7c50))
+* add stars api ([75c0e1e](https://github.com/verdaccio/verdaccio/commit/75c0e1e))
+* engines and npm upgraded to v8 and v5 ([89b0efe](https://github.com/verdaccio/verdaccio/commit/89b0efe))
+
+
+
 <a name="4.0.0-alpha.5"></a>
 # [4.0.0-alpha.5](https://github.com/verdaccio/verdaccio/compare/v3.11.6...v4.0.0-alpha.5) (2019-03-04)
 

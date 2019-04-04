@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "Private npm repository server",
   "author": {
     "name": "Verdaccio Maintainers",
@@ -81,7 +81,7 @@
     "standard-version": "4.4.0",
     "supertest": "3.4.2",
     "verdaccio-auth-memory": "0.0.4",
-    "verdaccio-memory": "2.0.0-beta.0"    
+    "verdaccio-memory": "2.0.0-beta.0"
   },
   "keywords": [
     "private",

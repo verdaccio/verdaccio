@@ -18,6 +18,7 @@ Google Cloud Storage** or create your own plugin.
 [![verdaccio (next)](http://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
 [![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://verdaccio.org/docs/en/docker.html)
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
+[![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
 
 ![circle ci status](https://circleci.com/gh/verdaccio/verdaccio.svg?style=shield&circle-token=:circle-token)
 [![codecov](https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg)](https://codecov.io/gh/verdaccio/verdaccio)
@@ -174,6 +175,19 @@ The core team is the responsable for drive this project, team is ordered by anti
 | All areas  |  All areas | Docker,Builds,Stack |  UI, Stack  | 
 
 You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at *Twitter*.
+
+## Who is using Verdaccio?
+
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+64k ⭐️)*
+* [Storybook](https://github.com/storybooks/storybook) *(+34k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+31k ⭐️)* 
+* [Uppy](https://github.com/transloadit/uppy) *(+15k ⭐️)*
+* [Aurelia Framework](https://github.com/aurelia) *(+10k ⭐️)*
+* [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+5k ⭐️)*
+* [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
+* [Amazon Web Services Cloud Development Kit](https://github.com/awslabs/aws-cdk) *(+1.8k ⭐️)*
+* [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 
 ## Special Thanks
 
