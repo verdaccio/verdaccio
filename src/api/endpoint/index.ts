@@ -17,6 +17,7 @@ import search from './api/search';
 import pkg from './api/package';
 import stars from './api/stars';
 import profile from './api/v1/profile';
+import token from './api/v1/token';
 
 const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
 
@@ -57,6 +58,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
+  token(app, auth, storage, config);
 
   return app;
 }

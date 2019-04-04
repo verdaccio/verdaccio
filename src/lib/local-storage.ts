@@ -27,6 +27,11 @@ class LocalStorage implements IStorage {
     this.localData = this._loadStorage(config, logger);
   }
 
+  public addToken() {
+    // TODO
+    return 'fake-token';
+  }
+
   public addPackage(name: string, pkg: Package, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
 
