@@ -34,7 +34,7 @@
     "http-errors": "1.7.2",
     "js-base64": "2.5.1",
     "js-string-escape": "1.0.1",
-    "js-yaml": "3.12.2",
+    "js-yaml": "3.13.0",
     "jsonwebtoken": "8.5.0",
     "lockfile": "1.0.4",
     "lodash": "4.17.11",
