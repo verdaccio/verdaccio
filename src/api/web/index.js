@@ -4,29 +4,32 @@
 
 import _ from 'lodash';
 import fs from 'fs';
-import VError from 'verror';
-import chalk from 'chalk';
+
 import path from 'path';
 import express from 'express';
 
 import { combineBaseUrl, getWebProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
+import loadPlugin from '../../lib/plugin-loader';
 
 const { securityIframe } = require('../middleware');
-const distLocation = require('@verdaccio/ui-theme')();
-const indexTemplate = path.join(distLocation, 'index.html');
-const existTemplate = fs.existsSync(indexTemplate);
 
-if (!existTemplate) {
-  const err = new VError('missing file: "%s", run `yarn build:webui`', distLocation);
-  /* eslint no-console:off */
-  console.error(chalk.red(err.message));
-  /* eslint no-console:off */
-  process.exit(2);
+export function loadTheme(config) {
+  if (_.isNil(config.theme) === false) {
+    return _.head(
+      loadPlugin(
+        config,
+        config.theme,
+        {},
+        function(plugin) {
+          return _.isString(plugin);
+        },
+        'verdaccio-theme'
+      )
+    );
+  }
 }
-
-const template = fs.readFileSync(indexTemplate).toString();
 
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
@@ -35,10 +38,13 @@ module.exports = function(config, auth, storage) {
 
   router.use(auth.webUIJWTmiddleware());
   router.use(securityIframe);
+  const themePath = loadTheme(config) || require('@verdaccio/ui-theme')();
+  const indexTemplate = path.join(themePath, 'index.html');
+  const template = fs.readFileSync(indexTemplate).toString();
 
   // Static
   router.get('/-/static/:filename', function(req, res, next) {
-    const file = `${distLocation}/${req.params.filename}`;
+    const file = `${themePath}/${req.params.filename}`;
     res.sendFile(file, function(err) {
       if (!err) {
         return;
