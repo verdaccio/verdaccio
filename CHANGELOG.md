@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-alpha.7](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2019-04-06)
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([d99053e](https://github.com/verdaccio/verdaccio/commit/d99053e))
+
+
+### Features
+
+* theme as plugin ([#1252](https://github.com/verdaccio/verdaccio/issues/1252)) ([c3c6202](https://github.com/verdaccio/verdaccio/commit/c3c6202))
+
+
+
 <a name="4.0.0-alpha.6"></a>
 # [4.0.0-alpha.6](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2019-03-30)
 
