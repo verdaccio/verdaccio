@@ -17,8 +17,8 @@ export default function(route: Router, storage: IStorageHandler) {
         if (err) {
           return next(err);
         }
-        const filteredPackages = localPackages.filter(
-          localPackage => (localPackage[USERS] ? Object.keys(localPackage[USERS]).indexOf(remoteUsername) >= 0 : false)
+        const filteredPackages = localPackages.filter(localPackage =>
+          localPackage[USERS] ? Object.keys(localPackage[USERS]).indexOf(remoteUsername) >= 0 : false
         );
         res.status(HTTP_STATUS.OK);
         next({
