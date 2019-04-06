@@ -7927,10 +7927,10 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.verdaccio.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-verdaccio-audit@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-1.1.0.tgz#82c2c6722fc3ce61f3ba45bf1a2046b247f00d28"
-  integrity sha512-5bCiTWWBauq49vF1Ndt0Jl0GbIBDOzjiRNO33gWBPfgjoZfPn8wFpR/woFcMfS3SPzC06rH9LBcUn9KN3uWjEg==
+verdaccio-audit@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-1.2.0.tgz#932485729a39f518bd4fd8d5688160cc5edafcbb"
+  integrity sha512-383K+EFqsc0kirh2mXrd7xCBzEIQBHlGZsJCT99W8UxKtdG1vyaHiPOe8wb7/aLENSOu7G7UFSMrad/F3oCrtw==
   dependencies:
     express "4.16.4"
     request "2.88.0"
