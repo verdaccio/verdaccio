@@ -128,18 +128,6 @@ jobs:
       - run:
           name: Test End-to-End
           command: yarn run test:e2e
-
-  test_size:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - restore_cache:
-          key: *base_config_key
-      - run:
-          name: Test size
-          command: yarn test:size
-
   coverage:
     <<: *defaults
     <<: *default_executor
@@ -192,17 +180,12 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_size:
-          requires:
-            - prepare
-          <<: *ignore_non_dev_branches
       - coverage:
           requires:
             - test_node8
             - test_node10
             - test_node11
             - test_e2e
-            - test_size
           <<: *ignore_non_dev_branches
       - publish_package:
           requires:

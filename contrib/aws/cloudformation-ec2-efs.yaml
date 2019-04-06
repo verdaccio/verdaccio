@@ -53,10 +53,10 @@ Parameters:
     Default: verdaccio/verdaccio:3
   AsgMinSize:
     Type: String
-    Default: "1"
+    Default: '1'
   AsgMaxSize:
     Type: String
-    Default: "1"
+    Default: '1'
   AsgInstanceType:
     Type: String
     Default: t3.nano
@@ -185,14 +185,14 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckIntervalSeconds: 5
-      HealthCheckPort: "4873"
-      HealthCheckProtocol: "HTTP"
+      HealthCheckPort: '4873'
+      HealthCheckProtocol: 'HTTP'
       HealthCheckTimeoutSeconds: 2
       Port: 4873
-      Protocol: "HTTP"
+      Protocol: 'HTTP'
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
-          Value: "10"
+          Value: '10'
       VpcId:
         Ref: Vpc
 
