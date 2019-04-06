@@ -4,10 +4,7 @@ npm-debug.log
 yarn-error.log
 node_modules
 verdaccio-*.tgz
-
-renovate.json
 docker-compose.yaml
-Dockerfile.rpi
 Dockerfile
 crowdin.yaml
 scripts/
@@ -17,12 +14,9 @@ src/
 .circleci/
 debug/
 
-# build ui
-tools/
 
 ## assets and website
 assets/
-website/
 
 ## docs
 docs/
@@ -40,6 +34,9 @@ __mocks__/
 jestEnvironment.js
 test/jest.e2e.config.js
 test/jest.config.functional.js
-jest.config.unit.js
+jest.config.js
 
-
+# misc
+contrib/
+storage_default_storage/
+docker-bin/
