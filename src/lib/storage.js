@@ -496,7 +496,9 @@ class Storage implements IStorageHandler {
       (err: Error, upLinksErrors: any) => {
         assert(!err && Array.isArray(upLinksErrors));
 
-        if (!found) {
+        // Check for connection timeout or reset errors with uplink(s) 
+        // (these should be handled differently from the package not being found)
+        if (!found) {   
           let uplinkTimeoutError;
           for (let i = 0; i < upLinksErrors.length; i++) {
             if (upLinksErrors[i]) {

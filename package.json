@@ -73,6 +73,7 @@
     "jest": "24.7.1",
     "jest-environment-node": "24.7.1",
     "lint-staged": "8.1.5",
+    "nock": "10.0.6",
     "prettier": "1.17.0",
     "puppeteer": "1.8.0",
     "rimraf": "2.6.3",

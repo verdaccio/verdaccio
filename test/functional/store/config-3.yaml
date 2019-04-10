@@ -35,6 +35,10 @@ packages:
     access: $all
     proxy: server2
 
+  'test-uplink-timeout-*':
+    access: $all
+    publish: $all
+
   '*':
     access: $all
 
