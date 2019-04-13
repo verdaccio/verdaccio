@@ -1,7 +1,7 @@
 {
   "name": "verdaccio",
   "version": "4.0.0-alpha.7",
-  "description": "npm private proxy registry server",
+  "description": "A lightweight private npm proxy registry",
   "author": {
     "name": "Verdaccio Maintainers",
     "email": "verdaccio.npm@gmail.com"
@@ -17,7 +17,7 @@
   "dependencies": {
     "@verdaccio/local-storage": "2.1.0",
     "@verdaccio/streams": "2.0.0",
-    "@verdaccio/ui-theme": "0.0.4",
+    "@verdaccio/ui-theme": "0.0.13",
     "JSONStream": "1.3.5",
     "async": "3.0.1-0",
     "body-parser": "1.18.3",
