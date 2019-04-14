@@ -112,7 +112,7 @@ action "lint" {
 action "test" {
   uses = "docker://node:10"
   needs = ["build"]
-  args = "yarn run test"
+  args = "yarn run test:all"
 }
 
 action "coverage" {
