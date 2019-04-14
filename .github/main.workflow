@@ -77,3 +77,46 @@ action "github-release" {
     "GITHUB_TOKEN",
   ]
 }
+
+workflow "build and test" {
+  resolves = [
+    "lint",
+    "coverage",
+  ]
+  on = "push"
+}
+
+action "branch-filter" {
+  uses = "actions/bin/filter@master"
+  args = "branch"
+}
+
+action "install" {
+  needs = ["branch-filter"]
+  uses = "docker://node:10"
+  args = "yarn install --frozen-lockfile"
+}
+
+action "build" {
+  uses = "docker://node:10"
+  needs = ["install"]
+  args = "yarn run code:build"
+}
+
+action "lint" {
+  uses = "docker://node:10"
+  needs = ["install"]
+  args = "yarn run lint"
+}
+
+action "test" {
+  uses = "docker://node:10"
+  needs = ["build"]
+  args = "yarn run test"
+}
+
+action "coverage" {
+  uses = "docker://node:10"
+  needs = ["test"]
+  args = "yarn run coverage"
+}
