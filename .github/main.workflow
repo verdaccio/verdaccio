@@ -118,5 +118,5 @@ action "test" {
 action "coverage" {
   uses = "docker://node:10"
   needs = ["test"]
-  args = "yarn run coverage"
+  args = "yarn run coverage:publish"
 }
