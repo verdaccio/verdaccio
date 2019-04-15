@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.0](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.7...v4.0.0-beta.0) (2019-04-15)
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([#1276](https://github.com/verdaccio/verdaccio/issues/1276)) ([fbe9409](https://github.com/verdaccio/verdaccio/commit/fbe9409))
+* update @verdaccio/ui-theme@0.0.13 ([8760e18](https://github.com/verdaccio/verdaccio/commit/8760e18))
+* update docker node to latest lts version ([a5be22b](https://github.com/verdaccio/verdaccio/commit/a5be22b))
+
+
+
 # [4.0.0-alpha.7](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2019-04-06)
 
 
