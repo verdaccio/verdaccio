@@ -54,7 +54,7 @@ action "release:lint" {
 action "release:test" {
   uses = "docker://node:10"
   needs = ["release:build"]
-  args = "sh scripts/puppeteer-setup-ci.sh && yarn run test:all"
+  args = "sh scripts/puppeteer-setup-ci.sh"
 }
 
 action "release:publish" {
@@ -112,7 +112,7 @@ action "lint" {
 action "test" {
   uses = "docker://node:10"
   needs = ["build"]
-  args = "sh scripts/puppeteer-setup-ci.sh && yarn run test:all"
+  args = "sh scripts/puppeteer-setup-ci.sh"
 }
 
 action "coverage" {

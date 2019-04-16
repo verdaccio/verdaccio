@@ -11,3 +11,4 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /src/*.deb
+    && yarn run test:all
