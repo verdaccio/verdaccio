@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2019-04-16)
+
+
+### Bug Fixes
+
+* all static files are captured by the router ([86a6e5e](https://github.com/verdaccio/verdaccio/commit/86a6e5e))
+
+
+
 # [4.0.0-beta.0](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.7...v4.0.0-beta.0) (2019-04-15)
 
 
