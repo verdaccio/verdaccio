@@ -10,5 +10,5 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
     && apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /src/*.deb
+    && rm -rf /src/*.deb \
     && yarn run test:all
