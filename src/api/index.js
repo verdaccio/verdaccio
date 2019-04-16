@@ -20,7 +20,7 @@ import web from './web';
 
 import type { $Application } from 'express';
 import type { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
-import type { Config as IConfig, IPluginMiddleware } from '@verdaccio/types';
+import type { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import { setup, logger } from '../lib/logger';
 import { log, final, errorReportingMiddleware } from './middleware';
 
@@ -107,8 +107,14 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
 export default (async function(configHash: any) {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
+  // register middleware plugins
+  const plugin_params = {
+    config: config,
+    logger: logger,
+  };
+  const filters = loadPlugin(config, config.filters || {}, plugin_params, (plugin: IPluginStorageFilter) => plugin.filter_metadata);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been initialized
-  await storage.init(config);
+  await storage.init(config, filters);
   return defineAPI(config, storage);
 });
