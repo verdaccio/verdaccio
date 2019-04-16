@@ -44,8 +44,10 @@ module.exports = function(config, auth, storage) {
   const template = fs.readFileSync(indexTemplate).toString();
 
   // Static
-  router.get('/-/static/:filename', function(req, res, next) {
-    const file = `${themePath}/${req.params.filename}`;
+  router.get('/-/static/*', function(req, res, next) {
+    const filename = req.params[0];
+
+    const file = `${themePath}/${filename}`;
     res.sendFile(file, function(err) {
       if (!err) {
         return;
