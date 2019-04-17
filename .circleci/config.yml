@@ -37,13 +37,6 @@ aliases:
           - gh-pages
           - l10n_master
           - /release\/.*/
-  - &execute_on_release
-    filters:
-      tags:
-        only: /v?[0-9]+(\.[0-9]+)+([-+\.][0-9a-zA-Z]+)*/
-      branches:
-        ignore:
-          - /.*/
 
 jobs:
   prepare:
@@ -53,19 +46,6 @@ jobs:
       - checkout
       - restore_cache:
           key: *base_config_key
-      - run:
-          name: 'Base environment setup'
-          command: |
-            git config --global user.email "verdacciobot@users.noreply.github.com"
-            git config --global user.name "Verdaccio bot for Deployments"
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-            echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
-      - save_cache:
-          key: *base_config_key
-          paths:
-            - ~/.npmrc
-            - ~/.gitconfig
-            - ~/.netrc
       - restore_cache:
           key: *yarn_cache_key
       - run:
@@ -147,17 +127,6 @@ jobs:
       - store_test_results:
           path: coverage/clover.xml
 
-  publish_package:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - restore_cache:
-          key: *base_config_key
-      - run:
-          name: Publish
-          command: scripts/publish.sh
-
 workflows:
   version: 2
   workflow:
@@ -187,7 +156,3 @@ workflows:
             - test_node11
             - test_e2e
           <<: *ignore_non_dev_branches
-      - publish_package:
-          requires:
-            - coverage
-          <<: *execute_on_release
