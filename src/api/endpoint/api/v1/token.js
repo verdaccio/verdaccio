@@ -4,20 +4,17 @@
 
 // @flow
 
-// import _ from 'lodash';
-// import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
-import { HTTP_STATUS } from '../../../../lib/constants';
-import { allow } from '../../../middleware';
-// import { ErrorCode } from '../../../../lib/utils';
-// import { validatePassword } from '../../../../lib/auth-utils';
+import { HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
+import { ErrorCode } from '../../../../lib/utils';
+import { getApiToken } from '../../../../lib/auth-utils';
+import { stringToMD5 } from '../../../../lib/crypto-utils';
+import logger from '../../../../lib/logger';
 
 import type { $Response, Router } from 'express';
 import type { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
 export default function(route: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
-  const can = allow(auth);
-
   route.get('/-/npm/v1/tokens', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     /**
      * table.push([
@@ -58,24 +55,56 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
   });
 
   route.post('/-/npm/v1/tokens', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
-    /**
-    req.body:
-    {
-      password: 'password',
-      readonly: false,
-      cidr_whitelist: []
+    const { password, readonly, cidr_whitelist } = req.body;
+    const { name } = req.remote_user;
+
+    if (typeof readonly !== 'boolean' || !Array.isArray(cidr_whitelist)) {
+      next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
+      return;
     }
-    */
-    return next({
-      token: '12b000',
-      cidr_whitelist: [],
-      readonly: false,
-      key: 'key3',
-      created: '2018-08-04T09:04:17.194Z',
+
+    auth.authenticate(name, password, async (err, user: RemoteUser) => {
+      if (err) {
+        const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
+        next(ErrorCode.getCode(errorCode, err.message));
+      } else {
+        req.remote_user = user;
+
+        if (typeof storage.saveToken !== 'function') {
+          next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
+          return;
+        }
+
+        try {
+          const token = await getApiToken(auth, config, user, password);
+          const key = stringToMD5(token);
+
+          const saveToken = {
+            user: name,
+            viewToken: `${token.substr(0, 3)}...${token.substr(-3)}`,
+            key,
+            cidr: cidr_whitelist,
+            readonly,
+            created: new Date(),
+          };
+
+          await storage.saveToken(saveToken);
+          return next({
+            token,
+            key: saveToken.key,
+            cidr_whitelist,
+            readonly,
+            created: saveToken.created,
+          });
+        } catch (error) {
+          logger.logger.error({ error }, 'token creation has failed: @{error}');
+          next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
+        }
+      }
     });
   });
 
-  route.delete('/-/npm/v1/tokens/token/:tokenKey', can('publish'), function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
+  route.delete('/-/npm/v1/tokens/token/:tokenKey', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     // req.params
     next();
     // return next(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
