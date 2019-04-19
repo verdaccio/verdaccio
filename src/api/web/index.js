@@ -14,6 +14,7 @@ import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
 
 const { securityIframe } = require('../middleware');
+const pkgJSON = require('../../../package.json');
 
 export function loadTheme(config) {
   if (_.isNil(config.theme) === false) {
@@ -43,8 +44,10 @@ module.exports = function(config, auth, storage) {
   const template = fs.readFileSync(indexTemplate).toString();
 
   // Static
-  router.get('/-/static/:filename', function(req, res, next) {
-    const file = `${themePath}/${req.params.filename}`;
+  router.get('/-/static/*', function(req, res, next) {
+    const filename = req.params[0];
+
+    const file = `${themePath}/${filename}`;
     res.sendFile(file, function(err) {
       if (!err) {
         return;
@@ -61,11 +64,12 @@ module.exports = function(config, auth, storage) {
     const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
     const webPage = template
       .replace(/ToReplaceByVerdaccio/g, base)
+      .replace(/ToReplaceByVersion/g, pkgJSON.version)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
       .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : '')
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
-    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Content-Type', HEADERS.TEXT_HTML);
 
     res.send(webPage);
   }
