@@ -43,6 +43,25 @@ module.exports = function(config, auth, storage) {
   const indexTemplate = path.join(themePath, 'index.html');
   const template = fs.readFileSync(indexTemplate).toString();
 
+  // Logo
+  let logoURI = _.get(config, 'web.logo') ? config.web.logo : '';
+  if (logoURI && !/^(https?:)?\/\//.test(logoURI)) {
+    // URI that not starts with "http://", "https://" or "//"
+    logoURI = path.join('/-/static/', path.basename(logoURI));
+    router.get(logoURI, function(req, res, next) {
+      res.sendFile(path.resolve(config.web.logo), function(err) {
+        if (!err) {
+          return;
+        }
+        if (err.status === HTTP_STATUS.NOT_FOUND) {
+          next();
+        } else {
+          next(err);
+        }
+      });
+    });
+  }
+
   // Static
   router.get('/-/static/*', function(req, res, next) {
     const filename = req.params[0];
@@ -66,7 +85,7 @@ module.exports = function(config, auth, storage) {
       .replace(/ToReplaceByVerdaccio/g, base)
       .replace(/ToReplaceByVersion/g, pkgJSON.version)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
-      .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : '')
+      .replace(/ToReplaceByLogo/g, logoURI)
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
     res.setHeader('Content-Type', HEADERS.TEXT_HTML);
