@@ -4,8 +4,9 @@
 
 // @flow
 
+import _ from 'lodash';
 import { HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
-import { ErrorCode } from '../../../../lib/utils';
+import { ErrorCode, mask } from '../../../../lib/utils';
 import { getApiToken } from '../../../../lib/auth-utils';
 import { stringToMD5 } from '../../../../lib/crypto-utils';
 import logger from '../../../../lib/logger';
@@ -58,7 +59,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
     const { password, readonly, cidr_whitelist } = req.body;
     const { name } = req.remote_user;
 
-    if (typeof readonly !== 'boolean' || !Array.isArray(cidr_whitelist)) {
+    if (!_.isBoolean(readonly) || !_.isArray(cidr_whitelist)) {
       next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
       return;
     }
@@ -70,7 +71,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
       } else {
         req.remote_user = user;
 
-        if (typeof storage.saveToken !== 'function') {
+        if (!_.isFunction(storage.saveToken)) {
           next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
           return;
         }
@@ -81,7 +82,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 
           const saveToken = {
             user: name,
-            viewToken: `${token.substr(0, 3)}...${token.substr(-3)}`,
+            viewToken: mask(token),
             key,
             cidr: cidr_whitelist,
             readonly,
