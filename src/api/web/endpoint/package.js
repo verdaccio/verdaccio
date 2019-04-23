@@ -91,6 +91,20 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
     });
   });
 
+  route.get('/packages-cached', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    storage.localStorage.localData.getPackagesAll()
+      .then(data => {
+        res.status(HTTP_STATUS.OK);
+        res.send(JSON.stringify(data));
+        res.end();
+      })
+      .catch(err => {
+        res.status(HTTP_STATUS.INTERNAL_ERROR);
+        res.send(JSON.stringify(err));
+        res.end();
+      });
+  });
+
   route.get('/sidebar/(@:scope/)?:package', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName: string = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
