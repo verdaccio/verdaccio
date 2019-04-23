@@ -67,6 +67,7 @@ module.exports = function(config, auth, storage) {
       .replace(/ToReplaceByVersion/g, pkgJSON.version)
       .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
       .replace(/ToReplaceByLogo/g, _.get(config, 'web.logo') ? config.web.logo : '')
+      .replace(/ToReplaceByPrimaryColor/g, _.get(config, 'web.primary_color') ? config.web.primary_color : '')
       .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
 
     res.setHeader('Content-Type', HEADERS.TEXT_HTML);
