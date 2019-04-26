@@ -14,7 +14,8 @@ import {
   getWebProtocol,
   getVersionFromTarball,
   sortByName,
-  formatAuthor
+  formatAuthor,
+  isHTTPProtocol,
 } from '../../../src/lib/utils';
 import { DIST_TAGS, DEFAULT_USER } from '../../../src/lib/constants';
 import Logger, { setup } from '../../../src/lib/logger';
@@ -331,6 +332,26 @@ describe('Utilities', () => {
       const url: string = spliceURL('', '/-/static/logo.png');
 
       expect(url).toMatch('/-/static/logo.png');
+    });
+
+    test('should check HTTP protocol correctly', () => {
+      expect(isHTTPProtocol('http://domain.com/-/static/logo.png')).toBeTruthy();
+      expect(isHTTPProtocol('https://www.domain.com/-/static/logo.png')).toBeTruthy();
+      expect(isHTTPProtocol('//domain.com/-/static/logo.png')).toBeTruthy();
+      expect(isHTTPProtocol('file:///home/user/logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('file:///F:/home/user/logo.png')).toBeFalsy();
+      // Note that uses ftp protocol in src was deprecated in modern browsers
+      expect(isHTTPProtocol('ftp://1.2.3.4/home/user/logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('./logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('.\\logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('../logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('..\\logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('../../static/logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('..\\..\\static\\logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('.logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('/static/logo.png')).toBeFalsy();
+      expect(isHTTPProtocol('F:\\static\\logo.png')).toBeFalsy();
     });
   });
 
