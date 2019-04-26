@@ -547,3 +547,11 @@ export function formatAuthor(author: any) {
 
   return authorDetails;
 }
+
+/**
+ * Check if URI is starting with "http://", "https://" or "//"
+ * @param {string} uri
+ */
+export function isHTTPProtocol(uri: string): boolean {
+  return /^(https?:)?\/\//.test(uri);
+}

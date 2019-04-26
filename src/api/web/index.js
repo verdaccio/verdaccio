@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import express from 'express';
 
-import { combineBaseUrl, getWebProtocol } from '../../lib/utils';
+import { combineBaseUrl, getWebProtocol, isHTTPProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
@@ -32,6 +32,17 @@ export function loadTheme(config) {
   }
 }
 
+const sendFileCallback = next => err => {
+  if (!err) {
+    return;
+  }
+  if (err.status === HTTP_STATUS.NOT_FOUND) {
+    next();
+  } else {
+    next(err);
+  }
+};
+
 module.exports = function(config, auth, storage) {
   Search.configureStorage(storage);
   /* eslint new-cap:off */
@@ -45,38 +56,22 @@ module.exports = function(config, auth, storage) {
 
   // Logo
   let logoURI = _.get(config, 'web.logo') ? config.web.logo : '';
-  if (logoURI && !/^(https?:)?\/\//.test(logoURI)) {
-    // URI that not starts with "http://", "https://" or "//"
-    logoURI = path.join('/-/static/', path.basename(logoURI));
+  if (logoURI && !isHTTPProtocol(logoURI)) {
+    // URI related to a local file
+
+    // Note: `path.join` will break on Windows, because it transforms `/` to `\`
+    // Use POSIX version `path.posix.join` instead.
+    logoURI = path.posix.join('/-/static/', path.basename(logoURI));
     router.get(logoURI, function(req, res, next) {
-      res.sendFile(path.resolve(config.web.logo), function(err) {
-        if (!err) {
-          return;
-        }
-        if (err.status === HTTP_STATUS.NOT_FOUND) {
-          next();
-        } else {
-          next(err);
-        }
-      });
+      res.sendFile(path.resolve(config.web.logo), sendFileCallback(next));
     });
   }
 
   // Static
   router.get('/-/static/*', function(req, res, next) {
     const filename = req.params[0];
-
     const file = `${themePath}/${filename}`;
-    res.sendFile(file, function(err) {
-      if (!err) {
-        return;
-      }
-      if (err.status === HTTP_STATUS.NOT_FOUND) {
-        next();
-      } else {
-        next(err);
-      }
-    });
+    res.sendFile(file, sendFileCallback(next));
   });
 
   function renderHTML(req, res) {
