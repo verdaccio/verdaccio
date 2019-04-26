@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.2](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2019-04-26)
+
+
+### Features
+
+* accept web.primary_color as config option and inject into webui ([#1282](https://github.com/verdaccio/verdaccio/issues/1282)) ([9f8a054](https://github.com/verdaccio/verdaccio/commit/9f8a054))
+
+
+
 # [4.0.0-beta.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2019-04-16)
 
 
