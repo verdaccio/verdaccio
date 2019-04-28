@@ -1,6 +1,6 @@
 // @flow
 
-import chalk from 'chalk';
+const { yellow, green, blue, magenta } = require('kleur');
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
 import {VerdaccioConfig} from '../../lib/verdaccio-server';
@@ -50,7 +50,7 @@ class FunctionalEnvironment extends NodeEnvironment {
         storage: '/test-storage3'
       }
     ];
-    console.log(chalk.green('Setup Verdaccio Servers'));
+    console.log(green('Setup Verdaccio Servers'));
 
     const app = await this.startWeb();
     this.global.__WEB_SERVER__ = app;
@@ -60,13 +60,13 @@ class FunctionalEnvironment extends NodeEnvironment {
         path.join(pathStore, config.storage),
         path.join(pathStore, config.config),
         `http://${DOMAIN_SERVERS}:${config.port}/`, config.port);
-      console.log(chalk.magentaBright(`Running registry ${config.config} on port ${config.port}`));
+      console.log(magenta(`Running registry ${config.config} on port ${config.port}`));
       const server: IServerBridge = new Server(verdaccioConfig.domainPath);
       serverList.push(server);
       const process = new VerdaccioProcess(verdaccioConfig, server, SILENCE_LOG, DEBUG_INJECT);
 
       const fork = await process.init();
-      console.log(chalk.blue(`Fork PID ${fork[1]}`));
+      console.log(blue(`Fork PID ${fork[1]}`));
       forkList.push(fork);
     }
 
@@ -76,7 +76,7 @@ class FunctionalEnvironment extends NodeEnvironment {
 
   async teardown() {
     await super.teardown();
-    console.log(chalk.yellow('Teardown Test Environment.'));
+    console.log(yellow('Teardown Test Environment.'));
     if (!this.global.__SERVERS_PROCESS__) {
       throw new Error("There are no servers to stop");
     }
