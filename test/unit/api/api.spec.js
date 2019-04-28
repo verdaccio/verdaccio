@@ -415,10 +415,26 @@ describe('endpoint unit test', () => {
           });
       });
 
+      test('should fetch a scoped tarball from remote uplink', (done) => {
+
+        request(app)
+          .get('/@jquery/jquery/-/@jquery/jquery-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.OK)
+          .end(function(err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            expect(res.body).toBeDefined();
+            done();
+          });
+      });
+
       test('should fails fetch a tarball from remote uplink', (done) => {
 
         request(app)
-          .get('/jquery/-/jquery-0.0.1.tgz')
+          .get('/jquery/-/jquery-not-found-tarball-0.0.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.NOT_FOUND)
           .end(function(err) {
