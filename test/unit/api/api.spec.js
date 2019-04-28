@@ -50,7 +50,7 @@ describe('endpoint unit test', () => {
           }
         }
       }, 'api.spec.yaml');
-      
+
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
@@ -80,12 +80,27 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test whoami api', () => {
+      test('should test referer /whoami endpoint', (done) => {
+        request(app)
+          .get('/whoami')
+          .set('referer', 'whoami')
+          .expect(HTTP_STATUS.OK)
+          .end(done);
+      });
+
+      test('should test no referer /whoami endpoint', (done) => {
+        request(app)
+          .get('/whoami')
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .end(done);
+      });
+
       test('should test /-/whoami endpoint', (done) => {
         request(app)
           .get('/-/whoami')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -98,7 +113,7 @@ describe('endpoint unit test', () => {
           .get('/-/whoami')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -688,7 +703,7 @@ describe('endpoint unit test', () => {
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set('authorization', buildToken(TOKEN_BEARER, token))
           .send(JSON.stringify(_.assign({}, publishMetadata, {
-            name: 'super-admin-can-unpublish' 
+            name: 'super-admin-can-unpublish'
           })))
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
