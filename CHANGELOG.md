@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.3](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2019-04-28)
+
+
+### Bug Fixes
+
+* logo field in configuration cannot use the local file ([56c70d4](https://github.com/verdaccio/verdaccio/commit/56c70d4))
+* **ui:** version rendering issue ([40679aa](https://github.com/verdaccio/verdaccio/commit/40679aa))
+
+
+
 # [4.0.0-beta.2](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2019-04-26)
 
 
