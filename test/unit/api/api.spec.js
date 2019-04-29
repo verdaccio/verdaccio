@@ -50,7 +50,7 @@ describe('endpoint unit test', () => {
           }
         }
       }, 'api.spec.yaml');
-      
+
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
@@ -80,12 +80,27 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test whoami api', () => {
+      test('should test referer /whoami endpoint', (done) => {
+        request(app)
+          .get('/whoami')
+          .set('referer', 'whoami')
+          .expect(HTTP_STATUS.OK)
+          .end(done);
+      });
+
+      test('should test no referer /whoami endpoint', (done) => {
+        request(app)
+          .get('/whoami')
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .end(done);
+      });
+
       test('should test /-/whoami endpoint', (done) => {
         request(app)
           .get('/-/whoami')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -98,7 +113,7 @@ describe('endpoint unit test', () => {
           .get('/-/whoami')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -400,10 +415,26 @@ describe('endpoint unit test', () => {
           });
       });
 
+      test('should fetch a scoped tarball from remote uplink', (done) => {
+
+        request(app)
+          .get('/@jquery/jquery/-/@jquery/jquery-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.OK)
+          .end(function(err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            expect(res.body).toBeDefined();
+            done();
+          });
+      });
+
       test('should fails fetch a tarball from remote uplink', (done) => {
 
         request(app)
-          .get('/jquery/-/jquery-0.0.1.tgz')
+          .get('/jquery/-/jquery-not-found-tarball-0.0.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.NOT_FOUND)
           .end(function(err) {
@@ -688,7 +719,7 @@ describe('endpoint unit test', () => {
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set('authorization', buildToken(TOKEN_BEARER, token))
           .send(JSON.stringify(_.assign({}, publishMetadata, {
-            name: 'super-admin-can-unpublish' 
+            name: 'super-admin-can-unpublish'
           })))
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
