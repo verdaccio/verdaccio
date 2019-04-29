@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.4](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.3...v4.0.0-beta.4) (2019-04-29)
+
+
+### Features
+
+* replace chalk with kleur ([#1289](https://github.com/verdaccio/verdaccio/issues/1289)) @DanielRuf ([ff71640](https://github.com/verdaccio/verdaccio/commit/ff71640))
+
+
+
 # [4.0.0-beta.3](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2019-04-28)
 
 
