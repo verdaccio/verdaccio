@@ -19,7 +19,7 @@ export function createBanner(currentVersion: string, newVersion: string, release
   const changelog = `${UPDATE_BANNER.CHANGELOG_URL}v${newVersion}`;
   const versionUpdate = `${bold().red(currentVersion)} → ${bold().green(newVersion)}`;
   const banner = `
-        ${white().bold('A new ' + _.upperCase(releaseType) + ' version of Verdaccio is available. ' + versionUpdate) }
+        ${white().bold('A new ' + _.upperCase(releaseType) + ' version of Verdaccio is available. ' + versionUpdate)}
         ${white().bold('Run ' + green('npm install -g verdaccio') + ' to update.')}
         ${white().bold('Registry: ' + DEFAULT_REGISTRY)}
         ${blue().bold('Changelog: ' + changelog)}
