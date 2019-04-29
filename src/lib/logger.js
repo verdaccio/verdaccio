@@ -7,7 +7,7 @@ const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');
-const chalk = require('chalk');
+const { red, yellow, cyan, magenta, green, white, black, blue } = require('kleur');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
 const dayjs = require('dayjs');
@@ -155,13 +155,13 @@ function setup(logs) {
 
 // level to color
 const levels = {
-  fatal: chalk.red,
-  error: chalk.red,
-  warn: chalk.yellow,
-  http: chalk.magenta,
-  info: chalk.cyan,
-  debug: chalk.green,
-  trace: chalk.white,
+  fatal: red,
+  error: red,
+  warn: yellow,
+  http: magenta,
+  info: cyan,
+  debug: green,
+  trace: white,
 };
 
 let max = 0;
@@ -206,9 +206,9 @@ function fillInMsgTemplate(msg, obj, colors) {
       if (!colors || str.includes('\n')) {
         return str;
       } else if (is_error) {
-        return chalk.red(str);
+        return red(str);
       } else {
-        return chalk.green(str);
+        return green(str);
       }
     } else {
       return require('util').inspect(str, null, null, colors);
@@ -232,10 +232,10 @@ function print(type, msg, obj, colors) {
 
   const subsystems = [
     {
-      in: chalk.green('<--'),
-      out: chalk.yellow('-->'),
-      fs: chalk.black('-=-'),
-      default: chalk.blue('---'),
+      in: green('<--'),
+      out: yellow('-->'),
+      fs: black('-=-'),
+      default: blue('---'),
     },
     {
       in: '<--',
@@ -247,7 +247,7 @@ function print(type, msg, obj, colors) {
 
   const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
   if (colors) {
-    return ` ${levels[type](pad(type))}${chalk.white(`${sub} ${finalMessage}`)}`;
+    return ` ${levels[type](pad(type))}${white(`${sub} ${finalMessage}`)}`;
   } else {
     return ` ${pad(type)}${sub} ${finalMessage}`;
   }
