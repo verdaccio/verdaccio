@@ -13,7 +13,7 @@ import { UPDATE_BANNER, DEFAULT_REGISTRY, HTTP_STATUS } from './constants';
 const VERDACCIO_LATEST_REGISTRY_URL = `${DEFAULT_REGISTRY}/verdaccio/latest`;
 
 /**
- * Creates NPM update banner using chalk
+ * Creates NPM update banner using kleur
  */
 export function createBanner(currentVersion: string, newVersion: string, releaseType: string): string {
   const changelog = `${UPDATE_BANNER.CHANGELOG_URL}v${newVersion}`;
