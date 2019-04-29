@@ -1,4 +1,4 @@
-const chalk = require('chalk');
+const { yellow } = require('kleur');
 const NodeEnvironment = require('jest-environment-node');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
@@ -30,7 +30,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
     this.global.__VERDACCIO_E2E__ = fork[0];
     this.global.__VERDACCIO__PROTECTED_E2E__ = fork2[0];
 
-    console.log(chalk.yellow('Setup Test Environment.'));
+    console.log(yellow('Setup Test Environment.'));
     await super.setup();
     const wsEndpoint = fs.readFileSync(path.join(DIR, 'wsEndpoint'), 'utf8');
     if (!wsEndpoint) {
@@ -44,7 +44,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
   }
 
   async teardown() {
-    console.log(chalk.yellow('Teardown Test Environment.'));
+    console.log(yellow('Teardown Test Environment.'));
     await super.teardown();
     this.global.__VERDACCIO_E2E__.stop();
     this.global.__VERDACCIO__PROTECTED_E2E__.stop();

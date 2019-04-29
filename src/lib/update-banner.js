@@ -5,7 +5,7 @@
 
 import request from 'request';
 import semver from 'semver';
-import chalk from 'chalk';
+import { red, green, blue, white, bold } from 'kleur';
 import _ from 'lodash';
 
 import { UPDATE_BANNER, DEFAULT_REGISTRY, HTTP_STATUS } from './constants';
@@ -13,16 +13,16 @@ import { UPDATE_BANNER, DEFAULT_REGISTRY, HTTP_STATUS } from './constants';
 const VERDACCIO_LATEST_REGISTRY_URL = `${DEFAULT_REGISTRY}/verdaccio/latest`;
 
 /**
- * Creates NPM update banner using chalk
+ * Creates NPM update banner using kleur
  */
 export function createBanner(currentVersion: string, newVersion: string, releaseType: string): string {
   const changelog = `${UPDATE_BANNER.CHANGELOG_URL}v${newVersion}`;
-  const versionUpdate = `${chalk.bold.red(currentVersion)} → ${chalk.bold.green(newVersion)}`;
-  const banner = chalk`
-        {white.bold A new ${_.upperCase(releaseType)} version of Verdaccio is available. ${versionUpdate} }
-        {white.bold Run ${chalk.green.bold('npm install -g verdaccio')} to update}.
-        {white.bold Registry: ${DEFAULT_REGISTRY}}
-        {blue.bold Changelog: ${changelog}}
+  const versionUpdate = `${bold().red(currentVersion)} → ${bold().green(newVersion)}`;
+  const banner = `
+        ${white().bold('A new ' + _.upperCase(releaseType) + ' version of Verdaccio is available. ' + versionUpdate)}
+        ${white().bold('Run ' + green('npm install -g verdaccio') + ' to update.')}
+        ${white().bold('Registry: ' + DEFAULT_REGISTRY)}
+        ${blue().bold('Changelog: ' + changelog)}
     `;
   return banner;
 }
@@ -31,9 +31,9 @@ export function createBanner(currentVersion: string, newVersion: string, release
  * creates error banner
  */
 export function createErrorBanner(message: string): string {
-  const banner = chalk`
-        {red.bold Unable to check verdaccio version on ${DEFAULT_REGISTRY}}
-        {red.bold Error: ${message}}
+  const banner = `
+        ${red().bold('Unable to check verdaccio version on ' + DEFAULT_REGISTRY)}
+        ${red().bold('Error: ' + message)}
     `;
   return banner;
 }

@@ -1,4 +1,4 @@
-workflow "New workflow" {
+workflow "Docker && Publish Pre-check" {
   resolves = [
     "Docker build health check",
     "Test Publish Verdaccio",
