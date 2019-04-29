@@ -8,7 +8,7 @@
 
 import path from 'path';
 import semver from 'semver';
-const { bgYellow, bgRed } = require('kleur');
+import { bgYellow, bgRed } from 'kleur';
 import {startVerdaccio, listenDefaultCallback} from './bootstrap';
 import findConfigFile from './config-path';
 import {verdaccioUpdateBanner} from './update-banner';

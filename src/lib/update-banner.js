@@ -5,7 +5,7 @@
 
 import request from 'request';
 import semver from 'semver';
-const { red, green, blue, white, bold } = require('kleur');
+import { red, green, blue, white, bold } from 'kleur';
 import _ from 'lodash';
 
 import { UPDATE_BANNER, DEFAULT_REGISTRY, HTTP_STATUS } from './constants';

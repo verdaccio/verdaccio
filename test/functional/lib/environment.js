@@ -1,6 +1,6 @@
 // @flow
 
-const { yellow, green, blue, magenta } = require('kleur');
+import { yellow, green, blue, magenta } from 'kleur';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
 import {VerdaccioConfig} from '../../lib/verdaccio-server';
