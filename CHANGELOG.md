@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.5](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.4...v4.0.0-beta.5) (2019-04-30)
+
+
+### Bug Fixes
+
+* remove unused dependencies [#1292](https://github.com/verdaccio/verdaccio/issues/1292) ([f48b23f](https://github.com/verdaccio/verdaccio/commit/f48b23f))
+
+
+### Features
+
+* add some security headers for web UI ([#1295](https://github.com/verdaccio/verdaccio/issues/1295)) [@juanpicado](https://github.com/juanpicado) ([615db0a](https://github.com/verdaccio/verdaccio/commit/615db0a))
+
+
+
 # [4.0.0-beta.4](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.3...v4.0.0-beta.4) (2019-04-29)
 
 
