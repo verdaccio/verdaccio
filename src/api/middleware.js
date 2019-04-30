@@ -22,7 +22,7 @@ export function match(regexp: RegExp) {
   };
 }
 
-export function securityWebHeadersSecurity(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+export function setSecurityWebHeaders(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   // disable loading in frames (clickjacking, etc.)
   res.header(HEADERS.FRAMES_OPTIONS, 'deny');
   // avoid stablish connections outside of domain

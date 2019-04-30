@@ -13,7 +13,7 @@ import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
 
-const { securityWebHeadersSecurity } = require('../middleware');
+const { setSecurityWebHeaders } = require('../middleware');
 const pkgJSON = require('../../../package.json');
 
 export function loadTheme(config) {
@@ -49,7 +49,7 @@ module.exports = function(config, auth, storage) {
   const router = express.Router();
 
   router.use(auth.webUIJWTmiddleware());
-  router.use(securityWebHeadersSecurity);
+  router.use(setSecurityWebHeaders);
   const themePath = loadTheme(config) || require('@verdaccio/ui-theme')();
   const indexTemplate = path.join(themePath, 'index.html');
   const template = fs.readFileSync(indexTemplate).toString();
