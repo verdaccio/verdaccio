@@ -24,7 +24,7 @@ export const HEADERS = {
   TEXT_PLAIN: 'text/plain',
   TEXT_HTML: 'text/html',
   FORWARDED_PROTO: 'X-Forwarded-Proto',
-  XFRAMES_OPTIONS: 'X-Frame-Options',
+  FRAMES_OPTIONS: 'X-Frame-Options',
   CSP: 'Content-Security-Policy',
   CTO: 'X-Content-Type-Options',
   XSS: 'X-XSS-Protection',

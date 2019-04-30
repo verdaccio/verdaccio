@@ -24,7 +24,7 @@ export function match(regexp: RegExp) {
 
 export function securityWebHeadersSecurity(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   // disable loading in frames (clickjacking, etc.)
-  res.header(HEADERS.XFRAMES_OPTIONS, 'deny');
+  res.header(HEADERS.FRAMES_OPTIONS, 'deny');
   // avoid stablish connections outside of domain
   res.header(HEADERS.CSP, "connect-src 'self'");
   // https://stackoverflow.com/questions/18337630/what-is-x-content-type-options-nosniff
