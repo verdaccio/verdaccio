@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.6](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.5...v4.0.0-beta.6) (2019-05-07)
+
+
+### Bug Fixes
+
+* routing is aware of reverse proxy directory [#1297](https://github.com/verdaccio/verdaccio/issues/1297) ([01f8da6](https://github.com/verdaccio/verdaccio/commit/01f8da6))
+
+
+
 # [4.0.0-beta.5](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.4...v4.0.0-beta.5) (2019-04-30)
 
 
