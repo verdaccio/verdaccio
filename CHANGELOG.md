@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.11.7"></a>
+## [3.11.7](https://github.com/verdaccio/verdaccio/compare/v3.11.6...v3.11.7) (2019-05-09)
+
+
+### Bug Fixes
+
+* update dependencies security corcern ([398b839](https://github.com/verdaccio/verdaccio/commit/398b839))
+* update to latest node.js docker image ([cd9f2d5](https://github.com/verdaccio/verdaccio/commit/cd9f2d5))
+
+
+
 <a name="3.11.6"></a>
 ## [3.11.6](https://github.com/verdaccio/verdaccio/compare/v3.11.5...v3.11.6) (2019-02-25)
 
