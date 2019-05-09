@@ -189,6 +189,8 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*
 
+🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md). 
+
 ## Sponsorship
 
 If you are a *company/project* and you 😍 Verdaccio and FOSS, your **logo can be here** 😉 if you support our activities. [Donate](https://opencollective.com/verdaccio).
