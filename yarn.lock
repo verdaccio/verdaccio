@@ -3948,6 +3948,11 @@ get-stdin@5.0.1:
   resolved "https://registry.verdaccio.org/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
   integrity sha1-Ei4WFZHiH/TFJTAwVpPyDmOTo5g=
 
+get-stdin@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.verdaccio.org/get-stdin/-/get-stdin-7.0.0.tgz#8d5de98f15171a125c5e516643c7a6d0ea8a96f6"
+  integrity sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==
+
 get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.verdaccio.org/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
