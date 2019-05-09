@@ -13,7 +13,7 @@ import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
 
-const { securityIframe } = require('../middleware');
+const { setSecurityWebHeaders } = require('../middleware');
 const pkgJSON = require('../../../package.json');
 
 export function loadTheme(config) {
@@ -49,7 +49,7 @@ module.exports = function(config, auth, storage) {
   const router = express.Router();
 
   router.use(auth.webUIJWTmiddleware());
-  router.use(securityIframe);
+  router.use(setSecurityWebHeaders);
   const themePath = loadTheme(config) || require('@verdaccio/ui-theme')();
   const indexTemplate = path.join(themePath, 'index.html');
   const template = fs.readFileSync(indexTemplate).toString();
@@ -75,14 +75,25 @@ module.exports = function(config, auth, storage) {
   });
 
   function renderHTML(req, res) {
-    const base = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.get('host'), config.url_prefix);
+    const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
+    const host = req.get('host');
+    const { url_prefix } = config;
+    const uri = `${protocol}://${host}`;
+    const base = combineBaseUrl(protocol, host, url_prefix);
+    const primaryColor = _.get(config, 'web.primary_color') ? config.web.primary_color : '';
+    const title = _.get(config, 'web.title') ? config.web.title : WEB_TITLE;
+    const scope = _.get(config, 'web.scope') ? config.web.scope : '';
+    const options = { uri, protocol, host, url_prefix, base, primaryColor, title, scope };
+
     const webPage = template
+      .replace(/ToReplaceByVerdaccioUI/g, JSON.stringify(options))
       .replace(/ToReplaceByVerdaccio/g, base)
+      .replace(/ToReplaceByPrefix/g, url_prefix)
       .replace(/ToReplaceByVersion/g, pkgJSON.version)
-      .replace(/ToReplaceByTitle/g, _.get(config, 'web.title') ? config.web.title : WEB_TITLE)
+      .replace(/ToReplaceByTitle/g, title)
       .replace(/ToReplaceByLogo/g, logoURI)
-      .replace(/ToReplaceByPrimaryColor/g, _.get(config, 'web.primary_color') ? config.web.primary_color : '')
-      .replace(/ToReplaceByScope/g, _.get(config, 'web.scope') ? config.web.scope : '');
+      .replace(/ToReplaceByPrimaryColor/g, primaryColor)
+      .replace(/ToReplaceByScope/g, scope);
 
     res.setHeader('Content-Type', HEADERS.TEXT_HTML);
 

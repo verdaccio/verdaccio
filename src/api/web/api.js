@@ -10,7 +10,7 @@ import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
 
 import Search from '../../lib/search';
-import { match, validateName, validatePackage, securityIframe } from '../middleware';
+import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
 import type { Config } from '@verdaccio/types';
 import type { IAuth, IStorageHandler } from '../../../types';
 
@@ -33,7 +33,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
 
   route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
-  route.use(securityIframe);
+  route.use(setSecurityWebHeaders);
 
   addPackageWebApi(route, storage, auth, config);
   addSearchWebApi(route, storage, auth);
