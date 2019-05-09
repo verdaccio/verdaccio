@@ -1,4 +1,3 @@
-require('babel-polyfill');
 require('@babel/register')({
   sourceMap: 'inline',
 });

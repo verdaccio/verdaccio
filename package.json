@@ -66,6 +66,7 @@
     "eslint-plugin-verdaccio": "0.0.5",
     "flow-bin": "0.81.0",
     "flow-runtime": "0.17.0",
+    "get-stdin": "7.0.0",
     "husky": "2.1.0",
     "in-publish": "2.0.0",
     "jest": "24.7.1",
