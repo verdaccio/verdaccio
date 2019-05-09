@@ -393,17 +393,17 @@ export const ErrorCode = {
 
 export function parseConfigFile(configPath: string) {
   try {
-    return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
-  } catch (e) {
-    try {
+    if (/\.ya?ml$/i.test(configPath)) {
+      return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+    } else {
       return require(configPath);
-    } catch (e) {
-      if (e.code !== 'MODULE_NOT_FOUND') {
-        e.message = APP_ERROR.CONFIG_NOT_VALID;
-      }
-
-      throw new Error(e);
     }
+  } catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+      e.message = APP_ERROR.CONFIG_NOT_VALID;
+    }
+
+    throw new Error(e);
   }
 }
 
