@@ -5,7 +5,7 @@ import Path from 'path';
 import mime from 'mime';
 
 import {API_MESSAGE, HEADERS} from '../../../lib/constants';
-import {DIST_TAGS, validate_metadata, isObject, ErrorCode, parseReadme} from '../../../lib/utils';
+import {DIST_TAGS, validate_metadata, isObject, ErrorCode} from '../../../lib/utils';
 import {media, expectJson, allow} from '../../middleware';
 import {notify} from '../../../lib/notify';
 
@@ -82,9 +82,8 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         }
 
         const versionToPublish = Object.keys(metadata.versions)[0];
-        const readme = parseReadme(name, String(metadata.readme));
 
-        metadata.versions[versionToPublish].readme = readme;
+        metadata.versions[versionToPublish].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
         create_version(versionToPublish, metadata.versions[versionToPublish], function(err) {
           if (err) {
             return next(err);

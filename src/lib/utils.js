@@ -534,7 +534,7 @@ function addGravatarSupport(pkgInfo: Object): Object {
  * @return {String} converted html template
  */
 function parseReadme(packageName: string, readme: string): string {
-  if (readme) {
+  if (_.isEmpty(readme) === false) {
     return sanitizyReadme(readme);
   }
 
