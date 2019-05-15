@@ -26,6 +26,9 @@ export function match(regexp: RegExp) {
 export function securityIframe(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
   // disable loading in frames (clickjacking, etc.)
   res.header('X-Frame-Options', 'deny');
+  // avoid stablish connections outside of domain
+  res.header('Content-Security-Policy', 'connect-src \'self\'');
+  res.header('X-XSS-Protection', '1; mode=block');
   next();
 }
 

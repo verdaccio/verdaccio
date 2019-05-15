@@ -37,6 +37,5 @@ exports[`Utilities parseReadme should parse makrdown text to html template 1`] =
 <li>Hat tip to anyone whose code was used</li>
 <li>Inspiration</li>
 <li>etc</li>
-</ul>
-"
+</ul>"
 `;

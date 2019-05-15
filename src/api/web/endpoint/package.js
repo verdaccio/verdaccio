@@ -72,7 +72,9 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth) 
         }
 
         res.set('Content-Type', 'text/plain');
-        next(parseReadme(info.name, info.readme));
+        const readme = parseReadme(info.name, info.readme);
+
+        next(readme);
       },
     });
   });

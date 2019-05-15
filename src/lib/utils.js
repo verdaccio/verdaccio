@@ -6,7 +6,8 @@ import semver from 'semver';
 import YAML from 'js-yaml';
 import URL from 'url';
 import createError from 'http-errors';
-import marked from 'marked';
+// $FlowFixMe
+import sanitizyReadme from '@verdaccio/readme';
 
 import {
   HTTP_STATUS,
@@ -534,13 +535,13 @@ function addGravatarSupport(pkgInfo: Object): Object {
  */
 function parseReadme(packageName: string, readme: string): string {
   if (readme) {
-    return marked(readme);
+    return sanitizyReadme(readme);
   }
 
   // logs readme not found error
   Logger.logger.error({packageName}, '@{packageName}: No readme found');
 
-  return marked('ERROR: No README data found!');
+  return sanitizyReadme('ERROR: No README data found!');
 }
 
 export function buildToken(type: string, token: string) {
