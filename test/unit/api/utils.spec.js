@@ -142,10 +142,10 @@ describe('Utilities', () => {
       const randomTextMarkdown = 'simple text \n # markdown';
 
       expect(parseReadme('testPackage', randomText)).toEqual(
-        '<p>%%%%%**##==</p>\n'
+        '<p>%%%%%**##==</p>'
       );
       expect(parseReadme('testPackage', simpleText)).toEqual(
-        '<p>simple text</p>\n'
+        '<p>simple text</p>'
       );
       expect(parseReadme('testPackage', randomTextMarkdown)).toEqual('<p>simple text </p>\n<h1 id="markdown">markdown</h1>');
     });

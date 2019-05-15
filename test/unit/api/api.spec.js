@@ -608,7 +608,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function(err, res) {
-            expect(res.text).toMatch('<h1 id="test">test</h1>\n');
+            expect(res.text).toMatch('<h1 id="test">test</h1>');
             done();
           });
       });
