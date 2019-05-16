@@ -42,6 +42,12 @@ describe('endpoint unit test', () => {
             file: './test-storage-api-spec/.htpasswd'
           }
         },
+        filters: {
+          '../partials/plugin/filter': {
+            pkg: 'npm_test',
+            version: '2.0.0'
+          }
+        },
         storage: store,
         self_path: store,
         uplinks: {
@@ -373,6 +379,37 @@ describe('endpoint unit test', () => {
 
         request(app)
           .get('/@verdaccio/not-found')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .end(function(err, res) {
+            if (err) {
+              return done(err);
+            }
+            done();
+          });
+      });
+
+      test('be able to filter packages', (done) => {
+        request(app)
+          .get('/npm_test')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function(err, res) {
+            if (err) {
+              return done(err);
+            }
+            // Filter out 2.0.0
+            expect(Object.keys(res.body.versions)).toEqual(['1.0.0']);
+            done();
+          });
+      });
+
+      test('should not found when a filter fails', (done) => {
+        request(app)
+           // Filter errors look like other uplink errors
+          .get('/trigger-filter-failure')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.NOT_FOUND)
