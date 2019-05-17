@@ -374,7 +374,7 @@ describe('Utilities', () => {
     test('should parse makrdown text to html template', () => {
       const markdown = '# markdown';
       expect(parseReadme('testPackage', markdown)).toEqual(
-        '<h1 id="markdown">markdown</h1>\n'
+        '<h1 id="markdown">markdown</h1>'
       );
       expect(
         parseReadme('testPackage', String(readmeFile('markdown.md')))
@@ -387,13 +387,13 @@ describe('Utilities', () => {
       const randomTextMarkdown = 'simple text \n # markdown';
 
       expect(parseReadme('testPackage', randomText)).toEqual(
-        '<p>%%%%%**##==</p>\n'
+        '<p>%%%%%**##==</p>'
       );
       expect(parseReadme('testPackage', simpleText)).toEqual(
-        '<p>simple text</p>\n'
+        '<p>simple text</p>'
       );
       expect(parseReadme('testPackage', randomTextMarkdown)).toEqual(
-        '<p>simple text </p>\n<h1 id="markdown">markdown</h1>\n'
+        '<p>simple text </p>\n<h1 id="markdown">markdown</h1>'
       );
     });
 
@@ -401,7 +401,7 @@ describe('Utilities', () => {
       const noData = '';
       const spy = jest.spyOn(Logger.logger, 'error');
       expect(parseReadme('testPackage', noData)).toEqual(
-        '<p>ERROR: No README data found!</p>\n'
+        '<p>ERROR: No README data found!</p>'
       );
       expect(spy).toHaveBeenCalledWith(
         { packageName: 'testPackage' },
