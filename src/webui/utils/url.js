@@ -1,4 +1,5 @@
 import validator from 'validator';
+import parseXSS from 'xss';
 
 export function getRegistryURL() {
   // Don't add slash if it's not a sub directory
@@ -18,4 +19,10 @@ export function isURL(url) {
  */
 export function getDetailPageURL(packageName) {
   return `${getRegistryURL()}/#/detail/${packageName}`;
+}
+
+export function preventXSS(text) {
+  const encodedText = parseXSS(text);
+
+  return encodedText;
 }

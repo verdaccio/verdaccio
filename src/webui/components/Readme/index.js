@@ -1,11 +1,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {preventXSS} from '../../utils/url';
 
 import 'github-markdown-css';
 
 const Readme = (props) => {
-  return <div className="markdown-body" dangerouslySetInnerHTML={{__html: props.readMe}}/>;
+  const encodedReadme = preventXSS(props.readMe);
+
+  return <div className="markdown-body" dangerouslySetInnerHTML={{__html: encodedReadme}}/>;
 };
 
 Readme.propTypes = {
