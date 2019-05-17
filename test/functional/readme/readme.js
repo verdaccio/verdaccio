@@ -20,7 +20,7 @@ export default function (server, server2) {
         return serverRef.request({
           uri: `/-/verdaccio/package/readme/${pkgName}`
         }).status(HTTP_STATUS.OK).then(function(body) {
-          expect(body).toEqual(`<p>${readmeMessage}</p>\n`);
+          expect(body).toEqual(`<p>${readmeMessage}</p>`);
         });
       };
 

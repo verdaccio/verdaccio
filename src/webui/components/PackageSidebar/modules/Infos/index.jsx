@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Module from '../../Module';
 import ModuleContentPlaceholder from '../../ModuleContentPlaceholder';
+import {isURL} from '../../../../utils/url';
 
 import classes from './style.scss';
 
@@ -18,8 +19,8 @@ const Infos = ({homepage, repository, license}) => {
   const showInfo = homepage || repository || license;
   return <Module title="Infos" className={classes.infosModule}>
       {showInfo ? <ul>
-          {homepage && renderSection('Homepage', homepage)}
-          {repository && renderSection('Repository', repository)}
+          {isURL(homepage) && renderSection('Homepage', homepage)}
+          {isURL(repository) && renderSection('Repository', repository)}
           {license && <li>
               <span>License</span>
               <span>{license}</span>

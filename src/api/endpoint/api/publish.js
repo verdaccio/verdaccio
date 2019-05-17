@@ -82,6 +82,7 @@ export default function(router: Router, auth: IAuth, storage: IStorageHandler, c
         }
 
         const versionToPublish = Object.keys(metadata.versions)[0];
+
         metadata.versions[versionToPublish].readme = _.isNil(metadata.readme) === false ? String(metadata.readme) : '';
         create_version(versionToPublish, metadata.versions[versionToPublish], function(err) {
           if (err) {
