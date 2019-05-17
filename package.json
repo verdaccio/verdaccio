@@ -18,7 +18,7 @@
     "@verdaccio/local-storage": "2.1.0",
     "@verdaccio/streams": "2.0.0",
     "@verdaccio/readme": "1.0.3",
-    "@verdaccio/ui-theme": "0.1.9",
+    "@verdaccio/ui-theme": "0.1.10",
     "JSONStream": "1.3.5",
     "async": "3.0.1-0",
     "body-parser": "1.19.0",
