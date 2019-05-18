@@ -6,6 +6,7 @@
 import { assign, isObject, isFunction } from 'lodash';
 import URL from 'url';
 import fs from 'fs';
+import net from 'net';
 import http from 'http';
 import https from 'https';
 // $FlowFixMe
@@ -52,17 +53,10 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
         // $FlowFixMe library definition for node is not up to date (doesn't contain recent 8.0 changes)
         webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
       }
-      unlinkAddressPath(addr);
 
       callback(webServer, addr, pkgName, pkgVersion);
     });
   });
-}
-
-function unlinkAddressPath(addr) {
-  if (addr.path && fs.existsSync(addr.path)) {
-    fs.unlinkSync(addr.path);
-  }
 }
 
 function logHTTPSWarning(storageLocation) {
@@ -123,6 +117,14 @@ function handleHTTPS(app, configPath, config) {
 function listenDefaultCallback(webServer: $Application, addr: any, pkgName: string, pkgVersion: string) {
   webServer
     .listen(addr.port || addr.path, addr.host, () => {
+      if (addr.path) {
+        try {
+          process.setuid(fs.statSync(__filename).uid);
+        } catch (err) {
+          throw err;
+        }
+      }
+
       // send a message for tests
       if (isFunction(process.send)) {
         process.send({
@@ -132,8 +134,28 @@ function listenDefaultCallback(webServer: $Application, addr: any, pkgName: stri
     })
     // $FlowFixMe
     .on('error', function(err) {
-      logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
-      process.exit(2);
+      if (addr.path) {
+        if (err.code !== 'EADDRINUSE') {
+          throw err;
+        }
+
+        net
+          .connect({ path: addr.path }, function() {
+            throw err;
+          })
+          .on('error', function(err) {
+            if (err.code !== 'ECONNREFUSED') {
+              logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+              process.exit(2);
+            }
+
+            fs.unlinkSync(addr.path);
+            webServer.listen(addr.path);
+          });
+      } else {
+        logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+        process.exit(2);
+      }
     });
 
   logger.logger.warn(
