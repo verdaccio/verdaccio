@@ -37,6 +37,9 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {
+        if (Object.prototype.hasOwnProperty.call(req.query, '_write')) {
+          metadata._write = true;
+        }
         return next(metadata);
       }
 

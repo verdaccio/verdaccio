@@ -22,7 +22,14 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   const can = allow(auth);
 
   // publishing a package
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config));
+  router.put(
+    '/:package/:_rev?/:revision?',
+    can('publish'),
+    media(mime.getType('json')),
+    expectJson,
+    updatePackage(storage, config),
+    publishPackage(storage, config)
+  );
 
   // un-publishing an entire package
   router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
@@ -241,6 +248,30 @@ export function uploadPackageTarball(storage: IStorageHandler) {
       return next({
         ok: API_MESSAGE.TARBALL_UPLOADED,
       });
+    });
+  };
+}
+
+/**
+ * Update a package
+ */
+export function updatePackage(storage: IStorageHandler, config: Config) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    if (Object.prototype.hasOwnProperty.call(req.body, '_write')) {
+      delete req.body._write;
+    } else {
+      return next();
+    }
+
+    const packageName = req.params.package;
+    const metadata = validateMetadata(req.body, packageName);
+
+    storage.changePackage(packageName, metadata, 'deprecate', function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.status(HTTP_STATUS.OK);
+      return next({ ok: API_MESSAGE.PKG_CHANGED, success: true });
     });
   };
 }
