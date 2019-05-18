@@ -6,17 +6,20 @@ aliases:
   - &node8_executor
     docker:
       - image: circleci/node:8
-  - &node10_browser_executor
+  - &node12_browser_executor
     docker:
-      - image: circleci/node:10-browsers
+      - image: circleci/node:12-browsers
   - &node10_executor
     docker:
       - image: circleci/node:10
   - &node11_executor
     docker:
-    - image: circleci/node:11.10.1
+    - image: circleci/node:11
+  - &node12_executor
+    docker:
+    - image: circleci/node:12
   - &default_executor
-    <<: *node10_executor
+    <<: *node12_executor
   - &repo_key
     repo-{{ .Branch }}-{{ .Revision }}
   - &coverage_key
@@ -37,13 +40,6 @@ aliases:
           - gh-pages
           - l10n_master
           - /release\/.*/
-  - &execute_on_release
-    filters:
-      tags:
-        only: /v?[0-9]+(\.[0-9]+)+([-+\.][0-9a-zA-Z]+)*/
-      branches:
-        ignore:
-          - /.*/
 
 jobs:
   prepare:
@@ -53,19 +49,6 @@ jobs:
       - checkout
       - restore_cache:
           key: *base_config_key
-      - run:
-          name: 'Base environment setup'
-          command: |
-            git config --global user.email "verdacciobot@users.noreply.github.com"
-            git config --global user.name "Verdaccio bot for Deployments"
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-            echo "machine github.com login verdacciobot password $GITHUB_TOKEN" > ~/.netrc
-      - save_cache:
-          key: *base_config_key
-          paths:
-            - ~/.npmrc
-            - ~/.gitconfig
-            - ~/.netrc
       - restore_cache:
           key: *yarn_cache_key
       - run:
@@ -120,26 +103,25 @@ jobs:
           yarn run test
           yarn test:functional
 
+  test_node12:
+    <<: *defaults
+    <<: *node12_executor
+    steps:
+    - *restore_repo
+    - run:
+        name: Test with Node 12
+        command: |
+          yarn run test
+          yarn test:functional
+
   test_e2e:
     <<: *defaults
-    <<: *node10_browser_executor
+    <<: *node12_browser_executor
     steps:
       - *restore_repo
       - run:
           name: Test End-to-End
           command: yarn run test:e2e
-
-  test_size:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - restore_cache:
-          key: *base_config_key
-      - run:
-          name: Test size
-          command: yarn test:size
-
   coverage:
     <<: *defaults
     <<: *default_executor
@@ -159,17 +141,6 @@ jobs:
       - store_test_results:
           path: coverage/clover.xml
 
-  publish_package:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - restore_cache:
-          key: *base_config_key
-      - run:
-          name: Publish
-          command: scripts/publish.sh
-
 workflows:
   version: 2
   workflow:
@@ -188,11 +159,11 @@ workflows:
           requires:
           - prepare
           <<: *ignore_non_dev_branches
-      - test_e2e:
+      - test_node12:
           requires:
-            - prepare
+          - prepare
           <<: *ignore_non_dev_branches
-      - test_size:
+      - test_e2e:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
@@ -201,10 +172,6 @@ workflows:
             - test_node8
             - test_node10
             - test_node11
+            - test_node12
             - test_e2e
-            - test_size
           <<: *ignore_non_dev_branches
-      - publish_package:
-          requires:
-            - coverage
-          <<: *execute_on_release

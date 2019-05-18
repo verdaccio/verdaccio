@@ -8,6 +8,10 @@ packages:
     publish: $all
     unpublish: $authenticated
     proxy: npmjs
+  '@jquery/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
   'auth-package':
     access: $authenticated
     publish: $authenticated
@@ -15,7 +19,7 @@ packages:
     access: $authenticated
     publish: $authenticated
     # this is intended, empty block
-    ? unpublish
+    unpublish:
   'super-admin-can-unpublish':
     access: $authenticated
     publish: super_admin

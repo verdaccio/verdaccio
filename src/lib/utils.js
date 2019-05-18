@@ -10,7 +10,8 @@ import semver from 'semver';
 import YAML from 'js-yaml';
 import URL from 'url';
 import createError from 'http-errors';
-import marked from 'marked';
+// $FlowFixMe
+import sanitizyReadme from '@verdaccio/readme';
 
 import { HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
@@ -487,14 +488,14 @@ export function addGravatarSupport(pkgInfo: Object, online: boolean = true): Obj
  * @return {String} converted html template
  */
 export function parseReadme(packageName: string, readme: string): string {
-  if (readme) {
-    return marked(readme);
+  if (_.isEmpty(readme) === false) {
+    return sanitizyReadme(readme);
   }
 
   // logs readme not found error
   Logger.logger.error({ packageName }, '@{packageName}: No readme found');
 
-  return marked('ERROR: No README data found!');
+  return sanitizyReadme('ERROR: No README data found!');
 }
 
 export function buildToken(type: string, token: string): string {
@@ -546,4 +547,12 @@ export function formatAuthor(author: any) {
   }
 
   return authorDetails;
+}
+
+/**
+ * Check if URI is starting with "http://", "https://" or "//"
+ * @param {string} uri
+ */
+export function isHTTPProtocol(uri: string): boolean {
+  return /^(https?:)?\/\//.test(uri);
 }

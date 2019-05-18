@@ -4,12 +4,8 @@ module.exports = {
   name: 'verdaccio-unit-jest',
   verbose: true,
   collectCoverage: true,
-  testEnvironment: 'jest-environment-jsdom-global',
   testURL: 'http://localhost',
   testRegex: '(test/unit.*\\.spec|test/unit/webui/.*\\.spec)\\.js',
-  setupFiles: [
-    './test/unit/setup.js'
-  ],
    // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
    // when it tries to scan for package.json files.
   modulePathIgnorePatterns: [
@@ -39,14 +35,5 @@ module.exports = {
     'fixtures',
     '<rootDir>/src/api/debug',
     '<rootDir>/test',
-  ],
-  moduleNameMapper: {
-    '\\.(s?css)$': '<rootDir>/node_modules/identity-obj-proxy',
-    'github-markdown-css': '<rootDir>/node_modules/identity-obj-proxy',
-    '\\.(png)$': '<rootDir>/node_modules/identity-obj-proxy',
-    '\\.(svg)$': '<rootDir>/test/unit/empty.js'
-  },
-  transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!react-syntax-highlighter)'
   ]
 };

@@ -49,7 +49,7 @@ function isES6(plugin) {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, params: any, sanityCheck: Function): T[] {
+export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, params: any, sanityCheck: Function, prefix: string = 'verdaccio'): T[] {
   return Object.keys(pluginConfigs).map((pluginId: string) => {
     let plugin;
 
@@ -65,7 +65,7 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
 
       // npm package
       if (plugin === null && pluginId.match(/^[^\.\/]/)) {
-        plugin = tryLoad(Path.resolve(pluginDir, `verdaccio-${pluginId}`));
+        plugin = tryLoad(Path.resolve(pluginDir, `${prefix}-${pluginId}`));
         // compatibility for old sinopia plugins
         if (!plugin) {
           plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
@@ -75,7 +75,7 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
 
     // npm package
     if (plugin === null && pluginId.match(/^[^\.\/]/)) {
-      plugin = tryLoad(`verdaccio-${pluginId}`);
+      plugin = tryLoad(`${prefix}-${pluginId}`);
       // compatibility for old sinopia plugins
       if (!plugin) {
         plugin = tryLoad(`sinopia-${pluginId}`);
@@ -94,9 +94,7 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
     if (plugin === null) {
       logger.logger.error({ content: pluginId }, 'plugin not found. try npm install verdaccio-@{content}');
       throw Error(`
-        ${pluginId} plugin not found.
-        try "npm install verdaccio-'${pluginId}
-      `);
+        ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
     }
 
     if (!isValid(plugin)) {
@@ -112,7 +110,7 @@ export default function loadPlugin<T>(config: Config, pluginConfigs: any = {}, p
       throw Error(`"${pluginId}" is not a valid plugin`);
     }
 
-    logger.logger.warn({ content: pluginId }, 'Plugin successfully loaded: @{content}');
+    logger.logger.warn({ content: `${prefix}-${pluginId}` }, 'Plugin successfully loaded: @{content}');
     return plugin;
   });
 }

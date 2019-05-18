@@ -186,6 +186,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 * [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
 * [pnpm](https://github.com/pnpm/pnpm) *(+5k ⭐️)*
 * [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
+* [Amazon Web Services Cloud Development Kit](https://github.com/awslabs/aws-cdk) *(+1.8k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 
 ## Special Thanks

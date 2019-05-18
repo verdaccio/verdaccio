@@ -1,4 +1,4 @@
-FROM node:10.15.1-alpine as builder
+FROM node:10.15.3-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -16,13 +16,12 @@ RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn install --production=false --no-lockfile && \
     yarn lint && \
     yarn code:docker-build && \
-    yarn build:webui && \
     yarn cache clean && \
     yarn install --production=true --no-lockfile
 
 
 
-FROM node:10.15.1-alpine
+FROM node:10.15.3-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \

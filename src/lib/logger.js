@@ -7,10 +7,10 @@ const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');
-const chalk = require('chalk');
+const { red, yellow, cyan, magenta, green, white, black, blue } = require('kleur');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
-const { format } = require('date-fns');
+const dayjs = require('dayjs');
 
 /**
  * Match the level based on buyan severity scale
@@ -114,7 +114,7 @@ function setup(logs) {
       } else if (target.format === 'pretty-timestamped') {
         // making fake stream for pretty printing
         stream.write = obj => {
-          destination.write(`[${format(obj.time, 'YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+          destination.write(`[${dayjs(obj.time).format('YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
         };
       } else {
         stream.write = obj => {
@@ -155,13 +155,13 @@ function setup(logs) {
 
 // level to color
 const levels = {
-  fatal: chalk.red,
-  error: chalk.red,
-  warn: chalk.yellow,
-  http: chalk.magenta,
-  info: chalk.cyan,
-  debug: chalk.green,
-  trace: chalk.white,
+  fatal: red,
+  error: red,
+  warn: yellow,
+  http: magenta,
+  info: cyan,
+  debug: green,
+  trace: white,
 };
 
 let max = 0;
@@ -206,9 +206,9 @@ function fillInMsgTemplate(msg, obj, colors) {
       if (!colors || str.includes('\n')) {
         return str;
       } else if (is_error) {
-        return chalk.red(str);
+        return red(str);
       } else {
-        return chalk.green(str);
+        return green(str);
       }
     } else {
       return require('util').inspect(str, null, null, colors);
@@ -232,10 +232,10 @@ function print(type, msg, obj, colors) {
 
   const subsystems = [
     {
-      in: chalk.green('<--'),
-      out: chalk.yellow('-->'),
-      fs: chalk.black('-=-'),
-      default: chalk.blue('---'),
+      in: green('<--'),
+      out: yellow('-->'),
+      fs: black('-=-'),
+      default: blue('---'),
     },
     {
       in: '<--',
@@ -247,7 +247,7 @@ function print(type, msg, obj, colors) {
 
   const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
   if (colors) {
-    return ` ${levels[type](pad(type))}${chalk.white(`${sub} ${finalMessage}`)}`;
+    return ` ${levels[type](pad(type))}${white(`${sub} ${finalMessage}`)}`;
   } else {
     return ` ${pad(type)}${sub} ${finalMessage}`;
   }

@@ -8,20 +8,19 @@
 
 import path from 'path';
 import semver from 'semver';
-import chalk from 'chalk';
+import { bgYellow, bgRed } from 'kleur';
 import {startVerdaccio, listenDefaultCallback} from './bootstrap';
 import findConfigFile from './config-path';
-import {verdaccioUpdateBanner} from './update-banner';
 import { parseConfigFile } from './utils';
 
 if (process.getuid && process.getuid() === 0) {
-  global.console.warn(chalk.bgYellow('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.'));
+  global.console.warn(bgYellow('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.'));
 }
 
 const MIN_NODE_VERSION = '6.9.0';
 
 if (semver.satisfies(process.version, `>=${MIN_NODE_VERSION}`) === false) {
- global.console.error(chalk.bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
+ global.console.error(bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
  process.exit(1);
 }
 
@@ -31,14 +30,8 @@ const logger = require('./logger');
 logger.setup(); // default setup
 
 const commander = require('commander');
-const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
-
-/**
- * Checking verdaccio version on NPM
- */
-verdaccioUpdateBanner(pkgVersion);
 
 commander
   .option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)')

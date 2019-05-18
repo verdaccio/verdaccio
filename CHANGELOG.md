@@ -2,6 +2,104 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.8](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.7...v4.0.0-beta.8) (2019-05-07)
+
+
+### Bug Fixes
+
+* update lock file ([3c69132](https://github.com/verdaccio/verdaccio/commit/3c69132))
+
+
+
+# [4.0.0-beta.7](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.6...v4.0.0-beta.7) (2019-05-07)
+
+
+
+# [4.0.0-beta.6](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.5...v4.0.0-beta.6) (2019-05-07)
+
+
+### Bug Fixes
+
+* routing is aware of reverse proxy directory [#1297](https://github.com/verdaccio/verdaccio/issues/1297) ([01f8da6](https://github.com/verdaccio/verdaccio/commit/01f8da6))
+
+
+
+# [4.0.0-beta.5](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.4...v4.0.0-beta.5) (2019-04-30)
+
+
+### Bug Fixes
+
+* remove unused dependencies [#1292](https://github.com/verdaccio/verdaccio/issues/1292) ([f48b23f](https://github.com/verdaccio/verdaccio/commit/f48b23f))
+
+
+### Features
+
+* add some security headers for web UI ([#1295](https://github.com/verdaccio/verdaccio/issues/1295)) [@juanpicado](https://github.com/juanpicado) ([615db0a](https://github.com/verdaccio/verdaccio/commit/615db0a))
+
+
+
+# [4.0.0-beta.4](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.3...v4.0.0-beta.4) (2019-04-29)
+
+
+### Features
+
+* replace chalk with kleur ([#1289](https://github.com/verdaccio/verdaccio/issues/1289)) @DanielRuf ([ff71640](https://github.com/verdaccio/verdaccio/commit/ff71640))
+
+
+
+# [4.0.0-beta.3](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2019-04-28)
+
+
+### Bug Fixes
+
+* logo field in configuration cannot use the local file ([56c70d4](https://github.com/verdaccio/verdaccio/commit/56c70d4))
+* **ui:** version rendering issue ([40679aa](https://github.com/verdaccio/verdaccio/commit/40679aa))
+
+
+
+# [4.0.0-beta.2](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2019-04-26)
+
+
+### Features
+
+* accept web.primary_color as config option and inject into webui ([#1282](https://github.com/verdaccio/verdaccio/issues/1282)) ([9f8a054](https://github.com/verdaccio/verdaccio/commit/9f8a054))
+
+
+
+# [4.0.0-beta.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2019-04-16)
+
+
+### Bug Fixes
+
+* all static files are captured by the router ([86a6e5e](https://github.com/verdaccio/verdaccio/commit/86a6e5e))
+
+
+
+# [4.0.0-beta.0](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.7...v4.0.0-beta.0) (2019-04-15)
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([#1276](https://github.com/verdaccio/verdaccio/issues/1276)) ([fbe9409](https://github.com/verdaccio/verdaccio/commit/fbe9409))
+* update @verdaccio/ui-theme@0.0.13 ([8760e18](https://github.com/verdaccio/verdaccio/commit/8760e18))
+* update docker node to latest lts version ([a5be22b](https://github.com/verdaccio/verdaccio/commit/a5be22b))
+
+
+
+# [4.0.0-alpha.7](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2019-04-06)
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([d99053e](https://github.com/verdaccio/verdaccio/commit/d99053e))
+
+
+### Features
+
+* theme as plugin ([#1252](https://github.com/verdaccio/verdaccio/issues/1252)) ([c3c6202](https://github.com/verdaccio/verdaccio/commit/c3c6202))
+
+
+
 <a name="4.0.0-alpha.6"></a>
 # [4.0.0-alpha.6](https://github.com/verdaccio/verdaccio/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2019-03-30)
 
