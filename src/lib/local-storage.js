@@ -319,23 +319,49 @@ class LocalStorage implements IStorage {
     this._updatePackage(
       name,
       (localData, cb) => {
-        for (const version in localData.versions) {
-          if (_.isNil(incomingPkg.versions[version])) {
-            this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
+        if (revision === 'deprecate') {
+          let changed = false;
 
-            delete localData.versions[version];
-            delete localData.time[version];
+          for (const version in incomingPkg.versions) {
+            const incomingDeprecated = incomingPkg.versions[version].deprecated;
 
-            for (const file in localData._attachments) {
-              if (localData._attachments[file].version === version) {
-                delete localData._attachments[file].version;
+            if (incomingDeprecated != localData.versions[version].deprecated) {
+              changed = true;
+
+              if (!incomingDeprecated) {
+                this.logger.info({ name: name, version: version }, 'undeprecating @{name}@@{version}');
+
+                delete localData.versions[version].deprecated;
+              } else {
+                this.logger.info({ name: name, version: version }, 'deprecating @{name}@@{version}');
+
+                localData.versions[version].deprecated = incomingDeprecated;
               }
             }
           }
-        }
 
-        localData[USERS] = incomingPkg[USERS];
-        localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
+          if (changed) {
+            localData.time.modified = new Date().toISOString();
+          }
+        } else {
+          for (const version in localData.versions) {
+            if (_.isNil(incomingPkg.versions[version])) {
+              this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
+
+              delete localData.versions[version];
+              delete localData.time[version];
+
+              for (const file in localData._attachments) {
+                if (localData._attachments[file].version === version) {
+                  delete localData._attachments[file].version;
+                }
+              }
+            }
+          }
+
+          localData[USERS] = incomingPkg[USERS];
+          localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
+        }
         cb();
       },
       function(err) {
