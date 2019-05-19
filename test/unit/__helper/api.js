@@ -10,7 +10,7 @@ export function getPackage(
   // $FlowFixMe
   return new Promise((resolve) => {
   request.get(`/${pkg}`)
-    .set('authorization', header)
+    .set(HEADERS.AUTHORIZATION, header)
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
     .expect(statusCode)
     .end(function(err, res) {
@@ -50,7 +50,7 @@ export function getProfile(request: any, token: string, statusCode: number = HTT
   // $FlowFixMe
   return new Promise((resolve) => {
     request.get(`/-/npm/v1/user`)
-      .set('authorization', `Bearer ${token}`)
+      .set(HEADERS.AUTHORIZATION, `Bearer ${token}`)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(statusCode)
       .end(function(err, res) {
@@ -64,7 +64,7 @@ export function postProfile(request: any, body: any, token: string, statusCode: 
   return new Promise((resolve) => {
     request.post(`/-/npm/v1/user`)
       .send(body)
-      .set('authorization', `Bearer ${token}`)
+      .set(HEADERS.AUTHORIZATION, `Bearer ${token}`)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(statusCode)
       .end(function(err, res) {

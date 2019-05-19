@@ -134,7 +134,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package bad format', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', 'FakeHader')
+            .set(HEADERS.AUTHORIZATION, 'FakeHader')
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -147,7 +147,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package bad JWT Bearer format', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', TOKEN_BEARER)
+            .set(HEADERS.AUTHORIZATION, TOKEN_BEARER)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -160,7 +160,7 @@ describe('endpoint unit test', () => {
         test('should fails on protected endpoint /-/auth-package well JWT Bearer', (done) => {
           request(app)
             .get('/auth-package')
-            .set('authorization', buildToken(TOKEN_BEARER, '12345'))
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, '12345'))
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function(err, res) {
@@ -192,7 +192,7 @@ describe('endpoint unit test', () => {
             // we need it here, because token is required
             request(app)
               .get('/vue')
-              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
               .expect(HTTP_STATUS.OK)
               .end(function(err, res) {
@@ -675,7 +675,7 @@ describe('endpoint unit test', () => {
           const token = await getNewToken(request(app), credentials);
           request(app)
             .put('/@scope%2fpk1-test')
-            .set('authorization', buildToken(TOKEN_BEARER, token))
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
             .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .send(JSON.stringify({
               ...starMetadata,
@@ -690,7 +690,7 @@ describe('endpoint unit test', () => {
               }
               request(app)
                 .get('/-/_view/starredByUser')
-                .set('authorization', buildToken(TOKEN_BEARER, token))
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
                 .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
                 .send(JSON.stringify({
                   key: [credentials.name]
@@ -719,7 +719,7 @@ describe('endpoint unit test', () => {
         request(app)
           .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -738,7 +738,7 @@ describe('endpoint unit test', () => {
         request(app)
           .del('/non-unpublish/-rev/4-6abcdb4efd41a576')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
           .expect(HTTP_STATUS.FORBIDDEN)
           .end(function(err, res) {
             expect(err).toBeNull();
@@ -754,7 +754,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/super-admin-can-unpublish')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
           .send(JSON.stringify(_.assign({}, publishMetadata, {
             name: 'super-admin-can-unpublish'
           })))
@@ -771,7 +771,7 @@ describe('endpoint unit test', () => {
             request(app)
               .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
               .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HTTP_STATUS.CREATED)
               .end(function(err, res) {
                 expect(err).toBeNull();
@@ -788,7 +788,7 @@ describe('endpoint unit test', () => {
         request(app)
           .put('/all-can-unpublish')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set('authorization', buildToken(TOKEN_BEARER, token))
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
           .send(JSON.stringify(_.assign({}, publishMetadata, {
             name: 'all-can-unpublish'
           })))
@@ -805,7 +805,7 @@ describe('endpoint unit test', () => {
             request(app)
               .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
               .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .set('authorization', buildToken(TOKEN_BEARER, token))
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HTTP_STATUS.CREATED)
               .end(function(err, res) {
                 expect(err).toBeNull();

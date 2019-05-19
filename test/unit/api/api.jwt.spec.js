@@ -7,10 +7,10 @@ import rimraf from 'rimraf';
 
 import endPointAPI from '../../../src/api/index';
 
-import {HEADERS, HTTP_STATUS, HEADER_TYPE} from '../../../src/lib/constants';
+import {HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC} from '../../../src/lib/constants';
 import {mockServer} from '../__helper/mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {parseConfigFile} from '../../../src/lib/utils';
+import {buildToken, parseConfigFile} from '../../../src/lib/utils';
 import {parseConfigurationFile} from '../__helper';
 import {addUser, getPackage} from '../__helper/api';
 import {setup} from '../../../src/lib/logger';
@@ -28,6 +28,7 @@ const FORBIDDEN_VUE: string = 'authorization required to access package vue';
 describe('endpoint user auth JWT unit test', () => {
   let app;
   let mockRegistry;
+  const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
 
   beforeAll(function(done) {
     const store = path.join(__dirname, '../partials/store/test-jwt-storage');
@@ -70,12 +71,12 @@ describe('endpoint user auth JWT unit test', () => {
     expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
     // testing JWT auth headers with token
     // we need it here, because token is required
-    const [err1, resp1] = await getPackage(request(app), `Bearer ${token}`, 'vue');
+    const [err1, resp1] = await getPackage(request(app), buildToken(TOKEN_BEARER, token), 'vue');
     expect(err1).toBeNull();
     expect(resp1.body).toBeDefined();
     expect(resp1.body.name).toMatch('vue');
 
-    const [err2, resp2] = await getPackage(request(app), `Bearer fake`, 'vue', HTTP_STATUS.UNAUTHORIZED);
+    const [err2, resp2] = await getPackage(request(app), FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
@@ -92,7 +93,7 @@ describe('endpoint user auth JWT unit test', () => {
     const token = buildUserBuffer(credentials.name, credentials.password).toString('base64');
     request(app).put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
       .send(credentials)
-      .set('authorization', `Basic ${token}`)
+      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.CREATED)
       .end(function(err, res) {
@@ -104,7 +105,7 @@ describe('endpoint user auth JWT unit test', () => {
   });
 
   test('should fails on try to access with corrupted token', async (done) => {
-    const [err2, resp2] = await getPackage(request(app), `Bearer fake`, 'vue', HTTP_STATUS.UNAUTHORIZED);
+    const [err2, resp2] = await getPackage(request(app), FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);

@@ -1,5 +1,5 @@
 import ProxyStorage from '../../../src/lib/up-storage';
-import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY} from "../../../src/lib/constants";
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY, HEADERS} from "../../../src/lib/constants";
 import {buildToken} from "../../../src/lib/utils";
 import {setup} from '../../../src/lib/logger';
 
@@ -27,7 +27,7 @@ describe('uplink auth test', () => {
   test('if set headers empty should return default headers', () => {
     const headers = setHeaders();
     const keys = Object.keys(headers);
-    const keysExpected = ['Accept', 'Accept-Encoding', 'User-Agent'];
+    const keysExpected = [HEADERS.ACCEPT, HEADERS.ACCEPT_ENCODING, HEADERS.USER_AGENT];
 
     expect(keys).toEqual(keysExpected);
     expect(keys).toHaveLength(3);
@@ -47,11 +47,11 @@ describe('uplink auth test', () => {
 
   test('if assigns the header authorization', () => {
     const headers = setHeaders({}, {
-      'authorization': buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
+      [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
     });
 
     expect(Object.keys(headers)).toHaveLength(4);
-    expect(headers['authorization']).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
   });
 
   test(
@@ -63,10 +63,10 @@ describe('uplink auth test', () => {
           token: 'tokenBearer'
         }
       }, {
-        'authorization': buildToken(TOKEN_BASIC, 'tokenBasic')
+        [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'tokenBasic')
       });
 
-      expect(headers['authorization']).toEqual(buildToken(TOKEN_BASIC, 'tokenBasic'));
+      expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'tokenBasic'));
     }
   );
 
@@ -79,7 +79,7 @@ describe('uplink auth test', () => {
     });
 
     expect(Object.keys(headers)).toHaveLength(4);
-    expect(headers['authorization']).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
   });
 
   test('set type auth bearer', () => {
@@ -91,7 +91,7 @@ describe('uplink auth test', () => {
     });
 
     expect(Object.keys(headers)).toHaveLength(4);
-    expect(headers['authorization']).toEqual(buildToken(TOKEN_BEARER, 'Zm9vX2Jhcf==='));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BEARER, 'Zm9vX2Jhcf==='));
   });
 
   test('set auth type invalid', () => {
@@ -117,7 +117,7 @@ describe('uplink auth test', () => {
       }
     });
 
-    expect(headers['authorization']).toBe(`${TOKEN_BEARER} myToken`);
+    expect(headers[HEADERS.AUTHORIZATION]).toBe(buildToken(TOKEN_BEARER, 'myToken'));
     delete process.env.NPM_TOKEN;
   });
 
@@ -130,7 +130,7 @@ describe('uplink auth test', () => {
       }
     });
 
-    expect(headers['authorization']).toBe(buildToken(TOKEN_BASIC, 'myTokenTest'));
+    expect(headers[HEADERS.AUTHORIZATION]).toBe(buildToken(TOKEN_BASIC, 'myTokenTest'));
     delete process.env.NPM_TOKEN_TEST;
   });
 

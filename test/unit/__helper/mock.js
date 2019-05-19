@@ -7,6 +7,11 @@ import {VerdaccioConfig} from '../../lib/verdaccio-server';
 import Server from '../../lib/server';
 import type {IServerBridge} from '../../types';
 
+/**
+ *
+ * @param port
+ * @returns {VerdaccioProcess}
+ */
 export function mockServer(port: number) {
   const pathStore = path.join(__dirname, '../partials');
   const storePath = path.join(pathStore, '/mock-store');
