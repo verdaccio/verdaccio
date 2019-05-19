@@ -4,20 +4,20 @@ import path from 'path';
 import fs from 'fs';
 import rimraf from 'rimraf';
 // $FlowFixMe
-import configExample from '../partials/config/index';
-import AppConfig from '../../../src/lib/config';
-import Storage from '../../../src/lib/storage';
-import {setup} from '../../../src/lib/logger';
+import configExample from '../../partials/config';
+import AppConfig from '../../../../src/lib/config';
+import Storage from '../../../../src/lib/storage';
+import {setup} from '../../../../src/lib/logger';
 
 import type {Config} from '@verdaccio/types';
-import type {IStorageHandler} from '../../../types/index';
-import {API_ERROR, HTTP_STATUS} from '../../../src/lib/constants';
-import {mockServer} from '../__helper/mock';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import type {IStorageHandler} from '../../../../types';
+import {API_ERROR, HTTP_STATUS} from '../../../../src/lib/constants';
+import {mockServer} from '../../__helper/mock';
+import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 
 setup([]);
 
-const storagePath = path.join(__dirname, '../partials/store/test-storage-store.spec');
+const storagePath = path.join(__dirname, '../../partials/store/test-storage-store.spec');
 const mockServerPort: number = 55548;
 const generateStorage = async function(port = mockServerPort) {
   const storageConfig = configExample({
@@ -99,7 +99,7 @@ describe('StorageTest', () => {
 
     test('should not touch if the package exists and has no uplinks', async (done) => {
       const storage: IStorageHandler = await generateStorage();
-      const metadataSource = path.join(__dirname, '../partials/metadata');
+      const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
       
       fs.mkdirSync(path.join(storagePath, 'npm_test'));

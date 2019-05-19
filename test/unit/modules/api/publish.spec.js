@@ -1,8 +1,8 @@
 /**
  * @prettier
  */
-import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../src/api/endpoint/api/publish';
-import { HTTP_STATUS, API_ERROR } from '../../../src/lib/constants';
+import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../../src/api/endpoint/api/publish';
+import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
 

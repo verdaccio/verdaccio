@@ -1,25 +1,25 @@
 // @flow
 
 import _ from 'lodash';
-import Auth from '../../../src/lib/auth';
-import {CHARACTER_ENCODING} from '../../../src/lib/constants';
+import Auth from '../../../../src/lib/auth';
+import {CHARACTER_ENCODING, TOKEN_BEARER} from '../../../../src/lib/constants';
 // $FlowFixMe
-import configExample from '../partials/config/index';
-import AppConfig from '../../../src/lib/config';
-import {setup} from '../../../src/lib/logger';
+import configExample from '../../partials/config';
+import AppConfig from '../../../../src/lib/config';
+import {setup} from '../../../../src/lib/logger';
 
-import {convertPayloadToBase64, parseConfigFile} from '../../../src/lib/utils';
+import {buildToken, convertPayloadToBase64, parseConfigFile} from '../../../../src/lib/utils';
 import {
   buildUserBuffer,
   getApiToken,
   getAuthenticatedMessage,
   getMiddlewareCredentials,
   getSecurity
-} from '../../../src/lib/auth-utils';
-import {aesDecrypt, verifyPayload} from '../../../src/lib/crypto-utils';
-import {parseConfigurationFile} from '../__helper';
+} from '../../../../src/lib/auth-utils';
+import {aesDecrypt, verifyPayload} from '../../../../src/lib/crypto-utils';
+import {parseConfigurationFile} from '../../__helper';
 
-import type {IAuth, } from '../../../types/index';
+import type {IAuth, } from '../../../../types';
 import type {Config, Security, RemoteUser} from '@verdaccio/types';
 
 setup([]);
@@ -181,7 +181,7 @@ describe('Auth utilities', () => {
           'test', 'test', secret, 'aesEncrypt', 'jwtEncrypt');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, 'BAD_SECRET', `Bearer ${token}`);
+        const credentials = getMiddlewareCredentials(security, 'BAD_SECRET', buildToken(TOKEN_BEARER, token));
         expect(credentials).not.toBeDefined();
       });
 
@@ -191,7 +191,7 @@ describe('Auth utilities', () => {
           'test', 'test', secret, 'aesEncrypt', 'jwtEncrypt');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, secret, `BAD_SCHEME ${token}`);
+        const credentials = getMiddlewareCredentials(security, secret, buildToken('BAD_SCHEME', token));
         expect(credentials).not.toBeDefined();
       });
 
@@ -201,7 +201,7 @@ describe('Auth utilities', () => {
         const auth: IAuth = new Auth(config);
         const token = auth.aesEncrypt(new Buffer(`corruptedBuffer`)).toString('base64');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
+        const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).not.toBeDefined();
       });
     });
@@ -210,7 +210,7 @@ describe('Auth utilities', () => {
       test('should return anonymous whether token is corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, '12345', 'Bearer fakeToken');
+        const credentials = getMiddlewareCredentials(security, '12345', buildToken(TOKEN_BEARER, 'fakeToken'));
 
         expect(credentials).toBeDefined();
         // $FlowFixMe
@@ -224,7 +224,7 @@ describe('Auth utilities', () => {
       test('should return anonymous whether token and scheme are corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, '12345', 'FakeScheme fakeToken');
+        const credentials = getMiddlewareCredentials(security, '12345', buildToken('FakeScheme', 'fakeToken'));
 
         expect(credentials).not.toBeDefined();
       });
@@ -236,7 +236,7 @@ describe('Auth utilities', () => {
         const token = await signCredentials('security-jwt',
           user, 'secretTest', secret, 'jwtEncrypt', 'aesEncrypt');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
+        const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).toBeDefined();
         // $FlowFixMe
         expect(credentials.name).toEqual(user);

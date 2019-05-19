@@ -2,17 +2,17 @@ import request from 'supertest';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import configDefault from '../partials/config/index';
-import publishMetadata from '../partials/publish-api';
-import forbiddenPlace from '../partials/forbidden-place';
-import endPointAPI from '../../../src/api/index';
+import configDefault from '../../partials/config';
+import publishMetadata from '../../partials/publish-api';
+import forbiddenPlace from '../../partials/forbidden-place';
+import endPointAPI from '../../../../src/api';
 
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS} from '../../../src/lib/constants';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {mockServer} from '../__helper/mock';
-import {addUser} from '../__helper/api';
+import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS} from '../../../../src/lib/constants';
+import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import {mockServer} from '../../__helper/mock';
+import {addUser} from '../../__helper/api';
 
-require('../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([]);
 
 const credentials = { name: 'user-web', password: 'secretPass' };
 describe('endpoint web unit test', () => {
@@ -20,16 +20,16 @@ describe('endpoint web unit test', () => {
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../store/test-storage-web');
+    const store = path.join(__dirname, '../../partials/store/web-api-storage');
     const mockServerPort = 55544;
     rimraf(store, async () => {
       const configForTest = configDefault({
         auth: {
           htpasswd: {
-            file: './test-storage-web/.htpasswd'
+            file: './web-api-storage/.htpasswd-web-api'
           }
         },
-        storage: path.join(__dirname, '../store/test-storage-web'),
+        storage: store,
         uplinks: {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`

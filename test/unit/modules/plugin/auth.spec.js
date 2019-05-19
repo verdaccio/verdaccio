@@ -1,14 +1,14 @@
 import _ from 'lodash';
 // @flow
-import Auth from '../../../src/lib/auth';
+import Auth from '../../../../src/lib/auth';
 // $FlowFixMe
-import _configExample from '../partials/config/index';
+import _configExample from '../../partials/config';
 // $FlowFixMe
-import _configPlugins from '../partials/config/plugin';
-import AppConfig from '../../../src/lib/config';
-import {setup} from '../../../src/lib/logger';
+import _configPlugins from './helper/plugin';
+import AppConfig from '../../../../src/lib/config';
+import {setup} from '../../../../src/lib/logger';
 
-import type {IAuth} from '../../../types/index';
+import type {IAuth} from '../../../../types';
 import type {Config} from '@verdaccio/types';
 
 setup([]);
