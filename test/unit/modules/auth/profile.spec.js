@@ -5,13 +5,13 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import endPointAPI from '../../../src/api/index';
-import {mockServer} from '../__helper/mock';
-import {parseConfigFile} from '../../../src/lib/utils';
-import {parseConfigurationFile} from '../__helper';
-import {getNewToken, getProfile, postProfile} from '../__helper/api';
-import {setup} from '../../../src/lib/logger';
-import {API_ERROR, HTTP_STATUS, SUPPORT_ERRORS} from '../../../src/lib/constants';
+import endPointAPI from '../../../../src/api';
+import {mockServer} from '../../__helper/mock';
+import {parseConfigFile} from '../../../../src/lib/utils';
+import {parseConfigurationFile} from '../../__helper';
+import {getNewToken, getProfile, postProfile} from '../../__helper/api';
+import {setup} from '../../../../src/lib/logger';
+import {API_ERROR, HTTP_STATUS, SUPPORT_ERRORS} from '../../../../src/lib/constants';
 
 setup([]);
 
@@ -25,7 +25,7 @@ describe('endpoint user profile', () => {
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/test-profile-storage');
+    const store = path.join(__dirname, '../../partials/store/test-profile-storage');
     const mockServerPort = 55544;
     rimraf(store, async () => {
       const parsedConfig = parseConfigFile(parseConfigurationProfile());
@@ -33,7 +33,7 @@ describe('endpoint user profile', () => {
         storage: store,
         auth: {
           htpasswd: {
-            file: './test-profile-storage/.htpasswd'
+            file: './test-profile-storage/.htpasswd-auth-profile'
           }
         },
         self_path: store

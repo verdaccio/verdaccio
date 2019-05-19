@@ -405,7 +405,7 @@ class ProxyStorage implements IProxy {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
-      headers['Accept'] = contentTypeAccept;
+      headers[HEADERS.ACCEPT] = contentTypeAccept;
     }
 
     this.request(

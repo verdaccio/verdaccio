@@ -3,26 +3,27 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import { HEADERS, HTTP_STATUS } from '../../../src/lib/constants';
-import configDefault from '../partials/config/config_access';
-import endPointAPI from '../../../src/api/index';
-import {mockServer} from '../__helper/mock';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
+import configDefault from '../../partials/config/config_access';
+import endPointAPI from '../../../../src/api';
+import {mockServer} from '../../__helper/mock';
+import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 
-require('../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([]);
 
 describe('api with no limited access configuration', () => {
   let app;
   let mockRegistry;
+  const store = path.join(__dirname, '../../partials/store/pkg-access-spec');
 
   beforeAll(function(done) {
     const mockServerPort = 55530;
-    const store = path.join(__dirname, './partials/store/access-storage');
+
     rimraf(store, async () => {
       const configForTest = _.assign({}, _.cloneDeep(configDefault), {
         auth: {
           htpasswd: {
-            file: './access-storage/htpasswd-access-test'
+            file: './access-storage/htpasswd-pkg-access'
           }
         },
         self_path: store,
@@ -40,7 +41,6 @@ describe('api with no limited access configuration', () => {
   });
 
   afterAll(function(done) {
-    const store = path.join(__dirname, './partials/store/access-storage');
     rimraf(store, (err) => {
       if (err) {
         mockRegistry[0].stop();

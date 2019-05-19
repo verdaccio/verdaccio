@@ -5,16 +5,16 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import endPointAPI from '../../../src/api/index';
+import endPointAPI from '../../../../src/api';
 
-import {HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC} from '../../../src/lib/constants';
-import {mockServer} from '../__helper/mock';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {buildToken, parseConfigFile} from '../../../src/lib/utils';
-import {parseConfigurationFile} from '../__helper';
-import {addUser, getPackage} from '../__helper/api';
-import {setup} from '../../../src/lib/logger';
-import {buildUserBuffer} from '../../../src/lib/auth-utils';
+import {HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC} from '../../../../src/lib/constants';
+import {mockServer} from '../../__helper/mock';
+import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import {buildToken, parseConfigFile} from '../../../../src/lib/utils';
+import {parseConfigurationFile} from '../../__helper';
+import {addUser, getPackage} from '../../__helper/api';
+import {setup} from '../../../../src/lib/logger';
+import {buildUserBuffer} from '../../../../src/lib/auth-utils';
 
 setup([]);
 const credentials = { name: 'JotaJWT', password: 'secretPass' };
@@ -31,13 +31,13 @@ describe('endpoint user auth JWT unit test', () => {
   const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../partials/store/test-jwt-storage');
+    const store = path.join(__dirname, '../../partials/store/test-jwt-storage');
     const mockServerPort = 55546;
     rimraf(store, async () => {
       const confS = parseConfigFile(parseConfigurationJWTFile());
       const configForTest = _.assign({}, _.cloneDeep(confS), {
         storage: store,
-        plinks: {
+        uplinks: {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
           }
@@ -45,7 +45,7 @@ describe('endpoint user auth JWT unit test', () => {
         self_path: store,
         auth: {
           htpasswd: {
-            file: './test-jwt-storage/.htpasswd'
+            file: './test-jwt-storage/.htpasswd_jwt_auth'
           }
         }
       });

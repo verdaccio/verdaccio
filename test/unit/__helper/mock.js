@@ -8,6 +8,44 @@ import Server from '../../lib/server';
 import type {IServerBridge} from '../../types';
 
 /**
+ * Fork a Verdaccio process with a custom configuration.
+ *
+ * Usage:
+ *
+ *  - Fork the process within the beforeAll body.
+ *  - Define a storage (use a specific name)
+ *  - Define a unique port (be careful with conflicts)
+ *  - Set a configuration
+ *  - await / mockServer
+ *  - call done();
+ *
+ *  beforeAll(function(done) {
+      const store = path.join(__dirname, '../partials/store/test-profile-storage');
+      const mockServerPort = 55544;
+      rimraf(store, async () => {
+        const parsedConfig = parseConfigFile(parseConfigurationProfile());
+        const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
+          storage: store,
+          auth: {
+            htpasswd: {
+              file: './test-profile-storage/.htpasswd'
+            }
+          },
+          self_path: store
+        });
+        app = await endPointAPI(configForTest);
+        mockRegistry = await mockServer(mockServerPort).init();
+        done();
+    });
+
+   On finish the test we must close the server
+
+   afterAll(function(done) {
+    mockRegistry[0].stop();
+    done();
+   });
+
+ *
  *
  * @param port
  * @returns {VerdaccioProcess}
