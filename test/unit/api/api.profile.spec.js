@@ -6,10 +6,10 @@ import path from 'path';
 import rimraf from 'rimraf';
 
 import endPointAPI from '../../../src/api/index';
-import {mockServer} from './mock';
+import {mockServer} from '../__helper/mock';
 import {parseConfigFile} from '../../../src/lib/utils';
 import {parseConfigurationFile} from '../__helper';
-import {getNewToken, getProfile, postProfile} from './__api-helper';
+import {getNewToken, getProfile, postProfile} from '../__helper/api';
 import {setup} from '../../../src/lib/logger';
 import {API_ERROR, HTTP_STATUS, SUPPORT_ERRORS} from '../../../src/lib/constants';
 

@@ -6,7 +6,7 @@ import rimraf from 'rimraf';
 import { HEADERS, HTTP_STATUS } from '../../../src/lib/constants';
 import configDefault from '../partials/config/config_access';
 import endPointAPI from '../../../src/api/index';
-import {mockServer} from './mock';
+import {mockServer} from '../__helper/mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 require('../../../src/lib/logger').setup([]);

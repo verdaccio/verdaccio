@@ -12,7 +12,7 @@ import {setup} from '../../../src/lib/logger';
 import type {Config} from '@verdaccio/types';
 import type {IStorageHandler} from '../../../types/index';
 import {API_ERROR, HTTP_STATUS} from '../../../src/lib/constants';
-import {mockServer} from './mock';
+import {mockServer} from '../__helper/mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 
 setup([]);

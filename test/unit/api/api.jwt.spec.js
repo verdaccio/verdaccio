@@ -8,11 +8,11 @@ import rimraf from 'rimraf';
 import endPointAPI from '../../../src/api/index';
 
 import {HEADERS, HTTP_STATUS, HEADER_TYPE} from '../../../src/lib/constants';
-import {mockServer} from './mock';
+import {mockServer} from '../__helper/mock';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 import {parseConfigFile} from '../../../src/lib/utils';
 import {parseConfigurationFile} from '../__helper';
-import {addUser, getPackage} from './__api-helper';
+import {addUser, getPackage} from '../__helper/api';
 import {setup} from '../../../src/lib/logger';
 import {buildUserBuffer} from '../../../src/lib/auth-utils';
 

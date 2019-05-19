@@ -9,8 +9,8 @@ import endPointAPI from '../../../src/api/index';
 
 import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS} from '../../../src/lib/constants';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {mockServer} from './mock';
-import {addUser} from './__api-helper';
+import {mockServer} from '../__helper/mock';
+import {addUser} from '../__helper/api';
 
 require('../../../src/lib/logger').setup([]);
 
