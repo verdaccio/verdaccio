@@ -1,12 +1,12 @@
 import path from 'path';
-import loadPlugin from '../../../src/lib/plugin-loader';
-import logger from '../../../src/lib/logger';
+import loadPlugin from '../../../../src/lib/plugin-loader';
+import logger from '../../../../src/lib/logger';
 
 logger.setup([]);
 
 describe('plugin loader', () => {
 
-  const relativePath = './partials/test-plugin-storage';
+  const relativePath = path.join(__dirname, './partials/test-plugin-storage');
   const buildConf = name => {
     return {
       self_path: path.join(__dirname, './'),
