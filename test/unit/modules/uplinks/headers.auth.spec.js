@@ -1,7 +1,7 @@
-import ProxyStorage from '../../../src/lib/up-storage';
-import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY, HEADERS} from "../../../src/lib/constants";
-import {buildToken} from "../../../src/lib/utils";
-import {setup} from '../../../src/lib/logger';
+import ProxyStorage from '../../../../src/lib/up-storage';
+import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY, HEADERS} from "../../../../src/lib/constants";
+import {buildToken} from "../../../../src/lib/utils";
+import {setup} from '../../../../src/lib/logger';
 
 setup([]);
 
@@ -22,7 +22,7 @@ function setHeaders(config, headers) {
   });
 }
 
-describe('uplink auth test', () => {
+describe('uplink headers auth test', () => {
 
   test('if set headers empty should return default headers', () => {
     const headers = setHeaders();

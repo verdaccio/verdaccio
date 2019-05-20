@@ -2,7 +2,7 @@
  * @prettier
  */
 
-import { HTTP_STATUS, API_ERROR } from '../../../src/lib/constants';
+import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
 
 /**
  * Mocks Logger Service
@@ -14,7 +14,7 @@ const logger = {
     info: jest.fn(),
   },
 };
-jest.doMock('../../../src/lib/logger', () => logger);
+jest.doMock('../../../../src/lib/logger', () => logger);
 
 /**
  * Test Data
@@ -24,7 +24,7 @@ const options = {
 };
 const content = 'Verdaccio@x.x.x successfully published';
 
-describe('notifyRequest', () => {
+describe('Notifications:: notifyRequest', () => {
   beforeEach(() => {
     jest.resetModules();
   });
@@ -40,7 +40,7 @@ describe('notifyRequest', () => {
       resolver(error, response);
     });
 
-    const notification = require('../../../src/lib/notify/notify-request');
+    const notification = require('../../../../src/lib/notify/notify-request');
     const args = [{ errorMessage: 'bad data' }, 'notify service has thrown an error: @{errorMessage}'];
 
     await expect(notification.notifyRequest(options, content)).rejects.toEqual(API_ERROR.BAD_DATA);
@@ -57,7 +57,7 @@ describe('notifyRequest', () => {
       resolver(null, response);
     });
 
-    const notification = require('../../../src/lib/notify/notify-request');
+    const notification = require('../../../../src/lib/notify/notify-request');
     const args = [{ errorMessage: 'bad data' }, 'notify service has thrown an error: @{errorMessage}'];
 
     await expect(notification.notifyRequest(options, content)).rejects.toEqual(API_ERROR.BAD_DATA);
@@ -74,7 +74,7 @@ describe('notifyRequest', () => {
       resolver(null, response, response.body);
     });
 
-    const notification = require('../../../src/lib/notify/notify-request');
+    const notification = require('../../../../src/lib/notify/notify-request');
     const infoArgs = [{ content }, 'A notification has been shipped: @{content}'];
     const debugArgs = [{ body: 'Successfully delivered' }, ' body: @{body}'];
 
@@ -92,7 +92,7 @@ describe('notifyRequest', () => {
       resolver(null, response);
     });
 
-    const notification = require('../../../src/lib/notify/notify-request');
+    const notification = require('../../../../src/lib/notify/notify-request');
     const infoArgs = [{ content }, 'A notification has been shipped: @{content}'];
 
     await expect(notification.notifyRequest(options, content)).rejects.toThrow('body is missing');

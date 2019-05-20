@@ -1,16 +1,16 @@
 // @flow
 
-import {parseConfigurationFile} from '../__helper';
-import {parseConfigFile} from '../../../src/lib/utils';
-import {notify} from '../../../src/lib/notify';
+import {parseConfigurationFile} from '../../__helper';
+import {parseConfigFile} from '../../../../src/lib/utils';
+import {notify} from '../../../../src/lib/notify';
 
-import {notifyRequest} from '../../../src/lib/notify/notify-request';
+import {notifyRequest} from '../../../../src/lib/notify/notify-request';
 
-jest.mock('./../../../src/lib/notify/notify-request', () => ({
+jest.mock('./../../../../src/lib/notify/notify-request', () => ({
   notifyRequest: jest.fn((options, content) => Promise.resolve([options, content]))
 }));
 
-require('../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([]);
 
 const parseConfigurationNotifyFile = (name) => {
   return parseConfigurationFile(`notify/${name}`);
@@ -21,7 +21,7 @@ const packagePatternNotificationConfig = parseConfigFile(parseConfigurationNotif
 const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('multiple.notify'));
 
 
-describe('Notify', () => {
+describe('Notifications:: Notify', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
