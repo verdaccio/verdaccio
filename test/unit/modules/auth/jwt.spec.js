@@ -26,6 +26,7 @@ const parseConfigurationJWTFile = () => {
 const FORBIDDEN_VUE: string = 'authorization required to access package vue';
 
 describe('endpoint user auth JWT unit test', () => {
+  jest.setTimeout(20000);
   let app;
   let mockRegistry;
   const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');

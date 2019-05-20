@@ -2,20 +2,20 @@
 
 import path from 'path';
 import _ from 'lodash';
-import {spliceURL}  from '../../../src/utils/string';
-import {parseConfigFile} from '../../../src/lib/utils';
+import {spliceURL}  from '../../../../src/utils/string';
+import {parseConfigFile} from '../../../../src/lib/utils';
 import {
   getMatchedPackagesSpec,
   hasProxyTo,
   normalisePackageAccess, sanityCheckUplinksProps,
   uplinkSanityCheck
-} from '../../../src/lib/config-utils';
-import {PACKAGE_ACCESS, ROLES} from '../../../src/lib/constants';
+} from '../../../../src/lib/config-utils';
+import {PACKAGE_ACCESS, ROLES} from '../../../../src/lib/constants';
 
 describe('Config Utilities', () => {
 
   const parseConfigurationFile = (name) => {
-    return path.join(__dirname, `../partials/config/yaml/${name}.yaml`);
+    return path.join(__dirname, `../../partials/config/yaml/${name}.yaml`);
   };
 
   describe('uplinkSanityCheck', () => {
