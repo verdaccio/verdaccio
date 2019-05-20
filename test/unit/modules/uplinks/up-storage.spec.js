@@ -1,16 +1,16 @@
 // @flow
 import _ from 'lodash';
-import ProxyStorage from '../../../src/lib/up-storage';
-import AppConfig from '../../../src/lib/config';
+import ProxyStorage from '../../../../src/lib/up-storage';
+import AppConfig from '../../../../src/lib/config';
 // $FlowFixMe
-import configExample from '../partials/config/index';
-import {setup} from '../../../src/lib/logger';
+import configExample from '../../partials/config';
+import {setup} from '../../../../src/lib/logger';
 
 import type {Config, UpLinkConf} from '@verdaccio/types';
-import type {IProxy} from '../../../types/index';
-import {API_ERROR, HTTP_STATUS} from "../../../src/lib/constants";
-import {mockServer} from '../__helper/mock';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import type {IProxy} from '../../../../types';
+import {API_ERROR, HTTP_STATUS} from "../../../../src/lib/constants";
+import {mockServer} from '../../__helper/mock';
+import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 
 setup([]);
 

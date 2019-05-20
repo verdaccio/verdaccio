@@ -3,20 +3,20 @@
 import rimRaf from 'rimraf';
 import path from 'path';
 
-import LocalStorage from '../../../src/lib/local-storage';
-import AppConfig from '../../../src/lib/config';
+import LocalStorage from '../../../../src/lib/local-storage';
+import AppConfig from '../../../../src/lib/config';
 // $FlowFixMe
-import configExample from '../partials/config/index';
-import Logger, {setup} from '../../../src/lib/logger';
-import {readFile} from '../../functional/lib/test.utils';
-import {generatePackageTemplate} from '../../../src/lib/storage-utils';
-import {generateNewVersion} from '../../lib/utils-test';
+import configExample from '../../partials/config';
+import Logger, {setup} from '../../../../src/lib/logger';
+import {readFile} from '../../../functional/lib/test.utils';
+import {generatePackageTemplate} from '../../../../src/lib/storage-utils';
+import {generateNewVersion} from '../../../lib/utils-test';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
 import type {Config, MergeTags} from '@verdaccio/types';
-import type {IStorage} from '../../../types/index';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '../../../src/lib/constants';
+import type {IStorage} from '../../../../types';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '../../../../src/lib/constants';
 
 setup([]);
 

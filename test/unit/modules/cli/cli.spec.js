@@ -1,14 +1,14 @@
 import path from 'path';
 import _ from 'lodash';
 
-import startServer from '../../../src/index';
-import config from '../partials/config/index';
-import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../src/lib/constants';
-import {getListListenAddresses} from '../../../src/lib/cli/utils';
+import startServer from '../../../../src';
+import config from '../../partials/config';
+import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../../src/lib/constants';
+import {getListListenAddresses} from '../../../../src/lib/cli/utils';
 
-const logger = require('../../../src/lib/logger');
+const logger = require('../../../../src/lib/logger');
 
-jest.mock('../../../src/lib/logger', () => ({
+jest.mock('../../../../src/lib/logger', () => ({
   setup: jest.fn(),
   logger: {
     child: jest.fn(),

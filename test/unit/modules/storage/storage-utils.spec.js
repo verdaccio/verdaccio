@@ -1,8 +1,8 @@
 // @flow
 
-import {normalizePackage, mergeUplinkTimeIntoLocal} from "../../../src/lib/storage-utils";
-import { STORAGE, DIST_TAGS } from '../../../src/lib/constants';
-import {readFile} from "../../functional/lib/test.utils";
+import {normalizePackage, mergeUplinkTimeIntoLocal} from "../../../../src/lib/storage-utils";
+import { STORAGE, DIST_TAGS } from '../../../../src/lib/constants';
+import {readFile} from "../../../functional/lib/test.utils";
 
 import type {Package} from '@verdaccio/types';
 

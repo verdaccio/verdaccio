@@ -1,15 +1,17 @@
-import Storage from '../../../src/lib/up-storage';
+import Storage from '../../../../src/lib/up-storage';
 
-require('../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([]);
 
-function setupProxy(host, config, mainconfig) {
+function setupProxy(host, config, mainConfig) {
   config.url = host;
-  return new Storage(config, mainconfig);
+
+  return new Storage(config, mainConfig);
 }
 
 describe('Use proxy', () => {
   test('should work fine without proxy', () => {
     let x = setupProxy('http://x/x', {}, {});
+
     expect(x.proxy).toEqual(undefined);
   });
 
@@ -20,6 +22,7 @@ describe('Use proxy', () => {
 
   test('no_proxy is invalid', () => {
     let x = setupProxy('http://x/x', {http_proxy: '123', no_proxy: false}, {});
+
     expect(x.proxy).toEqual('123');
     x = setupProxy('http://x/x', {http_proxy: '123', no_proxy: null}, {});
     expect(x.proxy).toEqual('123');
@@ -31,16 +34,19 @@ describe('Use proxy', () => {
 
   test('no_proxy - simple/include', () => {
     let x = setupProxy('http://localhost', {http_proxy: '123'}, {no_proxy: 'localhost'});
+
     expect(x.proxy).toEqual(undefined);
   });
 
   test('no_proxy - simple/not', () => {
     let x = setupProxy('http://localhost', {http_proxy: '123'}, {no_proxy: 'blah'});
+
     expect(x.proxy).toEqual('123');
   });
 
   test('no_proxy - various, single string', () => {
     let x = setupProxy('http://blahblah', {http_proxy: '123'}, {no_proxy: 'blah'});
+
     expect(x.proxy).toEqual('123');
     x = setupProxy('http://blah.blah', {}, {http_proxy: '123', no_proxy: 'blah'});
     expect(x.proxy).toEqual(undefined);
@@ -56,6 +62,7 @@ describe('Use proxy', () => {
 
   test('no_proxy - various, array', () => {
     let x = setupProxy('http://blahblah', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
+
     expect(x.proxy).toEqual('123');
     x = setupProxy('http://blah.blah', {http_proxy: '123'}, {no_proxy: 'foo,bar,blah'});
     expect(x.proxy).toEqual(undefined);
@@ -71,6 +78,7 @@ describe('Use proxy', () => {
 
   test('no_proxy - hostport', () => {
     let x = setupProxy('http://localhost:80', {http_proxy: '123'}, {no_proxy: 'localhost'});
+
     expect(x.proxy).toEqual(undefined);
     x = setupProxy('http://localhost:8080', {http_proxy: '123'}, {no_proxy: 'localhost'});
     expect(x.proxy).toEqual(undefined);
@@ -78,6 +86,7 @@ describe('Use proxy', () => {
 
   test('no_proxy - secure', () => {
     let x = setupProxy('https://something', {http_proxy: '123'}, {});
+
     expect(x.proxy).toEqual(undefined);
     x = setupProxy('https://something', {https_proxy: '123'}, {});
     expect(x.proxy).toEqual('123');

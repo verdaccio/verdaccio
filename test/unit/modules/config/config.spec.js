@@ -1,12 +1,12 @@
 import path from 'path';
 import _ from 'lodash';
 
-import Config from '../../../src/lib/config';
-import {parseConfigFile}  from '../../../src/lib/utils';
-import {DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE} from '../../../src/lib/constants';
+import Config from '../../../../src/lib/config';
+import {parseConfigFile}  from '../../../../src/lib/utils';
+import {DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE} from '../../../../src/lib/constants';
 
-const resolveConf = (conf) =>  path.join(__dirname, `../../../conf/${conf}.yaml`);
-require('../../../src/lib/logger').setup([]);
+const resolveConf = (conf) =>  path.join(__dirname, `../../../../conf/${conf}.yaml`);
+require('../../../../src/lib/logger').setup([]);
 
 const checkDefaultUplink = (config) => {
   expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
