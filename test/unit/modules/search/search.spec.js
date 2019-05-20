@@ -1,10 +1,10 @@
-import Search from '../../../src/lib/search';
-import Config from '../../../src/lib/config';
-import Storage from '../../../src/lib/storage';
-import buildConfig from '../partials/config/index';
+import Search from '../../../../src/lib/search';
+import Config from '../../../../src/lib/config';
+import Storage from '../../../../src/lib/storage';
+import buildConfig from '../../partials/config';
 
 
-require('../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([]);
 
 let packages = [
 	{

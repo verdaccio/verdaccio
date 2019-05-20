@@ -3,18 +3,18 @@ import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
-import configDefault from '../partials/config/index';
-import publishMetadata from '../partials/publish-api';
-import starMetadata from '../partials/star-api';
-import endPointAPI from '../../../src/api/index';
+import configDefault from '../../partials/config';
+import publishMetadata from '../../partials/publish-api';
+import starMetadata from '../../partials/star-api';
+import endPointAPI from '../../../../src/api';
 
-import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../src/lib/constants';
-import {mockServer} from '../__helper/mock';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
-import {buildToken} from '../../../src/lib/utils';
-import {getNewToken} from '../__helper/api';
+import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../../src/lib/constants';
+import {mockServer} from '../../__helper/mock';
+import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import {buildToken} from '../../../../src/lib/utils';
+import {getNewToken} from '../../__helper/api';
 
-require('../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([]);
 const credentials = { name: 'jota', password: 'secretPass' };
 
 const putPackage = (app, name, publishMetadata) => {
@@ -33,7 +33,7 @@ describe('endpoint unit test', () => {
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../store/test-storage-api-spec');
+    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
     const mockServerPort = 55549;
     rimraf(store, async () => {
       const configForTest = configDefault({
@@ -43,7 +43,7 @@ describe('endpoint unit test', () => {
           }
         },
         filters: {
-          '../partials/plugin/filter': {
+          '../../modules/api/partials/plugin/filter': {
             pkg: 'npm_test',
             version: '2.0.0'
           }

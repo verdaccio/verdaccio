@@ -4,7 +4,7 @@ class FilterPlugin {
   }
 
   filter_metadata(pkg) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         // We use this to test what happens when a filter rejects
         if(pkg.name === 'trigger-filter-failure') {
           reject(new Error('Example filter failure'));
