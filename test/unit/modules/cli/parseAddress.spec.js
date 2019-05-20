@@ -1,27 +1,12 @@
 import _ from 'lodash';
-import {parseAddress as parse} from '../../../src/lib/utils';
-import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../src/lib/constants';
+import {parseAddress as parse} from '../../../../src/lib/utils';
+import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../../src/lib/constants';
 
 describe('Parse listen address', () => {
-  function addTest(uri, proto, host, port) {
-    test(`should parse ${uri}`, () => {
-      const parsed = parse(uri);
+  const useCases = [];
 
-      if (_.isNull(proto)) {
-        expect(parsed).toBeNull();
-      } else if (port) {
-        expect(parsed).toEqual({
-          proto,
-          host,
-          port,
-        });
-      } else {
-        expect(parsed).toEqual({
-          proto,
-          path: host,
-        });
-      }
-    });
+  function addTest(uri, proto, host, port) {
+    useCases.push([uri, proto, host, port]);
   }
 
   addTest(DEFAULT_PORT, 'http', DEFAULT_DOMAIN, DEFAULT_PORT);
@@ -44,4 +29,23 @@ describe('Parse listen address', () => {
   addTest('blah://4873', null);
   addTest('https://blah:4873///', null);
   addTest('unix:1234', 'http', 'unix', '1234'); // not unix socket
+
+  test.each(useCases)(`should parse (%s - %s - %s - %s)`, (uri, proto, host, port) => {
+    const parsed = parse(uri);
+
+    if (_.isNull(proto)) {
+      expect(parsed).toBeNull();
+    } else if (port) {
+      expect(parsed).toEqual({
+        proto,
+        host,
+        port,
+      });
+    } else {
+      expect(parsed).toEqual({
+        proto,
+        path: host,
+      });
+    }
+  });
 });

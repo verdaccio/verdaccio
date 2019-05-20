@@ -1,6 +1,6 @@
 // @flow
-import {generateGravatarUrl, GENERIC_AVATAR } from '../../../src/utils/user';
-import { spliceURL } from '../../../src/utils/string';
+import {generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
+import { spliceURL } from '../../../../src/utils/string';
 import {
   validateName,
   convertDistRemoteToLocalTarballUrls,
@@ -16,10 +16,10 @@ import {
   sortByName,
   formatAuthor,
   isHTTPProtocol,
-} from '../../../src/lib/utils';
-import { DIST_TAGS, DEFAULT_USER } from '../../../src/lib/constants';
-import Logger, { setup } from '../../../src/lib/logger';
-import { readFile } from '../../functional/lib/test.utils';
+} from '../../../../src/lib/utils';
+import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
+import Logger, { setup } from '../../../../src/lib/logger';
+import { readFile } from '../../../functional/lib/test.utils';
 
 const readmeFile = (fileName: string = 'markdown.md') =>
   readFile(`../../unit/partials/readme/${fileName}`);
