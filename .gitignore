@@ -6,6 +6,7 @@ build/
 ### Test
 
 test/unit/partials/store/test-*-storage/*
+test/unit/partials/store/*-storage/*
 test/unit/partials/store/storage_default_storage/*
 .verdaccio-db.json
 .sinopia-db.json

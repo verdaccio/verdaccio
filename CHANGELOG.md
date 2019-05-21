@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0-beta.10](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.9...v4.0.0-beta.10) (2019-05-20)
+
+
+### Bug Fixes
+
+* add missing pkg version and name on start up ([8cf3966](https://github.com/verdaccio/verdaccio/commit/8cf3966))
+
+
+
+# [4.0.0-beta.9](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.8...v4.0.0-beta.9) (2019-05-20)
+
+
+### Bug Fixes
+
+* update @verdaccio/ui-theme:0.1.7 ([8e48eea](https://github.com/verdaccio/verdaccio/commit/8e48eea))
+
+
+### Features
+
+* update readme v4 ([#1312](https://github.com/verdaccio/verdaccio/issues/1312)) ([7686417](https://github.com/verdaccio/verdaccio/commit/7686417))
+
+
+
 # [4.0.0-beta.8](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.7...v4.0.0-beta.8) (2019-05-07)
 
 

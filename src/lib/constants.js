@@ -19,10 +19,15 @@ export const certPem = 'verdaccio-cert.pem';
 export const csrPem = 'verdaccio-csr.pem';
 
 export const HEADERS = {
+  ACCEPT: 'Accept',
+  ACCEPT_ENCODING: 'Accept-Encoding',
+  USER_AGENT: 'User-Agent',
   JSON: 'application/json',
   CONTENT_TYPE: 'Content-type',
+  CONTENT_LENGTH: 'content-length',
   TEXT_PLAIN: 'text/plain',
   TEXT_HTML: 'text/html',
+  AUTHORIZATION: 'authorization',
   FORWARDED_PROTO: 'X-Forwarded-Proto',
   FRAMES_OPTIONS: 'X-Frame-Options',
   CSP: 'Content-Security-Policy',

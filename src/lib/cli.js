@@ -11,8 +11,9 @@ import semver from 'semver';
 import { bgYellow, bgRed } from 'kleur';
 import {startVerdaccio, listenDefaultCallback} from './bootstrap';
 import findConfigFile from './config-path';
-import {verdaccioUpdateBanner} from './update-banner';
 import { parseConfigFile } from './utils';
+
+require('pkginfo')(module);
 
 if (process.getuid && process.getuid() === 0) {
   global.console.warn(bgYellow('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.'));
@@ -31,14 +32,8 @@ const logger = require('./logger');
 logger.setup(); // default setup
 
 const commander = require('commander');
-const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
-
-/**
- * Checking verdaccio version on NPM
- */
-verdaccioUpdateBanner(pkgVersion);
 
 commander
   .option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)')
