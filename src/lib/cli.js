@@ -16,7 +16,7 @@ import { parseConfigFile } from './utils';
 require('pkginfo')(module);
 
 if (process.getuid && process.getuid() === 0) {
-  global.console.warn(bgYellow('Verdaccio doesn\'t need superuser privileges. Don\'t run it under root.'));
+  global.console.warn(bgYellow().red('*** WARNING: Verdaccio doesn\'t need superuser privileges. Don\'t run it under root! ***'));
 }
 
 const MIN_NODE_VERSION = '6.9.0';
