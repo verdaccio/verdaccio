@@ -1,0 +1,29 @@
+# Security Policy
+
+## Supported Versions
+
+Use this section to tell people about which versions of your project are
+currently being supported with security updates.
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 2.x   | :x:                |
+| 3.x   | :white_check_mark: |
+| 4.x   | :white_check_mark: |
+
+## Reporting a Vulnerability
+
+At Verdaccio, we consider the security of our systems a top priority. But no matter how much effort we put into system security, there can still be vulnerabilities present. If you've discovered a vulnerability, please follow the guidelines below to report it to our team:
+
+* E-mail your findings to `verdaccio@pm.me`. If the report contains highly sensitive information, please consider encrypting your findings using our {PGP key}.
+
+Please follow these rules when testing/reporting vulnerabilities:
+* Do not take advantage of the vulnerability you have discovered, for example by downloading more data than is necessary to demonstrate the vulnerability.
+* Do not read, modify or delete data that isn't you own.
+* We ask that you do not to disclosure the problem to third parties until it has been resolved.
+
+What we promise:
+* We will respond to your report within 3 business days with our evaluation of the report and an expected resolution date.
+* We will keep you informed during all stages of resolving the problem.
+* To show our appreciation for your effort and cooperation during the report, we will list your name and a link to a personal website/social network profile on the page below so that the public can know you've helped keep Verdaccio secure.
+
