@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
-    <title>verdaccio-tiny</title>
-    <desc>Created with Sketch.</desc>
+
+<svg width="65px" height="57px" viewBox="0 0 65 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
         <polygon id="path-1" points="48 17.6 32.8 48 24 48 0.4 0.8 15.6 0.8 28.4 26.4 32.8 17.6 48 17.6"></polygon>
         <filter x="-20.0%" y="-11.7%" width="139.9%" height="140.3%" filterUnits="objectBoundingBox" id="filter-2">
@@ -20,8 +17,7 @@
         </filter>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="verdaccio-tiny">
-            <rect id="BG" fill="#F7F8F6" x="0" y="0" width="100" height="100" rx="37"></rect>
+        <g id="verdaccio-tiny" transform="translate(-18.000000, -29.000000)">
             <g id="Group" transform="translate(22.000000, 29.000000)">
                 <g id="Combined-Shape">
                     <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
