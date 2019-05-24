@@ -1,0 +1,5 @@
+Contact: verdaccio@pm.me
+Encryption: https://verdaccio.nyc3.digitaloceanspaces.com/gpg/publickey.verdaccio@pm.me.asc
+Acknowledgments: https://verdaccio.org/thanks.html
+Preferred-Languages: en
+Policy: https://github.com/verdaccio/verdaccio/security/policy
