@@ -15,6 +15,7 @@ currently being supported with security updates.
 
 At Verdaccio, we consider the security of our systems a top priority. But no matter how much effort we put into system security, there can still be vulnerabilities present. If you've discovered a vulnerability, please follow the guidelines below to report it to our team:
 
+* Report it either [Snyk Security Team](https://snyk.io/vulnerability-disclosure/) or [npmjs Security Team](https://www.npmjs.com/advisories/report?package=verdaccio), they will in contact with us in case of confirm the vulnerability.
 * E-mail your findings to `verdaccio@pm.me`. If the report contains highly sensitive information, please consider encrypting your findings using our [PGP key](https://verdaccio.nyc3.digitaloceanspaces.com/gpg/publickey.verdaccio@pm.me.asc).
 
 Please follow these rules when testing/reporting vulnerabilities:
