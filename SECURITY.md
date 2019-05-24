@@ -15,7 +15,7 @@ currently being supported with security updates.
 
 At Verdaccio, we consider the security of our systems a top priority. But no matter how much effort we put into system security, there can still be vulnerabilities present. If you've discovered a vulnerability, please follow the guidelines below to report it to our team:
 
-* E-mail your findings to `verdaccio@pm.me`. If the report contains highly sensitive information, please consider encrypting your findings using our {PGP key}.
+* E-mail your findings to `verdaccio@pm.me`. If the report contains highly sensitive information, please consider encrypting your findings using our [PGP key](https://verdaccio.nyc3.digitaloceanspaces.com/gpg/publickey.verdaccio@pm.me.asc).
 
 Please follow these rules when testing/reporting vulnerabilities:
 * Do not take advantage of the vulnerability you have discovered, for example by downloading more data than is necessary to demonstrate the vulnerability.
