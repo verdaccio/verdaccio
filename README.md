@@ -164,9 +164,9 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - npm audit - **supported**
 
-## Report a Vulnerability
+## Report a vulnerability
 
-If you want to report a security Vulnerability, please follow the steps we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
+If you want to report a security vulnerability, please follow the steps we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
 
 ## Core Team
 
