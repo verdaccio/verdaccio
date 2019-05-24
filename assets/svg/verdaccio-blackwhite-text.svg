@@ -1,0 +1,37 @@
+
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <polygon id="path-1" points="48 16.7288136 32.6722689 47 23.7983193 47 0 0 15.3277311 5.66025569e-15 28.2352941 25.4915254 32.6722689 16.7288136 48 16.7288136"></polygon>
+        <filter x="-19.8%" y="-11.7%" width="139.6%" height="140.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0906646286 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M35.2,11 L28,11 L28,8.64285714 L36.4,8.64285714 L37.6,6.28571429 L32,6.28571429 L32,3.92857143 L38.8,3.92857143 L39.6,2.35714286 L36,2.35714286 L36,0 L47.210519,0 L56,0 L50.4,11 L35.2,11 Z" id="path-3"></path>
+        <filter x="-33.9%" y="-50.0%" width="167.9%" height="272.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0906646286 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="verdaccio-blackwhite-text">
+            <path d="M44.2944945,-1.33997691e-15 L55.7055055,1.33997691e-15 C68.4337442,-9.98162608e-16 75.0420159,1.71727381 81.0716455,4.94195502 C87.1012751,8.16663623 91.8333638,12.8987249 95.058045,18.9283545 C98.2827262,24.9579841 100,31.5662558 100,44.2944945 L100,55.7055055 C100,68.4337442 98.2827262,75.0420159 95.058045,81.0716455 C91.8333638,87.1012751 87.1012751,91.8333638 81.0716455,95.058045 C75.0420159,98.2827262 68.4337442,100 55.7055055,100 L44.2944945,100 C31.5662558,100 24.9579841,98.2827262 18.9283545,95.058045 C12.8987249,91.8333638 8.16663623,87.1012751 4.94195502,81.0716455 C1.71727381,75.0420159 6.65441739e-16,68.4337442 -8.93317938e-16,55.7055055 L8.93317938e-16,44.2944945 C-6.65441739e-16,31.5662558 1.71727381,24.9579841 4.94195502,18.9283545 C8.16663623,12.8987249 12.8987249,8.16663623 18.9283545,4.94195502 C24.9579841,1.71727381 31.5662558,9.98162608e-16 44.2944945,-1.33997691e-15 Z" id="BG" fill="#000000"></path>
+            <text id="Verdaccio" font-family="OpenSansLight-Italic, Open Sans" font-size="10" font-style="italic" font-weight="300" fill="#FFFFFF">
+                <tspan x="30" y="90">Verdaccio</tspan>
+            </text>
+            <g id="Group" transform="translate(22.000000, 30.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill-opacity="0.6" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                </g>
+                <polygon id="Combined-Shape" fill="#FFFFFF" points="32.7849811 47 23.8804183 47 0 0 15.3806084 0 36 40.7175419"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

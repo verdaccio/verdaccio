@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
-    <title>verdaccio-tiny</title>
-    <desc>Created with Sketch.</desc>
     <defs>
         <polygon id="path-1" points="48 17.6 32.8 48 24 48 0.4 0.8 15.6 0.8 28.4 26.4 32.8 17.6 48 17.6"></polygon>
         <filter x="-20.0%" y="-11.7%" width="139.9%" height="140.3%" filterUnits="objectBoundingBox" id="filter-2">
@@ -20,8 +17,11 @@
         </filter>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="verdaccio-tiny">
-            <rect id="BG" fill="#F7F8F6" x="0" y="0" width="100" height="100" rx="37"></rect>
+        <g id="verdaccio-tiny-text">
+            <path d="M44.2944945,-1.33997691e-15 L55.7055055,1.33997691e-15 C68.4337442,-9.98162608e-16 75.0420159,1.71727381 81.0716455,4.94195502 C87.1012751,8.16663623 91.8333638,12.8987249 95.058045,18.9283545 C98.2827262,24.9579841 100,31.5662558 100,44.2944945 L100,55.7055055 C100,68.4337442 98.2827262,75.0420159 95.058045,81.0716455 C91.8333638,87.1012751 87.1012751,91.8333638 81.0716455,95.058045 C75.0420159,98.2827262 68.4337442,100 55.7055055,100 L44.2944945,100 C31.5662558,100 24.9579841,98.2827262 18.9283545,95.058045 C12.8987249,91.8333638 8.16663623,87.1012751 4.94195502,81.0716455 C1.71727381,75.0420159 6.65441739e-16,68.4337442 -8.93317938e-16,55.7055055 L8.93317938e-16,44.2944945 C-6.65441739e-16,31.5662558 1.71727381,24.9579841 4.94195502,18.9283545 C8.16663623,12.8987249 12.8987249,8.16663623 18.9283545,4.94195502 C24.9579841,1.71727381 31.5662558,9.98162608e-16 44.2944945,-1.33997691e-15 Z" id="BG" fill="#F7F8F6"></path>
+            <text id="Verdaccio" font-family="OpenSansLight-Italic, Open Sans" font-size="10" font-style="italic" font-weight="300" fill="#405236">
+                <tspan x="30" y="90">Verdaccio</tspan>
+            </text>
             <g id="Group" transform="translate(22.000000, 29.000000)">
                 <g id="Combined-Shape">
                     <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
