@@ -30,8 +30,7 @@ describe('basic system test', () => {
     server.close(done);
   });
 
-  // FIXME: we need to investigate why this fails randomly on GitHub Actions
-  test.skip('server should respond on /', done => {
+  test('server should respond on /', done => {
     request({
       url: 'http://localhost:' + port + '/',
     }, function(err, res, body) {
