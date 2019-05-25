@@ -21,7 +21,7 @@ At Verdaccio, we consider the security of our systems a top priority. But no mat
 Please follow these rules when testing/reporting vulnerabilities:
 * Do not take advantage of the vulnerability you have discovered, for example by downloading more data than is necessary to demonstrate the vulnerability.
 * Do not read, modify or delete data that isn't your own.
-* We ask that you do not to disclosure the problem to third parties until it has been resolved.
+* We ask that you do not disclose the findings to third parties until it has been resolved.
 
 What we promise:
 * We will respond to your report within 3 business days with our evaluation of the report and an expected resolution date.
