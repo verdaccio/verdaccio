@@ -7,7 +7,7 @@ import {VerdaccioConfig} from '../../lib/verdaccio-server';
 import VerdaccioProcess from '../../lib/server_process';
 import Server from '../../lib/server';
 import ExpressServer from './simple_server';
-import type {IServerBridge} from '../../types';
+import {IServerBridge} from '../../types';
 import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../config.functional';
 
 const EXPRESS_PORT = 55550;

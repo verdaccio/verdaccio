@@ -7,14 +7,14 @@ import {readFile} from '../../../functional/lib/test.utils';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
-import type {
+import {
 	Config as AppConfig,
 	IPluginMiddleware,
 	IStorageManager,
 	RemoteUser,
 	IBasicAuth,
 } from '@verdaccio/types';
-import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
+import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 
 export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
 	register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void {

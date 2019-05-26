@@ -19,8 +19,8 @@ import {
 import {aesDecrypt, verifyPayload} from '../../../../src/lib/crypto-utils';
 import {parseConfigurationFile} from '../../__helper';
 
-import type {IAuth, } from '../../../../types';
-import type {Config, Security, RemoteUser} from '@verdaccio/types';
+import {IAuth, } from '../../../../types';
+import {Config, Security, RemoteUser} from '@verdaccio/types';
 
 setup([]);
 

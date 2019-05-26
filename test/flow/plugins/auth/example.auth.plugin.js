@@ -9,7 +9,7 @@
 import Config from '../../../../src/lib/config';
 import LoggerApi from '../../../../src/lib/logger';
 
-import type { Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions } from '@verdaccio/types';
+import { Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions } from '@verdaccio/types';
 
 class ExampleAuthPlugin implements IPluginAuth {
   config: AppConfig;

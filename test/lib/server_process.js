@@ -5,7 +5,7 @@ import path from 'path';
 import {fork} from 'child_process';
 import {CREDENTIALS} from '../functional/config.functional';
 import {HTTP_STATUS} from '../../src/lib/constants';
-import type {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
+import {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
 
 export default class VerdaccioProcess implements IServerProcess {
 

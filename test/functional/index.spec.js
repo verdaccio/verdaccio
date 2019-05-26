@@ -4,7 +4,7 @@
 import {setup} from '../../src/lib/logger';
 setup();
 
-import type {IServerBridge} from '../types';
+import {IServerBridge} from '../types';
 
 import basic from './basic/basic';
 import packageAccess from './package/access';

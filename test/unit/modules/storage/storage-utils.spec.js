@@ -4,7 +4,7 @@ import {normalizePackage, mergeUplinkTimeIntoLocal} from "../../../../src/lib/st
 import { STORAGE, DIST_TAGS } from '../../../../src/lib/constants';
 import {readFile} from "../../../functional/lib/test.utils";
 
-import type {Package} from '@verdaccio/types';
+import {Package} from '@verdaccio/types';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 

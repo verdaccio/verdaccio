@@ -5,7 +5,7 @@ import {DOMAIN_SERVERS} from '../../functional/config.functional';
 import VerdaccioProcess from '../../lib/server_process';
 import {VerdaccioConfig} from '../../lib/verdaccio-server';
 import Server from '../../lib/server';
-import type {IServerBridge} from '../../types';
+import {IServerBridge} from '../../types';
 
 /**
  * Fork a Verdaccio process with a custom configuration.

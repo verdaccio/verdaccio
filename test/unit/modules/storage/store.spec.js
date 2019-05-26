@@ -9,8 +9,8 @@ import AppConfig from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
 import {setup} from '../../../../src/lib/logger';
 
-import type {Config} from '@verdaccio/types';
-import type {IStorageHandler} from '../../../../types';
+import {Config} from '@verdaccio/types';
+import {IStorageHandler} from '../../../../types';
 import {API_ERROR, HTTP_STATUS} from '../../../../src/lib/constants';
 import {mockServer} from '../../__helper/mock';
 import {DOMAIN_SERVERS} from '../../../functional/config.functional';

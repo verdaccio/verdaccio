@@ -1,58 +1,8 @@
 {
-  "plugins": [
-    "babel",
-    "flowtype",
-    "jest",
-    "verdaccio",
-    "jsx-a11y"
-  ],
   "extends": [
-    "eslint:recommended",
-    "google",
-    "plugin:flowtype/recommended",
-    "plugin:jest/recommended",
-    "plugin:prettier/recommended",
-    "plugin:verdaccio/recommended",
-    "plugin:jsx-a11y/recommended"
+    "@verdaccio"
   ],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 7,
-    "ecmaFeatures": {
-      "impliedStrict": true,
-      "jsx": true
-    }
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
-    "jest": true
-  },
-  "globals": {
-    "__APP_VERSION__": true
-  },
   "rules": {
-    "babel/no-invalid-this": 1,
-    "prettier/prettier": ["error", null, "@prettier"],
-    "semi": ["error"],
-    "comma-dangle": ["error"],
-    "camelcase": 0,
-    "no-useless-escape": ["error"],
-    "no-invalid-this": 0,
-    "handle-callback-err": ["error"],
-    "no-fallthrough": ["error"],
-    "no-new-require": ["error"],
-    "max-len": ["error", 160],
-    "require-jsdoc": 0,
-    "valid-jsdoc": 0,
-    "prefer-spread": 1,
-    "prefer-rest-params": 1,
-    "linebreak-style": 0,
-    "quote-props":["error", "as-needed"],
-    "verdaccio/jsx-no-style": ["warn"],
-    "verdaccio/jsx-spread": ["warn"],
-    "jest/expect-expect": 0
+    "@typescript-eslint/no-var-requires": ["warn"]
   }
 }

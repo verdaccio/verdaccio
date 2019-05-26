@@ -4,7 +4,7 @@ import _ from 'lodash';
 import smartRequest, {PromiseAssert} from '../../lib/request';
 import {mockServer} from '../__helper/mock';
 import {HTTP_STATUS} from '../../../src/lib/constants';
-import type {IRequestPromise} from '../../types';
+import {IRequestPromise} from '../../types';
 
 describe('Request Functional', () => {
   const mockServerPort = 55547;

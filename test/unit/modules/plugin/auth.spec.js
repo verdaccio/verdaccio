@@ -8,8 +8,8 @@ import _configPlugins from './helper/plugin';
 import AppConfig from '../../../../src/lib/config';
 import {setup} from '../../../../src/lib/logger';
 
-import type {IAuth} from '../../../../types';
-import type {Config} from '@verdaccio/types';
+import {IAuth} from '../../../../types';
+import {Config} from '@verdaccio/types';
 
 setup([]);
 
