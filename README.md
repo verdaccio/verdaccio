@@ -164,6 +164,10 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - npm/yarn audit - **supported**
 
+## Report a vulnerability
+
+If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
+
 ## Core Team
 
 The core team is the responsable for drive this project, team is ordered by antiquity and areas of responsability.
