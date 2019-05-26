@@ -1,6 +1,6 @@
-![verdaccio logo](https://github.com/verdaccio/verdaccio/raw/master/assets/bitmap/verdaccio%402x.png)
+![verdaccio logo](https://cdn.verdaccio.dev/readme/verdaccio@2x.png)
 
-![verdaccio gif](https://user-images.githubusercontent.com/558752/52916111-fa4ba980-32db-11e9-8a64-f4e06eb920b3.png)
+![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
 # Version 4
 
