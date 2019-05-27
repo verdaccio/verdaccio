@@ -257,9 +257,9 @@ class ProxyStorage implements IProxy {
    */
   _setHeaders(options: any) {
     const headers = options.headers || {};
-    const accept = 'Accept';
-    const acceptEncoding = 'Accept-Encoding';
-    const userAgent = 'User-Agent';
+    const accept = HEADERS.ACCEPT;
+    const acceptEncoding = HEADERS.ACCEPT_ENCODING;
+    const userAgent = HEADERS.USER_AGENT;
 
     headers[accept] = headers[accept] || contentTypeAccept;
     headers[acceptEncoding] = headers[acceptEncoding] || 'gzip';
@@ -278,7 +278,7 @@ class ProxyStorage implements IProxy {
   _setAuth(headers: any) {
     const { auth } = this.config;
 
-    if (_.isNil(auth) || headers['authorization']) {
+    if (_.isNil(auth) || headers[HEADERS.AUTHORIZATION]) {
       return headers;
     }
 
@@ -344,7 +344,7 @@ class ProxyStorage implements IProxy {
     }
 
     type = _.upperFirst(type);
-    headers['authorization'] = buildToken(type, token);
+    headers[HEADERS.AUTHORIZATION] = buildToken(type, token);
   }
 
   /**
@@ -405,7 +405,7 @@ class ProxyStorage implements IProxy {
     const headers = {};
     if (_.isNil(options.etag) === false) {
       headers['If-None-Match'] = options.etag;
-      headers['Accept'] = contentTypeAccept;
+      headers[HEADERS.ACCEPT] = contentTypeAccept;
     }
 
     this.request(

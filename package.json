@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "4.0.0-beta.8",
+  "version": "4.0.0-beta.10",
   "description": "A lightweight private npm proxy registry",
   "author": {
     "name": "Verdaccio Maintainers",
@@ -52,7 +52,7 @@
     "@commitlint/config-conventional": "7.5.0",
     "@octokit/rest": "16.25.0",
     "@verdaccio/babel-preset": "0.1.0",
-    "@verdaccio/types": "5.0.0-beta.4",
+    "@verdaccio/types": "5.0.2",
     "codecov": "3.3.0",
     "cross-env": "5.2.0",
     "eslint": "5.16.0",
