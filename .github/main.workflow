@@ -24,6 +24,7 @@ workflow "release" {
   resolves = [
     "github-release",
     "release:lint",
+    "release:build",
   ]
   on = "push"
 }
@@ -78,14 +79,6 @@ action "github-release" {
   ]
 }
 
-workflow "build and test" {
-  resolves = [
-    "lint",
-    "coverage",
-  ]
-  on = "push"
-}
-
 action "branch-filter" {
   uses = "actions/bin/filter@master"
   args = "branch"
@@ -107,16 +100,4 @@ action "lint" {
   uses = "docker://node:10"
   needs = ["install"]
   args = "yarn run lint"
-}
-
-action "test" {
-  uses = "docker://node:10"
-  needs = ["build"]
-  args = "sh scripts/puppeteer-setup-ci.sh"
-}
-
-action "coverage" {
-  uses = "docker://node:10"
-  needs = ["test"]
-  args = "yarn run coverage:publish"
 }
