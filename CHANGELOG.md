@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0...v4.0.1) (2019-05-28)
+
+
+### Bug Fixes
+
+* **web:** fix sidebar tarball protocol ([#1326](https://github.com/verdaccio/verdaccio/issues/1326)) ([de04463](https://github.com/verdaccio/verdaccio/commit/de04463)), closes [#1320](https://github.com/verdaccio/verdaccio/issues/1320)
+
+
+
 # [4.0.0](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.8...v4.0.0) (2019-05-26)
 
 
