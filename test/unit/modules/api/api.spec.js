@@ -6,6 +6,7 @@ import rimraf from 'rimraf';
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
 import starMetadata from '../../partials/star-api';
+import deprecateMetadata from '../../partials/deprecate-api';
 import endPointAPI from '../../../../src/api';
 
 import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../../src/lib/constants';
@@ -709,7 +710,69 @@ describe('endpoint unit test', () => {
         });
       });
 
+      describe('should test deprecate api', () => {
+        test('should deprecate a package', (done) => {
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify({
+              ...deprecateMetadata,
+              versions: {
+                '1.0.6': {
+                  deprecated: 'true'
+                }
+              }
+            }))
+            .expect(HTTP_STATUS.OK).end(function(err) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              request(app)
+                .get('/@scope%2fpk1-test')
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .end(function(err, res) {
+                  if (err) {
+                    expect(err).toBeNull();
+                    return done(err);
+                  }
+                  expect(res.body.versions['1.0.6'].deprecated).toMatch('true');
+                  done();
+                });
+            });
+        });
 
+        test('should undeprecate a package', (done) => {
+          request(app)
+            .put('/@scope%2fpk1-test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify({
+              ...deprecateMetadata,
+              versions: {
+                '1.0.6': {
+                  deprecated: ''
+                }
+              }
+            }))
+            .expect(HTTP_STATUS.OK).end(function(err) {
+              if (err) {
+                expect(err).toBeNull();
+                return done(err);
+              }
+              request(app)
+                .get('/@scope%2fpk1-test')
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .end(function(err, res) {
+                  if (err) {
+                    expect(err).toBeNull();
+                    return done(err);
+                  }
+                  expect(res.body.versions['1.0.6'].deprecated).not.toBeDefined();
+                  done();
+                });
+            });
+        });
+      });
 
       test('should unpublish a new package with credentials', async (done) => {
 
