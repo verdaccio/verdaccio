@@ -1,6 +1,5 @@
 /**
  * @prettier
- * @flow
  */
 
 const path = require('path');
