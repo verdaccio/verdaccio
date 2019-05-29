@@ -10,4 +10,4 @@ echo "Bumping version to new tag: ${lastTag}"
 echo "//$REGISTRY_URL/:_authToken=$REGISTRY_AUTH_TOKEN" > .npmrc
 
 # Publish to NPM
-npm publish --tag next --registry https://$REGISTRY_URL/
+npm publish --registry https://$REGISTRY_URL/

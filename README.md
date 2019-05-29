@@ -14,8 +14,7 @@ Google Cloud Storage** or create your own plugin.
 
 
 [![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio/latest.svg)](https://www.npmjs.com/package/verdaccio)
-[![verdaccio (next)](https://img.shields.io/npm/v/verdaccio/next.svg)](https://www.npmjs.com/package/verdaccio)
-[![verdaccio (next)](http://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
+[![verdaccio (downloads)](http://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
 [![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://verdaccio.org/docs/en/docker.html)
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
@@ -82,7 +81,7 @@ $ npm set registry http://localhost:4873/
 
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
 
-> Warning: Verdaccio does not currently support PM2's cluster mode, running it with cluster mode may cause unknown behavior.
+> Warning: Verdaccio [does not currently support PM2's cluster mode](https://github.com/verdaccio/verdaccio/issues/1301#issuecomment-489302298), running it with cluster mode may cause unknown behavior.
 
 ## Publishing
 
@@ -120,7 +119,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
-docker pull verdaccio/verdaccio:4.0.0
+docker pull verdaccio/verdaccio:4
 ```
 
 ### Running verdaccio using Docker
@@ -153,6 +152,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 - Registering new users (npm adduser {newuser}) - **supported**
 - Change password (npm profile set password)  - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, *PR-welcome*
+- Token (npm token) - wip [#1271](https://github.com/verdaccio/verdaccio/pull/1271)
 
 ### Miscellany
 
@@ -162,7 +162,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 ### Security
 
-- npm audit - **supported**
+- npm/yarn audit - **supported**
 
 ## Report a vulnerability
 
@@ -182,24 +182,22 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+64k ⭐️)*
-* [Storybook](https://github.com/storybooks/storybook) *(+34k ⭐️)*
-* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+31k ⭐️)* 
-* [Uppy](https://github.com/transloadit/uppy) *(+15k ⭐️)*
-* [Aurelia Framework](https://github.com/aurelia) *(+10k ⭐️)*
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+67k ⭐️)*
+* [Storybook](https://github.com/storybooks/storybook) *(+37k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+34k ⭐️)* 
+* [Uppy](https://github.com/transloadit/uppy) *(+19k ⭐️)*
+* [Aurelia Framework](https://github.com/aurelia) *(+11k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
 * [pnpm](https://github.com/pnpm/pnpm) *(+5k ⭐️)*
 * [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
-* [Amazon Web Services Cloud Development Kit](https://github.com/awslabs/aws-cdk) *(+1.8k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
+* [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*
 
-## Special Thanks
+🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md). 
 
-Thanks to the following companies to help us to achieve our goals providing free open source licenses.
+## Sponsorship
 
-[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
-[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
+If you are a *company/project* and you 😍 Verdaccio and FOSS, your **logo can be here** 😉 if you support our activities. [Donate](https://opencollective.com/verdaccio).
 
 ## Open Collective Sponsors
 
@@ -222,6 +220,14 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 [![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio#backers)
 
+## Special Thanks
+
+Thanks to the following companies to help us to achieve our goals providing free open source licenses.
+
+[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
+[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
+[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
+
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
@@ -232,15 +238,15 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
 
-* [Blog](https://medium.com/verdaccio)
+* [Blog](https://verdaccio.org/blog/)
 * [Donations](https://opencollective.com/verdaccio)
-* [Roadmaps](https://github.com/verdaccio/verdaccio/projects)
 * [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
 * [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
 * [Chat](http://chat.verdaccio.org/)
 * [Logos](https://verdaccio.org/docs/en/logo)
-* [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
 * [Docker Examples](https://github.com/verdaccio/docker-examples)
+* [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
+
 
 ### License
 
