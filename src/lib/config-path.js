@@ -7,7 +7,6 @@ import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
 import logger from './logger';
-import mkdirp from 'mkdirp';
 
 import { folderExists, fileExists } from './utils';
 import { CHARACTER_ENCODING } from './constants';
@@ -56,7 +55,7 @@ function readDefaultConfig() {
 }
 
 function createConfigFolder(configLocation) {
-  mkdirp.sync(Path.dirname(configLocation.path));
+  fs.mkdirSync(Path.dirname(configLocation.path), { recursive: true });
   logger.logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
 }
 

@@ -1,7 +1,6 @@
 const { green } = require('kleur');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const mkdirp = require('mkdirp');
 const os = require('os');
 const path = require('path');
 
@@ -11,6 +10,6 @@ module.exports = async function() {
   console.log(green('Setup Puppeteer'));
   const browser = await puppeteer.launch({ headless: true, /* slowMo: 300 */ args: ['--no-sandbox'] });
   global.__BROWSER__ = browser;
-  mkdirp.sync(DIR);
+  fs.mkdirSync(DIR, { recursive: true });
   fs.writeFileSync(path.join(DIR, 'wsEndpoint'), browser.wsEndpoint());
 };
