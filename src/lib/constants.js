@@ -151,10 +151,6 @@ export const PACKAGE_ACCESS = {
   ALL: '**',
 };
 
-export const UPDATE_BANNER = {
-  CHANGELOG_URL: 'https://github.com/verdaccio/verdaccio/releases/tag/',
-};
-
 export const STORAGE = {
   PACKAGE_FILE_NAME: 'package.json',
   FILE_EXIST_ERROR: 'EEXISTS',
