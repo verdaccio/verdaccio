@@ -166,3 +166,5 @@ export const STORAGE = {
   NO_SUCH_FILE_ERROR: 'ENOENT',
   DEFAULT_REVISION: '0-0000000000000000',
 };
+
+export const DEPRECATE = 'deprecate';

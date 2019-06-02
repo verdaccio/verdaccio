@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
 
-import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../../lib/constants';
+import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS, DEPRECATE } from '../../../lib/constants';
 import { validateMetadata, isObject, ErrorCode } from '../../../lib/utils';
 import { media, expectJson, allow } from '../../middleware';
 import { notify } from '../../../lib/notify';
@@ -158,7 +158,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
           afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
         });
       } else if (isObject(metadata._attachments) && !Object.keys(metadata._attachments).length) {
-        storage.changePackage(packageName, metadata, 'deprecate', function(error) {
+        storage.changePackage(packageName, metadata, DEPRECATE, function(error) {
           afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
         });
       } else {
