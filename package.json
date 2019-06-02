@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "4.0.0-beta.10",
+  "version": "4.0.1",
   "description": "A lightweight private npm proxy registry",
   "author": {
     "name": "Verdaccio Maintainers",
