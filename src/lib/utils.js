@@ -13,7 +13,18 @@ import createError from 'http-errors';
 // $FlowFixMe
 import sanitizyReadme from '@verdaccio/readme';
 
-import { HTTP_STATUS, API_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
+import {
+  HTTP_STATUS,
+  API_ERROR,
+  APP_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_DOMAIN,
+  DEFAULT_PROTOCOL,
+  CHARACTER_ENCODING,
+  HEADERS,
+  DIST_TAGS,
+  DEFAULT_USER,
+} from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import type { Package } from '@verdaccio/types';
@@ -381,8 +392,20 @@ export const ErrorCode = {
   },
 };
 
-export function parseConfigFile(configPath: string): Object {
-  return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+export function parseConfigFile(configPath: string) {
+  try {
+    if (/\.ya?ml$/i.test(configPath)) {
+      return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+    } else {
+      return require(configPath);
+    }
+  } catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+      e.message = APP_ERROR.CONFIG_NOT_VALID;
+    }
+
+    throw new Error(e);
+  }
 }
 
 /**
