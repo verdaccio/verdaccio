@@ -554,7 +554,7 @@ class ProxyStorage implements IProxy {
       // Otherwise misconfigured proxy could return 407:
       // https://github.com/rlidwka/sinopia/issues/254
       //
-      if (this.proxy === false) {
+      if (!this.proxy) {
         headers['X-Forwarded-For'] = (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] + ', ' : '') + req.connection.remoteAddress;
       }
     }
