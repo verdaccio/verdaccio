@@ -106,7 +106,11 @@ export function allow(auth: IAuth) {
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
-      const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
+      const packageVersion = req.params.filename
+        ? getVersionFromTarball(req.params.filename)
+        : req.body && req.body.versions
+        ? Object.keys(req.body.versions)[0]
+        : undefined;
 
       // $FlowFixMe
       auth['allow_' + action]({ packageName, packageVersion }, req.remote_user, function(error, allowed) {
