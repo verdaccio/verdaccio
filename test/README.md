@@ -4,7 +4,7 @@ Welcome to the testing folder at Verdaccio. This document aims to help you to go
 
 First of all we must explain the stack, we use `jest` and other tools as `supertest` to be able test the API and `puppetter` for End to End testing.
 
-We go along with the following rules in order to be consisten with all test:
+We go along with the following rules in order to be consisten with all test and will make your code review smooth and fast:
 
 * We **type** all our test. eg `const foo: number = 3;`
 * **Each test should be small as possible**: You should try the `test()` block try to test only one thing and no dependencies with other test. If test requires different steps, groupd them woth `describe()` block.
@@ -32,13 +32,45 @@ If you are adding new test, comply with the following:
 
 Unit test aims to test the CLI API and the Web API. The configuration file is located `jest.config.js`.
 
+> Unit testing do not need pre-compile code, jest will catch any change done to the `{root}/src` files.
+
 #### Testing an endpoint
 
-We have prepared a template `test/unit/api/api.__test.template.spec.js` that you can follow to create your own unit test.
+We have prepared a template `test/unit/api/api.__test.template.spec.js` that you can follow to create your own unit test. Only the test are prefixed with `.spec.js` will be catch by jest.
 
-Feel free to suggest improvements to the template, there is still a lot of room for improvement. 
+> Feel free to suggest improvements to the template, there is still a lot of room for improvement. 
+
+We recommend the following approach when you create a unit test:
+
+* For new utilities, we recommend create a new spec.
+* For existing utitlities, if the method is already being tested, just add a new `test()` block.
+* Notice that all api spec files are prefixed with `api.[feature].spec.js`, we recommend follow the same approach. eg: `api.[deprecate].spec.js`.
+* Don't mix utilities with API test.
 
 ### Functional Test
+
+The functional test aims to run only **cli endpoint** and **web point** real request to an existing and compiled verdaccio server running.
+
+> Be aware if you change something in the `{root}/src` source code, you must run `yarn code:build` before be able see your changes, functional test uses transpiled code. 
+
+All tests must be included in the `test/functional/index.spec.js` file, wich bootstrap the whole process.
+
+The jest configuration file is defined in `test/jest.config.functional.js`. The configuration will create a custom environment launching 3 verdaccio servers with different configurations.
+
+The servers are linked as follows. 
+
+* Server 1 
+ * -> Server 2  
+ * -> Server 3
+* Server 2 
+ * -> Server 1
+* Server 3 
+  * -> Server 2
+  * -> Server 1
+
+Server 1 runs on port `55551`, Server 2 on port `55552` and Server 3 on port `55553`.
+
+> If you have the need to increase the number of servers running, it is possible, but please discuss with the team before go in that path.
 
 ### E2E Test
 
