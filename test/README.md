@@ -24,7 +24,7 @@ If you are adding new tests, comply with the following:
 
 * If you add a new API endpoint, the  unit test and functional test are mandatory.
 * If you add a utility, unit test is mandatory.
-* If you are adding a new web API endpint, the unit test, functional test and if such endpoint has new changes in the UI, E2E test is also mandatory.
+* If you are adding a new web API endpoint, the unit test, functional test and if such endpoint has new changes in the UI, E2E test is also mandatory.
 * If you add or refactor a core class, unit test is mandatory.
 * If you fix a bug, you **must** add a new `test()` block to prove that the patch fixes te bug.
 
@@ -60,14 +60,14 @@ The jest configuration file is defined in `test/jest.config.functional.js`. The 
 The servers are linked as follows: 
 
 * Server 1 
- * -> Server 2  
- * -> Server 3
+  * -> Server 2  
+  * -> Server 3
 * Server 2 
- * -> Server 1
+  * -> Server 1
 * Server 3 
   * -> Server 2
   * -> Server 1
-* Express app:  
+* Express app: (if you need to emulate any external endpoint, use the express app)  
 
 Server 1 runs on port `55551`, Server 2 on port `55552` and Server 3 on port `55553`.
 
