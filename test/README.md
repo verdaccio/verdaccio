@@ -18,7 +18,7 @@ We go along with the following rules in order to be consistent with all tests wh
 
 ## Testing sections
 
-Verdaccio testing is being separated in 3 sections, each of them has different setup and scope, the most important is the **unit test**. All sections have custom **jest configuration files**.
+Verdaccio testing is split in 3 sections, each of them has different setup and scope. The most important is the **unit test**. All sections have custom **jest configuration files**.
 
 If you are adding new tests, comply with the following:
 
