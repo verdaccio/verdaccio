@@ -120,11 +120,16 @@ Functional test run over ones single file, thus, it is not possible at this stag
 
 ## Before commit
 
-// set of steps we recommend to do before a commit
+We recommend run your tests and linters before commit.   
 
-## Debug Test
+```bash
+ 
+yarn lint && yarn test:all
 
-// debugging processes is hard, we try to help you to find answers
+```
+
+
+You can find more in our [guide about run and debugging test](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests#running-the-test).
 
 ## Continuous Integration
 
