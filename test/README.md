@@ -76,7 +76,28 @@ Server 1 runs on port `55551`, Server 2 on port `55552` and Server 3 on port `55
 
 #### Adding a new block
 
+To add a new feature you need to export the feature as a function that take as an argument any of the servers you want to interact. 
+
+
+```js
+// newFeature.js
+
+export default function(server) {
+
+  describe('package access control', () => {
+    test('should ...', (done) => {
+      done();
+    });
+  });
+  
+}
 ```
+
+Then, import the feature and run the function within the main `describe` block.  
+
+```js
+// index.spec.js
+
 import newFeature from './newFeature';
 
 describe('functional test verdaccio', function() {
@@ -92,6 +113,8 @@ describe('functional test verdaccio', function() {
   newFeature(server1, server2, server3);
 });
 ```
+
+Functional test run over ones single file, thus, it is not possible at this stage to run test individually.
 
 ### E2E Test
 
