@@ -2,7 +2,7 @@
 
 Welcome to the testing folder at Verdaccio. This document aims to help you understand how Verdaccio should be tested.
 
-First of all we must explain the stack, we use `jest` and other tools such as `supertest` to be able to test the API and `puppeteer` for End-to-End testing.
+First of all, we should explain the testing frameworks being used. We use `jest` and other tools such as `supertest` to be able to test the API, and `puppeteer` for End-to-End testing.
 
 We go along with the following rules in order to be consistent with all tests which will make your code review smooth and fast:
 
