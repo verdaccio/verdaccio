@@ -118,14 +118,26 @@ Functional test run over ones single file, thus, it is not possible at this stag
 
 ### E2E Test
 
+Verdaccio includes an User Interface and must be tested. We use End-to-End testing to run some smock test against the web API using the UI Theme 
+include by default.
+
+```bash
+    yarn lint && yarn test:all
+```
+
+The test does not have aim to test the integrity of the page, mostly, ensure the basic functionality still works. If you add or modify 
+a UI feature, the tests must be updated.
+
+> The tests rely on CSS classes naming convention, so, it is required some sort of coordination with the **verdaccio/ui** project.
+
+We uses `puppeteer`, you can find more information about how to use it in their website. 
+
 ## Before commit
 
 We recommend run your tests and linters before commit.   
 
 ```bash
- 
-yarn lint && yarn test:all
-
+   yarn lint && yarn test:all
 ```
 
 
@@ -133,11 +145,9 @@ You can find more in our [guide about run and debugging test](https://github.com
 
 ## Continuous Integration
 
-// we explain what we test in CI
+Verdaccio uses [CircleCI](https://circleci.com/gh/verdaccio) as main Continuous Integration tool. We run the test against the most common 
+Node.js versions available, LTS and the latest release. Before the PR is being merged, all check must be green.   
 
-## Run test in Docker
-
-// running test in docker
 
 
 
