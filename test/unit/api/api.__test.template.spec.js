@@ -5,7 +5,7 @@
  *
  * This test is just for teaching purpose, use this example as template for your new endpoint API unit test
  *
- * If you have any questions, ask over http://chat.verdaccio.org #questions channel.
+ * If you have any questions, ask at the http://chat.verdaccio.org #questions channel.
  *
  */
 import request from 'supertest';
@@ -25,8 +25,8 @@ import {setup} from '../../../src/lib/logger';
 setup([]);
 
 const parseConfigurationJWTFile = () => {
-  // Any new test must have a custom yaml file, try to name based on the feature, the config
-  // file does not need to include all configuration, just the part is need it
+  // Any new test must have a custom yaml file, try to name it based on the feature, the config
+  // file does not need to include all configuration, just the part is needs
   // eg: test/unit/partials/config/yaml/api-jwt/jwt.yaml
   return parseConfigurationFile(`api-jwt/jwt`);
 };
@@ -38,9 +38,9 @@ describe('endpoint example unit test', () => {
   beforeAll(function(done) {
     // 1. We create a route for a custom storage folder for this test
     const store = path.join(__dirname, '../partials/store/test-jwt-storage');
-    // 2. The port must be unique (at this point this is not automated, need to be check manually)
+    // 2. The port must be unique (at this point this is not automated, need to be checked manually)
     const mockServerPort = 55546;
-    // 3. Use rimraf clean the state each time you run the test
+    // 3. Use rimraf to clean the state each time you run the test
     rimraf(store, async () => {
       // 4. Use a custom configuration file
       const confS = parseConfigFile(parseConfigurationJWTFile());
@@ -71,16 +71,16 @@ describe('endpoint example unit test', () => {
   });
 
   afterAll(function(done) {
-    // 10. Do not forget stop the API, or will run for ever.
+    // 10. Do not forget to stop the API, or it will run forever.
     mockRegistry[0].stop();
     done();
   });
 
   test('should test add a new user with JWT enabled', async (done) => {
-    // At this point the server is running and you can run the
+    // At this point the server is running and you can run the test
 
     const credentials = { name: 'JotaJWT', password: 'secretPass' };
-    // 11. Use helpers for repetitive task
+    // 11. Use helpers for repetitive tasks
     const [err, res] = await addUser(request(app), credentials.name, credentials);
 
     // 12. test your output

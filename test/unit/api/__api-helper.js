@@ -4,10 +4,10 @@ import {HEADER_TYPE, HEADERS, HTTP_STATUS} from '../../../src/lib/constants';
 
 // API Helpers
 
-// This file should contains utilities to avoid repeated task over API unit testing,
+// This file should contain utilities to avoid repeated task over API unit testing,
 // Please, comply with the following:
 // - Promisify everything
-// - Encourage using constants or create new ones if is need it
+// - Encourage using constants or create new ones if it's needed
 // - // $FlowFixMe or any is fine if there is no other way
 
 export function getPackage(
