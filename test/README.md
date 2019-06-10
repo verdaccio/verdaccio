@@ -146,7 +146,9 @@ You can find more in our [guide about run and debugging test](https://github.com
 ## Continuous Integration
 
 Verdaccio uses [CircleCI](https://circleci.com/gh/verdaccio) as main Continuous Integration tool. We run the test against the most common 
-Node.js versions available, LTS and the latest release. Before the PR is being merged, all check must be green.   
+Node.js versions available, LTS and the latest release. Before the PR is being merged, all check must be green. 
+
+> You need a CircleCI account to be able see the test running  
 
 
 
