@@ -7,7 +7,7 @@ First of all we must explain the stack, we use `jest` and other tools such as `s
 We go along with the following rules in order to be consistent with all tests which will make your code review smooth and fast:
 
 * We **type** all our tests. eg `const foo: number = 3;`
-* **Each test should be as small as possible**: You should try the `test()` block to test only one thing and do not depend on other tests. If the test requires different steps, group them with a `describe()` block.
+* **Each test should be as small as possible**: You should use the `test()` block to test only one thing and do not depend on other tests. If the test requires different steps, group them with a `describe()` block.
 * All `test()` **headers titles** should begin with `test('should test ...)`: For consistency with reporting tools, this makes it easier to match the test with the feature needed to be tested.
 * **Any mock data** should be located in the `partials` folder in each section.
 * Use `yaml` for **configuration files examples** instead of JSON.
