@@ -1,6 +1,6 @@
 ## How to test Verdaccio
 
-Welcome to the testing folder at Verdaccio. This document aims to help you to go through how Verdaccio can be tested.
+Welcome to the testing folder at Verdaccio. This document aims to help you understand how Verdaccio should be tested.
 
 First of all we must explain the stack, we use `jest` and other tools such as `supertest` to be able to test the API and `puppeteer` for End-to-End testing.
 
