@@ -30,7 +30,7 @@ If you are adding new tests, comply with the following:
 
 ### Unit test
 
-Unit test aims to test the CLI API and the Web API. The configuration file is located at `jest.config.js`.
+Unit tests aim to test the CLI API and the Web API. The configuration file is located at `jest.config.js`.
 
 > Unit testing does not need require pre-compile code, jest will catch any change done to the `{root}/src` files.
 
