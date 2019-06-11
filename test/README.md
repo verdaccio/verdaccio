@@ -118,7 +118,7 @@ Functional test run over ones single file, thus, it is not possible at this stag
 
 ### E2E Test
 
-Verdaccio includes an User Interface and must be tested. We use End-to-End testing to run some smock test against the web API using the UI Theme 
+Verdaccio includes a Web User Interface that must be tested. We use End-to-End testing to run some smock tests against the web API using the UI Theme 
 include by default.
 
 ```bash
