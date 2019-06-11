@@ -26,7 +26,7 @@ If you are adding new tests, comply with the following:
 * If you add a utility, unit test is mandatory.
 * If you are adding a new web API endpoint, the unit test, functional test and if such endpoint has new changes in the UI, E2E test is also mandatory.
 * If you add or refactor a core class, unit test is mandatory.
-* If you fix a bug, you **must** add a new `test()` block to prove that the patch fixes te bug.
+* If you fix a bug, you **must** add a new `test()` block to prove that the patch fixes the bug.
 
 ### Unit test
 
