@@ -93,7 +93,7 @@ export default function(server) {
 }
 ```
 
-Then, import the feature and run the function within the main `describe` block.  
+Then import the feature and run the function within the main `describe` block.  
 
 ```js
 // index.spec.js
