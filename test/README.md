@@ -103,7 +103,7 @@ import newFeature from './newFeature';
 describe('functional test verdaccio', function() {
   // test are fast, but do not change this time out, 10 seconds should be more than enough
   jest.setTimeout(10000);
-  // servers are accessed vi a global jest state.
+  // servers are accessed via a global jest state.
   const server1: IServerBridge = global.__SERVERS__[0];
   const server2: IServerBridge = global.__SERVERS__[1];
   const server3: IServerBridge = global.__SERVERS__[2];
