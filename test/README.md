@@ -114,7 +114,7 @@ describe('functional test verdaccio', function() {
 });
 ```
 
-Functional test run over ones single file, thus, it is not possible at this stage to run test individually.
+Functional tests run over one single file, thus, it is not possible at this stage to run tests individually.
 
 ### E2E Test
 
