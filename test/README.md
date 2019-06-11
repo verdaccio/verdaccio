@@ -22,7 +22,7 @@ Verdaccio testing is split in 3 sections, each of them has different setup and s
 
 If you are adding new tests, comply with the following:
 
-* If you add a new API endpoint, the  unit test and functional test are mandatory.
+* If you add a new API endpoint, unit and functional tests are mandatory.
 * If you add a utility, unit test is mandatory.
 * If you are adding a new web API endpoint, the unit test, functional test and if such endpoint has new changes in the UI, E2E test is also mandatory.
 * If you add or refactor a core class, unit test is mandatory.
