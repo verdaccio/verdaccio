@@ -36,6 +36,7 @@ Your efforts to responsibly disclose your findings are sincerely appreciated and
 
 The following is this project’s PGP key which should be used to encrypt any sensitive information shared on unsecured medium such as e-mails:
 
+```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: OpenPGP.js v4.5.1
 Comment: https://openpgpjs.org
@@ -69,3 +70,4 @@ eZWVPgPY1S1U0V608qYNtUCkrmUW5Sl6YLvz7JTvTsaym5mzyFXF3ErAURgI
 wXhyE0b/iDs60ZM=
 =QWXs
 -----END PGP PUBLIC KEY BLOCK-----
+```
