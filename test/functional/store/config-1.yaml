@@ -6,6 +6,10 @@ web:
   enable: true
   title: verdaccio-server-1
 
+middlewares:
+  ../fixtures/plugins/middlewares.uplink:
+    message: provides uplink mocking (e.g. simulates socket timeout)
+
 auth:
   auth-memory:
     users:
@@ -115,6 +119,12 @@ packages:
     access: $authenticated
     publish: $authenticated
     storage: sub_storage
+
+  'test-uplink-timeout-*':
+    access: $all
+    proxy:
+      - server2
+      - server3
 
   '*':
     access: test $anonymous
