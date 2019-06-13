@@ -37,7 +37,7 @@ describe('endpoint example unit test', () => {
 
   beforeAll(function(done) {
     // 1. We create a route for a custom storage folder for this test
-    const store = path.join(__dirname, '../partials/store/test-jwt-storage');
+    const store = path.join(__dirname, '../../partials/store/test-template-storage');
     // 2. The port must be unique (at this point this is not automated, need to be checked manually)
     const mockServerPort = 55546;
     // 3. Use rimraf to clean the state each time you run the test
