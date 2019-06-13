@@ -3,6 +3,14 @@
 import {HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER} from '../../../src/lib/constants';
 import {buildToken} from "../../../src/lib/utils";
 
+// API Helpers
+
+// This file should contain utilities to avoid repeated task over API unit testing,
+// Please, comply with the following:
+// - Promisify everything
+// - Encourage using constants or create new ones if it's needed
+// - // $FlowFixMe or any is fine if there is no other way
+
 export function getPackage(
     request: any,
     header: string,
