@@ -8,9 +8,10 @@ import Cookies from 'cookies';
 
 import { ErrorCode } from '../../../lib/utils';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '../../../lib/constants';
-import { createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
+import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
+import logger from '../../../lib/logger';
 
-import type { Config } from '@verdaccio/types';
+import type { Config, RemoteUser } from '@verdaccio/types';
 import type { $Response, Router } from 'express';
 import type { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '../../../../types';
 
@@ -22,17 +23,26 @@ export default function(route: Router, auth: IAuth, config: Config) {
     });
   });
 
-  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', async function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
+  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: $Response, next: $NextFunctionVer) {
     const { name, password } = req.body;
+    const remoteName = req.remote_user.name;
 
-    if (_.isNil(req.remote_user.name) === false) {
-      const token = name && password ? await getApiToken(auth, config, req.remote_user, password) : undefined;
+    if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
+      auth.authenticate(name, password, async function callbackAuthenticate(err, groups) {
+        if (err) {
+          logger.logger.trace({ name, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
+          return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD));
+        }
 
-      res.status(HTTP_STATUS.CREATED);
+        const restoredRemoteUser: RemoteUser = createRemoteUser(name, groups);
+        const token = await getApiToken(auth, config, restoredRemoteUser, password);
 
-      return next({
-        ok: getAuthenticatedMessage(req.remote_user.name),
-        token,
+        res.status(HTTP_STATUS.CREATED);
+
+        return next({
+          ok: getAuthenticatedMessage(req.remote_user.name),
+          token,
+        });
       });
     } else {
       if (validatePassword(password) === false) {
