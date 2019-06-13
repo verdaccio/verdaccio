@@ -36,7 +36,7 @@ describe('endpoint user auth JWT unit test', () => {
       const confS = parseConfigFile(parseConfigurationJWTFile());
       const configForTest = _.assign({}, _.cloneDeep(confS), {
         storage: store,
-        plinks: {
+        uplinks: {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
           }
