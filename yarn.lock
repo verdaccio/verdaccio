@@ -1469,10 +1469,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-5.0.0-beta.4.tgz#433a36bef5b3bbd31711c48071989ac35dc83e54"
   integrity sha512-aPrCUrFMXo/ikgT/9YEAr5EDlH2gFJGfdrUra2ipQxV3SbNrRN95KxwwSDS+W+YKG0+rAIQKIxnx8hf6gEtePQ==
 
-"@verdaccio/ui-theme@0.1.10":
-  version "0.1.10"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.1.10.tgz#dee53a8980aa02f6d565f8b11ef4a29552dc8380"
-  integrity sha512-YmQcdlEqdLXJZXHyqILLXp7J4FShf9Guzzb17arDZdXXAPFUIxLSNlZ508UUhDSzkcev+lB/pcJ0sAxGaLs1Vg==
+"@verdaccio/ui-theme@0.1.11":
+  version "0.1.11"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.1.11.tgz#48e1bb9139c61016e143e57102bee8c8fbf0cb92"
+  integrity sha512-VxuqUOycaFRwZ7RV6etvGECELvgZ1iO8KFZJlLVUWvrv218mAULZVacKyJ6i8FbLvaqxnx7lEUIEBzhz7KX/Iw==
 
 JSONStream@1.3.5, JSONStream@^1.0.4:
   version "1.3.5"
@@ -1771,6 +1771,11 @@ async-limiter@~1.0.0:
   version "1.0.0"
   resolved "https://registry.verdaccio.org/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
+
+async@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.verdaccio.org/async/-/async-3.0.1.tgz#dfeb34657d1e63c94c0eee424297bf8a2c9a8182"
+  integrity sha512-ZswD8vwPtmBZzbn9xyi8XBQWXH3AvOQ43Za1KWYq7JeycrZuUYzx01KvHcVbXltjqH4y0MWrQ33008uLTqXuDw==
 
 async@3.0.1-0:
   version "3.0.1-0"
@@ -2968,10 +2973,10 @@ dateformat@^3.0.0:
   resolved "https://registry.verdaccio.org/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayjs@1.8.13:
-  version "1.8.13"
-  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.8.13.tgz#51b5cdad23ba508bcea939a853b492fefb7fdc47"
-  integrity sha512-JZ01l/PMU8OqwuUs2mOQ/CTekMtoXOUSylfjqjgDzbhRSxpFIrPnHn8Y8a0lfocNgAdBNZb8y0/gbzJ2riQ4WQ==
+dayjs@1.8.14:
+  version "1.8.14"
+  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.14.tgz#43e4f62830c2c3342c3fcd25934dc9162dbe6f38"
+  integrity sha512-AVhDmRTe541iWirnoeFSSDDGvCT6HWaNQ4z2WmmzXMGZj6ph6ydao2teKq/eUtR43GPJXlYFD+C/SotG1P9wUQ==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -6031,15 +6036,20 @@ mime@1.4.1:
   resolved "https://registry.verdaccio.org/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
   integrity sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
 
-mime@2.4.2, mime@^2.0.3:
-  version "2.4.2"
-  resolved "https://registry.verdaccio.org/mime/-/mime-2.4.2.tgz#ce5229a5e99ffc313abac806b482c10e7ba6ac78"
-  integrity sha512-zJBfZDkwRu+j3Pdd2aHsR5GfH2jIWhmL1ZzBoc+X+3JEti2hbArWcyJ+1laC1D2/U/W1a/+Cegj0/OnEU2ybjg==
+mime@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.verdaccio.org/mime/-/mime-2.4.4.tgz#bd7b91135fc6b01cde3e9bae33d659b63d8857e5"
+  integrity sha512-LRxmNwziLPT828z+4YkNzloCFC2YM4wrB99k+AV5ZbEyfGNWfG8SO1FUXLmLDBSo89NrJZ4DIWeLjy1CHGhMGA==
 
 mime@^1.4.1:
   version "1.6.0"
   resolved "https://registry.verdaccio.org/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
+
+mime@^2.0.3:
+  version "2.4.2"
+  resolved "https://registry.verdaccio.org/mime/-/mime-2.4.2.tgz#ce5229a5e99ffc313abac806b482c10e7ba6ac78"
+  integrity sha512-zJBfZDkwRu+j3Pdd2aHsR5GfH2jIWhmL1ZzBoc+X+3JEti2hbArWcyJ+1laC1D2/U/W1a/+Cegj0/OnEU2ybjg==
 
 mimic-fn@^1.0.0:
   version "1.2.0"
@@ -7492,10 +7502,10 @@ semver@5.6.0:
   resolved "https://registry.verdaccio.org/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
   integrity sha512-RS9R6R35NYgQn++fkDWaOmqGoj4Ek9gGs+DPxNUZKuwE183xjJroKvyo1IzVFeXvUrvmALy6FWD5xrdJT25gMg==
 
-semver@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.verdaccio.org/semver/-/semver-6.0.0.tgz#05e359ee571e5ad7ed641a6eec1e547ba52dea65"
-  integrity sha512-0UewU+9rFapKFnlbirLi3byoOuhrSsli/z/ihNnvM24vgF+8sNBiI1LZPBSH9wJKUwaUbw+s3hToDLCXkrghrQ==
+semver@6.1.1:
+  version "6.1.1"
+  resolved "https://registry.verdaccio.org/semver/-/semver-6.1.1.tgz#53f53da9b30b2103cd4f15eab3a18ecbcb210c9b"
+  integrity sha512-rWYq2e5iYW+fFe/oPPtYJxYgjBm8sC4rmoGdUOgBB7VnwKt6HrL793l2voH1UlsyYZpJ4g0wfjnTEO1s1NP2eQ==
 
 send@0.16.2:
   version "0.16.2"
