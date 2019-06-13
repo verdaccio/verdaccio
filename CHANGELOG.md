@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.2](https://github.com/verdaccio/verdaccio/compare/v4.0.1...v4.0.2) (2019-06-13)
+
+
+### Bug Fixes
+
+* correctly check if the proxy setting evaluates to false ([#1336](https://github.com/verdaccio/verdaccio/issues/1336)) ([df834f4](https://github.com/verdaccio/verdaccio/commit/df834f4))
+* update dependencies ([e581634](https://github.com/verdaccio/verdaccio/commit/e581634)), closes [#1339](https://github.com/verdaccio/verdaccio/issues/1339)
+* update security policy details ([#1342](https://github.com/verdaccio/verdaccio/issues/1342)) ([ddcd89d](https://github.com/verdaccio/verdaccio/commit/ddcd89d))
+* **api:** force authenticate on login ([#1347](https://github.com/verdaccio/verdaccio/issues/1347)) ([85c1bd1](https://github.com/verdaccio/verdaccio/commit/85c1bd1))
+* **ui:** failed to load all packages after login ([192fb77](https://github.com/verdaccio/verdaccio/commit/192fb77))
+
+
+
 ## [4.0.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0...v4.0.1) (2019-05-28)
 
 
