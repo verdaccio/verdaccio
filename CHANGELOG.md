@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.3](https://github.com/verdaccio/verdaccio/compare/v4.0.2...v4.0.3) (2019-06-14)
+
+
+### Bug Fixes
+
+* **api:** return 503 to npm/yarn on uplink connection timeout ([#1331](https://github.com/verdaccio/verdaccio/issues/1331))  ([eb7a8e3](https://github.com/verdaccio/verdaccio/commit/eb7a8e3)), closes [#1328](https://github.com/verdaccio/verdaccio/issues/1328) [#720](https://github.com/verdaccio/verdaccio/issues/720) [#1328](https://github.com/verdaccio/verdaccio/issues/1328) [#720](https://github.com/verdaccio/verdaccio/issues/720)
+
+
+
 ## [4.0.2](https://github.com/verdaccio/verdaccio/compare/v4.0.1...v4.0.2) (2019-06-13)
 
 
