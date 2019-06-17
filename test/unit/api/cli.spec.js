@@ -5,6 +5,7 @@ import startServer from '../../../src/index';
 import config from '../partials/config/index';
 import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../src/lib/constants';
 import {getListListenAddresses} from '../../../src/lib/cli/utils';
+import {parseConfigFile} from '../../../src/lib/utils';
 
 const logger = require('../../../src/lib/logger');
 
@@ -20,6 +21,10 @@ jest.mock('../../../src/lib/logger', () => ({
 
 describe('startServer via API', () => {
 
+  const parseConfigurationFile = (name) => {
+    return parseConfigFile(path.join(__dirname, `../partials/config/yaml/${name}.yaml`));
+  };
+
   describe('startServer launcher', () => {
     test('should provide all HTTP server data', async (done) => {
       const store = path.join(__dirname, 'partials/store');
@@ -30,6 +35,75 @@ describe('startServer via API', () => {
       await startServer(config(), port, store, version, serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
+          expect(addrs).toBeDefined();
+          expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
+          expect(addrs.host).toBe(DEFAULT_DOMAIN);
+          expect(addrs.port).toBe(port);
+          expect(pkgName).toBeDefined();
+          expect(pkgVersion).toBeDefined();
+          expect(pkgVersion).toBe(version);
+          expect(pkgName).toBe(serverName);
+          done();
+      });
+    });
+
+    test('should set keepAliveTimeout to 0 seconds', async (done) => {
+      const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const port = '6100';
+
+      await startServer(config(parseConfigurationFile('server/keepalivetimeout-0')), port, store, version, serverName,
+        (webServer, addrs, pkgName, pkgVersion) => {
+          expect(webServer).toBeDefined();
+          expect(webServer.keepAliveTimeout).toBeDefined();
+          expect(webServer.keepAliveTimeout).toBe(0);
+          expect(addrs).toBeDefined();
+          expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
+          expect(addrs.host).toBe(DEFAULT_DOMAIN);
+          expect(addrs.port).toBe(port);
+          expect(pkgName).toBeDefined();
+          expect(pkgVersion).toBeDefined();
+          expect(pkgVersion).toBe(version);
+          expect(pkgName).toBe(serverName);
+          done();
+      });
+    });
+
+    test('should set keepAliveTimeout to 60 seconds', async (done) => {
+      const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const port = '6200';
+
+      await startServer(config(parseConfigurationFile('server/keepalivetimeout-60')), port, store, version, serverName,
+        (webServer, addrs, pkgName, pkgVersion) => {
+          expect(webServer).toBeDefined();
+          expect(webServer.keepAliveTimeout).toBeDefined();
+          expect(webServer.keepAliveTimeout).toBe(60000);
+          expect(addrs).toBeDefined();
+          expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
+          expect(addrs.host).toBe(DEFAULT_DOMAIN);
+          expect(addrs.port).toBe(port);
+          expect(pkgName).toBeDefined();
+          expect(pkgVersion).toBeDefined();
+          expect(pkgVersion).toBe(version);
+          expect(pkgName).toBe(serverName);
+          done();
+      });
+    });
+
+    test('should set keepAliveTimeout to 5 seconds per default', async (done) => {
+      const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const port = '6300';
+
+      await startServer(config(parseConfigurationFile('server/keepalivetimeout-undefined')), port, store, version, serverName,
+        (webServer, addrs, pkgName, pkgVersion) => {
+          expect(webServer).toBeDefined();
+          expect(webServer.keepAliveTimeout).toBeDefined();
+          expect(webServer.keepAliveTimeout).toBe(5000);
           expect(addrs).toBeDefined();
           expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
           expect(addrs.host).toBe(DEFAULT_DOMAIN);
