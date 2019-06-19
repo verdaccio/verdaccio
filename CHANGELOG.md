@@ -2,6 +2,64 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.3](https://github.com/verdaccio/verdaccio/compare/v4.0.2...v4.0.3) (2019-06-14)
+
+
+### Bug Fixes
+
+* **api:** return 503 to npm/yarn on uplink connection timeout ([#1331](https://github.com/verdaccio/verdaccio/issues/1331))  ([eb7a8e3](https://github.com/verdaccio/verdaccio/commit/eb7a8e3)), closes [#1328](https://github.com/verdaccio/verdaccio/issues/1328) [#720](https://github.com/verdaccio/verdaccio/issues/720) [#1328](https://github.com/verdaccio/verdaccio/issues/1328) [#720](https://github.com/verdaccio/verdaccio/issues/720)
+
+
+
+## [4.0.2](https://github.com/verdaccio/verdaccio/compare/v4.0.1...v4.0.2) (2019-06-13)
+
+
+### Bug Fixes
+
+* correctly check if the proxy setting evaluates to false ([#1336](https://github.com/verdaccio/verdaccio/issues/1336)) ([df834f4](https://github.com/verdaccio/verdaccio/commit/df834f4))
+* update dependencies ([e581634](https://github.com/verdaccio/verdaccio/commit/e581634)), closes [#1339](https://github.com/verdaccio/verdaccio/issues/1339)
+* update security policy details ([#1342](https://github.com/verdaccio/verdaccio/issues/1342)) ([ddcd89d](https://github.com/verdaccio/verdaccio/commit/ddcd89d))
+* **api:** force authenticate on login ([#1347](https://github.com/verdaccio/verdaccio/issues/1347)) ([85c1bd1](https://github.com/verdaccio/verdaccio/commit/85c1bd1))
+* **ui:** failed to load all packages after login ([192fb77](https://github.com/verdaccio/verdaccio/commit/192fb77))
+
+
+
+## [4.0.1](https://github.com/verdaccio/verdaccio/compare/v4.0.0...v4.0.1) (2019-05-28)
+
+
+### Bug Fixes
+
+* **web:** fix sidebar tarball protocol ([#1326](https://github.com/verdaccio/verdaccio/issues/1326)) ([de04463](https://github.com/verdaccio/verdaccio/commit/de04463)), closes [#1320](https://github.com/verdaccio/verdaccio/issues/1320)
+
+
+
+# [4.0.0](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.8...v4.0.0) (2019-05-26)
+
+
+### Bug Fixes
+
+* add missing pkg version and name on start up ([8cf3966](https://github.com/verdaccio/verdaccio/commit/8cf3966))
+* update @verdaccio/ui-theme:0.1.7 ([8e48eea](https://github.com/verdaccio/verdaccio/commit/8e48eea))
+* warning text is hard to read when running under root ([3ac038f](https://github.com/verdaccio/verdaccio/commit/3ac038f))
+
+
+### Features
+
+* create security policy ([#1322](https://github.com/verdaccio/verdaccio/issues/1322)) ([0e9f23d](https://github.com/verdaccio/verdaccio/commit/0e9f23d))
+* prepare release v4 ([#1307](https://github.com/verdaccio/verdaccio/issues/1307)) ([b9506d6](https://github.com/verdaccio/verdaccio/commit/b9506d6))
+* update readme v4 ([#1312](https://github.com/verdaccio/verdaccio/issues/1312)) ([7686417](https://github.com/verdaccio/verdaccio/commit/7686417))
+
+
+
+# [4.0.0-beta.10](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.9...v4.0.0-beta.10) (2019-05-20)
+
+
+### Bug Fixes
+
+* add missing pkg version and name on start up ([8cf3966](https://github.com/verdaccio/verdaccio/commit/8cf3966))
+
+
+
 # [4.0.0-beta.9](https://github.com/verdaccio/verdaccio/compare/v4.0.0-beta.8...v4.0.0-beta.9) (2019-05-20)
 
 

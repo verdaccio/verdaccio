@@ -24,6 +24,7 @@ workflow "release" {
   resolves = [
     "github-release",
     "release:lint",
+    "release:build",
   ]
   on = "push"
 }
@@ -51,14 +52,8 @@ action "release:lint" {
   args = "yarn run lint"
 }
 
-action "release:test" {
-  uses = "docker://node:10"
-  needs = ["release:build"]
-  args = "sh scripts/puppeteer-setup-ci.sh"
-}
-
 action "release:publish" {
-  needs = ["release:test"]
+  needs = ["release:build"]
   uses = "docker://node:10"
   args = "sh scripts/publish.sh"
   secrets = [
@@ -76,14 +71,6 @@ action "github-release" {
   secrets = [
     "GITHUB_TOKEN",
   ]
-}
-
-workflow "build and test" {
-  resolves = [
-    "lint",
-    "coverage",
-  ]
-  on = "push"
 }
 
 action "branch-filter" {
@@ -107,16 +94,4 @@ action "lint" {
   uses = "docker://node:10"
   needs = ["install"]
   args = "yarn run lint"
-}
-
-action "test" {
-  uses = "docker://node:10"
-  needs = ["build"]
-  args = "sh scripts/puppeteer-setup-ci.sh"
-}
-
-action "coverage" {
-  uses = "docker://node:10"
-  needs = ["test"]
-  args = "yarn run coverage:publish"
 }

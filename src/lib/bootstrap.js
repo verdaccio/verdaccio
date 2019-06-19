@@ -49,7 +49,7 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
         // http
         webServer = http.createServer(app);
       }
-      if (config.server && config.server.keepAliveTimeout) {
+      if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
         // $FlowFixMe library definition for node is not up to date (doesn't contain recent 8.0 changes)
         webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
       }
