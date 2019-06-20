@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.4](https://github.com/verdaccio/verdaccio/compare/v4.0.3...v4.0.4) (2019-06-20)
+
+
+### Bug Fixes
+
+* correctly check the keepAliveTimeout value, fixes [#1352](https://github.com/verdaccio/verdaccio/issues/1352) ([#1353](https://github.com/verdaccio/verdaccio/issues/1353)) ([a92bd5f](https://github.com/verdaccio/verdaccio/commit/a92bd5f))
+
+
+
 ## [4.0.3](https://github.com/verdaccio/verdaccio/compare/v4.0.2...v4.0.3) (2019-06-14)
 
 
