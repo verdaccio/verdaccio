@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.12.1"></a>
+## [3.12.1](https://github.com/verdaccio/verdaccio/compare/v3.12.0...v3.12.1) (2019-06-22)
+
+
+### Bug Fixes
+
+* update dependencies ([e7178a5](https://github.com/verdaccio/verdaccio/commit/e7178a5))
+
+
+
 <a name="3.12.0"></a>
 # [3.12.0](https://github.com/verdaccio/verdaccio/compare/v3.11.7...v3.12.0) (2019-05-17)
 
