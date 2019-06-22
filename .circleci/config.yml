@@ -3,9 +3,9 @@ version: 2
 aliases:
   - &defaults
     working_directory: ~/verdaccio
-  - &node6_executor
+  - &node12_executor
     docker:
-      - image: circleci/node:6
+      - image: circleci/node:12
   - &node8_executor
     docker:
       - image: circleci/node:8
@@ -91,9 +91,9 @@ jobs:
           paths:
             - ./*
 
-  test_node6:
+  test_node12:
     <<: *defaults
-    <<: *node6_executor
+    <<: *node12_executor
     steps:
       - *restore_repo
       - run:
@@ -193,7 +193,7 @@ workflows:
     jobs:
       - prepare:
           <<: *ignore_non_dev_branches
-      - test_node6:
+      - test_node12:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
@@ -219,7 +219,7 @@ workflows:
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
-            - test_node6
+            - test_node12
             - test_node8
             - test_node9
             - test_node10
