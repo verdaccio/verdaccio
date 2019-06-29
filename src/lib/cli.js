@@ -31,15 +31,33 @@ process.title = 'verdaccio';
 const logger = require('./logger');
 logger.setup(); // default setup
 
+const envinfo = require('envinfo');
 const commander = require('commander');
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
 
 commander
+  .option('--info', 'prints debugging information about the local environment')
   .option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)')
   .option('-c, --config <config.yaml>', 'use this configuration file (default: ./config.yaml)')
   .version(pkgVersion)
   .parse(process.argv);
+
+if (commander.info) {
+	// eslint-disable-next-line no-console
+	console.log('\nEnvironment Info:');
+	envinfo
+	.run({
+	    System: ['OS', 'CPU'],
+	    Binaries: ['Node', 'Yarn', 'npm'],
+	    Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
+	    npmGlobalPackages: ['verdaccio'],
+	})
+	.then(data => {
+		console.log(data); // eslint-disable-line no-console
+		process.exit(1);
+	}); 
+}
 
 if (commander.args.length == 1 && !commander.config) {
   // handling "verdaccio [config]" case if "-c" is missing in command line
