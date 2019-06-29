@@ -1,7 +1,7 @@
 # Number of days of inactivity before an issue becomes stale
-daysUntilStale: 30
+daysUntilStale: 15
 # Number of days of inactivity before a stale issue is closed
-daysUntilClose: 5
+daysUntilClose: 10
 # Issues with these labels will never be considered stale
 exemptLabels:
   - dev: high priority
@@ -13,8 +13,14 @@ exemptLabels:
 staleLabel: issue: wontfix
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
-  This issue has been automatically marked as stale because it has not had
-  recent activity. It will be closed if no further activity occurs. Thank you
-  for your contributions.
+ Hi pal 👋🏼!
+
+ This issue has gone quiet 😶.
+
+  We get a lot of issues, so we currently close issues after 25 days of inactivity. It’s been at least 15 days since the last update here.
+  If we missed this issue or if you want to keep it open, please reply here. You can also add/suggest the label "discuss" to keep this issue open!
+  As a friendly reminder: the best way to see this issue, or any other, fixed is to open a Pull Request. Check out [https://github.com/verdaccio/contributing](https://github.com/verdaccio/contributing) for more information about opening PRs, triaging issues, and contributing!
+
+  Thanks for being a part of the Verdaccio community! 💘
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
