@@ -170,7 +170,7 @@ If you want to report a security vulnerability, please follow the steps which we
 
 ## Core Team
 
-The core team is the responsable for drive this project, team is ordered by antiquity and areas of responsibility.
+The core team is responsible for driving this project ahead, team is ordered by antiquity and areas of responsibility.
 
 |  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  |  [Priscila Oliveria](https://github.com/priscilawebdev) | 
 |---|---|---|---|
