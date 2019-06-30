@@ -37,7 +37,7 @@ const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
 
 commander
-  .option('--info', 'prints debugging information about the local environment')
+  .option('-i, --info', 'prints debugging information about the local environment')
   .option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)')
   .option('-c, --config <config.yaml>', 'use this configuration file (default: ./config.yaml)')
   .version(pkgVersion)
