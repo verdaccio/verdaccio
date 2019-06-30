@@ -1,15 +1,10 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
-import{ $Application } from 'express';
-import{ $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../types';
+import { Application } from 'express';
+import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../types';
 
-export default (app: $Application, selfPath: string) => {
+export default (app: Application, selfPath: string): void => {
   // Hook for tests only
-  app.get('/-/_debug', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.get('/-/_debug', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const doGarbabeCollector = _.isNil(global.gc) === false;
 
     if (doGarbabeCollector) {
@@ -18,6 +13,7 @@ export default (app: $Application, selfPath: string) => {
 
     next({
       pid: process.pid,
+      // @ts-ignore
       main: process.mainModule.filename,
       conf: selfPath,
       mem: process.memoryUsage(),

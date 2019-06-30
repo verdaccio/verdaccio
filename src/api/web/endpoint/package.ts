@@ -17,32 +17,38 @@ const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
-function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, config: Config) {
+function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, config: Config): void {
   const can = allow(auth);
 
-  const checkAllow = (name, remoteUser) =>
-    new Promise((resolve, reject) => {
-      try {
-        auth.allow_access({ packageName: name }, remoteUser, (err, allowed) => {
-          if (err) {
-            resolve(false);
-          } else {
-            resolve(allowed);
-          }
-        });
-      } catch (err) {
-        reject(err);
+  const checkAllow = (name, remoteUser): Promise<boolean> =>
+    new Promise(
+      (resolve, reject): void => {
+        try {
+          auth.allow_access(
+            { packageName: name },
+            remoteUser,
+            (err, allowed): void => {
+              if (err) {
+                resolve(false);
+              } else {
+                resolve(allowed);
+              }
+            }
+          );
+        } catch (err) {
+          reject(err);
+        }
       }
-    });
+    );
 
   // Get list of all visible package
-  route.get('/packages', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    storage.getLocalDatabase(async function(err, packages) {
+  route.get('/packages', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+    storage.getLocalDatabase(async function(err, packages): Promise<void> {
       if (err) {
         throw err;
       }
 
-      async function processPermissionsPackages(packages = []) {
+      async function processPermissionsPackages(packages = []): Promise<any> {
         const permissions = [];
         const packgesCopy = packages.slice();
         for (const pkg of packgesCopy) {
@@ -65,7 +71,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
       }
 
       const { web } = config;
-      // $FlowFixMe
+      // @ts-ignore
       const order: boolean = config.web ? getOrder(web.sort_packages) : true;
 
       next(sortByName(await processPermissionsPackages(packages), order));
@@ -73,14 +79,14 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
   });
 
   // Get package readme
-  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({
       name: packageName,
       uplinksLook: true,
       req,
-      callback: function(err, info) {
+      callback: function(err, info): void {
         if (err) {
           return next(err);
         }
@@ -91,7 +97,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
     });
   });
 
-  route.get('/sidebar/(@:scope/)?:package', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  route.get('/sidebar/(@:scope/)?:package', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName: string = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({
@@ -99,7 +105,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
       uplinksLook: true,
       keepUpLinkData: true,
       req,
-      callback: function(err: Error, info: $SidebarPackage) {
+      callback: function(err: Error, info: $SidebarPackage): void {
         if (_.isNil(err)) {
           let sideBarInfo: any = _.clone(info);
           sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];

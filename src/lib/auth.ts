@@ -4,6 +4,7 @@
  */
 
 import _ from 'lodash';
+import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import loadPlugin from '../lib/plugin-loader';
@@ -24,8 +25,8 @@ import { convertPayloadToBase64, ErrorCode } from './utils';
 import { getMatchedPackagesSpec } from './config-utils';
 
 import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage } from '@verdaccio/types';
-import { $Response, NextFunction } from 'express';
-import { $RequestExtend, IAuth } from '../../types';
+import { NextFunction } from 'express';
+import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '../../types';
 
 const LoggerApi = require('./logger');
 
@@ -49,7 +50,7 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth) => {
+    return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth<IAuth>) => {
       const { authenticate, allow_access, allow_publish } = plugin;
 
       return authenticate || allow_access || allow_publish;
@@ -73,7 +74,7 @@ class Auth implements IAuth {
         if (err) {
           this.logger.error(
             { username, err },
-            `An error has been produced 
+            `An error has been produced
           updating the password for @{username}. Error: @{err.message}`
           );
           return cb(err);
@@ -207,6 +208,7 @@ class Auth implements IAuth {
 
           if (_.isNil(ok) === true) {
             this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
+            // @ts-ignore
             return this.allow_publish(...arguments);
           }
 
@@ -260,10 +262,10 @@ class Auth implements IAuth {
       }
     }
 
-    return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
+    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       req.pause();
 
-      const next = function(err) {
+      const next = function(err: VerdaccioError | void) {
         req.resume();
         // uncomment this to reject users with bad auth headers
         // return _next.apply(null, arguments)
@@ -310,7 +312,7 @@ class Auth implements IAuth {
     if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
       // this should happen when client tries to login with an existing user
       const credentials = convertPayloadToBase64(token).toString();
-      const { user, password } = (parseBasicPayload(credentials): any);
+      const { user, password } = parseBasicPayload(credentials) as AESPayload;
       this.authenticate(user, password, (err, user) => {
         if (!err) {
           req.remote_user = user;
@@ -361,13 +363,13 @@ class Auth implements IAuth {
    * JWT middleware for WebUI
    */
   webUIJWTmiddleware() {
-    return (req: $RequestExtend, res: $Response, _next: NextFunction) => {
+    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       if (this._isRemoteUserMissing(req.remote_user)) {
         return _next();
       }
 
       req.pause();
-      const next = err => {
+      const next = (err: VerdaccioError | void) => {
         req.resume();
         if (err) {
           // req.remote_user.error = err.message;
@@ -410,7 +412,7 @@ class Auth implements IAuth {
     };
   }
 
-  async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string {
+  async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
     const { real_groups, name, groups } = user;
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);

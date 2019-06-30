@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import zlib from 'zlib';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
@@ -12,24 +7,21 @@ import URL, {UrlWithStringQuery} from 'url';
 import { parseInterval, isObject, ErrorCode, buildToken } from './utils';
 import { ReadTarball } from '@verdaccio/streams';
 import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
-import { IReadTarball, Config, UpLinkConf, Callback, Headers, Logger } from '@verdaccio/types';
+import { Config, UpLinkConf, Callback, Headers, Logger } from '@verdaccio/types';
 import { IProxy } from '../../types';
-
 const LoggerApi = require('./logger');
-const encode = function(thing) {
+
+const encode = function(thing): string {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
+
 const jsonContentType = HEADERS.JSON;
 const contentTypeAccept = `${jsonContentType};`;
 
 /**
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
- * @param {Object} config
- * @param {Object} key
- * @param {Object} def
- * @return {Object}
  */
-const setConfig = (config, key, def) => {
+const setConfig = (config, key, def): string => {
   return _.isNil(config[key]) === false ? config[key] : def;
 };
 
@@ -40,7 +32,7 @@ const setConfig = (config, key, def) => {
 class ProxyStorage implements IProxy {
   config: UpLinkConf;
   failed_requests: number;
-  userAgent: string;
+  private userAgent: string;
   ca: string | void;
   logger: Logger;
   server_id: string;
@@ -59,7 +51,7 @@ class ProxyStorage implements IProxy {
    * @param {*} config
    * @param {*} mainConfig
    */
-  constructor(config: UpLinkConf, mainConfig: Config) {
+   constructor(config: UpLinkConf, mainConfig: Config) {
     this.config = config;
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
@@ -140,65 +132,63 @@ class ProxyStorage implements IProxy {
       headers['Content-Type'] = headers['Content-Type'] || HEADERS.JSON;
     }
 
-    const requestCallback = cb
-      ? function(err, res, body) {
-          let error;
-          const responseLength = err ? 0 : body.length;
-          // $FlowFixMe
-          processBody();
-          logActivity();
-          // $FlowFixMe
-          cb(err, res, body);
+    const requestCallback = cb ? function(err, res, body) {
+      let error;
+      const responseLength = err ? 0 : body.length;
+      // $FlowFixMe
+      processBody();
+      logActivity();
+      // $FlowFixMe
+      cb(err, res, body);
 
-          /**
-           * Perform a decode.
-           */
-          function processBody() {
-            if (err) {
-              error = err.message;
-              return;
-            }
+      /**
+       * Perform a decode.
+       */
+      function processBody() {
+        if (err) {
+          error = err.message;
+          return;
+        }
 
-            if (options.json && res.statusCode < 300) {
-              try {
-                // $FlowFixMe
-                body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
-              } catch (_err) {
-                body = {};
-                err = _err;
-                error = err.message;
-              }
-            }
-
-            if (!err && isObject(body)) {
-              if (_.isString(body.error)) {
-                error = body.error;
-              }
-            }
-          }
-          /**
-           * Perform a log.
-           */
-          function logActivity() {
-            let message = "@{!status}, req: '@{request.method} @{request.url}'";
-            message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
-            self.logger.warn(
-              {
-                err: err || undefined, // if error is null/false change this to undefined so it wont log
-                request: { method: method, url: uri },
-                level: 35, // http
-                status: res != null ? res.statusCode : 'ERR',
-                error: error,
-                bytes: {
-                  in: json ? json.length : 0,
-                  out: responseLength || 0,
-                },
-              },
-              message
-            );
+        if (options.json && res.statusCode < 300) {
+          try {
+            // $FlowFixMe
+            body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
+          } catch (_err) {
+            body = {};
+            err = _err;
+            error = err.message;
           }
         }
-      : undefined;
+
+        if (!err && isObject(body)) {
+          if (_.isString(body.error)) {
+            error = body.error;
+          }
+        }
+      }
+      /**
+       * Perform a log.
+       */
+      function logActivity() {
+        let message = "@{!status}, req: '@{request.method} @{request.url}'";
+        message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
+        self.logger.warn(
+          {
+            err: err || undefined, // if error is null/false change this to undefined so it wont log
+            request: { method: method, url: uri },
+            level: 35, // http
+            status: res != null ? res.statusCode : 'ERR',
+            error: error,
+            bytes: {
+              in: json ? json.length : 0,
+              out: responseLength || 0,
+            },
+          },
+          message
+        );
+      }
+    } : undefined;
 
     const req = request(
       {

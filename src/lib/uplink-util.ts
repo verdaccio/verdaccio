@@ -25,7 +25,7 @@ export function setupUpLinks(config: Config): ProxyList {
   return uplinks;
 }
 
-export function updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy) {
+export function updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void {
   for (const i in versions) {
     if (Object.prototype.hasOwnProperty.call(versions, i)) {
       const version = versions[i];

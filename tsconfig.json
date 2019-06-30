@@ -10,9 +10,13 @@
     "esModuleInterop": true,
     "typeRoots": [
       "./node_modules/@verdaccio/types/lib/verdaccio",
-      "./node_modules/@types"
+      "./node_modules/@types",
+      "./types/custom.d.ts"
     ]
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src/*.ts",
     "types/*.d.ts"

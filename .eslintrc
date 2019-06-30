@@ -3,6 +3,9 @@
     "@verdaccio"
   ],
   "rules": {
-    "@typescript-eslint/no-var-requires": ["warn"]
+    "@typescript-eslint/no-var-requires": ["warn"],
+    "@typescript-eslint/no-use-before-define": ["warn"],
+    "@typescript-eslint/array-type": ["warn"],
+    "@typescript-eslint/no-explicit-any": 0
   }
 }

@@ -92,7 +92,7 @@ export function cleanUpReadme(version: Version): Version {
 
 export function normalizeContributors(contributors: Array<Author> | void): Array<Author> {
   if (isObject(contributors) || _.isString(contributors)) {
-    return [(contributors: any)];
+    return [contributors];
   }
 
   return contributors;

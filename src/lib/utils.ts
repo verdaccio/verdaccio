@@ -46,21 +46,6 @@ export function convertPayloadToBase64(payload: string): Buffer {
 }
 
 /**
- * Validate a package.
- * @return {Boolean} whether the package is valid or not
- */
-export function validatePackage(name: string): boolean {
-  const nameList = name.split('/', 2);
-  if (nameList.length === 1) {
-    // normal package
-    return validateName(nameList[0]);
-  } else {
-    // scoped package
-    return nameList[0][0] === '@' && validateName(nameList[0].slice(1)) && validateName(nameList[1]);
-  }
-}
-
-/**
  * From normalize-package-data/lib/fixer.js
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
@@ -81,6 +66,21 @@ export function validateName(name: string): boolean {
     normalizedName === '__proto__' ||
     normalizedName === 'favicon.ico'
   );
+}
+
+/**
+ * Validate a package.
+ * @return {Boolean} whether the package is valid or not
+ */
+export function validatePackage(name: string): boolean {
+  const nameList = name.split('/', 2);
+  if (nameList.length === 1) {
+    // normal package
+    return validateName(nameList[0]);
+  } else {
+    // scoped package
+    return nameList[0][0] === '@' && validateName(nameList[0].slice(1)) && validateName(nameList[1]);
+  }
 }
 
 /**
@@ -454,7 +454,7 @@ export function deleteProperties(propertiesToDelete: Array<string>, objectItem: 
   return objectItem;
 }
 
-export function addGravatarSupport(pkgInfo: Object, online: boolean = true): Object {
+export function addGravatarSupport(pkgInfo: Package, online: boolean = true): Object {
   const pkgInfoCopy = { ...pkgInfo };
   const author = _.get(pkgInfo, 'latest.author', null);
   const contributors = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));

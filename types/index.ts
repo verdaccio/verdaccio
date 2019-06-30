@@ -80,10 +80,8 @@ export type $ResponseExtend = Response & {cookies?: any}
 export type $NextFunctionVer = NextFunction & any;
 export type $SidebarPackage = Package & {latest: any}
 
-
 export interface IAuthWebUI {
   jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string;
-  aesEncrypt(buf: Buffer): Buffer;
 }
 
 interface IAuthMiddleware {
@@ -150,9 +148,11 @@ export interface ISyncUplinks {
 export type IPluginFilters = Array<IPluginStorageFilter<Config>>;
 
 export interface IStorageHandler extends IStorageManager<Config> {
-  localStorage: IStorage;
+  config: Config;
+  localStorage: IStorage | null;
   filters: IPluginFilters;
   uplinks: ProxyList;
+  init(config: Config, filters: IPluginFilters): string;
   _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }

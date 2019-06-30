@@ -21,15 +21,16 @@ import { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logg
 import { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { hasProxyTo } from './config-utils';
 import { logger } from '../lib/logger';
+import { GenericBody } from '@verdaccio/types';
 
 class Storage implements IStorageHandler {
-  localStorage: IStorage;
-  config: Config;
-  logger: Logger;
-  uplinks: ProxyList;
-  filters: IPluginFilters;
+  private localStorage: IStorage;
+  public config: Config;
+  private logger: Logger;
+  private uplinks: ProxyList;
+  private filters: IPluginFilters;
 
-  constructor(config: Config) {
+  public constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
     this.logger = logger.child();
@@ -37,7 +38,7 @@ class Storage implements IStorageHandler {
     this.localStorage = null;
   }
 
-  public init(config: Config, filters: IPluginFilters = []) {
+  public init(config: Config, filters: IPluginFilters = []): string {
     this.filters = filters;
     this.localStorage = new LocalStorage(this.config, logger);
 
@@ -50,18 +51,18 @@ class Storage implements IStorageHandler {
    If it isn't, we create package locally
    Used storages: local (write) && uplinks
    */
-  async addPackage(name: string, metadata: any, callback: Function) {
+  public async addPackage(name: string, metadata: any, callback: Function): Promise<void> {
     try {
       await checkPackageLocal(name, this.localStorage);
       await checkPackageRemote(name, this._isAllowPublishOffline(), this._syncUplinksMetadata.bind(this));
-      await publishPackage(name, metadata, this.localStorage);
+      await publishPackage(name, metadata, this.localStorage as IStorage);
       callback();
     } catch (err) {
       callback(err);
     }
   }
 
-  _isAllowPublishOffline(): boolean {
+  private _isAllowPublishOffline(): boolean {
     return typeof this.config.publish !== 'undefined' && _.isBoolean(this.config.publish.allow_offline) && this.config.publish.allow_offline;
   }
 
@@ -69,7 +70,7 @@ class Storage implements IStorageHandler {
    * Add a new version of package {name} to a system
    Used storages: local (write)
    */
-  addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback) {
+  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
@@ -77,7 +78,7 @@ class Storage implements IStorageHandler {
    * Tags a package version with a provided tag
    Used storages: local (write)
    */
-  mergeTags(name: string, tagHash: MergeTags, callback: Callback) {
+  public mergeTags(name: string, tagHash: MergeTags, callback: Callback): void {
     this.localStorage.mergeTags(name, tagHash, callback);
   }
 
@@ -86,7 +87,7 @@ class Storage implements IStorageHandler {
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
    */
-  changePackage(name: string, metadata: Package, revision: string, callback: Callback) {
+  public changePackage(name: string, metadata: Package, revision: string, callback: Callback): void {
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
 
@@ -95,7 +96,7 @@ class Storage implements IStorageHandler {
    Function removes a package from local storage
    Used storages: local (write)
    */
-  removePackage(name: string, callback: Callback) {
+  public removePackage(name: string, callback: Callback): void {
     this.localStorage.removePackage(name, callback);
     // update the indexer
     Search.remove(name);
@@ -108,7 +109,7 @@ class Storage implements IStorageHandler {
    versions, i.e. package version should be unpublished first.
    Used storage: local (write)
    */
-  removeTarball(name: string, filename: string, revision: string, callback: Callback) {
+  public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
     this.localStorage.removeTarball(name, filename, revision, callback);
   }
 
@@ -117,7 +118,7 @@ class Storage implements IStorageHandler {
    Function is synchronous and returns a WritableStream
    Used storages: local (write)
    */
-  addTarball(name: string, filename: string): IUploadTarball {
+  public addTarball(name: string, filename: string): IUploadTarball {
     return this.localStorage.addTarball(name, filename);
   }
 
@@ -128,9 +129,9 @@ class Storage implements IStorageHandler {
    information in order to figure out where we can get this tarball from
    Used storages: local || uplink (just one)
    */
-  getTarball(name: string, filename: string) {
-    const readStream = new ReadTarball();
-    (readStream: any).abort = function() {};
+  public getTarball(name: string, filename: string): IReadTarball {
+    const readStream = new ReadTarball({});
+    readStream.abort = function() {};
 
     const self = this;
 
@@ -141,7 +142,7 @@ class Storage implements IStorageHandler {
     // flow: should be IReadTarball
     let localStream: any = self.localStorage.getTarball(name, filename);
     let isOpen = false;
-    localStream.on('error', err => {
+    localStream.on('error', (err): void => {
       if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
         return readStream.emit('error', err);
       }
@@ -150,13 +151,13 @@ class Storage implements IStorageHandler {
       const err404 = err;
       localStream.abort();
       localStream = null; // we force for garbage collector
-      self.localStorage.getPackageMetadata(name, (err, info: Package) => {
+      self.localStorage.getPackageMetadata(name, (err, info: Package): void => {
         if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
           // information about this file exists locally
           serveFile(info._distfiles[filename]);
         } else {
           // we know nothing about this file, trying to get information elsewhere
-          self._syncUplinksMetadata(name, info, {}, (err, info: Package) => {
+          self._syncUplinksMetadata(name, info, {}, (err, info: Package): any => {
             if (_.isNil(err) === false) {
               return readStream.emit('error', err);
             }
@@ -168,10 +169,10 @@ class Storage implements IStorageHandler {
         }
       });
     });
-    localStream.on('content-length', function(v) {
+    localStream.on('content-length', function(v): void {
       readStream.emit('content-length', v);
     });
-    localStream.on('open', function() {
+    localStream.on('open', function(): void {
       isOpen = true;
       localStream.pipe(readStream);
     });
@@ -181,7 +182,7 @@ class Storage implements IStorageHandler {
      * Fetch and cache local/remote packages.
      * @param {Object} file define the package shape
      */
-    function serveFile(file: DistFile) {
+    function serveFile(file: DistFile): void {
       let uplink: any = null;
 
       for (const uplinkId in self.uplinks) {
@@ -201,29 +202,29 @@ class Storage implements IStorageHandler {
         );
       }
 
-      let savestream = null;
+      let savestream: IUploadTarball | null = null;
       if (uplink.config.cache) {
         savestream = self.localStorage.addTarball(name, filename);
       }
 
-      let on_open = function() {
+      let on_open = function(): void {
         // prevent it from being called twice
         on_open = function() {};
         const rstream2 = uplink.fetchTarball(file.url);
-        rstream2.on('error', function(err) {
+        rstream2.on('error', function(err): void {
           if (savestream) {
             savestream.abort();
           }
           savestream = null;
           readStream.emit('error', err);
         });
-        rstream2.on('end', function() {
+        rstream2.on('end', function(): void {
           if (savestream) {
             savestream.done();
           }
         });
 
-        rstream2.on('content-length', function(v) {
+        rstream2.on('content-length', function(v): void {
           readStream.emit('content-length', v);
           if (savestream) {
             savestream.emit('content-length', v);
@@ -236,11 +237,11 @@ class Storage implements IStorageHandler {
       };
 
       if (savestream) {
-        savestream.on('open', function() {
+        savestream.on('open', function(): void {
           on_open();
         });
 
-        savestream.on('error', function(err) {
+        savestream.on('error', function(err): void {
           self.logger.warn({ err: err, fileName: file }, 'error saving file @{fileName}: @{err.message}\n@{err.stack}');
           if (savestream) {
             savestream.abort();
@@ -267,8 +268,8 @@ class Storage implements IStorageHandler {
    * @property {boolean} options.keepUpLinkData keep up link info in package meta, last update, etc.
    * @property {function} options.callback Callback for receive data
    */
-  getPackage(options: IGetPackageOptions) {
-    this.localStorage.getPackageMetadata(options.name, (err, data) => {
+  public getPackage(options: IGetPackageOptions): void {
+    this.localStorage.getPackageMetadata(options.name, (err, data): void => {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
         return options.callback(err);
@@ -278,7 +279,7 @@ class Storage implements IStorageHandler {
         err,
         result: Package,
         uplinkErrors
-      ) {
+      ): void {
         if (err) {
           return options.callback(err);
         }
@@ -305,14 +306,14 @@ class Storage implements IStorageHandler {
    * @param {*} options
    * @return {Stream}
    */
-  search(startkey: string, options: any) {
+  public search(startkey: string, options: any): IReadTarball {
     const self = this;
     // stream to write a tarball
     const stream: any = new Stream.PassThrough({ objectMode: true });
 
     async.eachSeries(
       Object.keys(this.uplinks),
-      function(up_name, cb) {
+      function(up_name, cb): void {
         // shortcut: if `local=1` is supplied, don't call uplinks
         if (options.req.query.local !== undefined) {
           return cb();
@@ -324,7 +325,7 @@ class Storage implements IStorageHandler {
           stream,
           { end: false }
         );
-        lstream.on('error', function(err) {
+        lstream.on('error', function(err): void {
           self.logger.error({ err: err }, 'uplink error: @{err.message}');
           cb();
           cb = function() {};
@@ -367,25 +368,28 @@ class Storage implements IStorageHandler {
    * Retrieve only private local packages
    * @param {*} callback
    */
-  getLocalDatabase(callback: Callback) {
+  public getLocalDatabase(callback: Callback): void {
     const self = this;
-    this.localStorage.localData.get((err, locals) => {
+    this.localStorage.localData.get((err, locals): void => {
       if (err) {
         callback(err);
       }
 
-      const packages = [];
-      const getPackage = function(itemPkg) {
-        self.localStorage.getPackageMetadata(locals[itemPkg], function(err, info) {
+      const packages: Version[] = [];
+      const getPackage = function(itemPkg): void {
+        self.localStorage.getPackageMetadata(locals[itemPkg], function(err, pkgMetadata: Package): void {
           if (_.isNil(err)) {
-            const latest = info[DIST_TAGS].latest;
-            if (latest && info.versions[latest]) {
-              const version = info.versions[latest];
-              const time = info.time[latest];
+            const latest = pkgMetadata[DIST_TAGS].latest;
+            if (latest && pkgMetadata.versions[latest]) {
+              const version: Version = pkgMetadata.versions[latest];
+              const timeList = pkgMetadata.time as GenericBody;
+              const time = timeList[latest];
+              // @ts-ignore
               version.time = time;
 
               // Add for stars api
-              version.users = info.users;
+              // @ts-ignore
+              version.users = pkgMetadata.users;
 
               packages.push(version);
             } else {

@@ -5,20 +5,20 @@
 
 import lunrMutable from 'lunr-mutable-indexes';
 import { Version } from '@verdaccio/types';
-import { IStorageHandler, IWebSearch } from '../../types';
+import { IStorageHandler, IWebSearch, IStorage } from '../../types';
 /**
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-  index: lunrMutable.index;
-  storage: IStorageHandler;
+  private index: lunrMutable.index;
+  private storage: IStorageHandler;
 
   /**
    * Constructor.
    */
-  constructor() {
+  public constructor() {
     /* eslint no-invalid-this: "off" */
-    this.index = lunrMutable(function() {
+    this.index = lunrMutable(function(): void {
       this.field('name', { boost: 10 });
       this.field('description', { boost: 4 });
       this.field('author', { boost: 6 });
@@ -35,21 +35,21 @@ class Search implements IWebSearch {
    * @param {*} q the keyword
    * @return {Array} list of results.
    */
-  query(query: string) {
-    return query === '*'
-      ? this.storage.localStorage.localData.get(items => {
-          items.map(function(pkg) {
-            return { ref: pkg, score: 1 };
-          });
-        })
-      : this.index.search(`*${query}*`);
+  public query(query: string): any[] {
+    const localStorage = this.storage.localStorage as IStorage;
+
+    return query === '*' ? localStorage.localData.get((items): any => {
+      items.map(function(pkg): any {
+        return { ref: pkg, score: 1 };
+      });
+    }) : this.index.search(`*${query}*`);
   }
 
   /**
    * Add a new element to index
    * @param {*} pkg the package
    */
-  add(pkg: Version) {
+  public add(pkg: Version): void {
     this.index.add({
       id: pkg.name,
       name: pkg.name,
@@ -64,23 +64,22 @@ class Search implements IWebSearch {
    * Remove an element from the index.
    * @param {*} name the id element
    */
-  remove(name: string) {
+  public remove(name: string): void {
     this.index.remove({ id: name });
   }
 
   /**
    * Force a re-index.
    */
-  reindex() {
-    const self = this;
-    this.storage.getLocalDatabase(function(error, packages) {
+  public reindex(): void {
+    this.storage.getLocalDatabase((error, packages): void => {
       if (error) {
         // that function shouldn't produce any
         throw error;
       }
       let i = packages.length;
       while (i--) {
-        self.add(packages[i]);
+        this.add(packages[i]);
       }
     });
   }
@@ -89,7 +88,7 @@ class Search implements IWebSearch {
    * Set up the {Storage}
    * @param {*} storage An storage reference.
    */
-  configureStorage(storage: IStorageHandler) {
+  public configureStorage(storage: IStorageHandler): void {
     this.storage = storage;
     this.reindex();
   }
