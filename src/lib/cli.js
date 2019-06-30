@@ -49,7 +49,7 @@ if (commander.info) {
 	envinfo
 	.run({
 	    System: ['OS', 'CPU'],
-	    Binaries: ['Node', 'Yarn', 'npm'],
+	    Binaries: ['Node', 'Yarn', 'npm', 'docker'],
 	    Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
 	    npmGlobalPackages: ['verdaccio'],
 	})
