@@ -4,7 +4,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-var-requires": ["warn"],
-    "@typescript-eslint/no-use-before-define": ["warn"],
+    "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/array-type": ["warn"],
     "@typescript-eslint/no-explicit-any": 0
   }

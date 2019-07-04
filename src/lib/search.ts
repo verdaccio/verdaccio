@@ -1,7 +1,4 @@
-/**
- * @prettier
- * @flow
- */
+// eslint-disable no-invalid-this
 
 import lunrMutable from 'lunr-mutable-indexes';
 import { Version } from '@verdaccio/types';
@@ -17,7 +14,6 @@ class Search implements IWebSearch {
    * Constructor.
    */
   public constructor() {
-    /* eslint no-invalid-this: "off" */
     this.index = lunrMutable(function(): void {
       this.field('name', { boost: 10 });
       this.field('description', { boost: 4 });

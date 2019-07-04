@@ -5,7 +5,7 @@ import _ from 'lodash';
 // this is a generic avatar
 // https://www.iconfinder.com/icons/403017/anonym_avatar_default_head_person_unknown_user_icon
 // license: free commercial usage
-export const GENERIC_AVATAR: string = `
+export const GENERIC_AVATAR = `
     data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1
     ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYW
     NrZ3JvdW5kPSJuZXcgLTI3IDI0IDEwMCAxMDAiIGhlaWdodD0iMTAwcHgiIGlkPSJ1bmtub3duIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3
@@ -33,7 +33,7 @@ export const GENERIC_AVATAR: string = `
 /**
  * Generate gravatar url from email address
  */
-export function generateGravatarUrl(email: string = '', online: boolean = true): string {
+export function generateGravatarUrl(email: string | void = '', online: boolean = true): string {
   if (online) {
     if (_.isString(email) && _.size(email) > 0) {
       email = email.trim().toLocaleLowerCase();

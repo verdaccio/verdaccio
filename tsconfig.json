@@ -5,6 +5,7 @@
     "declaration": true,
     "noImplicitAny": false,
     "strict": true,
+    "strictNullChecks": true,
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

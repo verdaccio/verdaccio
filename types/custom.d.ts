@@ -6,5 +6,9 @@ declare global {
       remote_user: RemoteUser;
       log: Logger;
     }
+
+    export interface Response {
+      report_error: any;
+    }
   }
 }

@@ -8,5 +8,5 @@
   "jsxBracketSameLine": true,
   "trailingComma": "es5",
   "semi": true,
-  "parser": "flow"
+  "parser": "typescript"
 }

@@ -8,27 +8,27 @@ import assert from 'assert';
 import semver from 'semver';
 import YAML from 'js-yaml';
 import URL from 'url';
-import createError from 'http-errors';
 import sanitizyReadme from '@verdaccio/readme';
 
-import {
-  HTTP_STATUS,
-  API_ERROR,
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from './constants';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
-import { Package } from '@verdaccio/types';
+import { Package, Version } from '@verdaccio/types';
 import { Request } from 'express';
 import { StringValue } from '../../types';
 import { normalizeContributors } from './storage-utils';
+import {
+  getConflict,
+  getBadData,
+  getBadRequest,
+  getInternalError,
+  getUnauthorized,
+  getForbidden,
+  getServiceUnavailable,
+  getNotFound,
+  getCode,
+} from '@verdaccio/commons-api';
+import { IncomingHttpHeaders } from 'http2';
 
 const Logger = require('./logger');
 const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
@@ -134,8 +134,8 @@ export function combineBaseUrl(protocol: string, host: string, prefix?: string):
   return result;
 }
 
-export function extractTarballFromUrl(url: string) {
-  // $FlowFixMe
+export function extractTarballFromUrl(url: string): string {
+  // @ts-ignore
   return URL.parse(url).pathname.replace(/^.*\//, '');
 }
 
@@ -146,7 +146,7 @@ export function extractTarballFromUrl(url: string) {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void) {
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void): Package {
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
@@ -164,14 +164,15 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void) {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
     return uri;
   }
   const tarballName = extractTarballFromUrl(uri);
-  const domainRegistry = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), req.headers.host, urlPrefix);
+  const headers = req.headers as IncomingHttpHeaders;
+  const domainRegistry = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), headers.host, urlPrefix);
 
   return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
 }
@@ -196,7 +197,7 @@ export function tagVersion(data: Package, version: string, tag: StringValue): bo
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
-export function getVersion(pkg: Package, version: any) {
+export function getVersion(pkg: Package, version: any): Version | void {
   // this condition must allow cast
   if (_.isNil(pkg.versions[version]) === false) {
     return pkg.versions[version];
@@ -229,7 +230,7 @@ export function getVersion(pkg: Package, version: any) {
  * @param {*} urlAddress the internet address definition
  * @return {Object|Null} literal object that represent the address parsed
  */
-export function parseAddress(urlAddress: any) {
+export function parseAddress(urlAddress: any): any {
   //
   // TODO: refactor it to something more reasonable?
   //
@@ -262,7 +263,7 @@ export function parseAddress(urlAddress: any) {
  */
 export function semverSort(listVersions: Array<string>): string[] {
   return listVersions
-    .filter(function(x) {
+    .filter(function(x): boolean {
       if (!semver.parse(x, true)) {
         Logger.logger.warn({ ver: x }, 'ignoring bad version @{ver}');
         return false;
@@ -277,7 +278,7 @@ export function semverSort(listVersions: Array<string>): string[] {
  * Flatten arrays of tags.
  * @param {*} data
  */
-export function normalizeDistTags(pkg: Package) {
+export function normalizeDistTags(pkg: Package): void {
   let sorted;
   if (!pkg[DIST_TAGS].latest) {
     // overwrite latest with highest known version based on semver sort
@@ -332,7 +333,7 @@ export function parseInterval(interval: any): number {
   }
   let result = 0;
   let last_suffix = Infinity;
-  interval.split(/\s+/).forEach(function(x) {
+  interval.split(/\s+/).forEach(function(x): void {
     if (!x) return;
     const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
     if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
@@ -361,36 +362,18 @@ export function getLatestVersion(pkgInfo: Package): string {
 }
 
 export const ErrorCode = {
-  getConflict: (message: string = API_ERROR.PACKAGE_EXIST) => {
-    return createError(HTTP_STATUS.CONFLICT, message);
-  },
-  getBadData: (customMessage?: string) => {
-    return createError(HTTP_STATUS.BAD_DATA, customMessage || API_ERROR.BAD_DATA);
-  },
-  getBadRequest: (customMessage?: string) => {
-    return createError(HTTP_STATUS.BAD_REQUEST, customMessage);
-  },
-  getInternalError: (customMessage?: string) => {
-    return customMessage ? createError(HTTP_STATUS.INTERNAL_ERROR, customMessage) : createError(HTTP_STATUS.INTERNAL_ERROR);
-  },
-  getUnauthorized: (message: string = 'no credentials provided') => {
-    return createError(HTTP_STATUS.UNAUTHORIZED, message);
-  },
-  getForbidden: (message: string = "can't use this filename") => {
-    return createError(HTTP_STATUS.FORBIDDEN, message);
-  },
-  getServiceUnavailable: (message: string = API_ERROR.RESOURCE_UNAVAILABLE) => {
-    return createError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
-  },
-  getNotFound: (customMessage?: string) => {
-    return createError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
-  },
-  getCode: (statusCode: number, customMessage: string) => {
-    return createError(statusCode, customMessage);
-  },
+  getConflict,
+  getBadData,
+  getBadRequest,
+  getInternalError,
+  getUnauthorized,
+  getForbidden,
+  getServiceUnavailable,
+  getNotFound,
+  getCode,
 };
 
-export function parseConfigFile(configPath: string) {
+export function parseConfigFile(configPath: string): string {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
       return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
@@ -411,7 +394,7 @@ export function parseConfigFile(configPath: string) {
  * @param {String} path
  * @return {Boolean}
  */
-export function folderExists(path: string) {
+export function folderExists(path: string): boolean {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
@@ -435,28 +418,31 @@ export function fileExists(path: string): boolean {
 }
 
 export function sortByName(packages: Array<any>, orderAscending: boolean | void = true): string[] {
-  return packages.slice().sort(function(a, b) {
+  return packages.slice().sort(function(a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
 }
 
-export function addScope(scope: string, packageName: string) {
+export function addScope(scope: string, packageName: string): string {
   return `@${scope}/${packageName}`;
 }
 
-export function deleteProperties(propertiesToDelete: Array<string>, objectItem: any) {
-  _.forEach(propertiesToDelete, property => {
-    delete objectItem[property];
-  });
+export function deleteProperties(propertiesToDelete: Array<string>, objectItem: any): any {
+  _.forEach(
+    propertiesToDelete,
+    (property): any => {
+      delete objectItem[property];
+    }
+  );
 
   return objectItem;
 }
 
-export function addGravatarSupport(pkgInfo: Package, online: boolean = true): Object {
-  const pkgInfoCopy = { ...pkgInfo };
-  const author = _.get(pkgInfo, 'latest.author', null);
+export function addGravatarSupport(pkgInfo: Package, online: boolean = true): any {
+  const pkgInfoCopy = { ...pkgInfo } as any;
+  const author: any = _.get(pkgInfo, 'latest.author', null) as any;
   const contributors = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
@@ -475,28 +461,31 @@ export function addGravatarSupport(pkgInfo: Package, online: boolean = true): Ob
 
   // for contributors
   if (_.isEmpty(contributors) === false) {
-    pkgInfoCopy.latest.contributors = contributors.map(contributor => {
-      if (isObject(contributor)) {
-        // $FlowFixMe
-        contributor.avatar = generateGravatarUrl(contributor.email, online);
-      } else if (_.isString(contributor)) {
-        contributor = {
-          avatar: GENERIC_AVATAR,
-          email: contributor,
-          name: contributor,
-        };
-      }
+    pkgInfoCopy.latest.contributors = contributors.map(
+      (contributor): void => {
+        if (isObject(contributor)) {
+          contributor.avatar = generateGravatarUrl(contributor.email, online);
+        } else if (_.isString(contributor)) {
+          contributor = {
+            avatar: GENERIC_AVATAR,
+            email: contributor,
+            name: contributor,
+          };
+        }
 
-      return contributor;
-    });
+        return contributor;
+      }
+    );
   }
 
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
-    pkgInfoCopy.latest.maintainers = maintainers.map(maintainer => {
-      maintainer.avatar = generateGravatarUrl(maintainer.email, online);
-      return maintainer;
-    });
+    pkgInfoCopy.latest.maintainers = maintainers.map(
+      (maintainer): void => {
+        maintainer.avatar = generateGravatarUrl(maintainer.email, online);
+        return maintainer;
+      }
+    );
   }
 
   return pkgInfoCopy;
@@ -508,7 +497,7 @@ export function addGravatarSupport(pkgInfo: Package, online: boolean = true): Ob
  * @param {String} readme package readme
  * @return {String} converted html template
  */
-export function parseReadme(packageName: string, readme: string): string {
+export function parseReadme(packageName: string, readme: string): string | void {
   if (_.isEmpty(readme) === false) {
     return sanitizyReadme(readme);
   }
@@ -528,8 +517,7 @@ export function buildToken(type: string, token: string): string {
  * @param {String} name
  * @returns {String}
  */
-export function getVersionFromTarball(name: string) {
-  // $FlowFixMe
+export function getVersionFromTarball(name: string): string | void {
   return /.+-(\d.+)\.tgz/.test(name) ? name.match(/.+-(\d.+)\.tgz/)[1] : undefined;
 }
 
@@ -538,7 +526,7 @@ export function getVersionFromTarball(name: string) {
  * @see https://docs.npmjs.com/files/package.json#author
  * @param {string|object|undefined} author
  */
-export function formatAuthor(author: any) {
+export function formatAuthor(author: any): any {
   let authorDetails = {
     name: DEFAULT_USER,
     email: '',

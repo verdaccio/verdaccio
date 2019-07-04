@@ -6,12 +6,12 @@ import Handlebars from 'handlebars';
 import _ from 'lodash';
 
 import { notifyRequest } from './notify-request';
-import { RequiredUriUrl, OptionsWithUrl } from 'request';
+import { OptionsWithUrl } from 'request';
 import { Config, Package, RemoteUser, Notify } from '@verdaccio/types';
 
-type TemplateMetadata = Package & {publishedPackage: string};
+type TemplateMetadata = Package & { publishedPackage: string };
 
-export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteUser, publishedPackage: string) {
+export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteUser, publishedPackage: string): Promise<any> | void {
   let regex;
   if (metadata.name && notifyEntry.packagePattern) {
     regex = new RegExp(notifyEntry.packagePattern, notifyEntry.packagePatternFlags || '');
@@ -24,20 +24,22 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
 
   // don't override 'publisher' if package.json already has that
   let templateMetadata: TemplateMetadata;
+  // @ts-ignore
   if (!metadata.publisher) {
+    // @ts-ignore
     templateMetadata = { ...metadata, publishedPackage, publisher: remoteUser.name as string };
   }
   const content: string = template(metadata);
 
   const options: OptionsWithUrl = {
     body: content,
-    url: ''
+    url: '',
   };
 
   // provides fallback support, it's accept an Object {} and Array of {}
   if (notifyEntry.headers && _.isArray(notifyEntry.headers)) {
     const header = {};
-    notifyEntry.headers.map(function(item) {
+    notifyEntry.headers.map(function(item): void {
       if (Object.is(item, item)) {
         for (const key in item) {
           if (item.hasOwnProperty(key)) {
@@ -60,19 +62,21 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
   return notifyRequest(options, content);
 }
 
-export function sendNotification(metadata: Package, notify: Notification, remoteUser: RemoteUser, publishedPackage: string) {
-  return handleNotify(metadata, notify, remoteUser, publishedPackage);
+export function sendNotification(metadata: Package, notify: Notification, remoteUser: RemoteUser, publishedPackage: string): Promise<any> {
+  return handleNotify(metadata, notify, remoteUser, publishedPackage) as Promise<any>;
 }
 
-export function notify(metadata: Package, config: Config, remoteUser: RemoteUser, publishedPackage: string) {
+export function notify(metadata: Package, config: Config, remoteUser: RemoteUser, publishedPackage: string): Promise<any> | void {
   if (config.notify) {
     if (_.isArray(config.notify) === false) {
-      return sendNotification(metadata, config.notify as unknown as Notification, remoteUser, publishedPackage);
+      return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
     } else {
       // multiple notifications endpoints PR #108
-      return Promise.all(_.map(config.notify, function (notification: Notification) {
-        sendNotification(metadata, notification, remoteUser, publishedPackage);
-      }));
+      return Promise.all(
+        _.map(config.notify, function(notification: Notification): void {
+          sendNotification(metadata, notification, remoteUser, publishedPackage);
+        })
+      );
     }
   }
 

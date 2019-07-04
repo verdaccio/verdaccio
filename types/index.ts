@@ -152,7 +152,7 @@ export interface IStorageHandler extends IStorageManager<Config> {
   localStorage: IStorage | null;
   filters: IPluginFilters;
   uplinks: ProxyList;
-  init(config: Config, filters: IPluginFilters): string;
+  init(config: Config, filters: IPluginFilters): Promise<string>;
   _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }
