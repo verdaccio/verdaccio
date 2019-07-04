@@ -123,6 +123,7 @@ export interface IProxy {
   upname: string;
   fetchTarball(url: string): IReadTarball;
   isUplinkValid(url: string): boolean;
+  search(options: any);
   getRemoteMetadata(name: string, options: any, callback: Callback): void;
 }
 
@@ -143,6 +144,7 @@ export interface IGetPackageOptions {
 export interface ISyncUplinks {
   uplinksLook?: boolean;
   etag?: string;
+  req?: Request;
 }
 
 export type IPluginFilters = Array<IPluginStorageFilter<Config>>;

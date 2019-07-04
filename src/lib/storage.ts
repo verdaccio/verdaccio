@@ -21,13 +21,14 @@ import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Ver
 import { hasProxyTo } from './config-utils';
 import { logger } from '../lib/logger';
 import { GenericBody } from '@verdaccio/types';
+import { VerdaccioError } from '@verdaccio/commons-api';
 
 class Storage implements IStorageHandler {
-  private localStorage: IStorage;
+  public localStorage: IStorage;
   public config: Config;
-  private logger: Logger;
-  private uplinks: ProxyList;
-  private filters: IPluginFilters;
+  public logger: Logger;
+  public uplinks: ProxyList;
+  public filters: IPluginFilters;
 
   public constructor(config: Config) {
     this.config = config;
@@ -144,7 +145,7 @@ class Storage implements IStorageHandler {
     let isOpen = false;
     localStream.on(
       'error',
-      (err): void => {
+      (err): any => {
         if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
           return readStream.emit('error', err);
         }
@@ -342,33 +343,33 @@ class Storage implements IStorageHandler {
         lstream.on('error', function(err): void {
           self.logger.error({ err: err }, 'uplink error: @{err.message}');
           cb();
-          cb = function() {};
+          cb = function(): void {};
         });
-        lstream.on('end', function() {
+        lstream.on('end', function(): void {
           cb();
-          cb = function() {};
+          cb = function(): void {};
         });
 
-        stream.abort = function() {
+        stream.abort = function(): void {
           if (lstream.abort) {
             lstream.abort();
           }
           cb();
-          cb = function() {};
+          cb = function(): void {};
         };
       },
       // executed after all series
-      function() {
+      function(): void {
         // attach a local search results
         const lstream: IReadTarball = self.localStorage.search(startkey, options);
-        stream.abort = function() {
+        stream.abort = function(): void {
           lstream.abort();
         };
         lstream.pipe(
           stream,
           { end: true }
         );
-        lstream.on('error', function(err) {
+        lstream.on('error', function(err: VerdaccioError): void {
           self.logger.error({ err: err }, 'search error: @{err.message}');
           stream.end();
         });
@@ -434,10 +435,10 @@ class Storage implements IStorageHandler {
    if package is available locally, it MUST be provided in pkginfo
    returns callback(err, result, uplink_errors)
    */
-  private _syncUplinksMetadata(name: string, packageInfo: Package, options: ISyncUplinks, callback: Callback): void {
+  public _syncUplinksMetadata(name: string, packageInfo: Package, options: ISyncUplinks, callback: Callback): void {
     let exists = true;
     const self = this;
-    const upLinks = [];
+    const upLinks: IProxy[] = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
 
     if (!packageInfo) {
@@ -521,6 +522,7 @@ class Storage implements IStorageHandler {
           }
         );
       },
+      // @ts-ignore
       (err: Error, upLinksErrors: any): AsyncResultArrayCallback<unknown, Error> => {
         assert(!err && Array.isArray(upLinksErrors));
         if (!exists) {
@@ -564,7 +566,7 @@ class Storage implements IStorageHandler {
    * @param {String} upLink uplink name
    * @private
    */
-  private _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void {
+  public _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void {
     for (const i in versions) {
       if (Object.prototype.hasOwnProperty.call(versions, i)) {
         const version = versions[i];

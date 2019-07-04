@@ -65,7 +65,7 @@
     "@typescript-eslint/eslint-plugin": "1.11.0",
     "@verdaccio/babel-preset": "0.2.1",
     "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "5.0.2",
+    "@verdaccio/types": "5.1.2",
     "cross-env": "5.2.0",
     "eslint": "5.16.0",
     "get-stdin": "7.0.0",
