@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import { notifyRequest } from './notify-request';
 import { OptionsWithUrl } from 'request';
-import { Config, Package, RemoteUser, Notify } from '@verdaccio/types';
+import { Config, Package, RemoteUser } from '@verdaccio/types';
 
 type TemplateMetadata = Package & { publishedPackage: string };
 
@@ -21,9 +21,11 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
   }
 
   const template: HandlebarsTemplateDelegate = Handlebars.compile(notifyEntry.content);
-
   // don't override 'publisher' if package.json already has that
-  let templateMetadata: TemplateMetadata;
+  /* eslint no-unused-vars: 0 */
+  /* eslint @typescript-eslint/no-unused-vars: 0 */
+  // @ts-ignore
+  let templateMetadata: TemplateMetadata = {};
   // @ts-ignore
   if (!metadata.publisher) {
     // @ts-ignore

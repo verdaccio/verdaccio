@@ -10,7 +10,7 @@ import minimatch from 'minimatch';
 import { ErrorCode } from './utils';
 
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
-import { MatchedPackage } from '../../types';
+import { MatchedPackage, LegacyPackageList } from '../../types';
 
 const BLACKLIST = {
   all: true,
@@ -24,7 +24,7 @@ const BLACKLIST = {
  * Normalize user list.
  * @return {Array}
  */
-export function normalizeUserList(oldFormat: any, newFormat: any) {
+export function normalizeUserList(oldFormat: any, newFormat: any): any {
   const result = [];
   /* eslint prefer-rest-params: "off" */
 
@@ -35,8 +35,10 @@ export function normalizeUserList(oldFormat: any, newFormat: any) {
 
     // if it's a string, split it to array
     if (_.isString(arguments[i])) {
+      // @ts-ignore
       result.push(arguments[i].split(/\s+/));
     } else if (Array.isArray(arguments[i])) {
+      // @ts-ignore
       result.push(arguments[i]);
     } else {
       throw ErrorCode.getInternalError('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
@@ -45,7 +47,7 @@ export function normalizeUserList(oldFormat: any, newFormat: any) {
   return _.flatten(result);
 }
 
-export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLIST) {
+export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLIST): UpLinksConfList {
   const newUplinks = _.clone(uplinks);
   let newUsers = _.clone(users);
 
@@ -61,7 +63,7 @@ export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLI
   return newUplinks;
 }
 
-export function sanityCheckNames(item: string, users: any) {
+export function sanityCheckNames(item: string, users: any): any {
   assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved uplink name: ' + item);
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
   assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
@@ -70,7 +72,7 @@ export function sanityCheckNames(item: string, users: any) {
   return users;
 }
 
-export function sanityCheckUplinksProps(configUpLinks: any) {
+export function sanityCheckUplinksProps(configUpLinks: UpLinksConfList): UpLinksConfList {
   const uplinks = _.clone(configUpLinks);
 
   for (const uplink in uplinks) {
@@ -107,8 +109,8 @@ export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): 
   return;
 }
 
-export function normalisePackageAccess(packages: PackageList): PackageList {
-  const normalizedPkgs: PackageList = { ...packages };
+export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {
+  const normalizedPkgs: LegacyPackageList = { ...packages };
   // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
     normalizedPkgs['**'] = { access: [], publish: [], proxy: [] };

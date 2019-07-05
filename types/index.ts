@@ -27,6 +27,21 @@ export interface StartUpConfig {
   self_path: string;
 }
 
+// legacy should be removed in long term
+
+export interface LegacyPackageList {
+  [key: string]: LegacyPackageAccess;
+}
+
+export type LegacyPackageAccess = PackageAccess & {
+  allow_publish?: string[];
+  allow_proxy?: string[];
+  allow_access?: string[];
+  proxy_access?: string[];
+  // FIXME: should be published on @verdaccio/types
+  unpublish?: string[];
+}
+
 export type MatchedPackage = PackageAccess | void;
 
 export type JWTPayload = RemoteUser & {
@@ -108,8 +123,13 @@ export interface IWebSearch {
   configureStorage(storage: IStorageHandler): void;
 }
 
+// FIXME: This prop should be on @verdaccio/types
+export type UpLinkConfLocal = UpLinkConf & {
+  no_proxy?: string;
+};
+
 export interface IProxy {
-  config: UpLinkConf;
+  config: UpLinkConfLocal;
   failed_requests: number;
   userAgent: string;
   ca?: string | void;

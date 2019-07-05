@@ -7,19 +7,28 @@ import { IStorageHandler, IWebSearch, IStorage } from '../../types';
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-  private index: lunrMutable.index;
-  private storage: IStorageHandler;
+  public index: lunrMutable.index;
+  // @ts-ignore
+  public storage: IStorageHandler;
 
   /**
    * Constructor.
    */
   public constructor() {
     this.index = lunrMutable(function(): void {
+      // FIXME: there is no types for this library
+      /* eslint no-invalid-this:off */
+      // @ts-ignore
       this.field('name', { boost: 10 });
+      // @ts-ignore
       this.field('description', { boost: 4 });
+      // @ts-ignore
       this.field('author', { boost: 6 });
+      // @ts-ignore
       this.field('keywords', { boost: 7 });
+      // @ts-ignore
       this.field('version');
+      // @ts-ignore
       this.field('readme');
     });
   }

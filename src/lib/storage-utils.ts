@@ -8,7 +8,7 @@ import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 import Search from './search';
 import { generateRandomHexString } from '../lib/crypto-utils';
 
-import { Package, Version, Author } from '@verdaccio/types';
+import { Package, Version, Author, Versions } from '@verdaccio/types';
 import { IStorage } from '../../types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
 
@@ -220,13 +220,14 @@ export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata:
   return localMetadata.time;
 }
 
-export function prepareSearchPackage(data: Package, time: unknown): Package {
+export function prepareSearchPackage(data: Package, time: unknown): any {
   const listVersions: string[] = Object.keys(data.versions);
   const versions: string[] = semverSort(listVersions);
   const latest: string | undefined = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
 
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
+    const versions: any = { [latest]: 'latest' };
     const pkg: any = {
       name: version.name,
       description: version.description,
@@ -242,7 +243,7 @@ export function prepareSearchPackage(data: Package, time: unknown): Package {
       time: {
         modified: time,
       },
-      versions: { [latest]: 'latest' },
+      versions,
     };
 
     return pkg;

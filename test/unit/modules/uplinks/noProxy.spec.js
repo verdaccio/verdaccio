@@ -1,11 +1,11 @@
-import Storage from '../../../../src/lib/up-storage';
+import ProxyStorage from '../../../../src/lib/up-storage';
 
 require('../../../../src/lib/logger').setup([]);
 
-function setupProxy(host, config, mainConfig) {
-  config.url = host;
+function setupProxy(host, uplinkConf, appConfig) {
+  uplinkConf.url = host;
 
-  return new Storage(config, mainConfig);
+  return new ProxyStorage(uplinkConf, appConfig);
 }
 
 describe('Use proxy', () => {
