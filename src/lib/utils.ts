@@ -13,9 +13,9 @@ import sanitizyReadme from '@verdaccio/readme';
 import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
-import { Package, Version } from '@verdaccio/types';
+import { Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
-import { StringValue } from '../../types';
+import { StringValue, AuthorAvatar } from '../../types';
 import { normalizeContributors } from './storage-utils';
 import {
   getConflict,
@@ -122,7 +122,7 @@ export function validateMetadata(object: Package, name: string): Package {
  * Create base url for registry.
  * @return {String} base registry url
  */
-export function combineBaseUrl(protocol: string, host: string, prefix?: string): string {
+export function combineBaseUrl(protocol: string, host: string | void, prefix?: string | void): string {
   let result = `${protocol}://${host}`;
 
   if (prefix) {
@@ -172,7 +172,8 @@ export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Re
   }
   const tarballName = extractTarballFromUrl(uri);
   const headers = req.headers as IncomingHttpHeaders;
-  const domainRegistry = combineBaseUrl(getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol), headers.host, urlPrefix);
+  const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
+  const domainRegistry = combineBaseUrl(protocol, headers.host, urlPrefix);
 
   return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
 }
@@ -261,7 +262,7 @@ export function parseAddress(urlAddress: any): any {
  * Function filters out bad semver versions and sorts the array.
  * @return {Array} sorted Array
  */
-export function semverSort(listVersions: Array<string>): string[] {
+export function semverSort(listVersions: string[]): string[] {
   return listVersions
     .filter(function(x): boolean {
       if (!semver.parse(x, true)) {
@@ -292,7 +293,8 @@ export function normalizeDistTags(pkg: Package): void {
     if (_.isArray(pkg[DIST_TAGS][tag])) {
       if (pkg[DIST_TAGS][tag].length) {
         // sort array
-        // $FlowFixMe
+        // FIXME: this is clearly wrong, we need to research why this is like this.
+        // @ts-ignore
         sorted = semverSort(pkg[DIST_TAGS][tag]);
         if (sorted.length) {
           // use highest version based on semver sort
@@ -440,15 +442,16 @@ export function deleteProperties(propertiesToDelete: Array<string>, objectItem: 
   return objectItem;
 }
 
-export function addGravatarSupport(pkgInfo: Package, online: boolean = true): any {
+export function addGravatarSupport(pkgInfo: Package, online: boolean = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
-  const contributors = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
+  const contributors: AuthorAvatar[] = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
   // for author.
   if (author && _.isObject(author)) {
-    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(author.email, online);
+    const { email } = author as Author;
+    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(email, online);
   }
 
   if (author && _.isString(author)) {
@@ -462,7 +465,7 @@ export function addGravatarSupport(pkgInfo: Package, online: boolean = true): an
   // for contributors
   if (_.isEmpty(contributors) === false) {
     pkgInfoCopy.latest.contributors = contributors.map(
-      (contributor): void => {
+      (contributor): AuthorAvatar => {
         if (isObject(contributor)) {
           contributor.avatar = generateGravatarUrl(contributor.email, online);
         } else if (_.isString(contributor)) {
@@ -518,40 +521,40 @@ export function buildToken(type: string, token: string): string {
  * @returns {String}
  */
 export function getVersionFromTarball(name: string): string | void {
+  // FIXME: we know the regex is valid, but we should improve this part as ts suggest
+  // @ts-ignore
   return /.+-(\d.+)\.tgz/.test(name) ? name.match(/.+-(\d.+)\.tgz/)[1] : undefined;
 }
+
+export type AuthorFormat = Author | string | null | object | void;
 
 /**
  * Formats author field for webui.
  * @see https://docs.npmjs.com/files/package.json#author
  * @param {string|object|undefined} author
  */
-export function formatAuthor(author: any): any {
+export function formatAuthor(author: AuthorFormat): any {
   let authorDetails = {
     name: DEFAULT_USER,
     email: '',
     url: '',
   };
 
-  if (!author) {
+  if (_.isNil(author)) {
     return authorDetails;
   }
 
   if (_.isString(author)) {
     authorDetails = {
       ...authorDetails,
-      name: author ? author : authorDetails.name,
-      email: author.email ? author.email : authorDetails.email,
-      url: author.url ? author.url : authorDetails.url,
+      name: author as string,
     };
   }
 
   if (_.isObject(author)) {
     authorDetails = {
       ...authorDetails,
-      name: author.name ? author.name : authorDetails.name,
-      email: author.email ? author.email : authorDetails.email,
-      url: author.url ? author.url : authorDetails.url,
+      ...(author as Author),
     };
   }
 

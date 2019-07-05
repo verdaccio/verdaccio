@@ -32,7 +32,7 @@ const setConfig = (config, key, def): string => {
 class ProxyStorage implements IProxy {
   config: UpLinkConf;
   failed_requests: number;
-  private userAgent: string;
+  public userAgent: string;
   ca: string | void;
   logger: Logger;
   server_id: string;

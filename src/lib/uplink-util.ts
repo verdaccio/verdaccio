@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import ProxyStorage from './up-storage';
 import { Versions, Config } from '@verdaccio/types';
 import { IProxy, ProxyList } from '../../types';
