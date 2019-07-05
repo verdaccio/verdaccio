@@ -31,16 +31,18 @@ export function generatePackageTemplate(name: string): Package {
  * Normalize package properties, tags, revision id.
  * @param {Object} pkg package reference.
  */
-export function normalizePackage(pkg: Package) {
+export function normalizePackage(pkg: Package): Package {
   const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
 
-  pkgProperties.forEach(key => {
-    const pkgProp = pkg[key];
+  pkgProperties.forEach(
+    (key): void => {
+      const pkgProp = pkg[key];
 
-    if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
-      pkg[key] = {};
+      if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
+        pkg[key] = {};
+      }
     }
-  });
+  );
 
   if (_.isString(pkg._rev) === false) {
     pkg._rev = STORAGE.DEFAULT_REVISION;
@@ -64,20 +66,22 @@ export function generateRevision(rev: string): string {
 
 export function getLatestReadme(pkg: Package): string {
   const versions = pkg['versions'] || {};
-  const distTags = pkg['dist-tags'] || {};
-  const latestVersion = distTags['latest'] ? versions[distTags['latest']] || {} : {};
+  const distTags = pkg[DIST_TAGS] || {};
+  // FIXME: here is a bit tricky add the types
+  const latestVersion: Version | any = distTags['latest'] ? versions[distTags['latest']] || {} : {};
   let readme = _.trim(pkg.readme || latestVersion.readme || '');
   if (readme) {
     return readme;
   }
+
   // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
   const readmeDistTagsPriority = ['next', 'beta', 'alpha', 'test', 'dev', 'canary'];
-  readmeDistTagsPriority.map(function(tag) {
+  readmeDistTagsPriority.map(function(tag): string | void {
     if (readme) {
       return readme;
     }
-    const data = distTags[tag] ? versions[distTags[tag]] || {} : {};
-    readme = _.trim(data.readme || readme);
+    const version: Version | any = distTags[tag] ? versions[distTags[tag]] || {} : {};
+    readme = _.trim(version.readme || readme);
   });
   return readme;
 }
@@ -90,9 +94,19 @@ export function cleanUpReadme(version: Version): Version {
   return version;
 }
 
-export function normalizeContributors(contributors: Array<Author> | void): Array<Author> {
-  if (isObject(contributors) || _.isString(contributors)) {
+export function normalizeContributors(contributors: Author[]): Author[] {
+  if (_.isNil(contributors)) {
+    return [];
+  } else if (contributors && _.isArray(contributors) === false) {
+    // FIXME: this branch is clearly no an array, still tsc complains
+    // @ts-ignore
     return [contributors];
+  } else if (_.isString(contributors)) {
+    return [
+      {
+        name: contributors,
+      },
+    ];
   }
 
   return contributors;
@@ -122,62 +136,80 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
  * @param {*} localStorage
  */
 export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
-  return new Promise((resolve, reject) => {
-    localStorage.getPackageMetadata(name, (err, results) => {
-      if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
-        return reject(err);
-      }
-      if (results) {
-        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
-      }
-      return resolve();
-    });
-  });
+  return new Promise(
+    (resolve, reject): void => {
+      localStorage.getPackageMetadata(
+        name,
+        (err, results): void => {
+          if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
+            return reject(err);
+          }
+          if (results) {
+            return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
+          }
+          return resolve();
+        }
+      );
+    }
+  );
 }
 
 export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<any> {
-  return new Promise((resolve, reject) => {
-    localStorage.addPackage(name, metadata, (err, latest) => {
-      if (!_.isNull(err)) {
-        return reject(err);
-      } else if (!_.isUndefined(latest)) {
-        Search.add(latest);
-      }
-      return resolve();
-    });
-  });
+  return new Promise(
+    (resolve, reject): void => {
+      localStorage.addPackage(
+        name,
+        metadata,
+        (err, latest): void => {
+          if (!_.isNull(err)) {
+            return reject(err);
+          } else if (!_.isUndefined(latest)) {
+            Search.add(latest);
+          }
+          return resolve();
+        }
+      );
+    }
+  );
 }
 
 export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<any> {
-  return new Promise((resolve, reject) => {
-    syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors) => {
-      // something weird
-      if (err && err.status !== HTTP_STATUS.NOT_FOUND) {
-        return reject(err);
-      }
-
-      // checking package exist already
-      if (_.isNil(packageJsonLocal) === false) {
-        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
-      }
-
-      for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
-        // checking error
-        // if uplink fails with a status other than 404, we report failure
-        if (_.isNil(upLinksErrors[errorItem][0]) === false) {
-          if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
-            if (isAllowPublishOffline) {
-              return resolve();
-            }
-
-            return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
+  return new Promise(
+    (resolve, reject): void => {
+      syncMetadata(
+        name,
+        null,
+        {},
+        (err, packageJsonLocal, upLinksErrors): void => {
+          // something weird
+          if (err && err.status !== HTTP_STATUS.NOT_FOUND) {
+            return reject(err);
           }
-        }
-      }
 
-      return resolve();
-    });
-  });
+          // checking package exist already
+          if (_.isNil(packageJsonLocal) === false) {
+            return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
+          }
+
+          for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
+            // checking error
+            // if uplink fails with a status other than 404, we report failure
+            if (_.isNil(upLinksErrors[errorItem][0]) === false) {
+              if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
+                if (isAllowPublishOffline) {
+                  return resolve();
+                }
+
+                return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
+              }
+            }
+          }
+
+          return resolve();
+        }
+      );
+    }
+  );
 }
 
 export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata: Package): any {
@@ -188,12 +220,12 @@ export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata:
   return localMetadata.time;
 }
 
-export function prepareSearchPackage(data: Package, time: mixed) {
-  const listVersions: Array<string> = Object.keys(data.versions);
-  const versions: Array<string> = semverSort(listVersions);
-  const latest: string = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+export function prepareSearchPackage(data: Package, time: unknown): Package {
+  const listVersions: string[] = Object.keys(data.versions);
+  const versions: string[] = semverSort(listVersions);
+  const latest: string | undefined = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
 
-  if (data.versions[latest]) {
+  if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
     const pkg: any = {
       name: version.name,
