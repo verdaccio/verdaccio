@@ -185,6 +185,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+67k ⭐️)*
 * [Storybook](https://github.com/storybooks/storybook) *(+37k ⭐️)*
 * [Gatsby](https://github.com/gatsbyjs/gatsby) *(+34k ⭐️)* 
+* [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)* 
 * [Uppy](https://github.com/transloadit/uppy) *(+19k ⭐️)*
 * [Aurelia Framework](https://github.com/aurelia) *(+11k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
