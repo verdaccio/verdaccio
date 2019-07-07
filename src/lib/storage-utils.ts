@@ -8,7 +8,7 @@ import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 import Search from './search';
 import { generateRandomHexString } from '../lib/crypto-utils';
 
-import { Package, Version, Author, Versions } from '@verdaccio/types';
+import { Package, Version, Author } from '@verdaccio/types';
 import { IStorage } from '../../types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
 

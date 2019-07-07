@@ -118,18 +118,21 @@ function handleHTTPS(app, configPath, config) {
   }
 }
 
-function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string) {
+function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
   webServer
-    .listen(addr.port || addr.path, addr.host, () => {
-      // send a message for tests
-      if (isFunction(process.send)) {
-        process.send({
-          verdaccio_started: true,
-        });
+    .listen(
+      addr.port || addr.path,
+      addr.host,
+      (): void => {
+        // send a message for tests
+        if (isFunction(process.send)) {
+          process.send({
+            verdaccio_started: true,
+          });
+        }
       }
-    })
-    // $FlowFixMe
-    .on('error', function(err) {
+    )
+    .on('error', function(err): void {
       logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });
