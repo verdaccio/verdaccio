@@ -6,7 +6,7 @@
 import { createDecipher, createCipher, createHash, pseudoRandomBytes } from 'crypto';
 import jwt from 'jsonwebtoken';
 
-import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
+import { JWTSignOptions, RemoteUser, Package } from '@verdaccio/types';
 
 export const defaultAlgorithm = 'aes192';
 export const defaultTarballHashAlgorithm = 'sha1';
@@ -44,7 +44,7 @@ export function createTarballHash() {
  * @param {Object} data
  * @return {String}
  */
-export function stringToMD5(data: Buffer | string) {
+export function stringToMD5(data: Buffer | string): string {
   return createHash('md5')
     .update(data)
     .digest('hex');

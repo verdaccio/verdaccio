@@ -96,7 +96,8 @@ export type $NextFunctionVer = NextFunction & any;
 export type $SidebarPackage = Package & {latest: any}
 
 export interface IAuthWebUI {
-  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): string;
+  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
+  aesEncrypt(buf: Buffer): Buffer;
 }
 
 interface IAuthMiddleware {

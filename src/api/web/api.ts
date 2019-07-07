@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import { Router } from 'express';
 import bodyParser from 'body-parser';
 import addUserAuthApi from './endpoint/user';
@@ -19,7 +14,7 @@ const route = Router(); /* eslint new-cap: 0 */
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
 */
-export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
+export default function(config: Config, auth: IAuth, storage: IStorageHandler): Router {
   Search.configureStorage(storage);
 
   // validate all of these params as a package name

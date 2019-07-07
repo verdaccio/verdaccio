@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
@@ -28,15 +23,16 @@ import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Secu
 import { NextFunction } from 'express';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '../../types';
 
+/* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('./logger');
 
 class Auth implements IAuth {
-  config: Config;
-  logger: Logger;
-  secret: string;
-  plugins: Array<any>;
+  public config: Config;
+  public logger: Logger;
+  public secret: string;
+  public plugins: IPluginAuth<Config>[];
 
-  constructor(config: Config) {
+  public constructor(config: Config) {
     this.config = config;
     this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
@@ -44,24 +40,29 @@ class Auth implements IAuth {
     this._applyDefaultPlugins();
   }
 
-  _loadPlugin(config: Config) {
+  private _loadPlugin(config: Config): IPluginAuth<Config>[] {
     const pluginOptions = {
       config,
       logger: this.logger,
     };
 
-    return loadPlugin(config, config.auth, pluginOptions, (plugin: IPluginAuth<IAuth>) => {
-      const { authenticate, allow_access, allow_publish } = plugin;
+    return loadPlugin<IPluginAuth<Config>>(
+      config,
+      config.auth,
+      pluginOptions,
+      (plugin: IPluginAuth<Config>): boolean => {
+        const { authenticate, allow_access, allow_publish } = plugin;
 
-      return authenticate || allow_access || allow_publish;
-    });
+        return !authenticate || !allow_access || !allow_publish;
+      }
+    );
   }
 
-  _applyDefaultPlugins() {
+  private _applyDefaultPlugins(): void {
     this.plugins.push(getDefaultPlugins());
   }
 
-  changePassword(username: string, password: string, newPassword: string, cb: Callback) {
+  public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
     const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
@@ -70,34 +71,39 @@ class Auth implements IAuth {
 
     for (const plugin of validPlugins) {
       this.logger.trace({ username }, 'updating password for @{username}');
-      plugin.changePassword(username, password, newPassword, (err, profile) => {
-        if (err) {
-          this.logger.error(
-            { username, err },
-            `An error has been produced
+      plugin.changePassword(
+        username,
+        password,
+        newPassword,
+        (err, profile): void => {
+          if (err) {
+            this.logger.error(
+              { username, err },
+              `An error has been produced
           updating the password for @{username}. Error: @{err.message}`
-          );
-          return cb(err);
-        }
+            );
+            return cb(err);
+          }
 
-        this.logger.trace({ username }, 'updated password for @{username} was successful');
-        return cb(null, profile);
-      });
+          this.logger.trace({ username }, 'updated password for @{username} was successful');
+          return cb(null, profile);
+        }
+      );
     }
   }
 
-  authenticate(username: string, password: string, cb: Callback) {
+  public authenticate(username: string, password: string, cb: Callback): void {
     const plugins = this.plugins.slice(0);
     const self = this;
-    (function next() {
-      const plugin = plugins.shift();
+    (function next(): void {
+      const plugin = plugins.shift() as IPluginAuth<Config>;
 
       if (_.isFunction(plugin.authenticate) === false) {
         return next();
       }
 
       self.logger.trace({ username }, 'authenticating @{username}');
-      plugin.authenticate(username, password, function(err, groups) {
+      plugin.authenticate(username, password, function(err, groups): void {
         if (err) {
           self.logger.trace({ username, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
           return cb(err);
@@ -128,13 +134,13 @@ class Auth implements IAuth {
     })();
   }
 
-  add_user(user: string, password: string, cb: Callback) {
+  public add_user(user: string, password: string, cb: Callback): void {
     const self = this;
     const plugins = this.plugins.slice(0);
     this.logger.trace({ user }, 'add user @{user}');
 
-    (function next() {
-      const plugin = plugins.shift();
+    (function next(): void {
+      const plugin = plugins.shift() as IPluginAuth<Config>;
       let method = 'adduser';
       if (_.isFunction(plugin[method]) === false) {
         method = 'add_user';
@@ -143,7 +149,7 @@ class Auth implements IAuth {
         next();
       } else {
         // p.add_user() execution
-        plugin[method](user, password, function(err, ok) {
+        plugin[method](user, password, function(err, ok): void {
           if (err) {
             self.logger.trace({ user, err }, 'the user @{user} could not being added. Error: @{err}');
             return cb(err);
@@ -161,21 +167,20 @@ class Auth implements IAuth {
   /**
    * Allow user to access a package.
    */
-  allow_access({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback) {
+  public allow_access({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const plugins = this.plugins.slice(0);
-    // $FlowFixMe
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
     const self = this;
     this.logger.trace({ packageName }, 'allow access for @{packageName}');
 
-    (function next() {
-      const plugin = plugins.shift();
+    (function next(): void {
+      const plugin: IPluginAuth<Config> = plugins.shift() as IPluginAuth<Config>;
 
-      if (_.isFunction(plugin.allow_access) === false) {
+      if (_.isNil(plugin) || _.isFunction(plugin.allow_access) === false) {
         return next();
       }
 
-      plugin.allow_access(user, pkg, function(err, ok: boolean) {
+      plugin.allow_access!(user, pkg, function(err, ok: boolean): void {
         if (err) {
           self.logger.trace({ packageName, err }, 'forbidden access for @{packageName}. Error: @{err.message}');
           return callback(err);
@@ -191,32 +196,35 @@ class Auth implements IAuth {
     })();
   }
 
-  allow_unpublish({ packageName, packageVersion }: AuthPluginPackage, user: string, callback: Callback) {
-    // $FlowFixMe
+  public allow_unpublish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName }, 'allow unpublish for @{packageName}');
 
     for (const plugin of this.plugins) {
-      if (_.isFunction(plugin.allow_unpublish) === false) {
+      if (_.isNil(plugin) || _.isFunction(plugin.allow_unpublish) === false) {
         continue;
       } else {
-        plugin.allow_unpublish(user, pkg, (err, ok: boolean) => {
-          if (err) {
-            this.logger.trace({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
-            return callback(err);
-          }
+        plugin.allow_unpublish!(
+          user,
+          pkg,
+          (err, ok: boolean): void => {
+            if (err) {
+              this.logger.trace({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
+              return callback(err);
+            }
 
-          if (_.isNil(ok) === true) {
-            this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
-            // @ts-ignore
-            return this.allow_publish(...arguments);
-          }
+            if (_.isNil(ok) === true) {
+              this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
+              // @ts-ignore
+              return this.allow_publish(...arguments);
+            }
 
-          if (ok) {
-            this.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
-            return callback(null, ok);
+            if (ok) {
+              this.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
+              return callback(null, ok);
+            }
           }
-        });
+        );
       }
     }
   }
@@ -224,36 +232,40 @@ class Auth implements IAuth {
   /**
    * Allow user to publish a package.
    */
-  allow_publish({ packageName, packageVersion }: AuthPluginPackage, user: string, callback: Callback) {
+  public allow_publish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const plugins = this.plugins.slice(0);
     const self = this;
     // $FlowFixMe
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName }, 'allow publish for @{packageName}');
 
-    (function next() {
+    (function next(): void {
       const plugin = plugins.shift();
 
-      if (_.isFunction(plugin.allow_publish) === false) {
+      if (_.isNil(plugin) || _.isFunction(plugin.allow_publish) === false) {
         return next();
       }
 
-      plugin.allow_publish(user, pkg, (err, ok: boolean) => {
-        if (err) {
-          self.logger.trace({ packageName }, 'forbidden publish for @{packageName}');
-          return callback(err);
-        }
+      plugin.allow_publish!(
+        user,
+        pkg,
+        (err, ok: boolean): void => {
+          if (err) {
+            self.logger.trace({ packageName }, 'forbidden publish for @{packageName}');
+            return callback(err);
+          }
 
-        if (ok) {
-          self.logger.trace({ packageName }, 'allowed publish for @{packageName}');
-          return callback(null, ok);
+          if (ok) {
+            self.logger.trace({ packageName }, 'allowed publish for @{packageName}');
+            return callback(null, ok);
+          }
+          next(); // cb(null, false) causes next plugin to roll
         }
-        next(); // cb(null, false) causes next plugin to roll
-      });
+      );
     })();
   }
 
-  apiJWTmiddleware() {
+  public apiJWTmiddleware(): Function {
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
     for (const plugin of plugins) {
@@ -262,10 +274,10 @@ class Auth implements IAuth {
       }
     }
 
-    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
+    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       req.pause();
 
-      const next = function(err: VerdaccioError | void) {
+      const next = function(err: VerdaccioError | void): void {
         req.resume();
         // uncomment this to reject users with bad auth headers
         // return _next.apply(null, arguments)
@@ -307,21 +319,25 @@ class Auth implements IAuth {
     };
   }
 
-  _handleJWTAPIMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function) {
+  private _handleJWTAPIMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): void {
     const { scheme, token } = parseAuthTokenHeader(authorization);
     if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
       // this should happen when client tries to login with an existing user
       const credentials = convertPayloadToBase64(token).toString();
       const { user, password } = parseBasicPayload(credentials) as AESPayload;
-      this.authenticate(user, password, (err, user) => {
-        if (!err) {
-          req.remote_user = user;
-          next();
-        } else {
-          req.remote_user = createAnonymousRemoteUser();
-          next(err);
+      this.authenticate(
+        user,
+        password,
+        (err, user): void => {
+          if (!err) {
+            req.remote_user = user;
+            next();
+          } else {
+            req.remote_user = createAnonymousRemoteUser();
+            next(err);
+          }
         }
-      });
+      );
     } else {
       // jwt handler
       const credentials: any = getMiddlewareCredentials(security, secret, authorization);
@@ -336,40 +352,44 @@ class Auth implements IAuth {
     }
   }
 
-  _handleAESMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function) {
+  private _handleAESMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): void {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     if (credentials) {
       const { user, password } = credentials;
-      this.authenticate(user, password, (err, user) => {
-        if (!err) {
-          req.remote_user = user;
-          next();
-        } else {
-          req.remote_user = createAnonymousRemoteUser();
-          next(err);
+      this.authenticate(
+        user,
+        password,
+        (err, user): void => {
+          if (!err) {
+            req.remote_user = user;
+            next();
+          } else {
+            req.remote_user = createAnonymousRemoteUser();
+            next(err);
+          }
         }
-      });
+      );
     } else {
       // we force npm client to ask again with basic authentication
       return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
     }
   }
 
-  _isRemoteUserMissing(remote_user: RemoteUser): boolean {
+  private _isRemoteUserMissing(remote_user: RemoteUser): boolean {
     return _.isUndefined(remote_user) === false && _.isUndefined(remote_user.name) === false;
   }
 
   /**
    * JWT middleware for WebUI
    */
-  webUIJWTmiddleware() {
-    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
+  public webUIJWTmiddleware(): Function {
+    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       if (this._isRemoteUserMissing(req.remote_user)) {
         return _next();
       }
 
       req.pause();
-      const next = (err: VerdaccioError | void) => {
+      const next = (err: VerdaccioError | void): void => {
         req.resume();
         if (err) {
           // req.remote_user.error = err.message;
@@ -412,7 +432,7 @@ class Auth implements IAuth {
     };
   }
 
-  async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
+  public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
     const { real_groups, name, groups } = user;
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);
@@ -424,14 +444,13 @@ class Auth implements IAuth {
 
     const token: string = await signPayload(payload, this.secret, signOptions);
 
-    // $FlowFixMe
     return token;
   }
 
   /**
    * Encrypt a string.
    */
-  aesEncrypt(buf: Buffer): Buffer {
+  public aesEncrypt(buf: Buffer): Buffer {
     return aesEncrypt(buf, this.secret);
   }
 }

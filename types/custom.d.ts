@@ -9,6 +9,8 @@ declare global {
 
     export interface Response {
       report_error: any;
+      _verdaccio_error: any;
+      socket?: any;
     }
   }
 }

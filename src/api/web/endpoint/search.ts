@@ -13,7 +13,8 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
   // Search package
   route.get('/search/:anything', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const results: any = Search.query(req.params.anything);
-    const packages = [];
+    // FUTURE: figure out here the correct type
+    const packages: any[] = [];
 
     const getPackageInfo = function(i): void {
       storage.getPackage({

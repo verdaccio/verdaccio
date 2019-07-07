@@ -1,17 +1,12 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 import { convertPayloadToBase64, ErrorCode } from './utils';
-import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, CHARACTER_ENCODING, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
+import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 
-import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions } from '@verdaccio/types';
+import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
 import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 
-export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD) {
+export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD): boolean {
   return typeof password === 'string' && password.length >= minLength;
 }
 
@@ -43,8 +38,8 @@ export function createAnonymousRemoteUser(): RemoteUser {
   };
 }
 
-export function allow_action(action: string) {
-  return function(user: RemoteUser, pkg: Package, callback: Callback) {
+export function allow_action(action: string): Function {
+  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
     const { name, groups } = user;
     const hasPermission = pkg[action].some(group => name === group || groups.includes(group));
 
@@ -60,9 +55,9 @@ export function allow_action(action: string) {
   };
 }
 
-export function handleSpecialUnpublish() {
-  return function(user: RemoteUser, pkg: Package, callback: Callback) {
-    const action: string = 'unpublish';
+export function handleSpecialUnpublish(): any {
+  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+    const action = 'unpublish';
     const hasSupport: boolean = _.isNil(pkg[action]) === false ? pkg[action] : false;
 
     if (hasSupport === false) {
@@ -73,17 +68,20 @@ export function handleSpecialUnpublish() {
   };
 }
 
-export function getDefaultPlugins() {
+export function getDefaultPlugins(): IPluginAuth<Config> {
   return {
-    authenticate(user: string, password: string, cb: Callback) {
+    authenticate(user: string, password: string, cb: Callback): void {
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user(user: string, password: string, cb: Callback) {
+    add_user(user: string, password: string, cb: Callback): void {
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
+    // FIXME: allow_action and allow_publish should be in the @verdaccio/types
+    // @ts-ignore
     allow_access: allow_action('access'),
+    // @ts-ignore
     allow_publish: allow_action('publish'),
     allow_unpublish: handleSpecialUnpublish(),
   };
@@ -107,15 +105,15 @@ const defaultWebTokenOptions: JWTOptions = {
 };
 
 const defaultApiTokenConf: APITokenOptions = {
-  legacy: true
+  legacy: true,
+};
+
+export const defaultSecurity: Security = {
+  web: defaultWebTokenOptions,
+  api: defaultApiTokenConf,
 };
 
 export function getSecurity(config: Config): Security {
-  const defaultSecurity: Security = {
-    web: defaultWebTokenOptions,
-    api: defaultApiTokenConf,
-  };
-
   if (_.isNil(config.security) === false) {
     return _.merge(defaultSecurity, config.security);
   }
@@ -127,8 +125,8 @@ export function getAuthenticatedMessage(user: string): string {
   return `you are authenticated as '${user}'`;
 }
 
-export function buildUserBuffer(name: string, password: string) {
-  return Buffer.from(`${name}:${password}`, CHARACTER_ENCODING.UTF8);
+export function buildUserBuffer(name: string, password: string): Buffer {
+  return Buffer.from(`${name}:${password}`, 'utf8');
 }
 
 export function isAESLegacy(security: Security): boolean {
@@ -142,7 +140,7 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
 
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
-    return await new Promise(resolve => {
+    return await new Promise((resolve): void => {
       resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
     });
   } else {
@@ -152,7 +150,7 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
     if (jwt && jwt.sign) {
       return await auth.jwtEncrypt(remoteUser, jwt.sign);
     } else {
-      return await new Promise(resolve => {
+      return await new Promise((resolve): void => {
         resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
       });
     }

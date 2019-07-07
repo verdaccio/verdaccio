@@ -11,11 +11,13 @@ import { generateGravatarUrl } from '../../../utils/user';
 import logger from '../../../lib/logger';
 import { Router } from 'express';
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
-import { Config } from '@verdaccio/types';
+import { Config, Package } from '@verdaccio/types';
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
+
+export type PackcageAuthor = Package & { author: any };
 
 function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, config: Config): void {
   const can = allow(auth);
@@ -48,8 +50,8 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         throw err;
       }
 
-      async function processPermissionsPackages(packages = []): Promise<any> {
-        const permissions = [];
+      async function processPermissionsPackages(packages: PackcageAuthor[] = []): Promise<any> {
+        const permissions: PackcageAuthor[] = [];
         const packgesCopy = packages.slice();
         for (const pkg of packgesCopy) {
           const pkgCopy = { ...pkg };

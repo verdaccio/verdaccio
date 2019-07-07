@@ -14,6 +14,7 @@ import { APP_ERROR } from './constants';
 import { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
 
 import { MatchedPackage, StartUpConfig } from '../../types';
+import { defaultSecurity } from './auth-utils';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -23,21 +24,19 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
  * Coordinates the application configuration
  */
 class Config implements AppConfig {
-  logger: Logger;
-  user_agent: string;
-  secret: string;
-  uplinks: any;
-  packages: PackageList;
-  users: any;
-  server_id: string;
-  self_path: string;
-  storage: string | void;
-  plugins: string | void;
-  security: Security;
-  $key: any;
-  $value: any;
+  public logger: Logger;
+  public user_agent: string;
+  public secret: string;
+  public uplinks: any;
+  public packages: PackageList;
+  public users: any;
+  public server_id: string;
+  public self_path: string;
+  public storage: string | void;
+  public plugins: string | void;
+  public security: Security;
 
-  constructor(config: StartUpConfig) {
+  public constructor(config: StartUpConfig) {
     const self = this;
     this.logger = LoggerApi.logger;
     this.self_path = config.self_path;
@@ -50,6 +49,7 @@ class Config implements AppConfig {
       }
     }
 
+    // @ts-ignore
     if (_.isNil(this.user_agent)) {
       this.user_agent = getUserAgent();
     }
@@ -58,7 +58,7 @@ class Config implements AppConfig {
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
 
     // sanity check for strategic config properties
-    strategicConfigProps.forEach(function(x) {
+    strategicConfigProps.forEach(function(x): void {
       if (self[x] == null) {
         self[x] = {};
       }
@@ -76,29 +76,36 @@ class Config implements AppConfig {
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
-    allowedEnvConfig.forEach(envConf => {
-      if (!(envConf in self)) {
-        self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
+    allowedEnvConfig.forEach(
+      (envConf): void => {
+        if (!(envConf in self)) {
+          self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
+        }
       }
-    });
+    );
 
     // unique identifier of self server (or a cluster), used to avoid loops
+    // @ts-ignore
     if (!this.server_id) {
       this.server_id = generateRandomHexString(6);
     }
+
+    // @ts-ignore
+    this.secret = undefined;
+    this.security = defaultSecurity;
   }
 
   /**
    * Check for package spec
    */
-  getMatchedPackagesSpec(pkgName: string): MatchedPackage {
+  public getMatchedPackagesSpec(pkgName: string): MatchedPackage {
     return getMatchedPackagesSpec(pkgName, this.packages);
   }
 
   /**
    * Store or create whether receive a secret key
    */
-  checkSecretKey(secret: string): string {
+  public checkSecretKey(secret: string): string {
     if (_.isString(secret) && _.isEmpty(secret) === false) {
       this.secret = secret;
       return secret;

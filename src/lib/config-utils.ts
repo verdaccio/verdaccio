@@ -101,7 +101,6 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
 
 export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): MatchedPackage {
   for (const i in packages) {
-    // $FlowFixMe
     if (minimatch.makeRe(i).exec(pkgName)) {
       return packages[i];
     }
