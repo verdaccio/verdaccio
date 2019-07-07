@@ -22,8 +22,8 @@ if (process.getuid && process.getuid() === 0) {
 const MIN_NODE_VERSION = '6.9.0';
 
 if (semver.satisfies(process.version, `>=${MIN_NODE_VERSION}`) === false) {
- global.console.error(bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
- process.exit(1);
+  global.console.error(bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
+  process.exit(1);
 }
 
 process.title = 'verdaccio';
@@ -75,8 +75,8 @@ try {
 
 process.on('uncaughtException', function(err) {
   logger.logger.fatal( {
-      err: err,
-    },
+    err: err,
+  },
   'uncaught exception, please report this\n@{err.stack}' );
   process.exit(255);
 });

@@ -62,11 +62,11 @@ export default function(server, server2) {
         return server2.request({
           uri: '/@test/scoped/1.0.0'
         }).status(HTTP_STATUS.OK)
-         .then(function(body) {
-           expect(body.name).toEqual(SCOPE);
-           expect(body.dist.tarball).toEqual(
-             `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
-         });
+          .then(function(body) {
+            expect(body.name).toEqual(SCOPE);
+            expect(body.dist.tarball).toEqual(
+              `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
+          });
       });
     });
   });

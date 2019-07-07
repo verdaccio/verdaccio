@@ -419,7 +419,7 @@ export function fileExists(path: string): boolean {
   }
 }
 
-export function sortByName(packages: Array<any>, orderAscending: boolean | void = true): string[] {
+export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
   return packages.slice().sort(function(a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
@@ -431,7 +431,7 @@ export function addScope(scope: string, packageName: string): string {
   return `@${scope}/${packageName}`;
 }
 
-export function deleteProperties(propertiesToDelete: Array<string>, objectItem: any): any {
+export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
   _.forEach(
     propertiesToDelete,
     (property): any => {

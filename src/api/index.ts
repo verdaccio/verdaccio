@@ -7,7 +7,7 @@ import _ from 'lodash';
 import express from 'express';
 import compression from 'compression';
 import cors from 'cors';
-import {HttpError} from 'http-errors';
+import { HttpError } from 'http-errors';
 import Storage from '../lib/storage';
 import loadPlugin from '../lib/plugin-loader';
 import hookDebug from './debug';
@@ -19,9 +19,9 @@ import AppConfig from '../lib/config';
 import webAPI from './web/api';
 import web from './web';
 
-import{ Application } from 'express';
-import{ $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
-import{ Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
+import { Application } from 'express';
+import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
+import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import { setup, logger } from '../lib/logger';
 import { log, final, errorReportingMiddleware } from './middleware';
 

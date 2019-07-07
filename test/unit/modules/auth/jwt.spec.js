@@ -23,7 +23,7 @@ const parseConfigurationJWTFile = () => {
   return parseConfigurationFile(`api-jwt/jwt`);
 };
 
-const FORBIDDEN_VUE: string = 'authorization required to access package vue';
+const FORBIDDEN_VUE = 'authorization required to access package vue';
 
 describe('endpoint user auth JWT unit test', () => {
   jest.setTimeout(20000);

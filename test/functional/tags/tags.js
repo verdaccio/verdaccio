@@ -9,9 +9,9 @@ export default function(server, express) {
 
   test('tags - testing for 404', () => {
     return server.getPackage('testexp_tags')
-             // shouldn't exist yet
-             .status(HTTP_STATUS.NOT_FOUND)
-             .body_error(/no such package/);
+    // shouldn't exist yet
+      .status(HTTP_STATUS.NOT_FOUND)
+      .body_error(/no such package/);
   });
 
   describe('tags', () => {
@@ -24,13 +24,13 @@ export default function(server, express) {
 
     test('fetching package again', () => {
       return server.getPackage('testexp_tags')
-               .status(200)
-               .then(function(body) {
-                 expect(_.isObject(body.versions['1.1.0'])).toBe(true);
-                 // note: 5.4.3 is invalid tag, 0.1.3alpha is highest semver
-                 expect(body['dist-tags'].latest).toEqual('1.1.0');
-                 expect(body['dist-tags'].bad).toEqual(undefined);
-               });
+        .status(200)
+        .then(function(body) {
+          expect(_.isObject(body.versions['1.1.0'])).toBe(true);
+          // note: 5.4.3 is invalid tag, 0.1.3alpha is highest semver
+          expect(body['dist-tags'].latest).toEqual('1.1.0');
+          expect(body['dist-tags'].bad).toEqual(undefined);
+        });
     });
 
     const versions = ['0.1.1alpha', '0.1.1-alpha', '0000.00001.001-alpha'];
@@ -38,10 +38,10 @@ export default function(server, express) {
     versions.forEach(function(ver) {
       test('fetching '+ver, () => {
         return server.request({uri: '/testexp_tags/'+ver})
-                 .status(200)
-                 .then(function(body) {
-                   expect(body.version).toEqual('0.1.1alpha');
-                 });
+          .status(200)
+          .then(function(body) {
+            expect(body.version).toEqual('0.1.1alpha');
+          });
       });
     });
   });

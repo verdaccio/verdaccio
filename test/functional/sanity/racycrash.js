@@ -40,17 +40,17 @@ export default function(server, express) {
         }, HTTP_STATUS.OK);
       };
 
-       server.request({uri: '/testexp-racycrash/-/test.tar.gz'})
-         .then(function(body) {
-           expect(body).toEqual('test test test');
-         });
+      server.request({uri: '/testexp-racycrash/-/test.tar.gz'})
+        .then(function(body) {
+          expect(body).toEqual('test test test');
+        });
 
       function cb() {
         // test for NOT crashing
         server.request({uri: '/testexp-racycrash'})
           .status(HTTP_STATUS.OK)
           .then(function() {
-           callback();
+            callback();
           });
       }
     });
@@ -61,7 +61,7 @@ export default function(server, express) {
       };
 
       return server.request({uri: '/testexp-racycrash/-/test.tar.gz'})
-               .body_error(API_ERROR.INTERNAL_SERVER_ERROR);
+        .body_error(API_ERROR.INTERNAL_SERVER_ERROR);
     });
   });
 }

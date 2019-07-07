@@ -71,7 +71,7 @@ describe('endpoint unit test', () => {
   describe('Registry API Endpoints', () => {
 
     describe('should test ping api', () => {
-     test('should test endpoint /-/ping', (done) => {
+      test('should test endpoint /-/ping', (done) => {
         request(app)
           .get('/-/ping')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
@@ -408,7 +408,7 @@ describe('endpoint unit test', () => {
 
       test('should not found when a filter fails', (done) => {
         request(app)
-           // Filter errors look like other uplink errors
+        // Filter errors look like other uplink errors
           .get('/trigger-filter-failure')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)

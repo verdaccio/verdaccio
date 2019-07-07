@@ -13,9 +13,9 @@ import { media, expectJson, allow } from '../../middleware';
 import { notify } from '../../../lib/notify';
 import star from './star';
 
-import{ Router } from 'express';
-import{ Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
-import{ IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
+import { Router } from 'express';
+import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
+import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import logger from '../../../lib/logger';
 
 export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {

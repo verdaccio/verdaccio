@@ -13,9 +13,9 @@ export default function(server, express) {
     beforeAll(function() {
       express.get(`/${PKG_NAME}`, function(req, res) {
         const pkg = JSON.parse(readFile('../fixtures/publish.json5')
-            .toString(CHARACTER_ENCODING.UTF8)
-            .replace(/__NAME__/g, PKG_NAME)
-            .replace(/__VERSION__/g, PKG_VERSION));
+          .toString(CHARACTER_ENCODING.UTF8)
+          .replace(/__NAME__/g, PKG_NAME)
+          .replace(/__VERSION__/g, PKG_VERSION));
 
         // overcoming compress threshold
         for (let i = 1; i <= VERSION_TOTAL; i++) {
@@ -45,13 +45,13 @@ export default function(server, express) {
 
     test('should understand non gzipped data from uplink', () => {
       return server.getPackage(PKG_NAME)
-       .status(HTTP_STATUS.OK)
-       .response((res) => {
-         expect(res.headers[HEADER_TYPE.CONTENT_ENCODING]).toBeUndefined();
-       }).then(body => {
-         expect(body.name).toBe(PKG_NAME);
-         expect(Object.keys(body.versions)).toHaveLength(VERSION_TOTAL);
-       });
+        .status(HTTP_STATUS.OK)
+        .response((res) => {
+          expect(res.headers[HEADER_TYPE.CONTENT_ENCODING]).toBeUndefined();
+        }).then(body => {
+          expect(body.name).toBe(PKG_NAME);
+          expect(Object.keys(body.versions)).toHaveLength(VERSION_TOTAL);
+        });
     });
 
     test('should serve gzipped data', () => {

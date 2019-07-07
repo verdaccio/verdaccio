@@ -4,14 +4,14 @@
 
 // @flow
 
-export const DEFAULT_PORT: string = '4873';
-export const DEFAULT_PROTOCOL: string = 'http';
-export const DEFAULT_DOMAIN: string = 'localhost';
-export const TIME_EXPIRATION_24H: string = '24h';
-export const TIME_EXPIRATION_7D: string = '7d';
+export const DEFAULT_PORT = '4873';
+export const DEFAULT_PROTOCOL = 'http';
+export const DEFAULT_DOMAIN = 'localhost';
+export const TIME_EXPIRATION_24H = '24h';
+export const TIME_EXPIRATION_7D = '7d';
 export const DIST_TAGS = 'dist-tags';
 export const USERS = 'users';
-export const DEFAULT_MIN_LIMIT_PASSWORD: number = 3;
+export const DEFAULT_MIN_LIMIT_PASSWORD = 3;
 export const DEFAULT_USER = 'Anonymous';
 
 export const keyPem = 'verdaccio-key.pem';

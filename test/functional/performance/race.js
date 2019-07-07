@@ -30,10 +30,10 @@ export default function(server) {
 
           let _res;
           server.putVersion(PKG_NAME, '0.0.1', data).response(function (res) {
-              _res = res;
-            }).then(function (body) {
-              callback(null, [_res, body]);
-            });
+            _res = res;
+          }).then(function (body) {
+            callback(null, [_res, body]);
+          });
         });
       }
 
@@ -116,8 +116,8 @@ export default function(server) {
 
     afterAll(function() {
       return server.getPackage(PKG_NAME).status(HTTP_STATUS.OK).then(function (body) {
-          expect(Object.keys(body.versions)).toHaveLength(okTotalSum);
-        });
+        expect(Object.keys(body.versions)).toHaveLength(okTotalSum);
+      });
     });
   });
 }

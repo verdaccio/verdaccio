@@ -96,19 +96,19 @@ export default function(express) {
           multipleNotificationsEndpoint.notify.push(notificationSettings);
         }
 
-      notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
-        body.forEach(function(notification) {
-          const jsonBody = parseBody(notification);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
-            .toBe(jsonBody.message, "Body notify message should be equal");
+        notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
+          body.forEach(function(notification) {
+            const jsonBody = parseBody(notification);
+            expect(
+              `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
+              .toBe(jsonBody.message, "Body notify message should be equal");
+          });
+          done();
+        }, function (err) {
+          expect(err).toBeDefined();
+          done();
         });
-        done();
-      }, function (err) {
-        expect(err).toBeDefined();
-        done();
       });
-    });
 
     test('notification should fails', done => {
       const metadata = {

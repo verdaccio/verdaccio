@@ -7,8 +7,8 @@ export default function (server2) {
         uri: '/test/route',
         method: 'GET'
       })
-      .status(HTTP_STATUS.OK)
-      .body_ok('this is a custom route')
+        .status(HTTP_STATUS.OK)
+        .body_ok('this is a custom route')
     })
 
     test('should serve the registered route ES6', () => {

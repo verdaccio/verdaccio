@@ -39,7 +39,7 @@ describe('startServer via API', () => {
           expect(pkgVersion).toBe(version);
           expect(pkgName).toBe(serverName);
           done();
-      });
+        });
     });
 
     test('should provide all HTTPS server fails', async (done) => {

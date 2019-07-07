@@ -51,16 +51,16 @@ describe('endpoint web unit test', () => {
   describe('Registry WebUI endpoints', () => {
     beforeAll(async () => {
       await request(app)
-      .put('/@scope%2fpk1-test')
-      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .send(JSON.stringify(publishMetadata))
-      .expect(HTTP_STATUS.CREATED);
+        .put('/@scope%2fpk1-test')
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(JSON.stringify(publishMetadata))
+        .expect(HTTP_STATUS.CREATED);
 
       await request(app)
-      .put('/forbidden-place')
-      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .send(JSON.stringify(forbiddenPlace))
-      .expect(HTTP_STATUS.CREATED);
+        .put('/forbidden-place')
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(JSON.stringify(forbiddenPlace))
+        .expect(HTTP_STATUS.CREATED);
     });
 
     describe('Packages', () => {
@@ -165,7 +165,7 @@ describe('endpoint web unit test', () => {
 
     describe('User', () => {
       beforeAll(async () => {
-         await addUser(request(app), credentials.name, credentials);
+        await addUser(request(app), credentials.name, credentials);
       });
 
       describe('login webui', () => {

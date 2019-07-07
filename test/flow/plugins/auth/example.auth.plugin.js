@@ -42,7 +42,7 @@ class ExampleAuthPlugin implements IPluginAuth {
 }
 
 type SubTypePackageAccess = PackageAccess & {
-  sub?: boolean,
+  sub?: boolean;
 };
 
 class ExampleAuthCustomPlugin implements IPluginAuth {

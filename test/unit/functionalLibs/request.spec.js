@@ -8,7 +8,7 @@ import {IRequestPromise} from '../../types';
 
 describe('Request Functional', () => {
   const mockServerPort = 55547;
-  const restTest: string = `http://localhost:${55547}/jquery`;
+  const restTest = `http://localhost:${55547}/jquery`;
   let mockRegistry;
 
   describe('Request Functional', () => {
@@ -18,7 +18,7 @@ describe('Request Functional', () => {
 
     test('basic resolve', (done) => {
       const requestPromise: IRequestPromise = new PromiseAssert((resolve, reject) => {
-          resolve(1);
+        resolve(1);
       });
       // $FlowFixMe
       requestPromise.then((result) => {

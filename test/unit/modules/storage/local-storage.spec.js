@@ -22,10 +22,10 @@ setup([]);
 
 describe('LocalStorage', () => {
   let storage: IStorage;
-  const pkgName: string = 'npm_test';
+  const pkgName = 'npm_test';
   const pkgNameScoped = `@scope/${pkgName}-scope`;
-  const tarballName: string = `${pkgName}-add-tarball-1.0.4.tgz`;
-  const tarballName2: string = `${pkgName}-add-tarball-1.0.5.tgz`;
+  const tarballName = `${pkgName}-add-tarball-1.0.4.tgz`;
+  const tarballName2 = `${pkgName}-add-tarball-1.0.5.tgz`;
 
   const getStorage = (LocalStorageClass = LocalStorage) => {
     const config: Config = new AppConfig(configExample({
@@ -199,7 +199,7 @@ describe('LocalStorage', () => {
         const pkgName = 'add-version-test-1';
         const version = '1.0.1';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
-        const tarballName: string = `${pkgName}-${version}.tgz`;
+        const tarballName = `${pkgName}-${version}.tgz`;
         await addNewVersion(pkgName, '9.0.0');
         await addTarballToStore(pkgName, `${pkgName}-9.0.0.tgz`);
         await addTarballToStore(pkgName, tarballName);
@@ -229,7 +229,7 @@ describe('LocalStorage', () => {
         const pkgName = 'add-version-test-4';
         const version = '4.0.0';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
-        const tarballName: string = `${pkgName}-${version}.tgz`;
+        const tarballName = `${pkgName}-${version}.tgz`;
         await addTarballToStore(pkgName, tarballName);
 
         storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', (err, data) => {
@@ -305,7 +305,7 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::changePackage', () => {
-      const pkgName: string = 'change-package';
+      const pkgName = 'change-package';
 
       test('should unpublish a version', async done => {
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
@@ -502,7 +502,7 @@ describe('LocalStorage', () => {
       });
 
       test('should fails with package not found', (done) => {
-        const pkgName: string = 'npm_test_fake';
+        const pkgName = 'npm_test_fake';
         storage.removePackage(pkgName, (err, data) => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch(/no such package available/);

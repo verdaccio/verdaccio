@@ -168,7 +168,7 @@ export interface ISyncUplinks {
   req?: Request;
 }
 
-export type IPluginFilters = Array<IPluginStorageFilter<Config>>;
+export type IPluginFilters = IPluginStorageFilter<Config>[];
 
 export interface IStorageHandler extends IStorageManager<Config> {
   config: Config;

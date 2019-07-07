@@ -524,7 +524,7 @@ describe('Utilities', () => {
       });
 
       test('contributors field is a string', () => {
-        const contributor: string = 'Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)';
+        const contributor = 'Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)';
         const packageInfo = {
           latest: {
             contributors: contributor

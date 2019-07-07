@@ -58,10 +58,10 @@ describe('Storage._merge_versions versions', () => {
   test('semverSort', () => {
 
     assert.deepEqual(semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']),
-    ['1.2.3a',
-      '1.2.3-b',
-      '1.2.3c',
-      '1.2.3']
+      ['1.2.3a',
+        '1.2.3-b',
+        '1.2.3c',
+        '1.2.3']
     );
 
   });

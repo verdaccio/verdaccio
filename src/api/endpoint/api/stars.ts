@@ -11,7 +11,9 @@ import { Package } from '@verdaccio/types';
 type Packages = Package[];
 
 export default function(route: Router, storage: IStorageHandler) {
-  route.get('/-/_view/starredByUser', (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
+  route.get(
+    '/-/_view/starredByUser',
+    (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
       const remoteUsername = req.remote_user.name;
 
       storage.getLocalDatabase((err, localPackages: Packages) => {

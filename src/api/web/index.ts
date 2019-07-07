@@ -109,4 +109,4 @@ export default function(config, auth, storage) {
   });
 
   return router;
-};
+}

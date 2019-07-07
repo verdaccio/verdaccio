@@ -44,16 +44,16 @@ export default function(storage: IStorageHandler) {
         // Check is star or unstar
         const isStar = Object.keys(newStarUser).includes(remoteUsername);
         if (_.isNil(localStarUsers) === false && validateInputs(newStarUser, localStarUsers, remoteUsername, isStar)) {
-            return afterChangePackage();
+          return afterChangePackage();
         }
         const users = isStar ? {
           ...localStarUsers,
           [remoteUsername]: true,
         } : _.reduce(localStarUsers, (users, value, key) => {
-            if (key !== remoteUsername) {
-              users[key] = value;
-            }
-            return users;
+          if (key !== remoteUsername) {
+            users[key] = value;
+          }
+          return users;
         }, {});
         storage.changePackage(name, { ...info, users}, req.body._rev, function(err) {
           afterChangePackage(err);

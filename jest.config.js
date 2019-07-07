@@ -7,8 +7,8 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testURL: 'http://localhost',
   testRegex: '(test/unit.*\\.spec|test/unit/webui/.*\\.spec)\\.js',
-   // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
-   // when it tries to scan for package.json files.
+  // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
+  // when it tries to scan for package.json files.
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
   },

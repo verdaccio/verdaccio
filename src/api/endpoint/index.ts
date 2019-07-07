@@ -3,8 +3,8 @@
  * @flow
  */
 
-import{ IAuth, IStorageHandler } from '../../../types';
-import{ Config } from '@verdaccio/types';
+import { IAuth, IStorageHandler } from '../../../types';
+import { Config } from '@verdaccio/types';
 
 import express from 'express';
 import bodyParser from 'body-parser';

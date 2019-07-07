@@ -24,8 +24,8 @@ describe('Config Utilities', () => {
   describe('uplinkSanityCheck', () => {
     test('should test basic conversion', ()=> {
       const uplinks = uplinkSanityCheck(parseConfigFile(parseConfigurationFile('uplink-basic')).uplinks);
-        expect(Object.keys(uplinks)).toContain('server1');
-        expect(Object.keys(uplinks)).toContain('server2');
+      expect(Object.keys(uplinks)).toContain('server1');
+      expect(Object.keys(uplinks)).toContain('server2');
     });
 
     test('should throw error on blacklisted uplink name', ()=> {
@@ -40,9 +40,9 @@ describe('Config Utilities', () => {
   describe('sanityCheckUplinksProps', () => {
     test('should fails if url prop is missing', ()=> {
       const {uplinks} = parseConfigFile(parseConfigurationFile('uplink-wrong'));
-        expect(() => {
-          sanityCheckUplinksProps(uplinks)
-        }).toThrow('CONFIG: no url for uplink: none-url');
+      expect(() => {
+        sanityCheckUplinksProps(uplinks)
+      }).toThrow('CONFIG: no url for uplink: none-url');
     });
 
     test('should bypass an empty uplink list', ()=> {

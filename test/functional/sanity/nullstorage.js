@@ -20,7 +20,7 @@ export default function (server, server2) {
     describe(`should check whether ${PKG_NAME} is on server1`, () => {
       test('should fails on fetch non-existent package on server1', () => {
         return server.getPackage('test-nullstorage-nonexist').status(HTTP_STATUS.NOT_FOUND)
-                 .body_error(API_ERROR.NO_PACKAGE);
+          .body_error(API_ERROR.NO_PACKAGE);
       });
     });
 
@@ -33,8 +33,8 @@ export default function (server, server2) {
 
       test('should fails on download a non existent tarball from server1', () => {
         return server.getTarball(PKG_NAME, TARBALL)
-                 .status(HTTP_STATUS.NOT_FOUND)
-                 .body_error(/no such file/);
+          .status(HTTP_STATUS.NOT_FOUND)
+          .body_error(/no such file/);
       });
 
       describe(`should succesfully publish ${PKG_NAME} package on server2`, () => {
@@ -46,30 +46,30 @@ export default function (server, server2) {
           let pkg = generatePkg(PKG_NAME);
           pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
           return server2.putVersion(PKG_NAME, PKG_VERSION, pkg)
-                   .status(HTTP_STATUS.CREATED).body_ok(/published/);
+            .status(HTTP_STATUS.CREATED).body_ok(/published/);
         });
 
         test(`should publish a new version for ${PKG_NAME} on server 2`, () => {/* test for before() */});
 
         test(`should fetch the newly created published tarball for ${PKG_NAME} from server1 on server2`, () => {
           return server.getTarball(PKG_NAME, TARBALL)
-                   .status(HTTP_STATUS.OK)
-                   .then(function(body) {
-                     expect(body).toEqual(getBinary());
-                   });
+            .status(HTTP_STATUS.OK)
+            .then(function(body) {
+              expect(body).toEqual(getBinary());
+            });
         });
 
         test(`should fetch metadata for ${PKG_NAME} match from server1`, () => {
           return server.getPackage(PKG_NAME)
-                   .status(HTTP_STATUS.OK)
-                   .then(function(body) {
-                     expect(body.name).toBe(PKG_NAME);
-                     expect(body.versions[PKG_VERSION].name).toBe(PKG_NAME);
-                     expect(body.versions[PKG_VERSION].dist.tarball).toBe(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
-                     expect(body[DIST_TAGS]).toEqual({latest: PKG_VERSION});
-                   });
+            .status(HTTP_STATUS.OK)
+            .then(function(body) {
+              expect(body.name).toBe(PKG_NAME);
+              expect(body.versions[PKG_VERSION].name).toBe(PKG_NAME);
+              expect(body.versions[PKG_VERSION].dist.tarball).toBe(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
+              expect(body[DIST_TAGS]).toEqual({latest: PKG_VERSION});
+            });
         });
       });
-  });
+    });
   });
 }

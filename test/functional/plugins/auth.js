@@ -60,55 +60,55 @@ export default function(server2) {
 
     describe('test package access authorization', () => {
 
-     describe(`access with user ${USER1} on server2`, () => {
+      describe(`access with user ${USER1} on server2`, () => {
         beforeAll(function() {
           return server2.auth(USER1, CORRECT_PASSWORD)
-                   .status(HTTP_STATUS.CREATED)
-                   .body_ok(new RegExp(USER1));
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(new RegExp(USER1));
         });
 
         test(`should fails (404) on access ${UNEXISTING_PKG_NAME}`, () => {
           return server2.getPackage(UNEXISTING_PKG_NAME)
-                   .status(HTTP_STATUS.NOT_FOUND)
-                   .body_error(API_ERROR.NO_PACKAGE);
+            .status(HTTP_STATUS.NOT_FOUND)
+            .body_error(API_ERROR.NO_PACKAGE);
         });
 
         test(`should fails (403) access ${ONLY_ACCESS_BY_USER_2}`, () => {
           return server2.getPackage(ONLY_ACCESS_BY_USER_2)
-                   .status(HTTP_STATUS.FORBIDDEN)
-                   .body_error(API_ERROR.NOT_ALLOWED);
+            .status(HTTP_STATUS.FORBIDDEN)
+            .body_error(API_ERROR.NOT_ALLOWED);
         });
 
         test(`should fails (404) access ${AUTH_PKG_ACCESS_NAME}`, () => {
           return server2.getPackage(AUTH_PKG_ACCESS_NAME)
-                   .status(HTTP_STATUS.NOT_FOUND)
-                   .body_error(API_ERROR.NO_PACKAGE);
+            .status(HTTP_STATUS.NOT_FOUND)
+            .body_error(API_ERROR.NO_PACKAGE);
         });
       });
 
       describe(`access with user ${USER2} on server2`, () => {
         beforeAll(function() {
           return server2.auth(USER2, CORRECT_PASSWORD)
-                   .status(HTTP_STATUS.CREATED)
-                   .body_ok(new RegExp(USER2));
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(new RegExp(USER2));
         });
 
         test(`should fails (403) on access ${UNEXISTING_PKG_NAME}`, () => {
           return server2.getPackage(UNEXISTING_PKG_NAME)
-                   .status(HTTP_STATUS.FORBIDDEN)
-                   .body_error(API_ERROR.NOT_ALLOWED);
+            .status(HTTP_STATUS.FORBIDDEN)
+            .body_error(API_ERROR.NOT_ALLOWED);
         });
 
         test(`should fails (403) on access ${DENY_PKG_NAME}`, () => {
           return server2.getPackage(DENY_PKG_NAME)
-                   .status(HTTP_STATUS.FORBIDDEN)
-                   .body_error(API_ERROR.NOT_ALLOWED);
+            .status(HTTP_STATUS.FORBIDDEN)
+            .body_error(API_ERROR.NOT_ALLOWED);
         });
 
         test(`should fails (404) access ${AUTH_PKG_ACCESS_NAME}`, () => {
           return server2.getPackage(AUTH_PKG_ACCESS_NAME)
-                   .status(HTTP_STATUS.NOT_FOUND)
-                   .body_error(API_ERROR.NO_PACKAGE);
+            .status(HTTP_STATUS.NOT_FOUND)
+            .body_error(API_ERROR.NO_PACKAGE);
         });
       });
 

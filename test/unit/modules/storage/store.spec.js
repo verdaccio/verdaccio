@@ -18,7 +18,7 @@ import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 setup([]);
 
 const storagePath = path.join(__dirname, '../../partials/store/test-storage-store.spec');
-const mockServerPort: number = 55548;
+const mockServerPort = 55548;
 const generateStorage = async function(port = mockServerPort) {
   const storageConfig = configExample({
     self_path: __dirname,

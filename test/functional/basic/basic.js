@@ -19,8 +19,8 @@ function getPackage(name) {
 export default function(server: any, server2: any) {
   describe('basic test endpoints', () => {
 
-    const PKG_NAME: string = 'testpkg';
-    const PKG_VERSION: string = '0.0.1';
+    const PKG_NAME = 'testpkg';
+    const PKG_VERSION = '0.0.1';
 
     beforeAll(function() {
       return server.auth(CREDENTIALS.user, CREDENTIALS.password)

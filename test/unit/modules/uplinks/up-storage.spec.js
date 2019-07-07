@@ -15,7 +15,7 @@ import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 setup([]);
 
 describe('UpStorge', () => {
-  const mockServerPort: number = 55547;
+  const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
     url: `http://0.0.0.0:${mockServerPort}`
@@ -77,80 +77,80 @@ describe('UpStorge', () => {
   });
 
 
-    describe('UpStorge::fetchTarball', () => {
-      test('should fetch a tarball from uplink', (done) => {
-        const proxy = generateProxy();
-        const tarball: string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
-        const stream = proxy.fetchTarball(tarball);
+  describe('UpStorge::fetchTarball', () => {
+    test('should fetch a tarball from uplink', (done) => {
+      const proxy = generateProxy();
+      const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
+      const stream = proxy.fetchTarball(tarball);
 
-        stream.on('error', function(err) {
-          expect(err).toBeNull();
-          done();
-        });
-
-        stream.on('content-length', function(contentLength) {
-          expect(contentLength).toBeDefined();
-          done();
-        });
-
+      stream.on('error', function(err) {
+        expect(err).toBeNull();
+        done();
       });
 
-      test('should throw a 404 on fetch a tarball from uplink', (done) => {
-        const proxy = generateProxy();
-        const tarball: string = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
-        const stream = proxy.fetchTarball(tarball);
+      stream.on('content-length', function(contentLength) {
+        expect(contentLength).toBeDefined();
+        done();
+      });
 
+    });
+
+    test('should throw a 404 on fetch a tarball from uplink', (done) => {
+      const proxy = generateProxy();
+      const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
+      const stream = proxy.fetchTarball(tarball);
+
+      stream.on('error', function(err) {
+        expect(err).not.toBeNull();
+        expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+        expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
+
+        done();
+      });
+
+      stream.on('content-length', function(contentLength) {
+        expect(contentLength).toBeDefined();
+        done();
+      });
+
+    });
+
+    test('should be offline uplink', (done) => {
+      const proxy = generateProxy();
+      const tarball = 'http://404.verdaccioo.com';
+      const stream = proxy.fetchTarball(tarball);
+      expect(proxy.failed_requests).toBe(0);
+
+      //to test a uplink is offline we have to be try 3 times
+      //the default failed request are set to 2
+      process.nextTick(function() {
         stream.on('error', function(err) {
           expect(err).not.toBeNull();
-          expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
-          expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
+          // expect(err.statusCode).toBe(404);
+          expect(proxy.failed_requests).toBe(1);
 
-          done();
-        });
-
-        stream.on('content-length', function(contentLength) {
-          expect(contentLength).toBeDefined();
-          done();
-        });
-
-      });
-
-      test('should be offline uplink', (done) => {
-        const proxy = generateProxy();
-        const tarball: string = 'http://404.verdaccioo.com';
-        const stream = proxy.fetchTarball(tarball);
-        expect(proxy.failed_requests).toBe(0);
-
-        //to test a uplink is offline we have to be try 3 times
-        //the default failed request are set to 2
-        process.nextTick(function() {
-          stream.on('error', function(err) {
+          const streamSecondTry = proxy.fetchTarball(tarball);
+          streamSecondTry.on('error', function(err) {
             expect(err).not.toBeNull();
-            // expect(err.statusCode).toBe(404);
-            expect(proxy.failed_requests).toBe(1);
-
-            const streamSecondTry = proxy.fetchTarball(tarball);
-              streamSecondTry.on('error', function(err) {
-                expect(err).not.toBeNull();
-                /*
+            /*
                   code: 'ENOTFOUND',
                   errno: 'ENOTFOUND',
                  */
-                // expect(err.statusCode).toBe(404);
-                expect(proxy.failed_requests).toBe(2);
-                const streamThirdTry = proxy.fetchTarball(tarball);
-                streamThirdTry.on('error', function(err) {
-                  expect(err).not.toBeNull();
-                  expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
-                  expect(proxy.failed_requests).toBe(2);
-                  expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
-                  done();
-                });
-              });
+            // expect(err.statusCode).toBe(404);
+            expect(proxy.failed_requests).toBe(2);
+            const streamThirdTry = proxy.fetchTarball(tarball);
+            streamThirdTry.on('error', function(err) {
+              expect(err).not.toBeNull();
+              expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
+              expect(proxy.failed_requests).toBe(2);
+              expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
+              done();
+            });
           });
         });
       });
     });
+  });
 
   describe('UpStorge::isUplinkValid', () => {
 
@@ -188,7 +188,7 @@ describe('UpStorge', () => {
       test('should validate tarball path against uplink case#6', () => {
         // same protocol, same domain, port === 443 which is also the standard for https
         expect(validateUpLink('https://my.domain.test',
-        `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(true);
+          `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(true);
       });
 
       test('should validate tarball path against uplink case#7', () => {
@@ -202,8 +202,8 @@ describe('UpStorge', () => {
 
     describe('invalid use cases', () => {
       test('should fails on validate tarball path against uplink', () => {
-        const url: string = 'https://artifactory.mydomain.com';
-        const tarBallUrl: string = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+        const url = 'https://artifactory.mydomain.com';
+        const tarBallUrl = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 

@@ -14,7 +14,7 @@ export function validatePassword(password: string, minLength: number = DEFAULT_M
  * Create a RemoteUser object
  * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
  */
-export function createRemoteUser(name: string, pluginGroups: Array<string>): RemoteUser {
+export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
   const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
 
@@ -192,7 +192,7 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
   }
 }
 
-export const expireReasons: Array<string> = ['JsonWebTokenError', 'TokenExpiredError'];
+export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError'];
 
 export function verifyJWTPayload(token: string, secret: string): RemoteUser {
   try {

@@ -17,10 +17,10 @@ export default class VerdaccioProcess implements IServerProcess {
   cleanStore: boolean;
 
   constructor(config: IVerdaccioConfig,
-              bridge: IServerBridge,
-              silence: boolean = true,
-              isDebug: boolean = false,
-              cleanStore: boolean = true) {
+    bridge: IServerBridge,
+    silence: boolean = true,
+    isDebug: boolean = false,
+    cleanStore: boolean = true) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
