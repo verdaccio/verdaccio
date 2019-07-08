@@ -436,13 +436,13 @@ class Storage implements IStorageHandler {
    returns callback(err, result, uplink_errors)
    */
   public _syncUplinksMetadata(name: string, packageInfo: Package, options: ISyncUplinks, callback: Callback): void {
-    let exists = true;
+    let found = true;
     const self = this;
     const upLinks: IProxy[] = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
 
     if (!packageInfo) {
-      exists = false;
+      found = false;
       packageInfo = generatePackageTemplate(name);
     }
 
@@ -515,18 +515,39 @@ class Storage implements IStorageHandler {
               return cb(null, [err]);
             }
 
-            // if we got to this point, assume that the correct package exists
-            // on the uplink
-            exists = true;
-            cb();
-          }
-        );
+          // if we got to this point, assume that the correct package exists
+          // on the uplink
+          found = true;
+          cb();
+        });
       },
       // @ts-ignore
       (err: Error, upLinksErrors: any): AsyncResultArrayCallback<unknown, Error> => {
         assert(!err && Array.isArray(upLinksErrors));
-        if (!exists) {
-          return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
+
+        // Check for connection timeout or reset errors with uplink(s)
+        // (these should be handled differently from the package not being found)
+        if (!found) {
+          let uplinkTimeoutError;
+          for (let i = 0; i < upLinksErrors.length; i++) {
+            if (upLinksErrors[i]) {
+              for (let j = 0; j < upLinksErrors[i].length; j++) {
+                if (upLinksErrors[i][j]) {
+                  const code = upLinksErrors[i][j].code;
+                  if (code === 'ETIMEDOUT' || code === 'ESOCKETTIMEDOUT' || code === 'ECONNRESET') {
+                    uplinkTimeoutError = true;
+                    break;
+                  }
+                }
+              }
+            }
+          }
+
+          if (uplinkTimeoutError) {
+            return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
+          } else {
+            return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
+          }
         }
 
         if (upLinks.length === 0) {

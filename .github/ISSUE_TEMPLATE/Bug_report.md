@@ -25,7 +25,10 @@ If applicable, add screenshots to help explain your problem.
  - Docker commands [e.g. docker pull ...]
  - Docker Version [e.g. v18.05.0-ce-rc1]
 
-**Configuration File (cat ~/.config/verdaccio/config.yaml)** 
+**Configuration File (cat ~/.config/verdaccio/config.yaml)**
+
+**Environment information**
+Please paste the results of `verdaccio --info` here 
 
 **Debugging output**
  - `$ NODE_DEBUG=request verdaccio` display request calls (verdaccio <--> uplinks)

@@ -52,14 +52,8 @@ action "release:lint" {
   args = "yarn run lint"
 }
 
-action "release:test" {
-  uses = "docker://node:10"
-  needs = ["release:build"]
-  args = "sh scripts/puppeteer-setup-ci.sh"
-}
-
 action "release:publish" {
-  needs = ["release:test"]
+  needs = ["release:build"]
   uses = "docker://node:10"
   args = "sh scripts/publish.sh"
   secrets = [

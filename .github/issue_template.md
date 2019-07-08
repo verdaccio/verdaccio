@@ -22,7 +22,10 @@ Some advices before file an issue
  - `$ npm -ddd` prints:
  - `$ npm config get registry` prints:
  - Verdaccio terminal output
- - Which (Windows, OS X/macOS, or Linux) environment are you running verdaccio?:
+ - Please paste the results of `verdaccio --info` here:
+
+ <!-- Local environment information -->
+ 
  - Verdaccio configuration file, eg: `cat ~/.config/verdaccio/config.yaml`
   - Container Options:
    - Docker?:

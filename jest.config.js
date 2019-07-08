@@ -6,7 +6,7 @@ module.exports = {
   collectCoverage: true,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testURL: 'http://localhost',
-  testRegex: '(test/unit.*\\.spec|test/unit/webui/.*\\.spec)\\.js',
+  testRegex: '(test/unit.*\\.spec)\\.js',
   // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
   // when it tries to scan for package.json files.
   transform: {

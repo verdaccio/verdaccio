@@ -28,6 +28,7 @@ import race from './performance/race';
 import pluginsAuth from './plugins/auth';
 import middleware from './plugins/middleware';
 import upLinkCache from './uplinks/cache';
+import uplinkTimeout from './uplinks/timeout';
 
 describe('functional test verdaccio', function() {
   jest.setTimeout(10000);
@@ -54,14 +55,15 @@ describe('functional test verdaccio', function() {
   security(server1);
   addtag(server1);
   pluginsAuth(server2);
-  notify(app);
+  notify(app);  
+  uplinkTimeout(server1, server2, server3);
   // requires packages published to server1/server2
   upLinkCache(server1, server2, server3);
   adduser(server1);
   logout(server1);
   basic(server1, server2);
   simpleSearch(server1, server2, app)
-
+  
 });
 
 process.on('unhandledRejection', function(err) {

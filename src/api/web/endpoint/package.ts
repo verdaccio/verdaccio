@@ -2,9 +2,8 @@
  * @prettier
  * @flow
  */
-
 import _ from 'lodash';
-import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme, formatAuthor } from '../../../lib/utils';
+import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme, formatAuthor, convertDistRemoteToLocalTarballUrls } from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { generateGravatarUrl } from '../../../utils/user';
@@ -110,7 +109,8 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
       callback: function(err: Error, info: $SidebarPackage): void {
         if (_.isNil(err)) {
           let sideBarInfo: any = _.clone(info);
-          sideBarInfo.latest = info.versions[info[DIST_TAGS].latest];
+          sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(info, req, config.url_prefix).versions;
+          sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
           sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
           sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
           if (config.web) {

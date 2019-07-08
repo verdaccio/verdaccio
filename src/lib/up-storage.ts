@@ -553,7 +553,7 @@ class ProxyStorage implements IProxy {
       //
       // FIXME: proxy logic is odd, something is wrong here.
       // @ts-ignore
-      if (this.proxy === false) {
+      if (!this.proxy) {
         headers['X-Forwarded-For'] = (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] + ', ' : '') + req.connection.remoteAddress;
       }
     }
