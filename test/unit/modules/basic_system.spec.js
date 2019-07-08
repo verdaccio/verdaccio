@@ -11,6 +11,7 @@ const server = require('http').createServer(app);
 
 describe('basic system test', () => {
   let port;
+  jest.setTimeout(20000);
 
   beforeAll(function(done) {
     rimraf(__dirname + '/store/test-storage', done);
