@@ -17,7 +17,7 @@ import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { mergeVersions } from './metadata-utils';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
 import type { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks } from '../../types';
-import type { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
+import type { Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger, IPluginStorageFilter } from '@verdaccio/types';
 import type { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { hasProxyTo } from './config-utils';
 import { logger } from '../lib/logger';
@@ -27,6 +27,7 @@ class Storage implements IStorageHandler {
   config: Config;
   logger: Logger;
   uplinks: ProxyList;
+  filters: Array<IPluginStorageFilter>;
 
   constructor(config: Config) {
     this.config = config;
@@ -34,7 +35,8 @@ class Storage implements IStorageHandler {
     this.logger = logger.child();
   }
 
-  init(config: Config) {
+  init(config: Config, filters: Array<IPluginStorageFilter> = []) {
+    this.filters = filters;
     this.localStorage = new LocalStorage(this.config, logger);
 
     return this.localStorage.getSecret(config);
@@ -525,11 +527,24 @@ class Storage implements IStorageHandler {
           return callback(null, packageInfo);
         }
 
-        self.localStorage.updateVersions(name, packageInfo, function(err, packageJsonLocal: Package) {
+        self.localStorage.updateVersions(name, packageInfo, async (err, packageJsonLocal: Package) => {
           if (err) {
             return callback(err);
           }
-          return callback(null, packageJsonLocal, upLinksErrors);
+          // Any error here will cause a 404, like an uplink error. This is likely the right thing to do
+          // as a broken filter is a security risk.
+          const filterErrors = [];
+          // This MUST be done serially and not in parallel as they modify packageJsonLocal
+          for (const filter of self.filters) {
+            try {
+              // These filters can assume it's save to modify packageJsonLocal and return it directly for
+              // performance (i.e. need not be pure)
+              packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
+            } catch (err) {
+              filterErrors.push(err);
+            }
+          }
+          callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
         });
       }
     );

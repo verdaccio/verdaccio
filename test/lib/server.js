@@ -4,7 +4,7 @@ import _ from 'lodash';
 import assert from 'assert';
 import smartRequest from './request';
 import type {IServerBridge} from '../types';
-import {HEADERS, HTTP_STATUS, TOKEN_BASIC} from '../../src/lib/constants';
+import {API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC} from '../../src/lib/constants';
 import {buildToken} from "../../src/lib/utils";
 import {CREDENTIALS} from "../functional/config.functional";
 
@@ -80,7 +80,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}`,
       method: 'PUT',
       headers: {
-        'content-type': HEADERS.JSON,
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
       },
     }).send(data);
   }
@@ -94,7 +94,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(version)}/-tag/latest`,
       method: 'PUT',
       headers: {
-        'content-type': HEADERS.JSON,
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
       },
     }).send(data);
   }
@@ -112,7 +112,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
-        'content-type': HEADERS.OCTET_STREAM,
+        [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM,
       },
     }).send(data);
   }
@@ -122,7 +122,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        'content-type': HEADERS.JSON_CHARSET,
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
       },
     });
   }
@@ -132,7 +132,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        'content-type': HEADERS.JSON_CHARSET,
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
       },
     });
   }
@@ -143,7 +143,7 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
       method: 'PUT',
       headers: {
-        'content-type': HEADERS.JSON,
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
       },
     }).send(JSON.stringify(version));
   }
@@ -153,8 +153,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
-        'content-type': HEADERS.OCTET_STREAM,
-        'content-length': size,
+        [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM,
+        [HEADERS.CONTENT_LENGTH]: size,
       },
       timeout: 1000,
     });
@@ -184,7 +184,7 @@ export default class Server implements IServerBridge {
   addPackage(name: string) {
     return this.putPackage(name, require('../functional/fixtures/package')(name))
       .status(HTTP_STATUS.CREATED)
-      .body_ok('created new package');
+      .body_ok(API_MESSAGE.PKG_CREATED);
   }
 
   whoami() {
@@ -210,7 +210,7 @@ export default class Server implements IServerBridge {
       uri: '/-/_debug',
       method: 'GET',
       headers: {
-        'content-type': HEADERS.JSON,
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
       },
     })
   }
