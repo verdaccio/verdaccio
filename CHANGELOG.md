@@ -1,6 +1,31 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [4.1.0](https://github.com/verdaccio/verdaccio/compare/v4.0.4...v4.1.0) (2019-07-08)
+
+
+### Features
+
+* parse YAML/JSON/JS config file ([#1258](https://github.com/verdaccio/verdaccio/issues/1258)) ([95d134b](https://github.com/verdaccio/verdaccio/commit/95d134b))
+* plugin support to filter packages ([b9ffac5](https://github.com/verdaccio/verdaccio/commit/b9ffac5)), closes [#818](https://github.com/verdaccio/verdaccio/issues/818)
+* **chore:** Included provision to show up local environment information ([#1365](https://github.com/verdaccio/verdaccio/issues/1365)) ([eb6bf51](https://github.com/verdaccio/verdaccio/commit/eb6bf51)), closes [#1364](https://github.com/verdaccio/verdaccio/issues/1364)
+
+
+### Tests
+
+*  increase usage of constants ([2f3ec2c](https://github.com/verdaccio/verdaccio/commit/2f3ec2c))
+* fix broken test for validate parameters ([4bf6b3b](https://github.com/verdaccio/verdaccio/commit/4bf6b3b))
+* relocate api spec test ([8786a37](https://github.com/verdaccio/verdaccio/commit/8786a37))
+* relocate helpers ([d052bce](https://github.com/verdaccio/verdaccio/commit/d052bce))
+* relocate notification test ([596c727](https://github.com/verdaccio/verdaccio/commit/596c727))
+* relocate plugin storage ([e7400ce](https://github.com/verdaccio/verdaccio/commit/e7400ce))
+* relocate spec test ([b4c42c1](https://github.com/verdaccio/verdaccio/commit/b4c42c1))
+* relocate test ([3929633](https://github.com/verdaccio/verdaccio/commit/3929633))
+* relocate unit test ([ca2e23c](https://github.com/verdaccio/verdaccio/commit/ca2e23c))
+* relocate unit test cli, proxy, utils ([b1eb7c6](https://github.com/verdaccio/verdaccio/commit/b1eb7c6))
+
+
 
 ## [4.0.4](https://github.com/verdaccio/verdaccio/compare/v4.0.3...v4.0.4) (2019-06-20)
 
