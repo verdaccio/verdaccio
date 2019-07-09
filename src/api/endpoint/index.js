@@ -29,8 +29,8 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   // this might be too harsh, so ask if it causes trouble
   // $FlowFixMe
   app.param('package', validatePackage);
+  app.param('filename', validatePackage);
   // $FlowFixMe
-  app.param('filename', validateName);
   app.param('tag', validateName);
   app.param('version', validateName);
   app.param('revision', validateName);

@@ -149,19 +149,20 @@ class Storage implements IStorageHandler {
       localStream.abort();
       localStream = null; // we force for garbage collector
       self.localStorage.getPackageMetadata(name, (err, info: Package) => {
-        if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
+        const encodedFilename = encodeURIComponent(filename);
+        if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[encodedFilename]) === false) {
           // information about this file exists locally
-          serveFile(info._distfiles[filename]);
+          serveFile(info._distfiles[encodedFilename]);
         } else {
           // we know nothing about this file, trying to get information elsewhere
           self._syncUplinksMetadata(name, info, {}, (err, info: Package) => {
             if (_.isNil(err) === false) {
               return readStream.emit('error', err);
             }
-            if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
+            if (_.isNil(info._distfiles) || _.isNil(info._distfiles[encodedFilename])) {
               return readStream.emit('error', err404);
             }
-            serveFile(info._distfiles[filename]);
+            serveFile(info._distfiles[encodedFilename]);
           });
         }
       });

@@ -6,7 +6,7 @@
 import assert from 'assert';
 import UrlNode from 'url';
 import _ from 'lodash';
-import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
+import { ErrorCode, isObject, getLatestVersion, tagVersion, validatePackage } from './utils';
 import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
 import { API_ERROR, DIST_TAGS, STORAGE, USERS } from './constants';
 import { createTarballHash } from './crypto-utils';
@@ -354,7 +354,7 @@ class LocalStorage implements IStorage {
    * @param {*} callback
    */
   removeTarball(name: string, filename: string, revision: string, callback: Callback) {
-    assert(validateName(filename));
+    assert(validatePackage(filename));
 
     this._updatePackage(
       name,
@@ -386,7 +386,7 @@ class LocalStorage implements IStorage {
    * @return {Stream}
    */
   addTarball(name: string, filename: string) {
-    assert(validateName(filename));
+    assert(validatePackage(filename));
 
     let length = 0;
     const shaOneHash = createTarballHash();
@@ -488,7 +488,7 @@ class LocalStorage implements IStorage {
    * @return {ReadTarball}
    */
   getTarball(name: string, filename: string): IReadTarball {
-    assert(validateName(filename));
+    assert(validatePackage(filename));
 
     const storage: IPackageStorage = this._getLocalStorage(name);
 
@@ -644,7 +644,7 @@ class LocalStorage implements IStorage {
       this.logger.warn('plugin search not implemented yet');
       onEnd();
     } else {
-      this.localData.search(onPackage, onEnd, validateName);
+      this.localData.search(onPackage, onEnd, validatePackage);
     }
   }
 
