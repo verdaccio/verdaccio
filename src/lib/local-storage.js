@@ -360,8 +360,19 @@ class LocalStorage implements IStorage {
       name,
       (data, cb) => {
         if (data._attachments[filename]) {
-          delete data._attachments[filename];
-          cb();
+          // get version form _attachments;
+          // there aways had 'version' in verdaccio publish package.
+
+          // see https://github.com/verdaccio/verdaccio/issues/1359
+          const version = data._attachments[filename].version;
+          if (version && data.versions[version] && data.time[version]) {
+            delete data.versions[version];
+            delete data.time[version];
+            delete data._attachments[filename];
+            cb();
+          } else {
+            cb(this._getFileNotAvailable());
+          }
         } else {
           cb(this._getFileNotAvailable());
         }
