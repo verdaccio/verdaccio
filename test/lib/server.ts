@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash';
 import assert from 'assert';
 import smartRequest from './request';
@@ -13,17 +11,17 @@ const buildAuthHeader = (user, pass): string => {
 };
 
 export default class Server implements IServerBridge {
-  url: string;
-  userAgent: string;
-  authstr: string;
+  public url: string;
+  public userAgent: string;
+  public authstr: string;
 
-  constructor(url: string) {
+  public constructor(url: string) {
     this.url = url.replace(/\/$/, '');
     this.userAgent = 'node/v8.1.2 linux x64';
     this.authstr = buildAuthHeader(CREDENTIALS.user, CREDENTIALS.password);
   }
 
-  request(options: any): any {
+  public request(options: any): any {
     assert(options.uri);
     const headers = options.headers || {};
 
@@ -40,7 +38,7 @@ export default class Server implements IServerBridge {
     });
   }
 
-  auth(name: string, password: string) {
+  public auth(name: string, password: string) {
     this.authstr = buildAuthHeader(name, password);
     return this.request({
       uri: `/-/user/org.couchdb.user:${encodeURIComponent(name)}/-rev/undefined`,
@@ -57,7 +55,7 @@ export default class Server implements IServerBridge {
     });
   }
 
-  logout(token: string) {
+  public logout(token: string) {
     return this.request({
       uri: `/-/user/token/${encodeURIComponent(token)}`,
       method: 'DELETE',
@@ -65,14 +63,14 @@ export default class Server implements IServerBridge {
   }
 
 
-  getPackage(name: string) {
+  public getPackage(name: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}`,
       method: 'GET',
     });
   }
 
-  putPackage(name: string, data) {
+  public putPackage(name: string, data) {
     if (_.isObject(data) && !Buffer.isBuffer(data)) {
       data = JSON.stringify(data);
     }
@@ -85,7 +83,7 @@ export default class Server implements IServerBridge {
     }).send(data);
   }
 
-  putVersion(name: string, version: string, data: any) {
+  public putVersion(name: string, version: string, data: any) {
     if (_.isObject(data) && !Buffer.isBuffer(data)) {
       data = JSON.stringify(data);
     }
@@ -99,7 +97,7 @@ export default class Server implements IServerBridge {
     }).send(data);
   }
 
-  getTarball(name: string, filename: string) {
+  public getTarball(name: string, filename: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}`,
       method: 'GET',
@@ -107,7 +105,7 @@ export default class Server implements IServerBridge {
     });
   }
 
-  putTarball(name: string, filename: string, data: any) {
+  public putTarball(name: string, filename: string, data: any) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
@@ -117,7 +115,7 @@ export default class Server implements IServerBridge {
     }).send(data);
   }
 
-  removeTarball(name: string) {
+  public removeTarball(name: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-rev/whatever`,
       method: 'DELETE',
@@ -127,7 +125,7 @@ export default class Server implements IServerBridge {
     });
   }
 
-  removeSingleTarball(name: string, filename: string) {
+  public removeSingleTarball(name: string, filename: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
       method: 'DELETE',
@@ -138,7 +136,7 @@ export default class Server implements IServerBridge {
   }
 
 
-  addTag(name: string, tag: string, version: string) {
+  public addTag(name: string, tag: string, version: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
       method: 'PUT',
@@ -148,7 +146,7 @@ export default class Server implements IServerBridge {
     }).send(JSON.stringify(version));
   }
 
-  putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function): Promise<*> {
+  public putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function): Promise<any> {
     let promise = this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
@@ -181,13 +179,13 @@ export default class Server implements IServerBridge {
     });
   }
 
-  addPackage(name: string) {
+  public addPackage(name: string) {
     return this.putPackage(name, require('../functional/fixtures/package')(name))
       .status(HTTP_STATUS.CREATED)
       .body_ok(API_MESSAGE.PKG_CREATED);
   }
 
-  whoami() {
+  public whoami() {
     return this.request({
       uri: '/-/whoami'
     }).status(HTTP_STATUS.OK)
@@ -196,7 +194,7 @@ export default class Server implements IServerBridge {
       });
   }
 
-  ping() {
+  public ping() {
     return this.request({
       uri: '/-/ping'
     }).status(HTTP_STATUS.OK)
@@ -205,7 +203,7 @@ export default class Server implements IServerBridge {
       });
   }
 
-  debug() {
+  public debug() {
     return this.request({
       uri: '/-/_debug',
       method: 'GET',

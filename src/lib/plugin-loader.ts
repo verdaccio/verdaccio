@@ -1,11 +1,6 @@
-/**
- * @prettier
- * @flow
- */
-
 import Path from 'path';
 import _ from 'lodash';
-import logger from './logger';
+import { logger } from './logger';
 import { Config, IPlugin } from '@verdaccio/types';
 import { MODULE_NOT_FOUND } from './constants';
 
@@ -14,7 +9,7 @@ import { MODULE_NOT_FOUND } from './constants';
  * @param {*} path the module's path
  * @return {Object}
  */
-function tryLoad(path: string) {
+function tryLoad(path: string): any {
   try {
     return require(path);
   } catch (err) {
@@ -25,15 +20,15 @@ function tryLoad(path: string) {
   }
 }
 
-function mergeConfig(appConfig, pluginConfig) {
+function mergeConfig(appConfig, pluginConfig): Config {
   return _.merge(appConfig, pluginConfig);
 }
 
-function isValid(plugin) {
+function isValid(plugin): boolean {
   return _.isFunction(plugin) || _.isFunction(plugin.default);
 }
 
-function isES6(plugin) {
+function isES6(plugin): boolean {
   return Object.keys(plugin).includes('default');
 }
 
@@ -101,25 +96,31 @@ export default function loadPlugin<T extends IPlugin<T>>(
       }
 
       if (plugin === null) {
-        logger.logger.error({ content: pluginId }, 'plugin not found. try npm install verdaccio-@{content}');
+        logger.error({ content: pluginId, prefix }, 'plugin not found. try npm install @{prefix}-@{content}');
         throw Error(`
         ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
       }
 
       if (!isValid(plugin)) {
-        logger.logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
-        throw Error(`"${pluginId}" is not a valid plugin`);
+        logger.error({ content: pluginId }, "@{prefix}-@{content} plugin does not have the right code structure");
+        throw Error(`"${pluginId}" plugin does not have the right code structure`);
       }
+
       /* eslint new-cap:off */
-      plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+        try {
+            plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+        } catch (error) {
+            plugin = null;
+            logger.error({ error, pluginId }, "error loading a plugin @{pluginId}: @{error}");
+        }
       /* eslint new-cap:off */
 
       if (plugin === null || !sanityCheck(plugin)) {
-        logger.logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
-        throw Error(`"${pluginId}" is not a valid plugin`);
+        logger.error({ content: pluginId, prefix }, "@{prefix}-@{content} doesn't look like a valid plugin");
+        throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
       }
 
-      logger.logger.warn({ content: `${prefix}-${pluginId}` }, 'Plugin successfully loaded: @{content}');
+      logger.warn({ content: pluginId, prefix }, 'Plugin successfully loaded: @{prefix}-@{content}');
       return plugin;
     }
   );

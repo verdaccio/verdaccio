@@ -2,7 +2,7 @@ export interface IVerdaccioConfig {
   storagePath: string;
   configPath: string;
   domainPath: string;
-  port: number;
+  port: number | string;
 }
 
 export interface IRequestPromise {

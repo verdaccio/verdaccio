@@ -1,6 +1,5 @@
-/**
- * @prettier
- */
+/* eslint-disable */
+
 import { isObject } from './utils';
 
 const cluster = require('cluster');
@@ -47,6 +46,8 @@ class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
   }
 }
 
+let logger;
+
 /**
  * Setup the Buyan logger
  * @param {*} logs list of log configuration
@@ -74,6 +75,7 @@ function setup(logs) {
       }
 
       const stream = new VerdaccioRotatingFileStream(
+        // @ts-ignore
         _.merge(
           {},
           // Defaults can be found here: https://github.com/trentm/node-bunyan#stream-type-rotating-file
@@ -83,8 +85,11 @@ function setup(logs) {
       );
 
       streams.push({
+        // @ts-ignore
         type: 'raw',
+        // @ts-ignore
         level,
+        // @ts-ignore
         stream,
       });
     } else {
@@ -124,15 +129,18 @@ function setup(logs) {
       }
 
       streams.push({
+        // @ts-ignore
         type: 'raw',
+        // @ts-ignore
         level,
+        // @ts-ignore
         stream: stream,
       });
     }
   });
 
   // buyan default configuration
-  const logger = new Logger({
+  logger = new Logger({
     name: pkgJSON.name,
     streams: streams,
     serializers: {
@@ -145,8 +153,6 @@ function setup(logs) {
   process.on('SIGUSR2', function() {
     Logger.reopenFileStreams();
   });
-
-  module.exports.logger = logger;
 }
 
 // adopted from socket.io
@@ -253,4 +259,4 @@ function print(type, msg, obj, colors) {
   }
 }
 
-module.exports.setup = setup;
+export { setup, logger };

@@ -1,12 +1,11 @@
-// @flow
 import {IVerdaccioConfig} from '../types';
 
 export class VerdaccioConfig implements IVerdaccioConfig {
 
-  storagePath: string;
-  configPath: string;
-  domainPath: string;
-  port: number;
+  public storagePath: string;
+  public configPath: string;
+  public domainPath: string;
+  public port: number;
 
   constructor(storagePath: string, configPath: string, domainPath: string, port: number) {
     this.storagePath = storagePath;

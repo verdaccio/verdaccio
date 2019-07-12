@@ -16,7 +16,7 @@ import star from './star';
 import { Router } from 'express';
 import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
-import logger from '../../../lib/logger';
+import { logger } from '../../../lib/logger';
 
 export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
   const can = allow(auth);

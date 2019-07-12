@@ -515,11 +515,12 @@ class Storage implements IStorageHandler {
               return cb(null, [err]);
             }
 
-          // if we got to this point, assume that the correct package exists
-          // on the uplink
-          found = true;
-          cb();
-        });
+            // if we got to this point, assume that the correct package exists
+            // on the uplink
+            found = true;
+            cb();
+          }
+        );
       },
       // @ts-ignore
       (err: Error, upLinksErrors: any): AsyncResultArrayCallback<unknown, Error> => {

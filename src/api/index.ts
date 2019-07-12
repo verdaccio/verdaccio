@@ -1,10 +1,5 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
-import express from 'express';
+import express, { Application } from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import { HttpError } from 'http-errors';
@@ -18,14 +13,12 @@ import { API_ERROR, HTTP_STATUS } from '../lib/constants';
 import AppConfig from '../lib/config';
 import webAPI from './web/api';
 import web from './web';
-
-import { Application } from 'express';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import { setup, logger } from '../lib/logger';
 import { log, final, errorReportingMiddleware } from './middleware';
 
-const defineAPI = function(config: IConfig, storage: IStorageHandler) {
+const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
   const app: Application = express();
   // run in production mode by default, just in case
@@ -36,14 +29,14 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   // Router setup
   app.use(log);
   app.use(errorReportingMiddleware);
-  app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     res.setHeader('X-Powered-By', config.user_agent);
     next();
   });
 
   app.use(compression());
 
-  app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     req.url = '/-/static/favicon.png';
     next();
   });
@@ -106,7 +99,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler) {
   return app;
 };
 
-export default (async function(configHash: any) {
+export default (async function(configHash: any): Promise<any> {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   // register middleware plugins

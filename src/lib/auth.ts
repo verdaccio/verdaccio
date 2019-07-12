@@ -53,7 +53,8 @@ class Auth implements IAuth {
       (plugin: IPluginAuth<Config>): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
 
-        return !authenticate || !allow_access || !allow_publish;
+        // @ts-ignore
+        return authenticate || allow_access || allow_publish;
       }
     );
   }

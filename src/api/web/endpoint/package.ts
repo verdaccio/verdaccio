@@ -1,13 +1,9 @@
-/**
- * @prettier
- * @flow
- */
 import _ from 'lodash';
 import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme, formatAuthor, convertDistRemoteToLocalTarballUrls } from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { generateGravatarUrl } from '../../../utils/user';
-import logger from '../../../lib/logger';
+import { logger } from '../../../lib/logger';
 import { Router } from 'express';
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
 import { Config, Package } from '@verdaccio/types';

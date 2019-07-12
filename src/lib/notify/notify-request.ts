@@ -1,5 +1,5 @@
 import isNil from 'lodash/isNil';
-import logger from '../logger';
+import { logger } from '../logger';
 import request, { RequiredUriUrl } from 'request';
 import { HTTP_STATUS } from '../constants';
 

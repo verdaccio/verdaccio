@@ -1,5 +1,3 @@
-// @flow
-
 import path from 'path';
 import {DOMAIN_SERVERS} from '../../functional/config.functional';
 import VerdaccioProcess from '../../lib/server_process';

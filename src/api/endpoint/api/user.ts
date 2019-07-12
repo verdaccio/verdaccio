@@ -4,7 +4,7 @@ import Cookies from 'cookies';
 import { ErrorCode } from '../../../lib/utils';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '../../../lib/constants';
 import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
-import logger from '../../../lib/logger';
+import { logger } from '../../../lib/logger';
 
 import { Config, RemoteUser } from '@verdaccio/types';
 import { Response, Router } from 'express';

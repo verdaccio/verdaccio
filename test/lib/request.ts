@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash';
 import assert from 'assert';
 import request from 'request';

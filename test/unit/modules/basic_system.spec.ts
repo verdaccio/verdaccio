@@ -6,6 +6,12 @@ import request from 'request';
 import rimraf from 'rimraf';
 import config from '../partials/config/index';
 
+import { setup } from '../../../src/lib/logger';
+
+setup([
+  {type: 'stdout', format: 'pretty', level: 'trace'}
+]);
+
 const app = express();
 const server = require('http').createServer(app);
 
