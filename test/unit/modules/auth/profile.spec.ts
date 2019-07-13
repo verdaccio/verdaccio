@@ -1,5 +1,3 @@
-// @flow
-
 import request from 'supertest';
 import _ from 'lodash';
 import path from 'path';
@@ -18,7 +16,6 @@ setup([]);
 const parseConfigurationProfile = () => {
   return parseConfigurationFile(`profile/profile`);
 };
-
 
 describe('endpoint user profile', () => {
   let app;

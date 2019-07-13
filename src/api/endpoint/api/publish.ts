@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 import Path from 'path';
 import mime from 'mime';
@@ -129,7 +124,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
             try {
               await notify(metadataCopy, config, req.remote_user, `${metadataCopy.name}@${versionToPublish}`);
             } catch (error) {
-              logger.logger.error({ error }, 'notify batch service has failed: @{error}');
+              logger.error({ error }, 'notify batch service has failed: @{error}');
             }
 
             res.status(HTTP_STATUS.CREATED);

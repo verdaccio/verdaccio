@@ -5,7 +5,7 @@ import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../../src/lib/constants';
 describe('Parse listen address', () => {
   const useCases = [];
 
-  function addTest(uri, proto, host, port) {
+  function addTest(uri, proto, host?, port?) {
     useCases.push([uri, proto, host, port]);
   }
 

@@ -498,7 +498,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
 
@@ -517,7 +517,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
 
@@ -536,7 +536,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
 
@@ -555,7 +555,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
 
@@ -575,7 +575,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
 
@@ -599,7 +599,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.OK)
           .end(function(err) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
             //TODO: we have to catch the stream check whether it returns something
@@ -619,7 +619,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
@@ -723,7 +723,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
@@ -761,7 +761,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();
@@ -795,7 +795,7 @@ describe('endpoint unit test', () => {
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
-              expect.toBeNull();
+              expect(err).toBeNull();
               return done(err);
             }
             expect(res.body.ok).toBeDefined();

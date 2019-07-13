@@ -1,15 +1,19 @@
-let assert = require('assert');
-let tag_version = require('../../../../src/lib/utils').tagVersion;
+import assert from 'assert';
+import { tagVersion } from '../../../../src/lib/utils';
 
-require('../../../../src/lib/logger').setup([]);
+import { setup } from '../../../../src/lib/logger';
 
-describe('tag_version', () => {
+setup([]);
+
+describe('tagVersion', () => {
   test('add new one', () => {
     let pkg = {
       'versions': {},
       'dist-tags': {},
     };
-    assert(tag_version(pkg, '1.1.1', 'foo', {}));
+
+    // @ts-ignore
+    assert(tagVersion(pkg, '1.1.1', 'foo', {}));
     assert.deepEqual(pkg, {
       'versions': {},
       'dist-tags': {foo: '1.1.1'},
@@ -21,7 +25,9 @@ describe('tag_version', () => {
       'versions': {},
       'dist-tags': {foo: '1.1.0'},
     };
-    assert(tag_version(x, '1.1.1', 'foo'));
+
+    // @ts-ignore
+    assert(tagVersion(x, '1.1.1', 'foo'));
     assert.deepEqual(x, {
       'versions': {},
       'dist-tags': {foo: '1.1.1'},
@@ -33,7 +39,9 @@ describe('tag_version', () => {
       'versions': {},
       'dist-tags': {foo: '1.1.0'},
     };
-    assert(tag_version(x, '1.1.1', 'foo'));
+
+    // @ts-ignore
+    assert(tagVersion(x, '1.1.1', 'foo'));
     assert.deepEqual(x, {
       'versions': {},
       'dist-tags': {foo: '1.1.1'},

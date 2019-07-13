@@ -19,10 +19,10 @@ describe('api with no limited access configuration', () => {
   let app;
   let mockRegistry;
   const store = path.join(__dirname, '../../partials/store/access-storage');
+  jest.setTimeout(10000);
 
   beforeAll(function(done) {
     const mockServerPort = 55530;
-    // jest.setTimeout(100000000);
 
     rimraf(store, async () => {
       const configForTest = _.assign({}, _.cloneDeep(configDefault), {
@@ -61,6 +61,7 @@ describe('api with no limited access configuration', () => {
 
     test('should test fails on fetch endpoint /-/jquery', (done) => {
       request(app)
+        // @ts-ignore
         .get('/jquery')
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
@@ -76,6 +77,7 @@ describe('api with no limited access configuration', () => {
 
     test('should success on fetch endpoint /-/vue', (done) => {
       request(app)
+        // @ts-ignore
         .get('/vue')
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)

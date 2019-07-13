@@ -15,7 +15,7 @@ export function getPackage(
   request: any,
   header: string,
   pkg: string,
-  statusCode: number = HTTP_STATUS.OK) {
+  statusCode: number = HTTP_STATUS.OK): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request.get(`/${pkg}`)
@@ -32,7 +32,7 @@ export function loginUserToken(request: any,
                                user: string,
                                credentials: any,
                                token: string,
-                               statusCode: number = HTTP_STATUS.CREATED) {
+                               statusCode: number = HTTP_STATUS.CREATED): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request.put(`/-/user/org.couchdb.user:${user}`)
@@ -47,7 +47,7 @@ export function loginUserToken(request: any,
 }
 
 export function addUser(request: any, user: string, credentials: any,
-  statusCode: number = HTTP_STATUS.CREATED) {
+  statusCode: number = HTTP_STATUS.CREATED): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request.put(`/-/user/org.couchdb.user:${user}`)
@@ -60,7 +60,7 @@ export function addUser(request: any, user: string, credentials: any,
   });
 }
 
-export async function getNewToken(request: any, credentials: any) {
+export async function getNewToken(request: any, credentials: any): Promise<string> {
   return new Promise(async (resolve) => {
     const [err, res] = await
     addUser(request, credentials.name, credentials);
@@ -73,7 +73,7 @@ export async function getNewToken(request: any, credentials: any) {
   });
 }
 
-export function getProfile(request: any, token: string, statusCode: number = HTTP_STATUS.OK) {
+export function getProfile(request: any, token: string, statusCode: number = HTTP_STATUS.OK): Promise<any[]>  {
   // $FlowFixMe
   return new Promise((resolve) => {
     request.get(`/-/npm/v1/user`)
@@ -86,7 +86,7 @@ export function getProfile(request: any, token: string, statusCode: number = HTT
   });
 }
 
-export function postProfile(request: any, body: any, token: string, statusCode: number = HTTP_STATUS.OK) {
+export function postProfile(request: any, body: any, token: string, statusCode: number = HTTP_STATUS.OK): Promise<any[]>  {
   // $FlowFixMe
   return new Promise((resolve) => {
     request.post(`/-/npm/v1/user`)

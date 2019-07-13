@@ -4,15 +4,15 @@ import _ from 'lodash';
 import Config from '../../../../src/lib/config';
 import {parseConfigFile}  from '../../../../src/lib/utils';
 import {DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE} from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
+
+setup([]);
 
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);
 
   return path.join(__dirname, `../../../../conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`);
 };
-
-require('../../../../src/lib/logger').setup([]);
-
 const checkDefaultUplink = (config) => {
   expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
   expect(config.uplinks[DEFAULT_UPLINK].url).toMatch(DEFAULT_REGISTRY);
@@ -75,6 +75,7 @@ describe('Config file', () => {
       const config = new Config(parseConfigFile(resolveConf('docker')));
       checkDefaultUplink(config);
       expect(config.storage).toBe('/verdaccio/storage/data');
+      // @ts-ignore
       expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
       checkDefaultConfPackages(config);
     });
@@ -83,6 +84,7 @@ describe('Config file', () => {
       const config = new Config(parseConfigFile(resolveConf('default')));
       checkDefaultUplink(config);
       expect(config.storage).toBe('./storage');
+      // @ts-ignore
       expect(config.auth.htpasswd.file).toBe('./htpasswd');
       checkDefaultConfPackages(config);
     });

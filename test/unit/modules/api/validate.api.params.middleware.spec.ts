@@ -12,7 +12,7 @@ import fs from 'fs';
  app.param('token', validate_name);
  */
 describe('api endpoint app.param()', () => {
-  const file = '../endpoint/index.js';
+  const file = '../endpoint/index.ts';
   let m;
   const requirePath = path.normalize(path.join(__dirname + '/../../../../src/api/web/', file));
   const source = fs.readFileSync(requirePath, 'utf8');

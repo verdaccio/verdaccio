@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../../src/api/endpoint/api/publish';
 import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
 
@@ -39,6 +36,7 @@ describe('Publish endpoints - add a tag', () => {
       },
     };
 
+    // @ts-ignore
     addVersion(storage)(req, res, next);
 
     expect(res.status).toHaveBeenLastCalledWith(HTTP_STATUS.CREATED);
@@ -56,6 +54,7 @@ describe('Publish endpoints - add a tag', () => {
       },
     };
 
+    // @ts-ignore
     addVersion(storage)(req, res, next);
 
     expect(next).toHaveBeenLastCalledWith({ message: 'failure' });
@@ -97,6 +96,7 @@ describe('Publish endpoints - upload package tarball', () => {
       },
     };
 
+    // @ts-ignore
     uploadPackageTarball(storage)(req, res, next);
     expect(req.pipe).toHaveBeenCalled();
     expect(req.on).toHaveBeenCalled();
@@ -134,6 +134,7 @@ describe('Publish endpoints - delete tarball', () => {
       },
     };
 
+    // @ts-ignore
     removeTarball(storage)(req, res, next);
     expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
     expect(next).toHaveBeenCalledWith({ ok: 'tarball removed' });
@@ -150,6 +151,7 @@ describe('Publish endpoints - delete tarball', () => {
       },
     };
 
+    // @ts-ignore
     removeTarball(storage)(req, res, next);
     expect(next).toHaveBeenCalledWith(error);
   });
@@ -182,6 +184,7 @@ describe('Publish endpoints - un-publish package', () => {
       },
     };
 
+    // @ts-ignore
     unPublishPackage(storage)(req, res, next);
     expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
     expect(next).toHaveBeenCalledWith({ ok: 'package removed' });
@@ -198,6 +201,7 @@ describe('Publish endpoints - un-publish package', () => {
       },
     };
 
+    // @ts-ignore
     unPublishPackage(storage)(req, res, next);
     expect(next).toHaveBeenCalledWith(error);
   });
@@ -231,6 +235,7 @@ describe('Publish endpoints - publish package', () => {
 
     req.params._rev = REVISION_MOCK;
 
+    // @ts-ignore
     publishPackage(storage)(req, res, next);
     expect(storage.changePackage).toMatchSnapshot();
   });
@@ -240,6 +245,7 @@ describe('Publish endpoints - publish package', () => {
       addPackage: jest.fn(),
     };
 
+    // @ts-ignore
     publishPackage(storage)(req, res, next);
     expect(storage.addPackage).toMatchSnapshot();
   });
@@ -250,6 +256,8 @@ describe('Publish endpoints - publish package', () => {
         throw new Error();
       },
     };
+
+    // @ts-ignore
     publishPackage(storage)(req, res, next);
     expect(next).toHaveBeenCalledWith(new Error(API_ERROR.BAD_PACKAGE_DATA));
   });
@@ -277,6 +285,8 @@ describe('Publish endpoints - publish package', () => {
         name: 'verdaccio',
       },
     };
+
+    // @ts-ignore
     publishPackage(storage)(req, res, next);
     expect(storage.changePackage).toMatchSnapshot();
   });

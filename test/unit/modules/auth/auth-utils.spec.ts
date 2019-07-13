@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash';
 import Auth from '../../../../src/lib/auth';
 import {CHARACTER_ENCODING, TOKEN_BEARER} from '../../../../src/lib/constants';
@@ -19,7 +17,7 @@ import {
 import {aesDecrypt, verifyPayload} from '../../../../src/lib/crypto-utils';
 import {parseConfigurationFile} from '../../__helper';
 
-import {IAuth, } from '../../../../types';
+import { IAuth } from '../../../../types';
 import {Config, Security, RemoteUser} from '@verdaccio/types';
 
 setup([]);
@@ -47,7 +45,9 @@ describe('Auth utilities', () => {
     methodNotBeenCalled: string): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
     const auth: IAuth = new Auth(config);
+    // @ts-ignore
     const spy = jest.spyOn(auth, methodToSpy);
+    // @ts-ignore
     const spyNotCalled = jest.spyOn(auth, methodNotBeenCalled);
     const user: RemoteUser = {
       name: username,
@@ -154,9 +154,9 @@ describe('Auth utilities', () => {
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
         expect(credentials).toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.user).toEqual(user);
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.password).toEqual(pass);
       });
 
@@ -169,9 +169,9 @@ describe('Auth utilities', () => {
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, `Basic ${token}`);
         expect(credentials).toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.user).toEqual(user);
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.password).toEqual(pass);
       });
 
@@ -213,11 +213,11 @@ describe('Auth utilities', () => {
         const credentials = getMiddlewareCredentials(security, '12345', buildToken(TOKEN_BEARER, 'fakeToken'));
 
         expect(credentials).toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.name).not.toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.real_groups).toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.real_groups).toEqual([]);
       });
 
@@ -238,11 +238,11 @@ describe('Auth utilities', () => {
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.name).toEqual(user);
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.real_groups).toBeDefined();
-        // $FlowFixMe
+        // @ts-ignore
         expect(credentials.real_groups).toEqual([]);
       });
     });

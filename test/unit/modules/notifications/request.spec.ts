@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
 
 /**

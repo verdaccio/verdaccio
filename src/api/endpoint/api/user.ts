@@ -25,7 +25,7 @@ export default function(route: Router, auth: IAuth, config: Config) {
     if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
       auth.authenticate(name, password, async function callbackAuthenticate(err, groups) {
         if (err) {
-          logger.logger.trace({ name, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
+          logger.trace({ name, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
           return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD));
         }
 

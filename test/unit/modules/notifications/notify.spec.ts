@@ -1,16 +1,16 @@
-// @flow
-
 import {parseConfigurationFile} from '../../__helper';
 import {parseConfigFile} from '../../../../src/lib/utils';
 import {notify} from '../../../../src/lib/notify';
 
 import {notifyRequest} from '../../../../src/lib/notify/notify-request';
 
+import { setup } from '../../../../src/lib/logger';
+
+setup([]);
+
 jest.mock('./../../../../src/lib/notify/notify-request', () => ({
   notifyRequest: jest.fn((options, content) => Promise.resolve([options, content]))
 }));
-
-require('../../../../src/lib/logger').setup([]);
 
 const parseConfigurationNotifyFile = (name) => {
   return parseConfigurationFile(`notify/${name}`);
@@ -19,7 +19,6 @@ const singleNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('s
 const singleHeaderNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.header.notify'));
 const packagePatternNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.packagePattern.notify'));
 const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('multiple.notify'));
-
 
 describe('Notifications:: Notify', () => {
 
@@ -30,6 +29,7 @@ describe('Notifications:: Notify', () => {
   //FUTURE: we should add some sort of health check of all props, (not implemented yet)
 
   test("should not fails if config is not provided", async () => {
+    // @ts-ignore
     await notify({}, {});
 
     expect(notifyRequest).toHaveBeenCalledTimes(0);
@@ -37,7 +37,8 @@ describe('Notifications:: Notify', () => {
 
   test("should send notification", async () => {
     const name = 'package';
-    const response = await notify({name}, singleNotificationConfig);
+    // @ts-ignore
+    const response = await notify({name}, singleNotificationConfig, { name: 'foo'}, 'bar');
     const [options, content] = response;
 
     expect(options.headers).toBeDefined();
@@ -49,21 +50,24 @@ describe('Notifications:: Notify', () => {
   });
 
   test("should send single header notification", async () => {
-    await notify({}, singleHeaderNotificationConfig);
+    // @ts-ignore
+    await notify({}, singleHeaderNotificationConfig, { name: 'foo'}, 'bar');
 
     expect(notifyRequest).toHaveBeenCalledTimes(1);
   });
 
   test("should send multiple notification", async () => {
-    await notify({}, multiNotificationConfig);
+    // @ts-ignore
+    await notify({name}, multiNotificationConfig, { name: 'foo'}, 'bar');
 
+    expect(notifyRequest).toHaveBeenCalled();
     expect(notifyRequest).toHaveBeenCalledTimes(3);
   });
 
   describe('packagePatternFlags', () => {
     test("should send single notification with packagePatternFlags", async () => {
       const name = 'package';
-      await notify({name}, packagePatternNotificationConfig);
+      await notify({name}, packagePatternNotificationConfig, { name: 'foo'}, 'bar');
 
 
       expect(notifyRequest).toHaveBeenCalledTimes(1);
@@ -71,7 +75,7 @@ describe('Notifications:: Notify', () => {
 
     test("should not match on send single notification with packagePatternFlags", async () => {
       const name = 'no-mach-name';
-      await notify({name}, packagePatternNotificationConfig);
+      await notify({name}, packagePatternNotificationConfig, { name: 'foo'}, 'bar');
 
       expect(notifyRequest).toHaveBeenCalledTimes(0);
     });

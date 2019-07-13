@@ -1,5 +1,3 @@
-// @flow
-
 import path from 'path';
 import _ from 'lodash';
 import {spliceURL}  from '../../../../src/utils/string';
@@ -46,6 +44,7 @@ describe('Config Utilities', () => {
     });
 
     test('should bypass an empty uplink list', ()=> {
+      // @ts-ignore
       expect(sanityCheckUplinksProps([])).toHaveLength(0);
     });
   });
@@ -161,7 +160,7 @@ describe('Config Utilities', () => {
     });
 
     test('should check not default packages access', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-empty'));
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-empty'));
       const access = normalisePackageAccess(packages);
       expect(access).toBeDefined();
 
@@ -183,23 +182,23 @@ describe('Config Utilities', () => {
   describe('getMatchedPackagesSpec', () => {
     test('should test basic config', () => {
       const {packages} = parseConfigFile(parseConfigurationFile('pkgs-custom'));
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('vue', packages).proxy).toMatch('npmjs');
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('@scope/vue', packages).proxy).toMatch('npmjs');
     });
 
     test('should test no ** wildcard on config', () => {
       const {packages} = parseConfigFile(parseConfigurationFile('pkgs-nosuper-wildcard-custom'));
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
-      // $FlowFixMe
+      // @ts-ignore
       expect(getMatchedPackagesSpec('@fake/angular', packages).proxy).toMatch('npmjs');
       expect(getMatchedPackagesSpec('vue', packages)).toBeUndefined();
       expect(getMatchedPackagesSpec('@scope/vue', packages)).toBeUndefined();

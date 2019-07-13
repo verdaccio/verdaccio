@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 import assert from 'assert';
 
@@ -14,7 +9,6 @@ import { APP_ERROR } from './constants';
 import { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
 
 import { MatchedPackage, StartUpConfig } from '../../types';
-import { defaultSecurity } from './auth-utils';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -26,6 +20,7 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 class Config implements AppConfig {
   public logger: Logger;
   public user_agent: string;
+  // @ts-ignore
   public secret: string;
   public uplinks: any;
   public packages: PackageList;
@@ -34,6 +29,7 @@ class Config implements AppConfig {
   public self_path: string;
   public storage: string | void;
   public plugins: string | void;
+  // @ts-ignore
   public security: Security;
 
   public constructor(config: StartUpConfig) {
@@ -89,10 +85,6 @@ class Config implements AppConfig {
     if (!this.server_id) {
       this.server_id = generateRandomHexString(6);
     }
-
-    // @ts-ignore
-    this.secret = undefined;
-    this.security = defaultSecurity;
   }
 
   /**

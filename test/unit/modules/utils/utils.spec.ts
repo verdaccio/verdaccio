@@ -1,4 +1,3 @@
-// @flow
 import {generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
 import { spliceURL } from '../../../../src/utils/string';
 import {
@@ -18,7 +17,7 @@ import {
   isHTTPProtocol,
 } from '../../../../src/lib/utils';
 import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
-import Logger, { setup } from '../../../../src/lib/logger';
+import { logger, setup } from '../../../../src/lib/logger';
 import { readFile } from '../../../functional/lib/test.utils';
 
 const readmeFile = (fileName: string = 'markdown.md') =>
@@ -123,11 +122,11 @@ describe('Utilities', () => {
     describe('convertDistRemoteToLocalTarballUrls', () => {
       test('should build a URI for dist tarball based on new domain', () => {
         const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
-          // $FlowFixMe
           {
             headers: {
               host: fakeHost
             },
+            // @ts-ignore
             get: () => 'http',
             protocol: 'http'
           });
@@ -137,9 +136,9 @@ describe('Utilities', () => {
 
       test('should return same URI whether host is missing', () => {
         const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
-          // $FlowFixMe
           {
             headers: {},
+            // @ts-ignore
             get: () => 'http',
             protocol: 'http'
           });
@@ -240,7 +239,7 @@ describe('Utilities', () => {
           // $FlowFixMe
           expect(validateName(null)).toBeFalsy();
           // $FlowFixMe
-          expect(validateName()).toBeFalsy();
+          expect(validateName(undefined)).toBeFalsy();
         });
 
         test('good ones', () => {
@@ -282,25 +281,27 @@ describe('Utilities', () => {
     describe('validateMetadata', () => {
       test('should fills an empty metadata object', () => {
         // intended to fail with flow, do not remove
-        // $FlowFixMe
+        // @ts-ignore
         expect(Object.keys(validateMetadata({}))).toContain(DIST_TAGS);
-        // $FlowFixMe
+        // @ts-ignore
         expect(Object.keys(validateMetadata({}))).toContain('versions');
-        // $FlowFixMe
+        // @ts-ignore
         expect(Object.keys(validateMetadata({}))).toContain('time');
       });
 
       test('should fails the assertions is not an object', () => {
         expect(function ( ) {
-          // $FlowFixMe
+          // @ts-ignore
           validateMetadata('');
+          // @ts-ignore
         }).toThrow(expect.hasAssertions());
       });
 
       test('should fails the assertions is name does not match', () => {
         expect(function ( ) {
-          // $FlowFixMe
+          // @ts-ignore
           validateMetadata({}, "no-name");
+          // @ts-ignore
         }).toThrow(expect.hasAssertions());
       });
     });
@@ -399,7 +400,7 @@ describe('Utilities', () => {
 
     test('should show error for no readme data', () => {
       const noData = '';
-      const spy = jest.spyOn(Logger.logger, 'error');
+      const spy = jest.spyOn(logger, 'error');
       expect(parseReadme('testPackage', noData)).toEqual(
         '<p>ERROR: No README data found!</p>'
       );
@@ -412,6 +413,7 @@ describe('Utilities', () => {
 
   describe('addGravatarSupport', () => {
     test('check for blank object', () => {
+      // @ts-ignore
       expect(addGravatarSupport({})).toEqual({});
     });
 
@@ -419,11 +421,15 @@ describe('Utilities', () => {
       const packageInfo = {
         latest: {}
       };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(packageInfo);
     });
 
     test('author field is a blank object', () => {
       const packageInfo = { latest: { author: {} } };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(packageInfo);
     });
 
@@ -440,6 +446,8 @@ describe('Utilities', () => {
           }
         }
       };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(result);
     });
 
@@ -457,6 +465,8 @@ describe('Utilities', () => {
           }
         }
       };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(result);
     });
 
@@ -466,6 +476,8 @@ describe('Utilities', () => {
           contributors: []
         }
       };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(packageInfo);
     });
 
@@ -498,6 +510,8 @@ describe('Utilities', () => {
             ]
           }
         };
+
+        // @ts-ignore
         expect(addGravatarSupport(packageInfo)).toEqual(result);
       });
 
@@ -520,6 +534,7 @@ describe('Utilities', () => {
           }
         };
 
+        // @ts-ignore
         expect(addGravatarSupport(packageInfo)).toEqual(result);
       });
 
@@ -543,6 +558,7 @@ describe('Utilities', () => {
           }
         };
 
+        // @ts-ignore
         expect(addGravatarSupport(packageInfo)).toEqual(result);
       });
     });
@@ -553,6 +569,8 @@ describe('Utilities', () => {
           maintainers: []
         }
       };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(packageInfo);
     });
 
@@ -584,6 +602,8 @@ describe('Utilities', () => {
           ]
         }
       };
+
+      // @ts-ignore
       expect(addGravatarSupport(packageInfo)).toEqual(result);
     });
   });

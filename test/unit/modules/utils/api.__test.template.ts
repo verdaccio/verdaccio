@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * PLEASE DO NOT MODIFY THIS FILE
  *
@@ -81,6 +79,7 @@ describe('endpoint example unit test', () => {
 
     const credentials = { name: 'JotaJWT', password: 'secretPass' };
     // 11. Use helpers for repetitive tasks
+    // @ts-ignore
     const [err, res] = await addUser(request(app), credentials.name, credentials);
 
     // 12. test your output

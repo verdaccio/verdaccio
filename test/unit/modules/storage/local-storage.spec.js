@@ -7,7 +7,7 @@ import LocalStorage from '../../../../src/lib/local-storage';
 import AppConfig from '../../../../src/lib/config';
 // $FlowFixMe
 import configExample from '../../partials/config';
-import Logger, {setup} from '../../../../src/lib/logger';
+import { logger, setup} from '../../../../src/lib/logger';
 import {readFile} from '../../../functional/lib/test.utils';
 import {generatePackageTemplate} from '../../../../src/lib/storage-utils';
 import {generateNewVersion} from '../../../lib/utils-test';
@@ -31,8 +31,8 @@ describe('LocalStorage', () => {
     const config: Config = new AppConfig(configExample({
       self_path: path.join('../partials/store')
     }));
-    
-    return new LocalStorageClass(config, Logger.logger);
+
+    return new LocalStorageClass(config, logger);
   }
 
   const getPackageMetadataFromStore = (pkgName: string) => {

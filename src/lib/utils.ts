@@ -375,7 +375,7 @@ export const ErrorCode = {
   getCode,
 };
 
-export function parseConfigFile(configPath: string): string {
+export function parseConfigFile(configPath: string): any {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
       return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));

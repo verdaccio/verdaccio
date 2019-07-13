@@ -70,7 +70,7 @@ export function sendNotification(metadata: Package, notify: Notification, remote
 
 export function notify(metadata: Package, config: Config, remoteUser: RemoteUser, publishedPackage: string): Promise<any> | void {
   if (config.notify) {
-    if (_.isArray(config.notify) === false) {
+    if (config.notify.content) {
       return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
     } else {
       // multiple notifications endpoints PR #108

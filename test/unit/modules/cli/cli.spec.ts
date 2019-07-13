@@ -127,6 +127,7 @@ describe('startServer via API', () => {
       conf.https = {};
       // save process to catch exist
       const exitMock = jest.fn();
+      // @ts-ignore
       global.process = { ...realProcess, exit: exitMock };
       await startServer(conf, address, store, version, serverName, () => {
         expect(logger.logger.fatal).toHaveBeenCalled();
@@ -140,6 +141,7 @@ describe('startServer via API', () => {
 
     test('should fails if config is missing', async () => {
       try {
+        // @ts-ignore
         await startServer();
       } catch (e) {
         expect(e.message).toEqual('config file must be an object');
@@ -151,6 +153,7 @@ describe('startServer via API', () => {
   describe('getListListenAddresses test', () => {
 
     test('should return no address if a single address is wrong', () => {
+      // @ts-ignore
       const addrs = getListListenAddresses("wrong");
 
       expect(_.isArray(addrs)).toBeTruthy();
@@ -158,6 +161,7 @@ describe('startServer via API', () => {
     });
 
     test('should return no address if a two address are wrong', () => {
+      // @ts-ignore
       const addrs = getListListenAddresses(["wrong", "same-wrong"]);
 
       expect(_.isArray(addrs)).toBeTruthy();
@@ -179,6 +183,7 @@ describe('startServer via API', () => {
     });
 
     test(`should return by default ${DEFAULT_PORT}`, () => {
+      // @ts-ignore
       const [addrs] = getListListenAddresses();
 
       expect(addrs.proto).toBe(DEFAULT_PROTOCOL);

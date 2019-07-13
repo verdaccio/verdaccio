@@ -6,7 +6,7 @@
 import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
-import logger from './logger';
+import { logger } from './logger';
 import mkdirp from 'mkdirp';
 
 import { folderExists, fileExists } from './utils';
@@ -57,7 +57,7 @@ function readDefaultConfig() {
 
 function createConfigFolder(configLocation) {
   mkdirp.sync(Path.dirname(configLocation.path));
-  logger.logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
+  logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
 }
 
 function updateStorageLinks(configLocation, defaultConfig) {

@@ -1,5 +1,3 @@
-// @flow
-
 import request from 'supertest';
 import _ from 'lodash';
 import path from 'path';
@@ -50,7 +48,7 @@ describe('endpoint user auth JWT unit test', () => {
           }
         }
       });
-      
+
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
@@ -95,6 +93,8 @@ describe('endpoint user auth JWT unit test', () => {
 
     // npm will try to sign in sending credentials via basic auth header
     const token = buildUserBuffer(credentials.name, credentials.password).toString('base64');
+    // put should exist in request
+    // @ts-ignore
     request(app).put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
       .send(credentials)
       .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
