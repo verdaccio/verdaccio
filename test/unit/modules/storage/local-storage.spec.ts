@@ -1,22 +1,21 @@
-// @flow
-
 import rimRaf from 'rimraf';
 import path from 'path';
 
 import LocalStorage from '../../../../src/lib/local-storage';
 import AppConfig from '../../../../src/lib/config';
-// $FlowFixMe
+// @ts-ignore
 import configExample from '../../partials/config';
 import { logger, setup} from '../../../../src/lib/logger';
 import {readFile} from '../../../functional/lib/test.utils';
 import {generatePackageTemplate} from '../../../../src/lib/storage-utils';
 import {generateNewVersion} from '../../../lib/utils-test';
 
-const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
+const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
 
 import {Config, MergeTags} from '@verdaccio/types';
 import {IStorage} from '../../../../types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '../../../../src/lib/constants';
+import { VerdaccioError } from '@verdaccio/commons-api';
 
 setup([]);
 
@@ -52,7 +51,7 @@ describe('LocalStorage', () => {
   };
   const addTarballToStore = (pkgName: string, tarballName) => {
     return new Promise((resolve, reject) => {
-      const tarballData = JSON.parse(readMetadata('addTarball'));
+      const tarballData = JSON.parse(readMetadata('addTarball').toString());
       const stream = storage.addTarball(pkgName, tarballName);
 
       stream.on('error', (err) => {
@@ -70,7 +69,7 @@ describe('LocalStorage', () => {
 
   const addPackageToStore = (pkgName, metadata) => {
     return new Promise((resolve, reject) => {
-      // $FlowFixMe
+      // @ts-ignore
       const pkgStoragePath = storage._getLocalStorage(pkgName);
       rimRaf(pkgStoragePath.path, (err) => {
         expect(err).toBeNull();
@@ -95,8 +94,8 @@ describe('LocalStorage', () => {
 
   describe('LocalStorage::preparePackage', () => {
     test('should add a package', (done) => {
-      const metadata = JSON.parse(readMetadata());
-      // $FlowFixMe
+      const metadata = JSON.parse(readMetadata().toString());
+      // @ts-ignore
       const pkgStoragePath = storage._getLocalStorage(pkgName);
       rimRaf(pkgStoragePath.path, (err) => {
         expect(err).toBeNull();
@@ -111,7 +110,7 @@ describe('LocalStorage', () => {
 
     test('should add a @scope package', (done) => {
       const metadata = JSON.parse(readMetadata());
-      // $FlowFixMe
+      // @ts-ignore
       const pkgStoragePath = storage._getLocalStorage(pkgNameScoped);
 
       rimRaf(pkgStoragePath.path, (err) => {
@@ -262,7 +261,7 @@ describe('LocalStorage', () => {
       let _storage;
       beforeEach(done => {
         class MockLocalStorage extends LocalStorage {}
-        // $FlowFixMe
+        // @ts-ignore
         MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage)
         _storage = getStorage(MockLocalStorage);
         rimRaf(path.join(configExample().storage, pkgName), async () => {
@@ -366,7 +365,7 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball ', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
-          stream.on('error', (err) => {
+          stream.on('error', (err: VerdaccioError) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
             expect(err.message).toMatch(/this package is already present/);
@@ -379,7 +378,7 @@ describe('LocalStorage', () => {
         test('should fails on add a new tarball on missing package', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball('unexsiting-package', tarballName);
-          stream.on('error', (err) => {
+          stream.on('error', (err: VerdaccioError) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such package available/);
@@ -396,7 +395,7 @@ describe('LocalStorage', () => {
 
         test('should fails on use invalid package name on add a new tarball', (done) => {
           const stream = storage.addTarball(pkgName, `${pkgName}-fails-add-tarball-1.0.4.tgz`);
-          stream.on('error', function(err) {
+          stream.on('error', function(err: VerdaccioError) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.BAD_DATA);
             expect(err.message).toMatch(/refusing to accept zero-length file/);
@@ -409,7 +408,7 @@ describe('LocalStorage', () => {
         test('should fails on abort on add a new tarball', (done) => {
           const stream = storage.addTarball('__proto__', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
           stream.abort();
-          stream.on('error', function(err) {
+          stream.on('error', function(err: VerdaccioError) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.FORBIDDEN);
             expect(err.message).toMatch(/can't use this filename/);
@@ -454,7 +453,7 @@ describe('LocalStorage', () => {
 
         test('should fails on get a tarball that does not exist', (done) => {
           const stream = storage.getTarball('fake', tarballName);
-          stream.on('error', function(err) {
+          stream.on('error', function(err: VerdaccioError) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such file available/);
@@ -465,6 +464,7 @@ describe('LocalStorage', () => {
 
       describe('LocalStorage::search', () => {
         test('should find a tarball', (done) => {
+          // @ts-ignore
           const stream = storage.search('99999');
 
           stream.on('data', function each(pkg) {

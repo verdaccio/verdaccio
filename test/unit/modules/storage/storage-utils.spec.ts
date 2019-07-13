@@ -1,5 +1,3 @@
-// @flow
-
 import {normalizePackage, mergeUplinkTimeIntoLocal} from "../../../../src/lib/storage-utils";
 import { STORAGE, DIST_TAGS } from '../../../../src/lib/constants';
 import {readFile} from "../../../functional/lib/test.utils";
@@ -30,6 +28,7 @@ describe('Storage Utils', () => {
     });
 
     test('normalizePackage partial metadata', () => {
+      // @ts-ignore
       const pkg = normalizePackage(readMetadata('metadata'));
       expect(pkg).toBeDefined();
       expect(pkg.time).toBeInstanceOf(Object);
@@ -41,6 +40,7 @@ describe('Storage Utils', () => {
     });
 
     test('normalizePackage partial default revision', () => {
+      // @ts-ignore
       const pkg = normalizePackage(readMetadata('metadata'));
       expect(pkg).toBeDefined();
       expect(pkg._rev).toBeDefined();

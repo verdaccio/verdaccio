@@ -1,4 +1,4 @@
-let assert = require('assert');
+import assert from 'assert';
 let semverSort = require('../../../../src/lib/utils').semverSort;
 import {mergeVersions} from '../../../../src/lib/metadata-utils';
 
@@ -12,6 +12,7 @@ describe('Storage._merge_versions versions', () => {
       'dist-tags': {},
     };
 
+    // @ts-ignore
     mergeVersions(pkg, {versions: {a: 2, q: 2}});
 
     assert.deepEqual(pkg, {
@@ -26,6 +27,7 @@ describe('Storage._merge_versions versions', () => {
       'dist-tags': {q: '1.1.1', w: '2.2.2'},
     };
 
+    // @ts-ignore
     mergeVersions(pkg, {'dist-tags': {q: '2.2.2', w: '3.3.3', t: '4.4.4'}});
 
     assert.deepEqual(pkg, {
@@ -46,6 +48,7 @@ describe('Storage._merge_versions versions', () => {
     // against our local 1.1.10, which may end up published as 1.1.3 in the
     // future
 
+    // @ts-ignore
     mergeVersions(pkg, {'dist-tags':{q:'1.1.2',w:'3.3.3',t:'4.4.4'}})
 
     assert.deepEqual(pkg, {

@@ -2,9 +2,9 @@ import Search from '../../../../src/lib/search';
 import Config from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
 import buildConfig from '../../partials/config';
+import { setup } from '../../../../src/lib/logger';
 
-
-require('../../../../src/lib/logger').setup([]);
+setup([]);
 
 let packages = [
   {
@@ -37,6 +37,7 @@ describe('search', () => {
     await this.storage.init(config);
     Search.configureStorage(this.storage);
     packages.map(function(item) {
+      // @ts-ignore
       Search.add(item);
     });
   });
@@ -54,6 +55,7 @@ describe('search', () => {
         name: 'test_user',
       },
     };
+    // @ts-ignore
     Search.add(item);
     let result = Search.query('test6');
     expect(result).toHaveLength(1);
