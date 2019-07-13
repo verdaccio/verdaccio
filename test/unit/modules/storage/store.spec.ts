@@ -1,9 +1,6 @@
-// @flow
-
 import path from 'path';
 import fs from 'fs';
 import rimraf from 'rimraf';
-// $FlowFixMe
 import configExample from '../../partials/config';
 import AppConfig from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
@@ -32,7 +29,7 @@ const generateStorage = async function(port = mockServerPort) {
 
   const config: Config = new AppConfig(storageConfig);
   const store: IStorageHandler = new Storage(config);
-  await store.init(config);
+  await store.init(config, []);
 
   return store;
 }
@@ -101,7 +98,7 @@ describe('StorageTest', () => {
       const storage: IStorageHandler = await generateStorage();
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
-      
+
       fs.mkdirSync(path.join(storagePath, 'npm_test'));
       fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
       const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());

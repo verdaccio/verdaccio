@@ -45,7 +45,9 @@ class ProxyStorage implements IProxy {
   // @ts-ignore
   public upname: string;
   // FIXME: proxy can be boolean or object, something smells here
+  // @ts-ignore
   public proxy: string | void;
+  // @ts-ignore
   public last_request_time: number | null;
   public strict_ssl: boolean;
 
@@ -85,8 +87,6 @@ class ProxyStorage implements IProxy {
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
-    this.last_request_time = null;
-    this.proxy = undefined;
   }
 
   /**
@@ -615,18 +615,19 @@ class ProxyStorage implements IProxy {
    * @param {*} mainconfig
    * @param {*} isHTTPS
    */
-  private _setupProxy(hostname: string, upLinkConfLocal: UpLinkConfLocal, mainconfig: Config, isHTTPS: boolean): void {
-    let noProxyList: string[] | string | void;
+  private _setupProxy(hostname: string, config: UpLinkConfLocal, mainconfig: Config, isHTTPS: boolean): void {
+    let noProxyList;
     const proxy_key: string = isHTTPS ? 'https_proxy' : 'http_proxy';
 
     // get http_proxy and no_proxy configs
-    if (proxy_key in upLinkConfLocal) {
-      this.proxy = upLinkConfLocal[proxy_key];
+    if (proxy_key in config) {
+      this.proxy = config[proxy_key];
     } else if (proxy_key in mainconfig) {
-      this.proxy = upLinkConfLocal[proxy_key];
+      this.proxy = mainconfig[proxy_key];
     }
-    if ('no_proxy' in mainconfig) {
-      noProxyList = upLinkConfLocal.no_proxy;
+    if ('no_proxy' in config) {
+      // $FlowFixMe
+      noProxyList = config.no_proxy;
     } else if ('no_proxy' in mainconfig) {
       noProxyList = mainconfig.no_proxy;
     }
@@ -637,6 +638,7 @@ class ProxyStorage implements IProxy {
     }
 
     if (_.isString(noProxyList) && noProxyList.length) {
+      // $FlowFixMe
       noProxyList = noProxyList.split(',');
     }
 
@@ -647,7 +649,8 @@ class ProxyStorage implements IProxy {
         if (hostname.lastIndexOf(noProxyItem) === hostname.length - noProxyItem.length) {
           if (this.proxy) {
             this.logger.debug({ url: this.url.href, rule: noProxyItem }, 'not using proxy for @{url}, excluded by @{rule} rule');
-            this.proxy = undefined;
+            // @ts-ignore
+            this.proxy = false;
           }
           break;
         }
