@@ -1,11 +1,10 @@
 import path from 'path';
 import loadPlugin from '../../../../src/lib/plugin-loader';
-import logger from '../../../../src/lib/logger';
+import { setup }  from '../../../../src/lib/logger';
 
-logger.setup([]);
+setup([]);
 
 describe('plugin loader', () => {
-
   const relativePath = path.join(__dirname, './partials/test-plugin-storage');
   const buildConf = name => {
     return {
@@ -39,28 +38,31 @@ describe('plugin loader', () => {
     test('testing auth plugin invalid plugin', () => {
       const _config = buildConf('invalid-plugin');
       try {
+        // @ts-ignore
         loadPlugin(_config, _config.auth, {}, function (p) {
           return p.authenticate || p.allow_access || p.allow_publish;
         });
       } catch(e) {
-        expect(e.message).toEqual(`"${relativePath}/invalid-plugin" is not a valid plugin`);
+        expect(e.message).toEqual(`"${relativePath}/invalid-plugin" plugin does not have the right code structure`);
       }
     });
 
     test('testing auth plugin invalid plugin sanityCheck', () => {
       const _config = buildConf('invalid-plugin-sanity');
       try {
+        // @ts-ignore
         loadPlugin(_config, _config.auth, {}, function (plugin) {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
       } catch(err) {
-        expect(err.message).toEqual(`"${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
+        expect(err.message).toEqual(`sanity check has failed,"${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
       }
     });
 
     test('testing auth plugin no plugins', () => {
       const _config = buildConf('invalid-package');
       try {
+        // @ts-ignore
         loadPlugin(_config, _config.auth, {}, function (plugin) {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
