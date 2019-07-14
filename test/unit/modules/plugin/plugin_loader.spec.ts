@@ -55,7 +55,7 @@ describe('plugin loader', () => {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
       } catch(err) {
-        expect(err.message).toEqual(`sanity check has failed,"${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
+        expect(err.message).toEqual(`sanity check has failed, "${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
       }
     });
 
