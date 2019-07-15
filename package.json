@@ -77,7 +77,7 @@
     "jest-environment-node": "24.8.0",
     "lint-staged": "8.2.1",
     "nock": "10.0.6",
-    "puppeteer": "1.18.1",
+    "puppeteer": "1.8.0",
     "rimraf": "2.6.3",
     "standard-version": "6.0.1",
     "supertest": "4.0.2",

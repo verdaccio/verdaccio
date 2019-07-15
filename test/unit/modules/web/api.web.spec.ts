@@ -16,6 +16,7 @@ require('../../../../src/lib/logger').setup([]);
 
 const credentials = { name: 'user-web', password: 'secretPass' };
 describe('endpoint web unit test', () => {
+  jest.setTimeout(20000);
   let app;
   let mockRegistry;
 
