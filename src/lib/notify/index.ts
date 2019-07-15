@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 
@@ -25,12 +21,11 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
   /* eslint no-unused-vars: 0 */
   /* eslint @typescript-eslint/no-unused-vars: 0 */
   // @ts-ignore
-  let templateMetadata: TemplateMetadata = {};
-  // @ts-ignore
-  if (!metadata.publisher) {
+  if (_.isNil(metadata.publisher)) {
     // @ts-ignore
-    templateMetadata = { ...metadata, publishedPackage, publisher: remoteUser.name as string };
+    metadata = { ...metadata, publishedPackage, publisher: { name: remoteUser.name as string } };
   }
+
   const content: string = template(metadata);
 
   const options: OptionsWithUrl = {
@@ -74,11 +69,7 @@ export function notify(metadata: Package, config: Config, remoteUser: RemoteUser
       return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
     } else {
       // multiple notifications endpoints PR #108
-      return Promise.all(
-        _.map(config.notify, function(notification: Notification): void {
-          sendNotification(metadata, notification, remoteUser, publishedPackage);
-        })
-      );
+      return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));
     }
   }
 

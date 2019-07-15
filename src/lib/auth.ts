@@ -236,22 +236,23 @@ class Auth implements IAuth {
   public allow_publish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const plugins = this.plugins.slice(0);
     const self = this;
-    // $FlowFixMe
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
-    this.logger.trace({ packageName }, 'allow publish for @{packageName}');
+    this.logger.trace({ packageName, plugins: this.plugins.length }, 'allow publish for @{packageName} init | plugins: @{plugins}');
 
     (function next(): void {
       const plugin = plugins.shift();
 
       if (_.isNil(plugin) || _.isFunction(plugin.allow_publish) === false) {
+        self.logger.trace({ packageName }, 'allow publish for @{packageName} plugin does not implement allow_publish');
         return next();
       }
 
-      plugin.allow_publish!(
+      // @ts-ignore
+      plugin.allow_publish(
         user,
         pkg,
-        (err, ok: boolean): void => {
-          if (err) {
+        (err: VerdaccioError, ok: boolean): void => {
+          if (_.isNil(err) === false && _.isError(err)) {
             self.logger.trace({ packageName }, 'forbidden publish for @{packageName}');
             return callback(err);
           }
@@ -260,6 +261,8 @@ class Auth implements IAuth {
             self.logger.trace({ packageName }, 'allowed publish for @{packageName}');
             return callback(null, ok);
           }
+
+          self.logger.trace({ packageName }, 'allow publish skip validation for @{packageName}');
           next(); // cb(null, false) causes next plugin to roll
         }
       );

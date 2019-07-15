@@ -1,11 +1,7 @@
-/**
- * @prettier
- */
-
 import { Response, Router } from 'express';
 import { $RequestExtend, $NextFunctionVer } from '../../../../types';
 
-export default function(route: Router) {
+export default function(route: Router): void {
   route.get(
     '/whoami',
     (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {

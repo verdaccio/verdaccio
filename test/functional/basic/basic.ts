@@ -1,5 +1,3 @@
-// @flow
-
 import fs from 'fs';
 import path from 'path';
 import {createTarballHash} from "../../../src/lib/crypto-utils";
@@ -7,13 +5,14 @@ import { HTTP_STATUS, DIST_TAGS} from "../../../src/lib/constants";
 import {CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL} from "../config.functional";
 import whoIam from './whoIam';
 import ping from './ping';
+import fixturePkg from '../fixtures/package';
 
 function readfile(folderPath) {
   return fs.readFileSync(path.join(__dirname, '/', folderPath));
 }
 
 function getPackage(name) {
-  return require('../fixtures/package')(name);
+  return fixturePkg(name);
 }
 
 export default function(server: any, server2: any) {

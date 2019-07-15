@@ -1,6 +1,7 @@
 import {buildToken} from "../../../src/lib/utils";
 import {API_ERROR, HTTP_STATUS, TOKEN_BASIC} from "../../../src/lib/constants";
 import {CREDENTIALS} from "../config.functional";
+import fixturePkg from '../fixtures/package';
 
 export default function(server) {
 
@@ -39,7 +40,7 @@ export default function(server) {
     function checkPublish(auth, pkg, status) {
       test(`${(status ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, () => {
         server.authstr = auth ? buildAccesToken(auth) : undefined;
-        const req = server.putPackage(pkg, require('../fixtures/package')(pkg));
+        const req = server.putPackage(pkg, fixturePkg(pkg));
         if (status === HTTP_STATUS.NOT_FOUND) {
           return req.status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.PACKAGE_CANNOT_BE_ADDED);
         } else if (status === HTTP_STATUS.FORBIDDEN) {

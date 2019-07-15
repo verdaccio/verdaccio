@@ -77,7 +77,7 @@ export default function(server, express) {
             zlib.gunzip(body, function(err, buffer) {
               expect(err).toBeNull();
               expect(buffer).not.toBeNull();
-              const unzipedBody = JSON.parse(buffer);
+              const unzipedBody = JSON.parse(buffer.toString());
 
               expect(unzipedBody.name).toBe(PKG_NAME);
               expect(Object.keys(unzipedBody.versions)).toHaveLength(VERSION_TOTAL);

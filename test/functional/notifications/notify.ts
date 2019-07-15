@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {HEADERS} from '../../../src/lib/constants';
 import {notify} from '../../../src/lib/notify';
 import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
+import { RemoteUser } from '@verdaccio/types';
 
 export default function(express) {
   const config = {
@@ -16,8 +17,10 @@ export default function(express) {
     }
   };
 
-  const publisherInfo = {
-    name: "publisher-name-test"
+  const publisherInfo: RemoteUser = {
+    name: "publisher-name-test",
+    real_groups: [],
+    groups: []
   };
 
   describe('notifications', () => {
@@ -43,10 +46,10 @@ export default function(express) {
         name: "pkg-test"
       };
 
-      notify(metadata, config, publisherInfo).then(function (body) {
+      notify(metadata, config, publisherInfo, 'foo').then(function (body) {
         const jsonBody = parseBody(body);
         expect(
-          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message, "Body notify message should be equal");
+          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
         done();
       }, function (err) {
         expect(err).toBeDefined();
@@ -66,9 +69,7 @@ export default function(express) {
 
       notify(metadata, configMultipleHeader, publisherInfo).then(function (body) {
         const jsonBody = parseBody(body);
-        expect(
-          `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
-          .toBe(jsonBody.message, "Body notify message should be equal");
+        expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
         done();
       }, function (err) {
         expect(err).toBeDefined();
@@ -76,9 +77,7 @@ export default function(express) {
       });
     });
 
-    test(
-      'notification should be send multiple notifications endpoints',
-      done => {
+    test('notification should be send multiple notifications endpoints', done => {
         const metadata = {
           name: "pkg-test"
         };
@@ -97,11 +96,10 @@ export default function(express) {
         }
 
         notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
+          console.log("--->body", body);
           body.forEach(function(notification) {
             const jsonBody = parseBody(notification);
-            expect(
-              `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`)
-              .toBe(jsonBody.message, "Body notify message should be equal");
+            expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           });
           done();
         }, function (err) {
@@ -137,8 +135,7 @@ export default function(express) {
       notify(metadata, config, publisherInfo).then(
         function(body) {
           const jsonBody = parseBody(body);
-          expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`)
-            .toBe(jsonBody.message, 'Body notify message should be equal');
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`).toBe(jsonBody.message);
           done();
         },
         function(err) {

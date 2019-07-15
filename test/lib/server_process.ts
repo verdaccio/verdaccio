@@ -15,7 +15,7 @@ export default class VerdaccioProcess implements IServerProcess {
   silence: boolean;
   cleanStore: boolean;
 
-  constructor(config: IVerdaccioConfig,
+  public constructor(config: IVerdaccioConfig,
     bridge: IServerBridge,
     silence: boolean = true,
     isDebug: boolean = false,
@@ -27,7 +27,7 @@ export default class VerdaccioProcess implements IServerProcess {
     this.cleanStore = cleanStore;
   }
 
-  init(verdaccioPath: string = '../../bin/verdaccio'): Promise<any> {
+  public init(verdaccioPath: string = '../../bin/verdaccio'): Promise<any> {
     return new Promise((resolve, reject) => {
       if(this.cleanStore) {
         rimRaf(this.config.storagePath, (err) => {
@@ -43,13 +43,14 @@ export default class VerdaccioProcess implements IServerProcess {
     });
   }
 
-  _start(verdaccioPath: string, resolve: Function, reject: Function) {
+  private _start(verdaccioPath: string, resolve: Function, reject: Function) {
     const verdaccioRegisterWrap: string = path.join(__dirname, verdaccioPath);
     let childOptions = {
-      silent: this.silence
+      silent: true
     };
 
     if (this.isDebug) {
+      // @ts-ignore
       const debugPort = parseInt(this.config.port, 10) + 5;
 
       childOptions = Object.assign({}, childOptions, {
@@ -58,10 +59,10 @@ export default class VerdaccioProcess implements IServerProcess {
     }
 
     const {configPath, port} = this.config;
-    // $FlowFixMe
-    this.childFork = fork(verdaccioRegisterWrap, ['-c', configPath, '-l', port], childOptions);
+    this.childFork = fork(verdaccioRegisterWrap, ['-c', configPath, '-l', port as string], childOptions);
 
     this.childFork.on('message', (msg) => {
+      // verdaccio_started is a message that comes from verdaccio in debug mode that notify has been started
       if ('verdaccio_started' in msg) {
         this.bridge.debug().status(HTTP_STATUS.OK).then((body) => {
           this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password)
@@ -77,7 +78,7 @@ export default class VerdaccioProcess implements IServerProcess {
     this.childFork.on('exit', (err) => reject([err, this]));
   }
 
-  stop(): void {
+  public stop(): void {
     return this.childFork.kill('SIGINT');
   }
 

@@ -3,6 +3,7 @@ import path from 'path';
 import {TARBALL} from '../config.functional';
 import {HTTP_STATUS} from "../../../src/lib/constants";
 import {createTarballHash} from "../../../src/lib/crypto-utils";
+import requirePackage from '../fixtures/package';
 
 function readfile(filePath) {
   const folder = path.join(__dirname , filePath);
@@ -24,7 +25,7 @@ export default function (server, server2) {
 
   describe('pkg-gh29 #2', () => {
     beforeAll(function() {
-      return server.putPackage(pkgName, require('../fixtures/package')(pkgName))
+      return server.putPackage(pkgName, requirePackage(pkgName))
         .status(HTTP_STATUS.CREATED)
         .body_ok(/created new package/);
     });
@@ -48,7 +49,7 @@ export default function (server, server2) {
 
       describe('pkg version', () => {
         beforeAll(function() {
-          const pkg = require('../fixtures/package')(pkgName);
+          const pkg = requirePackage(pkgName);
           pkg.dist.shasum = createTarballHash().update(readfile(binary)).digest('hex');
           return server.putVersion(pkgName, '0.0.1', pkg)
             .status(HTTP_STATUS.CREATED)

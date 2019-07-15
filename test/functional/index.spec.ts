@@ -1,8 +1,7 @@
-// @flow
-
 // we need this for notifications
-import {setup} from '../../src/lib/logger';
-setup();
+import { setup } from '../../src/lib/logger';
+
+setup([]);
 
 import {IServerBridge} from '../types';
 
@@ -31,14 +30,18 @@ import upLinkCache from './uplinks/cache';
 import uplinkTimeout from './uplinks/timeout';
 
 describe('functional test verdaccio', function() {
-  jest.setTimeout(10000);
+  jest.setTimeout(10000000);
+  // @ts-ignore
   const server1: IServerBridge = global.__SERVERS__[0];
+  // @ts-ignore
   const server2: IServerBridge = global.__SERVERS__[1];
+  // @ts-ignore
   const server3: IServerBridge = global.__SERVERS__[2];
+  // @ts-ignore
   const app = global.__WEB_SERVER__.app;
 
   // list of test
-  // note: order of the following calls is important
+  // note: order of the following calls is important, the reason is legacy code.
   packageAccess(server1);
   gh29(server1, server2);
   tags(server1, app);
@@ -55,7 +58,7 @@ describe('functional test verdaccio', function() {
   security(server1);
   addtag(server1);
   pluginsAuth(server2);
-  notify(app);  
+  notify(app);
   uplinkTimeout(server1, server2, server3);
   // requires packages published to server1/server2
   upLinkCache(server1, server2, server3);
@@ -63,7 +66,7 @@ describe('functional test verdaccio', function() {
   logout(server1);
   basic(server1, server2);
   simpleSearch(server1, server2, app)
-  
+
 });
 
 process.on('unhandledRejection', function(err) {

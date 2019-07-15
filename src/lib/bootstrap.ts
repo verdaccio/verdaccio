@@ -25,36 +25,38 @@ const logger = require('./logger');
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback) {
+function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
   if (isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  endPointAPI(config).then(app => {
-    const addresses = getListListenAddresses(cliListen, config.listen);
+  endPointAPI(config).then(
+    (app): void => {
+      const addresses = getListListenAddresses(cliListen, config.listen);
 
-    addresses.forEach(function(addr) {
-      let webServer;
-      if (addr.proto === 'https') {
-        // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
-        if (!config.https || !((config.https.key && config.https.cert && config.https.ca) || config.https.pfx)) {
-          logHTTPSWarning(configPath);
+      addresses.forEach(function(addr): void {
+        let webServer;
+        if (addr.proto === 'https') {
+          // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
+          if (!config.https || !((config.https.key && config.https.cert && config.https.ca) || config.https.pfx)) {
+            logHTTPSWarning(configPath);
+          }
+
+          webServer = handleHTTPS(app, configPath, config);
+        } else {
+          // http
+          webServer = http.createServer(app);
         }
+        if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
+          // library definition for node is not up to date (doesn't contain recent 8.0 changes)
+          webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
+        }
+        unlinkAddressPath(addr);
 
-        webServer = handleHTTPS(app, configPath, config);
-      } else {
-        // http
-        webServer = http.createServer(app);
-      }
-      if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
-        // $FlowFixMe library definition for node is not up to date (doesn't contain recent 8.0 changes)
-        webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
-      }
-      unlinkAddressPath(addr);
-
-      callback(webServer, addr, pkgName, pkgVersion);
-    });
-  });
+        callback(webServer, addr, pkgName, pkgVersion);
+      });
+    }
+  );
 }
 
 function unlinkAddressPath(addr) {

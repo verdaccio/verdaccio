@@ -72,10 +72,8 @@ describe('plugin loader', () => {
       }
     });
 
-    // FUTURE: the following groups should be here
-    // middleware plugins
-    // storage plugins
-
+    test.todo('test middleware plugins');
+    test.todo('test storage plugins');
   });
 
 });

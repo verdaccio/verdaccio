@@ -1,5 +1,3 @@
-// @flow
-
 import { yellow, green, blue, magenta } from 'kleur';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
@@ -13,22 +11,22 @@ import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../co
 const EXPRESS_PORT = 55550;
 
 class FunctionalEnvironment extends NodeEnvironment {
-  config: any;
+  public config: any;
 
-  constructor(config: any) {
+  public constructor(config: any) {
     super(config)
   }
 
-  async startWeb() {
+  public async startWeb() {
     const express: any = new ExpressServer();
 
     return await express.start(EXPRESS_PORT);
   }
 
 
-  async setup() {
+  public async setup() {
     const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
-    // $FlowFixMe
+    // @ts-ignore
     const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT ? process.env.VERDACCIO_DEBUG_INJECT : false;
     const forkList = [];
     const serverList = [];
@@ -74,7 +72,7 @@ class FunctionalEnvironment extends NodeEnvironment {
     this.global.__SERVERS__ = serverList;
   }
 
-  async teardown() {
+  public async teardown() {
     await super.teardown();
     console.log(yellow('Teardown Test Environment.'));
     if (!this.global.__SERVERS_PROCESS__) {
@@ -89,7 +87,7 @@ class FunctionalEnvironment extends NodeEnvironment {
     this.global.__WEB_SERVER__.server.close();
   }
 
-  runScript(script: string) {
+  public runScript(script: string) {
     return super.runScript(script);
   }
 }

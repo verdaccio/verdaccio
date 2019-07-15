@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import {readFile} from '../lib/test.utils';
+import { readFile } from '../lib/test.utils';
 import {HTTP_STATUS} from "../../../src/lib/constants";
 import {TARBALL} from '../config.functional';
-import {createTarballHash} from '../../../src/lib/crypto-utils';
+import { createTarballHash } from '../../../src/lib/crypto-utils';
+import requirePackage from '../fixtures/package';
 
 function getBinary() {
   return readFile('../fixtures/binary');
@@ -15,7 +16,10 @@ const PKG_GH131 = 'pkg-gh131';
 const PKG_GH1312 = 'pkg-gh1312';
 
 function isCached(pkgName, tarballName) {
-  return fs.existsSync(path.join(__dirname, STORAGE, pkgName, tarballName));
+  const pathCached = path.join(__dirname, STORAGE, pkgName, tarballName);
+  console.log('isCached =>', pathCached);
+
+  return fs.existsSync(pathCached);
 }
 
 export default function (server, server2, server3) {
@@ -34,7 +38,7 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      const pkg = require('../fixtures/package')(PKG_GH131);
+      const pkg = requirePackage(PKG_GH131);
       pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
 
       return server.putVersion(PKG_GH131, '0.0.1', pkg)
@@ -66,7 +70,7 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      const pkg = require('../fixtures/package')(PKG_GH1312);
+      const pkg = requirePackage(PKG_GH1312);
       pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
 
       return server2.putVersion(PKG_GH1312, '0.0.1', pkg)

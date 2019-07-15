@@ -1,18 +1,17 @@
 import _ from 'lodash';
 import assert from 'assert';
 import request from 'request';
-import {IRequestPromise} from '../types';
+import { IRequestPromise } from '../types';
 
 const requestData = Symbol('smart_request_data');
 
 export class PromiseAssert extends Promise<any> implements IRequestPromise{
 
-  constructor(options: any) {
+  public constructor(options: any) {
     super(options);
   }
 
-  status(expected: number) {
-    // $FlowFixMe
+  public status(expected: number) {
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
@@ -26,8 +25,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
     }));
   }
 
-  body_ok(expected: any) {
-    // $FlowFixMe
+  public body_ok(expected: any) {
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
@@ -42,12 +40,13 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
         selfData.error.message = err.message;
         throw selfData.error;
       }
+
       return body;
     }));
   }
 
 
-  body_error(expected: any) {
+  public body_error(expected: any) {
     // $FlowFixMe
     const selfData = this[requestData];
 
@@ -67,14 +66,12 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
     }));
   }
 
-  request(callback: any) {
-    // $FlowFixMe
+  public request(callback: any) {
     callback(this[requestData].request);
     return this;
   }
 
-  response(cb: any) {
-    // $FlowFixMe
+  public response(cb: any) {
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
@@ -83,8 +80,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
     }));
   }
 
-  send(data: any) {
-    // $FlowFixMe
+  public send(data: any) {
     this[requestData].request.end(data);
     return this;
   }

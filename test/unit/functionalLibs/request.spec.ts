@@ -1,5 +1,3 @@
-// @flow
-
 import _ from 'lodash';
 import smartRequest, {PromiseAssert} from '../../lib/request';
 import {mockServer} from '../__helper/mock';

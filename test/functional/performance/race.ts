@@ -1,8 +1,8 @@
 import async from 'async';
-import {HTTP_STATUS} from "../../../src/lib/constants";
+import { HTTP_STATUS } from "../../../src/lib/constants";
 
 let okTotalSum = 0;
-const racePkg = require('../fixtures/package');
+import racePkg  from '../fixtures/package';
 
 export default function(server) {
 
@@ -24,6 +24,7 @@ export default function(server) {
     test('should uploading 10 same versions and ignore 9', callback => {
       let listOfRequest = [];
       for (let i = 0; i < MAX_COUNT; i++) {
+        // @ts-ignore
         listOfRequest.push(function (callback) {
           let data = racePkg(PKG_NAME);
           data.rand = Math.random();
@@ -43,7 +44,9 @@ export default function(server) {
 
         expect(err).toBeNull();
 
+        // @ts-ignore
         response.forEach(function (payload) {
+          // @ts-ignore
           const [resp, body] = payload;
 
           if (resp.statusCode === HTTP_STATUS.CREATED && ~body.ok.indexOf(PUBLISHED)) {
@@ -72,6 +75,7 @@ export default function(server) {
       const listofRequest = [];
 
       for (let i = 0; i < MAX_COUNT; i++) {
+        // @ts-ignore
         listofRequest.push(function (callback) {
           let _res;
           server.putVersion(PKG_NAME, '0.1.' + String(i), racePkg(PKG_NAME))
@@ -89,7 +93,9 @@ export default function(server) {
         let failcount = 0;
 
         expect(err).toBeNull();
+        // @ts-ignore
         response.forEach(function (payload) {
+          // @ts-ignore
           const [response, body] = payload;
 
           if (response.statusCode === HTTP_STATUS.CREATED && ~body.ok.indexOf(PUBLISHED)) {
