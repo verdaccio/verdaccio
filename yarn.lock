@@ -2922,10 +2922,10 @@ dateformat@^3.0.0:
   resolved "https://registry.verdaccio.org/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayjs@1.8.14:
-  version "1.8.14"
-  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.14.tgz#43e4f62830c2c3342c3fcd25934dc9162dbe6f38"
-  integrity sha512-AVhDmRTe541iWirnoeFSSDDGvCT6HWaNQ4z2WmmzXMGZj6ph6ydao2teKq/eUtR43GPJXlYFD+C/SotG1P9wUQ==
+dayjs@1.8.15:
+  version "1.8.15"
+  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.15.tgz#7121bc04e6a7f2621ed6db566be4a8aaf8c3913e"
+  integrity sha512-HYHCI1nohG52B45vCQg8Re3hNDZbMroWPkhz50yaX7Lu0ATyjGsTdoYZBpjED9ar6chqTx2dmSmM8A51mojnAg==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -5687,10 +5687,10 @@ marked@0.6.2:
   resolved "https://registry.verdaccio.org/marked/-/marked-0.6.2.tgz#c574be8b545a8b48641456ca1dbe0e37b6dccc1a"
   integrity sha512-LqxwVH3P/rqKX4EKGz7+c2G9r98WeM/SW34ybhgNGhUQNKtf1GmmSkJ6cDGJ/t6tiyae49qRkpyTw2B9HOrgUA==
 
-marked@0.6.3:
-  version "0.6.3"
-  resolved "https://registry.verdaccio.org/marked/-/marked-0.6.3.tgz#79babad78af638ba4d522a9e715cdfdd2429e946"
-  integrity sha512-Fqa7eq+UaxfMriqzYLayfqAE40WN03jf+zHjT18/uXNuzjq3TY0XTbrAoPeqSJrAmPz11VuUA+kBPYOhHt9oOQ==
+marked@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.verdaccio.org/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
+  integrity sha512-c+yYdCZJQrsRjTPhUx7VKkApw9bwDkNbHUKo1ovgcfDjb2kc8rLuRbIFyXL5WOEUwzSSKo3IXpph2K6DqB/KZg==
 
 matcher@^1.0.0:
   version "1.1.1"
