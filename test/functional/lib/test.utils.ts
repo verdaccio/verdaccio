@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 function generateSha(key) {
+  // @ts-ignore
   return crypto.createHash('sha1', 'binary').update(key).digest('hex');
 }
 

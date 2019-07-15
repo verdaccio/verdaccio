@@ -30,7 +30,7 @@ import upLinkCache from './uplinks/cache';
 import uplinkTimeout from './uplinks/timeout';
 
 describe('functional test verdaccio', function() {
-  jest.setTimeout(10000000);
+  jest.setTimeout(20000);
   // @ts-ignore
   const server1: IServerBridge = global.__SERVERS__[0];
   // @ts-ignore
