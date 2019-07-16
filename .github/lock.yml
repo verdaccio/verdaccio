@@ -1,7 +1,7 @@
 # Configuration for lock-threads - https://github.com/dessant/lock-threads
 
 # Number of days of inactivity before a closed issue or pull request is locked
-daysUntilLock: 200
+daysUntilLock: 90
 
 # Issues and pull requests with these labels will not be locked. Set to `[]` to disable
 exemptLabels: []
@@ -11,9 +11,15 @@ lockLabel: false
 
 # Comment to post before locking. Set to `false` to disable
 lockComment: >
-  This thread has been automatically locked since there has not been
-  any recent activity after it was closed. Please open a new issue for
-  related bugs.
+  🤖This thread has been automatically locked 🔒 since there has not been
+  any recent activity after it was closed. 
+  
+  We lock tickets after 90 days with the idea to encourage you to open a ticket with new fresh data 
+  and to provide you better feedback 🤝and better visibility 👀. 
+  
+  If you consider, can attach this ticket 📨to the new one as a reference for better context.
+
+  Thanks for being a part of the Verdaccio community! 💘
 
 # Limit to only `issues` or `pulls`
 # only: issues
@@ -25,4 +31,4 @@ issues:
  lockLabel: outdated
 
 pulls:
- daysUntilLock: 90
+ daysUntilLock: 10

@@ -4,10 +4,14 @@ module.exports = {
   name: 'verdaccio-unit-jest',
   verbose: true,
   collectCoverage: true,
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testURL: 'http://localhost',
-  testRegex: '(test/unit.*\\.spec)\\.js',
-   // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
-   // when it tries to scan for package.json files.
+  testRegex: '(test/unit.*\\.spec)\\.ts',
+  // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
+  // when it tries to scan for package.json files.
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+  },
   modulePathIgnorePatterns: [
     '<rootDir>/test/unit/partials/mock-store/.*/package.json',
     '<rootDir>/test/functional/store/.*/package.json',

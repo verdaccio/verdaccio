@@ -170,7 +170,7 @@ If you want to report a security vulnerability, please follow the steps which we
 
 ## Core Team
 
-The core team is the responsable for drive this project, team is ordered by antiquity and areas of responsability.
+The core team is responsible for driving this project ahead, team is ordered by antiquity and areas of responsibility.
 
 |  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  |  [Priscila Oliveria](https://github.com/priscilawebdev) | 
 |---|---|---|---|
@@ -185,6 +185,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+67k ⭐️)*
 * [Storybook](https://github.com/storybooks/storybook) *(+37k ⭐️)*
 * [Gatsby](https://github.com/gatsbyjs/gatsby) *(+34k ⭐️)* 
+* [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)* 
 * [Uppy](https://github.com/transloadit/uppy) *(+19k ⭐️)*
 * [Aurelia Framework](https://github.com/aurelia) *(+11k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
