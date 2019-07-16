@@ -3,7 +3,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
 import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
-import { API_ERROR, DIST_TAGS, STORAGE, USERS } from './constants';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import { createTarballHash } from './crypto-utils';
 import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
@@ -34,10 +34,10 @@ class LocalStorage implements IStorage {
       return callback(ErrorCode.getNotFound('this package cannot be added'));
     }
 
-    storage.createPackage(name, generatePackageTemplate(name), (err: VerdaccioError): void => {
+    storage.createPackage(name, generatePackageTemplate(name), err => {
       // FIXME: it will be fixed here https://github.com/verdaccio/verdaccio/pull/1360
       // @ts-ignore
-      if (_.isNull(err) === false && err.code === STORAGE.FILE_EXIST_ERROR) {
+      if (_.isNull(err) === false && (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT)) {
         return callback(ErrorCode.getConflict());
       }
 
@@ -65,7 +65,7 @@ class LocalStorage implements IStorage {
 
     storage.readPackage(name, (err, data: Package): void => {
       if (_.isNil(err) === false) {
-        if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
+        if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
         } else {
           return callback(err);
@@ -419,13 +419,13 @@ class LocalStorage implements IStorage {
 
     const writeStream: IUploadTarball = storage.writeTarball(filename);
 
-    writeStream.on('error', (err: VerdaccioError): void => {
+    writeStream.on('error', err => {
       // @ts-ignore
-      if (err.code === STORAGE.FILE_EXIST_ERROR) {
+      if (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT) {
         uploadStream.emit('error', ErrorCode.getConflict());
         uploadStream.abort();
-        // @ts-ignore
-      } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
+      // @ts-ignore
+      } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         // check if package exists to throw an appropriate message
         this.getPackageMetadata(name, function(_err: VerdaccioError, _res: Package): void {
           if (_err) {
@@ -531,9 +531,9 @@ class LocalStorage implements IStorage {
       }
     };
 
-    readTarballStream.on('error', function(err: VerdaccioError): void {
+    readTarballStream.on('error', function(err) {
       // @ts-ignore
-      if (err && err.code === STORAGE.NO_SUCH_FILE_ERROR) {
+      if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         stream.emit('error', e404('no such file available'));
       } else {
         stream.emit('error', err);
@@ -624,7 +624,7 @@ class LocalStorage implements IStorage {
   private _readPackage(name: string, storage: any, callback: Callback): void {
     storage.readPackage(name, (err, result): void => {
       if (err) {
-        if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
+        if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
         } else {
           return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
@@ -666,7 +666,7 @@ class LocalStorage implements IStorage {
     storage.readPackage(pkgName, (err, data): void => {
       // TODO: race condition
       if (_.isNil(err) === false) {
-        if (err.code === STORAGE.NO_SUCH_FILE_ERROR) {
+        if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           data = generatePackageTemplate(pkgName);
         } else {
           return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));

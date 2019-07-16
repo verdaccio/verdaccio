@@ -263,16 +263,20 @@ export function parseAddress(urlAddress: any): any {
  * @return {Array} sorted Array
  */
 export function semverSort(listVersions: string[]): string[] {
-  return listVersions
-    .filter(function(x): boolean {
-      if (!semver.parse(x, true)) {
-        Logger.logger.warn({ ver: x }, 'ignoring bad version @{ver}');
-        return false;
-      }
-      return true;
-    })
-    .sort(semver.compareLoose)
-    .map(String);
+  return (
+    listVersions
+      .filter(function(x): boolean {
+        if (!semver.parse(x, true)) {
+          Logger.logger.warn({ ver: x }, 'ignoring bad version @{ver}');
+          return false;
+        }
+        return true;
+      })
+      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
+      // @ts-ignore
+      .sort(semver.compareLoose)
+      .map(String)
+  );
 }
 
 /**
