@@ -5,7 +5,8 @@
   "env": {
     "node": true,
     "mocha": true,
-    "es6": true
+    "es6": true,
+    "browser": true
   },
   "globals": {
     "jsdom": true
@@ -24,6 +25,7 @@
         ]
       }
     ],
-    "no-useless-escape": 0
+    "no-useless-escape": 0,
+    "@typescript-eslint/explicit-function-return-type": 0
   }
 }

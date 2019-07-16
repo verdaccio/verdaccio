@@ -1,7 +1,7 @@
 function ValidVerdaccioPlugin() {
-	return {
-		authenticate: function(){}
-	}
+  return {
+    authenticate: function(){}
+  }
 }
 
 module.exports = ValidVerdaccioPlugin;
