@@ -1461,6 +1461,11 @@
     "@types/tough-cookie" "*"
     form-data "^2.5.0"
 
+"@types/semver@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.verdaccio.org/@types%2fsemver/-/semver-6.0.1.tgz#a984b405c702fa5a7ec6abc56b37f2ba35ef5af6"
+  integrity sha512-ffCdcrEE5h8DqVxinQjo+2d1q+FV5z7iNtPofw3JsrltSoSVlOGaW0rY8XxtO9XukdTn8TaCGWmk2VFGhI70mg==
+
 "@types/serve-static@*":
   version "1.13.2"
   resolved "https://registry.verdaccio.org/@types%2fserve-static/-/serve-static-1.13.2.tgz#f5ac4d7a6420a99a6a45af4719f4dcd8cd907a48"
