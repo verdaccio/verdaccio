@@ -1,6 +1,8 @@
 /* eslint-disable */
 
-import { isObject } from './utils';
+import { isObject, pad } from './utils';
+
+import { fillInMsgTemplate } from './logger/parser';
 
 const cluster = require('cluster');
 const Logger = require('bunyan');
@@ -178,51 +180,6 @@ for (const l in levels) {
 }
 
 /**
- * Apply whitespaces based on the length
- * @param {*} str the log message
- * @return {String}
- */
-function pad(str) {
-  if (str.length < max) {
-    return str + ' '.repeat(max - str.length);
-  }
-  return str;
-}
-
-function fillInMsgTemplate(msg, obj, colors) {
-  return msg.replace(/@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g, (_, name) => {
-    let str = obj;
-    let is_error;
-    if (name[0] === '!') {
-      name = name.substr(1);
-      is_error = true;
-    }
-
-    const _ref = name.split('.');
-    for (let _i = 0; _i < _ref.length; _i++) {
-      const id = _ref[_i];
-      if (isObject(str) || Array.isArray(str)) {
-        str = str[id];
-      } else {
-        str = undefined;
-      }
-    }
-
-    if (typeof str === 'string') {
-      if (!colors || str.includes('\n')) {
-        return str;
-      } else if (is_error) {
-        return red(str);
-      } else {
-        return green(str);
-      }
-    } else {
-      return require('util').inspect(str, null, null, colors);
-    }
-  });
-}
-
-/**
  * Apply colors to a string based on level parameters.
  * @param {*} type
  * @param {*} msg
@@ -230,7 +187,7 @@ function fillInMsgTemplate(msg, obj, colors) {
  * @param {*} colors
  * @return {String}
  */
-function print(type, msg, obj, colors) {
+  function print(type, msg, obj, colors) {
   if (typeof type === 'number') {
     type = calculateLevel(type);
   }
@@ -253,9 +210,9 @@ function print(type, msg, obj, colors) {
 
   const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
   if (colors) {
-    return ` ${levels[type](pad(type))}${white(`${sub} ${finalMessage}`)}`;
+    return ` ${levels[type](pad(type, max))}${white(`${sub} ${finalMessage}`)}`;
   } else {
-    return ` ${pad(type)}${sub} ${finalMessage}`;
+    return ` ${pad(type, max)}${sub} ${finalMessage}`;
   }
 }
 

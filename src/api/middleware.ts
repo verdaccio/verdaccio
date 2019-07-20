@@ -175,6 +175,10 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
   res.send(body);
 }
 
+export const LOG_STATUS_MESSAGE = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
+export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
+export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
+
 export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   // logger
   req.log = logger.child({ sub: 'in' });
@@ -221,11 +225,11 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     const forwardedFor = req.headers['x-forwarded-for'];
     const remoteAddress = req.connection.remoteAddress;
     const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
-    let message = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
+    let message;
     if (res._verdaccio_error) {
-      message += ', error: @{!error}';
+      message = LOG_VERDACCIO_ERROR;
     } else {
-      message += ', bytes: @{bytes.in}/@{bytes.out}';
+      message = LOG_VERDACCIO_BYTES;
     }
 
     req.url = req.originalUrl;

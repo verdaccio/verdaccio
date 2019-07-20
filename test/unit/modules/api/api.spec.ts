@@ -14,7 +14,9 @@ import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 import {buildToken} from '../../../../src/lib/utils';
 import {getNewToken} from '../../__helper/api';
 
-require('../../../../src/lib/logger').setup([]);
+require('../../../../src/lib/logger').setup([
+  { type: 'stdout', format: 'pretty', level: 'info' }
+]);
 const credentials = { name: 'jota', password: 'secretPass' };
 
 const putPackage = (app, name, publishMetadata) => {
