@@ -1,41 +1,18 @@
 /* eslint-disable */
 
-import { isObject, pad } from './utils';
+import { pad } from './utils';
 
 import { fillInMsgTemplate } from './logger/parser';
+import {calculateLevel, levels, subsystems} from "./logger/levels";
 
 const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');
-const { red, yellow, cyan, magenta, green, white, black, blue } = require('kleur');
+const { red, yellow, cyan, magenta, green, white } = require('kleur');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
 const dayjs = require('dayjs');
-
-/**
- * Match the level based on buyan severity scale
- * @param {*} x severity level
- * @return {String} security level
- */
-function calculateLevel(x) {
-  switch (true) {
-    case x < 15:
-      return 'trace';
-    case x < 25:
-      return 'debug';
-    case x < 35:
-      return 'info';
-    case x == 35:
-      return 'http';
-    case x < 45:
-      return 'warn';
-    case x < 55:
-      return 'error';
-    default:
-      return 'fatal';
-  }
-}
 
 /**
  * A RotatingFileStream that modifes the message first
@@ -161,17 +138,6 @@ function setup(logs) {
 // this part was converted to coffee-script and back again over the years,
 // so it might look weird
 
-// level to color
-const levels = {
-  fatal: red,
-  error: red,
-  warn: yellow,
-  http: magenta,
-  info: cyan,
-  debug: green,
-  trace: white,
-};
-
 let max = 0;
 for (const l in levels) {
   if (Object.prototype.hasOwnProperty.call(levels, l)) {
@@ -193,20 +159,7 @@ for (const l in levels) {
   }
   const finalMessage = fillInMsgTemplate(msg, obj, colors);
 
-  const subsystems = [
-    {
-      in: green('<--'),
-      out: yellow('-->'),
-      fs: black('-=-'),
-      default: blue('---'),
-    },
-    {
-      in: '<--',
-      out: '-->',
-      fs: '-=-',
-      default: '---',
-    },
-  ];
+
 
   const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
   if (colors) {

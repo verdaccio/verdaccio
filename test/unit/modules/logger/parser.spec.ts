@@ -8,7 +8,13 @@ jest.mock('kleur', () => {
   // we emulate colors with this pattern color[msg]
   return {
     green: r => `g[${r}]`,
-    red: r => `r[${r}]`
+    yellow: r => `y[${r}]`,
+    black: r => `b[${r}]`,
+    blue: r => `bu[${r}]`,
+    red: r => `r[${r}]`,
+    cyan: r => `c[${r}]`,
+    magenta: r => `m[${r}]`,
+    white: r => `w[${r}]`,
   }
 });
 
