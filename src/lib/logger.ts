@@ -1,15 +1,13 @@
 /* eslint-disable */
 
-import { pad } from './utils';
-
-import { fillInMsgTemplate } from './logger/parser';
-import {calculateLevel, levels, subsystems} from "./logger/levels";
+import {prettyTimestamped} from "./logger/format/pretty-timestamped";
+import {pretty} from "./logger/format/pretty";
+import {jsonFormat} from "./logger/format/json";
 
 const cluster = require('cluster');
 const Logger = require('bunyan');
 const Error = require('http-errors');
 const Stream = require('stream');
-const { red, yellow, cyan, magenta, green, white } = require('kleur');
 const pkgJSON = require('../../package.json');
 const _ = require('lodash');
 const dayjs = require('dayjs');
@@ -20,24 +18,33 @@ const dayjs = require('dayjs');
 class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
   // We depend on mv so that this is there
   write(obj) {
-    const msg = fillInMsgTemplate(obj.msg, obj, false);
-    super.write(JSON.stringify({ ...obj, msg }, Logger.safeCycles()) + '\n');
+    super.write(jsonFormat(obj, false));
   }
 }
 
 let logger;
+
+export interface LoggerTarget {
+  type?: string;
+  format?: string;
+  level?: string;
+  options?: any;
+  path?: string;
+}
+
+const DEFAULT_LOGGER_CONF = [{ type: 'stdout', format: 'pretty', level: 'http' }];
 
 /**
  * Setup the Buyan logger
  * @param {*} logs list of log configuration
  */
 function setup(logs) {
-  const streams = [];
+  const streams: any = [];
   if (logs == null) {
-    logs = [{ type: 'stdout', format: 'pretty', level: 'http' }];
+    logs = DEFAULT_LOGGER_CONF;
   }
 
-  logs.forEach(function(target) {
+  logs.forEach(function(target: LoggerTarget) {
     let level = target.level || 35;
     if (level === 'http') {
       level = 35;
@@ -63,14 +70,16 @@ function setup(logs) {
         )
       );
 
-      streams.push({
+      const rotateStream: any = {
         // @ts-ignore
         type: 'raw',
         // @ts-ignore
         level,
         // @ts-ignore
         stream,
-      });
+      };
+
+      streams.push(rotateStream);
     } else {
       const stream = new Stream();
       stream.writable = true;
@@ -93,17 +102,16 @@ function setup(logs) {
       if (target.format === 'pretty') {
         // making fake stream for pretty printing
         stream.write = obj => {
-          destination.write(`${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+          destination.write(pretty(obj, destinationIsTTY));
         };
       } else if (target.format === 'pretty-timestamped') {
         // making fake stream for pretty printing
         stream.write = obj => {
-          destination.write(`[${dayjs(obj.time).format('YYYY-MM-DD HH:mm:ss')}] ${print(obj.level, obj.msg, obj, destinationIsTTY)}\n`);
+          destination.write(prettyTimestamped(obj, destinationIsTTY));
         };
       } else {
         stream.write = obj => {
-          const msg = fillInMsgTemplate(obj.msg, obj, destinationIsTTY);
-          destination.write(`${JSON.stringify({ ...obj, msg }, Logger.safeCycles())}\n`);
+          destination.write(jsonFormat(obj, destinationIsTTY));
         };
       }
 
@@ -132,41 +140,6 @@ function setup(logs) {
   process.on('SIGUSR2', function() {
     Logger.reopenFileStreams();
   });
-}
-
-// adopted from socket.io
-// this part was converted to coffee-script and back again over the years,
-// so it might look weird
-
-let max = 0;
-for (const l in levels) {
-  if (Object.prototype.hasOwnProperty.call(levels, l)) {
-    max = Math.max(max, l.length);
-  }
-}
-
-/**
- * Apply colors to a string based on level parameters.
- * @param {*} type
- * @param {*} msg
- * @param {*} obj
- * @param {*} colors
- * @return {String}
- */
-  function print(type, msg, obj, colors) {
-  if (typeof type === 'number') {
-    type = calculateLevel(type);
-  }
-  const finalMessage = fillInMsgTemplate(msg, obj, colors);
-
-
-
-  const sub = subsystems[colors ? 0 : 1][obj.sub] || subsystems[+!colors].default;
-  if (colors) {
-    return ` ${levels[type](pad(type, max))}${white(`${sub} ${finalMessage}`)}`;
-  } else {
-    return ` ${pad(type, max)}${sub} ${finalMessage}`;
-  }
 }
 
 export { setup, logger };

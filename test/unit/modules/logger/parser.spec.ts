@@ -1,4 +1,4 @@
-import { fillInMsgTemplate } from "../../../../src/lib/logger/parser";
+import { fillInMsgTemplate } from "../../../../src/lib/logger/formatter";
 import {LOG_VERDACCIO_ERROR, LOG_VERDACCIO_BYTES} from "../../../../src/api/middleware";
 import { HTTP_STATUS } from "@verdaccio/commons-api";
 
