@@ -70,6 +70,7 @@
     "@verdaccio/types": "5.2.2",
     "codecov": "3.5.0",
     "cross-env": "5.2.0",
+    "detect-secrets": "1.0.3",
     "eslint": "5.16.0",
     "get-stdin": "7.0.0",
     "husky": "2.7.0",
@@ -131,14 +132,17 @@
     }
   },
   "lint-staged": {
+    "relative": true,
     "linters": {
       "*.yaml": [
         "prettier --parser yaml --no-config --single-quote --write",
+        "detect-secrets-launcher --baseline .secrets-baseline",
         "git add"
       ],
       "*": [
         "eslint .",
         "prettier --write",
+        "detect-secrets-launcher --baseline .secrets-baseline",
         "git add"
       ]
     },
