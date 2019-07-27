@@ -89,9 +89,9 @@ The `configDefault({}, 'myConfig.yaml)` function is a method that returns a conf
 
 > **The generated object will be used for run your test, not for mock the mock server.**
 
-The `app = await endPointAPI(configForTest);` be the server that you are about to run your test against. The `app` object is used to call the endoints, for instance:
+The `app = await endPointAPI(configForTest);` is the server that you are about to run your test against. The `app` object is used to call the endoints, for instance:
 
-```
+```js
 test('should fetch jquery package from remote uplink', (done) => {
 	request(app)
 	  .get('/jquery')
@@ -109,6 +109,7 @@ test('should fetch jquery package from remote uplink', (done) => {
   });
 });
 ```
+
 In the previous example, we are fetching `jquery` metadata from our server, we can define custom headers, expect some specific status and validate the body outcome.
 
 The `mockRegistry = await mockServer(mockServerPort).init();` mock registry will be used as `uplink` for the `app` object described above, **this is optional**, but, the most of the tests are using this approach for increase the number of tested scenarios.
