@@ -28,7 +28,7 @@ If you are adding new tests, comply with the following:
 * If you add or refactor a core class, unit test is mandatory.
 * If you fix a bug, you **must** add a new `test()` block to prove that the patch fixes the bug.
 
-### Unit test
+## Unit test
 
 Unit tests aim to test the CLI API and the Web API. The configuration file is located at `jest.config.js`.
 
@@ -174,7 +174,7 @@ Ran all test suites matching /test\/unit\/modules\/api\/api.spec.ts/i.
 ```
 The debug display request headers and other handy information about what is happening between your test and the mock server.
 
-### Functional tests
+## Functional tests
 
 The functional tests aim to run only **cli endpoint** and **web point** using real request to an existing and compiled running Verdaccio server.
 
@@ -243,7 +243,7 @@ describe('functional test verdaccio', function() {
 
 Functional tests run over one single file, thus, it is not possible at this stage to run tests individually.
 
-### E2E Test
+## E2E Test
 
 Verdaccio includes a Web User Interface that must be tested. We use End-to-End testing to run some mock tests against the web API using the UI Theme 
 include by default.
