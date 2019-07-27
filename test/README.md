@@ -4,6 +4,8 @@ Welcome to the testing folder at Verdaccio. This document aims to help you under
 
 First of all, we should explain the testing frameworks being used. We use `jest` and other tools such as `supertest` to be able to test the API, and `puppeteer` for End-to-End testing.
 
+### Before getting started
+
 We go along with the following rules in order to be consistent with all tests which will make your code review smooth and fast:
 
 * We **type** all our tests. eg `const foo: number = 3;`
