@@ -2,7 +2,7 @@
 
 Welcome to the testing folder at Verdaccio. This document aims to help you understand how Verdaccio should be tested.
 
-First of all, we should explain the testing frameworks being used. We use `jest` and other tools such as `supertest` to be able to test the API, and `puppeteer` for End-to-End testing.
+First of all, we should explain the testing frameworks being used. We use `jest` and other tools such as **`supertest`** to be able to test the API, and **`puppeteer`** for End-to-End testing.
 
 ### Before getting started
 
@@ -113,6 +113,8 @@ test('should fetch jquery package from remote uplink', (done) => {
 ```
 
 In the previous example, we are fetching `jquery` metadata from our server, we can define custom headers, expect some specific status and validate the body outcome.
+
+> For more information about the **supertest** API, please [read their website](https://www.npmjs.com/package/supertest).
 
 The `mockRegistry = await mockServer(mockServerPort).init();` mock registry will be used as `uplink` for the `app` object described above, **this is optional**, but, the most of the tests are using this approach for increase the number of tested scenarios.
 
