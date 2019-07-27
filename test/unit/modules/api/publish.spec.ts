@@ -3,6 +3,10 @@ import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
 
+require('../../../../src/lib/logger').setup([
+  { type: 'stdout', format: 'pretty', level: 'info' }
+]);
+
 describe('Publish endpoints - add a tag', () => {
   let req;
   let res;

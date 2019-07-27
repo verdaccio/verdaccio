@@ -150,6 +150,7 @@ export function publishPackage(storage: IStorageHandler, config: Config) {
         });
       }
     } catch (error) {
+      logger.error({error}, 'error on publish, bad package data @{error}');
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
   };

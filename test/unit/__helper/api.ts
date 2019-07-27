@@ -1,7 +1,6 @@
-// @flow
-
 import {HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER} from '../../../src/lib/constants';
-import {buildToken} from "../../../src/lib/utils";
+import {buildToken} from '../../../src/lib/utils';
+import { Package } from '@verdaccio/types';
 
 // API Helpers
 
@@ -9,7 +8,25 @@ import {buildToken} from "../../../src/lib/utils";
 // Please, comply with the following:
 // - Promisify everything
 // - Encourage using constants or create new ones if it's needed
-// - // $FlowFixMe or any is fine if there is no other way
+// - // @ts-ignore or any is fine if there is no other way
+
+export function putPackage(
+  request: any,
+  pkgName: string,
+  publishMetadata: Package
+): Promise<any[]> {
+  return new Promise((resolve) => {
+    request.put(pkgName)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(JSON.stringify(publishMetadata))
+        .set('accept', 'gzip')
+        .set('accept-encoding', HEADERS.JSON)
+        .expect(HTTP_STATUS.CREATED)
+        .end(function(err, res) {
+        resolve([err, res]);
+    });
+  });
+}
 
 export function getPackage(
   request: any,

@@ -12,14 +12,15 @@ import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER}
 import {mockServer} from '../../__helper/mock';
 import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 import {buildToken} from '../../../../src/lib/utils';
-import {getNewToken} from '../../__helper/api';
+import {getNewToken, putPackage} from '../../__helper/api';
+import { generatePackageMetadata } from '../../__helper/utils';
 
 require('../../../../src/lib/logger').setup([
   { type: 'stdout', format: 'pretty', level: 'info' }
 ]);
 const credentials = { name: 'jota', password: 'secretPass' };
 
-const putPackage = (app, name, publishMetadata) => {
+const putVersion = (app, name, publishMetadata) => {
   return request(app)
     .put(name)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -28,7 +29,7 @@ const putPackage = (app, name, publishMetadata) => {
     .set('accept', 'gzip')
     .set('accept-encoding', HEADERS.JSON)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
-}
+};
 
 describe('endpoint unit test', () => {
   let app;
@@ -507,7 +508,7 @@ describe('endpoint unit test', () => {
       };
 
       test('should set a new tag on jquery', (done) => {
-        putPackage(app, '/jquery/verdaccio-tag', jqueryVersion)
+        putVersion(app, '/jquery/verdaccio-tag', jqueryVersion)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -602,7 +603,7 @@ describe('endpoint unit test', () => {
 
     describe('should test search api', () => {
       test('should perform a search', (done) => {
-        const now = Date.now()
+        const now = Date.now();
         const cacheTime = now - 6000000;
         request(app)
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
@@ -624,7 +625,9 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test publish/unpublish api', () => {
-      test('should publish a new package with no credentials', (done) => {
+      test('should publish a new package with no credentials', async (done) => {
+          // const token = await putPackage('@scope%2fpk1-test');
+
         request(app)
           .put('/@scope%2fpk1-test')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -642,87 +645,6 @@ describe('endpoint unit test', () => {
             done();
           });
       });
-
-      describe('should test star and stars api', () => {
-        test('should star a package', (done) => {
-          request(app)
-            .put('/@scope%2fpk1-test')
-            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-            .send(JSON.stringify({
-              ...starMetadata,
-              users: {
-                [credentials.name]: true
-              }
-            }))
-            .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
-              if (err) {
-                expect(err).toBeNull();
-                return done(err);
-              }
-              expect(res.body.success).toBeDefined();
-              expect(res.body.success).toBeTruthy();
-              done();
-            });
-        });
-
-        test('should unstar a package', (done) => {
-          request(app)
-            .put('/@scope%2fpk1-test')
-            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-            .send(JSON.stringify(starMetadata))
-            .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
-              if (err) {
-                expect(err).toBeNull();
-                return done(err);
-              }
-              expect(res.body.success).toBeDefined();
-              expect(res.body.success).toBeTruthy();
-              done();
-            });
-        });
-
-        test('should retrieve stars list with credentials', async (done) => {
-          const credentials = { name: 'star_user', password: 'secretPass' };
-          const token = await getNewToken(request(app), credentials);
-          request(app)
-            .put('/@scope%2fpk1-test')
-            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-            .send(JSON.stringify({
-              ...starMetadata,
-              users: {
-                [credentials.name]: true
-              }
-            }))
-            .expect(HTTP_STATUS.OK).end(function(err) {
-              if (err) {
-                expect(err).toBeNull();
-                return done(err);
-              }
-              request(app)
-                .get('/-/_view/starredByUser')
-                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .send(JSON.stringify({
-                  key: [credentials.name]
-                }))
-                .expect(HTTP_STATUS.OK)
-                .end(function(err, res) {
-                  if (err) {
-                    expect(err).toBeNull();
-                    return done(err);
-                  }
-                  expect(res.body.rows).toBeDefined();
-                  expect(res.body.rows).toHaveLength(1);
-                  done();
-                });
-            });
-        });
-      });
-
-
 
       test('should unpublish a new package with credentials', async (done) => {
 
@@ -828,6 +750,91 @@ describe('endpoint unit test', () => {
               });
           });
       });
+    });
+
+    describe('should test star and stars api', () => {
+      const pkgName = '@scope/starPackage';
+        beforeAll(async (done) =>{
+           await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName));
+           done();
+        });
+
+        test('should star a package', (done) => {
+            request(app)
+                .put(`/${pkgName}`)
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .send(JSON.stringify({
+                    ...starMetadata,
+                    users: {
+                        [credentials.name]: true
+                    }
+                }))
+                .expect(HTTP_STATUS.OK)
+                .end(function(err, res) {
+                    if (err) {
+                        expect(err).toBeNull();
+                        return done(err);
+                    }
+                    expect(res.body.success).toBeDefined();
+                    expect(res.body.success).toBeTruthy();
+                    done();
+                });
+        });
+
+        test('should unstar a package', (done) => {
+            request(app)
+                .put(`/${pkgName}`)
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .send(JSON.stringify(starMetadata))
+                .expect(HTTP_STATUS.OK)
+                .end(function(err, res) {
+                    if (err) {
+                        expect(err).toBeNull();
+                        return done(err);
+                    }
+                    expect(res.body.success).toBeDefined();
+                    expect(res.body.success).toBeTruthy();
+                    done();
+                });
+        });
+
+        test('should retrieve stars list with credentials', async (done) => {
+            const credentials = { name: 'star_user', password: 'secretPass' };
+            const token = await getNewToken(request(app), credentials);
+            request(app)
+                .put(`/${pkgName}`)
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .send(JSON.stringify({
+                    ...starMetadata,
+                    users: {
+                        [credentials.name]: true
+                    }
+                }))
+                .expect(HTTP_STATUS.OK).end(function(err) {
+                if (err) {
+                    expect(err).toBeNull();
+                    return done(err);
+                }
+                request(app)
+                    .get('/-/_view/starredByUser')
+                    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                    .send(JSON.stringify({
+                        key: [credentials.name]
+                    }))
+                    .expect(HTTP_STATUS.OK)
+                    .end(function(err, res) {
+                        if (err) {
+                            expect(err).toBeNull();
+                            return done(err);
+                        }
+                        expect(res.body.rows).toBeDefined();
+                        expect(res.body.rows).toHaveLength(1);
+                        done();
+                    });
+            });
+        });
     });
   });
 });
