@@ -56,7 +56,10 @@ describe('endpoint unit test', () => {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
           }
-        }
+        },
+        logs: [
+          { type: 'stdout', format: 'pretty', level: 'warn' }
+        ]
       }, 'api.spec.yaml');
 
       app = await endPointAPI(configForTest);
@@ -307,6 +310,12 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test package api', () => {
+      // The current behaviour depends of what's defined in the following configuration file.
+      // test/unit/partials/config/yaml/api.spec.yaml
+      // 'jquery':
+      //   access: $all
+      //   publish: $all
+      //   proxy: npmjs
 
       test('should fetch jquery package from remote uplink', (done) => {
 
@@ -392,35 +401,37 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test('be able to filter packages', (done) => {
-        request(app)
-          .get('/npm_test')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-            // Filter out 2.0.0
-            expect(Object.keys(res.body.versions)).toEqual(['1.0.0']);
-            done();
-          });
-      });
+      describe('testing filters', () => {
+        test('be able to filter packages', (done) => {
+          request(app)
+            .get('/npm_test')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HTTP_STATUS.OK)
+            .end(function(err, res) {
+              if (err) {
+                return done(err);
+              }
+              // Filter out 2.0.0
+              expect(Object.keys(res.body.versions)).toEqual(['1.0.0']);
+              done();
+            });
+        });
 
-      test('should not found when a filter fails', (done) => {
-        request(app)
-        // Filter errors look like other uplink errors
-          .get('/trigger-filter-failure')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
+        test('should not found when a filter fails', (done) => {
+          request(app)
+          // Filter errors look like other uplink errors
+            .get('/trigger-filter-failure')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HTTP_STATUS.NOT_FOUND)
+            .end(function(err, res) {
+              if (err) {
+                return done(err);
+              }
+              done();
+            });
+        });
       });
 
       test('should forbid access to remote package', (done) => {
