@@ -572,3 +572,15 @@ export function formatAuthor(author: AuthorFormat): any {
 export function isHTTPProtocol(uri: string): boolean {
   return /^(https?:)?\/\//.test(uri);
 }
+
+/**
+ * Apply whitespaces based on the length
+ * @param {*} str the log message
+ * @return {String}
+ */
+export function pad(str, max): string {
+  if (str.length < max) {
+    return str + ' '.repeat(max - str.length);
+  }
+  return str;
+}
