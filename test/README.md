@@ -36,7 +36,7 @@ Unit tests aim to test the CLI API and the Web API. The configuration file is lo
 
 #### Testing an endpoint
 
-We have prepared a template at `test/unit/api/api.__test.template.spec.ts` that you can follow to create your own unit test. Only the tests are appended with `.spec.js` which will be found and used by `jest`.
+We have prepared a template at `test/unit/api/api.__test.template.spec.ts` that you can follow to create your own unit test. Only the tests are appended with `.spec.ts` which will be found and used by `jest`.
 
 > Feel free to suggest improvements to the template, there is still a lot of room for improvement. 
 
@@ -91,7 +91,7 @@ The `configDefault({}, 'myConfig.yaml)` function is a method that returns a conf
 
 The `app = await endPointAPI(configForTest);` is the server that you are about to run your test against. The `app` object is used to call the endoints, for instance:
 
-```js
+```js	
 test('should fetch jquery package from remote uplink', (done) => {
 	request(app)
 	  .get('/jquery')
@@ -146,7 +146,7 @@ That will help to run small chunk of tests and makes more easy the development.
 In order to inspect more information about what is being sended between your test and the mock server, you might take advance of the `debug` library used by `request`, for instance.
 
 ```
-NODE_DEBUG=request yarn jest test/unit/modules/api/api.spec.ts --coverage=false
+NODE_DEBUG=request yarn jest test/unit/modules/api/api.spec.ts --runInBand=true --coverage=false
 ```
 
 The outcome you will see in your terminal looks like:
@@ -203,7 +203,7 @@ The functional tests aim to run only **cli endpoint** and **web point** using re
 
 > Be aware if you change something in the `{root}/src` source code, you must run `yarn code:build` before to be able to see your changes because functional tests use the transpiled code. 
 
-All tests must be included in the `test/functional/index.spec.js` file, which bootstraps the whole process. There is only one spec file and **must be only one**.
+All tests must be included in the `test/functional/index.spec.ts` file, which bootstraps the whole process. There is only one spec file and **must be only one**.
 
 The jest configuration file is defined in `test/jest.config.functional.js`. The configuration will create a custom environment launching 3 Verdaccio servers with different configurations.
 
@@ -230,7 +230,7 @@ To add a new feature you need to export the feature as a function that take as a
 
 
 ```js
-// newFeature.js
+// newFeature.ts
 
 export default function(server) {
 
@@ -246,7 +246,7 @@ export default function(server) {
 Then import the feature and run the function within the main `describe` block.  
 
 ```js
-// index.spec.js
+// index.spec.ts
 
 import newFeature from './newFeature';
 
