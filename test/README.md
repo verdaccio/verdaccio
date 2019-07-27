@@ -89,9 +89,31 @@ The `configDefault({}, 'myConfig.yaml)` function is a method that returns a conf
 
 > **The generated object will be used for run your test, not for mock the mock server.**
 
-The `app = await endPointAPI(configForTest);` will trigger the mock server that you are about to run your test with as an uplink. The *mock server* has a static storage which is located `test/unit/partials/mock-store`, if you need add new packages, those must be commited in such folder. **Any modification in the mock server might affect other test, since is a shared context**.
+The `app = await endPointAPI(configForTest);` be the server that you are about to run your test against. The `app` object is used to call the endoints, for instance:
 
-The `mockRegistry = await mockServer(mockServerPort).init();` mock registry will be used as `uplink`, this is optional, but the most of the test are using this for increase the number of tested scenarios.
+```
+test('should fetch jquery package from remote uplink', (done) => {
+	request(app)
+	  .get('/jquery')
+	  .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+	  .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+	  .expect(HTTP_STATUS.OK)
+	  .end(function(err, res) {
+   		 if (err) {
+      	return done(err);
+	  }
+
+	  expect(res.body).toBeDefined();
+     expect(res.body.name).toMatch(/jquery/);
+     done();
+  });
+});
+```
+In the previous example, we are fetching `jquery` metadata from our server, we can define custom headers, expect some specific status and validate the body outcome.
+
+The `mockRegistry = await mockServer(mockServerPort).init();` mock registry will be used as `uplink` for the `app` object described above, **this is optional**, but, the most of the tests are using this approach for increase the number of tested scenarios.
+
+The *mock server* has a static storage which is located `test/unit/partials/mock-store`, if you need add new packages, those must be commited in such folder. **Any modification in the mock server might affect other test, since is a shared context**.
 
 > It is not possible yet to override the mocks configuration server.
 
