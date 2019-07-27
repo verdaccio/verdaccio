@@ -102,7 +102,7 @@ The `mockRegistry = await mockServer(mockServerPort).init();` mock registry will
 > To increase debugging you might override the `logs` property using `{ type: 'stdout', format: 'pretty', level: 'trace' }` level **trace**, thus the test will display the server request in your terminal, try to keep it in **warn** by default to avoid noise on run all your test.
 > 
 
-### Runinng a single Test
+#### Running a single Unit Test
 
 To run a single test, use the following command:
 
@@ -117,6 +117,62 @@ describe.only('should test package api', () => {
 ```
 
 That will help to run small chunk of tests and makes more easy the development.
+
+#### Debugging Mock Server Request
+
+In order to inspect more information about what is being sended between your test and the mock server, you might take advance of the `debug` library used by `request`, for instance.
+
+```
+NODE_DEBUG=request yarn jest test/unit/modules/api/api.spec.ts --coverage=false
+```
+
+The outcome you will see in your terminal looks like:
+
+```
+Ran all test suites matching /test\/unit\/modules\/api\/api.spec.ts/i.
+  console.error node_modules/request/request.js:136
+    REQUEST onRequestResponse http://0.0.0.0:55549/jquery 200 { 'x-powered-by': 'verdaccio/4.1.0',
+      'access-control-allow-origin': '*',
+      'content-type': 'application/json; charset=utf-8',
+      etag: '"xxxxx"',
+      vary: 'Accept-Encoding',
+      'content-encoding': 'gzip',
+      date: 'Sat, 27 Jul 2019 06:44:13 GMT',
+      connection: 'close',
+      'transfer-encoding': 'chunked' }
+
+ http --> 200, req: 'GET http://0.0.0.0:55549/jquery' (streaming)
+  console.error node_modules/request/request.js:136
+    REQUEST reading response's body
+
+  console.error node_modules/request/request.js:136
+    REQUEST finish init function http://0.0.0.0:55549/jquery
+
+  console.error node_modules/request/request.js:136
+    REQUEST response end http://0.0.0.0:55549/jquery 200 { 'x-powered-by': 'verdaccio/4.1.0',
+      'access-control-allow-origin': '*',
+      'content-type': 'application/json; charset=utf-8',
+      etag: '"xxxxx"',
+      vary: 'Accept-Encoding',
+      'content-encoding': 'gzip',
+      date: 'Sat, 27 Jul 2019 06:44:13 GMT',
+      connection: 'close',
+      'transfer-encoding': 'chunked' }
+
+  console.error node_modules/request/request.js:136
+    REQUEST end event http://0.0.0.0:55549/jquery
+
+  console.error node_modules/request/request.js:136
+    REQUEST has body http://0.0.0.0:55549/jquery 133608
+
+  console.error node_modules/request/request.js:136
+    REQUEST emitting complete http://0.0.0.0:55549/jquery
+
+ http --> 200, req: 'GET http://0.0.0.0:55549/jquery', bytes: 0/133608
+ debug-=- updating package jquery info
+ http <-- 200, user: null(::ffff:127.0.0.1), req: 'GET /jquery', bytes: 0/10300
+```
+The debug display request headers and other handy information about what is happening between your test and the mock server.
 
 ### Functional tests
 
