@@ -23,6 +23,8 @@ import {Config, Security, RemoteUser} from '@verdaccio/types';
 setup([]);
 
 describe('Auth utilities', () => {
+  jest.setTimeout(20000);
+
   const parseConfigurationSecurityFile = (name) => {
     return parseConfigurationFile(`security/${name}`);
   };

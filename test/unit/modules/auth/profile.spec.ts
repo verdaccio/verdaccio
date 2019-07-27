@@ -20,6 +20,7 @@ const parseConfigurationProfile = () => {
 describe('endpoint user profile', () => {
   let app;
   let mockRegistry;
+  jest.setTimeout(20000);
 
   beforeAll(function(done) {
     const store = path.join(__dirname, '../../partials/store/test-profile-storage');
