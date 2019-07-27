@@ -17,6 +17,5 @@ packages:
   'npm_test':
     access: $all
     publish: $all
-    ? proxy
 logs:
   - { type: stdout, format: pretty, level: warn }
