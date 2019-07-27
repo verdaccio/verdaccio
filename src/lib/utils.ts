@@ -50,18 +50,27 @@ export function convertPayloadToBase64(payload: string): Buffer {
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
  */
-export function validateName(name: string): boolean {
+export function validateName(name: string, isScoped: boolean = false): boolean {
   if (_.isString(name) === false) {
     return false;
   }
 
   const normalizedName: string = name.toLowerCase();
 
-  // all URL-safe characters and "@" for issue #75
+  /**
+   * Some context about the first regex
+   * - npm used to have a different tarball naming system.
+   * eg: http://registry.npmjs.com/thirty-two
+   * https://registry.npmjs.org/thirty-two/-/thirty-two@0.0.1.tgz
+   * The file name thirty-two@0.0.1.tgz, the version and the pkg name was separated by an at (@)
+   * while nowadays the naming system is based in dashes
+   * https://registry.npmjs.org/verdaccio/-/verdaccio-1.4.0.tgz
+   *
+   * more info here: https://github.com/rlidwka/sinopia/issues/75
+   */
   return !(
     !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
     normalizedName.charAt(0) === '.' || // ".bin", etc.
-    normalizedName.charAt(0) === '-' || // "-" is reserved by couchdb
     normalizedName === 'node_modules' ||
     normalizedName === '__proto__' ||
     normalizedName === 'favicon.ico'

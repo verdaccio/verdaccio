@@ -246,6 +246,8 @@ describe('Utilities', () => {
           expect(validateName('verdaccio')).toBeTruthy();
           expect(validateName('some.weird.package-zzz')).toBeTruthy();
           expect(validateName('old-package@0.1.2.tgz')).toBeTruthy();
+          // fix https://github.com/verdaccio/verdaccio/issues/1400
+          expect(validateName('-build-infra')).toBeTruthy();
         });
 
         test('should be valid using uppercase', () => {
