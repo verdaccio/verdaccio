@@ -50,7 +50,7 @@ export function convertPayloadToBase64(payload: string): Buffer {
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
  */
-export function validateName(name: string, isScoped: boolean = false): boolean {
+export function validateName(name: string): boolean {
   if (_.isString(name) === false) {
     return false;
   }
