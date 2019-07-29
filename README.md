@@ -39,7 +39,7 @@ Install with npm:
 npm install --global verdaccio
 ```
 
-## Donationss
+## Donations
 
 Verdaccio is addressed by **voluntaries**, nobody is working full time on it, if you like this project and want to make it sustainable, considere to donate, **your logo might be in this readme** 😉 if you highly support our activities.
 
