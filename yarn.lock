@@ -1653,10 +1653,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-5.2.2.tgz#ecea86c864b905314e29c88e5f93aebcf116c5ff"
   integrity sha512-5NbSsCcwCt5ZrA6+vXqUXFM2tAXkS++dju5XSh4TGM+ISon/FS/oUQtE7zmhlaftCt2z2LRhg0/b3wV8QUxSGQ==
 
-"@verdaccio/ui-theme@0.1.11":
-  version "0.1.11"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.1.11.tgz#48e1bb9139c61016e143e57102bee8c8fbf0cb92"
-  integrity sha512-VxuqUOycaFRwZ7RV6etvGECELvgZ1iO8KFZJlLVUWvrv218mAULZVacKyJ6i8FbLvaqxnx7lEUIEBzhz7KX/Iw==
+"@verdaccio/ui-theme@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.2.2.tgz#53a74e9a4c75a93fbe678c6f5cd2a31dcff77f1d"
+  integrity sha512-Y5AwR0or0gMPuRW5dn8taWNUOr23c4rHgTrh/Q8vjrvZdBs4gMQ/SGghQ/idMjv+Ksk/ch/wQzxt9ut6F1MxJg==
 
 JSONStream@1.3.5, JSONStream@^1.0.4:
   version "1.3.5"
