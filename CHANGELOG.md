@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/verdaccio/verdaccio/compare/v4.1.0...v4.2.0) (2019-07-29)
+
+
+### Bug Fixes
+
+* **security:** add secrets baseline ([2b218ce](https://github.com/verdaccio/verdaccio/commit/2b218ce))
+* allows pkg names that start with dash ([e319435](https://github.com/verdaccio/verdaccio/commit/e319435)), closes [/github.com/rlidwka/sinopia/commit/9f662a69e19a15dd90f568fc3a3ebf65b33cbd80#diff-50e3aa130a4f97a42ee2cf111c7b1d9](https://github.com/verdaccio/verdaccio/issues/diff-50e3aa130a4f97a42ee2cf111c7b1d9)
+* upgrade to 1.0.2 which solves the docker issue ([aa8f1d3](https://github.com/verdaccio/verdaccio/commit/aa8f1d3))
+
+
+### Build System
+
+* **deps:** bump lodash.template from 4.4.0 to 4.5.0 ([#1384](https://github.com/verdaccio/verdaccio/issues/1384)) ([b453681](https://github.com/verdaccio/verdaccio/commit/b453681))
+* fix semver missing type on build with docker ([12b60f6](https://github.com/verdaccio/verdaccio/commit/12b60f6))
+* update issue templates for use info new flag ([#1377](https://github.com/verdaccio/verdaccio/issues/1377)) ([495bb0a](https://github.com/verdaccio/verdaccio/commit/495bb0a))
+
+
+### Features
+
+* add new prop to audit middleware ([d93e76b](https://github.com/verdaccio/verdaccio/commit/d93e76b))
+* convert project to typescript ([#1374](https://github.com/verdaccio/verdaccio/issues/1374)) ([66f4197](https://github.com/verdaccio/verdaccio/commit/66f4197))
+* docker image bump to node.js 10.16 ([802c796](https://github.com/verdaccio/verdaccio/commit/802c796))
+* plugins can throw http status codes ([3c53997](https://github.com/verdaccio/verdaccio/commit/3c53997))
+* prevent secrets from leaking to source control ([9ef6808](https://github.com/verdaccio/verdaccio/commit/9ef6808))
+* update to @verdaccio/ui-theme@0.2.2 ([9dd1c8f](https://github.com/verdaccio/verdaccio/commit/9dd1c8f))
+
+
+### Tests
+
+* add unit test for parser logger strings ([3beb57f](https://github.com/verdaccio/verdaccio/commit/3beb57f))
+
+
+
 ## [4.1.0](https://github.com/verdaccio/verdaccio/compare/v4.0.4...v4.1.0) (2019-07-08)
 
 
