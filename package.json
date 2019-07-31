@@ -32,6 +32,7 @@
     "envinfo": "7.3.1",
     "express": "4.17.1",
     "handlebars": "4.1.2",
+    "http-errors": "1.7.3",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
     "kleur": "3.0.3",
