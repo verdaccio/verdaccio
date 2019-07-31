@@ -70,10 +70,8 @@ export function validateName(name: string): boolean {
    */
   return !(
     !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
-    normalizedName.charAt(0) === '.' || // ".bin", etc.
-    normalizedName === 'node_modules' ||
-    normalizedName === '__proto__' ||
-    normalizedName === 'favicon.ico'
+    normalizedName.startsWith('.') || // ".bin", etc.
+    ['node_modules', '__proto__', 'favicon.ico'].indexOf(normalizedName) !== -1
   );
 }
 
