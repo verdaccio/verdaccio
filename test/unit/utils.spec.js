@@ -8,6 +8,7 @@ describe('Validate', function() {
     assert( validate('verdaccio') );
     assert( validate('some.weird.package-zzz') );
     assert( validate('old-package@0.1.2.tgz') );
+    assert( validate('-build-infra') );
   });
 
   it('uppercase', function() {
