@@ -1372,13 +1372,6 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/handlebars@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.verdaccio.org/@types%2fhandlebars/-/handlebars-4.1.0.tgz#3fcce9bf88f85fe73dc932240ab3fb682c624850"
-  integrity sha512-gq9YweFKNNB1uFK71eRqsd4niVkXrxHugqWFQkeLRJvGjnxsLr16bYtcsG4tOFwmYi0Bax+wCkbf1reUfdl4kA==
-  dependencies:
-    handlebars "*"
-
 "@types/http-errors@1.6.1":
   version "1.6.1"
   resolved "https://registry.verdaccio.org/@types%2fhttp-errors/-/http-errors-1.6.1.tgz#367744a6c04b833383f497f647cc3690b0cd4055"
