@@ -69,11 +69,20 @@ function validateName(name: string): boolean {
   }
   name = name.toLowerCase();
 
-  // all URL-safe characters and "@" for issue #75
+  /**
+   * Some context about the first regex
+   * - npm used to have a different tarball naming system.
+   * eg: http://registry.npmjs.com/thirty-two
+   * https://registry.npmjs.org/thirty-two/-/thirty-two@0.0.1.tgz
+   * The file name thirty-two@0.0.1.tgz, the version and the pkg name was separated by an at (@)
+   * while nowadays the naming system is based in dashes
+   * https://registry.npmjs.org/verdaccio/-/verdaccio-1.4.0.tgz
+   *
+   * more info here: https://github.com/rlidwka/sinopia/issues/75
+   */
   return !(
     !name.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
     name.charAt(0) === '.' || // ".bin", etc.
-    name.charAt(0) === '-' || // "-" is reserved by couchdb
     name === 'node_modules' ||
     name === '__proto__' ||
     name === 'favicon.ico'
