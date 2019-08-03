@@ -1723,10 +1723,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-2.0.0-beta.0.tgz#af8c7e673a3c368deacc8024c6f5671aa2ec32ac"
   integrity sha512-EdVF6RP0abRNT0RfgLCsqLNv7FOpm+BpzMZoaQuQGHSBQRj7OTM8ft5mpbJ40rYVXKv6D8xyU0vUnoRl09ah6g==
 
-"@verdaccio/types@token":
-  version "8.0.0-next.1-token"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-8.0.0-next.1-token.tgz#39f52d71b760c828ccd48fb8ecbc1c5ebe6e1dea"
-  integrity sha512-TjrVon5hTOOmK1wAZKa5gpOy6MFL+7R5Dp49MnCX9PPMUbnBHQ+QGLHy4JQTIpqCotT/rBj03izUJ3NJw9q5/g==
+"@verdaccio/types@8.0.0-next.2":
+  version "8.0.0-next.2"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-8.0.0-next.2.tgz#644278ac728b199f3ec50268f7fd5c30c8a11d65"
+  integrity sha512-8zdL5vjTskPwhHnlfwriUNc08dksxpDKluKWW9MdyvPPtuasixLyTVsnsfOB7qHbtZ3irO4FoeBS1xoGvORS+A==
 
 "@verdaccio/ui-theme@0.2.2":
   version "0.2.2"
