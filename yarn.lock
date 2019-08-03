@@ -1691,10 +1691,10 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/local-storage@2.2.1-pr-token":
-  version "2.2.1-pr-token"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.2.1-pr-token.tgz#596425a8c5f10c94347cf5854df6c855f7421647"
-  integrity sha512-b3WtV03yPy69jvxJ0kugiadTAXeXO9plkBGt6lDgSQIda4l+xxHytjz/TMYgdTh0waJr9irFH/wvB6FvHGJd5A==
+"@verdaccio/local-storage@2.2.1-pr-token-3":
+  version "2.2.1-pr-token-3"
+  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-2.2.1-pr-token-3.tgz#19fb11c46181cad36e679676cbacb7095d6b9e20"
+  integrity sha512-+i6dS73JvzWwHzE6YC/Kn4McSNU26lB4hPbnVfOgi1zqkSyLutlgH0uNycy9M5yUJR+V1z64fyfzIFKNm4W7Sw==
   dependencies:
     "@verdaccio/commons-api" "0.1.1"
     "@verdaccio/file-locking" "1.0.3"

@@ -26,15 +26,22 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 		const { name } = req.remote_user;
 
 		if (_.isNil(name) === false) {
-			const tokens = await storage.readTokens({user: name});
+			try {
+				const tokens = await storage.readTokens({user: name});
+				const totalTokens = tokens.length;
+				logger.debug({totalTokens}, 'token list retrieved: @{totalTokens}');
 
-			res.status(HTTP_STATUS.OK);
-			next({
-				objects: tokens.map(normalizeToken),
-				urls: {
-					next: '', // TODO: pagination?
-				},
-			});
+				res.status(HTTP_STATUS.OK);
+				return next({
+					objects: tokens.map(normalizeToken),
+					urls: {
+						next: '', // TODO: pagination?
+					},
+				});
+			} catch (error) {
+				logger.error({ error: error.msg }, 'token list has failed: @{error}');
+				return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
+			}
 		} else {
 			return next(ErrorCode.getUnauthorized());
 		}
@@ -45,25 +52,24 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 		const { name } = req.remote_user;
 
 		if (!_.isBoolean(readonly) || !_.isArray(cidr_whitelist)) {
-			next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
-			return;
+			return next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
 		}
 
 		auth.authenticate(name, password, async (err, user: RemoteUser) => {
 			if (err) {
 				const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
-				next(ErrorCode.getCode(errorCode, err.message));
+				return next(ErrorCode.getCode(errorCode, err.message));
 			} else {
 				req.remote_user = user;
 
 				if (!_.isFunction(storage.saveToken)) {
-					next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
-					return;
+					return next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
 				}
 
 				try {
 					const token = await getApiToken(auth, config, user, password);
 					const key = stringToMD5(token);
+					// TODO: use a utility here
 					const maskedToken = token.slice(0, 5);
 
 					const saveToken: Token = {
@@ -76,24 +82,38 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 					};
 
 					await storage.saveToken(saveToken);
-					return next({
+					logger.debug({ key, name }, 'token @{key} was created for user @{name}');
+					return next(normalizeToken({
 						token,
+						user: '',
 						key: saveToken.key,
-						cidr_whitelist,
+						cidr: cidr_whitelist,
 						readonly,
 						created: saveToken.created,
-					});
+					}));
 				} catch (error) {
-					logger.logger.error({ error }, 'token creation has failed: @{error}');
-					next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
+					logger.error({ error: error.msg }, 'token creation has failed: @{error}');
+					return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
 				}
 			}
 		});
 	});
 
-	route.delete('/-/npm/v1/tokens/token/:tokenKey', function(req: $RequestExtend, res: Response, next: $NextFunctionVer) {
-		// req.params
-		next();
-		// return next(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+	route.delete('/-/npm/v1/tokens/token/:tokenKey', async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
+		const { params: { tokenKey }} = req;
+		const { name } = req.remote_user;
+
+		if (_.isNil(name) === false) {
+			try {
+				await storage.deleteToken(name, tokenKey);
+				logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');
+				return next({});
+			} catch(error) {
+				logger.error({ error: error.msg }, 'token creation has failed: @{error}');
+				return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
+			}
+		} else {
+			return next(ErrorCode.getUnauthorized());
+		}
 	});
 }

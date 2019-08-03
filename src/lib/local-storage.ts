@@ -3,7 +3,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
 import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
-import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
+import {API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS} from './constants';
 import { createTarballHash } from './crypto-utils';
 import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
@@ -812,14 +812,26 @@ class LocalStorage implements IStorage {
   }
 
   public saveToken(token: Token): Promise<any> {
+    if (_.isFunction(this.storagePlugin.saveToken) === false) {
+      return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+    }
+
     return this.storagePlugin.saveToken(token);
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<any> {
+    if (_.isFunction(this.storagePlugin.deleteToken) === false) {
+      return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+    }
+
     return this.storagePlugin.deleteToken(user, tokenKey);
   }
 
   public readTokens(filter: TokenFilter): Promise<Array<Token>> {
+    if (_.isFunction(this.storagePlugin.readTokens) === false) {
+      return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+    }
+
     return this.storagePlugin.readTokens(filter);
   }
 }
