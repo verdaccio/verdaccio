@@ -1,5 +1,4 @@
 import request from 'supertest';
-import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
@@ -8,7 +7,7 @@ import { setup } from '../../../../src/lib/logger';
 setup([]);
 
 import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
-import configDefault from '../../partials/config/config_access';
+import configDefault from '../../partials/config';
 import endPointAPI from '../../../../src/api';
 import {mockServer} from '../../__helper/mock';
 import {DOMAIN_SERVERS} from '../../../functional/config.functional';
@@ -25,7 +24,7 @@ describe('api with no limited access configuration', () => {
     const mockServerPort = 55530;
 
     rimraf(store, async () => {
-      const configForTest = _.assign({}, _.cloneDeep(configDefault), {
+      const configForTest = configDefault({
         auth: {
           htpasswd: {
             file: './access-storage/htpasswd-pkg-access'
@@ -33,11 +32,14 @@ describe('api with no limited access configuration', () => {
         },
         self_path: store,
         uplinks: {
-          npmjs: {
+          remote: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
           }
-        }
-      });
+        },
+        logs: [
+          { type: 'stdout', format: 'pretty', level: 'warn' }
+        ]
+      }, 'pkg.access.spec.yaml');
 
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
@@ -59,13 +61,30 @@ describe('api with no limited access configuration', () => {
 
   describe('test proxy packages partially restricted', () => {
 
-    test('should test fails on fetch endpoint /-/jquery', (done) => {
+
+    test('should test fails on fetch endpoint /-/not-found', (done) => {
+      request(app)
+      // @ts-ignore
+        .get('/not-found-for-sure')
+        .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HEADERS.CONTENT_TYPE, /json/)
+        .expect(HTTP_STATUS.NOT_FOUND)
+        .end(function(err) {
+          if (err) {
+            return done(err);
+          }
+
+          done();
+        });
+    });
+
+    test('should test fetch endpoint /-/jquery', (done) => {
       request(app)
         // @ts-ignore
         .get('/jquery')
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
-        .expect(HTTP_STATUS.NOT_FOUND)
+        .expect(HTTP_STATUS.OK)
         .end(function(err) {
           if (err) {
             return done(err);
