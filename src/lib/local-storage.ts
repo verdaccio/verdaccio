@@ -9,7 +9,7 @@ import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { Package, Config, IUploadTarball, IReadTarball, MergeTags, Version, DistFile, Callback, Logger, ILocalData, IPackageStorage, Author } from '@verdaccio/types';
+import { Token, TokenFilter, Package, Config, IUploadTarball, IReadTarball, MergeTags, Version, DistFile, Callback, Logger, IPluginStorage, IPackageStorage, Author } from '@verdaccio/types';
 import { IStorage, StringValue } from '../../types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
@@ -18,13 +18,13 @@ import { VerdaccioError } from '@verdaccio/commons-api';
  */
 class LocalStorage implements IStorage {
   public config: Config;
-  public localData: ILocalData<Config>;
+  public storagePlugin: IPluginStorage<Config>;
   public logger: Logger;
 
   public constructor(config: Config, logger: Logger) {
     this.logger = logger.child({ sub: 'fs' });
     this.config = config;
-    this.localData = this._loadStorage(config, logger);
+    this.storagePlugin = this._loadStorage(config, logger);
   }
 
   public addPackage(name: string, pkg: Package, callback: Callback): void {
@@ -74,7 +74,7 @@ class LocalStorage implements IStorage {
 
       data = normalizePackage(data);
 
-      this.localData.remove(name, (removeFailed: Error): void => {
+      this.storagePlugin.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
           return callback(ErrorCode.getBadData(removeFailed.message));
@@ -238,7 +238,7 @@ class LocalStorage implements IStorage {
         data.versions[version] = metadata;
         tagVersion(data, version, tag);
 
-        this.localData.add(name, (addFailed): void => {
+        this.storagePlugin.add(name, (addFailed): void => {
           if (addFailed) {
             return cb(ErrorCode.getBadData(addFailed.message));
           }
@@ -613,7 +613,7 @@ class LocalStorage implements IStorage {
    * @return {Object}
    */
   private _getLocalStorage(pkgName: string): IPackageStorage {
-    return this.localData.getPackageStorage(pkgName);
+    return this.storagePlugin.getPackageStorage(pkgName);
   }
 
   /**
@@ -642,11 +642,11 @@ class LocalStorage implements IStorage {
    */
   private _searchEachPackage(onPackage: Callback, onEnd: Callback): void {
     // save wait whether plugin still do not support search functionality
-    if (_.isNil(this.localData.search)) {
+    if (_.isNil(this.storagePlugin.search)) {
       this.logger.warn('plugin search not implemented yet');
       onEnd();
     } else {
-      this.localData.search(onPackage, onEnd, validateName);
+      this.storagePlugin.search(onPackage, onEnd, validateName);
     }
   }
 
@@ -781,34 +781,46 @@ class LocalStorage implements IStorage {
   }
 
   public async getSecret(config: Config): Promise<void> {
-    const secretKey = await this.localData.getSecret();
+    const secretKey = await this.storagePlugin.getSecret();
 
-    return this.localData.setSecret(config.checkSecretKey(secretKey));
+    return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
   }
 
-  private _loadStorage(config: Config, logger: Logger): ILocalData<Config> {
+  private _loadStorage(config: Config, logger: Logger): IPluginStorage<Config> {
     const Storage = this._loadStorePlugin();
 
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       return new LocalDatabase(this.config, logger);
     } else {
-      return Storage as ILocalData<Config>;
+      return Storage as IPluginStorage<Config>;
     }
   }
 
-  private _loadStorePlugin(): ILocalData<Config> | void {
+  private _loadStorePlugin(): IPluginStorage<Config> | void {
     const plugin_params = {
       config: this.config,
       logger: this.logger,
     };
 
-    const plugins: ILocalData<Config>[] = loadPlugin<ILocalData<Config>>(this.config, this.config.store, plugin_params, (plugin): ILocalData<Config> => {
+    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(this.config, this.config.store, plugin_params, (plugin): IPluginStorage<Config> => {
       return plugin.getPackageStorage;
     });
 
 
     return _.head(plugins);
+  }
+
+  public saveToken(token: Token): Promise<any> {
+    return this.storagePlugin.saveToken(token);
+  }
+
+  public deleteToken(user: string, tokenKey: string): Promise<any> {
+    return this.storagePlugin.deleteToken(user, tokenKey);
+  }
+
+  public readTokens(filter: TokenFilter): Promise<Array<Token>> {
+    return this.storagePlugin.readTokens(filter);
   }
 }
 

@@ -591,3 +591,13 @@ export function pad(str, max): string {
   }
   return str;
 }
+
+/**
+ * return a masquerade string with its first and last {charNum} and three dots in between.
+ * @param {String} str
+ * @param {Number} charNum
+ * @returns {String}
+ */
+export function mask(str: string, charNum: number = 3) {
+  return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
+}

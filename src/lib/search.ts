@@ -43,7 +43,7 @@ class Search implements IWebSearch {
   public query(query: string): any[] {
     const localStorage = this.storage.localStorage as IStorage;
 
-    return query === '*' ? localStorage.localData.get((items): any => {
+    return query === '*' ? localStorage.storagePlugin.get((items): any => {
       items.map(function(pkg): any {
         return { ref: pkg, score: 1 };
       });

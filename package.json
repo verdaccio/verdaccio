@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "0.1.2",
-    "@verdaccio/local-storage": "2.2.1",
+    "@verdaccio/local-storage": "2.2.1-pr-168-1",
     "@verdaccio/readme": "1.0.4",
     "@verdaccio/streams": "2.0.0",
     "@verdaccio/ui-theme": "0.2.2",
@@ -67,7 +67,7 @@
     "@typescript-eslint/eslint-plugin": "1.12.0",
     "@verdaccio/babel-preset": "0.2.1",
     "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "5.2.2",
+    "@verdaccio/types": "7.0.0",
     "codecov": "3.5.0",
     "cross-env": "5.2.0",
     "detect-secrets": "1.0.4",

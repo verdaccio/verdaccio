@@ -84,6 +84,7 @@ export const HTTP_STATUS = {
   UNSUPPORTED_MEDIA: 415,
   BAD_DATA: 422,
   INTERNAL_ERROR: 500,
+  NOT_IMPLEMENTED: 501,
   SERVICE_UNAVAILABLE: 503,
   LOOP_DETECTED: 508,
 };
@@ -104,6 +105,8 @@ export const API_MESSAGE = {
 export const SUPPORT_ERRORS = {
   PLUGIN_MISSING_INTERFACE: 'the plugin does not provide implementation of the requested feature',
   TFA_DISABLED: 'the two-factor authentication is not yet supported',
+  STORAGE_NOT_IMPLEMENT: 'the storage does not support token saving',
+  PARAMETERS_NOT_VALID: 'the parameters are not valid',
 };
 
 export const API_ERROR = {

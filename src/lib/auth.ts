@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
-import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import { API_ERROR, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import { aesEncrypt, signPayload } from './crypto-utils';
 import {
@@ -66,13 +66,15 @@ class Auth implements IAuth {
   public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
     const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
 
-    if (_.isEmpty(validPlugins)) {
-      return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
-    }
-
-    for (const plugin of validPlugins) {
+   for (const plugin of validPlugins) {
       this.logger.trace({ username }, 'updating password for @{username}');
-      plugin.changePassword(
+
+      if (_.isFunction(plugin.changePassword) === false) {
+        break;
+      }
+
+      // we filter above those are valid plugins
+      plugin.changePassword!(
         username,
         password,
         newPassword,

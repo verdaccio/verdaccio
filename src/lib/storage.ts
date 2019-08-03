@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
@@ -20,7 +15,7 @@ import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageO
 import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
 import { hasProxyTo } from './config-utils';
 import { logger } from '../lib/logger';
-import { GenericBody } from '@verdaccio/types';
+import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 class Storage implements IStorageHandler {
@@ -65,6 +60,18 @@ class Storage implements IStorageHandler {
 
   private _isAllowPublishOffline(): boolean {
     return typeof this.config.publish !== 'undefined' && _.isBoolean(this.config.publish.allow_offline) && this.config.publish.allow_offline;
+  }
+
+  public readTokens(filter: TokenFilter): Promise<Array<Token>> {
+    return this.localStorage.readTokens(filter);
+  }
+
+  public saveToken(token: Token): Promise<void> {
+    return this.localStorage.saveToken(token);
+  }
+
+  public deleteToken(user: string, tokenKey: string): Promise<any> {
+    return this.localStorage.deleteToken(user, tokenKey);
   }
 
   /**
@@ -385,7 +392,7 @@ class Storage implements IStorageHandler {
    */
   public getLocalDatabase(callback: Callback): void {
     const self = this;
-    this.localStorage.localData.get(
+    this.localStorage.storagePlugin.get(
       (err, locals): void => {
         if (err) {
           callback(err);
