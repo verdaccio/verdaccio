@@ -41,9 +41,9 @@ npm install --global verdaccio
 
 ## Donations
 
-Verdaccio is addressed by **voluntaries**, nobody is working full time on it, if you like this project and want to make it sustainable, considere to donate, **your logo might be in this readme** 😉 if you highly support our activities.
+Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
 
-**[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *1$/month*.
+**[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *$1/month*.
 
 
 ## What does Verdaccio do for me?
