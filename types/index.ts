@@ -15,7 +15,13 @@ import {
   JWTSignOptions,
   PackageAccess,
   ILocalData,
-  StringValue as verdaccio$StringValue, IReadTarball, Package, IPluginStorageFilter, Author} from '@verdaccio/types';
+  StringValue as verdaccio$StringValue,
+  IReadTarball,
+  Package,
+  IPluginStorageFilter,
+  Author,
+  AuthPluginPackage
+} from '@verdaccio/types';
 import lunrMutable from 'lunr-mutable-indexes';
 import {NextFunction, Request, Response} from 'express';
 
@@ -111,6 +117,7 @@ export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, IAuthWebUI {
   secret: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins: any[];
+  allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
 }
 
 export interface IWebSearch {
