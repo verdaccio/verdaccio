@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
-// @flow
 
 import {
   IBasicAuth,
