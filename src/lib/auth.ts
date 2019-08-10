@@ -71,25 +71,30 @@ class Auth implements IAuth {
     }
 
     for (const plugin of validPlugins) {
-      this.logger.trace({ username }, 'updating password for @{username}');
-      plugin.changePassword(
-        username,
-        password,
-        newPassword,
-        (err, profile): void => {
-          if (err) {
-            this.logger.error(
-              { username, err },
-              `An error has been produced
-          updating the password for @{username}. Error: @{err.message}`
-            );
-            return cb(err);
-          }
+      if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
+        this.logger.trace('auth plugin does not implement changePassword, trying next one');
+        continue;
+      } else {
+        this.logger.trace({username}, 'updating password for @{username}');
+        plugin.changePassword!(
+          username,
+          password,
+          newPassword,
+          (err, profile): void => {
+            if (err) {
+              this.logger.error(
+                {username, err},
+                `An error has been produced
+            updating the password for @{username}. Error: @{err.message}`
+              );
+              return cb(err);
+            }
 
-          this.logger.trace({ username }, 'updated password for @{username} was successful');
-          return cb(null, profile);
-        }
-      );
+            this.logger.trace({username}, 'updated password for @{username} was successful');
+            return cb(null, profile);
+          }
+        );
+      }
     }
   }
 
@@ -152,7 +157,7 @@ class Auth implements IAuth {
         // p.add_user() execution
         plugin[method](user, password, function(err, ok): void {
           if (err) {
-            self.logger.trace({ user, err }, 'the user @{user} could not being added. Error: @{err}');
+            self.logger.trace({ user, err: err.message }, 'the user @{user} could not being added. Error: @{err}');
             return cb(err);
           }
           if (ok) {
@@ -203,6 +208,7 @@ class Auth implements IAuth {
 
     for (const plugin of this.plugins) {
       if (_.isNil(plugin) || _.isFunction(plugin.allow_unpublish) === false) {
+        this.logger.trace({ packageName }, 'allow unpublish for @{packageName} plugin does not implement allow_unpublish');
         continue;
       } else {
         plugin.allow_unpublish!(

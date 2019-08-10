@@ -244,7 +244,7 @@ describe('Publish endpoints - publish package', () => {
     expect(storage.changePackage).toMatchSnapshot();
   });
 
-  test('should add a new package', () => {
+  test('should publish a new a new package', () => {
     const storage = {
       addPackage: jest.fn(),
     };
@@ -266,32 +266,34 @@ describe('Publish endpoints - publish package', () => {
     expect(next).toHaveBeenCalledWith(new Error(API_ERROR.BAD_PACKAGE_DATA));
   });
 
-  test('should star a package', () => {
-    const storage = {
-      changePackage: jest.fn(),
-      getPackage({ name, req, callback }) {
-        callback(null, {
-          users: {},
-        });
-      },
-    };
-    req = {
-      params: {
-        package: 'verdaccio',
-      },
-      body: {
-        _rev: REVISION_MOCK,
-        users: {
-          verdaccio: true,
+  describe('test start', () => {
+    test('should star a package', () => {
+      const storage = {
+        changePackage: jest.fn(),
+        getPackage({ name, req, callback }) {
+          callback(null, {
+            users: {},
+          });
         },
-      },
-      remote_user: {
-        name: 'verdaccio',
-      },
-    };
+      };
+      req = {
+        params: {
+          package: 'verdaccio',
+        },
+        body: {
+          _rev: REVISION_MOCK,
+          users: {
+            verdaccio: true,
+          },
+        },
+        remote_user: {
+          name: 'verdaccio',
+        },
+      };
 
-    // @ts-ignore
-    publishPackage(storage)(req, res, next);
-    expect(storage.changePackage).toMatchSnapshot();
+      // @ts-ignore
+      publishPackage(storage)(req, res, next);
+      expect(storage.changePackage).toMatchSnapshot();
+    });
   });
 });

@@ -1,6 +1,11 @@
+import _ from 'lodash';
+import request from 'supertest';
+
 import {HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER} from '../../../src/lib/constants';
-import {buildToken} from '../../../src/lib/utils';
+import {buildToken, encodeScopedUri} from '../../../src/lib/utils';
 import { Package } from '@verdaccio/types';
+import {getTaggedVersionFromPackage} from "./expects";
+import {generateRandomHexString} from "../../../src/lib/crypto-utils";
 
 // API Helpers
 
@@ -13,13 +18,20 @@ import { Package } from '@verdaccio/types';
 export function putPackage(
   request: any,
   pkgName: string,
-  publishMetadata: Package
-): Promise<any[]> {
+  publishMetadata: Package,
+  token?: string,
+  httpStatus: number = HTTP_STATUS.CREATED): Promise<any[]> {
   return new Promise((resolve) => {
-    request.put(pkgName)
+    let put = request.put(pkgName)
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(JSON.stringify(publishMetadata))
-        .set('accept', 'gzip')
+        .send(JSON.stringify(publishMetadata));
+
+    if (_.isEmpty(token) === false ) {
+        expect(token).toBeDefined();
+        put.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string))
+    }
+
+    put.set('accept', 'gzip')
         .set('accept-encoding', HEADERS.JSON)
         .expect(HTTP_STATUS.CREATED)
         .end(function(err, res) {
@@ -28,15 +40,40 @@ export function putPackage(
   });
 }
 
+export function deletePackage(
+  request: any,
+  pkgName: string,
+  token?: string
+): Promise<any[]> {
+  return new Promise((resolve) => {
+    let del = request.put(`/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+
+    if (_.isNil(token) === false ) {
+      del.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string))
+    }
+
+    del.set('accept-encoding', HEADERS.JSON)
+      .expect(HTTP_STATUS.CREATED)
+      .end(function(err, res) {
+        resolve([err, res]);
+      });
+  });
+}
+
 export function getPackage(
   request: any,
-  header: string,
-  pkg: string,
+  token: string,
+  pkgName: string,
   statusCode: number = HTTP_STATUS.OK): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
-    request.get(`/${pkg}`)
-      .set(HEADERS.AUTHORIZATION, header)
+    let getRequest = request.get(`/${pkgName}`);
+
+    if (_.isNil(token) === false || _.isEmpty(token) === false) {
+      getRequest.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+    }
+
+    getRequest
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(statusCode)
       .end(function(err, res) {
@@ -115,4 +152,33 @@ export function postProfile(request: any, body: any, token: string, statusCode: 
         return resolve([err, res]);
       });
   });
+}
+
+export async function fetchPackageByVersionAndTag(app, encodedPkgName, pkgName, version, tag = 'latest') {
+  // we retrieve the package to verify
+  const [err, resp]= await getPackage(request(app), '', encodedPkgName);
+
+  expect(err).toBeNull();
+
+  // we check whether the latest version match with the previous published one
+  return getTaggedVersionFromPackage(resp.body, pkgName, tag, version);
+}
+
+export async function isExistPackage(app, packageName) {
+  const [err]= await getPackage(request(app), '', encodeScopedUri(packageName), HTTP_STATUS.OK);
+
+  return _.isNull(err);
+}
+
+export async function verifyPackageVersionDoesExist(app, packageName, version, token?: string) {
+  const [, res]= await getPackage(request(app), token as string, encodeScopedUri(packageName), HTTP_STATUS.OK);
+
+  const { versions } = res.body;
+  const versionsKeys = Object.keys(versions);
+
+  return versionsKeys.includes(version) === false;
+}
+
+export function generateUnPublishURI(pkgName) {
+  return `/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`;
 }
