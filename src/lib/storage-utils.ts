@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 import Search from './search';
@@ -248,4 +243,14 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
 
     return pkg;
   }
+}
+
+/**
+ * Check whether the package metadta has enough data to be published
+ * @param pkg metadata
+ */
+export function isPublishablePackage(pkg: Package): boolean {
+  const keys: string[] = Object.keys(pkg);
+
+  return _.includes(keys, 'versions');
 }

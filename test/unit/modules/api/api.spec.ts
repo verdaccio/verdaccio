@@ -5,19 +5,30 @@ import rimraf from 'rimraf';
 
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
-import starMetadata from '../../partials/star-api';
 import endPointAPI from '../../../../src/api';
 
-import {HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER} from '../../../../src/lib/constants';
+import {
+  HEADERS,
+  API_ERROR,
+  HTTP_STATUS,
+  HEADER_TYPE,
+  API_MESSAGE,
+  TOKEN_BEARER,
+} from '../../../../src/lib/constants';
 import {mockServer} from '../../__helper/mock';
 import {DOMAIN_SERVERS} from '../../../functional/config.functional';
-import {buildToken} from '../../../../src/lib/utils';
-import {getNewToken, putPackage} from '../../__helper/api';
-import { generatePackageMetadata } from '../../__helper/utils';
+import {buildToken, encodeScopedUri} from '../../../../src/lib/utils';
+import {
+  getNewToken,
+  putPackage,
+  verifyPackageVersionDoesExist, generateUnPublishURI
+} from '../../__helper/api';
+import {generatePackageMetadata, generatePackageUnpublish, generateStarMedatada} from '../../__helper/utils';
 
 require('../../../../src/lib/logger').setup([
-  { type: 'stdout', format: 'pretty', level: 'info' }
+  { type: 'stdout', format: 'pretty', level: 'warn' }
 ]);
+
 const credentials = { name: 'jota', password: 'secretPass' };
 
 const putVersion = (app, name, publishMetadata) => {
@@ -625,62 +636,122 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test publish/unpublish api', () => {
-      test('should publish a new package with no credentials', async (done) => {
-          // const token = await putPackage('@scope%2fpk1-test');
+      /**
+       * It publish 2 versions and unpublish the latest one, then verifies
+       * the version do not exist anymore in the body of the metadata.
+       */
+      const runPublishUnPublishFlow = async (pkgName: string, done, token?: string) => {
+        const version = '2.0.0';
+        const pkg = generatePackageMetadata(pkgName, version);
 
-        request(app)
-          .put('/@scope%2fpk1-test')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .send(JSON.stringify(publishMetadata))
-          .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.success).toBeDefined();
-            expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
-            done();
-          });
+        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        if (err) {
+          expect(err).toBeNull();
+          return done(err);
+        }
+
+        const newVersion = '2.0.1';
+        const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`,
+          generatePackageMetadata(pkgName, newVersion), token);
+        if (newErr) {
+          expect(newErr).toBeNull();
+          return done(newErr);
+        }
+
+        const deletePayload =  generatePackageUnpublish(pkgName, ['2.0.0']);
+        const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+
+        expect(err2).toBeNull();
+        expect(res2.body.ok).toMatch(API_MESSAGE.PKG_CHANGED);
+
+        const existVersion = await verifyPackageVersionDoesExist(app, pkgName, newVersion, token);
+        expect(existVersion).toBeTruthy();
+
+        return done();
+      };
+
+      describe('un/publish scenarios with credentials', () => {
+        test('should flow with no credentials', async (done) => {
+          const pkgName = '@public-anyone-can-publish/pk1-test';
+          runPublishUnPublishFlow(pkgName, done, undefined);
+        });
+
+        test('should flow with credentials', async (done) => {
+          const credentials = { name: 'jota_unpublish', password: 'secretPass' };
+          const token = await getNewToken(request(app), credentials);
+          const pkgName = '@only-one-can-publish/pk1-test';
+
+          runPublishUnPublishFlow(pkgName, done, token);
+        });
       });
 
-      test('should unpublish a new package with credentials', async (done) => {
+      describe('test error handling', () => {
+        test('should fail if user is not allowed to unpublish', async (done) => {
+          /**
+           * Context:
+           *
+           *   'non-unpublish':
+                 access: $authenticated
+                 publish: jota_unpublish_fail
+                 # There is some conditions to keep on mind here
+                 # - If unpublish is empty, fallback with the publish value
+                 # - If the user has permissions to publish and this empty it will be allowed to unpublish
+                 # - If we want to forbid anyone to unpublish,  just write here any unexisting user
+                 unpublish: none
 
-        const credentials = { name: 'jota_unpublish', password: 'secretPass' };
-        const token = await getNewToken(request(app), credentials);
-        //FUTURE: for some reason it does not remove the scope folder
-        request(app)
-          .del('/@scope%2fpk1-test/-rev/4-6abcdb4efd41a576')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
-            done();
-          });
-      });
+              The result of this test should fail and even if jota_unpublish_fail is allowed to publish.
 
-      test('should fail due non-unpublish nobody can unpublish', async (done) => {
-        const credentials = { name: 'jota_unpublish_fail', password: 'secretPass' };
-        const token = await getNewToken(request(app), credentials);
-        request(app)
-          .del('/non-unpublish/-rev/4-6abcdb4efd41a576')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .expect(HTTP_STATUS.FORBIDDEN)
-          .end(function(err, res) {
-            expect(err).toBeNull();
-            expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
-            done();
-          });
+           *
+           */
+          const credentials = { name: 'jota_unpublish_fail', password: 'secretPass' };
+          const pkgName = 'non-unpublish';
+          const newVersion = '1.0.0';
+          const token = await getNewToken(request(app), credentials);
+
+          const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`,
+                                            generatePackageMetadata(pkgName, newVersion), token);
+          if (newErr) {
+            expect(newErr).toBeNull();
+            return done(newErr);
+          }
+
+          const deletePayload =  generatePackageUnpublish(pkgName, ['2.0.0']);
+          const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token, HTTP_STATUS.FORBIDDEN);
+
+          expect(err2).not.toBeNull();
+          expect(res2.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
+          done();
+        });
+
+        test('should fail if publish prop is not defined', async (done) => {
+          /**
+           * Context:
+           *
+           *   'non-unpublish':
+           access: $authenticated
+           publish: jota_unpublish_fail
+           # There is some conditions to keep on mind here
+           # - If unpublish is empty, fallback with the publish value
+           # - If the user has permissions to publish and this empty it will be allowed to unpublish
+           # - If we want to forbid anyone to unpublish,  just write here any unexisting user
+           unpublish: none
+
+           The result of this test should fail and even if jota_unpublish_fail is allowed to publish.
+
+           *
+           */
+          const credentials = { name: 'jota_only_unpublish_fail', password: 'secretPass' };
+          const pkgName = 'only-unpublish';
+          const newVersion = '1.0.0';
+          const token = await getNewToken(request(app), credentials);
+
+          const [newErr, resp] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion), token);
+
+          expect(newErr).not.toBeNull();
+          expect(resp.body.error).toMatch(/user jota_only_unpublish_fail is not allowed to publish package only-unpublish/);
+          done();
+        });
       });
 
       test('should be able to publish/unpublish by only super_admin user', async (done) => {
@@ -753,22 +824,23 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test star and stars api', () => {
-      const pkgName = '@scope/starPackage';
+        const pkgName = '@scope/starPackage';
+        const credentials = { name: 'jota_star', password: 'secretPass' };
+        let token = '';
         beforeAll(async (done) =>{
-           await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName));
-           done();
+            token = await getNewToken(request(app), credentials);
+            await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
+            done();
         });
 
         test('should star a package', (done) => {
             request(app)
                 .put(`/${pkgName}`)
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
                 .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .send(JSON.stringify({
-                    ...starMetadata,
-                    users: {
-                        [credentials.name]: true
-                    }
-                }))
+                .send(JSON.stringify(generateStarMedatada(pkgName, {
+                  [credentials.name]: true
+                })))
                 .expect(HTTP_STATUS.OK)
                 .end(function(err, res) {
                     if (err) {
@@ -785,7 +857,8 @@ describe('endpoint unit test', () => {
             request(app)
                 .put(`/${pkgName}`)
                 .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .send(JSON.stringify(starMetadata))
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .send(JSON.stringify(generateStarMedatada(pkgName, {})))
                 .expect(HTTP_STATUS.OK)
                 .end(function(err, res) {
                     if (err) {
@@ -799,18 +872,11 @@ describe('endpoint unit test', () => {
         });
 
         test('should retrieve stars list with credentials', async (done) => {
-            const credentials = { name: 'star_user', password: 'secretPass' };
-            const token = await getNewToken(request(app), credentials);
             request(app)
                 .put(`/${pkgName}`)
                 .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
                 .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .send(JSON.stringify({
-                    ...starMetadata,
-                    users: {
-                        [credentials.name]: true
-                    }
-                }))
+                .send(generateStarMedatada(pkgName, {[credentials.name]: true}))
                 .expect(HTTP_STATUS.OK).end(function(err) {
                 if (err) {
                     expect(err).toBeNull();

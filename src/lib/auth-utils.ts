@@ -6,6 +6,8 @@ import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOp
 import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 
+import { logger } from '../lib/logger';
+
 export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD): boolean {
   return typeof password === 'string' && password.length >= minLength;
 }
@@ -40,10 +42,14 @@ export function createAnonymousRemoteUser(): RemoteUser {
 
 export function allow_action(action: string): Function {
   return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+    logger.trace({remote: user.name}, `[auth/allow_action]: user: @{user.name}`);
     const { name, groups } = user;
-    const hasPermission = pkg[action].some(group => name === group || groups.includes(group));
+    const groupAccess = pkg[action];
+    const hasPermission = groupAccess.some(group => name === group || groups.includes(group));
+    logger.trace({pkgName: pkg.name, hasPermission, remote: user.name, groupAccess}, `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`);
 
     if (hasPermission) {
+      logger.trace({remote: user.name}, `auth/allow_action: access granted to: @{user}`);
       return callback(null, true);
     }
 
@@ -55,15 +61,22 @@ export function allow_action(action: string): Function {
   };
 }
 
+/**
+ *
+ */
 export function handleSpecialUnpublish(): any {
   return function(user: RemoteUser, pkg: Package, callback: Callback): void {
     const action = 'unpublish';
-    const hasSupport: boolean = _.isNil(pkg[action]) === false ? pkg[action] : false;
+    // verify whether the unpublish prop has been defined
+    const isUnpublishMissing: boolean = _.isNil(pkg[action]);
+    const hasGroups: boolean = isUnpublishMissing ? false : pkg[action].length > 0;
+    logger.trace({user: user.name, name: pkg.name, hasGroups}, `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`);
 
-    if (hasSupport === false) {
+    if (isUnpublishMissing || hasGroups === false) {
       return callback(null, undefined);
     }
 
+    logger.trace({user: user.name, name: pkg.name, action, hasGroups}, `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`);
     return allow_action(action)(user, pkg, callback);
   };
 }

@@ -58,6 +58,7 @@ class LocalStorage implements IStorage {
    */
   public removePackage(name: string, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
+    this.logger.debug({ name }, `[storage] removing package @{name}`);
 
     if (_.isNil(storage)) {
       return callback(ErrorCode.getNotFound());
@@ -77,6 +78,8 @@ class LocalStorage implements IStorage {
       this.localData.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
+          this.logger.debug({ name }, `[storage/removePackage] the database is locked, removed has failed for @{name}`);
+
           return callback(ErrorCode.getBadData(removeFailed.message));
         }
 
@@ -309,9 +312,11 @@ class LocalStorage implements IStorage {
    */
   public changePackage(name: string, incomingPkg: Package, revision: string | void, callback: Callback): void {
     if (!isObject(incomingPkg.versions) || !isObject(incomingPkg[DIST_TAGS])) {
+      this.logger.debug({name}, `changePackage bad data for @{name}`);
       return callback(ErrorCode.getBadData());
     }
 
+    this.logger.debug({name}, `changePackage udapting package for @{name}`);
     this._updatePackage(
       name,
       (localData, cb): void => {
@@ -740,6 +745,7 @@ class LocalStorage implements IStorage {
   }
 
   private _deleteAttachments(storage: any, attachments: string[], callback: Callback): void {
+    this.logger.debug({l: attachments.length }, `[storage/_deleteAttachments] delete attachments total: @{l}`);
     const unlinkNext = function(cb): void {
       if (_.isEmpty(attachments)) {
         return cb();
