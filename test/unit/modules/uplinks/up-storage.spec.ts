@@ -1,8 +1,6 @@
-// @flow
 import _ from 'lodash';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import AppConfig from '../../../../src/lib/config';
-// $FlowFixMe
 import configExample from '../../partials/config';
 import {setup} from '../../../../src/lib/logger';
 
@@ -11,6 +9,7 @@ import {IProxy} from '../../../../types';
 import {API_ERROR, HTTP_STATUS} from "../../../../src/lib/constants";
 import {mockServer} from '../../__helper/mock';
 import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import { VerdaccioError } from '@verdaccio/commons-api';
 
 setup([]);
 
@@ -100,7 +99,7 @@ describe('UpStorge', () => {
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
 
-      stream.on('error', function(err) {
+      stream.on('error', function(err: VerdaccioError) {
         expect(err).not.toBeNull();
         expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
@@ -139,7 +138,7 @@ describe('UpStorge', () => {
             // expect(err.statusCode).toBe(404);
             expect(proxy.failed_requests).toBe(2);
             const streamThirdTry = proxy.fetchTarball(tarball);
-            streamThirdTry.on('error', function(err) {
+            streamThirdTry.on('error', function(err: VerdaccioError) {
               expect(err).not.toBeNull();
               expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
               expect(proxy.failed_requests).toBe(2);
@@ -157,7 +156,7 @@ describe('UpStorge', () => {
     describe('valid use cases', () => {
       const validateUpLink = (
         url: string,
-        tarBallUrl?: string = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
+        tarBallUrl: string = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 

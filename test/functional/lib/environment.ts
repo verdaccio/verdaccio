@@ -28,8 +28,8 @@ class FunctionalEnvironment extends NodeEnvironment {
     const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
     // @ts-ignore
     const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT ? process.env.VERDACCIO_DEBUG_INJECT : false;
-    const forkList = [];
-    const serverList = [];
+    const forkList: any[] = [];
+    const serverList: IServerBridge[] = [];
     const pathStore = path.join(__dirname, '../store');
     const listServers = [
       {
@@ -51,6 +51,7 @@ class FunctionalEnvironment extends NodeEnvironment {
     console.log(green('Setup Verdaccio Servers'));
 
     const app = await this.startWeb();
+    // @ts-ignore
     this.global.__WEB_SERVER__ = app;
 
     for (let config of listServers) {
@@ -68,26 +69,33 @@ class FunctionalEnvironment extends NodeEnvironment {
       forkList.push(fork);
     }
 
+    // @ts-ignore
     this.global.__SERVERS_PROCESS__ = forkList;
+    // @ts-ignore
     this.global.__SERVERS__ = serverList;
   }
 
   public async teardown() {
     await super.teardown();
     console.log(yellow('Teardown Test Environment.'));
+    // @ts-ignore
     if (!this.global.__SERVERS_PROCESS__) {
       throw new Error("There are no servers to stop");
     }
 
     // shutdown verdaccio
+    // @ts-ignore
     for (let server of this.global.__SERVERS_PROCESS__) {
       server[0].stop();
     }
     // close web server
+    // @ts-ignore
     this.global.__WEB_SERVER__.server.close();
   }
 
+  // @ts-ignore
   public runScript(script: string) {
+  // @ts-ignore
     return super.runScript(script);
   }
 }

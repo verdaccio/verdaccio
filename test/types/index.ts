@@ -25,7 +25,7 @@ export interface IServerProcess {
 }
 
 declare class PromiseAssert<IRequestPromise> extends Promise<any> {
-  constructor(options: any): IRequestPromise;
+  public constructor(options: any);
 }
 
 export interface IServerBridge {

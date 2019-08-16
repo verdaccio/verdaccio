@@ -25,7 +25,7 @@ export const resolveConfigPath = function(storageLocation: string, file: string)
  - localhost:5557
  @return {Array}
  */
-export function getListListenAddresses(argListen: string, configListen: any) {
+export function getListListenAddresses(argListen: string, configListen: any): any {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -38,7 +38,7 @@ export function getListListenAddresses(argListen: string, configListen: any) {
     addresses = [DEFAULT_PORT];
   }
   addresses = addresses
-    .map(function(addr) {
+    .map(function(addr): string {
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {

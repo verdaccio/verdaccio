@@ -10,12 +10,11 @@ function createUplink(config) {
     url: DEFAULT_REGISTRY
   };
   let mergeConfig = Object.assign({}, defaultConfig, config);
+  // @ts-ignore
   return new ProxyStorage(mergeConfig, {});
 }
 
-function setHeaders(config, headers) {
-  config = config || {};
-  headers = headers || {};
+function setHeaders(config: unknown = {}, headers: unknown = {}) {
   const uplink = createUplink(config);
   return uplink._setHeaders({
     headers
