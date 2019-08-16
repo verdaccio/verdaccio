@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "0.1.2",
-    "@verdaccio/local-storage": "2.2.1-pr-token",
+    "@verdaccio/local-storage": "2.2.1-juan",
     "@verdaccio/readme": "1.0.4",
     "@verdaccio/streams": "2.0.0",
     "@verdaccio/ui-theme": "0.2.2",

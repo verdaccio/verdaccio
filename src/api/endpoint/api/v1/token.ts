@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
-import { ErrorCode } from '../../../../lib/utils';
+import {ErrorCode, mask} from '../../../../lib/utils';
 import { getApiToken } from '../../../../lib/auth-utils';
 import { stringToMD5 } from '../../../../lib/crypto-utils';
 import { logger } from '../../../../lib/logger';
@@ -70,22 +70,27 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 					const token = await getApiToken(auth, config, user, password);
 					const key = stringToMD5(token);
 					// TODO: use a utility here
-					const maskedToken = token.slice(0, 5);
+					const maskedToken = mask(token, 5);
+					const created = new Date().getTime();
 
+					/**
+					 * cidr_whitelist: is not being used, we pass it through
+					 * token: we do not store the real token (it is generated once and retrieved to the user), just a mask of it.
+					 */
 					const saveToken: Token = {
 						user: name,
 						token: maskedToken,
 						key,
 						cidr: cidr_whitelist,
 						readonly,
-						created: new Date().getTime(),
+						created,
 					};
 
 					await storage.saveToken(saveToken);
 					logger.debug({ key, name }, 'token @{key} was created for user @{name}');
 					return next(normalizeToken({
 						token,
-						user: '',
+						user: name,
 						key: saveToken.key,
 						cidr: cidr_whitelist,
 						readonly,
