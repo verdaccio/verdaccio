@@ -86,6 +86,11 @@ You would need set some npm configuration, this is optional.
 $ npm set registry http://localhost:4873/
 ```
 
+For one-off commands or to avoid setting the registry globally:
+```bash
+NPM_CONFIG_REGISTRY=http://localhost:4873 npm i
+```
+
 Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and can be searched.
 
 > Warning: Verdaccio [does not currently support PM2's cluster mode](https://github.com/verdaccio/verdaccio/issues/1301#issuecomment-489302298), running it with cluster mode may cause unknown behavior.
