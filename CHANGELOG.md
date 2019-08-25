@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.2](https://github.com/verdaccio/verdaccio/compare/v4.2.1...v4.2.2) (2019-08-25)
+
+
+### Bug Fixes
+
+* mkdir failed and ec2 infinitely re-launch ([342d284](https://github.com/verdaccio/verdaccio/commit/342d284))
+* update @verdaccio/ui-theme@0.2.3 ([#1451](https://github.com/verdaccio/verdaccio/issues/1451)) 
+* use test + mkdir for strict dir check ([9006146](https://github.com/verdaccio/verdaccio/commit/9006146))
+
 ### [4.2.1](https://github.com/verdaccio/verdaccio/compare/v4.2.0...v4.2.1) (2019-08-10)
 
 
