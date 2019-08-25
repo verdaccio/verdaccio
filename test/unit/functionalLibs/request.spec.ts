@@ -6,6 +6,7 @@ import { IRequestPromise } from '../../types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 describe('Request Functional', () => {
+  jest.setTimeout(20000);
   const mockServerPort = 55547;
   const restTest = `http://localhost:${55547}/jquery`;
   let mockRegistry;
