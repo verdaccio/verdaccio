@@ -12,7 +12,7 @@ import {generateNewVersion} from '../../../lib/utils-test';
 
 const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
 
-import {Config, MergeTags} from '@verdaccio/types';
+import {Config, MergeTags, Package} from '@verdaccio/types';
 import {IStorage} from '../../../../types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '../../../../src/lib/constants';
 import { VerdaccioError } from '@verdaccio/commons-api';
@@ -34,7 +34,7 @@ describe('LocalStorage', () => {
     return new LocalStorageClass(config, logger);
   }
 
-  const getPackageMetadataFromStore = (pkgName: string) => {
+  const getPackageMetadataFromStore = (pkgName: string): Promise<Package> => {
     return new Promise((resolve) => {
       storage.getPackageMetadata(pkgName, (err, data ) => {
         resolve(data);
@@ -150,7 +150,7 @@ describe('LocalStorage', () => {
         storage.mergeTags(pkgName, tags, async (err, data) => {
           expect(err).toBeNull();
           expect(data).toBeUndefined();
-          const metadata = await getPackageMetadataFromStore(pkgName);
+          const metadata: Package = await getPackageMetadataFromStore(pkgName);
           expect(metadata[DIST_TAGS]).toBeDefined();
           expect(metadata[DIST_TAGS]['beta']).toBeDefined();
           expect(metadata[DIST_TAGS]['beta']).toBe('3.0.0');
@@ -170,7 +170,7 @@ describe('LocalStorage', () => {
           beta: '9999.0.0'
         };
 
-        storage.mergeTags(pkgName, tags, async (err, data) => {
+        storage.mergeTags(pkgName, tags, async (err) => {
           expect(err).not.toBeNull();
           expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
           expect(err.message).toMatch(API_ERROR.VERSION_NOT_EXIST);

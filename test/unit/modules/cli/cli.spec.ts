@@ -14,6 +14,8 @@ jest.mock('../../../../src/lib/logger', () => ({
   logger: {
     child: jest.fn(),
     warn: jest.fn(),
+    trace: jest.fn(),
+    debug: jest.fn(),
     error: jest.fn(),
     fatal: jest.fn()
   }
@@ -169,6 +171,7 @@ describe('startServer via API', () => {
     });
 
     test('should return a list of 1 address provided', () => {
+      // @ts-ignore
       const addrs = getListListenAddresses(null, '1000');
 
       expect(_.isArray(addrs)).toBeTruthy();
@@ -176,6 +179,7 @@ describe('startServer via API', () => {
     });
 
     test('should return a list of 2 address provided', () => {
+      // @ts-ignore
       const addrs = getListListenAddresses(null, ['1000', '2000']);
 
       expect(_.isArray(addrs)).toBeTruthy();
@@ -186,17 +190,24 @@ describe('startServer via API', () => {
       // @ts-ignore
       const [addrs] = getListListenAddresses();
 
+      // @ts-ignore
       expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
+      // @ts-ignore
       expect(addrs.host).toBe(DEFAULT_DOMAIN);
+      // @ts-ignore
       expect(addrs.port).toBe(DEFAULT_PORT);
     });
 
     test('should return default proto, host and custom port', () => {
       const initPort = '1000';
+      // @ts-ignore
       const [addrs] = getListListenAddresses(null, initPort);
 
+      // @ts-ignore
       expect(addrs.proto).toEqual(DEFAULT_PROTOCOL);
+      // @ts-ignore
       expect(addrs.host).toEqual(DEFAULT_DOMAIN);
+      // @ts-ignore
       expect(addrs.port).toEqual(initPort);
     });
 

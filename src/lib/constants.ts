@@ -10,6 +10,7 @@ export const DEFAULT_DOMAIN = 'localhost';
 export const TIME_EXPIRATION_24H = '24h';
 export const TIME_EXPIRATION_7D = '7d';
 export const DIST_TAGS = 'dist-tags';
+export const LATEST = 'latest';
 export const USERS = 'users';
 export const DEFAULT_MIN_LIMIT_PASSWORD = 3;
 export const DEFAULT_USER = 'Anonymous';
@@ -128,6 +129,7 @@ export const API_ERROR = {
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: "this version doesn't exist",
   FILE_NOT_FOUND: 'File not found',
+  UNSUPORTED_REGISTRY_CALL: 'unsupported registry call',
   BAD_STATUS_CODE: 'bad status code',
   PACKAGE_EXIST: 'this package is already present',
   BAD_AUTH_HEADER: 'bad authorization header',

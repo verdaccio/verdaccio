@@ -2,9 +2,11 @@ import _ from 'lodash';
 import smartRequest, {PromiseAssert} from '../../lib/request';
 import {mockServer} from '../__helper/mock';
 import {HTTP_STATUS} from '../../../src/lib/constants';
-import {IRequestPromise} from '../../types';
+import { IRequestPromise } from '../../types';
+import { VerdaccioError } from '@verdaccio/commons-api';
 
 describe('Request Functional', () => {
+  jest.setTimeout(20000);
   const mockServerPort = 55547;
   const restTest = `http://localhost:${55547}/jquery`;
   let mockRegistry;
@@ -15,10 +17,10 @@ describe('Request Functional', () => {
     });
 
     test('basic resolve', (done) => {
-      const requestPromise: IRequestPromise = new PromiseAssert((resolve, reject) => {
+      const requestPromise: IRequestPromise = new PromiseAssert(resolve => {
         resolve(1);
       });
-      // $FlowFixMe
+      // @ts-ignore
       requestPromise.then((result) => {
         expect(result).toBe(1);
         done();
@@ -55,7 +57,7 @@ describe('Request Functional', () => {
           url: restTest,
           method: 'GET'
         };
-        // $FlowFixMe
+        // @ts-ignore
         smartRequest(options).status(HTTP_STATUS.OK).then((result)=> {
           expect(JSON.parse(result).name).toBe('jquery');
           done();
@@ -67,10 +69,10 @@ describe('Request Functional', () => {
           url: 'http://www.google.fake',
           method: 'GET'
         };
-        // $FlowFixMe
-        smartRequest(options).status(HTTP_STATUS.NOT_FOUND).then((result)=> {
-          // this never is resolved
-        }, function(error) {
+        // @ts-ignore
+        smartRequest(options).status(HTTP_STATUS.NOT_FOUND).then(() => {
+          // we do not intent to resolve this
+        }, (error: VerdaccioError) => {
           expect(error.code).toBe('ENOTFOUND');
           done();
         })

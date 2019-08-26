@@ -235,10 +235,10 @@ describe('Utilities', () => {
 
       describe('validateName', () => {
         test('should fails with no string', () => {
-          // intended to fail with flow, do not remove
-          // $FlowFixMe
+          // intended to fail with Typescript, do not remove
+          // @ts-ignore
           expect(validateName(null)).toBeFalsy();
-          // $FlowFixMe
+          // @ts-ignore
           expect(validateName(undefined)).toBeFalsy();
         });
 

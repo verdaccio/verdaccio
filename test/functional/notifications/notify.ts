@@ -46,6 +46,7 @@ export default function(express) {
         name: "pkg-test"
       };
 
+      // @ts-ignore
       notify(metadata, config, publisherInfo, 'foo').then(function (body) {
         const jsonBody = parseBody(body);
         expect(
@@ -64,9 +65,11 @@ export default function(express) {
 
       const configMultipleHeader = _.cloneDeep(config);
       configMultipleHeader.notify.headers = {
+        // @ts-ignore
         'Content-Type': HEADERS.JSON
       };
 
+      // @ts-ignore
       notify(metadata, configMultipleHeader, publisherInfo).then(function (body) {
         const jsonBody = parseBody(body);
         expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
@@ -90,11 +93,14 @@ export default function(express) {
         for (let i = 0; i < 10; i++) {
           const notificationSettings = _.cloneDeep(config.notify);
           // basically we allow al notifications
+          // @ts-ignore
           notificationSettings.packagePattern = /^pkg-test$/;
           // notificationSettings.packagePatternFlags = 'i';
+          // @ts-ignore
           multipleNotificationsEndpoint.notify.push(notificationSettings);
         }
 
+        // @ts-ignore
         notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(function (body) {
           console.log("--->body", body);
           body.forEach(function(notification) {
@@ -115,6 +121,7 @@ export default function(express) {
       const configFail = _.cloneDeep(config);
       configFail.notify.endpoint = `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify/bad`;
 
+      // @ts-ignore
       notify(metadata, configFail, publisherInfo).then(function () {
         expect(false).toBe('This service should fails with status code 400');
         done();
@@ -132,6 +139,7 @@ export default function(express) {
         }
       };
 
+      // @ts-ignore
       notify(metadata, config, publisherInfo).then(
         function(body) {
           const jsonBody = parseBody(body);

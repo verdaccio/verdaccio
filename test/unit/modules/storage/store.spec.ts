@@ -59,7 +59,7 @@ describe('StorageTest', () => {
     test('should fetch from uplink jquery metadata from registry', async (done) => {
       const storage: IStorageHandler = await generateStorage();
 
-      // $FlowFixMe
+      // @ts-ignore
       storage._syncUplinksMetadata('jquery', null, {}, (err, metadata, errors) => {
         expect(err).toBeNull();
         expect(metadata).toBeDefined();
@@ -71,7 +71,7 @@ describe('StorageTest', () => {
     test('should fails on fetch from uplink non existing from registry', async (done) => {
       const storage: IStorageHandler = await generateStorage();
 
-      // $FlowFixMe
+      // @ts-ignore
       storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {
         expect(err).not.toBeNull();
         expect(errors).toBeInstanceOf(Array);
@@ -84,7 +84,7 @@ describe('StorageTest', () => {
     test('should fails on fetch from uplink corrupted pkg from registry', async (done) => {
       const storage: IStorageHandler = await generateStorage();
 
-      // $FlowFixMe
+      // @ts-ignore
       storage._syncUplinksMetadata('corrupted-package', null, {}, (err, metadata, errors) => {
         expect(err).not.toBeNull();
         expect(errors).toBeInstanceOf(Array);
@@ -95,18 +95,19 @@ describe('StorageTest', () => {
     });
 
     test('should not touch if the package exists and has no uplinks', async (done) => {
-      const storage: IStorageHandler = await generateStorage();
+      const storage: IStorageHandler = await generateStorage() as IStorageHandler;
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
 
       fs.mkdirSync(path.join(storagePath, 'npm_test'));
       fs.writeFileSync(metadataPath, fs.readFileSync(metadataSource));
       const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());
-      // $FlowFixMe
+      // @ts-ignore
       storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions);
       expect(metadata).toBeDefined();
       storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
         expect(err).toBeNull();
+        // @ts-ignore
         expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
         done();
       });

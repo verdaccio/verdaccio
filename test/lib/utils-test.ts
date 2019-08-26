@@ -1,5 +1,3 @@
-// @flow
-
 import { Version } from "@verdaccio/types";
 
 export function generateNewVersion(
@@ -20,9 +18,8 @@ export function generateNewVersion(
     "readme": "ERROR: No README data found!",
     "_id": `${pkgName}@${version}`,
     "_npmVersion": "5.5.1",
-    "_nodeVersion": "9.3.0",
     "_npmUser": {
-
+      "name": "Foo"
     },
     "dist": {
       "integrity": "sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==",

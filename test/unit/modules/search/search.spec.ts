@@ -33,9 +33,9 @@ let packages = [
 describe('search', () => {
   beforeAll(async function() {
     let config = new Config(buildConfig());
-    this.storage = new Storage(config);
-    await this.storage.init(config);
-    Search.configureStorage(this.storage);
+    const storage = new Storage(config);
+    await storage.init(config);
+    Search.configureStorage(storage);
     packages.map(function(item) {
       // @ts-ignore
       Search.add(item);

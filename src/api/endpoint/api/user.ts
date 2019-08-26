@@ -23,13 +23,13 @@ export default function(route: Router, auth: IAuth, config: Config): void {
     const remoteName = req.remote_user.name;
 
     if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
-      auth.authenticate(name, password, async function callbackAuthenticate(err, groups): Promise<void> {
+      auth.authenticate(name, password, async function callbackAuthenticate(err, user): Promise<void> {
         if (err) {
           logger.trace({ name, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
           return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD));
         }
 
-        const restoredRemoteUser: RemoteUser = createRemoteUser(name, groups);
+        const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
         const token = await getApiToken(auth, config, restoredRemoteUser, password);
 
         res.status(HTTP_STATUS.CREATED);

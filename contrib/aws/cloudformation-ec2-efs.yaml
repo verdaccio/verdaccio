@@ -159,7 +159,7 @@ Resources:
             mount -a -t efs defaults
 
             # Create/update the config & password files.
-            mkdir "$BASE/conf"
+            [[ -d "$BASE/conf" ]] || mkdir "$BASE/conf"
             curl -o "$BASE/conf/htpasswd" "${VerdaccioHtpasswdUrl}"
             curl -o "$BASE/conf/config.yaml" "${VerdaccioConfigUrl}"
 

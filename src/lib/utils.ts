@@ -70,10 +70,8 @@ export function validateName(name: string): boolean {
    */
   return !(
     !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
-    normalizedName.charAt(0) === '.' || // ".bin", etc.
-    normalizedName === 'node_modules' ||
-    normalizedName === '__proto__' ||
-    normalizedName === 'favicon.ico'
+    normalizedName.startsWith('.') || // ".bin", etc.
+    ['node_modules', '__proto__', 'favicon.ico'].indexOf(normalizedName) !== -1
   );
 }
 
@@ -184,7 +182,7 @@ export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Re
   const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
   const domainRegistry = combineBaseUrl(protocol, headers.host, urlPrefix);
 
-  return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
+  return `${domainRegistry}/${encodeScopedUri(pkgName)}/-/${tarballName}`;
 }
 
 /**
@@ -592,4 +590,12 @@ export function pad(str, max): string {
     return str + ' '.repeat(max - str.length);
   }
   return str;
+}
+
+export function encodeScopedUri(packageName) {
+  return packageName.replace(/\//g, '%2f');
+}
+
+export function hasDiffOneKey(versions) {
+  return Object.keys(versions).length !== 1;
 }
