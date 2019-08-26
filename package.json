@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git://github.com/verdaccio/verdaccio"
   },
+  "homepage": "https://verdaccio.org",
   "main": "build/index.js",
   "bin": {
     "verdaccio": "./bin/verdaccio"
