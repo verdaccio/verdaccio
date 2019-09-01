@@ -1,5 +1,14 @@
 import _ from 'lodash';
-import { addScope, addGravatarSupport, deleteProperties, sortByName, parseReadme, formatAuthor, convertDistRemoteToLocalTarballUrls } from '../../../lib/utils';
+import {
+  addScope,
+  addGravatarSupport,
+  deleteProperties,
+  sortByName,
+  parseReadme,
+  formatAuthor,
+  convertDistRemoteToLocalTarballUrls,
+  isVersionValid
+} from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { generateGravatarUrl } from '../../../utils/user';
@@ -104,22 +113,28 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
       req,
       callback: function(err: Error, info: $SidebarPackage): void {
         if (_.isNil(err)) {
+          const {v} = req.query;
           let sideBarInfo: any = _.clone(info);
           sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(info, req, config.url_prefix).versions;
-          sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
-          sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
-          if (config.web) {
-            sideBarInfo = addGravatarSupport(sideBarInfo, config.web.gravatar);
+          if (isVersionValid(info, v)) {
+            sideBarInfo.latest = sideBarInfo.versions[v];
+            sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+            } else {
+              sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
+              sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+            }
+            sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
+            if (config.web) {
+              sideBarInfo = addGravatarSupport(sideBarInfo, config.web.gravatar);
+            } else {
+              sideBarInfo = addGravatarSupport(sideBarInfo);
+            }
+            next(sideBarInfo);
           } else {
-            sideBarInfo = addGravatarSupport(sideBarInfo);
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
           }
-          next(sideBarInfo);
-        } else {
-          res.status(HTTP_STATUS.NOT_FOUND);
-          res.end();
         }
-      },
     });
   });
 }

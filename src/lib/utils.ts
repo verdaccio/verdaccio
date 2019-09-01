@@ -1,7 +1,6 @@
 /**
  * @prettier
  */
-
 import _ from 'lodash';
 import fs from 'fs';
 import assert from 'assert';
@@ -598,4 +597,14 @@ export function encodeScopedUri(packageName) {
 
 export function hasDiffOneKey(versions) {
   return Object.keys(versions).length !== 1;
+}
+
+export function isVersionValid(packageMeta, packageVersion): boolean {
+  const hasVersion = typeof packageVersion !== 'undefined';
+  if (!hasVersion) {
+    return false;
+  }
+
+  const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
+  return hasMatchVersion;
 }
