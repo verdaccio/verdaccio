@@ -86,7 +86,7 @@ describe('endpoint web unit test', () => {
           });
       });
 
-      //FIXME: disable, we need to inspect why fails randomly
+      //FIXME: disabled, we need to inspect why fails randomly
       test.skip('should display scoped readme 404', (done) => {
         request(app)
           .get('/-/verdaccio/package/readme/@scope/404')
@@ -115,9 +115,36 @@ describe('endpoint web unit test', () => {
           });
       });
 
+      test('should display sidebar info by version', (done) => {
+        request(app)
+          .get('/-/verdaccio/sidebar/@scope/pk1-test?v=1.0.6')
+          .expect(HTTP_STATUS.OK)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .end(function(err, res) {
+            const sideBarInfo = res.body;
+            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
+
+            expect(sideBarInfo.latest.author).toBeDefined();
+            expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
+            expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
+            expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
+            done();
+          });
+      });
+
       test('should display sidebar info 404', (done) => {
         request(app)
           .get('/-/verdaccio/sidebar/@scope/404')
+          .expect(HTTP_STATUS.NOT_FOUND)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .end(function() {
+            done();
+          });
+      });
+
+      test('should display sidebar info 404 with version', (done) => {
+        request(app)
+          .get('/-/verdaccio/sidebar/@scope/pk1-test?v=0.0.0-not-found')
           .expect(HTTP_STATUS.NOT_FOUND)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function() {
