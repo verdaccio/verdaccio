@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
-import { API_ERROR, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import {API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER} from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import { aesEncrypt, signPayload } from './crypto-utils';
 import {
