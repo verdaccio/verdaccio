@@ -1,0 +1,13 @@
+storage: ./storage_default_storage
+uplinks:
+  remote:
+    url: http://localhost:4873/
+packages:
+  '@*/*':
+    access: $all
+    proxy: remote
+  '**':
+    access: $all
+    proxy: remote
+logs:
+  - { type: stdout, format: pretty, level: trace }

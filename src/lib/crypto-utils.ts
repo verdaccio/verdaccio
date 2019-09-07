@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import { createDecipher, createCipher, createHash, pseudoRandomBytes } from 'crypto';
 import jwt from 'jsonwebtoken';
 
@@ -12,8 +7,9 @@ export const defaultAlgorithm = 'aes192';
 export const defaultTarballHashAlgorithm = 'sha1';
 
 export function aesEncrypt(buf: Buffer, secret: string): Buffer {
-  // deprecated
+  // deprecated (it will be migrated in Verdaccio 5), it is a breaking change
   // https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options
+  // https://www.grainger.xyz/changing-from-cipher-to-cipheriv/
   const c = createCipher(defaultAlgorithm, secret);
   const b1 = c.update(buf);
   const b2 = c.final();
@@ -22,8 +18,9 @@ export function aesEncrypt(buf: Buffer, secret: string): Buffer {
 
 export function aesDecrypt(buf: Buffer, secret: string) {
   try {
-    // deprecated
+    // deprecated (it will be migrated in Verdaccio 5), it is a breaking change
     // https://nodejs.org/api/crypto.html#crypto_crypto_createdecipher_algorithm_password_options
+    // https://www.grainger.xyz/changing-from-cipher-to-cipheriv/
     const c = createDecipher(defaultAlgorithm, secret);
     const b1 = c.update(buf);
     const b2 = c.final();

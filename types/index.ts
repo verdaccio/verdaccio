@@ -13,13 +13,16 @@ import {
   Logger,
   JWTSignOptions,
   PackageAccess,
-  ILocalData,
+  IPluginStorage,
   StringValue as verdaccio$StringValue,
   IReadTarball,
   Package,
   IPluginStorageFilter,
   Author,
-  AuthPluginPackage
+	AuthPluginPackage,
+  Token,
+  ITokenActions,
+  TokenFilter
 } from '@verdaccio/types';
 import lunrMutable from 'lunr-mutable-indexes';
 import {NextFunction, Request, Response} from 'express';
@@ -154,9 +157,9 @@ export interface IProxy {
   getRemoteMetadata(name: string, options: any, callback: Callback): void;
 }
 
-export interface IStorage extends IBasicStorage<Config> {
+export interface IStorage extends IBasicStorage<Config>, ITokenActions {
   config: Config;
-  localData: ILocalData<Config>;
+  storagePlugin: IPluginStorage<Config>;
   logger: Logger;
 }
 
@@ -176,12 +179,15 @@ export interface ISyncUplinks {
 
 export type IPluginFilters = IPluginStorageFilter<Config>[];
 
-export interface IStorageHandler extends IStorageManager<Config> {
+export interface IStorageHandler extends IStorageManager<Config>, ITokenActions {
   config: Config;
   localStorage: IStorage | null;
   filters: IPluginFilters;
   uplinks: ProxyList;
   init(config: Config, filters: IPluginFilters): Promise<string>;
+  saveToken(token: Token): Promise<any>;
+  deleteToken(user: string, tokenKey: string): Promise<any>;
+  readTokens(filter: TokenFilter): Promise<Array<Token>>;
   _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }

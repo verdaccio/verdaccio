@@ -9,7 +9,16 @@ import YAML from 'js-yaml';
 import URL from 'url';
 import sanitizyReadme from '@verdaccio/readme';
 
-import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
+import {
+  APP_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_DOMAIN,
+  DEFAULT_PROTOCOL,
+  CHARACTER_ENCODING,
+  HEADERS,
+  DIST_TAGS,
+  DEFAULT_USER,
+} from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import { Package, Version, Author } from '@verdaccio/types';
@@ -170,7 +179,12 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
+export function getLocalRegistryTarballUri(
+  uri: string,
+  pkgName: string,
+  req: Request,
+  urlPrefix: string | void
+): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
@@ -442,17 +456,14 @@ export function addScope(scope: string, packageName: string): string {
 }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
-  _.forEach(
-    propertiesToDelete,
-    (property): any => {
-      delete objectItem[property];
-    }
-  );
+  _.forEach(propertiesToDelete, (property): any => {
+    delete objectItem[property];
+  });
 
   return objectItem;
 }
 
-export function addGravatarSupport(pkgInfo: Package, online: boolean = true): AuthorAvatar {
+export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
   const contributors: AuthorAvatar[] = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
@@ -493,12 +504,10 @@ export function addGravatarSupport(pkgInfo: Package, online: boolean = true): Au
 
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
-    pkgInfoCopy.latest.maintainers = maintainers.map(
-      (maintainer): void => {
-        maintainer.avatar = generateGravatarUrl(maintainer.email, online);
-        return maintainer;
-      }
-    );
+    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer): void => {
+      maintainer.avatar = generateGravatarUrl(maintainer.email, online);
+      return maintainer;
+    });
   }
 
   return pkgInfoCopy;
@@ -589,6 +598,16 @@ export function pad(str, max): string {
     return str + ' '.repeat(max - str.length);
   }
   return str;
+}
+
+/**
+ * return a masquerade string with its first and last {charNum} and three dots in between.
+ * @param {String} str
+ * @param {Number} charNum
+ * @returns {String}
+ */
+export function mask(str: string, charNum = 3) {
+  return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
 }
 
 export function encodeScopedUri(packageName) {

@@ -49,20 +49,15 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     const { name } = req.remote_user;
 
     if (validatePassword(password.new) === false) {
-      auth.changePassword(
-        name as string,
-        password.old,
-        password.new,
-        (err, isUpdated): void => {
-          if (_.isNil(err) && isUpdated) {
-            next({
-              ok: true,
-            });
-          } else {
-            return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
-          }
+      auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
+        if (_.isNil(err) && isUpdated) {
+          next({
+            ok: true,
+          });
+        } else {
+          return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
         }
-      );
+      });
     } else {
       return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
     }

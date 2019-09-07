@@ -13,9 +13,9 @@ jest.mock('../../../../src/lib/logger', () => ({
   setup: jest.fn(),
   logger: {
     child: jest.fn(),
-    warn: jest.fn(),
-    trace: jest.fn(),
     debug: jest.fn(),
+    trace: jest.fn(),
+    warn: jest.fn(),
     error: jest.fn(),
     fatal: jest.fn()
   }

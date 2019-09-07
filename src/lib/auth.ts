@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
-import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import {API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER} from './constants';
 import loadPlugin from '../lib/plugin-loader';
 import { aesEncrypt, signPayload } from './crypto-utils';
 import {
@@ -66,36 +66,36 @@ class Auth implements IAuth {
   public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
     const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
 
-    if (_.isEmpty(validPlugins)) {
-      return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
-    }
+		if (_.isEmpty(validPlugins)) {
+			return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+		}
 
-    for (const plugin of validPlugins) {
-      if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
-        this.logger.trace('auth plugin does not implement changePassword, trying next one');
-        continue;
-      } else {
-        this.logger.trace({username}, 'updating password for @{username}');
-        plugin.changePassword!(
-          username,
-          password,
-          newPassword,
-          (err, profile): void => {
-            if (err) {
-              this.logger.error(
-                {username, err},
-                `An error has been produced
+		for (const plugin of validPlugins) {
+			if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
+				this.logger.trace('auth plugin does not implement changePassword, trying next one');
+				continue;
+			} else {
+				this.logger.trace({username}, 'updating password for @{username}');
+				plugin.changePassword!(
+					username,
+					password,
+					newPassword,
+					(err, profile): void => {
+						if (err) {
+							this.logger.error(
+								{username, err},
+								`An error has been produced
             updating the password for @{username}. Error: @{err.message}`
-              );
-              return cb(err);
-            }
+							);
+							return cb(err);
+						}
 
-            this.logger.trace({username}, 'updated password for @{username} was successful');
-            return cb(null, profile);
-          }
-        );
-      }
-    }
+						this.logger.trace({username}, 'updated password for @{username} was successful');
+						return cb(null, profile);
+					}
+				);
+			}
+		}
   }
 
   public authenticate(username: string, password: string, cb: Callback): void {
@@ -223,6 +223,7 @@ class Auth implements IAuth {
             if (_.isNil(ok) === true) {
               this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
               // @ts-ignore
+              // eslint-disable-next-line
               return this.allow_publish(...arguments);
             }
 
