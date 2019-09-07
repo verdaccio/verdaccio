@@ -164,7 +164,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 - Registering new users (npm adduser {newuser}) - **supported**
 - Change password (npm profile set password)  - **supported**
 - Transferring ownership (npm owner add {user} {pkg}) - not supported, *PR-welcome*
-- Token (npm token) - (more info [#1271](https://github.com/verdaccio/verdaccio/pull/1271)) - **supported**
+- Token (npm token) - (more info [#1427](https://github.com/verdaccio/verdaccio/pull/1427)) - **supported**
 
 ### Miscellany
 
