@@ -195,26 +195,31 @@ class ProxyStorage implements IProxy {
       }
     } : undefined;
 
-    const req = request(
-      {
-        url: uri,
-        method: method,
-        headers: headers,
-        body: json,
-        // FIXME: ts complains ca cannot be undefined
-        // @ts-ignore
-        ca: this.ca,
-        proxy: this.proxy,
-        encoding: null,
-        gzip: true,
-        timeout: this.timeout,
-        strictSSL: this.strict_ssl,
-      },
-      requestCallback
-    );
+    let requestOptions = {
+      url: uri,
+      method: method,
+      headers: headers,
+      body: json,
+      // FIXME: ts complains ca cannot be undefined
+      proxy: this.proxy,
+      encoding: null,
+      gzip: true,
+      timeout: this.timeout,
+      strictSSL: this.strict_ssl,
+    };
+
+    if (this.ca) {
+      requestOptions = Object.assign({}, requestOptions, {
+        ca: this.ca
+      });
+    }
+
+    const req = request(requestOptions, requestCallback);
 
     let statusCalled = false;
     req.on('response', function(res): void {
+      // FIXME: _verdaccio_aborted seems not used
+      // @ts-ignore
       if (!req._verdaccio_aborted && !statusCalled) {
         statusCalled = true;
         self._statusCheck(true);
@@ -238,11 +243,14 @@ class ProxyStorage implements IProxy {
       }
     });
     req.on('error', function(_err): void {
+      // FIXME: _verdaccio_aborted seems not used
+      // @ts-ignore
       if (!req._verdaccio_aborted && !statusCalled) {
         statusCalled = true;
         self._statusCheck(false);
       }
     });
+    // @ts-ignore
     return req;
   }
 

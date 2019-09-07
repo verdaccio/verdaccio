@@ -78,7 +78,9 @@ function updateStorageLinks(configLocation, defaultConfig) {
 }
 
 function getConfigPaths() {
-  return [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].filter(path => !!path);
+  return [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].filter(
+    path => !!path
+  );
 }
 
 const getXDGDirectory = () => {

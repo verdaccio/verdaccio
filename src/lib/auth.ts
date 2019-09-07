@@ -223,6 +223,7 @@ class Auth implements IAuth {
             if (_.isNil(ok) === true) {
               this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
               // @ts-ignore
+              // eslint-disable-next-line
               return this.allow_publish(...arguments);
             }
 
