@@ -29,7 +29,7 @@ if (semver.satisfies(process.version, `>=${MIN_NODE_VERSION}`) === false) {
 process.title = 'verdaccio';
 
 const logger = require('./logger');
-logger.setup(); // default setup
+logger.setup(null, {logStart: false}); // default setup
 
 const envinfo = require('envinfo');
 const commander = require('commander');

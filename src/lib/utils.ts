@@ -1,7 +1,6 @@
 /**
  * @prettier
  */
-
 import _ from 'lodash';
 import fs from 'fs';
 import assert from 'assert';
@@ -182,7 +181,7 @@ export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Re
   const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
   const domainRegistry = combineBaseUrl(protocol, headers.host, urlPrefix);
 
-  return `${domainRegistry}/${pkgName.replace(/\//g, '%2f')}/-/${tarballName}`;
+  return `${domainRegistry}/${encodeScopedUri(pkgName)}/-/${tarballName}`;
 }
 
 /**
@@ -600,4 +599,22 @@ export function pad(str, max): string {
  */
 export function mask(str: string, charNum: number = 3) {
   return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
+}
+
+export function encodeScopedUri(packageName) {
+  return packageName.replace(/\//g, '%2f');
+}
+
+export function hasDiffOneKey(versions) {
+  return Object.keys(versions).length !== 1;
+}
+
+export function isVersionValid(packageMeta, packageVersion): boolean {
+  const hasVersion = typeof packageVersion !== 'undefined';
+  if (!hasVersion) {
+    return false;
+  }
+
+  const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
+  return hasMatchVersion;
 }

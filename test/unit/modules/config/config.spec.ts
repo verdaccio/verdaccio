@@ -66,7 +66,7 @@ const checkDefaultConfPackages = (config) => {
 
 describe('Config file', () => {
   beforeAll(function() {
-
+    // @ts-ignore
     this.config = new Config(parseConfigFile(resolveConf('default')));
   });
 

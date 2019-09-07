@@ -136,13 +136,15 @@ describe('Config Utilities', () => {
 
       expect(react).toBeDefined();
       expect(react.access).toBeDefined();
-      // $FlowFixMe
+
+      // Intended checks, Typescript shoold catch this, we test the runtime part
+      // @ts-ignore
       expect(react.access[0]).toBe(ROLES.$ALL);
       expect(react.publish).toBeDefined();
-      // $FlowFixMe
+      // @ts-ignore
       expect(react.publish[0]).toBe('admin');
       expect(react.proxy).toBeDefined();
-      // $FlowFixMe
+      // @ts-ignore
       expect(react.proxy[0]).toBe('uplink2');
       expect(react.storage).toBeDefined();
 

@@ -19,6 +19,7 @@ import {
   Package,
   IPluginStorageFilter,
   Author,
+	AuthPluginPackage,
   Token,
   ITokenActions,
   TokenFilter
@@ -118,6 +119,7 @@ export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, IAuthWebUI {
   secret: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins: any[];
+  allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
 }
 
 export interface IWebSearch {

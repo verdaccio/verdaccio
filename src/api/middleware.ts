@@ -1,15 +1,10 @@
-/**
- * @prettier
- * @flow
- */
-
 import _ from 'lodash';
 
 import { validateName as utilValidateName, validatePackage as utilValidatePackage, getVersionFromTarball, isObject, ErrorCode } from '../lib/utils';
 import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
 import { stringToMD5 } from '../lib/crypto-utils';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
-import { Config, Package } from '@verdaccio/types';
+import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { logger } from '../lib/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
@@ -108,9 +103,10 @@ export function allow(auth: IAuth): Function {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
       const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
+      const remote: RemoteUser = req.remote_user;
+      logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
 
-      // $FlowFixMe
-      auth['allow_' + action]({ packageName, packageVersion }, req.remote_user, function(error, allowed): void {
+      auth['allow_' + action]({ packageName, packageVersion }, remote, function(error, allowed): void {
         req.resume();
         if (error) {
           next(error);

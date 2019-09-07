@@ -67,6 +67,7 @@ describe('Notifications:: Notify', () => {
   describe('packagePatternFlags', () => {
     test("should send single notification with packagePatternFlags", async () => {
       const name = 'package';
+      // @ts-ignore
       await notify({name}, packagePatternNotificationConfig, { name: 'foo'}, 'bar');
 
 
@@ -75,6 +76,7 @@ describe('Notifications:: Notify', () => {
 
     test("should not match on send single notification with packagePatternFlags", async () => {
       const name = 'no-mach-name';
+      // @ts-ignore
       await notify({name}, packagePatternNotificationConfig, { name: 'foo'}, 'bar');
 
       expect(notifyRequest).toHaveBeenCalledTimes(0);

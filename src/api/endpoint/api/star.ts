@@ -4,6 +4,7 @@ import { USERS, HTTP_STATUS } from '../../../lib/constants';
 import {Response} from 'express';
 import {$RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../types';
 import _ from 'lodash';
+import { logger } from '../../../lib/logger';
 
 export default function(storage: IStorageHandler) {
   const validateInputs = (newUsers, localUsers, username, isStar) => {
@@ -21,6 +22,7 @@ export default function(storage: IStorageHandler) {
 
   return (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
     const name = req.params.package;
+    logger.debug({name}, 'starring a package for @{name}');
     const afterChangePackage = function(err?: Error) {
       if (err) {
         return next(err);

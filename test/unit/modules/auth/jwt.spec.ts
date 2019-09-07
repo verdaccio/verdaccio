@@ -1,5 +1,4 @@
 import request from 'supertest';
-import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
 
@@ -8,18 +7,14 @@ import endPointAPI from '../../../../src/api';
 import {HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC, API_ERROR} from '../../../../src/lib/constants';
 import {mockServer} from '../../__helper/mock';
 import {DOMAIN_SERVERS} from '../../../functional/config.functional';
-import {buildToken, parseConfigFile} from '../../../../src/lib/utils';
-import {parseConfigurationFile} from '../../__helper';
+import {buildToken} from '../../../../src/lib/utils';
 import {addUser, getPackage, loginUserToken} from '../../__helper/api';
 import {setup} from '../../../../src/lib/logger';
+import configDefault from '../../partials/config';
 import {buildUserBuffer} from '../../../../src/lib/auth-utils';
 
 setup([]);
 const credentials = { name: 'JotaJWT', password: 'secretPass' };
-
-const parseConfigurationJWTFile = () => {
-  return parseConfigurationFile(`api-jwt/jwt`);
-};
 
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 
@@ -33,8 +28,7 @@ describe('endpoint user auth JWT unit test', () => {
     const store = path.join(__dirname, '../../partials/store/test-jwt-storage');
     const mockServerPort = 55546;
     rimraf(store, async () => {
-      const confS = parseConfigFile(parseConfigurationJWTFile());
-      const configForTest = _.assign({}, _.cloneDeep(confS), {
+      const configForTest = configDefault({
         storage: store,
         uplinks: {
           npmjs: {
@@ -46,8 +40,11 @@ describe('endpoint user auth JWT unit test', () => {
           htpasswd: {
             file: './test-jwt-storage/.htpasswd_jwt_auth'
           }
-        }
-      });
+        },
+        logs: [
+          { type: 'stdout', format: 'pretty', level: 'warn' }
+        ]
+      }, 'api-jwt/jwt.yaml');
 
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
@@ -72,7 +69,7 @@ describe('endpoint user auth JWT unit test', () => {
 
     // testing JWT auth headers with token
     // we need it here, because token is required
-    const [err1, resp1] = await getPackage(request(app), buildToken(TOKEN_BEARER, token), 'vue');
+    const [err1, resp1] = await getPackage(request(app), token, 'vue');
     expect(err1).toBeNull();
     expect(resp1.body).toBeDefined();
     expect(resp1.body.name).toMatch('vue');
