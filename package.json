@@ -80,7 +80,7 @@
     "jest": "24.9.0",
     "jest-environment-node": "24.9.0",
     "lint-staged": "8.2.1",
-    "nock": "10.0.6",
+    "nock": "11.3.3",
     "puppeteer": "1.8.0",
     "rimraf": "3.0.0",
     "standard-version": "7.0.0",
