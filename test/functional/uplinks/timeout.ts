@@ -6,6 +6,7 @@ const PKG_MULTIPLE_UPLINKS = 'test-uplink-timeout-multiple';
 export default function (server, server2, server3) {
 
   describe('uplink connection timeouts', () => {
+    jest.setTimeout(20000);
     beforeAll(async () => {
       await server2.addPackage(PKG_SINGLE_UPLINK).status(HTTP_STATUS.CREATED);
       await server2.addPackage(PKG_MULTIPLE_UPLINKS).status(HTTP_STATUS.CREATED);
