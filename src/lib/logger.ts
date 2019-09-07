@@ -20,6 +20,11 @@ class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
   write(obj) {
     super.write(jsonFormat(obj, false));
   }
+
+  rotate(): void {
+    super.rotate();
+    this.emit('rotated');
+  }
 }
 
 let logger;
@@ -38,7 +43,7 @@ const DEFAULT_LOGGER_CONF = [{ type: 'stdout', format: 'pretty', level: 'http' }
  * Setup the Buyan logger
  * @param {*} logs list of log configuration
  */
-function setup(logs) {
+function setup(logs, { logStart } = { logStart: true }) {
   const streams: any = [];
   if (logs == null) {
     logs = DEFAULT_LOGGER_CONF;
@@ -78,6 +83,10 @@ function setup(logs) {
         // @ts-ignore
         stream,
       };
+
+      if (logStart) {
+        stream.on('rotated', () => logger.warn('Start of logfile'));
+      }
 
       streams.push(rotateStream);
     } else {
@@ -136,6 +145,12 @@ function setup(logs) {
       res: Logger.stdSerializers.res,
     },
   });
+
+  // In case of an empty log file, we ensure there is always something logged. This also helps see if the server
+  // was restarted in any cases
+  if (logStart) {
+    logger.warn('Verdaccio started');
+  }
 
   process.on('SIGUSR2', function() {
     Logger.reopenFileStreams();
