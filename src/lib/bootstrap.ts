@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 import { assign, isObject, isFunction } from 'lodash';
 import URL from 'url';
 import fs from 'fs';
@@ -17,6 +13,16 @@ import { Application } from 'express';
 
 const logger = require('./logger');
 
+function displayExperimentsInfoBox(experiments) {
+  const experimentList = Object.keys(experiments);
+  if (experimentList.length >= 1) {
+    logger.logger.warn('⚠️  experiments are enabled, we recommend do not use experiments in production, comment out this section to disable it');
+    experimentList.forEach(experiment => {
+      logger.logger.warn(` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`);
+    });
+  }
+}
+
 /**
  * Trigger the server after configuration has been loaded.
  * @param {Object} config
@@ -28,6 +34,10 @@ const logger = require('./logger');
 function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
   if (isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
+  }
+
+  if ('experiments' in config) {
+    displayExperimentsInfoBox(config.experiments);
   }
 
   endPointAPI(config).then(

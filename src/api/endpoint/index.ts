@@ -1,5 +1,6 @@
 import { IAuth, IStorageHandler } from '../../../types';
 import { Config } from '@verdaccio/types';
+import _ from 'lodash';
 
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -53,7 +54,8 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
-  token(app, auth, storage, config);
-
+  if (_.get(config, 'experiments.token') === true) {
+    token(app, auth, storage, config);
+  }
   return app;
 }
