@@ -1,0 +1,22 @@
+storage: ./storage_default_storage
+uplinks:
+  npmjs:
+    url: http://localhost:4873/
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 5m
+        notBefore: 0
+packages:
+  '@token/*':
+    access: $authenticated
+    publish: $authenticated
+  'only-you-can-publish':
+    access: $authenticated
+    publish: $authenticated
+logs:
+  - { type: stdout, format: pretty, level: trace }
+experiments:
+  ## Enable token for testing
+  token: true

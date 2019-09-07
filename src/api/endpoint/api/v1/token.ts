@@ -109,6 +109,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 		const { name } = req.remote_user;
 
 		if (_.isNil(name) === false) {
+			logger.debug({name}, '@{name} has requested remove a token');
 			try {
 				await storage.deleteToken(name, tokenKey);
 				logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');
