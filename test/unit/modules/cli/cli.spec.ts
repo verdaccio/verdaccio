@@ -6,8 +6,7 @@ import config from '../../partials/config';
 import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../../src/lib/constants';
 import {getListListenAddresses} from '../../../../src/lib/cli/utils';
 import {parseConfigFile} from '../../../../src/lib/utils';
-
-const logger = require('../../../../src/lib/logger');
+import { logger } from '../../../../src/lib/logger';
 
 jest.mock('../../../../src/lib/logger', () => ({
   setup: jest.fn(),
@@ -132,8 +131,8 @@ describe('startServer via API', () => {
       // @ts-ignore
       global.process = { ...realProcess, exit: exitMock };
       await startServer(conf, address, store, version, serverName, () => {
-        expect(logger.logger.fatal).toHaveBeenCalled();
-        expect(logger.logger.fatal).toHaveBeenCalledTimes(2);
+        expect(logger.fatal).toHaveBeenCalled();
+        expect(logger.fatal).toHaveBeenCalledTimes(2);
         done();
       });
       expect(exitMock).toHaveBeenCalledWith(2);

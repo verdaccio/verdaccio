@@ -156,7 +156,7 @@ describe('UpStorge', () => {
     describe('valid use cases', () => {
       const validateUpLink = (
         url: string,
-        tarBallUrl: string = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
+        tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 

@@ -101,7 +101,7 @@ describe('api with no limited access configuration', () => {
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.OK)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) {
             return done(err);
           }

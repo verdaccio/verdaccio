@@ -1,9 +1,10 @@
 class FilterPlugin {
-  constructor(config) {
+  private _config;
+  public constructor(config) {
     this._config = config;
   }
 
-  filter_metadata(pkg) {
+  public filter_metadata(pkg) {
     return new Promise((resolve, reject) => {
       // We use this to test what happens when a filter rejects
       if(pkg.name === 'trigger-filter-failure') {

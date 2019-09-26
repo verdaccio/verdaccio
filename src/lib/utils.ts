@@ -38,8 +38,11 @@ import {
 } from '@verdaccio/commons-api';
 import { IncomingHttpHeaders } from 'http2';
 
-const Logger = require('./logger');
-const pkginfo = require('pkginfo')(module); // eslint-disable-line no-unused-vars
+import { logger } from './logger';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('pkginfo')(module);
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
 
@@ -287,7 +290,7 @@ export function semverSort(listVersions: string[]): string[] {
     listVersions
       .filter(function(x): boolean {
         if (!semver.parse(x, true)) {
-          Logger.logger.warn({ ver: x }, 'ignoring bad version @{ver}');
+          logger.warn({ ver: x }, 'ignoring bad version @{ver}');
           return false;
         }
         return true;
@@ -525,7 +528,7 @@ export function parseReadme(packageName: string, readme: string): string | void 
   }
 
   // logs readme not found error
-  Logger.logger.error({ packageName }, '@{packageName}: No readme found');
+  logger.error({ packageName }, '@{packageName}: No readme found');
 
   return sanitizyReadme('ERROR: No README data found!');
 }
@@ -606,15 +609,15 @@ export function pad(str, max): string {
  * @param {Number} charNum
  * @returns {String}
  */
-export function mask(str: string, charNum = 3) {
+export function mask(str: string, charNum = 3): string {
   return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
 }
 
-export function encodeScopedUri(packageName) {
+export function encodeScopedUri(packageName): string {
   return packageName.replace(/\//g, '%2f');
 }
 
-export function hasDiffOneKey(versions) {
+export function hasDiffOneKey(versions): boolean {
   return Object.keys(versions).length !== 1;
 }
 

@@ -19,8 +19,7 @@ export function putPackage(
   request: any,
   pkgName: string,
   publishMetadata: Package,
-  token?: string,
-  httpStatus: number = HTTP_STATUS.CREATED): Promise<any[]> {
+  token?: string): Promise<any[]> {
   return new Promise((resolve) => {
     let put = request.put(pkgName)
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)

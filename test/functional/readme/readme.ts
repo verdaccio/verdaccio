@@ -1,5 +1,8 @@
 import {DEFAULT_NO_README, HTTP_STATUS} from '../../../src/lib/constants';
 
+import pkgReadmeJSON from './pkg-readme.json';
+import pkgNoReadmeJSON from './pkg-no-readme.json';
+
 export default function (server, server2) {
 
   describe('should test readme', () => {
@@ -8,9 +11,9 @@ export default function (server, server2) {
     const README_MESSAGE = 'this is a readme';
 
     beforeAll(async function() {
-      await server.putPackage('readme-test', require('./pkg-readme.json'))
+      await server.putPackage('readme-test', pkgReadmeJSON)
         .status(HTTP_STATUS.CREATED);
-      await server.putPackage(README_PKG2, require('./pkg-no-readme.json'))
+      await server.putPackage(README_PKG2, pkgNoReadmeJSON)
         .status(HTTP_STATUS.CREATED);
     });
 

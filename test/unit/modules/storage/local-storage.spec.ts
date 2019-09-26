@@ -10,7 +10,7 @@ import {readFile} from '../../../functional/lib/test.utils';
 import {generatePackageTemplate} from '../../../../src/lib/storage-utils';
 import {generateNewVersion} from '../../../lib/utils-test';
 
-const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
+const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
 
 import {Config, MergeTags, Package} from '@verdaccio/types';
 import {IStorage} from '../../../../types';
@@ -216,7 +216,7 @@ describe('LocalStorage', () => {
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, version);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', err => {
           expect(err).not.toBeNull();
           expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
           expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
@@ -231,7 +231,7 @@ describe('LocalStorage', () => {
         const tarballName = `${pkgName}-${version}.tgz`;
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', (err, data) => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', err => {
           expect(err).not.toBeNull();
           expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
           expect(err.message).toMatch(/shasum error/);
@@ -503,7 +503,7 @@ describe('LocalStorage', () => {
 
       test('should fails with package not found', (done) => {
         const pkgName = 'npm_test_fake';
-        storage.removePackage(pkgName, (err, data) => {
+        storage.removePackage(pkgName, err => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch(/no such package available/);
           done();
@@ -511,7 +511,7 @@ describe('LocalStorage', () => {
       });
 
       test('should fails with @scoped package not found', (done) => {
-        storage.removePackage(pkgNameScoped, (err, data) => {
+        storage.removePackage(pkgNameScoped, err => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch(API_ERROR.NO_PACKAGE);
           done();

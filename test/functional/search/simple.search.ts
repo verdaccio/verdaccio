@@ -1,6 +1,5 @@
 import {API_MESSAGE, HTTP_STATUS} from '../../../src/lib/constants';
-
-const pkgExample = require('./search.json');
+import pkgExample from './search.json';
 
 export default function(server, server2, express) {
 

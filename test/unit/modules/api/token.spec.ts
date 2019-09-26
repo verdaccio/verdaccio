@@ -162,7 +162,7 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err, resp) {
+        .end(function(err) {
           if (err) {
             return done(err);
           }

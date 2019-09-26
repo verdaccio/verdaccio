@@ -187,7 +187,7 @@ export interface IStorageHandler extends IStorageManager<Config>, ITokenActions 
   init(config: Config, filters: IPluginFilters): Promise<string>;
   saveToken(token: Token): Promise<any>;
   deleteToken(user: string, tokenKey: string): Promise<any>;
-  readTokens(filter: TokenFilter): Promise<Array<Token>>;
+  readTokens(filter: TokenFilter): Promise<Token[]>;
   _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
   _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
 }

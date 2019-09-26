@@ -1,11 +1,13 @@
-// @flow
+// this file is not aim to be tested, just to check typescript definitions
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 
-// this file is not aim to be tested, just to check flow definitions
 import Config from '../../../../src/lib/config';
 import {generatePackageTemplate} from '../../../../src/lib/storage-utils';
 import {readFile} from '../../../functional/lib/test.utils';
+import { Package } from '@verdaccio/types';
 
-const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
+const readMetadata = (fileName: string): Package => JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
 
 import {
   Config as AppConfig,
@@ -15,9 +17,10 @@ import {
   IBasicAuth,
 } from '@verdaccio/types';
 import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
+import { generateVersion } from "../../../unit/__helper/utils";
 
-export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
-  register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager): void {
+export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
+  register_middlewares(app: any, auth: IBasicAuth<{}>, storage: IStorageManager<{}>): void {
     const remoteUser: RemoteUser = {
       groups: [],
       real_groups: [],
@@ -29,13 +32,12 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
     auth.aesEncrypt(new Buffer('pass'));
     // storage
     storage.addPackage('name', generatePackageTemplate('test'), () => {});
-    storage.addVersion('name', 'version', readMetadata(), 'tag', () => {});
+    storage.addVersion('name', 'version', generateVersion('name', '1.0.0'), 'tag', () => {});
     storage.mergeTags('name', {'latest': '1.0.0'}, () => {});
-    storage.changePackage('name', readMetadata(), 'revision', () => {});
+    storage.changePackage('name', readMetadata('metadata'), 'revision', () => {});
     storage.removePackage('name', () => {});
     storage.mergeTags('name', {'latest': '1.0.0'}, () => {});
     storage.removeTarball('name', 'filename', 'revision', () => {});
-    /* eslint no-unused-vars: 0 */
     const config1: AppConfig = new Config({
       storage: './storage',
       self_path: '/home/sotrage'
@@ -43,8 +45,7 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware {
     const add: IUploadTarball = storage.addTarball('name', 'filename');
     storage.getTarball('name', 'filename');
     const read: IReadTarball = storage.getTarball('name', 'filename');
-    const search: IReadTarball = storage.search('test');
-    /* eslint no-unused-vars: 0 */
+    const search: IReadTarball = storage.search('test', {});
   }
 }
 

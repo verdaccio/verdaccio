@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
 /**
  * Original plugin in ES6
  *
@@ -34,9 +36,10 @@ class PluginES6 {
 
   constructor(config, stuff) {
     this._config = config;
+    this._logger = stuff.logger;
   }
 
-  register_middlewares(app, auth, storage) {
+  register_middlewares(app, /* auth, storage */) {
     const message = this._config.message;
 
 

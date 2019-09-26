@@ -7,6 +7,7 @@ security:
     jwt:
       sign:
         expiresIn: 5m
+        # to avoid invalid verification token, more info on JWT page
         notBefore: 0
 packages:
   '@token/*':
@@ -18,5 +19,5 @@ packages:
 logs:
   - { type: stdout, format: pretty, level: trace }
 experiments:
-  ## Enable token for testing
+  ## enable token for testing
   token: true

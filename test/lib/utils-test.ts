@@ -3,7 +3,7 @@ import { Version } from "@verdaccio/types";
 export function generateNewVersion(
   pkgName: string,
   version: string,
-  shashum: string = '238e7641e59508dc9c20eb4ad37a8aa57ab777b4'): Version {
+  shashum = '238e7641e59508dc9c20eb4ad37a8aa57ab777b4'): Version {
   // $FlowFixMe
   return {
     "name": pkgName,

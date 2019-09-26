@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
@@ -16,18 +11,24 @@ const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
 const WIN = 'win';
 const WIN32 = 'win32';
+// eslint-disable-next-line
 const pkgJSON = require('../../package.json');
+
+export type SetupDirectory = {
+  path: string;
+  type: string
+};
 
 /**
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile(configPath: any) {
+function findConfigFile(configPath: string): string {
   if (_.isNil(configPath) === false) {
     return Path.resolve(configPath);
   }
 
-  const configPaths = getConfigPaths();
+  const configPaths: SetupDirectory[] = getConfigPaths();
 
   if (_.isEmpty(configPaths)) {
     throw new Error('no configuration files can be processed');
@@ -41,7 +42,7 @@ function findConfigFile(configPath: any) {
   return createConfigFile(_.head(configPaths)).path;
 }
 
-function createConfigFile(configLocation: any) {
+function createConfigFile(configLocation: any): SetupDirectory {
   createConfigFolder(configLocation);
 
   const defaultConfig = updateStorageLinks(configLocation, readDefaultConfig());
@@ -51,16 +52,16 @@ function createConfigFile(configLocation: any) {
   return configLocation;
 }
 
-function readDefaultConfig() {
+function readDefaultConfig(): string {
   return fs.readFileSync(require.resolve('../../conf/default.yaml'), CHARACTER_ENCODING.UTF8);
 }
 
-function createConfigFolder(configLocation) {
+function createConfigFolder(configLocation): void {
   mkdirp.sync(Path.dirname(configLocation.path));
   logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
 }
 
-function updateStorageLinks(configLocation, defaultConfig) {
+function updateStorageLinks(configLocation, defaultConfig): string {
   if (configLocation.type !== XDG) {
     return defaultConfig;
   }
@@ -77,13 +78,19 @@ function updateStorageLinks(configLocation, defaultConfig) {
   }
 }
 
-function getConfigPaths() {
-  return [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].filter(
-    path => !!path
-  );
+function getConfigPaths(): SetupDirectory[] {
+  const listPaths: SetupDirectory[] = [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].reduce(
+    function(acc, currentValue: any): SetupDirectory[] {
+      if (_.isUndefined(currentValue) === false) {
+        acc.push(currentValue);
+      }
+      return acc;
+    }, [] as SetupDirectory[]);
+
+  return listPaths;
 }
 
-const getXDGDirectory = () => {
+const getXDGDirectory = (): SetupDirectory | void => {
   const XDGConfig = getXDGHome() || (process.env.HOME && Path.join(process.env.HOME, '.config'));
 
   if (XDGConfig && folderExists(XDGConfig)) {
@@ -94,9 +101,9 @@ const getXDGDirectory = () => {
   }
 };
 
-const getXDGHome = () => process.env.XDG_CONFIG_HOME;
+const getXDGHome = (): string | void => process.env.XDG_CONFIG_HOME;
 
-const getWindowsDirectory = () => {
+const getWindowsDirectory = (): SetupDirectory | void => {
   if (process.platform === WIN32 && process.env.APPDATA && folderExists(process.env.APPDATA)) {
     return {
       path: Path.resolve(Path.join(process.env.APPDATA, pkgJSON.name, CONFIG_FILE)),
@@ -105,14 +112,14 @@ const getWindowsDirectory = () => {
   }
 };
 
-const getRelativeDefaultDirectory = () => {
+const getRelativeDefaultDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', pkgJSON.name, CONFIG_FILE)),
     type: 'def',
   };
 };
 
-const getOldDirectory = () => {
+const getOldDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', CONFIG_FILE)),
     type: 'old',
