@@ -6,6 +6,7 @@
     "noImplicitAny": false,
     "strict": true,
     "strictNullChecks": true,
+    "resolveJsonModule": true,
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

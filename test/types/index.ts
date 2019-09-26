@@ -15,11 +15,6 @@ export interface IRequestPromise {
 }
 
 export interface IServerProcess {
-  bridge: IServerBridge;
-  config: IVerdaccioConfig;
-  childFork: any;
-  isDebug: boolean;
-  silence: boolean;
   init(): Promise<any>;
   stop(): void;
 }

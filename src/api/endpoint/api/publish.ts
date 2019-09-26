@@ -14,7 +14,7 @@ import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandl
 import { logger } from '../../../lib/logger';
 import {isPublishablePackage} from "../../../lib/storage-utils";
 
-export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
+export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
   const can = allow(auth);
 
   /**
@@ -101,9 +101,9 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
 /**
  * Publish a package
  */
-export function publishPackage(storage: IStorageHandler, config: Config, auth: IAuth) {
+export function publishPackage(storage: IStorageHandler, config: Config, auth: IAuth): any {
   const starApi = star(storage);
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
 
     logger.debug({packageName} , `publishing or updating a new version for @{packageName}`);
@@ -111,7 +111,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Write tarball of stream data from package clients.
      */
-    const createTarball = function(filename: string, data, cb: Callback) {
+    const createTarball = function(filename: string, data, cb: Callback): void {
       const stream = storage.addTarball(packageName, filename);
       stream.on('error', function(err) {
         cb(err);
@@ -128,18 +128,18 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Add new package version in storage
      */
-    const createVersion = function(version: string, metadata: Version, cb: Callback) {
+    const createVersion = function(version: string, metadata: Version, cb: Callback): void {
       storage.addVersion(packageName, version, metadata, null, cb);
     };
 
     /**
      * Add new tags in storage
      */
-    const addTags = function(tags: MergeTags, cb: Callback) {
+    const addTags = function(tags: MergeTags, cb: Callback): void  {
       storage.mergeTags(packageName, tags, cb);
     };
 
-    const afterChange = function(error, okMessage, metadata) {
+    const afterChange = function(error, okMessage, metadata): void  {
       const metadataCopy: Package = { ...metadata };
 
       const { _attachments, versions } = metadataCopy;
@@ -218,7 +218,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         logger.debug({packageName} , `updating a new version for @{packageName}`);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;
-        auth.allow_unpublish({packageName}, remote, (error, allowed) => {
+        auth.allow_unpublish({packageName}, remote, (error) => {
           if (error) {
             logger.debug({packageName} , `not allowed to unpublish a version for @{packageName}`);
             return next(error);
@@ -245,7 +245,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
  * un-publish a package
  */
 export function unPublishPackage(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
 
     logger.debug({packageName} , `unpublishing @{packageName}`);
@@ -263,7 +263,7 @@ export function unPublishPackage(storage: IStorageHandler) {
  * Delete tarball
  */
 export function removeTarball(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const {filename, revision} = req.params;
 
@@ -283,7 +283,7 @@ export function removeTarball(storage: IStorageHandler) {
  * Adds a new version
  */
 export function addVersion(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const { version, tag } = req.params;
     const packageName = req.params.package;
 

@@ -60,7 +60,7 @@ describe('StorageTest', () => {
       const storage: IStorageHandler = await generateStorage();
 
       // @ts-ignore
-      storage._syncUplinksMetadata('jquery', null, {}, (err, metadata, errors) => {
+      storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
         expect(err).toBeNull();
         expect(metadata).toBeDefined();
         expect(metadata).toBeInstanceOf(Object);

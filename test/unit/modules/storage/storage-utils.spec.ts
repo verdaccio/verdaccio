@@ -4,7 +4,7 @@ import {readFile} from "../../../functional/lib/test.utils";
 
 import {Package} from '@verdaccio/types';
 
-const readMetadata = (fileName: string = 'metadata') => readFile(`../../unit/partials/${fileName}`);
+const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
 describe('Storage Utils', () => {
   describe('normalizePackage', () => {

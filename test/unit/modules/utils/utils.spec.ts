@@ -20,7 +20,7 @@ import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
 import { readFile } from '../../../functional/lib/test.utils';
 
-const readmeFile = (fileName: string = 'markdown.md') =>
+const readmeFile = (fileName = 'markdown.md') =>
   readFile(`../../unit/partials/readme/${fileName}`);
 
 setup([]);

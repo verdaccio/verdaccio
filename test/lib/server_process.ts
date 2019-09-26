@@ -8,18 +8,18 @@ import {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
 
 export default class VerdaccioProcess implements IServerProcess {
 
-  bridge: IServerBridge;
-  config: IVerdaccioConfig;
-  childFork: any;
-  isDebug: boolean;
-  silence: boolean;
-  cleanStore: boolean;
+  private bridge: IServerBridge;
+  private config: IVerdaccioConfig;
+  private childFork: any;
+  private isDebug: boolean;
+  private silence: boolean;
+  private cleanStore: boolean;
 
   public constructor(config: IVerdaccioConfig,
     bridge: IServerBridge,
-    silence: boolean = true,
-    isDebug: boolean = false,
-    cleanStore: boolean = true) {
+    silence = true,
+    isDebug = false,
+    cleanStore = true) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
@@ -27,7 +27,7 @@ export default class VerdaccioProcess implements IServerProcess {
     this.cleanStore = cleanStore;
   }
 
-  public init(verdaccioPath: string = '../../bin/verdaccio'): Promise<any> {
+  public init(verdaccioPath = '../../bin/verdaccio'): Promise<any> {
     return new Promise((resolve, reject) => {
       if(this.cleanStore) {
         rimRaf(this.config.storagePath, (err) => {

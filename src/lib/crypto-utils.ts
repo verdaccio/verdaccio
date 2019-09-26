@@ -1,4 +1,4 @@
-import { createDecipher, createCipher, createHash, pseudoRandomBytes } from 'crypto';
+import { createDecipher, createCipher, createHash, pseudoRandomBytes, Hash } from 'crypto';
 import jwt from 'jsonwebtoken';
 
 import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
@@ -16,7 +16,7 @@ export function aesEncrypt(buf: Buffer, secret: string): Buffer {
   return Buffer.concat([b1, b2]);
 }
 
-export function aesDecrypt(buf: Buffer, secret: string) {
+export function aesDecrypt(buf: Buffer, secret: string): Buffer {
   try {
     // deprecated (it will be migrated in Verdaccio 5), it is a breaking change
     // https://nodejs.org/api/crypto.html#crypto_crypto_createdecipher_algorithm_password_options
@@ -30,7 +30,7 @@ export function aesDecrypt(buf: Buffer, secret: string) {
   }
 }
 
-export function createTarballHash() {
+export function createTarballHash(): Hash {
   return createHash(defaultTarballHashAlgorithm);
 }
 
@@ -47,12 +47,12 @@ export function stringToMD5(data: Buffer | string): string {
     .digest('hex');
 }
 
-export function generateRandomHexString(length: number = 8) {
+export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
 }
 
 export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions): Promise<string> {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject): Promise<string> {
     return jwt.sign(
       payload,
       secretOrPrivateKey,
@@ -65,6 +65,6 @@ export async function signPayload(payload: RemoteUser, secretOrPrivateKey: strin
   });
 }
 
-export function verifyPayload(token: string, secretOrPrivateKey: string) {
+export function verifyPayload(token: string, secretOrPrivateKey: string): RemoteUser {
   return jwt.verify(token, secretOrPrivateKey);
 }

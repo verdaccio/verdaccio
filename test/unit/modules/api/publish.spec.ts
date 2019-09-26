@@ -270,7 +270,7 @@ describe('Publish endpoints - publish package', () => {
     test('should star a package', () => {
       const storage = {
         changePackage: jest.fn(),
-        getPackage({ name, req, callback }) {
+        getPackage({ callback }) {
           callback(null, {
             users: {},
           });

@@ -1,3 +1,5 @@
+// this is how a Babel.js transpiled plugin looks like
+
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19,7 +21,7 @@ var Dummy = function () {
 
   _createClass(Dummy, [{
     key: "getPackageStorage",
-    value: function getPackageStorage(packageInfo, packagePath) {}
+    value: function getPackageStorage() {}
   }]);
 
   return Dummy;

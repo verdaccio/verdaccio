@@ -405,7 +405,7 @@ describe('endpoint unit test', () => {
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err, res) {
+          .end(function(err) {
             if (err) {
               return done(err);
             }
@@ -437,7 +437,7 @@ describe('endpoint unit test', () => {
             .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HTTP_STATUS.NOT_FOUND)
-            .end(function(err, res) {
+            .end(function(err) {
               if (err) {
                 return done(err);
               }
@@ -716,7 +716,7 @@ describe('endpoint unit test', () => {
           }
 
           const deletePayload =  generatePackageUnpublish(pkgName, ['2.0.0']);
-          const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token, HTTP_STATUS.FORBIDDEN);
+          const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
 
           expect(err2).not.toBeNull();
           expect(res2.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);

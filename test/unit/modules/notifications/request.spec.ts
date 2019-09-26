@@ -1,4 +1,5 @@
 import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 /**
  * Mocks Logger Service

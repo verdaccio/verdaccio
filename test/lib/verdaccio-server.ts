@@ -7,7 +7,7 @@ export class VerdaccioConfig implements IVerdaccioConfig {
   public domainPath: string;
   public port: number;
 
-  constructor(storagePath: string, configPath: string, domainPath: string, port: number) {
+  public constructor(storagePath: string, configPath: string, domainPath: string, port: number) {
     this.storagePath = storagePath;
     this.configPath = configPath;
     this.domainPath = domainPath;
