@@ -1,4 +1,4 @@
-FROM node:10.15.3-alpine
+FROM node:10.16.3-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 RUN apk --no-cache add wget openssl && \
@@ -17,9 +17,10 @@ WORKDIR $APPDIR
 
 ADD . $APPDIR
 
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
 
-RUN npm config set registry http://registry.npmjs.org/ && \
+RUN npm config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn global add -s flow-bin@0.69.0 && \
     yarn install --production=false && \
     yarn lint && \
