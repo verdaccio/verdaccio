@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.13.0"></a>
+# [3.13.0](https://github.com/verdaccio/verdaccio/compare/v3.12.3...v3.13.0) (2019-09-29)
+
+
+### Features
+
+* bump Node.js v10.16.3 ([6ddf71d](https://github.com/verdaccio/verdaccio/commit/6ddf71d))
+* update core dependencies ([17271ed](https://github.com/verdaccio/verdaccio/commit/17271ed))
+
+
+
 <a name="3.12.3"></a>
 ## [3.12.3](https://github.com/verdaccio/verdaccio/compare/v3.12.2...v3.12.3) (2019-08-01)
 
