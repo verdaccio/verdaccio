@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/verdaccio/verdaccio/compare/v4.2.2...v4.3.0) (2019-09-30)
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([#1474](https://github.com/verdaccio/verdaccio/issues/1474)) ([b1cd070](https://github.com/verdaccio/verdaccio/commit/b1cd070))
+
+
+### Features
+
+* browse web package version ([#1457](https://github.com/verdaccio/verdaccio/issues/1457)) ([d5303f4](https://github.com/verdaccio/verdaccio/commit/d5303f4))
+* ensure every log file has at least one record ([#1414](https://github.com/verdaccio/verdaccio/issues/1414)) ([962d5d5](https://github.com/verdaccio/verdaccio/commit/962d5d5))
+* npm token command support ([#1427](https://github.com/verdaccio/verdaccio/issues/1427)) ([dbf2017](https://github.com/verdaccio/verdaccio/commit/dbf2017))
+* **docker:** Node.js update to 10.16.3 ([#1473](https://github.com/verdaccio/verdaccio/issues/1473)) ([e081a58](https://github.com/verdaccio/verdaccio/commit/e081a58))
+
 ### [4.2.2](https://github.com/verdaccio/verdaccio/compare/v4.2.1...v4.2.2) (2019-08-25)
 
 
