@@ -3606,42 +3606,6 @@ express@4.17.1:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-express@4.18.0:
-  version "4.18.0"
-  resolved "https://registry.verdaccio.org/express/-/express-4.18.0.tgz#be2f777085cfe02c35a102f7c2ec0b0607488feb"
-  integrity sha512-lRt69EvHaSDr9EkmDTGtcMROHo6M+2zy6yNusWD+1dbAgvte15N62ZYIcBy7BU14yS7msjwwpSQ9ssTCKkNqWg==
-  dependencies:
-    accepts "~1.3.7"
-    array-flatten "1.1.1"
-    body-parser "1.19.0"
-    content-disposition "0.5.3"
-    content-type "~1.0.4"
-    cookie "0.4.0"
-    cookie-signature "1.0.6"
-    debug "2.6.9"
-    depd "~1.1.2"
-    encodeurl "~1.0.2"
-    escape-html "~1.0.3"
-    etag "~1.8.1"
-    finalhandler "~1.1.2"
-    fresh "0.5.2"
-    merge-descriptors "1.0.1"
-    methods "~1.1.2"
-    on-finished "~2.3.0"
-    parseurl "~1.3.3"
-    path-to-regexp "0.1.7"
-    proxy-addr "~2.0.5"
-    qs "6.7.0"
-    range-parser "~1.2.1"
-    safe-buffer "5.1.2"
-    send "0.17.1"
-    serve-static "1.14.1"
-    setprototypeof "1.1.1"
-    statuses "~1.5.0"
-    type-is "~1.6.18"
-    utils-merge "1.0.1"
-    vary "~1.1.2"
-
 extend-shallow@^2.0.1:
   version "2.0.1"
   resolved "https://registry.verdaccio.org/extend-shallow/-/extend-shallow-2.0.1.tgz#51af7d614ad9a9f610ea1bafbb989d6b1c56890f"
@@ -8276,12 +8240,12 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.verdaccio.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-verdaccio-audit@8.1.2:
-  version "8.1.2"
-  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-8.1.2.tgz#66080218e2ae88fe47286d560d0e763483298da4"
-  integrity sha512-lJXOwn2525Pjr2XBlKu+OiT96ymieRo6/lxK9ByTeLIZAUbmMiSncoYdPt1riM1w4rulqYmOChF8qn2MbGzUUA==
+verdaccio-audit@8.1.4:
+  version "8.1.4"
+  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-8.1.4.tgz#b2005927cbfe29229b01034e9d2d8bc635f12970"
+  integrity sha512-Ehg9XS1soO5xfbtut64MU+FutF42kay0tw1wwB84UaQJ7YgZ58ftgvLZcL3AuPlTzI9KHMCf6ZOdyt6/fNmsVw==
   dependencies:
-    express "4.18.0"
+    express "4.17.1"
     request "2.88.0"
 
 verdaccio-auth-memory@8.1.2:
