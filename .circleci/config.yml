@@ -1,36 +1,28 @@
 version: 2
 
 aliases:
+  - &repo_path
+    ~/verdaccio
   - &defaults
-    working_directory: ~/verdaccio
-  - &node8_executor
+    working_directory: *repo_path
+  - &node_latest_browser_executor
     docker:
-      - image: circleci/node:8
-  - &node12_browser_executor
+      - image: circleci/node:latest-browsers
+  - &node_latest_executor
     docker:
-      - image: circleci/node:12-browsers
-  - &node10_executor
+    - image: circleci/node:latest
+  - &node_lts_executor
     docker:
-      - image: circleci/node:10
-  - &node11_executor
-    docker:
-    - image: circleci/node:11
-  - &node12_executor
-    docker:
-    - image: circleci/node:12
+      - image: circleci/node:lts
   - &default_executor
-    <<: *node12_executor
-  - &repo_key
-    repo-{{ .Branch }}-{{ .Revision }}
-  - &coverage_key
-    coverage-{{ .Branch }}-{{ .Revision }}
-  - &base_config_key
-    base-config-{{ .Branch }}-{{ .Revision }}
+    <<: *node_latest_executor
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
+  - &coverage_key
+    coverage-{{ .Branch }}-{{ .Revision }}
   - &restore_repo
     attach_workspace:
-      at: ~/verdaccio
+      at: *repo_path
   - &ignore_non_dev_branches
     filters:
       tags:
@@ -48,12 +40,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: *base_config_key
-      - restore_cache:
           key: *yarn_cache_key
       - run:
-          name: Install Js dependencies
-          command: yarn install --no-progress --registry https://registry.verdaccio.org
+          name: Install dependencies
+          command: yarn install --no-progress --pure-lockfile
       - run:
           name: Prepare CI
           command:  yarn run pre:ci
@@ -67,61 +57,47 @@ jobs:
             - ~/.cache/yarn
             - node_modules
       - persist_to_workspace:
-          root: ~/verdaccio
+          root: *repo_path
           paths:
             - ./*
 
-  test_node8:
+  test_node_latest:
     <<: *defaults
-    <<: *node8_executor
+    <<: *node_latest_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 8
-          command: |
-            yarn test
-            yarn test:functional  
-  test_node10:
+          name: Test with Node Latest
+          command: yarn run test
+      - run:
+          name: Functional test with Node Latest
+          command: yarn test:functional
+      - save_cache:
+          key: *coverage_key
+          paths:
+            - coverage
+
+  test_node_lts:
     <<: *defaults
-    <<: *node10_executor
+    <<: *node_lts_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 10
-          command: |
-            yarn run test
-            yarn test:functional
-
-  test_node11:
-    <<: *defaults
-    <<: *node11_executor
-    steps:
-    - *restore_repo
-    - run:
-        name: Test with Node 11
-        command: |
-          yarn run test
-          yarn test:functional
-
-  test_node12:
-    <<: *defaults
-    <<: *node12_executor
-    steps:
-    - *restore_repo
-    - run:
-        name: Test with Node 12
-        command: |
-          yarn run test
-          yarn test:functional
+          name: Test with Node LTS
+          command: yarn run test
+      - run:
+          name: Functional test with Node LTS
+          command: yarn test:functional
 
   test_e2e:
     <<: *defaults
-    <<: *node12_browser_executor
+    <<: *node_latest_browser_executor
     steps:
       - *restore_repo
       - run:
           name: Test End-to-End
           command: yarn run test:e2e
+
   coverage:
     <<: *defaults
     <<: *default_executor
@@ -133,13 +109,7 @@ jobs:
           name: Publish coverage
           command: yarn run coverage:publish
       - store_artifacts:
-          path: coverage/clover.xml
-          prefix: tests
-      - store_artifacts:
           path: coverage
-          prefix: coverage
-      - store_test_results:
-          path: coverage/clover.xml
 
 workflows:
   version: 2
@@ -147,21 +117,13 @@ workflows:
     jobs:
       - prepare:
           <<: *ignore_non_dev_branches
-      - test_node8:
+      - test_node_latest:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node10:
+      - test_node_lts:
           requires:
             - prepare
-          <<: *ignore_non_dev_branches
-      - test_node11:
-          requires:
-          - prepare
-          <<: *ignore_non_dev_branches
-      - test_node12:
-          requires:
-          - prepare
           <<: *ignore_non_dev_branches
       - test_e2e:
           requires:
@@ -169,9 +131,5 @@ workflows:
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
-            - test_node8
-            - test_node10
-            - test_node11
-            - test_node12
-            - test_e2e
+            - test_node_latest
           <<: *ignore_non_dev_branches
