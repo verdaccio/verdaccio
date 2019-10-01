@@ -184,11 +184,15 @@ If you want to report a security vulnerability, please follow the steps which we
 
 The core team is responsible for driving this project ahead, team is ordered by antiquity and areas of responsibility.
 
-|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  |  [Priscila Oliveria](https://github.com/priscilawebdev) | 
-|---|---|---|---|
-| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)   | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4)       | ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | 
-| [@jotadeveloper](https://twitter.com/jotadeveloper)  | [@ayusharma_](https://twitter.com/ayusharma_) | [@sergiohgz](https://twitter.com/sergiohgz)  | [@priscilawebdev](https://twitter.com/priscilawebdev) |
-| All areas  |  All areas | Docker,Builds,Stack |  UI, Stack  | 
+|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  | 
+|---|---|---|
+| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)  | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |   
+| [@jotadeveloper](https://twitter.com/jotadeveloper)  | [@ayusharma_](https://twitter.com/ayusharma_) | [@sergiohgz](https://twitter.com/sergiohgz)  |
+| All areas  |  All areas | Docker,Builds,Stack, Monorepo | 
+| [Priscila Oliveria](https://github.com/priscilawebdev) | [Daniel Ruf](https://github.com/DanielRuf) |
+| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4) |
+| [@priscilawebdev](https://twitter.com/priscilawebdev) | [@DanielRufde](https://twitter.com/DanielRufde) |
+| UI, Stack  | All areas  |
 
 You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at *Twitter*.
 
