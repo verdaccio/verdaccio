@@ -1,0 +1,24 @@
+name: Docker & Publish Pre-check
+
+on: push
+
+jobs:
+  testDocker:
+    name: Test Docker Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: docker build .
+      env:
+        VERDACCIO_BUILD_REGISTRY: https://registry.verdaccio.org
+
+  testVerdaccio:
+    name: Test Verdaccio Publish
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Publish
+      uses: verdaccio/github-actions/publish@v0.1.0
+      with:
+        args: -d
