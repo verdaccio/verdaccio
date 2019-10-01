@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 aliases:
   - &repo_path
@@ -20,9 +20,6 @@ aliases:
     yarn-sha-{{ checksum "yarn.lock" }}
   - &coverage_key
     coverage-{{ .Branch }}-{{ .Revision }}
-  - &restore_repo
-    attach_workspace:
-      at: *repo_path
   - &ignore_non_dev_branches
     filters:
       tags:
@@ -32,6 +29,22 @@ aliases:
           - gh-pages
           - l10n_master
           - /release\/.*/
+
+commands:
+  restore_repo:
+    description: Restore repository from workspace
+    steps:
+      - attach_workspace:
+          at: *repo_path
+  run_test:
+    description: Run test and functional test
+    steps:
+      - run:
+          name: Test
+          command: yarn run test
+      - run:
+          name: Functional test
+          command: yarn test:functional
 
 jobs:
   prepare:
@@ -65,13 +78,8 @@ jobs:
     <<: *defaults
     <<: *node_latest_executor
     steps:
-      - *restore_repo
-      - run:
-          name: Test with Node Latest
-          command: yarn run test
-      - run:
-          name: Functional test with Node Latest
-          command: yarn test:functional
+      - restore_repo
+      - run_test
       - save_cache:
           key: *coverage_key
           paths:
@@ -81,19 +89,14 @@ jobs:
     <<: *defaults
     <<: *node_lts_executor
     steps:
-      - *restore_repo
-      - run:
-          name: Test with Node LTS
-          command: yarn run test
-      - run:
-          name: Functional test with Node LTS
-          command: yarn test:functional
+      - restore_repo
+      - run_test
 
   test_e2e:
     <<: *defaults
     <<: *node_latest_browser_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: Test End-to-End
           command: yarn run test:e2e
@@ -102,7 +105,7 @@ jobs:
     <<: *defaults
     <<: *default_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - restore_cache:
           key: *coverage_key
       - run:
