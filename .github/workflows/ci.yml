@@ -1,0 +1,29 @@
+name: CI
+
+on: push
+
+jobs:
+  ci:
+    name: Node ${{ matrix.node_version }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [10, 12]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node_version: ${{ matrix.node_version }}
+    - name: Install
+      run: yarn install --pure-lockfile
+    - name: Build
+      run: yarn code:build
+    - name: Lint
+      run: yarn lint
+    - name: Test
+      run: yarn test
