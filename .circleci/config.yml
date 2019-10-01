@@ -1,21 +1,23 @@
 version: 2.1
 
+executors:
+  node_latest_browser:
+    docker:
+      - image: circleci/node:latest-browsers
+  node_latest:
+    docker:
+    - image: circleci/node:latest
+  node_lts:
+    docker:
+      - image: circleci/node:lts
+
 aliases:
   - &repo_path
     ~/verdaccio
   - &defaults
     working_directory: *repo_path
-  - &node_latest_browser_executor
-    docker:
-      - image: circleci/node:latest-browsers
-  - &node_latest_executor
-    docker:
-    - image: circleci/node:latest
-  - &node_lts_executor
-    docker:
-      - image: circleci/node:lts
   - &default_executor
-    <<: *node_latest_executor
+    node_latest
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &coverage_key
@@ -49,7 +51,7 @@ commands:
 jobs:
   prepare:
     <<: *defaults
-    <<: *default_executor
+    executor: *default_executor
     steps:
       - checkout
       - restore_cache:
@@ -76,7 +78,7 @@ jobs:
 
   test_node_latest:
     <<: *defaults
-    <<: *node_latest_executor
+    executor: node_latest
     steps:
       - restore_repo
       - run_test
@@ -87,14 +89,14 @@ jobs:
 
   test_node_lts:
     <<: *defaults
-    <<: *node_lts_executor
+    executor: node_lts
     steps:
       - restore_repo
       - run_test
 
   test_e2e:
     <<: *defaults
-    <<: *node_latest_browser_executor
+    executor: node_latest_browser
     steps:
       - restore_repo
       - run:
@@ -103,7 +105,7 @@ jobs:
 
   coverage:
     <<: *defaults
-    <<: *default_executor
+    executor: *default_executor
     steps:
       - restore_repo
       - restore_cache:
