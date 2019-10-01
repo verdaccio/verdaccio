@@ -10,14 +10,13 @@ executors:
   node_lts:
     docker:
       - image: circleci/node:lts
+  default_executor: node_latest
 
 aliases:
   - &repo_path
     ~/verdaccio
   - &defaults
     working_directory: *repo_path
-  - &default_executor
-    node_latest
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &coverage_key
@@ -51,7 +50,7 @@ commands:
 jobs:
   prepare:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - checkout
       - restore_cache:
@@ -105,7 +104,7 @@ jobs:
 
   coverage:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - restore_repo
       - restore_cache:
