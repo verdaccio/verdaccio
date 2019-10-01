@@ -64,7 +64,7 @@ If you use multiples registries in your organization and need to fetch packages 
 
 ### Override public packages
 
-If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name. See in detail each of these [use cases](https://github.com/verdaccio/verdaccio/tree/master/docs/use-cases.md).
+If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name. See in detail [here](https://verdaccio.org/docs/en/best#override-public-packages).
 
 ### E2E Testing
 
