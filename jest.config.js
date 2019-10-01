@@ -4,6 +4,7 @@ module.exports = {
   name: 'verdaccio-unit-jest',
   verbose: true,
   collectCoverage: true,
+  reporters: ["default", ["jest-junit", { outputDirectory: 'reports' }]],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testURL: 'http://localhost',
   testRegex: '(test/unit.*\\.spec)\\.ts',

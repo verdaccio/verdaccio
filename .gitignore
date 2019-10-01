@@ -23,6 +23,7 @@ yarn-error.log
 
 
 # Istanbul
+reports/
 coverage/
 .nyc*
 
@@ -36,4 +37,3 @@ __tests__
 
 # Compiled script
 static/*
-
