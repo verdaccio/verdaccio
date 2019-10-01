@@ -23,7 +23,7 @@ Google Cloud Storage** or create your own plugin.
 [![codecov](https://img.shields.io/codecov/c/github/verdaccio/verdaccio/master.svg)](https://codecov.io/gh/verdaccio/verdaccio)
 [![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
 [![node](https://img.shields.io/node/v/verdaccio/latest.svg)](https://www.npmjs.com/package/verdaccio)
-![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
 
 
@@ -184,11 +184,15 @@ If you want to report a security vulnerability, please follow the steps which we
 
 The core team is responsible for driving this project ahead, team is ordered by antiquity and areas of responsibility.
 
-|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  |  [Priscila Oliveria](https://github.com/priscilawebdev) | 
-|---|---|---|---|
-| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)   | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4)       | ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | 
-| [@jotadeveloper](https://twitter.com/jotadeveloper)  | [@ayusharma_](https://twitter.com/ayusharma_) | [@sergiohgz](https://twitter.com/sergiohgz)  | [@priscilawebdev](https://twitter.com/priscilawebdev) |
-| All areas  |  All areas | Docker,Builds,Stack |  UI, Stack  | 
+|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  | 
+|---|---|---|
+| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)  | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |   
+| [@jotadeveloper](https://twitter.com/jotadeveloper)  | [@ayusharma_](https://twitter.com/ayusharma_) | [@sergiohgz](https://twitter.com/sergiohgz)  |
+| All areas  |  All areas | Docker,Builds,Stack, Monorepo | 
+| [Priscila Oliveria](https://github.com/priscilawebdev) | [Daniel Ruf](https://github.com/DanielRuf) |
+| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4) |
+| [@priscilawebdev](https://twitter.com/priscilawebdev) | [@DanielRufde](https://twitter.com/DanielRufde) |
+| UI, Stack  | All areas  |
 
 You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at *Twitter*.
 
