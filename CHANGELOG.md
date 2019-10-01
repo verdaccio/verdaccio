@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.1](https://github.com/verdaccio/verdaccio/compare/v4.3.0...v4.3.1) (2019-10-01)
+
+
+### Bug Fixes
+
+* remove jwt from default config ([#1499](https://github.com/verdaccio/verdaccio/issues/1499)) ([e9616f9](https://github.com/verdaccio/verdaccio/commit/e9616f9))
+* remove jwt from docker config ([#1500](https://github.com/verdaccio/verdaccio/issues/1500)) ([bc6b084](https://github.com/verdaccio/verdaccio/commit/bc6b084))
+
 ## [4.3.0](https://github.com/verdaccio/verdaccio/compare/v4.2.2...v4.3.0) (2019-09-30)
 
 
