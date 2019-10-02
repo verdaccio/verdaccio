@@ -1,28 +1,26 @@
-version: 2
+version: 2.1
+
+executors:
+  node_latest_browser:
+    docker:
+      - image: circleci/node:latest-browsers
+  node_latest:
+    docker:
+    - image: circleci/node:latest
+  node_lts:
+    docker:
+      - image: circleci/node:lts
+  default_executor: node_latest
 
 aliases:
   - &repo_path
     ~/verdaccio
   - &defaults
     working_directory: *repo_path
-  - &node_latest_browser_executor
-    docker:
-      - image: circleci/node:latest-browsers
-  - &node_latest_executor
-    docker:
-    - image: circleci/node:latest
-  - &node_lts_executor
-    docker:
-      - image: circleci/node:lts
-  - &default_executor
-    <<: *node_latest_executor
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &coverage_key
     coverage-{{ .Branch }}-{{ .Revision }}
-  - &restore_repo
-    attach_workspace:
-      at: *repo_path
   - &ignore_non_dev_branches
     filters:
       tags:
@@ -33,10 +31,26 @@ aliases:
           - l10n_master
           - /release\/.*/
 
+commands:
+  restore_repo:
+    description: Restore repository from workspace
+    steps:
+      - attach_workspace:
+          at: *repo_path
+  run_test:
+    description: Run test and functional test
+    steps:
+      - run:
+          name: Test
+          command: yarn run test
+      - run:
+          name: Functional test
+          command: yarn test:functional
+
 jobs:
   prepare:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
       - checkout
       - restore_cache:
@@ -63,15 +77,10 @@ jobs:
 
   test_node_latest:
     <<: *defaults
-    <<: *node_latest_executor
+    executor: node_latest
     steps:
-      - *restore_repo
-      - run:
-          name: Test with Node Latest
-          command: yarn run test
-      - run:
-          name: Functional test with Node Latest
-          command: yarn test:functional
+      - restore_repo
+      - run_test
       - save_cache:
           key: *coverage_key
           paths:
@@ -79,30 +88,25 @@ jobs:
 
   test_node_lts:
     <<: *defaults
-    <<: *node_lts_executor
+    executor: node_lts
     steps:
-      - *restore_repo
-      - run:
-          name: Test with Node LTS
-          command: yarn run test
-      - run:
-          name: Functional test with Node LTS
-          command: yarn test:functional
+      - restore_repo
+      - run_test
 
   test_e2e:
     <<: *defaults
-    <<: *node_latest_browser_executor
+    executor: node_latest_browser
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: Test End-to-End
           command: yarn run test:e2e
 
   coverage:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - restore_cache:
           key: *coverage_key
       - run:
