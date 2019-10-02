@@ -53,7 +53,7 @@ export type LegacyPackageAccess = PackageAccess & {
 export type MatchedPackage = PackageAccess | void;
 
 export type JWTPayload = RemoteUser & {
-  password?: string;
+  password?: BigInteger;
 }
 
 export interface AESPayload {
