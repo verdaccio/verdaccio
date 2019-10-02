@@ -6,8 +6,8 @@ import {$RequestExtend, $NextFunctionVer, IStorageHandler} from '../../../../typ
 import _ from 'lodash';
 import { logger } from '../../../lib/logger';
 
-export default function(storage: IStorageHandler) {
-  const validateInputs = (newUsers, localUsers, username, isStar) => {
+export default function(storage: IStorageHandler): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
+  const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
     const isExistlocalUsers = _.isNil(localUsers[username]) === false;
     if (isStar && isExistlocalUsers && localUsers[username]) {
       return true;

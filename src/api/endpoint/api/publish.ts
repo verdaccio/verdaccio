@@ -304,7 +304,7 @@ export function addVersion(storage: IStorageHandler) {
  * uploadPackageTarball
  */
 export function uploadPackageTarball(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const stream = storage.addTarball(packageName, req.params.filename);
     req.pipe(stream);

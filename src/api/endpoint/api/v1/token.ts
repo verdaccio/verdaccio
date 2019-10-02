@@ -21,7 +21,7 @@ function normalizeToken(token: Token): NormalizeToken {
 };
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function(route: Router, auth: IAuth, storage: IStorageHandler, config: Config) {
+export default function(route: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
 	route.get('/-/npm/v1/tokens', async function(req: $RequestExtend, res: Response, next: $NextFunctionVer) {
 		const { name } = req.remote_user;
 

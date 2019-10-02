@@ -2,7 +2,7 @@
  * @prettier
  */
 
-export default function(route, auth, storage) {
+export default function(route, auth, storage): void {
   // searching packages
   route.get('/-/all(/since)?', function(req, res) {
     let received_end = false;
@@ -32,7 +32,7 @@ export default function(route, auth, storage) {
      */
     const respShouldBeArray = req.path.endsWith('/since');
     res.set('Date', 'Mon, 10 Oct 1983 00:12:48 GMT');
-    const check_finish = function() {
+    const check_finish = function(): void {
       if (!received_end) {
         return;
       }
@@ -89,7 +89,7 @@ export default function(route, auth, storage) {
       });
     });
 
-    stream.on('error', function(_err) {
+    stream.on('error', function() {
       res.socket.destroy();
     });
 
