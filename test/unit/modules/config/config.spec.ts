@@ -62,6 +62,9 @@ const checkDefaultConfPackages = (config) => {
   expect(config.publish).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
+
+  expect(config.experiments).toBeUndefined();
+  expect(config.jwt).toBeUndefined();
 };
 
 describe('Config file', () => {
@@ -88,6 +91,10 @@ describe('Config file', () => {
       expect(config.auth.htpasswd.file).toBe('./htpasswd');
       checkDefaultConfPackages(config);
     });
+  });
+
+  describe('Config file', () => {
+
   });
 
 });
