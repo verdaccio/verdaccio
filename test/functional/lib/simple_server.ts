@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 /**
  * Simple Server
  *
- * A emtpy express server with the objetive to emumate any external API.
+ * A empty express server with the objective to emumate any external API.
  *
  * eg: test/functional/tags/tags.ts
  *

@@ -137,7 +137,7 @@ describe('Config Utilities', () => {
       expect(react).toBeDefined();
       expect(react.access).toBeDefined();
 
-      // Intended checks, Typescript shoold catch this, we test the runtime part
+      // Intended checks, Typescript should catch this, we test the runtime part
       // @ts-ignore
       expect(react.access[0]).toBe(ROLES.$ALL);
       expect(react.publish).toBeDefined();

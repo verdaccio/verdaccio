@@ -43,7 +43,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
    *  1. Try to fetch  metadata -> if it fails, return 404
    *  2. Compute metadata locally (client side) and send a mutate payload excluding the version to be unpublished
    *    eg: if metadata reflects 1.0.1, 1.0.2 and 1.0.3, the computed metadata won't include 1.0.3.
-   *  3. Once the second step has been succesfully finished, delete the tarball.
+   *  3. Once the second step has been successfully finished, delete the tarball.
    *
    *  All these steps are consecutive and required, there is no transacions here, if step 3 fails, metadata might
    *  get corrupted.

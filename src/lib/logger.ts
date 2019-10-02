@@ -13,7 +13,7 @@ const _ = require('lodash');
 const dayjs = require('dayjs');
 
 /**
- * A RotatingFileStream that modifes the message first
+ * A RotatingFileStream that modifies the message first
  */
 class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
   // We depend on mv so that this is there

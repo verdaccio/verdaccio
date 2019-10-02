@@ -220,7 +220,7 @@ describe('UpStorge', () => {
       });
 
       test('should fails on validate tarball path against uplink case#3', () => {
-        // same domain, diferent protocol, diferent port
+        // same domain, different protocol, different port
         const url = 'http://localhost:5001';
         const tarBallUrl = 'https://localhost:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
