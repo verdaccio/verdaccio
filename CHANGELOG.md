@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.2](https://github.com/verdaccio/verdaccio/compare/v4.3.1...v4.3.2) (2019-10-02)
+
+
+### Bug Fixes
+
+* comment out experiments from configuration files ([#1505](https://github.com/verdaccio/verdaccio/issues/1505)) ([3438b75](https://github.com/verdaccio/verdaccio/commit/3438b75))
+* fixing the lint issues ([#1503](https://github.com/verdaccio/verdaccio/issues/1503)) ([02aee3a](https://github.com/verdaccio/verdaccio/commit/02aee3a))
+* fixing typos in comments ([#1504](https://github.com/verdaccio/verdaccio/issues/1504)) ([72314e4](https://github.com/verdaccio/verdaccio/commit/72314e4))
+
 ### [4.3.1](https://github.com/verdaccio/verdaccio/compare/v4.3.0...v4.3.1) (2019-10-01)
 
 
