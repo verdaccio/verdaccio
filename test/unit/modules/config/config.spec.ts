@@ -64,7 +64,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.url_prefix).toBeUndefined();
 
   expect(config.experiments).toBeUndefined();
-  expect(config.jwt).toBeUndefined();
+  expect(config.security).toBeUndefined();
 };
 
 describe('Config file', () => {
