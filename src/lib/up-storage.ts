@@ -41,6 +41,7 @@ class ProxyStorage implements IProxy {
   public timeout: number;
   public max_fails: number;
   public fail_timeout: number;
+  public agent_options: any;
   // FIXME: upname is assigned to each instance
   // @ts-ignore
   public upname: string;
@@ -87,6 +88,7 @@ class ProxyStorage implements IProxy {
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
+    this.agent_options = setConfig(this.config, 'agent_options', {});
   }
 
   /**
@@ -200,12 +202,12 @@ class ProxyStorage implements IProxy {
       method: method,
       headers: headers,
       body: json,
-      // FIXME: ts complains ca cannot be undefined
       proxy: this.proxy,
       encoding: null,
       gzip: true,
       timeout: this.timeout,
       strictSSL: this.strict_ssl,
+      agentOptions: this.agent_options,
     };
 
     if (this.ca) {
