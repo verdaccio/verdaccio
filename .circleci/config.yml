@@ -46,6 +46,8 @@ commands:
       - run:
           name: Functional test
           command: yarn test:functional
+      - store_test_results:
+          path: reports/
 
 jobs:
   prepare:
