@@ -57,7 +57,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * fixed user creation endpoint to properly import groups ([50e115f](https://github.com/verdaccio/verdaccio/commit/50e115f))
 * remove stub type definition for handlebars ([de8dc43](https://github.com/verdaccio/verdaccio/commit/de8dc43))
-* unpublish and add or remove star colision ([#1434](https://github.com/verdaccio/verdaccio/issues/1434)) ([c264f94](https://github.com/verdaccio/verdaccio/commit/c264f94))
+* unpublish and add or remove star collision ([#1434](https://github.com/verdaccio/verdaccio/issues/1434)) ([c264f94](https://github.com/verdaccio/verdaccio/commit/c264f94))
 * **deps:** add missing prod dependency ([849f5bc](https://github.com/verdaccio/verdaccio/commit/849f5bc))
 
 

@@ -5,8 +5,8 @@ about: Create a report to help us improve
 
 <!-- 
 Hi folk, please read carefully the following points, all this information is what you need to share and make the process efficient
-so eveyrbody can understand your issue, please notice if you don't fill any of this points our friendly boot will remind you to do it or
-close automatically the issue. Removing the sections you considere are irrelevant for your issue is totally ok. 
+so everybody can understand your issue, please notice if you don't fill any of this points our friendly boot will remind you to do it or
+close automatically the issue. Removing the sections you consider are irrelevant for your issue is totally ok. 
 
 If you have questions, you might rather join use over Discord https://chat.verdaccio.org
 
