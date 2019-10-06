@@ -156,10 +156,9 @@ fix: xxxxxxxxxx
 ```
 
 Commits types such as as `docs:`,`style:`,`refactor:`,`perf:`,`test:`
-and `chore:` are valid but have no effect on versioning. **It would be great
-if you use them.**
+and `chore:` are valid but have no effect on versioning. **It would be great if you use them.**
 
-Use `npm run commitmsg` to check your commit message format.
+All commits message are going to be validated when they are created using husky hooks.
 
 **PRs that do not follow the commit message guidelines will not be merged.**
 

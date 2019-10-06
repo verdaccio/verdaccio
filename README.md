@@ -120,7 +120,7 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 
 ## Docker
 
-Below are the most commonly needed informations,
+Below are the most commonly needed information,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
 
 
@@ -245,7 +245,7 @@ Thanks to the following companies to help us to achieve our goals providing free
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
-[![contrubitors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](../../graphs/contributors)
+[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](../../graphs/contributors)
 
 ### FAQ / Contact / Troubleshoot
 
