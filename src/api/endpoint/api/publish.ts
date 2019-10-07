@@ -20,7 +20,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   /**
    * Publish a package / update package / un/start a package
    *
-   * There are multiples scenarios here to considere:
+   * There are multiples scenarios here to be considered:
    *
    * 1. Publish scenario
    *
