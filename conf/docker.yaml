@@ -23,6 +23,8 @@ web:
   # gravatar: false
   # by default packages are ordercer ascendant (asc|desc)
   # sort_packages: asc
+  # comment out to enable slim mode
+  # mode: slim
 
 auth:
   htpasswd:

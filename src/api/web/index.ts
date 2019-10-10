@@ -83,6 +83,7 @@ export default function(config, auth, storage) {
     const primaryColor = _.get(config, 'web.primary_color') ? config.web.primary_color : '';
     const title = _.get(config, 'web.title') ? config.web.title : WEB_TITLE;
     const scope = _.get(config, 'web.scope') ? config.web.scope : '';
+    const mode = _.get(config, 'web.mode') ? config.web.mode : 'full';
     const options = { uri, protocol, host, url_prefix, base, primaryColor, title, scope };
 
     const webPage = template
@@ -93,7 +94,8 @@ export default function(config, auth, storage) {
       .replace(/ToReplaceByTitle/g, title)
       .replace(/ToReplaceByLogo/g, logoURI)
       .replace(/ToReplaceByPrimaryColor/g, primaryColor)
-      .replace(/ToReplaceByScope/g, scope);
+      .replace(/ToReplaceByScope/g, scope)
+      .replace(/ToReplaceByMode/g, mode);
 
     res.setHeader('Content-Type', HEADERS.TEXT_HTML);
 
