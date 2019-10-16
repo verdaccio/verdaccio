@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/sosoba/verdaccio.git"
   },
   "homepage": "https://verdaccio.org",
   "main": "build/index.js",
