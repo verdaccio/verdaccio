@@ -1,4 +1,6 @@
 ARG BUILDER_IMAGE=node:10.16.3-alpine
+ARG BASE_IMAGE=node:10.16.3-alpine
+
 FROM ${BUILDER_IMAGE} as builder
 
 ENV NODE_ENV=production \
@@ -21,7 +23,6 @@ RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn install --production=true
 
 
-ARG BASE_IMAGE=node:10.16.3-alpine
 FROM ${BASE_IMAGE}
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
