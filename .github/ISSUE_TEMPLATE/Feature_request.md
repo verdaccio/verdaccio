@@ -5,7 +5,7 @@ about: Suggest an idea for this project
 
 <!--
 
-Verdaccio is a project addressed for voluntaries, if you appreciate this project considere to donate.
+Verdaccio is a project addressed for voluntaries, if you appreciate this project consider to donate.
 1$/month - minimal contribution
 5$/month - nice contribution
 500$ - help to promote this project, marketing, stickers.
@@ -16,8 +16,8 @@ https://opencollective.com/verdaccio
 As reminder, the Open Source must be sustainable.
 -->
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**Is your feature request related to a problem?**
+Please describe a clear and concise description of what the problem is. E.g. I'm always frustrated when [...]
 
 **Describe the solution you'd like**
 A clear and concise description of what you want to happen.

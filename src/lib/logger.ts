@@ -75,12 +75,9 @@ function setup(logs, { logStart } = { logStart: true }) {
         )
       );
 
-      const rotateStream: any = {
-        // @ts-ignore
+      const rotateStream = {
         type: 'raw',
-        // @ts-ignore
         level,
-        // @ts-ignore
         stream,
       };
 
