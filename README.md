@@ -75,7 +75,7 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 Do not miss our talk (Introduction to Verdaccio) with [@priscilawebdev](https://twitter.com/priscilawebdev) and [@jotadeveloper](https://twitter.com/jotadeveloper) on stage.
 
-[![viennajs-meetup](https://nyc3.digitaloceanspaces.com/verdaccio/readme/youtube_meetup_viennajs.png?source=readme)](https://www.youtube.com/watch?v=hDIFKzmoCaA)
+[![viennajs-meetup](https://cdn.verdaccio.dev/readme/youtube_meetup_viennajs.png?source=readme)](https://www.youtube.com/watch?v=hDIFKzmoCaA)
 
 ## Get Started
 
