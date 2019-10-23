@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.4](https://github.com/verdaccio/verdaccio/compare/v4.3.3...v4.3.4) (2019-10-23)
+
+
+### Bug Fixes
+
+* minor grammatical tweak ([#1513](https://github.com/verdaccio/verdaccio/issues/1513)) ([35f816b](https://github.com/verdaccio/verdaccio/commit/35f816b))
+* minor typos, formatting, and docs ([#1512](https://github.com/verdaccio/verdaccio/issues/1512)) ([549f474](https://github.com/verdaccio/verdaccio/commit/549f474))
+* security vulnerability at readme in dompurify dep ([#1532](https://github.com/verdaccio/verdaccio/issues/1532)) ([2ac7770](https://github.com/verdaccio/verdaccio/commit/2ac7770))
+
 ### [4.3.3](https://github.com/verdaccio/verdaccio/compare/v4.3.2...v4.3.3) (2019-10-03)
 
 
