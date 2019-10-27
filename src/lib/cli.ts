@@ -65,7 +65,7 @@ function init() {
     startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
   } catch (err) {
     logger.logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
-    process.exit(0);
+    process.exit(1);
   }
 }
 
@@ -82,7 +82,7 @@ if (commander.info) {
       });
     // eslint-disable-next-line no-console
     console.log(data);
-    process.exit(1);
+    process.exit(0);
   })();
 } else  if (commander.args.length == 1 && !commander.config) {
   // handling "verdaccio [config]" case if "-c" is missing in command line
