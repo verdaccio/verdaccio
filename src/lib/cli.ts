@@ -65,7 +65,7 @@ function init() {
     startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
   } catch (err) {
     logger.logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
-    process.exit(1);
+    process.exit(0);
   }
 }
 
