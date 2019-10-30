@@ -82,7 +82,7 @@ if (commander.info) {
       });
     // eslint-disable-next-line no-console
     console.log(data);
-    process.exit(1);
+    process.exit(0);
   })();
 } else  if (commander.args.length == 1 && !commander.config) {
   // handling "verdaccio [config]" case if "-c" is missing in command line
