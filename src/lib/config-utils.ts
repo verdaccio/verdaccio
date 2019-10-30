@@ -25,7 +25,7 @@ const BLACKLIST = {
  * @return {Array}
  */
 export function normalizeUserList(oldFormat: any, newFormat: any): any {
-  const result = [];
+  const result: any[][] = [];
   /* eslint prefer-rest-params: "off" */
 
   for (let i = 0; i < arguments.length; i++) {
@@ -35,10 +35,8 @@ export function normalizeUserList(oldFormat: any, newFormat: any): any {
 
     // if it's a string, split it to array
     if (_.isString(arguments[i])) {
-      // @ts-ignore
       result.push(arguments[i].split(/\s+/));
     } else if (Array.isArray(arguments[i])) {
-      // @ts-ignore
       result.push(arguments[i]);
     } else {
       throw ErrorCode.getInternalError(
