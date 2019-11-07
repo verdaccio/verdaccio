@@ -16,7 +16,7 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "8.2.0",
+    "@verdaccio/commons-api": "8.3.0",
     "@verdaccio/local-storage": "8.2.0",
     "@verdaccio/readme": "8.2.0",
     "@verdaccio/streams": "8.2.0",
