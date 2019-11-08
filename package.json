@@ -29,7 +29,7 @@
     "compression": "1.7.4",
     "cookies": "0.7.3",
     "cors": "2.8.5",
-    "dayjs": "1.8.16",
+    "dayjs": "1.8.17",
     "envinfo": "7.4.0",
     "express": "4.17.1",
     "handlebars": "4.4.5",
@@ -88,7 +88,7 @@
     "standard-version": "7.0.0",
     "supertest": "4.0.2",
     "typescript": "3.7.1-rc",
-    "verdaccio-auth-memory": "8.2.0",
+    "verdaccio-auth-memory": "8.3.0",
     "verdaccio-memory": "8.2.0"
   },
   "keywords": [
