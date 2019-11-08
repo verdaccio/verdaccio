@@ -1339,10 +1339,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@types/async@3.0.2":
-  version "3.0.2"
-  resolved "https://registry.verdaccio.org/@types%2fasync/-/async-3.0.2.tgz#d4c61a45695d1ca70ac7d072904770d4e2ab73e0"
-  integrity sha512-GuE075xd19mLhbY3bTnOro3yMgao0jARqxMDiRGo0J0wiCDg3VR21kaRnCaKmu0oxeJN+e2a1BM7EzHuunt3Pw==
+"@types/async@3.0.3":
+  version "3.0.3"
+  resolved "https://registry.verdaccio.org/@types%2fasync/-/async-3.0.3.tgz#ea3694128c757580e4f9328cd941b81d9c3e9bf6"
+  integrity sha512-FrIcC67Zpko1jO8K4d30C41/KVhAABbMbaSxccvXacxPcKbDBav+8WoFzv72BA2zJvyX4T9PFz0we1hcNymgGA==
 
 "@types/babel__core@^7.1.0":
   version "7.1.2"
