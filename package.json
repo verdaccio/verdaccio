@@ -16,7 +16,7 @@
     "verdaccio": "./bin/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "8.2.0",
+    "@verdaccio/commons-api": "8.3.0",
     "@verdaccio/local-storage": "8.2.0",
     "@verdaccio/readme": "8.2.0",
     "@verdaccio/streams": "8.2.0",
@@ -79,7 +79,7 @@
     "in-publish": "2.0.0",
     "jest": "24.9.0",
     "jest-environment-node": "24.9.0",
-    "jest-junit": "8.0.0",
+    "jest-junit": "9.0.0",
     "lint-staged": "8.2.1",
     "nock": "11.3.3",
     "prettier": "1.18.2",
