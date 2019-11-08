@@ -1456,10 +1456,10 @@
   resolved "https://registry.verdaccio.org/@types%2fjest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest@24.0.18":
-  version "24.0.18"
-  resolved "https://registry.verdaccio.org/@types%2fjest/-/jest-24.0.18.tgz#9c7858d450c59e2164a8a9df0905fc5091944498"
-  integrity sha512-jcDDXdjTcrQzdN06+TSVsPPqxvsZA/5QkYfIZlq1JMw7FdP5AZylbOc+6B/cuDurctRe+MziUMtQ3xQdrbjqyQ==
+"@types/jest@24.0.22":
+  version "24.0.22"
+  resolved "https://registry.verdaccio.org/@types%2fjest/-/jest-24.0.22.tgz#08a50be08e78aba850a1185626e71d31e2336145"
+  integrity sha512-t2OvhNZnrNjlzi2i0/cxbLVM59WN15I2r1Qtb7wDv28PnV9IzrPtagFRey/S9ezdLD0zyh1XGMQIEQND2YEfrw==
   dependencies:
     "@types/jest-diff" "*"
 
@@ -1643,7 +1643,7 @@
     babel-plugin-dynamic-import-node "2.3.0"
     babel-plugin-emotion "10.0.17"
 
-"@verdaccio/commons-api@8.3.0", "@verdaccio/commons-api@^8.2.0":
+"@verdaccio/commons-api@8.3.0", "@verdaccio/commons-api@^8.2.0", "@verdaccio/commons-api@^8.3.0":
   version "8.3.0"
   resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-8.3.0.tgz#3a4b07b63561b21bfc8242330da528e12788635e"
   integrity sha512-MfXwbPa41mjkjCOFr6QOgThBzmtL1cuQuViurPQXpLsNeTC1EuZ1BkNjbrnOfEQuFKWsWmtLd8tEUP0hNcLMcg==
@@ -2978,10 +2978,10 @@ dateformat@^3.0.0:
   resolved "https://registry.verdaccio.org/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayjs@1.8.16:
-  version "1.8.16"
-  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.16.tgz#2a3771de537255191b947957af2fd90012e71e64"
-  integrity sha512-XPmqzWz/EJiaRHjBqSJ2s6hE/BUoCIHKgdS2QPtTQtKcS9E4/Qn0WomoH1lXanWCzri+g7zPcuNV4aTZ8PMORQ==
+dayjs@1.8.17:
+  version "1.8.17"
+  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.17.tgz#53ec413f2a7b02afbea1846d61bb260fa8567cea"
+  integrity sha512-47VY/htqYqr9GHd7HW/h56PpQzRBSJcxIQFwqL3P20bMF/3az5c3PWdVY3LmPXFl6cQCYHL7c79b9ov+2bOBbw==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -8275,12 +8275,12 @@ verdaccio-audit@8.1.4:
     express "4.17.1"
     request "2.88.0"
 
-verdaccio-auth-memory@8.2.0:
-  version "8.2.0"
-  resolved "https://registry.verdaccio.org/verdaccio-auth-memory/-/verdaccio-auth-memory-8.2.0.tgz#55168967947abff6ead8ea34dfbaa17b626183a1"
-  integrity sha512-fMr6u0vEnbFQT2CemVJbOB0H1lPdDu1R/jsNsoHH+BZIohTlvCU9ZT9ePRSRHvrwb2qCd5iJZpPwH98uCH3GAQ==
+verdaccio-auth-memory@8.3.0:
+  version "8.3.0"
+  resolved "https://registry.verdaccio.org/verdaccio-auth-memory/-/verdaccio-auth-memory-8.3.0.tgz#608f7722a24bb92aae7fe03394d1f24f5ed9f530"
+  integrity sha512-0/LyKpNvE7KVP+MuTi75hWE0XIz/bzDHmeuUajr4Uaa8GBeGeAjEWZdvPt51nXblyEnDcHclNKj5ZC55i5GIHg==
   dependencies:
-    "@verdaccio/commons-api" "^8.2.0"
+    "@verdaccio/commons-api" "^8.3.0"
 
 verdaccio-htpasswd@8.2.0:
   version "8.2.0"
