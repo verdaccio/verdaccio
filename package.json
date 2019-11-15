@@ -72,7 +72,7 @@
     "@verdaccio/types": "8.1.0",
     "codecov": "3.5.0",
     "cross-env": "5.2.1",
-    "detect-secrets": "1.0.4",
+    "detect-secrets": "1.0.5",
     "eslint": "5.16.0",
     "get-stdin": "7.0.0",
     "husky": "2.7.0",
