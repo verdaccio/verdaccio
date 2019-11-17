@@ -2487,10 +2487,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.verdaccio.org/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codecov@3.5.0:
-  version "3.5.0"
-  resolved "https://registry.verdaccio.org/codecov/-/codecov-3.5.0.tgz#3d0748932f9cb41e1ad7f21fa346ef1b2b1bed47"
-  integrity sha512-/OsWOfIHaQIr7aeZ4pY0UC1PZT6kimoKFOFYFNb6wxo3iw12nRrh+mNGH72rnXxNsq6SGfesVPizm/6Q3XqcFQ==
+codecov@3.6.1:
+  version "3.6.1"
+  resolved "https://registry.verdaccio.org/codecov/-/codecov-3.6.1.tgz#f39fc49413445555f81f8e3ca5730992843b4517"
+  integrity sha512-IUJB6WG47nWK7o50etF8jBadxdMw7DmoQg05yIljstXFBGB6clOZsIj6iD4P82T2YaIU3qq+FFu8K9pxgkCJDQ==
   dependencies:
     argv "^0.0.2"
     ignore-walk "^3.0.1"

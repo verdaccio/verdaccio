@@ -70,7 +70,7 @@
     "@verdaccio/babel-preset": "8.1.0",
     "@verdaccio/eslint-config": "8.1.0",
     "@verdaccio/types": "8.1.0",
-    "codecov": "3.5.0",
+    "codecov": "3.6.1",
     "cross-env": "6.0.3",
     "detect-secrets": "1.0.5",
     "eslint": "5.16.0",
