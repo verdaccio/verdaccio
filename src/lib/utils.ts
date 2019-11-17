@@ -9,19 +9,10 @@ import YAML from 'js-yaml';
 import URL from 'url';
 import sanitizyReadme from '@verdaccio/readme';
 
-import {
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from './constants';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
-import { Package, Version, Author } from '@verdaccio/types';
+import { Config, Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
 import { StringValue, AuthorAvatar } from '../../types';
 import { normalizeContributors } from './storage-utils';
@@ -164,13 +155,17 @@ export function extractTarballFromUrl(url: string): string {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void): Package {
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, config: Config): Package {
+  const urlPrefix = config.url_prefix;
+  const s3Storage = config.store['aws-s3-storage'];
+  const edgeEnabled = _.isNil(s3Storage) === false && _.isNil(s3Storage.tarballEdgeUrl) === false;
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
 
       if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
-        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
+        if (edgeEnabled) distName.tarball = getEdgeTarballUri(distName.tarball, pkg.name, config);
+        else distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
       }
     }
   }
@@ -182,12 +177,7 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
@@ -199,6 +189,22 @@ export function getLocalRegistryTarballUri(
   const domainRegistry = combineBaseUrl(protocol, headers.host, urlPrefix);
 
   return `${domainRegistry}/${encodeScopedUri(pkgName)}/-/${tarballName}`;
+}
+
+/**
+ * Filter a tarball url for CDN/Edge.
+ * @param {*} uri
+ * @param {*} pkgName
+ * @param {*} config
+ * @return {String} a parsed url
+ */
+export function getEdgeTarballUri(uri: string, pkgName: string, config: Config): string {
+  const s3Storage = config.store['aws-s3-storage'];
+  if (_.isNil(s3Storage)) return uri;
+  const keyPrefix = s3Storage.keyPrefix || '';
+  const tarballEdgeUrl = s3Storage.tarballEdgeUrl || '';
+  const tarballName = extractTarballFromUrl(uri);
+  return `${tarballEdgeUrl}/${keyPrefix + pkgName}/${tarballName}`;
 }
 
 /**
