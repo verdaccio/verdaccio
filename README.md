@@ -203,14 +203,16 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+67k ⭐️)*
-* [Storybook](https://github.com/storybooks/storybook) *(+37k ⭐️)*
-* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+34k ⭐️)* 
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
+* [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+40k ⭐️)* 
+* [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
 * [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)* 
-* [Uppy](https://github.com/transloadit/uppy) *(+19k ⭐️)*
-* [Aurelia Framework](https://github.com/aurelia) *(+11k ⭐️)*
-* [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
-* [pnpm](https://github.com/pnpm/pnpm) *(+5k ⭐️)*
+* [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
+* [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
+* [bit](https://github.com/teambit/bit) *(+9k ⭐️)*
+* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+6k ⭐️)*
 * [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*
