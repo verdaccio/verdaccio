@@ -193,7 +193,7 @@ export function getLocalRegistryTarballUri(
   pkgName: string,
   req: Request,
   urlPrefix: string | void
-  ): string {
+): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
