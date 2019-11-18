@@ -9,7 +9,16 @@ import YAML from 'js-yaml';
 import URL from 'url';
 import sanitizyReadme from '@verdaccio/readme';
 
-import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
+import {
+  APP_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_DOMAIN,
+  DEFAULT_PROTOCOL,
+  CHARACTER_ENCODING,
+  HEADERS,
+  DIST_TAGS,
+  DEFAULT_USER,
+} from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import { Config, Package, Version, Author } from '@verdaccio/types';
@@ -179,7 +188,12 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} urlPrefix
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
+export function getLocalRegistryTarballUri(
+  uri: string,
+  pkgName: string,
+  req: Request,
+  urlPrefix: string | void
+  ): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
