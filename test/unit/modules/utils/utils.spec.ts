@@ -28,6 +28,10 @@ setup([]);
 describe('Utilities', () => {
   const buildURI = (host, version) =>
     `http://${host}/npm_test/-/npm_test-${version}.tgz`;
+  const buildURIWithPrefix = (host, version, prefix) =>
+    `http://${host}${prefix}npm_test/-/npm_test-${version}.tgz`;
+  const buildURIWithEdge = (edgeUrl, version, keyPrefix: string | void) =>
+    `${edgeUrl}/${keyPrefix ? `${keyPrefix}` : ''}npm_test/npm_test-${version}.tgz`;
   const fakeHost = 'fake.com';
   const metadata: any = {
     name: 'npm_test',
@@ -129,7 +133,8 @@ describe('Utilities', () => {
             // @ts-ignore
             get: () => 'http',
             protocol: 'http'
-          });
+          },
+          {});
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
         expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.1'));
       });
@@ -141,8 +146,66 @@ describe('Utilities', () => {
             // @ts-ignore
             get: () => 'http',
             protocol: 'http'
-          });
+          },
+          {});
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
+      });
+
+      test('should build a URI for dist tarball with url_prefix', () => {
+        const urlPrefix = '/sub_directory/';
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
+          {
+            headers: {
+              host: fakeHost
+            },
+            // @ts-ignore
+            get: () => 'http',
+            protocol: 'http'
+          },
+          { 'url_prefix': urlPrefix });
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURIWithPrefix(fakeHost, '1.0.0', urlPrefix));
+        expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURIWithPrefix(fakeHost, '1.0.1', urlPrefix));
+      });
+
+      test('should build a URI for dist tarball based on tarballEdgeUrl', () => {
+        const tarballEdgeUrl = 'https://some-hash.cloudfront.com';
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
+          {
+            headers: {
+              host: fakeHost
+            },
+            // @ts-ignore
+            get: () => 'http',
+            protocol: 'http'
+          },
+          {
+            store: {
+              'aws-s3-storage': { tarballEdgeUrl }
+            }
+          });
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURIWithEdge(tarballEdgeUrl, '1.0.0'));
+        expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURIWithEdge(tarballEdgeUrl, '1.0.1'));
+      });
+
+      test('should build a URI for dist tarball based on tarballEdgeUrl and keyPrefix', () => {
+        const tarballEdgeUrl = 'https://some-hash.cloudfront.com';
+        const keyPrefix = 'some-prefix';
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(),
+          {
+            headers: {
+              host: fakeHost
+            },
+            // @ts-ignore
+            get: () => 'http',
+            protocol: 'http'
+          },
+          {
+            store: {
+              'aws-s3-storage': { tarballEdgeUrl, keyPrefix }
+            }
+          });
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURIWithEdge(tarballEdgeUrl, '1.0.0', keyPrefix));
+        expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURIWithEdge(tarballEdgeUrl, '1.0.1', keyPrefix));
       });
     });
 

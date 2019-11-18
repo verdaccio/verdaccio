@@ -156,8 +156,7 @@ export function extractTarballFromUrl(url: string): string {
  * @return {String} a filtered package
  */
 export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, config: Config): Package {
-  const urlPrefix = config.url_prefix;
-  const s3Storage = config.store['aws-s3-storage'];
+  const s3Storage = _.isNil(config.store) === false ? config.store['aws-s3-storage'] : null;
   const edgeEnabled = _.isNil(s3Storage) === false && _.isNil(s3Storage.tarballEdgeUrl) === false;
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
@@ -165,7 +164,7 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
 
       if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
         if (edgeEnabled) distName.tarball = getEdgeTarballUri(distName.tarball, pkg.name, config);
-        else distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
+        else distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, config.url_prefix);
       }
     }
   }
@@ -175,6 +174,9 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
 /**
  * Filter a tarball url.
  * @param {*} uri
+ * @param {*} pkgName
+ * @param {*} req
+ * @param {*} urlPrefix
  * @return {String} a parsed url
  */
 export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
