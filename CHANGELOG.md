@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.5](https://github.com/verdaccio/verdaccio/compare/v4.3.4...v4.3.5) (2019-11-21)
+
+
+### Bug Fixes
+
+* changed the exit code for info flag ([#1537](https://github.com/verdaccio/verdaccio/issues/1537)) ([cbea2ed](https://github.com/verdaccio/verdaccio/commit/cbea2ed))
+* package.json to reduce vulnerabilities ([#1552](https://github.com/verdaccio/verdaccio/issues/1552)) ([cd8228b](https://github.com/verdaccio/verdaccio/commit/cd8228b))
+* package.json to reduce vulnerabilities ([#1577](https://github.com/verdaccio/verdaccio/issues/1577)) ([e459881](https://github.com/verdaccio/verdaccio/commit/e459881))
+* package.json to reduce vulnerabilities ([#1583](https://github.com/verdaccio/verdaccio/issues/1583)) ([2f3ba93](https://github.com/verdaccio/verdaccio/commit/2f3ba93))
+
 ### [4.3.4](https://github.com/verdaccio/verdaccio/compare/v4.3.3...v4.3.4) (2019-10-23)
 
 
