@@ -1664,21 +1664,21 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/file-locking@^8.2.0":
-  version "8.2.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-8.2.0.tgz#d6c76315fdf4022ae453f92ac12f1cf4d5a64f1c"
-  integrity sha512-s3gzuRWN2IgaEUPtwsnB24gRRVFaD26fbh+32RN7hcxlqCtZh8s7spKu5cFYCxtyoYkFVFxn3PsJcWkGaKda7Q==
+"@verdaccio/file-locking@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-8.3.0.tgz#e0b9bc2b96cc6c4b3b8ca3b82ebf29ee4de23738"
+  integrity sha512-9kPaQ6HNeAhmkvW0sTj6qhLm2XjmIimUHSJR4w/uChL8f7niyx0wnXV6nMG10EsGjLYte9BG9rfDon4LynGuFQ==
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/local-storage@8.2.0":
-  version "8.2.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-8.2.0.tgz#d09406b8738e949ff247fef71386de0e8a1de0f1"
-  integrity sha512-gIamhfr7TwXAmOv/2NNr/Cisr9UextH/8w3qPnzdAMuZWAyquiZK9/z/DLDZm04H9A6pP9oaSfjXydUVeD4ZYg==
+"@verdaccio/local-storage@8.3.0":
+  version "8.3.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-8.3.0.tgz#14edfbccd35e451b376e2d83fdaf6183a123d51d"
+  integrity sha512-UP6o+dHEzDzjeOBpmQpbYCqSEzFYoVMb041Pa1PX3xwqSCGhcEHOXYXSydjFkUW3pHDjoQ706UaAakhJKVZszQ==
   dependencies:
-    "@verdaccio/commons-api" "^8.2.0"
-    "@verdaccio/file-locking" "^8.2.0"
-    "@verdaccio/streams" "^8.2.0"
+    "@verdaccio/commons-api" "^8.3.0"
+    "@verdaccio/file-locking" "^8.3.0"
+    "@verdaccio/streams" "^8.3.0"
     async "3.1.0"
     level "5.0.1"
     lodash "4.17.15"
@@ -1693,10 +1693,15 @@
     jsdom "15.2.0"
     marked "0.7.0"
 
-"@verdaccio/streams@8.2.0", "@verdaccio/streams@^8.2.0":
+"@verdaccio/streams@8.2.0":
   version "8.2.0"
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.2.0.tgz#3135945bd8445b2af27ea888eb9989071df9afa9"
   integrity sha512-gwMHKVoJMWuI6dMxrekiv1gcNEpll/K6uj4juOjTwhp6IULUDbza7T6FHj3I5p5zxREEkiNGnCWmZki0437qEQ==
+
+"@verdaccio/streams@^8.2.0", "@verdaccio/streams@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.3.0.tgz#d779d9d3e74d0248c463ac9bd7f43a6f42ef42eb"
+  integrity sha512-OxCUeUPi32WS6TwWB9sbhguKCG5rZ4AXzop5PgEYsKghzAVKXbYHn8y2QRa7QU7JE7xEFD+kXonBKjGp6bc1KQ==
 
 "@verdaccio/types@8.1.0":
   version "8.1.0"
