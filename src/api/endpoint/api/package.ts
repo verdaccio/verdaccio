@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import { allow } from '../../middleware';
-import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '../../../lib/utils';
+import {
+  canConvertDistRemoteToLocalTarballUrl,
+  convertDistRemoteToLocalTarballUrls,
+  getVersion,
+  ErrorCode
+} from '../../../lib/utils';
 import { HEADERS, DIST_TAGS, API_ERROR } from '../../../lib/constants';
 import { Router } from 'express';
 import { Config, Package } from '@verdaccio/types';
@@ -29,7 +34,8 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
       if (err) {
         return next(err);
       }
-      metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix);
+      if (canConvertDistRemoteToLocalTarballUrl(config))
+        metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix);
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {

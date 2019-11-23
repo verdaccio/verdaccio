@@ -2,6 +2,7 @@ import {generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
 import { spliceURL } from '../../../../src/utils/string';
 import {
   validateName,
+  canConvertDistRemoteToLocalTarballUrl,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
   addGravatarSupport,
@@ -162,7 +163,38 @@ describe('Utilities', () => {
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURIWithPrefix(fakeHost, '1.0.0', urlPrefix));
         expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURIWithPrefix(fakeHost, '1.0.1', urlPrefix));
       });
+    });
 
+    describe('canConvertDistRemoteToLocalTarballUrl', () => {
+      test('should return true if config.store is missing', () => {
+        const config = {};
+        expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
+      });
+
+      test('should return true if config.store.managedTarballUrl is missing', () => {
+        const config = {
+          store: {}
+        };
+        expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
+      });
+
+      test('should return true if config.store.managedTarballUrl is false', () => {
+        const config = {
+          store: {
+            managedTarballUrl: false
+          }
+        };
+        expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
+      });
+
+      test('should return false if config.store.managedTarballUrl is true', () => {
+        const config = {
+          store: {
+            managedTarballUrl: true
+          }
+        };
+        expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(false);
+      });
     });
 
     describe('normalizeDistTags', () => {

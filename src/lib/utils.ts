@@ -9,16 +9,7 @@ import YAML from 'js-yaml';
 import URL from 'url';
 import sanitizyReadme from '@verdaccio/readme';
 
-import {
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from './constants';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import { Package, Version, Author } from '@verdaccio/types';
@@ -158,6 +149,16 @@ export function extractTarballFromUrl(url: string): string {
 }
 
 /**
+ * Detect whether can convert dist remote to local tarball urls.
+ * @param {*} config
+ * @return {Boolean}
+ */
+export function canConvertDistRemoteToLocalTarballUrl(config: any): boolean {
+  if (!_.isNil(config.store) && !_.isNil(config.store.managedTarballUrl)) return !config.store.managedTarballUrl;
+  return true;
+}
+
+/**
  * Iterate a packages's versions and filter each original tarball url.
  * @param {*} pkg
  * @param {*} req
@@ -185,12 +186,7 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} urlPrefix
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
