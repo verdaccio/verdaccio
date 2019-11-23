@@ -174,11 +174,7 @@ export function canConvertDistRemoteToLocalTarballUrl(config: any): boolean {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(
-  pkg: Package,
-  req: Request,
-  urlPrefix: string | void
-): Package {
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void): Package {
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
@@ -199,7 +195,12 @@ export function convertDistRemoteToLocalTarballUrls(
  * @param {*} urlPrefix
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
+export function getLocalRegistryTarballUri(
+  uri: string,
+  pkgName: string,
+  req: Request,
+  urlPrefix: string | void
+): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
