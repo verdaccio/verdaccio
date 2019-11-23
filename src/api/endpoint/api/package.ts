@@ -29,7 +29,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
       if (err) {
         return next(err);
       }
-      metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config);
+      metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix);
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {
