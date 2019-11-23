@@ -171,27 +171,21 @@ describe('Utilities', () => {
         expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
       });
 
-      test('should return true if config.store.managedTarballUrl is missing', () => {
+      test('should return true if config.convert_to_local_tarball_url is missing', () => {
+        const config = {};
+        expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
+      });
+
+      test('should return true if config.convert_to_local_tarball_url is true', () => {
         const config = {
-          store: {}
+          convert_to_local_tarball_url: true
         };
         expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
       });
 
-      test('should return true if config.store.managedTarballUrl is false', () => {
+      test('should return false if config.convert_to_local_tarball_url is false', () => {
         const config = {
-          store: {
-            managedTarballUrl: false
-          }
-        };
-        expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(true);
-      });
-
-      test('should return false if config.store.managedTarballUrl is true', () => {
-        const config = {
-          store: {
-            managedTarballUrl: true
-          }
+          convert_to_local_tarball_url: false
         };
         expect(canConvertDistRemoteToLocalTarballUrl(config)).toBe(false);
       });

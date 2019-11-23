@@ -163,8 +163,8 @@ export function extractTarballFromUrl(url: string): string {
  * @return {Boolean}
  */
 export function canConvertDistRemoteToLocalTarballUrl(config: any): boolean {
-  if (!_.isNil(config.store) && !_.isNil(config.store.managedTarballUrl)) return !config.store.managedTarballUrl;
-  return true;
+  if (_.isNil(config.convert_to_local_tarball_url)) return true;
+  return config.convert_to_local_tarball_url;
 }
 
 /**
