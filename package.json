@@ -83,7 +83,7 @@
     "lint-staged": "8.2.1",
     "nock": "11.7.0",
     "prettier": "1.18.2",
-    "puppeteer": "1.8.0",
+    "puppeteer": "2.0.0",
     "rimraf": "3.0.0",
     "standard-version": "7.0.0",
     "supertest": "4.0.2",
