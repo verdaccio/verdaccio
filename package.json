@@ -58,7 +58,7 @@
     "@types/async": "3.0.3",
     "@types/bunyan": "1.8.6",
     "@types/express": "4.17.1",
-    "@types/http-errors": "1.6.2",
+    "@types/http-errors": "1.6.3",
     "@types/jest": "24.0.23",
     "@types/lodash": "4.14.148",
     "@types/mime": "2.0.1",

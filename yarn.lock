@@ -1426,10 +1426,10 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/http-errors@1.6.2":
-  version "1.6.2"
-  resolved "https://registry.verdaccio.org/@types%2fhttp-errors/-/http-errors-1.6.2.tgz#8d613d31be6871d093ef4640ae3272507156ba59"
-  integrity sha512-mzJX3tIbtadNZQIDbfA9eW+mAjww7GY7WYcfKDGB5SSXMAzI8KD+5fvyX5FqcKtns346+WGwAJJ8cPsDxMz0lw==
+"@types/http-errors@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.verdaccio.org/@types%2fhttp-errors/-/http-errors-1.6.3.tgz#619a55768eab98299e8f76747339f3373f134e69"
+  integrity sha512-4KCE/agIcoQ9bIfa4sBxbZdnORzRjIw8JNQPLfqoNv7wQl/8f8mRbW68Q8wBsQFoJkPUHGlQYZ9sqi5WpfGSEQ==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
