@@ -82,7 +82,7 @@ export function validateName(name: string): boolean {
   return !(
     !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
     normalizedName.startsWith('.') || // ".bin", etc.
-    ['node_modules', '__proto__', 'favicon.ico'].indexOf(normalizedName) !== -1
+    ['node_modules', '__proto__', 'favicon.ico'].includes(normalizedName)
   );
 }
 
