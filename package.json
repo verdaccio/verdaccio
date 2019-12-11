@@ -15,6 +15,10 @@
   "bin": {
     "verdaccio": "./bin/verdaccio"
   },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
   "dependencies": {
     "@verdaccio/commons-api": "8.3.0",
     "@verdaccio/local-storage": "8.4.2",
