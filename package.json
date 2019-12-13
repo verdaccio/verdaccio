@@ -72,7 +72,7 @@
     "@types/semver": "6.2.0",
     "@typescript-eslint/eslint-plugin": "2.10.0",
     "@verdaccio/babel-preset": "8.1.0",
-    "@verdaccio/eslint-config": "8.1.0",
+    "@verdaccio/eslint-config": "8.4.2",
     "@verdaccio/types": "8.1.0",
     "codecov": "3.6.1",
     "cross-env": "6.0.3",
