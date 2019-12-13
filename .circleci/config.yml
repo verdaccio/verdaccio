@@ -6,10 +6,13 @@ executors:
       - image: circleci/node:latest-browsers
   node_latest:
     docker:
-    - image: circleci/node:latest
+    - image: circleci/node:10
+  node_lts_12:
+    docker:
+      - image: circleci/node:12
   node_lts:
     docker:
-      - image: circleci/node:lts
+      - image: circleci/node:13
   default_executor: node_latest
 
 aliases:
@@ -94,7 +97,12 @@ jobs:
     steps:
       - restore_repo
       - run_test
-
+  test_node_lts_12:
+    <<: *defaults
+    executor: node_lts
+    steps:
+      - restore_repo
+      - run_test
   test_e2e:
     <<: *defaults
     executor: node_latest_browser
@@ -131,9 +139,16 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
+      - test_node_lts_12:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
       - test_e2e:
           requires:
             - prepare
+            - test_node_lts
+            - test_node_lts_12
+            - test_node_latest
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
