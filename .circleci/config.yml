@@ -152,5 +152,5 @@ workflows:
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
-            - test_node_latest
+            - test_e2e
           <<: *ignore_non_dev_branches
