@@ -34,7 +34,7 @@
     "cookies": "0.7.3",
     "cors": "2.8.5",
     "dayjs": "1.8.17",
-    "envinfo": "7.4.0",
+    "envinfo": "7.5.0",
     "express": "4.17.1",
     "handlebars": "4.5.3",
     "http-errors": "1.7.3",
