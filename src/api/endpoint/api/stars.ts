@@ -20,7 +20,7 @@ export default function(route: Router, storage: IStorageHandler): void {
       }
 
       const filteredPackages: Packages = localPackages.filter((localPackage: Package) =>
-        localPackage[USERS] ? _.keys(localPackage[USERS]).indexOf(remoteUsername) >= 0 : false
+        _.keys(localPackage[USERS]).includes(remoteUsername)
       );
 
       res.status(HTTP_STATUS.OK);
