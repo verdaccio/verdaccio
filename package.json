@@ -44,7 +44,7 @@
     "lockfile-lint": "2.0.1",
     "lodash": "4.17.15",
     "lunr-mutable-indexes": "2.3.2",
-    "marked": "0.7.0",
+    "marked": "0.8.0",
     "mime": "2.4.4",
     "minimatch": "3.0.4",
     "mkdirp": "0.5.1",
