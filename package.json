@@ -15,6 +15,10 @@
   "bin": {
     "verdaccio": "./bin/verdaccio"
   },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
   "dependencies": {
     "@verdaccio/commons-api": "8.3.0",
     "@verdaccio/local-storage": "8.4.2",
@@ -30,7 +34,7 @@
     "cookies": "0.7.3",
     "cors": "2.8.5",
     "dayjs": "1.8.17",
-    "envinfo": "7.4.0",
+    "envinfo": "7.5.0",
     "express": "4.17.1",
     "handlebars": "4.5.3",
     "http-errors": "1.7.3",
@@ -40,7 +44,7 @@
     "lockfile-lint": "2.0.1",
     "lodash": "4.17.15",
     "lunr-mutable-indexes": "2.3.2",
-    "marked": "0.7.0",
+    "marked": "0.8.0",
     "mime": "2.4.4",
     "minimatch": "3.0.4",
     "mkdirp": "0.5.1",
@@ -66,7 +70,7 @@
     "@types/node": "12.7.8",
     "@types/request": "2.48.3",
     "@types/semver": "6.2.0",
-    "@typescript-eslint/eslint-plugin": "2.10.0",
+    "@typescript-eslint/eslint-plugin": "2.11.0",
     "@verdaccio/babel-preset": "8.1.0",
     "@verdaccio/eslint-config": "8.1.0",
     "@verdaccio/types": "8.1.0",
