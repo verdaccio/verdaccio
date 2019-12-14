@@ -163,7 +163,7 @@ workflows:
             - test_node_latest
             - test_node_lts_10
             - test_node_lts_12
-            <<: *ignore_non_dev_branches
+          <<: *ignore_non_dev_branches
       - coverage:
           requires:
             - test_e2e
