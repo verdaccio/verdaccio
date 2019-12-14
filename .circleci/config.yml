@@ -157,7 +157,7 @@ workflows:
             - test_node_lts_10
             - test_node_lts_12
           <<: *ignore_non_dev_branches
-      - test_e2e_cli
+      - test_e2e_cli:
           requires:
             - prepare
             - test_node_latest
