@@ -93,7 +93,8 @@
     "supertest": "4.0.2",
     "typescript": "3.7.1-rc",
     "verdaccio-auth-memory": "8.3.0",
-    "verdaccio-memory": "8.2.0"
+    "verdaccio-memory": "8.2.0",
+    "verdaccio": "latest"
   },
   "keywords": [
     "private",
