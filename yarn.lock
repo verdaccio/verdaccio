@@ -1751,7 +1751,7 @@
 
 "@verdaccio/ui-theme@0.3.9":
   version "0.3.9"
-  resolved "http://localhost:4873/@verdaccio%2fui-theme/-/ui-theme-0.3.9.tgz#6ff0f05315912b4ba39e29eb589ecc8833640990"
+  resolved "http://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.3.9.tgz#6ff0f05315912b4ba39e29eb589ecc8833640990"
   integrity sha512-InTpEowYo6M9TjpQh4cVh/HZH1DW9oyhy8UpC1H4FOwvyknctN0dMavOseKWSrPAj+gPDzUw0IKAvwDI4OcPEg==
 
 "@yarnpkg/lockfile@^1.1.0":
