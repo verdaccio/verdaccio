@@ -8,7 +8,7 @@
   },
   "keywords": ["verdaccio", "sample", "scoped"],
   "dependencies": {
-    "lodash": "^4.17.15"
+    "verdaccio": "latest"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT"

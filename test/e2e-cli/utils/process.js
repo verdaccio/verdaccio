@@ -48,6 +48,7 @@ export async function _exec(options, cmd, args) {
   return new Promise((resolve, reject) => {
     childProcess.on('exit', (error) => {
       // _processes = _processes.filter(p => p !== childProcess);
+      console.log("--EXIT PROCESS-->", error);
 
       if (!error) {
         resolve({ stdout, stderr });

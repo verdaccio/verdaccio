@@ -11,14 +11,14 @@ auth:
 
 web:
   enable: true
-  title: verdaccio-e2e-pkg
+  title: verdaccio-default
 
 uplinks:
   npmjs:
-    url: https://registry.npmjs.org/
+    url: http://localhost:4873
 
 logs:
-  - { type: stdout, format: pretty, level: warn }
+  - { type: stdout, format: pretty, level: info }
 
 packages:
   '@*/*':
@@ -26,12 +26,10 @@ packages:
     publish: $anonymous
     unpublish: $authenticated
     proxy: npmjs
-  'verdaccio':
-    access: $all
-    publish: $anonymous
   '**':
     access: $all
-    publish: $anonymous
+    publish: $all
     unpublish: $authenticated
     proxy: npmjs
+
 _debug: true

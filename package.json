@@ -78,6 +78,7 @@
     "cross-env": "6.0.3",
     "detect-secrets": "1.0.5",
     "eslint": "5.16.0",
+    "fs-extra": "8.1.0",
     "get-stdin": "7.0.0",
     "husky": "2.7.0",
     "in-publish": "2.0.0",
@@ -92,9 +93,9 @@
     "standard-version": "7.0.0",
     "supertest": "4.0.2",
     "typescript": "3.7.1-rc",
+    "verdaccio": "latest",
     "verdaccio-auth-memory": "8.3.0",
-    "verdaccio-memory": "8.2.0",
-    "verdaccio": "latest"
+    "verdaccio-memory": "8.2.0"
   },
   "keywords": [
     "private",
