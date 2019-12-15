@@ -21,7 +21,8 @@ module.exports = async () => {
 	global.registryProcess = spawn(
 		'node',
 		[require.resolve('verdaccio/bin/verdaccio'), '-c', './verdaccio.yaml'],
-		{ cwd: tempRoot, stdio: 'inherit' },
+		// @ts-ignore
+		{ cwd: tempRoot, silence: true },
 	);
 
 	// publish current build version on local registry

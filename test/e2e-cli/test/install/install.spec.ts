@@ -6,15 +6,6 @@ import {execAndWaitForOutputToMatch} from '../../utils/process';
 import {installVerdaccio} from "../__partials/npm_commands";
 import {expectFileToExist} from "../../utils/expect";
 
-function testExample() {
-  console.log('running example');
-  return Promise.resolve(true);
-}
-
-export default async function() {
-  await testExample();
-}
-
 describe('npm install', ()=> {
   jest.setTimeout(90000);
   const port = '9011';
@@ -36,13 +27,13 @@ describe('npm install', ()=> {
     });
     registryProcess = await spawnRegistry(pathVerdaccioModule,
       ['-c', configPath, '-l', port],
-      { cwd: verdaccioInstall, silent: false }
+      { cwd: verdaccioInstall, silent: true }
     );
   });
 
   test('should match on npm info verdaccio', async () => {
     // FIXME:  not the best match, looking for a better way to match the terminal output
-    const output = await execAndWaitForOutputToMatch('npm', ['info', 'verdaccio', '--registry' ,`http://localhost:${port}`], /verdaccio-4.3.5.tgz/);
+    const output = await execAndWaitForOutputToMatch('npm', ['info', 'verdaccio', '--registry'], /A lightweight private npm proxy registry/);
 
     expect(output.ok).toBeTruthy();
   });

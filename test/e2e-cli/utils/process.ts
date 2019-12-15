@@ -28,23 +28,25 @@ export async function _exec(options, cmd, args) {
     if (options.silent) {
       return;
     }
+
     data.toString('utf-8')
       .split(/[\n\r]+/)
       .filter(line => line !== '')
       .forEach(line => console.log('  ' + line));
   });
+
   childProcess.stderr.on('data', (data) => {
     stderr += data.toString('utf-8');
     if (options.silent) {
       return;
     }
+
     data.toString('utf-8')
       .split(/[\n\r]+/)
       .filter(line => line !== '')
       .forEach(line => console.error(('  ' + line)));
   });
 
-  // Create the error here so the stack shows who called this function.
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
   return new Promise((resolve, reject) => {
     childProcess.on('exit', (error) => {
@@ -59,6 +61,7 @@ export async function _exec(options, cmd, args) {
     if (options.waitForMatch) {
       const match = options.waitForMatch;
       childProcess.stdout.on('data', (data) => {
+        // console.log("-->data==>", data.toString(), data.toString().match(match));
         if (data.toString().match(match)) {
           resolve({ok: true, stdout, stderr });
         }
@@ -77,12 +80,16 @@ export function execAndWaitForOutputToMatch(
     args: string[],
     match: RegExp,
     spawnOptions: SpawnOptions = {}): any {
-  return _exec({ waitForMatch: match, ...spawnOptions }, cmd, args);
+  return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
 }
 
 
 export function npm(...args) {
   return _exec({}, 'npm', args);
+}
+
+export function runVerdaccio(cmd, installation, args, match: RegExp): any {
+  return _exec({ cwd: installation, silent: true, waitForMatch: match }, cmd, args);
 }
 
 export function silentNpm(...args) {
