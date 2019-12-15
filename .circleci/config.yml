@@ -117,7 +117,7 @@ jobs:
       - restore_repo
       - run:
           name: Test End-to-End ClI
-          command: yarn run test:e2e:pkg
+          command: yarn run test:e2e:cli
 
   coverage:
     <<: *defaults
