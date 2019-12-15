@@ -6,7 +6,7 @@ const __global = require('../utils/global');
 // import { npm } from '../utils/process';
 
 
-class PuppeteerEnvironment extends NodeEnvironment {
+class E2ECliTestEnvironment extends NodeEnvironment {
   constructor(config) {
     super(config)
   }
@@ -25,4 +25,4 @@ class PuppeteerEnvironment extends NodeEnvironment {
   }
 }
 
-export default PuppeteerEnvironment;
+export default E2ECliTestEnvironment;
