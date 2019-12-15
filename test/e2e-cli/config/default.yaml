@@ -18,7 +18,7 @@ uplinks:
     url: http://localhost:4873
 
 logs:
-  - { type: stdout, format: pretty, level: info }
+  - { type: stdout, format: pretty, level: warn }
 
 packages:
   '@*/*':

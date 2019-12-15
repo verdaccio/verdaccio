@@ -1,4 +1,5 @@
 import * as child_process from 'child_process';
+import {SpawnOptions} from "child_process";
 
 export async function _exec(options, cmd, args) {
   let stdout = '';
@@ -47,9 +48,6 @@ export async function _exec(options, cmd, args) {
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
   return new Promise((resolve, reject) => {
     childProcess.on('exit', (error) => {
-      // _processes = _processes.filter(p => p !== childProcess);
-      console.log("--EXIT PROCESS-->", error);
-
       if (!error) {
         resolve({ stdout, stderr });
       } else {
@@ -62,7 +60,7 @@ export async function _exec(options, cmd, args) {
       const match = options.waitForMatch;
       childProcess.stdout.on('data', (data) => {
         if (data.toString().match(match)) {
-          resolve({ stdout, stderr });
+          resolve({ok: true, stdout, stderr });
         }
       });
       childProcess.stderr.on('data', (data) => {
@@ -74,14 +72,17 @@ export async function _exec(options, cmd, args) {
   });
 }
 
-
-export function npm(...args) {
-  return _exec({}, 'npm', args);
+export function execAndWaitForOutputToMatch(
+    cmd: string,
+    args: string[],
+    match: RegExp,
+    spawnOptions: SpawnOptions = {}): any {
+  return _exec({ waitForMatch: match, ...spawnOptions }, cmd, args);
 }
 
 
-export function node(...args) {
-  return _exec({}, 'node', args);
+export function npm(...args) {
+  return _exec({}, 'npm', args);
 }
 
 export function silentNpm(...args) {
