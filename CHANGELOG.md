@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/verdaccio/verdaccio/compare/v4.3.5...v4.4.0) (2019-12-15)
+
+
+### Bug Fixes
+
+* search api will not set magic date header when return array ([#1598](https://github.com/verdaccio/verdaccio/issues/1598)) ([158de3f](https://github.com/verdaccio/verdaccio/commit/158de3f))
+
+
+### Features
+
+* bumb up docker to node 12 ([#1622](https://github.com/verdaccio/verdaccio/issues/1622)) ([287ed3f](https://github.com/verdaccio/verdaccio/commit/287ed3f))
+* update @verdaccio/ui-theme@0.3.9 ([#1623](https://github.com/verdaccio/verdaccio/issues/1623)) ([1b4a5dc](https://github.com/verdaccio/verdaccio/commit/1b4a5dc))
+
 ### [4.3.5](https://github.com/verdaccio/verdaccio/compare/v4.3.4...v4.3.5) (2019-11-21)
 
 
