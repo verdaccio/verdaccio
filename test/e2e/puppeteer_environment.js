@@ -1,3 +1,5 @@
+/* eslint new-cap: 0 */
+
 const { yellow } = require('kleur');
 const NodeEnvironment = require('jest-environment-node');
 const puppeteer = require('puppeteer');

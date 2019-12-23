@@ -19,12 +19,12 @@ const checkDefaultUplink = (config) => {
 };
 
 const checkDefaultConfPackages = (config) => {
-  //auth
+  // auth
   expect(_.isObject(config.auth)).toBeTruthy();
   expect(_.isObject(config.auth.htpasswd)).toBeTruthy();
   expect(config.auth.htpasswd.file).toMatch(/htpasswd/);
 
-  //web
+  // web
   expect(_.isObject(config.web)).toBeTruthy();
   expect(config.web.title).toBe(WEB_TITLE);
   expect(config.web.enable).toBeUndefined();
@@ -56,7 +56,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.logs[0].type).toEqual('stdout');
   expect(config.logs[0].format).toEqual('pretty');
   expect(config.logs[0].level).toEqual('http');
-  //must not be enabled by default
+  // must not be enabled by default
   expect(config.notify).toBeUndefined();
   expect(config.store).toBeUndefined();
   expect(config.publish).toBeUndefined();
@@ -69,6 +69,7 @@ const checkDefaultConfPackages = (config) => {
 
 describe('Config file', () => {
   beforeAll(function() {
+    /* eslint no-invalid-this: 0 */
     // @ts-ignore
     this.config = new Config(parseConfigFile(resolveConf('default')));
   });

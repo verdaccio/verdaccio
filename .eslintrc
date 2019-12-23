@@ -12,6 +12,7 @@
     "@typescript-eslint/array-type": ["warn"],
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/indent": 0,
-    "@typescript-eslint/interface-name-prefix": 0
+    "@typescript-eslint/interface-name-prefix": 0,
+    "import/order": 0
   }
 }

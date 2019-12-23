@@ -39,6 +39,7 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
     notifyEntry.headers.map(function(item): void {
       if (Object.is(item, item)) {
         for (const key in item) {
+          /* eslint no-prototype-builtins: 0 */
           if (item.hasOwnProperty(key)) {
             header[key] = item[key];
           }
