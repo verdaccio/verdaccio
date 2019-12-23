@@ -23,7 +23,7 @@ describe('api endpoint app.param()', () => {
     if (m[1] === 'set') continue;
 
     let inner = m[2].slice(1, m[2].length-1);
-    var t;
+    let t;
 
     inner.split('/').forEach(function(x) {
       t = x.match(/^:([^?:]*)\??$/);

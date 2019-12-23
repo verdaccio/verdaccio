@@ -19,7 +19,7 @@ import {
 import { convertPayloadToBase64, ErrorCode } from './utils';
 import { getMatchedPackagesSpec } from './config-utils';
 
-import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage } from '@verdaccio/types';
+import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
 import { NextFunction } from 'express';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '../../types';
 
@@ -150,7 +150,9 @@ class Auth implements IAuth {
       let method = 'adduser';
       if (_.isFunction(plugin[method]) === false) {
         method = 'add_user';
+        self.logger.warn('the plugin method add_user in the auth plugin is deprecated and will be removed in next major release, notify to the plugin author');
       }
+
       if (_.isFunction(plugin[method]) === false) {
         next();
       } else {
@@ -175,7 +177,8 @@ class Auth implements IAuth {
    */
   public allow_access({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const plugins = this.plugins.slice(0);
-    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkgAllowAcces: AllowAccess = { name: packageName, version: packageVersion };
+    const pkg = Object.assign({}, pkgAllowAcces, getMatchedPackagesSpec(packageName, this.config.packages)) as AllowAccess & PackageAccess;
     const self = this;
     this.logger.trace({ packageName }, 'allow access for @{packageName}');
 
