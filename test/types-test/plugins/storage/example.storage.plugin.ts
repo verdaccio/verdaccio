@@ -104,7 +104,7 @@ class ExampleStoragePlugin implements IPluginStorage<{}> {
     const token: Token = {
       user: filter.user,
       key: '12312',
-      token: '12321',
+      token: '12321', // pragma: allowlist secret
       readonly: false,
       created: '123232'
     }
@@ -116,8 +116,8 @@ class ExampleStoragePlugin implements IPluginStorage<{}> {
     return Promise.resolve();
   }
 
-  setSecret(secret: string): Promise<any> {
-    return Promise.resolve(secret);
+  setSecret(secret: string): Promise<any> { // pragma: allowlist secret
+    return Promise.resolve(secret); // pragma: allowlist secret
   }
 
   add(name: string, cb: Callback) {
@@ -163,7 +163,8 @@ const storageManager: IPackageStorage = storage.getPackageStorage('test');
 if (storageManager) {
   storageManager.createPackage('test', generatePackageTemplate('test'), () => {});
   storageManager.savePackage('fileName', generatePackageTemplate('test'), () => {});
-  storageManager.updatePackage('pkgFileName', () =>{}, () => {}, () => {}, () => {});
+  // @ts-ignore
+  storageManager.updatePackage('pkgFileName', () => {}, () => {}, () => {}, () => {});
   storageManager.deletePackage('test', () => {});
   storageManager.removePackage(() => {});
   storageManager.readPackage('test', () => {});
