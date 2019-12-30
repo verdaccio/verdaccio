@@ -1924,11 +1924,6 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.4.2.tgz#5941c549118fce94ff00a7c516b810d2d0af97d0"
   integrity sha512-dh155sB5eg8l8uOAG2ewuaDu/mAGv6/Ymz6p/5bWBQRSF5XT1U8MrY7sw+QAohN3wm6pUYqdFtvTIAQ7QOLL7Q==
 
-"@verdaccio/streams@^8.5.0":
-  version "8.5.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.5.0.tgz#bfeaa1109fb90bc33254eaae130d735b7cd59fb1"
-  integrity sha512-32vZaWQORlc9q9TmqgYN9TkmJ0RCHW7r6vX7gei/rogO6QzRQhTKI4+2I6YS0v2I54n9koJLhtu8cokh4x+RuQ==
-
 "@verdaccio/streams@^8.5.2":
   version "8.5.2"
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.5.2.tgz#d6f366f94b905bb945bcdfa1572fde8e09f53d7a"
@@ -1939,10 +1934,15 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-8.5.2.tgz#4e371aae10e8550b4a19b57f6ba1f1f185147669"
   integrity sha512-x/sacqVndl1dXVKPd7pomea6gs9BKC+i83LDn6MEAO+tuhqWRsKC3UwztLA1YSKjNF33//7JCYMDQk6uaJ9ipw==
 
-"@verdaccio/ui-theme@0.3.9", "@verdaccio/ui-theme@^0.3.9":
+"@verdaccio/ui-theme@0.3.9":
   version "0.3.9"
   resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.3.9.tgz#6ff0f05315912b4ba39e29eb589ecc8833640990"
   integrity sha512-InTpEowYo6M9TjpQh4cVh/HZH1DW9oyhy8UpC1H4FOwvyknctN0dMavOseKWSrPAj+gPDzUw0IKAvwDI4OcPEg==
+
+"@verdaccio/ui-theme@^0.3.10":
+  version "0.3.10"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.3.10.tgz#49eb7c0687fb47dd052ae1c5a73f1c15561d160f"
+  integrity sha512-AgCRXlheHfCHpkLpBL5b6dCxTrrNb6AxeYH6wbK5JiOUSa2UnHN/uB/mUbFHTMLQVh6fE9xmk1nZ/1r4o/kUig==
 
 "@yarnpkg/lockfile@^1.1.0":
   version "1.1.0"
