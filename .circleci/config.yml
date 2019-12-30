@@ -6,10 +6,13 @@ executors:
       - image: circleci/node:latest-browsers
   node_latest:
     docker:
-    - image: circleci/node:latest
-  node_lts:
+    - image: circleci/node:13
+  node_lts_12:
     docker:
-      - image: circleci/node:lts
+      - image: circleci/node:12
+  node_lts_10:
+    docker:
+      - image: circleci/node:10
   default_executor: node_latest
 
 aliases:
@@ -87,14 +90,18 @@ jobs:
           key: *coverage_key
           paths:
             - coverage
-
-  test_node_lts:
+  test_node_lts_12:
     <<: *defaults
-    executor: node_lts
+    executor: node_lts_12
     steps:
       - restore_repo
       - run_test
-
+  test_node_lts_10:
+    <<: *defaults
+    executor: node_lts_10
+    steps:
+      - restore_repo
+      - run_test
   test_e2e:
     <<: *defaults
     executor: node_latest_browser
@@ -103,6 +110,14 @@ jobs:
       - run:
           name: Test End-to-End
           command: yarn run test:e2e
+  test_e2e_cli:
+    <<: *defaults
+    executor: node_latest
+    steps:
+      - restore_repo
+      - run:
+          name: Test End-to-End ClI
+          command: yarn run test:e2e:cli
 
   coverage:
     <<: *defaults
@@ -127,15 +142,30 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node_lts:
+      - test_node_lts_12:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      - test_node_lts_10:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
       - test_e2e:
           requires:
             - prepare
+            - test_node_latest
+            - test_node_lts_10
+            - test_node_lts_12
+          <<: *ignore_non_dev_branches
+      - test_e2e_cli:
+          requires:
+            - prepare
+            - test_node_latest
+            - test_node_lts_10
+            - test_node_lts_12
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
-            - test_node_latest
+            - test_e2e
+            - test_e2e_cli
           <<: *ignore_non_dev_branches

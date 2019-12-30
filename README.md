@@ -43,7 +43,7 @@ npm install --global verdaccio
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
 
-**[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *$1/month*.
+**[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *$1/month* or just one single contribution.
 
 
 ## What does Verdaccio do for me?
@@ -71,6 +71,11 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 Verdaccio has proved to be a lightweight registry that can be
 booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in dedicated article to E2E in our blog.
 
+## Talks
+
+Do not miss our talk (Introduction to Verdaccio) with [@priscilawebdev](https://twitter.com/priscilawebdev) and [@jotadeveloper](https://twitter.com/jotadeveloper) on stage.
+
+[![viennajs-meetup](https://cdn.verdaccio.dev/readme/youtube_meetup_viennajs.png?source=readme)](https://www.youtube.com/watch?v=hDIFKzmoCaA)
 
 ## Get Started
 
@@ -198,14 +203,16 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+67k ⭐️)*
-* [Storybook](https://github.com/storybooks/storybook) *(+37k ⭐️)*
-* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+34k ⭐️)* 
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
+* [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+40k ⭐️)* 
+* [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
 * [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)* 
-* [Uppy](https://github.com/transloadit/uppy) *(+19k ⭐️)*
-* [Aurelia Framework](https://github.com/aurelia) *(+11k ⭐️)*
-* [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
-* [pnpm](https://github.com/pnpm/pnpm) *(+5k ⭐️)*
+* [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
+* [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
+* [bit](https://github.com/teambit/bit) *(+9k ⭐️)*
+* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+6k ⭐️)*
 * [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*

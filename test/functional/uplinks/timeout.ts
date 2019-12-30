@@ -7,7 +7,7 @@ export default function (server, server2, server3) {
 
   describe('uplink connection timeouts', () => {
 
-    //more info: https://github.com/verdaccio/verdaccio/pull/1331
+    // more info: https://github.com/verdaccio/verdaccio/pull/1331
 
     jest.setTimeout(20000);
     beforeAll(async () => {

@@ -86,7 +86,7 @@ describe('endpoint web unit test', () => {
           });
       });
 
-      //FIXME: disabled, we need to inspect why fails randomly
+      // FIXME: disabled, we need to inspect why fails randomly
       test.skip('should display scoped readme 404', (done) => {
         request(app)
           .get('/-/verdaccio/package/readme/@scope/404')
@@ -183,7 +183,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/search/forbidden-place')
           .expect(HTTP_STATUS.OK)
           .end(function(err, res) {
-            //this is expected since we are not logged
+            // this is expected since we are not logged
             // and  forbidden-place is allow_access: 'nobody'
             expect(res.body).toHaveLength(0);
             done();

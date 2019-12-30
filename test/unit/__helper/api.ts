@@ -114,9 +114,9 @@ export function addUser(request: any, user: string, credentials: any,
 }
 
 export async function getNewToken(request: any, credentials: any): Promise<string> {
+  /* eslint no-async-promise-executor: 0 */
   return new Promise(async (resolve) => {
-    const [err, res] = await
-    addUser(request, credentials.name, credentials);
+    const [err, res] = await addUser(request, credentials.name, credentials);
     expect(err).toBeNull();
     const {token, ok} = res.body;
     expect(ok).toBeDefined();

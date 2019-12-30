@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/verdaccio/verdaccio/compare/v4.3.5...v4.4.0) (2019-12-15)
+
+
+### Bug Fixes
+
+* search api will not set magic date header when return array ([#1598](https://github.com/verdaccio/verdaccio/issues/1598)) ([158de3f](https://github.com/verdaccio/verdaccio/commit/158de3f))
+
+
+### Features
+
+* bumb up docker to node 12 ([#1622](https://github.com/verdaccio/verdaccio/issues/1622)) ([287ed3f](https://github.com/verdaccio/verdaccio/commit/287ed3f))
+* update @verdaccio/ui-theme@0.3.9 ([#1623](https://github.com/verdaccio/verdaccio/issues/1623)) ([1b4a5dc](https://github.com/verdaccio/verdaccio/commit/1b4a5dc))
+
+### [4.3.5](https://github.com/verdaccio/verdaccio/compare/v4.3.4...v4.3.5) (2019-11-21)
+
+
+### Bug Fixes
+
+* changed the exit code for info flag ([#1537](https://github.com/verdaccio/verdaccio/issues/1537)) ([cbea2ed](https://github.com/verdaccio/verdaccio/commit/cbea2ed))
+* package.json to reduce vulnerabilities ([#1552](https://github.com/verdaccio/verdaccio/issues/1552)) ([cd8228b](https://github.com/verdaccio/verdaccio/commit/cd8228b))
+* package.json to reduce vulnerabilities ([#1577](https://github.com/verdaccio/verdaccio/issues/1577)) ([e459881](https://github.com/verdaccio/verdaccio/commit/e459881))
+* package.json to reduce vulnerabilities ([#1583](https://github.com/verdaccio/verdaccio/issues/1583)) ([2f3ba93](https://github.com/verdaccio/verdaccio/commit/2f3ba93))
+
+### [4.3.4](https://github.com/verdaccio/verdaccio/compare/v4.3.3...v4.3.4) (2019-10-23)
+
+
+### Bug Fixes
+
+* minor grammatical tweak ([#1513](https://github.com/verdaccio/verdaccio/issues/1513)) ([35f816b](https://github.com/verdaccio/verdaccio/commit/35f816b))
+* minor typos, formatting, and docs ([#1512](https://github.com/verdaccio/verdaccio/issues/1512)) ([549f474](https://github.com/verdaccio/verdaccio/commit/549f474))
+* security vulnerability at readme in dompurify dep ([#1532](https://github.com/verdaccio/verdaccio/issues/1532)) ([2ac7770](https://github.com/verdaccio/verdaccio/commit/2ac7770))
+
 ### [4.3.3](https://github.com/verdaccio/verdaccio/compare/v4.3.2...v4.3.3) (2019-10-03)
 
 

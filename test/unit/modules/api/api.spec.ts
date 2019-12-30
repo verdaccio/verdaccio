@@ -258,7 +258,8 @@ describe('endpoint unit test', () => {
             }
 
             expect(res.body.error).toBeDefined();
-            //FIXME: message is not 100% accurate
+            // FIXME: message is not 100% accurate
+            /* eslint new-cap: 0 */
             expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
             done();
           });
@@ -596,7 +597,7 @@ describe('endpoint unit test', () => {
           .del('/-/package/jquery/dist-tags/verdaccio-tag')
           .set('accept-encoding', HEADERS.JSON)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          //.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
           .end(function(err, res) {
             if (err) {
@@ -620,14 +621,14 @@ describe('endpoint unit test', () => {
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
           // .set('accept-encoding', HEADERS.JSON)
           // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          //.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
             }
-            //TODO: we have to catch the stream check whether it returns something
+            // TODO: we have to catch the stream check whether it returns something
             // we should not spend much time on this api since is deprecated somehow.
             done();
           });

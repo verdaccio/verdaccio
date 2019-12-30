@@ -26,7 +26,7 @@ describe('Notifications:: Notify', () => {
     jest.clearAllMocks();
   });
 
-  //FUTURE: we should add some sort of health check of all props, (not implemented yet)
+  // FUTURE: we should add some sort of health check of all props, (not implemented yet)
 
   test("should not fails if config is not provided", async () => {
     // @ts-ignore

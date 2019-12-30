@@ -1,0 +1,15 @@
+{
+  "name": "@e2e-verdaccio/basic",
+  "version": "1.0.0",
+  "description": "this is a scoped basic project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["verdaccio", "sample", "scoped"],
+  "dependencies": {
+    "verdaccio": "latest"
+  },
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT"
+}
