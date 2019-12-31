@@ -9,7 +9,25 @@ import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { Token, TokenFilter, Package, Config, IUploadTarball, IReadTarball, MergeTags, Version, DistFile, Callback, Logger, IPluginStorage, IPackageStorage, Author } from '@verdaccio/types';
+import {
+  Token,
+  TokenFilter,
+  Package,
+  Config,
+  IUploadTarball,
+  IReadTarball,
+  MergeTags,
+  Version,
+  DistFile,
+  Callback,
+  Logger,
+  IPluginStorage,
+  IPackageStorage,
+  Author,
+  CallbackAction,
+  onSearchPackage,
+  onEndSearchPackage, StorageUpdateCallback,
+} from '@verdaccio/types';
 import { IStorage, StringValue } from '../../types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
@@ -192,7 +210,7 @@ class LocalStorage implements IStorage {
    * @param {*} tag
    * @param {*} callback
    */
-  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void {
+  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: CallbackAction): void {
     this._updatePackage(
       name,
       (data, cb: Callback): void => {
@@ -259,7 +277,7 @@ class LocalStorage implements IStorage {
    * @param {*} tags
    * @param {*} callback
    */
-  public mergeTags(pkgName: string, tags: MergeTags, callback: Callback): void {
+  public mergeTags(pkgName: string, tags: MergeTags, callback: CallbackAction): void {
     this._updatePackage(
       pkgName,
       (data, cb): void => {
@@ -277,7 +295,7 @@ class LocalStorage implements IStorage {
           const version: string = tags[tag];
           tagVersion(data, version, tag);
         }
-        cb();
+        cb(null);
       },
       callback
     );
@@ -319,13 +337,14 @@ class LocalStorage implements IStorage {
     this.logger.debug({name}, `changePackage udapting package for @{name}`);
     this._updatePackage(
       name,
-      (localData, cb): void => {
+      (localData: Package, cb: CallbackAction): void => {
         for (const version in localData.versions) {
           if (_.isNil(incomingPkg.versions[version])) {
             this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
 
+            // FIXME: I prefer return a new object rather mutate the metadata
             delete localData.versions[version];
-            delete localData.time[version];
+            delete localData.time![version];
 
             for (const file in localData._attachments) {
               if (localData._attachments[file].version === version) {
@@ -337,7 +356,7 @@ class LocalStorage implements IStorage {
 
         localData[USERS] = incomingPkg[USERS];
         localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
-        cb();
+        cb(null);
       },
       function(err): void {
         if (err) {
@@ -354,7 +373,7 @@ class LocalStorage implements IStorage {
    * @param {*} revision
    * @param {*} callback
    */
-  public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
+  public removeTarball(name: string, filename: string, revision: string, callback: CallbackAction): void {
     assert(validateName(filename));
 
     this._updatePackage(
@@ -362,7 +381,7 @@ class LocalStorage implements IStorage {
       (data, cb): void => {
         if (data._attachments[filename]) {
           delete data._attachments[filename];
-          cb();
+          cb(null);
         } else {
           cb(this._getFileNotAvailable());
         }
@@ -456,7 +475,7 @@ class LocalStorage implements IStorage {
           data._attachments[filename] = {
             shasum: shaOneHash.digest('hex'),
           };
-          cb();
+          cb(null);
         },
         function(err): void {
           if (err) {
@@ -583,21 +602,24 @@ class LocalStorage implements IStorage {
     const stream = new ReadTarball({ objectMode: true });
 
     this._searchEachPackage(
-      (item, cb): void => {
+      (item: Package, cb: CallbackAction): void => {
+        // @ts-ignore
         if (item.time > parseInt(startKey, 10)) {
           this.getPackageMetadata(item.name, (err: VerdaccioError, data: Package): void => {
             if (err) {
               return cb(err);
             }
+
+            // @ts-ignore
             const time = new Date(item.time).toISOString();
             const result = prepareSearchPackage(data, time);
             if (_.isNil(result) === false) {
               stream.push(result);
             }
-            cb();
+            cb(null);
           });
         } else {
-          cb();
+          cb(null);
         }
       },
       function onEnd(err): void {
@@ -645,7 +667,7 @@ class LocalStorage implements IStorage {
    * @param {*} onPackage
    * @param {*} onEnd
    */
-  private _searchEachPackage(onPackage: Callback, onEnd: Callback): void {
+  private _searchEachPackage(onPackage: onSearchPackage, onEnd: onEndSearchPackage): void {
     // save wait whether plugin still do not support search functionality
     if (_.isNil(this.storagePlugin.search)) {
       this.logger.warn('plugin search not implemented yet');
@@ -705,7 +727,7 @@ class LocalStorage implements IStorage {
    * @param {*} callback callback that gets invoked after it's all updated
    * @return {Function}
    */
-  private _updatePackage(name: string, updateHandler: Callback, callback: Callback): void {
+  private _updatePackage(name: string, updateHandler: StorageUpdateCallback, callback: CallbackAction): void {
     const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (!storage) {
