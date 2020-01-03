@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.1](https://github.com/verdaccio/verdaccio/compare/v4.4.0...v4.4.1) (2020-01-03)
+
+
+### Bug Fixes
+
+* prevent issue with leading hyphen in package name - fixes [#1429](https://github.com/verdaccio/verdaccio/issues/1429) ([#1636](https://github.com/verdaccio/verdaccio/issues/1636)) ([f89bf27](https://github.com/verdaccio/verdaccio/commit/f89bf27f5a8704bbaa48024ad7b5a4647a2d5813))
+* warning due ui dependecy ([#1638](https://github.com/verdaccio/verdaccio/issues/1638)) ([fbc87fc](https://github.com/verdaccio/verdaccio/commit/fbc87fc26e7d2bcbe3410500eb08f6cee4d74120))
+
 ## [4.4.0](https://github.com/verdaccio/verdaccio/compare/v4.3.5...v4.4.0) (2019-12-15)
 
 
