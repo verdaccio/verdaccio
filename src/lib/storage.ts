@@ -207,6 +207,7 @@ class Storage implements IStorageHandler {
       for (const uplinkId in self.uplinks) {
         if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
           uplink = self.uplinks[uplinkId];
+          break;
         }
       }
 
