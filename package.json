@@ -52,7 +52,7 @@
     "pkginfo": "0.4.1",
     "request": "2.87.0",
     "semver": "7.1.1",
-    "verdaccio-audit": "^8.5.0",
+    "verdaccio-audit": "^9.0.0",
     "verdaccio-htpasswd": "^8.5.0"
   },
   "devDependencies": {

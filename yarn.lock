@@ -8767,10 +8767,10 @@ verdaccio-audit@8.1.4:
     express "4.17.1"
     request "2.88.0"
 
-verdaccio-audit@^8.5.0:
-  version "8.5.2"
-  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-8.5.2.tgz#9431635419e227cfb08b7389ca87c012de7fc70f"
-  integrity sha512-eFRNiWrr6tkEFlyg+H1KLiu/MlocZP0h870mf/HH6mBCy1X33oIfVhvdA0ZSq72ksI9yu8rqHdfOh2ZpQM0fDA==
+verdaccio-audit@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-9.0.0.tgz#faac5dd42a60c0c107f987045864948c5f4a1105"
+  integrity sha512-JdaPyIL8OkW1rglc+GzpzXesLbXZY4kltU9LSO0hNRIhjtzOfsBFwVMSyXsDMS1miqUzEByw5pTSeRdHPlKC1g==
   dependencies:
     express "4.17.1"
     request "2.88.0"
