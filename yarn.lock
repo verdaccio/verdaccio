@@ -1817,18 +1817,18 @@
     http-errors "1.7.3"
     http-status-codes "1.3.2"
 
-"@verdaccio/commons-api@^8.4.2":
-  version "8.4.2"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-8.4.2.tgz#1b6243c5a35d7947590f3b7e51ce04cbfb70d4c6"
-  integrity sha512-h7ThJLEOXrJ0NwxqTGbbLJbq7bS4qWXHYCEBvonfz8194lpB46cGzZKPZIzrAP5THO7nZdlIHLLkoRCZOFT0Kg==
+"@verdaccio/commons-api@^8.4.2", "@verdaccio/commons-api@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-8.5.0.tgz#4e774c4982caee20f4f2fd0d38b863502ad30db2"
+  integrity sha512-1+82Jph7UHSii3+uQc936IHLytyCIOfF3lbQSh/cGBCFJTWi6/1bJ7d/BB0O/zzPaHRQkfGr+JH2MOSMs4UiGQ==
   dependencies:
     http-errors "1.7.3"
     http-status-codes "1.4.0"
 
-"@verdaccio/commons-api@^8.5.0":
-  version "8.5.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-8.5.0.tgz#4e774c4982caee20f4f2fd0d38b863502ad30db2"
-  integrity sha512-1+82Jph7UHSii3+uQc936IHLytyCIOfF3lbQSh/cGBCFJTWi6/1bJ7d/BB0O/zzPaHRQkfGr+JH2MOSMs4UiGQ==
+"@verdaccio/commons-api@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-9.0.0.tgz#d13d73e3d784fb2292965015176bd7f870583cb1"
+  integrity sha512-rX4ABMh80dXyWRo8gEppiyA04siVAGzmhCG+vvVu7fGN6hn3XU1pR4xYeKWMDq4ofWpyI777uMftcYzbZc9AtA==
   dependencies:
     http-errors "1.7.3"
     http-status-codes "1.4.0"
@@ -1919,15 +1919,15 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.2.0.tgz#3135945bd8445b2af27ea888eb9989071df9afa9"
   integrity sha512-gwMHKVoJMWuI6dMxrekiv1gcNEpll/K6uj4juOjTwhp6IULUDbza7T6FHj3I5p5zxREEkiNGnCWmZki0437qEQ==
 
-"@verdaccio/streams@^8.4.2":
-  version "8.4.2"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.4.2.tgz#5941c549118fce94ff00a7c516b810d2d0af97d0"
-  integrity sha512-dh155sB5eg8l8uOAG2ewuaDu/mAGv6/Ymz6p/5bWBQRSF5XT1U8MrY7sw+QAohN3wm6pUYqdFtvTIAQ7QOLL7Q==
-
-"@verdaccio/streams@^8.5.2":
+"@verdaccio/streams@^8.4.2", "@verdaccio/streams@^8.5.2":
   version "8.5.2"
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-8.5.2.tgz#d6f366f94b905bb945bcdfa1572fde8e09f53d7a"
   integrity sha512-Rbw+vm/KHgy5OQB+jSxxIXYvVFmG/fuFmBeH7F4fp2r5h7w1TP/mlQZI7PVlPPhLZtM6Xdrzf6H+NRCwRncwIg==
+
+"@verdaccio/streams@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-9.0.0.tgz#42e48471b2acbfe6fe1264ba3230ef3545d8261e"
+  integrity sha512-lmzIuxkG4fnJzhqiDm45OmizVPm73soKSlbswSKe4hlYsHXJVdpcY4m3/bYPFDMZYi7Bd5M3yqzhLrCn2Hh82w==
 
 "@verdaccio/types@^9.0.0":
   version "9.0.0"
@@ -8804,13 +8804,13 @@ verdaccio-htpasswd@^8.5.0:
     http-errors "1.7.3"
     unix-crypt-td-js "1.1.4"
 
-verdaccio-memory@^8.5.0:
-  version "8.5.2"
-  resolved "https://registry.verdaccio.org/verdaccio-memory/-/verdaccio-memory-8.5.2.tgz#ea8ff1aac236667fe406a7d28c3d252bcb4b09cb"
-  integrity sha512-PZXOFq2t4IxpnJLnAvQ8NMBt/uSt7PrbujOiAjS4DvdCATbzdry2NAy0hD8ciQl3zmvC9u3VGNb3kwCrAP6ViQ==
+verdaccio-memory@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.verdaccio.org/verdaccio-memory/-/verdaccio-memory-9.0.0.tgz#e08ed97529b6c41555a668094945be1101558a5b"
+  integrity sha512-pHY/gwl0C8DEhaX8VC3rDXWhP4Lx9IBHxaE8vGAya6TpjUpTsBlTGON0l9+I39ErH7AA5vWFgNArGXcfHk1Exg==
   dependencies:
-    "@verdaccio/commons-api" "^8.5.0"
-    "@verdaccio/streams" "^8.5.2"
+    "@verdaccio/commons-api" "^9.0.0"
+    "@verdaccio/streams" "^9.0.0"
     http-errors "1.7.3"
     memory-fs "0.5.0"
 

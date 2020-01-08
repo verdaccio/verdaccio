@@ -95,7 +95,7 @@
     "typescript": "3.7.1-rc",
     "verdaccio": "^4.4.0",
     "verdaccio-auth-memory": "^8.5.0",
-    "verdaccio-memory": "^8.5.0"
+    "verdaccio-memory": "^9.0.0"
   },
   "keywords": [
     "private",
