@@ -1856,14 +1856,7 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/file-locking@^8.4.2":
-  version "8.4.2"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-8.4.2.tgz#007b15a4f131d9e6bd482c8e631e03b4df9fe647"
-  integrity sha512-XsniyZl2YzbDGf7wsemM97RG/sqtX4/3dfy2quwULKd5WnNtSbX/ewm8EJyL8Ajsfx3y3xtzX9+jj6+7TBGE8g==
-  dependencies:
-    lockfile "1.0.4"
-
-"@verdaccio/file-locking@^8.5.2":
+"@verdaccio/file-locking@^8.4.2", "@verdaccio/file-locking@^8.5.2":
   version "8.5.2"
   resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-8.5.2.tgz#ca7ca11b4b5866b29da9b17c4a6ef5409d9250eb"
   integrity sha512-fRtoUgCe8tAa9XU/uSnRVCn3vSt6cLrqwpxdLWtJyS4MFil9OqozcACk9dGxyEF4jbCVdBd9Q6q7dM6Astzlzw==
@@ -8793,10 +8786,10 @@ verdaccio-htpasswd@8.2.0:
     http-errors "1.7.3"
     unix-crypt-td-js "1.0.0"
 
-verdaccio-htpasswd@^8.5.0:
-  version "8.5.2"
-  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-8.5.2.tgz#8850f4df4c3211fa36419974480fd2a7c89cb7fe"
-  integrity sha512-3MIGCaJY6KgcBJ5LVsw2xHHOqKHdcY6SlpHcROu8b2lhlJ37+TUtVo0LceltvptCJcAiNZ5nxrMEc4wj2RJa4A==
+verdaccio-htpasswd@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-9.0.0.tgz#81c37a9f57ba927e5d3948412e5fa9a3d87abf4b"
+  integrity sha512-wRMQifXOnj1PdLvID6crRikGnbc0ea6cGS52sLZ8ngLKrU6bq0bqrZ3LKKPMcu7gNEvwizYF66GAd0CT8MPCZQ==
   dependencies:
     "@verdaccio/file-locking" "1.0.0"
     apache-md5 "1.1.2"
