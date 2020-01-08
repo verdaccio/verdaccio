@@ -68,7 +68,7 @@
     "@types/mime": "2.0.1",
     "@types/minimatch": "3.0.3",
     "@types/node": "12.12.21",
-    "@types/request": "2.48.3",
+    "@types/request": "2.48.4",
     "@types/semver": "6.2.0",
     "@typescript-eslint/eslint-plugin": "2.12.0",
     "@verdaccio/babel-preset": "^8.5.0",
