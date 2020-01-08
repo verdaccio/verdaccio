@@ -56,7 +56,7 @@
     "verdaccio-htpasswd": "^8.5.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.2.0",
+    "@commitlint/cli": "8.3.4",
     "@commitlint/config-conventional": "8.2.0",
     "@octokit/rest": "16.28.9",
     "@types/async": "3.0.3",
