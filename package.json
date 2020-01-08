@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
-    "@commitlint/config-conventional": "8.2.0",
+    "@commitlint/config-conventional": "8.3.4",
     "@octokit/rest": "16.28.9",
     "@types/async": "3.0.3",
     "@types/bunyan": "1.8.6",
