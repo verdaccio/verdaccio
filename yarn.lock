@@ -1905,10 +1905,10 @@
     jsdom "15.2.1"
     marked "0.7.0"
 
-"@verdaccio/readme@^8.5.0":
-  version "8.5.2"
-  resolved "https://registry.verdaccio.org/@verdaccio%2freadme/-/readme-8.5.2.tgz#f66878e282fa4f977d1b3d9359496dff3ec53870"
-  integrity sha512-KsNcvpvdpTatoNtoqEPdAxTna1om0EvEH9+u2zr5Ii/ZG9atx6lYPG7H41yTEuOuxbf1eOOYSQaMssdeS4BUXw==
+"@verdaccio/readme@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2freadme/-/readme-9.0.0.tgz#de720582c66a4eac6f6c7fe98da48e5f01c6a2ed"
+  integrity sha512-dGUmuMlxt2yytBMAR7pyt1Swn4fg/maMRwun5P7GDQwj7ys11jlEJkMA0wvowacJ26/f1LuNgwwYx+OpoDQGmA==
   dependencies:
     dompurify "2.0.7"
     jsdom "15.2.1"
