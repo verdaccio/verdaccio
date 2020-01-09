@@ -212,7 +212,10 @@ describe('Utilities', () => {
       });
 
       test('should create a base url for registry', () => {
+        expect(combineBaseUrl("http", 'domain', '')).toEqual('http://domain');
+        expect(combineBaseUrl("http", 'domain', '/')).toEqual('http://domain');
         expect(combineBaseUrl("http", 'domain', '/prefix/')).toEqual('http://domain/prefix');
+        expect(combineBaseUrl("http", 'domain', '/prefix/deep')).toEqual('http://domain/prefix/deep');
         expect(combineBaseUrl("http", 'domain', 'only-prefix')).toEqual('only-prefix');
       });
 

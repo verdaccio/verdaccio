@@ -141,12 +141,19 @@ export function validateMetadata(object: Package, name: string): Package {
  * @return {String} base registry url
  */
 export function combineBaseUrl(protocol: string, host: string | void, prefix?: string | void): string {
-  let result = `${protocol}://${host}`;
+  const result = `${protocol}://${host}`;
 
-  if (prefix) {
-    prefix = prefix.replace(/\/$/, '');
+  const prefixOnlySlash = prefix === '/';
+  if (prefix && !prefixOnlySlash) {
+    if (prefix.endsWith('/')) {
+      prefix = prefix.slice(0, -1);
+    }
 
-    result = prefix.indexOf('/') === 0 ? `${result}${prefix}` : prefix;
+    if (prefix.startsWith('/')) {
+      return `${result}${prefix}`;
+    }
+
+    return prefix;
   }
 
   return result;
