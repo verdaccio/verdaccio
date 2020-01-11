@@ -205,7 +205,7 @@ class Storage implements IStorageHandler {
       let uplink: any = null;
 
       for (const uplinkId in self.uplinks) {
-        if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
+        if (hasProxyTo(name, uplinkId, self.config.packages)) {
           uplink = self.uplinks[uplinkId];
         }
       }
