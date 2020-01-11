@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.2](https://github.com/verdaccio/verdaccio/compare/v4.4.1...v4.4.2) (2020-01-11)
+
+
+### Bug Fixes
+
+* use hasProxyTo to find correct uplink for tarballs ([#1644](https://github.com/verdaccio/verdaccio/issues/1644)) ([19d9fc2](https://github.com/verdaccio/verdaccio/commit/19d9fc2fa5b228cda379a870642d08d247d8c515)), closes [#1642](https://github.com/verdaccio/verdaccio/issues/1642) [#1642](https://github.com/verdaccio/verdaccio/issues/1642)
+* **deps:** bump @verdaccio/local-storage from 8.5.0 to 9.0.0 ([7b67bea](https://github.com/verdaccio/verdaccio/commit/7b67bea4b8ec5de29ffc04b1f99c9d041c14ac57)), closes [#1663](https://github.com/verdaccio/verdaccio/issues/1663) [#1639](https://github.com/verdaccio/verdaccio/issues/1639)
+* **deps:** bump @verdaccio/ui-theme from 0.3.10 to 0.3.11 ([#1657](https://github.com/verdaccio/verdaccio/issues/1657)) ([9a2fd81](https://github.com/verdaccio/verdaccio/commit/9a2fd8162640a7ef9901a57ccea50649b6ed29bc))
+* **deps:** bump @verdaccio/ui-theme from 0.3.11 to 0.3.12 ([#1657](https://github.com/verdaccio/verdaccio/issues/1657)) ([#1665](https://github.com/verdaccio/verdaccio/issues/1665)) ([aac6709](https://github.com/verdaccio/verdaccio/commit/aac6709ac21cf4b7fd6073ee1c499080d881a910))
+* updated combine url fix method ([#1647](https://github.com/verdaccio/verdaccio/issues/1647)) ([4f43347](https://github.com/verdaccio/verdaccio/commit/4f43347b509446c93f6e6255a863775d35ed7a13))
+
 ### [4.4.1](https://github.com/verdaccio/verdaccio/compare/v4.4.0...v4.4.1) (2020-01-03)
 
 
