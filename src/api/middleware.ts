@@ -163,9 +163,8 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
         res.socket.destroy();
       }
       return;
-    } else {
-      throw err;
     }
+    throw err;
   }
 
   res.send(body);

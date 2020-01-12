@@ -95,10 +95,9 @@ export function validatePackage(name: string): boolean {
   if (nameList.length === 1) {
     // normal package
     return validateName(nameList[0]);
-  } else {
-    // scoped package
-    return nameList[0][0] === '@' && validateName(nameList[0].slice(1)) && validateName(nameList[1]);
   }
+  // scoped package
+  return nameList[0][0] === '@' && validateName(nameList[0].slice(1)) && validateName(nameList[1]);
 }
 
 /**
@@ -413,9 +412,8 @@ export function parseConfigFile(configPath: string): any {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
       return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
-    } else {
-      return require(configPath);
     }
+    return require(configPath);
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       e.message = APP_ERROR.CONFIG_NOT_VALID;

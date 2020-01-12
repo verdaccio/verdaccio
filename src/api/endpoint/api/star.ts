@@ -15,9 +15,8 @@ export default function(storage: IStorageHandler): (req: $RequestExtend, res: Re
       return false;
     } else if (!isStar && !isExistlocalUsers) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   return (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {

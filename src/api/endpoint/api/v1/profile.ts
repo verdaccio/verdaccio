@@ -71,9 +71,8 @@ export default function(route: Router, auth: IAuth): void {
 
           if (isUpdated) {
             return next(buildProfile(req.remote_user.name));
-          } else {
-            return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
           }
+          return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
         }
       );
     } else if (_.isNil(tfa) === false) {

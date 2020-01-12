@@ -582,31 +582,30 @@ class ProxyStorage implements IProxy {
   private _statusCheck(alive?: boolean): boolean | void {
     if (arguments.length === 0) {
       return this._ifRequestFailure() === false;
-    } else {
-      if (alive) {
-        if (this.failed_requests >= this.max_fails) {
-          this.logger.warn(
-            {
-              host: this.url.host,
-            },
-            'host @{host} is back online'
-          );
-        }
-        this.failed_requests = 0;
-      } else {
-        this.failed_requests++;
-        if (this.failed_requests === this.max_fails) {
-          this.logger.warn(
-            {
-              host: this.url.host,
-            },
-            'host @{host} is now offline'
-          );
-        }
-      }
-
-      this.last_request_time = Date.now();
     }
+    if (alive) {
+      if (this.failed_requests >= this.max_fails) {
+        this.logger.warn(
+          {
+            host: this.url.host,
+          },
+          'host @{host} is back online'
+        );
+      }
+      this.failed_requests = 0;
+    } else {
+      this.failed_requests++;
+      if (this.failed_requests === this.max_fails) {
+        this.logger.warn(
+          {
+            host: this.url.host,
+          },
+          'host @{host} is now offline'
+        );
+      }
+    }
+
+    this.last_request_time = Date.now();
   }
 
   /**

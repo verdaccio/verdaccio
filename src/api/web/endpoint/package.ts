@@ -36,9 +36,8 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
             (err, allowed): void => {
               if (err) {
                 resolve(false);
-              } else {
-                resolve(allowed);
               }
+              resolve(allowed);
             }
           );
         } catch (err) {
