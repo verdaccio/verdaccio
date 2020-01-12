@@ -30,9 +30,8 @@ export function printMessage(type, msg, templateObjects, hasColors) {
   const sub = subsystems[hasColors ? 0 : 1][templateObjects.sub] || subsystems[+!hasColors].default;
   if (hasColors) {
     return ` ${levels[type](pad(type, LEVEL_VALUE_MAX))}${white(`${sub} ${finalMessage}`)}`;
-  } else {
-    return ` ${pad(type, LEVEL_VALUE_MAX)}${sub} ${finalMessage}`;
   }
+  return ` ${pad(type, LEVEL_VALUE_MAX)}${sub} ${finalMessage}`;
 }
 
 export function fillInMsgTemplate(msg, obj: unknown, colors): string {
@@ -61,11 +60,9 @@ export function fillInMsgTemplate(msg, obj: unknown, colors): string {
         return str;
       } else if (is_error) {
         return red(str);
-      } else {
-        return green(str);
       }
-    } else {
-      return inspect(str, undefined, null, colors);
+      return green(str);
     }
+    return inspect(str, undefined, null, colors);
   });
 }

@@ -27,14 +27,10 @@ encodeURIComponent(
  * Generate gravatar url from email address
  */
 export function generateGravatarUrl(email: string | void = '', online: boolean = true): string {
-  if (online) {
-    if (_.isString(email) && _.size(email) > 0) {
-      email = email.trim().toLocaleLowerCase();
-      const emailMD5 = stringToMD5(email);
-      return `https://www.gravatar.com/avatar/${emailMD5}`;
-    }
-    return GENERIC_AVATAR;
-  } else {
-    return GENERIC_AVATAR;
+  if (online && _.isString(email) && _.size(email) > 0) {
+    email = email.trim().toLocaleLowerCase();
+    const emailMD5 = stringToMD5(email);
+    return `https://www.gravatar.com/avatar/${emailMD5}`;
   }
+  return GENERIC_AVATAR;
 }

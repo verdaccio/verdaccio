@@ -68,10 +68,9 @@ export function notify(metadata: Package, config: Config, remoteUser: RemoteUser
   if (config.notify) {
     if (config.notify.content) {
       return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
-    } else {
-      // multiple notifications endpoints PR #108
-      return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));
     }
+    // multiple notifications endpoints PR #108
+    return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));
   }
 
   return Promise.resolve();

@@ -42,9 +42,8 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 				logger.error({ error: error.msg }, 'token list has failed: @{error}');
 				return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
 			}
-		} else {
-			return next(ErrorCode.getUnauthorized());
 		}
+		return next(ErrorCode.getUnauthorized());
 	});
 
 	route.post('/-/npm/v1/tokens', function(req: $RequestExtend, res: Response, next: $NextFunctionVer) {
@@ -59,47 +58,47 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 			if (err) {
 				const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
 				return next(ErrorCode.getCode(errorCode, err.message));
-			} else {
-				req.remote_user = user;
+			}
 
-				if (!_.isFunction(storage.saveToken)) {
-					return next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
-				}
+			req.remote_user = user;
 
-				try {
-					const token = await getApiToken(auth, config, user, password);
-					const key = stringToMD5(token);
-					// TODO: use a utility here
-					const maskedToken = mask(token, 5);
-					const created = new Date().getTime();
+			if (!_.isFunction(storage.saveToken)) {
+				return next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
+			}
 
-					/**
-					 * cidr_whitelist: is not being used, we pass it through
-					 * token: we do not store the real token (it is generated once and retrieved to the user), just a mask of it.
-					 */
-					const saveToken: Token = {
-						user: name,
-						token: maskedToken,
-						key,
-						cidr: cidr_whitelist,
-						readonly,
-						created,
-					};
+			try {
+				const token = await getApiToken(auth, config, user, password);
+				const key = stringToMD5(token);
+				// TODO: use a utility here
+				const maskedToken = mask(token, 5);
+				const created = new Date().getTime();
 
-					await storage.saveToken(saveToken);
-					logger.debug({ key, name }, 'token @{key} was created for user @{name}');
-					return next(normalizeToken({
-						token,
-						user: name,
-						key: saveToken.key,
-						cidr: cidr_whitelist,
-						readonly,
-						created: saveToken.created,
-					}));
-				} catch (error) {
-					logger.error({ error: error.msg }, 'token creation has failed: @{error}');
-					return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
-				}
+				/**
+				 * cidr_whitelist: is not being used, we pass it through
+				 * token: we do not store the real token (it is generated once and retrieved to the user), just a mask of it.
+				 */
+				const saveToken: Token = {
+					user: name,
+					token: maskedToken,
+					key,
+					cidr: cidr_whitelist,
+					readonly,
+					created,
+				};
+
+				await storage.saveToken(saveToken);
+				logger.debug({ key, name }, 'token @{key} was created for user @{name}');
+				return next(normalizeToken({
+					token,
+					user: name,
+					key: saveToken.key,
+					cidr: cidr_whitelist,
+					readonly,
+					created: saveToken.created,
+				}));
+			} catch (error) {
+				logger.error({ error: error.msg }, 'token creation has failed: @{error}');
+				return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
 			}
 		});
 	});
@@ -118,8 +117,7 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 				logger.error({ error: error.msg }, 'token creation has failed: @{error}');
 				return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
 			}
-		} else {
-			return next(ErrorCode.getUnauthorized());
 		}
+		return next(ErrorCode.getUnauthorized());
 	});
 }

@@ -553,9 +553,8 @@ class Storage implements IStorageHandler {
 
           if (uplinkTimeoutError) {
             return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
-          } else {
-            return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
           }
+          return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
         }
 
         if (upLinks.length === 0) {

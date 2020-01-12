@@ -73,9 +73,8 @@ function updateStorageLinks(configLocation, defaultConfig): string {
   if (folderExists(dataDir)) {
     dataDir = Path.resolve(Path.join(dataDir, pkgJSON.name, 'storage'));
     return defaultConfig.replace(/^storage: .\/storage$/m, `storage: ${dataDir}`);
-  } else {
-    return defaultConfig;
   }
+  return defaultConfig;
 }
 
 function getConfigPaths(): SetupDirectory[] {
