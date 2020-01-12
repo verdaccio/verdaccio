@@ -86,9 +86,8 @@ class LocalStorage implements IStorage {
       if (_.isNil(err) === false) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
-        } else {
-          return callback(err);
         }
+        return callback(err);
       }
 
       data = normalizePackage(data);
@@ -653,9 +652,8 @@ class LocalStorage implements IStorage {
       if (err) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
-        } else {
-          return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
         }
+        return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
       }
 
       callback(err, normalizePackage(result));
@@ -820,9 +818,8 @@ class LocalStorage implements IStorage {
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       return new LocalDatabase(this.config, logger);
-    } else {
-      return Storage as IPluginStorage<Config>;
     }
+    return Storage as IPluginStorage<Config>;
   }
 
   private _loadStorePlugin(): IPluginStorage<Config> | void {

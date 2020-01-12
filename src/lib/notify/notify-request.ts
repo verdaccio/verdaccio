@@ -11,14 +11,13 @@ export function notifyRequest(options: RequiredUriUrl, content): Promise<any | E
           const errorMessage = isNil(err) ? response.body : err.message;
           logger.error({ errorMessage }, 'notify service has thrown an error: @{errorMessage}');
           reject(errorMessage);
-        } else {
-          logger.info({ content }, 'A notification has been shipped: @{content}');
-          if (isNil(body) === false) {
-            logger.debug({ body }, ' body: @{body}');
-            resolve(body);
-          }
-          reject(Error('body is missing'));
         }
+        logger.info({ content }, 'A notification has been shipped: @{content}');
+        if (isNil(body) === false) {
+          logger.debug({ body }, ' body: @{body}');
+          resolve(body);
+        }
+        reject(Error('body is missing'));
       });
     }
   );
