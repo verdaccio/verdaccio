@@ -205,8 +205,8 @@ class Auth implements IAuth {
     })();
   }
 
-  public allow_unpublish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
-    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
+  public allow_unpublish({ packageName, packageVersion, tag }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
+    const pkg = Object.assign({ name: packageName, version: packageVersion, tag }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName }, 'allow unpublish for @{packageName}');
 
     for (const plugin of this.plugins) {
@@ -243,10 +243,10 @@ class Auth implements IAuth {
   /**
    * Allow user to publish a package.
    */
-  public allow_publish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
+  public allow_publish({ packageName, packageVersion, tag }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const plugins = this.plugins.slice(0);
     const self = this;
-    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkg = Object.assign({ name: packageName, version: packageVersion, tag }, getMatchedPackagesSpec(packageName, this.config.packages));
     this.logger.trace({ packageName, plugins: this.plugins.length }, 'allow publish for @{packageName} init | plugins: @{plugins}');
 
     (function next(): void {
