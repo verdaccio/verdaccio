@@ -62,12 +62,21 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
   });
 
   route.get('/:scopedPackage/-/:scope/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend): void {
-    const { scopedPackage, filename } = req.params;
-
-    downloadStream(scopedPackage, filename, storage, req, res);
+    const { scopedPackage, scope, filename } = req.params;
+    if (config.scoped_tarball_url_redirect) {
+      const context = { scopedPackage, scope, filename };
+      res.redirect(_.template(config.scoped_tarball_url_redirect)(context));
+    } else {
+      downloadStream(scopedPackage, filename, storage, req, res);
+    }
   });
 
   route.get('/:package/-/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend): void {
-    downloadStream(req.params.package, req.params.filename, storage, req, res);
+    if (config.tarball_url_redirect) {
+      const context = { package: req.params.package, filename: req.params.filename };
+      res.redirect(_.template(config.tarball_url_redirect)(context));
+    } else {
+      downloadStream(req.params.package, req.params.filename, storage, req, res);
+    }
   });
 }
