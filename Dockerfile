@@ -39,7 +39,7 @@ RUN apk --no-cache add openssl dumb-init
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 COPY --from=builder /opt/verdaccio-build .
-RUN ls $VERDACCIO_APPDIR/packages/config/build/conf
+
 ADD packages/config/build/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
