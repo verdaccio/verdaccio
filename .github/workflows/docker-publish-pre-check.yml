@@ -1,6 +1,6 @@
 name: Docker & Publish Pre-check
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   testDocker:

@@ -14,10 +14,10 @@ COPY . .
 
 RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn install --production=false && \
-    yarn build
-    ## yarn lint && \
-    ## yarn cache clean && \
-    ## yarn install --production=true
+    yarn build && \
+    yarn lint && \
+    yarn cache clean && \
+    yarn install --production=true
 
 FROM node:12.14.1-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
@@ -38,8 +38,8 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 COPY --from=builder /opt/verdaccio-build .
 
-RUN ls packages/config/build/conf
-ADD packages/config/build/conf/docker.yaml /verdaccio/conf/config.yaml
+RUN ls packages/config/src/conf
+ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
