@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/dev-types",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "private": true,
   "description": "types for verdaccio local dev",
   "main": "./index.ts",

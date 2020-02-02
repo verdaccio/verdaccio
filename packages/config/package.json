@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -23,7 +23,7 @@
     "build": "npm run build:js && npm run build:types"
   },
   "dependencies": {
-    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5"
+    "@verdaccio/utils": "5.0.0-alpha.0"
   },
   "devDependencies": {
     "@types/bunyan": "1.8.6"

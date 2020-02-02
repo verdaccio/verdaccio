@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "description": "A lightweight private npm proxy registry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -37,7 +37,7 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/cli": "^4.4.3-alpha.22+7c246ede5"
+    "@verdaccio/cli": "5.0.0-alpha.0"
   },
   "keywords": [
     "private",

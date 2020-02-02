@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "description": "verdaccio utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -15,7 +15,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/readme": "9.3.0",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "3.0.3",
-    "@verdaccio/dev-types": "^4.4.3-alpha.22+7c246ede5"
+    "@verdaccio/dev-types": "5.0.0-alpha.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

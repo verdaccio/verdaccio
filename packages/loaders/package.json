@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/loaders",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -13,8 +13,8 @@
     "url": "git://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

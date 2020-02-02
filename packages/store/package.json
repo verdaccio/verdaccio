@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -24,13 +24,13 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "^9.0.0",
-    "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/loaders": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
+    "@verdaccio/loaders": "5.0.0-alpha.0",
     "@verdaccio/local-storage": "^9.0.0",
-    "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/proxy": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/proxy": "5.0.0-alpha.0",
     "@verdaccio/streams": "^9.3.0",
-    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/utils": "5.0.0-alpha.0",
     "async": "3.1.1",
     "lodash": "^4.17.15",
     "semver": "^7.1.2"

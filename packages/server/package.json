@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/server",
-  "version": "4.4.3-alpha.22+7c246ede5",
+  "version": "5.0.0-alpha.0",
   "description": "verdaccio server logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -15,27 +15,27 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/api": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/auth": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/config": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/loaders": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/middleware": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/store": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/web": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/api": "5.0.0-alpha.0",
+    "@verdaccio/auth": "5.0.0-alpha.0",
+    "@verdaccio/config": "5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
+    "@verdaccio/loaders": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/middleware": "5.0.0-alpha.0",
+    "@verdaccio/store": "5.0.0-alpha.0",
+    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/web": "5.0.0-alpha.0",
     "compression": "^1.7.4",
     "cors": "2.8.5",
-    "lodash": "^4.17.15",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/mock": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/dev-types": "5.0.0-alpha.0",
+    "@verdaccio/mock": "5.0.0-alpha.0",
+    "http-errors": "^1.7.3",
     "request": "2.87.0",
-    "verdaccio": "~4.4.0",
-    "http-errors": "^1.7.3"
+    "verdaccio": "~4.4.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
