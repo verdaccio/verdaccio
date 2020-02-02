@@ -26,7 +26,7 @@
     "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
     "@verdaccio/local-storage": "^9.0.0",
     "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/streams": "^8.5.0",
+    "@verdaccio/streams": "^9.3.0",
     "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
     "JSONStream": "1.3.5",
     "request": "2.87.0"

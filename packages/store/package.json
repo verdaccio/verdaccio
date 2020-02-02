@@ -23,16 +23,16 @@
     "build": "npm run build:js && npm run build:types"
   },
   "dependencies": {
-    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/commons-api": "^9.0.0",
     "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
     "@verdaccio/loaders": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/proxy": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
     "@verdaccio/local-storage": "^9.0.0",
+    "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/proxy": "^4.4.3-alpha.22+7c246ede5",
     "@verdaccio/streams": "^9.3.0",
-    "@verdaccio/commons-api": "^9.0.0",
+    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
+    "async": "3.1.1",
     "lodash": "^4.17.15",
-    "async": "3.1.0",
     "semver": "^7.1.2"
   },
   "devDependencies": {

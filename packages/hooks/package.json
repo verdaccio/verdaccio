@@ -15,7 +15,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/commons-api": "^8.5.0",
+    "@verdaccio/commons-api": "^9.0.0",
     "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
     "handlebars": "^4.5.3",
     "request": "2.87.0"

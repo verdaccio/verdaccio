@@ -16,11 +16,11 @@
   "homepage": "https://verdaccio.org",
   "dependencies": {
     "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
-    "@verdaccio/readme": "8.2.0",
+    "@verdaccio/readme": "9.3.0",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
     "minimatch": "3.0.4",
-    "semver": "6.3.0"
+    "semver": "7.1.2"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.3",

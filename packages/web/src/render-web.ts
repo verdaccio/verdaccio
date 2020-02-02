@@ -39,7 +39,7 @@ const sendFileCallback = next => err => {
   }
 };
 
-export function renderWebMiddleware(config, auth, storage) {
+export function renderWebMiddleware(config, auth, storage): any {
   SearchInstance.configureStorage(storage);
   /* eslint new-cap:off */
   const router = express.Router();
