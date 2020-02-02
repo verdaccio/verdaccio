@@ -1,0 +1,29 @@
+{
+  "name": "@verdaccio/web",
+  "version": "4.4.3-alpha.22+7c246ede5",
+  "description": "web ui middleware",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "express": "^4.17.1",
+    "@verdaccio/store": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/loaders": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/middleware": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
+    "body-parser": "^1.19.0"
+  },
+  "devDependencies": {
+    "@verdaccio/dev-types": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/types": "^9.3.0"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "npm run build:js && npm run build:types"
+  },
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+}

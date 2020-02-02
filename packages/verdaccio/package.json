@@ -1,0 +1,64 @@
+{
+  "name": "verdaccio",
+  "version": "4.4.3-alpha.22+7c246ede5",
+  "description": "A lightweight private npm proxy registry",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "bin": {
+    "verdaccio": "./bin/verdaccio"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "files": [
+    "bin",
+    "build"
+  ],
+  "scripts": {
+    "clean": "rimraf ./build",
+    "lint": "eslint . --ext .js,.ts",
+    "test": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "npm run build:js && npm run build:types",
+    "code:build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
+    "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
+  },
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "dependencies": {
+    "@verdaccio/cli": "^4.4.3-alpha.22+7c246ede5"
+  },
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "preferGlobal": true,
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio",
+    "logo": "https://opencollective.com/verdaccio/logo.txt"
+  },
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+}

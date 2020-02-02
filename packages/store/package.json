@@ -1,0 +1,42 @@
+{
+  "name": "@verdaccio/store",
+  "version": "4.4.3-alpha.22+7c246ede5",
+  "description": "loaders logic",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "npm run build:js && npm run build:types"
+  },
+  "dependencies": {
+    "@verdaccio/utils": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/dev-commons": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/loaders": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/proxy": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/logger": "^4.4.3-alpha.22+7c246ede5",
+    "@verdaccio/local-storage": "^9.0.0",
+    "@verdaccio/streams": "^9.3.0",
+    "@verdaccio/commons-api": "^9.0.0",
+    "lodash": "^4.17.15",
+    "async": "3.1.0",
+    "semver": "^7.1.2"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "^9.3.0"
+  },
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+}
