@@ -67,7 +67,7 @@
     "build": "lerna run build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "release": "lerna version --conventional-commits",
-    "version:canary": "lerna version --conventional-commits --conventional-prerelease --no-commit-hooks --exact --no-changelog --no-push --yes --preid alpha",
+    "version:canary": "lerna version --conventional-commits --conventional-prerelease --no-commit-hooks --exact --no-changelog --yes --preid alpha",
     "publish:canary": "lerna publish from-package --canary --yes --no-git-reset --no-git-tag-version --no-push --force-publish --concurrency 1",
     "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
     "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next  --registry http://localhost:4873",
