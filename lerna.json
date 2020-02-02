@@ -1,0 +1,14 @@
+{
+  "version": "4.3.5-next.1",
+  "packages": [
+    "packages/*"
+  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "stream": true,
+  "command": {
+    "publish": {
+      "message": "chore: publish release %s"
+    }
+  }
+}

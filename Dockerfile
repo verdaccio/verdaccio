@@ -15,7 +15,7 @@ COPY . .
 RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn install --production=false && \
     yarn lint && \
-    yarn code:docker-build && \
+    yarn build && \
     yarn cache clean && \
     yarn install --production=true
 
@@ -40,7 +40,7 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 COPY --from=builder /opt/verdaccio-build .
 
-ADD conf/docker.yaml /verdaccio/conf/config.yaml
+ADD $VERDACCIO_APPDIR/src/packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/bin $VERDACCIO_APPDIR/docker-bin && \
@@ -55,4 +55,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD $VERDACCIO_APPDIR/src/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT

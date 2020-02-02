@@ -1,0 +1,4 @@
+{
+  "presets": [["@verdaccio"]],
+  "debug": true
+}
