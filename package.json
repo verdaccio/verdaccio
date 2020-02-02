@@ -65,6 +65,7 @@
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",
     "clean": "lerna run clean",
     "build": "lerna run build",
+    "docker": "docker build -t verdaccio/verdaccio:local .",
     "release": "lerna version --conventional-commits",
     "publish:canary": "lerna publish --canary --yes --no-git-reset --no-git-tag-version --no-push --force-publish --concurrency 1",
     "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
