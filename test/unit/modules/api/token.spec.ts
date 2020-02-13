@@ -239,13 +239,13 @@ describe('endpoint unit test', () => {
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, t))
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.UNAUTHORIZED)
-          .end(function(err, res) {
+          .end(function(err, res1) {
             if (err) {
               return done(err);
             }
 
-            expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/no credentials provided/);
+            expect(res1.body.error).toBeDefined();
+            expect(res1.body.error).toMatch(/no credentials provided/);
             done();
           });
       });

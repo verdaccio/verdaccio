@@ -36,4 +36,4 @@ export async function isTokenRevoked(name: string, tokenKey: string, storage: IS
   }
 
   return blacklisted;
-};
+}
