@@ -20,6 +20,8 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "7.8.3",
+    "@types/lru-cache": "5.1.0",
     "@verdaccio/commons-api": "^8.5.0",
     "@verdaccio/local-storage": "^9.0.0",
     "@verdaccio/readme": "^8.5.0",
@@ -43,6 +45,7 @@
     "kleur": "3.0.3",
     "lockfile-lint": "2.0.1",
     "lodash": "4.17.15",
+    "lru-cache": "5.1.1",
     "lunr-mutable-indexes": "2.3.2",
     "marked": "0.8.0",
     "mime": "2.4.4",

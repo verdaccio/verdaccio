@@ -21,7 +21,7 @@ import { getMatchedPackagesSpec } from './config-utils';
 
 import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
 import { NextFunction } from 'express';
-import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '../../types';
+import { $RequestExtend, $ResponseExtend, IAuth, AESPayload, IStorageHandler } from '../../types';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('./logger');
@@ -30,13 +30,15 @@ class Auth implements IAuth {
   public config: Config;
   public logger: Logger;
   public secret: string;
+  public storage: IStorageHandler | undefined;
   public plugins: IPluginAuth<Config>[];
 
-  public constructor(config: Config) {
+  public constructor(config: Config, storage?: IStorageHandler) {
     this.config = config;
     this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
     this.plugins = this._loadPlugin(config);
+    this.storage = storage;
     this._applyDefaultPlugins();
   }
 
@@ -333,7 +335,7 @@ class Auth implements IAuth {
     };
   }
 
-  private _handleJWTAPIMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): void {
+  private async _handleJWTAPIMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): Promise<void> {
     const { scheme, token } = parseAuthTokenHeader(authorization);
     if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
       // this should happen when client tries to login with an existing user
@@ -354,7 +356,7 @@ class Auth implements IAuth {
       );
     } else {
       // jwt handler
-      const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+      const credentials: any = await getMiddlewareCredentials(security, secret, authorization, this.storage);
       if (credentials) {
         // if the signature is valid we rely on it
         req.remote_user = credentials;
@@ -366,8 +368,8 @@ class Auth implements IAuth {
     }
   }
 
-  private _handleAESMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): void {
-    const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+  private async _handleAESMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): Promise<void> {
+    const credentials: any = await getMiddlewareCredentials(security, secret, authorization);
     if (credentials) {
       const { user, password } = credentials;
       this.authenticate(
@@ -397,7 +399,7 @@ class Auth implements IAuth {
    * JWT middleware for WebUI
    */
   public webUIJWTmiddleware(): Function {
-    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
+    return async (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): Promise<void> => {
       if (this._isRemoteUserMissing(req.remote_user)) {
         return _next();
       }
@@ -429,7 +431,7 @@ class Auth implements IAuth {
 
       let credentials;
       try {
-        credentials = verifyJWTPayload(token, this.config.secret);
+        credentials = await verifyJWTPayload(token, this.config.secret, this.storage);
       } catch (err) {
         // FIXME: intended behaviour, do we want it?
       }
@@ -446,7 +448,7 @@ class Auth implements IAuth {
     };
   }
 
-  public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
+  public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions&{jwtid?:boolean}): Promise<string> {
     const { real_groups, name, groups } = user;
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);

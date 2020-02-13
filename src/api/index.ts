@@ -19,7 +19,7 @@ import { setup, logger } from '../lib/logger';
 import { log, final, errorReportingMiddleware } from './middleware';
 
 const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
-  const auth: IAuth = new Auth(config);
+  const auth: IAuth = new Auth(config, storage);
   const app: Application = express();
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway

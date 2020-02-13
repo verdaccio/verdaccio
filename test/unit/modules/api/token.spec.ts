@@ -153,9 +153,9 @@ describe('endpoint unit test', () => {
         cidr_whitelist: []
       });
 
-      const t = res[1].body.token;
+      const tokenKey = res[1].body.key;
 
-      await deleteTokenCLI(app, token, t);
+      await deleteTokenCLI(app, token, tokenKey);
 
       request(app)
         .get('/-/npm/v1/tokens')
@@ -221,6 +221,35 @@ describe('endpoint unit test', () => {
           done(e);
         }
       });
+
+      test('should fail if authenticating with a deleted token', async (done) => {
+        const res = await generateTokenCLI(app, token, {
+          password: credentials.password,
+          readonly: false,
+          cidr_whitelist: []
+        });
+  
+        const tokenKey = res[1].body.key;
+        const t = res[1].body.token;
+  
+        await deleteTokenCLI(app, token, tokenKey);
+
+        request(app)
+          .get('/-/npm/v1/tokens')
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, t))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.UNAUTHORIZED)
+          .end(function(err, res) {
+            if (err) {
+              return done(err);
+            }
+
+            expect(res.body.error).toBeDefined();
+            expect(res.body.error).toMatch(/no credentials provided/);
+            done();
+          });
+      });
+      
     });
   });
 });

@@ -1,13 +1,12 @@
 import _ from 'lodash';
 import { HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import {ErrorCode, mask} from '../../../../lib/utils';
-import { getApiToken } from '../../../../lib/auth-utils';
-import { stringToMD5 } from '../../../../lib/crypto-utils';
+import { getApiToken, getTokenKey } from '../../../../lib/auth-utils';
 import { logger } from '../../../../lib/logger';
 
 import { Response, Router } from 'express';
 import {$NextFunctionVer, $RequestExtend, IAuth, IStorageHandler} from '../../../../../types';
-import { Config, RemoteUser, Token } from '@verdaccio/types';
+import { Config, RemoteUser, Token, JWTSignOptions } from '@verdaccio/types';
 
 export type NormalizeToken = Token & {
 	created: string;
@@ -66,9 +65,14 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
 				return next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
 			}
 
+			// if JWT tokens are used enable the jwtid so we can revoke them
+			if (config.security?.api?.jwt?.sign) {
+				(config.security.api.jwt.sign as JWTSignOptions&{jwtid?:boolean}).jwtid = true;
+			}
+
 			try {
 				const token = await getApiToken(auth, config, user, password);
-				const key = stringToMD5(token);
+				const key = await getTokenKey(auth, token);
 				// TODO: use a utility here
 				const maskedToken = mask(token, 5);
 				const created = new Date().getTime();

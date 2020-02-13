@@ -1,3 +1,4 @@
 {
-  "presets": [["@verdaccio"]]
+  "presets": [["@verdaccio"]],
+  "plugins": ["@babel/plugin-proposal-optional-chaining"]
 }

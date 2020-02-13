@@ -3,8 +3,9 @@ import { convertPayloadToBase64, ErrorCode } from './utils';
 import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 
 import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
-import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
-import { aesDecrypt, verifyPayload } from './crypto-utils';
+import { CookieSessionToken, IAuthWebUI, IAuth, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload, IStorageHandler } from '../../types';
+import { aesDecrypt, verifyPayload, stringToMD5 } from './crypto-utils';
+import { isTokenRevoked } from "./token-blacklist";
 
 import { logger } from '../lib/logger';
 
@@ -169,6 +170,19 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
 
 }
 
+export async function getTokenKey(auth: IAuth, token: string): Promise<string> {
+  let key: string = "";
+  try {
+    // jwt token
+    const payload = (await verifyPayload(token, auth.secret, { ignoreNotBefore: true})) as RemoteUser&{jti?: string}
+    if (payload?.jti) key = payload.jti
+  } catch(err) {
+    // legacy token
+    if (key === "") key = stringToMD5(token);    
+  }
+  return key;
+}
+
 export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHeader {
   const parts = authorizationHeader.split(' ');
   const [scheme, token] = parts;
@@ -204,12 +218,20 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
   }
 }
 
-export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError'];
+export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError', 'TokenRevokedError'];
 
-export function verifyJWTPayload(token: string, secret: string): RemoteUser {
+export async function verifyJWTPayload(token: string, secret: string, storage?: IStorageHandler): Promise<RemoteUser> {
   try {
-    const payload: RemoteUser = verifyPayload(token, secret);
-
+    const payload: RemoteUser&{jti?:string} = verifyPayload(token, secret);
+    // check for revoked tokens
+    if (storage && payload?.jti && payload?.name) {
+      const revoked = await isTokenRevoked(payload.name, payload.jti, storage);
+      if (revoked) {
+        const err = new Error("The JWT token is revoked by the user");
+        err.name = "TokenRevokedError";
+        throw err;
+      }
+    }
     return payload;
   } catch (error) {
     // #168 this check should be removed as soon AES encrypt is removed.
@@ -227,7 +249,7 @@ export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function getMiddlewareCredentials(security: Security, secret: string, authorizationHeader: string): AuthMiddlewarePayload {
+export async function getMiddlewareCredentials(security: Security, secret: string, authorizationHeader: string, storage?: IStorageHandler): Promise<AuthMiddlewarePayload> {
   if (isAESLegacy(security)) {
     const credentials = parseAESCredentials(authorizationHeader, secret);
     if (!credentials) {
@@ -244,6 +266,6 @@ export function getMiddlewareCredentials(security: Security, secret: string, aut
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    return verifyJWTPayload(token, secret);
+    return await verifyJWTPayload(token, secret, storage);
   }
 }
