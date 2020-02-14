@@ -36,7 +36,7 @@
     "dayjs": "1.8.19",
     "envinfo": "7.5.0",
     "express": "4.17.1",
-    "handlebars": "4.5.3",
+    "handlebars": "4.7.2",
     "http-errors": "1.7.3",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
