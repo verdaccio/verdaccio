@@ -3275,6 +3275,11 @@ dayjs@1.8.17:
   resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.17.tgz#53ec413f2a7b02afbea1846d61bb260fa8567cea"
   integrity sha512-47VY/htqYqr9GHd7HW/h56PpQzRBSJcxIQFwqL3P20bMF/3az5c3PWdVY3LmPXFl6cQCYHL7c79b9ov+2bOBbw==
 
+dayjs@1.8.19:
+  version "1.8.19"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.19.tgz#5117dc390d8f8e586d53891dbff3fa308f51abfe"
+  integrity sha512-7kqOoj3oQSmqbvtvGFLU5iYqies+SqUiEGNT0UtUPPxcPYgY1BrkXR0Cq2R9HYSimBXN+xHkEN4Hi399W+Ovlg==
+
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.verdaccio.org/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -5955,6 +5960,14 @@ lockfile-lint-api@^2.0.0:
     "@yarnpkg/lockfile" "^1.1.0"
     debug "^4.1.0"
 
+lockfile-lint-api@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/lockfile-lint-api/-/lockfile-lint-api-2.3.0.tgz#c200de37f07bee35eca2a52a8e560f013c87910c"
+  integrity sha512-4jp8ULItLgsaPgPjxm/nuupIiBbxWf/nA05gRGMtvJQxGoSOOYA1LxSunY5p1b4kw7u6ZW5TZNgcIs4cFvp9lw==
+  dependencies:
+    "@yarnpkg/lockfile" "^1.1.0"
+    debug "^4.1.0"
+
 lockfile-lint@2.0.1:
   version "2.0.1"
   resolved "https://registry.verdaccio.org/lockfile-lint/-/lockfile-lint-2.0.1.tgz#b2ccd71530f2861a433cfec3b9deb18b01a2c5e0"
@@ -5962,6 +5975,15 @@ lockfile-lint@2.0.1:
   dependencies:
     debug "^4.1.0"
     lockfile-lint-api "^2.0.0"
+    yargs "^13.2.4"
+
+lockfile-lint@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/lockfile-lint/-/lockfile-lint-2.2.0.tgz#24fc4ee8a62a7491c3aecb0e7ca7ef705719cb58"
+  integrity sha512-3RMEInA86I/NNp4ZYnh9UDme736Iym0JE++CdfqXt5VjqRK+LnnaE0v+swqpgDO+FVF/AsjpdocipN6qefEpsQ==
+  dependencies:
+    debug "^4.1.0"
+    lockfile-lint-api "^2.3.0"
     yargs "^13.2.4"
 
 lockfile@1.0.4:
