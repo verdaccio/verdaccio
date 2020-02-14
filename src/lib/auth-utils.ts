@@ -148,7 +148,7 @@ export function isAESLegacy(security: Security): boolean {
   return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
 }
 
-export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string): Promise<string> {
+export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string, options: {userGeneratedToken?: boolean} = {}): Promise<string> {
   const security: Security = getSecurity(config);
 
   if (isAESLegacy(security)) {
@@ -158,7 +158,7 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
     });
   }
   // i am wiling to use here _.isNil but flow does not like it yet.
-  const { jwt } = security.api;
+  const { jwt } = (options.userGeneratedToken && security.user) ? security.user : security.api;
 
   if (jwt && jwt.sign) {
     return await auth.jwtEncrypt(remoteUser, jwt.sign);

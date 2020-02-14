@@ -1,0 +1,6 @@
+security:
+  user:
+    jwt:
+      sign:
+        expiresIn: 7d
+        notBefore: 0

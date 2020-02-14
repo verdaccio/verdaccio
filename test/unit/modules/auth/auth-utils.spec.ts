@@ -44,7 +44,8 @@ describe('Auth utilities', () => {
     password: string,
     secret = '12345',
     methodToSpy: string,
-    methodNotBeenCalled: string): Promise<string> {
+    methodNotBeenCalled: string,
+    options?:{userGeneratedToken: boolean}): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
     const auth: IAuth = new Auth(config);
     // @ts-ignore
@@ -56,7 +57,7 @@ describe('Auth utilities', () => {
       real_groups: [],
       groups: []
     };
-    const token = await getApiToken(auth, config, user, password);
+    const token = await getApiToken(auth, config, user, password, options);
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spyNotCalled).not.toHaveBeenCalled();
@@ -124,6 +125,14 @@ describe('Auth utilities', () => {
     test('should sign token with jwt enabled', async () => {
       const token = await signCredentials('security-jwt',
         'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
+
+      expect(_.isString(token)).toBeTruthy();
+      verifyJWT(token, 'test', 'test', 'secret');
+    });
+
+    test('should sign token with jwt enabled for user generated token', async () => {
+      const token = await signCredentials('security-jwt-user-enabled',
+        'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt', {userGeneratedToken: true});
 
       expect(_.isString(token)).toBeTruthy();
       verifyJWT(token, 'test', 'test', 'secret');
