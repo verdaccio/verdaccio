@@ -130,6 +130,32 @@ class Storage implements IStorageHandler {
     return this.localStorage.addTarball(name, filename);
   }
 
+  public hasLocalTarball(name: string, filename: string): Promise<boolean> {
+    const self = this;
+    return new Promise<boolean>((resolve, reject): void => {
+      let localStream: any = self.localStorage.getTarball(name, filename);
+      let isOpen = false;
+      localStream.on(
+        'error',
+        (err): any => {
+          if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
+            reject(err);
+          }
+          // local reported 404
+          localStream.abort();
+          localStream = null;
+          resolve(false);
+        }
+      );
+      localStream.on('open', function(): void {
+        isOpen = true;
+        localStream.abort();
+        localStream = null;
+        resolve(true);
+      });
+    });
+  }
+
   /**
    Get a tarball from a storage for {name} package
    Function is synchronous and returns a ReadableStream

@@ -935,7 +935,7 @@ describe('endpoint unit test', () => {
           logs: [
             { type: 'stdout', format: 'pretty', level: 'warn' }
           ],
-          tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${package}/${filename}'
+          tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
         }, 'api.spec.yaml');
 
         app2 = await endPointAPI(configForTest);

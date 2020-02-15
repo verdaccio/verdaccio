@@ -21,6 +21,23 @@ const downloadStream = (packageName: string, filename: string, storage: any, req
   stream.pipe(res);
 };
 
+const downloadStreamOrRedirect = (packageName: string, filename: string, storage: any, req: $RequestExtend, res: $ResponseExtend, config: Config): void => {
+  if (config.tarball_url_redirect) {
+    storage.hasLocalTarball(packageName, filename).then(hasLocalTarball => {
+      if (hasLocalTarball) {
+        const context = { packageName, filename };
+        res.redirect(_.template(config.tarball_url_redirect)(context));
+      } else {
+        downloadStream(packageName, filename, storage, req, res)
+      }
+    }).catch(err => {
+      res.report_error(err);
+    });
+  } else {
+    downloadStream(packageName, filename, storage, req, res)
+  }
+}
+
 export default function(route: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
   const can = allow(auth);
   // TODO: anonymous user?
@@ -62,21 +79,11 @@ export default function(route: Router, auth: IAuth, storage: IStorageHandler, co
   });
 
   route.get('/:scopedPackage/-/:scope/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend): void {
-    const { scopedPackage, scope, filename } = req.params;
-    if (config.scoped_tarball_url_redirect) {
-      const context = { scopedPackage, scope, filename };
-      res.redirect(_.template(config.scoped_tarball_url_redirect)(context));
-    } else {
-      downloadStream(scopedPackage, filename, storage, req, res);
-    }
+    const { scopedPackage, filename } = req.params;
+    downloadStreamOrRedirect(scopedPackage, filename, storage, req, res, config);
   });
 
   route.get('/:package/-/:filename', can('access'), function(req: $RequestExtend, res: $ResponseExtend): void {
-    if (config.tarball_url_redirect) {
-      const context = { package: req.params.package, filename: req.params.filename };
-      res.redirect(_.template(config.tarball_url_redirect)(context));
-    } else {
-      downloadStream(req.params.package, req.params.filename, storage, req, res);
-    }
+    downloadStreamOrRedirect(req.params.package, req.params.filename, storage, req, res, config);
   });
 }
