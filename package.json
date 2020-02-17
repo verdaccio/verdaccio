@@ -20,7 +20,6 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "7.8.3",
     "@types/lru-cache": "5.1.0",
     "@verdaccio/commons-api": "^8.5.0",
     "@verdaccio/local-storage": "^9.0.0",
