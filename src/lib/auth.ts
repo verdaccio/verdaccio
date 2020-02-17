@@ -399,7 +399,7 @@ class Auth implements IAuth {
    * JWT middleware for WebUI
    */
   public webUIJWTmiddleware(): Function {
-    return async (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): Promise<void> => {
+    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       if (this._isRemoteUserMissing(req.remote_user)) {
         return _next();
       }
@@ -429,22 +429,15 @@ class Auth implements IAuth {
         return next();
       }
 
-      let credentials;
-      try {
-        credentials = await verifyJWTPayload(token, this.config.secret, this.storage);
-      } catch (err) {
-        // FIXME: intended behaviour, do we want it?
-      }
-
-      if (credentials) {
-        const { name, groups } = credentials;
-        // $FlowFixMe
-        req.remote_user = createRemoteUser(name, groups);
-      } else {
-        req.remote_user = createAnonymousRemoteUser();
-      }
-
-      next();
+      verifyJWTPayload(token, this.config.secret, this.storage)
+        .then((credentials) =>{
+          const { name, groups } = credentials;
+          req.remote_user = createRemoteUser(name, groups);
+        }).catch(() => {
+          req.remote_user = createAnonymousRemoteUser();
+        }).finally(() => {
+          next();
+        });
     };
   }
 
