@@ -20,7 +20,6 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@types/lru-cache": "5.1.0",
     "@verdaccio/commons-api": "^8.5.0",
     "@verdaccio/local-storage": "^9.0.0",
     "@verdaccio/readme": "^8.5.0",
@@ -68,6 +67,7 @@
     "@types/http-errors": "1.6.3",
     "@types/jest": "24.0.25",
     "@types/lodash": "4.14.149",
+    "@types/lru-cache": "5.1.0",
     "@types/mime": "2.0.1",
     "@types/minimatch": "3.0.3",
     "@types/node": "12.12.21",
