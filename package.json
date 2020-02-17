@@ -54,6 +54,7 @@
     "pkginfo": "0.4.1",
     "request": "2.87.0",
     "semver": "7.1.1",
+    "uuid": "3.4.0",
     "verdaccio-audit": "^8.5.0",
     "verdaccio-htpasswd": "^8.5.0"
   },
@@ -70,6 +71,7 @@
     "@types/mime": "2.0.1",
     "@types/minimatch": "3.0.3",
     "@types/node": "12.12.21",
+    "@types/uuid": "3.4.7",
     "@types/request": "2.48.3",
     "@types/semver": "6.2.0",
     "@typescript-eslint/eslint-plugin": "2.12.0",
