@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.3](https://github.com/verdaccio/verdaccio/compare/v4.4.2...v4.4.3) (2020-02-19)
+
+
+### Bug Fixes
+
+* update @verdaccio/ui-theme@0.3.13 ([#1710](https://github.com/verdaccio/verdaccio/issues/1710)) ([d94f838](https://github.com/verdaccio/verdaccio/commit/d94f838cd9731b8d97f637bd4aceb6abe159d5fa))
+* upgrade async from 3.1.0 to 3.1.1 ([#1708](https://github.com/verdaccio/verdaccio/issues/1708)) ([a32e431](https://github.com/verdaccio/verdaccio/commit/a32e4318136f3704f1ec572d5343d60b9df14063))
+* upgrade dayjs from 1.8.17 to 1.8.19 ([#1700](https://github.com/verdaccio/verdaccio/issues/1700)) ([5320b13](https://github.com/verdaccio/verdaccio/commit/5320b13473eef583877e59b63d925b513f31a3a5))
+* upgrade handlebars from 4.5.3 to 4.7.2 ([#1699](https://github.com/verdaccio/verdaccio/issues/1699)) ([8c2e58b](https://github.com/verdaccio/verdaccio/commit/8c2e58b6af3c04716431e6d98c6442d39d3373e3))
+* upgrade lockfile-lint from 2.0.1 to 2.2.0 ([#1698](https://github.com/verdaccio/verdaccio/issues/1698)) ([17ddf3e](https://github.com/verdaccio/verdaccio/commit/17ddf3e6266f4821e2b9c379766d56b67f10e6be))
+* use https to resolve mixed content errors ([#1674](https://github.com/verdaccio/verdaccio/issues/1674)) ([fd6c649](https://github.com/verdaccio/verdaccio/commit/fd6c6497fa66a523fac744f214fcea86b653171c))
+
 ### [4.4.2](https://github.com/verdaccio/verdaccio/compare/v4.4.1...v4.4.2) (2020-01-11)
 
 
