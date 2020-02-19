@@ -107,7 +107,13 @@ export function allow(auth: IAuth): Function {
       const tag = req.body['dist-tags'] ? Object.keys(req.body['dist-tags']).pop() : req.body['dist-tags'];
       logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
 
-      auth['allow_' + action]({ packageName, packageVersion, tag }, remote, function(error, allowed): void {
+      let packageAccess = { packageName, packageVersion};
+
+      if (tag) {
+        packageAccess = Object.assign({}, packageAccess, { tag });
+      }
+
+      auth['allow_' + action](packageAccess, remote, function(error, allowed): void {
         req.resume();
         if (error) {
           next(error);
