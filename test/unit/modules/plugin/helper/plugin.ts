@@ -18,3 +18,10 @@ export const authPluginPassThrougConf = config({
     [`${path.join(__dirname, '../../../partials/plugin/authenticate.passthroug')}`]: { }
   }
 });
+
+export const authPluginAllow = config({
+  auth: {
+    [`${path.join(__dirname, '../../../partials/plugin/authenticate.disallow-pkg')}`]: { }
+  }
+});
+
