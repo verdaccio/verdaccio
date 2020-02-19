@@ -78,7 +78,7 @@ describe('AuthTest', () => {
 
         auth.allow_publish(pkg, user, callback);
 
-        // auth plugin was able to disallow on package name, version and tag
+        // auth plugin was able to allow on package name, version and tag
         expect(callback).toHaveBeenCalledWith(null, true);
       });
 
@@ -124,7 +124,7 @@ describe('AuthTest', () => {
 
         auth.allow_unpublish(pkg, user, callback);
 
-        // auth plugin was able to disallow on package name, version and tag
+        // auth plugin was able to allow on package name, version and tag
         expect(callback).toHaveBeenCalledWith(null, true);
       });
 
