@@ -21,6 +21,12 @@ export const authPluginPassThrougConf = config({
 
 export const authPluginAllow = config({
   auth: {
+    [`${path.join(__dirname, '../../../partials/plugin/authenticate.allow-pkg')}`]: { }
+  }
+});
+
+export const authPluginDisallow = config({
+  auth: {
     [`${path.join(__dirname, '../../../partials/plugin/authenticate.disallow-pkg')}`]: { }
   }
 });

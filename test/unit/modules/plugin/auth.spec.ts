@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Auth from '../../../../src/lib/auth';
-import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf, authPluginAllow } from './helper/plugin';
+import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf, authPluginAllow, authPluginDisallow } from './helper/plugin';
 import AppConfig from '../../../../src/lib/config';
 import {setup} from '../../../../src/lib/logger';
 
@@ -57,10 +57,33 @@ describe('AuthTest', () => {
       });
     });
 
-    describe('test publish/unpublish from plugins plugins', () => {
+    describe('test publish/unpublish permissions from plugins based on package data', () => {
 
-      test('auth plugin publish can disallow based on package data', () => {
+      test('auth plugin can allow publish based on package data', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginAllow));
+        const auth: IAuth = new Auth(config);
+        const callback = jest.fn();
+
+        const user: RemoteUser = {
+          real_groups: [],
+          groups: [],
+          name: 'allow-user'
+        };
+
+        const pkg: AuthPluginPackage = {
+          packageName: 'allow-package',
+          packageVersion: '2.0.1',
+          tag: 'allow'
+        };
+
+        auth.allow_publish(pkg, user, callback);
+
+        // auth plugin was able to disallow on package name, version and tag
+        expect(callback).toHaveBeenCalledWith(null, true);
+      });
+
+      test('auth plugin can disallow publish based on package data', () => {
+        const config: Config = new AppConfig(_.cloneDeep(authPluginDisallow));
         const auth: IAuth = new Auth(config);
         const callback = jest.fn();
 
@@ -73,7 +96,7 @@ describe('AuthTest', () => {
         const pkg: AuthPluginPackage = {
           packageName: 'disallow-package',
           packageVersion: '2.0.0',
-          tag: 'development'
+          tag: 'disallow'
         };
 
         auth.allow_publish(pkg, user, callback);
@@ -82,8 +105,32 @@ describe('AuthTest', () => {
         expect(callback).toHaveBeenCalledWith(getForbidden(`user ${user.name} is not allowed to publish package ${pkg.packageName}`));
       });
 
-      test('auth plugin unpublish can disallow based on package data', () => {
+      test('auth plugin can allow unpublish based on package data', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginAllow));
+        const auth: IAuth = new Auth(config);
+        const callback = jest.fn();
+
+        const user: RemoteUser = {
+          real_groups: [],
+          groups: [],
+          name: 'allow-user'
+        };
+
+        const pkg: AuthPluginPackage = {
+          packageName: 'allow-package',
+          packageVersion: '2.0.1',
+          tag: 'allow'
+        };
+
+        auth.allow_unpublish(pkg, user, callback);
+
+        // auth plugin was able to disallow on package name, version and tag
+        expect(callback).toHaveBeenCalledWith(null, true);
+      });
+
+
+      test('auth plugin can disallow unpublish based on package data', () => {
+        const config: Config = new AppConfig(_.cloneDeep(authPluginDisallow));
         const auth: IAuth = new Auth(config);
         const callback = jest.fn();
 
@@ -96,7 +143,7 @@ describe('AuthTest', () => {
         const pkg: AuthPluginPackage = {
           packageName: 'disallow-package',
           packageVersion: '2.0.0',
-          tag: 'development'
+          tag: 'disallow'
         };
 
         auth.allow_unpublish(pkg, user, callback);
