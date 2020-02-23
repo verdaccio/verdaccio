@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "^8.5.0",
-    "@verdaccio/local-storage": "^9.0.0",
+    "@verdaccio/local-storage": "^9.3.0",
     "@verdaccio/readme": "^8.5.0",
     "@verdaccio/streams": "^8.5.2",
     "@verdaccio/ui-theme": "^0.3.13",
