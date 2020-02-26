@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.4](https://github.com/verdaccio/verdaccio/compare/v4.4.3...v4.4.4) (2020-02-26)
+
+
+### Bug Fixes
+
+* tarball urls for web/package (fix [#1714](https://github.com/verdaccio/verdaccio/issues/1714)) ([#1716](https://github.com/verdaccio/verdaccio/issues/1716)) ([70a93da](https://github.com/verdaccio/verdaccio/commit/70a93da1fc8f16110874409e5fe20fd00adcf68d))
+* upgrade @verdaccio/local-storage from 9.0.0 to 9.3.0 ([#1717](https://github.com/verdaccio/verdaccio/issues/1717)) ([1f3f8cd](https://github.com/verdaccio/verdaccio/commit/1f3f8cd72c28d869f47f16213940017a5a06d2de))
+* upgrade semver from 7.1.1 to 7.1.2 ([#1719](https://github.com/verdaccio/verdaccio/issues/1719)) ([c3e931e](https://github.com/verdaccio/verdaccio/commit/c3e931efa10f7be581ca2450ebb03f302085fe5b))
+
 ### [4.4.3](https://github.com/verdaccio/verdaccio/compare/v4.4.2...v4.4.3) (2020-02-19)
 
 
