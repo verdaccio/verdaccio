@@ -91,7 +91,6 @@ export default function(route, auth, storage): void {
         resultStream.on('end', ()=>{
             if(!completed)
                 sendResponse()
-            res.end()
         })
     })
 }
