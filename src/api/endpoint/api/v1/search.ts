@@ -37,8 +37,8 @@ export default function(route, auth, storage): void {
             ['text', 'size', 'from', 'quality', 'popularity', 'maintenance']
             .map(k => req.query[k])
         
-        size = size ?? 20;
-        from = from ?? 0;
+        size = parseInt(size) || 20;
+        from = parseInt(from) || 0;
         
         const isInteresting = compileTextSearch(text);
 
