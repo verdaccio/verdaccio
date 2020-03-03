@@ -20,10 +20,14 @@ jobs:
       with:
         node_version: ${{ matrix.node_version }}
     - name: Install
-      run: yarn install --pure-lockfile
-    - name: Build
-      run: yarn code:build
+      run: yarn
+    - name: Bootstrap Lerna
+      run: yarn bootstrap
     - name: Lint
       run: yarn lint
+    - name: Clean
+      run: yarn clean
+    - name: Build
+      run: yarn build
     - name: Test
       run: yarn test
