@@ -10,9 +10,6 @@ executors:
   node_lts_12:
     docker:
       - image: circleci/node:12
-  node_lts_10:
-    docker:
-      - image: circleci/node:10
   default_executor: node_latest
 
 aliases:
@@ -31,7 +28,6 @@ aliases:
       branches:
         ignore:
           - gh-pages
-          - l10n_master
           - /release\/.*/
 
 commands:
@@ -46,9 +42,6 @@ commands:
       - run:
           name: Test
           command: yarn run test
-      - run:
-          name: Functional test
-          command: yarn test:functional
       - store_test_results:
           path: reports/
 
@@ -62,13 +55,19 @@ jobs:
           key: *yarn_cache_key
       - run:
           name: Install dependencies
-          command: yarn install --no-progress --pure-lockfile
+          command: yarn
+      - run:
+          name: Install dependencies
+          command: yarn bootstrap
       - run:
           name: Prepare CI
-          command:  yarn run pre:ci
+          command: yarn lint
+      - run:
+          name: Clean project
+          command: yarn clean
       - run:
           name: Build project
-          command: yarn run code:build
+          command: yarn build
       - save_cache:
           key: *yarn_cache_key
           paths:
@@ -96,28 +95,14 @@ jobs:
     steps:
       - restore_repo
       - run_test
-  test_node_lts_10:
-    <<: *defaults
-    executor: node_lts_10
-    steps:
-      - restore_repo
-      - run_test
-  test_e2e:
-    <<: *defaults
-    executor: node_latest_browser
-    steps:
-      - restore_repo
-      - run:
-          name: Test End-to-End
-          command: yarn run test:e2e
-  test_e2e_cli:
-    <<: *defaults
-    executor: node_latest
-    steps:
-      - restore_repo
-      - run:
-          name: Test End-to-End ClI
-          command: yarn run test:e2e:cli
+#  test_e2e_cli:
+#    <<: *defaults
+#    executor: node_latest
+#    steps:
+#      - restore_repo
+#      - run:
+#          name: Test End-to-End ClI
+#          command: yarn run test:e2e:cli
 
   coverage:
     <<: *defaults
@@ -146,26 +131,13 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node_lts_10:
-          requires:
-            - prepare
-          <<: *ignore_non_dev_branches
-      - test_e2e:
-          requires:
-            - prepare
-            - test_node_latest
-            - test_node_lts_10
-            - test_node_lts_12
-          <<: *ignore_non_dev_branches
-      - test_e2e_cli:
-          requires:
-            - prepare
-            - test_node_latest
-            - test_node_lts_10
-            - test_node_lts_12
-          <<: *ignore_non_dev_branches
-      - coverage:
-          requires:
-            - test_e2e
-            - test_e2e_cli
-          <<: *ignore_non_dev_branches
+#      - test_e2e_cli:
+#          requires:
+#            - prepare
+#            - test_node_latest
+#            - test_node_lts_12
+#          <<: *ignore_non_dev_branches
+#      - coverage:
+#          requires:
+#            - test_e2e_cli
+#          <<: *ignore_non_dev_branches
