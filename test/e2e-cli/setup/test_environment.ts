@@ -3,7 +3,6 @@ import os from 'os';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
 const __global = require('../utils/global');
-// import { npm } from '../utils/process';
 
 
 class E2ECliTestEnvironment extends NodeEnvironment {

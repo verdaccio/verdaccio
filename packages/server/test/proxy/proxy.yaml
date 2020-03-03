@@ -1,0 +1,20 @@
+storage: ./storage
+plugins: ./plugins
+auth:
+  htpasswd:
+    file: ./htpasswd
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 10m
+        notBefore: 0
+packages:
+  '@*/*':
+    access: $authenticated
+    publish: $authenticated
+  '**':
+    access: $authenticated
+    publish: $authenticated
+logs:
+  - { type: stdout, format: pretty, level: warn }
