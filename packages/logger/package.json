@@ -1,0 +1,35 @@
+{
+  "name": "@verdaccio/logger",
+  "version": "5.0.0-alpha.0",
+  "description": "logger",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "npm run build:js && npm run build:types"
+  },
+  "dependencies": {
+    "bunyan": "1.8.12",
+    "dayjs": "1.8.19",
+    "http-errors": "1.7.3",
+    "kleur": "3.0.3"
+  },
+  "devDependencies": {
+    "@types/bunyan": "1.8.6"
+  },
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+}
