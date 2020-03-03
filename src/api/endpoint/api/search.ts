@@ -1,3 +1,5 @@
+import { HEADERS } from "../../../lib/constants";
+
 /**
  * @prettier
  */
@@ -11,6 +13,7 @@ export default function(route, auth, storage): void {
     let firstPackage = true;
 
     res.status(200);
+    res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
 
     /*
      * Offical NPM registry (registry.npmjs.org) no longer return whole database,
