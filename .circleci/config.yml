@@ -1,0 +1,143 @@
+version: 2.1
+
+executors:
+  node_latest_browser:
+    docker:
+      - image: circleci/node:latest-browsers
+  node_latest:
+    docker:
+    - image: circleci/node:13
+  node_lts_12:
+    docker:
+      - image: circleci/node:12
+  default_executor: node_latest
+
+aliases:
+  - &repo_path
+    ~/verdaccio
+  - &defaults
+    working_directory: *repo_path
+  - &yarn_cache_key
+    yarn-sha-{{ checksum "yarn.lock" }}
+  - &coverage_key
+    coverage-{{ .Branch }}-{{ .Revision }}
+  - &ignore_non_dev_branches
+    filters:
+      tags:
+        only: /.*/
+      branches:
+        ignore:
+          - gh-pages
+          - /release\/.*/
+
+commands:
+  restore_repo:
+    description: Restore repository from workspace
+    steps:
+      - attach_workspace:
+          at: *repo_path
+  run_test:
+    description: Run test and functional test
+    steps:
+      - run:
+          name: Test
+          command: yarn run test
+      - store_test_results:
+          path: reports/
+
+jobs:
+  prepare:
+    <<: *defaults
+    executor: default_executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: *yarn_cache_key
+      - run:
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Install dependencies
+          command: yarn bootstrap
+      - run:
+          name: Prepare CI
+          command: yarn lint
+      - run:
+          name: Clean project
+          command: yarn clean
+      - run:
+          name: Build project
+          command: yarn build
+      - save_cache:
+          key: *yarn_cache_key
+          paths:
+            - ~/.yarn
+            - ~/.cache/yarn
+            - node_modules
+      - persist_to_workspace:
+          root: *repo_path
+          paths:
+            - ./*
+
+  test_node_latest:
+    <<: *defaults
+    executor: node_latest
+    steps:
+      - restore_repo
+      - run_test
+      - save_cache:
+          key: *coverage_key
+          paths:
+            - coverage
+  test_node_lts_12:
+    <<: *defaults
+    executor: node_lts_12
+    steps:
+      - restore_repo
+      - run_test
+#  test_e2e_cli:
+#    <<: *defaults
+#    executor: node_latest
+#    steps:
+#      - restore_repo
+#      - run:
+#          name: Test End-to-End ClI
+#          command: yarn run test:e2e:cli
+
+  coverage:
+    <<: *defaults
+    executor: default_executor
+    steps:
+      - restore_repo
+      - restore_cache:
+          key: *coverage_key
+      - run:
+          name: Publish coverage
+          command: yarn run coverage:publish
+      - store_artifacts:
+          path: coverage
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - prepare:
+          <<: *ignore_non_dev_branches
+      - test_node_latest:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      - test_node_lts_12:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+#      - test_e2e_cli:
+#          requires:
+#            - prepare
+#            - test_node_latest
+#            - test_node_lts_12
+#          <<: *ignore_non_dev_branches
+#      - coverage:
+#          requires:
+#            - test_e2e_cli
+#          <<: *ignore_non_dev_branches

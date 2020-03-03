@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+require('@babel/register')({
+    extensions: [".ts", ".js"]
+});
+require('@verdaccio/cli');

@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.3
     - name: Build
-      run: docker build .
+      run: yarn docker
       env:
         VERDACCIO_BUILD_REGISTRY: https://registry.verdaccio.org
 

@@ -1,0 +1,21 @@
+{
+  "name": "@verdaccio/dev-types",
+  "version": "5.0.0-alpha.0",
+  "private": true,
+  "description": "types for verdaccio local dev",
+  "main": "./index.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  }
+}

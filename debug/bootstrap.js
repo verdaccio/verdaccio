@@ -3,4 +3,4 @@
 require('@babel/register')({
 	extensions: [".ts", ".js"]
 });
-require('../src/lib/cli');
+require('../packages/cli/src/index');

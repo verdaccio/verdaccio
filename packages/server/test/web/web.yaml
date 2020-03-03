@@ -1,0 +1,21 @@
+storage: ./storage_default_storage
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+    unpublish: remote
+  'forbidden-place':
+    access: nobody_can_access_this_package
+    publish: $all
+  '*':
+    access: $all
+    publish: $all
+    unpublish: xxx
+    proxy: remote
+logs:
+  - { type: stdout, format: pretty, level: error }
