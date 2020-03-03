@@ -9,21 +9,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [10, 12, 13, 14, 15]
+        node_version: [8, 10, 12, 13]
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2.3.3
+    - uses: actions/checkout@v2.3.1
     - name: Use Node ${{ matrix.node_version }}
-      uses: actions/setup-node@v2.1.5
+      uses: actions/setup-node@v2.1.1
       with:
         node_version: ${{ matrix.node_version }}
     - name: Install
-      run: yarn install --immutable
-    - name: Build
-      run: yarn code:build
+      run: yarn
+    - name: Bootstrap Lerna
+      run: yarn bootstrap
     - name: Lint
       run: yarn lint
+    - name: Clean
+      run: yarn clean
+    - name: Build
+      run: yarn build
     - name: Test
       run: yarn test
