@@ -1,0 +1,13 @@
+storage: ./storage_default_storage
+auth:
+  htpasswd:
+    file: ./htpasswd
+packages:
+  '@*/*':
+    access: $all
+    proxy: remote
+  '**':
+    access: $all
+    proxy: remote
+logs:
+  - { type: stdout, format: pretty, level: warn }

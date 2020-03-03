@@ -1,0 +1,15 @@
+store:
+  memory:
+    limit: 1000
+uplinks:
+  npmjs:
+    url: http://localhost:4873/
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+  '*':
+    access: $all
+    publish: $all
+logs:
+  - { type: stdout, format: pretty, level: warn }
