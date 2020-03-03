@@ -14,12 +14,10 @@ COPY . .
 
 RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
     yarn install --production=false && \
+    yarn build && \
     yarn lint && \
-    yarn code:docker-build && \
     yarn cache clean && \
     yarn install --production=true
-
-
 
 FROM node:12.16.2-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
@@ -40,10 +38,11 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 COPY --from=builder /opt/verdaccio-build .
 
-ADD conf/docker.yaml /verdaccio/conf/config.yaml
+RUN ls packages/config/src/conf
+ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
-    chmod -R +x $VERDACCIO_APPDIR/bin $VERDACCIO_APPDIR/docker-bin && \
+    chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
     chmod -R g=u /verdaccio/storage /etc/passwd
 
@@ -55,4 +54,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
