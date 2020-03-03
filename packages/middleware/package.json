@@ -1,0 +1,35 @@
+{
+  "name": "@verdaccio/middleware",
+  "version": "5.0.0-alpha.0",
+  "description": "loaders logic",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "npm run build:js && npm run build:types"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "^9.0.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/utils": "5.0.0-alpha.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@verdaccio/dev-types": "5.0.0-alpha.0"
+  },
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+}
