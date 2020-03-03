@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
@@ -7,22 +8,21 @@
     "strict": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
-    "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "typeRoots": [
       "./node_modules/@verdaccio/types/lib/verdaccio",
-      "./node_modules/@types",
-      "./types/custom.d.ts"
+      "./node_modules/@types"
     ]
   },
   "exclude": [
+    "**/build",
     "node_modules",
-    "**/*.spec.ts"
-  ],
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "types/*.d.ts"
+    "**/node_modules",
+    "**/coverage",
+    "**/*.spec.ts",
+    "**/test",
+    "**/__tests__",
+    "**/*.test.ts"
   ]
 }

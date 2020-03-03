@@ -1,0 +1,9 @@
+{
+  "name": "debug",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@verdaccio/babel-preset": "^8.2.0",
+    "@verdaccio/eslint-config": "^8.2.0"
+  }
+}

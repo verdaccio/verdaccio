@@ -1,0 +1,49 @@
+{
+  "name": "@verdaccio/server",
+  "version": "5.0.0-alpha.0",
+  "description": "verdaccio server logic",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "dependencies": {
+    "@verdaccio/api": "5.0.0-alpha.0",
+    "@verdaccio/auth": "5.0.0-alpha.0",
+    "@verdaccio/config": "5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
+    "@verdaccio/loaders": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/middleware": "5.0.0-alpha.0",
+    "@verdaccio/store": "5.0.0-alpha.0",
+    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/web": "5.0.0-alpha.0",
+    "compression": "^1.7.4",
+    "cors": "2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@verdaccio/dev-types": "5.0.0-alpha.0",
+    "@verdaccio/mock": "5.0.0-alpha.0",
+    "http-errors": "^1.7.3",
+    "request": "2.87.0",
+    "verdaccio": "~4.4.0"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "npm run build:js && npm run build:types"
+  },
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+}

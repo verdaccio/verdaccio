@@ -15,7 +15,7 @@ Dockerfile
 *.png
 *.jpg
 *.sh
-*.ico
-test/unit/partials/
+**/partials/**
+**/fixtures/**
 types/custom.d.ts
-docker-examples/
+**/mock/store/**

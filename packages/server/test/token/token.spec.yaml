@@ -1,0 +1,27 @@
+storage: ./storage
+plugins: ./plugins
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 5m
+        # to avoid invalid verification token, more info on JWT page
+        notBefore: 0
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+packages:
+  '@token/*':
+    access: $authenticated
+    publish: $authenticated
+  'only-you-can-publish':
+    access: $authenticated
+    publish: $authenticated
+logs:
+  - { type: stdout, format: pretty, level: error }
+experiments:
+  ## enable token for testing
+  token: true
