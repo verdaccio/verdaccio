@@ -1,0 +1,136 @@
+storage: ./test-storage
+
+plugins: ./test/functional/fixtures/plugins
+
+max_users: 2
+
+web:
+  enable: true
+  title: verdaccio-server-1
+
+middlewares:
+  uplink-fail:
+  #    message: provides uplink mocking (e.g. simulates socket timeout)
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+uplinks:
+  express:
+    url: http://localhost:55550/
+    timeout: 100ms
+  server2:
+    url: http://localhost:55552/
+    maxage: 0
+  server3:
+    url: http://localhost:55553/
+  baduplink:
+    url: http://localhost:55666/
+
+logs:
+  - { type: stdout, format: pretty, level: info }
+
+packages:
+  '@test/*':
+    access: $all
+    publish: $all
+    proxy: server2
+
+  ## mirror.js
+  'test-mirror-*':
+    access: $all
+    publish: $all
+    proxy: server2
+
+  ## mirror.js
+  'testloop':
+    access: $all
+    publish: $all
+    proxy: server2
+
+  'testexp':
+    access: $anonymous
+
+  # used by tags.spec.js
+  'testexp_tag*':
+    access: $all
+    publish: $all
+    proxy: express
+
+  # used by gzip.spec.js
+  'testexp_gzip':
+    access: $all
+    publish: $all
+    proxy: express
+
+  # used by gh29.js
+  'testpkg-gh29':
+    access: $all
+    publish: $all
+    proxy: express
+
+  # used by preserve_tags_spec.js
+  'testpkg-preserve':
+    access: $all
+    publish: $all
+    proxy: express
+
+  # used by racycrash.js
+  'testexp-racycrash':
+    access: $all
+    publish: $all
+    proxy: express
+
+  # used by incomplete.js
+  'testexp-incomplete':
+    access: $all
+    publish: $all
+    proxy: express
+
+  'test-nullstorage*':
+    access: $all
+    publish: $all
+    proxy: server2
+    storage: sub_storage
+
+  'baduplink':
+    access: $all
+    publish: $all
+    proxy: baduplink
+
+  'test-access-only':
+    access: $all
+    publish: nobody
+    storage: sub_storage
+
+  'test-publish-only':
+    access: nobody
+    publish: $all
+    storage: sub_storage
+
+  'test-only-test':
+    access: test
+    publish: test
+    storage: sub_storage
+
+  'test-only-auth':
+    access: $authenticated
+    publish: $authenticated
+    storage: sub_storage
+
+  'test-uplink-timeout-*':
+    access: $all
+    proxy:
+      - server2
+      - server3
+
+  '*':
+    access: test $anonymous
+    publish: test $anonymous
+
+# expose internal methods
+_debug: true

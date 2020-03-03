@@ -5,35 +5,22 @@ build/
 
 ### Test
 
-test/unit/partials/store/test-*-storage/*
-test/unit/partials/store/*-storage/*
-test/unit/partials/store/storage_default_storage/*
 .verdaccio-db.json
 .sinopia-db.json
 
 ###
-!bin/verdaccio
 test-storage*
-access-storage*
 .verdaccio_test_env
 node_modules
 package-lock.json
-npm_test-fails-add-tarball*
 yarn-error.log
 
 
-# Istanbul
+# jest
 reports/
 coverage/
-.nyc*
 
 .idea/
 
-
-# React
-bundle.js
-bundle.js.map
-__tests__
-
 # Compiled script
-static/*
+packages/partials

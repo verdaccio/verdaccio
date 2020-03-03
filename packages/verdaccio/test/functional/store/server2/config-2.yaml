@@ -1,0 +1,99 @@
+storage: ./test-storage2
+
+plugins: ./test/functional/fixtures/plugins
+
+uplinks:
+  server1:
+    url: http://localhost:55551/
+    maxage: 0
+
+web:
+  enable: true
+  title: verdaccio-server-2
+
+middlewares:
+  middleware-es6:
+    message: this is a custom route es6
+  middleware-es5:
+    message: this is a custom route
+
+max_users: 3
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+      authtest2:
+        name: authtest2
+        password: blahblah-password
+      authtest:
+        name: authtest
+        password: blahblah-password
+
+logs:
+  - { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@test/*':
+    access: $all
+    publish: $all
+    proxy: server1
+
+  'test-fwd':
+    access: $all
+    publish: $all
+
+  'test-mirror-fwdw*':
+    access: $all
+    publish: $all
+
+  'testloop':
+    access: $all
+    publish: $all
+    proxy: server1
+
+  # used by gh29.js
+  'testpkg-gh29':
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
+
+  # used by preserve_tags_spec.js
+  'testpkg-preserve':
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
+
+  'testpkg':
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
+
+  'readme-*':
+    access: test $anonymous
+    publish: test $anonymous
+    proxy: server1
+
+  'test-nullstorage*':
+    access: $all
+    publish: $all
+
+    ## start test auth.js
+  'test-auth-regular':
+    access: $authenticated
+
+  'test-auth-*':
+    access: authtest
+
+  'test-deny':
+    access: authtest2
+    ## end test auth.js
+
+  '*':
+    access: test $anonymous
+    publish: test $anonymous
+
+# expose internal methods
+_debug: true
