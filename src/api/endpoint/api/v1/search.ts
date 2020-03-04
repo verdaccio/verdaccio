@@ -33,8 +33,9 @@ function compileTextSearch(textSearch) {
 
 export default function(route, auth, storage): void {
     route.get('/-/v1/search', (req, res)=>{
-        let [text, size, from, quality, popularity, maintenance] = 
-            ['text', 'size', 'from', 'quality', 'popularity', 'maintenance']
+        // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
+        let [text, size, from /*, quality, popularity, maintenance */] = 
+            ['text', 'size', 'from' /* , 'quality', 'popularity', 'maintenance' */]
             .map(k => req.query[k])
         
         size = parseInt(size) || 20;
