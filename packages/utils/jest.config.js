@@ -1,9 +1,6 @@
-module.exports = {
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
-  },
-  verbose: true,
-  collectCoverage: false,
+const config = require('../../jest/config');
+
+module.exports = Object.assign({}, config, {
+  collectCoverage: true,
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
-};
+});
