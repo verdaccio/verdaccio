@@ -1,10 +1,8 @@
-module.exports = {
-  moduleFileExtensions: ['ts', 'js'],
-  transform: {
-    '^.+\\.(js|ts)$': 'babel-jest',
-  },
-  verbose: true,
+const config = require('../../jest/config');
+
+module.exports = Object.assign({}, config, {
   setupFilesAfterEnv: ['./jest.setup.js'],
   // FIXME: coverage fails here
   collectCoverage: false
-};
+});
+
