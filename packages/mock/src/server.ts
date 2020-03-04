@@ -10,7 +10,7 @@ import {CREDENTIALS} from "./constants"
 import getPackage from './fixtures/package';
 
 const buildAuthHeader = (user, pass): string => {
-  return buildToken(TOKEN_BASIC, new Buffer(`${user}:${pass}`).toString('base64'));
+  return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
 };
 
 export default class Server implements IServerBridge {
