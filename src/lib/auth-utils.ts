@@ -22,7 +22,7 @@ export function validatePassword(password: string, minLength: number = DEFAULT_M
  * Create a RemoteUser object
  * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
  */
-export function createRemoteUser(name: string | void, pluginGroups: string[]): RemoteUser {
+export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
   const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
 

@@ -432,7 +432,11 @@ class Auth implements IAuth {
       verifyJWTPayload(token, this.config.secret, this.storage)
         .then((credentials) =>{
           const { name, groups } = credentials;
-          req.remote_user = createRemoteUser(name, groups);
+          if (name) {
+            req.remote_user = createRemoteUser(name, groups);
+          } else {
+            req.remote_user = createAnonymousRemoteUser();
+          }
         }).catch(() => {
           req.remote_user = createAnonymousRemoteUser();
         }).finally(() => {
