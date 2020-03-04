@@ -32,9 +32,9 @@
     "@types/request": "2.48.3",
     "@types/semver": "6.2.0",
     "@types/express-serve-static-core": "4.17.1",
-    "@verdaccio/babel-preset": "^8.5.0",
+    "@verdaccio/babel-preset": "^9.3.0",
     "@verdaccio/eslint-config": "^9.0.0",
-    "@verdaccio/types": "^9.0.0",
+    "@verdaccio/types": "^9.3.0",
     "codecov": "3.6.1",
     "cross-env": "6.0.3",
     "detect-secrets": "1.0.5",
@@ -54,10 +54,10 @@
     "rimraf": "3.0.0",
     "standard-version": "^7.0.1",
     "supertest": "^4.0.2",
-    "typescript": "^3.7.5",
-    "verdaccio-auth-memory": "^8.5.0",
-    "verdaccio-memory": "^8.5.0",
-    "verdaccio": "^4.4.0"
+    "typescript": "^3.8.3",
+    "verdaccio-auth-memory": "^9.3.0",
+    "verdaccio-memory": "^9.3.0",
+    "verdaccio": "^4.4.4"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
