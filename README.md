@@ -2,7 +2,7 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 4
+# Version 5 (Under development)
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
@@ -36,7 +36,13 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio
+npm install --global verdaccio@canary
+```
+
+with docker
+
+```bash
+docker pull verdaccio/verdaccio:5.x-next
 ```
 
 > ⚠️ After v4.5.0 Node v8 is not longer supported. **Node v10** is the minimum supported version.
@@ -190,7 +196,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 ### Security
 
-- npm/yarn audit - **supported**
+- npm/yarn/pnpm audit - **supported**
 
 ## Report a vulnerability
 
