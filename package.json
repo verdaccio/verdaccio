@@ -50,7 +50,7 @@
     "mkdirp": "0.5.1",
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
-    "request": "2.87.0",
+    "request": "2.88.2",
     "semver": "7.1.2",
     "verdaccio-audit": "^8.5.0",
     "verdaccio-htpasswd": "^8.5.0"
