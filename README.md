@@ -77,6 +77,11 @@ Do not miss our talk (Introduction to Verdaccio) with [@priscilawebdev](https://
 
 [![viennajs-meetup](https://cdn.verdaccio.dev/readme/youtube_meetup_viennajs.png?source=readme)](https://www.youtube.com/watch?v=hDIFKzmoCaA)
 
+You might want to check out our latest talks:
+
+* [Open Source? trivago | Verdaccio (Ayush and Juan) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
+* [GitNation Open Source Stage: How we have built a Node.js Registry with React - Juan Picado December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)
+
 ## Get Started
 
 Run in your terminal
