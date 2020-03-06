@@ -1,6 +1,7 @@
 import semver from 'semver'
+import { Package } from '@verdaccio/types';
 
-function compileTextSearch(textSearch) {
+function compileTextSearch(textSearch: string): ((pkg: Package) => boolean) {
         const personMatch = (person, search) => {
             if(typeof person === 'string')
                 return person.includes(search);
@@ -34,7 +35,7 @@ function compileTextSearch(textSearch) {
 export default function(route, auth, storage): void {
     route.get('/-/v1/search', (req, res)=>{
         // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
-        let [text, size, from /*, quality, popularity, maintenance */] = 
+        let [text, size, from /* , quality, popularity, maintenance */] = 
             ['text', 'size', 'from' /* , 'quality', 'popularity', 'maintenance' */]
             .map(k => req.query[k])
         
@@ -47,7 +48,7 @@ export default function(route, auth, storage): void {
         const resultBuf = [] as any;
         let completed = false;
 
-        const sendResponse = () => {
+        const sendResponse = (): void => {
             completed = true;
             resultStream.destroy()
 
