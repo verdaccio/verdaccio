@@ -19,26 +19,25 @@ const BLACKLIST = {
  * Normalize user list.
  * @return {Array}
  */
-export function normalizeUserList(oldFormat: any, newFormat: any): any {
-  const result: any[][] = [];
-  /* eslint prefer-rest-params: "off" */
-
-  for (let i = 0; i < arguments.length; i++) {
-    if (arguments[i] == null) {
-      continue;
+export function normalizeUserList(groupsList: any): any {
+    const result: any[] = [];
+    if (_.isNil(groupsList)) {
+      return result;
     }
 
     // if it's a string, split it to array
-    if (_.isString(arguments[i])) {
-      result.push(arguments[i].split(/\s+/));
-    } else if (Array.isArray(arguments[i])) {
-      result.push(arguments[i]);
+    if (_.isString(groupsList)) {
+      const groupsArray = groupsList.split(/\s+/);
+
+      result.push(groupsArray);
+    } else if (Array.isArray(groupsList)) {
+      result.push(groupsList);
     } else {
       throw ErrorCode.getInternalError(
-        'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i])
+        'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList)
       );
     }
-  }
+
   return _.flatten(result);
 }
 
@@ -110,25 +109,26 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
   const normalizedPkgs: LegacyPackageList = { ...packages };
   // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
-    normalizedPkgs['**'] = { access: [], publish: [], proxy: [] };
+    normalizedPkgs['**'] = {
+      access: [],
+      publish: [],
+      proxy: []
+    };
   }
 
   for (const pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
-      assert(
-        _.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false,
-        `CONFIG: bad "'${pkg}'" package description (object expected)`
-      );
-      normalizedPkgs[pkg].access = normalizeUserList(packages[pkg].allow_access, packages[pkg].access);
-      delete normalizedPkgs[pkg].allow_access;
-      normalizedPkgs[pkg].publish = normalizeUserList(packages[pkg].allow_publish, packages[pkg].publish);
-      delete normalizedPkgs[pkg].allow_publish;
-      normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
-      delete normalizedPkgs[pkg].proxy_access;
+      const packageAccess = packages[pkg];
+      const isInvalid = _.isObject(packageAccess) && _.isArray(packageAccess) === false;
+      assert(isInvalid, `CONFIG: bad "'${pkg}'" package description (object expected)`);
+
+      normalizedPkgs[pkg].access = normalizeUserList(packageAccess.access);
+      normalizedPkgs[pkg].publish = normalizeUserList(packageAccess.publish);
+      normalizedPkgs[pkg].proxy = normalizeUserList(packageAccess.proxy);
       // if unpublish is not defined, we set to false to fallback in publish access
-      normalizedPkgs[pkg].unpublish = _.isUndefined(packages[pkg].unpublish)
+      normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish)
         ? false
-        : normalizeUserList([], packages[pkg].unpublish);
+        : normalizeUserList(packageAccess.unpublish);
     }
   }
 
