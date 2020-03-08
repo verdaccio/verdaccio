@@ -42,25 +42,31 @@ export function createTarballHash(): Hash {
  * @return {String}
  */
 export function stringToMD5(data: Buffer | string): string {
-  return createHash('md5').update(data).digest('hex');
+  return createHash('md5')
+    .update(data)
+    .digest('hex');
 }
 
 export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export async function signPayload(
-  payload: RemoteUser,
-  secretOrPrivateKey: string,
-  options: JWTSignOptions
-): Promise<string> {
-  return new Promise(function (resolve, reject): Promise<string> {
+/**
+ * Sign the payload and return JWT
+ * https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
+ * @param payload
+ * @param secretOrPrivateKey
+ * @param options
+ */
+export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions = {}): Promise<string> {
+  return new Promise(function(resolve, reject): Promise<string> {
     return jwt.sign(
       payload,
       secretOrPrivateKey,
       {
+        // 1 === 1ms (one millisecond)
         notBefore: '1', // Make sure the time will not rollback :)
-        ...options
+        ...options,
       },
       (error, token) => (error ? reject(error) : resolve(token))
     );

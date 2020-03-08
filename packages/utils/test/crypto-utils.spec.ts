@@ -1,4 +1,4 @@
-import {aesDecrypt, aesEncrypt, convertPayloadToBase64} from "@verdaccio/utils";
+import {aesDecrypt, aesEncrypt, convertPayloadToBase64} from '../src';
 
 describe('test crypto utils', () => {
 	describe('default encryption', () => {
