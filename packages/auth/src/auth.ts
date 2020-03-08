@@ -1,28 +1,28 @@
 import _ from 'lodash';
 import { NextFunction } from 'express';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
+import { VerdaccioError, getBadRequest, getInternalError, getForbidden } from '@verdaccio/commons-api';
 import {API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER} from '@verdaccio/dev-commons';
 import { loadPlugin } from '@verdaccio/loaders';
 import { aesEncrypt, signPayload } from '@verdaccio/utils';
 import {
   getDefaultPlugins,
-  verifyJWTPayload,
   createAnonymousRemoteUser,
-  isAuthHeaderValid,
-  getSecurity,
-  isAESLegacy,
   convertPayloadToBase64,
-  ErrorCode,
-  parseAuthTokenHeader,
-  parseBasicPayload,
   createRemoteUser,
 } from '@verdaccio/utils';
 
 import { getMatchedPackagesSpec } from '@verdaccio/utils';
 import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '@verdaccio/dev-types';
-import {getMiddlewareCredentials} from "./utils";
+import {
+  getMiddlewareCredentials,
+  getSecurity,
+  verifyJWTPayload,
+  parseBasicPayload,
+  parseAuthTokenHeader,
+  isAuthHeaderValid,
+  isAESLegacy } from "./utils";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
@@ -68,7 +68,8 @@ class Auth implements IAuth {
     const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
 
 		if (_.isEmpty(validPlugins)) {
-			return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+			return cb(
+			  getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
 		}
 
 		for (const plugin of validPlugins) {
@@ -319,7 +320,7 @@ class Auth implements IAuth {
 
       if (!isAuthHeaderValid(authorization)) {
         this.logger.trace('api middleware auth heather is not valid');
-        return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+        return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
 
       const security: Security = getSecurity(this.config);
@@ -363,7 +364,7 @@ class Auth implements IAuth {
         next();
       } else {
         // with JWT throw 401
-        next(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+        next(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       }
     }
   }
@@ -387,7 +388,7 @@ class Auth implements IAuth {
       );
     } else {
       // we force npm client to ask again with basic authentication
-      return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+      return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
     }
   }
 
@@ -421,7 +422,7 @@ class Auth implements IAuth {
       }
 
       if (!isAuthHeaderValid(authorization)) {
-        return next(ErrorCode.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+        return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
 
       const token = (authorization || '').replace(`${TOKEN_BEARER} `, '');
