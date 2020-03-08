@@ -33,11 +33,12 @@ import {
   getCode,
 } from '@verdaccio/commons-api';
 
-import { IncomingHttpHeaders } from 'http2';
+import { IncomingHttpHeaders } from 'http';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
+// FIXME: this is fixed, should pick the package.json or official version
 const pkgVersion = '5.0.0';
 const pkgName = 'verdaccio';
 

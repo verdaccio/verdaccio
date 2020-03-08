@@ -8,7 +8,8 @@ import {parseConfigFile} from '../src/utils';
 import {
   getMatchedPackagesSpec,
   hasProxyTo,
-  normalisePackageAccess, sanityCheckUplinksProps,
+  normalisePackageAccess,
+  sanityCheckUplinksProps,
   uplinkSanityCheck
 } from '../src/config-utils';
 
@@ -132,6 +133,7 @@ describe('Config Utilities', () => {
       const access = normalisePackageAccess(packages);
 
       expect(access).toBeDefined();
+
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
       const all = access[`${PACKAGE_ACCESS.ALL}`];
       const react = access['react-*'];
@@ -141,13 +143,12 @@ describe('Config Utilities', () => {
 
       // Intended checks, Typescript should catch this, we test the runtime part
       // @ts-ignore
-      expect(react.access[0]).toBe(ROLES.$ALL);
-      expect(react.publish).toBeDefined();
+      expect(react.access).toEqual([]);
       // @ts-ignore
       expect(react.publish[0]).toBe('admin');
       expect(react.proxy).toBeDefined();
       // @ts-ignore
-      expect(react.proxy[0]).toBe('uplink2');
+      expect(react.proxy).toEqual([]);
       expect(react.storage).toBeDefined();
 
       expect(react.storage).toBe('react-storage');
@@ -158,9 +159,6 @@ describe('Config Utilities', () => {
       expect(all.storage).not.toBeDefined();
       expect(all.publish).toBeDefined();
       expect(all.proxy).toBeDefined();
-      expect(all.allow_access).toBeUndefined();
-      expect(all.allow_publish).toBeUndefined();
-      expect(all.proxy_access).toBeUndefined();
     });
 
     test('should check not default packages access', ()=> {
