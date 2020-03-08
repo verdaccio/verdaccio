@@ -7,7 +7,6 @@ import { loadPlugin } from '@verdaccio/loaders';
 import { aesEncrypt, signPayload } from '@verdaccio/utils';
 import {
   getDefaultPlugins,
-  getMiddlewareCredentials,
   verifyJWTPayload,
   createAnonymousRemoteUser,
   isAuthHeaderValid,
@@ -23,6 +22,7 @@ import {
 import { getMatchedPackagesSpec } from '@verdaccio/utils';
 import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '@verdaccio/dev-types';
+import {getMiddlewareCredentials} from "./utils";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
