@@ -2,7 +2,8 @@ import _ from 'lodash';
 import Cookies from 'cookies';
 import { Response, Router } from 'express';
 
-import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword, ErrorCode } from '@verdaccio/utils';
+import { createRemoteUser, createSessionToken, getAuthenticatedMessage, validatePassword, ErrorCode } from '@verdaccio/utils';
+import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 
 import { Config, RemoteUser } from '@verdaccio/types';

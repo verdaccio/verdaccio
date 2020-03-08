@@ -8,17 +8,21 @@ import {setup} from '@verdaccio/logger';
 
 import {
   buildUserBuffer,
-  getApiToken,
   getAuthenticatedMessage,
-  getSecurity,
   aesDecrypt,
   verifyPayload,
   buildToken,
   convertPayloadToBase64,
-  parseConfigFile
+  parseConfigFile,
+  createAnonymousRemoteUser,
+  createRemoteUser,
+  signPayload
 } from '@verdaccio/utils';
 
-import { getMiddlewareCredentials } from '../src'
+import {
+  getMiddlewareCredentials,
+  getApiToken,
+  getSecurity } from '../src'
 
 import { IAuth } from '@verdaccio/dev-types';
 import {Config, Security, RemoteUser} from '@verdaccio/types';
@@ -217,6 +221,20 @@ describe('Auth utilities', () => {
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).not.toBeDefined();
+      });
+    });
+
+    describe('verifyJWTPayload', () => {
+      test('should fail on verify the token and return anonymous users', () => {
+        expect(verifyJWTPayload('fakeToken', 'secret')).toEqual(createAnonymousRemoteUser());
+      });
+
+      test('should fail on verify the token and return anonymous users', async () => {
+        const remoteUser = createRemoteUser('foo', []);
+        const token = await signPayload(remoteUser, '12345');
+        const verifiedToken = verifyJWTPayload(token, '12345');
+        expect(verifiedToken.groups).toEqual(remoteUser.groups);
+        expect(verifiedToken.name).toEqual(remoteUser.name);
       });
     });
 
