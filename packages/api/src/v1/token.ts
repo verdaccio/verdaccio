@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
-import {ErrorCode, stringToMD5, mask, getApiToken } from '@verdaccio/utils';
+import {ErrorCode, stringToMD5, mask } from '@verdaccio/utils';
+import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 import { Response, Router } from 'express';
 
