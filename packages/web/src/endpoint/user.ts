@@ -5,7 +5,8 @@ import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 
 import { API_ERROR, APP_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { IAuth, $NextFunctionVer } from '@verdaccio/dev-types';
-import { getSecurity, validatePassword, ErrorCode } from '@verdaccio/utils';
+import { validatePassword, ErrorCode } from '@verdaccio/utils';
+import { getSecurity } from '@verdaccio/auth';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
   route.post('/login', function(req: Request, res: Response, next: $NextFunctionVer): void {
