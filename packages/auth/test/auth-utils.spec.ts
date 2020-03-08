@@ -22,6 +22,7 @@ import {
 import {
   getMiddlewareCredentials,
   getApiToken,
+  verifyJWTPayload,
   getSecurity } from '../src'
 
 import { IAuth } from '@verdaccio/dev-types';
