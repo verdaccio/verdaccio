@@ -38,14 +38,10 @@ export interface StartUpConfig {
 // legacy should be removed in long term
 
 export interface LegacyPackageList {
-  [key: string]: LegacyPackageAccess;
+  [key: string]: PackageAccessAddOn;
 }
 
-export type LegacyPackageAccess = PackageAccess & {
-  allow_publish?: string[];
-  allow_proxy?: string[];
-  allow_access?: string[];
-  proxy_access?: string[];
+export type PackageAccessAddOn = PackageAccess & {
   // FIXME: should be published on @verdaccio/types
   unpublish?: string[];
 }
