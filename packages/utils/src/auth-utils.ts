@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
 import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
-import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '@verdaccio/dev-types';
-import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
+import { CookieSessionToken, IAuthWebUI, AuthTokenHeader, BasicPayload } from '@verdaccio/dev-types';
+import { RemoteUser, AllowAccess, PackageAccess, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
+import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { convertPayloadToBase64, ErrorCode } from './utils';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
@@ -14,12 +15,27 @@ export function validatePassword(password: string, minLength: number = DEFAULT_M
 }
 
 /**
+ * All logged users will have by default the group $all and $authenticate
+ */
+export const defaultLoggedUserRoles = [ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL];
+/**
+ *
+ */
+export const defaultNonLoggedUserRoles = [
+  ROLES.$ALL,
+  ROLES.$ANONYMOUS,
+  // groups without '$' are going to be deprecated eventually
+  ROLES.DEPRECATED_ALL,
+  ROLES.DEPRECATED_ANONYMOUS
+];
+
+/**
  * Create a RemoteUser object
  * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
  */
 export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
+  const groups = (isGroupValid ? pluginGroups : []).concat([...defaultLoggedUserRoles]);
 
   return {
     name,
@@ -35,17 +51,26 @@ export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUs
 export function createAnonymousRemoteUser(): RemoteUser {
   return {
     name: undefined,
-    // groups without '$' are going to be deprecated eventually
-    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONYMOUS],
+    groups: [...defaultNonLoggedUserRoles],
     real_groups: [],
   };
 }
 
-export function allow_action(action: string): Function {
-  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+export type AllowActionCallbackResponse = boolean | undefined;
+export type AllowActionCallback = (error: VerdaccioError | null, allowed?: AllowActionCallbackResponse) => void;
+export type AllowAction = (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback) => void;
+export interface AuthPackageAllow extends PackageAccess, AllowAccess {
+  // TODO: this should be on @verdaccio/types
+  unpublish: boolean | string[];
+}
+
+export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
+
+export function allow_action(action: ActionsAllowed): AllowAction {
+  return function allowActionCallback(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     logger.trace({remote: user.name}, `[auth/allow_action]: user: @{user.name}`);
     const { name, groups } = user;
-    const groupAccess = pkg[action];
+    const groupAccess = pkg[action] as string[];
     const hasPermission = groupAccess.some(group => name === group || groups.includes(group));
     logger.trace({pkgName: pkg.name, hasPermission, remote: user.name, groupAccess}, `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`);
 
@@ -66,11 +91,11 @@ export function allow_action(action: string): Function {
  *
  */
 export function handleSpecialUnpublish(): any {
-  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+  return function(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined
     const isUnpublishMissing: boolean = _.isNil(pkg[action]);
-    const hasGroups: boolean = isUnpublishMissing ? false : pkg[action].length > 0;
+    const hasGroups: boolean = isUnpublishMissing ? false : ((pkg[action]) as string[]).length > 0;
     logger.trace({user: user.name, name: pkg.name, hasGroups}, `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`);
 
     if (isUnpublishMissing || hasGroups === false) {
@@ -88,7 +113,7 @@ export function getDefaultPlugins(): IPluginAuth<Config> {
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user(user: string, password: string, cb: Callback): void {
+    adduser(user: string, password: string, cb: Callback): void {
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
@@ -226,25 +251,4 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
 
 export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
-}
-
-export function getMiddlewareCredentials(security: Security, secret: string, authorizationHeader: string): AuthMiddlewarePayload {
-  if (isAESLegacy(security)) {
-    const credentials = parseAESCredentials(authorizationHeader, secret);
-    if (!credentials) {
-      return;
-    }
-
-    const parsedCredentials = parseBasicPayload(credentials);
-    if (!parsedCredentials) {
-      return;
-    }
-
-    return parsedCredentials;
-  }
-  const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
-
-  if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    return verifyJWTPayload(token, secret);
-  }
 }
