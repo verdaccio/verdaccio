@@ -8,7 +8,6 @@ import {
 	getDefaultPlugins,
 	createSessionToken,
 	getAuthenticatedMessage,
-	verifyJWTPayload, defaultNonLoggedUserRoles, signPayload
 } from "../src";
 import { API_ERROR, ROLES } from "@verdaccio/dev-commons";
 import { VerdaccioError, getForbidden } from "@verdaccio/commons-api";
@@ -164,20 +163,4 @@ describe('Auth Utilities', () => {
 			expect(getAuthenticatedMessage('foo')).toEqual('you are authenticated as \'foo\'');
 		});
 	});
-
-	describe('verifyJWTPayload', () => {
-		test('should fail on verify the token and return anonymous users', () => {
-			expect(verifyJWTPayload('fakeToken', 'secret')).toEqual(createAnonymousRemoteUser());
-		});
-
-		test('should fail on verify the token and return anonymous users', async () => {
-			const remoteUser = createRemoteUser('foo', []);
-			const token = await signPayload(remoteUser, '12345');
-			const verifiedToken = verifyJWTPayload(token, '12345');
-			expect(verifiedToken.groups).toEqual(remoteUser.groups);
-			expect(verifiedToken.name).toEqual(remoteUser.name);
-		});
-	});
-
-	// verifyJWTPayload
 });
