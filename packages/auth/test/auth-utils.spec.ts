@@ -10,11 +10,15 @@ import {
   buildUserBuffer,
   getApiToken,
   getAuthenticatedMessage,
-  getMiddlewareCredentials,
   getSecurity,
-  aesDecrypt, verifyPayload,
-  buildToken, convertPayloadToBase64, parseConfigFile
+  aesDecrypt,
+  verifyPayload,
+  buildToken,
+  convertPayloadToBase64,
+  parseConfigFile
 } from '@verdaccio/utils';
+
+import { getMiddlewareCredentials } from '../src'
 
 import { IAuth } from '@verdaccio/dev-types';
 import {Config, Security, RemoteUser} from '@verdaccio/types';
