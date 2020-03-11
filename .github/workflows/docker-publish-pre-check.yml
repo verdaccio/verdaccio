@@ -1,6 +1,6 @@
-name: Publish docker image 
+name: Docker & Publish Pre-check
 
-on: [push]
+on: [pull_request]
 
 jobs:
   testDocker:
@@ -8,12 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Publish to registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: docker.pkg.github.com/verdaccio/verdaccio/verdaccio
-        username: ${{secrets.DOCKER_USERNAME}}
-        password: ${{secrets.GITHUB_REGISTRY_TOKEN}}
-        registry: docker.pkg.github.com
-        tags: "5.x"
-
+    - name: Build
+      run: yarn docker
+      env:
+        VERDACCIO_BUILD_REGISTRY: https://registry.verdaccio.org
