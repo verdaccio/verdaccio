@@ -14,4 +14,5 @@ jobs:
         name: docker.pkg.github.com/verdaccio/verdaccio/verdaccio
         username: ${{secrets.DOCKER_USERNAME}}
         password: ${{secrets.GITHUB_REGISTRY_TOKEN}}
-        registry: docker.pkg.github.com =
+        registry: docker.pkg.github.com
+
