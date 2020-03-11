@@ -1,4 +1,4 @@
-name: Docker & Publish Pre-check
+name: Publish docker image 
 
 on: [push]
 
@@ -15,4 +15,5 @@ jobs:
         username: ${{secrets.DOCKER_USERNAME}}
         password: ${{secrets.GITHUB_REGISTRY_TOKEN}}
         registry: docker.pkg.github.com
+        tags: "5.x"
 
