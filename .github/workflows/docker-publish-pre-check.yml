@@ -14,3 +14,4 @@ jobs:
         password: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
         registry: docker.pkg.github.com
         repository: verdaccio/verdaccio
+        tags: 5.x
