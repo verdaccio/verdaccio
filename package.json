@@ -47,7 +47,7 @@
     "marked": "0.8.0",
     "mime": "2.4.4",
     "minimatch": "3.0.4",
-    "mkdirp": "0.5.1",
+    "mkdirp": "1.0.0",
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "request": "2.87.0",
