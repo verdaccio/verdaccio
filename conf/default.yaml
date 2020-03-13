@@ -71,3 +71,7 @@ logs:
 #experiments:
 #  # support for npm token command
 #  token: false
+
+# This affect the web and api (not developed yet)
+#i18n:
+#web: en-US

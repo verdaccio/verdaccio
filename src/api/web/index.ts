@@ -80,10 +80,11 @@ export default function(config, auth, storage) {
     const { url_prefix } = config;
     const uri = `${protocol}://${host}`;
     const base = combineBaseUrl(protocol, host, url_prefix);
+    const languageWeb = config?.i18n?.web ?? 'es-US';
     const primaryColor = _.get(config, 'web.primary_color') ? config.web.primary_color : '';
     const title = _.get(config, 'web.title') ? config.web.title : WEB_TITLE;
     const scope = _.get(config, 'web.scope') ? config.web.scope : '';
-    const options = { uri, protocol, host, url_prefix, base, primaryColor, title, scope };
+    const options = { uri, protocol, host, url_prefix, base, primaryColor, title, scope, language: languageWeb };
 
     const webPage = template
       .replace(/ToReplaceByVerdaccioUI/g, JSON.stringify(options))
