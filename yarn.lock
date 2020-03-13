@@ -1969,10 +1969,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.3.9.tgz#6ff0f05315912b4ba39e29eb589ecc8833640990"
   integrity sha512-InTpEowYo6M9TjpQh4cVh/HZH1DW9oyhy8UpC1H4FOwvyknctN0dMavOseKWSrPAj+gPDzUw0IKAvwDI4OcPEg==
 
-"@verdaccio/ui-theme@^0.3.13":
-  version "0.3.13"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.3.13.tgz#e6f06907b0940c47883f35861723012437b7b958"
-  integrity sha512-3nDT5iJvmIYJe8UwirJbHexy21HU0YUkwvKygVe2KCPUTQu8u23/w6JyOB8reqj8w0xFfJMHI0dArnPsKxYM3Q==
+"@verdaccio/ui-theme@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.0.0.tgz#53706449fdb2e66e06a22867deb3efedf6ddc9d2"
+  integrity sha512-gUggtAV9lOa2SmhYZmRRd/AGR5HmZ+N3uGoXnZXVjPckTetE/fsB8mqkSYZCk0SrO767j82JGhyU8O/JVKM8jw==
 
 "@yarnpkg/lockfile@^1.1.0":
   version "1.1.0"
@@ -6577,11 +6577,6 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
-
-mkdirp@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
-  integrity sha512-6uCP4Qc0sWsgMLy1EOqqS/3rjDHOEnsStVr/4vtAIK2Y5i2kA7lFFejYrpIyiN9w0pYf4ckeCYT9f1r1P9KX5g==
 
 mkdirp@1.0.3:
   version "1.0.3"
