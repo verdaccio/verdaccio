@@ -133,7 +133,7 @@
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
   },
   "engines": {
-    "node": ">=8",
+    "node": ">=10",
     "npm": ">=5"
   },
   "preferGlobal": true,
