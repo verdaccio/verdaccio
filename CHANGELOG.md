@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.5.1](https://github.com/verdaccio/verdaccio/compare/v4.5.0...v4.5.1) (2020-03-14)
+
+
+### Bug Fixes
+
+* update docs to support minimum node v10 ([#1753](https://github.com/verdaccio/verdaccio/issues/1753)) ([17c3324](https://github.com/verdaccio/verdaccio/commit/17c3324e9324ab47afe765f62ecaca2ec3bb5969))
+
 ## [4.5.0](https://github.com/verdaccio/verdaccio/compare/v4.4.4...v4.5.0) (2020-03-14)
 
 
