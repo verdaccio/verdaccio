@@ -39,6 +39,8 @@ Install with npm:
 npm install --global verdaccio
 ```
 
+> ⚠️ After v4.5.0 Node v8 is not longer supported. **Node v10** is the minimum supported version.
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
