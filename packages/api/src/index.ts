@@ -16,9 +16,7 @@ import pkg from './package';
 import stars from './stars';
 import profile from './v1/profile';
 import token from './v1/token';
-import v1Search from './api/v1/search'
-
-const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
+import v1Search from './v1/search'
 
 export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
