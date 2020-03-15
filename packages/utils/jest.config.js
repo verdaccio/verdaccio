@@ -1,5 +1,3 @@
 const config = require('../../jest/config');
 
-module.exports = Object.assign({}, config, {
-  collectCoverage: false
-});
+module.exports = Object.assign({}, config, {});
