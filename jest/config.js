@@ -1,9 +1,15 @@
 module.exports = {
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleFileExtensions: ['ts', 'js'],
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+    '^.+\\.(js|ts)$': 'babel-jest',
   },
-  verbose: true,
+  verbose: false,
   collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.ts",
+    "!**/node_modules/**",
+    "!**/partials/**",
+    "!**/fixture/**",
+  ],
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
 };
