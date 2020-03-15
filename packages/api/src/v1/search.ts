@@ -4,19 +4,19 @@ import { Package } from '@verdaccio/types';
 function compileTextSearch(textSearch: string): ((pkg: Package) => boolean) {
         const personMatch = (person, search) => {
             if(typeof person === 'string')
-                return person.includes(search);
+                {return person.includes(search);}
             
             if(typeof person === 'object')
-                for(const field of Object.values(person))
-                    if(typeof field === 'string' && field.includes(search))
-                        return true;
+                {for(const field of Object.values(person))
+                    {if(typeof field === 'string' && field.includes(search))
+                        {return true;}}}
             
             return false;
         }
         const matcher = function(q) {
             const match = q.match(/author:(.*)/)
             if(match !== null)
-                return (pkg) => personMatch(pkg.author, match[1])
+                {return (pkg) => personMatch(pkg.author, match[1])}
 
             // TODO: maintainer, keywords, not/is unstable insecure, boost-exact
             // TODO implement some scoring system for freetext
@@ -85,14 +85,14 @@ export default function(route, auth, storage): void {
 
         resultStream.on('data', (pkg)=>{
             if(!isInteresting(pkg))
-                return;
+                {return;}
             resultBuf.push(pkg)
             if(!completed && resultBuf.length >= size + from)
-                sendResponse();
+                {sendResponse();}
         })
         resultStream.on('end', ()=>{
             if(!completed)
-                sendResponse()
+                {sendResponse()}
         })
     })
 }
