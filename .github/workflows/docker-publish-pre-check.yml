@@ -13,12 +13,12 @@ jobs:
       env:
         VERDACCIO_BUILD_REGISTRY: https://registry.verdaccio.org
 
-  testVerdaccio:
-    name: Test Verdaccio Publish
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2.3.1
-    - name: Publish
-      uses: verdaccio/github-actions/publish@v0.4.0
-      with:
-        args: -d
+#  testVerdaccio:
+#    name: Test Verdaccio Publish
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Publish
+#      uses: verdaccio/github-actions/publish@v0.4.0
+#      with:
+#        args: -d
