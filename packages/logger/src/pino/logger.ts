@@ -94,12 +94,13 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
 	}
 
 	process.on('uncaughtException', pino.final(logger, (err, finalLogger) => {
-		finalLogger.error(err, 'uncaughtException');
+		finalLogger.fatal(err, 'uncaughtException');
 		process.exit(1);
 	}));
 
 	// @ts-ignore
 	process.on('unhandledRejection', pino.final(logger, (err, finalLogger) => {
+		finalLogger.fatal(err, 'uncaughtException');
 		process.exit(1);
 	}));
 }
