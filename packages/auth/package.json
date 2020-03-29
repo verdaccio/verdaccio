@@ -27,12 +27,10 @@
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/loaders": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
-    "bunyan": "1.8.12",
     "express": "^4.17.1",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@types/bunyan": "1.8.6",
     "@verdaccio/dev-types": "5.0.0-alpha.0"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"

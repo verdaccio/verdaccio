@@ -1,13 +1,13 @@
 import { inspect } from 'util';
 
 import { white, red, green } from 'kleur';
-import {calculateLevel, levels, subsystems} from "./levels";
+import {calculateLevel, levelsColors, subSystemLevels} from "./levels";
 
 import { isObject, pad } from './utils';
 
 let LEVEL_VALUE_MAX = 0;
-for (const l in levels) {
-  if (Object.prototype.hasOwnProperty.call(levels, l)) {
+for (const l in levelsColors) {
+  if (Object.prototype.hasOwnProperty.call(levelsColors, l)) {
     LEVEL_VALUE_MAX = Math.max(LEVEL_VALUE_MAX, l.length);
   }
 }
@@ -20,16 +20,16 @@ for (const l in levels) {
  * @param {*} hasColors
  * @return {String}
  */
-export function printMessage(type, msg, templateObjects, hasColors) {
+export function printMessage(type, msg, templateObjects, hasColors = true) {
   if (typeof type === 'number') {
     type = calculateLevel(type);
   }
 
   const finalMessage = fillInMsgTemplate(msg, templateObjects, hasColors);
 
-  const sub = subsystems[hasColors ? 0 : 1][templateObjects.sub] || subsystems[+!hasColors].default;
+  const sub = subSystemLevels.color[templateObjects.sub] || subSystemLevels.color.default;
   if (hasColors) {
-    return ` ${levels[type](pad(type, LEVEL_VALUE_MAX))}${white(`${sub} ${finalMessage}`)}`;
+    return ` ${levelsColors[type](pad(type, LEVEL_VALUE_MAX))}${white(`${sub} ${finalMessage}`)}`;
   }
   return ` ${pad(type, LEVEL_VALUE_MAX)}${sub} ${finalMessage}`;
 }
