@@ -24,9 +24,10 @@ RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
 FROM node:12.13.1-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
+ARG VERDACCIO_USER_UID=10001
+ARG VERDACCIO_USER_NAME=verdaccio
+
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
-    VERDACCIO_USER_NAME=verdaccio \
-    VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
     VERDACCIO_PROTOCOL=http
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
