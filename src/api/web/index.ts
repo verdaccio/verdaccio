@@ -34,6 +34,15 @@ export function loadTheme(config) {
   }
 }
 
+export function validatePrimaryColor(primaryColor) {
+  const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
+  if (!isHex) {
+    return '';
+  }
+
+  return primaryColor;
+}
+
 const sendFileCallback = next => err => {
   if (!err) {
     return;
@@ -84,7 +93,7 @@ export default function(config, auth, storage) {
     const base = combineBaseUrl(protocol, host, url_prefix);
     const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
     const darkMode = config?.web?.darkMode ?? false;
-    const primaryColor = _.get(config, 'web.primary_color') ? config.web.primary_color : '';
+    const primaryColor = validatePrimaryColor(config?.web?.primary_color);
     const title = _.get(config, 'web.title') ? config.web.title : WEB_TITLE;
     const scope = _.get(config, 'web.scope') ? config.web.scope : '';
     const options = {
