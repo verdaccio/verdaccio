@@ -35,7 +35,7 @@ export function loadTheme(config) {
 }
 
 export function validatePrimaryColor(primaryColor) {
-  const isHex = /^#[0-9A-F]{6}$/i.test(primaryColor);
+  const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
   if (!isHex) {
     return '';
   }
