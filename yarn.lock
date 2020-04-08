@@ -1969,10 +1969,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-0.3.9.tgz#6ff0f05315912b4ba39e29eb589ecc8833640990"
   integrity sha512-InTpEowYo6M9TjpQh4cVh/HZH1DW9oyhy8UpC1H4FOwvyknctN0dMavOseKWSrPAj+gPDzUw0IKAvwDI4OcPEg==
 
-"@verdaccio/ui-theme@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.4.0.tgz#090127dbbcd5d679993d1e88ef94db00bf7bd5b9"
-  integrity sha512-YAPp3i7L6/a0t7T6xTRlEQi++ijlwcxObh6yo8GaiWsUJf4pUBnv6yOKP5C5fPBBH1PvoDVE3FQZ9GhSEm1nGw==
+"@verdaccio/ui-theme@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.5.0.tgz#748e2db1772106a4de64dbed1152e16cd4b34a7c"
+  integrity sha512-OLkTTJPnBgUDsRrGqIg5RC3NBmb7wolQEPrTGE1ScuVe0sO3351fw+TFj/hx5Oepbv4PqxknYossmWcrMaSq6Q==
 
 "@yarnpkg/lockfile@^1.1.0":
   version "1.1.0"
