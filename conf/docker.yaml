@@ -28,7 +28,7 @@ web:
 # translate your registry, api i18n not available yet
 # i18n:
 # list of the available translations https://github.com/verdaccio/ui/tree/master/i18n/translations
-# web: en-US
+#   web: en-US
 
 auth:
   htpasswd:
