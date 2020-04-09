@@ -20,7 +20,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
 
   async teardown() {}
 
-  runScript(script) {
+  runScript(script): any {
     return super.runScript(script);
   }
 }
