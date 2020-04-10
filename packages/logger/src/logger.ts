@@ -97,6 +97,8 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
 		logger = createLogger(pinoConfig,
 			pino.destination(loggerConfig.path),
 			loggerConfig.format);
+	} else if(loggerConfig.type === 'rotating-file') {
+		throw new Error('rotating-file type is not longer supported, consider use [logrotate] instead');
 	} else {
 		logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
 	}
