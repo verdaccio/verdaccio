@@ -4,7 +4,8 @@ import { white, red, green } from 'kleur';
 import padLeft from 'pad-left';
 
 import {calculateLevel, LevelCode, levelsColors, subSystemLevels} from "./levels";
-import { isObject, pad } from './utils';
+import {formatLoggingDate, isObject, pad} from './utils';
+import {PrettyOptionsExtended} from "./types";
 
 let LEVEL_VALUE_MAX = 0;
 for (const l in levelsColors) {
@@ -57,14 +58,8 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
 
 const CUSTOM_PAD_LENGTH = 1;
 
-export function printMessage(
-    templateObjects: ObjectTemplate,
-    hasColors = true): string {
-  const { level, msg, sub } = templateObjects;
-  const debugLevel = calculateLevel(level);
-
+function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
   const finalMessage = fillInMsgTemplate(msg, templateObjects, hasColors);
-
 
   const subSystemType = subSystemLevels.color[sub ?? 'default'];
   if (hasColors) {
@@ -75,4 +70,16 @@ export function printMessage(
   const logString = `${pad(debugLevel, LEVEL_VALUE_MAX)}${subSystemType} ${finalMessage}`;
 
   return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH , ' ');
+}
+
+export function printMessage(
+    templateObjects: ObjectTemplate,
+    options: PrettyOptionsExtended,
+    hasColors = true): string {
+  const { prettyStamp } = options;
+  const { level, msg, sub } = templateObjects;
+  const debugLevel = calculateLevel(level);
+  const logMessage = getMessage(debugLevel, msg, sub, templateObjects, hasColors);
+
+  return prettyStamp ? formatLoggingDate(templateObjects.time as number, logMessage) : logMessage;
 }

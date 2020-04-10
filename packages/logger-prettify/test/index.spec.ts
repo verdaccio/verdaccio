@@ -1,6 +1,7 @@
 import * as factory from '../src';
 
 describe('prettyFactory', () => {
+	const prettyfierOptions = { messageKey: 'msg', levelFirst: true, prettyStamp: false };
 	test('should return a function', () => {
 		expect(typeof factory['default']({})).toEqual('function')
 	});
@@ -12,6 +13,6 @@ describe('prettyFactory', () => {
 			msg: '[trace]  - @{foo}'
 		};
 
-		expect(factory['default']({})(log)).toMatchSnapshot();
+		expect(factory['default'](prettyfierOptions)(log)).toMatchSnapshot();
 	});
 });

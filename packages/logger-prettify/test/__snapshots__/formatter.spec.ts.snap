@@ -16,4 +16,6 @@ exports[`formatter printMessage should display custom log message 1`] = `" [32m
 
 exports[`formatter printMessage should display trace level 1`] = `" [37mtrace[39m[37m[34m---[39m[37m [trace]  - [32mfoo[39m[37m[39m"`;
 
+exports[`formatter printMessage should display trace level with pretty stamp 1`] = `"[formatted-date] [37mtrace[39m[37m[34m---[39m[37m [trace]  - [32mfoo[39m[37m[39m"`;
+
 exports[`formatter printMessage should display version and http address 1`] = `" [33mwarn [39m[37m[34m---[39m[37m http address - [32mhttp://localhost:4873/[39m[37m - [32mverdaccio/5.0.0[39m[37m[39m"`;

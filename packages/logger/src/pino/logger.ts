@@ -9,6 +9,13 @@ function getPrettifier() {
 	return require('@verdaccio/logger-prettify');
 }
 
+export type LogPlugin = {
+	dest: string;
+	options?: any[];
+};
+
+export type LogType = 'file' | 'stdout';
+export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
 export function createLogger(options = {},
 														 destination = pino.destination(1),
@@ -34,6 +41,7 @@ export function createLogger(options = {},
 		pinoConfig = Object.assign({}, pinoConfig, {
 			prettyPrint: {
 				levelFirst: true,
+				prettyStamp: format === 'pretty-timestamped',
 				...prettyPrintOptions
 			},
 			prettifier: getPrettifier(),
@@ -58,14 +66,6 @@ const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
 	format: 'pretty',
 	level: 'http'
 };
-
-export type LogPlugin = {
-	dest: string;
-	options?: any[];
-};
-
-export type LogType = 'file' | 'stdout';
-export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
 export type LoggerConfigItem = {
 	type?: LogType;
