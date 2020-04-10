@@ -1,2 +1,2 @@
-export { setup, createLogger, logger } from './pino/logger';
+export { setup, createLogger, logger } from './logger';
 

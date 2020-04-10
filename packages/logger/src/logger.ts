@@ -2,10 +2,11 @@ import pino from 'pino';
 import _ from 'lodash';
 
 const DEFAULT_LOG_FORMAT = 'pretty';
+
 export let logger;
 
 function getPrettifier() {
-	// TODO: this module can be loaded dinamically and allow custom formatting
+	// TODO: this module can be loaded dynamically and allow custom formatting
 	return require('@verdaccio/logger-prettify');
 }
 
@@ -83,6 +84,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
 		console.warn("DEPRECATE: logs does not have multi-stream support anymore, please upgrade your logger configuration");
 	}
 
+	// backward compatible, pick only the first option
 	let loggerConfig = isLegacyConf ? options[0] : options;
 	if (!loggerConfig?.level) {
 		loggerConfig = Object.assign({}, loggerConfig, {
