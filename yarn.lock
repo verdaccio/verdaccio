@@ -8300,14 +8300,14 @@ p-waterfall@^1.0.0:
   dependencies:
     p-reduce "^1.0.0"
 
-pad-left@^2.1.0:
+pad-left@2.1.0:
   version "2.1.0"
   resolved "https://registry.verdaccio.org/pad-left/-/pad-left-2.1.0.tgz#16e6a3b2d44a8e138cb0838cc7cb403a4fc9e994"
   integrity sha1-FuajstRKjhOMsIOMx8tAOk/J6ZQ=
   dependencies:
     repeat-string "^1.5.4"
 
-pad-right@^0.2.2:
+pad-right@0.2.2:
   version "0.2.2"
   resolved "https://registry.verdaccio.org/pad-right/-/pad-right-0.2.2.tgz#6fbc924045d244f2a2a244503060d3bfc6009774"
   integrity sha1-b7ySQEXSRPKiokRQMGDTv8YAl3Q=
@@ -10231,10 +10231,10 @@ typedarray@^0.0.6:
   resolved "https://registry.verdaccio.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.8.3:
-  version "3.8.3"
-  resolved "https://registry.verdaccio.org/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
-  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+typescript@beta:
+  version "3.9.0-beta"
+  resolved "https://registry.verdaccio.org/typescript/-/typescript-3.9.0-beta.tgz#3d73e2e2797904562d9d6840387a9794fdce4bc8"
+  integrity sha512-8KFblEWBTXath2UwPQ9Ho7/fAEcBragPwmUALeeSymCpJlHOll6gV/1YTY96e+iqeDJ174JM2EJ/ymWbbQRyHw==
 
 uglify-js@^3.1.4:
   version "3.7.6"

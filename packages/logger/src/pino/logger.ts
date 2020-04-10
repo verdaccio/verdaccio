@@ -3,6 +3,13 @@ import _ from 'lodash';
 
 const DEFAULT_LOG_FORMAT = 'pretty';
 export let logger;
+
+function getPrettifier() {
+	// TODO: this module can be loaded dinamically and allow custom formatting
+	return require('@verdaccio/logger-prettify');
+}
+
+
 export function createLogger(options = {},
 														 destination = pino.destination(1),
 														 format: LogFormat = DEFAULT_LOG_FORMAT,
@@ -29,8 +36,7 @@ export function createLogger(options = {},
 				levelFirst: true,
 				...prettyPrintOptions
 			},
-			// TODO: this module can be loaded dinamically and allow custom formatting
-			prettifier: require('@verdaccio/logger-prettify'),
+			prettifier: getPrettifier(),
 			}
 		)
 	}

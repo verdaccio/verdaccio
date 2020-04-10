@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formatter should display a bytes request 1`] = `" [35mhttp [39m[37m[32m<--[39m[37m [33m200[39m[37m, user: [1mnull[22m([32m127.0.0.1[39m[37m), req: '[32mGET[39m[37m [32m/verdaccio[39m[37m', bytes: [33m0[39m[37m/[33m150186[39m[37m[39m"`;
+exports[`formatter printMessage should display a bytes request 1`] = `" [35mhttp [39m[37m[32m<--[39m[37m [33m200[39m[37m, user: [1mnull[22m([32m127.0.0.1[39m[37m), req: '[32mGET[39m[37m [32m/verdaccio[39m[37m', bytes: [33m0[39m[37m/[33m150186[39m[37m[39m"`;
 
-exports[`formatter should display a resource request 1`] = `" info [32m<--[39m 127.0.0.1 requested 'GET /verdaccio'"`;
+exports[`formatter printMessage should display a resource request 1`] = `" info [32m<--[39m 127.0.0.1 requested 'GET /verdaccio'"`;
 
-exports[`formatter should display a streaming request 1`] = `" [35mhttp [39m[37m[33m-->[39m[37m [33m304[39m[37m, req: '[32mGET[39m[37m [32mhttps://registry.npmjs.org/verdaccio[39m[37m' (streaming)[39m"`;
+exports[`formatter printMessage should display a streaming request 1`] = `" [35mhttp [39m[37m[33m-->[39m[37m [33m304[39m[37m, req: '[32mGET[39m[37m [32mhttps://registry.npmjs.org/verdaccio[39m[37m' (streaming)[39m"`;
 
-exports[`formatter should display an error request 1`] = `" [35mhttp [39m[37m[33m-->[39m[37m [31mERR[39m[37m, req: '[32mGET[39m[37m [32mhttps://registry.fake.org/aaa[39m[37m', error: [31mgetaddrinfo ENOTFOUND registry.fake.org[39m[37m[39m"`;
+exports[`formatter printMessage should display an error request 1`] = `" [31merror[39m[37m[33m-->[39m[37m [31mERR[39m[37m, req: '[32mGET[39m[37m [32mhttps://registry.fake.org/aaa[39m[37m', error: [31mgetaddrinfo ENOTFOUND registry.fake.org[39m[37m[39m"`;
 
-exports[`formatter should display config file 1`] = `" [33mwarn [39m[37m[34m---[39m[37m config file  - [32m/Users/user/.config/verdaccio/config/config.yaml[39m[37m[39m"`;
+exports[`formatter printMessage should display an fatal request 1`] = `" [31mfatal[39m[37m[33m-->[39m[37m [31mERR[39m[37m, req: '[32mGET[39m[37m [32mhttps://registry.fake.org/aaa[39m[37m', error: [31mfatal error[39m[37m[39m"`;
 
-exports[`formatter should display version and http address 1`] = `" [33mwarn [39m[37m[34m---[39m[37m http address - [32mhttp://localhost:4873/[39m[37m - [32mverdaccio/5.0.0[39m[37m[39m"`;
+exports[`formatter printMessage should display config file 1`] = `" [33mwarn [39m[37m[34m---[39m[37m config file  - [32m/Users/user/.config/verdaccio/config/config.yaml[39m[37m[39m"`;
+
+exports[`formatter printMessage should display custom log message 1`] = `" [32mdebug[39m[37m[34m---[39m[37m custom - [32mfoo[39m[37m - [90mundefined[39m[37m[39m"`;
+
+exports[`formatter printMessage should display trace level 1`] = `" [37mtrace[39m[37m[34m---[39m[37m [trace]  - [32mfoo[39m[37m[39m"`;
+
+exports[`formatter printMessage should display version and http address 1`] = `" [33mwarn [39m[37m[34m---[39m[37m http address - [32mhttp://localhost:4873/[39m[37m - [32mverdaccio/5.0.0[39m[37m[39m"`;

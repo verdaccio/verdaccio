@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prettyFactory should return a function 1`] = `
+" [37mtrace[39m[37m[34m---[39m[37m [trace]  - [32mfoo[39m[37m[39m
+"
+`;

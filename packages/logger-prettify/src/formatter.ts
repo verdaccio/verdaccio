@@ -1,68 +1,78 @@
 import { inspect } from 'util';
 
 import { white, red, green } from 'kleur';
-import {calculateLevel, levelsColors, subSystemLevels} from "./levels";
+import padLeft from 'pad-left';
 
+import {calculateLevel, LevelCode, levelsColors, subSystemLevels} from "./levels";
 import { isObject, pad } from './utils';
 
 let LEVEL_VALUE_MAX = 0;
 for (const l in levelsColors) {
-  if (Object.prototype.hasOwnProperty.call(levelsColors, l)) {
-    LEVEL_VALUE_MAX = Math.max(LEVEL_VALUE_MAX, l.length);
-  }
+  LEVEL_VALUE_MAX = Math.max(LEVEL_VALUE_MAX, l.length);
 }
 
-/**
- * Apply colors to a string based on level parameters.
- * @param {*} type
- * @param {*} msg
- * @param {*} templateObjects
- * @param {*} hasColors
- * @return {String}
- */
-export function printMessage(type, msg, templateObjects, hasColors = true) {
-  if (typeof type === 'number') {
-    type = calculateLevel(type);
-  }
+const ERROR_FLAG = '!';
 
-  const finalMessage = fillInMsgTemplate(msg, templateObjects, hasColors);
+export interface ObjectTemplate {
+  level: LevelCode;
+  msg: string;
+  sub?: string;
+  [key: string]: string | number | object | null | void;
+};
 
-  const sub = subSystemLevels.color[templateObjects.sub] || subSystemLevels.color.default;
-  if (hasColors) {
-    return ` ${levelsColors[type](pad(type, LEVEL_VALUE_MAX))}${white(`${sub} ${finalMessage}`)}`;
-  }
-  return ` ${pad(type, LEVEL_VALUE_MAX)}${sub} ${finalMessage}`;
-}
+export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors): string {
+  const templateRegex = /@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g;
 
-export function fillInMsgTemplate(msg, obj: unknown, colors): string {
-  return msg.replace(/@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g, (_, name): string => {
+  return msg.replace(templateRegex, (_, name): string => {
 
-    let str = obj;
-    let is_error;
-    if (name[0] === '!') {
+    let str = templateOptions;
+    let isError;
+    if (name[0] === ERROR_FLAG) {
       name = name.substr(1);
-      is_error = true;
+      isError = true;
     }
 
-    const _ref = name.split('.');
-    for (let _i = 0; _i < _ref.length; _i++) {
-      const id = _ref[_i];
+    // object can be @{foo.bar.}
+    const listAccessors = name.split('.');
+    for (let property = 0; property < listAccessors.length; property++) {
+      const id = listAccessors[property];
       if (isObject(str)) {
-        // @ts-ignore
-        str = str[id];
-      } else {
-        str = undefined;
+        str = (str as object)[id];
       }
     }
 
     if (typeof str === 'string') {
-      if (!colors || (str as string).includes('\n')) {
+      if (colors === false || (str as string).includes('\n')) {
         return str;
-      } else if (is_error) {
+      } else if (isError) {
         return red(str);
       }
       return green(str);
     }
+    
+    // object, showHidden, depth, colors
     return inspect(str, undefined, null, colors);
   });
+}
+
+const CUSTOM_PAD_LENGTH = 1;
+
+export function printMessage(
+    templateObjects: ObjectTemplate,
+    hasColors = true): string {
+  const { level, msg, sub } = templateObjects;
+  const debugLevel = calculateLevel(level);
+
+  const finalMessage = fillInMsgTemplate(msg, templateObjects, hasColors);
+
+
+  const subSystemType = subSystemLevels.color[sub ?? 'default'];
+  if (hasColors) {
+    const logString = `${levelsColors[debugLevel](pad(debugLevel, LEVEL_VALUE_MAX))}${white(`${subSystemType} ${finalMessage}`)}`;
+
+    return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH , ' ');
+  }
+  const logString = `${pad(debugLevel, LEVEL_VALUE_MAX)}${subSystemType} ${finalMessage}`;
+
+  return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH , ' ');
 }

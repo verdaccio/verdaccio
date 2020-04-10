@@ -53,7 +53,7 @@
     "rimraf": "3.0.0",
     "standard-version": "^7.0.1",
     "supertest": "^4.0.2",
-    "typescript": "^3.8.3",
+    "typescript": "beta",
     "verdaccio-auth-memory": "^9.3.0",
     "verdaccio-memory": "^9.3.0",
     "verdaccio": "^4.4.4"

@@ -18,6 +18,7 @@
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "type-check": "tsc --noEmit",
+    "lint": "yarn type-check && eslint \"@(src|tests)/**\"",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "npm run build:js && npm run build:types"
@@ -27,8 +28,8 @@
     "@verdaccio/commons-api": "^9.4.0",
     "dayjs": "^1.8.19",
     "lodash": "^4.17.15",
-    "pad-left": "^2.1.0",
-    "pad-right": "^0.2.2",
+    "pad-right": "0.2.2",
+    "pad-left": "2.1.0",
     "prettier-bytes": "^1.0.3",
     "pretty-ms": "^5.0.0",
     "fast-safe-stringify": "^2.0.7",

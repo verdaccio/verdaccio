@@ -1,8 +1,10 @@
 import { yellow, green, black, blue, red, magenta, cyan, white } from 'kleur';
 
-export type LevelCode = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
+export type LogLevel = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
 
-export function calculateLevel(levelCode): LevelCode {
+export type LevelCode = number;
+
+export function calculateLevel(levelCode: LevelCode): LogLevel {
     switch (true) {
         case levelCode < 15:
             return 'trace';
@@ -31,17 +33,24 @@ export const levelsColors = {
     trace: white,
 };
 
+enum ARROWS {
+    LEFT = '<--',
+    RIGHT = '-->',
+    EQUAL = '-=-',
+    NEUTRAL = '---'
+}
+
 export const subSystemLevels = {
     color: {
-        in: green('<--'),
-        out: yellow('-->'),
-        fs: black('-=-'),
-        default: blue('---'),
+        in: green(ARROWS.LEFT),
+        out: yellow(ARROWS.RIGHT),
+        fs: black(ARROWS.EQUAL),
+        default: blue(ARROWS.NEUTRAL),
     },
     white: {
-        in: '<--',
-        out: '-->',
-        fs: '-=-',
-        default: '---',
+        in: ARROWS.LEFT,
+        out: ARROWS.RIGHT,
+        fs: ARROWS.EQUAL,
+        default: ARROWS.NEUTRAL,
     },
 };

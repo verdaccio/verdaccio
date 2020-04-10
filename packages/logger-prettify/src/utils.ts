@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import padRight from 'pad-right';
 
-export function isObject(obj: any): boolean {
+export function isObject(obj: unknown): boolean {
     return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
@@ -9,9 +10,6 @@ export function isObject(obj: any): boolean {
  * @param {*} str the log message
  * @return {String}
  */
-export function pad(str, max): string {
-    if (str.length < max) {
-        return str + ' '.repeat(max - str.length);
-    }
-    return str;
+export function pad(str: string, max: number): string {
+    return padRight(str, max, ' ');
 }
