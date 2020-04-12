@@ -3,6 +3,7 @@ import URL from 'url';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import tls from "tls"
 import constants from 'constants';
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
@@ -104,24 +105,71 @@ function logHTTPSWarning(storageLocation) {
   process.exit(2);
 }
 
-function handleHTTPS(app, configPath, config) {
-  try {
-    let httpsOptions = {
-      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
-    };
+let secureContext: tls.SecureContext | undefined;
+function handleSNICallback(domain, callback): tls.SecureContext | undefined {
+  if (secureContext) {
+    if (callback) {
+      callback(null, secureContext);
+    } else {
+      return secureContext
+    }
+  } else {
+    logger.logger.fatal('No secure context found');
+  }
+}
 
+function refreshSecureContext(config): void {
+  try {
     if (config.https.pfx) {
-      httpsOptions = assign(httpsOptions, {
+      secureContext = tls.createSecureContext({
         pfx: fs.readFileSync(config.https.pfx),
-        passphrase: config.https.passphrase || '',
+        passphrase: config.https.passphrase
       });
     } else {
-      httpsOptions = assign(httpsOptions, {
+      secureContext = tls.createSecureContext({
         key: fs.readFileSync(config.https.key),
         cert: fs.readFileSync(config.https.cert),
         ca: fs.readFileSync(config.https.ca),
       });
     }
+    logger.logger.info('Secure context renewed');
+  } catch (err) {
+    logger.logger.fatal({ err: err }, 'Cannot create secure context: @{err.message}');
+    process.exit(2);
+  }
+}
+
+function handleHTTPS(app, configPath, config) {
+  try {
+    refreshSecureContext(config);
+    const fileToWatch = config.https.pfx
+      ? config.https.pfx
+      : config.https.cert
+      ;
+
+
+    // add a filewatcher on the certificate files, so the verdaccio
+    // doesn't need to be restarted when the certificate changes 
+    fs.watchFile(
+      fileToWatch, 
+      {
+        interval: 600000,
+      }, 
+      (): void => {
+        // add a bit of a timeout, to handle the (unlikely) case, that a cert-file is already changed, 
+        // but the correponding key-file is not yet updated
+        setTimeout(() => {
+            refreshSecureContext(config);
+          }, 
+          5000); 
+      }
+    );
+
+    const httpsOptions = {
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
+      SNICallback: handleSNICallback,
+    };
+
     return https.createServer(httpsOptions, app);
   } catch (err) {
     // catch errors related to certificate loading
