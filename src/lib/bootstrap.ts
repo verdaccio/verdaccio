@@ -3,7 +3,7 @@ import URL from 'url';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import tls from "tls"
+import tls from 'tls'
 import constants from 'constants';
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
@@ -120,22 +120,23 @@ function handleSNICallback(domain, callback): tls.SecureContext | undefined {
 
 function refreshSecureContext(config): void {
   try {
+    let newContext : tls.SecureContext | undefined;
     if (config.https.pfx) {
-      secureContext = tls.createSecureContext({
+      newContext = tls.createSecureContext({
         pfx: fs.readFileSync(config.https.pfx),
         passphrase: config.https.passphrase
       });
     } else {
-      secureContext = tls.createSecureContext({
+      newContext = tls.createSecureContext({
         key: fs.readFileSync(config.https.key),
         cert: fs.readFileSync(config.https.cert),
         ca: fs.readFileSync(config.https.ca),
       });
     }
+    secureContext = newContext;
     logger.logger.info('Secure context renewed');
   } catch (err) {
-    logger.logger.fatal({ err: err }, 'Cannot create secure context: @{err.message}');
-    process.exit(2);
+    throw err;
   }
 }
 
@@ -150,18 +151,21 @@ function handleHTTPS(app, configPath, config) {
 
     // add a filewatcher on the certificate files, so the verdaccio
     // doesn't need to be restarted when the certificate changes 
-    fs.watchFile(
+    fs.watch(
       fileToWatch, 
-      {
-        interval: 600000,
-      }, 
-      (): void => {
+      (eventtype, filename): void => {
         // add a bit of a timeout, to handle the (unlikely) case, that a cert-file is already changed, 
         // but the correponding key-file is not yet updated
-        setTimeout(() => {
-            refreshSecureContext(config);
-          }, 
-          5000); 
+        if (eventtype === 'change') {
+          setTimeout(() => {
+              try {
+                refreshSecureContext(config);
+              } catch (err) {
+                logger.logger.warn({ err: err }, 'Cannot renew secure context: @{err.message}');
+              }
+            }, 
+            5000); 
+          }
       }
     );
 
