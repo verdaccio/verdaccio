@@ -1,4 +1,4 @@
-import { assign, isObject, isFunction } from 'lodash';
+import { isObject, isFunction } from 'lodash';
 import URL from 'url';
 import fs from 'fs';
 import http from 'http';
@@ -114,11 +114,11 @@ function handleSNICallback(domain, callback): tls.SecureContext | undefined {
       return secureContext
     }
   } else {
-    logger.logger.fatal('No secure context found');
+    logger.logger.warn('No secureContext found');
   }
 }
 
-function refreshSecureContext(config): void {
+function refreshSecureContext(config, nothrow?): void {
   try {
     let newContext : tls.SecureContext | undefined;
     if (config.https.pfx) {
@@ -136,7 +136,10 @@ function refreshSecureContext(config): void {
     secureContext = newContext;
     logger.logger.info('Secure context renewed');
   } catch (err) {
-    throw err;
+    logger.logger.warn({ err: err }, 'Cannot create/renew secure context: @{err.message}');
+    if (!nothrow) {
+      throw err;
+    }
   }
 }
 
@@ -158,11 +161,7 @@ function handleHTTPS(app, configPath, config) {
         // but the correponding key-file is not yet updated
         if (eventtype === 'change') {
           setTimeout(() => {
-              try {
-                refreshSecureContext(config);
-              } catch (err) {
-                logger.logger.warn({ err: err }, 'Cannot renew secure context: @{err.message}');
-              }
+              refreshSecureContext(config, true);
             }, 
             5000); 
           }
