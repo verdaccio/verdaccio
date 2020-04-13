@@ -69,7 +69,7 @@ describe('Auth Utilities', () => {
 
 			// const type = 'access';
 			test.each(['access', 'publish', 'unpublish'])('should restrict %s to anonymous users', (type) => {
-				allow_action(type as ActionsAllowed)(
+				allow_action(type as ActionsAllowed, { trace: jest.fn()})(
 					createAnonymousRemoteUser(), {
 						...packageAccess,
 						[type]: ['foo']
@@ -82,7 +82,7 @@ describe('Auth Utilities', () => {
 			});
 
 			test.each(['access', 'publish', 'unpublish'])('should allow %s to anonymous users', (type) => {
-				allow_action(type as ActionsAllowed)(
+				allow_action(type as ActionsAllowed, { trace: jest.fn()})(
 					createAnonymousRemoteUser(), {
 						...packageAccess,
 						[type]: [ROLES.$ANONYMOUS]
@@ -95,7 +95,7 @@ describe('Auth Utilities', () => {
 			});
 
 			test.each(['access', 'publish', 'unpublish'])('should allow %s only if user is anonymous if the logged user has groups', (type) => {
-				allow_action(type as ActionsAllowed)(
+				allow_action(type as ActionsAllowed, { trace: jest.fn()})(
 					createRemoteUser('juan', ['maintainer', 'admin']), {
 						...packageAccess,
 						[type]: [ROLES.$ANONYMOUS]
@@ -108,7 +108,7 @@ describe('Auth Utilities', () => {
 			});
 
 			test.each(['access', 'publish', 'unpublish'])('should allow %s only if user is anonymous match any other groups', (type) => {
-				allow_action(type as ActionsAllowed)(
+				allow_action(type as ActionsAllowed, { trace: jest.fn()})(
 					createRemoteUser('juan', ['maintainer', 'admin']), {
 						...packageAccess,
 						[type]: ['admin', 'some-other-group', ROLES.$ANONYMOUS]
@@ -121,7 +121,7 @@ describe('Auth Utilities', () => {
 			});
 
 			test.each(['access', 'publish', 'unpublish'])('should not allow %s anonymous if other groups are defined and does not match', (type) => {
-				allow_action(type as ActionsAllowed)(
+				allow_action(type as ActionsAllowed, { trace: jest.fn()})(
 					createRemoteUser('juan', ['maintainer', 'admin']), {
 						...packageAccess,
 						[type]: ['bla-bla-group', 'some-other-group', ROLES.$ANONYMOUS]
@@ -143,14 +143,14 @@ describe('Auth Utilities', () => {
 
 	describe('getDefaultPlugins', () => {
 		test('authentication should fail by default (default)', () => {
-			const plugin = getDefaultPlugins();
+			const plugin = getDefaultPlugins({ trace: jest.fn()});
 			plugin.authenticate('foo', 'bar', (error: any) => {
 				expect(error).toEqual(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
 			});
 		});
 
 		test('add user should fail by default (default)', () => {
-			const plugin: IPluginAuth<Config> = getDefaultPlugins();
+			const plugin = getDefaultPlugins({ trace: jest.fn()});
 			// @ts-ignore
 			plugin.adduser('foo', 'bar', (error: any) => {
 				expect(error).toEqual(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));

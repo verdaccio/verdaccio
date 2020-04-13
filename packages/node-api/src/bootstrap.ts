@@ -8,7 +8,7 @@ import constants from 'constants';
 
 import { Callback,  ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { API_ERROR, certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
-import endPointAPI from '@verdaccio/server';
+import server from '@verdaccio/server';
 import { logger} from '@verdaccio/logger';
 
 import { getListListenAddresses, resolveConfigPath } from './cli-utils';
@@ -44,12 +44,11 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  if ('experiments' in config) {
-    displayExperimentsInfoBox(config.experiments);
-  }
-
-  endPointAPI(config).then((app): void => {
+  server(config).then((app): void => {
       const addresses = getListListenAddresses(cliListen, config.listen);
+      if ('experiments' in config) {
+        displayExperimentsInfoBox(config.experiments);
+      }
 
       addresses.forEach(addr =>launchServer(app, addr, config, configPath, pkgName, pkgVersion, callback));
     }
