@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"]
+}
