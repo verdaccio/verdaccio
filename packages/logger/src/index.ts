@@ -1,1 +1,2 @@
-export { setup, logger } from './logger';
+export { setup, createLogger, logger } from './logger';
+

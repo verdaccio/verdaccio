@@ -61,7 +61,7 @@ class Auth implements IAuth {
   }
 
   private _applyDefaultPlugins(): void {
-    this.plugins.push(getDefaultPlugins());
+    this.plugins.push(getDefaultPlugins(this.logger));
   }
 
   public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {

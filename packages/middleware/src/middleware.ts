@@ -176,6 +176,7 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
   res.send(body);
 }
 
+// FIXME: deprecated, moved to @verdaccio/dev-commons
 export const LOG_STATUS_MESSAGE = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
