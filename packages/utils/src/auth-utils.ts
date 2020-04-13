@@ -7,8 +7,6 @@ import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { ErrorCode } from './utils';
 
-import { logger } from '@verdaccio/logger';
-
 export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD): boolean {
   return typeof password === 'string' && password.length >= minLength;
 }
@@ -65,7 +63,7 @@ export interface AuthPackageAllow extends PackageAccess, AllowAccess {
 
 export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
 
-export function allow_action(action: ActionsAllowed): AllowAction {
+export function allow_action(action: ActionsAllowed, logger): AllowAction {
   return function allowActionCallback(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     logger.trace({remote: user.name}, `[auth/allow_action]: user: @{user.name}`);
     const { name, groups } = user;
@@ -89,7 +87,7 @@ export function allow_action(action: ActionsAllowed): AllowAction {
 /**
  *
  */
-export function handleSpecialUnpublish(): any {
+export function handleSpecialUnpublish(logger): any {
   return function(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined
@@ -102,11 +100,11 @@ export function handleSpecialUnpublish(): any {
     }
 
     logger.trace({user: user.name, name: pkg.name, action, hasGroups}, `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`);
-    return allow_action(action)(user, pkg, callback);
+    return allow_action(action, logger)(user, pkg, callback);
   };
 }
 
-export function getDefaultPlugins(): IPluginAuth<Config> {
+export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
   return {
     authenticate(user: string, password: string, cb: Callback): void {
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
@@ -118,10 +116,10 @@ export function getDefaultPlugins(): IPluginAuth<Config> {
 
     // FIXME: allow_action and allow_publish should be in the @verdaccio/types
     // @ts-ignore
-    allow_access: allow_action('access'),
+    allow_access: allow_action('access', logger),
     // @ts-ignore
-    allow_publish: allow_action('publish'),
-    allow_unpublish: handleSpecialUnpublish(),
+    allow_publish: allow_action('publish', logger),
+    allow_unpublish: handleSpecialUnpublish(logger),
   };
 }
 

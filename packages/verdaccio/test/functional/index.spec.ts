@@ -3,8 +3,6 @@ import { setup } from '@verdaccio/logger';
 
 setup({});
 
-// import {IServerBridge} from '../types';
-
 import basic from './basic/basic';
 import packageAccess from './package/access';
 import packageGzip from './package/gzip';

@@ -1,4 +1,4 @@
-npm-debug.log
+*.log*
 verdaccio-*.tgz
 .DS_Store
 build/

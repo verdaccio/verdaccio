@@ -183,6 +183,7 @@ class ProxyStorage implements IProxy {
        */
       function logActivity(): void {
         let message = "@{!status}, req: '@{request.method} @{request.url}'";
+        // FIXME: use LOG_VERDACCIO_BYTES
         message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
         self.logger.warn(
           {

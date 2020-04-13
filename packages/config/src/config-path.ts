@@ -13,7 +13,9 @@ const XDG = 'xdg';
 const WIN = 'win';
 const WIN32 = 'win32';
 // eslint-disable-next-line
-const pkgJSON = require('../package.json');
+const pkgJSON = {
+  name: 'verdaccio'
+};
 
 export type SetupDirectory = {
   path: string;

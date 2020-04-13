@@ -54,6 +54,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.middlewares.audit).toBeDefined();
   expect(config.middlewares.audit.enabled).toBeTruthy();
   // logs
+  expect(config.logs).toBeDefined();
   expect(config.logs.type).toEqual('stdout');
   expect(config.logs.format).toEqual('pretty');
   expect(config.logs.level).toEqual('http');

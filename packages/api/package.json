@@ -27,6 +27,7 @@
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/hooks": "5.0.0-alpha.0",
     "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/auth": "5.0.0-alpha.0",
     "@verdaccio/middleware": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "body-parser": "^1.19.0",
