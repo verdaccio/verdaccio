@@ -3,12 +3,14 @@ import _ from 'lodash';
 
 import { parseConfigFile} from "@verdaccio/utils";
 import { findConfigFile } from "@verdaccio/config";
-import { logger } from '@verdaccio/logger';
+import { logger, createLogger } from '@verdaccio/logger';
 import {startVerdaccio, listenDefaultCallback} from "@verdaccio/node-api";
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
 export default function initProgram(commander,  pkgVersion, pkgName) {
+	// FIXME: we need to log before the setup is being applied
+	// const initLogger = createLogger();
 	const cliListener = commander.listen;
 	let configPathLocation;
 	let verdaccioConfiguration;
@@ -32,11 +34,11 @@ export default function initProgram(commander,  pkgVersion, pkgName) {
 			});
 		}
 
-		logger.warn({file: configPathLocation}, 'config file  - @{file}');
+		// initLogger.warn({file: configPathLocation}, 'config file  - @{file}');
 
 		startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
 	} catch (err) {
-		logger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
+		// initLogger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
 		process.exit(1);
 	}
 }
