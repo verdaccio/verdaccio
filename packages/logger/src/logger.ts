@@ -1,158 +1,116 @@
-/* eslint-disable */
+import pino from 'pino';
+import _ from 'lodash';
 
-const cluster = require('cluster');
-const Logger = require('bunyan');
-const Error = require('http-errors');
-const Stream = require('stream');
-const _ = require('lodash');
+const DEFAULT_LOG_FORMAT = 'pretty';
 
-const pkgJSON = require('../package.json');
+export let logger;
 
-
-import {prettyTimestamped} from "./format/pretty-timestamped";
-import {pretty} from "./format/pretty";
-import {jsonFormat} from "./format/json";
-
-/**
- * A RotatingFileStream that modifies the message first
- */
-class VerdaccioRotatingFileStream extends Logger.RotatingFileStream {
-  // We depend on mv so that this is there
-  write(obj) {
-    super.write(jsonFormat(obj, false));
-  }
-
-  rotate(): void {
-    super.rotate();
-    this.emit('rotated');
-  }
+function getPrettifier() {
+	// TODO: this module can be loaded dynamically and allow custom formatting
+	return require('@verdaccio/logger-prettify');
 }
 
-let logger;
+export type LogPlugin = {
+	dest: string;
+	options?: any[];
+};
 
-export interface LoggerTarget {
-  type?: string;
-  format?: string;
-  level?: string;
-  options?: any;
-  path?: string;
+export type LogType = 'file' | 'stdout';
+export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
+
+export function createLogger(options = {},
+														 destination = pino.destination(1),
+														 format: LogFormat = DEFAULT_LOG_FORMAT,
+														 prettyPrintOptions = {}) {
+	if (_.isNil(format)) {
+		format = DEFAULT_LOG_FORMAT;
+	}
+
+	let pinoConfig = {
+		...options,
+		customLevels: {
+			http: 35
+		},
+		serializers: {
+			err: pino.stdSerializers.err,
+			req: pino.stdSerializers.req,
+			res: pino.stdSerializers.res
+		},
+	};
+
+	if (format === DEFAULT_LOG_FORMAT || format !== 'json') {
+		pinoConfig = Object.assign({}, pinoConfig, {
+			prettyPrint: {
+				levelFirst: true,
+				prettyStamp: format === 'pretty-timestamped',
+				...prettyPrintOptions
+			},
+			prettifier: getPrettifier(),
+			}
+		)
+	}
+
+	return pino(pinoConfig, destination);
 }
 
-const DEFAULT_LOGGER_CONF = [{ type: 'stdout', format: 'pretty', level: 'http' }];
+export function getLogger() {
+	if (_.isNil(logger)) {
+		console.warn('logger is not defined');
+		return;
+	}
 
-/**
- * Setup the Buyan logger
- * @param {*} logs list of log configuration
- */
-function setup(logs, { logStart } = { logStart: true }) {
-  const streams: any = [];
-  if (logs == null) {
-    logs = DEFAULT_LOGGER_CONF;
-  }
-
-  logs.forEach(function(target: LoggerTarget) {
-    let level = target.level || 35;
-    if (level === 'http') {
-      level = 35;
-    }
-
-    // create a stream for each log configuration
-    if (target.type === 'rotating-file') {
-      if (target.format !== 'json') {
-        throw new Error('Rotating file streams only work with JSON!');
-      }
-      if (cluster.isWorker) {
-        // https://github.com/trentm/node-bunyan#stream-type-rotating-file
-        throw new Error('Cluster mode is not supported for rotating-file!');
-      }
-
-      const stream = new VerdaccioRotatingFileStream(
-        // @ts-ignore
-        _.merge(
-          {},
-          // Defaults can be found here: https://github.com/trentm/node-bunyan#stream-type-rotating-file
-          target.options || {},
-          { path: target.path, level }
-        )
-      );
-
-      const rotateStream = {
-        type: 'raw',
-        level,
-        stream,
-      };
-
-      if (logStart) {
-        stream.on('rotated', () => logger.warn('Start of logfile'));
-      }
-
-      streams.push(rotateStream);
-    } else {
-      const stream = new Stream();
-      stream.writable = true;
-
-      let destination;
-      let destinationIsTTY = false;
-      if (target.type === 'file') {
-        // destination stream
-        destination = require('fs').createWriteStream(target.path, { flags: 'a', encoding: 'utf8' });
-        destination.on('error', function(err) {
-          stream.emit('error', err);
-        });
-      } else if (target.type === 'stdout' || target.type === 'stderr') {
-        destination = target.type === 'stdout' ? process.stdout : process.stderr;
-        destinationIsTTY = destination.isTTY;
-      } else {
-        throw Error('wrong target type for a log');
-      }
-
-      if (target.format === 'pretty') {
-        // making fake stream for pretty printing
-        stream.write = obj => {
-          destination.write(pretty(obj, destinationIsTTY));
-        };
-      } else if (target.format === 'pretty-timestamped') {
-        // making fake stream for pretty printing
-        stream.write = obj => {
-          destination.write(prettyTimestamped(obj, destinationIsTTY));
-        };
-      } else {
-        stream.write = obj => {
-          destination.write(jsonFormat(obj, destinationIsTTY));
-        };
-      }
-
-      streams.push({
-        // @ts-ignore
-        type: 'raw',
-        // @ts-ignore
-        level,
-        // @ts-ignore
-        stream: stream,
-      });
-    }
-  });
-
-  // buyan default configuration
-  logger = new Logger({
-    name: pkgJSON.name,
-    streams: streams,
-    serializers: {
-      err: Logger.stdSerializers.err,
-      req: Logger.stdSerializers.req,
-      res: Logger.stdSerializers.res,
-    },
-  });
-
-  // In case of an empty log file, we ensure there is always something logged. This also helps see if the server
-  // was restarted in any cases
-  if (logStart) {
-    logger.warn('Verdaccio started');
-  }
-
-  process.on('SIGUSR2', function() {
-    Logger.reopenFileStreams();
-  });
+	return logger;
 }
 
-export { setup, logger };
+const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
+	type: 'stdout',
+	format: 'pretty',
+	level: 'http'
+};
+
+export type LoggerConfigItem = {
+	type?: LogType;
+	plugin?: LogPlugin;
+	format?: LogFormat;
+	path?: string;
+	level?: string;
+}
+
+export type LoggerConfig = LoggerConfigItem[];
+
+export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER_CONF]) {
+	const isLegacyConf = _.isArray(options);
+	if (isLegacyConf) {
+		console.warn("DEPRECATE: logs does not have multi-stream support anymore, please upgrade your logger configuration");
+	}
+
+	// backward compatible, pick only the first option
+	let loggerConfig = isLegacyConf ? options[0] : options;
+	if (!loggerConfig?.level) {
+		loggerConfig = Object.assign({}, loggerConfig, {
+			level: 'http'
+		})
+	}
+
+	const pinoConfig = { level: loggerConfig.level };
+	if (loggerConfig.type === 'file') {
+		logger = createLogger(pinoConfig,
+			pino.destination(loggerConfig.path),
+			loggerConfig.format);
+	} else if(loggerConfig.type === 'rotating-file') {
+		throw new Error('rotating-file type is not longer supported, consider use [logrotate] instead');
+	} else {
+		logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+	}
+
+	process.on('uncaughtException', pino.final(logger, (err, finalLogger) => {
+		finalLogger.fatal(err, 'uncaughtException');
+		process.exit(1);
+	}));
+
+	// @ts-ignore
+	process.on('unhandledRejection', pino.final(logger, (err, finalLogger) => {
+		finalLogger.fatal(err, 'uncaughtException');
+		process.exit(1);
+	}));
+}

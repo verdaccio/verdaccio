@@ -65,9 +65,21 @@ middlewares:
     enabled: true
 
 # log settings
+# log settings
 logs:
-  - { type: stdout, format: pretty, level: http }
-  #- {type: file, path: verdaccio.log, level: info}
+  # Logger as STDOUT
+  { type: stdout, format: pretty, level: http }
+  # Logger as STDOUT as JSON
+  # { type: stdout, format: json, level: http }
+  # Logger as STDOUT as JSON
+  # { type: stdout, format: pretty-timestamped, level: http }
+  # Logger as STDOUT as custom prettifier
+  # { type: stdout, plugin: { dest: '@verdaccio/logger-prettify' : options: { foo: 1, bar: 2}}, level: http }
+  # Logger as file
+  # { type: file, path: verdaccio.log, level: http}
+  # FIXME: this should be documented
+# More info about log rotation https://github.com/pinojs/pino/blob/master/docs/help.md#log-rotation
+
 #experiments:
 #  # support for npm token command
 #  token: false

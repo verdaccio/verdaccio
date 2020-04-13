@@ -31,8 +31,7 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 
-logs:
-  - { type: stdout, format: pretty, level: info }
+logs: { type: stdout, format: pretty, level: info }
 
 packages:
   '@test/*':

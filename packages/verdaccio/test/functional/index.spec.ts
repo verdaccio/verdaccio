@@ -1,9 +1,7 @@
 // we need this for notifications
 import { setup } from '@verdaccio/logger';
 
-setup([]);
-
-// import {IServerBridge} from '../types';
+setup({});
 
 import basic from './basic/basic';
 import packageAccess from './package/access';
