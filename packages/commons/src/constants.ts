@@ -161,3 +161,7 @@ export const STORAGE = {
   NO_SUCH_FILE_ERROR: 'ENOENT',
   DEFAULT_REVISION: '0-0000000000000000',
 };
+
+export const LOG_STATUS_MESSAGE = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
+export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
+export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
