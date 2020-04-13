@@ -58,7 +58,7 @@ class FunctionalEnvironment extends NodeEnvironment {
       const server = mockServer(serverConf.port, {
         storePath,
         configPath,
-        silence: true
+        silence: false
       });
 
       const fork = await server.init(binPath);

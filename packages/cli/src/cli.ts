@@ -23,9 +23,6 @@ if (isVersionValid()) {
 
 process.title = 'verdaccio';
 
-// default setup
-setup(null, {logStart: false});
-
 const pkgVersion = '5.0.0';
 const pkgName = 'verdaccio';
 

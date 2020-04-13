@@ -21,7 +21,6 @@
     "@commitlint/config-conventional": "8.2.0",
     "@octokit/rest": "17.0.0",
     "@types/async": "3.0.3",
-    "@types/bunyan": "1.8.6",
     "@types/express": "4.17.1",
     "@types/http-errors": "1.6.3",
     "@types/jest": "24.0.25",
@@ -55,7 +54,7 @@
     "selfsigned": "1.10.7",
     "standard-version": "^7.0.1",
     "supertest": "^4.0.2",
-    "typescript": "^3.8.3",
+    "typescript": "beta",
     "verdaccio-auth-memory": "^9.3.0",
     "verdaccio-memory": "^9.3.0",
     "verdaccio": "^4.4.4"
