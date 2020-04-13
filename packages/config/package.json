@@ -23,10 +23,8 @@
     "build": "npm run build:js && npm run build:types"
   },
   "dependencies": {
+    "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0"
-  },
-  "devDependencies": {
-    "@types/bunyan": "1.8.6"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }
