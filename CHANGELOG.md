@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/verdaccio/verdaccio/compare/v4.5.1...v4.6.0) (2020-04-24)
+
+
+### Features
+
+* add dark mode on and chinese translation for web ([#1765](https://github.com/verdaccio/verdaccio/issues/1765)) ([4a81262](https://github.com/verdaccio/verdaccio/commit/4a812620cf44fd167b97249cb390a34807476c3e))
+* update @verdaccio/ui-theme@1.5.0 ([#1780](https://github.com/verdaccio/verdaccio/issues/1780)) ([656ec55](https://github.com/verdaccio/verdaccio/commit/656ec55897f01bb1588c80be12d31dbfe27ec9ce))
+* update docker node to 12.16.2 ([#1776](https://github.com/verdaccio/verdaccio/issues/1776)) ([61faa33](https://github.com/verdaccio/verdaccio/commit/61faa33de11939c0fc9ff9903b67d466426a65fb))
+
+
+### Bug Fixes
+
+* fatal exception and crash when log rotate signal event is called ([#1774](https://github.com/verdaccio/verdaccio/issues/1774)) ([1a9a12e](https://github.com/verdaccio/verdaccio/commit/1a9a12e9183cc2e3829c60841e7116d06b9849c3)), closes [#1709](https://github.com/verdaccio/verdaccio/issues/1709)
+* incorrect primary_color crash the ui ([#1771](https://github.com/verdaccio/verdaccio/issues/1771)) ([d689260](https://github.com/verdaccio/verdaccio/commit/d68926050dc7f1f8b6066c3480843082d3a1bd23))
+* upgrade async from 3.1.1 to 3.2.0 ([#1756](https://github.com/verdaccio/verdaccio/issues/1756)) ([3ec8d13](https://github.com/verdaccio/verdaccio/commit/3ec8d13578fee6711b77cbf8034c08f0db682392))
+* upgrade dayjs from 1.8.20 to 1.8.21 ([#1759](https://github.com/verdaccio/verdaccio/issues/1759)) ([ebae410](https://github.com/verdaccio/verdaccio/commit/ebae410c8164ac3e42c73c9d7cec6a8162a74457))
+* upgrade dayjs from 1.8.21 to 1.8.22 ([b2d00e4](https://github.com/verdaccio/verdaccio/commit/b2d00e4330e6dd31251e1e7caf670b5563b4180c))
+
 ### [4.5.1](https://github.com/verdaccio/verdaccio/compare/v4.5.0...v4.5.1) (2020-03-14)
 
 
