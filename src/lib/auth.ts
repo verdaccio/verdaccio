@@ -434,7 +434,7 @@ class Auth implements IAuth {
         // FIXME: intended behaviour, do we want it?
       }
 
-      if (credentials) {
+      if (_.isUndefined(credentials.name) === false) {
         const { name, groups } = credentials;
         // $FlowFixMe
         req.remote_user = createRemoteUser(name, groups);
