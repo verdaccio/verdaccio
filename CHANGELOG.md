@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.1](https://github.com/verdaccio/verdaccio/compare/v4.6.0...v4.6.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* improve token validation ([#1784](https://github.com/verdaccio/verdaccio/issues/1784)) ([416d41f](https://github.com/verdaccio/verdaccio/commit/416d41fa08a92422365599c29b78a49b5e34ec3f))
+
 ## [4.6.0](https://github.com/verdaccio/verdaccio/compare/v4.5.1...v4.6.0) (2020-04-24)
 
 
