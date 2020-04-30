@@ -24,7 +24,7 @@
     "@verdaccio/local-storage": "9.4.0",
     "@verdaccio/readme": "9.4.0",
     "@verdaccio/streams": "9.4.0",
-    "@verdaccio/ui-theme": "1.5.0",
+    "@verdaccio/ui-theme": "1.7.1",
     "JSONStream": "1.3.5",
     "async": "3.2.0",
     "body-parser": "1.19.0",
@@ -33,8 +33,8 @@
     "compression": "1.7.4",
     "cookies": "0.8.0",
     "cors": "2.8.5",
-    "dayjs": "1.8.23",
-    "envinfo": "7.5.0",
+    "dayjs": "1.8.26",
+    "envinfo": "7.5.1",
     "express": "4.17.1",
     "handlebars": "4.7.6",
     "http-errors": "1.7.3",
@@ -53,7 +53,7 @@
     "request": "2.87.0",
     "semver": "7.2.1",
     "verdaccio-audit": "9.4.0",
-    "verdaccio-htpasswd": "9.4.0"
+    "verdaccio-htpasswd": "9.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
