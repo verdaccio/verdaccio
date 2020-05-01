@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.2](https://github.com/verdaccio/verdaccio/compare/v4.6.1...v4.6.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* avoid access to sidebar without login ([#1794](https://github.com/verdaccio/verdaccio/issues/1794)) ([c2e0e1e](https://github.com/verdaccio/verdaccio/commit/c2e0e1e0bfa1daee45c458215877555244cbb414))
+* update core dependencies ([#1790](https://github.com/verdaccio/verdaccio/issues/1790)) ([f9e7f86](https://github.com/verdaccio/verdaccio/commit/f9e7f8671bec0f29820667cad7ef065a8bfc6a7e))
+
+### [4.6.1](https://github.com/verdaccio/verdaccio/compare/v4.6.0...v4.6.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* improve token validation ([#1784](https://github.com/verdaccio/verdaccio/issues/1784)) ([416d41f](https://github.com/verdaccio/verdaccio/commit/416d41fa08a92422365599c29b78a49b5e34ec3f))
+
 ## [4.6.0](https://github.com/verdaccio/verdaccio/compare/v4.5.1...v4.6.0) (2020-04-24)
 
 

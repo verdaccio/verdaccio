@@ -106,7 +106,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
     });
   });
 
-  route.get('/sidebar/(@:scope/)?:package', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  route.get('/sidebar/(@:scope/)?:package', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName: string = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({
