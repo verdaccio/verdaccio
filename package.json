@@ -53,7 +53,8 @@
     "request": "2.87.0",
     "semver": "7.2.1",
     "verdaccio-audit": "9.4.0",
-    "verdaccio-htpasswd": "9.4.1"
+    "verdaccio-htpasswd": "9.4.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
@@ -110,7 +111,7 @@
   ],
   "scripts": {
     "release": "standard-version -a -s",
-    "prepublish": "in-publish && npm run code:build || not-in-publish",
+    "prepublish": "yarn run snyk-protect && in-publish && npm run code:build || not-in-publish",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "pretest": "npm run code:build",
@@ -130,7 +131,8 @@
     "dev:start": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" src/lib/cli",
     "code:build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
-    "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
+    "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
+    "snyk-protect": "snyk protect"
   },
   "engines": {
     "node": ">=10",
@@ -172,5 +174,6 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
-  }
+  },
+  "snyk": true
 }
