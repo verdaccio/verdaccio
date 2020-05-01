@@ -26,7 +26,10 @@ const downloadStreamOrRedirect = (packageName: string, filename: string, storage
     storage.hasLocalTarball(packageName, filename).then(hasLocalTarball => {
       if (hasLocalTarball) {
         const context = { packageName, filename };
-        res.redirect(_.template(config.tarball_url_redirect)(context));
+        const tarballUrl = typeof config.tarball_url_redirect === 'function'
+          ? config.tarball_url_redirect(context)
+          : _.template(config.tarball_url_redirect)(context);
+        res.redirect(tarballUrl);
       } else {
         downloadStream(packageName, filename, storage, req, res)
       }
