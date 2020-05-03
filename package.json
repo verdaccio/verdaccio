@@ -51,7 +51,7 @@
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "request": "2.87.0",
-    "semver": "7.2.1",
+    "semver": "7.2.2",
     "verdaccio-audit": "9.4.0",
     "verdaccio-htpasswd": "9.4.1"
   },
