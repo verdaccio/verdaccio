@@ -141,8 +141,10 @@ class Storage implements IStorageHandler {
           if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
             reject(err);
           }
-          // local reported 404
-          localStream.abort();
+          // local reported 404 or request was aborted already
+          if (localStream && localStream.abort) {
+            localStream.abort();
+          }
           localStream = null;
           resolve(false);
         }
