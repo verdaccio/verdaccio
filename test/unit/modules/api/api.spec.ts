@@ -910,67 +910,111 @@ describe('endpoint unit test', () => {
       const credentials = { name: 'tarball_tester', password: 'secretPass' };
       const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
       const mockServerPort = 55549;
-        let token = '';
-      let app2;
+      const baseTestConfig = configDefault({
+        auth: {
+          htpasswd: {
+            file: './test-storage-api-spec/.htpasswd'
+          }
+        },
+        filters: {
+          '../../modules/api/partials/plugin/filter': {
+            pkg: 'npm_test',
+            version: '2.0.0'
+          }
+        },
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
+        },
+        logs: [
+          { type: 'stdout', format: 'pretty', level: 'warn' }
+        ],
+      }, 'api.spec.yaml');
+      let token;
       beforeAll(async (done) => {
-        const configForTest = configDefault({
-          auth: {
-            htpasswd: {
-              file: './test-storage-api-spec/.htpasswd'
-            }
-          },
-          filters: {
-            '../../modules/api/partials/plugin/filter': {
-              pkg: 'npm_test',
-              version: '2.0.0'
-            }
-          },
-          storage: store,
-          self_path: store,
-          uplinks: {
-            npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-            }
-          },
-          logs: [
-            { type: 'stdout', format: 'pretty', level: 'warn' }
-          ],
-          tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
-        }, 'api.spec.yaml');
-
-        app2 = await endPointAPI(configForTest);
         token = await getNewToken(request(app), credentials);
-        await putPackage(request(app2), `/${pkgName}`, generatePackageMetadata(pkgName), token);
-        await putPackage(request(app2), `/${scopedPkgName}`, generatePackageMetadata(scopedPkgName), token);
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
+        await putPackage(request(app), `/${scopedPkgName}`, generatePackageMetadata(scopedPkgName), token);
         done();
       });
 
-      test('should redirect for package tarball', (done) => {
-        request(app2)
-        .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-        .expect(HTTP_STATUS.REDIRECT)
-        .end(function(err, res) {
-          if (err) {
-            return done(err);
-          }
-          expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+      describe('for a string value of tarball_url_redirect', () => {
+        let app2;
+        beforeAll(async (done) => {
+          app2 = await endPointAPI({
+            ...baseTestConfig,
+            tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
+          });
           done();
         });
-      });
 
-      test('should redirect for scoped package tarball', (done) => {
-        request(app2)
-        .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-        .expect(HTTP_STATUS.REDIRECT)
-        .end(function(err, res) {
-          if (err) {
-            return done(err);
-          }
-          expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
-          done();
+        test('should redirect for package tarball', (done) => {
+          request(app2)
+            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+
+        test('should redirect for scoped package tarball', (done) => {
+          request(app2)
+            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
         });
       });
+      describe('for a function value of tarball_url_redirect', () => {
+        let app2;
+        beforeAll(async (done) => {
+          app2 = await endPointAPI({
+            ...baseTestConfig,
+            tarball_url_redirect(context) {
+              return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`
+            }
+          });
+          done();
+        });
 
+        test('should redirect for package tarball', (done) => {
+          request(app2)
+            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+
+        test('should redirect for scoped package tarball', (done) => {
+          request(app2)
+            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+      });
     });
   });
 });
