@@ -31,4 +31,5 @@ issues:
  lockLabel: outdated
 
 pulls:
- daysUntilLock: 10
+ daysUntilLock: 90
+ lockLabel: outdated

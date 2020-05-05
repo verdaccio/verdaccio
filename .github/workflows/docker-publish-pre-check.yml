@@ -19,6 +19,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Publish
-      uses: verdaccio/github-actions/publish@v0.1.0
+      uses: verdaccio/github-actions/publish@v0.4.0
       with:
         args: -d

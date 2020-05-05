@@ -621,7 +621,7 @@ describe('endpoint unit test', () => {
           .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
           // .set('accept-encoding', HEADERS.JSON)
           // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function(err) {
             if (err) {

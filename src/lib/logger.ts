@@ -150,7 +150,15 @@ function setup(logs, { logStart } = { logStart: true }) {
   }
 
   process.on('SIGUSR2', function() {
-    Logger.reopenFileStreams();
+    // https://github.com/trentm/node-bunyan#stream-type-rotating-file
+    if (logger) {
+      /**
+       * Note on log rotation: Often you may be using external log rotation utilities like logrotate on Linux or logadm
+       * on SmartOS/Illumos. In those cases, unless your are ensuring "copy and truncate" semantics
+       * (via copytruncate with logrotate or -c with logadm) then the fd for your 'file' stream will change.
+       */
+      logger.reopenFileStreams();
+    }
   });
 }
 

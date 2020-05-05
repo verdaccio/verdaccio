@@ -7,6 +7,7 @@ import {
   parseReadme,
   formatAuthor,
   convertDistRemoteToLocalTarballUrls,
+  getLocalRegistryTarballUri,
   isVersionValid
 } from '../../../lib/utils';
 import { allow } from '../../middleware';
@@ -21,7 +22,7 @@ const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
-export type PackcageAuthor = Package & { author: any };
+export type PackcageExt = Package & { author: any, dist?: {tarball: string} };
 
 function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, config: Config): void {
   const can = allow(auth);
@@ -53,8 +54,8 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         throw err;
       }
 
-      async function processPermissionsPackages(packages: PackcageAuthor[] = []): Promise<any> {
-        const permissions: PackcageAuthor[] = [];
+      async function processPackages(packages: PackcageExt[] = []): Promise<any> {
+        const permissions: PackcageExt[] = [];
         const packgesCopy = packages.slice();
         for (const pkg of packgesCopy) {
           const pkgCopy = { ...pkg };
@@ -63,6 +64,9 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
             if (await checkAllow(pkg.name, req.remote_user)) {
               if (config.web) {
                 pkgCopy.author.avatar = generateGravatarUrl(pkgCopy.author.email, config.web.gravatar);
+              }
+              if (!_.isNil(pkgCopy.dist) && !_.isNull(pkgCopy.dist.tarball)) {
+                pkgCopy.dist.tarball = getLocalRegistryTarballUri(pkgCopy.dist.tarball, pkg.name, req, config.url_prefix);
               }
               permissions.push(pkgCopy);
             }
@@ -79,7 +83,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
       // @ts-ignore
       const order: boolean = config.web ? getOrder(web.sort_packages) : true;
 
-      next(sortByName(await processPermissionsPackages(packages), order));
+      next(sortByName(await processPackages(packages), order));
     });
   });
 
@@ -102,7 +106,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
     });
   });
 
-  route.get('/sidebar/(@:scope/)?:package', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  route.get('/sidebar/(@:scope/)?:package', can('access'), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName: string = req.params.scope ? addScope(req.params.scope, req.params.package) : req.params.package;
 
     storage.getPackage({

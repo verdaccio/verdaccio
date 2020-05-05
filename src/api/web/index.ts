@@ -16,6 +16,8 @@ import loadPlugin from '../../lib/plugin-loader';
 const { setSecurityWebHeaders } = require('../middleware');
 const pkgJSON = require('../../../package.json');
 
+const DEFAULT_LANGUAGE = 'es-US';
+
 export function loadTheme(config) {
   if (_.isNil(config.theme) === false) {
     return _.head(
@@ -30,6 +32,15 @@ export function loadTheme(config) {
       )
     );
   }
+}
+
+export function validatePrimaryColor(primaryColor) {
+  const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
+  if (!isHex) {
+    return '';
+  }
+
+  return primaryColor;
 }
 
 const sendFileCallback = next => err => {
@@ -80,10 +91,23 @@ export default function(config, auth, storage) {
     const { url_prefix } = config;
     const uri = `${protocol}://${host}`;
     const base = combineBaseUrl(protocol, host, url_prefix);
-    const primaryColor = _.get(config, 'web.primary_color') ? config.web.primary_color : '';
+    const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+    const darkMode = config?.web?.darkMode ?? false;
+    const primaryColor = validatePrimaryColor(config?.web?.primary_color);
     const title = _.get(config, 'web.title') ? config.web.title : WEB_TITLE;
     const scope = _.get(config, 'web.scope') ? config.web.scope : '';
-    const options = { uri, protocol, host, url_prefix, base, primaryColor, title, scope };
+    const options = {
+      uri,
+      darkMode,
+      protocol,
+      host,
+      url_prefix,
+      base,
+      primaryColor,
+      title,
+      scope,
+      language,
+    };
 
     const webPage = template
       .replace(/ToReplaceByVerdaccioUI/g, JSON.stringify(options))

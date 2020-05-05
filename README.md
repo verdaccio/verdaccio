@@ -25,7 +25,7 @@ Google Cloud Storage** or create your own plugin.
 [![node](https://img.shields.io/node/v/verdaccio/latest.svg)](https://www.npmjs.com/package/verdaccio)
 [![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
-
+[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/verdaccio/verdaccio)](https://www.tickgit.com/browse?repo=github.com/verdaccio/verdaccio)
 
 [![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
@@ -38,6 +38,8 @@ Install with npm:
 ```bash
 npm install --global verdaccio
 ```
+
+> ⚠️ After v4.5.0 Node v8 is not longer supported. **Node v10** is the minimum supported version.
 
 ## Donations
 
@@ -76,6 +78,11 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 Do not miss our talk (Introduction to Verdaccio) with [@priscilawebdev](https://twitter.com/priscilawebdev) and [@jotadeveloper](https://twitter.com/jotadeveloper) on stage.
 
 [![viennajs-meetup](https://cdn.verdaccio.dev/readme/youtube_meetup_viennajs.png?source=readme)](https://www.youtube.com/watch?v=hDIFKzmoCaA)
+
+You might want to check out our latest talks:
+
+* [Open Source? trivago | Verdaccio (Ayush and Juan) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
+* [GitNation Open Source Stage: How we have built a Node.js Registry with React - Juan Picado December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)
 
 ## Get Started
 

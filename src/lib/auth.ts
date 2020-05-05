@@ -303,7 +303,7 @@ class Auth implements IAuth {
         return _next();
       };
 
-      if (this._isRemoteUserMissing(req.remote_user)) {
+      if (this._isRemoteUserValid(req.remote_user)) {
         return next();
       }
 
@@ -389,7 +389,7 @@ class Auth implements IAuth {
     }
   }
 
-  private _isRemoteUserMissing(remote_user: RemoteUser): boolean {
+  private _isRemoteUserValid(remote_user: RemoteUser): boolean {
     return _.isUndefined(remote_user) === false && _.isUndefined(remote_user.name) === false;
   }
 
@@ -398,7 +398,7 @@ class Auth implements IAuth {
    */
   public webUIJWTmiddleware(): Function {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
-      if (this._isRemoteUserMissing(req.remote_user)) {
+      if (this._isRemoteUserValid(req.remote_user)) {
         return _next();
       }
 
@@ -434,7 +434,7 @@ class Auth implements IAuth {
         // FIXME: intended behaviour, do we want it?
       }
 
-      if (credentials) {
+      if (this._isRemoteUserValid(credentials)) {
         const { name, groups } = credentials;
         // $FlowFixMe
         req.remote_user = createRemoteUser(name, groups);

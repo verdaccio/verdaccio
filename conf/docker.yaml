@@ -23,6 +23,12 @@ web:
   # gravatar: false
   # by default packages are ordercer ascendant (asc|desc)
   # sort_packages: asc
+  # darkMode: true
+
+# translate your registry, api i18n not available yet
+# i18n:
+# list of the available translations https://github.com/verdaccio/ui/tree/master/i18n/translations
+#   web: en-US
 
 auth:
   htpasswd:
@@ -71,3 +77,7 @@ logs:
 #experiments:
 #  # support for npm token command
 #  token: false
+
+# This affect the web and api (not developed yet)
+#i18n:
+#web: en-US
