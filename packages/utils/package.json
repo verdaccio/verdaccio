@@ -16,7 +16,7 @@
   "homepage": "https://verdaccio.org",
   "dependencies": {
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/readme": "9.3.0",
+    "@verdaccio/readme": "9.5.0",
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
     "minimatch": "3.0.4",
