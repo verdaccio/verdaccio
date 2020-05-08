@@ -78,6 +78,26 @@ export default function(config, auth, storage) {
     });
   }
 
+  // Favicon
+  const customFaviconPath = _.get(config, 'web.favicon') || '';
+  router.get('/-/mapped/favicon', function(req, res): void {
+    if (customFaviconPath && path.isAbsolute(customFaviconPath)) {
+      return res.redirect('/-/mapped/custom-favicon');
+    } else {
+      return res.redirect('/-/static/favicon.ico');
+    }
+  });
+  router.get('/-/mapped/custom-favicon', function(req, res): void {
+    fs.access(customFaviconPath, err => {
+      if (err) {
+        res.status(HTTP_STATUS.NOT_FOUND);
+        return res.end();
+      }
+
+      res.sendFile(customFaviconPath);
+    });
+  });
+
   // Static
   router.get('/-/static/*', function(req, res, next) {
     const filename = req.params[0];
