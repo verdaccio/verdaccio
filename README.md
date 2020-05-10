@@ -47,6 +47,10 @@ Verdaccio is run by **volunteers**; nobody is working full-time on it. If you fi
 
 **[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *$1/month* or just one single contribution.
 
+## Next Talk
+
+[
+![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/openjs-world-hd-horizontal.png)](https://openjsworld2020.sched.com/event/bwIo?iframe=no)
 
 ## What does Verdaccio do for me?
 

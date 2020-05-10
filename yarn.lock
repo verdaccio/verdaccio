@@ -2326,9 +2326,9 @@
   integrity sha512-+DtUE/t/o4WDDtUVudjHqxcypvqnfwoHEy5x1KndFUhSbmdHsWjLOmy+Fu1FXzWPncODRebyZZro2LDiMxoaqg==
 
 "@verdaccio/types@^9.3.0":
-  version "9.3.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-9.3.0.tgz#4062183e84bef3a56b4275d111181873f8a082d6"
-  integrity sha512-TzBuWPKxhQILk3Tl8EGvAj6zinwBJw+bEhg5w7HYoE+FpEV6rJ1XW+GF/h/7mRBPhtKiPMMzclRRPysNsT/0ww==
+  version "9.5.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-9.5.0.tgz#1acd3cdebe2c8ea57dac9a0739512830e05e6bbf"
+  integrity sha512-zUCkSQF0qShq/9OCEq6bZgHtz0lP0npkxXGc0Ch8P5fPiTlih1MBY5GxqM0ervMGw8ojH2mCYQ0655pKicYg1A==
 
 "@verdaccio/ui-theme@1.7.1":
   version "1.7.1"
