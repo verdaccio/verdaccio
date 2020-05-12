@@ -90,7 +90,7 @@
     "prettier": "1.19.1",
     "puppeteer": "1.8.0",
     "rimraf": "3.0.2",
-    "standard-version": "7.1.0",
+    "standard-version": "8.0.0",
     "supertest": "4.0.2",
     "typescript": "3.7.5",
     "verdaccio": "^4.5.1",
