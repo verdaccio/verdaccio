@@ -51,7 +51,7 @@
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "request": "2.87.0",
-    "semver": "7.2.1",
+    "semver": "7.3.2",
     "verdaccio-audit": "9.4.0",
     "verdaccio-htpasswd": "9.4.1"
   },
@@ -90,7 +90,7 @@
     "prettier": "1.19.1",
     "puppeteer": "1.8.0",
     "rimraf": "3.0.2",
-    "standard-version": "7.1.0",
+    "standard-version": "8.0.0",
     "supertest": "4.0.2",
     "typescript": "3.7.5",
     "verdaccio": "^4.5.1",
