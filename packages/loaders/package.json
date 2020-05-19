@@ -18,7 +18,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@verdaccio/types": "9.3.0"
+    "@verdaccio/types": "9.5.0"
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",
