@@ -15,7 +15,7 @@
   "dependencies": {
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/logger": "5.0.0-alpha.0",
-    "lodash": "^4.17.15"
+    "lodash": "4.17.15"
   },
   "devDependencies": {
     "@verdaccio/types": "9.5.0"
