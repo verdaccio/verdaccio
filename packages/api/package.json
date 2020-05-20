@@ -23,22 +23,22 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/commons-api": "^9.0.0",
+    "@verdaccio/auth": "5.0.0-alpha.0",
+    "@verdaccio/commons-api": "9.4.0",
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/hooks": "5.0.0-alpha.0",
     "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/auth": "5.0.0-alpha.0",
     "@verdaccio/middleware": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
-    "body-parser": "^1.19.0",
-    "cookies": "^0.8.0",
+    "body-parser": "1.19.0",
+    "cookies": "0.8.0",
     "express": "4.17.1",
-    "lodash": "^4.17.15",
-    "mime": "^2.4.4"
+    "lodash": "4.17.15",
+    "mime": "2.4.4"
   },
   "devDependencies": {
     "@verdaccio/dev-types": "5.0.0-alpha.0",
-    "@verdaccio/types": "^9.3.0"
+    "@verdaccio/types": "9.3.0"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }
