@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/commons-api": "9.0.0",
+    "@verdaccio/commons-api": "9.4.0",
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/loaders": "5.0.0-alpha.0",
     "@verdaccio/logger": "5.0.0-alpha.0",

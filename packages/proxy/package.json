@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/local-storage": "9.0.0",
+    "@verdaccio/local-storage": "9.5.0",
     "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/streams": "9.3.0",
+    "@verdaccio/streams": "9.5.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "JSONStream": "1.3.5",
     "request": "2.87.0"
