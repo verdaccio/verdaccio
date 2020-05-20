@@ -20,7 +20,7 @@
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
     "minimatch": "3.0.4",
-    "semver": "7.1.2"
+    "semver": "7.3.2"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.3",

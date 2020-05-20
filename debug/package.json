@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@verdaccio/babel-preset": "^8.2.0",
-    "@verdaccio/eslint-config": "^8.2.0"
+    "@verdaccio/babel-preset": "9.4.0",
+    "@verdaccio/eslint-config": "9.3.2"
   }
 }
