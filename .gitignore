@@ -24,3 +24,4 @@ coverage/
 
 # Compiled script
 packages/partials
+tsconfig.tsbuildinfo
