@@ -15,14 +15,14 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/commons-api": "^9.0.0",
+    "@verdaccio/commons-api": "9.4.0",
     "@verdaccio/logger": "5.0.0-alpha.0",
-    "handlebars": "^4.5.3",
+    "handlebars": "4.5.3",
     "request": "2.87.0"
   },
   "devDependencies": {
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/types": "^9.3.0"
+    "@verdaccio/types": "9.3.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
