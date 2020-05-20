@@ -5,6 +5,7 @@
     "module": "commonjs",
     "declaration": true,
     "noImplicitAny": false,
+    "incremental": true,
     "strict": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
