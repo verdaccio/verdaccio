@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import express from 'express';
+import express, {Express} from 'express';
 
 import { match, validateName, validatePackage, encodeScopePackage, antiLoop } from '@verdaccio/middleware';
 import { IAuth, IStorageHandler } from '@verdaccio/dev-types';
@@ -17,16 +17,14 @@ import profile from './v1/profile';
 import token from './v1/token';
 import v1Search from './v1/search'
 
-export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
+export default function(config: Config, auth: IAuth, storage: IStorageHandler): Express.Application {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
-  // $FlowFixMe
   app.param('package', validatePackage);
-  // $FlowFixMe
   app.param('filename', validateName);
   app.param('tag', validateName);
   app.param('version', validateName);
