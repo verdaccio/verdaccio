@@ -25,7 +25,7 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when notification service throws error', async () => {
-    jest.doMock('fetch', () => ( ) => {
+    jest.doMock('node-fetch', () => ( ) => {
       const response = {
         json: () => ({message: API_ERROR.BAD_DATA}),
         ok: false
@@ -42,7 +42,7 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when notification is successfully delivered', async () => {
-    jest.doMock('request', () => (options, resolver) => {
+    jest.doMock('node-fetch', () => (options, resolver) => {
       const response = {
         json: () => Promise.resolve({message: 'Successfully delivered'}),
         ok: true
