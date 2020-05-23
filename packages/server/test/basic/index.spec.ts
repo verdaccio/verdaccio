@@ -1,5 +1,5 @@
 import express from 'express';
-import request from 'request';
+import fetch from 'node-fetch';
 import path from "path";
 
 import {API_ERROR} from '@verdaccio/dev-commons';
@@ -36,24 +36,15 @@ describe('basic system test', () => {
     server.close(done);
   });
 
-  test('server should respond on /', done => {
-    request({
-      url: 'http://localhost:' + port + '/',
-    }, function(err, res, body) {
-      expect(err).toBeNull();
-      expect(body).toMatch(/Verdaccio/);
-      done();
-    });
+  test('server should respond on /', async () => {
+    const response = await fetch(`http://localhost:${port}/`);
+    const jsonResponse = await response.json();
+    expect(jsonResponse).toMatch(/Verdaccio/);
   });
 
-  test('server should respond on /___not_found_package', done => {
-    request({
-      json: true,
-      url: `http://localhost:${port}/___not_found_package`,
-    }, function(err, res, body) {
-       expect(err).toBeNull();
-       expect(body.error).toMatch(API_ERROR.NO_PACKAGE);
-      done();
-    });
+  test('server should respond on /___not_found_package', async () => {
+    const response = await fetch(`http://localhost:${port}/___not_found_package`);
+    const jsonResponse = await response.json();
+    expect(jsonResponse.error).toMatch(API_ERROR.NO_PACKAGE);
   });
 });
