@@ -27,7 +27,7 @@ describe('Notifications:: notifyRequest', () => {
   test('when notification service throws error', async () => {
     jest.doMock('node-fetch', () => ( ) => {
       const response = {
-        json: () => ({message: API_ERROR.BAD_DATA}),
+        json: () => Promise.resolve(API_ERROR.BAD_DATA),
         ok: false
       };
 
@@ -35,20 +35,20 @@ describe('Notifications:: notifyRequest', () => {
     });
 
     const notification = require('../src/notify-request');
-    const args = [{ errorMessage: 'bad data' }, 'notify service has thrown an error: @{errorMessage}'];
+    const args = [{ message: 'bad data' }, 'notify service has thrown an error: @{message}'];
 
-    await expect(notification.notifyRequest(url, {}, content)).rejects.toEqual(API_ERROR.BAD_DATA);
+    await expect(notification.notifyRequest(url, {}, content)).rejects.toThrowError();
     expect(logger.logger.error).toHaveBeenCalledWith(...args);
   });
 
   test('when notification is successfully delivered', async () => {
     jest.doMock('node-fetch', () => (options, resolver) => {
       const response = {
-        json: () => Promise.resolve({message: 'Successfully delivered'}),
+        json: () => Promise.resolve('Successfully delivered'),
         ok: true
       };
 
-     Promise.resolve(response);
+     return Promise.resolve(response);
     });
 
     const notification = require('../src/notify-request');

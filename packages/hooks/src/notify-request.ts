@@ -10,7 +10,7 @@ export async function notifyRequest(url: string, options: RequestInit, content):
       logger.info({ content }, 'A notification has been shipped: @{content}');
       return jsonResponse;
     } else {
-      logger.error({ jsonResponse }, 'notify service has thrown an error: @{errorMessage}');
+      logger.error({ message: jsonResponse }, 'notify service has thrown an error: @{message}');
       throw new Error(jsonResponse);
     }
 }

@@ -38,13 +38,11 @@ describe('Notifications:: Notify', () => {
     const name = 'package';
     // @ts-ignore
     const response = await notify({name}, singleNotificationConfig, { name: 'foo'}, 'bar');
-    const [options, content] = response;
+    const [url, options] = response;
 
-    expect(options.headers).toBeDefined();
-    expect(options.url).toBeDefined();
-    expect(options.body).toBeDefined();
-    expect(content).toMatch(name);
-    expect(response).toBeTruthy();
+    expect(options.headers).toEqual({"Content-Type": "application/json"});
+    expect(options.body).toEqual('{"color":"green","message":"New package published: * package*","notify":true,"message_format":"text"}');
+    expect(url).toEqual('https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken');
     expect(notifyRequest).toHaveBeenCalledTimes(1);
   });
 
