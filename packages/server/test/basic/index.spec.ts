@@ -38,7 +38,7 @@ describe('basic system test', () => {
 
   test('server should respond on /', async () => {
     const response = await fetch(`http://localhost:${port}/`);
-    const jsonResponse = await response.json();
+    const jsonResponse = await response.text();
     expect(jsonResponse).toMatch(/Verdaccio/);
   });
 
