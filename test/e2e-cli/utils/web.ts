@@ -1,23 +1,15 @@
-import {IncomingMessage} from 'http';
-import request from 'request';
+import fetch, { RequestInit, Response } from 'node-fetch';
 
 
-export function callRegistry(url: string): Promise<string> {
-	return new Promise((resolve, reject) => {
-		let options = {
-			url: url,
-			headers: { 'Accept': 'application/json' },
-		};
-		// @ts-ignore
-		request(options, (error: any, response: IncomingMessage, body: string) => {
-			if (error) {
-				reject(error);
-				// @ts-ignore
-			} else if (response.statusCode >= 400) {
-				reject(new Error(`Requesting "${url}" returned status code ${response.statusCode}.`));
-			} else {
-				resolve(body);
-			}
-		});
-	});
+export async function callRegistry(url: string): Promise<string> {
+	const options: RequestInit = {
+		headers:{ 'Accept': 'application/json' }
+	}
+	const response: Response = await fetch(url, options);
+
+	if(response.ok){
+		return await response.json();
+	}
+
+	throw new Error(`Requesting "${url}" returned status code ${response.status}.`);
 }

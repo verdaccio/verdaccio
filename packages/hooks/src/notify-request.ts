@@ -1,9 +1,9 @@
-import fetch, { RequestInit } from 'node-fetch';
+import fetch, { RequestInit, Response } from 'node-fetch';
 
 import { logger } from '@verdaccio/logger';
 
 export async function notifyRequest(url: string, options: RequestInit, content): Promise<any | Error> {
-    const response = await fetch(url, options);
+    const response: Response = await fetch(url, options);
     const jsonResponse = await response.json();
 
     if (response.ok) {
