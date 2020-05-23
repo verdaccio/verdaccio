@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
 import _ from 'lodash';
-
 import { notifyRequest } from './notify-request';
-import { OptionsWithUrl } from 'request';
+import { RequestInit } from 'node-fetch';
+
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 
 type TemplateMetadata = Package & { publishedPackage: string };
@@ -28,9 +28,10 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
 
   const content: string = template(metadata);
 
-  const options: OptionsWithUrl = {
+
+  const options: RequestInit = {
+    // @ts-ignore FIX ME
     body: content,
-    url: '',
   };
 
   // provides fallback support, it's accept an Object {} and Array of {}
@@ -53,11 +54,9 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
 
   options.method = notifyEntry.method;
 
-  if (notifyEntry.endpoint) {
-    options.url = notifyEntry.endpoint;
-  }
+  const url:string = notifyEntry.endpoint
 
-  return notifyRequest(options, content);
+  return notifyRequest(url, options, content);
 }
 
 export function sendNotification(metadata: Package, notify: Notification, remoteUser: RemoteUser, publishedPackage: string): Promise<any> {
