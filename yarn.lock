@@ -2297,10 +2297,10 @@
     lodash "4.17.15"
     mkdirp "1.0.3"
 
-"@verdaccio/readme@9.4.0":
-  version "9.4.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2freadme/-/readme-9.4.0.tgz#7c099bf8f016a88ec76c1412e855e69ce3ce1a44"
-  integrity sha512-d0AIdph9B4S2ULzMM/rBpSWEWnIYH4ENoNlUyc9JVCCQVUc/+dRG4Pk4C3e5Dfoh2lwL0af4WhlOPHis6kCD6g==
+"@verdaccio/readme@9.5.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@verdaccio/readme/-/readme-9.5.0.tgz#15ebfa47009abb0ea063a22faf37b010f65c2cd7"
+  integrity sha512-OH4vP/80pp2NiJCnnphrUMZOlB8RPekKjZQLmYW0OLbSC2sE2YequyWoAo/BmQ8kAcSsybXbKknCPTF3z1ujng==
   dependencies:
     dompurify "2.0.8"
     jsdom "16.2.1"
