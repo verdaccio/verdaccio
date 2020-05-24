@@ -2,8 +2,7 @@ import _ from 'lodash';
 import request from 'supertest';
 
 import {DIST_TAGS, LATEST, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER} from '@verdaccio/dev-commons';
-import {buildToken, encodeScopedUri} from '@verdaccio/utils';
-import {generateRandomHexString} from "@verdaccio/utils";
+import {buildToken, encodeScopedUri, generateRandomHexString} from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';
 
 // API Helpers

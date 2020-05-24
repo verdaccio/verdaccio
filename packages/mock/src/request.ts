@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import assert from 'assert';
-import request from 'request';
+import fetch, { RequestInit } from 'node-fetch';
 import { IRequestPromise } from './types';
 
 const requestData = Symbol('smart_request_data');
@@ -16,7 +16,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
 
     return injectResponse(this, this.then(function(body) {
       try {
-        assert.equal(selfData.response.statusCode, expected);
+        assert.equal(selfData.response.status, expected);
       } catch(err) {
         selfData.error.message = err.message;
         throw selfData.error;
@@ -94,7 +94,7 @@ function injectResponse(smartObject: any, promise: Promise<any>): Promise<any> {
 }
 
 
-function smartRequest(options: any): Promise<any> {
+function smartRequest(url:string,options: RequestInit): Promise<any> {
   const smartObject: any = {};
 
   smartObject[requestData] = {};
@@ -102,15 +102,16 @@ function smartRequest(options: any): Promise<any> {
   Error.captureStackTrace(smartObject[requestData].error, smartRequest);
 
   const promiseResult: Promise<any> = new PromiseAssert(function(resolve, reject) {
-    // store request reference on symbol
-    smartObject[requestData].request = request(options, function(err, res, body) {
-      if (err) {
-        return reject(err);
+    smartObject[requestData].request = fetch(url, options).then(async response => {
+      const jsonResponse = await response.json();
+      if(response.ok){
+        resolve(jsonResponse);
+        smartObject[requestData].response = response;
+      } else {
+        reject(jsonResponse);
       }
-
-      // store the response on symbol
-      smartObject[requestData].response = res;
-      resolve(body);
+    }).catch((error) => {
+      reject(error);
     });
   });
 

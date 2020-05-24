@@ -50,6 +50,7 @@ import {IServerBridge} from './types';
  *
  *
  * @param port
+ * @param options
  * @returns {VerdaccioProcess}
  */
 export function mockServer(port: number, options: MockRegistryOptions = {}) {

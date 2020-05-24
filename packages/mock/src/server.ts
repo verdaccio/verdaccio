@@ -31,13 +31,11 @@ export default class Server implements IServerBridge {
     headers.accept = headers.accept || HEADERS.JSON;
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
     headers.authorization = headers.authorization || this.authstr;
-
-    return smartRequest({
-      url: this.url + options.uri,
+    return smartRequest(this.url + options.uri,{
       method: options.method || 'GET',
       headers: headers,
-      encoding: options.encoding,
-      json: _.isNil(options.json) === false ? options.json : true,
+      // encoding: options.encoding,
+      // json: _.isNil(options.json) === false ? options.json : true,
     });
   }
 
