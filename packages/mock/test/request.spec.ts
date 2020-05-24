@@ -35,9 +35,8 @@ describe('Request Functional', () => {
       try {
         const binPath = require.resolve('verdaccio/bin/verdaccio');
         mockRegistry = await mockServer(mockServerPort).init(binPath);
-      } catch (e) {
-        debugger;
-        console.log('e');
+      } catch (error) {
+        console.error(error);
       }
     });
 
