@@ -2271,6 +2271,13 @@
   dependencies:
     lockfile "1.0.4"
 
+"@verdaccio/file-locking@^9.5.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@verdaccio/file-locking/-/file-locking-9.5.0.tgz#c8ea8d9d5c5902ee82f08fe1fdcb3d09d8d65946"
+  integrity sha512-Q27WlxeMMFlKxI3x0nNAstiUkn9NfWv7BOFh/Zfvifr4aviNQcDyHincn9d6Pvuy6EBquUoUW0ty3Kv9rt5u5Q==
+  dependencies:
+    lockfile "1.0.4"
+
 "@verdaccio/local-storage@9.4.0":
   version "9.4.0"
   resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-9.4.0.tgz#56c6ba6cb0f36b459208a7aecf59c79e8bad10d7"
@@ -9715,12 +9722,12 @@ verdaccio-auth-memory@^9.4.0:
   dependencies:
     "@verdaccio/commons-api" "^9.4.0"
 
-verdaccio-htpasswd@9.4.1:
-  version "9.4.1"
-  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-9.4.1.tgz#44f9e57083d34c740a56654fa4210cb66bec9fc5"
-  integrity sha512-d7WkEErQWPB4xeMaWV0AQTafJoK8gFFmOiyJ+lBENN+hyLtb9tUUnqcbJYBzx/5swkisAmH4I+x7523ikq30SA==
+verdaccio-htpasswd@9.5.0:
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/verdaccio-htpasswd/-/verdaccio-htpasswd-9.5.0.tgz#01dc1fdd525148a349994e38eda8ebfc630b477f"
+  integrity sha512-k03NU2xL0g+BGN+E0llmZMAtHVTsYSWexYroMq30Ry3gppz7L8Zdp/xpNUsvqbnxf4Pd8G8ZqxiktSUBIGTOdg==
   dependencies:
-    "@verdaccio/file-locking" "^9.4.0"
+    "@verdaccio/file-locking" "^9.5.0"
     apache-md5 "1.1.2"
     bcryptjs "2.4.3"
     http-errors "1.7.3"
