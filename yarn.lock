@@ -2271,14 +2271,21 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/local-storage@9.4.0":
-  version "9.4.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-9.4.0.tgz#56c6ba6cb0f36b459208a7aecf59c79e8bad10d7"
-  integrity sha512-rhaMJN5vEzQ03BGoAYUcJTdkA6H4y5v3K2anNPJN5dN5GBV1AsYAkOn9RMXKa3WUdeWkWgNkPPeEqsc2gBR+qA==
+"@verdaccio/file-locking@^9.5.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@verdaccio/file-locking/-/file-locking-9.5.0.tgz#c8ea8d9d5c5902ee82f08fe1fdcb3d09d8d65946"
+  integrity sha512-Q27WlxeMMFlKxI3x0nNAstiUkn9NfWv7BOFh/Zfvifr4aviNQcDyHincn9d6Pvuy6EBquUoUW0ty3Kv9rt5u5Q==
+  dependencies:
+    lockfile "1.0.4"
+
+"@verdaccio/local-storage@9.5.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@verdaccio/local-storage/-/local-storage-9.5.0.tgz#7b3d380d7b8bc69a010f43fba3dbaa68566f012e"
+  integrity sha512-Gr292tMt/2m2pV/N3W9n7LfxJRCFgz+skkLGmNdy367Ch7aBuxxLhh6UhcErpCInnCVxh3BudpEUjur3HIDj5w==
   dependencies:
     "@verdaccio/commons-api" "^9.4.0"
-    "@verdaccio/file-locking" "^9.4.0"
-    "@verdaccio/streams" "^9.4.0"
+    "@verdaccio/file-locking" "^9.5.0"
+    "@verdaccio/streams" "^9.5.0"
     async "3.2.0"
     level "5.0.1"
     lodash "4.17.15"
@@ -2324,6 +2331,11 @@
   version "9.3.2"
   resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-9.3.2.tgz#6bddbd70c1fc72fa2b85c74bd7545d58d66a589e"
   integrity sha512-+DtUE/t/o4WDDtUVudjHqxcypvqnfwoHEy5x1KndFUhSbmdHsWjLOmy+Fu1FXzWPncODRebyZZro2LDiMxoaqg==
+
+"@verdaccio/streams@^9.5.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@verdaccio/streams/-/streams-9.5.0.tgz#01c1e1a654b2085b0711a3e23df5c7b7376d0282"
+  integrity sha512-Z+04XRPbOJCsaY6GyrVJH6/IWqeh81U3kr9E5XBHkCK+NtybF0D0nnZgVTh/q2GOxhvvOgGv9r3Uvg4GkbnXsQ==
 
 "@verdaccio/types@^9.3.0":
   version "9.5.0"
