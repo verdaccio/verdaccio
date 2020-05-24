@@ -32,65 +32,62 @@ describe('Request Functional', () => {
 
   describe('smartRequest Rest', () => {
     beforeAll(async () => {
-      const binPath = require.resolve('verdaccio/bin/verdaccio');
-      mockRegistry = await mockServer(mockServerPort).init(binPath);
+      try {
+        const binPath = require.resolve('verdaccio/bin/verdaccio');
+        mockRegistry = await mockServer(mockServerPort).init(binPath);
+      } catch (e) {
+        debugger;
+        console.log('e');
+      }
     });
 
-    afterAll(function(done) {
+    afterAll(() => {
       const [registry, pid] = mockRegistry;
       registry.stop();
       console.log(`registry ${pid} has been stopped`);
-
-      done();
     });
 
     test('basic rest', (done) => {
       const options: any = {
-        url: restTest,
         method: 'GET'
       };
 
-      smartRequest(options).then((result)=> {
-        expect(_.isString(result)).toBeTruthy();
+      smartRequest(restTest, options).then((result)=> {
+        expect(result).toBeTruthy();
         done();
-      })
+      });
     });
 
     describe('smartRequest Status', () => {
 
       test('basic check status 200', (done) => {
         const options: any = {
-          url: restTest,
           method: 'GET'
         };
         // @ts-ignore
-        smartRequest(options).status(HTTP_STATUS.OK).then((result)=> {
-          expect(JSON.parse(result).name).toBe('jquery');
+        smartRequest(restTest, options).status(HTTP_STATUS.OK).then((result)=> {
+          expect(result.name).toBe('jquery');
           done();
         })
       });
 
       test('basic ping status and empty response', (done) => {
         const options: any = {
-          url: `${domainTest}/-/ping`,
           method: 'GET'
         };
         // @ts-ignore
-        smartRequest(options).status(HTTP_STATUS.OK).then((result)=> {
-          expect(JSON.parse((result))).toEqual({});
+        smartRequest(`${domainTest}/-/ping`,options).status(HTTP_STATUS.OK).then((result)=> {
+          expect(result).toEqual({});
           done();
         })
       });
 
       test('basic check status 404', (done) => {
         const options: any = {
-          url: 'http://www.google.fake',
           method: 'GET'
         };
         // @ts-ignore
-        smartRequest(options).status(HTTP_STATUS.NOT_FOUND).then(() => {
-          // we do not intent to resolve this
-        }, (error: VerdaccioError) => {
+        smartRequest('http://www.google.fake', options).status(HTTP_STATUS.NOT_FOUND).catch((error: VerdaccioError) => {
           expect(error.code).toBe('ENOTFOUND');
           done();
         })
