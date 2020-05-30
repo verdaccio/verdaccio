@@ -106,7 +106,6 @@ export function antiLoop(config: Config): Function {
 
 export function allow(auth: IAuth): Function {
   return function(action: string): Function {
-    console.log("***************************-***action--", action);
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
