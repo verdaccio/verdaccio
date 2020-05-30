@@ -1,3 +1,4 @@
+
 import _ from 'lodash';
 
 import {
@@ -105,13 +106,13 @@ export function antiLoop(config: Config): Function {
 
 export function allow(auth: IAuth): Function {
   return function(action: string): Function {
+    console.log("***************************-***action--", action);
     return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
       const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
       const remote: RemoteUser = req.remote_user;
-      logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
-
+      logger.trace({ action, user: remote?.name }, `[middleware/allow][@{action}] allow for @{user}`);
       auth['allow_' + action]({ packageName, packageVersion }, remote, function(error, allowed): void {
         req.resume();
         if (error) {
