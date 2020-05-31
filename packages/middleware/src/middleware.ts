@@ -14,6 +14,7 @@ import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '@verda
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
+import {HttpError} from "http-errors";
 
 export function match(regexp: RegExp): any {
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
@@ -271,6 +272,23 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     log();
   };
   next();
+}
+
+export function handleError(err: HttpError, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  if (_.isError(err)) {
+    if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
+      return next();
+    }
+    if (_.isFunction(res.report_error) === false) {
+      // in case of very early error this middleware may not be loaded before error is generated
+      // fixing that
+      errorReportingMiddleware(req, res, _.noop);
+    }
+    res.report_error(err);
+  } else {
+    // Fall to Middleware.final
+    return next(err);
+  }
 }
 
 // Middleware

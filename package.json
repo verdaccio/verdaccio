@@ -72,7 +72,7 @@
     "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next  --registry http://localhost:4873",
     "release:publish": "lerna publish from-git",
     "release:publish-prerelease": "lerna publish from-git --pre-dist-tag next",
-    "lint": "eslint \"packages/**/@(src|tests)/**\"",
+    "lint": "eslint \"packages/**/@(src|tests|test)/**\"",
     "test": "lerna run test --concurrency 1",
     "test:e2e:cli": "cross-env NODE_ENV=test jest --config ./test/e2e-cli/jest.config.e2e.cli.js --passWithNoTests",
     "website:lint": "cd website && yarn lint",

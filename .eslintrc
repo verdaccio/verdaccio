@@ -13,6 +13,9 @@
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/indent": 0,
     "@typescript-eslint/interface-name-prefix": 0,
-    "import/order": 0
+    "import/order": 0,
+    "handle-callback-err": 1,
+    "prefer-const": 1,
+    "prefer-promise-reject-errors": 1
   }
 }
