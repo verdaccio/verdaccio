@@ -216,27 +216,6 @@ describe('endpoint unit test', () => {
               });
           });
       });
-
-      test('should test fails add a new user with missing name', (done) => {
-
-        const credentialsShort = _.cloneDeep(credentials);
-        delete credentialsShort.name;
-
-        request(app)
-          .put(`/-/user/org.couchdb.user:${credentials.name}`)
-          .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.BAD_REQUEST)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-
-            expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
-            done();
-          });
-      });
     });
 
     describe('should test package api', () => {
