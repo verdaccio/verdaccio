@@ -5,7 +5,6 @@ import path from 'path';
 import endPointAPI from '@verdaccio/server';
 import {
   HEADERS,
-  API_ERROR,
   HTTP_STATUS,
   HEADER_TYPE,
   API_MESSAGE,
