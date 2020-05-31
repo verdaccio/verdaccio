@@ -5,20 +5,6 @@ import { HTTP_STATUS } from '@verdaccio/commons-api';
 import { HEADERS} from '@verdaccio/dev-commons';
 import {$RequestExtend, $ResponseExtend} from "@verdaccio/dev-types";
 
-jest.mock('@verdaccio/logger', () => ({
-	setup: jest.fn(),
-	logger: {
-		child: jest.fn(() => ({
-			trace: jest.fn()
-		})),
-		debug: jest.fn(),
-		trace:  jest.fn(),
-		warn:  jest.fn(),
-		error:  jest.fn(),
-		fatal: jest.fn(),
-	}
-}));
-
 const mockApiJWTmiddleware = jest.fn(() =>
 	(req: $RequestExtend, res: $ResponseExtend, _next): void => {
 			req.remote_user = { name: 'foo', groups: [], real_groups: []}
