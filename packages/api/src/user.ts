@@ -74,17 +74,4 @@ export default function(route: Router, auth: IAuth, config: Config): void {
       ok: API_MESSAGE.LOGGED_OUT,
     });
   });
-
-  // placeholder 'cause npm require to be authenticated to publish
-  // we do not do any real authentication yet
-  // DEPRECATED: this might be removed, not sure whether is need it anymore
-  route.post('/_session', Cookies.express(), function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    res.cookies.set('AuthSession', String(Math.random()), createSessionToken());
-
-    next({
-      ok: true,
-      name: 'somebody',
-      roles: [],
-    });
-  });
 }

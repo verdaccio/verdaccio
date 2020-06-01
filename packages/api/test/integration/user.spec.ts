@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 
-import {initializeServer } from './_helper';
+import { initializeServer } from './_helper';
 import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
-import {HEADERS, HEADER_TYPE} from '@verdaccio/dev-commons';
+import {HEADERS, HEADER_TYPE, API_MESSAGE} from '@verdaccio/dev-commons';
 import {$RequestExtend, $ResponseExtend} from "@verdaccio/dev-types";
 import {getBadRequest, getConflict, getUnauthorized} from "@verdaccio/commons-api/lib";
 import _ from "lodash";
@@ -45,7 +45,7 @@ jest.mock('@verdaccio/auth', () => ({
 describe('user', () => {
 	const credentials = { name: 'test', password: 'test' };
 
-	test('should test add a new user', (done) => {
+	test('should test add a new user', async (done) => {
 		mockApiJWTmiddleware.mockImplementationOnce(() =>
 			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
 				req.remote_user = { name: undefined};
@@ -57,7 +57,7 @@ describe('user', () => {
 				return callback(null, true);
 			}
 		);
-		supertest(initializeServer('user.yaml'))
+		supertest(await initializeServer('user.yaml'))
 			.put(`/-/user/org.couchdb.user:newUser`)
 			.send({
 				name: 'newUser',
@@ -78,8 +78,30 @@ describe('user', () => {
 			});
 	});
 
-	test('should log in as existing user', (done) => {
-		supertest(initializeServer('user.yaml'))
+	test('should test fails on add a existing user with login', async (done) => {
+		mockApiJWTmiddleware.mockImplementationOnce(() =>
+			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
+				req.remote_user = { name: undefined};
+				_next();
+			}
+		);
+		supertest(await initializeServer('user.yaml'))
+			.put('/-/user/org.couchdb.user:jotaNew')
+			.send(credentials)
+			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+			.expect(HTTP_STATUS.CONFLICT)
+			.end(function(err, res) {
+				if (err) {
+					return done(err);
+				}
+				expect(res.body.error).toBeDefined();
+				expect(res.body.error).toMatch(API_ERROR.USERNAME_ALREADY_REGISTERED);
+				done();
+			});
+	});
+
+	test('should log in as existing user', async (done) => {
+		supertest(await initializeServer('user.yaml'))
 			.put(`/-/user/org.couchdb.user:${credentials.name}`)
 			.send(credentials)
 			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
@@ -95,29 +117,7 @@ describe('user', () => {
 			});
 	});
 
-	test('should test fails on add a existing user with login', (done) => {
-		mockApiJWTmiddleware.mockImplementationOnce(() =>
-			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
-				req.remote_user = { name: undefined};
-				_next();
-			}
-		);
-		supertest(initializeServer('user.yaml'))
-			.put('/-/user/org.couchdb.user:jotaNew')
-			.send(credentials)
-			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-			.expect(HTTP_STATUS.CONFLICT)
-			.end(function(err, res) {
-				if (err) {
-					return done(err);
-				}
-				expect(res.body.error).toBeDefined();
-				expect(res.body.error).toMatch(API_ERROR.USERNAME_ALREADY_REGISTERED);
-				done();
-			});
-	});
-
-	test('should test fails add a new user with missing name', (done) => {
+	test('should test fails add a new user with missing name', async (done) => {
 		mockApiJWTmiddleware.mockImplementationOnce(() =>
 			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
 				req.remote_user = { name: undefined };
@@ -131,7 +131,7 @@ describe('user', () => {
 		const credentialsShort = _.cloneDeep(credentials);
 		delete credentialsShort.name;
 
-		supertest(initializeServer('user.yaml'))
+		supertest(await initializeServer('user.yaml'))
 			.put(`/-/user/org.couchdb.user:${credentials.name}`)
 			.send(credentialsShort)
 			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
@@ -147,7 +147,7 @@ describe('user', () => {
 			});
 	});
 
-	test('should test fails add a new user with missing password', (done) => {
+	test('should test fails add a new user with missing password', async (done) => {
 		mockApiJWTmiddleware.mockImplementationOnce(() =>
 			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
 				req.remote_user = { name: undefined};
@@ -157,7 +157,7 @@ describe('user', () => {
 		const credentialsShort = _.cloneDeep(credentials);
 		delete credentialsShort.password;
 
-		supertest(initializeServer('user.yaml'))
+		supertest(await initializeServer('user.yaml'))
 			.put(`/-/user/org.couchdb.user:${credentials.name}`)
 			.send(credentialsShort)
 			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
@@ -175,7 +175,7 @@ describe('user', () => {
 			});
 	});
 
-	test('should test fails add a new user with wrong password', (done) => {
+	test('should test fails add a new user with wrong password', async (done) => {
 		mockApiJWTmiddleware.mockImplementationOnce(() =>
 			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
 				req.remote_user = { name: 'test'};
@@ -189,7 +189,7 @@ describe('user', () => {
 		const credentialsShort = _.cloneDeep(credentials);
 		credentialsShort.password = 'failPassword';
 
-		supertest(initializeServer('user.yaml'))
+		supertest(await initializeServer('user.yaml'))
 			.put('/-/user/org.couchdb.user:test')
 			.send(credentialsShort)
 			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
@@ -201,6 +201,35 @@ describe('user', () => {
 
 				expect(res.body.error).toBeDefined();
 				expect(res.body.error).toMatch(API_ERROR.BAD_USERNAME_PASSWORD);
+				done();
+			});
+	});
+
+	test('should be able to logout an user', async (done) => {
+		mockApiJWTmiddleware.mockImplementationOnce(() =>
+			(req: $RequestExtend, res: $ResponseExtend, _next): void => {
+				req.remote_user = { name: 'test'};
+				_next();
+			}
+		);
+		mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
+				return callback(getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+			}
+		);
+		const credentialsShort = _.cloneDeep(credentials);
+		credentialsShort.password = 'failPassword';
+
+		supertest(await initializeServer('user.yaml'))
+			.delete('/-/user/token/someSecretToken')
+			.send(credentialsShort)
+			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+			.expect(HTTP_STATUS.OK)
+			.end(function(err, res) {
+				if (err) {
+					return done(err);
+				}
+
+				expect(res.body.ok).toMatch(API_MESSAGE.LOGGED_OUT);
 				done();
 			});
 	});

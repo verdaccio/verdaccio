@@ -81,67 +81,7 @@ describe('endpoint unit test', () => {
   });
 
   describe('Registry API Endpoints', () => {
-
-    describe('should test ping api', () => {
-      test('should test endpoint /-/ping', (done) => {
-        request(app)
-          .get('/-/ping')
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
-      });
-    });
-
-    describe('should test whoami api', () => {
-      test('should test referer /whoami endpoint', (done) => {
-        request(app)
-          .get('/whoami')
-          .set('referer', 'whoami')
-          .expect(HTTP_STATUS.OK)
-          .end(done);
-      });
-
-      test('should test no referer /whoami endpoint', (done) => {
-        request(app)
-          .get('/whoami')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .end(done);
-      });
-
-      test('should test /-/whoami endpoint', (done) => {
-        request(app)
-          .get('/-/whoami')
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
-      });
-
-      test('should test /whoami endpoint', (done) => {
-        request(app)
-          .get('/-/whoami')
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
-      });
-    });
-
     describe('should test user api', () => {
-
       describe('should test authorization headers with tokens only errors', () => {
         test('should fails on protected endpoint /-/auth-package bad format', (done) => {
           request(app)

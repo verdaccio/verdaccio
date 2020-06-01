@@ -24,8 +24,24 @@ jest.mock('@verdaccio/auth', () => ({
 }));
 
 describe('whoami', () => {
-	test('should return the logged username', () => {
-		return supertest(initializeServer('whoami.yaml'))
+	test.skip('should test referer /whoami endpoint', async (done) => {
+		return supertest(await initializeServer('whoami.yaml'))
+			.get('/whoami')
+			.set('referer', 'whoami')
+			.expect(HTTP_STATUS.OK)
+			.end(done);
+	});
+
+	test.skip('should test no referer /whoami endpoint', async (done) => {
+		return supertest(await initializeServer('whoami.yaml'))
+			.get('/whoami')
+			.expect(HTTP_STATUS.NOT_FOUND)
+			.end(done);
+	});
+
+
+	test('should return the logged username', async () => {
+		return supertest(await initializeServer('whoami.yaml'))
 			.get('/-/whoami')
 			.set('Accept', HEADERS.JSON)
 			.expect('Content-Type', HEADERS.JSON_CHARSET)
