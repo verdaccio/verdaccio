@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "9.4.0",
-    "@verdaccio/local-storage": "9.4.0",
-    "@verdaccio/readme": "9.4.0",
+    "@verdaccio/local-storage": "9.5.1",
+    "@verdaccio/readme": "9.5.1",
     "@verdaccio/streams": "9.5.0",
     "@verdaccio/ui-theme": "1.7.1",
     "JSONStream": "1.3.5",
@@ -47,11 +47,11 @@
     "marked": "0.8.2",
     "mime": "2.4.4",
     "minimatch": "3.0.4",
-    "mkdirp": "1.0.4",
+    "mkdirp": "0.5.5",
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "request": "2.87.0",
-    "semver": "7.3.2",
+    "semver": "6.3.0",
     "verdaccio-audit": "9.5.0",
     "verdaccio-htpasswd": "9.4.1"
   },
@@ -133,7 +133,7 @@
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
   },
   "engines": {
-    "node": ">=10",
+    "node": ">=8",
     "npm": ">=5"
   },
   "preferGlobal": true,
