@@ -45,7 +45,7 @@
     "lodash": "4.17.15",
     "lunr-mutable-indexes": "2.3.2",
     "marked": "0.8.2",
-    "mime": "2.4.4",
+    "mime": "2.4.6",
     "minimatch": "3.0.4",
     "mkdirp": "0.5.5",
     "mv": "2.1.1",
