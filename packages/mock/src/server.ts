@@ -31,7 +31,7 @@ export default class Server implements IServerBridge {
     headers.accept = headers.accept || HEADERS.JSON;
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
     headers.authorization = headers.authorization || this.authstr;
-    headers["Content-Type"]= "application/json";
+    headers[HEADERS.CONTENT_TYPE]= HEADERS.JSON;
     return smartRequest(this.url + options.uri,{
       method: options.method || 'GET',
       headers: headers,

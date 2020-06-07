@@ -47,38 +47,43 @@ describe('endpoint unit test', () => {
   let app;
   let mockRegistry;
 
-  beforeAll(async function(done) {
-    const store = generateRamdonStorage();
-    const mockServerPort = 55549;
-    const configForTest = configExample({
-      filters: {
-        [path.join(__dirname, './plugin/filter')]: {
-          pkg: 'npm_test',
-          version: '2.0.0'
+  beforeAll(async function() {
+    try{
+      const store = generateRamdonStorage();
+      const mockServerPort = 55549;
+      const configForTest = configExample({
+        filters: {
+          [path.join(__dirname, './plugin/filter')]: {
+            pkg: 'npm_test',
+            version: '2.0.0'
+          }
+        },
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
         }
-      },
-      storage: store,
-      self_path: store,
-      uplinks: {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      }
-    }, 'api.spec.yaml', __dirname);
+      }, 'api.spec.yaml', __dirname);
 
-    app = await endPointAPI(configForTest);
-    const binPath = require.resolve('verdaccio/bin/verdaccio');
-    const storePath = path.join(__dirname, '/mock/store');
-    mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
-    done();
+      app = await endPointAPI(configForTest);
+      const binPath = require.resolve('verdaccio/bin/verdaccio');
+      const storePath = path.join(__dirname, '/mock/store');
+      console.log('DEBUG 🔥', storePath);
+
+      debugger;
+      mockRegistry = await mockServer(mockServerPort, { storePath, silence: false, debug: true }).init(binPath);
+    } catch (e) {
+      console.trace();
+      console.error(e);
+    }
   });
 
-  afterAll(function(done) {
+  afterAll(function() {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
-
-    done();
   });
 
   describe('Registry API Endpoints', () => {
