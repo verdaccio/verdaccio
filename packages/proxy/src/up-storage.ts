@@ -1,14 +1,25 @@
 import zlib from 'zlib';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
-import request from 'request';
-import Stream, { Readable } from 'stream';
-import URL, {UrlWithStringQuery} from 'url';
-import { parseInterval, isObject, ErrorCode, buildToken } from '@verdaccio/utils';
+import fetch, { RequestInit } from 'node-fetch';
+import Stream from 'stream';
+import URL, { UrlWithStringQuery } from 'url';
+import { buildToken, ErrorCode, isObject, parseInterval } from '@verdaccio/utils';
 import { ReadTarball } from '@verdaccio/streams';
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from '@verdaccio/dev-commons';
-import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
+import {
+  API_ERROR,
+  CHARACTER_ENCODING,
+  ERROR_CODE,
+  HEADER_TYPE,
+  HEADERS,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from '@verdaccio/dev-commons';
+import { Callback, Config, Headers, Logger, Package } from '@verdaccio/types';
 import { IProxy, UpLinkConfLocal } from '@verdaccio/dev-types';
+import { response } from 'express';
+
 const LoggerApi = require('@verdaccio/logger');
 
 const encode = function(thing): string {
@@ -139,122 +150,51 @@ class ProxyStorage implements IProxy {
       headers['Content-Type'] = headers['Content-Type'] || HEADERS.JSON;
     }
 
-    const requestCallback = cb ? function(err, res, body): void {
-      let error;
-      const responseLength = err ? 0 : body.length;
-      // $FlowFixMe
-      processBody();
-      logActivity();
-      // $FlowFixMe
-      cb(err, res, body);
-
-      /**
-       * Perform a decode.
-       */
-      function processBody(): void {
-        if (err) {
-          error = err.message;
-          return;
-        }
-
-        if (options.json && res.statusCode < 300) {
-          try {
-            // $FlowFixMe
-            body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
-          } catch (_err) {
-            body = {};
-            err = _err;
-            error = err.message;
-          }
-        }
-
-        if (!err && isObject(body)) {
-          if (_.isString(body.error)) {
-            error = body.error;
-          }
-        }
-      }
-      /**
-       * Perform a log.
-       */
-      function logActivity(): void {
-        let message = "@{!status}, req: '@{request.method} @{request.url}'";
-        // FIXME: use LOG_VERDACCIO_BYTES
-        message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
-        self.logger.warn(
-          {
-            err: err || undefined, // if error is null/false change this to undefined so it wont log
-            request: { method: method, url: uri },
-            level: 35, // http
-            status: res != null ? res.statusCode : 'ERR',
-            error: error,
-            bytes: {
-              in: json ? json.length : 0,
-              out: responseLength || 0,
-            },
-          },
-          message
-        );
-      }
-    } : undefined;
-
-    let requestOptions = {
-      url: uri,
+    let requestOptions: RequestInit = {
       method: method,
       headers: headers,
       body: json,
-      proxy: this.proxy,
-      encoding: null,
-      gzip: true,
+      // proxy: this.proxy,
+      // encoding: null,
+      // gzip: true,
       timeout: this.timeout,
-      strictSSL: this.strict_ssl,
-      agentOptions: this.agent_options,
+      // strictSSL: this.strict_ssl,
+      // agentOptions: this.agent_options,
     };
 
-    if (this.ca) {
-      requestOptions = Object.assign({}, requestOptions, {
-        ca: this.ca
-      });
-    }
-
-    const req = request(requestOptions, requestCallback);
-
-    let statusCalled = false;
-    req.on('response', function(res): void {
-      // FIXME: _verdaccio_aborted seems not used
-      // @ts-ignore
-      if (!req._verdaccio_aborted && !statusCalled) {
-        statusCalled = true;
-        self._statusCheck(true);
-      }
-
-      if (_.isNil(requestCallback) === false) {
-        (function do_log(): void {
-          const message = "@{!status}, req: '@{request.method} @{request.url}' (streaming)";
-          self.logger.warn(
-            {
-              request: {
-                method: method,
-                url: uri,
-              },
-              level: 35, // http
-              status: _.isNull(res) === false ? res.statusCode : 'ERR',
-            },
-            message
-          );
-        })();
-      }
-    });
-    req.on('error', function(_err): void {
-      // FIXME: _verdaccio_aborted seems not used
-      // @ts-ignore
-      if (!req._verdaccio_aborted && !statusCalled) {
-        statusCalled = true;
-        self._statusCheck(false);
-      }
-    });
     // @ts-ignore
-    return req;
+    return fetch(uri, requestOptions).then(async function(response) {
+      const body = await response.json();
+      if (response.ok) {
+        self._statusCheck(true);
+        const message = "@{!status}, req: '@{request.method} @{request.url}' (streaming)";
+
+        self.logger.warn(
+          {
+            request: {
+              method: method,
+              url: uri,
+            },
+            level: 35, // http
+            status: response.status
+          },
+          message
+        );
+
+        if(!_.isNil(cb)) {
+          cb(undefined, response, body)
+        }
+
+      } else {
+        self._statusCheck(false);
+
+        if(!_.isNil(cb)) {
+          cb(undefined, response, body)
+        }
+      }
+
+      return response;
+    });
   }
 
   /**
