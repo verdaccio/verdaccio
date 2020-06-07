@@ -323,7 +323,7 @@ export function uploadPackageTarball(storage: IStorageHandler) {
     });
 
     stream.on('error', function(err) {
-      return res.report_error(err);
+      return res.locals.report_error(err);
     });
 
     stream.on('success', function() {

@@ -82,7 +82,7 @@ describe('Publish endpoints - upload package tarball', () => {
       pipe: jest.fn(),
       on: jest.fn(),
     };
-    res = { status: jest.fn(), report_error: jest.fn() };
+    res = { status: jest.fn(), locals: { report_error: jest.fn() }};
     next = jest.fn();
   });
 

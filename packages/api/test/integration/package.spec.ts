@@ -12,6 +12,8 @@ const mockApiJWTmiddleware = jest.fn(() =>
 		}
 );
 
+jest.setTimeout(500000);
+
 jest.mock('@verdaccio/auth', () => ({
 	Auth: class {
 		apiJWTmiddleware() {
@@ -26,18 +28,21 @@ jest.mock('@verdaccio/auth', () => ({
 	}
 }));
 
-describe('package', () => {
-	beforeEach(() => {
-
+describe.skip('package', () => {
+	beforeAll(async () => {
+		await publishVersion('package.yaml', 'foo', '1.0.0');
 	});
 
-	test('should test referer /whoami endpoint', (done) => {
-		return publishVersion('package.yaml', 'foo', '1.0.0')
-			.then(response => {
-				// expect(response.body.username).toEqual('foo');
-			console.log("re", response.body);
-			done();
-			});
+	test('should return a package', async (done) => {
+			return supertest(await initializeServer('package.yaml'))
+				.get('/foo')
+				.set('Accept', HEADERS.JSON)
+				.expect('Content-Type', HEADERS.JSON_CHARSET)
+				.expect(HTTP_STATUS.OK)
+				.then(response => {
+					expect(response.body.username).toEqual('foo');
+					done();
+				});
 	});
 
 	// test.skip('should test no referer /whoami endpoint', (done) => {

@@ -24,7 +24,7 @@
     "build": "npm run build:js && npm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "9.4.0",
+    "@verdaccio/commons-api": "9.6.1",
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "dayjs": "1.8.19",
     "fast-safe-stringify": "2.0.7",

@@ -149,7 +149,8 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
 
       if (typeof body === 'object' && _.isNil(body) === false) {
         if (typeof (body as MiddlewareError).error === 'string') {
-          res._verdaccio_error = (body as MiddlewareError).error;
+          res.locals._verdaccio_error = (body as MiddlewareError).error;
+          // res._verdaccio_error = (body as MiddlewareError).error;
         }
         body = JSON.stringify(body, undefined, '  ') + '\n';
       }
@@ -229,7 +230,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     const remoteAddress = req.connection.remoteAddress;
     const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
     let message;
-    if (res._verdaccio_error) {
+    if (res.locals._verdaccio_error) {
       message = LOG_VERDACCIO_ERROR;
     } else {
       message = LOG_VERDACCIO_BYTES;
@@ -246,7 +247,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
         user: (req.remote_user && req.remote_user.name) || null,
         remoteIP,
         status: res.statusCode,
-        error: res._verdaccio_error,
+        error: res.locals._verdaccio_error,
         bytes: {
           in: bytesin,
           out: bytesout,
@@ -279,12 +280,12 @@ export function handleError(err: HttpError, req: $RequestExtend, res: $ResponseE
     if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
       return next();
     }
-    if (_.isFunction(res.report_error) === false) {
+    if (_.isFunction(res.locals.report_error) === false) {
       // in case of very early error this middleware may not be loaded before error is generated
       // fixing that
       errorReportingMiddleware(req, res, _.noop);
     }
-    res.report_error(err);
+    res.locals.report_error(err);
   } else {
     // Fall to Middleware.final
     return next(err);
@@ -293,8 +294,8 @@ export function handleError(err: HttpError, req: $RequestExtend, res: $ResponseE
 
 // Middleware
 export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-  res.report_error =
-    res.report_error ||
+  res.locals.report_error =
+    res.locals.report_error ||
     function(err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (_.isNil(res.headersSent) === false) {
