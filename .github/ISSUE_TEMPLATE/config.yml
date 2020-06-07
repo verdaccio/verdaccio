@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question 🤷🏻‍♂️
+    url: https://stackoverflow.com/questions/tagged/verdaccio
+    about: We encorage you to open new questions on Stackoverflow
+  - name: Security Report 🛡
+    url: https://github.com/verdaccio/verdaccio/security/policy
+    about: I want to report a security vulnerability
+  - name: Chat 🏘
+    url: http://chat.verdaccio.org
+    about: For a quick question you should do it through our community chat
+  - name: User Interface Report 👩🏼‍🎨👨🏼‍🎨
+    url: https://github.com/verdaccio/ui/issues/new/choose
+    about: Any report related with the User Interface should be posted in another repository
