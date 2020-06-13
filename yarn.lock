@@ -2225,10 +2225,10 @@
     babel-plugin-dynamic-import-node "2.3.0"
     babel-plugin-emotion "10.0.23"
 
-"@verdaccio/commons-api@9.4.0", "@verdaccio/commons-api@^9.4.0":
-  version "9.4.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-9.4.0.tgz#74bb922d5d173a1c19cd2719db9f028e8909dac7"
-  integrity sha512-h5DvalAx+fKbCPp9azybvZsvQARBtCeUoMc8jAstUIcOJwbJ0hzMxpM9yY+1cwJvVC7lqTxCZEduWbamfLOQdQ==
+"@verdaccio/commons-api@9.6.1", "@verdaccio/commons-api@^9.6.1":
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-9.6.1.tgz#f62d1e0d7e55f19c483989f718ed2df2bf55ae3a"
+  integrity sha512-wGwDOxWkWjOcxCpwUvAqY+v24I9BRTB5L8xcbE+drpF4gL5q/wN+yzBgxCtkBh/nchOALxRC93JrE3IgVTu3iA==
   dependencies:
     http-errors "1.7.3"
     http-status-codes "1.4.0"
@@ -2237,6 +2237,14 @@
   version "9.3.2"
   resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-9.3.2.tgz#7ce1e2c694fb6ca4f5a7cbc2b4445f3019d7e950"
   integrity sha512-qbzyTRZtbURr6p50Gdo4axFrVBJ57HXymiU79Oh6OwmPNWpPJxhau+FURzVJySSIhCoDyOfFKI/KirTEt+V8Pw==
+  dependencies:
+    http-errors "1.7.3"
+    http-status-codes "1.4.0"
+
+"@verdaccio/commons-api@^9.4.0":
+  version "9.4.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-9.4.0.tgz#74bb922d5d173a1c19cd2719db9f028e8909dac7"
+  integrity sha512-h5DvalAx+fKbCPp9azybvZsvQARBtCeUoMc8jAstUIcOJwbJ0hzMxpM9yY+1cwJvVC7lqTxCZEduWbamfLOQdQ==
   dependencies:
     http-errors "1.7.3"
     http-status-codes "1.4.0"
@@ -2271,28 +2279,21 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/file-locking@^9.4.0":
-  version "9.4.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-9.4.0.tgz#92bf3d1817ac262f3e2239825ed66f90b006dc47"
-  integrity sha512-aFoiES8sWv/zKZdPDY16C4c2PyDLE5TQf6f5b2tNSJHssiCkQj3x0FSx/Z8BB0KcWF5t6MLNFZfM+mutD7O0ig==
+"@verdaccio/file-locking@^9.6.1":
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-9.6.1.tgz#47b600710b8ee4ed9df12ef46e205b517cd32938"
+  integrity sha512-0IpOib/kVhQpS4njwhT+jMGodZaZMD6UFELLFedzip39WzrJ3OiofWmSAyKUkXGVoFQb2hRFzIDWYvSizt2KQw==
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/file-locking@^9.5.0":
-  version "9.5.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-9.5.0.tgz#c8ea8d9d5c5902ee82f08fe1fdcb3d09d8d65946"
-  integrity sha512-Q27WlxeMMFlKxI3x0nNAstiUkn9NfWv7BOFh/Zfvifr4aviNQcDyHincn9d6Pvuy6EBquUoUW0ty3Kv9rt5u5Q==
+"@verdaccio/local-storage@9.6.1":
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-9.6.1.tgz#908f3530108ca9686fcdf9d028271ef362a64287"
+  integrity sha512-ZyhvwAZ/7oVKSqAI9tK1Q7oyVomWVUMjLIQ8gLguwdbHFB10fvMpJt/d4Wbf+b1juGAFxrLmUP5SNT/0td3N4w==
   dependencies:
-    lockfile "1.0.4"
-
-"@verdaccio/local-storage@9.5.1":
-  version "9.5.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2flocal-storage/-/local-storage-9.5.1.tgz#1bf4e16ff6b0820eec5ca4b7c942fd1956958b64"
-  integrity sha512-KghaxOhvjMv57FTxNOIwDX00fy/3lN71POddoX+sEegfmtl2vvalX8WUgerK2H1zZyi9mxS4eD1nTA6alnpyWg==
-  dependencies:
-    "@verdaccio/commons-api" "^9.4.0"
-    "@verdaccio/file-locking" "^9.5.0"
-    "@verdaccio/streams" "^9.5.0"
+    "@verdaccio/commons-api" "^9.6.1"
+    "@verdaccio/file-locking" "^9.6.1"
+    "@verdaccio/streams" "^9.6.1"
     async "3.2.0"
     level "5.0.1"
     lodash "4.17.15"
@@ -2311,10 +2312,10 @@
     lodash "4.17.15"
     mkdirp "1.0.3"
 
-"@verdaccio/readme@9.5.1":
-  version "9.5.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2freadme/-/readme-9.5.1.tgz#90b02577fafa85ab9a5cf4e03ed2cf2bb4ad5677"
-  integrity sha512-N05DsheI+olcDOtmGYbBR5huP3gZ1QRCS8Yr7LqPQNnrHQn2RqChbVM/lAGcc7Zb9k429cAWWV3KxknZs9M6OQ==
+"@verdaccio/readme@9.6.1":
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/@verdaccio%2freadme/-/readme-9.6.1.tgz#3e3985c4e3c8653cd4588c6290e828e382071957"
+  integrity sha512-RD48djuQRfK5j0fNhj2zmmhMf7vICCPlhJAhsKaYOB0cNtK+51Z/HfAUf5yflkhcGE+4Cm6gaUfmfIlkRbR31A==
   dependencies:
     dompurify "2.0.8"
     jsdom "15.2.1"
@@ -2329,10 +2330,10 @@
     jsdom "16.2.1"
     marked "0.7.0"
 
-"@verdaccio/streams@9.5.0", "@verdaccio/streams@^9.5.0":
-  version "9.5.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-9.5.0.tgz#01c1e1a654b2085b0711a3e23df5c7b7376d0282"
-  integrity sha512-Z+04XRPbOJCsaY6GyrVJH6/IWqeh81U3kr9E5XBHkCK+NtybF0D0nnZgVTh/q2GOxhvvOgGv9r3Uvg4GkbnXsQ==
+"@verdaccio/streams@9.6.1", "@verdaccio/streams@^9.6.1":
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-9.6.1.tgz#2ab565743c093d7a2f8834c62f37dfc36f2a4d5b"
+  integrity sha512-P4DFWvB9BNCDAh/sYPr59JW8N9uxAtlIx0Xa0vobxy+4cvvmP9lrMbeK4liH5yKJmwKmiEIZ6SxfTKR/MqbOpw==
 
 "@verdaccio/streams@^9.3.2":
   version "9.3.2"
@@ -2349,10 +2350,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-9.5.0.tgz#1acd3cdebe2c8ea57dac9a0739512830e05e6bbf"
   integrity sha512-zUCkSQF0qShq/9OCEq6bZgHtz0lP0npkxXGc0Ch8P5fPiTlih1MBY5GxqM0ervMGw8ojH2mCYQ0655pKicYg1A==
 
-"@verdaccio/ui-theme@1.7.1":
-  version "1.7.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.7.1.tgz#d524ff9b8bd9deefa98b264d8eb3ce915d0d0a60"
-  integrity sha512-a3coH/CdbfKNr/wRoZIdv9HwjmsEtyT9SzlXuuQKLvyspdoIafruRk9JSn2zWRD254oewsnSSDT6FPweDWU6+Q==
+"@verdaccio/ui-theme@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.9.0.tgz#9ab453635a1c6e079185a8653b8f297e2d98bc86"
+  integrity sha512-zxAX36SA7tbHi9q0FOzZjjlMeR8MovdYqBTLJN1wsY3do2KHwrh6YnWL8GqOiBnpTsz8zQJureEyLD0kp1bXNg==
 
 "@verdaccio/ui-theme@^1.0.0":
   version "1.5.0"
@@ -3851,10 +3852,10 @@ dayjs@1.8.20:
   resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.20.tgz#724a5cb6ad1f6fc066b0bd9a800dedcc7886f19e"
   integrity sha512-mH0MCDxw6UCGJYxVN78h8ugWycZAO8thkj3bW6vApL5tS0hQplIDdAQcmbvl7n35H0AKdCJQaArTrIQw2xt4Qg==
 
-dayjs@1.8.26:
-  version "1.8.26"
-  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.26.tgz#c6d62ccdf058ca72a8d14bb93a23501058db9f1e"
-  integrity sha512-KqtAuIfdNfZR5sJY1Dixr2Is4ZvcCqhb0dZpCOt5dGEFiMzoIbjkTSzUb4QKTCsP+WNpGwUjAFIZrnZvUxxkhw==
+dayjs@1.8.28:
+  version "1.8.28"
+  resolved "https://registry.verdaccio.org/dayjs/-/dayjs-1.8.28.tgz#37aa6201df483d089645cb6c8f6cef6f0c4dbc07"
+  integrity sha512-ccnYgKC0/hPSGXxj7Ju6AV/BP4HUkXC2u15mikXT5mX9YorEaoi1bEKOmAqdkJHN4EEkmAf97SpH66Try5Mbeg==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -9785,10 +9786,10 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.verdaccio.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-verdaccio-audit@9.5.0:
-  version "9.5.0"
-  resolved "https://registry.yarnpkg.com/verdaccio-audit/-/verdaccio-audit-9.5.0.tgz#227b6f3faf8277100a41e240514525c1b22fcb5e"
-  integrity sha512-XN/qTWKmLGAwlsZx3pDQo7z5ltmJVHIM/iVY465g40gcdPdEZEaa4roK0vh3YuGlYNl/NIfhzVEFSu4pUYR+dw==
+verdaccio-audit@9.6.1:
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-9.6.1.tgz#aa18ffeb23923df56399ef3f0d7aa20ffb10e03e"
+  integrity sha512-dyYeGhg+HfLFgTMJEV7usJ46xQix9SU566XIi278IlYFmBkFe6SsmiZUHKaL3pbq8K9ESQYNCyYkZW29QMpcIg==
   dependencies:
     express "4.17.1"
     request "2.88.0"
@@ -9808,12 +9809,12 @@ verdaccio-auth-memory@^9.4.0:
   dependencies:
     "@verdaccio/commons-api" "^9.4.0"
 
-verdaccio-htpasswd@9.4.1:
-  version "9.4.1"
-  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-9.4.1.tgz#44f9e57083d34c740a56654fa4210cb66bec9fc5"
-  integrity sha512-d7WkEErQWPB4xeMaWV0AQTafJoK8gFFmOiyJ+lBENN+hyLtb9tUUnqcbJYBzx/5swkisAmH4I+x7523ikq30SA==
+verdaccio-htpasswd@9.6.1:
+  version "9.6.1"
+  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-9.6.1.tgz#7c4d881c1c45d517f840d7333f1ef18a3bc8f066"
+  integrity sha512-UVUm3lt0JNJk02rKd2VBqpfVDwDlRfGyTQLwBuZfdnD/qmGrTzqKcnXAsG6zwlPo64Js5ZTvGi1/QeAgG4GjxA==
   dependencies:
-    "@verdaccio/file-locking" "^9.4.0"
+    "@verdaccio/file-locking" "^9.6.1"
     apache-md5 "1.1.2"
     bcryptjs "2.4.3"
     http-errors "1.7.3"
