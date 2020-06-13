@@ -1,3 +1,58 @@
 {
-	"files": ["CONTRIBUTORS.md"]
+  "projectName": "verdaccio",
+  "projectOwner": "verdaccio",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "commitConvention": "none",
+  "files": [
+    "CONTRIBUTORS.md"
+  ],
+  "contributors": [
+    {
+      "login": "juanpicado",
+      "name": "Juan Picado",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/558752?v=4",
+      "profile": "https://www.linkedin.com/in/jotadeveloper/",
+      "contributions": [
+        "doc",
+        "code",
+        "infra",
+				"eventOrganizing",
+				"blog",
+				"maintenance"
+      ]
+    },
+    {
+      "login": "sergiohgz",
+      "name": "Sergio Herrera",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14012309?v=4",
+      "profile": "https://github.com/sergiohgz",
+      "contributions": [
+        "infra",
+				"maintenance"
+      ]
+    },
+    {
+      "login": "DanielRuf",
+      "name": "Daniel Ruf",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/827205?v=4",
+      "profile": "https://daniel-ruf.de/",
+      "contributions": [
+        "security",
+				"infra",
+				"maintenance"
+      ]
+    },
+    {
+      "login": "priscilawebdev",
+      "name": "Priscila Oliveira",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/29228205?v=4",
+      "profile": "https://priscilawebdev.github.io/priscilaoliveira/",
+      "contributions": [
+        "design",
+        "code",
+				"maintenance"
+      ]
+    }
+  ]
 }
