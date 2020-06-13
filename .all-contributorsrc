@@ -17,9 +17,9 @@
         "doc",
         "code",
         "infra",
-				"eventOrganizing",
-				"blog",
-				"maintenance"
+        "eventOrganizing",
+        "blog",
+        "maintenance"
       ]
     },
     {
@@ -29,7 +29,7 @@
       "profile": "https://github.com/sergiohgz",
       "contributions": [
         "infra",
-				"maintenance"
+        "maintenance"
       ]
     },
     {
@@ -39,8 +39,8 @@
       "profile": "https://daniel-ruf.de/",
       "contributions": [
         "security",
-				"infra",
-				"maintenance"
+        "infra",
+        "maintenance"
       ]
     },
     {
@@ -51,8 +51,19 @@
       "contributions": [
         "design",
         "code",
-				"maintenance"
+        "maintenance"
+      ]
+    },
+    {
+      "login": "toolsofraj",
+      "name": "toolsofraj",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2507152?v=4",
+      "profile": "https://github.com/toolsofraj",
+      "contributions": [
+        "code"
       ]
     }
-  ]
+  ],
+  "skipCi": true,
+  "contributorsPerLine": 7
 }
