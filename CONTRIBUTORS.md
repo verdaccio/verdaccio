@@ -31,6 +31,7 @@
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/monkeywithacupcake"><img src="https://avatars3.githubusercontent.com/u/7316730?v=4" width="100px;" alt=""/><br /><sub><b>jess</b></sub></a><br /><a href="https://github.com/verdaccio/verdaccio/commits?author=monkeywithacupcake" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/toolsofraj"><img src="https://avatars0.githubusercontent.com/u/2507152?v=4" width="100px;" alt=""/><br /><sub><b>toolsofraj</b></sub></a><br /><a href="https://github.com/verdaccio/verdaccio/commits?author=toolsofraj" title="Code">💻</a></td>
   </tr>
 </table>
 
