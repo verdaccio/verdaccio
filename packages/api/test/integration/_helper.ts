@@ -41,9 +41,8 @@ export async function initializeServer(configName): Promise<Application> {
 	return app;
 }
 
-export async function publishVersion(configFile, pkgName, version) {
+export async function publishVersion(app, configFile, pkgName, version) {
 		const pkgMetadata = generatePackageMetadata(pkgName, version);
-		const app = await initializeServer(configFile);
 
 		return supertest(app)
 			.put(`/${pkgName}`)

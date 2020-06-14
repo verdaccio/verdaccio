@@ -12,7 +12,7 @@ const mockApiJWTmiddleware = jest.fn(() =>
 		}
 );
 
-jest.setTimeout(500000);
+// jest.setTimeout(500000);
 
 jest.mock('@verdaccio/auth', () => ({
 	Auth: class {
@@ -28,39 +28,22 @@ jest.mock('@verdaccio/auth', () => ({
 	}
 }));
 
-describe.skip('package', () => {
+describe('package', () => {
+	let app;
 	beforeAll(async () => {
-		await publishVersion('package.yaml', 'foo', '1.0.0');
+		app = await initializeServer('package.yaml');
+		await publishVersion(app, 'package.yaml', 'foo', '1.0.0');
 	});
 
 	test('should return a package', async (done) => {
-			return supertest(await initializeServer('package.yaml'))
+			return supertest(app)
 				.get('/foo')
 				.set('Accept', HEADERS.JSON)
 				.expect('Content-Type', HEADERS.JSON_CHARSET)
 				.expect(HTTP_STATUS.OK)
 				.then(response => {
-					expect(response.body.username).toEqual('foo');
+					expect(response.body.name).toEqual('foo');
 					done();
 				});
 	});
-
-	// test.skip('should test no referer /whoami endpoint', (done) => {
-	// 	return supertest(initializeServer('whoami.yaml'))
-	// 		.get('/whoami')
-	// 		.expect(HTTP_STATUS.NOT_FOUND)
-	// 		.end(done);
-	// });
-	//
-	//
-	// test('should return the logged username', () => {
-	// 	return supertest(initializeServer('whoami.yaml'))
-	// 		.get('/-/whoami')
-	// 		.set('Accept', HEADERS.JSON)
-	// 		.expect('Content-Type', HEADERS.JSON_CHARSET)
-	// 		.expect(HTTP_STATUS.OK)
-	// 		.then(response => {
-	// 			expect(response.body.username).toEqual('foo');
-	// 		});
-	// });
 });
