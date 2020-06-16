@@ -320,7 +320,7 @@ class LocalStorage implements IStorage {
 
   /**
    * Update the package metadata, tags and attachments (tarballs).
-   * Note: Currently supports unpublishing only.
+   * Note: Currently supports unpublishing and deprecation.
    * @param {*} name
    * @param {*} incomingPkg
    * @param {*} revision
@@ -338,7 +338,8 @@ class LocalStorage implements IStorage {
       name,
       (localData: Package, cb: CallbackAction): void => {
         for (const version in localData.versions) {
-          if (_.isNil(incomingPkg.versions[version])) {
+          const incomingVersion = incomingPkg.versions[version];
+          if (_.isNil(incomingVersion)) {
             this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
 
             // FIXME: I prefer return a new object rather mutate the metadata
@@ -349,6 +350,18 @@ class LocalStorage implements IStorage {
               if (localData._attachments[file].version === version) {
                 delete localData._attachments[file].version;
               }
+            }
+          } else if (Object.prototype.hasOwnProperty.call(incomingVersion, 'deprecated')) {
+            const incomingDeprecated = incomingVersion.deprecated;
+            if (incomingDeprecated != localData.versions[version].deprecated) {
+              if (!incomingDeprecated) {
+                this.logger.info({ name: name, version: version }, 'undeprecating @{name}@@{version}');
+                delete localData.versions[version].deprecated;
+              } else {
+                this.logger.info({ name: name, version: version }, 'deprecating @{name}@@{version}');
+                localData.versions[version].deprecated = incomingDeprecated;
+              }
+              localData.time!.modified = new Date().toISOString();
             }
           }
         }

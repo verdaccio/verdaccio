@@ -9,16 +9,7 @@ import YAML from 'js-yaml';
 import URL from 'url';
 import sanitizyReadme from '@verdaccio/readme';
 
-import {
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from './constants';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import { Package, Version, Author } from '@verdaccio/types';
@@ -188,12 +179,7 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
@@ -634,4 +620,14 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
 
   const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
   return hasMatchVersion;
+}
+
+export function isRelatedToDeprecation(pkgInfo: Package): boolean {
+  const { versions } = pkgInfo;
+  for (const version in versions) {
+    if (Object.prototype.hasOwnProperty.call(versions[version], 'deprecated')) {
+      return true;
+    }
+  }
+  return false;
 }
