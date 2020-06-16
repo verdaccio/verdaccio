@@ -10,7 +10,8 @@
   "homepage": "https://verdaccio.org",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "website"
   ],
   "funding": {
     "type": "opencollective",

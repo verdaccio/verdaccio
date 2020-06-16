@@ -1,0 +1,37 @@
+{
+  "extends": [
+    "@verdaccio",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended",
+    "plugin:verdaccio/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "react",
+    "jest",
+    "prettier",
+    "verdaccio",
+    "jsx-a11y",
+    "react-hooks",
+    "import"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "allowImportExportEverywhere": true
+  },
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version":  "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
