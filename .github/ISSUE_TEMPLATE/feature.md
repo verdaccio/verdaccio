@@ -1,6 +1,9 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: "Feature Request 🔮"
+about: You want a feature request.
+title: ""
+labels: "topic: feature request"
+assignees: ""
 ---
 
 <!--
