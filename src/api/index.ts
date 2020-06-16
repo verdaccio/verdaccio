@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import express, { Application } from 'express';
+import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import { HttpError } from 'http-errors';
@@ -45,6 +46,8 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
   if (config._debug) {
     hookDebug(app, config.self_path);
   }
+
+  app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
 
   // register middleware plugins
   const plugin_params = {
