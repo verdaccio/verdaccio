@@ -35,6 +35,7 @@ export async function initializeServer(configName): Promise<Application> {
 
 	app.use(function(request, response) {
 		response.status(590);
+		console.log('respo', response);
 		response.json({error: 'cannot handle this'});
 	});
 
@@ -45,11 +46,24 @@ export async function publishVersion(app, configFile, pkgName, version) {
 		const pkgMetadata = generatePackageMetadata(pkgName, version);
 
 		return supertest(app)
-			.put(`/${pkgName}`)
+			.put(`/${encodeURIComponent(pkgName)}`)
 			.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
 		.send(JSON.stringify(pkgMetadata))
 		.expect(HTTP_STATUS.CREATED)
-		.set('accept', 'gzip')
-		.set('accept-encoding', HEADERS.JSON)
+		.set('accept', HEADERS.GZIP)
+		.set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
+		.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+}
+
+export async function publishTaggedVersion(app, configFile, pkgName, version, tag) {
+	const pkgMetadata = generatePackageMetadata(pkgName, version);
+
+	return supertest(app)
+		.put(`/${encodeURIComponent(pkgName)}/${encodeURIComponent(version)}/-tag/${encodeURIComponent(tag)}`)
+		.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+		.send(JSON.stringify(pkgMetadata))
+		.expect(HTTP_STATUS.CREATED)
+		.set('accept', HEADERS.GZIP)
+		.set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
 		.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 }

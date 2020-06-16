@@ -13,6 +13,9 @@ web:
   enable: true
   title: verdaccio
 
+publish:
+  allow_offline: false
+
 uplinks:
 
 logs: { type: stdout, format: pretty, level: trace }
