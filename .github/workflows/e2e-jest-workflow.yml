@@ -36,7 +36,7 @@ jobs:
           npm ping --registry http://localhost:4873
       - name: 'Running the integration test'
         run: |
-          yarn init -p
+          yarn init --yes
           yarn add jest --registry http://localhost:4873
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
