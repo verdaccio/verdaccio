@@ -33,7 +33,7 @@ jobs:
           source scripts/e2e-setup-ci.sh
       - name: 'Ping to verdaccio'
         run: |
-          npm ping http://localhost:4873
+          npm ping --registry http://localhost:4873
 #      - name: 'Running the integration test'
 #        run: |
 #          source scripts/e2e-setup-ci.sh
