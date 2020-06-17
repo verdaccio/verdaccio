@@ -2,8 +2,8 @@ on: push
 
 name: 'E2E Jest with verdaccio'
 jobs:
-  chore:
-    name: 'Validating Jest'
+  yarn:
+    name: 'yarn:jest example'
     runs-on: ubuntu-latest
 
     steps:
@@ -33,3 +33,37 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
+  npm:
+    name: 'npm:jest example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: 'Use Node.js 10.x'
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+      - name: 'install latest npm'
+        run: npm i -g npm
+      - name: Install Dependencies
+        run: yarn install --pure-lockfile
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup node ./scripts/run-verdaccio.js &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          npm init --force
+          npm install jest --registry http://localhost:4873
+
+          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+          yarn jest pass.test.js
+
+          yarn add left-pad --registry http://localhost:4873 --verbose
+          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+          yarn jest module.test.js
+
