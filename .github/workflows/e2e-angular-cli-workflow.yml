@@ -38,8 +38,11 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           yarn init --yes
+          mkdir ~/.yarn-global
+          yarn config set prefix ~/.yarn-global
+          export PATH="$PATH:$(yarn global bin)"
 
-          yarn global add @angular/cli --prefix /usr/local
+          yarn global add @angular/cli
           which nodemon
           ng new verdaccio-angular --interactive=false
 
@@ -82,7 +85,7 @@ jobs:
           npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
 
           npm run ng build --aot
-          
+
 #  pnpm throws errors worth to check why
 #  pnpm:
 #    name: 'pnpm:angular example'
