@@ -37,11 +37,11 @@ jobs:
       - name: 'Running the integration test'
         run: |
           yarn init --yes
-          yarn add jest --registry http://localhost:4873
+          yarn add jest --registry http://localhost:4873  --verbose
+
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
-          echo "it('should fail', () => { expect(false).toBeTruthy(); });" | tee fail.test.js
-          ! yarn jest fail.test.js
-          yarn add left-pad
+
+          yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
