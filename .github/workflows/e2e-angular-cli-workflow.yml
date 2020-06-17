@@ -40,7 +40,7 @@ jobs:
           yarn init --yes
 
           yarn global add @angular/cli
-          ng new verdaccio-angular --interactive=false
+          yarn ng new verdaccio-angular --interactive=false
 
           cd verdaccio-angular
           echo "registry=http://localhost:4873" > ~/.npmrc
