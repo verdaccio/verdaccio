@@ -29,6 +29,7 @@ import {
   generatePackageUnpublish,
   generateStarMedatada,
   generateDeprecateMetadata,
+  generateVersion,
 } from '../../__helper/utils';
 
 require('../../../../src/lib/logger').setup([
@@ -928,7 +929,7 @@ describe('endpoint unit test', () => {
           expect(err).toBeNull();
           return done(err);
         }
-        const [,res] = await getPackage(request(app), '', pkgName)
+        const [,res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
         done();
       });
@@ -942,7 +943,7 @@ describe('endpoint unit test', () => {
           expect(err).toBeNull();
           return done(err);
         }
-        const [,res] = await getPackage(request(app), '', pkgName)
+        const [,res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).not.toBeDefined();
         done();
       });
@@ -961,6 +962,20 @@ describe('endpoint unit test', () => {
         expect(err2).not.toBeNull();
         expect(res2.body.error).toBeDefined();
         expect(res2.body.error).toMatch(/user only_unpublish is not allowed to publish package @scope\/deprecate/);
+      })
+
+      test('should deprecate multiple packages', async (done) => {
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '1.0.1'), token);
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        pkg.versions['1.0.1'] = {
+          ...generateVersion(pkgName, '1.0.1'),
+          deprecated: 'get deprecated',
+        };
+        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).toEqual('get deprecated');
+        expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
+        done()
       })
     });
   });
