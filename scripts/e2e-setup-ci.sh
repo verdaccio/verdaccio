@@ -9,3 +9,6 @@ cd "${TEMP_DIR}"
 
 echo $TEMP_DIR
 echo $HERE_DIR
+
+git config --global user.email "you@example.com"
+git config --global user.name "John Doe"
