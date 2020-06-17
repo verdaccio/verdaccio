@@ -1,15 +1,15 @@
-on: push
-#  schedule:
-#    - cron: '0 */4 * * *'
-  #  push:
-  #  branches:
-  #    - master
-  #pull_request:
-  #  paths:
-  #    - .github/workflows/e2e-jest-workflow.yml
-#    - scripts/e2e-setup-ci.sh
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+    push:
+    branches:
+      - master
+  pull_request:
+    paths:
+      - .github/workflows/e2e-jest-workflow.yml
+      - scripts/e2e-setup-ci.sh
 
-name: 'E2E Test'
+name: 'E2E Jest with Verdaccio'
 jobs:
   chore:
     name: 'Validating Jest'
@@ -34,7 +34,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           yarn init --yes
-          yarn add jest --registry http://localhost:4873  --verbose
+          yarn add jest --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
