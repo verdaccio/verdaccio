@@ -40,6 +40,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873" > ~/.npmrc
+          npm config set loglevel="http"
           npx gatsby new my-gatsby
           cd my-gatsby
           npm run build
