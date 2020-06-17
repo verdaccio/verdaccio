@@ -9,7 +9,7 @@ on:
     - .github/workflows/e2e-jest-workflow.yml
     - scripts/e2e-setup-ci.sh
 
-name: 'E2E Jest with Verdaccio'
+name: 'E2E Jest with verdaccio'
 jobs:
   chore:
     name: 'Validating Jest'
