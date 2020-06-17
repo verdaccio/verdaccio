@@ -24,18 +24,15 @@ jobs:
           node-version: 10.x
       - name: Install Dependencies
         run: yarn install --pure-lockfile
-
       - name: 'Run verdaccio in the background'
         run: |
           nohup node ./scripts/run-verdaccio.js &
-      - name: 'Running the integration test'
-        run: |
-          source scripts/e2e-setup-ci.sh
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
       - name: 'Running the integration test'
         run: |
+          source scripts/e2e-setup-ci.sh
           yarn init --yes
           yarn add jest --registry http://localhost:4873  --verbose
 
