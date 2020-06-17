@@ -74,12 +74,12 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
+          echo "registry=http://localhost:4873" > ~/.npmrc
 
           npm install -g @angular/cli
           ng new verdaccio-angular --interactive=false
 
           cd verdaccio-angular
-          echo "registry=http://localhost:4873" > ~/.npmrc
           npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
 
           npm run ng build --aot
