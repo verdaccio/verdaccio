@@ -39,7 +39,6 @@ jobs:
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          npm init --force
           echo "registry=http://localhost:4873" > ~/.npmrc
           npx gatsby new my-gatsby
           cd my-gatsby
