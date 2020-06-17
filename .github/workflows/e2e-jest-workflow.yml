@@ -1,4 +1,15 @@
-on: push
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  push:
+    paths-ignore:
+      - 'wiki/**'
+      - 'assets/**'
+      - 'docs/**'
+      - 'systemd/**'
+      - 'contrib/**'
+  pull_request:
+    - '**'
 
 name: 'E2E Jest with verdaccio'
 jobs:
@@ -77,7 +88,7 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 10.x
-      - name: 'install latest npm'
+      - name: 'install latest pnpm'
         run: npm i -g pnpm
       - name: Install Dependencies
         run: yarn install --pure-lockfile
