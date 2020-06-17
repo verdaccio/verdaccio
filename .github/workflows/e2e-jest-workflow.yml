@@ -1,13 +1,13 @@
 on:
   schedule:
-    - cron: '0 */4 * * *'
-    push:
+  - cron: '0 */4 * * *'
+  push:
     branches:
-      - master
+    - master
   pull_request:
     paths:
-      - .github/workflows/e2e-jest-workflow.yml
-      - scripts/e2e-setup-ci.sh
+    - .github/workflows/e2e-jest-workflow.yml
+    - scripts/e2e-setup-ci.sh
 
 name: 'E2E Jest with Verdaccio'
 jobs:
