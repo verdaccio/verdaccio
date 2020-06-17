@@ -1,6 +1,7 @@
-on:
-  schedule:
-  - cron: '0 */4 * * *'
+on: [push, pull_request]
+#on:
+#  schedule:
+#  - cron: '0 */4 * * *'
 #  push:
 #    paths-ignore:
 #    - 'wiki/**'
@@ -8,9 +9,9 @@ on:
 #    - 'docs/**'
 #    - 'systemd/**'
 #    - 'contrib/**'
-  pull_request:
-    branches:
-    - '**'
+#  pull_request:
+#    branches:
+#    - '**'
 
 name: 'E2E Jest with verdaccio'
 jobs:
