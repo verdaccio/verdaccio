@@ -71,9 +71,9 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest --registry http://localhost:4873
 
-          npx @angular/cli@next ng new verdaccio-angular --interactive=false
+          npx @angular/cli@next
+          npm run ng new verdaccio-angular --interactive=false
 
           cd verdaccio-angular
           echo "registry=http://localhost:4873" > ~/.npmrc
