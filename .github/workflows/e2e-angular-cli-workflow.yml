@@ -72,8 +72,8 @@ jobs:
           source scripts/e2e-setup-ci.sh
           npm init --force
 
-          npx @angular/cli@next
-          npm run ng new verdaccio-angular --interactive=false
+          npm install -g @angular/cli
+          ng new verdaccio-angular --interactive=false
 
           cd verdaccio-angular
           echo "registry=http://localhost:4873" > ~/.npmrc
