@@ -1,13 +1,13 @@
 on:
   schedule:
   - cron: '0 */4 * * *'
-  push:
-    paths-ignore:
-    - 'wiki/**'
-    - 'assets/**'
-    - 'docs/**'
-    - 'systemd/**'
-    - 'contrib/**'
+#  push:
+#    paths-ignore:
+#    - 'wiki/**'
+#    - 'assets/**'
+#    - 'docs/**'
+#    - 'systemd/**'
+#    - 'contrib/**'
   pull_request:
     branches:
     - '**'
