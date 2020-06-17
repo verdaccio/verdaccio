@@ -47,7 +47,7 @@ jobs:
 #          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
 #          yarn jest module.test.js
   npm:
-    name: 'npm:jest example'
+    name: 'npm:angular example'
     runs-on: ubuntu-latest
 
     steps:
@@ -73,7 +73,7 @@ jobs:
           npm init --force
           npm install jest --registry http://localhost:4873
 
-          npmx @angular/cli@next ng new verdaccio-angular --interactive=false
+          npx @angular/cli@next ng new verdaccio-angular --interactive=false
 
           cd verdaccio-angular
           echo "registry=http://localhost:4873" > ~/.npmrc
