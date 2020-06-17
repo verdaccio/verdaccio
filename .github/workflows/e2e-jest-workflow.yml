@@ -9,6 +9,7 @@ on:
     - 'systemd/**'
     - 'contrib/**'
   pull_request:
+    branches:
     - '**'
 
 name: 'E2E Jest with verdaccio'
