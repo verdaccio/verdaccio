@@ -45,7 +45,6 @@ jobs:
           npm config set fetch-retry-factor="50"
           npm config set fetch-retry-mintimeout="20000"
           npm config set fetch-retry-maxtimeout="80000"
-          cat ~/.npmrc
           npm i -g gatsby
           gatsby new my-gatsby --verbose
           cd my-gatsby
