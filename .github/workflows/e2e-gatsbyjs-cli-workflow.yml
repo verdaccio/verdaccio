@@ -41,6 +41,10 @@ jobs:
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873" > ~/.npmrc
           npm config set loglevel="http"
+          npm config set fetch-retries="5"
+          npm config set fetch-retries="5"
+          npm config set fetch-retry-mintimeout="20000"
+          npm config set fetch-retry-maxtimeout="80000"
           npm i -g gatsby
           gatsby new my-gatsby --verbose
           cd my-gatsby
