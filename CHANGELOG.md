@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/verdaccio/verdaccio/compare/v4.6.2...v4.7.0) (2020-06-20)
+
+
+### Features
+
+* npm deprecation support ([#1842](https://github.com/verdaccio/verdaccio/issues/1842)) ([80ade97](https://github.com/verdaccio/verdaccio/commit/80ade9780195d023e61ff5c5e006b6d51122eaad))
+* restore Node 8 support ([#1832](https://github.com/verdaccio/verdaccio/issues/1832)) ([56b677a](https://github.com/verdaccio/verdaccio/commit/56b677a35a4e9d65895ac11ee10cf3ac04e002df))
+* update ui add new languages ([#1849](https://github.com/verdaccio/verdaccio/issues/1849)) ([4d01831](https://github.com/verdaccio/verdaccio/commit/4d0183184299a4d1dda92a248a20e1aad60545e2))
+* update verdaccio plugins and dependencies ([#1838](https://github.com/verdaccio/verdaccio/issues/1838)) ([03c7feb](https://github.com/verdaccio/verdaccio/commit/03c7feb64d4d5790ffa6e1d1828ffb2735311b54))
+
+
+### Bug Fixes
+
+* [Snyk] upgrade @verdaccio/streams from 9.4.0 to 9.5.0 ([#1819](https://github.com/verdaccio/verdaccio/issues/1819)) ([1e2159a](https://github.com/verdaccio/verdaccio/commit/1e2159a34516301e0925b6f67c4b6e81316375f1))
+* move bodyParse to the upper level ([#1841](https://github.com/verdaccio/verdaccio/issues/1841)) ([67c31b6](https://github.com/verdaccio/verdaccio/commit/67c31b69cac11436a5dcbc5961748eaab0bae99b))
+* updated nodejs version to fix vulnerability in 12.x https://nodejs.org/en/blog/vulnerability/june-2020-security-releases/ ([#1836](https://github.com/verdaccio/verdaccio/issues/1836)) ([aee69a9](https://github.com/verdaccio/verdaccio/commit/aee69a9453385dc39139f40aa963067e3070fb5c))
+* upgrade mkdirp from 1.0.3 to 1.0.4 ([#1782](https://github.com/verdaccio/verdaccio/issues/1782)) ([50f6c71](https://github.com/verdaccio/verdaccio/commit/50f6c71a375f34ef769a293f862b8603e1a03490))
+
 ### [4.6.2](https://github.com/verdaccio/verdaccio/compare/v4.6.1...v4.6.2) (2020-05-01)
 
 
