@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.1](https://github.com/verdaccio/verdaccio/compare/v4.7.0...v4.7.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* move search v1 endpoint as experimental ([#1850](https://github.com/verdaccio/verdaccio/issues/1850)) ([0bfdeaa](https://github.com/verdaccio/verdaccio/commit/0bfdeaa2e43c43c93f79b6f443445e8b0bd717f6))
+
 ## [4.7.0](https://github.com/verdaccio/verdaccio/compare/v4.6.2...v4.7.0) (2020-06-20)
 
 
