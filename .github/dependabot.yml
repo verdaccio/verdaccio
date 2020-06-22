@@ -5,17 +5,22 @@
 
 version: 2
 updates:
- - package-ecosystem: "github-actions"
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
- - package-ecosystem: "npm"
-   directory: "/" # Location of package manifests
-   schedule:
-     interval: "weekly"
-   allow:   
-     - dependency-name: "@verdaccio/*"
-   assignees:
-     - "verdacciobot"
-   labels:
-     - "bot: dependencies"
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:   
+      - dependency-name: "@verdaccio/*"
+    assignees:
+      - "verdacciobot"
+    labels:
+      - "bot: dependencies"
+      
