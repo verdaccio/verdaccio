@@ -55,7 +55,9 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   ping(app);
   stars(app, storage);
 
-  v1Search(app, auth, storage)
+  if (_.get(config, 'experiments.search') === true) {
+    v1Search(app, auth, storage)
+  }
 
   if (_.get(config, 'experiments.token') === true) {
     token(app, auth, storage, config);
