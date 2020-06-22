@@ -39,14 +39,16 @@ Install with npm:
 npm install --global verdaccio
 ```
 
-> ⚠️ After v4.5.0 Node v8 is not longer supported. **Node v10** is the minimum supported version.
-
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
 
 **[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *$1/month* or just one single contribution.
 
+## Next Talk
+
+[
+![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/openjs-world-hd-horizontal.png)](https://openjsworld2020.sched.com/event/bwIo?iframe=no)
 
 ## What does Verdaccio do for me?
 
@@ -169,7 +171,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Unpublishing packages (npm unpublish) - **supported**
 - Tagging (npm tag) - **supported**
-- Deprecation (npm deprecate) - not supported - *PR-welcome*
+- Deprecation (npm deprecate) - supported
 
 ### User management
 
@@ -196,11 +198,11 @@ If you want to report a security vulnerability, please follow the steps which we
 
 The core team is responsible for driving this project ahead, team is ordered by antiquity and areas of responsibility.
 
-|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  | 
+|  [Juan Picado](https://github.com/juanpicado) |  [Ayush Sharma](https://github.com/ayusharma)  | [Sergio Hg](https://github.com/sergiohgz)  |
 |---|---|---|
-| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)  | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |   
+| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)  | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)     | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |
 | [@jotadeveloper](https://twitter.com/jotadeveloper)  | [@ayusharma_](https://twitter.com/ayusharma_) | [@sergiohgz](https://twitter.com/sergiohgz)  |
-| All areas  |  All areas | Docker,Builds,Stack, Monorepo | 
+| All areas  |  All areas | Docker,Builds,Stack, Monorepo |
 | [Priscila Oliveria](https://github.com/priscilawebdev) | [Daniel Ruf](https://github.com/DanielRuf) |
 | ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4) |
 | [@priscilawebdev](https://twitter.com/priscilawebdev) | [@DanielRufde](https://twitter.com/DanielRufde) |
@@ -212,9 +214,9 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
 * [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*
-* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+40k ⭐️)* 
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+40k ⭐️)*
 * [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
-* [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)* 
+* [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)*
 * [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
 * [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+9k ⭐️)*
@@ -224,7 +226,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*
 
-🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md). 
+🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md).
 
 ## Open Collective Sponsors
 
@@ -253,6 +255,7 @@ Thanks to the following companies to help us to achieve our goals providing free
 
 [![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
 [![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
+[![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)
 [![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
 
 ## Contributors
