@@ -9,7 +9,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-   open-pull-requests-limit: 5   
  - package-ecosystem: "npm"
    directory: "/" # Location of package manifests
    schedule:
@@ -20,4 +19,3 @@ updates:
      - "verdacciobot"
    labels:
      - "bot: dependencies"
-   open-pull-requests-limit: 10
