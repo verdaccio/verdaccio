@@ -3,7 +3,7 @@ import Path from 'path';
 import mime from 'mime';
 
 import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../../lib/constants';
-import {validateMetadata, isObject, ErrorCode, hasDiffOneKey} from '../../../lib/utils';
+import {validateMetadata, isObject, ErrorCode, hasDiffOneKey, isRelatedToDeprecation} from '../../../lib/utils';
 import { media, expectJson, allow } from '../../middleware';
 import { notify } from '../../../lib/notify';
 import star from './star';
@@ -144,8 +144,9 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
       const { _attachments, versions } = metadataCopy;
 
-      // if the is no attachments, it is change, it is a new package.
-      if (_.isNil(_attachments)) {
+      // `npm star` wouldn't have attachments
+      // and `npm deprecate` would have attachments as a empty object, i.e {}
+      if (_.isNil(_attachments) || JSON.stringify(_attachments) === '{}') {
         if (error) {
           return next(error);
         }
@@ -214,7 +215,8 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
     try {
       const metadata = validateMetadata(req.body, packageName);
-      if (req.params._rev) {
+      // treating deprecation as updating a package
+      if (req.params._rev || isRelatedToDeprecation(req.body)) {
         logger.debug({packageName} , `updating a new version for @{packageName}`);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;

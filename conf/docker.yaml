@@ -77,6 +77,8 @@ logs:
 #experiments:
 #  # support for npm token command
 #  token: false
+#  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
+#  search: false
 
 # This affect the web and api (not developed yet)
 #i18n:

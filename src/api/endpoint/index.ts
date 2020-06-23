@@ -3,7 +3,6 @@ import { Config } from '@verdaccio/types';
 import _ from 'lodash';
 
 import express from 'express';
-import bodyParser from 'body-parser';
 import whoami from './api/whoami';
 import ping from './api/ping';
 import user from './api/user';
@@ -42,7 +41,6 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   app.param('anything', match(/.*/));
 
   app.use(auth.apiJWTmiddleware());
-  app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
   app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);
@@ -57,7 +55,9 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   ping(app);
   stars(app, storage);
 
-  v1Search(app, auth, storage)
+  if (_.get(config, 'experiments.search') === true) {
+    v1Search(app, auth, storage)
+  }
 
   if (_.get(config, 'experiments.token') === true) {
     token(app, auth, storage, config);

@@ -2350,10 +2350,10 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-9.5.0.tgz#1acd3cdebe2c8ea57dac9a0739512830e05e6bbf"
   integrity sha512-zUCkSQF0qShq/9OCEq6bZgHtz0lP0npkxXGc0Ch8P5fPiTlih1MBY5GxqM0ervMGw8ojH2mCYQ0655pKicYg1A==
 
-"@verdaccio/ui-theme@1.9.0":
-  version "1.9.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.9.0.tgz#9ab453635a1c6e079185a8653b8f297e2d98bc86"
-  integrity sha512-zxAX36SA7tbHi9q0FOzZjjlMeR8MovdYqBTLJN1wsY3do2KHwrh6YnWL8GqOiBnpTsz8zQJureEyLD0kp1bXNg==
+"@verdaccio/ui-theme@1.11.0":
+  version "1.11.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.11.0.tgz#78316f7983760c1ad7b6bc84a7c54730af802c75"
+  integrity sha512-ggXPyCueh8CtHFrpZsq7kP+pLxKPsiTuoCGmYNIquZ/p99A6eIAVLElqHFJfgGATsdVlFQKWG/AawCfxD5ymUw==
 
 "@verdaccio/ui-theme@^1.0.0":
   version "1.5.0"
@@ -6538,6 +6538,11 @@ kleur@3.0.3, kleur@^3.0.2:
   version "3.0.3"
   resolved "https://registry.verdaccio.org/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
+
+kleur@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.verdaccio.org/kleur/-/kleur-4.0.1.tgz#3d4948534b666e2578f93b6fafb62108e64f05ef"
+  integrity sha512-Qs6SqCLm63rd0kNVh+wO4XsWLU6kgfwwaPYsLiClWf0Tewkzsa6MvB21bespb8cz+ANS+2t3So1ge3gintzhlw==
 
 level-codec@^9.0.0:
   version "9.0.1"

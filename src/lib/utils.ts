@@ -635,3 +635,13 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
   const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
   return hasMatchVersion;
 }
+
+export function isRelatedToDeprecation(pkgInfo: Package): boolean {
+  const { versions } = pkgInfo;
+  for (const version in versions) {
+    if (Object.prototype.hasOwnProperty.call(versions[version], 'deprecated')) {
+      return true;
+    }
+  }
+  return false;
+}

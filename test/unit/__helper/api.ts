@@ -68,7 +68,8 @@ export function getPackage(
   return new Promise((resolve) => {
     let getRequest = request.get(`/${pkgName}`);
 
-    if (_.isNil(token) === false || _.isEmpty(token) === false) {
+    // token is a string
+    if (token !== '') {
       getRequest.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
     }
 

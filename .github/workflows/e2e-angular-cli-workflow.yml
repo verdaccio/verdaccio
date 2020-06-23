@@ -1,0 +1,116 @@
+on:
+  schedule:
+  - cron: '0 3 * * 5'
+  pull_request:
+    branches:
+    - '**'
+
+name: 'E2E Angular CLI with verdaccio'
+jobs:
+# todo: fix yarn global issue, cannot find ng
+#  yarn:
+#    name: 'yarn:angular example'
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@master
+#
+#      - name: 'Use Node.js 10.x'
+#        uses: actions/setup-node@master
+#        with:
+#          node-version: 10.x
+#      - name: Install Dependencies
+#        run: yarn install --pure-lockfile
+#      - name: 'Run verdaccio in the background'
+#        run: |
+#          nohup node ./scripts/run-verdaccio.js &
+#      - name: 'Ping to verdaccio'
+#        run: |
+#          npm ping --registry http://localhost:4873
+#      - name: 'Running the integration test'
+#        run: |
+#          source scripts/e2e-setup-ci.sh
+#          yarn init --yes
+#
+#          yarn global add @angular/cli
+#          which nodemon
+#          ng new verdaccio-angular --interactive=false
+#
+#          cd verdaccio-angular
+#          echo "registry=http://localhost:4873" > ~/.npmrc
+#          yarn add @angular-devkit/core@next @babel/preset-env @babel/core -D
+#
+#          ng build --aot
+  npm:
+    name: 'npm:angular example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: 'Use Node.js 10.x'
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+      - name: 'install latest npm'
+        run: npm i -g npm
+      - name: Install Dependencies
+        run: yarn install --pure-lockfile
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup node ./scripts/run-verdaccio.js &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "registry=http://localhost:4873" > ~/.npmrc
+          npm config set loglevel="http"
+          npm config set fetch-retries="5"
+          npm config set fetch-retry-factor="50"
+          npm config set fetch-retry-mintimeout="20000"
+          npm config set fetch-retry-maxtimeout="80000"
+          npm install -g @angular/cli
+          ng new verdaccio-angular --interactive=false
+
+          cd verdaccio-angular
+          npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
+
+          npm run ng build --aot
+
+#  pnpm throws errors worth to check why
+#  pnpm:
+#    name: 'pnpm:angular example'
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@master
+#
+#      - name: 'Use Node.js 10.x'
+#        uses: actions/setup-node@master
+#        with:
+#          node-version: 10.x
+#      - name: 'install latest pnpm'
+#        run: npm i -g pnpm
+#      - name: Install Dependencies
+#        run: yarn install --pure-lockfile
+#      - name: 'Run verdaccio in the background'
+#        run: |
+#          nohup node ./scripts/run-verdaccio.js &
+#      - name: 'Ping to verdaccio'
+#        run: |
+#          pnpm ping --registry http://localhost:4873
+#      - name: 'Running the integration test'
+#        run: |
+#          source scripts/e2e-setup-ci.sh
+#          pnpm init --force
+#
+#          pnpm install -g @angular/cli
+#          ng new verdaccio-angular --interactive=false
+#
+#          cd verdaccio-angular
+#          echo "registry=http://localhost:4873" > ~/.npmrc
+#          pnpm install @angular-devkit/core@next @babel/preset-env @babel/core -D
+#
+#          pnpm run ng build --aot

@@ -20,10 +20,17 @@ import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 import {buildToken, encodeScopedUri} from '../../../../src/lib/utils';
 import {
   getNewToken,
+  getPackage,
   putPackage,
   verifyPackageVersionDoesExist, generateUnPublishURI
 } from '../../__helper/api';
-import {generatePackageMetadata, generatePackageUnpublish, generateStarMedatada} from '../../__helper/utils';
+import {
+  generatePackageMetadata,
+  generatePackageUnpublish,
+  generateStarMedatada,
+  generateDeprecateMetadata,
+  generateVersion,
+} from '../../__helper/utils';
 
 require('../../../../src/lib/logger').setup([
   { type: 'stdout', format: 'pretty', level: 'warn' }
@@ -902,6 +909,74 @@ describe('endpoint unit test', () => {
                     });
             });
         });
+    });
+
+    describe('should test (un)deprecate api', () => {
+      const pkgName = '@scope/deprecate';
+      const credentials = { name: 'jota_deprecate', password: 'secretPass' };
+      const version = '1.0.0'
+      let token = '';
+      beforeAll(async (done) =>{
+        token = await getNewToken(request(app), credentials);
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, version), token);
+        done();
+      });
+
+      test('should deprecate a package', async (done) => {
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        if (err) {
+          expect(err).toBeNull();
+          return done(err);
+        }
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).toEqual('get deprecated');
+        done();
+      });
+
+      test('should undeprecate a package', async (done) => {
+        let pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        pkg = generateDeprecateMetadata(pkgName, version, '');
+        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        if (err) {
+          expect(err).toBeNull();
+          return done(err);
+        }
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).not.toBeDefined();
+        done();
+      });
+
+      test('should require both publish and unpublish access to (un)deprecate a package', async () => {
+        let credentials = { name: 'only_publish', password: 'secretPass' };
+        let token = await getNewToken(request(app), credentials);
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        const [err, res] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        expect(err).not.toBeNull();
+        expect(res.body.error).toBeDefined();
+        expect(res.body.error).toMatch(/user only_publish is not allowed to unpublish package @scope\/deprecate/);
+        credentials = { name: 'only_unpublish', password: 'secretPass' };
+        token = await getNewToken(request(app), credentials);
+        const [err2, res2] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        expect(err2).not.toBeNull();
+        expect(res2.body.error).toBeDefined();
+        expect(res2.body.error).toMatch(/user only_unpublish is not allowed to publish package @scope\/deprecate/);
+      })
+
+      test('should deprecate multiple packages', async (done) => {
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '1.0.1'), token);
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        pkg.versions['1.0.1'] = {
+          ...generateVersion(pkgName, '1.0.1'),
+          deprecated: 'get deprecated',
+        };
+        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).toEqual('get deprecated');
+        expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
+        done()
+      })
     });
   });
 });
