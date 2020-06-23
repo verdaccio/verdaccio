@@ -47,8 +47,8 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
       addresses.forEach(function(addr): void {
         let webServer;
         if (addr.proto === 'https') {
-          // https  must either have key cert and ca  or a pfx and (optionally) a passphrase
-          if (!config.https || !((config.https.key && config.https.cert && config.https.ca) || config.https.pfx)) {
+          // https must either have key and cert or a pfx and (optionally) a passphrase
+          if (!config.https || !((config.https.key && config.https.cert) || config.https.pfx)) {
             logHTTPSWarning(configPath);
           }
 
@@ -79,7 +79,7 @@ function logHTTPSWarning(storageLocation) {
   logger.logger.fatal(
     [
       'You have enabled HTTPS and need to specify either ',
-      '    "https.key", "https.cert" and "https.ca" or ',
+      '    "https.key" and "https.cert" or ',
       '    "https.pfx" and optionally "https.passphrase" ',
       'to run https server',
       '',
@@ -98,7 +98,6 @@ function logHTTPSWarning(storageLocation) {
       '  https:',
       `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
       `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
-      `    ca: ${resolveConfigPath(storageLocation, csrPem)}`,
     ].join('\n')
   );
   process.exit(2);
@@ -119,7 +118,9 @@ function handleHTTPS(app, configPath, config) {
       httpsOptions = assign(httpsOptions, {
         key: fs.readFileSync(config.https.key),
         cert: fs.readFileSync(config.https.cert),
-        ca: fs.readFileSync(config.https.ca),
+        ...(config.https.ca && {
+          ca: fs.readFileSync(config.https.ca),
+        }),
       });
     }
     return https.createServer(httpsOptions, app);

@@ -140,6 +140,26 @@ describe('startServer via API', () => {
       global.process = realProcess;
     });
 
+    test('should start a https server with key and cert', async (done) => {
+      const store = path.join(__dirname, 'partials/store');
+      const serverName = 'verdaccio-test';
+      const version = '1.0.0';
+      const address = 'https://www.domain.com:443';
+
+      const conf = config();
+      conf.https = {
+        key: path.resolve(__dirname, 'key.pem'),
+        cert: path.resolve(__dirname, 'crt.pem'),
+      };
+      await startServer(conf, address, store, version, serverName,
+        (webServer, addrs) => {
+          expect(webServer).toBeDefined();
+          expect(addrs).toBeDefined();
+          expect(addrs.proto).toBe('https');
+          done();
+      });
+    })
+
     test('should fails if config is missing', async () => {
       try {
         // @ts-ignore
