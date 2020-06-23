@@ -205,7 +205,7 @@ class Storage implements IStorageHandler {
       let uplink: any = null;
 
       for (const uplinkId in self.uplinks) {
-        if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
+        if (hasProxyTo(name, uplinkId, self.config.packages)) {
           uplink = self.uplinks[uplinkId];
         }
       }
@@ -553,9 +553,8 @@ class Storage implements IStorageHandler {
 
           if (uplinkTimeoutError) {
             return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
-          } else {
-            return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
           }
+          return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
         }
 
         if (upLinks.length === 0) {

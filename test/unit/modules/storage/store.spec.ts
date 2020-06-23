@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import rimraf from 'rimraf';
+import {Writable} from 'stream';
 import configExample from '../../partials/config';
 import AppConfig from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
@@ -34,6 +35,47 @@ const generateStorage = async function(port = mockServerPort) {
   return store;
 }
 
+const generateSameUplinkStorage = async function(port = mockServerPort) {
+  const storageConfig = configExample({
+    self_path: __dirname,
+    storage: storagePath,
+    packages: {
+      jquery: {
+        access: ['$all'],
+        publish: ['$all'],
+        proxy: ['cached'],
+      },
+      '@jquery/*': {
+        access: ['$all'],
+        publish: ['$all'],
+        proxy: ['notcached'],
+      }
+    },
+    uplinks: {
+      cached: {
+        url: `http://${DOMAIN_SERVERS}:${port}`,
+        cache: true,
+      },
+      notcached: {
+        url: `http://${DOMAIN_SERVERS}:${port}`,
+        cache: false,
+      }
+    }
+  }, 'store.spec.yaml');
+
+  const config: Config = new AppConfig(storageConfig);
+  const store: IStorageHandler = new Storage(config);
+  await store.init(config, []);
+
+  return store;
+}
+
+const createNullStream = () => new Writable({
+  write: function(chunk, encoding, next) {
+    next();
+  }
+});
+
 describe('StorageTest', () => {
   let mockRegistry;
 
@@ -53,6 +95,48 @@ describe('StorageTest', () => {
     const storage: IStorageHandler = await generateStorage();
 
     expect(storage).toBeDefined();
+  });
+
+  describe('test getTarball', () => {
+    test('should select right uplink given package.proxy for upstream tarballs', async (done) => {
+      const storage: IStorageHandler = await generateSameUplinkStorage();
+      const notcachedSpy = jest.spyOn(storage.uplinks.notcached, 'fetchTarball');
+      const cachedSpy = jest.spyOn(storage.uplinks.cached, 'fetchTarball');
+
+      await new Promise((res, rej) => {
+        const reader = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        reader.on('end', () => {
+          expect(notcachedSpy).toHaveBeenCalledTimes(0);
+          expect(cachedSpy).toHaveBeenCalledTimes(1);
+          expect(cachedSpy).toHaveBeenCalledWith('http://0.0.0.0:55548/jquery/-/jquery-1.5.1.tgz');
+          res();
+        });
+        reader.on('error', (err) => {
+          rej(err);
+        });
+        reader.pipe(createNullStream());
+      });
+
+      // Reset counters.
+      cachedSpy.mockClear();
+      notcachedSpy.mockClear();
+
+      await new Promise((res, rej) => {
+        const reader = storage.getTarball('@jquery/jquery', 'jquery-1.5.1.tgz');
+        reader.on('end', () => {
+          expect(cachedSpy).toHaveBeenCalledTimes(0);
+          expect(notcachedSpy).toHaveBeenCalledTimes(1);
+          expect(notcachedSpy).toHaveBeenCalledWith('http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz');
+          res();
+        });
+        reader.on('error', (err) => {
+          rej(err);
+        });
+        reader.pipe(createNullStream());
+      });
+
+      done();
+    });
   });
 
   describe('test _syncUplinksMetadata', () => {

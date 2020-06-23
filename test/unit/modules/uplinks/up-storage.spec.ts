@@ -120,8 +120,8 @@ describe('UpStorge', () => {
       const stream = proxy.fetchTarball(tarball);
       expect(proxy.failed_requests).toBe(0);
 
-      //to test a uplink is offline we have to be try 3 times
-      //the default failed request are set to 2
+      // to test a uplink is offline we have to be try 3 times
+      // the default failed request are set to 2
       process.nextTick(function() {
         stream.on('error', function(err) {
           expect(err).not.toBeNull();

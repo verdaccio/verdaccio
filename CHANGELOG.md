@@ -2,6 +2,145 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.1](https://github.com/verdaccio/verdaccio/compare/v4.7.0...v4.7.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* move search v1 endpoint as experimental ([#1850](https://github.com/verdaccio/verdaccio/issues/1850)) ([0bfdeaa](https://github.com/verdaccio/verdaccio/commit/0bfdeaa2e43c43c93f79b6f443445e8b0bd717f6))
+
+## [4.7.0](https://github.com/verdaccio/verdaccio/compare/v4.6.2...v4.7.0) (2020-06-20)
+
+
+### Features
+
+* npm deprecation support ([#1842](https://github.com/verdaccio/verdaccio/issues/1842)) ([80ade97](https://github.com/verdaccio/verdaccio/commit/80ade9780195d023e61ff5c5e006b6d51122eaad))
+* restore Node 8 support ([#1832](https://github.com/verdaccio/verdaccio/issues/1832)) ([56b677a](https://github.com/verdaccio/verdaccio/commit/56b677a35a4e9d65895ac11ee10cf3ac04e002df))
+* update ui add new languages ([#1849](https://github.com/verdaccio/verdaccio/issues/1849)) ([4d01831](https://github.com/verdaccio/verdaccio/commit/4d0183184299a4d1dda92a248a20e1aad60545e2))
+* update verdaccio plugins and dependencies ([#1838](https://github.com/verdaccio/verdaccio/issues/1838)) ([03c7feb](https://github.com/verdaccio/verdaccio/commit/03c7feb64d4d5790ffa6e1d1828ffb2735311b54))
+
+
+### Bug Fixes
+
+* [Snyk] upgrade @verdaccio/streams from 9.4.0 to 9.5.0 ([#1819](https://github.com/verdaccio/verdaccio/issues/1819)) ([1e2159a](https://github.com/verdaccio/verdaccio/commit/1e2159a34516301e0925b6f67c4b6e81316375f1))
+* move bodyParse to the upper level ([#1841](https://github.com/verdaccio/verdaccio/issues/1841)) ([67c31b6](https://github.com/verdaccio/verdaccio/commit/67c31b69cac11436a5dcbc5961748eaab0bae99b))
+* updated nodejs version to fix vulnerability in 12.x https://nodejs.org/en/blog/vulnerability/june-2020-security-releases/ ([#1836](https://github.com/verdaccio/verdaccio/issues/1836)) ([aee69a9](https://github.com/verdaccio/verdaccio/commit/aee69a9453385dc39139f40aa963067e3070fb5c))
+* upgrade mkdirp from 1.0.3 to 1.0.4 ([#1782](https://github.com/verdaccio/verdaccio/issues/1782)) ([50f6c71](https://github.com/verdaccio/verdaccio/commit/50f6c71a375f34ef769a293f862b8603e1a03490))
+
+### [4.6.2](https://github.com/verdaccio/verdaccio/compare/v4.6.1...v4.6.2) (2020-05-01)
+
+
+### Bug Fixes
+
+* avoid access to sidebar without login ([#1794](https://github.com/verdaccio/verdaccio/issues/1794)) ([c2e0e1e](https://github.com/verdaccio/verdaccio/commit/c2e0e1e0bfa1daee45c458215877555244cbb414))
+* update core dependencies ([#1790](https://github.com/verdaccio/verdaccio/issues/1790)) ([f9e7f86](https://github.com/verdaccio/verdaccio/commit/f9e7f8671bec0f29820667cad7ef065a8bfc6a7e))
+
+### [4.6.1](https://github.com/verdaccio/verdaccio/compare/v4.6.0...v4.6.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* improve token validation ([#1784](https://github.com/verdaccio/verdaccio/issues/1784)) ([416d41f](https://github.com/verdaccio/verdaccio/commit/416d41fa08a92422365599c29b78a49b5e34ec3f))
+
+## [4.6.0](https://github.com/verdaccio/verdaccio/compare/v4.5.1...v4.6.0) (2020-04-24)
+
+
+### Features
+
+* add dark mode on and chinese translation for web ([#1765](https://github.com/verdaccio/verdaccio/issues/1765)) ([4a81262](https://github.com/verdaccio/verdaccio/commit/4a812620cf44fd167b97249cb390a34807476c3e))
+* update @verdaccio/ui-theme@1.5.0 ([#1780](https://github.com/verdaccio/verdaccio/issues/1780)) ([656ec55](https://github.com/verdaccio/verdaccio/commit/656ec55897f01bb1588c80be12d31dbfe27ec9ce))
+* update docker node to 12.16.2 ([#1776](https://github.com/verdaccio/verdaccio/issues/1776)) ([61faa33](https://github.com/verdaccio/verdaccio/commit/61faa33de11939c0fc9ff9903b67d466426a65fb))
+
+
+### Bug Fixes
+
+* fatal exception and crash when log rotate signal event is called ([#1774](https://github.com/verdaccio/verdaccio/issues/1774)) ([1a9a12e](https://github.com/verdaccio/verdaccio/commit/1a9a12e9183cc2e3829c60841e7116d06b9849c3)), closes [#1709](https://github.com/verdaccio/verdaccio/issues/1709)
+* incorrect primary_color crash the ui ([#1771](https://github.com/verdaccio/verdaccio/issues/1771)) ([d689260](https://github.com/verdaccio/verdaccio/commit/d68926050dc7f1f8b6066c3480843082d3a1bd23))
+* upgrade async from 3.1.1 to 3.2.0 ([#1756](https://github.com/verdaccio/verdaccio/issues/1756)) ([3ec8d13](https://github.com/verdaccio/verdaccio/commit/3ec8d13578fee6711b77cbf8034c08f0db682392))
+* upgrade dayjs from 1.8.20 to 1.8.21 ([#1759](https://github.com/verdaccio/verdaccio/issues/1759)) ([ebae410](https://github.com/verdaccio/verdaccio/commit/ebae410c8164ac3e42c73c9d7cec6a8162a74457))
+* upgrade dayjs from 1.8.21 to 1.8.22 ([b2d00e4](https://github.com/verdaccio/verdaccio/commit/b2d00e4330e6dd31251e1e7caf670b5563b4180c))
+
+### [4.5.1](https://github.com/verdaccio/verdaccio/compare/v4.5.0...v4.5.1) (2020-03-14)
+
+
+### Bug Fixes
+
+* update docs to support minimum node v10 ([#1753](https://github.com/verdaccio/verdaccio/issues/1753)) ([17c3324](https://github.com/verdaccio/verdaccio/commit/17c3324e9324ab47afe765f62ecaca2ec3bb5969))
+
+## [4.5.0](https://github.com/verdaccio/verdaccio/compare/v4.4.4...v4.5.0) (2020-03-14)
+
+
+### Features
+
+*  i18n on web ([#1750](https://github.com/verdaccio/verdaccio/issues/1750)) ([c493b31](https://github.com/verdaccio/verdaccio/commit/c493b316b1663f189f8249a111b50bbc5facb7a8))
+* add support for new search endpoint([#1732](https://github.com/verdaccio/verdaccio/issues/1732)) ([9ac307a](https://github.com/verdaccio/verdaccio/commit/9ac307adc5cb06be570efaa8c65d9d9895d99491))
+
+
+### Bug Fixes
+
+* adding Content-Type to response in GET /-/all ([#1697](https://github.com/verdaccio/verdaccio/issues/1697)) ([#1728](https://github.com/verdaccio/verdaccio/issues/1728)) ([3aaa048](https://github.com/verdaccio/verdaccio/commit/3aaa04829acb49ec40448a42707c98ac07b2f92f))
+* package.json & yarn.lock to reduce vulnerabilities ([#1746](https://github.com/verdaccio/verdaccio/issues/1746)) ([3c49777](https://github.com/verdaccio/verdaccio/commit/3c497778683df1fd021b202e4c3f6b9962c4a7f0))
+* update @verdaccio/readme@9.3.2 ([#1745](https://github.com/verdaccio/verdaccio/issues/1745)) ([9213526](https://github.com/verdaccio/verdaccio/commit/92135265cd5945fde3129d1542d8673a5beb0706))
+* update acorn@7.1.1 ([#1739](https://github.com/verdaccio/verdaccio/issues/1739)) ([1968fa8](https://github.com/verdaccio/verdaccio/commit/1968fa82a2ced8aaffad082929a64c4739d8675e))
+* update dependencies security warnings ([#1748](https://github.com/verdaccio/verdaccio/issues/1748)) ([1e664bd](https://github.com/verdaccio/verdaccio/commit/1e664bdfa54b27eb2566399aebb204c0711a7c67))
+* upgrade dayjs from 1.8.19 to 1.8.20 ([#1721](https://github.com/verdaccio/verdaccio/issues/1721)) ([6849ef9](https://github.com/verdaccio/verdaccio/commit/6849ef969718ec92c88f5bc8f565e70189012ebc))
+* upgrade handlebars from 4.7.2 to 4.7.3 ([#1726](https://github.com/verdaccio/verdaccio/issues/1726)) ([11fed6d](https://github.com/verdaccio/verdaccio/commit/11fed6d3c3c1eb5248f006c97a15f06e254dcd50))
+* upgrade mkdirp from 1.0.0 to 1.0.3 ([#1747](https://github.com/verdaccio/verdaccio/issues/1747)) ([981efa5](https://github.com/verdaccio/verdaccio/commit/981efa557143c68f159ebbbeaa1743b693153771))
+* upgrade semver from 7.1.2 to 7.1.3 ([#1735](https://github.com/verdaccio/verdaccio/issues/1735)) ([64e2543](https://github.com/verdaccio/verdaccio/commit/64e2543d599bbdc35e813148724dbe8ab2f914c4))
+
+### [4.4.4](https://github.com/verdaccio/verdaccio/compare/v4.4.3...v4.4.4) (2020-02-26)
+
+
+### Bug Fixes
+
+* tarball urls for web/package (fix [#1714](https://github.com/verdaccio/verdaccio/issues/1714)) ([#1716](https://github.com/verdaccio/verdaccio/issues/1716)) ([70a93da](https://github.com/verdaccio/verdaccio/commit/70a93da1fc8f16110874409e5fe20fd00adcf68d))
+* upgrade @verdaccio/local-storage from 9.0.0 to 9.3.0 ([#1717](https://github.com/verdaccio/verdaccio/issues/1717)) ([1f3f8cd](https://github.com/verdaccio/verdaccio/commit/1f3f8cd72c28d869f47f16213940017a5a06d2de))
+* upgrade semver from 7.1.1 to 7.1.2 ([#1719](https://github.com/verdaccio/verdaccio/issues/1719)) ([c3e931e](https://github.com/verdaccio/verdaccio/commit/c3e931efa10f7be581ca2450ebb03f302085fe5b))
+
+### [4.4.3](https://github.com/verdaccio/verdaccio/compare/v4.4.2...v4.4.3) (2020-02-19)
+
+
+### Bug Fixes
+
+* update @verdaccio/ui-theme@0.3.13 ([#1710](https://github.com/verdaccio/verdaccio/issues/1710)) ([d94f838](https://github.com/verdaccio/verdaccio/commit/d94f838cd9731b8d97f637bd4aceb6abe159d5fa))
+* upgrade async from 3.1.0 to 3.1.1 ([#1708](https://github.com/verdaccio/verdaccio/issues/1708)) ([a32e431](https://github.com/verdaccio/verdaccio/commit/a32e4318136f3704f1ec572d5343d60b9df14063))
+* upgrade dayjs from 1.8.17 to 1.8.19 ([#1700](https://github.com/verdaccio/verdaccio/issues/1700)) ([5320b13](https://github.com/verdaccio/verdaccio/commit/5320b13473eef583877e59b63d925b513f31a3a5))
+* upgrade handlebars from 4.5.3 to 4.7.2 ([#1699](https://github.com/verdaccio/verdaccio/issues/1699)) ([8c2e58b](https://github.com/verdaccio/verdaccio/commit/8c2e58b6af3c04716431e6d98c6442d39d3373e3))
+* upgrade lockfile-lint from 2.0.1 to 2.2.0 ([#1698](https://github.com/verdaccio/verdaccio/issues/1698)) ([17ddf3e](https://github.com/verdaccio/verdaccio/commit/17ddf3e6266f4821e2b9c379766d56b67f10e6be))
+* use https to resolve mixed content errors ([#1674](https://github.com/verdaccio/verdaccio/issues/1674)) ([fd6c649](https://github.com/verdaccio/verdaccio/commit/fd6c6497fa66a523fac744f214fcea86b653171c))
+
+### [4.4.2](https://github.com/verdaccio/verdaccio/compare/v4.4.1...v4.4.2) (2020-01-11)
+
+
+### Bug Fixes
+
+* use hasProxyTo to find correct uplink for tarballs ([#1644](https://github.com/verdaccio/verdaccio/issues/1644)) ([19d9fc2](https://github.com/verdaccio/verdaccio/commit/19d9fc2fa5b228cda379a870642d08d247d8c515)), closes [#1642](https://github.com/verdaccio/verdaccio/issues/1642) [#1642](https://github.com/verdaccio/verdaccio/issues/1642)
+* **deps:** bump @verdaccio/local-storage from 8.5.0 to 9.0.0 ([7b67bea](https://github.com/verdaccio/verdaccio/commit/7b67bea4b8ec5de29ffc04b1f99c9d041c14ac57)), closes [#1663](https://github.com/verdaccio/verdaccio/issues/1663) [#1639](https://github.com/verdaccio/verdaccio/issues/1639)
+* **deps:** bump @verdaccio/ui-theme from 0.3.10 to 0.3.11 ([#1657](https://github.com/verdaccio/verdaccio/issues/1657)) ([9a2fd81](https://github.com/verdaccio/verdaccio/commit/9a2fd8162640a7ef9901a57ccea50649b6ed29bc))
+* **deps:** bump @verdaccio/ui-theme from 0.3.11 to 0.3.12 ([#1657](https://github.com/verdaccio/verdaccio/issues/1657)) ([#1665](https://github.com/verdaccio/verdaccio/issues/1665)) ([aac6709](https://github.com/verdaccio/verdaccio/commit/aac6709ac21cf4b7fd6073ee1c499080d881a910))
+* updated combine url fix method ([#1647](https://github.com/verdaccio/verdaccio/issues/1647)) ([4f43347](https://github.com/verdaccio/verdaccio/commit/4f43347b509446c93f6e6255a863775d35ed7a13))
+
+### [4.4.1](https://github.com/verdaccio/verdaccio/compare/v4.4.0...v4.4.1) (2020-01-03)
+
+
+### Bug Fixes
+
+* prevent issue with leading hyphen in package name - fixes [#1429](https://github.com/verdaccio/verdaccio/issues/1429) ([#1636](https://github.com/verdaccio/verdaccio/issues/1636)) ([f89bf27](https://github.com/verdaccio/verdaccio/commit/f89bf27f5a8704bbaa48024ad7b5a4647a2d5813))
+* warning due ui dependecy ([#1638](https://github.com/verdaccio/verdaccio/issues/1638)) ([fbc87fc](https://github.com/verdaccio/verdaccio/commit/fbc87fc26e7d2bcbe3410500eb08f6cee4d74120))
+
+## [4.4.0](https://github.com/verdaccio/verdaccio/compare/v4.3.5...v4.4.0) (2019-12-15)
+
+
+### Bug Fixes
+
+* search api will not set magic date header when return array ([#1598](https://github.com/verdaccio/verdaccio/issues/1598)) ([158de3f](https://github.com/verdaccio/verdaccio/commit/158de3f))
+
+
+### Features
+
+* bumb up docker to node 12 ([#1622](https://github.com/verdaccio/verdaccio/issues/1622)) ([287ed3f](https://github.com/verdaccio/verdaccio/commit/287ed3f))
+* update @verdaccio/ui-theme@0.3.9 ([#1623](https://github.com/verdaccio/verdaccio/issues/1623)) ([1b4a5dc](https://github.com/verdaccio/verdaccio/commit/1b4a5dc))
+
 ### [4.3.5](https://github.com/verdaccio/verdaccio/compare/v4.3.4...v4.3.5) (2019-11-21)
 
 

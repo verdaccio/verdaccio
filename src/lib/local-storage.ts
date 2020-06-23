@@ -9,7 +9,25 @@ import { prepareSearchPackage } from './storage-utils';
 import loadPlugin from '../lib/plugin-loader';
 import LocalDatabase from '@verdaccio/local-storage';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { Token, TokenFilter, Package, Config, IUploadTarball, IReadTarball, MergeTags, Version, DistFile, Callback, Logger, IPluginStorage, IPackageStorage, Author } from '@verdaccio/types';
+import {
+  Token,
+  TokenFilter,
+  Package,
+  Config,
+  IUploadTarball,
+  IReadTarball,
+  MergeTags,
+  Version,
+  DistFile,
+  Callback,
+  Logger,
+  IPluginStorage,
+  IPackageStorage,
+  Author,
+  CallbackAction,
+  onSearchPackage,
+  onEndSearchPackage, StorageUpdateCallback,
+} from '@verdaccio/types';
 import { IStorage, StringValue } from '../../types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
@@ -68,9 +86,8 @@ class LocalStorage implements IStorage {
       if (_.isNil(err) === false) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
-        } else {
-          return callback(err);
         }
+        return callback(err);
       }
 
       data = normalizePackage(data);
@@ -192,7 +209,7 @@ class LocalStorage implements IStorage {
    * @param {*} tag
    * @param {*} callback
    */
-  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void {
+  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: CallbackAction): void {
     this._updatePackage(
       name,
       (data, cb: Callback): void => {
@@ -259,7 +276,7 @@ class LocalStorage implements IStorage {
    * @param {*} tags
    * @param {*} callback
    */
-  public mergeTags(pkgName: string, tags: MergeTags, callback: Callback): void {
+  public mergeTags(pkgName: string, tags: MergeTags, callback: CallbackAction): void {
     this._updatePackage(
       pkgName,
       (data, cb): void => {
@@ -277,7 +294,7 @@ class LocalStorage implements IStorage {
           const version: string = tags[tag];
           tagVersion(data, version, tag);
         }
-        cb();
+        cb(null);
       },
       callback
     );
@@ -303,7 +320,7 @@ class LocalStorage implements IStorage {
 
   /**
    * Update the package metadata, tags and attachments (tarballs).
-   * Note: Currently supports unpublishing only.
+   * Note: Currently supports unpublishing and deprecation.
    * @param {*} name
    * @param {*} incomingPkg
    * @param {*} revision
@@ -319,25 +336,39 @@ class LocalStorage implements IStorage {
     this.logger.debug({name}, `changePackage udapting package for @{name}`);
     this._updatePackage(
       name,
-      (localData, cb): void => {
+      (localData: Package, cb: CallbackAction): void => {
         for (const version in localData.versions) {
-          if (_.isNil(incomingPkg.versions[version])) {
+          const incomingVersion = incomingPkg.versions[version];
+          if (_.isNil(incomingVersion)) {
             this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
 
+            // FIXME: I prefer return a new object rather mutate the metadata
             delete localData.versions[version];
-            delete localData.time[version];
+            delete localData.time![version];
 
             for (const file in localData._attachments) {
               if (localData._attachments[file].version === version) {
                 delete localData._attachments[file].version;
               }
             }
+          } else if (Object.prototype.hasOwnProperty.call(incomingVersion, 'deprecated')) {
+            const incomingDeprecated = incomingVersion.deprecated;
+            if (incomingDeprecated != localData.versions[version].deprecated) {
+              if (!incomingDeprecated) {
+                this.logger.info({ name: name, version: version }, 'undeprecating @{name}@@{version}');
+                delete localData.versions[version].deprecated;
+              } else {
+                this.logger.info({ name: name, version: version }, 'deprecating @{name}@@{version}');
+                localData.versions[version].deprecated = incomingDeprecated;
+              }
+              localData.time!.modified = new Date().toISOString();
+            }
           }
         }
 
         localData[USERS] = incomingPkg[USERS];
         localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
-        cb();
+        cb(null);
       },
       function(err): void {
         if (err) {
@@ -354,7 +385,7 @@ class LocalStorage implements IStorage {
    * @param {*} revision
    * @param {*} callback
    */
-  public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
+  public removeTarball(name: string, filename: string, revision: string, callback: CallbackAction): void {
     assert(validateName(filename));
 
     this._updatePackage(
@@ -362,7 +393,7 @@ class LocalStorage implements IStorage {
       (data, cb): void => {
         if (data._attachments[filename]) {
           delete data._attachments[filename];
-          cb();
+          cb(null);
         } else {
           cb(this._getFileNotAvailable());
         }
@@ -456,7 +487,7 @@ class LocalStorage implements IStorage {
           data._attachments[filename] = {
             shasum: shaOneHash.digest('hex'),
           };
-          cb();
+          cb(null);
         },
         function(err): void {
           if (err) {
@@ -583,21 +614,24 @@ class LocalStorage implements IStorage {
     const stream = new ReadTarball({ objectMode: true });
 
     this._searchEachPackage(
-      (item, cb): void => {
+      (item: Package, cb: CallbackAction): void => {
+        // @ts-ignore
         if (item.time > parseInt(startKey, 10)) {
           this.getPackageMetadata(item.name, (err: VerdaccioError, data: Package): void => {
             if (err) {
               return cb(err);
             }
+
+            // @ts-ignore
             const time = new Date(item.time).toISOString();
             const result = prepareSearchPackage(data, time);
             if (_.isNil(result) === false) {
               stream.push(result);
             }
-            cb();
+            cb(null);
           });
         } else {
-          cb();
+          cb(null);
         }
       },
       function onEnd(err): void {
@@ -631,9 +665,8 @@ class LocalStorage implements IStorage {
       if (err) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
-        } else {
-          return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
         }
+        return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
       }
 
       callback(err, normalizePackage(result));
@@ -645,7 +678,7 @@ class LocalStorage implements IStorage {
    * @param {*} onPackage
    * @param {*} onEnd
    */
-  private _searchEachPackage(onPackage: Callback, onEnd: Callback): void {
+  private _searchEachPackage(onPackage: onSearchPackage, onEnd: onEndSearchPackage): void {
     // save wait whether plugin still do not support search functionality
     if (_.isNil(this.storagePlugin.search)) {
       this.logger.warn('plugin search not implemented yet');
@@ -705,7 +738,7 @@ class LocalStorage implements IStorage {
    * @param {*} callback callback that gets invoked after it's all updated
    * @return {Function}
    */
-  private _updatePackage(name: string, updateHandler: Callback, callback: Callback): void {
+  private _updatePackage(name: string, updateHandler: StorageUpdateCallback, callback: CallbackAction): void {
     const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (!storage) {
@@ -798,9 +831,8 @@ class LocalStorage implements IStorage {
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       return new LocalDatabase(this.config, logger);
-    } else {
-      return Storage as IPluginStorage<Config>;
     }
+    return Storage as IPluginStorage<Config>;
   }
 
   private _loadStorePlugin(): IPluginStorage<Config> | void {

@@ -33,7 +33,7 @@ export function setSecurityWebHeaders(req: $RequestExtend, res: $ResponseExtend,
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
 export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string): void {
-  if (value.charAt(0) === '-') {
+  if (value === '-') {
     // special case in couchdb usually
     next('route');
   } else if (utilValidateName(value)) {
@@ -46,7 +46,7 @@ export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $N
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
 export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string): void {
-  if (value.charAt(0) === '-') {
+  if (value === '-') {
     // special case in couchdb usually
     next('route');
   } else if (utilValidatePackage(value)) {
@@ -163,9 +163,8 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
         res.socket.destroy();
       }
       return;
-    } else {
-      throw err;
     }
+    throw err;
   }
 
   res.send(body);

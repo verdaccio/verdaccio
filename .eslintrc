@@ -3,15 +3,16 @@
     "@verdaccio"
   ],
   "rules": {
-    "@typescript-eslint/no-var-requires": ["warn"],
+    "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
-    "@typescript-eslint/no-inferrable-types": ["warn"],
-    "@typescript-eslint/no-empty-function": ["warn"],
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/no-this-alias": ["warn"],
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/array-type": ["warn"],
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/indent": 0,
-    "@typescript-eslint/interface-name-prefix": 0
+    "@typescript-eslint/interface-name-prefix": 0,
+    "import/order": 0
   }
 }

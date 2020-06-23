@@ -7,6 +7,14 @@ packages:
     access: $anonymous jota_unpublish
     publish: $anonymous jota_unpublish
     unpublish: $anonymous jota_unpublish
+  '@scope/deprecate':
+    access: $all
+    publish:
+      - jota_deprecate
+      - only_publish
+    unpublish:
+      - jota_deprecate
+      - only_unpublish
   '@scope/starPackage':
     access: $all
     publish: jota_star

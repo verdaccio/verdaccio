@@ -1,0 +1,235 @@
+{
+  "projectName": "verdaccio",
+  "projectOwner": "verdaccio",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "commitConvention": "none",
+  "files": [
+    "CONTRIBUTORS.md"
+  ],
+  "contributors": [
+    {
+      "login": "juanpicado",
+      "name": "Juan Picado",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/558752?v=4",
+      "profile": "https://www.linkedin.com/in/jotadeveloper/",
+      "contributions": [
+        "doc",
+        "code",
+        "infra",
+        "eventOrganizing",
+        "blog",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "sergiohgz",
+      "name": "Sergio Herrera",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14012309?v=4",
+      "profile": "https://github.com/sergiohgz",
+      "contributions": [
+        "infra",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "DanielRuf",
+      "name": "Daniel Ruf",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/827205?v=4",
+      "profile": "https://daniel-ruf.de/",
+      "contributions": [
+        "security",
+        "infra",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "priscilawebdev",
+      "name": "Priscila Oliveira",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/29228205?v=4",
+      "profile": "https://priscilawebdev.github.io/priscilaoliveira/",
+      "contributions": [
+        "design",
+        "code",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "ayusharma",
+      "name": "Ayush Sharma",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6918450?v=4",
+      "profile": "http://ayusharma.github.io/",
+      "contributions": [
+        "infra",
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "trentearl",
+      "name": "Trent Earl",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/802857?v=4",
+      "profile": "https://github.com/trentearl",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jmwilkinson",
+      "name": "jmwilkinson",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/17836030?v=4",
+      "profile": "https://github.com/jmwilkinson",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bufferoverflow",
+      "name": "Roger Meier",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/378909?v=4",
+      "profile": "https://github.com/bufferoverflow",
+      "contributions": [
+        "plugin"
+      ]
+    },
+    {
+      "login": "jamesgeorge007",
+      "name": "James George",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/25279263?v=4",
+      "profile": "https://ghuser.io/jamesgeorge007",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "AvailCat",
+      "name": "AvailCat",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/19658647?v=4",
+      "profile": "https://github.com/AvailCat",
+      "contributions": [
+        "code",
+        "infra",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "lgaitan",
+      "name": "Lucius Gaitán",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5970350?v=4",
+      "profile": "https://www.luciusgaitan.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ramonornela",
+      "name": "Ramon Henrique Ornelas",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/187946?v=4",
+      "profile": "https://github.com/ramonornela",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "UnitedMarsupials-zz",
+      "name": "UnitedMarsupials-zz",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1486340?v=4",
+      "profile": "https://people.freebsd.org/~mi/resume/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ryan-codingintrigue",
+      "name": "Ryan Graham",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/9048902?v=4",
+      "profile": "http://www.codingintrigue.co.uk/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "coolsp",
+      "name": "coolsp",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1246647?v=4",
+      "profile": "https://github.com/coolsp",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ashishsurana",
+      "name": "Ashish Surana",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5610944?v=4",
+      "profile": "http://ashishsurana.in/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "buffaybu",
+      "name": "Wang Yifei",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2025661?v=4",
+      "profile": "https://github.com/buffaybu",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "lirantal",
+      "name": "Liran Tal",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/316371?v=4",
+      "profile": "https://twitter.com/liran_tal",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "brenordr",
+      "name": "Breno Rodrigues",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/19731692?v=4",
+      "profile": "https://github.com/brenordr",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jachstet-sea",
+      "name": "jachstet-sea",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7993508?v=4",
+      "profile": "https://github.com/jachstet-sea",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Vrtak-CZ",
+      "name": "Patrik Votoček",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/112567?v=4",
+      "profile": "https://patrik.votocek.cz/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "monkeywithacupcake",
+      "name": "jess",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/7316730?v=4",
+      "profile": "https://github.com/monkeywithacupcake",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "toolsofraj",
+      "name": "toolsofraj",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2507152?v=4",
+      "profile": "https://github.com/toolsofraj",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "skipCi": true,
+  "contributorsPerLine": 7
+}

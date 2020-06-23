@@ -156,18 +156,17 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
     return await new Promise((resolve): void => {
       resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
     });
-  } else {
-    // i am wiling to use here _.isNil but flow does not like it yet.
-    const { jwt } = security.api;
-
-    if (jwt && jwt.sign) {
-      return await auth.jwtEncrypt(remoteUser, jwt.sign);
-    } else {
-      return await new Promise((resolve): void => {
-        resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
-      });
-    }
   }
+  // i am wiling to use here _.isNil but flow does not like it yet.
+  const { jwt } = security.api;
+
+  if (jwt && jwt.sign) {
+    return await auth.jwtEncrypt(remoteUser, jwt.sign);
+  }
+  return await new Promise((resolve): void => {
+    resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
+  });
+
 }
 
 export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHeader {
@@ -219,9 +218,8 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
       // old tokens fails still remains in usage, thus
       // we return an anonymous user to force log in.
       return createAnonymousRemoteUser();
-    } else {
-      throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
     }
+    throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
   }
 }
 
@@ -242,11 +240,10 @@ export function getMiddlewareCredentials(security: Security, secret: string, aut
     }
 
     return parsedCredentials;
-  } else {
-    const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
+  }
+  const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
-    if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-      return verifyJWTPayload(token, secret);
-    }
+  if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+    return verifyJWTPayload(token, secret);
   }
 }

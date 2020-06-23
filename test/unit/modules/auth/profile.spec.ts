@@ -86,6 +86,7 @@ describe('endpoint user profile', () => {
       const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.UNAUTHORIZED);
 
       expect(resp.error).not.toBeNull();
+      /* eslint new-cap: 0 */
       expect(resp.error.text).toMatch(API_ERROR.PASSWORD_SHORT());
       done();
     });

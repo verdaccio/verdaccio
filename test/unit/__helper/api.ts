@@ -68,7 +68,8 @@ export function getPackage(
   return new Promise((resolve) => {
     let getRequest = request.get(`/${pkgName}`);
 
-    if (_.isNil(token) === false || _.isEmpty(token) === false) {
+    // token is a string
+    if (token !== '') {
       getRequest.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
     }
 
@@ -114,9 +115,9 @@ export function addUser(request: any, user: string, credentials: any,
 }
 
 export async function getNewToken(request: any, credentials: any): Promise<string> {
+  /* eslint no-async-promise-executor: 0 */
   return new Promise(async (resolve) => {
-    const [err, res] = await
-    addUser(request, credentials.name, credentials);
+    const [err, res] = await addUser(request, credentials.name, credentials);
     expect(err).toBeNull();
     const {token, ok} = res.body;
     expect(ok).toBeDefined();

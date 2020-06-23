@@ -26,7 +26,7 @@ export default function (server, server2, server3) {
 
   describe('storage tarball cache test', () => {
 
-    //more info #131
+    // more info #131
     beforeAll(function () {
       return server.addPackage(PKG_GH131);
     });

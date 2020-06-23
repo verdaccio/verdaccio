@@ -39,6 +39,7 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
     notifyEntry.headers.map(function(item): void {
       if (Object.is(item, item)) {
         for (const key in item) {
+          /* eslint no-prototype-builtins: 0 */
           if (item.hasOwnProperty(key)) {
             header[key] = item[key];
           }
@@ -67,10 +68,9 @@ export function notify(metadata: Package, config: Config, remoteUser: RemoteUser
   if (config.notify) {
     if (config.notify.content) {
       return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
-    } else {
-      // multiple notifications endpoints PR #108
-      return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));
     }
+    // multiple notifications endpoints PR #108
+    return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));
   }
 
   return Promise.resolve();
