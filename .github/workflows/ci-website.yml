@@ -6,6 +6,7 @@ on:
       - master
   pull_request:
     paths:
+      - .github/workflows/ci-website.yml
       - 'website/**'
 jobs:
   ci:
@@ -24,16 +25,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node_version: ${{ matrix.node_version }}
-    - name: Install
+    - name: Install dependencies
       run: |
         yarn --frozen-lockfile
         yarn bootstrap
-    - name: Lint
+    - name: Lint website
       run: |
         cd website
         yarn lint
-    - name: Build
-    - name: Lint
+    - name: Build website
       run: |
         cd website
         yarn build
