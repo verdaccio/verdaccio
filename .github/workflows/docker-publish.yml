@@ -1,15 +1,13 @@
-name: Publish docker image
+name: Docker publish to GitHub registry
 
 on:
   push:
-    paths-ignore:
-      - 'website/**'
-      - 'contrib/**'
-      - 'debug/**'
-      - 'jest/**'
-      - 'systemd/**'
-      - 'tests/**'
-      - 'wiki/**'
+    paths:
+      - .github/workflows/docker-publish.yml
+      - 'packages/**'
+      - 'docker-bin/**'
+      - 'package.json'
+      - 'lerna.json'
 
 jobs:
   testDocker:
