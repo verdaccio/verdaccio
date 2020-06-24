@@ -1,6 +1,15 @@
-name: Publish docker image 
+name: Publish docker image
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - 'website/**'
+      - 'contrib/**'
+      - 'debug/**'
+      - 'jest/**'
+      - 'systemd/**'
+      - 'tests/**'
+      - 'wiki/**'
 
 jobs:
   testDocker:
