@@ -1,0 +1,562 @@
+{
+  "_comment": "此文件由 write-translations.js 自动生成",
+  "localized-strings": {
+    "next": "下一个",
+    "previous": "上一个",
+    "tagline": "Verdaccio · 一个轻量的私有npm proxy registry",
+    "docs": {
+      "amazon": {
+        "title": "Amazon Web Services"
+      },
+      "ansible": {
+        "title": "Ansible"
+      },
+      "articles": {
+        "title": "Articles"
+      },
+      "authentification": {
+        "title": "认证"
+      },
+      "azure": {
+        "title": "Windows Azure"
+      },
+      "best": {
+        "title": "Best Practices"
+      },
+      "build": {
+        "title": "创建"
+      },
+      "caching": {
+        "title": "Caching strategies"
+      },
+      "chef": {
+        "title": "Chef Cookbook"
+      },
+      "ci": {
+        "title": "持续集成"
+      },
+      "cli": {
+        "title": "命令行工具"
+      },
+      "configuration": {
+        "title": "配置文件"
+      },
+      "dev-plugins": {
+        "title": "插件开发"
+      },
+      "docker": {
+        "title": "Docker"
+      },
+      "e2e": {
+        "title": "End to End testing"
+      },
+      "github-actions": {
+        "title": "Github Actions"
+      },
+      "google-cloud": {
+        "title": "Google Cloud"
+      },
+      "iss-server": {
+        "title": "IIS server上进行安装"
+      },
+      "installation": {
+        "title": "安装"
+      },
+      "kubernetes": {
+        "title": "Kubernetes"
+      },
+      "linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "logger": {
+        "title": "记录器"
+      },
+      "logo": {
+        "title": "Logotype"
+      },
+      "node-api": {
+        "title": "Node API"
+      },
+      "notifications": {
+        "title": "通知"
+      },
+      "packages": {
+        "title": "包的访问"
+      },
+      "plugins": {
+        "title": "插件"
+      },
+      "protect-your-dependencies": {
+        "title": "保护包"
+      },
+      "puppet": {
+        "title": "Puppet"
+      },
+      "repositories": {
+        "title": "源代码"
+      },
+      "reverse-proxy": {
+        "title": "逆向代理服务器设置"
+      },
+      "security-policy": {
+        "title": "Security Policy"
+      },
+      "server-configuration": {
+        "title": "服务器配置"
+      },
+      "ssl": {
+        "title": "设置SSL 证书"
+      },
+      "talks": {
+        "title": "Talks"
+      },
+      "test": {
+        "title": "test"
+      },
+      "uplinks": {
+        "title": "上行链路"
+      },
+      "webui": {
+        "title": "Web 用户界面"
+      },
+      "what-is-verdaccio": {
+        "title": "Verdaccio是什么？"
+      },
+      "who-is-using": {
+        "title": "谁在使用 Verdaccio?"
+      },
+      "windows": {
+        "title": "作为 Windows 服务安装"
+      },
+      "version-3.8.6/version-3.8.6-ansible": {
+        "title": "Ansible"
+      },
+      "version-3.8.6/version-3.8.6-authentification": {
+        "title": "认证"
+      },
+      "version-3.8.6/version-3.8.6-build": {
+        "title": "创建源代码"
+      },
+      "version-3.8.6/version-3.8.6-chef": {
+        "title": "Chef Cookbook"
+      },
+      "version-3.8.6/version-3.8.6-ci": {
+        "title": "持续集成"
+      },
+      "version-3.8.6/version-3.8.6-cli": {
+        "title": "命令行工具"
+      },
+      "version-3.8.6/version-3.8.6-configuration": {
+        "title": "配置文件"
+      },
+      "version-3.8.6/version-3.8.6-contributing": {
+        "title": "参与Verdaccio贡献"
+      },
+      "version-3.8.6/version-3.8.6-dev-plugins": {
+        "title": "插件开发"
+      },
+      "version-3.8.6/version-3.8.6-docker": {
+        "title": "Docker"
+      },
+      "version-3.8.6/version-3.8.6-iss-server": {
+        "title": "IIS server上进行安装"
+      },
+      "version-3.8.6/version-3.8.6-installation": {
+        "title": "安装"
+      },
+      "version-3.8.6/version-3.8.6-kubernetes": {
+        "title": "Kubernetes"
+      },
+      "version-3.8.6/version-3.8.6-logger": {
+        "title": "记录器"
+      },
+      "version-3.8.6/version-3.8.6-logo": {
+        "title": "Verdaccio 标识"
+      },
+      "version-3.8.6/version-3.8.6-node-api": {
+        "title": "Node API"
+      },
+      "version-3.8.6/version-3.8.6-notifications": {
+        "title": "通知"
+      },
+      "version-3.8.6/version-3.8.6-packages": {
+        "title": "包的访问"
+      },
+      "version-3.8.6/version-3.8.6-plugins": {
+        "title": "插件"
+      },
+      "version-3.8.6/version-3.8.6-protect-your-dependencies": {
+        "title": "保护包"
+      },
+      "version-3.8.6/version-3.8.6-puppet": {
+        "title": "Puppet"
+      },
+      "version-3.8.6/version-3.8.6-repositories": {
+        "title": "源代码"
+      },
+      "version-3.8.6/version-3.8.6-reverse-proxy": {
+        "title": "逆向代理服务器设置"
+      },
+      "version-3.8.6/version-3.8.6-server-configuration": {
+        "title": "服务器配置"
+      },
+      "version-3.8.6/version-3.8.6-ssl": {
+        "title": "设置SSL 证书"
+      },
+      "version-3.8.6/version-3.8.6-test": {
+        "title": "单元测试"
+      },
+      "version-3.8.6/version-3.8.6-uplinks": {
+        "title": "上行链路"
+      },
+      "version-3.8.6/version-3.8.6-use-cases": {
+        "title": "使用案例"
+      },
+      "version-3.8.6/version-3.8.6-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-3.8.6/version-3.8.6-what-is-verdaccio": {
+        "title": "Verdaccio是什么？"
+      },
+      "version-3.8.6/version-3.8.6-windows": {
+        "title": "作为 Windows 服务安装"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-cli": {
+        "title": "命令行工具"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-configuration": {
+        "title": "配置文件"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-uplinks": {
+        "title": "上行链路"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-what-is-verdaccio": {
+        "title": "Verdaccio是什么？"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-amazon": {
+        "title": "Amazon Web Services"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-azure": {
+        "title": "Windows Azure"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-best": {
+        "title": "Best Practices"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-configuration": {
+        "title": "配置文件"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-dev-plugins": {
+        "title": "插件开发"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-e2e": {
+        "title": "End to end testing"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-google-cloud": {
+        "title": "Google Cloud"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-iss-server": {
+        "title": "IIS server上进行安装"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-linking-registries": {
+        "title": "Linking Regiestries"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-logo": {
+        "title": "Verdaccio 标识"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-node-api": {
+        "title": "Node API"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-notifications": {
+        "title": "通知"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-packages": {
+        "title": "包的访问"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-scopes": {
+        "title": "Understanding Scopes"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-uplinks": {
+        "title": "上行链路"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-what-is-verdaccio": {
+        "title": "Verdaccio是什么？"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-articles": {
+        "title": "Articles"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-authentification": {
+        "title": "认证"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-best": {
+        "title": "Best Practices"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-configuration": {
+        "title": "配置文件"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-dev-plugins": {
+        "title": "插件开发"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-e2e": {
+        "title": "End to End testing"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-github-actions": {
+        "title": "Github Actions"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-installation": {
+        "title": "安装"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-packages": {
+        "title": "包的访问"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-talks": {
+        "title": "Talks"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-uplinks": {
+        "title": "上行链路"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-who-is-using": {
+        "title": "谁在使用 Verdaccio?"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-amazon": {
+        "title": "Amazon Web Services"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-protect-your-dependencies": {
+        "title": "保护包"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-talks": {
+        "title": "Talks"
+      },
+      "version-4.0.0-alpha.7/version-4.0.0-alpha.7-dev-plugins": {
+        "title": "插件开发"
+      },
+      "version-4.0.0-alpha.7/version-4.0.0-alpha.7-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.0-alpha.7/version-4.0.0-alpha.7-plugins": {
+        "title": "插件"
+      },
+      "version-4.0.0-beta.0/version-4.0.0-beta.0-who-is-using": {
+        "title": "谁在使用 Verdaccio?"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-articles": {
+        "title": "Articles"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-best": {
+        "title": "Best Practices"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-ci": {
+        "title": "持续集成"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-configuration": {
+        "title": "配置文件"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-github-actions": {
+        "title": "Github Actions"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-plugins": {
+        "title": "插件"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-ssl": {
+        "title": "设置SSL 证书"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-uplinks": {
+        "title": "上行链路"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-who-is-using": {
+        "title": "谁在使用 Verdaccio?"
+      },
+      "version-4.0.0-beta.2/version-4.0.0-beta.2-installation": {
+        "title": "安装"
+      },
+      "version-4.0.0-beta.2/version-4.0.0-beta.2-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-articles": {
+        "title": "Articles"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-configuration": {
+        "title": "配置文件"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-installation": {
+        "title": "安装"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-logo": {
+        "title": "Logotype"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-what-is-verdaccio": {
+        "title": "Verdaccio是什么？"
+      },
+      "version-4.0.0-beta.8/version-4.0.0-beta.8-configuration": {
+        "title": "配置文件"
+      },
+      "version-4.0.0-beta.8/version-4.0.0-beta.8-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-beta.8/version-4.0.0-beta.8-reverse-proxy": {
+        "title": "逆向代理服务器设置"
+      },
+      "version-4.0.0/version-4.0.0-cli": {
+        "title": "命令行工具"
+      },
+      "version-4.0.0/version-4.0.0-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0/version-4.0.0-plugins": {
+        "title": "插件"
+      },
+      "version-4.0.0/version-4.0.0-talks": {
+        "title": "Talks"
+      },
+      "version-4.0.1/version-4.0.1-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.2/version-4.0.2-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.2/version-4.0.2-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.2/version-4.0.2-github-actions": {
+        "title": "Github Actions"
+      },
+      "version-4.0.2/version-4.0.2-kubernetes": {
+        "title": "Kubernetes"
+      },
+      "version-4.0.2/version-4.0.2-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.2/version-4.0.2-notifications": {
+        "title": "通知"
+      },
+      "version-4.0.2/version-4.0.2-packages": {
+        "title": "包的访问"
+      },
+      "version-4.0.2/version-4.0.2-reverse-proxy": {
+        "title": "逆向代理服务器设置"
+      },
+      "version-4.0.2/version-4.0.2-ssl": {
+        "title": "设置SSL 证书"
+      },
+      "version-4.0.2/version-4.0.2-uplinks": {
+        "title": "上行链路"
+      },
+      "version-4.0.2/version-4.0.2-webui": {
+        "title": "Web 用户界面"
+      },
+      "version-4.1.0/version-4.1.0-cli": {
+        "title": "命令行工具"
+      },
+      "version-4.1.0/version-4.1.0-dev-plugins": {
+        "title": "插件开发"
+      },
+      "version-4.1.0/version-4.1.0-docker": {
+        "title": "Docker"
+      },
+      "version-4.1.0/version-4.1.0-security-policy": {
+        "title": "Security Policy"
+      },
+      "version-4.2.0/version-4.2.0-dev-plugins": {
+        "title": "插件开发"
+      },
+      "version-4.2.0/version-4.2.0-packages": {
+        "title": "包的访问"
+      },
+      "version-4.2.1/version-4.2.1-talks": {
+        "title": "Talks"
+      }
+    },
+    "links": {
+      "Docs": "Docs",
+      "Blog": "Blog",
+      "Twitter": "Twitter",
+      "Help": "Help",
+      "GitHub": "GitHub",
+      "Team": "Team",
+      "Donate": "Donate"
+    },
+    "categories": {
+      "Introduction": "Introduction",
+      "Features": "Features",
+      "Server": "Server",
+      "Development": "Development",
+      "DevOps": "DevOps",
+      "Guides": "Guides",
+      "Configuration": "配置",
+      "Plugins": "插件"
+    }
+  },
+  "pages-strings": {
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "通过 [站内文档](/docs/en/installation.html) 了解更多信息",
+    "Browse Docs|no description given": "浏览文档",
+    "Ask questions about the documentation and project|no description given": "询问有关于文档或项目的问题",
+    "Join the community|no description given": "加入社区",
+    "Find out what's new with this project|no description given": "了解项目中新增的内容",
+    "Stay up to date|no description given": "保持最新版本",
+    "Need help?|no description given": "需要帮助？",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "这个项目有专业的组织维护。",
+    "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "通过 [站内文档](/docs/en/installation.html) 了解更多信息",
+    "You can follow and contact us on|no description given": "您可在这里以关注并联系我们",
+    "and also you can chat with the Verdaccio community at|no description given": "你也可以在这里与 Verdaccio 社区交流",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "如果此文档无法帮忙，您可以试着浏览我们的",
+    "This project is maintained by the Verdaccio community.|no description given": "这个项目由 Verdaccio 社区维护。",
+    "Get Started|no description given": "开始",
+    "Contribute|no description given": "贡献",
+    "That’s it ! Enjoy your private package manager.|no description given": "就这么简单! 开始使用你的 私有 npm 仓库吧。",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "很多好的开发人员已经开始享受使用Verdaccio, 请加入社区！",
+    "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** 和**pnpm**是任何开发流程的一部分，我们试图在最新版本中赶上。",
+    "The most popular npm clients are supported|no description given": "支持所有主流的 npm 客户端",
+    "We have an official **Docker** image ready to use|no description given": "我们有官方的 **Docker** 镜像可供使用",
+    "and **Kubernetes Helm** support for easy deployment|no description given": "和 ** Kubernetes Helm** 支持, 便于部署",
+    "Making the DevOps work easy|no description given": "使 DevOps 工作轻松",
+    "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio 是基于插件的，支持身份验证、中间件和存储插件。只需选择一个现有的即可使用或开发一个属于您自己的。",
+    "Plugin Support|no description given": "插件支持",
+    "Who's Using This?|no description given": "谁在用这个？",
+    "This project is sponsored by these awesome users|no description given": "This project is sponsored by these awesome users",
+    "and used by many more, including|no description given": "and used by many more, including",
+    "More|no description given": "更多",
+    "Users|no description given": "用户",
+    "Verdaccio is sponsored by these awesome folks...|no description given": "Verdaccio is sponsored by these awesome folks...",
+    "and used by many others, including:|no description given": "and used by many others, including:",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "您是否正在使用此项目？不要害羞, 请添加您的公司/项目Logo到这里。",
+    "Add your company|no description given": "添加你的公司",
+    "Help Translate|recruit community translators for your project": "帮助翻译",
+    "Edit this Doc|recruitment message asking to edit the doc source": "编辑",
+    "Translate this Doc|recruitment message asking to translate the docs": "翻译"
+  }
+}

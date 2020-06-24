@@ -1,6 +1,19 @@
 name: Docker & Publish Pre-check
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'packages/**'
+      - 'docker-bin/**'
+      - 'package.json'
+      - 'lerna.json'
+  pull_request:
+    paths:
+      - .github/workflows/docker-publish-pre-check.yml
+      - 'packages/**'
+      - 'docker-bin/**'
+      - 'package.json'
+      - 'lerna.json'
 
 jobs:
   testDocker:
