@@ -48,7 +48,7 @@ Verdaccio is run by **volunteers**; nobody is working full-time on it. If you fi
 ## Next Talk
 
 [
-![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/openjs-world-hd-horizontal.png)](https://openjsworld2020.sched.com/event/bwIo?iframe=no)
+![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/openjs-world-hd-horizontal.png)](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 
 ## What does Verdaccio do for me?
 
