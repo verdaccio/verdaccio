@@ -1,0 +1,12 @@
+{
+  "locale": "es-ES",
+  "entries": {
+		"simple.text.key": "Simple text",
+		"amazon":  "Amazon Web Services",
+		"ansible": "Ansible",
+		"articles": "Articles",
+		"authentification": "Authentification",
+		"azure":  "Windows Azure",
+		"best":  "Best Practices"
+	}
+}
