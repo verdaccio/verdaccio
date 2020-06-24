@@ -68,7 +68,7 @@ describe('package', () => {
 			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
 			.expect(HTTP_STATUS.CREATED)
 			.then(response => {
-				// expect(response.body.name).toEqual('foo');
+				expect(response.body.name).toEqual('foo');
 				done();
 			});
 	});
