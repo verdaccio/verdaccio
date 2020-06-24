@@ -29,9 +29,8 @@ const Header = () => {
     <AppBar
       elevation={1}
       position="static"
-      color="primary"
       css={(theme: Theme) => ({
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: '#FFF',
       })}>
       <Toolbar>
         <Typography component="h2" variant="h5">

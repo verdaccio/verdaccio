@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { Global, jsx, css } from '@emotion/core';
-import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
 import { FC, Fragment } from 'react';
@@ -28,7 +27,7 @@ const Layout: FC = ({ children }) => (
       }}
     />
     <Header />
-    <Container css={containerStyle}>{children}</Container>
+    <div css={containerStyle}>{children}</div>
     <Footer />
   </Fragment>
 );
