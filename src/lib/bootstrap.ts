@@ -109,11 +109,11 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
     const pfxConfig = config.https as HttpsConfPfx;
 
     // https must either have key and cert or a pfx and (optionally) a passphrase
-    if (!(pfxConfig || keyCertConfig)) {
+    if (!((keyCertConfig.key && keyCertConfig.cert) || pfxConfig.pfx)) {
       logHTTPSWarning(configPath);
     }
 
-    if (pfxConfig) {
+    if (pfxConfig.pfx) {
       const { pfx, passphrase } = pfxConfig;
       httpsOptions = assign(httpsOptions, {
         pfx: fs.readFileSync(pfx),
