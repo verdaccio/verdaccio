@@ -1,0 +1,562 @@
+{
+  "_comment": "Este archivo es auto generado por write-translations.js",
+  "localized-strings": {
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "tagline": "Verdaccio · A lightweight private npm proxy registry",
+    "docs": {
+      "amazon": {
+        "title": "Amazon Web Services"
+      },
+      "ansible": {
+        "title": "Ansible"
+      },
+      "articles": {
+        "title": "Articles"
+      },
+      "authentification": {
+        "title": "Autenticación"
+      },
+      "azure": {
+        "title": "Windows Azure"
+      },
+      "best": {
+        "title": "Best Practices"
+      },
+      "build": {
+        "title": "build"
+      },
+      "caching": {
+        "title": "Caching strategies"
+      },
+      "chef": {
+        "title": "Libro de Cocina del Chef"
+      },
+      "ci": {
+        "title": "Integración Continua"
+      },
+      "cli": {
+        "title": "Herramienta de Linea de Comando"
+      },
+      "configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "docker": {
+        "title": "Docker"
+      },
+      "e2e": {
+        "title": "Pruebas End to End"
+      },
+      "github-actions": {
+        "title": "Github Actions"
+      },
+      "google-cloud": {
+        "title": "Google Cloud"
+      },
+      "iss-server": {
+        "title": "Instalación en servidor IIS"
+      },
+      "installation": {
+        "title": "Instalación"
+      },
+      "kubernetes": {
+        "title": "Kubernetes"
+      },
+      "linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "logger": {
+        "title": "Registrador"
+      },
+      "logo": {
+        "title": "Logotype"
+      },
+      "node-api": {
+        "title": "Nodo API"
+      },
+      "notifications": {
+        "title": "Notificaciones"
+      },
+      "packages": {
+        "title": "Acceso a Paquetes"
+      },
+      "plugins": {
+        "title": "Plugins"
+      },
+      "protect-your-dependencies": {
+        "title": "Protegiendo paquetes"
+      },
+      "puppet": {
+        "title": "Puppet"
+      },
+      "repositories": {
+        "title": "Código Fuente"
+      },
+      "reverse-proxy": {
+        "title": "Configuración de Proxy Inverso"
+      },
+      "security-policy": {
+        "title": "Security Policy"
+      },
+      "server-configuration": {
+        "title": "Configuración del Servidor"
+      },
+      "ssl": {
+        "title": "Configurar los Certificados SSL"
+      },
+      "talks": {
+        "title": "Talks"
+      },
+      "test": {
+        "title": "test"
+      },
+      "uplinks": {
+        "title": "Uplinks"
+      },
+      "webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "what-is-verdaccio": {
+        "title": "Qué es Verdaccio?"
+      },
+      "who-is-using": {
+        "title": "Quien usa Verdaccio?"
+      },
+      "windows": {
+        "title": "Instalación como un Servicio de Windows"
+      },
+      "version-3.8.6/version-3.8.6-ansible": {
+        "title": "Ansible"
+      },
+      "version-3.8.6/version-3.8.6-authentification": {
+        "title": "Autenticación"
+      },
+      "version-3.8.6/version-3.8.6-build": {
+        "title": "Construye el proyecto"
+      },
+      "version-3.8.6/version-3.8.6-chef": {
+        "title": "Libro de Cocina del Chef"
+      },
+      "version-3.8.6/version-3.8.6-ci": {
+        "title": "Integración Continua"
+      },
+      "version-3.8.6/version-3.8.6-cli": {
+        "title": "Herramienta de Linea de Comando"
+      },
+      "version-3.8.6/version-3.8.6-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-3.8.6/version-3.8.6-contributing": {
+        "title": "Contribuyendo en Verdaccio"
+      },
+      "version-3.8.6/version-3.8.6-dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "version-3.8.6/version-3.8.6-docker": {
+        "title": "Docker"
+      },
+      "version-3.8.6/version-3.8.6-iss-server": {
+        "title": "Instalación en servidor IIS"
+      },
+      "version-3.8.6/version-3.8.6-installation": {
+        "title": "Instalación"
+      },
+      "version-3.8.6/version-3.8.6-kubernetes": {
+        "title": "Kubernetes"
+      },
+      "version-3.8.6/version-3.8.6-logger": {
+        "title": "Registrador"
+      },
+      "version-3.8.6/version-3.8.6-logo": {
+        "title": "Logotipo de Verdaccio"
+      },
+      "version-3.8.6/version-3.8.6-node-api": {
+        "title": "Nodo API"
+      },
+      "version-3.8.6/version-3.8.6-notifications": {
+        "title": "Notificaciones"
+      },
+      "version-3.8.6/version-3.8.6-packages": {
+        "title": "Acceso a Paquetes"
+      },
+      "version-3.8.6/version-3.8.6-plugins": {
+        "title": "Plugins"
+      },
+      "version-3.8.6/version-3.8.6-protect-your-dependencies": {
+        "title": "Protegiendo paquetes"
+      },
+      "version-3.8.6/version-3.8.6-puppet": {
+        "title": "Puppet"
+      },
+      "version-3.8.6/version-3.8.6-repositories": {
+        "title": "Código Fuente"
+      },
+      "version-3.8.6/version-3.8.6-reverse-proxy": {
+        "title": "Configuración de Proxy Inverso"
+      },
+      "version-3.8.6/version-3.8.6-server-configuration": {
+        "title": "Configuración del Servidor"
+      },
+      "version-3.8.6/version-3.8.6-ssl": {
+        "title": "Configurar los Certificados SSL"
+      },
+      "version-3.8.6/version-3.8.6-test": {
+        "title": "Tests Unitarios"
+      },
+      "version-3.8.6/version-3.8.6-uplinks": {
+        "title": "Uplinks"
+      },
+      "version-3.8.6/version-3.8.6-use-cases": {
+        "title": "Casos de Usos"
+      },
+      "version-3.8.6/version-3.8.6-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-3.8.6/version-3.8.6-what-is-verdaccio": {
+        "title": "Qué es Verdaccio?"
+      },
+      "version-3.8.6/version-3.8.6-windows": {
+        "title": "Instalación como un Servicio de Windows"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-cli": {
+        "title": "Herramienta de Linea de Comando"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-uplinks": {
+        "title": "Uplinks"
+      },
+      "version-4.0.0-alpha.3/version-4.0.0-alpha.3-what-is-verdaccio": {
+        "title": "Qué es Verdaccio?"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-amazon": {
+        "title": "Amazon Web Services"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-azure": {
+        "title": "Windows Azure"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-best": {
+        "title": "Best Practices"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-e2e": {
+        "title": "End to end testing"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-google-cloud": {
+        "title": "Google Cloud"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-iss-server": {
+        "title": "Instalación en servidor IIS"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-linking-registries": {
+        "title": "Linking Regiestries"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-logo": {
+        "title": "Logotipo de Verdaccio"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-node-api": {
+        "title": "Nodo API"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-notifications": {
+        "title": "Notificaciones"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-packages": {
+        "title": "Acceso a Paquetes"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-scopes": {
+        "title": "Understanding Scopes"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-uplinks": {
+        "title": "Uplinks"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-4.0.0-alpha.4/version-4.0.0-alpha.4-what-is-verdaccio": {
+        "title": "Qué es Verdaccio?"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-articles": {
+        "title": "Articles"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-authentification": {
+        "title": "Autenticación"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-best": {
+        "title": "Best Practices"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-e2e": {
+        "title": "Pruebas End to End"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-github-actions": {
+        "title": "Github Actions"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-installation": {
+        "title": "Instalación"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-packages": {
+        "title": "Acceso a Paquetes"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-talks": {
+        "title": "Talks"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-uplinks": {
+        "title": "Uplinks"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-4.0.0-alpha.5/version-4.0.0-alpha.5-who-is-using": {
+        "title": "Quien usa Verdaccio?"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-amazon": {
+        "title": "Amazon Web Services"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-protect-your-dependencies": {
+        "title": "Protegiendo paquetes"
+      },
+      "version-4.0.0-alpha.6/version-4.0.0-alpha.6-talks": {
+        "title": "Talks"
+      },
+      "version-4.0.0-alpha.7/version-4.0.0-alpha.7-dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "version-4.0.0-alpha.7/version-4.0.0-alpha.7-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.0-alpha.7/version-4.0.0-alpha.7-plugins": {
+        "title": "Plugins"
+      },
+      "version-4.0.0-beta.0/version-4.0.0-beta.0-who-is-using": {
+        "title": "Quien usa Verdaccio?"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-articles": {
+        "title": "Articles"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-best": {
+        "title": "Best Practices"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-ci": {
+        "title": "Integración Continua"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-github-actions": {
+        "title": "Github Actions"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-plugins": {
+        "title": "Plugins"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-ssl": {
+        "title": "Configurar los Certificados SSL"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-uplinks": {
+        "title": "Uplinks"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-4.0.0-beta.10/version-4.0.0-beta.10-who-is-using": {
+        "title": "Quien usa Verdaccio?"
+      },
+      "version-4.0.0-beta.2/version-4.0.0-beta.2-installation": {
+        "title": "Instalación"
+      },
+      "version-4.0.0-beta.2/version-4.0.0-beta.2-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-articles": {
+        "title": "Articles"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-installation": {
+        "title": "Instalación"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-logo": {
+        "title": "Logotype"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-4.0.0-beta.5/version-4.0.0-beta.5-what-is-verdaccio": {
+        "title": "Qué es Verdaccio?"
+      },
+      "version-4.0.0-beta.8/version-4.0.0-beta.8-configuration": {
+        "title": "Archivo de Configuración"
+      },
+      "version-4.0.0-beta.8/version-4.0.0-beta.8-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0-beta.8/version-4.0.0-beta.8-reverse-proxy": {
+        "title": "Configuración de Proxy Inverso"
+      },
+      "version-4.0.0/version-4.0.0-cli": {
+        "title": "Herramienta de Linea de Comando"
+      },
+      "version-4.0.0/version-4.0.0-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.0/version-4.0.0-plugins": {
+        "title": "Plugins"
+      },
+      "version-4.0.0/version-4.0.0-talks": {
+        "title": "Talks"
+      },
+      "version-4.0.1/version-4.0.1-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.2/version-4.0.2-caching": {
+        "title": "Caching strategies"
+      },
+      "version-4.0.2/version-4.0.2-docker": {
+        "title": "Docker"
+      },
+      "version-4.0.2/version-4.0.2-github-actions": {
+        "title": "Github Actions"
+      },
+      "version-4.0.2/version-4.0.2-kubernetes": {
+        "title": "Kubernetes"
+      },
+      "version-4.0.2/version-4.0.2-linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "version-4.0.2/version-4.0.2-notifications": {
+        "title": "Notificaciones"
+      },
+      "version-4.0.2/version-4.0.2-packages": {
+        "title": "Acceso a Paquetes"
+      },
+      "version-4.0.2/version-4.0.2-reverse-proxy": {
+        "title": "Configuración de Proxy Inverso"
+      },
+      "version-4.0.2/version-4.0.2-ssl": {
+        "title": "Configurar los Certificados SSL"
+      },
+      "version-4.0.2/version-4.0.2-uplinks": {
+        "title": "Uplinks"
+      },
+      "version-4.0.2/version-4.0.2-webui": {
+        "title": "Interfaz Web de Usuario"
+      },
+      "version-4.1.0/version-4.1.0-cli": {
+        "title": "Herramienta de Linea de Comando"
+      },
+      "version-4.1.0/version-4.1.0-dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "version-4.1.0/version-4.1.0-docker": {
+        "title": "Docker"
+      },
+      "version-4.1.0/version-4.1.0-security-policy": {
+        "title": "Security Policy"
+      },
+      "version-4.2.0/version-4.2.0-dev-plugins": {
+        "title": "Extensiones en Desarrollo"
+      },
+      "version-4.2.0/version-4.2.0-packages": {
+        "title": "Acceso a Paquetes"
+      },
+      "version-4.2.1/version-4.2.1-talks": {
+        "title": "Talks"
+      }
+    },
+    "links": {
+      "Docs": "Docs",
+      "Blog": "Blog",
+      "Twitter": "Twitter",
+      "Help": "Help",
+      "GitHub": "GitHub",
+      "Team": "Team",
+      "Donate": "Donate"
+    },
+    "categories": {
+      "Introduction": "Introduction",
+      "Features": "Features",
+      "Server": "Server",
+      "Development": "Development",
+      "DevOps": "DevOps",
+      "Guides": "Guides",
+      "Configuration": "Configuración",
+      "Plugins": "Plugins"
+    }
+  },
+  "pages-strings": {
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Aprende mas leyendo la [documentación en este sitio.](/docs/es-Es/installation.html)",
+    "Browse Docs|no description given": "Navegar Documentación",
+    "Ask questions about the documentation and project|no description given": "Haz preguntas sobre la documentación y el proyecto",
+    "Join the community|no description given": "Únete a la comunidad",
+    "Find out what's new with this project|no description given": "Entérate que hay de nuevo en este proyecto",
+    "Stay up to date|no description given": "Mantente actualizado",
+    "Need help?|no description given": "Necesitas ayuda?",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "Este proyecto es mantenido por un grupo de personas dedicadas.",
+    "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "Aprenda mucho mas sobre Verdaccio usando la [documentación en este sitio.](/docs/en/installation.html)",
+    "You can follow and contact us on|no description given": "Puedes seguirnos o contactarnos en",
+    "and also you can chat with the Verdaccio community at|no description given": "y también puedes hablar con nuestra comunidad en",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "Si la documentación no ofrece demasiada ayuda, puedes tratar de navegar en nuestra",
+    "This project is maintained by the Verdaccio community.|no description given": "Este proyecto es mantenido por la comunidad de Verdaccio.",
+    "Get Started|no description given": "Empezar",
+    "Contribute|no description given": "Contribuye",
+    "That’s it ! Enjoy your private package manager.|no description given": "Eso es todo ! Disfruta tu registro privado.",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Muchos grandes desarrolladores ya están disfrutando de Verdaccio, ¡Únete a la comunidad!",
+    "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** y **pnpm** son parte del ambiente de desarrollo e intentamos mantenernos al día con las últimas actualizaciones.",
+    "The most popular npm clients are supported|no description given": "Los clientes *npm* mas populares son compatibles",
+    "We have an official **Docker** image ready to use|no description given": "Ofrecemos una imagen oficial en **Docker** lista para usar",
+    "and **Kubernetes Helm** support for easy deployment|no description given": "y soporte de **Kubernetes Helm** para fácil despliegue",
+    "Making the DevOps work easy|no description given": "Facilitando el trabajo de los DevOps",
+    "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio esta basado en extensiones, autenticación, soporte para *middleware* y almacenamiento. Solo elige uno o crea el tuyo propio.",
+    "Plugin Support|no description given": "Soporte de Extensiones",
+    "Who's Using This?|no description given": "Quién está usando esto?",
+    "This project is sponsored by these awesome users|no description given": "This project is sponsored by these awesome users",
+    "and used by many more, including|no description given": "and used by many more, including",
+    "More|no description given": "Más",
+    "Users|no description given": "Usuarios",
+    "Verdaccio is sponsored by these awesome folks...|no description given": "Verdaccio is sponsored by these awesome folks...",
+    "and used by many others, including:|no description given": "and used by many others, including:",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Estas usando este proyecto? No tengas vergüenza y agrega el logotipo de tu compañia/proyecto.",
+    "Add your company|no description given": "Agrega tu compañia",
+    "Help Translate|recruit community translators for your project": "Ayuda con traducciones",
+    "Edit this Doc|recruitment message asking to edit the doc source": "Editar",
+    "Translate this Doc|recruitment message asking to translate the docs": "Traducir"
+  }
+}
