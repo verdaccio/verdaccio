@@ -23,16 +23,11 @@ coverage/
 ## IDE
 .idea/
 
-## Website
-website/.cache
-website/public
-
 # Compiled script
 packages/partials
 tsconfig.tsbuildinfo
 
 
 # website
-
 website/public
 website/.cache
