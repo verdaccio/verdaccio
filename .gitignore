@@ -20,7 +20,12 @@ yarn-error.log
 reports/
 coverage/
 
+## IDE
 .idea/
+
+## Website
+website/.cache
+website/public
 
 # Compiled script
 packages/partials
