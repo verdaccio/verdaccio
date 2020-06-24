@@ -1,4 +1,5 @@
 import { assign, isObject, isFunction } from 'lodash';
+import express from 'express';
 import URL from 'url';
 import fs from 'fs';
 import http from 'http';
@@ -8,7 +9,7 @@ import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
 
-import { Callback } from '@verdaccio/types';
+import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { Application } from 'express';
 
 const logger = require('./logger');
@@ -47,11 +48,6 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
       addresses.forEach(function(addr): void {
         let webServer;
         if (addr.proto === 'https') {
-          // https must either have key and cert or a pfx and (optionally) a passphrase
-          if (!config.https || !((config.https.key && config.https.cert) || config.https.pfx)) {
-            logHTTPSWarning(configPath);
-          }
-
           webServer = handleHTTPS(app, configPath, config);
         } else {
           // http
@@ -103,23 +99,33 @@ function logHTTPSWarning(storageLocation) {
   process.exit(2);
 }
 
-function handleHTTPS(app, configPath, config) {
+function handleHTTPS(app: express.Application, configPath: string, config: ConfigWithHttps): https.Server {
   try {
     let httpsOptions = {
       secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
     };
 
-    if (config.https.pfx) {
+    const keyCertConfig = config.https as HttpsConfKeyCert;
+    const pfxConfig = config.https as HttpsConfPfx;
+
+    // https must either have key and cert or a pfx and (optionally) a passphrase
+    if (!(pfxConfig || keyCertConfig)) {
+      logHTTPSWarning(configPath);
+    }
+
+    if (pfxConfig) {
+      const { pfx, passphrase } = pfxConfig;
       httpsOptions = assign(httpsOptions, {
-        pfx: fs.readFileSync(config.https.pfx),
-        passphrase: config.https.passphrase || '',
+        pfx: fs.readFileSync(pfx),
+        passphrase: passphrase || '',
       });
     } else {
+      const { key, cert, ca } = keyCertConfig;
       httpsOptions = assign(httpsOptions, {
-        key: fs.readFileSync(config.https.key),
-        cert: fs.readFileSync(config.https.cert),
-        ...(config.https.ca && {
-          ca: fs.readFileSync(config.https.ca),
+        key: fs.readFileSync(key),
+        cert: fs.readFileSync(cert),
+        ...(ca && {
+          ca: fs.readFileSync(ca),
         }),
       });
     }
