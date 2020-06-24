@@ -1,0 +1,39 @@
+name: CI Website
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    paths:
+      - 'website/**'
+jobs:
+  ci:
+    name: Node ${{ matrix.node_version }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [14]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node_version: ${{ matrix.node_version }}
+    - name: Install
+      run: |
+        yarn --frozen-lockfile
+        yarn bootstrap
+    - name: Lint
+      run: |
+        cd website
+        yarn lint
+    - name: Build
+    - name: Lint
+      run: |
+        cd website
+        yarn build

@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Container from '@material-ui/core/Container';
 import React from 'react';
 import { Link } from 'gatsby';
 import { Tweet } from 'react-twitter-widgets';
@@ -13,7 +12,7 @@ import VerdaccioBannerSVG from '../components/Image/VerdaccioBannerSVG';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import InstallSteps from '../components/InstallSteps';
-import {Background} from "../components/Background/Background";
+import { Background } from '../components/Background/Background';
 
 const Tweets = [
   '1001297542779424768',
