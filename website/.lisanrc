@@ -1,0 +1,7 @@
+{
+  "compile": {
+    "inputDir": "crowdin/master/website/translations",
+    "outputDir": "src/dictionaries",
+    "returnArray": true
+  }
+}
