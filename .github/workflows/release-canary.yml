@@ -1,6 +1,12 @@
 name: Canary Release to Verdaccio
 
-on: [push]
+on:
+  pull_request:
+    paths:
+      - .github/workflows/release-canary.yml
+      - 'packages/**'
+      - 'package.json'
+      - 'lerna.json'
 
 jobs:
   release:
@@ -13,7 +19,7 @@ jobs:
       with:
         node_version: 13
     - name: Install
-      run: yarn
+      run: yarn --frozen-lockfile
     - name: Clean
       run: yarn clean
     - name: Lint
