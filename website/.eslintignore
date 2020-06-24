@@ -1,0 +1,11 @@
+# Config files
+/gatsby-*.js
+
+# Builded files
+/.cache/
+/public/
+/src/dictionaries/
+/crowdin/
+
+# Node.js modules
+/node_modules/

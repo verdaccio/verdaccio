@@ -20,7 +20,7 @@ jobs:
       with:
         node_version: ${{ matrix.node_version }}
     - name: Install
-      run: yarn
+      run: yarn --frozen-lockfile
     - name: Bootstrap Lerna
       run: yarn bootstrap
     - name: Lint

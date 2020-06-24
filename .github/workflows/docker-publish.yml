@@ -1,6 +1,13 @@
-name: Publish docker image 
+name: Docker publish to GitHub registry
 
-on: [push]
+on:
+  push:
+    paths:
+      - .github/workflows/docker-publish.yml
+      - 'packages/**'
+      - 'docker-bin/**'
+      - 'package.json'
+      - 'lerna.json'
 
 jobs:
   testDocker:

@@ -25,3 +25,9 @@ coverage/
 # Compiled script
 packages/partials
 tsconfig.tsbuildinfo
+
+
+# website
+
+website/public
+website/.cache
