@@ -71,7 +71,7 @@
     "@types/semver": "6.2.0",
     "@typescript-eslint/eslint-plugin": "2.12.0",
     "@verdaccio/babel-preset": "^9.6.1",
-    "@verdaccio/eslint-config": "^8.5.0",
+    "@verdaccio/eslint-config": "^9.3.2",
     "@verdaccio/types": "^9.3.0",
     "all-contributors-cli": "6.16.0",
     "codecov": "3.7.0",
