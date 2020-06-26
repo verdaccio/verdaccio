@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.2](https://github.com/verdaccio/verdaccio/compare/v4.7.1...v4.7.2) (2020-06-26)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1863](https://github.com/verdaccio/verdaccio/issues/1863)) ([b559d75](https://github.com/verdaccio/verdaccio/commit/b559d75f70a4ab961fd92beb6f0cf2493e6b9c7b))
+
 ### [4.7.1](https://github.com/verdaccio/verdaccio/compare/v4.7.0...v4.7.1) (2020-06-22)
 
 
