@@ -2800,7 +2800,7 @@ bunyan@1.8.12:
 
 bunyan@1.8.13:
   version "1.8.13"
-  resolved "https://registry.npmjs.org/bunyan/-/bunyan-1.8.13.tgz#dde6bacd9ebccaedb110f1319f88db3f415ccfeb"
+  resolved "https://registry.yarnpkg.com/bunyan/-/bunyan-1.8.13.tgz#dde6bacd9ebccaedb110f1319f88db3f415ccfeb"
   integrity sha512-4zO4iMxZeCpf+95ERsr83nwQr11o1KY2FLhX4wZ6kPXieIVYL3k9eX+N6vbHhFEK5h5O/qCQpfXt7N9VBAIvCA==
   optionalDependencies:
     dtrace-provider "~0.8"
