@@ -139,7 +139,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       storage.mergeTags(packageName, tags, cb);
     };
 
-    const afterChange = function(error, okMessage, metadata): void  {
+    const afterChange = function(error, okMessage, metadata: Package): void  {
       const metadataCopy: Package = { ...metadata };
 
       const { _attachments, versions } = metadataCopy;

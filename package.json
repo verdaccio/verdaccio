@@ -31,6 +31,7 @@
     "@types/node": "14.0.14",
     "@types/request": "2.48.3",
     "@types/semver": "7.2.0",
+    "@types/supertest": "2.0.9",
     "@verdaccio/babel-preset": "9.6.1",
     "@verdaccio/eslint-config": "9.3.2",
     "@verdaccio/types": "9.5.0",

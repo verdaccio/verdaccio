@@ -42,21 +42,22 @@ export async function initializeServer(configName): Promise<Application> {
 	return app;
 }
 
-export async function publishVersion(app, configFile, pkgName, version) {
+export function publishVersion(app, configFile, pkgName, version): supertest.Test {
 		const pkgMetadata = generatePackageMetadata(pkgName, version);
 
 		return supertest(app)
 			.put(`/${encodeURIComponent(pkgName)}`)
 			.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
 		.send(JSON.stringify(pkgMetadata))
-		.expect(HTTP_STATUS.CREATED)
 		.set('accept', HEADERS.GZIP)
 		.set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
 		.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 }
 
-export async function publishTaggedVersion(app, configFile, pkgName, version, tag) {
-	const pkgMetadata = generatePackageMetadata(pkgName, version);
+export async function publishTaggedVersion(app, configFile, pkgName: string, version: string, tag: string) {
+	const pkgMetadata = generatePackageMetadata(pkgName, version, {
+		[tag]: version
+	});
 
 	return supertest(app)
 		.put(`/${encodeURIComponent(pkgName)}/${encodeURIComponent(version)}/-tag/${encodeURIComponent(tag)}`)

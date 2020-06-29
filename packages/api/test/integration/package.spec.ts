@@ -12,8 +12,6 @@ const mockApiJWTmiddleware = jest.fn(() =>
 		}
 );
 
-jest.setTimeout(50000000);
-
 jest.mock('@verdaccio/auth', () => ({
 	Auth: class {
 		apiJWTmiddleware() {
@@ -32,10 +30,11 @@ describe('package', () => {
 	let app;
 	beforeAll(async () => {
 		app = await initializeServer('package.yaml');
-		// await publishVersion(app, 'package.yaml', 'foo', '1.0.0');
+		await publishVersion(app, 'package.yaml', 'foo', '1.0.0');
 	});
 
-	test.skip('should return a package', async (done) => {
+	test('should return a package', async (done) => {
+
 		return supertest(app)
 			.get('/foo')
 			.set('Accept', HEADERS.JSON)
@@ -47,7 +46,7 @@ describe('package', () => {
 			});
 	});
 
-	test.skip('should return a package by version', async (done) => {
+	test('should return a package by version', async (done) => {
 		return supertest(app)
 			.get('/foo/1.0.0')
 			.set('Accept', HEADERS.JSON)
@@ -59,11 +58,12 @@ describe('package', () => {
 			});
 	});
 
+	// TODO: investigate the 404
 	test.skip('should return a package by dist-tag', async (done) => {
 		await publishVersion(app, 'package.yaml', 'foo-tagged', '1.0.0');
 		await publishTaggedVersion(app, 'package.yaml', 'foo-tagged', '1.0.1', 'test');
 		return supertest(app)
-			.get('/foo-tagged/1.0.1')
+			.get('/foo-tagged/1.0.0')
 			.set('Accept', HEADERS.JSON)
 			.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
 			.expect(HTTP_STATUS.CREATED)
