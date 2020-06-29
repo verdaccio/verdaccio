@@ -1,5 +1,8 @@
 import path from 'path';
 import _ from 'lodash';
+import selfsigned from 'selfsigned';
+import os from 'os';
+import fs from 'fs';
 
 import startServer from '../../../../src';
 import config from '../../partials/config';
@@ -145,12 +148,18 @@ describe('startServer via API', () => {
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const address = 'https://www.domain.com:443';
+      const { private: key, cert } = selfsigned.generate();
+      const keyPath = path.join(os.tmpdir(), 'key.pem');
+      const certPath = path.join(os.tmpdir(), 'crt.pem');
+      fs.writeFileSync(keyPath, key);
+      fs.writeFileSync(certPath, cert);
 
       const conf = config();
       conf.https = {
-        key: path.resolve(__dirname, 'key.pem'),
-        cert: path.resolve(__dirname, 'crt.pem'),
+        key: keyPath,
+        cert: certPath,
       };
+
       await startServer(conf, address, store, version, serverName,
         (webServer, addrs) => {
           expect(webServer).toBeDefined();
