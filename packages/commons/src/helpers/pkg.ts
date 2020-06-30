@@ -1,12 +1,16 @@
 import { Package } from "@verdaccio/types";
 
-export function generatePackageMetadata(pkgName: string, version = '1.0.0'): Package {
+export interface DistTags {
+	[key: string]: string;
+}
+
+export function generatePackageMetadata(pkgName: string, version = '1.0.0', distTags: DistTags = {['latest']: version}): Package {
 	// @ts-ignore
 	return {
 		"_id": pkgName,
 		"name": pkgName,
 		"dist-tags": {
-			"latest": version
+			...distTags
 		},
 		"versions": {
 			[version]: {

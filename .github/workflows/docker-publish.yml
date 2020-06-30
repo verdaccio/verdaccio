@@ -2,6 +2,8 @@ name: Docker publish to GitHub registry
 
 on:
   push:
+    branches:
+      - master
     paths:
       - .github/workflows/docker-publish.yml
       - 'packages/**'
