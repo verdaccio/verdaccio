@@ -1,0 +1,36 @@
+store:
+  memory:
+    limit: 1000
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+logs: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
+  'verdaccio':
+    access: $all
+    publish: $all
+  '**':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
+_debug: true

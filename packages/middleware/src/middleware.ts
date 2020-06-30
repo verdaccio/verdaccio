@@ -1,3 +1,4 @@
+
 import _ from 'lodash';
 
 import {
@@ -13,6 +14,7 @@ import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '@verda
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
+import {HttpError} from "http-errors";
 
 export function match(regexp: RegExp): any {
   return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
@@ -110,8 +112,7 @@ export function allow(auth: IAuth): Function {
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
       const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
       const remote: RemoteUser = req.remote_user;
-      logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
-
+      logger.trace({ action, user: remote?.name }, `[middleware/allow][@{action}] allow for @{user}`);
       auth['allow_' + action]({ packageName, packageVersion }, remote, function(error, allowed): void {
         req.resume();
         if (error) {
@@ -148,7 +149,8 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
 
       if (typeof body === 'object' && _.isNil(body) === false) {
         if (typeof (body as MiddlewareError).error === 'string') {
-          res._verdaccio_error = (body as MiddlewareError).error;
+          res.locals._verdaccio_error = (body as MiddlewareError).error;
+          // res._verdaccio_error = (body as MiddlewareError).error;
         }
         body = JSON.stringify(body, undefined, '  ') + '\n';
       }
@@ -228,7 +230,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     const remoteAddress = req.connection.remoteAddress;
     const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
     let message;
-    if (res._verdaccio_error) {
+    if (res.locals._verdaccio_error) {
       message = LOG_VERDACCIO_ERROR;
     } else {
       message = LOG_VERDACCIO_BYTES;
@@ -245,7 +247,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
         user: (req.remote_user && req.remote_user.name) || null,
         remoteIP,
         status: res.statusCode,
-        error: res._verdaccio_error,
+        error: res.locals._verdaccio_error,
         bytes: {
           in: bytesin,
           out: bytesout,
@@ -273,10 +275,27 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   next();
 }
 
+export function handleError(err: HttpError, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  if (_.isError(err)) {
+    if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
+      return next();
+    }
+    if (_.isFunction(res.locals.report_error) === false) {
+      // in case of very early error this middleware may not be loaded before error is generated
+      // fixing that
+      errorReportingMiddleware(req, res, _.noop);
+    }
+    res.locals.report_error(err);
+  } else {
+    // Fall to Middleware.final
+    return next(err);
+  }
+}
+
 // Middleware
 export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-  res.report_error =
-    res.report_error ||
+  res.locals.report_error =
+    res.locals.report_error ||
     function(err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (_.isNil(res.headersSent) === false) {

@@ -31,7 +31,7 @@
     "@verdaccio/config": "5.0.0-alpha.0",
     "@verdaccio/node-api": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
-    "commander": "3.0.2",
+    "commander": "5.1.0",
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
     "semver": "7.3.2"

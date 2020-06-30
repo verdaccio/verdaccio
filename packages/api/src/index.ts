@@ -36,7 +36,6 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler): 
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
   app.param('anything', match(/.*/));
-
   app.use(auth.apiJWTmiddleware());
   // @ts-ignore
   app.use(antiLoop(config));
