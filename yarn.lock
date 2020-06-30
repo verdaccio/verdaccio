@@ -2225,10 +2225,10 @@
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-9.7.0.tgz#21d35e1c60c5dee58e54878374d3d354f06ebcdb"
   integrity sha512-h0GvmR1sjaH/H1MOBWJkmNSCuTI7cKYoyvWlP6S1gMEgfTnpwza9sW0F6RYttfYYzaDqyk6niVL6kDre2zVGEw==
 
-"@verdaccio/types@^9.3.0":
-  version "9.5.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-9.5.0.tgz#1acd3cdebe2c8ea57dac9a0739512830e05e6bbf"
-  integrity sha512-zUCkSQF0qShq/9OCEq6bZgHtz0lP0npkxXGc0Ch8P5fPiTlih1MBY5GxqM0ervMGw8ojH2mCYQ0655pKicYg1A==
+"@verdaccio/types@^9.7.0":
+  version "9.7.0"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-9.7.0.tgz#6ec72aee7be2617c609cd736cb6e7b70cc5199c7"
+  integrity sha512-QeijEgVBVRTGyOteIl+RD4aiEbiUM1SkN7UAjZxhwns0o2YebdO+Z2iphmx0EZdo4STnWLuGSRlJexTaU/+lDQ==
 
 "@verdaccio/ui-theme@1.11.0":
   version "1.11.0"
@@ -7138,6 +7138,11 @@ node-fetch@^2.2.0, node-fetch@^2.3.0:
   resolved "https://registry.verdaccio.org/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
+node-forge@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
+  integrity sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
+
 node-gyp-build@~4.1.0:
   version "4.1.1"
   resolved "https://registry.verdaccio.org/node-gyp-build/-/node-gyp-build-4.1.1.tgz#d7270b5d86717068d114cc57fff352f96d745feb"
@@ -8461,6 +8466,13 @@ saxes@^3.1.9:
   integrity sha512-Ydydq3zC+WYDJK1+gRxRapLIED9PWeSuuS41wqyoRmzvhhh9nc+QQrVMKJYzJFULazeGhzSV0QleN2wD3boh2g==
   dependencies:
     xmlchars "^2.1.1"
+
+selfsigned@1.10.7:
+  version "1.10.7"
+  resolved "https://registry.npmjs.org/selfsigned/-/selfsigned-1.10.7.tgz#da5819fd049d5574f28e88a9bcc6dbc6e6f3906b"
+  integrity sha512-8M3wBCzeWIJnQfl43IKwOmC4H/RAp50S8DF60znzjW5GVqTcSe2vWclt7hmYVPkKPlHWOu5EaWOMZ2Y6W8ZXTA==
+  dependencies:
+    node-forge "0.9.0"
 
 semver-compare@^1.0.0:
   version "1.0.0"
