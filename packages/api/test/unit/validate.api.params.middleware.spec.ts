@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 // ensure that all arguments are validated
 import path from 'path';
 import fs from 'fs';
@@ -13,7 +14,7 @@ import fs from 'fs';
  */
 describe('api endpoint app.param()', () => {
   let m;
-  const requirePath = path.normalize(path.join(__dirname, '../src/index.ts'));
+  const requirePath = path.normalize(path.join(__dirname, '../../src/index.ts'));
   const source = fs.readFileSync(requirePath, 'utf8');
   const very_scary_regexp = /\n\s*app\.(\w+)\s*\(\s*(("[^"]*")|('[^']*'))\s*,/g;
   const appParams = {};

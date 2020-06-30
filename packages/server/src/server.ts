@@ -85,12 +85,12 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
       if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
       }
-      if (_.isFunction(res.report_error) === false) {
+      if (_.isFunction(res.locals.report_error) === false) {
         // in case of very early error this middleware may not be loaded before error is generated
         // fixing that
         errorReportingMiddleware(req, res, _.noop);
       }
-      res.report_error(err);
+      res.locals.report_error(err);
     } else {
       // Fall to Middleware.final
       return next(err);
