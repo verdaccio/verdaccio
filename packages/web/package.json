@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@verdaccio/dev-types": "5.0.0-alpha.0",
-    "@verdaccio/types": "9.3.0"
+    "@verdaccio/types": "9.5.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
