@@ -13,6 +13,9 @@ Dockerfile
 *.html
 *.scss
 *.png
+*.json
+*.name
+*.tgz
 *.jpg
 *.sh
 **/partials/**

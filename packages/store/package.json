@@ -23,20 +23,20 @@
     "build": "npm run build:js && npm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "9.4.0",
+    "@verdaccio/commons-api": "9.6.1",
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/loaders": "5.0.0-alpha.0",
-    "@verdaccio/local-storage": "9.5.0",
+    "@verdaccio/local-storage": "9.6.1",
     "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/proxy": "5.0.0-alpha.0",
-    "@verdaccio/streams": "9.5.0",
+    "@verdaccio/streams": "9.6.1",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "async": "3.1.1",
     "lodash": "4.17.15",
     "semver": "7.1.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "9.3.0"
+    "@verdaccio/types": "9.5.0"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }
