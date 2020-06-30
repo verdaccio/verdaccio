@@ -1,6 +1,16 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    paths:
+      - .github/workflows/ci.yml
+      - 'packages/**'
+      - 'jest/**'
+      - 'package.json'
+      - 'lerna.json'
 
 jobs:
   ci:

@@ -1,4 +1,7 @@
+// <reference types="node" />
+
 import { Logger, RemoteUser } from "@verdaccio/types";
+import * as http from "http";
 
 declare global {
   namespace Express {
@@ -7,10 +10,11 @@ declare global {
       log: Logger;
     }
 
-    export interface Response {
-      report_error: any;
-      _verdaccio_error: any;
-      socket?: any;
-    }
+    // FIXME:
+    // export interface Response extends http.ServerResponse, Express.Response {
+    //   report_error: any;
+    //   _verdaccio_error: any;
+    //   socket?: any;
+    // }
   }
 }

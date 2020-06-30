@@ -5,7 +5,6 @@ import path from 'path';
 import endPointAPI from '@verdaccio/server';
 import {
   HEADERS,
-  API_ERROR,
   HTTP_STATUS,
   HEADER_TYPE,
   API_MESSAGE,
@@ -85,67 +84,7 @@ describe('endpoint unit test', () => {
   });
 
   describe('Registry API Endpoints', () => {
-
-    describe('should test ping api', () => {
-      test('should test endpoint /-/ping', (done) => {
-        request(app)
-          .get('/-/ping')
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
-      });
-    });
-
-    describe('should test whoami api', () => {
-      test('should test referer /whoami endpoint', (done) => {
-        request(app)
-          .get('/whoami')
-          .set('referer', 'whoami')
-          .expect(HTTP_STATUS.OK)
-          .end(done);
-      });
-
-      test('should test no referer /whoami endpoint', (done) => {
-        request(app)
-          .get('/whoami')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .end(done);
-      });
-
-      test('should test /-/whoami endpoint', (done) => {
-        request(app)
-          .get('/-/whoami')
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
-      });
-
-      test('should test /whoami endpoint', (done) => {
-        request(app)
-          .get('/-/whoami')
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK)
-          .end(function(err) {
-            if (err) {
-              return done(err);
-            }
-            done();
-          });
-      });
-    });
-
     describe('should test user api', () => {
-
       describe('should test authorization headers with tokens only errors', () => {
         test('should fails on protected endpoint /-/auth-package bad format', (done) => {
           request(app)
@@ -219,106 +158,6 @@ describe('endpoint unit test', () => {
               });
           });
       });
-
-      test('should test fails add a new user with missing name', (done) => {
-
-        const credentialsShort = _.cloneDeep(credentials);
-        delete credentialsShort.name;
-
-        request(app)
-          .put(`/-/user/org.couchdb.user:${credentials.name}`)
-          .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.BAD_REQUEST)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-
-            expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
-            done();
-          });
-      });
-
-      test('should test fails add a new user with missing password', (done) => {
-
-        const credentialsShort = _.cloneDeep(credentials);
-        delete credentialsShort.password;
-
-        request(app)
-          .put(`/-/user/org.couchdb.user:${credentials.name}`)
-          .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.BAD_REQUEST)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-
-            expect(res.body.error).toBeDefined();
-            // FIXME: message is not 100% accurate
-            /* eslint new-cap: 0 */
-            expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
-            done();
-          });
-      });
-
-      test('should test add a new user with login', (done) => {
-        const newCredentials = _.cloneDeep(credentials);
-        newCredentials.name = 'jotaNew';
-
-        request(app)
-          .put('/-/user/org.couchdb.user:jotaNew')
-          .send(newCredentials)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-            expect(res.body).toBeTruthy();
-            done();
-          });
-      });
-
-      test('should test fails on add a existing user with login', (done) => {
-        request(app)
-          .put('/-/user/org.couchdb.user:jotaNew')
-          .send(credentials)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.CONFLICT)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-            expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(API_ERROR.USERNAME_ALREADY_REGISTERED);
-            done();
-          });
-      });
-
-      test('should test fails add a new user with wrong password', (done) => {
-
-        const credentialsShort = _.cloneDeep(credentials);
-        credentialsShort.password = 'failPassword';
-
-        request(app)
-          .put('/-/user/org.couchdb.user:jota')
-          .send(credentialsShort)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.UNAUTHORIZED)
-          .end(function(err, res) {
-            if (err) {
-              return done(err);
-            }
-
-            expect(res.body.error).toBeDefined();
-            expect(res.body.error).toMatch(/unauthorized/);
-            done();
-          });
-      });
-
     });
 
     describe('should test package api', () => {

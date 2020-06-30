@@ -37,7 +37,6 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler): 
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
   app.param('anything', match(/.*/));
-
   app.use(auth.apiJWTmiddleware());
   app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
   // @ts-ignore

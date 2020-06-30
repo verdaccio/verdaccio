@@ -1,4 +1,4 @@
-import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../src/publish';
+import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../src/publish';
 import { HTTP_STATUS, API_ERROR } from '@verdaccio/dev-commons';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
@@ -82,7 +82,7 @@ describe('Publish endpoints - upload package tarball', () => {
       pipe: jest.fn(),
       on: jest.fn(),
     };
-    res = { status: jest.fn(), report_error: jest.fn() };
+    res = { status: jest.fn(), locals: { report_error: jest.fn() }};
     next = jest.fn();
   });
 
