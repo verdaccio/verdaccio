@@ -28,6 +28,9 @@
     "@verdaccio/server": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0"
   },
+  "devDependencies": {
+    "@verdaccio/types": "9.7.0"
+  },
   "publishConfig": {
     "access": "public"
   },
