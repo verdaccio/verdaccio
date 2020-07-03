@@ -14,7 +14,7 @@ import { logger} from '@verdaccio/logger';
 import { getListListenAddresses, resolveConfigPath } from './cli-utils';
 import {displayExperimentsInfoBox} from "./experiments";
 
-function launchServer(app, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
+function launchServer(app, addr, config, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
   let webServer;
   if (addr.proto === 'https') {
     webServer = handleHTTPS(app, configPath, config);
@@ -50,7 +50,7 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
         displayExperimentsInfoBox(config.experiments);
       }
 
-      addresses.forEach(addr =>launchServer(app, addr, config, configPath, pkgName, pkgVersion, callback));
+      addresses.forEach(addr =>launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback));
     }
   );
 }
@@ -89,7 +89,7 @@ function logHTTPSWarning(storageLocation) {
   process.exit(2);
 }
 
-function handleHTTPS(app: express.Application, configPath: string, config: ConfigWithHttps): https.Server {
+function handleHTTPS(app: Application, configPath: string, config: ConfigWithHttps): https.Server {
   try {
     let httpsOptions = {
       secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
