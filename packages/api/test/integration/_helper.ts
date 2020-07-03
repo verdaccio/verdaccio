@@ -1,6 +1,7 @@
 import path from "path";
 import express, {Application} from 'express';
 import supertest from 'supertest';
+import bodyParser from 'body-parser';
 
 import {parseConfigFile}  from '@verdaccio/utils';
 import { Config } from '@verdaccio/config';
@@ -24,6 +25,7 @@ export async function initializeServer(configName): Promise<Application> {
 	const storage = new Storage(config);
 	await storage.init(config, []);
 	const auth: IAuth = new Auth(config);
+	app.use(bodyParser.json({ strict: false, limit: '10mb' }));
 	// @ts-ignore
 	app.use(errorReportingMiddleware);
 	// @ts-ignore
