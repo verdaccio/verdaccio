@@ -154,13 +154,13 @@ describe('startServer via API', () => {
       fs.writeFileSync(keyPath, key);
       fs.writeFileSync(certPath, cert);
 
-      const conf = config();
+      const conf = configExample();
       conf.https = {
         key: keyPath,
         cert: certPath,
       };
 
-      await startServer(conf, address, store, version, serverName,
+      await startVerdaccio(conf, address, store, version, serverName,
         (webServer, addrs) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();

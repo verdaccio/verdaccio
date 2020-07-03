@@ -23,12 +23,15 @@ import {
   generateRamdonStorage,
   verifyPackageVersionDoesExist,
   generateUnPublishURI,
-  generateDeprecateMetadata,
-  generateVersion,
 } from '@verdaccio/mock';
 
 import publishMetadata from './helpers/publish-api';
-import {generatePackageMetadata, generatePackageUnpublish, generateStarMedatada} from './helpers/utils';
+import {
+  generateDeprecateMetadata,
+  generatePackageMetadata,
+  generatePackageUnpublish,
+  generateStarMedatada, generateVersion
+} from './helpers/utils';
 
 setup([]);
 
