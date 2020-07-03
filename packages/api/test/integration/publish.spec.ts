@@ -58,7 +58,7 @@ describe('publish', () => {
 	describe('handle invalid publish formats', () => {
 		const pkgName = 'test';
 		const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
-		test('should fail on publish a bad _attachments package', async (done) => {
+		test.skip('should fail on publish a bad _attachments package', async (done) => {
 			const app = await initializeServer('publish.yaml');
 			return supertest(app)
 				.put(`/${encodeURIComponent(pkgName)}`)
