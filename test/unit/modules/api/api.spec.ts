@@ -914,7 +914,7 @@ describe('endpoint unit test', () => {
     describe('should test tarball url redirect', () => {
       const pkgName = 'testTarballPackage';
       const scopedPkgName = '@tarball_tester/testTarballPackage';
-      const credentials = { name: 'tarball_tester', password: 'secretPass' };
+      const tarballUrlRedirectCredentials = { name: 'tarball_tester', password: 'secretPass' };
       const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
       const mockServerPort = 55549;
       const baseTestConfig = configDefault({
@@ -942,7 +942,7 @@ describe('endpoint unit test', () => {
       }, 'api.spec.yaml');
       let token;
       beforeAll(async (done) => {
-        token = await getNewToken(request(app), credentials);
+        token = await getNewToken(request(app), tarballUrlRedirectCredentials);
         await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
         await putPackage(request(app), `/${scopedPkgName}`, generatePackageMetadata(scopedPkgName), token);
         done();
