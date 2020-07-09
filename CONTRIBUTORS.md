@@ -32,6 +32,7 @@
   <tr>
     <td align="center"><a href="https://github.com/monkeywithacupcake"><img src="https://avatars3.githubusercontent.com/u/7316730?v=4" width="100px;" alt=""/><br /><sub><b>jess</b></sub></a><br /><a href="https://github.com/verdaccio/verdaccio/commits?author=monkeywithacupcake" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/toolsofraj"><img src="https://avatars0.githubusercontent.com/u/2507152?v=4" width="100px;" alt=""/><br /><sub><b>toolsofraj</b></sub></a><br /><a href="https://github.com/verdaccio/verdaccio/commits?author=toolsofraj" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ddhp"><img src="https://avatars1.githubusercontent.com/u/1715380?v=4" width="100px;" alt=""/><br /><sub><b>Jian-Chen Chen (jesse)</b></sub></a><br /><a href="#translation-ddhp" title="Translation">🌍</a> <a href="https://github.com/verdaccio/verdaccio/commits?author=ddhp" title="Code">💻</a></td>
   </tr>
 </table>
 

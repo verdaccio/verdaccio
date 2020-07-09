@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2.3.1
 
       - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v2.1.0
         with:
           node-version: 10.x
       - name: Install Dependencies
@@ -43,10 +43,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2.3.1
 
       - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v2.1.0
         with:
           node-version: 10.x
       - name: 'install latest npm'
@@ -76,10 +76,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2.3.1
 
       - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v2.1.0
         with:
           node-version: 10.x
       - name: 'install latest pnpm'

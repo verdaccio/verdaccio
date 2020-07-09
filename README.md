@@ -45,11 +45,6 @@ Verdaccio is run by **volunteers**; nobody is working full-time on it. If you fi
 
 **[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from *$1/month* or just one single contribution.
 
-## Next Talk
-
-[
-![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/openjs-world-hd-horizontal.png)](https://openjsworld2020.sched.com/event/bwIo?iframe=no)
-
 ## What does Verdaccio do for me?
 
 ### Use private packages
@@ -77,14 +72,16 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-Do not miss our talk (Introduction to Verdaccio) with [@priscilawebdev](https://twitter.com/priscilawebdev) and [@jotadeveloper](https://twitter.com/jotadeveloper) on stage.
+Don't miss the last talk at **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
 
-[![viennajs-meetup](https://cdn.verdaccio.dev/readme/youtube_meetup_viennajs.png?source=readme)](https://www.youtube.com/watch?v=hDIFKzmoCaA)
+[![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/youtube_openjsword_2020.png)](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 
-You might want to check out our latest talks:
 
-* [Open Source? trivago | Verdaccio (Ayush and Juan) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
-* [GitNation Open Source Stage: How we have built a Node.js Registry with React - Juan Picado December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)
+You might want to check out as well our previous talks: 
+
+* [ViennaJS Meetup - Introduction to Verdaccio by **Priscila Olivera** and **Juan Picado**](https://www.youtube.com/watch?v=hDIFKzmoCa)
+* [Open Source? trivago - Verdaccio (**Ayush** and **Juan Picado**) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
+* [GitNation Open Source Stage - How we have built a Node.js Registry with React - **Juan Picado** December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)
 
 ## Get Started
 
