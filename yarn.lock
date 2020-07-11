@@ -2293,10 +2293,10 @@
     lodash "4.17.19"
     mkdirp "0.5.5"
 
-"@verdaccio/readme@9.7.0", "@verdaccio/readme@^9.3.3":
-  version "9.7.0"
-  resolved "https://registry.npmjs.org/@verdaccio/readme/-/readme-9.7.0.tgz#5e6df8a6a4ab730f8f515ee7feba08bd4e48b235"
-  integrity sha512-Q7dSqfIUR9EhLQ9dyYQMxY7SydgDYnlwMR6IXVek87Z38yxDi6v4r/hN+OEtndUCfcsvt/smBcw1DraXO2t0cQ==
+"@verdaccio/readme@9.7.1", "@verdaccio/readme@^9.3.3":
+  version "9.7.1"
+  resolved "https://registry.npmjs.org/@verdaccio/readme/-/readme-9.7.1.tgz#81a38c2cb06952e89b2b0ad750f04a9da5a827bc"
+  integrity sha512-QzUfIv5q847sG6VFO+R+2acj62lFKauhCXcxujnbUZZ/F6DNLYT1argkTClsIEcwGUFbldX9IZdHmyfZSO9EhQ==
   dependencies:
     dompurify "2.0.8"
     jsdom "15.2.1"
