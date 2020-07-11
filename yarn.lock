@@ -2155,12 +2155,12 @@
     babel-plugin-dynamic-import-node "2.3.3"
     babel-plugin-emotion "10.0.29"
 
-"@verdaccio/commons-api@9.6.1", "@verdaccio/commons-api@^9.3.2", "@verdaccio/commons-api@^9.4.0", "@verdaccio/commons-api@^9.6.1":
-  version "9.6.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-9.6.1.tgz#f62d1e0d7e55f19c483989f718ed2df2bf55ae3a"
-  integrity sha512-wGwDOxWkWjOcxCpwUvAqY+v24I9BRTB5L8xcbE+drpF4gL5q/wN+yzBgxCtkBh/nchOALxRC93JrE3IgVTu3iA==
+"@verdaccio/commons-api@9.7.1", "@verdaccio/commons-api@^9.3.2", "@verdaccio/commons-api@^9.4.0", "@verdaccio/commons-api@^9.6.1":
+  version "9.7.1"
+  resolved "https://registry.npmjs.org/@verdaccio/commons-api/-/commons-api-9.7.1.tgz#816f08eb6cb0dbe345f2546428c837be6804796d"
+  integrity sha512-s2uD3s325C0UsQ9uQTmf15dXFsGVo23IM6pSUTukCRuurCok89e/k1Adz2CaoXpEu1qpxQ6Sv0dcNpGl7Q7hwQ==
   dependencies:
-    http-errors "1.7.3"
+    http-errors "1.8.0"
     http-status-codes "1.4.0"
 
 "@verdaccio/eslint-config@^8.5.0":
@@ -5098,6 +5098,17 @@ http-errors@1.7.3, http-errors@~1.7.2:
     depd "~1.1.2"
     inherits "2.0.4"
     setprototypeof "1.1.1"
+    statuses ">= 1.5.0 < 2"
+    toidentifier "1.0.0"
+
+http-errors@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.npmjs.org/http-errors/-/http-errors-1.8.0.tgz#75d1bbe497e1044f51e4ee9e704a62f28d336507"
+  integrity sha512-4I8r0C5JDhT5VkvI47QktDW75rNlGVsUf/8hzjCC/wkWI/jdTRmBb9aI7erSG82r1bjKY3F6k28WnsVxB1C73A==
+  dependencies:
+    depd "~1.1.2"
+    inherits "2.0.4"
+    setprototypeof "1.2.0"
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
 
@@ -8552,6 +8563,11 @@ setprototypeof@1.1.1:
   version "1.1.1"
   resolved "https://registry.verdaccio.org/setprototypeof/-/setprototypeof-1.1.1.tgz#7e95acb24aa92f5885e0abef5ba131330d4ae683"
   integrity sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
+
+setprototypeof@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
+  integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
 shebang-command@^1.2.0:
   version "1.2.0"
