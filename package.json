@@ -92,7 +92,7 @@
     "puppeteer": "1.8.0",
     "rimraf": "3.0.2",
     "selfsigned": "1.10.7",
-    "standard-version": "8.0.0",
+    "standard-version": "8.0.1",
     "supertest": "4.0.2",
     "typescript": "3.7.5",
     "verdaccio": "^4.5.1",
