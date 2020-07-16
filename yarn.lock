@@ -2007,10 +2007,10 @@
   resolved "https://registry.verdaccio.org/@types%2fjson-schema/-/json-schema-7.0.3.tgz#bdfd69d61e464dcc81b25159c270d75a73c1a636"
   integrity sha512-Il2DtDVRGDcqjDtE+rF8iqg1CArehSK84HZJCT7AMITlyXRBpuPhqGLDQMowraqqu1coEaimg4ZOqggt6L6L+A==
 
-"@types/lodash@4.14.149":
-  version "4.14.149"
-  resolved "https://registry.verdaccio.org/@types%2flodash/-/lodash-4.14.149.tgz#1342d63d948c6062838fbf961012f74d4e638440"
-  integrity sha512-ijGqzZt/b7BfzcK9vTrS6MFljQRPn5BFWOx8oE0GYxribu6uV+aA9zZuXI1zc/etK9E8nrgdoF2+LgUw7+9tJQ==
+"@types/lodash@4.14.157":
+  version "4.14.157"
+  resolved "https://registry.verdaccio.org/@types%2flodash/-/lodash-4.14.157.tgz#fdac1c52448861dfde1a2e1515dbc46e54926dc8"
+  integrity sha512-Ft5BNFmv2pHDgxV5JDsndOWTRJ+56zte0ZpYLowp03tW+K+t8u8YMOzAnpuqPgzX6WO1XpDIUm7u04M8vdDiVQ==
 
 "@types/mime@*", "@types/mime@2.0.1":
   version "2.0.1"
@@ -2278,7 +2278,7 @@
   dependencies:
     lockfile "1.0.4"
 
-"@verdaccio/file-locking@^9.6.1", "@verdaccio/file-locking@^9.7.1":
+"@verdaccio/file-locking@^9.7.1":
   version "9.7.1"
   resolved "https://registry.npmjs.org/@verdaccio/file-locking/-/file-locking-9.7.1.tgz#edf793ce858dc3e4357258daf89d70259e7be2dc"
   integrity sha512-vFV9PXEgAXzbaVvPgnAvzvWvDhOqD/O5LV48W6I4f0VD6IDgAYwROW1p1R0TqFxeJTVUKzqVXvNbmB4zB29V3w==
@@ -2307,12 +2307,7 @@
     jsdom "15.2.1"
     marked "0.7.0"
 
-"@verdaccio/streams@9.6.1":
-  version "9.6.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fstreams/-/streams-9.6.1.tgz#2ab565743c093d7a2f8834c62f37dfc36f2a4d5b"
-  integrity sha512-P4DFWvB9BNCDAh/sYPr59JW8N9uxAtlIx0Xa0vobxy+4cvvmP9lrMbeK4liH5yKJmwKmiEIZ6SxfTKR/MqbOpw==
-
-"@verdaccio/streams@^9.3.2", "@verdaccio/streams@^9.4.0", "@verdaccio/streams@^9.7.1":
+"@verdaccio/streams@9.7.1", "@verdaccio/streams@^9.3.2", "@verdaccio/streams@^9.4.0", "@verdaccio/streams@^9.7.1":
   version "9.7.1"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-9.7.1.tgz#dea568efbe7e93618f61b6846b419e527e621859"
   integrity sha512-zs0YNfK8isiJQrcM9EGjFNbgTQ+HU7oUzGYxXsx/MA9JGAkSIAoAmf6ndRrzeSLUVF9/MyTufP8BCH3Z9Vf1aQ==
@@ -2322,7 +2317,12 @@
   resolved "https://registry.npmjs.org/@verdaccio/types/-/types-9.7.0.tgz#6ec72aee7be2617c609cd736cb6e7b70cc5199c7"
   integrity sha512-QeijEgVBVRTGyOteIl+RD4aiEbiUM1SkN7UAjZxhwns0o2YebdO+Z2iphmx0EZdo4STnWLuGSRlJexTaU/+lDQ==
 
-"@verdaccio/ui-theme@1.12.0", "@verdaccio/ui-theme@^1.0.0":
+"@verdaccio/ui-theme@1.12.1":
+  version "1.12.1"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fui-theme/-/ui-theme-1.12.1.tgz#5bfc6ed1a222cec0b8d92ac933c3c976dbce2f3e"
+  integrity sha512-J9UEf6MkKugeq5sFhDfqPPGNy4dTSf3fVYK3Q2hGFQiKXvOw7hqovjz6PVOJRNMymBXb2fJuMPIXx1Br3kwD2Q==
+
+"@verdaccio/ui-theme@^1.0.0":
   version "1.12.0"
   resolved "https://registry.npmjs.org/@verdaccio/ui-theme/-/ui-theme-1.12.0.tgz#67877460a588697d922b7200478b9e4a090133df"
   integrity sha512-9TxM0KsQRBzefkk2I0glnn11klhuQGOMAQ+VJzlznCB0p4k/+AIBKD38t6YNdg0kruZZ6blE+ZZ6mLf2AuaCmw==
@@ -3028,13 +3028,13 @@ bunyan@1.8.12:
     mv "~2"
     safe-json-stringify "~1"
 
-bunyan@1.8.13:
-  version "1.8.13"
-  resolved "https://registry.yarnpkg.com/bunyan/-/bunyan-1.8.13.tgz#dde6bacd9ebccaedb110f1319f88db3f415ccfeb"
-  integrity sha512-4zO4iMxZeCpf+95ERsr83nwQr11o1KY2FLhX4wZ6kPXieIVYL3k9eX+N6vbHhFEK5h5O/qCQpfXt7N9VBAIvCA==
+bunyan@1.8.14:
+  version "1.8.14"
+  resolved "https://registry.verdaccio.org/bunyan/-/bunyan-1.8.14.tgz#3d8c1afea7de158a5238c7cb8a66ab6b38dd45b4"
+  integrity sha512-LlahJUxXzZLuw/hetUQJmRgZ1LF6+cr5TPpRj6jf327AsiIq2jhYEH4oqUUkVKTor+9w2BT3oxVwhzE5lw9tcg==
   optionalDependencies:
     dtrace-provider "~0.8"
-    moment "^2.10.6"
+    moment "^2.19.3"
     mv "~2"
     safe-json-stringify "~1"
 
@@ -5217,7 +5217,7 @@ http-errors@1.7.3, http-errors@~1.7.2:
 
 http-errors@1.8.0:
   version "1.8.0"
-  resolved "https://registry.npmjs.org/http-errors/-/http-errors-1.8.0.tgz#75d1bbe497e1044f51e4ee9e704a62f28d336507"
+  resolved "https://registry.verdaccio.org/http-errors/-/http-errors-1.8.0.tgz#75d1bbe497e1044f51e4ee9e704a62f28d336507"
   integrity sha512-4I8r0C5JDhT5VkvI47QktDW75rNlGVsUf/8hzjCC/wkWI/jdTRmBb9aI7erSG82r1bjKY3F6k28WnsVxB1C73A==
   dependencies:
     depd "~1.1.2"
@@ -6240,6 +6240,14 @@ js-yaml@3.13.1, js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+js-yaml@3.14.0:
+  version "3.14.0"
+  resolved "https://registry.verdaccio.org/js-yaml/-/js-yaml-3.14.0.tgz#a7a34170f26a21bb162424d8adacb4113a69e482"
+  integrity sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A==
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.verdaccio.org/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -6429,10 +6437,10 @@ kleur@3.0.3, kleur@^3.0.2:
   resolved "https://registry.verdaccio.org/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-kleur@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.verdaccio.org/kleur/-/kleur-4.0.1.tgz#3d4948534b666e2578f93b6fafb62108e64f05ef"
-  integrity sha512-Qs6SqCLm63rd0kNVh+wO4XsWLU6kgfwwaPYsLiClWf0Tewkzsa6MvB21bespb8cz+ANS+2t3So1ge3gintzhlw==
+kleur@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.verdaccio.org/kleur/-/kleur-4.0.2.tgz#57b36cc5235601f824c33e6e45db10cd5493dbf5"
+  integrity sha512-FGCCxczbrZuF5CtMeO0xfnjhzkVZSXfcWK90IPLucDWZwskrpYN7pmRIgvd8muU0mrPrzy4A2RBGuwCjLHI+nw==
 
 level-codec@^9.0.0:
   version "9.0.1"
@@ -6794,14 +6802,9 @@ lodash@4.17.15:
   resolved "https://registry.verdaccio.org/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-lodash@4.17.16:
-  version "4.17.16"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.16.tgz#34fa1571037ea4b35b2726932961eafedad3058e"
-  integrity sha512-mzxOTaU4AsJhnIujhngm+OnA6JX4fTI8D5H26wwGd+BJ57bW70oyRwTqo6EFJm1jTZ7hCo7yVzH1vB8TMFd2ww==
-
 lodash@4.17.19, lodash@^4.11.2, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.2.1:
   version "4.17.19"
-  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  resolved "https://registry.verdaccio.org/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^1.0.2:
@@ -7211,6 +7214,11 @@ moment@^2.10.6:
   version "2.24.0"
   resolved "https://registry.verdaccio.org/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
+moment@^2.19.3:
+  version "2.27.0"
+  resolved "https://registry.verdaccio.org/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
+  integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
 
 ms@2.0.0:
   version "2.0.0"
@@ -8772,7 +8780,7 @@ setprototypeof@1.1.1:
 
 setprototypeof@1.2.0:
   version "1.2.0"
-  resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
+  resolved "https://registry.verdaccio.org/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
 shebang-command@^1.2.0:
@@ -9750,10 +9758,10 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.verdaccio.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-verdaccio-audit@9.6.1:
-  version "9.6.1"
-  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-9.6.1.tgz#aa18ffeb23923df56399ef3f0d7aa20ffb10e03e"
-  integrity sha512-dyYeGhg+HfLFgTMJEV7usJ46xQix9SU566XIi278IlYFmBkFe6SsmiZUHKaL3pbq8K9ESQYNCyYkZW29QMpcIg==
+verdaccio-audit@9.7.1:
+  version "9.7.1"
+  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-9.7.1.tgz#45b76addcccf8f2005acc6f07cc7799111cbc06a"
+  integrity sha512-yGvhxOeQjh+DfQwIZpR7j5nmtDQ+O9vp2u5MrpKztd38F7ohI+PZjtLPWd3b71qoZwMXkzTNfB9zHqP2C8fr4A==
   dependencies:
     express "4.17.1"
     request "2.88.0"
@@ -9773,15 +9781,15 @@ verdaccio-auth-memory@^9.4.0:
   dependencies:
     "@verdaccio/commons-api" "^9.4.0"
 
-verdaccio-htpasswd@9.6.1:
-  version "9.6.1"
-  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-9.6.1.tgz#7c4d881c1c45d517f840d7333f1ef18a3bc8f066"
-  integrity sha512-UVUm3lt0JNJk02rKd2VBqpfVDwDlRfGyTQLwBuZfdnD/qmGrTzqKcnXAsG6zwlPo64Js5ZTvGi1/QeAgG4GjxA==
+verdaccio-htpasswd@9.7.1:
+  version "9.7.1"
+  resolved "https://registry.verdaccio.org/verdaccio-htpasswd/-/verdaccio-htpasswd-9.7.1.tgz#999c99227cbf94f2f08ec280798e396e87ef9e11"
+  integrity sha512-LeyGRfN01HgOY4srkftOwpVAfOEfPvWo5UJ8L1qAmqr3pY07ZNFnDRDl1H4PTZ9LTi+mUdo9ppIPfHssrr8r9g==
   dependencies:
-    "@verdaccio/file-locking" "^9.6.1"
+    "@verdaccio/file-locking" "^9.7.1"
     apache-md5 "1.1.2"
     bcryptjs "2.4.3"
-    http-errors "1.7.3"
+    http-errors "1.8.0"
     unix-crypt-td-js "1.1.4"
 
 verdaccio-htpasswd@^8.5.0:
