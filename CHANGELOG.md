@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/verdaccio/verdaccio/compare/v4.7.2...v4.8.0) (2020-07-16)
+
+
+### Features
+
+* **deps:** bump @verdaccio/ui-theme from 1.11.0 to 1.12.0 ([#1872](https://github.com/verdaccio/verdaccio/issues/1872)) ([0348bf6](https://github.com/verdaccio/verdaccio/commit/0348bf6b5da86d80ed1af1572dae734b894156b6))
+* ca certificate is optional for https configuration ([#1853](https://github.com/verdaccio/verdaccio/issues/1853)) ([912482a](https://github.com/verdaccio/verdaccio/commit/912482a5ae7c81aff4dc127cc6d4dc69f4133b70))
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1876](https://github.com/verdaccio/verdaccio/issues/1876)) ([e374a62](https://github.com/verdaccio/verdaccio/commit/e374a6248be972b1914b08e16cade949ea12b3cb))
+* revert move bodyParse to the upper level ([#1841](https://github.com/verdaccio/verdaccio/issues/1841)) ([#1877](https://github.com/verdaccio/verdaccio/issues/1877)) ([844267c](https://github.com/verdaccio/verdaccio/commit/844267ce257984f07dc552a671623a177febd5b4))
+* update dependencies ([#1878](https://github.com/verdaccio/verdaccio/issues/1878)) ([3c48670](https://github.com/verdaccio/verdaccio/commit/3c4867059a0a929439b8715ca4dd2c38d7e22322))
+
 ### [4.7.2](https://github.com/verdaccio/verdaccio/compare/v4.7.1...v4.7.2) (2020-06-26)
 
 
