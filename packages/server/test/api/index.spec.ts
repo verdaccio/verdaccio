@@ -1,6 +1,6 @@
+import path from 'path';
 import request from 'supertest';
 import _ from 'lodash';
-import path from 'path';
 
 import endPointAPI from '@verdaccio/server';
 import {

@@ -1,9 +1,9 @@
 import zlib from 'zlib';
+import Stream, { Readable } from 'stream';
+import URL, {UrlWithStringQuery} from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
-import Stream, { Readable } from 'stream';
-import URL, {UrlWithStringQuery} from 'url';
 import { parseInterval, isObject, ErrorCode, buildToken } from '@verdaccio/utils';
 import { ReadTarball } from '@verdaccio/streams';
 import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from '@verdaccio/dev-commons';

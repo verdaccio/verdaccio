@@ -1,6 +1,5 @@
 {
   "extends": [
-    "@verdaccio",
     "plugin:react/recommended",
     "plugin:jest/recommended",
     "plugin:prettier/recommended",

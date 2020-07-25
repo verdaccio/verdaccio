@@ -39,5 +39,7 @@ jobs:
       run: yarn clean
     - name: Build
       run: yarn build
+    - name: Check TS
+      run: yarn check:ts
     - name: Test
       run: yarn test

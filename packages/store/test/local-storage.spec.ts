@@ -1,5 +1,5 @@
-import rimRaf from 'rimraf';
 import path from 'path';
+import rimRaf from 'rimraf';
 
 import { LocalStorage } from '@verdaccio/store/src/local-storage';
 import {Config as AppConfig } from '@verdaccio/config';
@@ -8,13 +8,13 @@ import { logger, setup} from '@verdaccio/logger';
 import { configExample, generateNewVersion } from '@verdaccio/mock';
 import {IStorage} from '@verdaccio/dev-types';
 
-import {generatePackageTemplate} from '../src/storage-utils';
-import {readFile} from './fixtures/test.utils';
 
 const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
 import {Config, MergeTags, Package} from '@verdaccio/types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '@verdaccio/dev-commons';
 import { VerdaccioError } from '@verdaccio/commons-api';
+import {generatePackageTemplate} from '../src/storage-utils';
+import {readFile} from './fixtures/test.utils';
 
 setup([]);
 

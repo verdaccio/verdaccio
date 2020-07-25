@@ -68,6 +68,9 @@ jobs:
       - run:
           name: Build project
           command: yarn build
+      - run:
+          name: Build project
+          command: yarn ts:check
       - save_cache:
           key: *yarn_cache_key
           paths:

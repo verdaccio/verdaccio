@@ -1,4 +1,4 @@
-import { API_ERROR, certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
+import { certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
 
 import {resolveConfigPath} from "./cli-utils";
 

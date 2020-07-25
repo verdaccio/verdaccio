@@ -34,8 +34,6 @@
     "react-twitter-widgets": "^1.7.1"
   },
   "devDependencies": {
-    "@hot-loader/react-dom": "^16.13.0",
-    "@types/react-helmet": "^5.0.15",
     "@typescript-eslint/eslint-plugin": "2.28.0",
     "@typescript-eslint/parser": "2.28.0",
     "@verdaccio/eslint-config": "^10.0.0-next.1",
@@ -48,8 +46,10 @@
     "eslint-plugin-simple-import-sort": "5.0.2",
     "eslint-plugin-verdaccio": "8.4.2",
     "lint-staged": "10.1.4",
-    "lisan-cli": "^0.1.1",
-    "prettier": "2.0.4"
+    "@hot-loader/react-dom": "^16.13.0",
+    "prettier": "2.0.4",
+    "@types/react-helmet": "^5.0.15",
+    "lisan-cli": "^0.1.1"
   },
   "keywords": [
     "gatsby",
@@ -65,7 +65,7 @@
     "clean": "gatsby clean",
     "serve": "gatsby serve",
     "develop": "gatsby develop",
-    "lint": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx --quiet --fix"
+    "lintdf": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx --quiet --fix"
   },
   "repository": {
     "type": "git",

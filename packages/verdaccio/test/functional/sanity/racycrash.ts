@@ -28,7 +28,7 @@ export default function(server, express) {
       });
     });
 
-    test('should not crash on error if client disconnects', callback => {
+    test('should not crash on error if client disconnects', () => {return new Promise(callback => {
       handleResponseTarball = function(res) {
         res.header(HEADER_TYPE.CONTENT_LENGTH, 1e6);
         res.write('test test test');
@@ -53,7 +53,7 @@ export default function(server, express) {
             callback();
           });
       }
-    });
+    });});
 
     test('should not store tarball', () => {
       handleResponseTarball = function(res) {

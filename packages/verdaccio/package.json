@@ -37,6 +37,7 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
+    "@verdaccio/node-api": "5.0.0-alpha.0",
     "@verdaccio/cli": "5.0.0-alpha.0"
   },
   "keywords": [

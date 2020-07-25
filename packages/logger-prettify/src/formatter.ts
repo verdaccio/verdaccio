@@ -18,6 +18,7 @@ export interface ObjectTemplate {
   level: LevelCode;
   msg: string;
   sub?: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   [key: string]: string | number | object | null | void;
 };
 
@@ -38,6 +39,7 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
     for (let property = 0; property < listAccessors.length; property++) {
       const id = listAccessors[property];
       if (isObject(str)) {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         str = (str as object)[id];
       }
     }
@@ -50,7 +52,7 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
       }
       return green(str);
     }
-    
+
     // object, showHidden, depth, colors
     return inspect(str, undefined, null, colors);
   });

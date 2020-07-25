@@ -23,6 +23,7 @@
     "build": "npm run build:js && npm run build:types"
   },
   "dependencies": {
+    "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",

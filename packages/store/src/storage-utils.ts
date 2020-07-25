@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import { SearchInstance } from './search';
 
 import { ErrorCode, isObject, normalizeDistTags, semverSort, generateRandomHexString } from '@verdaccio/utils';
 
 import { Package, Version, Author } from '@verdaccio/types';
 import { IStorage } from '@verdaccio/dev-types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from '@verdaccio/dev-commons';
+import { SearchInstance } from './search';
 
 export function generatePackageTemplate(name: string): Package {
   return {

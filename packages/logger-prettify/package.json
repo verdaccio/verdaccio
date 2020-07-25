@@ -18,7 +18,7 @@
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "type-check": "tsc --noEmit",
-    "lint": "yarn type-check && eslint \"@(src|tests)/**\"",
+    "lint": "eslint \"@(src|tests)/**\"",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "npm run build:js && npm run build:types"

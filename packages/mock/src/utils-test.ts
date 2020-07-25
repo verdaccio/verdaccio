@@ -1,8 +1,8 @@
-import { Version } from "@verdaccio/types";
 import fs from "fs";
 import path from "path";
 import os from "os";
 import { pseudoRandomBytes } from 'crypto';
+import { Version } from "@verdaccio/types";
 
 export function generateRamdonStorage() {
   const tempStorage = pseudoRandomBytes(5).toString('hex');

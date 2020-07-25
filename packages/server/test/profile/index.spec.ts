@@ -1,5 +1,5 @@
-import request from 'supertest';
 import path from 'path';
+import request from 'supertest';
 
 import endPointAPI from '@verdaccio/server';
 import {mockServer} from '@verdaccio/mock';

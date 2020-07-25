@@ -1,5 +1,5 @@
-import request from 'supertest';
 import path from 'path';
+import request from 'supertest';
 import _ from 'lodash';
 
 import endPointAPI from '@verdaccio/server';

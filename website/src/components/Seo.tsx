@@ -49,7 +49,7 @@ const Seo: FC<SeoProps> = ({ desc, title }) => {
       <meta content="index,follow" name="robots" />
       <meta
         content={keywordExtractor
-          // eslint-disable-next-line @typescript-eslint/camelcase, camelcase
+          // eslint-disable-next-line @typescript-eslint/camelcas, camelcase
           .extract(desc, { remove_duplicates: true })
           .join(',')}
         name="keywords"

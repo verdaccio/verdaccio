@@ -1,10 +1,10 @@
-import { assign, isObject, isFunction } from 'lodash';
 import URL from 'url';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import { Application } from 'express';
 import constants from 'constants';
+import { Application } from 'express';
+import { assign, isObject, isFunction } from 'lodash';
 
 import { Callback,  ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { API_ERROR, certPem, csrPem, keyPem } from '@verdaccio/dev-commons';

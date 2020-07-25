@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import bodyParser from 'body-parser';
-import addUserAuthApi from './endpoint/user';
-import addPackageWebApi from './endpoint/package';
-import addSearchWebApi from './endpoint/search';
 
 import { SearchInstance } from '@verdaccio/store';
 import { match, validateName, validatePackage, setSecurityWebHeaders } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
 import { IAuth, IStorageHandler } from '@verdaccio/dev-types';
+import addSearchWebApi from './endpoint/search';
+import addPackageWebApi from './endpoint/package';
+import addUserAuthApi from './endpoint/user';
 
 const route = Router(); /* eslint new-cap: 0 */
 
