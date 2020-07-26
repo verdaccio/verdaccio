@@ -1,3 +1,6 @@
+import { API_ERROR, ROLES } from "@verdaccio/dev-commons";
+import { VerdaccioError, getForbidden } from "@verdaccio/commons-api";
+import { Config, IPluginAuth } from '@verdaccio/types';
 import {
 	allow_action,
 	createAnonymousRemoteUser,
@@ -9,9 +12,6 @@ import {
 	createSessionToken,
 	getAuthenticatedMessage,
 } from "../src";
-import { API_ERROR, ROLES } from "@verdaccio/dev-commons";
-import { VerdaccioError, getForbidden } from "@verdaccio/commons-api";
-import { Config, IPluginAuth } from '@verdaccio/types';
 jest.mock('@verdaccio/logger', () => ({
 	logger: { trace: jest.fn() }
 }));

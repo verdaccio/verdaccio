@@ -15,6 +15,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
+    "@verdaccio/commons-api": "^9.7.1",
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/readme": "9.6.1",
     "js-yaml": "3.13.1",

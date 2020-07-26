@@ -1,6 +1,7 @@
 import fs from 'fs';
 import assert from 'assert';
 import URL from 'url';
+import { IncomingHttpHeaders } from 'http';
 import _ from 'lodash';
 import semver from 'semver';
 import YAML from 'js-yaml';
@@ -33,7 +34,6 @@ import {
   getCode,
 } from '@verdaccio/commons-api';
 
-import { IncomingHttpHeaders } from 'http';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -314,7 +314,7 @@ export function normalizeDistTags(pkg: Package): void {
   if (!pkg[DIST_TAGS].latest) {
     // overwrite latest with highest known version based on semver sort
     sorted = semverSort(Object.keys(pkg.versions));
-    if (sorted && sorted.length) {
+    if (sorted?.length) {
       pkg[DIST_TAGS].latest = sorted.pop();
     }
   }

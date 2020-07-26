@@ -1,5 +1,5 @@
-import request from 'supertest';
 import path from 'path';
+import request from 'supertest';
 
 import endPointAPI from '@verdaccio/server';
 import {HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC, API_ERROR} from '@verdaccio/dev-commons';

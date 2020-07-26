@@ -1,3 +1,4 @@
+import path from "path";
 import _ from 'lodash';
 import { Auth } from '@verdaccio/auth';
 import {CHARACTER_ENCODING, TOKEN_BEARER} from '@verdaccio/dev-commons';
@@ -19,15 +20,14 @@ import {
   signPayload
 } from '@verdaccio/utils';
 
+
+import { IAuth } from '@verdaccio/dev-types';
+import {Config, Security, RemoteUser} from '@verdaccio/types';
 import {
   getMiddlewareCredentials,
   getApiToken,
   verifyJWTPayload,
   getSecurity } from '../src'
-
-import { IAuth } from '@verdaccio/dev-types';
-import {Config, Security, RemoteUser} from '@verdaccio/types';
-import path from "path";
 
 setup([]);
 

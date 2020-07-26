@@ -1,3 +1,7 @@
+
+import fs from "fs";
+import path from "path";
+import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/dev-commons';
 import {
   spliceURL,
   validateName,
@@ -14,10 +18,6 @@ import {
   formatAuthor,
   isHTTPProtocol,
 } from '../src/index';
-
-import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/dev-commons';
-import fs from "fs";
-import path from "path";
 
 
 const readmeFile = (fileName = 'markdown.md') => {

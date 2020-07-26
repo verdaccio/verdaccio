@@ -873,7 +873,7 @@ class LocalStorage implements IStorage {
     return this.storagePlugin.deleteToken(user, tokenKey);
   }
 
-  public readTokens(filter: TokenFilter): Promise<Array<Token>> {
+  public readTokens(filter: TokenFilter): Promise<Token[]> {
     if (_.isFunction(this.storagePlugin.readTokens) === false) {
       return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }

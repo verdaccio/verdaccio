@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 
-import { notifyRequest } from './notify-request';
 import { OptionsWithUrl } from 'request';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
+import { notifyRequest } from './notify-request';
 
 type TemplateMetadata = Package & { publishedPackage: string };
 

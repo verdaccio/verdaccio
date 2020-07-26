@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@verdaccio/config": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/node-api": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "commander": "5.1.0",
