@@ -22,7 +22,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "9.7.1",
     "@verdaccio/local-storage": "9.7.1",
-    "@verdaccio/readme": "9.7.1",
+    "@verdaccio/readme": "9.7.2",
     "@verdaccio/streams": "9.7.1",
     "@verdaccio/ui-theme": "1.12.1",
     "JSONStream": "1.3.5",
