@@ -2318,9 +2318,9 @@
   integrity sha512-SoCG1btVFPxOcrs8w9wLJCfe8nfE6EaEXCXyRwGbh+Sr3NLEG0R8JOugGJbuSE+zIRuUs5JaUKjzSec+JKLvZw==
 
 "@verdaccio/types@^9.7.0":
-  version "9.7.0"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-9.7.0.tgz#6ec72aee7be2617c609cd736cb6e7b70cc5199c7"
-  integrity sha512-QeijEgVBVRTGyOteIl+RD4aiEbiUM1SkN7UAjZxhwns0o2YebdO+Z2iphmx0EZdo4STnWLuGSRlJexTaU/+lDQ==
+  version "9.7.2"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-9.7.2.tgz#060b6b6c6c093c1007ba6bf14020575ade0645e2"
+  integrity sha512-zv8sMrghtrzkxfo+IOojZYk/j4D5kmF/DMwXS9GnmObTM2nAOTsBzlOxHHBdHaiOK+cntw2YRYQJAebMG5J5sA==
 
 "@verdaccio/ui-theme@1.12.1":
   version "1.12.1"
