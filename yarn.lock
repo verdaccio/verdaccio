@@ -2298,7 +2298,16 @@
     lodash "4.17.19"
     mkdirp "0.5.5"
 
-"@verdaccio/readme@9.7.1", "@verdaccio/readme@^9.3.3":
+"@verdaccio/readme@9.7.3":
+  version "9.7.3"
+  resolved "https://registry.verdaccio.org/@verdaccio%2freadme/-/readme-9.7.3.tgz#0d6e407883600c42e51f262971e7da8d525886e6"
+  integrity sha512-86Zv46Qpcx0d0YRutFPhPH4OhGSljUJyhkxk3H/bCzzw8hGEvM1Du2y8kzfAS9qUsX8Qux97vfxxz6+RpBdU1w==
+  dependencies:
+    dompurify "2.0.8"
+    jsdom "15.2.1"
+    marked "1.1.1"
+
+"@verdaccio/readme@^9.3.3":
   version "9.7.1"
   resolved "https://registry.npmjs.org/@verdaccio/readme/-/readme-9.7.1.tgz#81a38c2cb06952e89b2b0ad750f04a9da5a827bc"
   integrity sha512-QzUfIv5q847sG6VFO+R+2acj62lFKauhCXcxujnbUZZ/F6DNLYT1argkTClsIEcwGUFbldX9IZdHmyfZSO9EhQ==
@@ -6937,6 +6946,11 @@ marked@0.8.2:
   version "0.8.2"
   resolved "https://registry.verdaccio.org/marked/-/marked-0.8.2.tgz#4faad28d26ede351a7a1aaa5fec67915c869e355"
   integrity sha512-EGwzEeCcLniFX51DhTpmTom+dSA/MG/OBUDjnWtHbEnjAH180VzUeAw+oE4+Zv+CoYBWyRlYOTR0N8SO9R1PVw==
+
+marked@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.verdaccio.org/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
+  integrity sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
 
 matcher@^1.0.0:
   version "1.1.1"
