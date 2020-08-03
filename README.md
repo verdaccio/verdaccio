@@ -168,7 +168,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Unpublishing packages (npm unpublish) - **supported**
 - Tagging (npm tag) - **supported**
-- Deprecation (npm deprecate) - supported
+- Deprecation (npm deprecate) - **supported**
 
 ### User management
 
