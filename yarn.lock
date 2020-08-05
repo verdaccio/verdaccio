@@ -8473,7 +8473,7 @@ request@2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-request@^2.72.0, request@^2.88.0:
+request@2.88.2, request@^2.72.0, request@^2.88.0:
   version "2.88.2"
   resolved "https://registry.verdaccio.org/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
@@ -9767,13 +9767,13 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.verdaccio.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-verdaccio-audit@9.7.1:
-  version "9.7.1"
-  resolved "https://registry.verdaccio.org/verdaccio-audit/-/verdaccio-audit-9.7.1.tgz#45b76addcccf8f2005acc6f07cc7799111cbc06a"
-  integrity sha512-yGvhxOeQjh+DfQwIZpR7j5nmtDQ+O9vp2u5MrpKztd38F7ohI+PZjtLPWd3b71qoZwMXkzTNfB9zHqP2C8fr4A==
+verdaccio-audit@9.7.3:
+  version "9.7.3"
+  resolved "https://registry.npmjs.org/verdaccio-audit/-/verdaccio-audit-9.7.3.tgz#a31d0c63e9c050a9575431a82fbbc56a25a249e5"
+  integrity sha512-FDWafgDjvnTbJapQpd0c41FjrecR+iRHrnDi2gkAn4IJpiLCgXC6R5NdkXjDIekKEsou9PyQTsEdoHK7iDx+tQ==
   dependencies:
     express "4.17.1"
-    request "2.88.0"
+    request "2.88.2"
 
 verdaccio-audit@^8.5.0:
   version "8.5.2"
