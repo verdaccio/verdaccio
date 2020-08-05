@@ -9784,11 +9784,11 @@ verdaccio-audit@^8.5.0:
     request "2.88.0"
 
 verdaccio-auth-memory@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.verdaccio.org/verdaccio-auth-memory/-/verdaccio-auth-memory-9.4.0.tgz#180320aaed36ec85f06a321bbe90097656488b70"
-  integrity sha512-0G3CxYSnESFxlV8xP7kubMPEbKnLX9UOt/qwRsxBh42gqU9uvgOU0lvaf8eAzr+0Gi67EygmOi3o/hHWLyQrXg==
+  version "9.7.2"
+  resolved "https://registry.npmjs.org/verdaccio-auth-memory/-/verdaccio-auth-memory-9.7.2.tgz#e95ef1f64df9a0a30bcf727eb8f704c4033c945c"
+  integrity sha512-pxFGUk91kAJPrmjRIzHRn/cnLmyuN925nA1iH2Bf6kdP9E0uEGK/pRjMh8BuXWFLsGe9E6N7HR86cub1/qcrzA==
   dependencies:
-    "@verdaccio/commons-api" "^9.4.0"
+    "@verdaccio/commons-api" "^9.7.1"
 
 verdaccio-htpasswd@9.7.2:
   version "9.7.2"
