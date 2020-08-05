@@ -51,7 +51,7 @@
     "pkginfo": "0.4.1",
     "request": "2.88.0",
     "semver": "6.3.0",
-    "verdaccio-audit": "9.7.1",
+    "verdaccio-audit": "9.7.3",
     "verdaccio-htpasswd": "9.7.2"
   },
   "devDependencies": {
