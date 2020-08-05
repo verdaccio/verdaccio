@@ -52,7 +52,7 @@
     "request": "2.88.0",
     "semver": "6.3.0",
     "verdaccio-audit": "9.7.1",
-    "verdaccio-htpasswd": "9.7.1"
+    "verdaccio-htpasswd": "9.7.2"
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
