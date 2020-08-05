@@ -2316,7 +2316,7 @@
     jsdom "15.2.1"
     marked "0.7.0"
 
-"@verdaccio/streams@9.7.2", "@verdaccio/streams@^9.3.2", "@verdaccio/streams@^9.4.0", "@verdaccio/streams@^9.7.2":
+"@verdaccio/streams@9.7.2", "@verdaccio/streams@^9.3.2", "@verdaccio/streams@^9.7.2":
   version "9.7.2"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-9.7.2.tgz#cd5448470d725e221629adb84c74af7dfd8c9678"
   integrity sha512-SoCG1btVFPxOcrs8w9wLJCfe8nfE6EaEXCXyRwGbh+Sr3NLEG0R8JOugGJbuSE+zIRuUs5JaUKjzSec+JKLvZw==
@@ -6944,11 +6944,6 @@ marked@0.8.0:
 
 marked@1.1.1:
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
-  integrity sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
-
-marked@1.1.1:
-  version "1.1.1"
   resolved "https://registry.verdaccio.org/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
   integrity sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
 
@@ -9818,12 +9813,12 @@ verdaccio-htpasswd@^8.5.0:
     unix-crypt-td-js "1.1.4"
 
 verdaccio-memory@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.verdaccio.org/verdaccio-memory/-/verdaccio-memory-9.4.0.tgz#de6962b6f560d323ed507f2c4dbb135a8666d71f"
-  integrity sha512-quipKE1zzon6q7+uV3UHNfMuHDS16HTTS0yWl70NFo86db4voOK8iHkvMJIAMm9ynrqKW4AcXb/HC0aBkkTkDw==
+  version "9.7.2"
+  resolved "https://registry.npmjs.org/verdaccio-memory/-/verdaccio-memory-9.7.2.tgz#1a46f6b6086762dee6b05371f3a73d4cad045454"
+  integrity sha512-HKUbbgY147dOV4GhOoC/iVTl87RPVKN7dLX/EBSH23TwR/tClQdGduRLy9yeqc/0iouGc0GXm2IWK/1qoBuy4w==
   dependencies:
-    "@verdaccio/commons-api" "^9.4.0"
-    "@verdaccio/streams" "^9.4.0"
+    "@verdaccio/commons-api" "^9.7.1"
+    "@verdaccio/streams" "^9.7.2"
     memory-fs "0.5.0"
 
 verdaccio@^4.5.1:
