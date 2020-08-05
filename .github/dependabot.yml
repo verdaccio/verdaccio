@@ -19,6 +19,7 @@ updates:
       interval: "weekly"
     allow:   
       - dependency-name: "@verdaccio/*"
+      - dependency-name: "verdaccio-*"
     assignees:
       - "verdacciobot"
     labels:
