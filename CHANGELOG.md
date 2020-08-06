@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.1](https://github.com/verdaccio/verdaccio/compare/v4.8.0...v4.8.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1879](https://github.com/verdaccio/verdaccio/issues/1879)) ([7c50d87](https://github.com/verdaccio/verdaccio/commit/7c50d87c52287d29517f3f800f5ce4e5078f94fa))
+* package.json & yarn.lock to reduce vulnerabilities ([#1889](https://github.com/verdaccio/verdaccio/issues/1889)) ([5e94478](https://github.com/verdaccio/verdaccio/commit/5e94478387ca01a660b804dd35e76edbf5ea1ce1))
+* update readme library ([#1892](https://github.com/verdaccio/verdaccio/issues/1892)) ([f75ad87](https://github.com/verdaccio/verdaccio/commit/f75ad876fd6815d848688b7605c2c126e464a929))
+* upgrade docker base image nodejs ([#1895](https://github.com/verdaccio/verdaccio/issues/1895)) ([261eab5](https://github.com/verdaccio/verdaccio/commit/261eab5ca0567ab17fb06aff270214c634fbb74b))
+
 ## [4.8.0](https://github.com/verdaccio/verdaccio/compare/v4.7.2...v4.8.0) (2020-07-16)
 
 
