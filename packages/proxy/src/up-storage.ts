@@ -1,5 +1,5 @@
 import zlib from 'zlib';
-import Stream, { Readable } from 'stream';
+import Stream from 'stream';
 import URL, {UrlWithStringQuery} from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';

@@ -1,12 +1,12 @@
 import path from 'path';
 import rimRaf from 'rimraf';
 
-import { LocalStorage } from '@verdaccio/store/src/local-storage';
 import {Config as AppConfig } from '@verdaccio/config';
 // @ts-ignore
 import { logger, setup} from '@verdaccio/logger';
 import { configExample, generateNewVersion } from '@verdaccio/mock';
 import {IStorage} from '@verdaccio/dev-types';
+import { LocalStorage } from '../src/local-storage';
 
 
 const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();

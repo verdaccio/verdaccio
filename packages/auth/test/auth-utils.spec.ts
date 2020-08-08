@@ -1,6 +1,6 @@
 import path from "path";
 import _ from 'lodash';
-import { Auth } from '@verdaccio/auth';
+import { Auth } from '../src';
 import {CHARACTER_ENCODING, TOKEN_BEARER} from '@verdaccio/dev-commons';
 
 import { configExample } from '@verdaccio/mock';
@@ -48,6 +48,7 @@ describe('Auth utilities', () => {
 
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
+    // @ts-ignore
     const secConf= _.merge(configExample(), conf);
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);

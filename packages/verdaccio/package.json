@@ -22,7 +22,7 @@
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "npm run build:js && npm run build:types",
+    "build": "pnpm run build:js && pnpm run build:types",
     "code:build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
@@ -37,8 +37,15 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
+    "@verdaccio/hooks": "5.0.0-alpha.0",
+    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/mock": "5.0.0-alpha.0",
     "@verdaccio/node-api": "5.0.0-alpha.0",
     "@verdaccio/cli": "5.0.0-alpha.0"
+  },
+  "devDependencies": {
+    "@verdaccio/dev-commons": "workspace:*"
   },
   "keywords": [
     "private",

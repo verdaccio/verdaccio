@@ -1,6 +1,6 @@
 FROM node:12.18.0-alpine as builder
 
-ENV NODE_ENV=production \
+ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
 
 RUN apk --no-cache add openssl ca-certificates wget && \
@@ -12,12 +12,12 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
-    yarn install --production=false && \
-    yarn build && \
-    yarn lint && \
-    yarn cache clean && \
-    yarn install --production=true
+RUN npm -g i pnpm@latest && \
+    pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm recursive install --frozen-lockfile && \
+    pnpm run build && \
+    pnpm run lint && \
+    pnpm install --prod
 
 FROM node:12.18.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"

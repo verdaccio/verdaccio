@@ -1,12 +1,13 @@
 import path from 'path';
 import request from 'supertest';
 
-import endPointAPI from '@verdaccio/server';
 import {mockServer} from '@verdaccio/mock';
 import {API_ERROR, HTTP_STATUS, SUPPORT_ERRORS} from '@verdaccio/dev-commons';
 import {setup, logger} from '@verdaccio/logger';
 
 import {generateRamdonStorage, getNewToken, getProfile, postProfile, configExample, DOMAIN_SERVERS} from '@verdaccio/mock';
+
+import endPointAPI from '../../src';
 
 setup([]);
 

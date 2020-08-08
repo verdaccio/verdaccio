@@ -2,7 +2,6 @@ import path from 'path';
 import request from 'supertest';
 import _ from 'lodash';
 
-import endPointAPI from '@verdaccio/server';
 import {
   HEADERS,
   HTTP_STATUS,
@@ -32,6 +31,8 @@ import {
   generatePackageUnpublish,
   generateStarMedatada, generateVersion
 } from './helpers/utils';
+
+import endPointAPI from '../../src';
 
 setup([]);
 
