@@ -19,7 +19,7 @@ export default function initProgram(commander,  pkgVersion, pkgName) {
 		verdaccioConfiguration = parseConfigFile(configPathLocation);
 		const { web, https, self_path } = verdaccioConfiguration;
 
-		process.title = web && web.title || DEFAULT_PROCESS_NAME;
+		process.title = web?.title || DEFAULT_PROCESS_NAME;
 
 		// note: self_path is only being used by @verdaccio/storage , not really useful and migth be removed soon
 		if (!self_path) {
