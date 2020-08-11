@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 
-import {initializeServer } from './_helper';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 import {HEADER_TYPE, HEADERS} from '@verdaccio/dev-commons';
+import {initializeServer } from './_helper';
 
 describe('ping', () => {
 	test('should return the reply the ping', async () => {

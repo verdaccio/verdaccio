@@ -1,7 +1,7 @@
 import path from 'path';
-import selfsigned from 'selfsigned';
 import os from 'os';
 import fs from 'fs';
+import selfsigned from 'selfsigned';
 
 import { configExample } from '@verdaccio/mock';
 import {DEFAULT_DOMAIN, DEFAULT_PROTOCOL} from '@verdaccio/dev-commons';

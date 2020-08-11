@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import Path from 'path';
+import _ from 'lodash';
 import mime from 'mime';
 import { Router } from 'express';
 
