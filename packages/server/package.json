@@ -31,6 +31,8 @@
     "lodash": "4.17.15"
   },
   "devDependencies": {
+    "@verdaccio/proxy": "5.0.0-alpha.0",
+    "@verdaccio/commons-api": "9.7.1",
     "@verdaccio/dev-types": "5.0.0-alpha.0",
     "@verdaccio/mock": "5.0.0-alpha.0",
     "http-errors": "1.7.3",
@@ -43,7 +45,7 @@
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "npm run build:js && npm run build:types"
+    "build": "pnpm run build:js && pnpm run build:types"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

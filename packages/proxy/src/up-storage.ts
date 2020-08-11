@@ -1,9 +1,9 @@
 import zlib from 'zlib';
+import Stream from 'stream';
+import URL, {UrlWithStringQuery} from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
-import Stream, { Readable } from 'stream';
-import URL, {UrlWithStringQuery} from 'url';
 import { parseInterval, isObject, ErrorCode, buildToken } from '@verdaccio/utils';
 import { ReadTarball } from '@verdaccio/streams';
 import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from '@verdaccio/dev-commons';
@@ -574,7 +574,7 @@ class ProxyStorage implements IProxy {
     }
 
     // always attach Via header to avoid loops, even if we're not proxying
-    headers['Via'] = req && req.headers['via'] ? req.headers['via'] + ', ' : '';
+    headers['Via'] = req?.headers['via'] ? req.headers['via'] + ', ' : '';
 
     headers['Via'] += '1.1 ' + this.server_id + ' (Verdaccio)';
   }

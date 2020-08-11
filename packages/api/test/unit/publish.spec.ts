@@ -1,5 +1,5 @@
-import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../src/publish';
 import { HTTP_STATUS, API_ERROR } from '@verdaccio/dev-commons';
+import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../src/publish';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
 

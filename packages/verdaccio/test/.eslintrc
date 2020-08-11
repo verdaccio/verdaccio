@@ -28,6 +28,7 @@
     "@typescript-eslint/no-empty-function": 0,
     "handle-callback-err": 0,
     "import/order": 0,
+    "jest/no-standalone-expect": 0,
     "prefer-const": 0,
     "prefer-promise-reject-errors": 1
   }
