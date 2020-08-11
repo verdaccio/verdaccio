@@ -18,7 +18,7 @@
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "npm run build:js && npm run build:types",
+    "build": "pnpm run build:js && pnpm run build:types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
   },
   "license": "MIT",
@@ -26,9 +26,11 @@
     "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/server": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0"
+    "@verdaccio/utils": "5.0.0-alpha.0",
+    "selfsigned": "1.10.7"
   },
   "devDependencies": {
+    "@verdaccio/mock": "5.0.0-alpha.0",
     "@verdaccio/types": "9.7.0"
   },
   "publishConfig": {

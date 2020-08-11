@@ -75,7 +75,7 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
 	// i am wiling to use here _.isNil but flow does not like it yet.
 	const { jwt } = security.api;
 
-	if (jwt && jwt.sign) {
+	if (jwt?.sign) {
 		return await auth.jwtEncrypt(remoteUser, jwt.sign);
 	}
 	return await new Promise((resolve): void => {

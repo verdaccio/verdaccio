@@ -1,5 +1,6 @@
+import path from "path";
 import _ from 'lodash';
-import { Auth } from '@verdaccio/auth';
+import { Auth } from '../src';
 import {CHARACTER_ENCODING, TOKEN_BEARER} from '@verdaccio/dev-commons';
 
 import { configExample } from '@verdaccio/mock';
@@ -19,15 +20,14 @@ import {
   signPayload
 } from '@verdaccio/utils';
 
+
+import { IAuth } from '@verdaccio/dev-types';
+import {Config, Security, RemoteUser} from '@verdaccio/types';
 import {
   getMiddlewareCredentials,
   getApiToken,
   verifyJWTPayload,
   getSecurity } from '../src'
-
-import { IAuth } from '@verdaccio/dev-types';
-import {Config, Security, RemoteUser} from '@verdaccio/types';
-import path from "path";
 
 setup([]);
 
@@ -48,6 +48,7 @@ describe('Auth utilities', () => {
 
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
+    // @ts-ignore
     const secConf= _.merge(configExample(), conf);
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);

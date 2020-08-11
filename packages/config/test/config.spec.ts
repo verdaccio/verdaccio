@@ -1,7 +1,7 @@
 import path from 'path';
 import _ from 'lodash';
 
-import { Config, readDefaultConfig } from '@verdaccio/config';
+import { Config, readDefaultConfig } from '../src';
 import { setup } from '@verdaccio/logger';
 import {DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE} from '@verdaccio/dev-commons';
 
