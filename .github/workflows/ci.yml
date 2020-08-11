@@ -10,7 +10,7 @@ on:
       - 'packages/**'
       - 'jest/**'
       - 'package.json'
-      - 'lerna.json'
+      - 'pnpm-workspace.yaml'
 
 jobs:
   ci:
@@ -19,25 +19,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [10, 12, 13, 14]
+        node_version: [10, 12, 14]
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2.3.1
     - name: Use Node ${{ matrix.node_version }}
-      uses: actions/setup-node@v2.1.1
+      uses: actions/setup-node@v1
       with:
         node_version: ${{ matrix.node_version }}
+    - name: Install pnpm
+      run: npm i -g pnpm
     - name: Install
-      run: yarn --frozen-lockfile
-    - name: Bootstrap Lerna
-      run: yarn bootstrap
+      run: pnpm recursive install
+    - name: Install packages
+      run: pnpm install -r
     - name: Lint
-      run: yarn lint
+      run: pnpm lint
     - name: Clean
-      run: yarn clean
+      run: pnpm clean
     - name: Build
-      run: yarn build
+      run: pnpm build
     - name: Test
-      run: yarn test
+      run: pnpm test

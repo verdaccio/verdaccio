@@ -1,7 +1,7 @@
 import path from 'path';
 import _ from 'lodash';
 
-import {PACKAGE_ACCESS, ROLES} from '@verdaccio/dev-commons';
+import {PACKAGE_ACCESS} from '@verdaccio/dev-commons';
 
 import {spliceURL}  from '../src/string';
 import {parseConfigFile} from '../src/utils';

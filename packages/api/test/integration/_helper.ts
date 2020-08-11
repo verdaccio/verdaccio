@@ -8,10 +8,10 @@ import { Config } from '@verdaccio/config';
 import { Storage } from '@verdaccio/store';
 import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
 import { Auth } from '@verdaccio/auth';
-import apiEndpoints from '../../src';
 import {IAuth} from "@verdaccio/dev-types";
 import {HEADER_TYPE, HTTP_STATUS, generatePackageMetadata} from "@verdaccio/dev-commons";
 import {HEADERS} from "@verdaccio/commons-api";
+import apiEndpoints from '../../src';
 
 const getConf = (conf) => {
 	const configPath = path.join(__dirname, 'config', conf);

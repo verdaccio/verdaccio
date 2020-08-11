@@ -5,12 +5,12 @@ function compileTextSearch(textSearch: string): ((pkg: Package) => boolean) {
         const personMatch = (person, search) => {
             if(typeof person === 'string')
                 {return person.includes(search);}
-            
+
             if(typeof person === 'object')
                 {for(const field of Object.values(person))
                     {if(typeof field === 'string' && field.includes(search))
                         {return true;}}}
-            
+
             return false;
         }
         const matcher = function(q) {
@@ -35,13 +35,13 @@ function compileTextSearch(textSearch: string): ((pkg: Package) => boolean) {
 export default function(route, auth, storage): void {
     route.get('/-/v1/search', (req, res)=>{
         // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
-        let [text, size, from /* , quality, popularity, maintenance */] = 
+        let [text, size, from /* , quality, popularity, maintenance */] =
             ['text', 'size', 'from' /* , 'quality', 'popularity', 'maintenance' */]
             .map(k => req.query[k])
-        
+
         size = parseInt(size) || 20;
         from = parseInt(from) || 0;
-        
+
         const isInteresting = compileTextSearch(text);
 
         const resultStream = storage.search(0, {req: {query: {local: true}}});

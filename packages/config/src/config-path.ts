@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import _ from 'lodash';
 import Path from 'path';
+import _ from 'lodash';
 import { logger } from '@verdaccio/logger';
 import mkdirp from 'mkdirp';
 

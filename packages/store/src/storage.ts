@@ -1,9 +1,8 @@
-import _ from 'lodash';
 import assert from 'assert';
-import async, { AsyncResultArrayCallback } from 'async';
 import Stream from 'stream';
+import async, { AsyncResultArrayCallback } from 'async';
+import _ from 'lodash';
 import { ProxyStorage } from '@verdaccio/proxy';
-import { SearchInstance }from './search';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 import { ReadTarball } from '@verdaccio/streams';
 import {
@@ -19,6 +18,7 @@ import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageO
 import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
+import { SearchInstance }from './search';
 
 import { LocalStorage } from './local-storage';
 import { mergeVersions } from './metadata-utils';
@@ -75,7 +75,7 @@ class Storage implements IStorageHandler {
     return typeof this.config.publish !== 'undefined' && _.isBoolean(this.config.publish.allow_offline) && this.config.publish.allow_offline;
   }
 
-  public readTokens(filter: TokenFilter): Promise<Array<Token>> {
+  public readTokens(filter: TokenFilter): Promise<Token[]> {
     return this.localStorage.readTokens(filter);
   }
 

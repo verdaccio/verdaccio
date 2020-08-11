@@ -5,8 +5,8 @@ import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 import { Response, Router } from 'express';
 
-import {$NextFunctionVer, $RequestExtend, IAuth, IStorageHandler} from '../../../types';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
+import {$NextFunctionVer, $RequestExtend, IAuth, IStorageHandler} from '../../../types';
 
 export type NormalizeToken = Token & {
 	created: string;

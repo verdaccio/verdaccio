@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
-import * as fsExtra from 'fs-extra';
 import os from 'os';
+import * as fsExtra from 'fs-extra';
 import {DOMAIN_SERVERS} from './constants';
 import VerdaccioProcess from './server_process';
 import {VerdaccioConfig} from './verdaccio-server';

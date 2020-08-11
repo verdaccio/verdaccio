@@ -1,15 +1,15 @@
-import request from 'supertest';
 import path from 'path';
+import request from 'supertest';
 
-import publishMetadata from './partials/publish-api';
-import forbiddenPlace from './partials/forbidden-place';
 
-import endPointAPI from '../../src';
 import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS} from '@verdaccio/dev-commons';
 
 import {addUser, mockServer, DOMAIN_SERVERS, configExample, generateRamdonStorage} from '@verdaccio/mock';
 
 import {setup, logger} from '@verdaccio/logger';
+import endPointAPI from '../../src';
+import forbiddenPlace from './partials/forbidden-place';
+import publishMetadata from './partials/publish-api';
 
 setup([]);
 
