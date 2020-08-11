@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import assert from 'assert';
+import _ from 'lodash';
 import request from 'request';
 import { IRequestPromise } from './types';
 
@@ -47,7 +47,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
 
 
   public body_error(expected: any) {
-    
+
     const selfData = this[requestData];
 
     return injectResponse(this, this.then(function(body) {
@@ -88,7 +88,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
 }
 
 function injectResponse(smartObject: any, promise: Promise<any>): Promise<any> {
-  
+
   promise[requestData] = smartObject[requestData];
   return promise;
 }

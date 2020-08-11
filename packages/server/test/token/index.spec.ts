@@ -1,8 +1,7 @@
-import request from 'supertest';
 import path from 'path';
+import request from 'supertest';
 import _ from 'lodash';
 
-import endPointAPI from '@verdaccio/server';
 import {
   HEADERS,
   HTTP_STATUS,
@@ -13,6 +12,8 @@ import {buildToken} from '@verdaccio/utils';
 import {generateRamdonStorage, DOMAIN_SERVERS, mockServer, getNewToken, configExample} from '@verdaccio/mock';
 
 import {setup, logger} from '@verdaccio/logger';
+
+import endPointAPI from '../../src';
 
 setup([]);
 

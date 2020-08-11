@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 
-import {initializeServer } from './_helper';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 import { HEADERS} from '@verdaccio/dev-commons';
 import {$RequestExtend, $ResponseExtend} from "@verdaccio/dev-types";
+import {initializeServer } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(() =>
 	(req: $RequestExtend, res: $ResponseExtend, _next): void => {

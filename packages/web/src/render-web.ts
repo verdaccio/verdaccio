@@ -1,7 +1,7 @@
-import _ from 'lodash';
 import fs from 'fs';
 
 import path from 'path';
+import _ from 'lodash';
 import express from 'express';
 
 import { combineBaseUrl, getWebProtocol, isHTTPProtocol } from '@verdaccio/utils';

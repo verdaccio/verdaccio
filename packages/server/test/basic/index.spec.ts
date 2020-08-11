@@ -1,6 +1,6 @@
+import path from "path";
 import express from 'express';
 import request from 'request';
-import path from "path";
 
 import {API_ERROR} from '@verdaccio/dev-commons';
 import {parseConfigFile} from "@verdaccio/utils";

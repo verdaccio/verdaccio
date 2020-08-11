@@ -1,21 +1,123 @@
 {
   "extends": [
-    "@verdaccio"
+    "eslint:recommended",
+    "google",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier/@typescript-eslint"
   ],
+  "plugins": [
+    "import",
+    "jest",
+    "prettier",
+    "jsx-a11y",
+    "react-hooks"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "__APP_VERSION__": true
+  },
+  "parserOptions": {
+    "allowImportExportEverywhere": true,
+    "sourceType": "module",
+    "ecmaVersion": 2019,
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version":  "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "parser": "@typescript-eslint/parser",
   "rules": {
-    "@typescript-eslint/no-var-requires": 0,
+    "curly": [
+      "error", "all"
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "printWidth": 120,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "bracketSpacing": true
+      }
+    ],
+    "keyword-spacing": "off",
+    "no-tabs": "off",
+    "no-useless-escape": "off",
+    "padded-blocks": "off",
+    "require-jsdoc": "off",
+    "valid-jsdoc": "off",
+    "import/order": ["warn"],
+    "react/prop-types": 0,
+    "jest/no-export": 0,
+    "jest/no-test-callback": 0,
+    "jest/no-try-expect": 1,
+    "jest/no-identical-title": 1,
+    "eol-last": "warn",
+    "no-irregular-whitespace": "warn",
+    "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
+    "no-trailing-spaces": "warn",
+
+    "camelcase": "off",
+    "guard-for-in": "error",
+    "new-cap": "error",
+    "max-len": ["warn", 180],
+    "no-console": ["error", { "allow": ["warn"] }],
+    "no-constant-condition": "error",
+    "no-debugger": "error",
+    "no-empty": "error",
+    "no-fallthrough": "error",
+    "no-invalid-this": "error",
+    "no-new-require": "error",
+    "no-undef": "error",
+    "no-unreachable": "error",
+    "no-unused-vars": ["warn", { "vars": "all", "args": "none" }],
+    "no-var": "error",
+    "one-var": "error",
+    "prefer-rest-params": "warn",
+    "prefer-spread": "warn",
+    "semi": 0,
+    "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/no-empty-function": 0,
-    "@typescript-eslint/no-this-alias": ["warn"],
+    "@typescript-eslint/no-this-alias": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/array-type": ["warn"],
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/indent": 0,
-    "@typescript-eslint/interface-name-prefix": 0,
-    "import/order": 0,
-    "handle-callback-err": 1,
-    "prefer-const": 1,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/explicit-member-accessibility": ["warn"],
+    "@typescript-eslint/prefer-optional-chain": ["warn"],
+    "handle-callback-err": 0,
+    "prefer-const": 0,
     "prefer-promise-reject-errors": 1
   }
 }
