@@ -1,4 +1,3 @@
-
 import _ from 'lodash';
 
 import {
@@ -7,17 +6,17 @@ import {
   getVersionFromTarball,
   isObject,
   stringToMD5,
-  ErrorCode
+  ErrorCode,
 } from '@verdaccio/utils';
 import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '@verdaccio/dev-types';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import {HttpError} from "http-errors";
+import { HttpError } from 'http-errors';
 
 export function match(regexp: RegExp): any {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
     if (regexp.exec(value)) {
       next();
     } else {
@@ -65,7 +64,7 @@ export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next:
 }
 
 export function media(expect: string | null): any {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
       next(ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect + ', got: ' + req.headers[HEADER_TYPE.CONTENT_TYPE]));
     } else {
@@ -90,7 +89,7 @@ export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $Nex
 }
 
 export function antiLoop(config: Config): Function {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers.via != null) {
       const arr = req.headers.via.split(',');
 
@@ -106,14 +105,14 @@ export function antiLoop(config: Config): Function {
 }
 
 export function allow(auth: IAuth): Function {
-  return function(action: string): Function {
-    return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (action: string): Function {
+    return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
       const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
       const remote: RemoteUser = req.remote_user;
       logger.trace({ action, user: remote?.name }, `[middleware/allow][@{action}] allow for @{user}`);
-      auth['allow_' + action]({ packageName, packageVersion }, remote, function(error, allowed): void {
+      auth['allow_' + action]({ packageName, packageVersion }, remote, function (error, allowed): void {
         req.resume();
         if (error) {
           next(error);
@@ -210,7 +209,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   }
 
   let bytesin = 0;
-  req.on('data', function(chunk): void {
+  req.on('data', function (chunk): void {
     bytesin += chunk.length;
   });
 
@@ -218,14 +217,14 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   const _write = res.write;
   // FIXME: res.write should return boolean
   // @ts-ignore
-  res.write = function(buf): boolean {
+  res.write = function (buf): boolean {
     bytesout += buf.length;
     /* eslint prefer-rest-params: "off" */
     // @ts-ignore
     _write.apply(res, arguments);
   };
 
-  const log = function(): void {
+  const log = function (): void {
     const forwardedFor = req.headers['x-forwarded-for'];
     const remoteAddress = req.connection.remoteAddress;
     const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
@@ -258,12 +257,12 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     req.originalUrl = req.url;
   };
 
-  req.on('close', function(): void {
+  req.on('close', function (): void {
     log();
   });
 
   const _end = res.end;
-  res.end = function(buf): void {
+  res.end = function (buf): void {
     if (buf) {
       bytesout += buf.length;
     }
@@ -296,7 +295,7 @@ export function handleError(err: HttpError, req: $RequestExtend, res: $ResponseE
 export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   res.locals.report_error =
     res.locals.report_error ||
-    function(err: VerdaccioError): void {
+    function (err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (_.isNil(res.headersSent) === false) {
           res.status(err.status);

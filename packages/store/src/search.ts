@@ -103,6 +103,4 @@ class Search implements IWebSearch {
 
 const SearchInstance = new Search();
 
-export {
-  SearchInstance
-}
+export { SearchInstance };

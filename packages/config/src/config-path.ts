@@ -14,12 +14,12 @@ const WIN = 'win';
 const WIN32 = 'win32';
 // eslint-disable-next-line
 const pkgJSON = {
-  name: 'verdaccio'
+  name: 'verdaccio',
 };
 
 export type SetupDirectory = {
   path: string;
-  type: string
+  type: string;
 };
 
 /**
@@ -84,13 +84,16 @@ function updateStorageLinks(configLocation, defaultConfig): string {
 }
 
 function getConfigPaths(): SetupDirectory[] {
-  const listPaths: SetupDirectory[] = [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].reduce(
-    function(acc, currentValue: any): SetupDirectory[] {
-      if (_.isUndefined(currentValue) === false) {
-        acc.push(currentValue);
-      }
-      return acc;
-    }, [] as SetupDirectory[]);
+  const listPaths: SetupDirectory[] = [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].reduce(function (
+    acc,
+    currentValue: any
+  ): SetupDirectory[] {
+    if (_.isUndefined(currentValue) === false) {
+      acc.push(currentValue);
+    }
+    return acc;
+  },
+  [] as SetupDirectory[]);
 
   return listPaths;
 }
