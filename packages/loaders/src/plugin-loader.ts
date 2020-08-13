@@ -46,13 +46,7 @@ function isES6(plugin): boolean {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export function loadPlugin<T extends IPlugin<T>>(
-  config: Config,
-  pluginConfigs: any = {},
-  params: any,
-  sanityCheck: any,
-  prefix: string = 'verdaccio'
-): any[] {
+export function loadPlugin<T extends IPlugin<T>>(config: Config, pluginConfigs: any = {}, params: any, sanityCheck: any, prefix: string = 'verdaccio'): any[] {
   return Object.keys(pluginConfigs).map(
     (pluginId: string): IPlugin<T> => {
       let plugin;
@@ -102,17 +96,17 @@ export function loadPlugin<T extends IPlugin<T>>(
       }
 
       if (!isValid(plugin)) {
-        logger.error({ content: pluginId }, "@{prefix}-@{content} plugin does not have the right code structure");
+        logger.error({ content: pluginId }, '@{prefix}-@{content} plugin does not have the right code structure');
         throw Error(`"${pluginId}" plugin does not have the right code structure`);
       }
 
       /* eslint new-cap:off */
-        try {
-            plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
-        } catch (error) {
-            plugin = null;
-            logger.error({ error, pluginId }, "error loading a plugin @{pluginId}: @{error}");
-        }
+      try {
+        plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+      } catch (error) {
+        plugin = null;
+        logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
+      }
       /* eslint new-cap:off */
 
       if (plugin === null || !sanityCheck(plugin)) {

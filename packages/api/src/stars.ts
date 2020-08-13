@@ -8,7 +8,7 @@ import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '@verdaccio/de
 
 type Packages = Package[];
 
-export default function(route: Router, storage: IStorageHandler): void {
+export default function (route: Router, storage: IStorageHandler): void {
   route.get('/-/_view/starredByUser', (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
     const remoteUsername = req.remote_user.name;
 
@@ -17,9 +17,7 @@ export default function(route: Router, storage: IStorageHandler): void {
         return next(err);
       }
 
-      const filteredPackages: Packages = localPackages.filter((localPackage: Package) =>
-        _.keys(localPackage[USERS]).includes(remoteUsername)
-      );
+      const filteredPackages: Packages = localPackages.filter((localPackage: Package) => _.keys(localPackage[USERS]).includes(remoteUsername));
 
       res.status(HTTP_STATUS.OK);
       next({

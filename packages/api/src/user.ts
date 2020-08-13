@@ -10,15 +10,15 @@ import { Config, RemoteUser } from '@verdaccio/types';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '@verdaccio/dev-types';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/dev-commons';
 
-export default function(route: Router, auth: IAuth, config: Config): void {
-  route.get('/-/user/:org_couchdb_user', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+export default function (route: Router, auth: IAuth, config: Config): void {
+  route.get('/-/user/:org_couchdb_user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);
     next({
       ok: getAuthenticatedMessage(req.remote_user.name),
     });
   });
 
-  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     const { name, password } = req.body;
     const remoteName = req.remote_user.name;
 
@@ -45,7 +45,7 @@ export default function(route: Router, auth: IAuth, config: Config): void {
         return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
       }
 
-      auth.add_user(name, password, async function(err, user): Promise<void> {
+      auth.add_user(name, password, async function (err, user): Promise<void> {
         if (err) {
           if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
             // With npm registering is the same as logging in,
@@ -68,7 +68,7 @@ export default function(route: Router, auth: IAuth, config: Config): void {
     }
   });
 
-  route.delete('/-/user/token/*', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.delete('/-/user/token/*', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);
     next({
       ok: API_MESSAGE.LOGGED_OUT,

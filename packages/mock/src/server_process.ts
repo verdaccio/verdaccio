@@ -1,24 +1,20 @@
 import assert from 'assert';
-import {fork} from 'child_process';
+import { fork } from 'child_process';
 
-import {HTTP_STATUS} from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/dev-commons';
 
-import {CREDENTIALS} from './constants';
-import {IVerdaccioConfig, IServerBridge, IServerProcess} from './types';
+import { CREDENTIALS } from './constants';
+import { IVerdaccioConfig, IServerBridge, IServerProcess } from './types';
 const defaultBinPath = require.resolve('verdaccio/bin/verdaccio');
 
 export default class VerdaccioProcess implements IServerProcess {
-
   private bridge: IServerBridge;
   private config: IVerdaccioConfig;
   private childFork: any;
   private isDebug: boolean;
   private silence: boolean;
 
-  public constructor(config: IVerdaccioConfig,
-    bridge: IServerBridge,
-    silence = true,
-    isDebug = false) {
+  public constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence = true, isDebug = false) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
@@ -34,7 +30,7 @@ export default class VerdaccioProcess implements IServerProcess {
 
   private _start(verdaccioPath: string, resolve: Function, reject: Function) {
     let childOptions = {
-      silent: this.silence
+      silent: this.silence,
     };
 
     if (this.isDebug) {
@@ -44,39 +40,42 @@ export default class VerdaccioProcess implements IServerProcess {
       childOptions = Object.assign({}, childOptions, {
         execArgv: [`--inspect=${debugPort}`],
         env: {
-          "NODE_DEBUG": 'request'
-        }
+          NODE_DEBUG: 'request',
+        },
       });
     }
 
-    const {configPath, port} = this.config;
+    const { configPath, port } = this.config;
     this.childFork = fork(verdaccioPath, ['-c', configPath, '-l', port as string], childOptions);
 
     this.childFork.on('message', (msg) => {
       // verdaccio_started is a message that comes from verdaccio in debug mode that notify has been started
       if ('verdaccio_started' in msg) {
-        this.bridge.debug().status(HTTP_STATUS.OK).then((body) => {
-          this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password)
-            .status(HTTP_STATUS.CREATED)
-            .body_ok(new RegExp(CREDENTIALS.user))
-            .then(() => resolve([this, body.pid]), reject)
-        }, reject);
+        this.bridge
+          .debug()
+          .status(HTTP_STATUS.OK)
+          .then((body) => {
+            this.bridge
+              .auth(CREDENTIALS.user, CREDENTIALS.password)
+              .status(HTTP_STATUS.CREATED)
+              .body_ok(new RegExp(CREDENTIALS.user))
+              .then(() => resolve([this, body.pid]), reject);
+          }, reject);
       }
     });
 
     this.childFork.on('error', (err) => {
-      reject([err, this])
+      reject([err, this]);
     });
     this.childFork.on('disconnect', (err) => {
-      reject([err, this])
+      reject([err, this]);
     });
     this.childFork.on('exit', (err) => {
-      reject([err, this])
+      reject([err, this]);
     });
   }
 
   public stop(): void {
     return this.childFork.kill('SIGINT');
   }
-
 }

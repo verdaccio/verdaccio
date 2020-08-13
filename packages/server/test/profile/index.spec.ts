@@ -1,16 +1,15 @@
 import path from 'path';
 import request from 'supertest';
 
-import {mockServer} from '@verdaccio/mock';
-import {API_ERROR, HTTP_STATUS, SUPPORT_ERRORS} from '@verdaccio/dev-commons';
-import {setup, logger} from '@verdaccio/logger';
+import { mockServer } from '@verdaccio/mock';
+import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
+import { setup, logger } from '@verdaccio/logger';
 
-import {generateRamdonStorage, getNewToken, getProfile, postProfile, configExample, DOMAIN_SERVERS} from '@verdaccio/mock';
+import { generateRamdonStorage, getNewToken, getProfile, postProfile, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 
 import endPointAPI from '../../src';
 
 setup([]);
-
 
 describe('endpoint user profile', () => {
   let app;
@@ -20,15 +19,19 @@ describe('endpoint user profile', () => {
   beforeAll(async (done) => {
     const store = generateRamdonStorage();
     const mockServerPort = 55544;
-    const configForTest = configExample({
-      storage: store,
-      uplinks: {
-        remote: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
+    const configForTest = configExample(
+      {
+        storage: store,
+        uplinks: {
+          remote: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
+        },
+        self_path: store,
       },
-      self_path: store
-    }, 'profile.yaml', __dirname);
+      'profile.yaml',
+      __dirname
+    );
 
     app = await endPointAPI(configForTest);
     const binPath = require.resolve('verdaccio/bin/verdaccio');
@@ -37,14 +40,13 @@ describe('endpoint user profile', () => {
     done();
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
 
     done();
   });
-
 
   test('should fetch a profile of logged user', async (done) => {
     const credentials = { name: 'JotaJWT', password: 'secretPass' };
@@ -62,7 +64,7 @@ describe('endpoint user profile', () => {
         password: {
           new: '12345678',
           old: credentials.password,
-        }
+        },
       };
       const token = await getNewToken(request(app), credentials);
       const [err1, res1] = await postProfile(request(app), body, token);
@@ -78,7 +80,7 @@ describe('endpoint user profile', () => {
         password: {
           new: 'p1',
           old: credentials.password,
-        }
+        },
       };
       const token = await getNewToken(request(app), credentials);
       const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.UNAUTHORIZED);
@@ -94,7 +96,7 @@ describe('endpoint user profile', () => {
     test('should report TFA is disabled', async (done) => {
       const credentials = { name: 'userTest2002', password: 'secretPass002' };
       const body = {
-        tfa: {}
+        tfa: {},
       };
       const token = await getNewToken(request(app), credentials);
       const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.SERVICE_UNAVAILABLE);
