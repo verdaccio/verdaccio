@@ -8,5 +8,5 @@ module.exports = {
   testEnvironment: './env_babel.js',
   globalSetup: './env_setup.js',
   globalTeardown: './env_teardown.js',
-  testRegex: '(/test/e2e.*\\.spec)\\.ts'
+  testRegex: '(/test/e2e.*\\.spec)\\.ts',
 };
