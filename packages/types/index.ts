@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
-
 import {
   IBasicAuth,
   IBasicStorage,
@@ -19,13 +17,13 @@ import {
   Package,
   IPluginStorageFilter,
   Author,
-	AuthPluginPackage,
+  AuthPluginPackage,
   Token,
   ITokenActions,
-  TokenFilter
+  TokenFilter,
 } from '@verdaccio/types';
 import lunrMutable from 'lunr-mutable-indexes';
-import {NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export type StringValue = verdaccio$StringValue;
 
@@ -44,13 +42,13 @@ export interface LegacyPackageList {
 export type PackageAccessAddOn = PackageAccess & {
   // FIXME: should be published on @verdaccio/types
   unpublish?: string[];
-}
+};
 
 export type MatchedPackage = PackageAccess | void;
 
 export type JWTPayload = RemoteUser & {
   password?: string;
-}
+};
 
 export interface AESPayload {
   user: string;
@@ -94,10 +92,10 @@ export interface Profile {
   fullname: string;
 }
 
-export type $RequestExtend = Request & {remote_user?: any; log: Logger}
-export type $ResponseExtend = Response & {cookies?: any}
+export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
-export type $SidebarPackage = Package & {latest: any}
+export type $SidebarPackage = Package & { latest: any };
 
 export interface IAuthWebUI {
   jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
@@ -193,7 +191,6 @@ export interface IStorageHandler extends IStorageManager<Config>, ITokenActions 
  */
 export interface Styles {
   [ruleOrSelector: string]: string | number | Styles;
-};
+}
 
 export type AuthorAvatar = Author & { avatar?: string };
-
