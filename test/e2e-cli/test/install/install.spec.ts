@@ -23,39 +23,25 @@ describe('npm install', () => {
     // @ts-ignore
     global.__namespace = __global;
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
-      paths: [verdaccioInstall]
+      paths: [verdaccioInstall],
     });
-    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
-      cwd: verdaccioInstall,
-      silent: true
-    });
+    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], { cwd: verdaccioInstall, silent: true });
   });
 
   test('should match on npm info verdaccio', async () => {
     // FIXME:  not the best match, looking for a better way to match the terminal output
-    const output = await execAndWaitForOutputToMatch(
-      'npm',
-      ['info', 'verdaccio', '--registry'],
-      /A lightweight private npm proxy registry/
-    );
+    const output = await execAndWaitForOutputToMatch('npm', ['info', 'verdaccio', '--registry'], /A lightweight private npm proxy registry/);
 
     expect(output.ok).toBeTruthy();
   });
 
   test('should install jquery', async () => {
     const testCwd = path.join(tempRootFolder, '_jquery_');
-    await execAndWaitForOutputToMatch(
-      'npm',
-      ['install', '--prefix', testCwd, 'jquery', '--registry', `http://localhost:${port}`],
-      /''/,
-      {
-        cwd: verdaccioInstall
-      }
-    );
+    await execAndWaitForOutputToMatch('npm', ['install', '--prefix', testCwd, 'jquery', '--registry', `http://localhost:${port}`], /''/, {
+      cwd: verdaccioInstall,
+    });
 
-    const exist = await expectFileToExist(
-      path.join(testCwd, 'node_modules', 'jquery', 'package.json')
-    );
+    const exist = await expectFileToExist(path.join(testCwd, 'node_modules', 'jquery', 'package.json'));
     expect(exist).toBeTruthy();
   });
 
