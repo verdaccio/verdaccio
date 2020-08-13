@@ -12,12 +12,12 @@ import path from 'path';
 import rimraf from 'rimraf';
 
 import endPointAPI from '@verdaccio/server';
-import {mockServer} from '../../__helper/mock';
-import {DOMAIN_SERVERS} from '../../../functional/config.functional';
-import {parseConfigFile} from '@verdaccio/utils/src/utils';
-import {parseConfigurationFile} from '../../__helper';
-import {addUser} from '../../__helper/api';
-import {setup} from '@verdaccio/logger';
+import { mockServer } from '../../__helper/mock';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { parseConfigFile } from '@verdaccio/utils/src/utils';
+import { parseConfigurationFile } from '../../__helper';
+import { addUser } from '../../__helper/api';
+import { setup } from '@verdaccio/logger';
 
 // we must start logging without output
 setup([]);
@@ -33,7 +33,7 @@ describe('endpoint example unit test', () => {
   let app;
   let mockRegistry;
 
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     // 1. We create a route for a custom storage folder for this test
     const store = path.join(__dirname, '../../partials/store/test-template-storage');
     // 2. The port must be unique (at this point this is not automated, need to be checked manually)
@@ -47,17 +47,17 @@ describe('endpoint example unit test', () => {
         storage: store,
         uplinks: {
           npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-          }
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
         },
         // 6. The self_path is important be the same as the store
         self_path: store,
         // 7. Define the location of the .htpasswd file, this is relative to self_path.
         auth: {
           htpasswd: {
-            file: './test-jwt-storage/.htpasswd'
-          }
-        }
+            file: './test-jwt-storage/.htpasswd',
+          },
+        },
       });
 
       // 8. Use the helper `endPointAPI` to mock the API
@@ -68,7 +68,7 @@ describe('endpoint example unit test', () => {
     });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     // 10. Do not forget to stop the API, or it will run forever.
     mockRegistry[0].stop();
     done();

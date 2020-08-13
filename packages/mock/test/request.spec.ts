@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import {HTTP_STATUS} from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/dev-commons';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
-import smartRequest, {PromiseAssert} from '../src/request';
-import {mockServer} from '../src/mock';
+import smartRequest, { PromiseAssert } from '../src/request';
+import { mockServer } from '../src/mock';
 import { IRequestPromise } from '../src/types';
 
 describe('Request Functional', () => {
@@ -19,7 +19,7 @@ describe('Request Functional', () => {
     });
 
     test('basic resolve', (done) => {
-      const requestPromise: IRequestPromise = new PromiseAssert(resolve => {
+      const requestPromise: IRequestPromise = new PromiseAssert((resolve) => {
         resolve(1);
       });
       // @ts-ignore
@@ -36,7 +36,7 @@ describe('Request Functional', () => {
       mockRegistry = await mockServer(mockServerPort).init(binPath);
     });
 
-    afterAll(function(done) {
+    afterAll(function (done) {
       const [registry, pid] = mockRegistry;
       registry.stop();
       console.log(`registry ${pid} has been stopped`);
@@ -47,53 +47,61 @@ describe('Request Functional', () => {
     test('basic rest', (done) => {
       const options: any = {
         url: restTest,
-        method: 'GET'
+        method: 'GET',
       };
 
-      smartRequest(options).then((result)=> {
+      smartRequest(options).then((result) => {
         expect(_.isString(result)).toBeTruthy();
         done();
-      })
+      });
     });
 
     describe('smartRequest Status', () => {
-
       test('basic check status 200', (done) => {
         const options: any = {
           url: restTest,
-          method: 'GET'
+          method: 'GET',
         };
         // @ts-ignore
-        smartRequest(options).status(HTTP_STATUS.OK).then((result)=> {
-          expect(JSON.parse(result).name).toBe('jquery');
-          done();
-        })
+        smartRequest(options)
+          .status(HTTP_STATUS.OK)
+          .then((result) => {
+            expect(JSON.parse(result).name).toBe('jquery');
+            done();
+          });
       });
 
       test('basic ping status and empty response', (done) => {
         const options: any = {
           url: `${domainTest}/-/ping`,
-          method: 'GET'
+          method: 'GET',
         };
         // @ts-ignore
-        smartRequest(options).status(HTTP_STATUS.OK).then((result)=> {
-          expect(JSON.parse((result))).toEqual({});
-          done();
-        })
+        smartRequest(options)
+          .status(HTTP_STATUS.OK)
+          .then((result) => {
+            expect(JSON.parse(result)).toEqual({});
+            done();
+          });
       });
 
       test('basic check status 404', (done) => {
         const options: any = {
           url: 'http://www.google.fake',
-          method: 'GET'
+          method: 'GET',
         };
         // @ts-ignore
-        smartRequest(options).status(HTTP_STATUS.NOT_FOUND).then(() => {
-          // we do not intent to resolve this
-        }, (error: VerdaccioError) => {
-          expect(error.code).toBe('ENOTFOUND');
-          done();
-        })
+        smartRequest(options)
+          .status(HTTP_STATUS.NOT_FOUND)
+          .then(
+            () => {
+              // we do not intent to resolve this
+            },
+            (error: VerdaccioError) => {
+              expect(error.code).toBe('ENOTFOUND');
+              done();
+            }
+          );
       });
     });
   });

@@ -27,5 +27,5 @@ module.exports = {
     '<rootDir>/../build',
     '<rootDir>/../.vscode/',
   ],
-  collectCoverage: false
+  collectCoverage: false,
 };

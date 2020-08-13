@@ -1,4 +1,4 @@
-import crypto  from 'crypto';
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 
@@ -11,4 +11,4 @@ function readFile(filePath) {
   return fs.readFileSync(path.join(__dirname, `/${filePath}`));
 }
 
-export { generateSha, readFile }
+export { generateSha, readFile };

@@ -5,7 +5,7 @@ import { DEFAULT_PORT } from '@verdaccio/dev-commons';
 
 const logger = require('@verdaccio/logger');
 
-export const resolveConfigPath = function(storageLocation: string, file: string) {
+export const resolveConfigPath = function (storageLocation: string, file: string) {
   return path.resolve(path.dirname(storageLocation), file);
 };
 
@@ -33,15 +33,13 @@ export function getListListenAddresses(argListen: string, configListen: any): an
     addresses = [DEFAULT_PORT];
   }
   addresses = addresses
-    .map(function(addr): string {
+    .map(function (addr): string {
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {
         logger.logger.warn(
           { addr: addr },
-          'invalid address - @{addr}, we expect a port (e.g. "4873"),' +
-            ' host:port (e.g. "localhost:4873") or full url' +
-            ' (e.g. "http://localhost:4873/")'
+          'invalid address - @{addr}, we expect a port (e.g. "4873"),' + ' host:port (e.g. "localhost:4873") or full url' + ' (e.g. "http://localhost:4873/")'
         );
       }
 

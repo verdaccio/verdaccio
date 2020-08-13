@@ -1,16 +1,17 @@
-import {API_MESSAGE, HTTP_STATUS} from "@verdaccio/dev-commons";
+import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/dev-commons';
 
-import generatePkg  from '../fixtures/package';
-import {readFile} from '../lib/test.utils';
-import {TARBALL} from '../config.functional';
+import generatePkg from '../fixtures/package';
+import { readFile } from '../lib/test.utils';
+import { TARBALL } from '../config.functional';
 
-const getBinary = () =>  readFile('../fixtures/binary');
+const getBinary = () => readFile('../fixtures/binary');
 
 export default function (server, server2) {
-
   describe('anti-loop testing', () => {
     test('testing anti-loop', () => {
-      return server2.getPackage('testloop').status(HTTP_STATUS.NOT_FOUND)
+      return server2
+        .getPackage('testloop')
+        .status(HTTP_STATUS.NOT_FOUND)
         .body_error(/no such package/);
     });
   });
@@ -24,16 +25,15 @@ export default function (server, server2) {
 
       describe(`testing mirror for ${pkg}`, () => {
         beforeAll(function () {
-          return server2.putPackage(pkg, generatePkg(pkg))
-            .status(HTTP_STATUS.CREATED)
-            .body_ok(API_MESSAGE.PKG_CREATED);
+          return server2.putPackage(pkg, generatePkg(pkg)).status(HTTP_STATUS.CREATED).body_ok(API_MESSAGE.PKG_CREATED);
         });
 
         test(prefix + 'creating new package', () => {});
 
         describe(`${pkg}`, () => {
           beforeAll(function () {
-            return server2.putVersion(pkg, '0.1.1', generatePkg(pkg))
+            return server2
+              .putVersion(pkg, '0.1.1', generatePkg(pkg))
               .status(HTTP_STATUS.CREATED)
               .body_ok(/published/);
           });
@@ -46,15 +46,14 @@ export default function (server, server2) {
 
           describe('should put a tarball', () => {
             beforeAll(function () {
-              return server2.putTarball(pkg, TARBALL, getBinary())
-                .status(HTTP_STATUS.CREATED)
-                .body_ok(/.*/);
+              return server2.putTarball(pkg, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
             });
 
             test(`should ${prefix} uploading new tarball`, () => {});
 
             test(`should ${prefix} downloading tarball from server2`, () => {
-              return server2.getTarball(pkg, TARBALL)
+              return server2
+                .getTarball(pkg, TARBALL)
                 .status(HTTP_STATUS.OK)
                 .then(function (body) {
                   expect(body).toEqual(getBinary());
@@ -66,7 +65,8 @@ export default function (server, server2) {
             });
 
             test(`should ${prefix} downloading tarball from server1`, () => {
-              return server.getTarball(pkg, TARBALL)
+              return server
+                .getTarball(pkg, TARBALL)
                 .status(HTTP_STATUS.OK)
                 .then(function (body) {
                   expect(body).toEqual(getBinary());

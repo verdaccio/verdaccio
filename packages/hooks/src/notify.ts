@@ -36,7 +36,7 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
   // provides fallback support, it's accept an Object {} and Array of {}
   if (notifyEntry.headers && _.isArray(notifyEntry.headers)) {
     const header = {};
-    notifyEntry.headers.map(function(item): void {
+    notifyEntry.headers.map(function (item): void {
       if (Object.is(item, item)) {
         for (const key in item) {
           /* eslint no-prototype-builtins: 0 */
@@ -70,7 +70,7 @@ export function notify(metadata: Package, config: Config, remoteUser: RemoteUser
       return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
     }
     // multiple notifications endpoints PR #108
-    return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));
+    return Promise.all(_.map(config.notify, (key) => sendNotification(metadata, key, remoteUser, publishedPackage)));
   }
 
   return Promise.resolve();
