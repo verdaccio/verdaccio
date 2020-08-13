@@ -23,7 +23,7 @@ export const defaultNonLoggedUserRoles = [
   ROLES.$ANONYMOUS,
   // groups without '$' are going to be deprecated eventually
   ROLES.DEPRECATED_ALL,
-  ROLES.DEPRECATED_ANONYMOUS
+  ROLES.DEPRECATED_ANONYMOUS,
 ];
 
 /**
@@ -65,14 +65,17 @@ export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
 
 export function allow_action(action: ActionsAllowed, logger): AllowAction {
   return function allowActionCallback(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
-    logger.trace({remote: user.name}, `[auth/allow_action]: user: @{user.name}`);
+    logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{user.name}`);
     const { name, groups } = user;
     const groupAccess = pkg[action] as string[];
-    const hasPermission = groupAccess.some(group => name === group || groups.includes(group));
-    logger.trace({pkgName: pkg.name, hasPermission, remote: user.name, groupAccess}, `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`);
+    const hasPermission = groupAccess.some((group) => name === group || groups.includes(group));
+    logger.trace(
+      { pkgName: pkg.name, hasPermission, remote: user.name, groupAccess },
+      `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`
+    );
 
     if (hasPermission) {
-      logger.trace({remote: user.name}, `auth/allow_action: access granted to: @{user}`);
+      logger.trace({ remote: user.name }, `auth/allow_action: access granted to: @{user}`);
       return callback(null, true);
     }
 
@@ -88,18 +91,18 @@ export function allow_action(action: ActionsAllowed, logger): AllowAction {
  *
  */
 export function handleSpecialUnpublish(logger): any {
-  return function(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
+  return function (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined
     const isUnpublishMissing: boolean = _.isNil(pkg[action]);
-    const hasGroups: boolean = isUnpublishMissing ? false : ((pkg[action]) as string[]).length > 0;
-    logger.trace({user: user.name, name: pkg.name, hasGroups}, `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`);
+    const hasGroups: boolean = isUnpublishMissing ? false : (pkg[action] as string[]).length > 0;
+    logger.trace({ user: user.name, name: pkg.name, hasGroups }, `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`);
 
     if (isUnpublishMissing || hasGroups === false) {
       return callback(null, undefined);
     }
 
-    logger.trace({user: user.name, name: pkg.name, action, hasGroups}, `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`);
+    logger.trace({ user: user.name, name: pkg.name, action, hasGroups }, `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`);
     return allow_action(action, logger)(user, pkg, callback);
   };
 }

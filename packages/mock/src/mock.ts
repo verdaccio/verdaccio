@@ -2,12 +2,11 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import * as fsExtra from 'fs-extra';
-import {DOMAIN_SERVERS} from './constants';
+import { DOMAIN_SERVERS } from './constants';
 import VerdaccioProcess from './server_process';
-import {VerdaccioConfig} from './verdaccio-server';
+import { VerdaccioConfig } from './verdaccio-server';
 import Server from './server';
-import {IServerBridge} from './types';
-
+import { IServerBridge } from './types';
 
 /**
  * Fork a Verdaccio process with a custom configuration.
@@ -57,7 +56,7 @@ export function mockServer(port: number, options: MockRegistryOptions = {}) {
   // console.log("-->tempRoot", tempRoot);
 
   // default locations
-  const configPath = path.join(__dirname,  './config/yaml', '/mock-server-test.yaml');
+  const configPath = path.join(__dirname, './config/yaml', '/mock-server-test.yaml');
   const mockStorePath = path.join(__dirname, '/fixtures/mock-store');
 
   // default options
@@ -67,7 +66,7 @@ export function mockServer(port: number, options: MockRegistryOptions = {}) {
     storePath: mockStorePath,
     rootFolder: tempRoot,
     silence: true,
-    debug: false
+    debug: false,
   };
 
   // mix external options
@@ -93,6 +92,6 @@ export interface MockRegistryOptions {
   configPath?: string;
   port?: number;
   storePath?: string;
-  silence?: boolean
+  silence?: boolean;
   debug?: boolean;
 }

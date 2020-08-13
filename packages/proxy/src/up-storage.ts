@@ -1,6 +1,6 @@
 import zlib from 'zlib';
 import Stream from 'stream';
-import URL, {UrlWithStringQuery} from 'url';
+import URL, { UrlWithStringQuery } from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
@@ -11,7 +11,7 @@ import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
 import { IProxy, UpLinkConfLocal } from '@verdaccio/dev-types';
 const LoggerApi = require('@verdaccio/logger');
 
-const encode = function(thing): string {
+const encode = function (thing): string {
   return encodeURIComponent(thing).replace(/^%40/, '@');
 };
 
@@ -107,16 +107,16 @@ class ProxyStorage implements IProxy {
     if (this._statusCheck() === false) {
       const streamRead = new Stream.Readable();
 
-      process.nextTick(function(): void {
+      process.nextTick(function (): void {
         if (cb) {
           cb(ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
         }
         streamRead.emit('error', ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
       });
       // $FlowFixMe
-      streamRead._read = function(): void {};
+      streamRead._read = function (): void {};
       // preventing 'Uncaught, unspecified "error" event'
-      streamRead.on('error', function(): void {});
+      streamRead.on('error', function (): void {});
       return streamRead;
     }
 
@@ -143,64 +143,66 @@ class ProxyStorage implements IProxy {
       headers['Content-Type'] = headers['Content-Type'] || HEADERS.JSON;
     }
 
-    const requestCallback = cb ? function(err, res, body): void {
-      let error;
-      const responseLength = err ? 0 : body.length;
-      // $FlowFixMe
-      processBody();
-      logActivity();
-      // $FlowFixMe
-      cb(err, res, body);
+    const requestCallback = cb
+      ? function (err, res, body): void {
+          let error;
+          const responseLength = err ? 0 : body.length;
+          // $FlowFixMe
+          processBody();
+          logActivity();
+          // $FlowFixMe
+          cb(err, res, body);
 
-      /**
-       * Perform a decode.
-       */
-      function processBody(): void {
-        if (err) {
-          error = err.message;
-          return;
-        }
+          /**
+           * Perform a decode.
+           */
+          function processBody(): void {
+            if (err) {
+              error = err.message;
+              return;
+            }
 
-        if (options.json && res.statusCode < 300) {
-          try {
-            // $FlowFixMe
-            body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
-          } catch (_err) {
-            body = {};
-            err = _err;
-            error = err.message;
+            if (options.json && res.statusCode < 300) {
+              try {
+                // $FlowFixMe
+                body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
+              } catch (_err) {
+                body = {};
+                err = _err;
+                error = err.message;
+              }
+            }
+
+            if (!err && isObject(body)) {
+              if (_.isString(body.error)) {
+                error = body.error;
+              }
+            }
+          }
+          /**
+           * Perform a log.
+           */
+          function logActivity(): void {
+            let message = "@{!status}, req: '@{request.method} @{request.url}'";
+            // FIXME: use LOG_VERDACCIO_BYTES
+            message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
+            self.logger.warn(
+              {
+                err: err || undefined, // if error is null/false change this to undefined so it wont log
+                request: { method: method, url: uri },
+                level: 35, // http
+                status: res != null ? res.statusCode : 'ERR',
+                error: error,
+                bytes: {
+                  in: json ? json.length : 0,
+                  out: responseLength || 0,
+                },
+              },
+              message
+            );
           }
         }
-
-        if (!err && isObject(body)) {
-          if (_.isString(body.error)) {
-            error = body.error;
-          }
-        }
-      }
-      /**
-       * Perform a log.
-       */
-      function logActivity(): void {
-        let message = "@{!status}, req: '@{request.method} @{request.url}'";
-        // FIXME: use LOG_VERDACCIO_BYTES
-        message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
-        self.logger.warn(
-          {
-            err: err || undefined, // if error is null/false change this to undefined so it wont log
-            request: { method: method, url: uri },
-            level: 35, // http
-            status: res != null ? res.statusCode : 'ERR',
-            error: error,
-            bytes: {
-              in: json ? json.length : 0,
-              out: responseLength || 0,
-            },
-          },
-          message
-        );
-      }
-    } : undefined;
+      : undefined;
 
     let requestOptions = {
       url: uri,
@@ -217,14 +219,14 @@ class ProxyStorage implements IProxy {
 
     if (this.ca) {
       requestOptions = Object.assign({}, requestOptions, {
-        ca: this.ca
+        ca: this.ca,
       });
     }
 
     const req = request(requestOptions, requestCallback);
 
     let statusCalled = false;
-    req.on('response', function(res): void {
+    req.on('response', function (res): void {
       // FIXME: _verdaccio_aborted seems not used
       // @ts-ignore
       if (!req._verdaccio_aborted && !statusCalled) {
@@ -249,7 +251,7 @@ class ProxyStorage implements IProxy {
         })();
       }
     });
-    req.on('error', function(_err): void {
+    req.on('error', function (_err): void {
       // FIXME: _verdaccio_aborted seems not used
       // @ts-ignore
       if (!req._verdaccio_aborted && !statusCalled) {
@@ -465,7 +467,7 @@ class ProxyStorage implements IProxy {
       },
     });
 
-    readStream.on('response', function(res: any) {
+    readStream.on('response', function (res: any) {
       if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
         return stream.emit('error', ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
       }
@@ -480,13 +482,13 @@ class ProxyStorage implements IProxy {
       readStream.pipe(stream);
     });
 
-    readStream.on('error', function(err) {
+    readStream.on('error', function (err) {
       stream.emit('error', err);
     });
-    readStream.on('data', function(data) {
+    readStream.on('data', function (data) {
       current_length += data.length;
     });
-    readStream.on('end', function(data) {
+    readStream.on('end', function (data) {
       if (data) {
         current_length += data.length;
       }

@@ -1,12 +1,12 @@
 import path from 'path';
 import request from 'supertest';
 
-import {HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC, API_ERROR} from '@verdaccio/dev-commons';
-import {mockServer, generateRamdonStorage} from '@verdaccio/mock';
-import {buildUserBuffer, buildToken} from '@verdaccio/utils';
-import {configExample, DOMAIN_SERVERS, addUser, getPackage, loginUserToken} from '@verdaccio/mock';
+import { HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC, API_ERROR } from '@verdaccio/dev-commons';
+import { mockServer, generateRamdonStorage } from '@verdaccio/mock';
+import { buildUserBuffer, buildToken } from '@verdaccio/utils';
+import { configExample, DOMAIN_SERVERS, addUser, getPackage, loginUserToken } from '@verdaccio/mock';
 
-import {setup, logger} from '@verdaccio/logger';
+import { setup, logger } from '@verdaccio/logger';
 
 import endPointAPI from '../../src';
 
@@ -22,18 +22,22 @@ describe('endpoint user auth JWT unit test', () => {
   let mockRegistry;
   const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
 
-  beforeAll(async function(done) {
+  beforeAll(async function (done) {
     const mockServerPort = 55546;
     const store = generateRamdonStorage();
-    const configForTest = configExample({
-      storage: store,
-      uplinks: {
-        remote: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
+    const configForTest = configExample(
+      {
+        storage: store,
+        uplinks: {
+          remote: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
+        },
+        self_path: store,
       },
-      self_path: store
-    }, 'jwt.yaml', __dirname);
+      'jwt.yaml',
+      __dirname
+    );
 
     app = await endPointAPI(configForTest);
     const binPath = require.resolve('verdaccio/bin/verdaccio');
@@ -42,7 +46,7 @@ describe('endpoint user auth JWT unit test', () => {
     done();
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
@@ -86,12 +90,13 @@ describe('endpoint user auth JWT unit test', () => {
     const token = buildUserBuffer(credentials.name, credentials.password).toString('base64');
     // put should exist in request
     // @ts-ignore
-    request(app).put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
+    request(app)
+      .put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
       .send(credentials)
       .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.CREATED)
-      .end(function(err, res) {
+      .end(function (err, res) {
         expect(err).toBeNull();
         expect(res.body.ok).toBeDefined();
         expect(res.body.token).toBeDefined();

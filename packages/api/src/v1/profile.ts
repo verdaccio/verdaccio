@@ -16,7 +16,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function(route: Router, auth: IAuth): void {
+export default function (route: Router, auth: IAuth): void {
   function buildProfile(name: string): Profile {
     return {
       tfa: false,
@@ -30,7 +30,7 @@ export default function(route: Router, auth: IAuth): void {
     };
   }
 
-  route.get('/-/npm/v1/user', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.get('/-/npm/v1/user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name) === false) {
       return next(buildProfile(req.remote_user.name));
     }
@@ -41,7 +41,7 @@ export default function(route: Router, auth: IAuth): void {
     });
   });
 
-  route.post('/-/npm/v1/user', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.post('/-/npm/v1/user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({

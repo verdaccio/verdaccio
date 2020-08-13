@@ -85,7 +85,7 @@
     "kleur": "3.0.3",
     "lint-staged": "8.2.1",
     "nock": "12.0.3",
-    "prettier": "1.19.1",
+    "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "selfsigned": "1.10.7",
     "standard-version": "8.0.0",

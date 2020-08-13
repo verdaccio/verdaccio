@@ -1,14 +1,14 @@
-import path from "path";
+import path from 'path';
 import _ from 'lodash';
 
 import { Config as AppConfig } from '@verdaccio/config';
-import {Config, UpLinkConf} from '@verdaccio/types';
+import { Config, UpLinkConf } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import {IProxy} from '@verdaccio/dev-types';
-import { API_ERROR, HTTP_STATUS } from "@verdaccio/dev-commons";
+import { IProxy } from '@verdaccio/dev-types';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 import { ProxyStorage } from '@verdaccio/proxy';
-import {setup, logger} from '@verdaccio/logger';
+import { setup, logger } from '@verdaccio/logger';
 
 setup([]);
 
@@ -16,7 +16,7 @@ describe('UpStorge', () => {
   const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
-    url: `http://0.0.0.0:${mockServerPort}`
+    url: `http://0.0.0.0:${mockServerPort}`,
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample());
@@ -30,7 +30,7 @@ describe('UpStorge', () => {
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
@@ -59,7 +59,7 @@ describe('UpStorge', () => {
     test('should be get remote metadata with etag', (done) => {
       const proxy = generateProxy();
 
-      proxy.getRemoteMetadata('jquery', {etag: '123456'}, (err, data, etag) => {
+      proxy.getRemoteMetadata('jquery', { etag: '123456' }, (err, data, etag) => {
         expect(err).toBeNull();
         expect(_.isString(etag)).toBeTruthy();
         expect(data.name).toBe('jquery');
@@ -70,7 +70,7 @@ describe('UpStorge', () => {
     test('should be get remote metadata package does not exist', (done) => {
       const proxy = generateProxy();
 
-      proxy.getRemoteMetadata('@verdaccio/fake-package', {etag: '123456'}, (err) => {
+      proxy.getRemoteMetadata('@verdaccio/fake-package', { etag: '123456' }, (err) => {
         expect(err).not.toBeNull();
         expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         expect(err.message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
@@ -79,23 +79,21 @@ describe('UpStorge', () => {
     });
   });
 
-
   describe('UpStorge::fetchTarball', () => {
     test('should fetch a tarball from uplink', (done) => {
       const proxy = generateProxy();
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
 
-      stream.on('error', function(err) {
+      stream.on('error', function (err) {
         expect(err).toBeNull();
         done();
       });
 
-      stream.on('content-length', function(contentLength) {
+      stream.on('content-length', function (contentLength) {
         expect(contentLength).toBeDefined();
         done();
       });
-
     });
 
     test('should throw a 404 on fetch a tarball from uplink', (done) => {
@@ -103,7 +101,7 @@ describe('UpStorge', () => {
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
 
-      stream.on('error', function(err: VerdaccioError) {
+      stream.on('error', function (err: VerdaccioError) {
         expect(err).not.toBeNull();
         expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
@@ -111,11 +109,10 @@ describe('UpStorge', () => {
         done();
       });
 
-      stream.on('content-length', function(contentLength) {
+      stream.on('content-length', function (contentLength) {
         expect(contentLength).toBeDefined();
         done();
       });
-
     });
 
     test('should be offline uplink', (done) => {
@@ -126,14 +123,14 @@ describe('UpStorge', () => {
 
       // to test a uplink is offline we have to be try 3 times
       // the default failed request are set to 2
-      process.nextTick(function() {
-        stream.on('error', function(err) {
+      process.nextTick(function () {
+        stream.on('error', function (err) {
           expect(err).not.toBeNull();
           // expect(err.statusCode).toBe(404);
           expect(proxy.failed_requests).toBe(1);
 
           const streamSecondTry = proxy.fetchTarball(tarball);
-          streamSecondTry.on('error', function(err) {
+          streamSecondTry.on('error', function (err) {
             expect(err).not.toBeNull();
             /*
                   code: 'ENOTFOUND',
@@ -142,7 +139,7 @@ describe('UpStorge', () => {
             // expect(err.statusCode).toBe(404);
             expect(proxy.failed_requests).toBe(2);
             const streamThirdTry = proxy.fetchTarball(tarball);
-            streamThirdTry.on('error', function(err: VerdaccioError) {
+            streamThirdTry.on('error', function (err: VerdaccioError) {
               expect(err).not.toBeNull();
               expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
               expect(proxy.failed_requests).toBe(2);
@@ -156,16 +153,13 @@ describe('UpStorge', () => {
   });
 
   describe('UpStorge::isUplinkValid', () => {
-
     describe('valid use cases', () => {
-      const validateUpLink = (
-        url: string,
-        tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
+      const validateUpLink = (url: string, tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 
         return proxy.isUplinkValid(tarBallUrl);
-      }
+      };
 
       test('should validate tarball path against uplink', () => {
         expect(validateUpLink('https://artifactory.mydomain.com')).toBe(true);
@@ -190,8 +184,7 @@ describe('UpStorge', () => {
       // corner case https://github.com/verdaccio/verdaccio/issues/571
       test('should validate tarball path against uplink case#6', () => {
         // same protocol, same domain, port === 443 which is also the standard for https
-        expect(validateUpLink('https://my.domain.test',
-          `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(true);
+        expect(validateUpLink('https://my.domain.test', `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(true);
       });
 
       test('should validate tarball path against uplink case#7', () => {
@@ -253,7 +246,5 @@ describe('UpStorge', () => {
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });
     });
-
   });
-
 });

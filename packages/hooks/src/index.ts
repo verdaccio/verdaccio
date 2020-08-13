@@ -1,1 +1,1 @@
-export {handleNotify, notify, sendNotification } from './notify';
+export { handleNotify, notify, sendNotification } from './notify';

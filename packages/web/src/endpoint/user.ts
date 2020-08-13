@@ -9,7 +9,7 @@ import { validatePassword, ErrorCode } from '@verdaccio/utils';
 import { getSecurity } from '@verdaccio/auth';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
-  route.post('/login', function(req: Request, res: Response, next: $NextFunctionVer): void {
+  route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
 
     auth.authenticate(
@@ -32,7 +32,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     );
   });
 
-  route.put('/reset_password', function(req: Request, res: Response, next: $NextFunctionVer): void {
+  route.put('/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({

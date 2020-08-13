@@ -2,7 +2,6 @@ import assert from 'assert';
 import _ from 'lodash';
 import minimatch from 'minimatch';
 
-
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
 import { MatchedPackage, LegacyPackageList } from '@verdaccio/dev-types';
 import { ErrorCode } from './utils';
@@ -20,23 +19,21 @@ const BLACKLIST = {
  * @return {Array}
  */
 export function normalizeUserList(groupsList: any): any {
-    const result: any[] = [];
-    if (_.isNil(groupsList)) {
-      return result;
-    }
+  const result: any[] = [];
+  if (_.isNil(groupsList)) {
+    return result;
+  }
 
-    // if it's a string, split it to array
-    if (_.isString(groupsList)) {
-      const groupsArray = groupsList.split(/\s+/);
+  // if it's a string, split it to array
+  if (_.isString(groupsList)) {
+    const groupsArray = groupsList.split(/\s+/);
 
-      result.push(groupsArray);
-    } else if (Array.isArray(groupsList)) {
-      result.push(groupsList);
-    } else {
-      throw ErrorCode.getInternalError(
-        'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList)
-      );
-    }
+    result.push(groupsArray);
+  } else if (Array.isArray(groupsList)) {
+    result.push(groupsList);
+  } else {
+    throw ErrorCode.getInternalError('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList));
+  }
 
   return _.flatten(result);
 }
@@ -58,10 +55,7 @@ export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLI
 }
 
 export function sanityCheckNames(item: string, users: any): any {
-  assert(
-    item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none',
-    'CONFIG: reserved uplink name: ' + item
-  );
+  assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved uplink name: ' + item);
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
   assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
   users[item] = true;
@@ -90,7 +84,7 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   const matchedPkg: MatchedPackage = getMatchedPackagesSpec(pkg, packages);
   const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
   if (proxyList) {
-    return proxyList.some(curr => upLink === curr);
+    return proxyList.some((curr) => upLink === curr);
   }
 
   return false;
@@ -112,7 +106,7 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
     normalizedPkgs['**'] = {
       access: [],
       publish: [],
-      proxy: []
+      proxy: [],
     };
   }
 
@@ -126,9 +120,7 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
       normalizedPkgs[pkg].publish = normalizeUserList(packageAccess.publish);
       normalizedPkgs[pkg].proxy = normalizeUserList(packageAccess.proxy);
       // if unpublish is not defined, we set to false to fallback in publish access
-      normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish)
-        ? false
-        : normalizeUserList(packageAccess.unpublish);
+      normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish) ? false : normalizeUserList(packageAccess.unpublish);
     }
   }
 

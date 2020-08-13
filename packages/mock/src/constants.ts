@@ -1,7 +1,7 @@
 export const DOMAIN_SERVERS = '0.0.0.0';
 export const CREDENTIALS = {
-	user: 'test',
-	password: 'test'
+  user: 'test',
+  password: 'test',
 };
 
 export const TARBALL = 'tarball-blahblah-file.name';

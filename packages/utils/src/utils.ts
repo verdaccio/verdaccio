@@ -8,16 +8,7 @@ import YAML from 'js-yaml';
 import { Request } from 'express';
 
 import sanitizyReadme from '@verdaccio/readme';
-import {
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from '@verdaccio/dev-commons';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from '@verdaccio/dev-commons';
 
 import { Package, Version, Author } from '@verdaccio/types';
 import { StringValue } from '@verdaccio/dev-types';
@@ -33,7 +24,6 @@ import {
   getNotFound,
   getCode,
 } from '@verdaccio/commons-api';
-
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -184,12 +174,7 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
@@ -287,10 +272,10 @@ export function parseAddress(urlAddress: any): any {
  * Function filters out bad semver versions and sorts the array.
  * @return {Array} sorted Array
  */
-export function semverSort(listVersions: string[], /* logger */): string[] {
+export function semverSort(listVersions: string[] /* logger */): string[] {
   return (
     listVersions
-      .filter(function(x): boolean {
+      .filter(function (x): boolean {
         if (!semver.parse(x, true)) {
           // FIXME: logger is always undefined
           // logger.warn({ ver: x }, 'ignoring bad version @{ver}');
@@ -365,8 +350,8 @@ export function parseInterval(interval: any): number {
   }
   let result = 0;
   let last_suffix = Infinity;
-  interval.split(/\s+/).forEach(function(x): void {
-    if (!x){
+  interval.split(/\s+/).forEach(function (x): void {
+    if (!x) {
       return;
     }
     const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
@@ -452,7 +437,7 @@ export function fileExists(path: string): boolean {
 }
 
 export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
-  return packages.slice().sort(function(a, b): number {
+  return packages.slice().sort(function (a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;

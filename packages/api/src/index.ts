@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 
 import { match, validateName, validatePackage, encodeScopePackage, antiLoop } from '@verdaccio/middleware';
 import { IAuth, IStorageHandler } from '@verdaccio/dev-types';
@@ -16,9 +16,9 @@ import pkg from './package';
 import stars from './stars';
 import profile from './v1/profile';
 import token from './v1/token';
-import v1Search from './v1/search'
+import v1Search from './v1/search';
 
-export default function(config: Config, auth: IAuth, storage: IStorageHandler): Express.Application {
+export default function (config: Config, auth: IAuth, storage: IStorageHandler): Express.Application {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
@@ -55,7 +55,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler): 
   stars(app, storage);
 
   if (_.get(config, 'experiments.search') === true) {
-    v1Search(app, auth, storage)
+    v1Search(app, auth, storage);
   }
 
   if (_.get(config, 'experiments.token') === true) {

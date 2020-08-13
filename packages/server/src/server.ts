@@ -21,7 +21,7 @@ import { log, final, errorReportingMiddleware } from '@verdaccio/middleware';
 
 import hookDebug from './debug';
 
-const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
+const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
   const app: Application = express();
   // run in production mode by default, just in case
@@ -32,14 +32,14 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
   // Router setup
   app.use(log(config));
   app.use(errorReportingMiddleware);
-  app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     res.setHeader('X-Powered-By', config.user_agent);
     next();
   });
 
   app.use(compression());
 
-  app.get('/favicon.ico', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  app.get('/favicon.ico', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     req.url = '/-/static/favicon.png';
     next();
   });
@@ -55,7 +55,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
     logger: logger,
   };
 
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(config, config.middlewares, plugin_params, function(plugin: IPluginMiddleware<IConfig>) {
+  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(config, config.middlewares, plugin_params, function (plugin: IPluginMiddleware<IConfig>) {
     return plugin.register_middlewares;
   });
   plugins.forEach((plugin: IPluginMiddleware<IConfig>) => {
@@ -70,17 +70,17 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
     app.use('/', renderWebMiddleware(config, auth, storage));
     app.use('/-/verdaccio/', webAPI(config, auth, storage));
   } else {
-    app.get('/', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
   // Catch 404
-  app.get('/*', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
-  app.use(function(err: HttpError, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.use(function (err: HttpError, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {
       if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
@@ -102,7 +102,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
   return app;
 };
 
-export default (async function(configHash: any): Promise<any> {
+export default (async function (configHash: any): Promise<any> {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   // register middleware plugins

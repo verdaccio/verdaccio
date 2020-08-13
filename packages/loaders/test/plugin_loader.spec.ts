@@ -1,5 +1,5 @@
 import path from 'path';
-import { setup }  from '@verdaccio/logger';
+import { setup } from '@verdaccio/logger';
 
 import { loadPlugin } from '../src/plugin-loader';
 
@@ -7,13 +7,13 @@ setup([]);
 
 describe('plugin loader', () => {
   const relativePath = path.join(__dirname, './partials/test-plugin-storage');
-  const buildConf = name => {
+  const buildConf = (name) => {
     return {
       self_path: path.join(__dirname, './'),
       max_users: 0,
       auth: {
-        [`${relativePath}/${name}`]: {}
-      }
+        [`${relativePath}/${name}`]: {},
+      },
     };
   };
 
@@ -45,7 +45,7 @@ describe('plugin loader', () => {
         loadPlugin(_config, _config.auth, {}, function (p) {
           return p.authenticate || p.allow_access || p.allow_publish;
         });
-      } catch(e) {
+      } catch (e) {
         expect(e.message).toEqual(`"${relativePath}/invalid-plugin" plugin does not have the right code structure`);
       }
     });
@@ -57,7 +57,7 @@ describe('plugin loader', () => {
         loadPlugin(_config, _config.auth, {}, function (plugin) {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
-      } catch(err) {
+      } catch (err) {
         expect(err.message).toEqual(`sanity check has failed, "${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
       }
     });
@@ -69,7 +69,7 @@ describe('plugin loader', () => {
         loadPlugin(_config, _config.auth, {}, function (plugin) {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
-      } catch(e) {
+      } catch (e) {
         expect(e.message).toMatch('plugin not found');
         expect(e.message).toMatch('/partials/test-plugin-storage/invalid-package');
       }
@@ -78,5 +78,4 @@ describe('plugin loader', () => {
     test.todo('test middleware plugins');
     test.todo('test storage plugins');
   });
-
 });

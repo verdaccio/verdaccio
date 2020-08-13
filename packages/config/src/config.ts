@@ -8,7 +8,7 @@ import {
   uplinkSanityCheck,
   generateRandomHexString,
   getUserAgent,
-  isObject
+  isObject,
 } from '@verdaccio/utils';
 import { APP_ERROR } from '@verdaccio/dev-commons';
 
@@ -61,7 +61,7 @@ class Config implements AppConfig {
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
 
     // sanity check for strategic config properties
-    strategicConfigProps.forEach(function(x): void {
+    strategicConfigProps.forEach(function (x): void {
       if (self[x] == null) {
         self[x] = {};
       }
@@ -79,13 +79,11 @@ class Config implements AppConfig {
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
-    allowedEnvConfig.forEach(
-      (envConf): void => {
-        if (!(envConf in self)) {
-          self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
-        }
+    allowedEnvConfig.forEach((envConf): void => {
+      if (!(envConf in self)) {
+        self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
       }
-    );
+    });
 
     // unique identifier of self server (or a cluster), used to avoid loops
     // @ts-ignore
