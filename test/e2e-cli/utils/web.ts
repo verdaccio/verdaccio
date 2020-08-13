@@ -5,7 +5,7 @@ export function callRegistry(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     let options = {
       url: url,
-      headers: { Accept: 'application/json' }
+      headers: { Accept: 'application/json' },
     };
     // @ts-ignore
     request(options, (error: any, response: IncomingMessage, body: string) => {

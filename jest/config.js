@@ -5,11 +5,6 @@ module.exports = {
   },
   verbose: false,
   collectCoverage: true,
-  collectCoverageFrom: [
-    "src/**/*.ts",
-    "!**/node_modules/**",
-    "!**/partials/**",
-    "!**/fixture/**",
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!**/node_modules/**', '!**/partials/**', '!**/fixture/**'],
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
 };

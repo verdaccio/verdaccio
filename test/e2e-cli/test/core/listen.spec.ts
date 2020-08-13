@@ -21,13 +21,10 @@ describe('npm install', () => {
 
   test('should match the listing port and load metadata', async () => {
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
-      paths: [verdaccioInstall]
+      paths: [verdaccioInstall],
     });
 
-    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
-      cwd: verdaccioInstall,
-      silent: true
-    });
+    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], { cwd: verdaccioInstall, silent: true });
 
     const body = await callRegistry(`http://localhost:${port}/verdaccio`);
     const parsedBody = JSON.parse(body);

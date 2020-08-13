@@ -1,7 +1,7 @@
 // <reference types="node" />
 
-import { Logger, RemoteUser } from "@verdaccio/types";
-import * as http from "http";
+import * as http from 'http';
+import { Logger, RemoteUser } from '@verdaccio/types';
 
 declare global {
   namespace Express {

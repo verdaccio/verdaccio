@@ -10,7 +10,7 @@ module.exports = {
   // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
   // when it tries to scan for package.json files.
   transform: {
-    '^.+\\.[t|j]sx?$': 'babel-jest'
+    '^.+\\.[t|j]sx?$': 'babel-jest',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/test/unit/partials/mock-store/.*/package.json',
@@ -28,14 +28,6 @@ module.exports = {
     '<rootDir>/build',
     '<rootDir>/.vscode/',
   ],
-  testPathIgnorePatterns: [
-    '__snapshots__',
-    '<rootDir>/build',
-  ],
-  coveragePathIgnorePatterns: [
-    'node_modules',
-    'fixtures',
-    '<rootDir>/src/api/debug',
-    '<rootDir>/test',
-  ]
+  testPathIgnorePatterns: ['__snapshots__', '<rootDir>/build'],
+  coveragePathIgnorePatterns: ['node_modules', 'fixtures', '<rootDir>/src/api/debug', '<rootDir>/test'],
 };
