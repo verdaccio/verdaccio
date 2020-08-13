@@ -2,21 +2,23 @@
   "extends": [
     "eslint:recommended",
     "google",
+    "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:jest/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
-    "plugin:prettier/recommended",
     "plugin:jsx-a11y/recommended",
+    "prettier",
+    "prettier/react",
     "prettier/@typescript-eslint"
   ],
   "plugins": [
     "import",
     "jest",
-    "prettier",
     "jsx-a11y",
-    "react-hooks"
+    "react-hooks",
+    "prettier"
   ],
   "env": {
     "es6": true,
@@ -52,18 +54,26 @@
       "error", "all"
     ],
     "prettier/prettier": [
-      "error",
+      2,
       {
-        "endOfLine": "auto",
-        "printWidth": 120,
-        "tabWidth": 2,
         "useTabs": false,
-        "semi": true,
-        "trailingComma": "es5",
+        "printWidth": 160,
+        "tabWidth": 2,
         "singleQuote": true,
-        "bracketSpacing": true
+        "requirePragma": false,
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "trailingComma": "none",
+        "semi": true,
+        "parser": "typescript"
       }
     ],
+    "react/prop-types": 0,
+    "jest/no-export": 0,
+    "jest/no-test-callback": 0,
+    "jest/expect-expect": 0,
+    "jest/no-try-expect": 0,
+    "jest/no-identical-title": 1,
     "keyword-spacing": "off",
     "no-tabs": "off",
     "no-useless-escape": "off",
@@ -71,16 +81,10 @@
     "require-jsdoc": "off",
     "valid-jsdoc": "off",
     "import/order": ["warn"],
-    "react/prop-types": 0,
-    "jest/no-export": 0,
-    "jest/no-test-callback": 0,
-    "jest/no-try-expect": 1,
-    "jest/no-identical-title": 1,
     "eol-last": "warn",
     "no-irregular-whitespace": "warn",
     "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
     "no-trailing-spaces": "warn",
-
     "camelcase": "off",
     "guard-for-in": "error",
     "new-cap": "error",
@@ -100,6 +104,9 @@
     "prefer-rest-params": "warn",
     "prefer-spread": "warn",
     "semi": 0,
+    "handle-callback-err": 0,
+    "prefer-const": 0,
+    "prefer-promise-reject-errors": 1,
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-var-requires": 0,
@@ -115,9 +122,6 @@
     "@typescript-eslint/ban-types": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/explicit-member-accessibility": ["warn"],
-    "@typescript-eslint/prefer-optional-chain": ["warn"],
-    "handle-callback-err": 0,
-    "prefer-const": 0,
-    "prefer-promise-reject-errors": 1
+    "@typescript-eslint/prefer-optional-chain": ["warn"]
   }
 }

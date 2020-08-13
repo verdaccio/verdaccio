@@ -1,8 +1,3 @@
-/**
- * @prettier
- * @flow
- */
-
 import { SearchInstance } from '@verdaccio/store';
 import { DIST_TAGS } from '@verdaccio/dev-commons';
 import { Router } from 'express';
