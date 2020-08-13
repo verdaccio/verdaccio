@@ -1,10 +1,10 @@
-import {HTTP_STATUS} from "@verdaccio/dev-commons";
+import { HTTP_STATUS } from '@verdaccio/dev-commons';
 
-export default function(server) {
-
+export default function (server) {
   describe('logout', () => {
     test('should log out', () => {
-      return server.logout('some-token')
+      return server
+        .logout('some-token')
         .status(HTTP_STATUS.OK)
         .body_ok(/Logged out/);
     });

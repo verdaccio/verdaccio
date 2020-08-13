@@ -6,13 +6,13 @@ import constants from 'constants';
 import { Application } from 'express';
 import { assign, isObject, isFunction } from 'lodash';
 
-import { Callback,  ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { API_ERROR, certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
 import server from '@verdaccio/server';
-import { logger} from '@verdaccio/logger';
+import { logger } from '@verdaccio/logger';
 
 import { getListListenAddresses, resolveConfigPath } from './cli-utils';
-import {displayExperimentsInfoBox} from "./experiments";
+import { displayExperimentsInfoBox } from './experiments';
 
 function launchServer(app, addr, config, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
   let webServer;
@@ -45,14 +45,13 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
   }
 
   server(config).then((app): void => {
-      const addresses = getListListenAddresses(cliListen, config.listen);
-      if ('experiments' in config) {
-        displayExperimentsInfoBox(config.experiments);
-      }
-
-      addresses.forEach(addr =>launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback));
+    const addresses = getListListenAddresses(cliListen, config.listen);
+    if ('experiments' in config) {
+      displayExperimentsInfoBox(config.experiments);
     }
-  );
+
+    addresses.forEach((addr) => launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback));
+  });
 }
 
 function unlinkAddressPath(addr) {
@@ -129,19 +128,15 @@ function handleHTTPS(app: Application, configPath: string, config: ConfigWithHtt
 
 function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
   webServer
-    .listen(
-      addr.port || addr.path,
-      addr.host,
-      (): void => {
-        // send a message for tests
-        if (isFunction(process.send)) {
-          process.send({
-            verdaccio_started: true,
-          });
-        }
+    .listen(addr.port || addr.path, addr.host, (): void => {
+      // send a message for tests
+      if (isFunction(process.send)) {
+        process.send({
+          verdaccio_started: true,
+        });
       }
-    )
-    .on('error', function(err): void {
+    })
+    .on('error', function (err): void {
       logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });

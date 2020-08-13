@@ -1,12 +1,11 @@
 import assert from 'assert';
 import _ from 'lodash';
-import {API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC} from '@verdaccio/dev-commons';
-import {buildToken} from "@verdaccio/utils";
+import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '@verdaccio/dev-commons';
+import { buildToken } from '@verdaccio/utils';
 import smartRequest from './request';
-import {IServerBridge} from './types';
+import { IServerBridge } from './types';
 
-
-import {CREDENTIALS} from "./constants"
+import { CREDENTIALS } from './constants';
 import getPackage from './fixtures/package';
 
 const buildAuthHeader = (user, pass): string => {
@@ -64,7 +63,6 @@ export default class Server implements IServerBridge {
       method: 'DELETE',
     });
   }
-
 
   public getPackage(name: string) {
     return this.request({
@@ -139,7 +137,6 @@ export default class Server implements IServerBridge {
     });
   }
 
-
   public addTag(name: string, tag: string, version: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
@@ -161,20 +158,20 @@ export default class Server implements IServerBridge {
       timeout: 1000,
     });
 
-    promise.request(function(req) {
+    promise.request(function (req) {
       req.write(data);
       // it auto abort the request
-      setTimeout(function() {
+      setTimeout(function () {
         req.req.abort();
       }, 20);
     });
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       promise
-        .then(function() {
+        .then(function () {
           reject(Error('no error'));
         })
-        .catch(function(err) {
+        .catch(function (err) {
           if (err.code === 'ECONNRESET') {
             resolve();
           } else {
@@ -185,25 +182,25 @@ export default class Server implements IServerBridge {
   }
 
   public addPackage(name: string) {
-    return this.putPackage(name, getPackage(name))
-      .status(HTTP_STATUS.CREATED)
-      .body_ok(API_MESSAGE.PKG_CREATED);
+    return this.putPackage(name, getPackage(name)).status(HTTP_STATUS.CREATED).body_ok(API_MESSAGE.PKG_CREATED);
   }
 
   public whoami() {
     return this.request({
-      uri: '/-/whoami'
-    }).status(HTTP_STATUS.OK)
-      .then(function(body) {
+      uri: '/-/whoami',
+    })
+      .status(HTTP_STATUS.OK)
+      .then(function (body) {
         return body.username;
       });
   }
 
   public ping() {
     return this.request({
-      uri: '/-/ping'
-    }).status(HTTP_STATUS.OK)
-      .then(function(body) {
+      uri: '/-/ping',
+    })
+      .status(HTTP_STATUS.OK)
+      .then(function (body) {
         return body;
       });
   }
@@ -215,6 +212,6 @@ export default class Server implements IServerBridge {
       headers: {
         [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
       },
-    })
+    });
   }
 }

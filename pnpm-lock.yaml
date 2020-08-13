@@ -57,7 +57,7 @@ importers:
       eslint-plugin-import: 2.22.0_eslint@7.5.0
       eslint-plugin-jest: 23.8.0_eslint@7.5.0+typescript@3.9.5
       eslint-plugin-jsx-a11y: 6.3.1_eslint@7.5.0
-      eslint-plugin-prettier: 3.1.2_eslint@7.5.0+prettier@1.19.1
+      eslint-plugin-prettier: 3.1.2_eslint@7.5.0+prettier@2.0.5
       eslint-plugin-react: 7.20.5_eslint@7.5.0
       eslint-plugin-react-hooks: 4.0.8_eslint@7.5.0
       eslint-plugin-simple-import-sort: 5.0.2_eslint@7.5.0
@@ -72,7 +72,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 8.2.1
       nock: 12.0.3
-      prettier: 1.19.1
+      prettier: 2.0.5
       rimraf: 3.0.2
       selfsigned: 1.10.7
       standard-version: 8.0.0
@@ -153,7 +153,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 8.2.1
       nock: 12.0.3
-      prettier: 1.19.1
+      prettier: 2.0.5
       rimraf: 3.0.2
       selfsigned: 1.10.7
       standard-version: 8.0.0
@@ -4775,10 +4775,10 @@ packages:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7
     resolution:
       integrity: sha512-i1S+P+c3HOlBJzMFORRbC58tHa65Kbo8b52/TwCwSKLohwvpfT5rm2GjGWzOHTEuq4xxf2aRlHHTtmExDQOP+g==
-  /eslint-plugin-prettier/3.1.2_eslint@7.5.0+prettier@1.19.1:
+  /eslint-plugin-prettier/3.1.2_eslint@7.5.0+prettier@2.0.5:
     dependencies:
       eslint: 7.5.0
-      prettier: 1.19.1
+      prettier: 2.0.5
       prettier-linter-helpers: 1.0.0
     dev: true
     engines:
@@ -8578,13 +8578,13 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
-  /prettier/1.19.1:
+  /prettier/2.0.5:
     dev: true
     engines:
-      node: '>=4'
+      node: '>=10.13.0'
     hasBin: true
     resolution:
-      integrity: sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
+      integrity: sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
   /pretty-format/25.5.0:
     dependencies:
       '@jest/types': 25.5.0

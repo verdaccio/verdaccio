@@ -1,69 +1,35 @@
 import path from 'path';
 import fs from 'fs';
-import {Writable} from 'stream';
+import { Writable } from 'stream';
 import { Config as AppConfig } from '@verdaccio/config';
 import { Storage } from '@verdaccio/store';
-import {IStorageHandler} from '@verdaccio/dev-types';
+import { IStorageHandler } from '@verdaccio/dev-types';
 
-import {Config} from '@verdaccio/types';
-import {API_ERROR, HTTP_STATUS} from '@verdaccio/dev-commons';
-import {mockServer, configExample, DOMAIN_SERVERS, generateRamdonStorage} from '@verdaccio/mock';
+import { Config } from '@verdaccio/types';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { mockServer, configExample, DOMAIN_SERVERS, generateRamdonStorage } from '@verdaccio/mock';
 
-import {setup, logger} from '@verdaccio/logger';
+import { setup, logger } from '@verdaccio/logger';
 
 setup([]);
 
-
 const mockServerPort = 55548;
 
-const generateStorage = async function() {
+const generateStorage = async function () {
   const storagePath = generateRamdonStorage();
-  const storageConfig = configExample({
-    self_path: storagePath,
-    storage: storagePath,
-    uplinks: {
-      npmjs: {
-        url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-      }
-    }
-  }, 'store.spec.yaml', __dirname);
-
-  const config: Config = new AppConfig(storageConfig);
-  const store: IStorageHandler = new Storage(config);
-  await store.init(config, []);
-
-  return store;
-};
-
-const generateSameUplinkStorage = async function() {
-  const storagePath = generateRamdonStorage();
-  console.log("-->storagePath", storagePath);
-  const storageConfig = configExample({
-    self_path: storagePath,
-    storage: storagePath,
-    packages: {
-      jquery: {
-        access: ['$all'],
-        publish: ['$all'],
-        proxy: ['cached'],
+  const storageConfig = configExample(
+    {
+      self_path: storagePath,
+      storage: storagePath,
+      uplinks: {
+        npmjs: {
+          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+        },
       },
-      '@jquery/*': {
-        access: ['$all'],
-        publish: ['$all'],
-        proxy: ['notcached'],
-      }
     },
-    uplinks: {
-      cached: {
-        url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-        cache: true,
-      },
-      notcached: {
-        url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-        cache: false,
-      }
-    }
-  }, 'store.spec.yaml', __dirname);
+    'store.spec.yaml',
+    __dirname
+  );
 
   const config: Config = new AppConfig(storageConfig);
   const store: IStorageHandler = new Storage(config);
@@ -72,23 +38,65 @@ const generateSameUplinkStorage = async function() {
   return store;
 };
 
-const createNullStream = () => new Writable({
-  write: function(chunk, encoding, next) {
-    next();
-  }
-});
+const generateSameUplinkStorage = async function () {
+  const storagePath = generateRamdonStorage();
+  console.log('-->storagePath', storagePath);
+  const storageConfig = configExample(
+    {
+      self_path: storagePath,
+      storage: storagePath,
+      packages: {
+        jquery: {
+          access: ['$all'],
+          publish: ['$all'],
+          proxy: ['cached'],
+        },
+        '@jquery/*': {
+          access: ['$all'],
+          publish: ['$all'],
+          proxy: ['notcached'],
+        },
+      },
+      uplinks: {
+        cached: {
+          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          cache: true,
+        },
+        notcached: {
+          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          cache: false,
+        },
+      },
+    },
+    'store.spec.yaml',
+    __dirname
+  );
+
+  const config: Config = new AppConfig(storageConfig);
+  const store: IStorageHandler = new Storage(config);
+  await store.init(config, []);
+
+  return store;
+};
+
+const createNullStream = () =>
+  new Writable({
+    write: function (chunk, encoding, next) {
+      next();
+    },
+  });
 
 describe('StorageTest', () => {
   let mockRegistry;
 
-  beforeAll(async done => {
+  beforeAll(async (done) => {
     const binPath = require.resolve('verdaccio/bin/verdaccio');
     const storePath = path.join(__dirname, '/mock/store');
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
     done();
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
@@ -185,7 +193,7 @@ describe('StorageTest', () => {
 
     test.skip('should not touch if the package exists and has no uplinks', async (done) => {
       const storagePath = generateRamdonStorage();
-      const storage: IStorageHandler = await generateStorage() as IStorageHandler;
+      const storage: IStorageHandler = (await generateStorage()) as IStorageHandler;
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
 
