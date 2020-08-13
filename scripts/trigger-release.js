@@ -15,7 +15,7 @@ const octokit = new Octokit({
 const [repoOwner, repoName] = process.env.GITHUB_REPOSITORY.split('/');
 
 getStdin()
-  .then(changelog =>
+  .then((changelog) =>
     octokit.repos.createRelease({
       owner: repoOwner,
       repo: repoName,
@@ -24,7 +24,7 @@ getStdin()
       draft: true,
     })
   )
-  .catch(err => {
+  .catch((err) => {
     // eslint-disable-next-line no-console
     console.error(err);
     process.exit(1);

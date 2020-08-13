@@ -1,13 +1,12 @@
-const fs = require('fs');
 import os from 'os';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
+const fs = require('fs');
 const __global = require('../utils/global');
-
 
 class E2ECliTestEnvironment extends NodeEnvironment {
   constructor(config) {
-    super(config)
+    super(config);
   }
 
   async setup() {

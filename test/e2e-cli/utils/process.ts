@@ -1,5 +1,5 @@
 import * as child_process from 'child_process';
-import {SpawnOptions} from "child_process";
+import { SpawnOptions } from 'child_process';
 
 export async function _exec(options, cmd, args) {
   let stdout = '';
@@ -7,12 +7,12 @@ export async function _exec(options, cmd, args) {
   const flags = [];
   const cwd = process.cwd();
   const env = options.env;
-  console.log(`Running \`${cmd} ${args.map(x => `"${x}"`).join(' ')}\`${flags}...`);
+  console.log(`Running \`${cmd} ${args.map((x) => `"${x}"`).join(' ')}\`${flags}...`);
   console.log(`CWD: ${cwd}`);
   console.log(`ENV: ${JSON.stringify(env)}`);
   const spawnOptions = {
     cwd,
-    ...env ? { env } : {},
+    ...(env ? { env } : {}),
   };
 
   if (process.platform.startsWith('win')) {
@@ -21,7 +21,6 @@ export async function _exec(options, cmd, args) {
     spawnOptions['stdio'] = 'pipe';
   }
 
-
   const childProcess = child_process.spawn(cmd, args, spawnOptions);
   childProcess.stdout.on('data', (data) => {
     stdout += data.toString('utf-8');
@@ -29,10 +28,11 @@ export async function _exec(options, cmd, args) {
       return;
     }
 
-    data.toString('utf-8')
+    data
+      .toString('utf-8')
       .split(/[\n\r]+/)
-      .filter(line => line !== '')
-      .forEach(line => console.log('  ' + line));
+      .filter((line) => line !== '')
+      .forEach((line) => console.log('  ' + line));
   });
 
   childProcess.stderr.on('data', (data) => {
@@ -41,10 +41,11 @@ export async function _exec(options, cmd, args) {
       return;
     }
 
-    data.toString('utf-8')
+    data
+      .toString('utf-8')
       .split(/[\n\r]+/)
-      .filter(line => line !== '')
-      .forEach(line => console.error(('  ' + line)));
+      .filter((line) => line !== '')
+      .forEach((line) => console.error('  ' + line));
   });
 
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
@@ -63,7 +64,7 @@ export async function _exec(options, cmd, args) {
       childProcess.stdout.on('data', (data) => {
         // console.log("-->data==>", data.toString(), data.toString().match(match));
         if (data.toString().match(match)) {
-          resolve({ok: true, stdout, stderr });
+          resolve({ ok: true, stdout, stderr });
         }
       });
       childProcess.stderr.on('data', (data) => {
@@ -75,14 +76,9 @@ export async function _exec(options, cmd, args) {
   });
 }
 
-export function execAndWaitForOutputToMatch(
-    cmd: string,
-    args: string[],
-    match: RegExp,
-    spawnOptions: SpawnOptions = {}): any {
+export function execAndWaitForOutputToMatch(cmd: string, args: string[], match: RegExp, spawnOptions: SpawnOptions = {}): any {
   return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
 }
-
 
 export function npm(...args) {
   return _exec({}, 'npm', args);
@@ -93,5 +89,5 @@ export function runVerdaccio(cmd, installation, args, match: RegExp): any {
 }
 
 export function silentNpm(...args) {
-  return _exec({silent: true}, 'npm', args);
+  return _exec({ silent: true }, 'npm', args);
 }

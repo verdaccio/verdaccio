@@ -101,7 +101,7 @@
     "clean": "pnpm recursive run clean",
     "build": "pnpm recursive run build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
-    "lint": "eslint \"packages/**/@(src|tests|test)/**\"",
+    "lint": "eslint . --ext .js,.ts,.tsx,.jsx",
     "test": "pnpm recursive test",
     "test:e2e:cli": "cross-env NODE_ENV=test jest --config ./test/e2e-cli/jest.config.e2e.cli.js --passWithNoTests",
     "website:lint": "cd website && yarn lint",
