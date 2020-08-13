@@ -35,19 +35,18 @@ docker pull verdaccio/verdaccio:5.x-next
 
 The `5.x` still under development, key points:
 
-* We use **lerna** as monorepo management.
+* We use **pnpm** as monorepo management. `npm i -g pnpm@latest`.
 * Please check [the roadmap](https://github.com/verdaccio/verdaccio/issues/1690) if you want to contribute
 
 ```
-yarn install
-yarn bootstrap
-yarn build
+pnpm install
+pnpm build
 ```
 
 running the test
 
 ```
-yarn test
+pnpm test
 ```
 
 We are still experimenting with few things, be patience, Verdaccio v4 will run for still long period until this is getting done.
