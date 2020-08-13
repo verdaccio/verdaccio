@@ -3,9 +3,7 @@ import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publ
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
 
-require('@verdaccio/logger').setup([
-  { type: 'stdout', format: 'pretty', level: 'info' }
-]);
+require('@verdaccio/logger').setup([{ type: 'stdout', format: 'pretty', level: 'info' }]);
 
 describe('Publish endpoints - add a tag', () => {
   let req;
@@ -28,7 +26,7 @@ describe('Publish endpoints - add a tag', () => {
     next = jest.fn();
   });
 
-  test('should add a version', done => {
+  test('should add a version', (done) => {
     const storage = {
       addVersion: (packageName, version, body, tag, cb) => {
         expect(packageName).toEqual(req.params.package);
@@ -47,7 +45,7 @@ describe('Publish endpoints - add a tag', () => {
     expect(next).toHaveBeenLastCalledWith({ ok: 'package published' });
   });
 
-  test('when failed to add a version', done => {
+  test('when failed to add a version', (done) => {
     const storage = {
       addVersion: (packageName, version, body, tag, cb) => {
         const error = {
@@ -82,7 +80,7 @@ describe('Publish endpoints - upload package tarball', () => {
       pipe: jest.fn(),
       on: jest.fn(),
     };
-    res = { status: jest.fn(), locals: { report_error: jest.fn() }};
+    res = { status: jest.fn(), locals: { report_error: jest.fn() } };
     next = jest.fn();
   });
 
@@ -127,7 +125,7 @@ describe('Publish endpoints - delete tarball', () => {
     next = jest.fn();
   });
 
-  test('should delete tarball successfully', done => {
+  test('should delete tarball successfully', (done) => {
     const storage = {
       removeTarball(packageName, filename, revision, cb) {
         expect(packageName).toEqual(req.params.package);
@@ -144,7 +142,7 @@ describe('Publish endpoints - delete tarball', () => {
     expect(next).toHaveBeenCalledWith({ ok: 'tarball removed' });
   });
 
-  test('failed while deleting the tarball', done => {
+  test('failed while deleting the tarball', (done) => {
     const error = {
       message: 'deletion failed',
     };
@@ -179,7 +177,7 @@ describe('Publish endpoints - un-publish package', () => {
     next = jest.fn();
   });
 
-  test('should un-publish package successfully', done => {
+  test('should un-publish package successfully', (done) => {
     const storage = {
       removePackage(packageName, cb) {
         expect(packageName).toEqual(req.params.package);
@@ -194,7 +192,7 @@ describe('Publish endpoints - un-publish package', () => {
     expect(next).toHaveBeenCalledWith({ ok: 'package removed' });
   });
 
-  test('un-publish failed', done => {
+  test('un-publish failed', (done) => {
     const error = {
       message: 'un-publish failed',
     };

@@ -32,12 +32,12 @@ const packages = [
 ];
 
 describe('search', () => {
-  beforeAll(async function() {
+  beforeAll(async function () {
     const config = new Config(configExample());
     const storage = new Storage(config);
     await storage.init(config);
     SearchInstance.configureStorage(storage);
-    packages.map(function(item) {
+    packages.map(function (item) {
       // @ts-ignore
       SearchInstance.add(item);
     });

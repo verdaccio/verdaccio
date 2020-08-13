@@ -1,12 +1,10 @@
-import {HTTP_STATUS} from "@verdaccio/dev-commons";
+import { HTTP_STATUS } from '@verdaccio/dev-commons';
 
 const PKG_SINGLE_UPLINK = 'test-uplink-timeout-single';
 const PKG_MULTIPLE_UPLINKS = 'test-uplink-timeout-multiple';
 
 export default function (server, server2, server3) {
-
   describe('uplink connection timeouts', () => {
-
     // more info: https://github.com/verdaccio/verdaccio/pull/1331
 
     jest.setTimeout(20000);
@@ -22,10 +20,8 @@ export default function (server, server2, server3) {
       });
 
       test('200 response even though one uplink timeout', () => {
-        return server.getPackage(PKG_MULTIPLE_UPLINKS).status(HTTP_STATUS.OK)
+        return server.getPackage(PKG_MULTIPLE_UPLINKS).status(HTTP_STATUS.OK);
       });
     });
-
   });
-
 }

@@ -27,7 +27,7 @@ import middleware from './plugins/middleware';
 import upLinkCache from './uplinks/cache';
 import uplinkTimeout from './uplinks/timeout';
 
-describe('functional test verdaccio', function() {
+describe('functional test verdaccio', function () {
   jest.setTimeout(20000);
   // @ts-ignore
   const server1: IServerBridge = global.__SERVERS__[0];
@@ -63,13 +63,12 @@ describe('functional test verdaccio', function() {
   adduser(server1);
   logout(server1);
   basic(server1, server2);
-  simpleSearch(server1, server2, app)
-
+  simpleSearch(server1, server2, app);
 });
 
-process.on('unhandledRejection', function(err) {
-  console.error("unhandledRejection", err);
-  process.nextTick(function() {
+process.on('unhandledRejection', function (err) {
+  console.error('unhandledRejection', err);
+  process.nextTick(function () {
     throw err;
   });
 });

@@ -2,27 +2,15 @@ import _ from 'lodash';
 import { NextFunction } from 'express';
 
 import { VerdaccioError, getBadRequest, getInternalError, getForbidden } from '@verdaccio/commons-api';
-import {API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER} from '@verdaccio/dev-commons';
+import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import { loadPlugin } from '@verdaccio/loaders';
 import { aesEncrypt, signPayload } from '@verdaccio/utils';
-import {
-  getDefaultPlugins,
-  createAnonymousRemoteUser,
-  convertPayloadToBase64,
-  createRemoteUser,
-} from '@verdaccio/utils';
+import { getDefaultPlugins, createAnonymousRemoteUser, convertPayloadToBase64, createRemoteUser } from '@verdaccio/utils';
 
 import { getMatchedPackagesSpec } from '@verdaccio/utils';
 import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '@verdaccio/dev-types';
-import {
-  getMiddlewareCredentials,
-  getSecurity,
-  verifyJWTPayload,
-  parseBasicPayload,
-  parseAuthTokenHeader,
-  isAuthHeaderValid,
-  isAESLegacy } from "./utils";
+import { getMiddlewareCredentials, getSecurity, verifyJWTPayload, parseBasicPayload, parseAuthTokenHeader, isAuthHeaderValid, isAESLegacy } from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
@@ -47,17 +35,12 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin<IPluginAuth<Config>>(
-      config,
-      config.auth,
-      pluginOptions,
-      (plugin: IPluginAuth<Config>): boolean => {
-        const { authenticate, allow_access, allow_publish } = plugin;
+    return loadPlugin<IPluginAuth<Config>>(config, config.auth, pluginOptions, (plugin: IPluginAuth<Config>): boolean => {
+      const { authenticate, allow_access, allow_publish } = plugin;
 
-        // @ts-ignore
-        return authenticate || allow_access || allow_publish;
-      }
-    );
+      // @ts-ignore
+      return authenticate || allow_access || allow_publish;
+    });
   }
 
   private _applyDefaultPlugins(): void {
@@ -65,39 +48,33 @@ class Auth implements IAuth {
   }
 
   public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
-    const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
+    const validPlugins = _.filter(this.plugins, (plugin) => _.isFunction(plugin.changePassword));
 
-		if (_.isEmpty(validPlugins)) {
-			return cb(
-			  getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
-		}
+    if (_.isEmpty(validPlugins)) {
+      return cb(getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+    }
 
-		for (const plugin of validPlugins) {
-			if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
-				this.logger.trace('auth plugin does not implement changePassword, trying next one');
-				continue;
-			} else {
-				this.logger.trace({username}, 'updating password for @{username}');
-				plugin.changePassword!(
-					username,
-					password,
-					newPassword,
-					(err, profile): void => {
-						if (err) {
-							this.logger.error(
-								{username, err},
-								`An error has been produced
+    for (const plugin of validPlugins) {
+      if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
+        this.logger.trace('auth plugin does not implement changePassword, trying next one');
+        continue;
+      } else {
+        this.logger.trace({ username }, 'updating password for @{username}');
+        plugin.changePassword!(username, password, newPassword, (err, profile): void => {
+          if (err) {
+            this.logger.error(
+              { username, err },
+              `An error has been produced
             updating the password for @{username}. Error: @{err.message}`
-							);
-							return cb(err);
-						}
+            );
+            return cb(err);
+          }
 
-						this.logger.trace({username}, 'updated password for @{username} was successful');
-						return cb(null, profile);
-					}
-				);
-			}
-		}
+          this.logger.trace({ username }, 'updated password for @{username} was successful');
+          return cb(null, profile);
+        });
+      }
+    }
   }
 
   public authenticate(username: string, password: string, cb: Callback): void {
@@ -111,7 +88,7 @@ class Auth implements IAuth {
       }
 
       self.logger.trace({ username }, 'authenticating @{username}');
-      plugin.authenticate(username, password, function(err, groups): void {
+      plugin.authenticate(username, password, function (err, groups): void {
         if (err) {
           self.logger.trace({ username, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
           return cb(err);
@@ -159,7 +136,7 @@ class Auth implements IAuth {
         next();
       } else {
         // p.add_user() execution
-        plugin[method](user, password, function(err, ok): void {
+        plugin[method](user, password, function (err, ok): void {
           if (err) {
             self.logger.trace({ user, err: err.message }, 'the user @{user} could not being added. Error: @{err}');
             return cb(err);
@@ -191,7 +168,7 @@ class Auth implements IAuth {
         return next();
       }
 
-      plugin.allow_access!(user, pkg, function(err, ok: boolean): void {
+      plugin.allow_access!(user, pkg, function (err, ok: boolean): void {
         if (err) {
           self.logger.trace({ packageName, err }, 'forbidden access for @{packageName}. Error: @{err.message}');
           return callback(err);
@@ -216,28 +193,24 @@ class Auth implements IAuth {
         this.logger.trace({ packageName }, 'allow unpublish for @{packageName} plugin does not implement allow_unpublish');
         continue;
       } else {
-        plugin.allow_unpublish!(
-          user,
-          pkg,
-          (err, ok: boolean): void => {
-            if (err) {
-              this.logger.trace({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
-              return callback(err);
-            }
-
-            if (_.isNil(ok) === true) {
-              this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
-              // @ts-ignore
-              // eslint-disable-next-line
-              return this.allow_publish(...arguments);
-            }
-
-            if (ok) {
-              this.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
-              return callback(null, ok);
-            }
+        plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
+          if (err) {
+            this.logger.trace({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
+            return callback(err);
           }
-        );
+
+          if (_.isNil(ok) === true) {
+            this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
+            // @ts-ignore
+            // eslint-disable-next-line
+              return this.allow_publish(...arguments);
+          }
+
+          if (ok) {
+            this.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
+            return callback(null, ok);
+          }
+        });
       }
     }
   }
@@ -294,7 +267,7 @@ class Auth implements IAuth {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       req.pause();
 
-      const next = function(err: VerdaccioError | void): void {
+      const next = function (err: VerdaccioError | void): void {
         req.resume();
         // uncomment this to reject users with bad auth headers
         // return _next.apply(null, arguments)
@@ -342,19 +315,15 @@ class Auth implements IAuth {
       // this should happen when client tries to login with an existing user
       const credentials = convertPayloadToBase64(token).toString();
       const { user, password } = parseBasicPayload(credentials) as AESPayload;
-      this.authenticate(
-        user,
-        password,
-        (err, user): void => {
-          if (!err) {
-            req.remote_user = user;
-            next();
-          } else {
-            req.remote_user = createAnonymousRemoteUser();
-            next(err);
-          }
+      this.authenticate(user, password, (err, user): void => {
+        if (!err) {
+          req.remote_user = user;
+          next();
+        } else {
+          req.remote_user = createAnonymousRemoteUser();
+          next(err);
         }
-      );
+      });
     } else {
       // jwt handler
       const credentials: any = getMiddlewareCredentials(security, secret, authorization);
@@ -373,19 +342,15 @@ class Auth implements IAuth {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     if (credentials) {
       const { user, password } = credentials;
-      this.authenticate(
-        user,
-        password,
-        (err, user): void => {
-          if (!err) {
-            req.remote_user = user;
-            next();
-          } else {
-            req.remote_user = createAnonymousRemoteUser();
-            next(err);
-          }
+      this.authenticate(user, password, (err, user): void => {
+        if (!err) {
+          req.remote_user = user;
+          next();
+        } else {
+          req.remote_user = createAnonymousRemoteUser();
+          next(err);
         }
-      );
+      });
     } else {
       // we force npm client to ask again with basic authentication
       return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));

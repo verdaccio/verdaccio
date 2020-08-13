@@ -2,16 +2,12 @@ import path from 'path';
 import request from 'supertest';
 import _ from 'lodash';
 
-import {
-  HEADERS,
-  HTTP_STATUS,
-  HEADER_TYPE, TOKEN_BEARER, API_ERROR, SUPPORT_ERRORS,
-} from '@verdaccio/dev-commons';
+import { HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, API_ERROR, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
 
-import {buildToken} from '@verdaccio/utils';
-import {generateRamdonStorage, DOMAIN_SERVERS, mockServer, getNewToken, configExample} from '@verdaccio/mock';
+import { buildToken } from '@verdaccio/utils';
+import { generateRamdonStorage, DOMAIN_SERVERS, mockServer, getNewToken, configExample } from '@verdaccio/mock';
 
-import {setup, logger} from '@verdaccio/logger';
+import { setup, logger } from '@verdaccio/logger';
 
 import endPointAPI from '../../src';
 
@@ -27,13 +23,13 @@ const generateTokenCLI = async (app, token, payload): Promise<any> => {
       .send(JSON.stringify(payload))
       .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .end(function(err, resp) {
+      .end(function (err, resp) {
         if (err) {
           return reject([err, resp]);
         }
         resolve([err, resp]);
       });
-    });
+  });
 };
 
 const deleteTokenCLI = async (app, token, tokenToDelete): Promise<any> => {
@@ -43,7 +39,7 @@ const deleteTokenCLI = async (app, token, tokenToDelete): Promise<any> => {
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .end(function(err, resp) {
+      .end(function (err, resp) {
         if (err) {
           return reject([err, resp]);
         }
@@ -57,18 +53,22 @@ describe('endpoint unit test', () => {
   let mockRegistry;
   let token;
 
-  beforeAll(async function(done) {
+  beforeAll(async function (done) {
     const store = generateRamdonStorage();
     const mockServerPort = 55543;
-    const configForTest = configExample({
-      storage: store,
-      self_path: store,
-      uplinks: {
-        npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
-      }
-    }, 'token.spec.yaml', __dirname);
+    const configForTest = configExample(
+      {
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
+        },
+      },
+      'token.spec.yaml',
+      __dirname
+    );
 
     app = await endPointAPI(configForTest);
     const binPath = require.resolve('verdaccio/bin/verdaccio');
@@ -78,7 +78,7 @@ describe('endpoint unit test', () => {
     done();
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
@@ -93,12 +93,12 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err, resp) {
+        .end(function (err, resp) {
           if (err) {
             return done(err);
           }
 
-          const { objects, urls} = resp.body;
+          const { objects, urls } = resp.body;
           expect(objects).toHaveLength(0);
           expect(urls.next).toEqual('');
           done();
@@ -109,7 +109,7 @@ describe('endpoint unit test', () => {
       await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
-        cidr_whitelist: []
+        cidr_whitelist: [],
       });
 
       request(app)
@@ -117,12 +117,12 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err, resp) {
+        .end(function (err, resp) {
           if (err) {
             return done(err);
           }
 
-          const { objects, urls} = resp.body;
+          const { objects, urls } = resp.body;
 
           expect(objects).toHaveLength(1);
           const [tokenGenerated] = objects;
@@ -141,7 +141,7 @@ describe('endpoint unit test', () => {
       const res = await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
-        cidr_whitelist: []
+        cidr_whitelist: [],
       });
 
       const t = res[1].body.token;
@@ -153,7 +153,7 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -171,7 +171,7 @@ describe('endpoint unit test', () => {
           await generateTokenCLI(app, token, {
             password: 'wrongPassword',
             readonly: false,
-            cidr_whitelist: []
+            cidr_whitelist: [],
           });
           done();
         } catch (e) {
@@ -187,7 +187,7 @@ describe('endpoint unit test', () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
-            cidr_whitelist: []
+            cidr_whitelist: [],
           });
 
           expect(res[0]).toBeNull();
