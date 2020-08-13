@@ -1,15 +1,13 @@
 import path from 'path';
 import request from 'supertest';
 
-import {setup, logger} from '@verdaccio/logger'
+import { setup, logger } from '@verdaccio/logger';
 
 setup([]);
 
 import { HEADERS, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { generateRamdonStorage, mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 import endPointAPI from '../../src';
-
-import {generateRamdonStorage, mockServer, configExample, DOMAIN_SERVERS} from '@verdaccio/mock';
-
 
 describe('api with no limited access configuration', () => {
   let app;
@@ -19,14 +17,18 @@ describe('api with no limited access configuration', () => {
 
   beforeAll(async (done) => {
     const mockServerPort = 55530;
-    const configForTest = configExample({
-      self_path: store,
-      uplinks: {
-        remote: {
-          url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-        }
+    const configForTest = configExample(
+      {
+        self_path: store,
+        uplinks: {
+          remote: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
+        },
       },
-    }, 'pkg.access.yaml', __dirname);
+      'pkg.access.yaml',
+      __dirname
+    );
 
     app = await endPointAPI(configForTest);
     const binPath = require.resolve('verdaccio/bin/verdaccio');
@@ -35,8 +37,7 @@ describe('api with no limited access configuration', () => {
     done();
   });
 
-
-  afterAll(function(done) {
+  afterAll(function (done) {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
@@ -45,16 +46,14 @@ describe('api with no limited access configuration', () => {
   });
 
   describe('test proxy packages partially restricted', () => {
-
-
     test('should test fails on fetch endpoint /-/not-found', (done) => {
       request(app)
-      // @ts-ignore
+        // @ts-ignore
         .get('/not-found-for-sure')
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.NOT_FOUND)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -70,7 +69,7 @@ describe('api with no limited access configuration', () => {
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.OK)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -86,7 +85,7 @@ describe('api with no limited access configuration', () => {
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.OK)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -95,5 +94,4 @@ describe('api with no limited access configuration', () => {
         });
     });
   });
-
 });

@@ -1,11 +1,11 @@
 import { USERS, HTTP_STATUS } from '@verdaccio/dev-commons';
-import {Response} from 'express';
+import { Response } from 'express';
 import _ from 'lodash';
 import { logger } from '@verdaccio/logger';
 
-import {$RequestExtend, $NextFunctionVer, IStorageHandler} from '@verdaccio/dev-types';
+import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '@verdaccio/dev-types';
 
-export default function(storage: IStorageHandler): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
+export default function (storage: IStorageHandler): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
   const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
     const isExistlocalUsers = _.isNil(localUsers[username]) === false;
     if (isStar && isExistlocalUsers && localUsers[username]) {
@@ -20,8 +20,8 @@ export default function(storage: IStorageHandler): (req: $RequestExtend, res: Re
 
   return (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
     const name = req.params.package;
-    logger.debug({name}, 'starring a package for @{name}');
-    const afterChangePackage = function(err?: Error) {
+    logger.debug({ name }, 'starring a package for @{name}');
+    const afterChangePackage = function (err?: Error) {
       if (err) {
         return next(err);
       }
@@ -34,7 +34,7 @@ export default function(storage: IStorageHandler): (req: $RequestExtend, res: Re
     storage.getPackage({
       name,
       req,
-      callback: function(err, info) {
+      callback: function (err, info) {
         if (err) {
           return next(err);
         }
@@ -46,16 +46,22 @@ export default function(storage: IStorageHandler): (req: $RequestExtend, res: Re
         if (_.isNil(localStarUsers) === false && validateInputs(newStarUser, localStarUsers, remoteUsername, isStar)) {
           return afterChangePackage();
         }
-        const users = isStar ? {
-          ...localStarUsers,
-          [remoteUsername]: true,
-        } : _.reduce(localStarUsers, (users, value, key) => {
-          if (key !== remoteUsername) {
-            users[key] = value;
-          }
-          return users;
-        }, {});
-        storage.changePackage(name, { ...info, users}, req.body._rev, function(err) {
+        const users = isStar
+          ? {
+              ...localStarUsers,
+              [remoteUsername]: true,
+            }
+          : _.reduce(
+              localStarUsers,
+              (users, value, key) => {
+                if (key !== remoteUsername) {
+                  users[key] = value;
+                }
+                return users;
+              },
+              {}
+            );
+        storage.changePackage(name, { ...info, users }, req.body._rev, function (err) {
           afterChangePackage(err);
         });
       },

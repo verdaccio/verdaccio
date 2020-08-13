@@ -29,15 +29,13 @@ export function generatePackageTemplate(name: string): Package {
 export function normalizePackage(pkg: Package): Package {
   const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
 
-  pkgProperties.forEach(
-    (key): void => {
-      const pkgProp = pkg[key];
+  pkgProperties.forEach((key): void => {
+    const pkgProp = pkg[key];
 
-      if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
-        pkg[key] = {};
-      }
+    if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
+      pkg[key] = {};
     }
-  );
+  });
 
   if (_.isString(pkg._rev) === false) {
     pkg._rev = STORAGE.DEFAULT_REVISION;
@@ -71,7 +69,7 @@ export function getLatestReadme(pkg: Package): string {
 
   // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
   const readmeDistTagsPriority = ['next', 'beta', 'alpha', 'test', 'dev', 'canary'];
-  readmeDistTagsPriority.forEach(function(tag): string | void {
+  readmeDistTagsPriority.forEach(function (tag): string | void {
     if (readme) {
       return readme;
     }
@@ -131,80 +129,62 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
  * @param {*} localStorage
  */
 export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
-  return new Promise(
-    (resolve, reject): void => {
-      localStorage.getPackageMetadata(
-        name,
-        (err, results): void => {
-          if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
-            return reject(err);
-          }
-          if (results) {
-            return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
-          }
-          return resolve();
-        }
-      );
-    }
-  );
+  return new Promise((resolve, reject): void => {
+    localStorage.getPackageMetadata(name, (err, results): void => {
+      if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
+        return reject(err);
+      }
+      if (results) {
+        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
+      }
+      return resolve();
+    });
+  });
 }
 
 export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<any> {
-  return new Promise(
-    (resolve, reject): void => {
-      localStorage.addPackage(
-        name,
-        metadata,
-        (err, latest): void => {
-          if (!_.isNull(err)) {
-            return reject(err);
-          } else if (!_.isUndefined(latest)) {
-            SearchInstance.add(latest);
-          }
-          return resolve();
-        }
-      );
-    }
-  );
+  return new Promise((resolve, reject): void => {
+    localStorage.addPackage(name, metadata, (err, latest): void => {
+      if (!_.isNull(err)) {
+        return reject(err);
+      } else if (!_.isUndefined(latest)) {
+        SearchInstance.add(latest);
+      }
+      return resolve();
+    });
+  });
 }
 
 export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<any> {
-  return new Promise(
-    (resolve, reject): void => {
-      syncMetadata(
-        name,
-        null,
-        {},
-        (err, packageJsonLocal, upLinksErrors): void => {
-          // something weird
-          if (err && err.status !== HTTP_STATUS.NOT_FOUND) {
-            return reject(err);
-          }
+  return new Promise((resolve, reject): void => {
+    syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors): void => {
+      // something weird
+      if (err && err.status !== HTTP_STATUS.NOT_FOUND) {
+        return reject(err);
+      }
 
-          // checking package exist already
-          if (_.isNil(packageJsonLocal) === false) {
-            return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
-          }
+      // checking package exist already
+      if (_.isNil(packageJsonLocal) === false) {
+        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
+      }
 
-          for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
-            // checking error
-            // if uplink fails with a status other than 404, we report failure
-            if (_.isNil(upLinksErrors[errorItem][0]) === false) {
-              if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
-                if (isAllowPublishOffline) {
-                  return resolve();
-                }
-
-                return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
-              }
+      for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
+        // checking error
+        // if uplink fails with a status other than 404, we report failure
+        if (_.isNil(upLinksErrors[errorItem][0]) === false) {
+          if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
+            if (isAllowPublishOffline) {
+              return resolve();
             }
-          }
 
-          return resolve();
+            return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
+          }
         }
-      );
-    }
-  );
+      }
+
+      return resolve();
+    });
+  });
 }
 
 export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata: Package): any {

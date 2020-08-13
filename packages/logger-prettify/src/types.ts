@@ -1,5 +1,5 @@
-import {PrettyOptions} from "pino";
+import { PrettyOptions } from 'pino';
 
-export interface  PrettyOptionsExtended extends PrettyOptions {
-	prettyStamp: boolean;
+export interface PrettyOptionsExtended extends PrettyOptions {
+  prettyStamp: boolean;
 }

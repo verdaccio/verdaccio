@@ -26,9 +26,11 @@ export default class ExpressServer {
   public start(port: number): Promise<ExpressServer> {
     return new Promise((resolve) => {
       this.app.use(bodyParser.json());
-      this.app.use(bodyParser.urlencoded({
-        extended: true
-      }));
+      this.app.use(
+        bodyParser.urlencoded({
+          extended: true,
+        })
+      );
 
       this.server = this.app.listen(port, () => resolve(this));
     });

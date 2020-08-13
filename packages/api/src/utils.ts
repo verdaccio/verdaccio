@@ -1,4 +1,4 @@
-import {Package} from '@verdaccio/types';
+import { Package } from '@verdaccio/types';
 import _ from 'lodash';
 
 /**
@@ -7,7 +7,7 @@ import _ from 'lodash';
  */
 
 export function isPublishablePackage(pkg: Package): boolean {
-	const keys: string[] = Object.keys(pkg);
+  const keys: string[] = Object.keys(pkg);
 
-	return _.includes(keys, 'versions');
+  return _.includes(keys, 'versions');
 }

@@ -1,7 +1,6 @@
-import {IVerdaccioConfig} from './types';
+import { IVerdaccioConfig } from './types';
 
 export class VerdaccioConfig implements IVerdaccioConfig {
-
   public storagePath: string;
   public configPath: string;
   public domainPath: string;

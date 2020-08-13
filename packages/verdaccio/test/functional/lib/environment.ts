@@ -1,9 +1,9 @@
 import { yellow, green, blue, magenta } from 'kleur';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
-import {mockServer} from '@verdaccio/mock';
+import { mockServer } from '@verdaccio/mock';
 import ExpressServer from './simple_server';
-import {PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../config.functional';
+import { PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
 
 const EXPRESS_PORT = 55550;
 
@@ -11,7 +11,7 @@ class FunctionalEnvironment extends NodeEnvironment {
   public config: any;
 
   public constructor(config: any) {
-    super(config)
+    super(config);
   }
 
   public async startWeb() {
@@ -19,7 +19,6 @@ class FunctionalEnvironment extends NodeEnvironment {
 
     return await express.start(EXPRESS_PORT);
   }
-
 
   public async setup() {
     // const SILENCE_LOG = !process.env.VERDACCIO_PROCESS_SILENCE || false;
@@ -33,18 +32,18 @@ class FunctionalEnvironment extends NodeEnvironment {
       {
         port: PORT_SERVER_1,
         config: '/config-1.yaml',
-        storage: '/server1'
+        storage: '/server1',
       },
       {
         port: PORT_SERVER_2,
         config: '/config-2.yaml',
-        storage: '/server2'
+        storage: '/server2',
       },
       {
         port: PORT_SERVER_3,
         config: '/config-3.yaml',
-        storage: '/server3'
-      }
+        storage: '/server3',
+      },
     ];
     console.log(green('Setup Verdaccio Servers'));
 
@@ -58,7 +57,7 @@ class FunctionalEnvironment extends NodeEnvironment {
       const server = mockServer(serverConf.port, {
         storePath,
         configPath,
-        silence: false
+        silence: false,
       });
 
       const fork = await server.init(binPath);
@@ -80,7 +79,7 @@ class FunctionalEnvironment extends NodeEnvironment {
     console.log(yellow('Teardown Test Environment.'));
     // @ts-ignore
     if (!this.global.__SERVERS_PROCESS__) {
-      throw new Error("There are no servers to stop");
+      throw new Error('There are no servers to stop');
     }
 
     // shutdown verdaccio
@@ -95,7 +94,7 @@ class FunctionalEnvironment extends NodeEnvironment {
 
   // @ts-ignore
   public runScript(script: string) {
-  // @ts-ignore
+    // @ts-ignore
     return super.runScript(script);
   }
 }

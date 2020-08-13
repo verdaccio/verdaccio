@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import {HTTP_STATUS} from "@verdaccio/dev-commons";
-import {createTarballHash} from "@verdaccio/utils";
+import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { createTarballHash } from '@verdaccio/utils';
 
-import {TARBALL} from '../config.functional';
+import { TARBALL } from '../config.functional';
 import requirePackage from '../fixtures/package';
 
 function readfile(filePath) {
-  const folder = path.join(__dirname , filePath);
+  const folder = path.join(__dirname, filePath);
 
   return fs.readFileSync(folder);
 }
@@ -18,15 +18,17 @@ const pkgName = 'testpkg-gh29';
 export default function (server, server2) {
   describe('pkg-gh29 #1', () => {
     test('downloading non-existent tarball #1 / srv2', () => {
-      return server2.getTarball(pkgName, TARBALL)
+      return server2
+        .getTarball(pkgName, TARBALL)
         .status(HTTP_STATUS.NOT_FOUND)
         .body_error(/no such package/);
     });
   });
 
   describe('pkg-gh29 #2', () => {
-    beforeAll(function() {
-      return server.putPackage(pkgName, requirePackage(pkgName))
+    beforeAll(function () {
+      return server
+        .putPackage(pkgName, requirePackage(pkgName))
         .status(HTTP_STATUS.CREATED)
         .body_ok(/created new package/);
     });
@@ -34,25 +36,25 @@ export default function (server, server2) {
     test('creating new package / srv1', () => {});
 
     test('downloading non-existent tarball #2 / srv2', () => {
-      return server2.getTarball(pkgName, TARBALL)
+      return server2
+        .getTarball(pkgName, TARBALL)
         .status(HTTP_STATUS.NOT_FOUND)
         .body_error(/no such file available/);
     });
 
     describe('tarball', () => {
-      beforeAll(function() {
-        return server.putTarball(pkgName, TARBALL, readfile(binary))
-          .status(HTTP_STATUS.CREATED)
-          .body_ok(/.*/);
+      beforeAll(function () {
+        return server.putTarball(pkgName, TARBALL, readfile(binary)).status(HTTP_STATUS.CREATED).body_ok(/.*/);
       });
 
       test('uploading new tarball / srv1', () => {});
 
       describe('pkg version', () => {
-        beforeAll(function() {
+        beforeAll(function () {
           const pkg = requirePackage(pkgName);
           pkg.dist.shasum = createTarballHash().update(readfile(binary)).digest('hex');
-          return server.putVersion(pkgName, '0.0.1', pkg)
+          return server
+            .putVersion(pkgName, '0.0.1', pkg)
             .status(HTTP_STATUS.CREATED)
             .body_ok(/published/);
         });
@@ -60,9 +62,10 @@ export default function (server, server2) {
         test('uploading new package version / srv1', () => {});
 
         test('downloading newly created tarball / srv2', () => {
-          return server2.getTarball(pkgName, TARBALL)
+          return server2
+            .getTarball(pkgName, TARBALL)
             .status(HTTP_STATUS.OK)
-            .then(function(body) {
+            .then(function (body) {
               expect(body).toEqual(readfile(binary));
             });
         });

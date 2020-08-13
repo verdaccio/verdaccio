@@ -32,7 +32,7 @@
   "parserOptions": {
     "allowImportExportEverywhere": true,
     "sourceType": "module",
-    "ecmaVersion": 2019,
+    "ecmaVersion": 11,
     "ecmaFeatures": {
       "impliedStrict": true,
       "jsx": true
@@ -60,10 +60,9 @@
         "printWidth": 160,
         "tabWidth": 2,
         "singleQuote": true,
-        "requirePragma": false,
         "bracketSpacing": true,
         "jsxBracketSameLine": true,
-        "trailingComma": "none",
+        "trailingComma": "es5",
         "semi": true,
         "parser": "typescript"
       }
@@ -103,7 +102,6 @@
     "one-var": "error",
     "prefer-rest-params": "warn",
     "prefer-spread": "warn",
-    "semi": 0,
     "handle-callback-err": 0,
     "prefer-const": 0,
     "prefer-promise-reject-errors": 1,

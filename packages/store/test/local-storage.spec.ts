@@ -1,20 +1,19 @@
 import path from 'path';
 import rimRaf from 'rimraf';
 
-import {Config as AppConfig } from '@verdaccio/config';
+import { Config as AppConfig } from '@verdaccio/config';
 // @ts-ignore
-import { logger, setup} from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
 import { configExample, generateNewVersion } from '@verdaccio/mock';
-import {IStorage} from '@verdaccio/dev-types';
-import { LocalStorage } from '../src/local-storage';
-
+import { IStorage } from '@verdaccio/dev-types';
 
 const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
-import {Config, MergeTags, Package} from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS} from '@verdaccio/dev-commons';
+import { Config, MergeTags, Package } from '@verdaccio/types';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import {generatePackageTemplate} from '../src/storage-utils';
-import {readFile} from './fixtures/test.utils';
+import { LocalStorage } from '../src/local-storage';
+import { generatePackageTemplate } from '../src/storage-utils';
+import { readFile } from './fixtures/test.utils';
 
 setup([]);
 
@@ -26,16 +25,18 @@ describe('LocalStorage', () => {
   const tarballName2 = `${pkgName}-add-tarball-1.0.5.tgz`;
 
   const getStorage = (LocalStorageClass = LocalStorage) => {
-    const config: Config = new AppConfig(configExample({
-      self_path: path.join('../partials/store')
-    }));
+    const config: Config = new AppConfig(
+      configExample({
+        self_path: path.join('../partials/store'),
+      })
+    );
 
     return new LocalStorageClass(config, logger);
-  }
+  };
 
   const getPackageMetadataFromStore = (pkgName: string): Promise<Package> => {
     return new Promise((resolve) => {
-      storage.getPackageMetadata(pkgName, (err, data ) => {
+      storage.getPackageMetadata(pkgName, (err, data) => {
         resolve(data);
       });
     });
@@ -143,7 +144,7 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '3.0.0');
         const tags: MergeTags = {
           beta: '3.0.0',
-          latest: '2.0.0'
+          latest: '2.0.0',
         };
 
         storage.mergeTags(pkgName, tags, async (err, data) => {
@@ -166,7 +167,7 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '2.0.0');
         await addNewVersion(pkgName, '3.0.0');
         const tags: MergeTags = {
-          beta: '9999.0.0'
+          beta: '9999.0.0',
         };
 
         storage.mergeTags(pkgName, tags, async (err) => {
@@ -180,7 +181,7 @@ describe('LocalStorage', () => {
       test('should fails on mergeTags', async (done) => {
         const tags: MergeTags = {
           beta: '3.0.0',
-          latest: '2.0.0'
+          latest: '2.0.0',
         };
 
         storage.mergeTags('not-found', tags, async (err) => {
@@ -215,7 +216,7 @@ describe('LocalStorage', () => {
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, version);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', err => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err) => {
           expect(err).not.toBeNull();
           expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
           expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
@@ -230,7 +231,7 @@ describe('LocalStorage', () => {
         const tarballName = `${pkgName}-${version}.tgz`;
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', err => {
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', (err) => {
           expect(err).not.toBeNull();
           expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
           expect(err.message).toMatch(/shasum error/);
@@ -258,18 +259,18 @@ describe('LocalStorage', () => {
       const pkgName = 'add-update-versions-test-1';
       const version = '1.0.2';
       let _storage;
-      beforeEach(done => {
+      beforeEach((done) => {
         class MockLocalStorage extends LocalStorage {}
         // @ts-ignore
-        MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage)
+        MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage);
         _storage = getStorage(MockLocalStorage);
         rimRaf(path.join(configExample().storage, pkgName), async () => {
           await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
           await addNewVersion(pkgName, '1.0.1');
           await addNewVersion(pkgName, version);
           done();
-        })
-      })
+        });
+      });
 
       test('should update versions from external source', async (done) => {
         _storage.updateVersions(pkgName, metadata, (err, data) => {
@@ -290,22 +291,22 @@ describe('LocalStorage', () => {
         });
       });
 
-      test('should not update if the metadata match', done => {
-        _storage.updateVersions(pkgName, metadata, e => {
-          expect(e).toBeNull()
-          _storage.updateVersions(pkgName, metadata, err => {
-            expect(err).toBeNull()
+      test('should not update if the metadata match', (done) => {
+        _storage.updateVersions(pkgName, metadata, (e) => {
+          expect(e).toBeNull();
+          _storage.updateVersions(pkgName, metadata, (err) => {
+            expect(err).toBeNull();
             expect(_storage._writePackage).toHaveBeenCalledTimes(1);
-            done()
-          })
-        })
-      })
+            done();
+          });
+        });
+      });
     });
 
     describe('LocalStorage::changePackage', () => {
       const pkgName = 'change-package';
 
-      test('should unpublish a version', async done => {
+      test('should unpublish a version', async (done) => {
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, '1.0.1');
         await addNewVersion(pkgName, '1.0.2');
@@ -315,7 +316,7 @@ describe('LocalStorage', () => {
 
         storage.changePackage(pkgName, metadata, rev, (err) => {
           expect(err).toBeUndefined();
-          storage.getPackageMetadata(pkgName, (err, data ) => {
+          storage.getPackageMetadata(pkgName, (err, data) => {
             expect(err).toBeNull();
             expect(data.versions['1.0.1']).toBeDefined();
             expect(data.versions['1.0.2']).toBeUndefined();
@@ -327,9 +328,7 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::tarball operations', () => {
-
       describe('LocalStorage::addTarball', () => {
-
         test('should add a new tarball', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
@@ -338,7 +337,7 @@ describe('LocalStorage', () => {
             expect(err).toBeNull();
             done();
           });
-          stream.on('success', function() {
+          stream.on('success', function () {
             done();
           });
 
@@ -353,7 +352,7 @@ describe('LocalStorage', () => {
             expect(err).toBeNull();
             done();
           });
-          stream.on('success', function() {
+          stream.on('success', function () {
             done();
           });
 
@@ -394,7 +393,7 @@ describe('LocalStorage', () => {
 
         test('should fails on use invalid package name on add a new tarball', (done) => {
           const stream = storage.addTarball(pkgName, `${pkgName}-fails-add-tarball-1.0.4.tgz`);
-          stream.on('error', function(err: VerdaccioError) {
+          stream.on('error', function (err: VerdaccioError) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.BAD_DATA);
             expect(err.message).toMatch(/refusing to accept zero-length file/);
@@ -407,7 +406,7 @@ describe('LocalStorage', () => {
         test('should fails on abort on add a new tarball', (done) => {
           const stream = storage.addTarball('__proto__', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
           stream.abort();
-          stream.on('error', function(err: VerdaccioError) {
+          stream.on('error', function (err: VerdaccioError) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.FORBIDDEN);
             expect(err.message).toMatch(/can't use this filename/);
@@ -416,10 +415,8 @@ describe('LocalStorage', () => {
 
           stream.done();
         });
-
       });
       describe('LocalStorage::removeTarball', () => {
-
         test('should remove a tarball', (done) => {
           storage.removeTarball(pkgName, tarballName2, 'rev', (err, pkg) => {
             expect(err).toBeNull();
@@ -441,18 +438,18 @@ describe('LocalStorage', () => {
       describe('LocalStorage::getTarball', () => {
         test('should get a existing tarball', (done) => {
           const stream = storage.getTarball(pkgName, tarballName);
-          stream.on('content-length', function(contentLength) {
+          stream.on('content-length', function (contentLength) {
             expect(contentLength).toBe(279);
             done();
           });
-          stream.on('open', function() {
+          stream.on('open', function () {
             done();
           });
         });
 
         test('should fails on get a tarball that does not exist', (done) => {
           const stream = storage.getTarball('fake', tarballName);
-          stream.on('error', function(err: VerdaccioError) {
+          stream.on('error', function (err: VerdaccioError) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such file available/);
@@ -470,16 +467,15 @@ describe('LocalStorage', () => {
             expect(pkg.name).toEqual(pkgName);
           });
 
-          stream.on('error', function(err) {
+          stream.on('error', function (err) {
             expect(err).not.toBeNull();
             done();
           });
 
-          stream.on('end', function() {
+          stream.on('end', function () {
             done();
           });
         });
-
       });
     });
 
@@ -502,7 +498,7 @@ describe('LocalStorage', () => {
 
       test('should fails with package not found', (done) => {
         const pkgName = 'npm_test_fake';
-        storage.removePackage(pkgName, err => {
+        storage.removePackage(pkgName, (err) => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch(/no such package available/);
           done();
@@ -510,7 +506,7 @@ describe('LocalStorage', () => {
       });
 
       test('should fails with @scoped package not found', (done) => {
-        storage.removePackage(pkgNameScoped, err => {
+        storage.removePackage(pkgNameScoped, (err) => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch(API_ERROR.NO_PACKAGE);
           done();
@@ -518,5 +514,4 @@ describe('LocalStorage', () => {
       });
     });
   });
-
 });

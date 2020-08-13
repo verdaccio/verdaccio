@@ -1,15 +1,15 @@
 import { HEADERS } from '@verdaccio/dev-commons';
 
-export default function(route, auth, storage): void {
+export default function (route, auth, storage): void {
   // searching packages
-  route.get('/-/all(/since)?', function(req, res) {
+  route.get('/-/all(/since)?', function (req, res) {
     let received_end = false;
     let response_finished = false;
     let processing_pkgs = 0;
     let firstPackage = true;
 
     res.status(200);
-    res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+    res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 
     /*
      * Offical NPM registry (registry.npmjs.org) no longer return whole database,
@@ -33,7 +33,7 @@ export default function(route, auth, storage): void {
     if (!respShouldBeArray) {
       res.set('Date', 'Mon, 10 Oct 1983 00:12:48 GMT');
     }
-    const check_finish = function(): void {
+    const check_finish = function (): void {
       if (!received_end) {
         return;
       }
@@ -62,7 +62,7 @@ export default function(route, auth, storage): void {
     stream.on('data', function each(pkg) {
       processing_pkgs++;
 
-      auth.allow_access({ packageName: pkg.name }, req.remote_user, function(err, allowed) {
+      auth.allow_access({ packageName: pkg.name }, req.remote_user, function (err, allowed) {
         processing_pkgs--;
 
         if (err) {
@@ -90,11 +90,11 @@ export default function(route, auth, storage): void {
       });
     });
 
-    stream.on('error', function() {
+    stream.on('error', function () {
       res.socket.destroy();
     });
 
-    stream.on('end', function() {
+    stream.on('end', function () {
       received_end = true;
       check_finish();
     });
