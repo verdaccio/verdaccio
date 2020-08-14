@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - 5.x
   pull_request:
     paths:
       - .github/workflows/ci.yml
