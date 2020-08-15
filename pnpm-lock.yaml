@@ -182,6 +182,8 @@ importers:
       '@verdaccio/server': 'link:../server'
       '@verdaccio/types': 9.5.0
       body-parser: 1.19.0
+      debug: 4.1.1
+      supertest: 5.0.0-0
     specifiers:
       '@verdaccio/auth': 5.0.0-alpha.0
       '@verdaccio/commons-api': 9.6.1
@@ -197,9 +199,11 @@ importers:
       '@verdaccio/utils': 5.0.0-alpha.0
       body-parser: 1.19.0
       cookies: 0.8.0
+      debug: ^4.1.1
       express: 4.17.1
       lodash: 4.17.15
       mime: 2.4.4
+      supertest: next
   packages/auth:
     dependencies:
       '@verdaccio/commons-api': 9.6.1
@@ -9852,6 +9856,24 @@ packages:
       node: '>= 4.0'
     resolution:
       integrity: sha512-GLQtLMCoEIK4eDv6OGtkOoSMt3D+oq0y3dsxMuYuDvaNUvuT8eFBuLmfR0iYYzHC1e8hpzC6ZsxbuP6DIalMFA==
+  /superagent/5.1.0:
+    dependencies:
+      component-emitter: 1.3.0
+      cookiejar: 2.1.2
+      debug: 4.1.1
+      fast-safe-stringify: 2.0.7
+      form-data: 2.5.1
+      formidable: 1.2.2
+      methods: 1.1.2
+      mime: 2.4.6
+      qs: 6.9.4
+      readable-stream: 3.6.0
+      semver: 6.3.0
+    dev: true
+    engines:
+      node: '>= 6.4.0'
+    resolution:
+      integrity: sha512-7V6JVx5N+eTL1MMqRBX0v0bG04UjrjAvvZJTF/VDH/SH2GjSLqlrcYepFlpTrXpm37aSY6h3GGVWGxXl/98TKA==
   /supertest/4.0.2:
     dependencies:
       methods: 1.1.2
@@ -9860,6 +9882,15 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-1BAbvrOZsGA3YTCWqbmh14L0YEq0EGICX/nBnfkfVJn7SrxQV1I3pMYjSzG9y/7ZU2V9dWqyqk2POwxlb09duQ==
+  /supertest/5.0.0-0:
+    dependencies:
+      methods: 1.1.2
+      superagent: 5.1.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-+XblQKVMblt7kf4BRtK1vezM+Xxq+CWlksy4kmLyqDsN1y89YrDIJ0j/H2CGLMMNk+8k1/bCcGUw8XLs1NYxpg==
   /supports-color/2.0.0:
     dev: true
     engines:

@@ -232,6 +232,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       } else {
         logger.debug({ packageName }, `adding a new version for @{packageName}`);
         storage.addPackage(packageName, metadata, function (error) {
+          logger.debug(metadata);
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
