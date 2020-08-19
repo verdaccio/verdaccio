@@ -7,7 +7,7 @@ import async from 'async';
 import mkdirp from 'mkdirp';
 import { Callback, Config, IPackageStorage, IPluginStorage, LocalStorage, Logger, StorageList, Token, TokenFilter } from '@verdaccio/types';
 import level from 'level';
-import { getInternalError } from '@verdaccio/commons-api/lib';
+import { getInternalError } from '@verdaccio/commons-api';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';

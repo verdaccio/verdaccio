@@ -6,7 +6,7 @@ import mkdirp from 'mkdirp';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { unlockFile, readFile } from '@verdaccio/file-locking';
 import { Callback, Logger, Package, ILocalPackageManager, IUploadTarball } from '@verdaccio/types';
-import { getCode, getInternalError, getNotFound, VerdaccioError } from '@verdaccio/commons-api/lib';
+import { getCode, getInternalError, getNotFound, VerdaccioError } from '@verdaccio/commons-api';
 
 export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';
