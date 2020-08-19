@@ -1,0 +1,50 @@
+{
+  "name": "@verdaccio/htpasswd",
+  "version": "10.0.0-beta",
+  "description": "htpasswd auth plugin for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "auth",
+    "htpasswd"
+  ],
+  "author": "Ayush Sharma <ayush.aceit@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/htpasswd"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "@verdaccio/file-locking": "workspace:*",
+    "apache-md5": "1.1.2",
+    "bcryptjs": "2.4.3",
+    "http-errors": "1.8.0",
+    "unix-crypt-td-js": "1.1.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@verdaccio/types": "workspace:*"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

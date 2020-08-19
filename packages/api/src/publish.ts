@@ -2,6 +2,7 @@ import Path from 'path';
 import _ from 'lodash';
 import mime from 'mime';
 import { Router } from 'express';
+import buildDebug from 'debug';
 
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '@verdaccio/dev-types';
 import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
@@ -13,6 +14,8 @@ import { logger } from '@verdaccio/logger';
 
 import star from './star';
 import { isPublishablePackage } from './utils';
+
+const debug = buildDebug('verdaccio:api:publish');
 
 export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
   const can = allow(auth);
@@ -106,7 +109,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
 
-    logger.debug({ packageName }, `publishing or updating a new version for @{packageName}`);
+    debug('publishing or updating a new version for %o', packageName);
 
     /**
      * Write tarball of stream data from package clients.
@@ -114,14 +117,16 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     const createTarball = function (filename: string, data, cb: Callback): void {
       const stream = storage.addTarball(packageName, filename);
       stream.on('error', function (err) {
+        debug('error on stream a tarball %o for %o with error %o', filename, packageName, err.message);
         cb(err);
       });
       stream.on('success', function () {
+        debug('success on stream a tarball %o for %o', filename, packageName);
         cb();
       });
       // this is dumb and memory-consuming, but what choices do we have?
       // flow: we need first refactor this file before decides which type use here
-      stream.end(new Buffer(data.data, 'base64'));
+      stream.end(Buffer.from(data.data, 'base64'));
       stream.done();
     };
 
@@ -129,6 +134,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
      * Add new package version in storage
      */
     const createVersion = function (version: string, metadata: Version, cb: Callback): void {
+      debug('add a new package version %o to storage %o', version, metadata);
       storage.addVersion(packageName, version, metadata, null, cb);
     };
 
@@ -136,20 +142,26 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
      * Add new tags in storage
      */
     const addTags = function (tags: MergeTags, cb: Callback): void {
+      debug('add new tag %o to storage', packageName);
       storage.mergeTags(packageName, tags, cb);
     };
 
     const afterChange = function (error, okMessage, metadata: Package): void {
       const metadataCopy: Package = { ...metadata };
+      debug('after change metadata %o', metadata);
 
       const { _attachments, versions } = metadataCopy;
 
       // `npm star` wouldn't have attachments
       // and `npm deprecate` would have attachments as a empty object, i.e {}
       if (_.isNil(_attachments) || JSON.stringify(_attachments) === '{}') {
+        debug('no attachments detected');
         if (error) {
+          debug('no_attachments: after change error with %o', error.message);
           return next(error);
         }
+
+        debug('no_attachments: after change success');
         res.status(HTTP_STATUS.CREATED);
         return next({
           ok: okMessage,
@@ -165,11 +177,13 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       if (isInvalidBodyFormat) {
         // npm is doing something strange again
         // if this happens in normal circumstances, report it as a bug
+        debug('invalid body format');
         logger.info({ packageName }, `wrong package format on publish a package @{packageName}`);
         return next(ErrorCode.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL));
       }
 
       if (error && error.status !== HTTP_STATUS.CONFLICT) {
+        debug('error on change or update a package with %o', error.message);
         return next(error);
       }
 
@@ -177,7 +191,9 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       const [firstAttachmentKey] = Object.keys(_attachments);
 
       createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function (error) {
+        debug('creating a tarball %o', firstAttachmentKey);
         if (error) {
+          debug('error on create a tarball for %o with error %o', packageName, error.message);
           return next(error);
         }
 
@@ -187,20 +203,24 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
         createVersion(versionToPublish, versions[versionToPublish], function (error) {
           if (error) {
+            debug('error on create a version for %o with error %o', packageName, error.message);
             return next(error);
           }
 
           addTags(metadataCopy[DIST_TAGS], async function (error) {
             if (error) {
+              debug('error on create a tag for %o with error %o', packageName, error.message);
               return next(error);
             }
 
             try {
               await notify(metadataCopy, config, req.remote_user, `${metadataCopy.name}@${versionToPublish}`);
             } catch (error) {
+              debug('error on notify add a new tag %o', `${metadataCopy.name}@${versionToPublish}`);
               logger.error({ error }, 'notify batch service has failed: @{error}');
             }
 
+            debug('add a tag succesfully for %o', `${metadataCopy.name}@${versionToPublish}`);
             res.status(HTTP_STATUS.CREATED);
             return next({ ok: okMessage, success: true });
           });
@@ -209,33 +229,40 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     };
 
     if (isPublishablePackage(req.body) === false && isObject(req.body.users)) {
+      debug('starting star a package');
       return starApi(req, res, next);
     }
 
     try {
+      debug('pre validation metadata to publish %o', req.body);
       const metadata = validateMetadata(req.body, packageName);
+      debug('post validation metadata to publish %o', metadata);
       // treating deprecation as updating a package
       if (req.params._rev || isRelatedToDeprecation(req.body)) {
-        logger.debug({ packageName }, `updating a new version for @{packageName}`);
+        debug('updating a new version for %o', packageName);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;
         auth.allow_unpublish({ packageName }, remote, (error) => {
+          debug('allowed to unpublish a package %o', packageName);
           if (error) {
-            logger.debug({ packageName }, `not allowed to unpublish a version for @{packageName}`);
+            debug('not allowed to unpublish a version for  %o', packageName);
             return next(error);
           }
 
+          debug('update a package');
           storage.changePackage(packageName, metadata, req.params.revision, function (error) {
             afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
           });
         });
       } else {
-        logger.debug({ packageName }, `adding a new version for @{packageName}`);
+        debug('adding a new version for the package %o', packageName);
         storage.addPackage(packageName, metadata, function (error) {
+          debug('package metadata updated %o', metadata);
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
     } catch (error) {
+      debug('error on publish, bad package format %o', packageName);
       logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
@@ -287,12 +314,15 @@ export function addVersion(storage: IStorageHandler) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const { version, tag } = req.params;
     const packageName = req.params.package;
+    debug('add a new version %o and tag %o for %o', version, tag, packageName);
 
     storage.addVersion(packageName, version, req.body, tag, function (error) {
       if (error) {
+        debug('error on add new version');
         return next(error);
       }
 
+      debug('success on add new version');
       res.status(HTTP_STATUS.CREATED);
       return next({
         ok: API_MESSAGE.PKG_PUBLISHED,
