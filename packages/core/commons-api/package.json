@@ -1,12 +1,11 @@
 {
-  "name": "@verdaccio/local-storage",
+  "name": "@verdaccio/commons-api",
   "version": "10.0.0-beta",
-  "description": "Local storage implementation",
+  "description": "Commons API utilities for Verdaccio",
   "keywords": [
-    "plugin",
+    "http",
     "verdaccio",
-    "storage",
-    "local-storage"
+    "api"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -14,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/monorepo",
-    "directory": "plugins/local-storage"
+    "directory": "core/commons-api"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/monorepo/issues"
@@ -22,35 +21,24 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "files": [
-    "build/"
+    "build"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/file-locking": "workspace:*",
-    "@verdaccio/streams": "workspace:*",
-    "async": "^3.2.0",
-    "level": "5.0.1",
-    "lodash": "^4.17.19",
-    "mkdirp": "^0.5.5"
-  },
-  "devDependencies": {
-    "@types/minimatch": "^3.0.3",
-    "@verdaccio/types": "workspace:*",
-    "minimatch": "^3.0.4",
-    "rmdir-sync": "^1.0.1"
+    "http-errors": "^1.8.0",
+    "http-status-codes": "^1.4.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build:js": "cross-env babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "funding": {

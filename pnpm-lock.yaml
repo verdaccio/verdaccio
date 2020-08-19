@@ -165,7 +165,7 @@ importers:
   packages/api:
     dependencies:
       '@verdaccio/auth': 'link:../auth'
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/hooks': 'link:../hooks'
       '@verdaccio/logger': 'link:../logger'
@@ -186,7 +186,7 @@ importers:
       supertest: 5.0.0-0
     specifiers:
       '@verdaccio/auth': 5.0.0-alpha.0
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 5.0.0-alpha.0
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 5.0.0-alpha.0
@@ -206,7 +206,7 @@ importers:
       supertest: next
   packages/auth:
     dependencies:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/loaders': 'link:../loaders'
       '@verdaccio/logger': 'link:../logger'
@@ -219,7 +219,7 @@ importers:
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 9.5.0
     specifiers:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
@@ -265,6 +265,13 @@ importers:
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       mkdirp: 0.5.5
+  packages/core/commons-api:
+    dependencies:
+      http-errors: 1.8.0
+      http-status-codes: 1.4.0
+    specifiers:
+      http-errors: ^1.8.0
+      http-status-codes: ^1.4.0
   packages/core/file-locking:
     dependencies:
       lockfile: 1.0.4
@@ -293,7 +300,7 @@ importers:
       unix-crypt-td-js: 1.1.4
   packages/core/local-storage:
     dependencies:
-      '@verdaccio/commons-api': 9.7.1
+      '@verdaccio/commons-api': 'link:../commons-api'
       '@verdaccio/file-locking': 'link:../file-locking'
       '@verdaccio/streams': 'link:../streams'
       async: 3.2.0
@@ -307,7 +314,7 @@ importers:
       rmdir-sync: 1.0.1
     specifiers:
       '@types/minimatch': ^3.0.3
-      '@verdaccio/commons-api': ^9.7.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/file-locking': 'workspace:*'
       '@verdaccio/streams': 'workspace:*'
       '@verdaccio/types': 'workspace:*'
@@ -338,7 +345,7 @@ importers:
     specifiers: {}
   packages/hooks:
     dependencies:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/logger': 'link:../logger'
       handlebars: 4.5.3
       request: 2.87.0
@@ -351,7 +358,7 @@ importers:
       '@verdaccio/utils': 'link:../utils'
     specifiers:
       '@verdaccio/auth': 5.0.0-alpha.0
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 5.0.0-alpha.0
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 5.0.0-alpha.0
@@ -366,13 +373,13 @@ importers:
       '@verdaccio/logger': 'link:../logger'
       lodash: 4.17.15
     devDependencies:
-      '@verdaccio/commons-api': 9.7.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/config': 'link:../config'
       '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 9.5.0
     specifiers:
-      '@verdaccio/commons-api': ^9.7.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
@@ -396,7 +403,7 @@ importers:
       pino: 5.17.0
   packages/logger-prettify:
     dependencies:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       dayjs: 1.8.19
       fast-safe-stringify: 2.0.7
@@ -411,7 +418,7 @@ importers:
       pino: 6.2.1
     specifiers:
       '@types/pino': 6.0.1
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       dayjs: 1.8.19
       fast-safe-stringify: 2.0.7
@@ -424,7 +431,7 @@ importers:
       pretty-ms: 5.0.0
   packages/middleware:
     dependencies:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/utils': 'link:../utils'
@@ -432,7 +439,7 @@ importers:
     devDependencies:
       '@verdaccio/dev-types': 'link:../types'
     specifiers:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 5.0.0-alpha.0
       '@verdaccio/logger': 5.0.0-alpha.0
@@ -517,7 +524,7 @@ importers:
       express: 4.17.1
       lodash: 4.17.15
     devDependencies:
-      '@verdaccio/commons-api': 9.7.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/proxy': 'link:../proxy'
@@ -527,7 +534,7 @@ importers:
     specifiers:
       '@verdaccio/api': 5.0.0-alpha.0
       '@verdaccio/auth': 5.0.0-alpha.0
-      '@verdaccio/commons-api': 9.7.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 5.0.0-alpha.0
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 5.0.0-alpha.0
@@ -548,7 +555,7 @@ importers:
       verdaccio: ~4.4.0
   packages/store:
     dependencies:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/loaders': 'link:../loaders'
       '@verdaccio/local-storage': 9.6.1
@@ -567,7 +574,7 @@ importers:
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 9.5.0
     specifiers:
-      '@verdaccio/commons-api': 9.6.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 5.0.0-alpha.0
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 5.0.0-alpha.0
@@ -591,7 +598,7 @@ importers:
       lunr-mutable-indexes: ^2.3.2
   packages/utils:
     dependencies:
-      '@verdaccio/commons-api': 9.7.1
+      '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/readme': 'link:../core/readme'
       js-yaml: 3.13.1
@@ -605,7 +612,7 @@ importers:
       lodash: 4.17.19
     specifiers:
       '@types/minimatch': 3.0.3
-      '@verdaccio/commons-api': ^9.7.1
+      '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
