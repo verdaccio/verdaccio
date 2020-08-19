@@ -1,4 +1,4 @@
-const debug = require('debug')('test');
+const debug = require('debug')('verdaccio:test');
 
 const setup = debug;
 const logger = {

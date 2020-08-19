@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing locking readFile read file with  options (parse, lock) should to be found to be read it as object 1`] = `
+Object {
+  "name": "assets",
+  "version": "0.0.1",
+}
+`;
+
+exports[`testing locking readFile read file with no options should to be found to be read it as object 1`] = `
+Object {
+  "name": "assets",
+  "version": "0.0.1",
+}
+`;
+
+exports[`testing locking readFile read file with no options should to be found to be read it as string 1`] = `
+"{
+  \\"name\\": \\"assets\\",
+  \\"version\\": \\"0.0.1\\"
+}
+"
+`;

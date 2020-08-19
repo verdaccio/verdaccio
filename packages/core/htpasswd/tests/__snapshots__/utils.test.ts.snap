@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addUserToHTPasswd - crypt3 should add new htpasswd to the end 1`] = `
+"username:$66to3JK5RgZM:autocreated 2018-01-14T11:17:40.712Z
+"
+`;
+
+exports[`addUserToHTPasswd - crypt3 should add new htpasswd to the end in multiline input 1`] = `
+"test1:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z
+    test2:$6FrCaT/v0dwE:autocreated 2017-12-14T13:30:20.838Z
+username:$66to3JK5RgZM:autocreated 2018-01-14T11:17:40.712Z
+"
+`;
+
+exports[`addUserToHTPasswd - crypt3 should throw an error for incorrect username with space 1`] = `"username should not contain non-uri-safe characters"`;
+
+exports[`changePasswordToHTPasswd should change the password 1`] = `"root:$6JaJqI5HUf.Q:autocreated 2018-08-20T13:38:12.164Z"`;
