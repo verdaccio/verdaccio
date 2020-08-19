@@ -1,0 +1,34 @@
+{
+  "name": "@verdaccio/types",
+  "version": "10.0.0-beta",
+  "description": "verdaccio types definitions",
+  "keywords": [
+    "verdaccio",
+    "typescript",
+    "types"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/types"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "test": "tsc --noEmit",
+    "build": "rimraf lib tsconfig.tsbuildinfo && tsc --build"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}
