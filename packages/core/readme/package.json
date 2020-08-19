@@ -1,0 +1,52 @@
+{
+  "name": "@verdaccio/readme",
+  "version": "10.0.0-beta",
+  "description": "Readme markdown parser",
+  "keywords": [
+    "verdaccio",
+    "readme",
+    "markdown"
+  ],
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/readme"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "dompurify": "2.0.8",
+    "jsdom": "15.2.1",
+    "marked": "1.1.1"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:*"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly --declaration true",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

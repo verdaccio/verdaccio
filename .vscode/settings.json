@@ -2,7 +2,7 @@
 {
 	"files.exclude": {
 		"**/.nyc_output": true,
-		"**/build": true,
+		"**/build": false,
 		"**/coverage": true,
 		".idea": true,
 		"storage_default_storage": true,

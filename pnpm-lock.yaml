@@ -173,6 +173,7 @@ importers:
       '@verdaccio/store': 'link:../store'
       '@verdaccio/utils': 'link:../utils'
       cookies: 0.8.0
+      debug: 4.1.1
       express: 4.17.1
       lodash: 4.17.15
       mime: 2.4.4
@@ -182,6 +183,7 @@ importers:
       '@verdaccio/server': 'link:../server'
       '@verdaccio/types': 9.5.0
       body-parser: 1.19.0
+      supertest: 5.0.0-0
     specifiers:
       '@verdaccio/auth': 5.0.0-alpha.0
       '@verdaccio/commons-api': 9.6.1
@@ -197,9 +199,11 @@ importers:
       '@verdaccio/utils': 5.0.0-alpha.0
       body-parser: 1.19.0
       cookies: 0.8.0
+      debug: ^4.1.1
       express: 4.17.1
       lodash: 4.17.15
       mime: 2.4.4
+      supertest: next
   packages/auth:
     dependencies:
       '@verdaccio/commons-api': 9.6.1
@@ -261,6 +265,77 @@ importers:
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       mkdirp: 0.5.5
+  packages/core/file-locking:
+    dependencies:
+      lockfile: 1.0.4
+    devDependencies:
+      '@verdaccio/types': 'link:../types'
+    specifiers:
+      '@verdaccio/types': 'workspace:*'
+      lockfile: 1.0.4
+  packages/core/htpasswd:
+    dependencies:
+      '@verdaccio/file-locking': 'link:../file-locking'
+      apache-md5: 1.1.2
+      bcryptjs: 2.4.3
+      http-errors: 1.8.0
+      unix-crypt-td-js: 1.1.4
+    devDependencies:
+      '@types/bcryptjs': 2.4.2
+      '@verdaccio/types': 'link:../types'
+    specifiers:
+      '@types/bcryptjs': ^2.4.2
+      '@verdaccio/file-locking': 'workspace:*'
+      '@verdaccio/types': 'workspace:*'
+      apache-md5: 1.1.2
+      bcryptjs: 2.4.3
+      http-errors: 1.8.0
+      unix-crypt-td-js: 1.1.4
+  packages/core/local-storage:
+    dependencies:
+      '@verdaccio/commons-api': 9.7.1
+      '@verdaccio/file-locking': 'link:../file-locking'
+      '@verdaccio/streams': 'link:../streams'
+      async: 3.2.0
+      level: 5.0.1
+      lodash: 4.17.19
+      mkdirp: 0.5.5
+    devDependencies:
+      '@types/minimatch': 3.0.3
+      '@verdaccio/types': 'link:../types'
+      minimatch: 3.0.4
+      rmdir-sync: 1.0.1
+    specifiers:
+      '@types/minimatch': ^3.0.3
+      '@verdaccio/commons-api': ^9.7.1
+      '@verdaccio/file-locking': 'workspace:*'
+      '@verdaccio/streams': 'workspace:*'
+      '@verdaccio/types': 'workspace:*'
+      async: ^3.2.0
+      level: 5.0.1
+      lodash: ^4.17.19
+      minimatch: ^3.0.4
+      mkdirp: ^0.5.5
+      rmdir-sync: ^1.0.1
+  packages/core/readme:
+    dependencies:
+      dompurify: 2.0.8
+      jsdom: 15.2.1
+      marked: 1.1.1
+    devDependencies:
+      '@verdaccio/types': 'link:../types'
+    specifiers:
+      '@verdaccio/types': 'workspace:*'
+      dompurify: 2.0.8
+      jsdom: 15.2.1
+      marked: 1.1.1
+  packages/core/streams:
+    devDependencies:
+      '@verdaccio/types': 9.7.2
+    specifiers:
+      '@verdaccio/types': ^9.7.2
+  packages/core/types:
+    specifiers: {}
   packages/hooks:
     dependencies:
       '@verdaccio/commons-api': 9.6.1
@@ -406,9 +481,9 @@ importers:
   packages/proxy:
     dependencies:
       '@verdaccio/dev-commons': 'link:../commons'
-      '@verdaccio/local-storage': 9.6.1
+      '@verdaccio/local-storage': 'link:../core/local-storage'
       '@verdaccio/logger': 'link:../logger'
-      '@verdaccio/streams': 9.6.1
+      '@verdaccio/streams': 'link:../core/streams'
       '@verdaccio/utils': 'link:../utils'
       JSONStream: 1.3.5
       request: 2.87.0
@@ -418,9 +493,9 @@ importers:
     specifiers:
       '@verdaccio/dev-commons': 5.0.0-alpha.0
       '@verdaccio/dev-types': 5.0.0-alpha.0
-      '@verdaccio/local-storage': 9.6.1
+      '@verdaccio/local-storage': 'workspace:*'
       '@verdaccio/logger': 5.0.0-alpha.0
-      '@verdaccio/streams': 9.6.1
+      '@verdaccio/streams': 'workspace:*'
       '@verdaccio/types': 9.5.0
       '@verdaccio/utils': 5.0.0-alpha.0
       JSONStream: 1.3.5
@@ -479,9 +554,10 @@ importers:
       '@verdaccio/local-storage': 9.6.1
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/proxy': 'link:../proxy'
-      '@verdaccio/streams': 9.6.1
+      '@verdaccio/streams': 'link:../core/streams'
       '@verdaccio/utils': 'link:../utils'
       async: 3.1.1
+      debug: 4.1.1
       lodash: 4.17.15
       lunr-mutable-indexes: 2.3.2
       semver: 7.1.2
@@ -500,10 +576,11 @@ importers:
       '@verdaccio/logger': 5.0.0-alpha.0
       '@verdaccio/mock': 5.0.0-alpha.0
       '@verdaccio/proxy': 5.0.0-alpha.0
-      '@verdaccio/streams': 9.6.1
+      '@verdaccio/streams': 'workspace:*'
       '@verdaccio/types': 9.5.0
       '@verdaccio/utils': 5.0.0-alpha.0
       async: 3.1.1
+      debug: ^4.1.1
       lodash: 4.17.15
       lunr-mutable-indexes: ^2.3.2
       semver: 7.1.2
@@ -516,7 +593,7 @@ importers:
     dependencies:
       '@verdaccio/commons-api': 9.7.1
       '@verdaccio/dev-commons': 'link:../commons'
-      '@verdaccio/readme': 9.6.1
+      '@verdaccio/readme': 'link:../core/readme'
       js-yaml: 3.13.1
       jsonwebtoken: 8.5.1
       minimatch: 3.0.4
@@ -532,7 +609,7 @@ importers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/readme': 9.6.1
+      '@verdaccio/readme': 'workspace:*'
       js-yaml: 3.13.1
       jsonwebtoken: 8.5.1
       lodash: ^4.17.19
@@ -2328,6 +2405,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-i+zS7t6/s9cdQvbqKDARrcbrPvtJGlbYsMkazo03nTAK3RX9FNrLllXys22uiTGJapPOTZTQ35nHh4ISph4SLQ==
+  /@types/bcryptjs/2.4.2:
+    dev: true
+    resolution:
+      integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==
   /@types/body-parser/1.19.0:
     dependencies:
       '@types/connect': 3.4.33
@@ -2765,6 +2846,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-QeijEgVBVRTGyOteIl+RD4aiEbiUM1SkN7UAjZxhwns0o2YebdO+Z2iphmx0EZdo4STnWLuGSRlJexTaU/+lDQ==
+  /@verdaccio/types/9.7.2:
+    dev: true
+    resolution:
+      integrity: sha512-zv8sMrghtrzkxfo+IOojZYk/j4D5kmF/DMwXS9GnmObTM2nAOTsBzlOxHHBdHaiOK+cntw2YRYQJAebMG5J5sA==
   /@verdaccio/ui-theme/0.3.13:
     dev: true
     engines:
@@ -4275,7 +4360,6 @@ packages:
   /debug/4.1.1:
     dependencies:
       ms: 2.1.2
-    dev: true
     resolution:
       integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
   /decamelize-keys/1.1.0:
@@ -7563,6 +7647,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-EGwzEeCcLniFX51DhTpmTom+dSA/MG/OBUDjnWtHbEnjAH180VzUeAw+oE4+Zv+CoYBWyRlYOTR0N8SO9R1PVw==
+  /marked/1.1.1:
+    dev: false
+    engines:
+      node: '>= 8.16.2'
+    hasBin: true
+    resolution:
+      integrity: sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
   /matcher/1.1.1:
     dependencies:
       escape-string-regexp: 1.0.5
@@ -9184,6 +9275,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
+  /rmdir-sync/1.0.1:
+    dev: true
+    resolution:
+      integrity: sha1-8thlTaNcOGzC/zoPE7L6m+vwCQU=
   /rsvp/4.8.5:
     dev: true
     engines:
@@ -9852,6 +9947,24 @@ packages:
       node: '>= 4.0'
     resolution:
       integrity: sha512-GLQtLMCoEIK4eDv6OGtkOoSMt3D+oq0y3dsxMuYuDvaNUvuT8eFBuLmfR0iYYzHC1e8hpzC6ZsxbuP6DIalMFA==
+  /superagent/5.1.0:
+    dependencies:
+      component-emitter: 1.3.0
+      cookiejar: 2.1.2
+      debug: 4.1.1
+      fast-safe-stringify: 2.0.7
+      form-data: 2.5.1
+      formidable: 1.2.2
+      methods: 1.1.2
+      mime: 2.4.6
+      qs: 6.9.4
+      readable-stream: 3.6.0
+      semver: 6.3.0
+    dev: true
+    engines:
+      node: '>= 6.4.0'
+    resolution:
+      integrity: sha512-7V6JVx5N+eTL1MMqRBX0v0bG04UjrjAvvZJTF/VDH/SH2GjSLqlrcYepFlpTrXpm37aSY6h3GGVWGxXl/98TKA==
   /supertest/4.0.2:
     dependencies:
       methods: 1.1.2
@@ -9860,6 +9973,15 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-1BAbvrOZsGA3YTCWqbmh14L0YEq0EGICX/nBnfkfVJn7SrxQV1I3pMYjSzG9y/7ZU2V9dWqyqk2POwxlb09duQ==
+  /supertest/5.0.0-0:
+    dependencies:
+      methods: 1.1.2
+      superagent: 5.1.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-+XblQKVMblt7kf4BRtK1vezM+Xxq+CWlksy4kmLyqDsN1y89YrDIJ0j/H2CGLMMNk+8k1/bCcGUw8XLs1NYxpg==
   /supports-color/2.0.0:
     dev: true
     engines:

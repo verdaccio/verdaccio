@@ -217,7 +217,6 @@ export function getVersion(pkg: Package, version: any): Version | void {
   try {
     version = semver.parse(version, true);
     for (const versionItem in pkg.versions) {
-      // $FlowFixMe
       if (version.compare(semver.parse(versionItem, true)) === 0) {
         return pkg.versions[versionItem];
       }
