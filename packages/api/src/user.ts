@@ -1,13 +1,12 @@
 import _ from 'lodash';
-import Cookies from 'cookies';
 import { Response, Router } from 'express';
 
-import { createRemoteUser, createSessionToken, getAuthenticatedMessage, validatePassword, ErrorCode } from '@verdaccio/utils';
+import { createRemoteUser, getAuthenticatedMessage, validatePassword, ErrorCode } from '@verdaccio/utils';
 import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 
 import { Config, RemoteUser } from '@verdaccio/types';
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '@verdaccio/dev-types';
+import { $RequestExtend, $NextFunctionVer, IAuth } from '@verdaccio/dev-types';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/dev-commons';
 
 export default function (route: Router, auth: IAuth, config: Config): void {

@@ -2,6 +2,8 @@ import assert from 'assert';
 import Stream from 'stream';
 import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
+import buildDebug from 'debug';
+
 import { ProxyStorage } from '@verdaccio/proxy';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 import { ReadTarball } from '@verdaccio/streams';
@@ -18,6 +20,8 @@ import { LocalStorage } from './local-storage';
 import { mergeVersions } from './metadata-utils';
 import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
 
+const debug = buildDebug('verdaccio:storage');
+
 class Storage implements IStorageHandler {
   public localStorage: IStorage;
   public config: Config;
@@ -28,6 +32,7 @@ class Storage implements IStorageHandler {
   public constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
+    debug('uplinks available %o', this.uplinks);
     this.logger = logger.child({ module: 'storage' });
     this.filters = [];
     // @ts-ignore
@@ -36,6 +41,7 @@ class Storage implements IStorageHandler {
 
   public init(config: Config, filters: IPluginFilters = []): Promise<string> {
     this.filters = filters;
+    debug('filters available %o', filters);
     this.localStorage = new LocalStorage(this.config, logger);
 
     return this.localStorage.getSecret(config);
@@ -49,11 +55,15 @@ class Storage implements IStorageHandler {
    */
   public async addPackage(name: string, metadata: any, callback: Function): Promise<void> {
     try {
+      debug('add package for %o', name);
       await checkPackageLocal(name, this.localStorage);
+      debug('look up remote for %o', name);
       await checkPackageRemote(name, this._isAllowPublishOffline(), this._syncUplinksMetadata.bind(this));
+      debug('publishing a package for %o', name);
       await publishPackage(name, metadata, this.localStorage as IStorage);
       callback();
     } catch (err) {
+      debug('error on add a package for %o with error %o', name, err?.error);
       callback(err);
     }
   }
@@ -79,6 +89,7 @@ class Storage implements IStorageHandler {
    Used storages: local (write)
    */
   public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void {
+    debug('add the version %o for package %o', version, name);
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
@@ -87,6 +98,7 @@ class Storage implements IStorageHandler {
    Used storages: local (write)
    */
   public mergeTags(name: string, tagHash: MergeTags, callback: Callback): void {
+    debug('merge tags for package %o tags %o', name, tagHash);
     this.localStorage.mergeTags(name, tagHash, callback);
   }
 
@@ -96,6 +108,7 @@ class Storage implements IStorageHandler {
    Used storages: local (write)
    */
   public changePackage(name: string, metadata: Package, revision: string, callback: Callback): void {
+    debug('change existing package for package %o revision %o', name, revision);
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
 
@@ -105,6 +118,7 @@ class Storage implements IStorageHandler {
    Used storages: local (write)
    */
   public removePackage(name: string, callback: Callback): void {
+    debug('remove packagefor package %o', name);
     this.localStorage.removePackage(name, callback);
     // update the indexer
     SearchInstance.remove(name);
@@ -127,6 +141,7 @@ class Storage implements IStorageHandler {
    Used storages: local (write)
    */
   public addTarball(name: string, filename: string): IUploadTarball {
+    debug('add tarball for package %o', name);
     return this.localStorage.addTarball(name, filename);
   }
 
@@ -138,6 +153,7 @@ class Storage implements IStorageHandler {
    Used storages: local || uplink (just one)
    */
   public getTarball(name: string, filename: string): IReadTarball {
+    debug('get tarball for package %o filename %o', name, filename);
     const readStream = new ReadTarball({});
     readStream.abort = function () {};
 
@@ -250,7 +266,7 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function (err): void {
-          self.logger.warn({ err: err, fileName: file }, 'error saving file @{fileName}: @{err.message}\n@{err.stack}');
+          self.logger.warn({ err: err, fileName: file }, 'error saving file @{fileName}: @{err?.message}\n@{err.stack}');
           if (savestream) {
             savestream.abort();
           }
@@ -277,18 +293,23 @@ class Storage implements IStorageHandler {
    * @property {function} options.callback Callback for receive data
    */
   public getPackage(options: IGetPackageOptions): void {
-    this.localStorage.getPackageMetadata(options.name, (err, data): void => {
+    const { name } = options;
+    debug('get package for %o', name);
+    this.localStorage.getPackageMetadata(name, (err, data): void => {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
+        debug('error on get package for %o with error %o', name, err?.message);
         return options.callback(err);
       }
 
-      this._syncUplinksMetadata(options.name, data, { req: options.req, uplinksLook: options.uplinksLook }, function getPackageSynUpLinksCallback(
+      debug('sync uplinks for %o', name);
+      this._syncUplinksMetadata(name, data, { req: options.req, uplinksLook: options.uplinksLook }, function getPackageSynUpLinksCallback(
         err,
         result: Package,
         uplinkErrors
       ): void {
         if (err) {
+          debug('error on sync package for %o with error %o', name, err?.message);
           return options.callback(err);
         }
 
@@ -297,6 +318,7 @@ class Storage implements IStorageHandler {
         // npm can throw if this field doesn't exist
         result._attachments = {};
 
+        debug('sync uplinks errors %o', uplinkErrors);
         options.callback(null, result, uplinkErrors);
       });
     });
@@ -331,7 +353,7 @@ class Storage implements IStorageHandler {
         // join streams
         lstream.pipe(stream, { end: false });
         lstream.on('error', function (err): void {
-          self.logger.error({ err: err }, 'uplink error: @{err.message}');
+          self.logger.error({ err: err }, 'uplink error: @{err?.message}');
           cb();
           cb = function (): void {};
         });
@@ -357,7 +379,7 @@ class Storage implements IStorageHandler {
         };
         lstream.pipe(stream, { end: true });
         lstream.on('error', function (err: VerdaccioError): void {
-          self.logger.error({ err: err }, 'search error: @{err.message}');
+          self.logger.error({ err: err }, 'search error: @{err?.message}');
           stream.end();
         });
       }
@@ -470,7 +492,7 @@ class Storage implements IStorageHandler {
                 sub: 'out',
                 err: err,
               },
-              'package.json validating error @{!err.message}\n@{err.stack}'
+              'package.json validating error @{!err?.message}\n@{err.stack}'
             );
             return cb(null, [err]);
           }
@@ -492,7 +514,7 @@ class Storage implements IStorageHandler {
                 sub: 'out',
                 err: err,
               },
-              'package.json parsing error @{!err.message}\n@{err.stack}'
+              'package.json parsing error @{!err?.message}\n@{err.stack}'
             );
             return cb(null, [err]);
           }

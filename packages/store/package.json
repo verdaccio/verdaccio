@@ -19,7 +19,7 @@
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly --declaration true",
-    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build:js": "cross-env babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
@@ -29,11 +29,12 @@
     "@verdaccio/local-storage": "9.6.1",
     "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/proxy": "5.0.0-alpha.0",
-    "@verdaccio/streams": "9.6.1",
+    "@verdaccio/streams": "workspace:*",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "async": "3.1.1",
     "lunr-mutable-indexes": "^2.3.2",
     "lodash": "4.17.15",
+    "debug": "^4.1.1",
     "semver": "7.1.2"
   },
   "devDependencies": {
