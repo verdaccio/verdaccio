@@ -1,0 +1,56 @@
+{
+	"name": "readme-test",
+	"versions": {
+		"0.0.0": {
+			"name": "test-readme",
+			"version": "0.0.0",
+			"description": "",
+			"main": "index.js",
+			"scripts": {
+				"test": "echo \"Error: no test specified\" && exit 1"
+			},
+			"repository": {
+				"type": "git",
+				"url": ""
+			},
+			"author": "",
+			"license": "ISC",
+			"_id": "test-readme@0.0.0",
+			"dist": {
+				"shasum": "8ee7331cbc641581b1a8cecd9d38d744a8feb863",
+				"tarball": "http://localhost:1234/test-readme/-/test-readme-0.0.0.tgz"
+			},
+			"_from": ".",
+			"_npmVersion": "1.3.1",
+			"_npmUser": {
+				"name": "alex",
+				"email": "alex@kocharin.ru"
+			},
+			"maintainers": [
+				{
+					"name": "juan",
+					"email": "juanpicado19@gmail.com"
+				}
+			]
+		}
+	},
+	"dist-tags": {
+		"foo": "0.0.0",
+		"latest": "0.0.0"
+	},
+	"time": {
+		"modified": "2017-10-06T20:30:38.721Z",
+		"created": "2017-10-06T20:30:38.721Z",
+		"0.0.0": "2017-10-06T20:30:38.721Z"
+	},
+	"_distfiles": {},
+	"_attachments": {
+		"test-readme-0.0.0.tgz": {
+			"shasum": "8ee7331cbc641581b1a8cecd9d38d744a8feb863",
+			"version": "0.0.0"
+		}
+	},
+	"_uplinks": {},
+	"_rev": "5-d647003b88ff08a0",
+	"readme": "this is a readme"
+}

@@ -1,19 +1,21 @@
-const setup = jest.fn();
+const debug = require('debug')('verdaccio:test');
+
+const setup = debug;
 const logger = {
   child: jest.fn(() => ({
-    debug: jest.fn(),
-    trace: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    error: jest.fn(),
-    fatal: jest.fn(),
+    debug,
+    trace: debug,
+    warn: debug,
+    info: debug,
+    error: debug,
+    fatal: debug,
   })),
-  debug: jest.fn(),
-  trace: jest.fn(),
-  warn: jest.fn(),
-  info: jest.fn(),
-  error: jest.fn(),
-  fatal: jest.fn(),
+  debug: debug,
+  trace: debug,
+  warn: debug,
+  info: debug,
+  error: debug,
+  fatal: debug,
 };
 
 export { setup, logger };
