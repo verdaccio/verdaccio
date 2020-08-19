@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@verdaccio/proxy": "5.0.0-alpha.0",
-    "@verdaccio/commons-api": "9.7.1",
+    "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/dev-types": "5.0.0-alpha.0",
     "@verdaccio/mock": "5.0.0-alpha.0",
     "http-errors": "1.7.3",
