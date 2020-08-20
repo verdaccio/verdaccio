@@ -2247,7 +2247,7 @@
     babel-plugin-dynamic-import-node "2.3.3"
     babel-plugin-emotion "10.0.33"
 
-"@verdaccio/commons-api@9.7.1", "@verdaccio/commons-api@^9.3.2", "@verdaccio/commons-api@^9.4.0", "@verdaccio/commons-api@^9.7.1":
+"@verdaccio/commons-api@9.7.1", "@verdaccio/commons-api@^9.3.2", "@verdaccio/commons-api@^9.7.1":
   version "9.7.1"
   resolved "https://registry.npmjs.org/@verdaccio/commons-api/-/commons-api-9.7.1.tgz#816f08eb6cb0dbe345f2546428c837be6804796d"
   integrity sha512-s2uD3s325C0UsQ9uQTmf15dXFsGVo23IM6pSUTukCRuurCok89e/k1Adz2CaoXpEu1qpxQ6Sv0dcNpGl7Q7hwQ==
@@ -6815,6 +6815,11 @@ lodash@4.17.19, lodash@^4.11.2, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.1
   version "4.17.19"
   resolved "https://registry.verdaccio.org/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+
+lodash@4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
 log-symbols@^1.0.2:
   version "1.0.2"

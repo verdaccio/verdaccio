@@ -41,7 +41,7 @@
     "js-yaml": "3.14.0",
     "jsonwebtoken": "8.5.1",
     "kleur": "4.0.2",
-    "lodash": "4.17.19",
+    "lodash": "4.17.20",
     "lunr-mutable-indexes": "2.3.2",
     "marked": "1.1.1",
     "mime": "2.4.6",
