@@ -42,6 +42,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 3.9.1_c966759c017b8c3f0ae352c464ebe3fe
       '@typescript-eslint/parser': 3.9.1_eslint@7.5.0+typescript@3.9.7
       '@verdaccio/types': 'link:packages/core/types'
+      '@verdaccio/ui-theme': 1.12.1
       babel-core: 7.0.0-bridge.0_@babel+core@7.10.5
       babel-eslint: 10.1.0_eslint@7.5.0
       babel-jest: 26.1.0_@babel+core@7.10.5
@@ -79,7 +80,9 @@ importers:
       supertest: 4.0.2
       typescript: 3.9.7
       verdaccio: 4.8.1
+      verdaccio-audit: 9.7.3
       verdaccio-auth-memory: 9.7.2
+      verdaccio-htpasswd: 9.7.2
       verdaccio-memory: 9.7.2
     specifiers:
       '@babel/cli': 7.10.5
@@ -123,6 +126,7 @@ importers:
       '@typescript-eslint/eslint-plugin': ^3.9.1
       '@typescript-eslint/parser': ^3.9.1
       '@verdaccio/types': 'workspace:*'
+      '@verdaccio/ui-theme': latest
       babel-core: 7.0.0-bridge.0
       babel-eslint: 10.1.0
       babel-jest: 26.1.0
@@ -160,7 +164,9 @@ importers:
       supertest: 4.0.2
       typescript: 3.9.7
       verdaccio: latest
+      verdaccio-audit: latest
       verdaccio-auth-memory: latest
+      verdaccio-htpasswd: latest
       verdaccio-memory: latest
   packages/api:
     dependencies:
@@ -175,8 +181,9 @@ importers:
       cookies: 0.8.0
       debug: 4.1.1
       express: 4.17.1
-      lodash: 4.17.15
+      lodash: 4.17.20
       mime: 2.4.4
+      semver: 7.3.2
     devDependencies:
       '@verdaccio/config': 'link:../config'
       '@verdaccio/dev-types': 'link:../types'
@@ -201,8 +208,9 @@ importers:
       cookies: 0.8.0
       debug: ^4.1.1
       express: 4.17.1
-      lodash: 4.17.15
+      lodash: ^4.17.15
       mime: 2.4.4
+      semver: 7.3.2
       supertest: next
   packages/auth:
     dependencies:
@@ -239,6 +247,7 @@ importers:
       commander: 5.1.0
       envinfo: 7.4.0
       kleur: 3.0.3
+      lodash: 4.17.20
       semver: 7.3.2
     specifiers:
       '@verdaccio/config': 5.0.0-alpha.0
@@ -248,6 +257,7 @@ importers:
       commander: 5.1.0
       envinfo: 7.4.0
       kleur: 3.0.3
+      lodash: ^4.17.20
       semver: 7.3.2
   packages/commons:
     devDependencies:
@@ -259,6 +269,7 @@ importers:
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/utils': 'link:../utils'
+      lodash: 4.17.20
       mkdirp: 0.5.5
     devDependencies:
       '@verdaccio/dev-types': 'link:../types'
@@ -267,6 +278,7 @@ importers:
       '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
+      lodash: ^4.17.20
       mkdirp: 0.5.5
   packages/core/commons-api:
     dependencies:
@@ -356,6 +368,7 @@ importers:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/logger': 'link:../logger'
       handlebars: 4.5.3
+      lodash: 4.17.20
       request: 2.87.0
     devDependencies:
       '@verdaccio/auth': 'link:../auth'
@@ -374,6 +387,7 @@ importers:
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 5.0.0-alpha.0
       handlebars: 4.5.3
+      lodash: ^4.17.20
       request: 2.87.0
   packages/loaders:
     dependencies:
@@ -481,6 +495,7 @@ importers:
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/server': 'link:../server'
       '@verdaccio/utils': 'link:../utils'
+      lodash: 4.17.20
       selfsigned: 1.10.7
     devDependencies:
       '@verdaccio/mock': 'link:../mock'
@@ -492,6 +507,7 @@ importers:
       '@verdaccio/server': 5.0.0-alpha.0
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 5.0.0-alpha.0
+      lodash: ^4.17.20
       selfsigned: 1.10.7
   packages/proxy:
     dependencies:
@@ -501,6 +517,7 @@ importers:
       '@verdaccio/streams': 'link:../core/streams'
       '@verdaccio/utils': 'link:../utils'
       JSONStream: 1.3.5
+      lodash: 4.17.20
       request: 2.87.0
     devDependencies:
       '@verdaccio/dev-types': 'link:../types'
@@ -514,6 +531,7 @@ importers:
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 5.0.0-alpha.0
       JSONStream: 1.3.5
+      lodash: ^4.17.20
       request: 2.87.0
   packages/server:
     dependencies:
@@ -637,7 +655,9 @@ importers:
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/node-api': 'link:../node-api'
+      '@verdaccio/ui-theme': 1.12.1
       '@verdaccio/utils': 'link:../utils'
+      verdaccio-htpasswd: 9.7.2
     devDependencies:
       '@verdaccio/dev-commons': 'link:../commons'
     specifiers:
@@ -647,7 +667,9 @@ importers:
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/mock': 'workspace:5.0.0-alpha.0'
       '@verdaccio/node-api': 'workspace:5.0.0-alpha.0'
+      '@verdaccio/ui-theme': ^1.12.1
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
+      verdaccio-htpasswd: 9.7.2
   packages/web:
     dependencies:
       '@verdaccio/auth': 'link:../auth'
@@ -660,6 +682,7 @@ importers:
       body-parse: 0.1.0
       body-parser: 1.19.0
       express: 4.17.1
+      lodash: 4.17.20
     devDependencies:
       '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/types': 'link:../core/types'
@@ -676,6 +699,7 @@ importers:
       body-parse: 0.1.0
       body-parser: 1.19.0
       express: 4.17.1
+      lodash: ^4.17.20
 lockfileVersion: 5.1
 packages:
   /@babel/cli/7.10.5_@babel+core@7.10.5:
@@ -2901,7 +2925,6 @@ packages:
     resolution:
       integrity: sha512-ggXPyCueh8CtHFrpZsq7kP+pLxKPsiTuoCGmYNIquZ/p99A6eIAVLElqHFJfgGATsdVlFQKWG/AawCfxD5ymUw==
   /@verdaccio/ui-theme/1.12.1:
-    dev: true
     engines:
       node: '>= 8'
       npm: '>=5'
@@ -7578,7 +7601,6 @@ packages:
     resolution:
       integrity: sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
   /lodash/4.17.20:
-    dev: true
     resolution:
       integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
   /log-symbols/1.0.2:
@@ -10613,7 +10635,6 @@ packages:
       bcryptjs: 2.4.3
       http-errors: 1.8.0
       unix-crypt-td-js: 1.1.4
-    dev: true
     engines:
       node: '>=8'
     resolution:

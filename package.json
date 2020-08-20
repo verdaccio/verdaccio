@@ -93,7 +93,10 @@
     "typescript": "3.9.7",
     "verdaccio": "latest",
     "verdaccio-auth-memory": "latest",
-    "verdaccio-memory": "latest"
+    "verdaccio-memory": "latest",
+    "verdaccio-htpasswd": "latest",
+    "verdaccio-audit": "latest",
+    "@verdaccio/ui-theme": "latest"
   },
   "scripts": {
     "debug": "node debug/bootstrap.js",

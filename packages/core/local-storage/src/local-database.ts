@@ -210,7 +210,7 @@ class LocalDatabase implements IPluginStorage<{}> {
 
     cb(null, list);
 
-    this.logger.trace({ totalItems }, 'local-storage: [get] full list of packages (@{totalItems}) has been fetched');
+    debug('get full list of packages (%o) has been fetched', totalItems);
   }
 
   public getPackageStorage(packageName: string): IPackageStorage {

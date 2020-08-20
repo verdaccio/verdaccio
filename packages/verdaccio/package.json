@@ -42,7 +42,9 @@
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/node-api": "workspace:5.0.0-alpha.0",
-    "@verdaccio/cli": "workspace:5.0.0-alpha.0"
+    "@verdaccio/cli": "workspace:5.0.0-alpha.0",
+    "verdaccio-htpasswd": "9.7.2",
+    "@verdaccio/ui-theme": "^1.12.1"
   },
   "devDependencies": {
     "@verdaccio/dev-commons": "workspace:*"
