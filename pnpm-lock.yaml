@@ -307,6 +307,7 @@ importers:
       '@verdaccio/file-locking': 'link:../file-locking'
       '@verdaccio/streams': 'link:../streams'
       async: 3.2.0
+      debug: 4.1.1
       level: 5.0.1
       lodash: 4.17.19
       mkdirp: 0.5.5
@@ -322,6 +323,7 @@ importers:
       '@verdaccio/streams': 'workspace:*'
       '@verdaccio/types': 'workspace:*'
       async: ^3.2.0
+      debug: ^4.1.1
       level: 5.0.1
       lodash: ^4.17.19
       minimatch: ^3.0.4
@@ -564,7 +566,7 @@ importers:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/loaders': 'link:../loaders'
-      '@verdaccio/local-storage': 9.6.1
+      '@verdaccio/local-storage': 'link:../core/local-storage'
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/proxy': 'link:../proxy'
       '@verdaccio/streams': 'link:../core/streams'
@@ -582,10 +584,10 @@ importers:
     specifiers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 5.0.0-alpha.0
-      '@verdaccio/dev-commons': 5.0.0-alpha.0
+      '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-types': 5.0.0-alpha.0
       '@verdaccio/loaders': 5.0.0-alpha.0
-      '@verdaccio/local-storage': 9.6.1
+      '@verdaccio/local-storage': 'workspace:*'
       '@verdaccio/logger': 5.0.0-alpha.0
       '@verdaccio/mock': 5.0.0-alpha.0
       '@verdaccio/proxy': 5.0.0-alpha.0
