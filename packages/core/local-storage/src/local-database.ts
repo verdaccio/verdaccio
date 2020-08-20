@@ -50,9 +50,6 @@ class LocalDatabase implements IPluginStorage<{}> {
     this.logger = logger;
     this.locked = false;
     this.data = this._fetchLocalPackages();
-
-    debug('configuration: %o', this.config);
-
     this._sync();
   }
 
@@ -217,16 +214,16 @@ class LocalDatabase implements IPluginStorage<{}> {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
     const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
-    this.logger.trace({ packagePath }, '[local-storage/getPackageStorage]: storage selected: @{packagePath}');
+    debug('storage path selected: ', packagePath);
 
     if (_.isString(packagePath) === false) {
-      this.logger.debug({ name: packageName }, 'this package has no storage defined: @{name}');
+      debug('the package %o has no storage defined ', packageName);
       return;
     }
 
     const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
 
-    this.logger.trace({ packageStoragePath }, '[local-storage/getPackageStorage]: storage path: @{packageStoragePath}');
+    debug('storage absolute path: ', packageStoragePath);
 
     return new LocalDriver(packageStoragePath, this.logger);
   }
@@ -317,7 +314,7 @@ class LocalDatabase implements IPluginStorage<{}> {
    * @return {Error|*}
    */
   private _sync(): Error | null {
-    this.logger.debug('[local-storage/_sync]: init sync database');
+    debug('sync database started');
 
     if (this.locked) {
       this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
@@ -328,21 +325,19 @@ class LocalDatabase implements IPluginStorage<{}> {
       // https://www.npmjs.com/package/mkdirp#mkdirpsyncdir-opts
       const folderName = Path.dirname(this.path);
       mkdirp.sync(folderName);
-      this.logger.debug({ folderName }, '[local-storage/_sync]: folder @{folderName} created succeed');
+      debug('sync folder %o created succeed', folderName);
     } catch (err) {
-      // perhaps a logger instance?
-      this.logger.debug({ err }, '[local-storage/_sync/mkdirp.sync]: sync failed @{err}');
-
+      debug('sync create folder has failed with error: %o', err);
       return null;
     }
 
     try {
       fs.writeFileSync(this.path, JSON.stringify(this.data));
-      this.logger.debug('[local-storage/_sync/writeFileSync]: sync write succeed');
+      debug('sync write succeed');
 
       return null;
     } catch (err) {
-      this.logger.debug({ err }, '[local-storage/_sync/writeFileSync]: sync failed @{err}');
+      debug('sync failed %o', err);
 
       return err;
     }

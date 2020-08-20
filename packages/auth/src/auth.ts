@@ -1,19 +1,30 @@
 import _ from 'lodash';
 import { NextFunction } from 'express';
+import buildDebug from 'debug';
 
 import { VerdaccioError, getBadRequest, getInternalError, getForbidden } from '@verdaccio/commons-api';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import { loadPlugin } from '@verdaccio/loaders';
-import { aesEncrypt, signPayload } from '@verdaccio/utils';
-import { getDefaultPlugins, createAnonymousRemoteUser, convertPayloadToBase64, createRemoteUser } from '@verdaccio/utils';
+import {
+  aesEncrypt,
+  signPayload,
+  isNil,
+  isFunction,
+  getMatchedPackagesSpec,
+  getDefaultPlugins,
+  createAnonymousRemoteUser,
+  convertPayloadToBase64,
+  createRemoteUser,
+} from '@verdaccio/utils';
 
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
 import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '@verdaccio/dev-types';
 import { getMiddlewareCredentials, getSecurity, verifyJWTPayload, parseBasicPayload, parseAuthTokenHeader, isAuthHeaderValid, isAESLegacy } from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
+
+const debug = buildDebug('verdaccio:auth');
 
 class Auth implements IAuth {
   public config: Config;
@@ -48,18 +59,18 @@ class Auth implements IAuth {
   }
 
   public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
-    const validPlugins = _.filter(this.plugins, (plugin) => _.isFunction(plugin.changePassword));
+    const validPlugins = _.filter(this.plugins, (plugin) => isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
       return cb(getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }
 
     for (const plugin of validPlugins) {
-      if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
-        this.logger.trace('auth plugin does not implement changePassword, trying next one');
+      if (isNil(plugin) || isFunction(plugin.changePassword) === false) {
+        debug('auth plugin does not implement changePassword, trying next one');
         continue;
       } else {
-        this.logger.trace({ username }, 'updating password for @{username}');
+        debug('updating password for %o', username);
         plugin.changePassword!(username, password, newPassword, (err, profile): void => {
           if (err) {
             this.logger.error(
@@ -70,7 +81,7 @@ class Auth implements IAuth {
             return cb(err);
           }
 
-          this.logger.trace({ username }, 'updated password for @{username} was successful');
+          debug('updated password for %o was successful', username);
           return cb(null, profile);
         });
       }
@@ -83,14 +94,14 @@ class Auth implements IAuth {
     (function next(): void {
       const plugin = plugins.shift() as IPluginAuth<Config>;
 
-      if (_.isFunction(plugin.authenticate) === false) {
+      if (isFunction(plugin.authenticate) === false) {
         return next();
       }
 
-      self.logger.trace({ username }, 'authenticating @{username}');
+      debug('authenticating %o', username);
       plugin.authenticate(username, password, function (err, groups): void {
         if (err) {
-          self.logger.trace({ username, err }, 'authenticating for user @{username} failed. Error: @{err.message}');
+          debug('authenticating for user %o failed. Error: %o', username, err?.message);
           return cb(err);
         }
 
@@ -111,7 +122,7 @@ class Auth implements IAuth {
             throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
 
-          self.logger.trace({ username, groups }, 'authentication for user @{username} was successfully. Groups: @{groups}');
+          debug('authentication for user %o was successfully. Groups: %o', username, groups);
           return cb(err, createRemoteUser(username, groups));
         }
         next();
@@ -122,27 +133,27 @@ class Auth implements IAuth {
   public add_user(user: string, password: string, cb: Callback): void {
     const self = this;
     const plugins = this.plugins.slice(0);
-    this.logger.trace({ user }, 'add user @{user}');
+    debug('add user %o', user);
 
     (function next(): void {
       const plugin = plugins.shift() as IPluginAuth<Config>;
       let method = 'adduser';
-      if (_.isFunction(plugin[method]) === false) {
+      if (isFunction(plugin[method]) === false) {
         method = 'add_user';
         self.logger.warn('the plugin method add_user in the auth plugin is deprecated and will be removed in next major release, notify to the plugin author');
       }
 
-      if (_.isFunction(plugin[method]) === false) {
+      if (isFunction(plugin[method]) === false) {
         next();
       } else {
         // p.add_user() execution
         plugin[method](user, password, function (err, ok): void {
           if (err) {
-            self.logger.trace({ user, err: err.message }, 'the user @{user} could not being added. Error: @{err}');
+            debug('the user  %o could not being added. Error: %o', user, err?.message);
             return cb(err);
           }
           if (ok) {
-            self.logger.trace({ user }, 'the user @{user} has been added');
+            debug('the user %o has been added', user);
             return self.authenticate(user, password, cb);
           }
           next();
@@ -159,23 +170,23 @@ class Auth implements IAuth {
     const pkgAllowAcces: AllowAccess = { name: packageName, version: packageVersion };
     const pkg = Object.assign({}, pkgAllowAcces, getMatchedPackagesSpec(packageName, this.config.packages)) as AllowAccess & PackageAccess;
     const self = this;
-    this.logger.trace({ packageName }, 'allow access for @{packageName}');
+    debug('allow access for %o', packageName);
 
     (function next(): void {
       const plugin: IPluginAuth<Config> = plugins.shift() as IPluginAuth<Config>;
 
-      if (_.isNil(plugin) || _.isFunction(plugin.allow_access) === false) {
+      if (_.isNil(plugin) || isFunction(plugin.allow_access) === false) {
         return next();
       }
 
       plugin.allow_access!(user, pkg, function (err, ok: boolean): void {
         if (err) {
-          self.logger.trace({ packageName, err }, 'forbidden access for @{packageName}. Error: @{err.message}');
+          debug('aforbidden access for %o. Error: %o', packageName, err?.message);
           return callback(err);
         }
 
         if (ok) {
-          self.logger.trace({ packageName }, 'allowed access for @{packageName}');
+          debug('allowed access for %o', packageName);
           return callback(null, ok);
         }
 
@@ -186,28 +197,28 @@ class Auth implements IAuth {
 
   public allow_unpublish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
-    this.logger.trace({ packageName }, 'allow unpublish for @{packageName}');
+    debug('allow unpublish for %o', packageName);
 
     for (const plugin of this.plugins) {
-      if (_.isNil(plugin) || _.isFunction(plugin.allow_unpublish) === false) {
-        this.logger.trace({ packageName }, 'allow unpublish for @{packageName} plugin does not implement allow_unpublish');
+      if (_.isNil(plugin) || isFunction(plugin.allow_unpublish) === false) {
+        debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
         plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
           if (err) {
-            this.logger.trace({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
+            debug('forbidden publish for %o, it will fallback on unpublish permissions', packageName);
             return callback(err);
           }
 
           if (_.isNil(ok) === true) {
-            this.logger.trace({ packageName }, 'we bypass unpublish for @{packageName}, publish will handle the access');
+            debug('bypass unpublish for %o, publish will handle the access', packageName);
             // @ts-ignore
             // eslint-disable-next-line
               return this.allow_publish(...arguments);
           }
 
           if (ok) {
-            this.logger.trace({ packageName }, 'allowed unpublish for @{packageName}');
+            debug('allowed unpublish for %o', packageName);
             return callback(null, ok);
           }
         });
@@ -222,13 +233,13 @@ class Auth implements IAuth {
     const plugins = this.plugins.slice(0);
     const self = this;
     const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
-    this.logger.trace({ packageName, plugins: this.plugins.length }, 'allow publish for @{packageName} init | plugins: @{plugins}');
+    debug('allow publish for %o init | plugins: %o', packageName, plugins.length);
 
     (function next(): void {
       const plugin = plugins.shift();
 
-      if (_.isNil(plugin) || _.isFunction(plugin.allow_publish) === false) {
-        self.logger.trace({ packageName }, 'allow publish for @{packageName} plugin does not implement allow_publish');
+      if (_.isNil(plugin) || isFunction(plugin.allow_publish) === false) {
+        debug('allow publish for %o plugin does not implement allow_publish', packageName);
         return next();
       }
 
@@ -239,16 +250,16 @@ class Auth implements IAuth {
         // @ts-ignore
         (err: VerdaccioError, ok: boolean): void => {
           if (_.isNil(err) === false && _.isError(err)) {
-            self.logger.trace({ packageName }, 'forbidden publish for @{packageName}');
+            debug('forbidden publish for %o', packageName);
             return callback(err);
           }
 
           if (ok) {
-            self.logger.trace({ packageName }, 'allowed publish for @{packageName}');
+            debug('allowed publish for %o', packageName);
             return callback(null, ok);
           }
 
-          self.logger.trace({ packageName }, 'allow publish skip validation for @{packageName}');
+          debug('allow publish skip validation for %o', packageName);
           next(); // cb(null, false) causes next plugin to roll
         }
       );
@@ -292,7 +303,7 @@ class Auth implements IAuth {
       }
 
       if (!isAuthHeaderValid(authorization)) {
-        this.logger.trace('api middleware auth heather is not valid');
+        debug('api middleware auth heather is not valid');
         return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
 
@@ -300,10 +311,10 @@ class Auth implements IAuth {
       const { secret } = this.config;
 
       if (isAESLegacy(security)) {
-        this.logger.trace('api middleware using legacy auth token');
+        debug('api middleware using legacy auth token');
         this._handleAESMiddleware(req, security, secret, authorization, next);
       } else {
-        this.logger.trace('api middleware using JWT auth token');
+        debug('api middleware using JWT auth token');
         this._handleJWTAPIMiddleware(req, security, secret, authorization, next);
       }
     };
