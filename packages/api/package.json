@@ -41,7 +41,7 @@
     "@verdaccio/config": "5.0.0-alpha.0",
     "@verdaccio/server": "5.0.0-alpha.0",
     "@verdaccio/dev-types": "5.0.0-alpha.0",
-    "@verdaccio/types": "9.5.0",
+    "@verdaccio/types": "workspace:*",
     "body-parser": "1.19.0",
     "supertest": "next"
   },

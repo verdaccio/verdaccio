@@ -22,7 +22,7 @@
     "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/types": "9.5.0"
+    "@verdaccio/types": "workspace:*"
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",

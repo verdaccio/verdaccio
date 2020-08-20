@@ -6,20 +6,20 @@
   "types": "build/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/auth": "5.0.0-alpha.0",
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/loaders": "5.0.0-alpha.0",
-    "@verdaccio/middleware": "5.0.0-alpha.0",
-    "@verdaccio/store": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.0",
+    "@verdaccio/auth": "workspace:5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
+    "@verdaccio/loaders": "workspace:5.0.0-alpha.0",
+    "@verdaccio/middleware": "workspace:5.0.0-alpha.0",
+    "@verdaccio/store": "workspace:5.0.0-alpha.0",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "body-parse": "0.1.0",
     "body-parser": "1.19.0",
     "express": "4.17.1"
   },
   "devDependencies": {
     "@verdaccio/dev-types": "5.0.0-alpha.0",
-    "@verdaccio/types": "9.5.0"
+    "@verdaccio/types": "workspace:*"
   },
   "scripts": {
     "clean": "rimraf ./build",
