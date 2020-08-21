@@ -15,14 +15,15 @@
   "dependencies": {
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/types": "9.5.0"
+    "@verdaccio/types": "workspace:*"
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",

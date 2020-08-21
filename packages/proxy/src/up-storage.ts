@@ -47,7 +47,8 @@ class ProxyStorage implements IProxy {
   public upname: string;
   // FIXME: proxy can be boolean or object, something smells here
   // @ts-ignore
-  public proxy: string | void;
+  // any due this https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#operands-for-delete-must-be-optional
+  public proxy: any;
   // @ts-ignore
   public last_request_time: number | null;
   public strict_ssl: boolean;
