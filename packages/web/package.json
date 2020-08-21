@@ -16,7 +16,8 @@
     "body-parse": "0.1.0",
     "body-parser": "1.19.0",
     "lodash": "^4.17.20",
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@verdaccio/dev-types": "5.0.0-alpha.0",

@@ -395,6 +395,7 @@ importers:
     dependencies:
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/logger': 'link:../logger'
+      debug: 4.1.1
       lodash: 4.17.15
     devDependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
@@ -410,6 +411,7 @@ importers:
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/mock': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
+      debug: ^4.1.1
       lodash: 4.17.15
   packages/logger:
     dependencies:
@@ -683,6 +685,7 @@ importers:
       '@verdaccio/utils': 'link:../utils'
       body-parse: 0.1.0
       body-parser: 1.19.0
+      debug: 4.1.1
       express: 4.17.1
       lodash: 4.17.20
     devDependencies:
@@ -700,6 +703,7 @@ importers:
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       body-parse: 0.1.0
       body-parser: 1.19.0
+      debug: ^4.1.1
       express: 4.17.1
       lodash: ^4.17.20
 lockfileVersion: 5.1
@@ -768,6 +772,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-fEm3Uzw7Mc9Xi//qU20cBKatTfs2aOtKqmvy/Vm7RkJEGFQ4xc9myCfbXxqK//ZS8MR/ciOHw6meGASJuKmDfQ==
+  /@babel/generator/7.11.4:
+    dependencies:
+      '@babel/types': 7.11.0
+      jsesc: 2.5.2
+      source-map: 0.5.7
+    dev: true
+    resolution:
+      integrity: sha512-Rn26vueFx0eOoz7iifCN2UHT6rGtnkSGWSoDRIy8jZN3B91PzeSULbswfLoOWuTuAcNwpG/mxy+uCTDnZ9Mp1g==
   /@babel/helper-annotate-as-pure/7.10.4:
     dependencies:
       '@babel/types': 7.11.0
@@ -1000,6 +1012,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Vuj/+7vLo6l1Vi7uuO+1ngCDNeVmNbTngcJFKCR/oEtz8tKz0CJxZEGmPt9KcIloZhOZ3Zit6xbpXT2MDlS9Vw==
+  /@babel/parser/7.11.4:
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-MggwidiH+E9j5Sh8pbrX5sJvMcsqS5o+7iB42M9/k0CD63MjYbdP4nhSh7uB5wnv2/RVzTZFTxzF/kIa5mrCqA==
   /@babel/plugin-proposal-async-generator-functions/7.10.5_@babel+core@7.10.5:
     dependencies:
       '@babel/core': 7.10.5
@@ -1873,7 +1892,7 @@ packages:
   /@babel/template/7.10.4:
     dependencies:
       '@babel/code-frame': 7.10.4
-      '@babel/parser': 7.11.2
+      '@babel/parser': 7.11.4
       '@babel/types': 7.11.0
     dev: true
     resolution:
@@ -1881,21 +1900,21 @@ packages:
   /@babel/traverse/7.11.0:
     dependencies:
       '@babel/code-frame': 7.10.4
-      '@babel/generator': 7.11.0
+      '@babel/generator': 7.11.4
       '@babel/helper-function-name': 7.10.4
       '@babel/helper-split-export-declaration': 7.11.0
-      '@babel/parser': 7.11.2
+      '@babel/parser': 7.11.4
       '@babel/types': 7.11.0
       debug: 4.1.1
       globals: 11.12.0
-      lodash: 4.17.19
+      lodash: 4.17.20
     dev: true
     resolution:
       integrity: sha512-ZB2V+LskoWKNpMq6E5UUCrjtDUh5IOTAyIl0dTjIEoXum/iKWkoIEKIRDnUucO6f+2FzNkE0oD4RLKoPIufDtg==
   /@babel/types/7.11.0:
     dependencies:
       '@babel/helper-validator-identifier': 7.10.4
-      lodash: 4.17.19
+      lodash: 4.17.20
       to-fast-properties: 2.0.0
     dev: true
     resolution:
