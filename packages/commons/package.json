@@ -14,6 +14,9 @@
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",
+  "devDependencies": {
+    "@verdaccio/types": "workspace:10.0.0-beta"
+  },
   "scripts": {
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit",

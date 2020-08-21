@@ -1,6 +1,7 @@
 import fs from 'fs';
 import Path from 'path';
 import stream from 'stream';
+import buildDebug from 'debug';
 
 import _ from 'lodash';
 import async from 'async';
@@ -26,6 +27,8 @@ interface Level {
   createReadStream(options?: object): stream.Readable;
 }
 
+const debug = buildDebug('verdaccio:plugin:local-storage');
+
 /**
  * Handle local database.
  */
@@ -47,9 +50,6 @@ class LocalDatabase implements IPluginStorage<{}> {
     this.logger = logger;
     this.locked = false;
     this.data = this._fetchLocalPackages();
-
-    this.logger.trace({ config: this.config }, '[local-storage]: configuration: @{config}');
-
     this._sync();
   }
 
@@ -74,20 +74,21 @@ class LocalDatabase implements IPluginStorage<{}> {
     if (this.data.list.indexOf(name) === -1) {
       this.data.list.push(name);
 
-      this.logger.debug({ name }, '[local-storage]: the private package @{name} has been added');
+      debug('the private package %o has been added', name);
       cb(this._sync());
     } else {
+      debug('the private package %o was not added', name);
       cb(null);
     }
   }
 
   public search(onPackage: Callback, onEnd: Callback, validateName: (name: string) => boolean): void {
     const storages = this._getCustomPackageLocalStorages();
-    this.logger.trace(`local-storage: [search]: ${JSON.stringify(storages)}`);
+    debug(`search custom local packages: %o`, JSON.stringify(storages));
     const base = Path.dirname(this.config.self_path);
     const self = this;
     const storageKeys = Object.keys(storages);
-    this.logger.trace(`local-storage: [search] base: ${base} keys ${storageKeys}`);
+    debug(`search base: %o keys: %o`, base, storageKeys);
 
     async.eachSeries(
       storageKeys,
@@ -95,7 +96,7 @@ class LocalDatabase implements IPluginStorage<{}> {
         const position = storageKeys.indexOf(storage);
         const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
         const storagePath: string = Path.resolve(base, base2, storage);
-        self.logger.trace({ storagePath, storage }, 'local-storage: [search] search path: @{storagePath} : @{storage}');
+        debug('search path: %o : %o', storagePath, storage);
         fs.readdir(storagePath, (err, files) => {
           if (err) {
             return cb(err);
@@ -104,7 +105,7 @@ class LocalDatabase implements IPluginStorage<{}> {
           async.eachSeries(
             files,
             function (file, cb) {
-              self.logger.trace({ file }, 'local-storage: [search] search file path: @{file}');
+              debug('local-storage: [search] search file path: %o', file);
               if (storageKeys.includes(file)) {
                 return cb();
               }
@@ -112,7 +113,7 @@ class LocalDatabase implements IPluginStorage<{}> {
               if (file.match(/^@/)) {
                 // scoped
                 const fileLocation = Path.resolve(base, storage, file);
-                self.logger.trace({ fileLocation }, 'local-storage: [search] search scoped file location: @{fileLocation}');
+                debug('search scoped file location: %o', fileLocation);
                 fs.readdir(fileLocation, function (err, files) {
                   if (err) {
                     return cb(err);
@@ -145,7 +146,7 @@ class LocalDatabase implements IPluginStorage<{}> {
               } else if (validateName(file)) {
                 const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
                 const packagePath = Path.resolve(base, base2, storage, file);
-                self.logger.trace({ packagePath }, 'local-storage: [search] search file location: @{packagePath}');
+                debug('search file location: %o', packagePath);
                 fs.stat(packagePath, (err, stats) => {
                   if (_.isNil(err) === false) {
                     return cb(err);
@@ -182,13 +183,14 @@ class LocalDatabase implements IPluginStorage<{}> {
       if (err) {
         cb(getInternalError('error remove private package'));
         this.logger.error({ err }, '[local-storage/remove]: remove the private package has failed @{err}');
+        debug('error on remove package %o', name);
       }
 
       const pkgName = data.indexOf(name);
       if (pkgName !== -1) {
         this.data.list.splice(pkgName, 1);
 
-        this.logger.trace({ name }, 'local-storage: [remove] package @{name} has been removed');
+        debug('remove package %o has been removed', name);
       }
 
       cb(this._sync());
@@ -205,23 +207,23 @@ class LocalDatabase implements IPluginStorage<{}> {
 
     cb(null, list);
 
-    this.logger.trace({ totalItems }, 'local-storage: [get] full list of packages (@{totalItems}) has been fetched');
+    debug('get full list of packages (%o) has been fetched', totalItems);
   }
 
   public getPackageStorage(packageName: string): IPackageStorage {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
     const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
-    this.logger.trace({ packagePath }, '[local-storage/getPackageStorage]: storage selected: @{packagePath}');
+    debug('storage path selected: ', packagePath);
 
     if (_.isString(packagePath) === false) {
-      this.logger.debug({ name: packageName }, 'this package has no storage defined: @{name}');
+      debug('the package %o has no storage defined ', packageName);
       return;
     }
 
     const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
 
-    this.logger.trace({ packageStoragePath }, '[local-storage/getPackageStorage]: storage path: @{packageStoragePath}');
+    debug('storage absolute path: ', packageStoragePath);
 
     return new LocalDriver(packageStoragePath, this.logger);
   }
@@ -312,7 +314,7 @@ class LocalDatabase implements IPluginStorage<{}> {
    * @return {Error|*}
    */
   private _sync(): Error | null {
-    this.logger.debug('[local-storage/_sync]: init sync database');
+    debug('sync database started');
 
     if (this.locked) {
       this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
@@ -323,21 +325,19 @@ class LocalDatabase implements IPluginStorage<{}> {
       // https://www.npmjs.com/package/mkdirp#mkdirpsyncdir-opts
       const folderName = Path.dirname(this.path);
       mkdirp.sync(folderName);
-      this.logger.debug({ folderName }, '[local-storage/_sync]: folder @{folderName} created succeed');
+      debug('sync folder %o created succeed', folderName);
     } catch (err) {
-      // perhaps a logger instance?
-      this.logger.debug({ err }, '[local-storage/_sync/mkdirp.sync]: sync failed @{err}');
-
+      debug('sync create folder has failed with error: %o', err);
       return null;
     }
 
     try {
       fs.writeFileSync(this.path, JSON.stringify(this.data));
-      this.logger.debug('[local-storage/_sync/writeFileSync]: sync write succeed');
+      debug('sync write succeed');
 
       return null;
     } catch (err) {
-      this.logger.debug({ err }, '[local-storage/_sync/writeFileSync]: sync failed @{err}');
+      debug('sync failed %o', err);
 
       return err;
     }

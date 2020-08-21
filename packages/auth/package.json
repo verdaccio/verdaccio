@@ -29,13 +29,14 @@
     "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
     "express": "4.17.1",
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
-    "@verdaccio/types": "9.5.0"
+    "@verdaccio/types": "workspace:*"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }
