@@ -21,11 +21,14 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "tsc --noEmit",
-    "build": "rimraf lib tsconfig.tsbuildinfo && tsc --build"
+    "test": "exit 0",
+    "build": "exit 0"
+  },
+  "devDependencies": {
+    "@types/node": "14.6.0"
   },
   "funding": {
     "type": "opencollective",

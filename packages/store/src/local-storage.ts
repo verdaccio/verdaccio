@@ -214,7 +214,7 @@ class LocalStorage implements IStorage {
       }
 
       if (change) {
-        this.logger.debug({ name }, 'updating package @{name} info');
+        debug('updating package info %o', name);
         this._writePackage(name, packageLocalJson, function (err): void {
           callback(err, packageLocalJson);
         });
@@ -805,7 +805,7 @@ class LocalStorage implements IStorage {
   }
 
   private _deleteAttachments(storage: any, attachments: string[], callback: Callback): void {
-    this.logger.debug({ l: attachments.length }, `[storage/_deleteAttachments] delete attachments total: @{l}`);
+    debug('deleting %o attachments total %o', attachments?.length);
     const unlinkNext = function (cb): void {
       if (_.isEmpty(attachments)) {
         return cb();

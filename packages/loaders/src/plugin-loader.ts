@@ -1,8 +1,12 @@
 import Path from 'path';
 import _ from 'lodash';
+import buildDebug from 'debug';
+
 import { logger } from '@verdaccio/logger';
 import { Config, IPlugin } from '@verdaccio/types';
 import { MODULE_NOT_FOUND } from '@verdaccio/dev-commons';
+
+const debug = buildDebug('verdaccio:plugin:loader');
 
 /**
  * Requires a module.
@@ -114,7 +118,7 @@ export function loadPlugin<T extends IPlugin<T>>(config: Config, pluginConfigs: 
         throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
       }
 
-      logger.warn({ content: pluginId, prefix }, 'Plugin successfully loaded: @{prefix}-@{content}');
+      debug('Plugin successfully loaded: %o-%o', pluginId, prefix);
       return plugin;
     }
   );

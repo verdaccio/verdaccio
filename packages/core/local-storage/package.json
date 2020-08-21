@@ -37,7 +37,8 @@
     "async": "^3.2.0",
     "level": "5.0.1",
     "lodash": "^4.17.19",
-    "mkdirp": "^0.5.5"
+    "mkdirp": "^0.5.5",
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
