@@ -34,15 +34,17 @@
     "debug": "^4.1.1",
     "cookies": "0.8.0",
     "express": "4.17.1",
-    "lodash": "4.17.15",
+    "semver": "7.3.2",
+    "lodash": "^4.17.15",
     "mime": "2.4.4"
   },
   "devDependencies": {
     "@verdaccio/config": "5.0.0-alpha.0",
     "@verdaccio/server": "5.0.0-alpha.0",
     "@verdaccio/dev-types": "5.0.0-alpha.0",
-    "@verdaccio/types": "9.5.0",
+    "@verdaccio/types": "workspace:*",
     "body-parser": "1.19.0",
+    "lodash": "^4.17.20",
     "supertest": "next"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
