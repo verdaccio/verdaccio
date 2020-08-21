@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/pino": "5.20.0",
-    "@verdaccio/types": "9.5.0"
+    "@verdaccio/types": "workspace:*"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

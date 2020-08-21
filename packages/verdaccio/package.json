@@ -37,12 +37,14 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/hooks": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
-    "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/mock": "5.0.0-alpha.0",
-    "@verdaccio/node-api": "5.0.0-alpha.0",
-    "@verdaccio/cli": "5.0.0-alpha.0"
+    "@verdaccio/hooks": "workspace:5.0.0-alpha.0",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.0",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.0",
+    "@verdaccio/mock": "workspace:5.0.0-alpha.0",
+    "@verdaccio/node-api": "workspace:5.0.0-alpha.0",
+    "@verdaccio/cli": "workspace:5.0.0-alpha.0",
+    "verdaccio-htpasswd": "9.7.2",
+    "@verdaccio/ui-theme": "^1.12.1"
   },
   "devDependencies": {
     "@verdaccio/dev-commons": "workspace:*"

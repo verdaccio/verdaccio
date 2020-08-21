@@ -37,6 +37,8 @@ export function createLogger(options = {}, destination = pino.destination(1), fo
 
   if (format === DEFAULT_LOG_FORMAT || format !== 'json') {
     pinoConfig = Object.assign({}, pinoConfig, {
+      // FIXME: this property cannot be used in combination with pino.final
+      // https://github.com/pinojs/pino-pretty/issues/37
       prettyPrint: {
         levelFirst: true,
         prettyStamp: format === 'pretty-timestamped',

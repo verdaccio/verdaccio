@@ -11,10 +11,6 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@verdaccio/types/lib/verdaccio",
-      "./node_modules/@types"
-    ]
   },
   "exclude": [
     "**/build",
