@@ -1,4 +1,4 @@
 {
-  "presets": [["@verdaccio"]],
+  "extends": "../.babelrc",
   "debug": true
 }

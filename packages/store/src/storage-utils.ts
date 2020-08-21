@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ErrorCode, isObject, normalizeDistTags, semverSort, generateRandomHexString } from '@verdaccio/utils';
+import { ErrorCode, isObject, normalizeDistTags, semverSort, generateRandomHexString, isNil } from '@verdaccio/utils';
 
 import { Package, Version, Author } from '@verdaccio/types';
 import { IStorage } from '@verdaccio/dev-types';
@@ -32,7 +32,7 @@ export function normalizePackage(pkg: Package): Package {
   pkgProperties.forEach((key): void => {
     const pkgProp = pkg[key];
 
-    if (_.isNil(pkgProp) || isObject(pkgProp) === false) {
+    if (isNil(pkgProp) || isObject(pkgProp) === false) {
       pkg[key] = {};
     }
   });
@@ -79,8 +79,10 @@ export function getLatestReadme(pkg: Package): string {
   return readme;
 }
 
-export function cleanUpReadme(version: Version): Version {
-  if (_.isNil(version) === false) {
+// FIXME: type any due this
+export function cleanUpReadme(version: any): Version {
+  if (isNil(version) === false) {
+    // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#operands-for-delete-must-be-optional
     delete version.readme;
   }
 
@@ -88,7 +90,7 @@ export function cleanUpReadme(version: Version): Version {
 }
 
 export function normalizeContributors(contributors: Author[]): Author[] {
-  if (_.isNil(contributors)) {
+  if (isNil(contributors)) {
     return [];
   } else if (contributors && _.isArray(contributors) === false) {
     // FIXME: this branch is clearly no an array, still tsc complains
@@ -131,7 +133,7 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
 export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
   return new Promise((resolve, reject): void => {
     localStorage.getPackageMetadata(name, (err, results): void => {
-      if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
+      if (!isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
         return reject(err);
       }
       if (results) {
@@ -164,14 +166,14 @@ export function checkPackageRemote(name: string, isAllowPublishOffline: boolean,
       }
 
       // checking package exist already
-      if (_.isNil(packageJsonLocal) === false) {
+      if (isNil(packageJsonLocal) === false) {
         return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
       }
 
       for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
         // checking error
         // if uplink fails with a status other than 404, we report failure
-        if (_.isNil(upLinksErrors[errorItem][0]) === false) {
+        if (isNil(upLinksErrors[errorItem][0]) === false) {
           if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
             if (isAllowPublishOffline) {
               return resolve();

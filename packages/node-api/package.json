@@ -27,11 +27,12 @@
     "@verdaccio/logger": "5.0.0-alpha.0",
     "@verdaccio/server": "5.0.0-alpha.0",
     "@verdaccio/utils": "5.0.0-alpha.0",
-    "selfsigned": "1.10.7"
+    "selfsigned": "1.10.7",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "@verdaccio/mock": "5.0.0-alpha.0",
-    "@verdaccio/types": "9.7.0"
+    "@verdaccio/types": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
