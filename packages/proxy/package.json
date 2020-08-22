@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/proxy",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "verdaccio proxy fetcher",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -23,17 +23,17 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.1",
     "@verdaccio/local-storage": "workspace:*",
+    "@verdaccio/logger": "5.0.0-alpha.1",
     "@verdaccio/streams": "workspace:*",
-    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/utils": "5.0.0-alpha.1",
     "JSONStream": "1.3.5",
-    "request": "2.87.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "5.0.0-alpha.0",
+    "@verdaccio/dev-types": "5.0.0-alpha.1",
     "@verdaccio/types": "workspace:*"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"

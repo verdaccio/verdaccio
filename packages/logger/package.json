@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -22,7 +22,7 @@
     "build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps"
   },
   "dependencies": {
-    "@verdaccio/logger-prettify": "5.0.0-alpha.0",
+    "@verdaccio/logger-prettify": "5.0.0-alpha.1",
     "lodash": "4.17.15",
     "pino": "5.17.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -28,10 +28,10 @@
     "bundle": "cross-env BABEL_ENV=registry webpack --config scripts/bundle.js --profile --json > compilation-stats.json"
   },
   "dependencies": {
-    "@verdaccio/config": "5.0.0-alpha.0",
-    "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/node-api": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/config": "5.0.0-alpha.1",
+    "@verdaccio/logger": "5.0.0-alpha.1",
+    "@verdaccio/node-api": "5.0.0-alpha.1",
+    "@verdaccio/utils": "5.0.0-alpha.1",
     "commander": "5.1.0",
     "lodash": "^4.17.20",
     "envinfo": "7.4.0",

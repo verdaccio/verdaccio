@@ -29,5 +29,7 @@
     "verdaccio": "5.0.0-alpha.0",
     "@verdaccio/web": "5.0.0-alpha.0"
   },
-  "changesets": []
+  "changesets": [
+    "pretty-hounds-tap"
+  ]
 }

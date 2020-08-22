@@ -1,26 +1,26 @@
 {
   "name": "@verdaccio/web",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "web ui middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/logger": "workspace:5.0.0-alpha.0",
-    "@verdaccio/auth": "workspace:5.0.0-alpha.0",
-    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
-    "@verdaccio/loaders": "workspace:5.0.0-alpha.0",
-    "@verdaccio/middleware": "workspace:5.0.0-alpha.0",
-    "@verdaccio/store": "workspace:5.0.0-alpha.0",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.0",
+    "@verdaccio/auth": "workspace:5.0.0-alpha.1",
+    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.1",
+    "@verdaccio/loaders": "workspace:5.0.0-alpha.1",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.1",
+    "@verdaccio/middleware": "workspace:5.0.0-alpha.1",
+    "@verdaccio/store": "workspace:5.0.0-alpha.1",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.1",
     "body-parse": "0.1.0",
     "body-parser": "1.19.0",
-    "lodash": "^4.17.20",
+    "debug": "^4.1.1",
     "express": "4.17.1",
-    "debug": "^4.1.1"
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "5.0.0-alpha.0",
+    "@verdaccio/dev-types": "5.0.0-alpha.1",
     "@verdaccio/types": "workspace:*"
   },
   "scripts": {
