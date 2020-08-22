@@ -38,6 +38,8 @@
     "@babel/preset-typescript": "7.10.4",
     "@babel/register": "7.10.5",
     "@babel/runtime": "7.10.5",
+    "@changesets/changelog-github": "^0.1.1",
+    "@changesets/cli": "^2.9.2",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.2.0",
     "@octokit/rest": "17.0.0",
@@ -109,7 +111,11 @@
     "test:e2e:cli": "cross-env NODE_ENV=test jest --config ./test/e2e-cli/jest.config.e2e.cli.js --passWithNoTests",
     "website:lint": "cd website && yarn lint",
     "website:develop": "cd website && yarn develop",
-    "website:build": "cd website && yarn build"
+    "website:build": "cd website && yarn build",
+    "changeset": "changeset",
+    "changeset:check": "changeset status --since-master",
+    "ci:version": "run-s ci:version:changeset ci:version:repo ci:version:install",
+    "ci:version:changeset": "changeset version"
   },
   "license": "MIT",
   "commitlint": {
