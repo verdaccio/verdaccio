@@ -3,13 +3,13 @@ name: Docker publish to GitHub registry
 on:
   push:
     branches:
-      - master
+      - 5.x
     paths:
       - .github/workflows/docker-publish.yml
       - 'packages/**'
       - 'docker-bin/**'
       - 'package.json'
-      - 'lerna.json'
+      - 'pnpm-*.yaml'
 
 jobs:
   testDocker:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Publish to registry
+    - name: Publish to GitHub Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: docker.pkg.github.com/verdaccio/verdaccio/verdaccio
