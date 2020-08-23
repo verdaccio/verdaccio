@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - 5.x
+      - 'changeset-release/5.x'
   pull_request:
   schedule:
     - cron: '0 2 * * 4'
