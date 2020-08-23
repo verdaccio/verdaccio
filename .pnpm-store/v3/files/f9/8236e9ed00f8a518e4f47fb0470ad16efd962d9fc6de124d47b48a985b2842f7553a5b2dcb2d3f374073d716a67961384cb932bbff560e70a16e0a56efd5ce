@@ -1,0 +1,54 @@
+{
+  "name": "verdaccio-auth-memory",
+  "version": "9.7.2",
+  "description": "Auth plugin for Verdaccio that keeps users in memory",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "auth",
+    "memory"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/auth-memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "types": "lib/src/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "^9.7.1"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^9.7.1",
+    "@verdaccio/eslint-config": "^9.3.2",
+    "@verdaccio/types": "^9.7.2"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "gitHead": "5c7d3c5af1bf28da8ffe61f73dfc6380b5e91679"
+}

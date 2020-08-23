@@ -1,0 +1,48 @@
+{
+  "name": "trim-off-newlines",
+  "version": "1.0.1",
+  "description": "Similar to String#trim() but removes only newlines",
+  "license": "MIT",
+  "repository": "stevemao/trim-off-newlines",
+  "author": {
+    "name": "Steve Mao",
+    "email": "maochenyan@gmail.com",
+    "url": "github.com/stevemao"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "trim",
+    "newlines",
+    "new-lines",
+    "newline",
+    "new-lines",
+    "string",
+    "str",
+    "util",
+    "utils",
+    "utility",
+    "whitespace",
+    "space",
+    "remove",
+    "delete"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "xo": "*"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "mocha"
+    ]
+  }
+}

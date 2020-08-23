@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -23,13 +23,13 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.1",
+    "@verdaccio/logger": "5.0.0-alpha.1",
+    "@verdaccio/utils": "5.0.0-alpha.1",
     "lodash": "4.17.15"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "5.0.0-alpha.0"
+    "@verdaccio/dev-types": "5.0.0-alpha.1"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/streams",
-  "version": "10.0.0-beta",
+  "version": "10.0.0-alpha.0",
   "description": "Stream extension for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@verdaccio/types": "^9.7.2"
+    "@verdaccio/types": "^10.0.0-alpha.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

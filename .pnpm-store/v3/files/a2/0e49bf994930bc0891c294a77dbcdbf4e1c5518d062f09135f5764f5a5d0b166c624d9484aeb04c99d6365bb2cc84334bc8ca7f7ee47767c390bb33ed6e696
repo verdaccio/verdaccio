@@ -1,0 +1,26 @@
+{
+    "name": "@types/pino-std-serializers",
+    "version": "2.4.1",
+    "description": "TypeScript definitions for pino-std-serializers",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Connor Fitzgerald",
+            "url": "https://github.com/connorjayfitzgerald",
+            "githubUsername": "connorjayfitzgerald"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/pino-std-serializers"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "831822a6503ef394654602d92fc3813d97c8bd2b15535aa02ccd7aff1ba92f6b",
+    "typeScriptVersion": "2.8"
+}

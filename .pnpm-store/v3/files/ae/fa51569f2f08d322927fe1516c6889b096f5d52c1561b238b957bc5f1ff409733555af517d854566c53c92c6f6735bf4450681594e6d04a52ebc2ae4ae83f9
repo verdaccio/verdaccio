@@ -1,0 +1,58 @@
+{
+  "name": "@verdaccio/readme",
+  "version": "9.7.3",
+  "description": "Readme markdown parser",
+  "keywords": [
+    "verdaccio",
+    "readme",
+    "markdown"
+  ],
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/readme"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "dompurify": "2.0.8",
+    "jsdom": "15.2.1",
+    "marked": "1.1.1"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^9.7.1",
+    "@verdaccio/eslint-config": "^9.3.2",
+    "@verdaccio/types": "^9.7.2"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov --root=../../ -F core",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "gitHead": "69c59f0582b25c2dd578a370f902521539040d31"
+}

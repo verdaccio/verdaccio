@@ -1,0 +1,2 @@
+{{#if version}}{{#if @root.linkCompare}}[{{version}}]({{@root.host}}/{{#if @root.owner}}{{@root.owner}}/{{/if}}{{@root.repository}}/compare/{{previousTag}}...{{currentTag}}){{else}}{{version}}{{/if}} / {{/if}}{{date}}
+===================

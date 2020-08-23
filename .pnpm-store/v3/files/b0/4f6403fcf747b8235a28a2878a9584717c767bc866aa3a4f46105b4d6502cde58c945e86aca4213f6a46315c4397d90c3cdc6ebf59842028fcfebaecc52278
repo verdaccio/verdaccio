@@ -1,0 +1,53 @@
+{
+  "name": "eslint-plugin-simple-import-sort",
+  "version": "5.0.2",
+  "license": "MIT",
+  "author": "Simon Lydell",
+  "repository": "lydell/eslint-plugin-simple-import-sort",
+  "description": "Easy autofixable import sorting",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "eslintplugin",
+    "import",
+    "imports",
+    "order",
+    "sort",
+    "sorter",
+    "sorting"
+  ],
+  "scripts": {
+    "eslint": "eslint .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "eslint:examples": "eslint --rulesdir src --no-ignore --fix-dry-run --format json --report-unused-disable-directives examples --ext .js,.ts,.vue,.md",
+    "prettier": "prettier --write \"*.md\"",
+    "doctoc": "doctoc README.md",
+    "jest": "jest",
+    "coverage": "jest --coverage",
+    "test": "npm run eslint && npm run coverage",
+    "prepublishOnly": "npm test"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "2.23.0",
+    "babel-eslint": "10.1.0",
+    "cross-spawn": "7.0.1",
+    "doctoc": "1.4.0",
+    "eslint": "6.8.0",
+    "eslint-config-lydell": "14.0.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jest": "23.8.2",
+    "eslint-plugin-markdown": "1.0.2",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-vue": "6.2.2",
+    "jest": "25.1.0",
+    "prettier": "1.19.1",
+    "typescript": "3.8.3"
+  },
+  "peerDependencies": {
+    "eslint": ">=5.0.0"
+  }
+}

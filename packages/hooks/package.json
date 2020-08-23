@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -16,17 +16,17 @@
   "homepage": "https://verdaccio.org",
   "dependencies": {
     "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/logger": "5.0.0-alpha.1",
     "handlebars": "4.5.3",
     "request": "2.87.0",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/auth": "5.0.0-alpha.0",
-    "@verdaccio/config": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/dev-types": "5.0.0-alpha.0",
+    "@verdaccio/auth": "5.0.0-alpha.1",
+    "@verdaccio/config": "5.0.0-alpha.1",
+    "@verdaccio/utils": "5.0.0-alpha.1",
+    "@verdaccio/dev-commons": "5.0.0-alpha.1",
+    "@verdaccio/dev-types": "5.0.0-alpha.1",
     "@verdaccio/types": "workspace:*"
   },
   "scripts": {

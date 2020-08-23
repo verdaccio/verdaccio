@@ -1,0 +1,44 @@
+{
+  "name": "@octokit/plugin-request-log",
+  "description": "Log all requests and request errors",
+  "version": "1.0.0",
+  "license": "MIT",
+  "files": [
+    "dist-*/",
+    "bin/"
+  ],
+  "pika": true,
+  "sideEffects": false,
+  "keywords": [
+    "github",
+    "api",
+    "sdk",
+    "toolkit"
+  ],
+  "repository": "https://github.com/octokit/plugin-request-log.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@octokit/core": "^2.1.2",
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.8.1",
+    "@pika/plugin-build-web": "^0.8.1",
+    "@pika/plugin-ts-standard-pkg": "^0.8.1",
+    "@types/fetch-mock": "^7.3.2",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.6",
+    "fetch-mock": "^8.3.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "semantic-release": "^16.0.1",
+    "semantic-release-plugin-update-version-in-files": "^1.0.0",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "source": "dist-src/index.js",
+  "types": "dist-types/index.d.ts",
+  "main": "dist-node/index.js",
+  "module": "dist-web/index.js"
+}

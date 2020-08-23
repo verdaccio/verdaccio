@@ -1,0 +1,36 @@
+{
+	"name": "text-extensions",
+	"version": "1.9.0",
+	"description": "List of text file extensions",
+	"license": "MIT",
+	"repository": "sindresorhus/text-extensions",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"main": "text-extensions.json",
+	"engines": {
+		"node": ">=0.10"
+	},
+	"scripts": {
+		"test": ""
+	},
+	"files": [
+		"text-extensions.json"
+	],
+	"keywords": [
+		"text",
+		"ascii",
+		"ext",
+		"extensions",
+		"extension",
+		"file",
+		"json",
+		"list",
+		"array"
+	],
+	"devDependencies": {
+		"ava": "*"
+	}
+}

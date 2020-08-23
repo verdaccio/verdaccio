@@ -1,0 +1,141 @@
+{
+  "name": "eslint-plugin-jest",
+  "version": "23.8.0",
+  "description": "Eslint rules for Jest",
+  "repository": "jest-community/eslint-plugin-jest",
+  "license": "MIT",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "author": {
+    "name": "Jonathan Kim",
+    "email": "hello@jkimbo.com",
+    "url": "jkimbo.com"
+  },
+  "files": [
+    "docs/",
+    "lib/"
+  ],
+  "main": "lib/",
+  "engines": {
+    "node": ">=8"
+  },
+  "peerDependencies": {
+    "eslint": ">=5"
+  },
+  "scripts": {
+    "prepare": "yarn build && yarn postbuild",
+    "lint": "eslint . --ignore-pattern '!.eslintrc.js' --ext js,ts",
+    "prettylint": "prettylint docs/**/*.md README.md package.json",
+    "prepublishOnly": "yarn build",
+    "pretest": "yarn build",
+    "test": "jest",
+    "build": "babel --extensions .js,.ts src --out-dir lib --copy-files",
+    "postbuild": "rimraf lib/**/__tests__/**",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@typescript-eslint/experimental-utils": "^2.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@semantic-release/changelog": "^3.0.5",
+    "@semantic-release/git": "^7.0.17",
+    "@types/eslint": "^6.1.3",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.6",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-replace-ts-export-assignment": "^0.0.2",
+    "eslint": "^5.1.0 || ^6.0.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-eslint-comments": "^3.1.2",
+    "eslint-plugin-eslint-plugin": "^2.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "jest-runner-eslint": "^0.7.1",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.19.1",
+    "prettylint": "^1.0.0",
+    "resolve-from": "^5.0.0",
+    "rimraf": "^3.0.0",
+    "semantic-release": "^15.13.28",
+    "typescript": "^3.5.3"
+  },
+  "prettier": {
+    "proseWrap": "always",
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{md,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "projects": [
+      {
+        "displayName": "test",
+        "testEnvironment": "node",
+        "testPathIgnorePatterns": [
+          "<rootDir>/lib/.*"
+        ]
+      },
+      {
+        "displayName": "lint",
+        "runner": "jest-runner-eslint",
+        "testMatch": [
+          "<rootDir>/**/*.{js,ts}"
+        ],
+        "testPathIgnorePatterns": [
+          "<rootDir>/lib/.*"
+        ]
+      }
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
+  }
+}

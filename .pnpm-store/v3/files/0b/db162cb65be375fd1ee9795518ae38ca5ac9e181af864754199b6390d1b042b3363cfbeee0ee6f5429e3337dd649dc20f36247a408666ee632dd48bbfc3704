@@ -1,0 +1,45 @@
+{
+  "name": "preferred-pm",
+  "version": "3.0.2",
+  "description": "Detects what package manager was used for installation",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "test": "standard && preview && node test"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": "https://github.com/zkochan/packages/tree/master/preferred-pm",
+  "bugs": {
+    "url": "https://github.com/zkochan/packages/labels/package%3A%20preferred-pm"
+  },
+  "keywords": [
+    "npm",
+    "pnpm",
+    "yarn"
+  ],
+  "author": {
+    "name": "Zoltan Kochan",
+    "email": "z@kochan.io",
+    "url": "https://www.kochan.io/",
+    "twitter": "ZoltanKochan"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "find-up": "^5.0.0",
+    "find-yarn-workspace-root2": "1.2.16",
+    "path-exists": "^4.0.0",
+    "which-pm": "2.0.0"
+  },
+  "devDependencies": {
+    "ncp": "^2.0.0",
+    "package-preview": "3.0.0",
+    "standard": "^14.3.4",
+    "tape": "^5.0.1",
+    "tempy": "^0.5.0"
+  }
+}

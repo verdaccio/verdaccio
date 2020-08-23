@@ -1,0 +1,60 @@
+{
+  "name": "teeny-request",
+  "version": "3.11.3",
+  "description": "Like request, but smaller.",
+  "main": "./build/src/index.js",
+  "types": "./build/src/index.d.ts",
+  "scripts": {
+    "test": "nyc mocha build/test",
+    "compile": "tsc -p .",
+    "pretest": "npm run compile",
+    "check": "gts check",
+    "clean": "gts clean",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "posttest": "npm run check",
+    "coverage": "nyc report --reporter=json && codecov -f coverage/*.json"
+  },
+  "files": [
+    "build/src",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fhinkel/teeny-request.git"
+  },
+  "keywords": [
+    "request",
+    "node-fetch",
+    "fetch"
+  ],
+  "author": "fhinkel",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/fhinkel/teeny-request/issues"
+  },
+  "homepage": "https://github.com/fhinkel/teeny-request#readme",
+  "dependencies": {
+    "https-proxy-agent": "^2.2.1",
+    "node-fetch": "^2.2.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/nock": "^9.3.0",
+    "@types/node-fetch": "^2.1.2",
+    "@types/request": "^2.47.1",
+    "@types/uuid": "^3.4.4",
+    "codecov": "^3.1.0",
+    "gts": "^0.9.0",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.2",
+    "nyc": "^13.1.0",
+    "typescript": "^3.0.1"
+  },
+  "nyc": {
+    "exclude": [
+      "build/test"
+    ]
+  }
+}

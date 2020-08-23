@@ -1,0 +1,16 @@
+{
+  "name": "@manypkg/get-packages",
+  "version": "1.1.1",
+  "license": "MIT",
+  "main": "dist/get-packages.cjs.js",
+  "dependencies": {
+    "@babel/runtime": "^7.5.5",
+    "@manypkg/find-root": "^1.1.0",
+    "fs-extra": "^8.1.0",
+    "globby": "^11.0.0",
+    "read-yaml-file": "^1.1.0"
+  },
+  "devDependencies": {
+    "jest-fixtures": "^0.6.0"
+  }
+}

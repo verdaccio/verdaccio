@@ -1,0 +1,183 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lib = require("@verdaccio/commons-api/lib");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class Memory {
+  constructor(config, appOptions) {
+    _defineProperty(this, "_logger", void 0);
+
+    _defineProperty(this, "_users", void 0);
+
+    _defineProperty(this, "_config", void 0);
+
+    _defineProperty(this, "_app_config", void 0);
+
+    this._users = config.users || {};
+    this._config = config;
+    this._logger = appOptions.logger;
+    this._app_config = appOptions.config;
+  }
+
+  authenticate(user, password, done) {
+    const userCredentials = this._users[user];
+
+    if (!userCredentials) {
+      this._logger.debug({
+        user
+      }, '[VerdaccioMemory] user @{user} does not exist');
+
+      return done(null, false);
+    }
+
+    if (password !== userCredentials.password) {
+      const err = (0, _lib.getUnauthorized)("i don't like your password");
+
+      this._logger.info({
+        user
+      }, '[VerdaccioMemory] password invalid for: @{user}');
+
+      return done(err);
+    } // authentication succeeded!
+    // return all usergroups this user has access to;
+
+
+    this._logger.info({
+      user
+    }, '[VerdaccioMemory] authentication succeeded for @{user}');
+
+    return done(null, [user]);
+  }
+
+  adduser(user, password, done) {
+    if (this._users[user]) {
+      this._logger.debug({
+        user
+      }, '[VerdaccioMemory] user @{user} already exist');
+
+      return done(null, true);
+    }
+
+    if (this._app_config.max_users) {
+      if (Object.keys(this._users).length >= this._app_config.max_users) {
+        const err = (0, _lib.getConflict)('maximum amount of users reached');
+        return done(err);
+      }
+    }
+
+    this._users[user] = {
+      name: user,
+      password: password
+    };
+
+    this._logger.info({
+      user
+    }, '[VerdaccioMemory] user added succeeded for @{user}');
+
+    done(null, user);
+  }
+
+  changePassword(username, password, newPassword, cb) {
+    const user = this._users[username];
+
+    this._logger.debug({
+      user: username
+    }, 'user: @{user} init change password');
+
+    if (user && user.password === password) {
+      user.password = newPassword;
+      this._users[username] = user;
+
+      this._logger.info({
+        user
+      }, '[VerdaccioMemory] user changed password succeeded for @{user}');
+
+      cb(null, user);
+    } else {
+      const err = (0, _lib.getNotFound)('user not found');
+
+      this._logger.debug({
+        user: username
+      }, 'change password user  @{user} not found');
+
+      return cb(err);
+    }
+  }
+
+  allow_access(user, pkg, cb) {
+    if (pkg.access && pkg.access.includes('$all') || pkg.access && pkg.access.includes('$anonymous')) {
+      this._logger.debug({
+        user: user.name
+      }, '[VerdaccioMemory] user: @{user} has been granted access');
+
+      return cb(null, true);
+    }
+
+    if (!user.name) {
+      const err = (0, _lib.getForbidden)('not allowed to access package');
+
+      this._logger.debug({
+        user: user.name
+      }, 'user: @{user} not allowed to access package');
+
+      return cb(err);
+    }
+
+    if (pkg.access && pkg.access.includes(user.name) || pkg.access && pkg.access.includes('$authenticated')) {
+      this._logger.debug({
+        user: user.name
+      }, '[VerdaccioMemory] user: @{user} has been granted access');
+
+      return cb(null, true);
+    }
+
+    const err = (0, _lib.getForbidden)('not allowed to access package');
+
+    this._logger.debug({
+      user: user.name
+    }, '[VerdaccioMemory] user: @{user} not allowed to access package');
+
+    return cb(err);
+  }
+
+  allow_publish(user, pkg, cb) {
+    if (pkg.publish && pkg.publish.includes('$all') || pkg.publish && pkg.publish.includes('$anonymous')) {
+      this._logger.debug({
+        user: user.name
+      }, '[VerdaccioMemory] user: @{user} has been granted to publish');
+
+      return cb(null, true);
+    }
+
+    if (!user.name) {
+      const err = (0, _lib.getForbidden)('not allowed to publish package');
+
+      this._logger.debug({
+        user: user.name
+      }, 'user: @{user} not allowed to publish package');
+
+      return cb(err);
+    }
+
+    if (pkg.publish && pkg.publish.includes(user.name) || pkg.publish && pkg.publish.includes('$authenticated')) {
+      return cb(null, true);
+    }
+
+    const err = (0, _lib.getForbidden)('not allowed to publish package');
+
+    this._logger.debug({
+      user: user.name
+    }, '[VerdaccioMemory] user: @{user} not allowed to publish package');
+
+    return cb(err);
+  }
+
+}
+
+exports.default = Memory;

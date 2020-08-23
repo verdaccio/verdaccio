@@ -1,0 +1,43 @@
+{
+	"name": "resolve-global",
+	"version": "1.0.0",
+	"description": "Resolve the path of a globally installed module",
+	"license": "MIT",
+	"repository": "sindresorhus/resolve-global",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"resolve",
+		"global",
+		"package",
+		"module",
+		"globally",
+		"path",
+		"npm",
+		"yarn",
+		"packages",
+		"require"
+	],
+	"dependencies": {
+		"global-dirs": "^0.1.1"
+	},
+	"devDependencies": {
+		"ava": "^1.4.1",
+		"execa": "^1.0.0",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
+	}
+}

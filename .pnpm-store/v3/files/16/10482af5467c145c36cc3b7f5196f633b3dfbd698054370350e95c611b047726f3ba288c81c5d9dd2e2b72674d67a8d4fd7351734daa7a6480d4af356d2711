@@ -1,0 +1,34 @@
+{
+  "name": "add-stream",
+  "version": "1.0.0",
+  "description": "Append the contents of one stream onto another.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "cover": "istanbul cover node_modules/.bin/_mocha -- -u exports -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wilsonjackson/add-stream"
+  },
+  "keywords": [
+    "stream",
+    "append",
+    "add",
+    "concat",
+    "gulpfriendly"
+  ],
+  "author": "Majid Burney <moocow@euphoricsoup.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wilsonjackson/add-stream/issues"
+  },
+  "homepage": "https://github.com/wilsonjackson/add-stream",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "event-stream": "^3.1.7",
+    "istanbul": "^0.3.4",
+    "mocha": "^2.0.1"
+  }
+}

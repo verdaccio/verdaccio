@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -23,12 +23,12 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0"
+    "@verdaccio/dev-types": "workspace:5.0.0-alpha.1"
   },
   "dependencies": {
-    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.0",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.1",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.1",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.1",
     "mkdirp": "0.5.5",
     "lodash": "^4.17.20"
   },

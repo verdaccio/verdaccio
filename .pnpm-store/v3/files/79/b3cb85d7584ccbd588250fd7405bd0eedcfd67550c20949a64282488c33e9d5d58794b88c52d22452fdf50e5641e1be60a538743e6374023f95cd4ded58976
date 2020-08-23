@@ -1,0 +1,54 @@
+{
+  "name": "conventional-commits-parser",
+  "version": "3.1.0",
+  "description": "Parse raw conventional commits",
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme",
+  "author": {
+    "name": "Steve Mao",
+    "email": "maochenyan@gmail.com",
+    "url": "https://github.com/stevemao"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "index.js",
+    "cli.js",
+    "lib"
+  ],
+  "keywords": [
+    "conventional-commits-parser",
+    "changelog",
+    "conventional",
+    "parser",
+    "parsing",
+    "logs"
+  ],
+  "dependencies": {
+    "JSONStream": "^1.0.4",
+    "is-text-path": "^1.0.1",
+    "lodash": "^4.17.15",
+    "meow": "^7.0.0",
+    "split2": "^2.0.0",
+    "through2": "^3.0.0",
+    "trim-off-newlines": "^1.0.0"
+  },
+  "scripts": {
+    "test-windows": "echo 'make work on windows'"
+  },
+  "bin": {
+    "conventional-commits-parser": "cli.js"
+  },
+  "devDependencies": {
+    "forceable-tty": "^0.1.0"
+  },
+  "gitHead": "83643c5a0d2c4d7c9ba14cbf990ffbc577a51e8c"
+}

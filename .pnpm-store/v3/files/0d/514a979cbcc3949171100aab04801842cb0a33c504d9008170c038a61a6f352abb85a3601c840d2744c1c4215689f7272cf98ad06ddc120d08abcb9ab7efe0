@@ -1,0 +1,45 @@
+{
+  "name": "conventional-changelog-angular",
+  "version": "1.6.6",
+  "description": "conventional-changelog angular preset",
+  "main": "index.js",
+  "scripts": {
+    "lint": "jshint *.js --exclude node_modules && jscs *.js",
+    "test": "mocha --timeout 30000 && npm run-script lint",
+    "test-windows": "mocha --timeout 30000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "keywords": [
+    "conventional-changelog",
+    "angular",
+    "preset"
+  ],
+  "files": [
+    "conventional-changelog.js",
+    "conventional-recommended-bump.js",
+    "index.js",
+    "parser-opts.js",
+    "writer-opts.js",
+    "templates"
+  ],
+  "author": "Steve Mao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular#readme",
+  "devDependencies": {
+    "better-than-before": "^1.0.0",
+    "conventional-changelog-core": "^2.0.5",
+    "git-dummy-commit": "^1.2.0",
+    "shelljs": "^0.8.0",
+    "through2": "^2.0.0"
+  },
+  "dependencies": {
+    "compare-func": "^1.3.1",
+    "q": "^1.5.1"
+  }
+}

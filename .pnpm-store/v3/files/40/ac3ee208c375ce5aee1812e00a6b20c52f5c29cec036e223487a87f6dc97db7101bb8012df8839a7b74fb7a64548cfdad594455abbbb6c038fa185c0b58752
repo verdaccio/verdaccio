@@ -1,0 +1,20 @@
+[ignore]
+.*/node_modules/.*
+lib/.*
+.*/test/**/*.json
+.*/static/.*
+.*/test/unit/partials/.*
+.*/test/functional/store/.*
+.*/.nyc_output/.*
+.*/coverage/.*
+.*/.vscode/.*
+
+[include]
+
+[libs]
+node_modules/@verdaccio/types/lib/
+
+[lints]
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe

@@ -1,0 +1,72 @@
+{
+  "version": "2.0.2",
+  "name": "stream-transform",
+  "description": "Object transformations implementing the Node.js `stream.Transform` API",
+  "keywords": [
+    "stream",
+    "transform",
+    "csv",
+    "object"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://www.github.com/adaltas/node-stream-transform"
+  },
+  "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+  "homepage": "https://csv.js.org/transform/",
+  "coffeelintConfig": {
+    "indentation": {
+      "level": "error",
+      "value": 2
+    },
+    "line_endings": {
+      "level": "error",
+      "value": "unix"
+    },
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.13.7",
+    "@types/should": "^13.0.0",
+    "coffeescript": "~2.4.1",
+    "csv-generate": "~3.2.0",
+    "each": "^1.2.2",
+    "mocha": "~6.1.4",
+    "pad": "~2.3.0",
+    "should": "~13.2.3",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
+  },
+  "files": [
+    "/lib"
+  ],
+  "optionalDependencies": {},
+  "main": "./lib",
+  "scripts": {
+    "preversion": "grep '## Trunk' CHANGELOG.md && npm test && cp lib/*.ts lib/es5 && git add lib/es5/*.ts",
+    "version": "version=`grep '^  \"version\": ' package.json | sed 's/.*\"\\([0-9\\.]*\\)\".*/\\1/'` && sed -i \"s/## Trunk/## Version $version/\" CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
+    "patch": "npm version patch -m 'Bump to version %s'",
+    "minor": "npm version minor -m 'Bump to version %s'",
+    "major": "npm version major -m 'Bump to version %s'",
+    "build": "coffee -b -o lib src && cd lib && babel *.js -d es5 && cd ..",
+    "pretest": "npm run build",
+    "test": "mocha test/**/*.{coffee,ts}"
+  },
+  "types": [
+    "./lib/es5/index.d.ts",
+    "./lib/es5/sync.d.ts",
+    "./lib/index.d.ts",
+    "./lib/sync.d.ts"
+  ],
+  "dependencies": {
+    "mixme": "^0.3.1"
+  }
+}

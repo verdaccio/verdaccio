@@ -1,0 +1,39 @@
+{
+  "name": "conventional-changelog-jquery",
+  "version": "3.0.6",
+  "description": "conventional-changelog jquery preset",
+  "main": "index.js",
+  "scripts": {
+    "test-windows": "mocha --timeout 30000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "keywords": [
+    "conventional-changelog",
+    "jquery",
+    "preset"
+  ],
+  "author": "Steve Mao",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "license": "ISC",
+  "files": [
+    "conventional-changelog.js",
+    "conventional-recommended-bump.js",
+    "index.js",
+    "parser-opts.js",
+    "writer-opts.js",
+    "templates"
+  ],
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jquery#readme",
+  "dependencies": {
+    "q": "^1.5.1"
+  },
+  "gitHead": "7c1c8ad819b05c12c7d58c92ac386b45ada6f6a8"
+}

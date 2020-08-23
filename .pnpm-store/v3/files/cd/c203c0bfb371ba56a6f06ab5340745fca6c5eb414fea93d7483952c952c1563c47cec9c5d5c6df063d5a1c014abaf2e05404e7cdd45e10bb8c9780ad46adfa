@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        ToReplaceByTitle
+    </title>
+    <link rel="icon" type="image/png" href="ToReplaceByVerdaccio/-/static/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+        window.__VERDACCIO_BASENAME_UI_OPTIONS = JSON.parse('ToReplaceByVerdaccioUI');
+        window.VERDACCIO_BASENAME = 'ToReplaceByPrefix';
+        window.VERDACCIO_API_URL = 'ToReplaceByVerdaccio/-/verdaccio/';
+        window.VERDACCIO_SCOPE = 'ToReplaceByScope';
+        window.VERDACCIO_LOGO = 'ToReplaceByLogo';
+        window.VERDACCIO_PRIMARY_COLOR = 'ToReplaceByPrimaryColor';
+        window.VERDACCIO_VERSION = 'ToReplaceByVersion';
+    </script>
+<link rel="shortcut icon" href="/-/static/favicon.ico"><link href="/-/static/0.style.b3d2b69b057068c678ca.css" rel="stylesheet"></head>
+
+<body class="body">
+    <div id="root"></div>
+<script type="text/javascript" src="/-/static/manifest.73370d17f7d884614faf.js"></script><script type="text/javascript" src="/-/static/vendors.73370d17f7d884614faf.js"></script><script type="text/javascript" src="/-/static/main.73370d17f7d884614faf.js"></script></body>
+
+</html>

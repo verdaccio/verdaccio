@@ -1,0 +1,24 @@
+{
+  "name": "rmdir-sync",
+  "version": "1.0.1",
+  "description": "rmdir-sync is a module to remove not empty directory for nodejs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/JSFiend/rmdir-sync.git"
+  },
+  "keywords": [
+    "nodejs",
+    "rmdir",
+    "rmdirSync"
+  ],
+  "author": "JSFiend",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JSFiend/rmdir-sync/issues"
+  },
+  "homepage": "https://github.com/JSFiend/rmdir-sync#readme"
+}

@@ -1,0 +1,247 @@
+'use strict'
+
+const http = require('http')
+const os = require('os')
+const semver = require('semver')
+const { test } = require('tap')
+const { sink, once } = require('./helper')
+const pino = require('../')
+
+const { pid } = process
+const hostname = os.hostname()
+
+test('http request support', async ({ ok, same, error, teardown }) => {
+  var originalReq
+  const instance = pino(sink((chunk, enc) => {
+    ok(new Date(chunk.time) <= new Date(), 'time is greater than Date.now()')
+    delete chunk.time
+    same(chunk, {
+      pid: pid,
+      hostname: hostname,
+      level: 30,
+      msg: 'my request',
+      v: 1,
+      req: {
+        method: originalReq.method,
+        url: originalReq.url,
+        headers: originalReq.headers,
+        remoteAddress: originalReq.connection.remoteAddress,
+        remotePort: originalReq.connection.remotePort
+      }
+    })
+  }))
+
+  const server = http.createServer((req, res) => {
+    originalReq = req
+    instance.info(req, 'my request')
+    res.end('hello')
+  })
+  server.unref()
+  server.listen()
+  const err = await once(server, 'listening')
+  error(err)
+  const res = await once(http.get('http://localhost:' + server.address().port), 'response')
+  res.resume()
+  server.close()
+})
+
+test('http request support via serializer', async ({ ok, same, error, teardown }) => {
+  var originalReq
+  const instance = pino({
+    serializers: {
+      req: pino.stdSerializers.req
+    }
+  }, sink((chunk, enc) => {
+    ok(new Date(chunk.time) <= new Date(), 'time is greater than Date.now()')
+    delete chunk.time
+    same(chunk, {
+      pid: pid,
+      hostname: hostname,
+      level: 30,
+      msg: 'my request',
+      v: 1,
+      req: {
+        method: originalReq.method,
+        url: originalReq.url,
+        headers: originalReq.headers,
+        remoteAddress: originalReq.connection.remoteAddress,
+        remotePort: originalReq.connection.remotePort
+      }
+    })
+  }))
+
+  const server = http.createServer(function (req, res) {
+    originalReq = req
+    instance.info({ req: req }, 'my request')
+    res.end('hello')
+  })
+  server.unref()
+  server.listen()
+  const err = await once(server, 'listening')
+  error(err)
+
+  const res = await once(http.get('http://localhost:' + server.address().port), 'response')
+  res.resume()
+  server.close()
+})
+
+test('http request support via serializer without request connection', async ({ ok, same, error, teardown }) => {
+  var originalReq
+  const instance = pino({
+    serializers: {
+      req: pino.stdSerializers.req
+    }
+  }, sink((chunk, enc) => {
+    ok(new Date(chunk.time) <= new Date(), 'time is greater than Date.now()')
+    delete chunk.time
+    const expected = {
+      pid: pid,
+      hostname: hostname,
+      level: 30,
+      msg: 'my request',
+      v: 1,
+      req: {
+        method: originalReq.method,
+        url: originalReq.url,
+        headers: originalReq.headers
+      }
+    }
+    if (semver.gte(process.version, '13.0.0')) {
+      expected.req.remoteAddress = originalReq.connection.remoteAddress
+      expected.req.remotePort = originalReq.connection.remotePort
+    }
+    same(chunk, expected)
+  }))
+
+  const server = http.createServer(function (req, res) {
+    originalReq = req
+    delete req.connection
+    instance.info({ req: req }, 'my request')
+    res.end('hello')
+  })
+  server.unref()
+  server.listen()
+  const err = await once(server, 'listening')
+  error(err)
+
+  const res = await once(http.get('http://localhost:' + server.address().port), 'response')
+  res.resume()
+  server.close()
+})
+
+test('http response support', async ({ ok, same, error, teardown }) => {
+  var originalRes
+  const instance = pino(sink((chunk, enc) => {
+    ok(new Date(chunk.time) <= new Date(), 'time is greater than Date.now()')
+    delete chunk.time
+    same(chunk, {
+      pid: pid,
+      hostname: hostname,
+      level: 30,
+      msg: 'my response',
+      v: 1,
+      res: {
+        statusCode: originalRes.statusCode,
+        headers: originalRes._headers
+      }
+    })
+  }))
+
+  const server = http.createServer(function (req, res) {
+    originalRes = res
+    res.end('hello')
+    instance.info(res, 'my response')
+  })
+  server.unref()
+  server.listen()
+  const err = await once(server, 'listening')
+
+  error(err)
+
+  const res = await once(http.get('http://localhost:' + server.address().port), 'response')
+  res.resume()
+  server.close()
+})
+
+test('http response support via a serializer', async ({ ok, same, error, teardown }) => {
+  const instance = pino({
+    serializers: {
+      res: pino.stdSerializers.res
+    }
+  }, sink((chunk, enc) => {
+    ok(new Date(chunk.time) <= new Date(), 'time is greater than Date.now()')
+    delete chunk.time
+    same(chunk, {
+      pid: pid,
+      hostname: hostname,
+      level: 30,
+      msg: 'my response',
+      v: 1,
+      res: {
+        statusCode: 200,
+        headers: {
+          'x-single': 'y',
+          'x-multi': [1, 2]
+        }
+      }
+    })
+  }))
+
+  const server = http.createServer(function (req, res) {
+    res.setHeader('x-single', 'y')
+    res.setHeader('x-multi', [1, 2])
+    res.end('hello')
+    instance.info({ res: res }, 'my response')
+  })
+
+  server.unref()
+  server.listen()
+  const err = await once(server, 'listening')
+  error(err)
+
+  const res = await once(http.get('http://localhost:' + server.address().port), 'response')
+  res.resume()
+  server.close()
+})
+
+test('http request support via serializer in a child', async ({ ok, same, error, teardown }) => {
+  var originalReq
+  const instance = pino({
+    serializers: {
+      req: pino.stdSerializers.req
+    }
+  }, sink((chunk, enc) => {
+    ok(new Date(chunk.time) <= new Date(), 'time is greater than Date.now()')
+    delete chunk.time
+    same(chunk, {
+      pid: pid,
+      hostname: hostname,
+      level: 30,
+      msg: 'my request',
+      v: 1,
+      req: {
+        method: originalReq.method,
+        url: originalReq.url,
+        headers: originalReq.headers,
+        remoteAddress: originalReq.connection.remoteAddress,
+        remotePort: originalReq.connection.remotePort
+      }
+    })
+  }))
+
+  const server = http.createServer(function (req, res) {
+    originalReq = req
+    const child = instance.child({ req: req })
+    child.info('my request')
+    res.end('hello')
+  })
+
+  server.unref()
+  server.listen()
+  const err = await once(server, 'listening')
+  error(err)
+
+  const res = await once(http.get('http://localhost:' + server.address().port), 'response')
+  res.resume()
+  server.close()
+})

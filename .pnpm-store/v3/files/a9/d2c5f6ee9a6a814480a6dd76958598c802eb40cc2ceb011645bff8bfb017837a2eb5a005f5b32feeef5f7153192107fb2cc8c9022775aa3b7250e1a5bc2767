@@ -1,0 +1,53 @@
+FROM ubuntu:14.04.5
+
+# make /bin/sh symlink to bash instead of dash:
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
+# Because there is no package cache in the image, you need to run:
+RUN apt-get update
+
+# Install nodejs
+RUN apt-get install curl -y
+RUN apt-get install python-software-properties -y
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get update
+RUN apt-get install -y nodejs
+
+# Use NVM to manage node
+# RUN apt-get install git -y
+# RUN git clone http://github.com/creationix/nvm.git /root/.nvm;
+# RUN chmod -R 777 /root/.nvm/;
+# RUN bash /root/.nvm/install.sh;
+# RUN export NVM_DIR="$HOME/.nvm";
+# RUN echo "[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh" >> $HOME/.bashrc;
+# RUN bash -i -c 'nvm ls-remote';
+# RUN bash -i -c 'nvm install 4'
+
+# Install smartwrap
+RUN apt-get install git -y
+RUN git clone --branch master https://www.github.com/tecfu/smartwrap
+
+# Install grunt
+RUN bash -i -c 'npm install grunt-cli -g'
+
+# Install dev dependencies
+WORKDIR /smartwrap
+RUN cat package.json
+RUN bash -i -c 'npm install'
+
+# Run unit tests
+RUN bash -i -c 'grunt t'
+
+# RUN bash -i -c 'nvm install 5'
+# RUN bash -i -c 'grunt t'
+# 
+# RUN bash -i -c 'nvm install 6'
+# RUN bash -i -c 'grunt t'
+# 
+# RUN bash -i -c 'nvm install 7'
+# RUN bash -i -c 'grunt t'
+# 
+# RUN bash -i -c 'nvm install 8'
+# RUN bash -i -c 'grunt t'
+

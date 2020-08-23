@@ -1,0 +1,32 @@
+{
+  "name": "jest-junit",
+  "version": "11.0.1",
+  "description": "A jest reporter that generates junit xml files",
+  "main": "index.js",
+  "repository": "https://github.com/jest-community/jest-junit",
+  "author": "Jason Palmer",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=10.12.0"
+  },
+  "files": [
+    "index.js",
+    "utils",
+    "constants"
+  ],
+  "scripts": {
+    "test": "jest",
+    "pretest:ci": "npm uninstall jest babel-jest && npm install jest@$JEST_VERSION babel-jest@$JEST_VERSION --no-save",
+    "test:ci": "jest --ci"
+  },
+  "dependencies": {
+    "mkdirp": "^1.0.4",
+    "strip-ansi": "^5.2.0",
+    "uuid": "^3.3.3",
+    "xml": "^1.0.1"
+  },
+  "devDependencies": {
+    "jest": "26.0.1",
+    "libxmljs": "^0.19.7"
+  }
+}

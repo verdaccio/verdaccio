@@ -1,0 +1,31 @@
+{
+  "name": "prettier-bytes",
+  "description": "augment pretty-bytes to make the output a little more readable (and a little less precise)",
+  "version": "1.0.3",
+  "author": "Dan Flettre <flettre@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/Flet/prettier-bytes/issues"
+  },
+  "devDependencies": {
+    "standard": "*",
+    "tap-spec": "^4.0.2",
+    "tape": "^4.0.0"
+  },
+  "homepage": "https://github.com/Flet/prettier-bytes",
+  "keywords": [
+    "bytes",
+    "output",
+    "pretty",
+    "pretty-bytes"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Flet/prettier-bytes.git"
+  },
+  "scripts": {
+    "test": "tape test/*.js | tap-spec && standard"
+  },
+  "dependencies": {}
+}

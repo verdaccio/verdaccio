@@ -1,0 +1,31 @@
+{
+  "name": "find-yarn-workspace-root2",
+  "version": "1.2.16",
+  "description": "Algorithm for finding the root of a yarn workspace, extracted from yarnpkg.com",
+  "homepage": "https://github.com/bluelovers/find-yarn-workspace-root/#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/find-yarn-workspace-root/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/find-yarn-workspace-root.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Square, Inc.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "ynpx mocha -- tests/**/*-test.js",
+    "prepublishOnly": "yarn run ncu && yarn run sort-package-json && yarn run test",
+    "ncu": "npx yarn-tool ncu -u",
+    "sort-package-json": "npx yarn-tool sort"
+  },
+  "dependencies": {
+    "micromatch": "^4.0.2",
+    "pkg-dir": "^4.2.0"
+  },
+  "gitHead": "5d21afdc6195a5df0d3888e91f6672cba1d63db8"
+}

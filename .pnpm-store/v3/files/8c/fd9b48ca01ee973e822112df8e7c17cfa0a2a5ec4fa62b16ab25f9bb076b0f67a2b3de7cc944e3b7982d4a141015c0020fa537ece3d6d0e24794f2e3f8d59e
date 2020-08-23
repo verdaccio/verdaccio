@@ -1,0 +1,45 @@
+{
+  "name": "git-semver-tags",
+  "version": "3.0.1",
+  "description": "Get all git semver tags of your repository in reverse chronological order",
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-semver-tags#readme",
+  "author": {
+    "name": "Steve Mao",
+    "email": "maochenyan@gmail.com",
+    "url": "https://github.com/stevemao"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "git-semver-tags",
+    "order",
+    "semver",
+    "tag",
+    "git-tag",
+    "git"
+  ],
+  "dependencies": {
+    "meow": "^5.0.0",
+    "semver": "^6.0.0"
+  },
+  "scripts": {
+    "test-windows": "mocha --timeout 30000"
+  },
+  "bin": {
+    "git-semver-tags": "cli.js"
+  },
+  "gitHead": "79217815a7ce5f3d3f833961ce9a14bd454e5789"
+}

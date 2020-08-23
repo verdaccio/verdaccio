@@ -1,0 +1,29 @@
+{
+  "name": "babel-plugin-jest-hoist",
+  "version": "26.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/facebook/jest.git",
+    "directory": "packages/babel-plugin-jest-hoist"
+  },
+  "engines": {
+    "node": ">= 10.14.2"
+  },
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@babel/template": "^7.3.3",
+    "@babel/types": "^7.3.3",
+    "@types/babel__core": "^7.0.0",
+    "@types/babel__traverse": "^7.0.6"
+  },
+  "devDependencies": {
+    "@types/babel__template": "^7.0.2",
+    "@types/node": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4a716811a309dae135b780a87dc1647b285800eb"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "@verdaccio/file-locking",
+  "version": "1.0.0",
+  "description": "library that handle file locking",
+  "main": "lib/index.js",
+  "keywords": [
+    "lock",
+    "fs"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.1.2",
+    "@verdaccio/types": "3.7.1",
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-eslint": "8.2.6",
+    "babel-jest": "23.6.0",
+    "babel-plugin-flow-runtime": "0.17.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-flow": "6.23.0",
+    "codecov": "3.1.0",
+    "eslint": "5.6.1",
+    "eslint-config-google": "0.10.0",
+    "eslint-plugin-flowtype": "2.50.3",
+    "flow-bin": "0.82.0",
+    "husky": "0.14.3",
+    "in-publish": "2.0.0",
+    "jest": "23.6.0",
+    "lint-staged": "7.3.0"
+  },
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "dependencies": {
+    "lockfile": "1.0.4"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "lint-staged": {
+    "*.{js, json}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "homepage": "https://github.com/verdaccio/file-locking",
+  "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "coverage": "codecov",
+    "test": "jest",
+    "lint": "npm run flow && npm run js-lint",
+    "js-lint": "eslint .",
+    "flow": "flow",
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore __tests__",
+    "precommit": "lint-staged",
+    "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "engines": {
+    "node": ">=4.6.1",
+    "npm": ">=2.15.9"
+  }
+}

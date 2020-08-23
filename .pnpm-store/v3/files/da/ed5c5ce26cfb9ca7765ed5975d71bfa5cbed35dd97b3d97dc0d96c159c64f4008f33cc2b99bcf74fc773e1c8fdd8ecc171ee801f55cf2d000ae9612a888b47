@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "changelog": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": [
+            {
+              "type": "string",
+              "title": "Changelog Generator Path"
+            },
+            { "title": "Changelog Generator Options" }
+          ],
+          "minItems": 2
+        },
+        {
+          "enum": [false],
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "title": "Changelog Generator Path"
+        }
+      ],
+      "description": "The configuration for changelog generators.",
+      "default": ["@changesets/cli", null]
+    },
+    "linked": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Packages that should be linked together so when they are being released, they will be released at the same version.",
+      "default": []
+    },
+    "commit": {
+      "type": "boolean",
+      "description": "Determines whether Changesets should commit the results of the add and version command.",
+      "default": false
+    },
+    "access": {
+      "enum": ["restricted", "public"],
+      "type": "string",
+      "description": "Determines whether Changesets should publish packages to the registry publicly or to a restricted scope.",
+      "default": "restricted"
+    },
+    "baseBranch": {
+      "type": "string",
+      "default": "master",
+      "description": "Determines the branch that Changesets uses when finding what packages have changed."
+    },
+    "ignore": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Packages that should not be released.",
+      "default": []
+    },
+    "updateInternalDependencies": {
+      "enum": ["patch", "minor"],
+      "type": "string",
+      "description": "The minimum bump type to trigger automatic update of internal dependencies that are part of the same release.",
+      "default": "patch"
+    }
+  }
+}

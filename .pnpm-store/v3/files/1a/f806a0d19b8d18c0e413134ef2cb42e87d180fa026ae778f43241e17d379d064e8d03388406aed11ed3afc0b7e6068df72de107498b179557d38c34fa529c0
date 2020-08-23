@@ -1,0 +1,13 @@
+{
+  "name": "@changesets/get-github-info",
+  "version": "0.3.0",
+  "description": "Get the GitHub username and PR number from a commit. Intended for use with changesets.",
+  "main": "dist/get-github-info.cjs.js",
+  "module": "dist/get-github-info.esm.js",
+  "license": "MIT",
+  "repository": "https://github.com/changesets/changesets/tree/master/packages/get-github-info",
+  "dependencies": {
+    "dataloader": "^1.4.0",
+    "node-fetch": "^2.5.0"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "@commitlint/top-level",
+  "version": "8.3.4",
+  "description": "Lint your commit messages",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "deps": "dep-check",
+    "pkg": "pkg-check"
+  },
+  "babel": {
+    "presets": [
+      "babel-preset-commitlint"
+    ]
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/commitlint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/commitlint/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/commitlint#readme",
+  "keywords": [
+    "conventional-changelog",
+    "commitlint",
+    "library",
+    "core"
+  ],
+  "author": {
+    "name": "Mario Nebl",
+    "email": "hello@herebecode.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/utils": "^8.3.4",
+    "@types/find-up": "2.1.1",
+    "@types/node": "12.11.5"
+  },
+  "dependencies": {
+    "find-up": "^4.0.0"
+  },
+  "gitHead": "3fce33999e1e5f23b15545f1c6f3e7bd78e8d37b"
+}

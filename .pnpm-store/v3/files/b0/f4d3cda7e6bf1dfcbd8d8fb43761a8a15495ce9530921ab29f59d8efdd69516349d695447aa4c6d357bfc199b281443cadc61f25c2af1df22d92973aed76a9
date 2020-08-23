@@ -1,0 +1,14 @@
+import { PluginOptions, Callback, PackageAccess, IPluginAuth, RemoteUser, Logger } from '@verdaccio/types';
+import { VerdaccioMemoryConfig, Users } from '../types/index';
+export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
+    _logger: Logger;
+    _users: Users;
+    _config: {};
+    _app_config: VerdaccioMemoryConfig;
+    constructor(config: VerdaccioMemoryConfig, appOptions: PluginOptions<VerdaccioMemoryConfig>);
+    authenticate(user: string, password: string, done: Callback): void;
+    adduser(user: string, password: string, done: Callback): void;
+    changePassword(username: string, password: string, newPassword: string, cb: Callback): void;
+    allow_access(user: RemoteUser, pkg: PackageAccess, cb: Callback): void;
+    allow_publish(user: RemoteUser, pkg: PackageAccess, cb: Callback): void;
+}

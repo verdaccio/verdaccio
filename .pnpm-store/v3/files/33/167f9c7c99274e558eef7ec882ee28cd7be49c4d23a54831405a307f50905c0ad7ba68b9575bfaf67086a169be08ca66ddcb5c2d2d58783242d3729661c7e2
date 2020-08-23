@@ -1,0 +1,54 @@
+{
+  "name": "git-raw-commits",
+  "version": "2.0.0",
+  "description": "Get raw git commits out of your repository using git-log(1)",
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#readme",
+  "author": {
+    "name": "Steve Mao",
+    "email": "maochenyan@gmail.com",
+    "url": "https://github.com/stevemao"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "git-raw-commits",
+    "raw",
+    "commit",
+    "commits",
+    "git",
+    "log",
+    "git-log"
+  ],
+  "dependencies": {
+    "dargs": "^4.0.1",
+    "lodash.template": "^4.0.2",
+    "meow": "^4.0.0",
+    "split2": "^2.0.0",
+    "through2": "^2.0.0"
+  },
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "shelljs": "^0.8.0"
+  },
+  "scripts": {
+    "lint": "eslint --fix .",
+    "test": "npm run-script lint && mocha --timeout 30000",
+    "test-windows": "mocha --timeout 30000"
+  },
+  "bin": {
+    "git-raw-commits": "cli.js"
+  }
+}

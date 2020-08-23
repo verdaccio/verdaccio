@@ -1,0 +1,83 @@
+{
+    "name": "@types/pino",
+    "version": "6.0.1",
+    "description": "TypeScript definitions for pino",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Peter Snider",
+            "url": "https://github.com/psnider",
+            "githubUsername": "psnider"
+        },
+        {
+            "name": "BendingBender",
+            "url": "https://github.com/BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Christian Rackerseder",
+            "url": "https://github.com/screendriver",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "GP",
+            "url": "https://github.com/paambaati",
+            "githubUsername": "paambaati"
+        },
+        {
+            "name": "Alex Ferrando",
+            "url": "https://github.com/alferpal",
+            "githubUsername": "alferpal"
+        },
+        {
+            "name": "Oleksandr Sidko",
+            "url": "https://github.com/mortiy",
+            "githubUsername": "mortiy"
+        },
+        {
+            "name": "Harris Lummis",
+            "url": "https://github.com/lummish",
+            "githubUsername": "lummish"
+        },
+        {
+            "name": "Raoul Jaeckel",
+            "url": "https://github.com/raoulus",
+            "githubUsername": "raoulus"
+        },
+        {
+            "name": "Cory Donkin",
+            "url": "https://github.com/Cooryd",
+            "githubUsername": "Cooryd"
+        },
+        {
+            "name": "Adam Vigneaux",
+            "url": "https://github.com/AdamVig",
+            "githubUsername": "AdamVig"
+        },
+        {
+            "name": "Austin Beer",
+            "url": "https://github.com/austin-beer",
+            "githubUsername": "austin-beer"
+        },
+        {
+            "name": "Michel Nemnom",
+            "url": "https://github.com/Pegase745",
+            "githubUsername": "Pegase745"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/pino"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*",
+        "@types/pino-std-serializers": "*",
+        "@types/sonic-boom": "*"
+    },
+    "typesPublisherContentHash": "cac78c148285b3d77f4fddeec952138848f9c5112e3b51ed5a241c12da34b2bc",
+    "typeScriptVersion": "2.9"
+}

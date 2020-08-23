@@ -1,0 +1,62 @@
+{
+  "version": "3.2.4",
+  "name": "csv-generate",
+  "description": "CSV and object generation implementing the Node.js `stream.Readable` API",
+  "keywords": [
+    "stream",
+    "generate",
+    "csv",
+    "object"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://www.github.com/adaltas/node-csv-generate"
+  },
+  "homepage": "https://csv.js.org/generate/",
+  "bugs": "https://github.com/adaltas/node-csv-generate/issues",
+  "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+  "coffeelintConfig": {
+    "indentation": {
+      "level": "error",
+      "value": 2
+    },
+    "line_endings": {
+      "level": "error",
+      "value": "unix"
+    },
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.10",
+    "@types/should": "^13.0.0",
+    "coffeescript": "~2.3.2",
+    "each": "^1.2.2",
+    "mocha": "~5.2.0",
+    "should": "~13.2.3",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "files": [
+    "/lib"
+  ],
+  "main": "./lib",
+  "scripts": {
+    "preversion": "grep '## Trunk' CHANGELOG.md && rm -rf lib/*.js && npm test && cp lib/*.ts lib/es5 && git add lib/es5/*.ts",
+    "version": "version=`grep '^  \"version\": ' package.json | sed 's/.*\"\\([0-9\\.]*\\)\".*/\\1/'` && sed -i \"s/## Trunk/## Version $version/\" CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
+    "patch": "npm version patch -m 'Bump to version %s'",
+    "minor": "npm version minor -m 'Bump to version %s'",
+    "major": "npm version major -m 'Bump to version %s'",
+    "build": "coffee -b -o lib src && cd lib && babel *.js -d es5 && cd ..",
+    "pretest": "npm run build",
+    "test": "mocha test/**/*.{coffee,ts}"
+  },
+  "types": "./lib/index.d.ts"
+}

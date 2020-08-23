@@ -1,0 +1,25 @@
+{
+  "name": "http-status-codes",
+  "version": "1.4.0",
+  "description": "Constants enumerating the HTTP status codes. Based on the Java Apache HttpStatus API.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prettymuchbryce/node-http-status.git"
+  },
+  "main": "./index.js",
+  "keywords": [
+    "node",
+    "http",
+    "apache",
+    "HttpStatus",
+    "httpclient",
+    "status",
+    "codes"
+  ],
+  "author": "Bryce Neal",
+  "license": "MIT",
+  "typings": "index.d.ts"
+}

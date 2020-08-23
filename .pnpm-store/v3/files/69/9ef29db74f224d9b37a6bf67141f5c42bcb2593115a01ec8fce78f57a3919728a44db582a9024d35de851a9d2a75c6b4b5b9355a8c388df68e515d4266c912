@@ -1,0 +1,42 @@
+{
+  "name": "fs-access",
+  "version": "1.0.1",
+  "description": "Node.js 0.12 fs.access() & fs.accessSync() ponyfill",
+  "license": "MIT",
+  "repository": "sindresorhus/fs-access",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "built-in",
+    "core",
+    "ponyfill",
+    "polyfill",
+    "shim",
+    "fs",
+    "access",
+    "stat",
+    "mode",
+    "permission",
+    "user",
+    "process",
+    "check"
+  ],
+  "dependencies": {
+    "null-check": "^1.0.0"
+  },
+  "devDependencies": {
+    "os-tmpdir": "^1.0.0"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "sonic-boom",
+  "version": "0.7.7",
+  "description": "Extremely fast utf8 only stream implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && tap --no-esm -t 120 test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcollina/sonic-boom.git"
+  },
+  "keywords": [
+    "stream",
+    "fs",
+    "net",
+    "fd",
+    "file",
+    "descriptor",
+    "fast"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcollina/sonic-boom/issues"
+  },
+  "homepage": "https://github.com/mcollina/sonic-boom#readme",
+  "devDependencies": {
+    "fastbench": "^1.0.1",
+    "pre-commit": "^1.2.2",
+    "proxyquire": "^2.1.0",
+    "standard": "^13.0.2",
+    "tap": "^12.1.0"
+  },
+  "dependencies": {
+    "atomic-sleep": "^1.0.0",
+    "flatstr": "^1.0.12"
+  }
+}

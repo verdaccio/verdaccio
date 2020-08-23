@@ -1,0 +1,15 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.prettyTimestamped = prettyTimestamped;
+
+var _utils = require("../utils");
+
+var _formatter = require("../formatter");
+
+function prettyTimestamped(obj, hasColors) {
+  return `[${(0, _utils.formatLoggingDate)(obj.time)}] ${(0, _formatter.printMessage)(obj.level, obj.msg, obj, hasColors)}\n`;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9saWIvbG9nZ2VyL2Zvcm1hdC9wcmV0dHktdGltZXN0YW1wZWQudHMiXSwibmFtZXMiOlsicHJldHR5VGltZXN0YW1wZWQiLCJvYmoiLCJoYXNDb2xvcnMiLCJ0aW1lIiwibGV2ZWwiLCJtc2ciXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTs7QUFDQTs7QUFFTyxTQUFTQSxpQkFBVCxDQUEyQkMsR0FBM0IsRUFBZ0NDLFNBQWhDLEVBQW1EO0FBQ3RELFNBQVEsSUFBRyw4QkFBa0JELEdBQUcsQ0FBQ0UsSUFBdEIsQ0FBNEIsS0FBSSw2QkFBYUYsR0FBRyxDQUFDRyxLQUFqQixFQUF3QkgsR0FBRyxDQUFDSSxHQUE1QixFQUFpQ0osR0FBakMsRUFBc0NDLFNBQXRDLENBQWlELElBQTVGO0FBQ0giLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge2Zvcm1hdExvZ2dpbmdEYXRlfSBmcm9tIFwiLi4vdXRpbHNcIjtcbmltcG9ydCB7cHJpbnRNZXNzYWdlfSBmcm9tIFwiLi4vZm9ybWF0dGVyXCI7XG5cbmV4cG9ydCBmdW5jdGlvbiBwcmV0dHlUaW1lc3RhbXBlZChvYmosIGhhc0NvbG9ycyk6IHN0cmluZyB7XG4gICAgcmV0dXJuIGBbJHtmb3JtYXRMb2dnaW5nRGF0ZShvYmoudGltZSl9XSAke3ByaW50TWVzc2FnZShvYmoubGV2ZWwsIG9iai5tc2csIG9iaiwgaGFzQ29sb3JzKX1cXG5gO1xufVxuIl19

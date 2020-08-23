@@ -1,0 +1,40 @@
+{
+    "name": "@types/pino",
+    "version": "5.20.0",
+    "description": "TypeScript definitions for pino",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Peter Snider",
+            "url": "https://github.com/psnider",
+            "githubUsername": "psnider"
+        },
+        {
+            "name": "BendingBender",
+            "url": "https://github.com/BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Christian Rackerseder",
+            "url": "https://github.com/screendriver",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "GP",
+            "url": "https://github.com/paambaati",
+            "githubUsername": "paambaati"
+        }
+    ],
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/events": "*",
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "e54e53bc86b32b50627becc3866bb0048eacc97b7b5880ff704f51f2510479a0",
+    "typeScriptVersion": "2.3"
+}

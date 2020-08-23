@@ -1,0 +1,70 @@
+{
+  "name": "before-after-hook",
+  "version": "2.1.0",
+  "description": "asynchronous before/error/after hooks for internal functionality",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "lib"
+  ],
+  "types": "./index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist && mkdirp dist",
+    "build": "browserify index.js --standalone=Hook > dist/before-after-hook.js",
+    "postbuild": "uglifyjs dist/before-after-hook.js -mc > dist/before-after-hook.min.js",
+    "pretest": "standard",
+    "test": "npm run -s test:node | tap-spec",
+    "posttest": "npm run validate:ts",
+    "test:node": "node test",
+    "test:watch": "gaze 'clear && node test | tap-min' 'test/**/*.js' 'index.js' 'lib/**/*.js'",
+    "test:coverage": "istanbul cover test",
+    "test:coverage:upload": "istanbul-coveralls",
+    "validate:ts": "tsc --strict --target es6 index.d.ts",
+    "postvalidate:ts": "tsc --noEmit --strict --target es6 test/typescript-validate.ts",
+    "presemantic-release": "npm run build",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gr2m/before-after-hook.git"
+  },
+  "keywords": [
+    "hook",
+    "hooks",
+    "api"
+  ],
+  "author": "Gregor Martynus",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gr2m/before-after-hook/issues"
+  },
+  "homepage": "https://github.com/gr2m/before-after-hook#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^16.0.0",
+    "gaze-cli": "^0.2.0",
+    "istanbul": "^0.4.0",
+    "istanbul-coveralls": "^1.0.3",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.4.4",
+    "semantic-release": "^15.0.0",
+    "simple-mock": "^0.8.0",
+    "standard": "^13.0.1",
+    "tap-min": "^2.0.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.2.2",
+    "typescript": "^3.5.3",
+    "uglify-js": "^3.0.0"
+  },
+  "release": {
+    "publish": [
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/github",
+        "assets": [
+          "dist/*.js"
+        ]
+      }
+    ]
+  }
+}

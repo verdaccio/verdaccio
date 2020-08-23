@@ -1,0 +1,41 @@
+{
+  "name": "eslint-plugin-verdaccio",
+  "version": "8.4.2",
+  "description": "Verdaccio code guidelines",
+  "keywords": [
+    "verdaccio",
+    "eslint",
+    "eslint-plugin"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "tools/eslint-plugin-verdaccio"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "jsx-ast-utils": "2.2.3"
+  },
+  "devDependencies": {
+    "@verdaccio/eslint-config": "^8.4.2",
+    "mocha": "^6.2.2"
+  },
+  "scripts": {
+    "lint": "eslint \"**/*.js\"",
+    "lint:stage": "lint-staged",
+    "test": "mocha tests --recursive"
+  },
+  "gitHead": "e309b93cb6ba4a57f206b8528edb134d5c01f9f1"
+}

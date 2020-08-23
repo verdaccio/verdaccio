@@ -1,0 +1,39 @@
+{
+	"name": "run-node",
+	"version": "1.0.0",
+	"description": "Run the Node.js binary no matter what",
+	"license": "MIT",
+	"repository": "sindresorhus/run-node",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"bin": "run-node",
+	"engines": {
+		"node": ">=4"
+	},
+	"scripts": {
+		"test": "./run-node --version"
+	},
+	"files": [
+		"run-node"
+	],
+	"keywords": [
+		"run",
+		"node",
+		"nodejs",
+		"node.js",
+		"find",
+		"binary",
+		"bin",
+		"execute",
+		"which",
+		"detect",
+		"path",
+		"env",
+		"bash",
+		"shell",
+		"sh"
+	]
+}

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/mock",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -23,16 +23,16 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.1",
+    "@verdaccio/utils": "5.0.0-alpha.1",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "request": "2.87.0",
     "supertest": "^4.0.2",
-    "verdaccio": "^4.4.0"
+    "verdaccio": "^5.0.0-alpha.1"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "5.0.0-alpha.0",
+    "@verdaccio/dev-types": "5.0.0-alpha.1",
     "@verdaccio/types": "workspace:*"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"

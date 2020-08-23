@@ -1,0 +1,64 @@
+{
+    "name": "@types/async",
+    "version": "3.2.3",
+    "description": "TypeScript definitions for Async",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Boris Yankov",
+            "url": "https://github.com/borisyankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Arseniy Maximov",
+            "url": "https://github.com/kern0",
+            "githubUsername": "kern0"
+        },
+        {
+            "name": "Joe Herman",
+            "url": "https://github.com/Penryn",
+            "githubUsername": "Penryn"
+        },
+        {
+            "name": "Angus Fenying",
+            "url": "https://github.com/fenying",
+            "githubUsername": "fenying"
+        },
+        {
+            "name": "Pascal Martin",
+            "url": "https://github.com/pascalmartin",
+            "githubUsername": "pascalmartin"
+        },
+        {
+            "name": "Dmitri Trofimov",
+            "url": "https://github.com/Dmitri1337",
+            "githubUsername": "Dmitri1337"
+        },
+        {
+            "name": "Etienne Rossignon",
+            "url": "https://github.com/erossignon",
+            "githubUsername": "erossignon"
+        },
+        {
+            "name": "Lifeng Zhu",
+            "url": "https://github.com/Juliiii",
+            "githubUsername": "Juliiii"
+        },
+        {
+            "name": "Tümay Çeber",
+            "url": "https://github.com/brendtumi",
+            "githubUsername": "brendtumi"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/async"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "81e047871626508bdf9169741b829f659624ec62fcdfa6ddb9deb317ca2a143c",
+    "typeScriptVersion": "3.0"
+}

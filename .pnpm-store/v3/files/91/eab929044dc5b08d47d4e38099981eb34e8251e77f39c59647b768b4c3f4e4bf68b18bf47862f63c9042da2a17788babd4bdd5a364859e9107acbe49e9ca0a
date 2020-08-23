@@ -1,0 +1,75 @@
+{
+  "name": "g-status",
+  "version": "2.0.2",
+  "description": "Get the change between index (or staging-area) and working directory of a `git` repository",
+  "license": "MIT",
+  "repository": "https://github.com/luftywiranda13/g-status",
+  "author": {
+    "name": "Lufty Wiranda",
+    "email": "lufty.wiranda@gmail.com",
+    "url": "https://www.luftywiranda.com"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "precommit": "remove-lockfiles && xo --fix && lint-staged",
+    "test:watch": "jest --watch",
+    "test": "xo && jest --coverage"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "arrify": "^1.0.1",
+    "matcher": "^1.0.0",
+    "simple-git": "^1.85.0"
+  },
+  "devDependencies": {
+    "async-to-gen": "^1.3.3",
+    "eslint-config-prettier": "^2.9.0",
+    "husky": "^0.14.3",
+    "jest": "^22.0.4",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.2",
+    "remove-lockfiles": "^2.0.4",
+    "xo": "^0.18.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.js$": "async-to-gen"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "xo": {
+    "extends": "prettier",
+    "envs": [
+      "jest"
+    ],
+    "rules": {
+      "camelcase": 0
+    }
+  },
+  "keywords": [
+    "git-status",
+    "git",
+    "index-area",
+    "staged",
+    "staging-area",
+    "staging",
+    "status",
+    "work-tree",
+    "working-directory",
+    "worktree"
+  ]
+}

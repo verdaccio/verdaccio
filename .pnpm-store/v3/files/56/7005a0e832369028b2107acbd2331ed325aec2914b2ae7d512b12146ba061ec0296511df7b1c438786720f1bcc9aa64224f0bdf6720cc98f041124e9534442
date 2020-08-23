@@ -1,0 +1,48 @@
+{
+  "name": "@octokit/plugin-paginate-rest",
+  "description": "Octokit plugin to paginate REST API endpoint responses",
+  "version": "2.3.0",
+  "license": "MIT",
+  "files": [
+    "dist-*/",
+    "bin/"
+  ],
+  "pika": true,
+  "sideEffects": false,
+  "keywords": [
+    "github",
+    "api",
+    "sdk",
+    "toolkit"
+  ],
+  "repository": "https://github.com/octokit/plugin-paginate-rest.js",
+  "dependencies": {
+    "@octokit/types": "^5.2.0"
+  },
+  "devDependencies": {
+    "@octokit/core": "^3.0.0",
+    "@octokit/plugin-rest-endpoint-methods": "^4.0.0",
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.9.0",
+    "@pika/plugin-build-web": "^0.9.0",
+    "@pika/plugin-ts-standard-pkg": "^0.9.0",
+    "@types/fetch-mock": "^7.3.1",
+    "@types/jest": "^26.0.0",
+    "@types/node": "^14.0.4",
+    "fetch-mock": "^9.0.0",
+    "jest": "^26.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.4",
+    "semantic-release": "^17.0.0",
+    "semantic-release-plugin-update-version-in-files": "^1.0.0",
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.7.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "source": "dist-src/index.js",
+  "types": "dist-types/index.d.ts",
+  "main": "dist-node/index.js",
+  "module": "dist-web/index.js"
+}

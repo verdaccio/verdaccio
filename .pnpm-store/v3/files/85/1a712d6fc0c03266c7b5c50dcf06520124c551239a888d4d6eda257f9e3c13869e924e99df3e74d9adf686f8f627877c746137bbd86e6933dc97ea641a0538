@@ -1,0 +1,31 @@
+{
+    "name": "@types/supertest",
+    "version": "2.0.9",
+    "description": "TypeScript definitions for SuperTest",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Alex Varju",
+            "url": "https://github.com/varju",
+            "githubUsername": "varju"
+        },
+        {
+            "name": "Petteri Parkkila",
+            "url": "https://github.com/pietu",
+            "githubUsername": "pietu"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/supertest"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/superagent": "*"
+    },
+    "typesPublisherContentHash": "f60373a780aa2ebaba2211f23c012b941c40a75c52f2fd3c563085199c384a3b",
+    "typeScriptVersion": "3.0"
+}

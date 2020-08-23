@@ -1,0 +1,52 @@
+{
+  "name": "mixme",
+  "description": "A library for recursive merging of Javascript objects",
+  "version": "0.3.5",
+  "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+  "contributors": [],
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "coffeescript": "^2.4.1",
+    "mocha": "^6.1.1",
+    "rollup": "^1.9.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "should": "^13.2.3"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "homepage": "https://github.com/adaltas/node-mixme",
+  "bugs": {
+    "url": "https://github.com/adaltas/node-mixme/issues"
+  },
+  "keywords": [
+    "merge",
+    "deep",
+    "extend",
+    "copy",
+    "clone",
+    "recursive"
+  ],
+  "files": [
+    "/dist"
+  ],
+  "license": "MIT",
+  "main": "dist/mixme.cjs.js",
+  "module": "dist/mixme.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adaltas/node-mixme.git"
+  },
+  "scripts": {
+    "preversion": "grep '## Trunk' CHANGELOG.md && npm test",
+    "version": "version=`grep '^  \"version\": ' package.json | sed 's/.*\"\\([0-9\\.]*\\)\".*/\\1/'` && sed -i \"s/## Trunk/## Version $version/\" CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push origin master && git push origin master --tags && npm publish",
+    "patch": "npm version patch -m 'Bump to version %s'",
+    "minor": "npm version minor -m 'Bump to version %s'",
+    "major": "npm version major -m 'Bump to version %s'",
+    "build": "coffee -b -o lib src && rollup -c",
+    "pretest": "npm run build",
+    "test": "mocha test/**/*.coffee"
+  }
+}

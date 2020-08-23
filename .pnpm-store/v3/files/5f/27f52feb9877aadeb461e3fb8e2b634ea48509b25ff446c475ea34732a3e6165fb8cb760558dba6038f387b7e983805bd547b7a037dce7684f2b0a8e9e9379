@@ -1,0 +1,66 @@
+{
+  "name": "@verdaccio/local-storage",
+  "version": "9.6.1",
+  "description": "Local storage implementation",
+  "keywords": [
+    "plugin",
+    "verdaccio",
+    "storage",
+    "local-storage"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/local-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "^9.6.1",
+    "@verdaccio/file-locking": "^9.6.1",
+    "@verdaccio/streams": "^9.6.1",
+    "async": "3.2.0",
+    "level": "5.0.1",
+    "lodash": "4.17.15",
+    "mkdirp": "0.5.5"
+  },
+  "devDependencies": {
+    "@types/minimatch": "^3.0.3",
+    "@verdaccio/babel-preset": "^9.6.1",
+    "@verdaccio/eslint-config": "^9.3.2",
+    "@verdaccio/types": "^9.5.0",
+    "minimatch": "^3.0.4",
+    "rmdir-sync": "^1.0.1"
+  },
+  "scripts": {
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "gitHead": "adb434f9dcbc5574892a1ea03e882b1f9e0355be"
+}

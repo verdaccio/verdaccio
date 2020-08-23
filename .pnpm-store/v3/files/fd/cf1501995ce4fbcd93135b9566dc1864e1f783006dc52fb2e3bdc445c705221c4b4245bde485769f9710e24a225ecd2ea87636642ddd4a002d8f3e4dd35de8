@@ -1,0 +1,36 @@
+---
+sudo: required
+
+#language: node_js
+
+#node_js:
+#  - "node"
+
+env:
+  # Test package on all supported OSes.
+  - distribution: centos
+    version: 7
+  - distribution: ubuntu
+    version: 14.04
+  - distribution: ubuntu
+    version: 16.04
+
+services:
+  - docker
+  - xvfb
+
+before_install:
+  # Pull base image
+  - 'sudo docker pull ${distribution}:${version}'
+  # Create custom image named: ${distribution}-${version}:tty-table 
+  - 'sudo docker build --no-cache=true --file=docker/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:smartwrap .'
+  
+before_script:
+  # Create virtual framebuffer so display output can be read with 
+  # correct dimensions by test suite
+  - export DISPLAY=:99.0
+  # - sh -e /etc/init.d/xvfb start
+
+script:
+  # Create a container from the custom image and run tests on it
+  - 'sudo docker run --name="${distribution}-${version}" ${distribution}-${version}:smartwrap'

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -23,15 +23,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/logger": "5.0.0-alpha.0",
-    "@verdaccio/server": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "5.0.0-alpha.1",
+    "@verdaccio/logger": "5.0.0-alpha.1",
+    "@verdaccio/server": "5.0.0-alpha.1",
+    "@verdaccio/utils": "5.0.0-alpha.1",
     "selfsigned": "1.10.7",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/mock": "5.0.0-alpha.0",
+    "@verdaccio/mock": "5.0.0-alpha.1",
     "@verdaccio/types": "workspace:*"
   },
   "publishConfig": {

@@ -1,0 +1,55 @@
+{
+  "name": "verdaccio-htpasswd",
+  "version": "8.5.2",
+  "description": "htpasswd auth plugin for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "auth",
+    "htpasswd"
+  ],
+  "author": "Ayush Sharma <ayush.aceit@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/htpasswd"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/file-locking": "1.0.0",
+    "apache-md5": "1.1.2",
+    "bcryptjs": "2.4.3",
+    "http-errors": "1.7.3",
+    "unix-crypt-td-js": "1.1.4"
+  },
+  "devDependencies": {
+    "@octokit/rest": "^16.34.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@verdaccio/babel-preset": "^8.5.0",
+    "@verdaccio/eslint-config": "^8.5.0",
+    "@verdaccio/types": "^8.5.2"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "gitHead": "e269378a704559a3bd4a655cddb9d8b0e614d752"
+}

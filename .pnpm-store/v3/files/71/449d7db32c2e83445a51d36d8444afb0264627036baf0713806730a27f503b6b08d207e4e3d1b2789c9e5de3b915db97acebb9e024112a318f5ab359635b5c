@@ -1,0 +1,1253 @@
+'use strict';
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var meow = _interopDefault(require('meow'));
+var errors = require('@changesets/errors');
+var logger = require('@changesets/logger');
+var util = require('util');
+var fs = _interopDefault(require('fs-extra'));
+var path = require('path');
+var path__default = _interopDefault(path);
+var getPackages = require('@manypkg/get-packages');
+var getDependentsGraph = require('@changesets/get-dependents-graph');
+var config = require('@changesets/config');
+var chalk = _interopDefault(require('chalk'));
+var termSize = _interopDefault(require('term-size'));
+var enquirer = require('enquirer');
+var externalEditor = require('external-editor');
+var git = require('@changesets/git');
+var writeChangeset = _interopDefault(require('@changesets/write'));
+var semver = _interopDefault(require('semver'));
+var boxen = _interopDefault(require('boxen'));
+var outdent = _interopDefault(require('outdent'));
+var applyReleasePlan = _interopDefault(require('@changesets/apply-release-plan'));
+var readChangesets = _interopDefault(require('@changesets/read'));
+var assembleReleasePlan = _interopDefault(require('@changesets/assemble-release-plan'));
+var pre$1 = require('@changesets/pre');
+var pLimit = _interopDefault(require('p-limit'));
+var preferredPM = _interopDefault(require('preferred-pm'));
+var spawn = _interopDefault(require('spawndamnit'));
+var isCI$1 = _interopDefault(require('is-ci'));
+var table = _interopDefault(require('tty-table'));
+var getReleasePlan = _interopDefault(require('@changesets/get-release-plan'));
+
+const pkgPath = path__default.dirname(require.resolve("@changesets/cli/package.json"));
+async function init(cwd) {
+  const changesetBase = path__default.resolve(cwd, ".changeset");
+
+  if (fs.existsSync(changesetBase)) {
+    if (!fs.existsSync(path__default.join(changesetBase, "config.json"))) {
+      if (fs.existsSync(path__default.join(changesetBase, "config.js"))) {
+        logger.error("It looks like you're using the version 1 `.changeset/config.js` file");
+        logger.error("The format of the config object has significantly changed in v2 as well");
+        logger.error(" - we thoroughly recommend looking at the changelog for this package for what has changed");
+        logger.error("Changesets will write the defaults for the new config, remember to transfer your options into the new config at `.changeset/config.json`");
+      } else {
+        logger.error("It looks like you don't have a config file");
+        logger.info("The default config file will be written at `.changeset/config.json`");
+      }
+
+      await fs.writeFile(path__default.resolve(changesetBase, "config.json"), JSON.stringify(config.defaultWrittenConfig, null, 2));
+    } else {
+      logger.warn("It looks like you already have changesets initialized. You should be able to run changeset commands no problems.");
+    }
+  } else {
+    await fs.copy(path__default.resolve(pkgPath, "./default-files"), changesetBase);
+    await fs.writeFile(path__default.resolve(changesetBase, "config.json"), JSON.stringify(config.defaultWrittenConfig, null, 2));
+    logger.log(chalk`Thanks for choosing {green changesets} to help manage your versioning and publishing\n`);
+    logger.log("You should be set up to start using changesets now!\n");
+    logger.info("We have added a `.changeset` folder, and a couple of files to help you out:");
+    logger.info(chalk`- {blue .changeset/README.md} contains information about using changesets`);
+    logger.info(chalk`- {blue .changeset/config.json} is our default config`);
+  }
+}
+
+// @ts-ignore it's not worth writing a TS declaration file in this repo for a tiny module we use once like this
+// so we can make type assertions using them because `enquirer` types do no support `prefix` right now
+
+/* Notes on using inquirer:
+ * Each question needs a key, as inquirer is assembling an object behind-the-scenes.
+ * At each call, the entire responses object is returned, so we need a unique
+ * identifier for the name every time. This is why we are using serial IDs
+ */
+const serialId = function () {
+  let id = 0;
+  return () => id++;
+}();
+
+const limit = Math.max(termSize().rows - 5, 10);
+
+let cancelFlow = () => {
+  logger.success("Cancelled... 👋 ");
+  process.exit();
+};
+
+async function askCheckboxPlus(message, choices, format) {
+  const name = `CheckboxPlus-${serialId()}`;
+  return enquirer.prompt({
+    type: "autocomplete",
+    name,
+    message,
+    prefix: logger.prefix,
+    multiple: true,
+    choices,
+    format,
+    limit,
+    onCancel: cancelFlow
+  }).then(responses => responses[name]).catch(err => {
+    logger.error(err);
+  });
+}
+
+async function askQuestion(message) {
+  const name = `Question-${serialId()}`;
+  return enquirer.prompt([{
+    type: "input",
+    message,
+    name,
+    prefix: logger.prefix,
+    onCancel: cancelFlow
+  }]).then(responses => responses[name]).catch(err => {
+    logger.error(err);
+  });
+}
+
+function askQuestionWithEditor(message) {
+  const response = externalEditor.edit(message, {
+    postfix: ".md"
+  });
+  return response.replace(/^#.*\n?/gm, "").replace(/\n+$/g, "").trim();
+}
+
+async function askConfirm(message) {
+  const name = `Confirm-${serialId()}`;
+  return enquirer.prompt([{
+    message,
+    name,
+    prefix: logger.prefix,
+    type: "confirm",
+    initial: true,
+    onCancel: cancelFlow
+  }]).then(responses => responses[name]).catch(err => {
+    logger.error(err);
+  });
+}
+
+async function askList(message, choices) {
+  const name = `List-${serialId()}`;
+  return enquirer.prompt([{
+    choices,
+    message,
+    name,
+    prefix: logger.prefix,
+    type: "select",
+    onCancel: cancelFlow
+  }]).then(responses => responses[name]).catch(err => {
+    logger.error(err);
+  });
+}
+
+const {
+  green,
+  yellow,
+  red,
+  bold,
+  blue,
+  cyan
+} = chalk;
+
+async function confirmMajorRelease(pkgJSON) {
+  if (semver.lt(pkgJSON.version, "1.0.0")) {
+    // prettier-ignore
+    logger.log(yellow(`WARNING: Releasing a major version for ${green(pkgJSON.name)} will be its ${red('first major release')}.`));
+    logger.log(yellow(`If you are unsure if this is correct, contact the package's maintainers ${red("before committing this changeset")}.`));
+    let shouldReleaseFirstMajor = await askConfirm(bold(`Are you sure you want still want to release the ${red("first major release")} of ${pkgJSON.name}?`));
+    return shouldReleaseFirstMajor;
+  }
+
+  return true;
+}
+
+async function getPackagesToRelease(changedPackages, allPackages) {
+  function askInitialReleaseQuestion(defaultChoiceList) {
+    return askCheckboxPlus( // TODO: Make this wording better
+    // TODO: take objects and be fancy with matching
+    `Which packages would you like to include?`, defaultChoiceList, x => {
+      // this removes changed packages and unchanged packages from the list
+      // of packages shown after selection
+      if (Array.isArray(x)) {
+        return x.filter(x => x !== "changed packages" && x !== "unchanged packages").map(x => cyan(x)).join(", ");
+      }
+
+      return x;
+    });
+  }
+
+  if (allPackages.length > 1) {
+    const unchangedPackagesNames = allPackages.map(({
+      packageJson
+    }) => packageJson.name).filter(name => !changedPackages.includes(name));
+    const defaultChoiceList = [{
+      name: "changed packages",
+      choices: changedPackages
+    }, {
+      name: "unchanged packages",
+      choices: unchangedPackagesNames
+    }].filter(({
+      choices
+    }) => choices.length !== 0);
+    let packagesToRelease = await askInitialReleaseQuestion(defaultChoiceList);
+
+    if (packagesToRelease.length === 0) {
+      do {
+        logger.error("You must select at least one package to release");
+        logger.error("(You most likely hit enter instead of space!)");
+        packagesToRelease = await askInitialReleaseQuestion(defaultChoiceList);
+      } while (packagesToRelease.length === 0);
+    }
+
+    return packagesToRelease.filter(pkgName => pkgName !== "changed packages" && pkgName !== "unchanged packages");
+  }
+
+  return [allPackages[0].packageJson.name];
+}
+
+function formatPkgNameAndVersion(pkgName, version) {
+  return `${bold(pkgName)}@${bold(version)}`;
+}
+
+async function createChangeset(changedPackages, allPackages) {
+  const releases = [];
+
+  if (allPackages.length > 1) {
+    const packagesToRelease = await getPackagesToRelease(changedPackages, allPackages);
+    let pkgJsonsByName = new Map(allPackages.map(({
+      packageJson
+    }) => [packageJson.name, packageJson]));
+    let pkgsLeftToGetBumpTypeFor = new Set(packagesToRelease);
+    let pkgsThatShouldBeMajorBumped = (await askCheckboxPlus(bold(`Which packages should have a ${red("major")} bump?`), [{
+      name: "all packages",
+      choices: packagesToRelease.map(pkgName => {
+        return {
+          name: pkgName,
+          message: formatPkgNameAndVersion(pkgName, pkgJsonsByName.get(pkgName).version)
+        };
+      })
+    }], x => {
+      // this removes changed packages and unchanged packages from the list
+      // of packages shown after selection
+      if (Array.isArray(x)) {
+        return x.filter(x => x !== "all packages").map(x => cyan(x)).join(", ");
+      }
+
+      return x;
+    })).filter(x => x !== "all packages");
+
+    for (const pkgName of pkgsThatShouldBeMajorBumped) {
+      // for packages that are under v1, we want to make sure major releases are intended,
+      // as some repo-wide sweeping changes have mistakenly release first majors
+      // of packages.
+      let pkgJson = pkgJsonsByName.get(pkgName);
+      let shouldReleaseFirstMajor = await confirmMajorRelease(pkgJson);
+
+      if (shouldReleaseFirstMajor) {
+        pkgsLeftToGetBumpTypeFor.delete(pkgName);
+        releases.push({
+          name: pkgName,
+          type: "major"
+        });
+      }
+    }
+
+    if (pkgsLeftToGetBumpTypeFor.size !== 0) {
+      let pkgsThatShouldBeMinorBumped = (await askCheckboxPlus(bold(`Which packages should have a ${green("minor")} bump?`), [{
+        name: "all packages",
+        choices: [...pkgsLeftToGetBumpTypeFor].map(pkgName => {
+          return {
+            name: pkgName,
+            message: formatPkgNameAndVersion(pkgName, pkgJsonsByName.get(pkgName).version)
+          };
+        })
+      }], x => {
+        // this removes changed packages and unchanged packages from the list
+        // of packages shown after selection
+        if (Array.isArray(x)) {
+          return x.filter(x => x !== "all packages").map(x => cyan(x)).join(", ");
+        }
+
+        return x;
+      })).filter(x => x !== "all packages");
+
+      for (const pkgName of pkgsThatShouldBeMinorBumped) {
+        pkgsLeftToGetBumpTypeFor.delete(pkgName);
+        releases.push({
+          name: pkgName,
+          type: "minor"
+        });
+      }
+    }
+
+    if (pkgsLeftToGetBumpTypeFor.size !== 0) {
+      logger.log(`The following packages will be ${blue("patch")} bumped:`);
+      pkgsLeftToGetBumpTypeFor.forEach(pkgName => {
+        logger.log(formatPkgNameAndVersion(pkgName, pkgJsonsByName.get(pkgName).version));
+      });
+
+      for (const pkgName of pkgsLeftToGetBumpTypeFor) {
+        releases.push({
+          name: pkgName,
+          type: "patch"
+        });
+      }
+    }
+  } else {
+    let pkg = allPackages[0];
+    let type = await askList(`What kind of change is this for ${green(pkg.packageJson.name)}? (current version is ${pkg.packageJson.version})`, ["patch", "minor", "major"]);
+    console.log(type);
+
+    if (type === "major") {
+      let shouldReleaseAsMajor = await confirmMajorRelease(pkg.packageJson);
+
+      if (!shouldReleaseAsMajor) {
+        throw new errors.ExitError(1);
+      }
+    }
+
+    releases.push({
+      name: pkg.packageJson.name,
+      type
+    });
+  }
+
+  logger.log("Please enter a summary for this change (this will be in the changelogs). Submit empty line to open external editor");
+  let summary = await askQuestion("Summary");
+  if (summary.length === 0) summary = askQuestionWithEditor("");
+
+  try {
+    while (summary.length === 0) {
+      summary = await askQuestionWithEditor("\n\n# A summary is required for the changelog! 😪");
+    }
+  } catch (err) {
+    logger.log("An error happened using external editor. Please type your summary here:");
+    summary = await askQuestion("");
+
+    while (summary.length === 0) {
+      summary = await askQuestion("\n\n# A summary is required for the changelog! 😪");
+    }
+  }
+
+  return {
+    summary,
+    releases
+  };
+}
+
+function printConfirmationMessage(changeset, repoHasMultiplePackages) {
+  function getReleasesOfType(type) {
+    return changeset.releases.filter(release => release.type === type).map(release => release.name);
+  }
+
+  logger.log("=== Releasing the following packages ===");
+  const majorReleases = getReleasesOfType("major");
+  const minorReleases = getReleasesOfType("minor");
+  const patchReleases = getReleasesOfType("patch");
+  if (majorReleases.length > 0) logger.log(`${chalk.green("[Major]")}\n  ${majorReleases.join(", ")}`);
+  if (minorReleases.length > 0) logger.log(`${chalk.green("[Minor]")}\n  ${minorReleases.join(", ")}`);
+  if (patchReleases.length > 0) logger.log(`${chalk.green("[Patch]")}\n  ${patchReleases.join(", ")}`);
+
+  if (repoHasMultiplePackages) {
+    const message = outdent`
+      ${chalk.red("========= NOTE ========")}
+      All dependents of these packages that will be incompatible with the new version will be ${chalk.red("patch bumped")} when this changeset is applied.`;
+    const prettyMessage = boxen(message, {
+      borderStyle: "double",
+      align: "center"
+    });
+    logger.log(prettyMessage);
+  }
+}
+
+async function add(cwd, {
+  empty
+}, config) {
+  const packages = await getPackages.getPackages(cwd);
+  const changesetBase = path__default.resolve(cwd, ".changeset");
+  let newChangeset, confirmChangeset;
+
+  if (empty) {
+    newChangeset = {
+      releases: [],
+      summary: ``
+    };
+    confirmChangeset = true;
+  } else {
+    const changedPackages = await git.getChangedPackagesSinceRef({
+      cwd,
+      ref: config.baseBranch
+    });
+    const changePackagesName = changedPackages.filter(a => a).map(pkg => pkg.packageJson.name);
+    newChangeset = await createChangeset(changePackagesName, packages.packages);
+    printConfirmationMessage(newChangeset, packages.packages.length > 1);
+    confirmChangeset = await askConfirm("Is this your desired changeset?");
+  }
+
+  if (confirmChangeset) {
+    const changesetID = await writeChangeset(newChangeset, cwd);
+
+    if (config.commit) {
+      await git.add(path__default.resolve(changesetBase, `${changesetID}.md`), cwd);
+      await git.commit(`docs(changeset): ${newChangeset.summary}`, cwd);
+      logger.log(chalk.green(`${empty ? "Empty " : ""}Changeset added and committed`));
+    } else {
+      logger.log(chalk.green(`${empty ? "Empty " : ""}Changeset added! - you can now commit it\n`));
+    }
+
+    let hasMajorChange = [...newChangeset.releases].find(c => c.type === "major");
+
+    if (hasMajorChange) {
+      logger.warn("This Changeset includes a major change and we STRONGLY recommend adding more information to the changeset:");
+      logger.warn("WHAT the breaking change is");
+      logger.warn("WHY the change was made");
+      logger.warn("HOW a consumer should update their code");
+    } else {
+      logger.log(chalk.green("If you want to modify or expand on the changeset summary, you can find it here"));
+    }
+
+    logger.info(chalk.blue(path__default.resolve(changesetBase, `${changesetID}.md`)));
+  }
+}
+
+// folder, and tidy up the subfolders
+// THIS SHOULD BE REMOVED WHEN SUPPORT FOR CHANGESETS FROM V1 IS DROPPED
+
+const removeEmptyFolders = async folderPath => {
+  const dirContents = fs.readdirSync(folderPath);
+  return Promise.all(dirContents.map(async contentPath => {
+    const singleChangesetPath = path__default.resolve(folderPath, contentPath);
+
+    try {
+      if ((await fs.readdir(singleChangesetPath)).length < 1) {
+        await fs.rmdir(singleChangesetPath);
+      }
+    } catch (err) {
+      if (err.code !== "ENOTDIR") {
+        throw err;
+      }
+    }
+  }));
+};
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+let importantSeparator = chalk.red("===============================IMPORTANT!===============================");
+let importantEnd = chalk.red("----------------------------------------------------------------------");
+async function version(cwd, options, config) {
+  const releaseConfig = _objectSpread(_objectSpread({}, config), {}, {
+    // Disable committing when in snapshot mode
+    commit: options.snapshot ? false : config.commit
+  });
+
+  const [changesets, preState] = await Promise.all([readChangesets(cwd), pre$1.readPreState(cwd), removeEmptyFolders(path__default.resolve(cwd, ".changeset"))]);
+
+  if ((preState === null || preState === void 0 ? void 0 : preState.mode) === "pre") {
+    logger.warn(importantSeparator);
+
+    if (options.snapshot !== undefined) {
+      logger.error("Snapshot release is not allowed in pre mode");
+      logger.log("To resolve this exit the pre mode by running `changeset pre exit`");
+      throw new errors.ExitError(1);
+    } else {
+      logger.warn("You are in prerelease mode");
+      logger.warn("If you meant to do a normal release you should revert these changes and run `changeset pre exit`");
+      logger.warn("You can then run `changeset version` again to do a normal release");
+    }
+
+    logger.warn(importantEnd);
+  }
+
+  if (changesets.length === 0 && (preState === undefined || preState.mode !== "exit")) {
+    logger.warn("No unreleased changesets found, exiting.");
+    return;
+  }
+
+  let packages = await getPackages.getPackages(cwd);
+  let releasePlan = assembleReleasePlan(changesets, packages, releaseConfig, preState, options.snapshot);
+  await applyReleasePlan(releasePlan, packages, releaseConfig, options.snapshot);
+
+  if (releaseConfig.commit) {
+    logger.log("All files have been updated and committed. You're ready to publish!");
+  } else {
+    logger.log("All files have been updated. Review them and commit at your leisure");
+  }
+}
+
+// @ts-ignore
+var isCI = !!(isCI$1 || process.env.GITHUB_ACTIONS);
+
+const npmRequestLimit = pLimit(40);
+
+function jsonParse(input) {
+  try {
+    return JSON.parse(input);
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      console.error("error parsing json:", input);
+    }
+
+    throw err;
+  }
+}
+
+function getCorrectRegistry() {
+  let registry = process.env.npm_config_registry === "https://registry.yarnpkg.com" ? undefined : process.env.npm_config_registry;
+  return registry;
+}
+
+async function getPublishTool(cwd) {
+  const pm = await preferredPM(cwd);
+  if (!pm || pm.name !== "pnpm") return {
+    name: "npm"
+  };
+
+  try {
+    let result = await spawn("pnpm", ["--version"], {
+      cwd
+    });
+    let version = result.stdout.toString().trim();
+    let parsed = semver.parse(version);
+    return {
+      name: "pnpm",
+      shouldAddNoGitChecks: (parsed === null || parsed === void 0 ? void 0 : parsed.major) === undefined ? false : parsed.major >= 5
+    };
+  } catch (e) {
+    return {
+      name: "pnpm",
+      shouldAddNoGitChecks: false
+    };
+  }
+}
+
+async function getTokenIsRequired() {
+  // Due to a super annoying issue in yarn, we have to manually override this env variable
+  // See: https://github.com/yarnpkg/yarn/issues/2935#issuecomment-355292633
+  const envOverride = {
+    npm_config_registry: getCorrectRegistry()
+  };
+  let result = await spawn("npm", ["profile", "get", "--json"], {
+    env: Object.assign({}, process.env, envOverride)
+  });
+  let json = jsonParse(result.stdout.toString());
+
+  if (json.error || !json.tfa || !json.tfa.mode) {
+    return false;
+  }
+
+  return json.tfa.mode === "auth-and-writes";
+}
+function getPackageInfo(pkgName) {
+  return npmRequestLimit(async () => {
+    logger.info(`npm info ${pkgName}`); // Due to a couple of issues with yarnpkg, we also want to override the npm registry when doing
+    // npm info.
+    // Issues: We sometimes get back cached responses, i.e old data about packages which causes
+    // `publish` to behave incorrectly. It can also cause issues when publishing private packages
+    // as they will always give a 404, which will tell `publish` to always try to publish.
+    // See: https://github.com/yarnpkg/yarn/issues/2935#issuecomment-355292633
+
+    const envOverride = {
+      npm_config_registry: getCorrectRegistry()
+    };
+    let result = await spawn("npm", ["info", pkgName, "--json"], {
+      env: Object.assign({}, process.env, envOverride)
+    });
+    return jsonParse(result.stdout.toString());
+  });
+}
+async function infoAllow404(pkgName) {
+  let pkgInfo = await getPackageInfo(pkgName);
+
+  if (pkgInfo.error && pkgInfo.error.code === "E404") {
+    logger.warn(`Received 404 for npm info ${chalk.cyan(`"${pkgName}"`)}`);
+    return {
+      published: false,
+      pkgInfo: {}
+    };
+  }
+
+  if (pkgInfo.error) {
+    logger.error(`Received an unknown error code: ${pkgInfo.error.code} for npm info ${chalk.cyan(`"${pkgName}"`)}`);
+    logger.error(pkgInfo.error.summary);
+    if (pkgInfo.error.detail) logger.error(pkgInfo.error.detail);
+    throw new errors.ExitError(1);
+  }
+
+  return {
+    published: true,
+    pkgInfo
+  };
+}
+let otpAskLimit = pLimit(1);
+
+let askForOtpCode = twoFactorState => otpAskLimit(async () => {
+  if (twoFactorState.token !== null) return twoFactorState.token;
+  logger.info("This operation requires a one-time password from your authenticator.");
+  let val = await askQuestion("Enter one-time password:");
+  twoFactorState.token = val;
+  return val;
+});
+
+let getOtpCode = async twoFactorState => {
+  if (twoFactorState.token !== null) {
+    return twoFactorState.token;
+  }
+
+  return askForOtpCode(twoFactorState);
+}; // we have this so that we can do try a publish again after a publish without
+// the call being wrapped in the npm request limit and causing the publishes to potentially never run
+
+async function internalPublish(pkgName, opts, twoFactorState) {
+  let publishTool = await getPublishTool(opts.cwd);
+  let publishFlags = opts.access ? ["--access", opts.access] : [];
+  publishFlags.push("--tag", opts.tag);
+
+  if ((await twoFactorState.isRequired) && !isCI) {
+    let otpCode = await getOtpCode(twoFactorState);
+    publishFlags.push("--otp", otpCode);
+  }
+
+  if (publishTool.name === "pnpm" && publishTool.shouldAddNoGitChecks) {
+    publishFlags.push("--no-git-checks");
+  } // Due to a super annoying issue in yarn, we have to manually override this env variable
+  // See: https://github.com/yarnpkg/yarn/issues/2935#issuecomment-355292633
+
+
+  const envOverride = {
+    npm_config_registry: getCorrectRegistry()
+  };
+  let {
+    stdout
+  } = await spawn(publishTool.name, ["publish", "--json", ...publishFlags], {
+    cwd: opts.cwd,
+    env: Object.assign({}, process.env, envOverride)
+  }); // New error handling. NPM's --json option is included alongside the `prepublish and
+  // `postpublish` contents in terminal. We want to handle this as best we can but it has
+  // some struggles
+  // Note that both pre and post publish hooks are printed before the json out, so this works.
+
+  let json = jsonParse(stdout.toString().replace(/[^{]*/, ""));
+
+  if (json.error) {
+    // The first case is no 2fa provided, the second is when the 2fa is wrong (timeout or wrong words)
+    if ((json.error.code === "EOTP" || json.error.code === "E401" && json.error.detail.includes("--otp=<code>")) && !isCI) {
+      if (twoFactorState.token !== null) {
+        // the current otp code must be invalid since it errored
+        twoFactorState.token = null;
+      } // just in case this isn't already true
+
+
+      twoFactorState.isRequired = Promise.resolve(true);
+      return internalPublish(pkgName, opts, twoFactorState);
+    }
+
+    logger.error(`an error occurred while publishing ${pkgName}: ${json.error.code}`, json.error.summary, json.error.detail ? "\n" + json.error.detail : "");
+    return {
+      published: false
+    };
+  }
+
+  return {
+    published: true
+  };
+}
+
+function publish(pkgName, opts, twoFactorState) {
+  return npmRequestLimit(() => {
+    return internalPublish(pkgName, opts, twoFactorState);
+  });
+}
+
+function getReleaseTag(pkgInfo, preState, tag) {
+  if (tag) return tag;
+
+  if (preState !== undefined && pkgInfo.publishedState !== "only-pre") {
+    return preState.tag;
+  }
+
+  return "latest";
+}
+
+async function publishPackages({
+  packages,
+  access,
+  otp,
+  preState,
+  tag
+}) {
+  const packagesByName = new Map(packages.map(x => [x.packageJson.name, x]));
+  const publicPackages = packages.filter(pkg => !pkg.packageJson.private);
+  let twoFactorState = otp === undefined ? {
+    token: null,
+    isRequired: isCI || publicPackages.some(x => x.packageJson.publishConfig && x.packageJson.publishConfig.registry && x.packageJson.publishConfig.registry !== "https://registry.npmjs.org" && x.packageJson.publishConfig.registry !== "https://registry.yarnpkg.com") || process.env.npm_config_registry !== undefined && process.env.npm_config_registry !== "https://registry.npmjs.org" && process.env.npm_config_registry !== "https://registry.yarnpkg.com" ? Promise.resolve(false) : // note: we're not awaiting this here, we want this request to happen in parallel with getUnpublishedPackages
+    getTokenIsRequired()
+  } : {
+    token: otp,
+    isRequired: Promise.resolve(true)
+  };
+  const unpublishedPackagesInfo = await getUnpublishedPackages(publicPackages, preState);
+
+  if (unpublishedPackagesInfo.length === 0) {
+    logger.warn("No unpublished packages to publish");
+  }
+
+  let promises = [];
+
+  for (let pkgInfo of unpublishedPackagesInfo) {
+    let pkg = packagesByName.get(pkgInfo.name);
+    promises.push(publishAPackage(pkg, access, twoFactorState, getReleaseTag(pkgInfo, preState, tag)));
+  }
+
+  return Promise.all(promises);
+}
+
+async function publishAPackage(pkg, access, twoFactorState, tag) {
+  const {
+    name,
+    version,
+    publishConfig
+  } = pkg.packageJson;
+  const localAccess = publishConfig && publishConfig.access;
+  logger.info(`Publishing ${chalk.cyan(`"${name}"`)} at ${chalk.green(`"${version}"`)}`);
+  const publishDir = publishConfig && publishConfig.directory ? path.join(pkg.dir, publishConfig.directory) : pkg.dir;
+  const publishConfirmation = await publish(name, {
+    cwd: publishDir,
+    access: localAccess || access,
+    tag
+  }, twoFactorState);
+  return {
+    name,
+    newVersion: version,
+    published: publishConfirmation.published
+  };
+}
+
+async function getUnpublishedPackages(packages, preState) {
+  const results = await Promise.all(packages.map(async pkg => {
+    const config = pkg.packageJson;
+    const response = await infoAllow404(config.name);
+    let publishedState = "never";
+
+    if (response.published) {
+      publishedState = "published";
+
+      if (preState !== undefined) {
+        if (response.pkgInfo.versions && response.pkgInfo.versions.every(version => semver.parse(version).prerelease[0] === preState.tag)) {
+          publishedState = "only-pre";
+        }
+      }
+    }
+
+    return {
+      name: config.name,
+      localVersion: config.version,
+      publishedState: publishedState,
+      publishedVersions: response.pkgInfo.versions || []
+    };
+  }));
+  const packagesToPublish = [];
+
+  for (const pkgInfo of results) {
+    const {
+      name,
+      publishedState,
+      localVersion,
+      publishedVersions
+    } = pkgInfo;
+
+    if (!publishedVersions.includes(localVersion)) {
+      packagesToPublish.push(pkgInfo);
+      logger.info(`${name} is being published because our local version (${localVersion}) has not been published on npm`);
+
+      if (preState !== undefined && publishedState === "only-pre") {
+        logger.info(`${name} is being published to ${chalk.cyan("latest")} rather than ${chalk.cyan(preState.tag)} because there has not been a regular release of it yet`);
+      }
+    } else {
+      // If the local version is behind npm, something is wrong, we warn here, and by not getting published later, it will fail
+      logger.warn(`${name} is not being published because version ${localVersion} is already published on npm`);
+    }
+  }
+
+  return packagesToPublish;
+}
+
+function logReleases(pkgs) {
+  const mappedPkgs = pkgs.map(p => `${p.name}@${p.newVersion}`).join("\n");
+  logger.log(mappedPkgs);
+}
+
+let importantSeparator$1 = chalk.red("===============================IMPORTANT!===============================");
+let importantEnd$1 = chalk.red("----------------------------------------------------------------------");
+
+function showNonLatestTagWarning(tag, preState) {
+  logger.warn(importantSeparator$1);
+
+  if (preState) {
+    logger.warn(`You are in prerelease mode so packages will be published to the ${chalk.cyan(preState.tag)}
+        dist tag except for packages that have not had normal releases which will be published to ${chalk.cyan("latest")}`);
+  } else if (tag !== "latest") {
+    logger.warn(`Packages will be released under the ${tag} tag`);
+  }
+
+  logger.warn(importantEnd$1);
+}
+
+async function run(cwd, {
+  otp,
+  tag
+}, config) {
+  const releaseTag = tag && tag.length > 0 ? tag : undefined;
+  let preState = await pre$1.readPreState(cwd);
+
+  if (releaseTag && preState && preState.mode === "pre") {
+    logger.error("Releasing under custom tag is not allowed in pre mode");
+    logger.log("To resolve this exit the pre mode by running `changeset pre exit`");
+    throw new errors.ExitError(1);
+  }
+
+  if (releaseTag || preState) {
+    showNonLatestTagWarning(tag, preState);
+  }
+
+  const {
+    packages,
+    tool
+  } = await getPackages.getPackages(cwd);
+  const response = await publishPackages({
+    packages,
+    // if not public, we wont pass the access, and it works as normal
+    access: config.access,
+    otp,
+    preState,
+    tag: releaseTag
+  });
+  const successful = response.filter(p => p.published);
+  const unsuccessful = response.filter(p => !p.published);
+
+  if (successful.length > 0) {
+    logger.success("packages published successfully:");
+    logReleases(successful); // We create the tags after the push above so that we know that HEAD wont change and that pushing
+    // wont suffer from a race condition if another merge happens in the mean time (pushing tags wont
+    // fail if we are behind master).
+
+    logger.log(`Creating git tag${successful.length > 1 ? "s" : ""}...`);
+
+    if (tool !== "root") {
+      for (const pkg of successful) {
+        const tag = `${pkg.name}@${pkg.newVersion}`;
+        logger.log("New tag: ", tag);
+        await git.tag(tag, cwd);
+      }
+    } else {
+      const tag = `v${successful[0].newVersion}`;
+      logger.log("New tag: ", tag);
+      await git.tag(tag, cwd);
+    }
+  }
+
+  if (unsuccessful.length > 0) {
+    logger.error("packages failed to publish:");
+    logReleases(unsuccessful);
+    throw new errors.ExitError(1);
+  }
+}
+
+async function getStatus(cwd, {
+  sinceMaster,
+  since,
+  verbose,
+  output
+}, config) {
+  if (sinceMaster) {
+    logger.warn("--sinceMaster is deprecated and will be removed in a future major version");
+    logger.warn("Use --since=master instead");
+  }
+
+  const releasePlan = await getReleasePlan(cwd, since === undefined ? sinceMaster ? "master" : undefined : since, config);
+  const {
+    changesets,
+    releases
+  } = releasePlan;
+
+  if (changesets.length < 1) {
+    logger.error("No changesets present");
+    process.exit(1);
+  }
+
+  if (output) {
+    await fs.writeFile(path__default.join(cwd, output), JSON.stringify(releasePlan, undefined, 2));
+    return;
+  }
+
+  const print = verbose ? verbosePrint : SimplePrint;
+  print("patch", releases);
+  logger.log("---");
+  print("minor", releases);
+  logger.log("---");
+  print("major", releases);
+  return releasePlan;
+}
+
+function SimplePrint(type, releases) {
+  const packages = releases.filter(r => r.type === type);
+
+  if (packages.length) {
+    logger.info(chalk`Packages to be bumped at {green ${type}}:\n`);
+    const pkgs = packages.map(({
+      name
+    }) => `- ${name}`).join("\n");
+    logger.log(chalk.green(pkgs));
+  } else {
+    logger.info(chalk`{red NO} packages to be bumped at {green ${type}}`);
+  }
+}
+
+function verbosePrint(type, releases) {
+  const packages = releases.filter(r => r.type === type);
+
+  if (packages.length) {
+    logger.info(chalk`Packages to be bumped at {green ${type}}`);
+    const columns = packages.map(({
+      name,
+      newVersion: version,
+      changesets
+    }) => [chalk.green(name), version, changesets.map(c => chalk.blue(` .changeset/${c}/changes.md`)).join(" +")]);
+    const t1 = table([{
+      value: "Package Name",
+      width: 20
+    }, {
+      value: "New Version",
+      width: 20
+    }, {
+      value: "Related Changeset Summaries",
+      width: 70
+    }], columns, {
+      paddingLeft: 1,
+      paddingRight: 0,
+      headerAlign: "center",
+      align: "left"
+    });
+    logger.log(t1.render() + "\n");
+  } else {
+    logger.info(chalk`Running release would release {red NO} packages as a {green ${type}}`);
+  }
+}
+
+async function pre(cwd, options) {
+  if (options.command === "enter") {
+    try {
+      await pre$1.enterPre(cwd, options.tag);
+      logger.success(`Entered pre mode with tag ${chalk.cyan(options.tag)}`);
+      logger.info("Run `changeset version` to version packages with prerelease versions");
+    } catch (err) {
+      if (err instanceof errors.PreEnterButInPreModeError) {
+        logger.error("`changeset pre enter` cannot be run when in pre mode");
+        logger.info("If you're trying to exit pre mode, run `changeset pre exit`");
+        throw new errors.ExitError(1);
+      }
+
+      throw err;
+    }
+  } else {
+    try {
+      await pre$1.exitPre(cwd);
+      logger.success(`Exited pre mode`);
+      logger.info("Run `changeset version` to version packages with normal versions");
+    } catch (err) {
+      if (err instanceof errors.PreExitButNotInPreModeError) {
+        logger.error("`changeset pre exit` can only be run when in pre mode");
+        logger.info("If you're trying to enter pre mode, run `changeset pre enter`");
+        throw new errors.ExitError(1);
+      }
+
+      throw err;
+    }
+  }
+}
+
+async function run$1(input, flags, cwd) {
+  if (input[0] === "init") {
+    await init(cwd);
+    return;
+  }
+
+  if (!fs.existsSync(path__default.resolve(cwd, ".changeset"))) {
+    logger.error("There is no .changeset folder. ");
+    logger.error("If this is the first time `changesets` have been used in this project, run `yarn changeset init` to get set up.");
+    logger.error("If you expected there to be changesets, you should check git history for when the folder was removed to ensure you do not lose any configuration.");
+    throw new errors.ExitError(1);
+  }
+
+  const packages = await getPackages.getPackages(cwd);
+  let config$1;
+
+  try {
+    config$1 = await config.read(cwd, packages);
+  } catch (e) {
+    let oldConfigExists = await fs.pathExists(path__default.resolve(cwd, ".changeset/config.js"));
+
+    if (oldConfigExists) {
+      logger.error("It looks like you're using the version 1 `.changeset/config.js` file");
+      logger.error("You'll need to convert it to a `.changeset/config.json` file");
+      logger.error("The format of the config object has significantly changed in v2 as well");
+      logger.error(" - we thoroughly recommend looking at the changelog for this package for what has changed");
+      throw new errors.ExitError(1);
+    } else {
+      throw e;
+    }
+  }
+
+  if (input.length < 1) {
+    const {
+      empty
+    } = flags; // @ts-ignore if this is undefined, we have already exited
+
+    await add(cwd, {
+      empty
+    }, config$1);
+  } else if (input[0] !== "pre" && input.length > 1) {
+    logger.error("Too many arguments passed to changesets - we only accept the command name as an argument");
+  } else {
+    const {
+      sinceMaster,
+      since,
+      verbose,
+      output,
+      otp,
+      empty,
+      ignore,
+      snapshot,
+      tag
+    } = flags;
+    const deadFlags = ["updateChangelog", "isPublic", "skipCI", "commit"];
+    deadFlags.forEach(flag => {
+      if (flags[flag]) {
+        logger.error(`the flag ${flag} has been removed from changesets for version 2`);
+        logger.error(`Please encode the desired value into your config`);
+        logger.error(`See our changelog for more details`);
+        throw new errors.ExitError(1);
+      }
+    }); // Command line options need to be undefined, otherwise their
+    // default value overrides the user's provided config in their
+    // config file. For this reason, we only assign them to this
+    // object as and when they exist.
+
+    switch (input[0]) {
+      case "add":
+        {
+          // @ts-ignore if this is undefined, we have already exited
+          await add(cwd, {
+            empty
+          }, config$1);
+          return;
+        }
+
+      case "version":
+        {
+          let ignoreArrayFromCmd;
+
+          if (typeof ignore === "string") {
+            ignoreArrayFromCmd = [ignore];
+          } else {
+            // undefined or an array
+            ignoreArrayFromCmd = ignore;
+          } // Validate that items in ignoreArrayFromCmd are valid project names
+
+
+          let pkgNames = new Set(packages.packages.map(({
+            packageJson
+          }) => packageJson.name));
+          const messages = [];
+
+          for (const pkgName of ignoreArrayFromCmd || []) {
+            if (!pkgNames.has(pkgName)) {
+              messages.push(`The package "${pkgName}" is passed to the \`--ignore\` option but it is not found in the project. You may have misspelled the package name.`);
+            }
+          }
+
+          if (config$1.ignore.length > 0 && ignoreArrayFromCmd) {
+            messages.push(`It looks like you are trying to use the \`--ignore\` option while ignore is defined in the config file. This is currently not allowed, you can only use one of them at a time.`);
+          } else if (ignoreArrayFromCmd) {
+            // use the ignore flags from cli
+            config$1.ignore = ignoreArrayFromCmd;
+          } // Validate that all dependents of ignored packages are listed in the ignore list
+
+
+          const dependentsGraph = getDependentsGraph.getDependentsGraph(packages);
+
+          for (const ignoredPackage of config$1.ignore) {
+            const dependents = dependentsGraph.get(ignoredPackage) || [];
+
+            for (const dependent of dependents) {
+              if (!config$1.ignore.includes(dependent)) {
+                messages.push(`The package "${dependent}" depends on the ignored package "${ignoredPackage}", but "${dependent}" is not being ignored. Please pass "${dependent}" to the \`--ignore\` flag.`);
+              }
+            }
+          }
+
+          if (messages.length > 0) {
+            logger.error(messages.join("\n"));
+            throw new errors.ExitError(1);
+          }
+
+          await version(cwd, {
+            snapshot
+          }, config$1);
+          return;
+        }
+
+      case "publish":
+        {
+          await run(cwd, {
+            otp,
+            tag
+          }, config$1);
+          return;
+        }
+
+      case "status":
+        {
+          await getStatus(cwd, {
+            sinceMaster,
+            since,
+            verbose,
+            output
+          }, config$1);
+          return;
+        }
+
+      case "pre":
+        {
+          let command = input[1];
+
+          if (command !== "enter" && command !== "exit") {
+            logger.error("`enter`, `exit` or `snapshot` must be passed after prerelease");
+            throw new errors.ExitError(1);
+          }
+
+          let tag = input[2];
+
+          if (command === "enter" && typeof tag !== "string") {
+            logger.error(`A tag must be passed when using prerelese enter`);
+            throw new errors.ExitError(1);
+          } // @ts-ignore
+
+
+          await pre(cwd, {
+            command,
+            tag
+          });
+          return;
+        }
+
+      case "bump":
+        {
+          logger.error('In version 2 of changesets, "bump" has been renamed to "version" - see our changelog for an explanation');
+          logger.error("To fix this, use `changeset version` instead, and update any scripts that use changesets");
+          throw new errors.ExitError(1);
+        }
+
+      case "release":
+        {
+          logger.error('In version 2 of changesets, "release" has been renamed to "publish" - see our changelog for an explanation');
+          logger.error("To fix this, use `changeset publish` instead, and update any scripts that use changesets");
+          throw new errors.ExitError(1);
+        }
+
+      default:
+        {
+          logger.error(`Invalid command ${input[0]} was provided`);
+          throw new errors.ExitError(1);
+        }
+    }
+  }
+}
+
+const {
+  input,
+  flags
+} = meow(`
+  Usage
+    $ changesets [command]
+  Commands
+    init
+    add [--empty]
+    version [--ignore]
+    publish [--otp=code]
+    status [--since-master --verbose --output=JSON_FILE.json]
+    prerelease <tag>
+    `, {
+  flags: {
+    sinceMaster: {
+      type: "boolean"
+    },
+    verbose: {
+      type: "boolean",
+      alias: "v"
+    },
+    output: {
+      type: "string",
+      alias: "o"
+    },
+    otp: {
+      type: "string",
+      default: undefined
+    },
+    empty: {
+      type: "boolean"
+    },
+    since: {
+      type: "string",
+      default: undefined
+    },
+    ignore: {
+      type: "string",
+      default: undefined,
+      isMultiple: true
+    },
+    tag: {
+      type: "string"
+    }
+  }
+});
+const cwd = process.cwd();
+run$1(input, flags, cwd).catch(err => {
+  if (err instanceof errors.InternalError) {
+    logger.error("The following error is an internal unexpected error, these should never happen.");
+    logger.error("Please open an issue with the following link");
+    logger.error(`https://github.com/atlassian/changesets/issues/new?title=${encodeURIComponent(`Unexpected error during ${input[0] || "add"} command`)}&body=${encodeURIComponent(`## Error
+
+\`\`\`
+${util.format("", err).replace(process.cwd(), "<cwd>")}
+\`\`\`
+
+## Versions
+
+- @changesets/cli@${// eslint-disable-next-line import/no-extraneous-dependencies
+    require("@changesets/cli/package.json").version}
+- node@${process.version}
+
+## Extra details
+
+<!-- Add any extra details of what you were doing, ideas you have about what might have caused the error and reproduction steps if possible. If you have a repository we can look at that would be great. 😁 -->
+`)}`);
+  }
+
+  if (err instanceof errors.ExitError) {
+    return process.exit(err.code);
+  }
+
+  logger.error(err);
+  process.exit(1);
+});

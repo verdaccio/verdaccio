@@ -1,0 +1,76 @@
+{
+  "name": "csv",
+  "version": "5.3.2",
+  "description": "A mature CSV toolset with simple api, full of options and tested against large datasets.",
+  "keywords": [
+    "node",
+    "csv",
+    "tsv",
+    "parser",
+    "parse",
+    "stringifier",
+    "stringify",
+    "transform",
+    "stream",
+    "generate",
+    "generation"
+  ],
+  "homepage": "https://csv.js.org/",
+  "bugs": "https://github.com/adaltas/node-csv/issues",
+  "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+  "contributors": [
+    "David Worms <david@adaltas.com> (https://www.adaltas.com)"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.1.90"
+  },
+  "main": "./lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adaltas/node-csv.git"
+  },
+  "coffeelintConfig": {
+    "indentation": {
+      "level": "error",
+      "value": 2
+    },
+    "line_endings": {
+      "level": "error",
+      "value": "unix"
+    },
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
+  "dependencies": {
+    "csv-generate": "^3.2.4",
+    "csv-parse": "^4.8.8",
+    "stream-transform": "^2.0.1",
+    "csv-stringify": "^5.3.6"
+  },
+  "devDependencies": {
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.7.7",
+    "@types/should": "^13.0.0",
+    "coffeescript": "~2.5.1",
+    "mocha": "~7.1.0",
+    "should": "~13.2.3",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  },
+  "optionalDependencies": {},
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "preversion": "grep '## Trunk' CHANGELOG.md && npm test && cp lib/*.ts lib/es5 && git add lib/es5/*.ts",
+    "version": "version=`grep '^  \"version\": ' package.json | sed 's/.*\"\\([0-9\\.]*\\)\".*/\\1/'` && sed -i \"s/## Trunk/## Version $version/\" CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
+    "patch": "npm version patch -m 'Bump to version %s'",
+    "minor": "npm version minor -m 'Bump to version %s'",
+    "major": "npm version major -m 'Bump to version %s'",
+    "test": "mocha test/**/*.{coffee,ts}"
+  },
+  "types": "./lib/index.d.ts"
+}

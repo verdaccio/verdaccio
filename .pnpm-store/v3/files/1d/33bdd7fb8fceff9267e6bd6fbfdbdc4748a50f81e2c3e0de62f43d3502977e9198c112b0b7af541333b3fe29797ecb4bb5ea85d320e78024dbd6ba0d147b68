@@ -1,0 +1,19 @@
+{
+  "name": "@changesets/pre",
+  "version": "1.0.5",
+  "description": "Utils to make a Changesets repo enter and exit pre mode",
+  "main": "dist/pre.cjs.js",
+  "module": "dist/pre.esm.js",
+  "license": "MIT",
+  "repository": "https://github.com/changesets/changesets/tree/master/packages/pre",
+  "dependencies": {
+    "@babel/runtime": "^7.4.4",
+    "@changesets/errors": "^0.1.4",
+    "@changesets/types": "^3.0.0",
+    "@manypkg/get-packages": "^1.0.1",
+    "fs-extra": "^7.0.1"
+  },
+  "devDependencies": {
+    "fixturez": "^1.1.0"
+  }
+}

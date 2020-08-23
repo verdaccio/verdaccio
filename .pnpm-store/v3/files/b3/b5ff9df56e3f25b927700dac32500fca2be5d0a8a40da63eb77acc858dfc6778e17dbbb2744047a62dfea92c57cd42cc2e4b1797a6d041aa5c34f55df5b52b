@@ -1,0 +1,40 @@
+{
+  "name": "smartwrap",
+  "version": "1.2.5",
+  "description": "Textwrap for javascript/nodejs. Correctly handles wide characters (宽字符) and emojis (😃). Wraps strings with option to break on words.",
+  "main": "src/main.js",
+  "bin": {
+    "smartwrap": "src/terminal-adapter.js"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/grunt t",
+    "test-display": "./node_modules/.bin/grunt test-display",
+    "lint": "./node_modules/.bin/eslint src/*",
+    "lint-fix": "./node_modules/.bin/eslint src/* --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/tecfu/smartwrap.git"
+  },
+  "keywords": [
+    "wordwrap"
+  ],
+  "author": "tecfu",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "breakword": "^1.0.5",
+    "grapheme-splitter": "^1.0.4",
+    "strip-ansi": "^6.0.0",
+    "wcwidth": "^1.0.1",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.6.0",
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
+    "grunt-mocha-test": "^0.13.3",
+    "husky": "^4.2.3",
+    "mocha": "^5.2.0"
+  }
+}

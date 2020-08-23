@@ -1,0 +1,29 @@
+{
+  "name": "parse-github-repo-url",
+  "description": "Parse a GitHub URL for user/project@version",
+  "version": "1.4.1",
+  "author": {
+    "name": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "twitter": "https://twitter.com/jongleberry"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/repo-utils/parse-github-repo-url.git"
+  },
+  "devDependencies": {
+    "mocha": "1",
+    "semantic-release": "^4.3.5"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "mocha --reporter spec --bail",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";"
+  }
+}

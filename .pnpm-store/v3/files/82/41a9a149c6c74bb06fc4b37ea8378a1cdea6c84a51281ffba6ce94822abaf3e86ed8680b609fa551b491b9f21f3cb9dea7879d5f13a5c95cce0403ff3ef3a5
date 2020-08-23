@@ -1,0 +1,227 @@
+{
+  "name": "@verdaccio/ui-theme",
+  "version": "1.12.1",
+  "description": "Verdaccio User Interface",
+  "author": {
+    "name": "Verdaccio Core Team",
+    "email": "verdaccio.npm@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/ui"
+  },
+  "homepage": "https://verdaccio.org",
+  "main": "index.js",
+  "devDependencies": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.8.0",
+    "@babel/plugin-proposal-optional-chaining": "7.8.0",
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-conventional": "8.3.4",
+    "@emotion/core": "10.0.22",
+    "@emotion/styled": "10.0.23",
+    "@htmllinter/basic-config": "^0.5.1",
+    "@htmllinter/core": "^0.5.1",
+    "@material-ui/core": "4.8.0",
+    "@material-ui/icons": "4.5.1",
+    "@octokit/rest": "16.35.2",
+    "@testing-library/jest-dom": "4.2.4",
+    "@testing-library/react": "9.4.0",
+    "@types/autosuggest-highlight": "3.1.0",
+    "@types/enzyme": "3.10.4",
+    "@types/jest": "25.1.4",
+    "@types/js-base64": "2.3.1",
+    "@types/lodash": "4.14.149",
+    "@types/node": "13.1.6",
+    "@types/react": "16.9.17",
+    "@types/react-autosuggest": "9.3.13",
+    "@types/react-dom": "16.9.4",
+    "@types/react-router-dom": "5.1.5",
+    "@types/react-virtualized": "9.21.10",
+    "@types/request": "2.48.5",
+    "@types/validator": "12.0.1",
+    "@types/webpack-env": "1.15.0",
+    "@typescript-eslint/parser": "2.18.0",
+    "@verdaccio/babel-preset": "9.4.0",
+    "@verdaccio/commons-api": "9.0.0",
+    "@verdaccio/eslint-config": "8.4.2",
+    "@verdaccio/types": "9.0.0",
+    "all-contributors-cli": "6.16.0",
+    "autosuggest-highlight": "3.1.1",
+    "babel-loader": "8.0.6",
+    "bundlesize": "0.18.0",
+    "codeceptjs": "2.4.0",
+    "codecov": "3.6.5",
+    "concurrently": "5.2.0",
+    "cross-env": "7.0.2",
+    "css-loader": "3.4.2",
+    "dayjs": "1.8.19",
+    "detect-secrets": "1.0.5",
+    "emotion": "10.0.27",
+    "emotion-theming": "10.0.27",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.2",
+    "enzyme-to-json": "3.4.3",
+    "eslint": "6.7.2",
+    "eslint-plugin-codeceptjs": "1.2.0",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.17.0",
+    "eslint-plugin-react-hooks": "2.3.0",
+    "eslint-plugin-verdaccio": "8.4.2",
+    "file-loader": "5.0.2",
+    "friendly-errors-webpack-plugin": "1.7.0",
+    "get-stdin": "7.0.0",
+    "github-markdown-css": "3.0.1",
+    "html-webpack-plugin": "3.2.0",
+    "husky": "3.1.0",
+    "i18next": "19.1.0",
+    "identity-obj-proxy": "3.0.0",
+    "in-publish": "2.0.1",
+    "jest": "24.9.0",
+    "jest-emotion": "10.0.27",
+    "jest-environment-jsdom": "24.9.0",
+    "jest-environment-jsdom-global": "1.2.0",
+    "jest-environment-node": "25.1.0",
+    "jest-fetch-mock": "3.0.1",
+    "js-base64": "2.5.1",
+    "js-yaml": "3.13.1",
+    "lint-staged": "9.5.0",
+    "localstorage-memory": "1.0.3",
+    "lockfile-lint": "3.0.5",
+    "lodash": "^4.17.19",
+    "mini-css-extract-plugin": "0.9.0",
+    "mutationobserver-shim": "0.3.3",
+    "node-mocks-http": "1.8.1",
+    "normalize.css": "8.0.1",
+    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "ora": "4.0.4",
+    "prettier": "1.19.1",
+    "prop-types": "15.7.2",
+    "puppeteer": "2.0.0",
+    "react": "16.12.0",
+    "react-autosuggest": "9.4.3",
+    "react-dom": "16.13.0",
+    "react-hook-form": "3.29.4",
+    "react-hot-loader": "4.12.21",
+    "react-i18next": "11.3.1",
+    "react-router-dom": "5.1.2",
+    "react-virtualized": "9.21.2",
+    "request": "2.88.0",
+    "resolve-url-loader": "3.1.1",
+    "rimraf": "3.0.0",
+    "source-map-loader": "0.2.4",
+    "standard-version": "8.0.1",
+    "style-loader": "1.1.2",
+    "stylelint": "12.0.0",
+    "stylelint-config-recommended": "3.0.0",
+    "stylelint-config-styled-components": "0.1.1",
+    "stylelint-processor-styled-components": "1.9.0",
+    "stylelint-webpack-plugin": "1.1.2",
+    "supertest": "4.0.2",
+    "typeface-roboto": "0.0.75",
+    "typescript": "3.9.6",
+    "uglifyjs-webpack-plugin": "2.2.0",
+    "url-loader": "3.0.0",
+    "validator": "12.1.0",
+    "verdaccio": "4.4.2",
+    "verdaccio-auth-memory": "9.0.0",
+    "verdaccio-memory": "9.0.0",
+    "wait-on": "3.3.0",
+    "webpack": "4.41.5",
+    "webpack-bundle-analyzer": "3.6.0",
+    "webpack-bundle-size-analyzer": "3.1.0",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "3.10.1",
+    "webpack-merge": "4.2.2",
+    "whatwg-fetch": "3.0.0",
+    "xss": "1.0.6"
+  },
+  "keywords": [
+    "verdaccio",
+    "verdaccio-plugin",
+    "verdaccio-theme"
+  ],
+  "bundlesize": [
+    {
+      "path": "./static/vendors.*.js",
+      "maxSize": "210 kB"
+    },
+    {
+      "path": "./static/main.*.js",
+      "maxSize": "37 kB"
+    },
+    {
+      "path": "./static/[0-9].*.{js,css}",
+      "maxSize": "30 kB"
+    },
+    {
+      "path": "./static/*.svg",
+      "maxSize": "1.3 kB"
+    },
+    {
+      "path": "./static/*.png",
+      "maxSize": "15 kB"
+    },
+    {
+      "path": "./static/fonts/*.{woff,woff2}",
+      "maxSize": "20 kB"
+    }
+  ],
+  "scripts": {
+    "type-check": "tsc --noEmit --pretty",
+    "type-check:watch": "npm run type-check -- --watch",
+    "release": "standard-version -a",
+    "test:clean": "npx jest --clearCache",
+    "test:acceptance": "codeceptjs run --steps",
+    "test:acceptance:server": "concurrently --kill-others \"npm run verdaccio:server\" \"npm run test:acceptance\"",
+    "test:e2e": "cross-env BABEL_ENV=test jest --config ./test/jest.config.e2e.js",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test TZ=UTC jest --config ./jest/jest.config.js --maxWorkers 2 --passWithNoTests",
+    "test:update-snapshot": "npm run test -- -u",
+    "test:size": "bundlesize",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:lockfile",
+    "lint:js": "npm run type-check && eslint . --ext .js,.ts,.tsx",
+    "lint:html": "htmllinter src/template/index.html",
+    "lint:css": "stylelint \"src/**/styles.ts\"",
+    "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts verdaccio npm yarn",
+    "coverage:publish": "codecov",
+    "pre:webpack": "rimraf static/*",
+    "dev:web": "cross-env BABEL_ENV=ui babel-node tools/dev.server.js",
+    "verdaccio:server": "node tools/verdaccio.js",
+    "build": "npm run pre:webpack && cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js",
+    "build:stats": "cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js --json > stats.json",
+    "build:size": "cross-env BABEL_ENV=ui webpack --config tools/webpack.prod.config.babel.js --json | webpack-bundle-size-analyzer",
+    "dev": "concurrently --kill-others \"npm run dev:web\" \"npm run verdaccio:server\""
+  },
+  "engines": {
+    "node": ">= 8",
+    "npm": ">=5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --relative",
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,tsx,ts}": [
+      "eslint . --ext .js,.ts,.tsx",
+      "prettier --write"
+    ],
+    "*": [
+      "detect-secrets-launcher --baseline .secrets-baseline",
+      "git add"
+    ]
+  },
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio",
+    "logo": "https://opencollective.com/verdaccio/logo.txt"
+  }
+}

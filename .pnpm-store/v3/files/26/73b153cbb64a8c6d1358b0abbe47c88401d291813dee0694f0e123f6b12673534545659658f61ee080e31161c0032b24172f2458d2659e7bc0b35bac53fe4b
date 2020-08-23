@@ -1,0 +1,3 @@
+import { Package } from '@verdaccio/types';
+export declare function stringifyPackage(pkg: Package): string;
+export declare function parsePackage(pkg: string): any;

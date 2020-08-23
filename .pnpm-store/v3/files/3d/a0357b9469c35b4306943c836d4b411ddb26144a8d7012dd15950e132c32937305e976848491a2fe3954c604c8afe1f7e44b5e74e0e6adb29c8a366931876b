@@ -1,0 +1,59 @@
+{
+  "name": "whatwg-url",
+  "version": "8.1.0",
+  "description": "An implementation of the WHATWG URL Standard's URL API and parsing machinery",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "webidl2js-wrapper.js",
+    "lib/"
+  ],
+  "author": "Sebastian Mayr <github@smayr.name>",
+  "license": "MIT",
+  "repository": "jsdom/whatwg-url",
+  "dependencies": {
+    "lodash.sortby": "^4.7.0",
+    "tr46": "^2.0.2",
+    "webidl-conversions": "^5.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "domexception": "^2.0.1",
+    "eslint": "^6.8.0",
+    "got": "^10.6.0",
+    "jest": "^25.1.0",
+    "recast": "^0.18.7",
+    "webidl2js": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "node scripts/transform.js && node scripts/convert-idl.js",
+    "coverage": "jest --coverage",
+    "lint": "eslint .",
+    "prepare": "node scripts/transform.js && node scripts/convert-idl.js",
+    "pretest": "node scripts/get-latest-platform-tests.js && node scripts/transform.js && node scripts/convert-idl.js",
+    "build-live-viewer": "browserify index.js --standalone whatwgURL > live-viewer/whatwg-url.js",
+    "test": "jest"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "!lib/utils.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/test/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "^<rootDir>/test/testharness.js$",
+      "^<rootDir>/test/web-platform-tests/"
+    ]
+  }
+}

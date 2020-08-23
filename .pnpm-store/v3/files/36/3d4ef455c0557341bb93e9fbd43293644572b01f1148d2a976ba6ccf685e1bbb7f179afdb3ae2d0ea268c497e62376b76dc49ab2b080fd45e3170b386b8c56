@@ -1,0 +1,33 @@
+{
+  "name": "dtrace-provider",
+  "version": "0.8.8",
+  "description": "Native DTrace providers for node.js applications",
+  "keywords": [
+    "dtrace",
+    "usdt"
+  ],
+  "homepage": "https://github.com/chrisa/node-dtrace-provider#readme",
+  "license": "BSD-2-Clause",
+  "author": {
+    "name": "Chris Andrews",
+    "email": "chris@nodnol.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisa/node-dtrace-provider.git"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "nan": "^2.14.0"
+  },
+  "devDependencies": {
+    "tap": "0.7.1"
+  },
+  "scripts": {
+    "install": "node-gyp rebuild || node suppress-error.js",
+    "test": "tap test/*.test.js"
+  },
+  "main": "./dtrace-provider.js"
+}

@@ -1,0 +1,41 @@
+{
+  "name": "exec-sh",
+  "version": "0.3.4",
+  "description": "Execute shell command forwarding all stdio.",
+  "main": "lib/exec-sh.js",
+  "scripts": {
+    "test": "npm run lint && npm run cover-test",
+    "cover-test": "nyc --reporter=html --report-dir=artifacts/coverage mocha",
+    "lint": "standard --verbose **/*.js",
+    "dev": "mocha --reporter spec --watch",
+    "jsdoc": "jsdoc --private --destination artifacts/jsdoc lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tsertkov/exec-sh.git"
+  },
+  "keywords": [
+    "exec",
+    "spawn",
+    "terminal",
+    "console",
+    "shell",
+    "command",
+    "child_process"
+  ],
+  "author": "Aleksandr Tsertkov <tsertkov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsertkov/exec-sh/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "coveralls": "^3.0.7",
+    "jsdoc": "^3.6.3",
+    "jshint": "^2.10.3",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0",
+    "standard": "^14.3.1"
+  }
+}

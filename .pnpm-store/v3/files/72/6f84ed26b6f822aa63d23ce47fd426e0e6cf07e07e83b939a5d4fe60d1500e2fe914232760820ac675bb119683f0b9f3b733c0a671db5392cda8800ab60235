@@ -1,0 +1,75 @@
+{
+  "name": "@octokit/rest",
+  "description": "GitHub REST API client for Node.js",
+  "version": "17.0.0",
+  "license": "MIT",
+  "files": [
+    "dist-*/",
+    "bin/"
+  ],
+  "pika": true,
+  "sideEffects": false,
+  "keywords": [
+    "octokit",
+    "github",
+    "rest",
+    "api-client"
+  ],
+  "contributors": [
+    {
+      "name": "Mike de Boer",
+      "email": "info@mikedeboer.nl"
+    },
+    {
+      "name": "Fabian Jakobs",
+      "email": "fabian@c9.io"
+    },
+    {
+      "name": "Joe Gallo",
+      "email": "joe@brassafrax.com"
+    },
+    {
+      "name": "Gregor Martynus",
+      "url": "https://github.com/gr2m"
+    }
+  ],
+  "repository": "https://github.com/octokit/rest.js",
+  "dependencies": {
+    "@octokit/core": "^2.4.0",
+    "@octokit/plugin-paginate-rest": "^2.0.0",
+    "@octokit/plugin-request-log": "^1.0.0",
+    "@octokit/plugin-rest-endpoint-methods": "^3.0.0"
+  },
+  "devDependencies": {
+    "@octokit/auth": "^1.1.1",
+    "@octokit/fixtures-server": "^6.0.0",
+    "@octokit/request": "^5.2.0",
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.8.1",
+    "@pika/plugin-build-web": "^0.8.1",
+    "@pika/plugin-ts-standard-pkg": "^0.8.1",
+    "@types/jest": "^25.1.2",
+    "@types/node": "^13.1.0",
+    "btoa-lite": "^1.0.0",
+    "chai": "^4.1.2",
+    "fetch-mock": "^8.3.2",
+    "jest": "^25.1.0",
+    "prettier": "^1.14.2",
+    "proxy": "^1.0.0",
+    "semantic-release": "^17.0.0",
+    "semantic-release-plugin-update-version-in-files": "^1.0.0",
+    "sinon": "^8.0.0",
+    "sinon-chai": "^3.0.0",
+    "string-to-arraybuffer": "^1.0.0",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5",
+    "universal-user-agent": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "source": "dist-src/index.js",
+  "types": "dist-types/index.d.ts",
+  "main": "dist-node/index.js",
+  "module": "dist-web/index.js"
+}

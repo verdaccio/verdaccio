@@ -1,0 +1,23 @@
+{
+    "name": "@types/cookiejar",
+    "version": "2.1.1",
+    "description": "TypeScript definitions for CookieJar",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Rafal Proszowski",
+            "url": "https://github.com/paroxp",
+            "githubUsername": "paroxp"
+        }
+    ],
+    "main": "",
+    "types": "index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "58e1137b0ffb6185011d3009af21d5f4b8430f65d888f058e964d240bc2a0fae",
+    "typeScriptVersion": "2.2"
+}

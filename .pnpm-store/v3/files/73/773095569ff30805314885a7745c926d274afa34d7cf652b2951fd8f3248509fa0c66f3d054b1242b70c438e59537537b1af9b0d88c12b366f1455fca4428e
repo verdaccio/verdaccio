@@ -1,0 +1,141 @@
+[
+  {
+    "input": "特abc制",
+    "width": 1,
+    "trim": true,
+    "minWidth": 1,
+    "output": "�\na\nb\nc\n�"
+  },
+  {
+    "input": "😀test",
+    "width": 1,
+    "trim": true,
+    "minWidth": 1,
+    "output": "�\nt\ne\ns\nt"
+  },
+  {
+    "input": "aaa bbb ccc",
+    "width": 1,
+    "trim": true,
+    "minWidth": 1,
+    "output": "a\na\na\nb\nb\nb\nc\nc\nc"
+  },
+  {
+    "input": "2.0",
+    "width": 1,
+    "minWidth": 1,
+    "output": "2\n.\n0"
+  },
+  {
+    "input": 2.1,
+    "width": 1,
+    "minWidth": 1,
+    "output": "2\n.\n1"
+  },
+  {
+    "input": "2.0",
+    "width": 2,
+    "output": "2.\n0"
+  },
+  {
+    "input": 2.1,
+    "width": 2,
+    "output": "2.\n1"
+  },
+  {
+    "input": "宽字符",
+    "width": 0,
+    "output": "宽\n字\n符"
+  },
+  {
+    "input": "宽字符",
+    "width": 1,
+    "output": "宽\n字\n符"
+  },
+  {
+    "input": "宽字符",
+    "width": 2,
+    "output": "宽\n字\n符"
+  },
+  {
+    "input": "宽字符",
+    "width": 4,
+    "output": "宽字\n符"
+  },
+  {
+    "input": "宽字符",
+    "paddingLeft": 2,
+    "width": 6,
+    "output": "  \n  宽字\n  符"
+  },
+  {
+    "input": "breakthislonginput",
+    "width": 0,
+    "output": "br\nea\nkt\nhi\nsl\non\ngi\nnp\nut"
+  },
+  {
+    "input": "breakthislonginput",
+    "minWidth": 1,
+    "width": 1,
+    "output": "b\nr\ne\na\nk\nt\nh\ni\ns\nl\no\nn\ng\ni\nn\np\nu\nt"
+  },
+  {
+    "input": "breakthislonginput",
+    "width": 2,
+    "output": "br\nea\nkt\nhi\nsl\non\ngi\nnp\nut"
+  },
+  {
+    "input": "breakthislonginput",
+    "paddingLeft": 1,
+    "width": 4,
+    "output": " \n bre\n akt\n his\n lon\n gin\n put"
+  },
+  {
+    "input": "breakthislonginput",
+    "width": 6,
+    "output": "breakt\nhislon\nginput"
+  },
+  {
+    "input": "breakthislonginput",
+    "width": 19,
+    "output": "breakthislonginput"
+  },
+  {
+    "input": "LordPablo⚡️",
+    "width": 10,
+    "output": "LordPablo⚡️"
+  },
+  {
+    "input": "☺️ ☺️",
+    "width": 2,
+    "output": "☺️\n☺️"
+  },
+  {
+    "input": "And its corresponding longer value",
+    "width": 19,
+    "output": "And its\ncorresponding\nlonger value"
+  },
+  {
+    "input": "The use of the secure-rm CLI is deprecated.\nMigrate over -> secure-rm-cli. Run:\nnpm un secure-rm -g\nnpm i secure-rm-cli -g",
+    "width": 50,
+    "output": "The use of the secure-rm CLI is deprecated.\nMigrate over -> secure-rm-cli. Run:\nnpm un secure-rm -g\nnpm i secure-rm-cli -g"
+  },
+  {
+    "input": "苹果片",
+    "width": 5,
+    "output": "苹果\n片"
+  },
+  {
+    "input": "break at word",
+    "width": 10,
+    "minWidth": 1,
+    "output": "break at\nword"
+  },
+  {
+    "input": "break at word",
+    "width": 10,
+    "minWidth": 1,
+    "output": "break at w\nord",
+    "breakword": true
+  }
+]

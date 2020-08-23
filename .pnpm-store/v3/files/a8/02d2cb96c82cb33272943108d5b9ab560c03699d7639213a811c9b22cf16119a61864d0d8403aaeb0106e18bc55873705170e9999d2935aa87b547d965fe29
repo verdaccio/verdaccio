@@ -1,0 +1,1 @@
+{"version":3,"file":"max-line-length.js","sourceRoot":"","sources":["../src/max-line-length.ts"],"names":[],"mappings":";;;;;AAAA,4DAAkC;AAElC,sBAAe,UAAC,KAAa,EAAE,GAAW;IACzC,OAAA,OAAO,KAAK,KAAK,QAAQ;QACzB,KAAK,CAAC,KAAK,CAAC,OAAO,CAAC,CAAC,KAAK,CAAC,UAAA,IAAI,IAAI,OAAA,uBAAM,CAAC,IAAI,EAAE,GAAG,CAAC,EAAjB,CAAiB,CAAC;AADrD,CACqD,EAAC"}

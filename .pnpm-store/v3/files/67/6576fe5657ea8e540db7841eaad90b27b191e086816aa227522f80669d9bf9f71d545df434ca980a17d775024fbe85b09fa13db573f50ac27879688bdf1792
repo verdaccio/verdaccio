@@ -1,0 +1,3 @@
+{{!-- pr reference --}}- {{#if pr}}[{{pr}}]({{#if @root.host}}{{@root.host}}/{{/if}}{{#if this.repository}}{{#if this.owner}}{{this.owner}}/{{/if}}{{this.repository}}{{else}}{{#if @root.owner}}{{@root.owner}}/{{/if}}{{@root.repository}}{{/if}}/pull/{{pr}}){{/if}}
+
+{{~!-- message --}} **{{taggedAs}}** {{message}}

@@ -1,0 +1,32 @@
+{
+  "name": "lunr-mutable-indexes",
+  "version": "2.3.2",
+  "description": "Mutable indexes for lunr.js 2.x or greater",
+  "main": "lunr-mutable.js",
+  "scripts": {
+    "test": "make test",
+    "prepare": "make lunr-mutable.js",
+    "prepublishOnly": "bash prepublish.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoelzro/lunr-mutable-indexes.git"
+  },
+  "keywords": [
+    "search",
+    "lunr"
+  ],
+  "author": "Rob Hoelz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoelzro/lunr-mutable-indexes/issues"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
+  },
+  "homepage": "https://github.com/hoelzro/lunr-mutable-indexes#readme",
+  "dependencies": {
+    "lunr": ">= 2.3.0 < 2.4.0"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "pkginfo",
+  "version": "0.4.1",
+  "license": "MIT",
+  "description": "An easy way to expose properties on a module from a package.json",
+  "author": "Charlie Robbins <charlie.robbins@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/indexzero/node-pkginfo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/indexzero/node-pkginfo/issues"
+  },
+  "keywords": [
+    "info",
+    "tools",
+    "package.json"
+  ],
+  "devDependencies": {
+    "vows": "0.8.0"
+  },
+  "main": "./lib/pkginfo.js",
+  "scripts": {
+    "test": "vows test/*-test.js --spec"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  }
+}

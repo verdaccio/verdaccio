@@ -1,0 +1,21 @@
+{
+  "name": "@babel/helper-builder-react-jsx-experimental",
+  "version": "7.10.5",
+  "description": "Helper function to build react jsx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/babel/babel.git",
+    "directory": "packages/babel-helper-builder-react-jsx-experimental"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@babel/helper-annotate-as-pure": "^7.10.4",
+    "@babel/helper-module-imports": "^7.10.4",
+    "@babel/types": "^7.10.5"
+  },
+  "gitHead": "f7964a9ac51356f7df6404a25b27ba1cffba1ba7"
+}

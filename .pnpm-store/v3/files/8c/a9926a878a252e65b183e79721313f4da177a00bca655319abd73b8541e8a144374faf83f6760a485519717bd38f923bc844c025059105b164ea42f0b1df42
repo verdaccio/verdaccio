@@ -1,0 +1,62 @@
+{
+  "name": "level",
+  "version": "5.0.1",
+  "description": "Fast & simple storage - a Node.js-style LevelDB wrapper (a convenience package bundling LevelUP & LevelDOWN)",
+  "license": "MIT",
+  "main": "level.js",
+  "scripts": {
+    "test": "standard && nyc node test.js && verify-travis-appveyor",
+    "test-browser-local": "airtap --local test-browser.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "postinstall": "opencollective-postinstall || exit 0",
+    "hallmark": "hallmark --fix",
+    "dependency-check": "dependency-check . browser.js test*.js",
+    "prepublishOnly": "npm run dependency-check"
+  },
+  "browser": "browser.js",
+  "dependencies": {
+    "level-js": "^4.0.0",
+    "level-packager": "^5.0.0",
+    "leveldown": "^5.0.0",
+    "opencollective-postinstall": "^2.0.0"
+  },
+  "devDependencies": {
+    "airtap": "^2.0.1",
+    "coveralls": "^3.0.2",
+    "dependency-check": "^3.3.0",
+    "hallmark": "^0.1.0",
+    "level-community": "^3.0.0",
+    "nyc": "^13.2.0",
+    "pinkie": "^2.0.4",
+    "standard": "^12.0.0",
+    "tape": "^4.2.2",
+    "uuid": "^3.3.2",
+    "verify-travis-appveyor": "^3.0.0"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/level",
+    "logo": "https://opencollective.com/level/logo.txt"
+  },
+  "hallmark": {
+    "community": "level-community"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Level/level.git"
+  },
+  "homepage": "https://github.com/Level/level",
+  "keywords": [
+    "level",
+    "leveldb",
+    "stream",
+    "database",
+    "db",
+    "store",
+    "storage",
+    "json"
+  ],
+  "engines": {
+    "node": ">=8.6.0"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "urlgrey",
+  "description": "urlgrey is a library for url querying and manipulation",
+  "keywords": [
+    "url",
+    "uri"
+  ],
+  "version": "0.4.4",
+  "bugs": {
+    "url": "https://github.com/cainus/urlgrey/issues"
+  },
+  "scripts": {
+    "test": "make test-coveralls"
+  },
+  "browser": {
+    "url": "./browser/url.js",
+    "querystring": "./browser/querystring.js"
+  },
+  "maintainers": [
+    "Gregg Caines <gregg@caines.ca> (http://caines.ca)"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "tape": "2.3.0",
+    "jshint": "2.3.0",
+    "jscoverage": "0.3.6",
+    "mocha-lcov-reporter": "0.0.1",
+    "coveralls": "2.5.0",
+    "mocha": "1.8.1",
+    "browserify": "2.35.2",
+    "chai": "1.8.1",
+    "istanbul": "0.1.45",
+    "uglify-js": "2.4.3"
+  },
+  "engine": {
+    "node": ">=0.8.6"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "testling": {
+    "browsers": [
+      "ie10",
+      "ie11",
+      "firefox/nightly",
+      "firefox/25",
+      "firefox/8",
+      "chrome/6",
+      "chrome/18",
+      "chrome/31",
+      "chrome/canary",
+      "opera/17"
+    ],
+    "harness": "mocha",
+    "files": "test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cainus/urlgrey.git"
+  },
+  "author": "Gregg Caines",
+  "license": "BSD-2-Clause"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "human-id",
+  "version": "1.0.2",
+  "description": "Returns a humand readable ID",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/safebyte/human-id.git"
+  },
+  "keywords": [
+    "human",
+    "readable",
+    "id"
+  ],
+  "author": "RienNeVaPlus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/safebyte/human-id/issues"
+  },
+  "homepage": "https://github.com/safebyte/human-id#readme"
+}

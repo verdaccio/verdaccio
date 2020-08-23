@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["index.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,iCAA2C;AAE3C,iBAAS,wBAAiB,CAAC","sourcesContent":["'use strict';\n\nimport { findWorkspaceRoot } from './core';\n\nexport = findWorkspaceRoot;\n"]}

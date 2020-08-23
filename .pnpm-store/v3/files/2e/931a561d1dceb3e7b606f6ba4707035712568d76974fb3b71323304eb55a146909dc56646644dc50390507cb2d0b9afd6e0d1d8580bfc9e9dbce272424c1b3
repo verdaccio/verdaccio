@@ -1,0 +1,49 @@
+{
+  "name": "git-raw-commits",
+  "version": "2.0.7",
+  "description": "Get raw git commits out of your repository using git-log(1)",
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#readme",
+  "author": {
+    "name": "Steve Mao",
+    "email": "maochenyan@gmail.com",
+    "url": "https://github.com/stevemao"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "git-raw-commits",
+    "raw",
+    "commit",
+    "commits",
+    "git",
+    "log",
+    "git-log"
+  ],
+  "dependencies": {
+    "dargs": "^7.0.0",
+    "lodash.template": "^4.0.2",
+    "meow": "^7.0.0",
+    "split2": "^2.0.0",
+    "through2": "^3.0.0"
+  },
+  "scripts": {
+    "test-windows": "mocha --timeout 30000"
+  },
+  "bin": {
+    "git-raw-commits": "cli.js"
+  },
+  "gitHead": "83643c5a0d2c4d7c9ba14cbf990ffbc577a51e8c"
+}

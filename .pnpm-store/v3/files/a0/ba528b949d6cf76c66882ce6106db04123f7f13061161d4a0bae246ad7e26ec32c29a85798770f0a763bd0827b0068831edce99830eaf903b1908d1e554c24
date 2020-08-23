@@ -1,0 +1,86 @@
+{
+  "version": "4.12.0",
+  "name": "csv-parse",
+  "description": "CSV parsing implementing the Node.js `stream.Transform` API",
+  "keywords": [
+    "csv",
+    "parse",
+    "parser",
+    "convert",
+    "tsv",
+    "stream"
+  ],
+  "coffeelintConfig": {
+    "indentation": {
+      "level": "error",
+      "value": 2
+    },
+    "line_endings": {
+      "level": "error",
+      "value": "unix"
+    },
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
+  "author": "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+  "contributors": [
+    "David Worms <david@adaltas.com> (https://www.adaltas.com)",
+    "Will White (https://github.com/willwhite)",
+    "Justin Latimer (https://github.com/justinlatimer)",
+    "jonseymour (https://github.com/jonseymour)",
+    "pascalopitz (https://github.com/pascalopitz)",
+    "Josh Pschorr (https://github.com/jpschorr)",
+    "Elad Ben-Israel (https://github.com/eladb)",
+    "Philippe Plantier (https://github.com/phipla)",
+    "Tim Oxley (https://github.com/timoxley)",
+    "Damon Oehlman (https://github.com/DamonOehlman)",
+    "Alexandru Topliceanu (https://github.com/topliceanu)",
+    "Visup (https://github.com/visup)",
+    "Edmund von der Burg (https://github.com/evdb)",
+    "Douglas Christopher Wilson (https://github.com/dougwilson)",
+    "Joe Eaves (https://github.com/Joeasaurus)",
+    "Mark Stosberg (https://github.com/markstos)"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wdavidw/node-csv-parse"
+  },
+  "homepage": "https://csv.js.org/parse/",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.9",
+    "coffeescript": "^2.4.1",
+    "csv-generate": "^3.2.3",
+    "csv-spectrum": "^1.0.0",
+    "each": "^1.2.1",
+    "eslint": "^6.5.1",
+    "mocha": "^6.2.0",
+    "pad": "^3.2.0",
+    "should": "^13.2.3",
+    "stream-transform": "^2.0.1",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "files": [
+    "/lib"
+  ],
+  "optionalDependencies": {},
+  "main": "./lib",
+  "scripts": {
+    "preversion": "grep '## Trunk' CHANGELOG.md && npm test && cp lib/*.ts lib/es5 && git add lib/es5/*.ts",
+    "version": "version=`grep '^  \"version\": ' package.json | sed 's/.*\"\\([0-9\\.]*\\)\".*/\\1/'` && sed -i \"s/## Trunk/## Version $version/\" CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
+    "patch": "npm version patch -m 'Bump to version %s'",
+    "minor": "npm version minor -m 'Bump to version %s'",
+    "major": "npm version major -m 'Bump to version %s'",
+    "pretest": "cd lib && babel *.js  -d es5 && cd ..",
+    "lint": "eslint lib/*.js",
+    "test": "npm run lint && TS_NODE_COMPILER_OPTIONS='{\"strictNullChecks\":true}' mocha test/**/*.{coffee,ts}"
+  },
+  "types": "./lib/index.d.ts"
+}

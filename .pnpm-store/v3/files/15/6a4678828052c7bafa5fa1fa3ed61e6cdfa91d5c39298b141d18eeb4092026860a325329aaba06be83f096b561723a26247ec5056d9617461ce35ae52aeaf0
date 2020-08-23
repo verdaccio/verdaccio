@@ -1,0 +1,11 @@
+name: lint
+
+on: [push, pull_request]
+
+jobs:
+    lint:
+        runs_on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node_version: 

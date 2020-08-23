@@ -1,0 +1,54 @@
+{
+  "name": "conventional-changelog",
+  "version": "3.1.18",
+  "description": "Generate a changelog from git metadata",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+  },
+  "keywords": [
+    "conventional-changelog",
+    "conventional",
+    "changelog",
+    "log"
+  ],
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "contributors": [
+    {
+      "name": "Brian Ford"
+    },
+    {
+      "name": "Vojta Jína"
+    },
+    {
+      "name": "Andrew Joslin"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/conventional-changelog/conventional-changelog/issues"
+  },
+  "homepage": "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog#readme",
+  "dependencies": {
+    "conventional-changelog-angular": "^5.0.6",
+    "conventional-changelog-atom": "^2.0.3",
+    "conventional-changelog-codemirror": "^2.0.3",
+    "conventional-changelog-conventionalcommits": "^4.2.3",
+    "conventional-changelog-core": "^4.1.4",
+    "conventional-changelog-ember": "^2.0.4",
+    "conventional-changelog-eslint": "^3.0.4",
+    "conventional-changelog-express": "^2.0.1",
+    "conventional-changelog-jquery": "^3.0.6",
+    "conventional-changelog-jshint": "^2.0.3",
+    "conventional-changelog-preset-loader": "^2.3.0"
+  },
+  "scripts": {
+    "test-windows": "mocha --timeout 30000"
+  },
+  "gitHead": "d25d7acf46b60aa8c947ee71be2b4e057937219b"
+}

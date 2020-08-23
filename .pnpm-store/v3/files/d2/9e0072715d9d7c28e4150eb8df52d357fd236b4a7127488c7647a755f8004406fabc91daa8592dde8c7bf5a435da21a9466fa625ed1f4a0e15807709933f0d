@@ -1,0 +1,21 @@
+import { Callback, Logger, IPackageStorageManager, IUploadTarball, IReadTarball, CallbackAction, StorageUpdateCallback, StorageWriteCallback, PackageTransformer, Package, ReadPackageCallback } from '@verdaccio/types';
+export declare type DataHandler = {
+    [key: string]: string;
+};
+declare class MemoryHandler implements IPackageStorageManager {
+    private data;
+    private name;
+    private path;
+    logger: Logger;
+    constructor(packageName: string, data: DataHandler, logger: Logger);
+    updatePackage(pkgFileName: string, updateHandler: StorageUpdateCallback, onWrite: StorageWriteCallback, transformPackage: PackageTransformer, onEnd: CallbackAction): void;
+    deletePackage(pkgName: string, callback: Callback): void;
+    removePackage(callback: CallbackAction): void;
+    createPackage(name: string, value: Package, cb: CallbackAction): void;
+    savePackage(name: string, value: Package, cb: CallbackAction): void;
+    readPackage(name: string, cb: ReadPackageCallback): void;
+    writeTarball(name: string): IUploadTarball;
+    readTarball(name: string): IReadTarball;
+    private _getStorage;
+}
+export default MemoryHandler;

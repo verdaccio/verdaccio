@@ -1,0 +1,87 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.aesEncrypt = aesEncrypt;
+exports.aesDecrypt = aesDecrypt;
+exports.createTarballHash = createTarballHash;
+exports.stringToMD5 = stringToMD5;
+exports.generateRandomHexString = generateRandomHexString;
+exports.signPayload = signPayload;
+exports.verifyPayload = verifyPayload;
+exports.defaultTarballHashAlgorithm = exports.defaultAlgorithm = void 0;
+
+var _crypto = require("crypto");
+
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const defaultAlgorithm = 'aes192';
+exports.defaultAlgorithm = defaultAlgorithm;
+const defaultTarballHashAlgorithm = 'sha1';
+exports.defaultTarballHashAlgorithm = defaultTarballHashAlgorithm;
+
+function aesEncrypt(buf, secret) {
+  // deprecated (it will be migrated in Verdaccio 5), it is a breaking change
+  // https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options
+  // https://www.grainger.xyz/changing-from-cipher-to-cipheriv/
+  const c = (0, _crypto.createCipher)(defaultAlgorithm, secret);
+  const b1 = c.update(buf);
+  const b2 = c.final();
+  return Buffer.concat([b1, b2]);
+}
+
+function aesDecrypt(buf, secret) {
+  try {
+    // deprecated (it will be migrated in Verdaccio 5), it is a breaking change
+    // https://nodejs.org/api/crypto.html#crypto_crypto_createdecipher_algorithm_password_options
+    // https://www.grainger.xyz/changing-from-cipher-to-cipheriv/
+    const c = (0, _crypto.createDecipher)(defaultAlgorithm, secret);
+    const b1 = c.update(buf);
+    const b2 = c.final();
+    return Buffer.concat([b1, b2]);
+  } catch (_) {
+    return new Buffer(0);
+  }
+}
+
+function createTarballHash() {
+  return (0, _crypto.createHash)(defaultTarballHashAlgorithm);
+}
+/**
+ * Express doesn't do ETAGS with requests <= 1024b
+ * we use md5 here, it works well on 1k+ bytes, but sucks with fewer data
+ * could improve performance using crc32 after benchmarks.
+ * @param {Object} data
+ * @return {String}
+ */
+
+
+function stringToMD5(data) {
+  return (0, _crypto.createHash)('md5').update(data).digest('hex');
+}
+
+function generateRandomHexString(length = 8) {
+  return (0, _crypto.pseudoRandomBytes)(length).toString('hex');
+}
+
+async function signPayload(payload, secretOrPrivateKey, options) {
+  return new Promise(function (resolve, reject) {
+    return _jsonwebtoken.default.sign(payload, secretOrPrivateKey, _objectSpread({
+      notBefore: '1'
+    }, options), (error, token) => error ? reject(error) : resolve(token));
+  });
+}
+
+function verifyPayload(token, secretOrPrivateKey) {
+  return _jsonwebtoken.default.verify(token, secretOrPrivateKey);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9saWIvY3J5cHRvLXV0aWxzLnRzIl0sIm5hbWVzIjpbImRlZmF1bHRBbGdvcml0aG0iLCJkZWZhdWx0VGFyYmFsbEhhc2hBbGdvcml0aG0iLCJhZXNFbmNyeXB0IiwiYnVmIiwic2VjcmV0IiwiYyIsImIxIiwidXBkYXRlIiwiYjIiLCJmaW5hbCIsIkJ1ZmZlciIsImNvbmNhdCIsImFlc0RlY3J5cHQiLCJfIiwiY3JlYXRlVGFyYmFsbEhhc2giLCJzdHJpbmdUb01ENSIsImRhdGEiLCJkaWdlc3QiLCJnZW5lcmF0ZVJhbmRvbUhleFN0cmluZyIsImxlbmd0aCIsInRvU3RyaW5nIiwic2lnblBheWxvYWQiLCJwYXlsb2FkIiwic2VjcmV0T3JQcml2YXRlS2V5Iiwib3B0aW9ucyIsIlByb21pc2UiLCJyZXNvbHZlIiwicmVqZWN0Iiwiand0Iiwic2lnbiIsIm5vdEJlZm9yZSIsImVycm9yIiwidG9rZW4iLCJ2ZXJpZnlQYXlsb2FkIiwidmVyaWZ5Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBOztBQUNBOzs7Ozs7Ozs7O0FBSU8sTUFBTUEsZ0JBQWdCLEdBQUcsUUFBekI7O0FBQ0EsTUFBTUMsMkJBQTJCLEdBQUcsTUFBcEM7OztBQUVBLFNBQVNDLFVBQVQsQ0FBb0JDLEdBQXBCLEVBQWlDQyxNQUFqQyxFQUF5RDtBQUM5RDtBQUNBO0FBQ0E7QUFDQSxRQUFNQyxDQUFDLEdBQUcsMEJBQWFMLGdCQUFiLEVBQStCSSxNQUEvQixDQUFWO0FBQ0EsUUFBTUUsRUFBRSxHQUFHRCxDQUFDLENBQUNFLE1BQUYsQ0FBU0osR0FBVCxDQUFYO0FBQ0EsUUFBTUssRUFBRSxHQUFHSCxDQUFDLENBQUNJLEtBQUYsRUFBWDtBQUNBLFNBQU9DLE1BQU0sQ0FBQ0MsTUFBUCxDQUFjLENBQUNMLEVBQUQsRUFBS0UsRUFBTCxDQUFkLENBQVA7QUFDRDs7QUFFTSxTQUFTSSxVQUFULENBQW9CVCxHQUFwQixFQUFpQ0MsTUFBakMsRUFBeUQ7QUFDOUQsTUFBSTtBQUNGO0FBQ0E7QUFDQTtBQUNBLFVBQU1DLENBQUMsR0FBRyw0QkFBZUwsZ0JBQWYsRUFBaUNJLE1BQWpDLENBQVY7QUFDQSxVQUFNRSxFQUFFLEdBQUdELENBQUMsQ0FBQ0UsTUFBRixDQUFTSixHQUFULENBQVg7QUFDQSxVQUFNSyxFQUFFLEdBQUdILENBQUMsQ0FBQ0ksS0FBRixFQUFYO0FBQ0EsV0FBT0MsTUFBTSxDQUFDQyxNQUFQLENBQWMsQ0FBQ0wsRUFBRCxFQUFLRSxFQUFMLENBQWQsQ0FBUDtBQUNELEdBUkQsQ0FRRSxPQUFPSyxDQUFQLEVBQVU7QUFDVixXQUFPLElBQUlILE1BQUosQ0FBVyxDQUFYLENBQVA7QUFDRDtBQUNGOztBQUVNLFNBQVNJLGlCQUFULEdBQW1DO0FBQ3hDLFNBQU8sd0JBQVdiLDJCQUFYLENBQVA7QUFDRDtBQUVEOzs7Ozs7Ozs7QUFPTyxTQUFTYyxXQUFULENBQXFCQyxJQUFyQixFQUFvRDtBQUN6RCxTQUFPLHdCQUFXLEtBQVgsRUFDSlQsTUFESSxDQUNHUyxJQURILEVBRUpDLE1BRkksQ0FFRyxLQUZILENBQVA7QUFHRDs7QUFFTSxTQUFTQyx1QkFBVCxDQUFpQ0MsTUFBTSxHQUFHLENBQTFDLEVBQXFEO0FBQzFELFNBQU8sK0JBQWtCQSxNQUFsQixFQUEwQkMsUUFBMUIsQ0FBbUMsS0FBbkMsQ0FBUDtBQUNEOztBQUVNLGVBQWVDLFdBQWYsQ0FBMkJDLE9BQTNCLEVBQWdEQyxrQkFBaEQsRUFBNEVDLE9BQTVFLEVBQXNIO0FBQzNILFNBQU8sSUFBSUMsT0FBSixDQUFZLFVBQVNDLE9BQVQsRUFBa0JDLE1BQWxCLEVBQTJDO0FBQzVELFdBQU9DLHNCQUFJQyxJQUFKLENBQ0xQLE9BREssRUFFTEMsa0JBRks7QUFJSE8sTUFBQUEsU0FBUyxFQUFFO0FBSlIsT0FLQU4sT0FMQSxHQU9MLENBQUNPLEtBQUQsRUFBUUMsS0FBUixLQUFtQkQsS0FBSyxHQUFHSixNQUFNLENBQUNJLEtBQUQsQ0FBVCxHQUFtQkwsT0FBTyxDQUFDTSxLQUFELENBUDdDLENBQVA7QUFTRCxHQVZNLENBQVA7QUFXRDs7QUFFTSxTQUFTQyxhQUFULENBQXVCRCxLQUF2QixFQUFzQ1Qsa0JBQXRDLEVBQThFO0FBQ25GLFNBQU9LLHNCQUFJTSxNQUFKLENBQVdGLEtBQVgsRUFBa0JULGtCQUFsQixDQUFQO0FBQ0QiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjcmVhdGVEZWNpcGhlciwgY3JlYXRlQ2lwaGVyLCBjcmVhdGVIYXNoLCBwc2V1ZG9SYW5kb21CeXRlcywgSGFzaCB9IGZyb20gJ2NyeXB0byc7XG5pbXBvcnQgand0IGZyb20gJ2pzb253ZWJ0b2tlbic7XG5cbmltcG9ydCB7IEpXVFNpZ25PcHRpb25zLCBSZW1vdGVVc2VyIH0gZnJvbSAnQHZlcmRhY2Npby90eXBlcyc7XG5cbmV4cG9ydCBjb25zdCBkZWZhdWx0QWxnb3JpdGhtID0gJ2FlczE5Mic7XG5leHBvcnQgY29uc3QgZGVmYXVsdFRhcmJhbGxIYXNoQWxnb3JpdGhtID0gJ3NoYTEnO1xuXG5leHBvcnQgZnVuY3Rpb24gYWVzRW5jcnlwdChidWY6IEJ1ZmZlciwgc2VjcmV0OiBzdHJpbmcpOiBCdWZmZXIge1xuICAvLyBkZXByZWNhdGVkIChpdCB3aWxsIGJlIG1pZ3JhdGVkIGluIFZlcmRhY2NpbyA1KSwgaXQgaXMgYSBicmVha2luZyBjaGFuZ2VcbiAgLy8gaHR0cHM6Ly9ub2RlanMub3JnL2FwaS9jcnlwdG8uaHRtbCNjcnlwdG9fY3J5cHRvX2NyZWF0ZWNpcGhlcl9hbGdvcml0aG1fcGFzc3dvcmRfb3B0aW9uc1xuICAvLyBodHRwczovL3d3dy5ncmFpbmdlci54eXovY2hhbmdpbmctZnJvbS1jaXBoZXItdG8tY2lwaGVyaXYvXG4gIGNvbnN0IGMgPSBjcmVhdGVDaXBoZXIoZGVmYXVsdEFsZ29yaXRobSwgc2VjcmV0KTtcbiAgY29uc3QgYjEgPSBjLnVwZGF0ZShidWYpO1xuICBjb25zdCBiMiA9IGMuZmluYWwoKTtcbiAgcmV0dXJuIEJ1ZmZlci5jb25jYXQoW2IxLCBiMl0pO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gYWVzRGVjcnlwdChidWY6IEJ1ZmZlciwgc2VjcmV0OiBzdHJpbmcpOiBCdWZmZXIge1xuICB0cnkge1xuICAgIC8vIGRlcHJlY2F0ZWQgKGl0IHdpbGwgYmUgbWlncmF0ZWQgaW4gVmVyZGFjY2lvIDUpLCBpdCBpcyBhIGJyZWFraW5nIGNoYW5nZVxuICAgIC8vIGh0dHBzOi8vbm9kZWpzLm9yZy9hcGkvY3J5cHRvLmh0bWwjY3J5cHRvX2NyeXB0b19jcmVhdGVkZWNpcGhlcl9hbGdvcml0aG1fcGFzc3dvcmRfb3B0aW9uc1xuICAgIC8vIGh0dHBzOi8vd3d3LmdyYWluZ2VyLnh5ei9jaGFuZ2luZy1mcm9tLWNpcGhlci10by1jaXBoZXJpdi9cbiAgICBjb25zdCBjID0gY3JlYXRlRGVjaXBoZXIoZGVmYXVsdEFsZ29yaXRobSwgc2VjcmV0KTtcbiAgICBjb25zdCBiMSA9IGMudXBkYXRlKGJ1Zik7XG4gICAgY29uc3QgYjIgPSBjLmZpbmFsKCk7XG4gICAgcmV0dXJuIEJ1ZmZlci5jb25jYXQoW2IxLCBiMl0pO1xuICB9IGNhdGNoIChfKSB7XG4gICAgcmV0dXJuIG5ldyBCdWZmZXIoMCk7XG4gIH1cbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGNyZWF0ZVRhcmJhbGxIYXNoKCk6IEhhc2gge1xuICByZXR1cm4gY3JlYXRlSGFzaChkZWZhdWx0VGFyYmFsbEhhc2hBbGdvcml0aG0pO1xufVxuXG4vKipcbiAqIEV4cHJlc3MgZG9lc24ndCBkbyBFVEFHUyB3aXRoIHJlcXVlc3RzIDw9IDEwMjRiXG4gKiB3ZSB1c2UgbWQ1IGhlcmUsIGl0IHdvcmtzIHdlbGwgb24gMWsrIGJ5dGVzLCBidXQgc3Vja3Mgd2l0aCBmZXdlciBkYXRhXG4gKiBjb3VsZCBpbXByb3ZlIHBlcmZvcm1hbmNlIHVzaW5nIGNyYzMyIGFmdGVyIGJlbmNobWFya3MuXG4gKiBAcGFyYW0ge09iamVjdH0gZGF0YVxuICogQHJldHVybiB7U3RyaW5nfVxuICovXG5leHBvcnQgZnVuY3Rpb24gc3RyaW5nVG9NRDUoZGF0YTogQnVmZmVyIHwgc3RyaW5nKTogc3RyaW5nIHtcbiAgcmV0dXJuIGNyZWF0ZUhhc2goJ21kNScpXG4gICAgLnVwZGF0ZShkYXRhKVxuICAgIC5kaWdlc3QoJ2hleCcpO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gZ2VuZXJhdGVSYW5kb21IZXhTdHJpbmcobGVuZ3RoID0gOCk6IHN0cmluZyB7XG4gIHJldHVybiBwc2V1ZG9SYW5kb21CeXRlcyhsZW5ndGgpLnRvU3RyaW5nKCdoZXgnKTtcbn1cblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHNpZ25QYXlsb2FkKHBheWxvYWQ6IFJlbW90ZVVzZXIsIHNlY3JldE9yUHJpdmF0ZUtleTogc3RyaW5nLCBvcHRpb25zOiBKV1RTaWduT3B0aW9ucyk6IFByb21pc2U8c3RyaW5nPiB7XG4gIHJldHVybiBuZXcgUHJvbWlzZShmdW5jdGlvbihyZXNvbHZlLCByZWplY3QpOiBQcm9taXNlPHN0cmluZz4ge1xuICAgIHJldHVybiBqd3Quc2lnbihcbiAgICAgIHBheWxvYWQsXG4gICAgICBzZWNyZXRPclByaXZhdGVLZXksXG4gICAgICB7XG4gICAgICAgIG5vdEJlZm9yZTogJzEnLCAvLyBNYWtlIHN1cmUgdGhlIHRpbWUgd2lsbCBub3Qgcm9sbGJhY2sgOilcbiAgICAgICAgLi4ub3B0aW9ucyxcbiAgICAgIH0sXG4gICAgICAoZXJyb3IsIHRva2VuKSA9PiAoZXJyb3IgPyByZWplY3QoZXJyb3IpIDogcmVzb2x2ZSh0b2tlbikpXG4gICAgKTtcbiAgfSk7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB2ZXJpZnlQYXlsb2FkKHRva2VuOiBzdHJpbmcsIHNlY3JldE9yUHJpdmF0ZUtleTogc3RyaW5nKTogUmVtb3RlVXNlciB7XG4gIHJldHVybiBqd3QudmVyaWZ5KHRva2VuLCBzZWNyZXRPclByaXZhdGVLZXkpO1xufVxuIl19

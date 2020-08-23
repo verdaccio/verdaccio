@@ -1,0 +1,36 @@
+{
+  "name": "modify-values",
+  "version": "1.0.1",
+  "description": "Modify the values of an object",
+  "license": "MIT",
+  "repository": "sindresorhus/modify-values",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "object",
+    "assign",
+    "extend",
+    "properties",
+    "values",
+    "val",
+    "transform",
+    "transformation",
+    "map",
+    "modify"
+  ],
+  "devDependencies": {
+    "ava": "*"
+  }
+}

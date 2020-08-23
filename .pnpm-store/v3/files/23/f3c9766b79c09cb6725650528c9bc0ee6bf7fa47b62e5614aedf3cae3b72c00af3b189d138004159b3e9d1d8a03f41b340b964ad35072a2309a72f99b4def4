@@ -1,0 +1,177 @@
+'use strict'
+
+/* eslint no-prototype-builtins: 0 */
+
+const { EventEmitter } = require('events')
+const SonicBoom = require('sonic-boom')
+const flatstr = require('flatstr')
+const {
+  lsCacheSym,
+  levelValSym,
+  setLevelSym,
+  getLevelSym,
+  chindingsSym,
+  mixinSym,
+  asJsonSym,
+  writeSym,
+  timeSym,
+  timeSliceIndexSym,
+  streamSym,
+  serializersSym,
+  formattersSym,
+  useOnlyCustomLevelsSym,
+  needsMetadataGsym
+} = require('./symbols')
+const {
+  getLevel,
+  setLevel,
+  isLevelEnabled,
+  mappings,
+  initialLsCache,
+  genLsCache,
+  assertNoLevelCollisions
+} = require('./levels')
+const {
+  asChindings,
+  asJson,
+  buildFormatters
+} = require('./tools')
+const {
+  version
+} = require('./meta')
+
+// note: use of class is satirical
+// https://github.com/pinojs/pino/pull/433#pullrequestreview-127703127
+const constructor = class Pino {}
+const prototype = {
+  constructor,
+  child,
+  bindings,
+  setBindings,
+  flush,
+  isLevelEnabled,
+  version,
+  get level () { return this[getLevelSym]() },
+  set level (lvl) { return this[setLevelSym](lvl) },
+  get levelVal () { return this[levelValSym] },
+  set levelVal (n) { throw Error('levelVal is read-only') },
+  [lsCacheSym]: initialLsCache,
+  [writeSym]: write,
+  [asJsonSym]: asJson,
+  [getLevelSym]: getLevel,
+  [setLevelSym]: setLevel
+}
+
+Object.setPrototypeOf(prototype, EventEmitter.prototype)
+
+module.exports = prototype
+
+const resetChildingsFormatter = bindings => bindings
+function child (bindings) {
+  if (!bindings) {
+    throw Error('missing bindings for child Pino')
+  }
+  const serializers = this[serializersSym]
+  const formatters = this[formattersSym]
+  const instance = Object.create(this)
+  if (bindings.hasOwnProperty('serializers') === true) {
+    instance[serializersSym] = Object.create(null)
+
+    for (var k in serializers) {
+      instance[serializersSym][k] = serializers[k]
+    }
+    const parentSymbols = Object.getOwnPropertySymbols(serializers)
+    for (var i = 0; i < parentSymbols.length; i++) {
+      const ks = parentSymbols[i]
+      instance[serializersSym][ks] = serializers[ks]
+    }
+
+    for (var bk in bindings.serializers) {
+      instance[serializersSym][bk] = bindings.serializers[bk]
+    }
+    const bindingsSymbols = Object.getOwnPropertySymbols(bindings.serializers)
+    for (var bi = 0; bi < bindingsSymbols.length; bi++) {
+      const bks = bindingsSymbols[bi]
+      instance[serializersSym][bks] = bindings.serializers[bks]
+    }
+  } else instance[serializersSym] = serializers
+  if (bindings.hasOwnProperty('formatters')) {
+    const { level, bindings: chindings, log } = bindings.formatters
+    instance[formattersSym] = buildFormatters(
+      level || formatters.level,
+      chindings || resetChildingsFormatter,
+      log || formatters.log
+    )
+  } else {
+    instance[formattersSym] = buildFormatters(
+      formatters.level,
+      resetChildingsFormatter,
+      formatters.log
+    )
+  }
+  if (bindings.hasOwnProperty('customLevels') === true) {
+    assertNoLevelCollisions(this.levels, bindings.customLevels)
+    instance.levels = mappings(bindings.customLevels, instance[useOnlyCustomLevelsSym])
+    genLsCache(instance)
+  }
+  instance[chindingsSym] = asChindings(instance, bindings)
+  const childLevel = bindings.level || this.level
+  instance[setLevelSym](childLevel)
+
+  return instance
+}
+
+function bindings () {
+  const chindings = this[chindingsSym]
+  var chindingsJson = `{${chindings.substr(1)}}` // at least contains ,"pid":7068,"hostname":"myMac"
+  var bindingsFromJson = JSON.parse(chindingsJson)
+  delete bindingsFromJson.pid
+  delete bindingsFromJson.hostname
+  return bindingsFromJson
+}
+
+function setBindings (newBindings) {
+  const chindings = asChindings(this, newBindings)
+  this[chindingsSym] = chindings
+}
+
+function write (_obj, msg, num) {
+  const t = this[timeSym]()
+  const mixin = this[mixinSym]
+  const objError = _obj instanceof Error
+  var obj
+
+  if (_obj === undefined || _obj === null) {
+    obj = mixin ? mixin() : {}
+  } else {
+    obj = Object.assign(mixin ? mixin() : {}, _obj)
+    if (!msg && objError) {
+      msg = _obj.message
+    }
+
+    if (objError) {
+      obj.stack = _obj.stack
+      if (!obj.type) {
+        obj.type = 'Error'
+      }
+    }
+  }
+
+  const s = this[asJsonSym](obj, msg, num, t)
+
+  const stream = this[streamSym]
+  if (stream[needsMetadataGsym] === true) {
+    stream.lastLevel = num
+    stream.lastObj = obj
+    stream.lastMsg = msg
+    stream.lastTime = t.slice(this[timeSliceIndexSym])
+    stream.lastLogger = this // for child loggers
+  }
+  if (stream instanceof SonicBoom) stream.write(s)
+  else stream.write(flatstr(s))
+}
+
+function flush () {
+  const stream = this[streamSym]
+  if ('flush' in stream) stream.flush()
+}

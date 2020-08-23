@@ -1,0 +1,19 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["./index.js"],
+    "exclude": ["./node_modules", "./.nyc_output", "./coverage", "./out", "./tests"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": [],
+  "templates": {},
+  "opts": {
+    "destination": "./out",
+    "recurse": true,
+    "private": true
+  }
+}

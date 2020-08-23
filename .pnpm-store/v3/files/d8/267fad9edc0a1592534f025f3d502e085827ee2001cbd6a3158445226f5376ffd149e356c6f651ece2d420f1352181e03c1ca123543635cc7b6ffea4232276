@@ -1,0 +1,44 @@
+{
+	"name": "windows-release",
+	"version": "3.3.1",
+	"description": "Get the name of a Windows version from the release number: `5.1.2600` → `XP`",
+	"license": "MIT",
+	"repository": "sindresorhus/windows-release",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"os",
+		"win",
+		"win32",
+		"windows",
+		"operating",
+		"system",
+		"platform",
+		"name",
+		"title",
+		"release",
+		"version"
+	],
+	"dependencies": {
+		"execa": "^1.0.0"
+	},
+	"devDependencies": {
+		"ava": "^1.4.1",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
+	}
+}

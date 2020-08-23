@@ -1,0 +1,177 @@
+{
+  "name": "lockfile-lint-api",
+  "version": "2.3.0",
+  "description": "Lint an npm or yarn lockfile to analyze and detect issues",
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier-standard '**/*.js'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage:view": "open-cli coverage/lcov-report/index.html",
+    "commit": "git-cz",
+    "docs": "yarn run docs:code && yarn run docs:api",
+    "docs:api": "doxdox *.js --layout bootstrap --output docs/index.html",
+    "docs:code": "docco *.js --output docs/code",
+    "semantic-release": "semantic-release"
+  },
+  "author": {
+    "name": "Liran Tal",
+    "email": "liran.tal@gmail.com",
+    "url": "https://github.com/lirantal"
+  },
+  "files": [
+    "index.js",
+    "src/**/*.js"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "lockfile",
+    "lock",
+    "file",
+    "lint",
+    "linter",
+    "parse",
+    "npm",
+    "yarn"
+  ],
+  "homepage": "https://github.com/lirantal/lockfile-lint",
+  "bugs": {
+    "url": "https://github.com/lirantal/lockfile-lint/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lirantal/lockfile-lint.git"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "debug": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "docco": "^0.8.0",
+    "doxdox": "3.0.0",
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "24.8.0",
+    "open-cli": "^5.0.0",
+    "prettier-standard": "9.1.1",
+    "semantic-release": "^15.3.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "notify": true,
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "testPathIgnorePatterns": [
+      "/__tests__/.*/__fixtures__/.*"
+    ],
+    "collectCoverageFrom": [
+      "index.js",
+      "src/**/*.{js,ts}"
+    ],
+    "testMatch": [
+      "**/*.test.js"
+    ]
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/out/"
+    ]
+  },
+  "eslintIgnore": [
+    "coverage/**"
+  ],
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "plugins": [
+      "import",
+      "standard",
+      "node",
+      "security",
+      "jest"
+    ],
+    "extends": [
+      "standard",
+      "plugin:node/recommended"
+    ],
+    "rules": {
+      "no-process-exit": "warn",
+      "jest/no-disabled-tests": "error",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "node/no-unsupported-features": "off",
+      "node/no-unpublished-require": "off",
+      "security/detect-non-literal-fs-filename": "error",
+      "security/detect-unsafe-regex": "error",
+      "security/detect-buffer-noassert": "error",
+      "security/detect-child-process": "error",
+      "security/detect-disable-mustache-escape": "error",
+      "security/detect-eval-with-expression": "error",
+      "security/detect-no-csrf-before-method-override": "error",
+      "security/detect-non-literal-regexp": "error",
+      "security/detect-object-injection": "warn",
+      "security/detect-possible-timing-attacks": "error",
+      "security/detect-pseudoRandomBytes": "error",
+      "space-before-function-paren": "off",
+      "object-curly-spacing": "off"
+    },
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "ecmaFeatures": {
+        "impliedStrict": true
+      }
+    }
+  },
+  "release": {
+    "branch": "master",
+    "analyzeCommits": {
+      "preset": "angular",
+      "releaseRules": [
+        {
+          "type": "docs",
+          "release": "patch"
+        },
+        {
+          "type": "refactor",
+          "release": "patch"
+        },
+        {
+          "type": "style",
+          "release": "patch"
+        }
+      ]
+    }
+  },
+  "gitHead": "abc71fa09a39ef2975648ac540eb4c57534ee463"
+}

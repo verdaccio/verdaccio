@@ -1,0 +1,12 @@
+{
+  "name": "@changesets/logger",
+  "version": "0.0.5",
+  "description": "Console log alias",
+  "main": "dist/logger.cjs.js",
+  "module": "dist/logger.esm.js",
+  "license": "MIT",
+  "repository": "https://github.com/changesets/changesets/tree/master/packages/logger",
+  "dependencies": {
+    "chalk": "^2.1.0"
+  }
+}

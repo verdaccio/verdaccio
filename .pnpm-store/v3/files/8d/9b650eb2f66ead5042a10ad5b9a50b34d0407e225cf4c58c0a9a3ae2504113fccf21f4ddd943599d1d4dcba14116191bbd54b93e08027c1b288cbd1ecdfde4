@@ -1,0 +1,24 @@
+FROM centos:7
+
+RUN yum install -y epel-release
+
+# Install nodejs 
+RUN yum install -y nodejs npm
+# RUN ln -s /usr/bin/nodejs /usr/bin/node
+# Install bzip2 
+RUN yum install -y bzip2
+
+RUN yum install -y git
+
+# Install smartwrap
+RUN git clone --branch master https://www.github.com/tecfu/smartwrap
+
+# Install grunt
+RUN npm install grunt-cli -g
+
+# Install dev dependencies
+WORKDIR /smartwrap
+RUN npm install
+
+# Run unit tests
+RUN grunt t

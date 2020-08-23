@@ -1,0 +1,86 @@
+{
+  "name": "nock",
+  "description": "HTTP server mocking and expectations library for Node.js",
+  "tags": [
+    "Mock",
+    "HTTP",
+    "testing",
+    "isolation"
+  ],
+  "version": "12.0.3",
+  "author": "Pedro Teixeira <pedro.teixeira@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nock/nock.git"
+  },
+  "bugs": {
+    "url": "http://github.com/nock/nock/issues"
+  },
+  "engines": {
+    "node": ">= 10.13"
+  },
+  "main": "./index.js",
+  "types": "types",
+  "dependencies": {
+    "debug": "^4.1.0",
+    "json-stringify-safe": "^5.0.1",
+    "lodash": "^4.17.13",
+    "propagate": "^2.0.0"
+  },
+  "devDependencies": {
+    "assert-rejects": "^1.0.0",
+    "chai": "^4.1.2",
+    "dirty-chai": "^2.0.1",
+    "dtslint": "^3.0.0",
+    "eslint": "^6.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-standard": "^14.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-mocha": "^6.2.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "got": "^10.5.2",
+    "@sinonjs/fake-timers": "^6.0.0",
+    "mocha": "^7.0.1",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.0.0",
+    "prettier": "1.19.0",
+    "proxyquire": "^2.1.0",
+    "request": "^2.83.0",
+    "rimraf": "^3.0.0",
+    "semantic-release": "^17.0.2",
+    "sinon": "^9.0.0",
+    "sinon-chai": "^3.3.0",
+    "superagent": "^5.0.2",
+    "tap": "14.6.1"
+  },
+  "scripts": {
+    "format:fix": "prettier --write '**/*.{js,json,md,ts,yml,yaml}'",
+    "format": "prettier --check '**/*.{js,json,md,ts,yml,yaml}'",
+    "lint": "run-p lint:js lint:ts",
+    "lint:js": "eslint --cache --cache-location './.cache/eslint' '**/*.js'",
+    "lint:js:fix": "eslint --cache --cache-location './.cache/eslint' --fix '**/*.js'",
+    "lint:ts": "dtslint types",
+    "semantic-release": "semantic-release",
+    "test": "run-s test:mocha test:tap",
+    "test:coverage": "tap --coverage-report=html && open coverage/lcov-report/index.html",
+    "test:mocha": "nyc mocha $(grep -lr '^\\s*it(' tests)",
+    "test:tap": "tap --100 --coverage --coverage-report=text ./tests/test_*.js"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "exclude": [
+      "tests/"
+    ]
+  },
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "lib",
+    "types/index.d.ts"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "gitconfiglocal",
+  "version": "1.0.0",
+  "description": "parse the .git/config file into a useful data structure",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soldair/node-gitconfiglocal.git"
+  },
+  "keywords": [
+    "git",
+    "config"
+  ],
+  "author": "Ryan Day",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "ini": "^1.3.2"
+  },
+  "devDependencies": {
+    "tape": "^3.4.0"
+  }
+}

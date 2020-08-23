@@ -1,0 +1,1 @@
+!function(e,n){"object"==typeof exports&&"undefined"!=typeof module?module.exports=n():"function"==typeof define&&define.amd?define(n):e.dayjs_plugin_isMoment=n()}(this,function(){"use strict";return function(e,n,t){t.isMoment=function(e){return t.isDayjs(e)}}});

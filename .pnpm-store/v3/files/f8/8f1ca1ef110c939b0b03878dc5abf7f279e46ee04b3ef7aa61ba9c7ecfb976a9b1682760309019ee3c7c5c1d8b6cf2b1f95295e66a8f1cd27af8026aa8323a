@@ -1,0 +1,26 @@
+{
+  "name": "formidable",
+  "description": "A node.js module for parsing form data, especially file uploads.",
+  "homepage": "https://github.com/node-formidable/formidable",
+  "funding": "https://ko-fi.com/tunnckoCore/commissions",
+  "repository": "node-formidable/formidable",
+  "license": "MIT",
+  "version": "1.2.2",
+  "devDependencies": {
+    "gently": "^0.8.0",
+    "findit": "^0.1.2",
+    "hashish": "^0.0.4",
+    "urun": "^0.0.6",
+    "utest": "^0.0.8",
+    "request": "^2.11.4"
+  },
+  "files": [
+    "lib",
+    "benchmark-2020-01-29_xeon-x3440.png"
+  ],
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "node test/run.js",
+    "clean": "rm test/tmp/*"
+  }
+}

@@ -1,0 +1,19 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Memory", {
+  enumerable: true,
+  get: function () {
+    return _Memory.default;
+  }
+});
+exports.default = void 0;
+
+var _Memory = _interopRequireDefault(require("./Memory"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _Memory.default;
+exports.default = _default;

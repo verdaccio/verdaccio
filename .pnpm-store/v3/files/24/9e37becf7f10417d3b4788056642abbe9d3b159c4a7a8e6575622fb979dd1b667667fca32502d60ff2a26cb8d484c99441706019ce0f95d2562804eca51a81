@@ -1,0 +1,35 @@
+{
+  "name": "git-remote-origin-url",
+  "version": "2.0.0",
+  "description": "Get the remote origin url of a git repository",
+  "keywords": [
+    "git",
+    "config",
+    "url",
+    "repo"
+  ],
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "repository": "sindresorhus/git-remote-origin-url",
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "dependencies": {
+    "gitconfiglocal": "^1.0.0",
+    "pify": "^2.3.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ]
+}

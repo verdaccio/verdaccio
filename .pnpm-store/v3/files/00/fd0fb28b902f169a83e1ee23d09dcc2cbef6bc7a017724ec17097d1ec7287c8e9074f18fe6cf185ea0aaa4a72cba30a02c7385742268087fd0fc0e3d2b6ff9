@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '8'
+  - '10'
+before_script:
+  - npm run lint
+install:
+  - npm install --ignore-engines
+  - npm install -g codecov
+script:
+  - npm test
+  - codecov
+after_success:
+  - npm run semantic-release

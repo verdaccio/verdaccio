@@ -1,0 +1,39 @@
+{
+	"name": "get-stdin",
+	"version": "7.0.0",
+	"description": "Get stdin as a string or buffer",
+	"license": "MIT",
+	"repository": "sindresorhus/get-stdin",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && ava test.js test-buffer.js && echo unicorns | node test-real.js && tsd"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"std",
+		"stdin",
+		"stdio",
+		"concat",
+		"buffer",
+		"stream",
+		"process",
+		"read"
+	],
+	"devDependencies": {
+		"@types/node": "^11.13.4",
+		"ava": "^1.4.1",
+		"delay": "^4.2.0",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
+	}
+}

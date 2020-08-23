@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+      "target": "esnext",
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+  },
+  "typeRoots": [
+     "./node_modules/@types",
+      "./index.d.ts"
+  ],
+  "includes": [
+    "./index.d.ts"
+  ]
+}

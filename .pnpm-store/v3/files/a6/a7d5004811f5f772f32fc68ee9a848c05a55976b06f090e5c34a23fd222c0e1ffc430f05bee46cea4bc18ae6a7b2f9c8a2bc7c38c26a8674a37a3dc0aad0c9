@@ -1,0 +1,87 @@
+{
+  "name": "tty-table",
+  "version": "2.8.13",
+  "description": "Node cli table",
+  "main": "src/main.js",
+  "engines": {
+    "node": ">=8.16.0"
+  },
+  "bin": {
+    "tty-table": "adapters/terminal-adapter.js"
+  },
+  "files": [
+    "adapters/",
+    "src/",
+    "LICENSE"
+  ],
+  "preferGlobal": false,
+  "scripts": {
+    "dist": "npx grunt browserify && npx rollup -c",
+    "coverage": "npx nyc mocha",
+    "test": "npx mocha",
+    "save-tests": "npx grunt st",
+    "lint": "npx eslint adapters/* src/*",
+    "lint-fix": "npx eslint adapters/* src/* --fix",
+    "lint-examples": "npx eslint examples/",
+    "lint-examples-fix": "npx eslint examples/ --fix",
+    "prepublishOnly": "npm run dist",
+    "tags": "npx grunt tags",
+    "watch-tags": "npx grunt watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tecfu/tty-table.git"
+  },
+  "keywords": [
+    "table",
+    "table in bash",
+    "cli-table",
+    "terminal table",
+    "console table",
+    "cli table",
+    "console.table",
+    "ascii table"
+  ],
+  "author": "Tecfu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tecfu/tty-table/issues"
+  },
+  "homepage": "https://github.com/tecfu/tty-table",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "csv": "^5.3.1",
+    "smartwrap": "^1.2.3",
+    "strip-ansi": "^6.0.0",
+    "wcwidth": "^1.0.1",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-replace": "^2.3.1",
+    "babel-core": "^6.26.3",
+    "babel-preset-babili": "0.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.5.0",
+    "browserify-banner": "^1.0.14",
+    "chai": "^4.2.0",
+    "commander": "^4.1.1",
+    "doctoc": "^1.4.0",
+    "eslint": "^6.8.0",
+    "glob": "^7.1.4",
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-jsdoc": "^2.4.0",
+    "grunt-shell": "^3.0.1",
+    "husky": "^4.2.1",
+    "jsdoc-to-markdown": "^5.0.0",
+    "mocha": "^6.1.4",
+    "nyc": "^15.0.0",
+    "orgy": "^2.2.1",
+    "rollup": "^1.31.1"
+  }
+}

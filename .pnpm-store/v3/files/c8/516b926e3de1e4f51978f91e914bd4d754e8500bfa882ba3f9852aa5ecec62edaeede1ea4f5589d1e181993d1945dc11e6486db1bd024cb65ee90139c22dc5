@@ -1,0 +1,85 @@
+#
+# This is the config file used for the docker images.
+# It allows all users to do anything, so don't use it on production systems.
+#
+# Do not configure host and port under `listen` in this file
+# as it will be ignored when using docker.
+# see https://verdaccio.org/docs/en/docker#docker-and-custom-port-configuration
+#
+# Look here for more config file examples:
+# https://github.com/verdaccio/verdaccio/tree/master/conf
+#
+
+# path to a directory with all packages
+storage: /verdaccio/storage/data
+# path to a directory with plugins to include
+plugins: /verdaccio/plugins
+
+web:
+  # WebUI is enabled as default, if you want disable it, just uncomment this line
+  #enable: false
+  title: Verdaccio
+  # comment out to disable gravatar support
+  # gravatar: false
+  # by default packages are ordercer ascendant (asc|desc)
+  # sort_packages: asc
+  # darkMode: true
+
+# translate your registry, api i18n not available yet
+# i18n:
+# list of the available translations https://github.com/verdaccio/ui/tree/master/i18n/translations
+#   web: en-US
+
+auth:
+  htpasswd:
+    file: /verdaccio/storage/htpasswd
+    # Maximum amount of users allowed to register, defaults to "+infinity".
+    # You can set this to -1 to disable registration.
+    # max_users: 1000
+
+# a list of other known repositories we can talk to
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@*/*':
+    # scoped packages
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  '**':
+    # allow all users (including non-authenticated users) to read and
+    # publish all packages
+    #
+    # you can specify usernames/groupnames (depending on your auth plugin)
+    # and three keywords: "$all", "$anonymous", "$authenticated"
+    access: $all
+
+    # allow all known users to publish/publish packages
+    # (anyone can register by default, remember?)
+    publish: $authenticated
+    unpublish: $authenticated
+
+    # if package is not available locally, proxy requests to 'npmjs' registry
+    proxy: npmjs
+
+middlewares:
+  audit:
+    enabled: true
+
+# log settings
+logs:
+  - { type: stdout, format: pretty, level: http }
+  #- {type: file, path: verdaccio.log, level: info}
+#experiments:
+#  # support for npm token command
+#  token: false
+#  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
+#  search: false
+
+# This affect the web and api (not developed yet)
+#i18n:
+#web: en-US

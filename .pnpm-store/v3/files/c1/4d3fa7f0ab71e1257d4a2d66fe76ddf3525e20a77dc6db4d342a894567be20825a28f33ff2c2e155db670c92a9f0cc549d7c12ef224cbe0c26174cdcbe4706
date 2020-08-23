@@ -1,0 +1,64 @@
+{
+    "name": "@types/qs",
+    "version": "6.9.4",
+    "description": "TypeScript definitions for qs",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Roman Korneev",
+            "url": "https://github.com/RWander",
+            "githubUsername": "RWander"
+        },
+        {
+            "name": "Leon Yu",
+            "url": "https://github.com/leonyu",
+            "githubUsername": "leonyu"
+        },
+        {
+            "name": "Belinda Teh",
+            "url": "https://github.com/tehbelinda",
+            "githubUsername": "tehbelinda"
+        },
+        {
+            "name": "Melvin Lee",
+            "url": "https://github.com/zyml",
+            "githubUsername": "zyml"
+        },
+        {
+            "name": "Arturs Vonda",
+            "url": "https://github.com/artursvonda",
+            "githubUsername": "artursvonda"
+        },
+        {
+            "name": "Carlos Bonetti",
+            "url": "https://github.com/CarlosBonetti",
+            "githubUsername": "CarlosBonetti"
+        },
+        {
+            "name": "Dan Smith",
+            "url": "https://github.com/dpsmith3",
+            "githubUsername": "dpsmith3"
+        },
+        {
+            "name": "Hunter Perrin",
+            "url": "https://github.com/hperrin",
+            "githubUsername": "hperrin"
+        },
+        {
+            "name": "Jordan Harband",
+            "url": "https://github.com/ljharb",
+            "githubUsername": "ljharb"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/qs"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "439bfa44155bda6199294078b4c73c6e38042c2b583f470b75d740a50e4c7125",
+    "typeScriptVersion": "3.0"
+}

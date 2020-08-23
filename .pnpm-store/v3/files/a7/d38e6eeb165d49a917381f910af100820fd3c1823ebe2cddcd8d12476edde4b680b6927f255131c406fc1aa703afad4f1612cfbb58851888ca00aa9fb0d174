@@ -1,0 +1,30 @@
+import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter, PluginOptions } from '@verdaccio/types';
+import MemoryHandler, { DataHandler } from './memory-handler';
+export declare type ConfigMemory = Config & {
+    limit?: number;
+};
+export interface MemoryLocalStorage {
+    secret: string;
+    list: string[];
+    files: DataHandler;
+}
+declare class LocalMemory implements IPluginStorage<ConfigMemory> {
+    private path;
+    private limit;
+    logger: Logger;
+    private data;
+    config: ConfigMemory;
+    constructor(config: ConfigMemory, options: PluginOptions<ConfigMemory>);
+    getSecret(): Promise<string>;
+    setSecret(secret: string): Promise<string | null>;
+    add(name: string, cb: Callback): void;
+    search(onPackage: Callback, onEnd: Callback, validateName: Function): void;
+    remove(name: string, cb: Callback): void;
+    get(cb: Callback): void;
+    getPackageStorage(packageInfo: string): MemoryHandler;
+    private _createEmtpyDatabase;
+    saveToken(token: Token): Promise<void>;
+    deleteToken(user: string, tokenKey: string): Promise<void>;
+    readTokens(filter: TokenFilter): Promise<Token[]>;
+}
+export default LocalMemory;

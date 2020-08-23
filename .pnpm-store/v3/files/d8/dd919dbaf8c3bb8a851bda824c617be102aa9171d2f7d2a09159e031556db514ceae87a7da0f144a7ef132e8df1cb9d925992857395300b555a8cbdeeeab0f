@@ -1,0 +1,86 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UploadTarball = exports.ReadTarball = void 0;
+
+var _stream = require("stream");
+
+/**
+ * This stream is used to read tarballs from repository.
+ * @param {*} options
+ * @return {Stream}
+ */
+class ReadTarball extends _stream.PassThrough {
+  /**
+   *
+   * @param {Object} options
+   */
+  constructor(options) {
+    super(options); // called when data is not needed anymore
+
+    addAbstractMethods(this, 'abort');
+  }
+
+  abort() {}
+
+}
+/**
+ * This stream is used to upload tarballs to a repository.
+ * @param {*} options
+ * @return {Stream}
+ */
+
+
+exports.ReadTarball = ReadTarball;
+
+class UploadTarball extends _stream.PassThrough {
+  /**
+   *
+   * @param {Object} options
+   */
+  constructor(options) {
+    super(options); // called when user closes connection before upload finishes
+
+    addAbstractMethods(this, 'abort'); // called when upload finishes successfully
+
+    addAbstractMethods(this, 'done');
+  }
+
+  abort() {}
+
+  done() {}
+
+}
+/**
+ * This function intercepts abstract calls and replays them allowing.
+ * us to attach those functions after we are ready to do so
+ * @param {*} self
+ * @param {*} name
+ */
+// Perhaps someone knows a better way to write this
+
+
+exports.UploadTarball = UploadTarball;
+
+function addAbstractMethods(self, name) {
+  self._called_methods = self._called_methods || {};
+
+  self.__defineGetter__(name, function () {
+    return function () {
+      self._called_methods[name] = true;
+    };
+  });
+
+  self.__defineSetter__(name, function (fn) {
+    delete self[name];
+    self[name] = fn;
+
+    if (self._called_methods && self._called_methods[name]) {
+      delete self._called_methods[name];
+      self[name]();
+    }
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC50cyJdLCJuYW1lcyI6WyJSZWFkVGFyYmFsbCIsIlBhc3NUaHJvdWdoIiwiY29uc3RydWN0b3IiLCJvcHRpb25zIiwiYWRkQWJzdHJhY3RNZXRob2RzIiwiYWJvcnQiLCJVcGxvYWRUYXJiYWxsIiwiZG9uZSIsInNlbGYiLCJuYW1lIiwiX2NhbGxlZF9tZXRob2RzIiwiX19kZWZpbmVHZXR0ZXJfXyIsIl9fZGVmaW5lU2V0dGVyX18iLCJmbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQUFBOztBQVdBOzs7OztBQUtBLE1BQU1BLFdBQU4sU0FBMEJDLG1CQUExQixDQUE4RDtBQUM1RDs7OztBQUlPQyxFQUFBQSxXQUFQLENBQW1CQyxPQUFuQixFQUE4QztBQUM1QyxVQUFNQSxPQUFOLEVBRDRDLENBRTVDOztBQUNBQyxJQUFBQSxrQkFBa0IsQ0FBQyxJQUFELEVBQU8sT0FBUCxDQUFsQjtBQUNEOztBQUVNQyxFQUFBQSxLQUFQLEdBQXFCLENBQUU7O0FBWHFDO0FBYzlEOzs7Ozs7Ozs7QUFLQSxNQUFNQyxhQUFOLFNBQTRCTCxtQkFBNUIsQ0FBa0U7QUFDaEU7Ozs7QUFJT0MsRUFBQUEsV0FBUCxDQUFtQkMsT0FBbkIsRUFBaUM7QUFDL0IsVUFBTUEsT0FBTixFQUQrQixDQUUvQjs7QUFDQUMsSUFBQUEsa0JBQWtCLENBQUMsSUFBRCxFQUFPLE9BQVAsQ0FBbEIsQ0FIK0IsQ0FLL0I7O0FBQ0FBLElBQUFBLGtCQUFrQixDQUFDLElBQUQsRUFBTyxNQUFQLENBQWxCO0FBQ0Q7O0FBRU1DLEVBQUFBLEtBQVAsR0FBcUIsQ0FBRTs7QUFDaEJFLEVBQUFBLElBQVAsR0FBb0IsQ0FBRTs7QUFmMEM7QUFrQmxFOzs7Ozs7QUFNQTs7Ozs7QUFDQSxTQUFTSCxrQkFBVCxDQUE0QkksSUFBNUIsRUFBdUNDLElBQXZDLEVBQXdEO0FBQ3RERCxFQUFBQSxJQUFJLENBQUNFLGVBQUwsR0FBdUJGLElBQUksQ0FBQ0UsZUFBTCxJQUF3QixFQUEvQzs7QUFFQUYsRUFBQUEsSUFBSSxDQUFDRyxnQkFBTCxDQUFzQkYsSUFBdEIsRUFBNEIsWUFBVztBQUNyQyxXQUFPLFlBQWlCO0FBQ3RCRCxNQUFBQSxJQUFJLENBQUNFLGVBQUwsQ0FBcUJELElBQXJCLElBQTZCLElBQTdCO0FBQ0QsS0FGRDtBQUdELEdBSkQ7O0FBTUFELEVBQUFBLElBQUksQ0FBQ0ksZ0JBQUwsQ0FBc0JILElBQXRCLEVBQTRCLFVBQVNJLEVBQVQsRUFBa0I7QUFDNUMsV0FBT0wsSUFBSSxDQUFDQyxJQUFELENBQVg7QUFFQUQsSUFBQUEsSUFBSSxDQUFDQyxJQUFELENBQUosR0FBYUksRUFBYjs7QUFFQSxRQUFJTCxJQUFJLENBQUNFLGVBQUwsSUFBd0JGLElBQUksQ0FBQ0UsZUFBTCxDQUFxQkQsSUFBckIsQ0FBNUIsRUFBd0Q7QUFDdEQsYUFBT0QsSUFBSSxDQUFDRSxlQUFMLENBQXFCRCxJQUFyQixDQUFQO0FBRUFELE1BQUFBLElBQUksQ0FBQ0MsSUFBRCxDQUFKO0FBQ0Q7QUFDRixHQVZEO0FBV0QiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQYXNzVGhyb3VnaCwgVHJhbnNmb3JtT3B0aW9ucyB9IGZyb20gJ3N0cmVhbSc7XG5cbmV4cG9ydCBpbnRlcmZhY2UgSVJlYWRUYXJiYWxsIHtcbiAgYWJvcnQ/OiAoKSA9PiB2b2lkO1xufVxuXG5leHBvcnQgaW50ZXJmYWNlIElVcGxvYWRUYXJiYWxsIHtcbiAgZG9uZT86ICgpID0+IHZvaWQ7XG4gIGFib3J0PzogKCkgPT4gdm9pZDtcbn1cblxuLyoqXG4gKiBUaGlzIHN0cmVhbSBpcyB1c2VkIHRvIHJlYWQgdGFyYmFsbHMgZnJvbSByZXBvc2l0b3J5LlxuICogQHBhcmFtIHsqfSBvcHRpb25zXG4gKiBAcmV0dXJuIHtTdHJlYW19XG4gKi9cbmNsYXNzIFJlYWRUYXJiYWxsIGV4dGVuZHMgUGFzc1Rocm91Z2ggaW1wbGVtZW50cyBJUmVhZFRhcmJhbGwge1xuICAvKipcbiAgICpcbiAgICogQHBhcmFtIHtPYmplY3R9IG9wdGlvbnNcbiAgICovXG4gIHB1YmxpYyBjb25zdHJ1Y3RvcihvcHRpb25zOiBUcmFuc2Zvcm1PcHRpb25zKSB7XG4gICAgc3VwZXIob3B0aW9ucyk7XG4gICAgLy8gY2FsbGVkIHdoZW4gZGF0YSBpcyBub3QgbmVlZGVkIGFueW1vcmVcbiAgICBhZGRBYnN0cmFjdE1ldGhvZHModGhpcywgJ2Fib3J0Jyk7XG4gIH1cblxuICBwdWJsaWMgYWJvcnQoKTogdm9pZCB7fVxufVxuXG4vKipcbiAqIFRoaXMgc3RyZWFtIGlzIHVzZWQgdG8gdXBsb2FkIHRhcmJhbGxzIHRvIGEgcmVwb3NpdG9yeS5cbiAqIEBwYXJhbSB7Kn0gb3B0aW9uc1xuICogQHJldHVybiB7U3RyZWFtfVxuICovXG5jbGFzcyBVcGxvYWRUYXJiYWxsIGV4dGVuZHMgUGFzc1Rocm91Z2ggaW1wbGVtZW50cyBJVXBsb2FkVGFyYmFsbCB7XG4gIC8qKlxuICAgKlxuICAgKiBAcGFyYW0ge09iamVjdH0gb3B0aW9uc1xuICAgKi9cbiAgcHVibGljIGNvbnN0cnVjdG9yKG9wdGlvbnM6IGFueSkge1xuICAgIHN1cGVyKG9wdGlvbnMpO1xuICAgIC8vIGNhbGxlZCB3aGVuIHVzZXIgY2xvc2VzIGNvbm5lY3Rpb24gYmVmb3JlIHVwbG9hZCBmaW5pc2hlc1xuICAgIGFkZEFic3RyYWN0TWV0aG9kcyh0aGlzLCAnYWJvcnQnKTtcblxuICAgIC8vIGNhbGxlZCB3aGVuIHVwbG9hZCBmaW5pc2hlcyBzdWNjZXNzZnVsbHlcbiAgICBhZGRBYnN0cmFjdE1ldGhvZHModGhpcywgJ2RvbmUnKTtcbiAgfVxuXG4gIHB1YmxpYyBhYm9ydCgpOiB2b2lkIHt9XG4gIHB1YmxpYyBkb25lKCk6IHZvaWQge31cbn1cblxuLyoqXG4gKiBUaGlzIGZ1bmN0aW9uIGludGVyY2VwdHMgYWJzdHJhY3QgY2FsbHMgYW5kIHJlcGxheXMgdGhlbSBhbGxvd2luZy5cbiAqIHVzIHRvIGF0dGFjaCB0aG9zZSBmdW5jdGlvbnMgYWZ0ZXIgd2UgYXJlIHJlYWR5IHRvIGRvIHNvXG4gKiBAcGFyYW0geyp9IHNlbGZcbiAqIEBwYXJhbSB7Kn0gbmFtZVxuICovXG4vLyBQZXJoYXBzIHNvbWVvbmUga25vd3MgYSBiZXR0ZXIgd2F5IHRvIHdyaXRlIHRoaXNcbmZ1bmN0aW9uIGFkZEFic3RyYWN0TWV0aG9kcyhzZWxmOiBhbnksIG5hbWU6IGFueSk6IHZvaWQge1xuICBzZWxmLl9jYWxsZWRfbWV0aG9kcyA9IHNlbGYuX2NhbGxlZF9tZXRob2RzIHx8IHt9O1xuXG4gIHNlbGYuX19kZWZpbmVHZXR0ZXJfXyhuYW1lLCBmdW5jdGlvbigpIHtcbiAgICByZXR1cm4gZnVuY3Rpb24oKTogdm9pZCB7XG4gICAgICBzZWxmLl9jYWxsZWRfbWV0aG9kc1tuYW1lXSA9IHRydWU7XG4gICAgfTtcbiAgfSk7XG5cbiAgc2VsZi5fX2RlZmluZVNldHRlcl9fKG5hbWUsIGZ1bmN0aW9uKGZuOiBhbnkpIHtcbiAgICBkZWxldGUgc2VsZltuYW1lXTtcblxuICAgIHNlbGZbbmFtZV0gPSBmbjtcblxuICAgIGlmIChzZWxmLl9jYWxsZWRfbWV0aG9kcyAmJiBzZWxmLl9jYWxsZWRfbWV0aG9kc1tuYW1lXSkge1xuICAgICAgZGVsZXRlIHNlbGYuX2NhbGxlZF9tZXRob2RzW25hbWVdO1xuXG4gICAgICBzZWxmW25hbWVdKCk7XG4gICAgfVxuICB9KTtcbn1cblxuZXhwb3J0IHsgUmVhZFRhcmJhbGwsIFVwbG9hZFRhcmJhbGwgfTtcbiJdfQ==

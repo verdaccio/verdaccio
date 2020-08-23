@@ -1,0 +1,25 @@
+2.3.2 2018-11-04
+
+    * Fix scoring bugs
+    * Increase efficiency of MutableBuilder.remove when removing a document not in the index
+
+2.3.1 2018-08-02
+
+    * Fixup module's version property
+
+2.3.0 2018-08-01
+
+    * Added compatibility with lunr.js 2.3.0
+
+0.3.0 2018-05-10
+
+    * Upgraded to be compatible with lunr.js 2.2.0
+
+0.2.0 2018-02-10
+
+    * Added syntatic sugar for easier index creation (thanks, John Kupko!)
+    * Made the module easier to install with NPM (thanks, John Kupko!)
+
+0.1.0 - 2018-01-10
+
+    * Initial creation of project from my lunr.js branch.

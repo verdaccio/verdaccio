@@ -1,0 +1,68 @@
+{
+    "name": "@types/express-serve-static-core",
+    "version": "4.17.9",
+    "description": "TypeScript definitions for Express",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Boris Yankov",
+            "url": "https://github.com/borisyankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Michał Lytek",
+            "url": "https://github.com/19majkel94",
+            "githubUsername": "19majkel94"
+        },
+        {
+            "name": "Kacper Polak",
+            "url": "https://github.com/kacepe",
+            "githubUsername": "kacepe"
+        },
+        {
+            "name": "Satana Charuwichitratana",
+            "url": "https://github.com/micksatana",
+            "githubUsername": "micksatana"
+        },
+        {
+            "name": "Sami Jaber",
+            "url": "https://github.com/samijaber",
+            "githubUsername": "samijaber"
+        },
+        {
+            "name": "aereal",
+            "url": "https://github.com/aereal",
+            "githubUsername": "aereal"
+        },
+        {
+            "name": "Jose Luis Leon",
+            "url": "https://github.com/JoseLion",
+            "githubUsername": "JoseLion"
+        },
+        {
+            "name": "David Stephens",
+            "url": "https://github.com/dwrss",
+            "githubUsername": "dwrss"
+        },
+        {
+            "name": "Shin Ando",
+            "url": "https://github.com/andoshin11",
+            "githubUsername": "andoshin11"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/express-serve-static-core"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*",
+        "@types/qs": "*",
+        "@types/range-parser": "*"
+    },
+    "typesPublisherContentHash": "5b617ec9e6cef860b9c63bc7c7344557257824bd487c9caec9003f0ea908e4d3",
+    "typeScriptVersion": "3.0"
+}

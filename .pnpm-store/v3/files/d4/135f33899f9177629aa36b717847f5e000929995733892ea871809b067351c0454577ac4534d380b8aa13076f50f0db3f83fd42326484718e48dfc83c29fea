@@ -1,0 +1,36 @@
+{
+  "name": "null-check",
+  "version": "1.0.0",
+  "description": "Ensure a path doesn't contain null bytes",
+  "license": "MIT",
+  "repository": "sindresorhus/null-check",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "built-in",
+    "core",
+    "ponyfill",
+    "polyfill",
+    "shim",
+    "fs",
+    "path",
+    "null",
+    "bytes",
+    "check"
+  ],
+  "devDependencies": {
+    "ava": "0.0.4"
+  }
+}

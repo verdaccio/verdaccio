@@ -1,0 +1,13 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pretty = pretty;
+
+var _formatter = require("../formatter");
+
+function pretty(obj, hasColors) {
+  return `${(0, _formatter.printMessage)(obj.level, obj.msg, obj, hasColors)}\n`;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9saWIvbG9nZ2VyL2Zvcm1hdC9wcmV0dHkudHMiXSwibmFtZXMiOlsicHJldHR5Iiwib2JqIiwiaGFzQ29sb3JzIiwibGV2ZWwiLCJtc2ciXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTs7QUFFTyxTQUFTQSxNQUFULENBQWdCQyxHQUFoQixFQUFxQkMsU0FBckIsRUFBd0M7QUFDM0MsU0FBUSxHQUFFLDZCQUFhRCxHQUFHLENBQUNFLEtBQWpCLEVBQXdCRixHQUFHLENBQUNHLEdBQTVCLEVBQWlDSCxHQUFqQyxFQUFzQ0MsU0FBdEMsQ0FBaUQsSUFBM0Q7QUFDSCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7cHJpbnRNZXNzYWdlfSBmcm9tIFwiLi4vZm9ybWF0dGVyXCI7XG5cbmV4cG9ydCBmdW5jdGlvbiBwcmV0dHkob2JqLCBoYXNDb2xvcnMpOiBzdHJpbmcge1xuICAgIHJldHVybiBgJHtwcmludE1lc3NhZ2Uob2JqLmxldmVsLCBvYmoubXNnLCBvYmosIGhhc0NvbG9ycyl9XFxuYDtcbn1cbiJdfQ==

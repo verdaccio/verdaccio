@@ -1,0 +1,56 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _express = require("express");
+
+var _bodyParser = _interopRequireDefault(require("body-parser"));
+
+var _user = _interopRequireDefault(require("./endpoint/user"));
+
+var _package = _interopRequireDefault(require("./endpoint/package"));
+
+var _search = _interopRequireDefault(require("./endpoint/search"));
+
+var _search2 = _interopRequireDefault(require("../../lib/search"));
+
+var _middleware = require("../middleware");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const route = (0, _express.Router)();
+/* eslint new-cap: 0 */
+
+/*
+ This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
+*/
+
+function _default(config, auth, storage) {
+  _search2.default.configureStorage(storage); // validate all of these params as a package name
+  // this might be too harsh, so ask if it causes trouble
+  // $FlowFixMe
+
+
+  route.param('package', _middleware.validatePackage); // $FlowFixMe
+
+  route.param('filename', _middleware.validateName);
+  route.param('version', _middleware.validateName);
+  route.param('anything', (0, _middleware.match)(/.*/));
+  route.use(_bodyParser.default.urlencoded({
+    extended: false
+  }));
+  route.use(auth.webUIJWTmiddleware());
+  route.use(_middleware.setSecurityWebHeaders);
+  (0, _package.default)(route, storage, auth, config);
+  (0, _search.default)(route, storage, auth);
+  (0, _user.default)(route, auth, config); // What are you looking for? logout? client side will remove token when user click logout,
+  // or it will auto expire after 24 hours.
+  // This token is different with the token send to npm client.
+  // We will/may replace current token with JWT in next major release, and it will not expire at all(configurable).
+
+  return route;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9hcGkvd2ViL2FwaS50cyJdLCJuYW1lcyI6WyJyb3V0ZSIsImNvbmZpZyIsImF1dGgiLCJzdG9yYWdlIiwiU2VhcmNoIiwiY29uZmlndXJlU3RvcmFnZSIsInBhcmFtIiwidmFsaWRhdGVQYWNrYWdlIiwidmFsaWRhdGVOYW1lIiwidXNlIiwiYm9keVBhcnNlciIsInVybGVuY29kZWQiLCJleHRlbmRlZCIsIndlYlVJSldUbWlkZGxld2FyZSIsInNldFNlY3VyaXR5V2ViSGVhZGVycyJdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQUFBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUVBOztBQUNBOzs7O0FBSUEsTUFBTUEsS0FBSyxHQUFHLHNCQUFkO0FBQXdCOztBQUV4Qjs7OztBQUdlLGtCQUFTQyxNQUFULEVBQXlCQyxJQUF6QixFQUFzQ0MsT0FBdEMsRUFBd0U7QUFDckZDLG1CQUFPQyxnQkFBUCxDQUF3QkYsT0FBeEIsRUFEcUYsQ0FHckY7QUFDQTtBQUNBOzs7QUFDQUgsRUFBQUEsS0FBSyxDQUFDTSxLQUFOLENBQVksU0FBWixFQUF1QkMsMkJBQXZCLEVBTnFGLENBT3JGOztBQUNBUCxFQUFBQSxLQUFLLENBQUNNLEtBQU4sQ0FBWSxVQUFaLEVBQXdCRSx3QkFBeEI7QUFDQVIsRUFBQUEsS0FBSyxDQUFDTSxLQUFOLENBQVksU0FBWixFQUF1QkUsd0JBQXZCO0FBQ0FSLEVBQUFBLEtBQUssQ0FBQ00sS0FBTixDQUFZLFVBQVosRUFBd0IsdUJBQU0sSUFBTixDQUF4QjtBQUVBTixFQUFBQSxLQUFLLENBQUNTLEdBQU4sQ0FBVUMsb0JBQVdDLFVBQVgsQ0FBc0I7QUFBRUMsSUFBQUEsUUFBUSxFQUFFO0FBQVosR0FBdEIsQ0FBVjtBQUNBWixFQUFBQSxLQUFLLENBQUNTLEdBQU4sQ0FBVVAsSUFBSSxDQUFDVyxrQkFBTCxFQUFWO0FBQ0FiLEVBQUFBLEtBQUssQ0FBQ1MsR0FBTixDQUFVSyxpQ0FBVjtBQUVBLHdCQUFpQmQsS0FBakIsRUFBd0JHLE9BQXhCLEVBQWlDRCxJQUFqQyxFQUF1Q0QsTUFBdkM7QUFDQSx1QkFBZ0JELEtBQWhCLEVBQXVCRyxPQUF2QixFQUFnQ0QsSUFBaEM7QUFDQSxxQkFBZUYsS0FBZixFQUFzQkUsSUFBdEIsRUFBNEJELE1BQTVCLEVBbEJxRixDQW9CckY7QUFDQTtBQUNBO0FBQ0E7O0FBRUEsU0FBT0QsS0FBUDtBQUNEIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgUm91dGVyIH0gZnJvbSAnZXhwcmVzcyc7XG5pbXBvcnQgYm9keVBhcnNlciBmcm9tICdib2R5LXBhcnNlcic7XG5pbXBvcnQgYWRkVXNlckF1dGhBcGkgZnJvbSAnLi9lbmRwb2ludC91c2VyJztcbmltcG9ydCBhZGRQYWNrYWdlV2ViQXBpIGZyb20gJy4vZW5kcG9pbnQvcGFja2FnZSc7XG5pbXBvcnQgYWRkU2VhcmNoV2ViQXBpIGZyb20gJy4vZW5kcG9pbnQvc2VhcmNoJztcblxuaW1wb3J0IFNlYXJjaCBmcm9tICcuLi8uLi9saWIvc2VhcmNoJztcbmltcG9ydCB7IG1hdGNoLCB2YWxpZGF0ZU5hbWUsIHZhbGlkYXRlUGFja2FnZSwgc2V0U2VjdXJpdHlXZWJIZWFkZXJzIH0gZnJvbSAnLi4vbWlkZGxld2FyZSc7XG5pbXBvcnQgeyBDb25maWcgfSBmcm9tICdAdmVyZGFjY2lvL3R5cGVzJztcbmltcG9ydCB7IElBdXRoLCBJU3RvcmFnZUhhbmRsZXIgfSBmcm9tICcuLi8uLi8uLi90eXBlcyc7XG5cbmNvbnN0IHJvdXRlID0gUm91dGVyKCk7IC8qIGVzbGludCBuZXctY2FwOiAwICovXG5cbi8qXG4gVGhpcyBmaWxlIGluY2x1ZGUgYWxsIHZlcmRhY2NpbyBvbmx5IEFQSShXZWIgVUkpLCBmb3IgbnBtIEFQSSBwbGVhc2Ugc2VlIC4uL2VuZHBvaW50L1xuKi9cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uKGNvbmZpZzogQ29uZmlnLCBhdXRoOiBJQXV0aCwgc3RvcmFnZTogSVN0b3JhZ2VIYW5kbGVyKTogUm91dGVyIHtcbiAgU2VhcmNoLmNvbmZpZ3VyZVN0b3JhZ2Uoc3RvcmFnZSk7XG5cbiAgLy8gdmFsaWRhdGUgYWxsIG9mIHRoZXNlIHBhcmFtcyBhcyBhIHBhY2thZ2UgbmFtZVxuICAvLyB0aGlzIG1pZ2h0IGJlIHRvbyBoYXJzaCwgc28gYXNrIGlmIGl0IGNhdXNlcyB0cm91YmxlXG4gIC8vICRGbG93Rml4TWVcbiAgcm91dGUucGFyYW0oJ3BhY2thZ2UnLCB2YWxpZGF0ZVBhY2thZ2UpO1xuICAvLyAkRmxvd0ZpeE1lXG4gIHJvdXRlLnBhcmFtKCdmaWxlbmFtZScsIHZhbGlkYXRlTmFtZSk7XG4gIHJvdXRlLnBhcmFtKCd2ZXJzaW9uJywgdmFsaWRhdGVOYW1lKTtcbiAgcm91dGUucGFyYW0oJ2FueXRoaW5nJywgbWF0Y2goLy4qLykpO1xuXG4gIHJvdXRlLnVzZShib2R5UGFyc2VyLnVybGVuY29kZWQoeyBleHRlbmRlZDogZmFsc2UgfSkpO1xuICByb3V0ZS51c2UoYXV0aC53ZWJVSUpXVG1pZGRsZXdhcmUoKSk7XG4gIHJvdXRlLnVzZShzZXRTZWN1cml0eVdlYkhlYWRlcnMpO1xuXG4gIGFkZFBhY2thZ2VXZWJBcGkocm91dGUsIHN0b3JhZ2UsIGF1dGgsIGNvbmZpZyk7XG4gIGFkZFNlYXJjaFdlYkFwaShyb3V0ZSwgc3RvcmFnZSwgYXV0aCk7XG4gIGFkZFVzZXJBdXRoQXBpKHJvdXRlLCBhdXRoLCBjb25maWcpO1xuXG4gIC8vIFdoYXQgYXJlIHlvdSBsb29raW5nIGZvcj8gbG9nb3V0PyBjbGllbnQgc2lkZSB3aWxsIHJlbW92ZSB0b2tlbiB3aGVuIHVzZXIgY2xpY2sgbG9nb3V0LFxuICAvLyBvciBpdCB3aWxsIGF1dG8gZXhwaXJlIGFmdGVyIDI0IGhvdXJzLlxuICAvLyBUaGlzIHRva2VuIGlzIGRpZmZlcmVudCB3aXRoIHRoZSB0b2tlbiBzZW5kIHRvIG5wbSBjbGllbnQuXG4gIC8vIFdlIHdpbGwvbWF5IHJlcGxhY2UgY3VycmVudCB0b2tlbiB3aXRoIEpXVCBpbiBuZXh0IG1ham9yIHJlbGVhc2UsIGFuZCBpdCB3aWxsIG5vdCBleHBpcmUgYXQgYWxsKGNvbmZpZ3VyYWJsZSkuXG5cbiAgcmV0dXJuIHJvdXRlO1xufVxuIl19

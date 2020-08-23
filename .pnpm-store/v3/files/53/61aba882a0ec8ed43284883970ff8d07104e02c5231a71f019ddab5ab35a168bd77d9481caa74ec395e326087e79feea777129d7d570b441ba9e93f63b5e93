@@ -1,0 +1,52 @@
+"use strict";
+
+function _interopDefault(ex) {
+  return ex && "object" == typeof ex && "default" in ex ? ex.default : ex;
+}
+
+Object.defineProperty(exports, "__esModule", {
+  value: !0
+});
+
+var fetch = _interopDefault(require("node-fetch")), DataLoader = _interopDefault(require("dataloader"));
+
+function makeQuery(repos) {
+  return `\n      query {\n        ${Object.keys(repos).map((repo, i) => `a${i}: repository(\n            owner: ${JSON.stringify(repo.split("/")[0])}\n            name: ${JSON.stringify(repo.split("/")[1])}\n          ) {\n            ${repos[repo].map(commit => `a${commit}: object(expression: ${JSON.stringify(commit)}) {\n            ... on Commit {\n            commitUrl\n            associatedPullRequests(first: 1) {\n              nodes {\n                number\n                url\n              }\n            }\n            author {\n              user {\n                login\n                url\n              }\n            }\n          }}`).join("\n")}\n          }`).join("\n")}\n        }\n    `;
+}
+
+const GHDataLoader = new DataLoader(async requests => {
+  if (!process.env.GITHUB_TOKEN) throw new Error("Please create a GitHub personal access token at https://github.com/settings/tokens/new and add it as the GITHUB_TOKEN environment variable");
+  let repos = {};
+  requests.forEach(({commit: commit, repo: repo}) => {
+    void 0 === repos[repo] && (repos[repo] = []), repos[repo].push(commit);
+  });
+  const data = await fetch(`https://api.github.com/graphql?access_token=${process.env.GITHUB_TOKEN}`, {
+    method: "POST",
+    body: JSON.stringify({
+      query: makeQuery(repos)
+    })
+  }).then(x => x.json());
+  if (!data.data) throw new Error(`An error occurred when fetching data from GitHub\n${JSON.stringify(data)}`);
+  let cleanedData = {}, dataKeys = Object.keys(data.data);
+  return Object.keys(repos).forEach((repo, index) => {
+    cleanedData[repo] = {};
+    for (let nearlyCommit in data.data[dataKeys[index]]) cleanedData[repo][nearlyCommit.substring(1)] = data.data[dataKeys[index]][nearlyCommit];
+  }), requests.map(({repo: repo, commit: commit}) => cleanedData[repo][commit]);
+});
+
+async function getInfo(request) {
+  if (!request.commit) throw new Error("Please pass a commit SHA to getInfo");
+  if (!request.repo) throw new Error("Please pass a GitHub repository in the form of userOrOrg/repoName to getInfo");
+  const data = await GHDataLoader.load(request);
+  return {
+    user: data.author && data.author.user ? data.author.user.login : null,
+    pull: data.associatedPullRequests && data.associatedPullRequests.nodes && data.associatedPullRequests.nodes[0] ? data.associatedPullRequests.nodes[0].number : null,
+    links: {
+      commit: `[\`${request.commit}\`](${data.commitUrl})`,
+      pull: data.associatedPullRequests && data.associatedPullRequests.nodes && data.associatedPullRequests.nodes[0] ? `[#${data.associatedPullRequests.nodes[0].number}](${data.associatedPullRequests.nodes[0].url})` : null,
+      user: data.author && data.author.user ? `[@${data.author.user.login}](${data.author.user.url})` : null
+    }
+  };
+}
+
+exports.getInfo = getInfo;

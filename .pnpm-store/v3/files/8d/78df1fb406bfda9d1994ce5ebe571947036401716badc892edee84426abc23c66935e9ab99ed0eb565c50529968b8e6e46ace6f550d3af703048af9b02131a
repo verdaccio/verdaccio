@@ -1,0 +1,55 @@
+{
+  "name": "get-pkg-repo",
+  "version": "1.4.0",
+  "description": "Get normalized repository from package json data",
+  "homepage": "https://github.com/stevemao/get-pkg-repo",
+  "author": {
+    "name": "Steve Mao",
+    "email": "maochenyan@gmail.com",
+    "url": "https://github.com/stevemao"
+  },
+  "repository": "stevemao/get-pkg-repo",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "cli.js",
+    "typos.json"
+  ],
+  "keywords": [
+    "get-pkg-repo",
+    "normalize",
+    "fix",
+    "typo",
+    "hosted-git-info",
+    "repo",
+    "npm",
+    "git",
+    "info",
+    "url",
+    "package",
+    "pkg",
+    "repository"
+  ],
+  "dependencies": {
+    "parse-github-repo-url": "^1.3.0",
+    "hosted-git-info": "^2.1.4",
+    "meow": "^3.3.0",
+    "normalize-package-data": "^2.3.0",
+    "through2": "^2.0.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.4.2",
+    "jscs": "^2.9.0",
+    "jshint": "^2.8.0",
+    "mocha": "*"
+  },
+  "scripts": {
+    "lint": "jshint *.js --exclude node_modules && jscs *.js",
+    "test": "npm run-script lint && mocha",
+    "coverage": "istanbul cover _mocha -- -R spec && rm -rf ./coverage"
+  },
+  "bin": {
+    "get-pkg-repo": "cli.js"
+  }
+}

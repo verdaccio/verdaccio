@@ -1,0 +1,72 @@
+{
+    "name": "@types/superagent",
+    "version": "4.1.8",
+    "description": "TypeScript definitions for SuperAgent",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Nico Zelaya",
+            "url": "https://github.com/NicoZelaya",
+            "githubUsername": "NicoZelaya"
+        },
+        {
+            "name": "Michael Ledin",
+            "url": "https://github.com/mxl",
+            "githubUsername": "mxl"
+        },
+        {
+            "name": "Pap Lőrinc",
+            "url": "https://github.com/paplorinc",
+            "githubUsername": "paplorinc"
+        },
+        {
+            "name": "Shrey Jain",
+            "url": "https://github.com/shreyjain1994",
+            "githubUsername": "shreyjain1994"
+        },
+        {
+            "name": "Alec Zopf",
+            "url": "https://github.com/zopf",
+            "githubUsername": "zopf"
+        },
+        {
+            "name": "Adam Haglund",
+            "url": "https://github.com/beeequeue",
+            "githubUsername": "beeequeue"
+        },
+        {
+            "name": "Lukas Elmer",
+            "url": "https://github.com/lukaselmer",
+            "githubUsername": "lukaselmer"
+        },
+        {
+            "name": "Jesse Rogers",
+            "url": "https://github.com/theQuazz",
+            "githubUsername": "theQuazz"
+        },
+        {
+            "name": "Chris Arnesen",
+            "url": "https://github.com/carnesen",
+            "githubUsername": "carnesen"
+        },
+        {
+            "name": "Anders Kindberg",
+            "url": "https://github.com/ghostganz",
+            "githubUsername": "ghostganz"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/superagent"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/cookiejar": "*",
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "3cc75e963148df74404604cb046300368aebe95f5f6c48de9ded1a4bf1e97325",
+    "typeScriptVersion": "3.0"
+}

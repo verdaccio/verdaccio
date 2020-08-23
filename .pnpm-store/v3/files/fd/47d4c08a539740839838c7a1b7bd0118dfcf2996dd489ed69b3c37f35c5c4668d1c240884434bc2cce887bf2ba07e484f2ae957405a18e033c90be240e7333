@@ -1,0 +1,201 @@
+version: 2
+
+aliases:
+  - &defaults
+    working_directory: ~/file-locking
+  - &node6_executor
+    docker:
+      - image: circleci/node:6
+  - &node8_executor
+    docker:
+      - image: circleci/node:8
+  - &node9_executor
+    docker:
+      - image: circleci/node:9
+  - &node10_executor
+    docker:
+      - image: circleci/node:10
+  - &default_executor
+    <<: *node9_executor
+  - &repo_key
+    repo-{{ .Branch }}-{{ .Revision }}
+  - &coverage_key
+    coverage-{{ .Branch }}-{{ .Revision }}
+  - &base_config_key
+    base-config-{{ .Branch }}-{{ .Revision }}
+  - &yarn_cache_key
+    yarn-sha-{{ checksum "yarn.lock" }}
+  - &restore_repo
+    restore_cache:
+      keys:
+        - *repo_key
+  - &ignore_non_dev_branches
+    filters:
+      tags:
+        only: /.*/
+      branches:
+        ignore:
+          - /release\/.*/
+  - &execute_on_release
+    filters:
+      tags:
+        only: /(v)?[0-9]+(\.[0-9]+)*/
+      branches:
+        ignore:
+          - /.*/
+
+jobs:
+  prepare:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - checkout
+      - restore_cache:
+          key: *base_config_key
+      - run:
+          name: 'Base environment setup'
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - save_cache:
+          key: *base_config_key
+          paths:
+            - ~/.npmrc
+            - ~/.gitconfig
+      - restore_cache:
+          key: *yarn_cache_key
+      - run:
+          name: Install Js dependencies
+          command: yarn install --no-progress
+      - save_cache:
+          key: *yarn_cache_key
+          paths:
+            - ~/.yarn
+            - ~/.cache/yarn
+            - node_modules
+      - save_cache:
+          key: *repo_key
+          paths:
+            - ~/file-locking
+
+  check_types:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Check Flow types
+          command: yarn flow
+
+  test_node6:
+    <<: *defaults
+    <<: *node6_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test with Node 6
+          command: yarn test
+
+  test_node8:
+    <<: *defaults
+    <<: *node8_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test with Node 8
+          command: yarn test
+
+  test_node9:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test with Node 9
+          command: yarn test
+      - save_cache:
+          key: *coverage_key
+          paths:
+            - coverage
+
+  test_node10:
+    <<: *defaults
+    <<: *node10_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test with Node 10
+          command: yarn test
+
+  # coverage:
+  #   <<: *defaults
+  #   <<: *default_executor
+  #   steps:
+  #     - *restore_repo
+  #     - restore_cache:
+  #         key: *coverage_key
+  #     - run:
+  #         name: Publish coverage
+  #         command: yarn coverage:publish
+  #     - store_artifacts:
+  #         path: coverage/clover.xml
+  #         prefix: tests
+  #     - store_artifacts:
+  #         path: coverage
+  #         prefix: coverage
+  #     - store_test_results:
+  #         path: coverage/clover.xml
+
+  publish_package:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - restore_cache:
+          key: *base_config_key
+      - run:
+          name: Publish
+          command: yarn publish
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - prepare:
+          <<: *ignore_non_dev_branches
+      - check_types:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      - test_node6:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      - test_node8:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      - test_node9:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      - test_node10:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
+      # - coverage:
+      #     requires:
+      #       - check_types
+      #       - test_node6
+      #       - test_node8
+      #       - test_node9
+      #       - test_node10
+      #     <<: *ignore_non_dev_branches
+      - publish_package:
+          requires:
+            # - coverage
+            - check_types
+            - test_node6
+            - test_node8
+            - test_node9
+            - test_node10
+          <<: *execute_on_release

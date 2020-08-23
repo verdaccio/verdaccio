@@ -1,0 +1,50 @@
+[
+  {
+    "input": "2.0",
+    "width": 1,
+    "correctResult": 0,
+    "output": 0
+  },
+  {
+    "input": 2.1,
+    "width": 1,
+    "correctResult": 0,
+    "output": 0
+  },
+  {
+    "input": "宽字符",
+    "width": 0,
+    "correctResult": 0,
+    "output": 0
+  },
+  {
+    "input": "宽字符",
+    "width": 1,
+    "correctResult": 0,
+    "output": 0
+  },
+  {
+    "input": "宽字符",
+    "width": 2,
+    "correctResult": 0,
+    "output": 0
+  },
+  {
+    "input": "宽字符",
+    "width": 3,
+    "correctResult": 0,
+    "output": 0
+  },
+  {
+    "input": "宽字符",
+    "width": 4,
+    "correctResult": 1,
+    "output": 1
+  },
+  {
+    "input": "宽ab",
+    "width": 4,
+    "correctResult": 2,
+    "output": 2
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "name": "spawndamnit",
+  "version": "2.0.0",
+  "main": "index.js",
+  "description": "Take care of your `spawn()`",
+  "author": "James Kyle <me@thejameskyle.com>",
+  "repository": "https://github.com/thejameskyle/spawndamnit",
+  "license": "MIT",
+  "keywords": [
+    "spawn",
+    "child",
+    "process",
+    "promise",
+    "async",
+    "cross-spawn"
+  ],
+  "files": [
+    "index.js",
+    "promise.js",
+    "promise.js.flow",
+    "error.js"
+  ],
+  "scripts": {
+    "flow": "flow",
+    "test": "ava"
+  },
+  "dependencies": {
+    "cross-spawn": "^5.1.0",
+    "signal-exit": "^3.0.2"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "fixturez": "^1.1.0",
+    "flow-bin": "^0.63.1"
+  }
+}

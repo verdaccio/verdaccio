@@ -1,0 +1,9 @@
+{
+  "name": "@changesets/get-version-range-type",
+  "version": "0.3.2",
+  "description": "Common get-version-range-type shared between changeset packages",
+  "main": "dist/get-version-range-type.cjs.js",
+  "module": "dist/get-version-range-type.esm.js",
+  "license": "MIT",
+  "repository": "https://github.com/changesets/changesets/tree/master/packages/get-version-range-type"
+}
