@@ -115,7 +115,8 @@
     "website:build": "cd website && yarn build",
     "changeset": "changeset",
     "changeset:check": "changeset status --since-master",
-    "ci:version": "run-s ci:version:changeset ci:version:repo ci:version:install",
+    "ci:version": "run-s ci:version:changeset ci:version:install",
+    "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:version:changeset": "changeset version"
   },
   "license": "MIT",
