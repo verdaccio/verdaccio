@@ -75,9 +75,9 @@ importers:
       kleur: 3.0.3
       lint-staged: 8.2.1
       nock: 12.0.3
+      npm-run-all: 4.1.5
       prettier: 2.0.5
       rimraf: 3.0.2
-      run-s: 0.0.0
       selfsigned: 1.10.7
       standard-version: 8.0.0
       supertest: 4.0.2
@@ -162,9 +162,9 @@ importers:
       kleur: 3.0.3
       lint-staged: 8.2.1
       nock: 12.0.3
+      npm-run-all: ^4.1.5
       prettier: 2.0.5
       rimraf: 3.0.2
-      run-s: ^0.0.0
       selfsigned: 1.10.7
       standard-version: 8.0.0
       supertest: 4.0.2
@@ -8285,6 +8285,12 @@ packages:
       node: '>=4.3.0 <5.0.0 || >=5.10'
     resolution:
       integrity: sha512-jA0rdU5KoQMC0e6ppoNRtpp6vjFq6+NY7r8hywnC7V+1Xj/MtHwGIbB1QaK/dunyjWteJzmkpd7ooeWg10T7GA==
+  /memorystream/0.3.1:
+    dev: true
+    engines:
+      node: '>= 0.10.0'
+    resolution:
+      integrity: sha1-htcJCzDORV1j+64S3aUaR93K+bI=
   /meow/3.7.0:
     dependencies:
       camelcase-keys: 2.1.0
@@ -8682,6 +8688,23 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-IFsj0R9C7ZdR5cP+ET342q77uSRdtWOlWpih5eC+lu29tIDbNEgDbzgVJ5UFvYHWhxDZ5TFkJafFioO0pPQjCw==
+  /npm-run-all/4.1.5:
+    dependencies:
+      ansi-styles: 3.2.1
+      chalk: 2.4.2
+      cross-spawn: 6.0.5
+      memorystream: 0.3.1
+      minimatch: 3.0.4
+      pidtree: 0.3.1
+      read-pkg: 3.0.0
+      shell-quote: 1.7.2
+      string.prototype.padend: 3.1.0
+    dev: true
+    engines:
+      node: '>= 4'
+    hasBin: true
+    resolution:
+      integrity: sha512-Oo82gJDAVcaMdi3nuoKFavkIHBRVqQ1qvMb+9LHk/cF4P6B2m8aP04hGf7oL6wZ9BuGwX1onlLhpuoofSyoQDQ==
   /npm-run-path/2.0.2:
     dependencies:
       path-key: 2.0.1
@@ -9190,6 +9213,13 @@ packages:
       node: '>=8.6'
     resolution:
       integrity: sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
+  /pidtree/0.3.1:
+    dev: true
+    engines:
+      node: '>=0.10'
+    hasBin: true
+    resolution:
+      integrity: sha512-qQbW94hLHEqCg7nhby4yRC7G2+jYHY4Rguc2bjw7Uug4GIJuu1tvf2uHaZv5Q8zdt+WKJ6qK1FOI6amaWUo5FA==
   /pify/2.3.0:
     dev: true
     engines:
@@ -9991,10 +10021,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DEqnSRTDw/Tc3FXf49zedI638Z9onwUotBMiUFKmrO2sdFKIbXamXGQ3Axd4qgphxKB4kw/qP1w5kTxnfU1B9Q==
-  /run-s/0.0.0:
-    dev: true
-    resolution:
-      integrity: sha1-WZkSviDAC6dphlXJk20HXTG3F1Q=
   /rxjs/6.6.2:
     dependencies:
       tslib: 1.13.0
@@ -10173,6 +10199,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+  /shell-quote/1.7.2:
+    dev: true
+    resolution:
+      integrity: sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
   /shelljs/0.8.4:
     dependencies:
       glob: 7.1.6
@@ -10528,6 +10558,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-N/jp6O5fMf9os0JU3E72Qhf590RSRZU/ungsL/qJUYVTNv7hTG0P/dbPjxINVN9jpscu3nzYwKESU3P3RY5tOg==
+  /string.prototype.padend/3.1.0:
+    dependencies:
+      define-properties: 1.1.3
+      es-abstract: 1.17.6
+    dev: true
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha512-3aIv8Ffdp8EZj8iLwREGpQaUZiPyrWrpzMBHvkiSW/bK/EGve9np07Vwy7IJ5waydpGXzQZu/F8Oze2/IWkBaA==
   /string.prototype.trimend/1.0.1:
     dependencies:
       define-properties: 1.1.3
