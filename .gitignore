@@ -31,3 +31,6 @@ tsconfig.tsbuildinfo
 # website
 website/public
 website/.cache
+
+# CI Pnpm cache
+.pnpm-store/
