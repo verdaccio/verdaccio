@@ -1,0 +1,42 @@
+
+name: Node CI
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+  push:
+    branches:
+      - 5.x
+  pull_request:
+    branches:
+      - 5.
+
+env:
+  CI: true
+
+jobs:
+  # Update package versions from changesets.
+  version:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/5.x' && github.repository == 'verdaccio/verdaccio'
+    steps:
+      - name: checkout code repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 14
+
+      - name: create versions
+        uses: changesets/action@master
+        with:
+          version: pnpm ci:version
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
