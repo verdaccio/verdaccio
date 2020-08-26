@@ -13,109 +13,109 @@
 ##   Handle line endings automatically for files detected as
 ##   text and leave all files detected as binary untouched.
 ##   This will handle all files NOT defined below.
-*                 text=auto
+*                 text=lf
 
 # Source code
 *.bash            text eol=lf
 *.bat             text eol=crlf
 *.cmd             text eol=crlf
-*.coffee          text
-*.css             text
+*.coffee          text eol=lf
+*.css             text eol=lf
 *.htm             text diff=html
 *.html            text diff=html
-*.inc             text
-*.ini             text
-*.js              text
-*.json            text
-*.jsx             text
-*.less            text
-*.ls              text
+*.inc             text eol=lf
+*.ini             text eol=lf
+*.js              text eol=lf
+*.json            text eol=lf
+*.jsx             text eol=lf
+*.less            text eol=lf
+*.ls              text eol=lf
 *.map             text -diff
-*.od              text
-*.onlydata        text
+*.od              text eol=lf
+*.onlydata        text eol=lf
 *.php             text diff=php
-*.pl              text
+*.pl              text eol=lf
 *.ps1             text eol=crlf
 *.py              text diff=python
 *.rb              text diff=ruby
-*.sass            text
-*.scm             text
+*.sass            text eol=lf
+*.scm             text eol=lf
 *.scss            text diff=css
 *.sh              text eol=lf
-*.sql             text
-*.styl            text
-*.tag             text
-*.ts              text
-*.tsx             text
-*.xml             text
+*.sql             text eol=lf
+*.styl            text eol=lf
+*.tag             text eol=lf
+*.ts              text eol=lf
+*.tsx             text eol=lf
+*.xml             text eol=lf
 *.xhtml           text diff=html
 
 # Docker
-Dockerfile        text
+Dockerfile        text eol=lf
 
 # Documentation
-*.ipynb           text
-*.markdown        text
-*.md              text
-*.mdwn            text
-*.mdown           text
-*.mkd             text
-*.mkdn            text
-*.mdtxt           text
-*.mdtext          text
-*.txt             text
-AUTHORS           text
-CHANGELOG         text
-CHANGES           text
-CONTRIBUTING      text
-COPYING           text
-copyright         text
-*COPYRIGHT*       text
-INSTALL           text
-license           text
-LICENSE           text
-NEWS              text
-readme            text
-*README*          text
-TODO              text
+*.ipynb           text eol=lf
+*.markdown        text eol=lf
+*.md              text eol=lf
+*.mdwn            text eol=lf
+*.mdown           text eol=lf
+*.mkd             text eol=lf
+*.mkdn            text eol=lf
+*.mdtxt           text eol=lf
+*.mdtext          text eol=lf
+*.txt             text eol=lf
+AUTHORS           text eol=lf
+CHANGELOG         text eol=lf
+CHANGES           text eol=lf
+CONTRIBUTING      text eol=lf
+COPYING           text eol=lf
+copyright         text eol=lf
+*COPYRIGHT*       text eol=lf
+INSTALL           text eol=lf
+license           text eol=lf
+LICENSE           text eol=lf
+NEWS              text eol=lf
+readme            text eol=lf
+*README*          text eol=lf
+TODO              text eol=lf
 
 # Templates
-*.dot             text
-*.ejs             text
-*.haml            text
-*.handlebars      text
-*.hbs             text
-*.hbt             text
-*.jade            text
-*.latte           text
-*.mustache        text
-*.njk             text
-*.phtml           text
-*.tmpl            text
-*.tpl             text
-*.twig            text
-*.vue             text
+*.dot             text eol=lf
+*.ejs             text eol=lf
+*.haml            text eol=lf
+*.handlebars      text eol=lf
+*.hbs             text eol=lf
+*.hbt             text eol=lf
+*.jade            text eol=lf
+*.latte           text eol=lf
+*.mustache        text eol=lf
+*.njk             text eol=lf
+*.phtml           text eol=lf
+*.tmpl            text eol=lf
+*.tpl             text eol=lf
+*.twig            text eol=lf
+*.vue             text eol=lf
 
 # Configs
-*.cnf             text
-*.conf            text
-*.config          text
-.editorconfig     text
-.env              text
-.gitattributes    text
-.gitconfig        text
-.htaccess         text
+*.cnf             text eol=lf
+*.conf            text eol=lf
+*.config          text eol=lf
+.editorconfig     text eol=lf
+.env              text eol=lf
+.gitattributes    text eol=lf
+.gitconfig        text eol=lf
+.htaccess         text eol=lf
 *.lock            text -diff
 package-lock.json text -diff
-*.toml            text
-*.yaml            text
-*.yml             text
-browserslist      text
-Makefile          text
-makefile          text
+*.toml            text eol=lf
+*.yaml            text eol=lf
+*.yml             text eol=lf
+browserslist      text eol=lf
+Makefile          text eol=lf
+makefile          text eol=lf
 
 # Heroku
-Procfile          text
+Procfile          text eol=lf
 
 # Graphics
 *.ai              binary
@@ -135,7 +135,7 @@ Procfile          text
 *.psb             binary
 *.psd             binary
 # SVG treated as an asset (binary) by default.
-*.svg             text
+*.svg             text eol=lf
 # If you want to treat it as binary,
 # use the following line instead.
 # *.svg           binary
@@ -193,7 +193,7 @@ Procfile          text
 *.pyc             binary
 
 # RC files (like .babelrc or .eslintrc)
-*.*rc             text
+*.*rc             text eol=lf
 
 # Ignore files (like .npmignore or .gitignore)
-*.*ignore         text
+*.*ignore         text eol=lf
