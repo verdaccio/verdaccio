@@ -101,7 +101,6 @@
     "verdaccio-memory": "latest"
   },
   "scripts": {
-    "debug": "node debug/bootstrap.js",
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",
     "clean": "pnpm recursive run clean",
     "build": "pnpm recursive run build",
@@ -110,6 +109,8 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "test": "pnpm recursive test",
+    "start": "node packages/verdaccio/debug/bootstrap.js",
+    "debug": "node  --inspect packages/verdaccio/debug/bootstrap.js",
     "test:e2e:cli": "cross-env NODE_ENV=test jest --config ./test/e2e-cli/jest.config.e2e.cli.js --passWithNoTests",
     "website:lint": "cd website && yarn lint",
     "website:develop": "cd website && yarn develop",
