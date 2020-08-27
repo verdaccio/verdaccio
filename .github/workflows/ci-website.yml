@@ -7,7 +7,7 @@ on:
   pull_request:
     paths:
       - .github/workflows/ci-website.yml
-      - 'website/**'
+      - "website/**"
 jobs:
   ci:
     name: Node ${{ matrix.node_version }}
@@ -20,20 +20,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node ${{ matrix.node_version }}
-      uses: actions/setup-node@v1
-      with:
-        node_version: ${{ matrix.node_version }}
-    - name: Install dependencies
-      run: |
-        yarn --frozen-lockfile
-        yarn bootstrap
-    - name: Lint website
-      run: |
-        cd website
-        yarn lint
-    - name: Build website
-      run: |
-        cd website
-        yarn build
+      - uses: actions/checkout@v1
+      - name: Use Node ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node_version: ${{ matrix.node_version }}
+      - name: Install pnpm
+        run: npm i -g pnpm
+      - name: Install
+        run: pnpm recursive install
+      - name: Lint website
+        run: pnpm lint
+      - name: Build website
+        run: |
+          cd website
+          pnpm build
