@@ -2,7 +2,8 @@
   "name": "@verdaccio/loaders",
   "version": "5.0.0-alpha.0",
   "description": "loaders logic",
-  "main": "./build/index.js",
+  "main": "dist/loaders.cjs.js",
+  "module": "dist/loaders.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -34,6 +35,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

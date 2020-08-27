@@ -2,7 +2,8 @@
   "name": "@verdaccio/utils",
   "version": "5.0.0-alpha.0",
   "description": "verdaccio utilities",
-  "main": "./build/index.js",
+  "main": "dist/utils.cjs.js",
+  "module": "dist/utils.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -21,7 +22,8 @@
     "js-yaml": "3.13.1",
     "jsonwebtoken": "8.5.1",
     "minimatch": "3.0.4",
-    "semver": "7.3.2"
+    "semver": "7.3.2",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.3",
@@ -36,6 +38,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

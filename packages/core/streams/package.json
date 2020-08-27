@@ -6,7 +6,8 @@
     "verdaccio",
     "streams"
   ],
-  "main": "./build/index.js",
+  "main": "dist/streams.cjs.js",
+  "module": "dist/streams.esm.js",
   "types": "./build/index.d.ts",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -32,6 +33,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "funding": {
     "type": "opencollective",

@@ -2,7 +2,8 @@
   "name": "@verdaccio/dev-commons",
   "version": "5.0.0-alpha.0",
   "description": "loaders logic",
-  "main": "./build/index.js",
+  "main": "dist/dev-commons.cjs.js",
+  "module": "dist/dev-commons.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -16,6 +17,9 @@
   "license": "MIT",
   "devDependencies": {
     "@verdaccio/types": "workspace:10.0.0-beta"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "scripts": {
     "clean": "rimraf ./build",

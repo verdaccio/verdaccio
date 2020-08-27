@@ -2,7 +2,8 @@
   "name": "@verdaccio/proxy",
   "version": "5.0.0-alpha.0",
   "description": "verdaccio proxy fetcher",
-  "main": "./build/index.js",
+  "main": "dist/proxy.cjs.js",
+  "module": "dist/proxy.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -21,6 +22,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "dependencies": {
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",

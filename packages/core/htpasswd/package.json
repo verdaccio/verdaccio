@@ -19,11 +19,9 @@
   "bugs": {
     "url": "https://github.com/verdaccio/monorepo/issues"
   },
-  "main": "./build/index.js",
+  "main": "dist/htpasswd.cjs.js",
+  "module": "dist/htpasswd.esm.js",
   "types": "./build/index.d.ts",
-  "files": [
-    "build"
-  ],
   "dependencies": {
     "@verdaccio/file-locking": "workspace:*",
     "apache-md5": "1.1.2",
@@ -42,6 +40,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "funding": {
     "type": "opencollective",

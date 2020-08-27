@@ -22,11 +22,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./build/index.js",
+  "main": "dist/local-storage.cjs.js",
+  "module": "dist/local-storage.esm.js",
   "types": "./build/index.d.ts",
-  "files": [
-    "build/"
-  ],
   "engines": {
     "node": ">=8"
   },
@@ -53,6 +51,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "funding": {
     "type": "opencollective",

@@ -5,6 +5,7 @@ static/
 flow-typed/
 website/
 build/
+dist/
 *.md
 *.lock
 *.yaml

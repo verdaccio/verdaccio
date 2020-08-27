@@ -2,7 +2,8 @@
   "name": "@verdaccio/logger-prettify",
   "version": "5.0.0-alpha.0",
   "description": "logger",
-  "main": "./build/index.js",
+  "main": "dist/logger-prettify.cjs.js",
+  "module": "dist/logger-prettify.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -36,6 +37,9 @@
   "devDependencies": {
     "@types/pino": "6.0.1",
     "pino": "6.2.1"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

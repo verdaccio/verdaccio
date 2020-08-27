@@ -2,7 +2,8 @@
   "name": "@verdaccio/config",
   "version": "5.0.0-alpha.0",
   "description": "logger",
-  "main": "./build/index.js",
+  "main": "dist/config.cjs.js",
+  "module": "dist/config.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -24,6 +25,9 @@
   },
   "devDependencies": {
     "@verdaccio/dev-types": "workspace:5.0.0-alpha.0"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "dependencies": {
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",

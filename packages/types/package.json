@@ -3,7 +3,8 @@
   "version": "5.0.0-alpha.0",
   "private": true,
   "description": "types for verdaccio local dev",
-  "main": "./index.ts",
+  "main": "dist/dev-types.cjs.js",
+  "module": "dist/dev-types.esm.js",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -20,5 +21,8 @@
   "scripts": {
     "clean": "rimraf ./build",
     "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   }
 }

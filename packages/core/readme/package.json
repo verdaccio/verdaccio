@@ -24,11 +24,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./build/index.js",
+  "main": "dist/readme.cjs.js",
+  "module": "dist/readme.esm.js",
   "types": "./build/index.d.ts",
-  "files": [
-    "build"
-  ],
   "dependencies": {
     "dompurify": "2.0.8",
     "jsdom": "15.2.1",
@@ -44,6 +42,9 @@
     "build:types": "tsc --emitDeclarationOnly --declaration true",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "funding": {
     "type": "opencollective",

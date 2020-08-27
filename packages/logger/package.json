@@ -2,7 +2,8 @@
   "name": "@verdaccio/logger",
   "version": "5.0.0-alpha.0",
   "description": "logger",
-  "main": "./build/index.js",
+  "main": "dist/logger.cjs.js",
+  "module": "dist/logger.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -29,6 +30,9 @@
   "devDependencies": {
     "@types/pino": "5.20.0",
     "@verdaccio/types": "workspace:*"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }

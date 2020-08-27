@@ -2,7 +2,8 @@
   "name": "@verdaccio/node-api",
   "version": "5.0.0-alpha.0",
   "description": "node API",
-  "main": "build/index.js",
+  "main": "dist/node-api.cjs.js",
+  "module": "dist/node-api.esm.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -20,6 +21,9 @@
     "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "license": "MIT",
   "dependencies": {

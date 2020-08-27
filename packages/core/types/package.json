@@ -21,11 +21,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "index.d.ts",
+  "main": "dist/types.cjs.js",
+  "module": "dist/types.esm.js",
   "types": "index.d.ts",
   "scripts": {
     "test": "exit 0",
     "build": "exit 0"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "devDependencies": {
     "@types/node": "14.6.0"

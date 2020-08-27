@@ -43,6 +43,7 @@
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.2.0",
     "@octokit/rest": "17.0.0",
+    "@preconstruct/cli": "1.1.17",
     "@types/async": "3.2.3",
     "@types/express": "4.17.6",
     "@types/http-errors": "1.6.3",
@@ -105,7 +106,9 @@
     "debug": "node debug/bootstrap.js",
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",
     "clean": "pnpm recursive run clean",
-    "build": "pnpm recursive run build",
+    "build": "preconstruct build",
+    "build:dev": "preconstruct dev",
+    "postinstall": "preconstruct dev",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "lint": "eslint . --ext .js,.ts,.tsx,.jsx",
     "test": "pnpm recursive test",
@@ -114,10 +117,17 @@
     "website:develop": "cd website && yarn develop",
     "website:build": "cd website && yarn build",
     "changeset": "changeset",
+    "preconstruct": "preconstruct",
     "changeset:check": "changeset status --since-master",
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:version:changeset": "changeset version"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*",
+      "packages/core/*"
+    ]
   },
   "license": "MIT",
   "commitlint": {

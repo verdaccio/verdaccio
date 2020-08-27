@@ -2,7 +2,8 @@
   "name": "verdaccio",
   "version": "5.0.0-alpha.0",
   "description": "A lightweight private npm proxy registry",
-  "main": "build/index.js",
+  "main": "dist/verdaccio.cjs.js",
+  "module": "dist/verdaccio.esm.js",
   "types": "build/index.d.ts",
   "bin": {
     "verdaccio": "./bin/verdaccio"
@@ -11,10 +12,6 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
-  "files": [
-    "bin",
-    "build"
-  ],
   "scripts": {
     "clean": "rimraf ./build",
     "lint": "eslint . --ext .js,.ts",
@@ -26,6 +23,9 @@
     "code:build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
+  },
+  "preconstruct": {
+    "source": "src/index.ts"
   },
   "author": {
     "name": "Juan Picado",
