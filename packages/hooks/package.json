@@ -16,18 +16,18 @@
   "homepage": "https://verdaccio.org",
   "dependencies": {
     "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/logger": "5.0.0-alpha.0",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "handlebars": "4.5.3",
-    "request": "2.87.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/auth": "5.0.0-alpha.0",
-    "@verdaccio/config": "5.0.0-alpha.0",
-    "@verdaccio/utils": "5.0.0-alpha.0",
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
-    "@verdaccio/dev-types": "5.0.0-alpha.0",
-    "@verdaccio/types": "workspace:*"
+    "@verdaccio/auth": "workspace:5.0.0-alpha.0",
+    "@verdaccio/config": "workspace:5.0.0-alpha.0",
+    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
+    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
+    "@verdaccio/types": "workspace:*",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
