@@ -35,10 +35,10 @@
     "@verdaccio/file-locking": "workspace:*",
     "@verdaccio/streams": "workspace:*",
     "async": "^3.2.0",
+    "debug": "^4.1.1",
     "level": "5.0.1",
-    "lodash": "^4.17.19",
-    "mkdirp": "^0.5.5",
-    "debug": "^4.1.1"
+    "lodash": "^4.17.20",
+    "mkdirp": "^0.5.5"
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",

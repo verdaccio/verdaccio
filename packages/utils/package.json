@@ -24,10 +24,10 @@
     "semver": "7.3.2"
   },
   "devDependencies": {
-    "lodash": "^4.17.19",
     "@types/minimatch": "3.0.3",
+    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0"
+    "lodash": "^4.17.20"
   },
   "scripts": {
     "clean": "rimraf ./build",
