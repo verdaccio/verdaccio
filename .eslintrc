@@ -13,16 +13,9 @@
     "prettier/react",
     "prettier/@typescript-eslint"
   ],
-  "plugins": [
-    "import",
-    "jest",
-    "jsx-a11y",
-    "react-hooks",
-    "prettier"
-  ],
+  "plugins": ["import", "jest", "jsx-a11y", "react-hooks", "prettier"],
   "env": {
     "es6": true,
-    "browser": true,
     "node": true,
     "jest": true
   },
@@ -40,7 +33,7 @@
   },
   "settings": {
     "react": {
-      "version":  "detect"
+      "version": "detect"
     },
     "import/resolver": {
       "node": {
@@ -50,9 +43,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "curly": [
-      "error", "all"
-    ],
+    "curly": ["error", "all"],
     "prettier/prettier": [
       2,
       {
