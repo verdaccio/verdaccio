@@ -20,7 +20,7 @@ jobs:
   # Update package versions from changesets.
   version:
     timeout-minutes: 15
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     if: github.ref == 'refs/heads/5.x' && github.repository == 'verdaccio/verdaccio'
     steps:
       - name: checkout code repository

@@ -9,7 +9,7 @@ name: 'E2E Gatsby.js CLI with verdaccio'
 jobs:
   npm:
     name: 'npm:gatsby example'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2.3.3

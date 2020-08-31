@@ -16,62 +16,40 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
 
 // You can delete this file if you're not using it
 const path = require('path');
+const docPageTemplate = path.resolve('src/templates/docPage.tsx');
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  return new Promise((resolve, reject) => {
-    const docPageTemplate = path.resolve('src/templates/docPage.tsx');
-    resolve(
-      graphql(
-        `
-          query {
-            allMarkdownRemark {
-              edges {
-                node {
-                  id
-                  frontmatter {
-                    title
-                  }
-                  html
-                  fileAbsolutePath
-                }
-              }
+  const result = await graphql(`
+    query {
+      allMarkdownRemark {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
             }
+            html
+            fileAbsolutePath
           }
-        `
-      ).then((result) => {
-        const posts = result.data.allMarkdownRemark.edges;
-        posts.forEach(({ node }, index) => {
-          const fileAbsolutePath = node.fileAbsolutePath;
-          const parsedAbsolutedPath = path.parse(fileAbsolutePath);
-          if (fileAbsolutePath.match('translated_docs')) {
-            const pathCrowdin = `${__dirname}/crowdin/master/website/translated_docs/`;
-            const lng = parsedAbsolutedPath.dir.replace(pathCrowdin, '');
-            const id = node.id;
-            createPage({
-              path: `docs/${lng}/${parsedAbsolutedPath.name}.html`,
-              component: docPageTemplate,
-              context: {
-                id,
-                lng,
-              },
-            });
-          } else {
-            const id = node.id;
-            const lng = 'en';
-            createPage({
-              path: `docs/en/${parsedAbsolutedPath.name}.html`,
-              component: docPageTemplate,
-              context: {
-                id,
-                lng,
-              },
-            });
-          }
-          resolve();
-        });
-      })
-    );
+        }
+      }
+    }
+  `);
+
+  const posts = result.data.allMarkdownRemark.edges;
+
+  posts.forEach(({ node }) => {
+    const parsedPath = path.parse(node.fileAbsolutePath);
+    const id = node.id;
+    const name = parsedPath.name;
+    const lng = parsedPath.dir.match('translated_docs') ? parsedPath.dir.split('/').pop() : 'en';
+
+    createPage({
+      path: `docs/${lng}/${name}.html`,
+      component: docPageTemplate,
+      context: { id, lng },
+    });
   });
 };
