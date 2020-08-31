@@ -10,7 +10,7 @@ jobs:
 # todo: fix yarn global issue, cannot find ng
 #  yarn:
 #    name: 'yarn:angular example'
-#    runs-on: ubuntu-latest
+#    runs-on: ${{ matrix.os }}
 #
 #    steps:
 #      - uses: actions/checkout@v2.3.1
@@ -43,7 +43,7 @@ jobs:
 #          ng build --aot
   npm:
     name: 'npm:angular example'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2.3.1
@@ -82,7 +82,7 @@ jobs:
 #  pnpm throws errors worth to check why
 #  pnpm:
 #    name: 'pnpm:angular example'
-#    runs-on: ubuntu-latest
+#    runs-on: ${{ matrix.os }}
 #
 #    steps:
 #      - uses: actions/checkout@v2.3.1

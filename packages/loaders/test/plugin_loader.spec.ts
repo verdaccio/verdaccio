@@ -71,7 +71,7 @@ describe('plugin loader', () => {
         });
       } catch (e) {
         expect(e.message).toMatch('plugin not found');
-        expect(e.message).toMatch('/partials/test-plugin-storage/invalid-package');
+        expect(e.message.replace(/\\/g, '/')).toMatch('/partials/test-plugin-storage/invalid-package');
       }
     });
 
