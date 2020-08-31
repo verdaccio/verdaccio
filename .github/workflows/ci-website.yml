@@ -10,14 +10,15 @@ on:
       - "website/**"
 jobs:
   ci:
-    name: Node ${{ matrix.node_version }}
+    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
 
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node_version: [14]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v1

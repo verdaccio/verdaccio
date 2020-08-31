@@ -27,7 +27,9 @@ const defaultPkg = {
 export default function (server, express) {
   const listofCalls = [HEADER_TYPE.CONTENT_LENGTH, 'chunked'];
 
-  describe('test send incomplete packages', () => {
+  // FIXME this test causes a process crash on windows and also needs refactoring.
+  // See https://github.com/verdaccio/verdaccio/pull/1919#issuecomment-681163937
+  describe.skip('test send incomplete packages', () => {
     beforeAll(function () {
       express.get('/testexp-incomplete', function (_, res) {
         res.send(defaultPkg);

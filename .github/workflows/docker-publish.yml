@@ -14,7 +14,7 @@ on:
 jobs:
   testDocker:
     name: Test Docker Build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v1
     - name: Publish to GitHub Registry
