@@ -2,12 +2,12 @@ name: Test local registry for js vulnerabilities
 
 on:
   schedule:
-  - cron: '0 4 * * 4'
+    - cron: '0 4 * * 4'
 jobs:
   security:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Test for public javascript library vulnerabilities
         uses: lirantal/is-website-vulnerable@1.15.10
         with:
-          scan-url: "https://registry.verdaccio.org"
+          scan-url: 'https://registry.verdaccio.org'

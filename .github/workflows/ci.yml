@@ -4,25 +4,24 @@ on:
   push:
     branches:
       - 5.x
-      - "changeset-release/5.x"
+      - 'changeset-release/5.x'
   pull_request:
     paths:
       - .github/workflows/ci.yml
-      - "packages/**"
-      - "jest/**"
-      - "package.json"
-      - "pnpm-workspace.yaml"
+      - 'packages/**'
+      - 'jest/**'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
 
 jobs:
   ci:
-    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
-
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
         node_version: [10, 12, 14]
 
+    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
 
     steps:
