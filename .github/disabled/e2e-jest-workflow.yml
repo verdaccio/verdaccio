@@ -8,7 +8,12 @@ on:
 name: 'E2E Jest with verdaccio'
 jobs:
   yarn:
-    name: 'yarn:jest example'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: '${{ matrix.os }} / yarn:jest example'
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -39,7 +44,12 @@ jobs:
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
   npm:
-    name: 'npm:jest example'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: '${{ matrix.os }} / npm:jest example'
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -72,7 +82,12 @@ jobs:
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
   pnpm:
-    name: 'pnpm:jest example'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: '${{ matrix.os }} / pnpm:jest example'
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -104,4 +119,3 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
-
