@@ -8,7 +8,12 @@ on:
 name: 'E2E Gatsby.js CLI with verdaccio'
 jobs:
   npm:
-    name: 'npm:gatsby example'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: '${{ matrix.os }} / npm:gatsby example'
     runs-on: ${{ matrix.os }}
 
     steps:

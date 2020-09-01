@@ -7,17 +7,16 @@ on:
   pull_request:
     paths:
       - .github/workflows/ci-website.yml
-      - "website/**"
+      - 'website/**'
 jobs:
   ci:
-    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
-
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
         node_version: [14]
 
+    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
 
     steps:

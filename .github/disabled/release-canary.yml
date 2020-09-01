@@ -11,25 +11,25 @@ on:
 jobs:
   release:
     name: Release
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node (latest)
-      uses: actions/setup-node@v1
-      with:
-        node_version: 13
-    - name: Install
-      run: yarn --frozen-lockfile
-    - name: Clean
-      run: yarn clean
-    - name: Lint
-      run: yarn lint
-    - name: Build
-      run: yarn build
-    - name: Test
-      run: yarn test
-    - name: Publish
-      run: |
-        echo "//registry.verdaccio.org/:_authToken=${{ secrets.VERDACCIO_TOKEN }}" > .npmrc
-        git update-index --assume-unchanged .npmrc
-        yarn publish:canary
+      - uses: actions/checkout@v1
+      - name: Use Node (latest)
+        uses: actions/setup-node@v1
+        with:
+          node_version: 13
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Clean
+        run: yarn clean
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
+      - name: Publish
+        run: |
+          echo "//registry.verdaccio.org/:_authToken=${{ secrets.VERDACCIO_TOKEN }}" > .npmrc
+          git update-index --assume-unchanged .npmrc
+          yarn publish:canary
