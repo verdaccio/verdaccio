@@ -1,38 +1,41 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
+name: Bug report 🐛
+about: A feature is not working as is expected, I want to report a bug
+labels: "issue: bug" "issue: needs triage"
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+<!-- A clear and concise description of what the bug is. -->
 
 **To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!-- IMPORTANT:
+ - How to reproduce the issue
+ - Steps to reproduce the issue
+
+Be aware, the lack of reproducible steps the issue might cause your ticket to be closed.
+-->
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- A clear and concise description of what you expected to happen. -->
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- If applicable, add screenshots to help explain your problem.  -->
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+**Configuration File (cat ~/.config/verdaccio/config.yaml)**
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+<!-- Please be careful do not leak any sensitive information, remove tokens -->
 
-**Additional context**
-Add any other context about the problem here.
+**Environment information**
+<!-- Please paste the results of running `verdaccio --info` -->
+
+**Debugging output**
+ - `$ NODE_DEBUG=request verdaccio` display request calls (verdaccio <--> uplinks)
+ - `$ DEBUG=express:* verdaccio` enable extreme verdaccio debug mode (verdaccio api)
+ - `$ npm -ddd` prints:
+ - `$ npm config get registry` prints:
+
+<!--
+
+IMPORTANT: please do not attach external files, all content should be visible from any device.
+-->
+
