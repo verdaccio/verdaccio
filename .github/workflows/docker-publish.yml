@@ -14,15 +14,14 @@ on:
 jobs:
   testDocker:
     name: Test Docker Build
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Publish to GitHub Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: docker.pkg.github.com/verdaccio/verdaccio/verdaccio
-        username: ${{secrets.DOCKER_USERNAME}}
-        password: ${{secrets.GITHUB_REGISTRY_TOKEN}}
-        registry: docker.pkg.github.com
-        tags: "5.x"
-
+      - uses: actions/checkout@v1
+      - name: Publish to GitHub Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: docker.pkg.github.com/verdaccio/verdaccio/verdaccio
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.GITHUB_REGISTRY_TOKEN}}
+          registry: docker.pkg.github.com
+          tags: '5.x'
