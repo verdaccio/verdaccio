@@ -1,6 +1,6 @@
 ---
 id: plugin-middleware
-title: "Middleware Plugin"
+title: 'Middleware Plugin'
 ---
 
 ## What's an Middleware Plugin?
@@ -41,7 +41,6 @@ public register_middlewares(
 ```
 
 The `auth` and `storage` are instances and can be extended, but we don't recommend this approach unless is well founded.
-
 
 > A good example of a middleware plugin is the [verdaccio-audit](https://github.com/verdaccio/monorepo/tree/master/plugins/audi).
 
@@ -111,9 +110,9 @@ The middleware are registrered after built-in endpoints, thus, it is not possibl
 
 ### List Community Middleware Plugins
 
-* [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
+- [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for _npm audit_ cli support (built-in) (compatible since 3.x)
 
-* [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdaccio plugin for *npm profile* cli support and *npm profile set password* for *verdaccio-htpasswd* based authentificaton
+- [verdaccio-profile-api](https://github.com/ahoracek/verdaccio-profile-api): verdaccio plugin for _npm profile_ cli support and _npm profile set password_ for _verdaccio-htpasswd_ based authentificaton
 
-* [verdaccio-https](https://github.com/honzahommer/verdaccio-https) Verdaccio middleware plugin to redirect to https if x-forwarded-proto header is set
-* [verdaccio-badges](https://github.com/tavvy/verdaccio-badges) A verdaccio plugin to provide a version badge generator endpoint
+- [verdaccio-https](https://github.com/honzahommer/verdaccio-https) Verdaccio middleware plugin to redirect to https if x-forwarded-proto header is set
+- [verdaccio-badges](https://github.com/tavvy/verdaccio-badges) A verdaccio plugin to provide a version badge generator endpoint

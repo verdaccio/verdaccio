@@ -214,7 +214,7 @@ class Auth implements IAuth {
             debug('bypass unpublish for %o, publish will handle the access', packageName);
             // @ts-ignore
             // eslint-disable-next-line
-              return this.allow_publish(...arguments);
+            return this.allow_publish(...arguments);
           }
 
           if (ok) {

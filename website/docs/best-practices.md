@@ -1,6 +1,6 @@
 ---
 id: best
-title: "Best Practices"
+title: 'Best Practices'
 ---
 
 The following guide is a list of the best practices collected and that we usually recommend to all users. Do not take this guide as
@@ -16,21 +16,21 @@ You can add users and manage which users can access which packages.
 
 It is recommended that you define a prefix for your private packages, for example `local-*` or scoped `@my-company/*`, so all your private things will look like this: `local-foo`. This way you can clearly separate public packages from private ones.
 
- ```yaml
-  packages:
-    '@my-company/*':
-      access: $all
-      publish: $authenticated
-     'local-*':
-      access: $all
-      publish: $authenticated
-    '@*/*':
-      access: $all
-      publish: $authenticated
-    '**':
-      access: $all
-      publish: $authenticated
-   ```
+```yaml
+ packages:
+   '@my-company/*':
+     access: $all
+     publish: $authenticated
+    'local-*':
+     access: $all
+     publish: $authenticated
+   '@*/*':
+     access: $all
+     publish: $authenticated
+   '**':
+     access: $all
+     publish: $authenticated
+```
 
 Always remember, **the order of packages access is important**, packages are mached always top to bottom.
 
@@ -53,12 +53,12 @@ There's two options here:
    If you want to do that, you should modify your configuration file so verdaccio won't make requests regarding this package to npmjs anymore. Add a separate entry for this package to `config.yaml` and remove `npmjs` from `proxy` list and restart the server.
 
    ```yaml
-    packages:
-      '@my-company/*':
-        access: $all
-        publish: $authenticated
-        # comment it out or leave it empty
-        # proxy:
+   packages:
+     '@my-company/*':
+       access: $all
+       publish: $authenticated
+       # comment it out or leave it empty
+       # proxy:
    ```
 
    When you publish your package locally, **you should probably start with version string higher than existing one**, so it won't conflict with existing package in the cache.
@@ -74,9 +74,6 @@ There's two options here:
 
    This way your package will be used until its original maintainer updates his public package to `0.1.3`.
 
-
-
-
 ## Security
 
 The security starts in your environment, for such thing we totally recommend read **[10 npm Security Best Practices](https://snyk.io/blog/ten-npm-security-best-practices/)** and follow the recommendation.
@@ -86,17 +83,17 @@ The security starts in your environment, for such thing we totally recommend rea
 By default all packages are you publish in Verdaccio are accessible for all public, we totally recommend protect your registry from external non authorized users updating `access` property to `$authenticated`.
 
 ```yaml
-  packages:
-    '@my-company/*':
-      access: $authenticated
-      publish: $authenticated
-    '@*/*':
-      access: $authenticated
-      publish: $authenticated
-    '**':
-      access: $authenticated
-      publish: $authenticated
-   ```
+packages:
+  '@my-company/*':
+    access: $authenticated
+    publish: $authenticated
+  '@*/*':
+    access: $authenticated
+    publish: $authenticated
+  '**':
+    access: $authenticated
+    publish: $authenticated
+```
 
 In that way, **nobody will take advance of your registry unless is authorized and private packages won't be displayed in the User Interface**.
 

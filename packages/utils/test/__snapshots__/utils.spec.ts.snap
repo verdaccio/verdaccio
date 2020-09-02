@@ -32,7 +32,7 @@ exports[`Utilities parseReadme should parse makrdown text to html template 1`] =
 <li>Used to generate RSS Feeds</li>
 </ul>
 <h2 id=\\"contributing\\">Contributing</h2>
-<p>Please read <a href=\\"CONTRIBUTING.md\\">CONTRIBUTING.md</a>  for details on our code of conduct, and the process for submitting pull requests to us.</p>
+<p>Please read <a href=\\"CONTRIBUTING.md\\">CONTRIBUTING.md</a> for details on our code of conduct, and the process for submitting pull requests to us.</p>
 <h2 id=\\"versioning\\">Versioning</h2>
 <p>We use <a href=\\"http://semver.org/\\">SemVer</a> for versioning. For the versions available, see the <a href=\\"https://github.com/your/project/tags\\">tags on this repository</a>.</p>
 <h2 id=\\"license\\">License</h2>
