@@ -19,7 +19,6 @@ jobs:
         run: npm run docker
         env:
           VERDACCIO_BUILD_REGISTRY: https://registry.verdaccio.org
-
 #   testVerdaccio:
 #     name: Test Verdaccio Publish
 #     runs-on: ubuntu-latest

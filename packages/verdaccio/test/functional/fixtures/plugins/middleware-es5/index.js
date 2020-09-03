@@ -7,12 +7,11 @@ function Plugin(config, pluginOptions) {
 }
 
 Plugin.prototype.register_middlewares = function (app) {
-
-  const {message} = this._config;
+  const { message } = this._config;
   app.get('/test/route', function (req, res, next) {
     res.status(200);
 
-    return next({ ok: message })
+    return next({ ok: message });
   });
 };
 

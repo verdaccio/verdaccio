@@ -1,6 +1,6 @@
 ---
 id: plugin-storage
-title: "Storage Plugin"
+title: 'Storage Plugin'
 ---
 
 ## What's an Storage Plugin?
@@ -13,22 +13,23 @@ Verdaccio by default uses a file system storage plugin [local-storage](https://g
 
 Storage plugins are composed of two objects, the `IPluginStorage<T>` and the `IPackageStorage`.
 
-* The `IPluginStorage` object handle the local database for private packages.
+- The `IPluginStorage` object handle the local database for private packages.
 
 ```typescript
-  interface IPluginStorage<T> extends IPlugin<T>, ITokenActions {
-    logger: Logger;
-    config: T & Config;
-    add(name: string, callback: Callback): void;
-    remove(name: string, callback: Callback): void;
-    get(callback: Callback): void;
-    getSecret(): Promise<string>;
-    setSecret(secret: string): Promise<any>;
-    getPackageStorage(packageInfo: string): IPackageStorage;
-    search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
-  }
+interface IPluginStorage<T> extends IPlugin<T>, ITokenActions {
+  logger: Logger;
+  config: T & Config;
+  add(name: string, callback: Callback): void;
+  remove(name: string, callback: Callback): void;
+  get(callback: Callback): void;
+  getSecret(): Promise<string>;
+  setSecret(secret: string): Promise<any>;
+  getPackageStorage(packageInfo: string): IPackageStorage;
+  search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
+}
 ```
-* The `IPackageStorage` is an object that is created by each request that handles the I/O actions for the metadata and tarballs.
+
+- The `IPackageStorage` is an object that is created by each request that handles the I/O actions for the metadata and tarballs.
 
 ```typescript
 interface IPackageStorage {
@@ -105,8 +106,8 @@ I'm all done. Running npm install for you to install the required dependencies. 
 
 The following list of plugins are implementing the Storage API and might be used them as example.
 
-* [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
-* [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
-* [verdaccio-aws-s3-storage](https://github.com/verdaccio/monorepo/tree/master/plugins/aws-s3-storage) Storage plugin to host packages **Amazon S3** (maintained by Verdaccio core team)
-* [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
-* [verdaccio-minio](https://github.com/barolab/verdaccio-minio) A verdaccio plugin for storing data in Minio
+- [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
+- [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
+- [verdaccio-aws-s3-storage](https://github.com/verdaccio/monorepo/tree/master/plugins/aws-s3-storage) Storage plugin to host packages **Amazon S3** (maintained by Verdaccio core team)
+- [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
+- [verdaccio-minio](https://github.com/barolab/verdaccio-minio) A verdaccio plugin for storing data in Minio

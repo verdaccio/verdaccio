@@ -32,8 +32,7 @@ auth:
         name: authtest
         password: blahblah-password
 
-logs: { type: stdout, format: pretty, level: trace
-}
+logs: { type: stdout, format: pretty, level: trace }
 packages:
   '@test/*':
     access: $all

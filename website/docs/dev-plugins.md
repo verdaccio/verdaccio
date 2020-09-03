@@ -1,15 +1,15 @@
 ---
 id: dev-plugins
-title: "Developing Plugins"
+title: 'Developing Plugins'
 ---
 
 There are many ways to extend `verdaccio`, the kind of plugins supported are:
 
-* [Authentication](plugin-auth.md)
-* [Middleware](plugin-middleware.md)
-* [Storage](plugin-storage.md)
-* Theme
-* Filter plugins
+- [Authentication](plugin-auth.md)
+- [Middleware](plugin-middleware.md)
+- [Storage](plugin-storage.md)
+- Theme
+- Filter plugins
 
 > We recommend developing plugins using our [Typescript type definitions](https://github.com/verdaccio/monorepo/tree/master/core/types).
 
@@ -18,7 +18,6 @@ There are many ways to extend `verdaccio`, the kind of plugins supported are:
 # Other plugins
 
 The following plugins are valid and in process of incubation.
-
 
 ## Theme Plugin
 
@@ -38,26 +37,22 @@ It is imporant that the name of the plugin **must start with `verdaccio-theme-` 
 
 ### Theme Example
 
-* [@verdaccio/ui-theme](https://github.com/verdaccio/ui): The default Verdaccio theme based in React.js.
+- [@verdaccio/ui-theme](https://github.com/verdaccio/ui): The default Verdaccio theme based in React.js.
 
 ## Filter Plugin
 
 Since [`4.1.0`](https://github.com/verdaccio/verdaccio/pull/1313)
-
 
 Filter plugins were introduced due a [request](https://github.com/verdaccio/verdaccio/issues/818) in order
 to be able to filter metadata from uplinks.
 
 More [info in the PR](https://github.com/verdaccio/verdaccio/pull/1161).
 
-
-
 ```yaml
 filters:
-   storage-filter-blackwhitelist:
-     filter_file: /path/to/file
+  storage-filter-blackwhitelist:
+    filter_file: /path/to/file
 ```
-
 
 ### API
 

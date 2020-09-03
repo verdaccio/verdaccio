@@ -17,8 +17,6 @@ const themeOptions = {
   },
 };
 
-const wrapRootElement = ({ element }: { element: ReactNode }) => (
-  <ThemeProvider theme={createMuiTheme(themeOptions)}>{element}</ThemeProvider>
-);
+const wrapRootElement = ({ element }: { element: ReactNode }) => <ThemeProvider theme={createMuiTheme(themeOptions)}>{element}</ThemeProvider>;
 
 export default wrapRootElement;

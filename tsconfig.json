@@ -10,16 +10,7 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "exclude": [
-    "**/build",
-    "node_modules",
-    "**/node_modules",
-    "**/coverage",
-    "**/*.spec.ts",
-    "**/test",
-    "**/__tests__",
-    "**/*.test.ts"
-  ]
+  "exclude": ["**/build", "node_modules", "**/node_modules", "**/coverage", "**/*.spec.ts", "**/test", "**/__tests__", "**/*.test.ts"]
 }

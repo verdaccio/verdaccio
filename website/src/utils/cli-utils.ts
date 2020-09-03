@@ -1,8 +1,6 @@
 import { SyntheticEvent } from 'react';
 
-export const copyToClipBoardUtility = (str: string): ((e: SyntheticEvent<HTMLElement>) => void) => (
-  event: SyntheticEvent<HTMLElement>
-): void => {
+export const copyToClipBoardUtility = (str: string): ((e: SyntheticEvent<HTMLElement>) => void) => (event: SyntheticEvent<HTMLElement>): void => {
   event.preventDefault();
 
   const node = document.createElement('div');

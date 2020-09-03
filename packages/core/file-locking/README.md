@@ -6,7 +6,7 @@
 
 # File Locking
 
-This an utility to lock and unlock files 
+This an utility to lock and unlock files
 
 [![verdaccio (latest)](https://img.shields.io/npm/v/@verdaccio/file-locking/latest.svg)](https://www.npmjs.com/package/verdaccio)
 [![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://verdaccio.org/docs/en/docker.html)
@@ -16,7 +16,6 @@ This an utility to lock and unlock files
 [![node](https://img.shields.io/node/v/@verdaccio/file-locking/latest.svg)](https://www.npmjs.com/package/verdaccio)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
-
 
 [![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)

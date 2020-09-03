@@ -1,6 +1,6 @@
 ---
 id: google-cloud
-title: "Google Cloud"
+title: 'Google Cloud'
 ---
 
 dsadsa

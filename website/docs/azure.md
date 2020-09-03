@@ -1,6 +1,6 @@
 ---
 id: azure
-title: "Windows Azure"
+title: 'Windows Azure'
 ---
 
 dsadsa
