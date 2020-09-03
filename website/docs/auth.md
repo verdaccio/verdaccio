@@ -1,6 +1,6 @@
 ---
 id: authentification
-title: "Authentification"
+title: 'Authentification'
 ---
 
 The authentification is tied to the auth [plugin](plugins.md) you are using. The package restrictions also is handled by the [Package Access](packages.md).
@@ -29,10 +29,10 @@ registry=http://localhost:5555/
 Eg:
 
 ```yaml
-  'my-company-*':
-    access: $anonymous
-    publish: $anonymous
-    proxy: npmjs
+'my-company-*':
+  access: $anonymous
+  publish: $anonymous
+  proxy: npmjs
 ```
 
 As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**.
@@ -41,11 +41,11 @@ As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/21
 
 ### The meaning of `$all` and `$anonymous`
 
-As you know *Verdaccio* uses the `htpasswd` by default. That plugin does not implement the methods `allow_access`, `allow_publish` and `allow_unpublish`.
-Thus, *Verdaccio* will handle that in the following way:
+As you know _Verdaccio_ uses the `htpasswd` by default. That plugin does not implement the methods `allow_access`, `allow_publish` and `allow_unpublish`.
+Thus, _Verdaccio_ will handle that in the following way:
 
-* If you are not logged in (you are anonymous), `$all` and `$anonymous` means exactly the same.
-* If you are logged in, `$anonymous` won't be part of your groups and `$all` will match any logged user. A new group `$authenticated` will be added to the list.
+- If you are not logged in (you are anonymous), `$all` and `$anonymous` means exactly the same.
+- If you are logged in, `$anonymous` won't be part of your groups and `$all` will match any logged user. A new group `$authenticated` will be added to the list.
 
 As a takeaway, `$all` **will match all users, independently whether is logged or not**.
 
@@ -54,8 +54,8 @@ As a takeaway, `$all` **will match all users, independently whether is logged or
 
 Let's recap:
 
-* **logged**: `$all`, `$authenticated`, + groups added by the plugin
-* **anonymous (logged out)**: `$all` and `$anonymous`.
+- **logged**: `$all`, `$authenticated`, + groups added by the plugin
+- **anonymous (logged out)**: `$all` and `$anonymous`.
 
 ## Default htpasswd
 
@@ -71,9 +71,9 @@ auth:
     #max_users: 1000
 ```
 
-Property | Type | Required | Example | Support | Description
---- | --- | --- | --- | --- | ---
-file | string | Yes | ./htpasswd | all | file that host the encrypted credentials
-max_users | number | No | 1000 | all | set limit of users
+| Property  | Type   | Required | Example    | Support | Description                              |
+| --------- | ------ | -------- | ---------- | ------- | ---------------------------------------- |
+| file      | string | Yes      | ./htpasswd | all     | file that host the encrypted credentials |
+| max_users | number | No       | 1000       | all     | set limit of users                       |
 
 In case to decide do not allow user to login, you can set `max_users: -1`.

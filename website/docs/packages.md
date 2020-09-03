@@ -1,6 +1,6 @@
 ---
 id: packages
-title: "Package Access"
+title: 'Package Access'
 ---
 
 It's a series of contraints that allow or restrict access to the local storage based in specific criteria.
@@ -46,14 +46,14 @@ packages:
 The list internal groups handled by `verdaccio` are:
 
 ```js
-'$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous'
+'$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous';
 ```
 
 All users recieve all those set of permissions independently of is anonymous or not plus the groups provided by the plugin, in case of `htpasswd` return the username as a group. For instance, if you are logged as `npmUser` the list of groups will be.
 
 ```js
 // groups without '$' are going to be deprecated eventually
-'$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser'
+'$all', '$anonymous', '@all', '@anonymous', 'all', 'undefined', 'anonymous', 'npmUser';
 ```
 
 If you want to protect specific set packages under your group, you need to do something like this. Let's use a `Regex` that covers all prefixed `npmuser-` packages. We recommend using a prefix for your packages, in that way it will be easier to protect them.
@@ -84,14 +84,14 @@ You can change the existing behaviour using a different plugin authentication. `
 Defining multiple access groups is fairly easy, just define them with a white space between them.
 
 ```yaml
-  'company-*':
-    access: admin internal
-    publish: admin
-    proxy: server1
-  'supersecret-*':
-    access: secret super-secret-area ultra-secret-area
-    publish: secret ultra-secret-area
-    proxy: server1
+'company-*':
+  access: admin internal
+  publish: admin
+  proxy: server1
+'supersecret-*':
+  access: secret super-secret-area ultra-secret-area
+  publish: secret ultra-secret-area
+  proxy: server1
 ```
 
 #### Blocking access to set of packages
@@ -108,7 +108,7 @@ packages:
 
 #### Blocking proxying a set of specific packages
 
-You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
+You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different _uplinks_.
 
 Let's see the following example:
 
@@ -131,10 +131,10 @@ packages:
 
 Let's describe what we want with the above example:
 
-* I want to host my own `jquery` dependency but I need to avoid proxying it.
-* I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
-* I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
-* I want proxying for all the rest of the dependencies.
+- I want to host my own `jquery` dependency but I need to avoid proxying it.
+- I want all dependencies that match with `my-company-*` but I need to avoid proxying them.
+- I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
+- I want proxying for all the rest of the dependencies.
 
 Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
@@ -151,7 +151,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property
+The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property
 `unpublish` in your package access section, for instance:
 
 ```yalm
@@ -176,21 +176,20 @@ packages:
 
 In the previous example, the behaviour would be described:
 
-* all users can publish the `jquery` package, but only the user `root` would be able to unpublish any version.
-* only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
-* If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
-
+- all users can publish the `jquery` package, but only the user `root` would be able to unpublish any version.
+- only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
+- If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
 
 ### Configuration
 
 You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-Property | Type | Required | Example | Support | Description
---- | --- | --- | --- | --- | ---
-access | string | No | $all | all | define groups allowed to access the package
-publish | string | No | $authenticated | all | define groups allowed to publish
-proxy | string | No | npmjs | all | limit look ups for specific uplink
-storage | string | No | string | `/some-folder` | it creates a subfolder whithin the storage folder for each package access
+| Property | Type   | Required | Example         | Support        | Description                                                               |
+| -------- | ------ | -------- | --------------- | -------------- | ------------------------------------------------------------------------- |
+| access   | string | No       | \$all           | all            | define groups allowed to access the package                               |
+| publish  | string | No       | \$authenticated | all            | define groups allowed to publish                                          |
+| proxy    | string | No       | npmjs           | all            | limit look ups for specific uplink                                        |
+| storage  | string | No       | string          | `/some-folder` | it creates a subfolder whithin the storage folder for each package access |
 
 > We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
 

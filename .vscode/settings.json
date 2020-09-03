@@ -1,12 +1,12 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"files.exclude": {
-		"**/.nyc_output": true,
-		"**/build": false,
-		"**/coverage": true,
-		".idea": true,
-		"storage_default_storage": true,
-		".yarn": true
-	},
-	"typescript.tsdk": "node_modules/typescript/lib"
+  "files.exclude": {
+    "**/.nyc_output": true,
+    "**/build": false,
+    "**/coverage": true,
+    ".idea": true,
+    "storage_default_storage": true,
+    ".yarn": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

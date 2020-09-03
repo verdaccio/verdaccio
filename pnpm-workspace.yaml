@@ -2,4 +2,4 @@ packages:
   - packages/*
   - packages/core/*
   - website
-  - "!**/test/**"
+  - '!**/test/**'
