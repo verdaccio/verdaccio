@@ -1,39 +1,65 @@
-# Contributing to Verdaccio
+# Contributing
 
-We are happy that you wish to contribute to this project. For that reason, we
-present you with this guide.
+> Any chage matters, whatever the size, just do it.
 
-Additional information is available on the
-[wiki](https://github.com/verdaccio/verdaccio/wiki).
+Welcome to **Verdaccio**
+
+We are happy that you are willing to contribute. For that reason, we
+have prepared guidelines for you:
 
 ## Contents
 
-- [Contents](#contents)
 - [How Do I Contribute?](#how-do-i-contribute)
-- [Development](#development)
+- [Getting Started](#getting-started)
 - [Reporting Bugs](#reporting-bugs)
   - [Issue Search](#issue-search)
   - [Check Website For Solution](#check-website-for-solution)
   - [Chat](#chat)
   - [Check If It's Been Fixed](#check-if-its-been-fixed)
 - [Request Features](#request-features)
+
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+  - # [Make Changes and Commit](#make-changes-and-commit)
   - [Submitting a Pull Request](#submitting-a-pull-request)
   - [Make Changes and Commit](#make-changes-and-commit)
+
 - [Update Tests](#update-tests)
 - [Develop Plugins](#develop-plugins)
 
 ## How Do I Contribute?
 
-There are different ways to contribute, each with a different level
-of involvement and technical knowledge required, such as:
+There are different ways to contribute, each comes with a different levels
+of tasks, such as:
+
+- Fixing bugs
+- Improve codebase
+- Triaging reported bugs by others
+- Helping with translations
+
+Verdaccio has several areas of involvement, which might fit you better, eg:
+
+##### Core and Plugins Development
+
+Verdaccio [core](https://github.com/verdaccio/verdaccio) is the main repository, the biggest one and full of task looking for owner.
+
+Verdaccio [monorepo](https://github.com/verdaccio/monorepo) is where are hosted the plugins maintained but this community.
 
 - [Reporting Bugs](#reporting-bugs)
 - [Request Features](#request-features)
 - [Develop Plugins](#develop-plugins)
-- [Improve Documentation](http://www.verdaccio.org/docs/en/installation.html)
+- # [Improve Documentation](http://www.verdaccio.org/docs/en/installation.html)
 
-**Please read this document carefully. It will help maintainers and readers
-in solving your issue(s), evaluating your feature request, etc.**
+##### Website
+
+Verdaccio uses Gatsby.js for the [website](https://github.com/verdaccio/verdaccio/tree/5.x/website) and if you are familiar with this technology, you might be the official webmaster.
+
+##### User Interface
+
+Verdaccio [User Interface](https://github.com/verdaccio/ui) is based in **react** and **material-ui** and looking for front-end contributors.
+
+##### Kubernetes and Helm
+
+Verdaccio [chart](https://github.com/verdaccio/charts) is the official repository for the **Helm chart**.
 
 ## Development
 
@@ -129,9 +155,9 @@ Then, and only then, you can create your pull request.
 
 #### Commit Guidelines
 
-We follow the [conventional commit messages](https://conventionalcommits.org/)
-convention in order to automate CHANGELOG generation and to automate
-semantic versioning.
+Before commit your changes
+
+We uses [changesets](https://github.com/atlassian/changesets) to
 
 For example:
 
