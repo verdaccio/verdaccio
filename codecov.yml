@@ -4,7 +4,7 @@ codecov:
 coverage:
   precision: 2
   round: down
-  range: "80...85"
+  range: '80...85'
 
   status:
     project:
@@ -24,6 +24,6 @@ parsers:
       macro: no
 
 comment:
-  layout: "diff,flags,tree"
+  layout: 'diff,flags,tree'
   behavior: default
   require_changes: no

@@ -193,8 +193,8 @@ describe('readme', () => {
     test('should parse marked', async () => {
       const readme: string = await readReadme('mixed-html-mk');
 
-      expect(clean(parseReadme(readme) as string)).toEqual(
-        `<h1 id=\"mix-html-and-xss-markdown\">mix html and XSS markdown</h1><p><a>Basic</a></p><p> <a href=\"https://github.com/webpack/webpack\"><img src=\"https://webpack.js.org/assets/icon-square-big.svg\" height=\"200\" width=\"200\"></a></p>`
+      expect(clean(parseReadme(readme) as string)).toMatchInlineSnapshot(
+        `"<h1 id=\\"mix-html-and-xss-markdown\\">mix html and XSS markdown</h1><p><a>Basic</a></p><p><a href=\\"https://github.com/webpack/webpack\\"><img src=\\"https://webpack.js.org/assets/icon-square-big.svg\\" height=\\"200\\" width=\\"200\\"></a></p>"`
       );
     });
   });

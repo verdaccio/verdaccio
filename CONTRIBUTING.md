@@ -14,13 +14,13 @@ Additional information is available on the
 - [How Do I Contribute?](#how-do-i-contribute)
 - [Development](#development)
 - [Reporting Bugs](#reporting-bugs)
-    - [Issue Search](#issue-search)
-    - [Check Website For Solution](#check-website-for-solution)
-    - [Chat](#chat)
-    - [Check If It's Been Fixed](#check-if-its-been-fixed)
+  - [Issue Search](#issue-search)
+  - [Check Website For Solution](#check-website-for-solution)
+  - [Chat](#chat)
+  - [Check If It's Been Fixed](#check-if-its-been-fixed)
 - [Request Features](#request-features)
-    - [Submitting a Pull Request](#submitting-a-pull-request)
-    - [Make Changes and Commit](#make-changes-and-commit)
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+  - [Make Changes and Commit](#make-changes-and-commit)
 - [Update Tests](#update-tests)
 - [Develop Plugins](#develop-plugins)
 
@@ -29,10 +29,10 @@ Additional information is available on the
 There are different ways to contribute, each with a different level
 of involvement and technical knowledge required, such as:
 
-* [Reporting Bugs](#reporting-bugs)
-* [Request Features](#request-features)
-* [Develop Plugins](#develop-plugins)
-* [Improve Documentation](http://www.verdaccio.org/docs/en/installation.html)
+- [Reporting Bugs](#reporting-bugs)
+- [Request Features](#request-features)
+- [Develop Plugins](#develop-plugins)
+- [Improve Documentation](http://www.verdaccio.org/docs/en/installation.html)
 
 **Please read this document carefully. It will help maintainers and readers
 in solving your issue(s), evaluating your feature request, etc.**
@@ -41,8 +41,8 @@ in solving your issue(s), evaluating your feature request, etc.**
 
 Development guides can be found on the [wiki](https://github.com/verdaccio/verdaccio/wiki):
 
-* [Building the project](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code)
-* [Running, debugging, and testing](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests)
+- [Building the project](https://github.com/verdaccio/verdaccio/wiki/Build-Source-Code)
+- [Running, debugging, and testing](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests)
 
 ## Reporting Bugs
 
@@ -51,7 +51,7 @@ We welcome clear, detailed bug reports.
 **Bugs are considered features that are not working as described in
 documentation.**
 
-If you've found a bug in Verdaccio **that isn't a security risk**, please file 
+If you've found a bug in Verdaccio **that isn't a security risk**, please file
 a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues).
 
 **NOTE: Verdaccio still does not support all npm commands. Some were not
@@ -66,7 +66,7 @@ Additionally, we have labelled questions for easy follow-up as [questions](https
 
 If so, up-vote it (using GitHub reactions) or add additional helpful details to
 the existing issue to show that it's affecting multiple people.
- 
+
 ### Check Website For Solution
 
 Some of the most popular topics can be found in our website(http://www.verdaccio.org/docs/en/installation.html)
@@ -89,10 +89,10 @@ the project. Then, detail your request, ensuring context and use case is provide
 
 **Please provide:**
 
-* A detailed description the advantages of your request
-* Whether or not it's compatible with `npm` and `yarn`
-* A potential implementation or design
-* Whatever else you have in your mind 🤓
+- A detailed description the advantages of your request
+- Whether or not it's compatible with `npm` and `yarn`
+- A potential implementation or design
+- Whatever else you have in your mind 🤓
 
 ### Submitting a Pull Request
 
@@ -137,8 +137,8 @@ semantic versioning.
 
 For example:
 
-* `feat: A new feature`
-* `fix: A bug fix`
+- `feat: A new feature`
+- `fix: A bug fix`
 
 A commit of the type feat introduces a new feature to the codebase
 (this correlates with MINOR in semantic versioning).
@@ -154,7 +154,7 @@ A commit of the type fix patches a bug in your codebase (this correlates with PA
 e.g.:
 
 ```
-fix: xxxxxxxxxx
+fix: xxxxxxxxxxx
 ```
 
 Commits types such as as `docs:`,`style:`,`refactor:`,`perf:`,`test:`
@@ -174,12 +174,13 @@ If you need help with how testing works, please [refer to the following guide](h
 features without tests will not be merged.**
 
 Things excluded from tests:
-* Documentation
-* Website
-* Build
-* Deployment
-* Assets
-* Flow types
+
+- Documentation
+- Website
+- Build
+- Deployment
+- Assets
+- Flow types
 
 ## Develop Plugins
 
@@ -188,7 +189,7 @@ Plugins are add-ons that extend the functionality of the application.
 If you want to develop your own plugin:
 
 1. Check whether there is a legacy Sinopia plugin for the feature that you need
-    via [npmjs](https://www.npmjs.com/search?q=sinopia)
+   via [npmjs](https://www.npmjs.com/search?q=sinopia)
 2. Keep in mind the [life-cycle to load a plugin](https://verdaccio.org/docs/en/dev-plugins)
 3. You are free to host your plugin in your repository or ours (just ask)
 4. Provide a detailed description of your plugin to help users understand it

@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: "Configuration File"
+title: 'Configuration File'
 ---
 
 This file is the cornerstone of verdaccio where you can modify the default behaviour, enable plugins and extend features.
@@ -29,7 +29,7 @@ packages:
   '**':
     proxy: npmjs
 logs:
-  - {type: stdout, format: pretty, level: http}
+  - { type: stdout, format: pretty, level: http }
 ```
 
 ## Sections
@@ -67,9 +67,9 @@ auth:
 
 <small>Since: `verdaccio@4.0.0` [#168](https://github.com/verdaccio/verdaccio/pull/168)</small>
 
-The security block allows you to customise the token signature. To enable [JWT (json web token)](https://jwt.io/) new signture you need to add the block `jwt` to `api` section,  `web` uses by default `jwt`.
+The security block allows you to customise the token signature. To enable [JWT (json web token)](https://jwt.io/) new signture you need to add the block `jwt` to `api` section, `web` uses by default `jwt`.
 
-The configuration is separated in two sections, `api` and `web`. To use JWT on  `api`, it has to be defined, otherwise will use the legacy token signature (`aes192`). For JWT you might customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
+The configuration is separated in two sections, `api` and `web`. To use JWT on `api`, it has to be defined, otherwise will use the legacy token signature (`aes192`). For JWT you might customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
 
 ```
 security:
@@ -86,6 +86,7 @@ security:
      verify:
      	someProp: [value]
 ```
+
 > We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions.
 
 ### Server
@@ -93,14 +94,13 @@ security:
 A set of properties to modify the behavior of the server application, specifically the API (Express.js).
 
 > You can specify HTTP/1.1 server keep alive timeout in seconds for incomming connections.
-A value of 0 makes the http server behave similarly to Node.js versions prior to 8.0.0, which did not have a keep-alive timeout.
-WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
+> A value of 0 makes the http server behave similarly to Node.js versions prior to 8.0.0, which did not have a keep-alive timeout.
+> WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 
 ```yaml
 server:
   keepAliveTimeout: 60
 ```
-
 
 ### Web UI
 
@@ -118,7 +118,6 @@ web:
 
 Uplinks is the ability of the system to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
 
-
 ```yaml
 uplinks:
   npmjs:
@@ -128,7 +127,6 @@ uplinks:
 ### Packages
 
 Packages allow the user to control how the packages are gonna be accessed. For more information about this section read the [packages page](packages.md).
-
 
 ```yaml
 packages:
@@ -142,7 +140,7 @@ packages:
 
 ### Offline Publish
 
-By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to *true*.
+By default `verdaccio` does not allow to publish when the client is offline, that behavior can be overridden by setting this to _true_.
 
 ```yaml
 publish:
@@ -183,14 +181,13 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [ssl page](ssl.md).
-
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol _https://_. For more information about this section read the [ssl page](ssl.md).
 
 ```yaml
 https:
-    key: ./path/verdaccio-key.pem
-    cert: ./path/verdaccio-cert.pem
-    ca: ./path/verdaccio-csr.pem
+  key: ./path/verdaccio-key.pem
+  cert: ./path/verdaccio-cert.pem
+  ca: ./path/verdaccio-csr.pem
 ```
 
 ### Proxy
@@ -221,14 +218,12 @@ Enabling notifications to third-party tools is fairly easy via web hooks. For mo
 ```yaml
 notify:
   method: POST
-  headers: [{'Content-Type': 'application/json'}]
+  headers: [{ 'Content-Type': 'application/json' }]
   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
-
 
 ### Audit
 

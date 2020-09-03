@@ -2,6 +2,11 @@
   "env": {
     "browser": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "react/prop-types": 0
   }
