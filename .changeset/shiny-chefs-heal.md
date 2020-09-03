@@ -1,5 +1,5 @@
 ---
-"@verdaccio/api": patch
+'@verdaccio/api': patch
 ---
 
 testing changesets

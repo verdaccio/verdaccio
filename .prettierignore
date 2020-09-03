@@ -13,17 +13,3 @@
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
-**/coverage/**
-**/build/*.js
-test/unit/partials/*
-build/*
-.github/
-.vscode/
-wiki/
-.yarnrc.yml
-yarn-error.log
-.yarn/
-test/functional/store/*
-storage_default_storage/*
-docker-examples/
-.prettierignore

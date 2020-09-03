@@ -18,4 +18,5 @@ npm install @verdaccio/readme
 ```
 
 ## License
+
 Verdaccio is [MIT licensed](https://github.com/verdaccio/readme/blob/master/LICENSE).

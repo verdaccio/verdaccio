@@ -1,6 +1,6 @@
 ---
 id: protect-your-dependencies
-title: "Protecting packages"
+title: 'Protecting packages'
 ---
 
 `verdaccio` allows you protect publish, to achieve that you will need to set up correctly your [packages access](packages).
@@ -12,13 +12,13 @@ title: "Protecting packages"
 Let's see for instance the following set up. You have a set of dependencies what are prefixed with `my-company-*` and you need to protect them from anonymous or another logged user without right credentials.
 
 ```yaml
-  'my-company-*':
-    access: admin teamA teamB teamC
-    publish: admin teamA
-    proxy: npmjs
+'my-company-*':
+  access: admin teamA teamB teamC
+  publish: admin teamA
+  proxy: npmjs
 ```
 
-With this configuration, basically we allow to groups **admin** and **teamA** to *publish* and **teamA**   **teamB** **teamC** *access* to such dependencies.
+With this configuration, basically we allow to groups **admin** and **teamA** to _publish_ and **teamA** **teamB** **teamC** _access_ to such dependencies.
 
 ### Use case: teamD try to access the dependency
 
@@ -28,6 +28,7 @@ So, if I am logged as **teamD**. I shouldn't be able to access all dependencies 
 ➜ npm whoami
 teamD
 ```
+
 I won't have access to such dependencies and also won't be visible via web for user **teamD**. If I try to access the following will happen.
 
 ```bash
@@ -35,6 +36,7 @@ I won't have access to such dependencies and also won't be visible via web for u
 npm ERR! code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
+
 or with `yarn`
 
 ```bash

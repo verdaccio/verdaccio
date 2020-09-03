@@ -1,6 +1,6 @@
 ---
 id: plugin-auth
-title: "Authentication Plugin"
+title: 'Authentication Plugin'
 ---
 
 ## What's an Authentication Plugin?
@@ -10,7 +10,7 @@ easily be replaced by your own.
 
 <div id="codefund">''</div>
 
- ## Getting Started
+## Getting Started
 
 The authentication plugins are defined in the `auth:` section, as follows:
 
@@ -45,17 +45,18 @@ On each request, `authenticate` will be triggered and the plugin should return t
 ### API
 
 ```typescript
-  interface IPluginAuth<T> extends IPlugin<T> {
-    authenticate(user: string, password: string, cb: AuthCallback): void;
-    adduser?(user: string, password: string, cb: AuthCallback): void;
-    changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
-    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
-    allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
-    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
-    apiJWTmiddleware?(helpers: any): Function;
-  }
+interface IPluginAuth<T> extends IPlugin<T> {
+  authenticate(user: string, password: string, cb: AuthCallback): void;
+  adduser?(user: string, password: string, cb: AuthCallback): void;
+  changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
+  allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+  allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+  allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+  apiJWTmiddleware?(helpers: any): Function;
+}
 ```
-> Only `adduser`, `allow_access`, `apiJWTmiddleware`, `allow_publish`  and `allow_unpublish` are optional, verdaccio provide a fallback in all those cases.
+
+> Only `adduser`, `allow_access`, `apiJWTmiddleware`, `allow_publish` and `allow_unpublish` are optional, verdaccio provide a fallback in all those cases.
 
 #### `apiJWTmiddleware` method
 
@@ -63,11 +64,9 @@ Since `v4.0.0`
 
 `apiJWTmiddleware` was introduced on [PR#1227](https://github.com/verdaccio/verdaccio/pull/1227) in order to have full control of the token handler, overriding this method will disable `login/adduser` support. We recommend don't implement this method unless is totally necessary. See a full example [here](https://github.com/verdaccio/verdaccio/pull/1227#issuecomment-463235068).
 
-
 ## What should I return in each of the methods?
 
 Verdaccio relies on `callback` functions at time of this writing. Each method should call the method and what you returns is important, let's review how to do it.
-
 
 ### `authentication` callback
 
@@ -78,13 +77,12 @@ Once the authentication has been executed there is 2 options to give a response 
 If the auth was unsuccessful, return `false` as the second argument.
 
 ```typescript
-callback(null, false)
+callback(null, false);
 ```
 
 ##### If the authentication success
 
 The auth was successful.
-
 
 `groups` is an array of strings where the user is part of.
 
@@ -104,7 +102,6 @@ The authentication service might fails, and you might want to reflect that in th
 
 > A failure on login is not the same as service error, if you want to notify user the credentails are wrong, just return `false` instead string of groups. The behaviour mostly depends of you.
 
-
 ### `adduser` callback
 
 ##### If adduser success
@@ -112,7 +109,7 @@ The authentication service might fails, and you might want to reflect that in th
 If the service is able to create an user, return `true` as the second argument.
 
 ```typescript
-callback(null, true)
+callback(null, true);
 ```
 
 ##### If adduser fails
@@ -136,7 +133,7 @@ If the service is able to create an user, return `true` as the second argument.
 ```typescript
 const user = serviceUpdatePassword(user, password, newPassword);
 
-callback(null, user)
+callback(null, user);
 ```
 
 ##### If the request fails
@@ -146,7 +143,7 @@ Any other action different than success must return an error.
 ```typescript
 import { getNotFound } from '@verdaccio/commons-api';
 
- const err = getNotFound('user not found');
+const err = getNotFound('user not found');
 
 callback(err);
 ```
@@ -175,7 +172,7 @@ Any other action different than success must return an error.
 ```typescript
 import { getNotFound } from '@verdaccio/commons-api';
 
- const err = getForbidden('not allowed to access package');
+const err = getForbidden('not allowed to access package');
 
 callback(err);
 ```
@@ -287,16 +284,16 @@ Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and t
 
 ### List Community Authentication Plugins
 
-* [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
-* [verdaccio-bitbucket-server](https://github.com/oeph/verdaccio-bitbucket-server): Bitbucket Server authentication plugin for verdaccio.
-* [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
-* [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
-* [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
-* [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): Enable GitLab CI to authenticate against verdaccio.
-* [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
-* [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
-* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
-* [verdaccio-groupnames](https://github.com/deinstapel/verdaccio-groupnames): Plugin to handle dynamic group associations utilizing `$group` syntax. Works best with the ldap plugin.
-* [verdaccio-sqlite](https://github.com/bchanudet/verdaccio-sqlite): SQLite Authentication plugin for Verdaccio
+- [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
+- [verdaccio-bitbucket-server](https://github.com/oeph/verdaccio-bitbucket-server): Bitbucket Server authentication plugin for verdaccio.
+- [verdaccio-ldap](https://www.npmjs.com/package/verdaccio-ldap): LDAP auth plugin for verdaccio.
+- [verdaccio-active-directory](https://github.com/nowhammies/verdaccio-activedirectory): Active Directory authentication plugin for verdaccio
+- [verdaccio-gitlab](https://github.com/bufferoverflow/verdaccio-gitlab): use GitLab Personal Access Token to authenticate
+- [verdaccio-gitlab-ci](https://github.com/lab360-ch/verdaccio-gitlab-ci): Enable GitLab CI to authenticate against verdaccio.
+- [verdaccio-htpasswd](https://github.com/verdaccio/verdaccio-htpasswd): Auth based on htpasswd file plugin (built-in) for verdaccio
+- [verdaccio-github-oauth](https://github.com/aroundus-inc/verdaccio-github-oauth): Github oauth authentication plugin for verdaccio.
+- [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui): GitHub OAuth plugin for the verdaccio login button.
+- [verdaccio-groupnames](https://github.com/deinstapel/verdaccio-groupnames): Plugin to handle dynamic group associations utilizing `$group` syntax. Works best with the ldap plugin.
+- [verdaccio-sqlite](https://github.com/bchanudet/verdaccio-sqlite): SQLite Authentication plugin for Verdaccio
 
 **Have you developed a new plugin? Add it here !**

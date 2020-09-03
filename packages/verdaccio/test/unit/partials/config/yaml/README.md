@@ -8,7 +8,7 @@ The files on this folder should be small as possible, **there is a custom config
 
 - Each topic ideally should have his **own folder** if many scenarios might be part of the test. **eg: profile, security**
   - Include different scenarios inside of the folder with enough context to indenty the use case.
-- Foder or file, should be **named** as the test that used them. *eg: `api.spec.yaml` -> `api.spec.ts`*
+- Foder or file, should be **named** as the test that used them. _eg: `api.spec.yaml` -> `api.spec.ts`_
 - **Don't use the same config file in multiple test**, it increase maintenance complexity.
 - Try to **include only the props are require for the test**:
 - Comment the config files, don't be shy, add as much context you think is need it for future contributors.

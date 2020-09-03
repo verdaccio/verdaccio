@@ -2,18 +2,15 @@
   "extends": [
     "eslint:recommended",
     "google",
-    "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:jest/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
-    "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
-  "plugins": ["import", "jest", "jsx-a11y", "react-hooks", "prettier"],
+  "plugins": ["import", "jest", "jsx-a11y", "react-hooks"],
   "env": {
     "es6": true,
     "node": true,
@@ -32,9 +29,6 @@
     }
   },
   "settings": {
-    "react": {
-      "version": "detect"
-    },
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
@@ -44,22 +38,6 @@
   "parser": "@typescript-eslint/parser",
   "rules": {
     "curly": ["error", "all"],
-    "prettier/prettier": [
-      2,
-      {
-        "useTabs": false,
-        "printWidth": 160,
-        "tabWidth": 2,
-        "singleQuote": true,
-        "bracketSpacing": true,
-        "jsxBracketSameLine": true,
-        "trailingComma": "es5",
-        "semi": true,
-        "parser": "typescript",
-        "importOrder": ["^@verdaccio/(.*)$", "^[./]"],
-        "importOrderSeparation": true
-      }
-    ],
     "react/prop-types": 0,
     "jest/no-export": 0,
     "jest/no-test-callback": 0,

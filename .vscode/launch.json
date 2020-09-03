@@ -1,79 +1,74 @@
 {
-	// Use IntelliSense to learn about possible Node.js debug attributes.
-	// Hover to view descriptions of existing attributes.
-	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-	"version": "0.2.0",
-	"configurations": [
-
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "CLI Babel Registry",
-			"stopOnEntry": false,
-			"program": "${workspaceFolder}/debug/bootstrap.js",
-			"args": ["-l", "0.0.0.0:4873"],
-			"env": {
-				"BABEL_ENV": "registry"
-			},
-			"preLaunchTask": "npm: build:webui",
-			"console": "integratedTerminal"
-		},
-		{
-			"name": "Unit Tests",
-			"type": "node",
-			"request": "launch",
-			"program": "${workspaceRoot}/node_modules/bin/jest",
-			"stopOnEntry": false,
-			"args": [
-				"--debug=true" ],
-			"cwd": "${workspaceRoot}",
-			"runtimeExecutable": null,
-			"runtimeArgs": [
-				"--nolazy"
-			],
-			"env": {
-				"NODE_ENV": "test",
-				"TZ": "UTC"
-			},
-			"console": "integratedTerminal"
-		},
-		{
-			"name": "Functional Tests",
-			"type": "node",
-			"request": "launch",
-			"program": "${workspaceRoot}/node_modules/.bin/jest",
-			"stopOnEntry": false,
-			"args": [
-				"--config",
-				"./test/jest.config.functional.js",
-				"--testPathPattern",
-				"./test/functional/index*",
-				"--debug=false",
-				"--verbose",
-				"--useStderr",
-				"--detectOpenHandles"],
-			"cwd": "${workspaceRoot}",
-			"env": {
-				"BABEL_ENV": "testOldEnv",
-				"VERDACCIO_DEBUG": "true",
-				"VERDACCIO_DEBUG_INJECT": "true",
-				"NODE_DEBUG": "TO_DEBUG_REQUEST_REMOVE_THIS_request"
-			},
-			"preLaunchTask": "pre-test",
-			"console": "integratedTerminal",
-			"runtimeExecutable": null,
-			"runtimeArgs": [
-				"--nolazy"
-			],
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "Verdaccio Compiled",
-			"preLaunchTask": "npm: code:build",
-			"program": "${workspaceRoot}/bin/verdaccio",
-			"args": ["-l", "0.0.0.0:4873"],
-			"console": "integratedTerminal"
-		}
-	]
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "CLI Babel Registry",
+      "stopOnEntry": false,
+      "program": "${workspaceFolder}/debug/bootstrap.js",
+      "args": ["-l", "0.0.0.0:4873"],
+      "env": {
+        "BABEL_ENV": "registry"
+      },
+      "preLaunchTask": "npm: build:webui",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Unit Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/bin/jest",
+      "stopOnEntry": false,
+      "args": ["--debug=true"],
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": null,
+      "runtimeArgs": ["--nolazy"],
+      "env": {
+        "NODE_ENV": "test",
+        "TZ": "UTC"
+      },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Functional Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "stopOnEntry": false,
+      "args": [
+        "--config",
+        "./test/jest.config.functional.js",
+        "--testPathPattern",
+        "./test/functional/index*",
+        "--debug=false",
+        "--verbose",
+        "--useStderr",
+        "--detectOpenHandles"
+      ],
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "BABEL_ENV": "testOldEnv",
+        "VERDACCIO_DEBUG": "true",
+        "VERDACCIO_DEBUG_INJECT": "true",
+        "NODE_DEBUG": "TO_DEBUG_REQUEST_REMOVE_THIS_request"
+      },
+      "preLaunchTask": "pre-test",
+      "console": "integratedTerminal",
+      "runtimeExecutable": null,
+      "runtimeArgs": ["--nolazy"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Verdaccio Compiled",
+      "preLaunchTask": "npm: code:build",
+      "program": "${workspaceRoot}/bin/verdaccio",
+      "args": ["-l", "0.0.0.0:4873"],
+      "console": "integratedTerminal"
+    }
+  ]
 }
