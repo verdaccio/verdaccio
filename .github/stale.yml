@@ -10,17 +10,17 @@ exemptLabels:
   - issue: bug
   - dev: discuss
 # Label to use when marking an issue as stale
-staleLabel: issue: wontfix
+staleLabel: 'issue: wontfix'
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
- Hi pal 👋🏼!
+  Hi pal 👋🏼!
 
- This issue has gone quiet 😶.
+  This issue has gone quiet 😶.
 
-  We get a lot of issues, so we currently close issues after 25 days of inactivity. It’s been at least 15 days since the last update here.
-  If we missed this issue or if you want to keep it open, please reply here. You can also add/suggest the label "discuss" to keep this issue open!
-  As a friendly reminder: the best way to see this issue, or any other, fixed is to open a Pull Request. Check out [https://github.com/verdaccio/contributing](https://github.com/verdaccio/contributing) for more information about opening PRs, triaging issues, and contributing!
+   We get a lot of issues, so we currently close issues after 25 days of inactivity. It’s been at least 15 days since the last update here.
+   If we missed this issue or if you want to keep it open, please reply here. You can also add/suggest the label "discuss" to keep this issue open!
+   As a friendly reminder: the best way to see this issue, or any other, fixed is to open a Pull Request. Check out [https://github.com/verdaccio/contributing](https://github.com/verdaccio/contributing) for more information about opening PRs, triaging issues, and contributing!
 
-  Thanks for being a part of the Verdaccio community! 💘
+   Thanks for being a part of the Verdaccio community! 💘
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false

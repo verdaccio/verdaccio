@@ -8,7 +8,6 @@ function Plugin(config) {
 }
 
 Plugin.prototype.register_middlewares = function (app) {
-
   app.get('/test-uplink-timeout-*', function (req, res, next) {
     // https://github.com/nock/nock#readme
     nock('http://localhost:55552')
@@ -21,7 +20,6 @@ Plugin.prototype.register_middlewares = function (app) {
 
     next();
   });
-
 };
 
 module.exports = Plugin;

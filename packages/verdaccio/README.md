@@ -1,5 +1,5 @@
 # Verdaccio Core
 
 ```bash
-npm install --global verdaccio 
+npm install --global verdaccio
 ```

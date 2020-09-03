@@ -3,11 +3,10 @@
 The test are structured by feature following this shape:
 
 ```bash
- test 
+ test
   --- feat
        --- config.yaml
        --- spec.test.ts
        --- mock (storage folder) optional
        --- partials (optional)
 ```
-
