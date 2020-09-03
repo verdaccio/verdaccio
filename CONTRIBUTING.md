@@ -152,7 +152,7 @@ A commit of the type fix patches a bug in your codebase (this correlates with PA
 e.g.:
 
 ```
-fix: xxxxxxxxxx
+fix: xxxxxxxxxxx
 ```
 
 Commits types such as as `docs:`,`style:`,`refactor:`,`perf:`,`test:`
