@@ -16,7 +16,7 @@ yarn develop
 ```
 
 Run [http://localhost:8000/](http://localhost:8000/)
-GraphQL [http://localhost:8000/___graphql](http://localhost:8000/___graphql)
+GraphQL [http://localhost:8000/\_\_\_graphql](http://localhost:8000/___graphql)
 
 or build locally
 

@@ -1,6 +1,6 @@
 ---
 id: reverse-proxy
-title: "Reverse Proxy Setup"
+title: 'Reverse Proxy Setup'
 ---
 
 Using a reverse proxy is a common practice. The following configurations are the
@@ -14,16 +14,17 @@ Apache and `mod_proxy` should **not decode/encode slashes** and leave them as th
 
 For installing at relative path, `/npm`, on the server
 
-````
+```
 <VirtualHost *:80>
   AllowEncodedSlashes NoDecode
   ProxyPass /npm http://127.0.0.1:4873 nocanon
   ProxyPassReverse /npm http://127.0.0.1:4873
 </VirtualHost>
-````
+```
 
 For installing at root path, `/`, on the server
-````
+
+```
 <VirtualHost *:80>
   ServerName your.domain.com
   ServerAdmin hello@your.domain.com
@@ -32,13 +33,13 @@ For installing at root path, `/`, on the server
   ProxyPass / http://127.0.0.1:4873/ nocanon
   ProxyPassReverse / http://127.0.0.1:4873/
 </VirtualHost>
-````
+```
 
 ### Configuration with SSL
 
 Apache virtual server configuration
 
-````
+```
     apacheconfig
     <IfModule mod_ssl.c>
     <VirtualHost *:443>
@@ -55,13 +56,13 @@ Apache virtual server configuration
         RequestHeader set       X-Forwarded-Proto "https"
     </VirtualHost>
     </IfModule>
-````
+```
 
 # Nginx
 
 The following snippet is a full `docker` example can be tested in our [Docker examples repository](https://github.com/verdaccio/docker-examples/tree/master/reverse_proxy/nginx).
 
-````
+```
 upstream verdaccio_v4 {
     server verdaccio_relative_path_v4:4873;
     keepalive 8;
@@ -110,11 +111,11 @@ server {
       proxy_redirect off;
     }
 }
-````
+```
 
 ## SSL example
 
-````
+```
 server {
     listen 80;
     return 302 https://$host$request_uri;
@@ -152,7 +153,7 @@ server {
         proxy_redirect off;
     }
 }
-````
+```
 
 ## Run behind reverse proxy with different domain and port
 
@@ -179,9 +180,11 @@ location / {
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+
 For this case, `url_prefix` should **NOT** set in verdaccio config
 
 ---
+
 or a sub-directory installation:
 
 ```nginx
@@ -192,6 +195,7 @@ location ~ ^/verdaccio/(.*)$ {
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+
 For this case, `url_prefix` should set to `/verdaccio/`
 
 > Note: There is a Slash after install path (`https://your-domain:port/verdaccio/`)!

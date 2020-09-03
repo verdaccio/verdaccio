@@ -1,9 +1,9 @@
 ---
 id: kubernetes
-title: "Kubernetes"
+title: 'Kubernetes'
 ---
 
- You can find instructions to deploy Verdaccio on a Kubernetes cluster on the
+You can find instructions to deploy Verdaccio on a Kubernetes cluster on the
 [verdaccio/docker-example](https://github.com/verdaccio/docker-examples/tree/master/kubernetes-example)
 repository. However, the recommended method to install Verdaccio on a Kubernetes
 cluster is to use [Helm](https://helm.sh). Helm is a
@@ -63,10 +63,9 @@ helm del --purge npm
 **Note:** this command delete all the resources, including packages that you may
 have previously published to the registry.
 
-
 ### Custom Verdaccio configuration
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+You can customize the Verdaccio configuration using a Kubernetes _configMap_.
 
 #### Prepare
 
@@ -108,4 +107,4 @@ helm install --name npm --set customConfigMap=verdaccio-config verdaccio/verdacc
 
 [Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
 
-* [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)
+- [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)

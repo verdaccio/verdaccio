@@ -3,6 +3,7 @@
 Typescript definitions for verdaccio plugins and internal code
 
 # Typescript
+
 For usage with the library, the `tsconfig.json` should looks like this.
 
 ```
@@ -44,5 +45,3 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
   ...
 }
 ```
-
-

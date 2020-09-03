@@ -1,8 +1,0 @@
-# Builded files
-/.cache/
-/public/
-/crowdin/
-/src/dictionaries/
-
-# Node.js modules
-/node_modules/

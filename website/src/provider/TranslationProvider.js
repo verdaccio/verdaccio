@@ -10,10 +10,10 @@ export const TranslationProvider = ({ children }) => {
 
   const [language, setLanguage] = useState('en');
 
-  const updateLanguage = lang => {
+  const updateLanguage = (lang) => {
     lisan.setLocaleName(lang);
 
-    import(`../dictionaries/${lang}/main`).then(dict => {
+    import(`../dictionaries/${lang}/main`).then((dict) => {
       lisan.add(dict);
       setLoaded(true);
       setLanguage(lang);

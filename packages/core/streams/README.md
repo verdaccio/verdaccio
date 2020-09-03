@@ -8,7 +8,6 @@
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![node](https://img.shields.io/node/v/@verdaccio/streams/latest.svg)](https://www.npmjs.com/package/@verdaccio/streams)
 
-
 This project provides an extension of `PassThrough` stream.
 
 ## Detail
