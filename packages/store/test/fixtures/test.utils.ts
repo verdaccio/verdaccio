@@ -5,4 +5,4 @@ function readFile(filePath) {
   return fs.readFileSync(path.join(__dirname, `/${filePath}`));
 }
 
-export { readFile }
+export { readFile };

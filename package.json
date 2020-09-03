@@ -38,8 +38,8 @@
     "@babel/preset-typescript": "7.10.4",
     "@babel/register": "7.10.5",
     "@babel/runtime": "7.10.5",
-    "@changesets/changelog-github": "^0.1.1",
-    "@changesets/cli": "^2.10.1",
+    "@changesets/changelog-github": "0.1.1",
+    "@changesets/cli": "2.10.1",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.2.0",
     "@octokit/rest": "17.0.0",
@@ -54,8 +54,8 @@
     "@types/request": "2.48.3",
     "@types/semver": "7.2.0",
     "@types/supertest": "2.0.9",
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^3.10.1",
+    "@typescript-eslint/eslint-plugin": "3.10.1",
+    "@typescript-eslint/parser": "3.10.1",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-theme": "latest",
     "babel-core": "7.0.0-bridge.0",
@@ -72,10 +72,9 @@
     "eslint-plugin-babel": "5.3.0",
     "eslint-plugin-import": "2.22.0",
     "eslint-plugin-jest": "23.8.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "3.1.2",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
+    "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react-hooks": "4.1.0",
     "eslint-plugin-simple-import-sort": "5.0.2",
     "eslint-plugin-verdaccio": "8.4.2",
     "fs-extra": "8.1.0",
@@ -88,13 +87,13 @@
     "kleur": "3.0.3",
     "lint-staged": "8.2.1",
     "nock": "12.0.3",
-    "npm-run-all": "^4.1.5",
+    "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "selfsigned": "1.10.7",
     "standard-version": "8.0.0",
     "supertest": "4.0.2",
-    "typescript": "4.0.2",
+    "typescript": ">=3.3.1 <3.10.0",
     "verdaccio": "latest",
     "verdaccio-audit": "latest",
     "verdaccio-auth-memory": "latest",
@@ -107,7 +106,9 @@
     "clean": "pnpm recursive run clean",
     "build": "pnpm recursive run build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
-    "lint": "eslint . --ext .js,.ts,.tsx,.jsx",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "test": "pnpm recursive test",
     "test:e2e:cli": "cross-env NODE_ENV=test jest --config ./test/e2e-cli/jest.config.e2e.cli.js --passWithNoTests",
     "website:lint": "cd website && yarn lint",
@@ -124,5 +125,14 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   }
 }
