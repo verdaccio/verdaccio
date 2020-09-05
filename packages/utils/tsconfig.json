@@ -1,10 +1,30 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build",
-    "allowSyntheticDefaultImports": true
+    "preserveSymlinks": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../core/commons-api"
+    },
+    {
+      "path": "../core/readme"
+    },
+    {
+      "path": "../commons"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../core/commons-api"
+    }
+  ]
 }

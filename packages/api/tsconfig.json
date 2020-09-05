@@ -1,9 +1,47 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*", "types/*.d.ts"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts", "types/*.d.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../utils"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../commons"
+    },
+    {
+      "path": "../hooks"
+    },
+    {
+      "path": "../store"
+    },
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../middleware"
+    },
+    {
+      "path": "../auth"
+    },
+    {
+      "path": "../server"
+    },
+    {
+      "path": "../loaders"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../core/commons-api"
+    }
+  ]
 }
