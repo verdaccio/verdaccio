@@ -8,10 +8,10 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { Tweet } from 'react-twitter-widgets';
 
-import VerdaccioBannerSVG from '../components/Image/VerdaccioBannerSVG';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import InstallSteps from '../components/InstallSteps';
+import VerdaccioBannerSVG from '../components/Image/VerdaccioBannerSVG';
 import { Background } from '../components/Background/Background';
 
 const Tweets = ['1001297542779424768', '1002609907370250241', '951427300070916096', '1002153128140136448', '1169571193550192641', '1168280372800557063'];
