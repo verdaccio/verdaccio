@@ -1,5 +1,7 @@
 # Contributing to Verdaccio
 
+> ⚠️ If you intent to file a PR with a new feature, please use `5.x` 🥰 the branch for it. `master` branch is avilable only for **bug fixing**.
+
 We are happy that you wish to contribute to this project. For that reason, we
 present you with this guide.
 
