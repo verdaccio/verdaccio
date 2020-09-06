@@ -4,7 +4,7 @@ This section intend to provide additional information in order to debug the appl
 
 ## Debugging tests
 
-Verdaccio uses [**jest**](https://jestjs.io/en/), the following guidelines might be useful for you: 
+Verdaccio uses [**jest**](https://jestjs.io/en/), the following guidelines might be useful for you:
 
 - https://jestjs.io/docs/en/troubleshooting#debugging-in-webstorm
 - https://jestjs.io/docs/en/troubleshooting#debugging-in-vs-code
@@ -43,7 +43,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 The next step would be hook an inspector:
 
 - https://nodejs.org/en/docs/guides/debugging-getting-started/
-- Using the included *task* with Visual Code `.vscode/launch.json` named *Verdaccio Debug*.
+- Using the included _task_ with Visual Code `.vscode/launch.json` named _Verdaccio Debug_.
 
 #### Display additional information
 
@@ -53,4 +53,4 @@ You can take advance of `debug` module used by many dependencies, including Verd
 - `supertest`: `DEBUG=superagent yarn test test/integration/package.spec.ts --runInBand`
 - `express`: `DEBUG=express:* yarn test test/integration/package.spec.ts --runInBand`
 - `nock`: `DEBUG=nock yarn test test/integration/package.spec.ts --runInBand`
-- All of if: `DEBUG=* yarn test test/integration/package.spec.ts --runInBand` (*this can be really vebose*)
+- All of if: `DEBUG=* yarn test test/integration/package.spec.ts --runInBand` (_this can be really vebose_)

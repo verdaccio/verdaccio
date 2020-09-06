@@ -215,9 +215,12 @@ To do this, run these commands before create the PR:
 
 ```bash
 pnpm lint
+pnpm format
 pnpm build
 pnpm test
 ```
+
+> note: eslint and formatting are running separately, keep code formatting before push.
 
 All good? perfect, then you should create the pull request.
 
