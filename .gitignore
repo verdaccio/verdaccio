@@ -3,6 +3,7 @@ verdaccio-*.tgz
 .DS_Store
 build/
 .eslintcache
+dist/
 
 ### Test
 
