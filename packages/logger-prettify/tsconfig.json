@@ -1,10 +1,10 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.reference",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build",
-    "allowSyntheticDefaultImports": true
+    "outDir": "./build"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [{ "path": "../commons" }, { "path": "../core/commons-api" }]
 }
