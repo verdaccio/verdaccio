@@ -1,10 +1,29 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build",
-    "allowSyntheticDefaultImports": true
+    "outDir": "./build"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../mock"
+    },
+    {
+      "path": "../node-api"
+    },
+    {
+      "path": "../core/commons-api"
+    },
+    {
+      "path": "../common"
+    }
+  ]
 }
