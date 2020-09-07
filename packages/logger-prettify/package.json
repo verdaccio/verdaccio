@@ -17,8 +17,9 @@
   "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
-    "build:types": "tsc --emitDeclarationOnly --declaration true",
-    "build:js": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {

@@ -3,10 +3,9 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "declaration": true,
     "noImplicitAny": false,
-    "incremental": false,
     "strict": true,
+    "declaration": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,

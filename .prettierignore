@@ -13,3 +13,4 @@
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
+packages/core/local-storage/_storage/**
