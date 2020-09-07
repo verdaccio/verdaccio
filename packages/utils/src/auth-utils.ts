@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { API_ERROR, ROLES, TIME_EXPIRATION_7D, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
-import { CookieSessionToken, AuthTokenHeader, BasicPayload } from '@verdaccio/dev-types';
+import { CookieSessionToken } from '@verdaccio/dev-types';
 import { RemoteUser, AllowAccess, PackageAccess, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 

@@ -1,9 +1,13 @@
 {
-  "extends": "../../../tsconfig",
+  "extends": "../../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "preserveSymlinks": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts"]
 }
