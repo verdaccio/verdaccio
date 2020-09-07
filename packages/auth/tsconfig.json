@@ -1,9 +1,32 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.reference",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../utils"
+    },
+    {
+      "path": "../commons"
+    },
+    {
+      "path": "../loaders"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../mock"
+    },
+    {
+      "path": "../core/commons-api"
+    }
+  ]
 }
