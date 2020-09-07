@@ -1,9 +1,41 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build"
   },
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../core/commons-api"
+    },
+    {
+      "path": "../commons"
+    },
+    {
+      "path": "../loaders"
+    },
+    {
+      "path": "../core/local-storage"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../proxy"
+    },
+    {
+      "path": "../core/streams"
+    },
+    {
+      "path": "../utils"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../mock"
+    }
+  ]
 }
