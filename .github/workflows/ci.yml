@@ -7,6 +7,7 @@ on:
       - 'changeset-release/5.x'
   pull_request:
     paths:
+      - .changeset/**
       - .github/workflows/ci.yml
       - 'packages/**'
       - 'jest/**'
