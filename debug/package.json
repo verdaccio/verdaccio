@@ -1,9 +1,0 @@
-{
-  "name": "debug",
-  "private": true,
-  "version": "1.0.0",
-  "dependencies": {
-    "@verdaccio/babel-preset": "9.4.0",
-    "@verdaccio/cli": "5.0.0-alpha.0"
-  }
-}
