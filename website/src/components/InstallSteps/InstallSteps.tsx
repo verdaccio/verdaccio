@@ -11,7 +11,7 @@ import IconDownload from './IconDownload';
 
 export const InstallSteps = () => (
   <Container disableGutters>
-        <CopyToClipBoard text="npm i -g verdaccio" />
-        <Divider />
+    <CopyToClipBoard text="npm i -g verdaccio" />
+    <Divider />
   </Container>
 );

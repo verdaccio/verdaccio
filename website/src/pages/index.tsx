@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
-import CopyToClipBoard from "../components/CopyToClipBoard";
+import CopyToClipBoard from '../components/CopyToClipBoard';
 
 const Tweets = ['1001297542779424768', '1002609907370250241', '951427300070916096', '1002153128140136448', '1169571193550192641', '1168280372800557063'];
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(12, 0, 6),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -57,7 +57,7 @@ const IndexPage = () => {
       <Seo />
       <div className={classes.heroContent}>
         <Container maxWidth="sm">
-          <Typography  component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+          <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
             Verdaccio
           </Typography>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
@@ -68,14 +68,14 @@ const IndexPage = () => {
               <Grid item>
                 <Link title="getting-started" to="/docs/en/what-is-verdaccio.html">
                   <Button variant="contained" color="primary">
-                      Get Started
+                    Get Started
                   </Button>
                 </Link>
               </Grid>
               <Grid item>
                 <a href="https://github.com/verdaccio" target="_blank" rel="noopener noreferrer">
                   <Button variant="outlined" color="primary">
-                      GitHub
+                    GitHub
                   </Button>
                 </a>
               </Grid>

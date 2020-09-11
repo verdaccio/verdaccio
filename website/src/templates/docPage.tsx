@@ -3,48 +3,59 @@ import React, { useState } from 'react';
 
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
 import Layout from '../components/Layout';
-import Header from '../components/Header';
-
-import './docPage.css';
 import SideBar from '../components/SideBar/SideBar';
 
+import './docPage.css';
+
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex'
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    drawerContainer: {
+      overflow: 'auto',
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+  }),
+);
+
+
+
 const DocPage = (props: any) => {
+  const classes = useStyles();
   const { markdownRemark } = props.data;
   const title = markdownRemark.frontmatter.title;
   const html = markdownRemark.html;
   const [open, setOpen] = useState(true);
-  console.log(props.pageContext);
   const { lng, sideBar, name, idTitleMap } = props.pageContext;
-
-  const onClickOpen = () => {
-    setOpen(!open);
-  };
 
   return (
     <Layout>
       <h1>{title}</h1>
-      <div>
+      <div className={classes.container}>
         <Drawer
+          className={classes.drawer}
           variant="permanent"
           classes={{
-            paper: 'jota',
-          }}>
+            paper: classes.drawerPaper,
+          }}
+        >
           <SideBar lng={lng} sideBarConf={sideBar} currentPage={name} idTitleMap={idTitleMap} />
         </Drawer>
-        <main dangerouslySetInnerHTML={{ __html: html }} />
+        <main dangerouslySetInnerHTML={{ __html: html }} className={classes.content}/>
       </div>
     </Layout>
   );
