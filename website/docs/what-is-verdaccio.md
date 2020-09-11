@@ -15,7 +15,7 @@ Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
 - Follow the semantic Versioning compatible **(semver)**
 
 ```bash
-$ verdaccio 
+$ verdaccio
 ```
 
 ![registry](/assets/verdaccio_server.gif)
