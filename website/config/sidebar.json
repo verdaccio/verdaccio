@@ -1,0 +1,50 @@
+{
+  "docs": {
+    "Introduction": [
+      "what-is-verdaccio",
+      "installation",
+      "cli",
+      "who-is-using",
+      "security-policy",
+      "logo",
+      {
+        "type": "subcategory",
+        "label": "Uses Cases",
+        "ids": ["e2e", "caching", "github-actions", "linking-remote-registry"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Talks & Articles",
+        "ids": ["articles", "talks"]
+      }
+    ],
+    "Features": ["configuration", "uplinks", "packages", "authentification", "notifications", "logger", "webui"],
+    "Server": ["server-configuration", "reverse-proxy", "ssl", "windows", "iss-server"],
+    "Development": [
+      "plugins",
+      "dev-plugins",
+      {
+        "type": "subcategory",
+        "label": "Dev Guides",
+        "ids": ["plugin-generator", "plugin-auth", "plugin-middleware", "plugin-storage"]
+      },
+      "node-api"
+    ],
+    "DevOps": [
+      "docker",
+      "kubernetes",
+      "ci",
+      {
+        "type": "subcategory",
+        "label": "Cloud",
+        "ids": ["amazon"]
+      },
+      {
+        "type": "subcategory",
+        "label": "Tools",
+        "ids": ["ansible", "puppet", "chef"]
+      }
+    ],
+    "Guides": ["best", "protect-your-dependencies"]
+  }
+}
