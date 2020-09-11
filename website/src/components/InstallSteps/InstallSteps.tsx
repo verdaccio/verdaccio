@@ -11,26 +11,7 @@ import IconDownload from './IconDownload';
 
 export const InstallSteps = () => (
   <Container disableGutters>
-    <Grid container>
-      <Grid item xs={12} md={6}>
-        <div>
-          <IconDownload />
-          <Typography variant="h6" component="h2">
-            installation
-          </Typography>
-        </div>
-        <div>
-          <Typography variant="subtitle1" component="div" gutterBottom>
-            installDescr
-          </Typography>
-          <CopyToClipBoard text="npm i -g verdaccio" />
-          <Typography variant="subtitle1" component="div" gutterBottom>
-            loadFont
-          </Typography>
-        </div>
-        <Divider />
-        <Button>installButton</Button>
-      </Grid>
-    </Grid>
+    <CopyToClipBoard text="npm i -g verdaccio" />
+    <Divider />
   </Container>
 );
