@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(3),
     },
     main: {
-      width: '100%'
-    }
-  }),
+      width: '100%',
+    },
+  })
 );
 
 const Layout: FC = ({ children }) => {
@@ -35,7 +35,7 @@ const Layout: FC = ({ children }) => {
       </main>
     </div>
   );
-}
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

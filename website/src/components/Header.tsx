@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      backgroundColor: '#FFF'
-    }
-  }),
+      backgroundColor: '#FFF',
+    },
+  })
 );
 
 const Header: FunctionComponent<Props> = ({ onClickOpen }) => {

@@ -13,7 +13,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      display: 'flex'
+      display: 'flex',
     },
     drawer: {
       width: drawerWidth,
@@ -29,10 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
-  }),
+  })
 );
-
-
 
 const DocPage = (props: any) => {
   const classes = useStyles();
@@ -51,11 +49,10 @@ const DocPage = (props: any) => {
           variant="permanent"
           classes={{
             paper: classes.drawerPaper,
-          }}
-        >
+          }}>
           <SideBar lng={lng} sideBarConf={sideBar} currentPage={name} idTitleMap={idTitleMap} />
         </Drawer>
-        <main dangerouslySetInnerHTML={{ __html: html }} className={classes.content}/>
+        <main dangerouslySetInnerHTML={{ __html: html }} className={classes.content} />
       </div>
     </Layout>
   );
