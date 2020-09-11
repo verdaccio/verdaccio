@@ -31,6 +31,11 @@ module.exports = {
       options: {
         name: `translations`,
         path: `${__dirname}/crowdin`,
+        plugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+          },
+        ],
       },
     },
     {
@@ -54,8 +59,21 @@ module.exports = {
     },
     'gatsby-plugin-twitter',
     'gatsby-plugin-emotion',
-    'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 590,
+            },
+          },
+        ],
+      },
+    },
     'gatsby-plugin-typescript',
   ],
 };

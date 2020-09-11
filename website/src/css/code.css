@@ -1,0 +1,9 @@
+pre {
+    margin: 24px auto;
+    padding: 16px;
+    overflow: auto;
+    direction: ltr;
+    max-width: calc(100vw - 32px);
+    border-radius: 4px;
+    background-color: #272c34;
+}
