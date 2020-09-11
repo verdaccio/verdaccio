@@ -1,5 +1,8 @@
 import React, { FC, Fragment } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
+import '../css/code.css';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
@@ -11,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      fontSize: '18px',
     },
     content: {
       flexGrow: 1,
@@ -29,10 +33,10 @@ const Layout: FC = ({ children }) => {
     <div className={classes.root}>
       <CssBaseline />
       <Header onClickOpen={() => {}} />
-      <main className={classes.main}>
+      <Container component="main" className={classes.main}>
         {children}
         <Footer />
-      </main>
+      </Container>
     </div>
   );
 };

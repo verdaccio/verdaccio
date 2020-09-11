@@ -42,11 +42,10 @@ const SideBar: FunctionComponent<SideBarProps> = (props) => {
                 }
 
                 return (
-                  <ListItem button>
+                  <ListItem button key={item}>
                     <Link to={`/docs/${lng}/${item}.html`}>
                       <ListItemText
                         primary={titles[item]}
-                        key={titles[item]}
                         css={(theme) => ({
                           paddingLeft: theme.spacing(4),
                         })}

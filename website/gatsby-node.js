@@ -62,7 +62,7 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: `docs/${lng}/${name}.html`,
       component: docPageTemplate,
-      context: { id, lng, sideBar, title, idTitleMap },
+      context: { id, lng, sideBar, title, idTitleMap, markDownId },
     });
   });
 };
