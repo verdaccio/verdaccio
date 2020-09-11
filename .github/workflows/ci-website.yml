@@ -29,7 +29,9 @@ jobs:
         run: npm i -g pnpm
       - name: Install
         run: pnpm recursive install
-      - name: Lint website
+      - name: Format
+        run: pnpm format:check
+      - name: Lint
         run: pnpm lint
       - name: Build website
         run: |
