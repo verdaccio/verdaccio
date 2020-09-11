@@ -1,5 +1,5 @@
 ---
-id: configuration
+id: config
 title: 'Configuration File'
 ---
 
