@@ -1,4 +1,6 @@
 /** @jsx jsx */
+
+import React, { FunctionComponent, MouseEventHandler } from 'react';
 import { Link } from 'gatsby';
 import { jsx } from '@emotion/core';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,7 +9,11 @@ import Typography from '@material-ui/core/Typography';
 
 import VerdaccioWhiteLogo from './VerdaccioWhiteLogo';
 
-const Header = () => {
+export type Props = {
+  onClickOpen: MouseEventHandler;
+};
+
+const Header: FunctionComponent<Props> = ({ onClickOpen }) => {
   // const {
   //   site: {
   //     siteMetadata: { siteName },
@@ -24,11 +30,11 @@ const Header = () => {
 
   return (
     <AppBar
-      elevation={1}
-      position="static"
+      position="relative"
       css={() => ({
         backgroundColor: '#FFF',
-      })}>
+      })}
+      onClick={onClickOpen}>
       <Toolbar>
         <Typography component="h2" variant="h5">
           <Link title="Home" to="/">
