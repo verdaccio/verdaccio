@@ -1,5 +1,6 @@
 ---
 id: ansible
+test: ansible
 title: 'Ansible'
 ---
 
