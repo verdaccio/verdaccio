@@ -10,13 +10,12 @@ import Collapse from '@material-ui/core/Collapse';
 export type SideBarProps = {
   lng: string;
   sideBarConf: any;
-  currentPage: string;
+  currentPage: string | null;
   idTitleMap: any;
 };
 
 const SideBar: FunctionComponent<SideBarProps> = (props) => {
   const { sideBarConf, idTitleMap, currentPage, lng } = props;
-  console.log('----->', Object.keys(sideBarConf.docs));
   const sections = Object.keys(sideBarConf.docs);
   const titles = idTitleMap[lng];
 

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import SideBar from '../components/SideBar/SideBar';
 import './docPage.css';
+import { PageContextProvider } from '../components/PageContext';
 
 const drawerWidth = 350;
 
@@ -46,27 +47,19 @@ const DocPage = (props: any) => {
   const title = markdownRemark.frontmatter.title;
   const html = markdownRemark.html;
   const { lng, sideBar, name, idTitleMap, markDownId } = props.pageContext;
-  console.log(idTitleMap[lng]);
+  console.log(idTitleMap[lng], name);
   return (
-    <Layout>
-      <h1>{title}</h1>
-      <div className={classes.container}>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}>
-          <SideBar lng={lng} sideBarConf={sideBar} currentPage={name} idTitleMap={idTitleMap} />
-        </Drawer>
+    <PageContextProvider language={lng} idTitleMap={idTitleMap} currentPage={markDownId} sideBarConfiguration={sideBar}>
+      <Layout classes={{}} isPermanent>
+        <h1>{title}</h1>
         <main className={classes.content}>
           <Typography component="h4" variant="h5" color="textPrimary" gutterBottom>
             {idTitleMap[lng][markDownId]}
           </Typography>
           <Typography variant="body1" dangerouslySetInnerHTML={{ __html: html }}></Typography>
         </main>
-      </div>
-    </Layout>
+      </Layout>
+    </PageContextProvider>
   );
 };
 
