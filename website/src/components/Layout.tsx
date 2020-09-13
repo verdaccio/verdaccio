@@ -1,14 +1,15 @@
-import React, { FC, Fragment } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import '../css/code.css';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import PropTypes from 'prop-types';
 
 import Footer from './Footer';
 import Header from './Header';
+import { AppDrawer } from './AppDrawer/AppDrawer';
+import { usePageContext } from './PageContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,23 +27,46 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Layout: FC = ({ children }) => {
-  const classes = useStyles();
+export type Props = {
+  classes: any;
+  isPermanent: boolean;
+};
+
+const Layout: FunctionComponent<Props> = ({ children, classes, isPermanent = true }) => {
+  const layoutClasses = useStyles();
+  const { isDrawerOpen, setIsDrawerOpen } = usePageContext();
+
+  const clickOpenMenuHandler = useCallback(() => {
+    setIsDrawerOpen(true);
+  }, [isDrawerOpen]);
+
+  const clickOnOpenDrawerHandler = useCallback(() => {
+    // no defined yet
+  }, [isDrawerOpen]);
+
+  const clickOnCloseDrawerHandler = useCallback(() => {
+    // no defined yet
+    setIsDrawerOpen(false);
+  }, [isDrawerOpen]);
 
   return (
-    <div className={classes.root}>
+    <div className={layoutClasses.root}>
       <CssBaseline />
-      <Header onClickOpen={() => {}} />
-      <Container component="main" className={classes.main}>
+      <Header onClickOpen={clickOpenMenuHandler} isPermanent={isPermanent} />
+      <AppDrawer
+        className={'paper'}
+        isPermanent={isPermanent}
+        open={isDrawerOpen}
+        onClose={clickOnCloseDrawerHandler}
+        classes={classes}
+        onOpen={clickOnOpenDrawerHandler}
+      />
+      <Container component="main" className={layoutClasses.main}>
         {children}
         <Footer />
       </Container>
     </div>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
