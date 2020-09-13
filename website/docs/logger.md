@@ -14,7 +14,13 @@ logs:
   # file output
   - { type: file, path: verdaccio.log, level: info }
   # Rotating log stream. Options are passed directly to bunyan. See: https://github.com/trentm/node-bunyan#stream-type-rotating-file
-  - { type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: { period: 1d } }
+  - {
+      type: rotating-file,
+      format: json,
+      path: /path/to/log.jsonl,
+      level: http,
+      options: { period: 1d },
+    }
 ```
 
 Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it.

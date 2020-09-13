@@ -56,13 +56,23 @@ export function publishVersion(app, configFile, pkgName, version): supertest.Tes
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 }
 
-export async function publishTaggedVersion(app, configFile, pkgName: string, version: string, tag: string) {
+export async function publishTaggedVersion(
+  app,
+  configFile,
+  pkgName: string,
+  version: string,
+  tag: string
+) {
   const pkgMetadata = generatePackageMetadata(pkgName, version, {
     [tag]: version,
   });
 
   return supertest(app)
-    .put(`/${encodeURIComponent(pkgName)}/${encodeURIComponent(version)}/-tag/${encodeURIComponent(tag)}`)
+    .put(
+      `/${encodeURIComponent(pkgName)}/${encodeURIComponent(version)}/-tag/${encodeURIComponent(
+        tag
+      )}`
+    )
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
     .send(JSON.stringify(pkgMetadata))
     .expect(HTTP_STATUS.CREATED)

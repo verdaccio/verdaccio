@@ -1,13 +1,21 @@
 import { HTTP_STATUS } from '@verdaccio/commons-api';
-import { API_ERROR, API_MESSAGE, generatePackageMetadata, HEADER_TYPE, HEADERS } from '@verdaccio/dev-commons';
+import {
+  API_ERROR,
+  API_MESSAGE,
+  generatePackageMetadata,
+  HEADER_TYPE,
+  HEADERS,
+} from '@verdaccio/dev-commons';
 import { $RequestExtend, $ResponseExtend } from '@verdaccio/dev-types';
 import supertest from 'supertest';
 import { initializeServer, publishVersion } from './_helper';
 
-const mockApiJWTmiddleware = jest.fn(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-  req.remote_user = { name: 'foo', groups: [], real_groups: [] };
-  _next();
-});
+const mockApiJWTmiddleware = jest.fn(
+  () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+    req.remote_user = { name: 'foo', groups: [], real_groups: [] };
+    _next();
+  }
+);
 
 jest.setTimeout(50000000);
 

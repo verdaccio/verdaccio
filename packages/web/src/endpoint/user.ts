@@ -32,7 +32,11 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     );
   });
 
-  route.put('/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
+  route.put('/reset_password', function (
+    req: Request,
+    res: Response,
+    next: $NextFunctionVer
+  ): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({

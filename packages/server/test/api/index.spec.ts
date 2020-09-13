@@ -2,7 +2,13 @@ import path from 'path';
 import request from 'supertest';
 import _ from 'lodash';
 
-import { HEADERS, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER } from '@verdaccio/dev-commons';
+import {
+  HEADERS,
+  HTTP_STATUS,
+  HEADER_TYPE,
+  API_MESSAGE,
+  TOKEN_BEARER,
+} from '@verdaccio/dev-commons';
 import { buildToken, encodeScopedUri } from '@verdaccio/utils';
 import { setup, logger } from '@verdaccio/logger';
 
@@ -21,7 +27,13 @@ import {
 
 import endPointAPI from '../../src';
 import publishMetadata from './helpers/publish-api';
-import { generateDeprecateMetadata, generatePackageMetadata, generatePackageUnpublish, generateStarMedatada, generateVersion } from './helpers/utils';
+import {
+  generateDeprecateMetadata,
+  generatePackageMetadata,
+  generatePackageUnpublish,
+  generateStarMedatada,
+  generateVersion,
+} from './helpers/utils';
 
 setup([]);
 
@@ -91,7 +103,9 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -104,7 +118,9 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -117,7 +133,9 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -470,14 +488,24 @@ describe('endpoint unit test', () => {
         }
 
         const newVersion = '2.0.1';
-        const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, generatePackageMetadata(pkgName, newVersion), token);
+        const [newErr] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          generatePackageMetadata(pkgName, newVersion),
+          token
+        );
         if (newErr) {
           expect(newErr).toBeNull();
           return done(newErr);
         }
 
         const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
-        const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+        const [err2, res2] = await putPackage(
+          request(app),
+          generateUnPublishURI(pkgName),
+          deletePayload,
+          token
+        );
 
         expect(err2).toBeNull();
         expect(res2.body.ok).toMatch(API_MESSAGE.PKG_CHANGED);
@@ -526,17 +554,29 @@ describe('endpoint unit test', () => {
           const newVersion = '1.0.0';
           const token = await getNewToken(request(app), credentials);
 
-          const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, generatePackageMetadata(pkgName, newVersion), token);
+          const [newErr] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion),
+            token
+          );
           if (newErr) {
             expect(newErr).toBeNull();
             return done(newErr);
           }
 
           const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
-          const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+          const [err2, res2] = await putPackage(
+            request(app),
+            generateUnPublishURI(pkgName),
+            deletePayload,
+            token
+          );
 
           expect(err2).not.toBeNull();
-          expect(res2.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
+          expect(res2.body.error).toMatch(
+            /user jota_unpublish_fail is not allowed to unpublish package non-unpublish/
+          );
           done();
         });
 
@@ -562,10 +602,17 @@ describe('endpoint unit test', () => {
           const newVersion = '1.0.0';
           const token = await getNewToken(request(app), credentials);
 
-          const [newErr, resp] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, generatePackageMetadata(pkgName, newVersion), token);
+          const [newErr, resp] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion),
+            token
+          );
 
           expect(newErr).not.toBeNull();
-          expect(resp.body.error).toMatch(/user jota_only_unpublish_fail is not allowed to publish package only-unpublish/);
+          expect(resp.body.error).toMatch(
+            /user jota_only_unpublish_fail is not allowed to publish package only-unpublish/
+          );
           done();
         });
       });
@@ -741,7 +788,12 @@ describe('endpoint unit test', () => {
       let token = '';
       beforeAll(async (done) => {
         token = await getNewToken(request(app), credentials);
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, version), token);
+        await putPackage(
+          request(app),
+          `/${pkgName}`,
+          generatePackageMetadata(pkgName, version),
+          token
+        );
         done();
       });
 
@@ -775,20 +827,39 @@ describe('endpoint unit test', () => {
         let credentials = { name: 'only_publish', password: 'secretPass' };
         let token = await getNewToken(request(app), credentials);
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-        const [err, res] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err, res] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          pkg,
+          token
+        );
         expect(err).not.toBeNull();
         expect(res.body.error).toBeDefined();
-        expect(res.body.error).toMatch(/user only_publish is not allowed to unpublish package @scope\/deprecate/);
+        expect(res.body.error).toMatch(
+          /user only_publish is not allowed to unpublish package @scope\/deprecate/
+        );
         credentials = { name: 'only_unpublish', password: 'secretPass' };
         token = await getNewToken(request(app), credentials);
-        const [err2, res2] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err2, res2] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          pkg,
+          token
+        );
         expect(err2).not.toBeNull();
         expect(res2.body.error).toBeDefined();
-        expect(res2.body.error).toMatch(/user only_unpublish is not allowed to publish package @scope\/deprecate/);
+        expect(res2.body.error).toMatch(
+          /user only_unpublish is not allowed to publish package @scope\/deprecate/
+        );
       });
 
       test('should deprecate multiple packages', async (done) => {
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '1.0.1'), token);
+        await putPackage(
+          request(app),
+          `/${pkgName}`,
+          generatePackageMetadata(pkgName, '1.0.1'),
+          token
+        );
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         pkg.versions['1.0.1'] = {
           ...generateVersion(pkgName, '1.0.1'),

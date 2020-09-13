@@ -4,9 +4,21 @@ import mime from 'mime';
 import { Router } from 'express';
 import buildDebug from 'debug';
 
-import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '@verdaccio/dev-types';
+import {
+  IAuth,
+  $ResponseExtend,
+  $RequestExtend,
+  $NextFunctionVer,
+  IStorageHandler,
+} from '@verdaccio/dev-types';
 import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
-import { validateMetadata, isObject, ErrorCode, hasDiffOneKey, isRelatedToDeprecation } from '@verdaccio/utils';
+import {
+  validateMetadata,
+  isObject,
+  ErrorCode,
+  hasDiffOneKey,
+  isRelatedToDeprecation,
+} from '@verdaccio/utils';
 import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
 import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
@@ -17,7 +29,12 @@ import { isPublishablePackage } from './utils';
 
 const debug = buildDebug('verdaccio:api:publish');
 
-export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
+export default function publish(
+  router: Router,
+  auth: IAuth,
+  storage: IStorageHandler,
+  config: Config
+): void {
   const can = allow(auth);
 
   /**
@@ -79,7 +96,13 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
 	}
    *
    */
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config, auth));
+  router.put(
+    '/:package/:_rev?/:revision?',
+    can('publish'),
+    media(mime.getType('json')),
+    expectJson,
+    publishPackage(storage, config, auth)
+  );
 
   /**
    * Un-publishing an entire package.
@@ -92,13 +115,29 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('unpublish'), can('publish'), removeTarball(storage));
+  router.delete(
+    '/:package/-/:filename/-rev/:revision',
+    can('unpublish'),
+    can('publish'),
+    removeTarball(storage)
+  );
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
+  router.put(
+    '/:package/-/:filename/*',
+    can('publish'),
+    media(HEADERS.OCTET_STREAM),
+    uploadPackageTarball(storage)
+  );
 
   // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
+  router.put(
+    '/:package/:version/-tag/:tag',
+    can('publish'),
+    media(mime.getType('json')),
+    expectJson,
+    addVersion(storage)
+  );
 }
 
 /**
@@ -117,7 +156,12 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     const createTarball = function (filename: string, data, cb: Callback): void {
       const stream = storage.addTarball(packageName, filename);
       stream.on('error', function (err) {
-        debug('error on stream a tarball %o for %o with error %o', filename, packageName, err.message);
+        debug(
+          'error on stream a tarball %o for %o with error %o',
+          filename,
+          packageName,
+          err.message
+        );
         cb(err);
       });
       stream.on('success', function () {
@@ -172,7 +216,11 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // npm-registry-client 0.3+ embeds tarball into the json upload
       // https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
       // issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
-      const isInvalidBodyFormat = isObject(_attachments) === false || hasDiffOneKey(_attachments) || isObject(versions) === false || hasDiffOneKey(versions);
+      const isInvalidBodyFormat =
+        isObject(_attachments) === false ||
+        hasDiffOneKey(_attachments) ||
+        isObject(versions) === false ||
+        hasDiffOneKey(versions);
 
       if (isInvalidBodyFormat) {
         // npm is doing something strange again
@@ -190,7 +238,9 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // at this point document is either created or existed before
       const [firstAttachmentKey] = Object.keys(_attachments);
 
-      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function (error) {
+      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function (
+        error
+      ) {
         debug('creating a tarball %o', firstAttachmentKey);
         if (error) {
           debug('error on create a tarball for %o with error %o', packageName, error.message);
@@ -199,7 +249,8 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
         const versionToPublish = Object.keys(versions)[0];
 
-        versions[versionToPublish].readme = _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
+        versions[versionToPublish].readme =
+          _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
 
         createVersion(versionToPublish, versions[versionToPublish], function (error) {
           if (error) {
@@ -214,7 +265,12 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
             }
 
             try {
-              await notify(metadataCopy, config, req.remote_user, `${metadataCopy.name}@${versionToPublish}`);
+              await notify(
+                metadataCopy,
+                config,
+                req.remote_user,
+                `${metadataCopy.name}@${versionToPublish}`
+              );
             } catch (error) {
               debug('error on notify add a new tag %o', `${metadataCopy.name}@${versionToPublish}`);
               logger.error({ error }, 'notify batch service has failed: @{error}');
@@ -295,14 +351,20 @@ export function removeTarball(storage: IStorageHandler) {
     const packageName = req.params.package;
     const { filename, revision } = req.params;
 
-    logger.debug({ packageName, filename, revision }, `removing a tarball for @{packageName}-@{tarballName}-@{revision}`);
+    logger.debug(
+      { packageName, filename, revision },
+      `removing a tarball for @{packageName}-@{tarballName}-@{revision}`
+    );
     storage.removeTarball(packageName, filename, revision, function (err) {
       if (err) {
         return next(err);
       }
       res.status(HTTP_STATUS.CREATED);
 
-      logger.debug({ packageName, filename, revision }, `success remove tarball for @{packageName}-@{tarballName}-@{revision}`);
+      logger.debug(
+        { packageName, filename, revision },
+        `success remove tarball for @{packageName}-@{tarballName}-@{revision}`
+      );
       return next({ ok: API_MESSAGE.TARBALL_REMOVED });
     });
   };

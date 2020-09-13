@@ -7,9 +7,16 @@ import { generatePackageTemplate } from '@verdaccio/store';
 import { readFile } from '../../../functional/lib/test.utils';
 import { Package } from '@verdaccio/types';
 
-const readMetadata = (fileName: string): Package => JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
+const readMetadata = (fileName: string): Package =>
+  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
 
-import { Config as AppConfig, IPluginMiddleware, IStorageManager, RemoteUser, IBasicAuth } from '@verdaccio/types';
+import {
+  Config as AppConfig,
+  IPluginMiddleware,
+  IStorageManager,
+  RemoteUser,
+  IBasicAuth,
+} from '@verdaccio/types';
 import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import { generateVersion } from '../../../unit/__helper/utils';
 

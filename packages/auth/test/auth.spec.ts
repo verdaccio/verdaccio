@@ -35,7 +35,14 @@ describe('AuthTest', () => {
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(null, {
-          groups: ['test', ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL],
+          groups: [
+            'test',
+            ROLES.$ALL,
+            ROLES.$AUTH,
+            ROLES.DEPRECATED_ALL,
+            ROLES.DEPRECATED_AUTH,
+            ROLES.ALL,
+          ],
           name: 'foo',
           real_groups: groups,
         });

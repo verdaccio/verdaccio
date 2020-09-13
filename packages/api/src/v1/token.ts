@@ -20,8 +20,17 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (route: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
-  route.get('/-/npm/v1/tokens', async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
+export default function (
+  route: Router,
+  auth: IAuth,
+  storage: IStorageHandler,
+  config: Config
+): void {
+  route.get('/-/npm/v1/tokens', async function (
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer
+  ) {
     const { name } = req.remote_user;
 
     if (_.isNil(name) === false) {
@@ -45,7 +54,11 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
     return next(ErrorCode.getUnauthorized());
   });
 
-  route.post('/-/npm/v1/tokens', function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
+  route.post('/-/npm/v1/tokens', function (
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer
+  ) {
     const { password, readonly, cidr_whitelist } = req.body;
     const { name } = req.remote_user;
 
@@ -62,7 +75,9 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
       req.remote_user = user;
 
       if (!_.isFunction(storage.saveToken)) {
-        return next(ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT));
+        return next(
+          ErrorCode.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT)
+        );
       }
 
       try {
@@ -104,23 +119,26 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
     });
   });
 
-  route.delete('/-/npm/v1/tokens/token/:tokenKey', async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
-    const {
-      params: { tokenKey },
-    } = req;
-    const { name } = req.remote_user;
+  route.delete(
+    '/-/npm/v1/tokens/token/:tokenKey',
+    async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
+      const {
+        params: { tokenKey },
+      } = req;
+      const { name } = req.remote_user;
 
-    if (_.isNil(name) === false) {
-      logger.debug({ name }, '@{name} has requested remove a token');
-      try {
-        await storage.deleteToken(name, tokenKey);
-        logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');
-        return next({});
-      } catch (error) {
-        logger.error({ error: error.msg }, 'token creation has failed: @{error}');
-        return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
+      if (_.isNil(name) === false) {
+        logger.debug({ name }, '@{name} has requested remove a token');
+        try {
+          await storage.deleteToken(name, tokenKey);
+          logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');
+          return next({});
+        } catch (error) {
+          logger.error({ error: error.msg }, 'token creation has failed: @{error}');
+          return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
+        }
       }
+      return next(ErrorCode.getUnauthorized());
     }
-    return next(ErrorCode.getUnauthorized());
-  });
+  );
 }

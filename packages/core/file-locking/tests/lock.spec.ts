@@ -32,7 +32,9 @@ describe('testing locking', () => {
 
     test('file should fail to be found to be locked', (done) => {
       lockFile(getFilePath('package.fail.json'), (error: Error) => {
-        expect(error.message).toMatch(/ENOENT: no such file or directory, stat '(.*)package.fail.json'/);
+        expect(error.message).toMatch(
+          /ENOENT: no such file or directory, stat '(.*)package.fail.json'/
+        );
         done();
       });
     });
@@ -83,7 +85,9 @@ describe('testing locking', () => {
         parse: true,
       };
       readFile(getFilePath('package.fail.json'), options, (error: Error) => {
-        expect(error.message).toMatch(/ENOENT: no such file or directory, open '(.*)package.fail.json'/);
+        expect(error.message).toMatch(
+          /ENOENT: no such file or directory, open '(.*)package.fail.json'/
+        );
         done();
       });
     });

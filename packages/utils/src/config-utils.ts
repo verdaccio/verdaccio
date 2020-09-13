@@ -32,13 +32,18 @@ export function normalizeUserList(groupsList: any): any {
   } else if (Array.isArray(groupsList)) {
     result.push(groupsList);
   } else {
-    throw ErrorCode.getInternalError('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList));
+    throw ErrorCode.getInternalError(
+      'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList)
+    );
   }
 
   return _.flatten(result);
 }
 
-export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLIST): UpLinksConfList {
+export function uplinkSanityCheck(
+  uplinks: UpLinksConfList,
+  users: any = BLACKLIST
+): UpLinksConfList {
   const newUplinks = _.clone(uplinks);
   let newUsers = _.clone(users);
 
@@ -55,7 +60,14 @@ export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLI
 }
 
 export function sanityCheckNames(item: string, users: any): any {
-  assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved uplink name: ' + item);
+  assert(
+    item !== 'all' &&
+      item !== 'owner' &&
+      item !== 'anonymous' &&
+      item !== 'undefined' &&
+      item !== 'none',
+    'CONFIG: reserved uplink name: ' + item
+  );
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
   assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
   users[item] = true;
@@ -120,7 +132,9 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
       normalizedPkgs[pkg].publish = normalizeUserList(packageAccess.publish);
       normalizedPkgs[pkg].proxy = normalizeUserList(packageAccess.proxy);
       // if unpublish is not defined, we set to false to fallback in publish access
-      normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish) ? false : normalizeUserList(packageAccess.unpublish);
+      normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish)
+        ? false
+        : normalizeUserList(packageAccess.unpublish);
     }
   }
 

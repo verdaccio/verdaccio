@@ -9,7 +9,9 @@ import { generateGravatarUrl, GENERIC_AVATAR } from './user';
 export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
-  const contributors: AuthorAvatar[] = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
+  const contributors: AuthorAvatar[] = normalizeContributors(
+    _.get(pkgInfo, 'latest.contributors', [])
+  );
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
   // for author.

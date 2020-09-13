@@ -14,7 +14,13 @@ import { Config as AppConfig } from '@verdaccio/config';
 
 import { webAPI, renderWebMiddleware } from '@verdaccio/web';
 
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '@verdaccio/dev-types';
+import {
+  $ResponseExtend,
+  $RequestExtend,
+  $NextFunctionVer,
+  IStorageHandler,
+  IAuth,
+} from '@verdaccio/dev-types';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import { setup, logger } from '@verdaccio/logger';
 import { log, final, errorReportingMiddleware } from '@verdaccio/middleware';
@@ -39,7 +45,11 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   app.use(compression());
 
-  app.get('/favicon.ico', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  app.get('/favicon.ico', function (
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): void {
     req.url = '/-/static/favicon.png';
     next();
   });
@@ -55,9 +65,14 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
     logger: logger,
   };
 
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(config, config.middlewares, plugin_params, function (plugin: IPluginMiddleware<IConfig>) {
-    return plugin.register_middlewares;
-  });
+  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(
+    config,
+    config.middlewares,
+    plugin_params,
+    function (plugin: IPluginMiddleware<IConfig>) {
+      return plugin.register_middlewares;
+    }
+  );
   plugins.forEach((plugin: IPluginMiddleware<IConfig>) => {
     plugin.register_middlewares(app, auth, storage);
   });
@@ -80,7 +95,12 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
-  app.use(function (err: HttpError, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.use(function (
+    err: HttpError,
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ) {
     if (_.isError(err)) {
       if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
@@ -110,7 +130,12 @@ export default (async function (configHash: any): Promise<any> {
     config: config,
     logger: logger,
   };
-  const filters = loadPlugin(config, config.filters || {}, plugin_params, (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata);
+  const filters = loadPlugin(
+    config,
+    config.filters || {},
+    plugin_params,
+    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata
+  );
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config, filters);

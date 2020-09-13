@@ -58,7 +58,7 @@
     "camelcase": "off",
     "guard-for-in": "error",
     "new-cap": "error",
-    "max-len": ["warn", 160],
+    "max-len": ["warn", 100],
     "no-console": ["error", { "allow": ["warn"] }],
     "no-constant-condition": "error",
     "no-debugger": "error",

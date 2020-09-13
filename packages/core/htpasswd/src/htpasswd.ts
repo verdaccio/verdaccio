@@ -4,7 +4,14 @@ import Path from 'path';
 import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
 import { unlockFile } from '@verdaccio/file-locking';
 
-import { verifyPassword, lockAndRead, parseHTPasswd, addUserToHTPasswd, changePasswordToHTPasswd, sanityCheck } from './utils';
+import {
+  verifyPassword,
+  lockAndRead,
+  parseHTPasswd,
+  addUserToHTPasswd,
+  changePasswordToHTPasswd,
+  sanityCheck,
+} from './utils';
 
 export interface VerdaccioConfigApp extends Config {
   file: string;
@@ -197,7 +204,12 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {function} cd
    * @returns {function}
    */
-  public changePassword(user: string, password: string, newPassword: string, realCb: Callback): void {
+  public changePassword(
+    user: string,
+    password: string,
+    newPassword: string,
+    realCb: Callback
+  ): void {
     lockAndRead(this.path, (err, res) => {
       let locked = false;
       const pathPassFile = this.path;

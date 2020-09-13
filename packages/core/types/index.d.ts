@@ -410,7 +410,11 @@ declare module '@verdaccio/types' {
     getSecret(): Promise<string>;
     setSecret(secret: string): Promise<any>;
     getPackageStorage(packageInfo: string): IPackageStorage;
-    search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
+    search(
+      onPackage: onSearchPackage,
+      onEnd: onEndSearchPackage,
+      validateName: onValidatePackage
+    ): void;
   }
 
   type StorageUpdateCallback = (data: Package, cb: CallbackAction) => void;
@@ -444,7 +448,13 @@ declare module '@verdaccio/types' {
   }
 
   interface StoragePackageActions extends TarballActions {
-    addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
+    addVersion(
+      name: string,
+      version: string,
+      metadata: Version,
+      tag: StringValue,
+      callback: Callback
+    ): void;
     mergeTags(name: string, tags: MergeTags, callback: Callback): void;
     removePackage(name: string, callback: Callback): void;
     changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
@@ -521,9 +531,17 @@ declare module '@verdaccio/types' {
     allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
     allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
     allow_unpublish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
-    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+    allow_publish?(
+      user: RemoteUser,
+      pkg: AllowAccess & PackageAccess,
+      cb: AuthAccessCallback
+    ): void;
     allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
-    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+    allow_unpublish?(
+      user: RemoteUser,
+      pkg: AllowAccess & PackageAccess,
+      cb: AuthAccessCallback
+    ): void;
     apiJWTmiddleware?(helpers: any): Function;
   }
 

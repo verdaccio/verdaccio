@@ -5,10 +5,12 @@ import { HEADERS } from '@verdaccio/dev-commons';
 import { $RequestExtend, $ResponseExtend } from '@verdaccio/dev-types';
 import { initializeServer } from './_helper';
 
-const mockApiJWTmiddleware = jest.fn(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-  req.remote_user = { name: 'foo', groups: [], real_groups: [] };
-  _next();
-});
+const mockApiJWTmiddleware = jest.fn(
+  () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+    req.remote_user = { name: 'foo', groups: [], real_groups: [] };
+    _next();
+  }
+);
 
 jest.mock('@verdaccio/auth', () => ({
   Auth: class {

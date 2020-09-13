@@ -44,7 +44,10 @@ export default function (server, server2) {
 
     describe('tarball', () => {
       beforeAll(function () {
-        return server.putTarball(pkgName, TARBALL, readfile(binary)).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+        return server
+          .putTarball(pkgName, TARBALL, readfile(binary))
+          .status(HTTP_STATUS.CREATED)
+          .body_ok(/.*/);
       });
 
       test('uploading new tarball / srv1', () => {});
