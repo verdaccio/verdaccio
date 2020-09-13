@@ -18,9 +18,7 @@ export type Props = {
 const DrawerSideBar = () => {
   const { currentPage, idTitleMap, language, sideBarConfiguration } = usePageContext();
 
-  return (
-    <SideBar lng={language} sideBarConf={sideBarConfiguration} currentPage={currentPage} idTitleMap={idTitleMap} />
-  );
+  return <SideBar lng={language} sideBarConf={sideBarConfiguration} currentPage={currentPage} idTitleMap={idTitleMap} />;
 };
 
 const AppDrawer: FunctionComponent<Props> = ({ className, isPermanent, onClose, onOpen, open, classes }) => {
@@ -35,10 +33,10 @@ const AppDrawer: FunctionComponent<Props> = ({ className, isPermanent, onClose, 
           ModalProps={{
             keepMounted: true,
           }}>
-          {DrawerSideBar}
+          <DrawerSideBar />
         </SwipeableDrawer>
       </Hidden>
-      {isPermanent ? null : (
+      {!isPermanent ? null : (
         <Hidden mdDown implementation="css">
           <Drawer
             classes={{
@@ -46,7 +44,7 @@ const AppDrawer: FunctionComponent<Props> = ({ className, isPermanent, onClose, 
             }}
             variant="permanent"
             open>
-            {DrawerSideBar}
+            <DrawerSideBar />
           </Drawer>
         </Hidden>
       )}

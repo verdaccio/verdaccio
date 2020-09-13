@@ -29,14 +29,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export type Props = {
   classes: any;
+  isPermanent: boolean;
 };
 
-const Layout: FunctionComponent<Props> = ({ children, classes }) => {
+const Layout: FunctionComponent<Props> = ({ children, classes, isPermanent = true }) => {
   const layoutClasses = useStyles();
   const { isDrawerOpen, setIsDrawerOpen } = usePageContext();
 
   const clickOpenMenuHandler = useCallback(() => {
-    setIsDrawerOpen(!isDrawerOpen);
+    setIsDrawerOpen(true);
   }, [isDrawerOpen]);
 
   const clickOnOpenDrawerHandler = useCallback(() => {
@@ -45,15 +46,16 @@ const Layout: FunctionComponent<Props> = ({ children, classes }) => {
 
   const clickOnCloseDrawerHandler = useCallback(() => {
     // no defined yet
+    setIsDrawerOpen(false);
   }, [isDrawerOpen]);
 
   return (
     <div className={layoutClasses.root}>
       <CssBaseline />
-      <Header onClickOpen={clickOpenMenuHandler} />
+      <Header onClickOpen={clickOpenMenuHandler} isPermanent={isPermanent} />
       <AppDrawer
         className={'paper'}
-        isPermanent
+        isPermanent={isPermanent}
         open={isDrawerOpen}
         onClose={clickOnCloseDrawerHandler}
         classes={classes}

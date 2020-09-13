@@ -50,7 +50,7 @@ const DocPage = (props: any) => {
   console.log(idTitleMap[lng], name);
   return (
     <PageContextProvider language={lng} idTitleMap={idTitleMap} currentPage={markDownId} sideBarConfiguration={sideBar}>
-      <Layout classes={{}}>
+      <Layout classes={{}} isPermanent>
         <h1>{title}</h1>
         <main className={classes.content}>
           <Typography component="h4" variant="h5" color="textPrimary" gutterBottom>

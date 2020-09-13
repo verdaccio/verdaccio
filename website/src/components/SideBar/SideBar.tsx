@@ -16,7 +16,6 @@ export type SideBarProps = {
 
 const SideBar: FunctionComponent<SideBarProps> = (props) => {
   const { sideBarConf, idTitleMap, currentPage, lng } = props;
-  console.log('----->', Object.keys(sideBarConf.docs), 'currentPage', currentPage);
   const sections = Object.keys(sideBarConf.docs);
   const titles = idTitleMap[lng];
 
