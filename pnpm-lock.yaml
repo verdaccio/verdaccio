@@ -722,7 +722,7 @@ importers:
       '@mikaelkristiansson/domready': 1.0.10
       '@reach/router': 1.3.4_react-dom@16.13.1+react@16.13.1
       babel-preset-gatsby: 0.4.12
-      clsx: 1.1.1
+      classnames: 2.2.6
       emotion-theming: 10.0.27_c989b1aa057905c7a8b69bf973f55a19
       event-source-polyfill: 1.0.17
       fontsource-roboto: 2.2.6
@@ -774,7 +774,7 @@ importers:
       '@reach/router': 1.3.4
       '@types/react-helmet': ^5.0.16
       babel-preset-gatsby: ^0.4.12
-      clsx: ^1.1.1
+      classnames: ^2.2.6
       emotion-theming: 10.0.27
       event-source-polyfill: ^1.0.17
       fontsource-roboto: ^2.2.6
@@ -1311,8 +1311,8 @@ packages:
     dependencies:
       '@babel/core': 7.10.5
       '@babel/helper-plugin-utils': 7.10.4
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3
-      '@babel/plugin-transform-parameters': 7.10.5
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.10.5
+      '@babel/plugin-transform-parameters': 7.10.5_@babel+core@7.10.5
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -1610,6 +1610,7 @@ packages:
   /@babel/plugin-syntax-object-rest-spread/7.8.3:
     dependencies:
       '@babel/helper-plugin-utils': 7.10.4
+    dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -1618,7 +1619,6 @@ packages:
     dependencies:
       '@babel/core': 7.10.5
       '@babel/helper-plugin-utils': 7.10.4
-    dev: true
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -2106,6 +2106,7 @@ packages:
     dependencies:
       '@babel/helper-get-function-arity': 7.10.4
       '@babel/helper-plugin-utils': 7.10.4
+    dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -2115,7 +2116,6 @@ packages:
       '@babel/core': 7.10.5
       '@babel/helper-get-function-arity': 7.10.4
       '@babel/helper-plugin-utils': 7.10.4
-    dev: true
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -7235,6 +7235,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-qOhPa/Fj7s6TY8H8esGu5QNpMMQxz79h+urzrNYN6mn+9BnxlDGf5QZ+XeCDsxSjPqsSR56XOZOJmpeurnLMeg==
+  /classnames/2.2.6:
+    dev: false
+    resolution:
+      integrity: sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
   /clean-css/4.2.3:
     dependencies:
       source-map: 0.6.1
