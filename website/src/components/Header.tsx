@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     navIconHide: {
+      color: '#000',
       [theme.breakpoints.up('lg')]: {
         display: 'none',
       },
