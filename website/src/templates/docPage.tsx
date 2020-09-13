@@ -47,7 +47,6 @@ const DocPage = (props: any) => {
   const title = markdownRemark.frontmatter.title;
   const html = markdownRemark.html;
   const { lng, sideBar, name, idTitleMap, markDownId } = props.pageContext;
-  console.log(idTitleMap[lng], name);
   return (
     <PageContextProvider
       language={lng}
