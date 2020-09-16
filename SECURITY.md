@@ -20,6 +20,8 @@ We kindly ask you to refrain from malicious acts that put our users, the project
 
 ## Reporting a security issue
 
+> Please, do not use the email provided to report issues are not related with security vulnerabilities
+
 At Verdaccio, we consider the security of our systems a top priority. But no matter how much effort we put into system security, there can still be vulnerabilities present.
 
 If you discover a security vulnerability, please use one of the following means of communications to report it to us:
