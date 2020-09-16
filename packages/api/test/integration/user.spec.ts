@@ -1,10 +1,10 @@
 import supertest from 'supertest';
+import _ from 'lodash';
 
 import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
 import { HEADERS, HEADER_TYPE, API_MESSAGE } from '@verdaccio/dev-commons';
-import { $RequestExtend, $ResponseExtend } from '@verdaccio/dev-types';
 import { getBadRequest, getConflict, getUnauthorized } from '@verdaccio/commons-api';
-import _ from 'lodash';
+import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(

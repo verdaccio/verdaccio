@@ -10,9 +10,9 @@ import {
 } from '@verdaccio/utils';
 
 import { Package, Version, Author } from '@verdaccio/types';
-import { IStorage } from '@verdaccio/dev-types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from '@verdaccio/dev-commons';
 import { SearchInstance } from './search';
+import { IStorage } from './storage';
 
 export function generatePackageTemplate(name: string): Package {
   return {

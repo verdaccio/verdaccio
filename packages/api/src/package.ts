@@ -6,13 +6,9 @@ import { allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '@verdaccio/utils';
 import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/dev-commons';
 import { Config, Package } from '@verdaccio/types';
-import {
-  IAuth,
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-} from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
+import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:package');
 

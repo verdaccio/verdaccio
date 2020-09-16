@@ -11,8 +11,9 @@ import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 
 import { Config, RemoteUser } from '@verdaccio/types';
-import { $RequestExtend, $NextFunctionVer, IAuth } from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 export default function (route: Router, auth: IAuth, config: Config): void {
   route.get('/-/user/:org_couchdb_user', function (

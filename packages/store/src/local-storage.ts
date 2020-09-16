@@ -33,11 +33,12 @@ import {
   Author,
   CallbackAction,
   onSearchPackage,
+  StringValue,
   onEndSearchPackage,
   StorageUpdateCallback,
 } from '@verdaccio/types';
-import { IStorage, StringValue } from '@verdaccio/dev-types';
 import { VerdaccioError } from '@verdaccio/commons-api';
+import { IStorage } from './storage';
 
 import {
   prepareSearchPackage,

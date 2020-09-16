@@ -2,9 +2,19 @@ import assert from 'assert';
 import _ from 'lodash';
 import minimatch from 'minimatch';
 
-import { PackageList, UpLinksConfList } from '@verdaccio/types';
-import { MatchedPackage, LegacyPackageList } from '@verdaccio/dev-types';
+import { PackageList, UpLinksConfList, PackageAccess } from '@verdaccio/types';
 import { ErrorCode } from './utils';
+
+export type PackageAccessAddOn = PackageAccess & {
+  // FIXME: should be published on @verdaccio/types
+  unpublish?: string[];
+};
+
+export interface LegacyPackageList {
+  [key: string]: PackageAccessAddOn;
+}
+
+export type MatchedPackage = PackageAccess | void;
 
 const BLACKLIST = {
   all: true,

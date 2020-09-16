@@ -5,7 +5,7 @@ import { Config as AppConfig } from '@verdaccio/config';
 // @ts-ignore
 import { logger, setup } from '@verdaccio/logger';
 import { configExample, generateNewVersion } from '@verdaccio/mock';
-import { IStorage } from '@verdaccio/dev-types';
+import { IStorage } from '../src/storage';
 
 const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
 import { Config, MergeTags, Package } from '@verdaccio/types';

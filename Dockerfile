@@ -14,10 +14,10 @@ COPY . .
 
 RUN npm -g i pnpm@latest && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm recursive install --frozen-lockfile && \
+    pnpm recursive install --frozen-lockfile --ignore-scripts && \
     pnpm run build && \
     pnpm run lint && \
-    pnpm install --prod
+    pnpm install --prod --ignore-scripts
 
 FROM node:12.18.3-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"

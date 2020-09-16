@@ -1,11 +1,5 @@
-import { Config, RemoteUser, Security } from '@verdaccio/types';
-import {
-  AuthMiddlewarePayload,
-  AuthTokenHeader,
-  BasicPayload,
-  IAuthWebUI,
-} from '@verdaccio/dev-types';
 import _ from 'lodash';
+import { Config, RemoteUser, Security } from '@verdaccio/types';
 import { HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import {
   aesDecrypt,
@@ -16,6 +10,16 @@ import {
   ErrorCode,
   verifyPayload,
 } from '@verdaccio/utils';
+
+import { IAuthWebUI, AESPayload } from './auth';
+
+export type BasicPayload = AESPayload | void;
+export type AuthMiddlewarePayload = RemoteUser | BasicPayload;
+
+export interface AuthTokenHeader {
+  scheme: string;
+  token: string;
+}
 
 export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHeader {
   const parts = authorizationHeader.split(' ');

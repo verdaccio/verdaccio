@@ -19,9 +19,8 @@ import {
   signPayload,
 } from '@verdaccio/utils';
 
-import { IAuth } from '@verdaccio/dev-types';
 import { Config, Security, RemoteUser } from '@verdaccio/types';
-import { Auth } from '../src';
+import { Auth, IAuth } from '../src';
 import { getMiddlewareCredentials, getApiToken, verifyJWTPayload, getSecurity } from '../src';
 
 setup([]);

@@ -8,7 +8,8 @@ import {
   encodeScopePackage,
   antiLoop,
 } from '@verdaccio/middleware';
-import { IAuth, IStorageHandler } from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
 import { Config } from '@verdaccio/types';
 import bodyParser from 'body-parser';
 

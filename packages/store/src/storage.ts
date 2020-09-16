@@ -2,6 +2,7 @@ import assert from 'assert';
 import Stream from 'stream';
 import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
+import { Request } from 'express';
 import buildDebug from 'debug';
 
 import { ProxyStorage } from '@verdaccio/proxy';
@@ -14,7 +15,7 @@ import {
   isObject,
   hasProxyTo,
 } from '@verdaccio/utils';
-import { setupUpLinks, updateVersionsHiddenUpLink } from '@verdaccio/proxy';
+import { setupUpLinks, updateVersionsHiddenUpLink, ProxyList, IProxy } from '@verdaccio/proxy';
 import {
   IReadTarball,
   IUploadTarball,
@@ -24,20 +25,18 @@ import {
   MergeTags,
   Version,
   DistFile,
+  StringValue,
+  IPluginStorageFilter,
+  IBasicStorage,
+  IPluginStorage,
   Callback,
   Logger,
+  GenericBody,
+  TokenFilter,
+  Token,
+  IStorageManager,
+  ITokenActions,
 } from '@verdaccio/types';
-import {
-  IStorage,
-  IProxy,
-  IStorageHandler,
-  ProxyList,
-  StringValue,
-  IGetPackageOptions,
-  ISyncUplinks,
-  IPluginFilters,
-} from '@verdaccio/dev-types';
-import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { SearchInstance } from './search';
@@ -55,7 +54,42 @@ import {
 
 const debug = buildDebug('verdaccio:storage');
 
-class Storage implements IStorageHandler {
+export interface IGetPackageOptions {
+  callback: Callback;
+  name: string;
+  keepUpLinkData: boolean;
+  uplinksLook: boolean;
+  req: any;
+}
+
+export interface IStorage extends IBasicStorage<Config>, ITokenActions {
+  config: Config;
+  storagePlugin: IPluginStorage<Config>;
+  logger: Logger;
+}
+
+export interface ISyncUplinks {
+  uplinksLook?: boolean;
+  etag?: string;
+  req?: Request;
+}
+
+export type IPluginFilters = IPluginStorageFilter<Config>[];
+
+export interface IStorageHandler extends IStorageManager<Config>, ITokenActions {
+  config: Config;
+  localStorage: IStorage | null;
+  filters: IPluginFilters;
+  uplinks: ProxyList;
+  init(config: Config, filters: IPluginFilters): Promise<string>;
+  saveToken(token: Token): Promise<any>;
+  deleteToken(user: string, tokenKey: string): Promise<any>;
+  readTokens(filter: TokenFilter): Promise<Token[]>;
+  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
+  _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
+}
+
+class Storage {
   public localStorage: IStorage;
   public config: Config;
   public logger: Logger;

@@ -6,7 +6,9 @@ import { logger } from '@verdaccio/logger';
 import { Response, Router } from 'express';
 
 import { Config, RemoteUser, Token } from '@verdaccio/types';
-import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../types';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
+import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
 
 export type NormalizeToken = Token & {
   created: string;

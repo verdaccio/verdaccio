@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import buildDebug from 'debug';
 
 import {
@@ -28,13 +28,13 @@ import {
   Callback,
   IPluginAuth,
   RemoteUser,
+  IBasicAuth,
   JWTSignOptions,
   Security,
   AuthPluginPackage,
   AllowAccess,
   PackageAccess,
 } from '@verdaccio/types';
-import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '@verdaccio/dev-types';
 import {
   getMiddlewareCredentials,
   getSecurity,
@@ -49,6 +49,34 @@ import {
 const LoggerApi = require('@verdaccio/logger');
 
 const debug = buildDebug('verdaccio:auth');
+
+export interface IAuthWebUI {
+  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
+  aesEncrypt(buf: Buffer): Buffer;
+}
+
+export interface AESPayload {
+  user: string;
+  password: string;
+}
+
+export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $ResponseExtend = Response & { cookies?: any };
+export type $NextFunctionVer = NextFunction & any;
+
+export interface IAuthMiddleware {
+  apiJWTmiddleware(): $NextFunctionVer;
+  webUIJWTmiddleware(): $NextFunctionVer;
+}
+
+export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, IAuthWebUI {
+  config: Config;
+  logger: Logger;
+  secret: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  plugins: any[];
+  allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+}
 
 class Auth implements IAuth {
   public config: Config;

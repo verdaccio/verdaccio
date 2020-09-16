@@ -1,4 +1,5 @@
 import { HTTP_STATUS } from '@verdaccio/commons-api';
+import supertest from 'supertest';
 import {
   API_ERROR,
   API_MESSAGE,
@@ -6,8 +7,7 @@ import {
   HEADER_TYPE,
   HEADERS,
 } from '@verdaccio/dev-commons';
-import { $RequestExtend, $ResponseExtend } from '@verdaccio/dev-types';
-import supertest from 'supertest';
+import { $ResponseExtend, $RequestExtend } from '../../types/custom';
 import { initializeServer, publishVersion } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(

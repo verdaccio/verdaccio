@@ -19,8 +19,7 @@ import {
   DEFAULT_USER,
 } from '@verdaccio/dev-commons';
 
-import { Package, Version, Author } from '@verdaccio/types';
-import { StringValue } from '@verdaccio/dev-types';
+import { Package, Version, Author, StringValue } from '@verdaccio/types';
 
 import {
   getConflict,

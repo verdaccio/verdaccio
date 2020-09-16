@@ -6,7 +6,6 @@ import {
   TIME_EXPIRATION_7D,
   DEFAULT_MIN_LIMIT_PASSWORD,
 } from '@verdaccio/dev-commons';
-import { CookieSessionToken } from '@verdaccio/dev-types';
 import {
   RemoteUser,
   AllowAccess,
@@ -21,6 +20,10 @@ import {
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { ErrorCode } from './utils';
+
+export interface CookieSessionToken {
+  expires: Date;
+}
 
 export function validatePassword(
   password: string,

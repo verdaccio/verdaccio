@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Config as AppConfig } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
-import { IAuth } from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/types';
 import { ROLES } from '@verdaccio/dev-commons';
 import { getInternalError } from '@verdaccio/commons-api';

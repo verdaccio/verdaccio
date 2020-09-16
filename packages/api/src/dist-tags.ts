@@ -6,15 +6,9 @@ import { media, allow } from '@verdaccio/middleware';
 import { API_MESSAGE, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
-
-// @ts-ignore
-import {
-  IAuth,
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-} from '@verdaccio/dev-types';
+import { IStorageHandler } from '@verdaccio/store';
+import { IAuth } from '@verdaccio/auth';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
   const can = allow(auth);

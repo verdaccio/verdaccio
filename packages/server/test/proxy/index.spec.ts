@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Config as AppConfig } from '@verdaccio/config';
 import { Config, UpLinkConf } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import { IProxy } from '@verdaccio/dev-types';
+import { IProxy } from '@verdaccio/proxy';
 import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 import { ProxyStorage } from '@verdaccio/proxy';

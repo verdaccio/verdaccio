@@ -12,18 +12,17 @@ import {
 import { allow } from '@verdaccio/middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { logger } from '@verdaccio/logger';
-import { Router } from 'express';
-import {
-  IAuth,
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-  $SidebarPackage,
-} from '@verdaccio/dev-types';
-import { Config, Package } from '@verdaccio/types';
+import { NextFunction, Request, Response, Router } from 'express';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
+import { Config, Logger, Package } from '@verdaccio/types';
 import { addGravatarSupport } from '../web-utils';
 import { generateGravatarUrl } from '../user';
+
+export type $SidebarPackage = Package & { latest: any };
+export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $ResponseExtend = Response & { cookies?: any };
+export type $NextFunctionVer = NextFunction & any;
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';

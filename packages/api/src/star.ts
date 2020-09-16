@@ -1,10 +1,10 @@
 import { USERS, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { Response } from 'express';
 import _ from 'lodash';
-import { logger } from '@verdaccio/logger';
 import buildDebug from 'debug';
 
-import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '@verdaccio/dev-types';
+import { IStorageHandler } from '@verdaccio/store';
+import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:publish:star');
 

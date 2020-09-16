@@ -4,13 +4,6 @@ import mime from 'mime';
 import { Router } from 'express';
 import buildDebug from 'debug';
 
-import {
-  IAuth,
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-} from '@verdaccio/dev-types';
 import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import {
   validateMetadata,
@@ -23,6 +16,9 @@ import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
 import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
+import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 import star from './star';
 import { isPublishablePackage } from './utils';

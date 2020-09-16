@@ -1,14 +1,10 @@
 import { SearchInstance } from '@verdaccio/store';
 import { DIST_TAGS } from '@verdaccio/dev-commons';
 import { Router } from 'express';
-import {
-  IAuth,
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-} from '@verdaccio/dev-types';
 import { Package } from '@verdaccio/types';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
+import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from './package';
 
 function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): void {
   // Search package

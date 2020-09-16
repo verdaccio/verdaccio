@@ -2,7 +2,8 @@ import _ from 'lodash';
 import { isObject } from '@verdaccio/utils';
 import { Package, Author } from '@verdaccio/types';
 import { normalizeContributors } from '@verdaccio/store';
-import { AuthorAvatar } from '@verdaccio/dev-types';
+
+export type AuthorAvatar = Author & { avatar?: string };
 
 import { generateGravatarUrl, GENERIC_AVATAR } from './user';
 

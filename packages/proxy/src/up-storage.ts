@@ -16,8 +16,15 @@ import {
   HEADER_TYPE,
   CHARACTER_ENCODING,
 } from '@verdaccio/dev-commons';
-import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
-import { IProxy, UpLinkConfLocal } from '@verdaccio/dev-types';
+import {
+  Config,
+  Callback,
+  Headers,
+  Logger,
+  UpLinkConf,
+  Package,
+  IReadTarball,
+} from '@verdaccio/types';
 const LoggerApi = require('@verdaccio/logger');
 
 const encode = function (thing): string {
@@ -33,6 +40,33 @@ const contentTypeAccept = `${jsonContentType};`;
 const setConfig = (config, key, def): string => {
   return _.isNil(config[key]) === false ? config[key] : def;
 };
+
+export type UpLinkConfLocal = UpLinkConf & {
+  no_proxy?: string;
+};
+
+export interface ProxyList {
+  [key: string]: IProxy;
+}
+
+export interface IProxy {
+  config: UpLinkConfLocal;
+  failed_requests: number;
+  userAgent: string;
+  ca?: string | void;
+  logger: Logger;
+  server_id: string;
+  url: any;
+  maxage: number;
+  timeout: number;
+  max_fails: number;
+  fail_timeout: number;
+  upname: string;
+  fetchTarball(url: string): IReadTarball;
+  isUplinkValid(url: string): boolean;
+  search(options: any);
+  getRemoteMetadata(name: string, options: any, callback: Callback): void;
+}
 
 /**
  * Implements Storage interface

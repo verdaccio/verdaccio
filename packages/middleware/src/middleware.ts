@@ -16,11 +16,18 @@ import {
   TOKEN_BASIC,
   TOKEN_BEARER,
 } from '@verdaccio/dev-commons';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '@verdaccio/dev-types';
-import { Config, Package, RemoteUser } from '@verdaccio/types';
+
+import { NextFunction, Request, Response } from 'express';
+
+import { Config, Package, RemoteUser, Logger } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
+import { IAuth } from '@verdaccio/auth';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { HttpError } from 'http-errors';
+
+export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $ResponseExtend = Response & { cookies?: any };
+export type $NextFunctionVer = NextFunction & any;
 
 export function match(regexp: RegExp): any {
   return function (

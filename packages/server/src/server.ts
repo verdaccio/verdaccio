@@ -14,16 +14,12 @@ import { Config as AppConfig } from '@verdaccio/config';
 
 import { webAPI, renderWebMiddleware } from '@verdaccio/web';
 
-import {
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-  IAuth,
-} from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
+import { IStorageHandler } from '@verdaccio/store';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import { setup, logger } from '@verdaccio/logger';
 import { log, final, errorReportingMiddleware } from '@verdaccio/middleware';
+import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 import hookDebug from './debug';
 
@@ -78,6 +74,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   });
 
   // For  npm request
+  // @ts-ignore
   app.use(apiEndpoint(config, auth, storage));
 
   // For WebUI & WebUI API
