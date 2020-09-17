@@ -1,7 +1,14 @@
 import _ from 'lodash';
 import request from 'supertest';
 
-import { DIST_TAGS, LATEST, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/dev-commons';
+import {
+  DIST_TAGS,
+  LATEST,
+  HEADER_TYPE,
+  HEADERS,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+} from '@verdaccio/dev-commons';
 import { buildToken, encodeScopedUri } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';
@@ -29,9 +36,17 @@ export function getTaggedVersionFromPackage(pkg, pkgName, tag: string = LATEST, 
   return latestPkg;
 }
 
-export function putPackage(request: any, pkgName: string, publishMetadata: Package, token?: string): Promise<any[]> {
+export function putPackage(
+  request: any,
+  pkgName: string,
+  publishMetadata: Package,
+  token?: string
+): Promise<any[]> {
   return new Promise((resolve) => {
-    const put = request.put(pkgName).set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON).send(JSON.stringify(publishMetadata));
+    const put = request
+      .put(pkgName)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(JSON.stringify(publishMetadata));
 
     if (_.isEmpty(token) === false) {
       expect(token).toBeDefined();
@@ -50,7 +65,9 @@ export function putPackage(request: any, pkgName: string, publishMetadata: Packa
 
 export function deletePackage(request: any, pkgName: string, token?: string): Promise<any[]> {
   return new Promise((resolve) => {
-    const del = request.put(`/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`).set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+    const del = request
+      .put(`/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 
     if (_.isNil(token) === false) {
       del.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string));
@@ -65,7 +82,12 @@ export function deletePackage(request: any, pkgName: string, token?: string): Pr
   });
 }
 
-export function getPackage(request: any, token: string, pkgName: string, statusCode: number = HTTP_STATUS.OK): Promise<any[]> {
+export function getPackage(
+  request: any,
+  token: string,
+  pkgName: string,
+  statusCode: number = HTTP_STATUS.OK
+): Promise<any[]> {
   return new Promise((resolve) => {
     const getRequest = request.get(`/${pkgName}`);
 
@@ -82,7 +104,13 @@ export function getPackage(request: any, token: string, pkgName: string, statusC
   });
 }
 
-export function loginUserToken(request: any, user: string, credentials: any, token: string, statusCode: number = HTTP_STATUS.CREATED): Promise<any[]> {
+export function loginUserToken(
+  request: any,
+  user: string,
+  credentials: any,
+  token: string,
+  statusCode: number = HTTP_STATUS.CREATED
+): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request
@@ -97,7 +125,12 @@ export function loginUserToken(request: any, user: string, credentials: any, tok
   });
 }
 
-export function addUser(request: any, user: string, credentials: any, statusCode: number = HTTP_STATUS.CREATED): Promise<any[]> {
+export function addUser(
+  request: any,
+  user: string,
+  credentials: any,
+  statusCode: number = HTTP_STATUS.CREATED
+): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request
@@ -124,7 +157,11 @@ export async function getNewToken(request: any, credentials: any): Promise<strin
   });
 }
 
-export function getProfile(request: any, token: string, statusCode: number = HTTP_STATUS.OK): Promise<any[]> {
+export function getProfile(
+  request: any,
+  token: string,
+  statusCode: number = HTTP_STATUS.OK
+): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request
@@ -138,7 +175,12 @@ export function getProfile(request: any, token: string, statusCode: number = HTT
   });
 }
 
-export function postProfile(request: any, body: any, token: string, statusCode: number = HTTP_STATUS.OK): Promise<any[]> {
+export function postProfile(
+  request: any,
+  body: any,
+  token: string,
+  statusCode: number = HTTP_STATUS.OK
+): Promise<any[]> {
   // $FlowFixMe
   return new Promise((resolve) => {
     request
@@ -153,7 +195,13 @@ export function postProfile(request: any, body: any, token: string, statusCode: 
   });
 }
 
-export async function fetchPackageByVersionAndTag(app, encodedPkgName, pkgName, version, tag = 'latest') {
+export async function fetchPackageByVersionAndTag(
+  app,
+  encodedPkgName,
+  pkgName,
+  version,
+  tag = 'latest'
+) {
   // we retrieve the package to verify
   const [err, resp] = await getPackage(request(app), '', encodedPkgName);
 
@@ -170,7 +218,12 @@ export async function isExistPackage(app, packageName) {
 }
 
 export async function verifyPackageVersionDoesExist(app, packageName, version, token?: string) {
-  const [, res] = await getPackage(request(app), token as string, encodeScopedUri(packageName), HTTP_STATUS.OK);
+  const [, res] = await getPackage(
+    request(app),
+    token as string,
+    encodeScopedUri(packageName),
+    HTTP_STATUS.OK
+  );
 
   const { versions } = res.body;
   const versionsKeys = Object.keys(versions);

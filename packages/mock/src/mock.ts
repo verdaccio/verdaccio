@@ -81,7 +81,12 @@ export function mockServer(port: number, options: MockRegistryOptions = {}) {
   fs.copyFileSync(finalOptions.configPath!, tempConfigFile);
   fsExtra.copySync(finalOptions.storePath!, storePath);
 
-  const verdaccioConfig = new VerdaccioConfig(storePath, tempConfigFile, `http://${DOMAIN_SERVERS}:${port}/`, port);
+  const verdaccioConfig = new VerdaccioConfig(
+    storePath,
+    tempConfigFile,
+    `http://${DOMAIN_SERVERS}:${port}/`,
+    port
+  );
   const server: IServerBridge = new Server(verdaccioConfig.domainPath);
 
   return new VerdaccioProcess(verdaccioConfig, server, finalOptions.silence, finalOptions.debug);

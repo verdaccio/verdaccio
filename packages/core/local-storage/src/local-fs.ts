@@ -78,7 +78,13 @@ export default class LocalFS implements ILocalFSPackageManager {
     * @param {*} transformPackage
     * @param {*} onEnd
     */
-  public updatePackage(name: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
+  public updatePackage(
+    name: string,
+    updateHandler: Callback,
+    onWrite: Callback,
+    transformPackage: Function,
+    onEnd: Callback
+  ): void {
     this._lockAndReadJSON(pkgFileName, (err, json) => {
       let locked = false;
       const self = this;
@@ -127,7 +133,10 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  public deletePackage(packageName: string, callback: (err: NodeJS.ErrnoException | null) => void): void {
+  public deletePackage(
+    packageName: string,
+    callback: (err: NodeJS.ErrnoException | null) => void
+  ): void {
     debug('delete a package %o', packageName);
 
     return fs.unlink(this._getStorage(packageName), callback);
@@ -190,7 +199,10 @@ export default class LocalFS implements ILocalFSPackageManager {
       if (exists) {
         uploadStream.emit('error', fSError(fileExist));
       } else {
-        const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
+        const temporalName = path.join(
+          this.path,
+          `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`
+        );
         debug('write a temporal name %o', temporalName);
         const file = fs.createWriteStream(temporalName);
         const removeTempFile = (): void => fs.unlink(temporalName, () => {});

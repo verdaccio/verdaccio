@@ -10,7 +10,10 @@ module.exports = async () => {
   const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-cli-e2e-'));
   __global.addItem('dir-root', tempRoot);
   console.log(yellow(`Add temp root folder: ${tempRoot}`));
-  fs.copyFileSync(path.join(__dirname, '../config/_bootstrap_verdaccio.yaml'), path.join(tempRoot, 'verdaccio.yaml'));
+  fs.copyFileSync(
+    path.join(__dirname, '../config/_bootstrap_verdaccio.yaml'),
+    path.join(tempRoot, 'verdaccio.yaml')
+  );
   // @ts-ignore
   global.__namespace = __global;
   console.log(`current directory: ${process.cwd()}`);

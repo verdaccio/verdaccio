@@ -1,6 +1,14 @@
 import crypto from 'crypto';
 
-import { verifyPassword, lockAndRead, parseHTPasswd, addUserToHTPasswd, sanityCheck, changePasswordToHTPasswd, getCryptoPassword } from '../src/utils';
+import {
+  verifyPassword,
+  lockAndRead,
+  parseHTPasswd,
+  addUserToHTPasswd,
+  sanityCheck,
+  changePasswordToHTPasswd,
+  getCryptoPassword,
+} from '../src/utils';
 
 const mockReadFile = jest.fn();
 const mockUnlockFile = jest.fn();
@@ -69,7 +77,10 @@ describe('verifyPassword', () => {
     expect(verifyPassword(input[0], input[1])).toBeTruthy();
   });
   it('should verify the bcrypt password with false', () => {
-    const input = ['testpasswordchanged', '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'];
+    const input = [
+      'testpasswordchanged',
+      '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO',
+    ];
     expect(verifyPassword(input[0], input[1])).toBeFalsy();
   });
 });
@@ -116,7 +127,9 @@ describe('addUserToHTPasswd - crypto', () => {
     jest.doMock('../src/crypt3.ts', () => false);
     const input = ['', 'username', 'password'];
     const utils = require('../src/utils.ts');
-    expect(utils.addUserToHTPasswd(input[0], input[1], input[2])).toEqual('username:{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g=:autocreated 2018-01-14T11:17:40.712Z\n');
+    expect(utils.addUserToHTPasswd(input[0], input[1], input[2])).toEqual(
+      'username:{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g=:autocreated 2018-01-14T11:17:40.712Z\n'
+    );
   });
 });
 
@@ -229,7 +242,9 @@ describe('changePasswordToHTPasswd', () => {
 
     const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
 
-    expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'demo123')).toEqual('root:ABfaAAjDKIgfw:autocreated 2018-08-20T13:38:12.164Z');
+    expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'demo123')).toEqual(
+      'root:ABfaAAjDKIgfw:autocreated 2018-08-20T13:38:12.164Z'
+    );
   });
 
   test('should change the password when crypt3 is not available', () => {

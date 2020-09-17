@@ -25,7 +25,11 @@ interface IPluginStorage<T> extends IPlugin<T>, ITokenActions {
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): IPackageStorage;
-  search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
+  search(
+    onPackage: onSearchPackage,
+    onEnd: onEndSearchPackage,
+    validateName: onValidatePackage
+  ): void;
 }
 ```
 

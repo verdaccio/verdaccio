@@ -30,7 +30,8 @@ const json = {
       _nodeVersion: '8.7.0',
       _npmUser: {},
       dist: {
-        integrity: 'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
+        integrity:
+          'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
         shasum: '2c03764f651a9f016ca0b7620421457b619151b9',
         tarball: 'http://localhost:5555/@scope/pk1-test/-/@scope/pk1-test-1.0.6.tgz',
       },
