@@ -26,7 +26,8 @@ export function generateVersion(pkgName, version) {
       name: 'foo',
     },
     dist: {
-      integrity: 'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
+      integrity:
+        'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
       shasum: '2c03764f651a9f016ca0b7620421457b619151b9', // pragma: allowlist secret
       tarball: `http:\/\/localhost:5555\/${pkgName}\/-\/${pkgName}-${version}.tgz`,
     },
@@ -39,7 +40,10 @@ export function generateVersion(pkgName, version) {
  * @param pkgName
  * @param _versions
  */
-export function generatePackageUnpublish(pkgName: string, _versions: string[] = ['1.0.0']): Package {
+export function generatePackageUnpublish(
+  pkgName: string,
+  _versions: string[] = ['1.0.0']
+): Package {
   const latest: string = _versions[_versions.length - 1];
   const versions = _versions.reduce((cat, version) => {
     cat[version] = generateVersion(pkgName, version);
@@ -102,7 +106,8 @@ export function generatePackageMetadata(pkgName: string, version = '1.0.0'): Pac
           name: 'foo',
         },
         dist: {
-          integrity: 'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
+          integrity:
+            'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
           shasum: '2c03764f651a9f016ca0b7620421457b619151b9', // pragma: allowlist secret
           tarball: `http:\/\/localhost:5555\/${pkgName}\/-\/${pkgName}-${version}.tgz`,
         },
@@ -120,7 +125,11 @@ export function generatePackageMetadata(pkgName: string, version = '1.0.0'): Pac
   };
 }
 
-export function generateDeprecateMetadata(pkgName: string, version = '1.0.0', deprecated: string = ''): Package {
+export function generateDeprecateMetadata(
+  pkgName: string,
+  version = '1.0.0',
+  deprecated: string = ''
+): Package {
   const res = {
     ...generatePackageMetadata(pkgName, version),
     _attachments: {},

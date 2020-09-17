@@ -8,6 +8,18 @@ import { Callback } from '@verdaccio/types';
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-declare function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void;
-declare function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void;
+declare function startVerdaccio(
+  config: any,
+  cliListen: string,
+  configPath: string,
+  pkgVersion: string,
+  pkgName: string,
+  callback: Callback
+): void;
+declare function listenDefaultCallback(
+  webServer: Application,
+  addr: any,
+  pkgName: string,
+  pkgVersion: string
+): void;
 export { startVerdaccio, listenDefaultCallback };

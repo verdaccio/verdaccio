@@ -6,9 +6,25 @@ import _ from 'lodash';
 import request from 'request';
 import { parseInterval, isObject, ErrorCode, buildToken } from '@verdaccio/utils';
 import { ReadTarball } from '@verdaccio/streams';
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from '@verdaccio/dev-commons';
-import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
-import { IProxy, UpLinkConfLocal } from '@verdaccio/dev-types';
+import {
+  ERROR_CODE,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  HEADERS,
+  HTTP_STATUS,
+  API_ERROR,
+  HEADER_TYPE,
+  CHARACTER_ENCODING,
+} from '@verdaccio/dev-commons';
+import {
+  Config,
+  Callback,
+  Headers,
+  Logger,
+  UpLinkConf,
+  Package,
+  IReadTarball,
+} from '@verdaccio/types';
 const LoggerApi = require('@verdaccio/logger');
 
 const encode = function (thing): string {
@@ -24,6 +40,33 @@ const contentTypeAccept = `${jsonContentType};`;
 const setConfig = (config, key, def): string => {
   return _.isNil(config[key]) === false ? config[key] : def;
 };
+
+export type UpLinkConfLocal = UpLinkConf & {
+  no_proxy?: string;
+};
+
+export interface ProxyList {
+  [key: string]: IProxy;
+}
+
+export interface IProxy {
+  config: UpLinkConfLocal;
+  failed_requests: number;
+  userAgent: string;
+  ca?: string | void;
+  logger: Logger;
+  server_id: string;
+  url: any;
+  maxage: number;
+  timeout: number;
+  max_fails: number;
+  fail_timeout: number;
+  upname: string;
+  fetchTarball(url: string): IReadTarball;
+  isUplinkValid(url: string): boolean;
+  search(options: any);
+  getRemoteMetadata(name: string, options: any, callback: Callback): void;
+}
 
 /**
  * Implements Storage interface
@@ -401,8 +444,11 @@ class ProxyStorage implements IProxy {
   public isUplinkValid(url: string): boolean {
     // $FlowFixMe
     const urlParsed: UrlWithStringQuery = URL.parse(url);
-    const isHTTPS = (urlDomainParsed: URL): boolean => urlDomainParsed.protocol === 'https:' && (urlParsed.port === null || urlParsed.port === '443');
-    const getHost = (urlDomainParsed): boolean => (isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host);
+    const isHTTPS = (urlDomainParsed: URL): boolean =>
+      urlDomainParsed.protocol === 'https:' &&
+      (urlParsed.port === null || urlParsed.port === '443');
+    const getHost = (urlDomainParsed): boolean =>
+      isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
     const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;
     const isMatchHost: boolean = getHost(urlParsed) === getHost(this.url);
     // @ts-ignore
@@ -439,7 +485,9 @@ class ProxyStorage implements IProxy {
           return callback(ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
         }
         if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
-          const error = ErrorCode.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${res.statusCode}`);
+          const error = ErrorCode.getInternalError(
+            `${API_ERROR.BAD_STATUS_CODE}: ${res.statusCode}`
+          );
           // $FlowFixMe
           error.remoteStatus = res.statusCode;
           return callback(error);
@@ -473,7 +521,10 @@ class ProxyStorage implements IProxy {
         return stream.emit('error', ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
       }
       if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
-        return stream.emit('error', ErrorCode.getInternalError(`bad uplink status code: ${res.statusCode}`));
+        return stream.emit(
+          'error',
+          ErrorCode.getInternalError(`bad uplink status code: ${res.statusCode}`)
+        );
       }
       if (res.headers[HEADER_TYPE.CONTENT_LENGTH]) {
         expected_length = res.headers[HEADER_TYPE.CONTENT_LENGTH];
@@ -523,7 +574,10 @@ class ProxyStorage implements IProxy {
 
     requestStream.on('response', (res): void => {
       if (!String(res.statusCode).match(/^2\d\d$/)) {
-        return transformStream.emit('error', ErrorCode.getInternalError(`bad status code ${res.statusCode} from uplink`));
+        return transformStream.emit(
+          'error',
+          ErrorCode.getInternalError(`bad status code ${res.statusCode} from uplink`)
+        );
       }
 
       // See https://github.com/request/request#requestoptions-callback
@@ -572,7 +626,9 @@ class ProxyStorage implements IProxy {
       // FIXME: proxy logic is odd, something is wrong here.
       // @ts-ignore
       if (!this.proxy) {
-        headers['X-Forwarded-For'] = (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] + ', ' : '') + req.connection.remoteAddress;
+        headers['X-Forwarded-For'] =
+          (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] + ', ' : '') +
+          req.connection.remoteAddress;
       }
     }
 
@@ -622,7 +678,10 @@ class ProxyStorage implements IProxy {
    * @private
    */
   private _ifRequestFailure(): boolean {
-    return this.failed_requests >= this.max_fails && Math.abs(Date.now() - (this.last_request_time as number)) < this.fail_timeout;
+    return (
+      this.failed_requests >= this.max_fails &&
+      Math.abs(Date.now() - (this.last_request_time as number)) < this.fail_timeout
+    );
   }
 
   /**
@@ -632,7 +691,12 @@ class ProxyStorage implements IProxy {
    * @param {*} mainconfig
    * @param {*} isHTTPS
    */
-  private _setupProxy(hostname: string, config: UpLinkConfLocal, mainconfig: Config, isHTTPS: boolean): void {
+  private _setupProxy(
+    hostname: string,
+    config: UpLinkConfLocal,
+    mainconfig: Config,
+    isHTTPS: boolean
+  ): void {
     let noProxyList;
     const proxy_key: string = isHTTPS ? 'https_proxy' : 'http_proxy';
 
@@ -667,7 +731,10 @@ class ProxyStorage implements IProxy {
         }
         if (hostname.lastIndexOf(noProxyItem) === hostname.length - noProxyItem.length) {
           if (this.proxy) {
-            this.logger.debug({ url: this.url.href, rule: noProxyItem }, 'not using proxy for @{url}, excluded by @{rule} rule');
+            this.logger.debug(
+              { url: this.url.href, rule: noProxyItem },
+              'not using proxy for @{url}, excluded by @{rule} rule'
+            );
             // @ts-ignore
             this.proxy = false;
           }
@@ -680,7 +747,10 @@ class ProxyStorage implements IProxy {
     if (_.isString(this.proxy) === false) {
       delete this.proxy;
     } else {
-      this.logger.debug({ url: this.url.href, proxy: this.proxy }, 'using proxy @{proxy} for @{url}');
+      this.logger.debug(
+        { url: this.url.href, proxy: this.proxy },
+        'using proxy @{proxy} for @{url}'
+      );
     }
   }
 }

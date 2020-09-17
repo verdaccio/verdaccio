@@ -95,7 +95,13 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
  * @param {number} maxUsers
  * @returns {object}
  */
-export function sanityCheck(user: string, password: string, verifyFn: Callback, users: {}, maxUsers: number): HttpError | null {
+export function sanityCheck(
+  user: string,
+  password: string,
+  verifyFn: Callback,
+  users: {},
+  maxUsers: number
+): HttpError | null {
   let err;
 
   // check for user or password
@@ -144,7 +150,12 @@ export function getCryptoPassword(password: string): string {
  * @param {string} newPasswd
  * @returns {string}
  */
-export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
+export function changePasswordToHTPasswd(
+  body: string,
+  user: string,
+  passwd: string,
+  newPasswd: string
+): string {
   let lines = body.split('\n');
   lines = lines.map((line) => {
     const [username, password] = line.split(':', 3);

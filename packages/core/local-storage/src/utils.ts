@@ -31,7 +31,10 @@ function hasScope(file: string): boolean {
 }
 
 /* eslint-disable no-async-promise-executor */
-export async function findPackages(storagePath: string, validationHandler: Function): Promise<{ name: string; path: string }[]> {
+export async function findPackages(
+  storagePath: string,
+  validationHandler: Function
+): Promise<{ name: string; path: string }[]> {
   const listPackages: { name: string; path: string }[] = [];
   return new Promise(async (resolve, reject) => {
     try {

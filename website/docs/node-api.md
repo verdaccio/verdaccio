@@ -14,11 +14,18 @@ Verdaccio can be invoked programmatically. The node API was introduced after ver
 ```js
 import startServer from 'verdaccio';
 
-startServer(configJsonFormat, 6000, store, '1.0.0', 'verdaccio', (webServer, addrs, pkgName, pkgVersion) => {
-  webServer.listen(addr.port || addr.path, addr.host, () => {
-    console.log('verdaccio running');
-  });
-});
+startServer(
+  configJsonFormat,
+  6000,
+  store,
+  '1.0.0',
+  'verdaccio',
+  (webServer, addrs, pkgName, pkgVersion) => {
+    webServer.listen(addr.port || addr.path, addr.host, () => {
+      console.log('verdaccio running');
+    });
+  }
+);
 ```
 
 ## Other implementations

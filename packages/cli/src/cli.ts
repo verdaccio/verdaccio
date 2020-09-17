@@ -13,11 +13,19 @@ import { isVersionValid, MIN_NODE_VERSION } from './utils';
 const isRootUser = process.getuid && process.getuid() === 0;
 
 if (isRootUser) {
-  global.console.warn(bgYellow().red("*** WARNING: Verdaccio doesn't need superuser privileges. Don't run it under root! ***"));
+  global.console.warn(
+    bgYellow().red(
+      "*** WARNING: Verdaccio doesn't need superuser privileges. Don't run it under root! ***"
+    )
+  );
 }
 
 if (isVersionValid()) {
-  global.console.error(bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
+  global.console.error(
+    bgRed(
+      `Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`
+    )
+  );
   process.exit(1);
 }
 

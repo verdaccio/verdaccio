@@ -76,7 +76,12 @@ export async function _exec(options, cmd, args) {
   });
 }
 
-export function execAndWaitForOutputToMatch(cmd: string, args: string[], match: RegExp, spawnOptions: SpawnOptions = {}): any {
+export function execAndWaitForOutputToMatch(
+  cmd: string,
+  args: string[],
+  match: RegExp,
+  spawnOptions: SpawnOptions = {}
+): any {
   return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
 }
 

@@ -67,7 +67,8 @@ describe('formatter', () => {
         status: 200,
         error: undefined,
         bytes: { in: 0, out: 150186 },
-        msg: "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}', bytes: @{bytes.in}/@{bytes.out}",
+        msg:
+          "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}', bytes: @{bytes.in}/@{bytes.out}",
       };
 
       expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
@@ -84,7 +85,9 @@ describe('formatter', () => {
         err: {
           type: 'Error',
           message: 'getaddrinfo ENOTFOUND registry.fake.org',
-          stack: 'Error: getaddrinfo ENOTFOUND registry.fake.org\n' + '    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:60:26)',
+          stack:
+            'Error: getaddrinfo ENOTFOUND registry.fake.org\n' +
+            '    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:60:26)',
           errno: -3008,
           code: 'ENOTFOUND',
           syscall: 'getaddrinfo',

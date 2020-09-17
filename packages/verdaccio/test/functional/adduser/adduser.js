@@ -22,7 +22,10 @@ export default function (server) {
     });
 
     test('should not register more users', () => {
-      return server.auth(String(Math.random()), String(Math.random())).status(HTTP_STATUS.CONFLICT).body_error(API_ERROR.MAX_USERS_REACHED);
+      return server
+        .auth(String(Math.random()), String(Math.random()))
+        .status(HTTP_STATUS.CONFLICT)
+        .body_error(API_ERROR.MAX_USERS_REACHED);
     });
   });
 }

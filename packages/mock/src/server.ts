@@ -147,7 +147,12 @@ export default class Server implements IServerBridge {
     }).send(JSON.stringify(version));
   }
 
-  public putTarballIncomplete(pkgName: string, filename: string, data: any, headerContentSize: number): Promise<any> {
+  public putTarballIncomplete(
+    pkgName: string,
+    filename: string,
+    data: any,
+    headerContentSize: number
+  ): Promise<any> {
     const promise = this.request({
       uri: `/${encodeURIComponent(pkgName)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
@@ -182,7 +187,9 @@ export default class Server implements IServerBridge {
   }
 
   public addPackage(name: string) {
-    return this.putPackage(name, getPackage(name)).status(HTTP_STATUS.CREATED).body_ok(API_MESSAGE.PKG_CREATED);
+    return this.putPackage(name, getPackage(name))
+      .status(HTTP_STATUS.CREATED)
+      .body_ok(API_MESSAGE.PKG_CREATED);
   }
 
   public whoami() {

@@ -2,27 +2,94 @@ import assert from 'assert';
 import Stream from 'stream';
 import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
+import { Request } from 'express';
 import buildDebug from 'debug';
 
 import { ProxyStorage } from '@verdaccio/proxy';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 import { ReadTarball } from '@verdaccio/streams';
-import { ErrorCode, normalizeDistTags, validateMetadata, isObject, hasProxyTo } from '@verdaccio/utils';
-import { setupUpLinks, updateVersionsHiddenUpLink } from '@verdaccio/proxy';
-import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
-import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks, IPluginFilters } from '@verdaccio/dev-types';
-import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
+import {
+  ErrorCode,
+  normalizeDistTags,
+  validateMetadata,
+  isObject,
+  hasProxyTo,
+} from '@verdaccio/utils';
+import { setupUpLinks, updateVersionsHiddenUpLink, ProxyList, IProxy } from '@verdaccio/proxy';
+import {
+  IReadTarball,
+  IUploadTarball,
+  Versions,
+  Package,
+  Config,
+  MergeTags,
+  Version,
+  DistFile,
+  StringValue,
+  IPluginStorageFilter,
+  IBasicStorage,
+  IPluginStorage,
+  Callback,
+  Logger,
+  GenericBody,
+  TokenFilter,
+  Token,
+  IStorageManager,
+  ITokenActions,
+} from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { SearchInstance } from './search';
 
 import { LocalStorage } from './local-storage';
 import { mergeVersions } from './metadata-utils';
-import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
+import {
+  checkPackageLocal,
+  publishPackage,
+  checkPackageRemote,
+  cleanUpLinksRef,
+  mergeUplinkTimeIntoLocal,
+  generatePackageTemplate,
+} from './storage-utils';
 
 const debug = buildDebug('verdaccio:storage');
 
-class Storage implements IStorageHandler {
+export interface IGetPackageOptions {
+  callback: Callback;
+  name: string;
+  keepUpLinkData: boolean;
+  uplinksLook: boolean;
+  req: any;
+}
+
+export interface IStorage extends IBasicStorage<Config>, ITokenActions {
+  config: Config;
+  storagePlugin: IPluginStorage<Config>;
+  logger: Logger;
+}
+
+export interface ISyncUplinks {
+  uplinksLook?: boolean;
+  etag?: string;
+  req?: Request;
+}
+
+export type IPluginFilters = IPluginStorageFilter<Config>[];
+
+export interface IStorageHandler extends IStorageManager<Config>, ITokenActions {
+  config: Config;
+  localStorage: IStorage | null;
+  filters: IPluginFilters;
+  uplinks: ProxyList;
+  init(config: Config, filters: IPluginFilters): Promise<string>;
+  saveToken(token: Token): Promise<any>;
+  deleteToken(user: string, tokenKey: string): Promise<any>;
+  readTokens(filter: TokenFilter): Promise<Token[]>;
+  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
+  _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
+}
+
+class Storage {
   public localStorage: IStorage;
   public config: Config;
   public logger: Logger;
@@ -58,7 +125,11 @@ class Storage implements IStorageHandler {
       debug('add package for %o', name);
       await checkPackageLocal(name, this.localStorage);
       debug('look up remote for %o', name);
-      await checkPackageRemote(name, this._isAllowPublishOffline(), this._syncUplinksMetadata.bind(this));
+      await checkPackageRemote(
+        name,
+        this._isAllowPublishOffline(),
+        this._syncUplinksMetadata.bind(this)
+      );
       debug('publishing a package for %o', name);
       await publishPackage(name, metadata, this.localStorage as IStorage);
       callback();
@@ -69,7 +140,11 @@ class Storage implements IStorageHandler {
   }
 
   private _isAllowPublishOffline(): boolean {
-    return typeof this.config.publish !== 'undefined' && _.isBoolean(this.config.publish.allow_offline) && this.config.publish.allow_offline;
+    return (
+      typeof this.config.publish !== 'undefined' &&
+      _.isBoolean(this.config.publish.allow_offline) &&
+      this.config.publish.allow_offline
+    );
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
@@ -88,7 +163,13 @@ class Storage implements IStorageHandler {
    * Add a new version of package {name} to a system
    Used storages: local (write)
    */
-  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void {
+  public addVersion(
+    name: string,
+    version: string,
+    metadata: Version,
+    tag: StringValue,
+    callback: Callback
+  ): void {
     debug('add the version %o for package %o', version, name);
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
@@ -107,7 +188,12 @@ class Storage implements IStorageHandler {
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
    */
-  public changePackage(name: string, metadata: Package, revision: string, callback: Callback): void {
+  public changePackage(
+    name: string,
+    metadata: Package,
+    revision: string,
+    callback: Callback
+  ): void {
     debug('change existing package for package %o revision %o', name, revision);
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
@@ -266,7 +352,10 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function (err): void {
-          self.logger.warn({ err: err, fileName: file }, 'error saving file @{fileName}: @{err?.message}\n@{err.stack}');
+          self.logger.warn(
+            { err: err, fileName: file },
+            'error saving file @{fileName}: @{err?.message}\n@{err.stack}'
+          );
           if (savestream) {
             savestream.abort();
           }
@@ -303,24 +392,25 @@ class Storage implements IStorageHandler {
       }
 
       debug('sync uplinks for %o', name);
-      this._syncUplinksMetadata(name, data, { req: options.req, uplinksLook: options.uplinksLook }, function getPackageSynUpLinksCallback(
-        err,
-        result: Package,
-        uplinkErrors
-      ): void {
-        if (err) {
-          debug('error on sync package for %o with error %o', name, err?.message);
-          return options.callback(err);
+      this._syncUplinksMetadata(
+        name,
+        data,
+        { req: options.req, uplinksLook: options.uplinksLook },
+        function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors): void {
+          if (err) {
+            debug('error on sync package for %o with error %o', name, err?.message);
+            return options.callback(err);
+          }
+
+          normalizeDistTags(cleanUpLinksRef(options.keepUpLinkData, result));
+
+          // npm can throw if this field doesn't exist
+          result._attachments = {};
+
+          debug('sync uplinks errors %o', uplinkErrors);
+          options.callback(null, result, uplinkErrors);
         }
-
-        normalizeDistTags(cleanUpLinksRef(options.keepUpLinkData, result));
-
-        // npm can throw if this field doesn't exist
-        result._attachments = {};
-
-        debug('sync uplinks errors %o', uplinkErrors);
-        options.callback(null, result, uplinkErrors);
-      });
+      );
     });
   }
 
@@ -401,7 +491,10 @@ class Storage implements IStorageHandler {
 
       const packages: Version[] = [];
       const getPackage = function (itemPkg): void {
-        self.localStorage.getPackageMetadata(locals[itemPkg], function (err, pkgMetadata: Package): void {
+        self.localStorage.getPackageMetadata(locals[itemPkg], function (
+          err,
+          pkgMetadata: Package
+        ): void {
           if (_.isNil(err)) {
             const latest = pkgMetadata[DIST_TAGS].latest;
             if (latest && pkgMetadata.versions[latest]) {
@@ -417,7 +510,10 @@ class Storage implements IStorageHandler {
 
               packages.push(version);
             } else {
-              self.logger.warn({ package: locals[itemPkg] }, 'package @{package} does not have a "latest" tag?');
+              self.logger.warn(
+                { package: locals[itemPkg] },
+                'package @{package} does not have a "latest" tag?'
+              );
             }
           }
 
@@ -442,7 +538,12 @@ class Storage implements IStorageHandler {
    if package is available locally, it MUST be provided in pkginfo
    returns callback(err, result, uplink_errors)
    */
-  public _syncUplinksMetadata(name: string, packageInfo: Package, options: ISyncUplinks, callback: Callback): void {
+  public _syncUplinksMetadata(
+    name: string,
+    packageInfo: Package,
+    options: ISyncUplinks,
+    callback: Callback
+  ): void {
     let found = true;
     const self = this;
     const upLinks: IProxy[] = [];

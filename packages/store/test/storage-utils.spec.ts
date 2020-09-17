@@ -88,7 +88,12 @@ describe('Storage Utils', () => {
       };
 
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
-      expect(Object.keys(mergedPkg)).toEqual(['modified', 'created', ...Object.keys(vGroup1), ...Object.keys(vGroup2)]);
+      expect(Object.keys(mergedPkg)).toEqual([
+        'modified',
+        'created',
+        ...Object.keys(vGroup1),
+        ...Object.keys(vGroup2),
+      ]);
     });
 
     test('mergeTime remote empty', () => {

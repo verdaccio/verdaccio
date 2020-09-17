@@ -20,7 +20,6 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/types": "workspace:*"
   },
   "scripts": {

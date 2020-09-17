@@ -4,7 +4,14 @@ import Config from '../../../../packages/config/src/config';
 import { logger } from '../../../../packages/logger/src/logger';
 import { Callback } from '@verdaccio/types';
 
-import { Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions } from '@verdaccio/types';
+import {
+  Config as AppConfig,
+  PackageAccess,
+  IPluginAuth,
+  RemoteUser,
+  Logger,
+  PluginOptions,
+} from '@verdaccio/types';
 
 class ExampleAuthPlugin implements IPluginAuth<{}> {
   config: AppConfig;

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Config as AppConfig } from '@verdaccio/config';
 import { Config, UpLinkConf } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import { IProxy } from '@verdaccio/dev-types';
+import { IProxy } from '@verdaccio/proxy';
 import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 import { ProxyStorage } from '@verdaccio/proxy';
@@ -154,7 +154,10 @@ describe('UpStorge', () => {
 
   describe('UpStorge::isUplinkValid', () => {
     describe('valid use cases', () => {
-      const validateUpLink = (url: string, tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
+      const validateUpLink = (
+        url: string,
+        tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`
+      ) => {
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 
@@ -184,7 +187,12 @@ describe('UpStorge', () => {
       // corner case https://github.com/verdaccio/verdaccio/issues/571
       test('should validate tarball path against uplink case#6', () => {
         // same protocol, same domain, port === 443 which is also the standard for https
-        expect(validateUpLink('https://my.domain.test', `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(true);
+        expect(
+          validateUpLink(
+            'https://my.domain.test',
+            `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`
+          )
+        ).toBe(true);
       });
 
       test('should validate tarball path against uplink case#7', () => {
@@ -229,7 +237,8 @@ describe('UpStorge', () => {
       test('should fails on validate tarball path against uplink case#4', () => {
         // same domain, same protocol, different port
         const url = 'https://subdomain.domain:5001';
-        const tarBallUrl = 'https://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+        const tarBallUrl =
+          'https://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 

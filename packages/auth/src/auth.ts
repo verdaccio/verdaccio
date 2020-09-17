@@ -1,8 +1,13 @@
 import _ from 'lodash';
-import { NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import buildDebug from 'debug';
 
-import { VerdaccioError, getBadRequest, getInternalError, getForbidden } from '@verdaccio/commons-api';
+import {
+  VerdaccioError,
+  getBadRequest,
+  getInternalError,
+  getForbidden,
+} from '@verdaccio/commons-api';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import { loadPlugin } from '@verdaccio/loaders';
 import {
@@ -17,14 +22,61 @@ import {
   createRemoteUser,
 } from '@verdaccio/utils';
 
-import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
-import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '@verdaccio/dev-types';
-import { getMiddlewareCredentials, getSecurity, verifyJWTPayload, parseBasicPayload, parseAuthTokenHeader, isAuthHeaderValid, isAESLegacy } from './utils';
+import {
+  Config,
+  Logger,
+  Callback,
+  IPluginAuth,
+  RemoteUser,
+  IBasicAuth,
+  JWTSignOptions,
+  Security,
+  AuthPluginPackage,
+  AllowAccess,
+  PackageAccess,
+} from '@verdaccio/types';
+import {
+  getMiddlewareCredentials,
+  getSecurity,
+  verifyJWTPayload,
+  parseBasicPayload,
+  parseAuthTokenHeader,
+  isAuthHeaderValid,
+  isAESLegacy,
+} from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
 
 const debug = buildDebug('verdaccio:auth');
+
+export interface IAuthWebUI {
+  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
+  aesEncrypt(buf: Buffer): Buffer;
+}
+
+export interface AESPayload {
+  user: string;
+  password: string;
+}
+
+export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $ResponseExtend = Response & { cookies?: any };
+export type $NextFunctionVer = NextFunction & any;
+
+export interface IAuthMiddleware {
+  apiJWTmiddleware(): $NextFunctionVer;
+  webUIJWTmiddleware(): $NextFunctionVer;
+}
+
+export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, IAuthWebUI {
+  config: Config;
+  logger: Logger;
+  secret: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  plugins: any[];
+  allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+}
 
 class Auth implements IAuth {
   public config: Config;
@@ -46,19 +98,29 @@ class Auth implements IAuth {
       logger: this.logger,
     };
 
-    return loadPlugin<IPluginAuth<Config>>(config, config.auth, pluginOptions, (plugin: IPluginAuth<Config>): boolean => {
-      const { authenticate, allow_access, allow_publish } = plugin;
+    return loadPlugin<IPluginAuth<Config>>(
+      config,
+      config.auth,
+      pluginOptions,
+      (plugin: IPluginAuth<Config>): boolean => {
+        const { authenticate, allow_access, allow_publish } = plugin;
 
-      // @ts-ignore
-      return authenticate || allow_access || allow_publish;
-    });
+        // @ts-ignore
+        return authenticate || allow_access || allow_publish;
+      }
+    );
   }
 
   private _applyDefaultPlugins(): void {
     this.plugins.push(getDefaultPlugins(this.logger));
   }
 
-  public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
+  public changePassword(
+    username: string,
+    password: string,
+    newPassword: string,
+    cb: Callback
+  ): void {
     const validPlugins = _.filter(this.plugins, (plugin) => isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
@@ -140,7 +202,9 @@ class Auth implements IAuth {
       let method = 'adduser';
       if (isFunction(plugin[method]) === false) {
         method = 'add_user';
-        self.logger.warn('the plugin method add_user in the auth plugin is deprecated and will be removed in next major release, notify to the plugin author');
+        self.logger.warn(
+          'the plugin method add_user in the auth plugin is deprecated and will be removed in next major release, notify to the plugin author'
+        );
       }
 
       if (isFunction(plugin[method]) === false) {
@@ -165,10 +229,18 @@ class Auth implements IAuth {
   /**
    * Allow user to access a package.
    */
-  public allow_access({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
+  public allow_access(
+    { packageName, packageVersion }: AuthPluginPackage,
+    user: RemoteUser,
+    callback: Callback
+  ): void {
     const plugins = this.plugins.slice(0);
     const pkgAllowAcces: AllowAccess = { name: packageName, version: packageVersion };
-    const pkg = Object.assign({}, pkgAllowAcces, getMatchedPackagesSpec(packageName, this.config.packages)) as AllowAccess & PackageAccess;
+    const pkg = Object.assign(
+      {},
+      pkgAllowAcces,
+      getMatchedPackagesSpec(packageName, this.config.packages)
+    ) as AllowAccess & PackageAccess;
     const self = this;
     debug('allow access for %o', packageName);
 
@@ -195,8 +267,15 @@ class Auth implements IAuth {
     })();
   }
 
-  public allow_unpublish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
-    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
+  public allow_unpublish(
+    { packageName, packageVersion }: AuthPluginPackage,
+    user: RemoteUser,
+    callback: Callback
+  ): void {
+    const pkg = Object.assign(
+      { name: packageName, version: packageVersion },
+      getMatchedPackagesSpec(packageName, this.config.packages)
+    );
     debug('allow unpublish for %o', packageName);
 
     for (const plugin of this.plugins) {
@@ -206,7 +285,10 @@ class Auth implements IAuth {
       } else {
         plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
           if (err) {
-            debug('forbidden publish for %o, it will fallback on unpublish permissions', packageName);
+            debug(
+              'forbidden publish for %o, it will fallback on unpublish permissions',
+              packageName
+            );
             return callback(err);
           }
 
@@ -229,10 +311,17 @@ class Auth implements IAuth {
   /**
    * Allow user to publish a package.
    */
-  public allow_publish({ packageName, packageVersion }: AuthPluginPackage, user: RemoteUser, callback: Callback): void {
+  public allow_publish(
+    { packageName, packageVersion }: AuthPluginPackage,
+    user: RemoteUser,
+    callback: Callback
+  ): void {
     const plugins = this.plugins.slice(0);
     const self = this;
-    const pkg = Object.assign({ name: packageName, version: packageVersion }, getMatchedPackagesSpec(packageName, this.config.packages));
+    const pkg = Object.assign(
+      { name: packageName, version: packageVersion },
+      getMatchedPackagesSpec(packageName, this.config.packages)
+    );
     debug('allow publish for %o init | plugins: %o', packageName, plugins.length);
 
     (function next(): void {
@@ -320,7 +409,13 @@ class Auth implements IAuth {
     };
   }
 
-  private _handleJWTAPIMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): void {
+  private _handleJWTAPIMiddleware(
+    req: $RequestExtend,
+    security: Security,
+    secret: string,
+    authorization: string,
+    next: Function
+  ): void {
     const { scheme, token } = parseAuthTokenHeader(authorization);
     if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
       // this should happen when client tries to login with an existing user
@@ -349,7 +444,13 @@ class Auth implements IAuth {
     }
   }
 
-  private _handleAESMiddleware(req: $RequestExtend, security: Security, secret: string, authorization: string, next: Function): void {
+  private _handleAESMiddleware(
+    req: $RequestExtend,
+    security: Security,
+    secret: string,
+    authorization: string,
+    next: Function
+  ): void {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     if (credentials) {
       const { user, password } = credentials;

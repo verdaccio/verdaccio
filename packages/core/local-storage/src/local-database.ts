@@ -6,7 +6,17 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import async from 'async';
 import mkdirp from 'mkdirp';
-import { Callback, Config, IPackageStorage, IPluginStorage, LocalStorage, Logger, StorageList, Token, TokenFilter } from '@verdaccio/types';
+import {
+  Callback,
+  Config,
+  IPackageStorage,
+  IPluginStorage,
+  LocalStorage,
+  Logger,
+  StorageList,
+  Token,
+  TokenFilter,
+} from '@verdaccio/types';
 import level from 'level';
 import { getInternalError } from '@verdaccio/commons-api';
 
@@ -82,7 +92,11 @@ class LocalDatabase implements IPluginStorage<{}> {
     }
   }
 
-  public search(onPackage: Callback, onEnd: Callback, validateName: (name: string) => boolean): void {
+  public search(
+    onPackage: Callback,
+    onEnd: Callback,
+    validateName: (name: string) => boolean
+  ): void {
     const storages = this._getCustomPackageLocalStorages();
     debug(`search custom local packages: %o`, JSON.stringify(storages));
     const base = Path.dirname(this.config.self_path);
@@ -182,7 +196,10 @@ class LocalDatabase implements IPluginStorage<{}> {
     this.get((err, data) => {
       if (err) {
         cb(getInternalError('error remove private package'));
-        this.logger.error({ err }, '[local-storage/remove]: remove the private package has failed @{err}');
+        this.logger.error(
+          { err },
+          '[local-storage/remove]: remove the private package has failed @{err}'
+        );
         debug('error on remove package %o', name);
       }
 
@@ -213,7 +230,9 @@ class LocalDatabase implements IPluginStorage<{}> {
   public getPackageStorage(packageName: string): IPackageStorage {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
-    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
+    const packagePath: string = this._getLocalStoragePath(
+      packageAccess ? packageAccess.storage : undefined
+    );
     debug('storage path selected: ', packagePath);
 
     if (_.isString(packagePath) === false) {
@@ -221,7 +240,10 @@ class LocalDatabase implements IPluginStorage<{}> {
       return;
     }
 
-    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
+    const packageStoragePath: string = Path.join(
+      Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
+      packageName
+    );
 
     debug('storage absolute path: ', packageStoragePath);
 
@@ -317,8 +339,12 @@ class LocalDatabase implements IPluginStorage<{}> {
     debug('sync database started');
 
     if (this.locked) {
-      this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
-      return new Error('Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.');
+      this.logger.error(
+        'Database is locked, please check error message printed during startup to prevent data loss.'
+      );
+      return new Error(
+        'Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.'
+      );
     }
     // Uses sync to prevent ugly race condition
     try {
@@ -383,7 +409,9 @@ class LocalDatabase implements IPluginStorage<{}> {
   }
 
   private _dbGenPath(dbName: string, config: Config): string {
-    return Path.join(Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName));
+    return Path.join(
+      Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName)
+    );
   }
 
   /**
@@ -404,7 +432,10 @@ class LocalDatabase implements IPluginStorage<{}> {
       // Only recreate if file not found to prevent data loss
       if (err.code !== noSuchFile) {
         this.locked = true;
-        this.logger.error('Failed to read package database file, please check the error printed below:\n', `File Path: ${this.path}\n\n ${err.message}`);
+        this.logger.error(
+          'Failed to read package database file, please check the error printed below:\n',
+          `File Path: ${this.path}\n\n ${err.message}`
+        );
       }
 
       return emptyDatabase;
