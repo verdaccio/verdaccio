@@ -3,7 +3,13 @@ import path from 'path';
 import { createTarballHash } from '@verdaccio/utils';
 import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 
-import { CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL } from '../config.functional';
+import {
+  CREDENTIALS,
+  DOMAIN_SERVERS,
+  PORT_SERVER_1,
+  PORT_SERVER_2,
+  TARBALL,
+} from '../config.functional';
 import whoIam from './whoIam';
 import ping from './ping';
 import fixturePkg from '../fixtures/package';
@@ -52,16 +58,27 @@ export default function (server: any, server2: any) {
       });
 
       test('uploading incomplete tarball', () => {
-        return server.putTarballIncomplete(PKG_NAME, 'blahblah1', readfile('../fixtures/binary'), 3000);
+        return server.putTarballIncomplete(
+          PKG_NAME,
+          'blahblah1',
+          readfile('../fixtures/binary'),
+          3000
+        );
       });
 
       describe('publishing package', () => {
         beforeAll(function () {
-          return server.putTarball(PKG_NAME, TARBALL, readfile('../fixtures/binary')).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+          return server
+            .putTarball(PKG_NAME, TARBALL, readfile('../fixtures/binary'))
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(/.*/);
         });
 
         beforeAll(function () {
-          return server.putTarball('testpkg-single-tarball', 'single', readfile('../fixtures/binary')).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+          return server
+            .putTarball('testpkg-single-tarball', 'single', readfile('../fixtures/binary'))
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(/.*/);
         });
 
         afterAll(function () {
@@ -87,7 +104,9 @@ export default function (server: any, server2: any) {
         // testexp-incomplete
 
         test('remove existing single tarball', () => {
-          return server.removeSingleTarball('testpkg-single-tarball', 'single').status(HTTP_STATUS.CREATED);
+          return server
+            .removeSingleTarball('testpkg-single-tarball', 'single')
+            .status(HTTP_STATUS.CREATED);
         });
 
         // testexp-incomplete
@@ -115,7 +134,9 @@ export default function (server: any, server2: any) {
           beforeAll(function () {
             const pkg = getPackage(PKG_NAME);
 
-            pkg.dist.shasum = createTarballHash().update(readfile('../fixtures/binary')).digest('hex');
+            pkg.dist.shasum = createTarballHash()
+              .update(readfile('../fixtures/binary'))
+              .digest('hex');
             return server
               .putVersion(PKG_NAME, PKG_VERSION, pkg)
               .status(HTTP_STATUS.CREATED)
@@ -124,7 +145,10 @@ export default function (server: any, server2: any) {
 
           describe('should download a package', () => {
             beforeAll(function () {
-              return server.auth(CREDENTIALS.user, CREDENTIALS.password).status(HTTP_STATUS.CREATED).body_ok(new RegExp(CREDENTIALS.user));
+              return server
+                .auth(CREDENTIALS.user, CREDENTIALS.password)
+                .status(HTTP_STATUS.CREATED)
+                .body_ok(new RegExp(CREDENTIALS.user));
             });
 
             test('should download a newly created package from server1', () => {
@@ -134,7 +158,9 @@ export default function (server: any, server2: any) {
                 .then(function (body) {
                   expect(body.name).toEqual(PKG_NAME);
                   expect(body.versions[PKG_VERSION].name).toEqual(PKG_NAME);
-                  expect(body.versions[PKG_VERSION].dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
+                  expect(body.versions[PKG_VERSION].dist.tarball).toEqual(
+                    `http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`
+                  );
                   expect(body[DIST_TAGS]).toEqual({
                     latest: PKG_VERSION,
                   });
@@ -148,7 +174,9 @@ export default function (server: any, server2: any) {
                 .then(function (body) {
                   expect(body.name).toEqual(PKG_NAME);
                   expect(body.versions[PKG_VERSION].name).toEqual(PKG_NAME);
-                  expect(body.versions[PKG_VERSION].dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/${PKG_NAME}/-/${TARBALL}`);
+                  expect(body.versions[PKG_VERSION].dist.tarball).toEqual(
+                    `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/${PKG_NAME}/-/${TARBALL}`
+                  );
                   expect(body[DIST_TAGS]).toEqual({
                     latest: PKG_VERSION,
                   });

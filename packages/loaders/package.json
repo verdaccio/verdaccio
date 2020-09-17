@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/types": "workspace:*"

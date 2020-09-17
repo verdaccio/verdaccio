@@ -1,2 +1,2 @@
-export { Auth } from './auth';
+export { Auth, IAuth, IAuthWebUI } from './auth';
 export * from './utils';

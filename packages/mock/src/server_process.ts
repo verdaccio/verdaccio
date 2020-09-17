@@ -14,7 +14,12 @@ export default class VerdaccioProcess implements IServerProcess {
   private isDebug: boolean;
   private silence: boolean;
 
-  public constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence = true, isDebug = false) {
+  public constructor(
+    config: IVerdaccioConfig,
+    bridge: IServerBridge,
+    silence = true,
+    isDebug = false
+  ) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;

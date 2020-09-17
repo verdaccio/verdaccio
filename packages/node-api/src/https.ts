@@ -15,7 +15,10 @@ export function logHTTPSWarning(storageLocation) {
       // commands are borrowed from node.js docs
       'To quickly create self-signed certificate, use:',
       ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
-      ' $ openssl req -new -sha256 -key ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, csrPem),
+      ' $ openssl req -new -sha256 -key ' +
+        resolveConfigPath(storageLocation, keyPem) +
+        ' -out ' +
+        resolveConfigPath(storageLocation, csrPem),
       ' $ openssl x509 -req -in ' +
         resolveConfigPath(storageLocation, csrPem) +
         ' -signkey ' +

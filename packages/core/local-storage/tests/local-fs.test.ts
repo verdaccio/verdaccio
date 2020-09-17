@@ -42,7 +42,10 @@ describe('Local FS test', () => {
 
   describe('readPackage() group', () => {
     test('readPackage() success', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
 
       localFs.readPackage(pkgFileName, (err) => {
         expect(err).toBeNull();
@@ -51,7 +54,10 @@ describe('Local FS test', () => {
     });
 
     test('readPackage() fails', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-testt'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-testt'),
+        logger
+      );
 
       localFs.readPackage(pkgFileName, (err) => {
         expect(err).toBeTruthy();
@@ -60,7 +66,10 @@ describe('Local FS test', () => {
     });
 
     test('readPackage() fails corrupt', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test-corrupt'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test-corrupt'),
+        logger
+      );
 
       localFs.readPackage('corrupt.js', (err) => {
         expect(err).toBeTruthy();
@@ -108,7 +117,10 @@ describe('Local FS test', () => {
     });
 
     test('removePackage() success', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(localTempStorage, '_toDelete'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(localTempStorage, '_toDelete'),
+        logger
+      );
       localFs.removePackage((error) => {
         expect(error).toBeNull();
         done();
@@ -116,7 +128,10 @@ describe('Local FS test', () => {
     });
 
     test('removePackage() fails', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(localTempStorage, '_toDelete_fake'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(localTempStorage, '_toDelete_fake'),
+        logger
+      );
       localFs.removePackage((error) => {
         expect(error).toBeTruthy();
         expect(error.code).toBe('ENOENT');
@@ -127,7 +142,10 @@ describe('Local FS test', () => {
 
   describe('readTarball() group', () => {
     test('readTarball() success', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const readTarballStream = localFs.readTarball('test-readme-0.0.0.tgz');
 
       readTarballStream.on('error', function (err) {
@@ -148,7 +166,10 @@ describe('Local FS test', () => {
     });
 
     test('readTarball() fails', (done) => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const readTarballStream = localFs.readTarball('file-does-not-exist-0.0.0.tgz');
 
       readTarballStream.on('error', function (err) {
@@ -167,8 +188,14 @@ describe('Local FS test', () => {
 
     test('writeTarball() success', (done) => {
       const newFileName = 'new-readme-0.0.0.tgz';
-      const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
-      const writeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '../_storage'), logger);
+      const readmeStorage: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
+      const writeStorage: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '../_storage'),
+        logger
+      );
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
@@ -207,7 +234,10 @@ describe('Local FS test', () => {
     test('writeTarball() abort', (done) => {
       const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
       const newFileName = 'new-readme-abort-0.0.0.tgz';
-      const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+      const readmeStorage: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const writeStorage: ILocalPackageManager = new LocalDriver(newFileLocationFolder, logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
@@ -249,7 +279,10 @@ describe('Local FS test', () => {
       });
 
       const LocalDriver = require('../src/local-fs').default;
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/update-package'),
+        logger
+      );
 
       localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, () => {
         expect(transform).toHaveBeenCalledTimes(1);
@@ -268,7 +301,10 @@ describe('Local FS test', () => {
           };
         });
         require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
@@ -287,7 +323,10 @@ describe('Local FS test', () => {
           };
         });
         const LocalDriver = require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
@@ -306,7 +345,10 @@ describe('Local FS test', () => {
           };
         });
         const LocalDriver = require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
@@ -326,7 +368,10 @@ describe('Local FS test', () => {
         });
 
         const LocalDriver = require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
         const updateHandler = jest.fn((_name, cb) => {
           cb(fSError('something wrong', 500));
         });

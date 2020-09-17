@@ -3,7 +3,8 @@ import { Response, Router } from 'express';
 
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
 import { ErrorCode, validatePassword } from '@verdaccio/utils';
-import { $NextFunctionVer, $RequestExtend, IAuth } from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
+import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
 
 export interface Profile {
   tfa: boolean;
@@ -30,7 +31,11 @@ export default function (route: Router, auth: IAuth): void {
     };
   }
 
-  route.get('/-/npm/v1/user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.get('/-/npm/v1/user', function (
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer
+  ): void {
     if (_.isNil(req.remote_user.name) === false) {
       return next(buildProfile(req.remote_user.name));
     }
@@ -41,7 +46,11 @@ export default function (route: Router, auth: IAuth): void {
     });
   });
 
-  route.post('/-/npm/v1/user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.post('/-/npm/v1/user', function (
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer
+  ): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
@@ -65,7 +74,9 @@ export default function (route: Router, auth: IAuth): void {
         password.new,
         (err, isUpdated): $NextFunctionVer => {
           if (_.isNull(err) === false) {
-            return next(ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
+            return next(
+              ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message)
+            );
           }
 
           if (isUpdated) {
