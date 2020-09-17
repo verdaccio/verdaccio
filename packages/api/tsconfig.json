@@ -23,9 +23,6 @@
       "path": "../store"
     },
     {
-      "path": "../types"
-    },
-    {
       "path": "../middleware"
     },
     {

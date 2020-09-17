@@ -4,6 +4,7 @@
   "private": true,
   "description": "types for verdaccio local dev",
   "main": "./index.ts",
+  "types": "index.ts",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -19,6 +20,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./build",
+    "build": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "test": "echo \"Error: no test specified\" && exit 0"
   }
 }

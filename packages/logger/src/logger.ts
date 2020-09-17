@@ -18,7 +18,12 @@ export type LogPlugin = {
 export type LogType = 'file' | 'stdout';
 export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
-export function createLogger(options = {}, destination = pino.destination(1), format: LogFormat = DEFAULT_LOG_FORMAT, prettyPrintOptions = {}) {
+export function createLogger(
+  options = {},
+  destination = pino.destination(1),
+  format: LogFormat = DEFAULT_LOG_FORMAT,
+  prettyPrintOptions = {}
+) {
   if (_.isNil(format)) {
     format = DEFAULT_LOG_FORMAT;
   }

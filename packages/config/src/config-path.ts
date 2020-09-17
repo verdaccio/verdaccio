@@ -37,7 +37,9 @@ function findConfigFile(configPath: string): string {
     throw new Error('no configuration files can be processed');
   }
 
-  const primaryConf: any = _.find(configPaths, (configLocation: any) => fileExists(configLocation.path));
+  const primaryConf: any = _.find(configPaths, (configLocation: any) =>
+    fileExists(configLocation.path)
+  );
   if (_.isNil(primaryConf) === false) {
     return primaryConf.path;
   }
@@ -75,7 +77,8 @@ function updateStorageLinks(configLocation, defaultConfig): string {
   // $XDG_DATA_HOME defines the base directory relative to which user specific data files should be stored,
   // If $XDG_DATA_HOME is either not set or empty, a default equal to $HOME/.local/share should be used.
   // $FlowFixMe
-  let dataDir = process.env.XDG_DATA_HOME || Path.join(process.env.HOME as string, '.local', 'share');
+  let dataDir =
+    process.env.XDG_DATA_HOME || Path.join(process.env.HOME as string, '.local', 'share');
   if (folderExists(dataDir)) {
     dataDir = Path.resolve(Path.join(dataDir, pkgJSON.name, 'storage'));
     return defaultConfig.replace(/^storage: .\/storage$/m, `storage: ${dataDir}`);
@@ -84,16 +87,17 @@ function updateStorageLinks(configLocation, defaultConfig): string {
 }
 
 function getConfigPaths(): SetupDirectory[] {
-  const listPaths: SetupDirectory[] = [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].reduce(function (
-    acc,
-    currentValue: any
-  ): SetupDirectory[] {
+  const listPaths: SetupDirectory[] = [
+    getXDGDirectory(),
+    getWindowsDirectory(),
+    getRelativeDefaultDirectory(),
+    getOldDirectory(),
+  ].reduce(function (acc, currentValue: any): SetupDirectory[] {
     if (_.isUndefined(currentValue) === false) {
       acc.push(currentValue);
     }
     return acc;
-  },
-  [] as SetupDirectory[]);
+  }, [] as SetupDirectory[]);
 
   return listPaths;
 }

@@ -4,9 +4,10 @@ import { Router, Response, Request } from 'express';
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 
 import { API_ERROR, APP_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
-import { IAuth, $NextFunctionVer } from '@verdaccio/dev-types';
+import { IAuth } from '@verdaccio/auth';
 import { validatePassword, ErrorCode } from '@verdaccio/utils';
 import { getSecurity } from '@verdaccio/auth';
+import { $NextFunctionVer } from './package';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
@@ -32,7 +33,11 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     );
   });
 
-  route.put('/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
+  route.put('/reset_password', function (
+    req: Request,
+    res: Response,
+    next: $NextFunctionVer
+  ): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({

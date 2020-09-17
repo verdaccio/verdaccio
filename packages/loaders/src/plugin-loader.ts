@@ -50,7 +50,13 @@ function isES6(plugin): boolean {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export function loadPlugin<T extends IPlugin<T>>(config: Config, pluginConfigs: any = {}, params: any, sanityCheck: any, prefix: string = 'verdaccio'): any[] {
+export function loadPlugin<T extends IPlugin<T>>(
+  config: Config,
+  pluginConfigs: any = {},
+  params: any,
+  sanityCheck: any,
+  prefix: string = 'verdaccio'
+): any[] {
   return Object.keys(pluginConfigs).map(
     (pluginId: string): IPlugin<T> => {
       let plugin;
@@ -94,19 +100,27 @@ export function loadPlugin<T extends IPlugin<T>>(config: Config, pluginConfigs: 
       }
 
       if (plugin === null) {
-        logger.error({ content: pluginId, prefix }, 'plugin not found. try npm install @{prefix}-@{content}');
+        logger.error(
+          { content: pluginId, prefix },
+          'plugin not found. try npm install @{prefix}-@{content}'
+        );
         throw Error(`
         ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
       }
 
       if (!isValid(plugin)) {
-        logger.error({ content: pluginId }, '@{prefix}-@{content} plugin does not have the right code structure');
+        logger.error(
+          { content: pluginId },
+          '@{prefix}-@{content} plugin does not have the right code structure'
+        );
         throw Error(`"${pluginId}" plugin does not have the right code structure`);
       }
 
       /* eslint new-cap:off */
       try {
-        plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
+        plugin = isES6(plugin)
+          ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
+          : plugin(pluginConfigs[pluginId], params);
       } catch (error) {
         plugin = null;
         logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
@@ -114,7 +128,10 @@ export function loadPlugin<T extends IPlugin<T>>(config: Config, pluginConfigs: 
       /* eslint new-cap:off */
 
       if (plugin === null || !sanityCheck(plugin)) {
-        logger.error({ content: pluginId, prefix }, "@{prefix}-@{content} doesn't look like a valid plugin");
+        logger.error(
+          { content: pluginId, prefix },
+          "@{prefix}-@{content} doesn't look like a valid plugin"
+        );
         throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
       }
 

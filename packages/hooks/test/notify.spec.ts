@@ -15,8 +15,12 @@ const parseConfigurationNotifyFile = (name) => {
   return parseConfigurationFile(`notify/${name}`);
 };
 const singleNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.notify'));
-const singleHeaderNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.header.notify'));
-const packagePatternNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.packagePattern.notify'));
+const singleHeaderNotificationConfig = parseConfigFile(
+  parseConfigurationNotifyFile('single.header.notify')
+);
+const packagePatternNotificationConfig = parseConfigFile(
+  parseConfigurationNotifyFile('single.packagePattern.notify')
+);
 const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('multiple.notify'));
 
 describe('Notifications:: Notify', () => {

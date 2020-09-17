@@ -2,7 +2,18 @@
 
 import lunrMutable from 'lunr-mutable-indexes';
 import { Version } from '@verdaccio/types';
-import { IStorageHandler, IWebSearch, IStorage } from '@verdaccio/dev-types';
+import { IStorageHandler, IStorage } from './storage';
+
+export interface IWebSearch {
+  index: lunrMutable.index;
+  storage: IStorageHandler;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  query(query: string): any;
+  add(pkg: Version): void;
+  remove(name: string): void;
+  reindex(): void;
+  configureStorage(storage: IStorageHandler): void;
+}
 /**
  * Handle the search Indexer.
  */

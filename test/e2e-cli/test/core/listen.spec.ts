@@ -24,7 +24,10 @@ describe('npm install', () => {
       paths: [verdaccioInstall],
     });
 
-    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], { cwd: verdaccioInstall, silent: true });
+    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
+      cwd: verdaccioInstall,
+      silent: true,
+    });
 
     const body = await callRegistry(`http://localhost:${port}/verdaccio`);
     const parsedBody = JSON.parse(body);

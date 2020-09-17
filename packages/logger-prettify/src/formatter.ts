@@ -62,7 +62,9 @@ function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
 
   const subSystemType = subSystemLevels.color[sub ?? 'default'];
   if (hasColors) {
-    const logString = `${levelsColors[debugLevel](pad(debugLevel, LEVEL_VALUE_MAX))}${white(`${subSystemType} ${finalMessage}`)}`;
+    const logString = `${levelsColors[debugLevel](pad(debugLevel, LEVEL_VALUE_MAX))}${white(
+      `${subSystemType} ${finalMessage}`
+    )}`;
 
     return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH, ' ');
   }
@@ -71,7 +73,11 @@ function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
   return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH, ' ');
 }
 
-export function printMessage(templateObjects: ObjectTemplate, options: PrettyOptionsExtended, hasColors = true): string {
+export function printMessage(
+  templateObjects: ObjectTemplate,
+  options: PrettyOptionsExtended,
+  hasColors = true
+): string {
   const { prettyStamp } = options;
   const { level, msg, sub } = templateObjects;
   const debugLevel = calculateLevel(level);

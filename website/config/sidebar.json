@@ -18,7 +18,15 @@
         "ids": ["articles", "talks"]
       }
     ],
-    "Features": ["configuration", "uplinks", "packages", "authentification", "notifications", "logger", "webui"],
+    "Features": [
+      "configuration",
+      "uplinks",
+      "packages",
+      "authentification",
+      "notifications",
+      "logger",
+      "webui"
+    ],
     "Server": ["server-configuration", "reverse-proxy", "ssl", "windows", "iss-server"],
     "Development": [
       "plugins",

@@ -35,18 +35,25 @@ describe('startServer via API', () => {
       const version = '1.0.0';
       const port = '6000';
 
-      await startVerdaccio(configExample(), port, store, version, serverName, (webServer, addrs, pkgName, pkgVersion) => {
-        expect(webServer).toBeDefined();
-        expect(addrs).toBeDefined();
-        expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
-        expect(addrs.host).toBe(DEFAULT_DOMAIN);
-        expect(addrs.port).toBe(port);
-        expect(pkgName).toBeDefined();
-        expect(pkgVersion).toBeDefined();
-        expect(pkgVersion).toBe(version);
-        expect(pkgName).toBe(serverName);
-        done();
-      });
+      await startVerdaccio(
+        configExample(),
+        port,
+        store,
+        version,
+        serverName,
+        (webServer, addrs, pkgName, pkgVersion) => {
+          expect(webServer).toBeDefined();
+          expect(addrs).toBeDefined();
+          expect(addrs.proto).toBe(DEFAULT_PROTOCOL);
+          expect(addrs.host).toBe(DEFAULT_DOMAIN);
+          expect(addrs.port).toBe(port);
+          expect(pkgName).toBeDefined();
+          expect(pkgVersion).toBeDefined();
+          expect(pkgVersion).toBe(version);
+          expect(pkgName).toBe(serverName);
+          done();
+        }
+      );
     });
 
     test('should set keepAliveTimeout to 0 seconds', async (done) => {

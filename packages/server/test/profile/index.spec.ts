@@ -5,7 +5,14 @@ import { mockServer } from '@verdaccio/mock';
 import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
 import { setup, logger } from '@verdaccio/logger';
 
-import { generateRamdonStorage, getNewToken, getProfile, postProfile, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
+import {
+  generateRamdonStorage,
+  getNewToken,
+  getProfile,
+  postProfile,
+  configExample,
+  DOMAIN_SERVERS,
+} from '@verdaccio/mock';
 
 import endPointAPI from '../../src';
 
@@ -99,7 +106,12 @@ describe('endpoint user profile', () => {
         tfa: {},
       };
       const token = await getNewToken(request(app), credentials);
-      const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.SERVICE_UNAVAILABLE);
+      const [, resp] = await postProfile(
+        request(app),
+        body,
+        token,
+        HTTP_STATUS.SERVICE_UNAVAILABLE
+      );
 
       expect(resp.error).not.toBeNull();
       expect(resp.error.text).toMatch(SUPPORT_ERRORS.TFA_DISABLED);

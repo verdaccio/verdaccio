@@ -1,20 +1,47 @@
 import _ from 'lodash';
 
-import { API_ERROR, ROLES, TIME_EXPIRATION_7D, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
-import { CookieSessionToken } from '@verdaccio/dev-types';
-import { RemoteUser, AllowAccess, PackageAccess, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
+import {
+  API_ERROR,
+  ROLES,
+  TIME_EXPIRATION_7D,
+  DEFAULT_MIN_LIMIT_PASSWORD,
+} from '@verdaccio/dev-commons';
+import {
+  RemoteUser,
+  AllowAccess,
+  PackageAccess,
+  Callback,
+  Config,
+  Security,
+  APITokenOptions,
+  JWTOptions,
+  IPluginAuth,
+} from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { ErrorCode } from './utils';
 
-export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD): boolean {
+export interface CookieSessionToken {
+  expires: Date;
+}
+
+export function validatePassword(
+  password: string,
+  minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
+): boolean {
   return typeof password === 'string' && password.length >= minLength;
 }
 
 /**
  * All logged users will have by default the group $all and $authenticate
  */
-export const defaultLoggedUserRoles = [ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL];
+export const defaultLoggedUserRoles = [
+  ROLES.$ALL,
+  ROLES.$AUTH,
+  ROLES.DEPRECATED_ALL,
+  ROLES.DEPRECATED_AUTH,
+  ROLES.ALL,
+];
 /**
  *
  */
@@ -54,8 +81,15 @@ export function createAnonymousRemoteUser(): RemoteUser {
 }
 
 export type AllowActionCallbackResponse = boolean | undefined;
-export type AllowActionCallback = (error: VerdaccioError | null, allowed?: AllowActionCallbackResponse) => void;
-export type AllowAction = (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback) => void;
+export type AllowActionCallback = (
+  error: VerdaccioError | null,
+  allowed?: AllowActionCallbackResponse
+) => void;
+export type AllowAction = (
+  user: RemoteUser,
+  pkg: AuthPackageAllow,
+  callback: AllowActionCallback
+) => void;
 export interface AuthPackageAllow extends PackageAccess, AllowAccess {
   // TODO: this should be on @verdaccio/types
   unpublish: boolean | string[];
@@ -64,7 +98,11 @@ export interface AuthPackageAllow extends PackageAccess, AllowAccess {
 export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
 
 export function allow_action(action: ActionsAllowed, logger): AllowAction {
-  return function allowActionCallback(user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
+  return function allowActionCallback(
+    user: RemoteUser,
+    pkg: AuthPackageAllow,
+    callback: AllowActionCallback
+  ): void {
     logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{user.name}`);
     const { name, groups } = user;
     const groupAccess = pkg[action] as string[];
@@ -80,9 +118,13 @@ export function allow_action(action: ActionsAllowed, logger): AllowAction {
     }
 
     if (name) {
-      callback(ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
+      callback(
+        ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`)
+      );
     } else {
-      callback(ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`));
+      callback(
+        ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`)
+      );
     }
   };
 }
@@ -96,13 +138,19 @@ export function handleSpecialUnpublish(logger): any {
     // verify whether the unpublish prop has been defined
     const isUnpublishMissing: boolean = _.isNil(pkg[action]);
     const hasGroups: boolean = isUnpublishMissing ? false : (pkg[action] as string[]).length > 0;
-    logger.trace({ user: user.name, name: pkg.name, hasGroups }, `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`);
+    logger.trace(
+      { user: user.name, name: pkg.name, hasGroups },
+      `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`
+    );
 
     if (isUnpublishMissing || hasGroups === false) {
       return callback(null, undefined);
     }
 
-    logger.trace({ user: user.name, name: pkg.name, action, hasGroups }, `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`);
+    logger.trace(
+      { user: user.name, name: pkg.name, action, hasGroups },
+      `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`
+    );
     return allow_action(action, logger)(user, pkg, callback);
   };
 }

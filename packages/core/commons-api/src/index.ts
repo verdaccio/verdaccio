@@ -113,7 +113,9 @@ export function getBadRequest(customMessage: string): VerdaccioError {
 }
 
 export function getInternalError(customMessage?: string): VerdaccioError {
-  return customMessage ? getError(HTTP_STATUS.INTERNAL_ERROR, customMessage) : getError(HTTP_STATUS.INTERNAL_ERROR, API_ERROR.UNKNOWN_ERROR);
+  return customMessage
+    ? getError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
+    : getError(HTTP_STATUS.INTERNAL_ERROR, API_ERROR.UNKNOWN_ERROR);
 }
 
 export function getUnauthorized(message = 'no credentials provided'): VerdaccioError {
@@ -124,7 +126,9 @@ export function getForbidden(message = "can't use this filename"): VerdaccioErro
   return getError(HTTP_STATUS.FORBIDDEN, message);
 }
 
-export function getServiceUnavailable(message: string = API_ERROR.RESOURCE_UNAVAILABLE): VerdaccioError {
+export function getServiceUnavailable(
+  message: string = API_ERROR.RESOURCE_UNAVAILABLE
+): VerdaccioError {
   return getError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
 }
 

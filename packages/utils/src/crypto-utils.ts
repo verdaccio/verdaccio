@@ -56,7 +56,11 @@ export function generateRandomHexString(length = 8): string {
  * @param secretOrPrivateKey
  * @param options
  */
-export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions = {}): Promise<string> {
+export async function signPayload(
+  payload: RemoteUser,
+  secretOrPrivateKey: string,
+  options: JWTSignOptions = {}
+): Promise<string> {
   return new Promise(function (resolve, reject): Promise<string> {
     return jwt.sign(
       payload,

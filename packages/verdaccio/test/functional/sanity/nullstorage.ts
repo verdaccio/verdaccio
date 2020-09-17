@@ -18,7 +18,10 @@ export default function (server, server2) {
   describe('should test a scenario when tarball is being fetch from uplink', () => {
     describe(`should check whether ${PKG_NAME} is on server1`, () => {
       test('should fails on fetch non-existent package on server1', () => {
-        return server.getPackage('test-nullstorage-nonexist').status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.NO_PACKAGE);
+        return server
+          .getPackage('test-nullstorage-nonexist')
+          .status(HTTP_STATUS.NOT_FOUND)
+          .body_error(API_ERROR.NO_PACKAGE);
       });
     });
 
@@ -40,7 +43,10 @@ export default function (server, server2) {
 
       describe(`should succesfully publish ${PKG_NAME} package on server2`, () => {
         beforeAll(function () {
-          return server2.putTarball(PKG_NAME, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+          return server2
+            .putTarball(PKG_NAME, TARBALL, getBinary())
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(/.*/);
         });
 
         beforeAll(function () {
@@ -72,7 +78,9 @@ export default function (server, server2) {
             .then(function (body) {
               expect(body.name).toBe(PKG_NAME);
               expect(body.versions[PKG_VERSION].name).toBe(PKG_NAME);
-              expect(body.versions[PKG_VERSION].dist.tarball).toBe(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
+              expect(body.versions[PKG_VERSION].dist.tarball).toBe(
+                `http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`
+              );
               expect(body[DIST_TAGS]).toEqual({ latest: PKG_VERSION });
             });
         });

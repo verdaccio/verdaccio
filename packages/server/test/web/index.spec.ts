@@ -3,7 +3,13 @@ import request from 'supertest';
 
 import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/dev-commons';
 
-import { addUser, mockServer, DOMAIN_SERVERS, configExample, generateRamdonStorage } from '@verdaccio/mock';
+import {
+  addUser,
+  mockServer,
+  DOMAIN_SERVERS,
+  configExample,
+  generateRamdonStorage,
+} from '@verdaccio/mock';
 
 import { setup, logger } from '@verdaccio/logger';
 import endPointAPI from '../../src';
@@ -58,7 +64,11 @@ describe('endpoint web unit test', () => {
         .send(JSON.stringify(publishMetadata))
         .expect(HTTP_STATUS.CREATED);
 
-      await request(app).put('/forbidden-place').set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON).send(JSON.stringify(forbiddenPlace)).expect(HTTP_STATUS.CREATED);
+      await request(app)
+        .put('/forbidden-place')
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(JSON.stringify(forbiddenPlace))
+        .expect(HTTP_STATUS.CREATED);
     });
 
     describe('Packages', () => {

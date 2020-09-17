@@ -36,7 +36,14 @@ export default function initProgram(commander, pkgVersion, pkgName) {
 
     // initLogger.warn({file: configPathLocation}, 'config file  - @{file}');
 
-    startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
+    startVerdaccio(
+      verdaccioConfiguration,
+      cliListener,
+      configPathLocation,
+      pkgVersion,
+      pkgName,
+      listenDefaultCallback
+    );
   } catch (err) {
     // initLogger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
     process.exit(1);
