@@ -27,11 +27,27 @@ type Props = {
   sideBarConfiguration: any;
 };
 
-const PageContextProvider: FunctionComponent<Props> = ({ children, language, idTitleMap, sideBarConfiguration, currentPage }) => {
+const PageContextProvider: FunctionComponent<Props> = ({
+  children,
+  language,
+  idTitleMap,
+  sideBarConfiguration,
+  currentPage,
+}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <PageContext.Provider value={{ language, idTitleMap, sideBarConfiguration, currentPage, isDrawerOpen, setIsDrawerOpen }}>{children}</PageContext.Provider>
+    <PageContext.Provider
+      value={{
+        language,
+        idTitleMap,
+        sideBarConfiguration,
+        currentPage,
+        isDrawerOpen,
+        setIsDrawerOpen,
+      }}>
+      {children}
+    </PageContext.Provider>
   );
 };
 

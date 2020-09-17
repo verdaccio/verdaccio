@@ -40,9 +40,11 @@ function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
 export default function (route, auth, storage): void {
   route.get('/-/v1/search', (req, res) => {
     // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
-    let [text, size, from /* , quality, popularity, maintenance */] = ['text', 'size', 'from' /* , 'quality', 'popularity', 'maintenance' */].map(
-      (k) => req.query[k]
-    );
+    let [text, size, from /* , quality, popularity, maintenance */] = [
+      'text',
+      'size',
+      'from' /* , 'quality', 'popularity', 'maintenance' */,
+    ].map((k) => req.query[k]);
 
     size = parseInt(size) || 20;
     from = parseInt(from) || 0;
@@ -61,7 +63,9 @@ export default function (route, auth, storage): void {
         return {
           package: pkg,
           flags: {
-            unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0')) ? undefined : true,
+            unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0'))
+              ? undefined
+              : true,
           },
           score: {
             final: 1,

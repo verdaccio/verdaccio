@@ -1,5 +1,5 @@
 import { Response, Router } from 'express';
-import { $RequestExtend, $NextFunctionVer } from '@verdaccio/dev-types';
+import { $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 export default function (route: Router): void {
   route.get('/whoami', (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {

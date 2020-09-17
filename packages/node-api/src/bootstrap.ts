@@ -14,7 +14,15 @@ import { logger } from '@verdaccio/logger';
 import { getListListenAddresses, resolveConfigPath } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';
 
-function launchServer(app, addr, config, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
+function launchServer(
+  app,
+  addr,
+  config,
+  configPath: string,
+  pkgVersion: string,
+  pkgName: string,
+  callback: Callback
+): void {
   let webServer;
   if (addr.proto === 'https') {
     webServer = handleHTTPS(app, configPath, config);
@@ -22,7 +30,11 @@ function launchServer(app, addr, config, configPath: string, pkgVersion: string,
     // http
     webServer = http.createServer(app);
   }
-  if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
+  if (
+    config.server &&
+    typeof config.server.keepAliveTimeout !== 'undefined' &&
+    config.server.keepAliveTimeout !== 'null'
+  ) {
     // library definition for node is not up to date (doesn't contain recent 8.0 changes)
     webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
   }
@@ -39,7 +51,14 @@ function launchServer(app, addr, config, configPath: string, pkgVersion: string,
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
+function startVerdaccio(
+  config: any,
+  cliListen: string,
+  configPath: string,
+  pkgVersion: string,
+  pkgName: string,
+  callback: Callback
+): void {
   if (isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
@@ -50,7 +69,9 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
       displayExperimentsInfoBox(config.experiments);
     }
 
-    addresses.forEach((addr) => launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback));
+    addresses.forEach((addr) =>
+      launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback)
+    );
   });
 }
 
@@ -71,7 +92,10 @@ function logHTTPSWarning(storageLocation) {
       // commands are borrowed from node.js docs
       'To quickly create self-signed certificate, use:',
       ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
-      ' $ openssl req -new -sha256 -key ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, csrPem),
+      ' $ openssl req -new -sha256 -key ' +
+        resolveConfigPath(storageLocation, keyPem) +
+        ' -out ' +
+        resolveConfigPath(storageLocation, csrPem),
       ' $ openssl x509 -req -in ' +
         resolveConfigPath(storageLocation, csrPem) +
         ' -signkey ' +
@@ -126,7 +150,12 @@ function handleHTTPS(app: Application, configPath: string, config: ConfigWithHtt
   }
 }
 
-function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
+function listenDefaultCallback(
+  webServer: Application,
+  addr: any,
+  pkgName: string,
+  pkgVersion: string
+): void {
   webServer
     .listen(addr.port || addr.path, addr.host, (): void => {
       // send a message for tests

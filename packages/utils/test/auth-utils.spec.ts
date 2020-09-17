@@ -37,7 +37,15 @@ describe('Auth Utilities', () => {
   describe('createRemoteUser and createAnonymousRemoteUser', () => {
     test('should create a remote user with default groups', () => {
       expect(createRemoteUser('12345', ['foo', 'bar'])).toEqual({
-        groups: ['foo', 'bar', ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL],
+        groups: [
+          'foo',
+          'bar',
+          ROLES.$ALL,
+          ROLES.$AUTH,
+          ROLES.DEPRECATED_ALL,
+          ROLES.DEPRECATED_AUTH,
+          ROLES.ALL,
+        ],
         name: '12345',
         real_groups: ['foo', 'bar'],
       });
@@ -62,75 +70,90 @@ describe('Auth Utilities', () => {
       };
 
       // const type = 'access';
-      test.each(['access', 'publish', 'unpublish'])('should restrict %s to anonymous users', (type) => {
-        allow_action(type as ActionsAllowed, { trace: jest.fn() })(
-          createAnonymousRemoteUser(),
-          {
-            ...packageAccess,
-            [type]: ['foo'],
-          },
-          (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
-            expect(error).not.toBeNull();
-            expect(allowed).toBeUndefined();
-          }
-        );
-      });
+      test.each(['access', 'publish', 'unpublish'])(
+        'should restrict %s to anonymous users',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createAnonymousRemoteUser(),
+            {
+              ...packageAccess,
+              [type]: ['foo'],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).not.toBeNull();
+              expect(allowed).toBeUndefined();
+            }
+          );
+        }
+      );
 
-      test.each(['access', 'publish', 'unpublish'])('should allow %s to anonymous users', (type) => {
-        allow_action(type as ActionsAllowed, { trace: jest.fn() })(
-          createAnonymousRemoteUser(),
-          {
-            ...packageAccess,
-            [type]: [ROLES.$ANONYMOUS],
-          },
-          (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
-            expect(error).toBeNull();
-            expect(allowed).toBe(true);
-          }
-        );
-      });
+      test.each(['access', 'publish', 'unpublish'])(
+        'should allow %s to anonymous users',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createAnonymousRemoteUser(),
+            {
+              ...packageAccess,
+              [type]: [ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).toBeNull();
+              expect(allowed).toBe(true);
+            }
+          );
+        }
+      );
 
-      test.each(['access', 'publish', 'unpublish'])('should allow %s only if user is anonymous if the logged user has groups', (type) => {
-        allow_action(type as ActionsAllowed, { trace: jest.fn() })(
-          createRemoteUser('juan', ['maintainer', 'admin']),
-          {
-            ...packageAccess,
-            [type]: [ROLES.$ANONYMOUS],
-          },
-          (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
-            expect(error).not.toBeNull();
-            expect(allowed).toBeUndefined();
-          }
-        );
-      });
+      test.each(['access', 'publish', 'unpublish'])(
+        'should allow %s only if user is anonymous if the logged user has groups',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createRemoteUser('juan', ['maintainer', 'admin']),
+            {
+              ...packageAccess,
+              [type]: [ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).not.toBeNull();
+              expect(allowed).toBeUndefined();
+            }
+          );
+        }
+      );
 
-      test.each(['access', 'publish', 'unpublish'])('should allow %s only if user is anonymous match any other groups', (type) => {
-        allow_action(type as ActionsAllowed, { trace: jest.fn() })(
-          createRemoteUser('juan', ['maintainer', 'admin']),
-          {
-            ...packageAccess,
-            [type]: ['admin', 'some-other-group', ROLES.$ANONYMOUS],
-          },
-          (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
-            expect(error).toBeNull();
-            expect(allowed).toBe(true);
-          }
-        );
-      });
+      test.each(['access', 'publish', 'unpublish'])(
+        'should allow %s only if user is anonymous match any other groups',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createRemoteUser('juan', ['maintainer', 'admin']),
+            {
+              ...packageAccess,
+              [type]: ['admin', 'some-other-group', ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).toBeNull();
+              expect(allowed).toBe(true);
+            }
+          );
+        }
+      );
 
-      test.each(['access', 'publish', 'unpublish'])('should not allow %s anonymous if other groups are defined and does not match', (type) => {
-        allow_action(type as ActionsAllowed, { trace: jest.fn() })(
-          createRemoteUser('juan', ['maintainer', 'admin']),
-          {
-            ...packageAccess,
-            [type]: ['bla-bla-group', 'some-other-group', ROLES.$ANONYMOUS],
-          },
-          (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
-            expect(error).not.toBeNull();
-            expect(allowed).toBeUndefined();
-          }
-        );
-      });
+      test.each(['access', 'publish', 'unpublish'])(
+        'should not allow %s anonymous if other groups are defined and does not match',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createRemoteUser('juan', ['maintainer', 'admin']),
+            {
+              ...packageAccess,
+              [type]: ['bla-bla-group', 'some-other-group', ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).not.toBeNull();
+              expect(allowed).toBeUndefined();
+            }
+          );
+        }
+      );
     });
   });
   describe('createSessionToken', () => {

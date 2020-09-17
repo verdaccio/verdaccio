@@ -18,10 +18,24 @@ export type Props = {
 const DrawerSideBar = () => {
   const { currentPage, idTitleMap, language, sideBarConfiguration } = usePageContext();
 
-  return <SideBar lng={language} sideBarConf={sideBarConfiguration} currentPage={currentPage} idTitleMap={idTitleMap} />;
+  return (
+    <SideBar
+      lng={language}
+      sideBarConf={sideBarConfiguration}
+      currentPage={currentPage}
+      idTitleMap={idTitleMap}
+    />
+  );
 };
 
-const AppDrawer: FunctionComponent<Props> = ({ className, isPermanent, onClose, onOpen, open, classes }) => {
+const AppDrawer: FunctionComponent<Props> = ({
+  className,
+  isPermanent,
+  onClose,
+  onOpen,
+  open,
+  classes,
+}) => {
   return (
     <nav className={className}>
       <Hidden lgUp={isPermanent} implementation="js">

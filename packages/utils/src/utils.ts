@@ -8,10 +8,18 @@ import YAML from 'js-yaml';
 import { Request } from 'express';
 
 import sanitizyReadme from '@verdaccio/readme';
-import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from '@verdaccio/dev-commons';
+import {
+  APP_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_DOMAIN,
+  DEFAULT_PROTOCOL,
+  CHARACTER_ENCODING,
+  HEADERS,
+  DIST_TAGS,
+  DEFAULT_USER,
+} from '@verdaccio/dev-commons';
 
-import { Package, Version, Author } from '@verdaccio/types';
-import { StringValue } from '@verdaccio/dev-types';
+import { Package, Version, Author, StringValue } from '@verdaccio/types';
 
 import {
   getConflict,
@@ -122,7 +130,11 @@ export function validateMetadata(object: Package, name: string): Package {
  * Create base url for registry.
  * @return {String} base registry url
  */
-export function combineBaseUrl(protocol: string, host: string | void, prefix?: string | void): string {
+export function combineBaseUrl(
+  protocol: string,
+  host: string | void,
+  prefix?: string | void
+): string {
   const result = `${protocol}://${host}`;
 
   const prefixOnlySlash = prefix === '/';
@@ -153,7 +165,11 @@ export function extractTarballFromUrl(url: string): string {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void): Package {
+export function convertDistRemoteToLocalTarballUrls(
+  pkg: Package,
+  req: Request,
+  urlPrefix: string | void
+): Package {
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
@@ -171,7 +187,12 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
+export function getLocalRegistryTarballUri(
+  uri: string,
+  pkgName: string,
+  req: Request,
+  urlPrefix: string | void
+): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
@@ -351,7 +372,11 @@ export function parseInterval(interval: any): number {
       return;
     }
     const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
-    if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
+    if (
+      !m ||
+      parseIntervalTable[m[4]] >= last_suffix ||
+      (m[4] === '' && last_suffix !== Infinity)
+    ) {
       throw Error('invalid interval: ' + interval);
     }
     last_suffix = parseIntervalTable[m[4]];

@@ -22,9 +22,6 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-  "devDependencies": {
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0"
-  },
   "dependencies": {
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",

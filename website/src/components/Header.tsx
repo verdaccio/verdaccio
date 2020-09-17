@@ -65,7 +65,11 @@ const Header: FunctionComponent<Props> = ({ onClickOpen, isPermanent }) => {
         [classes.appBarShift]: isPermanent,
       })}>
       <Toolbar>
-        <IconButton edge="start" color="inherit" onClick={onClickOpen} className={classes.navIconHide}>
+        <IconButton
+          edge="start"
+          color="inherit"
+          onClick={onClickOpen}
+          className={classes.navIconHide}>
           <MenuIcon />
         </IconButton>
         <Typography component="h2" variant="h5">
