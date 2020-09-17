@@ -93,7 +93,7 @@
     "selfsigned": "1.10.7",
     "standard-version": "8.0.0",
     "supertest": "4.0.2",
-    "typescript": ">=3.3.1 <3.10.0",
+    "typescript": "^3.9.7",
     "verdaccio": "latest",
     "verdaccio-audit": "latest",
     "verdaccio-auth-memory": "latest",
@@ -101,8 +101,6 @@
     "verdaccio-memory": "latest"
   },
   "scripts": {
-    "start": "node packages/verdaccio/debug/bootstrap.js",
-    "debug": "node --inspect packages/verdaccio/debug/bootstrap.js",
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",
     "clean": "pnpm recursive run clean",
     "build": "pnpm recursive run build",

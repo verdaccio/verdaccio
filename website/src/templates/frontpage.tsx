@@ -16,7 +16,14 @@ import Seo from '../components/Seo';
 import CopyToClipBoard from '../components/CopyToClipBoard';
 import { PageContextProvider } from '../components/PageContext';
 
-const Tweets = ['1001297542779424768', '1002609907370250241', '951427300070916096', '1002153128140136448', '1169571193550192641', '1168280372800557063'];
+const Tweets = [
+  '1001297542779424768',
+  '1002609907370250241',
+  '951427300070916096',
+  '1002153128140136448',
+  '1169571193550192641',
+  '1168280372800557063',
+];
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -55,7 +62,11 @@ const IndexPage = (props: any) => {
   const { lng, sideBar, idTitleMap, markDownId } = props.pageContext;
 
   return (
-    <PageContextProvider language={lng} idTitleMap={idTitleMap} currentPage={markDownId} sideBarConfiguration={sideBar}>
+    <PageContextProvider
+      language={lng}
+      idTitleMap={idTitleMap}
+      currentPage={markDownId}
+      sideBarConfiguration={sideBar}>
       <Layout isPermanent={false} classes={{}}>
         <Seo />
         <div className={classes.heroContent}>

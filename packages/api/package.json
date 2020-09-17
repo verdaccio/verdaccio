@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/server": "workspace:5.0.0-alpha.0",
     "@verdaccio/types": "workspace:*",
     "body-parser": "1.19.0",

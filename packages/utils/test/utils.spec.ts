@@ -136,7 +136,9 @@ describe('Utilities', () => {
           get: () => 'http',
           protocol: 'http',
         });
-        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
+          convertDist.versions['1.0.0'].dist.tarball
+        );
       });
     });
 
@@ -209,7 +211,9 @@ describe('Utilities', () => {
         expect(combineBaseUrl('http', 'domain', '')).toEqual('http://domain');
         expect(combineBaseUrl('http', 'domain', '/')).toEqual('http://domain');
         expect(combineBaseUrl('http', 'domain', '/prefix/')).toEqual('http://domain/prefix');
-        expect(combineBaseUrl('http', 'domain', '/prefix/deep')).toEqual('http://domain/prefix/deep');
+        expect(combineBaseUrl('http', 'domain', '/prefix/deep')).toEqual(
+          'http://domain/prefix/deep'
+        );
         expect(combineBaseUrl('http', 'domain', 'only-prefix')).toEqual('only-prefix');
       });
     });
@@ -368,7 +372,9 @@ describe('Utilities', () => {
 
       expect(parseReadme('testPackage', randomText)).toEqual('<p>%%%%%**##==</p>');
       expect(parseReadme('testPackage', simpleText)).toEqual('<p>simple text</p>');
-      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual('<p>simple text </p>\n<h1 id="markdown">markdown</h1>');
+      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual(
+        '<p>simple text </p>\n<h1 id="markdown">markdown</h1>'
+      );
     });
 
     test('should show error for no readme data', () => {
@@ -377,8 +383,13 @@ describe('Utilities', () => {
       const logger = {
         error: loggerError,
       };
-      expect(parseReadme('testPackage', noData, logger)).toEqual('<p>ERROR: No README data found!</p>');
-      expect(loggerError).toHaveBeenCalledWith({ packageName: 'testPackage' }, '@{packageName}: No readme found');
+      expect(parseReadme('testPackage', noData, logger)).toEqual(
+        '<p>ERROR: No README data found!</p>'
+      );
+      expect(loggerError).toHaveBeenCalledWith(
+        { packageName: 'testPackage' },
+        '@{packageName}: No readme found'
+      );
     });
   });
 

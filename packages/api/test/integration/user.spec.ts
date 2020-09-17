@@ -1,16 +1,18 @@
 import supertest from 'supertest';
+import _ from 'lodash';
 
 import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
 import { HEADERS, HEADER_TYPE, API_MESSAGE } from '@verdaccio/dev-commons';
-import { $RequestExtend, $ResponseExtend } from '@verdaccio/dev-types';
 import { getBadRequest, getConflict, getUnauthorized } from '@verdaccio/commons-api';
-import _ from 'lodash';
+import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer } from './_helper';
 
-const mockApiJWTmiddleware = jest.fn(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-  req.remote_user = { name: 'test', groups: [], real_groups: [] };
-  _next();
-});
+const mockApiJWTmiddleware = jest.fn(
+  () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+    req.remote_user = { name: 'test', groups: [], real_groups: [] };
+    _next();
+  }
+);
 
 const mockAuthenticate = jest.fn(() => (_name, _password, callback): void => {
   return callback(null, ['all']);
@@ -42,10 +44,12 @@ describe('user', () => {
   const credentials = { name: 'test', password: 'test' };
 
   test('should test add a new user', async (done) => {
-    mockApiJWTmiddleware.mockImplementationOnce(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: undefined };
-      _next();
-    });
+    mockApiJWTmiddleware.mockImplementationOnce(
+      () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+        req.remote_user = { name: undefined };
+        _next();
+      }
+    );
 
     mockAddUser.mockImplementationOnce(() => (_name, _password, callback): void => {
       return callback(null, true);
@@ -72,10 +76,12 @@ describe('user', () => {
   });
 
   test('should test fails on add a existing user with login', async (done) => {
-    mockApiJWTmiddleware.mockImplementationOnce(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: undefined };
-      _next();
-    });
+    mockApiJWTmiddleware.mockImplementationOnce(
+      () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+        req.remote_user = { name: undefined };
+        _next();
+      }
+    );
     supertest(await initializeServer('user.yaml'))
       .put('/-/user/org.couchdb.user:jotaNew')
       .send(credentials)
@@ -109,10 +115,12 @@ describe('user', () => {
   });
 
   test('should test fails add a new user with missing name', async (done) => {
-    mockApiJWTmiddleware.mockImplementationOnce(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: undefined };
-      _next();
-    });
+    mockApiJWTmiddleware.mockImplementationOnce(
+      () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+        req.remote_user = { name: undefined };
+        _next();
+      }
+    );
     mockAddUser.mockImplementationOnce(() => (_name, _password, callback): void => {
       return callback(getBadRequest(API_ERROR.USERNAME_PASSWORD_REQUIRED));
     });
@@ -136,10 +144,12 @@ describe('user', () => {
   });
 
   test('should test fails add a new user with missing password', async (done) => {
-    mockApiJWTmiddleware.mockImplementationOnce(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: undefined };
-      _next();
-    });
+    mockApiJWTmiddleware.mockImplementationOnce(
+      () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+        req.remote_user = { name: undefined };
+        _next();
+      }
+    );
     const credentialsShort = _.cloneDeep(credentials);
     delete credentialsShort.password;
 
@@ -162,10 +172,12 @@ describe('user', () => {
   });
 
   test('should test fails add a new user with wrong password', async (done) => {
-    mockApiJWTmiddleware.mockImplementationOnce(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: 'test' };
-      _next();
-    });
+    mockApiJWTmiddleware.mockImplementationOnce(
+      () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+        req.remote_user = { name: 'test' };
+        _next();
+      }
+    );
     mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
       return callback(getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     });
@@ -189,10 +201,12 @@ describe('user', () => {
   });
 
   test('should be able to logout an user', async (done) => {
-    mockApiJWTmiddleware.mockImplementationOnce(() => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: 'test' };
-      _next();
-    });
+    mockApiJWTmiddleware.mockImplementationOnce(
+      () => (req: $RequestExtend, res: $ResponseExtend, _next): void => {
+        req.remote_user = { name: 'test' };
+        _next();
+      }
+    );
     mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
       return callback(getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     });

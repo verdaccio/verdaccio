@@ -19,7 +19,11 @@ export type ReadFileOptions = {
  * @param {*} callback
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-function readFile(name: string, options: ReadFileOptions = {}, callback: Callback = (): void => {}): void {
+function readFile(
+  name: string,
+  options: ReadFileOptions = {},
+  callback: Callback = (): void => {}
+): void {
   if (typeof options === 'function') {
     callback = options;
     options = {};

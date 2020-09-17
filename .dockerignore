@@ -21,6 +21,7 @@
 
 # do not copy over node_modules we will run `npm install` anyway
 node_modules
+website
 
 # output from test runs and similar things
 *.log

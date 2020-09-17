@@ -33,8 +33,14 @@ const Seo: FC<SeoProps> = ({ desc, title }) => {
   return (
     <Helmet htmlAttributes={{ lang: 'ru' }}>
       <meta charSet="utf-8" />
-      <meta content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" name="viewport" />
-      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+      <meta
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+        name="viewport"
+      />
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        rel="stylesheet"
+      />
       <title>{title}</title>
       <meta content={desc} name="description" />
       <meta content={desc} property="og:description" />

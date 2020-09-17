@@ -166,7 +166,7 @@ importers:
       selfsigned: 1.10.7
       standard-version: 8.0.0
       supertest: 4.0.2
-      typescript: '>=3.3.1 <3.10.0'
+      typescript: ^3.9.7
       verdaccio: latest
       verdaccio-audit: latest
       verdaccio-auth-memory: latest
@@ -190,7 +190,6 @@ importers:
       semver: 7.3.2
     devDependencies:
       '@verdaccio/config': 'link:../config'
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/server': 'link:../server'
       '@verdaccio/types': 'link:../core/types'
       body-parser: 1.19.0
@@ -200,7 +199,6 @@ importers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/hooks': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/middleware': 'workspace:5.0.0-alpha.0'
@@ -228,14 +226,12 @@ importers:
       lodash: 4.17.15
     devDependencies:
       '@verdaccio/config': 'link:../config'
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/loaders': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/mock': 'workspace:5.0.0-alpha.0'
@@ -277,11 +273,8 @@ importers:
       '@verdaccio/utils': 'link:../utils'
       lodash: 4.17.20
       mkdirp: 0.5.5
-    devDependencies:
-      '@verdaccio/dev-types': 'link:../types'
     specifiers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       lodash: ^4.17.20
@@ -380,7 +373,6 @@ importers:
       '@verdaccio/auth': 'link:../auth'
       '@verdaccio/config': 'link:../config'
       '@verdaccio/dev-commons': 'link:../commons'
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/types': 'link:../core/types'
       '@verdaccio/utils': 'link:../utils'
     specifiers:
@@ -388,7 +380,6 @@ importers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
@@ -404,14 +395,12 @@ importers:
     devDependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/config': 'link:../config'
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/mock': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
@@ -461,17 +450,16 @@ importers:
       pretty-ms: 5.0.0
   packages/middleware:
     dependencies:
+      '@verdaccio/auth': 'link:../auth'
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/utils': 'link:../utils'
       lodash: 4.17.15
-    devDependencies:
-      '@verdaccio/dev-types': 'link:../types'
     specifiers:
+      '@verdaccio/auth': 'workspace:5.0.0-alpha.0'
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       lodash: 4.17.15
@@ -485,11 +473,9 @@ importers:
       supertest: 4.0.2
       verdaccio: 4.8.1
     devDependencies:
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       fs-extra: ^8.1.0
@@ -528,11 +514,9 @@ importers:
       lodash: 4.17.20
       request: 2.87.0
     devDependencies:
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/local-storage': 'workspace:*'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/streams': 'workspace:*'
@@ -559,7 +543,6 @@ importers:
       lodash: 4.17.15
     devDependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/proxy': 'link:../proxy'
       http-errors: 1.7.3
@@ -571,7 +554,6 @@ importers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/loaders': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/middleware': 'workspace:5.0.0-alpha.0'
@@ -604,14 +586,12 @@ importers:
       semver: 7.1.2
     devDependencies:
       '@verdaccio/config': 'link:../config'
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/loaders': 'workspace:5.0.0-alpha.0'
       '@verdaccio/local-storage': 'workspace:*'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
@@ -641,14 +621,12 @@ importers:
       semver: 7.3.2
     devDependencies:
       '@types/minimatch': 3.0.3
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/logger': 'link:../logger'
       lodash: 4.17.20
     specifiers:
       '@types/minimatch': 3.0.3
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/readme': 'workspace:*'
       js-yaml: 3.13.1
@@ -693,12 +671,10 @@ importers:
       express: 4.17.1
       lodash: 4.17.20
     devDependencies:
-      '@verdaccio/dev-types': 'link:../types'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
       '@verdaccio/auth': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/dev-types': 'workspace:5.0.0-alpha.0'
       '@verdaccio/loaders': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/middleware': 'workspace:5.0.0-alpha.0'

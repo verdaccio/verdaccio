@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/dev-types": "workspace:5.0.0-alpha.0",
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/proxy": "workspace:5.0.0-alpha.0",
     "http-errors": "1.7.3",

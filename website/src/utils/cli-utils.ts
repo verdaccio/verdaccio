@@ -1,6 +1,8 @@
 import { SyntheticEvent } from 'react';
 
-export const copyToClipBoardUtility = (str: string): ((e: SyntheticEvent<HTMLElement>) => void) => (event: SyntheticEvent<HTMLElement>): void => {
+export const copyToClipBoardUtility = (str: string): ((e: SyntheticEvent<HTMLElement>) => void) => (
+  event: SyntheticEvent<HTMLElement>
+): void => {
   event.preventDefault();
 
   const node = document.createElement('div');
@@ -18,7 +20,11 @@ export const copyToClipBoardUtility = (str: string): ((e: SyntheticEvent<HTMLEle
   }
 };
 
-export function getCLISetConfigRegistry(command: string, scope: string, registryUrl: string): string {
+export function getCLISetConfigRegistry(
+  command: string,
+  scope: string,
+  registryUrl: string
+): string {
   // if there is a scope defined there needs to be a ":" separator between the scope and the registry
   return `${command} ${scope}${scope !== '' ? ':' : ''}registry ${registryUrl}`;
 }

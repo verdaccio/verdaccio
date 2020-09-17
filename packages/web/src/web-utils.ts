@@ -2,14 +2,17 @@ import _ from 'lodash';
 import { isObject } from '@verdaccio/utils';
 import { Package, Author } from '@verdaccio/types';
 import { normalizeContributors } from '@verdaccio/store';
-import { AuthorAvatar } from '@verdaccio/dev-types';
+
+export type AuthorAvatar = Author & { avatar?: string };
 
 import { generateGravatarUrl, GENERIC_AVATAR } from './user';
 
 export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
-  const contributors: AuthorAvatar[] = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
+  const contributors: AuthorAvatar[] = normalizeContributors(
+    _.get(pkgInfo, 'latest.contributors', [])
+  );
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
   // for author.

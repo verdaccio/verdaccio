@@ -32,7 +32,7 @@ jobs:
         with:
           node_version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: npm i -g pnpm
+        run: npm i pnpm@5.5.12 -g
       - name: Install
         run: pnpm recursive install
       - name: Format

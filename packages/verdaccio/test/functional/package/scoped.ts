@@ -53,7 +53,9 @@ export default function (server, server2) {
           .then(function (body) {
             expect(body.name).toBe(SCOPE);
             expect(body.versions[PKG_VERSION].name).toBe(SCOPE);
-            expect(body.versions[PKG_VERSION].dist.tarball).toBe(`http://${DOMAIN_SERVERS}:${port}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
+            expect(body.versions[PKG_VERSION].dist.tarball).toBe(
+              `http://${DOMAIN_SERVERS}:${port}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`
+            );
             expect(body[DIST_TAGS]).toEqual({ latest: PKG_VERSION });
           });
 
@@ -70,7 +72,9 @@ export default function (server, server2) {
           .status(HTTP_STATUS.OK)
           .then(function (body) {
             expect(body.name).toEqual(SCOPE);
-            expect(body.dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
+            expect(body.dist.tarball).toEqual(
+              `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`
+            );
           });
       });
     });

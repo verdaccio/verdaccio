@@ -24,7 +24,9 @@ let loadPrivatePackages;
 describe('Local Database', () => {
   beforeEach(() => {
     const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = jest.spyOn(pkgUtils, 'loadPrivatePackages').mockReturnValue({ list: [], secret: '' });
+    loadPrivatePackages = jest
+      .spyOn(pkgUtils, 'loadPrivatePackages')
+      .mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
     (locaDatabase as LocalDatabase).clean();
     writeMock.mockClear();
@@ -77,7 +79,13 @@ describe('Local Database', () => {
 
       if (storage) {
         const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
-        expect(storagePath).toBe(path.normalize(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName)).toLowerCase());
+        expect(storagePath).toBe(
+          path
+            .normalize(
+              path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName)
+            )
+            .toLowerCase()
+        );
       }
     });
 
@@ -90,7 +98,17 @@ describe('Local Database', () => {
       if (storage) {
         const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
         expect(storagePath).toBe(
-          path.normalize(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', 'private_folder', pkgName)).toLowerCase()
+          path
+            .normalize(
+              path.join(
+                __dirname,
+                '__fixtures__',
+                optionsPlugin.config.storage || '',
+                'private_folder',
+                pkgName
+              )
+            )
+            .toLowerCase()
         );
       }
     });
@@ -153,7 +171,11 @@ describe('Local Database', () => {
       const scopedPackages = ['@pkg1/test'];
       const stats = { mtime: new Date() };
       jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      jest.spyOn(fs, 'readdir').mockImplementation((storePath, cb) => cb(null, storePath.match('test-storage') ? scopedPackages : []));
+      jest
+        .spyOn(fs, 'readdir')
+        .mockImplementation((storePath, cb) =>
+          cb(null, storePath.match('test-storage') ? scopedPackages : [])
+        );
 
       callSearch(locaDatabase, 1, done);
     });
@@ -162,7 +184,11 @@ describe('Local Database', () => {
       const nonScopedPackages = ['pkg1', 'pkg2'];
       const stats = { mtime: new Date() };
       jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      jest.spyOn(fs, 'readdir').mockImplementation((storePath, cb) => cb(null, storePath.match('test-storage') ? nonScopedPackages : []));
+      jest
+        .spyOn(fs, 'readdir')
+        .mockImplementation((storePath, cb) =>
+          cb(null, storePath.match('test-storage') ? nonScopedPackages : [])
+        );
 
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
@@ -176,7 +202,9 @@ describe('Local Database', () => {
     });
 
     test('should fails on read the storage', (done) => {
-      const spyInstance = jest.spyOn(fs, 'readdir').mockImplementation((_, cb) => cb(Error('fails'), null));
+      const spyInstance = jest
+        .spyOn(fs, 'readdir')
+        .mockImplementation((_, cb) => cb(Error('fails'), null));
 
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
@@ -267,7 +295,9 @@ describe('Local Database', () => {
       db.createReadStream.mockImplementation(() => stream);
       setTimeout(() => events.once['error'](new Error('Unexpected error!')));
 
-      await expect(locaDatabase.readTokens({ user: 'someUser' })).rejects.toThrow('Unexpected error!');
+      await expect(locaDatabase.readTokens({ user: 'someUser' })).rejects.toThrow(
+        'Unexpected error!'
+      );
     });
   });
 });

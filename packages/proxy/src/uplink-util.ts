@@ -1,7 +1,6 @@
 import { Versions, Config } from '@verdaccio/types';
-import { IProxy, ProxyList } from '@verdaccio/dev-types';
 
-import { ProxyStorage } from './up-storage';
+import { ProxyStorage, IProxy, ProxyList } from './up-storage';
 
 /**
  * Set up the Up Storage for each link.

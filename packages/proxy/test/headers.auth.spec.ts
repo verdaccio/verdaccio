@@ -1,6 +1,12 @@
 import { buildToken } from '@verdaccio/utils';
 
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY, HEADERS } from '@verdaccio/dev-commons';
+import {
+  ERROR_CODE,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  DEFAULT_REGISTRY,
+  HEADERS,
+} from '@verdaccio/dev-commons';
 import { setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src/up-storage';

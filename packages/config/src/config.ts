@@ -12,14 +12,26 @@ import {
 } from '@verdaccio/utils';
 import { APP_ERROR } from '@verdaccio/dev-commons';
 
-import { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
-
-import { MatchedPackage, StartUpConfig } from '@verdaccio/dev-types';
+import {
+  PackageList,
+  Config as AppConfig,
+  Security,
+  Logger,
+  PackageAccess,
+} from '@verdaccio/types';
 
 const LoggerApi = require('@verdaccio/logger');
 
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
+
+export type MatchedPackage = PackageAccess | void;
+
+export interface StartUpConfig {
+  storage: string;
+  plugins?: string;
+  self_path: string;
+}
 
 /**
  * Coordinates the application configuration
