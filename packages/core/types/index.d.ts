@@ -218,6 +218,7 @@ declare module '@verdaccio/types' {
     max_users: number;
   }
 
+  // FUTURE: rename to Notification
   interface Notifications {
     method: string;
     packagePattern: RegExp;
@@ -226,6 +227,8 @@ declare module '@verdaccio/types' {
     content: string;
     headers: Headers;
   }
+
+  type Notification = Notifications;
 
   interface ConfigFile {
     storage: string;
@@ -364,7 +367,9 @@ declare module '@verdaccio/types' {
     https_proxy?: string;
     no_proxy?: string;
     max_body_size?: string;
+    // deprecated
     notifications?: Notifications;
+    notify: Notifications | Notifications[];
     middlewares?: any;
     filters?: any;
     checkSecretKey(token: string): string;

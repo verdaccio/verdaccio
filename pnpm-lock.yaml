@@ -216,6 +216,7 @@ importers:
       supertest: next
   packages/auth:
     dependencies:
+      '@verdaccio/auth': 'link:'
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/loaders': 'link:../loaders'
@@ -229,6 +230,7 @@ importers:
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
+      '@verdaccio/auth': 'workspace:5.0.0-alpha.0'
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
@@ -367,7 +369,7 @@ importers:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/logger': 'link:../logger'
       handlebars: 4.5.3
-      lodash: 4.17.20
+      node-fetch: 2.6.1
       request: 2.87.0
     devDependencies:
       '@verdaccio/auth': 'link:../auth'
@@ -375,6 +377,7 @@ importers:
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/types': 'link:../core/types'
       '@verdaccio/utils': 'link:../utils'
+      nock: 13.0.4
     specifiers:
       '@verdaccio/auth': 'workspace:5.0.0-alpha.0'
       '@verdaccio/commons-api': 'workspace:*'
@@ -384,7 +387,8 @@ importers:
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       handlebars: 4.5.3
-      lodash: ^4.17.20
+      nock: ^13.0.4
+      node-fetch: ^2.6.1
       request: 2.87.0
   packages/loaders:
     dependencies:
@@ -14925,6 +14929,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-XkKRsMdT+hq+sKq4+ynfG2bwf20=
+  /lodash.set/4.3.2:
+    dev: true
+    resolution:
+      integrity: sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
   /lodash.sortby/4.7.0:
     resolution:
       integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
@@ -15875,6 +15883,17 @@ packages:
       node: '>= 10.13'
     resolution:
       integrity: sha512-QNb/j8kbFnKCiyqi9C5DD0jH/FubFGj5rt9NQFONXwQm3IPB0CULECg/eS3AU1KgZb/6SwUa4/DTRKhVxkGABw==
+  /nock/13.0.4:
+    dependencies:
+      debug: 4.1.1
+      json-stringify-safe: 5.0.1
+      lodash.set: 4.3.2
+      propagate: 2.0.1
+    dev: true
+    engines:
+      node: '>= 10.13'
+    resolution:
+      integrity: sha512-alqTV8Qt7TUbc74x1pKRLSENzfjp4nywovcJgi/1aXDiUxXdt7TkruSTF5MDWPP7UoPVgea4F9ghVdmX0xxnSA==
   /node-abi/2.19.1:
     dependencies:
       semver: 5.7.1
@@ -15920,6 +15939,12 @@ packages:
       node: 4.x || >=6.0.0
     resolution:
       integrity: sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
+  /node-fetch/2.6.1:
+    dev: false
+    engines:
+      node: 4.x || >=6.0.0
+    resolution:
+      integrity: sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
   /node-forge/0.9.0:
     engines:
       node: '>= 4.5.0'
