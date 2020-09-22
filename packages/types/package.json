@@ -20,7 +20,6 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./build",
-    "build": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "test": "echo \"Error: no test specified\" && exit 0"
   }
 }
