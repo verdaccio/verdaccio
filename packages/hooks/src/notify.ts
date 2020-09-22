@@ -1,46 +1,62 @@
 import Handlebars from 'handlebars';
-import _ from 'lodash';
 
-import { OptionsWithUrl } from 'request';
-import { Config, Package, RemoteUser } from '@verdaccio/types';
-import { notifyRequest } from './notify-request';
+import buildDebug from 'debug';
+import { Config, Package, RemoteUser, Notification } from '@verdaccio/types';
+import { logger } from '@verdaccio/logger';
+import { notifyRequest, NotifyRequestOptions } from './notify-request';
 
+const debug = buildDebug('verdaccio:hooks');
 type TemplateMetadata = Package & { publishedPackage: string };
 
-export function handleNotify(
-  metadata: Package,
+export function compileTemplate(content, metadata) {
+  // FUTURE: multiple handlers
+  return new Promise((resolve, reject) => {
+    let handler;
+    try {
+      if (!handler) {
+        debug('compile default template handler %o', content);
+        const template: HandlebarsTemplateDelegate = Handlebars.compile(content);
+        return resolve(template(metadata));
+      }
+    } catch (error) {
+      debug('error  template handler %o', error);
+      reject(error);
+    }
+  });
+}
+
+export async function handleNotify(
+  metadata: Partial<Package>,
   notifyEntry,
-  remoteUser: RemoteUser,
+  remoteUser: Partial<RemoteUser>,
   publishedPackage: string
-): Promise<any> | void {
+): Promise<boolean> {
   let regex;
   if (metadata.name && notifyEntry.packagePattern) {
     regex = new RegExp(notifyEntry.packagePattern, notifyEntry.packagePatternFlags || '');
     if (!regex.test(metadata.name)) {
-      return;
+      return false;
     }
   }
 
-  const template: HandlebarsTemplateDelegate = Handlebars.compile(notifyEntry.content);
-  // don't override 'publisher' if package.json already has that
-  /* eslint no-unused-vars: 0 */
-  /* eslint @typescript-eslint/no-unused-vars: 0 */
+  let content;
+  // FIXME: publisher is not part of the expected types metadata
   // @ts-ignore
-  if (_.isNil(metadata.publisher)) {
+  if (typeof metadata?.publisher === 'undefined' || metadata?.publisher === null) {
     // @ts-ignore
     metadata = { ...metadata, publishedPackage, publisher: { name: remoteUser.name as string } };
+    debug('template metadata %o', metadata);
+    content = await compileTemplate(notifyEntry.content, metadata);
   }
 
-  const content: string = template(metadata);
-
-  const options: OptionsWithUrl = {
-    body: content,
-    url: '',
+  const options: NotifyRequestOptions = {
+    body: JSON.stringify(content),
   };
 
   // provides fallback support, it's accept an Object {} and Array of {}
-  if (notifyEntry.headers && _.isArray(notifyEntry.headers)) {
+  if (notifyEntry.headers && Array.isArray(notifyEntry.headers)) {
     const header = {};
+    // FIXME: we can simplify this
     notifyEntry.headers.map(function (item): void {
       if (Object.is(item, item)) {
         for (const key in item) {
@@ -56,44 +72,67 @@ export function handleNotify(
     options.headers = notifyEntry.headers;
   }
 
-  options.method = notifyEntry.method;
-
-  if (notifyEntry.endpoint) {
-    options.url = notifyEntry.endpoint;
+  if (!notifyEntry.endpoint) {
+    debug('error due endpoint is missing');
+    throw new Error('missing parameter');
   }
 
-  return notifyRequest(options, content);
+  return notifyRequest(notifyEntry.endpoint, {
+    method: notifyEntry.method,
+    ...options,
+  });
 }
 
 export function sendNotification(
-  metadata: Package,
+  metadata: Partial<Package>,
   notify: Notification,
-  remoteUser: RemoteUser,
+  remoteUser: Partial<RemoteUser>,
   publishedPackage: string
-): Promise<any> {
+): Promise<boolean> {
   return handleNotify(metadata, notify, remoteUser, publishedPackage) as Promise<any>;
 }
 
-export function notify(
-  metadata: Package,
-  config: Config,
-  remoteUser: RemoteUser,
+export async function notify(
+  metadata: Partial<Package>,
+  config: Partial<Config>,
+  remoteUser: Partial<RemoteUser>,
   publishedPackage: string
-): Promise<any> | void {
+): Promise<boolean[]> {
+  debug('init send notification');
   if (config.notify) {
-    if (config.notify.content) {
-      return sendNotification(
-        metadata,
-        (config.notify as unknown) as Notification,
-        remoteUser,
-        publishedPackage
-      );
-    }
-    // multiple notifications endpoints PR #108
-    return Promise.all(
-      _.map(config.notify, (key) => sendNotification(metadata, key, remoteUser, publishedPackage))
-    );
-  }
+    const isSingle = Object.keys(config.notify).includes('method');
+    if (isSingle) {
+      debug('send single notification');
+      try {
+        const response = await sendNotification(
+          metadata,
+          config.notify as Notification,
+          remoteUser,
+          publishedPackage
+        );
+        return [response];
+      } catch {
+        debug('error on sending single notification');
+        return [false];
+      }
+    } else {
+      debug('send multiples notification');
+      const results = await Promise.allSettled(
+        Object.keys(config.notify).map((keyId: string) => {
+          // @ts-ignore
+          const item = config.notify[keyId];
+          debug('send item %o', item);
+          return sendNotification(metadata, item, remoteUser, publishedPackage);
+        })
+      ).catch((error) => {
+        logger.error({ error }, 'notify request has failed: @error');
+      });
 
-  return Promise.resolve();
+      // @ts-ignore
+      return Object.keys(results).map((promiseValue) => results[promiseValue].value);
+    }
+  } else {
+    debug('no notifications configuration detected');
+    return [false];
+  }
 }
