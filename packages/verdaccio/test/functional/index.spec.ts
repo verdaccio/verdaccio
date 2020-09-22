@@ -12,7 +12,6 @@ import distTagsMerge from './tags/dist-tags-merge';
 import addtag from './tags/addtag';
 import adduser from './adduser/adduser';
 import logout from './adduser/logout';
-import notify from './notifications/notify';
 import incomplete from './sanity/incomplete';
 import mirror from './sanity/mirror';
 import readme from './readme/readme';
@@ -56,7 +55,6 @@ describe('functional test verdaccio', function () {
   security(server1);
   addtag(server1);
   pluginsAuth(server2);
-  notify(app);
   uplinkTimeout(server1, server2, server3);
   // requires packages published to server1/server2
   upLinkCache(server1, server2, server3);
