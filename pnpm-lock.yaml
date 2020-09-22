@@ -267,7 +267,7 @@ importers:
     devDependencies:
       '@verdaccio/types': 'link:../core/types'
     specifiers:
-      '@verdaccio/types': 'workspace:10.0.0-beta'
+      '@verdaccio/types': 'workspace:*'
   packages/config:
     dependencies:
       '@verdaccio/dev-commons': 'link:../commons'
@@ -356,9 +356,9 @@ importers:
       marked: 1.1.1
   packages/core/streams:
     devDependencies:
-      '@verdaccio/types': 9.7.2
+      '@verdaccio/types': 'link:../types'
     specifiers:
-      '@verdaccio/types': ^9.7.2
+      '@verdaccio/types': 'workspace:*'
   packages/core/types:
     devDependencies:
       '@types/node': 14.6.0
@@ -5243,10 +5243,6 @@ packages:
       npm: '>=5'
     resolution:
       integrity: sha512-SoCG1btVFPxOcrs8w9wLJCfe8nfE6EaEXCXyRwGbh+Sr3NLEG0R8JOugGJbuSE+zIRuUs5JaUKjzSec+JKLvZw==
-  /@verdaccio/types/9.7.2:
-    dev: true
-    resolution:
-      integrity: sha512-zv8sMrghtrzkxfo+IOojZYk/j4D5kmF/DMwXS9GnmObTM2nAOTsBzlOxHHBdHaiOK+cntw2YRYQJAebMG5J5sA==
   /@verdaccio/ui-theme/0.3.13:
     dev: true
     engines:

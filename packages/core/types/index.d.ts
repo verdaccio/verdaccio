@@ -369,7 +369,7 @@ declare module '@verdaccio/types' {
     max_body_size?: string;
     // deprecated
     notifications?: Notifications;
-    notify: Notifications | Notifications[];
+    notify?: Notifications | Notifications[];
     middlewares?: any;
     filters?: any;
     checkSecretKey(token: string): string;
