@@ -368,6 +368,7 @@ importers:
     dependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/logger': 'link:../logger'
+      debug: 4.2.0
       handlebars: 4.5.3
       node-fetch: 2.6.1
       request: 2.87.0
@@ -386,6 +387,7 @@ importers:
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
+      debug: ^4.2.0
       handlebars: 4.5.3
       nock: ^13.0.4
       node-fetch: ^2.6.1
@@ -8406,6 +8408,19 @@ packages:
       ms: 2.1.2
     resolution:
       integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+  /debug/4.2.0:
+    dependencies:
+      ms: 2.1.2
+    dev: false
+    engines:
+      node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    resolution:
+      integrity: sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
   /decamelize-keys/1.1.0:
     dependencies:
       decamelize: 1.2.0
