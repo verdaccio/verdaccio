@@ -1,4 +1,4 @@
-FROM node:12.18.3-alpine as builder
+FROM node:12.18.4-alpine as builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
@@ -12,14 +12,14 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-RUN npm -g i pnpm@latest && \
+RUN npm -g i pnpm@5.5.12 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm recursive install --frozen-lockfile --ignore-scripts && \
     pnpm run build && \
     pnpm run lint && \
     pnpm install --prod --ignore-scripts
 
-FROM node:12.18.3-alpine
+FROM node:12.18.4-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \

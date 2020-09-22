@@ -1,23 +1,38 @@
-import isNil from 'lodash/isNil';
-import request, { RequiredUriUrl } from 'request';
+import fetch, { RequestInit } from 'node-fetch';
+import buildDebug from 'debug';
 
 import { logger } from '@verdaccio/logger';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 
-export function notifyRequest(options: RequiredUriUrl, content): Promise<any | Error> {
-  return new Promise((resolve, reject): void => {
-    request(options, function (err, response, body): void {
-      if (err || response.statusCode >= HTTP_STATUS.BAD_REQUEST) {
-        const errorMessage = isNil(err) ? response.body : err.message;
-        logger.error({ errorMessage }, 'notify service has thrown an error: @{errorMessage}');
-        reject(errorMessage);
-      }
-      logger.info({ content }, 'A notification has been shipped: @{content}');
-      if (isNil(body) === false) {
-        logger.debug({ body }, ' body: @{body}');
-        resolve(body);
-      }
-      reject(Error('body is missing'));
+const debug = buildDebug('verdaccio:hooks:request');
+export type NotifyRequestOptions = RequestInit;
+
+export async function notifyRequest(url: string, options: NotifyRequestOptions): Promise<boolean> {
+  let response;
+  try {
+    debug('uri %o', url);
+    response = await fetch(url, {
+      body: JSON.stringify(options.body),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
     });
-  });
+    debug('response.status  %o', response.status);
+    const body = await response.json();
+    if (response.status >= HTTP_STATUS.BAD_REQUEST) {
+      throw new Error(body);
+    }
+
+    logger.info(
+      { content: options.body },
+      'The notification @{content} has been successfully dispatched'
+    );
+    return true;
+  } catch (err) {
+    debug('request error %o', err);
+    logger.error(
+      { errorMessage: err?.message },
+      'notify service has thrown an error: @{errorMessage}'
+    );
+    return false;
+  }
 }
