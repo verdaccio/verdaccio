@@ -1,0 +1,125 @@
+on:
+  schedule:
+    - cron: '0 3 * * 5'
+  pull_request:
+    branches:
+      - '**'
+
+name: 'E2E Jest with verdaccio'
+jobs:
+  yarn:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+
+    name: '${{ matrix.os }} / yarn:jest example'
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2.3.1
+
+      - name: 'Use Node.js 10.x'
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Install pnpm
+        run: npm i pnpm@5.5.12 -g
+      - name: Install Dependencies
+        run: pnpm recursive install
+      - name: Build
+        run: pnpm build
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup node ./packages/verdaccio/debug/bootstrap.js &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          yarn init --yes
+          yarn add jest --registry http://localhost:4873
+
+          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+          yarn jest pass.test.js
+
+          yarn add left-pad --registry http://localhost:4873 --verbose
+          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+          yarn jest module.test.js
+#  npm:
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        os: [ubuntu-latest, windows-latest]
+#
+#    name: '${{ matrix.os }} / npm:jest example'
+#    runs-on: ${{ matrix.os }}
+#
+#    steps:
+#      - uses: actions/checkout@v2.3.1
+#
+#      - name: 'Use Node.js 10.x'
+#        uses: actions/setup-node@v2.1.1
+#        with:
+#          node-version: 10.x
+#      - name: 'install latest npm'
+#        run: npm i -g npm
+#      - name: Install Dependencies
+#        run: yarn install --pure-lockfile
+#      - name: 'Run verdaccio in the background'
+#        run: |
+#          nohup node ./scripts/run-verdaccio.js &
+#      - name: 'Ping to verdaccio'
+#        run: |
+#          npm ping --registry http://localhost:4873
+#      - name: 'Running the integration test'
+#        run: |
+#          source scripts/e2e-setup-ci.sh
+#          npm init --force
+#          npm install jest --registry http://localhost:4873
+#
+#          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+#          yarn jest pass.test.js
+#
+#          yarn add left-pad --registry http://localhost:4873 --verbose
+#          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+#          yarn jest module.test.js
+#  pnpm:
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        os: [ubuntu-latest, windows-latest]
+#
+#    name: '${{ matrix.os }} / pnpm:jest example'
+#    runs-on: ${{ matrix.os }}
+#
+#    steps:
+#      - uses: actions/checkout@v2.3.1
+#
+#      - name: 'Use Node.js 10.x'
+#        uses: actions/setup-node@v2.1.1
+#        with:
+#          node-version: 10.x
+#      - name: 'install latest pnpm'
+#        run: npm i -g pnpm
+#      - name: Install Dependencies
+#        run: yarn install --pure-lockfile
+#      - name: 'Run verdaccio in the background'
+#        run: |
+#          nohup node ./scripts/run-verdaccio.js &
+#      - name: 'Ping to verdaccio'
+#        run: |
+#          pnpm ping --registry http://localhost:4873
+#      - name: 'Running the integration test'
+#        run: |
+#          source scripts/e2e-setup-ci.sh
+#          pnpm init --force
+#          pnpm install jest --registry http://localhost:4873
+#
+#          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+#          yarn jest pass.test.js
+#
+#          yarn add left-pad --registry http://localhost:4873 --verbose
+#          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+#          yarn jest module.test.js
