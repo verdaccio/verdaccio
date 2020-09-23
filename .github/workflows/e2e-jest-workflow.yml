@@ -30,6 +30,8 @@ jobs:
       - name: Build
         run: pnpm build
       - name: 'Run verdaccio in the background'
+        env:
+          DEBUG: "verdaccio*"
         run: |
           nohup node ./packages/verdaccio/debug/bootstrap.js &
       - name: 'Ping to verdaccio'
