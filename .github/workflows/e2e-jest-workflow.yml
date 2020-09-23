@@ -47,6 +47,7 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
+
 #  npm:
 #    strategy:
 #      fail-fast: false
