@@ -33,7 +33,7 @@ jobs:
         env:
           DEBUG: 'verdaccio*'
         run: |
-          nohup node ./packages/verdaccio/debug/bootstrap.js &
+          nohup DEBUG=verdaccio* node ./packages/verdaccio/debug/bootstrap.js &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
