@@ -16,7 +16,6 @@ import {
   isNil,
   isFunction,
   getMatchedPackagesSpec,
-  getDefaultPlugins,
   createAnonymousRemoteUser,
   convertPayloadToBase64,
   createRemoteUser,
@@ -38,6 +37,7 @@ import {
 import {
   getMiddlewareCredentials,
   getSecurity,
+  getDefaultPlugins,
   verifyJWTPayload,
   parseBasicPayload,
   parseAuthTokenHeader,

@@ -1,13 +1,16 @@
 import _ from 'lodash';
-import { Config, RemoteUser, Security } from '@verdaccio/types';
-import { HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
+import { Callback, Config, IPluginAuth, RemoteUser, Security } from '@verdaccio/types';
+import { HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, API_ERROR } from '@verdaccio/dev-commons';
+import { getForbidden, getUnauthorized, getConflict, getCode } from '@verdaccio/commons-api';
 import {
   aesDecrypt,
+  AllowAction,
+  AllowActionCallback,
+  AuthPackageAllow,
   buildUserBuffer,
   convertPayloadToBase64,
   createAnonymousRemoteUser,
   defaultSecurity,
-  ErrorCode,
   verifyPayload,
 } from '@verdaccio/utils';
 
@@ -127,7 +130,7 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
       // we return an anonymous user to force log in.
       return createAnonymousRemoteUser();
     }
-    throw ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
+    throw getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
   }
 }
 
@@ -145,4 +148,79 @@ export function parseBasicPayload(credentials: string): BasicPayload {
   const password: string = credentials.slice(index + 1);
 
   return { user, password };
+}
+
+export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
+  return {
+    authenticate(user: string, password: string, cb: Callback): void {
+      cb(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+    },
+
+    adduser(user: string, password: string, cb: Callback): void {
+      return cb(getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
+    },
+
+    // FIXME: allow_action and allow_publish should be in the @verdaccio/types
+    // @ts-ignore
+    allow_access: allow_action('access', logger),
+    // @ts-ignore
+    allow_publish: allow_action('publish', logger),
+    allow_unpublish: handleSpecialUnpublish(logger),
+  };
+}
+
+export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
+
+export function allow_action(action: ActionsAllowed, logger): AllowAction {
+  return function allowActionCallback(
+    user: RemoteUser,
+    pkg: AuthPackageAllow,
+    callback: AllowActionCallback
+  ): void {
+    logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{user.name}`);
+    const { name, groups } = user;
+    const groupAccess = pkg[action] as string[];
+    const hasPermission = groupAccess.some((group) => name === group || groups.includes(group));
+    logger.trace(
+      { pkgName: pkg.name, hasPermission, remote: user.name, groupAccess },
+      `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`
+    );
+
+    if (hasPermission) {
+      logger.trace({ remote: user.name }, `auth/allow_action: access granted to: @{user}`);
+      return callback(null, true);
+    }
+
+    if (name) {
+      callback(getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
+    } else {
+      callback(getUnauthorized(`authorization required to ${action} package ${pkg.name}`));
+    }
+  };
+}
+
+/**
+ *
+ */
+export function handleSpecialUnpublish(logger): any {
+  return function (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
+    const action = 'unpublish';
+    // verify whether the unpublish prop has been defined
+    const isUnpublishMissing: boolean = _.isNil(pkg[action]);
+    const hasGroups: boolean = isUnpublishMissing ? false : (pkg[action] as string[]).length > 0;
+    logger.trace(
+      { user: user.name, name: pkg.name, hasGroups },
+      `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`
+    );
+
+    if (isUnpublishMissing || hasGroups === false) {
+      return callback(null, undefined);
+    }
+
+    logger.trace(
+      { user: user.name, name: pkg.name, action, hasGroups },
+      `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`
+    );
+    return allow_action(action, logger)(user, pkg, callback);
+  };
 }
