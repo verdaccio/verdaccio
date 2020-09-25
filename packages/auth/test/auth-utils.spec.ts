@@ -1,6 +1,6 @@
 import path from 'path';
 import _ from 'lodash';
-import { CHARACTER_ENCODING, TOKEN_BEARER } from '@verdaccio/dev-commons';
+import { CHARACTER_ENCODING, TOKEN_BEARER, ROLES, API_ERROR } from '@verdaccio/dev-commons';
 
 import { configExample } from '@verdaccio/mock';
 import { Config as AppConfig } from '@verdaccio/config';
@@ -9,19 +9,30 @@ import { setup } from '@verdaccio/logger';
 import {
   buildUserBuffer,
   getAuthenticatedMessage,
-  aesDecrypt,
-  verifyPayload,
   buildToken,
   convertPayloadToBase64,
   parseConfigFile,
   createAnonymousRemoteUser,
   createRemoteUser,
-  signPayload,
+  AllowActionCallbackResponse,
 } from '@verdaccio/utils';
 
 import { Config, Security, RemoteUser } from '@verdaccio/types';
-import { Auth, IAuth } from '../src';
-import { getMiddlewareCredentials, getApiToken, verifyJWTPayload, getSecurity } from '../src';
+import { VerdaccioError, getForbidden } from '@verdaccio/commons-api';
+import {
+  IAuth,
+  Auth,
+  ActionsAllowed,
+  allow_action,
+  getDefaultPlugins,
+  getMiddlewareCredentials,
+  getApiToken,
+  verifyJWTPayload,
+  getSecurity,
+  aesDecrypt,
+  verifyPayload,
+  signPayload,
+} from '../src';
 
 setup([]);
 
@@ -86,6 +97,7 @@ describe('Auth utilities', () => {
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
     const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString(
+      // @ts-ignore
       CHARACTER_ENCODING.UTF8
     );
     const content = payload.split(':');
@@ -93,6 +105,120 @@ describe('Auth utilities', () => {
     expect(content[0]).toBe(user);
     expect(content[0]).toBe(password);
   };
+
+  describe('getDefaultPlugins', () => {
+    test('authentication should fail by default (default)', () => {
+      const plugin = getDefaultPlugins({ trace: jest.fn() });
+      plugin.authenticate('foo', 'bar', (error: any) => {
+        expect(error).toEqual(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      });
+    });
+
+    test('add user should fail by default (default)', () => {
+      const plugin = getDefaultPlugins({ trace: jest.fn() });
+      // @ts-ignore
+      plugin.adduser('foo', 'bar', (error: any) => {
+        expect(error).toEqual(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      });
+    });
+  });
+
+  describe('allow_action', () => {
+    describe('access/publish/unpublish and anonymous', () => {
+      const packageAccess = {
+        name: 'foo',
+        version: undefined,
+        access: ['foo'],
+        unpublish: false,
+      };
+
+      // const type = 'access';
+      test.each(['access', 'publish', 'unpublish'])(
+        'should restrict %s to anonymous users',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createAnonymousRemoteUser(),
+            {
+              ...packageAccess,
+              [type]: ['foo'],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).not.toBeNull();
+              expect(allowed).toBeUndefined();
+            }
+          );
+        }
+      );
+
+      test.each(['access', 'publish', 'unpublish'])(
+        'should allow %s to anonymous users',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createAnonymousRemoteUser(),
+            {
+              ...packageAccess,
+              [type]: [ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).toBeNull();
+              expect(allowed).toBe(true);
+            }
+          );
+        }
+      );
+
+      test.each(['access', 'publish', 'unpublish'])(
+        'should allow %s only if user is anonymous if the logged user has groups',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createRemoteUser('juan', ['maintainer', 'admin']),
+            {
+              ...packageAccess,
+              [type]: [ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).not.toBeNull();
+              expect(allowed).toBeUndefined();
+            }
+          );
+        }
+      );
+
+      test.each(['access', 'publish', 'unpublish'])(
+        'should allow %s only if user is anonymous match any other groups',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createRemoteUser('juan', ['maintainer', 'admin']),
+            {
+              ...packageAccess,
+              [type]: ['admin', 'some-other-group', ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).toBeNull();
+              expect(allowed).toBe(true);
+            }
+          );
+        }
+      );
+
+      test.each(['access', 'publish', 'unpublish'])(
+        'should not allow %s anonymous if other groups are defined and does not match',
+        (type) => {
+          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+            createRemoteUser('juan', ['maintainer', 'admin']),
+            {
+              ...packageAccess,
+              [type]: ['bla-bla-group', 'some-other-group', ROLES.$ANONYMOUS],
+            },
+            (error: VerdaccioError | null, allowed: AllowActionCallbackResponse) => {
+              expect(error).not.toBeNull();
+              expect(allowed).toBeUndefined();
+            }
+          );
+        }
+      );
+    });
+  });
 
   describe('getApiToken test', () => {
     test('should sign token with aes and security missing', async () => {
