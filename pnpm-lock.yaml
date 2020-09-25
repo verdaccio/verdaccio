@@ -224,6 +224,7 @@ importers:
       '@verdaccio/utils': 'link:../utils'
       debug: 4.1.1
       express: 4.17.1
+      jsonwebtoken: 8.5.1
       lodash: 4.17.15
     devDependencies:
       '@verdaccio/config': 'link:../config'
@@ -241,6 +242,7 @@ importers:
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       debug: ^4.1.1
       express: 4.17.1
+      jsonwebtoken: 8.5.1
       lodash: 4.17.15
   packages/cli:
     dependencies:
@@ -622,7 +624,6 @@ importers:
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/readme': 'link:../core/readme'
       js-yaml: 3.13.1
-      jsonwebtoken: 8.5.1
       minimatch: 3.0.4
       semver: 7.3.2
     devDependencies:
@@ -636,7 +637,6 @@ importers:
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/readme': 'workspace:*'
       js-yaml: 3.13.1
-      jsonwebtoken: 8.5.1
       lodash: ^4.17.20
       minimatch: 3.0.4
       semver: 7.3.2
@@ -940,7 +940,7 @@ packages:
   /@babel/helper-compilation-targets/7.10.4:
     dependencies:
       '@babel/compat-data': 7.11.0
-      browserslist: 4.14.0
+      browserslist: 4.14.4
       invariant: 2.2.4
       levenary: 1.1.1
       semver: 5.7.1
@@ -993,7 +993,7 @@ packages:
     dependencies:
       '@babel/helper-annotate-as-pure': 7.10.4
       '@babel/helper-regex': 7.10.5
-      regexpu-core: 4.7.0
+      regexpu-core: 4.7.1
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -1339,8 +1339,8 @@ packages:
     dependencies:
       '@babel/core': 7.10.5
       '@babel/helper-plugin-utils': 7.10.4
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.10.5
-      '@babel/plugin-transform-parameters': 7.10.5_@babel+core@7.10.5
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3
+      '@babel/plugin-transform-parameters': 7.10.5
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1732,6 +1732,7 @@ packages:
     dependencies:
       '@babel/core': 7.10.5
       '@babel/helper-plugin-utils': 7.10.4
+    dev: true
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -2244,16 +2245,6 @@ packages:
       integrity: sha512-5iTw0JkdRdJvr7sY0vHqTpnruUpTea32JHmq/atIWqsnNussbRzjEDyWep8UNztt1B5IusBYg8Irb0bLbiEBCQ==
   /@babel/plugin-transform-parameters/7.10.5:
     dependencies:
-      '@babel/helper-get-function-arity': 7.10.4
-      '@babel/helper-plugin-utils': 7.10.4
-    dev: false
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    resolution:
-      integrity: sha512-xPHwUj5RdFV8l1wuYiu5S9fqWGM2DrYc24TMvUiRrPVm+SM3XeqU9BcokQX/kEUe+p2RBwy+yoiR1w/Blq6ubw==
-  /@babel/plugin-transform-parameters/7.10.5_@babel+core@7.10.5:
-    dependencies:
-      '@babel/core': 7.10.5
       '@babel/helper-get-function-arity': 7.10.4
       '@babel/helper-plugin-utils': 7.10.4
     dev: false
@@ -18839,7 +18830,6 @@ packages:
       regjsparser: 0.6.4
       unicode-match-property-ecmascript: 1.0.4
       unicode-match-property-value-ecmascript: 1.2.0
-    dev: true
     engines:
       node: '>=4'
     resolution:
