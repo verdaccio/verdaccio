@@ -29,6 +29,7 @@
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "@verdaccio/auth": "workspace:5.0.0-alpha.0",
+    "jsonwebtoken": "8.5.1",
     "debug": "^4.1.1",
     "express": "4.17.1",
     "lodash": "4.17.15"
