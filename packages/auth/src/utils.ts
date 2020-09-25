@@ -3,7 +3,6 @@ import { Callback, Config, IPluginAuth, RemoteUser, Security } from '@verdaccio/
 import { HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, API_ERROR } from '@verdaccio/dev-commons';
 import { getForbidden, getUnauthorized, getConflict, getCode } from '@verdaccio/commons-api';
 import {
-  aesDecrypt,
   AllowAction,
   AllowActionCallback,
   AuthPackageAllow,
@@ -11,10 +10,10 @@ import {
   convertPayloadToBase64,
   createAnonymousRemoteUser,
   defaultSecurity,
-  verifyPayload,
 } from '@verdaccio/utils';
 
 import { IAuthWebUI, AESPayload } from './auth';
+import { aesDecrypt, verifyPayload } from './crypto-utils';
 
 export type BasicPayload = AESPayload | void;
 export type AuthMiddlewarePayload = RemoteUser | BasicPayload;

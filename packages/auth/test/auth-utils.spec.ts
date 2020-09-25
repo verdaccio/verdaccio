@@ -9,29 +9,29 @@ import { setup } from '@verdaccio/logger';
 import {
   buildUserBuffer,
   getAuthenticatedMessage,
-  aesDecrypt,
-  verifyPayload,
   buildToken,
   convertPayloadToBase64,
   parseConfigFile,
   createAnonymousRemoteUser,
   createRemoteUser,
-  signPayload,
   AllowActionCallbackResponse,
 } from '@verdaccio/utils';
 
 import { Config, Security, RemoteUser } from '@verdaccio/types';
 import { VerdaccioError, getForbidden } from '@verdaccio/commons-api';
 import {
+  IAuth,
+  Auth,
   ActionsAllowed,
   allow_action,
-  Auth,
   getDefaultPlugins,
-  IAuth,
   getMiddlewareCredentials,
   getApiToken,
   verifyJWTPayload,
   getSecurity,
+  aesDecrypt,
+  verifyPayload,
+  signPayload,
 } from '../src';
 
 setup([]);

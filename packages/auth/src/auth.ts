@@ -10,16 +10,6 @@ import {
 } from '@verdaccio/commons-api';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import { loadPlugin } from '@verdaccio/loaders';
-import {
-  aesEncrypt,
-  signPayload,
-  isNil,
-  isFunction,
-  getMatchedPackagesSpec,
-  createAnonymousRemoteUser,
-  convertPayloadToBase64,
-  createRemoteUser,
-} from '@verdaccio/utils';
 
 import {
   Config,
@@ -34,6 +24,16 @@ import {
   AllowAccess,
   PackageAccess,
 } from '@verdaccio/types';
+
+import {
+  isNil,
+  isFunction,
+  getMatchedPackagesSpec,
+  createAnonymousRemoteUser,
+  convertPayloadToBase64,
+  createRemoteUser,
+} from '@verdaccio/utils';
+
 import {
   getMiddlewareCredentials,
   getSecurity,
@@ -44,6 +44,8 @@ import {
   isAuthHeaderValid,
   isAESLegacy,
 } from './utils';
+
+import { aesEncrypt, signPayload } from './crypto-utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
