@@ -17,7 +17,6 @@ import {
   Callback,
   IPluginAuth,
   RemoteUser,
-  IBasicAuth,
   JWTSignOptions,
   Security,
   AuthPluginPackage,
@@ -39,22 +38,31 @@ import {
   getSecurity,
   getDefaultPlugins,
   verifyJWTPayload,
-  parseBasicPayload,
   parseAuthTokenHeader,
   isAuthHeaderValid,
   isAESLegacy,
 } from './utils';
 
-import { aesEncrypt, signPayload } from './crypto-utils';
+import { signPayload } from './jwt-token';
+import { aesEncrypt } from './legacy-token';
+import { parseBasicPayload } from './token';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
 
 const debug = buildDebug('verdaccio:auth');
 
-export interface IAuthWebUI {
+export interface IBasicAuth<T> {
+  config: T & Config;
+  authenticate(user: string, password: string, cb: Callback): void;
+  changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
+  allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+  add_user(user: string, password: string, cb: Callback): any;
+}
+
+export interface TokenEncryption {
   jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
-  aesEncrypt(buf: Buffer): Buffer;
+  aesEncrypt(buf: string): string | void;
 }
 
 export interface AESPayload {
@@ -71,7 +79,7 @@ export interface IAuthMiddleware {
   webUIJWTmiddleware(): $NextFunctionVer;
 }
 
-export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, IAuthWebUI {
+export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, TokenEncryption {
   config: Config;
   logger: Logger;
   secret: string;
@@ -243,7 +251,6 @@ class Auth implements IAuth {
       pkgAllowAcces,
       getMatchedPackagesSpec(packageName, this.config.packages)
     ) as AllowAccess & PackageAccess;
-    const self = this;
     debug('allow access for %o', packageName);
 
     (function next(): void {
@@ -358,6 +365,7 @@ class Auth implements IAuth {
   }
 
   public apiJWTmiddleware(): Function {
+    debug('jwt middleware');
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
     for (const plugin of plugins) {
@@ -382,6 +390,7 @@ class Auth implements IAuth {
       };
 
       if (this._isRemoteUserValid(req.remote_user)) {
+        debug('jwt has remote user');
         return next();
       }
 
@@ -390,6 +399,7 @@ class Auth implements IAuth {
 
       const { authorization } = req.headers;
       if (_.isNil(authorization)) {
+        debug('jwt invalid auth header');
         return next();
       }
 
@@ -418,29 +428,36 @@ class Auth implements IAuth {
     authorization: string,
     next: Function
   ): void {
+    debug('handle JWT api middleware');
     const { scheme, token } = parseAuthTokenHeader(authorization);
     if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
+      debug('handle basic token');
       // this should happen when client tries to login with an existing user
       const credentials = convertPayloadToBase64(token).toString();
       const { user, password } = parseBasicPayload(credentials) as AESPayload;
+      debug('authenticating %o', user);
       this.authenticate(user, password, (err, user): void => {
         if (!err) {
+          debug('generating a remote user');
           req.remote_user = user;
           next();
         } else {
+          debug('generating anonymous user');
           req.remote_user = createAnonymousRemoteUser();
           next(err);
         }
       });
     } else {
-      // jwt handler
+      debug('handle jwt token');
       const credentials: any = getMiddlewareCredentials(security, secret, authorization);
       if (credentials) {
         // if the signature is valid we rely on it
         req.remote_user = credentials;
+        debug('generating a remote user');
         next();
       } else {
         // with JWT throw 401
+        debug('jwt invalid token');
         next(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       }
     }
@@ -453,20 +470,28 @@ class Auth implements IAuth {
     authorization: string,
     next: Function
   ): void {
+    debug('handle legacy api middleware');
+    debug('api middleware secret %o', secret);
+    debug('api middleware authorization %o', authorization);
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+    debug('api middleware credentials %o', credentials);
     if (credentials) {
       const { user, password } = credentials;
+      debug('authenticating %o', user);
       this.authenticate(user, password, (err, user): void => {
         if (!err) {
           req.remote_user = user;
+          debug('generating a remote user');
           next();
         } else {
           req.remote_user = createAnonymousRemoteUser();
+          debug('generating anonymous user');
           next(err);
         }
       });
     } else {
       // we force npm client to ask again with basic authentication
+      debug('legacy invalid header');
       return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
     }
   }
@@ -546,8 +571,8 @@ class Auth implements IAuth {
   /**
    * Encrypt a string.
    */
-  public aesEncrypt(buf: Buffer): Buffer {
-    return aesEncrypt(buf, this.secret);
+  public aesEncrypt(value: string): string | void {
+    return aesEncrypt(value, this.secret);
   }
 }
 

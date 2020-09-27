@@ -7,14 +7,13 @@ import { Config as AppConfig } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 
 import {
-  buildUserBuffer,
   getAuthenticatedMessage,
   buildToken,
-  convertPayloadToBase64,
   parseConfigFile,
   createAnonymousRemoteUser,
   createRemoteUser,
   AllowActionCallbackResponse,
+  buildUserBuffer,
 } from '@verdaccio/utils';
 
 import { Config, Security, RemoteUser } from '@verdaccio/types';
@@ -32,6 +31,7 @@ import {
   aesDecrypt,
   verifyPayload,
   signPayload,
+  buildUser,
 } from '../src';
 
 setup([]);
@@ -60,7 +60,7 @@ describe('Auth utilities', () => {
     return config;
   }
 
-  async function signCredentials(
+  async function getTokenByConfiguration(
     configFileName: string,
     username: string,
     password: string,
@@ -85,7 +85,7 @@ describe('Auth utilities', () => {
     expect(spyNotCalled).not.toHaveBeenCalled();
     expect(token).toBeDefined();
 
-    return token;
+    return token as string;
   }
 
   const verifyJWT = (token: string, user: string, password: string, secret: string) => {
@@ -96,7 +96,7 @@ describe('Auth utilities', () => {
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
-    const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString(
+    const payload = aesDecrypt(token, secret).toString(
       // @ts-ignore
       CHARACTER_ENCODING.UTF8
     );
@@ -222,101 +222,101 @@ describe('Auth utilities', () => {
 
   describe('getApiToken test', () => {
     test('should sign token with aes and security missing', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-missing',
         'test',
         'test',
-        '1234567',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'aesEncrypt',
         'jwtEncrypt'
       );
 
-      verifyAES(token, 'test', 'test', '1234567');
+      verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with aes and security empty', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-empty',
         'test',
         'test',
-        '123456',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'aesEncrypt',
         'jwtEncrypt'
       );
 
-      verifyAES(token, 'test', 'test', '123456');
+      verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with aes', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-basic',
         'test',
         'test',
-        '123456',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'aesEncrypt',
         'jwtEncrypt'
       );
 
-      verifyAES(token, 'test', 'test', '123456');
+      verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with legacy and jwt disabled', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-no-legacy',
         'test',
         'test',
-        'x8T#ZCx=2t',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'aesEncrypt',
         'jwtEncrypt'
       );
 
       expect(_.isString(token)).toBeTruthy();
-      verifyAES(token, 'test', 'test', 'x8T#ZCx=2t');
+      verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
     });
 
     test('should sign token with legacy enabled and jwt enabled', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-jwt-legacy-enabled',
         'test',
         'test',
-        'secret',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'jwtEncrypt',
         'aesEncrypt'
       );
 
-      verifyJWT(token, 'test', 'test', 'secret');
+      verifyJWT(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with jwt enabled', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-jwt',
         'test',
         'test',
-        'secret',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'jwtEncrypt',
         'aesEncrypt'
       );
 
       expect(_.isString(token)).toBeTruthy();
-      verifyJWT(token, 'test', 'test', 'secret');
+      verifyJWT(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
     });
 
     test('should sign with jwt whether legacy is disabled', async () => {
-      const token = await signCredentials(
+      const token = await getTokenByConfiguration(
         'security-legacy-disabled',
         'test',
         'test',
-        'secret',
+        'b2df428b9929d3ace7c598bbf4e496b2',
         'jwtEncrypt',
         'aesEncrypt'
       );
 
       expect(_.isString(token)).toBeTruthy();
-      verifyJWT(token, 'test', 'test', 'secret');
+      verifyJWT(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
     });
   });
 
@@ -328,11 +328,11 @@ describe('Auth utilities', () => {
 
   describe('getMiddlewareCredentials test', () => {
     describe('should get AES credentials', () => {
-      test.concurrent('should unpack aes token and credentials', async () => {
-        const secret = 'secret';
+      test.concurrent('should unpack aes token and credentials bearer auth', async () => {
+        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const user = 'test';
         const pass = 'test';
-        const token = await signCredentials(
+        const token = await getTokenByConfiguration(
           'security-legacy',
           user,
           pass,
@@ -350,10 +350,11 @@ describe('Auth utilities', () => {
         expect(credentials.password).toEqual(pass);
       });
 
-      test.concurrent('should unpack aes token and credentials', async () => {
-        const secret = 'secret';
+      test.concurrent('should unpack aes token and credentials basic auth', async () => {
+        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const user = 'test';
         const pass = 'test';
+        // basic authentication need send user as base64
         const token = buildUserBuffer(user, pass).toString('base64');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = getSecurity(config);
@@ -366,8 +367,8 @@ describe('Auth utilities', () => {
       });
 
       test.concurrent('should return empty credential wrong secret key', async () => {
-        const secret = 'secret';
-        const token = await signCredentials(
+        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
+        const token = await getTokenByConfiguration(
           'security-legacy',
           'test',
           'test',
@@ -379,15 +380,15 @@ describe('Auth utilities', () => {
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(
           security,
-          'BAD_SECRET',
+          'b2df428b9929d3ace7c598bbf4e496_BAD_TOKEN',
           buildToken(TOKEN_BEARER, token)
         );
         expect(credentials).not.toBeDefined();
       });
 
       test.concurrent('should return empty credential wrong scheme', async () => {
-        const secret = 'secret';
-        const token = await signCredentials(
+        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
+        const token = await getTokenByConfiguration(
           'security-legacy',
           'test',
           'test',
@@ -406,15 +407,15 @@ describe('Auth utilities', () => {
       });
 
       test.concurrent('should return empty credential corrupted payload', async () => {
-        const secret = 'secret';
+        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const config: Config = getConfig('security-legacy', secret);
         const auth: IAuth = new Auth(config);
-        const token = auth.aesEncrypt(new Buffer(`corruptedBuffer`)).toString('base64');
+        const token = auth.aesEncrypt(null);
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(
           security,
           secret,
-          buildToken(TOKEN_BEARER, token)
+          buildToken(TOKEN_BEARER, token as string)
         );
         expect(credentials).not.toBeDefined();
       });
@@ -422,7 +423,9 @@ describe('Auth utilities', () => {
 
     describe('verifyJWTPayload', () => {
       test('should fail on verify the token and return anonymous users', () => {
-        expect(verifyJWTPayload('fakeToken', 'secret')).toEqual(createAnonymousRemoteUser());
+        expect(verifyJWTPayload('fakeToken', 'b2df428b9929d3ace7c598bbf4e496b2')).toEqual(
+          createAnonymousRemoteUser()
+        );
       });
 
       test('should fail on verify the token and return anonymous users', async () => {
@@ -465,11 +468,11 @@ describe('Auth utilities', () => {
         expect(credentials).not.toBeDefined();
       });
 
-      test('should verify succesfully a JWT token', async () => {
-        const secret = 'secret';
+      test('should verify successfully a JWT token', async () => {
+        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const user = 'test';
         const config: Config = getConfig('security-jwt', secret);
-        const token = await signCredentials(
+        const token = await getTokenByConfiguration(
           'security-jwt',
           user,
           'secretTest',

@@ -1,5 +1,6 @@
 import assert from 'assert';
 import _ from 'lodash';
+import buildDebug from 'debug';
 
 import {
   getMatchedPackagesSpec,
@@ -19,6 +20,7 @@ import {
   Logger,
   PackageAccess,
 } from '@verdaccio/types';
+import { generateRandomSecretKey } from './token';
 
 const LoggerApi = require('@verdaccio/logger');
 
@@ -32,6 +34,8 @@ export interface StartUpConfig {
   plugins?: string;
   self_path: string;
 }
+
+const debug = buildDebug('verdaccio:config');
 
 /**
  * Coordinates the application configuration
@@ -115,13 +119,16 @@ class Config implements AppConfig {
    * Store or create whether receive a secret key
    */
   public checkSecretKey(secret: string): string {
+    debug('check secret key');
     if (_.isString(secret) && _.isEmpty(secret) === false) {
       this.secret = secret;
+      debug('reusing previous key');
       return secret;
     }
     // it generates a secret key
     // FUTURE: this might be an external secret key, perhaps within config file?
-    this.secret = generateRandomHexString(32);
+    debug('generate a new key');
+    this.secret = generateRandomSecretKey();
     return this.secret;
   }
 }
