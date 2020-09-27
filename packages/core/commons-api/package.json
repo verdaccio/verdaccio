@@ -12,11 +12,11 @@
   "homepage": "https://verdaccio.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/verdaccio/monorepo",
-    "directory": "core/commons-api"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/core/commons-api"
   },
   "bugs": {
-    "url": "https://github.com/verdaccio/monorepo/issues"
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "publishConfig": {
     "access": "public"
