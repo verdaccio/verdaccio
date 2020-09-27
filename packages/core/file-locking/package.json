@@ -12,11 +12,11 @@
   "homepage": "https://verdaccio.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/verdaccio/monorepo",
-    "directory": "core/file-locking"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/core/file-locking"
   },
   "bugs": {
-    "url": "https://github.com/verdaccio/monorepo/issues"
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "publishConfig": {
     "access": "public"
