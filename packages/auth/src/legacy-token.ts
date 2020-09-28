@@ -57,6 +57,7 @@ export function aesDecrypt(value: string, key: string): string | void {
     const decipher = createDecipheriv(defaultAlgorithm, secretKey, IV);
     let decrypted = decipher.update(encryptedText, outputEncoding, inputEncoding);
     decrypted += decipher.final(inputEncoding);
+    debug('token decrypted successfully');
     return decrypted.toString();
   } catch (_) {
     return;
