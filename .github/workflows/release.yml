@@ -10,7 +10,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.2
+    - uses: actions/checkout@v2.3.3
     - name: Use Node (latest)
       uses: actions/setup-node@v2.1.1
       with:
