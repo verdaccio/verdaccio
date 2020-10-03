@@ -1,7 +1,7 @@
 import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 
 export default function (server) {
-  describe('npm adduser', () => {
+  describe.skip('npm adduser', () => {
     const user = String(Math.random());
     const pass = String(Math.random());
 

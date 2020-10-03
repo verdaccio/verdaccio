@@ -1,16 +1,20 @@
 import assert from 'assert';
 import _ from 'lodash';
+import buildDebug from 'debug';
+
 import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '@verdaccio/dev-commons';
 import { buildToken } from '@verdaccio/utils';
 import smartRequest from './request';
-import { IServerBridge } from './types';
 
+import { IServerBridge } from './types';
 import { CREDENTIALS } from './constants';
 import getPackage from './fixtures/package';
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
 };
+
+const debug = buildDebug('verdaccio:mock:server');
 
 export default class Server implements IServerBridge {
   public url: string;
@@ -24,12 +28,14 @@ export default class Server implements IServerBridge {
   }
 
   public request(options: any): any {
+    debug('request to %o', options.uri);
     assert(options.uri);
     const headers = options.headers || {};
 
     headers.accept = headers.accept || HEADERS.JSON;
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
     headers.authorization = headers.authorization || this.authstr;
+    debug('request headers %o', headers);
 
     return smartRequest({
       url: this.url + options.uri,
@@ -41,6 +47,7 @@ export default class Server implements IServerBridge {
   }
 
   public auth(name: string, password: string) {
+    debug('request auth %o:%o', name, password);
     this.authstr = buildAuthHeader(name, password);
     return this.request({
       uri: `/-/user/org.couchdb.user:${encodeURIComponent(name)}/-rev/undefined`,
@@ -193,11 +200,13 @@ export default class Server implements IServerBridge {
   }
 
   public whoami() {
+    debug('request whoami');
     return this.request({
       uri: '/-/whoami',
     })
       .status(HTTP_STATUS.OK)
       .then(function (body) {
+        debug('request whoami body %o', body);
         return body.username;
       });
   }
