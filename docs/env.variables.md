@@ -3,8 +3,11 @@
 A full list of available environment variables that allow override
 internal features.
 
-#### VERDACCIO_HANDLE_KILL_SIGNALS
+#### VERDACCIO_LEGACY_ALGORITHM
 
-Enables gracefully shutdown, more info [here](https://github.com/verdaccio/verdaccio/pull/2121).
+Allows to define the specific algorithm for the token
+signature which by default is `aes-256-ctr`
 
-This will be enable by default on Verdaccio 5.
+#### VERDACCIO_LEGACY_ENCRYPTION_KEY
+
+By default, the token stores in the database, but using this variable allows to get it from memory

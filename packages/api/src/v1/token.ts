@@ -8,6 +8,7 @@ import { Response, Router } from 'express';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
+import { getInternalError } from '@verdaccio/commons-api';
 import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
 
 export type NormalizeToken = Token & {
@@ -84,6 +85,10 @@ export default function (
 
       try {
         const token = await getApiToken(auth, config, user, password);
+        if (!token) {
+          throw getInternalError();
+        }
+
         const key = stringToMD5(token);
         // TODO: use a utility here
         const maskedToken = mask(token, 5);
