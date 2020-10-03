@@ -483,9 +483,10 @@ declare module '@verdaccio/types' {
     getSecret(config: T & Config): Promise<any>;
   }
 
+  // @deprecated use IBasicAuth from @verdaccio/auth
   interface IBasicAuth<T> {
     config: T & Config;
-    aesEncrypt(buf: Buffer): Buffer;
+    aesEncrypt(buf: string): string;
     authenticate(user: string, password: string, cb: Callback): void;
     changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
     allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
@@ -550,6 +551,7 @@ declare module '@verdaccio/types' {
     apiJWTmiddleware?(helpers: any): Function;
   }
 
+  // @deprecated use @verdaccio/server
   interface IPluginMiddleware<T> extends IPlugin<T> {
     register_middlewares(app: any, auth: IBasicAuth<T>, storage: IStorageManager<T>): void;
   }

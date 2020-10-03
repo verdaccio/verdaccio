@@ -29,6 +29,7 @@
     "lodash": "^4.17.20",
     "request": "2.87.0",
     "supertest": "^4.0.2",
+    "debug": "^4.2.0",
     "verdaccio": "^4.8.1"
   },
   "devDependencies": {
