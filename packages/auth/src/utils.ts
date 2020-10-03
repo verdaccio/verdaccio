@@ -1,19 +1,23 @@
 import _ from 'lodash';
+import buildDebug from 'debug';
 import { Callback, Config, IPluginAuth, RemoteUser, Security } from '@verdaccio/types';
 import { HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, API_ERROR } from '@verdaccio/dev-commons';
 import { getForbidden, getUnauthorized, getConflict, getCode } from '@verdaccio/commons-api';
+
 import {
   AllowAction,
   AllowActionCallback,
   AuthPackageAllow,
-  buildUserBuffer,
   convertPayloadToBase64,
   createAnonymousRemoteUser,
   defaultSecurity,
 } from '@verdaccio/utils';
+import { TokenEncryption, AESPayload } from './auth';
+import { aesDecrypt } from './legacy-token';
+import { verifyPayload } from './jwt-token';
+import { parseBasicPayload } from './token';
 
-import { IAuthWebUI, AESPayload } from './auth';
-import { aesDecrypt, verifyPayload } from './crypto-utils';
+const debug = buildDebug('verdaccio:auth:utils');
 
 export type BasicPayload = AESPayload | void;
 export type AuthMiddlewarePayload = RemoteUser | BasicPayload;
@@ -23,6 +27,10 @@ export interface AuthTokenHeader {
   token: string;
 }
 
+/**
+ * Split authentication header eg: Bearer [secret_token]
+ * @param authorizationHeader auth token
+ */
 export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHeader {
   const parts = authorizationHeader.split(' ');
   const [scheme, token] = parts;
@@ -31,16 +39,19 @@ export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHead
 }
 
 export function parseAESCredentials(authorizationHeader: string, secret: string) {
+  debug('parseAESCredentials');
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   // basic is deprecated and should not be enforced
+  // basic is currently being used for functional test
   if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
+    debug('legacy header basic');
     const credentials = convertPayloadToBase64(token).toString();
 
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    const tokenAsBuffer = convertPayloadToBase64(token);
-    const credentials = aesDecrypt(tokenAsBuffer, secret).toString('utf8');
+    debug('legacy header bearer');
+    const credentials = aesDecrypt(token, secret);
 
     return credentials;
   }
@@ -48,17 +59,22 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
 
 export function getMiddlewareCredentials(
   security: Security,
-  secret: string,
+  secretKey: string,
   authorizationHeader: string
 ): AuthMiddlewarePayload {
+  debug('getMiddlewareCredentials');
+  // comment out for debugging purposes
   if (isAESLegacy(security)) {
-    const credentials = parseAESCredentials(authorizationHeader, secret);
+    debug('is legacy');
+    const credentials = parseAESCredentials(authorizationHeader, secretKey);
     if (!credentials) {
+      debug('parse legacy credentials failed');
       return;
     }
 
     const parsedCredentials = parseBasicPayload(credentials);
     if (!parsedCredentials) {
+      debug('parse legacy basic payload credentials failed');
       return;
     }
 
@@ -66,8 +82,9 @@ export function getMiddlewareCredentials(
   }
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
+  debug('is jwt');
   if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    return verifyJWTPayload(token, secret);
+    return verifyJWTPayload(token, secretKey);
   }
 }
 
@@ -78,19 +95,17 @@ export function isAESLegacy(security: Security): boolean {
 }
 
 export async function getApiToken(
-  auth: IAuthWebUI,
+  auth: TokenEncryption,
   config: Config,
   remoteUser: RemoteUser,
   aesPassword: string
-): Promise<string> {
+): Promise<string | void> {
   const security: Security = getSecurity(config);
 
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {
-      resolve(
-        auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
-      );
+      resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)));
     });
   }
   // i am wiling to use here _.isNil but flow does not like it yet.
@@ -100,9 +115,7 @@ export async function getApiToken(
     return await auth.jwtEncrypt(remoteUser, jwt.sign);
   }
   return await new Promise((resolve): void => {
-    resolve(
-      auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
-    );
+    resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)));
   });
 }
 
@@ -135,18 +148,6 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
 
 export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
-}
-
-export function parseBasicPayload(credentials: string): BasicPayload {
-  const index = credentials.indexOf(':');
-  if (index < 0) {
-    return;
-  }
-
-  const user: string = credentials.slice(0, index);
-  const password: string = credentials.slice(index + 1);
-
-  return { user, password };
 }
 
 export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
@@ -222,4 +223,8 @@ export function handleSpecialUnpublish(logger): any {
     );
     return allow_action(action, logger)(user, pkg, callback);
   };
+}
+
+export function buildUser(name: string, password: string): string {
+  return String(`${name}:${password}`);
 }

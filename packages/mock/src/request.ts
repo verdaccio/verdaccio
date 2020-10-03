@@ -1,9 +1,13 @@
 import assert from 'assert';
 import _ from 'lodash';
 import request from 'request';
+import buildDebug from 'debug';
+
 import { IRequestPromise } from './types';
 
 const requestData = Symbol('smart_request_data');
+
+const debug = buildDebug('verdaccio:mock:request');
 
 export class PromiseAssert extends Promise<any> implements IRequestPromise {
   public constructor(options: any) {
@@ -17,8 +21,10 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
       this,
       this.then(function (body) {
         try {
+          console.log('-->', expected, selfData?.response?.statusCode);
           assert.equal(selfData.response.statusCode, expected);
         } catch (err) {
+          debug('error status %o', err);
           selfData.error.message = err.message;
           throw selfData.error;
         }
@@ -34,6 +40,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
       this,
       this.then(function (body) {
         try {
+          debug('body_ok %o', body);
           if (_.isRegExp(expected)) {
             assert(body.ok.match(expected), "'" + body.ok + "' doesn't match " + expected);
           } else {
@@ -41,6 +48,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
           }
           assert.equal(body.error, null);
         } catch (err) {
+          debug('body_ok error %o', err.message);
           selfData.error.message = err.message;
           throw selfData.error;
         }
@@ -111,6 +119,7 @@ function smartRequest(options: any): Promise<any> {
     // store request reference on symbol
     smartObject[requestData].request = request(options, function (err, res, body) {
       if (err) {
+        debug('error request %o', err);
         return reject(err);
       }
 

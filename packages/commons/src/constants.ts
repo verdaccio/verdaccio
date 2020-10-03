@@ -131,7 +131,7 @@ export const API_ERROR = {
   PACKAGE_EXIST: 'this package is already present',
   BAD_AUTH_HEADER: 'bad authorization header',
   WEB_DISABLED: 'Web interface is disabled in the config file',
-  DEPRECATED_BASIC_HEADER: 'basic authentication is deprecated, please use JWT instead',
+  DEPRECATED_BASIC_HEADER: 'basic authentication is disabled, please use Bearer tokens instead',
   BAD_FORMAT_USER_GROUP: 'user groups is different than an array',
   RESOURCE_UNAVAILABLE: 'resource unavailable',
   BAD_PACKAGE_DATA: 'bad incoming package data',
