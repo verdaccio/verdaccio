@@ -51,6 +51,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.0.33
       codecov: 3.6.1
+      core-js: 3.6.5
       cross-env: 7.0.2
       detect-secrets: 1.0.6
       eslint: 7.5.0
@@ -137,6 +138,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.0.33
       codecov: 3.6.1
+      core-js: ^3.6.5
       cross-env: 7.0.2
       detect-secrets: 1.0.6
       eslint: 7.5.0
@@ -218,6 +220,7 @@ importers:
     dependencies:
       '@verdaccio/auth': 'link:'
       '@verdaccio/commons-api': 'link:../core/commons-api'
+      '@verdaccio/config': 'link:../config'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/loaders': 'link:../loaders'
       '@verdaccio/logger': 'link:../logger'
@@ -227,7 +230,6 @@ importers:
       jsonwebtoken: 8.5.1
       lodash: 4.17.15
     devDependencies:
-      '@verdaccio/config': 'link:../config'
       '@verdaccio/mock': 'link:../mock'
       '@verdaccio/types': 'link:../core/types'
     specifiers:
@@ -275,12 +277,14 @@ importers:
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/utils': 'link:../utils'
+      debug: 4.2.0
       lodash: 4.17.20
       mkdirp: 0.5.5
     specifiers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
+      debug: ^4.2.0
       lodash: ^4.17.20
       mkdirp: 0.5.5
   packages/core/commons-api:
@@ -475,6 +479,7 @@ importers:
     dependencies:
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/utils': 'link:../utils'
+      debug: 4.2.0
       fs-extra: 8.1.0
       lodash: 4.17.20
       request: 2.87.0
@@ -486,6 +491,7 @@ importers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
+      debug: ^4.2.0
       fs-extra: ^8.1.0
       lodash: ^4.17.20
       request: 2.87.0
@@ -497,6 +503,7 @@ importers:
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/server': 'link:../server'
       '@verdaccio/utils': 'link:../utils'
+      core-js: 3.6.5
       lodash: 4.17.20
       selfsigned: 1.10.7
     devDependencies:
@@ -509,6 +516,7 @@ importers:
       '@verdaccio/server': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
+      core-js: ^3.6.5
       lodash: ^4.17.20
       selfsigned: 1.10.7
   packages/proxy:
@@ -651,14 +659,18 @@ importers:
       '@verdaccio/utils': 'link:../utils'
       verdaccio-htpasswd: 9.7.2
     devDependencies:
+      '@verdaccio/auth': 'link:../auth'
       '@verdaccio/dev-commons': 'link:../commons'
+      '@verdaccio/store': 'link:../store'
     specifiers:
+      '@verdaccio/auth': 'workspace:5.0.0-alpha.0'
       '@verdaccio/cli': 'workspace:5.0.0-alpha.0'
       '@verdaccio/dev-commons': 'workspace:*'
       '@verdaccio/hooks': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/mock': 'workspace:5.0.0-alpha.0'
       '@verdaccio/node-api': 'workspace:5.0.0-alpha.0'
+      '@verdaccio/store': 'workspace:5.0.0-alpha.0'
       '@verdaccio/ui-theme': ^1.12.1
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       verdaccio-htpasswd: 9.7.2

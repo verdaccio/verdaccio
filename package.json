@@ -65,6 +65,7 @@
     "babel-plugin-emotion": "10.0.33",
     "codecov": "3.6.1",
     "cross-env": "7.0.2",
+    "core-js": "^3.6.5",
     "detect-secrets": "1.0.6",
     "eslint": "7.5.0",
     "eslint-config-google": "0.14.0",

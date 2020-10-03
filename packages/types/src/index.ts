@@ -97,25 +97,6 @@ export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
 export type $SidebarPackage = Package & { latest: any };
 
-export interface IAuthWebUI {
-  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
-  aesEncrypt(buf: Buffer): Buffer;
-}
-
-interface IAuthMiddleware {
-  apiJWTmiddleware(): $NextFunctionVer;
-  webUIJWTmiddleware(): $NextFunctionVer;
-}
-
-export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, IAuthWebUI {
-  config: Config;
-  logger: Logger;
-  secret: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  plugins: any[];
-  allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
-}
-
 export interface IWebSearch {
   index: lunrMutable.index;
   storage: IStorageHandler;

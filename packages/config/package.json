@@ -27,7 +27,7 @@
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "mkdirp": "0.5.5",
+    "debug": "^4.2.0",
     "lodash": "^4.17.20"
-  },
-  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+  }
 }
