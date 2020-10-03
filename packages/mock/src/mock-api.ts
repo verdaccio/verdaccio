@@ -111,7 +111,6 @@ export function loginUserToken(
   token: string,
   statusCode: number = HTTP_STATUS.CREATED
 ): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
     request
       .put(`/-/user/org.couchdb.user:${user}`)
@@ -131,7 +130,6 @@ export function addUser(
   credentials: any,
   statusCode: number = HTTP_STATUS.CREATED
 ): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
     request
       .put(`/-/user/org.couchdb.user:${user}`)

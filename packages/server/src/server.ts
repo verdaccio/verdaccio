@@ -14,14 +14,23 @@ import { Config as AppConfig } from '@verdaccio/config';
 
 import { webAPI, renderWebMiddleware } from '@verdaccio/web';
 
-import { IAuth } from '@verdaccio/auth';
+import { IAuth, IBasicAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
-import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import { setup, logger } from '@verdaccio/logger';
 import { log, final, errorReportingMiddleware } from '@verdaccio/middleware';
+import {
+  Config as IConfig,
+  IPluginStorageFilter,
+  IStorageManager,
+  IPlugin,
+} from '@verdaccio/types';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 import hookDebug from './debug';
+
+interface IPluginMiddleware<T> extends IPlugin<T> {
+  register_middlewares(app: any, auth: IBasicAuth<T>, storage: IStorageManager<T>): void;
+}
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);

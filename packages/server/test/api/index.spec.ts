@@ -37,7 +37,7 @@ import {
 
 setup([]);
 
-const credentials = { name: 'jota', password: 'secretPass' };
+const credentials = { name: 'server_user_api_spec', password: 'secretPass' };
 
 const putVersion = (app, name, publishMetadata) => {
   return request(app)
