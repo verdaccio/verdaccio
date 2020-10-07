@@ -1,5 +1,6 @@
 import zlib from 'zlib';
 import Stream from 'stream';
+import fetch from 'node-fetch';
 import URL, { UrlWithStringQuery } from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
@@ -25,6 +26,7 @@ import {
   Package,
   IReadTarball,
 } from '@verdaccio/types';
+import { parseConfiguration, ProxyConfiguration } from './configuration';
 const LoggerApi = require('@verdaccio/logger');
 
 const encode = function (thing): string {
@@ -51,6 +53,7 @@ export interface ProxyList {
 
 export interface IProxy {
   config: UpLinkConfLocal;
+  configProxy: ProxyConfiguration;
   failed_requests: number;
   userAgent: string;
   ca?: string | void;
@@ -74,6 +77,7 @@ export interface IProxy {
  */
 class ProxyStorage implements IProxy {
   public config: UpLinkConfLocal;
+  public configProxy: ProxyConfiguration;
   public failed_requests: number;
   public userAgent: string;
   public ca: string | void;
@@ -101,6 +105,7 @@ class ProxyStorage implements IProxy {
    * @param {*} mainConfig
    */
   public constructor(config: UpLinkConfLocal, mainConfig: Config) {
+    this.configProxy = parseConfiguration(config);
     this.config = config;
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
@@ -109,7 +114,6 @@ class ProxyStorage implements IProxy {
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);
-    // $FlowFixMe
     this._setupProxy(this.url.hostname, config, mainConfig, this.url.protocol === 'https:');
 
     this.config.url = this.config.url.replace(/\/$/, '');
@@ -134,6 +138,8 @@ class ProxyStorage implements IProxy {
     this.agent_options = setConfig(this.config, 'agent_options', {});
   }
 
+  private async newRequest() {}
+
   /**
    * Fetch an asset.
    * @param {*} options
@@ -152,7 +158,7 @@ class ProxyStorage implements IProxy {
         }
         streamRead.emit('error', ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
       });
-      // $FlowFixMe
+
       streamRead._read = function (): void {};
       // preventing 'Uncaught, unspecified "error" event'
       streamRead.on('error', function (): void {});
@@ -186,10 +192,8 @@ class ProxyStorage implements IProxy {
       ? function (err, res, body): void {
           let error;
           const responseLength = err ? 0 : body.length;
-          // $FlowFixMe
           processBody();
           logActivity();
-          // $FlowFixMe
           cb(err, res, body);
 
           /**
@@ -203,7 +207,6 @@ class ProxyStorage implements IProxy {
 
             if (options.json && res.statusCode < 300) {
               try {
-                // $FlowFixMe
                 body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
               } catch (_err) {
                 body = {};
@@ -499,7 +502,8 @@ class ProxyStorage implements IProxy {
    * @param {String} url
    * @return {Stream}
    */
-  fetchTarball(url: string) {
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  fetchTarball(url: string): any {
     const stream = new ReadTarball({});
     let current_length = 0;
     let expected_length;

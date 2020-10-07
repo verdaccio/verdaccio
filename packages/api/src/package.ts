@@ -15,7 +15,7 @@ const debug = buildDebug('verdaccio:api:package');
 const downloadStream = (
   packageName: string,
   filename: string,
-  storage: any,
+  storage: IStorageHandler,
   req: $RequestExtend,
   res: $ResponseExtend
 ): void => {
@@ -43,7 +43,7 @@ export default function (
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function (
     req: $RequestExtend,
-    res: $ResponseExtend,
+    _res: $ResponseExtend,
     next: $NextFunctionVer
   ): void {
     debug('init package by version');

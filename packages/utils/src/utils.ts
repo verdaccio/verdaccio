@@ -283,6 +283,10 @@ export function normalizeDistTags(pkg: Package): void {
   }
 }
 
+/** moved to proxy */
+/** moved to proxy */
+/** moved to proxy */
+
 const parseIntervalTable = {
   '': 1000,
   ms: 1,
@@ -324,6 +328,9 @@ export function parseInterval(interval: any): number {
   });
   return result;
 }
+/** moved to proxy */
+/** moved to proxy */
+/** moved to proxy */
 
 /**
  * Detect running protocol (http or https)
