@@ -1,7 +1,7 @@
 import zlib from 'zlib';
 import Stream from 'stream';
-import fetch from 'node-fetch';
 import URL, { UrlWithStringQuery } from 'url';
+import fetch from 'node-fetch';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';

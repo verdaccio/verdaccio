@@ -5,10 +5,12 @@ test('parse configuration', () => {
 });
 
 test('parse configuration', () => {
-    expect(parseConfiguration({
-        maxage: '4m'
-    })).toStrictEqual({
-        ...DEFAULT_CONFIG,
-        maxage: '4m'
-    });
+  expect(
+    parseConfiguration({
+      maxage: '4m',
+    })
+  ).toStrictEqual({
+    ...DEFAULT_CONFIG,
+    maxage: '4m',
+  });
 });
