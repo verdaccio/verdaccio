@@ -2,6 +2,7 @@ import request from 'supertest';
 import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
+import nock from 'nock';
 
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
@@ -51,11 +52,11 @@ const putVersion = (app, name, publishMetadata) => {
 
 describe('endpoint unit test', () => {
   let app;
+  const mockServerPort = 55549;
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
-    const mockServerPort = 55549;
+    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');    
     rimraf(store, async () => {
       const configForTest = configDefault({
         auth: {
@@ -74,6 +75,9 @@ describe('endpoint unit test', () => {
         uplinks: {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          },
+          socketTimeout: {
+            url: `http://some.registry.timeout.com`
           }
         },
         logs: [
@@ -91,6 +95,10 @@ describe('endpoint unit test', () => {
     mockRegistry[0].stop();
     done();
   });
+
+  afterEach(() => {
+    nock.cleanAll();
+  })
 
   describe('Registry API Endpoints', () => {
 
@@ -354,6 +362,36 @@ describe('endpoint unit test', () => {
             done();
           });
       });
+
+      test('should fails with socket time out fetch tarball timeout package from remote uplink', (done) => {
+        const timeOutPkg = generatePackageMetadata('timeout', '1.5.1');
+        timeOutPkg.versions['1.5.1'].dist.tarball = 'http://some.registry.timeout.com/timeout/-/timeout-1.5.1.tgz';
+        nock('http://some.registry.timeout.com')
+          .get('/timeout')
+          .reply(200, timeOutPkg);
+        nock('http://some.registry.timeout.com')
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          // note: we use 50s due hardware reasons small threshold is not enough to make fails
+          // 50s is greater than the default 30s connection timeout
+          .socketDelay(50000)
+          // http-status 200 OK
+        .reply(200);
+        request(app)
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.INTERNAL_ERROR)
+          .end(function(err, res) {
+            if (err) {
+              console.log("errr", err);
+              return done(err);
+            }
+
+            // expect(res.body).toBeDefined();
+            // expect(res.body.name).toMatch(/jquery/);
+            done();
+            // scope.done();
+          });
+      }, 70000);
 
       test('should fetch jquery specific version package from remote uplink', (done) => {
 
