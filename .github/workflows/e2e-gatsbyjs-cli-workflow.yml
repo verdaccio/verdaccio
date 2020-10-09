@@ -14,30 +14,31 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.3
 
-      - name: 'Use Node.js 10.x'
+      - name: 'Use Node.js 14.x'
         uses: actions/setup-node@v2.1.1
         with:
-          node-version: 10.x
+          node-version: 14.x
       - name: 'install latest npm'
         run: npm i -g npm
       - name: Install Dependencies
         run: yarn install --pure-lockfile
       - name: 'Run verdaccio in the background'
         run: |
-          nohup node ./scripts/run-verdaccio.js &
+          nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          echo "registry=http://localhost:4873" > ~/.npmrc
-          npm config set loglevel="http"
-          npm config set fetch-retries="5"
-          npm config set fetch-retry-factor="50"
-          npm config set fetch-retry-mintimeout="20000"
-          npm config set fetch-retry-maxtimeout="80000"
+          echo "registry=http://localhost:4873
+          loglevel="silent"
+          fetch-retries=10
+          fetch-retry-factor=2
+          fetch-retry-mintimeout=10000
+          fetch-retry-maxtimeout=80000" > ~/.npmrc
+          npm config list
           npm i -g gatsby
-          gatsby new my-gatsby --verbose
+          gatsby new my-gatsby
           cd my-gatsby
           npm run build
