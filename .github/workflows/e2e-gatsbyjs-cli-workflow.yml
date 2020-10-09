@@ -24,7 +24,7 @@ jobs:
         run: yarn install --pure-lockfile
       - name: 'Run verdaccio in the background'
         run: |
-          nohup node ./scripts/run-verdaccio.js &
+          nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
@@ -33,10 +33,11 @@ jobs:
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873" > ~/.npmrc
           npm config set loglevel="http"
-          npm config set fetch-retries="5"
+          npm config set fetch-retries="10"
           npm config set fetch-retry-factor="50"
           npm config set fetch-retry-mintimeout="20000"
           npm config set fetch-retry-maxtimeout="80000"
+          npm config list
           npm i -g gatsby
           gatsby new my-gatsby --verbose
           cd my-gatsby
