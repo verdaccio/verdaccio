@@ -62,7 +62,7 @@ jobs:
           key: *yarn_cache_key
       - run:
           name: Install dependencies
-          command: yarn install --no-progress --pure-lockfile
+          command: yarn install --immutable
       - run:
           name: Prepare CI
           command:  yarn run pre:ci

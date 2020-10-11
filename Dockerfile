@@ -12,12 +12,14 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
-    yarn install --production=false && \
+RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
+    yarn config set enableProgressBars false && \
+    yarn config set enableTelemetry false && \
+    yarn install && \
     yarn lint && \
     yarn code:docker-build && \
     yarn cache clean && \
-    yarn install --production=true
+    yarn workspaces focus --production
 
 
 

@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [8, 10, 12, 13, 14]
+        node_version: [10, 12, 13, 14]
 
     runs-on: ubuntu-latest
 
@@ -20,7 +20,7 @@ jobs:
       with:
         node_version: ${{ matrix.node_version }}
     - name: Install
-      run: yarn install --pure-lockfile
+      run: yarn install --immutable
     - name: Build
       run: yarn code:build
     - name: Lint

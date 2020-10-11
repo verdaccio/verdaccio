@@ -55,7 +55,7 @@ jobs:
       - name: 'install latest npm'
         run: npm i -g npm
       - name: Install Dependencies
-        run: yarn install --pure-lockfile
+        run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
           nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
@@ -92,7 +92,7 @@ jobs:
       - name: 'install latest npm'
         run: npm i -g npm@next-7
       - name: Install Dependencies
-        run: yarn install --pure-lockfile
+        run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
           nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
@@ -114,7 +114,7 @@ jobs:
           cd verdaccio-angular
           npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
 
-          npm run ng build --aot          
+          npm run ng build --aot
 
 #  pnpm throws errors worth to check why
 #  pnpm:
