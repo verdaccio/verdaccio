@@ -272,7 +272,7 @@ export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExte
     res.report_error ||
     function(err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
-        if (_.isNil(res.headersSent) === false) {
+        if (!res.headersSent) {
           res.status(err.status);
           next({ error: err.message || API_ERROR.UNKNOWN_ERROR });
         }
