@@ -16,7 +16,7 @@ jobs:
       with:
         node_version: 12
     - name: Install
-      run: yarn install --frozen-lockfile
+      run: yarn install
     - name: Build
       run: yarn code:build
     - name: Lint
