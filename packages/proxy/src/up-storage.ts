@@ -1,7 +1,6 @@
 import zlib from 'zlib';
 import Stream from 'stream';
 import URL, { UrlWithStringQuery } from 'url';
-import fetch from 'node-fetch';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
@@ -138,8 +137,6 @@ class ProxyStorage implements IProxy {
     this.agent_options = setConfig(this.config, 'agent_options', {});
   }
 
-  private async newRequest() {}
-
   /**
    * Fetch an asset.
    * @param {*} options
@@ -270,9 +267,7 @@ class ProxyStorage implements IProxy {
 
     let statusCalled = false;
     req.on('response', function (res): void {
-      // FIXME: _verdaccio_aborted seems not used
-      // @ts-ignore
-      if (!req._verdaccio_aborted && !statusCalled) {
+      if (!statusCalled) {
         statusCalled = true;
         self._statusCheck(true);
       }
@@ -296,9 +291,7 @@ class ProxyStorage implements IProxy {
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     req.on('error', function (_err): void {
-      // FIXME: _verdaccio_aborted seems not used
-      // @ts-ignore
-      if (!req._verdaccio_aborted && !statusCalled) {
+      if (!statusCalled) {
         statusCalled = true;
         self._statusCheck(false);
       }
@@ -679,10 +672,11 @@ class ProxyStorage implements IProxy {
    * @private
    */
   private _ifRequestFailure(): boolean {
-    return (
-      this.failed_requests >= this.max_fails &&
-      Math.abs(Date.now() - (this.last_request_time as number)) < this.fail_timeout
-    );
+    const isFailedMax = this.failed_requests >= this.max_fails;
+    const isTimeoutExpired =
+      Math.abs(Date.now() - (this.last_request_time as number)) < this.fail_timeout;
+
+    return isFailedMax && isTimeoutExpired;
   }
 
   /**

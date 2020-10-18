@@ -1,23 +1,23 @@
 import { default as nodeFetch } from 'node-fetch';
 import fetchRetry from '@zeit/fetch-retry';
+import buildDebug from 'debug';
 
-const TARBALL_URL = 'https://registry.verdaccio.org/node-fetch/-/node-fetch-3.0.0-beta.1.tgz';
-const METADATA = 'https://registry.verdaccio.org/node-fetch';
+const debug = buildDebug('verdaccio:proxy:fetch');
 
 // example upstream
 // {method: 'POST', body: stream}
 
-export async function fetch(url = TARBALL_URL) {
+export async function fetch(url) {
   const d = await fetchRetry(nodeFetch)(url, {
     retry: {
-      retries: 10,
+      retries: 3,
       factor: 2,
       minTimeout: 400,
       maxTimeout: 1000,
     },
     maxRetryAfter: 1,
     onRetry: () => {
-      console.log('retryyyy-------------->');
+      debug('retry %o', url);
     },
   });
 

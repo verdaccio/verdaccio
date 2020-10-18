@@ -5,12 +5,15 @@ import { pipeline } from 'stream';
 import URL, { UrlWithStringQuery } from 'url';
 import { promisify } from 'util';
 import fs from 'fs';
+import buildDebug from 'debug';
 
+import { getNotFound, getInternalError, HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
 import { Config, Callback, Headers, Logger, Package, IReadTarball } from '@verdaccio/types';
 
-import fetch from './fetch';
+import { fetch } from './fetch';
 
 import { parseConfiguration } from './configuration';
+import { prepareUrl, encodeScope, getRemoteMetadataUrl } from './utils';
 
 export type RetryError = Error & {
   name: string;
@@ -108,27 +111,68 @@ function getAgent(protocol: string | null) {
   }
 }
 
+export type RemoteMetadata = {
+  body: string;
+  etag: string;
+};
+
+const debug = buildDebug('verdaccio:proxy');
+
 class Proxy implements IProxy {
   private userAgent;
-  private url: UrlWithStringQuery;
+  private url: string;
   private agent: ProxyAgent;
   public constructor(config: UpLinkConfLocal) {
-    this.url = URL.parse(config.url);
-    this.agent = getAgent(this.url.protocol);
+    if (!config) {
+      throw Error('invalid proxy, config cannot be undefined');
+    }
+
+    this.url = prepareUrl(config.url);
+    const urlParsed = URL.parse(this.url);
+    debug('uplink %o', this.url);
+    this.agent = getAgent(urlParsed.protocol);
   }
 
   private async streamRequest() {}
 
-  public async getRemoteMetadata(packageName: string): Promise<Package> {
-    try {
-      const response = await fetch();
-      console.log('--response.ok', response.ok);
-      if (response.ok) {
-        await streamPipeline(response.body, null);
-      } else {
-        // throw error, mapped, 404
-      }
-    } catch (error) {}
+  public async search() {}
+  // @ts-ignore
+  public async fetchTarball(distTarball: string): Promise<ReadableStream> {
+    const response = await fetch(distTarball);
+    if (response.ok) {
+      return response.body;
+    }
+
+    console.log('response', response);
+    const { status } = response;
+    if (status === HTTP_STATUS.NOT_FOUND) {
+      throw getNotFound(API_ERROR.NOT_PACKAGE_UPLINK);
+    }
+
+    if (!(status >= HTTP_STATUS.OK && status < HTTP_STATUS.MULTIPLE_CHOICES)) {
+      throw getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${response.status}`);
+    }
+  }
+
+  public async getRemoteMetadata(packageName: string): Promise<RemoteMetadata | void> {
+    const url = getRemoteMetadataUrl(this.url, packageName);
+    const response = await fetch(url);
+    if (response.ok) {
+      const body: string = await response.json();
+      const { headers } = response;
+      return {
+        body,
+        etag: headers.get('etag'),
+      };
+    }
+
+    const { status } = response;
+    if (response.status === HTTP_STATUS.NOT_FOUND) {
+      throw getNotFound(API_ERROR.NOT_PACKAGE_UPLINK);
+    }
+    if (!(status >= HTTP_STATUS.OK && status < HTTP_STATUS.MULTIPLE_CHOICES)) {
+      throw getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${response.status}`);
+    }
   }
 }
 

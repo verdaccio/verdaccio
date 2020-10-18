@@ -29,16 +29,18 @@
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
     "@verdaccio/streams": "workspace:10.0.0-alpha.1",
     "@verdaccio/utils": "workspace:5.0.0-alpha.1",
-    "JSONStream": "1.3.5",
     "@zeit/fetch-retry": "^5.0.0",
+    "JSONStream": "1.3.5",
     "abort-controller": "^3.0.0",
+    "got": "^11.7.0",
+    "debug": "^4.2.0",
     "lodash": "^4.17.20",
     "node-fetch": "^3.0.0-beta.9",
     "request": "2.87.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.0.0-alpha.1",
-    "express": "^5.0.0-alpha.7",
+    "express": "^4.17.1",
     "nock": "^13.0.4",
     "supertest": "^5.0.0"
   }
