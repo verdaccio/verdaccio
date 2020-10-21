@@ -80,8 +80,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
       }
 
       const { web } = config;
-      // @ts-ignore
-      const order: boolean = config.web ? getOrder(web.sort_packages) : true;
+      const order: boolean = web ? getOrder(web.sort_packages) : true;
 
       next(sortByName(await processPackages(packages), order));
     });
@@ -119,8 +118,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
           const {v} = req.query;
           let sideBarInfo: any = _.clone(info);
           sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(info, req, config.url_prefix).versions;
-          if (isVersionValid(info, v)) {
-            // @ts-ignore
+          if (typeof v === 'string' && isVersionValid(info, v)) {
             sideBarInfo.latest = sideBarInfo.versions[v];
             sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
             } else {
