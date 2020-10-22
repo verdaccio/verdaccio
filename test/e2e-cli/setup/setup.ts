@@ -20,9 +20,9 @@ module.exports = async () => {
 	// @ts-ignore
 	global.registryProcess = spawn(
 		'node',
-		[require.resolve('verdaccio/bin/verdaccio'), '-c', './verdaccio.yaml'],
+		[path.resolve('./bin/verdaccio'), '-c', './verdaccio.yaml'],
 		// @ts-ignore
-		{ cwd: tempRoot, silence: true },
+		{ cwd: tempRoot, silence: false },
 	);
 
 	// publish current build version on local registry

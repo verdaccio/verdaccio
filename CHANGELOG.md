@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.1](https://github.com/verdaccio/verdaccio/compare/v4.8.0...v4.8.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1879](https://github.com/verdaccio/verdaccio/issues/1879)) ([7c50d87](https://github.com/verdaccio/verdaccio/commit/7c50d87c52287d29517f3f800f5ce4e5078f94fa))
+* package.json & yarn.lock to reduce vulnerabilities ([#1889](https://github.com/verdaccio/verdaccio/issues/1889)) ([5e94478](https://github.com/verdaccio/verdaccio/commit/5e94478387ca01a660b804dd35e76edbf5ea1ce1))
+* update readme library ([#1892](https://github.com/verdaccio/verdaccio/issues/1892)) ([f75ad87](https://github.com/verdaccio/verdaccio/commit/f75ad876fd6815d848688b7605c2c126e464a929))
+* upgrade docker base image nodejs ([#1895](https://github.com/verdaccio/verdaccio/issues/1895)) ([261eab5](https://github.com/verdaccio/verdaccio/commit/261eab5ca0567ab17fb06aff270214c634fbb74b))
+
+## [4.8.0](https://github.com/verdaccio/verdaccio/compare/v4.7.2...v4.8.0) (2020-07-16)
+
+
+### Features
+
+* **deps:** bump @verdaccio/ui-theme from 1.11.0 to 1.12.0 ([#1872](https://github.com/verdaccio/verdaccio/issues/1872)) ([0348bf6](https://github.com/verdaccio/verdaccio/commit/0348bf6b5da86d80ed1af1572dae734b894156b6))
+* ca certificate is optional for https configuration ([#1853](https://github.com/verdaccio/verdaccio/issues/1853)) ([912482a](https://github.com/verdaccio/verdaccio/commit/912482a5ae7c81aff4dc127cc6d4dc69f4133b70))
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1876](https://github.com/verdaccio/verdaccio/issues/1876)) ([e374a62](https://github.com/verdaccio/verdaccio/commit/e374a6248be972b1914b08e16cade949ea12b3cb))
+* revert move bodyParse to the upper level ([#1841](https://github.com/verdaccio/verdaccio/issues/1841)) ([#1877](https://github.com/verdaccio/verdaccio/issues/1877)) ([844267c](https://github.com/verdaccio/verdaccio/commit/844267ce257984f07dc552a671623a177febd5b4))
+* update dependencies ([#1878](https://github.com/verdaccio/verdaccio/issues/1878)) ([3c48670](https://github.com/verdaccio/verdaccio/commit/3c4867059a0a929439b8715ca4dd2c38d7e22322))
+
+### [4.7.2](https://github.com/verdaccio/verdaccio/compare/v4.7.1...v4.7.2) (2020-06-26)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1863](https://github.com/verdaccio/verdaccio/issues/1863)) ([b559d75](https://github.com/verdaccio/verdaccio/commit/b559d75f70a4ab961fd92beb6f0cf2493e6b9c7b))
+
+### [4.7.1](https://github.com/verdaccio/verdaccio/compare/v4.7.0...v4.7.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* move search v1 endpoint as experimental ([#1850](https://github.com/verdaccio/verdaccio/issues/1850)) ([0bfdeaa](https://github.com/verdaccio/verdaccio/commit/0bfdeaa2e43c43c93f79b6f443445e8b0bd717f6))
+
+## [4.7.0](https://github.com/verdaccio/verdaccio/compare/v4.6.2...v4.7.0) (2020-06-20)
+
+
+### Features
+
+* npm deprecation support ([#1842](https://github.com/verdaccio/verdaccio/issues/1842)) ([80ade97](https://github.com/verdaccio/verdaccio/commit/80ade9780195d023e61ff5c5e006b6d51122eaad))
+* restore Node 8 support ([#1832](https://github.com/verdaccio/verdaccio/issues/1832)) ([56b677a](https://github.com/verdaccio/verdaccio/commit/56b677a35a4e9d65895ac11ee10cf3ac04e002df))
+* update ui add new languages ([#1849](https://github.com/verdaccio/verdaccio/issues/1849)) ([4d01831](https://github.com/verdaccio/verdaccio/commit/4d0183184299a4d1dda92a248a20e1aad60545e2))
+* update verdaccio plugins and dependencies ([#1838](https://github.com/verdaccio/verdaccio/issues/1838)) ([03c7feb](https://github.com/verdaccio/verdaccio/commit/03c7feb64d4d5790ffa6e1d1828ffb2735311b54))
+
+
+### Bug Fixes
+
+* [Snyk] upgrade @verdaccio/streams from 9.4.0 to 9.5.0 ([#1819](https://github.com/verdaccio/verdaccio/issues/1819)) ([1e2159a](https://github.com/verdaccio/verdaccio/commit/1e2159a34516301e0925b6f67c4b6e81316375f1))
+* move bodyParse to the upper level ([#1841](https://github.com/verdaccio/verdaccio/issues/1841)) ([67c31b6](https://github.com/verdaccio/verdaccio/commit/67c31b69cac11436a5dcbc5961748eaab0bae99b))
+* updated nodejs version to fix vulnerability in 12.x https://nodejs.org/en/blog/vulnerability/june-2020-security-releases/ ([#1836](https://github.com/verdaccio/verdaccio/issues/1836)) ([aee69a9](https://github.com/verdaccio/verdaccio/commit/aee69a9453385dc39139f40aa963067e3070fb5c))
+* upgrade mkdirp from 1.0.3 to 1.0.4 ([#1782](https://github.com/verdaccio/verdaccio/issues/1782)) ([50f6c71](https://github.com/verdaccio/verdaccio/commit/50f6c71a375f34ef769a293f862b8603e1a03490))
+
 ### [4.6.2](https://github.com/verdaccio/verdaccio/compare/v4.6.1...v4.6.2) (2020-05-01)
 
 

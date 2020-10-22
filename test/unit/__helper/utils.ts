@@ -158,3 +158,12 @@ export function generatePackageMetadata(pkgName: string, version = '1.0.0'): Pac
 		}
 	}
 }
+
+export function generateDeprecateMetadata(pkgName: string, version = '1.0.0', deprecated:string = ''): Package {
+  const res = {
+    ...generatePackageMetadata(pkgName, version),
+    _attachments: {},
+  };
+  res.versions[version].deprecated = deprecated;
+  return res;
+}

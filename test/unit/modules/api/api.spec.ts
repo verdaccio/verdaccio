@@ -2,6 +2,8 @@ import request from 'supertest';
 import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
+import nock from 'nock';
+import { Readable } from 'stream';
 
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
@@ -20,10 +22,23 @@ import {DOMAIN_SERVERS} from '../../../functional/config.functional';
 import {buildToken, encodeScopedUri} from '../../../../src/lib/utils';
 import {
   getNewToken,
+  getPackage,
   putPackage,
   verifyPackageVersionDoesExist, generateUnPublishURI
 } from '../../__helper/api';
-import {generatePackageMetadata, generatePackageUnpublish, generateStarMedatada} from '../../__helper/utils';
+import {
+  generatePackageMetadata,
+  generatePackageUnpublish,
+  generateStarMedatada,
+  generateDeprecateMetadata,
+  generateVersion,
+} from '../../__helper/utils';
+
+const sleep = (delay) => {  
+  return new Promise(resolve => {  
+    setTimeout(resolve, delay)  
+  });  
+}
 
 require('../../../../src/lib/logger').setup([
   { type: 'stdout', format: 'pretty', level: 'warn' }
@@ -44,11 +59,11 @@ const putVersion = (app, name, publishMetadata) => {
 
 describe('endpoint unit test', () => {
   let app;
+  const mockServerPort = 55549;
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
-    const mockServerPort = 55549;
+    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');    
     rimraf(store, async () => {
       const configForTest = configDefault({
         auth: {
@@ -67,6 +82,12 @@ describe('endpoint unit test', () => {
         uplinks: {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          },
+          socketTimeout: {
+            url: `http://some.registry.timeout.com`,
+            max_fails: 2,
+            timeout: '1s',
+            fail_timeout: '1s'
           }
         },
         logs: [
@@ -84,6 +105,10 @@ describe('endpoint unit test', () => {
     mockRegistry[0].stop();
     done();
   });
+
+  afterEach(() => {
+    nock.cleanAll();
+  })
 
   describe('Registry API Endpoints', () => {
 
@@ -347,6 +372,39 @@ describe('endpoint unit test', () => {
             done();
           });
       });
+
+      test('should fails with socket time out fetch tarball timeout package from remote uplink', async () => {
+        const timeOutPkg = generatePackageMetadata('timeout', '1.5.1');
+        const responseText = 'fooooooooooooooooo';
+        const readable = Readable.from([responseText]);
+        timeOutPkg.versions['1.5.1'].dist.tarball = 'http://some.registry.timeout.com/timeout/-/timeout-1.5.1.tgz';
+        nock('http://some.registry.timeout.com')
+          .get('/timeout')
+          .reply(200, timeOutPkg);
+        nock('http://some.registry.timeout.com')
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .twice()
+          .socketDelay(50000)
+        .reply(200);
+        nock('http://some.registry.timeout.com')
+        .get('/timeout/-/timeout-1.5.1.tgz')
+        .reply(200, () => readable);        
+        const agent = request.agent(app);
+        await agent
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        await agent
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        await sleep(2000);  
+        // await agent      
+        await agent
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.OK);           
+      }, 10000);
 
       test('should fetch jquery specific version package from remote uplink', (done) => {
 
@@ -902,6 +960,74 @@ describe('endpoint unit test', () => {
                     });
             });
         });
+    });
+
+    describe('should test (un)deprecate api', () => {
+      const pkgName = '@scope/deprecate';
+      const credentials = { name: 'jota_deprecate', password: 'secretPass' };
+      const version = '1.0.0'
+      let token = '';
+      beforeAll(async (done) =>{
+        token = await getNewToken(request(app), credentials);
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, version), token);
+        done();
+      });
+
+      test('should deprecate a package', async (done) => {
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        if (err) {
+          expect(err).toBeNull();
+          return done(err);
+        }
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).toEqual('get deprecated');
+        done();
+      });
+
+      test('should undeprecate a package', async (done) => {
+        let pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        pkg = generateDeprecateMetadata(pkgName, version, '');
+        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        if (err) {
+          expect(err).toBeNull();
+          return done(err);
+        }
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).not.toBeDefined();
+        done();
+      });
+
+      test('should require both publish and unpublish access to (un)deprecate a package', async () => {
+        let credentials = { name: 'only_publish', password: 'secretPass' };
+        let token = await getNewToken(request(app), credentials);
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        const [err, res] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        expect(err).not.toBeNull();
+        expect(res.body.error).toBeDefined();
+        expect(res.body.error).toMatch(/user only_publish is not allowed to unpublish package @scope\/deprecate/);
+        credentials = { name: 'only_unpublish', password: 'secretPass' };
+        token = await getNewToken(request(app), credentials);
+        const [err2, res2] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        expect(err2).not.toBeNull();
+        expect(res2.body.error).toBeDefined();
+        expect(res2.body.error).toMatch(/user only_unpublish is not allowed to publish package @scope\/deprecate/);
+      })
+
+      test('should deprecate multiple packages', async (done) => {
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '1.0.1'), token);
+        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+        pkg.versions['1.0.1'] = {
+          ...generateVersion(pkgName, '1.0.1'),
+          deprecated: 'get deprecated',
+        };
+        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [,res] = await getPackage(request(app), '', pkgName);
+        expect(res.body.versions[version].deprecated).toEqual('get deprecated');
+        expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
+        done()
+      })
     });
   });
 });

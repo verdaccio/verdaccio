@@ -1,4 +1,4 @@
-FROM node:12.16.2-alpine as builder
+FROM node:12.18.4-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
@@ -12,16 +12,18 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-RUN yarn config set registry $VERDACCIO_BUILD_REGISTRY && \
-    yarn install --production=false && \
+RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
+    yarn config set enableProgressBars false && \
+    yarn config set enableTelemetry false && \
+    yarn install && \
     yarn lint && \
     yarn code:docker-build && \
     yarn cache clean && \
-    yarn install --production=true
+    yarn workspaces focus --production
 
 
 
-FROM node:12.16.2-alpine
+FROM node:12.18.4-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
