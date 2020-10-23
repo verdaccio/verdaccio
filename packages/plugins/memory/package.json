@@ -1,0 +1,44 @@
+{
+  "name": "verdaccio-memory",
+  "version": "10.0.0-beta",
+  "description": "Storage implementation in memory",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage",
+    "memory"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@verdaccio/commons-api": "workspace:*",
+    "@verdaccio/streams": "workspace:*",
+    "memory-fs": "^0.5.0"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:*"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}
