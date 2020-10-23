@@ -9,26 +9,24 @@ import {
   getLocalRegistryTarballUri,
   isVersionValid,
 } from '@verdaccio/utils';
-import { allow } from '@verdaccio/middleware';
+import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { logger } from '@verdaccio/logger';
-import { NextFunction, Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
-import { Config, Logger, Package } from '@verdaccio/types';
-import { addGravatarSupport } from '../web-utils';
+import { Config, Package, RemoteUser, Version } from '@verdaccio/types';
+import { addGravatarSupport, AuthorAvatar } from '../web-utils';
 import { generateGravatarUrl } from '../user';
 
-export type $SidebarPackage = Package & { latest: any };
-export type $RequestExtend = Request & { remote_user?: any; log: Logger };
-export type $ResponseExtend = Response & { cookies?: any };
-export type $NextFunctionVer = NextFunction & any;
+export type $SidebarPackage = Package & { latest: Version };
+export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
-export type PackcageExt = Package & { author: any; dist?: { tarball: string } };
+export type PackcageExt = Package & { author: AuthorAvatar; dist?: { tarball: string } };
 
 function addPackageWebApi(
   route: Router,
@@ -38,7 +36,7 @@ function addPackageWebApi(
 ): void {
   const can = allow(auth);
 
-  const checkAllow = (name, remoteUser): Promise<boolean> =>
+  const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
       try {
         auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {
@@ -63,7 +61,7 @@ function addPackageWebApi(
         throw err;
       }
 
-      async function processPackages(packages: PackcageExt[] = []): Promise<any> {
+      async function processPackages(packages: PackcageExt[] = []): Promise<PackcageExt[]> {
         const permissions: PackcageExt[] = [];
         const packgesCopy = packages.slice();
         for (const pkg of packgesCopy) {
@@ -100,8 +98,7 @@ function addPackageWebApi(
       }
 
       const { web } = config;
-      // @ts-ignore
-      const order: boolean = config.web ? getOrder(web.sort_packages) : true;
+      const order = web ? getOrder(web.sort_packages) : true;
 
       next(sortByName(await processPackages(packages), order));
     });
@@ -149,14 +146,13 @@ function addPackageWebApi(
       callback: function (err: Error, info: $SidebarPackage): void {
         if (_.isNil(err)) {
           const { v } = req.query;
-          let sideBarInfo: any = _.clone(info);
+          let sideBarInfo = _.clone(info);
           sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
             info,
             req,
             config.url_prefix
           ).versions;
-          if (isVersionValid(info, v)) {
-            // @ts-ignore
+          if (typeof v === 'string' && isVersionValid(info, v)) {
             sideBarInfo.latest = sideBarInfo.versions[v];
             sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
           } else {
@@ -164,12 +160,10 @@ function addPackageWebApi(
             sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
           }
           sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
-          if (config.web) {
-            sideBarInfo = addGravatarSupport(sideBarInfo, config.web.gravatar);
-          } else {
-            sideBarInfo = addGravatarSupport(sideBarInfo);
-          }
-          next(sideBarInfo);
+          const authorAvatar = config.web
+            ? addGravatarSupport(sideBarInfo, config.web.gravatar)
+            : addGravatarSupport(sideBarInfo);
+          next(authorAvatar);
         } else {
           res.status(HTTP_STATUS.NOT_FOUND);
           res.end();
