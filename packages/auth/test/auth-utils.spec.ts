@@ -31,7 +31,6 @@ import {
   aesDecrypt,
   verifyPayload,
   signPayload,
-  buildUser,
 } from '../src';
 
 setup([]);
@@ -428,7 +427,7 @@ describe('Auth utilities', () => {
         );
       });
 
-      test('should fail on verify the token and return anonymous users', async () => {
+      test('should fail on verify the token and return anonymous users 2', async () => {
         const remoteUser = createRemoteUser('foo', []);
         const token = await signPayload(remoteUser, '12345');
         const verifiedToken = verifyJWTPayload(token, '12345');

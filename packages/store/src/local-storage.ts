@@ -269,7 +269,8 @@ class LocalStorage implements IStorage {
           return cb(ErrorCode.getConflict());
         }
 
-        // if uploaded tarball has a different shasum, it's very likely that we have some kind of error
+        // if uploaded tarball has a different shasum, it's very likely that we
+        // have some kind of error
         if (isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
           const tarball = metadata.dist.tarball.replace(/.*\//, '');
 
@@ -279,7 +280,9 @@ class LocalStorage implements IStorage {
               _.isNil(metadata.dist.shasum) === false
             ) {
               if (data._attachments[tarball].shasum != metadata.dist.shasum) {
-                const errorMessage = `shasum error, ${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
+                const errorMessage =
+                  `shasum error, ` +
+                  `${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
                 return cb(ErrorCode.getBadRequest(errorMessage));
               }
             }

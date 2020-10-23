@@ -111,47 +111,52 @@ describe('StorageTest', () => {
   });
 
   describe('test getTarball', () => {
-    test.skip('should select right uplink given package.proxy for upstream tarballs', async (done) => {
-      const storage: IStorageHandler = await generateSameUplinkStorage();
-      const notcachedSpy = jest.spyOn(storage.uplinks.notcached, 'fetchTarball');
-      const cachedSpy = jest.spyOn(storage.uplinks.cached, 'fetchTarball');
+    test.skip(
+      'should select right uplink given package.proxy for' + ' upstream tarballs',
+      async (done) => {
+        const storage: IStorageHandler = await generateSameUplinkStorage();
+        const notcachedSpy = jest.spyOn(storage.uplinks.notcached, 'fetchTarball');
+        const cachedSpy = jest.spyOn(storage.uplinks.cached, 'fetchTarball');
 
-      await new Promise((res, rej) => {
-        const reader = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
-        reader.on('end', () => {
-          expect(notcachedSpy).toHaveBeenCalledTimes(0);
-          expect(cachedSpy).toHaveBeenCalledTimes(1);
-          expect(cachedSpy).toHaveBeenCalledWith('http://0.0.0.0:55548/jquery/-/jquery-1.5.1.tgz');
-          res();
+        await new Promise((res, rej) => {
+          const reader = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+          reader.on('end', () => {
+            expect(notcachedSpy).toHaveBeenCalledTimes(0);
+            expect(cachedSpy).toHaveBeenCalledTimes(1);
+            expect(cachedSpy).toHaveBeenCalledWith(
+              'http://0.0.0.0:55548/jquery/-/jquery-1.5.1.tgz'
+            );
+            res();
+          });
+          reader.on('error', (err) => {
+            rej(err);
+          });
+          reader.pipe(createNullStream());
         });
-        reader.on('error', (err) => {
-          rej(err);
-        });
-        reader.pipe(createNullStream());
-      });
 
-      // Reset counters.
-      cachedSpy.mockClear();
-      notcachedSpy.mockClear();
+        // Reset counters.
+        cachedSpy.mockClear();
+        notcachedSpy.mockClear();
 
-      await new Promise((res, rej) => {
-        const reader = storage.getTarball('@jquery/jquery', 'jquery-1.5.1.tgz');
-        reader.on('end', () => {
-          expect(cachedSpy).toHaveBeenCalledTimes(0);
-          expect(notcachedSpy).toHaveBeenCalledTimes(1);
-          expect(notcachedSpy).toHaveBeenCalledWith(
-            'http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
-          );
-          res();
+        await new Promise((res, rej) => {
+          const reader = storage.getTarball('@jquery/jquery', 'jquery-1.5.1.tgz');
+          reader.on('end', () => {
+            expect(cachedSpy).toHaveBeenCalledTimes(0);
+            expect(notcachedSpy).toHaveBeenCalledTimes(1);
+            expect(notcachedSpy).toHaveBeenCalledWith(
+              'http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
+            );
+            res();
+          });
+          reader.on('error', (err) => {
+            rej(err);
+          });
+          reader.pipe(createNullStream());
         });
-        reader.on('error', (err) => {
-          rej(err);
-        });
-        reader.pipe(createNullStream());
-      });
 
-      done();
-    });
+        done();
+      }
+    );
   });
 
   describe('test _syncUplinksMetadata', () => {

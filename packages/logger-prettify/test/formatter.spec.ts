@@ -68,7 +68,8 @@ describe('formatter', () => {
         error: undefined,
         bytes: { in: 0, out: 150186 },
         msg:
-          "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}', bytes: @{bytes.in}/@{bytes.out}",
+          "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}', " +
+          'bytes: @{bytes.in}/@{bytes.out}',
       };
 
       expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();

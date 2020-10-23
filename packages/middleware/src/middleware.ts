@@ -61,7 +61,8 @@ export function setSecurityWebHeaders(
 }
 
 // flow: express does not match properly
-// flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
+// flow info
+// https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
 export function validateName(
   req: $RequestExtend,
   res: $ResponseExtend,
@@ -80,7 +81,8 @@ export function validateName(
 }
 
 // flow: express does not match properly
-// flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
+// flow info
+// https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
 export function validatePackage(
   req: $RequestExtend,
   res: $ResponseExtend,
@@ -195,12 +197,7 @@ export interface MiddlewareError {
 
 export type FinalBody = Package | MiddlewareError | string;
 
-export function final(
-  body: FinalBody,
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend): void {
   if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {
     // they say it's required for 401, so...
     res.header(HEADERS.WWW_AUTH, `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
