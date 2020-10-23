@@ -1,0 +1,20 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*", "types/*.d.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../../core/commons-api"
+    },
+    {
+      "path": "../../core/streams"
+    },
+    {
+      "path": "../../core/types"
+    }
+  ]
+}
