@@ -519,6 +519,14 @@ importers:
       core-js: ^3.6.5
       lodash: ^4.17.20
       selfsigned: 1.10.7
+  packages/plugins/auth-memory:
+    dependencies:
+      '@verdaccio/commons-api': 'link:../../core/commons-api'
+    devDependencies:
+      '@verdaccio/types': 'link:../../core/types'
+    specifiers:
+      '@verdaccio/commons-api': 'workspace:*'
+      '@verdaccio/types': 'workspace:*'
   packages/plugins/memory:
     dependencies:
       '@verdaccio/commons-api': 'link:../../core/commons-api'
