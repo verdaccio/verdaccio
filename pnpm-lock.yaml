@@ -519,6 +519,24 @@ importers:
       core-js: ^3.6.5
       lodash: ^4.17.20
       selfsigned: 1.10.7
+  packages/plugins/audit:
+    dependencies:
+      express: 4.17.1
+      https-proxy-agent: 5.0.0
+      node-fetch: 2.6.1
+    devDependencies:
+      '@verdaccio/types': 'link:../../core/types'
+      body-parser: 1.19.0
+      nock: 12.0.3
+      supertest: 4.0.2
+    specifiers:
+      '@verdaccio/types': 'workspace:*'
+      body-parser: ^1.19.0
+      express: ^4.17.1
+      https-proxy-agent: ^5.0.0
+      nock: ^12.0.3
+      node-fetch: ^2.6.0
+      supertest: ^4.0.2
   packages/plugins/auth-memory:
     dependencies:
       '@verdaccio/commons-api': 'link:../../core/commons-api'
@@ -6569,6 +6587,14 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==
+  /agent-base/6.0.2:
+    dependencies:
+      debug: 4.2.0
+    dev: false
+    engines:
+      node: '>= 6.0.0'
+    resolution:
+      integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==
   /aggregate-error/3.1.0:
     dependencies:
       clean-stack: 2.2.0
@@ -13622,6 +13648,15 @@ packages:
       node: '>= 4.5.0'
     resolution:
       integrity: sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg==
+  /https-proxy-agent/5.0.0:
+    dependencies:
+      agent-base: 6.0.2
+      debug: 4.2.0
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==
   /human-id/1.0.2:
     dev: true
     resolution:
