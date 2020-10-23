@@ -1,0 +1,45 @@
+{
+  "name": "verdaccio-aws-s3-storage",
+  "version": "10.0.0-beta",
+  "description": "AWS S3 storage implementation for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage",
+    "aws"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/aws-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@verdaccio/commons-api": "workspace:*",
+    "@verdaccio/streams": "workspace:*",
+    "aws-sdk": "^2.607.0"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:*",
+    "recursive-readdir": "2.2.2"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}
