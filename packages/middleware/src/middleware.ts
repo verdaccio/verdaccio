@@ -25,7 +25,7 @@ import { IAuth } from '@verdaccio/auth';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { HttpError } from 'http-errors';
 
-export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $RequestExtend = Request & { remote_user?: RemoteUser; log: Logger };
 export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
 
@@ -165,7 +165,7 @@ export function allow(auth: IAuth): Function {
       const packageVersion = req.params.filename
         ? getVersionFromTarball(req.params.filename)
         : undefined;
-      const remote: RemoteUser = req.remote_user;
+      const remote = req.remote_user;
       logger.trace(
         { action, user: remote?.name },
         `[middleware/allow][@{action}] allow for @{user}`
