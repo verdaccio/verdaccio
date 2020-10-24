@@ -1,36 +1,36 @@
 {
-  "name": "verdaccio-audit",
+  "name": "@verdaccio/active-directory",
   "version": "10.0.0-beta",
-  "description": "Verdaccio Middleware plugin to bypass npmjs audit",
+  "description": "Active Directory authentication plugin for Verdaccio",
   "keywords": [
     "verdaccio",
-    "plugin",
-    "middleware",
-    "audit"
+    "active-directory",
+    "auth",
+    "plugin"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "author": "Sergio Herrera <sergio@sergiohgz.eu>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/plugins/audit"
+    "directory": "packages/plugins/active-directory"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
-    "express": "^4.17.1",
-    "https-proxy-agent": "^5.0.0",
-    "node-fetch": "^2.6.0"
+    "@verdaccio/commons-api": "workspace:*",
+    "activedirectory2": "^1.3.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:*",
-    "nock": "^12.0.3",
-    "body-parser": "^1.19.0",
-    "supertest": "^4.0.2"
+    "@types/activedirectory2": "^1.2.1",
+    "@verdaccio/types": "workspace:*"
   },
   "scripts": {
     "clean": "rimraf ./build",
