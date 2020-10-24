@@ -427,7 +427,7 @@ describe('Auth utilities', () => {
         );
       });
 
-      test('should fail on verify the token and return anonymous users 2', async () => {
+      test('should verify the token and return a remote user', async () => {
         const remoteUser = createRemoteUser('foo', []);
         const token = await signPayload(remoteUser, '12345');
         const verifiedToken = verifyJWTPayload(token, '12345');
