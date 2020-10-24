@@ -1,5 +1,4 @@
 import {
-  IBasicAuth,
   IBasicStorage,
   IStorageManager,
   UpLinkConf,
@@ -9,7 +8,6 @@ import {
   RemoteUser,
   Config,
   Logger,
-  JWTSignOptions,
   PackageAccess,
   IPluginStorage,
   StringValue as verdaccio$StringValue,
@@ -17,7 +15,6 @@ import {
   Package,
   IPluginStorageFilter,
   Author,
-  AuthPluginPackage,
   Token,
   ITokenActions,
   TokenFilter,

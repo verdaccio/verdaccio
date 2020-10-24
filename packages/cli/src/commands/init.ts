@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 import { parseConfigFile } from '@verdaccio/utils';
 import { findConfigFile } from '@verdaccio/config';
-import { logger, createLogger } from '@verdaccio/logger';
 import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
@@ -21,7 +20,8 @@ export default function initProgram(commander, pkgVersion, pkgName) {
 
     process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-    // note: self_path is only being used by @verdaccio/storage , not really useful and migth be removed soon
+    // note: self_path is only being used by @verdaccio/storage, not really useful
+    // and migth be removed soon
     if (!self_path) {
       verdaccioConfiguration = _.assign({}, verdaccioConfiguration, {
         self_path: path.resolve(configPathLocation),
@@ -45,7 +45,6 @@ export default function initProgram(commander, pkgVersion, pkgName) {
       listenDefaultCallback
     );
   } catch (err) {
-    // initLogger.fatal({file: configPathLocation, err: err}, 'cannot open config file @{file}: @{!err.message}');
     process.exit(1);
   }
 }

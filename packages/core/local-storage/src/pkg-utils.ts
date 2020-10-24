@@ -18,7 +18,8 @@ export function loadPrivatePackages(path: string, logger: Logger): LocalStorage 
     db = JSON.parse(data);
   } catch (err) {
     logger.error(
-      `Package database file corrupted (invalid JSON), please check the error printed below.\nFile Path: ${path}`,
+      `Package database file corrupted (invalid JSON), please check the error` +
+        ` printed below.\nFile Path: ${path}`,
       err
     );
     throw Error('Package database file corrupted (invalid JSON)');
