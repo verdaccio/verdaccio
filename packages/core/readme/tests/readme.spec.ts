@@ -73,7 +73,8 @@ describe('readme', () => {
           '![Escape SRC - onload](https://www.example.com/image.png"onload="alert(\'ImageOnLoad\'))'
         )
       ).toEqual(
-        '<p><img alt="Escape SRC - onload" src="https://www.example.com/image.png%22onload=%22alert(\'ImageOnLoad\')"></p>'
+        '<p><img alt="Escape SRC - onload" src="https://www.example.com/image.png%22onload=' +
+          "%22alert('ImageOnLoad')\"></p>"
       );
     });
 
@@ -104,10 +105,13 @@ describe('readme', () => {
     test('xss / data test/html encoded', () => {
       expect(
         parseReadme(
-          '[XSS](&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29)'
+          '[XSS](&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x7' +
+            '2&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29)'
         )
       ).toEqual(
-        '<p><a href="&amp;#x6A&amp;#x61&amp;#x76&amp;#x61&amp;#x73&amp;#x63&amp;#x72&amp;#x69&amp;#x70&amp;#x74&amp;#x3A&amp;#x61&amp;#x6C&amp;#x65&amp;#x72&amp;#x74&amp;#x28&amp;#x27&amp;#x58&amp;#x53&amp;#x53&amp;#x27&amp;#x29">XSS</a></p>'
+        '<p><a href="&amp;#x6A&amp;#x61&amp;#x76&amp;#x61&amp;#x73&amp;#x63&amp;#x72&amp;' +
+          '#x69&amp;#x70&amp;#x74&amp;#x3A&amp;#x61&amp;#x6C&amp;#x65&amp;#x72&amp;#x74&amp' +
+          ';#x28&amp;#x27&amp;#x58&amp;#x53&amp;#x53&amp;#x27&amp;#x29">XSS</a></p>'
       );
     });
 
@@ -218,7 +222,8 @@ describe('readme', () => {
         expect(
           parseReadme('![XSS](data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K)\\')
         ).toEqual(
-          '<p><img alt="XSS" src="data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K">\\</p>'
+          '<p><img alt="XSS" src="data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3Nj' +
+            'cmlwdD4K">\\</p>'
         );
       });
 
@@ -236,7 +241,9 @@ describe('readme', () => {
       const readme: string = await readReadme('mixed-html-mk');
 
       expect(clean(parseReadme(readme) as string)).toMatchInlineSnapshot(
-        `"<h1 id=\\"mix-html-and-xss-markdown\\">mix html and XSS markdown</h1><p><a>Basic</a></p><p><a href=\\"https://github.com/webpack/webpack\\"><img src=\\"https://webpack.js.org/assets/icon-square-big.svg\\" height=\\"200\\" width=\\"200\\"></a></p>"`
+        '"<h1 id=\\"mix-html-and-xss-markdown\\">mix html and XSS markdown</h1><p><a>Basic<' +
+          '/a></p><p><a href=\\"https://github.com/webpack/webpack\\"><img src=\\"https://webp' +
+          'ack.js.org/assets/icon-square-big.svg\\" height=\\"200\\" width=\\"200\\"></a></p>"'
       );
     });
   });

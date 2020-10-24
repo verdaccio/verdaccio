@@ -39,7 +39,8 @@ function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
 
 export default function (route, auth, storage): void {
   route.get('/-/v1/search', (req, res) => {
-    // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
+    // TODO: implement proper result scoring weighted by quality, popularity and
+    // maintenance query parameters
     let [text, size, from /* , quality, popularity, maintenance */] = [
       'text',
       'size',

@@ -85,7 +85,8 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   const isLegacyConf = _.isArray(options);
   if (isLegacyConf) {
     // FIXME: re-enable later
-    // console.warn("DEPRECATE: logs does not have multi-stream support anymore, please upgrade your logger configuration");
+    // console.warn("DEPRECATE: logs does not have multi-stream support anymore,
+    // please upgrade your logger configuration");
   }
 
   // backward compatible, pick only the first option

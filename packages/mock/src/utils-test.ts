@@ -35,7 +35,8 @@ export function generateNewVersion(
     },
     dist: {
       integrity:
-        'sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==',
+        'sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4Q' +
+        'dwXARU7dYWPnrwhGg==',
       shasum: shashum,
       tarball: `http:\/\/localhost:4873\/${pkgName}\/-\/${pkgName}-${version}.tgz`,
     },

@@ -232,7 +232,8 @@ class ProxyStorage implements IProxy {
             message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
             self.logger.warn(
               {
-                err: err || undefined, // if error is null/false change this to undefined so it wont log
+                // if error is null/false change this to undefined so it wont log
+                err: err || undefined,
                 request: { method: method, url: uri },
                 level: 35, // http
                 status: res != null ? res.statusCode : 'ERR',
@@ -295,6 +296,7 @@ class ProxyStorage implements IProxy {
         })();
       }
     });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     req.on('error', function (_err): void {
       // FIXME: _verdaccio_aborted seems not used
       // @ts-ignore

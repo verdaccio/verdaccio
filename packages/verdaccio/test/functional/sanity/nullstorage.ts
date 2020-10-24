@@ -62,14 +62,18 @@ export default function (server, server2) {
           /* test for before() */
         });
 
-        test(`should fetch the newly created published tarball for ${PKG_NAME} from server1 on server2`, () => {
-          return server
-            .getTarball(PKG_NAME, TARBALL)
-            .status(HTTP_STATUS.OK)
-            .then(function (body) {
-              expect(body).toEqual(getBinary());
-            });
-        });
+        test(
+          `should fetch the newly created published tarball for ${PKG_NAME} ` +
+            `from server1 on server2`,
+          () => {
+            return server
+              .getTarball(PKG_NAME, TARBALL)
+              .status(HTTP_STATUS.OK)
+              .then(function (body) {
+                expect(body).toEqual(getBinary());
+              });
+          }
+        );
 
         test(`should fetch metadata for ${PKG_NAME} match from server1`, () => {
           return server

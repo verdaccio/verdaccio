@@ -536,17 +536,18 @@ describe('endpoint unit test', () => {
           /**
            * Context:
            *
-           *   'non-unpublish':
-                 access: $authenticated
-                 publish: jota_unpublish_fail
-                 # There is some conditions to keep on mind here
-                 # - If unpublish is empty, fallback with the publish value
-                 # - If the user has permissions to publish and this empty it will be allowed to unpublish
-                 # - If we want to forbid anyone to unpublish,  just write here any unexisting user
-                 unpublish: none
-
-              The result of this test should fail and even if jota_unpublish_fail is allowed to publish.
-
+           *  'non-unpublish':
+           *    access: $authenticated
+           *    publish: jota_unpublish_fail
+           *    # There is some conditions to keep on mind here
+           *    # - If unpublish is empty, fallback with the publish value
+           *    # - If the user has permissions to publish and this empty it will
+           *    #   be allowed to unpublish
+           *    # - If we want to forbid anyone to unpublish, just write here any non-existing user
+           *    unpublish: none
+           *
+           *   The result of this test should fail and even if jota_unpublish_fail is
+           *   allowed to publish.
            *
            */
           const credentials = { name: 'jota_unpublish_fail', password: 'secretPass' };
@@ -590,10 +591,11 @@ describe('endpoint unit test', () => {
            # There is some conditions to keep on mind here
            # - If unpublish is empty, fallback with the publish value
            # - If the user has permissions to publish and this empty it will be allowed to unpublish
-           # - If we want to forbid anyone to unpublish,  just write here any unexisting user
+           # - If we want to forbid anyone to unpublish,  just write here any non-existing user
            unpublish: none
 
-           The result of this test should fail and even if jota_unpublish_fail is allowed to publish.
+           The result of this test should fail and even if jota_unpublish_fail is allowed
+           to publish.
 
            *
            */
@@ -823,35 +825,38 @@ describe('endpoint unit test', () => {
         done();
       });
 
-      test('should require both publish and unpublish access to (un)deprecate a package', async () => {
-        let credentials = { name: 'only_publish', password: 'secretPass' };
-        let token = await getNewToken(request(app), credentials);
-        const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-        const [err, res] = await putPackage(
-          request(app),
-          `/${encodeScopedUri(pkgName)}`,
-          pkg,
-          token
-        );
-        expect(err).not.toBeNull();
-        expect(res.body.error).toBeDefined();
-        expect(res.body.error).toMatch(
-          /user only_publish is not allowed to unpublish package @scope\/deprecate/
-        );
-        credentials = { name: 'only_unpublish', password: 'secretPass' };
-        token = await getNewToken(request(app), credentials);
-        const [err2, res2] = await putPackage(
-          request(app),
-          `/${encodeScopedUri(pkgName)}`,
-          pkg,
-          token
-        );
-        expect(err2).not.toBeNull();
-        expect(res2.body.error).toBeDefined();
-        expect(res2.body.error).toMatch(
-          /user only_unpublish is not allowed to publish package @scope\/deprecate/
-        );
-      });
+      test(
+        'should require both publish and unpublish access to ' + '(un)deprecate a package',
+        async () => {
+          let credentials = { name: 'only_publish', password: 'secretPass' };
+          let token = await getNewToken(request(app), credentials);
+          const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
+          const [err, res] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            pkg,
+            token
+          );
+          expect(err).not.toBeNull();
+          expect(res.body.error).toBeDefined();
+          expect(res.body.error).toMatch(
+            /user only_publish is not allowed to unpublish package @scope\/deprecate/
+          );
+          credentials = { name: 'only_unpublish', password: 'secretPass' };
+          token = await getNewToken(request(app), credentials);
+          const [err2, res2] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            pkg,
+            token
+          );
+          expect(err2).not.toBeNull();
+          expect(res2.body.error).toBeDefined();
+          expect(res2.body.error).toMatch(
+            /user only_unpublish is not allowed to publish package @scope\/deprecate/
+          );
+        }
+      );
 
       test('should deprecate multiple packages', async (done) => {
         await putPackage(
