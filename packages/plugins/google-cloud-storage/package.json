@@ -1,0 +1,51 @@
+{
+  "name": "verdaccio-google-cloud",
+  "version": "10.0.0-beta",
+  "description": "Google Cloud storage implementation for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage",
+    "google-cloud",
+    "datastore"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/google-cloud-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@google-cloud/datastore": "^6.2.0",
+    "@google-cloud/storage": "^5.3.0",
+    "@verdaccio/commons-api": "^9.7.1",
+    "@verdaccio/streams": "workspace:*"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:*",
+    "memory-fs": "0.5.0"
+  },
+  "optionalDependencies": {
+    "fast-crc32c": "1.0.4"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+  },
+  "snyk": true,
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}
