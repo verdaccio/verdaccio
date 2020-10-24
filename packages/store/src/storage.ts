@@ -665,13 +665,15 @@ class Storage {
             if (err) {
               return callback(err);
             }
-            // Any error here will cause a 404, like an uplink error. This is likely the right thing to do
+            // Any error here will cause a 404, like an uplink error. This is likely
+            // the right thing to do
             // as a broken filter is a security risk.
             const filterErrors: Error[] = [];
             // This MUST be done serially and not in parallel as they modify packageJsonLocal
             for (const filter of self.filters) {
               try {
-                // These filters can assume it's save to modify packageJsonLocal and return it directly for
+                // These filters can assume it's save to modify packageJsonLocal
+                // and return it directly for
                 // performance (i.e. need not be pure)
                 packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
               } catch (err) {

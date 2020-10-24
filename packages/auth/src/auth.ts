@@ -162,7 +162,6 @@ class Auth implements IAuth {
 
   public authenticate(username: string, password: string, cb: Callback): void {
     const plugins = this.plugins.slice(0);
-    const self = this;
     (function next(): void {
       const plugin = plugins.shift() as IPluginAuth<Config>;
 
@@ -213,7 +212,8 @@ class Auth implements IAuth {
       if (isFunction(plugin[method]) === false) {
         method = 'add_user';
         self.logger.warn(
-          'the plugin method add_user in the auth plugin is deprecated and will be removed in next major release, notify to the plugin author'
+          'the plugin method add_user in the auth plugin is deprecated and will' +
+            ' be removed in next major release, notify to the plugin author'
         );
       }
 
@@ -326,7 +326,6 @@ class Auth implements IAuth {
     callback: Callback
   ): void {
     const plugins = this.plugins.slice(0);
-    const self = this;
     const pkg = Object.assign(
       { name: packageName, version: packageVersion },
       getMatchedPackagesSpec(packageName, this.config.packages)

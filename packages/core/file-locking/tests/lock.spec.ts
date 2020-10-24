@@ -92,7 +92,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with options should to be found to be read it and fails to be parsed', (done) => {
+    test('read file with options should be found to be read it and fails to be parsed', (done) => {
       const options = {
         parse: true,
       };
@@ -102,7 +102,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with  options (parse, lock) should to be found to be read it as object', (done) => {
+    test('read file with options (parse, lock) should be found to be read it as object', (done) => {
       const options = {
         parse: true,
         lock: true,
@@ -120,16 +120,19 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with options (parse, lock) should to be found to be read it and fails to be parsed', (done) => {
-      const options = {
-        parse: true,
-        lock: true,
-      };
-      readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
-        expect(error.message).toMatch(/Unexpected token } in JSON at position \d+/);
-        removeTempFile('wrong.package.json.lock');
-        done();
-      });
-    });
+    test(
+      'read file with options (parse, lock) should be found to be read and ' + 'fails to be parsed',
+      (done) => {
+        const options = {
+          parse: true,
+          lock: true,
+        };
+        readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
+          expect(error.message).toMatch(/Unexpected token } in JSON at position \d+/);
+          removeTempFile('wrong.package.json.lock');
+          done();
+        });
+      }
+    );
   });
 });

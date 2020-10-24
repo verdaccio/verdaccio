@@ -61,7 +61,8 @@ export function setSecurityWebHeaders(
 }
 
 // flow: express does not match properly
-// flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
+// flow info
+// https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
 export function validateName(
   req: $RequestExtend,
   res: $ResponseExtend,
@@ -80,7 +81,8 @@ export function validateName(
 }
 
 // flow: express does not match properly
-// flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
+// flow info
+// https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
 export function validatePackage(
   req: $RequestExtend,
   res: $ResponseExtend,

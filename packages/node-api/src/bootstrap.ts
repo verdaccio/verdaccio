@@ -115,7 +115,8 @@ function logHTTPSWarning(storageLocation) {
 function handleHTTPS(app: Application, configPath: string, config: ConfigWithHttps): https.Server {
   try {
     let httpsOptions = {
-      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
+      // disable insecure SSLv2 and SSLv3
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3,
     };
 
     const keyCertConfig = config.https as HttpsConfKeyCert;

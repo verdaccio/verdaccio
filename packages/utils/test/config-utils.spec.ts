@@ -127,38 +127,41 @@ describe('Config Utilities', () => {
       expect(all.publish).toContain('admin');
     });
 
-    test('should normalize deprecated packages into the new ones (backward props compatible)', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
-      const access = normalisePackageAccess(packages);
+    test(
+      'should normalize deprecated packages into the new ones ' + '(backward props compatible)',
+      () => {
+        const { packages } = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
+        const access = normalisePackageAccess(packages);
 
-      expect(access).toBeDefined();
+        expect(access).toBeDefined();
 
-      const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
-      const all = access[`${PACKAGE_ACCESS.ALL}`];
-      const react = access['react-*'];
+        const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
+        const all = access[`${PACKAGE_ACCESS.ALL}`];
+        const react = access['react-*'];
 
-      expect(react).toBeDefined();
-      expect(react.access).toBeDefined();
+        expect(react).toBeDefined();
+        expect(react.access).toBeDefined();
 
-      // Intended checks, Typescript should catch this, we test the runtime part
-      // @ts-ignore
-      expect(react.access).toEqual([]);
-      // @ts-ignore
-      expect(react.publish[0]).toBe('admin');
-      expect(react.proxy).toBeDefined();
-      // @ts-ignore
-      expect(react.proxy).toEqual([]);
-      expect(react.storage).toBeDefined();
+        // Intended checks, Typescript should catch this, we test the runtime part
+        // @ts-ignore
+        expect(react.access).toEqual([]);
+        // @ts-ignore
+        expect(react.publish[0]).toBe('admin');
+        expect(react.proxy).toBeDefined();
+        // @ts-ignore
+        expect(react.proxy).toEqual([]);
+        expect(react.storage).toBeDefined();
 
-      expect(react.storage).toBe('react-storage');
-      expect(scoped).toBeDefined();
-      expect(scoped.storage).not.toBeDefined();
-      expect(all).toBeDefined();
-      expect(all.access).toBeDefined();
-      expect(all.storage).not.toBeDefined();
-      expect(all.publish).toBeDefined();
-      expect(all.proxy).toBeDefined();
-    });
+        expect(react.storage).toBe('react-storage');
+        expect(scoped).toBeDefined();
+        expect(scoped.storage).not.toBeDefined();
+        expect(all).toBeDefined();
+        expect(all.access).toBeDefined();
+        expect(all.storage).not.toBeDefined();
+        expect(all.publish).toBeDefined();
+        expect(all.proxy).toBeDefined();
+      }
+    );
 
     test('should check not default packages access', () => {
       const { packages } = parseConfigFile(parseConfigurationFile('pkgs-empty'));

@@ -136,30 +136,34 @@ describe('endpoint user auth JWT unit test', () => {
     done();
   });
 
-  test('should fails on login if user credentials are invalid even if jwt valid token is provided', async (done) => {
-    const credentials = { name: 'newFailsUser', password: 'secretPass' };
-    const [err, res] = await addUser(request(app), credentials.name, credentials);
-    expect(err).toBeNull();
-    expect(res.body.ok).toBeDefined();
-    expect(res.body.token).toBeDefined();
+  test(
+    'should fails on login if user credentials are invalid even if jwt' +
+      ' valid token is provided',
+    async (done) => {
+      const credentials = { name: 'newFailsUser', password: 'secretPass' };
+      const [err, res] = await addUser(request(app), credentials.name, credentials);
+      expect(err).toBeNull();
+      expect(res.body.ok).toBeDefined();
+      expect(res.body.token).toBeDefined();
 
-    const { token } = res.body;
-    expect(typeof token).toBe('string');
-    expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
+      const { token } = res.body;
+      expect(typeof token).toBe('string');
+      expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
 
-    // we login when token is valid
-    const newCredentials = { name: 'newFailsUser', password: 'BAD_PASSWORD' };
-    const [err2, resp2] = await loginUserToken(
-      request(app),
-      newCredentials.name,
-      newCredentials,
-      token,
-      HTTP_STATUS.UNAUTHORIZED
-    );
-    expect(err2).toBeNull();
-    expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
-    expect(resp2.body.error).toMatch(API_ERROR.BAD_USERNAME_PASSWORD);
+      // we login when token is valid
+      const newCredentials = { name: 'newFailsUser', password: 'BAD_PASSWORD' };
+      const [err2, resp2] = await loginUserToken(
+        request(app),
+        newCredentials.name,
+        newCredentials,
+        token,
+        HTTP_STATUS.UNAUTHORIZED
+      );
+      expect(err2).toBeNull();
+      expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
+      expect(resp2.body.error).toMatch(API_ERROR.BAD_USERNAME_PASSWORD);
 
-    done();
-  });
+      done();
+    }
+  );
 });

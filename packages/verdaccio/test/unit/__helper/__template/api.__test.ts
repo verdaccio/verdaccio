@@ -1,7 +1,8 @@
 /**
  * PLEASE DO NOT MODIFY THIS FILE
  *
- * This test is just for teaching purpose, use this example as template for your new endpoint API unit test
+ * This test is just for teaching purpose, use this example as template for your new
+ * endpoint API unit test
  *
  * If you have any questions, ask at the http://chat.verdaccio.org #questions channel.
  *
