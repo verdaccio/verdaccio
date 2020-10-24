@@ -1,37 +1,46 @@
 # Contributing
 
-> Any chage matters, whatever the size, just do it.
+> Any change matters, whatever the size, just do it.
 
 We are happy that you are willing to contribute. For that reason, we
-have prepared guidelines for you:
+have prepared these guidelines for you:
 
-### Contents
+**Table of Contents**
 
-- [How Do I Contribute?](#how-do-i-contribute)
-- [Getting Started](#getting-started)
-- [Reporting Bugs](#reporting-bugs)
-  - [Issue Search](#issue-search)
-  - [Check Website For Solution](#check-website-for-solution)
-  - [Chat](#chat)
-  - [Check If It's Been Fixed](#check-if-its-been-fixed)
-- [Request Features](#request-features)
-
-  - [Submitting a Pull Request](#submitting-a-pull-request)
-  - [Make Changes and Commit](#make-changes-and-commit)
-  - [Submitting a Pull Request](#submitting-a-pull-request)
-  - [Make Changes and Commit](#make-changes-and-commit)
-
-- [Update Tests](#update-tests)
-- [Developing Plugins](#develop-plugins)
+- [Contributing](#contributing)
+  - [How Do I Contribute?](#how-do-i-contribute)
+  - [Development Setup](#development-setup)
+    - [Building the project](#building-the-project)
+    - [Running test](#running-test)
+    - [Running and debugging](#running-and-debugging)
+    - [Debugging compiled code](#debugging-compiled-code)
+  - [Reporting Bugs](#reporting-bugs)
+    - [Read the documentation](#read-the-documentation)
+    - [What's is not considered a bug?](#whats-is-not-considered-a-bug)
+    - [Issue Search](#issue-search)
+    - [Chat](#chat)
+  - [Request Features](#request-features)
+  - [Contributing Guidelines](#contributing-guidelines)
+    - [Submitting a Pull Request](#submitting-a-pull-request)
+    - [Make Changes and Commit](#make-changes-and-commit)
+      - [Caveats](#caveats)
+      - [Before Commit](#before-commit)
+      - [Commit Guidelines](#commit-guidelines)
+    - [Adding a changeset](#adding-a-changeset)
+    - [Update Tests](#update-tests)
+  - [Develop Plugins](#develop-plugins)
 
 ## How Do I Contribute?
 
 There are different ways to contribute, each comes with a different levels
 of tasks, such as:
 
-- Fixing bugs
-- Triaging reported bugs by others
-- Improve codebase (lint, naming, comments, test descriptions, etc...)
+- Report a bug.
+- Request a feature you think would be great for verdaccio.
+- Fix bugs.
+- Test and triage reported bugs by others.
+- Work on requested/approved features.
+- Improve the codebase (lint, naming, comments, test descriptions, etc...)
 
 Verdaccio has several areas of involvement, which might fit you better, eg:
 
@@ -42,7 +51,7 @@ Verdaccio has several areas of involvement, which might fit you better, eg:
 
 > There are other areas to contribute, like documentation, translation which are not hosted on this repo but check the last section of this notes for further information.
 
-## Development
+## Development Setup
 
 Verdaccio uses [_pnpm_](https://pnpm.js.org/) as package manager for development in this repository. Please install the latest one:
 
@@ -56,7 +65,7 @@ First step is installing all dependencies:
 pnpm install
 ```
 
-#### Building the project
+### Building the project
 
 To build the project run
 
@@ -85,7 +94,7 @@ pnpm test test/merge.dist.tags.spec.ts
 
 or a single test unit
 
-```js
+```
 pnpm test test/merge.dist.tags.spec.ts -- -t 'simple'
 ```
 
@@ -107,7 +116,7 @@ More details in the debug section
 
 We uses [`debug`](https://www.npmjs.com/package/debug) for debug outcome. Each package has it owns namespace.
 
-#### Debugging compiled code
+### Debugging compiled code
 
 Currently you can only run in debug mode pre-compiled packages, to enable debug while running add the `verdaccio` namespace using the `DEBUG` environment variable, like this:
 
@@ -140,7 +149,7 @@ Check whether you are using the software in the way is documented [documentation
 ### What's is not considered a bug?
 
 - _Third party integrations_: proxies integrations, external plugins.
-- _Package managers_: If a package manager does not support a specific command or cannot be reproduced with another package mananger.
+- _Package managers_: If a package manager does not support a specific command or cannot be reproduced with another package manager.
 - _Features clearly flagged as not supported_.
 - _Node.js issues installation in any platform_: If you cannot install the global package ( this is considered external issue)
 - Any ticket which has the flagged as [external issue](https://github.com/verdaccio/verdaccio/labels/external-issue).
@@ -174,9 +183,9 @@ the project. Then, detail your request, ensuring context and use case is provide
 - A potential implementation or design
 - Whatever else you have in your mind 🤓
 
-##Contributing
+## Contributing Guidelines
 
-This is the most exciting part, when you became a Verdaccio contributor 🙌🏼, please to ensure a fast code review and merge, follow the next guidelines:
+This is the most exciting part, when you became a Verdaccio contributor 🙌🏼, to ensure a fast code review and merge, please follow the next guidelines:
 
 > Any contribution gives you the right to be part of this organization as _collaborator_.
 
@@ -202,7 +211,7 @@ information on [rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 ### Make Changes and Commit
 
-### Caveats
+#### Caveats
 
 Feel free to commit as much times you want in your branch, but keep on mind on this repository we `git squash` on merge by default, any other way is forbidden since we intent to have a clean git history.
 
@@ -255,11 +264,11 @@ All commits message are going to be validated when they are created using husky 
 
 > Please, try to provide one single commit to help a clean and easy merge process.
 
-## Adding a changeset
+### Adding a changeset
 
-We uses [changesets](https://github.com/atlassian/changesets) in order to generate a detailed Changelog as possible.
+We use [changesets](https://github.com/atlassian/changesets) in order to generate a detailed Changelog as possible.
 
-Add a changeset with your Pull Request is essencial if you want your contribution get merged. To create a changeset please run:
+Add a changeset with your Pull Request is essential if you want your contribution get merged. To create a changeset please run:
 
 ```
 pnpm changeset
@@ -311,11 +320,11 @@ The last step is confirm your changeset or abort the operation.
 
 Once the changeset is added (all will have an unique name) you can freely edit using markdown, adding additional information, code snippets or what you consider is relevant.
 
-All that information will be part of the **changelog**, be consice but informative. It is considered a good option to add your nickname and GitHub link to your profile.
+All that information will be part of the **changelog**, be concise but informative. It is considered a good option to add your nickname and GitHub link to your profile.
 
 **PRs that do not follow the commit message guidelines will not be merged.**
 
-## Update Tests
+### Update Tests
 
 **Any change in source code must include test updates**.
 
