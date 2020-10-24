@@ -4,11 +4,11 @@
 import commander from 'commander';
 import { bgYellow, bgRed } from 'kleur';
 
-import { setup, logger } from '@verdaccio/logger';
+import { logger } from '@verdaccio/logger';
 
 import infoCommand from './commands/info';
 import initProgram from './commands/init';
-import { isVersionValid, MIN_NODE_VERSION } from './utils';
+import { isVersionValid } from './utils';
 
 const isRootUser = process.getuid && process.getuid() === 0;
 
@@ -23,7 +23,8 @@ if (isRootUser) {
 if (isVersionValid()) {
   global.console.error(
     bgRed(
-      `Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`
+      'Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher,' +
+        ' please upgrade your Node.js distribution'
     )
   );
   process.exit(1);
@@ -61,7 +62,8 @@ process.on('uncaughtException', function (err) {
     {
       err: err,
     },
-    'uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) this: \n@{err.stack}'
+    'uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) ' +
+      'this: \n@{err.stack}'
   );
   process.exit(255);
 });

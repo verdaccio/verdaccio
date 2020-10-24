@@ -74,7 +74,8 @@ export function getLatestReadme(pkg: Package): string {
     return readme;
   }
 
-  // In case of empty readme - trying to get ANY readme in the following order: 'next','beta','alpha','test','dev','canary'
+  // In case of empty readme - trying to get ANY readme in the following order:
+  // 'next','beta','alpha','test','dev','canary'
   const readmeDistTagsPriority = ['next', 'beta', 'alpha', 'test', 'dev', 'canary'];
   readmeDistTagsPriority.forEach(function (tag): string | void {
     if (readme) {

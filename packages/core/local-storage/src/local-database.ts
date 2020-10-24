@@ -340,10 +340,12 @@ class LocalDatabase implements IPluginStorage<{}> {
 
     if (this.locked) {
       this.logger.error(
-        'Database is locked, please check error message printed during startup to prevent data loss.'
+        'Database is locked, please check error message printed during startup to ' +
+          'prevent data loss.'
       );
       return new Error(
-        'Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.'
+        'Verdaccio database is locked, please contact your administrator to checkout ' +
+          'logs during verdaccio startup.'
       );
     }
     // Uses sync to prevent ugly race condition

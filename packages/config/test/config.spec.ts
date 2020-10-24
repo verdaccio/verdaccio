@@ -5,7 +5,7 @@ import { setup } from '@verdaccio/logger';
 import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '@verdaccio/dev-commons';
 
 import { parseConfigFile } from '@verdaccio/utils';
-import { Config, readDefaultConfig } from '../src';
+import { Config } from '../src';
 
 setup([]);
 
@@ -95,6 +95,4 @@ describe('Config file', () => {
       checkDefaultConfPackages(config);
     });
   });
-
-  describe('Config file', () => {});
 });

@@ -74,8 +74,9 @@ function updateStorageLinks(configLocation, defaultConfig): string {
     return defaultConfig;
   }
 
-  // $XDG_DATA_HOME defines the base directory relative to which user specific data files should be stored,
-  // If $XDG_DATA_HOME is either not set or empty, a default equal to $HOME/.local/share should be used.
+  // $XDG_DATA_HOME defines the base directory relative to which user specific data
+  // files should be stored, If $XDG_DATA_HOME is either not set or empty, a default
+  // equal to $HOME/.local/share should be used.
   // $FlowFixMe
   let dataDir =
     process.env.XDG_DATA_HOME || Path.join(process.env.HOME as string, '.local', 'share');

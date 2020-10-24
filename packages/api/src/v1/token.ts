@@ -96,7 +96,8 @@ export default function (
 
         /**
          * cidr_whitelist: is not being used, we pass it through
-         * token: we do not store the real token (it is generated once and retrieved to the user), just a mask of it.
+         * token: we do not store the real token (it is generated once and retrieved
+         * to the user), just a mask of it.
          */
         const saveToken: Token = {
           user: name,

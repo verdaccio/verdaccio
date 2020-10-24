@@ -514,7 +514,8 @@ declare module '@verdaccio/types' {
     tag?: string;
   }
 
-  // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };` instead of AuthError
+  // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
+  // instead of AuthError
   // but this type is on @verdaccio/commons-api and cannot be used here yet (I don't know why)
   interface HttpError extends Error {
     status: number;
