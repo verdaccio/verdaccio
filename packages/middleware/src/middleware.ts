@@ -197,7 +197,12 @@ export interface MiddlewareError {
 
 export type FinalBody = Package | MiddlewareError | string;
 
-export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend): void {
+export function final(
+  body: FinalBody,
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+): void {
   if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {
     // they say it's required for 401, so...
     res.header(HEADERS.WWW_AUTH, `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
