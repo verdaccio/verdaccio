@@ -15,7 +15,9 @@ export default function (server, express) {
               version: '0.1.0',
               dist: {
                 shasum: 'fake',
-                tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-racycrash/-/test.tar.gz`,
+                tarball:
+                  `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-racycrash/-` +
+                  `/test.tar.gz`,
               },
             },
           },

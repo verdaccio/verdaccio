@@ -4,7 +4,7 @@ import _ from 'lodash';
 import buildDebug from 'debug';
 
 import { IStorageHandler } from '@verdaccio/store';
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
+import { $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:publish:star');
 
