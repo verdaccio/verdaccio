@@ -54,7 +54,8 @@ export default class VerdaccioProcess implements IServerProcess {
     this.childFork = fork(verdaccioPath, ['-c', configPath, '-l', port as string], childOptions);
 
     this.childFork.on('message', (msg) => {
-      // verdaccio_started is a message that comes from verdaccio in debug mode that notify has been started
+      // verdaccio_started is a message that comes from verdaccio in debug mode that
+      // notify has been started
       if ('verdaccio_started' in msg) {
         this.bridge
           .debug()

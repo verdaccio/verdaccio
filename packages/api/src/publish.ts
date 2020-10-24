@@ -57,31 +57,36 @@ export default function publish(
    *
    * Unpublish consist in 3 steps.
    *  1. Try to fetch  metadata -> if it fails, return 404
-   *  2. Compute metadata locally (client side) and send a mutate payload excluding the version to be unpublished
+   *  2. Compute metadata locally (client side) and send a mutate payload excluding the version to
+   *    be unpublished
    *    eg: if metadata reflects 1.0.1, 1.0.2 and 1.0.3, the computed metadata won't include 1.0.3.
    *  3. Once the second step has been successfully finished, delete the tarball.
    *
-   *  All these steps are consecutive and required, there is no transacions here, if step 3 fails, metadata might
-   *  get corrupted.
+   *  All these steps are consecutive and required, there is no transacions here, if step 3 fails,
+   *  metadata might get corrupted.
    *
-   *  Note the unpublish call will suffix in the url a /-rev/14-5d500cfce92f90fd revision number, this not
+   *  Note the unpublish call will suffix in the url a /-rev/14-5d500cfce92f90fd revision number,
+   *  this not
    *  used internally.
    *
    *
    * Example flow of unpublish.
    *
    * npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1680ms
-     npm http fetch PUT 201 http://localhost:4873/@scope%2ftest1/-rev/14-5d500cfce92f90fd 956606ms attempt #2
-     npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1601ms
-     npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
+   * npm http fetch PUT 201 http://localhost:4873/@scope%2ftest1/-rev/14-5d500cfce92f90fd
+   * 956606ms attempt #2
+   * npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1601ms
+   * npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-/test1-1.0.3.tgz/-rev/16
+   * -e11c8db282b2d992 19ms
    *
    * 3. Star a package
    *
-   * Permissions: start a package depends of the publish and unpublish permissions, there is no specific flag for star or un start.
+   * Permissions: start a package depends of the publish and unpublish permissions, there is no
+   * specific flag for star or un start.
    * The URL for star is similar to the unpublish (change package format)
    *
-   * npm has no enpoint for star a package, rather mutate the metadata and acts as, the difference is the
-   * users property which is part of the payload and the body only includes
+   * npm has no enpoint for star a package, rather mutate the metadata and acts as, the difference
+   * is the users property which is part of the payload and the body only includes
    *
    * {
 		  "_id": pkgName,
@@ -209,9 +214,12 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         });
       }
 
-      // npm-registry-client 0.3+ embeds tarball into the json upload
-      // https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
-      // issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
+      /**
+       * npm-registry-client 0.3+ embeds tarball into the json upload
+       * https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
+       * issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
+       */
+
       const isInvalidBodyFormat =
         isObject(_attachments) === false ||
         hasDiffOneKey(_attachments) ||

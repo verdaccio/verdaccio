@@ -42,7 +42,8 @@ function isES6(plugin): boolean {
  * Load a plugin following the rules
  * - First try to load from the internal directory plugins (which will disappear soon or later).
  * - A second attempt from the external plugin directory
- * - A third attempt from node_modules, in case to have multiple match as for instance verdaccio-ldap
+ * - A third attempt from node_modules, in case to have multiple match as for instance
+ * verdaccio-ldap
  * and sinopia-ldap. All verdaccio prefix will have preferences.
  * @param {*} config a reference of the configuration settings
  * @param {*} pluginConfigs

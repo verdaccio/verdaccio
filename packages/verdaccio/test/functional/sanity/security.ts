@@ -48,7 +48,8 @@ export default function (server) {
       return server
         .request({
           uri:
-            '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd',
+            '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%' +
+            '2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd',
         })
         .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);
