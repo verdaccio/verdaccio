@@ -63,9 +63,8 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
           );
 
           if (matchingGroups.length <= 0) {
-            const notMemberMessage = `AD - User ${user} is not member of group(s): ${requestedGroups.join(
-              ', '
-            )}`;
+            const notMemberMessage = `AD - User ${user} is not 
+            member of group(s): ${requestedGroups.join(', ')}`;
 
             this.logger.warn(notMemberMessage);
             cb(getForbidden(notMemberMessage));

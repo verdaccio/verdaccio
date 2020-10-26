@@ -8,7 +8,7 @@ import {
 } from '@verdaccio/types';
 import { getConflict, getForbidden, getNotFound, getUnauthorized } from '@verdaccio/commons-api';
 
-import { VerdaccioMemoryConfig, Users, UserMemory } from './types/index';
+import { VerdaccioMemoryConfig, Users, UserMemory } from './types';
 
 export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   public _logger: Logger;
@@ -91,10 +91,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   }
 
   public allow_access(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
-    if (
-      (pkg.access && pkg.access.includes('$all')) ||
-      (pkg.access && pkg.access.includes('$anonymous'))
-    ) {
+    if (pkg?.access?.includes('$all') || pkg?.access?.includes('$anonymous')) {
       this._logger.debug(
         { user: user.name },
         '[VerdaccioMemory] user: @{user} has been granted access'
@@ -109,10 +106,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(err);
     }
 
-    if (
-      (pkg.access && pkg.access.includes(user.name)) ||
-      (pkg.access && pkg.access.includes('$authenticated'))
-    ) {
+    if (pkg?.access?.includes(user.name) || pkg?.access?.includes('$authenticated')) {
       this._logger.debug(
         { user: user.name },
         '[VerdaccioMemory] user: @{user} has been granted access'
@@ -130,10 +124,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   }
 
   public allow_publish(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
-    if (
-      (pkg.publish && pkg.publish.includes('$all')) ||
-      (pkg.publish && pkg.publish.includes('$anonymous'))
-    ) {
+    if (pkg?.publish?.includes('$all') || pkg?.publish?.includes('$anonymous')) {
       this._logger.debug(
         { user: user.name },
         '[VerdaccioMemory] user: @{user} has been granted to publish'
@@ -148,10 +139,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(err);
     }
 
-    if (
-      (pkg.publish && pkg.publish.includes(user.name)) ||
-      (pkg.publish && pkg.publish.includes('$authenticated'))
-    ) {
+    if (pkg?.publish?.includes(user.name) || pkg?.publish?.includes('$authenticated')) {
       return cb(null, true);
     }
 

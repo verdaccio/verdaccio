@@ -1,6 +1,5 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { fork } from 'child_process';
-
-export function prepareEnvironment(rootFolder: string, folderName: string) {}
 
 export function spawnRegistry(verdaccioPath: string, args: string[], childOptions) {
   return new Promise((resolve, reject) => {
