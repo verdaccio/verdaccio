@@ -61,7 +61,7 @@ describe('Memory', function () {
 
   describe('replace user', function () {
     beforeAll(function (done) {
-      auth.adduser('test', 'secret', function (_err) {
+      auth.adduser('test', 'secret', function () {
         done();
       });
     });
@@ -80,7 +80,7 @@ describe('Memory', function () {
 
   describe('#allow_access', function () {
     beforeEach(function (done) {
-      auth.adduser('test', 'secret', function (_err, _user) {
+      auth.adduser('test', 'secret', function () {
         done();
       });
     });
@@ -136,7 +136,7 @@ describe('Memory', function () {
 
   describe('#allow_publish', function () {
     beforeEach(function (done) {
-      auth.adduser('test', 'secret', function (_err, _user) {
+      auth.adduser('test', 'secret', function () {
         done();
       });
     });
@@ -198,7 +198,7 @@ describe('Memory', function () {
         config: {} as VerdaccioMemoryConfig,
         logger,
       });
-      auth.adduser('test', 'secret', function (_err, _user) {
+      auth.adduser('test', 'secret', function () {
         done();
       });
     });
@@ -222,7 +222,7 @@ describe('Memory', function () {
 
   describe('#authenticate', function () {
     beforeEach(function (done) {
-      auth.adduser('test', 'secret', function (_err, _user) {
+      auth.adduser('test', 'secret', function () {
         done();
       });
     });

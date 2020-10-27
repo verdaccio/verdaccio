@@ -204,9 +204,12 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           await file.save(this._convertToString(metadata), {
             validation: this.config.validation || defaultValidation,
             /**
-             * When resumable is `undefined` - it will default to `true`as per GC Storage documentation:
-             * `Resumable uploads are automatically enabled and must be shut off explicitly by setting options.resumable to false`
-             * @see https://cloud.google.com/nodejs/docs/reference/storage/2.5.x/File#createWriteStream
+             *  When resumable is `undefined` - it will default to `true`as
+             *  per GC Storage documentation:
+             * `Resumable uploads are automatically enabled and must be shut
+             *  off explicitly by setting options.resumable to false`
+             *  @see
+             *  https://cloud.google.com/nodejs/docs/reference/storage/2.5.x/File#createWriteStream
              */
             resumable: this.config.resumable,
           });
