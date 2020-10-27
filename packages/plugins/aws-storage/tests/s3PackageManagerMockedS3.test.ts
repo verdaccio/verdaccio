@@ -109,7 +109,7 @@ describe('S3PackageManager with mocked s3', function () {
     });
   });
 
-  test('new package is uploaded to custom storage prefix as specified on package section in config', (done) => {
+  test('new package is uploaded to custom storage prefix', (done) => {
     expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -340,7 +340,7 @@ describe('S3PackageManager with mocked s3', function () {
       getMatchedPackagesSpec: jest.fn(() => null) as PackageAccess,
     } as S3Config;
 
-    mockGetObject.mockImplementation((params) => {
+    mockGetObject.mockImplementation(() => {
       return {
         on: jest.fn(() => ({
           createReadStream: jest.fn(() => ({
@@ -371,7 +371,7 @@ describe('S3PackageManager with mocked s3', function () {
       })) as PackageAccess,
     } as S3Config;
 
-    mockGetObject.mockImplementation((params) => {
+    mockGetObject.mockImplementation(() => {
       return {
         on: jest.fn(() => ({
           createReadStream: jest.fn(() => ({

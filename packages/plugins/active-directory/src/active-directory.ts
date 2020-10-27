@@ -63,6 +63,7 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
           );
 
           if (matchingGroups.length <= 0) {
+            // eslint-disable-next-line max-len
             const notMemberMessage = `AD - User ${user} is not member of group(s): ${requestedGroups.join(
               ', '
             )}`;
