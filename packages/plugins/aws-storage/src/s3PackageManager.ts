@@ -283,7 +283,8 @@ export default class S3PackageManager implements ILocalPackageManager {
       Key: `${this.packagePath}/${name}`,
     };
 
-    // NOTE: I'm using listObjectVersions so I don't have to download the full object with getObject.
+    // NOTE: I'm using listObjectVersions so I don't have to download the
+    // full object with getObject.
     // Preferably, I'd use getObjectMetadata or getDetails when it's available in the node sdk
     // TODO: convert to headObject
     this.s3.headObject(
@@ -321,7 +322,8 @@ export default class S3PackageManager implements ILocalPackageManager {
                   const error: HttpError = convertS3Error(err);
                   this.logger.error(
                     { error: error.message },
-                    's3: [S3PackageManager writeTarball managedUpload send] emit error @{error}'
+                    `s3: [S3PackageManager writeTarball managedUpload send] 
+                    emit error @{error}`
                   );
 
                   uploadStream.emit('error', error);
@@ -369,7 +371,8 @@ export default class S3PackageManager implements ILocalPackageManager {
               } else {
                 this.logger.trace(
                   { name },
-                  's3: [S3PackageManager writeTarball uploadStream] streamEnded false emit end @{name}'
+                  `s3: [S3PackageManager writeTarball uploadStream] streamEnded 
+                  false emit end @{name}`
                 );
                 uploadStream.on('end', onEnd);
               }
@@ -391,7 +394,8 @@ export default class S3PackageManager implements ILocalPackageManager {
               } finally {
                 this.logger.debug(
                   { name, baseS3Params },
-                  's3: [S3PackageManager writeTarball uploadStream abort] s3.deleteObject @{name}/@baseS3Params'
+                  `s3: [S3PackageManager writeTarball uploadStream abort] 
+                  s3.deleteObject @{name}/@baseS3Params`
                 );
 
                 this.s3.deleteObject(baseS3Params);

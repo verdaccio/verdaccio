@@ -63,7 +63,8 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     if (keyFileName) {
       GOOGLE_OPTIONS.keyFilename = keyFileName;
       this.logger.warn(
-        'Using credentials in a file might be un-secure and is only recommended for local development'
+        `Using credentials in a file might be un-secure 
+        and is only recommended for local development`
       );
     }
 
@@ -179,7 +180,8 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
 
     // const deletedItems: any = [];
     // const sanityCheck = (deletedItems: any): null | Error => {
-    //   if (typeof deletedItems === 'undefined' || deletedItems.length === 0 || deletedItems[0][0].indexUpdates === 0) {
+    //    if (typeof deletedItems === 'undefined' || deletedItems.length === 0
+    //    || deletedItems[0][0].indexUpdates === 0) {
     //     return getNotFound('trying to remove a package that does not exist');
     //   } else if (deletedItems[0][0].indexUpdates > 0) {
     //     return null;
