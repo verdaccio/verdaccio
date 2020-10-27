@@ -48,7 +48,8 @@ export default class StorageHelper implements IStorageHelper {
     return result;
   }
 
-  // public async updateEntity(key: string, excludeFromIndexes: any, data: any): Promise<CommitResult> {
+  // public async updateEntity(key: string, excludeFromIndexes: any, data: any):
+  // Promise<CommitResult> {
   //   const entity = {
   //     key,
   //     excludeFromIndexes,
@@ -83,7 +84,8 @@ export default class StorageHelper implements IStorageHelper {
    * An entity has one or more named properties, each of which can have one or more values.
    * Entities of the same kind do not need to have the same properties,
    * and an entity's values for a given property do not all need to be of the same data type.
-   * (If necessary, an application can establish and enforce such restrictions in its own data model.)
+   * (If necessary, an application can establish and enforce such
+   * restrictions in its own data model.)
    * https://cloud.google.com/datastore/docs/concepts/entities
    * @param key
    */

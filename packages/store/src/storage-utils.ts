@@ -90,7 +90,6 @@ export function getLatestReadme(pkg: Package): string {
 // FIXME: type any due this
 export function cleanUpReadme(version: any): Version {
   if (isNil(version) === false) {
-    // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#operands-for-delete-must-be-optional
     delete version.readme;
   }
 
