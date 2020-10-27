@@ -171,16 +171,6 @@ describe('formatter', () => {
       expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
     });
 
-    // test('should handle undefined object', () => {
-    // 	const log = {
-    // 		level: 15,
-    // 		something: 'foo',
-    // 		msg: 'custom - @{something} - @{missingParam}'
-    // 	};
-    //
-    // 	expect(printMessage(undefined, undefined, undefined)).toMatchSnapshot();
-    // });
-
     test('should display a resource request', () => {
       const log = {
         level: 30,

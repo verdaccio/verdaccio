@@ -86,9 +86,7 @@ class MemoryHandler implements IPackageStorageManager {
 
   public savePackage(name: string, value: Package, cb: CallbackAction): void {
     try {
-      const json: string = stringifyPackage(value);
-
-      this.data[name] = json;
+      this.data[name] = stringifyPackage(value);
       return cb(null);
     } catch (err) {
       return cb(getInternalError(err.message));
@@ -160,7 +158,7 @@ class MemoryHandler implements IPackageStorageManager {
         try {
           const readStream = fs.createReadStream(pathName);
 
-          const contentLength: number = (fs.data[name] && fs.data[name].length) || 0;
+          const contentLength: number = fs?.data[name]?.length || 0;
           readTarballStream.emit('content-length', contentLength);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);

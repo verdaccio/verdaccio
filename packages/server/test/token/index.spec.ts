@@ -38,6 +38,7 @@ const generateTokenCLI = async (app, token, payload): Promise<any> => {
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .end(function (err, resp) {
         if (err) {
+          // eslint-disable-next-line prefer-promise-reject-errors
           return reject([err, resp]);
         }
         resolve([err, resp]);
@@ -54,6 +55,7 @@ const deleteTokenCLI = async (app, token, tokenToDelete): Promise<any> => {
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .end(function (err, resp) {
         if (err) {
+          // eslint-disable-next-line prefer-promise-reject-errors
           return reject([err, resp]);
         }
         resolve([err, resp]);
