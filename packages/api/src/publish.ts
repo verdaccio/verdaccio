@@ -216,7 +216,6 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
       /**
        * npm-registry-client 0.3+ embeds tarball into the json upload
-       * https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
        * issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
        */
 

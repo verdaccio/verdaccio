@@ -43,7 +43,8 @@ describe.skip('Local Database', () => {
             reject(err);
             return;
           }
-          expect(data.IsTruncated).toBe(false); // none of the tests we do should create this much data
+          // none of the tests we do should create this much data
+          expect(data.IsTruncated).toBe(false);
           // remove the stuff that changes from the results
           expect(
             data.Contents.map(({ Key, Size }) => ({
