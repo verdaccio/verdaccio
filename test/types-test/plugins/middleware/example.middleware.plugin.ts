@@ -29,7 +29,7 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
     auth.authenticate('user', 'password', () => {});
     auth.allow_access({packageName: 'packageName'}, remoteUser, () => {});
     auth.add_user('user', 'password', () => {});
-    auth.aesEncrypt(new Buffer('pass'));
+    auth.aesEncrypt(Buffer.from('pass'));
     // storage
     storage.addPackage('name', generatePackageTemplate('test'), () => {});
     storage.addVersion('name', 'version', generateVersion('name', '1.0.0'), 'tag', () => {});

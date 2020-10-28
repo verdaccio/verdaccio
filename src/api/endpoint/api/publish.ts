@@ -121,7 +121,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       });
       // this is dumb and memory-consuming, but what choices do we have?
       // flow: we need first refactor this file before decides which type use here
-      stream.end(new Buffer(data.data, 'base64'));
+      stream.end(Buffer.from(data.data, 'base64'));
       stream.done();
     };
 

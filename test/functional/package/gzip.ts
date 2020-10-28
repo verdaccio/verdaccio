@@ -35,7 +35,7 @@ export default function(server, express) {
         expect(res).toBeDefined();
         expect(req.headers[HEADER_TYPE.ACCEPT_ENCODING]).toBe(HEADERS.GZIP);
         res.header(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP);
-        res.send(new Buffer([1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]));
+        res.send(Buffer.from([1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1]));
       });
     });
 
