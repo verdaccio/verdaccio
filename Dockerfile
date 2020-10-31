@@ -1,4 +1,4 @@
-FROM node:12.18.4-alpine as builder
+FROM node:14.15.0-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
@@ -23,7 +23,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
 
 
 
-FROM node:12.18.4-alpine
+FROM node:14.15.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
