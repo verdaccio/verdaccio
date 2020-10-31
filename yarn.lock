@@ -2902,18 +2902,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:9.7.2":
-  version: 9.7.2
-  resolution: "@verdaccio/local-storage@npm:9.7.2"
+"@verdaccio/local-storage@npm:9.7.4":
+  version: 9.7.4
+  resolution: "@verdaccio/local-storage@npm:9.7.4"
   dependencies:
     "@verdaccio/commons-api": ^9.7.1
     "@verdaccio/file-locking": ^9.7.2
     "@verdaccio/streams": ^9.7.2
     async: 3.2.0
     level: 5.0.1
-    lodash: 4.17.19
+    lodash: 4.17.20
     mkdirp: 0.5.5
-  checksum: 178a202ae8c80aab9c35a41cb9f9e7267633876a810f6eb44919ae11a2980ca87fe747398503462dcd84adbcd694bebaf76992dcbbe29bff2035cab00330deb6
+  checksum: a8cf532694a725dfe0d2a66d3c63ecd1bc2ea0b85841f4dc804aae08838cf19320187629b09e921818cc17ad203dd2162a9d0a0294620ba47edd7df7fab083c4
   languageName: node
   linkType: hard
 
@@ -2935,7 +2935,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/types@npm:^9.7.0":
+"@verdaccio/types@npm:^9.7.2":
   version: 9.7.2
   resolution: "@verdaccio/types@npm:9.7.2"
   checksum: ad04a1cd1f73ad8cb4c1fc3f890af2da89d6e9cb62eed5537d29826fa577438b11769eea2f31a1b7cb5c437cc044ad22616f383896b2acf5b1476f1fb00bb24e
@@ -4946,10 +4946,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.9.3":
-  version: 1.9.3
-  resolution: "dayjs@npm:1.9.3"
-  checksum: 883f5e273416d4b23f773d97d77ae02deb4547e210b1d7ae3b9b7d4ed7f5f4b9c1bbc7a7acf1bdabeb428c3b8af728bdcd88640064c267f3e53be3888af015ce
+"dayjs@npm:1.9.4":
+  version: 1.9.4
+  resolution: "dayjs@npm:1.9.4"
+  checksum: ee3031a7aeff88d63eef734806f6b193e04a99ed48ae6e5d382aeb21264d47658a322d7f8be29774052427f5f87ac7ed2db4e965ae77f68124c52621fccc7437
   languageName: node
   linkType: hard
 
@@ -5170,10 +5170,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.799653":
-  version: 0.0.799653
-  resolution: "devtools-protocol@npm:0.0.799653"
-  checksum: 9a507f02996c5ffc5081d0c74a887ac0d7bd0bcce88964ee2166bd18c180f4f85c6aee26a00304666ea0c141add14dd0d4947db72331fbe8b708021973c76900
+"devtools-protocol@npm:0.0.809251":
+  version: 0.0.809251
+  resolution: "devtools-protocol@npm:0.0.809251"
+  checksum: 06439069ebba4f317b1a1c080597f0fc698740dcd2d06acbeab05db5f27e027cf0dfa7a5cc045720af4d1a7879e3b987db6fe6bbaae4d63a735724245897764d
   languageName: node
   linkType: hard
 
@@ -8859,17 +8859,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.19, lodash@npm:^4.11.2, lodash@npm:^4.17.11, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.2.1":
-  version: 4.17.19
-  resolution: "lodash@npm:4.17.19"
-  checksum: ff2b7a95f0129dba9101e346d44e0eda0f159d76bbbf23721eec1969b87a32bde3de0cfef0733218c64620e9be08040a973278d46a686540233b356115f3527c
-  languageName: node
-  linkType: hard
-
 "lodash@npm:4.17.20, lodash@npm:^4.17.19":
   version: 4.17.20
   resolution: "lodash@npm:4.17.20"
   checksum: c62101d2500c383b5f174a7e9e6fe8098149ddd6e9ccfa85f36d4789446195f5c4afd3cfba433026bcaf3da271256566b04a2bf2618e5a39f6e67f8c12030cb6
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.11.2, lodash@npm:^4.17.11, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.2.1":
+  version: 4.17.19
+  resolution: "lodash@npm:4.17.19"
+  checksum: ff2b7a95f0129dba9101e346d44e0eda0f159d76bbbf23721eec1969b87a32bde3de0cfef0733218c64620e9be08040a973278d46a686540233b356115f3527c
   languageName: node
   linkType: hard
 
@@ -9025,12 +9025,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"marked@npm:1.2.0":
-  version: 1.2.0
-  resolution: "marked@npm:1.2.0"
+"marked@npm:1.2.2":
+  version: 1.2.2
+  resolution: "marked@npm:1.2.2"
   bin:
     marked: bin/marked
-  checksum: 8726f56a03ba7c782f1a3616f5f7a213bd762828bfdb919b33abaed901f2df6a549aef9ee20a8886fef1e6b6ab5cf80f85ede4391939141086c81fd0e65ea4fc
+  checksum: e7eb3dfbd86fbbe8374d9cb8e8931ded75ab68bd2c2ffdabb6e6ff0233874f0c55e9bd98f3f0db5021b4c6a602f11e86580d02f72fb918f4e92fcd5de019663b
   languageName: node
   linkType: hard
 
@@ -9513,16 +9513,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nock@npm:11.7.2":
-  version: 11.7.2
-  resolution: "nock@npm:11.7.2"
+"nock@npm:11.9.1":
+  version: 11.9.1
+  resolution: "nock@npm:11.9.1"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.13
     mkdirp: ^0.5.0
     propagate: ^2.0.0
-  checksum: 89de49c99a9404edf3fe3adbd62f63393b5198b8eb1a048cd28c27ead58f13c785552025497089841fddc28b8f2f50813f28763c3ad306aa316e8f7bf2ea2360
+  checksum: 4cbbe7ee50d7a1514c60dfdbd40e10b9ec51035b8f0282dbb1bdd795ae2dd6d8612713b5edcf7fb1034f2d6b4449f672be71880702f1f5d36e06b0e718731ffc
   languageName: node
   linkType: hard
 
@@ -10578,14 +10578,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:5.3.1":
-  version: 5.3.1
-  resolution: "puppeteer@npm:5.3.1"
+"puppeteer@npm:5.4.1":
+  version: 5.4.1
+  resolution: "puppeteer@npm:5.4.1"
   dependencies:
     debug: ^4.1.0
-    devtools-protocol: 0.0.799653
+    devtools-protocol: 0.0.809251
     extract-zip: ^2.0.0
     https-proxy-agent: ^4.0.0
+    node-fetch: ^2.6.1
     pkg-dir: ^4.2.0
     progress: ^2.0.1
     proxy-from-env: ^1.0.0
@@ -10593,7 +10594,7 @@ fsevents@~2.1.2:
     tar-fs: ^2.0.0
     unbzip2-stream: ^1.3.3
     ws: ^7.2.3
-  checksum: f9e9788984d94bc08cabc2169c8a27f24f5124e8281a9a2e617a10524bd61875e270987f739e9482a2b0659e36f3046d61ae055ac39e92ef61171ff36292fa65
+  checksum: 3383faedbc2f1ec1fb81aa523e2549da4f423fa45d63f8984bb0ccc16fa8f9667f2c99421fdd0487ef50e8b760ee005ee275ecc7a2f7d6270a69952f2a19d527
   languageName: node
   linkType: hard
 
@@ -11825,9 +11826,9 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"standard-version@npm:8.0.1":
-  version: 8.0.1
-  resolution: "standard-version@npm:8.0.1"
+"standard-version@npm:8.0.2":
+  version: 8.0.2
+  resolution: "standard-version@npm:8.0.2"
   dependencies:
     chalk: ^2.4.2
     conventional-changelog: 3.1.21
@@ -11846,7 +11847,7 @@ resolve@1.1.7:
     yargs: ^15.3.1
   bin:
     standard-version: bin/cli.js
-  checksum: 15d0e0e1c70ae85d2ee986939d8dd239b2c5ff030a213480969328f1368b76f402e172a0c8caac9a4a6e4a43e05a057e3d169b29a4e14cffe38bf2bc9dc7a48b
+  checksum: 2dfab06e49fe9559e61456f41166343533b4bd86dbec0bbe01bc97c1db295523500c2ecda134a1236559cc0348cab19e029fd77833f8b44063207cc037692c65
   languageName: node
   linkType: hard
 
@@ -12930,10 +12931,10 @@ typescript@3.7.5:
     "@typescript-eslint/eslint-plugin": 2.12.0
     "@verdaccio/commons-api": 9.7.1
     "@verdaccio/eslint-config": ^8.5.0
-    "@verdaccio/local-storage": 9.7.2
+    "@verdaccio/local-storage": 9.7.4
     "@verdaccio/readme": 9.7.3
     "@verdaccio/streams": 9.7.2
-    "@verdaccio/types": ^9.7.0
+    "@verdaccio/types": ^9.7.2
     "@verdaccio/ui-theme": 1.14.0
     JSONStream: 1.3.5
     all-contributors-cli: 6.16.0
@@ -12951,7 +12952,7 @@ typescript@3.7.5:
     cookies: 0.8.0
     cors: 2.8.5
     cross-env: 7.0.2
-    dayjs: 1.9.3
+    dayjs: 1.9.4
     detect-secrets: 1.0.6
     envinfo: 7.7.3
     eslint: 6.8.0
@@ -12972,20 +12973,20 @@ typescript@3.7.5:
     lockfile-lint: 4.2.2
     lodash: 4.17.20
     lunr-mutable-indexes: 2.3.2
-    marked: 1.2.0
+    marked: 1.2.2
     mime: 2.4.6
     minimatch: 3.0.4
     mkdirp: 0.5.5
     mv: 2.1.1
-    nock: 11.7.2
+    nock: 11.9.1
     pkginfo: 0.4.1
     prettier: 1.19.1
-    puppeteer: 5.3.1
+    puppeteer: 5.4.1
     request: 2.88.0
     rimraf: 3.0.2
     selfsigned: 1.10.7
     semver: 6.3.0
-    standard-version: 8.0.1
+    standard-version: 8.0.2
     supertest: 4.0.2
     typescript: 3.7.5
     verdaccio: ^4.5.1
