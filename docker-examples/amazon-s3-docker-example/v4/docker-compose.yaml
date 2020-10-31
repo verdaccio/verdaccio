@@ -1,0 +1,58 @@
+version: '2.1'
+
+services:
+  aws-resources:
+    build: localStack-resources/
+    environment:
+      - AWS_ACCESS_KEY_ID=foobar
+      - AWS_SECRET_ACCESS_KEY=foobar
+      - AWS_DEFAULT_REGION=eu-west-2
+      - AWS_S3_ENDPOINT=http://localstack-s3:4572
+    depends_on:
+      localstack-s3:
+        condition: service_healthy
+    links:
+      - localstack-s3
+  localstack-s3:
+    image: localstack/localstack:latest
+    container_name: localstack-s3-1
+    environment:
+      - DEBUG=0
+      - SERVICES=s3
+      - DEFAULT_REGION=eu-west-2
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - '4572:4572'
+      - '9999:8080'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4572']
+      interval: 15s
+      timeout: 10s
+      retries: 4
+    volumes:
+      - localstack-data:/tmp/localstack
+  verdaccio:
+    container_name: verdaccio-s3-plugin
+    build: s3Plugin/
+    environment:
+      - AWS_ACCESS_KEY_ID=foobar
+      - AWS_SECRET_ACCESS_KEY=foobar
+      - AWS_DEFAULT_REGION=eu-west-2
+      - AWS_S3_ENDPOINT=http://localstack-s3:4572
+      - AWS_S3_PATH_STYLE=true
+    ports:
+      - '4874:4873'
+    volumes:
+      - './conf:/verdaccio/conf'
+    depends_on:
+      localstack-s3:
+        condition: service_healthy
+    links:
+      - localstack-s3
+volumes:
+  verdaccio:
+    driver: local
+  aws-resources:
+    driver: local
+  localstack-data:
+    name: localstack-data

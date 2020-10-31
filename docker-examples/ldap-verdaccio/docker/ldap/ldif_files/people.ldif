@@ -1,0 +1,69 @@
+# --- OUs -------------------------------------
+
+dn: ou=Groups,dc=example,dc=org
+objectClass: organizationalunit
+objectClass: top
+ou: Groups
+
+dn: ou=People,dc=example,dc=org
+objectClass: organizationalunit
+objectClass: top
+ou: People
+
+
+# --- People ----------------------------------
+
+dn: cn=marpontes,ou=People,dc=example,dc=org
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+cn: marpontes
+userpassword: pass
+givenname: Marcello
+sn: Pontes
+mail: marcello@oncase.com.br
+uid: 1001
+
+dn: cn=zach,ou=People,dc=example,dc=org
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+cn: zach
+userpassword: pass
+givenname: Zachary
+sn: Zeus
+mail: zach@oncase.com.br
+uid: 1002
+
+dn: cn=leonardo,ou=People,dc=example,dc=org
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+cn: leonardo
+userpassword: pass
+givenname: Leonardo
+sn: Luiz
+mail: zach@oncase.com.br
+uid: 1003
+
+
+# --- Groups ----------------------------------
+
+dn: cn=Administrator,ou=Groups,dc=example,dc=org
+objectClass: groupofuniquenames
+objectClass: top
+ou: Groups
+cn: Administrator
+uniquemember: cn=marpontes, ou=People, dc=example,dc=org
+
+dn: cn=Developers,ou=Groups,dc=example,dc=org
+objectClass: groupofuniquenames
+objectClass: top
+ou: Groups
+cn: Administrator
+uniquemember: cn=marpontes, ou=People, dc=example,dc=org
+uniquemember: cn=zach, ou=People, dc=example,dc=org
+uniquemember: cn=leonardo, ou=People, dc=example,dc=org
