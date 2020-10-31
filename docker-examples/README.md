@@ -53,4 +53,3 @@ The following examples aim to be demonstrative and can be either improved or upd
 
 - [https://medium.com/@tompape/kubernetes-private-npm-registry-fb5f450fa611](https://medium.com/@tompape/kubernetes-private-npm-registry-fb5f450fa611)
 - [Déployer Verdaccio sur rancher avec un helm](https://tommygingras.com/deployer-verdaccio-sur-rancher-avec-un-helm/)
-
