@@ -1,5 +1,9 @@
 # Docker + Kubernetes Examples
 
+This folder aims to create a collection of Docker and Kubernetes examples.
+
+For more information about the **Helm** Chart, please check it [owns repo](https://github.com/verdaccio/charts).
+
 > Feel free to contribute whether you consider any use case is relevant for the public in general.
 
 ## Examples
@@ -49,3 +53,4 @@ The following examples aim to be demonstrative and can be either improved or upd
 
 - [https://medium.com/@tompape/kubernetes-private-npm-registry-fb5f450fa611](https://medium.com/@tompape/kubernetes-private-npm-registry-fb5f450fa611)
 - [Déployer Verdaccio sur rancher avec un helm](https://tommygingras.com/deployer-verdaccio-sur-rancher-avec-un-helm/)
+
