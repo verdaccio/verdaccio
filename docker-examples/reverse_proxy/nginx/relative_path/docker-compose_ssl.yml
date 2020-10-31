@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+  nginx:
+    build:
+      context: './nginx_ssl'
+      dockerfile: Dockerfile
+    ports:
+      - '443:443'
+      - '80:80'
+    environment:
+      - REMOTE_URL=http://verdaccio_relative_path_v4:4873/
+    networks:
+      - node-network
+    container_name: 'nginx_ssl'
+    depends_on:
+      - verdaccio
+      - verdaccio-root
+  verdaccio:
+    image: verdaccio/verdaccio:4
+    container_name: 'verdaccio_relative_path_v4'
+    networks:
+      - node-network
+    environment:
+      - VERDACCIO_PORT=4873
+    ports:
+      - '4873:4873'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf/v4:/verdaccio/conf'
+  verdaccio-root:
+    image: verdaccio/verdaccio:4
+    container_name: 'verdaccio_relative_path_v4_root'
+    networks:
+      - node-network
+    environment:
+      - VERDACCIO_PORT=8000
+    ports:
+      - '8000:8000'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf/v4_root:/verdaccio/conf'
+
+networks:
+  node-network:
+    driver: bridge
