@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+  verdaccio:
+    container_name: verdaccio-ldap-1
+    build: verdaccio-ldap/
+    ports:
+      - '4873:4873'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf:/verdaccio/conf'
+  openldap:
+    image: osixia/openldap
+    container_name: openldap
+    hostname: openldap
+    environment:
+      LDAP_ORGANISATION: 'LDAP Verdaccio Auth'
+      LDAP_SSL_HELPER_PREFIX: 'ldap'
+      LDAP_TLS_VERIFY_CLIENT: 'never'
+      LDAP_LOG_LEVEL: 256
+      LDAP_ADMIN_PASSWORD: 'admin'
+    ports:
+      - '389:389'
+    links:
+      - verdaccio
+  openldap-seed:
+    image: osixia/openldap
+    volumes:
+      - ./docker/ldap/ldif_files:/ldif_files
+    links:
+      - openldap
+    entrypoint: sh -c '/ldif_files/addAll.sh'
+  openldap-admin:
+    image: osixia/phpldapadmin
+    container_name: openldap-admin
+    hostname: openldap-admin
+    environment:
+      PHPLDAPADMIN_HTTPS=false:
+      PHPLDAPADMIN_LDAP_HOSTS: 'openldap'
+    ports:
+      - '8080:80'
+    links:
+      - 'openldap:openldap'
+    depends_on:
+      - openldap
+volumes:
+  verdaccio:
+    driver: local
