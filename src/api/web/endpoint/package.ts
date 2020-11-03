@@ -125,7 +125,13 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
             sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
             } else {
               sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-              sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+              if (sideBarInfo?.latest) {
+                sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+              } else {
+                res.status(HTTP_STATUS.NOT_FOUND);
+                res.end();
+                return;
+              }
             }
             sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
             if (config.web) {
