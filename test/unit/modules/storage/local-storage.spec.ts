@@ -62,7 +62,7 @@ describe('LocalStorage', () => {
         resolve();
       });
 
-      stream.end(new Buffer(tarballData.data, 'base64'));
+      stream.end(Buffer.from(tarballData.data, 'base64'));
       stream.done();
     });
   };
@@ -343,7 +343,7 @@ describe('LocalStorage', () => {
             done();
           });
 
-          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.end(Buffer.from(tarballData.data, 'base64'));
           stream.done();
         });
 
@@ -358,7 +358,7 @@ describe('LocalStorage', () => {
             done();
           });
 
-          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.end(Buffer.from(tarballData.data, 'base64'));
           stream.done();
         });
 
@@ -371,7 +371,7 @@ describe('LocalStorage', () => {
             expect(err.message).toMatch(/this package is already present/);
             done();
           });
-          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.end(Buffer.from(tarballData.data, 'base64'));
           stream.done();
         });
 
@@ -389,7 +389,7 @@ describe('LocalStorage', () => {
             done();
           });
 
-          stream.end(new Buffer(tarballData.data, 'base64'));
+          stream.end(Buffer.from(tarballData.data, 'base64'));
           stream.done();
         });
 
