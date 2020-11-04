@@ -22,8 +22,6 @@ import {
 } from '@verdaccio/types';
 import { generateRandomSecretKey } from './token';
 
-const LoggerApi = require('@verdaccio/logger');
-
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 
@@ -41,7 +39,6 @@ const debug = buildDebug('verdaccio:config');
  * Coordinates the application configuration
  */
 class Config implements AppConfig {
-  public logger: Logger;
   public user_agent: string;
   // @ts-ignore
   public secret: string;
@@ -57,7 +54,6 @@ class Config implements AppConfig {
 
   public constructor(config: StartUpConfig) {
     const self = this;
-    this.logger = LoggerApi.logger;
     this.self_path = config.self_path;
     this.storage = config.storage;
     this.plugins = config.plugins;
@@ -86,12 +82,6 @@ class Config implements AppConfig {
     });
 
     this.uplinks = sanityCheckUplinksProps(uplinkSanityCheck(this.uplinks));
-
-    if (_.isNil(this.users) === false) {
-      this.logger.warn(`[users]: property on configuration file
-      is not longer supported, property being ignored`);
-    }
-
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config

@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "mkdirp": "0.5.5",
     "debug": "^4.2.0",

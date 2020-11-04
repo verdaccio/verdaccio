@@ -252,20 +252,18 @@ importers:
       '@verdaccio/logger': 'link:../logger'
       '@verdaccio/node-api': 'link:../node-api'
       '@verdaccio/utils': 'link:../utils'
-      commander: 5.1.0
+      commander: 6.2.0
       envinfo: 7.4.0
       kleur: 3.0.3
-      lodash: 4.17.20
       semver: 7.3.2
     specifiers:
       '@verdaccio/config': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/node-api': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
-      commander: 5.1.0
+      commander: 6.2.0
       envinfo: 7.4.0
       kleur: 3.0.3
-      lodash: ^4.17.20
       semver: 7.3.2
   packages/commons:
     devDependencies:
@@ -275,14 +273,12 @@ importers:
   packages/config:
     dependencies:
       '@verdaccio/dev-commons': 'link:../commons'
-      '@verdaccio/logger': 'link:../logger'
       '@verdaccio/utils': 'link:../utils'
       debug: 4.2.0
       lodash: 4.17.20
       mkdirp: 0.5.5
     specifiers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       debug: ^4.2.0
       lodash: ^4.17.20
@@ -8865,12 +8861,12 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
-  /commander/5.1.0:
+  /commander/6.2.0:
     dev: false
     engines:
       node: '>= 6'
     resolution:
-      integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
+      integrity: sha512-zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==
   /common-tags/1.8.0:
     dev: false
     engines:
