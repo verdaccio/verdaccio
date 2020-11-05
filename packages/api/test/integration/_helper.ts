@@ -3,8 +3,7 @@ import express, { Application } from 'express';
 import supertest from 'supertest';
 import bodyParser from 'body-parser';
 
-import { parseConfigFile } from '@verdaccio/utils';
-import { Config } from '@verdaccio/config';
+import { Config, parseConfigFile } from '@verdaccio/config';
 import { Storage } from '@verdaccio/store';
 import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
 import { Auth, IAuth } from '@verdaccio/auth';
