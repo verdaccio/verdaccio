@@ -6,7 +6,7 @@
 '@verdaccio/config': major
 '@verdaccio/commons-api': major
 '@verdaccio/file-locking': major
-'@verdaccio/htpasswd': major
+'verdaccio-htpasswd': major
 '@verdaccio/local-storage': major
 '@verdaccio/readme': major
 '@verdaccio/streams': major
