@@ -95,11 +95,11 @@
     "standard-version": "8.0.0",
     "supertest": "4.0.2",
     "typescript": "^3.9.7",
-    "verdaccio": "latest",
-    "verdaccio-audit": "latest",
-    "verdaccio-auth-memory": "latest",
-    "verdaccio-htpasswd": "latest",
-    "verdaccio-memory": "latest"
+    "verdaccio": "workspace:*",
+    "verdaccio-audit": "workspace:*",
+    "verdaccio-auth-memory": "workspace:*",
+    "verdaccio-htpasswd": "workspace:*",
+    "verdaccio-memory": "workspace:*"
   },
   "scripts": {
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",
@@ -112,6 +112,7 @@
     "test": "pnpm recursive test",
     "start": "node packages/verdaccio/debug/bootstrap.js",
     "debug": "node  --inspect packages/verdaccio/debug/bootstrap.js",
+    "debug:break": "node  --inspect-brk packages/verdaccio/debug/bootstrap.js",
     "test:e2e:cli": "cross-env NODE_ENV=test jest --config ./test/e2e-cli/jest.config.e2e.cli.js --passWithNoTests",
     "website:lint": "cd website && yarn lint",
     "website:develop": "cd website && yarn develop",

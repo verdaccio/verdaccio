@@ -26,6 +26,7 @@
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/server": "workspace:5.0.0-alpha.0",
+    "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "lodash": "^4.17.20",
     "core-js": "^3.6.5",

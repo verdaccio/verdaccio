@@ -15,7 +15,7 @@ import rimraf from 'rimraf';
 import endPointAPI from '@verdaccio/server';
 import { mockServer } from '../../__helper/mock';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { parseConfigFile } from '@verdaccio/utils/src/utils';
+import { parseConfigFile } from '@verdaccio/config';
 import { parseConfigurationFile } from '../../__helper';
 import { addUser } from '../../__helper/api';
 import { setup } from '@verdaccio/logger';

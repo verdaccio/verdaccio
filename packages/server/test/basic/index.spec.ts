@@ -3,7 +3,7 @@ import express from 'express';
 import request from 'request';
 
 import { API_ERROR } from '@verdaccio/dev-commons';
-import { parseConfigFile } from '@verdaccio/utils';
+import { parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 
 import endPointAPI from '../../src';

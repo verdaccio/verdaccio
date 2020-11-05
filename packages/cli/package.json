@@ -31,10 +31,9 @@
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/node-api": "workspace:5.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
-    "commander": "5.1.0",
+    "commander": "6.2.0",
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
-    "lodash": "^4.17.20",
     "semver": "7.3.2"
   }
 }

@@ -3,13 +3,12 @@ import _ from 'lodash';
 import { CHARACTER_ENCODING, TOKEN_BEARER, ROLES, API_ERROR } from '@verdaccio/dev-commons';
 
 import { configExample } from '@verdaccio/mock';
-import { Config as AppConfig } from '@verdaccio/config';
+import { Config as AppConfig, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 
 import {
   getAuthenticatedMessage,
   buildToken,
-  parseConfigFile,
   createAnonymousRemoteUser,
   createRemoteUser,
   AllowActionCallbackResponse,

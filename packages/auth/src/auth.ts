@@ -27,11 +27,11 @@ import {
 import {
   isNil,
   isFunction,
-  getMatchedPackagesSpec,
   createAnonymousRemoteUser,
   convertPayloadToBase64,
   createRemoteUser,
 } from '@verdaccio/utils';
+import { getMatchedPackagesSpec } from '@verdaccio/config';
 
 import {
   getMiddlewareCredentials,
