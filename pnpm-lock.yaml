@@ -721,7 +721,6 @@ importers:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/readme': 'link:../core/readme'
-      js-yaml: 3.13.1
       minimatch: 3.0.4
       semver: 7.3.2
     devDependencies:
@@ -734,7 +733,6 @@ importers:
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/readme': 'workspace:*'
-      js-yaml: 3.13.1
       lodash: ^4.17.20
       minimatch: 3.0.4
       semver: 7.3.2
@@ -15689,6 +15687,7 @@ packages:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
+    dev: true
     hasBin: true
     resolution:
       integrity: sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==

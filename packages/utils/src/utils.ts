@@ -4,7 +4,6 @@ import URL from 'url';
 import { IncomingHttpHeaders } from 'http';
 import _ from 'lodash';
 import semver from 'semver';
-import YAML from 'js-yaml';
 import { Request } from 'express';
 
 import sanitizyReadme from '@verdaccio/readme';
