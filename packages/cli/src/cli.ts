@@ -1,6 +1,3 @@
-/* eslint no-sync:0 */
-/* eslint no-empty:0 */
-
 import commander from 'commander';
 import { bgYellow, bgRed } from 'kleur';
 
@@ -32,7 +29,7 @@ if (isVersionValid()) {
 
 process.title = 'verdaccio';
 
-const pkgVersion = '5.0.0';
+const pkgVersion = require('../package.json').version;
 const pkgName = 'verdaccio';
 
 commander

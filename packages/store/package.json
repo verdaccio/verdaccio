@@ -25,6 +25,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
+    "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/loaders": "workspace:5.0.0-alpha.0",
     "@verdaccio/local-storage": "workspace:*",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
@@ -38,7 +39,6 @@
     "semver": "7.1.2"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/types": "workspace:*"
   }

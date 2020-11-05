@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import Path from 'path';
 import _ from 'lodash';
-import { logger } from '@verdaccio/logger';
 import mkdirp from 'mkdirp';
+import buildDebug from 'debug';
 
 import { folderExists, fileExists } from '@verdaccio/utils';
 import { CHARACTER_ENCODING } from '@verdaccio/dev-commons';
@@ -21,6 +21,8 @@ export type SetupDirectory = {
   path: string;
   type: string;
 };
+
+const debug = buildDebug('verdaccio:config');
 
 /**
  * Find and get the first config file that match.
@@ -66,7 +68,7 @@ export function readDefaultConfig(): Buffer {
 
 function createConfigFolder(configLocation): void {
   mkdirp.sync(Path.dirname(configLocation.path));
-  logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
+  debug(`Creating default config file in %o`, configLocation?.path);
 }
 
 function updateStorageLinks(configLocation, defaultConfig): string {

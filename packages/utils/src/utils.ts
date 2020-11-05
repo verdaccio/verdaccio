@@ -4,7 +4,6 @@ import URL from 'url';
 import { IncomingHttpHeaders } from 'http';
 import _ from 'lodash';
 import semver from 'semver';
-import YAML from 'js-yaml';
 import { Request } from 'express';
 
 import sanitizyReadme from '@verdaccio/readme';
@@ -360,6 +359,7 @@ const parseIntervalTable = {
  * Parse an internal string to number
  * @param {*} interval
  * @return {Number}
+ * @deprecated
  */
 export function parseInterval(interval: any): number {
   if (typeof interval === 'number') {
@@ -412,22 +412,6 @@ export const ErrorCode = {
   getNotFound,
   getCode,
 };
-
-export function parseConfigFile(configPath: string): any {
-  try {
-    if (/\.ya?ml$/i.test(configPath)) {
-      // @ts-ignore
-      return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
-    }
-    return require(configPath);
-  } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      e.message = APP_ERROR.CONFIG_NOT_VALID;
-    }
-
-    throw new Error(e);
-  }
-}
 
 /**
  * Check whether the path already exist.

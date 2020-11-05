@@ -3,8 +3,7 @@ import _ from 'lodash';
 
 import { PACKAGE_ACCESS } from '@verdaccio/dev-commons';
 
-import { spliceURL } from '../src/string';
-import { parseConfigFile } from '../src/utils';
+import { spliceURL } from '@verdaccio/utils';
 import {
   getMatchedPackagesSpec,
   hasProxyTo,
@@ -12,6 +11,7 @@ import {
   sanityCheckUplinksProps,
   uplinkSanityCheck,
 } from '../src/config-utils';
+import { parseConfigFile } from '../src';
 
 describe('Config Utilities', () => {
   const parseConfigurationFile = (conf) => {

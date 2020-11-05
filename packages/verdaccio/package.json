@@ -46,6 +46,7 @@
     "@verdaccio/ui-theme": "^1.12.1"
   },
   "devDependencies": {
+    "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/auth": "workspace:5.0.0-alpha.0",
     "@verdaccio/store": "workspace:5.0.0-alpha.0",
     "@verdaccio/dev-commons": "workspace:*"
