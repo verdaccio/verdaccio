@@ -5,7 +5,7 @@ import selfsigned from 'selfsigned';
 
 import { configExample } from '@verdaccio/mock';
 import { DEFAULT_DOMAIN, DEFAULT_PROTOCOL } from '@verdaccio/dev-commons';
-import { parseConfigFile } from '@verdaccio/utils';
+import { parseConfigFile } from '@verdaccio/config';
 
 import { logger } from '@verdaccio/logger';
 

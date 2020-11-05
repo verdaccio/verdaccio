@@ -1,7 +1,6 @@
 import path from 'path';
 
-import { parseConfigFile } from '@verdaccio/utils';
-import { findConfigFile } from '@verdaccio/config';
+import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';

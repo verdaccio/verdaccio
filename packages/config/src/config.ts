@@ -2,25 +2,16 @@ import assert from 'assert';
 import _ from 'lodash';
 import buildDebug from 'debug';
 
+import { generateRandomHexString, getUserAgent, isObject } from '@verdaccio/utils';
+import { APP_ERROR } from '@verdaccio/dev-commons';
+import { PackageList, Config as AppConfig, Security, PackageAccess } from '@verdaccio/types';
+import { generateRandomSecretKey } from './token';
 import {
   getMatchedPackagesSpec,
   normalisePackageAccess,
   sanityCheckUplinksProps,
   uplinkSanityCheck,
-  generateRandomHexString,
-  getUserAgent,
-  isObject,
-} from '@verdaccio/utils';
-import { APP_ERROR } from '@verdaccio/dev-commons';
-
-import {
-  PackageList,
-  Config as AppConfig,
-  Security,
-  Logger,
-  PackageAccess,
-} from '@verdaccio/types';
-import { generateRandomSecretKey } from './token';
+} from './config-utils';
 
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
