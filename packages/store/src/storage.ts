@@ -8,13 +8,7 @@ import buildDebug from 'debug';
 import { ProxyStorage } from '@verdaccio/proxy';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
 import { ReadTarball } from '@verdaccio/streams';
-import {
-  ErrorCode,
-  normalizeDistTags,
-  validateMetadata,
-  isObject,
-  hasProxyTo,
-} from '@verdaccio/utils';
+import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from '@verdaccio/utils';
 import { setupUpLinks, updateVersionsHiddenUpLink, ProxyList, IProxy } from '@verdaccio/proxy';
 import {
   IReadTarball,
@@ -37,6 +31,7 @@ import {
   IStorageManager,
   ITokenActions,
 } from '@verdaccio/types';
+import { hasProxyTo } from '@verdaccio/config';
 import { logger } from '@verdaccio/logger';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { SearchInstance } from './search';

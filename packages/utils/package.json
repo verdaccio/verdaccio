@@ -18,7 +18,6 @@
     "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
     "@verdaccio/readme": "workspace:*",
-    "js-yaml": "3.13.1",
     "minimatch": "3.0.4",
     "semver": "7.3.2"
   },
