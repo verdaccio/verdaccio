@@ -6,7 +6,7 @@
 '@verdaccio/config': patch
 '@verdaccio/commons-api': patch
 '@verdaccio/file-locking': patch
-'@verdaccio/htpasswd': patch
+'verdaccio-htpasswd': patch
 '@verdaccio/local-storage': patch
 '@verdaccio/readme': patch
 '@verdaccio/types': patch

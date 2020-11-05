@@ -6,7 +6,7 @@
 '@verdaccio/config': minor
 '@verdaccio/commons-api': minor
 '@verdaccio/file-locking': minor
-'@verdaccio/htpasswd': minor
+'verdaccio-htpasswd': minor
 '@verdaccio/local-storage': minor
 '@verdaccio/readme': minor
 '@verdaccio/streams': minor

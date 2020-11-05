@@ -9,7 +9,7 @@
     "@verdaccio/config": "5.0.0-alpha.0",
     "@verdaccio/commons-api": "10.0.0-beta",
     "@verdaccio/file-locking": "10.0.0-beta",
-    "@verdaccio/htpasswd": "10.0.0-beta",
+    "verdaccio-htpasswd": "10.0.0-beta",
     "@verdaccio/local-storage": "10.0.0-beta",
     "@verdaccio/readme": "10.0.0-beta",
     "@verdaccio/streams": "10.0.0-beta",
