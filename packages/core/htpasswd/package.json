@@ -1,5 +1,5 @@
 {
-  "name": "@verdaccio/htpasswd",
+  "name": "verdaccio-htpasswd",
   "version": "10.0.0-beta",
   "description": "htpasswd auth plugin for Verdaccio",
   "keywords": [
