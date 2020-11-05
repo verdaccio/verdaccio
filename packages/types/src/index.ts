@@ -31,7 +31,6 @@ export interface StartUpConfig {
 }
 
 // legacy should be removed in long term
-
 export interface LegacyPackageList {
   [key: string]: PackageAccessAddOn;
 }

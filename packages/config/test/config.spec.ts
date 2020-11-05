@@ -1,13 +1,9 @@
 import path from 'path';
 import _ from 'lodash';
 
-import { setup } from '@verdaccio/logger';
 import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '@verdaccio/dev-commons';
 
-import { parseConfigFile } from '@verdaccio/utils';
-import { Config } from '../src';
-
-setup([]);
+import { Config, parseConfigFile } from '../src';
 
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);

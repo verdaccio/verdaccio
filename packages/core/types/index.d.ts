@@ -230,26 +230,6 @@ declare module '@verdaccio/types' {
 
   type Notification = Notifications;
 
-  interface ConfigFile {
-    storage: string;
-    plugins: string;
-    self_path: string;
-    packages: PackageList;
-    uplinks: UpLinksConfList;
-    logs: LoggerConf[];
-    web: WebConf;
-    auth: AuthConf;
-    publish?: PublishOptions;
-    url_prefix?: string;
-    listen?: ListenAddress;
-    https?: HttpsConf;
-    http_proxy?: string;
-    https_proxy?: string;
-    no_proxy?: string;
-    max_body_size?: string;
-    notifications: Notifications;
-  }
-
   interface Token {
     user: string;
     token: string;
@@ -264,7 +244,6 @@ declare module '@verdaccio/types' {
     user: string;
   }
 
-  type SyncReturn = Error | void;
   type IPackageStorage = ILocalPackageManager | void;
   type IPackageStorageManager = ILocalPackageManager;
   type IPluginStorage<T> = ILocalData<T>;

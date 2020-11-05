@@ -3,7 +3,8 @@ import _ from 'lodash';
 import minimatch from 'minimatch';
 
 import { PackageList, UpLinksConfList, PackageAccess } from '@verdaccio/types';
-import { ErrorCode } from './utils';
+import { ErrorCode } from '@verdaccio/utils';
+import { MatchedPackage } from './config';
 
 export type PackageAccessAddOn = PackageAccess & {
   // FIXME: should be published on @verdaccio/types
@@ -13,8 +14,6 @@ export type PackageAccessAddOn = PackageAccess & {
 export interface LegacyPackageList {
   [key: string]: PackageAccessAddOn;
 }
-
-export type MatchedPackage = PackageAccess | void;
 
 const BLACKLIST = {
   all: true,
