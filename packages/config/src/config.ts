@@ -43,10 +43,10 @@ class Config implements AppConfig {
   // @ts-ignore
   public secret: string;
 
-  public constructor(config: ConfigRuntime, config_path: string) {
+  public constructor(config: ConfigRuntime) {
     const self = this;
     this.storage = config.storage;
-    this.config_path = config_path;
+    this.config_path = config.config_path;
     this.plugins = config.plugins;
     this.security = _.merge(defaultSecurity, config.security);
 

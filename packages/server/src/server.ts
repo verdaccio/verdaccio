@@ -131,7 +131,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
 export default (async function (configHash: ConfigRuntime): Promise<any> {
   setup(configHash.logs);
-  const config: IConfig = new AppConfig(_.cloneDeep(configHash), configHash.config_path);
+  const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   // register middleware plugins
   const plugin_params = {
     config: config,

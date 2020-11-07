@@ -52,7 +52,7 @@ describe('Auth utilities', () => {
     // @ts-ignore
     const secConf = _.merge(configExample(), conf);
     secConf.secret = secret;
-    const config: Config = new AppConfig(secConf, '');
+    const config: Config = new AppConfig(secConf);
 
     return config;
   }
