@@ -26,7 +26,6 @@ import {
   getMiddlewareCredentials,
   getApiToken,
   verifyJWTPayload,
-  getSecurity,
   aesDecrypt,
   verifyPayload,
   signPayload,
@@ -53,7 +52,7 @@ describe('Auth utilities', () => {
     // @ts-ignore
     const secConf = _.merge(configExample(), conf);
     secConf.secret = secret;
-    const config: Config = new AppConfig(secConf);
+    const config: Config = new AppConfig(secConf, '');
 
     return config;
   }
@@ -94,10 +93,8 @@ describe('Auth utilities', () => {
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
-    const payload = aesDecrypt(token, secret).toString(
-      // @ts-ignore
-      CHARACTER_ENCODING.UTF8
-    );
+    // @ts-ignore
+    const payload = aesDecrypt(token, secret).toString(CHARACTER_ENCODING.UTF8);
     const content = payload.split(':');
 
     expect(content[0]).toBe(user);
@@ -339,7 +336,7 @@ describe('Auth utilities', () => {
           'jwtEncrypt'
         );
         const config: Config = getConfig('security-legacy', secret);
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
         expect(credentials).toBeDefined();
         // @ts-ignore
@@ -355,7 +352,7 @@ describe('Auth utilities', () => {
         // basic authentication need send user as base64
         const token = buildUserBuffer(user, pass).toString('base64');
         const config: Config = getConfig('security-legacy', secret);
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(security, secret, `Basic ${token}`);
         expect(credentials).toBeDefined();
         // @ts-ignore
@@ -375,7 +372,7 @@ describe('Auth utilities', () => {
           'jwtEncrypt'
         );
         const config: Config = getConfig('security-legacy', secret);
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
           security,
           'b2df428b9929d3ace7c598bbf4e496_BAD_TOKEN',
@@ -395,7 +392,7 @@ describe('Auth utilities', () => {
           'jwtEncrypt'
         );
         const config: Config = getConfig('security-legacy', secret);
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
           security,
           secret,
@@ -409,7 +406,7 @@ describe('Auth utilities', () => {
         const config: Config = getConfig('security-legacy', secret);
         const auth: IAuth = new Auth(config);
         const token = auth.aesEncrypt(null);
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
           security,
           secret,
@@ -438,7 +435,7 @@ describe('Auth utilities', () => {
     describe('should get JWT credentials', () => {
       test('should return anonymous whether token is corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
           security,
           '12345',
@@ -456,7 +453,7 @@ describe('Auth utilities', () => {
 
       test('should return anonymous whether token and scheme are corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
           security,
           '12345',
@@ -478,7 +475,7 @@ describe('Auth utilities', () => {
           'jwtEncrypt',
           'aesEncrypt'
         );
-        const security: Security = getSecurity(config);
+        const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
           security,
           secret,

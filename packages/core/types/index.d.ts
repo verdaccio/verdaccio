@@ -323,14 +323,14 @@ declare module '@verdaccio/types' {
     api: APITokenOptions;
   }
 
-  interface Config {
-    user_agent: string;
-    server_id: any;
+  interface ConfigFlags {
+    token?: boolean;
+    search?: boolean;
+  }
+
+  interface ConfigYaml {
     _debug?: boolean;
     storage?: string | void;
-    plugins?: string | void;
-    secret: string;
-    self_path: string;
     packages: PackageList;
     uplinks: UpLinksConfList;
     logs?: LoggerConf[];
@@ -338,19 +338,31 @@ declare module '@verdaccio/types' {
     auth?: AuthConf;
     security: Security;
     publish?: PublishOptions;
-    url_prefix?: string;
     store?: any;
     listen?: ListenAddress;
     https?: HttpsConf;
     http_proxy?: string;
+    plugins?: string | void;
     https_proxy?: string;
     no_proxy?: string;
     max_body_size?: string;
-    // deprecated
     notifications?: Notifications;
     notify?: Notifications | Notifications[];
     middlewares?: any;
     filters?: any;
+    url_prefix?: string;
+    flags?: ConfigFlags;
+  }
+
+  interface ConfigRuntime extends ConfigYaml {
+    config_path: string;
+  }
+
+  interface Config extends ConfigYaml, ConfigRuntime {
+    user_agent: string;
+    server_id: string;
+    secret: string;
+    // deprecated
     checkSecretKey(token: string): string;
     getMatchedPackagesSpec(storage: string): PackageAccess | void;
     [key: string]: any;

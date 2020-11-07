@@ -13,6 +13,7 @@ import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { Config as AppConfig } from '@verdaccio/config';
 
 import { webAPI, renderWebMiddleware } from '@verdaccio/web';
+import { ConfigRuntime } from '@verdaccio/types';
 
 import { IAuth, IBasicAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
@@ -128,9 +129,9 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   return app;
 };
 
-export default (async function (configHash: any): Promise<any> {
+export default (async function (configHash: ConfigRuntime): Promise<any> {
   setup(configHash.logs);
-  const config: IConfig = new AppConfig(_.cloneDeep(configHash));
+  const config: IConfig = new AppConfig(_.cloneDeep(configHash), configHash.config_path);
   // register middleware plugins
   const plugin_params = {
     config: config,

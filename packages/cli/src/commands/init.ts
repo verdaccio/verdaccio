@@ -1,5 +1,6 @@
 import path from 'path';
 
+import { ConfigRuntime } from '@verdaccio/types';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
 
@@ -10,21 +11,18 @@ export default function initProgram(commander, pkgVersion, pkgName) {
   // const initLogger = createLogger();
   const cliListener = commander.listen;
   let configPathLocation;
-  let verdaccioConfiguration;
+  let verdaccioConfiguration: ConfigRuntime;
   try {
     configPathLocation = findConfigFile(commander.config);
     verdaccioConfiguration = parseConfigFile(configPathLocation);
-    const { web, https, self_path } = verdaccioConfiguration;
+    const { web, https } = verdaccioConfiguration;
 
     process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-    // FIXME: self_path is only being used by @verdaccio/storage, not really useful
-    // and might be removed soon
-    if (!self_path) {
-      verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
-        self_path: path.resolve(configPathLocation),
-      });
-    }
+    // @deprecated
+    verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
+      self_path: path.resolve(configPathLocation),
+    });
 
     if (!https) {
       verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {

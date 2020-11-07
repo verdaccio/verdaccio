@@ -35,7 +35,6 @@ import { getMatchedPackagesSpec } from '@verdaccio/config';
 
 import {
   getMiddlewareCredentials,
-  getSecurity,
   getDefaultPlugins,
   verifyJWTPayload,
   parseAuthTokenHeader,
@@ -406,9 +405,7 @@ class Auth implements IAuth {
         debug('api middleware auth heather is not valid');
         return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
-
-      const security: Security = getSecurity(this.config);
-      const { secret } = this.config;
+      const { secret, security } = this.config;
 
       if (isAESLegacy(security)) {
         debug('api middleware using legacy auth token');
@@ -554,6 +551,7 @@ class Auth implements IAuth {
 
   public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
     const { real_groups, name, groups } = user;
+    debug('jwt encrypt %o', name);
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);
     const payload: RemoteUser = {

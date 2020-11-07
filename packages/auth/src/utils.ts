@@ -10,7 +10,6 @@ import {
   AuthPackageAllow,
   convertPayloadToBase64,
   createAnonymousRemoteUser,
-  defaultSecurity,
 } from '@verdaccio/utils';
 import { TokenEncryption, AESPayload } from './auth';
 import { aesDecrypt } from './legacy-token';
@@ -100,15 +99,16 @@ export async function getApiToken(
   remoteUser: RemoteUser,
   aesPassword: string
 ): Promise<string | void> {
-  const security: Security = getSecurity(config);
+  debug('get api token');
+  const { security } = config;
 
   if (isAESLegacy(security)) {
+    debug('security legacy enabled');
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {
       resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)));
     });
   }
-  // i am wiling to use here _.isNil but flow does not like it yet.
   const { jwt } = security.api;
 
   if (jwt?.sign) {
@@ -117,14 +117,6 @@ export async function getApiToken(
   return await new Promise((resolve): void => {
     resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)));
   });
-}
-
-export function getSecurity(config: Config): Security {
-  if (_.isNil(config.security) === false) {
-    return _.merge(defaultSecurity, config.security);
-  }
-
-  return defaultSecurity;
 }
 
 export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError'];
