@@ -1,4 +1,3 @@
-import path from 'path';
 import { ConfigRuntime } from '@verdaccio/types';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
@@ -23,11 +22,6 @@ export default function initProgram(commander, pkgVersion, pkgName) {
         https: { enable: false },
       });
     }
-
-    // @deprecated
-    verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
-      self_path: path.resolve(configPathLocation),
-    });
 
     // initLogger.warn({file: configPathLocation}, 'config file  - @{file}');
 
