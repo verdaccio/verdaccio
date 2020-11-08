@@ -5,3 +5,4 @@ export * from './package-access';
 export * from './parse';
 export * from './uplinks';
 export * from './security';
+export * from './validator';

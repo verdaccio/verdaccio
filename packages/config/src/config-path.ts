@@ -22,7 +22,7 @@ export type SetupDirectory = {
   type: string;
 };
 
-const debug = buildDebug('verdaccio:config');
+const debug = buildDebug('verdaccio:config:path');
 
 /**
  * Find and get the first config file that match.
@@ -102,6 +102,7 @@ function getConfigPaths(): SetupDirectory[] {
     return acc;
   }, [] as SetupDirectory[]);
 
+  debug('list possible paths %o', listPaths);
   return listPaths;
 }
 

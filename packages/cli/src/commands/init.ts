@@ -1,10 +1,10 @@
 import { ConfigRuntime } from '@verdaccio/types';
-import { findConfigFile, parseConfigFile } from '@verdaccio/config';
+import { findConfigFile, parseConfigFile, validateConfig } from '@verdaccio/config';
 import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
-export default function initProgram(commander, pkgVersion, pkgName) {
+export default async function initProgram(commander, pkgVersion, pkgName) {
   // FIXME: we need to log before the setup is being applied
   // const initLogger = createLogger();
   const cliListener = commander.listen;
@@ -12,7 +12,7 @@ export default function initProgram(commander, pkgVersion, pkgName) {
   let verdaccioConfiguration: ConfigRuntime;
   try {
     configPathLocation = findConfigFile(commander.config);
-    verdaccioConfiguration = parseConfigFile(configPathLocation);
+    verdaccioConfiguration = await validateConfig(parseConfigFile(configPathLocation));
     const { web, https } = verdaccioConfiguration;
 
     process.title = web?.title || DEFAULT_PROCESS_NAME;

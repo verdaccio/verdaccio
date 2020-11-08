@@ -1,7 +1,11 @@
 import fs from 'fs';
 import YAML from 'js-yaml';
+import buildDebug from 'debug';
+
 import { APP_ERROR } from '@verdaccio/dev-commons';
 import { ConfigRuntime, ConfigYaml } from '@verdaccio/types';
+
+const debug = buildDebug('verdaccio:config:parse');
 
 export function parseConfigFile(configPath: string): ConfigRuntime {
   try {
@@ -17,6 +21,7 @@ export function parseConfigFile(configPath: string): ConfigRuntime {
       config_path: configPath,
     });
   } catch (e) {
+    debug('error on parse %o', e);
     if (e.code !== 'MODULE_NOT_FOUND') {
       e.message = APP_ERROR.CONFIG_NOT_VALID;
     }
