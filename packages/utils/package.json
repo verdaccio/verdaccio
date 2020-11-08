@@ -18,11 +18,9 @@
     "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
     "@verdaccio/readme": "workspace:*",
-    "minimatch": "3.0.4",
     "semver": "7.3.2"
   },
   "devDependencies": {
-    "@types/minimatch": "3.0.3",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "lodash": "^4.17.20"
   },
