@@ -79,7 +79,7 @@ class ExampleAuthCustomPlugin implements IPluginAuth<{}> {
 
 const config1: AppConfig = new Config({
   storage: './storage',
-  self_path: '/home/sotrage',
+  config_path: '/home/sotrage',
 });
 
 const options: PluginOptions<{}> = {

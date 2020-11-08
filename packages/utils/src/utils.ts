@@ -8,11 +8,9 @@ import { Request } from 'express';
 
 import sanitizyReadme from '@verdaccio/readme';
 import {
-  APP_ERROR,
   DEFAULT_PORT,
   DEFAULT_DOMAIN,
   DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
   HEADERS,
   DIST_TAGS,
   DEFAULT_USER,
@@ -31,16 +29,6 @@ import {
   getNotFound,
   getCode,
 } from '@verdaccio/commons-api';
-
-// FIXME: this is fixed, should pick the package.json or official version
-const pkgVersion = '5.0.0';
-const pkgName = 'verdaccio';
-
-export function getUserAgent(): string {
-  assert(_.isString(pkgName));
-  assert(_.isString(pkgVersion));
-  return `${pkgName}/${pkgVersion}`;
-}
 
 export function convertPayloadToBase64(payload: string): Buffer {
   return Buffer.from(payload, 'base64');

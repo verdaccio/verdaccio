@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/dev-commons';
 import {
-  spliceURL,
   validateName,
   convertDistRemoteToLocalTarballUrls,
   parseReadme,
@@ -325,18 +324,6 @@ describe('Utilities', () => {
   });
 
   describe('String utilities', () => {
-    test('should splice two strings and generate a url', () => {
-      const url: string = spliceURL('http://domain.com', '/-/static/logo.png');
-
-      expect(url).toMatch('http://domain.com/-/static/logo.png');
-    });
-
-    test('should splice a empty strings and generate a url', () => {
-      const url: string = spliceURL('', '/-/static/logo.png');
-
-      expect(url).toMatch('/-/static/logo.png');
-    });
-
     test('should check HTTP protocol correctly', () => {
       expect(isHTTPProtocol('http://domain.com/-/static/logo.png')).toBeTruthy();
       expect(isHTTPProtocol('https://www.domain.com/-/static/logo.png')).toBeTruthy();

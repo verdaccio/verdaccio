@@ -24,12 +24,6 @@ import { NextFunction, Request, Response } from 'express';
 
 export type StringValue = verdaccio$StringValue;
 
-export interface StartUpConfig {
-  storage: string;
-  plugins?: string;
-  self_path: string;
-}
-
 // legacy should be removed in long term
 export interface LegacyPackageList {
   [key: string]: PackageAccessAddOn;

@@ -35,7 +35,6 @@ import { getMatchedPackagesSpec } from '@verdaccio/config';
 
 import {
   getMiddlewareCredentials,
-  getSecurity,
   getDefaultPlugins,
   verifyJWTPayload,
   parseAuthTokenHeader,
@@ -292,6 +291,7 @@ class Auth implements IAuth {
         debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
+        // @ts-ignore
         plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
           if (err) {
             debug(
@@ -335,7 +335,7 @@ class Auth implements IAuth {
     (function next(): void {
       const plugin = plugins.shift();
 
-      if (_.isNil(plugin) || isFunction(plugin.allow_publish) === false) {
+      if (isFunction(plugin?.allow_publish) === false) {
         debug('allow publish for %o plugin does not implement allow_publish', packageName);
         return next();
       }
@@ -343,6 +343,7 @@ class Auth implements IAuth {
       // @ts-ignore
       plugin.allow_publish(
         user,
+        // @ts-ignore
         pkg,
         // @ts-ignore
         (err: VerdaccioError, ok: boolean): void => {
@@ -406,9 +407,7 @@ class Auth implements IAuth {
         debug('api middleware auth heather is not valid');
         return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
-
-      const security: Security = getSecurity(this.config);
-      const { secret } = this.config;
+      const { secret, security } = this.config;
 
       if (isAESLegacy(security)) {
         debug('api middleware using legacy auth token');
@@ -554,6 +553,7 @@ class Auth implements IAuth {
 
   public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
     const { real_groups, name, groups } = user;
+    debug('jwt encrypt %o', name);
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);
     const payload: RemoteUser = {

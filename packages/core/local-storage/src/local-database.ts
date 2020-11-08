@@ -99,7 +99,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   ): void {
     const storages = this._getCustomPackageLocalStorages();
     debug(`search custom local packages: %o`, JSON.stringify(storages));
-    const base = Path.dirname(this.config.self_path);
+    const base = Path.dirname(this.config.config_path);
     const self = this;
     const storageKeys = Object.keys(storages);
     debug(`search base: %o keys: %o`, base, storageKeys);
@@ -241,7 +241,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     }
 
     const packageStoragePath: string = Path.join(
-      Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
+      Path.resolve(Path.dirname(this.config.config_path || ''), packagePath),
       packageName
     );
 
@@ -412,7 +412,7 @@ class LocalDatabase implements IPluginStorage<{}> {
 
   private _dbGenPath(dbName: string, config: Config): string {
     return Path.join(
-      Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName)
+      Path.resolve(Path.dirname(config.config_path || ''), config.storage as string, dbName)
     );
   }
 
