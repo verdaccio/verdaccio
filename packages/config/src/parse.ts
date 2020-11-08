@@ -1,14 +1,21 @@
 import fs from 'fs';
 import YAML from 'js-yaml';
-import { APP_ERROR, CHARACTER_ENCODING } from '@verdaccio/dev-commons';
+import { APP_ERROR } from '@verdaccio/dev-commons';
+import { ConfigRuntime, ConfigYaml } from '@verdaccio/types';
 
-export function parseConfigFile(configPath: string): any {
+export function parseConfigFile(configPath: string): ConfigRuntime {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      // @ts-ignore
-      return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+      const yamlConfig = YAML.safeLoad(fs.readFileSync(configPath, 'utf8')) as ConfigYaml;
+      return Object.assign({}, yamlConfig, {
+        config_path: configPath,
+      });
     }
-    return require(configPath);
+
+    const jsonConfig = require(configPath) as ConfigYaml;
+    return Object.assign({}, jsonConfig, {
+      config_path: configPath,
+    });
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       e.message = APP_ERROR.CONFIG_NOT_VALID;

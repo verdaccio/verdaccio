@@ -6,7 +6,6 @@ import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 import { API_ERROR, APP_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
 import { IAuth } from '@verdaccio/auth';
 import { validatePassword, ErrorCode } from '@verdaccio/utils';
-import { getSecurity } from '@verdaccio/auth';
 import { $NextFunctionVer } from './package';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
@@ -22,7 +21,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
           next(ErrorCode.getCode(errorCode, err.message));
         } else {
           req.remote_user = user;
-          const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
+          const jWTSignOptions: JWTSignOptions = config.security.web.sign;
 
           next({
             token: await auth.jwtEncrypt(user, jWTSignOptions),

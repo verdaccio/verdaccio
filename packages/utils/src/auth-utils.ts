@@ -1,12 +1,5 @@
-import { ROLES, TIME_EXPIRATION_7D, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
-import {
-  RemoteUser,
-  AllowAccess,
-  PackageAccess,
-  Security,
-  APITokenOptions,
-  JWTOptions,
-} from '@verdaccio/types';
+import { ROLES, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
+import { RemoteUser, AuthPackageAllow } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 export interface CookieSessionToken {
@@ -80,11 +73,6 @@ export type AllowAction = (
   callback: AllowActionCallback
 ) => void;
 
-export interface AuthPackageAllow extends PackageAccess, AllowAccess {
-  // TODO: this should be on @verdaccio/types
-  unpublish: boolean | string[];
-}
-
 export function createSessionToken(): CookieSessionToken {
   const tenHoursTime = 10 * 60 * 60 * 1000;
 
@@ -93,23 +81,6 @@ export function createSessionToken(): CookieSessionToken {
     expires: new Date(Date.now() + tenHoursTime),
   };
 }
-
-const defaultWebTokenOptions: JWTOptions = {
-  sign: {
-    // The expiration token for the website is 7 days
-    expiresIn: TIME_EXPIRATION_7D,
-  },
-  verify: {},
-};
-
-const defaultApiTokenConf: APITokenOptions = {
-  legacy: true,
-};
-
-export const defaultSecurity: Security = {
-  web: defaultWebTokenOptions,
-  api: defaultApiTokenConf,
-};
 
 export function getAuthenticatedMessage(user: string): string {
   return `you are authenticated as '${user}'`;

@@ -61,7 +61,7 @@ export default class Config {
       },
     ];
 
-    this.self_path = './tests/__fixtures__/config.yaml';
+    this.config_path = './tests/__fixtures__/config.yaml';
 
     this.https = {
       enable: false,

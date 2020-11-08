@@ -146,7 +146,7 @@ export default ExampleStoragePlugin;
 
 const config1: AppConfig = new Config({
   storage: './storage',
-  self_path: '/home/sotrage',
+  config_path: '/home/sotrage',
 });
 
 const storage = new ExampleStoragePlugin(config1, logger.child());
