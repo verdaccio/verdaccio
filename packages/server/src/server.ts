@@ -62,7 +62,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   // Hook for tests only
   if (config._debug) {
-    hookDebug(app, config.self_path);
+    hookDebug(app, config.config_path);
   }
 
   // register middleware plugins

@@ -19,11 +19,6 @@ export default function initProgram(commander, pkgVersion, pkgName) {
 
     process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-    // @deprecated
-    verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
-      self_path: path.resolve(configPathLocation),
-    });
-
     if (!https) {
       verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
         https: { enable: false },
