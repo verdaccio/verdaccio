@@ -277,17 +277,21 @@ importers:
       debug: 4.2.0
       js-yaml: 3.14.0
       lodash: 4.17.20
+      minimatch: 3.0.4
       mkdirp: 0.5.5
       yup: 0.29.3
     devDependencies:
+      '@types/minimatch': 3.0.3
       '@types/yup': 0.29.9
     specifiers:
+      '@types/minimatch': 3.0.3
       '@types/yup': ^0.29.9
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/utils': 'workspace:5.0.0-alpha.0'
       debug: ^4.2.0
       js-yaml: 3.14.0
       lodash: ^4.17.20
+      minimatch: 3.0.4
       mkdirp: 0.5.5
       yup: ^0.29.3
   packages/core/commons-api:
@@ -723,20 +727,16 @@ importers:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
       '@verdaccio/readme': 'link:../core/readme'
-      minimatch: 3.0.4
       semver: 7.3.2
     devDependencies:
-      '@types/minimatch': 3.0.3
       '@verdaccio/logger': 'link:../logger'
       lodash: 4.17.20
     specifiers:
-      '@types/minimatch': 3.0.3
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
       '@verdaccio/logger': 'workspace:5.0.0-alpha.0'
       '@verdaccio/readme': 'workspace:*'
       lodash: ^4.17.20
-      minimatch: 3.0.4
       semver: 7.3.2
   packages/verdaccio:
     dependencies:
