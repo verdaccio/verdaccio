@@ -9,7 +9,7 @@ describe('plugin loader', () => {
   const relativePath = path.join(__dirname, './partials/test-plugin-storage');
   const buildConf = (name) => {
     return {
-      self_path: path.join(__dirname, './'),
+      config_path: path.join(__dirname, './'),
       max_users: 0,
       auth: {
         [`${relativePath}/${name}`]: {},

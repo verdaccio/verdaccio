@@ -31,7 +31,7 @@ describe('endpoint web unit test', () => {
     const configForTest = configExample(
       {
         storage: store,
-        self_path: store,
+        config_path: store,
         uplinks: {
           remote: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,

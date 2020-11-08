@@ -19,7 +19,7 @@ const generateStorage = async function () {
   const storagePath = generateRamdonStorage();
   const storageConfig = configExample(
     {
-      self_path: storagePath,
+      config_path: storagePath,
       storage: storagePath,
       uplinks: {
         npmjs: {
@@ -43,7 +43,7 @@ const generateSameUplinkStorage = async function () {
   console.log('-->storagePath', storagePath);
   const storageConfig = configExample(
     {
-      self_path: storagePath,
+      config_path: storagePath,
       storage: storagePath,
       packages: {
         jquery: {

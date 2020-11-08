@@ -1,16 +1,20 @@
-const logger = require('@verdaccio/logger');
+import buildDebug from 'debug';
 
-export function displayExperimentsInfoBox(experiments) {
-  const experimentList = Object.keys(experiments);
+const debug = buildDebug('verdaccio:runtime:flags');
+
+export function displayExperimentsInfoBox(flags) {
+  if (!flags) {
+    return;
+  }
+
+  const experimentList = Object.keys(flags);
   if (experimentList.length >= 1) {
-    logger.logger.warn(
+    debug(
       '⚠️  experiments are enabled, we recommend do not use experiments in production, ' +
         'comment out this section to disable it'
     );
     experimentList.forEach((experiment) => {
-      logger.logger.warn(
-        ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
-      );
+      debug(` - support for %o %o`, experiment, flags[experiment] ? 'is enabled' : ' is disabled');
     });
   }
 }

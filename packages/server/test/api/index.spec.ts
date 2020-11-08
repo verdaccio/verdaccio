@@ -66,7 +66,7 @@ describe('endpoint unit test', () => {
           },
         },
         storage: store,
-        self_path: store,
+        config_path: store,
         uplinks: {
           npmjs: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,

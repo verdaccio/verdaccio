@@ -32,7 +32,7 @@ import { IServerBridge } from './types';
               file: './test-profile-storage/.htpasswd'
             }
           },
-          self_path: store
+          config_path: store
         });
         app = await endPointAPI(configForTest);
         mockRegistry = await mockServer(mockServerPort).init();

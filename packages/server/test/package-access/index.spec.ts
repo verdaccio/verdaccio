@@ -19,7 +19,7 @@ describe('api with no limited access configuration', () => {
     const mockServerPort = 55530;
     const configForTest = configExample(
       {
-        self_path: store,
+        config_path: store,
         uplinks: {
           remote: {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,

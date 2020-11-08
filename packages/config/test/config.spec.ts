@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '@verdaccio/dev-commons';
 
-import { Config, parseConfigFile } from '../src';
+import { Config, defaultSecurity, parseConfigFile } from '../src';
 
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);
@@ -62,33 +62,23 @@ const checkDefaultConfPackages = (config) => {
   expect(config.url_prefix).toBeUndefined();
 
   expect(config.experiments).toBeUndefined();
-  expect(config.security).toBeUndefined();
+  expect(config.security).toEqual(defaultSecurity);
 };
 
-describe('Config file', () => {
-  beforeAll(function () {
-    /* eslint no-invalid-this: 0 */
-    // @ts-ignore
-    this.config = new Config(parseConfigFile(resolveConf('default')));
+describe('check basic content parsed file', () => {
+  test('parse default.yaml', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    checkDefaultUplink(config);
+    expect(config.storage).toBe('./storage');
+    expect(config.auth.htpasswd.file).toBe('./htpasswd');
+    checkDefaultConfPackages(config);
   });
 
-  describe('Config file', () => {
-    test('parse docker.yaml', () => {
-      const config = new Config(parseConfigFile(resolveConf('docker')));
-      checkDefaultUplink(config);
-      expect(config.storage).toBe('/verdaccio/storage/data');
-      // @ts-ignore
-      expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
-      checkDefaultConfPackages(config);
-    });
-
-    test('parse default.yaml', () => {
-      const config = new Config(parseConfigFile(resolveConf('default')));
-      checkDefaultUplink(config);
-      expect(config.storage).toBe('./storage');
-      // @ts-ignore
-      expect(config.auth.htpasswd.file).toBe('./htpasswd');
-      checkDefaultConfPackages(config);
-    });
+  test('parse docker.yaml', () => {
+    const config = new Config(parseConfigFile(resolveConf('docker')));
+    checkDefaultUplink(config);
+    expect(config.storage).toBe('/verdaccio/storage/data');
+    expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
+    checkDefaultConfPackages(config);
   });
 });

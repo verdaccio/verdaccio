@@ -27,7 +27,7 @@ describe('LocalStorage', () => {
   const getStorage = (LocalStorageClass = LocalStorage) => {
     const config: Config = new AppConfig(
       configExample({
-        self_path: path.join('../partials/store'),
+        config_path: path.join('../partials/store'),
       })
     );
 
