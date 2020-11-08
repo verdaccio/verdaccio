@@ -87,14 +87,12 @@ logs:
   # { type: file, path: verdaccio.log, level: http}
   # FIXME: this should be documented
   # More info about log rotation https://github.com/pinojs/pino/blob/master/docs/help.md#log-rotation
-#experiments:
-#  # support for npm token command
-#  token: false
-#  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
-#  search: false
-#  # disable writing body size to logs, read more on ticket 1912
-#  bytesin_off: false
+flags:
+  # support for npm token command
+  token: false
+  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
+  search: false
 
 # This affect the web and api (not developed yet)
-#i18n:
-#web: en-US
+i18n:
+  web: en-US

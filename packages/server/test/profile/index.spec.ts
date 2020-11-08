@@ -34,7 +34,7 @@ describe('endpoint user profile', () => {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
           },
         },
-        self_path: store,
+        config_path: store,
       },
       'profile.yaml',
       __dirname

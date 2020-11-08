@@ -5,7 +5,7 @@ class Config implements VerdaccioConfigGoogleStorage {
   keyFilename: string;
   bucket: string;
   kind: string;
-  self_path: string;
+  config_path: string;
   secret: string;
   user_agent: string;
   server_id: string;
@@ -18,7 +18,7 @@ class Config implements VerdaccioConfigGoogleStorage {
   $value: any;
 
   constructor() {
-    this.self_path = './test';
+    this.config_path = './test';
     this.secret = '12345';
     this.uplinks = {
       npmjs: {

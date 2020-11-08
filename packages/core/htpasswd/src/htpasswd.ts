@@ -59,7 +59,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       throw new Error('should specify "file" in config');
     }
 
-    this.path = Path.resolve(Path.dirname(this.verdaccioConfig.self_path), file);
+    this.path = Path.resolve(Path.dirname(this.verdaccioConfig.config_path), file);
   }
 
   /**

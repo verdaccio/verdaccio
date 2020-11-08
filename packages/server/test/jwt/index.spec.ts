@@ -46,7 +46,7 @@ describe('endpoint user auth JWT unit test', () => {
             url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
           },
         },
-        self_path: store,
+        config_path: store,
       },
       'jwt.yaml',
       __dirname

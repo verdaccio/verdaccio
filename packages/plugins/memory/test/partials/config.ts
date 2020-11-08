@@ -4,7 +4,7 @@ const config: Config = {
   user_agent: 'string',
   server_id: 1234,
   secret: '12345',
-  self_path: './nowhere',
+  config_path: './nowhere',
   uplinks: {
     npmjs: {
       url: 'https://registry.npmjs.org/',
