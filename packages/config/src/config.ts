@@ -2,27 +2,27 @@ import assert from 'assert';
 import _ from 'lodash';
 import buildDebug from 'debug';
 
-import { generateRandomHexString, getUserAgent, isObject } from '@verdaccio/utils';
+import { generateRandomHexString, isObject } from '@verdaccio/utils';
 import { APP_ERROR } from '@verdaccio/dev-commons';
-import { PackageList, Config as AppConfig, Security, PackageAccess } from '@verdaccio/types';
-import { generateRandomSecretKey } from './token';
 import {
-  getMatchedPackagesSpec,
-  normalisePackageAccess,
-  sanityCheckUplinksProps,
-  uplinkSanityCheck,
-} from './config-utils';
+  PackageList,
+  Config as AppConfig,
+  ConfigRuntime,
+  Security,
+  PackageAccess,
+  AuthConf,
+} from '@verdaccio/types';
+
+import { generateRandomSecretKey } from './token';
+import { getMatchedPackagesSpec, normalisePackageAccess } from './package-access';
+import { sanityCheckUplinksProps, uplinkSanityCheck } from './uplinks';
+import { defaultSecurity } from './security';
+import { getUserAgent } from './agent';
 
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 
 export type MatchedPackage = PackageAccess | void;
-
-export interface StartUpConfig {
-  storage: string;
-  plugins?: string;
-  self_path: string;
-}
 
 const debug = buildDebug('verdaccio:config');
 
@@ -31,23 +31,24 @@ const debug = buildDebug('verdaccio:config');
  */
 class Config implements AppConfig {
   public user_agent: string;
-  // @ts-ignore
-  public secret: string;
   public uplinks: any;
   public packages: PackageList;
   public users: any;
+  public auth: AuthConf;
   public server_id: string;
-  public self_path: string;
+  public config_path: string;
   public storage: string | void;
   public plugins: string | void;
-  // @ts-ignore
   public security: Security;
+  // @ts-ignore
+  public secret: string;
 
-  public constructor(config: StartUpConfig) {
+  public constructor(config: ConfigRuntime) {
     const self = this;
-    this.self_path = config.self_path;
     this.storage = config.storage;
+    this.config_path = config.config_path;
     this.plugins = config.plugins;
+    this.security = _.merge(defaultSecurity, config.security);
 
     for (const configProp in config) {
       if (self[configProp] == null) {

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Application } from 'express';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../types/custom';
 
-export default (app: Application, selfPath: string): void => {
+export default (app: Application, configPath: string): void => {
   // Hook for tests only
   app.get('/-/_debug', function (
     req: $RequestExtend,
@@ -19,7 +19,7 @@ export default (app: Application, selfPath: string): void => {
       pid: process.pid,
       // @ts-ignore
       main: process.mainModule.filename,
-      conf: selfPath,
+      conf: configPath,
       mem: process.memoryUsage(),
       gc: doGarbabeCollector,
     });
