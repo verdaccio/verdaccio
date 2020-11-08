@@ -28,10 +28,12 @@
     "debug": "^4.2.0",
     "js-yaml": "3.14.0",
     "lodash": "^4.17.20",
+    "minimatch": "3.0.4",
     "mkdirp": "0.5.5",
     "yup": "^0.29.3"
   },
   "devDependencies": {
+    "@types/minimatch": "3.0.3",
     "@types/yup": "^0.29.9"
   }
 }
