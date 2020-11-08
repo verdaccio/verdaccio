@@ -291,6 +291,7 @@ class Auth implements IAuth {
         debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
+        // @ts-ignore
         plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
           if (err) {
             debug(
@@ -334,7 +335,7 @@ class Auth implements IAuth {
     (function next(): void {
       const plugin = plugins.shift();
 
-      if (_.isNil(plugin) || isFunction(plugin.allow_publish) === false) {
+      if (isFunction(plugin?.allow_publish) === false) {
         debug('allow publish for %o plugin does not implement allow_publish', packageName);
         return next();
       }
@@ -342,6 +343,7 @@ class Auth implements IAuth {
       // @ts-ignore
       plugin.allow_publish(
         user,
+        // @ts-ignore
         pkg,
         // @ts-ignore
         (err: VerdaccioError, ok: boolean): void => {

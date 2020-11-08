@@ -6,19 +6,10 @@ import { PackageList, PackageAccess } from '@verdaccio/types';
 import { ErrorCode } from '@verdaccio/utils';
 import { MatchedPackage } from './config';
 
-export type PackageAccessAddOn = PackageAccess & {
-  // FIXME: should be published on @verdaccio/types
-  unpublish?: string[];
-};
-
 export interface LegacyPackageList {
-  [key: string]: PackageAccessAddOn;
+  [key: string]: PackageAccess;
 }
 
-/**
- * Normalize user list.
- * @return {Array}
- */
 export function normalizeUserList(groupsList: any): any {
   const result: any[] = [];
   if (_.isNil(groupsList)) {
@@ -52,11 +43,11 @@ export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): 
 
 export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {
   const normalizedPkgs: LegacyPackageList = { ...packages };
-  // add a default rule for all packages to make writing plugins easier
   if (_.isNil(normalizedPkgs['**'])) {
     normalizedPkgs['**'] = {
       access: [],
       publish: [],
+      unpublish: [],
       proxy: [],
     };
   }

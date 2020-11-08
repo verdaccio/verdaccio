@@ -1,4 +1,3 @@
-// FIXME: this is fixed, should pick the package.json or official version
 import assert from 'assert';
 import _ from 'lodash';
 

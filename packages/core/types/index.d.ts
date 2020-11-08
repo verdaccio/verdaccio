@@ -187,7 +187,17 @@ declare module '@verdaccio/types' {
     publish?: string[];
     proxy?: string[];
     access?: string[];
+    unpublish: string[];
   }
+
+  // info passed to the auth plugin when a package is package is being published
+  interface AllowAccess {
+    name: string;
+    version?: string;
+    tag?: string;
+  }
+
+  interface AuthPackageAllow extends PackageAccess, AllowAccess {}
 
   interface PackageList {
     [key: string]: PackageAccess;
@@ -499,12 +509,6 @@ declare module '@verdaccio/types' {
     logger: Logger;
   }
 
-  interface AllowAccess {
-    name: string;
-    version?: string;
-    tag?: string;
-  }
-
   // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
   // instead of AuthError
   // but this type is on @verdaccio/commons-api and cannot be used here yet (I don't know why)
@@ -526,9 +530,9 @@ declare module '@verdaccio/types' {
     authenticate(user: string, password: string, cb: AuthCallback): void;
     adduser?(user: string, password: string, cb: AuthCallback): void;
     changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
-    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_publish?(user: RemoteUser, pkg: T & AuthPackageAllow, cb: AuthAccessCallback): void;
     allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
-    allow_unpublish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_unpublish?(user: RemoteUser, pkg: T & AuthPackageAllow, cb: AuthAccessCallback): void;
     allow_publish?(
       user: RemoteUser,
       pkg: AllowAccess & PackageAccess,

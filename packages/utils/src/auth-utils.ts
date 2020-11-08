@@ -1,5 +1,5 @@
 import { ROLES, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
-import { RemoteUser, AllowAccess, PackageAccess } from '@verdaccio/types';
+import { RemoteUser, AuthPackageAllow } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 export interface CookieSessionToken {
@@ -72,11 +72,6 @@ export type AllowAction = (
   pkg: AuthPackageAllow,
   callback: AllowActionCallback
 ) => void;
-
-export interface AuthPackageAllow extends PackageAccess, AllowAccess {
-  // TODO: this should be on @verdaccio/types
-  unpublish: boolean | string[];
-}
 
 export function createSessionToken(): CookieSessionToken {
   const tenHoursTime = 10 * 60 * 60 * 1000;
