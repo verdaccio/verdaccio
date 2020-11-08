@@ -5,14 +5,23 @@ import https from 'https';
 import constants from 'constants';
 import { Application } from 'express';
 import { assign, isObject, isFunction } from 'lodash';
+import buildDebug from 'debug';
 
-import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import {
+  ConfigRuntime,
+  Callback,
+  ConfigWithHttps,
+  HttpsConfKeyCert,
+  HttpsConfPfx,
+} from '@verdaccio/types';
 import { API_ERROR, certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
 import server from '@verdaccio/server';
 import { logger } from '@verdaccio/logger';
 
 import { getListListenAddresses, resolveConfigPath } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';
+
+const debug = buildDebug('verdaccio:runtime');
 
 function launchServer(
   app,
@@ -25,9 +34,11 @@ function launchServer(
 ): void {
   let webServer;
   if (addr.proto === 'https') {
+    debug('https enabled');
     webServer = handleHTTPS(app, configPath, config);
   } else {
     // http
+    debug('http enabled');
     webServer = http.createServer(app);
   }
   if (
@@ -43,36 +54,25 @@ function launchServer(
   callback(webServer, addr, pkgName, pkgVersion);
 }
 
-/**
- * Trigger the server after configuration has been loaded.
- * @param {Object} config
- * @param {Object} cliArguments
- * @param {String} configPath
- * @param {String} pkgVersion
- * @param {String} pkgName
- */
-function startVerdaccio(
-  config: any,
+async function startVerdaccio(
+  config: ConfigRuntime,
   cliListen: string,
   configPath: string,
   pkgVersion: string,
   pkgName: string,
   callback: Callback
-): void {
+): Promise<void> {
   if (isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  server(config).then((app): void => {
-    const addresses = getListListenAddresses(cliListen, config.listen);
-    if ('experiments' in config) {
-      displayExperimentsInfoBox(config.experiments);
-    }
+  const app = await server(config);
+  const addresses = getListListenAddresses(cliListen, config.listen);
+  displayExperimentsInfoBox(config.flags);
 
-    addresses.forEach((addr) =>
-      launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback)
-    );
-  });
+  addresses.forEach((addr) =>
+    launchServer(app, addr, config, configPath, pkgVersion, pkgName, callback)
+  );
 }
 
 function unlinkAddressPath(addr) {

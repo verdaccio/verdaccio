@@ -41,7 +41,7 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
     storage.removeTarball('name', 'filename', 'revision', () => {});
     const config1: AppConfig = new Config({
       storage: './storage',
-      self_path: '/home/sotrage',
+      config_path: '/home/sotrage',
     });
     const add: IUploadTarball = storage.addTarball('name', 'filename');
     storage.getTarball('name', 'filename');

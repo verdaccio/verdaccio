@@ -52,7 +52,7 @@ describe('endpoint example unit test', () => {
           },
         },
         // 6. The self_path is important be the same as the store
-        self_path: store,
+        config_path: store,
         // 7. Define the location of the .htpasswd file, this is relative to self_path.
         auth: {
           htpasswd: {

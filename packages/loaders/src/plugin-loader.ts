@@ -97,7 +97,7 @@ export function loadPlugin<T extends IPlugin<T>>(
 
       // relative to config path
       if (plugin === null && pluginId.match(/^\.\.?($|\/)/)) {
-        plugin = tryLoad(Path.resolve(Path.dirname(config.self_path), pluginId));
+        plugin = tryLoad(Path.resolve(Path.dirname(config.config_path), pluginId));
       }
 
       if (plugin === null) {

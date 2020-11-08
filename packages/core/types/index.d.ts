@@ -187,7 +187,17 @@ declare module '@verdaccio/types' {
     publish?: string[];
     proxy?: string[];
     access?: string[];
+    unpublish: string[];
   }
+
+  // info passed to the auth plugin when a package is package is being published
+  interface AllowAccess {
+    name: string;
+    version?: string;
+    tag?: string;
+  }
+
+  interface AuthPackageAllow extends PackageAccess, AllowAccess {}
 
   interface PackageList {
     [key: string]: PackageAccess;
@@ -323,14 +333,14 @@ declare module '@verdaccio/types' {
     api: APITokenOptions;
   }
 
-  interface Config {
-    user_agent: string;
-    server_id: any;
+  interface ConfigFlags {
+    token?: boolean;
+    search?: boolean;
+  }
+
+  interface ConfigYaml {
     _debug?: boolean;
     storage?: string | void;
-    plugins?: string | void;
-    secret: string;
-    self_path: string;
     packages: PackageList;
     uplinks: UpLinksConfList;
     logs?: LoggerConf[];
@@ -338,19 +348,31 @@ declare module '@verdaccio/types' {
     auth?: AuthConf;
     security: Security;
     publish?: PublishOptions;
-    url_prefix?: string;
     store?: any;
     listen?: ListenAddress;
     https?: HttpsConf;
     http_proxy?: string;
+    plugins?: string | void;
     https_proxy?: string;
     no_proxy?: string;
     max_body_size?: string;
-    // deprecated
     notifications?: Notifications;
     notify?: Notifications | Notifications[];
     middlewares?: any;
     filters?: any;
+    url_prefix?: string;
+    flags?: ConfigFlags;
+  }
+
+  interface ConfigRuntime extends ConfigYaml {
+    config_path: string;
+  }
+
+  interface Config extends ConfigYaml, ConfigRuntime {
+    user_agent: string;
+    server_id: string;
+    secret: string;
+    // deprecated
     checkSecretKey(token: string): string;
     getMatchedPackagesSpec(storage: string): PackageAccess | void;
     [key: string]: any;
@@ -487,12 +509,6 @@ declare module '@verdaccio/types' {
     logger: Logger;
   }
 
-  interface AllowAccess {
-    name: string;
-    version?: string;
-    tag?: string;
-  }
-
   // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
   // instead of AuthError
   // but this type is on @verdaccio/commons-api and cannot be used here yet (I don't know why)
@@ -514,9 +530,9 @@ declare module '@verdaccio/types' {
     authenticate(user: string, password: string, cb: AuthCallback): void;
     adduser?(user: string, password: string, cb: AuthCallback): void;
     changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
-    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_publish?(user: RemoteUser, pkg: T & AuthPackageAllow, cb: AuthAccessCallback): void;
     allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
-    allow_unpublish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_unpublish?(user: RemoteUser, pkg: T & AuthPackageAllow, cb: AuthAccessCallback): void;
     allow_publish?(
       user: RemoteUser,
       pkg: AllowAccess & PackageAccess,
