@@ -25,6 +25,7 @@ import pluginsAuth from './plugins/auth';
 import middleware from './plugins/middleware';
 import upLinkCache from './uplinks/cache';
 import uplinkTimeout from './uplinks/timeout';
+import { IServerBridge } from '@verdaccio/mock';
 
 describe('functional test verdaccio', function () {
   jest.setTimeout(20000);
