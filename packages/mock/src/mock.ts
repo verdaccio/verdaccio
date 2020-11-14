@@ -5,8 +5,7 @@ import * as fsExtra from 'fs-extra';
 import { DOMAIN_SERVERS } from './constants';
 import VerdaccioProcess from './server_process';
 import { VerdaccioConfig } from './verdaccio-server';
-import Server from './server';
-import { IServerBridge } from './types';
+import Server, { IServerBridge } from './server';
 
 /**
  * Fork a Verdaccio process with a custom configuration.

@@ -238,7 +238,7 @@ export function final(
     // and should just close socket
     if (err.message.match(/set headers after they are sent/)) {
       if (_.isNil(res.socket) === false) {
-        res.socket.destroy();
+        res.socket?.destroy();
       }
       return;
     }
