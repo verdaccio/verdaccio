@@ -1,9 +1,16 @@
 import pino from 'pino';
 import _ from 'lodash';
+import buildDebug from 'debug';
+
+const debug = buildDebug('verdaccio:logger');
 
 const DEFAULT_LOG_FORMAT = 'pretty';
 
 export let logger;
+
+function isProd() {
+  return process.env.NODE_ENV === 'production';
+}
 
 function getPrettifier() {
   // TODO: this module can be loaded dynamically and allow custom formatting
@@ -22,7 +29,11 @@ export function createLogger(
   options = {},
   destination = pino.destination(1),
   format: LogFormat = DEFAULT_LOG_FORMAT,
-  prettyPrintOptions = {}
+  prettyPrintOptions = {
+    // we hide warning since the prettifier should not be used in production
+    // https://getpino.io/#/docs/pretty?id=prettifier-api
+    suppressFlushSyncWarning: true,
+  }
 ) {
   if (_.isNil(format)) {
     format = DEFAULT_LOG_FORMAT;
@@ -40,7 +51,9 @@ export function createLogger(
     },
   };
 
-  if (format === DEFAULT_LOG_FORMAT || format !== 'json') {
+  debug('has prettifier? %o', !isProd());
+  // pretty logs are not allowed in production for performance reason
+  if ((format === DEFAULT_LOG_FORMAT || format !== 'json') && isProd() === false) {
     pinoConfig = Object.assign({}, pinoConfig, {
       // FIXME: this property cannot be used in combination with pino.final
       // https://github.com/pinojs/pino-pretty/issues/37
@@ -82,13 +95,9 @@ export type LoggerConfigItem = {
 export type LoggerConfig = LoggerConfigItem[];
 
 export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER_CONF]) {
+  debug('setup logger');
   const isLegacyConf = _.isArray(options);
-  if (isLegacyConf) {
-    // FIXME: re-enable later
-    // console.warn("DEPRECATE: logs does not have multi-stream support anymore,
-    // please upgrade your logger configuration");
-  }
-
+  // verdaccio 4 allows array configuration
   // backward compatible, pick only the first option
   let loggerConfig = isLegacyConf ? options[0] : options;
   if (!loggerConfig?.level) {
@@ -106,20 +115,21 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   }
 
-  process.on(
-    'uncaughtException',
-    pino.final(logger, (err, finalLogger) => {
-      finalLogger.fatal(err, 'uncaughtException');
-      process.exit(1);
-    })
-  );
+  if (isProd()) {
+    process.on(
+      'uncaughtException',
+      pino.final(logger, (err, finalLogger) => {
+        finalLogger.fatal(err, 'uncaughtException');
+        process.exit(1);
+      })
+    );
 
-  // @ts-ignore
-  process.on(
-    'unhandledRejection',
-    pino.final(logger, (err, finalLogger) => {
-      finalLogger.fatal(err, 'uncaughtException');
-      process.exit(1);
-    })
-  );
+    process.on(
+      'unhandledRejection',
+      pino.final(logger, (err, finalLogger) => {
+        finalLogger.fatal(err, 'uncaughtException');
+        process.exit(1);
+      })
+    );
+  }
 }
