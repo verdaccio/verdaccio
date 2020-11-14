@@ -9,7 +9,6 @@ declare module '@verdaccio/types' {
   type Callback = Function;
   // FIXME: err should be something flexible enough for any implementation
   type CallbackAction = (err: any | null) => void;
-  type CallbackError = (err: NodeJS.ErrnoException) => void;
   interface Author {
     name: string;
     email?: string;

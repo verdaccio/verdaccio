@@ -7,6 +7,7 @@
     "strict": true,
     "declaration": true,
     "strictNullChecks": true,
+    "types": ["node", "jest", "express"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
