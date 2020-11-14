@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import Handlebars from 'handlebars';
 
 import buildDebug from 'debug';
