@@ -81,6 +81,7 @@ importers:
       selfsigned: 1.10.7
       standard-version: 8.0.0
       supertest: 4.0.2
+      ts-node: 9.0.0_typescript@3.9.7
       typescript: 3.9.7
       verdaccio: 'link:packages/verdaccio'
       verdaccio-audit: 'link:packages/plugins/audit'
@@ -168,6 +169,7 @@ importers:
       selfsigned: 1.10.7
       standard-version: 8.0.0
       supertest: 4.0.2
+      ts-node: ^9.0.0
       typescript: ^3.9.7
       verdaccio: 'workspace:*'
       verdaccio-audit: 'workspace:*'
@@ -428,29 +430,31 @@ importers:
   packages/logger:
     dependencies:
       '@verdaccio/logger-prettify': 'link:../logger-prettify'
-      lodash: 4.17.15
-      pino: 5.17.0
+      debug: 4.2.0
+      lodash: 4.17.20
+      pino: 6.7.0
     devDependencies:
-      '@types/pino': 5.20.0
+      '@types/pino': 6.3.3
       '@verdaccio/types': 'link:../core/types'
     specifiers:
-      '@types/pino': 5.20.0
+      '@types/pino': ^6.3.3
       '@verdaccio/logger-prettify': 'workspace:5.0.0-alpha.0'
       '@verdaccio/types': 'workspace:*'
-      lodash: 4.17.15
-      pino: 5.17.0
+      debug: ^4.2.0
+      lodash: ~4.17.20
+      pino: ^6.7.0
   packages/logger-prettify:
     dependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
       '@verdaccio/dev-commons': 'link:../commons'
-      dayjs: 1.8.19
+      dayjs: 1.8.36
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
-      lodash: 4.17.15
+      lodash: 4.17.20
       pad-left: 2.1.0
       pad-right: 0.2.2
-      prettier-bytes: 1.0.3
-      pretty-ms: 5.0.0
+      prettier-bytes: 1.0.4
+      pretty-ms: 5.1.0
     devDependencies:
       '@types/pino': 6.0.1
       pino: 6.2.1
@@ -458,15 +462,15 @@ importers:
       '@types/pino': 6.0.1
       '@verdaccio/commons-api': 'workspace:*'
       '@verdaccio/dev-commons': 'workspace:5.0.0-alpha.0'
-      dayjs: 1.8.19
+      dayjs: 1.8.36
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
-      lodash: 4.17.15
+      lodash: 4.17.20
       pad-left: 2.1.0
       pad-right: 0.2.2
       pino: 6.2.1
-      prettier-bytes: 1.0.3
-      pretty-ms: 5.0.0
+      prettier-bytes: 1.0.4
+      pretty-ms: 5.1.0
   packages/middleware:
     dependencies:
       '@verdaccio/auth': 'link:../auth'
@@ -5887,6 +5891,7 @@ packages:
     resolution:
       integrity: sha512-iaIVzr+w2ZJ5HkidlZ3EJM8VTZb2MJLCjw3V+505yVts0gRC4UMvjw0d1HPtGqI/HQC/KdsYtayfzl+AXY2R8g==
   /@types/events/3.0.0:
+    dev: false
     resolution:
       integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
   /@types/express-serve-static-core/4.17.9:
@@ -6082,17 +6087,10 @@ packages:
       integrity: sha512-kUNnecmtkunAoQ3CnjmMkzNU/gtxG8guhi+Fk2U/kOpIKjIMKnXGp4IJCgQJrXSgMsWYimYG4TGjz/UzbGEBTw==
   /@types/pino-std-serializers/2.4.1:
     dependencies:
-      '@types/node': 14.6.0
+      '@types/node': 14.10.0
     dev: true
     resolution:
       integrity: sha512-17XcksO47M24IVTVKPeAByWUd3Oez7EbIjXpSbzMPhXVzgjGtrOa49gKBwxH9hb8dKv58OelsWQ+A1G1l9S3wQ==
-  /@types/pino/5.20.0:
-    dependencies:
-      '@types/events': 3.0.0
-      '@types/node': 14.6.0
-    dev: true
-    resolution:
-      integrity: sha512-gz3Ahvx1UDEveXViOQtYqnUkjSVQFdoJqpZTW/63spEHwOGRJRJIi3JMJSClp5Sk1x1ljn9tHWjGczmP6s/rvg==
   /@types/pino/6.0.1:
     dependencies:
       '@types/node': 14.6.0
@@ -6101,6 +6099,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-GkOWuzB1vs6yhx8j9LxwE4LG6NANwpIjxg2q/Iev0cegOtoX8NGNI7PaJ3nTE75/vW5LANFXmuBOEWXbTGdxgQ==
+  /@types/pino/6.3.3:
+    dependencies:
+      '@types/node': 14.10.0
+      '@types/pino-std-serializers': 2.4.1
+      '@types/sonic-boom': 0.7.0
+    dev: true
+    resolution:
+      integrity: sha512-YtT58N7Tt7B7f5B/upuq694p4eT4icM9TuhgYeKhm+dnF0Ahm7q5YJp1i7vC2mBMdWgH1IvOa2XK6rhUjBv0GQ==
   /@types/prettier/2.0.2:
     dev: true
     resolution:
@@ -6186,7 +6192,7 @@ packages:
       integrity: sha512-6M64P58N+OXjU432WoLLBQxbA0LRGBCRm7aAGQJ+SMC1IMl0dgRVi9EFfoDcS2a7Xogygk/eGN94CfwU9UF7UQ==
   /@types/sonic-boom/0.7.0:
     dependencies:
-      '@types/node': 14.6.0
+      '@types/node': 14.10.0
     dev: true
     resolution:
       integrity: sha512-AfqR0fZMoUXUNwusgXKxcE9DPlHNDHQp6nKYUd4PSRpLobF5CCevSpyTEBcVZreqaWKCnGBr9KI1fHMTttoB7A==
@@ -7056,6 +7062,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-5hYdAkZlcG8tOLujVDTgCT+uPX0VnpAH28gWsLfzpXYm7wP6mp5Q/gYyR7YQ0cKVJcXJnl3j2kpBan13PtQf6w==
+  /arg/4.1.3:
+    dev: true
+    resolution:
+      integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==
   /argparse/1.0.10:
     dependencies:
       sprintf-js: 1.0.3
@@ -9800,12 +9810,17 @@ packages:
     resolution:
       integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
   /dayjs/1.8.19:
+    dev: true
     resolution:
       integrity: sha512-7kqOoj3oQSmqbvtvGFLU5iYqies+SqUiEGNT0UtUPPxcPYgY1BrkXR0Cq2R9HYSimBXN+xHkEN4Hi399W+Ovlg==
   /dayjs/1.8.28:
     dev: false
     resolution:
       integrity: sha512-ccnYgKC0/hPSGXxj7Ju6AV/BP4HUkXC2u15mikXT5mX9YorEaoi1bEKOmAqdkJHN4EEkmAf97SpH66Try5Mbeg==
+  /dayjs/1.8.36:
+    dev: false
+    resolution:
+      integrity: sha512-3VmRXEtw7RZKAf+4Tv1Ym9AGeo8r8+CjDi26x+7SYQil1UqtqdaokhzoEJohqlzt0m5kacJSDhJQkG/LWhpRBw==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -10239,6 +10254,12 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-5j5vdRcw3CNctePNYN0Wy2e/JbWT6cAYnXv5OuqPhDpyCGc0uLu2TK0zOCJWNB9kOIfYMSpIulRaDgIi4HJ6Ig==
+  /diff/4.0.2:
+    dev: true
+    engines:
+      node: '>=0.3.1'
+    resolution:
+      integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
   /diffie-hellman/5.0.3:
     dependencies:
       bn.js: 4.11.9
@@ -11656,10 +11677,17 @@ packages:
     resolution:
       integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
   /fast-redact/2.0.0:
+    dev: true
     engines:
       node: '>=6'
     resolution:
       integrity: sha512-zxpkULI9W9MNTK2sJ3BpPQrTEXFNESd2X6O1tXMFpK/XM0G5c5Rll2EVYZH2TqI3xRGK/VaJ+eEOt7pnENJpeA==
+  /fast-redact/3.0.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-a/S/Hp6aoIjx7EmugtzLqXmcNsyFszqbt6qQ99BdG61QjBZF6shNis0BYR6TsZOQ1twYc0FN2Xdhwwbv6+KD0w==
   /fast-safe-stringify/2.0.7:
     resolution:
       integrity: sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
@@ -16846,6 +16874,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
+  /make-error/1.3.6:
+    dev: true
+    resolution:
+      integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
   /makeerror/1.0.11:
     dependencies:
       tmpl: 1.0.4
@@ -18756,18 +18788,6 @@ packages:
   /pino-std-serializers/2.5.0:
     resolution:
       integrity: sha512-wXqbqSrIhE58TdrxxlfLwU9eDhrzppQDvGhBEr1gYbzzM4KKo3Y63gSjiDXRKLVS2UOXdPNR2v+KnQgNrs+xUg==
-  /pino/5.17.0:
-    dependencies:
-      fast-redact: 2.0.0
-      fast-safe-stringify: 2.0.7
-      flatstr: 1.0.12
-      pino-std-serializers: 2.5.0
-      quick-format-unescaped: 3.0.3
-      sonic-boom: 0.7.7
-    dev: false
-    hasBin: true
-    resolution:
-      integrity: sha512-LqrqmRcJz8etUjyV0ddqB6OTUutCgQULPFg2b4dtijRHUsucaAdBgSUW58vY6RFSX+NT8963F+q0tM6lNwGShA==
   /pino/6.2.1:
     dependencies:
       fast-redact: 2.0.0
@@ -18780,6 +18800,18 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-5F5A+G25Ex2rMOBEe3XYGyLSF4dikQZsFvPojwsqnDBX+rfg7+kw9s5i7pHuVAJImekjwb+MR9jQyHWPLENlvQ==
+  /pino/6.7.0:
+    dependencies:
+      fast-redact: 3.0.0
+      fast-safe-stringify: 2.0.7
+      flatstr: 1.0.12
+      pino-std-serializers: 2.5.0
+      quick-format-unescaped: 4.0.1
+      sonic-boom: 1.1.0
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-vPXJ4P9rWCwzlTJt+f0Ni4THc3DWyt8iDDCO4edQ8narTu6hnpzdXu8FqeSJCGndl1W6lfbYQUQihUO54y66Lw==
   /pirates/4.0.1:
     dependencies:
       node-modules-regexp: 1.0.0
@@ -19327,10 +19359,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
-  /prettier-bytes/1.0.3:
+  /prettier-bytes/1.0.4:
     dev: false
     resolution:
-      integrity: sha1-kysxwj792zb8ZqgtzvNirzEimC8=
+      integrity: sha1-mUsCqkb2mcULYle1+qp/4lV+YtY=
   /prettier/1.19.1:
     dev: true
     engines:
@@ -19386,14 +19418,14 @@ packages:
       node: '>= 10'
     resolution:
       integrity: sha512-zK6Gd8zDsEiVydOCGLkoBoZuqv8VTiHyAbKznXe/gaph/DAeZOmit9yMfgIz5adIgAMMs5XfoYSwAX3jcCO1tA==
-  /pretty-ms/5.0.0:
+  /pretty-ms/5.1.0:
     dependencies:
       parse-ms: 2.1.0
     dev: false
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-94VRYjL9k33RzfKiGokPBPpsmloBYSf5Ri+Pq19zlsEcUKFob+admeXr5eFDRuPjFmEOcjJvPGdillYOJyvZ7Q==
+      integrity: sha512-4gaK1skD2gwscCfkswYQRmddUb2GJZtzDGRjHWadVHtK/DIKFufa12MvES6/xu1tVbUYeia5bmLcwJtZJQUqnw==
   /prismjs/1.21.0:
     dev: false
     optionalDependencies:
@@ -19664,12 +19696,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
-  /quick-format-unescaped/3.0.3:
-    dev: false
-    resolution:
-      integrity: sha512-dy1yjycmn9blucmJLXOfZDx1ikZJUi6E8bBZLnhPG5gBrVhHXx2xVyqqgKBubVNEXmx51dBACMHpoMQK/N/AXQ==
   /quick-format-unescaped/4.0.1:
-    dev: true
     resolution:
       integrity: sha512-RyYpQ6Q5/drsJyOhrWHYMWTedvjTIat+FTwv0K4yoUxzvekw2aRHMQJLlnvt8UantkZg2++bEzD9EdxXqkWf4A==
   /quick-lru/1.1.0:
@@ -21392,18 +21419,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-SpmVOVpdq0DJc0qArhF3E5xsxvaiqGNb73XfgBpK1y3UD5gs8DSo8aCTsuT5pX8rssdc2NDIzANwP9eCAiSdTA==
-  /sonic-boom/0.7.7:
-    dependencies:
-      atomic-sleep: 1.0.0
-      flatstr: 1.0.12
-    dev: false
-    resolution:
-      integrity: sha512-Ei5YOo5J64GKClHIL/5evJPgASXFVpfVYbJV9PILZQytTK6/LCwHvsZJW2Ig4p9FMC2OrBrMnXKgRN/OEoAWfg==
   /sonic-boom/1.1.0:
     dependencies:
       atomic-sleep: 1.0.0
       flatstr: 1.0.12
-    dev: true
     resolution:
       integrity: sha512-JyOf+Xt7GBN4tAic/DD1Bitw6OMgSHAnswhPeOiLpfRoSjPNjEIi73UF3OxHzhSNn9WavxGuCZzprFCGFSNwog==
   /sort-keys-length/1.0.1:
@@ -22624,6 +22643,22 @@ packages:
     dev: false
     resolution:
       integrity: sha512-0z3j8R7MCjy10kc/g+qg7Ln3alJTodw9aDuVWZa3uiWqfuBMKeAeP2ocWcxoyM3D73yz3Jt/Pu4qPr4wHSdB/Q==
+  /ts-node/9.0.0_typescript@3.9.7:
+    dependencies:
+      arg: 4.1.3
+      diff: 4.0.2
+      make-error: 1.3.6
+      source-map-support: 0.5.19
+      typescript: 3.9.7
+      yn: 3.1.1
+    dev: true
+    engines:
+      node: '>=10.0.0'
+    hasBin: true
+    peerDependencies:
+      typescript: '>=2.7'
+    resolution:
+      integrity: sha512-/TqB4SnererCDR/vb4S/QvSZvzQMJN8daAslg7MeaiHvD8rDZsSfXmNeNumyZZzMned72Xoq/isQljYSt8Ynfg==
   /ts-pnp/1.2.0:
     dev: false
     engines:
@@ -24153,6 +24188,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-AI4G2AlDIMNy28L47XagymyKxBk=
+  /yn/3.1.1:
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
   /yoga-layout-prebuilt/1.9.6:
     dependencies:
       '@types/yoga-layout': 1.9.2
