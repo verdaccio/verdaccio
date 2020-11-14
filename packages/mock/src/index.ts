@@ -8,3 +8,4 @@ export * from './server';
 export * from './config';
 export * from './mock';
 export * from './mock-api';
+export * from './types';
