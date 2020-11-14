@@ -25,18 +25,17 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
-    "dayjs": "1.8.19",
+    "dayjs": "1.8.36",
     "fast-safe-stringify": "2.0.7",
     "kleur": "3.0.3",
-    "lodash": "4.17.15",
+    "lodash": "4.17.20",
     "pad-left": "2.1.0",
     "pad-right": "0.2.2",
-    "prettier-bytes": "1.0.3",
-    "pretty-ms": "5.0.0"
+    "prettier-bytes": "1.0.4",
+    "pretty-ms": "5.1.0"
   },
   "devDependencies": {
     "@types/pino": "6.0.1",
     "pino": "6.2.1"
-  },
-  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+  }
 }
