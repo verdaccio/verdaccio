@@ -23,7 +23,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "fs-extra": "^8.1.0",
@@ -34,6 +34,6 @@
     "verdaccio": "^4.8.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.0.0-beta"
+    "@verdaccio/types": "workspace:10.0.0-alpha.0"
   }
 }
