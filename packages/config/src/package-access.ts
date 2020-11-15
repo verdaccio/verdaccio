@@ -10,6 +10,21 @@ export interface LegacyPackageList {
   [key: string]: PackageAccess;
 }
 
+export const ROLES = {
+  $ALL: '$all',
+  ALL: 'all',
+  $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
+  DEPRECATED_ALL: '@all',
+  DEPRECATED_AUTH: '@authenticated',
+  DEPRECATED_ANONYMOUS: '@anonymous',
+};
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};
+
 export function normalizeUserList(groupsList: any): any {
   const result: any[] = [];
   if (_.isNil(groupsList)) {

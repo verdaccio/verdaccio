@@ -9,7 +9,7 @@ import { loadPlugin } from '@verdaccio/loaders';
 import { Auth } from '@verdaccio/auth';
 import apiEndpoint from '@verdaccio/api';
 import { ErrorCode } from '@verdaccio/utils';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 import { Config as AppConfig } from '@verdaccio/config';
 
 import { webAPI, renderWebMiddleware } from '@verdaccio/web';

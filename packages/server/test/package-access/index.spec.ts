@@ -5,7 +5,7 @@ import { setup, logger } from '@verdaccio/logger';
 
 setup([]);
 
-import { HEADERS, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { generateRamdonStorage, mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 import endPointAPI from '../../src';
 

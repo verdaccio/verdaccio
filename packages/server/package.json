@@ -18,7 +18,7 @@
     "@verdaccio/api": "workspace:5.0.0-alpha.0",
     "@verdaccio/auth": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
-    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
+    "@verdaccio/commons-api": "workspace:10.0.0-beta",
     "@verdaccio/loaders": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/middleware": "workspace:5.0.0-alpha.0",
@@ -31,12 +31,11 @@
     "lodash": "4.17.15"
   },
   "devDependencies": {
-    "@verdaccio/commons-api": "workspace:*",
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/proxy": "workspace:5.0.0-alpha.0",
     "http-errors": "1.7.3",
     "request": "2.87.0",
-    "verdaccio": "~4.4.4"
+    "verdaccio": "4.8.1"
   },
   "scripts": {
     "clean": "rimraf ./build",

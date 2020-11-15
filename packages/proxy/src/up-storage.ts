@@ -15,7 +15,7 @@ import {
   API_ERROR,
   HEADER_TYPE,
   CHARACTER_ENCODING,
-} from '@verdaccio/dev-commons';
+} from '@verdaccio/commons-api';
 import {
   Config,
   Callback,

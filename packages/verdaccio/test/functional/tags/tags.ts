@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 import { readFile } from '../lib/test.utils';
 

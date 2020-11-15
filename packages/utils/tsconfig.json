@@ -15,12 +15,6 @@
       "path": "../core/commons-api"
     },
     {
-      "path": "../core/readme"
-    },
-    {
-      "path": "../commons"
-    },
-    {
       "path": "../logger"
     },
     {

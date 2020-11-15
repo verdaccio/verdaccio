@@ -3,20 +3,22 @@ import {
   addScope,
   deleteProperties,
   sortByName,
-  parseReadme,
   formatAuthor,
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
   isVersionValid,
 } from '@verdaccio/utils';
+import sanitizyReadme from '@verdaccio/readme';
+
 import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { logger } from '@verdaccio/logger';
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { Config, Package, RemoteUser, Version } from '@verdaccio/types';
-import { addGravatarSupport, AuthorAvatar } from '../web-utils';
+
+import { addGravatarSupport, AuthorAvatar, parseReadme } from '../web-utils';
 import { generateGravatarUrl } from '../user';
 
 export type $SidebarPackage = Package & { latest: Version };
@@ -124,7 +126,11 @@ function addPackageWebApi(
         }
 
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
-        next(parseReadme(info.name, info.readme, logger));
+        try {
+          next(parseReadme(info.name, info.readme));
+        } catch {
+          next(sanitizyReadme('ERROR: No README data found!'));
+        }
       },
     });
   });

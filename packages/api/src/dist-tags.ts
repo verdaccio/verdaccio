@@ -3,8 +3,7 @@ import _ from 'lodash';
 import { Router } from 'express';
 
 import { media, allow } from '@verdaccio/middleware';
-import { API_MESSAGE, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
-import { VerdaccioError } from '@verdaccio/commons-api';
+import { API_MESSAGE, HTTP_STATUS, DIST_TAGS, VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
 import { IStorageHandler } from '@verdaccio/store';
 import { IAuth } from '@verdaccio/auth';

@@ -2,7 +2,7 @@ import assert from 'assert';
 import _ from 'lodash';
 import buildDebug from 'debug';
 
-import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '@verdaccio/dev-commons';
+import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '@verdaccio/commons-api';
 import { buildToken } from '@verdaccio/utils';
 import smartRequest, { PromiseAssert } from './request';
 

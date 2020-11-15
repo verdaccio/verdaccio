@@ -1,6 +1,6 @@
 import fs from 'fs';
 import YAML from 'js-yaml';
-import { APP_ERROR } from '@verdaccio/dev-commons';
+import { APP_ERROR } from '@verdaccio/commons-api';
 import { ConfigRuntime, ConfigYaml } from '@verdaccio/types';
 
 export function parseConfigFile(configPath: string): ConfigRuntime {

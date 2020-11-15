@@ -1,9 +1,11 @@
 import path from 'path';
 import _ from 'lodash';
 
-import { PACKAGE_ACCESS } from '@verdaccio/dev-commons';
-
-import { getMatchedPackagesSpec, normalisePackageAccess } from '../src/package-access';
+import {
+  getMatchedPackagesSpec,
+  normalisePackageAccess,
+  PACKAGE_ACCESS,
+} from '../src/package-access';
 import { parseConfigFile } from '../src';
 
 describe('Package access utilities', () => {

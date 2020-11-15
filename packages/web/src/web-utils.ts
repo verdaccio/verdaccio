@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { isObject } from '@verdaccio/utils';
 import { Package, Author } from '@verdaccio/types';
 import { normalizeContributors } from '@verdaccio/store';
+import sanitizyReadme from '@verdaccio/readme';
 
 export type AuthorAvatar = Author & { avatar?: string };
 
@@ -57,4 +58,20 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
   }
 
   return pkgInfoCopy;
+}
+
+/**
+ * parse package readme - markdown/ascii
+ * @param {String} packageName name of package
+ * @param {String} readme package readme
+ * @return {String} converted html template
+ */
+export function parseReadme(packageName: string, readme: string): string | void {
+  if (_.isEmpty(readme) === false) {
+    return sanitizyReadme(readme);
+  }
+
+  // logs readme not found error
+  // logger.error({ packageName }, '@{packageName}: No readme found');
+  throw new Error('ERROR: No README data found!');
 }

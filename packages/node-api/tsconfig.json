@@ -8,7 +8,7 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../commons"
+      "path": "../core/commons-api"
     },
     {
       "path": "../logger"

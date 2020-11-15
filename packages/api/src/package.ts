@@ -4,7 +4,7 @@ import buildDebug from 'debug';
 
 import { allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '@verdaccio/utils';
-import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/dev-commons';
+import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/commons-api';
 import { Config, Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';

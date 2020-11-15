@@ -6,7 +6,7 @@ import { Request } from 'express';
 import buildDebug from 'debug';
 
 import { ProxyStorage } from '@verdaccio/proxy';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
 import { ReadTarball } from '@verdaccio/streams';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from '@verdaccio/utils';
 import { setupUpLinks, updateVersionsHiddenUpLink, ProxyList, IProxy } from '@verdaccio/proxy';

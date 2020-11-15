@@ -23,8 +23,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
+    "@verdaccio/commons-api": "workspace:10.0.0-beta",
     "dayjs": "1.8.36",
     "fast-safe-stringify": "2.0.7",
     "kleur": "3.0.3",

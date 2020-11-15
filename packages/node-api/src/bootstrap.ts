@@ -14,9 +14,13 @@ import {
   HttpsConfKeyCert,
   HttpsConfPfx,
 } from '@verdaccio/types';
-import { API_ERROR, certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
+import { API_ERROR } from '@verdaccio/commons-api';
 import server from '@verdaccio/server';
 import { logger } from '@verdaccio/logger';
+
+export const keyPem = 'verdaccio-key.pem';
+export const certPem = 'verdaccio-cert.pem';
+export const csrPem = 'verdaccio-csr.pem';
 
 import { getListListenAddresses, resolveConfigPath } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';

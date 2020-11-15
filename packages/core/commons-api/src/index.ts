@@ -3,6 +3,13 @@ import httpCodes from 'http-status-codes';
 
 export const DEFAULT_MIN_LIMIT_PASSWORD = 3;
 
+export const HEADER_TYPE = {
+  CONTENT_ENCODING: 'content-encoding',
+  CONTENT_TYPE: 'content-type',
+  CONTENT_LENGTH: 'content-length',
+  ACCEPT_ENCODING: 'accept-encoding',
+};
+
 export const HTTP_STATUS = {
   OK: httpCodes.OK,
   CREATED: httpCodes.CREATED,
@@ -13,12 +20,24 @@ export const HTTP_STATUS = {
   FORBIDDEN: httpCodes.FORBIDDEN,
   NOT_FOUND: httpCodes.NOT_FOUND,
   CONFLICT: httpCodes.CONFLICT,
+  NOT_IMPLEMENTED: httpCodes.NOT_IMPLEMENTED,
   UNSUPPORTED_MEDIA: httpCodes.UNSUPPORTED_MEDIA_TYPE,
   BAD_DATA: httpCodes.UNPROCESSABLE_ENTITY,
   INTERNAL_ERROR: httpCodes.INTERNAL_SERVER_ERROR,
   SERVICE_UNAVAILABLE: httpCodes.SERVICE_UNAVAILABLE,
   LOOP_DETECTED: 508,
 };
+
+export const CHARACTER_ENCODING = {
+  UTF8: 'utf8',
+};
+
+export const ERROR_CODE = {
+  token_required: 'token is required',
+};
+
+export const TOKEN_BASIC = 'Basic';
+export const TOKEN_BEARER = 'Bearer';
 
 export const HEADERS = {
   ACCEPT: 'Accept',
@@ -56,6 +75,13 @@ export const API_MESSAGE = {
   LOGGED_OUT: 'Logged out',
 };
 
+export const SUPPORT_ERRORS = {
+  PLUGIN_MISSING_INTERFACE: 'the plugin does not provide implementation of the requested feature',
+  TFA_DISABLED: 'the two-factor authentication is not yet supported',
+  STORAGE_NOT_IMPLEMENT: 'the storage does not support token saving',
+  PARAMETERS_NOT_VALID: 'the parameters are not valid',
+};
+
 export const API_ERROR = {
   PASSWORD_SHORT: (passLength = DEFAULT_MIN_LIMIT_PASSWORD): string =>
     `The provided password is too short. Please pick a password longer than ` +
@@ -78,6 +104,7 @@ export const API_ERROR = {
   NOT_FILE_UPLINK: "file doesn't exist on uplink",
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: "this version doesn't exist",
+  UNSUPORTED_REGISTRY_CALL: 'unsupported registry call',
   FILE_NOT_FOUND: 'File not found',
   BAD_STATUS_CODE: 'bad status code',
   PACKAGE_EXIST: 'this package is already present',
@@ -89,6 +116,12 @@ export const API_ERROR = {
   BAD_PACKAGE_DATA: 'bad incoming package data',
   USERNAME_PASSWORD_REQUIRED: 'username and password is required',
   USERNAME_ALREADY_REGISTERED: 'username is already registered',
+};
+
+export const APP_ERROR = {
+  CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
+  PROFILE_ERROR: 'profile unexpected error',
+  PASSWORD_VALIDATION: 'not valid password',
 };
 
 export type VerdaccioError = HttpError & { code: number };
@@ -140,3 +173,17 @@ export function getNotFound(customMessage?: string): VerdaccioError {
 export function getCode(statusCode: number, customMessage: string): VerdaccioError {
   return getError(statusCode, customMessage);
 }
+
+export const TIME_EXPIRATION_24H = '24h';
+export const TIME_EXPIRATION_7D = '7d';
+export const DIST_TAGS = 'dist-tags';
+export const LATEST = 'latest';
+export const USERS = 'users';
+export const DEFAULT_USER = 'Anonymous';
+
+export const LOG_STATUS_MESSAGE =
+  "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
+export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
+export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
+
+export * from './helpers/pkg';
