@@ -84,7 +84,7 @@ importers:
       supertest: 4.0.2
       ts-node: 9.0.0_typescript@4.0.5
       typescript: 4.0.5
-      verdaccio: 'link:packages/verdaccio'
+      verdaccio: 4.8.1
       verdaccio-audit: 'link:packages/plugins/audit'
       verdaccio-auth-memory: 'link:packages/plugins/auth-memory'
       verdaccio-htpasswd: 'link:packages/core/htpasswd'
@@ -173,7 +173,7 @@ importers:
       supertest: 4.0.2
       ts-node: ^9.0.0
       typescript: ^4.0.5
-      verdaccio: 'workspace:*'
+      verdaccio: ^4.8.1
       verdaccio-audit: 'workspace:*'
       verdaccio-auth-memory: 'workspace:*'
       verdaccio-htpasswd: 'workspace:*'
@@ -477,7 +477,6 @@ importers:
       lodash: 4.17.20
       request: 2.87.0
       supertest: 4.0.2
-      verdaccio: 4.8.1
     devDependencies:
       '@verdaccio/types': 'link:../core/types'
     specifiers:
@@ -490,7 +489,6 @@ importers:
       lodash: ^4.17.20
       request: 2.87.0
       supertest: ^4.0.2
-      verdaccio: ^4.8.1
   packages/node-api:
     dependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
@@ -643,7 +641,6 @@ importers:
       '@verdaccio/proxy': 'link:../proxy'
       http-errors: 1.7.3
       request: 2.87.0
-      verdaccio: 4.8.1
     specifiers:
       '@verdaccio/api': 'workspace:5.0.0-alpha.0'
       '@verdaccio/auth': 'workspace:5.0.0-alpha.0'
@@ -663,7 +660,6 @@ importers:
       http-errors: 1.7.3
       lodash: 4.17.15
       request: 2.87.0
-      verdaccio: 4.8.1
   packages/store:
     dependencies:
       '@verdaccio/commons-api': 'link:../core/commons-api'
@@ -6620,6 +6616,7 @@ packages:
       level: 5.0.1
       lodash: 4.17.19
       mkdirp: 0.5.5
+    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -6629,15 +6626,18 @@ packages:
       dompurify: 2.0.8
       jsdom: 15.2.1
       marked: 1.1.1
+    dev: true
     resolution:
       integrity: sha512-86Zv46Qpcx0d0YRutFPhPH4OhGSljUJyhkxk3H/bCzzw8hGEvM1Du2y8kzfAS9qUsX8Qux97vfxxz6+RpBdU1w==
   /@verdaccio/streams/9.7.2:
+    dev: true
     engines:
       node: '>=8'
       npm: '>=5'
     resolution:
       integrity: sha512-SoCG1btVFPxOcrs8w9wLJCfe8nfE6EaEXCXyRwGbh+Sr3NLEG0R8JOugGJbuSE+zIRuUs5JaUKjzSec+JKLvZw==
   /@verdaccio/ui-theme/1.12.1:
+    dev: true
     engines:
       node: '>= 8'
       npm: '>=5'
@@ -9006,6 +9006,7 @@ packages:
     resolution:
       integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
   /commander/3.0.2:
+    dev: true
     resolution:
       integrity: sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==
   /commander/4.1.1:
@@ -9940,6 +9941,7 @@ packages:
     resolution:
       integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
   /dayjs/1.8.28:
+    dev: true
     resolution:
       integrity: sha512-ccnYgKC0/hPSGXxj7Ju6AV/BP4HUkXC2u15mikXT5mX9YorEaoi1bEKOmAqdkJHN4EEkmAf97SpH66Try5Mbeg==
   /dayjs/1.8.36:
@@ -10833,6 +10835,7 @@ packages:
     resolution:
       integrity: sha512-FdDfnWnCVjxTTpWE3d6Jgh5JDIA3Cw7LCgpM/pI7kK1ORkjaqI2r6NqQ+ln2j0dfpgxY00AWieSvtkiZQKIItA==
   /envinfo/7.5.1:
+    dev: true
     engines:
       node: '>=4'
     hasBin: true
@@ -13795,6 +13798,7 @@ packages:
       neo-async: 2.6.2
       source-map: 0.6.1
       wordwrap: 1.0.0
+    dev: true
     engines:
       node: '>=0.4.7'
     hasBin: true
@@ -16291,6 +16295,7 @@ packages:
     resolution:
       integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
   /kleur/4.0.2:
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -16832,6 +16837,7 @@ packages:
     resolution:
       integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
   /lodash/4.17.19:
+    dev: true
     resolution:
       integrity: sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
   /lodash/4.17.20:
@@ -19034,6 +19040,7 @@ packages:
     resolution:
       integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   /pkginfo/0.4.1:
+    dev: true
     engines:
       node: '>= 0.4.0'
     resolution:
@@ -20787,6 +20794,7 @@ packages:
       tough-cookie: 2.4.3
       tunnel-agent: 0.6.0
       uuid: 3.4.0
+    dev: true
     engines:
       node: '>= 4'
     resolution:
@@ -22778,6 +22786,7 @@ packages:
     dependencies:
       psl: 1.8.0
       punycode: 1.4.1
+    dev: true
     engines:
       node: '>=0.8'
     resolution:
@@ -23582,6 +23591,7 @@ packages:
     dependencies:
       express: 4.17.1
       request: 2.88.2
+    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -23632,6 +23642,7 @@ packages:
       semver: 6.3.0
       verdaccio-audit: 9.7.3
       verdaccio-htpasswd: 9.7.2
+    dev: true
     engines:
       node: '>=8'
       npm: '>=5'
@@ -24069,6 +24080,7 @@ packages:
     resolution:
       integrity: sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
   /wordwrap/1.0.0:
+    dev: true
     resolution:
       integrity: sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
   /worker-farm/1.7.0:

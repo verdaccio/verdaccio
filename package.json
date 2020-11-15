@@ -97,7 +97,7 @@
     "supertest": "4.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5",
-    "verdaccio": "workspace:*",
+    "verdaccio": "^4.8.1",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
