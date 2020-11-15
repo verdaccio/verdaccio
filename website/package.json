@@ -2,7 +2,7 @@
   "name": "@verdaccio/website",
   "private": true,
   "description": "verdaccio website",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "author": "Juan Picado <jotadeveloper@gmail.com>",
   "dependencies": {
     "@emotion/core": "10.0.28",

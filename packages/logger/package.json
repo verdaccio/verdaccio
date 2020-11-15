@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -23,14 +23,14 @@
     "build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps"
   },
   "dependencies": {
-    "@verdaccio/logger-prettify": "workspace:5.0.0-alpha.0",
+    "@verdaccio/logger-prettify": "workspace:5.0.0-alpha.1",
     "lodash": "~4.17.20",
     "debug": "^4.2.0",
     "pino": "^6.7.0"
   },
   "devDependencies": {
     "@types/pino": "^6.3.3",
-    "@verdaccio/types": "workspace:10.0.0-alpha.0"
+    "@verdaccio/types": "workspace:10.0.0-alpha.1"
   },
   "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
 }
