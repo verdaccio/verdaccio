@@ -33,7 +33,7 @@ jobs:
           node-version: 14
 
       - name: install pnpm
-        run: npm i pnpm@5.5.2 -g
+        run: npm i pnpm@latest -g
 
       - name: setup pnpm config
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
