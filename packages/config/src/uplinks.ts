@@ -5,6 +5,9 @@ import _ from 'lodash';
 import { getMatchedPackagesSpec } from './package-access';
 import { MatchedPackage } from './config';
 
+export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
+export const DEFAULT_UPLINK = 'npmjs';
+
 const BLACKLIST = {
   all: true,
   anonymous: true,

@@ -4,12 +4,12 @@ import fs from 'fs';
 import selfsigned from 'selfsigned';
 
 import { configExample } from '@verdaccio/mock';
-import { DEFAULT_DOMAIN, DEFAULT_PROTOCOL } from '@verdaccio/dev-commons';
 import { parseConfigFile } from '@verdaccio/config';
 
 import { logger } from '@verdaccio/logger';
 
 import { startVerdaccio } from '../src';
+import { DEFAULT_DOMAIN, DEFAULT_PROTOCOL } from '../src/cli-utils';
 
 jest.mock('@verdaccio/logger', () => ({
   setup: jest.fn(),

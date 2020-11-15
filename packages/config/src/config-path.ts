@@ -6,7 +6,7 @@ import mkdirp from 'mkdirp';
 import buildDebug from 'debug';
 
 import { folderExists, fileExists } from '@verdaccio/utils';
-import { CHARACTER_ENCODING } from '@verdaccio/dev-commons';
+import { CHARACTER_ENCODING } from '@verdaccio/commons-api';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';

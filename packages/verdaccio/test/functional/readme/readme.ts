@@ -1,9 +1,10 @@
-import { DEFAULT_NO_README, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 import pkgReadmeJSON from './pkg-readme.json';
 import pkgNoReadmeJSON from './pkg-no-readme.json';
 
 export default function (server, server2) {
+  const DEFAULT_NO_README = 'ERROR: No README data found!';
   describe('should test readme', () => {
     const README_PKG1 = 'readme-test';
     const README_PKG2 = 'readme-test-no-readme';

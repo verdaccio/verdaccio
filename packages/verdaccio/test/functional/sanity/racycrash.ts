@@ -1,5 +1,5 @@
 import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
-import { API_ERROR, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_ERROR, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/commons-api';
 
 export default function (server, express) {
   describe('shoul test for unexpected client hangs', () => {

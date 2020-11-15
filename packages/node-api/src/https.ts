@@ -1,6 +1,5 @@
-import { certPem, csrPem, keyPem } from '@verdaccio/dev-commons';
-
 import { resolveConfigPath } from './cli-utils';
+import { certPem, csrPem, keyPem } from './bootstrap';
 
 const logger = require('@verdaccio/logger');
 

@@ -2,7 +2,6 @@
 '@verdaccio/api': minor
 '@verdaccio/auth': minor
 '@verdaccio/cli': minor
-'@verdaccio/dev-commons': minor
 '@verdaccio/config': minor
 '@verdaccio/commons-api': minor
 '@verdaccio/file-locking': minor

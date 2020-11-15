@@ -2,7 +2,6 @@
 '@verdaccio/api': major
 '@verdaccio/auth': major
 '@verdaccio/cli': major
-'@verdaccio/dev-commons': major
 '@verdaccio/config': major
 '@verdaccio/commons-api': major
 '@verdaccio/file-locking': major

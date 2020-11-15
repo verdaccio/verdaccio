@@ -23,11 +23,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
+    "@verdaccio/commons-api": "workspace:10.0.0-beta",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/server": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "lodash": "^4.17.20",
     "debug": "^4.2.0",
     "core-js": "^3.6.5",
@@ -35,7 +34,7 @@
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
-    "@verdaccio/types": "workspace:*"
+    "@verdaccio/types": "workspace:10.0.0-beta"
   },
   "publishConfig": {
     "access": "public"

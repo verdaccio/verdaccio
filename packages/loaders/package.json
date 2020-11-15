@@ -13,7 +13,6 @@
     "url": "git://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/dev-commons": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "lodash": "4.17.15",
     "debug": "^4.1.1"
@@ -21,8 +20,8 @@
   "devDependencies": {
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
-    "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/types": "workspace:*"
+    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/types": "workspace:10.0.0-beta"
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",

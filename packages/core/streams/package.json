@@ -23,7 +23,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:*"
+    "@verdaccio/types": "workspace:10.0.0-beta"
   },
   "scripts": {
     "clean": "rimraf ./build",

@@ -1,7 +1,7 @@
 import path from 'path';
 import request from 'supertest';
 
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/dev-commons';
+import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/commons-api';
 
 import {
   addUser,

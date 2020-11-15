@@ -5,7 +5,6 @@
     "@verdaccio/api": "5.0.0-alpha.0",
     "@verdaccio/auth": "5.0.0-alpha.0",
     "@verdaccio/cli": "5.0.0-alpha.0",
-    "@verdaccio/dev-commons": "5.0.0-alpha.0",
     "@verdaccio/config": "5.0.0-alpha.0",
     "@verdaccio/commons-api": "10.0.0-beta",
     "@verdaccio/file-locking": "10.0.0-beta",

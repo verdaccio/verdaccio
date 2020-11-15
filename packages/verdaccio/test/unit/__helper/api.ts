@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import request from 'supertest';
 
-import { HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/dev-commons';
+import { HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/commons-api';
 import { buildToken, encodeScopedUri } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';

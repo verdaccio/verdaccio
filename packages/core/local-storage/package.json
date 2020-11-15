@@ -31,9 +31,9 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/file-locking": "workspace:*",
-    "@verdaccio/streams": "workspace:*",
+    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/file-locking": "workspace:10.0.0-beta",
+    "@verdaccio/streams": "workspace:10.0.0-beta",
     "async": "^3.2.0",
     "debug": "^4.1.1",
     "level": "5.0.1",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
-    "@verdaccio/types": "workspace:*",
+    "@verdaccio/types": "workspace:10.0.0-beta",
     "minimatch": "^3.0.4",
     "rmdir-sync": "^1.0.1"
   },

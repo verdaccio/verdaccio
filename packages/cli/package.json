@@ -30,7 +30,6 @@
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/node-api": "workspace:5.0.0-alpha.0",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "commander": "6.2.0",
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
