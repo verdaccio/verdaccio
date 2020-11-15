@@ -6,7 +6,7 @@ import { Storage } from '@verdaccio/store';
 import { IStorageHandler } from '@verdaccio/store';
 
 import { Config } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 import { mockServer, configExample, DOMAIN_SERVERS, generateRamdonStorage } from '@verdaccio/mock';
 
 import { setup, logger } from '@verdaccio/logger';

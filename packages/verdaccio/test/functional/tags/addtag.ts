@@ -1,4 +1,4 @@
-import { API_ERROR, HTTP_STATUS, CHARACTER_ENCODING } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS, CHARACTER_ENCODING } from '@verdaccio/commons-api';
 
 import { readFile } from '../lib/test.utils';
 

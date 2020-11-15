@@ -1,4 +1,4 @@
-import { HTTP_STATUS, API_ERROR } from '@verdaccio/dev-commons';
+import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
 import {
   addVersion,
   uploadPackageTarball,

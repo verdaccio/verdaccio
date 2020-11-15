@@ -1,5 +1,5 @@
 import { SearchInstance } from '@verdaccio/store';
-import { DIST_TAGS } from '@verdaccio/dev-commons';
+import { DIST_TAGS } from '@verdaccio/commons-api';
 import { Router } from 'express';
 import { Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';

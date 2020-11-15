@@ -11,7 +11,10 @@
       "path": "../auth"
     },
     {
-      "path": "../commons"
+      "path": "../core/commons-api"
+    },
+    {
+      "path": "../core/readme"
     },
     {
       "path": "../loaders"
@@ -21,6 +24,9 @@
     },
     {
       "path": "../middleware"
+    },
+    {
+      "path": "../config"
     },
     {
       "path": "../store"

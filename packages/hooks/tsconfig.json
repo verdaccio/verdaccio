@@ -20,9 +20,6 @@
       "path": "../logger"
     },
     {
-      "path": "../utils"
-    },
-    {
       "path": "../core/commons-api"
     }
   ]

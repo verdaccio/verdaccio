@@ -1,22 +1,27 @@
 import path from 'path';
 import _ from 'lodash';
-import { CHARACTER_ENCODING, TOKEN_BEARER, ROLES, API_ERROR } from '@verdaccio/dev-commons';
+
+import { CHARACTER_ENCODING, TOKEN_BEARER, API_ERROR } from '@verdaccio/commons-api';
 
 import { configExample } from '@verdaccio/mock';
-import { Config as AppConfig, parseConfigFile } from '@verdaccio/config';
-import { setup } from '@verdaccio/logger';
+import {
+  Config as AppConfig,
+  parseConfigFile,
+  ROLES,
+  createRemoteUser,
+  createAnonymousRemoteUser,
+} from '@verdaccio/config';
 
 import {
   getAuthenticatedMessage,
   buildToken,
-  createAnonymousRemoteUser,
-  createRemoteUser,
   AllowActionCallbackResponse,
   buildUserBuffer,
 } from '@verdaccio/utils';
 
 import { Config, Security, RemoteUser } from '@verdaccio/types';
 import { VerdaccioError, getForbidden } from '@verdaccio/commons-api';
+import { setup } from '@verdaccio/logger';
 import {
   IAuth,
   Auth,

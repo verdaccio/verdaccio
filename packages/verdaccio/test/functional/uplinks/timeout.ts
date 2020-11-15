@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 const PKG_SINGLE_UPLINK = 'test-uplink-timeout-single';
 const PKG_MULTIPLE_UPLINKS = 'test-uplink-timeout-multiple';

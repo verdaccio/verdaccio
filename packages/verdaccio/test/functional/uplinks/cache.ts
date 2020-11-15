@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 import { createTarballHash } from '@verdaccio/utils';
 
 import { TARBALL } from '../config.functional';

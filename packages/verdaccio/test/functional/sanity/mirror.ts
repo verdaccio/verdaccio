@@ -1,4 +1,4 @@
-import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/commons-api';
 
 import generatePkg from '../fixtures/package';
 import { readFile } from '../lib/test.utils';

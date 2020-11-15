@@ -4,7 +4,7 @@ import mime from 'mime';
 import { Router } from 'express';
 import buildDebug from 'debug';
 
-import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 import {
   validateMetadata,
   isObject,

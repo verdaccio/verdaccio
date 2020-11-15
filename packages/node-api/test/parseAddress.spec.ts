@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import { DEFAULT_DOMAIN, DEFAULT_PORT } from '@verdaccio/dev-commons';
-
-import { parseAddress as parse } from '../src/utils';
+import { DEFAULT_DOMAIN, DEFAULT_PORT, parseAddress } from '../src/cli-utils';
 
 describe('Parse listen address', () => {
   const useCases: any[] = [];
@@ -32,7 +30,7 @@ describe('Parse listen address', () => {
   addTest('unix:1234', 'http', 'unix', '1234'); // not unix socket
 
   test.each(useCases)(`should parse (%s - %s - %s - %s)`, (uri, proto, host, port) => {
-    const parsed = parse(uri);
+    const parsed = parseAddress(uri);
 
     if (_.isNull(proto)) {
       expect(parsed).toBeNull();

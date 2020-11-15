@@ -6,19 +6,12 @@ import _ from 'lodash';
 import semver from 'semver';
 import { Request } from 'express';
 
-import sanitizyReadme from '@verdaccio/readme';
-import {
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from '@verdaccio/dev-commons';
-
 import { Package, Version, Author, StringValue } from '@verdaccio/types';
 
 import {
+  HEADERS,
+  DIST_TAGS,
+  DEFAULT_USER,
   getConflict,
   getBadData,
   getBadRequest,
@@ -232,47 +225,6 @@ export function getVersion(pkg: Package, version: any): Version | void {
 }
 
 /**
- * Parse an internet address
- * Allow:
- - https:localhost:1234        - protocol + host + port
- - localhost:1234              - host + port
- - 1234                        - port
- - http::1234                  - protocol + port
- - https://localhost:443/      - full url + https
- - http://[::1]:443/           - ipv6
- - unix:/tmp/http.sock         - unix sockets
- - https://unix:/tmp/http.sock - unix sockets (https)
- * @param {*} urlAddress the internet address definition
- * @return {Object|Null} literal object that represent the address parsed
- */
-export function parseAddress(urlAddress: any): any {
-  //
-  // TODO: refactor it to something more reasonable?
-  //
-  //        protocol :  //      (  host  )|(    ipv6     ):  port  /
-  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(urlAddress);
-
-  if (urlPattern) {
-    return {
-      proto: urlPattern[2] || DEFAULT_PROTOCOL,
-      host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
-      port: urlPattern[8] || DEFAULT_PORT,
-    };
-  }
-
-  urlPattern = /^((https?):(\/\/)?)?unix:(.*)$/.exec(urlAddress);
-
-  if (urlPattern) {
-    return {
-      proto: urlPattern[2] || DEFAULT_PROTOCOL,
-      path: urlPattern[4],
-    };
-  }
-
-  return null;
-}
-
-/**
  * Function filters out bad semver versions and sorts the array.
  * @return {Array} sorted Array
  */
@@ -447,23 +399,6 @@ export function deleteProperties(propertiesToDelete: string[], objectItem: any):
   });
 
   return objectItem;
-}
-
-/**
- * parse package readme - markdown/ascii
- * @param {String} packageName name of package
- * @param {String} readme package readme
- * @return {String} converted html template
- */
-export function parseReadme(packageName: string, readme: string, logger): string | void {
-  if (_.isEmpty(readme) === false) {
-    return sanitizyReadme(readme);
-  }
-
-  // logs readme not found error
-  logger.error({ packageName }, '@{packageName}: No readme found');
-
-  return sanitizyReadme('ERROR: No README data found!');
 }
 
 export function buildToken(type: string, token: string): string {

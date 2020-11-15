@@ -1,15 +1,4 @@
-import { ROLES } from '@verdaccio/dev-commons';
-import {
-  createAnonymousRemoteUser,
-  createRemoteUser,
-  validatePassword,
-  createSessionToken,
-  getAuthenticatedMessage,
-} from '../src';
-
-jest.mock('@verdaccio/logger', () => ({
-  logger: { trace: jest.fn() },
-}));
+import { validatePassword, createSessionToken, getAuthenticatedMessage } from '../src';
 
 describe('Auth Utilities', () => {
   describe('validatePassword', () => {
@@ -27,32 +16,6 @@ describe('Auth Utilities', () => {
 
     test('should validate password according the length and default config', () => {
       expect(validatePassword('1235678910')).toBeTruthy();
-    });
-  });
-
-  describe('createRemoteUser and createAnonymousRemoteUser', () => {
-    test('should create a remote user with default groups', () => {
-      expect(createRemoteUser('12345', ['foo', 'bar'])).toEqual({
-        groups: [
-          'foo',
-          'bar',
-          ROLES.$ALL,
-          ROLES.$AUTH,
-          ROLES.DEPRECATED_ALL,
-          ROLES.DEPRECATED_AUTH,
-          ROLES.ALL,
-        ],
-        name: '12345',
-        real_groups: ['foo', 'bar'],
-      });
-    });
-
-    test('should create a anonymous remote user with default groups', () => {
-      expect(createAnonymousRemoteUser()).toEqual({
-        groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONYMOUS],
-        name: undefined,
-        real_groups: [],
-      });
     });
   });
 
