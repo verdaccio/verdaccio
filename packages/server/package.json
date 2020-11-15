@@ -34,8 +34,7 @@
     "@verdaccio/mock": "workspace:5.0.0-alpha.0",
     "@verdaccio/proxy": "workspace:5.0.0-alpha.0",
     "http-errors": "1.7.3",
-    "request": "2.87.0",
-    "verdaccio": "4.8.1"
+    "request": "2.87.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
