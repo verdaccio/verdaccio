@@ -8,7 +8,7 @@ import {
   HEADER_TYPE,
   API_MESSAGE,
   TOKEN_BEARER,
-} from '@verdaccio/dev-commons';
+} from '@verdaccio/commons-api';
 import { buildToken, encodeScopedUri } from '@verdaccio/utils';
 import { setup, logger } from '@verdaccio/logger';
 

@@ -10,9 +10,16 @@ import {
 } from '@verdaccio/utils';
 
 import { Package, Version, Author } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/commons-api';
 import { SearchInstance } from './search';
 import { IStorage } from './storage';
+
+export const STORAGE = {
+  PACKAGE_FILE_NAME: 'package.json',
+  FILE_EXIST_ERROR: 'EEXISTS',
+  NO_SUCH_FILE_ERROR: 'ENOENT',
+  DEFAULT_REVISION: '0-0000000000000000',
+};
 
 export function generatePackageTemplate(name: string): Package {
   return {

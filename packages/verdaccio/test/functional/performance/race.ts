@@ -1,5 +1,5 @@
 import async from 'async';
-import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 let okTotalSum = 0;
 import racePkg from '../fixtures/package';

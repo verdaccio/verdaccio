@@ -3,7 +3,7 @@ import { Router, Response, Request } from 'express';
 
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 
-import { API_ERROR, APP_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_ERROR, APP_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 import { IAuth } from '@verdaccio/auth';
 import { validatePassword, ErrorCode } from '@verdaccio/utils';
 import { $NextFunctionVer } from './package';

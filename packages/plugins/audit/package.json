@@ -27,7 +27,7 @@
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:*",
+    "@verdaccio/types": "workspace:10.0.0-beta",
     "nock": "^12.0.3",
     "body-parser": "^1.19.0",
     "supertest": "^4.0.2"

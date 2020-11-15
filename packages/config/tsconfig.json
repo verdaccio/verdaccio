@@ -11,7 +11,7 @@
       "path": "../utils"
     },
     {
-      "path": "../commons"
+      "path": "../core/commons-api"
     },
     {
       "path": "../logger"

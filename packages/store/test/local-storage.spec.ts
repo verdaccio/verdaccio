@@ -8,7 +8,7 @@ import { configExample, generateNewVersion } from '@verdaccio/mock';
 
 const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
 import { Config, MergeTags, Package } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { LocalStorage } from '../src/local-storage';
 import { IStorage } from '../src/storage';

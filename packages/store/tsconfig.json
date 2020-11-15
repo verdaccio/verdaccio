@@ -11,9 +11,6 @@
       "path": "../core/commons-api"
     },
     {
-      "path": "../commons"
-    },
-    {
       "path": "../loaders"
     },
     {

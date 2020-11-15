@@ -14,10 +14,13 @@
       "path": "../core/streams"
     },
     {
-      "path": "../commons"
+      "path": "../core/commons-api"
     },
     {
       "path": "../logger"
+    },
+    {
+      "path": "../config"
     },
     {
       "path": "../utils"

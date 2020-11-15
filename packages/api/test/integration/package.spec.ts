@@ -1,7 +1,6 @@
 import supertest from 'supertest';
 
-import { HTTP_STATUS } from '@verdaccio/commons-api';
-import { HEADER_TYPE, HEADERS } from '@verdaccio/dev-commons';
+import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { $ResponseExtend, $RequestExtend } from '../../types/custom';
 import { initializeServer, publishTaggedVersion, publishVersion } from './_helper';
 

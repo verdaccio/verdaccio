@@ -1,6 +1,5 @@
-import { ROLES, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/dev-commons';
+import { VerdaccioError, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/commons-api';
 import { RemoteUser, AuthPackageAllow } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 
 export interface CookieSessionToken {
   expires: Date;
@@ -11,54 +10,6 @@ export function validatePassword(
   minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
 ): boolean {
   return typeof password === 'string' && password.length >= minLength;
-}
-
-/**
- * All logged users will have by default the group $all and $authenticate
- */
-export const defaultLoggedUserRoles = [
-  ROLES.$ALL,
-  ROLES.$AUTH,
-  ROLES.DEPRECATED_ALL,
-  ROLES.DEPRECATED_AUTH,
-  ROLES.ALL,
-];
-/**
- *
- */
-export const defaultNonLoggedUserRoles = [
-  ROLES.$ALL,
-  ROLES.$ANONYMOUS,
-  // groups without '$' are going to be deprecated eventually
-  ROLES.DEPRECATED_ALL,
-  ROLES.DEPRECATED_ANONYMOUS,
-];
-
-/**
- * Create a RemoteUser object
- * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
- */
-export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
-  const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([...defaultLoggedUserRoles]);
-
-  return {
-    name,
-    groups,
-    real_groups: pluginGroups,
-  };
-}
-
-/**
- * Builds an anonymous remote user in case none is logged in.
- * @return {Object} { name: xx, groups: [], real_groups: [] }
- */
-export function createAnonymousRemoteUser(): RemoteUser {
-  return {
-    name: undefined,
-    groups: [...defaultNonLoggedUserRoles],
-    real_groups: [],
-  };
 }
 
 export type AllowActionCallbackResponse = boolean | undefined;

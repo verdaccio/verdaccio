@@ -7,8 +7,7 @@ import { Config, parseConfigFile } from '@verdaccio/config';
 import { Storage } from '@verdaccio/store';
 import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
 import { Auth, IAuth } from '@verdaccio/auth';
-import { HEADER_TYPE, HTTP_STATUS, generatePackageMetadata } from '@verdaccio/dev-commons';
-import { HEADERS } from '@verdaccio/commons-api';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS, generatePackageMetadata } from '@verdaccio/commons-api';
 import apiEndpoints from '../../src';
 
 const getConf = (conf) => {
