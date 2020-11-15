@@ -97,11 +97,11 @@
     "supertest": "4.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5",
-    "verdaccio": "workspace:*",
-    "verdaccio-audit": "workspace:*",
-    "verdaccio-auth-memory": "workspace:*",
-    "verdaccio-htpasswd": "workspace:*",
-    "verdaccio-memory": "workspace:*"
+    "verdaccio": "workspace:5.0.0-alpha.0",
+    "verdaccio-audit": "workspace:10.0.0-beta",
+    "verdaccio-auth-memory": "workspace:10.0.0-beta",
+    "verdaccio-htpasswd": "workspace:10.0.0-beta",
+    "verdaccio-memory": "workspace:10.0.0-beta"
   },
   "scripts": {
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",

@@ -34,6 +34,6 @@
     "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:*"
+    "@verdaccio/types": "workspace:10.0.0-beta"
   }
 }
