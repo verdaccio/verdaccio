@@ -1,9 +1,17 @@
 import supertest from 'supertest';
 import _ from 'lodash';
 
-import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
-import { HEADERS, HEADER_TYPE, API_MESSAGE } from '@verdaccio/dev-commons';
-import { getBadRequest, getConflict, getUnauthorized } from '@verdaccio/commons-api';
+import {
+  getBadRequest,
+  getConflict,
+  getUnauthorized,
+  HEADERS,
+  HEADER_TYPE,
+  API_MESSAGE,
+  HTTP_STATUS,
+  API_ERROR,
+} from '@verdaccio/commons-api';
+
 import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer } from './_helper';
 

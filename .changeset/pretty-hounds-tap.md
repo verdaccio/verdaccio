@@ -2,7 +2,6 @@
 '@verdaccio/api': patch
 '@verdaccio/auth': patch
 '@verdaccio/cli': patch
-'@verdaccio/dev-commons': patch
 '@verdaccio/config': patch
 '@verdaccio/commons-api': patch
 '@verdaccio/file-locking': patch

@@ -21,9 +21,6 @@
     },
     {
       "path": "../core/commons-api"
-    },
-    {
-      "path": "../common"
     }
   ]
 }

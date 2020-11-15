@@ -4,9 +4,10 @@ import buildDebug from 'debug';
 
 import { logger } from '@verdaccio/logger';
 import { Config, IPlugin } from '@verdaccio/types';
-import { MODULE_NOT_FOUND } from '@verdaccio/dev-commons';
 
 const debug = buildDebug('verdaccio:plugin:loader');
+
+export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 
 /**
  * Requires a module.

@@ -1,4 +1,4 @@
-import { HEADERS } from '@verdaccio/dev-commons';
+import { HEADERS } from '@verdaccio/commons-api';
 
 export default function (route, auth, storage): void {
   // searching packages

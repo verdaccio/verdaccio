@@ -28,7 +28,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "workspace:*",
+    "@verdaccio/file-locking": "workspace:10.0.0-beta",
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
     "http-errors": "1.8.0",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/types": "workspace:*"
+    "@verdaccio/types": "workspace:10.0.0-beta"
   },
   "scripts": {
     "clean": "rimraf ./build",

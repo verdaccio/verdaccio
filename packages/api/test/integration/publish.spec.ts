@@ -6,7 +6,7 @@ import {
   generatePackageMetadata,
   HEADER_TYPE,
   HEADERS,
-} from '@verdaccio/dev-commons';
+} from '@verdaccio/commons-api';
 import { $ResponseExtend, $RequestExtend } from '../../types/custom';
 import { initializeServer, publishVersion } from './_helper';
 

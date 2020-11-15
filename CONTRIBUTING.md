@@ -283,7 +283,6 @@ Then select the packages you want to include in your changeset navigating throug
   ✔ @verdaccio/api
   ✔ @verdaccio/auth
   ✔ @verdaccio/cli
-  ✔ @verdaccio/dev-commons
   ✔ @verdaccio/config
   ✔ @verdaccio/commons-api
 ```

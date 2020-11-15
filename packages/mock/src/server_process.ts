@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { fork } from 'child_process';
 
-import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 import { CREDENTIALS } from './constants';
 import { IVerdaccioConfig, IServerProcess } from './types';

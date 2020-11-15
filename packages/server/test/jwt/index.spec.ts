@@ -8,7 +8,7 @@ import {
   TOKEN_BEARER,
   TOKEN_BASIC,
   API_ERROR,
-} from '@verdaccio/dev-commons';
+} from '@verdaccio/commons-api';
 import { mockServer, generateRamdonStorage } from '@verdaccio/mock';
 import { buildUserBuffer, buildToken } from '@verdaccio/utils';
 import {

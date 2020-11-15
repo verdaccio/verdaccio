@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 export default function (server) {
   describe('logout', () => {

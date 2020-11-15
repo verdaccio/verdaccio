@@ -5,7 +5,7 @@ import { Config as AppConfig } from '@verdaccio/config';
 import { Config, UpLinkConf } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { IProxy } from '@verdaccio/proxy';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 import { mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
 import { ProxyStorage } from '@verdaccio/proxy';
 import { setup, logger } from '@verdaccio/logger';

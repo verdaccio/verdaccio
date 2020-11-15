@@ -1,4 +1,4 @@
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 
 export default function (server) {
   describe.skip('npm adduser', () => {
