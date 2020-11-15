@@ -23,17 +23,17 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-beta",
-    "@verdaccio/local-storage": "workspace:10.0.0-beta",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.0",
+    "@verdaccio/local-storage": "workspace:10.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
-    "@verdaccio/streams": "workspace:10.0.0-beta",
+    "@verdaccio/streams": "workspace:10.0.0-alpha.0",
     "@verdaccio/utils": "workspace:5.0.0-alpha.0",
     "JSONStream": "1.3.5",
     "lodash": "^4.17.20",
     "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.0.0-beta"
+    "@verdaccio/types": "workspace:10.0.0-alpha.0"
   }
 }
