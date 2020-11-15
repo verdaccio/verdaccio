@@ -6,11 +6,11 @@
   "types": "build/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.0",
     "@verdaccio/auth": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
     "@verdaccio/loaders": "workspace:5.0.0-alpha.0",
-    "@verdaccio/readme": "workspace:10.0.0-beta",
+    "@verdaccio/readme": "workspace:10.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/middleware": "workspace:5.0.0-alpha.0",
     "@verdaccio/store": "workspace:5.0.0-alpha.0",
@@ -22,7 +22,7 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.0.0-beta"
+    "@verdaccio/types": "workspace:10.0.0-alpha.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
