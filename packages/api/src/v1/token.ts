@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS, SUPPORT_ERRORS, getInternalError } from '@verdaccio/commons-api';
 import { ErrorCode, stringToMD5, mask } from '@verdaccio/utils';
 import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
@@ -8,7 +8,6 @@ import { Response, Router } from 'express';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
-import { getInternalError } from '@verdaccio/commons-api';
 import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
 
 export type NormalizeToken = Token & {

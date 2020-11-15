@@ -3,12 +3,15 @@ import { NextFunction, Request, Response } from 'express';
 import buildDebug from 'debug';
 
 import {
+  API_ERROR,
+  SUPPORT_ERRORS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
   VerdaccioError,
   getBadRequest,
   getInternalError,
   getForbidden,
 } from '@verdaccio/commons-api';
-import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/dev-commons';
 import { loadPlugin } from '@verdaccio/loaders';
 
 import {
@@ -24,14 +27,12 @@ import {
   PackageAccess,
 } from '@verdaccio/types';
 
+import { isNil, isFunction, convertPayloadToBase64 } from '@verdaccio/utils';
 import {
-  isNil,
-  isFunction,
+  getMatchedPackagesSpec,
   createAnonymousRemoteUser,
-  convertPayloadToBase64,
   createRemoteUser,
-} from '@verdaccio/utils';
-import { getMatchedPackagesSpec } from '@verdaccio/config';
+} from '@verdaccio/config';
 
 import {
   getMiddlewareCredentials,

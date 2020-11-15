@@ -32,7 +32,7 @@
       "path": "../core/htpasswd"
     },
     {
-      "path": "../commons"
+      "path": "../core/commons-api"
     }
   ]
 }

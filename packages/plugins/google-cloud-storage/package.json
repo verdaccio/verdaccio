@@ -29,7 +29,7 @@
     "@verdaccio/streams": "workspace:*"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:*",
+    "@verdaccio/types": "workspace:10.0.0-beta",
     "memory-fs": "0.5.0"
   },
   "optionalDependencies": {

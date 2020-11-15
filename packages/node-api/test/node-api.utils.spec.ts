@@ -1,6 +1,10 @@
 import _ from 'lodash';
-import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '@verdaccio/dev-commons';
-import { getListListenAddresses } from '../src/cli-utils';
+import {
+  DEFAULT_DOMAIN,
+  DEFAULT_PORT,
+  DEFAULT_PROTOCOL,
+  getListListenAddresses,
+} from '../src/cli-utils';
 
 jest.mock('@verdaccio/logger', () => ({
   setup: jest.fn(),
