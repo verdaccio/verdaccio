@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-google-cloud",
-  "version": "10.0.0-alpha.0",
+  "version": "10.0.0-alpha.1",
   "description": "Google Cloud storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -25,11 +25,11 @@
   "dependencies": {
     "@google-cloud/datastore": "^6.2.0",
     "@google-cloud/storage": "^5.3.0",
-    "@verdaccio/commons-api": "^9.7.1",
-    "@verdaccio/streams": "workspace:10.0.0-alpha.0"
+    "@verdaccio/commons-api": "^10.0.0-alpha.1",
+    "@verdaccio/streams": "workspace:10.0.0-alpha.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.0.0-alpha.0",
+    "@verdaccio/types": "workspace:10.0.0-alpha.1",
     "memory-fs": "0.5.0"
   },
   "optionalDependencies": {
