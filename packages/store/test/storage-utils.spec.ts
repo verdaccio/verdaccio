@@ -1,6 +1,6 @@
 import { Package } from '@verdaccio/types';
-import { STORAGE, DIST_TAGS } from '@verdaccio/dev-commons';
-import { normalizePackage, mergeUplinkTimeIntoLocal } from '../src/storage-utils';
+import { DIST_TAGS } from '@verdaccio/commons-api';
+import { normalizePackage, mergeUplinkTimeIntoLocal, STORAGE } from '../src/storage-utils';
 
 import { readFile } from './fixtures/test.utils';
 

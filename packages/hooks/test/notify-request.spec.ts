@@ -1,7 +1,6 @@
 import nock from 'nock';
-import { createRemoteUser } from '@verdaccio/utils';
 import { Config } from '@verdaccio/types';
-import { parseConfigFile } from '@verdaccio/config';
+import { parseConfigFile, createRemoteUser } from '@verdaccio/config';
 import { notify } from '../src/notify';
 import { parseConfigurationFile } from './__helper';
 

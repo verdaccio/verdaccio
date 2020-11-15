@@ -1,4 +1,4 @@
-import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/dev-commons';
+import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/commons-api';
 import pkgExample from './search.json';
 
 export default function (server, server2, express) {

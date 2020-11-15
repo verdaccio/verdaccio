@@ -22,12 +22,12 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:*",
-    "@verdaccio/streams": "workspace:*",
+    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/streams": "workspace:10.0.0-beta",
     "aws-sdk": "^2.607.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:*",
+    "@verdaccio/types": "workspace:10.0.0-beta",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {

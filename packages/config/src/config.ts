@@ -3,7 +3,7 @@ import _ from 'lodash';
 import buildDebug from 'debug';
 
 import { generateRandomHexString, isObject } from '@verdaccio/utils';
-import { APP_ERROR } from '@verdaccio/dev-commons';
+import { APP_ERROR } from '@verdaccio/commons-api';
 import {
   PackageList,
   Config as AppConfig,
@@ -25,6 +25,8 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 export type MatchedPackage = PackageAccess | void;
 
 const debug = buildDebug('verdaccio:config');
+
+export const WEB_TITLE = 'Verdaccio';
 
 /**
  * Coordinates the application configuration

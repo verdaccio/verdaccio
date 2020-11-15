@@ -2,7 +2,7 @@ import path from 'path';
 import request from 'supertest';
 
 import { mockServer } from '@verdaccio/mock';
-import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/dev-commons';
+import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/commons-api';
 import { setup, logger } from '@verdaccio/logger';
 
 import {

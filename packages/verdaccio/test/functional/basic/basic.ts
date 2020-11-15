@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { createTarballHash } from '@verdaccio/utils';
-import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/dev-commons';
+import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
 
 import {
   CREDENTIALS,

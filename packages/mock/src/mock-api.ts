@@ -8,7 +8,7 @@ import {
   HEADERS,
   HTTP_STATUS,
   TOKEN_BEARER,
-} from '@verdaccio/dev-commons';
+} from '@verdaccio/commons-api';
 import { buildToken, encodeScopedUri } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';

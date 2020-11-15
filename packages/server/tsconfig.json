@@ -17,7 +17,7 @@
       "path": "../config"
     },
     {
-      "path": "../commons"
+      "path": "../core/commons-api"
     },
     {
       "path": "../loaders"

@@ -1,6 +1,6 @@
 import semver from 'semver';
 import _ from 'lodash';
-import { DIST_TAGS } from '@verdaccio/dev-commons';
+import { DIST_TAGS } from '@verdaccio/commons-api';
 
 import { Package } from '@verdaccio/types';
 

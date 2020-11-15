@@ -8,15 +8,18 @@ import {
   Security,
   AuthPackageAllow,
 } from '@verdaccio/types';
-import { HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, API_ERROR } from '@verdaccio/dev-commons';
-import { getForbidden, getUnauthorized, getConflict, getCode } from '@verdaccio/commons-api';
-
 import {
-  AllowAction,
-  AllowActionCallback,
-  convertPayloadToBase64,
-  createAnonymousRemoteUser,
-} from '@verdaccio/utils';
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  API_ERROR,
+  getForbidden,
+  getUnauthorized,
+  getConflict,
+  getCode,
+} from '@verdaccio/commons-api';
+import { createAnonymousRemoteUser } from '@verdaccio/config';
+import { AllowAction, AllowActionCallback, convertPayloadToBase64 } from '@verdaccio/utils';
 import { TokenEncryption, AESPayload } from './auth';
 import { aesDecrypt } from './legacy-token';
 import { verifyPayload } from './jwt-token';
