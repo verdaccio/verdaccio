@@ -57,7 +57,7 @@
     "@types/supertest": "2.0.9",
     "@typescript-eslint/eslint-plugin": "4.7.0",
     "@typescript-eslint/parser": "4.7.0",
-    "@verdaccio/types": "workspace:10.0.0-beta",
+    "@verdaccio/types": "workspace:10.0.0-alpha.0",
     "@verdaccio/ui-theme": "^1.14.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
@@ -98,10 +98,10 @@
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5",
     "verdaccio": "workspace:5.0.0-alpha.0",
-    "verdaccio-audit": "workspace:10.0.0-beta",
-    "verdaccio-auth-memory": "workspace:10.0.0-beta",
-    "verdaccio-htpasswd": "workspace:10.0.0-beta",
-    "verdaccio-memory": "workspace:10.0.0-beta"
+    "verdaccio-audit": "workspace:10.0.0-alpha.0",
+    "verdaccio-auth-memory": "workspace:10.0.0-alpha.0",
+    "verdaccio-htpasswd": "workspace:10.0.0-alpha.0",
+    "verdaccio-memory": "workspace:10.0.0-alpha.0"
   },
   "scripts": {
     "dev": "cross-env BABEL_ENV=registry babel-node --extensions \".ts,.tsx\" packages/cli/src",

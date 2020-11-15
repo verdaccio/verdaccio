@@ -48,7 +48,7 @@
   "devDependencies": {
     "@verdaccio/auth": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
-    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.0",
     "@verdaccio/store": "workspace:5.0.0-alpha.0"
   },
   "keywords": [

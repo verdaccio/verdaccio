@@ -18,7 +18,7 @@
     "@verdaccio/api": "workspace:5.0.0-alpha.0",
     "@verdaccio/auth": "workspace:5.0.0-alpha.0",
     "@verdaccio/config": "workspace:5.0.0-alpha.0",
-    "@verdaccio/commons-api": "workspace:10.0.0-beta",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.0",
     "@verdaccio/loaders": "workspace:5.0.0-alpha.0",
     "@verdaccio/logger": "workspace:5.0.0-alpha.0",
     "@verdaccio/middleware": "workspace:5.0.0-alpha.0",
