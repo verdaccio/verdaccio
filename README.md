@@ -108,7 +108,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ## Publishing
 
-#### 1. create an user and log in
+#### 1. create a user and log in
 
 ```bash
 npm adduser --registry http://localhost:4873
