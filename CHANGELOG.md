@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/verdaccio/verdaccio/compare/v4.8.1...v4.9.0) (2020-11-22)
+
+
+### Features
+
+* migrate yarn 1 to yarn 2 ([#1962](https://github.com/verdaccio/verdaccio/issues/1962)) ([1ece11c](https://github.com/verdaccio/verdaccio/commit/1ece11cfc0ecf1bdfe9ec545ce73c6a1d41a5fa0))
+* update docker base image to node 14.15.0 ([#1992](https://github.com/verdaccio/verdaccio/issues/1992)) ([f901749](https://github.com/verdaccio/verdaccio/commit/f90174935f77e6f4fe221d0b760e6ae05eb3d9f2))
+
+
+### Bug Fixes
+
+* buffer deprecated warnings  ([#1993](https://github.com/verdaccio/verdaccio/issues/1993)) ([4feaf24](https://github.com/verdaccio/verdaccio/commit/4feaf241c913ce2054382182f908bb569284e4d6))
+* check author if lastest is not found ([#1994](https://github.com/verdaccio/verdaccio/issues/1994)) ([185babc](https://github.com/verdaccio/verdaccio/commit/185babc53f350949263c79da4733483a4e451fc4))
+* package.json & yarn.lock to reduce vulnerabilities ([#1910](https://github.com/verdaccio/verdaccio/issues/1910)) ([cb5a8a7](https://github.com/verdaccio/verdaccio/commit/cb5a8a7ccd5cf49740bb51648ca36d2c8a142e62))
+* update dependencies ([#1965](https://github.com/verdaccio/verdaccio/issues/1965)) ([1443b73](https://github.com/verdaccio/verdaccio/commit/1443b7343a96ab45df15f9dc45d7e791d9b97fae))
+* update dependencies ([#1991](https://github.com/verdaccio/verdaccio/issues/1991)) ([ef51294](https://github.com/verdaccio/verdaccio/commit/ef51294457fd2b0e346ae5aad9541c230be3756e))
+* update dependencies, docker base and build deps ([#2007](https://github.com/verdaccio/verdaccio/issues/2007)) ([6eef015](https://github.com/verdaccio/verdaccio/commit/6eef0157ba06782e77c5dbb88f90fc07b9607544))
+* **deps:** bump @verdaccio/ui-theme from 1.12.1 to 1.13.1 ([#1961](https://github.com/verdaccio/verdaccio/issues/1961)) ([f7aad33](https://github.com/verdaccio/verdaccio/commit/f7aad33925391c4a47a8560c9ed70217f990ecde))
+* update Dockerfile to Node v12.18.4 ([#1945](https://github.com/verdaccio/verdaccio/issues/1945)) ([b409c01](https://github.com/verdaccio/verdaccio/commit/b409c0111fda547aa6898a2c36f27eaf654cae91))
+
 ### [4.8.1](https://github.com/verdaccio/verdaccio/compare/v4.8.0...v4.8.1) (2020-08-06)
 
 
