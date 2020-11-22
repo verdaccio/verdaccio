@@ -1,0 +1,8 @@
+{
+  "name": "@verdaccio/e2e-cli",
+  "private": true,
+  "version": "1.0.0",
+  "devDependencies": {
+    "puppeteer": "^5.5.0"
+  }
+}
