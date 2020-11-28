@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.1](https://github.com/verdaccio/verdaccio/compare/v4.9.0...v4.9.1) (2020-11-28)
+
+
+### Bug Fixes
+
+* fix missing readme on npm7 ([#2010](https://github.com/verdaccio/verdaccio/issues/2010)) ([f4a85af](https://github.com/verdaccio/verdaccio/commit/f4a85af20ddd70dc8e028b12e9d5a7d278e45b18))
+
 ## [4.9.0](https://github.com/verdaccio/verdaccio/compare/v4.8.1...v4.9.0) (2020-11-22)
 
 
