@@ -31,7 +31,7 @@ module.exports = async () => {
   debug('verdaccio path %o', verdaccioPath);
   const childProcess = spawn(
     'node',
-    [verdaccioPath, '-c', './verdaccio.yaml', '-l', '6000'],
+    [verdaccioPath, '-c', './verdaccio.yaml', '-l', '6001'],
     // @ts-ignore
     {
       cwd: tempRoot,
@@ -50,5 +50,5 @@ module.exports = async () => {
   // });
   // publish current build version on local registry
   const rootFolder = path.normalize(path.join(process.cwd(), '../../'));
-  await pnpm(rootFolder, 'publish', '--registry', 'http://localhost:4873');
+  await pnpm(rootFolder, 'publish', '-git-checks', 'false', '--registry', 'http://localhost:6001');
 };
