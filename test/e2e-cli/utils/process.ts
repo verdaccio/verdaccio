@@ -1,5 +1,8 @@
-import * as child_process from 'child_process';
+import { spawn } from 'child_process';
 import { SpawnOptions } from 'child_process';
+import buildDebug from 'debug';
+
+const debug = buildDebug('verdaccio:e2e:exec');
 
 export async function _exec(options, cmd, args) {
   let stdout = '';
@@ -7,9 +10,9 @@ export async function _exec(options, cmd, args) {
   const flags = [];
   const cwd = process.cwd();
   const env = options.env;
-  console.log(`Running \`${cmd} ${args.map((x) => `"${x}"`).join(' ')}\`${flags}...`);
-  console.log(`CWD: ${cwd}`);
-  console.log(`ENV: ${JSON.stringify(env)}`);
+  debug(`Running \`${cmd} ${args.map((x) => `"${x}"`).join(' ')}\`${flags}...`);
+  debug(`CWD: ${cwd}`);
+  debug(`ENV: ${JSON.stringify(env)}`);
   const spawnOptions = {
     cwd,
     ...(env ? { env } : {}),
@@ -21,7 +24,7 @@ export async function _exec(options, cmd, args) {
     spawnOptions['stdio'] = 'pipe';
   }
 
-  const childProcess = child_process.spawn(cmd, args, spawnOptions);
+  const childProcess = spawn(cmd, args, spawnOptions);
   childProcess.stdout.on('data', (data) => {
     stdout += data.toString('utf-8');
     if (options.silent) {
@@ -32,7 +35,7 @@ export async function _exec(options, cmd, args) {
       .toString('utf-8')
       .split(/[\n\r]+/)
       .filter((line) => line !== '')
-      .forEach((line) => console.log('  ' + line));
+      .forEach((line) => debug('  ' + line));
   });
 
   childProcess.stderr.on('data', (data) => {
@@ -62,7 +65,8 @@ export async function _exec(options, cmd, args) {
     if (options.waitForMatch) {
       const match = options.waitForMatch;
       childProcess.stdout.on('data', (data) => {
-        // console.log("-->data==>", data.toString(), data.toString().match(match));
+        // debug("-->data==>", data.toString(), data.toString().match(match));
+        debug('data=> %o', data);
         if (data.toString().match(match)) {
           resolve({ ok: true, stdout, stderr });
         }
@@ -83,6 +87,16 @@ export function execAndWaitForOutputToMatch(
   spawnOptions: SpawnOptions = {}
 ): any {
   return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
+}
+
+export function pnpm(rootFolder, ...args) {
+  return _exec(
+    {
+      cwd: rootFolder,
+    },
+    'pnpm',
+    args
+  );
 }
 
 export function npm(...args) {

@@ -2,7 +2,12 @@
   "name": "@verdaccio/e2e-cli",
   "private": true,
   "version": "1.0.0",
-  "devDependencies": {
-    "puppeteer": "^5.5.0"
+  "dependencies": {
+    "debug": "^4.3.1",
+    "puppeteer": "^5.5.0",
+    "verdaccio-memory": "workspace:*"
+  },
+  "scripts": {
+    "test": "jest --config jest.config.e2e.cli.js"
   }
 }
