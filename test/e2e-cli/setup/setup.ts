@@ -50,5 +50,16 @@ module.exports = async () => {
   // });
   // publish current build version on local registry
   const rootFolder = path.normalize(path.join(process.cwd(), '../../'));
-  await pnpm(rootFolder, 'publish', '-git-checks', 'false', '--registry', 'http://localhost:6001');
+  await pnpm(
+    rootFolder,
+    'publish',
+    '--filter',
+    ' verdaccio^...',
+    '--access',
+    'public',
+    '--git-checks',
+    'false',
+    '--registry',
+    'http://localhost:6001'
+  );
 };

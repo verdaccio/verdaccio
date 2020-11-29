@@ -11,10 +11,11 @@ export async function _exec(options, cmd, args) {
   const cwd = process.cwd();
   const env = options.env;
   debug(`Running \`${cmd} ${args.map((x) => `"${x}"`).join(' ')}\`${flags}...`);
-  debug(`CWD: ${cwd}`);
+  debug(`CWD: %o`, options.cwd);
   debug(`ENV: ${JSON.stringify(env)}`);
   const spawnOptions = {
-    cwd,
+    cwd: options.cwd,
+    silent: false,
     ...(env ? { env } : {}),
   };
 
@@ -65,7 +66,6 @@ export async function _exec(options, cmd, args) {
     if (options.waitForMatch) {
       const match = options.waitForMatch;
       childProcess.stdout.on('data', (data) => {
-        // debug("-->data==>", data.toString(), data.toString().match(match));
         debug('data=> %o', data);
         if (data.toString().match(match)) {
           resolve({ ok: true, stdout, stderr });
@@ -90,6 +90,7 @@ export function execAndWaitForOutputToMatch(
 }
 
 export function pnpm(rootFolder, ...args) {
+  debug('run pnpm on %o', rootFolder);
   return _exec(
     {
       cwd: rootFolder,
