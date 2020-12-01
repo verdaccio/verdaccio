@@ -27,7 +27,7 @@ const defineAPI = function(config: IConfig, storage: IStorageHandler): any {
   app.use(cors());
 
   // Router setup
-  app.use(log);
+  app.use(log(config));
   app.use(errorReportingMiddleware);
   app.use(function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     res.setHeader('X-Powered-By', config.user_agent);
