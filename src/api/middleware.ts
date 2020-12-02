@@ -216,7 +216,13 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     _write.apply(res, arguments);
   };
 
+  let logHasBeenCalled = false;
   const log = function(): void {
+    if (logHasBeenCalled) {
+      return;
+    }
+    logHasBeenCalled = true;
+
     const forwardedFor = req.headers['x-forwarded-for'];
     const remoteAddress = req.connection.remoteAddress;
     const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
