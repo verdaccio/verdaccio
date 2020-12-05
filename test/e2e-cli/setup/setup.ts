@@ -9,10 +9,13 @@ import * as __global from '../utils/global.js';
 
 const debug = buildDebug('verdaccio:e2e:setup');
 
+export const SETUP_VERDACCIO_PORT = `6001`;
+
 module.exports = async () => {
   const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-cli-e2e-'));
   debug('dirname folder %o', __dirname);
   debug('temporary folder %o', tempRoot);
+  // @ts-ignore
   __global.addItem('dir-root', tempRoot);
   debug(yellow(`Add temp root folder: ${tempRoot}`));
   const destinationConfigFile = path.join(tempRoot, 'verdaccio.yaml');
@@ -31,7 +34,7 @@ module.exports = async () => {
   debug('verdaccio path %o', verdaccioPath);
   const childProcess = spawn(
     'node',
-    [verdaccioPath, '-c', './verdaccio.yaml', '-l', '6001'],
+    [verdaccioPath, '-c', './verdaccio.yaml', '-l', SETUP_VERDACCIO_PORT],
     // @ts-ignore
     {
       cwd: tempRoot,
@@ -43,18 +46,13 @@ module.exports = async () => {
   );
   // @ts-ignore
   global.registryProcess = childProcess;
-  // @ts-ignore
-  // process.stdin.pipe(childProcess.stdin);
-  // childProcess.stdout.on('data', (data) => {
-  //   debug(`child stdout:\n %o`, data.toString());
-  // });
   // publish current build version on local registry
   const rootFolder = path.normalize(path.join(process.cwd(), '../../'));
   await pnpm(
     rootFolder,
     'publish',
     '--filter',
-    ' verdaccio^...',
+    ' ./packages',
     '--access',
     'public',
     '--git-checks',

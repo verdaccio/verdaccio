@@ -3,7 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "debug": "^4.3.1"
+    "yarn": "berry",
+    "npm": "^7.0.15",
+    "pnpm": "^5.13.4",
+    "debug": "^4.3.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "get-port": "^5.1.1"
   },
   "scripts": {
     "test": "jest --config jest.config.e2e.cli.js"

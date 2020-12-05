@@ -4,4 +4,3 @@ packages:
   - packages/plugins/*
   - website
   - test/e2e-cli
-  - '!**/test/**'

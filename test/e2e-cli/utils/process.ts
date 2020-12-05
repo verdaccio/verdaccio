@@ -2,13 +2,13 @@ import { spawn } from 'child_process';
 import { SpawnOptions } from 'child_process';
 import buildDebug from 'debug';
 
-const debug = buildDebug('verdaccio:e2e:exec');
+const debug = buildDebug('verdaccio:e2e:process');
 
 export async function _exec(options, cmd, args) {
+  debug('start _exec %o %o %o', options, cmd, args);
   let stdout = '';
   let stderr = '';
   const flags = [];
-  const cwd = process.cwd();
   const env = options.env;
   debug(`Running \`${cmd} ${args.map((x) => `"${x}"`).join(' ')}\`${flags}...`);
   debug(`CWD: %o`, options.cwd);
@@ -49,7 +49,7 @@ export async function _exec(options, cmd, args) {
       .toString('utf-8')
       .split(/[\n\r]+/)
       .filter((line) => line !== '')
-      .forEach((line) => console.error('  ' + line));
+      .forEach((line) => console.error(line));
   });
 
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
@@ -105,9 +105,10 @@ export function npm(...args) {
 }
 
 export function runVerdaccio(cmd, installation, args, match: RegExp): any {
+  debug('run verdaccio on %o %o %o', cmd, installation, args);
   return _exec({ cwd: installation, silent: true, waitForMatch: match }, cmd, args);
 }
 
 export function silentNpm(...args) {
-  return _exec({ silent: true }, 'npm', args);
+  return _exec({ silent: false }, 'npm', args);
 }

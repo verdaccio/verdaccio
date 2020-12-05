@@ -15,7 +15,7 @@ web:
 
 uplinks:
   local:
-    url: http://localhost:4873
+    url: http://localhost:6001
 
 logs:
   - { type: stdout, format: pretty, level: warn }

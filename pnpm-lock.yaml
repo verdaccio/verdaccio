@@ -718,6 +718,7 @@ importers:
       '@verdaccio/node-api': 'link:../node-api'
       '@verdaccio/ui-theme': 1.14.0
       '@verdaccio/utils': 'link:../utils'
+      verdaccio-audit: 'link:../plugins/audit'
       verdaccio-htpasswd: 'link:../core/htpasswd'
     devDependencies:
       '@verdaccio/auth': 'link:../auth'
@@ -736,6 +737,7 @@ importers:
       '@verdaccio/store': 'workspace:5.0.0-alpha.1'
       '@verdaccio/ui-theme': ^1.14.0
       '@verdaccio/utils': 'workspace:5.0.0-alpha.1'
+      verdaccio-audit: 10.0.0-alpha.1
       verdaccio-htpasswd: 10.0.0-alpha.1
   packages/web:
     dependencies:
@@ -771,6 +773,22 @@ importers:
       debug: ^4.1.1
       express: 4.17.1
       lodash: ^4.17.20
+  test/e2e-cli:
+    dependencies:
+      debug: 4.3.1
+      npm: 7.0.15
+      pnpm: 5.13.4
+      request: 2.88.2
+      yarn: 2.0.0-rc.27
+    devDependencies:
+      get-port: 5.1.1
+    specifiers:
+      debug: ^4.3.1
+      get-port: ^5.1.1
+      npm: ^7.0.15
+      pnpm: ^5.13.4
+      request: ^2.88.2
+      yarn: berry
   website:
     dependencies:
       '@emotion/core': 10.0.28_react@16.13.1
@@ -9992,6 +10010,18 @@ packages:
         optional: true
     resolution:
       integrity: sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
+  /debug/4.3.1:
+    dependencies:
+      ms: 2.1.2
+    engines:
+      node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    resolution:
+      integrity: sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
   /decamelize-keys/1.1.0:
     dependencies:
       decamelize: 1.2.0
@@ -13230,6 +13260,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-3Xzn3hh8Bsi/NTeWrHHgmfCYDrw=
+  /get-port/5.1.1:
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-g/Q1aTSDOxFpchXC4i8ZWvxA1lnPqx/JHqcpIw0/LX9T8x/GBbi6YnlN5nhaKIFkT8oFsscUKgDJYxfwfS6QsQ==
   /get-proxy/2.1.0:
     dependencies:
       npm-conf: 1.1.3
@@ -18059,6 +18095,81 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-kiXybsOihcIJyuZ8OxGmtKtxQKo=
+  /npm/7.0.15:
+    bundledDependencies:
+      - '@npmcli/arborist'
+      - '@npmcli/ci-detect'
+      - '@npmcli/config'
+      - '@npmcli/run-script'
+      - abbrev
+      - ansicolors
+      - ansistyles
+      - aproba
+      - archy
+      - bin-links
+      - byte-size
+      - cacache
+      - chalk
+      - chownr
+      - cli-columns
+      - cli-table3
+      - columnify
+      - editor
+      - glob
+      - graceful-fs
+      - hosted-git-info
+      - inherits
+      - ini
+      - init-package-json
+      - is-cidr
+      - leven
+      - libnpmaccess
+      - libnpmfund
+      - libnpmhook
+      - libnpmorg
+      - libnpmpack
+      - libnpmpublish
+      - libnpmsearch
+      - libnpmteam
+      - libnpmversion
+      - make-fetch-happen
+      - mkdirp
+      - mkdirp-infer-owner
+      - ms
+      - node-gyp
+      - nopt
+      - normalize-package-data
+      - npm-audit-report
+      - npm-package-arg
+      - npm-pick-manifest
+      - npm-profile
+      - npm-registry-fetch
+      - npm-user-validate
+      - npmlog
+      - opener
+      - pacote
+      - parse-conflict-json
+      - qrcode-terminal
+      - read
+      - read-package-json
+      - read-package-json-fast
+      - rimraf
+      - semver
+      - sorted-object
+      - ssri
+      - tar
+      - text-table
+      - tiny-relative-date
+      - uuid
+      - validate-npm-package-name
+      - which
+      - write-file-atomic
+    dev: false
+    engines:
+      node: '>=10'
+    hasBin: true
+    resolution:
+      integrity: sha512-vP4qQMsbfERokwYMDbSHqbtCFFNVMCvLHJXyzrDSka6Mz8GCQwj1Y/OjgF2nji80/yl+RQvMnOjVNgjWQf9NBw==
   /npmlog/4.1.2:
     dependencies:
       are-we-there-yet: 1.1.5
@@ -19092,6 +19203,13 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
+  /pnpm/5.13.4:
+    dev: false
+    engines:
+      node: '>=10.16'
+    hasBin: true
+    resolution:
+      integrity: sha512-Q/1SlzLitcrggjTJN7Ooiu2y5ty+yTaxJYb7xGt6QpNijsIhxkGK58pP8IZYh04C7+8aI9MxNgppOTOyQG7k5g==
   /popper.js/1.16.1:
     deprecated: 'You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1'
     dev: false
@@ -22329,7 +22447,7 @@ packages:
     dependencies:
       component-emitter: 1.3.0
       cookiejar: 2.1.2
-      debug: 4.2.0
+      debug: 4.3.1
       fast-safe-stringify: 2.0.7
       form-data: 2.5.1
       formidable: 1.2.2
@@ -24363,6 +24481,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
+  /yarn/2.0.0-rc.27:
+    dev: false
+    engines:
+      node: '>=10'
+    hasBin: true
+    resolution:
+      integrity: sha512-hWnJHN87yb1gYA2ZXD42JFGShEMYU/pX7M0qAzTKyns2CMrt3dKxb2/SkaqoqVtymKfjBnk3JlX+tpEXD1swgQ==
   /yauzl/2.10.0:
     dependencies:
       buffer-crc32: 0.2.13

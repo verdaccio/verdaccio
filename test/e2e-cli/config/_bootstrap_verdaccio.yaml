@@ -21,11 +21,15 @@ uplinks:
       keepAlive: true
       maxSockets: 40
       maxFreeSockets: 10
-
 logs:
-  - { type: stdout, format: pretty, level: debug }
+  - { type: stdout, format: pretty, level: warn }
 
 packages:
+   ## ui-theme still lives outside of the core project
+  '@verdaccio/ui-theme':
+    access: $anonymous
+    publish: $anonymous
+    proxy: npmjs
   '@verdaccio/*':
     access: $anonymous
     publish: $anonymous

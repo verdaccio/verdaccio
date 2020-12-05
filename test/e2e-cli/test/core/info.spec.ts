@@ -1,6 +1,6 @@
 import path from 'path';
 import { runVerdaccio } from '../../utils/process';
-import { installVerdaccio } from '../__partials/npm_commands';
+import { installVerdaccio } from '../../test_bk/__partials/npm_commands';
 
 describe('verdaccio info', () => {
   jest.setTimeout(90000);
