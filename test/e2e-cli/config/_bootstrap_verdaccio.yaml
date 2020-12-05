@@ -25,7 +25,7 @@ logs:
   - { type: stdout, format: pretty, level: warn }
 
 packages:
-   ## ui-theme still lives outside of the core project
+  ## ui-theme still lives outside of the core project
   '@verdaccio/ui-theme':
     access: $anonymous
     publish: $anonymous
