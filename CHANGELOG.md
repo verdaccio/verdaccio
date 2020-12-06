@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.10.0](https://github.com/verdaccio/verdaccio/compare/v4.9.1...v4.10.0) (2020-12-06)
+
+
+### Features
+
+* enable keep alive on configuration by default ([#2014](https://github.com/verdaccio/verdaccio/issues/2014)) ([9171f25](https://github.com/verdaccio/verdaccio/commit/9171f25b410d45348bd037fbb06e01710541100e))
+* Set bytesin log as optional ([#2013](https://github.com/verdaccio/verdaccio/issues/2013)) ([e2f7bb2](https://github.com/verdaccio/verdaccio/commit/e2f7bb2f2990b91b2c10e5b259125686ec9730e9))
+
+
+### Bug Fixes
+
+* doubled request logs in node.js >= 11 ([#2012](https://github.com/verdaccio/verdaccio/issues/2012)) ([1e59b6a](https://github.com/verdaccio/verdaccio/commit/1e59b6aa6fc83cb239a5ea7d2b5389e28a2c1261))
+
 ### [4.9.1](https://github.com/verdaccio/verdaccio/compare/v4.9.0...v4.9.1) (2020-11-28)
 
 
