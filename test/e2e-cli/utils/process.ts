@@ -1,5 +1,6 @@
 import { spawn } from 'child_process';
 import { SpawnOptions } from 'child_process';
+import readline from 'readline';
 import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:e2e:process');
@@ -26,30 +27,11 @@ export async function _exec(options, cmd, args) {
   }
 
   const childProcess = spawn(cmd, args, spawnOptions);
-  childProcess.stdout.on('data', (data) => {
-    stdout += data.toString('utf-8');
-    if (options.silent) {
-      return;
-    }
+  const rl = readline.createInterface({ input: childProcess.stdout });
 
-    data
-      .toString('utf-8')
-      .split(/[\n\r]+/)
-      .filter((line) => line !== '')
-      .forEach((line) => debug('  ' + line));
-  });
-
-  childProcess.stderr.on('data', (data) => {
-    stderr += data.toString('utf-8');
-    if (options.silent) {
-      return;
-    }
-
-    data
-      .toString('utf-8')
-      .split(/[\n\r]+/)
-      .filter((line) => line !== '')
-      .forEach((line) => console.error(line));
+  rl.on('line', function (line) {
+    // console.log('--', line);
+    stdout += line;
   });
 
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
@@ -62,21 +44,6 @@ export async function _exec(options, cmd, args) {
         reject(err);
       }
     });
-
-    if (options.waitForMatch) {
-      const match = options.waitForMatch;
-      childProcess.stdout.on('data', (data) => {
-        debug('data=> %o', data);
-        if (data.toString().match(match)) {
-          resolve({ ok: true, stdout, stderr });
-        }
-      });
-      childProcess.stderr.on('data', (data) => {
-        if (data.toString().match(match)) {
-          resolve({ stdout, stderr });
-        }
-      });
-    }
   });
 }
 
@@ -89,7 +56,9 @@ export function execAndWaitForOutputToMatch(
   return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
 }
 
-export function pnpm(rootFolder, ...args) {
+export function pnpmGlobal(rootFolder, ...args) {
+  const pnpmCmd = require.resolve('pnpm');
+  debug('pnpmCommand %o', pnpmCmd);
   debug('run pnpm on %o', rootFolder);
   return _exec(
     {
@@ -102,6 +71,14 @@ export function pnpm(rootFolder, ...args) {
 
 export function npm(...args) {
   return _exec({}, 'npm', args);
+}
+
+export function yarn(...args) {
+  return _exec({}, 'yarn', args);
+}
+
+export function pnpm(...args) {
+  return _exec({}, 'pnpm', args);
 }
 
 export function runVerdaccio(cmd, installation, args, match: RegExp): any {

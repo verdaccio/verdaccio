@@ -15,7 +15,7 @@ uplinks:
     max_fails: 30
     fail_timeout: 10m
     timeout: 60s
-    cache: false
+    cache: true
     maxage: 30m
     agent_options:
       keepAlive: true

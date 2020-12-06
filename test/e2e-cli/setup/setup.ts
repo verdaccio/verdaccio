@@ -4,7 +4,7 @@ import os from 'os';
 import { spawn } from 'child_process';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
-import { npm, pnpm } from '../utils/process';
+import { pnpmGlobal } from '../utils/process';
 import * as __global from '../utils/global.js';
 
 const debug = buildDebug('verdaccio:e2e:setup');
@@ -48,7 +48,9 @@ module.exports = async () => {
   global.registryProcess = childProcess;
   // publish current build version on local registry
   const rootFolder = path.normalize(path.join(process.cwd(), '../../'));
-  await pnpm(
+  // install the local changes to verdaccio
+  // the published package will be installed from every suite
+  await pnpmGlobal(
     rootFolder,
     'publish',
     '--filter',
@@ -58,6 +60,6 @@ module.exports = async () => {
     '--git-checks',
     'false',
     '--registry',
-    'http://localhost:6001'
+    `http://localhost:${SETUP_VERDACCIO_PORT}`
   );
 };

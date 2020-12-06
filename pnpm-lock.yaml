@@ -777,18 +777,18 @@ importers:
     dependencies:
       debug: 4.3.1
       npm: 7.0.15
-      pnpm: 5.13.4
+      pnpm: 5.13.5
       request: 2.88.2
-      yarn: 2.0.0-rc.27
+      yarn: 1.22.10
     devDependencies:
       get-port: 5.1.1
     specifiers:
-      debug: ^4.3.1
+      debug: 4.3.1
       get-port: ^5.1.1
-      npm: ^7.0.15
-      pnpm: ^5.13.4
+      npm: 7.0.15
+      pnpm: 5.13.5
       request: ^2.88.2
-      yarn: berry
+      yarn: 1.22.10
   website:
     dependencies:
       '@emotion/core': 10.0.28_react@16.13.1
@@ -19203,13 +19203,13 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
-  /pnpm/5.13.4:
+  /pnpm/5.13.5:
     dev: false
     engines:
       node: '>=10.16'
     hasBin: true
     resolution:
-      integrity: sha512-Q/1SlzLitcrggjTJN7Ooiu2y5ty+yTaxJYb7xGt6QpNijsIhxkGK58pP8IZYh04C7+8aI9MxNgppOTOyQG7k5g==
+      integrity: sha512-EJO8eYZyNpOvW+JhjBnLtxD2xcC6YlrzH8jxjETj8bevLATFa9vnGq614ada6o1XOIMq31JWtj1WyPJNogAzLA==
   /popper.js/1.16.1:
     deprecated: 'You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1'
     dev: false
@@ -24481,13 +24481,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
-  /yarn/2.0.0-rc.27:
+  /yarn/1.22.10:
     dev: false
     engines:
-      node: '>=10'
+      node: '>=4.0.0'
     hasBin: true
+    requiresBuild: true
     resolution:
-      integrity: sha512-hWnJHN87yb1gYA2ZXD42JFGShEMYU/pX7M0qAzTKyns2CMrt3dKxb2/SkaqoqVtymKfjBnk3JlX+tpEXD1swgQ==
+      integrity: sha512-IanQGI9RRPAN87VGTF7zs2uxkSyQSrSPsju0COgbsKQOOXr5LtcVPeyXWgwVa0ywG3d8dg6kSYKGBuYK021qeA==
   /yauzl/2.10.0:
     dependencies:
       buffer-crc32: 0.2.13

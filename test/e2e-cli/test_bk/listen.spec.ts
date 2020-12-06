@@ -1,8 +1,5 @@
-import buildDebug from 'debug';
 import { initialSetup } from '../utils/registry';
 import { callRegistry } from '../utils/web';
-
-const debug = buildDebug('verdaccio:e2e:test:listen');
 
 describe('install a package', () => {
   jest.setTimeout(90000);

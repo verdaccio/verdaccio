@@ -43,14 +43,17 @@ export async function initialSetup(tempRootFolder, port) {
     paths: [verdaccioInstall],
   });
   // spawn the registry
-  return await spawnRegistry(
+  const processChild = await spawnRegistry(
     pathVerdaccioModule,
     ['-c', verdaccioConfigPathOnInstallLocation, '-l', port],
     {
       cwd: verdaccioInstall,
       silent: true,
-    }
+    },
+    port
   );
+
+  return processChild;
 }
 
 export function getVerdaccioPath() {
@@ -61,7 +64,8 @@ export function getVerdaccioPath() {
   return verdaccioPath;
 }
 
-export function spawnRegistry(verdaccioPath: string, args: string[], childOptions) {
+export function spawnRegistry(verdaccioPath: string, args: string[], childOptions, port) {
+  debug('spawning registry for %o in port %o', verdaccioPath, port);
   return new Promise((resolve, reject) => {
     let _childOptions = { silent: true, ...childOptions };
     debug('options %o', _childOptions);
@@ -69,8 +73,8 @@ export function spawnRegistry(verdaccioPath: string, args: string[], childOption
     const childFork = fork(verdaccioPath, args, _childOptions);
 
     childFork.on('message', (msg) => {
-      debug('message %o', msg);
       if ('verdaccio_started' in msg) {
+        debug('spawning registry [started] in port %o', port);
         resolve(childFork);
       }
     });

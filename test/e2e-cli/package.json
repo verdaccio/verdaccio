@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "yarn": "berry",
-    "npm": "^7.0.15",
-    "pnpm": "^5.13.4",
-    "debug": "^4.3.1",
+    "yarn": "1.22.10",
+    "npm": "7.0.15",
+    "pnpm": "5.13.5",
+    "debug": "4.3.1",
     "request": "^2.88.2"
   },
   "devDependencies": {
