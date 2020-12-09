@@ -43,11 +43,19 @@ class Search implements IWebSearch {
   public query(query: string): any[] {
     const localStorage = this.storage.localStorage as IStorage;
 
-    return query === '*' ? localStorage.storagePlugin.get((items): any => {
-      items.map(function(pkg): any {
-        return { ref: pkg, score: 1 };
-      });
-    }) : this.index.search(`*${query}*`);
+    if(query === '*') {
+      return (localStorage.storagePlugin.get((items): any => {
+        items.map(function(pkg): any {
+          return { ref: pkg, score: 1 };
+        });
+      }) as any);
+    }
+    // Recognize that query is targeting a field.
+    else if(query.includes(':')) {
+      return this.index.search(query);
+    } else {
+      return this.index.search(`*${query}*`);
+    }
   }
 
   /**
