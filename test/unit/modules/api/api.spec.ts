@@ -34,10 +34,10 @@ import {
   generateVersion,
 } from '../../__helper/utils';
 
-const sleep = (delay) => {  
-  return new Promise(resolve => {  
-    setTimeout(resolve, delay)  
-  });  
+const sleep = (delay) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, delay)
+  });
 }
 
 require('../../../../src/lib/logger').setup([
@@ -63,7 +63,7 @@ describe('endpoint unit test', () => {
   let mockRegistry;
 
   beforeAll(function(done) {
-    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');    
+    const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
     rimraf(store, async () => {
       const configForTest = configDefault({
         auth: {
@@ -384,11 +384,11 @@ describe('endpoint unit test', () => {
         nock('http://some.registry.timeout.com')
           .get('/timeout/-/timeout-1.5.1.tgz')
           .twice()
-          .socketDelay(50000)
+          .delay(50000)
         .reply(200);
         nock('http://some.registry.timeout.com')
         .get('/timeout/-/timeout-1.5.1.tgz')
-        .reply(200, () => readable);        
+        .reply(200, () => readable);
         const agent = request.agent(app);
         await agent
           .get('/timeout/-/timeout-1.5.1.tgz')
@@ -398,12 +398,12 @@ describe('endpoint unit test', () => {
           .get('/timeout/-/timeout-1.5.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.INTERNAL_ERROR);
-        await sleep(2000);  
-        // await agent      
+        await sleep(2000);
+        // await agent
         await agent
           .get('/timeout/-/timeout-1.5.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
-          .expect(HTTP_STATUS.OK);           
+          .expect(HTTP_STATUS.OK);
       }, 10000);
 
       test('should fetch jquery specific version package from remote uplink', (done) => {
