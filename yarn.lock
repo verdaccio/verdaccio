@@ -9717,15 +9717,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nock@npm:13.0.5":
-  version: 13.0.5
-  resolution: "nock@npm:13.0.5"
+"nock@npm:12.0.3":
+  version: 12.0.3
+  resolution: "nock@npm:12.0.3"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
-    lodash.set: ^4.3.2
+    lodash: ^4.17.13
     propagate: ^2.0.0
-  checksum: 2000952241d9f78491bd2770a5186b530eddef8710d219917b078e8c1b329abbdb88bcfb3dfd6bf093e860287ad8da7dd4136fbd2a8c1f42a7b56e3b071807f2
+  checksum: 135b0be475ffd94b5cb1043e3d2de9061084d83c16e295c787eacf671682bf57c41df121efb17eb7bd4e8f5ef54008989d622e352a9ad57f5cacfdfd28b46894
   languageName: node
   linkType: hard
 
@@ -13134,7 +13134,7 @@ typescript@3.9.7:
     minimatch: 3.0.4
     mkdirp: 0.5.5
     mv: 2.1.1
-    nock: 13.0.5
+    nock: 12.0.3
     pkginfo: 0.4.1
     prettier: 1.19.1
     puppeteer: 5.5.0

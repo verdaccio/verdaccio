@@ -384,7 +384,7 @@ describe('endpoint unit test', () => {
         nock('http://some.registry.timeout.com')
           .get('/timeout/-/timeout-1.5.1.tgz')
           .twice()
-          .delayConnection(50000)
+          .socketDelay(50000)
         .reply(200);
         nock('http://some.registry.timeout.com')
         .get('/timeout/-/timeout-1.5.1.tgz')
