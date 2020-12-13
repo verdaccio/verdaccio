@@ -190,7 +190,10 @@ export function log(config: Config) {
     }
 
     req.url = req.originalUrl;
-    req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+    // avoid log noise data from static content
+    if (req.originalUrl.match(/static/) === null) {
+      req.log.info({req: req, ip: req.ip}, "@{ip} requested '@{req.method} @{req.url}'");
+    }
     req.originalUrl = req.url;
 
     if (_.isNil(_auth) === false) {
@@ -237,26 +240,29 @@ export function log(config: Config) {
       }
 
       req.url = req.originalUrl;
-      req.log.warn(
-        {
-          request: {
-            method: req.method,
-            url: req.url,
-          },
-          level: 35, // http
-          user: (req.remote_user && req.remote_user.name) || null,
-          remoteIP,
-          status: res.statusCode,
-          error: res._verdaccio_error,
-          bytes: {
-            in: bytesin,
-            out: bytesout,
-          },
-        },
-        message
-      );
-      req.originalUrl = req.url;
-    };
+      // avoid log noise data from static content
+      if (req.url.match(/static/) === null) {
+        req.log.warn(
+            {
+              request: {
+                method: req.method,
+                url: req.url,
+              },
+              level: 35, // http
+              user: (req.remote_user && req.remote_user.name) || null,
+              remoteIP,
+              status: res.statusCode,
+              error: res._verdaccio_error,
+              bytes: {
+                in: bytesin,
+                out: bytesout,
+              },
+            },
+            message
+        );
+        req.originalUrl = req.url;
+      }
+    }
 
     req.on('close', function(): void {
       log();
