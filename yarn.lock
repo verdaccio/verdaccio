@@ -2072,7 +2072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/core@npm:^25.3.0, @jest/core@npm:^25.5.4":
+"@jest/core@npm:^25.5.4":
   version: 25.5.4
   resolution: "@jest/core@npm:25.5.4"
   dependencies:
@@ -2108,7 +2108,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/environment@npm:^25.3.0, @jest/environment@npm:^25.5.0":
+"@jest/environment@npm:^25.5.0":
   version: 25.5.0
   resolution: "@jest/environment@npm:25.5.0"
   dependencies:
@@ -2119,7 +2119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/fake-timers@npm:^25.3.0, @jest/fake-timers@npm:^25.5.0":
+"@jest/fake-timers@npm:^25.5.0":
   version: 25.5.0
   resolution: "@jest/fake-timers@npm:25.5.0"
   dependencies:
@@ -7695,7 +7695,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^25.3.0":
+"jest-cli@npm:^25.5.4":
   version: 25.5.4
   resolution: "jest-cli@npm:25.5.4"
   dependencies:
@@ -7806,21 +7806,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jest-environment-node@npm:25.3.0":
-  version: 25.3.0
-  resolution: "jest-environment-node@npm:25.3.0"
-  dependencies:
-    "@jest/environment": ^25.3.0
-    "@jest/fake-timers": ^25.3.0
-    "@jest/types": ^25.3.0
-    jest-mock: ^25.3.0
-    jest-util: ^25.3.0
-    semver: ^6.3.0
-  checksum: 758971800a37c8d7b48e9075b2ce1e35a4adf33a284fd03608054dc4ed5203db0c91dfb2b0171f21d3c972edcdd5d845f49e844a1acfafae76010bb42e7ca33e
-  languageName: node
-  linkType: hard
-
-"jest-environment-node@npm:^25.5.0":
+"jest-environment-node@npm:25.5.0, jest-environment-node@npm:^25.5.0":
   version: 25.5.0
   resolution: "jest-environment-node@npm:25.5.0"
   dependencies:
@@ -7973,7 +7959,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jest-mock@npm:^25.3.0, jest-mock@npm:^25.5.0":
+"jest-mock@npm:^25.5.0":
   version: 25.5.0
   resolution: "jest-mock@npm:25.5.0"
   dependencies:
@@ -8141,7 +8127,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jest-util@npm:^25.3.0, jest-util@npm:^25.5.0":
+"jest-util@npm:^25.5.0":
   version: 25.5.0
   resolution: "jest-util@npm:25.5.0"
   dependencies:
@@ -8231,16 +8217,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jest@npm:25.3.0":
-  version: 25.3.0
-  resolution: "jest@npm:25.3.0"
+"jest@npm:25.5.4":
+  version: 25.5.4
+  resolution: "jest@npm:25.5.4"
   dependencies:
-    "@jest/core": ^25.3.0
+    "@jest/core": ^25.5.4
     import-local: ^3.0.2
-    jest-cli: ^25.3.0
+    jest-cli: ^25.5.4
   bin:
     jest: bin/jest.js
-  checksum: 9a7b1e26a9f557036fbc64ccaba677f868e680290c2eea79b9ebf39fcf3cd90979b7bc5634473473afc9d350a1e60f02327f0634e9db5f910310c35d8fd73a8b
+  checksum: aa4a0c3d6999036892d2c652afb87c4e8329a9303999fe595a91efaf674c2d0ff6eceed373042f82094fdd837264b01771c5a69dc0ee96533cc178860eac8991
   languageName: node
   linkType: hard
 
@@ -8260,6 +8246,18 @@ fsevents@~2.1.2:
   bin:
     js-yaml: bin/js-yaml.js
   checksum: 2eb95464e5263aedc20ae2d9280f0e29b00adab15ece080ec42473d7055efaab24b904108644d115f687efe05a5bde02972b883aafa93607c4c108f667a56fa7
+  languageName: node
+  linkType: hard
+
+"js-yaml@npm:3.14.1":
+  version: 3.14.1
+  resolution: "js-yaml@npm:3.14.1"
+  dependencies:
+    argparse: ^1.0.7
+    esprima: ^4.0.0
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 46b61f889796a20d16b0b64580a01b6a02b2e45c1a2744906346da54d07e14cde764e887ab6d1512d8b2541c63711bd4b75859c28eb99605baf59fa173fc38c2
   languageName: node
   linkType: hard
 
@@ -9143,12 +9141,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"marked@npm:1.2.5":
-  version: 1.2.5
-  resolution: "marked@npm:1.2.5"
+"marked@npm:1.2.6":
+  version: 1.2.6
+  resolution: "marked@npm:1.2.6"
   bin:
     marked: bin/marked
-  checksum: f4d370e267ead928530d78ef5e52d79d7f938e419fc71103a8c22626daddadbe8f9cd56e8f745e94b5d1c47b95bf5ccb4d4917497d9bc1cd0c3f2cb3ee2f1398
+  checksum: d7d9a2d16315680cb2148e63d3f56881e499973275a6d496df27508fe8f1fdc061259c2b7b2789477f15091fc9fb2de11374be86f4c0846e019f6c3592586dbc
   languageName: node
   linkType: hard
 
@@ -9629,10 +9627,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"node-forge@npm:0.9.0":
-  version: 0.9.0
-  resolution: "node-forge@npm:0.9.0"
-  checksum: 901d6ab679072ad4b4174daed4d1ede43f01131456aba1918d89246ae37f73e40e053d9bf32ab3836e74e9e471c2637f4a6af337ab8c6a562faa3a385aac806c
+"node-forge@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "node-forge@npm:0.10.0"
+  checksum: c7a729933a0391e4f434d4455705e869340bf91c3cc6b51b3844a91a5ac9db6f8697f600ab1e62e25f990382b2c1592d93d31fd831bb1a0b1e66ce28d9d6d124
   languageName: node
   linkType: hard
 
@@ -11406,12 +11404,12 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"selfsigned@npm:1.10.7":
-  version: 1.10.7
-  resolution: "selfsigned@npm:1.10.7"
+"selfsigned@npm:1.10.8":
+  version: 1.10.8
+  resolution: "selfsigned@npm:1.10.8"
   dependencies:
-    node-forge: 0.9.0
-  checksum: ef53d4801c5cb67690dba94b105e3d87d243f1b1254c7cc02db51d7cb352ddfece065951874515b7c23d52025c250d9f50d74dbe547ba38cca8d15c5ad4ad5e6
+    node-forge: ^0.10.0
+  checksum: a382ec2af9798a93bc25f2d75778eed6d2c685fdf81e56deaac02d46aa896b0cc1b2770b2689891f8fe83d89cd3bb3e2042c6b15057e110f25a57769cb1a5fb3
   languageName: node
   linkType: hard
 
@@ -12586,23 +12584,23 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-typescript@3.7.5:
-  version: 3.7.5
-  resolution: "typescript@npm:3.7.5"
+typescript@3.9.7:
+  version: 3.9.7
+  resolution: "typescript@npm:3.9.7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 48a96fb7dc48746e6b76cf0946545181b0d5013368e510768402f1374e6c6a9f29b00e8ca4f40bc7523a655473f7bc7c55d1c8458970e96b7187bcee1b47e96b
+  checksum: 10848a9c35fd8c70a8792b8bd9485317534bcd58768793d3b7d9c7486e9fd30cf345f83fa2a324e0bf6088bc8a4d8d061d58fda38b18c2ff187cf01fbbff6267
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@3.7.5#builtin<compat/typescript>":
-  version: 3.7.5
-  resolution: "typescript@patch:typescript@npm%3A3.7.5#builtin<compat/typescript>::version=3.7.5&hash=5bf698"
+"typescript@patch:typescript@3.9.7#builtin<compat/typescript>":
+  version: 3.9.7
+  resolution: "typescript@patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5bf698"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: cf3413606dfe8a8c8e08392afe1f52975541b900ad407bc072279ad27b57ce4939eac389e74477bb0f8747122cf3442b944023ddfd87143d3b9ea3122fff40ad
+  checksum: f0d3d9c987860c7c458229ab6dd7e3d322405db36b70abccba610b5efd9f9451e4e67a3fc7983c0d3741033c1f1a8d7aa859a1510caa8f20fad762fc39648bfa
   languageName: node
   linkType: hard
 
@@ -12955,17 +12953,17 @@ typescript@3.7.5:
     http-errors: 1.8.0
     husky: 2.7.0
     in-publish: 2.0.1
-    jest: 25.3.0
-    jest-environment-node: 25.3.0
+    jest: 25.5.4
+    jest-environment-node: 25.5.0
     jest-junit: 9.0.0
-    js-yaml: 3.14.0
+    js-yaml: 3.14.1
     jsonwebtoken: 8.5.1
     kleur: 4.1.3
     lint-staged: 8.2.1
     lockfile-lint: 4.3.7
     lodash: 4.17.20
     lunr-mutable-indexes: 2.3.2
-    marked: 1.2.5
+    marked: 1.2.6
     mime: 2.4.6
     minimatch: 3.0.4
     mkdirp: 0.5.5
@@ -12976,11 +12974,11 @@ typescript@3.7.5:
     puppeteer: 5.5.0
     request: 2.88.0
     rimraf: 3.0.2
-    selfsigned: 1.10.7
+    selfsigned: 1.10.8
     semver: 6.3.0
     standard-version: 8.0.2
     supertest: 4.0.2
-    typescript: 3.7.5
+    typescript: 3.9.7
     verdaccio: ^4.5.1
     verdaccio-audit: 9.7.3
     verdaccio-auth-memory: ^9.7.2
