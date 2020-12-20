@@ -5,18 +5,22 @@ import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:e2e:process');
 
-export async function _exec(options, cmd, args) {
+export type ExecOutput = {
+  stdout: string;
+  stderr: string;
+};
+
+export async function _exec(options: SpawnOptions, cmd, args): Promise<ExecOutput> {
   debug('start _exec %o %o %o', options, cmd, args);
   let stdout = '';
-  let stderr = '';
-  const flags = [];
+  let stderr;
   const env = options.env;
-  debug(`Running \`${cmd} ${args.map((x) => `"${x}"`).join(' ')}\`${flags}...`);
+  debug(`Running \`${cmd} ${args.join(' ')}`);
   debug(`CWD: %o`, options.cwd);
   debug(`ENV: ${JSON.stringify(env)}`);
   const spawnOptions = {
     cwd: options.cwd,
-    silent: false,
+    stdio: options.stdio || 'pipe',
     ...(env ? { env } : {}),
   };
 
@@ -30,7 +34,6 @@ export async function _exec(options, cmd, args) {
   const rl = readline.createInterface({ input: childProcess.stdout });
 
   rl.on('line', function (line) {
-    // console.log('--', line);
     stdout += line;
   });
 
@@ -41,20 +44,20 @@ export async function _exec(options, cmd, args) {
         resolve({ stdout, stderr });
       } else {
         err.message += `${error}...\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}\n`;
-        reject(err);
+        reject({ stdout, stderr: err });
       }
     });
   });
 }
 
-export function execAndWaitForOutputToMatch(
-  cmd: string,
-  args: string[],
-  match: RegExp,
-  spawnOptions: SpawnOptions = {}
-): any {
-  return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
-}
+// export function execAndWaitForOutputToMatch(
+//   cmd: string,
+//   args: string[],
+//   match: RegExp,
+//   spawnOptions: SpawnOptions = {}
+// ): any {
+//   return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
+// }
 
 export function pnpmGlobal(rootFolder, ...args) {
   const pnpmCmd = require.resolve('pnpm');
@@ -69,23 +72,31 @@ export function pnpmGlobal(rootFolder, ...args) {
   );
 }
 
-export function npm(...args) {
+export function npm(...args): Promise<ExecOutput> {
   return _exec({}, 'npm', args);
 }
 
-export function yarn(...args) {
+export function yarn(...args): Promise<ExecOutput> {
   return _exec({}, 'yarn', args);
 }
 
-export function pnpm(...args) {
+export function pnpm(...args): Promise<ExecOutput> {
   return _exec({}, 'pnpm', args);
 }
 
-export function runVerdaccio(cmd, installation, args, match: RegExp): any {
-  debug('run verdaccio on %o %o %o', cmd, installation, args);
-  return _exec({ cwd: installation, silent: true, waitForMatch: match }, cmd, args);
+export function pnpmWithCwd(cwd, ...args): Promise<ExecOutput> {
+  return _exec({ cwd }, 'pnpm', args);
 }
 
-export function silentNpm(...args) {
-  return _exec({ silent: false }, 'npm', args);
+export function yarnWithCwd(cwd, ...args): Promise<ExecOutput> {
+  return _exec({ cwd }, 'yarn', args);
+}
+
+export function nodeCwd(cwd, ...args): Promise<ExecOutput> {
+  return _exec({ cwd }, 'yarn', args);
+}
+
+export function silentNpm(...args): Promise<ExecOutput> {
+  debug('run silent npm %o', args);
+  return _exec({ silent: true }, 'npm', args);
 }

@@ -5,11 +5,9 @@ describe('install a package', () => {
   jest.setTimeout(90000);
   const port = '9012';
   let registryProcess;
-  // @ts-ignore
-  const tempRootFolder = global.__namespace.getItem('dir-root');
 
   beforeAll(async () => {
-    registryProcess = await initialSetup(tempRootFolder, port);
+    registryProcess = await initialSetup(port);
   });
 
   test('should match the listing port and load metadata', async () => {
@@ -20,6 +18,6 @@ describe('install a package', () => {
   });
 
   afterAll(async () => {
-    registryProcess.kill();
+    registryProcess.child.kill();
   });
 });

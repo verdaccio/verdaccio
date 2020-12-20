@@ -14,11 +14,12 @@ class E2ECliTestEnvironment extends NodeEnvironment {
   }
 
   async setup() {
+    // create an unique suite location peer test to avoid conflicts
     const tempRoot = fs.mkdtempSync(
       path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-suite-test-')
     );
     debug('suite temporary folder %o', tempRoot);
-    __global.addItem('dir-root', tempRoot);
+    __global.addItem('dir-suite-root', tempRoot);
     // @ts-ignore
     this.global.__namespace = __global;
     debug(`current directory: ${process.cwd()}`);

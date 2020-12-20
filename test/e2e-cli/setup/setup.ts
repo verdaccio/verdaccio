@@ -41,7 +41,7 @@ module.exports = async () => {
       env: {
         ...process.env,
       },
-      stdio: 'inherit',
+      stdio: 'ignore',
     }
   );
   // @ts-ignore
