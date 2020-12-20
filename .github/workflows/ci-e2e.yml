@@ -41,3 +41,5 @@ jobs:
         run: pnpm build
       - name: Test
         run: pnpm test:e2e:cli
+        env:
+          DEBUG: verdaccio:e2e*
