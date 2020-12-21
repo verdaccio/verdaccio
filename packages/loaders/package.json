@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
-    "lodash": "4.17.15",
-    "debug": "^4.1.1"
+    "debug": "^4.1.1",
+    "lodash": "4.17.15"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:5.0.0-alpha.1",
-    "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
+    "@verdaccio/config": "workspace:5.0.0-alpha.1",
+    "@verdaccio/mock": "workspace:5.0.0-alpha.1",
     "@verdaccio/types": "workspace:10.0.0-alpha.1"
   },
   "homepage": "https://verdaccio.org",

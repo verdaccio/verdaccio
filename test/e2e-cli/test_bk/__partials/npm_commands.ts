@@ -7,7 +7,7 @@ export function installVerdaccio(verdaccioInstall) {
     verdaccioInstall,
     'verdaccio',
     '--registry',
-    'http://localhost:4873',
+    'http://localhost:6001',
     '--no-package-lock'
   );
 }
