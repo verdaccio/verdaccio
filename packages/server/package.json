@@ -17,8 +17,8 @@
   "dependencies": {
     "@verdaccio/api": "workspace:5.0.0-alpha.1",
     "@verdaccio/auth": "workspace:5.0.0-alpha.1",
-    "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
+    "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/loaders": "workspace:5.0.0-alpha.1",
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
     "@verdaccio/middleware": "workspace:5.0.0-alpha.1",

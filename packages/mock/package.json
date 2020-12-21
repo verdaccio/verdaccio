@@ -24,13 +24,13 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.1",
     "@verdaccio/config": "workspace:5.0.0-alpha.1",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.1",
+    "debug": "^4.2.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.20",
     "request": "2.87.0",
-    "supertest": "^4.0.2",
-    "debug": "^4.2.0"
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.0.0-alpha.1"

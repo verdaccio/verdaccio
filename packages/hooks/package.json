@@ -15,17 +15,17 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "debug": "^4.2.0",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
+    "debug": "^4.2.0",
     "handlebars": "4.5.3",
-    "request": "2.87.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "request": "2.87.0"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:5.0.0-alpha.1",
-    "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
+    "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/types": "workspace:10.0.0-alpha.1",
     "nock": "^13.0.4"
   },
