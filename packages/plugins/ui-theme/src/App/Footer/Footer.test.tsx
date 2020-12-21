@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from 'verdaccio-ui/utils/test-react-testing-library';
+import { render, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import Footer from './Footer';
 
@@ -14,7 +14,7 @@ describe('<Footer /> component', () => {
   });
 
   test('should load the initial state of Footer component', () => {
-    const { container } = render(<Footer />);
-    expect(container.firstChild).toMatchSnapshot();
+    render(<Footer />);
+    expect(screen.getByText('v.1.0.0')).toBeInTheDocument();
   });
 });

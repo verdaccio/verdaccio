@@ -23,7 +23,7 @@ const props = {
 /* eslint-disable react/jsx-no-bind*/
 describe('<Header /> component with logged in state', () => {
   test('should load the component in logged out state', () => {
-    const { container, queryByTestId, getByText } = render(
+    const { queryByTestId, getByText } = render(
       <Router>
         <AppContextProvider>
           <Header />
@@ -31,13 +31,12 @@ describe('<Header /> component with logged in state', () => {
       </Router>
     );
 
-    expect(container.firstChild).toMatchSnapshot();
     expect(queryByTestId('header--menu-accountcircle')).toBeNull();
     expect(getByText('Login')).toBeTruthy();
   });
 
   test('should load the component in logged in state', () => {
-    const { container, getByTestId, queryByText } = render(
+    const { getByTestId, queryByText } = render(
       <Router>
         <AppContextProvider user={props.user}>
           <Header />
@@ -45,7 +44,6 @@ describe('<Header /> component with logged in state', () => {
       </Router>
     );
 
-    expect(container.firstChild).toMatchSnapshot();
     expect(getByTestId('header--menu-accountcircle')).toBeTruthy();
     expect(queryByText('Login')).toBeNull();
   });
