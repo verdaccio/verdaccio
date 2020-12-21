@@ -28,8 +28,8 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.0.0-alpha.1",
-    "nock": "^12.0.3",
     "body-parser": "^1.19.0",
+    "nock": "^12.0.3",
     "supertest": "^4.0.2"
   },
   "scripts": {
