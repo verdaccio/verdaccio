@@ -1,0 +1,602 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dist /> component should render the component in default state 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.emotion-4 {
+  margin-right: 5px;
+  text-transform: capitalize;
+}
+
+<body>
+    <div>
+      <ul
+        class="MuiList-root MuiList-padding MuiList-subheader"
+      >
+        <span
+          class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        >
+          Latest Distribution
+        </span>
+        <div
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                file count
+              </b>
+              : 
+              7
+            </span>
+          </div>
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                Size
+              </b>
+              : 
+              10.00 Bytes
+            </span>
+          </div>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </div>
+      </ul>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.emotion-4 {
+  margin-right: 5px;
+  text-transform: capitalize;
+}
+
+<div>
+    <ul
+      class="MuiList-root MuiList-padding MuiList-subheader"
+    >
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Latest Distribution
+      </span>
+      <div
+        aria-disabled="false"
+        class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              file count
+            </b>
+            : 
+            7
+          </span>
+        </div>
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              Size
+            </b>
+            : 
+            10.00 Bytes
+          </span>
+        </div>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </div>
+    </ul>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`<Dist /> component should render the component with license as object 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.emotion-4 {
+  margin-right: 5px;
+  text-transform: capitalize;
+}
+
+<body>
+    <div>
+      <ul
+        class="MuiList-root MuiList-padding MuiList-subheader"
+      >
+        <span
+          class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        >
+          Latest Distribution
+        </span>
+        <div
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                file count
+              </b>
+              : 
+              7
+            </span>
+          </div>
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                Size
+              </b>
+              : 
+              10.00 Bytes
+            </span>
+          </div>
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                License
+              </b>
+              : 
+              MIT
+            </span>
+          </div>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </div>
+      </ul>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.emotion-4 {
+  margin-right: 5px;
+  text-transform: capitalize;
+}
+
+<div>
+    <ul
+      class="MuiList-root MuiList-padding MuiList-subheader"
+    >
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Latest Distribution
+      </span>
+      <div
+        aria-disabled="false"
+        class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              file count
+            </b>
+            : 
+            7
+          </span>
+        </div>
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              Size
+            </b>
+            : 
+            10.00 Bytes
+          </span>
+        </div>
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              License
+            </b>
+            : 
+            MIT
+          </span>
+        </div>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </div>
+    </ul>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`<Dist /> component should render the component with license as string 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.emotion-4 {
+  margin-right: 5px;
+  text-transform: capitalize;
+}
+
+<body>
+    <div>
+      <ul
+        class="MuiList-root MuiList-padding MuiList-subheader"
+      >
+        <span
+          class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        >
+          Latest Distribution
+        </span>
+        <div
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                file count
+              </b>
+              : 
+              7
+            </span>
+          </div>
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                Size
+              </b>
+              : 
+              10.00 Bytes
+            </span>
+          </div>
+          <div
+            class="MuiChip-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiChip-label"
+            >
+              <b>
+                License
+              </b>
+              : 
+              MIT
+            </span>
+          </div>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </div>
+      </ul>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.emotion-4 {
+  margin-right: 5px;
+  text-transform: capitalize;
+}
+
+<div>
+    <ul
+      class="MuiList-root MuiList-padding MuiList-subheader"
+    >
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Latest Distribution
+      </span>
+      <div
+        aria-disabled="false"
+        class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              file count
+            </b>
+            : 
+            7
+          </span>
+        </div>
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              Size
+            </b>
+            : 
+            10.00 Bytes
+          </span>
+        </div>
+        <div
+          class="MuiChip-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiChip-label"
+          >
+            <b>
+              License
+            </b>
+            : 
+            MIT
+          </span>
+        </div>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </div>
+    </ul>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
