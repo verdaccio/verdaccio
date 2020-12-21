@@ -15,6 +15,6 @@ describe('<Footer /> component', () => {
 
   test('should load the initial state of Footer component', () => {
     render(<Footer />);
-    expect(screen.getByText('v.1.0.0')).toBeInTheDocument();
+    expect(screen.getByText('v1.0.0')).toBeInTheDocument();
   });
 });
