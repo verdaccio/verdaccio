@@ -1,4 +1,4 @@
-/* eslint-disable no-var, comma-dangle, no-unused-vars, global-require */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 let Reflect;
 let idObj;
 

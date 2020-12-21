@@ -9,7 +9,9 @@ interface Props {
 }
 
 const DetailContainerContentReadme: React.FC<Props> = ({ description }) => {
-  if (!description) {return null;}
+  if (!description) {
+    return null;
+  }
   const encodedReadme = preventXSS(description);
   return <Readme description={encodedReadme} />;
 };

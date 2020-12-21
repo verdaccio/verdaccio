@@ -1,7 +1,7 @@
 {
   "settings": {
     "react": {
-      "version":  "detect"
+      "version":  "16"
     }
   },
   "extends": [
@@ -41,12 +41,7 @@
       }
     ],
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "varsIgnorePattern": "^global$"
-      }
-    ],
+    "@typescript-eslint/no-unused-vars": ["error"],
     "react/display-name": 0,
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
@@ -122,8 +117,11 @@
   },
   "globals": {
     "VERDACCIO_API_URL": true,
+    "RequestInit": true,
+    "TextFieldProps": true,
     "HTMLElementTagNameMap": true,
     "JSX": true,
+    "Reflect": true,
     "__DEBUG__": true
   },
   "env": {

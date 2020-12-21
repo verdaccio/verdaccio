@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // based on https://usehooks.com/useOnClickOutside/
 function useOnClickOutside<R extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap]>(

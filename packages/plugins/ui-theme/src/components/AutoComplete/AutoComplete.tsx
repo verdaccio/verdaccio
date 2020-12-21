@@ -55,8 +55,6 @@ interface Suggestion {
   name: string;
 }
 
-type CustomInputProps = Pick<Props, 'disableUnderline' | 'startAdornment'>;
-
 /* eslint-disable react/jsx-sort-props  */
 /* eslint-disable verdaccio/jsx-spread */
 const renderInputComponent: RenderInputComponent<Suggestion> = (inputProps) => {
@@ -141,8 +139,6 @@ const AutoComplete = memo(
       onBlur,
     };
 
-    // this format avoid arrow function eslint rule
-    // eslint-disable-next-line prettier/prettier
     const renderSuggestionsContainer: RenderSuggestionsContainer = function ({
       containerProps,
       children,

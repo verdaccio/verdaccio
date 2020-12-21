@@ -4,13 +4,9 @@ import isEmpty from 'lodash/isEmpty';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 
-import { HEADERS } from '../../lib/constants';
+import { HEADERS } from '../lib/constants';
 
 import API from './api';
-
-interface PayloadInterface {
-  exp: number;
-}
 
 export function isTokenExpire(token: string | null): boolean {
   if (!isString(token)) {
