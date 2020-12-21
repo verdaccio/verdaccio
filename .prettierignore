@@ -13,4 +13,5 @@
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
+**/static/*.js
 packages/core/local-storage/_storage/**

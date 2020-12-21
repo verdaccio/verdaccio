@@ -111,9 +111,9 @@
     "verdaccio/jsx-spread": ["warn"],
     "jest/expect-expect": 0,
     "quote-props":["error", "as-needed"],
-    "max-len": ["error", 160],
     "prefer-spread": 1,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "max-len": ["error", 160]
   },
   "globals": {
     "VERDACCIO_API_URL": true,

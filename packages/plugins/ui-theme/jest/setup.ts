@@ -19,7 +19,8 @@ customGlobal.fetchMock = customGlobal.fetch;
 // mocking few DOM methods
 // @ts-ignore : Property 'document' does not exist on type 'Global'.
 if (global.document) {
-  // @ts-ignore : Type 'Mock<{ selectNodeContents: () => void; }, []>' is not assignable to type '() => Range'.
+  // @ts-ignore : Type 'Mock<{ selectNodeContents: () => void; }, []>'
+  // is not assignable to type '() => Range'.
   document.createRange = jest.fn((): void => ({
     selectNodeContents: (): void => {},
   }));

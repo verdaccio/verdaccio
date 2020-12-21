@@ -24,7 +24,9 @@ export function formatLicense(license: any): string | undefined {
     return license;
   }
 
+  // @ts-ignore
   if (license && isObject(license) && license.type) {
+    // @ts-ignore
     return license.type;
   }
 
@@ -48,7 +50,9 @@ export function formatRepository(repository: any): string | null {
     return repository;
   }
 
+  // @ts-ignore
   if (repository && isObject(repository) && repository.url) {
+    // @ts-ignore
     return repository.url;
   }
 
