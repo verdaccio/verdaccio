@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
-    "@verdaccio/local-storage": "workspace:10.0.0-alpha.1",
     "@verdaccio/config": "workspace:5.0.0-alpha.1",
+    "@verdaccio/local-storage": "workspace:10.0.0-alpha.1",
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
     "@verdaccio/streams": "workspace:10.0.0-alpha.1",
     "@verdaccio/utils": "workspace:5.0.0-alpha.1",
