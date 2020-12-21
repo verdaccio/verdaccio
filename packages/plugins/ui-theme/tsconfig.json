@@ -16,7 +16,7 @@
       "verdaccio-ui/components/*": ["src/components/*"],
       "verdaccio-ui/design-tokens/*": ["src/design-tokens/*"],
       "verdaccio-ui/utils/*": ["src/utils/*"]
-    },
+    }
   },
   "include": ["src", "types/*.d.ts", "i18n/**/*.json"],
   "references": [
