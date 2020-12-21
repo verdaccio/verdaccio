@@ -1,0 +1,34 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "outDir": "build",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "allowJs": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "verdaccio-ui/components/*": ["src/components/*"],
+      "verdaccio-ui/design-tokens/*": ["src/design-tokens/*"],
+      "verdaccio-ui/utils/*": ["src/utils/*"]
+    }
+  },
+  "include": ["src", "types/*.d.ts", "scripts/lib", "node_modules/config"],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "../../node-api"
+    },
+    {
+      "path": "../../core/commons-api"
+    }
+  ]
+}

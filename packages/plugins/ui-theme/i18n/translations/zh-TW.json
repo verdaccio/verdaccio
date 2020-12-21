@@ -1,0 +1,165 @@
+{
+  "copy-to-clipboard": "複製到剪貼簿",
+  "author-anonymous": "匿名",
+  "author-unknown": "未知",
+  "action-bar-action": {
+    "visit-home-page": "瀏覽首頁",
+    "open-an-issue": "提交問題",
+    "download-tarball": "下載 tarball"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "註冊資訊"
+    }
+  },
+  "header": {
+    "documentation": "文件",
+    "registry-info": "註冊資訊",
+    "greetings": "你好 "
+  },
+  "search": {
+    "packages": "搜尋套件"
+  },
+  "auto-complete": {
+    "loading": "載入中...",
+    "no-results-found": "無結果"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "版本",
+    "dependencies": "相依",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} has no uplinks."
+  },
+  "versions": {
+    "current-tags": "當前標籤",
+    "version-history": "歷史版本",
+    "not-available": "無法取得"
+  },
+  "package": {
+    "published-on": "發布於 {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "瀏覽首頁",
+    "homepage": "首頁",
+    "open-an-issue": "提交問題",
+    "bugs": "Bugs",
+    "download": "下载 {{what}}",
+    "the-tar-file": "tar 檔案",
+    "tarball": "Tarball"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} 沒有相依套件.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "使用者名稱",
+    "password": "密碼"
+  },
+  "form-placeholder": {
+    "username": "你的使用者名稱",
+    "password": "你的密碼"
+  },
+  "form-validation": {
+    "required-field": "必填欄位",
+    "required-min-length": "長度不可短於 {{length}}",
+    "unable-to-sign-in": "無法登入",
+    "username-or-password-cant-be-empty": "使用者名稱或密碼不可空白!"
+  },
+  "help": {
+    "title": "尚未發布任何 NPM 套件.",
+    "sub-title": "發布第一個 NPM 套件:",
+    "first-step": "1. 登入",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. 發布",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. 重新整理頁面。"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "最新版本 v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "安装",
+      "install-using-yarn": "使用 yarn 安装",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "使用 npm 安装",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "使用 pnpm 安装",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "儲存庫"
+    },
+    "author": {
+      "title": "作者"
+    },
+    "distribution": {
+      "title": "發布資訊",
+      "license": "許可",
+      "size": "大小",
+      "file-count": "檔案數量"
+    },
+    "maintainers": {
+      "title": "維護人員"
+    },
+    "contributors": {
+      "title": "貢獻人員"
+    },
+    "engines": {
+      "npm-version": "NPM 版本",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "Made with <0>♥</0> on"
+  },
+  "button": {
+    "close": "關閉",
+    "cancel": "取消",
+    "login": "登入",
+    "logout": "登出",
+    "go-to-the-home-page": "前往首頁",
+    "learn-more": "了解更多",
+    "fund-this-package": "<0>Fund</0> this package"
+  },
+  "error": {
+    "unspecific": "發生錯誤。",
+    "404": {
+      "page-not-found": "404 - 頁面不存在",
+      "sorry-we-could-not-find-it": "不好意思, 找不到..."
+    },
+    "app-context-not-correct-used": "app context 没有被正確使用",
+    "theme-context-not-correct-used": "theme context 没有被正確使用",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "英文",
+    "czech": "捷克文",
+    "japanese": "日文",
+    "portuguese": "葡萄牙文",
+    "spanish": "西班牙文",
+    "german": "德文",
+    "chinese": "簡體中文",
+    "chineseTraditional": "正體中文",
+    "french": "法文",
+    "russian": "俄文",
+    "turkish": "土耳其",
+    "ukraine": "烏克蘭文",
+    "khmer": "高棉文"
+  },
+  "flag": {
+    "austria": "奧地利",
+    "brazil": "巴西",
+    "spain": "西班牙",
+    "nicaragua": "尼加拉瓜",
+    "india": "印度",
+    "china": "中國  ",
+    "germany": "德國",
+    "taiwan": "台灣"
+  }
+}

@@ -1,0 +1,34 @@
+web:
+  enable: true
+  title: verdaccio-server-e2e
+
+store:
+  memory:
+    limit: 10
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+logs:
+  - { type: stdout, format: pretty, level: info }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+  '**':
+    access: $all
+    publish: $authenticated
+
+theme:
+  ../plugins/theme:
+    prop: dummy
+
+listen: 0.0.0.0:55558
+
+# expose internal methods
+_debug: true

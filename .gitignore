@@ -18,6 +18,8 @@ package-lock.json
 yarn-error.log
 yarn.lock
 
+## ui
+static/
 
 # jest
 reports/

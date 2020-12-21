@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "new-cap": 0,
+    "prettier/prettier": 0
+  }
+}

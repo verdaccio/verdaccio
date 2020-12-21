@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Копировать в буфер обмена",
+  "author-anonymous": "Анонимный",
+  "author-unknown": "неизвестно",
+  "action-bar-action": {
+    "visit-home-page": "Посетить домашнюю страницу",
+    "open-an-issue": "Открыть вопрос, проблему, ...",
+    "download-tarball": "Скачать архив"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Информация о реестре"
+    }
+  },
+  "header": {
+    "documentation": "Документация",
+    "registry-info": "Информация о реестре",
+    "greetings": "Привет "
+  },
+  "search": {
+    "packages": "Поиск пакетов"
+  },
+  "autoComplete": {
+    "loading": "Загрузка ...",
+    "no-results-found": "Ничего не найдено",
+    "clear": "Очистить",
+    "expand": "Развернуть",
+    "collapse": "Свернуть"
+  },
+  "tab": {
+    "uplinks": "Публикации",
+    "versions": "Версии",
+    "dependencies": "Зависимости",
+    "readme": "Описание"
+  },
+  "uplinks": {
+    "title": "Публикации",
+    "no-items": "{{name}} не опубликован."
+  },
+  "versions": {
+    "current-tags": "Текущие теги",
+    "version-history": "История версий",
+    "not-available": "Недоступен"
+  },
+  "package": {
+    "published-on": "Опубликовано {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Посетить домашнюю страницу",
+    "homepage": "Домашняя страница",
+    "open-an-issue": "Открыть вопрос, проблему, ...",
+    "bugs": "Ошибки",
+    "download": "Скачать {{what}}",
+    "the-tar-file": "файл tar",
+    "tarball": "Скачать"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} не имеет зависимостей.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Имя пользователя",
+    "password": "Пароль"
+  },
+  "form-placeholder": {
+    "username": "Ваше имя пользователя",
+    "password": "Ваш надежный пароль"
+  },
+  "form-validation": {
+    "required-field": "Это поле является обязательным",
+    "required-min-length": "Для этого поля требуется минимальная длина {{length}}",
+    "unable-to-sign-in": "Невозможно войти",
+    "username-or-password-cant-be-empty": "Имя пользователя или пароль не могут быть пустыми!"
+  },
+  "help": {
+    "title": "Нет опубликованных пакетов",
+    "sub-title": "Опубликовать свой первый пакет просто:",
+    "first-step": "1. Подключитесь",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Опубликуйте",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Обновите эту страницу."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Последняя версия v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Установка",
+      "install-using-yarn": "Установка с помощью yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Установка с помощью npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Установка с помощью pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Хранилище"
+    },
+    "author": {
+      "title": "Автор"
+    },
+    "distribution": {
+      "title": "Условия распространения",
+      "license": "Лицензия",
+      "size": "Размер",
+      "file-count": "количество файлов"
+    },
+    "maintainers": {
+      "title": "Техническое сопровождение"
+    },
+    "contributors": {
+      "title": "Авторы"
+    },
+    "engines": {
+      "npm-version": "Версия NPM",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Работает на",
+    "made-with-love-on": "Сделано с <0>♥</0> на"
+  },
+  "button": {
+    "close": "Закрыть",
+    "cancel": "Отмена",
+    "login": "Войти",
+    "logout": "Выйти",
+    "go-to-the-home-page": "Перейдите на главную страницу",
+    "learn-more": "Изучайте больше",
+    "fund-this-package": "<0>Поддержать</0> этот пакет"
+  },
+  "error": {
+    "unspecific": "Что-то пошло не так.",
+    "404": {
+      "page-not-found": "404 - Страница не найдена",
+      "sorry-we-could-not-find-it": "К сожалению, мы не смогли его найти ..."
+    },
+    "app-context-not-correct-used": "Контекст программы использовался не правильно",
+    "theme-context-not-correct-used": "Контекст темы использовано неправильно",
+    "package-meta-is-required-at-detail-context": "packageMeta требуется в DetailContext"
+  },
+  "lng": {
+    "english": "Английский",
+    "czech": "Чешский",
+    "japanese": "Японский",
+    "portuguese": "Португальский",
+    "spanish": "Испанский",
+    "german": "Немецкий",
+    "russian": "Русский",
+    "chinese": "Китайский",
+    "chineseTraditional": "Китайский (Традиционный)",
+    "french": "Французский",
+    "turkish": "турецкий",
+    "ukraine": "Украинский",
+    "khmer": "Кхмерский"
+  },
+  "flag": {
+    "austria": "Австрия",
+    "brazil": "Бразилия",
+    "spain": "Испания",
+    "nicaragua": "Никарагуа",
+    "india": "Индия",
+    "china": "Китай",
+    "germany": "Германия",
+    "taiwan": "Тайвань"
+  }
+}

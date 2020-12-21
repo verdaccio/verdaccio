@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoItem /> component should load the component in default state 1`] = `
+<span
+  class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom"
+>
+  test
+</span>
+`;

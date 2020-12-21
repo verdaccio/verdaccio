@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "no-console": 0,
+    "new-cap": 0,
+    "max-len": 0
+  }
+}

@@ -1,0 +1,266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Install /> renders correctly 1`] = `
+.emotion-0 {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.emotion-2 {
+  padding: 0;
+}
+
+.emotion-2:hover {
+  background-color: transparent;
+}
+
+.emotion-4 {
+  border-radius: 0px;
+  padding: 0;
+}
+
+.emotion-4 img {
+  background-color: transparent;
+}
+
+.emotion-6 {
+  padding: 0 10px;
+  margin: 0;
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.emotion-10 {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 21px;
+  font-size: 1rem;
+}
+
+<ul
+  class="MuiList-root MuiList-padding MuiList-subheader"
+  data-testid="installList"
+>
+  <span
+    class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+  >
+    Installation
+  </span>
+  <div
+    aria-disabled="false"
+    class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+    data-testid="installListItem-npm"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="MuiAvatar-root MuiAvatar-circle emotion-4 emotion-5"
+    >
+      <img
+        alt="npm"
+        class="MuiAvatar-img"
+        src="[object Object]"
+      />
+    </div>
+    <div
+      class="MuiListItemText-root emotion-6 emotion-7 MuiListItemText-multiline"
+    >
+      <span
+        class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+      >
+        <div
+          class="emotion-8 emotion-9"
+        >
+          <span
+            class="emotion-10 emotion-11"
+          >
+            npm install foo
+          </span>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root  emotion-12 emotion-13"
+            data-testid="copy-icon"
+            tabindex="0"
+            title="Copy to clipboard"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </span>
+      <p
+        class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+      >
+        Install using npm
+      </p>
+    </div>
+    <span
+      class="MuiTouchRipple-root"
+    />
+  </div>
+  <div
+    aria-disabled="false"
+    class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+    data-testid="installListItem-yarn"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="MuiAvatar-root MuiAvatar-circle emotion-4 emotion-5"
+    >
+      <img
+        alt="yarn"
+        class="MuiAvatar-img"
+        src="[object Object]"
+      />
+    </div>
+    <div
+      class="MuiListItemText-root emotion-6 emotion-7 MuiListItemText-multiline"
+    >
+      <span
+        class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+      >
+        <div
+          class="emotion-8 emotion-9"
+        >
+          <span
+            class="emotion-10 emotion-11"
+          >
+            yarn add foo
+          </span>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root  emotion-12 emotion-13"
+            data-testid="copy-icon"
+            tabindex="0"
+            title="Copy to clipboard"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </span>
+      <p
+        class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+      >
+        Install using yarn
+      </p>
+    </div>
+    <span
+      class="MuiTouchRipple-root"
+    />
+  </div>
+  <div
+    aria-disabled="false"
+    class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+    data-testid="installListItem-pnpm"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="MuiAvatar-root MuiAvatar-circle emotion-4 emotion-5"
+    >
+      <img
+        alt="pnpm"
+        class="MuiAvatar-img"
+        src="[object Object]"
+      />
+    </div>
+    <div
+      class="MuiListItemText-root emotion-6 emotion-7 MuiListItemText-multiline"
+    >
+      <span
+        class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+      >
+        <div
+          class="emotion-8 emotion-9"
+        >
+          <span
+            class="emotion-10 emotion-11"
+          >
+            pnpm install foo
+          </span>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root  emotion-12 emotion-13"
+            data-testid="copy-icon"
+            tabindex="0"
+            title="Copy to clipboard"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </span>
+      <p
+        class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+      >
+        Install using pnpm
+      </p>
+    </div>
+    <span
+      class="MuiTouchRipple-root"
+    />
+  </div>
+</ul>
+`;

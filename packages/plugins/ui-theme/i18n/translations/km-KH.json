@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "ចម្លងទៅក្ដារតម្បៀតខ្ទាស់",
+  "author-anonymous": "គ្មានអត្តសញ្ញាណ",
+  "author-unknown": "មិនស្គាល់",
+  "action-bar-action": {
+    "visit-home-page": "ទស្សនាគេហទំព័រ",
+    "open-an-issue": "បើកកិច្ចការ",
+    "download-tarball": "ទាញយកកញ្ចប់ឯកសារ"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "ព័ត៌មានការចុះឈ្មោះ"
+    }
+  },
+  "header": {
+    "documentation": "ឯកសារ",
+    "registry-info": "ព័ត៌មានការចុះឈ្មោះ",
+    "greetings": "សួស្តី"
+  },
+  "search": {
+    "packages": "ស្វែងរកកញ្ចប់"
+  },
+  "autoComplete": {
+    "loading": "កំពុងផ្ទុក...",
+    "no-results-found": "រកមិនឃើញលទ្ធផល",
+    "clear": "សម្អាត",
+    "expand": "ពង្រីក",
+    "collapse": "ដកថយ"
+  },
+  "tab": {
+    "uplinks": "ភ្ជាប់តំណទៅ",
+    "versions": "កំណែ",
+    "dependencies": "អាស្រ័យលើ",
+    "readme": "អានខ្ញុំជាមុនសិន"
+  },
+  "uplinks": {
+    "title": "ភ្ជាប់តំណទៅ",
+    "no-items": "{{name}} គ្មានភ្ជាប់តំណទៅ។"
+  },
+  "versions": {
+    "current-tags": "ស្លាកបច្ចុប្បន្ន",
+    "version-history": "ប្រវត្តិសាស្រ្តជំនាន់",
+    "not-available": "Not available"
+  },
+  "package": {
+    "published-on": "បោះពុម្ភផ្សាយ {{time}}។",
+    "version": "v{{version}}",
+    "visit-home-page": "ទស្សនាគេហទំព័រ",
+    "homepage": "គេហទំព័រ",
+    "open-an-issue": "បើកកិច្ចការ",
+    "bugs": "កំហុស",
+    "download": "ទាញយក {{what}}",
+    "the-tar-file": "ឯកសាជា tar",
+    "tarball": "ឯកសារ Tarball"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} មិនមានភាពអាស្រ័យ។",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "ឈ្មោះអ្នកប្រើប្រាស់",
+    "password": "ពាក្យសម្ងាត់"
+  },
+  "form-placeholder": {
+    "username": "ឈ្មោះអ្នកប្រើរបស់អ្នក",
+    "password": "ពាក្យសម្ងាត់ខ្លាំងរបស់អ្នក"
+  },
+  "form-validation": {
+    "required-field": "ចន្លោះនេះត្រូវតែំពេញ",
+    "required-min-length": "ប្រអប់នេះទាមទារប្រវែងអប្បបរមា {{length}}",
+    "unable-to-sign-in": "មិនអាចចូលបានទេ",
+    "username-or-password-cant-be-empty": "ឈ្មោះអ្នកប្រើឬពាក្យសម្ងាត់មិនអាចទទេ!"
+  },
+  "help": {
+    "title": "មិនទាន់មានការបោះពុម្ពផ្សាយកញ្ចប់នៅឡើយទេ។",
+    "sub-title": "ដើម្បីផ្សព្វផ្សាយកញ្ចប់ដំបូងរបស់អ្នកគ្រាន់តែ៖",
+    "first-step": "1. ចូល",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. ផ្សព្វផ្សាយ",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "ផ្ទុកទំព័រនេះឡើងវិញ។"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "ចុងក្រោយ v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "ការដំឡើង",
+      "install-using-yarn": "ដំឡើងដោយប្រើ yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "ដំឡើងដោយប្រើ npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "ដំឡើងដោយប្រើ pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "ឃ្លាំង"
+    },
+    "author": {
+      "title": "អ្នកនិពន្ធ"
+    },
+    "distribution": {
+      "title": "ការចែកចាយចុងក្រោយ",
+      "license": "អាជ្ញាប័ណ្ណ",
+      "size": "ទំហំ",
+      "file-count": "រាប់ឯកសារ"
+    },
+    "maintainers": {
+      "title": "អ្នកថែរក្សា"
+    },
+    "contributors": {
+      "title": "អ្នកចូលរួមអភិវឌ្ឍ"
+    },
+    "engines": {
+      "npm-version": "NPM កំណែ",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "ឧបត្ថម្ភដោយ",
+    "made-with-love-on": "ផលិតជាមួយ <0>♥</0> លើ"
+  },
+  "button": {
+    "close": "បិទ",
+    "cancel": "បោះបង់",
+    "login": "ចូល",
+    "logout": "ចាកចេញ",
+    "go-to-the-home-page": "ទៅទំព័រដើម",
+    "learn-more": "ស្វែងយល់បន្ថែម",
+    "fund-this-package": "<0>Fund</0> កញ្ចប់នេះ"
+  },
+  "error": {
+    "unspecific": "មានអ្វីមួយមិនប្រក្រតី។",
+    "404": {
+      "page-not-found": "៤០៤ - រកមិនឃើញទំព័រ",
+      "sorry-we-could-not-find-it": "សូមទោសយើងមិនអាចរកវាឃើញទេ..."
+    },
+    "app-context-not-correct-used": "បរិបទកម្មវិធីមិនត្រូវបានប្រើត្រឹមត្រូវទេ",
+    "theme-context-not-correct-used": "បរិបទទម្រង់មិនត្រូវបានប្រើត្រឹមត្រូវទេ",
+    "package-meta-is-required-at-detail-context": "packageMeta ត្រូវបានទាមទារនៅ DetailContext"
+  },
+  "lng": {
+    "english": "អង់គ្លេស",
+    "czech": "ឆែក",
+    "japanese": "ជប៉ុន",
+    "portuguese": "ព័រទុយហ្កាល់",
+    "spanish": "អេស្ប៉ាញ",
+    "german": "អាឡឺម៉ង់",
+    "chinese": "ចិន",
+    "chineseTraditional": "ជនជាតិចិន (ប្រពៃណី)",
+    "french": "បារាំង",
+    "russian": "រុស្ស៊ី",
+    "turkish": "ទួរគី",
+    "ukraine": "អ៊ុយក្រែន",
+    "khmer": "ខ្មែរ"
+  },
+  "flag": {
+    "austria": "អូទ្រីស",
+    "brazil": "ប្រេស៊ីល",
+    "spain": "អេស្ប៉ាញ",
+    "nicaragua": "នីការ៉ាហ្គា",
+    "india": "ឥណ្ឌា",
+    "china": "ចិន",
+    "germany": "ប្រទេសអាល្លឺម៉ង់",
+    "taiwan": "តៃវ៉ាន់"
+  }
+}
