@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailContainer renders correctly 1`] = `
+.emotion-0 {
+  margin-bottom: 16px;
+}
+
+<div
+  class="MuiBox-root MuiBox-root-1"
+>
+  <div
+    class="MuiTabs-root emotion-0 emotion-1"
+    color="primary"
+  >
+    <div
+      class="MuiTabs-scroller MuiTabs-fixed"
+      style="overflow: hidden;"
+    >
+      <div
+        class="MuiTabs-flexContainer"
+        role="tablist"
+      >
+        <button
+          aria-selected="true"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit Mui-selected MuiTab-fullWidth"
+          data-testid="readme-tab"
+          id="readme-tab"
+          role="tab"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Readme
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit MuiTab-fullWidth"
+          data-testid="dependencies-tab"
+          id="dependencies-tab"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Dependencies
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit MuiTab-fullWidth"
+          data-testid="versions-tab"
+          id="versions-tab"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Versions
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorInherit MuiTab-fullWidth"
+          data-testid="uplinks-tab"
+          id="uplinks-tab"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiTab-wrapper"
+          >
+            Uplinks
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+      <span
+        class="PrivateTabIndicator-root-2 PrivateTabIndicator-colorPrimary-3 MuiTabs-indicator"
+        style="left: 0px; width: 0px;"
+      />
+    </div>
+  </div>
+</div>
+`;

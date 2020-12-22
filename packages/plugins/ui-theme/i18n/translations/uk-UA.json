@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Копіювати в буфер обміну",
+  "author-anonymous": "Анонімний",
+  "author-unknown": "невідомо",
+  "action-bar-action": {
+    "visit-home-page": "Відвідати домашню сторінку",
+    "open-an-issue": "Відкрити питання, проблему, ...",
+    "download-tarball": "Завантажити архів"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Інформація про реєстр"
+    }
+  },
+  "header": {
+    "documentation": "Документація",
+    "registry-info": "Інформація про реєстр",
+    "greetings": "Привіт "
+  },
+  "search": {
+    "packages": "Пошук пакетів"
+  },
+  "autoComplete": {
+    "loading": "Завантаження...",
+    "no-results-found": "Нічого не знайдено",
+    "clear": "Чистити",
+    "expand": "Розгорнути",
+    "collapse": "Відкликати"
+  },
+  "tab": {
+    "uplinks": "Публікації",
+    "versions": "Версії",
+    "dependencies": "Залежності",
+    "readme": "Опис"
+  },
+  "uplinks": {
+    "title": "Публікації",
+    "no-items": "{{name}} не опубліковано."
+  },
+  "versions": {
+    "current-tags": "Поточні теги",
+    "version-history": "Історія версій",
+    "not-available": "Недоступний"
+  },
+  "package": {
+    "published-on": "Опубліковано {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Відвідати домашню сторінку",
+    "homepage": "Домашня сторінка",
+    "open-an-issue": "Відкрити питання, проблему, ...",
+    "bugs": "Помилки",
+    "download": "Завантажити {{what}}",
+    "the-tar-file": "файл tar",
+    "tarball": "Завантажити"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} не має залежностей.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Ім'я користувача",
+    "password": "Пароль"
+  },
+  "form-placeholder": {
+    "username": "Ваше ім'я користувача",
+    "password": "Ваш надійний пароль"
+  },
+  "form-validation": {
+    "required-field": "Це поле є обов'язковим",
+    "required-min-length": "Для цього поля потрібна мінімальна довжина {{length}}",
+    "unable-to-sign-in": "Неможливо ввійти",
+    "username-or-password-cant-be-empty": "Ім'я користувача або пароль не можуть бути порожніми !"
+  },
+  "help": {
+    "title": "Пакети ще не опубліковані",
+    "sub-title": "Опублікувати свій перший пакет просто:",
+    "first-step": "1. Підключіться",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Опублікуйте",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Оновіть цю сторінку."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Остання версія v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Встановлення",
+      "install-using-yarn": "Встановлення за допомогою yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Встановлення за допомогою npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Встановлення за допомогою pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Сховище"
+    },
+    "author": {
+      "title": "Автор"
+    },
+    "distribution": {
+      "title": "Умови поширення",
+      "license": "Ліцензія",
+      "size": "Розмір",
+      "file-count": "кількість файлів"
+    },
+    "maintainers": {
+      "title": "Технічне супроводження"
+    },
+    "contributors": {
+      "title": "Автори"
+    },
+    "engines": {
+      "npm-version": "NPM версія",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Працює на",
+    "made-with-love-on": "Зроблено з <0> ♥ </0> на"
+  },
+  "button": {
+    "close": "Закрити",
+    "cancel": "Скасувати",
+    "login": "Вхід",
+    "logout": "Вийти",
+    "go-to-the-home-page": "Перейдіть на головну сторінку",
+    "learn-more": "Вивчайте більше",
+    "fund-this-package": "<0>Фінансувати</0> цей пакет"
+  },
+  "error": {
+    "unspecific": "Щось пішло не так.",
+    "404": {
+      "page-not-found": "404 - Сторінку не знайдено",
+      "sorry-we-could-not-find-it": "На жаль, ми не змогли його знайти ..."
+    },
+    "app-context-not-correct-used": "Контекст програми не використовувався правильно",
+    "theme-context-not-correct-used": "Контекст теми використано неправильно",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "Англійська",
+    "czech": "Чеська",
+    "japanese": "Японська",
+    "portuguese": "Португальська",
+    "spanish": "Іспанська",
+    "german": "Німецька",
+    "chinese": "Китайська",
+    "chineseTraditional": "Китайці (Традиційні)",
+    "french": "Французька",
+    "russian": "Російська",
+    "turkish": "Турецька",
+    "ukraine": "Українська",
+    "khmer": "Khmer"
+  },
+  "flag": {
+    "austria": "Австрія",
+    "brazil": "Бразилія",
+    "spain": "Іспанія",
+    "nicaragua": "Нікарагуа",
+    "india": "Індія",
+    "china": "Китай",
+    "germany": "Німеччина",
+    "taiwan": "Тайвань"
+  }
+}

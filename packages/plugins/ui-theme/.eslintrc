@@ -1,0 +1,131 @@
+{
+  "settings": {
+    "react": {
+      "version":  "16"
+    }
+  },
+  "extends": [
+    "plugin:verdaccio/recommended"
+  ],
+  "plugins": [
+    "verdaccio"
+  ],
+  "rules": {
+    "import/order": ["error", {
+      "pathGroups": [
+        {
+          "pattern": "verdaccio-ui/**",
+          "group": "external",
+          "position": "after"
+        }
+      ],
+      "pathGroupsExcludedImportTypes": ["verdaccio-ui"],
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      },
+      "newlines-between": "always"
+    }],
+    "babel/no-invalid-this": 0,
+    "no-invalid-this": 0,
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/array-type": "warn",
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/explicit-member-accessibility": ["warn",
+      {
+        "accessibility": "explicit",
+        "overrides": {
+          "constructors": "off"
+        }
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react/display-name": 0,
+    "react/no-deprecated": 1,
+    "react/jsx-no-target-blank": 1,
+    "react/destructuring-assignment": ["error", "always"],
+    "react/forbid-component-props": ["warn", { "forbid": ["style"] }],
+    "react/no-this-in-sfc": ["warn"],
+    "react/no-unsafe": ["warn"],
+    "react/sort-comp": ["warn", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "render",
+        "everything-else",
+        "/^on.+$/",
+        "/^render.+$/"
+      ]
+    }],
+    "react/void-dom-elements-no-children": ["warn"],
+    "react/no-did-mount-set-state": ["error", "disallow-in-func"],
+    "react/jsx-wrap-multilines": ["error",{
+      "declaration": "parens",
+      "assignment": "parens",
+      "return": "parens",
+      "arrow": "parens",
+      "condition": "parens",
+      "logical": "parens",
+      "prop": "ignore"
+    }],
+    "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-closing-tag-location": ["error"],
+    "react/jsx-curly-spacing": ["error", "never"],
+    "react/jsx-equals-spacing": ["error", "never"],
+    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
+    "react/jsx-handler-names": ["warn"],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-key": ["error"],
+    "react/jsx-max-depth":["error", { "max": 5}],
+    "react/jsx-max-props-per-line": ["error", {"maximum": 3, "when": "multiline" }],
+    "react/jsx-no-bind": ["error", {"allowArrowFunctions": true}],
+    "react/jsx-no-comment-textnodes": ["error"],
+    "react/jsx-no-duplicate-props": ["error"],
+    "react/jsx-no-literals": ["error"],
+    "react/jsx-no-undef": ["error"],
+    "react/prop-types": 0,
+    "react/jsx-one-expression-per-line": ["error", {"allow": "single-child"}],
+    "react/jsx-curly-brace-presence": ["warn", { "props": "ignore", "children": "ignore" }],
+    "react/jsx-pascal-case": ["error"],
+    "react/jsx-props-no-multi-spaces": ["error"],
+    "react/jsx-sort-default-props": ["error"],
+    "react/jsx-sort-props": ["error"],
+    "react/no-string-refs": ["error"],
+    "react/no-danger-with-children": ["error"],
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "allow-multiline",
+      "beforeClosing": "allow"
+    }],
+    "react/prefer-es6-class": [
+      2,
+      "always"
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "verdaccio/jsx-no-style": ["warn"],
+    "verdaccio/jsx-spread": ["warn"],
+    "jest/expect-expect": 0,
+    "quote-props":["error", "as-needed"],
+    "prefer-spread": 1,
+    "linebreak-style": 0,
+    "max-len": ["error", 160]
+  },
+  "globals": {
+    "VERDACCIO_API_URL": true,
+    "RequestInit": true,
+    "TextFieldProps": true,
+    "HTMLElementTagNameMap": true,
+    "JSX": true,
+    "Reflect": true,
+    "__DEBUG__": true
+  },
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  }
+}

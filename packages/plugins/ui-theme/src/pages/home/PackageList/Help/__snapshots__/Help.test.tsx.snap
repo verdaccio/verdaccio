@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Help /> component should load the component in default state 1`] = `
+.emotion-0 {
+  width: 600px;
+  margin: auto;
+}
+
+.emotion-2 {
+  margin-bottom: 20px;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.emotion-6 {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 21px;
+  font-size: 1rem;
+}
+
+<div
+  class="MuiPaper-root MuiCard-root emotion-0 emotion-1 MuiPaper-elevation1 MuiPaper-rounded"
+  id="help-card"
+>
+  <div
+    class="MuiCardContent-root"
+  >
+    <h5
+      class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
+      id="help-card__title"
+    >
+      No Package Published Yet.
+    </h5>
+    <h6
+      class="MuiTypography-root emotion-2 emotion-3 MuiTypography-h6 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
+    >
+      To publish your first package just:
+    </h6>
+    <span
+      class="MuiTypography-root MuiTypography-body1"
+    >
+      1. Login
+    </span>
+    <div
+      class="emotion-4 emotion-5"
+    >
+      <span
+        class="emotion-6 emotion-7"
+      >
+        npm adduser --registry http://localhost
+      </span>
+      <button
+        class="MuiButtonBase-root MuiIconButton-root  emotion-8 emotion-9"
+        data-testid="copy-icon"
+        tabindex="0"
+        title="Copy to clipboard"
+        type="button"
+      >
+        <span
+          class="MuiIconButton-label"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+    <span
+      class="MuiTypography-root MuiTypography-body1"
+    >
+      2. Publish
+    </span>
+    <div
+      class="emotion-4 emotion-5"
+    >
+      <span
+        class="emotion-6 emotion-7"
+      >
+        npm publish --registry http://localhost
+      </span>
+      <button
+        class="MuiButtonBase-root MuiIconButton-root  emotion-8 emotion-9"
+        data-testid="copy-icon"
+        tabindex="0"
+        title="Copy to clipboard"
+        type="button"
+      >
+        <span
+          class="MuiIconButton-label"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+    <span
+      class="MuiTypography-root MuiTypography-body2"
+    >
+      3. Refresh this page.
+    </span>
+  </div>
+  <div
+    class="MuiCardActions-root MuiCardActions-spacing"
+  >
+    <a
+      aria-disabled="false"
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-textSizeSmall MuiButton-sizeSmall"
+      href="https://verdaccio.org/docs/en/installation"
+      tabindex="0"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Learn More
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </a>
+  </div>
+</div>
+`;
