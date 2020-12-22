@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "复制到粘贴板",
+  "author-anonymous": "匿名",
+  "author-unknown": "未知",
+  "action-bar-action": {
+    "visit-home-page": "访问主页",
+    "open-an-issue": "提交问题",
+    "download-tarball": "下载压缩包"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "注册信息"
+    }
+  },
+  "header": {
+    "documentation": "文档",
+    "registry-info": "登记信息",
+    "greetings": "您好 "
+  },
+  "search": {
+    "packages": "查找Packages"
+  },
+  "autoComplete": {
+    "loading": "加载中...",
+    "no-results-found": "没有找到结果",
+    "clear": "清除",
+    "expand": "展开",
+    "collapse": "收回"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "版本",
+    "dependencies": "依赖",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} 没有 uplinks."
+  },
+  "versions": {
+    "current-tags": "当前标签",
+    "version-history": "历史版本",
+    "not-available": "不可用"
+  },
+  "package": {
+    "published-on": "发布于 {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "访问主页",
+    "homepage": "主页",
+    "open-an-issue": "提交问题",
+    "bugs": "Bugs",
+    "download": "下载 {{what}}",
+    "the-tar-file": "tar 文件",
+    "tarball": "压缩包"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} 没有依赖包.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "用户名",
+    "password": "密码"
+  },
+  "form-placeholder": {
+    "username": "您的用户名",
+    "password": "您的密码"
+  },
+  "form-validation": {
+    "required-field": "必填项",
+    "required-min-length": "长度不能小于 {{length}}",
+    "unable-to-sign-in": "登录失败",
+    "username-or-password-cant-be-empty": "用户名或密码不能为空!"
+  },
+  "help": {
+    "title": "还没有发布任何 NPM 包.",
+    "sub-title": "发布第一个 NPM 包:",
+    "first-step": "1. 登录",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. 发布",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. 刷新当前页面."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "最新版本 v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "安装",
+      "install-using-yarn": "使用 yarn 安装",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "使用 npm 安装",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "使用 pnpm 安装",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "仓库"
+    },
+    "author": {
+      "title": "作者"
+    },
+    "distribution": {
+      "title": "发布信息",
+      "license": "许可",
+      "size": "大小",
+      "file-count": "文件数量"
+    },
+    "maintainers": {
+      "title": "维护人"
+    },
+    "contributors": {
+      "title": "贡献者"
+    },
+    "engines": {
+      "npm-version": "NPM 版本",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "Made with <0>♥</0> on"
+  },
+  "button": {
+    "close": "关闭",
+    "cancel": "取消",
+    "login": "登录",
+    "logout": "注销",
+    "go-to-the-home-page": "跳转到主页",
+    "learn-more": "了解更多",
+    "fund-this-package": "<0>捐助</0>这个 package"
+  },
+  "error": {
+    "unspecific": "发生了一些错误",
+    "404": {
+      "page-not-found": "404 - 页面不存在",
+      "sorry-we-could-not-find-it": "对不起, 我们没有找到..."
+    },
+    "app-context-not-correct-used": "app context 没有被正确使用",
+    "theme-context-not-correct-used": "theme context 没有被正确使用",
+    "package-meta-is-required-at-detail-context": "packageMeta 在 DetailContext 上是必需的"
+  },
+  "lng": {
+    "english": "英语",
+    "czech": "捷克語",
+    "japanese": "日语",
+    "portuguese": "葡萄牙语",
+    "spanish": "西班牙语",
+    "german": "德语",
+    "chinese": "中文",
+    "chineseTraditional": "正体中文",
+    "french": "法语",
+    "russian": "俄语",
+    "turkish": "土耳其",
+    "ukraine": "乌克兰",
+    "khmer": "高棉语"
+  },
+  "flag": {
+    "austria": "奥地利",
+    "brazil": "巴西",
+    "spain": "西班牙",
+    "nicaragua": "尼加拉瓜",
+    "india": "印度",
+    "china": "中国",
+    "germany": "德国",
+    "taiwan": "台湾"
+  }
+}

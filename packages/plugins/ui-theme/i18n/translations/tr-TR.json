@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Panoya kopyala",
+  "author-anonymous": "Anonim",
+  "author-unknown": "Bilinmeyen",
+  "action-bar-action": {
+    "visit-home-page": "Ana sayfayı ziyaret et",
+    "open-an-issue": "Sorunları aç",
+    "download-tarball": "Arşivi indir"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Kayıt Bilgisi"
+    }
+  },
+  "header": {
+    "documentation": "Dokümantasyon",
+    "registry-info": "Kayıt Bilgileri",
+    "greetings": "Merhaba "
+  },
+  "search": {
+    "packages": "Paket Ara"
+  },
+  "autoComplete": {
+    "loading": "Yükleniyor...",
+    "no-results-found": "Sonuç bulunamadı",
+    "clear": "Temizle",
+    "expand": "Genişlet",
+    "collapse": "Dök"
+  },
+  "tab": {
+    "uplinks": "Bağlantılar",
+    "versions": "Sürümler",
+    "dependencies": "Bağımlılıklar",
+    "readme": "Beni Oku"
+  },
+  "uplinks": {
+    "title": "Bağlantılar",
+    "no-items": "{{name}} bağlantısı yok"
+  },
+  "versions": {
+    "current-tags": "Mevcut Etiketler",
+    "version-history": "Sürüm Tarihçesi",
+    "not-available": "Mevcut değil"
+  },
+  "package": {
+    "published-on": "{{time}}'de yayınlandı •",
+    "version": "v{{version}}",
+    "visit-home-page": "Ana sayfayı ziyaret et",
+    "homepage": "Ana sayfa",
+    "open-an-issue": "Sorunları aç",
+    "bugs": "Hatalar",
+    "download": "İndir {{what}}",
+    "the-tar-file": "arşiv dosyası",
+    "tarball": "Arşiv"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} bağımlılığı yok.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Kullanıcı Adı",
+    "password": "Parola"
+  },
+  "form-placeholder": {
+    "username": "Kullanıcı adınız",
+    "password": "Parolanız"
+  },
+  "form-validation": {
+    "required-field": "Bu alan gereklidir",
+    "required-min-length": "Bu alan en az {{length}} karakter uzunluğunda olmalıdır",
+    "unable-to-sign-in": "Oturum açılamıyor",
+    "username-or-password-cant-be-empty": "Kullanıcı adı veya parola boş olamaz!"
+  },
+  "help": {
+    "title": "Henüz Paket Yayınlanmadı.",
+    "sub-title": "İlk paketinizi yayınlamak için:",
+    "first-step": "1. Giriş",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Yayınla",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Sayfayı yenile."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "En son sürüm v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Kurulum",
+      "install-using-yarn": "Yarn kullanarak kurulum",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "NPM kullanarak kurulum",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "pnpm kullanarak kurulum",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Depo"
+    },
+    "author": {
+      "title": "Yazar"
+    },
+    "distribution": {
+      "title": "Son Dağıtım",
+      "license": "Lisans",
+      "size": "Boyut",
+      "file-count": "Dosya adedi"
+    },
+    "maintainers": {
+      "title": "Bakımcılar"
+    },
+    "contributors": {
+      "title": "Katkıda bulunanlar"
+    },
+    "engines": {
+      "npm-version": "NPM Sürümü",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Destekleyen",
+    "made-with-love-on": "<0>♥</0> ile yapılmıştır"
+  },
+  "button": {
+    "close": "Kapat",
+    "cancel": "İptal",
+    "login": "Giriş",
+    "logout": "Çıkış",
+    "go-to-the-home-page": "Ana sayfaya git",
+    "learn-more": "Daha Fazlasını Öğren",
+    "fund-this-package": "Bu paketi <0>fonla</0>"
+  },
+  "error": {
+    "unspecific": "Bir şeyler ters gitti.",
+    "404": {
+      "page-not-found": "404 - Sayfa bulunamadı",
+      "sorry-we-could-not-find-it": "Üzgünüz, bunu bulamadık..."
+    },
+    "app-context-not-correct-used": "Uygulama kapsamı doğru kullanılmadı",
+    "theme-context-not-correct-used": "Tema kapsamı doğru kullanılmadı",
+    "package-meta-is-required-at-detail-context": "DetailContext için packageMeta gereklidir"
+  },
+  "lng": {
+    "english": "İngilizce",
+    "czech": "Çekçe",
+    "japanese": "Japonca",
+    "portuguese": "Portekizce",
+    "spanish": "İspanyolca",
+    "german": "Almanca",
+    "chinese": "Çince",
+    "chineseTraditional": "Çince (Geleneksel)",
+    "french": "Fransızca",
+    "russian": "Rusça",
+    "turkish": "Türkçe",
+    "ukraine": "Ukraynaca",
+    "khmer": "Kmerce"
+  },
+  "flag": {
+    "austria": "Avusturya",
+    "brazil": "Brezilya",
+    "spain": "Ispanya",
+    "nicaragua": "Nikaragua",
+    "india": "Hindistan",
+    "china": "Çin",
+    "germany": "Almanya",
+    "taiwan": "Tayvan"
+  }
+}
