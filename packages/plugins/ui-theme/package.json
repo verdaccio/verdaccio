@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-theme",
-  "version": "2.0.0",
+  "version": "5.0.0-alpha.1",
   "description": "Verdaccio User Interface",
   "author": {
     "name": "Verdaccio Core Team",
@@ -32,9 +32,6 @@
     "babel-plugin-emotion": "10.0.33",
     "babel-loader": "^8.2.2",
     "bundlesize": "0.18.0",
-    "codeceptjs": "2.6.11",
-    "codecov": "3.8.1",
-    "concurrently": "5.3.0",
     "css-loader": "4.3.0",
     "dayjs": "1.9.7",
     "emotion": "10.0.27",
@@ -125,7 +122,7 @@
   ],
   "scripts": {
     "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "release": "standard-version -a",
+    "start": "babel-node tools/dev.server.js",
     "test:clean": "jest --clearCache",
     "test:e2e": " jest --config ./test/jest.config.e2e.js",
     "test": "cross-env BABEL_ENV=test cross-env NODE_ENV=test cross-env TZ=UTC jest --config ./jest/jest.config.js --maxWorkers 2 --passWithNoTests",
@@ -134,7 +131,6 @@
     "lint": "pnpm lint:js && pnpm lint:css",
     "lint:css": "yarn stylelint \"src/**/styles.ts\"",
     "lint:html": "yarn htmllinter src/template/index.html",
-    "dev:web": "babel-node tools/dev.server.js",
     "verdaccio:server": "node tools/verdaccio.js",
     "build": "webpack --config tools/webpack.prod.config.babel.js",
     "build:stats": "webpack --config tools/webpack.prod.config.babel.js --json > stats.json",

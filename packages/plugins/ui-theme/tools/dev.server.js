@@ -37,10 +37,10 @@ new WebpackDevServer(compiler, {
   proxy: [
     {
       context: ['/-/verdaccio/**', '**/*.tgz'],
-      target: 'http://localhost:8080',
+      target: 'http://localhost:8000',
     },
   ],
-}).listen(4872, 'localhost', function (err) {
+}).listen(4873, 'localhost', function (err) {
   if (err) {
     return console.log(err);
   }
