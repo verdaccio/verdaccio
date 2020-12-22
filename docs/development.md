@@ -2,7 +2,7 @@
 
 The `5.x` still under development, key points:
 
-Ensure you have `nvm` installed or the latest Node.js (check `.nvmrc` 
+Ensure you have `nvm` installed or the latest Node.js (check `.nvmrc`
 for mode details).
 
 ```bash
@@ -15,7 +15,7 @@ Verdaccio uses **pnpm** as monorepo management. To install
 npm i -g pnpm@latest
 ```
 
-Install all needed packages 
+Install all needed packages
 
 ```bash
 pnpm install
@@ -54,11 +54,11 @@ pnpm start:ts
 
 ### Running the Website
 
-We use *Gatsbyjs* as development stack for website, 
+We use _Gatsbyjs_ as development stack for website,
 please [for more information check their official guidelines.](https://www.gatsbyjs.com/docs/quick-start/)
 
 ```
-pnpm website:develop 
+pnpm website:develop
 ```
 
 ### Running E2E
@@ -83,7 +83,7 @@ Linting the code.
 pnpm lint
 ```
 
-For website runs 
+For website runs
 
 ```bash
 pnpm website:lint
@@ -97,14 +97,12 @@ pnpm prettier
 
 ### Debugging
 
-Run the server in debug mode (it does not include UI hot reload) 
+Run the server in debug mode (it does not include UI hot reload)
 with `--inspect` support.
 
 ```
-pnpm debug 
-pnpm debug:break 
+pnpm debug
+pnpm debug:break
 ```
+
 > requires `pnpm build` previously
-
-
-
