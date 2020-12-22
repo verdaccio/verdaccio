@@ -40,7 +40,13 @@ export interface ServerBridge {
   removeTarball(name: string): Promise<any>;
   removeSingleTarball(name: string, filename: string): Promise<any>;
   addTag(name: string, tag: string, version: string): Promise<any>;
-  putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function): Promise<any>;
+  putTarballIncomplete(
+    name: string,
+    filename: string,
+    data: any,
+    size: number,
+    cb: Function
+  ): Promise<any>;
   addPackage(name: string): Promise<any>;
   whoami(): Promise<any>;
   ping(): Promise<any>;
@@ -193,7 +199,12 @@ export default class Server implements ServerBridge {
     }).send(JSON.stringify(version));
   }
 
-  public putTarballIncomplete(pkgName: string, filename: string, data: any, headerContentSize: number): Promise<any> {
+  public putTarballIncomplete(
+    pkgName: string,
+    filename: string,
+    data: any,
+    headerContentSize: number
+  ): Promise<any> {
     const promise = this.request({
       uri: `/${encodeURIComponent(pkgName)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
@@ -204,20 +215,20 @@ export default class Server implements ServerBridge {
       timeout: 1000,
     });
 
-    promise.request(function(req) {
+    promise.request(function (req) {
       req.write(data);
       // it auto abort the request
-      setTimeout(function() {
+      setTimeout(function () {
         req.req.abort();
       }, 20);
     });
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       promise
-        .then(function() {
+        .then(function () {
           reject(Error('no error'));
         })
-        .catch(function(err) {
+        .catch(function (err) {
           if (err.code === 'ECONNRESET') {
             resolve();
           } else {
@@ -238,7 +249,7 @@ export default class Server implements ServerBridge {
       uri: '/-/whoami',
     })
       .status(HTTP_STATUS.OK)
-      .then(function(body) {
+      .then(function (body) {
         return body.username;
       });
   }
@@ -248,7 +259,7 @@ export default class Server implements ServerBridge {
       uri: '/-/ping',
     })
       .status(HTTP_STATUS.OK)
-      .then(function(body) {
+      .then(function (body) {
         return body;
       });
   }

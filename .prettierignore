@@ -13,6 +13,7 @@
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
+**/coverage/**
 **/static/*.js
 **/build/*.js
 packages/core/local-storage/_storage/**

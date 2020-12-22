@@ -30,7 +30,7 @@ export class PromiseAssert extends Promise<any> implements RequestPromise {
 
     return injectResponse(
       this,
-      this.then(function(body) {
+      this.then(function (body) {
         try {
           assert.equal(selfData.response.statusCode, expected);
         } catch (err) {
@@ -47,7 +47,7 @@ export class PromiseAssert extends Promise<any> implements RequestPromise {
 
     return injectResponse(
       this,
-      this.then(function(body) {
+      this.then(function (body) {
         try {
           if (_.isRegExp(expected)) {
             assert(body.ok.match(expected), "'" + body.ok + "' doesn't match " + expected);
@@ -71,7 +71,7 @@ export class PromiseAssert extends Promise<any> implements RequestPromise {
 
     return injectResponse(
       this,
-      this.then(function(body) {
+      this.then(function (body) {
         try {
           if (_.isRegExp(expected)) {
             assert(body.error.match(expected), body.error + " doesn't match " + expected);
@@ -98,7 +98,7 @@ export class PromiseAssert extends Promise<any> implements RequestPromise {
 
     return injectResponse(
       this,
-      this.then(function(body) {
+      this.then(function (body) {
         cb(selfData.response);
         return body;
       })
@@ -118,9 +118,9 @@ function smartRequest(options: any): Promise<any> {
   smartObject[requestData].error = Error();
   Error.captureStackTrace(smartObject[requestData].error, smartRequest);
 
-  const promiseResult: Promise<any> = new PromiseAssert(function(resolve, reject) {
+  const promiseResult: Promise<any> = new PromiseAssert(function (resolve, reject) {
     // store request reference on symbol
-    smartObject[requestData].request = request(options, function(err, res, body) {
+    smartObject[requestData].request = request(options, function (err, res, body) {
       if (err) {
         return reject(err);
       }
