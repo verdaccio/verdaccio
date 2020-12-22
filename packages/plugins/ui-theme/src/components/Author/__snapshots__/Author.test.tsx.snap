@@ -1,0 +1,353 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Author /> component should render the component in default state 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+}
+
+.emotion-2 {
+  padding: 0;
+}
+
+.emotion-2:hover {
+  background-color: transparent;
+}
+
+.emotion-4 {
+  padding: 0 10px;
+  margin: 0;
+}
+
+<body>
+    <div>
+      <ul
+        class="MuiList-root MuiList-padding MuiList-subheader"
+      >
+        <span
+          class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        >
+          Author
+        </span>
+        <div
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+          role="button"
+          tabindex="0"
+        >
+          <a
+            href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio@4.0.0"
+            target="_top"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-circle"
+            >
+              <img
+                alt="verdaccio user"
+                class="MuiAvatar-img"
+                src="https://www.gravatar.com/avatar/000000"
+              />
+            </div>
+          </a>
+          <div
+            class="MuiListItemText-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            >
+              verdaccio user
+            </span>
+          </div>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </div>
+      </ul>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+}
+
+.emotion-2 {
+  padding: 0;
+}
+
+.emotion-2:hover {
+  background-color: transparent;
+}
+
+.emotion-4 {
+  padding: 0 10px;
+  margin: 0;
+}
+
+<div>
+    <ul
+      class="MuiList-root MuiList-padding MuiList-subheader"
+    >
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Author
+      </span>
+      <div
+        aria-disabled="false"
+        class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+        role="button"
+        tabindex="0"
+      >
+        <a
+          href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio@4.0.0"
+          target="_top"
+        >
+          <div
+            class="MuiAvatar-root MuiAvatar-circle"
+          >
+            <img
+              alt="verdaccio user"
+              class="MuiAvatar-img"
+              src="https://www.gravatar.com/avatar/000000"
+            />
+          </div>
+        </a>
+        <div
+          class="MuiListItemText-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+          >
+            verdaccio user
+          </span>
+        </div>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </div>
+    </ul>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`<Author /> component should render the component when there is no author email 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+}
+
+.emotion-2 {
+  padding: 0;
+}
+
+.emotion-2:hover {
+  background-color: transparent;
+}
+
+.emotion-4 {
+  padding: 0 10px;
+  margin: 0;
+}
+
+<body>
+    <div>
+      <ul
+        class="MuiList-root MuiList-padding MuiList-subheader"
+      >
+        <span
+          class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        >
+          Author
+        </span>
+        <div
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="MuiAvatar-root MuiAvatar-circle"
+          >
+            <img
+              alt="verdaccio user"
+              class="MuiAvatar-img"
+              src="https://www.gravatar.com/avatar/000000"
+            />
+          </div>
+          <div
+            class="MuiListItemText-root emotion-4 emotion-5"
+          >
+            <span
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            >
+              verdaccio user
+            </span>
+          </div>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </div>
+      </ul>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+}
+
+.emotion-2 {
+  padding: 0;
+}
+
+.emotion-2:hover {
+  background-color: transparent;
+}
+
+.emotion-4 {
+  padding: 0 10px;
+  margin: 0;
+}
+
+<div>
+    <ul
+      class="MuiList-root MuiList-padding MuiList-subheader"
+    >
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Author
+      </span>
+      <div
+        aria-disabled="false"
+        class="MuiButtonBase-root MuiListItem-root emotion-2 emotion-3 MuiListItem-gutters MuiListItem-button"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circle"
+        >
+          <img
+            alt="verdaccio user"
+            class="MuiAvatar-img"
+            src="https://www.gravatar.com/avatar/000000"
+          />
+        </div>
+        <div
+          class="MuiListItemText-root emotion-4 emotion-5"
+        >
+          <span
+            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+          >
+            verdaccio user
+          </span>
+        </div>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </div>
+    </ul>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Copier dans le presse-papier",
+  "author-anonymous": "Anonyme",
+  "author-unknown": "Inconnue",
+  "action-bar-action": {
+    "visit-home-page": "Visiter la page d'accueil",
+    "open-an-issue": "Ouvrir un ticket",
+    "download-tarball": "Télécharger l'archive"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Informations du Registry"
+    }
+  },
+  "header": {
+    "documentation": "Documentation",
+    "registry-info": "Informations du Registry",
+    "greetings": "Bonjour "
+  },
+  "search": {
+    "packages": "Rechercher des paquets"
+  },
+  "autoComplete": {
+    "loading": "En cours de chargement...",
+    "no-results-found": "Aucun resultat trouvé",
+    "clear": "Nettoyer",
+    "expand": "Développer",
+    "collapse": "Se rétracter"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "Versions",
+    "dependencies": "Dépendances",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} n'a pas de uplink."
+  },
+  "versions": {
+    "current-tags": "Tags courants",
+    "version-history": "Historique de version",
+    "not-available": "Non disponible"
+  },
+  "package": {
+    "published-on": "Publié le {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Visiter la page d'accueil",
+    "homepage": "Page d'accueil",
+    "open-an-issue": "Ouvrir un ticket",
+    "bugs": "Bugs",
+    "download": "Télécharger {{what}}",
+    "the-tar-file": "le fichier tar",
+    "tarball": "Archive"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} n'a aucune dépendance.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe"
+  },
+  "form-placeholder": {
+    "username": "Votre nom d'utilisateur",
+    "password": "Votre mot de passe"
+  },
+  "form-validation": {
+    "required-field": "Ce champ est obligatoire",
+    "required-min-length": "Ce champ doit faire au moins {{length}} caractères",
+    "unable-to-sign-in": "Connexion impossible",
+    "username-or-password-cant-be-empty": "Le nom d'utilisateur ou mot de passe ne peut pas être vide!"
+  },
+  "help": {
+    "title": "Aucun paquet publié pour l'instant.",
+    "sub-title": "Pour publier votre premier paquet:",
+    "first-step": "1. Se connecter",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Publier",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Recharger cette page."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Dernière v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Installation",
+      "install-using-yarn": "Installer avec yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Installer avec npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Installer avec pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Dépôt"
+    },
+    "author": {
+      "title": "Auteur"
+    },
+    "distribution": {
+      "title": "Dernière distribution",
+      "license": "Licence",
+      "size": "Taille",
+      "file-count": "nombre de fichiers"
+    },
+    "maintainers": {
+      "title": "Mainteneurs"
+    },
+    "contributors": {
+      "title": "Contributeurs"
+    },
+    "engines": {
+      "npm-version": "Version NPM",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Propulsé par",
+    "made-with-love-on": "Fait avec <0>♥</0> sur"
+  },
+  "button": {
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "go-to-the-home-page": "Aller à la page d'accueil",
+    "learn-more": "En savoir plus",
+    "fund-this-package": "<0>Financer</0> ce paquet"
+  },
+  "error": {
+    "unspecific": "Quelque chose a mal tourné.",
+    "404": {
+      "page-not-found": "404 - Page non trouvée",
+      "sorry-we-could-not-find-it": "Desolé, nous n'avons rien retrouvé..."
+    },
+    "app-context-not-correct-used": "Le contexte de l'application n'a pas été utilisé correctement",
+    "theme-context-not-correct-used": "Le contexte du thème n'a pas été utilisé correctement",
+    "package-meta-is-required-at-detail-context": "packageMeta est obligatoire à DetailContext"
+  },
+  "lng": {
+    "english": "Anglais",
+    "czech": "Tchèque",
+    "japanese": "Japonais",
+    "portuguese": "Portugais",
+    "spanish": "Espagnol",
+    "german": "Allemand",
+    "chinese": "Chinois",
+    "chineseTraditional": "Chinois (Traditionnel)",
+    "french": "Français",
+    "russian": "Russe",
+    "turkish": "Turc",
+    "ukraine": "Ukrainien",
+    "khmer": "Khmer"
+  },
+  "flag": {
+    "austria": "L'Autriche",
+    "brazil": "Brésil",
+    "spain": "Espagne",
+    "nicaragua": "Nicaragua",
+    "india": "Inde",
+    "china": "Chine",
+    "germany": "Allemagne",
+    "taiwan": "Taïwan"
+  }
+}

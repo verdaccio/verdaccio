@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextField /> component should load the component in default state 1`] = `
+<div
+  class="MuiFormControl-root MuiTextField-root"
+>
+  <div
+    class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+  >
+    <input
+      aria-invalid="false"
+      class="MuiInputBase-input MuiInput-input"
+      name="test"
+      type="text"
+      value="test"
+    />
+  </div>
+</div>
+`;

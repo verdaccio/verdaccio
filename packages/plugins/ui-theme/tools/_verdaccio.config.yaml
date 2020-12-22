@@ -1,0 +1,55 @@
+web:
+  title: Verdaccio Local Dev
+  sort_packages: asc
+  primary_color: #CCC
+
+plugins: ../
+
+auth:
+  auth-memory:
+    users:
+      foo:
+        name: test
+        password: test #pragma: allowlist secret
+      bar:
+        name: bar
+        password: test #pragma: allowlist secret
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 120d
+        notBefore: 1
+  web:
+    sign:
+      expiresIn: 100d
+      notBefore: 0
+
+uplinks:
+  ver:
+    url: https://registry.verdaccio.org/
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  'vue':
+    access: foo
+    publish: foo
+    unpublish: foo
+  'jquery':
+    access: $all
+    publish: bar
+    unpublish: bar
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: ver
+middlewares:
+  audit:
+    enabled: true
+
+logs:
+  - { type: stdout, format: pretty, level: trace }
