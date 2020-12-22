@@ -18,6 +18,7 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
   },
