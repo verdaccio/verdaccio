@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "no-console": 0,
+    "new-cap": 0,
+    "max-len": 0
+  },
+  "globals": {
+    "VERDACCIO_API_URL": true,
+    "__DEBUG__": true
+  },
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  }
+}
