@@ -1,6 +1,18 @@
 name: E2E UI
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - 5.x
+      - 'changeset-release/5.x'
+  pull_request:
+    paths:
+      - .github/workflows/ci.yml
+      - 'packages/**'
+      - 'jest/**'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
+      - 'test/**'
 
 jobs:
   ci:
@@ -16,12 +28,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.1
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v1
         with:
           node_version: ${{ matrix.node_version }}
+      - name: Install pnpm
+        run: npm i -g pnpm@latest
       - name: Install
-        run: yarn install --immutable
+        run: pnpm recursive install
+      - name: Clean
+        run: pnpm clean
       - name: Build
-        run: yarn code:build
+        run: pnpm build
       - name: Test UI
-        run: yarn run test:e2e
+        run: pnpm test:e2e:ui
+        env:
+          DEBUG: verdaccio:e2e*
