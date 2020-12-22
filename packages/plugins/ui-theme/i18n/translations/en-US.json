@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Copy to clipboard",
+  "author-anonymous": "Anonymous",
+  "author-unknown": "Unknown",
+  "action-bar-action": {
+    "visit-home-page": "Visit homepage",
+    "open-an-issue": "Open an issue",
+    "download-tarball": "Download tarball"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Registry Info"
+    }
+  },
+  "header": {
+    "documentation": "Documentation",
+    "registry-info": "Registry Information",
+    "greetings": "Hi "
+  },
+  "search": {
+    "packages": "Search Packages"
+  },
+  "autoComplete": {
+    "loading": "Loading...",
+    "no-results-found": "No results found",
+    "clear": "Clear",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "Versions",
+    "dependencies": "Dependencies",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} has no uplinks."
+  },
+  "versions": {
+    "current-tags": "Current Tags",
+    "version-history": "Version history",
+    "not-available": "Not available"
+  },
+  "package": {
+    "published-on": "Published on {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Visit homepage",
+    "homepage": "Homepage",
+    "open-an-issue": "Open an issue",
+    "bugs": "Bugs",
+    "download": "Download {{what}}",
+    "the-tar-file": "the tar file",
+    "tarball": "Tarball"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} has no dependencies.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "form-placeholder": {
+    "username": "Your username",
+    "password": "Your strong password"
+  },
+  "form-validation": {
+    "required-field": "This field is required",
+    "required-min-length": "This field required the min length of {{length}}",
+    "unable-to-sign-in": "Unable to sign in",
+    "username-or-password-cant-be-empty": "Username or password can't be empty!"
+  },
+  "help": {
+    "title": "No Package Published Yet.",
+    "sub-title": "To publish your first package just:",
+    "first-step": "1. Login",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Publish",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Refresh this page."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Latest v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Installation",
+      "install-using-yarn": "Install using yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Install using npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Install using pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Repository"
+    },
+    "author": {
+      "title": "Author"
+    },
+    "distribution": {
+      "title": "Latest Distribution",
+      "license": "License",
+      "size": "Size",
+      "file-count": "file count"
+    },
+    "maintainers": {
+      "title": "Maintainers"
+    },
+    "contributors": {
+      "title": "Contributors"
+    },
+    "engines": {
+      "npm-version": "NPM Version",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "Made with <0>♥</0> on"
+  },
+  "button": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "login": "Login",
+    "logout": "Logout",
+    "go-to-the-home-page": "Go to the home page",
+    "learn-more": "Learn More",
+    "fund-this-package": "<0>Fund</0> this package"
+  },
+  "error": {
+    "unspecific": "Something went wrong.",
+    "404": {
+      "page-not-found": "404 - Page not found",
+      "sorry-we-could-not-find-it": "Sorry, we couldn't find it..."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "English",
+    "czech": "Czech",
+    "japanese": "Japanese",
+    "portuguese": "Portuguese",
+    "spanish": "Spanish",
+    "german": "German",
+    "chinese": "Chinese",
+    "chineseTraditional": "Chinese (Traditional)",
+    "french": "French",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer"
+  },
+  "flag": {
+    "austria": "Austria",
+    "brazil": "Brazil",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  }
+}

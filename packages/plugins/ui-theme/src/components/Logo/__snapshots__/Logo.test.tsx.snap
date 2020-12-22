@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Logo /> component should render the component in default state 1`] = `
+.emotion-0 {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  background-position: center;
+  background-size: contain;
+  background-image: url([object Object]);
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+}
+
+<div
+  class="emotion-0 emotion-1"
+/>
+`;

@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "クリップボードにコピー",
+  "author-anonymous": "匿名",
+  "author-unknown": "わからない",
+  "action-bar-action": {
+    "visit-home-page": "ホームページへ移動",
+    "open-an-issue": "課題を開く",
+    "download-tarball": "tar形式でダウンロード"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "レジストリの設定方法"
+    }
+  },
+  "header": {
+    "documentation": "ドキュメント",
+    "registry-info": "レジストリ情報",
+    "greetings": "こんにちは、"
+  },
+  "search": {
+    "packages": "パッケージを検索"
+  },
+  "autoComplete": {
+    "loading": "ロード中...",
+    "no-results-found": "パッケージが見つかりませんでした",
+    "clear": "きれいにするため",
+    "expand": "拡大する",
+    "collapse": "撤回する"
+  },
+  "tab": {
+    "uplinks": "アップリンク",
+    "versions": "バージョン情報",
+    "dependencies": "依存パッケージ",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "アップリンク",
+    "no-items": "{{name}}にアップリンクはありません"
+  },
+  "versions": {
+    "current-tags": "タグ一覧",
+    "version-history": "バージョン履歴",
+    "not-available": "利用できません"
+  },
+  "package": {
+    "published-on": "{{time}}に更新されました •",
+    "version": "v{{version}}",
+    "visit-home-page": "ホームページへ移動",
+    "homepage": "ホームページ",
+    "open-an-issue": "課題を開く",
+    "bugs": "バグ",
+    "download": "{{what}}ダウンロード",
+    "the-tar-file": "tar形式のファイル",
+    "tarball": "tar形式でダウンロード"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}}に依存パッケージはありません",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "ユーザ名",
+    "password": "パスワード"
+  },
+  "form-placeholder": {
+    "username": "あなたのユーザ名",
+    "password": "あなたのパスワード"
+  },
+  "form-validation": {
+    "required-field": "この項目は必ず入力して下さい",
+    "required-min-length": "この項目は{{length}}文字以上入力して下さい",
+    "unable-to-sign-in": "サインインできません",
+    "username-or-password-cant-be-empty": "ユーザ名とパスワードは空にできません"
+  },
+  "help": {
+    "title": "まだパッケージが登録されていません",
+    "sub-title": "以下の手順で最初のパッケージを登録しましょう",
+    "first-step": "1. ログイン",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. 登録",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. このページを再読み込みして下さい"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "最新バージョンは{{version}}です",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "インストール方法",
+      "install-using-yarn": "yarnでインストール",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "npmでインストール",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "pnpmでインストール",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "リポジトリ"
+    },
+    "author": {
+      "title": "作者"
+    },
+    "distribution": {
+      "title": "最新の配信内容",
+      "license": "ライセンス",
+      "size": "サイズ",
+      "file-count": "ファイル数"
+    },
+    "maintainers": {
+      "title": "パッケージメンテナ"
+    },
+    "contributors": {
+      "title": "コントリビューター"
+    },
+    "engines": {
+      "npm-version": "NPM Version",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "Made with <0>♥</0> on"
+  },
+  "button": {
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "go-to-the-home-page": "トップページに戻る",
+    "learn-more": "もっと知る",
+    "fund-this-package": "このパッケージに<0>投資</0>"
+  },
+  "error": {
+    "unspecific": "何か問題が発生したようです。",
+    "404": {
+      "page-not-found": "404 - Page not found",
+      "sorry-we-could-not-find-it": "残念ながら、ご指定のページはありませんでした…。"
+    },
+    "app-context-not-correct-used": "AppContextが正しく使用されませんでした",
+    "theme-context-not-correct-used": "ThemeContextが正しく使用されませんでした",
+    "package-meta-is-required-at-detail-context": "DetailContextではpackageMetaが必要です"
+  },
+  "lng": {
+    "english": "英語",
+    "czech": "チェコ人",
+    "japanese": "日本語",
+    "portuguese": "ポルトガル語",
+    "spanish": "スペイン語",
+    "german": "ドイツ語",
+    "chinese": "中国語",
+    "chineseTraditional": "繁体字中国語",
+    "french": "フランス語",
+    "russian": "ロシア",
+    "turkish": "トルコ人",
+    "ukraine": "ウクライナ",
+    "khmer": "クメール語"
+  },
+  "flag": {
+    "austria": "オーストリア",
+    "brazil": "ブラジル",
+    "spain": "スペイン",
+    "nicaragua": "ニカラグア",
+    "india": "インド",
+    "china": "中国",
+    "germany": "ドイツ",
+    "taiwan": "台湾"
+  }
+}
