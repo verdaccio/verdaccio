@@ -31,23 +31,11 @@ docker pull verdaccio/verdaccio:5.x-next
 
 ## Development
 
-The `5.x` still under development, key points:
+Please check [docs/development.md](docs/development.md) for further notes.
 
-- We use **pnpm** as monorepo management. `npm i -g pnpm@latest`.
-- Please check [the roadmap](https://github.com/verdaccio/verdaccio/issues/1690) if you want to contribute
+## Roadmap
 
-```
-pnpm install
-pnpm build
-```
-
-running the test
-
-```
-pnpm test
-```
-
-We are still experimenting with few things, be patience, Verdaccio v4 will run for still long period until this is getting done.
+Please check [the roadmap](https://github.com/verdaccio/verdaccio/discussions/1690) if you are willing to contribute.
 
 ## Donations
 
