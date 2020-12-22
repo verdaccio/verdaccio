@@ -1,4 +1,4 @@
-name: E2E CLI
+name: E2E UI
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         node_version: [14]
 
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
@@ -39,7 +39,7 @@ jobs:
         run: pnpm clean
       - name: Build
         run: pnpm build
-      - name: Test CLI
-        run: pnpm test:e2e:cli
+      - name: Test UI
+        run: pnpm test:e2e:ui
         env:
           DEBUG: verdaccio:e2e*

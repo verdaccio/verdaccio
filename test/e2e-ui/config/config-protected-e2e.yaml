@@ -1,0 +1,27 @@
+web:
+  enable: true
+  title: verdaccio-server-protected-e2e
+
+store:
+  memory:
+    limit: 10
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+logs:
+  - { type: stdout, format: pretty, level: info }
+
+packages:
+  'protected-*':
+    access: $authenticated
+    publish: $authenticated
+
+listen: 0.0.0.0:55552
+
+# expose internal methods
+_debug: true

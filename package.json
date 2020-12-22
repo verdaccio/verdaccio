@@ -128,6 +128,7 @@
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "test": "pnpm recursive test --filter ./packages",
     "test:e2e:cli": "pnpm test --filter ...@verdaccio/e2e-cli",
+    "test:e2e:ui": "pnpm test --filter ...@verdaccio/e2e-ui",
     "start": "concurrently --kill-others \"pnpm start:server\" \"pnpm start:web\"",
     "start:server": "node packages/verdaccio/debug/bootstrap.js --listen 8000",
     "start:web": "pnpm start --filter ...@verdaccio/ui-theme",
