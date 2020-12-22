@@ -1,4 +1,4 @@
-name: CI E2E
+name: E2E CLI
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
       - 'changeset-release/5.x'
   pull_request:
     paths:
-      - .changeset/**
       - .github/workflows/ci.yml
       - 'packages/**'
       - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
+      - 'test/**'
 
 jobs:
   ci:
@@ -39,7 +39,7 @@ jobs:
         run: pnpm clean
       - name: Build
         run: pnpm build
-      - name: Test
+      - name: Test CLI
         run: pnpm test:e2e:cli
         env:
           DEBUG: verdaccio:e2e*
