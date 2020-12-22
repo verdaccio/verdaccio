@@ -1,4 +1,4 @@
-# E2E Testing
+# E2E CLI Testing
 
 ## What is included on these test?
 

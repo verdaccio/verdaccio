@@ -5,7 +5,11 @@ on:
     branches-ignore:
       - 5.x
       - 'changeset-release/5.x'
+      - 'dev/**'
   pull_request:
+    paths:
+      - .github/workflows/ci.yml
+      - 'packages/**'
   schedule:
     - cron: '0 2 * * 4'
 

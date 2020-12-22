@@ -3,4 +3,4 @@ packages:
   - packages/core/*
   - packages/plugins/*
   - website
-  - test/e2e-cli
+  - test/e2e-*
