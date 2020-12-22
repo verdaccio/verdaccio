@@ -1,0 +1,7 @@
+{
+    "rules": {
+      "verdaccio/jsx-spread": 0,
+      "react/jsx-sort-props": 0
+    }
+  }
+  

@@ -3,7 +3,7 @@ verdaccio-*.tgz
 .DS_Store
 build/
 .eslintcache
-dist/
+./dist
 
 ### Test
 
@@ -18,6 +18,8 @@ package-lock.json
 yarn-error.log
 yarn.lock
 
+## ui
+static/
 
 # jest
 reports/
