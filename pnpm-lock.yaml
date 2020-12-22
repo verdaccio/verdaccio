@@ -1012,6 +1012,7 @@ importers:
       '@reach/router': 1.3.4_react-dom@16.13.1+react@16.13.1
       babel-preset-gatsby: 0.4.12
       classnames: 2.2.6
+      core-js: 2.6.10
       emotion-theming: 10.0.27_c989b1aa057905c7a8b69bf973f55a19
       event-source-polyfill: 1.0.17
       fontsource-roboto: 2.2.6
@@ -1064,6 +1065,7 @@ importers:
       '@types/react-helmet': ^5.0.16
       babel-preset-gatsby: ^0.4.12
       classnames: ^2.2.6
+      core-js: ^2.6.5
       emotion-theming: 10.0.27
       event-source-polyfill: ^1.0.17
       fontsource-roboto: ^2.2.6
