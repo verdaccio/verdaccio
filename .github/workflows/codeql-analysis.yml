@@ -2,11 +2,16 @@ name: 'Code scanning - action'
 
 on:
   push:
-    branches:
-      - master
+    branches-ignore:
+      - 5.x
+      - 'changeset-release/5.x'
+      - 'dev/**'
   pull_request:
+    paths:
+      - .github/workflows/ci.yml
+      - 'packages/**'
   schedule:
-    - cron: '0 0 * * 6'
+    - cron: '0 2 * * 4'
 
 jobs:
   CodeQL-Build:
