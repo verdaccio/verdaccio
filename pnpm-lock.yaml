@@ -640,7 +640,6 @@ importers:
       '@testing-library/dom': 7.29.0
       '@testing-library/jest-dom': 5.11.6
       '@testing-library/react': 10.4.9_react-dom@16.13.1+react@16.13.1
-      '@verdaccio/commons-api': 'link:../../core/commons-api'
       '@verdaccio/node-api': 'link:../../node-api'
       autosuggest-highlight: 3.1.1
       babel-loader: 8.2.2_webpack@5.10.1
@@ -672,7 +671,6 @@ importers:
       optimize-css-assets-webpack-plugin: 5.0.4_webpack@5.10.1
       ora: 4.0.4
       prop-types: 15.7.2
-      puppeteer: 5.3.1
       react: 16.13.1
       react-autosuggest: 10.0.2_react@16.13.1
       react-dom: 16.13.1_react@16.13.1
@@ -720,7 +718,6 @@ importers:
       '@testing-library/dom': ^7.29.0
       '@testing-library/jest-dom': ^5.11.6
       '@testing-library/react': 10.4.9
-      '@verdaccio/commons-api': 'workspace:10.0.0-alpha.1'
       '@verdaccio/node-api': 'workspace:5.0.0-alpha.1'
       autosuggest-highlight: 3.1.1
       babel-loader: ^8.2.2
@@ -752,7 +749,6 @@ importers:
       optimize-css-assets-webpack-plugin: ^5.0.4
       ora: 4.0.4
       prop-types: 15.7.2
-      puppeteer: 5.3.1
       react: 16.13.1
       react-autosuggest: 10.0.2
       react-dom: 16.13.1
@@ -982,6 +978,27 @@ importers:
       request: ^2.88.2
       semver: ^7.3.4
       yarn: 1.22.10
+  test/e2e-ui:
+    devDependencies:
+      '@verdaccio/commons-api': 'link:../../packages/core/commons-api'
+      '@verdaccio/ui-theme': 'link:../../packages/plugins/ui-theme'
+      debug: 4.3.1
+      kleur: 4.1.3
+      lodash: 4.17.20
+      mkdirp: 1.0.4
+      puppeteer: 5.5.0
+      request: 2.88.2
+      rimraf: 3.0.2
+    specifiers:
+      '@verdaccio/commons-api': 'workspace:10.0.0-alpha.1'
+      '@verdaccio/ui-theme': 'workspace:5.0.0-alpha.1'
+      debug: 4.3.1
+      kleur: ^4.1.3
+      lodash: ^4.17.20
+      mkdirp: ^1.0.4
+      puppeteer: ^5.5.0
+      request: ^2.88.2
+      rimraf: ^3.0.2
   website:
     dependencies:
       '@emotion/core': 10.0.28_react@16.13.1
@@ -11291,10 +11308,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-7/nIzKdQ8y2K0imjIP7dyg2GJ2h38Ps6VOMXWZHIarNDV3p6mTXyEugKFnkmsZ2DD58JEG34ILyVb3qdOMmP9w==
-  /devtools-protocol/0.0.799653:
+  /devtools-protocol/0.0.818844:
     dev: true
     resolution:
-      integrity: sha512-t1CcaZbvm8pOlikqrsIM9GOa7Ipp07+4h/q9u0JXBWjPCjHdBl9KkddX87Vv9vBHoBGtwV79sYQNGnQM6iS5gg==
+      integrity: sha512-AD1hi7iVJ8OD0aMLQU5VK0XH9LDlA1+BcPIgrAxPfaibx2DbWucuyOhc4oyQCbnvDDO68nN6/LcKfqTP343Jjg==
   /diacritic/0.0.2:
     dev: true
     resolution:
@@ -17586,6 +17603,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-FGCCxczbrZuF5CtMeO0xfnjhzkVZSXfcWK90IPLucDWZwskrpYN7pmRIgvd8muU0mrPrzy4A2RBGuwCjLHI+nw==
+  /kleur/4.1.3:
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-H1tr8QP2PxFTNwAFM74Mui2b6ovcY9FoxJefgrwxY+OCJcq01k5nvhf4M/KnizzrJvLRap5STUy7dgDV35iUBw==
   /known-css-properties/0.19.0:
     dev: true
     resolution:
@@ -21506,12 +21529,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-hEJH0s8PXLY/cdXh66tNEQGndDrIKNqNC5xmrysZy3i5C3oEoLna7YAOad+7u125+zH1HNXUmGEkrhb3c2VriA==
-  /puppeteer/5.3.1:
+  /puppeteer/5.5.0:
     dependencies:
       debug: 4.3.1
-      devtools-protocol: 0.0.799653
+      devtools-protocol: 0.0.818844
       extract-zip: 2.0.1
       https-proxy-agent: 4.0.0
+      node-fetch: 2.6.1
       pkg-dir: 4.2.0
       progress: 2.0.3
       proxy-from-env: 1.1.0
@@ -21524,7 +21548,7 @@ packages:
       node: '>=10.18.1'
     requiresBuild: true
     resolution:
-      integrity: sha512-YTM1RaBeYrj6n7IlRXRYLqJHF+GM7tasbvrNFx6w1S16G76NrPq7oYFKLDO+BQsXNtS8kW2GxWCXjIMPvfDyaQ==
+      integrity: sha512-OM8ZvTXAhfgFA7wBIIGlPQzvyEETzDjeRa4mZRCRHxYL+GNH5WAuYUQdja3rpWZvkX/JKqmuVgbsxDNsDFjMEg==
   /q/1.5.1:
     engines:
       node: '>=0.6.0'
