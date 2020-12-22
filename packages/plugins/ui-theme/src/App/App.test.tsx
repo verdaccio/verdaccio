@@ -70,7 +70,7 @@ describe('<App />', () => {
         expect(queryByTestId('greetings-label')).toBeFalsy();
       }
     }
-  });
+  }, 20000);
 
   test('isUserAlreadyLoggedIn: token already available in storage', async () => {
     storage.setItem('username', 'verdaccio');
@@ -93,5 +93,5 @@ describe('<App />', () => {
         expect(queryAllByText('verdaccio')).toBeTruthy();
       }
     }
-  });
+  }, 20000);
 });
