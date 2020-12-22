@@ -128,7 +128,7 @@
     "release": "standard-version -a",
     "test:clean": "jest --clearCache",
     "test:e2e": " jest --config ./test/jest.config.e2e.js",
-    "test": "BABEL_ENV=test NODE_ENV=test TZ=UTC jest --config ./jest/jest.config.js --maxWorkers 2 --passWithNoTests",
+    "test": "cross-env BABEL_ENV=test cross-env NODE_ENV=test cross-env TZ=UTC jest --config ./jest/jest.config.js --maxWorkers 2 --passWithNoTests",
     "test:update-snapshot": "yarn run test -- -u",
     "test:size": "bundlesize",
     "lint": "pnpm lint:js && pnpm lint:css",
