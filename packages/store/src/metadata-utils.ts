@@ -3,13 +3,12 @@ import _ from 'lodash';
 import { DIST_TAGS } from '@verdaccio/commons-api';
 
 import { Package } from '@verdaccio/types';
-
 /**
  * Function gets a local info and an info from uplinks and tries to merge it
  exported for unit tests only.
   * @param {*} local
   * @param {*} up
-  * @param {*} config
+  * @param {*} config sds
   * @static
   */
 export function mergeVersions(local: Package, up: Package) {

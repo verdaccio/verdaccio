@@ -19,10 +19,8 @@ export function webAPI(config: Config, auth: IAuth, storage: IStorageHandler): R
   SearchInstance.configureStorage(storage);
 
   // validate all of these params as a package name
-  // this might be too harsh, so ask if it causes trouble
-  // $FlowFixMe
+  // this might be too harsh, so ask if it causes trouble=
   route.param('package', validatePackage);
-  // $FlowFixMe
   route.param('filename', validateName);
   route.param('version', validateName);
   route.param('anything', match(/.*/));
