@@ -1,0 +1,380 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test Developers should render the component for contributors with items 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.emotion-2>* {
+  margin: 5px;
+}
+
+<body>
+    <div>
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Contributors
+      </span>
+      <div
+        class="MuiBox-root MuiBox-root-2 emotion-2 emotion-3"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+          title="dmethvin"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiAvatar-fallback"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+        <div
+          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+          title="mgol"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiAvatar-fallback"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.emotion-2>* {
+  margin: 5px;
+}
+
+<div>
+    <span
+      class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+    >
+      Contributors
+    </span>
+    <div
+      class="MuiBox-root MuiBox-root-2 emotion-2 emotion-3"
+    >
+      <div
+        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+        title="dmethvin"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiAvatar-fallback"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+        title="mgol"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiAvatar-fallback"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`test Developers should render the component for maintainers with items 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": .emotion-0 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.emotion-2>* {
+  margin: 5px;
+}
+
+<body>
+    <div>
+      <span
+        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      >
+        Maintainers
+      </span>
+      <div
+        class="MuiBox-root MuiBox-root-1 emotion-2 emotion-3"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+          title="dmethvin"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiAvatar-fallback"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+        <div
+          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+          title="mgol"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiAvatar-fallback"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.emotion-2>* {
+  margin: 5px;
+}
+
+<div>
+    <span
+      class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+    >
+      Maintainers
+    </span>
+    <div
+      class="MuiBox-root MuiBox-root-1 emotion-2 emotion-3"
+    >
+      <div
+        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+        title="dmethvin"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiAvatar-fallback"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+        title="mgol"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiAvatar-fallback"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`test Developers should render the component with no items 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div />
+  </body>,
+  "container": <div />,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

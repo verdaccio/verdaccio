@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "In die Zwischenablage kopieren",
+  "author-anonymous": "Anonymus",
+  "author-unknown": "Unbekannt",
+  "action-bar-action": {
+    "visit-home-page": "Zur Homepage",
+    "open-an-issue": "Einen Fehler melden",
+    "download-tarball": "Archiv (Tarball) herunterladen"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Registrierungsinformationen"
+    }
+  },
+  "header": {
+    "documentation": "Dokumentation",
+    "registry-info": "Registrierungsinformationen",
+    "greetings": "Hallo "
+  },
+  "search": {
+    "packages": "Pakete suchen"
+  },
+  "autoComplete": {
+    "loading": "wird geladen...",
+    "no-results-found": "Kein Ergebnis gefunden",
+    "clear": "Löschen",
+    "expand": "Erweitern",
+    "collapse": "Zurückziehen"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "Versionen",
+    "dependencies": "Abhängigkeiten",
+    "readme": "Liesmich"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} hat keine Uplinks."
+  },
+  "versions": {
+    "current-tags": "Aktuelle Tags",
+    "version-history": "Versionsgeschichte",
+    "not-available": "Nicht verfügbar"
+  },
+  "package": {
+    "published-on": "Veröffentlicht am {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Zur Homepage",
+    "homepage": "Homepage",
+    "open-an-issue": "Einen Fehler melden",
+    "bugs": "Fehler",
+    "download": "{{what}} herunterladen",
+    "the-tar-file": "die tar-Datei",
+    "tarball": "Archiv (Tarball)"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} hat keine Abhängigkeiten",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Benutzername",
+    "password": "Passwort"
+  },
+  "form-placeholder": {
+    "username": "Dein Benutzername",
+    "password": "Dein sicheres Passwort"
+  },
+  "form-validation": {
+    "required-field": "Dieses Feld ist erforderlich",
+    "required-min-length": "Dieses Feld erfordert eine Mindestlänge von {{length}}",
+    "unable-to-sign-in": "Anmeldung nicht möglich",
+    "username-or-password-cant-be-empty": "Benutzername und Passwort dürfen nicht leer sein!"
+  },
+  "help": {
+    "title": "Noch kein Paket publiziert.",
+    "sub-title": "Um dein erstes Paket einfach zu publizieren:",
+    "first-step": "1. Einloggen",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Publizieren",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Diese Seite aktualisieren."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Letzte v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Installierung",
+      "install-using-yarn": "Mit yarn installieren",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Mit npm installieren",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Mit pnpm installieren",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Repository"
+    },
+    "author": {
+      "title": "Autor(in)"
+    },
+    "distribution": {
+      "title": "Neueste Distribution",
+      "license": "Lizenz",
+      "size": "Größe",
+      "file-count": "Anzahl der Dateien"
+    },
+    "maintainers": {
+      "title": "Maintainer"
+    },
+    "contributors": {
+      "title": "Contributor"
+    },
+    "engines": {
+      "npm-version": "NPM Version",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Unterstützt von",
+    "made-with-love-on": "Gemacht mit <0>♥</0> in"
+  },
+  "button": {
+    "close": "Schließen",
+    "cancel": "Abbrechen",
+    "login": "Einloggen",
+    "logout": "Ausloggen",
+    "go-to-the-home-page": "Zur Homepage",
+    "learn-more": "Mehr erfahren",
+    "fund-this-package": "Dieses Paket <0>finanzieren</0>"
+  },
+  "error": {
+    "unspecific": "Etwas ist schief gelaufen.",
+    "404": {
+      "page-not-found": "404 - Seite nicht gefunden",
+      "sorry-we-could-not-find-it": "Entschuldigung, wir konnten es nicht finden..."
+    },
+    "app-context-not-correct-used": "Der App-Kontext wurde nicht korrekt verwendet",
+    "theme-context-not-correct-used": "Der Theme-Kontext wurde nicht korrekt verwendet",
+    "package-meta-is-required-at-detail-context": "packageMeta wird bei DetailContext benötigt"
+  },
+  "lng": {
+    "english": "Englisch",
+    "czech": "Tschechisch",
+    "japanese": "Japanisch",
+    "portuguese": "Portugiesisch",
+    "spanish": "Spanisch",
+    "german": "Deutsch",
+    "chinese": "Chinesisch",
+    "chineseTraditional": "Chinesisch (Traditionell)",
+    "french": "Französisch",
+    "russian": "Russisch",
+    "turkish": "Türkisch",
+    "ukraine": "Ukrainisch",
+    "khmer": "Khmer"
+  },
+  "flag": {
+    "austria": "Österreich",
+    "brazil": "Brasilien",
+    "spain": "Spanien",
+    "nicaragua": "Nicaragua",
+    "india": "Indien",
+    "china": "China",
+    "germany": "Deutschland",
+    "taiwan": "Taiwan"
+  }
+}
