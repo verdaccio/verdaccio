@@ -33,13 +33,17 @@
     "verdaccio-aws-s3-storage": "10.0.0-alpha.0",
     "verdaccio-google-cloud": "10.0.0-alpha.0",
     "verdaccio-memory": "10.0.0-alpha.0",
-    "@verdaccio/website": "0.0.1"
+    "@verdaccio/website": "0.0.1",
+    "@verdaccio/ui-theme": "5.0.0-alpha.1",
+    "@verdaccio/e2e-cli": "1.0.0",
+    "@verdaccio/e2e-ui": "1.0.0"
   },
   "changesets": [
     "few-cooks-destroy",
     "fifty-jars-rest",
     "gentle-trains-switch",
     "late-parents-act",
+    "modern-spies-tell",
     "plenty-spiders-melt",
     "pretty-hounds-tap",
     "shiny-chefs-heal",
