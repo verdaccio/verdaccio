@@ -106,3 +106,12 @@ pnpm debug:break
 ```
 
 > requires `pnpm build` previously
+
+
+#### debug internal output
+
+Each verdaccio module uses `debug`, use the namespaces in combination with filters to get a verbose output about each action, for example:
+
+```
+DEBUG=verdaccio:* pnpm start
+```
