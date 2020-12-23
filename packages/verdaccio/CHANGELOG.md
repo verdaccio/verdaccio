@@ -1,5 +1,16 @@
 # verdaccio
 
+## 5.0.0-alpha.2
+
+### Minor Changes
+
+- 6cb0b588: feat: ui theme plugin part of the application
+
+### Patch Changes
+
+- Updated dependencies [6cb0b588]
+  - @verdaccio/ui-theme@5.0.0-alpha.2
+
 ## 5.0.0-alpha.1
 
 ### Major Changes
