@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "devDependencies": {
-    "@verdaccio/ui-theme": "workspace:5.0.0-alpha.1",
+    "@verdaccio/ui-theme": "workspace:5.0.0-alpha.2",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
     "debug": "4.3.1",
     "kleur": "^4.1.3",
