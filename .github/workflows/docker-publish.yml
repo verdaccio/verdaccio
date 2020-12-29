@@ -1,27 +1,49 @@
-name: Docker publish to GitHub registry
+name: Docker publish to docker.io
 
 on:
   push:
-    branches:
-      - 5.x
     paths:
+      - .github/workflows/docker-publish.yml
       - .github/workflows/docker-publish.yml
       - 'packages/**'
       - 'docker-bin/**'
       - 'package.json'
       - 'pnpm-*.yaml'
-
+    branches:
+      - '5.x'
+    tags:
+      - 'v*'
 jobs:
-  testDocker:
-    name: Test Docker Build
+  docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Publish to GitHub Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+      - uses: actions/checkout@v2
+      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-buildx-action@v1
         with:
-          name: docker.pkg.github.com/verdaccio/verdaccio/verdaccio
-          username: ${{secrets.DOCKER_USERNAME}}
-          password: ${{secrets.GITHUB_REGISTRY_TOKEN}}
-          registry: docker.pkg.github.com
-          tags: '5.x'
+          driver-opts: network=host
+      - uses: docker/login-action@v1
+        name: Login Docker Hub
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Prepare docker image tags
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: ${{ github.repository }}
+          tag-custom: 5.x-next
+          tag-custom-only: ${{ github.ref == 'refs/heads/5.x' }}
+          tag-semver: |
+            {{version}}
+            {{major}}
+            {{major}}.{{minor}}
+      - name: Build & Push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
