@@ -1,4 +1,4 @@
-FROM node:14.15.1-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.15.1-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
