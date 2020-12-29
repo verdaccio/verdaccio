@@ -6,7 +6,7 @@ on:
       - .github/workflows/docker-publish.yml
       - 'src/**'
       - 'conf/**'
-      - 'types/**',
+      - 'types/**'
       - 'docker-bin/**'
       - 'bin/**'
       - 'package.json'
