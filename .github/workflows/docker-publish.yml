@@ -9,6 +9,8 @@ on:
       - 'docker-bin/**'
       - 'package.json'
       - 'pnpm-*.yaml'
+      - 'Dockerfile'
+      - '.dockerignore'
     branches:
       - '5.x'
     tags:
