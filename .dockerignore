@@ -10,16 +10,20 @@
 # e.g.
 !.babelrc
 !.eslintrc
-!.prettierrc
+!.prettierrc.json
+!.prettierignore
 !.eslintignore
 !.stylelintrc
-!.flowconfig
-!.jest.config.js
-!.jestEnvironment.js
 
-# do not copy over node_modules we will run `npm install` anyway
+# do not copy over node_modules we will run `pnpm install` anyway
 node_modules
 website
+jest
+docs
+contrib
+docker-examples
+website
+systemd
 
 # output from test runs and similar things
 *.log
