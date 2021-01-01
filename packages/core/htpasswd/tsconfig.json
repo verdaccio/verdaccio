@@ -9,6 +9,9 @@
   "references": [
     {
       "path": "../file-locking"
+    },
+    {
+      "path": "../commons-api"
     }
   ]
 }
