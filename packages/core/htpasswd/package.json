@@ -28,7 +28,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@verdaccio/commons-api":  "workspace:10.0.0-alpha.1",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
     "@verdaccio/file-locking": "workspace:10.0.0-alpha.1",
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
