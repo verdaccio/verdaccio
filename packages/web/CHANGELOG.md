@@ -1,5 +1,11 @@
 # @verdaccio/web
 
+## 5.0.0-alpha.2
+
+### Patch Changes
+
+- @verdaccio/store@5.0.0-alpha.2
+
 ## 5.0.0-alpha.1
 
 ### Major Changes
