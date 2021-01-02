@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/server",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "server logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -15,16 +15,16 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/api": "workspace:5.0.0-alpha.1",
+    "@verdaccio/api": "workspace:5.0.0-alpha.2",
     "@verdaccio/auth": "workspace:5.0.0-alpha.1",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
     "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/loaders": "workspace:5.0.0-alpha.1",
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
     "@verdaccio/middleware": "workspace:5.0.0-alpha.1",
-    "@verdaccio/store": "workspace:5.0.0-alpha.1",
+    "@verdaccio/store": "workspace:5.0.0-alpha.2",
     "@verdaccio/utils": "workspace:5.0.0-alpha.1",
-    "@verdaccio/web": "workspace:5.0.0-alpha.1",
+    "@verdaccio/web": "workspace:5.0.0-alpha.2",
     "compression": "1.7.4",
     "cors": "2.8.5",
     "express": "4.17.1",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:5.0.0-alpha.1",
-    "@verdaccio/proxy": "workspace:5.0.0-alpha.1",
+    "@verdaccio/proxy": "workspace:5.0.0-alpha.2",
     "http-errors": "1.7.3",
     "request": "2.87.0"
   },
