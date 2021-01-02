@@ -106,6 +106,8 @@ export const API_ERROR = {
   VERSION_NOT_EXIST: "this version doesn't exist",
   UNSUPORTED_REGISTRY_CALL: 'unsupported registry call',
   FILE_NOT_FOUND: 'File not found',
+  REGISTRATION_DISABLED: 'user registration disabled',
+  UNAUTHORIZED_ACCESS: 'unauthorized access',
   BAD_STATUS_CODE: 'bad status code',
   PACKAGE_EXIST: 'this package is already present',
   BAD_AUTH_HEADER: 'bad authorization header',

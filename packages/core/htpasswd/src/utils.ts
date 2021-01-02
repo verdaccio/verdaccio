@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import createError, { HttpError } from 'http-errors';
 import { readFile } from '@verdaccio/file-locking';
 import { Callback } from '@verdaccio/types';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 
 import crypt3 from './crypt3';
 
@@ -70,7 +71,7 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
   if (user !== encodeURIComponent(user)) {
     const err = createError('username should not contain non-uri-safe characters');
 
-    err.status = 409;
+    err.status = HTTP_STATUS.CONFLICT;
     throw err;
   }
 
@@ -106,32 +107,32 @@ export function sanityCheck(
 
   // check for user or password
   if (!user || !password) {
-    err = Error('username and password is required');
-    err.status = 400;
+    err = Error(API_ERROR.USERNAME_PASSWORD_REQUIRED);
+    err.status = HTTP_STATUS.BAD_REQUEST;
     return err;
   }
 
   const hash = users[user];
 
   if (maxUsers < 0) {
-    err = Error('user registration disabled');
-    err.status = 409;
+    err = Error(API_ERROR.REGISTRATION_DISABLED);
+    err.status = HTTP_STATUS.CONFLICT;
     return err;
   }
 
   if (hash) {
     const auth = verifyFn(password, users[user]);
     if (auth) {
-      err = Error('username is already registered');
-      err.status = 409;
+      err = Error(API_ERROR.USERNAME_ALREADY_REGISTERED);
+      err.status = HTTP_STATUS.CONFLICT;
       return err;
     }
-    err = Error('unauthorized access');
-    err.status = 401;
+    err = Error(API_ERROR.UNAUTHORIZED_ACCESS);
+    err.status = HTTP_STATUS.UNAUTHORIZED;
     return err;
   } else if (Object.keys(users).length >= maxUsers) {
-    err = Error('maximum amount of users reached');
-    err.status = 403;
+    err = Error(API_ERROR.MAX_USERS_REACHED);
+    err.status = HTTP_STATUS.FORBIDDEN;
     return err;
   }
 
