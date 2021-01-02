@@ -381,7 +381,7 @@ declare module '@verdaccio/types' {
     https: HttpsConf;
   }
 
-  interface ITokenActions {
+  export interface ITokenActions {
     saveToken(token: Token): Promise<any>;
     deleteToken(user: string, tokenKey: string): Promise<any>;
     readTokens(filter: TokenFilter): Promise<Token[]>;

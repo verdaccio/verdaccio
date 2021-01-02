@@ -38,6 +38,7 @@ importers:
       '@types/jest': 26.0.19
       '@types/js-base64': 3.0.0
       '@types/lodash': 4.14.165
+      '@types/lowdb': 1.0.9
       '@types/mime': 2.0.2
       '@types/minimatch': 3.0.3
       '@types/node': 14.14.7
@@ -143,6 +144,7 @@ importers:
       '@types/jest': ^26.0.19
       '@types/js-base64': 3.0.0
       '@types/lodash': 4.14.165
+      '@types/lowdb': ^1.0.9
       '@types/mime': 2.0.2
       '@types/minimatch': 3.0.3
       '@types/node': ^14.14.7
@@ -336,6 +338,7 @@ importers:
       lockfile: 1.0.4
   packages/core/htpasswd:
     dependencies:
+      '@verdaccio/commons-api': 'link:../commons-api'
       '@verdaccio/file-locking': 'link:../file-locking'
       apache-md5: 1.1.2
       bcryptjs: 2.4.3
@@ -346,6 +349,7 @@ importers:
       '@verdaccio/types': 'link:../types'
     specifiers:
       '@types/bcryptjs': ^2.4.2
+      '@verdaccio/commons-api': 'workspace:10.0.0-alpha.1'
       '@verdaccio/file-locking': 'workspace:10.0.0-alpha.1'
       '@verdaccio/types': 'workspace:10.0.0-alpha.1'
       apache-md5: 1.1.2
@@ -359,8 +363,8 @@ importers:
       '@verdaccio/streams': 'link:../streams'
       async: 3.2.0
       debug: 4.1.1
-      level: 5.0.1
       lodash: 4.17.20
+      lowdb: 1.0.0
       mkdirp: 0.5.5
     devDependencies:
       '@types/minimatch': 3.0.3
@@ -375,8 +379,8 @@ importers:
       '@verdaccio/types': 'workspace:10.0.0-alpha.1'
       async: ^3.2.0
       debug: ^4.1.1
-      level: 5.0.1
       lodash: ^4.17.20
+      lowdb: 1.0.0
       minimatch: ^3.0.4
       mkdirp: ^0.5.5
       rmdir-sync: ^1.0.1
@@ -6596,6 +6600,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==
+  /@types/lowdb/1.0.9:
+    dependencies:
+      '@types/lodash': 4.14.165
+    dev: true
+    resolution:
+      integrity: sha512-LBRG5EPXFOJDoJc9jACstMhtMP+u+UkPYllBeGQXXKiaHc+uzJs9+/Aynb/5KkX33DtrIiKyzNVTPQc/4RcD6A==
   /@types/mdast/3.0.3:
     dependencies:
       '@types/unist': 2.0.3
@@ -7531,6 +7541,7 @@ packages:
     dependencies:
       level-concat-iterator: 2.0.1
       xtend: 4.0.2
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -7542,6 +7553,7 @@ packages:
       level-concat-iterator: 2.0.1
       level-supports: 1.0.1
       xtend: 4.0.2
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -7553,6 +7565,7 @@ packages:
       level-concat-iterator: 2.0.1
       level-supports: 1.0.1
       xtend: 4.0.2
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -11097,6 +11110,7 @@ packages:
     dependencies:
       abstract-leveldown: 6.2.3
       inherits: 2.0.4
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -11719,6 +11733,7 @@ packages:
       inherits: 2.0.4
       level-codec: 9.0.2
       level-errors: 2.0.1
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -15721,9 +15736,11 @@ packages:
     resolution:
       integrity: sha512-33AmZ+xjZhg2JMCe+vDf6a9mzWukE7l+wAtesjE7KyteqqKjzxv7aVQeWnul1Ve26mWvEQqyPwl0OctNBfSR9w==
   /immediate/3.2.3:
+    dev: true
     resolution:
       integrity: sha1-0UD6j2FGWb1lQSMwl92qwlzdmRw=
   /immediate/3.3.0:
+    dev: true
     resolution:
       integrity: sha512-HR7EVodfFUdQCTIeySw+WDRFJlPcLOJbXfwwZ7Oom6tjsvZ3bOkCDJHehQC3nxJrv7+f9XecwazynjU8e4Vw3Q==
   /import-cwd/2.1.0:
@@ -16424,7 +16441,6 @@ packages:
     resolution:
       integrity: sha1-DFLlS8yjkbssSUsh6GJtczbG45c=
   /is-promise/2.2.2:
-    dev: true
     resolution:
       integrity: sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==
   /is-regex/1.1.1:
@@ -17651,11 +17667,13 @@ packages:
   /level-codec/9.0.2:
     dependencies:
       buffer: 5.6.0
+    dev: true
     engines:
       node: '>=6'
     resolution:
       integrity: sha512-UyIwNb1lJBChJnGfjmO0OR+ezh2iVu1Kas3nvBS/BzGnx79dv6g7unpKIDNPMhfdTEGoc7mC8uAu51XEtX+FHQ==
   /level-concat-iterator/2.0.1:
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -17663,6 +17681,7 @@ packages:
   /level-errors/2.0.1:
     dependencies:
       errno: 0.1.7
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -17672,6 +17691,7 @@ packages:
       inherits: 2.0.4
       readable-stream: 3.6.0
       xtend: 4.0.2
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -17683,12 +17703,14 @@ packages:
       inherits: 2.0.4
       ltgt: 2.2.1
       typedarray-to-buffer: 3.1.5
+    dev: true
     resolution:
       integrity: sha512-PeGjZsyMG4O89KHiez1zoMJxStnkM+oBIqgACjoo5PJqFiSUUm3GNod/KcbqN5ktyZa8jkG7I1T0P2u6HN9lIg==
   /level-packager/5.1.1:
     dependencies:
       encoding-down: 6.3.0
       levelup: 4.4.0
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -17696,6 +17718,7 @@ packages:
   /level-supports/1.0.1:
     dependencies:
       xtend: 4.0.2
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -17706,6 +17729,7 @@ packages:
       level-packager: 5.1.1
       leveldown: 5.6.0
       opencollective-postinstall: 2.0.3
+    dev: true
     engines:
       node: '>=8.6.0'
     requiresBuild: true
@@ -17716,6 +17740,7 @@ packages:
       abstract-leveldown: 6.2.3
       napi-macros: 2.0.0
       node-gyp-build: 4.1.1
+    dev: true
     engines:
       node: '>=8.6.0'
     requiresBuild: true
@@ -17728,6 +17753,7 @@ packages:
       level-iterator-stream: 4.0.2
       level-supports: 1.0.1
       xtend: 4.0.2
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -18290,6 +18316,18 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-S0FayMXku80toa5sZ6Ro4C+s+EtFDCsyJNG/AzFMfX3AxD5Si4dZsgzm/kKnbOxHl5Cv8jBlno8+3XYIh2pNjQ==
+  /lowdb/1.0.0:
+    dependencies:
+      graceful-fs: 4.2.4
+      is-promise: 2.2.2
+      lodash: 4.17.20
+      pify: 3.0.0
+      steno: 0.4.4
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-2+x8esE/Wb9SQ1F9IHaYWfsC9FIecLOPrK4g17FGEayjUWH172H6nwicRovGvSE2CPZouc2MCIqCI7h9d+GftQ==
   /lower-case/2.0.1:
     dependencies:
       tslib: 1.13.0
@@ -18356,6 +18394,7 @@ packages:
     resolution:
       integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   /ltgt/2.2.1:
+    dev: true
     resolution:
       integrity: sha1-81ypHEk/e3PaDgdJUwTxezH4fuU=
   /lunr-mutable-indexes/2.3.2:
@@ -19146,6 +19185,7 @@ packages:
     resolution:
       integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==
   /napi-macros/2.0.0:
+    dev: true
     resolution:
       integrity: sha512-A0xLykHtARfueITVDernsAWdtIMbOJgKgcluwENp3AlsKN/PloyO10HtmoqnFAQAcxPkgZN7wdfPfEd0zNGxbg==
   /native-url/0.2.6:
@@ -19280,6 +19320,7 @@ packages:
     resolution:
       integrity: sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
   /node-gyp-build/4.1.1:
+    dev: true
     hasBin: true
     resolution:
       integrity: sha512-dSq1xmcPDKPZ2EED2S6zw/b9NKsqzXRE6dVr8TVQnI3FJOTteUMuqF3Qqs6LZg+mLGYJWqQzMbIjMtJqTv87nQ==
@@ -19829,6 +19870,7 @@ packages:
     resolution:
       integrity: sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==
   /opencollective-postinstall/2.0.3:
+    dev: true
     hasBin: true
     resolution:
       integrity: sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
@@ -23917,6 +23959,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
+  /steno/0.4.4:
+    dependencies:
+      graceful-fs: 4.2.4
+    dev: false
+    resolution:
+      integrity: sha1-BxEFvfwobmYVwEA8J+nXtdy4Vcs=
   /stream-browserify/2.0.2:
     dependencies:
       inherits: 2.0.4
