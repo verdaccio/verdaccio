@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -30,7 +30,7 @@
   "dependencies": {
     "@verdaccio/config": "workspace:5.0.0-alpha.1",
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
-    "@verdaccio/node-api": "workspace:5.0.0-alpha.1",
+    "@verdaccio/node-api": "workspace:5.0.0-alpha.2",
     "commander": "6.2.0",
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
