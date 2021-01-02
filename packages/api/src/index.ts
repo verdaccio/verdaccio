@@ -65,11 +65,11 @@ export default function (
   ping(app);
   stars(app, storage);
 
-  if (_.get(config, 'experiments.search') === true) {
+  if (config?.flags?.search === true) {
     v1Search(app, auth, storage);
   }
 
-  if (_.get(config, 'experiments.token') === true) {
+  if (config?.flags?.token === true) {
     token(app, auth, storage, config);
   }
   return app;
