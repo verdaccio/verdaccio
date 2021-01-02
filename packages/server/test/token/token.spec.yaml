@@ -22,6 +22,6 @@ packages:
     publish: $authenticated
 logs:
   - { type: stdout, format: pretty, level: error }
-experiments:
+flags:
   ## enable token for testing
   token: true

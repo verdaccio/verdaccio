@@ -1,6 +1,5 @@
 import fs from 'fs';
 import Path from 'path';
-import stream from 'stream';
 import buildDebug from 'debug';
 
 import _ from 'lodash';
@@ -14,47 +13,27 @@ import {
   LocalStorage,
   Logger,
   StorageList,
-  Token,
-  TokenFilter,
 } from '@verdaccio/types';
-import level from 'level';
 import { getInternalError } from '@verdaccio/commons-api';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
+import TokenActions from './token';
 
 const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';
-const TOKEN_DB_NAME = '.token-db';
-
-interface Level {
-  put(key: string, token, fn?: Function): void;
-
-  get(key: string, fn?: Function): void;
-
-  del(key: string, fn?: Function): void;
-
-  createReadStream(options?: object): stream.Readable;
-}
 
 const debug = buildDebug('verdaccio:plugin:local-storage');
 
-/**
- * Handle local database.
- */
-class LocalDatabase implements IPluginStorage<{}> {
+class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public path: string;
   public logger: Logger;
   public data: LocalStorage;
   public config: Config;
   public locked: boolean;
-  public tokenDb;
 
-  /**
-   * Load an parse the local json database.
-   * @param {*} path the database path
-   */
   public constructor(config: Config, logger: Logger) {
+    super(config);
     this.config = config;
     this.path = this._buildStoragePath(config);
     this.logger = logger;
@@ -75,11 +54,6 @@ class LocalDatabase implements IPluginStorage<{}> {
     });
   }
 
-  /**
-   * Add a new element.
-   * @param {*} name
-   * @return {Error|*}
-   */
   public add(name: string, cb: Callback): void {
     if (this.data.list.indexOf(name) === -1) {
       this.data.list.push(name);
@@ -169,7 +143,7 @@ class LocalDatabase implements IPluginStorage<{}> {
                     {
                       name: file,
                       path: packagePath,
-                      time: self._getTime(stats.mtime.getTime(), stats.mtime),
+                      time: self.getTime(stats.mtime.getTime(), stats.mtime),
                     },
                     cb
                   );
@@ -187,11 +161,6 @@ class LocalDatabase implements IPluginStorage<{}> {
     );
   }
 
-  /**
-   * Remove an element from the database.
-   * @param {*} name
-   * @return {Error|*}
-   */
   public remove(name: string, cb: Callback): void {
     this.get((err, data) => {
       if (err) {
@@ -254,56 +223,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     this._sync();
   }
 
-  public saveToken(token: Token): Promise<void> {
-    const key = this._getTokenKey(token);
-    const db = this.getTokenDb();
-
-    return new Promise((resolve, reject): void => {
-      db.put(key, token, (err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve();
-      });
-    });
-  }
-
-  public deleteToken(user: string, tokenKey: string): Promise<void> {
-    const key = this._compoundTokenKey(user, tokenKey);
-    const db = this.getTokenDb();
-    return new Promise((resolve, reject): void => {
-      db.del(key, (err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve();
-      });
-    });
-  }
-
-  public readTokens(filter: TokenFilter): Promise<Token[]> {
-    return new Promise((resolve, reject): void => {
-      const tokens: Token[] = [];
-      const key = filter.user + ':';
-      const db = this.getTokenDb();
-      const stream = db.createReadStream({
-        gte: key,
-        lte: String.fromCharCode(key.charCodeAt(0) + 1),
-      });
-
-      stream.on('data', (data) => {
-        tokens.push(data.value);
-      });
-
-      stream.once('end', () => resolve(tokens));
-
-      stream.once('error', (err) => reject(err));
-    });
-  }
-
-  private _getTime(time: number, mtime: Date): number | Date {
+  private getTime(time: number, mtime: Date): number | Date {
     return time ? time : mtime;
   }
 
@@ -410,12 +330,6 @@ class LocalDatabase implements IPluginStorage<{}> {
     }
   }
 
-  private _dbGenPath(dbName: string, config: Config): string {
-    return Path.join(
-      Path.resolve(Path.dirname(config.config_path || ''), config.storage as string, dbName)
-    );
-  }
-
   /**
    * Fetch local packages.
    * @private
@@ -426,9 +340,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     const emptyDatabase = { list, secret: '' };
 
     try {
-      const db = loadPrivatePackages(this.path, this.logger);
-
-      return db;
+      return loadPrivatePackages(this.path, this.logger);
     } catch (err) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
@@ -442,25 +354,6 @@ class LocalDatabase implements IPluginStorage<{}> {
 
       return emptyDatabase;
     }
-  }
-
-  private getTokenDb(): Level {
-    if (!this.tokenDb) {
-      this.tokenDb = level(this._dbGenPath(TOKEN_DB_NAME, this.config), {
-        valueEncoding: 'json',
-      });
-    }
-
-    return this.tokenDb;
-  }
-
-  private _getTokenKey(token: Token): string {
-    const { user, key } = token;
-    return this._compoundTokenKey(user, key);
-  }
-
-  private _compoundTokenKey(user: string, key: string): string {
-    return `${user}:${key}`;
   }
 }
 
