@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/proxy",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "verdaccio proxy fetcher",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
     "@verdaccio/config": "workspace:5.0.0-alpha.1",
-    "@verdaccio/local-storage": "workspace:10.0.0-alpha.1",
+    "@verdaccio/local-storage": "workspace:10.0.0-alpha.2",
     "@verdaccio/logger": "workspace:5.0.0-alpha.1",
     "@verdaccio/streams": "workspace:10.0.0-alpha.1",
     "@verdaccio/utils": "workspace:5.0.0-alpha.1",
