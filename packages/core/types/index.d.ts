@@ -336,6 +336,15 @@ declare module '@verdaccio/types' {
     token?: boolean;
     search?: boolean;
   }
+  export type RateLimit = {
+    windowMs: number;
+    max: number;
+  };
+
+  export type ServerSettingsConf = {
+    // express-rate-limit settings
+    rateLimit: RateLimit;
+  };
 
   interface ConfigYaml {
     _debug?: boolean;
@@ -360,6 +369,7 @@ declare module '@verdaccio/types' {
     middlewares?: any;
     filters?: any;
     url_prefix?: string;
+    server?: ServerSettingsConf;
     flags?: ConfigFlags;
   }
 
