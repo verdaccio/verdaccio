@@ -2,6 +2,7 @@ import _ from 'lodash';
 import express, { Application } from 'express';
 import compression from 'compression';
 import cors from 'cors';
+import RateLimit from 'express-rate-limit';
 import { HttpError } from 'http-errors';
 
 import { Storage } from '@verdaccio/store';
@@ -36,10 +37,12 @@ interface IPluginMiddleware<T> extends IPlugin<T> {
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
   const app: Application = express();
+  const limiter = new RateLimit(config.serverSettings.rateLimit);
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
   app.use(cors());
+  app.use(limiter);
 
   // Router setup
   app.use(log);
