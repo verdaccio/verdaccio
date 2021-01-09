@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "5.0.0-alpha.2",
+  "version": "5.0.0-alpha.3",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,18 +24,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
-    "@verdaccio/config": "workspace:5.0.0-alpha.1",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.1",
-    "@verdaccio/server": "workspace:5.0.0-alpha.2",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.2",
+    "@verdaccio/config": "workspace:5.0.0-alpha.2",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.2",
+    "@verdaccio/server": "workspace:5.0.0-alpha.3",
     "core-js": "^3.6.5",
     "debug": "^4.2.0",
     "lodash": "^4.17.20",
     "selfsigned": "1.10.7"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:5.0.0-alpha.1",
-    "@verdaccio/types": "workspace:10.0.0-alpha.1"
+    "@verdaccio/mock": "workspace:5.0.0-alpha.2",
+    "@verdaccio/types": "workspace:10.0.0-alpha.2"
   },
   "publishConfig": {
     "access": "public"
