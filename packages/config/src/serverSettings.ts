@@ -5,4 +5,6 @@ export default {
     windowMs: 1000,
     max: 10000,
   },
+  // deprecated
+  keepAliveTimeout: 60,
 };

@@ -34,3 +34,18 @@
 ---
 
 feat: add server rate limit protection to all request
+
+To modify custom values, use the server settings property.
+
+```markdown
+server:
+
+## https://www.npmjs.com/package/express-rate-limit#configuration-options
+
+rateLimit:
+windowMs: 1000
+max: 10000
+```
+
+The values are intended to be high, if you want to improve security of your server consider
+using different values.

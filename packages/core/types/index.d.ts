@@ -344,6 +344,8 @@ declare module '@verdaccio/types' {
   export type ServerSettingsConf = {
     // express-rate-limit settings
     rateLimit: RateLimit;
+    // deprecated
+    keepAliveTimeout?: number;
   };
 
   interface ConfigYaml {
