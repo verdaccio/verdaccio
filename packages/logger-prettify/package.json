@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-prettify",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -24,7 +24,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.1",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.2",
     "dayjs": "1.8.36",
     "fast-safe-stringify": "2.0.7",
     "kleur": "3.0.3",

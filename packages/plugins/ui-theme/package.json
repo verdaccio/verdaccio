@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-theme",
-  "version": "5.0.0-alpha.2",
+  "version": "5.0.0-alpha.3",
   "description": "Verdaccio User Interface",
   "author": {
     "name": "Verdaccio Core Team",
@@ -25,7 +25,7 @@
     "@testing-library/dom": "^7.29.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "10.4.9",
-    "@verdaccio/node-api": "workspace:5.0.0-alpha.2",
+    "@verdaccio/node-api": "workspace:5.0.0-alpha.3",
     "autosuggest-highlight": "3.1.1",
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-emotion": "10.0.33",
