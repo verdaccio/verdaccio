@@ -10,6 +10,7 @@ import {
   ConfigRuntime,
   Security,
   PackageAccess,
+  ServerSettingsConf,
   AuthConf,
 } from '@verdaccio/types';
 
@@ -18,6 +19,7 @@ import { getMatchedPackagesSpec, normalisePackageAccess } from './package-access
 import { sanityCheckUplinksProps, uplinkSanityCheck } from './uplinks';
 import { defaultSecurity } from './security';
 import { getUserAgent } from './agent';
+import serverSettings from './serverSettings';
 
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
@@ -42,6 +44,7 @@ class Config implements AppConfig {
   public storage: string | void;
   public plugins: string | void;
   public security: Security;
+  public serverSettings: ServerSettingsConf;
   // @ts-ignore
   public secret: string;
 
@@ -51,6 +54,7 @@ class Config implements AppConfig {
     this.config_path = config.config_path;
     this.plugins = config.plugins;
     this.security = _.merge(defaultSecurity, config.security);
+    this.serverSettings = serverSettings;
 
     for (const configProp in config) {
       if (self[configProp] == null) {
