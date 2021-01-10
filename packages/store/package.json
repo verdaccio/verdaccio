@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0-alpha.4",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -24,14 +24,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.2",
-    "@verdaccio/config": "workspace:5.0.0-alpha.2",
-    "@verdaccio/loaders": "workspace:5.0.0-alpha.2",
-    "@verdaccio/local-storage": "workspace:10.0.0-alpha.3",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.2",
-    "@verdaccio/proxy": "workspace:5.0.0-alpha.3",
-    "@verdaccio/streams": "workspace:10.0.0-alpha.2",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.2",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
+    "@verdaccio/config": "workspace:5.0.0-alpha.3",
+    "@verdaccio/loaders": "workspace:5.0.0-alpha.3",
+    "@verdaccio/local-storage": "workspace:10.0.0-alpha.4",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.3",
+    "@verdaccio/proxy": "workspace:5.0.0-alpha.4",
+    "@verdaccio/streams": "workspace:10.0.0-alpha.3",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.3",
     "async": "3.1.1",
     "debug": "^4.1.1",
     "lodash": "4.17.15",
@@ -39,7 +39,7 @@
     "semver": "7.1.2"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:5.0.0-alpha.2",
-    "@verdaccio/types": "workspace:10.0.0-alpha.2"
+    "@verdaccio/mock": "workspace:5.0.0-alpha.3",
+    "@verdaccio/types": "workspace:10.0.0-alpha.3"
   }
 }
