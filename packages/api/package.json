@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0-alpha.4",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -24,14 +24,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:5.0.0-alpha.2",
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.2",
-    "@verdaccio/config": "workspace:5.0.0-alpha.2",
-    "@verdaccio/hooks": "workspace:5.0.0-alpha.2",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.2",
-    "@verdaccio/middleware": "workspace:5.0.0-alpha.2",
-    "@verdaccio/store": "workspace:5.0.0-alpha.3",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.2",
+    "@verdaccio/auth": "workspace:5.0.0-alpha.3",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
+    "@verdaccio/config": "workspace:5.0.0-alpha.3",
+    "@verdaccio/hooks": "workspace:5.0.0-alpha.3",
+    "@verdaccio/logger": "workspace:5.0.0-alpha.3",
+    "@verdaccio/middleware": "workspace:5.0.0-alpha.3",
+    "@verdaccio/store": "workspace:5.0.0-alpha.4",
+    "@verdaccio/utils": "workspace:5.0.0-alpha.3",
     "cookies": "0.8.0",
     "debug": "^4.1.1",
     "express": "4.17.1",
@@ -40,8 +40,8 @@
     "semver": "7.3.2"
   },
   "devDependencies": {
-    "@verdaccio/server": "workspace:5.0.0-alpha.3",
-    "@verdaccio/types": "workspace:10.0.0-alpha.2",
+    "@verdaccio/server": "workspace:5.0.0-alpha.4",
+    "@verdaccio/types": "workspace:10.0.0-alpha.3",
     "body-parser": "1.19.0",
     "lodash": "^4.17.20",
     "supertest": "next"

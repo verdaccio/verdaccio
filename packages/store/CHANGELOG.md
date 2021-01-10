@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 5.0.0-alpha.4
+
+### Patch Changes
+
+- fecbb9be: chore: add release step to private regisry on merge changeset pr
+- Updated dependencies [fecbb9be]
+  - @verdaccio/local-storage@10.0.0-alpha.4
+  - @verdaccio/config@5.0.0-alpha.3
+  - @verdaccio/commons-api@10.0.0-alpha.3
+  - @verdaccio/streams@10.0.0-alpha.3
+  - @verdaccio/loaders@5.0.0-alpha.3
+  - @verdaccio/logger@5.0.0-alpha.3
+  - @verdaccio/proxy@5.0.0-alpha.4
+  - @verdaccio/utils@5.0.0-alpha.3
+
 ## 5.0.0-alpha.3
 
 ### Minor Changes
