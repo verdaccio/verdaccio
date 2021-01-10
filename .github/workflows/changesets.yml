@@ -30,17 +30,23 @@ jobs:
       - name: setup node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
-          registry-url: https://registry.verdaccio.org
+          node-version: 15
+          registry-url: 'https://registry.verdaccio.org'
 
       - name: install pnpm
         run: npm i pnpm@latest -g
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}
 
       - name: setup pnpm config
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+      - name: setup pnpm config registry
+        run: pnpm config set registry https://registry.verdaccio.org
 
       - name: install dependencies
         run: pnpm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}
 
       - name: build
         run: pnpm build
