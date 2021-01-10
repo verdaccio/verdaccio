@@ -41,11 +41,16 @@ jobs:
       - name: install dependencies
         run: pnpm install
 
+      - name: build
+        run: pnpm build
+
       - name: create versions
         uses: changesets/action@master
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
           title: 'chore: update versions'
+          publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}

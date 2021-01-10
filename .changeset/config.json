@@ -3,8 +3,8 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "linked": [],
-  "access": "restricted",
-  "baseBranch": "master",
+  "access": "public",
+  "baseBranch": "5.x",
   "updateInternalDependencies": "patch",
   "ignore": []
 }
