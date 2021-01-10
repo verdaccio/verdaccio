@@ -1,5 +1,11 @@
 # @verdaccio/website
 
+## 1.0.0-alpha.1
+
+### Patch Changes
+
+- fecbb9be: chore: add release step to private regisry on merge changeset pr
+
 ## 1.0.0-alpha.0
 
 ### Major Changes
