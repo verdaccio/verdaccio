@@ -1,5 +1,14 @@
 # @verdaccio/config
 
+## 5.0.0-alpha.3
+
+### Patch Changes
+
+- fecbb9be: chore: add release step to private regisry on merge changeset pr
+- Updated dependencies [fecbb9be]
+  - @verdaccio/commons-api@10.0.0-alpha.3
+  - @verdaccio/utils@5.0.0-alpha.3
+
 ## 5.0.0-alpha.2
 
 ### Minor Changes

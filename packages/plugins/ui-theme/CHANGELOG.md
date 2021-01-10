@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 5.0.0-alpha.4
+
+### Patch Changes
+
+- fecbb9be: chore: add release step to private regisry on merge changeset pr
+
 ## 5.0.0-alpha.3
 
 ### Minor Changes
