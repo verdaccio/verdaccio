@@ -142,12 +142,12 @@
     "website:lint": "cd website && yarn lint",
     "website:develop": "cd website && yarn develop",
     "website:build": "cd website && yarn build",
-    "release": "pnpm publish --filter ./packages --access public",
     "changeset": "changeset",
     "changeset:check": "changeset status --since-master",
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
-    "ci:version:changeset": "changeset version"
+    "ci:version:changeset": "changeset version",
+    "ci:publish": "changeset publish"
   },
   "license": "MIT",
   "commitlint": {
