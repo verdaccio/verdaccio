@@ -1,5 +1,21 @@
 # verdaccio
 
+## 5.0.0-alpha.5
+
+### Patch Changes
+
+- fecbb9be: chore: add release step to private regisry on merge changeset pr
+- Updated dependencies [fecbb9be]
+  - @verdaccio/ui-theme@5.0.0-alpha.4
+  - @verdaccio/cli@5.0.0-alpha.4
+  - verdaccio-htpasswd@10.0.0-alpha.4
+  - @verdaccio/hooks@5.0.0-alpha.3
+  - @verdaccio/logger@5.0.0-alpha.3
+  - @verdaccio/mock@5.0.0-alpha.3
+  - @verdaccio/node-api@5.0.0-alpha.4
+  - verdaccio-audit@10.0.0-alpha.3
+  - @verdaccio/utils@5.0.0-alpha.3
+
 ## 5.0.0-alpha.4
 
 ### Minor Changes

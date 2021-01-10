@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "10.0.0-alpha.3",
+  "version": "10.0.0-alpha.4",
   "description": "htpasswd auth plugin for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -28,8 +28,8 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.2",
-    "@verdaccio/file-locking": "workspace:10.0.0-alpha.2",
+    "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
+    "@verdaccio/file-locking": "workspace:10.0.0-alpha.3",
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
     "http-errors": "1.8.0",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/types": "workspace:10.0.0-alpha.2"
+    "@verdaccio/types": "workspace:10.0.0-alpha.3"
   },
   "scripts": {
     "clean": "rimraf ./build",
