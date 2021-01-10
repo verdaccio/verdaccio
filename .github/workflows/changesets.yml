@@ -28,9 +28,10 @@ jobs:
           fetch-depth: 0
 
       - name: setup node.js
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v2
         with:
           node-version: 14
+          registry-url: https://registry.verdaccio.org
 
       - name: install pnpm
         run: npm i pnpm@latest -g
