@@ -1,5 +1,13 @@
 # @verdaccio/logger
 
+## 5.0.0-alpha.3
+
+### Patch Changes
+
+- fecbb9be: chore: add release step to private regisry on merge changeset pr
+- Updated dependencies [fecbb9be]
+  - @verdaccio/logger-prettify@5.0.0-alpha.3
+
 ## 5.0.0-alpha.2
 
 ### Minor Changes
