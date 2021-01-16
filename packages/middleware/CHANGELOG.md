@@ -1,5 +1,12 @@
 # @verdaccio/middleware
 
+## 5.0.0-alpha.4
+
+### Patch Changes
+
+- Updated dependencies [f8a50baa]
+  - @verdaccio/auth@5.0.0-alpha.4
+
 ## 5.0.0-alpha.3
 
 ### Patch Changes
