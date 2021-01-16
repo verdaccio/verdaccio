@@ -16,8 +16,6 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "lint": "eslint . --ext .js,.ts",
-    "test": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:web": "ts-node ./scripts/web.ts",
     "build": "pnpm run clean && webpack --progress && pnpm run build:web",
     "build:stats": "webpack --json > stats.json",
