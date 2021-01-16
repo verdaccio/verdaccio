@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Path from 'path';
 
-import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
+import { Callback, Config, IPluginAuth, PluginOptions } from '@verdaccio/types';
 import { unlockFile } from '@verdaccio/file-locking';
 
 import {
@@ -13,14 +13,14 @@ import {
   sanityCheck,
 } from './utils';
 
-export interface VerdaccioConfigApp extends Config {
+export type HTPasswdConfig = {
   file: string;
-}
+} & Config;
 
 /**
  * HTPasswd - Verdaccio auth class
  */
-export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
+export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
   /**
    *
    * @param {*} config htpasswd file
@@ -35,7 +35,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
   private logger: {};
   private lastTime: any;
   // constructor
-  public constructor(config: AuthConf, stuff: VerdaccioConfigApp) {
+  public constructor(config: HTPasswdConfig, stuff: PluginOptions<{}>) {
     this.users = {};
 
     // config for this module
