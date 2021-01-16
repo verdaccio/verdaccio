@@ -315,7 +315,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               Object.assign({}, baseS3Params, { Body: uploadStream })
             );
             // NOTE: there's a managedUpload.promise, but it doesn't seem to work
-            const promise = new Promise((resolve): void => {
+            const promise = new Promise<void>((resolve): void => {
               this.logger.debug('s3: [S3PackageManager writeTarball managedUpload] send');
               managedUpload.send((err, data) => {
                 if (err) {
