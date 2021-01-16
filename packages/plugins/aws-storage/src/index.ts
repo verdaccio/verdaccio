@@ -171,7 +171,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   // Create/write database file to s3
   private async _sync(): Promise<void> {
-    await new Promise((resolve, reject): void => {
+    await new Promise<void>((resolve, reject): void => {
       const { bucket, keyPrefix } = this.config;
       this.logger.debug(
         { keyPrefix, bucket },

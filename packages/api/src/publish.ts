@@ -241,50 +241,55 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // at this point document is either created or existed before
       const [firstAttachmentKey] = Object.keys(_attachments);
 
-      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function (
-        error
-      ) {
-        debug('creating a tarball %o', firstAttachmentKey);
-        if (error) {
-          debug('error on create a tarball for %o with error %o', packageName, error.message);
-          return next(error);
-        }
-
-        const versionToPublish = Object.keys(versions)[0];
-
-        versions[versionToPublish].readme =
-          _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
-
-        createVersion(versionToPublish, versions[versionToPublish], function (error) {
+      createTarball(
+        Path.basename(firstAttachmentKey),
+        _attachments[firstAttachmentKey],
+        function (error) {
+          debug('creating a tarball %o', firstAttachmentKey);
           if (error) {
-            debug('error on create a version for %o with error %o', packageName, error.message);
+            debug('error on create a tarball for %o with error %o', packageName, error.message);
             return next(error);
           }
 
-          addTags(metadataCopy[DIST_TAGS], async function (error) {
+          const versionToPublish = Object.keys(versions)[0];
+
+          versions[versionToPublish].readme =
+            _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
+
+          createVersion(versionToPublish, versions[versionToPublish], function (error) {
             if (error) {
-              debug('error on create a tag for %o with error %o', packageName, error.message);
+              debug('error on create a version for %o with error %o', packageName, error.message);
               return next(error);
             }
 
-            try {
-              await notify(
-                metadataCopy,
-                config,
-                req.remote_user,
-                `${metadataCopy.name}@${versionToPublish}`
-              );
-            } catch (error) {
-              debug('error on notify add a new tag %o', `${metadataCopy.name}@${versionToPublish}`);
-              logger.error({ error }, 'notify batch service has failed: @{error}');
-            }
+            addTags(metadataCopy[DIST_TAGS], async function (error) {
+              if (error) {
+                debug('error on create a tag for %o with error %o', packageName, error.message);
+                return next(error);
+              }
 
-            debug('add a tag succesfully for %o', `${metadataCopy.name}@${versionToPublish}`);
-            res.status(HTTP_STATUS.CREATED);
-            return next({ ok: okMessage, success: true });
+              try {
+                await notify(
+                  metadataCopy,
+                  config,
+                  req.remote_user,
+                  `${metadataCopy.name}@${versionToPublish}`
+                );
+              } catch (error) {
+                debug(
+                  'error on notify add a new tag %o',
+                  `${metadataCopy.name}@${versionToPublish}`
+                );
+                logger.error({ error }, 'notify batch service has failed: @{error}');
+              }
+
+              debug('add a tag succesfully for %o', `${metadataCopy.name}@${versionToPublish}`);
+              res.status(HTTP_STATUS.CREATED);
+              return next({ ok: okMessage, success: true });
+            });
           });
-        });
-      });
+        }
+      );
     };
 
     if (isPublishablePackage(req.body) === false && isObject(req.body.users)) {

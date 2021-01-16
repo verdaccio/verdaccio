@@ -43,6 +43,8 @@
     "jest/no-test-callback": 0,
     "jest/expect-expect": 0,
     "jest/no-try-expect": 0,
+    "jest/no-done-callback": "off",
+    "jest/no-conditional-expect": "off",
     "keyword-spacing": "off",
     "no-tabs": "off",
     "no-useless-escape": "off",

@@ -6,11 +6,11 @@ import { Route as ReactRouterDomRoute, Switch, Router } from 'react-router-dom';
 import AppContext from './AppContext';
 import loadable from './utils/loadable';
 
-const NotFound = loadable(() =>
-  import(/* webpackChunkName: "NotFound" */ 'verdaccio-ui/components/NotFound')
+const NotFound = loadable(
+  () => import(/* webpackChunkName: "NotFound" */ 'verdaccio-ui/components/NotFound')
 );
-const VersionContextProvider = loadable(() =>
-  import(/* webpackChunkName: "Provider" */ '../pages/Version/VersionContextProvider')
+const VersionContextProvider = loadable(
+  () => import(/* webpackChunkName: "Provider" */ '../pages/Version/VersionContextProvider')
 );
 const VersionPage = loadable(() => import(/* webpackChunkName: "Version" */ '../pages/Version'));
 const HomePage = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/home'));
