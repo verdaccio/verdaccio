@@ -215,7 +215,7 @@ export default class Server implements IServerBridge {
       }, 20);
     });
 
-    return new Promise(function (resolve, reject) {
+    return new Promise<void>(function (resolve, reject) {
       promise
         .then(function () {
           reject(Error('no error'));

@@ -54,14 +54,13 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   app.use(compression());
 
-  app.get('/favicon.ico', function (
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ): void {
-    req.url = '/-/static/favicon.png';
-    next();
-  });
+  app.get(
+    '/favicon.ico',
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      req.url = '/-/static/favicon.png';
+      next();
+    }
+  );
 
   // Hook for tests only
   if (config._debug) {

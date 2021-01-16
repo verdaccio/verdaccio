@@ -35,7 +35,7 @@ export const statfile = (name: string): Promise<Error | null> => {
 };
 
 export const lockfile = (name: string): Promise<unknown> => {
-  return new Promise((resolve): void => {
+  return new Promise<void>((resolve): void => {
     const lockOpts = {
       // time (ms) to wait when checking for stale locks
       wait: 1000,

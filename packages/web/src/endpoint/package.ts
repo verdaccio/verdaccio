@@ -53,130 +53,129 @@ function addPackageWebApi(
     });
 
   // Get list of all visible package
-  route.get('/packages', function (
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ): void {
-    storage.getLocalDatabase(async function (err, packages): Promise<void> {
-      if (err) {
-        throw err;
-      }
-
-      async function processPackages(packages: PackcageExt[] = []): Promise<PackcageExt[]> {
-        const permissions: PackcageExt[] = [];
-        const packgesCopy = packages.slice();
-        for (const pkg of packgesCopy) {
-          const pkgCopy = { ...pkg };
-          pkgCopy.author = formatAuthor(pkg.author);
-          try {
-            if (await checkAllow(pkg.name, req.remote_user)) {
-              if (config.web) {
-                pkgCopy.author.avatar = generateGravatarUrl(
-                  pkgCopy.author.email,
-                  config.web.gravatar
-                );
-              }
-              if (!_.isNil(pkgCopy.dist) && !_.isNull(pkgCopy.dist.tarball)) {
-                pkgCopy.dist.tarball = getLocalRegistryTarballUri(
-                  pkgCopy.dist.tarball,
-                  pkg.name,
-                  req,
-                  config.url_prefix
-                );
-              }
-              permissions.push(pkgCopy);
-            }
-          } catch (err) {
-            logger.logger.error(
-              { name: pkg.name, error: err },
-              'permission process for @{name} has failed: @{error}'
-            );
-            throw err;
-          }
+  route.get(
+    '/packages',
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      storage.getLocalDatabase(async function (err, packages): Promise<void> {
+        if (err) {
+          throw err;
         }
 
-        return permissions;
-      }
+        async function processPackages(packages: PackcageExt[] = []): Promise<PackcageExt[]> {
+          const permissions: PackcageExt[] = [];
+          const packgesCopy = packages.slice();
+          for (const pkg of packgesCopy) {
+            const pkgCopy = { ...pkg };
+            pkgCopy.author = formatAuthor(pkg.author);
+            try {
+              if (await checkAllow(pkg.name, req.remote_user)) {
+                if (config.web) {
+                  pkgCopy.author.avatar = generateGravatarUrl(
+                    pkgCopy.author.email,
+                    config.web.gravatar
+                  );
+                }
+                if (!_.isNil(pkgCopy.dist) && !_.isNull(pkgCopy.dist.tarball)) {
+                  pkgCopy.dist.tarball = getLocalRegistryTarballUri(
+                    pkgCopy.dist.tarball,
+                    pkg.name,
+                    req,
+                    config.url_prefix
+                  );
+                }
+                permissions.push(pkgCopy);
+              }
+            } catch (err) {
+              logger.logger.error(
+                { name: pkg.name, error: err },
+                'permission process for @{name} has failed: @{error}'
+              );
+              throw err;
+            }
+          }
 
-      const { web } = config;
-      const order = web ? getOrder(web.sort_packages) : true;
+          return permissions;
+        }
 
-      next(sortByName(await processPackages(packages), order));
-    });
-  });
+        const { web } = config;
+        const order = web ? getOrder(web.sort_packages) : true;
+
+        next(sortByName(await processPackages(packages), order));
+      });
+    }
+  );
 
   // Get package readme
-  route.get('/package/readme/(@:scope/)?:package/:version?', can('access'), function (
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ): void {
-    const packageName = req.params.scope
-      ? addScope(req.params.scope, req.params.package)
-      : req.params.package;
+  route.get(
+    '/package/readme/(@:scope/)?:package/:version?',
+    can('access'),
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      const packageName = req.params.scope
+        ? addScope(req.params.scope, req.params.package)
+        : req.params.package;
 
-    storage.getPackage({
-      name: packageName,
-      uplinksLook: true,
-      req,
-      callback: function (err, info): void {
-        if (err) {
-          return next(err);
-        }
-
-        res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
-        try {
-          next(parseReadme(info.name, info.readme));
-        } catch {
-          next(sanitizyReadme('ERROR: No README data found!'));
-        }
-      },
-    });
-  });
-
-  route.get('/sidebar/(@:scope/)?:package', can('access'), function (
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ): void {
-    const packageName: string = req.params.scope
-      ? addScope(req.params.scope, req.params.package)
-      : req.params.package;
-
-    storage.getPackage({
-      name: packageName,
-      uplinksLook: true,
-      keepUpLinkData: true,
-      req,
-      callback: function (err: Error, info: $SidebarPackage): void {
-        if (_.isNil(err)) {
-          const { v } = req.query;
-          let sideBarInfo = _.clone(info);
-          sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
-            info,
-            req,
-            config.url_prefix
-          ).versions;
-          if (typeof v === 'string' && isVersionValid(info, v)) {
-            sideBarInfo.latest = sideBarInfo.versions[v];
-            sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
-          } else {
-            sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-            sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+      storage.getPackage({
+        name: packageName,
+        uplinksLook: true,
+        req,
+        callback: function (err, info): void {
+          if (err) {
+            return next(err);
           }
-          sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
-          const authorAvatar = config.web
-            ? addGravatarSupport(sideBarInfo, config.web.gravatar)
-            : addGravatarSupport(sideBarInfo);
-          next(authorAvatar);
-        } else {
-          res.status(HTTP_STATUS.NOT_FOUND);
-          res.end();
-        }
-      },
-    });
-  });
+
+          res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
+          try {
+            next(parseReadme(info.name, info.readme));
+          } catch {
+            next(sanitizyReadme('ERROR: No README data found!'));
+          }
+        },
+      });
+    }
+  );
+
+  route.get(
+    '/sidebar/(@:scope/)?:package',
+    can('access'),
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      const packageName: string = req.params.scope
+        ? addScope(req.params.scope, req.params.package)
+        : req.params.package;
+
+      storage.getPackage({
+        name: packageName,
+        uplinksLook: true,
+        keepUpLinkData: true,
+        req,
+        callback: function (err: Error, info: $SidebarPackage): void {
+          if (_.isNil(err)) {
+            const { v } = req.query;
+            let sideBarInfo = _.clone(info);
+            sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
+              info,
+              req,
+              config.url_prefix
+            ).versions;
+            if (typeof v === 'string' && isVersionValid(info, v)) {
+              sideBarInfo.latest = sideBarInfo.versions[v];
+              sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+            } else {
+              sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
+              sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+            }
+            sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
+            const authorAvatar = config.web
+              ? addGravatarSupport(sideBarInfo, config.web.gravatar)
+              : addGravatarSupport(sideBarInfo);
+            next(authorAvatar);
+          } else {
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+          }
+        },
+      });
+    }
+  );
 }
 
 export default addPackageWebApi;
