@@ -1,0 +1,64 @@
+{
+  "name": "@verdaccio/cli-standalone",
+  "version": "5.0.0-alpha.3",
+  "description": "standalone verdaccio registry with no dependencies",
+  "main": "dist/bundle.js",
+  "bin": {
+    "verdaccio": "./dist/bundle.js"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "lint": "eslint . --ext .js,.ts",
+    "build:web": "ts-node ./scripts/web.ts",
+    "build": "pnpm run clean && webpack --progress && pnpm run build:web",
+    "build:stats": "webpack --json > stats.json",
+    "build:size": "webpack --json | webpack-bundle-size-analyzer"
+  },
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "devDependencies": {
+    "@verdaccio/cli": "workspace:5.0.0-alpha.4",
+    "@verdaccio/ui-theme": "workspace:5.0.0-alpha.4",
+    "fs-extra": "9.0.1",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1",
+    "webpack-bundle-analyzer": "3.8.0",
+    "webpack-bundle-size-analyzer": "3.1.0"
+  },
+  "keywords": [
+    "standalone",
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "preferGlobal": true,
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio",
+    "logo": "https://opencollective.com/verdaccio/logo.txt"
+  }
+}

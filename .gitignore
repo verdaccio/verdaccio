@@ -18,8 +18,7 @@ package-lock.json
 yarn-error.log
 yarn.lock
 
-## ui
-static/
+
 
 # jest
 reports/
@@ -32,6 +31,10 @@ coverage/
 packages/partials
 tsconfig.tsbuildinfo
 
+## bundle files
+packages/standalone/dist/
+## ui
+static/
 
 # website
 website/public
