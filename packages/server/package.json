@@ -25,6 +25,7 @@
     "@verdaccio/store": "workspace:5.0.0-alpha.4",
     "@verdaccio/utils": "workspace:5.0.0-alpha.3",
     "@verdaccio/web": "workspace:5.0.0-alpha.4",
+    "verdaccio-audit": "workspace:10.0.0-alpha.3",
     "compression": "1.7.4",
     "cors": "2.8.5",
     "express": "4.17.1",
