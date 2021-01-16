@@ -20,6 +20,8 @@ import { IAuth, IBasicAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { setup, logger } from '@verdaccio/logger';
 import { log, final, errorReportingMiddleware } from '@verdaccio/middleware';
+import AuditMiddleware from 'verdaccio-audit';
+
 import {
   Config as IConfig,
   IPluginStorageFilter,
@@ -81,6 +83,16 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
       return plugin.register_middlewares;
     }
   );
+
+  if (_.isEmpty(plugins)) {
+    plugins.push(
+      new AuditMiddleware(
+        { ...config, enabled: true, strict_ssl: true },
+        { config, logger: logger }
+      )
+    );
+  }
+
   plugins.forEach((plugin: IPluginMiddleware<IConfig>) => {
     plugin.register_middlewares(app, auth, storage);
   });

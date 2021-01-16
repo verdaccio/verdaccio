@@ -45,6 +45,9 @@
     },
     {
       "path": "../mock"
+    },
+    {
+      "path": "../plugins/audit"
     }
   ]
 }
