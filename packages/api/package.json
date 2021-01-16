@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "5.0.0-alpha.4",
+  "version": "5.0.0-alpha.5",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -24,12 +24,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:5.0.0-alpha.3",
+    "@verdaccio/auth": "workspace:5.0.0-alpha.4",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
     "@verdaccio/config": "workspace:5.0.0-alpha.3",
     "@verdaccio/hooks": "workspace:5.0.0-alpha.3",
     "@verdaccio/logger": "workspace:5.0.0-alpha.3",
-    "@verdaccio/middleware": "workspace:5.0.0-alpha.3",
+    "@verdaccio/middleware": "workspace:5.0.0-alpha.4",
     "@verdaccio/store": "workspace:5.0.0-alpha.4",
     "@verdaccio/utils": "workspace:5.0.0-alpha.3",
     "cookies": "0.8.0",
@@ -40,7 +40,7 @@
     "semver": "7.3.2"
   },
   "devDependencies": {
-    "@verdaccio/server": "workspace:5.0.0-alpha.4",
+    "@verdaccio/server": "workspace:5.0.0-alpha.5",
     "@verdaccio/types": "workspace:10.0.0-alpha.3",
     "body-parser": "1.19.0",
     "lodash": "^4.17.20",

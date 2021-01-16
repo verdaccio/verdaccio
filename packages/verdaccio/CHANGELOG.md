@@ -1,5 +1,17 @@
 # verdaccio
 
+## 5.0.0-alpha.6
+
+### Patch Changes
+
+- Updated dependencies [f8a50baa]
+  - verdaccio-htpasswd@10.0.0-alpha.5
+  - verdaccio-audit@10.0.0-alpha.4
+  - @verdaccio/hooks@5.0.0-alpha.3
+  - @verdaccio/node-api@5.0.0-alpha.5
+  - @verdaccio/cli@5.0.0-alpha.5
+  - @verdaccio/ui-theme@5.0.0-alpha.4
+
 ## 5.0.0-alpha.5
 
 ### Patch Changes
