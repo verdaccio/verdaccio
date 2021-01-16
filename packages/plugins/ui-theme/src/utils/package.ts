@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
-import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 
 import { Time } from '../../types/packageMeta';
@@ -24,9 +23,7 @@ export function formatLicense(license: any): string | undefined {
     return license;
   }
 
-  // @ts-ignore
-  if (license && isObject(license) && license.type) {
-    // @ts-ignore
+  if (license?.type) {
     return license.type;
   }
 
@@ -50,9 +47,7 @@ export function formatRepository(repository: any): string | null {
     return repository;
   }
 
-  // @ts-ignore
-  if (repository && isObject(repository) && repository.url) {
-    // @ts-ignore
+  if (repository?.url) {
     return repository.url;
   }
 

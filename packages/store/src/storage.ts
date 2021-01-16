@@ -486,38 +486,38 @@ class Storage {
 
       const packages: Version[] = [];
       const getPackage = function (itemPkg): void {
-        self.localStorage.getPackageMetadata(locals[itemPkg], function (
-          err,
-          pkgMetadata: Package
-        ): void {
-          if (_.isNil(err)) {
-            const latest = pkgMetadata[DIST_TAGS].latest;
-            if (latest && pkgMetadata.versions[latest]) {
-              const version: Version = pkgMetadata.versions[latest];
-              const timeList = pkgMetadata.time as GenericBody;
-              const time = timeList[latest];
-              // @ts-ignore
-              version.time = time;
+        self.localStorage.getPackageMetadata(
+          locals[itemPkg],
+          function (err, pkgMetadata: Package): void {
+            if (_.isNil(err)) {
+              const latest = pkgMetadata[DIST_TAGS].latest;
+              if (latest && pkgMetadata.versions[latest]) {
+                const version: Version = pkgMetadata.versions[latest];
+                const timeList = pkgMetadata.time as GenericBody;
+                const time = timeList[latest];
+                // @ts-ignore
+                version.time = time;
 
-              // Add for stars api
-              // @ts-ignore
-              version.users = pkgMetadata.users;
+                // Add for stars api
+                // @ts-ignore
+                version.users = pkgMetadata.users;
 
-              packages.push(version);
+                packages.push(version);
+              } else {
+                self.logger.warn(
+                  { package: locals[itemPkg] },
+                  'package @{package} does not have a "latest" tag?'
+                );
+              }
+            }
+
+            if (itemPkg >= locals.length - 1) {
+              callback(null, packages);
             } else {
-              self.logger.warn(
-                { package: locals[itemPkg] },
-                'package @{package} does not have a "latest" tag?'
-              );
+              getPackage(itemPkg + 1);
             }
           }
-
-          if (itemPkg >= locals.length - 1) {
-            callback(null, packages);
-          } else {
-            getPackage(itemPkg + 1);
-          }
-        });
+        );
       };
 
       if (locals.length) {
