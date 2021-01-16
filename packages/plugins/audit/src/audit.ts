@@ -18,12 +18,12 @@ function getSSLAgent(rejectUnauthorized) {
   return new https.Agent({ rejectUnauthorized });
 }
 
-export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
+export default class ProxyAudit implements IPluginMiddleware<{}> {
   public enabled: boolean;
   public logger: Logger;
   public strict_ssl: boolean;
 
-  public constructor(config: ConfigAudit, options: PluginOptions<ConfigAudit>) {
+  public constructor(config: ConfigAudit, options: PluginOptions<{}>) {
     this.enabled = config.enabled || false;
     this.strict_ssl = config.strict_ssl !== undefined ? config.strict_ssl : true;
     this.logger = options.logger;

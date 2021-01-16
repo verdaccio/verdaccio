@@ -13,6 +13,7 @@ import {
   getForbidden,
 } from '@verdaccio/commons-api';
 import { loadPlugin } from '@verdaccio/loaders';
+import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
 
 import {
   Config,
@@ -25,6 +26,7 @@ import {
   AuthPluginPackage,
   AllowAccess,
   PackageAccess,
+  PluginOptions,
 } from '@verdaccio/types';
 
 import { isNil, isFunction, convertPayloadToBase64 } from '@verdaccio/utils';
@@ -98,8 +100,27 @@ class Auth implements IAuth {
     this.config = config;
     this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
-    this.plugins = this._loadPlugin(config);
+
+    this.plugins =
+      _.isNil(config?.auth) === false ? this._loadPlugin(config) : this.loadDefaultPlugin(config);
     this._applyDefaultPlugins();
+  }
+
+  private loadDefaultPlugin(config: Config) {
+    const plugingConf: HTPasswdConfig = { ...config, file: './htpasswd' };
+    const pluginOptions: PluginOptions<{}> = {
+      config,
+      logger: this.logger,
+    };
+    let authPlugin;
+    try {
+      authPlugin = new HTPasswd(plugingConf, pluginOptions);
+    } catch (error) {
+      debug('error on loading auth htpasswd plugin stack: %o', error);
+      return [];
+    }
+
+    return [authPlugin];
   }
 
   private _loadPlugin(config: Config): IPluginAuth<Config>[] {
@@ -122,6 +143,7 @@ class Auth implements IAuth {
   }
 
   private _applyDefaultPlugins(): void {
+    // TODO: rename to applyFallbackPluginMethods
     this.plugins.push(getDefaultPlugins(this.logger));
   }
 
