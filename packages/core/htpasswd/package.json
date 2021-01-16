@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "10.0.0-alpha.4",
+  "version": "10.0.0-alpha.5",
   "description": "htpasswd auth plugin for Verdaccio",
   "keywords": [
     "verdaccio",
