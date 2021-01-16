@@ -8,8 +8,8 @@ import { TabPosition } from './tabs';
 const Versions = loadable(() => import(/* webpackChunkName: "Versions" */ './Versions'));
 const UpLinks = loadable(() => import(/* webpackChunkName: "UpLinks" */ './UpLinks'));
 
-const Dependencies = loadable(() =>
-  import(/* webpackChunkName: "Dependencies" */ './Dependencies')
+const Dependencies = loadable(
+  () => import(/* webpackChunkName: "Dependencies" */ './Dependencies')
 );
 
 interface Props {

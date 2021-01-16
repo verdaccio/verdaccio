@@ -172,21 +172,22 @@ export function allow(auth: IAuth): Function {
         { action, user: remote?.name },
         `[middleware/allow][@{action}] allow for @{user}`
       );
-      auth['allow_' + action]({ packageName, packageVersion }, remote, function (
-        error,
-        allowed
-      ): void {
-        req.resume();
-        if (error) {
-          next(error);
-        } else if (allowed) {
-          next();
-        } else {
-          // last plugin (that's our built-in one) returns either
-          // cb(err) or cb(null, true), so this should never happen
-          throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+      auth['allow_' + action](
+        { packageName, packageVersion },
+        remote,
+        function (error, allowed): void {
+          req.resume();
+          if (error) {
+            next(error);
+          } else if (allowed) {
+            next();
+          } else {
+            // last plugin (that's our built-in one) returns either
+            // cb(err) or cb(null, true), so this should never happen
+            throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+          }
         }
-      });
+      );
     };
   };
 }
