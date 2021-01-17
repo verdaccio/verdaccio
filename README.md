@@ -21,7 +21,7 @@ Google Cloud Storage** or create your own plugin.
 
 ## Install 5.x
 
-> ⚠️ Not available on npmjs yet
+> ⚠️ Not available on npmjs
 
 With docker
 
