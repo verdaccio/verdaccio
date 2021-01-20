@@ -36,10 +36,6 @@ auth:
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
-    agent_options:
-      keepAlive: true
-      maxSockets: 40
-      maxFreeSockets: 10
 
 packages:
   '@*/*':

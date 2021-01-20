@@ -88,7 +88,11 @@ class ProxyStorage implements IProxy {
     this.max_fails = Number(setConfig(this.config, 'max_fails', 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
-    this.agent_options = setConfig(this.config, 'agent_options', {});
+    this.agent_options = setConfig(this.config, 'agent_options', {
+      keepAlive: true,
+      maxSockets: 40,
+      maxFreeSockets: 10
+    });
   }
 
   /**
