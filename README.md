@@ -72,7 +72,9 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-Don't miss the last talk at **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
+**Next talk**: [Verdaccio - A lightweight Private Proxy Registry built in Node.js | Juan Picado at The Destro Dev Show](https://www.youtube.com/watch?reload=9&v=P_hxy7W-IL4&ab_channel=TheDestroDevShow)
+
+##### **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
 
 [![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/youtube_openjsword_2020.png)](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 
