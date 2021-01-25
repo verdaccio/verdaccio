@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`template custom body after 1`] = `
+"
+    <!DOCTYPE html>
+      <html lang=\\"en-us\\"> 
+      <head>
+        <meta charset=\\"utf-8\\">
+        <title></title>        
+        <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
+        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
+         <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
+        
+        <script>
+            window.__VERDACCIO_BASENAME_UI_OPTIONS=undefined
+        </script>
+        
+      </head>    
+      <body class=\\"body\\">
+        
+        <div id=\\"root\\"></div>
+        <script defer=\\"defer\\" src=\\"/-/static/runtime.6126058572f989c948b1.js\\"></script>,<script defer=\\"defer\\" src=\\"/-/static/main.6126058572f989c948b1.js\\"></script>
+        
+      </body>
+    </html>
+"
+`;
+
+exports[`template custom body before 1`] = `
+"
+    <!DOCTYPE html>
+      <html lang=\\"en-us\\"> 
+      <head>
+        <meta charset=\\"utf-8\\">
+        <title></title>        
+        <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
+        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
+         <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
+        
+        <script>
+            window.__VERDACCIO_BASENAME_UI_OPTIONS=undefined
+        </script>
+        
+      </head>    
+      <body class=\\"body\\">
+        <script src=\\"fooBefore\\"/>,<script src=\\"barBefore\\"/>
+        <div id=\\"root\\"></div>
+        <script defer=\\"defer\\" src=\\"/-/static/runtime.6126058572f989c948b1.js\\"></script>,<script defer=\\"defer\\" src=\\"/-/static/main.6126058572f989c948b1.js\\"></script>
+        
+      </body>
+    </html>
+"
+`;
+
+exports[`template custom render 1`] = `
+"
+    <!DOCTYPE html>
+      <html lang=\\"en-us\\"> 
+      <head>
+        <meta charset=\\"utf-8\\">
+        <title></title>        
+        <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
+        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
+         <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
+        
+        <script>
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={}
+        </script>
+        
+      </head>    
+      <body class=\\"body\\">
+        
+        <div id=\\"root\\"></div>
+        <script defer=\\"defer\\" src=\\"/-/static/runtime.6126058572f989c948b1.js\\"></script>,<script defer=\\"defer\\" src=\\"/-/static/main.6126058572f989c948b1.js\\"></script>
+        
+      </body>
+    </html>
+"
+`;
+
+exports[`template custom title 1`] = `
+"
+    <!DOCTYPE html>
+      <html lang=\\"en-us\\"> 
+      <head>
+        <meta charset=\\"utf-8\\">
+        <title>foo title</title>        
+        <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
+        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
+         <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
+        
+        <script>
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"title\\":\\"foo title\\"}
+        </script>
+        
+      </head>    
+      <body class=\\"body\\">
+        
+        <div id=\\"root\\"></div>
+        <script defer=\\"defer\\" src=\\"/-/static/runtime.6126058572f989c948b1.js\\"></script>,<script defer=\\"defer\\" src=\\"/-/static/main.6126058572f989c948b1.js\\"></script>
+        
+      </body>
+    </html>
+"
+`;

@@ -29,16 +29,14 @@ export function handleResponseType(response: Response): Promise<[boolean, any]> 
   return Promise.all([response.ok, response.text()]);
 }
 
+const API_PATH = '/-/verdaccio/';
+
 class API {
   public request<T>(
     url: string,
     method = 'GET',
     options: RequestInit = { headers: {} }
   ): Promise<T> {
-    if (!window.VERDACCIO_API_URL) {
-      throw new Error('VERDACCIO_API_URL is not defined!');
-    }
-
     const token = storage.getItem('token');
     const headers = new Headers(options.headers);
 
@@ -47,9 +45,7 @@ class API {
       options.headers = headers;
     }
 
-    if (!['http://', 'https://', '//'].some((prefix) => url.startsWith(prefix))) {
-      url = window.VERDACCIO_API_URL + url;
-    }
+    url = `${API_PATH}${url}`;
 
     return new Promise((resolve, reject) => {
       fetch(url, {

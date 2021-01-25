@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { merge } = require('webpack-merge');
 
 const env = require('../config/env');
@@ -22,7 +23,8 @@ const banner = `
     `;
 
 const prodConf = {
-  mode: 'production',
+  mode: 'development',
+  devtool: 'inline-cheap-module-source-map',
 
   entry: {
     main: ['@babel/polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/index.tsx`],
@@ -58,6 +60,9 @@ const prodConf = {
       template: `${env.SRC_ROOT}/template/index.html`,
       debug: false,
       inject: true,
+    }),
+    new WebpackManifestPlugin({
+      removeKeyHash: true,
     }),
     new webpack.BannerPlugin(banner),
   ],

@@ -721,6 +721,7 @@ importers:
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: 4.2.0_d5d0320a6c0de9bbc2cde368ca95d2bf
       webpack-dev-server: 3.11.0_webpack-cli@4.2.0+webpack@5.10.1
+      webpack-manifest-plugin: 3.0.0_webpack@5.10.1
       webpack-merge: 5.7.2
       whatwg-fetch: 3.5.0
       xss: 1.0.8
@@ -799,6 +800,7 @@ importers:
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: ~4.2.0
       webpack-dev-server: ^3.11.0
+      webpack-manifest-plugin: ^3.0.0
       webpack-merge: ^5.6.1
       whatwg-fetch: ^3.4.1
       xss: 1.0.8
@@ -976,12 +978,14 @@ importers:
       '@verdaccio/middleware': link:../middleware
       '@verdaccio/readme': link:../core/readme
       '@verdaccio/store': link:../store
+      '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
       body-parse: 0.1.0
       body-parser: 1.19.0
       debug: 4.1.1
       express: 4.17.1
       lodash: 4.17.20
+      lru-cache: 6.0.0
     devDependencies:
       '@verdaccio/types': link:../core/types
     specifiers:
@@ -994,12 +998,14 @@ importers:
       '@verdaccio/readme': workspace:10.0.0-alpha.3
       '@verdaccio/store': workspace:5.0.0-alpha.4
       '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/ui-theme': workspace:5.0.0-alpha.4
       '@verdaccio/utils': workspace:5.0.0-alpha.3
       body-parse: 0.1.0
       body-parser: 1.19.0
       debug: ^4.1.1
       express: 4.17.1
       lodash: ^4.17.20
+      lru-cache: ^6.0.0
   test/e2e-cli:
     dependencies:
       debug: 4.3.1
@@ -27393,6 +27399,18 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-cX8G2vR/85UYG59FgkoMamwHUIkSSlV3bBMRsbxVXVUk2j6NleCKjQ/WE9eYg9WY4w25O9w8wKP4rzNZFmUcUg==
+  /webpack-manifest-plugin/3.0.0_webpack@5.10.1:
+    dependencies:
+      tapable: 2.2.0
+      webpack: 5.10.1_webpack-cli@4.2.0
+      webpack-sources: 2.2.0
+    dev: true
+    engines:
+      node: '>=10.22.1'
+    peerDependencies:
+      webpack: '>=4.44.2'
+    resolution:
+      integrity: sha512-nbORTdky2HxD8XSaaT+zrsHb30AAgyWAWgCLWaAeQO21VGCScGb52ipqlHA/njix1Z8OW8IOlo4+XK0OKr1fkw==
   /webpack-merge/4.2.2:
     dependencies:
       lodash: 4.17.20
