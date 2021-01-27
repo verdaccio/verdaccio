@@ -18,7 +18,6 @@ export type TemplateUIOptions = {
 export type Template = {
   manifest: Manifest;
   options: TemplateUIOptions;
-  scriptsHead?: string[];
   scriptsBodyAfter?: string[];
   metaScripts?: string[];
   bodyBefore?: string;
@@ -41,11 +40,10 @@ export default (template: Template, manifest: WebpackManifest) => `
         ${getManifestValue(template.manifest.css, manifest).map(
           (item) => ` <link href="${item}" rel="stylesheet">`
         )}        
-        ${template.metaScripts ? template.metaScripts.map((item) => item) : ''}
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
         </script>
-        ${template.scriptsHead ? template.scriptsHead.map((item) => item) : ''}
+        ${template.metaScripts ? template.metaScripts.map((item) => item) : ''}
       </head>    
       <body class="body">
         ${template.bodyBefore ? template.bodyBefore : ''}

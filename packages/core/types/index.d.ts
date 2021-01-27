@@ -284,6 +284,11 @@ declare module '@verdaccio/types' {
     favicon?: string;
     gravatar?: boolean;
     sort_packages?: string;
+    scriptsHead?: string[];
+    scriptsBodyAfter?: string[];
+    metaScripts?: string[];
+    bodyBefore?: string[];
+    bodyAfter?: string[];
   }
 
   interface HttpsConfKeyCert {
