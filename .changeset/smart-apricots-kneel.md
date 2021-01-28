@@ -23,8 +23,8 @@ might be useful for scenarios like Google Analytics scripts or custom html in an
 
 - metaScripts: html injected before close the `head` element.
 - scriptsBodyAfter: html injected before close the `body` element.
-- bodyBefore: html injected before verdaccio JS scripts.
-- bodyAfter: html injected after verdaccio JS scripts.
+- bodyBefore: html injected before _verdaccio_ JS scripts.
+- bodyAfter: html injected after _verdaccio_ JS scripts.
 
 ```yaml
 web:

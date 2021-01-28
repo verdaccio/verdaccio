@@ -10,7 +10,6 @@ exports[`template custom body after 1`] = `
         <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
         <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
          <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
-        
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=undefined
         </script>
@@ -36,7 +35,6 @@ exports[`template custom body before 1`] = `
         <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
         <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
          <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
-        
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=undefined
         </script>
@@ -62,7 +60,6 @@ exports[`template custom render 1`] = `
         <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
         <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
          <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
-        
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={}
         </script>
@@ -88,7 +85,6 @@ exports[`template custom title 1`] = `
         <link rel=\\"icon\\" type=\\"image/png\\" href=\\"/static/foo.ico\\" />
         <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
          <link href=\\"/-/static/main.6f2f2cccce0c813b509f.css\\" rel=\\"stylesheet\\">        
-        
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"title\\":\\"foo title\\"}
         </script>
