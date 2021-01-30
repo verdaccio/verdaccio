@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Path from 'path';
 
-import { Callback, Config, IPluginAuth, PluginOptions } from '@verdaccio/types';
+import { Callback, Config, IPluginAuth, Logger, PluginOptions } from '@verdaccio/types';
 import { unlockFile } from '@verdaccio/file-locking';
 
 import {
@@ -11,11 +11,17 @@ import {
   addUserToHTPasswd,
   changePasswordToHTPasswd,
   sanityCheck,
+  HtpasswdHashAlgorithm,
+  HtpasswdHashConfig,
 } from './utils';
 
 export type HTPasswdConfig = {
   file: string;
+  algorithm?: HtpasswdHashAlgorithm;
+  rounds?: number;
 } & Config;
+
+export const DEFAULT_BCRYPT_ROUNDS = 10;
 
 /**
  * HTPasswd - Verdaccio auth class
@@ -31,8 +37,9 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
   private config: {};
   private verdaccioConfig: Config;
   private maxUsers: number;
+  private hashConfig: HtpasswdHashConfig;
   private path: string;
-  private logger: {};
+  private logger: Logger;
   private lastTime: any;
   // constructor
   public constructor(config: HTPasswdConfig, stuff: PluginOptions<{}>) {
@@ -50,6 +57,28 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
 
     // all this "verdaccio_config" stuff is for b/w compatibility only
     this.maxUsers = config.max_users ? config.max_users : Infinity;
+
+    let algorithm: HtpasswdHashAlgorithm;
+    let rounds: number | undefined;
+
+    if (config.algorithm === undefined) {
+      algorithm = HtpasswdHashAlgorithm.bcrypt;
+    } else if (HtpasswdHashAlgorithm[config.algorithm] !== undefined) {
+      algorithm = HtpasswdHashAlgorithm[config.algorithm];
+    } else {
+      throw new Error(`Invalid algorithm "${config.algorithm}"`);
+    }
+
+    if (algorithm === HtpasswdHashAlgorithm.bcrypt) {
+      rounds = config.rounds || DEFAULT_BCRYPT_ROUNDS;
+    } else if (config.rounds !== undefined) {
+      this.logger.warn({ algo: algorithm }, 'Option "rounds" is not valid for "@{algo}" algorithm');
+    }
+
+    this.hashConfig = {
+      algorithm,
+      rounds,
+    };
 
     this.lastTime = null;
 
@@ -148,7 +177,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       }
 
       try {
-        this._writeFile(addUserToHTPasswd(body, user, password), cb);
+        this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
       } catch (err) {
         return cb(err);
       }
@@ -242,7 +271,10 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       }
 
       try {
-        this._writeFile(changePasswordToHTPasswd(body, user, password, newPassword), cb);
+        this._writeFile(
+          changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig),
+          cb
+        );
       } catch (err) {
         return cb(err);
       }

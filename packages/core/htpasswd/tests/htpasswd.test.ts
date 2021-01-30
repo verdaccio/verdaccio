@@ -3,7 +3,10 @@ import crypto from 'crypto';
 // @ts-ignore
 import fs from 'fs';
 
+import MockDate from 'mockdate';
+
 import HTPasswd, { VerdaccioConfigApp } from '../src/htpasswd';
+import { HtpasswdHashAlgorithm } from '../src/utils';
 
 // FIXME: remove this mocks imports
 import Logger from './__mocks__/Logger';
@@ -19,11 +22,16 @@ const config = {
   max_users: 1000,
 };
 
+const getDefaultConfig = (): VerdaccioConfigApp => ({
+  file: './htpasswd',
+  max_users: 1000,
+});
+
 describe('HTPasswd', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = new HTPasswd(config, (stuff as unknown) as VerdaccioConfigApp);
+    wrapper = new HTPasswd(getDefaultConfig(), (stuff as unknown) as VerdaccioConfigApp);
     jest.resetModules();
 
     crypto.randomBytes = jest.fn(() => {
@@ -34,12 +42,20 @@ describe('HTPasswd', () => {
   });
 
   describe('constructor()', () => {
+    const emptyPluginOptions = { config: {} } as VerdaccioConfigApp;
+
     test('should files whether file path does not exist', () => {
       expect(function () {
-        new HTPasswd({}, ({
-          config: {},
-        } as unknown) as VerdaccioConfigApp);
+        new HTPasswd({}, emptyPluginOptions);
       }).toThrow(/should specify "file" in config/);
+    });
+
+    test('should throw error about incorrect algorithm', () => {
+      expect(function () {
+        let config = getDefaultConfig();
+        config.algorithm = 'invalid' as any;
+        new HTPasswd(config, emptyPluginOptions);
+      }).toThrow(/Invalid algorithm "invalid"/);
     });
   });
 
@@ -85,6 +101,9 @@ describe('HTPasswd', () => {
         dataToWrite = data;
         callback();
       });
+
+      MockDate.set('2018-01-14T11:17:40.712Z');
+
       const callback = (a, b): void => {
         expect(a).toBeNull();
         expect(b).toBeTruthy();
@@ -100,6 +119,7 @@ describe('HTPasswd', () => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): Error => Error('some error'),
+            HtpasswdHashAlgorithm,
           };
         });
 
@@ -117,6 +137,7 @@ describe('HTPasswd', () => {
           return {
             sanityCheck: (): any => null,
             lockAndRead: (_a, b): any => b(new Error('lock error')),
+            HtpasswdHashAlgorithm,
           };
         });
 
@@ -136,6 +157,7 @@ describe('HTPasswd', () => {
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             unlockFile: (_a, b): any => b(),
+            HtpasswdHashAlgorithm,
           };
         });
 
@@ -153,6 +175,7 @@ describe('HTPasswd', () => {
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             addUserToHTPasswd: (): void => {},
+            HtpasswdHashAlgorithm,
           };
         });
         jest.doMock('fs', () => {
