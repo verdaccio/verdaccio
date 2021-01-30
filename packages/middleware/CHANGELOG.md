@@ -1,5 +1,11 @@
 # @verdaccio/middleware
 
+## 5.0.0-alpha.5
+
+### Patch Changes
+
+- @verdaccio/auth@5.0.0-alpha.5
+
 ## 5.0.0-alpha.4
 
 ### Patch Changes
