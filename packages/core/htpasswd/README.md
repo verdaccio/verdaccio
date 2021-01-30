@@ -27,6 +27,10 @@ As simple as running:
             # Maximum amount of users allowed to register, defaults to "+infinity".
             # You can set this to -1 to disable registration.
             #max_users: 1000
+            # Hash algorithm, possible options are: "bcrypt", "md5", "sha1", "crypt".
+            #algorithm: bcrypt
+            # Rounds number for "bcrypt", will be ignored for other algorithms.
+            #rounds: 10
 
 ## Logging In
 
