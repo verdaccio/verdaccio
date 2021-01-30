@@ -10,28 +10,37 @@ import crypto from 'crypto';
 
 import crypt from 'unix-crypt-td-js';
 
+export enum EncryptionMethod {
+  md5 = 'md5',
+  sha1 = 'sha1',
+  crypt = 'crypt',
+  blowfish = 'blowfish',
+  sha256 = 'sha256',
+  sha512 = 'sha512',
+}
+
 /**
  * Create salt
- * @param {string} type The type of salt: md5, blowfish (only some linux
+ * @param {EncryptionMethod} type The type of salt: md5, blowfish (only some linux
  * distros), sha256 or sha512. Default is sha512.
  * @returns {string} Generated salt string
  */
-export function createSalt(type = 'crypt'): string {
+export function createSalt(type: EncryptionMethod = EncryptionMethod.crypt): string {
   switch (type) {
-    case 'crypt':
+    case EncryptionMethod.crypt:
       // Legacy crypt salt with no prefix (only the first 2 bytes will be used).
       return crypto.randomBytes(2).toString('base64');
 
-    case 'md5':
+    case EncryptionMethod.md5:
       return '$1$' + crypto.randomBytes(10).toString('base64');
 
-    case 'blowfish':
+    case EncryptionMethod.blowfish:
       return '$2a$' + crypto.randomBytes(10).toString('base64');
 
-    case 'sha256':
+    case EncryptionMethod.sha256:
       return '$5$' + crypto.randomBytes(10).toString('base64');
 
-    case 'sha512':
+    case EncryptionMethod.sha512:
       return '$6$' + crypto.randomBytes(10).toString('base64');
 
     default:

@@ -349,6 +349,7 @@ importers:
     devDependencies:
       '@types/bcryptjs': 2.4.2
       '@verdaccio/types': link:../types
+      mockdate: 3.0.2
     specifiers:
       '@types/bcryptjs': ^2.4.2
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
@@ -357,6 +358,7 @@ importers:
       apache-md5: 1.1.2
       bcryptjs: 2.4.3
       http-errors: 1.8.0
+      mockdate: ^3.0.2
       unix-crypt-td-js: 1.1.4
   packages/core/local-storage:
     dependencies:
@@ -19620,6 +19622,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+  /mockdate/3.0.2:
+    dev: true
+    resolution:
+      integrity: sha512-ldfYSUW1ocqSHGTK6rrODUiqAFPGAg0xaHqYJ5tvj1hQyFsjuHpuWgWFTZWwDVlzougN/s2/mhDr8r5nY5xDpA==
   /modify-values/1.0.1:
     dev: true
     engines:
