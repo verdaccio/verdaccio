@@ -9,6 +9,18 @@ import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 
 import crypt3 from './crypt3';
 
+export enum HtpasswdHashAlgorithm {
+  md5 = 'md5',
+  sha1 = 'sha1',
+  crypt = 'crypt',
+  bcrypt = 'bcrypt',
+}
+
+export interface HtpasswdHashConfig {
+  algorithm: HtpasswdHashAlgorithm;
+  rounds?: number;
+}
+
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
 export function lockAndRead(name: string, cb: Callback): void {
@@ -61,13 +73,53 @@ export function verifyPassword(passwd: string, hash: string): boolean {
 }
 
 /**
+ * generateHtpasswdLine - generates line for htpasswd file.
+ * @param {string} user
+ * @param {string} passwd
+ * @param {HtpasswdHashConfig} hashConfig
+ * @returns {string}
+ */
+export function generateHtpasswdLine(
+  user: string,
+  passwd: string,
+  hashConfig: HtpasswdHashConfig
+): string {
+  let hash: string;
+
+  switch (hashConfig.algorithm) {
+    case HtpasswdHashAlgorithm.bcrypt:
+      hash = bcrypt.hashSync(passwd, hashConfig.rounds);
+      break;
+    case HtpasswdHashAlgorithm.crypt:
+      hash = crypt3(passwd);
+      break;
+    case HtpasswdHashAlgorithm.md5:
+      hash = md5(passwd);
+      break;
+    case HtpasswdHashAlgorithm.sha1:
+      hash = '{SHA}' + crypto.createHash('sha1').update(passwd, 'utf8').digest('base64');
+      break;
+    default:
+      throw createError('Unexpected hash algorithm');
+  }
+
+  const comment = 'autocreated ' + new Date().toJSON();
+  return `${user}:${hash}:${comment}\n`;
+}
+
+/**
  * addUserToHTPasswd - Generate a htpasswd format for .htpasswd
  * @param {string} body
  * @param {string} user
  * @param {string} passwd
  * @returns {string}
  */
-export function addUserToHTPasswd(body: string, user: string, passwd: string): string {
+export function addUserToHTPasswd(
+  body: string,
+  user: string,
+  passwd: string,
+  hashConfig: HtpasswdHashConfig
+): string {
   if (user !== encodeURIComponent(user)) {
     const err = createError('username should not contain non-uri-safe characters');
 
@@ -75,13 +127,7 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
     throw err;
   }
 
-  if (crypt3) {
-    passwd = crypt3(passwd);
-  } else {
-    passwd = '{SHA}' + crypto.createHash('sha1').update(passwd, 'utf8').digest('base64');
-  }
-  const comment = 'autocreated ' + new Date().toJSON();
-  let newline = `${user}:${passwd}:${comment}\n`;
+  let newline = generateHtpasswdLine(user, passwd, hashConfig);
 
   if (body.length && body[body.length - 1] !== '\n') {
     newline = '\n' + newline;
@@ -139,10 +185,6 @@ export function sanityCheck(
   return null;
 }
 
-export function getCryptoPassword(password: string): string {
-  return `{SHA}${crypto.createHash('sha1').update(password, 'utf8').digest('base64')}`;
-}
-
 /**
  * changePasswordToHTPasswd - change password for existing user
  * @param {string} body
@@ -155,26 +197,16 @@ export function changePasswordToHTPasswd(
   body: string,
   user: string,
   passwd: string,
-  newPasswd: string
+  newPasswd: string,
+  hashConfig: HtpasswdHashConfig
 ): string {
   let lines = body.split('\n');
   lines = lines.map((line) => {
-    const [username, password] = line.split(':', 3);
+    const [username, hash] = line.split(':', 3);
 
     if (username === user) {
-      let _passwd;
-      let _newPasswd;
-      if (crypt3) {
-        _passwd = crypt3(passwd, password);
-        _newPasswd = crypt3(newPasswd);
-      } else {
-        _passwd = getCryptoPassword(passwd);
-        _newPasswd = getCryptoPassword(newPasswd);
-      }
-
-      if (password == _passwd) {
-        // replace old password hash with new password hash
-        line = line.replace(_passwd, _newPasswd);
+      if (verifyPassword(passwd, hash)) {
+        line = generateHtpasswdLine(user, newPasswd, hashConfig);
       } else {
         throw new Error('Invalid old Password');
       }
