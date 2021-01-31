@@ -23,7 +23,7 @@
     "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:5.0.0-alpha.4",
+    "@verdaccio/auth": "workspace:5.0.0-alpha.5",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
     "@verdaccio/config": "workspace:5.0.0-alpha.3",
     "@verdaccio/types": "workspace:10.0.0-alpha.3",
