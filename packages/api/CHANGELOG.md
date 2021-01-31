@@ -1,5 +1,13 @@
 # @verdaccio/api
 
+## 5.0.0-alpha.6
+
+### Patch Changes
+
+- @verdaccio/auth@5.0.0-alpha.5
+- @verdaccio/hooks@5.0.0-alpha.3
+- @verdaccio/middleware@5.0.0-alpha.5
+
 ## 5.0.0-alpha.5
 
 ### Patch Changes

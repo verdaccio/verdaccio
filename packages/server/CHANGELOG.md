@@ -1,5 +1,14 @@
 # @verdaccio/server
 
+## 5.0.0-alpha.6
+
+### Patch Changes
+
+- @verdaccio/auth@5.0.0-alpha.5
+- @verdaccio/api@5.0.0-alpha.6
+- @verdaccio/middleware@5.0.0-alpha.5
+- @verdaccio/web@5.0.0-alpha.6
+
 ## 5.0.0-alpha.5
 
 ### Major Changes
