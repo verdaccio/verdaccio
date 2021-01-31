@@ -1,5 +1,11 @@
 # @verdaccio/cli
 
+## 5.0.0-alpha.6
+
+### Patch Changes
+
+- @verdaccio/node-api@5.0.0-alpha.6
+
 ## 5.0.0-alpha.5
 
 ### Patch Changes
