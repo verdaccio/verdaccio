@@ -35,4 +35,5 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
     const commaIndex = headerProtocol.indexOf(',');
     return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
   }
+  return protocol;
 }

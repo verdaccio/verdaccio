@@ -292,7 +292,7 @@ export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;
 }
 
-export type AuthorFormat = Author | string | null | object | void;
+export type AuthorFormat = Author | string | null | void;
 
 /**
  * Formats author field for webui.

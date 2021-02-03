@@ -3,7 +3,6 @@ import _ from 'lodash';
 import {
   validateName as utilValidateName,
   validatePackage as utilValidatePackage,
-  getVersionFromTarball,
   isObject,
   stringToMD5,
   ErrorCode,
@@ -24,6 +23,7 @@ import {
   VerdaccioError,
 } from '@verdaccio/commons-api';
 import { HttpError } from 'http-errors';
+import { getVersionFromTarball } from './middleware-utils';
 
 export type $RequestExtend = Request & { remote_user?: RemoteUser; log: Logger };
 export type $ResponseExtend = Response & { cookies?: any };

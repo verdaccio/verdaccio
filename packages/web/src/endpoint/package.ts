@@ -1,8 +1,5 @@
 import _ from 'lodash';
 import {
-  addScope,
-  deleteProperties,
-  sortByName,
   formatAuthor,
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
@@ -20,6 +17,7 @@ import { Config, Package, RemoteUser, Version } from '@verdaccio/types';
 
 import { addGravatarSupport, AuthorAvatar, parseReadme } from '../web-utils';
 import { generateGravatarUrl } from '../user';
+import { deleteProperties, addScope, sortByName } from '../web-utils2';
 
 export type $SidebarPackage = Package & { latest: Version };
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
