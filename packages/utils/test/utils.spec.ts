@@ -8,10 +8,7 @@ import {
   getVersion,
   normalizeDistTags,
   getWebProtocol,
-  getVersionFromTarball,
-  sortByName,
   formatAuthor,
-  isHTTPProtocol,
 } from '../src/index';
 
 describe('Utilities', () => {
@@ -36,47 +33,6 @@ describe('Utilities', () => {
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
-    describe('Sort packages', () => {
-      const packages = [
-        {
-          name: 'ghc',
-        },
-        {
-          name: 'abc',
-        },
-        {
-          name: 'zxy',
-        },
-      ];
-      test('should order ascending', () => {
-        expect(sortByName(packages)).toEqual([
-          {
-            name: 'abc',
-          },
-          {
-            name: 'ghc',
-          },
-          {
-            name: 'zxy',
-          },
-        ]);
-      });
-
-      test('should order descending', () => {
-        expect(sortByName(packages, false)).toEqual([
-          {
-            name: 'zxy',
-          },
-          {
-            name: 'ghc',
-          },
-          {
-            name: 'abc',
-          },
-        ]);
-      });
-    });
-
     describe('getWebProtocol', () => {
       test('should handle undefined header', () => {
         expect(getWebProtocol(undefined, 'http')).toBe('http');
@@ -300,63 +256,26 @@ describe('Utilities', () => {
       });
     });
 
-    describe('getVersionFromTarball', () => {
-      test('should get the right version', () => {
-        const simpleName = 'test-name-4.2.12.tgz';
-        const complexName = 'test-5.6.4-beta.2.tgz';
-        const otherComplexName = 'test-3.5.0-6.tgz';
-        expect(getVersionFromTarball(simpleName)).toEqual('4.2.12');
-        expect(getVersionFromTarball(complexName)).toEqual('5.6.4-beta.2');
-        expect(getVersionFromTarball(otherComplexName)).toEqual('3.5.0-6');
+    describe('formatAuthor', () => {
+      test('should check author field different values', () => {
+        const author = 'verdaccioNpm';
+        expect(formatAuthor(author).name).toEqual(author);
       });
-
-      test("should don'n fall at incorrect tarball name", () => {
-        expect(getVersionFromTarball('incorrectName')).toBeUndefined();
+      test('should check author field for object value', () => {
+        const user = {
+          name: 'Verdaccion NPM',
+          email: 'verdaccio@verdaccio.org',
+          url: 'https://verdaccio.org',
+        };
+        expect(formatAuthor(user).url).toEqual(user.url);
+        expect(formatAuthor(user).email).toEqual(user.email);
+        expect(formatAuthor(user).name).toEqual(user.name);
       });
-    });
-  });
-
-  describe('String utilities', () => {
-    test('should check HTTP protocol correctly', () => {
-      expect(isHTTPProtocol('http://domain.com/-/static/logo.png')).toBeTruthy();
-      expect(isHTTPProtocol('https://www.domain.com/-/static/logo.png')).toBeTruthy();
-      expect(isHTTPProtocol('//domain.com/-/static/logo.png')).toBeTruthy();
-      expect(isHTTPProtocol('file:///home/user/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('file:///F:/home/user/logo.png')).toBeFalsy();
-      // Note that uses ftp protocol in src was deprecated in modern browsers
-      expect(isHTTPProtocol('ftp://1.2.3.4/home/user/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('./logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('.\\logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('../logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('..\\logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('../../static/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('..\\..\\static\\logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('.logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('/static/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('F:\\static\\logo.png')).toBeFalsy();
-    });
-  });
-
-  describe('formatAuthor', () => {
-    test('should check author field different values', () => {
-      const author = 'verdaccioNpm';
-      expect(formatAuthor(author).name).toEqual(author);
-    });
-    test('should check author field for object value', () => {
-      const user = {
-        name: 'Verdaccion NPM',
-        email: 'verdaccio@verdaccio.org',
-        url: 'https://verdaccio.org',
-      };
-      expect(formatAuthor(user).url).toEqual(user.url);
-      expect(formatAuthor(user).email).toEqual(user.email);
-      expect(formatAuthor(user).name).toEqual(user.name);
-    });
-    test('should check author field for other value', () => {
-      expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
-      expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
-      expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
+      test('should check author field for other value', () => {
+        expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
+        expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
+        expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
+      });
     });
   });
 });
