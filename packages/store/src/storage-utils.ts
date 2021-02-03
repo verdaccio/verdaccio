@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import semver from 'semver';
 import {
   ErrorCode,
   isObject,
@@ -9,7 +9,7 @@ import {
   isNil,
 } from '@verdaccio/utils';
 
-import { Package, Version, Author } from '@verdaccio/types';
+import { Package, Version, Author, StringValue } from '@verdaccio/types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/commons-api';
 import { SearchInstance } from './search';
 import { IStorage } from './storage';
@@ -253,4 +253,20 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
 
     return pkg;
   }
+}
+
+/**
+ * Create a tag for a package
+ * @param {*} data
+ * @param {*} version
+ * @param {*} tag
+ * @return {Boolean} whether a package has been tagged
+ */
+export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
+  if (tag && data[DIST_TAGS][tag] !== version && semver.parse(version, true)) {
+    // valid version - store
+    data[DIST_TAGS][tag] = version;
+    return true;
+  }
+  return false;
 }
