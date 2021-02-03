@@ -18,8 +18,9 @@ import {
   getConflict,
   getCode,
 } from '@verdaccio/commons-api';
+import { VerdaccioError } from '@verdaccio/commons-api';
+
 import { createAnonymousRemoteUser } from '@verdaccio/config';
-import { AllowAction, AllowActionCallback, convertPayloadToBase64 } from '@verdaccio/utils';
 import { TokenEncryption, AESPayload } from './auth';
 import { aesDecrypt } from './legacy-token';
 import { verifyPayload } from './jwt-token';
@@ -34,6 +35,17 @@ export interface AuthTokenHeader {
   scheme: string;
   token: string;
 }
+export type AllowActionCallbackResponse = boolean | undefined;
+export type AllowActionCallback = (
+  error: VerdaccioError | null,
+  allowed?: AllowActionCallbackResponse
+) => void;
+
+export type AllowAction = (
+  user: RemoteUser,
+  pkg: AuthPackageAllow,
+  callback: AllowActionCallback
+) => void;
 
 /**
  * Split authentication header eg: Bearer [secret_token]
@@ -228,4 +240,8 @@ export function handleSpecialUnpublish(logger): any {
 
 export function buildUser(name: string, password: string): string {
   return String(`${name}:${password}`);
+}
+
+export function convertPayloadToBase64(payload: string): Buffer {
+  return Buffer.from(payload, 'base64');
 }
