@@ -1,13 +1,10 @@
-import fs from 'fs';
 import assert from 'assert';
 import URL from 'url';
 import { IncomingHttpHeaders } from 'http';
 import _ from 'lodash';
 import semver from 'semver';
 import { Request } from 'express';
-
-import { Package, Version, Author, StringValue } from '@verdaccio/types';
-
+import { Package, Version, Author } from '@verdaccio/types';
 import {
   HEADERS,
   DIST_TAGS,
@@ -22,10 +19,6 @@ import {
   getNotFound,
   getCode,
 } from '@verdaccio/commons-api';
-
-export function convertPayloadToBase64(payload: string): Buffer {
-  return Buffer.from(payload, 'base64');
-}
 
 /**
  * From normalize-package-data/lib/fixer.js
@@ -187,22 +180,6 @@ export function getLocalRegistryTarballUri(
 }
 
 /**
- * Create a tag for a package
- * @param {*} data
- * @param {*} version
- * @param {*} tag
- * @return {Boolean} whether a package has been tagged
- */
-export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
-  if (tag && data[DIST_TAGS][tag] !== version && semver.parse(version, true)) {
-    // valid version - store
-    data[DIST_TAGS][tag] = version;
-    return true;
-  }
-  return false;
-}
-
-/**
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
@@ -283,48 +260,6 @@ export function normalizeDistTags(pkg: Package): void {
   }
 }
 
-const parseIntervalTable = {
-  '': 1000,
-  ms: 1,
-  s: 1000,
-  m: 60 * 1000,
-  h: 60 * 60 * 1000,
-  d: 86400000,
-  w: 7 * 86400000,
-  M: 30 * 86400000,
-  y: 365 * 86400000,
-};
-
-/**
- * Parse an internal string to number
- * @param {*} interval
- * @return {Number}
- * @deprecated
- */
-export function parseInterval(interval: any): number {
-  if (typeof interval === 'number') {
-    return interval * 1000;
-  }
-  let result = 0;
-  let last_suffix = Infinity;
-  interval.split(/\s+/).forEach(function (x): void {
-    if (!x) {
-      return;
-    }
-    const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
-    if (
-      !m ||
-      parseIntervalTable[m[4]] >= last_suffix ||
-      (m[4] === '' && last_suffix !== Infinity)
-    ) {
-      throw Error('invalid interval: ' + interval);
-    }
-    last_suffix = parseIntervalTable[m[4]];
-    result += Number(m[1]) * parseIntervalTable[m[4]];
-  });
-  return result;
-}
-
 /**
  * Detect running protocol (http or https)
  */
@@ -353,70 +288,11 @@ export const ErrorCode = {
   getCode,
 };
 
-/**
- * Check whether the path already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function folderExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isDirectory();
-  } catch (_) {
-    return false;
-  }
-}
-
-/**
- * Check whether the file already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function fileExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isFile();
-  } catch (_) {
-    return false;
-  }
-}
-
-export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
-  return packages.slice().sort(function (a, b): number {
-    const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
-
-    return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
-  });
-}
-
-export function addScope(scope: string, packageName: string): string {
-  return `@${scope}/${packageName}`;
-}
-
-export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
-  _.forEach(propertiesToDelete, (property): any => {
-    delete objectItem[property];
-  });
-
-  return objectItem;
-}
-
 export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;
 }
 
-/**
- * return package version from tarball name
- * @param {String} name
- * @returns {String}
- */
-export function getVersionFromTarball(name: string): string | void {
-  // FIXME: we know the regex is valid, but we should improve this part as ts suggest
-  // @ts-ignore
-  return /.+-(\d.+)\.tgz/.test(name) ? name.match(/.+-(\d.+)\.tgz/)[1] : undefined;
-}
-
-export type AuthorFormat = Author | string | null | object | void;
+export type AuthorFormat = Author | string | null | void;
 
 /**
  * Formats author field for webui.
@@ -449,14 +325,6 @@ export function formatAuthor(author: AuthorFormat): any {
   }
 
   return authorDetails;
-}
-
-/**
- * Check if URI is starting with "http://", "https://" or "//"
- * @param {string} uri
- */
-export function isHTTPProtocol(uri: string): boolean {
-  return /^(https?:)?\/\//.test(uri);
 }
 
 /**
@@ -497,14 +365,4 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
 
   const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
   return hasMatchVersion;
-}
-
-export function isRelatedToDeprecation(pkgInfo: Package): boolean {
-  const { versions } = pkgInfo;
-  for (const version in versions) {
-    if (Object.prototype.hasOwnProperty.call(versions[version], 'deprecated')) {
-      return true;
-    }
-  }
-  return false;
 }

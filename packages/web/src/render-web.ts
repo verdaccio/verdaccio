@@ -4,12 +4,13 @@ import path from 'path';
 import _ from 'lodash';
 import express from 'express';
 
-import { combineBaseUrl, getWebProtocol, isHTTPProtocol } from '@verdaccio/utils';
+import { combineBaseUrl, getWebProtocol } from '@verdaccio/utils';
 import { SearchInstance } from '@verdaccio/store';
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { loadPlugin } from '@verdaccio/loaders';
 import { setSecurityWebHeaders } from '@verdaccio/middleware';
+import { isHTTPProtocol } from './web-utils2';
 
 const pkgJSON = require('../package.json');
 
