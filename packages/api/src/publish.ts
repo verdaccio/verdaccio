@@ -10,7 +10,6 @@ import {
   isObject,
   ErrorCode,
   hasDiffOneKey,
-  isRelatedToDeprecation,
 } from '@verdaccio/utils';
 import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
@@ -21,7 +20,7 @@ import { IStorageHandler } from '@verdaccio/store';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 import star from './star';
-import { isPublishablePackage } from './utils';
+import { isPublishablePackage, isRelatedToDeprecation } from './utils';
 
 const debug = buildDebug('verdaccio:api:publish');
 
