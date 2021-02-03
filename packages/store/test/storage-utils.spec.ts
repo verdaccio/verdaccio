@@ -1,7 +1,9 @@
+import assert from 'assert';
 import { Package } from '@verdaccio/types';
 import { DIST_TAGS } from '@verdaccio/commons-api';
 import { normalizePackage, mergeUplinkTimeIntoLocal, STORAGE } from '../src/storage-utils';
 
+import { tagVersion } from '../src/storage-utils';
 import { readFile } from './fixtures/test.utils';
 
 describe('Storage Utils', () => {
@@ -123,6 +125,50 @@ describe('Storage Utils', () => {
       };
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
       expect(Object.keys(mergedPkg)).toEqual(['modified', 'created', ...Object.keys(vGroup1)]);
+    });
+  });
+
+  describe('tagVersion', () => {
+    test('add new one', () => {
+      let pkg = {
+        versions: {},
+        'dist-tags': {},
+      };
+
+      // @ts-ignore
+      assert(tagVersion(pkg, '1.1.1', 'foo', {}));
+      assert.deepEqual(pkg, {
+        versions: {},
+        'dist-tags': { foo: '1.1.1' },
+      });
+    });
+
+    test('add (compat)', () => {
+      const x = {
+        versions: {},
+        'dist-tags': { foo: '1.1.0' },
+      };
+
+      // @ts-ignore
+      assert(tagVersion(x, '1.1.1', 'foo'));
+      assert.deepEqual(x, {
+        versions: {},
+        'dist-tags': { foo: '1.1.1' },
+      });
+    });
+
+    test('add fresh tag', () => {
+      let x = {
+        versions: {},
+        'dist-tags': { foo: '1.1.0' },
+      };
+
+      // @ts-ignore
+      assert(tagVersion(x, '1.1.1', 'foo'));
+      assert.deepEqual(x, {
+        versions: {},
+        'dist-tags': { foo: '1.1.1' },
+      });
     });
   });
 });

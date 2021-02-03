@@ -5,8 +5,8 @@ import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import buildDebug from 'debug';
 
-import { folderExists, fileExists } from '@verdaccio/utils';
 import { CHARACTER_ENCODING } from '@verdaccio/commons-api';
+import { folderExists, fileExists } from './config-utils';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';

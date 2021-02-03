@@ -1,5 +1,4 @@
-import { VerdaccioError, DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/commons-api';
-import { RemoteUser, AuthPackageAllow } from '@verdaccio/types';
+import { DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/commons-api';
 
 export interface CookieSessionToken {
   expires: Date;
@@ -11,18 +10,6 @@ export function validatePassword(
 ): boolean {
   return typeof password === 'string' && password.length >= minLength;
 }
-
-export type AllowActionCallbackResponse = boolean | undefined;
-export type AllowActionCallback = (
-  error: VerdaccioError | null,
-  allowed?: AllowActionCallbackResponse
-) => void;
-
-export type AllowAction = (
-  user: RemoteUser,
-  pkg: AuthPackageAllow,
-  callback: AllowActionCallback
-) => void;
 
 export function createSessionToken(): CookieSessionToken {
   const tenHoursTime = 10 * 60 * 60 * 1000;
