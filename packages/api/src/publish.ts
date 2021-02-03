@@ -5,13 +5,7 @@ import { Router } from 'express';
 import buildDebug from 'debug';
 
 import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
-import {
-  validateMetadata,
-  isObject,
-  ErrorCode,
-  hasDiffOneKey,
-  isRelatedToDeprecation,
-} from '@verdaccio/utils';
+import { validateMetadata, isObject, ErrorCode, hasDiffOneKey } from '@verdaccio/utils';
 import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
 import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
@@ -21,7 +15,7 @@ import { IStorageHandler } from '@verdaccio/store';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 import star from './star';
-import { isPublishablePackage } from './utils';
+import { isPublishablePackage, isRelatedToDeprecation } from './utils';
 
 const debug = buildDebug('verdaccio:api:publish');
 
