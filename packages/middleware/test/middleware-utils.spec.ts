@@ -1,7 +1,7 @@
 import { getVersionFromTarball } from '../src/middleware-utils';
 
 describe('Utilities', () => {
-describe('getVersionFromTarball', () => {
+  describe('getVersionFromTarball', () => {
     test('should get the right version', () => {
       const simpleName = 'test-name-4.2.12.tgz';
       const complexName = 'test-5.6.4-beta.2.tgz';
