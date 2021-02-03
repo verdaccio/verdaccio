@@ -4,7 +4,7 @@ import URL, { UrlWithStringQuery } from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
-import { parseInterval, isObject, ErrorCode, buildToken } from '@verdaccio/utils';
+import { isObject, ErrorCode, buildToken } from '@verdaccio/utils';
 import { ReadTarball } from '@verdaccio/streams';
 import {
   ERROR_CODE,
@@ -25,6 +25,7 @@ import {
   Package,
   IReadTarball,
 } from '@verdaccio/types';
+import { parseInterval } from './proxy-utils';
 const LoggerApi = require('@verdaccio/logger');
 
 const encode = function (thing): string {

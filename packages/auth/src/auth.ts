@@ -29,7 +29,7 @@ import {
   PluginOptions,
 } from '@verdaccio/types';
 
-import { isNil, isFunction, convertPayloadToBase64 } from '@verdaccio/utils';
+import { isNil, isFunction } from '@verdaccio/utils';
 import {
   getMatchedPackagesSpec,
   createAnonymousRemoteUser,
@@ -43,6 +43,7 @@ import {
   parseAuthTokenHeader,
   isAuthHeaderValid,
   isAESLegacy,
+  convertPayloadToBase64,
 } from './utils';
 
 import { signPayload } from './jwt-token';
