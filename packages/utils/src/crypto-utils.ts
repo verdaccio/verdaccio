@@ -2,7 +2,6 @@ import { createHash, pseudoRandomBytes, Hash } from 'crypto';
 
 export const defaultTarballHashAlgorithm = 'sha1';
 
-// podria moverse a storage donde se usa
 export function createTarballHash(): Hash {
   return createHash(defaultTarballHashAlgorithm);
 }
@@ -14,12 +13,10 @@ export function createTarballHash(): Hash {
  * @param {Object} data
  * @return {String}
  */
-// se usa en api, middleware, web
 export function stringToMD5(data: Buffer | string): string {
   return createHash('md5').update(data).digest('hex');
 }
 
-// se usa en config
 export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
 }
