@@ -33,7 +33,7 @@ describe('Utilities', () => {
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
-     describe('getWebProtocol', () => {
+    describe('getWebProtocol', () => {
       test('should handle undefined header', () => {
         expect(getWebProtocol(undefined, 'http')).toBe('http');
       });
@@ -256,26 +256,26 @@ describe('Utilities', () => {
       });
     });
 
-  describe('formatAuthor', () => {
-    test('should check author field different values', () => {
-      const author = 'verdaccioNpm';
-      expect(formatAuthor(author).name).toEqual(author);
-    });
-    test('should check author field for object value', () => {
-      const user = {
-        name: 'Verdaccion NPM',
-        email: 'verdaccio@verdaccio.org',
-        url: 'https://verdaccio.org',
-      };
-      expect(formatAuthor(user).url).toEqual(user.url);
-      expect(formatAuthor(user).email).toEqual(user.email);
-      expect(formatAuthor(user).name).toEqual(user.name);
-    });
-    test('should check author field for other value', () => {
-      expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
-      expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
-      expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
+    describe('formatAuthor', () => {
+      test('should check author field different values', () => {
+        const author = 'verdaccioNpm';
+        expect(formatAuthor(author).name).toEqual(author);
+      });
+      test('should check author field for object value', () => {
+        const user = {
+          name: 'Verdaccion NPM',
+          email: 'verdaccio@verdaccio.org',
+          url: 'https://verdaccio.org',
+        };
+        expect(formatAuthor(user).url).toEqual(user.url);
+        expect(formatAuthor(user).email).toEqual(user.email);
+        expect(formatAuthor(user).name).toEqual(user.name);
+      });
+      test('should check author field for other value', () => {
+        expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
+        expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
+        expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
+      });
     });
   });
-});
 });
