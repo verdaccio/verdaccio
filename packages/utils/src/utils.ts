@@ -2,13 +2,11 @@ import assert from 'assert';
 import URL from 'url';
 import { IncomingHttpHeaders } from 'http';
 import _ from 'lodash';
-import semver from 'semver';
 import { Request } from 'express';
-import { Package, Version, Author } from '@verdaccio/types';
+import { Package } from '@verdaccio/types';
 import {
   HEADERS,
   DIST_TAGS,
-  DEFAULT_USER,
   getConflict,
   getBadData,
   getBadRequest,
@@ -180,87 +178,6 @@ export function getLocalRegistryTarballUri(
 }
 
 /**
- * Gets version from a package object taking into account semver weirdness.
- * @return {String} return the semantic version of a package
- */
-export function getVersion(pkg: Package, version: any): Version | void {
-  // this condition must allow cast
-  if (_.isNil(pkg.versions[version]) === false) {
-    return pkg.versions[version];
-  }
-
-  try {
-    version = semver.parse(version, true);
-    for (const versionItem in pkg.versions) {
-      if (version.compare(semver.parse(versionItem, true)) === 0) {
-        return pkg.versions[versionItem];
-      }
-    }
-  } catch (err) {
-    return undefined;
-  }
-}
-
-/**
- * Function filters out bad semver versions and sorts the array.
- * @return {Array} sorted Array
- */
-export function semverSort(listVersions: string[] /* logger */): string[] {
-  return (
-    listVersions
-      .filter(function (x): boolean {
-        if (!semver.parse(x, true)) {
-          // FIXME: logger is always undefined
-          // logger.warn({ ver: x }, 'ignoring bad version @{ver}');
-          return false;
-        }
-        return true;
-      })
-      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
-      // @ts-ignore
-      .sort(semver.compareLoose)
-      .map(String)
-  );
-}
-
-/**
- * Flatten arrays of tags.
- * @param {*} data
- */
-export function normalizeDistTags(pkg: Package): void {
-  let sorted;
-  if (!pkg[DIST_TAGS].latest) {
-    // overwrite latest with highest known version based on semver sort
-    sorted = semverSort(Object.keys(pkg.versions));
-    if (sorted?.length) {
-      pkg[DIST_TAGS].latest = sorted.pop();
-    }
-  }
-
-  for (const tag in pkg[DIST_TAGS]) {
-    if (_.isArray(pkg[DIST_TAGS][tag])) {
-      if (pkg[DIST_TAGS][tag].length) {
-        // sort array
-        // FIXME: this is clearly wrong, we need to research why this is like this.
-        // @ts-ignore
-        sorted = semverSort(pkg[DIST_TAGS][tag]);
-        if (sorted.length) {
-          // use highest version based on semver sort
-          pkg[DIST_TAGS][tag] = sorted.pop();
-        }
-      } else {
-        delete pkg[DIST_TAGS][tag];
-      }
-    } else if (_.isString(pkg[DIST_TAGS][tag])) {
-      if (!semver.parse(pkg[DIST_TAGS][tag], true)) {
-        // if the version is invalid, delete the dist-tag entry
-        delete pkg[DIST_TAGS][tag];
-      }
-    }
-  }
-}
-
-/**
  * Detect running protocol (http or https)
  */
 export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
@@ -270,10 +187,6 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
   }
 
   return protocol;
-}
-
-export function getLatestVersion(pkgInfo: Package): string {
-  return pkgInfo[DIST_TAGS].latest;
 }
 
 export const ErrorCode = {
@@ -290,41 +203,6 @@ export const ErrorCode = {
 
 export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;
-}
-
-export type AuthorFormat = Author | string | null | void;
-
-/**
- * Formats author field for webui.
- * @see https://docs.npmjs.com/files/package.json#author
- * @param {string|object|undefined} author
- */
-export function formatAuthor(author: AuthorFormat): any {
-  let authorDetails = {
-    name: DEFAULT_USER,
-    email: '',
-    url: '',
-  };
-
-  if (_.isNil(author)) {
-    return authorDetails;
-  }
-
-  if (_.isString(author)) {
-    authorDetails = {
-      ...authorDetails,
-      name: author as string,
-    };
-  }
-
-  if (_.isObject(author)) {
-    authorDetails = {
-      ...authorDetails,
-      ...(author as Author),
-    };
-  }
-
-  return authorDetails;
 }
 
 /**
@@ -351,10 +229,6 @@ export function mask(str: string, charNum = 3): string {
 
 export function encodeScopedUri(packageName): string {
   return packageName.replace(/\//g, '%2f');
-}
-
-export function hasDiffOneKey(versions): boolean {
-  return Object.keys(versions).length !== 1;
 }
 
 export function isVersionValid(packageMeta, packageVersion): boolean {

@@ -1,11 +1,6 @@
 import _ from 'lodash';
 import semver from 'semver';
-import {
-  ErrorCode,
-  isObject,
-  generateRandomHexString,
-  isNil,
-} from '@verdaccio/utils';
+import { ErrorCode, isObject, generateRandomHexString, isNil } from '@verdaccio/utils';
 
 import { Package, Version, Author, StringValue } from '@verdaccio/types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/commons-api';

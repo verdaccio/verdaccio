@@ -5,7 +5,6 @@ import {
   validatePackage,
   validateMetadata,
   combineBaseUrl,
-  getVersion,
   normalizeDistTags,
   getWebProtocol,
   formatAuthor,
@@ -89,67 +88,6 @@ describe('Utilities', () => {
         );
       });
     });
-
-    describe('normalizeDistTags', () => {
-      test('should delete a invalid latest version', () => {
-        const pkg = cloneMetadata();
-        pkg[DIST_TAGS] = {
-          latest: '20000',
-        };
-
-        normalizeDistTags(pkg);
-
-        expect(Object.keys(pkg[DIST_TAGS])).toHaveLength(0);
-      });
-
-      test('should define last published version as latest', () => {
-        const pkg = cloneMetadata();
-        pkg[DIST_TAGS] = {};
-
-        normalizeDistTags(pkg);
-
-        expect(pkg[DIST_TAGS]).toEqual({ latest: '1.0.1' });
-      });
-
-      test('should define last published version as latest with a custom dist-tag', () => {
-        const pkg = cloneMetadata();
-        pkg[DIST_TAGS] = {
-          beta: '1.0.1',
-        };
-
-        normalizeDistTags(pkg);
-
-        expect(pkg[DIST_TAGS]).toEqual({ beta: '1.0.1', latest: '1.0.1' });
-      });
-
-      test('should convert any array of dist-tags to a plain string', () => {
-        const pkg = cloneMetadata();
-        pkg[DIST_TAGS] = {
-          latest: ['1.0.1'],
-        };
-
-        normalizeDistTags(pkg);
-
-        expect(pkg[DIST_TAGS]).toEqual({ latest: '1.0.1' });
-      });
-    });
-
-    describe('getVersion', () => {
-      test('should get the right version', () => {
-        expect(getVersion(cloneMetadata(), '1.0.0')).toEqual(metadata.versions['1.0.0']);
-        expect(getVersion(cloneMetadata(), 'v1.0.0')).toEqual(metadata.versions['1.0.0']);
-      });
-
-      test('should return nothing on get non existing version', () => {
-        expect(getVersion(cloneMetadata(), '0')).toBeUndefined();
-        expect(getVersion(cloneMetadata(), '2.0.0')).toBeUndefined();
-        expect(getVersion(cloneMetadata(), 'v2.0.0')).toBeUndefined();
-        expect(getVersion(cloneMetadata(), undefined)).toBeUndefined();
-        expect(getVersion(cloneMetadata(), null)).toBeUndefined();
-        expect(getVersion(cloneMetadata(), 2)).toBeUndefined();
-      });
-    });
-
     describe('combineBaseUrl', () => {
       test('should create a URI', () => {
         expect(combineBaseUrl('http', 'domain')).toEqual('http://domain');

@@ -1,5 +1,6 @@
 import _ from 'lodash';
-
+import { Author } from '@verdaccio/types';
+import { DEFAULT_USER } from '@verdaccio/commons-api';
 /**
  * Check if URI is starting with "http://", "https://" or "//"
  * @param {string} uri
@@ -36,4 +37,39 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
     return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
   }
   return protocol;
+}
+
+export type AuthorFormat = Author | string | null | void;
+
+/**
+ * Formats author field for webui.
+ * @see https://docs.npmjs.com/files/package.json#author
+ * @param {string|object|undefined} author
+ */
+export function formatAuthor(author: AuthorFormat): AuthorFormat {
+  let authorDetails = {
+    name: DEFAULT_USER,
+    email: '',
+    url: '',
+  };
+
+  if (_.isNil(author)) {
+    return authorDetails;
+  }
+
+  if (_.isString(author)) {
+    authorDetails = {
+      ...authorDetails,
+      name: author as string,
+    };
+  }
+
+  if (_.isObject(author)) {
+    authorDetails = {
+      ...authorDetails,
+      ...(author as Author),
+    };
+  }
+
+  return authorDetails;
 }
