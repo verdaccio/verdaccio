@@ -3,7 +3,7 @@ import UrlNode from 'url';
 import _ from 'lodash';
 import buildDebug from 'debug';
 
-import { ErrorCode, isObject, getLatestVersion, validateName } from '@verdaccio/utils';
+import { ErrorCode, isObject, validateName } from '@verdaccio/utils';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, SUPPORT_ERRORS, USERS } from '@verdaccio/commons-api';
 import { createTarballHash } from '@verdaccio/utils';
 import { loadPlugin } from '@verdaccio/loaders';
@@ -43,6 +43,7 @@ import {
   normalizeContributors,
   STORAGE,
   tagVersion,
+  getLatestVersion,
 } from './storage-utils';
 
 const debug = buildDebug('verdaccio:storage:local');

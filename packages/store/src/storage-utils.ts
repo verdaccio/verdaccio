@@ -3,8 +3,6 @@ import semver from 'semver';
 import {
   ErrorCode,
   isObject,
-  normalizeDistTags,
-  semverSort,
   generateRandomHexString,
   isNil,
 } from '@verdaccio/utils';
@@ -269,4 +267,67 @@ export function tagVersion(data: Package, version: string, tag: StringValue): bo
     return true;
   }
   return false;
+}
+
+/**
+ * Flatten arrays of tags.
+ * @param {*} data
+ */
+export function normalizeDistTags(pkg: Package): void {
+  let sorted;
+  if (!pkg[DIST_TAGS].latest) {
+    // overwrite latest with highest known version based on semver sort
+    sorted = semverSort(Object.keys(pkg.versions));
+    if (sorted?.length) {
+      pkg[DIST_TAGS].latest = sorted.pop();
+    }
+  }
+
+  for (const tag in pkg[DIST_TAGS]) {
+    if (_.isArray(pkg[DIST_TAGS][tag])) {
+      if (pkg[DIST_TAGS][tag].length) {
+        // sort array
+        // FIXME: this is clearly wrong, we need to research why this is like this.
+        // @ts-ignore
+        sorted = semverSort(pkg[DIST_TAGS][tag]);
+        if (sorted.length) {
+          // use highest version based on semver sort
+          pkg[DIST_TAGS][tag] = sorted.pop();
+        }
+      } else {
+        delete pkg[DIST_TAGS][tag];
+      }
+    } else if (_.isString(pkg[DIST_TAGS][tag])) {
+      if (!semver.parse(pkg[DIST_TAGS][tag], true)) {
+        // if the version is invalid, delete the dist-tag entry
+        delete pkg[DIST_TAGS][tag];
+      }
+    }
+  }
+}
+
+/**
+ * Function filters out bad semver versions and sorts the array.
+ * @return {Array} sorted Array
+ */
+export function semverSort(listVersions: string[] /* logger */): string[] {
+  return (
+    listVersions
+      .filter(function (x): boolean {
+        if (!semver.parse(x, true)) {
+          // FIXME: logger is always undefined
+          // logger.warn({ ver: x }, 'ignoring bad version @{ver}');
+          return false;
+        }
+        return true;
+      })
+      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
+      // @ts-ignore
+      .sort(semver.compareLoose)
+      .map(String)
+  );
+}
+
+export function getLatestVersion(pkgInfo: Package): string {
+  return pkgInfo[DIST_TAGS].latest;
 }

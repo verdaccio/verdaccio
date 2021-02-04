@@ -13,7 +13,6 @@ export function validatePassword(
 
 export function createSessionToken(): CookieSessionToken {
   const tenHoursTime = 10 * 60 * 60 * 1000;
-
   return {
     // npmjs.org sets 10h expire
     expires: new Date(Date.now() + tenHoursTime),

@@ -1,12 +1,29 @@
 import assert from 'assert';
 import { Package } from '@verdaccio/types';
 import { DIST_TAGS } from '@verdaccio/commons-api';
-import { normalizePackage, mergeUplinkTimeIntoLocal, STORAGE } from '../src/storage-utils';
+import { normalizePackage, mergeUplinkTimeIntoLocal, STORAGE, normalizeDistTags } from '../src/storage-utils';
 
 import { tagVersion } from '../src/storage-utils';
 import { readFile } from './fixtures/test.utils';
 
 describe('Storage Utils', () => {
+  const metadata: any = {
+    name: 'npm_test',
+    versions: {
+      '1.0.0': {
+        dist: {
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
+        },
+      },
+      '1.0.1': {
+        dist: {
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz',
+        },
+      },
+    },
+  };
+
+  const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
   describe('normalizePackage', () => {
     test('normalizePackage clean', () => {
       const pkg = normalizePackage({
@@ -169,6 +186,49 @@ describe('Storage Utils', () => {
         versions: {},
         'dist-tags': { foo: '1.1.1' },
       });
+    });
+  });
+  describe('normalizeDistTags', () => {
+    test('should delete a invalid latest version', () => {
+      const pkg = cloneMetadata();
+      pkg[DIST_TAGS] = {
+        latest: '20000',
+      };
+
+      normalizeDistTags(pkg);
+
+      expect(Object.keys(pkg[DIST_TAGS])).toHaveLength(0);
+    });
+
+    test('should define last published version as latest', () => {
+      const pkg = cloneMetadata();
+      pkg[DIST_TAGS] = {};
+
+      normalizeDistTags(pkg);
+
+      expect(pkg[DIST_TAGS]).toEqual({ latest: '1.0.1' });
+    });
+
+    test('should define last published version as latest with a custom dist-tag', () => {
+      const pkg = cloneMetadata();
+      pkg[DIST_TAGS] = {
+        beta: '1.0.1',
+      };
+
+      normalizeDistTags(pkg);
+
+      expect(pkg[DIST_TAGS]).toEqual({ beta: '1.0.1', latest: '1.0.1' });
+    });
+
+    test('should convert any array of dist-tags to a plain string', () => {
+      const pkg = cloneMetadata();
+      pkg[DIST_TAGS] = {
+        latest: ['1.0.1'],
+      };
+
+      normalizeDistTags(pkg);
+
+      expect(pkg[DIST_TAGS]).toEqual({ latest: '1.0.1' });
     });
   });
 });
