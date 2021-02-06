@@ -1,6 +1,6 @@
+import path from 'path';
 import supertest from 'supertest';
 import express from 'express';
-import path from 'path';
 import { Application } from 'express';
 import bodyParser from 'body-parser';
 import { Config, parseConfigFile } from '@verdaccio/config';

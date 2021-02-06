@@ -1,5 +1,5 @@
-import express from 'express';
 import path from 'path';
+import express from 'express';
 import { Application } from 'express';
 import bodyParser from 'body-parser';
 import { Config, parseConfigFile } from '@verdaccio/config';
