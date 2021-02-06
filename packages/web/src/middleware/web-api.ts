@@ -10,11 +10,12 @@ import addSearchWebApi from '../api/search';
 import addPackageWebApi from '../api/package';
 import addUserAuthApi from '../api/user';
 import { setSecurityWebHeaders } from './security';
-
-// eslint-disable-next-line new-cap
-const route = Router();
+import addReadmeWebApi from '../api/readme';
+import addSidebarWebApi from '../api/sidebar';
 
 export function webAPI(config: Config, auth: IAuth, storage: IStorageHandler): Router {
+  // eslint-disable-next-line new-cap
+  const route = Router();
   SearchInstance.configureStorage(storage);
 
   // validate all of these params as a package name
@@ -29,13 +30,14 @@ export function webAPI(config: Config, auth: IAuth, storage: IStorageHandler): R
   route.use(setSecurityWebHeaders);
 
   addPackageWebApi(route, storage, auth, config);
+  addReadmeWebApi(route, storage, auth);
+  addSidebarWebApi(route, storage, auth);
+  addSearchWebApi(route, storage, auth);
   addSearchWebApi(route, storage, auth);
   addUserAuthApi(route, auth, config);
-
   // What are you looking for? logout? client side will remove token when user click logout,
   // or it will auto expire after 24 hours.
   // This token is different with the token send to npm client.
   // With JWT you will be able to setup expire tokens.
-
   return route;
 }

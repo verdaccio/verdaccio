@@ -7,9 +7,9 @@ import {
   isVersionValid,
 } from '@verdaccio/utils';
 import sanitizyReadme from '@verdaccio/readme';
+import { sortByName, formatAuthor, getLocalRegistryTarballUri } from '@verdaccio/utils';
 
 import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { logger } from '@verdaccio/logger';
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
@@ -20,9 +20,9 @@ import { addGravatarSupport, AuthorAvatar, parseReadme } from '../web-utils';
 import { generateGravatarUrl } from '../user';
 import { deleteProperties, addScope, sortByName } from '../web-utils2';
 import { addGravatarSupport, AuthorAvatar, parseReadme } from '../utils/web-utils';
+import { AuthorAvatar } from '../utils/web-utils';
 import { generateGravatarUrl } from '../utils/user';
 
-export type $SidebarPackage = Package & { latest: Version };
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
 const getOrder = (order = 'asc') => {
@@ -40,8 +40,6 @@ function addPackageWebApi(
   config: Config
 ): void {
   debug('initialized package web api');
-  const can = allow(auth);
-
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
       try {
@@ -111,78 +109,6 @@ function addPackageWebApi(
         } catch (error) {
           next(error);
         }
-      });
-    }
-  );
-
-  // Get package readme
-  route.get(
-    '/package/readme/(@:scope/)?:package/:version?',
-    can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const packageName = req.params.scope
-        ? addScope(req.params.scope, req.params.package)
-        : req.params.package;
-
-      storage.getPackage({
-        name: packageName,
-        uplinksLook: true,
-        req,
-        callback: function (err, info): void {
-          if (err) {
-            return next(err);
-          }
-
-          res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
-          try {
-            next(parseReadme(info.name, info.readme));
-          } catch {
-            next(sanitizyReadme('ERROR: No README data found!'));
-          }
-        },
-      });
-    }
-  );
-
-  route.get(
-    '/sidebar/(@:scope/)?:package',
-    can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const packageName: string = req.params.scope
-        ? addScope(req.params.scope, req.params.package)
-        : req.params.package;
-
-      storage.getPackage({
-        name: packageName,
-        uplinksLook: true,
-        keepUpLinkData: true,
-        req,
-        callback: function (err: Error, info: $SidebarPackage): void {
-          if (_.isNil(err)) {
-            const { v } = req.query;
-            let sideBarInfo = _.clone(info);
-            sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
-              info,
-              req,
-              config.url_prefix
-            ).versions;
-            if (typeof v === 'string' && isVersionValid(info, v)) {
-              sideBarInfo.latest = sideBarInfo.versions[v];
-              sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
-            } else {
-              sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-              sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
-            }
-            sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
-            const authorAvatar = config.web
-              ? addGravatarSupport(sideBarInfo, config.web.gravatar)
-              : addGravatarSupport(sideBarInfo);
-            next(authorAvatar);
-          } else {
-            res.status(HTTP_STATUS.NOT_FOUND);
-            res.end();
-          }
-        },
       });
     }
   );
