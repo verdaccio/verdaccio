@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import buildDebug from 'debug';
 import { Router, Response, Request } from 'express';
 
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
@@ -8,16 +9,19 @@ import { IAuth } from '@verdaccio/auth';
 import { validatePassword, ErrorCode } from '@verdaccio/utils';
 import { $NextFunctionVer } from './package';
 
+const debug = buildDebug('verdaccio:web:api:user');
+
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
-
+    debug('authenticate %o', username);
     auth.authenticate(
       username,
       password,
       async (err, user: RemoteUser): Promise<void> => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
+          debug('error authenticate %o', errorCode);
           next(ErrorCode.getCode(errorCode, err.message));
         } else {
           req.remote_user = user;

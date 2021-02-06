@@ -1,4 +1,4 @@
-import { getManifestValue } from '../src/manifest';
+import { getManifestValue } from '../src/utils/manifest';
 
 const manifest = require('./partials/manifest/manifest.json');
 

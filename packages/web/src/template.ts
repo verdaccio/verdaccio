@@ -1,4 +1,7 @@
-import { getManifestValue, Manifest } from './manifest';
+import buildDebug from 'debug';
+import { getManifestValue, Manifest } from './utils/manifest';
+
+const debug = buildDebug('verdaccio:web:render:template');
 
 export type TemplateUIOptions = {
   title?: string;
@@ -29,7 +32,10 @@ export interface WebpackManifest {
   [key: string]: string;
 }
 
-export default (template: Template, manifest: WebpackManifest) => `
+export default function renderTemplate(template: Template, manifest: WebpackManifest) {
+  debug('template %o', template);
+  // debug('manifest %o', manifest);
+  return `
     <!DOCTYPE html>
       <html lang="en-us"> 
       <head>
@@ -54,4 +60,5 @@ export default (template: Template, manifest: WebpackManifest) => `
         ${template.scriptsBodyAfter ? template.scriptsBodyAfter.map((item) => item) : ''}
       </body>
     </html>
-`;
+  `;
+}

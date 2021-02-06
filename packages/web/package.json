@@ -42,7 +42,12 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.0.0-alpha.3"
+    "@verdaccio/types": "workspace:10.0.0-alpha.3",
+    "verdaccio-auth-memory": "workspace:10.0.0-alpha.3",
+    "verdaccio-memory": "workspace:10.0.0-alpha.3",
+    "supertest": "^6.1.3",
+    "body-parser": "^1.19.0",
+    "node-html-parser": "^2.1.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

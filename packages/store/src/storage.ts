@@ -479,6 +479,7 @@ class Storage {
    */
   public getLocalDatabase(callback: Callback): void {
     const self = this;
+    debug('get local database');
     this.localStorage.storagePlugin.get((err, locals): void => {
       if (err) {
         callback(err);

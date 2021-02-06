@@ -987,6 +987,10 @@ importers:
       lru-cache: 6.0.0
     devDependencies:
       '@verdaccio/types': link:../core/types
+      node-html-parser: 2.1.0
+      supertest: 6.1.3
+      verdaccio-auth-memory: link:../plugins/auth-memory
+      verdaccio-memory: link:../plugins/memory
     specifiers:
       '@verdaccio/auth': workspace:5.0.0-alpha.5
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
@@ -1004,6 +1008,10 @@ importers:
       express: 4.17.1
       lodash: ^4.17.20
       lru-cache: ^6.0.0
+      node-html-parser: ^2.1.0
+      supertest: ^6.1.3
+      verdaccio-auth-memory: workspace:10.0.0-alpha.3
+      verdaccio-memory: workspace:10.0.0-alpha.3
   test/e2e-cli:
     dependencies:
       debug: 4.3.1
@@ -14024,8 +14032,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.27
-    dev: false
+      mime-types: 2.1.28
     engines:
       node: '>= 6'
     resolution:
@@ -20154,6 +20161,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-dSq1xmcPDKPZ2EED2S6zw/b9NKsqzXRE6dVr8TVQnI3FJOTteUMuqF3Qqs6LZg+mLGYJWqQzMbIjMtJqTv87nQ==
+  /node-html-parser/2.1.0:
+    dependencies:
+      he: 1.2.0
+    dev: true
+    resolution:
+      integrity: sha512-kbCNfqjrwHAbG+mevL8aqjwVtF0Qv66XurWHoGLOc5G9rPR1L3k602jfeczAUUBldLNnCrdsDmO5G5nqAoMW+g==
   /node-int64/0.4.0:
     dev: true
     resolution:
@@ -25445,6 +25458,24 @@ packages:
       node: '>= 6.4.0'
     resolution:
       integrity: sha512-7V6JVx5N+eTL1MMqRBX0v0bG04UjrjAvvZJTF/VDH/SH2GjSLqlrcYepFlpTrXpm37aSY6h3GGVWGxXl/98TKA==
+  /superagent/6.1.0:
+    dependencies:
+      component-emitter: 1.3.0
+      cookiejar: 2.1.2
+      debug: 4.3.1
+      fast-safe-stringify: 2.0.7
+      form-data: 3.0.0
+      formidable: 1.2.2
+      methods: 1.1.2
+      mime: 2.4.6
+      qs: 6.9.4
+      readable-stream: 3.6.0
+      semver: 7.3.4
+    dev: true
+    engines:
+      node: '>= 7.0.0'
+    resolution:
+      integrity: sha512-OUDHEssirmplo3F+1HWKUrUjvnQuA+nZI6i/JJBdXb5eq9IyEQwPyPpqND+SSsxf6TygpBEkUjISVRN4/VOpeg==
   /supertest/4.0.2:
     dependencies:
       methods: 1.1.2
@@ -25462,6 +25493,15 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-+XblQKVMblt7kf4BRtK1vezM+Xxq+CWlksy4kmLyqDsN1y89YrDIJ0j/H2CGLMMNk+8k1/bCcGUw8XLs1NYxpg==
+  /supertest/6.1.3:
+    dependencies:
+      methods: 1.1.2
+      superagent: 6.1.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-v2NVRyP73XDewKb65adz+yug1XMtmvij63qIWHZzSX8tp6wiq6xBLUy4SUAd2NII6wIipOmHT/FD9eicpJwdgQ==
   /supports-color/2.0.0:
     engines:
       node: '>=0.8.0'

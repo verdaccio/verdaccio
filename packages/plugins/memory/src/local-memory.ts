@@ -8,6 +8,7 @@ import {
   TokenFilter,
   PluginOptions,
 } from '@verdaccio/types';
+import buildDebug from 'debug';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 
@@ -17,6 +18,8 @@ export interface MemoryLocalStorage {
   list: string[];
   files: DataHandler;
 }
+
+const debug = buildDebug('verdaccio:storage:memory');
 
 const DEFAULT_LIMIT = 1000;
 class LocalMemory implements IPluginStorage<ConfigMemory> {
@@ -32,6 +35,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     this.logger = options.logger;
     this.data = this._createEmtpyDatabase();
     this.path = '/';
+    debug('start plugin');
   }
 
   public getSecret(): Promise<string> {
@@ -80,7 +84,8 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   }
 
   public get(cb: Callback): void {
-    cb(null, this.data.list);
+    debug('data list length %o', this.data?.list?.length);
+    cb(null, this.data?.list);
   }
 
   public getPackageStorage(packageInfo: string): MemoryHandler {

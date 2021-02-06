@@ -8,6 +8,15 @@ export type AuthorAvatar = Author & { avatar?: string };
 
 import { generateGravatarUrl, GENERIC_AVATAR } from './user';
 
+export function validatePrimaryColor(primaryColor) {
+  const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
+  if (!isHex) {
+    return '';
+  }
+
+  return primaryColor;
+}
+
 export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;

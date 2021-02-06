@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import _ from 'lodash';
 import {
   formatAuthor,
@@ -18,6 +19,8 @@ import { Config, Package, RemoteUser, Version } from '@verdaccio/types';
 import { addGravatarSupport, AuthorAvatar, parseReadme } from '../web-utils';
 import { generateGravatarUrl } from '../user';
 import { deleteProperties, addScope, sortByName } from '../web-utils2';
+import { addGravatarSupport, AuthorAvatar, parseReadme } from '../utils/web-utils';
+import { generateGravatarUrl } from '../utils/user';
 
 export type $SidebarPackage = Package & { latest: Version };
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
@@ -26,7 +29,9 @@ const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
-export type PackcageExt = Package & { author: AuthorAvatar; dist?: { tarball: string } };
+export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: string } };
+
+const debug = buildDebug('verdaccio:web:api:package');
 
 function addPackageWebApi(
   route: Router,
@@ -34,6 +39,7 @@ function addPackageWebApi(
   auth: IAuth,
   config: Config
 ): void {
+  debug('initialized package web api');
   const can = allow(auth);
 
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
@@ -54,15 +60,16 @@ function addPackageWebApi(
   route.get(
     '/packages',
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      debug('hit package web api %o');
       storage.getLocalDatabase(async function (err, packages): Promise<void> {
         if (err) {
           throw err;
         }
-
-        async function processPackages(packages: PackcageExt[] = []): Promise<PackcageExt[]> {
-          const permissions: PackcageExt[] = [];
-          const packgesCopy = packages.slice();
-          for (const pkg of packgesCopy) {
+        async function processPackages(packages: PackageExt[] = []): Promise<PackageExt[]> {
+          const permissions: PackageExt[] = [];
+          const packagesToProcess = packages.slice();
+          debug('process packages %o', packagesToProcess);
+          for (const pkg of packagesToProcess) {
             const pkgCopy = { ...pkg };
             pkgCopy.author = formatAuthor(pkg.author);
             try {
@@ -84,6 +91,7 @@ function addPackageWebApi(
                 permissions.push(pkgCopy);
               }
             } catch (err) {
+              debug('process packages error %o', err);
               logger.logger.error(
                 { name: pkg.name, error: err },
                 'permission process for @{name} has failed: @{error}'
@@ -95,10 +103,14 @@ function addPackageWebApi(
           return permissions;
         }
 
-        const { web } = config;
-        const order = web ? getOrder(web.sort_packages) : true;
+        const order = getOrder(config?.web?.sort_packages);
+        debug('order %o', order);
 
-        next(sortByName(await processPackages(packages), order));
+        try {
+          next(sortByName(await processPackages(packages), order));
+        } catch (error) {
+          next(error);
+        }
       });
     }
   );
