@@ -27,3 +27,6 @@ packages:
     access: $anonymous
     publish: $anonymous
 _debug: true
+
+flags:
+  changePassword: true

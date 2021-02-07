@@ -507,12 +507,14 @@ importers:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/logger': link:../logger
       '@verdaccio/utils': link:../utils
+      debug: 4.3.1
       lodash: 4.17.15
     specifiers:
       '@verdaccio/auth': workspace:5.0.0-alpha.5
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
       '@verdaccio/logger': workspace:5.0.0-alpha.3
       '@verdaccio/utils': workspace:5.0.0-alpha.3
+      debug: ^4.3.1
       lodash: 4.17.15
   packages/mock:
     dependencies:
@@ -637,6 +639,7 @@ importers:
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
+      debug: 4.3.1
       memory-fs: 0.5.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
@@ -644,6 +647,7 @@ importers:
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
       '@verdaccio/streams': workspace:10.0.0-alpha.3
       '@verdaccio/types': workspace:10.0.0-alpha.3
+      debug: ^4.3.1
       memory-fs: ^0.5.0
   packages/plugins/ui-theme:
     devDependencies:

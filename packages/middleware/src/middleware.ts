@@ -358,7 +358,7 @@ export function handleError(
   res: $ResponseExtend,
   next: $NextFunctionVer
 ) {
-  debug('error handler %o', err?.message);
+  debug('error handler init');
   if (_.isError(err)) {
     debug('is native error');
     if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
@@ -374,7 +374,7 @@ export function handleError(
     res.locals.report_error(err);
   } else {
     // Fall to Middleware.final
-    debug('error handle fail, next layer %o', err);
+    debug('error handle fail, next layer');
     return next(err);
   }
 }

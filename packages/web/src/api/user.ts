@@ -36,35 +36,42 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     );
   });
 
-  route.put(
-    '/reset_password',
-    function (req: Request, res: Response, next: $NextFunctionVer): void {
-      if (_.isNil(req.remote_user.name)) {
-        res.status(HTTP_STATUS.UNAUTHORIZED);
-        return next({
-          // FUTURE: update to a more meaningful message
-          message: API_ERROR.MUST_BE_LOGGED,
-        });
-      }
+  if (config?.flags?.changePassword === true) {
+    route.put(
+      '/reset_password',
+      function (req: Request, res: Response, next: $NextFunctionVer): void {
+        if (_.isNil(req.remote_user.name)) {
+          res.status(HTTP_STATUS.UNAUTHORIZED);
+          return next({
+            // FUTURE: update to a more meaningful message
+            message: API_ERROR.MUST_BE_LOGGED,
+          });
+        }
 
-      const { password } = req.body;
-      const { name } = req.remote_user;
+        const { password } = req.body;
+        const { name } = req.remote_user;
 
-      if (validatePassword(password.new) === false) {
-        auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
-          if (_.isNil(err) && isUpdated) {
-            next({
-              ok: true,
-            });
-          } else {
-            return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
-          }
-        });
-      } else {
-        return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
+        if (validatePassword(password.new) === false) {
+          auth.changePassword(
+            name as string,
+            password.old,
+            password.new,
+            (err, isUpdated): void => {
+              if (_.isNil(err) && isUpdated) {
+                next({
+                  ok: true,
+                });
+              } else {
+                return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
+              }
+            }
+          );
+        } else {
+          return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
+        }
       }
-    }
-  );
+    );
+  }
 }
 
 export default addUserAuthApi;

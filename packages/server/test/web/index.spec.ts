@@ -3,13 +3,7 @@ import request from 'supertest';
 
 import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/commons-api';
 
-import {
-  addUser,
-  mockServer,
-  DOMAIN_SERVERS,
-  configExample,
-  generateRamdonStorage,
-} from '@verdaccio/mock';
+import { mockServer, DOMAIN_SERVERS, configExample, generateRamdonStorage } from '@verdaccio/mock';
 
 import { setup, logger } from '@verdaccio/logger';
 import endPointAPI from '../../src';
@@ -17,8 +11,6 @@ import forbiddenPlace from './partials/forbidden-place';
 import publishMetadata from './partials/publish-api';
 
 setup([]);
-
-const credentials = { name: 'user-web', password: 'secretPass' };
 
 describe('endpoint web unit test', () => {
   jest.setTimeout(40000);
@@ -197,49 +189,6 @@ describe('endpoint web unit test', () => {
             expect(res.body).toHaveLength(0);
             done();
           });
-      });
-    });
-
-    describe('User', () => {
-      beforeAll(async () => {
-        await addUser(request(app), credentials.name, credentials);
-      });
-
-      describe('login webui', () => {
-        test('should log successfully', (done) => {
-          request(app)
-            .post('/-/verdaccio/login')
-            .send({
-              username: credentials.name,
-              password: credentials.password,
-            })
-            .expect(HTTP_STATUS.OK)
-            .end(function (err, res) {
-              expect(err).toBeNull();
-              expect(res.body.error).toBeUndefined();
-              expect(res.body.token).toBeDefined();
-              expect(res.body.token).toBeTruthy();
-              expect(res.body.username).toMatch(credentials.name);
-              done();
-            });
-        });
-
-        test('should fails on log unvalid user', (done) => {
-          request(app)
-            .post('/-/verdaccio/login')
-            .send(
-              JSON.stringify({
-                username: 'fake',
-                password: 'fake',
-              })
-            )
-            // FIXME: there should be 401
-            .expect(HTTP_STATUS.OK)
-            .end(function (err, res) {
-              expect(res.body.error).toMatch(/bad username\/password, access denied/);
-              done();
-            });
-        });
       });
     });
   });

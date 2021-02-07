@@ -9,9 +9,9 @@ import { IStorageHandler } from '@verdaccio/store';
 import addSearchWebApi from '../api/search';
 import addPackageWebApi from '../api/package';
 import addUserAuthApi from '../api/user';
-import { setSecurityWebHeaders } from './security';
 import addReadmeWebApi from '../api/readme';
 import addSidebarWebApi from '../api/sidebar';
+import { setSecurityWebHeaders } from './security';
 
 export function webAPI(config: Config, auth: IAuth, storage: IStorageHandler): Router {
   // eslint-disable-next-line new-cap

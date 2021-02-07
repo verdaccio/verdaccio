@@ -340,6 +340,7 @@ declare module '@verdaccio/types' {
   interface ConfigFlags {
     token?: boolean;
     search?: boolean;
+    changePassword?: boolean;
   }
   export type RateLimit = {
     windowMs: number;
