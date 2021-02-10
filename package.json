@@ -4,8 +4,8 @@
     "email": "verdaccio.npm@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
   "private": true,

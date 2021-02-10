@@ -74,7 +74,7 @@
     "lint": "tsc --noEmit"
   },
   "repository": {
-    "type": "git",
+    "type": "https",
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "bugs": {

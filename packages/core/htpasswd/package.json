@@ -12,7 +12,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "repository": {
-    "type": "git",
+    "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/htpasswd"
   },

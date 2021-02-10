@@ -9,8 +9,8 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
     "@verdaccio/logger": "workspace:5.0.0-alpha.3",
