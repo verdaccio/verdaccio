@@ -1,81 +1,202 @@
 {
-  // Use IntelliSense to learn about possible Node.js debug attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
   "configurations": [
     {
-      "name": "Verdaccio Debug",
-      "port": 9229,
-      "request": "attach",
+      "name": "Jest api",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/api",
       "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
       "type": "pwa-node"
     },
     {
-      "type": "node",
+      "name": "Jest auth",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
       "request": "launch",
-      "name": "CLI Babel Registry",
-      "stopOnEntry": false,
-      "program": "${workspaceFolder}/debug/bootstrap.js",
-      "args": ["-l", "0.0.0.0:4873"],
-      "env": {
-        "BABEL_ENV": "registry"
-      },
-      "preLaunchTask": "npm: build:webui",
-      "console": "integratedTerminal"
+      "cwd": "${workspaceFolder}/packages/auth",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
     },
     {
-      "name": "Unit Tests",
-      "type": "node",
+      "name": "Jest cli",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
       "request": "launch",
-      "program": "${workspaceRoot}/node_modules/bin/jest",
-      "stopOnEntry": false,
-      "args": ["--debug=true"],
-      "cwd": "${workspaceRoot}",
-      "runtimeExecutable": null,
-      "runtimeArgs": ["--nolazy"],
-      "env": {
-        "NODE_ENV": "test",
-        "TZ": "UTC"
-      },
-      "console": "integratedTerminal"
+      "cwd": "${workspaceFolder}/packages/cli",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
     },
     {
-      "name": "Functional Tests",
-      "type": "node",
+      "name": "Jest config",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
       "request": "launch",
-      "program": "${workspaceRoot}/node_modules/.bin/jest",
-      "stopOnEntry": false,
-      "args": [
-        "--config",
-        "./test/jest.config.functional.js",
-        "--testPathPattern",
-        "./test/functional/index*",
-        "--debug=false",
-        "--verbose",
-        "--useStderr",
-        "--detectOpenHandles"
-      ],
-      "cwd": "${workspaceRoot}",
-      "env": {
-        "BABEL_ENV": "testOldEnv",
-        "VERDACCIO_DEBUG": "true",
-        "VERDACCIO_DEBUG_INJECT": "true",
-        "NODE_DEBUG": "TO_DEBUG_REQUEST_REMOVE_THIS_request"
-      },
-      "preLaunchTask": "pre-test",
-      "console": "integratedTerminal",
-      "runtimeExecutable": null,
-      "runtimeArgs": ["--nolazy"]
+      "cwd": "${workspaceFolder}/packages/config",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
     },
     {
-      "type": "node",
+      "name": "Jest core commons-api",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
       "request": "launch",
-      "name": "Verdaccio Compiled",
-      "preLaunchTask": "npm: code:build",
-      "program": "${workspaceRoot}/bin/verdaccio",
-      "args": ["-l", "0.0.0.0:4873"],
-      "console": "integratedTerminal"
+      "cwd": "${workspaceFolder}/packages/core",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest core file-locking",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/core",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest core httpasswd",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/core",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest core local-storage",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/core",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest core readme",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/core",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest core streams",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/core",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest hooks",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/hooks",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest loaders",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/loaders",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest logger",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/logger",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest logger prettify",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/logger-prettify",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest middleware",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/middleware",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest mock",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/mock",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest node",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/node-api",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest plugins",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/plugins",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest proxy",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/proxy",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest server",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/server",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest store",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/store",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Jest utils",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/utils",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--runInBand "],
+      "type": "pwa-node"
     }
   ]
 }
