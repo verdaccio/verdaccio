@@ -52,7 +52,7 @@
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-   "funding": {
+  "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   }

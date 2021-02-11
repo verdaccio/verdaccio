@@ -29,7 +29,7 @@
     "node": ">=10",
     "npm": ">=6"
   },
-    "scripts": {
+  "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
