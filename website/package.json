@@ -58,11 +58,15 @@
     "lisan-cli": "^0.1.1"
   },
   "keywords": [
-    "gatsby",
-    "gatsby-starter",
-    "emotion",
-    "material-ui",
-    "typescript"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "license": "MIT",
   "scripts": {
@@ -74,10 +78,14 @@
     "lint": "tsc --noEmit"
   },
   "repository": {
-    "type": "git",
+    "type": "https",
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
   }
 }

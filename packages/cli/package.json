@@ -10,10 +10,25 @@
     "verdaccio-cli": "./bin/verdaccio"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "description": "verdaccio CLI",
   "license": "MIT",
   "main": "./build/index.js",
@@ -35,5 +50,9 @@
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
     "semver": "7.3.2"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }
