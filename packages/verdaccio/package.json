@@ -31,8 +31,8 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
@@ -72,6 +72,5 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
-  },
-  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+  }
 }
