@@ -6,11 +6,26 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "description": "mock server for testing",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -35,5 +50,9 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.0.0-alpha.3"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

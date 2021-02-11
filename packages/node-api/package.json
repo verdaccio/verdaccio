@@ -9,10 +9,25 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "scripts": {
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
@@ -39,5 +54,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

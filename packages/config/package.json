@@ -9,12 +9,27 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "license": "MIT",
   "homepage": "https://verdaccio.org",
-  "scripts": {
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+    "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
@@ -36,5 +51,9 @@
   "devDependencies": {
     "@types/minimatch": "3.0.3",
     "@types/yup": "^0.29.9"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }
