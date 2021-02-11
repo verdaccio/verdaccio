@@ -26,10 +26,11 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
+  "license": "MIT",
   "devDependencies": {
     "@verdaccio/cli": "workspace:5.0.0-alpha.6",
     "@verdaccio/ui-theme": "workspace:5.0.0-alpha.4",
@@ -40,7 +41,6 @@
     "webpack-bundle-size-analyzer": "3.1.0"
   },
   "keywords": [
-    "standalone",
     "private",
     "package",
     "repository",
