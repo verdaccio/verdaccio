@@ -3,14 +3,25 @@
   "version": "10.0.0-alpha.3",
   "description": "Stream extension for Verdaccio",
   "keywords": [
-    "verdaccio",
-    "streams"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",

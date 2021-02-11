@@ -14,6 +14,21 @@
   },
   "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "dependencies": {
     "@verdaccio/api": "workspace:5.0.0-alpha.6",
     "@verdaccio/auth": "workspace:5.0.0-alpha.5",
@@ -46,5 +61,9 @@
     "watch": "pnpm build:js -- --watch",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

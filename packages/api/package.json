@@ -13,6 +13,21 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
@@ -46,5 +61,9 @@
     "lodash": "^4.17.20",
     "supertest": "next"
   },
-  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982"
+  "gitHead": "7c246ede52ff717707fcae66dd63fc4abd536982",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
 }

@@ -12,6 +12,10 @@
   },
   "homepage": "https://verdaccio.org",
   "main": "index.js",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "devDependencies": {
     "@emotion/core": "10.1.1",
     "@emotion/jest": "^11.1.0",
@@ -92,9 +96,15 @@
     "xss": "1.0.8"
   },
   "keywords": [
-    "verdaccio",
-    "verdaccio-plugin",
-    "verdaccio-theme"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "bundlesize": [
     {

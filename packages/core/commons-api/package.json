@@ -3,13 +3,20 @@
   "version": "10.0.0-alpha.3",
   "description": "Commons API utilities for Verdaccio",
   "keywords": [
-    "http",
-    "verdaccio",
-    "api"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
+  
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
@@ -27,7 +34,8 @@
     "build"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=10",
+    "npm": ">=6"
   },
   "dependencies": {
     "http-errors": "^1.8.0",
