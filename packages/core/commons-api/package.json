@@ -16,7 +16,6 @@
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
-  
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
