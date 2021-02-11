@@ -3,16 +3,21 @@
   "version": "10.0.0-alpha.6",
   "description": "htpasswd auth plugin for Verdaccio",
   "keywords": [
-    "verdaccio",
-    "plugin",
-    "auth",
-    "htpasswd"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "author": "Ayush Sharma <ayush.aceit@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "repository": {
-    "type": "git",
+    "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/htpasswd"
   },
@@ -25,7 +30,8 @@
     "build"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=10",
+    "npm": ">=6"
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",

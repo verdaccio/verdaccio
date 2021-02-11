@@ -1,8 +1,4 @@
-# Verdaccio Core
-
-```bash
-npm install --global verdaccio
-```
+# @verdaccio/standalone
 
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
