@@ -31,7 +31,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
     });
   };
 
-  // tagging a package. 
+  // tagging a package.
   route.put('/:package/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
   route.post(
