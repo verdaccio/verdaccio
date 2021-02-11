@@ -3,16 +3,21 @@
   "version": "10.0.0-alpha.3",
   "description": "Storage implementation in memory",
   "keywords": [
-    "verdaccio",
-    "plugin",
-    "storage",
-    "memory"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "repository": {
-    "type": "git",
+    "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/plugins/memory"
   },
@@ -21,6 +26,10 @@
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
     "@verdaccio/streams": "workspace:10.0.0-alpha.3",

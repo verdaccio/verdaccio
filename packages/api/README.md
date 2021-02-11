@@ -1,8 +1,4 @@
-# Verdaccio Core
-
-```bash
-npm install --global verdaccio
-```
+# @verdaccio/api
 
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
@@ -47,33 +43,3 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 ## Special Thanks
 
 Thanks to the following companies to help us to achieve our goals providing free open source licenses.
-
-[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
-[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
-
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-
-[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](../../graphs/contributors)
-
-### FAQ / Contact / Troubleshoot
-
-If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
-
-- [Blog](https://verdaccio.org/blog/)
-- [Donations](https://opencollective.com/verdaccio)
-- [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
-- [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
-- [Chat](http://chat.verdaccio.org/)
-- [Logos](https://verdaccio.org/docs/en/logo)
-- [Docker Examples](https://github.com/verdaccio/docker-examples)
-- [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
-
-### License
-
-Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
-
-The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch) files within the /assets folder) is
-[Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).

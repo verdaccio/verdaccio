@@ -3,15 +3,25 @@
   "version": "10.0.0-alpha.3",
   "description": "library that handle file locking",
   "keywords": [
-    "verdaccio",
-    "lock",
-    "fs"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "repository": {
-    "type": "git",
+    "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/file-locking"
   },
