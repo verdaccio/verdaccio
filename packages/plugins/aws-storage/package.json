@@ -3,11 +3,20 @@
   "version": "10.0.0-alpha.3",
   "description": "AWS S3 storage implementation for Verdaccio",
   "keywords": [
-    "verdaccio",
-    "plugin",
-    "storage",
-    "aws"
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
   ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",

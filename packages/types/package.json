@@ -10,16 +10,36 @@
     "email": "juanpicado19@gmail.com"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
     "lunr-mutable-indexes": "^2.3.2"
   },
   "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
+
 }
