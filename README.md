@@ -72,7 +72,9 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-Don't miss the last talk at **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
+**Next talk**: [Verdaccio - A lightweight Private Proxy Registry built in Node.js | Juan Picado at The Destro Dev Show](https://www.youtube.com/watch?reload=9&v=P_hxy7W-IL4&ab_channel=TheDestroDevShow)
+
+##### **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
 
 [![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/youtube_openjsword_2020.png)](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 
@@ -108,7 +110,7 @@ Now you can navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ## Publishing
 
-#### 1. create an user and log in
+#### 1. create a user and log in
 
 ```bash
 npm adduser --registry http://localhost:4873
@@ -168,7 +170,7 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Unpublishing packages (npm unpublish) - **supported**
 - Tagging (npm tag) - **supported**
-- Deprecation (npm deprecate) - supported
+- Deprecation (npm deprecate) - **supported**
 
 ### User management
 
@@ -210,18 +212,24 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 ## Who is using Verdaccio?
 
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
-* [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*
-* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+40k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+48k ⭐️)*
 * [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
-* [Angular CLI](https://github.com/angular/angular-cli) *(+21k ⭐️)*
-* [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
+* [Vue CLI](https://github.com/vuejs/vue-cli) *(+26k ⭐️)*
+* [Angular CLI](https://github.com/angular/angular-cli) *(+24k ⭐️)*
+* [Uppy](https://github.com/transloadit/uppy) *(+23k ⭐️)*
 * [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
-* [bit](https://github.com/teambit/bit) *(+9k ⭐️)*
+* [bit](https://github.com/teambit/bit) *(+12k ⭐️)*
 * [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
-* [pnpm](https://github.com/pnpm/pnpm) *(+6k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+9.1k ⭐️)*
+* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+9.4k ⭐️)*
+* [NX](https://github.com/nrwl/nx) *(+5.2k ⭐️)*
+* [webiny-js](https://github.com/webiny/webiny-js) *(+3.7k ⭐️)*
 * [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*
+* [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
+* [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
+* [workshopper how to npm](https://github.com/workshopper/how-to-npm)
 
 🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md).
 
@@ -280,4 +288,4 @@ If you have any issue you can try the following options, do no desist to ask or 
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 
 The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch)  files within the /assets folder) is
- [Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+ [Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).

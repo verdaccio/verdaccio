@@ -37,3 +37,10 @@ __tests__
 
 # Compiled script
 static/*
+
+# This is the Yarn build state; it's local to each clone
+/.yarn/build-state.yml
+
+# This is the Yarn install state cache, it can be rebuilt anytime
+/.yarn/install-state.gz
+.history

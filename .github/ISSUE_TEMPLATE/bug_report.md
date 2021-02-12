@@ -1,7 +1,9 @@
 ---
 name: Bug report 🐛
 about: A feature is not working as is expected, I want to report a bug
-labels: "issue: bug" "issue: needs triage"
+labels: 'issue: needs triage'
+title: ''
+assignees: ''
 ---
 
 **Describe the bug**

@@ -26,7 +26,7 @@ export function aesDecrypt(buf: Buffer, secret: string): Buffer {
     const b2 = c.final();
     return Buffer.concat([b1, b2]);
   } catch (_) {
-    return new Buffer(0);
+    return Buffer.alloc(0);
   }
 }
 
