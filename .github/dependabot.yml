@@ -10,15 +10,16 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     allow:   
       - dependency-name: "@verdaccio/*"
+      - dependency-name: "verdaccio-*"
     assignees:
       - "verdacciobot"
     labels:

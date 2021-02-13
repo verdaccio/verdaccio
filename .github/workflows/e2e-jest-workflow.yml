@@ -12,17 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.3
 
       - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@v2.1.0
+        uses: actions/setup-node@v1.4.4
         with:
           node-version: 10.x
       - name: Install Dependencies
-        run: yarn install --pure-lockfile
+        run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
-          nohup node ./scripts/run-verdaccio.js &
+          nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
@@ -38,24 +38,58 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
+  yarn2:
+    name: 'yarn2:jest example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.3.3
+
+      - name: 'Use Node.js 10.x'
+        uses: actions/setup-node@v1.4.4
+        with:
+          node-version: 10.x
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          yarn init --yes
+          yarn set version berry
+          yarn config set npmRegistryServer "http://localhost:4873"
+          yarn config set unsafeHttpWhitelist --json '["localhost"]'
+          yarn add jest@26.0.0
+
+          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+          yarn jest pass.test.js
+
+          yarn add left-pad
+          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+          yarn jest module.test.js
   npm:
     name: 'npm:jest example'
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.3
 
       - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@v2.1.0
+        uses: actions/setup-node@v1.4.4
         with:
           node-version: 10.x
       - name: 'install latest npm'
         run: npm i -g npm
       - name: Install Dependencies
-        run: yarn install --pure-lockfile
+        run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
-          nohup node ./scripts/run-verdaccio.js &
+          nohup node ./scripts/run-verdaccio.js  --config ./scripts/e2e-config.yaml  &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
@@ -71,21 +105,55 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
+  npm7:
+    name: 'npm7:jest example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.3.3
+
+      - name: 'Use Node.js 10.x'
+        uses: actions/setup-node@v1.4.4
+        with:
+          node-version: 10.x
+      - name: 'install latest npm'
+        run: npm i -g npm@next-7
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup node ./scripts/run-verdaccio.js  --config ./scripts/e2e-config.yaml  &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          npm init --force
+          npm install jest --registry http://localhost:4873
+
+          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+          yarn jest pass.test.js
+
+          yarn add left-pad --registry http://localhost:4873 --verbose
+          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+          yarn jest module.test.js
+
   pnpm:
     name: 'pnpm:jest example'
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.3
 
       - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@v2.1.0
+        uses: actions/setup-node@v1.4.4
         with:
           node-version: 10.x
       - name: 'install latest pnpm'
         run: npm i -g pnpm
       - name: Install Dependencies
-        run: yarn install --pure-lockfile
+        run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
           nohup node ./scripts/run-verdaccio.js &

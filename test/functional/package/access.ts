@@ -7,7 +7,7 @@ export default function(server) {
 
   describe('package access control', () => {
     const buildAccesToken = (auth) => {
-      return buildToken(TOKEN_BASIC, `${(new Buffer(auth).toString('base64'))}`);
+      return buildToken(TOKEN_BASIC, `${(Buffer.from(auth).toString('base64'))}`);
     };
 
     /**

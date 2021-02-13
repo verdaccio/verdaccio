@@ -2,6 +2,87 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.11.0](https://github.com/verdaccio/verdaccio/compare/v4.10.0...v4.11.0) (2021-01-20)
+
+
+### Features
+
+* enable keep alive ([#2067](https://github.com/verdaccio/verdaccio/issues/2067)) ([4d152ca](https://github.com/verdaccio/verdaccio/commit/4d152ca01bc3af7c345641353a5200e985feeb7f))
+* skip log static content from web ([#2027](https://github.com/verdaccio/verdaccio/issues/2027)) ([39376be](https://github.com/verdaccio/verdaccio/commit/39376be34514f4c7e1d3a0f403a8dad30f7a3f72)), closes [#2026](https://github.com/verdaccio/verdaccio/issues/2026)
+* update @verdaccio/ui-theme  ([#2026](https://github.com/verdaccio/verdaccio/issues/2026)) ([2ea17ce](https://github.com/verdaccio/verdaccio/commit/2ea17ced2c52782b5dca2444e26d16336f977cf9))
+* update UI theme ([#2065](https://github.com/verdaccio/verdaccio/issues/2065)) ([936aa30](https://github.com/verdaccio/verdaccio/commit/936aa30383d49b41cf5312735bca90ea95cdf5b0))
+
+
+### Bug Fixes
+
+* update dependencies ([#2066](https://github.com/verdaccio/verdaccio/issues/2066)) ([f005b37](https://github.com/verdaccio/verdaccio/commit/f005b378169eb43b363ab1e7562af9c948f8b730))
+* update docker base image node 14.15.14 ([#2049](https://github.com/verdaccio/verdaccio/issues/2049)) ([76e035e](https://github.com/verdaccio/verdaccio/commit/76e035e52fc08e9cd4c51160d11dac4c60b54024))
+
+## [4.10.0](https://github.com/verdaccio/verdaccio/compare/v4.9.1...v4.10.0) (2020-12-06)
+
+
+### Features
+
+* enable keep alive on configuration by default ([#2014](https://github.com/verdaccio/verdaccio/issues/2014)) ([9171f25](https://github.com/verdaccio/verdaccio/commit/9171f25b410d45348bd037fbb06e01710541100e))
+* Set bytesin log as optional ([#2013](https://github.com/verdaccio/verdaccio/issues/2013)) ([e2f7bb2](https://github.com/verdaccio/verdaccio/commit/e2f7bb2f2990b91b2c10e5b259125686ec9730e9))
+
+
+### Bug Fixes
+
+* doubled request logs in node.js >= 11 ([#2012](https://github.com/verdaccio/verdaccio/issues/2012)) ([1e59b6a](https://github.com/verdaccio/verdaccio/commit/1e59b6aa6fc83cb239a5ea7d2b5389e28a2c1261))
+
+### [4.9.1](https://github.com/verdaccio/verdaccio/compare/v4.9.0...v4.9.1) (2020-11-28)
+
+
+### Bug Fixes
+
+* fix missing readme on npm7 ([#2010](https://github.com/verdaccio/verdaccio/issues/2010)) ([f4a85af](https://github.com/verdaccio/verdaccio/commit/f4a85af20ddd70dc8e028b12e9d5a7d278e45b18))
+
+## [4.9.0](https://github.com/verdaccio/verdaccio/compare/v4.8.1...v4.9.0) (2020-11-22)
+
+
+### Features
+
+* migrate yarn 1 to yarn 2 ([#1962](https://github.com/verdaccio/verdaccio/issues/1962)) ([1ece11c](https://github.com/verdaccio/verdaccio/commit/1ece11cfc0ecf1bdfe9ec545ce73c6a1d41a5fa0))
+* update docker base image to node 14.15.0 ([#1992](https://github.com/verdaccio/verdaccio/issues/1992)) ([f901749](https://github.com/verdaccio/verdaccio/commit/f90174935f77e6f4fe221d0b760e6ae05eb3d9f2))
+
+
+### Bug Fixes
+
+* buffer deprecated warnings  ([#1993](https://github.com/verdaccio/verdaccio/issues/1993)) ([4feaf24](https://github.com/verdaccio/verdaccio/commit/4feaf241c913ce2054382182f908bb569284e4d6))
+* check author if lastest is not found ([#1994](https://github.com/verdaccio/verdaccio/issues/1994)) ([185babc](https://github.com/verdaccio/verdaccio/commit/185babc53f350949263c79da4733483a4e451fc4))
+* package.json & yarn.lock to reduce vulnerabilities ([#1910](https://github.com/verdaccio/verdaccio/issues/1910)) ([cb5a8a7](https://github.com/verdaccio/verdaccio/commit/cb5a8a7ccd5cf49740bb51648ca36d2c8a142e62))
+* update dependencies ([#1965](https://github.com/verdaccio/verdaccio/issues/1965)) ([1443b73](https://github.com/verdaccio/verdaccio/commit/1443b7343a96ab45df15f9dc45d7e791d9b97fae))
+* update dependencies ([#1991](https://github.com/verdaccio/verdaccio/issues/1991)) ([ef51294](https://github.com/verdaccio/verdaccio/commit/ef51294457fd2b0e346ae5aad9541c230be3756e))
+* update dependencies, docker base and build deps ([#2007](https://github.com/verdaccio/verdaccio/issues/2007)) ([6eef015](https://github.com/verdaccio/verdaccio/commit/6eef0157ba06782e77c5dbb88f90fc07b9607544))
+* **deps:** bump @verdaccio/ui-theme from 1.12.1 to 1.13.1 ([#1961](https://github.com/verdaccio/verdaccio/issues/1961)) ([f7aad33](https://github.com/verdaccio/verdaccio/commit/f7aad33925391c4a47a8560c9ed70217f990ecde))
+* update Dockerfile to Node v12.18.4 ([#1945](https://github.com/verdaccio/verdaccio/issues/1945)) ([b409c01](https://github.com/verdaccio/verdaccio/commit/b409c0111fda547aa6898a2c36f27eaf654cae91))
+
+### [4.8.1](https://github.com/verdaccio/verdaccio/compare/v4.8.0...v4.8.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1879](https://github.com/verdaccio/verdaccio/issues/1879)) ([7c50d87](https://github.com/verdaccio/verdaccio/commit/7c50d87c52287d29517f3f800f5ce4e5078f94fa))
+* package.json & yarn.lock to reduce vulnerabilities ([#1889](https://github.com/verdaccio/verdaccio/issues/1889)) ([5e94478](https://github.com/verdaccio/verdaccio/commit/5e94478387ca01a660b804dd35e76edbf5ea1ce1))
+* update readme library ([#1892](https://github.com/verdaccio/verdaccio/issues/1892)) ([f75ad87](https://github.com/verdaccio/verdaccio/commit/f75ad876fd6815d848688b7605c2c126e464a929))
+* upgrade docker base image nodejs ([#1895](https://github.com/verdaccio/verdaccio/issues/1895)) ([261eab5](https://github.com/verdaccio/verdaccio/commit/261eab5ca0567ab17fb06aff270214c634fbb74b))
+
+## [4.8.0](https://github.com/verdaccio/verdaccio/compare/v4.7.2...v4.8.0) (2020-07-16)
+
+
+### Features
+
+* **deps:** bump @verdaccio/ui-theme from 1.11.0 to 1.12.0 ([#1872](https://github.com/verdaccio/verdaccio/issues/1872)) ([0348bf6](https://github.com/verdaccio/verdaccio/commit/0348bf6b5da86d80ed1af1572dae734b894156b6))
+* ca certificate is optional for https configuration ([#1853](https://github.com/verdaccio/verdaccio/issues/1853)) ([912482a](https://github.com/verdaccio/verdaccio/commit/912482a5ae7c81aff4dc127cc6d4dc69f4133b70))
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#1876](https://github.com/verdaccio/verdaccio/issues/1876)) ([e374a62](https://github.com/verdaccio/verdaccio/commit/e374a6248be972b1914b08e16cade949ea12b3cb))
+* revert move bodyParse to the upper level ([#1841](https://github.com/verdaccio/verdaccio/issues/1841)) ([#1877](https://github.com/verdaccio/verdaccio/issues/1877)) ([844267c](https://github.com/verdaccio/verdaccio/commit/844267ce257984f07dc552a671623a177febd5b4))
+* update dependencies ([#1878](https://github.com/verdaccio/verdaccio/issues/1878)) ([3c48670](https://github.com/verdaccio/verdaccio/commit/3c4867059a0a929439b8715ca4dd2c38d7e22322))
+
 ### [4.7.2](https://github.com/verdaccio/verdaccio/compare/v4.7.1...v4.7.2) (2020-06-26)
 
 

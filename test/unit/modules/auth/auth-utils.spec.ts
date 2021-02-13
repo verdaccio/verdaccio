@@ -201,7 +201,7 @@ describe('Auth utilities', () => {
         const secret = 'secret';
         const config: Config = getConfig('security-legacy', secret);
         const auth: IAuth = new Auth(config);
-        const token = auth.aesEncrypt(new Buffer(`corruptedBuffer`)).toString('base64');
+        const token = auth.aesEncrypt(Buffer.from(`corruptedBuffer`)).toString('base64');
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).not.toBeDefined();

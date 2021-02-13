@@ -1,0 +1,44 @@
+storage: ./storage
+plugins: ./plugins
+
+web:
+  title: Verdaccio e2e
+auth:
+  htpasswd:
+    file: ./htpasswd
+uplinks:
+  verdaccio:
+    url: https://registry.verdaccio.org/
+    max_fails: 30
+    fail_timeout: 10m
+    timeout: 60s
+    cache: false
+    maxage: 30m
+    agent_options:
+      keepAlive: true
+      maxSockets: 40
+      maxFreeSockets: 10
+
+packages:
+  '@*/*':
+    # scoped packages
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: verdaccio
+
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: verdaccio
+
+server:
+  keepAliveTimeout: 60
+
+middlewares:
+  audit:
+    enabled: true
+
+logs:
+  - { type: stdout, format: pretty, level: warn }

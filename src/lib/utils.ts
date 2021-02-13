@@ -53,7 +53,7 @@ export function getUserAgent(): string {
 }
 
 export function convertPayloadToBase64(payload: string): Buffer {
-  return new Buffer(payload, 'base64');
+  return Buffer.from(payload, 'base64');
 }
 
 /**

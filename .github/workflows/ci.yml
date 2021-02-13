@@ -9,18 +9,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [8, 10, 12, 13]
+        node_version: [10, 12, 13, 14, 15]
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2.3.1
+    - uses: actions/checkout@v2.3.3
     - name: Use Node ${{ matrix.node_version }}
-      uses: actions/setup-node@v2.1.0
+      uses: actions/setup-node@v1.4.4
       with:
         node_version: ${{ matrix.node_version }}
     - name: Install
-      run: yarn install --pure-lockfile
+      run: yarn install --immutable
     - name: Build
       run: yarn code:build
     - name: Lint

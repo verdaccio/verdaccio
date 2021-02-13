@@ -8,14 +8,16 @@
 .*
 # you can add exceptions like in .gitignore to maintain a whitelist:
 # e.g.
-!.babelrc
+!babel.config.js
 !.eslintrc
 !.prettierrc
 !.eslintignore
 !.stylelintrc
-!.flowconfig
 !.jest.config.js
 !.jestEnvironment.js
+!.yarnrc.yml
+!.yarn/releases/yarn-berry.cjs
+!.yarn/plugins/*
 
 # do not copy over node_modules we will run `npm install` anyway
 node_modules

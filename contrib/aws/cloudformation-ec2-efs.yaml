@@ -22,11 +22,6 @@ Parameters:
     Description: >
       The route 53 hosted zone name to create the `npm.<zone>` record in. Do not
       include the trailing dot!
-  Route53RecordHostedZoneId:
-    Type: String
-    Description: >
-      Hosted Zone ID for the load balancer. Find it here:
-      https://docs.aws.amazon.com/general/latest/gr/rande.html
   Vpc:
     Type: AWS::EC2::VPC::Id
     Description: VPC to create this stack inside
@@ -261,7 +256,9 @@ Resources:
             - Lb
             - DNSName
         HostedZoneId:
-          Ref: Route53RecordHostedZoneId
+          Fn::GetAtt:
+            - Lb
+            - CanonicalHostedZoneID
       HostedZoneName:
         Fn::Sub: ${DnsHostedZoneName}.
       Name:

@@ -80,6 +80,8 @@ logs:
 #  token: false
 #  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
 #  search: false
+#  # disable writing body size to logs, read more on ticket 1912
+#  bytesin_off: false
 
 # This affect the web and api (not developed yet)
 #i18n:

@@ -121,7 +121,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       });
       // this is dumb and memory-consuming, but what choices do we have?
       // flow: we need first refactor this file before decides which type use here
-      stream.end(new Buffer(data.data, 'base64'));
+      stream.end(Buffer.from(data.data, 'base64'));
       stream.done();
     };
 
@@ -183,10 +183,11 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         }
 
         const versionToPublish = Object.keys(versions)[0];
+        const versionMetadataToPublish = versions[versionToPublish];
 
-        versions[versionToPublish].readme = _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
+        versionMetadataToPublish.readme = _.isNil(versionMetadataToPublish.readme) === false ? String(versionMetadataToPublish.readme) : '';
 
-        createVersion(versionToPublish, versions[versionToPublish], function(error) {
+        createVersion(versionToPublish, versionMetadataToPublish, function(error) {
           if (error) {
             return next(error);
           }
