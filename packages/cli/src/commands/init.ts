@@ -5,8 +5,6 @@ import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
 export default function initProgram(commander, pkgVersion, pkgName) {
-  // FIXME: we need to log before the setup is being applied
-  // const initLogger = createLogger();
   const cliListener = commander.listen;
   let configPathLocation;
   let verdaccioConfiguration: ConfigRuntime;
