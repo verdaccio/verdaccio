@@ -1,5 +1,11 @@
 # @verdaccio/node-api
 
+## 5.0.0-alpha.7
+
+### Minor Changes
+
+- 64737a37: feat: improve cli loggin on start up
+
 ## 5.0.0-alpha.6
 
 ### Patch Changes
