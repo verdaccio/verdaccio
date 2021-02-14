@@ -21,6 +21,9 @@
     },
     {
       "path": "../utils"
+    },
+    {
+      "path": "../core/cli-ui"
     }
   ]
 }

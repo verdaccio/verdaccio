@@ -6,22 +6,9 @@ import selfsigned from 'selfsigned';
 import { configExample } from '@verdaccio/mock';
 import { parseConfigFile } from '@verdaccio/config';
 
-import { logger } from '@verdaccio/logger';
-
 import { startVerdaccio } from '../src';
 import { DEFAULT_DOMAIN, DEFAULT_PROTOCOL } from '../src/cli-utils';
-
-jest.mock('@verdaccio/logger', () => ({
-  setup: jest.fn(),
-  logger: {
-    child: jest.fn(),
-    debug: jest.fn(),
-    trace: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-    fatal: jest.fn(),
-  },
-}));
+const mockProcess = require('jest-mock-process');
 
 describe('startServer via API', () => {
   const parseConfigurationFile = (name) => {
@@ -144,26 +131,19 @@ describe('startServer via API', () => {
     });
 
     test('should provide all HTTPS server fails', async (done) => {
+      let mockExit = mockProcess.mockProcessExit();
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const address = 'https://www.domain.com:443';
-      const realProcess = process;
 
-      const conf = configExample();
+      const conf = configExample({});
       conf.https = {};
       // save process to catch exist
-      const exitMock = jest.fn();
-      // @ts-ignore
-      global.process = { ...realProcess, exit: exitMock };
       await startVerdaccio(conf, address, store, version, serverName, () => {
-        expect(logger.fatal).toHaveBeenCalled();
-        expect(logger.fatal).toHaveBeenCalledTimes(2);
+        expect(mockExit).toHaveBeenCalledWith(2);
         done();
       });
-      expect(exitMock).toHaveBeenCalledWith(2);
-      // restore process
-      global.process = realProcess;
     });
 
     test('should start a https server with key and cert', async (done) => {

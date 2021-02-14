@@ -41,7 +41,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
     "@verdaccio/config": "workspace:5.0.0-alpha.3",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.3",
+    "@verdaccio/cli-ui": "workspace:5.0.0-alpha.3",
     "@verdaccio/server": "workspace:5.0.0-alpha.6",
     "core-js": "^3.6.5",
     "debug": "^4.2.0",
@@ -50,7 +50,8 @@
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:5.0.0-alpha.3",
-    "@verdaccio/types": "workspace:10.0.0-alpha.3"
+    "@verdaccio/types": "workspace:10.0.0-alpha.3",
+    "jest-mock-process": "^1.4.0"
   },
   "publishConfig": {
     "access": "public"
