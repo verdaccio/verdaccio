@@ -35,6 +35,7 @@ importers:
       '@types/autosuggest-highlight': 3.1.1
       '@types/express': 4.17.6
       '@types/http-errors': 1.8.0
+      '@types/ink': 2.0.3_@types+react@16.14.2
       '@types/jest': 26.0.20
       '@types/js-base64': 3.0.0
       '@types/lodash': 4.14.167
@@ -141,6 +142,7 @@ importers:
       '@types/autosuggest-highlight': 3.1.1
       '@types/express': 4.17.6
       '@types/http-errors': 1.8.0
+      '@types/ink': ^2.0.3
       '@types/jest': ^26.0.20
       '@types/js-base64': 3.0.0
       '@types/lodash': 4.14.167
@@ -284,16 +286,16 @@ importers:
       verdaccio-htpasswd: workspace:10.0.0-alpha.6
   packages/cli:
     dependencies:
+      '@verdaccio/cli-ui': link:../core/cli-ui
       '@verdaccio/config': link:../config
-      '@verdaccio/logger': link:../logger
       '@verdaccio/node-api': link:../node-api
       commander: 6.2.0
       envinfo: 7.4.0
       kleur: 3.0.3
       semver: 7.3.2
     specifiers:
+      '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
       '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
       '@verdaccio/node-api': workspace:5.0.0-alpha.6
       commander: 6.2.0
       envinfo: 7.4.0
@@ -323,6 +325,13 @@ importers:
       minimatch: 3.0.4
       mkdirp: 0.5.5
       yup: ^0.29.3
+  packages/core/cli-ui:
+    dependencies:
+      chalk: 4.1.0
+      terminal-link: 2.1.1
+    specifiers:
+      chalk: ^4.1.0
+      terminal-link: ^2.1.1
   packages/core/commons-api:
     dependencies:
       http-errors: 1.8.0
@@ -531,9 +540,9 @@ importers:
       supertest: ^4.0.2
   packages/node-api:
     dependencies:
+      '@verdaccio/cli-ui': link:../core/cli-ui
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/config': link:../config
-      '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server
       core-js: 3.6.5
       debug: 4.2.0
@@ -542,15 +551,17 @@ importers:
     devDependencies:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
+      jest-mock-process: 1.4.0
     specifiers:
+      '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
       '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
       '@verdaccio/mock': workspace:5.0.0-alpha.3
       '@verdaccio/server': workspace:5.0.0-alpha.6
       '@verdaccio/types': workspace:10.0.0-alpha.3
       core-js: ^3.6.5
       debug: ^4.2.0
+      jest-mock-process: ^1.4.0
       lodash: ^4.17.20
       selfsigned: 1.10.7
   packages/plugins/active-directory:
@@ -1636,7 +1647,6 @@ packages:
     resolution:
       integrity: sha512-O4KCvQA6lLiMU9l2eawBPMf1xPP8xPfB3iEQw150hOVTqj/rfXz0ThTb4HEzqQfs2Bmo5Ay8BzxfzVtBrr9dVg==
   /@babel/helper-plugin-utils/7.12.13:
-    dev: true
     resolution:
       integrity: sha512-C+10MXCXJLiR6IeG9+Wiejt9jmtFpxUc3MQqCmPY8hfCjyUGl9kT+B2okzEZrtykiwrc4dbCPdDoz0A/HQbDaA==
   /@babel/helper-regex/7.10.5:
@@ -2290,7 +2300,7 @@ packages:
       integrity: sha512-XyJmZidNfofEkqFV5VC/bLabGmO5QzenPO/YOfGuEbgU+2sSwMmio3YLb4WtBgcmmdwZHyVyv8on77IUjQ5Gvg==
   /@babel/plugin-syntax-async-generators/7.8.4:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2299,7 +2309,7 @@ packages:
   /@babel/plugin-syntax-async-generators/7.8.4_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2422,7 +2432,7 @@ packages:
       integrity: sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ==
   /@babel/plugin-syntax-export-namespace-from/7.8.3:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2431,7 +2441,7 @@ packages:
   /@babel/plugin-syntax-export-namespace-from/7.8.3_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2475,7 +2485,7 @@ packages:
       integrity: sha512-Yqfm+XDx0+Prh3VSeEQCPU81yC+JWZ2pDPFSS4ZdpfZhp4MkFMaDC1UqseovEKwSUpnIL7+vK+Clp7bfh0iD7g==
   /@babel/plugin-syntax-json-strings/7.8.3:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2484,7 +2494,7 @@ packages:
   /@babel/plugin-syntax-json-strings/7.8.3_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2545,7 +2555,7 @@ packages:
       integrity: sha512-d4HM23Q1K7oq/SLNmG6mRt85l2csmQ0cHRaxRXjKW0YFdEXqlZ5kzFQKH5Uc3rDJECgu+yCRgPkG04Mm98R/1g==
   /@babel/plugin-syntax-logical-assignment-operators/7.10.4:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2554,7 +2564,7 @@ packages:
   /@babel/plugin-syntax-logical-assignment-operators/7.10.4_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2580,7 +2590,7 @@ packages:
       integrity: sha512-d8waShlpFDinQ5MtvGU9xDAOzKH47+FFoney2baFIoMr952hKOLp1HR7VszoZvOsV/4+RRszNY7D17ba0te0ig==
   /@babel/plugin-syntax-nullish-coalescing-operator/7.8.3:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2589,7 +2599,7 @@ packages:
   /@babel/plugin-syntax-nullish-coalescing-operator/7.8.3_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2615,7 +2625,7 @@ packages:
       integrity: sha512-aSff4zPII1u2QD7y+F8oDsz19ew4IGEJg9SVW+bqwpwtfFleiQDMdzA/R+UlWDzfnHFCxxleFT0PMIrR36XLNQ==
   /@babel/plugin-syntax-numeric-separator/7.10.4:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2624,7 +2634,7 @@ packages:
   /@babel/plugin-syntax-numeric-separator/7.10.4_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2650,7 +2660,7 @@ packages:
       integrity: sha512-9H6YdfkcK/uOnY/K7/aA2xpzaAgkQn37yzWUMRK7OaPOqOpGS1+n0H5hxT9AUw9EsSjPW8SVyMJwYRtWs3X3ug==
   /@babel/plugin-syntax-object-rest-spread/7.8.3:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2659,7 +2669,7 @@ packages:
   /@babel/plugin-syntax-object-rest-spread/7.8.3_@babel+core@7.10.5:
     dependencies:
       '@babel/core': 7.10.5
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2668,7 +2678,7 @@ packages:
   /@babel/plugin-syntax-object-rest-spread/7.8.3_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2694,7 +2704,7 @@ packages:
       integrity: sha512-XoqMijGZb9y3y2XskN+P1wUGiVwWZ5JmoDRwx5+3GmEplNyVM2s2Dg8ILFQm8rWM48orGy5YpI5Bl8U1y7ydlA==
   /@babel/plugin-syntax-optional-catch-binding/7.8.3:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2703,7 +2713,7 @@ packages:
   /@babel/plugin-syntax-optional-catch-binding/7.8.3_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2729,7 +2739,7 @@ packages:
       integrity: sha512-6VPD0Pc1lpTqw0aKoeRTMiB+kWhAoT24PA+ksWSBrFtl5SIRVpZlwN3NNPQjehA2E/91FV3RjLWoVTglWcSV3Q==
   /@babel/plugin-syntax-optional-chaining/7.8.3:
     dependencies:
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2738,7 +2748,7 @@ packages:
   /@babel/plugin-syntax-optional-chaining/7.8.3_@babel+core@7.11.4:
     dependencies:
       '@babel/core': 7.11.4
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.12.13
     dev: false
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -6958,6 +6968,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-IrSHl2u6AWXduUaDLqYpt45tLVCtYv7o4Z0s1KghBCDgIIS9oW5K1H8mZG/A2CfeLdEa7rTd1ACOiHBc1EMT2Q==
+  /@types/ink/2.0.3_@types+react@16.14.2:
+    dependencies:
+      ink: 3.0.8_@types+react@16.14.2
+    deprecated: This is a stub types definition. ink provides its own type definitions, so you do not need this installed.
+    dev: true
+    peerDependencies:
+      '@types/react': '*'
+    resolution:
+      integrity: sha512-DYKIKEJqhsGfQ/jgX0t9BzfHmBJ/9dBBT2MDsHAQRAfOPhEe7LZm5QeNBx1J34/e108StCPuJ3r4bh1y38kCJA==
   /@types/istanbul-lib-coverage/2.0.3:
     resolution:
       integrity: sha512-sz7iLqvVUg1gIedBOvlkxPlc8/uVzyS5OwGz1cKjXzkl3FpL3al0crU8YGU1WoHkxn0Wxbw5tyi6hvzJKNzFsw==
@@ -7387,7 +7406,6 @@ packages:
     resolution:
       integrity: sha512-A1b8SU4D10uoPjwb0lnHmmu8wZhR9d+9o2PKBQT2jU5YPTKsxac6M2qGAdY7VcL+dHHhARVUDmeg0rOrcd9EjA==
   /@types/yoga-layout/1.9.2:
-    dev: false
     resolution:
       integrity: sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
   /@types/yup/0.29.9:
@@ -8606,7 +8624,6 @@ packages:
     resolution:
       integrity: sha1-9wtzXGvKGlycItmCw+Oef+ujva0=
   /astral-regex/1.0.0:
-    dev: false
     engines:
       node: '>=4'
     resolution:
@@ -8668,7 +8685,6 @@ packages:
     resolution:
       integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
   /auto-bind/4.0.0:
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -9137,7 +9153,6 @@ packages:
     resolution:
       integrity: sha512-mLQ4i2QO1ytvGWFWmcngKO//JXAQueZvwEKtjgQFM4jIK0kU+ytMfplL8j+n5mspOfjHwoAg+9yhb7BwAHm36g==
   /base64-js/1.5.1:
-    dev: true
     resolution:
       integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
   /base64id/2.0.0:
@@ -9291,7 +9306,7 @@ packages:
       integrity: sha512-pvcNpa0UU69UT341rO6AYy4FVAIkUHuZXRIWbq+zHnsVcRzDDjIAhGuuYoi0d//cwIwtt4pkpKycWEfjdV+vww==
   /bl/4.0.3:
     dependencies:
-      buffer: 5.6.0
+      buffer: 5.7.1
       inherits: 2.0.4
       readable-stream: 3.6.0
     resolution:
@@ -9620,7 +9635,6 @@ packages:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-    dev: true
     resolution:
       integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==
   /builtin-modules/3.1.0:
@@ -10224,7 +10238,6 @@ packages:
     dependencies:
       slice-ansi: 3.0.0
       string-width: 4.2.0
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -10321,6 +10334,14 @@ packages:
       node: '>= 4.0'
     resolution:
       integrity: sha512-q5/jG+YQnSy4nRTV4F7lPepBJZ8qBNJJDBuJdoejDyLXgmL7IEo+Le2JDZudFTFt7mrCqIRaSjws4ygRCTCAXA==
+  /code-excerpt/3.0.0:
+    dependencies:
+      convert-to-spaces: 1.0.2
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-VHNTVhd7KsLGOqfX3SyeO8RyYPMp1GJOg194VITk04WMYCv4plV68YWe6TJZxd9MhobjtpMRnVky01gqZsalaw==
   /code-point-at/1.1.0:
     engines:
       node: '>=0.10.0'
@@ -10879,6 +10900,12 @@ packages:
       safe-buffer: 5.1.2
     resolution:
       integrity: sha512-4FJkXzKXEDB1snCFZlLP4gpC3JILicCpGbzG9f9G7tGqGCzETQ2hWPrcinA9oU4wtf2biUaEH5065UnMeR33oA==
+  /convert-to-spaces/1.0.2:
+    dev: true
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha1-fj5Iu+bZl7FBfdyihoIEtNPYVxU=
   /cookie-signature/1.0.6:
     resolution:
       integrity: sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
@@ -16373,7 +16400,6 @@ packages:
     resolution:
       integrity: sha512-4vf7I2LYV/HaWerSo3XmlMkp5eZ83i+/CDluXi/IGTs/O1sejBNhTtnxzmRZfvOUqj7lZjqHkeTvpgSFDlWZTg==
   /ieee754/1.2.1:
-    dev: true
     resolution:
       integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
   /iferr/0.1.5:
@@ -16662,6 +16688,43 @@ packages:
         optional: true
     resolution:
       integrity: sha512-s7lJuQDJEdjqtaIWhp3KYHl6WV3J04U9zoQ6wVc+Xoa06XM27SXUY57qC5DO46xkF0CfgXMKkKNcgvSu/SAEpA==
+  /ink/3.0.8_@types+react@16.14.2:
+    dependencies:
+      '@types/react': 16.14.2
+      ansi-escapes: 4.3.1
+      auto-bind: 4.0.0
+      chalk: 4.1.0
+      cli-boxes: 2.2.1
+      cli-cursor: 3.1.0
+      cli-truncate: 2.1.0
+      code-excerpt: 3.0.0
+      indent-string: 4.0.0
+      is-ci: 2.0.0
+      lodash: 4.17.20
+      patch-console: 1.0.0
+      react-devtools-core: 4.10.1
+      react-reconciler: 0.24.0
+      scheduler: 0.18.0
+      signal-exit: 3.0.3
+      slice-ansi: 3.0.0
+      stack-utils: 2.0.2
+      string-length: 3.1.0
+      type-fest: 0.12.0
+      widest-line: 3.1.0
+      wrap-ansi: 6.2.0
+      ws: 7.4.2
+      yoga-layout-prebuilt: 1.9.6
+    dev: true
+    engines:
+      node: '>=10'
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    resolution:
+      integrity: sha512-ubMFylXYaG4IkXQVhPautbhV/p6Lo0GlvAMI/jh8cGJQ39yeznJbaTTJP2CqZXezA4GOHzalpwCWqux/NEY38w==
   /inline-style-parser/0.1.1:
     dev: false
     resolution:
@@ -17718,6 +17781,12 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-rGiLePzQ3AzwUshu2+Rn+UMFk0pHN58sOG+IaJbk5Jxuqo3NYO1U2/MIR4S1sKgsoYSXSzdtSa0TgrmtUwEbmA==
+  /jest-mock-process/1.4.0:
+    dev: true
+    peerDependencies:
+      jest: '>=23.4 <27'
+    resolution:
+      integrity: sha512-3LM1TyEaRKRjh/x9rZPmuy28r7q8cgNkHYcrPWtxXT3ZzPPS+bKNs2ysb8BJPVB41X5yM1sMtatvE5z2XJ0S/w==
   /jest-mock/26.6.2:
     dependencies:
       '@jest/types': 26.6.2
@@ -21335,6 +21404,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-bpuBhROdrhuN3E7G/koAju0WjVw9/uQOG5Co5mokNj0MiOSBVZS1JTwM4zl55hu0WFmIEFvO9cU9sJQiBIYeIA==
+  /patch-console/1.0.0:
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-nxl9nrnLQmh64iTzMfyylSlRozL7kAXIaxw1fVcLYdyhNkJCRUzirRZTikXGJsg+hc4fqpneTK6iU2H1Q8THSA==
   /path-browserify/0.0.1:
     dev: false
     resolution:
@@ -22680,6 +22755,13 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-uvmkwl5uMexCmC0GUv1XGQP0YjfYePJufGg4YYiukhqk2vN1tQxwWJIBERqhOmSi80cppZg8mZnPP/kOMf1sUQ==
+  /react-devtools-core/4.10.1:
+    dependencies:
+      shell-quote: 1.7.2
+      ws: 7.4.2
+    dev: true
+    resolution:
+      integrity: sha512-sXbBjGAWcf9HAblTP/zMtFhGHqxAfIR+GPxONZsSGN9FHnF4635dx1s2LdQWG9rJ+Ehr3nWg+BUAB6P78my5PA==
   /react-dom/16.13.1_react@16.13.1:
     dependencies:
       loose-envify: 1.4.0
@@ -22791,6 +22873,19 @@ packages:
   /react-lifecycles-compat/3.0.4:
     resolution:
       integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+  /react-reconciler/0.24.0:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.7.2
+      scheduler: 0.18.0
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    peerDependencies:
+      react: ^16.0.0
+    resolution:
+      integrity: sha512-gAGnwWkf+NOTig9oOowqid9O0HjTDC+XVGBCAmJYYJ2A2cN/O4gDdIuuUQjv8A4v6GDwVfJkagpBBLW5OW9HSw==
   /react-reconciler/0.24.0_react@16.13.1:
     dependencies:
       loose-envify: 1.4.0
@@ -23974,7 +24069,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: false
     resolution:
       integrity: sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
   /scheduler/0.19.1:
@@ -24397,10 +24491,9 @@ packages:
       integrity: sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==
   /slice-ansi/3.0.0:
     dependencies:
-      ansi-styles: 4.2.1
+      ansi-styles: 4.3.0
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -24960,7 +25053,6 @@ packages:
     dependencies:
       astral-regex: 1.0.0
       strip-ansi: 5.2.0
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -25485,7 +25577,6 @@ packages:
     dependencies:
       has-flag: 4.0.0
       supports-color: 7.2.0
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -25698,7 +25789,6 @@ packages:
     dependencies:
       ansi-escapes: 4.3.1
       supports-hyperlinks: 2.1.0
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -26202,6 +26292,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-OdjXJxnCN1AvyLSzeKIgXTXxV+99ZuXl3Hpo9XpJAv9MBcHrrJOQ5kV7ypXOuQie+AmWG25hLbiKdwYTifzcfQ==
+  /type-fest/0.12.0:
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-53RyidyjvkGpnWPMF9bQgFtWp+Sl8O2Rp13VavmJgfAP9WWG6q6TkrKU8iyJdnwnfgHI6k2hTlgqH4aSdjoTbg==
   /type-fest/0.13.1:
     dev: true
     engines:
@@ -27995,7 +28091,6 @@ packages:
   /yoga-layout-prebuilt/1.9.6:
     dependencies:
       '@types/yoga-layout': 1.9.2
-    dev: false
     engines:
       node: '>=8'
     resolution:

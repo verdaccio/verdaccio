@@ -62,6 +62,7 @@
     "@types/react-virtualized": "9.21.10",
     "@types/request": "2.48.5",
     "@types/semver": "7.3.4",
+    "@types/ink": "^2.0.3",
     "@types/supertest": "2.0.10",
     "@types/testing-library__jest-dom": "^5.9.5",
     "@types/validator": "13.1.3",
