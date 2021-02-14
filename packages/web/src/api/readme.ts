@@ -1,5 +1,4 @@
 import buildDebug from 'debug';
-import { addScope } from '@verdaccio/utils';
 import sanitizyReadme from '@verdaccio/readme';
 
 import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
@@ -9,7 +8,7 @@ import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { Package } from '@verdaccio/types';
 
-import { AuthorAvatar, parseReadme } from '../utils/web-utils';
+import { addScope, AuthorAvatar, parseReadme } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 

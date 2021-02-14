@@ -1,4 +1,4 @@
-import { isHTTPProtocol, sortByName } from '../src/web-utils2';
+import { isHTTPProtocol, sortByName } from '../src/utils/web-utils';
 
 describe('Utilities', () => {
   describe('String utilities', () => {

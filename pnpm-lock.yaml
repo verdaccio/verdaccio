@@ -597,11 +597,13 @@ importers:
   packages/plugins/auth-memory:
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
+      debug: 4.3.1
     devDependencies:
       '@verdaccio/types': link:../../core/types
     specifiers:
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
       '@verdaccio/types': workspace:10.0.0-alpha.3
+      debug: ^4.3.1
   packages/plugins/aws-storage:
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api

@@ -1,27 +1,16 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
-import {
-  formatAuthor,
-  convertDistRemoteToLocalTarballUrls,
-  getLocalRegistryTarballUri,
-  isVersionValid,
-} from '@verdaccio/utils';
-import sanitizyReadme from '@verdaccio/readme';
-import { sortByName, formatAuthor, getLocalRegistryTarballUri } from '@verdaccio/utils';
+import { formatAuthor, getLocalRegistryTarballUri } from '@verdaccio/utils';
 
-import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
+import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
 import { logger } from '@verdaccio/logger';
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
-import { Config, Package, RemoteUser, Version } from '@verdaccio/types';
+import { Config, Package, RemoteUser } from '@verdaccio/types';
 
-import { addGravatarSupport, AuthorAvatar, parseReadme } from '../web-utils';
-import { generateGravatarUrl } from '../user';
-import { deleteProperties, addScope, sortByName } from '../web-utils2';
-import { addGravatarSupport, AuthorAvatar, parseReadme } from '../utils/web-utils';
-import { AuthorAvatar } from '../utils/web-utils';
 import { generateGravatarUrl } from '../utils/user';
+import { AuthorAvatar, sortByName } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 

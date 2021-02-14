@@ -1,9 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 import {
-  addScope,
   convertDistRemoteToLocalTarballUrls,
-  deleteProperties,
   isVersionValid,
   formatAuthor,
 } from '@verdaccio/utils';
@@ -15,7 +13,7 @@ import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { Config, Package, Version } from '@verdaccio/types';
 
-import { addGravatarSupport, AuthorAvatar } from '../utils/web-utils';
+import { addGravatarSupport, addScope, AuthorAvatar, deleteProperties } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
