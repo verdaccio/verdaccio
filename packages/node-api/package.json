@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "5.0.0-alpha.6",
+  "version": "5.0.0-alpha.7",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
