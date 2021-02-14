@@ -35,7 +35,6 @@ importers:
       '@types/autosuggest-highlight': 3.1.1
       '@types/express': 4.17.6
       '@types/http-errors': 1.8.0
-      '@types/ink': 2.0.3_@types+react@16.14.2
       '@types/jest': 26.0.20
       '@types/js-base64': 3.0.0
       '@types/lodash': 4.14.167
@@ -142,7 +141,6 @@ importers:
       '@types/autosuggest-highlight': 3.1.1
       '@types/express': 4.17.6
       '@types/http-errors': 1.8.0
-      '@types/ink': ^2.0.3
       '@types/jest': ^26.0.20
       '@types/js-base64': 3.0.0
       '@types/lodash': 4.14.167
@@ -6968,15 +6966,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-IrSHl2u6AWXduUaDLqYpt45tLVCtYv7o4Z0s1KghBCDgIIS9oW5K1H8mZG/A2CfeLdEa7rTd1ACOiHBc1EMT2Q==
-  /@types/ink/2.0.3_@types+react@16.14.2:
-    dependencies:
-      ink: 3.0.8_@types+react@16.14.2
-    deprecated: This is a stub types definition. ink provides its own type definitions, so you do not need this installed.
-    dev: true
-    peerDependencies:
-      '@types/react': '*'
-    resolution:
-      integrity: sha512-DYKIKEJqhsGfQ/jgX0t9BzfHmBJ/9dBBT2MDsHAQRAfOPhEe7LZm5QeNBx1J34/e108StCPuJ3r4bh1y38kCJA==
   /@types/istanbul-lib-coverage/2.0.3:
     resolution:
       integrity: sha512-sz7iLqvVUg1gIedBOvlkxPlc8/uVzyS5OwGz1cKjXzkl3FpL3al0crU8YGU1WoHkxn0Wxbw5tyi6hvzJKNzFsw==
@@ -7406,6 +7395,7 @@ packages:
     resolution:
       integrity: sha512-A1b8SU4D10uoPjwb0lnHmmu8wZhR9d+9o2PKBQT2jU5YPTKsxac6M2qGAdY7VcL+dHHhARVUDmeg0rOrcd9EjA==
   /@types/yoga-layout/1.9.2:
+    dev: false
     resolution:
       integrity: sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
   /@types/yup/0.29.9:
@@ -8624,6 +8614,7 @@ packages:
     resolution:
       integrity: sha1-9wtzXGvKGlycItmCw+Oef+ujva0=
   /astral-regex/1.0.0:
+    dev: false
     engines:
       node: '>=4'
     resolution:
@@ -8685,6 +8676,7 @@ packages:
     resolution:
       integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
   /auto-bind/4.0.0:
+    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -10238,6 +10230,7 @@ packages:
     dependencies:
       slice-ansi: 3.0.0
       string-width: 4.2.0
+    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -10334,14 +10327,6 @@ packages:
       node: '>= 4.0'
     resolution:
       integrity: sha512-q5/jG+YQnSy4nRTV4F7lPepBJZ8qBNJJDBuJdoejDyLXgmL7IEo+Le2JDZudFTFt7mrCqIRaSjws4ygRCTCAXA==
-  /code-excerpt/3.0.0:
-    dependencies:
-      convert-to-spaces: 1.0.2
-    dev: true
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-VHNTVhd7KsLGOqfX3SyeO8RyYPMp1GJOg194VITk04WMYCv4plV68YWe6TJZxd9MhobjtpMRnVky01gqZsalaw==
   /code-point-at/1.1.0:
     engines:
       node: '>=0.10.0'
@@ -10900,12 +10885,6 @@ packages:
       safe-buffer: 5.1.2
     resolution:
       integrity: sha512-4FJkXzKXEDB1snCFZlLP4gpC3JILicCpGbzG9f9G7tGqGCzETQ2hWPrcinA9oU4wtf2biUaEH5065UnMeR33oA==
-  /convert-to-spaces/1.0.2:
-    dev: true
-    engines:
-      node: '>= 4'
-    resolution:
-      integrity: sha1-fj5Iu+bZl7FBfdyihoIEtNPYVxU=
   /cookie-signature/1.0.6:
     resolution:
       integrity: sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
@@ -16688,43 +16667,6 @@ packages:
         optional: true
     resolution:
       integrity: sha512-s7lJuQDJEdjqtaIWhp3KYHl6WV3J04U9zoQ6wVc+Xoa06XM27SXUY57qC5DO46xkF0CfgXMKkKNcgvSu/SAEpA==
-  /ink/3.0.8_@types+react@16.14.2:
-    dependencies:
-      '@types/react': 16.14.2
-      ansi-escapes: 4.3.1
-      auto-bind: 4.0.0
-      chalk: 4.1.0
-      cli-boxes: 2.2.1
-      cli-cursor: 3.1.0
-      cli-truncate: 2.1.0
-      code-excerpt: 3.0.0
-      indent-string: 4.0.0
-      is-ci: 2.0.0
-      lodash: 4.17.20
-      patch-console: 1.0.0
-      react-devtools-core: 4.10.1
-      react-reconciler: 0.24.0
-      scheduler: 0.18.0
-      signal-exit: 3.0.3
-      slice-ansi: 3.0.0
-      stack-utils: 2.0.2
-      string-length: 3.1.0
-      type-fest: 0.12.0
-      widest-line: 3.1.0
-      wrap-ansi: 6.2.0
-      ws: 7.4.2
-      yoga-layout-prebuilt: 1.9.6
-    dev: true
-    engines:
-      node: '>=10'
-    peerDependencies:
-      '@types/react': '>=16.8.0'
-      react: '>=16.8.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    resolution:
-      integrity: sha512-ubMFylXYaG4IkXQVhPautbhV/p6Lo0GlvAMI/jh8cGJQ39yeznJbaTTJP2CqZXezA4GOHzalpwCWqux/NEY38w==
   /inline-style-parser/0.1.1:
     dev: false
     resolution:
@@ -21404,12 +21346,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-bpuBhROdrhuN3E7G/koAju0WjVw9/uQOG5Co5mokNj0MiOSBVZS1JTwM4zl55hu0WFmIEFvO9cU9sJQiBIYeIA==
-  /patch-console/1.0.0:
-    dev: true
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-nxl9nrnLQmh64iTzMfyylSlRozL7kAXIaxw1fVcLYdyhNkJCRUzirRZTikXGJsg+hc4fqpneTK6iU2H1Q8THSA==
   /path-browserify/0.0.1:
     dev: false
     resolution:
@@ -22755,13 +22691,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-uvmkwl5uMexCmC0GUv1XGQP0YjfYePJufGg4YYiukhqk2vN1tQxwWJIBERqhOmSi80cppZg8mZnPP/kOMf1sUQ==
-  /react-devtools-core/4.10.1:
-    dependencies:
-      shell-quote: 1.7.2
-      ws: 7.4.2
-    dev: true
-    resolution:
-      integrity: sha512-sXbBjGAWcf9HAblTP/zMtFhGHqxAfIR+GPxONZsSGN9FHnF4635dx1s2LdQWG9rJ+Ehr3nWg+BUAB6P78my5PA==
   /react-dom/16.13.1_react@16.13.1:
     dependencies:
       loose-envify: 1.4.0
@@ -22873,19 +22802,6 @@ packages:
   /react-lifecycles-compat/3.0.4:
     resolution:
       integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-  /react-reconciler/0.24.0:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-      prop-types: 15.7.2
-      scheduler: 0.18.0
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    peerDependencies:
-      react: ^16.0.0
-    resolution:
-      integrity: sha512-gAGnwWkf+NOTig9oOowqid9O0HjTDC+XVGBCAmJYYJ2A2cN/O4gDdIuuUQjv8A4v6GDwVfJkagpBBLW5OW9HSw==
   /react-reconciler/0.24.0_react@16.13.1:
     dependencies:
       loose-envify: 1.4.0
@@ -24069,6 +23985,7 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: false
     resolution:
       integrity: sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
   /scheduler/0.19.1:
@@ -24494,6 +24411,7 @@ packages:
       ansi-styles: 4.3.0
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
+    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -25053,6 +24971,7 @@ packages:
     dependencies:
       astral-regex: 1.0.0
       strip-ansi: 5.2.0
+    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -26292,12 +26211,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-OdjXJxnCN1AvyLSzeKIgXTXxV+99ZuXl3Hpo9XpJAv9MBcHrrJOQ5kV7ypXOuQie+AmWG25hLbiKdwYTifzcfQ==
-  /type-fest/0.12.0:
-    dev: true
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-53RyidyjvkGpnWPMF9bQgFtWp+Sl8O2Rp13VavmJgfAP9WWG6q6TkrKU8iyJdnwnfgHI6k2hTlgqH4aSdjoTbg==
   /type-fest/0.13.1:
     dev: true
     engines:
@@ -28091,6 +28004,7 @@ packages:
   /yoga-layout-prebuilt/1.9.6:
     dependencies:
       '@types/yoga-layout': 1.9.2
+    dev: false
     engines:
       node: '>=8'
     resolution:
