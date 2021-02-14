@@ -7,8 +7,8 @@ import { SearchInstance } from '@verdaccio/store';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 import { loadPlugin } from '@verdaccio/loaders';
 import renderHTML from '../renderHTML';
-import { setSecurityWebHeaders } from './security';
 import { isHTTPProtocol } from '../utils/web-utils';
+import { setSecurityWebHeaders } from './security';
 
 const debug = buildDebug('verdaccio:web:render');
 
