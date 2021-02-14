@@ -1,7 +1,7 @@
 import commander from 'commander';
 import { bgYellow, bgRed } from 'kleur';
 
-import { logger } from '@verdaccio/logger';
+import { displayError } from '@verdaccio/cli-ui';
 
 import infoCommand from './commands/info';
 import initProgram from './commands/init';
@@ -55,12 +55,9 @@ if (commander.info) {
 }
 
 process.on('uncaughtException', function (err) {
-  logger.fatal(
-    {
-      err: err,
-    },
-    'uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) ' +
-      'this: \n@{err.stack}'
+  displayError(
+    // eslint-disable-next-line max-len
+    `uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) this: \n${err.stack}`
   );
-  process.exit(255);
+  process.exit(1);
 });

@@ -7,6 +7,8 @@ import { Application } from 'express';
 import { assign, isObject, isFunction } from 'lodash';
 import buildDebug from 'debug';
 
+import { displayError, displayMessage, displayLink } from '@verdaccio/cli-ui';
+
 import {
   ConfigRuntime,
   Callback,
@@ -16,7 +18,6 @@ import {
 } from '@verdaccio/types';
 import { API_ERROR } from '@verdaccio/commons-api';
 import server from '@verdaccio/server';
-import { logger } from '@verdaccio/logger';
 
 export const keyPem = 'verdaccio-key.pem';
 export const certPem = 'verdaccio-cert.pem';
@@ -85,8 +86,8 @@ function unlinkAddressPath(addr) {
   }
 }
 
-function logHTTPSWarning(storageLocation) {
-  logger.fatal(
+function logHTTPSError(storageLocation) {
+  displayError(
     [
       'You have enabled HTTPS and need to specify either ',
       '    "https.key" and "https.cert" or ',
@@ -113,6 +114,7 @@ function logHTTPSWarning(storageLocation) {
       `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
     ].join('\n')
   );
+  displayError(displayLink('https://verdaccio.org/docs/en/configuration#https'));
   process.exit(2);
 }
 
@@ -128,7 +130,8 @@ function handleHTTPS(app: Application, configPath: string, config: ConfigWithHtt
 
     // https must either have key and cert or a pfx and (optionally) a passphrase
     if (!((keyCertConfig.key && keyCertConfig.cert) || pfxConfig.pfx)) {
-      logHTTPSWarning(configPath);
+      logHTTPSError(configPath);
+      process.exit(1);
     }
 
     if (pfxConfig.pfx) {
@@ -149,8 +152,7 @@ function handleHTTPS(app: Application, configPath: string, config: ConfigWithHtt
     }
     return https.createServer(httpsOptions, app);
   } catch (err) {
-    // catch errors related to certificate loading
-    logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+    displayError(`cannot create server: ${err.message}`);
     process.exit(2);
   }
 }
@@ -163,35 +165,32 @@ function listenDefaultCallback(
 ): void {
   webServer
     .listen(addr.port || addr.path, addr.host, (): void => {
-      // send a message for tests
+      // send a message for test
       if (isFunction(process.send)) {
         process.send({
           verdaccio_started: true,
         });
       }
+      const addressServer = `${
+        addr.path
+          ? URL.format({
+              protocol: 'unix',
+              pathname: addr.path,
+            })
+          : URL.format({
+              protocol: addr.proto,
+              hostname: addr.host,
+              port: addr.port,
+              pathname: '/',
+            })
+      }`;
+      displayMessage(`http address ${displayLink(addressServer)}`);
+      displayMessage(`${pkgName} / ${pkgVersion}`);
     })
     .on('error', function (err): void {
-      logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+      displayError(`cannot create server: ${err.message}`);
       process.exit(2);
     });
-
-  logger.warn(
-    {
-      addr: addr.path
-        ? URL.format({
-            protocol: 'unix',
-            pathname: addr.path,
-          })
-        : URL.format({
-            protocol: addr.proto,
-            hostname: addr.host,
-            port: addr.port,
-            pathname: '/',
-          }),
-      version: pkgName + '/' + pkgVersion,
-    },
-    'http address - @{addr} - @{version}'
-  );
 }
 
 export { startVerdaccio, listenDefaultCallback };

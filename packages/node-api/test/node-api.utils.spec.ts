@@ -6,18 +6,6 @@ import {
   getListListenAddresses,
 } from '../src/cli-utils';
 
-jest.mock('@verdaccio/logger', () => ({
-  setup: jest.fn(),
-  logger: {
-    child: jest.fn(),
-    debug: jest.fn(),
-    trace: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-    fatal: jest.fn(),
-  },
-}));
-
 describe('getListListenAddresses test', () => {
   test('should return no address if a single address is wrong', () => {
     // @ts-ignore
