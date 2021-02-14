@@ -15,7 +15,9 @@ export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by
 
 export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: string } };
 
-const debug = buildDebug('verdaccio:web:api:package');
+const debug = buildDebug('verdaccio:web:api:readme');
+
+export const NOT_README_FOUND = 'ERROR: No README data found!';
 
 function addReadmeWebApi(route: Router, storage: IStorageHandler, auth: IAuth): void {
   debug('initialized readme web api');
@@ -25,24 +27,27 @@ function addReadmeWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
     '/package/readme/(@:scope/)?:package/:version?',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      debug('readme hit');
       const packageName = req.params.scope
         ? addScope(req.params.scope, req.params.package)
         : req.params.package;
+      debug('readme name %o', packageName);
 
       storage.getPackage({
         name: packageName,
         uplinksLook: true,
         req,
         callback: function (err, info): void {
+          debug('readme plg %o', info);
           if (err) {
             return next(err);
           }
 
-          res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
+          res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
           try {
             next(parseReadme(info.name, info.readme));
           } catch {
-            next(sanitizyReadme('ERROR: No README data found!'));
+            next(sanitizyReadme(NOT_README_FOUND));
           }
         },
       });

@@ -1,15 +1,15 @@
 import path from 'path';
 import supertest from 'supertest';
-import { IGetPackageOptions } from '@verdaccio/store';
 import { setup } from '@verdaccio/logger';
-
+import { IGetPackageOptions } from '@verdaccio/store';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/commons-api';
+
+import { NOT_README_FOUND } from '../src/api/readme';
 import { initializeServer } from './helper';
 
 setup([]);
 
 const mockManifest = jest.fn();
-const mockQuery = jest.fn(() => ['pkg1', 'pk2']);
 jest.mock('@verdaccio/ui-theme', () => mockManifest());
 
 jest.mock('@verdaccio/store', () => ({
@@ -33,11 +33,10 @@ jest.mock('@verdaccio/store', () => ({
   },
   SearchInstance: {
     configureStorage: () => {},
-    query: () => mockQuery(),
   },
 }));
 
-describe('test web server', () => {
+describe('readme api', () => {
   beforeAll(() => {
     mockManifest.mockReturnValue({
       staticPath: path.join(__dirname, 'static'),
@@ -50,43 +49,27 @@ describe('test web server', () => {
     mockManifest.mockClear();
   });
 
-  test('should OK to search api', async () => {
+  test('should fetch readme scoped package', async () => {
     mockManifest.mockReturnValue({
       manifest: require('./partials/manifest/manifest.json'),
     });
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/search/keyword')
-      .set('Accept', HEADERS.JSON_CHARSET)
-      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .get('/-/verdaccio/package/readme/@scope/pk1-test')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
       .expect(HTTP_STATUS.OK);
-    expect(response.body).toHaveLength(2);
+    expect(response.text).toMatch(NOT_README_FOUND);
   });
 
-  test('should 404 to search api', async () => {
+  test('should fetch readme a package', async () => {
     mockManifest.mockReturnValue({
       manifest: require('./partials/manifest/manifest.json'),
     });
-    mockQuery.mockReturnValue([]);
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/search/notFound')
-      .set('Accept', HEADERS.JSON_CHARSET)
-      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .get('/-/verdaccio/package/readme/pk1-test')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
       .expect(HTTP_STATUS.OK);
-    expect(response.body).toHaveLength(0);
-  });
-
-  test('should fail search api', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
-    mockQuery.mockImplementation(() => {
-      return ['aa', 'bb', 'cc'];
-    });
-    const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/search/notFound')
-      .set('Accept', HEADERS.JSON_CHARSET)
-      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .expect(HTTP_STATUS.OK);
-    expect(response.body).toHaveLength(3);
+    expect(response.text).toMatch(NOT_README_FOUND);
   });
 });

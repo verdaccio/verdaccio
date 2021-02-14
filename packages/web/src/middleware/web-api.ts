@@ -31,8 +31,7 @@ export function webAPI(config: Config, auth: IAuth, storage: IStorageHandler): R
 
   addPackageWebApi(route, storage, auth, config);
   addReadmeWebApi(route, storage, auth);
-  addSidebarWebApi(route, storage, auth);
-  addSearchWebApi(route, storage, auth);
+  addSidebarWebApi(route, config, storage, auth);
   addSearchWebApi(route, storage, auth);
   addUserAuthApi(route, auth, config);
   // What are you looking for? logout? client side will remove token when user click logout,

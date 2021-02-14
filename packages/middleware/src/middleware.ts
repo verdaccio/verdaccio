@@ -374,7 +374,7 @@ export function handleError(
     res.locals.report_error(err);
   } else {
     // Fall to Middleware.final
-    debug('error handle fail, next layer');
+    debug('no error to report, jump next layer');
     return next(err);
   }
 }

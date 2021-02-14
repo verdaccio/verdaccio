@@ -544,6 +544,7 @@ class Storage {
     const self = this;
     const upLinks: IProxy[] = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
+    debug('is sync uplink enabled %o', hasToLookIntoUplinks);
 
     if (!packageInfo) {
       found = false;
@@ -555,6 +556,8 @@ class Storage {
         upLinks.push(this.uplinks[uplink]);
       }
     }
+
+    debug('uplink list %o', upLinks.length);
 
     async.map(
       upLinks,

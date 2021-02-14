@@ -47,6 +47,7 @@ export const HEADERS = {
   CONTENT_TYPE: 'Content-type',
   CONTENT_LENGTH: 'content-length',
   TEXT_PLAIN: 'text/plain',
+  TEXT_PLAIN_UTF8: 'text/plain; charset=utf-8',
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
   FORWARDED_PROTO: 'X-Forwarded-Proto',

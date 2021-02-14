@@ -19,7 +19,7 @@ export interface MemoryLocalStorage {
   files: DataHandler;
 }
 
-const debug = buildDebug('verdaccio:storage:memory');
+const debug = buildDebug('verdaccio:plugin:storage:local-memory');
 
 const DEFAULT_LIMIT = 1000;
 class LocalMemory implements IPluginStorage<ConfigMemory> {

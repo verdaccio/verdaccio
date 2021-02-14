@@ -1,7 +1,7 @@
 import path from 'path';
 import request from 'supertest';
 
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/commons-api';
 
 import { mockServer, DOMAIN_SERVERS, configExample, generateRamdonStorage } from '@verdaccio/mock';
 
@@ -64,39 +64,6 @@ describe('endpoint web unit test', () => {
     });
 
     describe('Packages', () => {
-      test('should display all packages', (done) => {
-        request(app)
-          .get('/-/verdaccio/packages')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            expect(res.body).toHaveLength(1);
-            done();
-          });
-      });
-
-      test.skip('should display scoped readme', (done) => {
-        request(app)
-          .get('/-/verdaccio/package/readme/@scope/pk1-test')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
-          .end(function (err, res) {
-            expect(res.text).toMatch('<h1 id="test">test</h1>\n');
-            done();
-          });
-      });
-
-      // FIXME: disabled, we need to inspect why fails randomly
-      test.skip('should display scoped readme 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/package/readme/@scope/404')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
-          .end(function (err, res) {
-            expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
-            done();
-          });
-      });
-
       test('should display sidebar info', (done) => {
         request(app)
           .get('/-/verdaccio/sidebar/@scope/pk1-test')
@@ -156,29 +123,6 @@ describe('endpoint web unit test', () => {
     });
 
     describe('Search', () => {
-      test('should search pk1-test', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/scope')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            expect(res.body).toHaveLength(1);
-            done();
-          });
-      });
-
-      test('should search with 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/@')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            // in a normal world, the output would be 1
-            // https://github.com/verdaccio/verdaccio/issues/345
-            // should fix this
-            expect(res.body).toHaveLength(0);
-            done();
-          });
-      });
-
       test('should not find forbidden-place', (done) => {
         request(app)
           .get('/-/verdaccio/search/forbidden-place')

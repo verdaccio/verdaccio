@@ -12,17 +12,18 @@ import routes from '../src';
 
 setup([]);
 
-const getConf = (conf) => {
-  const configPath = path.join(__dirname, 'config', conf);
+const getConf = (configName: string) => {
+  const configPath = path.join(__dirname, 'config', configName);
   return parseConfigFile(configPath);
 };
 
-export async function initializeServer(configName): Promise<Application> {
+export async function initializeServer(configName: string): Promise<Application> {
   const app = express();
   const config = new Config(getConf(configName));
   const storage = new Storage(config);
   await storage.init(config, []);
   const auth: IAuth = new Auth(config);
+  // for parsing the body (login api)
   app.use(bodyParser.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
   app.use(errorReportingMiddleware);

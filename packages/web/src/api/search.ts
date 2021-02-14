@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import { SearchInstance } from '@verdaccio/store';
 import { DIST_TAGS } from '@verdaccio/commons-api';
 import { Router } from 'express';
@@ -6,45 +7,65 @@ import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from './package';
 
-function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): void {
-  // Search package
-  route.get(
-    '/search/:anything',
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const results: any = SearchInstance.query(req.params.anything);
-      // FUTURE: figure out here the correct type
-      const packages: any[] = [];
+const debug = buildDebug('verdaccio:web:api:search');
 
-      const getPackageInfo = function (i): void {
+function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): void {
+  const getPackageInfo = async function (name, remoteUser): Promise<any> {
+    return new Promise((resolve, reject) => {
+      debug('searching for %o', name);
+      try {
         storage.getPackage({
-          name: results[i].ref,
+          name,
           uplinksLook: false,
-          callback: (err, entry: Package): void => {
-            if (!err && entry) {
+          callback: (err, pkg: Package): void => {
+            debug('callback get package err %o', err?.message);
+            if (!err && pkg) {
+              debug('valid package  %o', pkg?.name);
               auth.allow_access(
-                { packageName: entry.name },
-                req.remote_user,
+                { packageName: pkg.name },
+                remoteUser,
                 function (err, allowed): void {
+                  debug('is allowed %o', allowed);
                   if (err || !allowed) {
+                    debug('deny access');
                     return;
                   }
-
-                  packages.push(entry.versions[entry[DIST_TAGS].latest]);
+                  debug('access succeed');
+                  resolve(pkg.versions[pkg[DIST_TAGS].latest]);
                 }
               );
-            }
-
-            if (i >= results.length - 1) {
-              next(packages);
             } else {
-              getPackageInfo(i + 1);
+              reject(err);
             }
           },
         });
-      };
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
 
-      if (results.length) {
-        getPackageInfo(0);
+  route.get(
+    '/search/:anything',
+    async function (
+      req: $RequestExtend,
+      res: $ResponseExtend,
+      next: $NextFunctionVer
+    ): Promise<void> {
+      const results: string[] = SearchInstance.query(req.params.anything);
+      debug('search results %o', results);
+      if (results.length > 0) {
+        let packages: Package[] = [];
+        for (let pkgName of results) {
+          try {
+            const pkg = await getPackageInfo(pkgName, req.remote_user);
+            debug('package found %o', pkgName);
+            packages.push(pkg);
+          } catch (err) {
+            debug('search for %o failed err %o', pkgName, err?.message);
+          }
+        }
+        next(packages);
       } else {
         next([]);
       }
