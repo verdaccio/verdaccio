@@ -6,6 +6,7 @@
     "noImplicitAny": false,
     "strict": true,
     "declaration": true,
+    "jsx": "react",
     "strictNullChecks": true,
     "types": ["node", "jest", "express"],
     "resolveJsonModule": true,
