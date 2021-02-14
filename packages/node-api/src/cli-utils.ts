@@ -1,6 +1,6 @@
 import path from 'path';
 
-const logger = require('@verdaccio/logger');
+import { displayLink, displayWarning } from '@verdaccio/cli-ui';
 
 export const DEFAULT_PORT = '4873';
 export const DEFAULT_PROTOCOL = 'http';
@@ -78,12 +78,11 @@ export function getListListenAddresses(argListen: string, configListen: any): an
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {
-        logger.logger.warn(
-          { addr: addr },
-          'invalid address - @{addr}, we expect a port (e.g. "4873"),' +
-            ' host:port (e.g. "localhost:4873") or full url' +
-            ' (e.g. "http://localhost:4873/")'
+        displayWarning(
+          // eslint-disable-next-line max-len
+          `invalid address - ${addr}, we expect a port (e.g. "4873"), host:port (e.g. "localhost:4873") or full url '(e.g. "http://localhost:4873/")`
         );
+        displayWarning(displayLink('https://verdaccio.org/docs/en/configuration#listen-port'));
       }
 
       return parsedAddr;
