@@ -294,7 +294,7 @@ importers:
     specifiers:
       '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
       '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/node-api': workspace:5.0.0-alpha.6
+      '@verdaccio/node-api': workspace:5.0.0-alpha.7
       commander: 6.2.0
       envinfo: 7.4.0
       kleur: 3.0.3
@@ -737,7 +737,7 @@ importers:
       '@testing-library/dom': ^7.29.0
       '@testing-library/jest-dom': ^5.11.6
       '@testing-library/react': 10.4.9
-      '@verdaccio/node-api': workspace:5.0.0-alpha.6
+      '@verdaccio/node-api': workspace:5.0.0-alpha.7
       autosuggest-highlight: 3.1.1
       babel-loader: ^8.2.2
       babel-plugin-dynamic-import-node: ^2.3.3
@@ -880,7 +880,7 @@ importers:
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: 4.3.1_aff9e91a092f024e9b4b3234c48fc17b
     specifiers:
-      '@verdaccio/cli': workspace:5.0.0-alpha.6
+      '@verdaccio/cli': workspace:5.0.0-alpha.7
       '@verdaccio/ui-theme': workspace:5.0.0-alpha.4
       fs-extra: 9.0.1
       webpack: ^5.11.1
@@ -954,13 +954,13 @@ importers:
       '@verdaccio/store': link:../store
     specifiers:
       '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/cli': workspace:5.0.0-alpha.6
+      '@verdaccio/cli': workspace:5.0.0-alpha.7
       '@verdaccio/commons-api': workspace:10.0.0-alpha.3
       '@verdaccio/config': workspace:5.0.0-alpha.3
       '@verdaccio/hooks': workspace:5.0.0-alpha.3
       '@verdaccio/logger': workspace:5.0.0-alpha.3
       '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/node-api': workspace:5.0.0-alpha.6
+      '@verdaccio/node-api': workspace:5.0.0-alpha.7
       '@verdaccio/store': workspace:5.0.0-alpha.4
       '@verdaccio/ui-theme': workspace:5.0.0-alpha.4
       '@verdaccio/utils': workspace:5.0.0-alpha.3
