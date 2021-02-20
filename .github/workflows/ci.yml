@@ -46,4 +46,4 @@ jobs:
       - name: Test
         run: pnpm test
         env:
-          DEBUG: verdaccio:*
+          DEBUG: verdaccio:web:*

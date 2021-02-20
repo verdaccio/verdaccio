@@ -67,6 +67,7 @@ export default function renderHTML(config, req, res) {
         },
         manifest
       );
+      debug('template :: %o', webPage);
       cache.set('template', webPage);
       debug('set template cache');
     } else {
