@@ -11,7 +11,7 @@ import { generateGravatarUrl, GENERIC_AVATAR } from './user';
 export function validatePrimaryColor(primaryColor) {
   const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
   if (!isHex) {
-    return '';
+    return '#4b5e40';
   }
 
   return primaryColor;

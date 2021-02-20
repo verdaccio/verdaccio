@@ -56,6 +56,7 @@ export default function renderHTML(config, req, res) {
     webPage = cache.get('template');
 
     if (!webPage) {
+      debug('web options %o', JSON.stringify(options));
       webPage = renderTemplate(
         {
           manifest: manifestFiles,
