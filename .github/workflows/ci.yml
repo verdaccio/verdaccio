@@ -45,3 +45,5 @@ jobs:
         run: pnpm build
       - name: Test
         run: pnpm test
+        env:
+          DEBUG: verdaccio:*
