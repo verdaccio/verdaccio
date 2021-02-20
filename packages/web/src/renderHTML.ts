@@ -33,7 +33,7 @@ export default function renderHTML(config, req, res) {
   // FIXME: logo URI is incomplete
   let logoURI = config?.web?.logo ?? '';
   const version = pkgJSON.version;
-  const primaryColor = validatePrimaryColor(config?.web?.primary_color);
+  const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
   const { scriptsBodyAfter, metaScripts, bodyBefore, bodyAfter } = config?.web;
   const options = {
     uri,
