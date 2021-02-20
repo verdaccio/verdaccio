@@ -14,7 +14,7 @@ const cache = new LRU({ max: 500, maxAge: 1000 * 60 * 60 });
 const debug = buildDebug('verdaccio:web:render');
 
 const manifestFiles = {
-  js: ['vendors.js', 'main.js'],
+  js: ['runtime.js', 'vendors.js', 'main.js'],
   css: ['main.css'],
   ico: 'ico.co',
 };
