@@ -34,7 +34,7 @@ tsconfig.tsbuildinfo
 ## bundle files
 packages/standalone/dist/
 ## ui
-static/
+packages/plugins/ui-theme/static
 
 # website
 website/public
