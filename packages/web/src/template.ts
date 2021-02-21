@@ -23,8 +23,7 @@ export type Template = {
   options: TemplateUIOptions;
   scriptsBodyAfter?: string[];
   metaScripts?: string[];
-  bodyBefore?: string;
-  bodyAfter?: string;
+  bodyBefore?: string[];
 };
 
 // the outcome of the Webpack Manifest Plugin
@@ -34,17 +33,18 @@ export interface WebpackManifest {
 
 export default function renderTemplate(template: Template, manifest: WebpackManifest) {
   debug('template %o', template);
-  // debug('manifest %o', manifest);
+  debug('manifest %o', manifest);
   return `
     <!DOCTYPE html>
       <html lang="en-us"> 
       <head>
         <meta charset="utf-8">
         <title>${template?.options?.title ?? ''}</title>        
+        <link rel="shortcut icon" href="/-/static/favicon.ico"/>
         <link rel="icon" type="image/png" href="${template.manifest.ico}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        ${getManifestValue(template.manifest.css, manifest).map(
-          (item) => ` <link href="${item}" rel="stylesheet">`
+        ${getManifestValue(template.manifest.css, manifest).map((item) =>
+          typeof item === 'undefined' ? '' : `<link href="${item}" rel="stylesheet">`
         )}        
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
@@ -52,7 +52,7 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
         ${template.metaScripts ? template.metaScripts.map((item) => item) : ''}
       </head>    
       <body class="body">
-        ${template.bodyBefore ? template.bodyBefore : ''}
+      ${template.bodyBefore ? template.bodyBefore.map((item) => item) : ''}
         <div id="root"></div>
         ${getManifestValue(template.manifest.js, manifest).map(
           (item) => `<script defer="defer" src="${item}"></script>`

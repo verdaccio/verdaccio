@@ -3,6 +3,15 @@ import { ThemeProvider } from 'emotion-theming';
 import React, { ReactNode } from 'react';
 
 const themeOptions = {
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
   palette: {
     primary: {
       main: '#4b5e40',

@@ -33,7 +33,6 @@ services:
       - node-network
     environment:
       - VERDACCIO_PORT=8000
-      - DEBUG=verdaccio:*
     ports:
       - '8000:8000'
     volumes:

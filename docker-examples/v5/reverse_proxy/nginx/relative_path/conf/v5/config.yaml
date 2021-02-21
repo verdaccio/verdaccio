@@ -1,4 +1,4 @@
-storage: /verdaccio/storage_relative
+storage: /verdaccio/storage
 
 web:
   enable: true

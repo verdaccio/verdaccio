@@ -15,8 +15,8 @@ const debug = buildDebug('verdaccio:web:render');
 
 const defaultManifestFiles = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
-  css: ['main.css'],
-  ico: 'ico.co',
+  css: [],
+  ico: 'favicon.ico',
 };
 
 export default function renderHTML(config, req, res) {
@@ -34,7 +34,7 @@ export default function renderHTML(config, req, res) {
   let logoURI = config?.web?.logo ?? '';
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, bodyBefore, bodyAfter } = config?.web;
+  const { scriptsBodyAfter, metaScripts, bodyBefore } = config?.web;
   const options = {
     uri,
     darkMode,
@@ -65,7 +65,6 @@ export default function renderHTML(config, req, res) {
           scriptsBodyAfter,
           metaScripts,
           bodyBefore,
-          bodyAfter,
         },
         manifest
       );

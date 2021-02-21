@@ -46,6 +46,7 @@ const prodConf = {
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
     }),
+    // FIXME:  @deprecated remove
     new HTMLWebpackPlugin({
       title: 'ToReplaceByTitle',
       __UI_OPTIONS: 'ToReplaceByVerdaccioUI',

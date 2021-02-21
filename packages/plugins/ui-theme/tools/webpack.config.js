@@ -47,15 +47,6 @@ module.exports = {
 
   module: {
     rules: [
-      /* Pre loader */
-      {
-        enforce: 'pre',
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: 'eslint-loader',
-      },
-
-      /* Normal loader */
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -69,31 +60,11 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        loader: 'url-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'fonts',
-          limit: 50,
-        },
+        type: 'asset/inline',
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-        ],
+        type: 'asset/inline',
       },
       /* Typescript loader */
       {
