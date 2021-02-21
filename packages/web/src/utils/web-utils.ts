@@ -1,16 +1,20 @@
 import _ from 'lodash';
+import buildDebug from 'debug';
 import { isObject } from '@verdaccio/utils';
 import { Package, Author } from '@verdaccio/types';
 import { normalizeContributors } from '@verdaccio/store';
+
 import sanitizyReadme from '@verdaccio/readme';
 
 export type AuthorAvatar = Author & { avatar?: string };
-
 import { generateGravatarUrl, GENERIC_AVATAR } from './user';
+
+const debug = buildDebug('verdaccio:web:utils');
 
 export function validatePrimaryColor(primaryColor) {
   const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
   if (!isHex) {
+    debug('invalid primary color %o', primaryColor);
     return;
   }
 
@@ -77,6 +81,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
  */
 export function parseReadme(packageName: string, readme: string): string | void {
   if (_.isEmpty(readme) === false) {
+    debug('sanizity readme');
     return sanitizyReadme(readme);
   }
 
@@ -94,6 +99,7 @@ export function isHTTPProtocol(uri: string): boolean {
 }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
+  debug('deleted unused version properties');
   _.forEach(propertiesToDelete, (property): any => {
     delete objectItem[property];
   });

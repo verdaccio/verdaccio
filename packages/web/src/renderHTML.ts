@@ -13,14 +13,14 @@ const cache = new LRU({ max: 500, maxAge: 1000 * 60 * 60 });
 
 const debug = buildDebug('verdaccio:web:render');
 
-const manifestFiles = {
+const defaultManifestFiles = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
   css: ['main.css'],
   ico: 'ico.co',
 };
 
 export default function renderHTML(config, req, res) {
-  const { manifest } = require('@verdaccio/ui-theme');
+  const { manifest, manifestFiles } = require('@verdaccio/ui-theme');
   const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
   const host = req.get('host');
   const { url_prefix } = config;
@@ -56,10 +56,11 @@ export default function renderHTML(config, req, res) {
     webPage = cache.get('template');
 
     if (!webPage) {
-      debug('web options %o', JSON.stringify(options));
+      debug('web options %o', options);
+      debug('web manifestFiles %o', manifestFiles);
       webPage = renderTemplate(
         {
-          manifest: manifestFiles,
+          manifest: manifestFiles ?? defaultManifestFiles,
           options,
           scriptsBodyAfter,
           metaScripts,

@@ -20,6 +20,7 @@ services:
       - node-network
     environment:
       - VERDACCIO_PORT=4873
+      - DEBUG=verdaccio:*
     ports:
       - '4873:4873'
     volumes:
@@ -32,6 +33,7 @@ services:
       - node-network
     environment:
       - VERDACCIO_PORT=8000
+      - DEBUG=verdaccio:*
     ports:
       - '8000:8000'
     volumes:

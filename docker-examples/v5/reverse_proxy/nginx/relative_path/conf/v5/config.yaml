@@ -1,4 +1,4 @@
-storage: /verdaccio/storage
+storage: /verdaccio/storage_relative
 
 web:
   enable: true
@@ -19,7 +19,7 @@ security:
       expiresIn: 7d
 
 ## IMPORTANT
-##
+## This will configure verdaccio to rely on a relative path
 url_prefix: /verdaccio
 
 uplinks:

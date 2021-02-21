@@ -19,6 +19,8 @@ yarn-error.log
 yarn.lock
 
 
+# docker examples
+docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
 
 # jest
 reports/

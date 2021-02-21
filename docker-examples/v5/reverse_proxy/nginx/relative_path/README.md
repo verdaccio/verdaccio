@@ -15,7 +15,7 @@ docker-compose up --build --force-recreate
 open the browser
 
 ```
-http://localhost/verdaccio/
+http://localhost/relative_path/
 ```
 
 **Nginx SSL Example**

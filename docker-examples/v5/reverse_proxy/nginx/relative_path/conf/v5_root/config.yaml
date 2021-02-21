@@ -2,8 +2,8 @@ storage: /verdaccio/storage
 
 web:
   enable: true
-  title: VerdaccioV4 Relative Path
-  primary_color: red
+  title: VerdaccioV5 Root Path
+  primary_color: redF
 
 auth:
   htpasswd:
@@ -42,4 +42,4 @@ middlewares:
   audit:
     enabled: true
 
-logs: { type: stdout, format: pretty, level: trace }
+logs: { type: stdout, format: json, level: trace }
