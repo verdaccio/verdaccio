@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.11.1](https://github.com/verdaccio/verdaccio/compare/v4.11.0...v4.11.1) (2021-02-25)
+
+
+### Bug Fixes
+
+* upgrade Node from 14.15 to 14.16 for security fixes ([#2104](https://github.com/verdaccio/verdaccio/issues/2104)) ([156342b](https://github.com/verdaccio/verdaccio/commit/156342b6b92e2b0a5cf6746788e0318c656565c1))
+
 ## [4.11.0](https://github.com/verdaccio/verdaccio/compare/v4.10.0...v4.11.0) (2021-01-20)
 
 
