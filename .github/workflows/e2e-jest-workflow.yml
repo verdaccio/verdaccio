@@ -172,4 +172,38 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
+  pnpm6:
+    name: 'pnpm6:jest example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.3.3
+
+      - name: 'Use Node.js 12.x'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+      - name: 'install latest pnpm'
+        run: sudo npm i pnpm@dev -g
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup node ./scripts/run-verdaccio.js &
+      - name: 'Ping to verdaccio'
+        run: |
+          pnpm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          pnpm init --force
+          pnpm install jest --registry http://localhost:4873
+
+          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
+          yarn jest pass.test.js
+
+          yarn add left-pad --registry http://localhost:4873 --verbose
+          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
+          yarn jest module.test.js
+
 
