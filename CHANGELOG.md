@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.11.1](https://github.com/verdaccio/verdaccio/compare/v4.11.0...v4.11.1) (2021-02-25)
+
+
+### Bug Fixes
+
+* upgrade Node from 14.15 to 14.16 for security fixes ([#2104](https://github.com/verdaccio/verdaccio/issues/2104)) ([156342b](https://github.com/verdaccio/verdaccio/commit/156342b6b92e2b0a5cf6746788e0318c656565c1))
+
+## [4.11.0](https://github.com/verdaccio/verdaccio/compare/v4.10.0...v4.11.0) (2021-01-20)
+
+
+### Features
+
+* enable keep alive ([#2067](https://github.com/verdaccio/verdaccio/issues/2067)) ([4d152ca](https://github.com/verdaccio/verdaccio/commit/4d152ca01bc3af7c345641353a5200e985feeb7f))
+* skip log static content from web ([#2027](https://github.com/verdaccio/verdaccio/issues/2027)) ([39376be](https://github.com/verdaccio/verdaccio/commit/39376be34514f4c7e1d3a0f403a8dad30f7a3f72)), closes [#2026](https://github.com/verdaccio/verdaccio/issues/2026)
+* update @verdaccio/ui-theme  ([#2026](https://github.com/verdaccio/verdaccio/issues/2026)) ([2ea17ce](https://github.com/verdaccio/verdaccio/commit/2ea17ced2c52782b5dca2444e26d16336f977cf9))
+* update UI theme ([#2065](https://github.com/verdaccio/verdaccio/issues/2065)) ([936aa30](https://github.com/verdaccio/verdaccio/commit/936aa30383d49b41cf5312735bca90ea95cdf5b0))
+
+
+### Bug Fixes
+
+* update dependencies ([#2066](https://github.com/verdaccio/verdaccio/issues/2066)) ([f005b37](https://github.com/verdaccio/verdaccio/commit/f005b378169eb43b363ab1e7562af9c948f8b730))
+* update docker base image node 14.15.14 ([#2049](https://github.com/verdaccio/verdaccio/issues/2049)) ([76e035e](https://github.com/verdaccio/verdaccio/commit/76e035e52fc08e9cd4c51160d11dac4c60b54024))
+
 ## [4.10.0](https://github.com/verdaccio/verdaccio/compare/v4.9.1...v4.10.0) (2020-12-06)
 
 

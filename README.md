@@ -72,7 +72,9 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-Don't miss the last talk at **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
+**Next talk**: [Verdaccio - A lightweight Private Proxy Registry built in Node.js | Juan Picado at The Destro Dev Show](https://www.youtube.com/watch?reload=9&v=P_hxy7W-IL4&ab_channel=TheDestroDevShow)
+
+##### **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
 
 [![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/youtube_openjsword_2020.png)](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 
@@ -209,25 +211,22 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
-* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+48k ⭐️)*
-* [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
-* [Vue CLI](https://github.com/vuejs/vue-cli) *(+26k ⭐️)*
-* [Angular CLI](https://github.com/angular/angular-cli) *(+24k ⭐️)*
-* [Uppy](https://github.com/transloadit/uppy) *(+23k ⭐️)*
-* [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
-* [bit](https://github.com/teambit/bit) *(+12k ⭐️)*
-* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
-* [pnpm](https://github.com/pnpm/pnpm) *(+9.1k ⭐️)*
-* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+9.4k ⭐️)*
-* [NX](https://github.com/nrwl/nx) *(+5.2k ⭐️)*
-* [webiny-js](https://github.com/webiny/webiny-js) *(+3.7k ⭐️)*
-* [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
-* [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
-* [webiny-js](https://github.com/Webiny/webiny-js) *(+1k ⭐️)*
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) *(+86.2k ⭐️)*
+* [Gatsby](https://github.com/gatsbyjs/gatsby) *(+49.2k ⭐️)*
+* [Babel.js](https://github.com/babel/babel) *(+38.5k ⭐️)*
+* [Vue CLI](https://github.com/vuejs/vue-cli) *(+27.4k ⭐️)*
+* [Angular CLI](https://github.com/angular/angular-cli) *(+24.3k ⭐️)*
+* [Uppy](https://github.com/transloadit/uppy) *(+23.8k ⭐️)*
+* [bit](https://github.com/teambit/bit) *(+13k ⭐️)*
+* [Aurelia Framework](https://github.com/aurelia/framework) *(+11.6k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+10.1k ⭐️)*
+* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+9.8k ⭐️)*
+* [NX](https://github.com/nrwl/nx) *(+6.1k ⭐️)*
+* [webiny-js](https://github.com/webiny/webiny-js) *(+4.3k ⭐️)*
+* [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3.7k ⭐️)*
+* [workshopper how to npm](https://github.com/workshopper/how-to-npm) *(+1k ⭐️)*
 * [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
 * [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
-* [workshopper how to npm](https://github.com/workshopper/how-to-npm)
 
 🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md).
 

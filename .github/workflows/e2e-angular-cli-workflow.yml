@@ -53,7 +53,7 @@ jobs:
         with:
           node-version: 14.x
       - name: 'install latest npm'
-        run: npm i -g npm
+        run: npm i -g npm@latest-6
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
