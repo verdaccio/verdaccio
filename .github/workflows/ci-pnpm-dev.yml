@@ -32,7 +32,7 @@ jobs:
         with:
           node_version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm@dev
+        run: sudo npm i pnpm@dev -g
       - name: Install
         run: pnpm recursive install
       - name: Format
