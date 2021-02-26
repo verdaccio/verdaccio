@@ -179,8 +179,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.3
 
-      - name: 'Use Node.js 10.x'
-        uses: actions/setup-node@vv2
+      - name: 'Use Node.js 12.x'
+        uses: actions/setup-node@v2
         with:
           node-version: 12.x
       - name: 'install latest pnpm'
