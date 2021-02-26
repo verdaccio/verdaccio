@@ -211,7 +211,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+86.2k ⭐️)*
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) *(+86.2k ⭐️)*
 * [Gatsby](https://github.com/gatsbyjs/gatsby) *(+49.2k ⭐️)*
 * [Babel.js](https://github.com/babel/babel) *(+38.5k ⭐️)*
 * [Vue CLI](https://github.com/vuejs/vue-cli) *(+27.4k ⭐️)*
