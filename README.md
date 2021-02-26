@@ -219,7 +219,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 * [Uppy](https://github.com/transloadit/uppy) *(+23.8k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+13k ⭐️)*
 * [Aurelia Framework](https://github.com/aurelia/framework) *(+11.6k ⭐️)*
-* [pnpm](https://github.com/pnpm/pnpm) *(+9.1k ⭐️)*
+* [pnpm](https://github.com/pnpm/pnpm) *(+10.1k ⭐️)*
 * [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+9.8k ⭐️)*
 * [NX](https://github.com/nrwl/nx) *(+6.1k ⭐️)*
 * [webiny-js](https://github.com/webiny/webiny-js) *(+4.3k ⭐️)*
