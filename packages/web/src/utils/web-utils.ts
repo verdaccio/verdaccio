@@ -90,14 +90,6 @@ export function parseReadme(packageName: string, readme: string): string | void 
   throw new Error('ERROR: No README data found!');
 }
 
-/**
- * Check if URI is starting with "http://", "https://" or "//"
- * @param {string} uri
- */
-export function isHTTPProtocol(uri: string): boolean {
-  return /^(https?:)?\/\//.test(uri);
-}
-
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
   debug('deleted unused version properties');
   _.forEach(propertiesToDelete, (property): any => {
@@ -116,15 +108,4 @@ export function sortByName(packages: any[], orderAscending: boolean | void = tru
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
-}
-
-/**
- * Detect running protocol (http or https)
- */
-export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
-  if (typeof headerProtocol === 'string' && headerProtocol !== '') {
-    const commaIndex = headerProtocol.indexOf(',');
-    return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
-  }
-  return protocol;
 }

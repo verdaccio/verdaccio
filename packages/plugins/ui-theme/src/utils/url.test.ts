@@ -26,9 +26,9 @@ describe('utils', () => {
 
     test('getRegistryURL() - should change when UI options change', () => {
       expect(getRegistryURL()).toBe('http://localhost');
-      window.__VERDACCIO_BASENAME_UI_OPTIONS.base = 'http://localhost/test';
+      window.__VERDACCIO_BASENAME_UI_OPTIONS.basePath = 'http://localhost/test';
       expect(getRegistryURL()).toBe('http://localhost/test');
-      window.__VERDACCIO_BASENAME_UI_OPTIONS.base = 'http://localhost';
+      window.__VERDACCIO_BASENAME_UI_OPTIONS.basePath = 'http://localhost';
     });
   });
 

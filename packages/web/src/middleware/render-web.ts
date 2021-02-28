@@ -6,8 +6,8 @@ import express from 'express';
 import { SearchInstance } from '@verdaccio/store';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 import { loadPlugin } from '@verdaccio/loaders';
+import { isURLhasValidProtocol } from '@verdaccio/url';
 import renderHTML from '../renderHTML';
-import { isHTTPProtocol } from '../utils/web-utils';
 import { setSecurityWebHeaders } from './security';
 
 const debug = buildDebug('verdaccio:web:render');
@@ -52,7 +52,7 @@ export function renderWebMiddleware(config, auth, storage): any {
 
   // Logo
   let logoURI = config?.web?.logo ?? '';
-  if (logoURI && !isHTTPProtocol(logoURI)) {
+  if (logoURI && !isURLhasValidProtocol(logoURI)) {
     // URI related to a local file
 
     // Note: `path.join` will break on Windows, because it transforms `/` to `\`

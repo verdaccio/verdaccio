@@ -1,10 +1,6 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
-import {
-  convertDistRemoteToLocalTarballUrls,
-  isVersionValid,
-  formatAuthor,
-} from '@verdaccio/utils';
+import { isVersionValid, formatAuthor } from '@verdaccio/utils';
 import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
 import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
 
@@ -13,6 +9,7 @@ import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { Config, Package, Version } from '@verdaccio/types';
 
+import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { addGravatarSupport, addScope, AuthorAvatar, deleteProperties } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages

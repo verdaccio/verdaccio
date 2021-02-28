@@ -1,12 +1,8 @@
 import assert from 'assert';
-import URL from 'url';
-import { IncomingHttpHeaders } from 'http';
 import _ from 'lodash';
 import semver from 'semver';
-import { Request } from 'express';
 import { Package, Version, Author } from '@verdaccio/types';
 import {
-  HEADERS,
   DIST_TAGS,
   DEFAULT_USER,
   getConflict,
@@ -100,86 +96,6 @@ export function validateMetadata(object: Package, name: string): Package {
 }
 
 /**
- * Create base url for registry.
- * @return {String} base registry url
- */
-export function combineBaseUrl(
-  protocol: string,
-  host: string | void,
-  prefix?: string | void
-): string {
-  const result = `${protocol}://${host}`;
-
-  const prefixOnlySlash = prefix === '/';
-  if (prefix && !prefixOnlySlash) {
-    if (prefix.endsWith('/')) {
-      prefix = prefix.slice(0, -1);
-    }
-
-    if (prefix.startsWith('/')) {
-      return `${result}${prefix}`;
-    }
-
-    return prefix;
-  }
-
-  return result;
-}
-
-export function extractTarballFromUrl(url: string): string {
-  // @ts-ignore
-  return URL.parse(url).pathname.replace(/^.*\//, '');
-}
-
-/**
- * Iterate a packages's versions and filter each original tarball url.
- * @param {*} pkg
- * @param {*} req
- * @param {*} config
- * @return {String} a filtered package
- */
-export function convertDistRemoteToLocalTarballUrls(
-  pkg: Package,
-  req: Request,
-  urlPrefix: string | void
-): Package {
-  for (const ver in pkg.versions) {
-    if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
-      const distName = pkg.versions[ver].dist;
-
-      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
-        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
-      }
-    }
-  }
-  return pkg;
-}
-
-/**
- * Filter a tarball url.
- * @param {*} uri
- * @return {String} a parsed url
- */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
-  const currentHost = req.headers.host;
-
-  if (!currentHost) {
-    return uri;
-  }
-  const tarballName = extractTarballFromUrl(uri);
-  const headers = req.headers as IncomingHttpHeaders;
-  const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
-  const domainRegistry = combineBaseUrl(protocol, headers.host, urlPrefix);
-
-  return `${domainRegistry}/${encodeScopedUri(pkgName)}/-/${tarballName}`;
-}
-
-/**
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
@@ -258,18 +174,6 @@ export function normalizeDistTags(pkg: Package): void {
       }
     }
   }
-}
-
-/**
- * Detect running protocol (http or https)
- */
-export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
-  if (typeof headerProtocol === 'string' && headerProtocol !== '') {
-    const commaIndex = headerProtocol.indexOf(',');
-    return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
-  }
-
-  return protocol;
 }
 
 export function getLatestVersion(pkgInfo: Package): string {

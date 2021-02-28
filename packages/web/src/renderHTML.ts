@@ -1,9 +1,10 @@
+import { URL } from 'url';
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
 import { HEADERS } from '@verdaccio/commons-api';
-import { combineBaseUrl, getWebProtocol } from '@verdaccio/utils';
-import { WEB_TITLE } from '@verdaccio/config';
+import { getPublicUrl } from '@verdaccio/url';
 
+import { WEB_TITLE } from '@verdaccio/config';
 import { validatePrimaryColor } from './utils/web-utils';
 import renderTemplate from './template';
 
@@ -21,11 +22,9 @@ const defaultManifestFiles = {
 
 export default function renderHTML(config, req, res) {
   const { manifest, manifestFiles } = require('@verdaccio/ui-theme');
-  const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
-  const host = req.get('host');
   const { url_prefix } = config;
-  const uri = `${protocol}://${host}`;
-  const base = combineBaseUrl(protocol, host, url_prefix);
+  const basePath = getPublicUrl(config?.url_prefix, req);
+  const basename = new URL(basePath).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
@@ -36,12 +35,10 @@ export default function renderHTML(config, req, res) {
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
   const { scriptsBodyAfter, metaScripts, bodyBefore } = config?.web;
   const options = {
-    uri,
     darkMode,
-    protocol,
-    host,
     url_prefix,
-    base,
+    basename,
+    basePath,
     primaryColor,
     version,
     logoURI,

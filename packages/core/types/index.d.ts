@@ -289,6 +289,8 @@ declare module '@verdaccio/types' {
     metaScripts?: string[];
     bodyBefore?: string[];
     bodyAfter?: string[];
+    darkMode?: boolean;
+    primary_color?: string;
   }
 
   interface HttpsConfKeyCert {
@@ -352,6 +354,17 @@ declare module '@verdaccio/types' {
     rateLimit: RateLimit;
     // deprecated
     keepAliveTimeout?: number;
+    //F
+    publicUrl?: string;
+  };
+
+  type URLPrefix = {
+    // if is false, it would be relative by default
+    absolute: boolean;
+    // base path
+    // eg: absolute: true, https://somedomain.com/xxx/
+    // eg: absolute: false, /xxx/ (default) if url_prefix is an string instead an object
+    basePath: string;
   };
 
   interface ConfigYaml {

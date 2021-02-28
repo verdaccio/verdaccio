@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
-import { formatAuthor, getLocalRegistryTarballUri } from '@verdaccio/utils';
+import { formatAuthor } from '@verdaccio/utils';
 
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
 import { logger } from '@verdaccio/logger';
@@ -9,6 +9,7 @@ import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 
+import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { generateGravatarUrl } from '../utils/user';
 import { AuthorAvatar, sortByName } from '../utils/web-utils';
 
@@ -67,12 +68,14 @@ function addPackageWebApi(
                     config.web.gravatar
                   );
                 }
+                // convert any remote dist to a local reference
+                // eg: if the dist points to npmjs, switch to localhost:4873/prefix/etc.tar.gz
                 if (!_.isNil(pkgCopy.dist) && !_.isNull(pkgCopy.dist.tarball)) {
                   pkgCopy.dist.tarball = getLocalRegistryTarballUri(
                     pkgCopy.dist.tarball,
                     pkg.name,
                     req,
-                    config.url_prefix
+                    config?.url_prefix
                   );
                 }
                 permissions.push(pkgCopy);
