@@ -18,4 +18,3 @@ Define a specific public url for your server, it overrules the `Host` and `X-For
 being used.
 
 This is handy in such situations where a dynamic url is required.
-
