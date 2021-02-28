@@ -22,7 +22,6 @@ describe('host', () => {
       },
       url: '/',
     });
-    // @ts-expect-error
     expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
   });
 
