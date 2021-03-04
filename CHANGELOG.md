@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.11.2](https://github.com/verdaccio/verdaccio/compare/v4.11.1...v4.11.2) (2021-03-04)
+
+
+### Bug Fixes
+
+* upgrade handlebars from 4.7.6 to 4.7.7 ([#2114](https://github.com/verdaccio/verdaccio/issues/2114)) ([1e6fa60](https://github.com/verdaccio/verdaccio/commit/1e6fa60491f530b5c46bf9892ad7f63c5a7453e9))
+
 ### [4.11.1](https://github.com/verdaccio/verdaccio/compare/v4.11.0...v4.11.1) (2021-02-25)
 
 
