@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "5.0.0-alpha.8",
+  "version": "5.0.0-alpha.9",
   "description": "A lightweight private npm proxy registry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -36,12 +36,12 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/cli": "workspace:5.0.0-alpha.7",
+    "@verdaccio/cli": "workspace:5.0.0-alpha.8",
     "@verdaccio/hooks": "workspace:5.0.0-alpha.3",
     "@verdaccio/logger": "workspace:5.0.0-alpha.3",
     "@verdaccio/mock": "workspace:5.0.0-alpha.3",
-    "@verdaccio/node-api": "workspace:5.0.0-alpha.7",
-    "@verdaccio/ui-theme": "workspace:5.0.0-alpha.4",
+    "@verdaccio/node-api": "workspace:5.0.0-alpha.8",
+    "@verdaccio/ui-theme": "workspace:5.0.0-alpha.5",
     "@verdaccio/utils": "workspace:5.0.0-alpha.3",
     "verdaccio-audit": "10.0.0-alpha.4",
     "verdaccio-htpasswd": "10.0.0-alpha.6"

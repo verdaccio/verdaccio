@@ -1,5 +1,13 @@
 # @verdaccio/server
 
+## 5.0.0-alpha.7
+
+### Patch Changes
+
+- Updated dependencies [e0b7c4ff]
+  - @verdaccio/web@5.0.0-alpha.7
+  - @verdaccio/api@5.0.0-alpha.6
+
 ## 5.0.0-alpha.6
 
 ### Patch Changes
