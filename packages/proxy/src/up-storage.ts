@@ -135,7 +135,7 @@ class ProxyStorage implements IProxy {
     this.agent_options = setConfig(this.config, 'agent_options', {
       keepAlive: true,
       maxSockets: 40,
-      maxFreeSockets: 10
+      maxFreeSockets: 10,
     });
   }
 
