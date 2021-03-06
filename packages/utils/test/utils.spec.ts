@@ -1,19 +1,14 @@
 import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/commons-api';
 import {
   validateName,
-  convertDistRemoteToLocalTarballUrls,
   validatePackage,
   validateMetadata,
-  combineBaseUrl,
   getVersion,
   normalizeDistTags,
-  getWebProtocol,
   formatAuthor,
 } from '../src/index';
 
 describe('Utilities', () => {
-  const buildURI = (host, version) => `http://${host}/npm_test/-/npm_test-${version}.tgz`;
-  const fakeHost = 'fake.com';
   const metadata: any = {
     name: 'npm_test',
     versions: {
@@ -33,63 +28,6 @@ describe('Utilities', () => {
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
 
   describe('API utilities', () => {
-    describe('getWebProtocol', () => {
-      test('should handle undefined header', () => {
-        expect(getWebProtocol(undefined, 'http')).toBe('http');
-      });
-
-      test('should handle emtpy string', () => {
-        expect(getWebProtocol('', 'http')).toBe('http');
-      });
-
-      test('should have header priority over request protocol', () => {
-        expect(getWebProtocol('https', 'http')).toBe('https');
-      });
-
-      test('should have handle empty protocol', () => {
-        expect(getWebProtocol('https', '')).toBe('https');
-      });
-
-      describe('getWebProtocol and HAProxy variant', () => {
-        // https://github.com/verdaccio/verdaccio/issues/695
-
-        test('should handle http', () => {
-          expect(getWebProtocol('http,http', 'https')).toBe('http');
-        });
-
-        test('should handle https', () => {
-          expect(getWebProtocol('https,https', 'http')).toBe('https');
-        });
-      });
-    });
-
-    describe('convertDistRemoteToLocalTarballUrls', () => {
-      test('should build a URI for dist tarball based on new domain', () => {
-        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
-          headers: {
-            host: fakeHost,
-          },
-          // @ts-ignore
-          get: () => 'http',
-          protocol: 'http',
-        });
-        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
-        expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.1'));
-      });
-
-      test('should return same URI whether host is missing', () => {
-        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
-          headers: {},
-          // @ts-ignore
-          get: () => 'http',
-          protocol: 'http',
-        });
-        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
-          convertDist.versions['1.0.0'].dist.tarball
-        );
-      });
-    });
-
     describe('normalizeDistTags', () => {
       test('should delete a invalid latest version', () => {
         const pkg = cloneMetadata();
@@ -147,22 +85,6 @@ describe('Utilities', () => {
         expect(getVersion(cloneMetadata(), undefined)).toBeUndefined();
         expect(getVersion(cloneMetadata(), null)).toBeUndefined();
         expect(getVersion(cloneMetadata(), 2)).toBeUndefined();
-      });
-    });
-
-    describe('combineBaseUrl', () => {
-      test('should create a URI', () => {
-        expect(combineBaseUrl('http', 'domain')).toEqual('http://domain');
-      });
-
-      test('should create a base url for registry', () => {
-        expect(combineBaseUrl('http', 'domain', '')).toEqual('http://domain');
-        expect(combineBaseUrl('http', 'domain', '/')).toEqual('http://domain');
-        expect(combineBaseUrl('http', 'domain', '/prefix/')).toEqual('http://domain/prefix');
-        expect(combineBaseUrl('http', 'domain', '/prefix/deep')).toEqual(
-          'http://domain/prefix/deep'
-        );
-        expect(combineBaseUrl('http', 'domain', 'only-prefix')).toEqual('only-prefix');
       });
     });
 

@@ -1,0 +1,49 @@
+storage: /verdaccio/storage
+
+web:
+  enable: true
+  title: VerdaccioV5 Relative Path
+  primary_color: red
+
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 60d
+        notBefore: 1
+  web:
+    sign:
+      expiresIn: 7d
+
+## IMPORTANT
+## This will configure verdaccio to rely on a relative path
+url_prefix: /verdaccio/
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@jota/*':
+    access: $all
+    publish: $all
+
+  '@*/*':
+    # scoped packages
+    access: $all
+    publish: $all
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $all
+    proxy: npmjs
+
+middlewares:
+  audit:
+    enabled: true
+
+logs: { type: stdout, format: pretty, level: trace }

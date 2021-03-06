@@ -10,39 +10,39 @@ For more information about the **Helm** Chart, please check it [owns repo](https
 
 The following examples aim to be demonstrative and can be either improved or updated.
 
-### Docker
+### Verdaccio 5
+
+- [Docker + Nginx + Verdaccio](v5/reverse_proxy/nginx/README.md)
+
+### Verdaccio 4
 
 #### Proxies
 
-- [Docker + Apache + Verdaccio](apache-verdaccio/README.md)
-- [Docker + Nginx + Verdaccio](reverse_proxy/nginx/README.md)
-- [Docker + https-portal Example](https-portal-example/README.md)
+- [Docker + Apache + Verdaccio](v4/apache-verdaccio/README.md)
+- [Docker + Nginx + Verdaccio](v4/reverse_proxy/nginx/README.md)
+- [Docker + https-portal Example](v4/https-portal-example/README.md)
 
 #### Plugins
 
-- [Docker + Uplinks Multi Registry](multi-registry-uplink/README.md)
-- [Docker + Local Storage](docker-local-storage-volume/readme.md)
-- [Docker + External Plugins](docker-plugin-external/README.md)
+- [Docker + Uplinks Multi Registry](v4/multi-registry-uplink/README.md)
+- [Docker + Local Storage](v4/docker-local-storage-volume/readme.md)
+- [Docker + External Plugins](v4/docker-plugin-external/README.md)
 
 #### Auth
 
-- [Docker + LDAP (OpenLDAP) Server + Verdaccio 3](ldap-verdaccio/readme.md)
-- [Docker + LDAP (OpenLDAP) Server + Verdaccio 4](ldap-verdaccio-v4/readme.md) by **@kopax**
+- [Docker + LDAP (OpenLDAP) Server + Verdaccio 4](v4/ldap-verdaccio/readme.md) by **@kopax**
 - [Docker + Gitlab](gitlab-verdaccio/README.md)
 - [Docker + Active Directory](https://github.com/Mateus-Oli/verdaccio-ad-docker)
 
 #### Storage
 
-- [Docker + AWS S3 Plugin(localstack) + Verdaccio 4](amazon-s3-docker-example/v4/README.md)
-- [Docker + AWS S3 Plugin(localstack) + Verdaccio 3](amazon-s3-docker-example/v3/README.md)
+- [Docker + AWS S3 Plugin(localstack) + Verdaccio 4](v4/amazon-s3-docker-example/v4/README.md)
 - [Docker + Minio](https://github.com/barolab/verdaccio-minio/tree/master/example)
 
 ### Kubernetes
 
 - Kubernetes (minikube) + Verdaccio (Basic Configuration)
 - Kubernetes Helm and Verdaccio Chart (Basic Tutorial)
-
-![alt verdaccio](https://www.verdaccio.org/img/devops_support_grey.png 'verdaccio devops')
 
 ### External
 

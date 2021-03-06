@@ -9,7 +9,7 @@ interface Props {
 /* eslint-disable react-hooks/exhaustive-deps */
 const AppContextProvider: React.FC<Props> = ({ children, user }) => {
   const [state, setState] = useState<AppProps>({
-    scope: window.VERDACCIO_SCOPE || '',
+    scope: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.scope ?? '',
     user,
   });
 
