@@ -11,7 +11,7 @@
     "lodash": "^4.17.20",
     "mkdirp": "^1.0.4",
     "rimraf": "^3.0.2",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^7.1.0"
   },
   "scripts": {
     "test": "jest --config jest.config.e2e.js"

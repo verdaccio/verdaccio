@@ -11,9 +11,13 @@ const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 module.exports = async function () {
   console.log(green('Setup Puppeteer'));
   const browser = await puppeteer.launch({
+    isMobile: false,
+    ignoreHTTPSErrors: true,
+    // invert values for local testing
+    devtools: false,
     headless: true,
-    // slowMo: 600,
-    // devtools: true,
+    // slowMo: 6000,
+    // invert values for local testing
     args: ['--no-sandbox'],
   });
   global.__BROWSER__ = browser;

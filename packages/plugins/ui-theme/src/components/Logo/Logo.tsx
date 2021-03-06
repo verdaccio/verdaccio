@@ -17,7 +17,7 @@ const logos = {
   dark: blackAndWithLogo,
 };
 
-const logo = window.VERDACCIO_LOGO;
+const logo = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.logoURI;
 
 interface Props {
   size?: keyof typeof sizes;

@@ -3,11 +3,12 @@ import { Router } from 'express';
 import buildDebug from 'debug';
 
 import { allow } from '@verdaccio/middleware';
-import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '@verdaccio/utils';
+import { getVersion, ErrorCode } from '@verdaccio/utils';
 import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/commons-api';
 import { Config, Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
+import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:package');
