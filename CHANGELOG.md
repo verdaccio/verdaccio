@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.11.3](https://github.com/verdaccio/verdaccio/compare/v4.11.2...v4.11.3) (2021-03-06)
+
+
+### Bug Fixes
+
+* update dependencies ([#2115](https://github.com/verdaccio/verdaccio/issues/2115)) ([4206572](https://github.com/verdaccio/verdaccio/commit/420657293b63c5ba4ebe5582396f996ee7de3eec))
+
 ### [4.11.2](https://github.com/verdaccio/verdaccio/compare/v4.11.1...v4.11.2) (2021-03-04)
 
 
