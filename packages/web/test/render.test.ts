@@ -1,7 +1,7 @@
 import path from 'path';
 import supertest from 'supertest';
 import { setup } from '@verdaccio/logger';
-import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { combineBaseUrl } from '../src/renderHTML';
 import { initializeServer } from './helper';
 
@@ -25,35 +25,19 @@ describe('test web server', () => {
 
   describe('render', () => {
     test('should return the root', async () => {
-      return (
-        supertest(await initializeServer('default-test.yaml'))
-          .get('/')
-          .set('Accept', HEADERS.TEXT_HTML)
-          // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML)
-          .expect(HTTP_STATUS.OK)
-          .then((response) => {
-            // eslint-disable-next-line no-console
-            // console.log(response.text);
-            // eslint-disable-next-line no-console
-            // console.log(parseHtml(response.text).querySelectorAll('body').toString());
-          })
-      );
+      return supertest(await initializeServer('default-test.yaml'))
+        .get('/')
+        .set('Accept', HEADERS.TEXT_HTML)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+        .expect(HTTP_STATUS.OK);
     });
 
     test('should return the body for a package detail page', async () => {
-      return (
-        supertest(await initializeServer('default-test.yaml'))
-          .get('/-/web/section/some-package')
-          .set('Accept', HEADERS.TEXT_HTML)
-          // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML)
-          .expect(HTTP_STATUS.OK)
-          .then((response) => {
-            // eslint-disable-next-line no-console
-            // console.log(response.text);
-            // eslint-disable-next-line no-console
-            // console.log(parseHtml(response.text).querySelectorAll('body').toString());
-          })
-      );
+      return supertest(await initializeServer('default-test.yaml'))
+        .get('/-/web/section/some-package')
+        .set('Accept', HEADERS.TEXT_HTML)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+        .expect(HTTP_STATUS.OK);
     });
 
     test('should static file not found', async () => {
