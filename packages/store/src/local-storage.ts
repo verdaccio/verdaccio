@@ -661,6 +661,7 @@ class LocalStorage implements IStorage {
    */
   public getPackageMetadata(name: string, callback: Callback = (): void => {}): void {
     const storage: IPackageStorage = this._getLocalStorage(name);
+    debug('get package metadata for %o', name);
     if (_.isNil(storage)) {
       return callback(ErrorCode.getNotFound());
     }
@@ -676,7 +677,7 @@ class LocalStorage implements IStorage {
    */
   public search(startKey: string, options: any): IReadTarball {
     const stream = new ReadTarball({ objectMode: true });
-
+    debug('search by %o', startKey);
     this._searchEachPackage(
       (item: Package, cb: CallbackAction): void => {
         // @ts-ignore
@@ -716,6 +717,7 @@ class LocalStorage implements IStorage {
    * @return {Object}
    */
   private _getLocalStorage(pkgName: string): IPackageStorage {
+    debug('get local storage for %o', pkgName);
     return this.storagePlugin.getPackageStorage(pkgName);
   }
 
@@ -744,10 +746,12 @@ class LocalStorage implements IStorage {
    */
   private _searchEachPackage(onPackage: onSearchPackage, onEnd: onEndSearchPackage): void {
     // save wait whether plugin still do not support search functionality
+    debug('search on each package');
     if (_.isNil(this.storagePlugin.search)) {
       this.logger.warn('plugin search not implemented yet');
       onEnd();
     } else {
+      debug('search on each package by plugin');
       this.storagePlugin.search(onPackage, onEnd, validateName);
     }
   }

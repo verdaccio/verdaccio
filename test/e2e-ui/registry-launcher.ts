@@ -3,6 +3,8 @@ import path from 'path';
 
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 
+const debug = require('debug')('verdaccio:e2e:ui:launcher');
+
 export const CREDENTIALS = {
   user: 'foo',
   password: 'test',
@@ -31,6 +33,8 @@ export default class VerdaccioProcess {
     };
 
     const { configPath, port } = this.config;
+    debug('config path: %o', configPath);
+    debug('port: %o', port);
     this.childFork = fork(
       verdaccioRegisterWrap,
       ['-c', configPath, '-l', port as string],

@@ -17,6 +17,12 @@
       "path": "../core/readme"
     },
     {
+      "path": "../core/url"
+    },
+    {
+      "path": "../core/tarball"
+    },
+    {
       "path": "../loaders"
     },
     {

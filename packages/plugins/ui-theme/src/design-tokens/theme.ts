@@ -21,7 +21,7 @@ const colors = {
   love: '#e25555',
   nobel01: '#999999',
   nobel02: '#9f9f9f',
-  primary: window.VERDACCIO_PRIMARY_COLOR || '#4b5e40',
+  primary: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.primaryColor ?? '#4b5e40',
   secondary: '#20232a',
   background: '#fff',
   dodgerBlue: '#1ba1f2',

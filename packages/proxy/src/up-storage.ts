@@ -620,11 +620,9 @@ class ProxyStorage implements IProxy {
       //
       // Otherwise misconfigured proxy could return 407:
       // https://github.com/rlidwka/sinopia/issues/254
-      //
-      // FIXME: proxy logic is odd, something is wrong here.
       // @ts-ignore
       if (!this.proxy) {
-        headers['X-Forwarded-For'] =
+        headers[HEADERS.FORWARDED_FOR] =
           (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] + ', ' : '') +
           req.connection.remoteAddress;
       }

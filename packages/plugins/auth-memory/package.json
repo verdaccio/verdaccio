@@ -31,6 +31,7 @@
     "npm": ">=6"
   },
   "dependencies": {
+    "debug": "^4.3.1",
     "@verdaccio/commons-api": "workspace:10.0.0-alpha.3"
   },
   "devDependencies": {

@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  nginx:
+    build:
+      context: ''
+      dockerfile: nginx/Dockerfile
+    ports:
+      - '80:80'
+    networks:
+      - node-network
+    container_name: 'nginx'
+    depends_on:
+      - verdaccio
+      - verdaccio-root
+  verdaccio:
+    image: verdaccio/verdaccio:local
+    container_name: 'verdaccio_relative_path_v5'
+    networks:
+      - node-network
+    environment:
+      - VERDACCIO_PORT=4873
+      - DEBUG=verdaccio:*
+    ports:
+      - '4873:4873'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf/v5:/verdaccio/conf'
+  verdaccio-root:
+    image: verdaccio/verdaccio:local
+    container_name: 'verdaccio_relative_path_v5_root'
+    networks:
+      - node-network
+    environment:
+      - VERDACCIO_PORT=8000
+    ports:
+      - '8000:8000'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf/v5_root:/verdaccio/conf'
+networks:
+  node-network:
+    driver: bridge
