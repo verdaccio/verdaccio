@@ -24,9 +24,8 @@ enum Route {
 }
 
 export const history = createBrowserHistory({
-  // @ts-ignore
-  basename:
-    window.__VERDACCIO_BASENAME_UI_OPTIONS && window.__VERDACCIO_BASENAME_UI_OPTIONS.url_prefix,
+  // basename is deprecated and already removed in a major released
+  basename: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.basename,
 });
 
 const AppRoute: React.FC = () => {

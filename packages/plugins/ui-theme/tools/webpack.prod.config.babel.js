@@ -1,9 +1,10 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const _ = require('lodash');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { merge } = require('webpack-merge');
 
 const env = require('../config/env');
@@ -19,10 +20,12 @@ const banner = `
     Package: ${name}
     Version: v${version}
     License: ${license}
+    https://www.verdaccio.org
     `;
 
 const prodConf = {
-  mode: 'production',
+  mode: 'development',
+  devtool: 'inline-cheap-module-source-map',
 
   entry: {
     main: ['@babel/polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/index.tsx`],
@@ -44,6 +47,7 @@ const prodConf = {
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
     }),
+    // FIXME:  @deprecated remove
     new HTMLWebpackPlugin({
       title: 'ToReplaceByTitle',
       __UI_OPTIONS: 'ToReplaceByVerdaccioUI',
@@ -59,11 +63,14 @@ const prodConf = {
       debug: false,
       inject: true,
     }),
+    new WebpackManifestPlugin({
+      removeKeyHash: true,
+    }),
     new webpack.BannerPlugin(banner),
   ],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
+    minimizer: [new TerserPlugin()],
   },
   performance: {
     hints: 'warning',
