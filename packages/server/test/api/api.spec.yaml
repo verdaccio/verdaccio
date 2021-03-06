@@ -30,10 +30,6 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
-  'timeout':
-    access: $all
-    publish: $all
-    proxy: socketTimeout
   '@scope/*':
     access: test
     publish: dsadsa

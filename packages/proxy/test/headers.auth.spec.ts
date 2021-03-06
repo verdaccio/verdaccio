@@ -19,7 +19,6 @@ function createUplink(config) {
 
 function setHeaders(config: unknown = {}, headers: unknown = {}) {
   const uplink = createUplink(config);
-  // @ts-ignore
   return uplink._setHeaders({
     headers,
   });
