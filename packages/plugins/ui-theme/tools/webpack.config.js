@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: `${env.APP_ROOT}/static/`,
     filename: '[name].[fullhash].js',
-    publicPath: '/-/static/',
+    publicPath: '-/static/',
   },
 
   resolve: {

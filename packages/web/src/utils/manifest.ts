@@ -16,10 +16,14 @@ export function getManifestByValue(manifestItem: string, manifest): string {
   return resolvedItem;
 }
 
-export function getManifestValue(manifestItems: string[], manifest): string[] {
+export function getManifestValue(
+  manifestItems: string[],
+  manifest,
+  basePath: string = ''
+): string[] {
   return manifestItems.map((item) => {
     debug('resolve item %o', item);
-    const resolvedItem = manifest[item];
+    const resolvedItem = `${basePath}${manifest[item]}`;
     debug('resolved item %o', resolvedItem);
     return resolvedItem;
   });

@@ -1,0 +1,76 @@
+{
+	"name": "undefined",
+	"versions": {
+		"0.1.0": {
+			"name": "undefined",
+			"id": "undefined",
+			"version": "0.1.0",
+			"description": "Just require undefined & everything gonna be defined!",
+			"author": {
+				"name": "Irakli Gozalishvili",
+				"email": "rfobic@gmail.com",
+				"url": "http://jeditoolkit.com"
+			},
+			"homepage": "https://github.com/Gozala/undefined",
+			"keywords": [
+				"undefined",
+				"JS",
+				"troll"
+			],
+			"repository": {
+				"type": "git",
+				"url": "https://github.com/Gozala/undefined.js",
+				"web": "https://github.com/Gozala/undefined.js"
+			},
+			"bugs": {
+				"url": "https://github.com/Gozala/undefined.js/issues/"
+			},
+			"_id": "undefined@0.1.0",
+			"dist": {
+				"shasum": "9b706a4b32ad30c20ca4fe65ddcbbbdac32bded0",
+				"tarball": "https://registry.npmjs.org/undefined/-/undefined-0.1.0.tgz"
+			},
+			"_from": ".",
+			"_npmVersion": "1.2.25",
+			"_npmUser": {
+				"name": "gozala",
+				"email": "rfobic@gmail.com"
+			},
+			"maintainers": [
+				{
+					"name": "gozala",
+					"email": "rfobic@gmail.com"
+				}
+			],
+			"directories": {},
+			"deprecated": "this package has been deprecated",
+			"contributors": []
+		}
+	},
+	"time": {
+		"modified": "2018-04-06T06:44:45.365Z",
+		"created": "2013-06-27T17:54:26.268Z",
+		"0.1.0": "2013-06-27T17:54:27.534Z"
+	},
+	"users": {},
+	"dist-tags": {
+		"latest": "0.1.0"
+	},
+	"_uplinks": {
+		"npmjs": {
+			"etag": "W/\"80a9d445865194047844afa61a3123e7\"",
+			"fetched": 1613922400141
+		}
+	},
+	"_distfiles": {
+		"undefined-0.1.0.tgz": {
+			"url": "https://registry.npmjs.org/undefined/-/undefined-0.1.0.tgz",
+			"sha": "9b706a4b32ad30c20ca4fe65ddcbbbdac32bded0",
+			"registry": "npmjs"
+		}
+	},
+	"_attachments": {},
+	"_rev": "1-23d25af09d62826d",
+	"_id": "undefined",
+	"readme": "## undefined.js\n\nDefine your `undefined` yo!"
+}

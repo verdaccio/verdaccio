@@ -20,6 +20,7 @@ const banner = `
     Package: ${name}
     Version: v${version}
     License: ${license}
+    https://www.verdaccio.org
     `;
 
 const prodConf = {

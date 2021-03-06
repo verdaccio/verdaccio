@@ -11,6 +11,7 @@ export type TemplateUIOptions = {
   host?: string;
   url_prefix?: string;
   base?: string;
+  basePath: string;
   primaryColor?: string;
   version?: string;
   logoURI?: string;
@@ -43,7 +44,11 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
         <link rel="shortcut icon" href="/-/static/favicon.ico"/>
         <link rel="icon" type="image/png" href="${template.manifest.ico}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        ${getManifestValue(template.manifest.css, manifest).map((item) =>
+        ${getManifestValue(
+          template.manifest.css,
+          manifest,
+          template?.options?.basePath
+        ).map((item) =>
           typeof item === 'undefined' ? '' : `<link href="${item}" rel="stylesheet">`
         )}        
         <script>
@@ -54,7 +59,7 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
       <body class="body">
       ${template.bodyBefore ? template.bodyBefore.map((item) => item) : ''}
         <div id="root"></div>
-        ${getManifestValue(template.manifest.js, manifest).map(
+        ${getManifestValue(template.manifest.js, manifest, template?.options?.basePath).map(
           (item) => `<script defer="defer" src="${item}"></script>`
         )}
         ${template.scriptsBodyAfter ? template.scriptsBodyAfter.map((item) => item) : ''}
