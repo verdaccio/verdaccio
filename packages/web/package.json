@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "5.0.0-alpha.6",
+  "version": "5.0.0-alpha.7",
   "description": "web ui middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
