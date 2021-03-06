@@ -1,5 +1,14 @@
 # verdaccio
 
+## 5.0.0-alpha.9
+
+### Patch Changes
+
+- Updated dependencies [e0b7c4ff]
+  - @verdaccio/ui-theme@5.0.0-alpha.5
+  - @verdaccio/node-api@5.0.0-alpha.8
+  - @verdaccio/cli@5.0.0-alpha.8
+
 ## 5.0.0-alpha.8
 
 ### Patch Changes
