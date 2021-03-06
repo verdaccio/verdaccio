@@ -40,17 +40,11 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
       <html lang="en-us"> 
       <head>
         <meta charset="utf-8">
+        <base href="${template?.options?.basePath}">
         <title>${template?.options?.title ?? ''}</title>        
         <link rel="shortcut icon" href="/-/static/favicon.ico"/>
         <link rel="icon" type="image/png" href="${template.manifest.ico}" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        ${getManifestValue(
-          template.manifest.css,
-          manifest,
-          template?.options?.basePath
-        ).map((item) =>
-          typeof item === 'undefined' ? '' : `<link href="${item}" rel="stylesheet">`
-        )}        
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
         </script>

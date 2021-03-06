@@ -29,7 +29,7 @@ export function handleResponseType(response: Response): Promise<[boolean, any]> 
   return Promise.all([response.ok, response.text()]);
 }
 
-const API_PATH = '/-/verdaccio/';
+const API_PATH = `${window?.__VERDACCIO_BASENAME_UI_OPTIONS?.basename ?? '/'}-/verdaccio/`;
 
 class API {
   public request<T>(

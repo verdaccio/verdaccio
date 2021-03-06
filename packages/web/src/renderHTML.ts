@@ -16,7 +16,6 @@ const debug = buildDebug('verdaccio:web:render');
 
 const defaultManifestFiles = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
-  css: [],
   ico: 'favicon.ico',
 };
 

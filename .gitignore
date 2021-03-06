@@ -21,6 +21,7 @@ yarn.lock
 
 # docker examples
 docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
+docker-examples/v5/**/storage/*
 
 # jest
 reports/
