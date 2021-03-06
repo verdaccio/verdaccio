@@ -38,7 +38,9 @@
     "@verdaccio/e2e-cli": "1.0.0",
     "@verdaccio/e2e-ui": "1.0.0",
     "@verdaccio/cli-standalone": "5.0.0-alpha.3",
-    "@verdaccio/cli-ui": "5.0.0-alpha.3"
+    "@verdaccio/cli-ui": "5.0.0-alpha.3",
+    "@verdaccio/tarball": "10.0.0-alpha.3",
+    "@verdaccio/url": "10.0.0-alpha.3"
   },
   "changesets": [
     "few-cooks-destroy",
@@ -54,6 +56,7 @@
     "plenty-tables-refuse",
     "pretty-hounds-tap",
     "shiny-chefs-heal",
+    "smart-apricots-kneel",
     "spicy-frogs-press",
     "tender-bags-call",
     "three-pots-sit"

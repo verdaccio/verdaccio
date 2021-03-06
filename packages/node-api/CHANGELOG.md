@@ -1,5 +1,11 @@
 # @verdaccio/node-api
 
+## 5.0.0-alpha.8
+
+### Patch Changes
+
+- @verdaccio/server@5.0.0-alpha.7
+
 ## 5.0.0-alpha.7
 
 ### Minor Changes
