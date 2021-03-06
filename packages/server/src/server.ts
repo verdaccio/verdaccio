@@ -13,7 +13,7 @@ import { ErrorCode } from '@verdaccio/utils';
 import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
 import { Config as AppConfig } from '@verdaccio/config';
 
-import { webAPI, renderWebMiddleware } from '@verdaccio/web';
+import webMiddleware from '@verdaccio/web';
 import { ConfigRuntime } from '@verdaccio/types';
 
 import { IAuth, IBasicAuth } from '@verdaccio/auth';
@@ -103,8 +103,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use('/', renderWebMiddleware(config, auth, storage));
-    app.use('/-/verdaccio/', webAPI(config, auth, storage));
+    app.use(webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
@@ -159,6 +158,11 @@ export default (async function (configHash: ConfigRuntime): Promise<any> {
   );
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been initialized
-  await storage.init(config, filters);
+  try {
+    await storage.init(config, filters);
+  } catch (err) {
+    logger.error({ error: err.msg }, 'storage has failed: @{error}');
+    throw new Error(err);
+  }
   return defineAPI(config, storage);
 });

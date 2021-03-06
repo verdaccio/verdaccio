@@ -47,9 +47,14 @@ export const HEADERS = {
   CONTENT_TYPE: 'Content-type',
   CONTENT_LENGTH: 'content-length',
   TEXT_PLAIN: 'text/plain',
+  TEXT_PLAIN_UTF8: 'text/plain; charset=utf-8',
+  TEXT_HTML_UTF8: 'text/html; charset=utf-8',
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
+  // only set with proxy that setup HTTPS
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
   FORWARDED_PROTO: 'X-Forwarded-Proto',
+  FORWARDED_FOR: 'X-Forwarded-For',
   FRAMES_OPTIONS: 'X-Frame-Options',
   CSP: 'Content-Security-Policy',
   CTO: 'X-Content-Type-Options',

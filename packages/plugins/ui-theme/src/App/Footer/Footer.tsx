@@ -44,7 +44,7 @@ const Footer = () => {
         <Right>
           {t('footer.powered-by')}
           <Logo onClick={goToVerdaccioWebsite} size="x-small" />
-          {`/ ${window.VERDACCIO_VERSION}`}
+          {`/ ${window?.__VERDACCIO_BASENAME_UI_OPTIONS?.version}`}
         </Right>
       </Inner>
     </Wrapper>

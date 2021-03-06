@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import request from 'supertest';
+import buildDebug from 'debug';
 
 import {
   DIST_TAGS,
@@ -12,6 +13,9 @@ import {
 import { buildToken, encodeScopedUri } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';
+import { response } from 'express';
+
+const debug = buildDebug('verdaccio:mock:api');
 
 // API Helpers
 
@@ -131,12 +135,14 @@ export function addUser(
   statusCode: number = HTTP_STATUS.CREATED
 ): Promise<any[]> {
   return new Promise((resolve) => {
+    debug('add user %o %o', user, credentials);
     request
       .put(`/-/user/org.couchdb.user:${user}`)
       .send(credentials)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(statusCode)
       .end(function (err, res) {
+        debug('user added error %o - res %o', err?.message, res.body);
         return resolve([err, res]);
       });
   });

@@ -19,6 +19,9 @@ yarn-error.log
 yarn.lock
 
 
+# docker examples
+docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
+docker-examples/v5/**/storage/*
 
 # jest
 reports/
@@ -34,7 +37,7 @@ tsconfig.tsbuildinfo
 ## bundle files
 packages/standalone/dist/
 ## ui
-static/
+packages/plugins/ui-theme/static
 
 # website
 website/public
