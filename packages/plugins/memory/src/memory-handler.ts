@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import {
   VerdaccioError,
   getBadRequest,
@@ -23,6 +24,7 @@ import {
 
 import { parsePackage, stringifyPackage } from './utils';
 
+const debug = buildDebug('verdaccio:plugin:storage:memory-storage');
 const fs = new MemoryFileSystem();
 
 export type DataHandler = {
@@ -41,6 +43,7 @@ class MemoryHandler implements IPackageStorageManager {
     this.name = packageName;
     this.logger = logger;
     this.path = '/';
+    debug('initialized');
   }
 
   public updatePackage(
@@ -81,11 +84,13 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   public createPackage(name: string, value: Package, cb: CallbackAction): void {
+    debug('create package %o', name);
     this.savePackage(name, value, cb);
   }
 
   public savePackage(name: string, value: Package, cb: CallbackAction): void {
     try {
+      debug('save package %o', name);
       this.data[name] = stringifyPackage(value);
       return cb(null);
     } catch (err) {
@@ -94,6 +99,7 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   public readPackage(name: string, cb: ReadPackageCallback): void {
+    debug('read package %o', name);
     const json = this._getStorage(name);
     const isJson = typeof json === 'undefined';
 
@@ -105,6 +111,7 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   public writeTarball(name: string): IUploadTarball {
+    debug('write tarball %o', name);
     const uploadStream: IUploadTarball = new UploadTarball({});
     const temporalName = `/${name}`;
 
@@ -146,6 +153,7 @@ class MemoryHandler implements IPackageStorageManager {
 
   public readTarball(name: string): IReadTarball {
     const pathName = `/${name}`;
+    debug('read tarball %o', name);
 
     const readTarballStream: IReadTarball = new ReadTarball({});
 
@@ -181,6 +189,7 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   private _getStorage(name = ''): string {
+    debug('get storage %o', name);
     return this.data[name];
   }
 }

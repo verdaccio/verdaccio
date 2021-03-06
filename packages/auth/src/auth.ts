@@ -285,7 +285,7 @@ class Auth implements IAuth {
 
       plugin.allow_access!(user, pkg, function (err, ok: boolean): void {
         if (err) {
-          debug('aforbidden access for %o. Error: %o', packageName, err?.message);
+          debug('forbidden access for %o. Error: %o', packageName, err?.message);
           return callback(err);
         }
 

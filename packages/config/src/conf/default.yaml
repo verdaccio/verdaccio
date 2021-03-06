@@ -21,7 +21,19 @@ web:
   # sort_packages: asc
   # convert your UI to the dark side
   # darkMode: true
-
+  #  HTML tags injected after manifest <scripts/>
+  # scriptsBodyAfter:
+  #    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
+  #  HTML tags injected before ends </head>
+  #  metaScripts:
+  #    - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
+  #    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
+  #    - '<meta name="robots" content="noindex" />'
+  #  HTML tags injected first child at <body/>
+  #  bodyBefore:
+  #    - '<div id="myId">html before webpack scripts</div>'
+  #  Public path for template manifest scripts (only manifest)
+  #  publicPath: http://somedomain.org/
 # translate your registry, api i18n not available yet
 # i18n:
 # list of the available translations https://github.com/verdaccio/ui/tree/master/i18n/translations
