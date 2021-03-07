@@ -102,8 +102,7 @@ class Auth implements IAuth {
     this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
 
-    this.plugins =
-      _.isNil(config?.auth) === false ? this._loadPlugin(config) : this.loadDefaultPlugin(config);
+    this.plugins = this._loadPlugin(config);
     this._applyDefaultPlugins();
   }
 
@@ -129,6 +128,10 @@ class Auth implements IAuth {
       config,
       logger: this.logger,
     };
+
+    if (Object.keys(config?.auth).includes('htpasswd')) {
+      return this.loadDefaultPlugin(config);
+    }
 
     return loadPlugin<IPluginAuth<Config>>(
       config,
