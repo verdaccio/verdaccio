@@ -17,3 +17,4 @@ Dockerfile
 *.sh
 test/unit/partials/
 types/custom.d.ts
+docker-examples/
