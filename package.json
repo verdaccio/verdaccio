@@ -155,7 +155,7 @@
     "dev:start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli",
     "code:build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
-    "docker:build": "docker build -t verdaccio/verdaccio:local . --no-cache",
+    "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local"
   },
   "engines": {
