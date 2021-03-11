@@ -138,7 +138,8 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
 }
 
 function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
-  webServer
+
+  const server = webServer
     .listen(
       addr.port || addr.path,
       addr.host,
@@ -155,6 +156,21 @@ function listenDefaultCallback(webServer: Application, addr: any, pkgName: strin
       logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });
+
+    function handleShutdownGracefully() {
+      logger.logger.fatal("received shutdown signal - closing server gracefully...");
+      server.close(() => {
+        logger.logger.info("server closed.");
+        process.exit(0);
+      });
+    }
+
+  // handle shutdown signals nicely when environment says so
+  if (process.env.HANDLE_KILL_SIGNALS === "true") {
+    process.on("SIGINT", handleShutdownGracefully);
+    process.on("SIGTERM", handleShutdownGracefully);
+    process.on("SIGHUP", handleShutdownGracefully);
+  }
 
   logger.logger.warn(
     {
