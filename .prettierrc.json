@@ -1,7 +1,7 @@
 {
   "endOfLine": "lf",
   "useTabs": false,
-  "printWidth": 100,
+  "printWidth": 180,
   "tabWidth": 2,
   "singleQuote": true,
   "bracketSpacing": true,
