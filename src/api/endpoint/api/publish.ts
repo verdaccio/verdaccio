@@ -142,7 +142,7 @@ export default function publish(
  */
 export function publishPackage(storage: IStorageHandler, config: Config, auth: IAuth): any {
   const starApi = star(storage);
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
 
     logger.debug({ packageName }, `publishing or updating a new version for @{packageName}`);
@@ -150,12 +150,12 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Write tarball of stream data from package clients.
      */
-    const createTarball = function(filename: string, data, cb: Callback): void {
+    const createTarball = function (filename: string, data, cb: Callback): void {
       const stream = storage.addTarball(packageName, filename);
-      stream.on('error', function(err) {
+      stream.on('error', function (err) {
         cb(err);
       });
-      stream.on('success', function() {
+      stream.on('success', function () {
         cb();
       });
       // this is dumb and memory-consuming, but what choices do we have?
@@ -167,18 +167,18 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Add new package version in storage
      */
-    const createVersion = function(version: string, metadata: Version, cb: Callback): void {
+    const createVersion = function (version: string, metadata: Version, cb: Callback): void {
       storage.addVersion(packageName, version, metadata, null, cb);
     };
 
     /**
      * Add new tags in storage
      */
-    const addTags = function(tags: MergeTags, cb: Callback): void {
+    const addTags = function (tags: MergeTags, cb: Callback): void {
       storage.mergeTags(packageName, tags, cb);
     };
 
-    const afterChange = function(error, okMessage, metadata): void {
+    const afterChange = function (error, okMessage, metadata): void {
       const metadataCopy: Package = { ...metadata };
 
       const { _attachments, versions } = metadataCopy;
@@ -219,47 +219,49 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // at this point document is either created or existed before
       const [firstAttachmentKey] = Object.keys(_attachments);
 
-      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function(
-        error
-      ) {
-        if (error) {
-          return next(error);
-        }
-
-        const versionToPublish = Object.keys(versions)[0];
-        const versionMetadataToPublish = versions[versionToPublish];
-
-        versionMetadataToPublish.readme =
-          _.isNil(versionMetadataToPublish.readme) === false
-            ? String(versionMetadataToPublish.readme)
-            : '';
-
-        createVersion(versionToPublish, versionMetadataToPublish, function(error) {
+      createTarball(
+        Path.basename(firstAttachmentKey),
+        _attachments[firstAttachmentKey],
+        function (error) {
           if (error) {
             return next(error);
           }
 
-          addTags(metadataCopy[DIST_TAGS], async function(error) {
+          const versionToPublish = Object.keys(versions)[0];
+          const versionMetadataToPublish = versions[versionToPublish];
+
+          versionMetadataToPublish.readme =
+            _.isNil(versionMetadataToPublish.readme) === false
+              ? String(versionMetadataToPublish.readme)
+              : '';
+
+          createVersion(versionToPublish, versionMetadataToPublish, function (error) {
             if (error) {
               return next(error);
             }
 
-            try {
-              await notify(
-                metadataCopy,
-                config,
-                req.remote_user,
-                `${metadataCopy.name}@${versionToPublish}`
-              );
-            } catch (error) {
-              logger.error({ error }, 'notify batch service has failed: @{error}');
-            }
+            addTags(metadataCopy[DIST_TAGS], async function (error) {
+              if (error) {
+                return next(error);
+              }
 
-            res.status(HTTP_STATUS.CREATED);
-            return next({ ok: okMessage, success: true });
+              try {
+                await notify(
+                  metadataCopy,
+                  config,
+                  req.remote_user,
+                  `${metadataCopy.name}@${versionToPublish}`
+                );
+              } catch (error) {
+                logger.error({ error }, 'notify batch service has failed: @{error}');
+              }
+
+              res.status(HTTP_STATUS.CREATED);
+              return next({ ok: okMessage, success: true });
+            });
           });
-        });
-      });
+        }
+      );
     };
 
     if (isPublishablePackage(req.body) === false && isObject(req.body.users)) {
@@ -273,19 +275,19 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         logger.debug({ packageName }, `updating a new version for @{packageName}`);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;
-        auth.allow_unpublish({ packageName }, remote, error => {
+        auth.allow_unpublish({ packageName }, remote, (error) => {
           if (error) {
             logger.debug({ packageName }, `not allowed to unpublish a version for @{packageName}`);
             return next(error);
           }
 
-          storage.changePackage(packageName, metadata, req.params.revision, function(error) {
+          storage.changePackage(packageName, metadata, req.params.revision, function (error) {
             afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
           });
         });
       } else {
         logger.debug({ packageName }, `adding a new version for @{packageName}`);
-        storage.addPackage(packageName, metadata, function(error) {
+        storage.addPackage(packageName, metadata, function (error) {
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
@@ -300,11 +302,11 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
  * un-publish a package
  */
 export function unPublishPackage(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
 
     logger.debug({ packageName }, `unpublishing @{packageName}`);
-    storage.removePackage(packageName, function(err) {
+    storage.removePackage(packageName, function (err) {
       if (err) {
         return next(err);
       }
@@ -318,7 +320,7 @@ export function unPublishPackage(storage: IStorageHandler) {
  * Delete tarball
  */
 export function removeTarball(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const { filename, revision } = req.params;
 
@@ -326,7 +328,7 @@ export function removeTarball(storage: IStorageHandler) {
       { packageName, filename, revision },
       `removing a tarball for @{packageName}-@{tarballName}-@{revision}`
     );
-    storage.removeTarball(packageName, filename, revision, function(err) {
+    storage.removeTarball(packageName, filename, revision, function (err) {
       if (err) {
         return next(err);
       }
@@ -344,11 +346,11 @@ export function removeTarball(storage: IStorageHandler) {
  * Adds a new version
  */
 export function addVersion(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const { version, tag } = req.params;
     const packageName = req.params.package;
 
-    storage.addVersion(packageName, version, req.body, tag, function(error) {
+    storage.addVersion(packageName, version, req.body, tag, function (error) {
       if (error) {
         return next(error);
       }
@@ -365,29 +367,29 @@ export function addVersion(storage: IStorageHandler) {
  * uploadPackageTarball
  */
 export function uploadPackageTarball(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const stream = storage.addTarball(packageName, req.params.filename);
     req.pipe(stream);
 
     // checking if end event came before closing
     let complete = false;
-    req.on('end', function() {
+    req.on('end', function () {
       complete = true;
       stream.done();
     });
 
-    req.on('close', function() {
+    req.on('close', function () {
       if (!complete) {
         stream.abort();
       }
     });
 
-    stream.on('error', function(err) {
+    stream.on('error', function (err) {
       return res.report_error(err);
     });
 
-    stream.on('success', function() {
+    stream.on('success', function () {
       res.status(HTTP_STATUS.CREATED);
       return next({
         ok: API_MESSAGE.TARBALL_UPLOADED

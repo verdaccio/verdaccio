@@ -25,7 +25,7 @@ const {
   antiLoop
 } = require('../middleware');
 
-export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
+export default function (config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */

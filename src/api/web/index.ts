@@ -25,7 +25,7 @@ export function loadTheme(config) {
         config,
         config.theme,
         {},
-        function(plugin) {
+        function (plugin) {
           return _.isString(plugin);
         },
         'verdaccio-theme'
@@ -43,7 +43,7 @@ export function validatePrimaryColor(primaryColor) {
   return primaryColor;
 }
 
-const sendFileCallback = next => err => {
+const sendFileCallback = (next) => (err) => {
   if (!err) {
     return;
   }
@@ -54,7 +54,7 @@ const sendFileCallback = next => err => {
   }
 };
 
-export default function(config, auth, storage) {
+export default function (config, auth, storage) {
   Search.configureStorage(storage);
   /* eslint new-cap:off */
   const router = express.Router();
@@ -73,13 +73,13 @@ export default function(config, auth, storage) {
     // Note: `path.join` will break on Windows, because it transforms `/` to `\`
     // Use POSIX version `path.posix.join` instead.
     logoURI = path.posix.join('/-/static/', path.basename(logoURI));
-    router.get(logoURI, function(req, res, next) {
+    router.get(logoURI, function (req, res, next) {
       res.sendFile(path.resolve(config.web.logo), sendFileCallback(next));
     });
   }
 
   // Static
-  router.get('/-/static/*', function(req, res, next) {
+  router.get('/-/static/*', function (req, res, next) {
     const filename = req.params[0];
     const file = `${themePath}/${filename}`;
     res.sendFile(file, sendFileCallback(next));
@@ -124,11 +124,11 @@ export default function(config, auth, storage) {
     res.send(webPage);
   }
 
-  router.get('/-/web/:section/*', function(req, res) {
+  router.get('/-/web/:section/*', function (req, res) {
     renderHTML(req, res);
   });
 
-  router.get('/', function(req, res) {
+  router.get('/', function (req, res) {
     renderHTML(req, res);
   });
 

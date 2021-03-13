@@ -79,7 +79,7 @@ class Auth implements IAuth {
     newPassword: string,
     cb: Callback
   ): void {
-    const validPlugins = _.filter(this.plugins, plugin => _.isFunction(plugin.changePassword));
+    const validPlugins = _.filter(this.plugins, (plugin) => _.isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
       return cb(ErrorCode.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
@@ -119,7 +119,7 @@ class Auth implements IAuth {
       }
 
       self.logger.trace({ username }, 'authenticating @{username}');
-      plugin.authenticate(username, password, function(err, groups): void {
+      plugin.authenticate(username, password, function (err, groups): void {
         if (err) {
           self.logger.trace(
             { username, err },
@@ -175,7 +175,7 @@ class Auth implements IAuth {
         next();
       } else {
         // p.add_user() execution
-        plugin[method](user, password, function(err, ok): void {
+        plugin[method](user, password, function (err, ok): void {
           if (err) {
             self.logger.trace(
               { user, err: err.message },
@@ -218,7 +218,7 @@ class Auth implements IAuth {
         return next();
       }
 
-      plugin.allow_access!(user, pkg, function(err, ok: boolean): void {
+      plugin.allow_access!(user, pkg, function (err, ok: boolean): void {
         if (err) {
           self.logger.trace(
             { packageName, err },
@@ -344,7 +344,7 @@ class Auth implements IAuth {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       req.pause();
 
-      const next = function(err: VerdaccioError | void): void {
+      const next = function (err: VerdaccioError | void): void {
         req.resume();
         // uncomment this to reject users with bad auth headers
         // return _next.apply(null, arguments)

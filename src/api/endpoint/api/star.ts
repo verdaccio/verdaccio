@@ -6,7 +6,7 @@ import { USERS, HTTP_STATUS } from '../../../lib/constants';
 import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import { logger } from '../../../lib/logger';
 
-export default function(
+export default function (
   storage: IStorageHandler
 ): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
   const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
@@ -24,7 +24,7 @@ export default function(
   return (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
     const name = req.params.package;
     logger.debug({ name }, 'starring a package for @{name}');
-    const afterChangePackage = function(err?: Error) {
+    const afterChangePackage = function (err?: Error) {
       if (err) {
         return next(err);
       }
@@ -37,7 +37,7 @@ export default function(
     storage.getPackage({
       name,
       req,
-      callback: function(err, info) {
+      callback: function (err, info) {
         if (err) {
           return next(err);
         }
@@ -67,7 +67,7 @@ export default function(
               },
               {}
             );
-        storage.changePackage(name, { ...info, users }, req.body._rev, function(err) {
+        storage.changePackage(name, { ...info, users }, req.body._rev, function (err) {
           afterChangePackage(err);
         });
       }

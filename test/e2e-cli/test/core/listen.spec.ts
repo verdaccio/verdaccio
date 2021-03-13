@@ -1,10 +1,10 @@
 import path from 'path';
-import fs from "fs";
-import {installVerdaccio} from "../__partials/npm_commands";
-import {spawnRegistry} from "../../utils/registry";
-import {callRegistry} from "../../utils/web";
+import fs from 'fs';
+import { installVerdaccio } from '../__partials/npm_commands';
+import { spawnRegistry } from '../../utils/registry';
+import { callRegistry } from '../../utils/web';
 
-describe('npm install', ()=> {
+describe('npm install', () => {
   jest.setTimeout(90000);
   const port = '9012';
 
@@ -24,10 +24,10 @@ describe('npm install', ()=> {
       paths: [verdaccioInstall]
     });
 
-    registryProcess = await spawnRegistry(pathVerdaccioModule,
-      ['-c', configPath, '-l', port],
-      { cwd: verdaccioInstall, silent: true }
-    );
+    registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
+      cwd: verdaccioInstall,
+      silent: true
+    });
 
     const body = await callRegistry(`http://localhost:${port}/verdaccio`);
     const parsedBody = JSON.parse(body);

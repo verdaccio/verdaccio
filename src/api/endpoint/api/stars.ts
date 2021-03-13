@@ -10,7 +10,7 @@ import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../t
 
 type Packages = Package[];
 
-export default function(route: Router, storage: IStorageHandler): void {
+export default function (route: Router, storage: IStorageHandler): void {
   route.get(
     '/-/_view/starredByUser',
     (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {

@@ -4,12 +4,12 @@ import path from 'path';
 import rimraf from 'rimraf';
 
 import endPointAPI from '../../../../src/api';
-import {mockServer} from '../../__helper/mock';
-import {parseConfigFile} from '../../../../src/lib/utils';
-import {parseConfigurationFile} from '../../__helper';
-import {getNewToken, getProfile, postProfile} from '../../__helper/api';
-import {setup} from '../../../../src/lib/logger';
-import {API_ERROR, HTTP_STATUS, SUPPORT_ERRORS} from '../../../../src/lib/constants';
+import { mockServer } from '../../__helper/mock';
+import { parseConfigFile } from '../../../../src/lib/utils';
+import { parseConfigurationFile } from '../../__helper';
+import { getNewToken, getProfile, postProfile } from '../../__helper/api';
+import { setup } from '../../../../src/lib/logger';
+import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
 
 setup([]);
 
@@ -22,7 +22,7 @@ describe('endpoint user profile', () => {
   let mockRegistry;
   jest.setTimeout(20000);
 
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     const store = path.join(__dirname, '../../partials/store/test-profile-storage');
     const mockServerPort = 55544;
     rimraf(store, async () => {
@@ -42,7 +42,7 @@ describe('endpoint user profile', () => {
     });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     mockRegistry[0].stop();
     done();
   });
@@ -63,7 +63,7 @@ describe('endpoint user profile', () => {
       const body = {
         password: {
           new: '12345678',
-          old: credentials.password,
+          old: credentials.password
         }
       };
       const token = await getNewToken(request(app), credentials);
@@ -79,7 +79,7 @@ describe('endpoint user profile', () => {
       const body = {
         password: {
           new: 'p1',
-          old: credentials.password,
+          old: credentials.password
         }
       };
       const token = await getNewToken(request(app), credentials);
@@ -99,7 +99,12 @@ describe('endpoint user profile', () => {
         tfa: {}
       };
       const token = await getNewToken(request(app), credentials);
-      const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.SERVICE_UNAVAILABLE);
+      const [, resp] = await postProfile(
+        request(app),
+        body,
+        token,
+        HTTP_STATUS.SERVICE_UNAVAILABLE
+      );
 
       expect(resp.error).not.toBeNull();
       expect(resp.error.text).toMatch(SUPPORT_ERRORS.TFA_DISABLED);

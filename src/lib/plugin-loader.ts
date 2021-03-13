@@ -96,31 +96,45 @@ export default function loadPlugin<T extends IPlugin<T>>(
       }
 
       if (plugin === null) {
-        logger.error({ content: pluginId, prefix }, 'plugin not found. try npm install @{prefix}-@{content}');
+        logger.error(
+          { content: pluginId, prefix },
+          'plugin not found. try npm install @{prefix}-@{content}'
+        );
         throw Error(`
         ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
       }
 
       if (!isValid(plugin)) {
-        logger.error({ content: pluginId }, "@{prefix}-@{content} plugin does not have the right code structure");
+        logger.error(
+          { content: pluginId },
+          '@{prefix}-@{content} plugin does not have the right code structure'
+        );
         throw Error(`"${pluginId}" plugin does not have the right code structure`);
       }
 
       /* eslint new-cap:off */
-        try {
-            plugin = isES6(plugin) ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params) : plugin(pluginConfigs[pluginId], params);
-        } catch (error) {
-            plugin = null;
-            logger.error({ error, pluginId }, "error loading a plugin @{pluginId}: @{error}");
-        }
+      try {
+        plugin = isES6(plugin)
+          ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
+          : plugin(pluginConfigs[pluginId], params);
+      } catch (error) {
+        plugin = null;
+        logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
+      }
       /* eslint new-cap:off */
 
       if (plugin === null || !sanityCheck(plugin)) {
-        logger.error({ content: pluginId, prefix }, "@{prefix}-@{content} doesn't look like a valid plugin");
+        logger.error(
+          { content: pluginId, prefix },
+          "@{prefix}-@{content} doesn't look like a valid plugin"
+        );
         throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
       }
 
-      logger.warn({ content: pluginId, prefix }, 'Plugin successfully loaded: @{prefix}-@{content}');
+      logger.warn(
+        { content: pluginId, prefix },
+        'Plugin successfully loaded: @{prefix}-@{content}'
+      );
       return plugin;
     }
   );

@@ -72,11 +72,11 @@ export function createAnonymousRemoteUser(): RemoteUser {
 }
 
 export function allow_action(action: string): Function {
-  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+  return function (user: RemoteUser, pkg: Package, callback: Callback): void {
     logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{user.name}`);
     const { name, groups } = user;
     const groupAccess = pkg[action];
-    const hasPermission = groupAccess.some(group => name === group || groups.includes(group));
+    const hasPermission = groupAccess.some((group) => name === group || groups.includes(group));
     logger.trace(
       { pkgName: pkg.name, hasPermission, remote: user.name, groupAccess },
       `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`
@@ -103,7 +103,7 @@ export function allow_action(action: string): Function {
  *
  */
 export function handleSpecialUnpublish(): any {
-  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+  return function (user: RemoteUser, pkg: Package, callback: Callback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined
     const isUnpublishMissing: boolean = _.isNil(pkg[action]);

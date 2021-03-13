@@ -2,8 +2,8 @@ import path from 'path';
 import _ from 'lodash';
 
 import Config from '../../../../src/lib/config';
-import {parseConfigFile}  from '../../../../src/lib/utils';
-import {DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE} from '../../../../src/lib/constants';
+import { parseConfigFile } from '../../../../src/lib/utils';
+import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 
 setup([]);
@@ -43,7 +43,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.packages['**'].publish).toBeDefined();
   expect(config.packages['**'].publish).toContainEqual(ROLES.$AUTH);
   expect(config.packages['**'].proxy).toBeDefined();
-  expect(config.packages['**'].proxy,).toContainEqual(DEFAULT_UPLINK);
+  expect(config.packages['**'].proxy).toContainEqual(DEFAULT_UPLINK);
   // uplinks
   expect(config.uplinks[DEFAULT_UPLINK]).toBeDefined();
   expect(config.uplinks[DEFAULT_UPLINK].url).toEqual(DEFAULT_REGISTRY);
@@ -68,7 +68,7 @@ const checkDefaultConfPackages = (config) => {
 };
 
 describe('Config file', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     /* eslint no-invalid-this: 0 */
     // @ts-ignore
     this.config = new Config(parseConfigFile(resolveConf('default')));
@@ -94,9 +94,5 @@ describe('Config file', () => {
     });
   });
 
-  describe('Config file', () => {
-
-  });
-
+  describe('Config file', () => {});
 });
-

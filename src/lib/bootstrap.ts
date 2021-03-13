@@ -20,7 +20,7 @@ function displayExperimentsInfoBox(experiments) {
     logger.logger.warn(
       '⚠️  experiments are enabled, we recommend do not use experiments in production, comment out this section to disable it'
     );
-    experimentList.forEach(experiment => {
+    experimentList.forEach((experiment) => {
       logger.logger.warn(
         ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
       );
@@ -55,7 +55,7 @@ function startVerdaccio(
   endPointAPI(config).then((app): void => {
     const addresses = getListListenAddresses(cliListen, config.listen);
 
-    addresses.forEach(function(addr): void {
+    addresses.forEach(function (addr): void {
       let webServer;
       if (addr.proto === 'https') {
         webServer = handleHTTPS(app, configPath, config);
@@ -172,7 +172,7 @@ function listenDefaultCallback(
         });
       }
     })
-    .on('error', function(err): void {
+    .on('error', function (err): void {
       logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });

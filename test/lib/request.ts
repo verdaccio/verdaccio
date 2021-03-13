@@ -5,8 +5,7 @@ import { IRequestPromise } from '../types';
 
 const requestData = Symbol('smart_request_data');
 
-export class PromiseAssert extends Promise<any> implements IRequestPromise{
-
+export class PromiseAssert extends Promise<any> implements IRequestPromise {
   public constructor(options: any) {
     super(options);
   }
@@ -14,56 +13,64 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
   public status(expected: number) {
     const selfData = this[requestData];
 
-    return injectResponse(this, this.then(function(body) {
-      try {
-        assert.equal(selfData.response.statusCode, expected);
-      } catch(err) {
-        selfData.error.message = err.message;
-        throw selfData.error;
-      }
-      return body;
-    }));
+    return injectResponse(
+      this,
+      this.then(function (body) {
+        try {
+          assert.equal(selfData.response.statusCode, expected);
+        } catch (err) {
+          selfData.error.message = err.message;
+          throw selfData.error;
+        }
+        return body;
+      })
+    );
   }
 
   public body_ok(expected: any) {
     const selfData = this[requestData];
 
-    return injectResponse(this, this.then(function(body) {
-      try {
-        if (_.isRegExp(expected)) {
-          assert(body.ok.match(expected), '\'' + body.ok + '\' doesn\'t match ' + expected);
-        } else {
-          assert.equal(body.ok, expected);
+    return injectResponse(
+      this,
+      this.then(function (body) {
+        try {
+          if (_.isRegExp(expected)) {
+            assert(body.ok.match(expected), "'" + body.ok + "' doesn't match " + expected);
+          } else {
+            assert.equal(body.ok, expected);
+          }
+          assert.equal(body.error, null);
+        } catch (err) {
+          selfData.error.message = err.message;
+          throw selfData.error;
         }
-        assert.equal(body.error, null);
-      } catch(err) {
-        selfData.error.message = err.message;
-        throw selfData.error;
-      }
 
-      return body;
-    }));
+        return body;
+      })
+    );
   }
-
 
   public body_error(expected: any) {
     // $FlowFixMe
     const selfData = this[requestData];
 
-    return injectResponse(this, this.then(function(body) {
-      try {
-        if (_.isRegExp(expected)) {
-          assert(body.error.match(expected), body.error + ' doesn\'t match ' + expected);
-        } else {
-          assert.equal(body.error, expected);
+    return injectResponse(
+      this,
+      this.then(function (body) {
+        try {
+          if (_.isRegExp(expected)) {
+            assert(body.error.match(expected), body.error + " doesn't match " + expected);
+          } else {
+            assert.equal(body.error, expected);
+          }
+          assert.equal(body.ok, null);
+        } catch (err) {
+          selfData.error.message = err.message;
+          throw selfData.error;
         }
-        assert.equal(body.ok, null);
-      } catch(err) {
-        selfData.error.message = err.message;
-        throw selfData.error;
-      }
-      return body;
-    }));
+        return body;
+      })
+    );
   }
 
   public request(callback: any) {
@@ -74,17 +81,19 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise{
   public response(cb: any) {
     const selfData = this[requestData];
 
-    return injectResponse(this, this.then(function(body) {
-      cb(selfData.response);
-      return body;
-    }));
+    return injectResponse(
+      this,
+      this.then(function (body) {
+        cb(selfData.response);
+        return body;
+      })
+    );
   }
 
   public send(data: any) {
     this[requestData].request.end(data);
     return this;
   }
-
 }
 
 function injectResponse(smartObject: any, promise: Promise<any>): Promise<any> {
@@ -93,7 +102,6 @@ function injectResponse(smartObject: any, promise: Promise<any>): Promise<any> {
   return promise;
 }
 
-
 function smartRequest(options: any): Promise<any> {
   const smartObject: any = {};
 
@@ -101,9 +109,9 @@ function smartRequest(options: any): Promise<any> {
   smartObject[requestData].error = Error();
   Error.captureStackTrace(smartObject[requestData].error, smartRequest);
 
-  const promiseResult: Promise<any> = new PromiseAssert(function(resolve, reject) {
+  const promiseResult: Promise<any> = new PromiseAssert(function (resolve, reject) {
     // store request reference on symbol
-    smartObject[requestData].request = request(options, function(err, res, body) {
+    smartObject[requestData].request = request(options, function (err, res, body) {
       if (err) {
         return reject(err);
       }
@@ -118,4 +126,3 @@ function smartRequest(options: any): Promise<any> {
 }
 
 export default smartRequest;
-

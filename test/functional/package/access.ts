@@ -1,13 +1,12 @@
-import {buildToken} from "../../../src/lib/utils";
-import {API_ERROR, HTTP_STATUS, TOKEN_BASIC} from "../../../src/lib/constants";
-import {CREDENTIALS} from "../config.functional";
+import { buildToken } from '../../../src/lib/utils';
+import { API_ERROR, HTTP_STATUS, TOKEN_BASIC } from '../../../src/lib/constants';
+import { CREDENTIALS } from '../config.functional';
 import fixturePkg from '../fixtures/package';
 
-export default function(server) {
-
+export default function (server) {
   describe('package access control', () => {
     const buildAccesToken = (auth) => {
-      return buildToken(TOKEN_BASIC, `${(Buffer.from(auth).toString('base64'))}`);
+      return buildToken(TOKEN_BASIC, `${Buffer.from(auth).toString('base64')}`);
     };
 
     /**
@@ -17,18 +16,16 @@ export default function(server) {
      * @param status {boolean}
      */
     function checkAccess(auth, pkg, status) {
-      test(
-        `${(status ? 'allows' : 'forbids')} access ${auth} to ${pkg}`, () => {
-          server.authstr = auth ? buildAccesToken(auth) : undefined;
-          const req = server.getPackage(pkg);
+      test(`${status ? 'allows' : 'forbids'} access ${auth} to ${pkg}`, () => {
+        server.authstr = auth ? buildAccesToken(auth) : undefined;
+        const req = server.getPackage(pkg);
 
-          if (status === HTTP_STATUS.NOT_FOUND) {
-            return req.status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.NO_PACKAGE);
-          } else if (status === HTTP_STATUS.FORBIDDEN) {
-            return req.status(HTTP_STATUS.FORBIDDEN).body_error(API_ERROR.NOT_ALLOWED);
-          }
+        if (status === HTTP_STATUS.NOT_FOUND) {
+          return req.status(HTTP_STATUS.NOT_FOUND).body_error(API_ERROR.NO_PACKAGE);
+        } else if (status === HTTP_STATUS.FORBIDDEN) {
+          return req.status(HTTP_STATUS.FORBIDDEN).body_error(API_ERROR.NOT_ALLOWED);
         }
-      );
+      });
     }
 
     /**
@@ -38,7 +35,7 @@ export default function(server) {
      * @param status {boolean}
      */
     function checkPublish(auth, pkg, status) {
-      test(`${(status ? 'allows' : 'forbids')} publish ${auth} to ${pkg}`, () => {
+      test(`${status ? 'allows' : 'forbids'} publish ${auth} to ${pkg}`, () => {
         server.authstr = auth ? buildAccesToken(auth) : undefined;
         const req = server.putPackage(pkg, fixturePkg(pkg));
         if (status === HTTP_STATUS.NOT_FOUND) {

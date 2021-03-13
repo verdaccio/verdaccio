@@ -86,7 +86,7 @@ function getConfigPaths(): SetupDirectory[] {
     getWindowsDirectory(),
     getRelativeDefaultDirectory(),
     getOldDirectory()
-  ].reduce(function(acc, currentValue: any): SetupDirectory[] {
+  ].reduce(function (acc, currentValue: any): SetupDirectory[] {
     if (_.isUndefined(currentValue) === false) {
       acc.push(currentValue);
     }

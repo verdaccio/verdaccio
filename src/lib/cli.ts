@@ -110,7 +110,7 @@ if (commander.info) {
   init();
 }
 
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', function (err) {
   logger.logger.fatal(
     {
       err: err

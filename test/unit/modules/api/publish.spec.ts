@@ -1,11 +1,15 @@
-import { addVersion, uploadPackageTarball, removeTarball, unPublishPackage, publishPackage } from '../../../../src/api/endpoint/api/publish';
+import {
+  addVersion,
+  uploadPackageTarball,
+  removeTarball,
+  unPublishPackage,
+  publishPackage
+} from '../../../../src/api/endpoint/api/publish';
 import { HTTP_STATUS, API_ERROR } from '../../../../src/lib/constants';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
 
-require('../../../../src/lib/logger').setup([
-  { type: 'stdout', format: 'pretty', level: 'info' }
-]);
+require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'info' }]);
 
 describe('Publish endpoints - add a tag', () => {
   let req;
@@ -17,18 +21,18 @@ describe('Publish endpoints - add a tag', () => {
       params: {
         version: '1.0.0',
         tag: 'tag',
-        package: 'verdaccio',
+        package: 'verdaccio'
       },
-      body: '',
+      body: ''
     };
     res = {
-      status: jest.fn(),
+      status: jest.fn()
     };
 
     next = jest.fn();
   });
 
-  test('should add a version', done => {
+  test('should add a version', (done) => {
     const storage = {
       addVersion: (packageName, version, body, tag, cb) => {
         expect(packageName).toEqual(req.params.package);
@@ -37,7 +41,7 @@ describe('Publish endpoints - add a tag', () => {
         expect(tag).toEqual(req.params.tag);
         cb();
         done();
-      },
+      }
     };
 
     // @ts-ignore
@@ -47,15 +51,15 @@ describe('Publish endpoints - add a tag', () => {
     expect(next).toHaveBeenLastCalledWith({ ok: 'package published' });
   });
 
-  test('when failed to add a version', done => {
+  test('when failed to add a version', (done) => {
     const storage = {
       addVersion: (packageName, version, body, tag, cb) => {
         const error = {
-          message: 'failure',
+          message: 'failure'
         };
         cb(error);
         done();
-      },
+      }
     };
 
     // @ts-ignore
@@ -77,10 +81,10 @@ describe('Publish endpoints - upload package tarball', () => {
     req = {
       params: {
         filename: 'verdaccio.gzip',
-        package: 'verdaccio',
+        package: 'verdaccio'
       },
       pipe: jest.fn(),
-      on: jest.fn(),
+      on: jest.fn()
     };
     res = { status: jest.fn(), report_error: jest.fn() };
     next = jest.fn();
@@ -90,14 +94,14 @@ describe('Publish endpoints - upload package tarball', () => {
     const stream = {
       done: jest.fn(),
       abort: jest.fn(),
-      on: jest.fn(() => (status, cb) => cb()),
+      on: jest.fn(() => (status, cb) => cb())
     };
     const storage = {
       addTarball(packageName, filename) {
         expect(packageName).toEqual(req.params.package);
         expect(filename).toEqual(req.params.filename);
         return stream;
-      },
+      }
     };
 
     // @ts-ignore
@@ -120,14 +124,14 @@ describe('Publish endpoints - delete tarball', () => {
       params: {
         filename: 'verdaccio.gzip',
         package: 'verdaccio',
-        revision: REVISION_MOCK,
-      },
+        revision: REVISION_MOCK
+      }
     };
     res = { status: jest.fn() };
     next = jest.fn();
   });
 
-  test('should delete tarball successfully', done => {
+  test('should delete tarball successfully', (done) => {
     const storage = {
       removeTarball(packageName, filename, revision, cb) {
         expect(packageName).toEqual(req.params.package);
@@ -135,7 +139,7 @@ describe('Publish endpoints - delete tarball', () => {
         expect(revision).toEqual(req.params.revision);
         cb();
         done();
-      },
+      }
     };
 
     // @ts-ignore
@@ -144,15 +148,15 @@ describe('Publish endpoints - delete tarball', () => {
     expect(next).toHaveBeenCalledWith({ ok: 'tarball removed' });
   });
 
-  test('failed while deleting the tarball', done => {
+  test('failed while deleting the tarball', (done) => {
     const error = {
-      message: 'deletion failed',
+      message: 'deletion failed'
     };
     const storage = {
       removeTarball(packageName, filename, revision, cb) {
         cb(error);
         done();
-      },
+      }
     };
 
     // @ts-ignore
@@ -172,20 +176,20 @@ describe('Publish endpoints - un-publish package', () => {
   beforeEach(() => {
     req = {
       params: {
-        package: 'verdaccio',
-      },
+        package: 'verdaccio'
+      }
     };
     res = { status: jest.fn() };
     next = jest.fn();
   });
 
-  test('should un-publish package successfully', done => {
+  test('should un-publish package successfully', (done) => {
     const storage = {
       removePackage(packageName, cb) {
         expect(packageName).toEqual(req.params.package);
         cb();
         done();
-      },
+      }
     };
 
     // @ts-ignore
@@ -194,15 +198,15 @@ describe('Publish endpoints - un-publish package', () => {
     expect(next).toHaveBeenCalledWith({ ok: 'package removed' });
   });
 
-  test('un-publish failed', done => {
+  test('un-publish failed', (done) => {
     const error = {
-      message: 'un-publish failed',
+      message: 'un-publish failed'
     };
     const storage = {
       removePackage(packageName, cb) {
         cb(error);
         done();
-      },
+      }
     };
 
     // @ts-ignore
@@ -222,11 +226,11 @@ describe('Publish endpoints - publish package', () => {
   beforeEach(() => {
     req = {
       body: {
-        name: 'verdaccio',
+        name: 'verdaccio'
       },
       params: {
-        package: 'verdaccio',
-      },
+        package: 'verdaccio'
+      }
     };
     res = { status: jest.fn() };
     next = jest.fn();
@@ -234,7 +238,7 @@ describe('Publish endpoints - publish package', () => {
 
   test('should change the existing package', () => {
     const storage = {
-      changePackage: jest.fn(),
+      changePackage: jest.fn()
     };
 
     req.params._rev = REVISION_MOCK;
@@ -246,7 +250,7 @@ describe('Publish endpoints - publish package', () => {
 
   test('should publish a new a new package', () => {
     const storage = {
-      addPackage: jest.fn(),
+      addPackage: jest.fn()
     };
 
     // @ts-ignore
@@ -258,7 +262,7 @@ describe('Publish endpoints - publish package', () => {
     const storage = {
       addPackage() {
         throw new Error();
-      },
+      }
     };
 
     // @ts-ignore
@@ -272,23 +276,23 @@ describe('Publish endpoints - publish package', () => {
         changePackage: jest.fn(),
         getPackage({ callback }) {
           callback(null, {
-            users: {},
+            users: {}
           });
-        },
+        }
       };
       req = {
         params: {
-          package: 'verdaccio',
+          package: 'verdaccio'
         },
         body: {
           _rev: REVISION_MOCK,
           users: {
-            verdaccio: true,
-          },
+            verdaccio: true
+          }
         },
         remote_user: {
-          name: 'verdaccio',
-        },
+          name: 'verdaccio'
+        }
       };
 
       // @ts-ignore

@@ -17,34 +17,34 @@ function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
 
     return false;
   };
-  const matcher = function(q) {
+  const matcher = function (q) {
     const match = q.match(/author:(.*)/);
     if (match !== null) {
-      return pkg => personMatch(pkg.author, match[1]);
+      return (pkg) => personMatch(pkg.author, match[1]);
     }
 
     // TODO: maintainer, keywords, not/is unstable insecure, boost-exact
     // TODO implement some scoring system for freetext
-    return pkg => {
+    return (pkg) => {
       return ['name', 'displayName', 'description']
-        .map(k => pkg[k])
-        .filter(x => x !== undefined)
-        .some(txt => txt.includes(q));
+        .map((k) => pkg[k])
+        .filter((x) => x !== undefined)
+        .some((txt) => txt.includes(q));
     };
   };
 
   const textMatchers = (textSearch || '').split(' ').map(matcher);
-  return pkg => textMatchers.every(m => m(pkg));
+  return (pkg) => textMatchers.every((m) => m(pkg));
 }
 
-export default function(route, auth, storage): void {
+export default function (route, auth, storage): void {
   route.get('/-/v1/search', (req, res) => {
     // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
     let [text, size, from /* , quality, popularity, maintenance */] = [
       'text',
       'size',
       'from' /* , 'quality', 'popularity', 'maintenance' */
-    ].map(k => req.query[k]);
+    ].map((k) => req.query[k]);
 
     size = parseInt(size) || 20;
     from = parseInt(from) || 0;
@@ -59,11 +59,11 @@ export default function(route, auth, storage): void {
       completed = true;
       resultStream.destroy();
 
-      const final = resultBuf.slice(from, size).map(pkg => {
+      const final = resultBuf.slice(from, size).map((pkg) => {
         return {
           package: pkg,
           flags: {
-            unstable: Object.keys(pkg.versions).some(v => semver.satisfies(v, '^1.0.0'))
+            unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0'))
               ? undefined
               : true
           },
@@ -87,7 +87,7 @@ export default function(route, auth, storage): void {
       res.status(200).json(response);
     };
 
-    resultStream.on('data', pkg => {
+    resultStream.on('data', (pkg) => {
       if (!isInteresting(pkg)) {
         return;
       }

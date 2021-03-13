@@ -1,11 +1,10 @@
 import async from 'async';
-import { HTTP_STATUS } from "../../../src/lib/constants";
+import { HTTP_STATUS } from '../../../src/lib/constants';
 
 let okTotalSum = 0;
-import racePkg  from '../fixtures/package';
+import racePkg from '../fixtures/package';
 
-export default function(server) {
-
+export default function (server) {
   describe('should test race condition on publish packages', () => {
     const MAX_COUNT = 20;
     const PKG_NAME = 'race';
@@ -14,14 +13,15 @@ export default function(server) {
     const UNAVAILABLE = 'unavailable';
 
     beforeAll(function () {
-      return server.putPackage(PKG_NAME, racePkg(PKG_NAME))
+      return server
+        .putPackage(PKG_NAME, racePkg(PKG_NAME))
         .status(HTTP_STATUS.CREATED)
         .body_ok(/created new package/);
     });
 
     test('creating new package', () => {});
 
-    test('should uploading 10 same versions and ignore 9', callback => {
+    test('should uploading 10 same versions and ignore 9', (callback) => {
       let listOfRequest = [];
       for (let i = 0; i < MAX_COUNT; i++) {
         // @ts-ignore
@@ -30,11 +30,14 @@ export default function(server) {
           data.rand = Math.random();
 
           let _res;
-          server.putVersion(PKG_NAME, '0.0.1', data).response(function (res) {
-            _res = res;
-          }).then(function (body) {
-            callback(null, [_res, body]);
-          });
+          server
+            .putVersion(PKG_NAME, '0.0.1', data)
+            .response(function (res) {
+              _res = res;
+            })
+            .then(function (body) {
+              callback(null, [_res, body]);
+            });
         });
       }
 
@@ -57,7 +60,10 @@ export default function(server) {
             failCount++;
           }
 
-          if (resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
+          if (
+            resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE &&
+            ~body.error.indexOf(UNAVAILABLE)
+          ) {
             failCount++;
           }
         });
@@ -71,14 +77,15 @@ export default function(server) {
       });
     });
 
-    test('shoul uploading 10 diff versions and accept 10', callback => {
+    test('shoul uploading 10 diff versions and accept 10', (callback) => {
       const listofRequest = [];
 
       for (let i = 0; i < MAX_COUNT; i++) {
         // @ts-ignore
         listofRequest.push(function (callback) {
           let _res;
-          server.putVersion(PKG_NAME, '0.1.' + String(i), racePkg(PKG_NAME))
+          server
+            .putVersion(PKG_NAME, '0.1.' + String(i), racePkg(PKG_NAME))
             .response(function (res) {
               _res = res;
             })
@@ -104,7 +111,10 @@ export default function(server) {
           if (response.statusCode === HTTP_STATUS.CONFLICT && ~body.error.indexOf(PRESENT)) {
             failcount++;
           }
-          if (response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
+          if (
+            response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE &&
+            ~body.error.indexOf(UNAVAILABLE)
+          ) {
             failcount++;
           }
         });
@@ -120,11 +130,14 @@ export default function(server) {
       });
     });
 
-    afterAll(function() {
-      return server.getPackage(PKG_NAME).status(HTTP_STATUS.OK).then(function (body) {
-        // eslint-disable-next-line jest/no-standalone-expect
-        expect(Object.keys(body.versions)).toHaveLength(okTotalSum);
-      });
+    afterAll(function () {
+      return server
+        .getPackage(PKG_NAME)
+        .status(HTTP_STATUS.OK)
+        .then(function (body) {
+          // eslint-disable-next-line jest/no-standalone-expect
+          expect(Object.keys(body.versions)).toHaveLength(okTotalSum);
+        });
     });
   });
 }

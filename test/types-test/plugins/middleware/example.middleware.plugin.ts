@@ -3,21 +3,22 @@
 /* eslint-disable no-unused-vars */
 
 import Config from '../../../../src/lib/config';
-import {generatePackageTemplate} from '../../../../src/lib/storage-utils';
-import {readFile} from '../../../functional/lib/test.utils';
+import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
+import { readFile } from '../../../functional/lib/test.utils';
 import { Package } from '@verdaccio/types';
 
-const readMetadata = (fileName: string): Package => JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
+const readMetadata = (fileName: string): Package =>
+  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
 
 import {
   Config as AppConfig,
   IPluginMiddleware,
   IStorageManager,
   RemoteUser,
-  IBasicAuth,
+  IBasicAuth
 } from '@verdaccio/types';
 import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
-import { generateVersion } from "../../../unit/__helper/utils";
+import { generateVersion } from '../../../unit/__helper/utils';
 
 export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
   register_middlewares(app: any, auth: IBasicAuth<{}>, storage: IStorageManager<{}>): void {
@@ -27,16 +28,16 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
       name: 'test'
     };
     auth.authenticate('user', 'password', () => {});
-    auth.allow_access({packageName: 'packageName'}, remoteUser, () => {});
+    auth.allow_access({ packageName: 'packageName' }, remoteUser, () => {});
     auth.add_user('user', 'password', () => {});
     auth.aesEncrypt(Buffer.from('pass'));
     // storage
     storage.addPackage('name', generatePackageTemplate('test'), () => {});
     storage.addVersion('name', 'version', generateVersion('name', '1.0.0'), 'tag', () => {});
-    storage.mergeTags('name', {'latest': '1.0.0'}, () => {});
+    storage.mergeTags('name', { latest: '1.0.0' }, () => {});
     storage.changePackage('name', readMetadata('metadata'), 'revision', () => {});
     storage.removePackage('name', () => {});
-    storage.mergeTags('name', {'latest': '1.0.0'}, () => {});
+    storage.mergeTags('name', { latest: '1.0.0' }, () => {});
     storage.removeTarball('name', 'filename', 'revision', () => {});
     const config1: AppConfig = new Config({
       storage: './storage',
@@ -48,4 +49,3 @@ export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
     const search: IReadTarball = storage.search('test', {});
   }
 }
-

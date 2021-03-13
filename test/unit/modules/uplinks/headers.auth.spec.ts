@@ -1,7 +1,13 @@
 import ProxyStorage from '../../../../src/lib/up-storage';
-import {ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY, HEADERS} from "../../../../src/lib/constants";
-import {buildToken} from "../../../../src/lib/utils";
-import {setup} from '../../../../src/lib/logger';
+import {
+  ERROR_CODE,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  DEFAULT_REGISTRY,
+  HEADERS
+} from '../../../../src/lib/constants';
+import { buildToken } from '../../../../src/lib/utils';
+import { setup } from '../../../../src/lib/logger';
 
 setup([]);
 
@@ -23,7 +29,6 @@ function setHeaders(config: unknown = {}, headers: unknown = {}) {
 }
 
 describe('uplink headers auth test', () => {
-
   test('if set headers empty should return default headers', () => {
     const headers = setHeaders();
     const keys = Object.keys(headers);
@@ -40,35 +45,38 @@ describe('uplink headers auth test', () => {
       });
     };
 
-    expect(function ( ) {
+    expect(function () {
       fnError();
     }).toThrow(Error('Auth invalid'));
   });
 
   test('if assigns the header authorization', () => {
-    const headers = setHeaders({}, {
-      [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
-    });
+    const headers = setHeaders(
+      {},
+      {
+        [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
+      }
+    );
 
     expect(Object.keys(headers)).toHaveLength(4);
     expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
   });
 
-  test(
-    'if assigns headers authorization and token the header precedes',
-    () => {
-      const headers = setHeaders({
+  test('if assigns headers authorization and token the header precedes', () => {
+    const headers = setHeaders(
+      {
         auth: {
           type: TOKEN_BEARER,
           token: 'tokenBearer'
         }
-      }, {
+      },
+      {
         [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'tokenBasic')
-      });
+      }
+    );
 
-      expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'tokenBasic'));
-    }
-  );
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'tokenBasic'));
+  });
 
   test('set type auth basic', () => {
     const headers = setHeaders({
@@ -95,16 +103,16 @@ describe('uplink headers auth test', () => {
   });
 
   test('set auth type invalid', () => {
-    const fnError = function() {
+    const fnError = function () {
       setHeaders({
         auth: {
           type: 'null',
           token: 'Zm9vX2Jhcf==='
         }
-      })
+      });
     };
 
-    expect(function ( ) {
+    expect(function () {
       fnError();
     }).toThrow(Error(`Auth type 'null' not allowed`));
   });
@@ -134,9 +142,8 @@ describe('uplink headers auth test', () => {
     delete process.env.NPM_TOKEN_TEST;
   });
 
-
   test('if token not set', () => {
-    const fnError = function() {
+    const fnError = function () {
       setHeaders({
         auth: {
           type: TOKEN_BASIC
@@ -144,7 +151,7 @@ describe('uplink headers auth test', () => {
       });
     };
 
-    expect(function( ) {
+    expect(function () {
       fnError();
     }).toThrow(ERROR_CODE.token_required);
   });

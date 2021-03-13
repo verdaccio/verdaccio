@@ -6,9 +6,9 @@ import fs from 'fs';
 
 import startServer from '../../../../src';
 import config from '../../partials/config';
-import {DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL} from '../../../../src/lib/constants';
-import {getListListenAddresses} from '../../../../src/lib/cli/utils';
-import {parseConfigFile} from '../../../../src/lib/utils';
+import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
+import { getListListenAddresses } from '../../../../src/lib/cli/utils';
+import { parseConfigFile } from '../../../../src/lib/utils';
 import { logger } from '../../../../src/lib/logger';
 
 jest.mock('../../../../src/lib/logger', () => ({
@@ -24,7 +24,6 @@ jest.mock('../../../../src/lib/logger', () => ({
 }));
 
 describe('startServer via API', () => {
-
   const parseConfigurationFile = (name) => {
     return parseConfigFile(path.join(__dirname, `../../partials/config/yaml/${name}.yaml`));
   };
@@ -36,7 +35,12 @@ describe('startServer via API', () => {
       const version = '1.0.0';
       const port = '6000';
 
-      await startServer(config(), port, store, version, serverName,
+      await startServer(
+        config(),
+        port,
+        store,
+        version,
+        serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(addrs).toBeDefined();
@@ -48,7 +52,8 @@ describe('startServer via API', () => {
           expect(pkgVersion).toBe(version);
           expect(pkgName).toBe(serverName);
           done();
-        });
+        }
+      );
     });
 
     test('should set keepAliveTimeout to 0 seconds', async (done) => {
@@ -57,7 +62,12 @@ describe('startServer via API', () => {
       const version = '1.0.0';
       const port = '6100';
 
-      await startServer(config(parseConfigurationFile('server/keepalivetimeout-0')), port, store, version, serverName,
+      await startServer(
+        config(parseConfigurationFile('server/keepalivetimeout-0')),
+        port,
+        store,
+        version,
+        serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(webServer.keepAliveTimeout).toBeDefined();
@@ -71,7 +81,8 @@ describe('startServer via API', () => {
           expect(pkgVersion).toBe(version);
           expect(pkgName).toBe(serverName);
           done();
-      });
+        }
+      );
     });
 
     test('should set keepAliveTimeout to 60 seconds', async (done) => {
@@ -80,7 +91,12 @@ describe('startServer via API', () => {
       const version = '1.0.0';
       const port = '6200';
 
-      await startServer(config(parseConfigurationFile('server/keepalivetimeout-60')), port, store, version, serverName,
+      await startServer(
+        config(parseConfigurationFile('server/keepalivetimeout-60')),
+        port,
+        store,
+        version,
+        serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(webServer.keepAliveTimeout).toBeDefined();
@@ -94,7 +110,8 @@ describe('startServer via API', () => {
           expect(pkgVersion).toBe(version);
           expect(pkgName).toBe(serverName);
           done();
-      });
+        }
+      );
     });
 
     test('should set keepAliveTimeout to 5 seconds per default', async (done) => {
@@ -103,7 +120,12 @@ describe('startServer via API', () => {
       const version = '1.0.0';
       const port = '6300';
 
-      await startServer(config(parseConfigurationFile('server/keepalivetimeout-undefined')), port, store, version, serverName,
+      await startServer(
+        config(parseConfigurationFile('server/keepalivetimeout-undefined')),
+        port,
+        store,
+        version,
+        serverName,
         (webServer, addrs, pkgName, pkgVersion) => {
           expect(webServer).toBeDefined();
           expect(webServer.keepAliveTimeout).toBeDefined();
@@ -117,7 +139,8 @@ describe('startServer via API', () => {
           expect(pkgVersion).toBe(version);
           expect(pkgName).toBe(serverName);
           done();
-      });
+        }
+      );
     });
 
     test('should provide all HTTPS server fails', async (done) => {
@@ -157,17 +180,16 @@ describe('startServer via API', () => {
       const conf = config();
       conf.https = {
         key: keyPath,
-        cert: certPath,
+        cert: certPath
       };
 
-      await startServer(conf, address, store, version, serverName,
-        (webServer, addrs) => {
-          expect(webServer).toBeDefined();
-          expect(addrs).toBeDefined();
-          expect(addrs.proto).toBe('https');
-          done();
+      await startServer(conf, address, store, version, serverName, (webServer, addrs) => {
+        expect(webServer).toBeDefined();
+        expect(addrs).toBeDefined();
+        expect(addrs.proto).toBe('https');
+        done();
       });
-    })
+    });
 
     test('should fails if config is missing', async () => {
       try {
@@ -177,14 +199,12 @@ describe('startServer via API', () => {
         expect(e.message).toEqual('config file must be an object');
       }
     });
-
   });
 
   describe('getListListenAddresses test', () => {
-
     test('should return no address if a single address is wrong', () => {
       // @ts-ignore
-      const addrs = getListListenAddresses("wrong");
+      const addrs = getListListenAddresses('wrong');
 
       expect(_.isArray(addrs)).toBeTruthy();
       expect(addrs).toHaveLength(0);
@@ -192,7 +212,7 @@ describe('startServer via API', () => {
 
     test('should return no address if a two address are wrong', () => {
       // @ts-ignore
-      const addrs = getListListenAddresses(["wrong", "same-wrong"]);
+      const addrs = getListListenAddresses(['wrong', 'same-wrong']);
 
       expect(_.isArray(addrs)).toBeTruthy();
       expect(addrs).toHaveLength(0);
@@ -238,7 +258,5 @@ describe('startServer via API', () => {
       // @ts-ignore
       expect(addrs.port).toEqual(initPort);
     });
-
   });
-
 });

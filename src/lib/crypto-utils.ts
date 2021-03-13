@@ -42,9 +42,7 @@ export function createTarballHash(): Hash {
  * @return {String}
  */
 export function stringToMD5(data: Buffer | string): string {
-  return createHash('md5')
-    .update(data)
-    .digest('hex');
+  return createHash('md5').update(data).digest('hex');
 }
 
 export function generateRandomHexString(length = 8): string {
@@ -56,7 +54,7 @@ export async function signPayload(
   secretOrPrivateKey: string,
   options: JWTSignOptions
 ): Promise<string> {
-  return new Promise(function(resolve, reject): Promise<string> {
+  return new Promise(function (resolve, reject): Promise<string> {
     return jwt.sign(
       payload,
       secretOrPrivateKey,

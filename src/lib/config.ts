@@ -57,7 +57,7 @@ class Config implements AppConfig {
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
 
     // sanity check for strategic config properties
-    strategicConfigProps.forEach(function(x): void {
+    strategicConfigProps.forEach(function (x): void {
       if (self[x] == null) {
         self[x] = {};
       }

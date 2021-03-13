@@ -22,7 +22,7 @@ import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../
 import { logger } from '../lib/logger';
 
 export function match(regexp: RegExp): any {
-  return function(
+  return function (
     req: $RequestExtend,
     res: $ResponseExtend,
     next: $NextFunctionVer,
@@ -91,7 +91,7 @@ export function validatePackage(
 }
 
 export function media(expect: string | null): any {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
       next(
         ErrorCode.getCode(
@@ -132,7 +132,7 @@ export function expectJson(
 }
 
 export function antiLoop(config: Config): Function {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers.via != null) {
       const arr = req.headers.via.split(',');
 
@@ -148,8 +148,8 @@ export function antiLoop(config: Config): Function {
 }
 
 export function allow(auth: IAuth): Function {
-  return function(action: string): Function {
-    return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (action: string): Function {
+    return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope
         ? `@${req.params.scope}/${req.params.package}`
@@ -163,21 +163,22 @@ export function allow(auth: IAuth): Function {
         `[middleware/allow][@{action}] allow for @{user}`
       );
 
-      auth['allow_' + action]({ packageName, packageVersion }, remote, function(
-        error,
-        allowed
-      ): void {
-        req.resume();
-        if (error) {
-          next(error);
-        } else if (allowed) {
-          next();
-        } else {
-          // last plugin (that's our built-in one) returns either
-          // cb(err) or cb(null, true), so this should never happen
-          throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+      auth['allow_' + action](
+        { packageName, packageVersion },
+        remote,
+        function (error, allowed): void {
+          req.resume();
+          if (error) {
+            next(error);
+          } else if (allowed) {
+            next();
+          } else {
+            // last plugin (that's our built-in one) returns either
+            // cb(err) or cb(null, true), so this should never happen
+            throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+          }
         }
-      });
+      );
     };
   };
 }
@@ -244,7 +245,7 @@ export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
 export function log(config: Config) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     // logger
     req.log = logger.child({ sub: 'in' });
 
@@ -275,7 +276,7 @@ export function log(config: Config) {
 
     let bytesin = 0;
     if (config?.experiments?.bytesin_off !== true) {
-      req.on('data', function(chunk): void {
+      req.on('data', function (chunk): void {
         bytesin += chunk.length;
       });
     }
@@ -284,7 +285,7 @@ export function log(config: Config) {
     const _write = res.write;
     // FIXME: res.write should return boolean
     // @ts-ignore
-    res.write = function(buf): boolean {
+    res.write = function (buf): boolean {
       bytesout += buf.length;
       /* eslint prefer-rest-params: "off" */
       // @ts-ignore
@@ -292,7 +293,7 @@ export function log(config: Config) {
     };
 
     let logHasBeenCalled = false;
-    const log = function(): void {
+    const log = function (): void {
       if (logHasBeenCalled) {
         return;
       }
@@ -333,12 +334,12 @@ export function log(config: Config) {
       }
     };
 
-    req.on('close', function(): void {
+    req.on('close', function (): void {
       log();
     });
 
     const _end = res.end;
-    res.end = function(buf): void {
+    res.end = function (buf): void {
       if (buf) {
         bytesout += buf.length;
       }
@@ -359,7 +360,7 @@ export function errorReportingMiddleware(
 ): void {
   res.report_error =
     res.report_error ||
-    function(err: VerdaccioError): void {
+    function (err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (!res.headersSent) {
           res.status(err.status);

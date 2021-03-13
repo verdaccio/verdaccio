@@ -102,7 +102,7 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   const matchedPkg: MatchedPackage = getMatchedPackagesSpec(pkg, packages);
   const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
   if (proxyList) {
-    return proxyList.some(curr => upLink === curr);
+    return proxyList.some((curr) => upLink === curr);
   }
 
   return false;

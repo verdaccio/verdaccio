@@ -1,17 +1,17 @@
 import path from 'path';
 import _ from 'lodash';
-import {spliceURL}  from '../../../../src/utils/string';
-import {parseConfigFile} from '../../../../src/lib/utils';
+import { spliceURL } from '../../../../src/utils/string';
+import { parseConfigFile } from '../../../../src/lib/utils';
 import {
   getMatchedPackagesSpec,
   hasProxyTo,
-  normalisePackageAccess, sanityCheckUplinksProps,
+  normalisePackageAccess,
+  sanityCheckUplinksProps,
   uplinkSanityCheck
 } from '../../../../src/lib/config-utils';
-import {PACKAGE_ACCESS, ROLES} from '../../../../src/lib/constants';
+import { PACKAGE_ACCESS, ROLES } from '../../../../src/lib/constants';
 
 describe('Config Utilities', () => {
-
   const parseConfigurationFile = (conf) => {
     const { name, ext } = path.parse(conf);
     const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
@@ -20,38 +20,40 @@ describe('Config Utilities', () => {
   };
 
   describe('uplinkSanityCheck', () => {
-    test('should test basic conversion', ()=> {
-      const uplinks = uplinkSanityCheck(parseConfigFile(parseConfigurationFile('uplink-basic')).uplinks);
+    test('should test basic conversion', () => {
+      const uplinks = uplinkSanityCheck(
+        parseConfigFile(parseConfigurationFile('uplink-basic')).uplinks
+      );
       expect(Object.keys(uplinks)).toContain('server1');
       expect(Object.keys(uplinks)).toContain('server2');
     });
 
-    test('should throw error on blacklisted uplink name', ()=> {
-      const {uplinks} = parseConfigFile(parseConfigurationFile('uplink-wrong'));
+    test('should throw error on blacklisted uplink name', () => {
+      const { uplinks } = parseConfigFile(parseConfigurationFile('uplink-wrong'));
 
       expect(() => {
-        uplinkSanityCheck(uplinks)
+        uplinkSanityCheck(uplinks);
       }).toThrow('CONFIG: reserved uplink name: anonymous');
     });
   });
 
   describe('sanityCheckUplinksProps', () => {
-    test('should fails if url prop is missing', ()=> {
-      const {uplinks} = parseConfigFile(parseConfigurationFile('uplink-wrong'));
+    test('should fails if url prop is missing', () => {
+      const { uplinks } = parseConfigFile(parseConfigurationFile('uplink-wrong'));
       expect(() => {
-        sanityCheckUplinksProps(uplinks)
+        sanityCheckUplinksProps(uplinks);
       }).toThrow('CONFIG: no url for uplink: none-url');
     });
 
-    test('should bypass an empty uplink list', ()=> {
+    test('should bypass an empty uplink list', () => {
       // @ts-ignore
       expect(sanityCheckUplinksProps([])).toHaveLength(0);
     });
   });
 
   describe('normalisePackageAccess', () => {
-    test('should test basic conversion', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic'));
+    test('should test basic conversion', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic'));
       const access = normalisePackageAccess(packages);
 
       expect(access).toBeDefined();
@@ -62,8 +64,8 @@ describe('Config Utilities', () => {
       expect(all).toBeDefined();
     });
 
-    test('should define an empty publish array even if is not defined in packages', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic-no-publish'));
+    test('should define an empty publish array even if is not defined in packages', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-publish'));
       const access = normalisePackageAccess(packages);
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -75,8 +77,8 @@ describe('Config Utilities', () => {
       expect(all.publish).toHaveLength(0);
     });
 
-    test('should define an empty access array even if is not defined in packages', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic-no-access'));
+    test('should define an empty access array even if is not defined in packages', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-access'));
       const access = normalisePackageAccess(packages);
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -88,8 +90,8 @@ describe('Config Utilities', () => {
       expect(all.access).toHaveLength(0);
     });
 
-    test('should define an empty proxy array even if is not defined in package', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-basic-no-proxy'));
+    test('should define an empty proxy array even if is not defined in package', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-proxy'));
       const access = normalisePackageAccess(packages);
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -101,8 +103,8 @@ describe('Config Utilities', () => {
       expect(all.proxy).toHaveLength(0);
     });
 
-    test('should test multi user group definition', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-multi-group'));
+    test('should test multi user group definition', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-multi-group'));
       const access = normalisePackageAccess(packages);
 
       expect(access).toBeDefined();
@@ -121,12 +123,10 @@ describe('Config Utilities', () => {
       expect(all.access).toContain('$all');
       expect(all.publish).toHaveLength(1);
       expect(all.publish).toContain('admin');
-
     });
 
-
-    test('should normalize deprecated packages into the new ones (backward props compatible)', ()=> {
-      const {packages} = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
+    test('should normalize deprecated packages into the new ones (backward props compatible)', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
       const access = normalisePackageAccess(packages);
 
       expect(access).toBeDefined();
@@ -161,7 +161,7 @@ describe('Config Utilities', () => {
       expect(all.proxy_access).toBeUndefined();
     });
 
-    test('should check not default packages access', ()=> {
+    test('should check not default packages access', () => {
       const { packages } = parseConfigFile(parseConfigurationFile('pkgs-empty'));
       const access = normalisePackageAccess(packages);
       expect(access).toBeDefined();
@@ -177,13 +177,12 @@ describe('Config Utilities', () => {
       expect(_.isArray(all.access)).toBeTruthy();
       expect(all.publish).toBeDefined();
       expect(_.isArray(all.publish)).toBeTruthy();
-
     });
   });
 
   describe('getMatchedPackagesSpec', () => {
     test('should test basic config', () => {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-custom'));
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-custom'));
       // @ts-ignore
       expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
       // @ts-ignore
@@ -195,7 +194,7 @@ describe('Config Utilities', () => {
     });
 
     test('should test no ** wildcard on config', () => {
-      const {packages} = parseConfigFile(parseConfigurationFile('pkgs-nosuper-wildcard-custom'));
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-nosuper-wildcard-custom'));
       // @ts-ignore
       expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
       // @ts-ignore
@@ -209,7 +208,9 @@ describe('Config Utilities', () => {
 
   describe('hasProxyTo', () => {
     test('should test basic config', () => {
-      const packages = normalisePackageAccess(parseConfigFile(parseConfigurationFile('pkgs-basic')).packages);
+      const packages = normalisePackageAccess(
+        parseConfigFile(parseConfigurationFile('pkgs-basic')).packages
+      );
       // react
       expect(hasProxyTo('react', 'facebook', packages)).toBeFalsy();
       expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
@@ -224,7 +225,9 @@ describe('Config Utilities', () => {
     });
 
     test('should test resolve based on custom package access', () => {
-      const packages = normalisePackageAccess(parseConfigFile(parseConfigurationFile('pkgs-custom')).packages);
+      const packages = normalisePackageAccess(
+        parseConfigFile(parseConfigurationFile('pkgs-custom')).packages
+      );
       // react
       expect(hasProxyTo('react', 'facebook', packages)).toBeTruthy();
       expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
@@ -239,7 +242,9 @@ describe('Config Utilities', () => {
     });
 
     test('should not resolve any proxy', () => {
-      const packages = normalisePackageAccess(parseConfigFile(parseConfigurationFile('pkgs-empty')).packages);
+      const packages = normalisePackageAccess(
+        parseConfigFile(parseConfigurationFile('pkgs-empty')).packages
+      );
       // react
       expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();
       expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();
@@ -278,13 +283,13 @@ describe('Config Utilities', () => {
     });
 
     test('parse invalid.json', () => {
-      expect(function ( ) {
+      expect(function () {
         parseConfigFile(parseConfigurationFile('invalid.json'));
       }).toThrow(/Error/);
     });
 
     test('parse not-exists.json', () => {
-      expect(function ( ) {
+      expect(function () {
         parseConfigFile(parseConfigurationFile('not-exists.json'));
       }).toThrow(/Error/);
     });
@@ -298,13 +303,13 @@ describe('Config Utilities', () => {
     });
 
     test('parse invalid.js', () => {
-      expect(function ( ) {
+      expect(function () {
         parseConfigFile(parseConfigurationFile('invalid.js'));
       }).toThrow(/Error/);
     });
 
     test('parse not-exists.js', () => {
-      expect(function ( ) {
+      expect(function () {
         parseConfigFile(parseConfigurationFile('not-exists.js'));
       }).toThrow(/Error/);
     });
