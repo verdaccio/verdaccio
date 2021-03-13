@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [10, 12, 13, 14, 15]
+        node_version: [10, 12, 14, 15]
 
     runs-on: ubuntu-latest
 
@@ -23,6 +23,8 @@ jobs:
       run: yarn install --immutable
     - name: Build
       run: yarn code:build
+    - name: Format
+      run: yarn format:check
     - name: Lint
       run: yarn lint
     - name: Test
