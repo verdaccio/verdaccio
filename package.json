@@ -151,7 +151,7 @@
     "type-check:watch": "yarn run type-check -- --watch",
     "pretest": "yarn run code:build",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\" --debug-check",
     "test": "yarn run test:unit",
     "test:clean": "npx jest --clearCache",
     "test:unit": "cross-env NODE_ENV=test TZ=UTC FORCE_COLOR=1 jest --config ./jest.config.js --maxWorkers 2 --passWithNoTests",
@@ -184,11 +184,6 @@
   "lint-staged": {
     "relative": true,
     "linters": {
-      "*.yaml": [
-        "prettier --parser yaml --no-config --single-quote --write",
-        "detect-secrets-launcher --baseline .secrets-baseline",
-        "git add"
-      ],
       "*": [
         "eslint .",
         "prettier --write",
