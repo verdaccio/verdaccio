@@ -1,8 +1,8 @@
 import fs from 'fs';
-import _ from 'lodash';
 import Path from 'path';
-import { logger } from './logger';
+import _ from 'lodash';
 import mkdirp from 'mkdirp';
+import { logger } from './logger';
 
 import { folderExists, fileExists } from './utils';
 import { CHARACTER_ENCODING } from './constants';
@@ -16,7 +16,7 @@ const pkgJSON = require('../../package.json');
 
 export type SetupDirectory = {
   path: string;
-  type: string
+  type: string;
 };
 
 /**
@@ -34,7 +34,9 @@ function findConfigFile(configPath: string): string {
     throw new Error('no configuration files can be processed');
   }
 
-  const primaryConf: any = _.find(configPaths, (configLocation: any) => fileExists(configLocation.path));
+  const primaryConf: any = _.find(configPaths, (configLocation: any) =>
+    fileExists(configLocation.path)
+  );
   if (_.isNil(primaryConf) === false) {
     return primaryConf.path;
   }
@@ -69,7 +71,8 @@ function updateStorageLinks(configLocation, defaultConfig): string {
   // $XDG_DATA_HOME defines the base directory relative to which user specific data files should be stored,
   // If $XDG_DATA_HOME is either not set or empty, a default equal to $HOME/.local/share should be used.
   // $FlowFixMe
-  let dataDir = process.env.XDG_DATA_HOME || Path.join(process.env.HOME as string, '.local', 'share');
+  let dataDir =
+    process.env.XDG_DATA_HOME || Path.join(process.env.HOME as string, '.local', 'share');
   if (folderExists(dataDir)) {
     dataDir = Path.resolve(Path.join(dataDir, pkgJSON.name, 'storage'));
     return defaultConfig.replace(/^storage: .\/storage$/m, `storage: ${dataDir}`);
@@ -78,13 +81,17 @@ function updateStorageLinks(configLocation, defaultConfig): string {
 }
 
 function getConfigPaths(): SetupDirectory[] {
-  const listPaths: SetupDirectory[] = [getXDGDirectory(), getWindowsDirectory(), getRelativeDefaultDirectory(), getOldDirectory()].reduce(
-    function(acc, currentValue: any): SetupDirectory[] {
-      if (_.isUndefined(currentValue) === false) {
-        acc.push(currentValue);
-      }
-      return acc;
-    }, [] as SetupDirectory[]);
+  const listPaths: SetupDirectory[] = [
+    getXDGDirectory(),
+    getWindowsDirectory(),
+    getRelativeDefaultDirectory(),
+    getOldDirectory()
+  ].reduce(function(acc, currentValue: any): SetupDirectory[] {
+    if (_.isUndefined(currentValue) === false) {
+      acc.push(currentValue);
+    }
+    return acc;
+  }, [] as SetupDirectory[]);
 
   return listPaths;
 }
@@ -95,7 +102,7 @@ const getXDGDirectory = (): SetupDirectory | void => {
   if (XDGConfig && folderExists(XDGConfig)) {
     return {
       path: Path.join(XDGConfig, pkgJSON.name, CONFIG_FILE),
-      type: XDG,
+      type: XDG
     };
   }
 };
@@ -106,7 +113,7 @@ const getWindowsDirectory = (): SetupDirectory | void => {
   if (process.platform === WIN32 && process.env.APPDATA && folderExists(process.env.APPDATA)) {
     return {
       path: Path.resolve(Path.join(process.env.APPDATA, pkgJSON.name, CONFIG_FILE)),
-      type: WIN,
+      type: WIN
     };
   }
 };
@@ -114,14 +121,14 @@ const getWindowsDirectory = (): SetupDirectory | void => {
 const getRelativeDefaultDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', pkgJSON.name, CONFIG_FILE)),
-    type: 'def',
+    type: 'def'
   };
 };
 
 const getOldDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', CONFIG_FILE)),
-    type: 'old',
+    type: 'old'
   };
 };
 

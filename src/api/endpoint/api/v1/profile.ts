@@ -1,9 +1,9 @@
 import _ from 'lodash';
+import { Response, Router } from 'express';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
 import { validatePassword } from '../../../../lib/auth-utils';
 
-import { Response, Router } from 'express';
 import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
 
 export interface Profile {
@@ -27,26 +27,34 @@ export default function(route: Router, auth: IAuth): void {
       created: '',
       updated: '',
       cidr_whitelist: null,
-      fullname: '',
+      fullname: ''
     };
   }
 
-  route.get('/-/npm/v1/user', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.get('/-/npm/v1/user', function(
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer
+  ): void {
     if (_.isNil(req.remote_user.name) === false) {
       return next(buildProfile(req.remote_user.name));
     }
 
     res.status(HTTP_STATUS.UNAUTHORIZED);
     return next({
-      message: API_ERROR.MUST_BE_LOGGED,
+      message: API_ERROR.MUST_BE_LOGGED
     });
   });
 
-  route.post('/-/npm/v1/user', function(req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  route.post('/-/npm/v1/user', function(
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer
+  ): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
-        message: API_ERROR.MUST_BE_LOGGED,
+        message: API_ERROR.MUST_BE_LOGGED
       });
     }
 
@@ -66,7 +74,9 @@ export default function(route: Router, auth: IAuth): void {
         password.new,
         (err, isUpdated): $NextFunctionVer => {
           if (_.isNull(err) === false) {
-            return next(ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message));
+            return next(
+              ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message)
+            );
           }
 
           if (isUpdated) {

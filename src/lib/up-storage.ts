@@ -1,14 +1,14 @@
 import zlib from 'zlib';
+import Stream, { Readable } from 'stream';
+import URL, {UrlWithStringQuery} from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
-import Stream, { Readable } from 'stream';
-import URL, {UrlWithStringQuery} from 'url';
-import { parseInterval, isObject, ErrorCode, buildToken } from './utils';
 import { ReadTarball } from '@verdaccio/streams';
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
 import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
 import { IProxy, UpLinkConfLocal } from '../../types';
+import { parseInterval, isObject, ErrorCode, buildToken } from './utils';
+import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
 const LoggerApi = require('./logger');
 
 const encode = function(thing): string {
@@ -658,7 +658,7 @@ class ProxyStorage implements IProxy {
     if (_.isArray(noProxyList)) {
       for (let i = 0; i < noProxyList.length; i++) {
         let noProxyItem = noProxyList[i];
-        if (noProxyItem[0] !== '.') noProxyItem = '.' + noProxyItem;
+        if (noProxyItem[0] !== '.') {noProxyItem = '.' + noProxyItem;}
         if (hostname.lastIndexOf(noProxyItem) === hostname.length - noProxyItem.length) {
           if (this.proxy) {
             this.logger.debug({ url: this.url.href, rule: noProxyItem }, 'not using proxy for @{url}, excluded by @{rule} rule');

@@ -4,10 +4,10 @@
  */
 
 import _ from 'lodash';
-import { API_ERROR, APP_ERROR, HTTP_STATUS } from '../../../lib/constants';
 
 import { Router, Response, Request } from 'express';
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
+import { API_ERROR, APP_ERROR, HTTP_STATUS } from '../../../lib/constants';
 import { IAuth, $NextFunctionVer } from '../../../../types';
 import { ErrorCode } from '../../../lib/utils';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
@@ -29,7 +29,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
 
           next({
             token: await auth.jwtEncrypt(user, jWTSignOptions),
-            username: req.remote_user.name,
+            username: req.remote_user.name
           });
         }
       }
@@ -41,7 +41,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
         // FUTURE: update to a more meaningful message
-        message: API_ERROR.MUST_BE_LOGGED,
+        message: API_ERROR.MUST_BE_LOGGED
       });
     }
 
@@ -52,7 +52,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
         if (_.isNil(err) && isUpdated) {
           next({
-            ok: true,
+            ok: true
           });
         } else {
           return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));

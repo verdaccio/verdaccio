@@ -1,12 +1,11 @@
 {
+  "endOfLine": "lf",
   "useTabs": false,
-  "printWidth": 160,
+  "printWidth": 100,
   "tabWidth": 2,
   "singleQuote": true,
-  "requirePragma": true,
   "bracketSpacing": true,
   "jsxBracketSameLine": true,
   "trailingComma": "es5",
-  "semi": true,
-  "parser": "typescript"
+  "semi": true
 }

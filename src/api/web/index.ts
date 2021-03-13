@@ -2,10 +2,10 @@
  * @prettier
  */
 
-import _ from 'lodash';
 import fs from 'fs';
 
 import path from 'path';
+import _ from 'lodash';
 import express from 'express';
 
 import { combineBaseUrl, getWebProtocol, isHTTPProtocol } from '../../lib/utils';
@@ -106,7 +106,7 @@ export default function(config, auth, storage) {
       primaryColor,
       title,
       scope,
-      language,
+      language
     };
 
     const webPage = template

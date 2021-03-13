@@ -362,7 +362,7 @@ describe('LocalStorage', () => {
           stream.done();
         });
 
-        test('should fails on add a duplicated new tarball ', (done) => {
+        test('should fails on add a duplicated new tarball', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
           stream.on('error', (err: VerdaccioError) => {

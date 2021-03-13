@@ -1,6 +1,6 @@
 // @flow
-import {stringToMD5} from '../lib/crypto-utils';
 import _ from 'lodash';
+import {stringToMD5} from '../lib/crypto-utils';
 
 // this is a generic avatar
 // https://www.iconfinder.com/icons/403017/anonym_avatar_default_head_person_unknown_user_icon

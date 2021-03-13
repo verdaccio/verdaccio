@@ -122,6 +122,7 @@ export default function(server) {
 
     afterAll(function() {
       return server.getPackage(PKG_NAME).status(HTTP_STATUS.OK).then(function (body) {
+        // eslint-disable-next-line jest/no-standalone-expect
         expect(Object.keys(body.versions)).toHaveLength(okTotalSum);
       });
     });

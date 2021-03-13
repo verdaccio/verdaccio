@@ -3,21 +3,20 @@
  * @flow
  */
 
-import _ from 'lodash';
 import assert from 'assert';
+import _ from 'lodash';
 import minimatch from 'minimatch';
-
-import { ErrorCode } from './utils';
 
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
 import { MatchedPackage, LegacyPackageList } from '../../types';
+import { ErrorCode } from './utils';
 
 const BLACKLIST = {
   all: true,
   anonymous: true,
   undefined: true,
   owner: true,
-  none: true,
+  none: true
 };
 
 /**
@@ -47,7 +46,10 @@ export function normalizeUserList(oldFormat: any, newFormat: any): any {
   return _.flatten(result);
 }
 
-export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLIST): UpLinksConfList {
+export function uplinkSanityCheck(
+  uplinks: UpLinksConfList,
+  users: any = BLACKLIST
+): UpLinksConfList {
   const newUplinks = _.clone(uplinks);
   let newUsers = _.clone(users);
 
@@ -65,7 +67,11 @@ export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLI
 
 export function sanityCheckNames(item: string, users: any): any {
   assert(
-    item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none',
+    item !== 'all' &&
+      item !== 'owner' &&
+      item !== 'anonymous' &&
+      item !== 'undefined' &&
+      item !== 'none',
     'CONFIG: reserved uplink name: ' + item
   );
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
@@ -124,11 +130,20 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
         _.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false,
         `CONFIG: bad "'${pkg}'" package description (object expected)`
       );
-      normalizedPkgs[pkg].access = normalizeUserList(packages[pkg].allow_access, packages[pkg].access);
+      normalizedPkgs[pkg].access = normalizeUserList(
+        packages[pkg].allow_access,
+        packages[pkg].access
+      );
       delete normalizedPkgs[pkg].allow_access;
-      normalizedPkgs[pkg].publish = normalizeUserList(packages[pkg].allow_publish, packages[pkg].publish);
+      normalizedPkgs[pkg].publish = normalizeUserList(
+        packages[pkg].allow_publish,
+        packages[pkg].publish
+      );
       delete normalizedPkgs[pkg].allow_publish;
-      normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
+      normalizedPkgs[pkg].proxy = normalizeUserList(
+        packages[pkg].proxy_access,
+        packages[pkg].proxy
+      );
       delete normalizedPkgs[pkg].proxy_access;
       // if unpublish is not defined, we set to false to fallback in publish access
       normalizedPkgs[pkg].unpublish = _.isUndefined(packages[pkg].unpublish)

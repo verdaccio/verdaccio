@@ -46,7 +46,7 @@ describe('Logger Parser', () => {
       expect(fillInMsgTemplate('foo', null, false)).toEqual('foo');
     });
 
-    test('string no object property with break line ', () => {
+    test('string no object property with break line', () => {
       expect(fillInMsgTemplate('foo \n bar', null, false)).toEqual('foo \n bar');
     });
 

@@ -20,7 +20,7 @@ describe('api endpoint app.param()', () => {
   const appParams = {};
 
   while ((m = very_scary_regexp.exec(source)) != null) {
-    if (m[1] === 'set') continue;
+    if (m[1] === 'set') {continue;}
 
     let inner = m[2].slice(1, m[2].length-1);
     let t;

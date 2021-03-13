@@ -1,22 +1,22 @@
-import _ from 'lodash';
 import assert from 'assert';
-import async, { AsyncResultArrayCallback } from 'async';
 import Stream from 'stream';
+import _ from 'lodash';
+import async, { AsyncResultArrayCallback } from 'async';
+import { ReadTarball } from '@verdaccio/streams';
+import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
+import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks, IPluginFilters } from '../../types';
+import { logger } from '../lib/logger';
 import ProxyStorage from './up-storage';
 import Search from './search';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from './constants';
 import LocalStorage from './local-storage';
-import { ReadTarball } from '@verdaccio/streams';
 import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { mergeVersions } from './metadata-utils';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
-import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks, IPluginFilters } from '../../types';
-import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
 import { hasProxyTo } from './config-utils';
-import { logger } from '../lib/logger';
-import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 
 class Storage implements IStorageHandler {
   public localStorage: IStorage;
@@ -62,7 +62,7 @@ class Storage implements IStorageHandler {
     return typeof this.config.publish !== 'undefined' && _.isBoolean(this.config.publish.allow_offline) && this.config.publish.allow_offline;
   }
 
-  public readTokens(filter: TokenFilter): Promise<Array<Token>> {
+  public readTokens(filter: TokenFilter): Promise<Token[]> {
     return this.localStorage.readTokens(filter);
   }
 

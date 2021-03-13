@@ -39,22 +39,22 @@ export const HEADERS = {
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',
-  GZIP: 'gzip',
+  GZIP: 'gzip'
 };
 
 export const CHARACTER_ENCODING = {
-  UTF8: 'utf8',
+  UTF8: 'utf8'
 };
 
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',
   CONTENT_TYPE: 'content-type',
   CONTENT_LENGTH: 'content-length',
-  ACCEPT_ENCODING: 'accept-encoding',
+  ACCEPT_ENCODING: 'accept-encoding'
 };
 
 export const ERROR_CODE = {
-  token_required: 'token is required',
+  token_required: 'token is required'
 };
 
 export const TOKEN_BASIC = 'Basic';
@@ -69,7 +69,7 @@ export const ROLES = {
   $ANONYMOUS: '$anonymous',
   DEPRECATED_ALL: '@all',
   DEPRECATED_AUTH: '@authenticated',
-  DEPRECATED_ANONYMOUS: '@anonymous',
+  DEPRECATED_ANONYMOUS: '@anonymous'
 };
 
 export const HTTP_STATUS = {
@@ -87,7 +87,7 @@ export const HTTP_STATUS = {
   INTERNAL_ERROR: 500,
   NOT_IMPLEMENTED: 501,
   SERVICE_UNAVAILABLE: 503,
-  LOOP_DETECTED: 508,
+  LOOP_DETECTED: 508
 };
 
 export const API_MESSAGE = {
@@ -100,14 +100,14 @@ export const API_MESSAGE = {
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
   TAG_ADDED: 'package tagged',
-  LOGGED_OUT: 'Logged out',
+  LOGGED_OUT: 'Logged out'
 };
 
 export const SUPPORT_ERRORS = {
   PLUGIN_MISSING_INTERFACE: 'the plugin does not provide implementation of the requested feature',
   TFA_DISABLED: 'the two-factor authentication is not yet supported',
   STORAGE_NOT_IMPLEMENT: 'the storage does not support token saving',
-  PARAMETERS_NOT_VALID: 'the parameters are not valid',
+  PARAMETERS_NOT_VALID: 'the parameters are not valid'
 };
 
 export const API_ERROR = {
@@ -142,13 +142,13 @@ export const API_ERROR = {
   RESOURCE_UNAVAILABLE: 'resource unavailable',
   BAD_PACKAGE_DATA: 'bad incoming package data',
   USERNAME_PASSWORD_REQUIRED: 'username and password is required',
-  USERNAME_ALREADY_REGISTERED: 'username is already registered',
+  USERNAME_ALREADY_REGISTERED: 'username is already registered'
 };
 
 export const APP_ERROR = {
   CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
   PROFILE_ERROR: 'profile unexpected error',
-  PASSWORD_VALIDATION: 'not valid password',
+  PASSWORD_VALIDATION: 'not valid password'
 };
 
 export const DEFAULT_NO_README = 'ERROR: No README data found!';
@@ -158,12 +158,12 @@ export const WEB_TITLE = 'Verdaccio';
 
 export const PACKAGE_ACCESS = {
   SCOPE: '@*/*',
-  ALL: '**',
+  ALL: '**'
 };
 
 export const STORAGE = {
   PACKAGE_FILE_NAME: 'package.json',
   FILE_EXIST_ERROR: 'EEXISTS',
   NO_SUCH_FILE_ERROR: 'ENOENT',
-  DEFAULT_REVISION: '0-0000000000000000',
+  DEFAULT_REVISION: '0-0000000000000000'
 };

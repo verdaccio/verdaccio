@@ -1,10 +1,9 @@
-
-import {fillInMsgTemplate} from "../formatter";
+import { fillInMsgTemplate } from '../formatter';
 
 const Logger = require('bunyan');
 
 export function jsonFormat(obj, hasColors): string {
-    const msg = fillInMsgTemplate(obj.msg, obj, hasColors);
+  const msg = fillInMsgTemplate(obj.msg, obj, hasColors);
 
-    return `${JSON.stringify({ ...obj, msg }, Logger.safeCycles())}\n`;
+  return `${JSON.stringify({ ...obj, msg }, Logger.safeCycles())}\n`;
 }

@@ -19,6 +19,7 @@ export interface IServerProcess {
   stop(): void;
 }
 
+// eslint-disable-next-line no-unused-vars
 declare class PromiseAssert<IRequestPromise> extends Promise<any> {
   public constructor(options: any);
 }

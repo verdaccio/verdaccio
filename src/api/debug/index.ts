@@ -4,7 +4,11 @@ import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../type
 
 export default (app: Application, selfPath: string): void => {
   // Hook for tests only
-  app.get('/-/_debug', function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  app.get('/-/_debug', function(
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): void {
     const doGarbabeCollector = _.isNil(global.gc) === false;
 
     if (doGarbabeCollector) {
@@ -17,7 +21,7 @@ export default (app: Application, selfPath: string): void => {
       main: process.mainModule.filename,
       conf: selfPath,
       mem: process.memoryUsage(),
-      gc: doGarbabeCollector,
+      gc: doGarbabeCollector
     });
   });
 };

@@ -1,4 +1,4 @@
-import { HEADERS } from "../../../lib/constants";
+import { HEADERS } from '../../../lib/constants';
 
 /**
  * @prettier
@@ -13,7 +13,7 @@ export default function(route, auth, storage): void {
     let firstPackage = true;
 
     res.status(200);
-    res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+    res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 
     /*
      * Offical NPM registry (registry.npmjs.org) no longer return whole database,
@@ -34,7 +34,9 @@ export default function(route, auth, storage): void {
      * when request /-/all/since, response is an array
      */
     const respShouldBeArray = req.path.endsWith('/since');
-    if (!respShouldBeArray) res.set('Date', 'Mon, 10 Oct 1983 00:12:48 GMT');
+    if (!respShouldBeArray) {
+      res.set('Date', 'Mon, 10 Oct 1983 00:12:48 GMT');
+    }
     const check_finish = function(): void {
       if (!received_end) {
         return;

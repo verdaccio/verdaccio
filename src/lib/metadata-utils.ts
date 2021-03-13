@@ -5,9 +5,9 @@
 
 import semver from 'semver';
 import _ from 'lodash';
+import { Package } from '@verdaccio/types';
 import { DIST_TAGS } from './constants';
 
-import { Package } from '@verdaccio/types';
 
 /**
  * Function gets a local info and an info from uplinks and tries to merge it

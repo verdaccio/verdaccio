@@ -13,6 +13,7 @@ export default function(express) {
         'Content-Type': HEADERS.JSON
       }],
       endpoint: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify`,
+      // eslint-disable-next-line max-len
       content: `{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}`
     }
   };

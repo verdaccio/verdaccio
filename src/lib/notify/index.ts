@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 
-import { notifyRequest } from './notify-request';
 import { OptionsWithUrl } from 'request';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
+import { notifyRequest } from './notify-request';
 
 type TemplateMetadata = Package & { publishedPackage: string };
 
@@ -16,7 +16,7 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
     }
   }
 
-  const template: HandlebarsTemplateDelegate = Handlebars.compile(notifyEntry.content);
+  const template = Handlebars.compile(notifyEntry.content);
   // don't override 'publisher' if package.json already has that
   /* eslint no-unused-vars: 0 */
   /* eslint @typescript-eslint/no-unused-vars: 0 */
@@ -60,14 +60,14 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
   return notifyRequest(options, content);
 }
 
-export function sendNotification(metadata: Package, notify: Notification, remoteUser: RemoteUser, publishedPackage: string): Promise<any> {
+export function sendNotification(metadata: Package, notify: any, remoteUser: RemoteUser, publishedPackage: string): Promise<any> {
   return handleNotify(metadata, notify, remoteUser, publishedPackage) as Promise<any>;
 }
 
 export function notify(metadata: Package, config: Config, remoteUser: RemoteUser, publishedPackage: string): Promise<any> | void {
   if (config.notify) {
     if (config.notify.content) {
-      return sendNotification(metadata, (config.notify as unknown) as Notification, remoteUser, publishedPackage);
+      return sendNotification(metadata, (config.notify as unknown) as any, remoteUser, publishedPackage);
     }
     // multiple notifications endpoints PR #108
     return Promise.all(_.map(config.notify, key => sendNotification(metadata, key, remoteUser, publishedPackage)));

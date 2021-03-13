@@ -1,13 +1,12 @@
 import { Router } from 'express';
 import bodyParser from 'body-parser';
+import { Config } from '@verdaccio/types';
+import Search from '../../lib/search';
+import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
+import { IAuth, IStorageHandler } from '../../../types';
 import addUserAuthApi from './endpoint/user';
 import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
-
-import Search from '../../lib/search';
-import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
-import { Config } from '@verdaccio/types';
-import { IAuth, IStorageHandler } from '../../../types';
 
 const route = Router(); /* eslint new-cap: 0 */
 

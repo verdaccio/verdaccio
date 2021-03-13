@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-standalone-expect */
 import zlib from 'zlib';
 import {readFile} from '../lib/test.utils';
 import {HEADER_TYPE, HEADERS, HTTP_STATUS, CHARACTER_ENCODING} from "../../../src/lib/constants";

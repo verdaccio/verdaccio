@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
-
 import {
   IBasicAuth,
   IBasicStorage,
@@ -197,7 +195,7 @@ export interface IStorageHandler extends IStorageManager<Config>, ITokenActions 
  */
 export interface Styles {
   [ruleOrSelector: string]: string | number | Styles;
-};
+}
 
 export type AuthorAvatar = Author & { avatar?: string };
 

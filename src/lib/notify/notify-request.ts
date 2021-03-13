@@ -1,6 +1,6 @@
 import isNil from 'lodash/isNil';
-import { logger } from '../logger';
 import request, { RequiredUriUrl } from 'request';
+import { logger } from '../logger';
 import { HTTP_STATUS } from '../constants';
 
 export function notifyRequest(options: RequiredUriUrl, content): Promise<any | Error> {

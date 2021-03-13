@@ -1,30 +1,17 @@
 /**
  * @prettier
  */
-import _ from 'lodash';
 import fs from 'fs';
 import assert from 'assert';
+import URL from 'url';
+import { IncomingHttpHeaders } from 'http2';
+import _ from 'lodash';
 import semver from 'semver';
 import YAML from 'js-yaml';
-import URL from 'url';
 import sanitizyReadme from '@verdaccio/readme';
-
-import {
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER,
-} from './constants';
-import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 
 import { Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
-import { StringValue, AuthorAvatar } from '../../types';
-import { normalizeContributors } from './storage-utils';
 import {
   getConflict,
   getBadData,
@@ -36,7 +23,20 @@ import {
   getNotFound,
   getCode,
 } from '@verdaccio/commons-api';
-import { IncomingHttpHeaders } from 'http2';
+import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
+import { StringValue, AuthorAvatar } from '../../types';
+import {
+  APP_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_DOMAIN,
+  DEFAULT_PROTOCOL,
+  CHARACTER_ENCODING,
+  HEADERS,
+  DIST_TAGS,
+  DEFAULT_USER,
+} from './constants';
+
+import { normalizeContributors } from './storage-utils';
 
 import { logger } from './logger';
 
@@ -369,7 +369,7 @@ export function parseInterval(interval: any): number {
   let result = 0;
   let last_suffix = Infinity;
   interval.split(/\s+/).forEach(function(x): void {
-    if (!x) return;
+    if (!x) {return;}
     const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
     if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
       throw Error('invalid interval: ' + interval);
