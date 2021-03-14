@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { readFile } from '../lib/test.utils';
-import {HTTP_STATUS} from "../../../src/lib/constants";
-import {TARBALL} from '../config.functional';
+import { HTTP_STATUS } from '../../../src/lib/constants';
+import { TARBALL } from '../config.functional';
 import { createTarballHash } from '../../../src/lib/crypto-utils';
 import requirePackage from '../fixtures/package';
 
@@ -23,16 +23,15 @@ function isCached(pkgName, tarballName) {
 }
 
 export default function (server, server2, server3) {
-
   describe('storage tarball cache test', () => {
-
     // more info #131
     beforeAll(function () {
       return server.addPackage(PKG_GH131);
     });
 
     beforeAll(function () {
-      return server.putTarball(PKG_GH131, TARBALL, getBinary())
+      return server
+        .putTarball(PKG_GH131, TARBALL, getBinary())
         .status(HTTP_STATUS.CREATED)
         .body_ok(/.*/);
     });
@@ -41,7 +40,8 @@ export default function (server, server2, server3) {
       const pkg = requirePackage(PKG_GH131);
       pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
 
-      return server.putVersion(PKG_GH131, '0.0.1', pkg)
+      return server
+        .putVersion(PKG_GH131, '0.0.1', pkg)
         .status(HTTP_STATUS.CREATED)
         .body_ok(/published/);
     });
@@ -51,8 +51,7 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server3.getTarball(PKG_GH131, TARBALL)
-        .status(HTTP_STATUS.OK);
+      return server3.getTarball(PKG_GH131, TARBALL).status(HTTP_STATUS.OK);
     });
 
     test('should be caching packages from uplink server1', () => {
@@ -64,7 +63,8 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server2.putTarball(PKG_GH1312, TARBALL, getBinary())
+      return server2
+        .putTarball(PKG_GH1312, TARBALL, getBinary())
         .status(HTTP_STATUS.CREATED)
         .body_ok(/.*/);
     });
@@ -73,24 +73,22 @@ export default function (server, server2, server3) {
       const pkg = requirePackage(PKG_GH1312);
       pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
 
-      return server2.putVersion(PKG_GH1312, '0.0.1', pkg)
+      return server2
+        .putVersion(PKG_GH1312, '0.0.1', pkg)
         .status(HTTP_STATUS.CREATED)
         .body_ok(/published/);
     });
 
     beforeAll(function () {
-      return server3.getPackage(PKG_GH1312)
-        .status(HTTP_STATUS.OK);
+      return server3.getPackage(PKG_GH1312).status(HTTP_STATUS.OK);
     });
 
     beforeAll(function () {
-      return server3.getTarball(PKG_GH1312, TARBALL)
-        .status(HTTP_STATUS.OK);
+      return server3.getTarball(PKG_GH1312, TARBALL).status(HTTP_STATUS.OK);
     });
 
     test('must not be caching packages from uplink server2', () => {
       expect(isCached(PKG_GH1312, TARBALL)).toEqual(false);
     });
-
   });
 }

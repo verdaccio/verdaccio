@@ -2,10 +2,10 @@ import _ from 'lodash';
 import Auth from '../../../../src/lib/auth';
 import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf } from './helper/plugin';
 import AppConfig from '../../../../src/lib/config';
-import {setup} from '../../../../src/lib/logger';
+import { setup } from '../../../../src/lib/logger';
 
-import {IAuth} from '../../../../types';
-import {Config} from '@verdaccio/types';
+import { IAuth } from '../../../../types';
+import { Config } from '@verdaccio/types';
 import { ROLES } from '../../../../src/lib/constants';
 import { getInternalError } from '@verdaccio/commons-api';
 
@@ -28,18 +28,23 @@ describe('AuthTest', () => {
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
-        const groups = [ "test" ];
+        const groups = ['test'];
 
         auth.authenticate('foo', 'bar', callback);
 
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(null,
-          {"groups":
-            [
-            "test", ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL],
-            "name": 'foo',
-            "real_groups": groups
-          });
+        expect(callback).toHaveBeenCalledWith(null, {
+          groups: [
+            'test',
+            ROLES.$ALL,
+            ROLES.$AUTH,
+            ROLES.DEPRECATED_ALL,
+            ROLES.DEPRECATED_AUTH,
+            ROLES.ALL
+          ],
+          name: 'foo',
+          real_groups: groups
+        });
       });
 
       test('should be a fail on login', () => {
@@ -70,7 +75,7 @@ describe('AuthTest', () => {
         let index = 0;
 
         // as defined by https://developer.mozilla.org/en-US/docs/Glossary/Falsy
-        for (const value of [ false, 0, "",  null, undefined, NaN ]) {
+        for (const value of [false, 0, '', null, undefined, NaN]) {
           // @ts-ignore
           auth.authenticate(null, value, callback);
           const call = callback.mock.calls[index++];
@@ -87,8 +92,8 @@ describe('AuthTest', () => {
 
         const callback = jest.fn();
 
-        for (const value of [ true, 1, "test", { } ]) {
-          expect(function ( ) {
+        for (const value of [true, 1, 'test', {}]) {
+          expect(function () {
             // @ts-ignore
             auth.authenticate(null, value, callback);
           }).toThrow(TypeError);
@@ -103,7 +108,7 @@ describe('AuthTest', () => {
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
-        const value = [ ];
+        const value = [];
 
         // @ts-ignore
         auth.authenticate(null, value, callback);
@@ -121,7 +126,7 @@ describe('AuthTest', () => {
         const callback = jest.fn();
         let index = 0;
 
-        for (const value of [ [ "" ], [ "1" ], [ "0" ], ["000"] ]) {
+        for (const value of [[''], ['1'], ['0'], ['000']]) {
           // @ts-ignore
           auth.authenticate(null, value, callback);
           const call = callback.mock.calls[index++];
@@ -130,5 +135,5 @@ describe('AuthTest', () => {
         }
       });
     });
-  })
+  });
 });

@@ -15,7 +15,7 @@ class Search implements IWebSearch {
    * Constructor.
    */
   public constructor() {
-    this.index = lunrMutable(function(): void {
+    this.index = lunrMutable(function (): void {
       // FIXME: there is no types for this library
       /* eslint no-invalid-this:off */
       // @ts-ignore
@@ -43,11 +43,13 @@ class Search implements IWebSearch {
   public query(query: string): any[] {
     const localStorage = this.storage.localStorage as IStorage;
 
-    return query === '*' ? localStorage.storagePlugin.get((items): any => {
-      items.map(function(pkg): any {
-        return { ref: pkg, score: 1 };
-      });
-    }) : this.index.search(`*${query}*`);
+    return query === '*'
+      ? localStorage.storagePlugin.get((items): any => {
+          items.map(function (pkg): any {
+            return { ref: pkg, score: 1 };
+          });
+        })
+      : this.index.search(`*${query}*`);
   }
 
   /**
@@ -61,7 +63,7 @@ class Search implements IWebSearch {
       description: pkg.description,
       version: `v${pkg.version}`,
       keywords: pkg.keywords,
-      author: pkg._npmUser ? pkg._npmUser.name : '???',
+      author: pkg._npmUser ? pkg._npmUser.name : '???'
     });
   }
 

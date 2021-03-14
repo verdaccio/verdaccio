@@ -1,9 +1,9 @@
 import { inspect } from 'util';
-import { isObject, pad } from '../utils';
 import { red, green } from 'kleur';
 
 import { white } from 'kleur';
-import {calculateLevel, levels, subsystems} from "./levels";
+import { isObject, pad } from '../utils';
+import { calculateLevel, levels, subsystems } from './levels';
 
 let LEVEL_VALUE_MAX = 0;
 for (const l in levels) {
@@ -36,7 +36,6 @@ export function printMessage(type, msg, templateObjects, hasColors) {
 
 export function fillInMsgTemplate(msg, obj: unknown, colors): string {
   return msg.replace(/@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g, (_, name): string => {
-
     let str = obj;
     let is_error;
     if (name[0] === '!') {

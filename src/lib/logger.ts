@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import {prettyTimestamped} from "./logger/format/pretty-timestamped";
-import {pretty} from "./logger/format/pretty";
-import {jsonFormat} from "./logger/format/json";
+import { prettyTimestamped } from './logger/format/pretty-timestamped';
+import { pretty } from './logger/format/pretty';
+import { jsonFormat } from './logger/format/json';
 
 const cluster = require('cluster');
 const Logger = require('bunyan');
@@ -49,7 +49,7 @@ function setup(logs, { logStart } = { logStart: true }) {
     logs = DEFAULT_LOGGER_CONF;
   }
 
-  logs.forEach(function(target: LoggerTarget) {
+  logs.forEach(function (target: LoggerTarget) {
     let level = target.level || 35;
     if (level === 'http') {
       level = 35;
@@ -78,7 +78,7 @@ function setup(logs, { logStart } = { logStart: true }) {
       const rotateStream = {
         type: 'raw',
         level,
-        stream,
+        stream
       };
 
       if (logStart) {
@@ -94,8 +94,11 @@ function setup(logs, { logStart } = { logStart: true }) {
       let destinationIsTTY = false;
       if (target.type === 'file') {
         // destination stream
-        destination = require('fs').createWriteStream(target.path, { flags: 'a', encoding: 'utf8' });
-        destination.on('error', function(err) {
+        destination = require('fs').createWriteStream(target.path, {
+          flags: 'a',
+          encoding: 'utf8'
+        });
+        destination.on('error', function (err) {
           stream.emit('error', err);
         });
       } else if (target.type === 'stdout' || target.type === 'stderr') {
@@ -107,16 +110,16 @@ function setup(logs, { logStart } = { logStart: true }) {
 
       if (target.format === 'pretty') {
         // making fake stream for pretty printing
-        stream.write = obj => {
+        stream.write = (obj) => {
           destination.write(pretty(obj, destinationIsTTY));
         };
       } else if (target.format === 'pretty-timestamped') {
         // making fake stream for pretty printing
-        stream.write = obj => {
+        stream.write = (obj) => {
           destination.write(prettyTimestamped(obj, destinationIsTTY));
         };
       } else {
-        stream.write = obj => {
+        stream.write = (obj) => {
           destination.write(jsonFormat(obj, destinationIsTTY));
         };
       }
@@ -127,7 +130,7 @@ function setup(logs, { logStart } = { logStart: true }) {
         // @ts-ignore
         level,
         // @ts-ignore
-        stream: stream,
+        stream: stream
       });
     }
   });
@@ -139,8 +142,8 @@ function setup(logs, { logStart } = { logStart: true }) {
     serializers: {
       err: Logger.stdSerializers.err,
       req: Logger.stdSerializers.req,
-      res: Logger.stdSerializers.res,
-    },
+      res: Logger.stdSerializers.res
+    }
   });
 
   // In case of an empty log file, we ensure there is always something logged. This also helps see if the server
@@ -149,7 +152,7 @@ function setup(logs, { logStart } = { logStart: true }) {
     logger.warn('Verdaccio started');
   }
 
-  process.on('SIGUSR2', function() {
+  process.on('SIGUSR2', function () {
     // https://github.com/trentm/node-bunyan#stream-type-rotating-file
     if (logger) {
       /**

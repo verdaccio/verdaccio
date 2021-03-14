@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default function(server) {
+export default function (server) {
   test('ping', () => {
     return server.ping().then(function (data) {
       // it's always an empty object

@@ -15,34 +15,33 @@ import {
   HTTP_STATUS,
   HEADER_TYPE,
   API_MESSAGE,
-  TOKEN_BEARER,
+  TOKEN_BEARER
 } from '../../../../src/lib/constants';
-import {mockServer} from '../../__helper/mock';
-import {DOMAIN_SERVERS} from '../../../functional/config.functional';
-import {buildToken, encodeScopedUri} from '../../../../src/lib/utils';
+import { mockServer } from '../../__helper/mock';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { buildToken, encodeScopedUri } from '../../../../src/lib/utils';
 import {
   getNewToken,
   getPackage,
   putPackage,
-  verifyPackageVersionDoesExist, generateUnPublishURI
+  verifyPackageVersionDoesExist,
+  generateUnPublishURI
 } from '../../__helper/api';
 import {
   generatePackageMetadata,
   generatePackageUnpublish,
   generateStarMedatada,
   generateDeprecateMetadata,
-  generateVersion,
+  generateVersion
 } from '../../__helper/utils';
 
 const sleep = (delay) => {
-  return new Promise(resolve => {
-    setTimeout(resolve, delay)
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
   });
-}
+};
 
-require('../../../../src/lib/logger').setup([
-  { type: 'stdout', format: 'pretty', level: 'warn' }
-]);
+require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'warn' }]);
 
 const credentials = { name: 'jota', password: 'secretPass' };
 
@@ -62,38 +61,39 @@ describe('endpoint unit test', () => {
   const mockServerPort = 55549;
   let mockRegistry;
 
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
     rimraf(store, async () => {
-      const configForTest = configDefault({
-        auth: {
-          htpasswd: {
-            file: './test-storage-api-spec/.htpasswd'
-          }
-        },
-        filters: {
-          '../../modules/api/partials/plugin/filter': {
-            pkg: 'npm_test',
-            version: '2.0.0'
-          }
-        },
-        storage: store,
-        self_path: store,
-        uplinks: {
-          npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+      const configForTest = configDefault(
+        {
+          auth: {
+            htpasswd: {
+              file: './test-storage-api-spec/.htpasswd'
+            }
           },
-          socketTimeout: {
-            url: `http://some.registry.timeout.com`,
-            max_fails: 2,
-            timeout: '1s',
-            fail_timeout: '1s'
-          }
+          filters: {
+            '../../modules/api/partials/plugin/filter': {
+              pkg: 'npm_test',
+              version: '2.0.0'
+            }
+          },
+          storage: store,
+          self_path: store,
+          uplinks: {
+            npmjs: {
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            },
+            socketTimeout: {
+              url: `http://some.registry.timeout.com`,
+              max_fails: 2,
+              timeout: '1s',
+              fail_timeout: '1s'
+            }
+          },
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
         },
-        logs: [
-          { type: 'stdout', format: 'pretty', level: 'warn' }
-        ]
-      }, 'api.spec.yaml');
+        'api.spec.yaml'
+      );
 
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
@@ -101,24 +101,23 @@ describe('endpoint unit test', () => {
     });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     mockRegistry[0].stop();
     done();
   });
 
   afterEach(() => {
     nock.cleanAll();
-  })
+  });
 
   describe('Registry API Endpoints', () => {
-
     describe('should test ping api', () => {
       test('should test endpoint /-/ping', (done) => {
         request(app)
           .get('/-/ping')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               return done(err);
             }
@@ -129,18 +128,11 @@ describe('endpoint unit test', () => {
 
     describe('should test whoami api', () => {
       test('should test referer /whoami endpoint', (done) => {
-        request(app)
-          .get('/whoami')
-          .set('referer', 'whoami')
-          .expect(HTTP_STATUS.OK)
-          .end(done);
+        request(app).get('/whoami').set('referer', 'whoami').expect(HTTP_STATUS.OK).end(done);
       });
 
       test('should test no referer /whoami endpoint', (done) => {
-        request(app)
-          .get('/whoami')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .end(done);
+        request(app).get('/whoami').expect(HTTP_STATUS.NOT_FOUND).end(done);
       });
 
       test('should test /-/whoami endpoint', (done) => {
@@ -148,7 +140,7 @@ describe('endpoint unit test', () => {
           .get('/-/whoami')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               return done(err);
             }
@@ -161,7 +153,7 @@ describe('endpoint unit test', () => {
           .get('/-/whoami')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               return done(err);
             }
@@ -171,7 +163,6 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test user api', () => {
-
       describe('should test authorization headers with tokens only errors', () => {
         test('should fails on protected endpoint /-/auth-package bad format', (done) => {
           request(app)
@@ -179,9 +170,11 @@ describe('endpoint unit test', () => {
             .set(HEADERS.AUTHORIZATION, 'FakeHader')
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
-            .end(function(err, res) {
+            .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -192,9 +185,11 @@ describe('endpoint unit test', () => {
             .set(HEADERS.AUTHORIZATION, TOKEN_BEARER)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
-            .end(function(err, res) {
+            .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -205,14 +200,15 @@ describe('endpoint unit test', () => {
             .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, '12345'))
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
             .expect(HTTP_STATUS.FORBIDDEN)
-            .end(function(err, res) {
+            .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
       });
-
 
       test('should test add a new user', (done) => {
         request(app)
@@ -220,7 +216,7 @@ describe('endpoint unit test', () => {
           .send(credentials)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -237,7 +233,7 @@ describe('endpoint unit test', () => {
               .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
               .expect(HTTP_STATUS.OK)
-              .end(function(err, res) {
+              .end(function (err, res) {
                 expect(err).toBeNull();
                 expect(res.body).toBeDefined();
                 expect(res.body.name).toMatch(/vue/);
@@ -247,7 +243,6 @@ describe('endpoint unit test', () => {
       });
 
       test('should test fails add a new user with missing name', (done) => {
-
         const credentialsShort = _.cloneDeep(credentials);
         delete credentialsShort.name;
 
@@ -256,7 +251,7 @@ describe('endpoint unit test', () => {
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -268,7 +263,6 @@ describe('endpoint unit test', () => {
       });
 
       test('should test fails add a new user with missing password', (done) => {
-
         const credentialsShort = _.cloneDeep(credentials);
         delete credentialsShort.password;
 
@@ -277,7 +271,7 @@ describe('endpoint unit test', () => {
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.BAD_REQUEST)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -299,7 +293,7 @@ describe('endpoint unit test', () => {
           .send(newCredentials)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -314,7 +308,7 @@ describe('endpoint unit test', () => {
           .send(credentials)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CONFLICT)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -325,7 +319,6 @@ describe('endpoint unit test', () => {
       });
 
       test('should test fails add a new user with wrong password', (done) => {
-
         const credentialsShort = _.cloneDeep(credentials);
         credentialsShort.password = 'failPassword';
 
@@ -334,7 +327,7 @@ describe('endpoint unit test', () => {
           .send(credentialsShort)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.UNAUTHORIZED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -344,7 +337,6 @@ describe('endpoint unit test', () => {
             done();
           });
       });
-
     });
 
     describe('should test package api', () => {
@@ -356,13 +348,12 @@ describe('endpoint unit test', () => {
       //   proxy: npmjs
 
       test('should fetch jquery package from remote uplink', (done) => {
-
         request(app)
           .get('/jquery')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -377,18 +368,17 @@ describe('endpoint unit test', () => {
         const timeOutPkg = generatePackageMetadata('timeout', '1.5.1');
         const responseText = 'fooooooooooooooooo';
         const readable = Readable.from([responseText]);
-        timeOutPkg.versions['1.5.1'].dist.tarball = 'http://some.registry.timeout.com/timeout/-/timeout-1.5.1.tgz';
-        nock('http://some.registry.timeout.com')
-          .get('/timeout')
-          .reply(200, timeOutPkg);
+        timeOutPkg.versions['1.5.1'].dist.tarball =
+          'http://some.registry.timeout.com/timeout/-/timeout-1.5.1.tgz';
+        nock('http://some.registry.timeout.com').get('/timeout').reply(200, timeOutPkg);
         nock('http://some.registry.timeout.com')
           .get('/timeout/-/timeout-1.5.1.tgz')
           .twice()
           .socketDelay(50000)
-        .reply(200);
+          .reply(200);
         nock('http://some.registry.timeout.com')
-        .get('/timeout/-/timeout-1.5.1.tgz')
-        .reply(200, () => readable);
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .reply(200, () => readable);
         const agent = request.agent(app);
         await agent
           .get('/timeout/-/timeout-1.5.1.tgz')
@@ -407,13 +397,12 @@ describe('endpoint unit test', () => {
       }, 10000);
 
       test('should fetch jquery specific version package from remote uplink', (done) => {
-
         request(app)
           .get('/jquery/1.5.1')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -425,13 +414,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should fetch jquery specific tag package from remote uplink', (done) => {
-
         request(app)
           .get('/jquery/latest')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -443,13 +431,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should fails on fetch jquery specific tag package from remote uplink', (done) => {
-
         request(app)
           .get('/jquery/never-will-exist-this-tag')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               return done(err);
             }
@@ -458,13 +445,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should not found a unexisting remote package under scope', (done) => {
-
         request(app)
           .get('/@verdaccio/not-found')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               return done(err);
             }
@@ -479,7 +465,7 @@ describe('endpoint unit test', () => {
             .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
+            .end(function (err, res) {
               if (err) {
                 return done(err);
               }
@@ -491,12 +477,12 @@ describe('endpoint unit test', () => {
 
         test('should not found when a filter fails', (done) => {
           request(app)
-          // Filter errors look like other uplink errors
+            // Filter errors look like other uplink errors
             .get('/trigger-filter-failure')
             .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HTTP_STATUS.NOT_FOUND)
-            .end(function(err) {
+            .end(function (err) {
               if (err) {
                 return done(err);
               }
@@ -506,13 +492,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should forbid access to remote package', (done) => {
-
         request(app)
           .get('/forbidden-place')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.UNAUTHORIZED)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               return done(err);
             }
@@ -521,12 +506,11 @@ describe('endpoint unit test', () => {
       });
 
       test('should fetch a tarball from remote uplink', (done) => {
-
         request(app)
           .get('/jquery/-/jquery-1.5.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -537,12 +521,11 @@ describe('endpoint unit test', () => {
       });
 
       test('should fetch a scoped tarball from remote uplink', (done) => {
-
         request(app)
           .get('/@jquery/jquery/-/@jquery/jquery-1.5.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               return done(err);
             }
@@ -553,12 +536,11 @@ describe('endpoint unit test', () => {
       });
 
       test('should fails fetch a tarball from remote uplink', (done) => {
-
         request(app)
           .get('/jquery/-/jquery-not-found-tarball-0.0.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.NOT_FOUND)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               expect(err).not.toBeNull();
               return done(err);
@@ -567,20 +549,19 @@ describe('endpoint unit test', () => {
             done();
           });
       });
-
     });
 
     describe('should test dist-tag api', () => {
       const jqueryVersion = '2.1.2';
       const jqueryUpdatedVersion = {
-        'beta': '3.0.0',
-        'jota': '1.6.3'
+        beta: '3.0.0',
+        jota: '1.6.3'
       };
 
       test('should set a new tag on jquery', (done) => {
         putVersion(app, '/jquery/verdaccio-tag', jqueryVersion)
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -593,13 +574,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should fetch all tag for jquery', (done) => {
-
         request(app)
           .get('/-/package/jquery/dist-tags')
           .set('accept-encoding', HEADERS.JSON)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -612,13 +592,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should update a new tag on jquery', (done) => {
-
         request(app)
           .post('/-/package/jquery/dist-tags')
           .send(JSON.stringify(jqueryUpdatedVersion))
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -631,13 +610,12 @@ describe('endpoint unit test', () => {
       });
 
       test('should fetch all tags for jquery and ccheck previous update', (done) => {
-
         request(app)
           .get('/-/package/jquery/dist-tags')
           .set('accept-encoding', HEADERS.JSON)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -650,14 +628,13 @@ describe('endpoint unit test', () => {
       });
 
       test('should set a remove a tag on jquery', (done) => {
-
         request(app)
           .del('/-/package/jquery/dist-tags/verdaccio-tag')
           .set('accept-encoding', HEADERS.JSON)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -668,7 +645,6 @@ describe('endpoint unit test', () => {
             done();
           });
       });
-
     });
 
     describe('should test search api', () => {
@@ -681,7 +657,7 @@ describe('endpoint unit test', () => {
           // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
-          .end(function(err) {
+          .end(function (err) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -691,7 +667,6 @@ describe('endpoint unit test', () => {
             done();
           });
       });
-
     });
 
     describe('should test publish/unpublish api', () => {
@@ -710,15 +685,24 @@ describe('endpoint unit test', () => {
         }
 
         const newVersion = '2.0.1';
-        const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`,
-          generatePackageMetadata(pkgName, newVersion), token);
+        const [newErr] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          generatePackageMetadata(pkgName, newVersion),
+          token
+        );
         if (newErr) {
           expect(newErr).toBeNull();
           return done(newErr);
         }
 
-        const deletePayload =  generatePackageUnpublish(pkgName, ['2.0.0']);
-        const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+        const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
+        const [err2, res2] = await putPackage(
+          request(app),
+          generateUnPublishURI(pkgName),
+          deletePayload,
+          token
+        );
 
         expect(err2).toBeNull();
         expect(res2.body.ok).toMatch(API_MESSAGE.PKG_CHANGED);
@@ -767,18 +751,29 @@ describe('endpoint unit test', () => {
           const newVersion = '1.0.0';
           const token = await getNewToken(request(app), credentials);
 
-          const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`,
-                                            generatePackageMetadata(pkgName, newVersion), token);
+          const [newErr] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion),
+            token
+          );
           if (newErr) {
             expect(newErr).toBeNull();
             return done(newErr);
           }
 
-          const deletePayload =  generatePackageUnpublish(pkgName, ['2.0.0']);
-          const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+          const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
+          const [err2, res2] = await putPackage(
+            request(app),
+            generateUnPublishURI(pkgName),
+            deletePayload,
+            token
+          );
 
           expect(err2).not.toBeNull();
-          expect(res2.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
+          expect(res2.body.error).toMatch(
+            /user jota_unpublish_fail is not allowed to unpublish package non-unpublish/
+          );
           done();
         });
 
@@ -804,11 +799,17 @@ describe('endpoint unit test', () => {
           const newVersion = '1.0.0';
           const token = await getNewToken(request(app), credentials);
 
-          const [newErr, resp] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`,
-            generatePackageMetadata(pkgName, newVersion), token);
+          const [newErr, resp] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion),
+            token
+          );
 
           expect(newErr).not.toBeNull();
-          expect(resp.body.error).toMatch(/user jota_only_unpublish_fail is not allowed to publish package only-unpublish/);
+          expect(resp.body.error).toMatch(
+            /user jota_only_unpublish_fail is not allowed to publish package only-unpublish/
+          );
           done();
         });
       });
@@ -820,11 +821,15 @@ describe('endpoint unit test', () => {
           .put('/super-admin-can-unpublish')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .send(JSON.stringify(_.assign({}, publishMetadata, {
-            name: 'super-admin-can-unpublish'
-          })))
+          .send(
+            JSON.stringify(
+              _.assign({}, publishMetadata, {
+                name: 'super-admin-can-unpublish'
+              })
+            )
+          )
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -838,7 +843,7 @@ describe('endpoint unit test', () => {
               .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
               .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HTTP_STATUS.CREATED)
-              .end(function(err, res) {
+              .end(function (err, res) {
                 expect(err).toBeNull();
                 expect(res.body.ok).toBeDefined();
                 expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
@@ -854,11 +859,15 @@ describe('endpoint unit test', () => {
           .put('/all-can-unpublish')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .send(JSON.stringify(_.assign({}, publishMetadata, {
-            name: 'all-can-unpublish'
-          })))
+          .send(
+            JSON.stringify(
+              _.assign({}, publishMetadata, {
+                name: 'all-can-unpublish'
+              })
+            )
+          )
           .expect(HTTP_STATUS.CREATED)
-          .end(function(err, res) {
+          .end(function (err, res) {
             if (err) {
               expect(err).toBeNull();
               return done(err);
@@ -872,7 +881,7 @@ describe('endpoint unit test', () => {
               .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
               .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HTTP_STATUS.CREATED)
-              .end(function(err, res) {
+              .end(function (err, res) {
                 expect(err).toBeNull();
                 expect(res.body.ok).toBeDefined();
                 expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
@@ -883,93 +892,105 @@ describe('endpoint unit test', () => {
     });
 
     describe('should test star and stars api', () => {
-        const pkgName = '@scope/starPackage';
-        const credentials = { name: 'jota_star', password: 'secretPass' };
-        let token = '';
-        beforeAll(async (done) =>{
-            token = await getNewToken(request(app), credentials);
-            await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
+      const pkgName = '@scope/starPackage';
+      const credentials = { name: 'jota_star', password: 'secretPass' };
+      let token = '';
+      beforeAll(async (done) => {
+        token = await getNewToken(request(app), credentials);
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
+        done();
+      });
+
+      test('should star a package', (done) => {
+        request(app)
+          .put(`/${pkgName}`)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(
+            JSON.stringify(
+              generateStarMedatada(pkgName, {
+                [credentials.name]: true
+              })
+            )
+          )
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, res) {
+            if (err) {
+              expect(err).toBeNull();
+              return done(err);
+            }
+            expect(res.body.success).toBeDefined();
+            expect(res.body.success).toBeTruthy();
             done();
-        });
+          });
+      });
 
-        test('should star a package', (done) => {
-            request(app)
-                .put(`/${pkgName}`)
-                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .send(JSON.stringify(generateStarMedatada(pkgName, {
-                  [credentials.name]: true
-                })))
-                .expect(HTTP_STATUS.OK)
-                .end(function(err, res) {
-                    if (err) {
-                        expect(err).toBeNull();
-                        return done(err);
-                    }
-                    expect(res.body.success).toBeDefined();
-                    expect(res.body.success).toBeTruthy();
-                    done();
-                });
-        });
+      test('should unstar a package', (done) => {
+        request(app)
+          .put(`/${pkgName}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .send(JSON.stringify(generateStarMedatada(pkgName, {})))
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, res) {
+            if (err) {
+              expect(err).toBeNull();
+              return done(err);
+            }
+            expect(res.body.success).toBeDefined();
+            expect(res.body.success).toBeTruthy();
+            done();
+          });
+      });
 
-        test('should unstar a package', (done) => {
+      test('should retrieve stars list with credentials', async (done) => {
+        request(app)
+          .put(`/${pkgName}`)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(generateStarMedatada(pkgName, { [credentials.name]: true }))
+          .expect(HTTP_STATUS.OK)
+          .end(function (err) {
+            if (err) {
+              expect(err).toBeNull();
+              return done(err);
+            }
             request(app)
-                .put(`/${pkgName}`)
-                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-                .send(JSON.stringify(generateStarMedatada(pkgName, {})))
-                .expect(HTTP_STATUS.OK)
-                .end(function(err, res) {
-                    if (err) {
-                        expect(err).toBeNull();
-                        return done(err);
-                    }
-                    expect(res.body.success).toBeDefined();
-                    expect(res.body.success).toBeTruthy();
-                    done();
-                });
-        });
-
-        test('should retrieve stars list with credentials', async (done) => {
-            request(app)
-                .put(`/${pkgName}`)
-                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                .send(generateStarMedatada(pkgName, {[credentials.name]: true}))
-                .expect(HTTP_STATUS.OK).end(function(err) {
+              .get('/-/_view/starredByUser')
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .send(
+                JSON.stringify({
+                  key: [credentials.name]
+                })
+              )
+              .expect(HTTP_STATUS.OK)
+              .end(function (err, res) {
                 if (err) {
-                    expect(err).toBeNull();
-                    return done(err);
+                  expect(err).toBeNull();
+                  return done(err);
                 }
-                request(app)
-                    .get('/-/_view/starredByUser')
-                    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-                    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-                    .send(JSON.stringify({
-                        key: [credentials.name]
-                    }))
-                    .expect(HTTP_STATUS.OK)
-                    .end(function(err, res) {
-                        if (err) {
-                            expect(err).toBeNull();
-                            return done(err);
-                        }
-                        expect(res.body.rows).toBeDefined();
-                        expect(res.body.rows).toHaveLength(1);
-                        done();
-                    });
-            });
-        });
+                expect(res.body.rows).toBeDefined();
+                expect(res.body.rows).toHaveLength(1);
+                done();
+              });
+          });
+      });
     });
 
     describe('should test (un)deprecate api', () => {
       const pkgName = '@scope/deprecate';
       const credentials = { name: 'jota_deprecate', password: 'secretPass' };
-      const version = '1.0.0'
+      const version = '1.0.0';
       let token = '';
-      beforeAll(async (done) =>{
+      beforeAll(async (done) => {
         token = await getNewToken(request(app), credentials);
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, version), token);
+        await putPackage(
+          request(app),
+          `/${pkgName}`,
+          generatePackageMetadata(pkgName, version),
+          token
+        );
         done();
       });
 
@@ -980,7 +1001,7 @@ describe('endpoint unit test', () => {
           expect(err).toBeNull();
           return done(err);
         }
-        const [,res] = await getPackage(request(app), '', pkgName);
+        const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
         done();
       });
@@ -994,7 +1015,7 @@ describe('endpoint unit test', () => {
           expect(err).toBeNull();
           return done(err);
         }
-        const [,res] = await getPackage(request(app), '', pkgName);
+        const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).not.toBeDefined();
         done();
       });
@@ -1003,31 +1024,50 @@ describe('endpoint unit test', () => {
         let credentials = { name: 'only_publish', password: 'secretPass' };
         let token = await getNewToken(request(app), credentials);
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-        const [err, res] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err, res] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          pkg,
+          token
+        );
         expect(err).not.toBeNull();
         expect(res.body.error).toBeDefined();
-        expect(res.body.error).toMatch(/user only_publish is not allowed to unpublish package @scope\/deprecate/);
+        expect(res.body.error).toMatch(
+          /user only_publish is not allowed to unpublish package @scope\/deprecate/
+        );
         credentials = { name: 'only_unpublish', password: 'secretPass' };
         token = await getNewToken(request(app), credentials);
-        const [err2, res2] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err2, res2] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          pkg,
+          token
+        );
         expect(err2).not.toBeNull();
         expect(res2.body.error).toBeDefined();
-        expect(res2.body.error).toMatch(/user only_unpublish is not allowed to publish package @scope\/deprecate/);
-      })
+        expect(res2.body.error).toMatch(
+          /user only_unpublish is not allowed to publish package @scope\/deprecate/
+        );
+      });
 
       test('should deprecate multiple packages', async (done) => {
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '1.0.1'), token);
+        await putPackage(
+          request(app),
+          `/${pkgName}`,
+          generatePackageMetadata(pkgName, '1.0.1'),
+          token
+        );
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         pkg.versions['1.0.1'] = {
           ...generateVersion(pkgName, '1.0.1'),
-          deprecated: 'get deprecated',
+          deprecated: 'get deprecated'
         };
         await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
-        const [,res] = await getPackage(request(app), '', pkgName);
+        const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
         expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
-        done()
-      })
+        done();
+      });
     });
   });
 });

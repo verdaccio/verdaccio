@@ -4,7 +4,14 @@ import Config from '../../../../src/lib/config';
 import { logger } from '../../../../src/lib/logger';
 import { Callback } from '@verdaccio/types';
 
-import { Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions } from '@verdaccio/types';
+import {
+  Config as AppConfig,
+  PackageAccess,
+  IPluginAuth,
+  RemoteUser,
+  Logger,
+  PluginOptions
+} from '@verdaccio/types';
 
 class ExampleAuthPlugin implements IPluginAuth<{}> {
   config: AppConfig;
@@ -72,12 +79,12 @@ class ExampleAuthCustomPlugin implements IPluginAuth<{}> {
 
 const config1: AppConfig = new Config({
   storage: './storage',
-  self_path: '/home/sotrage',
+  self_path: '/home/sotrage'
 });
 
 const options: PluginOptions<{}> = {
   config: config1,
-  logger: logger.child(),
+  logger: logger.child()
 };
 
 const auth = new ExampleAuthPlugin(config1, options);
@@ -85,7 +92,7 @@ const authSub = new ExampleAuthCustomPlugin(config1, options);
 const remoteUser: RemoteUser = {
   groups: [],
   real_groups: [],
-  name: 'test',
+  name: 'test'
 };
 
 auth.authenticate('user', 'pass', () => {});

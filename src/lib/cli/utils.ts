@@ -10,7 +10,7 @@ import { DEFAULT_PORT } from '../constants';
 
 const logger = require('../logger');
 
-export const resolveConfigPath = function(storageLocation: string, file: string) {
+export const resolveConfigPath = function (storageLocation: string, file: string) {
   return path.resolve(path.dirname(storageLocation), file);
 };
 
@@ -38,7 +38,7 @@ export function getListListenAddresses(argListen: string, configListen: any): an
     addresses = [DEFAULT_PORT];
   }
   addresses = addresses
-    .map(function(addr): string {
+    .map(function (addr): string {
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {

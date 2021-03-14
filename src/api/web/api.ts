@@ -1,20 +1,19 @@
 import { Router } from 'express';
 import bodyParser from 'body-parser';
+import { Config } from '@verdaccio/types';
+import Search from '../../lib/search';
+import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
+import { IAuth, IStorageHandler } from '../../../types';
 import addUserAuthApi from './endpoint/user';
 import addPackageWebApi from './endpoint/package';
 import addSearchWebApi from './endpoint/search';
-
-import Search from '../../lib/search';
-import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
-import { Config } from '@verdaccio/types';
-import { IAuth, IStorageHandler } from '../../../types';
 
 const route = Router(); /* eslint new-cap: 0 */
 
 /*
  This file include all verdaccio only API(Web UI), for npm API please see ../endpoint/
 */
-export default function(config: Config, auth: IAuth, storage: IStorageHandler): Router {
+export default function (config: Config, auth: IAuth, storage: IStorageHandler): Router {
   Search.configureStorage(storage);
 
   // validate all of these params as a package name

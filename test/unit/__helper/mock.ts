@@ -1,9 +1,9 @@
 import path from 'path';
-import {DOMAIN_SERVERS} from '../../functional/config.functional';
+import { DOMAIN_SERVERS } from '../../functional/config.functional';
 import VerdaccioProcess from '../../lib/server_process';
-import {VerdaccioConfig} from '../../lib/verdaccio-server';
+import { VerdaccioConfig } from '../../lib/verdaccio-server';
 import Server from '../../lib/server';
-import {IServerBridge} from '../../types';
+import { IServerBridge } from '../../types';
 
 /**
  * Fork a Verdaccio process with a custom configuration.
@@ -53,7 +53,12 @@ export function mockServer(port: number) {
   const storePath = path.join(pathStore, '/mock-store');
   const configPath = path.join(pathStore, '/config-unit-mock-server-test.yaml');
 
-  const verdaccioConfig = new VerdaccioConfig(storePath, configPath, `http://${DOMAIN_SERVERS}:${port}/`, port);
+  const verdaccioConfig = new VerdaccioConfig(
+    storePath,
+    configPath,
+    `http://${DOMAIN_SERVERS}:${port}/`,
+    port
+  );
 
   const server: IServerBridge = new Server(verdaccioConfig.domainPath);
 

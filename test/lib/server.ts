@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import assert from 'assert';
 import smartRequest from './request';
-import {IServerBridge} from '../types';
-import {API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC} from '../../src/lib/constants';
-import {buildToken} from "../../src/lib/utils";
-import {CREDENTIALS} from "../functional/config.functional";
+import { IServerBridge } from '../types';
+import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
+import { buildToken } from '../../src/lib/utils';
+import { CREDENTIALS } from '../functional/config.functional';
 import getPackage from '../functional/fixtures/package';
 
 const buildAuthHeader = (user, pass): string => {
@@ -35,7 +35,7 @@ export default class Server implements IServerBridge {
       method: options.method || 'GET',
       headers: headers,
       encoding: options.encoding,
-      json: _.isNil(options.json) === false ? options.json : true,
+      json: _.isNil(options.json) === false ? options.json : true
     });
   }
 
@@ -51,23 +51,22 @@ export default class Server implements IServerBridge {
         _id: `org.couchdb.user:${name}`,
         type: 'user',
         roles: [],
-        date: new Date(),
-      },
+        date: new Date()
+      }
     });
   }
 
   public logout(token: string) {
     return this.request({
       uri: `/-/user/token/${encodeURIComponent(token)}`,
-      method: 'DELETE',
+      method: 'DELETE'
     });
   }
-
 
   public getPackage(name: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}`,
-      method: 'GET',
+      method: 'GET'
     });
   }
 
@@ -80,8 +79,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
-      },
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+      }
     }).send(data);
   }
 
@@ -94,8 +93,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(version)}/-tag/latest`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
-      },
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+      }
     }).send(data);
   }
 
@@ -103,7 +102,7 @@ export default class Server implements IServerBridge {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}`,
       method: 'GET',
-      encoding: null,
+      encoding: null
     });
   }
 
@@ -112,8 +111,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM,
-      },
+        [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM
+      }
     }).send(data);
   }
 
@@ -122,8 +121,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
-      },
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET
+      }
     });
   }
 
@@ -132,47 +131,51 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
-      },
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET
+      }
     });
   }
-
 
   public addTag(name: string, tag: string, version: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
-      },
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+      }
     }).send(JSON.stringify(version));
   }
 
-  public putTarballIncomplete(pkgName: string, filename: string, data: any, headerContentSize: number): Promise<any> {
+  public putTarballIncomplete(
+    pkgName: string,
+    filename: string,
+    data: any,
+    headerContentSize: number
+  ): Promise<any> {
     let promise = this.request({
       uri: `/${encodeURIComponent(pkgName)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
         [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM,
-        [HEADERS.CONTENT_LENGTH]: headerContentSize,
+        [HEADERS.CONTENT_LENGTH]: headerContentSize
       },
-      timeout: 1000,
+      timeout: 1000
     });
 
-    promise.request(function(req) {
+    promise.request(function (req) {
       req.write(data);
       // it auto abort the request
-      setTimeout(function() {
+      setTimeout(function () {
         req.req.abort();
       }, 20);
     });
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       promise
-        .then(function() {
+        .then(function () {
           reject(Error('no error'));
         })
-        .catch(function(err) {
+        .catch(function (err) {
           if (err.code === 'ECONNRESET') {
             resolve();
           } else {
@@ -191,8 +194,9 @@ export default class Server implements IServerBridge {
   public whoami() {
     return this.request({
       uri: '/-/whoami'
-    }).status(HTTP_STATUS.OK)
-      .then(function(body) {
+    })
+      .status(HTTP_STATUS.OK)
+      .then(function (body) {
         return body.username;
       });
   }
@@ -200,8 +204,9 @@ export default class Server implements IServerBridge {
   public ping() {
     return this.request({
       uri: '/-/ping'
-    }).status(HTTP_STATUS.OK)
-      .then(function(body) {
+    })
+      .status(HTTP_STATUS.OK)
+      .then(function (body) {
         return body;
       });
   }
@@ -211,8 +216,8 @@ export default class Server implements IServerBridge {
       uri: '/-/_debug',
       method: 'GET',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
-      },
-    })
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
+      }
+    });
   }
 }
