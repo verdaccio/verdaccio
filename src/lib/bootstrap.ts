@@ -17,13 +17,9 @@ const logger = require('./logger');
 function displayExperimentsInfoBox(experiments) {
   const experimentList = Object.keys(experiments);
   if (experimentList.length >= 1) {
-    logger.logger.warn(
-      '⚠️  experiments are enabled, we recommend do not use experiments in production, comment out this section to disable it'
-    );
+    logger.logger.warn('⚠️  experiments are enabled, we recommend do not use experiments in production, comment out this section to disable it');
     experimentList.forEach((experiment) => {
-      logger.logger.warn(
-        ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
-      );
+      logger.logger.warn(` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`);
     });
   }
 }
@@ -36,14 +32,7 @@ function displayExperimentsInfoBox(experiments) {
  * @param {String} pkgVersion
  * @param {String} pkgName
  */
-function startVerdaccio(
-  config: any,
-  cliListen: string,
-  configPath: string,
-  pkgVersion: string,
-  pkgName: string,
-  callback: Callback
-): void {
+function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
   if (isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
@@ -63,11 +52,7 @@ function startVerdaccio(
         // http
         webServer = http.createServer(app);
       }
-      if (
-        config.server &&
-        typeof config.server.keepAliveTimeout !== 'undefined' &&
-        config.server.keepAliveTimeout !== 'null'
-      ) {
+      if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
         // library definition for node is not up to date (doesn't contain recent 8.0 changes)
         webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
       }
@@ -95,10 +80,7 @@ function logHTTPSWarning(storageLocation) {
       // commands are borrowed from node.js docs
       'To quickly create self-signed certificate, use:',
       ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
-      ' $ openssl req -new -sha256 -key ' +
-        resolveConfigPath(storageLocation, keyPem) +
-        ' -out ' +
-        resolveConfigPath(storageLocation, csrPem),
+      ' $ openssl req -new -sha256 -key ' + resolveConfigPath(storageLocation, keyPem) + ' -out ' + resolveConfigPath(storageLocation, csrPem),
       ' $ openssl x509 -req -in ' +
         resolveConfigPath(storageLocation, csrPem) +
         ' -signkey ' +
@@ -109,20 +91,16 @@ function logHTTPSWarning(storageLocation) {
       'And then add to config file (' + storageLocation + '):',
       '  https:',
       `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
-      `    cert: ${resolveConfigPath(storageLocation, certPem)}`
+      `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
     ].join('\n')
   );
   process.exit(2);
 }
 
-function handleHTTPS(
-  app: express.Application,
-  configPath: string,
-  config: ConfigWithHttps
-): https.Server {
+function handleHTTPS(app: express.Application, configPath: string, config: ConfigWithHttps): https.Server {
   try {
     let httpsOptions = {
-      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3 // disable insecure SSLv2 and SSLv3
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
     };
 
     const keyCertConfig = config.https as HttpsConfKeyCert;
@@ -137,7 +115,7 @@ function handleHTTPS(
       const { pfx, passphrase } = pfxConfig;
       httpsOptions = assign(httpsOptions, {
         pfx: fs.readFileSync(pfx),
-        passphrase: passphrase || ''
+        passphrase: passphrase || '',
       });
     } else {
       const { key, cert, ca } = keyCertConfig;
@@ -145,8 +123,8 @@ function handleHTTPS(
         key: fs.readFileSync(key),
         cert: fs.readFileSync(cert),
         ...(ca && {
-          ca: fs.readFileSync(ca)
-        })
+          ca: fs.readFileSync(ca),
+        }),
       });
     }
     return https.createServer(httpsOptions, app);
@@ -157,18 +135,13 @@ function handleHTTPS(
   }
 }
 
-function listenDefaultCallback(
-  webServer: Application,
-  addr: any,
-  pkgName: string,
-  pkgVersion: string
-): void {
-  webServer
+function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
+  const server = webServer
     .listen(addr.port || addr.path, addr.host, (): void => {
       // send a message for tests
       if (isFunction(process.send)) {
         process.send({
-          verdaccio_started: true
+          verdaccio_started: true,
         });
       }
     })
@@ -177,20 +150,35 @@ function listenDefaultCallback(
       process.exit(2);
     });
 
+  function handleShutdownGracefully() {
+    logger.logger.fatal('received shutdown signal - closing server gracefully...');
+    server.close(() => {
+      logger.logger.info('server closed.');
+      process.exit(0);
+    });
+  }
+
+  // handle shutdown signals nicely when environment says so
+  if (process.env.VERDACCIO_HANDLE_KILL_SIGNALS === 'true') {
+    process.on('SIGINT', handleShutdownGracefully);
+    process.on('SIGTERM', handleShutdownGracefully);
+    process.on('SIGHUP', handleShutdownGracefully);
+  }
+
   logger.logger.warn(
     {
       addr: addr.path
         ? URL.format({
             protocol: 'unix',
-            pathname: addr.path
+            pathname: addr.path,
           })
         : URL.format({
             protocol: addr.proto,
             hostname: addr.host,
             port: addr.port,
-            pathname: '/'
+            pathname: '/',
           }),
-      version: pkgName + '/' + pkgVersion
+      version: pkgName + '/' + pkgVersion,
     },
     'http address - @{addr} - @{version}'
   );
