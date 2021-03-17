@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.12.0](https://github.com/verdaccio/verdaccio/compare/v4.11.3...v4.12.0) (2021-03-17)
+
+
+### Features
+
+* handle kill signals nicely  ([#2130](https://github.com/verdaccio/verdaccio/issues/2130)) ([7b6fbae](https://github.com/verdaccio/verdaccio/commit/7b6fbae6ae1dad9d18084d951f35687ebead335b))
+
 ### [4.11.3](https://github.com/verdaccio/verdaccio/compare/v4.11.2...v4.11.3) (2021-03-06)
 
 
