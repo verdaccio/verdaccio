@@ -1,16 +1,16 @@
-import { assign, isObject, isFunction } from 'lodash';
-import express from 'express';
 import URL from 'url';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
 import constants from 'constants';
-import endPointAPI from '../api/index';
-import { getListListenAddresses, resolveConfigPath } from './cli/utils';
-import { API_ERROR, certPem, csrPem, keyPem } from './constants';
+import express from 'express';
+import { assign, isObject, isFunction } from 'lodash';
 
 import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { Application } from 'express';
+import endPointAPI from '../api/index';
+import { API_ERROR, certPem, csrPem, keyPem } from './constants';
+import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 
 const logger = require('./logger');
 
@@ -18,7 +18,7 @@ function displayExperimentsInfoBox(experiments) {
   const experimentList = Object.keys(experiments);
   if (experimentList.length >= 1) {
     logger.logger.warn('⚠️  experiments are enabled, we recommend do not use experiments in production, comment out this section to disable it');
-    experimentList.forEach(experiment => {
+    experimentList.forEach((experiment) => {
       logger.logger.warn(` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`);
     });
   }
@@ -41,28 +41,26 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
     displayExperimentsInfoBox(config.experiments);
   }
 
-  endPointAPI(config).then(
-    (app): void => {
-      const addresses = getListListenAddresses(cliListen, config.listen);
+  endPointAPI(config).then((app): void => {
+    const addresses = getListListenAddresses(cliListen, config.listen);
 
-      addresses.forEach(function(addr): void {
-        let webServer;
-        if (addr.proto === 'https') {
-          webServer = handleHTTPS(app, configPath, config);
-        } else {
-          // http
-          webServer = http.createServer(app);
-        }
-        if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
-          // library definition for node is not up to date (doesn't contain recent 8.0 changes)
-          webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
-        }
-        unlinkAddressPath(addr);
+    addresses.forEach(function (addr): void {
+      let webServer;
+      if (addr.proto === 'https') {
+        webServer = handleHTTPS(app, configPath, config);
+      } else {
+        // http
+        webServer = http.createServer(app);
+      }
+      if (config.server && typeof config.server.keepAliveTimeout !== 'undefined' && config.server.keepAliveTimeout !== 'null') {
+        // library definition for node is not up to date (doesn't contain recent 8.0 changes)
+        webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
+      }
+      unlinkAddressPath(addr);
 
-        callback(webServer, addr, pkgName, pkgVersion);
-      });
-    }
-  );
+      callback(webServer, addr, pkgName, pkgVersion);
+    });
+  });
 }
 
 function unlinkAddressPath(addr) {
@@ -138,38 +136,33 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
 }
 
 function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
-
   const server = webServer
-    .listen(
-      addr.port || addr.path,
-      addr.host,
-      (): void => {
-        // send a message for tests
-        if (isFunction(process.send)) {
-          process.send({
-            verdaccio_started: true,
-          });
-        }
+    .listen(addr.port || addr.path, addr.host, (): void => {
+      // send a message for tests
+      if (isFunction(process.send)) {
+        process.send({
+          verdaccio_started: true,
+        });
       }
-    )
-    .on('error', function(err): void {
+    })
+    .on('error', function (err): void {
       logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });
 
-    function handleShutdownGracefully() {
-      logger.logger.fatal("received shutdown signal - closing server gracefully...");
-      server.close(() => {
-        logger.logger.info("server closed.");
-        process.exit(0);
-      });
-    }
+  function handleShutdownGracefully() {
+    logger.logger.fatal('received shutdown signal - closing server gracefully...');
+    server.close(() => {
+      logger.logger.info('server closed.');
+      process.exit(0);
+    });
+  }
 
   // handle shutdown signals nicely when environment says so
-  if (process.env.HANDLE_KILL_SIGNALS === "true") {
-    process.on("SIGINT", handleShutdownGracefully);
-    process.on("SIGTERM", handleShutdownGracefully);
-    process.on("SIGHUP", handleShutdownGracefully);
+  if (process.env.VERDACCIO_HANDLE_KILL_SIGNALS === 'true') {
+    process.on('SIGINT', handleShutdownGracefully);
+    process.on('SIGTERM', handleShutdownGracefully);
+    process.on('SIGHUP', handleShutdownGracefully);
   }
 
   logger.logger.warn(
