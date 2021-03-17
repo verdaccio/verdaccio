@@ -1,10 +1,7 @@
-/**
- * @prettier
- */
-
 import fs from 'fs';
-
+// import { URL } from 'url';
 import path from 'path';
+import LRU from 'lru-cache';
 import _ from 'lodash';
 import express from 'express';
 
@@ -64,6 +61,7 @@ export default function (config, auth, storage) {
   const themePath = loadTheme(config) || require('@verdaccio/ui-theme')();
   const indexTemplate = path.join(themePath, 'index.html');
   const template = fs.readFileSync(indexTemplate).toString();
+  const cache = new LRU({ max: 500, maxAge: 1000 * 60 * 60 });
 
   // Logo
   let logoURI = _.get(config, 'web.logo') ? config.web.logo : '';
@@ -104,23 +102,17 @@ export default function (config, auth, storage) {
       url_prefix,
       base,
       primaryColor,
+      version: pkgJSON.version,
       title,
       scope,
-      language
+      language,
     };
 
     const webPage = template
       .replace(/ToReplaceByVerdaccioUI/g, JSON.stringify(options))
-      .replace(/ToReplaceByVerdaccio/g, base)
-      .replace(/ToReplaceByPrefix/g, url_prefix)
-      .replace(/ToReplaceByVersion/g, pkgJSON.version)
-      .replace(/ToReplaceByTitle/g, title)
-      .replace(/ToReplaceByLogo/g, logoURI)
-      .replace(/ToReplaceByPrimaryColor/g, primaryColor)
-      .replace(/ToReplaceByScope/g, scope);
-
+      .replace(/ToReplaceByVerdaccioBase/g, base)
+      .replace(/ToReplaceByVerdaccioFavico/g, logoURI);
     res.setHeader('Content-Type', HEADERS.TEXT_HTML);
-
     res.send(webPage);
   }
 

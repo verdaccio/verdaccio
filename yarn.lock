@@ -3329,10 +3329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@verdaccio/ui-theme@npm:2.0.0"
-  checksum: 2f20fcf5a7d05de9eca3668ef436aa4a096fb4894370cb75bf876d617913ab8b18af030ed5cc09e4b5c2e42910590989800dc345fd827dec40cbf4cecb8d44b9
+"@verdaccio/ui-theme@npm:pr-608":
+  version: 2.0.0-pr-608
+  resolution: "@verdaccio/ui-theme@npm:2.0.0-pr-608"
+  checksum: 9dd08ec6d55ac2138174bc2db42018144096228301d2ba3165a07b793969fc101866f405acb8636f3462a38d9a57759db7bb027401155efb2dc713493a4c9ab2
   languageName: node
   linkType: hard
 
@@ -10050,7 +10050,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^6.0.0":
+"lru-cache@npm:6.0.0, lru-cache@npm:^6.0.0":
   version: 6.0.0
   resolution: "lru-cache@npm:6.0.0"
   dependencies:
@@ -14134,6 +14134,13 @@ typescript@3.9.9:
   languageName: node
   linkType: hard
 
+"validator@npm:13.5.2":
+  version: 13.5.2
+  resolution: "validator@npm:13.5.2"
+  checksum: 6da12682ad43456cb3a97d23b35cad0b438d9027a6c6fd824d5c86fead42c28f4e38c67590d8f56ab44e6c612979cbaa5f5cc670cc5fcc5a39d5032fcb642296
+  languageName: node
+  linkType: hard
+
 "vary@npm:^1, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
@@ -14231,7 +14238,7 @@ typescript@3.9.9:
     "@verdaccio/readme": 9.7.5
     "@verdaccio/streams": 9.7.2
     "@verdaccio/types": ^9.7.2
-    "@verdaccio/ui-theme": 2.0.0
+    "@verdaccio/ui-theme": pr-608
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
     async: 3.2.0
@@ -14278,6 +14285,7 @@ typescript@3.9.9:
     lint-staged: 8.2.1
     lockfile-lint: 4.3.7
     lodash: 4.17.21
+    lru-cache: 6.0.0
     lunr-mutable-indexes: 2.3.2
     marked: 2.0.1
     mime: 2.5.2
@@ -14295,6 +14303,7 @@ typescript@3.9.9:
     standard-version: 9.1.1
     supertest: 6.1.1
     typescript: 3.9.9
+    validator: 13.5.2
     verdaccio: ^4.5.1
     verdaccio-audit: 9.7.3
     verdaccio-auth-memory: ^9.7.2
