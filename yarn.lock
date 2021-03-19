@@ -3329,10 +3329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:pr-608":
-  version: 2.0.0-pr-608
-  resolution: "@verdaccio/ui-theme@npm:2.0.0-pr-608"
-  checksum: 9dd08ec6d55ac2138174bc2db42018144096228301d2ba3165a07b793969fc101866f405acb8636f3462a38d9a57759db7bb027401155efb2dc713493a4c9ab2
+"@verdaccio/ui-theme@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@verdaccio/ui-theme@npm:2.1.0"
+  checksum: 2223e6ec969da210eddacb07645d3e267e6e0689aa822d3a1b785136fd5c8a7f20ead71ece0c50486e386d17ead879aea19f3b1ffd7627d42606cddae53f5ed3
   languageName: node
   linkType: hard
 
@@ -5575,6 +5575,18 @@ __metadata:
   dependencies:
     ms: ^2.1.1
   checksum: 619feb53b115f1a8341365b8aa58a8757e6632738587d4b61b25627b74891211cb20e31fdbea37fec766e575a60cf456f7a02d6f9eddfdcef80caa6a4b0fc042
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.3.1":
+  version: 4.3.2
+  resolution: "debug@npm:4.3.2"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 5543570879e2274f6725d4285a034d6e0822d35faefc6f55965933fb440e8c21eb3a0bef934e66f4b6b491f898ee2de37cab980e9d4fd61372136c19d3ce4527
   languageName: node
   linkType: hard
 
@@ -10540,7 +10552,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ms@npm:^2.1.1":
+"ms@npm:2.1.2, ms@npm:^2.1.1":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
   checksum: 9b65fb709bc30c0c07289dcbdb61ca032acbb9ea5698b55fa62e2cebb04c5953f1876a1f3f7f4bc2e91d4bf4d86003f3e207c3bc6ee2f716f99827e62389cd0e
@@ -14238,7 +14250,7 @@ typescript@3.9.9:
     "@verdaccio/readme": 9.7.5
     "@verdaccio/streams": 9.7.2
     "@verdaccio/types": ^9.7.2
-    "@verdaccio/ui-theme": pr-608
+    "@verdaccio/ui-theme": 2.1.0
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
     async: 3.2.0
@@ -14256,6 +14268,7 @@ typescript@3.9.9:
     cors: 2.8.5
     cross-env: 7.0.3
     dayjs: 1.10.4
+    debug: ^4.3.1
     detect-secrets: 1.0.6
     envinfo: 7.7.4
     eslint: 7.19.0
