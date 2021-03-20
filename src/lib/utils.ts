@@ -27,6 +27,7 @@ const debug = buildDebug('verdaccio');
 require('pkginfo')(module);
 const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
+const validProtocols = ['https', 'http'];
 
 export function getUserAgent(): string {
   assert(_.isString(pkgName));
@@ -358,12 +359,19 @@ export function parseInterval(interval: any): number {
  * Detect running protocol (http or https)
  */
 export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
+  let returnProtocol;
+  const [, defaultProtocol] = validProtocols;
+  // HAProxy variant might return http,http with X-Forwarded-Proto
   if (typeof headerProtocol === 'string' && headerProtocol !== '') {
+    debug('header protocol: %o', protocol);
     const commaIndex = headerProtocol.indexOf(',');
-    return commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
+    returnProtocol = commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
+  } else {
+    debug('req protocol: %o', headerProtocol);
+    returnProtocol = protocol;
   }
 
-  return protocol;
+  return validProtocols.includes(returnProtocol) ? returnProtocol : defaultProtocol;
 }
 
 export function getLatestVersion(pkgInfo: Package): string {
@@ -622,8 +630,6 @@ export function isRelatedToDeprecation(pkgInfo: Package): boolean {
 
 export function validateURL(publicUrl: string | void) {
   try {
-    const validProtocols = ['https', 'http'];
-
     const parsed = new URL(publicUrl as string);
     if (!validProtocols.includes(parsed.protocol.replace(':', ''))) {
       throw Error('invalid protocol');
@@ -651,7 +657,7 @@ export function getPublicUrl(url_prefix: string = '', req): string {
   if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
     const envURL = new URL(process.env.VERDACCIO_PUBLIC_URL as string).href;
     debug('public url by env %o', envURL);
-    return envURL;
+    return stripTrailingSlash(envURL);
   } else if (req.get('host')) {
     const host = req.get('host');
     if (!isHost(host)) {
@@ -660,7 +666,7 @@ export function getPublicUrl(url_prefix: string = '', req): string {
     const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);
-    return combinedUrl;
+    return stripTrailingSlash(combinedUrl);
   } else {
     return '/';
   }
@@ -676,7 +682,7 @@ export function combineBaseUrl(protocol: string, host: string, prefix: string = 
   const newPrefix = wrapPrefix(prefix);
   debug('combined prefix %o', newPrefix);
   const groupedURI = new URL(wrapPrefix(prefix), `${protocol}://${host}`);
-  const result = stripTrailingSlash(groupedURI.href);
+  const result = groupedURI.href;
   debug('combined url %o', result);
   return result;
 }
