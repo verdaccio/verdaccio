@@ -1,3 +1,4 @@
+import * as httpMocks from 'node-mocks-http';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
 import { spliceURL } from '../../../../src/utils/string';
 import {
@@ -14,7 +15,7 @@ import {
   getVersionFromTarball,
   sortByName,
   formatAuthor,
-  isHTTPProtocol
+  isHTTPProtocol,
 } from '../../../../src/lib/utils';
 import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
@@ -32,15 +33,15 @@ describe('Utilities', () => {
     versions: {
       '1.0.0': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz'
-        }
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
+        },
       },
       '1.0.1': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz'
-        }
-      }
-    }
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz',
+        },
+      },
+    },
   };
 
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
@@ -49,40 +50,40 @@ describe('Utilities', () => {
     describe('Sort packages', () => {
       const packages = [
         {
-          name: 'ghc'
+          name: 'ghc',
         },
         {
-          name: 'abc'
+          name: 'abc',
         },
         {
-          name: 'zxy'
-        }
+          name: 'zxy',
+        },
       ];
       test('should order ascending', () => {
         expect(sortByName(packages)).toEqual([
           {
-            name: 'abc'
+            name: 'abc',
           },
           {
-            name: 'ghc'
+            name: 'ghc',
           },
           {
-            name: 'zxy'
-          }
+            name: 'zxy',
+          },
         ]);
       });
 
       test('should order descending', () => {
         expect(sortByName(packages, false)).toEqual([
           {
-            name: 'zxy'
+            name: 'zxy',
           },
           {
-            name: 'ghc'
+            name: 'ghc',
           },
           {
-            name: 'abc'
-          }
+            name: 'abc',
+          },
         ]);
       });
     });
@@ -119,14 +120,15 @@ describe('Utilities', () => {
 
     describe('convertDistRemoteToLocalTarballUrls', () => {
       test('should build a URI for dist tarball based on new domain', () => {
-        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
+        const req = httpMocks.createRequest({
+          method: 'GET',
           headers: {
-            host: fakeHost
+            host: fakeHost,
           },
-          // @ts-ignore
-          get: () => 'http',
-          protocol: 'http'
+          protocol: 'http',
+          url: '/',
         });
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), req);
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
         expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.1'));
       });
@@ -136,11 +138,9 @@ describe('Utilities', () => {
           headers: {},
           // @ts-ignore
           get: () => 'http',
-          protocol: 'http'
+          protocol: 'http',
         });
-        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
-          convertDist.versions['1.0.0'].dist.tarball
-        );
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
       });
     });
 
@@ -148,7 +148,7 @@ describe('Utilities', () => {
       test('should delete a invalid latest version', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          latest: '20000'
+          latest: '20000',
         };
 
         normalizeDistTags(pkg);
@@ -168,7 +168,7 @@ describe('Utilities', () => {
       test('should define last published version as latest with a custom dist-tag', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          beta: '1.0.1'
+          beta: '1.0.1',
         };
 
         normalizeDistTags(pkg);
@@ -179,7 +179,7 @@ describe('Utilities', () => {
       test('should convert any array of dist-tags to a plain string', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          latest: ['1.0.1']
+          latest: ['1.0.1'],
         };
 
         normalizeDistTags(pkg);
@@ -210,13 +210,17 @@ describe('Utilities', () => {
       });
 
       test('should create a base url for registry', () => {
-        expect(combineBaseUrl('http', 'domain', '')).toEqual('http://domain');
-        expect(combineBaseUrl('http', 'domain', '/')).toEqual('http://domain');
-        expect(combineBaseUrl('http', 'domain', '/prefix/')).toEqual('http://domain/prefix');
-        expect(combineBaseUrl('http', 'domain', '/prefix/deep')).toEqual(
-          'http://domain/prefix/deep'
-        );
-        expect(combineBaseUrl('http', 'domain', 'only-prefix')).toEqual('only-prefix');
+        expect(combineBaseUrl('http', 'domain.com', '')).toEqual('http://domain.com');
+        expect(combineBaseUrl('http', 'domain.com', '/')).toEqual('http://domain.com');
+        expect(combineBaseUrl('http', 'domain.com', '/prefix/')).toEqual('http://domain.com/prefix');
+        expect(combineBaseUrl('http', 'domain.com', '/prefix/deep')).toEqual('http://domain.com/prefix/deep');
+        expect(combineBaseUrl('http', 'domain.com', 'prefix/')).toEqual('http://domain.com/prefix');
+        expect(combineBaseUrl('http', 'domain.com', 'prefix')).toEqual('http://domain.com/prefix');
+      });
+
+      test('invalid url prefix', () => {
+        expect(combineBaseUrl('http', 'domain.com', 'only-prefix')).toEqual('http://domain.com/only-prefix');
+        expect(combineBaseUrl('https', 'domain.com', 'only-prefix')).toEqual('https://domain.com/only-prefix');
       });
     });
 
@@ -389,19 +393,14 @@ describe('Utilities', () => {
 
       expect(parseReadme('testPackage', randomText)).toEqual('<p>%%%%%**##==</p>');
       expect(parseReadme('testPackage', simpleText)).toEqual('<p>simple text</p>');
-      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual(
-        '<p>simple text </p>\n<h1 id="markdown">markdown</h1>'
-      );
+      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual('<p>simple text </p>\n<h1 id="markdown">markdown</h1>');
     });
 
     test('should show error for no readme data', () => {
       const noData = '';
       const spy = jest.spyOn(logger, 'error');
       expect(parseReadme('testPackage', noData)).toEqual('<p>ERROR: No README data found!</p>');
-      expect(spy).toHaveBeenCalledWith(
-        { packageName: 'testPackage' },
-        '@{packageName}: No readme found'
-      );
+      expect(spy).toHaveBeenCalledWith({ packageName: 'testPackage' }, '@{packageName}: No readme found');
     });
   });
 
@@ -413,7 +412,7 @@ describe('Utilities', () => {
 
     test('author, contributors and maintainers fields are not present', () => {
       const packageInfo = {
-        latest: {}
+        latest: {},
       };
 
       // @ts-ignore
@@ -429,16 +428,16 @@ describe('Utilities', () => {
 
     test('author field is a string type', () => {
       const packageInfo = {
-        latest: { author: 'user@verdccio.org' }
+        latest: { author: 'user@verdccio.org' },
       };
       const result = {
         latest: {
           author: {
             author: 'user@verdccio.org',
             avatar: GENERIC_AVATAR,
-            email: ''
-          }
-        }
+            email: '',
+          },
+        },
       };
 
       // @ts-ignore
@@ -447,16 +446,16 @@ describe('Utilities', () => {
 
     test('author field is an object type with author information', () => {
       const packageInfo = {
-        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } }
+        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } },
       };
       const result = {
         latest: {
           author: {
             avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
             email: 'user@verdccio.org',
-            name: 'verdaccio'
-          }
-        }
+            name: 'verdaccio',
+          },
+        },
       };
 
       // @ts-ignore
@@ -466,8 +465,8 @@ describe('Utilities', () => {
     test('contributor field is a blank array', () => {
       const packageInfo = {
         latest: {
-          contributors: []
-        }
+          contributors: [],
+        },
       };
 
       // @ts-ignore
@@ -480,9 +479,9 @@ describe('Utilities', () => {
           latest: {
             contributors: [
               { name: 'user', email: 'user@verdccio.org' },
-              { name: 'user1', email: 'user1@verdccio.org' }
-            ]
-          }
+              { name: 'user1', email: 'user1@verdccio.org' },
+            ],
+          },
         };
 
         const result = {
@@ -491,15 +490,15 @@ describe('Utilities', () => {
               {
                 avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
                 email: 'user@verdccio.org',
-                name: 'user'
+                name: 'user',
               },
               {
                 avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
                 email: 'user1@verdccio.org',
-                name: 'user1'
-              }
-            ]
-          }
+                name: 'user1',
+              },
+            ],
+          },
         };
 
         // @ts-ignore
@@ -509,8 +508,8 @@ describe('Utilities', () => {
       test('contributors field is an object', () => {
         const packageInfo = {
           latest: {
-            contributors: { name: 'user', email: 'user@verdccio.org' }
-          }
+            contributors: { name: 'user', email: 'user@verdccio.org' },
+          },
         };
 
         const result = {
@@ -519,10 +518,10 @@ describe('Utilities', () => {
               {
                 avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
                 email: 'user@verdccio.org',
-                name: 'user'
-              }
-            ]
-          }
+                name: 'user',
+              },
+            ],
+          },
         };
 
         // @ts-ignore
@@ -533,8 +532,8 @@ describe('Utilities', () => {
         const contributor = 'Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)';
         const packageInfo = {
           latest: {
-            contributors: contributor
-          }
+            contributors: contributor,
+          },
         };
 
         const result = {
@@ -543,10 +542,10 @@ describe('Utilities', () => {
               {
                 avatar: GENERIC_AVATAR,
                 email: contributor,
-                name: contributor
-              }
-            ]
-          }
+                name: contributor,
+              },
+            ],
+          },
         };
 
         // @ts-ignore
@@ -557,8 +556,8 @@ describe('Utilities', () => {
     test('maintainers field is a blank array', () => {
       const packageInfo = {
         latest: {
-          maintainers: []
-        }
+          maintainers: [],
+        },
       };
 
       // @ts-ignore
@@ -570,9 +569,9 @@ describe('Utilities', () => {
         latest: {
           maintainers: [
             { name: 'user', email: 'user@verdccio.org' },
-            { name: 'user1', email: 'user1@verdccio.org' }
-          ]
-        }
+            { name: 'user1', email: 'user1@verdccio.org' },
+          ],
+        },
       };
 
       const result = {
@@ -581,15 +580,15 @@ describe('Utilities', () => {
             {
               avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
               email: 'user@verdccio.org',
-              name: 'user'
+              name: 'user',
             },
             {
               avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
               email: 'user1@verdccio.org',
-              name: 'user1'
-            }
-          ]
-        }
+              name: 'user1',
+            },
+          ],
+        },
       };
 
       // @ts-ignore
@@ -606,7 +605,7 @@ describe('Utilities', () => {
       const user = {
         name: 'Verdaccion NPM',
         email: 'verdaccio@verdaccio.org',
-        url: 'https://verdaccio.org'
+        url: 'https://verdaccio.org',
       };
       expect(formatAuthor(user).url).toEqual(user.url);
       expect(formatAuthor(user).email).toEqual(user.email);

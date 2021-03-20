@@ -10,13 +10,7 @@ import Auth from '../lib/auth';
 import { ErrorCode } from '../lib/utils';
 import { API_ERROR, HTTP_STATUS } from '../lib/constants';
 import AppConfig from '../lib/config';
-import {
-  $ResponseExtend,
-  $RequestExtend,
-  $NextFunctionVer,
-  IStorageHandler,
-  IAuth
-} from '../../types';
+import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
 import { setup, logger } from '../lib/logger';
 import webAPI from './web/api';
 import web from './web';
@@ -27,6 +21,10 @@ import { log, final, errorReportingMiddleware } from './middleware';
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
   const app: Application = express();
+  if (config?.server?.behindProxy === true) {
+    app.use('trust proxy');
+  }
+
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
@@ -42,13 +40,10 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   app.use(compression());
 
-  app.get(
-    '/favicon.ico',
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      req.url = '/-/static/favicon.png';
-      next();
-    }
-  );
+  app.get('/favicon.ico', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+    req.url = '/-/static/favicon.png';
+    next();
+  });
 
   // Hook for tests only
   if (config._debug) {
@@ -58,17 +53,12 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger
+    logger: logger,
   };
 
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(
-    config,
-    config.middlewares,
-    plugin_params,
-    function (plugin: IPluginMiddleware<IConfig>) {
-      return plugin.register_middlewares;
-    }
-  );
+  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(config, config.middlewares, plugin_params, function (plugin: IPluginMiddleware<IConfig>) {
+    return plugin.register_middlewares;
+  });
   plugins.forEach((plugin: IPluginMiddleware<IConfig>) => {
     plugin.register_middlewares(app, auth, storage);
   });
@@ -91,12 +81,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
-  app.use(function (
-    err: HttpError,
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ) {
+  app.use(function (err: HttpError, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     if (_.isError(err)) {
       if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
@@ -124,14 +109,9 @@ export default (async function (configHash: any): Promise<any> {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger
+    logger: logger,
   };
-  const filters = loadPlugin(
-    config,
-    config.filters || {},
-    plugin_params,
-    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata
-  );
+  const filters = loadPlugin(config, config.filters || {}, plugin_params, (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config, filters);
