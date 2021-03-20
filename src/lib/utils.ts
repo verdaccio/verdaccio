@@ -1,17 +1,16 @@
-/**
- * @prettier
- */
 import fs from 'fs';
 import assert from 'assert';
-import URL from 'url';
-import { IncomingHttpHeaders } from 'http2';
+import DefaultURL, { URL } from 'url';
 import _ from 'lodash';
+import buildDebug from 'debug';
 import semver from 'semver';
 import YAML from 'js-yaml';
+import validator from 'validator';
 import sanitizyReadme from '@verdaccio/readme';
 
 import { Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
+// eslint-disable-next-line max-len
 import { getConflict, getBadData, getBadRequest, getInternalError, getUnauthorized, getForbidden, getServiceUnavailable, getNotFound, getCode } from '@verdaccio/commons-api';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 import { StringValue, AuthorAvatar } from '../../types';
@@ -20,6 +19,8 @@ import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_EN
 import { normalizeContributors } from './storage-utils';
 
 import { logger } from './logger';
+
+const debug = buildDebug('verdaccio');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -116,32 +117,36 @@ export function validateMetadata(object: Package, name: string): Package {
   return object;
 }
 
-/**
- * Create base url for registry.
- * @return {String} base registry url
- */
-export function combineBaseUrl(protocol: string, host: string | void, prefix?: string | void): string {
-  const result = `${protocol}://${host}`;
-
-  const prefixOnlySlash = prefix === '/';
-  if (prefix && !prefixOnlySlash) {
-    if (prefix.endsWith('/')) {
-      prefix = prefix.slice(0, -1);
-    }
-
-    if (prefix.startsWith('/')) {
-      return `${result}${prefix}`;
-    }
-
-    return prefix;
-  }
-
-  return result;
-}
+// /**
+//  * Create base url for registry.
+//  * @return {String} base registry url
+//  */
+// export function combineBaseUrl(
+//   protocol: string,
+//   host: string | void,
+//   prefix?: string | void
+// ): string {
+//   const result = `${protocol}://${host}`;
+//
+//   const prefixOnlySlash = prefix === '/';
+//   if (prefix && !prefixOnlySlash) {
+//     if (prefix.endsWith('/')) {
+//       prefix = prefix.slice(0, -1);
+//     }
+//
+//     if (prefix.startsWith('/')) {
+//       return `${result}${prefix}`;
+//     }
+//
+//     return prefix;
+//   }
+//
+//   return result;
+// }
 
 export function extractTarballFromUrl(url: string): string {
   // @ts-ignore
-  return URL.parse(url).pathname.replace(/^.*\//, '');
+  return DefaultURL.parse(url).pathname.replace(/^.*\//, '');
 }
 
 /**
@@ -176,20 +181,11 @@ export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Re
     return uri;
   }
   const tarballName = extractTarballFromUrl(uri);
-  const headers = req.headers as IncomingHttpHeaders;
-  const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
-  const domainRegistry = combineBaseUrl(protocol, headers.host, urlPrefix);
+  const domainRegistry = getPublicUrl(urlPrefix || '', req);
 
   return `${domainRegistry}/${encodeScopedUri(pkgName)}/-/${tarballName}`;
 }
 
-/**
- * Create a tag for a package
- * @param {*} data
- * @param {*} version
- * @param {*} tag
- * @return {Boolean} whether a package has been tagged
- */
 export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
   if (tag && data[DIST_TAGS][tag] !== version && semver.parse(version, true)) {
     // valid version - store
@@ -389,7 +385,7 @@ export const ErrorCode = {
 export function parseConfigFile(configPath: string): any {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      return YAML.load(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+      return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
     }
     return require(configPath);
   } catch (e) {
@@ -622,4 +618,83 @@ export function isRelatedToDeprecation(pkgInfo: Package): boolean {
     }
   }
   return false;
+}
+
+export function validateURL(publicUrl: string | void) {
+  try {
+    const validProtocols = ['https', 'http'];
+
+    const parsed = new URL(publicUrl as string);
+    if (!validProtocols.includes(parsed.protocol.replace(':', ''))) {
+      throw Error('invalid protocol');
+    }
+    return true;
+  } catch (err) {
+    // TODO: add error logger here
+    return false;
+  }
+}
+
+export function isHost(url: string = '', options = {}): boolean {
+  return validator.isURL(url, {
+    require_host: true,
+    allow_trailing_dot: false,
+    require_valid_protocol: false,
+    // @ts-ignore
+    require_port: false,
+    require_tld: false,
+    ...options,
+  });
+}
+
+export function getPublicUrl(url_prefix: string = '', req): string {
+  if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
+    const envURL = new URL(process.env.VERDACCIO_PUBLIC_URL as string).href;
+    debug('public url by env %o', envURL);
+    return envURL;
+  } else if (req.get('host')) {
+    const host = req.get('host');
+    if (!isHost(host)) {
+      throw new Error('invalid host');
+    }
+    const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
+    const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
+    debug('public url by request %o', combinedUrl);
+    return combinedUrl;
+  } else {
+    return '/';
+  }
+}
+
+/**
+ * Create base url for registry.
+ * @return {String} base registry url
+ */
+export function combineBaseUrl(protocol: string, host: string, prefix: string = ''): string {
+  debug('combined protocol %o', protocol);
+  debug('combined host %o', host);
+  const newPrefix = wrapPrefix(prefix);
+  debug('combined prefix %o', newPrefix);
+  const groupedURI = new URL(wrapPrefix(prefix), `${protocol}://${host}`);
+  const result = stripTrailingSlash(groupedURI.href);
+  debug('combined url %o', result);
+  return result;
+}
+
+const stripTrailingSlash = (str) => {
+  return str.endsWith('/') ? str.slice(0, -1) : str;
+};
+
+function wrapPrefix(prefix: string): string {
+  if (prefix === '' || _.isNil(prefix)) {
+    return '';
+  } else if (!prefix.startsWith('/') && prefix.endsWith('/')) {
+    return `/${prefix}`;
+  } else if (!prefix.startsWith('/') && !prefix.endsWith('/')) {
+    return `/${prefix}/`;
+  } else if (prefix.startsWith('/') && !prefix.endsWith('/')) {
+    return `${prefix}/`;
+  } else {
+    return prefix;
+  }
 }

@@ -50,6 +50,7 @@
     "pkginfo": "0.4.1",
     "request": "2.88.0",
     "semver": "7.3.4",
+    "validator": "13.5.2",
     "verdaccio-audit": "9.7.3",
     "verdaccio-htpasswd": "9.7.2"
   },
@@ -131,7 +132,6 @@
     "standard-version": "9.1.1",
     "supertest": "6.1.1",
     "typescript": "3.9.9",
-    "validator": "13.5.2",
     "verdaccio": "^4.5.1",
     "verdaccio-auth-memory": "^9.7.2",
     "verdaccio-memory": "^9.7.2"

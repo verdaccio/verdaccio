@@ -4,12 +4,10 @@ import path from 'path';
 import { URL } from 'url';
 import LRU from 'lru-cache';
 import _ from 'lodash';
-import buildDebug from 'debug';
 import express from 'express';
-import isURLValidator from 'validator/lib/isURL';
-const debug = buildDebug('verdaccio');
+import buildDebug from 'debug';
 
-import { getWebProtocol, isHTTPProtocol } from '../../lib/utils';
+import { getPublicUrl, isHTTPProtocol } from '../../lib/utils';
 import Search from '../../lib/search';
 import { HEADERS, HTTP_STATUS, WEB_TITLE } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
@@ -18,7 +16,7 @@ const { setSecurityWebHeaders } = require('../middleware');
 const pkgJSON = require('../../../package.json');
 
 const DEFAULT_LANGUAGE = 'es-US';
-const validProtocols = ['https', 'http'];
+const debug = buildDebug('verdaccio');
 
 export function loadTheme(config) {
   if (_.isNil(config.theme) === false) {
@@ -130,81 +128,4 @@ export default function (config, auth, storage) {
   });
 
   return router;
-}
-
-export function validateURL(publicUrl: string | void) {
-  try {
-    const parsed = new URL(publicUrl as string);
-    if (!validProtocols.includes(parsed.protocol.replace(':', ''))) {
-      throw Error('invalid protocol');
-    }
-    return true;
-  } catch (err) {
-    // TODO: add error logger here
-    return false;
-  }
-}
-
-export function isHost(url: string = '', options = {}): boolean {
-  return isURLValidator(url, {
-    require_host: true,
-    allow_trailing_dot: false,
-    require_valid_protocol: false,
-    // @ts-ignore
-    require_port: false,
-    require_tld: false,
-    ...options,
-  });
-}
-
-export function getPublicUrl(url_prefix: string = '', req): string {
-  if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
-    const envURL = new URL(process.env.VERDACCIO_PUBLIC_URL as string).href;
-    debug('public url by env %o', envURL);
-    return envURL;
-  } else if (req.get('host')) {
-    const host = req.get('host');
-    if (!isHost(host)) {
-      throw new Error('invalid host');
-    }
-    const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
-    const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
-    debug('public url by request %o', combinedUrl);
-    return combinedUrl;
-  } else {
-    return '/';
-  }
-}
-
-/**
- * Create base url for registry.
- * @return {String} base registry url
- */
-export function combineBaseUrl(protocol: string, host: string, prefix: string = ''): string {
-  debug('combined protocol %o', protocol);
-  debug('combined host %o', host);
-  const newPrefix = wrapPrefix(prefix);
-  debug('combined prefix %o', newPrefix);
-  const groupedURI = new URL(wrapPrefix(prefix), `${protocol}://${host}`);
-  const result = stripTrailingSlash(groupedURI.href);
-  debug('combined url %o', result);
-  return result;
-}
-
-const stripTrailingSlash = (str) => {
-  return str.endsWith('/') ? str.slice(0, -1) : str;
-};
-
-function wrapPrefix(prefix: string): string {
-  if (prefix === '' || _.isNil(prefix)) {
-    return '';
-  } else if (!prefix.startsWith('/') && prefix.endsWith('/')) {
-    return `/${prefix}`;
-  } else if (!prefix.startsWith('/') && !prefix.endsWith('/')) {
-    return `/${prefix}/`;
-  } else if (prefix.startsWith('/') && !prefix.endsWith('/')) {
-    return `${prefix}/`;
-  } else {
-    return prefix;
-  }
 }
