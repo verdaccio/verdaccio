@@ -118,33 +118,6 @@ export function validateMetadata(object: Package, name: string): Package {
   return object;
 }
 
-// /**
-//  * Create base url for registry.
-//  * @return {String} base registry url
-//  */
-// export function combineBaseUrl(
-//   protocol: string,
-//   host: string | void,
-//   prefix?: string | void
-// ): string {
-//   const result = `${protocol}://${host}`;
-//
-//   const prefixOnlySlash = prefix === '/';
-//   if (prefix && !prefixOnlySlash) {
-//     if (prefix.endsWith('/')) {
-//       prefix = prefix.slice(0, -1);
-//     }
-//
-//     if (prefix.startsWith('/')) {
-//       return `${result}${prefix}`;
-//     }
-//
-//     return prefix;
-//   }
-//
-//   return result;
-// }
-
 export function extractTarballFromUrl(url: string): string {
   // @ts-ignore
   return DefaultURL.parse(url).pathname.replace(/^.*\//, '');
@@ -691,8 +664,8 @@ const stripTrailingSlash = (str) => {
   return str.endsWith('/') ? str.slice(0, -1) : str;
 };
 
-function wrapPrefix(prefix: string): string {
-  if (prefix === '' || _.isNil(prefix)) {
+export function wrapPrefix(prefix: string | void): string {
+  if (prefix === '' || typeof prefix === 'undefined' || prefix === null) {
     return '';
   } else if (!prefix.startsWith('/') && prefix.endsWith('/')) {
     return `/${prefix}`;
