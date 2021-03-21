@@ -74,7 +74,7 @@ class Search implements IWebSearch {
       description: pkg.description,
       version: `v${pkg.version}`,
       keywords: pkg.keywords,
-      author: pkg._npmUser ? pkg._npmUser.name : '???'
+      author: pkg._npmUser ? pkg._npmUser.name : '???',
     });
   }
 

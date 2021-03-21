@@ -14,7 +14,7 @@ export default function (
     readme,
     dist: {
       shasum: 'fake',
-      tarball: `${domain}/${encodeURIComponent(name)}/-/${fileName}`
-    }
+      tarball: `${domain}/${encodeURIComponent(name)}/-/${fileName}`,
+    },
   };
 }
