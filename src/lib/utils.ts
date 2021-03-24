@@ -157,7 +157,7 @@ export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Re
   const tarballName = extractTarballFromUrl(uri);
   const domainRegistry = getPublicUrl(urlPrefix || '', req);
 
-  return `${domainRegistry}/${encodeScopedUri(pkgName)}/-/${tarballName}`;
+  return `${domainRegistry}${encodeScopedUri(pkgName)}/-/${tarballName}`;
 }
 
 export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
@@ -630,7 +630,7 @@ export function getPublicUrl(url_prefix: string = '', req): string {
   if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
     const envURL = new URL(process.env.VERDACCIO_PUBLIC_URL as string).href;
     debug('public url by env %o', envURL);
-    return stripTrailingSlash(envURL);
+    return envURL;
   } else if (req.get('host')) {
     const host = req.get('host');
     if (!isHost(host)) {
@@ -639,7 +639,7 @@ export function getPublicUrl(url_prefix: string = '', req): string {
     const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);
-    return stripTrailingSlash(combinedUrl);
+    return combinedUrl;
   } else {
     return '/';
   }
@@ -659,10 +659,6 @@ export function combineBaseUrl(protocol: string, host: string, prefix: string = 
   debug('combined url %o', result);
   return result;
 }
-
-const stripTrailingSlash = (str) => {
-  return str.endsWith('/') ? str.slice(0, -1) : str;
-};
 
 export function wrapPrefix(prefix: string | void): string {
   if (prefix === '' || typeof prefix === 'undefined' || prefix === null) {

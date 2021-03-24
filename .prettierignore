@@ -29,3 +29,4 @@ docker-examples/
 .prettierignore
 .npmignore
 .gitignore
+*.ico

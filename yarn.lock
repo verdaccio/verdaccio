@@ -3329,10 +3329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:pr-609":
-  version: 2.1.0-pr609
-  resolution: "@verdaccio/ui-theme@npm:2.1.0-pr609"
-  checksum: 30dfa72b17ddb1f8bd3debec1552ada01153c08dbc60a1aa4b6c33463a168277a25100499ba266d5313326176e263f7cf5120ce3f228f385461a3af302f3af0c
+"@verdaccio/ui-theme@npm:2.1.0-pr-610-4":
+  version: 2.1.0-pr-610-4
+  resolution: "@verdaccio/ui-theme@npm:2.1.0-pr-610-4"
+  checksum: 74ff31da69230d28c842f1c05931d130085a7bec4099a14dae168739ff793b31fcbfa7ba39579bd748137763bdb28d6e283d145f0156a47528ea9a6ded1a896d
   languageName: node
   linkType: hard
 
@@ -11348,7 +11348,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"parseurl@npm:^1.3.3, parseurl@npm:~1.3.3":
+"parseurl@npm:^1.3.3, parseurl@npm:~1.3.2, parseurl@npm:~1.3.3":
   version: 1.3.3
   resolution: "parseurl@npm:1.3.3"
   checksum: 52c9e86cb58e38b28f1a50a6354d16648974ab7a2b91b209f97102840471de8adf524427774af6d5bc482fb7c0a6af6ba08ab37de9a1a7ae389ebe074015914b
@@ -12564,6 +12564,13 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"safe-buffer@npm:5.1.1":
+  version: 5.1.1
+  resolution: "safe-buffer@npm:5.1.1"
+  checksum: e09911f17fc9ef1dc8efd00bac94c592f2c41ff4ae6328455b27c3d1cebea55e475f9910fff8149123044567b92062ee65deca875d69d9a3ce8e6bf2b4336db4
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:5.1.2, safe-buffer@npm:~5.1.0, safe-buffer@npm:~5.1.1":
   version: 5.1.2
   resolution: "safe-buffer@npm:5.1.2"
@@ -12721,6 +12728,19 @@ resolve@1.1.7:
     range-parser: ~1.2.1
     statuses: ~1.5.0
   checksum: 58e4ab2e07e8dfb206ca954a9b85f4e367aba0e4d59ce4c9c96a82034385b67f25d33ad526fdb69d635744bbe4d8afea06e2c0348d7d32920e3489d86dc3ec6f
+  languageName: node
+  linkType: hard
+
+"serve-favicon@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "serve-favicon@npm:2.5.0"
+  dependencies:
+    etag: ~1.8.1
+    fresh: 0.5.2
+    ms: 2.1.1
+    parseurl: ~1.3.2
+    safe-buffer: 5.1.1
+  checksum: d49e51c7f489785c4a0f824ab55238be9fab2308a74ca667469c4caff980ff53f0a423d6b05cdcddb7258a604971530b5ed7bb5cbd5d25d0cc61d102f066db9a
   languageName: node
   linkType: hard
 
@@ -14267,7 +14287,7 @@ typescript@3.9.9:
     "@verdaccio/readme": 9.7.5
     "@verdaccio/streams": 9.7.2
     "@verdaccio/types": ^9.7.2
-    "@verdaccio/ui-theme": pr-609
+    "@verdaccio/ui-theme": 2.1.0-pr-610-4
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
     async: 3.2.0
@@ -14331,6 +14351,7 @@ typescript@3.9.9:
     rimraf: 3.0.2
     selfsigned: 1.10.8
     semver: 7.3.4
+    serve-favicon: ^2.5.0
     standard-version: 9.1.1
     supertest: 6.1.1
     typescript: 3.9.9

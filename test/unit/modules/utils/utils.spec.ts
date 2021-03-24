@@ -642,7 +642,7 @@ describe('Utilities', () => {
         },
         url: '/',
       });
-      expect(getPublicUrl(undefined, req)).toEqual('http://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
     });
 
     test('check a valid host header injection', () => {
@@ -668,7 +668,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl('/prefix/', req)).toEqual('http://some.com/prefix');
+      expect(getPublicUrl('/prefix/', req)).toEqual('http://some.com/prefix/');
     });
 
     test('get a valid host with prefix no trailing', () => {
@@ -680,7 +680,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl('/prefix-no-trailing', req)).toEqual('http://some.com/prefix-no-trailing');
+      expect(getPublicUrl('/prefix-no-trailing', req)).toEqual('http://some.com/prefix-no-trailing/');
     });
 
     test('get a valid host with null prefix', () => {
@@ -693,7 +693,7 @@ describe('Utilities', () => {
       });
 
       // @ts-ignore
-      expect(getPublicUrl(null, req)).toEqual('http://some.com');
+      expect(getPublicUrl(null, req)).toEqual('http://some.com/');
     });
   });
 
@@ -708,7 +708,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('https://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('https://some.com/');
     });
 
     test('with a invalid X-Forwarded-Proto https', () => {
@@ -721,7 +721,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('http://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
     });
 
     test('with a HAProxy X-Forwarded-Proto https', () => {
@@ -734,7 +734,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('https://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('https://some.com/');
     });
 
     test('with a HAProxy X-Forwarded-Proto different protocol', () => {
@@ -747,13 +747,13 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('http://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
     });
   });
 
   describe('env variable', () => {
     test('with a valid X-Forwarded-Proto https and env variable', () => {
-      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com';
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/';
       const req = httpMocks.createRequest({
         method: 'GET',
         headers: {
@@ -763,7 +763,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com');
+      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 
@@ -778,7 +778,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/urlPrefix');
+      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/urlPrefix/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 
@@ -793,7 +793,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com');
+      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 
@@ -808,7 +808,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('http://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 
@@ -823,7 +823,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('http://some.com');
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 
@@ -838,7 +838,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl(undefined, req)).toEqual('http://some');
+      expect(getPublicUrl(undefined, req)).toEqual('http://some/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
   });

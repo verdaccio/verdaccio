@@ -1,33 +1,21 @@
+import fs from 'fs';
+import path from 'path';
 import _ from 'lodash';
+import buildDebug from 'debug';
+import validator from 'validator';
 
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import {
-  validateName as utilValidateName,
-  validatePackage as utilValidatePackage,
-  getVersionFromTarball,
-  isObject,
-  ErrorCode
-} from '../lib/utils';
-import {
-  API_ERROR,
-  HEADER_TYPE,
-  HEADERS,
-  HTTP_STATUS,
-  TOKEN_BASIC,
-  TOKEN_BEARER
-} from '../lib/constants';
+import { validateName as utilValidateName, validatePackage as utilValidatePackage, getVersionFromTarball, isObject, ErrorCode } from '../lib/utils';
+import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
 import { stringToMD5 } from '../lib/crypto-utils';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
 import { logger } from '../lib/logger';
 
+const debug = buildDebug('verdaccio');
+
 export function match(regexp: RegExp): any {
-  return function (
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer,
-    value: string
-  ): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
     if (regexp.exec(value)) {
       next();
     } else {
@@ -36,11 +24,52 @@ export function match(regexp: RegExp): any {
   };
 }
 
-export function setSecurityWebHeaders(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function serveFavicon(config: Config) {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    try {
+      // @ts-ignore
+      const logoConf: string = config?.web?.logo as string;
+      if (logoConf === '') {
+        debug('favicon disabled');
+        res.status(404);
+      } else if (!_.isEmpty(logoConf)) {
+        debug('custom favicon');
+        if (
+          validator.isURL(logoConf, {
+            require_host: true,
+            require_valid_protocol: true,
+          })
+        ) {
+          debug('redirect to %o', logoConf);
+          res.redirect(logoConf);
+        } else {
+          const faviconPath = path.normalize(logoConf);
+          debug('serving favicon from %o', faviconPath);
+          fs.access(faviconPath, fs.constants.R_OK, (err) => {
+            if (err) {
+              debug('no read permissions to read: %o, reason:', logoConf, err?.message);
+              return res.status(HTTP_STATUS.NOT_FOUND).end();
+            } else {
+              res.setHeader('Content-Type', 'image/x-icon');
+              fs.createReadStream(faviconPath).pipe(res);
+              return;
+            }
+          });
+        }
+        return next();
+      } else {
+        res.setHeader('Content-Type', 'image/x-icon');
+        fs.createReadStream(path.join(__dirname, './web/html/favicon.ico')).pipe(res);
+        debug('rendered ico');
+      }
+    } catch (err) {
+      debug('error triggered, favicon not found');
+      res.status(HTTP_STATUS.NOT_FOUND).end();
+    }
+  };
+}
+
+export function setSecurityWebHeaders(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   // disable loading in frames (clickjacking, etc.)
   res.header(HEADERS.FRAMES_OPTIONS, 'deny');
   // avoid stablish connections outside of domain
@@ -54,13 +83,7 @@ export function setSecurityWebHeaders(
 
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validateName(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer,
-  value: string,
-  name: string
-): void {
+export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string): void {
   if (value === '-') {
     // special case in couchdb usually
     next('route');
@@ -73,13 +96,7 @@ export function validateName(
 
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validatePackage(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer,
-  value: string,
-  name: string
-): void {
+export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string): void {
   if (value === '-') {
     // special case in couchdb usually
     next('route');
@@ -93,26 +110,14 @@ export function validatePackage(
 export function media(expect: string | null): any {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
-      next(
-        ErrorCode.getCode(
-          HTTP_STATUS.UNSUPPORTED_MEDIA,
-          'wrong content-type, expect: ' +
-            expect +
-            ', got: ' +
-            req.headers[HEADER_TYPE.CONTENT_TYPE]
-        )
-      );
+      next(ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect + ', got: ' + req.headers[HEADER_TYPE.CONTENT_TYPE]));
     } else {
       next();
     }
   };
 }
 
-export function encodeScopePackage(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function encodeScopePackage(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   if (req.url.indexOf('@') !== -1) {
     // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
     req.url = req.url.replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
@@ -120,11 +125,7 @@ export function encodeScopePackage(
   next();
 }
 
-export function expectJson(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   if (!isObject(req.body)) {
     return next(ErrorCode.getBadRequest("can't parse incoming json"));
   }
@@ -151,34 +152,23 @@ export function allow(auth: IAuth): Function {
   return function (action: string): Function {
     return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
-      const packageName = req.params.scope
-        ? `@${req.params.scope}/${req.params.package}`
-        : req.params.package;
-      const packageVersion = req.params.filename
-        ? getVersionFromTarball(req.params.filename)
-        : undefined;
+      const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
+      const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
       const remote: RemoteUser = req.remote_user;
-      logger.trace(
-        { action, user: remote.name },
-        `[middleware/allow][@{action}] allow for @{user}`
-      );
+      logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
 
-      auth['allow_' + action](
-        { packageName, packageVersion },
-        remote,
-        function (error, allowed): void {
-          req.resume();
-          if (error) {
-            next(error);
-          } else if (allowed) {
-            next();
-          } else {
-            // last plugin (that's our built-in one) returns either
-            // cb(err) or cb(null, true), so this should never happen
-            throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
-          }
+      auth['allow_' + action]({ packageName, packageVersion }, remote, function (error, allowed): void {
+        req.resume();
+        if (error) {
+          next(error);
+        } else if (allowed) {
+          next();
+        } else {
+          // last plugin (that's our built-in one) returns either
+          // cb(err) or cb(null, true), so this should never happen
+          throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
         }
-      );
+      });
     };
   };
 }
@@ -189,12 +179,7 @@ export interface MiddlewareError {
 
 export type FinalBody = Package | MiddlewareError | string;
 
-export function final(
-  body: FinalBody,
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {
     // they say it's required for 401, so...
     res.header(HEADERS.WWW_AUTH, `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
@@ -214,10 +199,7 @@ export function final(
       }
 
       // don't send etags with errors
-      if (
-        !res.statusCode ||
-        (res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)
-      ) {
+      if (!res.statusCode || (res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
         res.header(HEADERS.ETAG, '"' + stringToMD5(body as string) + '"');
       }
     } else {
@@ -239,8 +221,7 @@ export function final(
   res.send(body);
 }
 
-export const LOG_STATUS_MESSAGE =
-  "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
+export const LOG_STATUS_MESSAGE = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
@@ -316,7 +297,7 @@ export function log(config: Config) {
           {
             request: {
               method: req.method,
-              url: req.url
+              url: req.url,
             },
             level: 35, // http
             user: (req.remote_user && req.remote_user.name) || null,
@@ -325,8 +306,8 @@ export function log(config: Config) {
             error: res._verdaccio_error,
             bytes: {
               in: bytesin,
-              out: bytesout
-            }
+              out: bytesout,
+            },
           },
           message
         );
@@ -353,11 +334,7 @@ export function log(config: Config) {
 }
 
 // Middleware
-export function errorReportingMiddleware(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
   res.report_error =
     res.report_error ||
     function (err: VerdaccioError): void {

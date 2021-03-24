@@ -19,8 +19,10 @@ security:
       expiresIn: 7d
 
 ## IMPORTANT
-##
-url_prefix: /verdaccio
+## This setup is required for relative path 
+url_prefix: /verdaccio/
+server:
+  behindProxy: true
 
 uplinks:
   npmjs:

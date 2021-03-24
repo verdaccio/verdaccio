@@ -16,13 +16,13 @@ import webAPI from './web/api';
 import web from './web';
 import apiEndpoint from './endpoint';
 import hookDebug from './debug';
-import { log, final, errorReportingMiddleware } from './middleware';
+import { log, final, errorReportingMiddleware, serveFavicon } from './middleware';
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
   const app: Application = express();
   if (config?.server?.behindProxy === true) {
-    app.use('trust proxy');
+    // app.use('trust proxy');
   }
 
   // run in production mode by default, just in case
@@ -40,10 +40,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   app.use(compression());
 
-  app.get('/favicon.ico', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    req.url = '/-/static/favicon.png';
-    next();
-  });
+  app.get('/-/static/favicon.ico', serveFavicon(config));
 
   // Hook for tests only
   if (config._debug) {
