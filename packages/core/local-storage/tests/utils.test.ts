@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 
-import { findPackages } from '../src/utils';
+import { findPackages, _dbGenPath } from '../src/utils';
 import { loadPrivatePackages } from '../src/pkg-utils';
 import { noSuchFile } from '../src/local-fs';
 
@@ -16,34 +16,32 @@ describe('Utitlies', () => {
     jest.resetModules();
   });
 
-  test('should load private packages', () => {
+  test('should load private packages', async () => {
     const database = loadDb('ok');
-    const db = loadPrivatePackages(database, logger);
+    const db = await loadPrivatePackages(database, logger);
 
     expect(db.list).toHaveLength(15);
   });
 
-  test('should load and empty private packages if database file is valid and empty', () => {
+  test('should load and empty private packages if database file is valid and empty', async () => {
     const database = loadDb('empty');
-    const db = loadPrivatePackages(database, logger);
+    const db = await loadPrivatePackages(database, logger);
 
     expect(db.list).toHaveLength(0);
   });
 
-  test('should fails on load private packages', () => {
+  test('should fails on load private packages', async () => {
     const database = loadDb('corrupted');
 
-    expect(() => {
-      loadPrivatePackages(database, logger);
-    }).toThrow();
+    await expect(loadPrivatePackages(database, logger)).rejects.toThrow();
   });
 
-  test('should handle null read values and return empty database', () => {
-    const spy = jest.spyOn(fs, 'readFileSync');
-    spy.mockReturnValue(null);
+  test('should handle null read values and return empty database', async () => {
+    const spy = jest.spyOn(fs.promises, 'readFile');
+    spy.mockResolvedValue(null);
 
     const database = loadDb('ok');
-    const db = loadPrivatePackages(database, logger);
+    const db = await loadPrivatePackages(database, logger);
 
     expect(db.list).toHaveLength(0);
 
@@ -69,6 +67,44 @@ describe('Utitlies', () => {
       // the result is 7 due number of packages on "findPackages" directory
       expect(pkgs).toHaveLength(5);
       expect(validator).toHaveBeenCalledTimes(8);
+    });
+  });
+
+  describe('dbGenPath', () => {
+    test('should generate a storage path', () => {
+      expect(
+        _dbGenPath('local.db', {
+          storage: './storage',
+          config_path: '/etc/foo/config.yaml',
+        })
+      ).toEqual('/etc/foo/storage/local.db');
+    });
+
+    test('should verify with empty storage', () => {
+      expect(
+        _dbGenPath('local.db', {
+          storage: '',
+          config_path: '/etc/foo/config.yaml',
+        })
+      ).toEqual('/etc/foo/local.db');
+    });
+
+    test('should verify with undefined storage', () => {
+      expect(
+        _dbGenPath('local.db', {
+          storage: '',
+          config_path: '/etc/foo/config.yaml',
+        })
+      ).toEqual('/etc/foo/local.db');
+    });
+
+    test('should verify with config path is invalid', () => {
+      expect(
+        _dbGenPath('local.db', {
+          storage: './storage',
+          config_path: undefined,
+        })
+      ).toMatch('/storage/local.db');
     });
   });
 });

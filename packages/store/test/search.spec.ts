@@ -31,7 +31,7 @@ const packages = [
   },
 ];
 
-describe('search', () => {
+describe.skip('search', () => {
   beforeAll(async function () {
     const config = new Config(configExample());
     const storage = new Storage(config);

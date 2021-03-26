@@ -1,13 +1,6 @@
-import {
-  IBasicStorage,
-  Callback,
-  RemoteUser,
-  Config,
-  Logger,
-  IPluginStorage,
-  Package,
-  ITokenActions,
-} from '@verdaccio/types';
+// REMOVE and VERIFY where these types are used and remove the package
+
+import { Callback, RemoteUser, Package } from '@verdaccio/types';
 
 export type JWTPayload = RemoteUser & {
   password?: string;
@@ -32,12 +25,6 @@ export interface Profile {
   updated: string;
   cidr_whitelist: any;
   fullname: string;
-}
-
-export interface IStorage extends IBasicStorage<Config>, ITokenActions {
-  config: Config;
-  storagePlugin: IPluginStorage<Config>;
-  logger: Logger;
 }
 
 /**
