@@ -62,6 +62,10 @@ export default class S3Database implements IPluginStorage<S3Config> {
     });
   }
 
+  public init() {
+    return Promise.resolve();
+  }
+
   public async getSecret(): Promise<string> {
     return Promise.resolve((await this._getData()).secret);
   }

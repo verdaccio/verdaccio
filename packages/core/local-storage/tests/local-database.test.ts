@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { assign } from 'lodash';
-import { ILocalData, PluginOptions, Token } from '@verdaccio/types';
+import { IPluginStorage, PluginOptions } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';
@@ -18,16 +18,17 @@ const optionsPlugin: PluginOptions<{}> = {
   config: new Config(),
 };
 
-let locaDatabase: ILocalData<{}>;
+let locaDatabase: IPluginStorage<{}>;
 let loadPrivatePackages;
 
 describe('Local Database', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
     loadPrivatePackages = jest
       .spyOn(pkgUtils, 'loadPrivatePackages')
-      .mockReturnValue({ list: [], secret: '' });
+      .mockResolvedValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
+    await (locaDatabase as LocalDatabase).init();
     (locaDatabase as LocalDatabase).clean();
     writeMock.mockClear();
   });
@@ -41,12 +42,13 @@ describe('Local Database', () => {
     expect(locaDatabase).toBeDefined();
   });
 
-  test('should display log error if fails on load database', () => {
+  test('should display log error if fails on load database', async () => {
     loadPrivatePackages.mockImplementation(() => {
       throw Error();
     });
 
-    new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
+    const instance = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
+    await instance.init();
 
     expect(optionsPlugin.logger.error).toHaveBeenCalled();
     expect(optionsPlugin.logger.error).toHaveBeenCalledTimes(2);
@@ -219,3 +221,5 @@ describe('Local Database', () => {
     });
   });
 });
+
+// NOTE: Crear test para verificar que se crea el storage file

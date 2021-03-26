@@ -1,7 +1,7 @@
 // eslint-disable no-invalid-this
 
 import lunrMutable from 'lunr-mutable-indexes';
-import { Version } from '@verdaccio/types';
+import { Version, IPluginStorage, Config } from '@verdaccio/types';
 import { IStorageHandler, IStorage } from './storage';
 
 export interface IWebSearch {
@@ -44,6 +44,10 @@ class Search implements IWebSearch {
     });
   }
 
+  public init() {
+    return Promise.resolve();
+  }
+
   /**
    * Performs a query to the indexer.
    * If the keyword is a * it returns all local elements
@@ -55,7 +59,7 @@ class Search implements IWebSearch {
     const localStorage = this.storage.localStorage as IStorage;
 
     return query === '*'
-      ? localStorage.storagePlugin.get((items): any => {
+      ? (localStorage.storagePlugin as IPluginStorage<Config>).get((items): any => {
           items.map(function (pkg): any {
             return { ref: pkg, score: 1 };
           });

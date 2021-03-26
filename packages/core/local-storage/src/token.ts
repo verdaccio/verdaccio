@@ -1,4 +1,3 @@
-import Path from 'path';
 import _ from 'lodash';
 import low from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
@@ -6,6 +5,7 @@ import FileMemory from 'lowdb/adapters/Memory';
 import buildDebug from 'debug';
 
 import { ITokenActions, Config, Token, TokenFilter } from '@verdaccio/types';
+import { _dbGenPath } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:token');
 
@@ -20,12 +20,6 @@ export default class TokenActions implements ITokenActions {
     this.tokenDb = null;
   }
 
-  public _dbGenPath(dbName: string, config: Config): string {
-    return Path.join(
-      Path.resolve(Path.dirname(config.config_path || ''), config.storage as string, dbName)
-    );
-  }
-
   private async getTokenDb(): Promise<low.LowdbAsync<any>> {
     if (!this.tokenDb) {
       debug('token database is not defined');
@@ -35,7 +29,7 @@ export default class TokenActions implements ITokenActions {
         adapter = new FileMemory('');
       } else {
         debug('token async adapter');
-        const pathDb = this._dbGenPath(TOKEN_DB_NAME, this.config);
+        const pathDb = _dbGenPath(TOKEN_DB_NAME, this.config);
         adapter = new FileAsync(pathDb);
       }
       debug('token bd generated');

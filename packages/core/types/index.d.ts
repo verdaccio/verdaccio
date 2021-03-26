@@ -443,6 +443,7 @@ declare module '@verdaccio/types' {
     add(name: string, callback: Callback): void;
     remove(name: string, callback: Callback): void;
     get(callback: Callback): void;
+    init(): Promise<void>;
     getSecret(): Promise<string>;
     setSecret(secret: string): Promise<any>;
     getPackageStorage(packageInfo: string): IPackageStorage;
@@ -504,14 +505,6 @@ declare module '@verdaccio/types' {
     getPackage(options: any): void;
     search(startkey: string, options: any): IReadTarball;
     getLocalDatabase(callback: Callback): void;
-  }
-
-  interface IBasicStorage<T> extends StoragePackageActions {
-    addPackage(name: string, info: Package, callback: Callback): void;
-    updateVersions(name: string, packageInfo: Package, callback: Callback): void;
-    getPackageMetadata(name: string, callback: Callback): void;
-    search(startKey: string, options: any): IReadTarball;
-    getSecret(config: T & Config): Promise<any>;
   }
 
   // @deprecated use IBasicAuth from @verdaccio/auth

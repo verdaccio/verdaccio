@@ -49,6 +49,9 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     this.helper = new StorageHelper(datastore, storage, this.config);
   }
 
+  public init() {
+    return Promise.resolve();
+  }
   private _getGoogleOptions(config: VerdaccioConfigGoogleStorage): DatastoreOptions {
     const GOOGLE_OPTIONS: DatastoreOptions = {};
 

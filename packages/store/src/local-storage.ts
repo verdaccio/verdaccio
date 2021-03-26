@@ -59,7 +59,18 @@ class LocalStorage implements IStorage {
     debug('local storage created');
     this.logger = logger.child({ sub: 'fs' });
     this.config = config;
-    this.storagePlugin = this._loadStorage(config, logger);
+    // @ts-ignore
+    this.storagePlugin = null;
+  }
+
+  public async init() {
+    if (this.storagePlugin === null) {
+      this.storagePlugin = this._loadStorage(this.config, this.logger);
+      await this.storagePlugin.init();
+    } else {
+      debug('storage plugin has been already initialized');
+    }
+    return;
   }
 
   public addPackage(name: string, pkg: Package, callback: Callback): void {

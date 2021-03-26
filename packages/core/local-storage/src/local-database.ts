@@ -19,8 +19,8 @@ import { getInternalError } from '@verdaccio/commons-api';
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 import TokenActions from './token';
+import { _dbGenPath } from './utils';
 
-const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';
 
 const debug = buildDebug('verdaccio:plugin:local-storage');
@@ -28,6 +28,7 @@ const debug = buildDebug('verdaccio:plugin:local-storage');
 class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public path: string;
   public logger: Logger;
+  // @ts-ignore
   public data: LocalStorage;
   public config: Config;
   public locked: boolean;
@@ -35,10 +36,15 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public constructor(config: Config, logger: Logger) {
     super(config);
     this.config = config;
-    this.path = this._buildStoragePath(config);
     this.logger = logger;
     this.locked = false;
-    this.data = this._fetchLocalPackages();
+    this.path = _dbGenPath(DB_NAME, config);
+    debug('plugin storage path %o', this.path);
+  }
+
+  public async init(): Promise<void> {
+    debug('plugin init');
+    this.data = await this._fetchLocalPackages();
     this._sync();
   }
 
@@ -272,6 +278,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     try {
       // https://www.npmjs.com/package/mkdirp#mkdirpsyncdir-opts
       const folderName = Path.dirname(this.path);
+      debug('creating folder %o', folderName);
       mkdirp.sync(folderName);
       debug('sync folder %o created succeed', folderName);
     } catch (err) {
@@ -311,39 +318,20 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   }
 
   /**
-   * Build the local database path.
-   * @param {Object} config
-   * @return {string|String|*}
-   * @private
-   */
-  private _buildStoragePath(config: Config): string {
-    const sinopiadbPath: string = this._dbGenPath(DEPRECATED_DB_NAME, config);
-    try {
-      fs.accessSync(sinopiadbPath, fs.constants.F_OK);
-      return sinopiadbPath;
-    } catch (err) {
-      if (err.code === noSuchFile) {
-        return this._dbGenPath(DB_NAME, config);
-      }
-
-      throw err;
-    }
-  }
-
-  /**
    * Fetch local packages.
    * @private
    * @return {Object}
    */
-  private _fetchLocalPackages(): LocalStorage {
+  private async _fetchLocalPackages(): Promise<LocalStorage> {
     const list: StorageList = [];
     const emptyDatabase = { list, secret: '' };
 
     try {
-      return loadPrivatePackages(this.path, this.logger);
+      return await loadPrivatePackages(this.path, this.logger);
     } catch (err) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
+      debug('error on fetch local packages %o', err);
       if (err.code !== noSuchFile) {
         this.locked = true;
         this.logger.error(

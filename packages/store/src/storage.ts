@@ -2,7 +2,7 @@ import assert from 'assert';
 import Stream from 'stream';
 import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
-import { Request } from 'express';
+import e, { Request } from 'express';
 import buildDebug from 'debug';
 
 import { ProxyStorage } from '@verdaccio/proxy';
@@ -21,10 +21,10 @@ import {
   DistFile,
   StringValue,
   IPluginStorageFilter,
-  IBasicStorage,
   IPluginStorage,
   Callback,
   Logger,
+  StoragePackageActions,
   GenericBody,
   TokenFilter,
   Token,
@@ -57,9 +57,18 @@ export interface IGetPackageOptions {
   req: any;
 }
 
+export interface IBasicStorage<T> extends StoragePackageActions {
+  init(): Promise<void>;
+  addPackage(name: string, info: Package, callback: Callback): void;
+  updateVersions(name: string, packageInfo: Package, callback: Callback): void;
+  getPackageMetadata(name: string, callback: Callback): void;
+  search(startKey: string, options: any): IReadTarball;
+  getSecret(config: T & Config): Promise<any>;
+}
+
 export interface IStorage extends IBasicStorage<Config>, ITokenActions {
   config: Config;
-  storagePlugin: IPluginStorage<Config>;
+  storagePlugin: IPluginStorage<Config> | null;
   logger: Logger;
 }
 
@@ -76,7 +85,7 @@ export interface IStorageHandler extends IStorageManager<Config>, ITokenActions 
   localStorage: IStorage | null;
   filters: IPluginFilters;
   uplinks: ProxyList;
-  init(config: Config, filters: IPluginFilters): Promise<string>;
+  init(config: Config, filters: IPluginFilters): Promise<void>;
   saveToken(token: Token): Promise<any>;
   deleteToken(user: string, tokenKey: string): Promise<any>;
   readTokens(filter: TokenFilter): Promise<Token[]>;
@@ -101,12 +110,19 @@ class Storage {
     this.localStorage = null;
   }
 
-  public init(config: Config, filters: IPluginFilters = []): Promise<string> {
-    this.filters = filters;
-    debug('filters available %o', filters);
-    this.localStorage = new LocalStorage(this.config, logger);
-
-    return this.localStorage.getSecret(config);
+  public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
+    if (this.localStorage === null) {
+      this.filters = filters;
+      debug('filters available %o', filters);
+      this.localStorage = new LocalStorage(this.config, logger);
+      await this.localStorage.init();
+      debug('local init storage initialized');
+      await this.localStorage.getSecret(config);
+      debug('local storage secret initialized');
+    } else {
+      debug('storage has been already initialized');
+    }
+    return;
   }
 
   /**
@@ -480,53 +496,57 @@ class Storage {
   public getLocalDatabase(callback: Callback): void {
     const self = this;
     debug('get local database');
-    this.localStorage.storagePlugin.get((err, locals): void => {
-      if (err) {
-        callback(err);
-      }
+    if (this.localStorage.storagePlugin !== null) {
+      this.localStorage.storagePlugin.get((err, locals): void => {
+        if (err) {
+          callback(err);
+        }
 
-      const packages: Version[] = [];
-      const getPackage = function (itemPkg): void {
-        self.localStorage.getPackageMetadata(
-          locals[itemPkg],
-          function (err, pkgMetadata: Package): void {
-            if (_.isNil(err)) {
-              const latest = pkgMetadata[DIST_TAGS].latest;
-              if (latest && pkgMetadata.versions[latest]) {
-                const version: Version = pkgMetadata.versions[latest];
-                const timeList = pkgMetadata.time as GenericBody;
-                const time = timeList[latest];
-                // @ts-ignore
-                version.time = time;
+        const packages: Version[] = [];
+        const getPackage = function (itemPkg): void {
+          self.localStorage.getPackageMetadata(
+            locals[itemPkg],
+            function (err, pkgMetadata: Package): void {
+              if (_.isNil(err)) {
+                const latest = pkgMetadata[DIST_TAGS].latest;
+                if (latest && pkgMetadata.versions[latest]) {
+                  const version: Version = pkgMetadata.versions[latest];
+                  const timeList = pkgMetadata.time as GenericBody;
+                  const time = timeList[latest];
+                  // @ts-ignore
+                  version.time = time;
 
-                // Add for stars api
-                // @ts-ignore
-                version.users = pkgMetadata.users;
+                  // Add for stars api
+                  // @ts-ignore
+                  version.users = pkgMetadata.users;
 
-                packages.push(version);
+                  packages.push(version);
+                } else {
+                  self.logger.warn(
+                    { package: locals[itemPkg] },
+                    'package @{package} does not have a "latest" tag?'
+                  );
+                }
+              }
+
+              if (itemPkg >= locals.length - 1) {
+                callback(null, packages);
               } else {
-                self.logger.warn(
-                  { package: locals[itemPkg] },
-                  'package @{package} does not have a "latest" tag?'
-                );
+                getPackage(itemPkg + 1);
               }
             }
+          );
+        };
 
-            if (itemPkg >= locals.length - 1) {
-              callback(null, packages);
-            } else {
-              getPackage(itemPkg + 1);
-            }
-          }
-        );
-      };
-
-      if (locals.length) {
-        getPackage(0);
-      } else {
-        callback(null, []);
-      }
-    });
+        if (locals.length) {
+          getPackage(0);
+        } else {
+          callback(null, []);
+        }
+      });
+    } else {
+      debug('local stora instance is null');
+    }
   }
 
   /**
