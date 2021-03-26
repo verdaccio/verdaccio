@@ -19,3 +19,7 @@ node_modules/
 packages/core/local-storage/_storage/**
 packages/standalone/dist/bundle.js
 docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
+docker-examples/
+build/
+.vscode/
+.github/
