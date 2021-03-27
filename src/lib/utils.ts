@@ -12,29 +12,10 @@ import sanitizyReadme from '@verdaccio/readme';
 
 import { Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
-import {
-  getConflict,
-  getBadData,
-  getBadRequest,
-  getInternalError,
-  getUnauthorized,
-  getForbidden,
-  getServiceUnavailable,
-  getNotFound,
-  getCode
-} from '@verdaccio/commons-api';
+import { getConflict, getBadData, getBadRequest, getInternalError, getUnauthorized, getForbidden, getServiceUnavailable, getNotFound, getCode } from '@verdaccio/commons-api';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 import { StringValue, AuthorAvatar } from '../../types';
-import {
-  APP_ERROR,
-  DEFAULT_PORT,
-  DEFAULT_DOMAIN,
-  DEFAULT_PROTOCOL,
-  CHARACTER_ENCODING,
-  HEADERS,
-  DIST_TAGS,
-  DEFAULT_USER
-} from './constants';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 
 import { normalizeContributors } from './storage-utils';
 
@@ -139,11 +120,7 @@ export function validateMetadata(object: Package, name: string): Package {
  * Create base url for registry.
  * @return {String} base registry url
  */
-export function combineBaseUrl(
-  protocol: string,
-  host: string | void,
-  prefix?: string | void
-): string {
+export function combineBaseUrl(protocol: string, host: string | void, prefix?: string | void): string {
   const result = `${protocol}://${host}`;
 
   const prefixOnlySlash = prefix === '/';
@@ -174,11 +151,7 @@ export function extractTarballFromUrl(url: string): string {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(
-  pkg: Package,
-  req: Request,
-  urlPrefix: string | void
-): Package {
+export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void): Package {
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
@@ -196,12 +169,7 @@ export function convertDistRemoteToLocalTarballUrls(
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
+export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
   const currentHost = req.headers.host;
 
   if (!currentHost) {
@@ -279,7 +247,7 @@ export function parseAddress(urlAddress: any): any {
     return {
       proto: urlPattern[2] || DEFAULT_PROTOCOL,
       host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
-      port: urlPattern[8] || DEFAULT_PORT
+      port: urlPattern[8] || DEFAULT_PORT,
     };
   }
 
@@ -288,7 +256,7 @@ export function parseAddress(urlAddress: any): any {
   if (urlPattern) {
     return {
       proto: urlPattern[2] || DEFAULT_PROTOCOL,
-      path: urlPattern[4]
+      path: urlPattern[4],
     };
   }
 
@@ -362,7 +330,7 @@ const parseIntervalTable = {
   d: 86400000,
   w: 7 * 86400000,
   M: 30 * 86400000,
-  y: 365 * 86400000
+  y: 365 * 86400000,
 };
 
 /**
@@ -381,11 +349,7 @@ export function parseInterval(interval: any): number {
       return;
     }
     const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
-    if (
-      !m ||
-      parseIntervalTable[m[4]] >= last_suffix ||
-      (m[4] === '' && last_suffix !== Infinity)
-    ) {
+    if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
       throw Error('invalid interval: ' + interval);
     }
     last_suffix = parseIntervalTable[m[4]];
@@ -419,13 +383,13 @@ export const ErrorCode = {
   getForbidden,
   getServiceUnavailable,
   getNotFound,
-  getCode
+  getCode,
 };
 
 export function parseConfigFile(configPath: string): any {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      return YAML.safeLoad(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+      return YAML.load(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
     }
     return require(configPath);
   } catch (e) {
@@ -488,9 +452,7 @@ export function deleteProperties(propertiesToDelete: string[], objectItem: any):
 export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
-  const contributors: AuthorAvatar[] = normalizeContributors(
-    _.get(pkgInfo, 'latest.contributors', [])
-  );
+  const contributors: AuthorAvatar[] = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
   // for author.
@@ -503,7 +465,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
     pkgInfoCopy.latest.author = {
       avatar: GENERIC_AVATAR,
       email: '',
-      author
+      author,
     };
   }
 
@@ -517,7 +479,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
           contributor = {
             avatar: GENERIC_AVATAR,
             email: contributor,
-            name: contributor
+            name: contributor,
           };
         }
 
@@ -580,7 +542,7 @@ export function formatAuthor(author: AuthorFormat): any {
   let authorDetails = {
     name: DEFAULT_USER,
     email: '',
-    url: ''
+    url: '',
   };
 
   if (_.isNil(author)) {
@@ -590,14 +552,14 @@ export function formatAuthor(author: AuthorFormat): any {
   if (_.isString(author)) {
     authorDetails = {
       ...authorDetails,
-      name: author as string
+      name: author as string,
     };
   }
 
   if (_.isObject(author)) {
     authorDetails = {
       ...authorDetails,
-      ...(author as Author)
+      ...(author as Author),
     };
   }
 
