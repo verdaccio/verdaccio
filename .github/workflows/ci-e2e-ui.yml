@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 5.x
-      - 'changeset-release/5.x'
+      - 'changeset-release/6.x'
   pull_request:
     paths:
       - .github/workflows/ci.yml
