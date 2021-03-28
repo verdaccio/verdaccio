@@ -1,6 +1,6 @@
 ![verdaccio logo](https://cdn.verdaccio.dev/readme/verdaccio@2x.png)
 
-# Version 5.x (Under development)
+# Version 6.x (Under development)
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
@@ -19,14 +19,14 @@ Google Cloud Storage** or create your own plugin.
 [![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
 
-## Install 5.x
+## Install 6.x
 
 > ⚠️ Not available on npmjs
 
 With docker
 
 ```bash
-docker pull verdaccio/verdaccio:5.x-next
+docker pull verdaccio/verdaccio:6.x-next
 ```
 
 ## Development
