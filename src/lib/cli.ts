@@ -13,21 +13,13 @@ import { parseConfigFile } from './utils';
 require('pkginfo')(module);
 
 if (process.getuid && process.getuid() === 0) {
-  global.console.warn(
-    bgYellow().red(
-      "*** WARNING: Verdaccio doesn't need superuser privileges. Don't run it under root! ***"
-    )
-  );
+  global.console.warn(bgYellow().red("*** WARNING: Verdaccio doesn't need superuser privileges. Don't run it under root! ***"));
 }
 
-const MIN_NODE_VERSION = '6.9.0';
+const MIN_NODE_VERSION = '12.0.0';
 
 if (semver.satisfies(process.version, `>=${MIN_NODE_VERSION}`) === false) {
-  global.console.error(
-    bgRed(
-      `Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`
-    )
-  );
+  global.console.error(bgRed(`Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, please upgrade your Node.js distribution`));
   process.exit(1);
 }
 
@@ -68,19 +60,9 @@ function init() {
 
     logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
 
-    startVerdaccio(
-      verdaccioConfiguration,
-      cliListener,
-      configPathLocation,
-      pkgVersion,
-      pkgName,
-      listenDefaultCallback
-    );
+    startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
   } catch (err) {
-    logger.logger.fatal(
-      { file: configPathLocation, err: err },
-      'cannot open config file @{file}: @{!err.message}'
-    );
+    logger.logger.fatal({ file: configPathLocation, err: err }, 'cannot open config file @{file}: @{!err.message}');
     process.exit(1);
   }
 }
@@ -94,7 +76,7 @@ if (commander.info) {
       Binaries: ['Node', 'Yarn', 'npm'],
       Virtualization: ['Docker'],
       Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
-      npmGlobalPackages: ['verdaccio']
+      npmGlobalPackages: ['verdaccio'],
     });
     // eslint-disable-next-line no-console
     console.log(data);
@@ -113,7 +95,7 @@ if (commander.info) {
 process.on('uncaughtException', function (err) {
   logger.logger.fatal(
     {
-      err: err
+      err: err,
     },
     'uncaught exception, please report this\n@{err.stack}'
   );
