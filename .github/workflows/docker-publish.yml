@@ -35,7 +35,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ github.repository }}
-          tag-custom: 4.x-next
+          tag-custom: 5.x-next
           tag-custom-only: ${{ github.ref == 'refs/heads/master' }}
           tag-semver: |
             {{version}}
