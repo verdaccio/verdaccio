@@ -27,7 +27,7 @@
     "async": "3.2.0",
     "body-parser": "1.19.0",
     "bunyan": "1.8.15",
-    "commander": "3.0.2",
+    "commander": "7.2.0",
     "compression": "1.7.4",
     "cookies": "0.8.0",
     "cors": "2.8.5",

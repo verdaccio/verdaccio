@@ -4907,10 +4907,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:3.0.2":
-  version: 3.0.2
-  resolution: "commander@npm:3.0.2"
-  checksum: 28071a49d23606c1e31f1f275d2aac9c03833cb3442e04b798ffbcd5f7fb7a1fbfc6b5bc6a69b862df83f475378665623788118d189c254a173248c452bd77a2
+"commander@npm:7.2.0":
+  version: 7.2.0
+  resolution: "commander@npm:7.2.0"
+  checksum: bdc0eca5e25cd24af8440163d3c9a996785bbac4b49a590365699cdc1ed08cefbac8f268153208ab2bc5dc3cb1d3fb573fd1590c681e36e371342186bd331a4c
   languageName: node
   linkType: hard
 
@@ -14243,7 +14243,7 @@ typescript@3.9.9:
     body-parser: 1.19.0
     bunyan: 1.8.15
     codecov: 3.8.1
-    commander: 3.0.2
+    commander: 7.2.0
     compression: 1.7.4
     cookies: 0.8.0
     cors: 2.8.5

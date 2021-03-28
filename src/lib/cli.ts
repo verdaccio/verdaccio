@@ -41,13 +41,15 @@ commander
   .version(pkgVersion)
   .parse(process.argv);
 
+const options = commander.opts();
+
 function init() {
   let verdaccioConfiguration;
   let configPathLocation;
-  const cliListener = commander.listen;
+  const cliListener = options.listen;
 
   try {
-    configPathLocation = findConfigFile(commander.config);
+    configPathLocation = findConfigFile(options.config);
     verdaccioConfiguration = parseConfigFile(configPathLocation);
     process.title = (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
 
@@ -67,7 +69,7 @@ function init() {
   }
 }
 
-if (commander.info) {
+if (options.info) {
   // eslint-disable-next-line no-console
   console.log('\nEnvironment Info:');
   (async () => {
@@ -82,9 +84,9 @@ if (commander.info) {
     console.log(data);
     process.exit(0);
   })();
-} else if (commander.args.length == 1 && !commander.config) {
+} else if (commander.args.length == 1 && !options.config) {
   // handling "verdaccio [config]" case if "-c" is missing in command line
-  commander.config = commander.args.pop();
+  options.config = commander.args.pop();
   init();
 } else if (commander.args.length !== 0) {
   commander.help();
