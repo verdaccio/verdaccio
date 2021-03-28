@@ -12,7 +12,7 @@ on:
       - 'Dockerfile'
       - '.dockerignore'
     branches:
-      - '5.x'
+      - '6.x'
     tags:
       - 'v*'
 jobs:
