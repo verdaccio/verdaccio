@@ -85,7 +85,7 @@ describe('Utitlies', () => {
           storage: '',
           config_path: '/etc/foo/config.yaml',
         })
-      ).toEqual('/etc/foo/local.db');
+      ).toMatch('local.db');
     });
 
     test('should verify with undefined storage', () => {
@@ -94,7 +94,7 @@ describe('Utitlies', () => {
           storage: '',
           config_path: '/etc/foo/config.yaml',
         })
-      ).toEqual('/etc/foo/local.db');
+      ).toMatch('local.db');
     });
 
     test('should verify with config path is invalid', () => {
@@ -103,7 +103,7 @@ describe('Utitlies', () => {
           storage: './storage',
           config_path: undefined,
         })
-      ).toMatch('/storage/local.db');
+      ).toMatch('local.db');
     });
   });
 });
