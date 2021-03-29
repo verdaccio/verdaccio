@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import * as readFile from '../src/read-file';
 
 import { findPackages, _dbGenPath } from '../src/utils';
 import { loadPrivatePackages } from '../src/pkg-utils';
@@ -37,9 +37,8 @@ describe('Utitlies', () => {
   });
 
   test('should handle null read values and return empty database', async () => {
-    const spy = jest.spyOn(fs.promises, 'readFile');
+    const spy = jest.spyOn(readFile, 'readFilePromise');
     spy.mockResolvedValue(null);
-
     const database = loadDb('ok');
     const db = await loadPrivatePackages(database, logger);
 
