@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v4.12.0...v5.0.0-alpha.0) (2021-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* npm token support revisited and enabled by default (#2145)
+* drop node 8 and node 10 (#2142)
+
+### Features
+
+* drop node 8 and node 10 ([#2142](https://github.com/verdaccio/verdaccio/issues/2142)) ([43f7043](https://github.com/verdaccio/verdaccio/commit/43f70437af7a196f23d2a951f857ecc809131e02))
+* improve url_prefix behavior ([#2122](https://github.com/verdaccio/verdaccio/issues/2122)) ([15bb350](https://github.com/verdaccio/verdaccio/commit/15bb350ae47b822f385e329d13d2574c31beed1f))
+* npm token support revisited and enabled by default ([#2145](https://github.com/verdaccio/verdaccio/issues/2145)) ([8cc6393](https://github.com/verdaccio/verdaccio/commit/8cc6393d866126912ad1db457dadc0d3ef596333))
+* upgrade to commander v7 ([#2143](https://github.com/verdaccio/verdaccio/issues/2143)) ([3a1f608](https://github.com/verdaccio/verdaccio/commit/3a1f608f0b78561bb1c06e3b54a58e21f72940d5))
+
 ## [4.12.0](https://github.com/verdaccio/verdaccio/compare/v4.11.3...v4.12.0) (2021-03-17)
 
 
