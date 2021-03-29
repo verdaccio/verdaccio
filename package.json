@@ -22,7 +22,7 @@
     "@verdaccio/local-storage": "9.7.5",
     "@verdaccio/readme": "9.7.5",
     "@verdaccio/streams": "9.7.2",
-    "@verdaccio/ui-theme": "1.15.1",
+    "@verdaccio/ui-theme": "3.0.0",
     "JSONStream": "1.3.5",
     "async": "3.2.0",
     "body-parser": "1.19.0",
@@ -32,6 +32,7 @@
     "cookies": "0.8.0",
     "cors": "2.8.5",
     "dayjs": "1.10.4",
+    "debug": "^4.3.1",
     "envinfo": "7.7.4",
     "express": "4.17.1",
     "handlebars": "4.7.7",
@@ -49,6 +50,7 @@
     "pkginfo": "0.4.1",
     "request": "2.88.0",
     "semver": "7.3.4",
+    "validator": "13.5.2",
     "verdaccio-audit": "9.7.3",
     "verdaccio-htpasswd": "9.7.2"
   },
@@ -121,7 +123,9 @@
     "jest-junit": "9.0.0",
     "lint-staged": "8.2.1",
     "lockfile-lint": "4.3.7",
+    "lru-cache": "6.0.0",
     "nock": "12.0.3",
+    "node-mocks-http": "^1.10.1",
     "prettier": "2.2.1",
     "puppeteer": "5.5.0",
     "rimraf": "3.0.2",
@@ -164,10 +168,10 @@
     "lint": "yarn run type-check && yarn run lint:ts",
     "lint:ts": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts verdaccio npm yarn",
-    "dev:start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli",
+    "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli",
     "code:build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
-    "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
+    "docker": "docker build -t verdaccio/verdaccio:pr-2122 . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local"
   },
   "engines": {
@@ -186,8 +190,6 @@
     "linters": {
       "*": [
         "eslint .",
-        "prettier --write",
-        "detect-secrets-launcher --baseline .secrets-baseline",
         "git add"
       ]
     },

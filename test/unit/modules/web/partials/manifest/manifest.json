@@ -1,0 +1,21 @@
+{
+  "main.js": "-/static/main.9be80fd172e81558124c.js",
+  "runtime.js": "-/static/runtime.9be80fd172e81558124c.js",
+  "NotFound.js": "-/static/NotFound.9be80fd172e81558124c.js",
+  "Provider.js": "-/static/Provider.9be80fd172e81558124c.js",
+  "Version.js": "-/static/Version.9be80fd172e81558124c.js",
+  "Home.js": "-/static/Home.9be80fd172e81558124c.js",
+  "Versions.js": "-/static/Versions.9be80fd172e81558124c.js",
+  "UpLinks.js": "-/static/UpLinks.9be80fd172e81558124c.js",
+  "Dependencies.js": "-/static/Dependencies.9be80fd172e81558124c.js",
+  "Engines.js": "-/static/Engines.9be80fd172e81558124c.js",
+  "Dist.js": "-/static/Dist.9be80fd172e81558124c.js",
+  "Install.js": "-/static/Install.9be80fd172e81558124c.js",
+  "Repository.js": "-/static/Repository.9be80fd172e81558124c.js",
+  "vendors.js": "-/static/vendors.9be80fd172e81558124c.js",
+  "vendors-node_modules_pnpm_material-ui_core_4_11_2_react-dom_16_13_1_react_16_13_1_node_module-2c2376.9be80fd172e81558124c.js": "-/static/vendors-node_modules_pnpm_material-ui_core_4_11_2_react-dom_16_13_1_react_16_13_1_node_module-2c2376.9be80fd172e81558124c.js",
+  "vendors-node_modules_pnpm_material-ui_core_4_11_2_react-dom_16_13_1_react_16_13_1_node_module-a68215.9be80fd172e81558124c.js": "-/static/vendors-node_modules_pnpm_material-ui_core_4_11_2_react-dom_16_13_1_react_16_13_1_node_module-a68215.9be80fd172e81558124c.js",
+  "vendors-node_modules_pnpm_material-ui_core_4_11_2_react-dom_16_13_1_react_16_13_1_node_module-3c0585.9be80fd172e81558124c.js": "-/static/vendors-node_modules_pnpm_material-ui_core_4_11_2_react-dom_16_13_1_react_16_13_1_node_module-3c0585.9be80fd172e81558124c.js",
+  "favicon.ico": "-/static/favicon.ico",
+  "index.html": "-/static/index.html"
+}

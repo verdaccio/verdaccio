@@ -1,3 +1,5 @@
+import * as httpMocks from 'node-mocks-http';
+import { HEADERS } from '@verdaccio/commons-api';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
 import { spliceURL } from '../../../../src/utils/string';
 import {
@@ -14,7 +16,8 @@ import {
   getVersionFromTarball,
   sortByName,
   formatAuthor,
-  isHTTPProtocol
+  isHTTPProtocol,
+  getPublicUrl,
 } from '../../../../src/lib/utils';
 import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
@@ -32,15 +35,15 @@ describe('Utilities', () => {
     versions: {
       '1.0.0': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz'
-        }
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
+        },
       },
       '1.0.1': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz'
-        }
-      }
-    }
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz',
+        },
+      },
+    },
   };
 
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
@@ -49,40 +52,40 @@ describe('Utilities', () => {
     describe('Sort packages', () => {
       const packages = [
         {
-          name: 'ghc'
+          name: 'ghc',
         },
         {
-          name: 'abc'
+          name: 'abc',
         },
         {
-          name: 'zxy'
-        }
+          name: 'zxy',
+        },
       ];
       test('should order ascending', () => {
         expect(sortByName(packages)).toEqual([
           {
-            name: 'abc'
+            name: 'abc',
           },
           {
-            name: 'ghc'
+            name: 'ghc',
           },
           {
-            name: 'zxy'
-          }
+            name: 'zxy',
+          },
         ]);
       });
 
       test('should order descending', () => {
         expect(sortByName(packages, false)).toEqual([
           {
-            name: 'zxy'
+            name: 'zxy',
           },
           {
-            name: 'ghc'
+            name: 'ghc',
           },
           {
-            name: 'abc'
-          }
+            name: 'abc',
+          },
         ]);
       });
     });
@@ -104,9 +107,12 @@ describe('Utilities', () => {
         expect(getWebProtocol('https', '')).toBe('https');
       });
 
+      test('should have handle invalid protocol', () => {
+        expect(getWebProtocol('ftp', '')).toBe('http');
+      });
+
       describe('getWebProtocol and HAProxy variant', () => {
         // https://github.com/verdaccio/verdaccio/issues/695
-
         test('should handle http', () => {
           expect(getWebProtocol('http,http', 'https')).toBe('http');
         });
@@ -119,14 +125,15 @@ describe('Utilities', () => {
 
     describe('convertDistRemoteToLocalTarballUrls', () => {
       test('should build a URI for dist tarball based on new domain', () => {
-        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
+        const req = httpMocks.createRequest({
+          method: 'GET',
           headers: {
-            host: fakeHost
+            host: fakeHost,
           },
-          // @ts-ignore
-          get: () => 'http',
-          protocol: 'http'
+          protocol: 'http',
+          url: '/',
         });
+        const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), req);
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
         expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.1'));
       });
@@ -136,11 +143,9 @@ describe('Utilities', () => {
           headers: {},
           // @ts-ignore
           get: () => 'http',
-          protocol: 'http'
+          protocol: 'http',
         });
-        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
-          convertDist.versions['1.0.0'].dist.tarball
-        );
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
       });
     });
 
@@ -148,7 +153,7 @@ describe('Utilities', () => {
       test('should delete a invalid latest version', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          latest: '20000'
+          latest: '20000',
         };
 
         normalizeDistTags(pkg);
@@ -168,7 +173,7 @@ describe('Utilities', () => {
       test('should define last published version as latest with a custom dist-tag', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          beta: '1.0.1'
+          beta: '1.0.1',
         };
 
         normalizeDistTags(pkg);
@@ -179,7 +184,7 @@ describe('Utilities', () => {
       test('should convert any array of dist-tags to a plain string', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          latest: ['1.0.1']
+          latest: ['1.0.1'],
         };
 
         normalizeDistTags(pkg);
@@ -206,17 +211,21 @@ describe('Utilities', () => {
 
     describe('combineBaseUrl', () => {
       test('should create a URI', () => {
-        expect(combineBaseUrl('http', 'domain')).toEqual('http://domain');
+        expect(combineBaseUrl('http', 'domain')).toEqual('http://domain/');
       });
 
       test('should create a base url for registry', () => {
-        expect(combineBaseUrl('http', 'domain', '')).toEqual('http://domain');
-        expect(combineBaseUrl('http', 'domain', '/')).toEqual('http://domain');
-        expect(combineBaseUrl('http', 'domain', '/prefix/')).toEqual('http://domain/prefix');
-        expect(combineBaseUrl('http', 'domain', '/prefix/deep')).toEqual(
-          'http://domain/prefix/deep'
-        );
-        expect(combineBaseUrl('http', 'domain', 'only-prefix')).toEqual('only-prefix');
+        expect(combineBaseUrl('http', 'domain.com', '')).toEqual('http://domain.com/');
+        expect(combineBaseUrl('http', 'domain.com', '/')).toEqual('http://domain.com/');
+        expect(combineBaseUrl('http', 'domain.com', '/prefix/')).toEqual('http://domain.com/prefix/');
+        expect(combineBaseUrl('http', 'domain.com', '/prefix/deep')).toEqual('http://domain.com/prefix/deep/');
+        expect(combineBaseUrl('http', 'domain.com', 'prefix/')).toEqual('http://domain.com/prefix/');
+        expect(combineBaseUrl('http', 'domain.com', 'prefix')).toEqual('http://domain.com/prefix/');
+      });
+
+      test('invalid url prefix', () => {
+        expect(combineBaseUrl('http', 'domain.com', 'only-prefix')).toEqual('http://domain.com/only-prefix/');
+        expect(combineBaseUrl('https', 'domain.com', 'only-prefix')).toEqual('https://domain.com/only-prefix/');
       });
     });
 
@@ -389,19 +398,14 @@ describe('Utilities', () => {
 
       expect(parseReadme('testPackage', randomText)).toEqual('<p>%%%%%**##==</p>');
       expect(parseReadme('testPackage', simpleText)).toEqual('<p>simple text</p>');
-      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual(
-        '<p>simple text </p>\n<h1 id="markdown">markdown</h1>'
-      );
+      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual('<p>simple text </p>\n<h1 id="markdown">markdown</h1>');
     });
 
     test('should show error for no readme data', () => {
       const noData = '';
       const spy = jest.spyOn(logger, 'error');
       expect(parseReadme('testPackage', noData)).toEqual('<p>ERROR: No README data found!</p>');
-      expect(spy).toHaveBeenCalledWith(
-        { packageName: 'testPackage' },
-        '@{packageName}: No readme found'
-      );
+      expect(spy).toHaveBeenCalledWith({ packageName: 'testPackage' }, '@{packageName}: No readme found');
     });
   });
 
@@ -413,7 +417,7 @@ describe('Utilities', () => {
 
     test('author, contributors and maintainers fields are not present', () => {
       const packageInfo = {
-        latest: {}
+        latest: {},
       };
 
       // @ts-ignore
@@ -429,16 +433,16 @@ describe('Utilities', () => {
 
     test('author field is a string type', () => {
       const packageInfo = {
-        latest: { author: 'user@verdccio.org' }
+        latest: { author: 'user@verdccio.org' },
       };
       const result = {
         latest: {
           author: {
             author: 'user@verdccio.org',
             avatar: GENERIC_AVATAR,
-            email: ''
-          }
-        }
+            email: '',
+          },
+        },
       };
 
       // @ts-ignore
@@ -447,16 +451,16 @@ describe('Utilities', () => {
 
     test('author field is an object type with author information', () => {
       const packageInfo = {
-        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } }
+        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } },
       };
       const result = {
         latest: {
           author: {
             avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
             email: 'user@verdccio.org',
-            name: 'verdaccio'
-          }
-        }
+            name: 'verdaccio',
+          },
+        },
       };
 
       // @ts-ignore
@@ -466,8 +470,8 @@ describe('Utilities', () => {
     test('contributor field is a blank array', () => {
       const packageInfo = {
         latest: {
-          contributors: []
-        }
+          contributors: [],
+        },
       };
 
       // @ts-ignore
@@ -480,9 +484,9 @@ describe('Utilities', () => {
           latest: {
             contributors: [
               { name: 'user', email: 'user@verdccio.org' },
-              { name: 'user1', email: 'user1@verdccio.org' }
-            ]
-          }
+              { name: 'user1', email: 'user1@verdccio.org' },
+            ],
+          },
         };
 
         const result = {
@@ -491,15 +495,15 @@ describe('Utilities', () => {
               {
                 avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
                 email: 'user@verdccio.org',
-                name: 'user'
+                name: 'user',
               },
               {
                 avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
                 email: 'user1@verdccio.org',
-                name: 'user1'
-              }
-            ]
-          }
+                name: 'user1',
+              },
+            ],
+          },
         };
 
         // @ts-ignore
@@ -509,8 +513,8 @@ describe('Utilities', () => {
       test('contributors field is an object', () => {
         const packageInfo = {
           latest: {
-            contributors: { name: 'user', email: 'user@verdccio.org' }
-          }
+            contributors: { name: 'user', email: 'user@verdccio.org' },
+          },
         };
 
         const result = {
@@ -519,10 +523,10 @@ describe('Utilities', () => {
               {
                 avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
                 email: 'user@verdccio.org',
-                name: 'user'
-              }
-            ]
-          }
+                name: 'user',
+              },
+            ],
+          },
         };
 
         // @ts-ignore
@@ -533,8 +537,8 @@ describe('Utilities', () => {
         const contributor = 'Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)';
         const packageInfo = {
           latest: {
-            contributors: contributor
-          }
+            contributors: contributor,
+          },
         };
 
         const result = {
@@ -543,10 +547,10 @@ describe('Utilities', () => {
               {
                 avatar: GENERIC_AVATAR,
                 email: contributor,
-                name: contributor
-              }
-            ]
-          }
+                name: contributor,
+              },
+            ],
+          },
         };
 
         // @ts-ignore
@@ -557,8 +561,8 @@ describe('Utilities', () => {
     test('maintainers field is a blank array', () => {
       const packageInfo = {
         latest: {
-          maintainers: []
-        }
+          maintainers: [],
+        },
       };
 
       // @ts-ignore
@@ -570,9 +574,9 @@ describe('Utilities', () => {
         latest: {
           maintainers: [
             { name: 'user', email: 'user@verdccio.org' },
-            { name: 'user1', email: 'user1@verdccio.org' }
-          ]
-        }
+            { name: 'user1', email: 'user1@verdccio.org' },
+          ],
+        },
       };
 
       const result = {
@@ -581,15 +585,15 @@ describe('Utilities', () => {
             {
               avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
               email: 'user@verdccio.org',
-              name: 'user'
+              name: 'user',
             },
             {
               avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
               email: 'user1@verdccio.org',
-              name: 'user1'
-            }
-          ]
-        }
+              name: 'user1',
+            },
+          ],
+        },
       };
 
       // @ts-ignore
@@ -606,7 +610,7 @@ describe('Utilities', () => {
       const user = {
         name: 'Verdaccion NPM',
         email: 'verdaccio@verdaccio.org',
-        url: 'https://verdaccio.org'
+        url: 'https://verdaccio.org',
       };
       expect(formatAuthor(user).url).toEqual(user.url);
       expect(formatAuthor(user).email).toEqual(user.email);
@@ -616,6 +620,256 @@ describe('Utilities', () => {
       expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
       expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
       expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
+    });
+  });
+
+  describe('host', () => {
+    // this scenario is usual when reverse proxy is setup
+    // without the host header
+    test('get empty string with missing host header', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        url: '/',
+      });
+      expect(getPublicUrl(undefined, req)).toEqual('/');
+    });
+
+    test('get a valid host', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+        },
+        url: '/',
+      });
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
+    });
+
+    test('check a valid host header injection', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: `some.com"><svg onload="alert(1)">`,
+        },
+        url: '/',
+      });
+      expect(function () {
+        // @ts-expect-error
+        getPublicUrl({}, req);
+      }).toThrow('invalid host');
+    });
+
+    test('get a valid host with prefix', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('/prefix/', req)).toEqual('http://some.com/prefix/');
+    });
+
+    test('get a valid host with prefix no trailing', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('/prefix-no-trailing', req)).toEqual('http://some.com/prefix-no-trailing/');
+    });
+
+    test('get a valid host with null prefix', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+        },
+        url: '/',
+      });
+
+      // @ts-ignore
+      expect(getPublicUrl(null, req)).toEqual('http://some.com/');
+    });
+  });
+
+  describe('X-Forwarded-Proto', () => {
+    test('with a valid X-Forwarded-Proto https', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('https://some.com/');
+    });
+
+    test('with a invalid X-Forwarded-Proto https', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProto',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
+    });
+
+    test('with a HAProxy X-Forwarded-Proto https', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https,https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('https://some.com/');
+    });
+
+    test('with a HAProxy X-Forwarded-Proto different protocol', () => {
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'http,https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
+    });
+  });
+
+  describe('env variable', () => {
+    test('with a valid X-Forwarded-Proto https and env variable', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a valid X-Forwarded-Proto https and env variable with prefix', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/urlPrefix/';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'http',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/urlPrefix/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a valid X-Forwarded-Proto https and env variable with prefix as url prefix', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/urlPrefix/';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('conf_url_prefix', req)).toEqual('https://env.domain.com/conf_url_prefix/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a valid X-Forwarded-Proto https and env variable with prefix as root url prefix', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/urlPrefix/';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('/', req)).toEqual('https://env.domain.com/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a invalid X-Forwarded-Proto https and env variable', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a invalid X-Forwarded-Proto https and invalid url with env variable', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'ftp://env.domain.com';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a invalid X-Forwarded-Proto https and host injection with host', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'http://injection.test.com"><svg onload="alert(1)">';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a invalid X-Forwarded-Proto https and host injection with invalid host', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'http://injection.test.com"><svg onload="alert(1)">';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('http://some/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
     });
   });
 });

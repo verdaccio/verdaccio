@@ -3329,10 +3329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:1.15.1":
-  version: 1.15.1
-  resolution: "@verdaccio/ui-theme@npm:1.15.1"
-  checksum: e6dfeaae7043daa639042345f62ba4d872a7457984b751ae39694f504c33b09d875c42d72b58df9968bed80cf8e49c6554cc6062a0884dd0c1869a2ae40722aa
+"@verdaccio/ui-theme@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@verdaccio/ui-theme@npm:3.0.0"
+  checksum: a78252728755bec9f561048f5f70eb22967c4dea824736d1cbe0d3baf0cbf02e264234ce7e3d1c0f427d6010107a0b68193e6c9020459f07d123a7cf90ebeb75
   languageName: node
   linkType: hard
 
@@ -3389,7 +3389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"accepts@npm:~1.3.5, accepts@npm:~1.3.7":
+"accepts@npm:^1.3.7, accepts@npm:~1.3.5, accepts@npm:~1.3.7":
   version: 1.3.7
   resolution: "accepts@npm:1.3.7"
   dependencies:
@@ -5578,6 +5578,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:^4.3.1":
+  version: 4.3.2
+  resolution: "debug@npm:4.3.2"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 5543570879e2274f6725d4285a034d6e0822d35faefc6f55965933fb440e8c21eb3a0bef934e66f4b6b491f898ee2de37cab980e9d4fd61372136c19d3ce4527
+  languageName: node
+  linkType: hard
+
 "decamelize-keys@npm:^1.0.0, decamelize-keys@npm:^1.1.0":
   version: 1.1.0
   resolution: "decamelize-keys@npm:1.1.0"
@@ -5698,7 +5710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:~1.1.2":
+"depd@npm:^1.1.0, depd@npm:~1.1.2":
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: f45566ff7019a346852f095768a380778ed544de24e103b479fd5d3e61982d670efbb5234c09d0588d7fdb09c26c48283d7150e4be5e6ce5d3d37cd268d75c4d
@@ -7086,7 +7098,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fresh@npm:0.5.2":
+"fresh@npm:0.5.2, fresh@npm:^0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
   checksum: 2f76c8505d1ea5a6d5accea3e7aff0b796bfa43364c84929254f33909fa08640948bd1728220d1ff5f4c2b378a65e97da647f2fe0f2b7ddb44001f6e0dc2e91f
@@ -10050,7 +10062,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^6.0.0":
+"lru-cache@npm:6.0.0, lru-cache@npm:^6.0.0":
   version: 6.0.0
   resolution: "lru-cache@npm:6.0.0"
   dependencies:
@@ -10273,7 +10285,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"merge-descriptors@npm:1.0.1":
+"merge-descriptors@npm:1.0.1, merge-descriptors@npm:^1.0.1":
   version: 1.0.1
   resolution: "merge-descriptors@npm:1.0.1"
   checksum: 2d2a09eaac840a7ceac7a13b44b7c8abf3ecccd93a609c3525d8290cb5d814336cc7c0b1dd485ae3bc471ed354eeefb153475ce2e1604ccdf79eebe74021c192
@@ -10364,7 +10376,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mime@npm:1.6.0":
+"mime@npm:1.6.0, mime@npm:^1.3.4":
   version: 1.6.0
   resolution: "mime@npm:1.6.0"
   bin:
@@ -10540,7 +10552,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ms@npm:^2.1.1":
+"ms@npm:2.1.2, ms@npm:^2.1.1":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
   checksum: 9b65fb709bc30c0c07289dcbdb61ca032acbb9ea5698b55fa62e2cebb04c5953f1876a1f3f7f4bc2e91d4bf4d86003f3e207c3bc6ee2f716f99827e62389cd0e
@@ -10708,6 +10720,23 @@ fsevents@~2.1.2:
   version: 0.4.0
   resolution: "node-int64@npm:0.4.0"
   checksum: 8fce4b82d4173041114150bc49fe2333a0628a1ae31ab666db816742cbce422ef28eb834a7e66d2d09a0f635d3b5fad8c7330ec792db9558f9f7a47fa4eac87f
+  languageName: node
+  linkType: hard
+
+"node-mocks-http@npm:^1.10.1":
+  version: 1.10.1
+  resolution: "node-mocks-http@npm:1.10.1"
+  dependencies:
+    accepts: ^1.3.7
+    depd: ^1.1.0
+    fresh: ^0.5.2
+    merge-descriptors: ^1.0.1
+    methods: ^1.1.2
+    mime: ^1.3.4
+    parseurl: ^1.3.3
+    range-parser: ^1.2.0
+    type-is: ^1.6.18
+  checksum: 50f3f26e7687b316c6bf342577257f83eb5b9dc8769bc226858e4475804d6a04e320bd762987cce74c5174cda010e112e9d04618ad2c95fd4bd8008f4ec3da0b
   languageName: node
   linkType: hard
 
@@ -11319,7 +11348,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"parseurl@npm:~1.3.3":
+"parseurl@npm:^1.3.3, parseurl@npm:~1.3.3":
   version: 1.3.3
   resolution: "parseurl@npm:1.3.3"
   checksum: 52c9e86cb58e38b28f1a50a6354d16648974ab7a2b91b209f97102840471de8adf524427774af6d5bc482fb7c0a6af6ba08ab37de9a1a7ae389ebe074015914b
@@ -11836,7 +11865,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"range-parser@npm:~1.2.1":
+"range-parser@npm:^1.2.0, range-parser@npm:~1.2.1":
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
   checksum: 05074f5b23dbdc24acdae9821dd684fbc9c0d770cdaa4469ab529d8e0fc1338aa33561a4c7c14a1f9bdcb3b5e9a3770e5a80318258a72289a7ef05fcda72a707
@@ -13858,7 +13887,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"type-is@npm:~1.6.17, type-is@npm:~1.6.18":
+"type-is@npm:^1.6.18, type-is@npm:~1.6.17, type-is@npm:~1.6.18":
   version: 1.6.18
   resolution: "type-is@npm:1.6.18"
   dependencies:
@@ -14134,6 +14163,13 @@ typescript@3.9.9:
   languageName: node
   linkType: hard
 
+"validator@npm:13.5.2":
+  version: 13.5.2
+  resolution: "validator@npm:13.5.2"
+  checksum: 6da12682ad43456cb3a97d23b35cad0b438d9027a6c6fd824d5c86fead42c28f4e38c67590d8f56ab44e6c612979cbaa5f5cc670cc5fcc5a39d5032fcb642296
+  languageName: node
+  linkType: hard
+
 "vary@npm:^1, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
@@ -14231,7 +14267,7 @@ typescript@3.9.9:
     "@verdaccio/readme": 9.7.5
     "@verdaccio/streams": 9.7.2
     "@verdaccio/types": ^9.7.2
-    "@verdaccio/ui-theme": 1.15.1
+    "@verdaccio/ui-theme": 3.0.0
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
     async: 3.2.0
@@ -14249,6 +14285,7 @@ typescript@3.9.9:
     cors: 2.8.5
     cross-env: 7.0.3
     dayjs: 1.10.4
+    debug: ^4.3.1
     detect-secrets: 1.0.6
     envinfo: 7.7.4
     eslint: 7.19.0
@@ -14278,6 +14315,7 @@ typescript@3.9.9:
     lint-staged: 8.2.1
     lockfile-lint: 4.3.7
     lodash: 4.17.21
+    lru-cache: 6.0.0
     lunr-mutable-indexes: 2.3.2
     marked: 2.0.1
     mime: 2.5.2
@@ -14285,6 +14323,7 @@ typescript@3.9.9:
     mkdirp: 1.0.4
     mv: 2.1.1
     nock: 12.0.3
+    node-mocks-http: ^1.10.1
     pkginfo: 0.4.1
     prettier: 2.2.1
     puppeteer: 5.5.0
@@ -14295,6 +14334,7 @@ typescript@3.9.9:
     standard-version: 9.1.1
     supertest: 6.1.1
     typescript: 3.9.9
+    validator: 13.5.2
     verdaccio: ^4.5.1
     verdaccio-audit: 9.7.3
     verdaccio-auth-memory: ^9.7.2

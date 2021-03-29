@@ -27,3 +27,6 @@ test/functional/store/*
 storage_default_storage/*
 docker-examples/
 .prettierignore
+.npmignore
+.gitignore
+*.ico
