@@ -13,8 +13,8 @@ on:
       - 'yarn.lock'
     branches:
       - '**'
-    tags:
-      - 'v*'
+#    tags:
+#      - 'v*'
 
 jobs:
   docker:
@@ -37,10 +37,11 @@ jobs:
           images: ${{ github.repository }}
           tag-custom: 5.x-next
           tag-custom-only: ${{ github.ref == 'refs/heads/master' }}
-          tag-semver: |
-            {{version}}
-            {{major}}
-            {{major}}.{{minor}}
+          # disabled while is on alpha
+          # tag-semver: |
+          #   {{version}}
+          #   {{major}}
+          #   {{major}}.{{minor}}
       - name: Build & Push
         uses: docker/build-push-action@v2
         with:

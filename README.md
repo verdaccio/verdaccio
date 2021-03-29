@@ -148,7 +148,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
-docker pull verdaccio/verdaccio:5
+docker pull verdaccio/verdaccio:5.x-next
 ```
 
 ### Running verdaccio using Docker
