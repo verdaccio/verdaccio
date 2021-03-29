@@ -2,7 +2,7 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 4
+# Version 5
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
@@ -37,6 +37,10 @@ Install with npm:
 npm install --global verdaccio
 ```
 
+> Node.js v12 is required for Verdaccio 5
+
+Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org). (_TBA_)
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
@@ -70,18 +74,20 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-**Next talk**: [Verdaccio - A lightweight Private Proxy Registry built in Node.js | Juan Picado at The Destro Dev Show](https://www.youtube.com/watch?reload=9&v=P_hxy7W-IL4&ab_channel=TheDestroDevShow)
+### **Node.js Dependency Confusion Attacks & Vulnerabilities in Go Binaries**.
 
-##### **OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry*. 
+[RSVP](https://www.meetup.com/es-ES/devseccon-germany/events/276990087) to join the talk.
 
-[![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/youtube_openjsword_2020.png)](https://www.youtube.com/watch?v=oVCjDWeehAQ)
+[![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/devseccon.png)](https://www.meetup.com/es-ES/devseccon-germany/events/276990087/)
 
 
 You might want to check out as well our previous talks: 
 
+* [**OpenJS World 2020** about *Cover your Projects with a Multi purpose Lightweight Node.js Registry - **Juan Picado***](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 * [ViennaJS Meetup - Introduction to Verdaccio by **Priscila Olivera** and **Juan Picado**](https://www.youtube.com/watch?v=hDIFKzmoCa)
 * [Open Source? trivago - Verdaccio (**Ayush** and **Juan Picado**) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
 * [GitNation Open Source Stage - How we have built a Node.js Registry with React - **Juan Picado** December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)
+* [Verdaccio - A lightweight Private Proxy Registry built in Node.js | **Juan Picado** at The Destro Dev Show](https://www.youtube.com/watch?reload=9&v=P_hxy7W-IL4&ab_channel=TheDestroDevShow)
 
 ## Get Started
 
@@ -142,7 +148,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
-docker pull verdaccio/verdaccio:4
+docker pull verdaccio/verdaccio:5
 ```
 
 ### Running verdaccio using Docker
