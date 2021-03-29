@@ -628,7 +628,7 @@ export function isHost(url: string = '', options = {}): boolean {
 
 export function getPublicUrl(url_prefix: string = '', req): string {
   if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
-    const envURL = new URL(process.env.VERDACCIO_PUBLIC_URL as string).href;
+    const envURL = new URL(wrapPrefix(url_prefix), process.env.VERDACCIO_PUBLIC_URL as string).href;
     debug('public url by env %o', envURL);
     return envURL;
   } else if (req.get('host')) {

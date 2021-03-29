@@ -782,6 +782,36 @@ describe('Utilities', () => {
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 
+    test('with a valid X-Forwarded-Proto https and env variable with prefix as url prefix', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/urlPrefix/';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('conf_url_prefix', req)).toEqual('https://env.domain.com/conf_url_prefix/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
+    test('with a valid X-Forwarded-Proto https and env variable with prefix as root url prefix', () => {
+      process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com/urlPrefix/';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('/', req)).toEqual('https://env.domain.com/');
+      delete process.env.VERDACCIO_PUBLIC_URL;
+    });
+
     test('with a invalid X-Forwarded-Proto https and env variable', () => {
       process.env.VERDACCIO_PUBLIC_URL = 'https://env.domain.com';
       const req = httpMocks.createRequest({
