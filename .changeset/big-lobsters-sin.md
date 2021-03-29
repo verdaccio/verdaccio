@@ -12,7 +12,7 @@
 Gives a storage plugin the ability to perform asynchronous tasks on initialization
 
 ## Breaking change
- 
+
 Plugin must have an init method in which asynchronous tasks can be executed
 
 ```js
