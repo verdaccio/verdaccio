@@ -773,7 +773,7 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'http',
         },
         url: '/',
       });

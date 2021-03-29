@@ -40,7 +40,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   let logoURI = config?.web?.logo ?? '';
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, bodyBefore } = Object.assign(
+  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
     {},
     {
       scriptsBodyAfter: [],
@@ -76,7 +76,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
           options,
           scriptsBodyAfter,
           metaScripts,
-          bodyBefore,
+          scriptsbodyBefore,
         },
         manifest
       );
