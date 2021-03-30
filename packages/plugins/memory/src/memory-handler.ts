@@ -6,7 +6,7 @@ import {
   getConflict,
   getNotFound,
 } from '@verdaccio/commons-api';
-import MemoryFileSystem from 'memory-fs';
+import { fs } from 'memfs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import {
   Callback,
@@ -25,7 +25,6 @@ import {
 import { parsePackage, stringifyPackage } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:storage:memory-storage');
-const fs = new MemoryFileSystem();
 
 export type DataHandler = {
   [key: string]: string;
@@ -158,16 +157,15 @@ class MemoryHandler implements IPackageStorageManager {
     const readTarballStream: IReadTarball = new ReadTarball({});
 
     process.nextTick(function () {
-      fs.stat(pathName, function (fileError, stats) {
-        if (fileError && !stats) {
+      fs.stat(pathName, function (error, stats) {
+        if (error && !stats) {
           return readTarballStream.emit('error', getNotFound());
         }
 
         try {
           const readStream = fs.createReadStream(pathName);
 
-          const contentLength: number = fs?.data[name]?.length || 0;
-          readTarballStream.emit('content-length', contentLength);
+          readTarballStream.emit('content-length', stats?.size);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);
           readStream.on('error', (error: VerdaccioError) => {

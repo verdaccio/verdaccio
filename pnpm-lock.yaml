@@ -680,6 +680,7 @@ importers:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
       debug: 4.3.1
+      memfs: 3.2.0
       memory-fs: 0.5.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
@@ -688,6 +689,7 @@ importers:
       '@verdaccio/streams': workspace:10.0.0-alpha.3
       '@verdaccio/types': workspace:10.0.0-alpha.3
       debug: ^4.3.1
+      memfs: 3.2.0
       memory-fs: ^0.5.0
   packages/plugins/ui-theme:
     devDependencies:
@@ -14324,6 +14326,10 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==
+  /fs-monkey/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-fcSa+wyTqZa46iWweI7/ZiUfegOZl0SG8+dltIwFXo7+zYU9J9kpS3NB6pZcSlJdhvIwp81Adx2XhZorncxiaA==
   /fs-readdir-recursive/1.1.0:
     dev: true
     resolution:
@@ -19658,6 +19664,14 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
+  /memfs/3.2.0:
+    dependencies:
+      fs-monkey: 1.0.1
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-f/xxz2TpdKv6uDn6GtHee8ivFyxwxmPuXatBb1FBwxYNuVpbM3k/Y1Z+vC0mH/dIXXrukYfe3qe5J32Dfjg93A==
   /memory-fs/0.4.1:
     dependencies:
       errno: 0.1.7
