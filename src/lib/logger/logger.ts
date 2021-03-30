@@ -4,7 +4,6 @@ import buildDebug from 'debug';
 import { yellow } from 'kleur';
 import { padLeft } from './utils';
 
-
 function isProd() {
   return process.env.NODE_ENV === 'production';
 }
@@ -48,10 +47,10 @@ export function createLogger(
   };
 
   debug('has prettifier? %o', !isProd());
-  // pretty logs are not allowed in production for performance reason
+  // pretty logs are not allowed in production for performance reasons
   if ((format === DEFAULT_LOG_FORMAT || format !== 'json') && isProd() === false) {
     pinoConfig = Object.assign({}, pinoConfig, {
-      // FIXME: this property cannot be used in combination with pino.final
+      // more info
       // https://github.com/pinojs/pino-pretty/issues/37
       prettyPrint: {
         levelFirst: true,
@@ -111,31 +110,37 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
 
   const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {
+    debug('logging file enabled');
     logger = createLogger(pinoConfig, pino.destination(loggerConfig.path), loggerConfig.format);
   } else if (loggerConfig.type === 'rotating-file') {
     // eslint-disable-next-line no-console
     console.log(yellow(padLeft('rotating-file type is not longer supported, consider use [logrotate] instead')));
+    // eslint-disable-next-line no-console
+    console.log(yellow(padLeft('fallback to stdout configuration triggered')));
+    debug('logging stdout enabled');
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {
+    debug('logging stdout enabled');
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   }
 
   if (isProd()) {
-    // why? https://github.com/pinojs/pino/issues/920#issuecomment-710807667
-    process.on(
-      'uncaughtException',
-      pino.final(logger, (err, finalLogger) => {
-        finalLogger.fatal(err, 'uncaughtException');
-        process.exit(1);
-      })
-    );
+    // why only on prod? https://github.com/pinojs/pino/issues/920#issuecomment-710807667
+    const finalHandler = pino.final(logger, (err, finalLogger, event) => {
+      finalLogger.info(`${event} caught`);
+      if (err) {
+        finalLogger.error(err, 'error caused exit');
+      }
+      process.exit(err ? 1 : 0);
+    });
 
-    // @ts-ignore
-    process.on('unhandledRejection',
-      pino.final(logger, (err, finalLogger) => {
-        finalLogger.fatal(err, 'uncaughtException');
-        process.exit(1);
-      })
-    );
+    process.on('uncaughtException', (err) => finalHandler(err, 'uncaughtException'));
+    process.on('unhandledRejection', (err) => finalHandler(err as Error, 'unhandledRejection'));
+    process.on('beforeExit', () => finalHandler(null, 'beforeExit'));
+    process.on('exit', () => finalHandler(null, 'exit'));
+    process.on('uncaughtException', (err) => finalHandler(err, 'uncaughtException'));
+    process.on('SIGINT', () => finalHandler(null, 'SIGINT'));
+    process.on('SIGQUIT', () => finalHandler(null, 'SIGQUIT'));
+    process.on('SIGTERM', () => finalHandler(null, 'SIGTERM'));
   }
 }
