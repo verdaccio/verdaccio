@@ -39,7 +39,7 @@ const LoggerApi = require('./logger');
 class Auth implements IAuth {
   public config: Config;
   public logger: Logger;
-  public secret: string;
+  public secret: string; // pragma: allowlist secret
   public plugins: IPluginAuth<Config>[];
 
   public constructor(config: Config) {
@@ -70,13 +70,13 @@ class Auth implements IAuth {
   }
 
   private _applyDefaultPlugins(): void {
-    this.plugins.push(getDefaultPlugins());
+    this.plugins.push(getDefaultPlugins(this.logger));
   }
 
   public changePassword(
     username: string,
-    password: string,
-    newPassword: string,
+    password: string, // pragma: allowlist secret
+    newPassword: string, // pragma: allowlist secret
     cb: Callback
   ): void {
     const validPlugins = _.filter(this.plugins, (plugin) => _.isFunction(plugin.changePassword));

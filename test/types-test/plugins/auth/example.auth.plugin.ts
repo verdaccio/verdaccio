@@ -22,7 +22,7 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
     this.logger = options.logger;
   }
 
-  adduser(user: string, password: string, cb: Callback): void {
+  adduser(user: string, password: string, cb: Callback): void { // pragma: allowlist secret
     cb();
   }
 
@@ -30,7 +30,7 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
     cb();
   }
 
-  authenticate(user: string, password: string, cb: Callback): void {
+  authenticate(user: string, password: string, cb: Callback): void { // pragma: allowlist secret
     cb();
   }
 
@@ -84,7 +84,7 @@ const config1: AppConfig = new Config({
 
 const options: PluginOptions<{}> = {
   config: config1,
-  logger: logger.child()
+  logger: logger.child({sub: 'out'})
 };
 
 const auth = new ExampleAuthPlugin(config1, options);
