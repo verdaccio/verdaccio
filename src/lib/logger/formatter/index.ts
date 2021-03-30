@@ -1,4 +1,4 @@
-import { printMessage, PrettyOptionsExtended } from './formatter';
+import { printMessage, PrettyOptionsExtended } from './prettifier';
 
 export type PrettyFactory = (param) => string;
 

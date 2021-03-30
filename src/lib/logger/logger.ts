@@ -4,15 +4,14 @@ import buildDebug from 'debug';
 import { yellow } from 'kleur';
 import { padLeft } from './utils';
 
-const debug = buildDebug('verdaccio:logger');
-
-const DEFAULT_LOG_FORMAT = 'pretty';
-
-export let logger;
 
 function isProd() {
   return process.env.NODE_ENV === 'production';
 }
+
+export let logger;
+const debug = buildDebug('verdaccio:logger');
+const DEFAULT_LOG_FORMAT = isProd() ? 'json' : 'pretty';
 
 export type LogPlugin = {
   dest: string;
@@ -59,7 +58,7 @@ export function createLogger(
         prettyStamp: format === 'pretty-timestamped',
         ...prettyPrintOptions,
       },
-      prettifier: require('./formattter'),
+      prettifier: require('./formatter'),
     });
   }
 
@@ -102,6 +101,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
 
   // verdaccio 5 does not allow multiple logger configuration
   // backward compatible, pick only the first option
+  // next major will thrown an error
   let loggerConfig = isLegacyConf ? options[0] : options;
   if (!loggerConfig?.level) {
     loggerConfig = Object.assign({}, loggerConfig, {
@@ -115,6 +115,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   } else if (loggerConfig.type === 'rotating-file') {
     // eslint-disable-next-line no-console
     console.log(yellow(padLeft('rotating-file type is not longer supported, consider use [logrotate] instead')));
+    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   }
