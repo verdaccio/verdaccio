@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-
 import _ from 'lodash';
+import { Config } from '@verdaccio/types';
 
 export function getFileStats(packagePath: string): Promise<fs.Stats> {
   return new Promise((resolve, reject): void => {
@@ -74,5 +74,14 @@ export async function findPackages(
 
     resolve(listPackages);
   });
+}
+
+export function _dbGenPath(
+  dbName: string,
+  config: Pick<Config, 'config_path' | 'storage'>
+): string {
+  return path.join(
+    path.resolve(path.dirname(config.config_path || ''), config.storage as string, dbName)
+  );
 }
 /* eslint-enable no-async-promise-executor */

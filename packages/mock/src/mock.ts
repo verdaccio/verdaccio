@@ -52,7 +52,6 @@ import Server, { IServerBridge } from './server';
  */
 export function mockServer(port: number, options: MockRegistryOptions = {}) {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
-  // console.log("-->tempRoot", tempRoot);
 
   // default locations
   const configPath = path.join(__dirname, './config/yaml', '/mock-server-test.yaml');
@@ -70,9 +69,6 @@ export function mockServer(port: number, options: MockRegistryOptions = {}) {
 
   // mix external options
   const finalOptions: MockRegistryOptions = Object.assign({}, localOptions, options);
-
-  // console.log('--->finalOptions=>', finalOptions);
-
   // final locations
   const tempConfigFile = path.join(tempRoot, 'verdaccio.yaml');
   const storePath = path.join(tempRoot, '/mock-store');

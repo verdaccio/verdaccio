@@ -38,6 +38,10 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     debug('start plugin');
   }
 
+  public init() {
+    return Promise.resolve();
+  }
+
   public getSecret(): Promise<string> {
     return Promise.resolve(this.data.secret);
   }
