@@ -1,51 +1,56 @@
-import { yellow, green, black, blue, red, magenta, cyan, white } from 'kleur';
+import { yellow, green, red, magenta, black, blue, cyan, white } from 'kleur';
 
-// level to color
-export const levels = {
-  fatal: red,
-  error: red,
-  warn: yellow,
-  http: magenta,
-  info: cyan,
-  debug: green,
-  trace: white
-};
+export type LogLevel = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
 
-/**
- * Match the level based on buyan severity scale
- * @param {*} x severity level
- * @return {String} security level
- */
-export function calculateLevel(x) {
-  switch (true) {
-    case x < 15:
-      return 'trace';
-    case x < 25:
-      return 'debug';
-    case x < 35:
-      return 'info';
-    case x == 35:
-      return 'http';
-    case x < 45:
-      return 'warn';
-    case x < 55:
-      return 'error';
-    default:
-      return 'fatal';
-  }
+export type LevelCode = number;
+
+export function calculateLevel(levelCode: LevelCode): LogLevel {
+    switch (true) {
+        case levelCode < 15:
+            return 'trace';
+        case levelCode < 25:
+            return 'debug';
+        case levelCode < 35:
+            return 'info';
+        case levelCode == 35:
+            return 'http';
+        case levelCode < 45:
+            return 'warn';
+        case levelCode < 55:
+            return 'error';
+        default:
+            return 'fatal';
+    }
 }
 
-export const subsystems = [
-  {
-    in: green('<--'),
-    out: yellow('-->'),
-    fs: black('-=-'),
-    default: blue('---')
+export const levelsColors = {
+    fatal: red,
+    error: red,
+    warn: yellow,
+    http: magenta,
+    info: cyan,
+    debug: green,
+    trace: white,
+};
+
+enum ARROWS {
+  LEFT = '<--',
+  RIGHT = '-->',
+  EQUAL = '-=-',
+  NEUTRAL = '---'
+}
+
+export const subSystemLevels = {
+  color: {
+      in: green(ARROWS.LEFT),
+      out: yellow(ARROWS.RIGHT),
+      fs: black(ARROWS.EQUAL),
+      default: blue(ARROWS.NEUTRAL),
   },
-  {
-    in: '<--',
-    out: '-->',
-    fs: '-=-',
-    default: '---'
-  }
-];
+  white: {
+      in: ARROWS.LEFT,
+      out: ARROWS.RIGHT,
+      fs: ARROWS.EQUAL,
+      default: ARROWS.NEUTRAL,
+  },
+};

@@ -31,7 +31,7 @@ import {
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 
 export function validatePassword(
-  password: string,
+  password: string, // pragma: allowlist secret
   minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
 ): boolean {
   return typeof password === 'string' && password.length >= minLength;
@@ -125,21 +125,21 @@ export function handleSpecialUnpublish(): any {
   };
 }
 
-export function getDefaultPlugins(): IPluginAuth<Config> {
+export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
   return {
-    authenticate(user: string, password: string, cb: Callback): void {
+    authenticate(_user: string, _password: string, cb: Callback): void { // pragma: allowlist secret
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user(user: string, password: string, cb: Callback): void {
+    add_user(_user: string, _password: string, cb: Callback): void { // pragma: allowlist secret
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
     // FIXME: allow_action and allow_publish should be in the @verdaccio/types
     // @ts-ignore
-    allow_access: allow_action('access'),
+    allow_access: allow_action('access', logger),
     // @ts-ignore
-    allow_publish: allow_action('publish'),
+    allow_publish: allow_action('publish', logger),
     allow_unpublish: handleSpecialUnpublish()
   };
 }

@@ -79,9 +79,8 @@ middlewares:
     enabled: true
 
 # log settings
-logs:
-  - { type: stdout, format: pretty, level: http }
-  #- {type: file, path: verdaccio.log, level: info}
+logs: { type: stdout, format: pretty, level: http }
+
 #experiments:
 #  # support for npm token command
 #  token: false

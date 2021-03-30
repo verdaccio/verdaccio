@@ -24,4 +24,6 @@ jobs:
       - name: Build
         run: yarn code:build
       - name: Test CLI
-        run: yarn run test:e2e:cli
+        run: yarn test:e2e:cli
+        env:
+          NODE_ENV: production

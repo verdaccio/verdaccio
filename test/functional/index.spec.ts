@@ -1,7 +1,7 @@
 // we need this for notifications
 import { setup } from '../../src/lib/logger';
 
-setup([]);
+setup({});
 
 import { IServerBridge } from '../types';
 
