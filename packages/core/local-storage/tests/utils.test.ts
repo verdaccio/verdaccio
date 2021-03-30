@@ -103,7 +103,7 @@ describe('Utitlies', () => {
           storage: './storage',
           config_path: undefined,
         })
-      ).toMatch('/storage/local.db');
+      ).toMatch('local.db');
     });
   });
 });
