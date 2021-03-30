@@ -90,8 +90,9 @@ describe('LocalStorage', () => {
     });
   };
 
-  beforeAll(() => {
+  beforeAll(async () => {
     storage = getStorage();
+    await storage.init();
   });
 
   test('should be defined', () => {
@@ -283,11 +284,12 @@ describe('LocalStorage', () => {
       const pkgName = 'add-update-versions-test-1';
       const version = '1.0.2';
       let _storage;
-      beforeEach((done) => {
+      beforeEach(async (done) => {
         class MockLocalStorage extends LocalStorage {}
         // @ts-ignore
         MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage);
         _storage = getStorage(MockLocalStorage);
+        await _storage.init();
         rimRaf(path.join(configExample().storage, pkgName), async () => {
           await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
           await addNewVersion(pkgName, '1.0.1');
