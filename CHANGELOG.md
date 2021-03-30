@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2021-03-30)
+
+
+### Features
+
+* replace bunyan by pino.js ([#2148](https://github.com/verdaccio/verdaccio/issues/2148)) ([ee97dcb](https://github.com/verdaccio/verdaccio/commit/ee97dcb46c440a4e0c541b4193122fc7e0db8370))
+
 ## [5.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v4.12.0...v5.0.0-alpha.0) (2021-03-29)
 
 
