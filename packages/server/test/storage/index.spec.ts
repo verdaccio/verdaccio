@@ -40,7 +40,6 @@ const generateStorage = async function () {
 
 const generateSameUplinkStorage = async function () {
   const storagePath = generateRamdonStorage();
-  console.log('-->storagePath', storagePath);
   const storageConfig = configExample(
     {
       config_path: storagePath,

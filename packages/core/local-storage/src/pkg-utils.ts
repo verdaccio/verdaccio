@@ -1,12 +1,11 @@
-import fs from 'fs';
-
 import _ from 'lodash';
 import { LocalStorage, StorageList, Logger } from '@verdaccio/types';
+import { readFilePromise } from './read-file';
 
-export function loadPrivatePackages(path: string, logger: Logger): LocalStorage {
+export async function loadPrivatePackages(path: string, logger: Logger): Promise<LocalStorage> {
   const list: StorageList = [];
   const emptyDatabase = { list, secret: '' };
-  const data = fs.readFileSync(path, 'utf8');
+  const data = await readFilePromise(path);
 
   if (_.isNil(data)) {
     // readFileSync is platform specific, FreeBSD might return null
