@@ -293,6 +293,7 @@ class Storage {
     localStream.on('content-length', function (v): void {
       readStream.emit('content-length', v);
     });
+    
     localStream.on('open', function (): void {
       isOpen = true;
       localStream.pipe(readStream);
