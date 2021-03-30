@@ -1,24 +1,19 @@
 storage: ./storage
 
-#store:
-#  memory:
-#    limit: 1000
-
 auth:
   htpasswd:
     file: ./htpasswd
     max_users: -1
 
 web:
-  enable: true
+  enable: false
   title: verdaccio-e2e-pkg
 
 uplinks:
   npmjs:
     url: https://registry.verdaccio.org/
 
-logs:
-  - { type: stdout, format: pretty, level: warn }
+logs: { type: stdout, format: json, level: trace }
 
 packages:
   '@*/*':
@@ -34,4 +29,5 @@ packages:
     publish: $anonymous
     unpublish: $authenticated
     proxy: npmjs
+
 _debug: true
