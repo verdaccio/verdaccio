@@ -34,7 +34,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio
+npm install --global verdaccio@next
 ```
 
 > Node.js v12 is required for Verdaccio 5
