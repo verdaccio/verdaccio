@@ -8,6 +8,7 @@ import { ReadTarball } from '@verdaccio/streams';
 import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
 import { IProxy, UpLinkConfLocal } from '../../types';
 import { parseInterval, isObject, ErrorCode, buildToken } from './utils';
+import { logger} from './logger';
 import {
   ERROR_CODE,
   TOKEN_BASIC,
@@ -18,7 +19,6 @@ import {
   HEADER_TYPE,
   CHARACTER_ENCODING
 } from './constants';
-const LoggerApi = require('./logger');
 
 const encode = function (thing): string {
   return encodeURIComponent(thing).replace(/^%40/, '@');
@@ -71,7 +71,7 @@ class ProxyStorage implements IProxy {
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent;
     this.ca = config.ca;
-    this.logger = LoggerApi.logger.child({ sub: 'out' });
+    this.logger = logger;
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);
@@ -194,11 +194,10 @@ class ProxyStorage implements IProxy {
           function logActivity(): void {
             let message = "@{!status}, req: '@{request.method} @{request.url}'";
             message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
-            self.logger.warn(
+            self.logger.http(
               {
                 err: err || undefined, // if error is null/false change this to undefined so it wont log
                 request: { method: method, url: uri },
-                level: 35, // http
                 status: res != null ? res.statusCode : 'ERR',
                 error: error,
                 bytes: {
@@ -245,13 +244,12 @@ class ProxyStorage implements IProxy {
       if (_.isNil(requestCallback) === false) {
         (function do_log(): void {
           const message = "@{!status}, req: '@{request.method} @{request.url}' (streaming)";
-          self.logger.warn(
+          self.logger.http(
             {
               request: {
                 method: method,
                 url: uri
               },
-              level: 35, // http
               status: _.isNull(res) === false ? res.statusCode : 'ERR'
             },
             message

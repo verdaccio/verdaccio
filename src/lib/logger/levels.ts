@@ -6,18 +6,20 @@ export type LevelCode = number;
 
 export function calculateLevel(levelCode: LevelCode): LogLevel {
     switch (true) {
-        case levelCode < 15:
+        case levelCode === 10:
             return 'trace';
-        case levelCode < 25:
+        case levelCode === 20:
             return 'debug';
-        case levelCode < 35:
-            return 'info';
-        case levelCode == 35:
+        case levelCode === 25:
             return 'http';
-        case levelCode < 45:
+        case levelCode === 30:
+            return 'info';
+        case levelCode === 40:
             return 'warn';
-        case levelCode < 55:
+        case levelCode === 50:
             return 'error';
+        case levelCode === 60:
+            return 'fatal';
         default:
             return 'fatal';
     }
