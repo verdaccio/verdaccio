@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2021-03-31)
+
+
+### Bug Fixes
+
+* using correctly logging levels ([#2153](https://github.com/verdaccio/verdaccio/issues/2153)) ([5b6be2a](https://github.com/verdaccio/verdaccio/commit/5b6be2aa090edbcb1ba384b3b18dd23bf5594c23))
+
 ## [5.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2021-03-30)
 
 
