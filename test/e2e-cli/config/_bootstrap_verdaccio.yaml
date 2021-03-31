@@ -13,7 +13,7 @@ uplinks:
   npmjs:
     url: https://registry.verdaccio.org/
 
-logs: { type: stdout, format: json, level: trace }
+logs: { type: stdout, format: json, level: http }
 
 packages:
   '@*/*':

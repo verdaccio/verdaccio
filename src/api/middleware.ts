@@ -227,9 +227,6 @@ export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{
 
 export function log(config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    // logger
-    req.log = logger.child({ sub: 'in' });
-
     const _auth = req.headers.authorization;
     if (_.isNil(_auth) === false) {
       req.headers.authorization = '<Classified>';
@@ -243,7 +240,7 @@ export function log(config: Config) {
     req.url = req.originalUrl;
     // avoid log noise data from static content
     if (req.originalUrl.match(/static/) === null) {
-      req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+      logger.http({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
     }
     req.originalUrl = req.url;
 
@@ -293,13 +290,12 @@ export function log(config: Config) {
       req.url = req.originalUrl;
       // avoid log noise data from static content
       if (req.url.match(/static/) === null) {
-        req.log.warn(
+        logger.http(
           {
             request: {
               method: req.method,
               url: req.url,
             },
-            level: 35, // http
             user: (req.remote_user && req.remote_user.name) || null,
             remoteIP,
             status: res.statusCode,

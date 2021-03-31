@@ -48,7 +48,7 @@ class LocalStorage implements IStorage {
   public logger: Logger;
 
   public constructor(config: Config, logger: Logger) {
-    this.logger = logger.child({ sub: 'fs' });
+    this.logger = logger;
     this.config = config;
     this.storagePlugin = this._loadStorage(config, logger);
   }

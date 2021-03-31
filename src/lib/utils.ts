@@ -6,6 +6,7 @@ import buildDebug from 'debug';
 import semver from 'semver';
 import YAML from 'js-yaml';
 import validator from 'validator';
+import memoizee from 'memoizee';
 import sanitizyReadme from '@verdaccio/readme';
 
 import { Package, Version, Author } from '@verdaccio/types';
@@ -143,6 +144,8 @@ export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, 
   return pkg;
 }
 
+const memoizedgetPublicUrl = memoizee(getPublicUrl);
+
 /**
  * Filter a tarball url.
  * @param {*} uri
@@ -155,7 +158,7 @@ export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Re
     return uri;
   }
   const tarballName = extractTarballFromUrl(uri);
-  const domainRegistry = getPublicUrl(urlPrefix || '', req);
+  const domainRegistry = memoizedgetPublicUrl(urlPrefix || '', req);
 
   return `${domainRegistry}${encodeScopedUri(pkgName)}/-/${tarballName}`;
 }
@@ -368,8 +371,10 @@ export function parseConfigFile(configPath: string): any {
     if (/\.ya?ml$/i.test(configPath)) {
       return YAML.load(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
     }
+    debug('yaml parsed');
     return require(configPath);
   } catch (e) {
+    debug('yaml parse failed');
     if (e.code !== 'MODULE_NOT_FOUND') {
       e.message = APP_ERROR.CONFIG_NOT_VALID;
     }

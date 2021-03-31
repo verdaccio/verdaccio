@@ -18,6 +18,7 @@ import loadPlugin from '../lib/plugin-loader';
 import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '../../types';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import { aesEncrypt, signPayload } from './crypto-utils';
+import { logger } from './logger';
 import {
   getDefaultPlugins,
   getMiddlewareCredentials,
@@ -33,9 +34,6 @@ import {
 import { convertPayloadToBase64, ErrorCode } from './utils';
 import { getMatchedPackagesSpec } from './config-utils';
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-const LoggerApi = require('./logger');
-
 class Auth implements IAuth {
   public config: Config;
   public logger: Logger;
@@ -44,7 +42,7 @@ class Auth implements IAuth {
 
   public constructor(config: Config) {
     this.config = config;
-    this.logger = LoggerApi.logger.child({ sub: 'auth' });
+    this.logger = logger;
     this.secret = config.secret;
     this.plugins = this._loadPlugin(config);
     this._applyDefaultPlugins();

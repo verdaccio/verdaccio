@@ -21,7 +21,7 @@ export type LogType = 'file' | 'stdout';
 export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
 export function createLogger(
-  options = {},
+  options = {level: 'http'},
   destination = pino.destination(1),
   format: LogFormat = DEFAULT_LOG_FORMAT,
   prettyPrintOptions = {
@@ -35,10 +35,11 @@ export function createLogger(
   }
 
   let pinoConfig = {
-    ...options,
     customLevels: {
-      http: 35,
+      http: 25,
     },
+    ...options,
+    level: options.level,
     serializers: {
       err: pino.stdSerializers.err,
       req: pino.stdSerializers.req,
@@ -60,13 +61,20 @@ export function createLogger(
       prettifier: require('./formatter'),
     });
   }
+  const logger = pino(pinoConfig, destination);
 
-  return pino(pinoConfig, destination);
+  if(process.env.DEBUG) {
+    logger.on('level-change', (lvl, val, prevLvl, prevVal) => {
+      debug('%s (%d) was changed to %s (%d)', lvl, val, prevLvl, prevVal);
+    })
+  }
+
+  return logger;
 }
 
 export function getLogger() {
   if (_.isNil(logger)) {
-    console.warn('logger is not defined');
+    process.emitWarning('logger is not defined');
     return;
   }
 
@@ -94,8 +102,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   const isLegacyConf = Array.isArray(options);
   if (isLegacyConf) {
     const deprecateMessage = 'deprecate: multiple logger configuration is deprecated, please check the migration guide.';
-    // eslint-disable-next-line no-console
-    console.log(yellow(padLeft(deprecateMessage)));
+    process.emitWarning(deprecateMessage);
   }
 
   // verdaccio 5 does not allow multiple logger configuration
@@ -103,20 +110,16 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   // next major will thrown an error
   let loggerConfig = isLegacyConf ? options[0] : options;
   if (!loggerConfig?.level) {
-    loggerConfig = Object.assign({}, loggerConfig, {
+    loggerConfig = Object.assign({}, {
       level: 'http',
-    });
+    }, loggerConfig);
   }
-
   const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     logger = createLogger(pinoConfig, pino.destination(loggerConfig.path), loggerConfig.format);
   } else if (loggerConfig.type === 'rotating-file') {
-    // eslint-disable-next-line no-console
-    console.log(yellow(padLeft('rotating-file type is not longer supported, consider use [logrotate] instead')));
-    // eslint-disable-next-line no-console
-    console.log(yellow(padLeft('fallback to stdout configuration triggered')));
+    process.emitWarning('rotating-file type is not longer supported, consider use [logrotate] instead');
     debug('logging stdout enabled');
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {

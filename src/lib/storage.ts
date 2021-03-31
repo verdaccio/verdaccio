@@ -55,7 +55,7 @@ class Storage implements IStorageHandler {
   public constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
-    this.logger = logger.child({module: 'storage'});
+    this.logger = logger;
     this.filters = [];
     // @ts-ignore
     this.localStorage = null;

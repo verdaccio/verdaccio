@@ -20,10 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install
-        run: yarn install --immutable
+        run: yarn install
       - name: Build
         run: yarn code:build
       - name: Test CLI
         run: yarn test:e2e:cli
-        env:
-          NODE_ENV: production
