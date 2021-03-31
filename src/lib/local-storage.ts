@@ -97,7 +97,7 @@ class LocalStorage implements IStorage {
       this.storagePlugin.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
-          debug('[storage/removePackage] the database is locked, removed has failed for %o', name);
+          this.logger.debug({ name }, `[storage/removePackage] the database is locked, removed has failed for @{name}`);
           return callback(ErrorCode.getBadData(removeFailed.message));
         }
 
@@ -330,7 +330,7 @@ class LocalStorage implements IStorage {
    */
   public changePackage(name: string, incomingPkg: Package, revision: string | void, callback: Callback): void {
     if (!isObject(incomingPkg.versions) || !isObject(incomingPkg[DIST_TAGS])) {
-      debug('changePackage bad data for %o', name);
+      this.logger.error({ name }, `changePackage bad data for @{name}`);
       return callback(ErrorCode.getBadData());
     }
     debug('changePackage udapting package for %o', name);
