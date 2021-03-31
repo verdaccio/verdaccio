@@ -1,8 +1,10 @@
 import isNil from 'lodash/isNil';
+import buildDebug from 'debug';
 import request, { RequiredUriUrl } from 'request';
 import { logger } from '../logger';
 import { HTTP_STATUS } from '../constants';
 
+const debug = buildDebug('verdaccio:notify-request');
 export function notifyRequest(options: RequiredUriUrl, content): Promise<any | Error> {
   return new Promise((resolve, reject): void => {
     request(options, function (err, response, body): void {
@@ -13,7 +15,7 @@ export function notifyRequest(options: RequiredUriUrl, content): Promise<any | E
       }
       logger.info({ content }, 'A notification has been shipped: @{content}');
       if (isNil(body) === false) {
-        logger.debug({ body }, ' body: @{body}');
+        debug('body: %o', body);
         resolve(body);
       }
       reject(Error('body is missing'));

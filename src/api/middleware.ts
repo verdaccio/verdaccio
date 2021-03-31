@@ -155,8 +155,7 @@ export function allow(auth: IAuth): Function {
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
       const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
       const remote: RemoteUser = req.remote_user;
-      logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
-
+      debug('[middleware/allow][%o] allow for %o', action, remote?.name);
       auth['allow_' + action]({ packageName, packageVersion }, remote, function (error, allowed): void {
         req.resume();
         if (error) {

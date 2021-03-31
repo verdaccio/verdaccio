@@ -1,34 +1,13 @@
 import _ from 'lodash';
-import {
-  RemoteUser,
-  Package,
-  Callback,
-  Config,
-  Security,
-  APITokenOptions,
-  JWTOptions,
-  IPluginAuth
-} from '@verdaccio/types';
-import {
-  CookieSessionToken,
-  IAuthWebUI,
-  AuthMiddlewarePayload,
-  AuthTokenHeader,
-  BasicPayload
-} from '../../types';
+import buildDebug from 'debug';
+import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
+import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
 import { logger } from '../lib/logger';
 import { convertPayloadToBase64, ErrorCode } from './utils';
-import {
-  API_ERROR,
-  HTTP_STATUS,
-  ROLES,
-  TIME_EXPIRATION_7D,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-  DEFAULT_MIN_LIMIT_PASSWORD
-} from './constants';
-
+import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
+
+const debug = buildDebug('verdaccio');
 
 export function validatePassword(
   password: string, // pragma: allowlist secret
@@ -43,18 +22,12 @@ export function validatePassword(
  */
 export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([
-    ROLES.$ALL,
-    ROLES.$AUTH,
-    ROLES.DEPRECATED_ALL,
-    ROLES.DEPRECATED_AUTH,
-    ROLES.ALL
-  ]);
+  const groups = (isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL]);
 
   return {
     name,
     groups,
-    real_groups: pluginGroups
+    real_groups: pluginGroups,
   };
 }
 
@@ -67,34 +40,27 @@ export function createAnonymousRemoteUser(): RemoteUser {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
     groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONYMOUS],
-    real_groups: []
+    real_groups: [],
   };
 }
 
 export function allow_action(action: string): Function {
   return function (user: RemoteUser, pkg: Package, callback: Callback): void {
-    logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{user.name}`);
+    debug('[auth/allow_action]: user: %o', user?.name);
     const { name, groups } = user;
     const groupAccess = pkg[action];
     const hasPermission = groupAccess.some((group) => name === group || groups.includes(group));
-    logger.trace(
-      { pkgName: pkg.name, hasPermission, remote: user.name, groupAccess },
-      `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`
-    );
+    debug('[auth/allow_action]: hasPermission? %o} for user: %o', hasPermission, user?.name);
 
     if (hasPermission) {
-      logger.trace({ remote: user.name }, `auth/allow_action: access granted to: @{user}`);
+      logger.info({ remote: user.name }, `auth/allow_action: access granted to: @{user}`);
       return callback(null, true);
     }
 
     if (name) {
-      callback(
-        ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`)
-      );
+      callback(ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
     } else {
-      callback(
-        ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`)
-      );
+      callback(ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`));
     }
   };
 }
@@ -108,30 +74,24 @@ export function handleSpecialUnpublish(): any {
     // verify whether the unpublish prop has been defined
     const isUnpublishMissing: boolean = _.isNil(pkg[action]);
     const hasGroups: boolean = isUnpublishMissing ? false : pkg[action].length > 0;
-    logger.trace(
-      { user: user.name, name: pkg.name, hasGroups },
-      `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`
-    );
-
+    debug('fallback unpublish for @{name} has groups: %o for %o', hasGroups, user?.name);
     if (isUnpublishMissing || hasGroups === false) {
       return callback(null, undefined);
     }
-
-    logger.trace(
-      { user: user.name, name: pkg.name, action, hasGroups },
-      `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`
-    );
+    debug('allow_action for %o for %o has groups: %o for %o', action, user?.name, hasGroups, user);
     return allow_action(action)(user, pkg, callback);
   };
 }
 
 export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
   return {
-    authenticate(_user: string, _password: string, cb: Callback): void { // pragma: allowlist secret
+    authenticate(_user: string, _password: string, cb: Callback): void {
+      // pragma: allowlist secret
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user(_user: string, _password: string, cb: Callback): void { // pragma: allowlist secret
+    add_user(_user: string, _password: string, cb: Callback): void {
+      // pragma: allowlist secret
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
@@ -140,7 +100,7 @@ export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
     allow_access: allow_action('access', logger),
     // @ts-ignore
     allow_publish: allow_action('publish', logger),
-    allow_unpublish: handleSpecialUnpublish()
+    allow_unpublish: handleSpecialUnpublish(),
   };
 }
 
@@ -149,25 +109,25 @@ export function createSessionToken(): CookieSessionToken {
 
   return {
     // npmjs.org sets 10h expire
-    expires: new Date(Date.now() + tenHoursTime)
+    expires: new Date(Date.now() + tenHoursTime),
   };
 }
 
 const defaultWebTokenOptions: JWTOptions = {
   sign: {
     // The expiration token for the website is 7 days
-    expiresIn: TIME_EXPIRATION_7D
+    expiresIn: TIME_EXPIRATION_7D,
   },
-  verify: {}
+  verify: {},
 };
 
 const defaultApiTokenConf: APITokenOptions = {
-  legacy: true
+  legacy: true,
 };
 
 export const defaultSecurity: Security = {
   web: defaultWebTokenOptions,
-  api: defaultApiTokenConf
+  api: defaultApiTokenConf,
 };
 
 export function getSecurity(config: Config): Security {
@@ -192,20 +152,13 @@ export function isAESLegacy(security: Security): boolean {
   return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
 }
 
-export async function getApiToken(
-  auth: IAuthWebUI,
-  config: Config,
-  remoteUser: RemoteUser,
-  aesPassword: string
-): Promise<string> {
+export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string): Promise<string> {
   const security: Security = getSecurity(config);
 
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {
-      resolve(
-        auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
-      );
+      resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
     });
   }
   // i am wiling to use here _.isNil but flow does not like it yet.
@@ -215,9 +168,7 @@ export async function getApiToken(
     return await auth.jwtEncrypt(remoteUser, jwt.sign);
   }
   return await new Promise((resolve): void => {
-    resolve(
-      auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
-    );
+    resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
   });
 }
 
@@ -279,11 +230,7 @@ export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function getMiddlewareCredentials(
-  security: Security,
-  secret: string,
-  authorizationHeader: string
-): AuthMiddlewarePayload {
+export function getMiddlewareCredentials(security: Security, secret: string, authorizationHeader: string): AuthMiddlewarePayload {
   if (isAESLegacy(security)) {
     const credentials = parseAESCredentials(authorizationHeader, secret);
     if (!credentials) {

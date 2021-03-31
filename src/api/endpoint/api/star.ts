@@ -2,13 +2,13 @@
 
 import { Response } from 'express';
 import _ from 'lodash';
+import buildDebug from 'debug';
 import { USERS, HTTP_STATUS } from '../../../lib/constants';
 import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import { logger } from '../../../lib/logger';
 
-export default function (
-  storage: IStorageHandler
-): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
+const debug = buildDebug('verdaccio:star');
+export default function (storage: IStorageHandler): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
   const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
     const isExistlocalUsers = _.isNil(localUsers[username]) === false;
     if (isStar && isExistlocalUsers && localUsers[username]) {
@@ -23,14 +23,14 @@ export default function (
 
   return (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
     const name = req.params.package;
-    logger.debug({ name }, 'starring a package for @{name}');
+    debug('starring a package for %o', name);
     const afterChangePackage = function (err?: Error) {
       if (err) {
         return next(err);
       }
       res.status(HTTP_STATUS.OK);
       next({
-        success: true
+        success: true,
       });
     };
 
@@ -46,16 +46,13 @@ export default function (
         const localStarUsers = info[USERS];
         // Check is star or unstar
         const isStar = Object.keys(newStarUser).includes(remoteUsername);
-        if (
-          _.isNil(localStarUsers) === false &&
-          validateInputs(newStarUser, localStarUsers, remoteUsername, isStar)
-        ) {
+        if (_.isNil(localStarUsers) === false && validateInputs(newStarUser, localStarUsers, remoteUsername, isStar)) {
           return afterChangePackage();
         }
         const users = isStar
           ? {
               ...localStarUsers,
-              [remoteUsername]: true
+              [remoteUsername]: true,
             }
           : _.reduce(
               localStarUsers,
@@ -70,7 +67,7 @@ export default function (
         storage.changePackage(name, { ...info, users }, req.body._rev, function (err) {
           afterChangePackage(err);
         });
-      }
+      },
     });
   };
 }
