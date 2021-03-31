@@ -97,7 +97,7 @@ class LocalStorage implements IStorage {
       this.storagePlugin.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
-          this.logger.debug({ name }, `[storage/removePackage] the database is locked, removed has failed for @{name}`);
+          this.logger.error({ name }, `[storage/removePackage] the database is locked, removed has failed for @{name}`);
           return callback(ErrorCode.getBadData(removeFailed.message));
         }
 
