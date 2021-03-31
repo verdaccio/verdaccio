@@ -12,16 +12,21 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
-    yarn config set enableProgressBars false && \
-    yarn config set enableTelemetry false && \
-    yarn install && \
-    yarn lint && \
-    yarn code:docker-build && \
-    yarn cache clean && \
-    yarn workspaces focus --production
+# RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
+#     yarn config set enableProgressBars false && \
+#     yarn config set enableTelemetry false && \
+#     yarn install && \
+#     yarn lint && \
+#     yarn code:docker-build && \
+#     yarn cache clean && \
+#     yarn workspaces focus --production
 
-
+RUN npm -g i pnpm@latest && \
+    pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm recursive install --frozen-lockfile --ignore-scripts && \
+    pnpm run code:docker-build
+# FIXME: need to remove devDependencies from the build
+# RUN pnpm install --prod --ignore-scripts        
 
 FROM node:14.16.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"

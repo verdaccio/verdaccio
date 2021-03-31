@@ -19,11 +19,12 @@ jobs:
       uses: actions/setup-node@v2.1.5
       with:
         node-version: ${{ matrix.node_version }}
+    - run: sudo npm install -g pnpm
     - name: Install
-      run: yarn install --immutable
+      run: pnpm install --lockfile-only
     - name: Build
-      run: yarn code:build
+      run: pnpm run code:build
     - name: Lint
-      run: yarn lint
+      run: pnpm run lint
     - name: Test
-      run: yarn test
+      run: pnpm run test

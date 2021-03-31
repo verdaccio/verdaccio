@@ -15,12 +15,11 @@ jobs:
       uses: actions/setup-node@v2.1.5
       with:
         node-version: 14
+    - run: sudo npm install -g pnpm
     - name: Install
-      run: yarn install
+      run: pnpm install --lockfile-only
     - name: Build
-      run: yarn code:build
-    - name: Lint
-      run: yarn lint
+      run: pnpm run code:build
     - name: Publish
       run: sh scripts/publish.sh
       env:

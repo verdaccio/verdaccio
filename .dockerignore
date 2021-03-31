@@ -15,9 +15,13 @@
 !.stylelintrc
 !.jest.config.js
 !.jestEnvironment.js
-!.yarnrc.yml
-!.yarn/releases/yarn-berry.cjs
-!.yarn/plugins/*
+
+/test
+/wiki
+/storage_default_storage
+/reports
+/mock-store 
+/docker-examples
 
 # do not copy over node_modules we will run `npm install` anyway
 node_modules
