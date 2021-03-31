@@ -15,7 +15,7 @@ export function notifyRequest(options: RequiredUriUrl, content): Promise<any | E
       }
       logger.info({ content }, 'A notification has been shipped: @{content}');
       if (isNil(body) === false) {
-        debug('body: %o', body);
+        logger.debug({ body }, ' body: @{body}');
         resolve(body);
       }
       reject(Error('body is missing'));
