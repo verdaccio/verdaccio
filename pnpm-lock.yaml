@@ -100,7 +100,6 @@ devDependencies:
   fs-extra: 9.1.0
   get-stdin: 8.0.0
   husky: 2.7.0
-  in-publish: 2.0.1
   jest: 25.5.4
   jest-environment-node: 25.5.0
   jest-junit: 9.0.0
@@ -5727,11 +5726,6 @@ packages:
       node: '>=0.8.19'
     resolution:
       integrity: sha1-khi5srkoojixPcT7a21XbyMUU+o=
-  /in-publish/2.0.1:
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-oDM0kUSNFC31ShNxHKUyfZKy8ZeXZBWMjMdZHKLOk13uvT27VTL/QzRGfRUcevJhpkZAvlhPYuXkF7eNWrtyxQ==
   /indent-string/2.1.0:
     dependencies:
       repeating: 2.0.1
@@ -10640,7 +10634,6 @@ specifiers:
   handlebars: 4.7.7
   http-errors: 1.8.0
   husky: 2.7.0
-  in-publish: 2.0.1
   jest: 25.5.4
   jest-environment-node: 25.5.0
   jest-junit: 9.0.0

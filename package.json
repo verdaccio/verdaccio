@@ -120,7 +120,6 @@
     "fs-extra": "9.1.0",
     "get-stdin": "8.0.0",
     "husky": "2.7.0",
-    "in-publish": "2.0.1",
     "jest": "25.5.4",
     "jest-environment-node": "25.5.0",
     "jest-junit": "9.0.0",
@@ -152,7 +151,6 @@
   ],
   "scripts": {
     "release": "standard-version -a -s",
-    "prepublish": "in-publish && pnpm run code:build || not-in-publish",
     "type-check": "tsc --noEmit",
     "type-check:watch": "pnpm run type-check -- --watch",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
