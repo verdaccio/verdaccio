@@ -17,7 +17,7 @@ jobs:
         node-version: 14
     - run: sudo npm install -g pnpm
     - name: Install
-      run: pnpm install --lockfile-only
+      run: pnpm install
     - name: Build
       run: pnpm run code:build
     - name: Publish
