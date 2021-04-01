@@ -39,7 +39,7 @@ npm install --global verdaccio@next
 
 > Node.js v12 is required for Verdaccio 5
 
-Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org). (_TBA_)
+Are you still using **Verdaccio 4**?. Check the [migration guide](https://github.com/verdaccio/website/pull/351/files).
 
 ## Donations
 
