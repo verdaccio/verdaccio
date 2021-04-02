@@ -10,7 +10,7 @@ if (process.getuid && process.getuid() === 0) {
 
 if (!isVersionValid(process.version)) {
   throw new Error(
-    `Verdaccio requires at least Node.js v${MIN_NODE_VERSION} or higher and you have installed v${process.version}, 
+    `Verdaccio requires at least Node.js v${MIN_NODE_VERSION} or higher and you have installed ${process.version}, 
     please upgrade your Node.js distribution`
   );
 }
