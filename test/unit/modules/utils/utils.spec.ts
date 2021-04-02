@@ -871,5 +871,21 @@ describe('Utilities', () => {
       expect(getPublicUrl(undefined, req)).toEqual('http://some/');
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
+
+    test('with the VERDACCIO_FORWARDED_PROTO to override valid X-Forwarded-Proto https', () => {
+      process.env.VERDACCIO_FORWARDED_PROTO = 'http';
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          'CloudFront-Forwarded-Proto': 'http',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
+      delete process.env.VERDACCIO_FORWARDED_PROTO;
+    });
   });
 });

@@ -15,7 +15,7 @@ Define a specific public url for your server, it overrules the `Host` and `X-For
 
 This is handy in such situations where a dynamic url is required.
 
-eg: 
+eg:
 
 ```
 VERDACCIO_PUBLIC_URL='https://somedomain.org';
@@ -32,4 +32,12 @@ VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
 url_prefix: '/second_prefix'
 
 // url -> https://somedomain.org/second_prefix/'
+```
+
+#### VERDACCIO_FORWARDED_PROTO
+
+The default header to identify the protocol is `X-Forwarded-Proto`, but there are some environments which [uses something different](https://github.com/verdaccio/verdaccio/issues/990), to change it use the variable `VERDACCIO_FORWARDED_PROTO`
+
+```
+$ VERDACCIO_FORWARDED_PROTO=CloudFront-Forwarded-Proto verdaccio --listen 5000
 ```
