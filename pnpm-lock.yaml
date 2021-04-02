@@ -520,8 +520,6 @@ importers:
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
       lodash: 4.17.20
-      pad-left: 2.1.0
-      pad-right: 0.2.2
       prettier-bytes: 1.0.4
       pretty-ms: 5.1.0
     devDependencies:
@@ -534,8 +532,6 @@ importers:
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
       lodash: 4.17.20
-      pad-left: 2.1.0
-      pad-right: 0.2.2
       pino: 6.2.1
       prettier-bytes: 1.0.4
       pretty-ms: 5.1.0
@@ -21345,22 +21341,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-k3bdm2n25tkyxcjSKzB5x8kfVxlMdgsbPr0GkZcwHsLpba6cBjqCt1KlcChKEvxHIcTB1FVMuwoijZ26xex5MQ==
-  /pad-left/2.1.0:
-    dependencies:
-      repeat-string: 1.6.1
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-FuajstRKjhOMsIOMx8tAOk/J6ZQ=
-  /pad-right/0.2.2:
-    dependencies:
-      repeat-string: 1.6.1
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-b7ySQEXSRPKiokRQMGDTv8YAl3Q=
   /pako/1.0.11:
     dev: false
     resolution:
