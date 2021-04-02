@@ -289,18 +289,22 @@ importers:
       '@verdaccio/cli-ui': link:../core/cli-ui
       '@verdaccio/config': link:../config
       '@verdaccio/node-api': link:../node-api
+      clipanion: 3.0.0-rc.11
       commander: 6.2.0
       envinfo: 7.4.0
       kleur: 3.0.3
       semver: 7.3.2
+      typanion: 3.3.0
     specifiers:
       '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
       '@verdaccio/config': workspace:5.0.0-alpha.3
       '@verdaccio/node-api': workspace:5.0.0-alpha.8
+      clipanion: 3.0.0-rc.11
       commander: 6.2.0
       envinfo: 7.4.0
       kleur: 3.0.3
       semver: 7.3.2
+      typanion: 3.3.0
   packages/config:
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
@@ -10417,6 +10421,12 @@ packages:
       node: '>= 10'
     resolution:
       integrity: sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
+  /clipanion/3.0.0-rc.11:
+    dependencies:
+      typanion: 3.3.0
+    dev: false
+    resolution:
+      integrity: sha512-e0GyZXjprnxRuls/pHH0cqAgKtpiceQy8PztEZP9fdnkMxuo05D5en9fx60Iiqqjge8pmrMfsiglueS8SWmlgg==
   /clipboard/2.0.6:
     dependencies:
       good-listener: 1.2.2
@@ -26412,6 +26422,10 @@ packages:
   /tweetnacl/0.14.5:
     resolution:
       integrity: sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
+  /typanion/3.3.0:
+    dev: false
+    resolution:
+      integrity: sha512-e+54C4+ozFsTorFe50JNQlXlt4HVGQUvqul7VS0GbDfKlxh3aXbJY87Yu9IdtzvJWCyTgDX7q1PeMd3FH9zZqA==
   /type-check/0.3.2:
     dependencies:
       prelude-ls: 1.1.2

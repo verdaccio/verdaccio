@@ -1,63 +1,27 @@
-import commander from 'commander';
-import { bgYellow, bgRed } from 'kleur';
+import { Cli } from 'clipanion';
+import { InfoCommand } from './commands/info';
+import { InitCommand } from './commands/init';
+import { isVersionValid, MIN_NODE_VERSION } from './utils';
 
-import { displayError } from '@verdaccio/cli-ui';
-
-import infoCommand from './commands/info';
-import initProgram from './commands/init';
-import { isVersionValid } from './utils';
-
-const isRootUser = process.getuid && process.getuid() === 0;
-
-if (isRootUser) {
-  global.console.warn(
-    bgYellow().red(
-      "*** WARNING: Verdaccio doesn't need superuser privileges. Don't run it under root! ***"
-    )
-  );
+if (process.getuid && process.getuid() === 0) {
+  process.emitWarning(`Verdaccio doesn't need superuser privileges. don't run it under root`);
 }
 
 if (isVersionValid()) {
-  global.console.error(
-    bgRed(
-      'Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher,' +
-        ' please upgrade your Node.js distribution'
-    )
+  throw new Error(
+    `Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, 
+    please upgrade your Node.js distribution`
   );
-  process.exit(1);
 }
 
-process.title = 'verdaccio';
+const [node, app, ...args] = process.argv;
 
-const pkgVersion = require('../package.json').version;
-const pkgName = 'verdaccio';
-
-commander
-  .option('-i, --info', 'prints debugging information about the local environment')
-  .option('-l, --listen <[host:]port>', 'host:port number to listen on (default: localhost:4873)')
-  .option('-c, --config <config.yaml>', 'use this configuration file (default: ./config.yaml)')
-  .version(pkgVersion)
-  .parse(process.argv);
-
-const fallbackConfig = commander.args.length == 1 && !commander.config;
-const isHelp = commander.args.length !== 0;
-
-if (commander.info) {
-  infoCommand();
-} else if (fallbackConfig) {
-  // handling "verdaccio [config]" case if "-c" is missing in command line
-  commander.config = commander.args.pop();
-  initProgram(commander, pkgVersion, pkgName);
-} else if (isHelp) {
-  commander.help();
-} else {
-  initProgram(commander, pkgVersion, pkgName);
-}
-
-process.on('uncaughtException', function (err) {
-  displayError(
-    // eslint-disable-next-line max-len
-    `uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) this: \n${err.stack}`
-  );
-  process.exit(1);
+const cli = new Cli({
+  binaryLabel: `verdaccio`,
+  binaryName: `${node} ${app}`,
+  binaryVersion: require('../package.json').version,
 });
+
+cli.register(InfoCommand);
+cli.register(InitCommand);
+cli.runExit(args, Cli.defaultContext);

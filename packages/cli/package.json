@@ -47,6 +47,8 @@
     "@verdaccio/cli-ui": "workspace:5.0.0-alpha.3",
     "@verdaccio/node-api": "workspace:5.0.0-alpha.8",
     "commander": "6.2.0",
+    "clipanion": "3.0.0-rc.11",
+    "typanion": "3.3.0",
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
     "semver": "7.3.2"
