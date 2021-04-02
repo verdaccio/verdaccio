@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.3](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2021-04-02)
+
+
+### Features
+
+* custom protocol header ([#2156](https://github.com/verdaccio/verdaccio/issues/2156)) ([9c80399](https://github.com/verdaccio/verdaccio/commit/9c803993d041aa5f6353512546555013f6f5a130))
+
 ## [5.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2021-03-31)
 
 
