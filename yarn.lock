@@ -4708,6 +4708,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clipanion@npm:3.0.0-rc.11":
+  version: 3.0.0-rc.11
+  resolution: "clipanion@npm:3.0.0-rc.11"
+  dependencies:
+    typanion: ^3.3.0
+  peerDependencies:
+    typanion: "*"
+  checksum: 8157d90a9925e99201f27ce67a71a5ca473170229315d215eb0af2a91377abd9fd432bde0fd642eb15a7f078b156b6d2a18ba01d7b78b53e7e7dac052791ce17
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^6.0.0":
   version: 6.0.0
   resolution: "cliui@npm:6.0.0"
@@ -13788,6 +13799,13 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"typanion@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "typanion@npm:3.3.0"
+  checksum: e31d9ee6e50bba9d066675a0efcc43df95c581176dcd02855c690bbf1936a160d56c8e3146d9e6870e982a4dc807221e9ede0f0d4603f82a074181ab1860d80d
+  languageName: node
+  linkType: hard
+
 "type-check@npm:^0.4.0, type-check@npm:~0.4.0":
   version: 0.4.0
   resolution: "type-check@npm:0.4.0"
@@ -14245,6 +14263,7 @@ typescript@3.9.9:
     babel-loader: ^8.2.2
     babel-plugin-dynamic-import-node: 2.3.3
     body-parser: 1.19.0
+    clipanion: 3.0.0-rc.11
     codecov: 3.8.1
     commander: 7.2.0
     compression: 1.7.4

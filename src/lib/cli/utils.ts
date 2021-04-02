@@ -1,9 +1,5 @@
-/**
- * @prettier
- * @flow
- */
-
 import path from 'path';
+import semver from 'semver';
 
 import { parseAddress } from '../utils';
 import { DEFAULT_PORT } from '../constants';
@@ -13,6 +9,13 @@ const logger = require('../logger');
 export const resolveConfigPath = function (storageLocation: string, file: string) {
   return path.resolve(path.dirname(storageLocation), file);
 };
+
+export const MIN_NODE_VERSION = '12';
+
+export function isVersionValid(version) {
+  return semver.satisfies(version, `>=${MIN_NODE_VERSION}`);
+}
+
 
 /**
  * Retrieve all addresses defined in the config file.
