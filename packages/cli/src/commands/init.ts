@@ -10,11 +10,8 @@ export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 export class InitCommand extends Command {
   static paths = [Command.Default];
 
-  listen = Option.String('--listen', '-l', {
-    description: 'host:port number to listen on (default: localhost:4873)',
-    // @ts-ignore
-    required: false,
-    validator: t.isString(),
+  listen = Option.String('-l,--listen', {
+    description: 'host:port number to listen on (default: localhost:4873)'
   });
 
   // eslint-disable-next-line
@@ -43,11 +40,8 @@ export class InitCommand extends Command {
     ],
   });
 
-  config = Option.String('--config', '-c', {
-    description: 'use this configuration file (default: ./config.yaml)',
-    // @ts-ignore
-    required: false,
-    validator: t.isString(),
+  config = Option.String('-c, --config', {
+    description: 'use this configuration file (default: ./config.yaml)'
   });
 
   async execute() {
