@@ -40,8 +40,7 @@ const sendFileCallback = (next) => (err) => {
 };
 
 export function renderWebMiddleware(config, auth, storage): any {
-  const pluginTheme = require('@verdaccio/ui-theme');
-  const { staticPath } = pluginTheme;
+  const { staticPath, manifest, manifestFiles } = require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
   SearchInstance.configureStorage(storage);
 
@@ -73,12 +72,12 @@ export function renderWebMiddleware(config, auth, storage): any {
   });
 
   router.get('/-/web/:section/*', function (req, res) {
-    renderHTML(config, req, res);
+    renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });
 
   router.get('/', function (req, res) {
-    renderHTML(config, req, res);
+    renderHTML(config, manifest, manifestFiles, req, res);
     debug('render root');
   });
 

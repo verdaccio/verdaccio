@@ -44,8 +44,6 @@
     "fast-safe-stringify": "2.0.7",
     "kleur": "3.0.3",
     "lodash": "4.17.20",
-    "pad-left": "2.1.0",
-    "pad-right": "0.2.2",
     "prettier-bytes": "1.0.4",
     "pretty-ms": "5.1.0"
   },

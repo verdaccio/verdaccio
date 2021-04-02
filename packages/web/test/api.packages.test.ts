@@ -10,22 +10,19 @@ const mockManifest = jest.fn();
 jest.mock('@verdaccio/ui-theme', () => mockManifest());
 
 describe('test web server', () => {
-  beforeAll(() => {
-    mockManifest.mockReturnValue({
-      staticPath: path.join(__dirname, 'static'),
-      manifest: require('./partials/manifest/manifest.json'),
-    });
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
     mockManifest.mockClear();
   });
 
   test('should OK to package api', async () => {
-    mockManifest.mockReturnValue({
+    mockManifest.mockReturnValue(() => ({
+      staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
       manifest: require('./partials/manifest/manifest.json'),
-    });
+    }));
     const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/packages')
       .set('Accept', HEADERS.JSON_CHARSET)

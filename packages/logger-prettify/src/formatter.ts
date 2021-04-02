@@ -1,10 +1,8 @@
 import { inspect } from 'util';
 
 import { white, red, green } from 'kleur';
-import padLeft from 'pad-left';
-
 import { calculateLevel, LevelCode, levelsColors, subSystemLevels } from './levels';
-import { formatLoggingDate, isObject, pad } from './utils';
+import { formatLoggingDate, isObject, padLeft, padRight } from './utils';
 import { PrettyOptionsExtended } from './types';
 
 let LEVEL_VALUE_MAX = 0;
@@ -55,22 +53,20 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
   });
 }
 
-const CUSTOM_PAD_LENGTH = 1;
-
 function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
   const finalMessage = fillInMsgTemplate(msg, templateObjects, hasColors);
 
   const subSystemType = subSystemLevels.color[sub ?? 'default'];
   if (hasColors) {
-    const logString = `${levelsColors[debugLevel](pad(debugLevel, LEVEL_VALUE_MAX))}${white(
+    const logString = `${levelsColors[debugLevel](padRight(debugLevel, LEVEL_VALUE_MAX))}${white(
       `${subSystemType} ${finalMessage}`
     )}`;
 
-    return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH, ' ');
+    return padLeft(logString);
   }
-  const logString = `${pad(debugLevel, LEVEL_VALUE_MAX)}${subSystemType} ${finalMessage}`;
+  const logString = `${padRight(debugLevel, LEVEL_VALUE_MAX)}${subSystemType} ${finalMessage}`;
 
-  return padLeft(logString, logString.length + CUSTOM_PAD_LENGTH, ' ');
+  return padRight(logString);
 }
 
 export function printMessage(

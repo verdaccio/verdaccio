@@ -314,13 +314,12 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
     }
 
     req.url = req.originalUrl;
-    req.log.warn(
+    req.log.http(
       {
         request: {
           method: req.method,
           url: req.url,
         },
-        level: 35, // http
         user: (req.remote_user && req.remote_user.name) || null,
         remoteIP,
         status: res.statusCode,
