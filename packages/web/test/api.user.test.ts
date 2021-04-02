@@ -11,10 +11,13 @@ jest.mock('@verdaccio/ui-theme', () => mockManifest());
 
 describe('test web server', () => {
   beforeAll(() => {
-    mockManifest.mockReturnValue({
-      staticPath: path.join(__dirname, '../static'),
+    mockManifest.mockReturnValue(() => ({
+      staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
       manifest: require('./partials/manifest/manifest.json'),
-    });
+    }));
   });
 
   afterEach(() => {
@@ -23,9 +26,6 @@ describe('test web server', () => {
   });
 
   test('should get 401', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     return supertest(await initializeServer('default-test.yaml'))
       .post('/-/verdaccio/login')
       .send(
@@ -43,9 +43,6 @@ describe('test web server', () => {
   });
 
   test('should log in', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     return supertest(await initializeServer('default-test.yaml'))
       .post('/-/verdaccio/login')
       .send(

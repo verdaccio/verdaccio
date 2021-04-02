@@ -9,18 +9,52 @@ const exampleManifest = {
 
 describe('template', () => {
   test('custom render', () => {
-    expect(template({ options: {}, manifest: exampleManifest }, manifest)).toMatchSnapshot();
+    expect(
+      template({ options: { base: 'http://domain.com' }, manifest: exampleManifest }, manifest)
+    ).toMatchSnapshot();
   });
 
   test('custom title', () => {
     expect(
-      template({ options: { title: 'foo title' }, manifest: exampleManifest }, manifest)
+      template(
+        { options: { base: 'http://domain.com', title: 'foo title' }, manifest: exampleManifest },
+        manifest
+      )
+    ).toMatchSnapshot();
+  });
+
+  test('custom title', () => {
+    expect(
+      template(
+        { options: { base: 'http://domain.com', title: 'foo title' }, manifest: exampleManifest },
+        manifest
+      )
+    ).toMatchSnapshot();
+  });
+
+  test('meta scripts', () => {
+    expect(
+      template(
+        {
+          options: { base: 'http://domain.com' },
+          metaScripts: [`<style>.someclass{font-size:10px;}</style>`],
+          manifest: exampleManifest,
+        },
+        manifest
+      )
     ).toMatchSnapshot();
   });
 
   test('custom body after', () => {
     expect(
-      template({ bodyAfter: [`<script src="foo"/>`], manifest: exampleManifest }, manifest)
+      template(
+        {
+          options: { base: 'http://domain.com' },
+          scriptsBodyAfter: [`<script src="foo"/>`],
+          manifest: exampleManifest,
+        },
+        manifest
+      )
     ).toMatchSnapshot();
   });
 
@@ -28,7 +62,8 @@ describe('template', () => {
     expect(
       template(
         {
-          bodyBefore: [`<script src="fooBefore"/>`, `<script src="barBefore"/>`],
+          options: { base: 'http://domain.com' },
+          scriptsbodyBefore: [`<script src="fooBefore"/>`, `<script src="barBefore"/>`],
           manifest: exampleManifest,
         },
         manifest

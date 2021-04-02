@@ -2,7 +2,6 @@ import path from 'path';
 import supertest from 'supertest';
 import { setup } from '@verdaccio/logger';
 import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
-import { combineBaseUrl } from '../src/renderHTML';
 import { initializeServer } from './helper';
 
 setup([]);
@@ -12,10 +11,13 @@ jest.mock('@verdaccio/ui-theme', () => mockManifest());
 
 describe('test web server', () => {
   beforeAll(() => {
-    mockManifest.mockReturnValue({
+    mockManifest.mockReturnValue(() => ({
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
       staticPath: path.join(__dirname, 'static'),
       manifest: require('./partials/manifest/manifest.json'),
-    });
+    }));
   });
 
   afterEach(() => {

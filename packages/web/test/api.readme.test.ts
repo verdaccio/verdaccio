@@ -38,10 +38,13 @@ jest.mock('@verdaccio/store', () => ({
 
 describe('readme api', () => {
   beforeAll(() => {
-    mockManifest.mockReturnValue({
+    mockManifest.mockReturnValue(() => ({
       staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
       manifest: require('./partials/manifest/manifest.json'),
-    });
+    }));
   });
 
   afterEach(() => {
@@ -50,9 +53,6 @@ describe('readme api', () => {
   });
 
   test('should fetch readme scoped package', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/package/readme/@scope/pk1-test')
       .set('Accept', HEADERS.TEXT_PLAIN)
@@ -62,9 +62,6 @@ describe('readme api', () => {
   });
 
   test('should fetch readme a package', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/package/readme/pk1-test')
       .set('Accept', HEADERS.TEXT_PLAIN)
