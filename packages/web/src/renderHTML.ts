@@ -19,11 +19,10 @@ const defaultManifestFiles = {
   ico: 'favicon.ico',
 };
 
-export default function renderHTML(config, req, res) {
-  const { manifest, manifestFiles } = require('@verdaccio/ui-theme');
+export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const { url_prefix } = config;
-  const basePath = getPublicUrl(config?.url_prefix, req);
-  const basename = new URL(basePath).pathname;
+  const base = getPublicUrl(config?.url_prefix, req);
+  const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
@@ -32,12 +31,20 @@ export default function renderHTML(config, req, res) {
   let logoURI = config?.web?.logo ?? '';
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, bodyBefore } = config?.web;
+  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
+    {},
+    {
+      scriptsBodyAfter: [],
+      bodyBefore: [],
+      metaScripts: [],
+    },
+    config?.web
+  );
   const options = {
     darkMode,
     url_prefix,
     basename,
-    basePath,
+    base,
     primaryColor,
     version,
     logoURI,
@@ -60,7 +67,7 @@ export default function renderHTML(config, req, res) {
           options,
           scriptsBodyAfter,
           metaScripts,
-          bodyBefore,
+          scriptsbodyBefore,
         },
         manifest
       );

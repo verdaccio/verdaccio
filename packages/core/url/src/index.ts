@@ -49,8 +49,8 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
   return validProtocols.includes(returnProtocol) ? returnProtocol : defaultProtocol;
 }
 
-function wrapPrefix(prefix: string): string {
-  if (prefix === '' || _.isNil(prefix)) {
+export function wrapPrefix(prefix: string | void): string {
+  if (prefix === '' || typeof prefix === 'undefined' || prefix === null) {
     return '';
   } else if (!prefix.startsWith('/') && prefix.endsWith('/')) {
     return `/${prefix}`;
@@ -72,9 +72,10 @@ export function combineBaseUrl(protocol: string, host: string, prefix: string = 
   debug('combined host %o', host);
   const newPrefix = wrapPrefix(prefix);
   debug('combined prefix %o', newPrefix);
-  const result = new URL(wrapPrefix(prefix), `${protocol}://${host}`);
-  debug('combined url %o', result.href);
-  return result.href;
+  const groupedURI = new URL(wrapPrefix(prefix), `${protocol}://${host}`);
+  const result = groupedURI.href;
+  debug('combined url %o', result);
+  return result;
 }
 
 export function validateURL(publicUrl: string | void) {
@@ -92,7 +93,7 @@ export function validateURL(publicUrl: string | void) {
 
 export function getPublicUrl(url_prefix: string = '', req): string {
   if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
-    const envURL = new URL(process.env.VERDACCIO_PUBLIC_URL as string).href;
+    const envURL = new URL(wrapPrefix(url_prefix), process.env.VERDACCIO_PUBLIC_URL as string).href;
     debug('public url by env %o', envURL);
     return envURL;
   } else if (req.get('host')) {
@@ -100,7 +101,8 @@ export function getPublicUrl(url_prefix: string = '', req): string {
     if (!isHost(host)) {
       throw new Error('invalid host');
     }
-    const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
+    const protoHeader = process.env.VERDACCIO_FORWARDED_PROTO ?? HEADERS.FORWARDED_PROTO;
+    const protocol = getWebProtocol(req.get(protoHeader), req.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);
     return combinedUrl;

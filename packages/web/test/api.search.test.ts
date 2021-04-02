@@ -39,10 +39,13 @@ jest.mock('@verdaccio/store', () => ({
 
 describe('test web server', () => {
   beforeAll(() => {
-    mockManifest.mockReturnValue({
+    mockManifest.mockReturnValue(() => ({
       staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
       manifest: require('./partials/manifest/manifest.json'),
-    });
+    }));
   });
 
   afterEach(() => {
@@ -51,9 +54,6 @@ describe('test web server', () => {
   });
 
   test('should OK to search api', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/search/keyword')
       .set('Accept', HEADERS.JSON_CHARSET)
@@ -63,9 +63,6 @@ describe('test web server', () => {
   });
 
   test('should 404 to search api', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     mockQuery.mockReturnValue([]);
     const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/search/notFound')
@@ -76,9 +73,6 @@ describe('test web server', () => {
   });
 
   test('should fail search api', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
     mockQuery.mockImplementation(() => {
       return ['aa', 'bb', 'cc'];
     });

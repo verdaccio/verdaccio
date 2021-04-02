@@ -230,12 +230,11 @@ class ProxyStorage implements IProxy {
             let message = "@{!status}, req: '@{request.method} @{request.url}'";
             // FIXME: use LOG_VERDACCIO_BYTES
             message += error ? ', error: @{!error}' : ', bytes: @{bytes.in}/@{bytes.out}';
-            self.logger.warn(
+            self.logger.http(
               {
                 // if error is null/false change this to undefined so it wont log
                 err: err || undefined,
                 request: { method: method, url: uri },
-                level: 35, // http
                 status: res != null ? res.statusCode : 'ERR',
                 error: error,
                 bytes: {
@@ -282,13 +281,12 @@ class ProxyStorage implements IProxy {
       if (_.isNil(requestCallback) === false) {
         (function do_log(): void {
           const message = "@{!status}, req: '@{request.method} @{request.url}' (streaming)";
-          self.logger.warn(
+          self.logger.http(
             {
               request: {
                 method: method,
                 url: uri,
               },
-              level: 35, // http
               status: _.isNull(res) === false ? res.statusCode : 'ERR',
             },
             message
