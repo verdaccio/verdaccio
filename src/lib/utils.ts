@@ -641,7 +641,8 @@ export function getPublicUrl(url_prefix: string = '', req): string {
     if (!isHost(host)) {
       throw new Error('invalid host');
     }
-    const protocol = getWebProtocol(req.get(HEADERS.FORWARDED_PROTO), req.protocol);
+    const protoHeader = process.env.VERDACCIO_FORWARDED_PROTO ?? HEADERS.FORWARDED_PROTO;
+    const protocol = getWebProtocol(req.get(protoHeader), req.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);
     return combinedUrl;
