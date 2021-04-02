@@ -7,9 +7,9 @@ if (process.getuid && process.getuid() === 0) {
   process.emitWarning(`Verdaccio doesn't need superuser privileges. don't run it under root`);
 }
 
-if (isVersionValid()) {
+if (!isVersionValid(process.version)) {
   throw new Error(
-    `Verdaccio requires at least Node.js ${MIN_NODE_VERSION} or higher, 
+    `Verdaccio requires at least Node.js v${MIN_NODE_VERSION} or higher and you have installed v${process.version}, 
     please upgrade your Node.js distribution`
   );
 }

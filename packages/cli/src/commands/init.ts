@@ -16,6 +16,32 @@ export class InitCommand extends Command {
     validator: t.isString(),
   });
 
+  // eslint-disable-next-line
+  static usage = Command.Usage({
+    description: `launch the server`,
+    details: `
+      This start the registry in the default port.
+
+      When used without arguments, it:
+
+      - bootstrap the server at the port  \`4873\`
+
+      The optional arguments are:
+
+      - \`--listen\` to switch the default server port,
+      - \`--config\` to define a different configuration path location,
+
+    `,
+    examples: [
+      [`Runs the server with the default configuration`, `verdaccio`],
+      [`Runs the server in the port 5000`, `verdaccio --listen 5000`],
+      [
+        `Runs the server by using a different absolute location of the configuration file`,
+        `verdaccio --config /home/user/verdaccio/config.yaml`,
+      ],
+    ],
+  });
+
   config = Option.String('--config', {
     description: 'use this configuration file (default: ./config.yaml)',
     required: false,
