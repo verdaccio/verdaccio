@@ -294,7 +294,6 @@ importers:
       envinfo: 7.4.0
       kleur: 3.0.3
       semver: 7.3.2
-      typanion: 3.3.0
     specifiers:
       '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
       '@verdaccio/config': workspace:5.0.0-alpha.3
@@ -304,7 +303,6 @@ importers:
       envinfo: 7.4.0
       kleur: 3.0.3
       semver: 7.3.2
-      typanion: 3.3.0
   packages/config:
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api

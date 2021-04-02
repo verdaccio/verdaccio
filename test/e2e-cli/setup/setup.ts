@@ -34,7 +34,7 @@ module.exports = async () => {
   debug('verdaccio path %o', verdaccioPath);
   const childProcess = spawn(
     'node',
-    [verdaccioPath, '-c', './verdaccio.yaml', '-l', SETUP_VERDACCIO_PORT],
+    [verdaccioPath, '--config', './verdaccio.yaml', '-l', SETUP_VERDACCIO_PORT],
     // @ts-ignore
     {
       cwd: tempRoot,

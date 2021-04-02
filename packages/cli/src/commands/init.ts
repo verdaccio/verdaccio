@@ -1,5 +1,4 @@
 import { Command, Option } from 'clipanion';
-import * as t from 'typanion';
 
 import { ConfigRuntime } from '@verdaccio/types';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
