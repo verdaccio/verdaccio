@@ -46,6 +46,7 @@
     "core-js": "^3.6.5",
     "debug": "^4.2.0",
     "lodash": "^4.17.20",
+    "semver": "^7.3.5",
     "selfsigned": "1.10.7"
   },
   "devDependencies": {

@@ -584,6 +584,7 @@ importers:
       debug: 4.2.0
       lodash: 4.17.20
       selfsigned: 1.10.7
+      semver: 7.3.5
     devDependencies:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
@@ -600,6 +601,7 @@ importers:
       jest-mock-process: ^1.4.0
       lodash: ^4.17.20
       selfsigned: 1.10.7
+      semver: ^7.3.5
   packages/plugins/active-directory:
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
@@ -24242,6 +24244,15 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-tCfb2WLjqFAtXn4KEdxIhalnRtoKFN7nAwj0B3ZXCbQloV2tq5eDbcTmT68JJD3nRJq24/XgxtQKFIpQdtvmVw==
+  /semver/7.3.5:
+    dependencies:
+      lru-cache: 6.0.0
+    dev: false
+    engines:
+      node: '>=10'
+    hasBin: true
+    resolution:
+      integrity: sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
   /send/0.17.1:
     dependencies:
       debug: 2.6.9
@@ -25526,7 +25537,7 @@ packages:
       form-data: 2.5.1
       formidable: 1.2.2
       methods: 1.1.2
-      mime: 2.4.6
+      mime: 2.5.2
       qs: 6.9.4
       readable-stream: 3.6.0
       semver: 6.3.0
