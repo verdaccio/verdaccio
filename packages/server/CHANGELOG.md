@@ -1,5 +1,14 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- Updated dependencies [cb2281a5]
+  - @verdaccio/store@6.0.0-6-next.5
+  - @verdaccio/web@6.0.0-6-next.8
+  - @verdaccio/api@6.0.0-6-next.7
+
 ## 5.0.0-alpha.7
 
 ### Patch Changes

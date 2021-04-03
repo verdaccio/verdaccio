@@ -1,5 +1,12 @@
 # Change Log
 
+## 11.0.0-6-next.4
+
+### Patch Changes
+
+- Updated dependencies [cb2281a5]
+  - @verdaccio/url@11.0.0-6-next.4
+
 ## 10.0.0-alpha.3
 
 ### Patch Changes

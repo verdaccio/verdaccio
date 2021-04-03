@@ -1,5 +1,12 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.5
+
+### Patch Changes
+
+- Updated dependencies [cb2281a5]
+  - @verdaccio/local-storage@11.0.0-6-next.5
+
 ## 5.0.0-alpha.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- Updated dependencies [cb2281a5]
+  - @verdaccio/url@11.0.0-6-next.4
+  - @verdaccio/store@6.0.0-6-next.5
+  - @verdaccio/tarball@11.0.0-6-next.4
+
 ## 5.0.0-alpha.7
 
 ### Major Changes

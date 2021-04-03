@@ -43,6 +43,7 @@
     "@verdaccio/url": "11.0.0-alpha.3"
   },
   "changesets": [
+    "big-lobsters-sin",
     "few-cooks-destroy",
     "fifty-jars-rest",
     "gentle-trains-switch",
@@ -51,6 +52,7 @@
     "late-parents-act",
     "modern-spies-tell",
     "neat-toes-report",
+    "perfect-kangaroos-agree",
     "plenty-news-remember",
     "plenty-spiders-melt",
     "plenty-tables-refuse",
