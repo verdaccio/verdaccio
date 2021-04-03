@@ -81,6 +81,7 @@ export function getLatestReadme(pkg: Package): string {
 
 export function cleanUpReadme(version: Version): Version {
   if (_.isNil(version) === false) {
+    // @ts-ignore
     delete version.readme;
   }
 
@@ -137,7 +138,7 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
  * @param {*} name
  * @param {*} localStorage
  */
-export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
+export function checkPackageLocal(name: string, localStorage: IStorage): Promise<void> {
   return new Promise((resolve, reject): void => {
     localStorage.getPackageMetadata(name, (err, results): void => {
       if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
@@ -151,7 +152,7 @@ export function checkPackageLocal(name: string, localStorage: IStorage): Promise
   });
 }
 
-export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<any> {
+export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<void> {
   return new Promise((resolve, reject): void => {
     localStorage.addPackage(name, metadata, (err, latest): void => {
       if (!_.isNull(err)) {
@@ -168,7 +169,7 @@ export function checkPackageRemote(
   name: string,
   isAllowPublishOffline: boolean,
   syncMetadata: Function
-): Promise<any> {
+): Promise<void> {
   return new Promise((resolve, reject): void => {
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors): void => {
       // something weird
