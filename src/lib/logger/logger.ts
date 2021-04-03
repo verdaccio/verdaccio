@@ -21,7 +21,7 @@ export type LogType = 'file' | 'stdout';
 export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
 export function createLogger(
-  options = {level: 'http'},
+  options = { level: 'http' },
   destination = pino.destination(1),
   format: LogFormat = DEFAULT_LOG_FORMAT,
   prettyPrintOptions = {
@@ -63,10 +63,10 @@ export function createLogger(
   }
   const logger = pino(pinoConfig, destination);
 
-  if(process.env.DEBUG) {
+  if (process.env.DEBUG) {
     logger.on('level-change', (lvl, val, prevLvl, prevVal) => {
       debug('%s (%d) was changed to %s (%d)', lvl, val, prevLvl, prevVal);
-    })
+    });
   }
 
   return logger;
@@ -101,7 +101,8 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   debug('setup logger');
   const isLegacyConf = Array.isArray(options);
   if (isLegacyConf) {
-    const deprecateMessage = 'deprecate: multiple logger configuration is deprecated, please check the migration guide.';
+    const deprecateMessage =
+      'deprecate: multiple logger configuration is deprecated, please check the migration guide.';
     process.emitWarning(deprecateMessage);
   }
 
@@ -110,16 +111,22 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   // next major will thrown an error
   let loggerConfig = isLegacyConf ? options[0] : options;
   if (!loggerConfig?.level) {
-    loggerConfig = Object.assign({}, {
-      level: 'http',
-    }, loggerConfig);
+    loggerConfig = Object.assign(
+      {},
+      {
+        level: 'http',
+      },
+      loggerConfig
+    );
   }
   const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     logger = createLogger(pinoConfig, pino.destination(loggerConfig.path), loggerConfig.format);
   } else if (loggerConfig.type === 'rotating-file') {
-    process.emitWarning('rotating-file type is not longer supported, consider use [logrotate] instead');
+    process.emitWarning(
+      'rotating-file type is not longer supported, consider use [logrotate] instead'
+    );
     debug('logging stdout enabled');
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {

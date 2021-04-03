@@ -61,7 +61,8 @@ export class InitCommand extends Command {
       }
 
       logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
-      process.title = (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
+      process.title =
+        (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
 
       startVerdaccio(
         verdaccioConfiguration,
