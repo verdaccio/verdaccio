@@ -2,6 +2,7 @@ import { Cli } from 'clipanion';
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { isVersionValid, MIN_NODE_VERSION } from './utils';
+import { VersionCommand } from './commands/version';
 
 require('pkginfo')(module);
 const pkgVersion = module.exports.version;
@@ -12,7 +13,7 @@ if (process.getuid && process.getuid() === 0) {
 
 if (!isVersionValid(process.version)) {
   throw new Error(
-    `Verdaccio requires at least Node.js v${MIN_NODE_VERSION} or higher and you have installed v${process.version}, 
+    `Verdaccio requires at least Node.js v${MIN_NODE_VERSION} or higher and you have installed ${process.version}, 
     please upgrade your Node.js distribution`
   );
 }
@@ -27,4 +28,5 @@ const cli = new Cli({
 
 cli.register(InfoCommand);
 cli.register(InitCommand);
+cli.register(VersionCommand);
 cli.runExit(args, Cli.defaultContext);

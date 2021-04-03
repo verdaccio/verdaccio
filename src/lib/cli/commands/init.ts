@@ -45,7 +45,7 @@ export class InitCommand extends Command {
     ],
   });
 
-  config = Option.String('-c, --config', {
+  config = Option.String('-c,--config', {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
