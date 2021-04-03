@@ -203,7 +203,7 @@ class Auth implements IAuth {
       } else {
         plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
           if (err) {
-            this.logger.error({ packageName }, 'forbidden publish for @{packageName}, it will fallback on unpublish permissions');
+            this.logger.error({ packageName, user: user?.name }, '@{user} forbidden publish for @{packageName}, it will fallback on unpublish permissions');
             return callback(err);
           }
 
@@ -215,7 +215,7 @@ class Auth implements IAuth {
           }
 
           if (ok) {
-            this.logger.info({ packageName }, 'allowed unpublish for @{packageName}');
+            this.logger.info({ packageName, user: user?.name }, '@{user} allowed unpublish for @{packageName}');
             return callback(null, ok);
           }
         });
@@ -242,12 +242,12 @@ class Auth implements IAuth {
       // @ts-ignore
       plugin.allow_publish(user, pkg, (err: VerdaccioError, ok: boolean): void => {
         if (_.isNil(err) === false && _.isError(err)) {
-          self.logger.error({ packageName }, 'forbidden publish for @{packageName}');
+          self.logger.error({ packageName, user: user?.name }, '@{user} is forbidden publish for @{packageName}');
           return callback(err);
         }
 
         if (ok) {
-          self.logger.info({ packageName }, 'allowed publish for @{packageName}');
+          self.logger.info({ packageName, user: user?.name }, '@{user} is allowed publish for @{packageName}');
           return callback(null, ok);
         }
         debug('allow publish skip validation for %o', packageName);
