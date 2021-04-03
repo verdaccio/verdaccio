@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.4](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2021-04-03)
+
+
+### Features
+
+* clipanion as cli ([#2160](https://github.com/verdaccio/verdaccio/issues/2160)) ([be2f612](https://github.com/verdaccio/verdaccio/commit/be2f6129bb3a89f222ac2293192f3ea979f02500))
+
 ## [5.0.0-alpha.3](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2021-04-02)
 
 
