@@ -1,5 +1,14 @@
 # verdaccio
 
+## 6.0.0-6-next.10
+
+### Patch Changes
+
+- Updated dependencies [08aade9a]
+  - @verdaccio/cli@6.0.0-6-next.9
+  - @verdaccio/node-api@6.0.0-6-next.9
+  - @verdaccio/ui-theme@6.0.0-alpha.5
+
 ## 5.0.0-alpha.9
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "6.0.0-alpha.6",
+  "version": "6.0.0-6-next.7",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -45,8 +45,8 @@
     "@verdaccio/hooks": "workspace:6.0.0-alpha.3",
     "@verdaccio/logger": "workspace:6.0.0-alpha.3",
     "@verdaccio/middleware": "workspace:6.0.0-alpha.5",
-    "@verdaccio/store": "workspace:6.0.0-alpha.4",
-    "@verdaccio/tarball": "workspace:11.0.0-alpha.3",
+    "@verdaccio/store": "workspace:6.0.0-6-next.5",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.4",
     "@verdaccio/utils": "workspace:6.0.0-alpha.3",
     "cookies": "0.8.0",
     "debug": "^4.1.1",
@@ -56,7 +56,7 @@
     "semver": "7.3.2"
   },
   "devDependencies": {
-    "@verdaccio/server": "workspace:6.0.0-alpha.7",
+    "@verdaccio/server": "workspace:6.0.0-6-next.8",
     "@verdaccio/types": "workspace:11.0.0-alpha.3",
     "body-parser": "1.19.0",
     "lodash": "^4.17.20",
