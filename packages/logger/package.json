@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "5.0.0-alpha.3",
+  "version": "6.0.0-alpha.3",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,14 +39,14 @@
     "build": "cross-env BABEL_ENV=registry babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps"
   },
   "dependencies": {
-    "@verdaccio/logger-prettify": "workspace:5.0.0-alpha.3",
+    "@verdaccio/logger-prettify": "workspace:6.0.0-alpha.3",
     "debug": "^4.2.0",
     "lodash": "~4.17.20",
     "pino": "^6.7.0"
   },
   "devDependencies": {
     "@types/pino": "^6.3.3",
-    "@verdaccio/types": "workspace:10.0.0-alpha.3"
+    "@verdaccio/types": "workspace:11.0.0-alpha.3"
   },
   "funding": {
     "type": "opencollective",

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/commons-api",
-  "version": "10.0.0-alpha.3",
+  "version": "11.0.0-alpha.3",
   "description": "Commons API utilities for Verdaccio",
   "keywords": [
     "private",
