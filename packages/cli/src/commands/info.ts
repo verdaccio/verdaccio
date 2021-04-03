@@ -1,18 +1,20 @@
 import envinfo from 'envinfo';
+import { Command } from 'clipanion';
 
-export default function infoCommand() {
-  // eslint-disable-next-line no-console
-  console.log('\nEnvironment Info:');
-  (async () => {
+export class InfoCommand extends Command {
+  static paths = [[`--info`], [`-i`]];
+
+  async execute() {
+    this.context.stdout.write('\nEnvironment Info:');
     const data = await envinfo.run({
       System: ['OS', 'CPU'],
-      Binaries: ['Node', 'Yarn', 'npm'],
+      Binaries: ['node', 'yarn', 'npm', 'pnpm'],
       Virtualization: ['Docker'],
       Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
       npmGlobalPackages: ['verdaccio'],
     });
-    // eslint-disable-next-line no-console
-    console.log(data);
+
+    this.context.stdout.write(data);
     process.exit(0);
-  })();
+  }
 }

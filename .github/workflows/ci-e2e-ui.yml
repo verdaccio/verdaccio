@@ -3,7 +3,7 @@ name: E2E UI
 on:
   push:
     branches:
-      - 5.x
+      - 6.x
       - 'changeset-release/6.x'
   pull_request:
     paths:
@@ -30,7 +30,7 @@ jobs:
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
-          node_version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node_version }}
       - name: Install pnpm
         run: npm i -g pnpm@latest
       - name: Install
