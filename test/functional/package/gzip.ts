@@ -14,7 +14,7 @@ export default function (server, express) {
       express.get(`/${PKG_NAME}`, function (req, res) {
         const pkg = JSON.parse(
           readFile('../fixtures/publish.json5')
-            .toString(CHARACTER_ENCODING.UTF8)
+            .toString('utf-8')
             .replace(/__NAME__/g, PKG_NAME)
             .replace(/__VERSION__/g, PKG_VERSION)
         );
@@ -87,6 +87,7 @@ export default function (server, express) {
 
               expect(unzipedBody.name).toBe(PKG_NAME);
               expect(Object.keys(unzipedBody.versions)).toHaveLength(VERSION_TOTAL);
+              // @ts-ignore
               resolve();
             });
           });

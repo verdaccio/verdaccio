@@ -26,7 +26,7 @@ const downloadStream = (
   });
 
   stream.on('error', function (err): void {
-    return res.report_error(err);
+    return res.locals.report_error(err);
   });
 
   res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);

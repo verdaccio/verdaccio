@@ -192,7 +192,7 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
 
       if (typeof body === 'object' && _.isNil(body) === false) {
         if (typeof (body as MiddlewareError).error === 'string') {
-          res._verdaccio_error = (body as MiddlewareError).error;
+          res.locals._verdaccio_error = (body as MiddlewareError).error;
         }
         body = JSON.stringify(body, undefined, '  ') + '\n';
       }
@@ -210,6 +210,7 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
     // and should just close socket
     if (err.message.match(/set headers after they are sent/)) {
       if (_.isNil(res.socket) === false) {
+        // @ts-ignore
         res.socket.destroy();
       }
       return;
@@ -280,7 +281,7 @@ export function log(config: Config) {
       const remoteAddress = req.connection.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
       let message;
-      if (res._verdaccio_error) {
+      if (res.locals._verdaccio_error) {
         message = LOG_VERDACCIO_ERROR;
       } else {
         message = LOG_VERDACCIO_BYTES;
@@ -298,7 +299,7 @@ export function log(config: Config) {
             user: (req.remote_user && req.remote_user.name) || null,
             remoteIP,
             status: res.statusCode,
-            error: res._verdaccio_error,
+            error: res.locals._verdaccio_error,
             bytes: {
               in: bytesin,
               out: bytesout,
@@ -330,8 +331,8 @@ export function log(config: Config) {
 
 // Middleware
 export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-  res.report_error =
-    res.report_error ||
+  res.locals.report_error =
+    res.locals.report_error ||
     function (err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (!res.headersSent) {

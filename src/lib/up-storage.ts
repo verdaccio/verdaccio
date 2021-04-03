@@ -677,6 +677,7 @@ class ProxyStorage implements IProxy {
 
     // if it's non-string (i.e. "false"), don't use it
     if (_.isString(this.proxy) === false) {
+      // @ts-ignore
       delete this.proxy;
     } else {
       debug('using proxy %o for %o', this.url.href, this.proxy);

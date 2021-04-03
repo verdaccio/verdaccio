@@ -15,7 +15,7 @@ import { Request } from 'express';
 import { getConflict, getBadData, getBadRequest, getInternalError, getUnauthorized, getForbidden, getServiceUnavailable, getNotFound, getCode } from '@verdaccio/commons-api';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
 import { StringValue, AuthorAvatar } from '../../types';
-import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, CHARACTER_ENCODING, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 
 import { normalizeContributors } from './storage-utils';
 
@@ -369,7 +369,7 @@ export const ErrorCode = {
 export function parseConfigFile(configPath: string): any {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      return YAML.load(fs.readFileSync(configPath, CHARACTER_ENCODING.UTF8));
+      return YAML.load(fs.readFileSync(configPath, 'utf-8'));
     }
     debug('yaml parsed');
     return require(configPath);

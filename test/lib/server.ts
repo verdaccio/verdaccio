@@ -177,6 +177,7 @@ export default class Server implements IServerBridge {
         })
         .catch(function (err) {
           if (err.code === 'ECONNRESET') {
+            // @ts-ignore
             resolve();
           } else {
             reject(err);
