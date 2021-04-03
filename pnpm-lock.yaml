@@ -101,7 +101,7 @@ importers:
       supertest: 4.0.2
       ts-node: 9.1.1_typescript@4.1.3
       typescript: 4.1.3
-      verdaccio: 4.10.0
+      verdaccio: 5.0.0-alpha.4
       verdaccio-audit: link:packages/plugins/audit
       verdaccio-auth-memory: link:packages/plugins/auth-memory
       verdaccio-htpasswd: link:packages/core/htpasswd
@@ -207,7 +207,7 @@ importers:
       supertest: 4.0.2
       ts-node: ^9.1.1
       typescript: ^4.1.3
-      verdaccio: ^4.10.0
+      verdaccio: next
       verdaccio-audit: workspace:*
       verdaccio-auth-memory: workspace:*
       verdaccio-htpasswd: workspace:*
@@ -235,17 +235,17 @@ importers:
       body-parser: 1.19.0
       supertest: 5.0.0-0
     specifiers:
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/hooks': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/middleware': workspace:5.0.0-alpha.5
-      '@verdaccio/server': workspace:5.0.0-alpha.7
-      '@verdaccio/store': workspace:5.0.0-alpha.4
-      '@verdaccio/tarball': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/hooks': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/middleware': workspace:6.0.0-alpha.5
+      '@verdaccio/server': workspace:6.0.0-alpha.7
+      '@verdaccio/store': workspace:6.0.0-alpha.4
+      '@verdaccio/tarball': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       body-parser: 1.19.0
       cookies: 0.8.0
       debug: ^4.1.1
@@ -271,19 +271,19 @@ importers:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
     specifiers:
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/loaders': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/loaders': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/mock': workspace:6.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       debug: ^4.1.1
       express: 4.17.1
       jsonwebtoken: 8.5.1
       lodash: 4.17.15
-      verdaccio-htpasswd: workspace:10.0.0-alpha.6
+      verdaccio-htpasswd: workspace:11.0.0-alpha.6
   packages/cli:
     dependencies:
       '@verdaccio/cli-ui': link:../core/cli-ui
@@ -295,9 +295,9 @@ importers:
       kleur: 3.0.3
       semver: 7.3.2
     specifiers:
-      '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/node-api': workspace:5.0.0-alpha.8
+      '@verdaccio/cli-ui': workspace:6.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/node-api': workspace:6.0.0-alpha.8
       clipanion: 3.0.0-rc.11
       commander: 6.2.0
       envinfo: 7.4.0
@@ -319,8 +319,8 @@ importers:
     specifiers:
       '@types/minimatch': 3.0.3
       '@types/yup': ^0.29.9
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       debug: ^4.2.0
       js-yaml: 3.14.0
       lodash: ^4.17.20
@@ -347,7 +347,7 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
     specifiers:
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       lockfile: 1.0.4
   packages/core/htpasswd:
     dependencies:
@@ -363,9 +363,9 @@ importers:
       mockdate: 3.0.2
     specifiers:
       '@types/bcryptjs': ^2.4.2
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/file-locking': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/file-locking': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       apache-md5: 1.1.2
       bcryptjs: 2.4.3
       http-errors: 1.8.0
@@ -388,10 +388,10 @@ importers:
       rmdir-sync: 1.0.1
     specifiers:
       '@types/minimatch': ^3.0.3
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/file-locking': workspace:10.0.0-alpha.3
-      '@verdaccio/streams': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/file-locking': workspace:11.0.0-alpha.3
+      '@verdaccio/streams': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       async: ^3.2.0
       debug: ^4.1.1
       lodash: ^4.17.20
@@ -407,7 +407,7 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
     specifiers:
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       dompurify: 2.0.8
       jsdom: 15.2.1
       marked: 1.1.1
@@ -415,7 +415,7 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
     specifiers:
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
   packages/core/tarball:
     dependencies:
       '@verdaccio/commons-api': link:../commons-api
@@ -428,10 +428,10 @@ importers:
       express: 4.17.1
       node-mocks-http: 1.10.1
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/url': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/url': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       debug: ^4.3.1
       express: ^4.17.1
       lodash: ^4.17.21
@@ -451,8 +451,8 @@ importers:
       '@verdaccio/types': link:../types
       node-mocks-http: 1.10.1
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       debug: ^4.3.1
       lodash: ^4.17.21
       node-mocks-http: ^1.10.1
@@ -471,11 +471,11 @@ importers:
       '@verdaccio/types': link:../core/types
       nock: 13.0.4
     specifiers:
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       debug: ^4.2.0
       handlebars: 4.5.3
       nock: ^13.0.4
@@ -492,11 +492,11 @@ importers:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/mock': workspace:6.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       debug: ^4.1.1
       lodash: 4.17.15
   packages/logger:
@@ -510,8 +510,8 @@ importers:
       '@verdaccio/types': link:../core/types
     specifiers:
       '@types/pino': ^6.3.3
-      '@verdaccio/logger-prettify': workspace:5.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/logger-prettify': workspace:6.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       debug: ^4.2.0
       lodash: ~4.17.20
       pino: ^6.7.0
@@ -529,7 +529,7 @@ importers:
       pino: 6.2.1
     specifiers:
       '@types/pino': 6.0.1
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       dayjs: 1.8.36
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
@@ -546,10 +546,10 @@ importers:
       debug: 4.3.1
       lodash: 4.17.15
     specifiers:
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       debug: ^4.3.1
       lodash: 4.17.15
   packages/mock:
@@ -565,10 +565,10 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../core/types
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       debug: ^4.2.0
       fs-extra: ^8.1.0
       lodash: ^4.17.20
@@ -589,12 +589,12 @@ importers:
       '@verdaccio/types': link:../core/types
       jest-mock-process: 1.4.0
     specifiers:
-      '@verdaccio/cli-ui': workspace:5.0.0-alpha.3
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/server': workspace:5.0.0-alpha.7
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/cli-ui': workspace:6.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/mock': workspace:6.0.0-alpha.3
+      '@verdaccio/server': workspace:6.0.0-alpha.7
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       core-js: ^3.6.5
       debug: ^4.2.0
       jest-mock-process: ^1.4.0
@@ -609,8 +609,8 @@ importers:
       '@verdaccio/types': link:../../core/types
     specifiers:
       '@types/activedirectory2': ^1.2.1
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       activedirectory2: ^1.3.0
   packages/plugins/audit:
     dependencies:
@@ -623,7 +623,7 @@ importers:
       nock: 12.0.3
       supertest: 4.0.2
     specifiers:
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       body-parser: ^1.19.0
       express: ^4.17.1
       https-proxy-agent: ^5.0.0
@@ -637,8 +637,8 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../../core/types
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       debug: ^4.3.1
   packages/plugins/aws-storage:
     dependencies:
@@ -649,16 +649,16 @@ importers:
       '@verdaccio/types': link:../../core/types
       recursive-readdir: 2.2.2
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/streams': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/streams': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       aws-sdk: ^2.607.0
       recursive-readdir: 2.2.2
   packages/plugins/google-cloud-storage:
     dependencies:
       '@google-cloud/datastore': 6.2.0
       '@google-cloud/storage': 5.3.0
-      '@verdaccio/commons-api': 10.0.0-next.1
+      '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
     devDependencies:
       '@verdaccio/types': link:../../core/types
@@ -668,9 +668,9 @@ importers:
     specifiers:
       '@google-cloud/datastore': ^6.2.0
       '@google-cloud/storage': ^5.3.0
-      '@verdaccio/commons-api': ^10.0.0-alpha.3
-      '@verdaccio/streams': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': ^11.0.0-alpha.3
+      '@verdaccio/streams': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       fast-crc32c: 1.0.4
       memory-fs: 0.5.0
   packages/plugins/memory:
@@ -683,9 +683,9 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../../core/types
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/streams': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/streams': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
       debug: ^4.3.1
       memfs: 3.2.0
       memory-fs: ^0.5.0
@@ -719,7 +719,7 @@ importers:
       github-markdown-css: 3.0.1
       harmony-reflect: 1.6.1
       history: 4.10.1
-      html-webpack-plugin: 5.0.0-beta.1_webpack@5.23.0
+      html-webpack-plugin: 5.3.1_webpack@5.23.0
       i18next: 19.8.4
       in-publish: 2.0.1
       js-base64: 2.5.1
@@ -781,7 +781,7 @@ importers:
       '@testing-library/dom': ^7.29.0
       '@testing-library/jest-dom': ^5.11.6
       '@testing-library/react': 10.4.9
-      '@verdaccio/node-api': workspace:5.0.0-alpha.8
+      '@verdaccio/node-api': workspace:6.0.0-alpha.8
       autosuggest-highlight: 3.1.1
       babel-loader: ^8.2.2
       babel-plugin-dynamic-import-node: ^2.3.3
@@ -797,7 +797,7 @@ importers:
       github-markdown-css: 3.0.1
       harmony-reflect: ^1.6.1
       history: ^4.10.1
-      html-webpack-plugin: ^5.0.0-alpha.15
+      html-webpack-plugin: 5.3.1
       i18next: ^19.8.4
       in-publish: 2.0.1
       js-base64: 2.5.1
@@ -860,13 +860,13 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../core/types
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/local-storage': workspace:10.0.0-alpha.4
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/streams': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/local-storage': workspace:11.0.0-alpha.4
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/streams': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       JSONStream: 1.3.5
       lodash: ^4.17.20
       request: 2.87.0
@@ -894,18 +894,18 @@ importers:
       http-errors: 1.7.3
       request: 2.87.0
     specifiers:
-      '@verdaccio/api': workspace:5.0.0-alpha.6
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/loaders': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/middleware': workspace:5.0.0-alpha.5
-      '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/proxy': workspace:5.0.0-alpha.4
-      '@verdaccio/store': workspace:5.0.0-alpha.4
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
-      '@verdaccio/web': workspace:5.0.0-alpha.7
+      '@verdaccio/api': workspace:6.0.0-alpha.6
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/loaders': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/middleware': workspace:6.0.0-alpha.5
+      '@verdaccio/mock': workspace:6.0.0-alpha.3
+      '@verdaccio/proxy': workspace:6.0.0-alpha.4
+      '@verdaccio/store': workspace:6.0.0-alpha.4
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
+      '@verdaccio/web': workspace:6.0.0-alpha.7
       compression: 1.7.4
       cors: 2.8.5
       express: 4.17.1
@@ -913,7 +913,7 @@ importers:
       http-errors: 1.7.3
       lodash: 4.17.15
       request: 2.87.0
-      verdaccio-audit: workspace:10.0.0-alpha.4
+      verdaccio-audit: workspace:11.0.0-alpha.4
   packages/standalone:
     devDependencies:
       '@verdaccio/cli': link:../cli
@@ -924,8 +924,8 @@ importers:
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: 4.3.1_aff9e91a092f024e9b4b3234c48fc17b
     specifiers:
-      '@verdaccio/cli': workspace:5.0.0-alpha.8
-      '@verdaccio/ui-theme': workspace:5.0.0-alpha.5
+      '@verdaccio/cli': workspace:6.0.0-alpha.8
+      '@verdaccio/ui-theme': workspace:6.0.0-alpha.5
       fs-extra: 9.0.1
       webpack: ^5.11.1
       webpack-bundle-analyzer: 3.8.0
@@ -950,16 +950,16 @@ importers:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/loaders': workspace:5.0.0-alpha.3
-      '@verdaccio/local-storage': workspace:10.0.0-alpha.4
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/proxy': workspace:5.0.0-alpha.4
-      '@verdaccio/streams': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/loaders': workspace:6.0.0-alpha.3
+      '@verdaccio/local-storage': workspace:11.0.0-alpha.4
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/mock': workspace:6.0.0-alpha.3
+      '@verdaccio/proxy': workspace:6.0.0-alpha.4
+      '@verdaccio/streams': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       async: 3.1.1
       debug: ^4.1.1
       lodash: 4.17.15
@@ -977,7 +977,7 @@ importers:
     devDependencies:
       lodash: 4.17.20
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       lodash: ^4.17.20
       semver: 7.3.2
   packages/verdaccio:
@@ -997,19 +997,19 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/store': link:../store
     specifiers:
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/cli': workspace:5.0.0-alpha.8
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/hooks': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/mock': workspace:5.0.0-alpha.3
-      '@verdaccio/node-api': workspace:5.0.0-alpha.8
-      '@verdaccio/store': workspace:5.0.0-alpha.4
-      '@verdaccio/ui-theme': workspace:5.0.0-alpha.5
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
-      verdaccio-audit: 10.0.0-alpha.4
-      verdaccio-htpasswd: 10.0.0-alpha.6
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/cli': workspace:6.0.0-alpha.8
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/hooks': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/mock': workspace:6.0.0-alpha.3
+      '@verdaccio/node-api': workspace:6.0.0-alpha.8
+      '@verdaccio/store': workspace:6.0.0-alpha.4
+      '@verdaccio/ui-theme': workspace:6.0.0-alpha.5
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
+      verdaccio-audit: 11.0.0-alpha.4
+      verdaccio-htpasswd: 11.0.0-alpha.6
   packages/web:
     dependencies:
       '@verdaccio/auth': link:../auth
@@ -1036,18 +1036,18 @@ importers:
       verdaccio-auth-memory: link:../plugins/auth-memory
       verdaccio-memory: link:../plugins/memory
     specifiers:
-      '@verdaccio/auth': workspace:5.0.0-alpha.5
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/config': workspace:5.0.0-alpha.3
-      '@verdaccio/loaders': workspace:5.0.0-alpha.3
-      '@verdaccio/logger': workspace:5.0.0-alpha.3
-      '@verdaccio/middleware': workspace:5.0.0-alpha.5
-      '@verdaccio/readme': workspace:10.0.0-alpha.3
-      '@verdaccio/store': workspace:5.0.0-alpha.4
-      '@verdaccio/tarball': workspace:10.0.0-alpha.3
-      '@verdaccio/types': workspace:10.0.0-alpha.3
-      '@verdaccio/url': workspace:10.0.0-alpha.3
-      '@verdaccio/utils': workspace:5.0.0-alpha.3
+      '@verdaccio/auth': workspace:6.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/config': workspace:6.0.0-alpha.3
+      '@verdaccio/loaders': workspace:6.0.0-alpha.3
+      '@verdaccio/logger': workspace:6.0.0-alpha.3
+      '@verdaccio/middleware': workspace:6.0.0-alpha.5
+      '@verdaccio/readme': workspace:11.0.0-alpha.3
+      '@verdaccio/store': workspace:6.0.0-alpha.4
+      '@verdaccio/tarball': workspace:11.0.0-alpha.3
+      '@verdaccio/types': workspace:11.0.0-alpha.3
+      '@verdaccio/url': workspace:11.0.0-alpha.3
+      '@verdaccio/utils': workspace:6.0.0-alpha.3
       body-parse: 0.1.0
       body-parser: 1.19.0
       debug: ^4.1.1
@@ -1056,8 +1056,8 @@ importers:
       lru-cache: ^6.0.0
       node-html-parser: ^2.1.0
       supertest: ^6.1.3
-      verdaccio-auth-memory: workspace:10.0.0-alpha.3
-      verdaccio-memory: workspace:10.0.0-alpha.3
+      verdaccio-auth-memory: workspace:11.0.0-alpha.3
+      verdaccio-memory: workspace:11.0.0-alpha.3
   test/e2e-cli:
     dependencies:
       debug: 4.3.1
@@ -1088,8 +1088,8 @@ importers:
       request: 2.88.2
       rimraf: 3.0.2
     specifiers:
-      '@verdaccio/commons-api': workspace:10.0.0-alpha.3
-      '@verdaccio/ui-theme': workspace:5.0.0-alpha.5
+      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
+      '@verdaccio/ui-theme': workspace:6.0.0-alpha.5
       debug: 4.3.1
       kleur: ^4.1.3
       lodash: ^4.17.20
@@ -7650,16 +7650,7 @@ packages:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     resolution:
       integrity: sha512-e4IXXQ4nes3KyusgYV925DuzfDAfo4ex7Ls3tZfOExkxEcXh0i0XnizXp0rvZmWRch69YCkc+Lh1Gy2aY49HTQ==
-  /@verdaccio/commons-api/10.0.0-next.1:
-    dependencies:
-      http-errors: 1.7.3
-      http-status-codes: 1.4.0
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-qa3oksjrR6cdg3un5jk9H/t4WpIPdxra+Ifj9fzxFMb6quFJOgXTJUb+wFc5uvwSL0N1N+fc1Rq1KfEk4vnr8A==
-  /@verdaccio/commons-api/9.7.1:
+  /@verdaccio/commons-api/10.0.0:
     dependencies:
       http-errors: 1.8.0
       http-status-codes: 1.4.0
@@ -7667,48 +7658,49 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-s2uD3s325C0UsQ9uQTmf15dXFsGVo23IM6pSUTukCRuurCok89e/k1Adz2CaoXpEu1qpxQ6Sv0dcNpGl7Q7hwQ==
-  /@verdaccio/file-locking/9.7.2:
+      integrity: sha512-UC8wrRI9FvqjfDeB1RijF7aVI0JJhCOI8RkEDibCT/JD8zVngphrNmgSWcjo8Es3lRiu7NugWXDSuggCCeCfUg==
+  /@verdaccio/file-locking/10.0.0:
     dependencies:
       lockfile: 1.0.4
     dev: true
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-y9yLk8+9wdQH1bDyeR7Cu80dKQMiiva9ddNbXllV6h0uxaqVOxDyyE0OWdyvUy0xdA4lUD/y0DxHOInDOhdKaw==
-  /@verdaccio/local-storage/9.7.4:
+      integrity: sha512-2tQUbJF3tQ3CY9grAlpovaF/zu8G56CBYMaeHwMBHo9rAmsJI9i7LfliHGS6Jygbs8vd0cOCPT7vl2CL9T8upw==
+  /@verdaccio/local-storage/10.0.1:
     dependencies:
-      '@verdaccio/commons-api': 9.7.1
-      '@verdaccio/file-locking': 9.7.2
-      '@verdaccio/streams': 9.7.2
+      '@verdaccio/commons-api': 10.0.0
+      '@verdaccio/file-locking': 10.0.0
+      '@verdaccio/streams': 10.0.0
       async: 3.2.0
-      level: 5.0.1
-      lodash: 4.17.20
-      mkdirp: 0.5.5
+      debug: 4.3.1
+      lodash: 4.17.21
+      lowdb: 1.0.0
+      mkdirp: 1.0.4
     dev: true
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-Wj0mJ6FTLGma+nDxpAWJkg7yY0WLh0sUm94juqY9eyWSqOWdv1QvduE9lvl0vh890/QbrlqzxPqxTxeZwsndTA==
-  /@verdaccio/readme/9.7.3:
+      integrity: sha512-dnrBZeuftSFjtQhp7Y+abbWPtM1luxEhP5+6152d8dMnNmomTMZWJcr/eUwKkw6o9d39d4NA4Pimm9bXEBGrdA==
+  /@verdaccio/readme/10.0.0:
     dependencies:
-      dompurify: 2.0.8
+      dompurify: 2.2.7
       jsdom: 15.2.1
-      marked: 1.1.1
+      marked: 2.0.1
     dev: true
     resolution:
-      integrity: sha512-86Zv46Qpcx0d0YRutFPhPH4OhGSljUJyhkxk3H/bCzzw8hGEvM1Du2y8kzfAS9qUsX8Qux97vfxxz6+RpBdU1w==
-  /@verdaccio/streams/9.7.2:
+      integrity: sha512-OD3dMnRC8SvhgytEzczMBleN+K/3lMqyWw/epeXvolCpCd7mW/Dl5zSR25GiHh/2h3eTKP/HMs4km8gS1MMLgA==
+  /@verdaccio/streams/10.0.0:
     dev: true
     engines:
       node: '>=8'
       npm: '>=5'
     resolution:
-      integrity: sha512-SoCG1btVFPxOcrs8w9wLJCfe8nfE6EaEXCXyRwGbh+Sr3NLEG0R8JOugGJbuSE+zIRuUs5JaUKjzSec+JKLvZw==
-  /@verdaccio/ui-theme/1.14.0:
+      integrity: sha512-PqxxY11HhweN6z1lwfn9ydLCdnOkCPpthMZs+SGCDz8Rt6gOyrjJVslV7o4uobDipjD9+hUPpJHDeO33Qt24uw==
+  /@verdaccio/ui-theme/3.0.0:
     dev: true
     resolution:
-      integrity: sha512-vTzZYnC+HpeeW6pGFBa51rwbqwjqYkgJE1DEF5fSK5V2QbHi+XPIPucm6hrnaZjMlSYbe+4DaMN1XOKLqOJlzg==
+      integrity: sha512-fp3vgkcZlC/4+ilNavywTddJj2nJcDTHjIq3subz3cUMIiLSiFAwm65pLsRyHjPPRy7GtQZPNQ2vEBIrYMG5Vw==
   /@webassemblyjs/ast/1.11.0:
     dependencies:
       '@webassemblyjs/helper-numbers': 1.11.0
@@ -8154,39 +8146,6 @@ packages:
       node: '>=6.5'
     resolution:
       integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==
-  /abstract-leveldown/6.0.3:
-    dependencies:
-      level-concat-iterator: 2.0.1
-      xtend: 4.0.2
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-jzewKKpZbaYUa6HTThnrl+GrJhzjEAeuc7hTVpZdzg7kupXZFoqQDFwyOwLNbmJKJlmzw8yiipMPkDiuKkT06Q==
-  /abstract-leveldown/6.2.3:
-    dependencies:
-      buffer: 5.7.1
-      immediate: 3.3.0
-      level-concat-iterator: 2.0.1
-      level-supports: 1.0.1
-      xtend: 4.0.2
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-BsLm5vFMRUrrLeCcRc+G0t2qOaTzpoJQLOubq2XM72eNpjF5UdU5o/5NvlNhx95XHcAvcl8OMXr4mlg/fRgUXQ==
-  /abstract-leveldown/6.3.0:
-    dependencies:
-      buffer: 5.7.1
-      immediate: 3.3.0
-      level-concat-iterator: 2.0.1
-      level-supports: 1.0.1
-      xtend: 4.0.2
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-TU5nlYgta8YrBMNpc9FwQzRbiXsj49gsALsXadbGHt9CROPzX5fB0rWDR5mtdpOOKa5XqRFpbj1QroPAoPzVjQ==
   /abstract-logging/1.0.0:
     dev: false
     resolution:
@@ -8569,6 +8528,10 @@ packages:
       sprintf-js: 1.0.3
     resolution:
       integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
+  /argparse/2.0.1:
+    dev: true
+    resolution:
+      integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
   /argv/0.0.2:
     dev: true
     engines:
@@ -9830,6 +9793,7 @@ packages:
     resolution:
       integrity: sha512-GZURr25umfYxZYZUyOlOtJRbYjAn0VfbjbnS0NBcOiF8VcjmhoEhmx8Gw4va8HeQb8j7Ra0ZltY/IeHgSHFXFw==
   /bunyan/1.8.14:
+    dev: false
     engines:
       '0': node >=0.10.0
     hasBin: true
@@ -9986,7 +9950,7 @@ packages:
   /camel-case/4.1.1:
     dependencies:
       pascal-case: 3.1.1
-      tslib: 1.13.0
+      tslib: 1.14.1
     resolution:
       integrity: sha512-7fa2WcG4fYFkclIvEmxBbTvmibwF2/agfEBc6q3lOpVu0A13ltLsA+Hr/8Hp6kp5f+G7hKi6t8lys6XxP+1K6Q==
   /camelcase-css/2.0.1:
@@ -10422,7 +10386,6 @@ packages:
   /clipanion/3.0.0-rc.11:
     dependencies:
       typanion: 3.3.0
-    dev: false
     resolution:
       integrity: sha512-e0GyZXjprnxRuls/pHH0cqAgKtpiceQy8PztEZP9fdnkMxuo05D5en9fx60Iiqqjge8pmrMfsiglueS8SWmlgg==
   /clipboard/2.0.6:
@@ -10597,10 +10560,6 @@ packages:
   /commander/2.20.3:
     resolution:
       integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
-  /commander/3.0.2:
-    dev: true
-    resolution:
-      integrity: sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==
   /commander/4.1.1:
     dev: true
     engines:
@@ -11656,14 +11615,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
+  /dayjs/1.10.4:
+    dev: true
+    resolution:
+      integrity: sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
   /dayjs/1.8.36:
     dev: false
     resolution:
       integrity: sha512-3VmRXEtw7RZKAf+4Tv1Ym9AGeo8r8+CjDi26x+7SYQil1UqtqdaokhzoEJohqlzt0m5kacJSDhJQkG/LWhpRBw==
-  /dayjs/1.9.6:
-    dev: true
-    resolution:
-      integrity: sha512-HngNLtPEBWRo8EFVmHFmSXAjtCX8rGNqeXQI0Gh7wCTSqwaKgPIDqu9m07wABVopNwzvOeCb+2711vQhDlcIXw==
   /dayjs/1.9.7:
     dev: true
     resolution:
@@ -11885,15 +11844,6 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-bYL2d05vOSf1JEZNx5vSAtPuBMkX8K9EUutg7zlKvTqKXHt7RhWJFbmd7qakVuf13i+IkGmp6FwSsONOf6VYIg==
-  /deferred-leveldown/5.3.0:
-    dependencies:
-      abstract-leveldown: 6.2.3
-      inherits: 2.0.4
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-a59VOT+oDy7vtAbLRCZwWgxu2BaCfd5Hk7wxJd48ei7I+nsg8Orlb9CLG0PMZienk9BSUKgeAqkO2+Lw+1+Ukw==
   /define-properties/1.1.3:
     dependencies:
       object-keys: 1.1.1
@@ -12253,8 +12203,13 @@ packages:
     resolution:
       integrity: sha512-eKLdI5v9m67kbXQbJSNn1zjh0SDzvzWVWtX+qEI3eMjZw8daH9k8rlj1FZY9memPwjiskQFbe7vHVVJIAqoEhw==
   /dompurify/2.0.8:
+    dev: false
     resolution:
       integrity: sha512-vIOSyOXkMx81ghEalh4MLBtDHMx1bhKlaqHDMqM2yeitJ996SLOk5mGdDpI9ifJAgokred8Rmu219fX4OltqXw==
+  /dompurify/2.2.7:
+    dev: true
+    resolution:
+      integrity: sha512-jdtDffdGNY+C76jvodNTu9jt5yYj59vuTUyx+wXdzcSwAGTYZDAQkQ7Iwx9zcGrA4ixC1syU4H3RZROqRxokxg==
   /domutils/1.5.1:
     dependencies:
       dom-serializer: 0.1.1
@@ -12358,6 +12313,7 @@ packages:
   /dtrace-provider/0.8.8:
     dependencies:
       nan: 2.14.2
+    dev: false
     engines:
       node: '>=0.10'
     optional: true
@@ -12515,17 +12471,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
-  /encoding-down/6.3.0:
-    dependencies:
-      abstract-leveldown: 6.3.0
-      inherits: 2.0.4
-      level-codec: 9.0.2
-      level-errors: 2.0.1
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-QKrV0iKR6MZVJV08QY0wp1e7vF6QbhnbQhb07bwpEyuz4uZiZgPlEGdkCROuFkUwdxlFaiPIhjyarH1ee/3vhw==
   /encoding/0.1.13:
     dependencies:
       iconv-lite: 0.6.2
@@ -12636,6 +12581,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-46+j5QxbPWza0PB1i15nZx0xQ4I/EfQxg9J8Had3b408SV63nEtor2e+oiY63amTo9KTuh2a3XLObNwduxYwwA==
+  /envinfo/7.7.4:
+    dev: true
+    engines:
+      node: '>=4'
+    hasBin: true
+    resolution:
+      integrity: sha512-TQXTYFVVwwluWSFis6K2XKxgrD22jEv0FTuLCQI+OjH7rn93+iY0fSSFM5lrSxFY+H1+B0/cvvlamr3UsBivdQ==
   /eol/0.9.1:
     dev: false
     resolution:
@@ -12646,13 +12598,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-MfrRBDWzIWifgq6tJj60gkAwtLNb6sQPlcFrSOflcP1aFmmruKQ2wRnze/8V6kgyz7H3FF8Npzv78mZ7XLLflg==
-  /errno/0.1.8:
-    dependencies:
-      prr: 1.0.1
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-dJ6oBr5SQ1VSd9qkk7ByRgb/1SH4JZjCHSW/mr63/QcXO9zLVxvJ6Oy13nio03rxpSnVDDjFor75SjVeZWPW/A==
   /error-ex/1.3.2:
     dependencies:
       is-arrayish: 0.2.1
@@ -12796,6 +12741,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-NJ6Yn3FuDinBaBRWl/q5X/s4koRHBrgKAu+yGI6JCBeiu3qrcbJhwT2GeR/EXVfylRk8dpQVJoLEFhK+Mu31NA==
+  /es6-weak-map/2.0.3:
+    dependencies:
+      d: 1.0.1
+      es5-ext: 0.10.53
+      es6-iterator: 2.0.3
+      es6-symbol: 3.1.3
+    dev: true
+    resolution:
+      integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
   /escalade/3.0.2:
     engines:
       node: '>=6'
@@ -13371,6 +13325,13 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+  /event-emitter/0.3.5:
+    dependencies:
+      d: 1.0.1
+      es5-ext: 0.10.53
+    dev: true
+    resolution:
+      integrity: sha1-34xp7vFkeSPHFXuc6DhAYQsCzDk=
   /event-source-polyfill/1.0.17:
     dev: false
     resolution:
@@ -13792,7 +13753,6 @@ packages:
     resolution:
       integrity: sha512-zxpkULI9W9MNTK2sJ3BpPQrTEXFNESd2X6O1tXMFpK/XM0G5c5Rll2EVYZH2TqI3xRGK/VaJ+eEOt7pnENJpeA==
   /fast-redact/3.0.0:
-    dev: false
     engines:
       node: '>=6'
     resolution:
@@ -15892,6 +15852,20 @@ packages:
       uglify-js: 3.12.4
     resolution:
       integrity: sha512-1f2BACcBfiwAfStCKZNrUCgqNZkGsAT7UM3kkYtXuLo0KnaVfjKOyf7PRzB6++aK9STyT1Pd2ZCPe3EGOXleXA==
+  /handlebars/4.7.7:
+    dependencies:
+      minimist: 1.2.5
+      neo-async: 2.6.2
+      source-map: 0.6.1
+      wordwrap: 1.0.0
+    dev: true
+    engines:
+      node: '>=0.4.7'
+    hasBin: true
+    optionalDependencies:
+      uglify-js: 3.12.4
+    resolution:
+      integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==
   /har-schema/2.0.0:
     engines:
       node: '>=4'
@@ -16333,22 +16307,21 @@ packages:
     dev: false
     resolution:
       integrity: sha512-uE/TxKuyNIcx44cIWnjr/rfIATDH7ZaOMmstu0CwhFG1Dunhlp4OC6/NMbhiwoq5BpW0ubi303qnEk/PZj614w==
-  /html-webpack-plugin/5.0.0-beta.1_webpack@5.23.0:
+  /html-webpack-plugin/5.3.1_webpack@5.23.0:
     dependencies:
       '@types/html-minifier-terser': 5.1.1
       html-minifier-terser: 5.1.1
-      loader-utils: 2.0.0
-      lodash: 4.17.20
+      lodash: 4.17.21
       pretty-error: 2.1.1
-      tapable: 2.0.0
+      tapable: 2.2.0
       webpack: 5.23.0_webpack-cli@4.5.0
     dev: true
     engines:
       node: '>=10.13.0'
     peerDependencies:
-      webpack: ^5.1.2
+      webpack: ^5.20.0
     resolution:
-      integrity: sha512-EkROYPaPa3x5OYZZ6ixAp+ma9rNNEIBhW2HbBuvUB5h3KrFibiVWWrVUizSJ92AlPZ4iF2hAuKoXGBkkLgZYdw==
+      integrity: sha512-rZsVvPXUYFyME0cuGkyOHfx9hmkFa4pWfxY/mdY38PsBEaVNsRoA+Id+8z6DBDgyv3zaw6XQszdF8HLwfQvcdQ==
   /htmlparser2/3.10.1:
     dependencies:
       domelementtype: 1.3.1
@@ -16650,14 +16623,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-33AmZ+xjZhg2JMCe+vDf6a9mzWukE7l+wAtesjE7KyteqqKjzxv7aVQeWnul1Ve26mWvEQqyPwl0OctNBfSR9w==
-  /immediate/3.2.3:
-    dev: true
-    resolution:
-      integrity: sha1-0UD6j2FGWb1lQSMwl92qwlzdmRw=
-  /immediate/3.3.0:
-    dev: true
-    resolution:
-      integrity: sha512-HR7EVodfFUdQCTIeySw+WDRFJlPcLOJbXfwwZ7Oom6tjsvZ3bOkCDJHehQC3nxJrv7+f9XecwazynjU8e4Vw3Q==
   /import-cwd/2.1.0:
     dependencies:
       import-from: 2.1.0
@@ -18199,6 +18164,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
+  /js-yaml/4.0.0:
+    dependencies:
+      argparse: 2.0.1
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-pqon0s+4ScYUvX30wxQi3PogGFAlUyH0awepWvwkj4jD4v+ova3RiYw8bmA6x2rDrEaj8i/oWKoRxpVNW+Re8Q==
   /jsbn/0.1.1:
     resolution:
       integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
@@ -18655,100 +18627,6 @@ packages:
       dtrace-provider: 0.8.8
     resolution:
       integrity: sha1-VE/3Ayt7g8aPBwEyjZKXqmlDQPk=
-  /level-codec/9.0.2:
-    dependencies:
-      buffer: 5.7.1
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-UyIwNb1lJBChJnGfjmO0OR+ezh2iVu1Kas3nvBS/BzGnx79dv6g7unpKIDNPMhfdTEGoc7mC8uAu51XEtX+FHQ==
-  /level-concat-iterator/2.0.1:
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-OTKKOqeav2QWcERMJR7IS9CUo1sHnke2C0gkSmcR7QuEtFNLLzHQAvnMw8ykvEcv0Qtkg0p7FOwP1v9e5Smdcw==
-  /level-errors/2.0.1:
-    dependencies:
-      errno: 0.1.8
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-UVprBJXite4gPS+3VznfgDSU8PTRuVX0NXwoWW50KLxd2yw4Y1t2JUR5In1itQnudZqRMT9DlAM3Q//9NCjCFw==
-  /level-iterator-stream/4.0.2:
-    dependencies:
-      inherits: 2.0.4
-      readable-stream: 3.6.0
-      xtend: 4.0.2
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-ZSthfEqzGSOMWoUGhTXdX9jv26d32XJuHz/5YnuHZzH6wldfWMOVwI9TBtKcya4BKTyTt3XVA0A3cF3q5CY30Q==
-  /level-js/4.0.2:
-    dependencies:
-      abstract-leveldown: 6.0.3
-      immediate: 3.2.3
-      inherits: 2.0.4
-      ltgt: 2.2.1
-      typedarray-to-buffer: 3.1.5
-    dev: true
-    resolution:
-      integrity: sha512-PeGjZsyMG4O89KHiez1zoMJxStnkM+oBIqgACjoo5PJqFiSUUm3GNod/KcbqN5ktyZa8jkG7I1T0P2u6HN9lIg==
-  /level-packager/5.1.1:
-    dependencies:
-      encoding-down: 6.3.0
-      levelup: 4.4.0
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-HMwMaQPlTC1IlcwT3+swhqf/NUO+ZhXVz6TY1zZIIZlIR0YSn8GtAAWmIvKjNY16ZkEg/JcpAuQskxsXqC0yOQ==
-  /level-supports/1.0.1:
-    dependencies:
-      xtend: 4.0.2
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-rXM7GYnW8gsl1vedTJIbzOrRv85c/2uCMpiiCzO2fndd06U/kUXEEU9evYn4zFggBOg36IsBW8LzqIpETwwQzg==
-  /level/5.0.1:
-    dependencies:
-      level-js: 4.0.2
-      level-packager: 5.1.1
-      leveldown: 5.6.0
-      opencollective-postinstall: 2.0.3
-    dev: true
-    engines:
-      node: '>=8.6.0'
-    requiresBuild: true
-    resolution:
-      integrity: sha512-wcak5OQeA4rURGacqS62R/xNHjCYnJSQDBOlm4KNUGJVE9bWv2B04TclqReYejN+oD65PzD4FsqeWoI5wNC5Lg==
-  /leveldown/5.6.0:
-    dependencies:
-      abstract-leveldown: 6.2.3
-      napi-macros: 2.0.0
-      node-gyp-build: 4.1.1
-    dev: true
-    engines:
-      node: '>=8.6.0'
-    requiresBuild: true
-    resolution:
-      integrity: sha512-iB8O/7Db9lPaITU1aA2txU/cBEXAt4vWwKQRrrWuS6XDgbP4QZGj9BL2aNbwb002atoQ/lIotJkfyzz+ygQnUQ==
-  /levelup/4.4.0:
-    dependencies:
-      deferred-leveldown: 5.3.0
-      level-errors: 2.0.1
-      level-iterator-stream: 4.0.2
-      level-supports: 1.0.1
-      xtend: 4.0.2
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-94++VFO3qN95cM/d6eBXvd894oJE0w3cInq9USsyQzzoJxmiYzPAocNcuGCPGGjoXqDVJcr3C1jzt1TSjyaiLQ==
   /leven/3.1.0:
     engines:
       node: '>=6'
@@ -19208,7 +19086,6 @@ packages:
     resolution:
       integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
   /lodash/4.17.21:
-    dev: false
     resolution:
       integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
   /log-symbols/1.0.2:
@@ -19320,20 +19197,13 @@ packages:
       lodash: 4.17.20
       pify: 3.0.0
       steno: 0.4.4
-    dev: false
     engines:
       node: '>=4'
     resolution:
       integrity: sha512-2+x8esE/Wb9SQ1F9IHaYWfsC9FIecLOPrK4g17FGEayjUWH172H6nwicRovGvSE2CPZouc2MCIqCI7h9d+GftQ==
-  /lower-case/2.0.1:
-    dependencies:
-      tslib: 1.13.0
-    resolution:
-      integrity: sha512-LiWgfDLLb1dwbFQZsSglpRj+1ctGnayXz3Uv0/WO8n558JycT5fg6zkNcnW0G68Nn0aEldTFeEfmjCfmqry/rQ==
   /lower-case/2.0.2:
     dependencies:
       tslib: 2.0.3
-    dev: true
     resolution:
       integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==
   /lowercase-keys/1.0.0:
@@ -19390,10 +19260,12 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
-  /ltgt/2.2.1:
+  /lru-queue/0.1.0:
+    dependencies:
+      es5-ext: 0.10.53
     dev: true
     resolution:
-      integrity: sha1-81ypHEk/e3PaDgdJUwTxezH4fuU=
+      integrity: sha1-Jzi9nw089PhEkMVzbEhpmsYyzaM=
   /lunr-mutable-indexes/2.3.2:
     dependencies:
       lunr: 2.3.9
@@ -19496,18 +19368,19 @@ packages:
     resolution:
       integrity: sha512-Ezda85ToJUBhM6WGaG6veasyym+Tbs3cMAw/ZhOPqXiYsr0jgocBV3j3nx+4lk47plLlIqjwuTm/ywVI+zjJ/A==
   /marked/1.1.1:
+    dev: false
     engines:
       node: '>= 8.16.2'
     hasBin: true
     resolution:
       integrity: sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
-  /marked/1.2.5:
+  /marked/2.0.1:
     dev: true
     engines:
       node: '>= 8.16.2'
     hasBin: true
     resolution:
-      integrity: sha512-2AlqgYnVPOc9WDyWu7S5DJaEZsfk6dNh/neatQ3IHUW4QLutM/VPSH9lG7bif+XjFWc9K9XR3QvR+fXuECmfdA==
+      integrity: sha512-5+/fKgMv2hARmMW7DOpykr2iLhl0NgjyELk5yn92iE7z8Se1IS9n3UsFm86hFXIkvMBmVxki8+ckcpjBeyo/hw==
   /matcher/1.1.1:
     dependencies:
       escape-string-regexp: 1.0.5
@@ -19676,6 +19549,19 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-f/xxz2TpdKv6uDn6GtHee8ivFyxwxmPuXatBb1FBwxYNuVpbM3k/Y1Z+vC0mH/dIXXrukYfe3qe5J32Dfjg93A==
+  /memoizee/0.4.15:
+    dependencies:
+      d: 1.0.1
+      es5-ext: 0.10.53
+      es6-weak-map: 2.0.3
+      event-emitter: 0.3.5
+      is-promise: 2.2.2
+      lru-queue: 0.1.0
+      next-tick: 1.1.0
+      timers-ext: 0.1.7
+    dev: true
+    resolution:
+      integrity: sha512-UBWmJpLZd5STPm7PMUlOw/TSy972M+z8gcyQ5veOnSDRREz/0bmpyTfKt3/51DhEBqCZQn1udM/5flcSPYhkdQ==
   /memory-fs/0.4.1:
     dependencies:
       errno: 0.1.7
@@ -19907,6 +19793,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-RZKhC3EmpBchfTGBVb8fb+RL2cWyw/32lshnsETttkBAyAUXSGHxbEJWWRXc751DrIxG1q04b8QwMbAwkRPpUA==
+  /mime/2.5.2:
+    dev: true
+    engines:
+      node: '>=4.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==
   /mimic-fn/1.2.0:
     engines:
       node: '>=4'
@@ -20120,6 +20013,7 @@ packages:
     resolution:
       integrity: sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
   /moment/2.29.1:
+    dev: false
     optional: true
     resolution:
       integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -20220,10 +20114,6 @@ packages:
   /napi-build-utils/1.0.2:
     resolution:
       integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==
-  /napi-macros/2.0.0:
-    dev: true
-    resolution:
-      integrity: sha512-A0xLykHtARfueITVDernsAWdtIMbOJgKgcluwENp3AlsKN/PloyO10HtmoqnFAQAcxPkgZN7wdfPfEd0zNGxbg==
   /native-url/0.2.6:
     dependencies:
       querystring: 0.2.0
@@ -20250,7 +20140,6 @@ packages:
     resolution:
       integrity: sha1-yobR/ogoFpsBICCOPchCS524NCw=
   /next-tick/1.1.0:
-    dev: false
     resolution:
       integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==
   /nice-try/1.0.5:
@@ -20260,17 +20149,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-3x3jwTd6UPG7vi5k4GEzvxJ5rDA7hVUIRNHPblKuMVP9Z3xmlsd9cgLcpAMkc5uPOBna82EeshROFhsPkbnTZg==
-  /no-case/3.0.3:
-    dependencies:
-      lower-case: 2.0.1
-      tslib: 1.13.0
-    resolution:
-      integrity: sha512-ehY/mVQCf9BL0gKfsJBvFJen+1V//U+0HQMPrWct40ixE4jnv0bfvxDbWtAHL9EcaPEOJHVVYKoQn1TlZUB8Tw==
   /no-case/3.0.4:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.0.3
-    dev: true
     resolution:
       integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==
   /nock/12.0.3:
@@ -20354,11 +20236,6 @@ packages:
       node: '>= 4.5.0'
     resolution:
       integrity: sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
-  /node-gyp-build/4.1.1:
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-dSq1xmcPDKPZ2EED2S6zw/b9NKsqzXRE6dVr8TVQnI3FJOTteUMuqF3Qqs6LZg+mLGYJWqQzMbIjMtJqTv87nQ==
   /node-html-parser/2.1.0:
     dependencies:
       he: 1.2.0
@@ -20978,11 +20855,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==
-  /opencollective-postinstall/2.0.3:
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
   /opener/1.5.2:
     dev: true
     hasBin: true
@@ -21472,7 +21344,6 @@ packages:
     resolution:
       integrity: sha512-7T9g6mIsFFpLlo0Zzb2jLWdCt+H9Qtf/hRmMYFi/Mq6Ovi+YKo+AyDFX3OhFfu0vXX5Nid9FKJGKSSzNcTkWiA==
   /parse-ms/2.1.0:
-    dev: false
     engines:
       node: '>=6'
     resolution:
@@ -21545,8 +21416,8 @@ packages:
       integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
   /pascal-case/3.1.1:
     dependencies:
-      no-case: 3.0.3
-      tslib: 1.13.0
+      no-case: 3.0.4
+      tslib: 1.14.1
     resolution:
       integrity: sha512-XIeHKqIrsquVTQL2crjq3NfJUxmdLasn3TYOU0VBM+UX2a6ztAWBlJQBePLGY7VHW8+2dRadeIPK5+KImwTxQA==
   /pascalcase/0.1.1:
@@ -21712,6 +21583,22 @@ packages:
   /pino-std-serializers/2.5.0:
     resolution:
       integrity: sha512-wXqbqSrIhE58TdrxxlfLwU9eDhrzppQDvGhBEr1gYbzzM4KKo3Y63gSjiDXRKLVS2UOXdPNR2v+KnQgNrs+xUg==
+  /pino-std-serializers/3.2.0:
+    dev: true
+    resolution:
+      integrity: sha512-EqX4pwDPrt3MuOAAUBMU0Tk5kR/YcCM5fNPEzgCO2zJ5HfX0vbiH9HbJglnyeQsN96Kznae6MWD47pZB5avTrg==
+  /pino/6.11.2:
+    dependencies:
+      fast-redact: 3.0.0
+      fast-safe-stringify: 2.0.7
+      flatstr: 1.0.12
+      pino-std-serializers: 3.2.0
+      quick-format-unescaped: 4.0.1
+      sonic-boom: 1.1.0
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-bmzxwbrIPxQUlAuMkF4PWVErUGERU4z37HazlhflKFg08crsNE3fACGN6gPwg5xtKOK47Ux5cZm8YCuLV4wWJg==
   /pino/6.2.1:
     dependencies:
       fast-redact: 2.0.0
@@ -22395,7 +22282,6 @@ packages:
     resolution:
       integrity: sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
   /prettier-bytes/1.0.4:
-    dev: false
     resolution:
       integrity: sha1-mUsCqkb2mcULYle1+qp/4lV+YtY=
   /prettier/1.19.1:
@@ -22456,7 +22342,6 @@ packages:
   /pretty-ms/5.1.0:
     dependencies:
       parse-ms: 2.1.0
-    dev: false
     engines:
       node: '>=8'
     resolution:
@@ -24131,6 +24016,7 @@ packages:
     resolution:
       integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
   /safe-json-stringify/1.2.0:
+    dev: false
     optional: true
     resolution:
       integrity: sha512-gH8eh2nZudPQO6TytOvbxnuhYBOvDBBLW52tz5q6X58lJcd/tkmqFR+5Z9adS8aJtURSXWThWy/xJtJwixErvg==
@@ -25104,7 +24990,6 @@ packages:
   /steno/0.4.4:
     dependencies:
       graceful-fs: 4.2.4
-    dev: false
     resolution:
       integrity: sha1-BxEFvfwobmYVwEA8J+nXtdy4Vcs=
   /stream-browserify/2.0.2:
@@ -25822,12 +25707,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
-  /tapable/2.0.0:
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-bjzn0C0RWoffnNdTzNi7rNDhs1Zlwk2tRXgk8EiHKAOX1Mag3d6T0Y5zNa7l9CJ+EoUne/0UHdwS8tMbkh9zDg==
   /tapable/2.2.0:
     dev: true
     engines:
@@ -26096,6 +25975,13 @@ packages:
       node: '>=0.6.0'
     resolution:
       integrity: sha512-60aV6sgJ5YEbzUdn9c8kYGIqOubPoUdqQCul3SBAsRCZ40s6Y5cMcrW4dt3/k/EsbLVJNl9n6Vz3fTc+k2GeKQ==
+  /timers-ext/0.1.7:
+    dependencies:
+      es5-ext: 0.10.53
+      next-tick: 1.1.0
+    dev: true
+    resolution:
+      integrity: sha512-b85NUNzTSdodShTIbky6ZF02e8STtVVfD+fu4aXXShEELpozH+bCpJLYMPZbsABN2wDH7fJpqIoXxJpzbf0NqQ==
   /timm/1.7.0:
     dev: false
     resolution:
@@ -26357,7 +26243,6 @@ packages:
     resolution:
       integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
   /tslib/1.14.1:
-    dev: true
     resolution:
       integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
   /tslib/2.0.1:
@@ -26365,7 +26250,6 @@ packages:
     resolution:
       integrity: sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
   /tslib/2.0.3:
-    dev: true
     resolution:
       integrity: sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
   /tsscmp/1.0.6:
@@ -26421,7 +26305,6 @@ packages:
     resolution:
       integrity: sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
   /typanion/3.3.0:
-    dev: false
     resolution:
       integrity: sha512-e+54C4+ozFsTorFe50JNQlXlt4HVGQUvqul7VS0GbDfKlxh3aXbJY87Yu9IdtzvJWCyTgDX7q1PeMd3FH9zZqA==
   /type-check/0.3.2:
@@ -27109,7 +26992,6 @@ packages:
     resolution:
       integrity: sha512-8GfPiwzzRoWTg7OV1zva1KvrSemuMkv07MA9TTl91hfhe+wKrsrgVN4H2QSFd/U/FhiU3iWPYVgvbsOGwhyFWw==
   /validator/13.5.2:
-    dev: false
     engines:
       node: '>= 0.10'
     resolution:
@@ -27134,7 +27016,7 @@ packages:
   /vendors/1.0.4:
     resolution:
       integrity: sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
-  /verdaccio-audit/9.7.3:
+  /verdaccio-audit/10.0.0:
     dependencies:
       express: 4.17.1
       request: 2.88.2
@@ -27142,10 +27024,10 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-FDWafgDjvnTbJapQpd0c41FjrecR+iRHrnDi2gkAn4IJpiLCgXC6R5NdkXjDIekKEsou9PyQTsEdoHK7iDx+tQ==
-  /verdaccio-htpasswd/9.7.2:
+      integrity: sha512-Epsh+C7ZEdq39PR9QeDBTWktbeqc0zOQjMzWte6Ut5Jh6fPLZzxGF8VK8O67B6mnTwLvGy50A1aPVM97Ysh5Rw==
+  /verdaccio-htpasswd/10.0.0:
     dependencies:
-      '@verdaccio/file-locking': 9.7.2
+      '@verdaccio/file-locking': 10.0.0
       apache-md5: 1.1.2
       bcryptjs: 2.4.3
       http-errors: 1.8.0
@@ -27154,49 +27036,56 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-c7ZEb7wuce0+4h92w4f1ySMhsIWFs/mlsFjjoqIlY5SBskmQI5RHC7HQglVgFjOMxrWoaaadJ5WGmFV+A/yxPQ==
-  /verdaccio/4.10.0:
+      integrity: sha512-3TKwiLwl8/fbaTDawHvjSYcsyMmdARg58keP/1plv74x+Jw0sC66HbbRwQ/tPO5mqoG0UwoWW+lkO8h/OiWi9w==
+  /verdaccio/5.0.0-alpha.4:
     dependencies:
-      '@verdaccio/commons-api': 9.7.1
-      '@verdaccio/local-storage': 9.7.4
-      '@verdaccio/readme': 9.7.3
-      '@verdaccio/streams': 9.7.2
-      '@verdaccio/ui-theme': 1.14.0
+      '@verdaccio/commons-api': 10.0.0
+      '@verdaccio/local-storage': 10.0.1
+      '@verdaccio/readme': 10.0.0
+      '@verdaccio/streams': 10.0.0
+      '@verdaccio/ui-theme': 3.0.0
       JSONStream: 1.3.5
       async: 3.2.0
       body-parser: 1.19.0
-      bunyan: 1.8.14
-      commander: 3.0.2
+      clipanion: 3.0.0-rc.11
       compression: 1.7.4
       cookies: 0.8.0
       cors: 2.8.5
-      dayjs: 1.9.6
-      envinfo: 7.7.3
+      dayjs: 1.10.4
+      debug: 4.3.1
+      envinfo: 7.7.4
       express: 4.17.1
-      handlebars: 4.7.6
+      fast-safe-stringify: 2.0.7
+      handlebars: 4.7.7
       http-errors: 1.8.0
-      js-yaml: 3.14.0
+      js-yaml: 4.0.0
       jsonwebtoken: 8.5.1
-      kleur: 4.1.3
-      lodash: 4.17.20
+      kleur: 4.1.4
+      lodash: 4.17.21
+      lru-cache: 6.0.0
       lunr-mutable-indexes: 2.3.2
-      marked: 1.2.5
-      mime: 2.4.6
+      marked: 2.0.1
+      memoizee: 0.4.15
+      mime: 2.5.2
       minimatch: 3.0.4
-      mkdirp: 0.5.5
+      mkdirp: 1.0.4
       mv: 2.1.1
+      pino: 6.11.2
       pkginfo: 0.4.1
+      prettier-bytes: 1.0.4
+      pretty-ms: 5.1.0
       request: 2.88.0
-      semver: 6.3.0
-      verdaccio-audit: 9.7.3
-      verdaccio-htpasswd: 9.7.2
+      semver: 7.3.4
+      validator: 13.5.2
+      verdaccio-audit: 10.0.0
+      verdaccio-htpasswd: 10.0.0
     dev: true
     engines:
-      node: '>=8'
+      node: '>=12'
       npm: '>=5'
     hasBin: true
     resolution:
-      integrity: sha512-9nCIHM9rvgwasBJvo82MiEDzS2HGWolopID8/THU0vZfa1d6MDAiuakjwQ9Z2xDonpoOoDji6xpg2i6il+gEWQ==
+      integrity: sha512-LJqZ3O4UejvUoUTEaJGjGXyKQxPSRyRaFVuGCRlAoYkXPUC5iofv0pX7E20RUs+pQny1WxPZ44XIK0jBGfoU7Q==
   /verror/1.10.0:
     dependencies:
       assert-plus: 1.0.0

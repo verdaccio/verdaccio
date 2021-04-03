@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "5.0.0-alpha.3",
+  "version": "6.0.0-alpha.3",
   "description": "verdaccio utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -30,7 +30,7 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "semver": "7.3.2"
   },
   "devDependencies": {

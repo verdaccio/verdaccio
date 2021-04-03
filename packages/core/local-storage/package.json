@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "10.0.0-alpha.4",
+  "version": "11.0.0-alpha.4",
   "description": "Local storage implementation",
   "keywords": [
     "private",
@@ -37,9 +37,9 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
-    "@verdaccio/file-locking": "workspace:10.0.0-alpha.3",
-    "@verdaccio/streams": "workspace:10.0.0-alpha.3",
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/file-locking": "workspace:11.0.0-alpha.3",
+    "@verdaccio/streams": "workspace:11.0.0-alpha.3",
     "async": "^3.2.0",
     "debug": "^4.1.1",
     "lodash": "^4.17.20",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
-    "@verdaccio/types": "workspace:10.0.0-alpha.3",
+    "@verdaccio/types": "workspace:11.0.0-alpha.3",
     "minimatch": "^3.0.4",
     "rmdir-sync": "^1.0.1"
   },

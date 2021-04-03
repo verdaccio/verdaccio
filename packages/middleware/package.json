@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "5.0.0-alpha.5",
+  "version": "6.0.0-alpha.5",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "debug": "^4.3.1",
-    "@verdaccio/auth": "workspace:5.0.0-alpha.5",
-    "@verdaccio/commons-api": "workspace:10.0.0-alpha.3",
-    "@verdaccio/logger": "workspace:5.0.0-alpha.3",
-    "@verdaccio/utils": "workspace:5.0.0-alpha.3",
+    "@verdaccio/auth": "workspace:6.0.0-alpha.5",
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/logger": "workspace:6.0.0-alpha.3",
+    "@verdaccio/utils": "workspace:6.0.0-alpha.3",
     "lodash": "4.17.15"
   },
   "funding": {
