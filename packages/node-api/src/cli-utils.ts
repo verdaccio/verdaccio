@@ -57,7 +57,6 @@ export function isVersionValid(version) {
   return semver.satisfies(version, `>=${MIN_NODE_VERSION}`);
 }
 
-
 /**
  * Retrieve all addresses defined in the config file.
  * Verdaccio is able to listen multiple ports
