@@ -1,6 +1,6 @@
 {
   "mode": "pre",
-  "tag": "alpha",
+  "tag": "6-next",
   "initialVersions": {
     "@verdaccio/api": "6.0.0-alpha.0",
     "@verdaccio/auth": "6.0.0-alpha.0",

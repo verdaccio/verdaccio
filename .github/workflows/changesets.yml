@@ -15,9 +15,9 @@ env:
 jobs:
   # Update package versions from changesets.
   version:
-    timeout-minutes: 15
+    timeout-minutes: 14
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/5.x' && github.repository == 'verdaccio/verdaccio'
+    if: github.ref == 'refs/heads/6.x' && github.repository == 'verdaccio/verdaccio'
     steps:
       - name: checkout code repository
         uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
       - name: setup node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 15
+          node-version: 14
           registry-url: 'https://registry.verdaccio.org'
 
       - name: install pnpm
