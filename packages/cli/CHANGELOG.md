@@ -1,5 +1,15 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.9
+
+### Major Changes
+
+- 08aade9a: feat: use clipanion over commander
+
+### Patch Changes
+
+- @verdaccio/node-api@6.0.0-6-next.9
+
 ## 5.0.0-alpha.8
 
 ### Patch Changes

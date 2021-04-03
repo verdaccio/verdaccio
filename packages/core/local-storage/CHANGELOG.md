@@ -1,5 +1,24 @@
 # Change Log
 
+## 11.0.0-6-next.5
+
+### Major Changes
+
+- cb2281a5: # async storage plugin bootstrap
+
+  Gives a storage plugin the ability to perform asynchronous tasks on initialization
+
+  ## Breaking change
+
+  Plugin must have an init method in which asynchronous tasks can be executed
+
+  ```js
+  public async init(): Promise<void> {
+     this.data = await this._fetchLocalPackages();
+     this._sync();
+  }
+  ```
+
 ## 10.0.0-alpha.4
 
 ### Patch Changes

@@ -1,5 +1,30 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.5
+
+### Major Changes
+
+- cb2281a5: # async storage plugin bootstrap
+
+  Gives a storage plugin the ability to perform asynchronous tasks on initialization
+
+  ## Breaking change
+
+  Plugin must have an init method in which asynchronous tasks can be executed
+
+  ```js
+  public async init(): Promise<void> {
+     this.data = await this._fetchLocalPackages();
+     this._sync();
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [cb2281a5]
+  - @verdaccio/local-storage@11.0.0-6-next.5
+  - @verdaccio/proxy@6.0.0-6-next.5
+
 ## 5.0.0-alpha.4
 
 ### Patch Changes
