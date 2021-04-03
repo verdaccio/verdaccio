@@ -26,7 +26,7 @@ importers:
       '@babel/register': 7.12.13_@babel+core@7.12.13
       '@babel/runtime': 7.12.13
       '@changesets/changelog-github': 0.2.8
-      '@changesets/cli': 2.14.1
+      '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.0
       '@commitlint/cli': 8.3.5
       '@commitlint/config-conventional': 8.2.0
@@ -132,7 +132,7 @@ importers:
       '@babel/register': 7.12.13
       '@babel/runtime': 7.12.13
       '@changesets/changelog-github': ^0.2.8
-      '@changesets/cli': ^2.14.1
+      '@changesets/cli': ^2.15.0
       '@changesets/get-dependents-graph': ^1.2.0
       '@commitlint/cli': 8.3.5
       '@commitlint/config-conventional': 8.2.0
@@ -584,7 +584,6 @@ importers:
       debug: 4.2.0
       lodash: 4.17.20
       selfsigned: 1.10.7
-      semver: 7.3.5
     devDependencies:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
@@ -601,7 +600,6 @@ importers:
       jest-mock-process: ^1.4.0
       lodash: ^4.17.20
       selfsigned: 1.10.7
-      semver: ^7.3.5
   packages/plugins/active-directory:
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
@@ -1237,12 +1235,12 @@ packages:
   /@babel/code-frame/7.12.11:
     dependencies:
       '@babel/highlight': 7.10.4
+    dev: true
     resolution:
       integrity: sha512-Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==
   /@babel/code-frame/7.12.13:
     dependencies:
       '@babel/highlight': 7.12.13
-    dev: true
     resolution:
       integrity: sha512-HV1Cm0Q3ZrpCR93tkWOYiuYIgLxZXZFVG2VgK+MBWjUqZTundupbfx2aXarXuw5Ko5aMcjtJgbSs4vUGBS5v6g==
   /@babel/compat-data/7.11.0:
@@ -1869,7 +1867,6 @@ packages:
       '@babel/helper-validator-identifier': 7.12.11
       chalk: 2.4.2
       js-tokens: 4.0.0
-    dev: true
     resolution:
       integrity: sha512-kocDQvIbgMKlWxXe9fof3TQ+gkIPOUSEYhJjqUjvKMez3krV7vbzYCDq39Oj11UAVK7JqPVGQPlgE85dPNlQww==
   /@babel/node/7.12.13_@babel+core@7.12.13:
@@ -4563,7 +4560,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-/vt6UwgQldhOw93Gb8llI5OuYGlJt2+U45AfcXsoxzl8gZzCmChGm3vUaQJYbmtL8TbL8OOVXHRIKJJidMNPKw==
-  /@changesets/assemble-release-plan/4.1.0:
+  /@changesets/assemble-release-plan/4.1.1:
     dependencies:
       '@babel/runtime': 7.12.13
       '@changesets/errors': 0.1.4
@@ -4573,7 +4570,7 @@ packages:
       semver: 5.7.1
     dev: true
     resolution:
-      integrity: sha512-dMqe2L5Pn4UGTW89kOuuCuZD3pQFZj1Sxv92ZW4S98sXGsxcb2PdW+PeHbQ7tawkCYCOvzhXxAlN4OdF2DlDKQ==
+      integrity: sha512-cX7riE3ZHTHY9up7WTPWE4l9Rb7wWJVvO3Flcl5Mv/NEh46QHS1ys/GMHhLrFxq7V7VvASKkZVukCsg+CZAEGA==
   /@changesets/changelog-github/0.2.8:
     dependencies:
       '@changesets/get-github-info': 0.4.5
@@ -4582,11 +4579,11 @@ packages:
     dev: true
     resolution:
       integrity: sha512-XO/6J/EvndQ+SOhRLvWUun5DLnuTmukpjhtFbHbQSNzzGvRUIyQ2//v6R5sgcazDGLoJixP7MaATEhYeppf+Cg==
-  /@changesets/cli/2.14.1:
+  /@changesets/cli/2.15.0:
     dependencies:
       '@babel/runtime': 7.12.13
       '@changesets/apply-release-plan': 4.2.0
-      '@changesets/assemble-release-plan': 4.1.0
+      '@changesets/assemble-release-plan': 4.1.1
       '@changesets/config': 1.5.0
       '@changesets/errors': 0.1.4
       '@changesets/get-dependents-graph': 1.2.0
@@ -4617,7 +4614,7 @@ packages:
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-ydU2ZUP/s7nHQmz8TrliT+kE2dJUpZYKh8MBHrkV6suchCBhT4DmoP4VDF9M4215r18iPbMpE1TjskzXGXB8eQ==
+      integrity: sha512-5ybu6D0qFIVSDvPGI+SnlbCqF2CMKGHGSmajJpgCgmG9VxyvjsyAfWLTpIdtYKrEDxQADslwaHjFbGiWpG0QUw==
   /@changesets/config/1.5.0:
     dependencies:
       '@changesets/errors': 0.1.4
@@ -4656,7 +4653,7 @@ packages:
   /@changesets/get-release-plan/2.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
-      '@changesets/assemble-release-plan': 4.1.0
+      '@changesets/assemble-release-plan': 4.1.1
       '@changesets/config': 1.5.0
       '@changesets/pre': 1.0.5
       '@changesets/read': 0.4.6
@@ -21329,7 +21326,7 @@ packages:
       integrity: sha1-vjX1Qlvh9/bHRxhPmKeIy5lHfuA=
   /parse-json/5.1.0:
     dependencies:
-      '@babel/code-frame': 7.12.11
+      '@babel/code-frame': 7.12.13
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.1.6
@@ -24244,15 +24241,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-tCfb2WLjqFAtXn4KEdxIhalnRtoKFN7nAwj0B3ZXCbQloV2tq5eDbcTmT68JJD3nRJq24/XgxtQKFIpQdtvmVw==
-  /semver/7.3.5:
-    dependencies:
-      lru-cache: 6.0.0
-    dev: false
-    engines:
-      node: '>=10'
-    hasBin: true
-    resolution:
-      integrity: sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
   /send/0.17.1:
     dependencies:
       debug: 2.6.9
