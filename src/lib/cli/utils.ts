@@ -35,6 +35,7 @@ export function getListListenAddresses(argListen: string, configListen: any): an
     addresses = [argListen];
   } else if (Array.isArray(configListen)) {
     addresses = configListen;
+    process.emitWarning('multiple addresses will be deprecated in the next major, only use one');
   } else if (configListen) {
     addresses = [configListen];
   } else {
