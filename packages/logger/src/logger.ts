@@ -74,6 +74,7 @@ export function createLogger(
 
 export function getLogger() {
   if (_.isNil(logger)) {
+    // FIXME: not sure about display here a warning
     process.emitWarning('logger is not defined');
     return;
   }
@@ -153,4 +154,6 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     process.on('SIGQUIT', () => finalHandler(null, 'SIGQUIT'));
     process.on('SIGTERM', () => finalHandler(null, 'SIGTERM'));
   }
+
+  return logger;
 }

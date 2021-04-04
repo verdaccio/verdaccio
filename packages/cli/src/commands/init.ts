@@ -1,15 +1,13 @@
 import { Command, Option } from 'clipanion';
-
-import { ConfigRuntime } from '@verdaccio/types';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { startVerdaccio, listenDefaultCallback } from '@verdaccio/node-api';
+import { initServer } from '@verdaccio/node-api';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
 export class InitCommand extends Command {
   static paths = [Command.Default];
 
-  listen = Option.String('-l,--listen', {
+  port = Option.String('-l,-p,--listen,--port', {
     description: 'host:port number to listen on (default: localhost:4873)',
   });
 
@@ -25,8 +23,8 @@ export class InitCommand extends Command {
 
       The optional arguments are:
 
-      - \`--listen\` to switch the default server port,
-      - \`--config\` to define a different configuration path location,
+      - \`-l | --listen | -p | --port\` to switch the default server port,
+      - \`-c | --config\` to define a different configuration path location,
 
     `,
     examples: [
@@ -44,65 +42,19 @@ export class InitCommand extends Command {
   });
 
   async execute() {
-    let configPathLocation;
-    let verdaccioConfiguration: ConfigRuntime;
     try {
-      configPathLocation = findConfigFile(this.config as string);
-      verdaccioConfiguration = parseConfigFile(configPathLocation);
-      const { web, https } = verdaccioConfiguration;
+      const configPathLocation = findConfigFile(this.config as string);
+      const configParsed = parseConfigFile(configPathLocation);
+      const { web } = configParsed;
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-      if (!https) {
-        verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
-          https: { enable: false },
-        });
-      }
-
       const { version, name } = require('../../package.json');
 
-      startVerdaccio(
-        verdaccioConfiguration,
-        this.listen as string,
-        configPathLocation,
-        version,
-        name,
-        listenDefaultCallback
-      );
+      await initServer(configParsed, this.port as string, version, name);
     } catch (err) {
+      // TODO: display error;
       process.exit(1);
     }
   }
 }
-
-// export default function initProgram(commander, pkgVersion, pkgName) {
-//   const cliListener = commander.listen;
-//   let configPathLocation;
-//   let verdaccioConfiguration: ConfigRuntime;
-//   try {
-//     configPathLocation = findConfigFile(commander.config);
-//     verdaccioConfiguration = parseConfigFile(configPathLocation);
-//     const { web, https } = verdaccioConfiguration;
-
-//     process.title = web?.title || DEFAULT_PROCESS_NAME;
-
-//     if (!https) {
-//       verdaccioConfiguration = Object.assign({}, verdaccioConfiguration, {
-//         https: { enable: false },
-//       });
-//     }
-
-//     // initLogger.warn({file: configPathLocation}, 'config file  - @{file}');
-
-//     startVerdaccio(
-//       verdaccioConfiguration,
-//       cliListener,
-//       configPathLocation,
-//       pkgVersion,
-//       pkgName,
-//       listenDefaultCallback
-//     );
-//   } catch (err) {
-//     process.exit(1);
-//   }
-// }

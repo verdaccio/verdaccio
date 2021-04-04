@@ -43,6 +43,7 @@
     "@verdaccio/config": "workspace:6.0.0-alpha.3",
     "@verdaccio/cli-ui": "workspace:6.0.0-alpha.3",
     "@verdaccio/server": "workspace:6.0.0-6-next.8",
+    "@verdaccio/logger": "workspace:6.0.0-alpha.3",
     "core-js": "^3.6.5",
     "debug": "^4.2.0",
     "lodash": "^4.17.20",

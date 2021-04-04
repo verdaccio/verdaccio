@@ -28,8 +28,8 @@ const debug = buildDebug('verdaccio:config');
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile(configPath: string): string {
-  if (_.isNil(configPath) === false) {
+function findConfigFile(configPath: string | undefined): string {
+  if (typeof configPath !== 'undefined') {
     return Path.resolve(configPath);
   }
 

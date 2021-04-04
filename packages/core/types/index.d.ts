@@ -352,10 +352,9 @@ declare module '@verdaccio/types' {
   export type ServerSettingsConf = {
     // express-rate-limit settings
     rateLimit: RateLimit;
-    // deprecated
     keepAliveTimeout?: number;
-    //F
-    publicUrl?: string;
+    // force http2 if https is defined
+    http2?: boolean;
   };
 
   type URLPrefix = {

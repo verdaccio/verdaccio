@@ -1,7 +1,3 @@
-import path from 'path';
-
-import { displayLink, displayWarning } from '@verdaccio/cli-ui';
-
 export const DEFAULT_PORT = '4873';
 export const DEFAULT_PROTOCOL = 'http';
 export const DEFAULT_DOMAIN = 'localhost';
@@ -46,10 +42,6 @@ export function parseAddress(urlAddress: any): any {
   return null;
 }
 
-export const resolveConfigPath = function (storageLocation: string, file: string) {
-  return path.resolve(path.dirname(storageLocation), file);
-};
-
 /**
  * Retrieve all addresses defined in the config file.
  * Verdaccio is able to listen multiple ports
@@ -61,7 +53,7 @@ export const resolveConfigPath = function (storageLocation: string, file: string
  - localhost:5557
  @return {Array}
  */
-export function getListListenAddresses(argListen: string, configListen: any): any {
+export function getListListenAddresses(argListen: string | void, configListen: any): any {
   // command line || config file || default
   let addresses;
   if (argListen) {
@@ -78,11 +70,11 @@ export function getListListenAddresses(argListen: string, configListen: any): an
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {
-        displayWarning(
+        process.emitWarning(
           // eslint-disable-next-line max-len
           `invalid address - ${addr}, we expect a port (e.g. "4873"), host:port (e.g. "localhost:4873") or full url '(e.g. "http://localhost:4873/")`
         );
-        displayWarning(displayLink('https://verdaccio.org/docs/en/configuration#listen-port'));
+        process.emitWarning('https://verdaccio.org/docs/en/configuration#listen-port');
       }
 
       return parsedAddr;
