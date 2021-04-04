@@ -53,7 +53,7 @@ export class InitCommand extends Command {
 
       await initServer(configParsed, this.port as string, version, name);
     } catch (err) {
-      // TODO: display error;
+      console.error(err);
       process.exit(1);
     }
   }

@@ -15,7 +15,7 @@ import server from '@verdaccio/server';
 import { getListListenAddresses } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';
 
-const debug = buildDebug('verdaccio:runtime');
+const debug = buildDebug('verdaccio:node-api');
 
 function unlinkAddressPath(addr) {
   if (addr.path && fs.existsSync(addr.path)) {
@@ -29,7 +29,7 @@ function unlinkAddressPath(addr) {
  * @param addr
  * @param app
  */
-function createServerFactory(config: ConfigRuntime, addr, app) {
+export function createServerFactory(config: ConfigRuntime, addr, app) {
   let serverFactory;
   if (addr.proto === 'https') {
     debug('https enabled');
@@ -64,7 +64,8 @@ function createServerFactory(config: ConfigRuntime, addr, app) {
           }),
         });
       }
-      // TODO: enable http2 as fetature
+      // TODO: enable http2 as feature
+      // if (config.server.http2) <-- check if force http2
       serverFactory = https.createServer(httpsOptions, app);
     } catch (err) {
       throw new Error(`cannot create https server: ${err.message}`);
@@ -104,6 +105,7 @@ export async function initServer(
   pkgName: string
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
+    // FIXME: get only the first match, the multiple address will be removed
     const [addr] = getListListenAddresses(port, config.listen);
     const logger = setup((config as ConfigRuntime).logs);
     displayExperimentsInfoBox(config.flags);
@@ -167,7 +169,6 @@ export async function initServer(
 export async function runServer(config?: string | ConfigRuntime): Promise<any> {
   let configurationParsed: ConfigRuntime;
   if (config === undefined || typeof config === 'string') {
-    // resolve
     const configPathLocation = findConfigFile(config);
     configurationParsed = parseConfigFile(configPathLocation);
   } else if (_.isObject(config)) {
@@ -178,6 +179,7 @@ export async function runServer(config?: string | ConfigRuntime): Promise<any> {
 
   setup(configurationParsed.logs);
   displayExperimentsInfoBox(configurationParsed.flags);
+  // FIXME: get only the first match, the multiple address will be removed
   const [addr] = getListListenAddresses(undefined, configurationParsed.listen);
   const app = await server(configurationParsed);
   return createServerFactory(configurationParsed, addr, app);
