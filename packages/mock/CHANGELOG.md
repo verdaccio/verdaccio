@@ -1,5 +1,12 @@
 # @verdaccio/mock
 
+## 6.0.0-6-next.4
+
+### Patch Changes
+
+- Updated dependencies [5c5057fc]
+  - @verdaccio/config@6.0.0-6-next.4
+
 ## 5.0.0-alpha.3
 
 ### Patch Changes

@@ -1,5 +1,38 @@
 # verdaccio
 
+## 6.0.0-6-next.11
+
+### Major Changes
+
+- 5c5057fc: feat: node api new structure based on promise
+
+  ```js
+  import { runServer } from '@verdaccio/node-api';
+  // or
+  import { runServer } from 'verdaccio';
+
+  const app = await runServer(); // default configuration
+  const app = await runServer('./config/config.yaml');
+  const app = await runServer({ configuration });
+  app.listen(4000, event => {
+    // do something
+  });
+  ```
+
+  ### Breaking Change
+
+  If you are using the node-api, the new structure is Promise based and less arguments.
+
+### Patch Changes
+
+- Updated dependencies [5c5057fc]
+  - @verdaccio/cli@6.0.0-6-next.10
+  - @verdaccio/logger@6.0.0-6-next.4
+  - @verdaccio/node-api@6.0.0-6-next.10
+  - @verdaccio/hooks@6.0.0-6-next.4
+  - @verdaccio/mock@6.0.0-6-next.4
+  - @verdaccio/ui-theme@6.0.0-alpha.5
+
 ## 6.0.0-6-next.10
 
 ### Patch Changes
