@@ -1,5 +1,16 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.6
+
+### Patch Changes
+
+- Updated dependencies [5c5057fc]
+  - @verdaccio/config@6.0.0-6-next.4
+  - @verdaccio/logger@6.0.0-6-next.4
+  - @verdaccio/auth@6.0.0-6-next.6
+  - @verdaccio/loaders@6.0.0-6-next.4
+  - verdaccio-htpasswd@11.0.0-alpha.6
+
 ## 5.0.0-alpha.5
 
 ### Patch Changes
