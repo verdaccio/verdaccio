@@ -29,6 +29,8 @@ jobs:
         with:
           node-version: 14
           registry-url: 'https://registry.verdaccio.org'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}
 
       - name: install pnpm
         run: npm i pnpm@latest -g
