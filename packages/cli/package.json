@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "6.0.0-6-next.9",
+  "version": "6.0.0-6-next.10",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -43,9 +43,9 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:6.0.0-alpha.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.4",
     "@verdaccio/cli-ui": "workspace:6.0.0-alpha.3",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.9",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.10",
     "commander": "6.2.0",
     "clipanion": "3.0.0-rc.11",
     "envinfo": "7.4.0",

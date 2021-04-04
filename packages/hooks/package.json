@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "6.0.0-alpha.3",
+  "version": "6.0.0-6-next.4",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -31,17 +31,17 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/logger": "workspace:6.0.0-alpha.3",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
     "debug": "^4.2.0",
     "handlebars": "4.5.3",
     "node-fetch": "^2.6.1",
     "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-alpha.5",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.6",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/config": "workspace:6.0.0-alpha.3",
-    "@verdaccio/types": "workspace:11.0.0-alpha.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.4",
     "nock": "^13.0.4"
   },
   "scripts": {
