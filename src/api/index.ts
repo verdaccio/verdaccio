@@ -21,9 +21,6 @@ import { log, final, errorReportingMiddleware, serveFavicon } from './middleware
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
   const app: Application = express();
-  if (config?.server?.behindProxy === true) {
-    // app.use('trust proxy');
-  }
 
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
