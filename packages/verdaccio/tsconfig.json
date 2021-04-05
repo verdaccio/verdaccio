@@ -8,31 +8,43 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../hooks"
-    },
-    {
-      "path": "../utils"
-    },
-    {
       "path": "../auth"
-    },
-    {
-      "path": "../store"
-    },
-    {
-      "path": "../mocks"
-    },
-    {
-      "path": "../node-api"
     },
     {
       "path": "../cli"
     },
     {
-      "path": "../core/htpasswd"
+      "path": "../config"
     },
     {
       "path": "../core/commons-api"
+    },
+    {
+      "path": "../core/htpasswd"
+    },
+    {
+      "path": "../hooks"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../mock"
+    },
+    {
+      "path": "../node-api"
+    },
+    {
+      "path": "../plugins/audit"
+    },
+    {
+      "path": "../plugins/ui-theme"
+    },
+    {
+      "path": "../store"
+    },
+    {
+      "path": "../utils"
     }
   ]
 }

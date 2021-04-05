@@ -8,31 +8,31 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../core/commons-api"
+      "path": "../config"
     },
     {
-      "path": "../loaders"
+      "path": "../core/commons-api"
     },
     {
       "path": "../core/local-storage"
     },
     {
+      "path": "../core/streams"
+    },
+    {
+      "path": "../loaders"
+    },
+    {
       "path": "../logger"
+    },
+    {
+      "path": "../mock"
     },
     {
       "path": "../proxy"
     },
     {
-      "path": "../core/streams"
-    },
-    {
       "path": "../utils"
-    },
-    {
-      "path": "../config"
-    },
-    {
-      "path": "../mock"
     }
   ]
 }

@@ -6,5 +6,9 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts"],
-  "references": [{ "path": "../commons" }, { "path": "../core/commons-api" }]
+  "references": [
+    {
+      "path": "../core/commons-api"
+    }
+  ]
 }
