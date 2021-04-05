@@ -114,7 +114,7 @@
     "supertest": "4.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "update-ts-references": "beta",
+    "update-ts-references": "2.1.1",
     "verdaccio": "next",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
@@ -148,7 +148,8 @@
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:version:changeset": "changeset version",
-    "ci:publish": "changeset publish"
+    "ci:publish": "changeset publish",
+    "ts:ref": "update-ts-references --discardComments"
   },
   "license": "MIT",
   "commitlint": {
