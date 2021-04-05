@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Prepare docker image tags
         id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
+        uses: crazy-max/ghaction-docker-meta@v2.2.0
         with:
           images: ${{ github.repository }}
           tag-custom: 5.x-next
