@@ -39,7 +39,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.6",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/config": "workspace:6.0.0-6-next.4",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.4",

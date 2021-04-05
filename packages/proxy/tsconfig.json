@@ -8,19 +8,19 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
+      "path": "../config"
+    },
+    {
+      "path": "../core/commons-api"
+    },
+    {
       "path": "../core/local-storage"
     },
     {
       "path": "../core/streams"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
       "path": "../logger"
-    },
-    {
-      "path": "../config"
     },
     {
       "path": "../utils"

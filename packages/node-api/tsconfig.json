@@ -8,22 +8,22 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
+      "path": "../config"
+    },
+    {
+      "path": "../core/cli-ui"
+    },
+    {
       "path": "../core/commons-api"
     },
     {
       "path": "../logger"
     },
     {
-      "path": "../server"
-    },
-    {
       "path": "../mock"
     },
     {
-      "path": "../utils"
-    },
-    {
-      "path": "../core/cli-ui"
+      "path": "../server"
     }
   ]
 }

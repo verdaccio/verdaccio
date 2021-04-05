@@ -12,9 +12,6 @@
     },
     {
       "path": "../../core/streams"
-    },
-    {
-      "path": "../../core/types"
     }
   ]
 }

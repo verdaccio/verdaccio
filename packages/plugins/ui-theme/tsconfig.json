@@ -22,9 +22,6 @@
   "references": [
     {
       "path": "../../node-api"
-    },
-    {
-      "path": "../../core/commons-api"
     }
   ]
 }

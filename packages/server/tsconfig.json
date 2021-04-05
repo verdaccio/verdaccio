@@ -29,6 +29,15 @@
       "path": "../middleware"
     },
     {
+      "path": "../mock"
+    },
+    {
+      "path": "../plugins/audit"
+    },
+    {
+      "path": "../proxy"
+    },
+    {
       "path": "../store"
     },
     {
@@ -36,18 +45,6 @@
     },
     {
       "path": "../web"
-    },
-    {
-      "path": "../core/commons-api"
-    },
-    {
-      "path": "../proxy"
-    },
-    {
-      "path": "../mock"
-    },
-    {
-      "path": "../plugins/audit"
     }
   ]
 }

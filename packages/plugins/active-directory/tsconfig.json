@@ -9,12 +9,6 @@
   "references": [
     {
       "path": "../../core/commons-api"
-    },
-    {
-      "path": "../../core/streams"
-    },
-    {
-      "path": "../../core/types"
     }
   ]
 }

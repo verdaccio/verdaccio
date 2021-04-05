@@ -13,12 +13,6 @@
   "references": [
     {
       "path": "../core/commons-api"
-    },
-    {
-      "path": "../logger"
-    },
-    {
-      "path": "../core/commons-api"
     }
   ]
 }

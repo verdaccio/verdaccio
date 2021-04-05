@@ -8,10 +8,10 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../file-locking"
+      "path": "../commons-api"
     },
     {
-      "path": "../commons-api"
+      "path": "../file-locking"
     }
   ]
 }

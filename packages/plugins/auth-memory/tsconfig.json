@@ -9,9 +9,6 @@
   "references": [
     {
       "path": "../../core/commons-api"
-    },
-    {
-      "path": "../../core/types"
     }
   ]
 }
