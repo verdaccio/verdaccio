@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.7](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.6...v5.0.0-alpha.7) (2021-04-08)
+
+
+### Bug Fixes
+
+* ui readme missing css ([#2174](https://github.com/verdaccio/verdaccio/issues/2174)) ([f49ca06](https://github.com/verdaccio/verdaccio/commit/f49ca06c68919f920e10f4f5878c34d5886b2e02))
+* Upgrade Node from 14.16 to 14.16.1 for security fixes ([#2172](https://github.com/verdaccio/verdaccio/issues/2172)) ([6ab3163](https://github.com/verdaccio/verdaccio/commit/6ab31639fab97b1b3e6323c4da862a1cae3ae1c6)), closes [/github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md#14](https://github.com/verdaccio//github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md/issues/14)
+
 ## [5.0.0-alpha.6](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2021-04-06)
 
 ## [5.0.0-alpha.5](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2021-04-03)
