@@ -13,8 +13,8 @@ on:
       - 'yarn.lock'
     branches:
       - '**'
-#    tags:
-#      - 'v*'
+    tags:
+     - 'v*'
 
 jobs:
   docker:
