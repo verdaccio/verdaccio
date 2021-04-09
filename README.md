@@ -251,7 +251,8 @@ Thanks to the following companies to help us to achieve our goals providing free
 [![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
 [![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
 [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)
-[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
+
+Verdaccio also is part of to the [Docker Open Source Program](https://www.docker.com/blog/expanded-support-for-open-source-software-projects/).
 
 ## Contributors
 
