@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node-version: [14]
+        node_version: [14]
 
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
@@ -22,11 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node_version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: npm i -g pnpm
+        run: sudo npm i -g pnpm
       - name: Install
         run: pnpm recursive install
       - name: Format
