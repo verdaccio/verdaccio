@@ -21,11 +21,11 @@ jobs:
       run: yarn code:build
     - name: Lint
       run: yarn lint
-    # - name: Publish
-    #   run: sh scripts/publish.sh
-    #   env:
-    #     REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
-    #     REGISTRY_URL: registry.npmjs.org
+    - name: Publish
+      run: sh scripts/publish.sh
+      env:
+        REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+        REGISTRY_URL: registry.npmjs.org
     - name: Create release notes
       run: sh scripts/github-release.sh
       env:
