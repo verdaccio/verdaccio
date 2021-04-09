@@ -36,7 +36,7 @@ jobs:
         with:
           images: ${{ github.repository }}
           tag-custom: 5.x-next
-          tag-custom-only: ${{ github.ref == 'refs/heads/master' }}
+          tag-custom-only: ${{ github.ref == 'refs/heads/5.x' }}
           tag-semver: |
             {{version}}
             {{major}}

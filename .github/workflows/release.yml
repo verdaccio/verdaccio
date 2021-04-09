@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - '*'
-
 jobs:
   release:
     name: Release
@@ -23,6 +22,7 @@ jobs:
       run: yarn lint
     - name: Publish
       run: sh scripts/publish.sh
+      if: ${{ github.ref == 'refs/heads/5.x' }}
       env:
         REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
         REGISTRY_URL: registry.npmjs.org
