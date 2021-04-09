@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: sudo npm i -g pnpm
+        run: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm
       - name: Install
         run: pnpm recursive install
       - name: Format
