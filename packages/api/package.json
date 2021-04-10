@@ -1,0 +1,69 @@
+{
+  "name": "@verdaccio/api",
+  "version": "6.0.0-6-next.8",
+  "description": "loaders logic",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@verdaccio/auth": "workspace:6.0.0-6-next.6",
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.4",
+    "@verdaccio/hooks": "workspace:6.0.0-6-next.4",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.6",
+    "@verdaccio/store": "workspace:6.0.0-6-next.6",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.4",
+    "@verdaccio/utils": "workspace:6.0.0-alpha.3",
+    "cookies": "0.8.0",
+    "debug": "^4.1.1",
+    "express": "4.17.1",
+    "lodash": "^4.17.20",
+    "mime": "2.4.4",
+    "semver": "7.3.2"
+  },
+  "devDependencies": {
+    "@verdaccio/server": "workspace:6.0.0-6-next.9",
+    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "body-parser": "1.19.0",
+    "lodash": "^4.17.20",
+    "supertest": "next"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

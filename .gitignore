@@ -1,45 +1,47 @@
-npm-debug.log
+*.log*
 verdaccio-*.tgz
 .DS_Store
 build/
+.eslintcache
+./dist
 
 ### Test
 
-test/unit/partials/store/test-*-storage/*
-test/unit/partials/store/*-storage/*
-test/unit/partials/store/storage_default_storage/*
 .verdaccio-db.json
 .sinopia-db.json
 
 ###
-!bin/verdaccio
 test-storage*
-access-storage*
 .verdaccio_test_env
 node_modules
 package-lock.json
-npm_test-fails-add-tarball*
 yarn-error.log
+yarn.lock
 
-# Istanbul
+
+# docker examples
+docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
+docker-examples/v5/**/storage/*
+
+# jest
 reports/
 coverage/
-.nyc*
 
+## IDE
 .idea/
 
-
-# React
-bundle.js
-bundle.js.map
-__tests__
-
 # Compiled script
-static/*
+packages/partials
+tsconfig.tsbuildinfo
 
-# This is the Yarn build state; it's local to each clone
-/.yarn/build-state.yml
+## bundle files
+packages/standalone/dist/
+## ui
+packages/plugins/ui-theme/static
 
-# This is the Yarn install state cache, it can be rebuilt anytime
-/.yarn/install-state.gz
-.history
+# website
+website/public
+website/.cache
+
+# CI Pnpm cache
+.pnpm-store/

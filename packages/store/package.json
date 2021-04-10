@@ -1,0 +1,64 @@
+{
+  "name": "@verdaccio/store",
+  "version": "6.0.0-6-next.6",
+  "description": "loaders logic",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.4",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.4",
+    "@verdaccio/local-storage": "workspace:11.0.0-6-next.5",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "@verdaccio/proxy": "workspace:6.0.0-6-next.6",
+    "@verdaccio/streams": "workspace:11.0.0-alpha.3",
+    "@verdaccio/utils": "workspace:6.0.0-alpha.3",
+    "async": "3.1.1",
+    "debug": "^4.1.1",
+    "lodash": "4.17.15",
+    "lunr-mutable-indexes": "^2.3.2",
+    "semver": "7.1.2"
+  },
+  "devDependencies": {
+    "@verdaccio/mock": "workspace:6.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.4"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

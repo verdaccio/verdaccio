@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "strict": true,
+    "declaration": true,
+    "jsx": "react",
+    "strictNullChecks": true,
+    "types": ["node", "jest", "express"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "**/build",
+    "node_modules",
+    "**/node_modules",
+    "**/coverage",
+    "**/*.spec.ts",
+    "**/test",
+    "**/__tests__",
+    "**/*.test.ts"
+  ]
+}

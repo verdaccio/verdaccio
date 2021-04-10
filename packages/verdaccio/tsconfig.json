@@ -1,0 +1,50 @@
+{
+  "extends": "../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../auth"
+    },
+    {
+      "path": "../cli"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../core/commons-api"
+    },
+    {
+      "path": "../core/htpasswd"
+    },
+    {
+      "path": "../hooks"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../mock"
+    },
+    {
+      "path": "../node-api"
+    },
+    {
+      "path": "../plugins/audit"
+    },
+    {
+      "path": "../plugins/ui-theme"
+    },
+    {
+      "path": "../store"
+    },
+    {
+      "path": "../utils"
+    }
+  ]
+}

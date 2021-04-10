@@ -1,0 +1,65 @@
+{
+  "name": "@verdaccio/node-api",
+  "version": "6.0.0-6-next.10",
+  "description": "node API",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.4",
+    "@verdaccio/cli-ui": "workspace:6.0.0-alpha.3",
+    "@verdaccio/server": "workspace:6.0.0-6-next.9",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "core-js": "^3.6.5",
+    "debug": "^4.2.0",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@verdaccio/mock": "workspace:6.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "jest-mock-process": "^1.4.0",
+    "selfsigned": "1.10.7",
+    "supertest": "^6.1.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

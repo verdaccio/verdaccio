@@ -1,0 +1,26 @@
+{
+  "presets": [ [
+    "@babel/env",
+    {
+      "useBuiltIns": "usage",
+      "corejs": {
+        "version": 3, "proposals": true
+      },
+      "targets": {
+        "node": 12
+      }
+    }
+  ],
+    "@babel/typescript"
+  ],
+  "plugins": [
+    "babel-plugin-dynamic-import-node",
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-nullish-coalescing-operator"
+    ],
+  "ignore": [
+    "**/*.d.ts"
+  ]
+}

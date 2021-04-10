@@ -1,0 +1,48 @@
+{
+  "name": "__NAME__",
+  "versions": {
+    "0.1.0": {
+      "name": "__NAME__",
+      "version": "0.1.0",
+      "dist": {
+        "shasum": "fake",
+        "tarball": "http://localhost:55551/__NAME__/-/blahblah"
+      }
+    },
+    "0.1.1alpha": {
+      "name": "__NAME__",
+      "version": "0.1.1alpha",
+      "dist": {
+        "shasum": "fake",
+        "tarball": "http://localhost:55551/__NAME__/-/blahblah"
+      }
+    },
+    "0.1.2": {
+      "name": "__NAME__",
+      "version": "0.1.2",
+      "dist": {
+        "shasum": "fake",
+        "tarball": "http://localhost:55551/__NAME__/-/blahblah"
+      }
+    },
+    "0.1.3alpha": {
+      "name": "__NAME__",
+      "version": "0.1.3alpha",
+      "dist": {
+        "shasum": "fake",
+        "tarball": "http://localhost:55551/__NAME__/-/blahblah"
+      }
+    },
+    "1.1.0": {
+      "name": "__NAME__",
+      "version": "1.1.0",
+      "dist": {
+        "shasum": "fake",
+        "tarball": "http://localhost:55551/__NAME__/-/blahblah"
+      }
+    }
+  },
+  "dist-tags": {
+    "latest": "1.1.0"
+  }
+}

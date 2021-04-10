@@ -1,0 +1,13 @@
+{
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "16"
+    }
+  },
+  "rules": {
+    "react/prop-types": 0
+  }
+}

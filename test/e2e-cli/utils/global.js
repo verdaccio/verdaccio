@@ -1,14 +1,17 @@
 const namespace = Object.create(null);
+import buildDebug from 'debug';
 
-exports.addItem = function(name, value) {
+const debug = buildDebug('verdaccio:e2e:global');
+
+exports.addItem = function (name, value) {
   namespace[name] = value;
-}
+};
 
-exports.getItem = function(name) {
-  console.log("get-item", name, namespace);
+exports.getItem = function (name) {
+  debug('get-item %o:%o', name, namespace);
   if (!(name in namespace)) {
-    throw new Error("The item ".concat(name, " does exist in the namespace"));
+    throw new Error('The item '.concat(name, ' does exist in the namespace'));
   }
 
   return namespace[name];
-}
+};

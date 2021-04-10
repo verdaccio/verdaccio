@@ -1,0 +1,44 @@
+{
+  "name": "@verdaccio/dev-types",
+  "version": "6.0.0-alpha.3",
+  "private": true,
+  "description": "types for verdaccio local dev",
+  "main": "./index.ts",
+  "types": "index.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "dependencies": {
+    "lunr-mutable-indexes": "^2.3.2"
+  },
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

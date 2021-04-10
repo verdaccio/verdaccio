@@ -1,0 +1,76 @@
+{
+  "name": "verdaccio",
+  "version": "6.0.0-6-next.11",
+  "description": "A lightweight private npm proxy registry",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "bin": {
+    "verdaccio": "./bin/verdaccio"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "files": [
+    "bin",
+    "build"
+  ],
+  "scripts": {
+    "clean": "rimraf ./build",
+    "lint": "eslint . --ext .js,.ts",
+    "test": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
+  },
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "dependencies": {
+    "@verdaccio/cli": "workspace:6.0.0-6-next.10",
+    "@verdaccio/hooks": "workspace:6.0.0-6-next.4",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "@verdaccio/mock": "workspace:6.0.0-6-next.4",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.10",
+    "@verdaccio/ui-theme": "workspace:6.0.0-alpha.5",
+    "@verdaccio/utils": "workspace:6.0.0-alpha.3",
+    "verdaccio-audit": "11.0.0-alpha.4",
+    "verdaccio-htpasswd": "11.0.0-alpha.6"
+  },
+  "devDependencies": {
+    "@verdaccio/auth": "workspace:6.0.0-6-next.6",
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.4",
+    "@verdaccio/store": "workspace:6.0.0-6-next.6"
+  },
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "preferGlobal": true,
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio",
+    "logo": "https://opencollective.com/verdaccio/logo.txt"
+  }
+}

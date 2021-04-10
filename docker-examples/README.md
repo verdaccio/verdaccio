@@ -10,6 +10,10 @@ For more information about the **Helm** Chart, please check it [owns repo](https
 
 The following examples aim to be demonstrative and can be either improved or updated.
 
+### Verdaccio 5
+
+- [Docker + Nginx + Verdaccio](v5/reverse_proxy/nginx/README.md)
+
 ### Verdaccio 4
 
 #### Proxies

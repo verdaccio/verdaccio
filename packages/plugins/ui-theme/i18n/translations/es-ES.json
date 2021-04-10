@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Copiar al portapapeles",
+  "author-anonymous": "Anónimo",
+  "author-unknown": "Desconocido",
+  "action-bar-action": {
+    "visit-home-page": "Visitar página principal",
+    "open-an-issue": "Reportar un error",
+    "download-tarball": "Descargar librería"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Información del Registro"
+    }
+  },
+  "header": {
+    "documentation": "Documentación",
+    "registry-info": "Información del Registro",
+    "greetings": "Hola "
+  },
+  "search": {
+    "packages": "Buscar paquetes"
+  },
+  "autoComplete": {
+    "loading": "Cargando...",
+    "no-results-found": "No se encontraron resultados",
+    "clear": "Limpiar",
+    "expand": "Expandir",
+    "collapse": "Retraer"
+  },
+  "tab": {
+    "uplinks": "Remoto",
+    "versions": "Versiones",
+    "dependencies": "Dependencias",
+    "readme": "Léeme"
+  },
+  "uplinks": {
+    "title": "Remoto",
+    "no-items": "{{name}} no tiene remotos."
+  },
+  "versions": {
+    "current-tags": "Etiquetas actuales",
+    "version-history": "Historial de versiones",
+    "not-available": "No disponible"
+  },
+  "package": {
+    "published-on": "Publicado en {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Ir a la página principal",
+    "homepage": "Página pricinpal",
+    "open-an-issue": "Reportar un problema",
+    "bugs": "Errores",
+    "download": "Descargar {{what}}",
+    "the-tar-file": "el archivo tar",
+    "tarball": "Librería"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} no tiene dependencias.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Usuario",
+    "password": "Contraseña"
+  },
+  "form-placeholder": {
+    "username": "Tu usuario",
+    "password": "Tu contraseña segura"
+  },
+  "form-validation": {
+    "required-field": "Este campo es requerido",
+    "required-min-length": "Este campo es requerido y la mínima longitud es {{length}}",
+    "unable-to-sign-in": "No se pudo iniciar sesión",
+    "username-or-password-cant-be-empty": "El nombre de usuario o la contraseña no pueden estar vacíos!"
+  },
+  "help": {
+    "title": "Ningún paquete ha sido publicado aún.",
+    "sub-title": "Para publicar tu primer paquete:",
+    "first-step": "1. Inicia sesión",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Publica",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Refresca la página."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Última v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Instalación",
+      "install-using-yarn": "Instala usando yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Instala usando npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Instala usando pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Repositorio"
+    },
+    "author": {
+      "title": "Autor"
+    },
+    "distribution": {
+      "title": "Última distribución",
+      "license": "Licencia",
+      "size": "Tamaño",
+      "file-count": "archivo cuenta"
+    },
+    "maintainers": {
+      "title": "Mantenedores"
+    },
+    "contributors": {
+      "title": "Colaboradores"
+    },
+    "engines": {
+      "npm-version": "Versión NPM",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Hecho con",
+    "made-with-love-on": "Hecho con <0>♥</0> on"
+  },
+  "button": {
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "go-to-the-home-page": "Ir a la página principal",
+    "learn-more": "Aprender más",
+    "fund-this-package": "<0>Donar</0> a este paquete"
+  },
+  "error": {
+    "unspecific": "Algo salió mal.",
+    "404": {
+      "page-not-found": "404 - Paquete no encontrado",
+      "sorry-we-could-not-find-it": "Lo siento, no pudimos encontrarlo..."
+    },
+    "app-context-not-correct-used": "El contexto de la aplicación no fue correctamente usado",
+    "theme-context-not-correct-used": "El contexto del tema no fue correctamente usado",
+    "package-meta-is-required-at-detail-context": "packageMeta es requerido en DetailContext"
+  },
+  "lng": {
+    "english": "Inglés",
+    "czech": "Checo",
+    "japanese": "Japonés",
+    "portuguese": "Portugués",
+    "spanish": "Español",
+    "german": "Alemán",
+    "chinese": "Chino",
+    "chineseTraditional": "Chino (Tradicional)",
+    "french": "Francés",
+    "russian": "Ruso",
+    "turkish": "Turco",
+    "ukraine": "Ucraniano",
+    "khmer": "khmer"
+  },
+  "flag": {
+    "austria": "Austria",
+    "brazil": "Brasil",
+    "spain": "España",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Alemania",
+    "taiwan": "Taiwán"
+  }
+}

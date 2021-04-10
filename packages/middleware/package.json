@@ -1,0 +1,52 @@
+{
+  "name": "@verdaccio/middleware",
+  "version": "6.0.0-6-next.6",
+  "description": "loaders logic",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "dependencies": {
+    "debug": "^4.3.1",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.6",
+    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "@verdaccio/utils": "workspace:6.0.0-alpha.3",
+    "lodash": "4.17.15"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

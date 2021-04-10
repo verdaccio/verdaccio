@@ -1,0 +1,38 @@
+{
+  "extends": "../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../core/commons-api"
+    },
+    {
+      "path": "../core/local-storage"
+    },
+    {
+      "path": "../core/streams"
+    },
+    {
+      "path": "../loaders"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../mock"
+    },
+    {
+      "path": "../proxy"
+    },
+    {
+      "path": "../utils"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "_id": "@test/scoped",
+  "name": "@test/scoped",
+  "description": "test... test... test...",
+  "dist-tags": {
+    "latest": "1.0.0"
+  },
+  "versions": {
+    "1.0.0": {
+      "name": "@test/scoped",
+      "version": "1.0.0",
+      "description": "test... test... test...",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC",
+      "readme": "ERROR: No README data found!",
+      "_id": "@test/scoped@1.0.0",
+      "_shasum": "6e67b14e2c0e450b942e2bc8086b49e90f594790",
+      "_from": ".",
+      "_npmVersion": "2.0.1",
+      "_nodeVersion": "0.10.25",
+      "_npmUser": {},
+      "dist": {
+        "shasum": "6e67b14e2c0e450b942e2bc8086b49e90f594790",
+        "tarball": "http://localhost:4873/@test/scoped/-/@test/scoped-1.0.0.tgz"
+      }
+    }
+  },
+  "readme": "ERROR: No README data found!",
+  "_attachments": {
+    "@test/scoped-1.0.0.tgz": {
+      "content_type": "application/octet-stream",
+      "data": "H4sIAAAAAAAAAytITM5OTE/VL4DQelnF+XkMVAYGBgZmZiYKQNrQ3NQAmQYDYwMg29DIxMTY2Mzc1NSYwcDQ2MDIDChPbYdgA6XFJYlFQKdQag7ELwpweoiAaqW8xNxUJSslh5LU4hL94uT8gtQUJR2lstSi4sz8PKCEoZ6BngFQJCW1OLkos6AEIgpSraenp4BGA9XlJmaCFGTmpaRWAJMTUASir1jJqhqsDSiZmpyRrxCj5FpUlF9kpZCXD9auUFyQmpyZlpmaEqOkoKamkFqRWaJgqFSro5RYWpKRXwTUBzQsJzM5Na8Y5GLPYGel2oEOv6EOCtDyf2Vibg617SCQ/41MzZHyv+Fo/qcnAOV+KwXU3M8FzfxWCuC8z4WU863QMzyM5gJleysFWK7nguZ5Ky4FsAqgFaTkeS5IjgfqUuKCZngrBWB+5xro4Bp2AJb/QZGhC4l/XXCs65WkV1HJDgL539QAOf8bmwHzv4khWD2V7McLRnj+l+/mgDCY307enXXYQKTN+LUmn5QRq/u+5mVOLy/szBZTXN1764bRpKAgp3t7j08XuS7itTLT4+P+P49iligvXC/2ydVmZendyg9vfLbOiOjZqOPNYHsm2OxLmOHhUglVT5n0Sql0brFjOqcM7b8qxGe+37PB4lT+95fvmOTrVK0ueU3pKqp6PPVztrrvWq5di9afssrV8mlh5JZw43q65OrW94t8SwVYDIrWaLfmcZWErmCuU+8pqe37lHy7zVN1O5vZl3NRyZYhy3LZw7VXym/VMhOZ5h3A/lZxyXJR0er9pmK/CzbPnbaq6OyR7/zbv5S8/L677Kryv/suO2f/6sn/0X+p5kC9RPmfdOP/9Qvb6vjmv1S3/SMT9e1kQ40d2783Sw7OOzyz6pLxec4tohVH/Geoy3684erJb8P+ZG7Mr51pZ2eZvr7/QpbVdU4yA8/ARuEoGAWjYBSQBQDM0BedABAAAA==",
+      "length": 736
+    }
+  }
+}

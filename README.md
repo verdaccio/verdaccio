@@ -2,7 +2,9 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 5
+# Version 6 (Development branch)
+
+> Looking for Verdaccio 5? Check branch `5.x`.
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
@@ -30,12 +32,10 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio
+npm install --global verdaccio@6-next --https://registry.verdaccio.org/
 ```
 
-> Node.js v12 is required for Verdaccio 5
-
-Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
+> Published on a temporary registry while setup is ready to publish on npmjs
 
 ## Donations
 
@@ -135,7 +135,7 @@ Below are the most commonly needed information,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
 
 ```
-docker pull verdaccio/verdaccio
+docker pull verdaccio/verdaccio:6.x-next
 ```
 
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).

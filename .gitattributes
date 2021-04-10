@@ -1,0 +1,199 @@
+## GITATTRIBUTES FOR WEB PROJECTS
+#
+# These settings are for any web project.
+#
+# Details per file setting:
+#   text    These files should be normalized (i.e. convert CRLF to LF).
+#   binary  These files are binary and should be left untouched.
+#
+# Note that binary is a macro for -text -diff.
+######################################################################
+
+# Auto detect
+##   Handle line endings automatically for files detected as
+##   text and leave all files detected as binary untouched.
+##   This will handle all files NOT defined below.
+*                 text=lf
+
+# Source code
+*.bash            text eol=lf
+*.bat             text eol=crlf
+*.cmd             text eol=crlf
+*.coffee          text eol=lf
+*.css             text eol=lf
+*.htm             text diff=html
+*.html            text diff=html
+*.inc             text eol=lf
+*.ini             text eol=lf
+*.js              text eol=lf
+*.json            text eol=lf
+*.jsx             text eol=lf
+*.less            text eol=lf
+*.ls              text eol=lf
+*.map             text -diff
+*.od              text eol=lf
+*.onlydata        text eol=lf
+*.php             text diff=php
+*.pl              text eol=lf
+*.ps1             text eol=crlf
+*.py              text diff=python
+*.rb              text diff=ruby
+*.sass            text eol=lf
+*.scm             text eol=lf
+*.scss            text diff=css
+*.sh              text eol=lf
+*.sql             text eol=lf
+*.styl            text eol=lf
+*.tag             text eol=lf
+*.ts              text eol=lf
+*.tsx             text eol=lf
+*.xml             text eol=lf
+*.xhtml           text diff=html
+
+# Docker
+Dockerfile        text eol=lf
+
+# Documentation
+*.ipynb           text eol=lf
+*.markdown        text eol=lf
+*.md              text eol=lf
+*.mdwn            text eol=lf
+*.mdown           text eol=lf
+*.mkd             text eol=lf
+*.mkdn            text eol=lf
+*.mdtxt           text eol=lf
+*.mdtext          text eol=lf
+*.txt             text eol=lf
+AUTHORS           text eol=lf
+CHANGELOG         text eol=lf
+CHANGES           text eol=lf
+CONTRIBUTING      text eol=lf
+COPYING           text eol=lf
+copyright         text eol=lf
+*COPYRIGHT*       text eol=lf
+INSTALL           text eol=lf
+license           text eol=lf
+LICENSE           text eol=lf
+NEWS              text eol=lf
+readme            text eol=lf
+*README*          text eol=lf
+TODO              text eol=lf
+
+# Templates
+*.dot             text eol=lf
+*.ejs             text eol=lf
+*.haml            text eol=lf
+*.handlebars      text eol=lf
+*.hbs             text eol=lf
+*.hbt             text eol=lf
+*.jade            text eol=lf
+*.latte           text eol=lf
+*.mustache        text eol=lf
+*.njk             text eol=lf
+*.phtml           text eol=lf
+*.tmpl            text eol=lf
+*.tpl             text eol=lf
+*.twig            text eol=lf
+*.vue             text eol=lf
+
+# Configs
+*.cnf             text eol=lf
+*.conf            text eol=lf
+*.config          text eol=lf
+.editorconfig     text eol=lf
+.env              text eol=lf
+.gitattributes    text eol=lf
+.gitconfig        text eol=lf
+.htaccess         text eol=lf
+*.lock            text -diff
+package-lock.json text -diff
+*.toml            text eol=lf
+*.yaml            text eol=lf
+*.yml             text eol=lf
+browserslist      text eol=lf
+Makefile          text eol=lf
+makefile          text eol=lf
+
+# Heroku
+Procfile          text eol=lf
+
+# Graphics
+*.ai              binary
+*.bmp             binary
+*.eps             binary
+*.gif             binary
+*.gifv            binary
+*.ico             binary
+*.jng             binary
+*.jp2             binary
+*.jpg             binary
+*.jpeg            binary
+*.jpx             binary
+*.jxr             binary
+*.pdf             binary
+*.png             binary
+*.psb             binary
+*.psd             binary
+# SVG treated as an asset (binary) by default.
+*.svg             text eol=lf
+# If you want to treat it as binary,
+# use the following line instead.
+# *.svg           binary
+*.svgz            binary
+*.tif             binary
+*.tiff            binary
+*.wbmp            binary
+*.webp            binary
+
+# Audio
+*.kar             binary
+*.m4a             binary
+*.mid             binary
+*.midi            binary
+*.mp3             binary
+*.ogg             binary
+*.ra              binary
+
+# Video
+*.3gpp            binary
+*.3gp             binary
+*.as              binary
+*.asf             binary
+*.asx             binary
+*.fla             binary
+*.flv             binary
+*.m4v             binary
+*.mng             binary
+*.mov             binary
+*.mp4             binary
+*.mpeg            binary
+*.mpg             binary
+*.ogv             binary
+*.swc             binary
+*.swf             binary
+*.webm            binary
+
+# Archives
+*.7z              binary
+*.gz              binary
+*.jar             binary
+*.rar             binary
+*.tar             binary
+*.zip             binary
+
+# Fonts
+*.ttf             binary
+*.eot             binary
+*.otf             binary
+*.woff            binary
+*.woff2           binary
+
+# Executables
+*.exe             binary
+*.pyc             binary
+
+# RC files (like .babelrc or .eslintrc)
+*.*rc             text eol=lf
+
+# Ignore files (like .npmignore or .gitignore)
+*.*ignore         text eol=lf

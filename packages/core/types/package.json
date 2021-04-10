@@ -1,0 +1,47 @@
+{
+  "name": "@verdaccio/types",
+  "version": "11.0.0-6-next.4",
+  "description": "verdaccio types definitions",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/core/types"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.d.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "exit 0",
+    "build": "exit 0"
+  },
+  "devDependencies": {
+    "@types/node": "14.6.0"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

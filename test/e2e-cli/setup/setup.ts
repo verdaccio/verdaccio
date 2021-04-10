@@ -1,44 +1,65 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { green } from 'kleur';
 import { spawn } from 'child_process';
-import { npm } from '../utils/process';
+import buildDebug from 'debug';
+import { yellow } from 'kleur';
+import { pnpmGlobal } from '../utils/process';
 import * as __global from '../utils/global.js';
+
+const debug = buildDebug('verdaccio:e2e:setup');
+
+export const SETUP_VERDACCIO_PORT = `6001`;
 
 module.exports = async () => {
   const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-cli-e2e-'));
-  const tempConfigFile = path.join(tempRoot, 'verdaccio.yaml');
+  debug('dirname folder %o', __dirname);
+  debug('temporary folder %o', tempRoot);
+  // @ts-ignore
   __global.addItem('dir-root', tempRoot);
-  console.log(green(`Global temp root folder: ${tempRoot}`));
-  fs.copyFileSync(path.join(__dirname, '../config/_bootstrap_verdaccio.yaml'), tempConfigFile);
-  console.log(green(`global temp root conf: ${tempConfigFile}`));
+  debug(yellow(`Add temp root folder: ${tempRoot}`));
+  const destinationConfigFile = path.join(tempRoot, 'verdaccio.yaml');
+  debug('destination config file %o', destinationConfigFile);
+  fs.copyFileSync(
+    path.join(__dirname, '../config/_bootstrap_verdaccio.yaml'),
+    destinationConfigFile
+  );
   // @ts-ignore
   global.__namespace = __global;
-  console.log(`current directory: ${process.cwd()}`);
-  const rootVerdaccio = path.resolve('./bin/verdaccio');
-  console.log(green(`verdaccio root path: ${rootVerdaccio}`));
+  debug(`current directory %o`, process.cwd());
+  const verdaccioPath = path.normalize(
+    path.join(process.cwd(), '../../packages/verdaccio/debug/bootstrap.js')
+  );
+  debug(process.env.DEBUG);
+  debug('verdaccio path %o', verdaccioPath);
+  const childProcess = spawn(
+    'node',
+    [verdaccioPath, '-c', './verdaccio.yaml', '-l', SETUP_VERDACCIO_PORT],
+    // @ts-ignore
+    {
+      cwd: tempRoot,
+      env: {
+        ...process.env,
+      },
+      stdio: 'ignore',
+    }
+  );
   // @ts-ignore
-  global.registryProcess = spawn('node', [path.resolve('./bin/verdaccio'), '-c', './verdaccio.yaml'], {
-    cwd: tempRoot,
-    // stdio: 'pipe'
-  });
-
-  // @ts-ignore
-  global.registryProcess.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
-
-  // @ts-ignore
-  global.registryProcess.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-  });
-
-  // @ts-ignore
-  global.registryProcess.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
-
+  global.registryProcess = childProcess;
   // publish current build version on local registry
-  await npm('publish', '--registry', 'http://localhost:4873', '--verbose');
+  const rootFolder = path.normalize(path.join(process.cwd(), '../../'));
+  // install the local changes to verdaccio
+  // the published package will be installed from every suite
+  await pnpmGlobal(
+    rootFolder,
+    'publish',
+    '--filter',
+    ' ./packages',
+    '--access',
+    'public',
+    '--git-checks',
+    'false',
+    '--registry',
+    `http://localhost:${SETUP_VERDACCIO_PORT}`
+  );
 };

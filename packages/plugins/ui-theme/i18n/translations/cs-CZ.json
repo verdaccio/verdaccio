@@ -1,0 +1,168 @@
+{
+  "copy-to-clipboard": "Zkopírovat do schránky",
+  "author-anonymous": "Anonymní",
+  "author-unknown": "Neznámý",
+  "action-bar-action": {
+    "visit-home-page": "Navštívit domovskou stránku",
+    "open-an-issue": "Otevřít otázku",
+    "download-tarball": "Stáhnout archív (Tar)"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Informace o registru"
+    }
+  },
+  "header": {
+    "documentation": "Dokumentace",
+    "registry-info": "Informace o registru",
+    "greetings": "Ahoj "
+  },
+  "search": {
+    "packages": "Hledat balíčky"
+  },
+  "autoComplete": {
+    "loading": "Načítání...",
+    "no-results-found": "Nebyly nalezeny žádné výsledky",
+    "clear": "Vyčistit",
+    "expand": "Otevřít",
+    "collapse": "Zavřít"
+  },
+  "tab": {
+    "uplinks": "Uplinky",
+    "versions": "Verze",
+    "dependencies": "Závislosti",
+    "readme": "Přečti si mě"
+  },
+  "uplinks": {
+    "title": "Uplinky",
+    "no-items": "{{name}} nemá žádné uplinky."
+  },
+  "versions": {
+    "current-tags": "Aktuální značky",
+    "version-history": "Historie verzí",
+    "not-available": "Nedostupné"
+  },
+  "package": {
+    "published-on": "Zveřejněno v {{time}} •",
+    "version": "v{{version}}",
+    "visit-home-page": "Navštívit domovskou stránku",
+    "homepage": "Domovská stránka",
+    "open-an-issue": "Otevřít otázku",
+    "bugs": "Chyby",
+    "download": "Stáhnout {{what}}",
+    "the-tar-file": "tar soubor",
+    "tarball": "Archív (Tar)"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} nemá žádné závislosti.",
+    "dependency-block": "{{package}}@{{version}}"
+  },
+  "form": {
+    "username": "Uživatelské jméno",
+    "password": "Heslo"
+  },
+  "form-placeholder": {
+    "username": "Vaše uživatelské jméno",
+    "password": "Vaše silné heslo"
+  },
+  "form-validation": {
+    "required-field": "Toto pole je povinné",
+    "required-min-length": "Toto pole vyžaduje zadání alespoň {{length}} znaků",
+    "unable-to-sign-in": "Přihlášení se nezdařilo",
+    "username-or-password-cant-be-empty": "Uživatelské jméno nebo heslo nemohou být prázdné!"
+  },
+  "help": {
+    "title": "Zatím nebyl zveřejně žádný balíček.",
+    "sub-title": "Pro zveřejnění vašeho prvního balíčku proveďte následující:",
+    "first-step": "1. Přihlašte se",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Zveřejněte balíček",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Obnovte tuto stránku."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Nejnovější v{{version}}",
+      "version": "v{{version}}"
+    },
+    "installation": {
+      "title": "Instalace",
+      "install-using-yarn": "Instalace pomocí yarn",
+      "install-using-yarn-command": "yarn add {{packageName}}",
+      "install-using-npm": "Instalace pomocí npm",
+      "install-using-npm-command": "npm install {{packageName}}",
+      "install-using-pnpm": "Instalace pomocí pnpm",
+      "install-using-pnpm-command": "pnpm install {{packageName}}"
+    },
+    "repository": {
+      "title": "Repozitář"
+    },
+    "author": {
+      "title": "Autor"
+    },
+    "distribution": {
+      "title": "Nejnovější distribuce",
+      "license": "Licence",
+      "size": "Velikost",
+      "file-count": "počet souborů"
+    },
+    "maintainers": {
+      "title": "Správci"
+    },
+    "contributors": {
+      "title": "Přispěvatelé"
+    },
+    "engines": {
+      "npm-version": "NPM verze",
+      "node-js": "NODE JS"
+    }
+  },
+  "footer": {
+    "powered-by": "Pohání",
+    "made-with-love-on": "Tvořeno s <0>♥</0> na"
+  },
+  "button": {
+    "close": "Zavřít",
+    "cancel": "Zrušit",
+    "login": "Přihlásit se",
+    "logout": "Odhlásit se",
+    "go-to-the-home-page": "Přejít na domovskou stránku",
+    "learn-more": "Více informací",
+    "fund-this-package": "<0>Sponzorovat</0> tento balíček"
+  },
+  "error": {
+    "unspecific": "Něco se pokazilo.",
+    "404": {
+      "page-not-found": "404 - Stránka nebyla nalezena",
+      "sorry-we-could-not-find-it": "Omlouváme se, ale nepodařilo se nám to najít..."
+    },
+    "app-context-not-correct-used": "Kontext aplikace nebyl použit správným způsobem",
+    "theme-context-not-correct-used": "Kontext šablony nebyl použit správným způsobem",
+    "package-meta-is-required-at-detail-context": "packageMeta je vyžadováno v DetailContext"
+  },
+  "lng": {
+    "english": "Angličtina",
+    "czech": "Čeština",
+    "japanese": "Japonština",
+    "portuguese": "Portugalština",
+    "spanish": "Španělština",
+    "german": "Němčina",
+    "chinese": "Čínština",
+    "chineseTraditional": "Čínština (tradiční)",
+    "french": "Francouzština",
+    "russian": "Ruský",
+    "turkish": "Turečtina",
+    "ukraine": "Ukrajinština",
+    "khmer": "Khmerština"
+  },
+  "flag": {
+    "austria": "Rakousko",
+    "brazil": "Brazílie",
+    "spain": "Španělsko",
+    "nicaragua": "Nikaragua",
+    "india": "Indie",
+    "china": "Čína",
+    "germany": "Německo",
+    "taiwan": "Tchaj-wan"
+  }
+}

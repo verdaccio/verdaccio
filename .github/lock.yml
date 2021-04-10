@@ -13,10 +13,10 @@ lockLabel: false
 lockComment: >
   🤖This thread has been automatically locked 🔒 since there has not been
   any recent activity after it was closed. 
-  
+
   We lock tickets after 90 days with the idea to encourage you to open a ticket with new fresh data 
   and to provide you better feedback 🤝and better visibility 👀. 
-  
+
   If you consider, you can attach this ticket 📨 to the new one as a reference for better context.
 
   Thanks for being a part of the Verdaccio community! 💘
@@ -26,10 +26,10 @@ lockComment: >
 
 # Optionally, specify configuration settings just for `issues` or `pulls`
 issues:
- exemptLabels:
-   - help-wanted
- lockLabel: outdated
+  exemptLabels:
+    - help-wanted
+  lockLabel: outdated
 
 pulls:
- daysUntilLock: 90
- lockLabel: outdated
+  daysUntilLock: 90
+  lockLabel: outdated
