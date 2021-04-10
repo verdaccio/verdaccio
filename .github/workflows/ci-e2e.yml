@@ -3,8 +3,8 @@ name: E2E CLI
 on:
   push:
     branches:
-      - 5.x
-      - 'changeset-release/6.x'
+      - master
+      - 'changeset-release/master'
   pull_request:
     paths:
       - .github/workflows/ci.yml

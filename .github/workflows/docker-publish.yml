@@ -12,7 +12,7 @@ on:
       - 'Dockerfile'
       - '.dockerignore'
     branches:
-      - '6.x'
+      - 'master'
     tags:
       - 'v*'
 jobs:
@@ -34,8 +34,8 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ github.repository }}
-          tag-custom: 6.x-next
-          tag-custom-only: ${{ github.ref == 'refs/heads/6.x' }}
+          tag-custom: nightly-master
+          tag-custom-only: ${{ github.ref == 'refs/heads/master' }}
           tag-semver: |
             {{version}}
             {{major}}

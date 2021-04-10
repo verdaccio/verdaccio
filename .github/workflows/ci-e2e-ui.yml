@@ -3,8 +3,8 @@ name: E2E UI
 on:
   push:
     branches:
-      - 6.x
-      - 'changeset-release/6.x'
+      - master
+      - 'changeset-release/masters'
   pull_request:
     paths:
       - .github/workflows/ci.yml

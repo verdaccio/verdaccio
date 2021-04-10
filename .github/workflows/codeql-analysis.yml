@@ -3,8 +3,8 @@ name: 'Code scanning - action'
 on:
   push:
     branches-ignore:
-      - 5.x
-      - 'changeset-release/6.x'
+      - master
+      - 'changeset-release/master'
       - 'dev/**'
   pull_request:
     paths:

@@ -135,14 +135,10 @@ Below are the most commonly needed information,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
 
 ```
-docker pull verdaccio/verdaccio:6.x-next
+docker pull verdaccio/verdaccio:nightly-master
 ```
 
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
-
-```
-docker pull verdaccio/verdaccio:5.x-next
-```
 
 ### Running verdaccio using Docker
 
