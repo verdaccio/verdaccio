@@ -24,6 +24,8 @@ web:
   # by default packages are ordercer ascendant (asc|desc)
   # sort_packages: asc
   # darkMode: true
+  # logo: http://somedomain/somelogo.png
+  # favicon: http://somedomain/favicon.ico | /path/favicon.ico
 
 # translate your registry, api i18n not available yet
 # i18n:

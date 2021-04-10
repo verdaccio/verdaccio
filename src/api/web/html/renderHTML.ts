@@ -36,7 +36,6 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const scope = config?.web?.scope ?? '';
-  // FIXME: logo URI is incomplete
   let logoURI = config?.web?.logo ?? '';
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
@@ -56,7 +55,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     base,
     primaryColor,
     version,
-    logoURI,
+    logo: logoURI,
     title,
     scope,
     language,

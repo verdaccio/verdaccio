@@ -28,7 +28,7 @@ export function serveFavicon(config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     try {
       // @ts-ignore
-      const logoConf: string = config?.web?.logo as string;
+      const logoConf: string = config?.web?.favicon as string;
       if (logoConf === '') {
         debug('favicon disabled');
         res.status(404);
@@ -42,6 +42,7 @@ export function serveFavicon(config: Config) {
         ) {
           debug('redirect to %o', logoConf);
           res.redirect(logoConf);
+          return;
         } else {
           const faviconPath = path.normalize(logoConf);
           debug('serving favicon from %o', faviconPath);
@@ -52,11 +53,10 @@ export function serveFavicon(config: Config) {
             } else {
               res.setHeader('Content-Type', 'image/x-icon');
               fs.createReadStream(faviconPath).pipe(res);
-              return;
+              debug('rendered custom ico');
             }
           });
         }
-        return next();
       } else {
         res.setHeader('Content-Type', 'image/x-icon');
         fs.createReadStream(path.join(__dirname, './web/html/favicon.ico')).pipe(res);
