@@ -4,6 +4,8 @@
 
 # Version 4
 
+⚠️ **Branch in mainteance mode, only security fix**
+
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
 **its own tiny database**, and the ability to proxy other registries (eg. npmjs.org),
@@ -34,7 +36,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio
+npm install --global verdaccio@4.12.0
 ```
 
 ## Donations
@@ -133,13 +135,6 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 
 Below are the most commonly needed information,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
-
-
-```
-docker pull verdaccio/verdaccio
-```
-
-Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
 docker pull verdaccio/verdaccio:4
